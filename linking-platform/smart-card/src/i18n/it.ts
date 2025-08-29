@@ -130,6 +130,8 @@ export default {
   'fabric.linking.preview_improved': "Apri l'anteprima",
   'fabric.linking.preview_max_size': 'Visualizza a schermo intero',
   'fabric.linking.preview_min_size': 'Esci da schermo intero',
+  'fabric.linking.preview_modal': 'Apri finestra di anteprima',
+  'fabric.linking.preview_panel': 'Apri pannello di anteprima',
   'fabric.linking.priority_blocker': 'Bloccante',
   'fabric.linking.priority_critical': 'Critico',
   'fabric.linking.priority_high': 'Alta',

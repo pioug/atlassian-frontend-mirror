@@ -29,7 +29,7 @@ const targetStyles = cssMap({
 		paddingRight: token('space.200'),
 		paddingBottom: token('space.200'),
 		paddingLeft: token('space.200'),
-		borderRadius: token('border.radius.300'),
+		borderRadius: token('radius.xlarge'),
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),

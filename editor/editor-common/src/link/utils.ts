@@ -1,7 +1,6 @@
-import { getATLContextUrl, getUrlForDomainInContext } from '@atlaskit/atlassian-context';
+import { getUrlForDomainInContext } from '@atlaskit/atlassian-context';
 import { type Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { Predicate } from '../types';
@@ -29,12 +28,8 @@ export function isLinkAtPos(pos: number): Predicate {
 }
 
 export const getLinkPreferencesURLFromENV = (): string => {
-	if (fg('platform_fix_preferences_url_in_isolated_cloud')) {
-		const envType: EnvironmentType = process.env.CLOUD_ENV === 'staging' ? STAGING : PRODUCTION;
-		return getUrlForDomainInContext('id', envType) + linkPreferencesPath;
-	}
-
-	return getATLContextUrl('id') + linkPreferencesPath;
+	const envType: EnvironmentType = process.env.CLOUD_ENV === 'staging' ? STAGING : PRODUCTION;
+	return getUrlForDomainInContext('id', envType) + linkPreferencesPath;
 };
 
 const isSelectionInsideLink = (state: EditorState | Transaction) =>

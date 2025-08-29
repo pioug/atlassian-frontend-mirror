@@ -23,8 +23,17 @@ export function transformNodeToTargetType(
 	const { nodeType: targetNodeType, attrs: targetAttrs } = targetNodeInfo;
 
 	// Early return if trying to transform to the same type
-	if (sourceNode.type === targetNodeType) {
-		return tr; // No transformation needed
+	if (sourceNode.type.name === targetNodeType.name) {
+		// For headings, also check if the level matches
+		if (targetNodeType.name === 'heading') {
+			const sourceLevel = sourceNode.attrs?.level;
+			const targetLevel = targetAttrs?.level;
+			if (sourceLevel === targetLevel) {
+				return tr;
+			}
+		} else {
+			return tr;
+		}
 	}
 
 	// Prepare transformation context
@@ -51,7 +60,7 @@ export function transformNodeToTargetType(
 		}
 
 		return null;
-	} catch (e) {
+	} catch {
 		// Node transformation failed
 		return null;
 	}

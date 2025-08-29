@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 0.0.19
+
+### Patch Changes
+
+- [`bfd653291c561`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfd653291c561) -
+  [ux] ED-29018 Register taskList dropdown item and add menu item keys
+- Updated dependencies
+
+## 0.0.18
+
+### Patch Changes
+
+- [`942b7b9e97c21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/942b7b9e97c21) -
+  Support nested block menu via selection extension config
+- Updated dependencies
+
+## 0.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.0.16
 
 ### Patch Changes

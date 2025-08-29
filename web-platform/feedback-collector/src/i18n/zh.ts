@@ -36,6 +36,8 @@ export default {
   'feedback-collector.success-flag.description': '您宝贵的反馈意见可以帮助我们不断改进产品。',
   'feedback-collector.success-flag.title': '谢谢！',
   'feedback-collector.summary-placeholder': '告诉我们您的想法',
+  'feedback-collector.validation.description.required': '请提供描述',
+  'feedback-collector.validation.type.required': '请选择反馈类型',
   'proforma-form-builder.feedback-icon-label': '反馈',
   'proforma-form-builder.give-feedback': '提供反馈',
 };

@@ -7,6 +7,8 @@ import { Pressable } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
+import { useToolbarDropdownMenuNew } from './ToolbarDropdownMenuContext';
+
 type TextStyle =
 	| 'normal'
 	| 'heading1'
@@ -131,9 +133,20 @@ export const ToolbarDropdownItem = ({
 	target,
 	rel,
 }: ToolbarDropdownItemProps) => {
+	const parentContext = useToolbarDropdownMenuNew();
+
 	return (
 		<DropdownItem
-			onClick={onClick}
+			onClick={
+				expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true)
+					? (e) => {
+							if (!hasNestedDropdownMenu) {
+								parentContext?.closeMenu();
+							}
+							onClick?.(e);
+						}
+					: onClick
+			}
 			elemBefore={elemBefore}
 			elemAfter={elemAfter}
 			isSelected={isSelected}

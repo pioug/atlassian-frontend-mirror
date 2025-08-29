@@ -39,6 +39,9 @@
 			"path": "../../../design-system/logo/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/popup/afm-dev-agents/tsconfig.json"
 		},
 		{

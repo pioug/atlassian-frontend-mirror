@@ -27,13 +27,18 @@ type TrackChangesPluginState = {
 
 // Exported for test purposes
 export const getBaselineFromSteps = (doc: PMNode, steps: InvertableStep[]) => {
-	for (const step of steps.slice().reverse()) {
-		const result = step.inverted.apply(doc);
-		if (result.failed === null && result.doc) {
-			doc = result.doc;
+	try {
+		for (const step of steps.slice().reverse()) {
+			const result = step.inverted.apply(doc);
+			if (result.failed === null && result.doc) {
+				doc = result.doc;
+			}
 		}
+		return doc;
+	} catch (e) {
+		// Temporary - we need to understand how this happens - but we want to unblock issues where this crashes the editor
+		return undefined;
 	}
-	return doc;
 };
 
 export const createTrackChangesPlugin = (
@@ -80,12 +85,7 @@ export const createTrackChangesPlugin = (
 							step instanceof RemoveMarkStep,
 					);
 
-				if (!isDocChanged) {
-					// If no document changes, return the old changeSet
-					return state;
-				}
-
-				if (tr.getMeta('isRemote') || tr.getMeta('replaceDocument')) {
+				if (!isDocChanged || tr.getMeta('isRemote') || tr.getMeta('replaceDocument')) {
 					// If the transaction is remote, we need to map the steps to the current document
 					return {
 						...state,
@@ -122,7 +122,7 @@ export const createTrackChangesPlugin = (
 
 				// Calculate if there are actual changes by comparing current doc with baseline
 				const baselineDoc = getBaselineFromSteps(tr.doc, steps);
-				const hasChangesFromBaseline = !tr.doc.eq(baselineDoc);
+				const hasChangesFromBaseline = baselineDoc ? !tr.doc.eq(baselineDoc) : false;
 
 				// Create a new ChangeSet based on document changes
 				return {
@@ -144,12 +144,15 @@ export const createTrackChangesPlugin = (
 
 					if (prevShouldChangesBeDisplayed === false && currentShouldChangesBeDisplayed === true) {
 						const steps = currentPluginState?.steps ?? [];
-						api?.core?.actions.execute(
-							api?.showDiff?.commands?.showDiff({
-								originalDoc: getBaselineFromSteps(view.state.doc, steps),
-								steps: steps.map((s) => s.step),
-							}),
-						);
+						const originalDoc = getBaselineFromSteps(view.state.doc, steps);
+						if (originalDoc) {
+							api?.core?.actions.execute(
+								api?.showDiff?.commands?.showDiff({
+									originalDoc,
+									steps: steps.map((s) => s.step),
+								}),
+							);
+						}
 					} else if (
 						currentShouldChangesBeDisplayed === false &&
 						prevShouldChangesBeDisplayed === true

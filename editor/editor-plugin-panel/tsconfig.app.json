@@ -41,13 +41,22 @@
 			"path": "../editor-plugin-analytics/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-block-menu/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-decorations/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-emoji/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-selection/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-shared-styles/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-toolbar/tsconfig.app.json"
 		},
 		{
 			"path": "../../elements/emoji/tsconfig.app.json"

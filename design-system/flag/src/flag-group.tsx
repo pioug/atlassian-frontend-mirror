@@ -39,8 +39,9 @@ type FlagGroupProps = {
 	 */
 	onDismissed?: (id: number | string, analyticsEvent: UIAnalyticsEvent) => void;
 	/**
-	 * The root element where the flag group should be rendered.
-	 * `true` - rendering in the DOM node closest to the trigger. `false` - rendering in React.Portal.
+	 * Controls whether the flag group is rendered inline within its parent component or in a portal at the document root.
+	 * `true` renders the flag group in the DOM node closest to the trigger
+	 * `false` renders the flag group in React.Portal
 	 * Defaults to `false`.
 	 */
 	shouldRenderToParent?: boolean;

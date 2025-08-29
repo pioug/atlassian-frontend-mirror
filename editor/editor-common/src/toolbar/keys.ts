@@ -94,10 +94,28 @@ export const TRANSLATE_MENU_SECTION = {
 /**
  * Text section
  */
-
 export const TEXT_SECTION = {
 	key: 'text-section',
 	type: 'section',
+} as const;
+
+/*
+ * Text section collapsed
+ * - Used to control responsive menu
+ */
+export const TEXT_SECTION_COLLAPSED = {
+	key: 'text-section-collapsed',
+	type: 'section',
+} as const;
+
+export const TEXT_COLLAPSED_GROUP = {
+	key: 'text-collapsed-group',
+	type: 'group',
+} as const;
+
+export const TEXT_COLLAPSED_MENU = {
+	key: 'text-collapsed-menu',
+	type: 'menu',
 } as const;
 
 /**

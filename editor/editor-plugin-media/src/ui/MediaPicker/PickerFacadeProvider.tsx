@@ -1,12 +1,10 @@
 import type React from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { flushSync } from 'react-dom';
 
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
@@ -59,29 +57,17 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['media'], selector);
-	},
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const { mediaState } = useSharedPluginState(api, ['media']);
-		const mediaProvider = useMemo(() => mediaState?.mediaProvider, [mediaState?.mediaProvider]);
-		return {
-			mediaProvider,
-			mediaOptions: mediaState?.mediaOptions,
-			insertFile: mediaState?.insertFile,
-			options: mediaState?.options,
-		};
-	},
-);
-
 export default function PickerFacadeProvider({ api, analyticsName, children }: Props) {
 	const [state, setState] = useState<State>({
 		pickerFacadeInstance: undefined,
 		config: undefined,
 		mediaClientConfig: undefined,
 	});
-	const { mediaProvider, mediaOptions, insertFile, options } = useSharedState(api);
+	const { mediaProvider, mediaOptions, insertFile, options } = useSharedPluginStateWithSelector(
+		api,
+		['media'],
+		selector,
+	);
 
 	const handleMediaProvider = useCallback(
 		async (_name: string, provider: Promise<MediaProvider> | undefined) => {

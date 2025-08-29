@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 6.5.0
+
+### Minor Changes
+
+- [`bfd653291c561`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfd653291c561) -
+  [ux] ED-29018 Register taskList dropdown item and add menu item keys
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.7
 
 ### Patch Changes

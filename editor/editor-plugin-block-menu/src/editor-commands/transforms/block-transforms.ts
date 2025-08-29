@@ -13,7 +13,7 @@ export const transformBlockNode: TransformFunction = (context: TransformContext)
 
 	// Handle transformation to list types
 	if (isListNodeType(targetNodeType)) {
-		return transformToList();
+		return transformToList(context);
 	}
 
 	// Handle transformation to container types (panel, expand, blockquote)

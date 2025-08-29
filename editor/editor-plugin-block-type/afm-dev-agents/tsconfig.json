@@ -32,7 +32,13 @@
 			"path": "../../editor-plugin-block-menu/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-list/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-primary-toolbar/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-dev-agents/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-selection-toolbar/afm-dev-agents/tsconfig.json"

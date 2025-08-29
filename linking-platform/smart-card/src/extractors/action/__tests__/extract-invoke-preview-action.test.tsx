@@ -1,4 +1,5 @@
 import { ActionName, CardAction } from '../../../index';
+import { EmbedModalSize } from '../../../view/EmbedModal/types';
 import * as utils from '../../../view/EmbedModal/utils';
 import {
 	PREVIEW,
@@ -16,6 +17,11 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 	expValEquals: jest.fn(),
 }));
 
+// Mock the fg function
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
+
 // Create a test response with preview and ARI which is needed for testing preview panel params
 const TEST_RESPONSE_WITH_PREVIEW_AND_ARI = {
 	...TEST_RESPONSE_WITH_PREVIEW,
@@ -30,6 +36,8 @@ describe('extractInvokePreviewAction', () => {
 		// Reset the mock to default behavior (experiment disabled)
 		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
 		expValEquals.mockReturnValue(false);
+		const { fg } = require('@atlaskit/platform-feature-flags');
+		fg.mockReturnValue(false);
 	});
 
 	it('returns preview action', async () => {
@@ -66,6 +74,62 @@ describe('extractInvokePreviewAction', () => {
 		await action?.invokeAction.actionFn();
 
 		expect(openEmbedModal).toHaveBeenCalledWith({
+			extensionKey: 'object-provider',
+			fireEvent,
+			id: 'test-id',
+			invokeDownloadAction: {
+				actionFn: expect.any(Function),
+				actionSubjectId: 'downloadDocument',
+				actionType: ActionName.DownloadAction,
+				display: 'block',
+				extensionKey: 'object-provider',
+				id: 'test-id',
+			},
+			invokeViewAction: {
+				actionFn: expect.any(Function),
+				actionSubjectId: 'shortcutGoToLink',
+				actionType: 'ViewAction',
+				display: 'block',
+				extensionKey: 'object-provider',
+				id: 'test-id',
+			},
+			isSupportTheming: false,
+			isTrusted: true,
+			linkIcon: {
+				label: 'my name',
+				url: TEST_URL,
+			},
+			origin: 'smartLinkCard',
+			src: TEST_URL,
+			title: 'my name',
+			url: TEST_URL,
+		});
+	});
+
+	it('triggers open embed modal with size with feature flag enabled', async () => {
+		const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
+		const fireEvent = jest.fn();
+
+		const { fg } = require('@atlaskit/platform-feature-flags');
+		fg.mockReturnValue(true);
+
+		const action = extractInvokePreviewAction({
+			appearance: 'block',
+			fireEvent,
+			id: 'test-id',
+			origin: 'smartLinkCard',
+			response: TEST_RESPONSE_WITH_PREVIEW_AND_DOWNLOAD,
+			actionOptions: {
+				previewAction: {
+					size: EmbedModalSize.Small,
+				},
+				hide: false,
+			},
+		});
+		await action?.invokeAction.actionFn();
+
+		expect(openEmbedModal).toHaveBeenCalledWith({
+			size: EmbedModalSize.Small,
 			extensionKey: 'object-provider',
 			fireEvent,
 			id: 'test-id',

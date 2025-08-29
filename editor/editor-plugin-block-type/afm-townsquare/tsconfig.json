@@ -32,7 +32,13 @@
 			"path": "../../editor-plugin-block-menu/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-list/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-primary-toolbar/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-selection-toolbar/afm-townsquare/tsconfig.json"

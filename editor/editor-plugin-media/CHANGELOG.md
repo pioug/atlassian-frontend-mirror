@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-media
 
+## 5.4.4
+
+### Patch Changes
+
+- [`15d43fdcf6ec2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15d43fdcf6ec2) -
+  PR to cleanup platform_editor_usesharedpluginstatewithselector for `media`
+- Updated dependencies
+
+## 5.4.3
+
+### Patch Changes
+
+- [`c2f5cb191fe33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2f5cb191fe33) -
+  PR to cleanup platform_editor_usesharedpluginstatewithselector for `media`
+- Updated dependencies
+
 ## 5.4.2
 
 ### Patch Changes

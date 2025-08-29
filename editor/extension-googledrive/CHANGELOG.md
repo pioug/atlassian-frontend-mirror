@@ -1,5 +1,13 @@
 # @atlaskit/editor-extension-googledrive
 
+## 1.0.8
+
+### Patch Changes
+
+- [`5798e2609a9f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5798e2609a9f8) -
+  [ux] ENGHEALTH-40637 Update GoogleDrive icon to SVG
+- Updated dependencies
+
 ## 1.0.7
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-accessibility-utils
 
+## 3.0.6
+
+### Patch Changes
+
+- [`7c342b45b449f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c342b45b449f) -
+  Cleanup platform_editor_usesharedpluginstateselector in accessibility, alignment
+- Updated dependencies
+
 ## 3.0.5
 
 ### Patch Changes

@@ -129,6 +129,8 @@ export default {
   'fabric.linking.preview_improved': 'Otevřít náhled',
   'fabric.linking.preview_max_size': 'Zobrazit na celé obrazovce',
   'fabric.linking.preview_min_size': 'Zavřít zobrazení na celé obrazovce',
+  'fabric.linking.preview_modal': 'Otevřít modální okno náhledu',
+  'fabric.linking.preview_panel': 'Otevřít panel náhledu',
   'fabric.linking.priority_blocker': 'Blokující',
   'fabric.linking.priority_critical': 'Kritická',
   'fabric.linking.priority_high': 'Vysoká',

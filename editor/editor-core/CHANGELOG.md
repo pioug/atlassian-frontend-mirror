@@ -1,5 +1,36 @@
 # @atlaskit/editor-core
 
+## 210.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 210.2.7
+
+### Patch Changes
+
+- [`51f3f2db61f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51f3f2db61f6e) -
+  Update toolbar config across plugins
+- Updated dependencies
+
+## 210.2.6
+
+### Patch Changes
+
+- [`71e4c857f1463`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71e4c857f1463) -
+  ED-29096: clean up sharedPluginStateHookMigratorFactory in editor-core
+- Updated dependencies
+
+## 210.2.5
+
+### Patch Changes
+
+- [`bfec478c9e91b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfec478c9e91b) -
+  Splits platform_editor_preview_panel_linking_exp into one for Jira and one for Confluence and
+  switches to editorExperiment util.
+- Updated dependencies
+
 ## 210.2.4
 
 ### Patch Changes

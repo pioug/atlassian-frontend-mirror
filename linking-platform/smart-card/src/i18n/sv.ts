@@ -129,6 +129,8 @@ export default {
   'fabric.linking.preview_improved': 'Öppna förhandsgranskning',
   'fabric.linking.preview_max_size': 'Visa helskärm',
   'fabric.linking.preview_min_size': 'Stäng helskärm',
+  'fabric.linking.preview_modal': 'Öppna förhandsgranskningsmodal',
+  'fabric.linking.preview_panel': 'Öppna förhandsgranskningspanelen',
   'fabric.linking.priority_blocker': 'Blockerare',
   'fabric.linking.priority_critical': 'Kritisk',
   'fabric.linking.priority_high': 'Hög',

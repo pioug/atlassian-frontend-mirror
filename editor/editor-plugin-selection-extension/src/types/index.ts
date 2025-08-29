@@ -169,14 +169,21 @@ export type GetMenuItemsFn = () => Array<
 
 export type GetMenuItemFn = () => Omit<ExtensionMenuItemConfiguration, 'section'>;
 
+export type BlockMenuItemConfiguration = Omit<ExtensionMenuItemConfiguration, 'contentComponent'>;
+export type GetBlockMenuItemFn = () => Omit<BlockMenuItemConfiguration, 'section'>;
+
+export type GetBlockMenuNestedItemsFn = () => Array<
+	BlockMenuItemConfiguration | ExtensionMenuSectionConfiguration
+>;
+
 export type ToolbarExtensionConfiguration = {
 	getMenuItems?: GetMenuItemsFn;
 	getToolbarItem?: GetToolbarItemFn;
 };
 
 export type BlockMenuExtensionConfiguration = {
-	getMenuItem: GetMenuItemFn;
-	getNestedMenuItems?: GetMenuItemsFn;
+	getMenuItem: GetBlockMenuItemFn;
+	getNestedMenuItems?: GetBlockMenuNestedItemsFn;
 };
 
 export type ExtensionToolbarItemConfiguration = {

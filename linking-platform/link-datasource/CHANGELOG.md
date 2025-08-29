@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.20.5
+
+### Patch Changes
+
+- [`e1a8efa3d658f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1a8efa3d658f) -
+  Rename adf.ts to schema-utils.ts
+- Updated dependencies
+
 ## 4.20.4
 
 ### Patch Changes

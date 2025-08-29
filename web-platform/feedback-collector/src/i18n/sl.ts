@@ -38,6 +38,8 @@ export default {
     'Vaše dragocene povratne informacije nam pomagajo nenehno izboljševati naše izdelke.',
   'feedback-collector.success-flag.title': 'Hvala!',
   'feedback-collector.summary-placeholder': 'Sporočite nam, o čem razmišljate',
+  'feedback-collector.validation.description.required': 'Navedite opis',
+  'feedback-collector.validation.type.required': 'Izberite vrsto povratnih informacij',
   'proforma-form-builder.feedback-icon-label': 'Povratne informacije',
   'proforma-form-builder.give-feedback': 'Pošlji povratne informacije',
 };

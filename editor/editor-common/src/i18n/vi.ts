@@ -250,6 +250,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'Hỏi AI',
   'fabric.editor.ai.toolbar.askRovo.title': 'Hỏi Rovo',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "Hỏi Rovo {key}+'",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': 'Hỏi AI Rovo',
   'fabric.editor.ai.toolbar.changeTone.title': 'Thay đổi giọng điệu',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'Các tùy chọn thay đổi giọng điệu',
@@ -284,6 +285,10 @@ export default {
   'fabric.editor.annotationToolbar': 'Thanh công cụ chú thích',
   'fabric.editor.backLink': 'Quay lại',
   'fabric.editor.backgroundColor': 'Màu nền',
+  'fabric.editor.block.menu.copy.block': 'Sao chép khối',
+  'fabric.editor.block.menu.copy.link': 'Sao chép liên kết',
+  'fabric.editor.block.menu.move.down': 'Di chuyển xuống',
+  'fabric.editor.block.menu.move.up': 'Di chuyển lên',
   'fabric.editor.blockCardUnavailable': 'Liên kết nội tuyến nằm trong {node} và không thể thay đổi chế độ xem liên kết',
   'fabric.editor.blockControlDelete': 'Xóa',
   'fabric.editor.blockControlDragHandleMove': 'Kéo để di chuyển',
@@ -377,9 +382,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Bạn chỉ có thể nhận xét về văn bản, tiêu đề, biểu tượng cảm xúc, ngày tháng, lượt nhắc đến, liên kết và trạng thái.',
   'fabric.editor.createCommentInvalid': 'Bạn chỉ có thể bình luận về văn bản và tiêu đề',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Đã hiểu',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'Hiện bạn có thể để lại bình luận trên các thành phần trong dòng như liên kết, ngày tháng, trạng thái và lượt nhắc đến.',
   'fabric.editor.customPanel': 'Bảng tùy chỉnh',
   'fabric.editor.customPanel.description': 'Thêm ghi chú với biểu tượng cảm xúc và nền màu',
   'fabric.editor.datasource.assetsObjects.description':
@@ -666,6 +668,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': 'Hỏi AI',
   'fabric.editor.navigate.toolbar.editor': 'Điều hướng đến thanh công cụ trình biên tập',
   'fabric.editor.navigate.toolbar.floating': 'Điều hướng đến thanh công cụ nổi',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {Bạn không có quyền thêm nhận xét vào bài đăng trên blog này} page {Bạn không có quyền thêm nhận xét vào trang này} other {Bạn không có quyền thêm nhận xét vào trang này}}',
   'fabric.editor.noResultsFound': 'Không có kết quả',
   'fabric.editor.noSearchResults': 'Không có kết quả tìm kiếm',
   'fabric.editor.normal': 'Văn bản bình thường',
@@ -699,6 +703,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Thêm văn bản giữ chỗ',
   'fabric.editor.plainText': 'Dùng văn bản thuần túy',
   'fabric.editor.preferencesLink': 'Tùy chọn liên kết',
+  'fabric.editor.previewButtonTitle': 'Xem trước',
   'fabric.editor.quickInsert': 'Chèn nhanh',
   'fabric.editor.recordLoomShortTitle': 'Ghi',
   'fabric.editor.recordVideo': 'Quay video Loom',

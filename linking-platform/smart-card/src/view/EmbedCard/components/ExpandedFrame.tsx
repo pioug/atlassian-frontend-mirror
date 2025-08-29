@@ -188,7 +188,7 @@ const styles = cssMap({
 			left: '0',
 			transition: `background 0.3s, box-shadow 0.3s`,
 			backgroundColor: 'transparent',
-			borderRadius: token('border.radius.300'),
+			borderRadius: token('radius.xlarge'),
 			zIndex: 0,
 			flexGrow: 0,
 		},

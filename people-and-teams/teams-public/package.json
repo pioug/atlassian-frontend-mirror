@@ -23,6 +23,13 @@
 		"*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./team-containers": "./src/ui/team-containers/index.ts",
+		"./loom-avatar": "./src/common/ui/loom-avatar/index.ts",
+		"./i18n": "./src/i18n/index.ts",
+		"./next": "./src/next/index.ts"
+	},
 	"exports": {
 		".": "./src/index.ts",
 		"./team-containers": "./src/ui/team-containers/index.ts",

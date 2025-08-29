@@ -129,6 +129,8 @@ export default {
   'fabric.linking.preview_improved': 'เปิดการแสดงตัวอย่าง',
   'fabric.linking.preview_max_size': 'ดูหน้าจอแบบเต็ม',
   'fabric.linking.preview_min_size': 'ปิดหน้าจอแบบเต็ม',
+  'fabric.linking.preview_modal': 'เปิดวิถีแสดงตัวอย่าง',
+  'fabric.linking.preview_panel': 'เปิดแผงแสดงตัวอย่าง',
   'fabric.linking.priority_blocker': 'ตัวบล็อก',
   'fabric.linking.priority_critical': 'วิกฤต',
   'fabric.linking.priority_high': 'สูง',

@@ -29,13 +29,22 @@
 			"path": "../../editor-plugin-analytics/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-block-menu/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-decorations/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-emoji/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-selection/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-shared-styles/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../elements/emoji/afm-post-office/tsconfig.json"

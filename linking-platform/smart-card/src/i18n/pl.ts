@@ -129,6 +129,8 @@ export default {
   'fabric.linking.preview_improved': 'Otwórz podgląd',
   'fabric.linking.preview_max_size': 'Wyświetl na pełnym ekranie',
   'fabric.linking.preview_min_size': 'Zamknij widok pełnoekranowy',
+  'fabric.linking.preview_modal': 'Otwórz okno modalne podglądu',
+  'fabric.linking.preview_panel': 'Otwórz panel podglądu',
   'fabric.linking.priority_blocker': 'Bloker',
   'fabric.linking.priority_critical': 'Krytyczny',
   'fabric.linking.priority_high': 'Wysoki',

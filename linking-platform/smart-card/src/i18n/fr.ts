@@ -130,6 +130,8 @@ export default {
   'fabric.linking.preview_improved': "Ouvrir l'aperçu",
   'fabric.linking.preview_max_size': 'Afficher le mode Plein écran',
   'fabric.linking.preview_min_size': 'Fermer le mode Plein écran',
+  'fabric.linking.preview_modal': "Ouvrir la fenêtre modale d'aperçu",
+  'fabric.linking.preview_panel': "Ouvrir le panneau d'aperçu",
   'fabric.linking.priority_blocker': 'Bloqueur',
   'fabric.linking.priority_critical': 'Critique',
   'fabric.linking.priority_high': 'Élevée',

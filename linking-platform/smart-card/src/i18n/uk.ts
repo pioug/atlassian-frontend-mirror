@@ -132,6 +132,8 @@ export default {
   'fabric.linking.preview_improved': 'Відкрити попередню версію',
   'fabric.linking.preview_max_size': 'Відкрити в повноекранному режимі',
   'fabric.linking.preview_min_size': 'Вийти з повноекранного режиму',
+  'fabric.linking.preview_modal': 'Відкрити модальне вікно попереднього перегляду',
+  'fabric.linking.preview_panel': 'Відкрити панель попереднього перегляду',
   'fabric.linking.priority_blocker': 'Блокувальний',
   'fabric.linking.priority_critical': 'Критичний',
   'fabric.linking.priority_high': 'Високий',

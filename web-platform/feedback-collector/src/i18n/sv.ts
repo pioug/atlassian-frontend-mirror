@@ -38,6 +38,8 @@ export default {
     'Din värdefulla feedback hjälper oss att ständigt förbättra våra produkter.',
   'feedback-collector.success-flag.title': 'Tack!',
   'feedback-collector.summary-placeholder': 'Berätta vad du tycker',
+  'feedback-collector.validation.description.required': 'Ange en beskrivning',
+  'feedback-collector.validation.type.required': 'Välj en feedbacktyp',
   'proforma-form-builder.feedback-icon-label': 'Feedback',
   'proforma-form-builder.give-feedback': 'Ge feedback',
 };

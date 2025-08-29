@@ -52,7 +52,7 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
 
 	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
-		api?.blockMenu?.actions.registerBlockMenuComponents(getListComponents());
+		api?.blockMenu?.actions.registerBlockMenuComponents(getListComponents(api));
 	}
 
 	return {

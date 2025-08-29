@@ -50,6 +50,8 @@ export default {
   'fabric.editor.ai.config.item.action.replaceTitleTooLongDisabledTooltip': 'Başlık {maxLength} karakteri aşamaz',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'Sohbette devam et',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'Sohbette Aç',
+  'fabric.editor.ai.config.item.addPolish.description': 'Daha güzel hale getirmek için içeriği süsler',
+  'fabric.editor.ai.config.item.addPolish.title': 'Süsle',
   'fabric.editor.ai.config.item.agent.title': 'Atlassian Intelligence Rovo Aracısı',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': 'Daha az ve öz hale getirmek için içeriği kısaltır',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': 'Güncelleme içeriğini kısaltın',
@@ -196,6 +198,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'Çevir',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'Sayfa başlığı',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'Sayfa',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    'Sorun yaşanıyor ve şu anda bir yanıt oluşturulamıyor. Daha sonra yeniden deneyin.',
   'fabric.editor.ai.experience-application.documentInsertError':
     'Yanıt eklenirken bir sorunla karşılaşıldı. İletişim kutusunu kapatın ve yeniden deneyin.',
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -210,8 +214,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     'İsteminiz veya içeriğiniz Kabul Edilebilir Kullanım Politikamız ile uyumlu olmayabilir. Lütfen ikisini de inceleyin ve gerekirse <link>Kabul Edilebilir Kullanım Politikamıza</link> başvurun. Sorun devam ederse farklı bir istem veya içerik denemeyi göz önünde bulundurun.',
   'fabric.editor.ai.experience.browseMore.agents': 'Temsilcilere Göz At',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'Yanıtınız oluşturulurken bir hatayla karşılaşıldı.',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    '<link>Kabul Edilebilir Kullanım Politikamıza</link> uymadığından bu talep tamamlanamadı.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'İsteminizden vazgeçmek istiyor musunuz?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Yanıtınızdan vazgeçmek istiyor musunuz?',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Yanıt silinsin mi?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError': "Şu anda Elevate'te serbest oluşturma devre dışıdır.",
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Artık bağlantıları 🔗 istemlerinizdeki Jira ve Confluence içeriğine yapıştırabilirsiniz.',
@@ -255,6 +263,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': "AI'ye sor",
   'fabric.editor.ai.toolbar.askRovo.title': "Rovo'ya sorun",
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "Rovo'ya sorun {key}+'",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': "Rovo Yapay Zeka'ya sorun",
   'fabric.editor.ai.toolbar.changeTone.title': 'Üslubu değiştir',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'Üslubu değiştirme seçenekleri',
@@ -290,6 +299,7 @@ export default {
   'fabric.editor.annotationToolbar': 'Not ekleme araç çubuğu',
   'fabric.editor.backLink': 'Geri dön',
   'fabric.editor.backgroundColor': 'Arkaplan rengi',
+  'fabric.editor.block.menu.copy.link': 'Bağlantıyı kopyala',
   'fabric.editor.blockCardUnavailable': 'Satır içi bağlantı {node} düğümündedir ve görüntüsü değiştirilemez',
   'fabric.editor.blockControlDelete': 'Sil',
   'fabric.editor.blockControlDragHandleMove': 'Taşımak için sürükleyin',
@@ -314,6 +324,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': 'Tam genişlik',
   'fabric.editor.breakoutWideWidthLabel': 'Geniş',
   'fabric.editor.bug': 'Hata',
+  'fabric.editor.bulletedList': 'Madde işaretli liste',
   'fabric.editor.canNotSortTable': '⚠️ Birleştirilmiş hücre içeren bir tabloyu sıralayamazsınız',
   'fabric.editor.cancelButton': 'İptal',
   'fabric.editor.captionPlaceholder': 'Açıklama yazısı ekleyin',
@@ -382,9 +393,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     "Yalnızca metinlere, başlıklara, emoji'lere, tarihlere, bahsetmelere, bağlantılara ve durumlara yorum ekleyebilirsiniz.",
   'fabric.editor.createCommentInvalid': 'Yalnızca metin ve başlıklarda yorum yapabilirsiniz',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Anladım',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'Artık bağlantılar, tarihler, durumlar ve bahsetmeler gibi satır içi öğelere yorum ekleyebilirsiniz.',
   'fabric.editor.customPanel': 'Özel panel',
   'fabric.editor.customPanel.description': 'Emoji ve renkli arkaplan içeren bir not ekleyin',
   'fabric.editor.datasource.assetsObjects.description':
@@ -669,6 +677,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': "AI'ye sor",
   'fabric.editor.navigate.toolbar.editor': 'Düzenleyici araç çubuğuna gidin',
   'fabric.editor.navigate.toolbar.floating': 'Kayan araç çubuğuna gidin',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {Bu blog gönderisine yorum ekleme izniniz yok} page {Bu sayfaya yorum ekleme izniniz yok} other {Bu sayfaya yorum ekleme izniniz yok}}',
   'fabric.editor.noResultsFound': 'Sonuç yok',
   'fabric.editor.noSearchResults': 'Arama sonucu bulunamadı',
   'fabric.editor.normal': 'Normal metin',
@@ -681,6 +691,7 @@ export default {
   'fabric.editor.openButtonTitle': 'Açık',
   'fabric.editor.openCellOptions': 'Hücre seçeneklerini aç',
   'fabric.editor.openLink': 'Bağlantıyı yeni sekmede açın',
+  'fabric.editor.openPreviewPanel': 'Önizleme panelini aç',
   'fabric.editor.orderedList': 'Numaralı liste',
   'fabric.editor.orderedList.description': 'Sıralı liste oluşturun',
   'fabric.editor.other': 'Diğerleri...',
@@ -701,6 +712,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Yer tutucu metin ekleyin',
   'fabric.editor.plainText': 'Düz metin kullan',
   'fabric.editor.preferencesLink': 'Bağlantı tercihleri',
+  'fabric.editor.previewButtonTitle': 'Önizleme',
   'fabric.editor.quickInsert': 'Hızlı ekleme',
   'fabric.editor.recordLoomShortTitle': 'Kaydet',
   'fabric.editor.recordVideo': 'Bir Loom videosu kaydedin',
@@ -738,6 +750,7 @@ export default {
   'fabric.editor.selectTableColumn': 'Tablo sütununu seç',
   'fabric.editor.selectTableRow': 'Tablo satırını seç',
   'fabric.editor.selectionExtensionDropdownButtonLabel': 'Uygulama seçin',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'Daha fazla seçenek',
   'fabric.editor.settingsLinks': 'Bağlantı Tercihlerine gidin',
   'fabric.editor.shortEmptyNodePlaceholderText': 'Eklemek için / yazın',
   'fabric.editor.shortcut': 'Metin kısayolu',
@@ -822,6 +835,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'Metin içeren satır içi',
   'fabric.editor.toolbarPositionPinedAtTop': 'Araç çubuğunun sabitlenmesini kaldırın',
   'fabric.editor.toolbarPositionUnpined': 'Araç çubuğunu en üste sabitleyin',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'Araç çubuğunu en üste sabitleyin',
   'fabric.editor.tooltip.blockPanel': 'pano',
   'fabric.editor.tooltip.bulletList': 'bir liste',
   'fabric.editor.tooltip.decisionList': 'karar listesi',

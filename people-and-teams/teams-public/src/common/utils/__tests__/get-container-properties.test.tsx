@@ -1,7 +1,13 @@
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
+
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getContainerProperties, messages } from '../get-container-properties';
 
@@ -10,6 +16,10 @@ const renderWithIntl = (node: React.ReactNode) => {
 };
 
 describe('getContainerProperties', () => {
+	beforeEach(() => {
+		(fg as jest.Mock).mockReturnValue(false);
+	});
+
 	it('should return correct properties for confluence container type', () => {
 		const properties = getContainerProperties({
 			containerType: 'ConfluenceSpace',
@@ -87,5 +97,60 @@ describe('getContainerProperties', () => {
 		renderWithIntl(properties.icon);
 		expect(screen.getByTestId('team-link-card-globe-icon')).toBeInTheDocument();
 		expect(screen.queryByTestId('team-link-card-external-link-icon')).not.toBeInTheDocument();
+	});
+
+	it('should use new title for confluence when enable_new_team_profile is on', () => {
+		(fg as jest.Mock).mockReturnValue(true);
+		const properties = getContainerProperties({
+			containerType: 'ConfluenceSpace',
+		});
+		renderWithIntl(properties.title);
+		expect(
+			screen.getByText(messages.addConfluenceSpace.defaultMessage),
+		).toBeInTheDocument();
+	});
+
+	it('should return correct titles for loom container type when flag off and on', () => {
+		// Off by default from beforeEach
+		let properties = getContainerProperties({
+			containerType: 'LoomSpace',
+		});
+		renderWithIntl(properties.title);
+		expect(
+			screen.getByText(messages.addLoomContainerTitle.defaultMessage),
+		).toBeInTheDocument();
+
+		// Turn flag on
+		(fg as jest.Mock).mockReturnValue(true);
+		properties = getContainerProperties({
+			containerType: 'LoomSpace',
+		});
+		renderWithIntl(properties.title);
+		expect(screen.getByText(messages.addLoomSpace.defaultMessage)).toBeInTheDocument();
+	});
+
+	it('should use new title for jira when enable_new_team_profile is on', () => {
+		(fg as jest.Mock).mockReturnValue(true);
+		const properties = getContainerProperties({
+			containerType: 'JiraProject',
+		});
+		renderWithIntl(properties.title);
+		expect(screen.getByText(messages.addJiraProject.defaultMessage)).toBeInTheDocument();
+	});
+
+	it('should set weblink title to null when flag is off and to Add Web Link when flag is on', () => {
+		// Off
+		let properties = getContainerProperties({
+			containerType: 'WebLink',
+		});
+		expect(properties.title).toBeNull();
+
+		// On
+		(fg as jest.Mock).mockReturnValue(true);
+		properties = getContainerProperties({
+			containerType: 'WebLink',
+		});
+		renderWithIntl(properties.title);
+		expect(screen.getByText(messages.addWebLink.defaultMessage)).toBeInTheDocument();
 	});
 });

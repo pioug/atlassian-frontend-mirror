@@ -38,6 +38,8 @@ export default {
     'คำติชมอันมีค่าของคุณจะช่วยให้เราปรับปรุงผลิตภัณฑ์ของเราได้อย่างต่อเนื่อง',
   'feedback-collector.success-flag.title': 'ขอบคุณ',
   'feedback-collector.summary-placeholder': 'แจ้งให้เราทราบถึงสิ่งที่คุณคิด',
+  'feedback-collector.validation.description.required': 'โปรดให้คำอธิบาย',
+  'feedback-collector.validation.type.required': 'โปรดเลือกประเภทข้อเสนอแนะ',
   'proforma-form-builder.feedback-icon-label': 'ข้อคิดเห็น',
   'proforma-form-builder.give-feedback': 'ให้ข้อคิดเห็น',
 };

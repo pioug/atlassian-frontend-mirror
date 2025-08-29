@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 0.4.6
+
+### Patch Changes
+
+- [`51f3f2db61f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51f3f2db61f6e) -
+  Update toolbar config across plugins
+- Updated dependencies
+
 ## 0.4.5
 
 ### Patch Changes

@@ -43,4 +43,9 @@ export const tasksAndDecisionsMessages = defineMessages({
 		defaultMessage: 'Mark task as not completed',
 		description: 'Button to mark a task as not complete in the editor',
 	},
+	taskList: {
+		id: 'fabric.editor.taskList',
+		defaultMessage: 'Task list',
+		description: 'Label for the task list in the editor',
+	},
 });

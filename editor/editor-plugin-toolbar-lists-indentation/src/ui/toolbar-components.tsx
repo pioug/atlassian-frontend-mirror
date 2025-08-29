@@ -14,9 +14,12 @@ import {
 	LISTS_INDENTATION_GROUP_RANK,
 	LISTS_INDENTATION_MENU_RANK,
 	LISTS_INDENTATION_MENU_SECTION_RANK,
+	TEXT_COLLAPSED_MENU,
+	TEXT_COLLAPSED_MENU_RANK,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarListsIndentationPlugin } from '../toolbarListsIndentationPluginType';
 
@@ -24,6 +27,7 @@ import { BulletedListMenuItem } from './toolbar-components/BulletedListMenuItem'
 import { IndentMenuItem } from './toolbar-components/IndentMenuItem';
 import { ListsIndentationHeroButton } from './toolbar-components/ListsIndentationHeroButton';
 import { ListsIndentationMenu } from './toolbar-components/ListsIndentationMenu';
+import { MenuSection } from './toolbar-components/MenuSection';
 import { NumberedListMenuItem } from './toolbar-components/NumberedListMenuItem';
 import { OutdentMenuItem } from './toolbar-components/OutdentMenuItem';
 
@@ -90,7 +94,19 @@ export const getToolbarComponents = ({
 					key: LISTS_INDENTATION_MENU.key,
 					rank: LISTS_INDENTATION_MENU_RANK[LISTS_INDENTATION_MENU_SECTION.key],
 				},
+				...(expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
+					? [
+							{
+								type: TEXT_COLLAPSED_MENU.type,
+								key: TEXT_COLLAPSED_MENU.key,
+								rank: TEXT_COLLAPSED_MENU_RANK[LISTS_INDENTATION_MENU_SECTION.key],
+							},
+						]
+					: []),
 			],
+			component: expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
+				? MenuSection
+				: undefined,
 		},
 		{
 			type: BULLETED_LIST_MENU_ITEM.type,

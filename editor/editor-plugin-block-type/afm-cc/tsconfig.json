@@ -32,7 +32,13 @@
 			"path": "../../editor-plugin-block-menu/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-list/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-primary-toolbar/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-selection-toolbar/afm-cc/tsconfig.json"

@@ -52,7 +52,7 @@ import { createPlugin, pluginKey } from './pm-plugins/main';
 import type { BlockTypeNode } from './pm-plugins/types';
 import { FloatingToolbarComponent } from './pm-plugins/ui/FloatingToolbarComponent';
 import { PrimaryToolbarComponent } from './pm-plugins/ui/PrimaryToolbarComponent';
-import { getToolbarComponents } from './pm-plugins/ui/ToolbarComponents';
+import { getToolbarComponents } from './pm-plugins/ui/toolbar-components';
 import { getBlockTypeComponents } from './ui';
 
 const headingPluginOptions = (
@@ -183,7 +183,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 	}
 
 	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
-		api?.blockMenu?.actions.registerBlockMenuComponents(getBlockTypeComponents());
+		api?.blockMenu?.actions.registerBlockMenuComponents(getBlockTypeComponents(api));
 	}
 
 	return {

@@ -3,8 +3,6 @@ import React from 'react';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -57,29 +55,15 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		return useSharedPluginStateWithSelector(
-			pluginInjectionApi,
-			['editorDisabled', 'editorViewMode'],
-			selector,
-		);
-	},
-	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const { editorDisabledState: editorDisabledPlugin, editorViewModeState: editorViewModePlugin } =
-			useSharedPluginState(pluginInjectionApi, ['editorDisabled', 'editorViewMode']);
-		return {
-			editorDisabled: editorDisabledPlugin?.editorDisabled,
-			editorViewMode: editorViewModePlugin?.mode,
-		};
-	},
-);
-
 function MediaGroupNodeViewInternal({
 	renderFn,
 	pluginInjectionApi,
 }: MediaGroupNodeViewInternalProps) {
-	const { editorDisabled, editorViewMode } = useSharedState(pluginInjectionApi);
+	const { editorDisabled, editorViewMode } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['editorDisabled', 'editorViewMode'],
+		selector,
+	);
 
 	const mediaProvider = useMediaProvider(pluginInjectionApi);
 	return renderFn({

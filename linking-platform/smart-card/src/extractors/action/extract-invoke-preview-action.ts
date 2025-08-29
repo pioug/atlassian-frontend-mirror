@@ -7,6 +7,7 @@ import {
 	extractSmartLinkTitle,
 	extractSmartLinkUrl,
 } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { type FireEventFunction } from '../../common/analytics/types';
@@ -109,6 +110,9 @@ export const extractInvokePreviewAction = (
 							src: extractSmartLinkEmbed(response)?.src,
 							title: extractSmartLinkTitle(response),
 							url,
+							size: fg('platform_linking_enable_card_preview_action_size')
+								? actionOptions?.previewAction?.size
+								: undefined,
 						});
 					}
 				},

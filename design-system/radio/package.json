@@ -71,6 +71,7 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
+		"jscodeshift": "root:*",
 		"react-dom": "root:*"
 	},
 	"keywords": [

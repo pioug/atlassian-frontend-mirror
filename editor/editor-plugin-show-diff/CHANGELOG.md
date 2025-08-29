@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 0.2.1
+
+### Patch Changes
+
+- [`f7c9ea51bb613`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7c9ea51bb613) -
+  [EDITOR-1395] dnd interferes with diff
+- Updated dependencies
+
+## 0.2.0
+
+### Minor Changes
+
+- [`3df4a57528050`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3df4a57528050) -
+  Update editor showDiffPlugin to take in params for preset use in Confluence version history.
+
 ## 0.1.7
 
 ### Patch Changes

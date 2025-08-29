@@ -130,6 +130,8 @@ export default {
   'fabric.linking.preview_improved': 'Abrir pré-visualização',
   'fabric.linking.preview_max_size': 'Exibir em tela cheia',
   'fabric.linking.preview_min_size': 'Fechar tela cheia',
+  'fabric.linking.preview_modal': 'Abrir o modal de pré-visualização',
+  'fabric.linking.preview_panel': 'Abrir o painel de pré-visualização',
   'fabric.linking.priority_blocker': 'Gravíssima',
   'fabric.linking.priority_critical': 'Crítica',
   'fabric.linking.priority_high': 'Alta',

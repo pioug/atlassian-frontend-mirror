@@ -39,7 +39,7 @@
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/icon/tsconfig.app.json"
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	]
 }

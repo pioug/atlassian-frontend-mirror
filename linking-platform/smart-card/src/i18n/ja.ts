@@ -129,6 +129,8 @@ export default {
   'fabric.linking.preview_improved': 'プレビューを開く',
   'fabric.linking.preview_max_size': '全画面表示',
   'fabric.linking.preview_min_size': '全画面表示を閉じる',
+  'fabric.linking.preview_modal': 'プレビュー モーダルを開く',
+  'fabric.linking.preview_panel': 'プレビュー パネルを開く',
   'fabric.linking.priority_blocker': 'ブロッカー',
   'fabric.linking.priority_critical': 'クリティカル',
   'fabric.linking.priority_high': '高',

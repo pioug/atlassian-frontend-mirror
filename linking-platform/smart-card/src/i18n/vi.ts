@@ -130,6 +130,8 @@ export default {
   'fabric.linking.preview_improved': 'Mở bản xem trước',
   'fabric.linking.preview_max_size': 'Xem toàn màn hình',
   'fabric.linking.preview_min_size': 'Đóng toàn màn hình',
+  'fabric.linking.preview_modal': 'Mở phương thức xem trước',
+  'fabric.linking.preview_panel': 'Mở bảng xem trước',
   'fabric.linking.priority_blocker': 'Trở ngại',
   'fabric.linking.priority_critical': 'Rất cao',
   'fabric.linking.priority_high': 'Cao',

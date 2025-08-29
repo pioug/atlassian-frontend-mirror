@@ -44,7 +44,13 @@
 			"path": "../editor-plugin-block-menu/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-list/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-primary-toolbar/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-selection/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-selection-toolbar/tsconfig.app.json"

@@ -307,7 +307,12 @@ export function ContentComponent({
 		const selection = editorView.state.selection as Selection;
 		const isCellSelection = '$anchorCell' in selection && !selection.empty;
 		const isTextSelected = selection instanceof TextSelection && !selection.empty;
-		if (isTextSelected || isCellSelection) {
+		if (
+			(isTextSelected &&
+				(!expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true) ||
+					config.className !== 'hyperlink-floating-toolbar')) ||
+			isCellSelection
+		) {
 			return null;
 		}
 	}

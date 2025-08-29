@@ -2,8 +2,6 @@ import React from 'react';
 
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -47,24 +45,6 @@ const selector = (
 	};
 };
 
-const useMediaPickerState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['focus', 'connectivity', 'media'], selector);
-	},
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const { focusState, connectivityState, mediaState } = useSharedPluginState(api, [
-			'focus',
-			'connectivity',
-			'media',
-		]);
-		return {
-			hasFocus: focusState?.hasFocus,
-			connectivityMode: connectivityState?.mode,
-			mediaOptions: mediaState?.mediaOptions,
-		};
-	},
-);
-
 const MediaPicker = ({
 	api,
 	isPopupOpened,
@@ -72,7 +52,11 @@ const MediaPicker = ({
 	onBrowseFn,
 	editorDomElement,
 }: MediaPickerProps) => {
-	const { hasFocus, connectivityMode, mediaOptions } = useMediaPickerState(api);
+	const { hasFocus, connectivityMode, mediaOptions } = useSharedPluginStateWithSelector(
+		api,
+		['focus', 'connectivity', 'media'],
+		selector,
+	);
 	const featureFlags = mediaOptions && mediaOptions.featureFlags;
 
 	// Ignored via go/ees005

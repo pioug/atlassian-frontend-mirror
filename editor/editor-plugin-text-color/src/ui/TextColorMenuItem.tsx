@@ -39,7 +39,8 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps) {
 	);
 	const { editorView } = useEditorToolbar();
 	const { state, dispatch } = editorView ?? { state: null, dispatch: null };
-	const { closeMenu } = useToolbarDropdownMenu();
+	const context = useToolbarDropdownMenu();
+	const closeMenu = context?.closeMenu;
 
 	const handleTextColorChange = useCallback(
 		(color: string) => {
@@ -52,7 +53,7 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps) {
 					dispatch,
 				);
 
-				closeMenu();
+				closeMenu?.();
 			}
 		},
 		[api, state, dispatch, closeMenu, parents],

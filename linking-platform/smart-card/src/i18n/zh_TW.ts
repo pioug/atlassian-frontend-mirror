@@ -120,6 +120,8 @@ export default {
   'fabric.linking.preview_improved': '開啟預覽',
   'fabric.linking.preview_max_size': '全螢幕檢視',
   'fabric.linking.preview_min_size': '關閉全螢幕',
+  'fabric.linking.preview_modal': '開啟預覽強制回應',
+  'fabric.linking.preview_panel': '開啟預覽面板',
   'fabric.linking.priority_blocker': '受阻',
   'fabric.linking.priority_critical': '嚴重',
   'fabric.linking.priority_high': '高',

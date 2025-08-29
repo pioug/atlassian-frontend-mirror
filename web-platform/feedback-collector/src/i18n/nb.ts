@@ -38,6 +38,8 @@ export default {
     'Tilbakemeldingen din hjelper oss med å kontinuerlig forbedre produktene våre.',
   'feedback-collector.success-flag.title': 'Takk!',
   'feedback-collector.summary-placeholder': 'Fortell oss hva du tenker på',
+  'feedback-collector.validation.description.required': 'Oppgi en beskrivelse',
+  'feedback-collector.validation.type.required': 'Velg tilbakemeldingstype',
   'proforma-form-builder.feedback-icon-label': 'Tilbakemelding',
   'proforma-form-builder.give-feedback': 'Gi en tilbakemelding',
 };

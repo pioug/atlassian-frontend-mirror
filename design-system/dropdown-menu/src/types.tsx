@@ -168,9 +168,9 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	shouldFlip?: boolean;
 
 	/**
-	 * The root element where the dropdown menu content should be rendered.
-	 * `true` renders the dropdown menu in the DOM node closest to the trigger and avoids focus trap with tab keys.
-	 * `false` renders the dropdown menu in React.Portal.
+	 * Controls whether the popup is rendered inline within its parent component or in a portal at the document root.
+	 * `true` renders the dropdown menu in the DOM node closest to the trigger; focus is not trapped inside the element.
+	 * `false` renders the dropdown menu in React.Portal and focus is trapped inside the element.
 	 * Defaults to `false`.
 	 */
 	shouldRenderToParent?: boolean;

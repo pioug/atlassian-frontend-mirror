@@ -37,14 +37,18 @@ const getMockEditorAPIEmptyToolbar = () =>
 describe('CommentToolbar', () => {
 	describe('when primary toolbar is registered', () => {
 		it('should render the primary toolbar', () => {
-			const screen = render(<CommentToolbar editorAPI={getMockEditorAPIWithToolbar()} />);
+			const screen = render(
+				<CommentToolbar editorAPI={getMockEditorAPIWithToolbar()} editorAppearance="comment" />,
+			);
 			expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
 		});
 	});
 
 	describe('when primary toolbar is not registered', () => {
 		it('should note render the primary toolbar', () => {
-			const screen = render(<CommentToolbar editorAPI={getMockEditorAPIEmptyToolbar()} />);
+			const screen = render(
+				<CommentToolbar editorAPI={getMockEditorAPIEmptyToolbar()} editorAppearance="comment" />,
+			);
 			expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();
 		});
 	});

@@ -74,7 +74,8 @@ const TextColorIconDecorator = ({ label, isSelected }: { isSelected: boolean; la
 export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps) {
 	const { formatMessage } = useIntl();
 	const activeColor = useSharedPluginStateSelector(api, 'highlight.activeColor');
-	const { closeMenu } = useToolbarDropdownMenu();
+	const context = useToolbarDropdownMenu();
+	const closeMenu = context?.closeMenu;
 
 	const handleHighlightColorChange = useCallback(
 		(color: string) => {
@@ -86,7 +87,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 					}),
 				);
 
-				closeMenu();
+				closeMenu?.();
 			}
 		},
 		[api, closeMenu, parents],

@@ -111,6 +111,7 @@ export const ToolbarButton = forwardRef(
 						event.preventDefault();
 					}
 				}}
+				data-toolbar-component="button"
 			>
 				{iconBefore}
 				{children}

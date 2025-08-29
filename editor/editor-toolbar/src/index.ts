@@ -10,7 +10,12 @@ export { ToolbarKeyboardShortcutHint } from './ui/ToolbarKeyboardShortcutHint';
 export { ToolbarSection } from './ui/ToolbarSection';
 export { ToolbarTooltip } from './ui/ToolbarTooltip';
 export { ToolbarColorSwatch } from './ui/ToolbarColorSwatch';
-export { useToolbarDropdownMenu } from './ui/ToolbarDropdownMenuContext';
+export {
+	useToolbarDropdownMenu,
+	ToolbarDropdownMenuProvider,
+} from './ui/ToolbarDropdownMenuContext';
+export { ResponsiveContainer } from './ui/ResponsiveContainer';
+export { Show } from './ui/Show';
 
 export { AIAdjustLengthIcon } from './ui/icons/AIAdjustLengthIcon';
 export { AIChatIcon } from './ui/icons/AIChatIcon';

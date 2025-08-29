@@ -28,7 +28,9 @@ import {
 } from '@atlaskit/editor-common/toolbar';
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { InsertBlockPlugin } from '../insertBlockPluginType';
 
@@ -103,7 +105,7 @@ export const getToolbarComponents = ({
 						),
 					},
 				]
-			: [
+			: ([
 					{
 						type: TASK_LIST_GROUP.type,
 						key: TASK_LIST_GROUP.key,
@@ -114,6 +116,13 @@ export const getToolbarComponents = ({
 								rank: INSERT_BLOCK_SECTION_RANK[TASK_LIST_GROUP.key],
 							},
 						],
+						component: expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
+							? ({ children }) => (
+									<Show above="lg">
+										<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+									</Show>
+								)
+							: undefined,
 					},
 					{
 						type: TASK_LIST_BUTTON.type,
@@ -137,6 +146,13 @@ export const getToolbarComponents = ({
 								rank: INSERT_BLOCK_SECTION_RANK[MEDIA_GROUP.key],
 							},
 						],
+						component: expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
+							? ({ children }) => (
+									<Show above="lg">
+										<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+									</Show>
+								)
+							: undefined,
 					},
 					{
 						type: MEDIA_BUTTON.type,
@@ -161,6 +177,13 @@ export const getToolbarComponents = ({
 								rank: INSERT_BLOCK_SECTION_RANK[MENTION_GROUP.key],
 							},
 						],
+						component: expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
+							? ({ children }) => (
+									<Show above="lg">
+										<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+									</Show>
+								)
+							: undefined,
 					},
 					{
 						type: MENTION_BUTTON.type,
@@ -184,6 +207,13 @@ export const getToolbarComponents = ({
 								rank: INSERT_BLOCK_SECTION_RANK[EMOJI_GROUP.key],
 							},
 						],
+						component: expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
+							? ({ children }) => (
+									<Show above="lg">
+										<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+									</Show>
+								)
+							: undefined,
 					},
 					{
 						type: EMOJI_BUTTON.type,
@@ -207,6 +237,13 @@ export const getToolbarComponents = ({
 								rank: INSERT_BLOCK_SECTION_RANK[LAYOUT_GROUP.key],
 							},
 						],
+						component: expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
+							? ({ children }) => (
+									<Show above="lg">
+										<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+									</Show>
+								)
+							: undefined,
 					},
 					{
 						type: LAYOUT_BUTTON.type,
@@ -230,6 +267,13 @@ export const getToolbarComponents = ({
 								rank: INSERT_BLOCK_SECTION_RANK[TABLE_GROUP.key],
 							},
 						],
+						component: expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
+							? ({ children }) => (
+									<Show above="md">
+										<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+									</Show>
+								)
+							: undefined,
 					},
 					{
 						type: TABLE_BUTTON.type,
@@ -292,6 +336,6 @@ export const getToolbarComponents = ({
 							/>
 						),
 					},
-				]),
+				] as RegisterComponent[])),
 	];
 };

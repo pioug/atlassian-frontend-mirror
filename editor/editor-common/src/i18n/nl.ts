@@ -51,6 +51,8 @@ export default {
     'Titel mag niet langer dan {maxLength} tekens zijn',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'Verdergaan in chat',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'Openen in de chat',
+  'fabric.editor.ai.config.item.addPolish.description': 'Verfijn de inhoud',
+  'fabric.editor.ai.config.item.addPolish.title': 'Zorg voor verfijning',
   'fabric.editor.ai.config.item.agent.title': 'Atlassian Intelligence Rovo Agent',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': 'Maakt de inhoud korter en beknopter',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': 'Update inkorten',
@@ -218,6 +220,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'Vertalen',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'Paginatitel',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'Pagina',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    'We ondervinden problemen en kunnen op dit moment geen antwoord genereren. Probeer het later opnieuw.',
   'fabric.editor.ai.experience-application.documentInsertError':
     'Er gaat aan onze kant iets niet goed bij het invoeren van de reactie. Sluit het dialoogvenster en probeer het opnieuw.',
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -232,8 +236,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     'Je prompt of inhoud voldoet mogelijk niet aan ons Acceptabel Gebruiksbeleid. Controleer deze allebei en raadpleeg ons <link>Acceptabel Gebruiksbeleid</link> indien nodig. Probeer een andere prompt of inhoud als het probleem zich blijft voordoen.',
   'fabric.editor.ai.experience.browseMore.agents': 'Agents zoeken',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'Er is een fout opgetreden bij het genereren van je antwoord.',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    'We konden de aanvraag niet voltooien, omdat het niet voldoet aan ons <link>Acceptabel Gebruiksbeleid</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Wil je je prompt wissen?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Wil je je reactie wissen?',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Antwoord verwijderen?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError': 'Vrij genereren is momenteel uitgeschakeld in Elevate',
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Je kunt nu links 🔗 naar Jira- en Confluence-inhoud in je prompts plakken.',
@@ -279,6 +287,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'Vragen aan AI',
   'fabric.editor.ai.toolbar.askRovo.title': 'Vraag Rovo',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "Vraag Rovo {key}+'",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': 'Rovo AI vragen',
   'fabric.editor.ai.toolbar.changeTone.title': 'Toon wijzigen',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'Toonopties wijzigen',
@@ -314,6 +323,7 @@ export default {
   'fabric.editor.annotationToolbar': 'Aantekeningentaakbalk',
   'fabric.editor.backLink': 'Ga terug',
   'fabric.editor.backgroundColor': 'Achtergrondkleur',
+  'fabric.editor.block.menu.copy.link': 'Link kopiëren',
   'fabric.editor.blockCardUnavailable': 'De inline-link zit in {node} en de weergave ervan kan niet gewijzigd worden',
   'fabric.editor.blockControlDelete': 'Verwijderen',
   'fabric.editor.blockControlDragHandleMove': 'Sleep om te verplaatsen',
@@ -338,6 +348,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': 'Volledige breedte',
   'fabric.editor.breakoutWideWidthLabel': 'Breed',
   'fabric.editor.bug': 'Bug',
+  'fabric.editor.bulletedList': 'Lijst met opsommingsteken',
   'fabric.editor.canNotSortTable': '⚠️ Je kan een tabel met samengevoegde cellen niet rangschikken',
   'fabric.editor.cancelButton': 'Annuleren',
   'fabric.editor.captionPlaceholder': 'Bijschrift toevoegen',
@@ -409,9 +420,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Je kunt alleen opmerkingen plaatsen bij tekst, kopteksten, emoticons, datums, vermeldingen, links en statussen.',
   'fabric.editor.createCommentInvalid': 'Je kunt alleen opmerkingen plaatsen bij tekst en koppen',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Begrepen',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'Je kunt nu opmerkingen achterlaten op inline-elementen zoals links, datums, statussen en vermeldingen.',
   'fabric.editor.customPanel': 'Aangepast paneel',
   'fabric.editor.customPanel.description': 'Voeg een notitie toe met een emoji en een gekleurde achtergrond',
   'fabric.editor.datasource.assetsObjects.description':
@@ -700,6 +708,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': 'Vragen aan AI',
   'fabric.editor.navigate.toolbar.editor': 'Navigeer naar werkbalk editor',
   'fabric.editor.navigate.toolbar.floating': 'Navigeer naar zwevende werkbalk',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {Je hebt geen rechten om opmerkingen toe te voegen aan deze blogpost} page {Je hebt geen rechten om opmerkingen toe te voegen aan deze pagina} other {Je hebt geen rechten om opmerkingen toe te voegen aan deze pagina}}',
   'fabric.editor.noResultsFound': 'Geen resultaten',
   'fabric.editor.noSearchResults': 'Geen zoekresultaten',
   'fabric.editor.normal': 'Normale tekst',
@@ -712,6 +722,7 @@ export default {
   'fabric.editor.openButtonTitle': 'Openen',
   'fabric.editor.openCellOptions': 'Celopties openen',
   'fabric.editor.openLink': 'Link openen in een nieuw tabblad',
+  'fabric.editor.openPreviewPanel': 'Voorvertoningsvenster openen',
   'fabric.editor.orderedList': 'Genummerde lijst',
   'fabric.editor.orderedList.description': 'Een gesorteerde lijst maken',
   'fabric.editor.other': 'Andere ...',
@@ -732,6 +743,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Voeg plaatsaanduidingstekst toe',
   'fabric.editor.plainText': 'Tekst zonder opmaak gebruiken',
   'fabric.editor.preferencesLink': 'Voorkeuren voor links',
+  'fabric.editor.previewButtonTitle': 'Voorvertoning',
   'fabric.editor.quickInsert': 'Snel invoegen',
   'fabric.editor.recordLoomShortTitle': 'Opnemen',
   'fabric.editor.recordVideo': 'Een Loom-video opnemen',
@@ -770,6 +782,7 @@ export default {
   'fabric.editor.selectTableColumn': 'Selecteer tabelkolom',
   'fabric.editor.selectTableRow': 'Selecteer tabelrij',
   'fabric.editor.selectionExtensionDropdownButtonLabel': 'App selecteren',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'Meer opties',
   'fabric.editor.settingsLinks': 'Ga naar koppelingsvoorkeuren',
   'fabric.editor.shortEmptyNodePlaceholderText': '/ om iets in te voegen',
   'fabric.editor.shortcut': 'Sneltoets voor tekst',
@@ -854,6 +867,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'Inline met tekst',
   'fabric.editor.toolbarPositionPinedAtTop': 'Losmaken van taakbalk',
   'fabric.editor.toolbarPositionUnpined': 'Vastmaken aan de taakbalk bovenaan',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'Taakbalk bovenaan vastmaken',
   'fabric.editor.tooltip.blockPanel': 'een paneel',
   'fabric.editor.tooltip.bulletList': 'een lijst',
   'fabric.editor.tooltip.decisionList': 'een besluitenlijst',

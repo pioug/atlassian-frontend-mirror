@@ -7,8 +7,6 @@ import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type {
@@ -257,34 +255,13 @@ export type InlineCardNodeViewProps = Pick<
 const selector = (
 	states: NamedPluginStatesFromInjectionAPI<
 		ExtractInjectionAPI<typeof cardPlugin>,
-		'selection' | 'editorViewMode'
+		'editorViewMode'
 	>,
 ) => {
 	return {
 		mode: states.editorViewModeState?.mode,
-		selection: states.selectionState?.selection,
 	};
 };
-
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(
-			pluginInjectionApi,
-			['selection', 'editorViewMode'],
-			selector,
-		);
-	},
-	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		const { selectionState, editorViewModeState } = useSharedPluginState(pluginInjectionApi, [
-			'selection',
-			'editorViewMode',
-		]);
-		return {
-			mode: editorViewModeState?.mode,
-			selection: selectionState?.selection,
-		};
-	},
-);
 
 /**
  *
@@ -310,7 +287,11 @@ export function InlineCardNodeView(
 		CompetitorPrompt,
 	} = props;
 
-	const { mode } = useSharedState(pluginInjectionApi);
+	const { mode } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['editorViewMode'],
+		selector,
+	);
 
 	const url = node.attrs.url;
 	const CompetitorPromptComponent =

@@ -12,32 +12,17 @@ import { useIntl } from 'react-intl-next';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import {
-	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import messages from '@atlaskit/editor-common/messages';
 import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
-import type {
-	EditorAppearance,
-	OptionalPlugin,
-	PublicPluginAPI,
-} from '@atlaskit/editor-common/types';
+import type { EditorAppearance, OptionalPlugin } from '@atlaskit/editor-common/types';
 import { WidthConsumer, WidthProvider } from '@atlaskit/editor-common/ui';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
-import type {
-	EditorViewModePlugin,
-	EditorViewModePluginState,
-} from '@atlaskit/editor-plugins/editor-viewmode';
-import type {
-	MaxContentSizePlugin,
-	MaxContentSizePluginState,
-} from '@atlaskit/editor-plugins/max-content-size';
+import type { MaxContentSizePlugin } from '@atlaskit/editor-plugins/max-content-size';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
-import type {
-	PrimaryToolbarPlugin,
-	PrimaryToolbarPluginState,
-} from '@atlaskit/editor-plugins/primary-toolbar';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
@@ -178,62 +163,21 @@ const EditorContainer = componentWithCondition(
 	ContentArea,
 );
 
-const useCommentEditorPluginsStates = sharedPluginStateHookMigratorFactory<
-	{
-		editorViewModeState: Pick<EditorViewModePluginState, 'mode'> | undefined | null;
-		maxContentSizeState: MaxContentSizePluginState | undefined;
-		primaryToolbarState: PrimaryToolbarPluginState | undefined;
-	},
-	| PublicPluginAPI<
-			[
-				OptionalPlugin<MaxContentSizePlugin>,
-				OptionalPlugin<PrimaryToolbarPlugin>,
-				OptionalPlugin<EditorViewModePlugin>,
-			]
-	  >
-	| undefined
->(
-	(pluginInjectionApi) => {
-		const { maxContentSizeReached, primaryToolbarComponents, editorViewMode } =
-			useSharedPluginStateWithSelector(
-				pluginInjectionApi,
-				['maxContentSize', 'primaryToolbar', 'editorViewMode'],
-				(states) => ({
-					maxContentSizeReached: states.maxContentSizeState?.maxContentSizeReached,
-					primaryToolbarComponents: states.primaryToolbarState?.components,
-					editorViewMode: states.editorViewModeState?.mode,
-				}),
-			);
-
-		return {
-			maxContentSizeState:
-				maxContentSizeReached === undefined ? undefined : { maxContentSizeReached },
-			primaryToolbarState: !primaryToolbarComponents
-				? undefined
-				: { components: primaryToolbarComponents },
-			editorViewModeState: !editorViewMode ? undefined : { mode: editorViewMode },
-		};
-	},
-	(pluginInjectionApi) => {
-		return useSharedPluginState(pluginInjectionApi, [
-			'maxContentSize',
-			'primaryToolbar',
-			'editorViewMode',
-		]);
-	},
-);
-
 export const CommentEditorWithIntl = (props: ComponentProps) => {
 	const { editorAPI } = props;
-	const {
-		maxContentSizeState,
-		primaryToolbarState: primaryToolbarHookState,
-		editorViewModeState,
-	} = useCommentEditorPluginsStates(editorAPI);
-	const primaryToolbarState = getPrimaryToolbarComponents(
-		editorAPI,
-		primaryToolbarHookState?.components,
-	);
+
+	const { editorViewMode, primaryToolbarComponentsState, maxContentSizeReached } =
+		useSharedPluginStateWithSelector(
+			editorAPI,
+			['maxContentSize', 'primaryToolbar', 'editorViewMode'],
+			(states) => ({
+				maxContentSizeReached: !!states.maxContentSizeState?.maxContentSizeReached,
+				primaryToolbarComponentsState: states.primaryToolbarState?.components,
+				editorViewMode: states.editorViewModeState?.mode,
+			}),
+		);
+
+	const primaryToolbarState = getPrimaryToolbarComponents(editorAPI, primaryToolbarComponentsState);
 	const { mediaState } = useSharedPluginState(editorAPI, ['media']);
 	const intl = useIntl();
 	const {
@@ -261,7 +205,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 		featureFlags,
 		innerRef,
 	} = props;
-	const maxContentSizeReached = Boolean(maxContentSizeState?.maxContentSizeReached);
+
 	const showSecondaryToolbar = !!onSave || !!onCancel || !!customSecondaryToolbarComponents;
 	const containerElement = React.useRef<HTMLDivElement>(null);
 
@@ -354,7 +298,11 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 					>
 						{expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) ? (
 							<React.Fragment>
-								<CommentToolbar editorAPI={editorAPI} editorView={editorView} />
+								<CommentToolbar
+									editorAPI={editorAPI}
+									editorView={editorView}
+									editorAppearance={appearance}
+								/>
 								{customToolbarSlot}
 							</React.Fragment>
 						) : (
@@ -418,7 +366,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 											'less-margin': width < akEditorMobileBreakoutPoint,
 										})}
 										featureFlags={featureFlags}
-										viewMode={editorViewModeState?.mode}
+										viewMode={editorViewMode}
 										appearance={appearance}
 									>
 										{customContentComponents && 'before' in customContentComponents

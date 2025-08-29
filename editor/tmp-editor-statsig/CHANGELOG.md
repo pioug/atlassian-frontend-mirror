@@ -1,5 +1,28 @@
 # @atlaskit/editor-statsig-tmp
 
+## 11.12.0
+
+### Minor Changes
+
+- [`36e649e4988d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36e649e4988d3) -
+  [ux] ED-29072 close all menus on nested menu item clicked
+
+## 11.11.0
+
+### Minor Changes
+
+- [`51f3f2db61f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51f3f2db61f6e) -
+  Add ranks and keys for new collapsed text section component, add responsive container to
+  PrimaryToolbar export with new query selectors to hide empty elements, export types
+
+## 11.10.0
+
+### Minor Changes
+
+- [`bfec478c9e91b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfec478c9e91b) -
+  Splits platform_editor_preview_panel_linking_exp into one for Jira and one for Confluence and
+  switches to editorExperiment util.
+
 ## 11.9.0
 
 ### Minor Changes

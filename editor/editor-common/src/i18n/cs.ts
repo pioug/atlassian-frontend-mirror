@@ -51,6 +51,8 @@ export default {
     'Název nesmí mít více znaků než {maxLength}.',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'Pokračovat v chatu',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'Otevřít v chatu',
+  'fabric.editor.ai.config.item.addPolish.description': 'Vypiluje obsah, aby byl uhlazenější.',
+  'fabric.editor.ai.config.item.addPolish.title': 'Uhladit',
   'fabric.editor.ai.config.item.agent.title': 'Atlassian Intelligence – Agent Rovo',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': 'Zkrátí obsah, aby byl stručnější.',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': 'Zkrátit aktualizaci',
@@ -194,6 +196,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'Přeložit',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'Název stránky',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'Stránka',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    'Odpověď momentálně nelze vygenerovat kvůli problémům na naší straně. Zkuste to znovu později.',
   'fabric.editor.ai.experience-application.documentInsertError':
     'Při vkládání odpovědi se vyskytl problém. Zavřete dialog a zkuste to znovu.',
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -208,8 +212,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     'Vaše výzva nebo obsah nemusí být v souladu s našimi zásadami přijatelného používání. Zkontrolujte obojí a v případě potřeby si přečtěte naše <link>Zásady přijatelného používání</link>. Pokud problém přetrvává, zkuste jinou výzvu nebo obsah.',
   'fabric.editor.ai.experience.browseMore.agents': 'Procházet agenty',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'Při generování odpovědi došlo k chybě.',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    'Tuto žádost jsme nemohli dokončit, protože není v souladu s našimi <link>zásadami přijatelného používání</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Chcete svou výzvu zahodit?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Chcete svou odpověď zahodit?',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Odstranit odpověď?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError': 'Samočinné generování je v Elevate momentálně zakázáno.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Nyní můžete do výzev vkládat odkazy 🔗 na obsah Jira a Confluence.',
@@ -253,6 +261,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'Zeptat se AI',
   'fabric.editor.ai.toolbar.askRovo.title': 'Zeptejte se nástroje Rovo',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "Zeptat se nástroje Rovo {key}+'",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': 'Zeptat se Rovo AI',
   'fabric.editor.ai.toolbar.changeTone.title': 'Změnit tón',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'Možnosti změny tónu',
@@ -288,6 +297,7 @@ export default {
   'fabric.editor.annotationToolbar': 'Panel nástrojů poznámek',
   'fabric.editor.backLink': 'Zpět',
   'fabric.editor.backgroundColor': 'Barva pozadí',
+  'fabric.editor.block.menu.copy.link': 'Kopírovat odkaz',
   'fabric.editor.blockCardUnavailable': 'Vložený odkaz je uvnitř uzlu {node} a jeho zobrazení nelze změnit',
   'fabric.editor.blockControlDelete': 'Odstranit',
   'fabric.editor.blockControlDragHandleMove': 'Přetažením přesunete.',
@@ -312,6 +322,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': 'Celá šířka',
   'fabric.editor.breakoutWideWidthLabel': 'Široká',
   'fabric.editor.bug': 'Chyba',
+  'fabric.editor.bulletedList': 'Odrážkový seznam',
   'fabric.editor.canNotSortTable': '⚠️ Tabulku se sloučenými buňkami nelze seřadit',
   'fabric.editor.cancelButton': 'Zrušit',
   'fabric.editor.captionPlaceholder': 'Přidejte popisek',
@@ -383,9 +394,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Komentovat můžete pouze text, nadpisy, smajlíky, kalendářní data, zmínky, odkazy a stavy.',
   'fabric.editor.createCommentInvalid': 'Komentovat můžete pouze text a nadpisy',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Rozumím',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'Nyní můžete zanechat komentáře k vloženým prvkům, jako jsou odkazy, kalendářní data, stavy a zmínky.',
   'fabric.editor.customPanel': 'Vlastní panel',
   'fabric.editor.customPanel.description': 'Přidejte poznámku se smajlíkem a barevným pozadím.',
   'fabric.editor.datasource.assetsObjects.description':
@@ -675,6 +683,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': 'Zeptat se AI',
   'fabric.editor.navigate.toolbar.editor': 'Přejít na panel nástrojů editoru',
   'fabric.editor.navigate.toolbar.floating': 'Přejít na plovoucí panel nástrojů',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {K přidávání komentářů k tomuto příspěvku na blogu nemáte oprávnění.} page {K přidávání komentářů k této stránce nemáte oprávnění.} other {K přidávání komentářů k této stránce nemáte oprávnění.}}',
   'fabric.editor.noResultsFound': 'Žádné výsledky',
   'fabric.editor.noSearchResults': 'Žádné výsledky vyhledávání',
   'fabric.editor.normal': 'Standardní text',
@@ -687,6 +697,7 @@ export default {
   'fabric.editor.openButtonTitle': 'Otevřený',
   'fabric.editor.openCellOptions': 'Otevřít možnosti buňky',
   'fabric.editor.openLink': 'Otevřít odkaz na nové kartě',
+  'fabric.editor.openPreviewPanel': 'Otevřít panel náhledu',
   'fabric.editor.orderedList': 'Číslovaný seznam',
   'fabric.editor.orderedList.description': 'Vytvořit seřazený seznam',
   'fabric.editor.other': 'Jiné…',
@@ -707,6 +718,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Přidat text placeholderu.',
   'fabric.editor.plainText': 'Použít prostý text',
   'fabric.editor.preferencesLink': 'Předvolby odkazů',
+  'fabric.editor.previewButtonTitle': 'Náhled',
   'fabric.editor.quickInsert': 'Rychlé vložení',
   'fabric.editor.recordLoomShortTitle': 'Nahrát',
   'fabric.editor.recordVideo': 'Nahrávání videa Loom',
@@ -748,6 +760,7 @@ export default {
   'fabric.editor.selectTableColumn': 'Vybrat sloupec tabulky',
   'fabric.editor.selectTableRow': 'Vybrat řádek tabulky',
   'fabric.editor.selectionExtensionDropdownButtonLabel': 'Vybrat aplikaci',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'Více možností',
   'fabric.editor.settingsLinks': 'Přejít do předvoleb odkazů',
   'fabric.editor.shortEmptyNodePlaceholderText': '/ pro vložení',
   'fabric.editor.shortcut': 'Textový zástupce',
@@ -832,6 +845,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'Zarovnáno s textem',
   'fabric.editor.toolbarPositionPinedAtTop': 'Odepnout panel nástrojů',
   'fabric.editor.toolbarPositionUnpined': 'Připnout panel nástrojů v horní části',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'Připnout panel nástrojů v horní části',
   'fabric.editor.tooltip.blockPanel': 'panel',
   'fabric.editor.tooltip.bulletList': 'seznam',
   'fabric.editor.tooltip.decisionList': 'seznam rozhodnutí',

@@ -845,7 +845,7 @@ async function createInteractionMetricsPayload(
 	}
 
 	const getReactHydrationStats = () => {
-		if (!isPageLoad || !hydration) {
+		if (!hydration) {
 			return {};
 		}
 		return { hydration };

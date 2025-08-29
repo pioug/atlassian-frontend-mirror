@@ -1,47 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 
-import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 
 import { createPlugin, dispatchShouldHideDecorations, key } from './pm-plugins/main';
 import type { ReleaseHiddenDecoration, SelectionMarkerPlugin } from './selectionMarkerPluginType';
 import { GlobalStylesWrapper } from './ui/global-styles';
-
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<SelectionMarkerPlugin> | undefined) => {
-		const { hasFocus, isOpen, editorDisabled } = useSharedPluginStateWithSelector(
-			api,
-			['focus', 'typeAhead', 'editorDisabled'],
-			(states) => ({
-				hasFocus: states.focusState?.hasFocus,
-				isOpen: states.typeAheadState?.isOpen,
-				editorDisabled: states.editorDisabledState?.editorDisabled,
-			}),
-		);
-		return {
-			hasFocus,
-			isOpen,
-			editorDisabled,
-		};
-	},
-	(api: ExtractInjectionAPI<SelectionMarkerPlugin> | undefined) => {
-		const { focusState, typeAheadState, editorDisabledState } = useSharedPluginState(api, [
-			'focus',
-			'typeAhead',
-			'editorDisabled',
-		]);
-		return {
-			hasFocus: focusState?.hasFocus,
-			isOpen: typeAheadState?.isOpen,
-			editorDisabled: editorDisabledState?.editorDisabled,
-		};
-	},
-);
 
 export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) => {
 	return {
@@ -110,7 +75,15 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 				editorHasNotBeenFocused.current = true;
 			}, [editorView]);
 
-			const { hasFocus, isOpen, editorDisabled } = useSharedState(api);
+			const { hasFocus, isOpen, editorDisabled } = useSharedPluginStateWithSelector(
+				api,
+				['focus', 'typeAhead', 'editorDisabled'],
+				(states) => ({
+					hasFocus: states.focusState?.hasFocus,
+					isOpen: states.typeAheadState?.isOpen,
+					editorDisabled: states.editorDisabledState?.editorDisabled,
+				}),
+			);
 			const isForcedHidden = useSharedPluginStateSelector(api, 'selectionMarker.isForcedHidden');
 			useEffect(() => {
 				// On editor init we should use this latch to keep the marker hidden until

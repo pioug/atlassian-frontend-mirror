@@ -1,5 +1,44 @@
 # @atlaskit/smart-card
 
+## 40.16.0
+
+### Minor Changes
+
+- [`38a07e571c534`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38a07e571c534) -
+  CNS-19292: Adds a "preview size" option to action options prop on Smart Card. This allows users of
+  Smart Card to define a size of the modal that will be opened when a Preview Action is clicked.
+
+  Usage:
+
+  ```TSX
+  // Both of these accept a EmbedModalSize enum "small" or "large".
+  // To enable "small" modal when preview action is clicked.
+  <Card actionOptions={{previewAction: {size: "small"}, hide: false}}/>
+  // To enable "large" (default) modal when preview action is clicked.
+  <Card actionOptions={{previewAction: {size: "large"}, hide: false}}/>
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 40.15.2
+
+### Patch Changes
+
+- [`cd70a377d007c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd70a377d007c) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
+## 40.15.1
+
+### Patch Changes
+
+- [`bfec478c9e91b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfec478c9e91b) -
+  Splits platform_editor_preview_panel_linking_exp into one for Jira and one for Confluence and
+  switches to editorExperiment util.
+- Updated dependencies
+
 ## 40.15.0
 
 ### Minor Changes

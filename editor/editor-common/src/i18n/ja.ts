@@ -51,6 +51,8 @@ export default {
     'タイトルは {maxLength} 文字以内で入力してください',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'チャットで続行',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'チャットで開く',
+  'fabric.editor.ai.config.item.addPolish.description': 'コンテンツに磨きをかけて、より洗練されたものにします',
+  'fabric.editor.ai.config.item.addPolish.title': 'コンテンツに磨きをかけます',
   'fabric.editor.ai.config.item.agent.title': 'Atlassian Intelligence Rovo エージェント',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': 'コンテンツをより簡潔なものにします',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': '情報を要約',
@@ -191,6 +193,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': '翻訳',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'ページ タイトル',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'ページ',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    '問題が発生しているため、現在応答を生成できません。しばらくしてからもう一度お試しください。',
   'fabric.editor.ai.experience-application.documentInsertError':
     '返信を挿入する際に問題が発生しました。ダイアログを閉じて、もう一度お試しください。',
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -205,8 +209,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     'プロンプトまたはコンテンツがアトラシアンの利用規定に準拠していない可能性があります。必要に応じて、両方を見直し、アトラシアンの<link>利用規定</link>をご参照ください。問題が解決しない場合、別のプロンプトまたはコンテンツを試すことをご検討ください。',
   'fabric.editor.ai.experience.browseMore.agents': 'エージェントを参照する',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'レスポンスの作成中にエラーが発生しました。',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    'このリクエストはアトラシアンの<link>利用規定</link>に準拠していないため、完了できませんでした。',
   'fabric.editor.ai.experience.discardMessagePrompt': 'プロンプトを破棄してよろしいですか?',
   'fabric.editor.ai.experience.discardMessageResponse': '応答を破棄してよろしいですか?',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'レスポンスを削除しますか?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError': '(自由形式の生成は現在 Elevate で無効になっています)。',
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Jira と Confluence のコンテンツへのリンク 🔗 をプロンプトに貼り付けられるようになりました。',
@@ -251,6 +259,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'Atlassian Intellgience に質問',
   'fabric.editor.ai.toolbar.askRovo.title': 'Rovo に質問する',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "Rovo に質問 {key}+'",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': 'Rovo AI に質問',
   'fabric.editor.ai.toolbar.changeTone.title': 'トーンを変更する',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'トーン変更オプション',
@@ -285,6 +294,10 @@ export default {
   'fabric.editor.annotationToolbar': '注釈ツールバー',
   'fabric.editor.backLink': '戻る',
   'fabric.editor.backgroundColor': '背景色',
+  'fabric.editor.block.menu.copy.block': 'ブロックをコピー',
+  'fabric.editor.block.menu.copy.link': 'リンクをコピー',
+  'fabric.editor.block.menu.move.down': '下に移動',
+  'fabric.editor.block.menu.move.up': '上に移動',
   'fabric.editor.blockCardUnavailable': 'インライン リンクは {node} 内にあるためビューを変更できません',
   'fabric.editor.blockControlDelete': '削除',
   'fabric.editor.blockControlDragHandleMove': 'ドラッグして移動',
@@ -309,6 +322,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': '全幅',
   'fabric.editor.breakoutWideWidthLabel': '広い',
   'fabric.editor.bug': 'バグ',
+  'fabric.editor.bulletedList': '箇条書きリスト',
   'fabric.editor.canNotSortTable': '⚠️ 結合セルを含む表は並べ替えられません。',
   'fabric.editor.cancelButton': 'キャンセル',
   'fabric.editor.captionPlaceholder': 'キャプションを追加',
@@ -378,9 +392,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     'テキスト、見出し、絵文字、日付、メンション、リンク、ステータスにのみコメントできます。',
   'fabric.editor.createCommentInvalid': 'テキストと見出しにのみコメントできます',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'OK',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'リンク、日付、ステータス、メンションなどのインライン要素にコメントを残せるようになりました。',
   'fabric.editor.customPanel': 'カスタム パネル',
   'fabric.editor.customPanel.description': '絵文字と背景色でメモを追加',
   'fabric.editor.datasource.assetsObjects.description':
@@ -666,6 +677,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': 'AI に質問',
   'fabric.editor.navigate.toolbar.editor': 'エディター ツールバーに移動',
   'fabric.editor.navigate.toolbar.floating': 'フローティング ツールバーに移動',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {このブログ投稿にコメントを追加する権限がありません} page {このページにコメントを追加する権限がありません} other {このページにコメントを追加する権限がありません}}',
   'fabric.editor.noResultsFound': '該当する結果がありません',
   'fabric.editor.noSearchResults': '検索結果が見つかりませんでした。',
   'fabric.editor.normal': 'ノーマル テキスト',
@@ -678,6 +691,7 @@ export default {
   'fabric.editor.openButtonTitle': 'オープン',
   'fabric.editor.openCellOptions': 'セルのオプションを開く',
   'fabric.editor.openLink': 'リンクを新しいタブで開く',
+  'fabric.editor.openPreviewPanel': 'プレビュー パネルを開く',
   'fabric.editor.orderedList': '番号付きリスト',
   'fabric.editor.orderedList.description': '順序指定済みリストを作成',
   'fabric.editor.other': 'その他…',
@@ -698,6 +712,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'プレースホルダー テキストを追加',
   'fabric.editor.plainText': 'プレーン テキストを使用する',
   'fabric.editor.preferencesLink': 'リンク設定',
+  'fabric.editor.previewButtonTitle': 'プレビュー',
   'fabric.editor.quickInsert': 'クイック挿入',
   'fabric.editor.recordLoomShortTitle': '録画',
   'fabric.editor.recordVideo': 'Loom 動画を録画する',
@@ -735,6 +750,7 @@ export default {
   'fabric.editor.selectTableColumn': '表の列を選択します',
   'fabric.editor.selectTableRow': '表の行を選択します',
   'fabric.editor.selectionExtensionDropdownButtonLabel': 'アプリを選択',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'その他のオプション',
   'fabric.editor.settingsLinks': 'リンク設定に移動',
   'fabric.editor.shortEmptyNodePlaceholderText': '「/」と入力して挿入',
   'fabric.editor.shortcut': 'テキスト ショートカット',
@@ -818,6 +834,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'テキスト行内',
   'fabric.editor.toolbarPositionPinedAtTop': 'ツール バーのピン留めを解除',
   'fabric.editor.toolbarPositionUnpined': '上部のツール バーをピン留め',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'ツール バーを上部に固定',
   'fabric.editor.tooltip.blockPanel': 'パネル',
   'fabric.editor.tooltip.bulletList': 'リスト',
   'fabric.editor.tooltip.decisionList': '決定事項リスト',

@@ -398,6 +398,7 @@ export const TeamContainers = ({
 							{getAddContainerCards({
 								containers: availableContainers,
 								onAddAContainerClick: onAddAContainerClick,
+								CustomAddContainerCard: components?.AddContainerCard,
 								showNewDesign: createContainerExperimentEnabled,
 							})}
 

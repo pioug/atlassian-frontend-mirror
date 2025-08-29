@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 3.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.7.0
+
+### Minor Changes
+
+- [`942b7b9e97c21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/942b7b9e97c21) -
+  Support nested block menu via selection extension config
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.3
+
+### Patch Changes
+
+- [`0f8ecc0906213`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f8ecc0906213) -
+  ED-29112: clean up sharedPluginStateHookMigratorFactory in selection-extension, selection-marker
+
 ## 3.6.2
 
 ### Patch Changes

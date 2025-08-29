@@ -129,6 +129,8 @@ export default {
   'fabric.linking.preview_improved': 'Abrir vista previa',
   'fabric.linking.preview_max_size': 'Ver a pantalla completa',
   'fabric.linking.preview_min_size': 'Cerrar pantalla completa',
+  'fabric.linking.preview_modal': 'Abrir modal de vista previa',
+  'fabric.linking.preview_panel': 'Abrir panel de vista previa',
   'fabric.linking.priority_blocker': 'Impedimento',
   'fabric.linking.priority_critical': 'Crítica',
   'fabric.linking.priority_high': 'Alta',

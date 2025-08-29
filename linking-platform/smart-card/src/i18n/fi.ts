@@ -131,6 +131,8 @@ export default {
   'fabric.linking.preview_improved': 'Avaa esikatselu',
   'fabric.linking.preview_max_size': 'Näytä koko näytöllä',
   'fabric.linking.preview_min_size': 'Sulje koko näytön tila',
+  'fabric.linking.preview_modal': 'Avaa esikatselumodaali',
+  'fabric.linking.preview_panel': 'Avaa esikatselupaneeli',
   'fabric.linking.priority_blocker': 'Esto',
   'fabric.linking.priority_critical': 'Kriittinen',
   'fabric.linking.priority_high': 'Korkea',

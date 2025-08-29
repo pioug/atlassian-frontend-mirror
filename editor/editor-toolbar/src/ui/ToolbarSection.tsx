@@ -36,7 +36,7 @@ type ToolbarSectionProps = {
 
 export const ToolbarSection = ({ children, testId, hasSeparator }: ToolbarSectionProps) => {
 	return (
-		<Box xcss={cx(styles.container)} testId={testId}>
+		<Box xcss={cx(styles.container)} testId={testId} data-toolbar-component="section">
 			{hasSeparator && <div css={separator} />}
 			{children}
 		</Box>

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 5.2.4
+
+### Patch Changes
+
+- [`bacdc0ed302a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bacdc0ed302a6) -
+  [ED-29067] Fix a bug where link picker is not shown when texts are selected and link button is
+  clicked
+- Updated dependencies
+
 ## 5.2.3
 
 ### Patch Changes

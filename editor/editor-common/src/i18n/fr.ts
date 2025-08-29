@@ -288,6 +288,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'Demander à AI',
   'fabric.editor.ai.toolbar.askRovo.title': 'Demander à Rovo',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "Demandez à Rovo {key}+'",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': "Demander à l'IA Rovo",
   'fabric.editor.ai.toolbar.changeTone.title': 'Changer de ton',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'Options de changement de ton',
@@ -324,6 +325,7 @@ export default {
   'fabric.editor.annotationToolbar': "Barre d'outils d'annotation",
   'fabric.editor.backLink': 'Retour',
   'fabric.editor.backgroundColor': "Couleur d'arrière-plan",
+  'fabric.editor.block.menu.copy.link': 'Copier le lien',
   'fabric.editor.blockCardUnavailable': 'Le lien contextuel est dans {node} et sa vue ne peut être modifiée',
   'fabric.editor.blockControlDelete': 'Supprimer',
   'fabric.editor.blockControlDragHandleMove': 'Faire glisser pour déplacer',
@@ -420,9 +422,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Vous ne pouvez commenter que le texte, les titres, les émoticônes, les dates, les mentions, les liens et les états.',
   'fabric.editor.createCommentInvalid': 'Vous pouvez uniquement commenter du texte et des titres',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'OK',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'Vous pouvez désormais laisser des commentaires sur des éléments contextuels tels que des liens, des dates, des états et des mentions.',
   'fabric.editor.customPanel': 'Volet personnalisé',
   'fabric.editor.customPanel.description': "Ajoutez une remarque avec une émoticône et un fond d'écran coloré",
   'fabric.editor.datasource.assetsObjects.description':
@@ -715,6 +714,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': "Demander à l'IA",
   'fabric.editor.navigate.toolbar.editor': "Accéder à la barre d'outils de l'éditeur",
   'fabric.editor.navigate.toolbar.floating': "Accéder à la barre d'outils flottante",
+  'fabric.editor.noPermissionToAddComment':
+    "{contentType, select, blogpost {Vous n'êtes pas autorisé à ajouter des commentaires à ce billet de blog} page {Vous n'êtes pas autorisé à ajouter des commentaires à cette page} other {Vous n'êtes pas autorisé à ajouter des commentaires à cette page}}",
   'fabric.editor.noResultsFound': 'Aucun résultat',
   'fabric.editor.noSearchResults': 'Aucun résultat de recherche',
   'fabric.editor.normal': 'Texte normal',
@@ -748,6 +749,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': "Ajouter le texte de l'espace réservé",
   'fabric.editor.plainText': 'Utiliser du texte brut',
   'fabric.editor.preferencesLink': 'Préférences des liens',
+  'fabric.editor.previewButtonTitle': 'Afficher un aperçu',
   'fabric.editor.quickInsert': 'Insertion rapide',
   'fabric.editor.recordLoomShortTitle': 'Enregistrer',
   'fabric.editor.recordVideo': 'Enregistrer une vidéo Loom',

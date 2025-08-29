@@ -728,7 +728,9 @@ function finishInteraction(
 			data.vc = observer.getVCRawData();
 		}
 	}
-	data.hydration = getReactHydrationStats();
+	if (data.type === 'page_load') {
+		data.hydration = getReactHydrationStats();
+	}
 
 	// By this time, stop the post interaction log observer if coinflip rate is 0
 	const sanitisedUfoName = sanitizeUfoName(data.ufoName);

@@ -51,6 +51,8 @@ export default {
     'Długość tytułu nie może przekraczać {maxLength} znaków',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'Kontynuuj na czacie',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'Otwórz na czacie',
+  'fabric.editor.ai.config.item.addPolish.description': 'Dopracowuje treść',
+  'fabric.editor.ai.config.item.addPolish.title': 'Dopracuj',
   'fabric.editor.ai.config.item.agent.title': 'Agent Rovo Atlassian Intelligence',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': 'Skraca treść, aby była bardziej zwięzła.',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': 'Skróć treść komunikatu',
@@ -209,6 +211,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'Przetłumacz',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'Tytuł strony',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'Strona',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    'Wystąpiły problemy i nie można teraz wygenerować odpowiedzi. Spróbuj ponownie później.',
   'fabric.editor.ai.experience-application.documentInsertError':
     'Wystąpiły problemy podczas wstawienia odpowiedzi. Zamknij okno dialogowe i spróbuj ponownie.',
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -223,8 +227,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     'Twoje polecenie lub treść może nie być zgodne z naszymi Zasadami dopuszczalnego użytkowania. Przejrzyj je i w razie potrzeby zapoznaj się z naszymi <link>Zasadami dopuszczalnego użytkowania</link>. Jeśli problem nie ustąpi, rozważ wypróbowanie innego polecenia lub treści.',
   'fabric.editor.ai.experience.browseMore.agents': 'Przeglądaj agenty',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'Wystąpił błąd podczas generowania odpowiedzi.',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    'Nie można zrealizować tego wniosku, ponieważ nie jest on zgodny z naszymi <link>Zasadami dopuszczalnego użytkowania</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Czy chcesz odrzucić podpowiedź?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Czy chcesz odrzucić odpowiedź?',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Usunąć odpowiedź?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'Samodzielnie generowane podpowiedzi są obecnie wyłączone w Elevate.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -271,6 +279,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'Zapytaj AI',
   'fabric.editor.ai.toolbar.askRovo.title': 'Zapytaj Rovo',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "Zapytaj Rovo {key}+'",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': 'Zapytaj sztuczną inteligencję Rovo',
   'fabric.editor.ai.toolbar.changeTone.title': 'Zmień styl',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'Opcje zmiany stylu',
@@ -305,6 +314,10 @@ export default {
   'fabric.editor.annotationToolbar': 'Pasek narzędzi adnotacji',
   'fabric.editor.backLink': 'Wróć',
   'fabric.editor.backgroundColor': 'Kolor tła',
+  'fabric.editor.block.menu.copy.block': 'Kopiuj blok',
+  'fabric.editor.block.menu.copy.link': 'Kopiuj łącze',
+  'fabric.editor.block.menu.move.down': 'Przenieś w dół',
+  'fabric.editor.block.menu.move.up': 'Przenieś w górę',
   'fabric.editor.blockCardUnavailable':
     'Łącze bezpośrednio w tekście jest wewnątrz węzła {node} i nie można zmienić jego widoku',
   'fabric.editor.blockControlDelete': 'Usuń',
@@ -330,6 +343,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': 'Tryb pełnej szerokości',
   'fabric.editor.breakoutWideWidthLabel': 'Tryb szeroki',
   'fabric.editor.bug': 'Błąd',
+  'fabric.editor.bulletedList': 'Lista punktowana',
   'fabric.editor.canNotSortTable': '⚠️ Nie można sortować tabeli ze scalonymi komórkami',
   'fabric.editor.cancelButton': 'Anuluj',
   'fabric.editor.captionPlaceholder': 'Dodaj podpis',
@@ -401,9 +415,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Można komentować tylko tekst, nagłówki, emoji, daty, wzmianki, łącza i statusy.',
   'fabric.editor.createCommentInvalid': 'Możesz komentować tylko tekst i nagłówki',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Rozumiem',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'Możesz teraz dodawać komentarze do elementów śródwierszowych, takich jak łącza, daty, statusy i wzmianki.',
   'fabric.editor.customPanel': 'Panel niestandardowy',
   'fabric.editor.customPanel.description': 'Dodaj notatkę z emoji i kolorowym tłem',
   'fabric.editor.datasource.assetsObjects.description':
@@ -696,6 +707,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': 'Zapytaj sztuczną inteligencję',
   'fabric.editor.navigate.toolbar.editor': 'Przejdź do paska narzędzi edytora',
   'fabric.editor.navigate.toolbar.floating': 'Przejdź do przestawnego paska narzędzi',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {Nie masz uprawnień do dodawania komentarzy do tego wpisu na blogu} page {Nie masz uprawnień do dodawania komentarzy do tej strony} other {Nie masz uprawnień do dodawania komentarzy do tej strony}}',
   'fabric.editor.noResultsFound': 'Brak wyników',
   'fabric.editor.noSearchResults': 'Brak wyników wyszukiwania',
   'fabric.editor.normal': 'Normalny tekst',
@@ -708,6 +721,7 @@ export default {
   'fabric.editor.openButtonTitle': 'Otwórz',
   'fabric.editor.openCellOptions': 'Otwórz opcje komórki',
   'fabric.editor.openLink': 'Otwórz łącze na nowej karcie',
+  'fabric.editor.openPreviewPanel': 'Otwórz panel podglądu',
   'fabric.editor.orderedList': 'Lista numerowana',
   'fabric.editor.orderedList.description': 'Utwórz uporządkowaną listę',
   'fabric.editor.other': 'Inne...',
@@ -728,6 +742,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Dodaj tekst zastępczy',
   'fabric.editor.plainText': 'Użyj zwykłego tekstu',
   'fabric.editor.preferencesLink': 'Preferencje dotyczące łączy',
+  'fabric.editor.previewButtonTitle': 'Podgląd',
   'fabric.editor.quickInsert': 'Szybkie wstawianie',
   'fabric.editor.recordLoomShortTitle': 'Nagraj',
   'fabric.editor.recordVideo': 'Nagraj film Loom',
@@ -769,6 +784,7 @@ export default {
   'fabric.editor.selectTableColumn': 'Wybierz kolumnę tabeli',
   'fabric.editor.selectTableRow': 'Wybierz wiersz tabeli',
   'fabric.editor.selectionExtensionDropdownButtonLabel': 'Wybierz aplikację',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'Więcej opcji',
   'fabric.editor.settingsLinks': 'Przejdź do preferencji łączy',
   'fabric.editor.shortEmptyNodePlaceholderText': 'Wpisz /, aby wstawić',
   'fabric.editor.shortcut': 'Skrót tekstu',
@@ -854,6 +870,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'Obok tekstu',
   'fabric.editor.toolbarPositionPinedAtTop': 'Odepnij pasek narzędzi',
   'fabric.editor.toolbarPositionUnpined': 'Przypnij pasek narzędzi u góry',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'Przypnij pasek narzędzi u góry',
   'fabric.editor.tooltip.blockPanel': 'panel',
   'fabric.editor.tooltip.bulletList': 'lista',
   'fabric.editor.tooltip.decisionList': 'lista decyzji',

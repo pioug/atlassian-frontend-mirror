@@ -38,6 +38,8 @@ export default {
     'Értékes visszajelzésed segítségével folyamatosan fejlesztjük termékeinket.',
   'feedback-collector.success-flag.title': 'Köszönöm!',
   'feedback-collector.summary-placeholder': 'Mondd el, mi jár a fejedben!',
+  'feedback-collector.validation.description.required': 'Adj meg egy leírást',
+  'feedback-collector.validation.type.required': 'Válaszd ki a visszajelzés típusát',
   'proforma-form-builder.feedback-icon-label': 'Visszajelzés',
   'proforma-form-builder.give-feedback': 'Visszajelzés küldése',
 };

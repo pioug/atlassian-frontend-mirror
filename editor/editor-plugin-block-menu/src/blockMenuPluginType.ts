@@ -7,7 +7,6 @@ import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { FormatNodeTargetType } from './editor-commands/transforms/types';
 
@@ -19,7 +18,7 @@ export type BlockMenuPlugin = NextEditorPlugin<
 			registerBlockMenuComponents: (blockMenuComponents: Array<RegisterBlockMenuComponent>) => void;
 		};
 		commands: {
-			formatNode: (currentNode: PMNode, targetType: FormatNodeTargetType) => EditorCommand;
+			formatNode: (targetType: FormatNodeTargetType) => EditorCommand;
 		};
 		dependencies: [
 			OptionalPlugin<BlockControlsPlugin>,

@@ -131,6 +131,9 @@ export default {
     '⁣⁢Select from below (free generate is disabled in Elevate at this time)⁡‌⁯⁪⁠⁯⁪⁡؜⁭⁡⁡⁮⁪⁯⁫‌⁬⁣⁤',
   'fabric.editor.ai.config.item.generateContent.promptHint':
     '⁣⁢Write with AI or select from below⁠⁭؜؜⁭⁬‌⁡؜؜‌‌⁬⁮⁠⁡⁬⁪‌⁬‍‍⁭⁣⁤',
+  'fabric.editor.ai.config.item.generateEscalationNotes.description':
+    '⁣⁢Generates escalation notes based on the issue context⁬⁪⁯؜⁠⁫⁡⁬‌⁮‍⁡⁯⁮⁯‍⁣⁤',
+  'fabric.editor.ai.config.item.generateEscalationNotes.title': '⁣⁢Generate escalation notes⁠⁮‍⁯⁠؜⁭⁫⁮⁯⁡⁭؜⁡⁪⁮⁭⁬⁯⁫‌⁭⁮‌⁣⁤',
   'fabric.editor.ai.config.item.improveDescription.default.description':
     '⁣⁢Restructure the issue description based on the issue type؜⁮⁡؜⁠⁭⁮؜‍⁪‍‍⁡⁠⁯⁬⁡⁬؜⁠‌⁣⁤',
   'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one':
@@ -457,6 +460,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': '⁣⁢Rovo⁫⁮⁫‍⁪⁫⁡⁭‍⁠‌⁯⁮‌⁪⁣⁤',
   'fabric.editor.ai.toolbar.askAI.title': '⁣⁢Ask AI⁫؜‌‍⁪⁫⁠؜؜⁯؜‍‍⁬⁠⁯؜⁮⁪‍⁫⁡‍⁣⁤',
   'fabric.editor.ai.toolbar.askRovo.title': '⁣⁢Ask Rovo⁪‌⁡⁠⁡⁯⁡⁫⁭⁯‌⁡⁮؜⁬⁯⁬⁣⁤',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "⁣⁢Ask Rovo {key}+'⁡⁡‌⁪⁯‌⁠؜؜‍⁡⁯‌⁪⁭⁯‌⁣⁤",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': '⁣⁢Ask Rovo AI⁮⁫⁡⁠⁮⁪⁡⁯‍⁯⁯‍⁮⁡⁬‍⁠⁯‍⁫⁪⁮⁬⁪؜‌⁣⁤',
   'fabric.editor.ai.toolbar.changeTone.title': '⁣⁢Change tone⁯‍⁭⁯‌⁪⁫⁯‌⁡⁫‍⁯⁫⁫⁫؜⁡⁫⁮⁠⁡‌⁭⁠⁡‍⁣⁤',
   'fabric.editor.ai.toolbar.changeToneOptions.title': '⁣⁢Change tone options⁯‌⁮⁭⁫⁫⁯؜‍⁮⁡⁮⁠؜⁫⁯⁫⁪؜⁭⁡⁣⁤',
@@ -492,6 +496,12 @@ export default {
   'fabric.editor.annotationToolbar': '⁣⁢Annotation toolbar⁯؜‌⁭⁫⁬⁠‍⁡⁬⁮⁭⁯⁠⁠⁡⁪‌⁫⁠‌⁫⁯⁣⁤',
   'fabric.editor.backLink': '⁣⁢Go back‍⁡⁮⁬⁭⁫⁭⁠⁠⁭⁬⁫‍⁠⁯⁡‌⁠⁠؜⁪⁭⁣⁤',
   'fabric.editor.backgroundColor': '⁣⁢Background color⁪‍⁫⁬⁯⁬⁪⁯‍⁬⁭⁪؜⁭⁬⁪‍⁮⁫⁬⁯⁡⁣⁤',
+  'fabric.editor.block.menu.copy.block': '⁣⁢Copy block⁫⁪⁠⁡‍‌⁭؜⁪⁠⁮⁡⁭⁫⁡‍؜؜‌‌⁫⁣⁤',
+  'fabric.editor.block.menu.copy.link': '⁣⁢Copy link⁪⁮⁯⁭⁭⁠⁪⁫⁯‍⁮⁪⁯؜‍⁫‍‌⁮⁬‍‌⁣⁤',
+  'fabric.editor.block.menu.delete.block': '⁣⁢Delete‌⁡⁪⁠‌⁭⁫⁯⁮⁪؜‌‌‍⁫⁪⁠⁣⁤',
+  'fabric.editor.block.menu.move.down': '⁣⁢Move down⁯‍‍⁭‍‌⁬⁠⁪⁪⁭⁭‍‍⁪⁮⁠⁯⁯⁭⁪⁪‍⁡⁣⁤',
+  'fabric.editor.block.menu.move.up': '⁣⁢Move up⁮؜⁬‍⁫⁠⁡⁯‍⁭‌‍⁠؜⁬⁭⁭⁭⁭⁬⁬⁠؜⁬⁣⁤',
+  'fabric.editor.block.menu.paragraph': '⁣⁢Paragraph⁮⁫⁫⁯⁭⁯⁯⁫⁫⁡⁡؜‍⁡⁡⁠⁫‍⁣⁤',
   'fabric.editor.blockCardUnavailable':
     '⁣⁢The inline link is inside {node} and cannot have its view changed⁮⁬⁫⁮⁬⁮‌⁬⁭⁠⁯⁬⁫‌⁠⁯⁪‍⁠⁪⁮⁣⁤',
   'fabric.editor.blockControlDelete': '⁣⁢Delete؜‍‌⁭‍⁠⁠⁠⁬⁮⁪⁫⁡⁫⁬⁡⁬؜⁮‌⁫‌⁣⁤',
@@ -592,9 +602,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     '⁣⁢You can only comment on text, headings, emojis, dates, mentions, links, and statuses.؜⁯⁠⁫⁫؜⁡⁮⁬⁡‍⁯⁪⁫‍؜⁮⁬⁣⁤',
   'fabric.editor.createCommentInvalid': '⁣⁢You can only comment on text and headings⁮⁠‍⁫⁮‌⁯⁬⁯⁪⁫⁮⁪‌⁭⁠⁮‍⁪⁫⁪⁯⁬⁡⁣⁤',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': '⁣⁢Got it⁯⁬‌⁡⁯⁠⁮⁠⁡⁯⁮⁯⁠⁫⁫؜⁪⁡⁭⁭⁠⁣⁤',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    '⁣⁢You can now leave comments on inline elements like links, dates, statuses and mentions.⁭؜⁪‌⁠‍؜⁡⁡⁭⁮‌‌⁮‌⁠⁯⁬⁮⁡⁡⁯؜⁬⁣⁤',
   'fabric.editor.customPanel': '⁣⁢Custom panel⁭⁭⁬؜؜⁬⁭⁠⁪⁬⁠⁭‍⁯⁠⁫⁯⁫⁯؜⁣⁤',
   'fabric.editor.customPanel.description': '⁣⁢Add a note with an emoji and colored background‍⁬⁠⁭⁫⁡⁯⁮⁮⁯‍⁪⁡⁪⁭⁡⁮⁪⁡⁮⁯⁮‌⁣⁤',
   'fabric.editor.datasource.assetsObjects.description':
@@ -1040,6 +1047,7 @@ export default {
   'fabric.editor.taskPlaceholder': "⁣⁢Type your action, use '@' to assign to someone.⁡⁭⁫⁠⁡‌⁫⁠⁯⁪⁫⁡⁭⁬⁡‍⁬⁯⁭⁫⁫⁪‍⁭⁣⁤",
   'fabric.editor.text.formatting.off': '⁣⁢Text formatting Off⁭⁯‍؜⁬‍⁬⁫⁫⁡⁭⁠⁬‍⁬⁭⁡؜⁠⁭؜؜⁣⁤',
   'fabric.editor.textColor': '⁣⁢{selectedColorName} Text color⁫⁪؜⁠⁠⁮‌⁭⁬؜⁡⁡‌‌⁡⁡⁠⁮⁪‌⁡⁭⁯‌‌⁣⁤',
+  'fabric.editor.textColorHighlightTooltip': '⁣⁢Text and Highlight color⁯⁫⁯⁮⁬⁪⁫⁪⁡⁬⁡⁭⁪⁯⁮⁬⁯⁡⁠⁪⁣⁤',
   'fabric.editor.textColorTooltip': '⁣⁢Text color⁮⁭‍⁮؜⁫؜⁮⁫⁫؜⁡⁡؜⁮⁫؜⁮⁬؜⁮⁠⁭‍⁭⁣⁤',
   'fabric.editor.textFormat': '⁣⁢Format text⁭‍⁭⁪⁠⁫؜‌⁯⁠⁫⁫⁡⁭⁬⁫‍⁪‍⁫⁬‌⁣⁤',
   'fabric.editor.textFormatting': '⁣⁢Text formatting‌⁪⁪⁯⁬⁫⁭‍؜‌⁮⁯⁫⁭؜⁪⁮؜‌⁬⁠⁠⁠؜⁯⁣⁤',

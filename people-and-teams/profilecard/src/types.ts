@@ -356,7 +356,7 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
 }
 
 export interface AgentActionsType {
-	onChatClick?: () => void;
+	onChatClick?: (event: React.MouseEvent) => void;
 	onConversationStartersClick?: (starter: ConversationStarter) => void;
 }
 export interface AgentProfileCardTriggerProps extends AgentActionsType {
@@ -379,6 +379,7 @@ export interface AgentProfileCardTriggerProps extends AgentActionsType {
 	product?: string;
 	viewingUserId?: string;
 	onDeleteAgent?: (agentId: string) => { restore: () => void };
+	hideOverflow?: boolean;
 }
 
 export type AgentProfileCardProps = {

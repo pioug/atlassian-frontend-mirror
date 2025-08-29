@@ -11,8 +11,6 @@ import { injectIntl } from 'react-intl-next';
 
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -103,19 +101,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(pluginInjectionApi, ['card'], selector);
-	},
-	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		const { cardState } = useSharedPluginState(pluginInjectionApi, ['card']);
-		return {
-			layout: cardState?.layout,
-			datasourceTableRef: cardState?.datasourceTableRef,
-		};
-	},
-);
-
 const LayoutButtonWrapper = ({
 	editorView,
 	mountPoint,
@@ -125,7 +110,8 @@ const LayoutButtonWrapper = ({
 	api,
 }: LayoutButtonWrapperProps & WrappedComponentProps) => {
 	const { node, pos } = getDatasource(editorView);
-	const { layout = node?.attrs?.layout || undefined, datasourceTableRef } = useSharedState(api);
+	const { layout = node?.attrs?.layout || undefined, datasourceTableRef } =
+		useSharedPluginStateWithSelector(api, ['card'], selector);
 	const isDatasource = isDatasourceNode(node);
 
 	if (!isDatasource) {

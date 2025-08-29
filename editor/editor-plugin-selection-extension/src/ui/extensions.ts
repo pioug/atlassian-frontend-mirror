@@ -1,7 +1,8 @@
 import type {
 	ExtensionConfiguration,
 	ExtensionSource,
-	GetMenuItemFn,
+	GetBlockMenuItemFn,
+	GetBlockMenuNestedItemsFn,
 	GetMenuItemsFn,
 	GetToolbarItemFn,
 	SelectionExtensionConfig,
@@ -75,8 +76,8 @@ export const getMenuItemExtensions = (
 };
 
 type BlockMenuItems = {
-	menuItem: ReturnType<GetMenuItemFn>;
-	nestedMenuItems?: ReturnType<GetMenuItemsFn>;
+	menuItem: ReturnType<GetBlockMenuItemFn>;
+	nestedMenuItems?: ReturnType<GetBlockMenuNestedItemsFn>;
 };
 
 export const getBlockMenuItemExtensions = (

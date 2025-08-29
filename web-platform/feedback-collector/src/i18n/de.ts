@@ -37,6 +37,8 @@ export default {
   'feedback-collector.success-flag.description': 'Ihr Feedback hilft uns dabei, unsere Produkte ständig zu verbessern.',
   'feedback-collector.success-flag.title': 'Vielen Dank!',
   'feedback-collector.summary-placeholder': 'Teilen Sie uns Ihre Meinung mit.',
+  'feedback-collector.validation.description.required': 'Geben Sie bitte eine Beschreibung ein',
+  'feedback-collector.validation.type.required': 'Wählen Sie bitte einen Feedback-Typ aus',
   'proforma-form-builder.feedback-icon-label': 'Feedback',
   'proforma-form-builder.give-feedback': 'Feedback geben',
 };

@@ -1,6 +1,6 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"include": ["./src/**/*.ts", "./src/**/*.tsx", "./**/*.ts"],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",

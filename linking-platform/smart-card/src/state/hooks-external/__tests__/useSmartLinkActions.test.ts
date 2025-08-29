@@ -5,6 +5,7 @@ import { useSmartLinkContext } from '@atlaskit/link-provider';
 
 import { extractInvokePreviewAction } from '../../../extractors/action/extract-invoke-preview-action';
 import { mocks } from '../../../utils/mocks';
+import { EmbedModalSize } from '../../../view/EmbedModal/types';
 import useInvokeClientAction from '../../hooks/use-invoke-client-action';
 import { useSmartCardState } from '../../store';
 import { type CardState } from '../../types';
@@ -66,6 +67,7 @@ const mockWithActions = () => {
 			display: 'block',
 			extensionKey: 'object-provider',
 			id: 'test-id',
+			size: EmbedModalSize.Small,
 		},
 		hasPreviewPanel: false,
 	});
@@ -171,6 +173,38 @@ describe(useSmartLinkActions.name, () => {
 		);
 
 		expect(result.current).toEqual([]);
+	});
+
+	it('returns preview action with size when actionOptions.previewAction.size is provided', () => {
+		(useSmartLinkContext as jest.Mock).mockReturnValue({
+			isPreviewPanelAvailable: undefined,
+			openPreviewPanel: undefined,
+		});
+		mockWithActions();
+
+		const { result } = renderHook(() =>
+			useSmartLinkActions({
+				url,
+				appearance,
+				actionOptions: {
+					hide: false,
+					previewAction: {
+						size: EmbedModalSize.Small,
+					},
+				},
+			}),
+		);
+
+		expect(result.current).toEqual([
+			expect.objectContaining({
+				id: 'download-content',
+				invoke: expect.any(Function),
+			}),
+			expect.objectContaining({
+				id: 'preview-content',
+				invoke: expect.any(Function),
+			}),
+		]);
 	});
 
 	it('returns actions as expected when useSmartCardState changes', () => {

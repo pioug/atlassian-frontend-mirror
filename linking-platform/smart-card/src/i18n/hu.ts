@@ -133,6 +133,8 @@ export default {
   'fabric.linking.preview_improved': 'Előnézet megnyitása',
   'fabric.linking.preview_max_size': 'Megtekintés teljes képernyőn',
   'fabric.linking.preview_min_size': 'Teljes képernyő bezárása',
+  'fabric.linking.preview_modal': 'Előnézet párbeszédpanel megnyitása',
+  'fabric.linking.preview_panel': 'Az előnézet panel megnyitása',
   'fabric.linking.priority_blocker': 'Blokkoló',
   'fabric.linking.priority_critical': 'Kritikus',
   'fabric.linking.priority_high': 'Magas',

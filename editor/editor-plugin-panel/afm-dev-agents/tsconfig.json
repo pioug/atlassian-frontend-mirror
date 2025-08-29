@@ -29,13 +29,22 @@
 			"path": "../../editor-plugin-analytics/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-block-menu/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-decorations/afm-dev-agents/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-emoji/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-selection/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-shared-styles/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-dev-agents/tsconfig.json"
 		},
 		{
 			"path": "../../../elements/emoji/afm-dev-agents/tsconfig.json"

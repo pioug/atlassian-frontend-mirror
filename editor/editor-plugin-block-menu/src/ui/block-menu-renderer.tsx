@@ -96,6 +96,10 @@ export const BlockMenuRenderer = ({ components, fallbacks }: BlockMenuProps) => 
 					section.key,
 				);
 
+				if (currentSectionItemsSorted.length === 0) {
+					return null;
+				}
+
 				// iterate over the current section items, if it is nested menu, get their children, sort them
 				// if they are menu items, just render as they are sorted above
 				const getChildrenWithNestedItems = (

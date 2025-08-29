@@ -54,30 +54,38 @@ const deletedContentStyleUnbounded = convertToInlineCss({
 	zIndex: 1,
 });
 
-/**
- * Creates a widget to represent the deleted content in the editor
- *
- * @param props.change Changeset "change" containing information about the change content + range
- * @param props.doc Baseline doc to compare against
- * @param props.tr The relevant transaction this decoration is being created against
- * @returns Prosemirror widget decoration
- */
 export const createDeletedContentDecoration = ({
 	change,
 	doc,
 	nodeViewSerializer,
 }: DeletedContentDecorationProps) => {
+	const slice = doc.slice(change.fromA, change.toA);
+
+	if (slice.content.content.length === 0) {
+		return;
+	}
+
+	const isTableContent = slice.content.content.some(() =>
+		slice.content.content.some((siblingNode) =>
+			['tableHeader', 'tableCell', 'tableRow'].includes(siblingNode.type.name),
+		),
+	);
+
+	if (isTableContent) {
+		return;
+	}
+
+	const serializer = nodeViewSerializer;
+
+	// For non-table content, use the existing span wrapper approach
 	const dom = document.createElement('span');
 	dom.setAttribute('style', deletedContentStyle);
 
 	/*
 	 * The thinking is we separate out the fragment we got from doc.slice
 	 * and if it's the first or last content, we go in however many the sliced Open
-	 * or sliced End depth is and match only the content and not with the entire node.
+	 * or sliced End depth is and match only the entire node.
 	 */
-	const slice = doc.slice(change.fromA, change.toA);
-
-	const serializer = nodeViewSerializer;
 
 	slice.content.forEach((node) => {
 		// Create a wrapper for each node with strikethrough
@@ -164,6 +172,13 @@ export const createDeletedContentDecoration = ({
 			const wrapper = createWrapperWithStrikethrough();
 			wrapper.append(nodeView.dom);
 			dom.append(wrapper);
+		} else if (
+			nodeViewSerializer
+				.getFilteredNodeViewBlocklist(['paragraph', 'tableRow'])
+				.has(targetNode.type.name)
+		) {
+			// Skip the case where the node is a paragraph or table row that way it can still be rendered and delete the entire table
+			return;
 		} else {
 			dom.append(fallbackSerialization());
 		}

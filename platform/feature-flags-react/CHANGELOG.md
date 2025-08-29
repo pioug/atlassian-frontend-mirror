@@ -1,5 +1,12 @@
 # @atlaskit/platform-feature-flags-react
 
+## 0.3.0
+
+### Minor Changes
+
+- [`d93a0869e4023`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d93a0869e4023) -
+  Add new contional hooks factory global cache and reset utility (for use in tests)
+
 ## 0.2.4
 
 ### Patch Changes

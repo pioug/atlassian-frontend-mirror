@@ -129,6 +129,8 @@ export default {
   'fabric.linking.preview_improved': 'Otvori pregled',
   'fabric.linking.preview_max_size': 'Prikaži potpuni zaslon',
   'fabric.linking.preview_min_size': 'Zatvori potpuni zaslon',
+  'fabric.linking.preview_modal': 'Otvori modal pretpregleda',
+  'fabric.linking.preview_panel': 'Ploča Otvori pretpregled',
   'fabric.linking.priority_blocker': 'Blokada',
   'fabric.linking.priority_critical': 'Kritični',
   'fabric.linking.priority_high': 'Visoki',

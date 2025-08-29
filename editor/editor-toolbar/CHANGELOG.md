@@ -1,5 +1,25 @@
 # @atlaskit/editor-toolbar
 
+## 0.6.1
+
+### Patch Changes
+
+- [`36e649e4988d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36e649e4988d3) -
+  [ux] ED-29072 close all menus on nested menu item clicked
+- Updated dependencies
+
+## 0.6.0
+
+### Minor Changes
+
+- [`51f3f2db61f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51f3f2db61f6e) -
+  Add ranks and keys for new collapsed text section component, add responsive container to
+  PrimaryToolbar export with new query selectors to hide empty elements, export types
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.5.1
 
 ### Patch Changes

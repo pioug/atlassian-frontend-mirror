@@ -51,6 +51,8 @@ export default {
     'Максимально допустима кількість символів у заголовку: {maxLength}',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'Продовжити в чаті',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'Відкрити в чаті',
+  'fabric.editor.ai.config.item.addPolish.description': 'Удосконалення вмісту, щоб зробити його бездоганним',
+  'fabric.editor.ai.config.item.addPolish.title': 'Застосування вдосконалення',
   'fabric.editor.ai.config.item.agent.title': 'Агент Rovo на основі Atlassian Intelligence',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': 'Скорочення вмісту, щоб зробити його лаконічнішим',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': 'Скоротити оновлення',
@@ -193,6 +195,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'Переклад',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'Заголовок сторінки',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'Сторінка',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    'Наразі неможливо згенерувати відповідь через наявні технічні проблеми. Повторіть спробу пізніше.',
   'fabric.editor.ai.experience-application.documentInsertError':
     'Не вдалося вставити відповідь. Закрийте діалогове вікно й повторіть спробу.',
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -207,8 +211,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     'Ваш запит або вміст можуть не відповідати нашій Політиці прийнятного використання. Перевірте запит і вміст та за необхідності перегляньте нашу <link>Політику прийнятного використання</link>. Якщо проблема виникатиме знову, спробуйте використати інший запит або вміст.',
   'fabric.editor.ai.experience.browseMore.agents': 'Переглянути агентів',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'Під час генерування відповіді сталася помилка.',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    'Не вдалося виконати запит, оскільки він не відповідає нашій <link>Політиці прийнятного використання</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Видалити запит?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Видалити результат?',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Видалити відповідь?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError': 'Підказки в Elevate зараз вимкнені.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Тепер ви можете вставляти посилання 🔗 на вміст Jira й Confluence у своїх запитах.',
@@ -256,6 +264,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'Запитати Atlassian Intelligence',
   'fabric.editor.ai.toolbar.askRovo.title': 'Запитайте Rovo',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "Запитати Rovo: {key}+'",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': 'Запитати ШІ Rovo',
   'fabric.editor.ai.toolbar.changeTone.title': 'Змінити стиль',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'Варіанти зміни стилю',
@@ -291,6 +300,7 @@ export default {
   'fabric.editor.annotationToolbar': 'Панель приміток',
   'fabric.editor.backLink': 'Назад',
   'fabric.editor.backgroundColor': 'Колір фону',
+  'fabric.editor.block.menu.copy.link': 'Копіювати посилання',
   'fabric.editor.blockCardUnavailable': 'Вбудоване посилання знаходиться у вузлі {node}, тому змінити подання не можна',
   'fabric.editor.blockControlDelete': 'Видалити',
   'fabric.editor.blockControlDragHandleMove': 'Перетягніть, щоб змінити розташування',
@@ -315,6 +325,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': 'Повна ширина',
   'fabric.editor.breakoutWideWidthLabel': 'Розширення',
   'fabric.editor.bug': 'Несправність',
+  'fabric.editor.bulletedList': 'Маркований список',
   'fabric.editor.canNotSortTable': '⚠️ Не можна сортувати таблицю, у якій є об’єднані клітинки',
   'fabric.editor.cancelButton': 'Скасувати',
   'fabric.editor.captionPlaceholder': 'Додати підпис',
@@ -387,9 +398,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Ви можете коментувати лише текст, заголовки, емодзі, дати, згадування, посилання й стани.',
   'fabric.editor.createCommentInvalid': 'Коментувати можна лише текст і заголовки',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Зрозуміло',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'Тепер ви можете залишати коментарі до вбудованих елементів, як-от посилання, дати, статуси та згадування.',
   'fabric.editor.customPanel': 'Користувацька панель',
   'fabric.editor.customPanel.description': 'Додайте примітку з емодзі та кольоровим фоном',
   'fabric.editor.datasource.assetsObjects.description':
@@ -681,6 +689,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': 'Запитати ШІ',
   'fabric.editor.navigate.toolbar.editor': 'Перейти на панель інструментів редактора',
   'fabric.editor.navigate.toolbar.floating': 'Перейти на рухому панель інструментів',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {У вас немає дозволу додавати коментарі до цього допису в блозі} page {У вас немає дозволу додавати коментарі до цієї сторінки} other {У вас немає дозволу додавати коментарі до цієї сторінки}}',
   'fabric.editor.noResultsFound': 'Немає результатів',
   'fabric.editor.noSearchResults': 'Нічого не знайдено',
   'fabric.editor.normal': 'Звичайний текст',
@@ -693,6 +703,7 @@ export default {
   'fabric.editor.openButtonTitle': 'Відкрити',
   'fabric.editor.openCellOptions': 'Відкрити параметри клітинки',
   'fabric.editor.openLink': 'Відкрити посилання в новій вкладці',
+  'fabric.editor.openPreviewPanel': 'Відкрити панель попереднього перегляду',
   'fabric.editor.orderedList': 'Нумерований список',
   'fabric.editor.orderedList.description': 'Створити упорядкований список',
   'fabric.editor.other': 'Інше…',
@@ -713,6 +724,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Додати текст-заміщення',
   'fabric.editor.plainText': 'Застосувати текст без форматування',
   'fabric.editor.preferencesLink': 'Параметри посилань',
+  'fabric.editor.previewButtonTitle': 'Переглянути',
   'fabric.editor.quickInsert': 'Швидка вставка',
   'fabric.editor.recordLoomShortTitle': 'Записати',
   'fabric.editor.recordVideo': 'Запишіть відео в Loom',
@@ -754,6 +766,7 @@ export default {
   'fabric.editor.selectTableColumn': 'Виберіть стовпець таблиці',
   'fabric.editor.selectTableRow': 'Виберіть рядок таблиці',
   'fabric.editor.selectionExtensionDropdownButtonLabel': 'Вибрати додаток',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'Інші варіанти',
   'fabric.editor.settingsLinks': 'Перейти до параметрів посилань',
   'fabric.editor.shortEmptyNodePlaceholderText': '/ для вставки',
   'fabric.editor.shortcut': 'Сполучення клавіш для тексту',
@@ -838,6 +851,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'На рівні тексту',
   'fabric.editor.toolbarPositionPinedAtTop': 'Відкріпити панель інструментів',
   'fabric.editor.toolbarPositionUnpined': 'Закріпити панель інструментів угорі',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'Закріпити панель інструментів у верхній частині',
   'fabric.editor.tooltip.blockPanel': 'панель',
   'fabric.editor.tooltip.bulletList': 'список',
   'fabric.editor.tooltip.decisionList': 'список рішень',

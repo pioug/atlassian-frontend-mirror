@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
 	FORMAT_HEADING_1_MENU_ITEM,
 	FORMAT_HEADING_2_MENU_ITEM,
@@ -11,13 +9,18 @@ import {
 	FORMAT_PARAGRAPH_MENU_ITEM,
 	FORMAT_QUOTE_MENU_ITEM,
 } from '@atlaskit/editor-common/block-menu';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu';
 
-import { HeadingMenuItem } from './HeadingMenuItem';
-import { ParagraphMenuItem } from './ParagraphMenuItem';
-import { QuoteMenuItem } from './QuoteMenuItem';
+import type { BlockTypePlugin } from '../blockTypePluginType';
 
-export const getBlockTypeComponents = (): RegisterBlockMenuComponent[] => {
+import { createHeadingBlockMenuItem } from './HeadingBlockMenuItem';
+import { createParagraphBlockMenuItem } from './ParagraphBlockMenuItem';
+import { createQuoteBlockMenuItem } from './QuoteBlockMenuItem';
+
+export const getBlockTypeComponents = (
+	api: ExtractInjectionAPI<BlockTypePlugin> | undefined,
+): RegisterBlockMenuComponent[] => {
 	return [
 		{
 			type: 'block-menu-item',
@@ -27,7 +30,7 @@ export const getBlockTypeComponents = (): RegisterBlockMenuComponent[] => {
 				key: 'nested-menu-format-section-primary',
 				rank: FORMAT_NESTED_MENU_RANK[FORMAT_HEADING_1_MENU_ITEM.key],
 			},
-			component: () => <HeadingMenuItem level={1} />,
+			component: createHeadingBlockMenuItem({ level: 1, api }),
 		},
 		{
 			type: 'block-menu-item',
@@ -37,7 +40,7 @@ export const getBlockTypeComponents = (): RegisterBlockMenuComponent[] => {
 				key: 'nested-menu-format-section-primary',
 				rank: FORMAT_NESTED_MENU_RANK[FORMAT_HEADING_2_MENU_ITEM.key],
 			},
-			component: () => <HeadingMenuItem level={2} />,
+			component: createHeadingBlockMenuItem({ level: 2, api }),
 		},
 
 		{
@@ -48,7 +51,7 @@ export const getBlockTypeComponents = (): RegisterBlockMenuComponent[] => {
 				key: 'nested-menu-format-section-primary',
 				rank: FORMAT_NESTED_MENU_RANK[FORMAT_HEADING_3_MENU_ITEM.key],
 			},
-			component: () => <HeadingMenuItem level={3} />,
+			component: createHeadingBlockMenuItem({ level: 3, api }),
 		},
 		{
 			type: 'block-menu-item',
@@ -58,7 +61,7 @@ export const getBlockTypeComponents = (): RegisterBlockMenuComponent[] => {
 				key: 'nested-menu-format-section-primary',
 				rank: FORMAT_NESTED_MENU_RANK[FORMAT_HEADING_4_MENU_ITEM.key],
 			},
-			component: () => <HeadingMenuItem level={4} />,
+			component: createHeadingBlockMenuItem({ level: 4, api }),
 		},
 		{
 			type: 'block-menu-item',
@@ -68,7 +71,7 @@ export const getBlockTypeComponents = (): RegisterBlockMenuComponent[] => {
 				key: 'nested-menu-format-section-primary',
 				rank: FORMAT_NESTED_MENU_RANK[FORMAT_HEADING_5_MENU_ITEM.key],
 			},
-			component: () => <HeadingMenuItem level={5} />,
+			component: createHeadingBlockMenuItem({ level: 5, api }),
 		},
 		{
 			type: 'block-menu-item',
@@ -78,7 +81,7 @@ export const getBlockTypeComponents = (): RegisterBlockMenuComponent[] => {
 				key: 'nested-menu-format-section-primary',
 				rank: FORMAT_NESTED_MENU_RANK[FORMAT_HEADING_6_MENU_ITEM.key],
 			},
-			component: () => <HeadingMenuItem level={6} />,
+			component: createHeadingBlockMenuItem({ level: 6, api }),
 		},
 		{
 			type: 'block-menu-item',
@@ -88,7 +91,7 @@ export const getBlockTypeComponents = (): RegisterBlockMenuComponent[] => {
 				key: 'nested-menu-format-section-primary',
 				rank: FORMAT_NESTED_MENU_RANK[FORMAT_PARAGRAPH_MENU_ITEM.key],
 			},
-			component: () => <ParagraphMenuItem />,
+			component: createParagraphBlockMenuItem({ api }),
 		},
 		{
 			type: 'block-menu-item',
@@ -98,7 +101,7 @@ export const getBlockTypeComponents = (): RegisterBlockMenuComponent[] => {
 				key: 'nested-menu-format-section-primary',
 				rank: FORMAT_NESTED_MENU_RANK[FORMAT_QUOTE_MENU_ITEM.key],
 			},
-			component: () => <QuoteMenuItem />,
+			component: createQuoteBlockMenuItem({ api }),
 		},
 	];
 };

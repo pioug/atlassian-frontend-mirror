@@ -14,7 +14,7 @@ export type ToolbarComponentType =
 
 export type ToolbarComponentTypes = Array<ToolbarComponentType>;
 
-type CommonComponentProps = {
+export type CommonComponentProps = {
 	/**
 	 * Array of parent information including both keys and types
 	 * Ordered from immediate parent to root parent

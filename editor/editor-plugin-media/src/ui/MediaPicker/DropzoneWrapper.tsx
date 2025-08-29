@@ -2,8 +2,6 @@ import React from 'react';
 
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -38,19 +36,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['media'], selector);
-	},
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const { mediaState } = useSharedPluginState(api, ['media']);
-		return {
-			options: mediaState?.options,
-			handleDrag: mediaState?.handleDrag,
-		};
-	},
-);
-
 type DropzoneWrapperInternalProps = Props & {
 	config: DropzoneConfig;
 	mediaClientConfig: MediaClientConfig;
@@ -67,7 +52,7 @@ const DropzoneWrapperInternal = ({
 	config,
 	pickerFacadeInstance,
 }: DropzoneWrapperInternalProps) => {
-	const { options, handleDrag } = useSharedState(api);
+	const { options, handleDrag } = useSharedPluginStateWithSelector(api, ['media'], selector);
 	const { customDropzoneContainer } = options || {};
 
 	// Ignored via go/ees005

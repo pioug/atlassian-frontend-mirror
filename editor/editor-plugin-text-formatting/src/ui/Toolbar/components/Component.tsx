@@ -11,7 +11,7 @@ import {
 	tooltip,
 } from '@atlaskit/editor-common/keymaps';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
+import { getInputMethodFromParentKeys, TEXT_COLLAPSED_MENU } from '@atlaskit/editor-common/toolbar';
 import {
 	ToolbarButton,
 	ToolbarDropdownItem,
@@ -20,7 +20,9 @@ import {
 	ToolbarDropdownMenu,
 	MoreItemsIcon,
 	ToolbarTooltip,
+	ToolbarDropdownItemSection,
 } from '@atlaskit/editor-toolbar';
+import type { CommonComponentProps } from '@atlaskit/editor-toolbar-model';
 
 import { clearFormattingWithAnalyticsNext } from '../../../editor-commands/clear-formatting';
 
@@ -149,5 +151,23 @@ export const MoreFormattingMenu = ({ children }: { children?: ReactNode }) => {
 		>
 			{children}
 		</ToolbarDropdownMenu>
+	);
+};
+
+export const MenuSection = ({
+	children,
+	title,
+	parents,
+}: {
+	children?: ReactNode;
+	parents: CommonComponentProps['parents'];
+	title?: string;
+}) => {
+	const hasSeparator = parents.some((parent) => parent.key === TEXT_COLLAPSED_MENU.key);
+
+	return (
+		<ToolbarDropdownItemSection hasSeparator={hasSeparator} title={title}>
+			{children}
+		</ToolbarDropdownItemSection>
 	);
 };

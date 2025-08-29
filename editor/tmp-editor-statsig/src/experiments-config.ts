@@ -664,6 +664,15 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-08-27
+	platform_editor_toolbar_aifc_responsive: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_aifc_responsive',
+			jira: 'platform_editor_toolbar_aifc_responsive',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-30
 	platform_editor_pasting_nested_table_fix: createBooleanExperiment({
 		productKeys: {

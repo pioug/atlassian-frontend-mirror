@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
 
+import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 interface ToolbarDropdownMenuContextValue {
 	closeMenu: () => void;
 	isOpen: boolean;
@@ -10,13 +13,23 @@ const ToolbarDropdownMenuContext = createContext<ToolbarDropdownMenuContextValue
 	undefined,
 );
 
-export const useToolbarDropdownMenu = () => {
+export const useToolbarDropdownMenuOld = () => {
 	const context = useContext(ToolbarDropdownMenuContext);
 	if (!context) {
 		throw new Error('useToolbarDropdownMenu must be used within ToolbarDropdownMenuProvider');
 	}
 	return context;
 };
+
+export const useToolbarDropdownMenuNew = () => {
+	return useContext(ToolbarDropdownMenuContext);
+};
+
+export const useToolbarDropdownMenu = conditionalHooksFactory(
+	() => expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true),
+	useToolbarDropdownMenuNew,
+	useToolbarDropdownMenuOld,
+);
 
 interface ToolbarDropdownMenuProviderProps {
 	children: React.ReactNode;

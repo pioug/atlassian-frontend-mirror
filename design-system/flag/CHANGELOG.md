@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 17.3.4
+
+### Patch Changes
+
+- [`de6195f7484ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de6195f7484ce) -
+  Update prop descriptions to reduce confusion
+
 ## 17.3.3
 
 ### Patch Changes

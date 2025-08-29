@@ -1,5 +1,43 @@
 # @atlaskit/editor-common
 
+## 107.35.0
+
+### Minor Changes
+
+- [`bfd653291c561`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfd653291c561) -
+  [ux] ED-29018 Register taskList dropdown item and add menu item keys
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.34.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.34.0
+
+### Minor Changes
+
+- [`51f3f2db61f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51f3f2db61f6e) -
+  Add ranks and keys for new collapsed text section component, add responsive container to
+  PrimaryToolbar export with new query selectors to hide empty elements, export types
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.33.2
+
+### Patch Changes
+
+- [`bfec478c9e91b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfec478c9e91b) -
+  Splits platform_editor_preview_panel_linking_exp into one for Jira and one for Confluence and
+  switches to editorExperiment util.
+- Updated dependencies
+
 ## 107.33.1
 
 ### Patch Changes

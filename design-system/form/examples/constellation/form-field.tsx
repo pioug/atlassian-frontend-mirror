@@ -8,12 +8,6 @@ import Form, { Field, FormFooter } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 
-const UsernameField = () => (
-	<Field aria-required={true} name="username" defaultValue="" label="Username" isRequired>
-		{({ fieldProps, error, valid }) => <TextField {...fieldProps} />}
-	</Field>
-);
-
 const styles = cssMap({
 	flex: {
 		width: '400px',
@@ -24,17 +18,12 @@ const styles = cssMap({
 
 const FormFieldExample = () => (
 	<Flex xcss={styles.flex} direction="column">
-		<Form<{ username: string }>
-			onSubmit={(data) => {
-				console.log('form data', data);
-				return new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
-					data.username === 'error' ? { username: 'IN_USE' } : undefined,
-				);
-			}}
-		>
+		<Form onSubmit={(data) => console.log('form data', data)}>
 			{({ formProps, submitting }) => (
 				<form {...formProps}>
-					<UsernameField />
+					<Field aria-required={true} name="username" defaultValue="" label="Username" isRequired>
+						{({ fieldProps }) => <TextField {...fieldProps} />}
+					</Field>
 					<FormFooter>
 						<ButtonGroup label="Form submit options">
 							<Button appearance="subtle">Cancel</Button>

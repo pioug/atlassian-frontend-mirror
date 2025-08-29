@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 14.3.6
+
+### Patch Changes
+
+- [`cd70a377d007c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd70a377d007c) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 14.3.5
 
 ### Patch Changes

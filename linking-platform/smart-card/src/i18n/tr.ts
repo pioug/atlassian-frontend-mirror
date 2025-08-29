@@ -130,6 +130,8 @@ export default {
   'fabric.linking.preview_improved': 'Önizlemeyi aç',
   'fabric.linking.preview_max_size': 'Tam ekran görüntüle',
   'fabric.linking.preview_min_size': 'Tam ekranı kapat',
+  'fabric.linking.preview_modal': 'Önizleme kalıcı penceresini aç',
+  'fabric.linking.preview_panel': 'Önizleme panelini aç',
   'fabric.linking.priority_blocker': 'Engelleyici',
   'fabric.linking.priority_critical': 'Çok önemli',
   'fabric.linking.priority_high': 'Yüksek',

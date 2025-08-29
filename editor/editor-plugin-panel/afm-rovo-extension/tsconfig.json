@@ -29,13 +29,22 @@
 			"path": "../../editor-plugin-analytics/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-block-menu/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-decorations/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-emoji/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-selection/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-shared-styles/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../../elements/emoji/afm-rovo-extension/tsconfig.json"

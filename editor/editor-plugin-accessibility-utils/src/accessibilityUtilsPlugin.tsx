@@ -1,10 +1,6 @@
 import React from 'react';
 
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
@@ -86,38 +82,22 @@ export const accessibilityUtilsPlugin: AccessibilityUtilsPlugin = ({ api }) => {
 	};
 };
 
-const useAccessibilityUtilsPluginState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<AccessibilityUtilsPlugin> | undefined) => {
-		const { ariaLiveElementAttributes, key, message } = useSharedPluginStateWithSelector(
-			api,
-			['accessibilityUtils'],
-			(states) => {
-				return {
-					ariaLiveElementAttributes: states.accessibilityUtilsState?.ariaLiveElementAttributes,
-					key: states.accessibilityUtilsState?.key,
-					message: states.accessibilityUtilsState?.message,
-				};
-			},
-		);
-
-		return { ariaLiveElementAttributes, key, message };
-	},
-	(api: ExtractInjectionAPI<AccessibilityUtilsPlugin> | undefined) => {
-		const { accessibilityUtilsState } = useSharedPluginState(api, ['accessibilityUtils']);
-		return {
-			ariaLiveElementAttributes: accessibilityUtilsState?.ariaLiveElementAttributes,
-			key: accessibilityUtilsState?.key,
-			message: accessibilityUtilsState?.message,
-		};
-	},
-);
-
 function ContentComponent({
 	api,
 }: {
 	api: ExtractInjectionAPI<AccessibilityUtilsPlugin> | undefined;
 }) {
-	const { ariaLiveElementAttributes, key, message } = useAccessibilityUtilsPluginState(api);
+	const { ariaLiveElementAttributes, key, message } = useSharedPluginStateWithSelector(
+		api,
+		['accessibilityUtils'],
+		(states) => {
+			return {
+				ariaLiveElementAttributes: states.accessibilityUtilsState?.ariaLiveElementAttributes,
+				key: states.accessibilityUtilsState?.key,
+				message: states.accessibilityUtilsState?.message,
+			};
+		},
+	);
 	const role = ariaLiveElementAttributes?.priority === 'important' ? 'alert' : 'status';
 
 	return (

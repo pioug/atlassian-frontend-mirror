@@ -37,6 +37,8 @@ export default {
   'feedback-collector.success-flag.description': 'Ваші відгуки допомагають нам постійно покращувати продукти.',
   'feedback-collector.success-flag.title': 'Дякую!',
   'feedback-collector.summary-placeholder': 'Поділіться враженнями',
+  'feedback-collector.validation.description.required': 'Надайте опис',
+  'feedback-collector.validation.type.required': 'Виберіть тип відгуку',
   'proforma-form-builder.feedback-icon-label': 'Залишити відгук',
   'proforma-form-builder.give-feedback': 'Залишити відгук',
 };

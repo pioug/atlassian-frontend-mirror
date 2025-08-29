@@ -38,6 +38,8 @@ export default {
     'Değerli geri bildirimleriniz, ürünlerimizi sürekli olarak iyileştirmemize yardımcı oluyor.',
   'feedback-collector.success-flag.title': 'Teşekkür ederiz!',
   'feedback-collector.summary-placeholder': 'Fikirlerinizi bizimle paylaşın',
+  'feedback-collector.validation.description.required': 'Lütfen bir açıklama sağlayın',
+  'feedback-collector.validation.type.required': 'Lütfen bir geri bildirim türü seçin',
   'proforma-form-builder.feedback-icon-label': 'Geri bildirim',
   'proforma-form-builder.give-feedback': 'Geri bildirim verin',
 };

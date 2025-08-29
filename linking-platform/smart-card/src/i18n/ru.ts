@@ -130,6 +130,8 @@ export default {
   'fabric.linking.preview_improved': 'Открыть предпросмотр',
   'fabric.linking.preview_max_size': 'На весь экран',
   'fabric.linking.preview_min_size': 'Выйти из полноэкранного режима',
+  'fabric.linking.preview_modal': 'Открыть окно предпросмотра',
+  'fabric.linking.preview_panel': 'Открыть панель предпросмотра',
   'fabric.linking.priority_blocker': 'Блокер',
   'fabric.linking.priority_critical': 'Критический',
   'fabric.linking.priority_high': 'Высокий',

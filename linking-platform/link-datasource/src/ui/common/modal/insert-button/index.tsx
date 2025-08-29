@@ -7,7 +7,7 @@ import { type DatasourceParameters } from '@atlaskit/linking-types';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
 import { DatasourceDisplay, DatasourceSearchMethod } from '../../../../analytics/types';
-import { buildDatasourceAdf } from '../../../../common/utils/adf';
+import { buildDatasourceAdf } from '../../../../common/utils/schema-utils';
 import { useUserInteractions } from '../../../../contexts/user-interactions';
 import { useDatasourceContext } from '../datasource-context';
 import { useViewModeContext } from '../mode-switcher/useViewModeContext';

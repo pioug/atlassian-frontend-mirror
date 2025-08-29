@@ -129,6 +129,8 @@ export default {
   'fabric.linking.preview_improved': 'Отвори преглед',
   'fabric.linking.preview_max_size': 'Прикажи преко целог екрана',
   'fabric.linking.preview_min_size': 'Затвори приказ преко целог екрана',
+  'fabric.linking.preview_modal': 'Отворите прозор за преглед',
+  'fabric.linking.preview_panel': 'Отвори панел за преглед',
   'fabric.linking.priority_blocker': 'Блокиран',
   'fabric.linking.priority_critical': 'Критичан',
   'fabric.linking.priority_high': 'Висок',

@@ -37,6 +37,8 @@ export default {
   'feedback-collector.success-flag.description': 'Vaše cenná zpětná vazba nám pomáhá neustále zlepšovat naše produkty.',
   'feedback-collector.success-flag.title': 'Díky!',
   'feedback-collector.summary-placeholder': 'Dejte nám vědět, co si myslíte',
+  'feedback-collector.validation.description.required': 'Zadejte popis',
+  'feedback-collector.validation.type.required': 'Vyberte typ zpětné vazby',
   'proforma-form-builder.feedback-icon-label': 'Zpětná vazba',
   'proforma-form-builder.give-feedback': 'Poskytnout zpětnou vazbu',
 };

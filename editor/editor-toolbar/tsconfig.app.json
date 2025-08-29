@@ -50,6 +50,9 @@
 			"path": "../../design-system/menu/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-react/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/popup/tsconfig.app.json"
 		},
 		{

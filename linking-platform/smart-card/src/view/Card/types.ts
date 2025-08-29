@@ -3,6 +3,7 @@ import { type CardPlatform } from '@atlaskit/link-extractors';
 import { type CardAppearance } from '@atlaskit/linking-common';
 
 import { type FrameStyle } from '../EmbedCard/types';
+import type { EmbedModalSize } from '../EmbedModal/types';
 import { type FlexibleUiOptions } from '../FlexibleCard/types';
 import { type HoverPreviewOptions } from '../HoverCard/types';
 import { type InlinePreloaderStyle, type OnErrorCallback } from '../types';
@@ -29,7 +30,25 @@ export enum CardAction {
 	AutomationAction = 'AutomationAction',
 }
 
-export type CardActionOptions =
+/**
+ * A CardActionOptions object contains the configuration for the actions available on the card.
+ */
+export type CardActionOptions = CardActionVisibilityOptions & {
+	/**
+	 * Contains configuration for the preview action.
+	 */
+	previewAction?: {
+		/**
+		 * Determines the size of the preview modal when the preview action is clicked.
+		 */
+		size?: EmbedModalSize;
+	};
+};
+
+/**
+ * Determines which actions are visible on the card.
+ */
+export type CardActionVisibilityOptions =
 	| {
 			hide: true;
 	  }

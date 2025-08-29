@@ -98,7 +98,9 @@ export interface PopupComponentProps {
 	tabIndex: number | undefined;
 
 	/**
-	 * The root element where the popup should be rendered.
+	 * Controls whether the popup is rendered inline within its parent component or in a portal at the document root.
+	 * `true` renders the popup in the DOM node closest to the trigger; focus is not trapped inside the element.
+	 * `false` renders the popup in React.Portal and focus is trapped inside the element.
 	 * The default is `false`.
 	 */
 	shouldRenderToParent?: boolean;

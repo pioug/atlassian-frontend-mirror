@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.5.4
+
+### Patch Changes
+
+- [`f438ecb761bb1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f438ecb761bb1) -
+  Move check for initial page load earlier for React hydration stats
+
 ## 4.5.3
 
 ### Patch Changes

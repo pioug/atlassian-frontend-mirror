@@ -20,7 +20,7 @@ type AgentActionsProps = {
 	onCopyAgent: () => void;
 	onDuplicateAgent: () => void;
 	onDeleteAgent: () => void;
-	onChatClick: () => void;
+	onChatClick: (event: React.MouseEvent) => void;
 	onViewFullProfileClick: () => void;
 	resourceClient: ProfileClient;
 };
@@ -108,9 +108,9 @@ export const AgentActions = ({
 				<Box xcss={chatToAgentButtonContainer}>
 					<Button
 						shouldFitContainer
-						onClick={(e) => {
+						onClick={(e: React.MouseEvent) => {
 							e.stopPropagation();
-							onChatClick();
+							onChatClick(e);
 						}}
 					>
 						<Box xcss={chatToAgentButtonWrapper}>

@@ -37,6 +37,8 @@ export default {
   'feedback-collector.success-flag.description': 'Din feedback hjælper os med at forbedre vores produkter.',
   'feedback-collector.success-flag.title': 'Tak!',
   'feedback-collector.summary-placeholder': 'Fortæl os, hvad du har på hjerte',
+  'feedback-collector.validation.description.required': 'Angiv en beskrivelse',
+  'feedback-collector.validation.type.required': 'Vælg en feedbacktype',
   'proforma-form-builder.feedback-icon-label': 'Feedback',
   'proforma-form-builder.give-feedback': 'Giv feedback',
 };

@@ -37,6 +37,8 @@ export default {
   'feedback-collector.success-flag.description': '소중한 피드백은 Atlassian의 제품을 개선하는 데 도움이 됩니다.',
   'feedback-collector.success-flag.title': '감사합니다!',
   'feedback-collector.summary-placeholder': '의견을 알려주세요',
+  'feedback-collector.validation.description.required': '설명을 제공하세요',
+  'feedback-collector.validation.type.required': '피드백 유형을 선택하세요',
   'proforma-form-builder.feedback-icon-label': '피드백',
   'proforma-form-builder.give-feedback': '피드백 보내기',
 };

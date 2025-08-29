@@ -8,9 +8,12 @@ import {
 	TEXT_STYLES_GROUP_RANK,
 	TEXT_STYLES_MENU_SECTION,
 	TEXT_STYLES_MENU_RANK,
+	TEXT_COLLAPSED_MENU_RANK,
+	TEXT_COLLAPSED_MENU,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';
 import { toolbarBlockTypesWithRank } from '../block-types';
@@ -57,6 +60,15 @@ export const getToolbarComponents = (
 					key: TEXT_STYLES_MENU.key,
 					rank: TEXT_STYLES_MENU_RANK[TEXT_STYLES_MENU_SECTION.key],
 				},
+				...(expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
+					? [
+							{
+								type: TEXT_COLLAPSED_MENU.type,
+								key: TEXT_COLLAPSED_MENU.key,
+								rank: TEXT_COLLAPSED_MENU_RANK[TEXT_STYLES_MENU_SECTION.key],
+							},
+						]
+					: []),
 			],
 		},
 	];

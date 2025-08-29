@@ -127,6 +127,8 @@ export default {
   'fabric.linking.preview_improved': '미리보기 열기',
   'fabric.linking.preview_max_size': '전체 화면 보기',
   'fabric.linking.preview_min_size': '전체 화면 닫기',
+  'fabric.linking.preview_modal': '미리 보기 모달 열기',
+  'fabric.linking.preview_panel': '미리 보기 패널 열기',
   'fabric.linking.priority_blocker': '블로커',
   'fabric.linking.priority_critical': '중요',
   'fabric.linking.priority_high': '높음',

@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 16.3.7
+
+### Patch Changes
+
+- [`de6195f7484ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de6195f7484ce) -
+  Update prop descriptions to reduce confusion
+- Updated dependencies
+
 ## 16.3.6
 
 ### Patch Changes

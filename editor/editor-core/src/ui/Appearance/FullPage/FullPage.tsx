@@ -9,23 +9,13 @@ import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { browser } from '@atlaskit/editor-common/browser';
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import type {
-	EditorViewModePlugin,
-	EditorViewModePluginState,
-} from '@atlaskit/editor-plugins/editor-viewmode';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { InteractionPlugin } from '@atlaskit/editor-plugins/interaction';
-import type {
-	PrimaryToolbarPlugin,
-	PrimaryToolbarPluginState,
-} from '@atlaskit/editor-plugins/primary-toolbar';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { FULL_PAGE_EDITOR_TOOLBAR_HEIGHT } from '@atlaskit/editor-shared-styles';
@@ -105,68 +95,27 @@ const hasCustomComponents = (components?: PrimaryToolbarComponents) => {
 	return true;
 };
 
-const useFullPageEditorPluginsStates = sharedPluginStateHookMigratorFactory<
-	{
-		editorViewModeState: Pick<EditorViewModePluginState, 'mode'> | undefined | null;
-		interactionState: 'hasNotHadInteraction' | null | undefined;
-		primaryToolbarState: PrimaryToolbarPluginState | undefined;
-	},
-	| PublicPluginAPI<
-			[
-				OptionalPlugin<EditorViewModePlugin>,
-				OptionalPlugin<PrimaryToolbarPlugin>,
-				OptionalPlugin<InteractionPlugin>,
-			]
-	  >
-	| undefined
->(
-	(pluginInjectionApi) => {
-		const { interactionState, primaryToolbarComponents, editorViewMode } =
-			useSharedPluginStateWithSelector(
-				pluginInjectionApi,
-				['primaryToolbar', 'interaction', 'editorViewMode'],
-				(states) => ({
-					primaryToolbarComponents: states.primaryToolbarState?.components,
-					interactionState: states.interactionState?.interactionState,
-					editorViewMode: states.editorViewModeState?.mode,
-				}),
-			);
-
-		return {
-			primaryToolbarState: !primaryToolbarComponents
-				? undefined
-				: { components: primaryToolbarComponents },
-			editorViewModeState: !editorViewMode ? undefined : { mode: editorViewMode },
-			interactionState,
-		};
-	},
-	(pluginInjectionApi) => {
-		const sharedState = useSharedPluginState(pluginInjectionApi, [
-			'editorViewMode',
-			'primaryToolbar',
-			'interaction',
-		]);
-		return {
-			primaryToolbarState: sharedState?.primaryToolbarState,
-			editorViewModeState: sharedState?.editorViewModeState,
-			interactionState: sharedState?.interactionState?.interactionState,
-		};
-	},
-);
-
 export const FullPageEditor = (props: ComponentProps) => {
 	const wrapperElementRef = useMemo(() => props.innerRef, [props.innerRef]);
 	const scrollContentContainerRef = useRef<ScrollContainerRefs | null>(null);
 	const showKeyline = useShowKeyline(scrollContentContainerRef);
 	const editorAPI = props.editorAPI;
-	const {
-		editorViewModeState,
-		primaryToolbarState: primaryToolbarHookState,
-		interactionState,
-	} = useFullPageEditorPluginsStates(editorAPI);
+
+	const state = useSharedPluginStateWithSelector(
+		editorAPI,
+		['primaryToolbar', 'interaction', 'editorViewMode'],
+		(states) => ({
+			primaryToolbarComponents: states.primaryToolbarState?.components,
+			interactionState: states.interactionState?.interactionState,
+			editorViewMode: states.editorViewModeState?.mode,
+		}),
+	);
+
+	const interactionState = state.interactionState;
+
 	const primaryToolbarState = getPrimaryToolbarComponents(
 		editorAPI,
-		primaryToolbarHookState?.components,
+		state.primaryToolbarComponents,
 	);
 
 	const hasHadInteraction = interactionState !== 'hasNotHadInteraction';
@@ -208,7 +157,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 		primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
 	}
 
-	let isEditorToolbarHidden = editorViewModeState?.mode === 'view';
+	let isEditorToolbarHidden = state.editorViewMode === 'view';
 
 	const { customPrimaryToolbarComponents } = props;
 
@@ -317,7 +266,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 					pluginHooks={props.pluginHooks}
 					featureFlags={props.featureFlags}
 					isEditorToolbarHidden={isEditorToolbarHidden}
-					viewMode={editorViewModeState?.mode}
+					viewMode={state.editorViewMode}
 					hasHadInteraction={hasHadInteraction}
 				/>
 			</div>

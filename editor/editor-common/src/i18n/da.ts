@@ -51,6 +51,8 @@ export default {
     'Titlen må højst indeholde {maxLength} tegn',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'Fortsæt i chat',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'Åbn i chat',
+  'fabric.editor.ai.config.item.addPolish.description': 'Finpudser indholdet for at få det til at fremstå klarere',
+  'fabric.editor.ai.config.item.addPolish.title': 'Tilføj finpudsning',
   'fabric.editor.ai.config.item.agent.title': 'Atlassian Intelligence Rovo-medarbejder',
   'fabric.editor.ai.config.item.atlas-shorten-update.description':
     'Forkorter indholdet for at gøre det mere kortfattet',
@@ -196,6 +198,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'Oversæt',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'Sidetitel',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'Side',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    'Vi har problemer og kan ikke generere et svar lige nu. Prøv igen senere.',
   'fabric.editor.ai.experience-application.documentInsertError':
     'Vi har problemer med at indsætte svaret. Luk dialogboksen, og prøv igen.',
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -209,8 +213,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     'Din prompt eller dit indhold overholder muligvis ikke vores politik for acceptabel brug. Gennemgå begge dele, og se vores <link>politik for acceptabel brug</link>, hvis det er nødvendigt. Hvis problemet fortsætter, kan du overveje at prøve en anden prompt eller et andet indhold.',
   'fabric.editor.ai.experience.browseMore.agents': 'Gennemse agenter',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'Der opstod en fejl ved generering af dit svar.',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    'Vi kunne ikke fuldføre anmodningen, fordi den ikke overholder vores <link>politik for acceptabel brug</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Vil du kassere din prompt?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Vil du kassere dit svar?',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Slet svar?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError': 'Fri generering er deaktiveret i Elevate i øjeblikket.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Nu kan du indsætte links 🔗 til Jira- og Confluence-indhold i dine prompter.',
@@ -255,6 +263,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'Spørg AI',
   'fabric.editor.ai.toolbar.askRovo.title': 'Spørg Rovo',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "Spørg Rovo {key}+'",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': 'Spørg Rovo AI',
   'fabric.editor.ai.toolbar.changeTone.title': 'Skift tone',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'Skift indstillinger for tone',
@@ -289,6 +298,7 @@ export default {
   'fabric.editor.annotationToolbar': 'Værktøjslinje til annotationer',
   'fabric.editor.backLink': 'Gå tilbage',
   'fabric.editor.backgroundColor': 'Baggrundsfarve',
+  'fabric.editor.block.menu.copy.link': 'Kopiér link',
   'fabric.editor.blockCardUnavailable': 'Det indbyggede link er inden i {node}, og dets visning kan ikke ændres',
   'fabric.editor.blockControlDelete': 'Slet',
   'fabric.editor.blockControlDragHandleMove': 'Træk for at flytte',
@@ -313,6 +323,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': 'Fuld bredde',
   'fabric.editor.breakoutWideWidthLabel': 'Bredt',
   'fabric.editor.bug': 'Fejl',
+  'fabric.editor.bulletedList': 'Punktliste',
   'fabric.editor.canNotSortTable': '⚠️ En tabel med flettede celler kan ikke sorteres',
   'fabric.editor.cancelButton': 'Annullér',
   'fabric.editor.captionPlaceholder': 'Tilføj en billedtekst',
@@ -384,9 +395,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Du kan kun kommentere tekst, overskrifter, emojier, datoer, omtaler, links og statusser.',
   'fabric.editor.createCommentInvalid': 'Du kan kun kommentere tekst og overskrifter',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Forstået',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'Nu kan du oprette kommentarer til indlejrede elementer som links, datoer, statusser og omtaler.',
   'fabric.editor.customPanel': 'Brugerdefineret panel',
   'fabric.editor.customPanel.description': 'Tilføj en note med en emoji og farvet baggrund',
   'fabric.editor.datasource.assetsObjects.description':
@@ -672,6 +680,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': 'Spørg AI',
   'fabric.editor.navigate.toolbar.editor': 'Naviger til værktøjslinje til redigeringsprogram',
   'fabric.editor.navigate.toolbar.floating': 'Naviger til flydende værktøjslinje',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {Du har ikke tilladelse til at føje kommentarer til dette blogindlæg} page {Du har ikke tilladelse til at føje kommentarer til denne side} other {Du har ikke tilladelse til at føje kommentarer til denne side}}',
   'fabric.editor.noResultsFound': 'Ingen resultater',
   'fabric.editor.noSearchResults': 'Ingen søgeresultater',
   'fabric.editor.normal': 'Normal tekst',
@@ -684,6 +694,7 @@ export default {
   'fabric.editor.openButtonTitle': 'Åbn',
   'fabric.editor.openCellOptions': 'Åbn celleegenskaber',
   'fabric.editor.openLink': 'Åbn link i en nye fane',
+  'fabric.editor.openPreviewPanel': 'Åbn forhåndsvisningspanel',
   'fabric.editor.orderedList': 'Nummereret liste',
   'fabric.editor.orderedList.description': 'Opret en sorteret liste',
   'fabric.editor.other': 'Andet …',
@@ -704,6 +715,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Tilføj midlertidig tekst',
   'fabric.editor.plainText': 'Brug almindelig tekst',
   'fabric.editor.preferencesLink': 'Indstillinger for links',
+  'fabric.editor.previewButtonTitle': 'Forhåndsvis',
   'fabric.editor.quickInsert': 'Hurtig indsætning',
   'fabric.editor.recordLoomShortTitle': 'Optag',
   'fabric.editor.recordVideo': 'Optag en Loom-video',
@@ -743,6 +755,7 @@ export default {
   'fabric.editor.selectTableColumn': 'Vælg tabelkolonne',
   'fabric.editor.selectTableRow': 'Vælg tabelrække',
   'fabric.editor.selectionExtensionDropdownButtonLabel': 'Vælg app',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'Flere indstillinger',
   'fabric.editor.settingsLinks': 'Gå til Indstillinger for links',
   'fabric.editor.shortEmptyNodePlaceholderText': '/ for at indsætte',
   'fabric.editor.shortcut': 'Genvej til tekst',
@@ -827,6 +840,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'På linje med tekst',
   'fabric.editor.toolbarPositionPinedAtTop': 'Frigør værktøjslinjen',
   'fabric.editor.toolbarPositionUnpined': 'Fastgør værktøjslinjen foroven',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'Fastgør værktøjslinjen til toppen',
   'fabric.editor.tooltip.blockPanel': 'et panel',
   'fabric.editor.tooltip.bulletList': 'en liste',
   'fabric.editor.tooltip.decisionList': 'en beslutningsliste',

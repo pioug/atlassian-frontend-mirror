@@ -7,8 +7,6 @@ import type { AnnotationMarkDefinition } from '@atlaskit/adf-schema';
 import { VIEW_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import {
@@ -45,20 +43,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['annotation'], selector);
-	},
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const { annotationState } = useSharedPluginState(api, ['annotation']);
-		return {
-			selectedAnnotations: annotationState?.selectedAnnotations,
-			isInlineCommentViewClosed: annotationState?.isInlineCommentViewClosed,
-			annotations: annotationState?.annotations,
-		};
-	},
-);
-
 const CommentBadgeWrapper = ({
 	api,
 	mediaNode,
@@ -68,7 +52,8 @@ const CommentBadgeWrapper = ({
 	isDrafting,
 	badgeOffsetRight,
 }: CommentBadgeProps) => {
-	const { selectedAnnotations, isInlineCommentViewClosed, annotations } = useSharedState(api);
+	const { selectedAnnotations, isInlineCommentViewClosed, annotations } =
+		useSharedPluginStateWithSelector(api, ['annotation'], selector);
 	const [entered, setEntered] = useState(false);
 
 	const {
@@ -169,7 +154,8 @@ export const CommentBadgeNextWrapper = ({
 	isDrafting,
 }: CommentBadgeNextWrapperProps) => {
 	const [entered, setEntered] = useState(false);
-	const { selectedAnnotations, isInlineCommentViewClosed, annotations } = useSharedState(api);
+	const { selectedAnnotations, isInlineCommentViewClosed, annotations } =
+		useSharedPluginStateWithSelector(api, ['annotation'], selector);
 
 	const {
 		state: {

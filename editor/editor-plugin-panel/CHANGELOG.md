@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-panel
 
+## 5.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.4.4
+
+### Patch Changes
+
+- [`4a22b35e24a16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a22b35e24a16) -
+  [ux] Adds panel to the block menu.
+- Updated dependencies
+
 ## 5.4.3
 
 ### Patch Changes

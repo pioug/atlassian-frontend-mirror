@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-type
 
+## 6.2.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.16
+
+### Patch Changes
+
+- [`51f3f2db61f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51f3f2db61f6e) -
+  Update toolbar config across plugins
+- [`13f464399d1cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13f464399d1cc) -
+  PR to cleanup platform_editor_usesharedpluginstatewithselector for block-type
+- Updated dependencies
+
 ## 6.2.15
 
 ### Patch Changes

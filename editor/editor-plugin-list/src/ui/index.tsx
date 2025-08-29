@@ -1,16 +1,19 @@
-import React from 'react';
-
 import {
 	FORMAT_BULLETED_LIST_MENU_ITEM,
 	FORMAT_NESTED_MENU_RANK,
 	FORMAT_NUMBERED_LIST_MENU_ITEM,
 } from '@atlaskit/editor-common/block-menu';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu';
 
-import { BulletedListMenuItem } from './BulletedListMenuItem';
-import { NumberedListMenuItem } from './NumberedListMenuItem';
+import type { ListPlugin } from '../listPluginType';
 
-export const getListComponents = (): RegisterBlockMenuComponent[] => {
+import { createBulletedListBlockMenuItem } from './BulletedListBlockMenuItem';
+import { createNumberedListBlockMenuItem } from './NumberedListBlockMenuItem';
+
+export const getListComponents = (
+	api: ExtractInjectionAPI<ListPlugin> | undefined,
+): RegisterBlockMenuComponent[] => {
 	return [
 		{
 			type: 'block-menu-item',
@@ -20,7 +23,7 @@ export const getListComponents = (): RegisterBlockMenuComponent[] => {
 				key: 'nested-menu-format-section-primary',
 				rank: FORMAT_NESTED_MENU_RANK[FORMAT_BULLETED_LIST_MENU_ITEM.key],
 			},
-			component: () => <BulletedListMenuItem />,
+			component: createBulletedListBlockMenuItem({ api }),
 		},
 		{
 			type: 'block-menu-item',
@@ -30,7 +33,7 @@ export const getListComponents = (): RegisterBlockMenuComponent[] => {
 				key: 'nested-menu-format-section-primary',
 				rank: FORMAT_NESTED_MENU_RANK[FORMAT_NUMBERED_LIST_MENU_ITEM.key],
 			},
-			component: () => <NumberedListMenuItem />,
+			component: createNumberedListBlockMenuItem({ api }),
 		},
 	];
 };

@@ -32,7 +32,13 @@
 			"path": "../../editor-plugin-block-menu/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-list/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-primary-toolbar/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-selection-toolbar/afm-post-office/tsconfig.json"

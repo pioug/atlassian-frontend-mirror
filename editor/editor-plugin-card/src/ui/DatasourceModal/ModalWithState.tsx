@@ -2,8 +2,6 @@ import React from 'react';
 
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { DatasourceModalType, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -20,7 +18,6 @@ import type { ConfigModalProps } from '@atlaskit/link-datasource';
 import { EditorSmartCardProviderValueGuard, useSmartLinkContext } from '@atlaskit/link-provider';
 import type { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common';
 import type { DatasourceParameters } from '@atlaskit/linking-types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { cardPlugin } from '../../cardPlugin';
 import { DatasourceErrorBoundary } from '../datasourceErrorBoundary';
@@ -36,35 +33,18 @@ const selector = (
 	states: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<typeof cardPlugin>, 'card'>,
 ) => {
 	return {
-		cardState: undefined,
 		showDatasourceModal: states.cardState?.showDatasourceModal,
 		datasourceModalType: states.cardState?.datasourceModalType,
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(pluginInjectionApi, ['card'], selector);
-	},
-	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		const { cardState } = useSharedPluginState(pluginInjectionApi, ['card']);
-		return {
-			cardState,
-			showDatasourceModal: cardState?.showDatasourceModal,
-			datasourceModalType: cardState?.datasourceModalType,
-		};
-	},
-);
-
 const ModalWithState = ({ api, editorView }: ModalWithStateProps) => {
 	const cardContext = useSmartLinkContext();
-	const { cardState, showDatasourceModal, datasourceModalType } = useSharedState(api);
-	if (
-		!cardState &&
-		expValEquals('platform_editor_usesharedpluginstatewithselector', 'isEnabled', false)
-	) {
-		return null;
-	}
+	const { showDatasourceModal, datasourceModalType } = useSharedPluginStateWithSelector(
+		api,
+		['card'],
+		selector,
+	);
 
 	if (!showDatasourceModal || !datasourceModalType) {
 		return null;

@@ -51,7 +51,9 @@ export class NodeViewSerializer {
 		if (params?.editorView) {
 			this.init({ editorView: params.editorView });
 		}
-		this.nodeViewBlocklist = new Set(params.blocklist ?? ['tableRow', 'table', 'paragraph']);
+		this.nodeViewBlocklist = new Set(
+			params.blocklist ?? ['table', 'tableRow', 'tableHeader', 'tableCell', 'paragraph'],
+		);
 	}
 
 	/**
@@ -108,5 +110,22 @@ export class NodeViewSerializer {
 			throw new Error('NodeViewSerializer must be initialized with init() before use');
 		}
 		return this.serializer.serializeFragment(fragment);
+	}
+
+	/**
+	 * Returns a copy of the current node view blocklist.
+	 */
+	getNodeViewBlocklist(): Set<string> {
+		return new Set(this.nodeViewBlocklist);
+	}
+
+	/**
+	 * Returns a filtered copy of the node view blocklist, excluding specified node types.
+	 * @param excludeTypes - Array of node type names to exclude from the blocklist
+	 */
+	getFilteredNodeViewBlocklist(excludeTypes: string[]): Set<string> {
+		const filtered = new Set(this.nodeViewBlocklist);
+		excludeTypes.forEach((type) => filtered.delete(type));
+		return filtered;
 	}
 }

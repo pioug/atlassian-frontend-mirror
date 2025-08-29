@@ -14,7 +14,6 @@ import {
 } from 'react';
 
 import { type FieldState } from 'final-form';
-import invariant from 'tiny-invariant';
 
 import { css, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
@@ -235,17 +234,6 @@ export default function Field<
 	const latestStateRef = usePreviousRef(state);
 
 	useEffect(() => {
-		if (
-			typeof process !== 'undefined' &&
-			process.env.NODE_ENV !== 'production' &&
-			!process.env.CI
-		) {
-			invariant(
-				latestPropsRef.current.name,
-				'@atlaskit/form: Field components have a required name prop',
-			);
-		}
-
 		function fieldStateToMeta(value: Partial<FieldState<FieldValue>> = {}): Meta {
 			return {
 				dirty: value.dirty || false,

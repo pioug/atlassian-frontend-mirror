@@ -38,6 +38,8 @@ export default {
     'Ý kiến phản hồi quý báu của bạn giúp chúng tôi liên tục cải tiến sản phẩm.',
   'feedback-collector.success-flag.title': 'Cảm ơn bạn!',
   'feedback-collector.summary-placeholder': 'Hãy cho chúng tôi biết suy nghĩ của bạn',
+  'feedback-collector.validation.description.required': 'Vui lòng cung cấp mô tả',
+  'feedback-collector.validation.type.required': 'Vui lòng chọn loại phản hồi',
   'proforma-form-builder.feedback-icon-label': 'Phản hồi',
   'proforma-form-builder.give-feedback': 'Đưa ra phản hồi',
 };

@@ -38,6 +38,8 @@ export default {
     'Wartościowe opinie użytkowników pomagają nam stale doskonalić nasze produkty.',
   'feedback-collector.success-flag.title': 'Dziękuję!',
   'feedback-collector.summary-placeholder': 'Poinformuj nas, w czym problem',
+  'feedback-collector.validation.description.required': 'Podaj opis',
+  'feedback-collector.validation.type.required': 'Wybierz typ opinii',
   'proforma-form-builder.feedback-icon-label': 'Opinia',
   'proforma-form-builder.give-feedback': 'Przekaż opinię',
 };

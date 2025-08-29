@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 
 import { type CardProps } from '@atlaskit/smart-card';
 
+import { type CardActionOptions } from '../../../src/view/Card/types';
+import { EmbedModalSize } from '../../../src/view/EmbedModal/types';
 import { type TemplateDisplay } from '../types';
 
 import Fieldset from './fieldset';
@@ -25,6 +27,14 @@ const frameOptions = [
 	{ label: 'hide', value: 'hide' },
 	{ label: 'showOnHover', value: 'showOnHover' },
 ];
+const previewSizeOptions = Object.values(EmbedModalSize).map((name) => ({
+	label: name,
+	value: {
+		previewAction: {
+			size: name,
+		},
+	} as CardActionOptions,
+}));
 
 const CardBuilder = ({
 	display,
@@ -93,6 +103,15 @@ const CardBuilder = ({
 				name="placeholder"
 				onChange={onChange}
 				propName="placeholder"
+				template={template}
+			/>
+			<SelectOption
+				defaultValue={template.actionOptions?.previewAction?.size || ''}
+				label="Preview size (preview action)"
+				name="previewSize"
+				onChange={onChange}
+				propName="actionOptions"
+				options={previewSizeOptions}
 				template={template}
 			/>
 		</Fieldset>

@@ -12,8 +12,6 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -52,36 +50,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		return useSharedPluginStateWithSelector(
-			pluginInjectionApi,
-			['width', 'media', 'annotation', 'editorDisabled', 'editorViewMode'],
-			selector,
-		);
-	},
-	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const { widthState, mediaState, annotationState, editorDisabledState, editorViewModeState } =
-			useSharedPluginState(pluginInjectionApi, [
-				'width',
-				'media',
-				'annotation',
-				'editorDisabled',
-				'editorViewMode',
-			]);
-		return {
-			mediaProviderPromise: mediaState?.mediaProvider,
-			addPendingTask: mediaState?.addPendingTask,
-			isDrafting: annotationState?.isDrafting,
-			targetNodeId: annotationState?.targetNodeId,
-			width: widthState?.width,
-			lineLength: widthState?.lineLength,
-			editorDisabled: editorDisabledState?.editorDisabled,
-			viewMode: editorViewModeState?.mode,
-		};
-	},
-);
-
 const MediaSingleNodeWrapper = ({
 	pluginInjectionApi,
 	contextIdentifierProvider,
@@ -113,7 +81,11 @@ const MediaSingleNodeWrapper = ({
 		lineLength,
 		editorDisabled,
 		viewMode,
-	} = useSharedState(pluginInjectionApi);
+	} = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['width', 'media', 'annotation', 'editorDisabled', 'editorViewMode'],
+		selector,
+	);
 
 	const interactionState = useSharedPluginStateSelector(
 		pluginInjectionApi,

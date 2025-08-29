@@ -10,8 +10,6 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
@@ -88,27 +86,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(
-			pluginInjectionApi,
-			['width', 'editorDisabled'],
-			selector,
-		);
-	},
-	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		const { widthState, editorDisabledState } = useSharedPluginState(pluginInjectionApi, [
-			'width',
-			'editorDisabled',
-		]);
-		return {
-			widthStateLineLength: widthState?.lineLength || 0,
-			widthStateWidth: widthState?.width || 0,
-			editorDisabled: editorDisabledState?.editorDisabled,
-		};
-	},
-);
-
 const CardInner = ({
 	pluginInjectionApi,
 	getPosSafely,
@@ -125,7 +102,7 @@ const CardInner = ({
 	dispatchAnalyticsEvent,
 }: CardInnerProps) => {
 	const { widthStateLineLength, widthStateWidth, editorDisabled } =
-		useSharedState(pluginInjectionApi);
+		useSharedPluginStateWithSelector(pluginInjectionApi, ['width', 'editorDisabled'], selector);
 
 	const pos = getPosSafely();
 	if (pos === undefined) {

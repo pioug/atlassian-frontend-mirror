@@ -38,6 +38,8 @@ export default {
     'Seu feedback é importante e ajuda a gente a sempre melhorar nossos produtos.',
   'feedback-collector.success-flag.title': 'Obrigado!',
   'feedback-collector.summary-placeholder': 'Deixe a gente saber sua opinião',
+  'feedback-collector.validation.description.required': 'Apresente uma descrição',
+  'feedback-collector.validation.type.required': 'Selecione um tipo de feedback',
   'proforma-form-builder.feedback-icon-label': 'Feedback',
   'proforma-form-builder.give-feedback': 'Enviar feedback',
 };

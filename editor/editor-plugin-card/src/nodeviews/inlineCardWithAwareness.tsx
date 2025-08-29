@@ -2,8 +2,6 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -38,26 +36,6 @@ const selector = (
 		selection: states.selectionState?.selection,
 	};
 };
-
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(
-			pluginInjectionApi,
-			['selection', 'editorViewMode'],
-			selector,
-		);
-	},
-	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		const { selectionState, editorViewModeState } = useSharedPluginState(pluginInjectionApi, [
-			'selection',
-			'editorViewMode',
-		]);
-		return {
-			mode: editorViewModeState?.mode,
-			selection: selectionState?.selection,
-		};
-	},
-);
 
 export const InlineCardWithAwareness = memo(
 	({
@@ -112,7 +90,11 @@ export const InlineCardWithAwareness = memo(
 			[isOverlayEnabled],
 		);
 
-		const { mode, selection } = useSharedState(pluginInjectionApi);
+		const { mode, selection } = useSharedPluginStateWithSelector(
+			pluginInjectionApi,
+			['selection', 'editorViewMode'],
+			selector,
+		);
 		const floatingToolbarNode = selection instanceof NodeSelection && selection.node;
 		// This is a prop to show Hover card, Hover card should be shown only in Live View and Classic Renderer (note when only Editor controls enabled we don't show in Live view)
 		const showHoverPreview =

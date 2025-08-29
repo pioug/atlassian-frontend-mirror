@@ -134,6 +134,8 @@ export default {
   'fabric.linking.preview_improved': 'Vorschau öffnen',
   'fabric.linking.preview_max_size': 'Vollbildansicht anzeigen',
   'fabric.linking.preview_min_size': 'Vollbildansicht beenden',
+  'fabric.linking.preview_modal': 'Vorschaufenster öffnen',
+  'fabric.linking.preview_panel': 'Vorschaupanel öffnen',
   'fabric.linking.priority_blocker': 'Blocker',
   'fabric.linking.priority_critical': 'Kritisch',
   'fabric.linking.priority_high': 'Hoch',

@@ -29,13 +29,22 @@
 			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-block-menu/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-decorations/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-emoji/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-selection/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-shared-styles/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../elements/emoji/afm-jira/tsconfig.json"

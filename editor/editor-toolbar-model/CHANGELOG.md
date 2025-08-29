@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar-model
 
+## 0.2.0
+
+### Minor Changes
+
+- [`51f3f2db61f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51f3f2db61f6e) -
+  Add ranks and keys for new collapsed text section component, add responsive container to
+  PrimaryToolbar export with new query selectors to hide empty elements, export types
+
 ## 0.1.2
 
 ### Patch Changes

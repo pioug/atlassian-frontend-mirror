@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 120.5.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 120.5.8
+
+### Patch Changes
+
+- [`bfec478c9e91b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfec478c9e91b) -
+  Splits platform_editor_preview_panel_linking_exp into one for Jira and one for Confluence and
+  switches to editorExperiment util.
+- Updated dependencies
+
 ## 120.5.7
 
 ### Patch Changes

@@ -5,6 +5,7 @@ export { ToolbarModelRenderer } from './ui/toolbar-model-renderer';
 export type {
 	ToolbarComponentType,
 	ToolbarComponentTypes,
+	CommonComponentProps,
 	ToolbarType,
 	ToolbarMenuComponent,
 	ToolbarButtonComponent,

@@ -47,22 +47,22 @@ const styles = cssMap({
 
 const borderRadiusMap = cssMap({
 	xsmall: {
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 	},
 	small: {
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 	},
 	medium: {
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 	},
 	large: {
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 	},
 	xlarge: {
 		borderRadius: token('radius.medium'),
 	},
 	xxlarge: {
-		borderRadius: token('border.radius.300'),
+		borderRadius: token('radius.xlarge'),
 	},
 });
 

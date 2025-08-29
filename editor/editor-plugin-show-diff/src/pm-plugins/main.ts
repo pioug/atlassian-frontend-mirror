@@ -54,9 +54,14 @@ const calculateDecorations = ({
 			decorations.push(createInlineChangedDecoration(change));
 		}
 		if (change.deleted.length > 0) {
-			decorations.push(
-				createDeletedContentDecoration({ change, doc: originalDoc, nodeViewSerializer }),
-			);
+			const decoration = createDeletedContentDecoration({
+				change,
+				doc: originalDoc,
+				nodeViewSerializer,
+			});
+			if (decoration) {
+				decorations.push(decoration);
+			}
 		}
 	});
 	getMarkChangeRanges(steps).forEach((change) => {

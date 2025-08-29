@@ -19,6 +19,7 @@ export const AgentProfileCardTrigger = ({
 	trigger = 'hover',
 	viewingUserId,
 	product,
+	hideOverflow,
 	...props
 }: AgentProfileCardTriggerProps) => {
 	const { resourceClient, agentId: userId, cloudId } = props;
@@ -124,6 +125,7 @@ export const AgentProfileCardTrigger = ({
 			fetchProfile={fetchAgentProfile}
 			fireAnalytics={fireAnalytics}
 			profileCardType="agent"
+			hideOverflow={hideOverflow}
 		/>
 	);
 };

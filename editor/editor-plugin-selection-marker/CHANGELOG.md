@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 3.0.10
+
+### Patch Changes
+
+- [`0f8ecc0906213`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f8ecc0906213) -
+  ED-29112: clean up sharedPluginStateHookMigratorFactory in selection-extension, selection-marker
+
 ## 3.0.9
 
 ### Patch Changes

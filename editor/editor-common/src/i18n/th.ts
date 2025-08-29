@@ -50,6 +50,8 @@ export default {
     'ชื่อเรื่องต้องมีความยาวไม่เกิน {maxLength} ตัวอักษร',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'แชทต่อไป',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'เปิดในแชท',
+  'fabric.editor.ai.config.item.addPolish.description': 'ขัดเกลาเนื้อหาเพื่อช่วยให้มีความสละสลวยมากขึ้น',
+  'fabric.editor.ai.config.item.addPolish.title': 'เพิ่มการขัดเกลา',
   'fabric.editor.ai.config.item.agent.title': 'พนักงาน Atlassian Intelligence Rovo',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': 'ย่อเนื้อหาให้สั้นลงเพื่อให้มีความกระชับมากขึ้น',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': 'ปรับลดเนื้อหาในการอัปเดตให้สั้นลง',
@@ -173,6 +175,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'แปล',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'ชื่อหน้าข้อมูล',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'หน้าข้อมูล',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    'เรากำลังมีปัญหาและไม่สามารถสร้างคำตอบได้ในขณะนี้ ลองอีกครั้งในภายหลัง',
   'fabric.editor.ai.experience-application.documentInsertError':
     'เรากำลังมีปัญหาในการแทรกคำตอบ ปิดกรอบโต้ตอบและลองอีกครั้ง',
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -186,8 +190,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     'การแจ้งเตือนหรือเนื้อหาของคุณอาจไม่สอดคล้องกับ &quot;นโยบายการใช้งานที่ยอมรับได้&quot; ของเรา โปรดตรวจสอบทั้งสองรายการและอ้างอิงที่ <link>นโยบายการใช้งานที่ยอมรับได้</link> ของเรา หากจำเป็น หากปัญหายังคงมีอยู่ ให้ลองใช้การแจ้งเตือนหรือเนื้อหาอื่น',
   'fabric.editor.ai.experience.browseMore.agents': 'เรียกดูพนักงาน',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'เกิดข้อผิดพลาดขณะสร้างคำตอบของคุณ',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    'เราไม่สามารถดำเนินการตามคำขอให้สำเร็จได้ เนื่องจากคำขอไม่เป็นไปตาม<link>นโยบายการใช้งานที่ยอมรับได้</link>ของเรา',
   'fabric.editor.ai.experience.discardMessagePrompt': 'คุณต้องการละทิ้งข้อความแจ้งเตือนของคุณหรือไม่',
   'fabric.editor.ai.experience.discardMessageResponse': 'คุณต้องการละทิ้งคำตอบของคุณหรือไม่',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'ลบคำตอบหรือไม่',
   'fabric.editor.ai.experience.elevateDisabledGenetateError': 'การสร้างข้อความอิสระถูกปิดใช้งานใน Elevate ในขณะนี้',
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 คุณสามารถวางลิงก์ 🔗 ที่เชื่อมโยงไปยังเนื้อหา Jira และ Confluence ลงในข้อความแจ้งเตือนของคุณได้แล้วในขณะนี้<strong></strong>',
@@ -229,6 +237,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'ถาม Atlassian Intelligence',
   'fabric.editor.ai.toolbar.askRovo.title': 'ถาม Rovo',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "ถาม Rovo {key}+'",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': 'ถาม Rovo AI',
   'fabric.editor.ai.toolbar.changeTone.title': 'เปลี่ยนโทน',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'เปลี่ยนตัวเลือกโทน',
@@ -263,6 +272,10 @@ export default {
   'fabric.editor.annotationToolbar': 'แถบเครื่องมือข้อความหมายเหตุ',
   'fabric.editor.backLink': 'ย้อนกลับ',
   'fabric.editor.backgroundColor': 'สีพื้นหลัง',
+  'fabric.editor.block.menu.copy.block': 'คัดลอกบล็อก',
+  'fabric.editor.block.menu.copy.link': 'คัดลอกลิงก์',
+  'fabric.editor.block.menu.move.down': 'เลื่อนลง',
+  'fabric.editor.block.menu.move.up': 'เลื่อนขึ้น',
   'fabric.editor.blockCardUnavailable': 'ลิงก์ในบรรทัดเดียวกันจะอยู่ภายใน {node} และไม่สามารถเปลี่ยนแปลงมุมมองได้',
   'fabric.editor.blockControlDelete': 'ลบ',
   'fabric.editor.blockControlDragHandleMove': 'ลากเพื่อย้าย',
@@ -287,6 +300,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': 'แบบเต็มความกว้าง',
   'fabric.editor.breakoutWideWidthLabel': 'กว้าง',
   'fabric.editor.bug': 'ข้อผิดพลาด',
+  'fabric.editor.bulletedList': 'รายการแบบไม่มีเลขลำดับ',
   'fabric.editor.canNotSortTable': '⚠️ คุณไม่สามารถจัดเรียงตารางด้วยช่องข้อมูลที่ถูกรวมได้',
   'fabric.editor.cancelButton': 'ยกเลิก',
   'fabric.editor.captionPlaceholder': 'เพิ่มคำอธิบาย',
@@ -355,9 +369,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     'คุณสามารถแสดงความคิดเห็นได้เฉพาะกับข้อความ หัวเรื่อง เอโมจิ วันที่ การกล่าวถึง ลิงก์ และสถานะเท่านั้น',
   'fabric.editor.createCommentInvalid': 'คุณสามารถแสดงความคิดเห็นได้เฉพาะบนข้อความและหัวข้อเท่านั้น',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'รับทราบ',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'คุณสามารถแสดงความคิดเห็นเกี่ยวกับองค์ประกอบแบบบรรทัดเดียวได้ เช่น ลิงก์ วันที่ สถานะ และการกล่าวถึง',
   'fabric.editor.customPanel': 'แผงแบบกำหนดเอง',
   'fabric.editor.customPanel.description': 'เพิ่มข้อความบันทึกพร้อมเอโมจิและพื้นหลังมีสีสัน',
   'fabric.editor.datasource.assetsObjects.description':
@@ -640,6 +651,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': 'ถาม Atlassian Intelligence',
   'fabric.editor.navigate.toolbar.editor': 'นำทางไปยังแถบเครื่องมือแก้ไข',
   'fabric.editor.navigate.toolbar.floating': 'นำทางไปยังแถบเครื่องมือแบบลอย',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {คุณไม่มีสิทธิ์ในการเพิ่มความคิดเห็นในบล็อกโพสต์นี้} page {คุณไม่มีสิทธิ์ในการเพิ่มความคิดเห็นในหน้าข้อมูลนี้} other {คุณไม่มีสิทธิ์ในการเพิ่มความคิดเห็นในหน้าข้อมูลนี้}}',
   'fabric.editor.noResultsFound': 'ไม่พบผลลัพธ์',
   'fabric.editor.noSearchResults': 'ไม่พบผลการค้นหา',
   'fabric.editor.normal': 'ข้อความปกติ',
@@ -652,6 +665,7 @@ export default {
   'fabric.editor.openButtonTitle': 'เปิด',
   'fabric.editor.openCellOptions': 'เปิดตัวเลือกช่องข้อมูล',
   'fabric.editor.openLink': 'เปิดลิงก์ในแถบใหม่',
+  'fabric.editor.openPreviewPanel': 'เปิดแผงแสดงตัวอย่าง',
   'fabric.editor.orderedList': 'รายการแบบมีตัวเลข',
   'fabric.editor.orderedList.description': 'สร้างรายการแบบมีเลขลำดับ',
   'fabric.editor.other': 'อื่น ๆ...',
@@ -672,6 +686,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'เพิ่มข้อความเจาะจง',
   'fabric.editor.plainText': 'ใช้ข้อความธรรมดา',
   'fabric.editor.preferencesLink': 'การตั้งค่าลิงก์ตามต้องการ',
+  'fabric.editor.previewButtonTitle': 'แสดงตัวอย่าง',
   'fabric.editor.quickInsert': 'แทรกด่วน',
   'fabric.editor.recordLoomShortTitle': 'บันทึก',
   'fabric.editor.recordVideo': 'บันทึกวิดีโอ Loom',
@@ -709,6 +724,7 @@ export default {
   'fabric.editor.selectTableColumn': 'เลือกคอลัมน์ตาราง',
   'fabric.editor.selectTableRow': 'เลือกแถวตาราง',
   'fabric.editor.selectionExtensionDropdownButtonLabel': 'เลือกแอป',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'ตัวเลือกเพิ่มเติม',
   'fabric.editor.settingsLinks': 'ไปที่การตั้งค่าลิงก์',
   'fabric.editor.shortEmptyNodePlaceholderText': '/ เพื่อแทรก',
   'fabric.editor.shortcut': 'ข้อความลัด',
@@ -789,6 +805,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'อยู่ในบรรทัดกับข้อความ',
   'fabric.editor.toolbarPositionPinedAtTop': 'ถอนการปักหมุดแถบเครื่องมือ',
   'fabric.editor.toolbarPositionUnpined': 'ปักหมุดแถบเครื่องมือไว้ที่ด้านบน',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'ปักหมุดแถบเครื่องมือไว้ที่ด้านบน',
   'fabric.editor.tooltip.blockPanel': 'แผง',
   'fabric.editor.tooltip.bulletList': 'รายการ',
   'fabric.editor.tooltip.decisionList': 'รายการตัดสินใจ',

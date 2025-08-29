@@ -1,11 +1,7 @@
 import React from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';
@@ -24,41 +20,6 @@ interface PrimaryToolbarComponentProps {
 	shouldUseDefaultRole: boolean;
 }
 
-const usePrimaryToolbarComponentPluginState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<BlockTypePlugin> | undefined) => {
-		const {
-			currentBlockType,
-			blockTypesDisabled,
-			availableBlockTypes,
-			availableBlockTypesInDropdown,
-			formattingIsPresent,
-		} = useSharedPluginStateWithSelector(api, ['blockType'], (states) => ({
-			currentBlockType: states.blockTypeState?.currentBlockType,
-			blockTypesDisabled: states.blockTypeState?.blockTypesDisabled,
-			availableBlockTypes: states.blockTypeState?.availableBlockTypes,
-			availableBlockTypesInDropdown: states.blockTypeState?.availableBlockTypesInDropdown,
-			formattingIsPresent: states.blockTypeState?.formattingIsPresent,
-		}));
-		return {
-			currentBlockType,
-			blockTypesDisabled,
-			availableBlockTypes,
-			availableBlockTypesInDropdown,
-			formattingIsPresent,
-		};
-	},
-	(api: ExtractInjectionAPI<BlockTypePlugin> | undefined) => {
-		const { blockTypeState } = useSharedPluginState(api, ['blockType']);
-		return {
-			currentBlockType: blockTypeState?.currentBlockType,
-			blockTypesDisabled: blockTypeState?.blockTypesDisabled,
-			availableBlockTypes: blockTypeState?.availableBlockTypes,
-			availableBlockTypesInDropdown: blockTypeState?.availableBlockTypesInDropdown,
-			formattingIsPresent: blockTypeState?.formattingIsPresent,
-		};
-	},
-);
-
 export function PrimaryToolbarComponent({
 	api,
 	isSmall,
@@ -75,7 +36,13 @@ export function PrimaryToolbarComponent({
 		availableBlockTypes,
 		availableBlockTypesInDropdown,
 		formattingIsPresent,
-	} = usePrimaryToolbarComponentPluginState(api);
+	} = useSharedPluginStateWithSelector(api, ['blockType'], (states) => ({
+		currentBlockType: states.blockTypeState?.currentBlockType,
+		blockTypesDisabled: states.blockTypeState?.blockTypesDisabled,
+		availableBlockTypes: states.blockTypeState?.availableBlockTypes,
+		availableBlockTypesInDropdown: states.blockTypeState?.availableBlockTypesInDropdown,
+		formattingIsPresent: states.blockTypeState?.formattingIsPresent,
+	}));
 
 	const boundSetBlockType = (name: TextBlockTypes, fromBlockQuote?: boolean) =>
 		api?.core?.actions.execute(

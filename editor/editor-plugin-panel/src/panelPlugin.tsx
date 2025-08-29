@@ -9,6 +9,10 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import {
+	FORMAT_PANEL_MENU_ITEM,
+	FORMAT_NESTED_MENU_RANK,
+} from '@atlaskit/editor-common/block-menu';
 import { insertSelectedItem } from '@atlaskit/editor-common/insert';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type {
@@ -29,202 +33,221 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { T50 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { insertPanelWithAnalytics } from './editor-actions/actions';
 import { type PanelPlugin } from './panelPluginType';
 import keymap from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
+import { createPanelBlockMenuItem } from './ui/panelBlockMenuItem';
 import { getToolbarConfig } from './ui/toolbar';
 
-const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
-	name: 'panel',
-
-	nodes() {
-		if (fg('platform_editor_adf_with_localid')) {
-			return [{ name: 'panel', node: extendedPanelWithLocalId(!!options.allowCustomPanel) }];
-		}
-		return [{ name: 'panel', node: extendedPanel(!!options.allowCustomPanel) }];
-	},
-
-	pmPlugins() {
-		return [
+const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => {
+	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+		api?.blockMenu?.actions.registerBlockMenuComponents([
 			{
-				name: 'panel',
-				plugin: ({ providerFactory, dispatch, nodeViewPortalProviderAPI }) =>
-					createPlugin(dispatch, providerFactory, options, api, nodeViewPortalProviderAPI),
+				type: 'block-menu-item',
+				key: FORMAT_PANEL_MENU_ITEM.key,
+				parent: {
+					type: 'block-menu-section' as const,
+					key: 'nested-menu-format-section-primary',
+					rank: FORMAT_NESTED_MENU_RANK[FORMAT_PANEL_MENU_ITEM.key],
+				},
+				component: createPanelBlockMenuItem(api),
 			},
-			{
-				name: 'panelKeyMap',
-				plugin: () => keymap(),
-			},
-		];
-	},
+		]);
+	}
 
-	actions: {
-		insertPanel(
-			inputMethod: INPUT_METHOD.INSERT_MENU | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
-		) {
-			if (expValEquals('platform_editor_fix_quick_insert_consistency_exp', 'isEnabled', true)) {
-				return function (state, dispatch) {
-					const tr = createPanelAction({
-						state,
-						attributes: { panelType: PanelType.INFO },
-						api,
-						inputMethod,
-					});
+	return {
+		name: 'panel',
 
-					if (!tr) {
-						return false;
-					}
-
-					if (dispatch) {
-						dispatch(tr);
-					}
-
-					return true;
-				};
-			} else {
-				return insertPanelWithAnalytics(inputMethod, api?.analytics?.actions);
+		nodes() {
+			if (fg('platform_editor_adf_with_localid')) {
+				return [{ name: 'panel', node: extendedPanelWithLocalId(!!options.allowCustomPanel) }];
 			}
+			return [{ name: 'panel', node: extendedPanel(!!options.allowCustomPanel) }];
 		},
-	},
 
-	pluginsOptions: {
-		quickInsert: ({ formatMessage }) => {
-			if (editorExperiment('platform_editor_insertion', 'variant1')) {
-				return [
-					{
-						id: 'infopanel',
-						title: formatMessage(blockTypeMessages.infoPanel),
-						keywords: ['panel'],
-						description: formatMessage(blockTypeMessages.infoPanelDescription),
-						priority: 800,
-						icon: () => <IconPanel />,
-						action(typeAheadInsert, state) {
-							return createPanelAction({
-								state,
-								attributes: { panelType: PanelType.INFO },
-								api,
-								typeAheadInsert,
-							});
-						},
-					},
-				];
-			} else {
-				const quickInsertOptions: QuickInsertItem[] = [
-					{
-						id: 'infopanel',
-						title: formatMessage(blockTypeMessages.infoPanel),
-						keywords: ['panel'],
-						description: formatMessage(blockTypeMessages.infoPanelDescription),
-						priority: 800,
-						icon: () => <IconPanel />,
-						action(typeAheadInsert, state) {
-							return createPanelAction({
-								state,
-								attributes: { panelType: PanelType.INFO },
-								api,
-								typeAheadInsert,
-							});
-						},
-					},
-					{
-						id: 'notepanel',
-						title: formatMessage(blockTypeMessages.notePanel),
-						description: formatMessage(blockTypeMessages.notePanelDescription),
-						priority: 1000,
-						icon: () => <IconPanelNote />,
-						action(typeAheadInsert, state) {
-							return createPanelAction({
-								state,
-								attributes: { panelType: PanelType.NOTE },
-								api,
-								typeAheadInsert,
-							});
-						},
-					},
-					{
-						id: 'successpanel',
-						title: formatMessage(blockTypeMessages.successPanel),
-						description: formatMessage(blockTypeMessages.successPanelDescription),
-						keywords: ['tip'],
-						priority: 1000,
-						icon: () => <IconPanelSuccess />,
-						action(typeAheadInsert, state) {
-							return createPanelAction({
-								state,
-								attributes: { panelType: PanelType.SUCCESS },
-								api,
-								typeAheadInsert,
-							});
-						},
-					},
-					{
-						id: 'warningpanel',
-						title: formatMessage(blockTypeMessages.warningPanel),
-						description: formatMessage(blockTypeMessages.warningPanelDescription),
-						priority: 1000,
-						icon: () => <IconPanelWarning />,
-						action(typeAheadInsert, state) {
-							return createPanelAction({
-								state,
-								attributes: { panelType: PanelType.WARNING },
-								api,
-								typeAheadInsert,
-							});
-						},
-					},
-					{
-						id: 'errorpanel',
-						title: formatMessage(blockTypeMessages.errorPanel),
-						description: formatMessage(blockTypeMessages.errorPanelDescription),
-						priority: 1000,
-						icon: () => <IconPanelError />,
-						action(typeAheadInsert, state) {
-							return createPanelAction({
-								state,
-								attributes: { panelType: PanelType.ERROR },
-								api,
-								typeAheadInsert,
-							});
-						},
-					},
-				];
-				if (options.allowCustomPanel && options.allowCustomPanelEdit) {
-					quickInsertOptions.push({
-						id: 'custompanel',
-						title: formatMessage(blockTypeMessages.customPanel),
-						description: formatMessage(blockTypeMessages.customPanelDescription),
-						priority: 1000,
-						icon: () => <IconCustomPanel />,
-						action(typeAheadInsert, state) {
-							return createPanelAction({
-								state,
-								attributes: {
-									panelType: PanelType.CUSTOM,
-									panelIcon: ':rainbow:',
-									panelIconId: '1f308',
-									panelIconText: '🌈',
-									// Ignored via go/ees007
-									// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-									// TODO: https://product-fabric.atlassian.net/browse/DSP-7268
-									// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-									panelColor: T50,
-								},
-								api,
-								typeAheadInsert,
-							});
-						},
-					});
+		pmPlugins() {
+			return [
+				{
+					name: 'panel',
+					plugin: ({ providerFactory, dispatch, nodeViewPortalProviderAPI }) =>
+						createPlugin(dispatch, providerFactory, options, api, nodeViewPortalProviderAPI),
+				},
+				{
+					name: 'panelKeyMap',
+					plugin: () => keymap(),
+				},
+			];
+		},
+
+		actions: {
+			insertPanel(
+				inputMethod: INPUT_METHOD.INSERT_MENU | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
+			) {
+				if (expValEquals('platform_editor_fix_quick_insert_consistency_exp', 'isEnabled', true)) {
+					return function (state, dispatch) {
+						const tr = createPanelAction({
+							state,
+							attributes: { panelType: PanelType.INFO },
+							api,
+							inputMethod,
+						});
+
+						if (!tr) {
+							return false;
+						}
+
+						if (dispatch) {
+							dispatch(tr);
+						}
+
+						return true;
+					};
+				} else {
+					return insertPanelWithAnalytics(inputMethod, api?.analytics?.actions);
 				}
-				return quickInsertOptions;
-			}
+			},
 		},
-		floatingToolbar: (state, intl, providerFactory) =>
-			getToolbarConfig(state, intl, options, providerFactory, api),
-	},
-});
+
+		pluginsOptions: {
+			quickInsert: ({ formatMessage }) => {
+				if (editorExperiment('platform_editor_insertion', 'variant1')) {
+					return [
+						{
+							id: 'infopanel',
+							title: formatMessage(blockTypeMessages.infoPanel),
+							keywords: ['panel'],
+							description: formatMessage(blockTypeMessages.infoPanelDescription),
+							priority: 800,
+							icon: () => <IconPanel />,
+							action(typeAheadInsert, state) {
+								return createPanelAction({
+									state,
+									attributes: { panelType: PanelType.INFO },
+									api,
+									typeAheadInsert,
+								});
+							},
+						},
+					];
+				} else {
+					const quickInsertOptions: QuickInsertItem[] = [
+						{
+							id: 'infopanel',
+							title: formatMessage(blockTypeMessages.infoPanel),
+							keywords: ['panel'],
+							description: formatMessage(blockTypeMessages.infoPanelDescription),
+							priority: 800,
+							icon: () => <IconPanel />,
+							action(typeAheadInsert, state) {
+								return createPanelAction({
+									state,
+									attributes: { panelType: PanelType.INFO },
+									api,
+									typeAheadInsert,
+								});
+							},
+						},
+						{
+							id: 'notepanel',
+							title: formatMessage(blockTypeMessages.notePanel),
+							description: formatMessage(blockTypeMessages.notePanelDescription),
+							priority: 1000,
+							icon: () => <IconPanelNote />,
+							action(typeAheadInsert, state) {
+								return createPanelAction({
+									state,
+									attributes: { panelType: PanelType.NOTE },
+									api,
+									typeAheadInsert,
+								});
+							},
+						},
+						{
+							id: 'successpanel',
+							title: formatMessage(blockTypeMessages.successPanel),
+							description: formatMessage(blockTypeMessages.successPanelDescription),
+							keywords: ['tip'],
+							priority: 1000,
+							icon: () => <IconPanelSuccess />,
+							action(typeAheadInsert, state) {
+								return createPanelAction({
+									state,
+									attributes: { panelType: PanelType.SUCCESS },
+									api,
+									typeAheadInsert,
+								});
+							},
+						},
+						{
+							id: 'warningpanel',
+							title: formatMessage(blockTypeMessages.warningPanel),
+							description: formatMessage(blockTypeMessages.warningPanelDescription),
+							priority: 1000,
+							icon: () => <IconPanelWarning />,
+							action(typeAheadInsert, state) {
+								return createPanelAction({
+									state,
+									attributes: { panelType: PanelType.WARNING },
+									api,
+									typeAheadInsert,
+								});
+							},
+						},
+						{
+							id: 'errorpanel',
+							title: formatMessage(blockTypeMessages.errorPanel),
+							description: formatMessage(blockTypeMessages.errorPanelDescription),
+							priority: 1000,
+							icon: () => <IconPanelError />,
+							action(typeAheadInsert, state) {
+								return createPanelAction({
+									state,
+									attributes: { panelType: PanelType.ERROR },
+									api,
+									typeAheadInsert,
+								});
+							},
+						},
+					];
+					if (options.allowCustomPanel && options.allowCustomPanelEdit) {
+						quickInsertOptions.push({
+							id: 'custompanel',
+							title: formatMessage(blockTypeMessages.customPanel),
+							description: formatMessage(blockTypeMessages.customPanelDescription),
+							priority: 1000,
+							icon: () => <IconCustomPanel />,
+							action(typeAheadInsert, state) {
+								return createPanelAction({
+									state,
+									attributes: {
+										panelType: PanelType.CUSTOM,
+										panelIcon: ':rainbow:',
+										panelIconId: '1f308',
+										panelIconText: '🌈',
+										// Ignored via go/ees007
+										// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
+										// TODO: https://product-fabric.atlassian.net/browse/DSP-7268
+										// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+										panelColor: T50,
+									},
+									api,
+									typeAheadInsert,
+								});
+							},
+						});
+					}
+					return quickInsertOptions;
+				}
+			},
+			floatingToolbar: (state, intl, providerFactory) =>
+				getToolbarConfig(state, intl, options, providerFactory, api),
+		},
+	};
+};
 
 /**
  * Creates panel action and wrap selection transaction with analytics for the panel insertion.

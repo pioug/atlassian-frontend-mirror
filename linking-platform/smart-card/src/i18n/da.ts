@@ -131,6 +131,8 @@ export default {
   'fabric.linking.preview_improved': 'Åbn forhåndsvisning',
   'fabric.linking.preview_max_size': 'Vis fuld skærm',
   'fabric.linking.preview_min_size': 'Luk fuld skærm',
+  'fabric.linking.preview_modal': 'Åbn forhåndsvisningsmodal',
+  'fabric.linking.preview_panel': 'Åbn forhåndsvisningspanel',
   'fabric.linking.priority_blocker': 'Blokering',
   'fabric.linking.priority_critical': 'Kritisk',
   'fabric.linking.priority_high': 'Høj',

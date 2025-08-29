@@ -9,6 +9,7 @@ import {
 	TEST_URL,
 } from '../../../extractors/common/__mocks__/jsonld';
 import { downloadUrl, openUrl } from '../../../utils';
+import { EmbedModalSize } from '../../../view/EmbedModal/types';
 import { openEmbedModal } from '../../../view/EmbedModal/utils';
 import { useSmartCardState } from '../../store';
 import { type CardState } from '../../types';
@@ -28,6 +29,10 @@ jest.mock('@atlaskit/link-provider', () => ({
 		isPreviewPanelAvailable: undefined,
 		openPreviewPanel: undefined,
 	}),
+}));
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
 }));
 
 // used directly by refactored hook
@@ -109,6 +114,64 @@ describe('actions', () => {
 
 		expect(openEmbedModal).toHaveBeenCalledWith(
 			expect.objectContaining({
+				extensionKey: 'object-provider',
+				invokeDownloadAction: undefined,
+				invokeViewAction: expect.objectContaining({
+					actionFn: expect.any(Function),
+					actionSubjectId: 'shortcutGoToLink',
+					actionType: 'ViewAction',
+					definitionId: undefined,
+					display: 'block',
+					extensionKey: 'object-provider',
+					resourceType: undefined,
+				}),
+				isSupportTheming: false,
+				isTrusted: true,
+				linkIcon: {
+					label: 'my name',
+					url: TEST_URL,
+					render: undefined,
+				},
+				providerName: undefined,
+				onClose: undefined,
+				origin: 'smartLinkCard',
+				src: TEST_URL,
+				title: 'my name',
+				url: TEST_URL,
+			}),
+		);
+	});
+
+	it('should invoke preview method with expected parameters and action options with feature flag enabled', async () => {
+		const details = TEST_RESPONSE_WITH_PREVIEW;
+
+		const { fg } = require('@atlaskit/platform-feature-flags');
+		fg.mockReturnValue(true);
+
+		const state: CardState = {
+			details,
+			status: 'resolved',
+		};
+
+		jest.mocked(useSmartCardState).mockReturnValueOnce(state);
+		const { result } = renderHook(
+			() =>
+				useSmartLinkActions({
+					url,
+					appearance,
+					origin,
+					actionOptions: { hide: false, previewAction: { size: EmbedModalSize.Small } },
+				}),
+			{
+				wrapper: SmartCardProvider,
+			},
+		);
+		const previewAction = result.current?.[0];
+		await previewAction?.invoke();
+
+		expect(openEmbedModal).toHaveBeenCalledWith(
+			expect.objectContaining({
+				size: EmbedModalSize.Small,
 				extensionKey: 'object-provider',
 				invokeDownloadAction: undefined,
 				invokeViewAction: expect.objectContaining({

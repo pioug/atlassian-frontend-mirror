@@ -7,11 +7,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -24,41 +20,20 @@ type SelectionExtensionComponentWrapperProps = {
 	editorView: EditorView;
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined | null) => {
-		const { activeExtension, mode } = useSharedPluginStateWithSelector(
-			api,
-			['selectionExtension', 'editorViewMode'],
-			(states) => ({
-				activeExtension: states.selectionExtensionState?.activeExtension,
-				mode: states.editorViewModeState?.mode,
-			}),
-		);
-		return {
-			editorViewModeState: undefined,
-			mode,
-			activeExtension,
-		};
-	},
-	(api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined | null) => {
-		const { selectionExtensionState, editorViewModeState } = useSharedPluginState(api, [
-			'selectionExtension',
-			'editorViewMode',
-		]);
-		return {
-			editorViewModeState,
-			mode: editorViewModeState?.mode,
-			activeExtension: selectionExtensionState?.activeExtension,
-		};
-	},
-);
-
 export const SelectionExtensionComponentWrapper = ({
 	api,
 	editorAnalyticsAPI,
 }: SelectionExtensionComponentWrapperProps) => {
 	const componentRef = useRef<React.ComponentType<SelectionExtensionComponentProps>>();
-	const { editorViewModeState, activeExtension, mode } = useSharedState(api);
+
+	const { activeExtension, mode } = useSharedPluginStateWithSelector(
+		api,
+		['selectionExtension', 'editorViewMode'],
+		(states) => ({
+			activeExtension: states.selectionExtensionState?.activeExtension,
+			mode: states.editorViewModeState?.mode,
+		}),
+	);
 
 	// Closed from active extension
 	const handleOnClose = useCallback(() => {
@@ -80,7 +55,7 @@ export const SelectionExtensionComponentWrapper = ({
 		if (componentRef.current !== undefined) {
 			handleOnClose();
 		}
-	}, [handleOnClose, editorViewModeState, mode]);
+	}, [handleOnClose, mode]);
 
 	// Viewed analytics event for component mount
 	useEffect(() => {

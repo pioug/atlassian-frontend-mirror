@@ -4,9 +4,10 @@
  */
 import React, { type ReactNode, useCallback } from 'react';
 
-import { jsx, cssMap } from '@compiled/react';
+import { jsx, cssMap, cx } from '@compiled/react';
 
 import DropdownMenu, { type OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
+import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -27,10 +28,18 @@ const styles = cssMap({
 			borderBlockStart: 'unset',
 		},
 	},
+	scrollContainer: {
+		maxHeight: '320px',
+		overflowY: 'auto',
+	},
 });
 
 type ToolbarDropdownMenuProps = {
 	children?: ReactNode;
+	/**
+	 * Enforeces a max height of 320px for menus - when menu is larger a scroll is introduced
+	 */
+	enableMaxHeight?: boolean;
 	/**
 	 * Whether to add margin around sections to align with 4px block padding existing in current editor dropdown
 	 */
@@ -49,25 +58,25 @@ const ToolbarDropdownMenuContent = ({
 	label,
 }: ToolbarDropdownMenuProps) => {
 	const { onDropdownOpenChanged } = useToolbarUI();
-	const { closeMenu, isOpen, openMenu } = useToolbarDropdownMenu();
+	const menuContext = useToolbarDropdownMenu();
 
 	const handleOpenChange = useCallback(
 		(args: OnOpenChangeArgs) => {
 			onDropdownOpenChanged(args);
 			if (!args.isOpen) {
-				closeMenu();
+				menuContext?.closeMenu();
 			}
 		},
-		[closeMenu, onDropdownOpenChanged],
+		[menuContext, onDropdownOpenChanged],
 	);
 
 	const handleClick = useCallback(() => {
-		if (!isOpen) {
-			openMenu();
+		if (!menuContext?.isOpen) {
+			menuContext?.openMenu();
 		} else {
-			closeMenu();
+			menuContext?.closeMenu();
 		}
-	}, [closeMenu, openMenu, isOpen]);
+	}, [menuContext]);
 
 	return (
 		<DropdownMenu<HTMLButtonElement>
@@ -91,7 +100,7 @@ const ToolbarDropdownMenuContent = ({
 				/>
 			)}
 			onOpenChange={handleOpenChange}
-			isOpen={isOpen}
+			isOpen={menuContext?.isOpen}
 		>
 			{children}
 		</DropdownMenu>
@@ -105,25 +114,48 @@ export const ToolbarDropdownMenu = ({
 	testId,
 	label,
 	hasSectionMargin = true,
+	enableMaxHeight = false,
 }: ToolbarDropdownMenuProps) => {
-	return (
-		<ToolbarDropdownMenuProvider>
+	if (expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true)) {
+		return (
 			<ToolbarDropdownMenuContent
 				iconBefore={iconBefore}
 				isDisabled={isDisabled}
 				testId={testId}
 				label={label}
 			>
-				<div
-					css={[
+				<Box
+					xcss={cx(
 						hasSectionMargin && styles.sectionMargin,
+						enableMaxHeight && styles.scrollContainer,
 						expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true) &&
 							styles.firstSectionSeparator,
-					]}
+					)}
 				>
 					{children}
-				</div>
+				</Box>
 			</ToolbarDropdownMenuContent>
-		</ToolbarDropdownMenuProvider>
-	);
+		);
+	} else {
+		return (
+			<ToolbarDropdownMenuProvider>
+				<ToolbarDropdownMenuContent
+					iconBefore={iconBefore}
+					isDisabled={isDisabled}
+					testId={testId}
+					label={label}
+				>
+					<div
+						css={[
+							hasSectionMargin && styles.sectionMargin,
+							expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true) &&
+								styles.firstSectionSeparator,
+						]}
+					>
+						{children}
+					</div>
+				</ToolbarDropdownMenuContent>
+			</ToolbarDropdownMenuProvider>
+		);
+	}
 };

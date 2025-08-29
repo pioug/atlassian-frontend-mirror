@@ -9,8 +9,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
@@ -78,25 +76,12 @@ const selector = (
 	};
 };
 
-const useMediaPickerSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['media'], selector);
-	},
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const { mediaState } = useSharedPluginState(api, ['media']);
-		return {
-			onPopupToggle: mediaState?.onPopupToggle,
-			setBrowseFn: mediaState?.setBrowseFn,
-		};
-	},
-);
-
 const MediaPickerFunctionalComponent = ({
 	api,
 	editorDomElement,
 	appearance,
 }: MediaPickerFunctionalComponentProps) => {
-	const { onPopupToggle, setBrowseFn } = useMediaPickerSharedState(api);
+	const { onPopupToggle, setBrowseFn } = useSharedPluginStateWithSelector(api, ['media'], selector);
 	if (!onPopupToggle || !setBrowseFn) {
 		return null;
 	}
@@ -125,20 +110,6 @@ const mediaViewerStateSelector = (
 	};
 };
 
-const useMediaViewerSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['media'], mediaViewerStateSelector);
-	},
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const { mediaState } = useSharedPluginState(api, ['media']);
-		return {
-			isMediaViewerVisible: mediaState?.isMediaViewerVisible,
-			mediaViewerSelectedMedia: mediaState?.mediaViewerSelectedMedia,
-			mediaClientConfig: mediaState?.mediaClientConfig,
-		};
-	},
-);
-
 const MediaViewerFunctionalComponent = ({
 	api,
 	editorView,
@@ -146,7 +117,7 @@ const MediaViewerFunctionalComponent = ({
 	// Only traverse document once when media viewer is visible, media viewer items will not update
 	// when document changes are made while media viewer is open
 	const { isMediaViewerVisible, mediaViewerSelectedMedia, mediaClientConfig } =
-		useMediaViewerSharedState(api);
+		useSharedPluginStateWithSelector(api, ['media'], mediaViewerStateSelector);
 
 	const mediaItems = useMemo(() => {
 		if (isMediaViewerVisible) {

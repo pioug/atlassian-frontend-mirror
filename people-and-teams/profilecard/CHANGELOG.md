@@ -1,5 +1,19 @@
 # @atlaskit/profilecard
 
+## 24.9.0
+
+### Minor Changes
+
+- [`10f9ee672770a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10f9ee672770a) -
+  Fix default behavior of nav item click
+
+## 24.8.0
+
+### Minor Changes
+
+- [`fd89c46d0090d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd89c46d0090d) -
+  [ux] Truncate agent header title on overflow
+
 ## 24.7.4
 
 ### Patch Changes

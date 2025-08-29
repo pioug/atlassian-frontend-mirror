@@ -215,8 +215,10 @@ const AgentProfileCard = ({
 					onCopyAgent={() => onCopyAgent(agent.id)}
 					onDuplicateAgent={() => onDuplicateAgent(agent.id)}
 					onDeleteAgent={handleOnDelete}
-					onChatClick={() =>
-						onChatClick ? onChatClick() : onOpenChatFullScreen(agent.id, agent.name)
+					onChatClick={
+						onChatClick
+							? (event: React.MouseEvent) => onChatClick(event)
+							: () => onOpenChatFullScreen(agent.id, agent.name)
 					}
 					resourceClient={resourceClient}
 					onViewFullProfileClick={() => onViewFullProfile(agent.id)}

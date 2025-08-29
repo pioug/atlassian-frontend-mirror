@@ -11,6 +11,7 @@ import {
 	TextColorIcon,
 	ToolbarColorSwatch,
 	ToolbarDropdownMenu,
+	ToolbarDropdownMenuProvider,
 	ToolbarTooltip,
 	getContrastingBackgroundColor,
 } from '@atlaskit/editor-toolbar';
@@ -63,34 +64,40 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 				isHighlightPluginExisted ? messages.textColorHighlightTooltip : messages.textColorTooltip,
 			)}
 		>
-			<ToolbarDropdownMenu
-				iconBefore={
-					<ToolbarColorSwatch highlightColor={highlightColorIcon}>
-						<TextColorIcon
-							label={formatMessage(messages.textColorTooltip)}
-							iconColor={iconColor as IconColor}
-							shouldRecommendSmallIcon
-							size={'small'}
-							isDisabled={isTextColorDisabled}
-							spacing={'compact'}
-						/>
-					</ToolbarColorSwatch>
-				}
-				isDisabled={isTextColorDisabled}
-				testId="text-color-highlight-menu"
-				hasSectionMargin={false}
-			>
-				<Box xcss={styles.menu}>{children}</Box>
-			</ToolbarDropdownMenu>
+			<ToolbarDropdownMenuProvider>
+				<ToolbarDropdownMenu
+					iconBefore={
+						<ToolbarColorSwatch highlightColor={highlightColorIcon}>
+							<TextColorIcon
+								label={formatMessage(messages.textColorTooltip)}
+								iconColor={iconColor as IconColor}
+								shouldRecommendSmallIcon
+								size={'small'}
+								isDisabled={isTextColorDisabled}
+								spacing={'compact'}
+							/>
+						</ToolbarColorSwatch>
+					}
+					isDisabled={isTextColorDisabled}
+					testId="text-color-highlight-menu"
+					hasSectionMargin={false}
+				>
+					{expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true) ? (
+						children
+					) : (
+						<Box xcss={styles.menu}>{children}</Box>
+					)}
+				</ToolbarDropdownMenu>
+			</ToolbarDropdownMenuProvider>
 		</ToolbarTooltip>
 	) : (
 		<ToolbarDropdownMenu
 			iconBefore={
-				<ToolbarColorSwatch highlightColor={highlightColor || ''}>
+				<ToolbarColorSwatch highlightColor={highlightColorIcon}>
 					<TextColorIcon
 						label={formatMessage(messages.textColorTooltip)}
-						iconColor={(textColor || token('color.text.accent.magenta')) as IconColor}
-						shouldRecommendSmallIcon={true}
+						iconColor={iconColor as IconColor}
+						shouldRecommendSmallIcon
 						size={'small'}
 						isDisabled={isTextColorDisabled}
 						spacing={'compact'}
@@ -101,7 +108,11 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 			testId="text-color-highlight-menu"
 			hasSectionMargin={false}
 		>
-			<Box xcss={styles.menu}>{children}</Box>
+			{expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true) ? (
+				children
+			) : (
+				<Box xcss={styles.menu}>{children}</Box>
+			)}
 		</ToolbarDropdownMenu>
 	);
 };

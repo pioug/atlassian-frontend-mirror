@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-text-color
 
+## 3.2.4
+
+### Patch Changes
+
+- [`36e649e4988d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36e649e4988d3) -
+  [ux] ED-29072 close all menus on nested menu item clicked
+- Updated dependencies
+
+## 3.2.3
+
+### Patch Changes
+
+- [`51f3f2db61f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51f3f2db61f6e) -
+  Update toolbar config across plugins
+- Updated dependencies
+
 ## 3.2.2
 
 ### Patch Changes

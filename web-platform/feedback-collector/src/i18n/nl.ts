@@ -37,6 +37,8 @@ export default {
   'feedback-collector.success-flag.description': 'Met jouw feedback kunnen we onze producten steeds verder verbeteren.',
   'feedback-collector.success-flag.title': 'Bedankt!',
   'feedback-collector.summary-placeholder': 'Laat ons weten wat je vindt',
+  'feedback-collector.validation.description.required': 'Geef een omschrijving',
+  'feedback-collector.validation.type.required': 'Selecteer een feedbacktype',
   'proforma-form-builder.feedback-icon-label': 'Feedback',
   'proforma-form-builder.give-feedback': 'Feedback geven',
 };

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-extension-googledrive",
-	"version": "1.0.7",
+	"version": "1.0.8",
 	"description": "An Atlassian editor extension to add a native Google Drive picker",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -15,7 +15,9 @@
 	"module:es2019": "dist/es2019/index.js",
 	"main": "dist/cjs/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": false,
+	"sideEffects": [
+		"**/*.compiled.css"
+	],
 	"atlassian": {
 		"team": "trello-ecosystem"
 	},
@@ -26,7 +28,9 @@
 		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
 		"@types/gapi": "root:*"
 	},
 	"peerDependencies": {
@@ -41,7 +45,7 @@
 			],
 			"deprecation": "no-deprecated-imports",
 			"styling": [
-				"emotion"
+				"compiled"
 			]
 		}
 	}

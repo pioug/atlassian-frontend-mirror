@@ -139,7 +139,7 @@ const backgroundStyles = css({
 
 const elevationStyles = css({
 	border: `1px solid ${token('color.border')}`,
-	borderRadius: token('border.radius.300'),
+	borderRadius: token('radius.xlarge'),
 	marginTop: token('space.025'),
 	marginRight: token('space.025'),
 	marginBottom: token('space.025'),

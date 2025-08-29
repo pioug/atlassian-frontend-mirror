@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 4.2.12
+
+### Patch Changes
+
+- [`51f3f2db61f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51f3f2db61f6e) -
+  Update toolbar config across plugins
+- Updated dependencies
+
 ## 4.2.11
 
 ### Patch Changes

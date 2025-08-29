@@ -6,4 +6,7 @@ export { functionUnionWithCondition, functionWithCondition } from './utils/funct
 
 export { functionWithFG } from './utils/function-with-fg';
 
-export { conditionalHooksFactory } from './utils/conditional-hooks-factory';
+export {
+	conditionalHooksFactory,
+	DO_NOT_USE_THIS_IN_PRODUCTION_EVER_resetConditionalHooksFactoryCache,
+} from './utils/conditional-hooks-factory';

@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 
+import type { BlockMenuItemConfiguration } from 'packages/editor/editor-plugin-selection-extension/src/types';
 import { IntlProvider } from 'react-intl-next';
 
 import { EditorExampleControls, getExamplesProviders } from '@af/editor-examples-helpers/utils';
@@ -185,6 +186,33 @@ function ComposableEditorPage() {
 			};
 		}
 	};
+	const nestedBlockMenuExtension: ExtensionConfiguration = {
+		key: 'mock-extension-w-nested-menu',
+		source: 'first-party',
+		blockMenu: {
+			getMenuItem: () => ({
+				label: 'Apps',
+				icon: AddIcon,
+			}),
+			getNestedMenuItems: () =>
+				[
+					{
+						label: 'App 1',
+						icon: AppIcon,
+						onClick: () => {
+							console.log('<<<click 1');
+						},
+					},
+					{
+						label: 'App 2',
+						icon: AppIcon,
+						onClick: () => {
+							console.log('<<<click 2');
+						},
+					},
+				] as BlockMenuItemConfiguration[],
+		},
+	};
 
 	const createJiraIssueExtension: ExtensionConfiguration = {
 		key: 'create-jira-issue-extension',
@@ -274,7 +302,11 @@ function ComposableEditorPage() {
 							},
 						],
 					},
-					extensionList: [...noteSelectionExtension.extensionList, createJiraIssueExtension],
+					extensionList: [
+						...noteSelectionExtension.extensionList,
+						createJiraIssueExtension,
+						nestedBlockMenuExtension,
+					],
 				},
 			]);
 

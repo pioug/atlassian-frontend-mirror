@@ -36,6 +36,8 @@ export default {
   'feedback-collector.success-flag.description': '您的意見反應很珍貴，能幫助我們持續改善產品。',
   'feedback-collector.success-flag.title': '謝謝！',
   'feedback-collector.summary-placeholder': '讓我們知道您的想法',
+  'feedback-collector.validation.description.required': '請提供描述',
+  'feedback-collector.validation.type.required': '請選取意見反應類型',
   'proforma-form-builder.feedback-icon-label': '意見反應',
   'proforma-form-builder.give-feedback': '提供意見反應',
 };

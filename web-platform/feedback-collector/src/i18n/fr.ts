@@ -38,6 +38,8 @@ export default {
     "Vos commentaires nous sont précieux et contribuent à l'amélioration continue de nos produits.",
   'feedback-collector.success-flag.title': 'Merci !',
   'feedback-collector.summary-placeholder': 'Dites-nous tout',
+  'feedback-collector.validation.description.required': 'Veuillez fournir une description',
+  'feedback-collector.validation.type.required': 'Veuillez sélectionner un type de commentaire',
   'proforma-form-builder.feedback-icon-label': 'Commentaire',
   'proforma-form-builder.give-feedback': 'Envoyer un commentaire',
 };

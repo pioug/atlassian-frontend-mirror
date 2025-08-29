@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import Popup from '@atlaskit/popup';
+import { Box } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
 
 import { cardTriggered } from '../../util/analytics';
@@ -10,6 +12,12 @@ import { LoadingState } from './LoadingState';
 import { PopupTrigger } from './PopupTrigger';
 import { ProfileCardWrapper } from './ProfileCardWrapper';
 import { type ProfileCardTriggerProps } from './types';
+
+const styles = cssMap({
+	overflowHidden: {
+		overflow: 'hidden',
+	},
+});
 
 const DELAY_MS_SHOW = 800;
 const DELAY_MS_HIDE = 200;
@@ -23,6 +31,7 @@ function ProfileCardTrigger<T>({
 	disabledAriaAttributes,
 	profileCardType,
 	fireAnalytics,
+	hideOverflow,
 	...popupProps
 }: ProfileCardTriggerProps<T>) {
 	const showDelay = trigger === 'click' ? 0 : DELAY_MS_SHOW;
@@ -80,7 +89,7 @@ function ProfileCardTrigger<T>({
 			shouldFitContainer={false}
 			trigger={(triggerProps) => {
 				const { 'aria-expanded': _, 'aria-haspopup': __, ...restInnerProps } = triggerProps;
-				return (
+				const triggerElement = (
 					<PopupTrigger<T>
 						{...(disabledAriaAttributes ? restInnerProps : triggerProps)}
 						ref={triggerProps.ref}
@@ -91,6 +100,12 @@ function ProfileCardTrigger<T>({
 						trigger={trigger}
 					/>
 				);
+
+				if (hideOverflow) {
+					return <Box xcss={styles.overflowHidden}>{triggerElement}</Box>;
+				}
+
+				return triggerElement;
 			}}
 			content={() => (
 				// eslint-disable-next-line jsx-a11y/no-static-element-interactions

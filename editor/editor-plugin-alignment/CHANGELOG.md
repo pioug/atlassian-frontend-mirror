@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-alignment
 
+## 4.2.12
+
+### Patch Changes
+
+- [`51f3f2db61f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51f3f2db61f6e) -
+  Update toolbar config across plugins
+- [`7c342b45b449f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c342b45b449f) -
+  Cleanup platform_editor_usesharedpluginstateselector in accessibility, alignment
+- Updated dependencies
+
 ## 4.2.11
 
 ### Patch Changes

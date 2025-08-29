@@ -4,8 +4,10 @@ import type {
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
@@ -18,6 +20,8 @@ export type TasksAndDecisionsPluginDependencies = [
 	OptionalPlugin<AnalyticsPlugin>,
 	OptionalPlugin<ContextIdentifierPlugin>,
 	OptionalPlugin<EditorViewModePlugin>,
+	OptionalPlugin<BlockMenuPlugin>,
+	OptionalPlugin<SelectionPlugin>,
 ];
 
 export type TasksAndDecisionsPlugin = NextEditorPlugin<

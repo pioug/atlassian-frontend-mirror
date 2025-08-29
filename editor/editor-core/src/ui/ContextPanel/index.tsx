@@ -10,11 +10,7 @@ import { injectIntl, type IntlShape } from 'react-intl-next';
 import Transition from 'react-transition-group/Transition';
 
 import { ContextPanelConsumer } from '@atlaskit/editor-common/context-panel';
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { contextPanelMessages } from '@atlaskit/editor-common/messages';
 import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { type ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
@@ -212,27 +208,14 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 	}
 }
 
-const useContextPanelSharedState = sharedPluginStateHookMigratorFactory<
-	React.ReactNode[] | undefined,
-	PublicPluginAPI<[ContextPanelPlugin]> | undefined
->(
-	(pluginInjectionApi) => {
-		return useSharedPluginStateWithSelector(
-			pluginInjectionApi,
-			['contextPanel'],
-			(states) => states?.contextPanelState?.contents,
-		);
-	},
-	(pluginInjectionApi) => {
-		const { contextPanelState } = useSharedPluginState(pluginInjectionApi, ['contextPanel']);
-		return contextPanelState?.contents;
-	},
-);
-
 export const SwappableContentArea = injectIntl(SwappableContentAreaInner);
 
 export function ContextPanel(props: Props) {
-	const contextPanelContents = useContextPanelSharedState(props.editorAPI);
+	const contextPanelContents = useSharedPluginStateWithSelector(
+		props.editorAPI,
+		['contextPanel'],
+		(states) => states?.contextPanelState?.contents,
+	);
 	const firstContent = contextPanelContents && contextPanelContents.find(Boolean);
 
 	return (

@@ -5,6 +5,11 @@
 import { decisionList, taskList } from '@atlaskit/adf-schema';
 import { css, jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import {
+	FORMAT_TASK_LIST_MENU_ITEM,
+	FORMAT_NESTED_MENU_RANK,
+	NESTED_FORMAT_MENU_SECTION,
+} from '@atlaskit/editor-common/block-menu';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
 import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/editor-common/messages';
 import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
@@ -15,6 +20,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { taskItemNodeSpec, blockTaskItemNodeSpec } from './nodeviews/taskItemNodeSpec';
 import { decisionItemSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/decisionItem';
@@ -39,6 +45,7 @@ import { stateKey as taskPluginKey } from './pm-plugins/plugin-key';
 import type { TasksAndDecisionsPlugin } from './tasksAndDecisionsPluginType';
 import type { TaskDecisionListType } from './types';
 import { RequestToEditPopup } from './ui/Task/RequestToEditPopup';
+import { TaskListBlockMenuItem } from './ui/TaskListBlockMenuItem/TaskListBlockMenuItem';
 import ToolbarDecision from './ui/ToolbarDecision';
 import ToolbarTask from './ui/ToolbarTask';
 
@@ -137,6 +144,21 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		taskDecisionProvider.then((provider) => {
 			api?.core.actions.execute(({ tr }) => setProvider(provider)(tr));
 		});
+	}
+
+	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+		api?.blockMenu?.actions.registerBlockMenuComponents([
+			{
+				type: 'block-menu-item',
+				key: FORMAT_TASK_LIST_MENU_ITEM.key,
+				parent: {
+					type: 'block-menu-section' as const,
+					key: NESTED_FORMAT_MENU_SECTION.key,
+					rank: FORMAT_NESTED_MENU_RANK[FORMAT_TASK_LIST_MENU_ITEM.key],
+				},
+				component: () => <TaskListBlockMenuItem api={api} />,
+			},
+		]);
 	}
 
 	return {

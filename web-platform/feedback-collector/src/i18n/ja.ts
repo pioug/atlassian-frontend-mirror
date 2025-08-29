@@ -38,6 +38,8 @@ export default {
     'お寄せいただいた貴重なフィードバックは、製品のさらなる改善に役立てさせていただきます。',
   'feedback-collector.success-flag.title': 'よろしくお願いいたします。',
   'feedback-collector.summary-placeholder': '具体的な内容をご入力ください。',
+  'feedback-collector.validation.description.required': '説明を入力してください',
+  'feedback-collector.validation.type.required': 'フィードバック タイプを選択してください',
   'proforma-form-builder.feedback-icon-label': 'フィードバック',
   'proforma-form-builder.give-feedback': 'フィードバックを送信',
 };

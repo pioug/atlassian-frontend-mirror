@@ -38,6 +38,8 @@ export default {
     'Arvokkaan palautteesi avulla voimme jatkuvasti parantaa tuotteitamme.',
   'feedback-collector.success-flag.title': 'Kiitos!',
   'feedback-collector.summary-placeholder': 'Kerro meille, mitä sinulla on mielessä',
+  'feedback-collector.validation.description.required': 'Anna kuvaus',
+  'feedback-collector.validation.type.required': 'Valitse palautetyyppi',
   'proforma-form-builder.feedback-icon-label': 'Palaute',
   'proforma-form-builder.give-feedback': 'Anna palautetta',
 };

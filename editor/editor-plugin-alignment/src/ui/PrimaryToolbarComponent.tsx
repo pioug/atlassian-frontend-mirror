@@ -1,11 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -25,28 +21,6 @@ interface PrimaryToolbarComponentProps {
 	popupsScrollableElement?: HTMLElement;
 }
 
-const usePrimaryToolbarComponentPluginState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<AlignmentPlugin> | undefined) => {
-		const { align, isEnabled } = useSharedPluginStateWithSelector(api, ['alignment'], (states) => {
-			return {
-				align: states.alignmentState?.align,
-				isEnabled: states.alignmentState?.isEnabled,
-			};
-		});
-		return {
-			align,
-			isEnabled,
-		};
-	},
-	(api: ExtractInjectionAPI<AlignmentPlugin> | undefined) => {
-		const { alignmentState } = useSharedPluginState(api, ['alignment']);
-		return {
-			align: alignmentState?.align,
-			isEnabled: alignmentState?.isEnabled,
-		};
-	},
-);
-
 export function PrimaryToolbarComponent({
 	api,
 	editorView,
@@ -56,7 +30,12 @@ export function PrimaryToolbarComponent({
 	popupsScrollableElement,
 	isToolbarReducedSpacing,
 }: PrimaryToolbarComponentProps) {
-	const { align, isEnabled } = usePrimaryToolbarComponentPluginState(api);
+	const { align, isEnabled } = useSharedPluginStateWithSelector(api, ['alignment'], (states) => {
+		return {
+			align: states.alignmentState?.align,
+			isEnabled: states.alignmentState?.isEnabled,
+		};
+	});
 
 	const changeAlignmentCallback = useCallback(
 		(align: AlignmentState) =>

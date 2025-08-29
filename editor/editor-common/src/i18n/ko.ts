@@ -49,6 +49,8 @@ export default {
   'fabric.editor.ai.config.item.action.replaceTitleTooLongDisabledTooltip': '제목은 {maxLength}자를 초과할 수 없습니다',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': '채팅으로 계속하기',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': '채팅에서 열기',
+  'fabric.editor.ai.config.item.addPolish.description': '콘텐츠를 다듬어 더 세련되게 만드세요',
+  'fabric.editor.ai.config.item.addPolish.title': '다듬기 추가',
   'fabric.editor.ai.config.item.agent.title': 'Atlassian Intelligence Rovo 에이전트',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': '내용을 줄여 더 간결하게 만듭니다',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': '업데이트 요약',
@@ -187,6 +189,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': '번역',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': '페이지 제목',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': '페이지',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    '문제가 발생하여 현재 응답을 생성할 수 없습니다. 나중에 다시 시도하세요.',
   'fabric.editor.ai.experience-application.documentInsertError':
     '응답을 삽입하는 동안 문제가 발생했습니다. 대화 상자를 닫고 다시 시도하세요.',
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -201,8 +205,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     '프롬프트 또는 콘텐츠가 Atlassian의 사용 제한 정책을 준수하지 않을 수 있습니다. 둘 모두 검토하고 필요한 경우 <link>사용 제한 정책</link>을 참조하세요. 문제가 지속되는 경우 다른 프롬프트 또는 콘텐츠를 사용해 보세요.',
   'fabric.editor.ai.experience.browseMore.agents': '에이전트 찾아보기',
+  'fabric.editor.ai.experience.cmdPaletteApiError': '응답을 생성하는 동안 오류가 발생했습니다.',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    '요청이 Atlassian의 <link>사용 제한 정책</link>을 준수하지 않으므로 요청을 완료할 수 없습니다.',
   'fabric.editor.ai.experience.discardMessagePrompt': '프롬프트를 버리시겠습니까?',
   'fabric.editor.ai.experience.discardMessageResponse': '응답을 버리시겠습니까?',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': '응답을 삭제하시겠습니까?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError': '현재 Elevate에서는 자유 생성이 사용 중지되어 있습니다.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 이제 프롬프트에 Jira 및 Confluence 콘텐츠 링크🔗를 붙여넣을 수 있습니다.',
@@ -245,6 +253,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'AI에게 물어보기',
   'fabric.editor.ai.toolbar.askRovo.title': 'Rovo에게 질문하기',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "Rovo에게 {key}+' 질문하기",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': 'Rovo AI에게 물어보기',
   'fabric.editor.ai.toolbar.changeTone.title': '어조 변경',
   'fabric.editor.ai.toolbar.changeToneOptions.title': '어조 옵션 변경',
@@ -279,6 +288,7 @@ export default {
   'fabric.editor.annotationToolbar': '주석 도구 모음',
   'fabric.editor.backLink': '뒤로 가기',
   'fabric.editor.backgroundColor': '배경색',
+  'fabric.editor.block.menu.copy.link': '링크 복사',
   'fabric.editor.blockCardUnavailable': '인라인 링크는 {node} 내부에 있으며 보기를 변경할 수 없습니다',
   'fabric.editor.blockControlDelete': '삭제',
   'fabric.editor.blockControlDragHandleMove': '끌어서 이동',
@@ -303,6 +313,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': '전체 너비',
   'fabric.editor.breakoutWideWidthLabel': '넓게',
   'fabric.editor.bug': '버그',
+  'fabric.editor.bulletedList': '글머리 기호 목록',
   'fabric.editor.canNotSortTable': '⚠️ 병합된 셀이 있는 표를 정렬할 수 없습니다',
   'fabric.editor.cancelButton': '취소',
   'fabric.editor.captionPlaceholder': '캡션 추가',
@@ -371,9 +382,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     '텍스트, 제목, 이모지, 날짜, 멘션, 링크 및 상태에만 댓글을 추가할 수 있습니다.',
   'fabric.editor.createCommentInvalid': '텍스트 및 제목에만 댓글을 작성할 수 있습니다',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': '확인',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    '이제 링크, 날짜, 상태 및 멘션 같은 인라인 요소에 댓글을 남길 수 있습니다.',
   'fabric.editor.customPanel': '사용자 지정 패널',
   'fabric.editor.customPanel.description': '이모지 및 색상 배경이 있는 메모 추가',
   'fabric.editor.datasource.assetsObjects.description':
@@ -657,6 +665,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': 'AI에게 질문하기',
   'fabric.editor.navigate.toolbar.editor': '편집기 도구 모음으로 이동',
   'fabric.editor.navigate.toolbar.floating': '플로팅 도구 모음으로 이동',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {이 블로그 게시물에 댓글을 추가할 권한이 없습니다} page {이 페이지에 댓글을 추가할 권한이 없습니다} other {이 페이지에 댓글을 추가할 권한이 없습니다}}',
   'fabric.editor.noResultsFound': '결과 없음',
   'fabric.editor.noSearchResults': '검색 결과 없음',
   'fabric.editor.normal': '일반 텍스트',
@@ -669,6 +679,7 @@ export default {
   'fabric.editor.openButtonTitle': '미해결',
   'fabric.editor.openCellOptions': '셀 옵션 열기',
   'fabric.editor.openLink': '새 탭에서 링크 열기',
+  'fabric.editor.openPreviewPanel': '미리 보기 패널 열기',
   'fabric.editor.orderedList': '번호 목록',
   'fabric.editor.orderedList.description': '순서가 지정된 목록 만들기',
   'fabric.editor.other': '기타...',
@@ -689,6 +700,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': '자리 표시자 텍스트 추가',
   'fabric.editor.plainText': '일반 텍스트 사용',
   'fabric.editor.preferencesLink': '링크 기본 설정',
+  'fabric.editor.previewButtonTitle': '미리 보기',
   'fabric.editor.quickInsert': '빠른 삽입',
   'fabric.editor.recordLoomShortTitle': '기록',
   'fabric.editor.recordVideo': 'Loom 동영상 녹화',
@@ -726,6 +738,7 @@ export default {
   'fabric.editor.selectTableColumn': '표 열 선택',
   'fabric.editor.selectTableRow': '표 행 선택',
   'fabric.editor.selectionExtensionDropdownButtonLabel': '앱 선택',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': '추가 옵션',
   'fabric.editor.settingsLinks': '링크 기본 설정으로 이동',
   'fabric.editor.shortEmptyNodePlaceholderText': '/를 입력하여 삽입',
   'fabric.editor.shortcut': '텍스트 바로 가기',
@@ -806,6 +819,7 @@ export default {
   'fabric.editor.toolbarPositionInline': '텍스트에 맞춤',
   'fabric.editor.toolbarPositionPinedAtTop': '도구 모음 고정 해제',
   'fabric.editor.toolbarPositionUnpined': '도구 모음을 상단에 고정',
+  'fabric.editor.toolbarPositionUnpinnedConcise': '도구 모음을 상단에 고정',
   'fabric.editor.tooltip.blockPanel': '패널',
   'fabric.editor.tooltip.bulletList': '목록',
   'fabric.editor.tooltip.decisionList': '결정 목록',

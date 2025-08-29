@@ -52,6 +52,8 @@ export default {
     'Otsikossa saa olla enintään {maxLength} merkkiä',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'Jatka chatissa',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'Avaa chatissa',
+  'fabric.editor.ai.config.item.addPolish.description': 'Tekee sisällöstä viimeistellymmän',
+  'fabric.editor.ai.config.item.addPolish.title': 'Lisää viimeistely',
   'fabric.editor.ai.config.item.agent.title': 'Atlassian Intelligencen Rovo-agentti',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': 'Lyhentää sisältöä, jotta se olisi ytimekkäämpi',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': 'Lyhennä päivitystä',
@@ -196,6 +198,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'Käännä',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'Sivun otsikko',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'Sivu',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    'Meillä on ongelmia emmekä voi juuri nyt generoida vastausta. Yritä myöhemmin uudelleen.',
   'fabric.editor.ai.experience-application.documentInsertError':
     'Vastauksen lisääminen ei onnistu. Sulje ikkuna ja yritä uudelleen.',
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -209,8 +213,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     'Kehotteesi tai sisältösi eivät välttämättä ole hyväksyttävän käytön käytäntömme mukaisia. Tarkista molemmat ja lue tarvittaessa <link>käyttösääntömme</link>. Jos ongelma jatkuu, kokeile toista kehotetta tai sisältöä.',
   'fabric.editor.ai.experience.browseMore.agents': 'Selaa asiakaspalvelijoita',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'Vastaustasi generoitaessa tapahtui virhe.',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    'Pyyntöä ei voitu toteuttaa, koska se ei ole <link>käyttösääntöjemme</link> mukainen.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Haluatko hylätä kehotteen?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Haluatko hylätä vastauksen?',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Poistetaanko vastaus?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'Vapaa luonti on poistettu käytöstä Elevatessa tällä hetkellä.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -255,6 +263,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'Kysy AI:lta',
   'fabric.editor.ai.toolbar.askRovo.title': 'Kysy Rovolta',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "Kysy Rovolta pikanäppäimellä {key}+'",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': 'Kysy Rovo-tekoälyltä',
   'fabric.editor.ai.toolbar.changeTone.title': 'Vaihda sävyä',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'Sävyn vaihtamisen vaihtoehdot',
@@ -290,6 +299,7 @@ export default {
   'fabric.editor.annotationToolbar': 'Huomautuspalkki',
   'fabric.editor.backLink': 'Siirry takaisin',
   'fabric.editor.backgroundColor': 'Taustaväri',
+  'fabric.editor.block.menu.copy.link': 'Kopioi linkki',
   'fabric.editor.blockCardUnavailable': 'Sisäelementtilinkki on solmun {node} sisällä, eikä sen näkymää voi muuttaa',
   'fabric.editor.blockControlDelete': 'Poista',
   'fabric.editor.blockControlDragHandleMove': 'Siirrä vetämällä',
@@ -314,6 +324,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': 'Täysi leveys',
   'fabric.editor.breakoutWideWidthLabel': 'Leveä',
   'fabric.editor.bug': 'Bugi',
+  'fabric.editor.bulletedList': 'Luettelomerkeillä varustettu luettelo',
   'fabric.editor.canNotSortTable': '⚠️ Et voi lajitella yhdistettyjä soluja sisältävää taulukkoa',
   'fabric.editor.cancelButton': 'Peruuta',
   'fabric.editor.captionPlaceholder': 'Lisää kuvateksti',
@@ -383,9 +394,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Voit kommentoida vain tekstiä, otsikoita, emojeita, päivämääriä, mainintoja, linkkejä ja tiloja.',
   'fabric.editor.createCommentInvalid': 'Voit kommentoida vain tekstiä ja otsikoita',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Selvä',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'Voit nyt jättää kommentteja sisäisiin elementteihin, kuten linkkeihin, päivämääriin, tiloihin ja mainintoihin.',
   'fabric.editor.customPanel': 'Mukautettu paneeli',
   'fabric.editor.customPanel.description': 'Lisää huomautus, jossa on emoji ja värillinen tausta',
   'fabric.editor.datasource.assetsObjects.description':
@@ -670,6 +678,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': 'Kysy tekoälyltä',
   'fabric.editor.navigate.toolbar.editor': 'Siirry editorin työkalupalkkiin',
   'fabric.editor.navigate.toolbar.floating': 'Siirry kelluvaan työkalupalkkiin',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {Sinulla ei ole oikeutta lisätä kommentteja tähän blogikirjoitukseen} page {Sinulla ei ole oikeutta lisätä kommentteja tälle sivulle} other {Sinulla ei ole oikeutta lisätä kommentteja tälle sivulle}}',
   'fabric.editor.noResultsFound': 'Ei tuloksia',
   'fabric.editor.noSearchResults': 'Ei hakutuloksia',
   'fabric.editor.normal': 'Normaali teksti',
@@ -682,6 +692,7 @@ export default {
   'fabric.editor.openButtonTitle': 'Avaa',
   'fabric.editor.openCellOptions': 'Avaa soluvalinnat',
   'fabric.editor.openLink': 'Avaa linkki uudessa välilehdessä',
+  'fabric.editor.openPreviewPanel': 'Avaa esikatselupaneeli',
   'fabric.editor.orderedList': 'Numeroitu luettelo',
   'fabric.editor.orderedList.description': 'Luo järjestetty luettelo',
   'fabric.editor.other': 'Muut...',
@@ -702,6 +713,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Lisää paikkamerkin teksti',
   'fabric.editor.plainText': 'Käytä perustekstiä',
   'fabric.editor.preferencesLink': 'Linkkivalinnat',
+  'fabric.editor.previewButtonTitle': 'Esikatselu',
   'fabric.editor.quickInsert': 'Pikalisäys',
   'fabric.editor.recordLoomShortTitle': 'Tallenna',
   'fabric.editor.recordVideo': 'Kuvaa Loom-video',
@@ -739,6 +751,7 @@ export default {
   'fabric.editor.selectTableColumn': 'Valitse taulukkosarake',
   'fabric.editor.selectTableRow': 'Valitse taulukkorivi',
   'fabric.editor.selectionExtensionDropdownButtonLabel': 'Valitse sovellus',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'Lisää vaihtoehtoja',
   'fabric.editor.settingsLinks': 'Siirry Linkkivalintoihin',
   'fabric.editor.shortEmptyNodePlaceholderText': 'Lisää kirjoittamalla /',
   'fabric.editor.shortcut': 'Tekstipikalinkki',
@@ -823,6 +836,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'Tekstiin sitoutuva',
   'fabric.editor.toolbarPositionPinedAtTop': 'Poista työkalurivin kiinnitys',
   'fabric.editor.toolbarPositionUnpined': 'Kiinnitä työkalurivi yläreunaan',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'Kiinnitä työkalurivi yläreunaan',
   'fabric.editor.tooltip.blockPanel': 'paneeli',
   'fabric.editor.tooltip.bulletList': 'luettelo',
   'fabric.editor.tooltip.decisionList': 'päätösluettelo',

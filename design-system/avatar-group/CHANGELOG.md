@@ -1,5 +1,13 @@
 # @atlaskit/avatar-group
 
+## 12.2.4
+
+### Patch Changes
+
+- [`cd70a377d007c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd70a377d007c) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 12.2.3
 
 ### Patch Changes

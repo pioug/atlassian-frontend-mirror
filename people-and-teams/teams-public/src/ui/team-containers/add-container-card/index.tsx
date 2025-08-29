@@ -41,7 +41,7 @@ const styles = cssMap({
 	},
 });
 
-interface AddContainerCardProps {
+export interface AddContainerCardProps {
 	containerType: ContainerTypes;
 	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	isLoading?: boolean;
@@ -133,18 +133,21 @@ type GetAddContainerCardsProps = {
 		e: React.MouseEvent<HTMLButtonElement>,
 		containerType: 'Confluence' | 'Jira' | 'Loom' | 'WebLink',
 	) => void;
+	CustomAddContainerCard?: React.ComponentType<AddContainerCardProps>;
 	showNewDesign?: boolean;
 };
 
 export const getAddContainerCards = ({
 	containers,
 	onAddAContainerClick,
+	CustomAddContainerCard,
 	showNewDesign,
 }: GetAddContainerCardsProps) => {
+	const AddContainerCardComponent = CustomAddContainerCard ?? AddContainerCard;
 	return (
 		<>
 			{containers.Jira.canAdd && (
-				<AddContainerCard
+				<AddContainerCardComponent
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Jira')}
 					containerType="JiraProject"
 					isLoading={containers.Jira.isLoading}
@@ -152,7 +155,7 @@ export const getAddContainerCards = ({
 				/>
 			)}
 			{containers.Confluence.canAdd && (
-				<AddContainerCard
+				<AddContainerCardComponent
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Confluence')}
 					containerType="ConfluenceSpace"
 					isLoading={containers.Confluence.isLoading}
@@ -160,7 +163,7 @@ export const getAddContainerCards = ({
 				/>
 			)}
 			{containers.Loom.canAdd && fg('loom_tab_in_container_linker_team_profile_page') && (
-				<AddContainerCard
+				<AddContainerCardComponent
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Loom')}
 					containerType="LoomSpace"
 					isLoading={containers.Loom.isLoading}
@@ -168,7 +171,7 @@ export const getAddContainerCards = ({
 				/>
 			)}
 			{containers.WebLink.canAdd && (
-				<AddContainerCard
+				<AddContainerCardComponent
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'WebLink')}
 					containerType="WebLink"
 					showNewDesign={showNewDesign}

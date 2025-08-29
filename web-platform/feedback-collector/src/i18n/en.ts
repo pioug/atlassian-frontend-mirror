@@ -12,6 +12,8 @@ export default {
   'feedback-collector.anonymous.title': 'Anonymous feedback',
   'feedback-collector.can-be-contacted.label':
     'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian products and services. I acknowledge the <a>Atlassian Privacy Policy</a>.',
+  'feedback-collector.can-be-contacted.label-appify':
+    'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian apps and services. I acknowledge the <a>Atlassian Privacy Policy</a>.',
   'feedback-collector.cancel-button.label': 'Cancel',
   'feedback-collector.default.custom.textarea.label': "What's on your mind?",
   'feedback-collector.enrol-in-research.label': "I'd like to participate in product research",
@@ -35,8 +37,11 @@ export default {
   'feedback-collector.required.fields.summary': 'Required fields are marked with an asterisk',
   'feedback-collector.submit-button.label': 'Send feedback',
   'feedback-collector.success-flag.description': 'Your valuable feedback helps us continually improve our products.',
+  'feedback-collector.success-flag.description-appify': 'Your valuable feedback helps us continually improve our apps.',
   'feedback-collector.success-flag.title': 'Thanks!',
   'feedback-collector.summary-placeholder': "Let us know what's on your mind",
+  'feedback-collector.validation.description.required': 'Please provide a description',
+  'feedback-collector.validation.type.required': 'Please select a feedback type',
   'proforma-form-builder.feedback-icon-label': 'Feedback',
   'proforma-form-builder.give-feedback': 'Give feedback',
 };

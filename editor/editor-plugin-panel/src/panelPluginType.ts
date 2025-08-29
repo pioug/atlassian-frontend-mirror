@@ -6,8 +6,10 @@ import type {
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { type EmojiPlugin } from '@atlaskit/editor-plugin-emoji';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 export const pluginKey = new PluginKey('panelPlugin');
@@ -38,6 +40,8 @@ export type PanelPluginDependencies = [
 	typeof decorationsPlugin,
 	OptionalPlugin<typeof analyticsPlugin>,
 	EmojiPlugin,
+	OptionalPlugin<BlockMenuPlugin>,
+	OptionalPlugin<SelectionPlugin>,
 ];
 
 export type PanelPlugin = NextEditorPlugin<

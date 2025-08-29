@@ -1,5 +1,12 @@
 # @atlaskit/popup
 
+## 4.3.10
+
+### Patch Changes
+
+- [`de6195f7484ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de6195f7484ce) -
+  Update prop descriptions to reduce confusion
+
 ## 4.3.9
 
 ### Patch Changes

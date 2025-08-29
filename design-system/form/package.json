@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "12.2.1",
+	"version": "12.2.2",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,8 +36,7 @@
 		"@babel/runtime": "root:*",
 		"final-form": "root:*",
 		"final-form-focus": "root:*",
-		"lodash": "root:*",
-		"tiny-invariant": "root:*"
+		"lodash": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"

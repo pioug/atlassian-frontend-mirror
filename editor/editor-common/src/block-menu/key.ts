@@ -57,3 +57,51 @@ export const FORMAT_NUMBERED_LIST_MENU_ITEM = {
 export const FORMAT_TASK_LIST_MENU_ITEM = {
 	key: 'block-menu-format-task-list',
 };
+
+export const NESTED_FORMAT_MENU = {
+	key: 'nested-menu-format',
+};
+
+export const PRIMARY_MENU_SECTION = {
+	key: 'block-menu-section-primary',
+};
+
+export const NESTED_FORMAT_MENU_SECTION = {
+	key: 'nested-menu-format-section-primary',
+};
+
+export const COPY_MENU_SECTION = {
+	key: 'block-menu-section-copy',
+};
+
+export const DELETE_MENU_SECTION = {
+	key: 'block-menu-section-delete',
+};
+
+export const MOVE_UP_DOWN_MENU_SECTION = {
+	key: 'block-menu-section-move-up-down',
+};
+
+export const FORMAT_MENU_ITEM = {
+	key: 'nested-menu-format-section-primary',
+};
+
+export const COPY_BLOCK_MENU_ITEM = {
+	key: 'block-menu-copy-block',
+};
+
+export const COPY_LINK_MENU_ITEM = {
+	key: 'block-menu-item-copy-link',
+};
+
+export const MOVE_UP_MENU_ITEM = {
+	key: 'block-menu-item-move-up',
+};
+
+export const MOVE_DOWN_MENU_ITEM = {
+	key: 'block-menu-item-move-down',
+};
+
+export const DELETE_MENU_ITEM = {
+	key: 'block-menu-item-delete',
+};

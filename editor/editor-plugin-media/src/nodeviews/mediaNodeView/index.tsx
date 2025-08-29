@@ -4,8 +4,6 @@ import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { DEFAULT_IMAGE_HEIGHT, DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-single';
@@ -57,34 +55,23 @@ const selector = (
 ) => {
 	return {
 		mediaProvider: states.mediaState?.mediaProvider,
-		widthState: undefined,
 	};
 };
-
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		return useSharedPluginStateWithSelector(pluginInjectionApi, ['media'], selector);
-	},
-	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const { widthState, mediaState } = useSharedPluginState(pluginInjectionApi, ['width', 'media']);
-		return {
-			mediaProvider: mediaState?.mediaProvider,
-			widthState,
-		};
-	},
-);
 
 const MediaNodeWithProviders = ({
 	pluginInjectionApi,
 	innerComponent,
 }: MediaNodeWithProvidersProps) => {
-	const { mediaProvider, widthState } = useSharedState(pluginInjectionApi);
+	const { mediaProvider } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['media'],
+		selector,
+	);
 	const interactionState = useSharedPluginStateSelector(
 		pluginInjectionApi,
 		'interaction.interactionState',
 	);
 	return innerComponent({
-		width: widthState, // Remove when platform_editor_usesharedpluginstatewithselector is cleaned up
 		mediaProvider: mediaProvider ? Promise.resolve(mediaProvider) : undefined,
 		interactionState,
 	});

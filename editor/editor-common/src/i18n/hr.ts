@@ -50,6 +50,8 @@ export default {
     'Naslov ne smije biti dulji od {maxLength} znakova',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'Nastavi u razgovoru',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'Otvori u chatu',
+  'fabric.editor.ai.config.item.addPolish.description': 'Usavršuje sadržaj kako bi bio usavršeniji',
+  'fabric.editor.ai.config.item.addPolish.title': 'Dodaj usavršavanje',
   'fabric.editor.ai.config.item.agent.title': 'Atlassian Intelligence Rovo agent',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': 'Skraćuje sadržaj kako bi bio sažetiji',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': 'Skrati ažuriranje',
@@ -191,6 +193,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'Prevedi',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'Naslov stranice',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'Stranica',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    'Imamo poteškoća i trenutačno ne možemo generirati odgovor. Pokušaj ponovno poslije.',
   'fabric.editor.ai.experience-application.documentInsertError':
     'Imamo poteškoće s unosom odgovora. Zatvori dijaloški okvir i pokušaj ponovno.',
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -205,8 +209,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     'Tvoj upit ili sadržaj možda neće biti u skladu s našim Pravilima o prihvatljivoj upotrebi. Pregledaj obje stavke i, ako je potrebno, pogledaj naša <link>Pravila o prihvatljivoj upotrebi</link>. Ako je problem i dalje prisutan, razmisli o isprobavanju drugog upita ili sadržaja.',
   'fabric.editor.ai.experience.browseMore.agents': 'Pregledaj agente',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'Došlo je do pogreške tijekom generiranja vašeg odgovora.',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    'Nismo mogli dovršiti taj zahtjev jer nije u skladu s našim <link>Pravilima o prihvatljivoj upotrebi</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Želiš li odbaciti svoj upit?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Želiš li odbaciti svoj odgovor?',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Izbrisati odgovor?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'Besplatno generiranje trenutno je onemogućeno u Elevateu.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -348,6 +356,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'Pitaj AI',
   'fabric.editor.ai.toolbar.askRovo.title': 'Pitaj Rovo',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': 'Pitaj Rovo {key}+',
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': 'Pitaj Rovo AI',
   'fabric.editor.ai.toolbar.changeTone.title': 'Promijeni ton',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'Opcije izmjene tona',
@@ -382,6 +391,10 @@ export default {
   'fabric.editor.annotationToolbar': 'Alatna traka za bilješke',
   'fabric.editor.backLink': 'Idi natrag',
   'fabric.editor.backgroundColor': 'Boja pozadine',
+  'fabric.editor.block.menu.copy.block': 'Kopiraj blok',
+  'fabric.editor.block.menu.copy.link': 'Kopiraj poveznicu',
+  'fabric.editor.block.menu.move.down': 'Premjesti dolje',
+  'fabric.editor.block.menu.move.up': 'Premjesti gore',
   'fabric.editor.blockCardUnavailable':
     'Ugrađena poveznica nalazi se unutar {node} i ne može se promijeniti njezin prikaz',
   'fabric.editor.blockControlDelete': 'Izbriši',
@@ -405,6 +418,7 @@ export default {
   'fabric.editor.breakout.resizeExpand': 'Promijeni veličinu i proširi',
   'fabric.editor.breakout.resizeLayout': 'Promijeni veličinu izgleda',
   'fabric.editor.bug': 'Bug',
+  'fabric.editor.bulletedList': 'Popis s grafičkim oznakama',
   'fabric.editor.canNotSortTable': '⚠️ Ne možeš sortirati tablicu sa spojenim ćelijama',
   'fabric.editor.cancelButton': 'Odustani',
   'fabric.editor.captionPlaceholder': 'Dodaj izrez',
@@ -475,9 +489,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Možeš komentirati samo tekst, zaglavlja, emotikone, datume, spominjanja, poveznice i statuse.',
   'fabric.editor.createCommentInvalid': 'Možeš komentirati samo tekst i zaglavlja',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Shvaćam',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'Sada možeš ostavljati komentare na umetnute elemente poput poveznica, datuma, statusa i spominjanja.',
   'fabric.editor.customPanel': 'Prilagodi ploču',
   'fabric.editor.customPanel.description': 'Dodaj napomenu s emotikonom i pozadinom u boji',
   'fabric.editor.datasource.assetsObjects.description':
@@ -764,6 +775,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': 'Pitaj AI',
   'fabric.editor.navigate.toolbar.editor': 'Prijeđi na alatnu traku uređivača',
   'fabric.editor.navigate.toolbar.floating': 'Prijeđi na plutajuću alatnu traku',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {Nemate dopuštenje za dodavanje komentara na ovu objavu na blogu} page {Nemate dopuštenje za dodavanje komentara na ovoj stranici} other {Nemate dopuštenje za dodavanje komentara na ovoj stranici}}',
   'fabric.editor.noResultsFound': 'Nisu pronađeni rezultati',
   'fabric.editor.noSearchResults': 'Nema rezultata pretraživanja',
   'fabric.editor.normal': 'Obični tekst',
@@ -775,6 +788,7 @@ export default {
   'fabric.editor.on': '{formattingType} Uključeno',
   'fabric.editor.openCellOptions': 'Otvori opcije ćelija',
   'fabric.editor.openLink': 'Otvori poveznicu na novoj kartici',
+  'fabric.editor.openPreviewPanel': 'Ploča Otvori pretpregled',
   'fabric.editor.orderedList': 'Numerirani popis',
   'fabric.editor.orderedList.description': 'Izradi numerirani popis',
   'fabric.editor.other': 'Drugi...',
@@ -795,6 +809,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Dodaj rezervirano mjesto za tekst',
   'fabric.editor.plainText': 'Koristi običan tekst',
   'fabric.editor.preferencesLink': 'Postavke poveznice',
+  'fabric.editor.previewButtonTitle': 'Pregled',
   'fabric.editor.quickInsert': 'Brzo umetanje',
   'fabric.editor.recordLoomShortTitle': 'Snimi',
   'fabric.editor.recordVideo': 'Snimi Loom videozapis',
@@ -836,6 +851,7 @@ export default {
   'fabric.editor.selectTableColumn': 'Odaberi stupac tablice',
   'fabric.editor.selectTableRow': 'Odaberi redak tablice',
   'fabric.editor.selectionExtensionDropdownButtonLabel': 'Odaberi aplikaciju',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'Više opcija',
   'fabric.editor.settingsLinks': 'Idi na Postavke poveznice',
   'fabric.editor.shortEmptyNodePlaceholderText': '/ za umetanje',
   'fabric.editor.shortcut': 'Tekstni prečac',
@@ -916,6 +932,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'U liniji s tekstom',
   'fabric.editor.toolbarPositionPinedAtTop': 'Otkvači alatnu traku',
   'fabric.editor.toolbarPositionUnpined': 'Prikvači alatnu traku na vrhu',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'Prikvači alatnu traku na vrh',
   'fabric.editor.tooltip.blockPanel': 'ploča',
   'fabric.editor.tooltip.bulletList': 'popis',
   'fabric.editor.tooltip.decisionList': 'popis odluka',

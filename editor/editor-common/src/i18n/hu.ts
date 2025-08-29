@@ -53,6 +53,8 @@ export default {
     'A cím nem lehet hosszabb {maxLength} karakternél',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'Folytatás csevegésben',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'Megnyitás csevegésben',
+  'fabric.editor.ai.config.item.addPolish.description': 'Finomhangolja a tartalmat, hogy még jobb legyen',
+  'fabric.editor.ai.config.item.addPolish.title': 'Finomhangolás',
   'fabric.editor.ai.config.item.agent.title': 'Atlassian Intelligence Rovo-ügynök',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': 'Lerövidíti a tartalmat, hogy tömörebb legyen',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': 'Frissítés rövidítése',
@@ -199,6 +201,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'Fordítás',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'Oldal címe',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'Oldal',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    'Problémákba ütköztünk a válasz generálása során. Próbáld újra később.',
   'fabric.editor.ai.experience-application.documentInsertError':
     'Problémába ütköztünk a válasz beszúrásakor. Zárd be a párbeszédpanelt, és próbálkozz újra.',
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -213,8 +217,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     'Előfordulhat, hogy az utasításod vagy a tartalmad nem felel meg az Elfogadható használatra vonatkozó irányelveknek. Kérjük, ellenőrizd mindkettőt, és szükség esetén olvasd el az <link>Elfogadható használatra vonatkozó irányelveket</link>. Ha a probléma továbbra is fennáll, akkor fontold meg egy másik utasítás vagy tartalom használatát.',
   'fabric.editor.ai.experience.browseMore.agents': 'Ügynökök böngészése',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'Hiba lépett fel a válasz generálása során.',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    'Nem sikerült végrehajtani ezt a kérelmet, mert nem felel meg az <link>Elfogadható használatra vonatkozó irányelveknek</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Szeretnéd elvetni a kérésedet?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Szeretnéd elvetni a válaszodat?',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Törlöd a választ?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'A szabad generálás jelenleg le van tiltva az Elevate-ben.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -262,6 +270,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'AI megkérdezése',
   'fabric.editor.ai.toolbar.askRovo.title': 'Kérdezd a Rovót',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "Kérdezd a Rovót: {key}+'",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': 'A Rovo MI megkérdezése',
   'fabric.editor.ai.toolbar.changeTone.title': 'Hangnem módosítása',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'Lehetőségek a hangnem módosítására',
@@ -297,6 +306,7 @@ export default {
   'fabric.editor.annotationToolbar': 'Jegyzeteszköztár',
   'fabric.editor.backLink': 'Vissza',
   'fabric.editor.backgroundColor': 'Háttérszín',
+  'fabric.editor.block.menu.copy.link': 'Link másolása',
   'fabric.editor.blockCardUnavailable':
     'A beillesztett link a(z) {node} csomóponton belül található, és nem módosítható a nézete',
   'fabric.editor.blockControlDelete': 'Törlés',
@@ -323,6 +333,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': 'Teljes szélesség',
   'fabric.editor.breakoutWideWidthLabel': 'Széles',
   'fabric.editor.bug': 'Hiba',
+  'fabric.editor.bulletedList': 'Listajeles lista',
   'fabric.editor.canNotSortTable': '⚠️ Nem rendezhetsz egyesített cellákat tartalmazó táblázatot',
   'fabric.editor.cancelButton': 'Mégse',
   'fabric.editor.captionPlaceholder': 'Képaláírás hozzáadása',
@@ -393,9 +404,6 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Csak szövegekhez, címsorokhoz, emojikhoz, dátumokhoz, említésekhez, linkekhez és állapotokhoz fűzhetsz megjegyzést.',
   'fabric.editor.createCommentInvalid': 'Csak szöveghez és fejléchez fűzhetsz megjegyzést',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Értettem',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'Mostantól megjegyzéseket fűzhetsz olyan beágyazott elemekhez, mint például a linkek, a dátumok, az állapotok és az említések.',
   'fabric.editor.customPanel': 'Egyéni panel',
   'fabric.editor.customPanel.description': 'Adj hozzá megjegyzést emojival és színes háttérrel',
   'fabric.editor.datasource.assetsObjects.description':
@@ -683,6 +691,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': 'MI megkérdezése',
   'fabric.editor.navigate.toolbar.editor': 'Navigálás a szerkesztési eszköztárhoz',
   'fabric.editor.navigate.toolbar.floating': 'Navigálás a lebegő eszköztárhoz',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {Nincs jogosultságod megjegyzéseket írni a blogposzthoz} page {Nincs jogosultságod megjegyzéseket írni az oldalhoz} other {Nincs jogosultságod megjegyzéseket írni az oldalhoz}}',
   'fabric.editor.noResultsFound': 'Nincs találat',
   'fabric.editor.noSearchResults': 'Nincsenek keresési találatok',
   'fabric.editor.normal': 'Normál szöveg',
@@ -695,6 +705,7 @@ export default {
   'fabric.editor.openButtonTitle': 'Nyitott',
   'fabric.editor.openCellOptions': 'Cellabeállítások megnyitása',
   'fabric.editor.openLink': 'Hivatkozás megnyitása új lapon',
+  'fabric.editor.openPreviewPanel': 'Az előnézet panel megnyitása',
   'fabric.editor.orderedList': 'Számozott lista',
   'fabric.editor.orderedList.description': 'Sorrendbe állított lista létrehozása',
   'fabric.editor.other': 'Egyebek...',
@@ -715,6 +726,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Helyőrző szöveg hozzáadása',
   'fabric.editor.plainText': 'Egyszerű szöveg használata',
   'fabric.editor.preferencesLink': 'Linkbeállítások',
+  'fabric.editor.previewButtonTitle': 'Előnézet',
   'fabric.editor.quickInsert': 'Gyorsbeillesztés',
   'fabric.editor.recordLoomShortTitle': 'Rögzítés',
   'fabric.editor.recordVideo': 'Loom-videó rögzítése',
@@ -753,6 +765,7 @@ export default {
   'fabric.editor.selectTableColumn': 'Táblázatoszlop kiválasztása',
   'fabric.editor.selectTableRow': 'Táblázatsor kiválasztása',
   'fabric.editor.selectionExtensionDropdownButtonLabel': 'Alkalmazás kiválasztása',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'További lehetőségek',
   'fabric.editor.settingsLinks': 'Ugrás a linkbeállításokhoz',
   'fabric.editor.shortEmptyNodePlaceholderText': 'A / karakterrel szúrhatsz be tartalmat',
   'fabric.editor.shortcut': 'Szöveghivatkozás',
@@ -838,6 +851,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'Beágyazva a szövegbe',
   'fabric.editor.toolbarPositionPinedAtTop': 'Eszköztár rögzítésének megszüntetése',
   'fabric.editor.toolbarPositionUnpined': 'Eszköztár rögzítése felülre',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'Eszköztár rögzítése felülre',
   'fabric.editor.tooltip.blockPanel': 'panel',
   'fabric.editor.tooltip.bulletList': 'egy lista',
   'fabric.editor.tooltip.decisionList': 'döntési lista',

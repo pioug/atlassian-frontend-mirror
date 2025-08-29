@@ -39,6 +39,9 @@
 			"path": "../../../design-system/logo/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/popup/afm-passionfruit/tsconfig.json"
 		},
 		{

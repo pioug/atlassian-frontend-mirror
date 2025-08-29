@@ -52,6 +52,8 @@ export default {
     'Il titolo non può superare {maxLength} caratteri',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'Continua nella chat',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'Apri nella chat',
+  'fabric.editor.ai.config.item.addPolish.description': 'Rifinisce il contenuto per renderlo più raffinato',
+  'fabric.editor.ai.config.item.addPolish.title': 'Aggiungi rifinitura',
   'fabric.editor.ai.config.item.agent.title': 'Agente Rovo di Atlassian Intelligence',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': 'Abbrevia il contenuto per renderlo più conciso',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': 'Abbrevia aggiornamento',
@@ -202,6 +204,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'Traduci',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'Titolo della pagina',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'Pagina',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    'Stiamo riscontrando problemi e non possiamo generare una risposta in questo momento. Riprova più tardi.',
   'fabric.editor.ai.experience-application.documentInsertError':
     "Stiamo riscontrando problemi nell'inserimento della risposta. Chiudi la finestra di dialogo e riprova.",
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -216,8 +220,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     "Il tuo prompt o il tuo contenuto potrebbero non essere conformi alla nostra Policy sull'utilizzo accettabile. Verificali entrambi e, se necessario, consulta la nostra <link>Policy sull'utilizzo accettabile</link>. Se il problema persiste, valuta la possibilità di provare con un prompt o un contenuto diverso.",
   'fabric.editor.ai.experience.browseMore.agents': 'Sfoglia agenti',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'Si è verificato un errore durante la generazione della risposta.',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    'Non è stato possibile completare la richiesta perché non è conforme ai nostri <link>Termini di utilizzo accettabile</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Vuoi eliminare la tua richiesta?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Vuoi eliminare la tua risposta?',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Vuoi eliminare la risposta?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'La scrittura libera dei prompt è disabilitata in Elevate in questa fase.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -266,6 +274,7 @@ export default {
   'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'Chiedi ad Atlassian Intelligence',
   'fabric.editor.ai.toolbar.askRovo.title': 'Chiedi a Rovo',
+  'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand': "Chiedi a Rovo {key}+'",
   'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': "Chiedi all'intelligenza artificiale di Rovo",
   'fabric.editor.ai.toolbar.changeTone.title': 'Cambia il tono',
   'fabric.editor.ai.toolbar.changeToneOptions.title': 'Opzioni per cambiare il tono',
@@ -301,6 +310,7 @@ export default {
   'fabric.editor.annotationToolbar': 'Barra degli strumenti di annotazione',
   'fabric.editor.backLink': 'Torna indietro',
   'fabric.editor.backgroundColor': 'Colore di sfondo',
+  'fabric.editor.block.menu.copy.link': 'Copia link',
   'fabric.editor.blockCardUnavailable':
     "Il collegamento in linea è all'interno di {node} e non è possibile modificare la relativa visualizzazione",
   'fabric.editor.blockControlDelete': 'Elimina',
@@ -326,6 +336,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': 'Larghezza piena',
   'fabric.editor.breakoutWideWidthLabel': 'Largo',
   'fabric.editor.bug': 'Bug',
+  'fabric.editor.bulletedList': 'Elenco puntato',
   'fabric.editor.canNotSortTable': '⚠️ Non puoi ordinare una tabella con celle unite',
   'fabric.editor.cancelButton': 'Annulla',
   'fabric.editor.captionPlaceholder': 'Aggiungi didascalia',
@@ -396,9 +407,6 @@ export default {
   'fabric.editor.createComment': 'Commento',
   'fabric.editor.createCommentDisabled': 'Puoi commentare solo testo, titoli, emoji, date, menzioni, link e stati.',
   'fabric.editor.createCommentInvalid': 'Puoi inserire commenti solo per il testo e le intestazioni',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Ho capito',
-  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
-    'Ora puoi lasciare commenti su elementi in linea come link, date, stati e menzioni.',
   'fabric.editor.customPanel': 'Pannello personalizzato',
   'fabric.editor.customPanel.description': 'Aggiungi una nota con un emoji e uno sfondo colorato',
   'fabric.editor.datasource.assetsObjects.description':
@@ -691,6 +699,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': "Chiedi all'intelligenza artificiale",
   'fabric.editor.navigate.toolbar.editor': "Passa alla barra degli strumenti dell'editor",
   'fabric.editor.navigate.toolbar.floating': 'Passa alla barra degli strumenti mobile',
+  'fabric.editor.noPermissionToAddComment':
+    "{contentType, select, blogpost {Non disponi dell'autorizzazione per aggiungere commenti a questo post del blog} page {Non disponi dell'autorizzazione per aggiungere commenti a questa pagina} other {Non disponi dell'autorizzazione per aggiungere commenti a questa pagina}}",
   'fabric.editor.noResultsFound': 'Nessun risultato',
   'fabric.editor.noSearchResults': 'Nessun risultato della ricerca',
   'fabric.editor.normal': 'Testo normale',
@@ -703,6 +713,7 @@ export default {
   'fabric.editor.openButtonTitle': 'Apri',
   'fabric.editor.openCellOptions': 'Apri opzioni cella',
   'fabric.editor.openLink': 'Apri link in una nuova scheda',
+  'fabric.editor.openPreviewPanel': 'Apri il pannello di anteprima',
   'fabric.editor.orderedList': 'Elenco numerato',
   'fabric.editor.orderedList.description': 'Crea una lista ordinata',
   'fabric.editor.other': 'Altri...',
@@ -723,6 +734,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Aggiungi testo segnaposto',
   'fabric.editor.plainText': 'Usa testo normale',
   'fabric.editor.preferencesLink': 'Preferenze per i link',
+  'fabric.editor.previewButtonTitle': 'Anteprima',
   'fabric.editor.quickInsert': 'Inserimento rapido',
   'fabric.editor.recordLoomShortTitle': 'Registra',
   'fabric.editor.recordVideo': 'Registra un video Loom',
@@ -763,6 +775,7 @@ export default {
   'fabric.editor.selectTableColumn': 'Seleziona la colonna della tabella',
   'fabric.editor.selectTableRow': 'Seleziona la riga della tabella',
   'fabric.editor.selectionExtensionDropdownButtonLabel': "Seleziona l'app",
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'Altre opzioni',
   'fabric.editor.settingsLinks': 'Vai alle Preferenze per i link',
   'fabric.editor.shortEmptyNodePlaceholderText': '/ per inserire',
   'fabric.editor.shortcut': 'Scelta rapida di testo',
@@ -848,6 +861,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'Allineata al testo',
   'fabric.editor.toolbarPositionPinedAtTop': 'Sblocca la barra degli strumenti',
   'fabric.editor.toolbarPositionUnpined': 'Blocca la barra degli strumenti in alto',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'Fissa barra degli strumenti in alto',
   'fabric.editor.tooltip.blockPanel': 'un pannello',
   'fabric.editor.tooltip.bulletList': 'un elenco',
   'fabric.editor.tooltip.decisionList': 'un elenco di decisioni',

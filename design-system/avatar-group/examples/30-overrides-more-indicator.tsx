@@ -22,7 +22,7 @@ const styles = cssMap({
 		paddingBottom: token('space.050'),
 		paddingLeft: token('space.050'),
 		backgroundColor: token('color.background.accent.gray.subtler'),
-		borderRadius: token('border.radius.300', '24px'),
+		borderRadius: token('radius.full', '24px'),
 		color: token('color.text.subtle'),
 		font: token('font.heading.xsmall'),
 		'&:hover': {

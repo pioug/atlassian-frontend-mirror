@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-card
 
+## 7.7.3
+
+### Patch Changes
+
+- [`05bf548de34be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05bf548de34be) -
+  PR to cleanup platform_editor_usesharedpluginstatewithselector for card
+- Updated dependencies
+
+## 7.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.7.1
+
+### Patch Changes
+
+- [`bfec478c9e91b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfec478c9e91b) -
+  Splits platform_editor_preview_panel_linking_exp into one for Jira and one for Confluence and
+  switches to editorExperiment util.
+- Updated dependencies
+
 ## 7.7.0
 
 ### Minor Changes

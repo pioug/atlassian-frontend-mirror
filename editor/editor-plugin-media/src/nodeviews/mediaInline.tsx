@@ -11,8 +11,6 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { MediaInlineImageCard } from '@atlaskit/editor-common/media-inline';
@@ -235,28 +233,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['editorViewMode', 'media'], selector);
-	},
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const { editorViewModeState, mediaState } = useSharedPluginState(api, [
-			'editorViewMode',
-			'media',
-		]);
-		return {
-			viewMode: editorViewModeState?.mode,
-			mediaProvider: mediaState?.mediaProvider,
-			handleMediaNodeMount: mediaState?.handleMediaNodeMount,
-			handleMediaNodeUnmount: mediaState?.handleMediaNodeUnmount,
-			allowInlineImages: mediaState?.allowInlineImages,
-			addPendingTask: mediaState?.addPendingTask,
-			selectedMediaContainerNode: mediaState?.selectedMediaContainerNode,
-			mediaClientConfig: mediaState?.mediaClientConfig,
-		};
-	},
-);
-
 const MediaInlineSharedState = ({
 	identifier,
 	node,
@@ -275,7 +251,7 @@ const MediaInlineSharedState = ({
 		selectedMediaContainerNode,
 		mediaClientConfig,
 		viewMode,
-	} = useSharedState(api);
+	} = useSharedPluginStateWithSelector(api, ['editorViewMode', 'media'], selector);
 	const newMediaProvider = useMemo(
 		() => (mediaProvider ? Promise.resolve(mediaProvider) : undefined),
 		[mediaProvider],

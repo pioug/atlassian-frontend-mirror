@@ -130,6 +130,8 @@ export default {
   'fabric.linking.preview_improved': 'Odpri predogled',
   'fabric.linking.preview_max_size': 'Prikaži celozaslonsko',
   'fabric.linking.preview_min_size': 'Zapri celozaslonski prikaz',
+  'fabric.linking.preview_modal': 'Odpri modalno okno za predogled',
+  'fabric.linking.preview_panel': 'Odprite ploščo za predogled',
   'fabric.linking.priority_blocker': 'Blokator',
   'fabric.linking.priority_critical': 'Kritična',
   'fabric.linking.priority_high': 'Visoka',

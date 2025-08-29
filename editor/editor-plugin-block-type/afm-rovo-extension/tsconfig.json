@@ -32,7 +32,13 @@
 			"path": "../../editor-plugin-block-menu/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-list/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-primary-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-selection-toolbar/afm-rovo-extension/tsconfig.json"

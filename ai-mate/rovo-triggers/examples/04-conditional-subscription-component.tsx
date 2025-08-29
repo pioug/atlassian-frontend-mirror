@@ -58,7 +58,7 @@ const styles = cssMap({
 
 	button: {
 		marginTop: token('space.300'),
-		borderRadius: token('border.radius.300'),
+		borderRadius: token('radius.xlarge'),
 		paddingTop: token('space.100'),
 		paddingBottom: token('space.100'),
 		paddingLeft: token('space.150'),

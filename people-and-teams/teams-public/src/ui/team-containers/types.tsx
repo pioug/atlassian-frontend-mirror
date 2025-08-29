@@ -5,6 +5,7 @@ import type { GridProps } from '@atlaskit/primitives/compiled';
 import { type TeamContainersSkeletonProps } from '../../common/ui/team-containers-skeleton';
 import { type OnRequestedContainerTimeout } from '../../controllers/hooks/use-requested-container';
 
+import type { AddContainerCardProps } from './add-container-card';
 import { type LinkedContainerCardProps } from './linked-container-card';
 
 export type FlagType = FlagAppearance;
@@ -93,5 +94,6 @@ export interface TeamContainersComponent {
 	ContainerCard: ComponentType<LinkedContainerCardProps>;
 	TeamContainersSkeleton?: ComponentType<TeamContainersSkeletonProps>;
 	TeamContainersEmptyState?: ComponentType<TeamContainersEmptyStateProps>;
+	AddContainerCard?: ComponentType<AddContainerCardProps>;
 	Grid?: ComponentType<GridProps>;
 }

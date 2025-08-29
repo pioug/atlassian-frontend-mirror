@@ -27,6 +27,7 @@ import { mocks } from '../../../utils/mocks';
 import * as LinkInfo from '../components/link-info';
 import { MAX_MODAL_SIZE } from '../constants';
 import EmbedModal from '../index';
+import { EmbedModalSize } from '../types';
 
 jest.mock('uuid', () => ({
 	...jest.requireActual('uuid'),
@@ -158,6 +159,12 @@ describe('EmbedModal', () => {
 
 	afterEach(() => {
 		jest.restoreAllMocks();
+	});
+
+	it('should render with size', () => {
+		renderEmbedModal({ size: EmbedModalSize.Small });
+		const modal = screen.getByTestId(testId);
+		expectModalMinSize(modal);
 	});
 
 	it('should capture and report a11y violations', async () => {

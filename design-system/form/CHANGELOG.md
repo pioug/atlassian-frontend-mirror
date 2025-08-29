@@ -1,5 +1,12 @@
 # @atlaskit/form
 
+## 12.2.2
+
+### Patch Changes
+
+- [`543068f818b30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/543068f818b30) -
+  Remove unused internal invariant for the field component.
+
 ## 12.2.1
 
 ### Patch Changes

@@ -35,16 +35,25 @@
 			"path": "../../editor-plugin-analytics/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-block-menu/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-context-identifier/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-editor-viewmode/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-selection/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-type-ahead/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../editor-shared-styles/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/heading/afm-townsquare/tsconfig.json"

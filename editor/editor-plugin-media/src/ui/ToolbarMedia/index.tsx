@@ -5,8 +5,6 @@ import { injectIntl } from 'react-intl-next';
 
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { toolbarMediaMessages } from '@atlaskit/editor-common/media';
@@ -39,26 +37,17 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['media'], selector);
-	},
-	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const { mediaState } = useSharedPluginState(api, ['media']);
-		return {
-			allowsUploads: mediaState?.allowsUploads,
-			showMediaPicker: mediaState?.showMediaPicker,
-		};
-	},
-);
-
 const ToolbarMedia = ({
 	isDisabled,
 	isReducedSpacing,
 	intl,
 	api,
 }: Props & WrappedComponentProps) => {
-	const { allowsUploads, showMediaPicker } = useSharedState(api);
+	const { allowsUploads, showMediaPicker } = useSharedPluginStateWithSelector(
+		api,
+		['media'],
+		selector,
+	);
 	if (!allowsUploads || !showMediaPicker) {
 		return null;
 	}

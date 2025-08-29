@@ -37,6 +37,8 @@ export default {
   'feedback-collector.success-flag.description': 'Ваши отзывы помогают нам постоянно улучшать качество продуктов.',
   'feedback-collector.success-flag.title': 'Спасибо!',
   'feedback-collector.summary-placeholder': 'Поделитесь своими мыслями',
+  'feedback-collector.validation.description.required': 'Введите описание',
+  'feedback-collector.validation.type.required': 'Выберите тип отзыва',
   'proforma-form-builder.feedback-icon-label': 'Отзыв',
   'proforma-form-builder.give-feedback': 'Оставить отзыв',
 };

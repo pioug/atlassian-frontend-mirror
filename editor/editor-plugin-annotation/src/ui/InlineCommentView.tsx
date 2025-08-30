@@ -29,7 +29,6 @@ import {
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type annotationPlugin } from '../annotationPlugin';
@@ -229,7 +228,7 @@ export function InlineCommentView({
 							)(editorView.state, editorView.dispatch);
 							!editorView.hasFocus() && editorView.focus();
 
-							if (!createAnnotationResult && fg('confluence_frontend_handle_annotation_error')) {
+							if (!createAnnotationResult) {
 								throw new Error('Failed to create annotation');
 							}
 						}

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-type
 
+## 6.2.19
+
+### Patch Changes
+
+- [`652bf219a308e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/652bf219a308e) -
+  [ux] ED-28581: Added isSelected state for block type and lists"
+- [`652bf219a308e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/652bf219a308e) -
+  [ux] ED-28581: isSelected for block type and list
+- Updated dependencies
+
 ## 6.2.18
 
 ### Patch Changes

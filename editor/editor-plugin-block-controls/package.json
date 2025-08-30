@@ -156,6 +156,9 @@
 		"platform_editor_column_count_analytics": {
 			"type": "boolean"
 		},
+		"platform_editor_ai_rovo_free_gen": {
+			"type": "boolean"
+		},
 		"platform_editor_fix_widget_destroy": {
 			"type": "boolean"
 		},

@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.56.0
+
+### Minor Changes
+
+- [`46d89dbaa9dc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46d89dbaa9dc2) -
+  Implemented for the new team profile page. Crated AddContainerCard component that is exported from
+  teams-public package and being used in the new team profile page's Team Links section.
+
 ## 0.55.4
 
 ### Patch Changes

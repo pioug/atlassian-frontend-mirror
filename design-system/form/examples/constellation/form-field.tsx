@@ -21,7 +21,7 @@ const FormFieldExample = () => (
 		<Form onSubmit={(data) => console.log('form data', data)}>
 			{({ formProps, submitting }) => (
 				<form {...formProps}>
-					<Field aria-required={true} name="username" defaultValue="" label="Username" isRequired>
+					<Field name="username" defaultValue="" label="Username" isRequired>
 						{({ fieldProps }) => <TextField {...fieldProps} />}
 					</Field>
 					<FormFooter>

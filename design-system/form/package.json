@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "12.2.2",
+	"version": "12.4.0",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -137,7 +137,13 @@
 		"platform_dst_form_screenreader_message_fix": {
 			"type": "boolean"
 		},
+		"platform_design-system-team_range-field-spread": {
+			"type": "boolean"
+		},
 		"platform_design-system-team_form-upgrade": {
+			"type": "boolean"
+		},
+		"platform_design-system-team_checkbox-field-spread": {
 			"type": "boolean"
 		}
 	}

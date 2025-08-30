@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-breakout
 
+## 3.1.13
+
+### Patch Changes
+
+- [`a118c054692f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a118c054692f3) -
+  PR to cleanup platform_editor_usesharedpluginstatewithselector for breakout
+
 ## 3.1.12
 
 ### Patch Changes

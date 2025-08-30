@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-annotation
 
+## 3.3.14
+
+### Patch Changes
+
+- [`ff39734621eff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff39734621eff) -
+  Cleaning up several feature gates
+
 ## 3.3.13
 
 ### Patch Changes

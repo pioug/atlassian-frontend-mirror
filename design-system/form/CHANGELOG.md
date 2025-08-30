@@ -1,5 +1,21 @@
 # @atlaskit/form
 
+## 12.4.0
+
+### Minor Changes
+
+- [`84cea20e778c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84cea20e778c3) -
+  We are testing removing spread props for range field behind a feature flag. If this fix is
+  successful it will be implemented in a later release.
+
+## 12.3.0
+
+### Minor Changes
+
+- [`c247b696ec62a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c247b696ec62a) -
+  We are testing removing spread props for checkbox field behind a feature flag. If this fix is
+  successful it will be implemented in a later release.
+
 ## 12.2.2
 
 ### Patch Changes

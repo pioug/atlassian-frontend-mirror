@@ -7,16 +7,21 @@
  */
 //
 export default {
+  'platform.teams.containers.add-web-link': '⁣⁢Add Web Link⁮‌‍⁫‌⁮⁡⁪؜⁠⁭⁬⁬⁮؜⁮⁫⁪⁮⁯⁯⁪⁭⁡⁫⁪⁣⁤',
   'platform.teams.containers.empty-web-link-description': '⁣⁢Add any web link⁡‌‌⁫⁠⁮‌⁪؜⁫؜⁭‌⁬‌⁬⁮⁯؜⁣⁤',
   'platform.teams.containers.web-link-title-description': '⁣⁢Web link⁡‍⁮‌⁡⁬‍⁯⁫‍⁪‍⁡⁪⁯⁭⁡⁬⁬‌⁠‌⁠⁣⁤',
   'ptc-directory.team-containers.disconnect-button.tooltip': '⁣⁢Disconnect؜⁬⁭؜⁭⁡‍‌⁪⁫⁡؜‌⁮⁬⁬⁯؜⁡⁮⁯؜⁬⁣⁤',
   'ptc-directory.team-containers.edit-link': '⁣⁢Edit link⁪⁪؜؜⁠⁭⁡⁭⁡⁪؜⁮⁪⁫⁠⁡⁪⁮⁪⁣⁤',
   'ptc-directory.team-containers.remove-link': '⁣⁢Remove‌⁫⁪⁡⁬⁡⁮‌⁪⁮‍؜⁪⁠⁮⁯‍⁣⁤',
+  'ptc-directory.team-profile-page.team-containers.add-confluence-space':
+    '⁣⁢Add Confluence Space⁬⁬⁭‍⁪⁫⁮⁮⁡⁡⁡‌⁬⁡⁮‍⁪‌⁭؜؜⁡⁣⁤',
   'ptc-directory.team-profile-page.team-containers.add-confluence-space-description':
     '⁣⁢Confluence⁡⁮‍⁮⁬⁡⁭؜‌⁫⁭⁫⁡⁪⁬⁬⁭⁭⁫‍؜⁪⁬⁭⁮⁣⁤',
   'ptc-directory.team-profile-page.team-containers.add-confluence-space-title': '⁣⁢Add space⁡⁠‍⁯⁮⁫؜⁪⁮⁬‍⁭⁯⁮⁪⁡⁪⁡⁠‌⁪⁪⁣⁤',
+  'ptc-directory.team-profile-page.team-containers.add-jira-project': '⁣⁢Add Jira Project⁡⁮⁡⁮‌⁯⁭⁭⁠⁯⁠⁯⁠‌⁡⁫⁣⁤',
   'ptc-directory.team-profile-page.team-containers.add-jira-project-description': '⁣⁢Jira‌⁪⁪‌⁡⁫⁠؜؜‍⁡⁮؜‌‌⁯؜⁡‌⁪⁪⁭⁠⁮⁬⁣⁤',
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': '⁣⁢Add project⁫؜‍‌⁠‌‍⁭⁡⁡⁪⁫⁬‍‌‍؜⁡⁭؜⁡⁭؜⁬⁪⁣⁤',
+  'ptc-directory.team-profile-page.team-containers.add-loom-space': '⁣⁢Add Loom Space⁭⁡⁭⁭⁯⁪⁭⁮⁬⁪⁠⁫⁮⁮⁯⁭⁡⁡⁫‌؜⁮⁫⁯⁠⁣⁤',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': '⁣⁢Loom⁬⁫‍⁮⁭⁪⁡⁡⁡⁪‍⁭‍⁫‌⁪⁭⁭‌⁠؜⁪⁣⁤',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': '⁣⁢Add space⁯⁬⁪؜⁠⁯⁯‌‍‍⁯⁯⁬⁬⁪⁯⁡‍‍؜⁡⁪؜⁣⁤',
   'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description':

@@ -20,7 +20,6 @@ import type { BreakoutMode, ExtractInjectionAPI } from '@atlaskit/editor-common/
 import { Popup } from '@atlaskit/editor-common/ui';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { getNextBreakoutMode, getTitle } from '@atlaskit/editor-common/utils';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findParentDomRefOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -32,7 +31,6 @@ import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
@@ -40,7 +38,6 @@ import type { BreakoutPlugin, BreakoutPluginState } from '../breakoutPluginType'
 import { removeBreakout } from '../editor-commands/remove-breakout';
 import { setBreakoutMode } from '../editor-commands/set-breakout-mode';
 import { getPluginState } from '../pm-plugins/plugin-key';
-import { getBreakoutMode } from '../pm-plugins/utils/get-breakout-mode';
 import { isBreakoutMarkAllowed } from '../pm-plugins/utils/is-breakout-mark-allowed';
 import { isSupportedNodeForBreakout } from '../pm-plugins/utils/is-supported-node';
 
@@ -78,8 +75,6 @@ export interface Props {
 	isBreakoutNodePresent: boolean;
 	isLivePage?: boolean;
 	mountPoint?: HTMLElement;
-	// delete `node` when cleaning up `platform_editor_usesharedpluginstatewithselector`
-	node: PMNode | null;
 	scrollableElement?: HTMLElement;
 }
 
@@ -111,7 +106,6 @@ const LayoutButton = ({
 	boundariesElement,
 	scrollableElement,
 	editorView,
-	node,
 	isLivePage,
 	isBreakoutNodePresent,
 	breakoutMode: breakoutModeProp,
@@ -120,6 +114,7 @@ const LayoutButton = ({
 	const handleClick = useCallback(
 		(breakoutMode: BreakoutMode) => {
 			const { state, dispatch } = editorView;
+			const breakoutNode = getPluginState(state)?.breakoutNode;
 			if (['wide', 'full-width'].indexOf(breakoutMode) !== -1) {
 				setBreakoutMode(breakoutMode, isLivePage)(state, dispatch);
 
@@ -129,7 +124,7 @@ const LayoutButton = ({
 					eventType: EVENT_TYPE.TRACK,
 					attributes: {
 						mode: breakoutMode as 'center' | 'wide' | 'full-width',
-						nodeType: node?.type.name as BreakoutSupportedNodes,
+						nodeType: breakoutNode?.node.type.name as BreakoutSupportedNodes,
 					},
 				});
 			} else {
@@ -141,35 +136,21 @@ const LayoutButton = ({
 					eventType: EVENT_TYPE.TRACK,
 					attributes: {
 						mode: 'center',
-						nodeType: node?.type.name as BreakoutSupportedNodes,
+						nodeType: breakoutNode?.node.type.name as BreakoutSupportedNodes,
 					},
 				});
 			}
 		},
-		[api?.analytics?.actions, editorView, isLivePage, node?.type.name],
+		[api?.analytics?.actions, editorView, isLivePage],
 	);
 
 	const { state } = editorView;
 
-	const exitCondition = expValEquals(
-		'platform_editor_usesharedpluginstatewithselector',
-		'isEnabled',
-		true,
-	)
-		? !isBreakoutNodePresent
-		: !node;
-
-	if (exitCondition || !isBreakoutMarkAllowed(state)) {
+	if (!isBreakoutNodePresent || !isBreakoutMarkAllowed(state)) {
 		return null;
 	}
 
-	const breakoutMode = expValEquals(
-		'platform_editor_usesharedpluginstatewithselector',
-		'isEnabled',
-		true,
-	)
-		? breakoutModeProp
-		: getBreakoutMode(editorView.state);
+	const breakoutMode = breakoutModeProp;
 	const titleMessage = getTitle(breakoutMode);
 	const title = formatMessage(titleMessage);
 	const nextBreakoutMode = getNextBreakoutMode(breakoutMode);

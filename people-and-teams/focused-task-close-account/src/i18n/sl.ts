@@ -11,8 +11,16 @@ export default {
     'Na primer strani, delovni elementi in komentarji, ki so jih ustvarili v izdelkih.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
     'Na primer strani, delovni elementi in komentarji, ki ste jih ustvarili v izdelkih.',
+  'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin-appify':
+    'Vi ali drugi uporabniki ste morda namestili aplikacije tretjih oseb, ki dodajajo funkcije aplikacijam Atlassian, in morda hranijo podatke o uporabnikovem profilu.',
+  'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self-appify':
+    'Vi ali drugi uporabniki ste morda namestili aplikacije tretjih oseb, ki dodajajo funkcije aplikacijam Atlassian, in morda hranijo podatke o vašem profilu.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
     'Iz vsebine, ki jo ustvarijo uporabniki, ne brišemo nobenih osebnih podatkov, kot so imena ali e-poštni naslovi, ki so jih vnesli na stran ali v delovni element. Skrbniki izdelka morajo te podatke ročno izbrisati.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
     'Iz vsebine, ki jo ustvarite vi ali drugi ljudje, ne brišemo nobenih osebnih podatkov, kot so imena ali e-poštni naslovi, vneseni na stran ali v delovni element. Vaši skrbniki izdelka morajo te podatke ročno izbrisati.',
+  'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin-appify':
+    'Po e-pošti vam bomo poslali seznam aplikacij tretjih oseb, ki so morda shranile njihove osebne podatke.',
+  'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.self-appify':
+    'Po e-pošti vam bomo poslali seznam aplikacij tretjih oseb, ki so morda shranile vaše osebne podatke.',
 };

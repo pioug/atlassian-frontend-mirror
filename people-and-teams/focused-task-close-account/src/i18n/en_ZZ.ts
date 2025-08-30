@@ -81,11 +81,11 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     '⁣⁢You or other users may have installed apps that add features to Atlassian products. These apps may have stored the user’s profile information.⁭‌⁡‌‌‍⁯⁯⁬؜⁠⁯⁭⁬؜⁡⁬⁠⁠⁪⁪⁮‌⁯⁣⁤',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin-appify':
-    '⁣⁢You or other users may have installed apps that add features to Atlassian apps. These apps may have stored the user’s profile information.⁭‍⁬⁯⁪⁭‌⁫؜‌⁯‍⁫⁬؜⁠⁫⁪⁣⁤',
+    "⁣⁢You or other users may have installed third-party apps that add features to Atlassian apps and may have stored the user's profile information.⁭⁭⁫⁫⁠⁭⁮⁫‍⁡⁡‌‍⁡⁬⁫‍⁠⁡⁫⁭⁫⁭⁣⁤",
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
     '⁣⁢You or other users may have installed apps that add features to Atlassian products. These apps may have stored your profile information.⁠‍‌⁠⁫⁯⁡‌⁮⁪⁫⁯⁠⁠⁭⁮‍⁠‌‍‌⁪‍⁯⁣⁤',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self-appify':
-    '⁣⁢You or other users may have installed apps that add features to Atlassian apps. These apps may have stored your profile information.⁭⁠؜⁫‍⁪⁯؜‌⁡⁫‍⁬‍⁪⁭؜⁪⁪⁠‌⁯‌⁫⁬⁣⁤',
+    '⁣⁢You or other users may have installed third-party apps that add features to Atlassian apps and may have stored your profile information.⁠⁪⁯⁪⁬‌⁮⁫⁠⁠⁡⁯⁬⁬⁯‍⁮⁠⁬⁠‍⁫⁪‌⁣⁤',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.admin':
     "⁣⁢Information related to purchases, which we're required to keep for financial reporting.⁭⁠⁫⁠⁪⁬⁡‌⁫⁫⁭‌‍⁮⁠؜⁪⁠⁭⁡⁣⁤",
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.self':
@@ -126,8 +126,12 @@ export default {
     '⁣⁢After a 14-day grace period, you won’t be able to cancel the deletion of the account.⁭⁯⁬⁭⁭⁯؜⁬‍⁪⁯⁭⁠‍⁡⁪⁭⁮⁮⁮⁮⁡‍⁣⁤',
   'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin':
     '⁣⁢We’ll email you a list of apps that may have stored their personal data.⁮⁮⁮⁯⁭⁭⁡‌⁪⁠⁬؜‌⁡⁯⁠⁠⁫⁮⁭⁭⁬⁠‌⁣⁤',
+  'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin-appify':
+    '⁣⁢We’ll email you a list of third-party apps that may have stored their personal data.‍⁯‍⁬⁫⁯⁫⁬⁪‌⁪⁬⁫؜⁭‍⁯‍⁠⁭⁡‍⁣⁤',
   'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.self':
     '⁣⁢We’ll email you a list of apps that may have stored your personal data.⁫⁯⁠‌‌⁭⁬؜⁡⁬⁠؜⁬⁮⁡⁪⁭⁯؜⁯⁯⁪‌⁣⁤',
+  'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.self-appify':
+    '⁣⁢We’ll email you a list of third-party apps that may have stored your personal data.⁯‍‌⁯⁭‍⁪⁬⁠⁫⁡⁠⁮⁪⁬⁭⁪⁡⁬⁯⁠⁡⁣⁤',
   'focused-task-close-account.delete-account.overview.paragraph.loseAccess.admin':
     '⁣⁢{fullName} will <b>immediately lose access</b> to all Atlassian account services. They currently have access to:⁡‌⁠⁠؜⁫‍⁪⁪⁯⁫‍⁭⁭⁯⁭⁡⁡‌‌‍⁡⁡؜⁮⁣⁤',
   'focused-task-close-account.delete-account.overview.paragraph.loseAccess.admin.noSites':

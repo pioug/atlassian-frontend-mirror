@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "210.2.8",
+	"version": "210.2.9",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -172,6 +172,9 @@
 		"editor_a11y_announce_date_picker_open": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_ai_rovo_free_gen": {
+			"type": "boolean"
 		},
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean",

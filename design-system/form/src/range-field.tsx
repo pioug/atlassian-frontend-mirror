@@ -1,10 +1,14 @@
 import React, { type ReactNode } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import Field, { type FieldProps, type Meta } from './field';
 
 type RangeProps = Omit<FieldProps<number>, 'isInvalid' | 'isRequired'>;
 export interface RangeFieldProps {
-	/* Content to render in the range field. This function is called with props for the field component and other information about the field. */
+	/**
+	 * Content to render in the range field. This function is called with props for the field component and other information about the field.
+	 */
 	children: (args: { fieldProps: RangeProps; error?: string; meta: Meta }) => React.ReactNode;
 	/**
 	 * Specifies the name of the field. This is important for referencing the form data.
@@ -48,7 +52,7 @@ const RangeField = ({
 }: RangeFieldProps) => (
 	<Field<number>
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-		{...strippedProps}
+		{...(fg('platform_design-system-team_range-field-spread') ? {} : strippedProps)}
 		defaultValue={defaultValue}
 		id={id}
 		isDisabled={isDisabled}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-annotation",
-	"version": "3.3.13",
+	"version": "3.3.14",
 	"description": "Annotation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -115,9 +115,6 @@
 			"type": "boolean"
 		},
 		"cc_comments_track_view_inline_comment_action": {
-			"type": "boolean"
-		},
-		"confluence_frontend_handle_annotation_error": {
 			"type": "boolean"
 		},
 		"confluence_frontend_preload_inline_comment_editor": {

@@ -46,13 +46,7 @@ const FormDefaultExample = () => (
 						</p>
 					</FormHeader>
 					<FormSection>
-						<Field
-							aria-required={true}
-							name="username"
-							label="Username"
-							isRequired
-							defaultValue="dst12"
-						>
+						<Field name="username" label="Username" isRequired defaultValue="dst12">
 							{({ fieldProps, error }) => (
 								<Fragment>
 									<TextField autoComplete="off" {...fieldProps} />
@@ -68,7 +62,6 @@ const FormDefaultExample = () => (
 							)}
 						</Field>
 						<Field
-							aria-required={true}
 							name="password"
 							label="Password"
 							defaultValue=""

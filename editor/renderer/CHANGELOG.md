@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 120.5.10
+
+### Patch Changes
+
+- [`ff39734621eff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff39734621eff) -
+  Cleaning up several feature gates
+
 ## 120.5.9
 
 ### Patch Changes

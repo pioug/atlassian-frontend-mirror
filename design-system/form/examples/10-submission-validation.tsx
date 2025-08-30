@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
@@ -40,54 +40,51 @@ const formContainerStyle = cssMap({
 	},
 });
 
-// eslint-disable-next-line import/no-anonymous-default-export, @repo/internal/react/no-class-components
-export default class extends Component<{}> {
-	handleSubmit = (data: { username: string; email: string }) => {
+export default () => {
+	const handleSubmit = (data: { username: string; email: string }) => {
 		return createUser(data);
 	};
 
-	render() {
-		return (
-			<Flex xcss={formContainerStyle.root} direction="column">
-				<Form onSubmit={this.handleSubmit}>
-					{({ formProps, submitting }) => (
-						<form {...formProps}>
-							<FormHeader title="Create an account">
-								<Text as="p" aria-hidden={true}>
-									Required fields are marked with an asterisk <RequiredAsterisk />
-								</Text>
-							</FormHeader>
-							<Field name="username" label="Username" defaultValue="" isRequired>
-								{({ fieldProps, error }) => (
-									<Fragment>
-										<TextField autoComplete="username" {...fieldProps} />
-										<MessageWrapper>
-											{!error && <HelperMessage>Try 'jsmith' or 'mchan'</HelperMessage>}
-											{error && <ErrorMessage testId="userSubmissionError">{error}</ErrorMessage>}
-										</MessageWrapper>
-									</Fragment>
-								)}
-							</Field>
-							<Field name="email" label="Email" defaultValue="" isRequired>
-								{({ fieldProps, error }) => (
-									<Fragment>
-										<TextField autoComplete="email" {...fieldProps} />
-										<MessageWrapper>
-											{!error && <HelperMessage>Must contain @ symbol</HelperMessage>}
-											{error && <ErrorMessage>{error}</ErrorMessage>}
-										</MessageWrapper>
-									</Fragment>
-								)}
-							</Field>
-							<FormFooter>
-								<Button appearance="primary" type="submit" isLoading={submitting}>
-									Create account
-								</Button>
-							</FormFooter>
-						</form>
-					)}
-				</Form>
-			</Flex>
-		);
-	}
-}
+	return (
+		<Flex xcss={formContainerStyle.root} direction="column">
+			<Form onSubmit={handleSubmit}>
+				{({ formProps, submitting }) => (
+					<form {...formProps}>
+						<FormHeader title="Create an account">
+							<Text as="p" aria-hidden={true}>
+								Required fields are marked with an asterisk <RequiredAsterisk />
+							</Text>
+						</FormHeader>
+						<Field name="username" label="Username" defaultValue="" isRequired>
+							{({ fieldProps, error }) => (
+								<Fragment>
+									<TextField autoComplete="username" {...fieldProps} />
+									<MessageWrapper>
+										{!error && <HelperMessage>Try 'jsmith' or 'mchan'</HelperMessage>}
+										{error && <ErrorMessage testId="userSubmissionError">{error}</ErrorMessage>}
+									</MessageWrapper>
+								</Fragment>
+							)}
+						</Field>
+						<Field name="email" label="Email" defaultValue="" isRequired>
+							{({ fieldProps, error }) => (
+								<Fragment>
+									<TextField autoComplete="email" {...fieldProps} />
+									<MessageWrapper>
+										{!error && <HelperMessage>Must contain @ symbol</HelperMessage>}
+										{error && <ErrorMessage>{error}</ErrorMessage>}
+									</MessageWrapper>
+								</Fragment>
+							)}
+						</Field>
+						<FormFooter>
+							<Button appearance="primary" type="submit" isLoading={submitting}>
+								Create account
+							</Button>
+						</FormFooter>
+					</form>
+				)}
+			</Form>
+		</Flex>
+	);
+};

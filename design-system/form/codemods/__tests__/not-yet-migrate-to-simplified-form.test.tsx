@@ -502,6 +502,204 @@ const formElement = (
       `,
 		'should convert from function with multiple props on form',
 	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
+import React from 'react';
+import Form from '@atlaskit/form';
+
+const FormComponent1 = () => (
+  <Form onSubmit={() => {}}>
+    {({ formProps }) => (
+      <form {...formProps} foo={'bar'} baz={{ qux: 'qux' }}>
+        <input />
+      </form>
+    )}
+  </Form>
+);
+
+const FormComponent2 = () => (
+  <>
+    <Form onSubmit={() => {}}>
+      {({ formProps }) => (
+        <form {...formProps} foo={'bar'} baz={{ qux: 'qux' }}>
+          <input />
+        </form>
+      )}
+    </Form>
+  </>
+);
+
+class FormComponent3 extends React.Component {
+  render() {
+    return (
+      <Form onSubmit={() => {}}>
+        {({ formProps }) => (
+          <form {...formProps} foo={'bar'} baz={{ qux: 'qux' }}>
+            <input />
+          </form>
+        )}
+      </Form>
+    );
+  }
+}
+
+const formElement = (
+  <Form onSubmit={() => {}}>
+    {({ formProps }) => (
+      <form {...formProps} foo={'bar'} baz={{ qux: 'qux' }}>
+        <input />
+      </form>
+    )}
+  </Form>
+);
+      `,
+		`
+import React from 'react';
+import Form from '@atlaskit/form';
+
+const FormComponent1 = () => (
+  <Form
+    onSubmit={() => {}}
+    formProps={{
+      foo: 'bar',
+      baz: { qux: 'qux' }
+    }}><input /></Form>
+);
+
+const FormComponent2 = () => (
+  <>
+    <Form
+      onSubmit={() => {}}
+      formProps={{
+        foo: 'bar',
+        baz: { qux: 'qux' }
+      }}><input /></Form>
+  </>
+);
+
+class FormComponent3 extends React.Component {
+  render() {
+    return (
+      <Form
+        onSubmit={() => {}}
+        formProps={{
+          foo: 'bar',
+          baz: { qux: 'qux' }
+        }}><input /></Form>
+    );
+  }
+}
+
+const formElement = (
+  <Form
+    onSubmit={() => {}}
+    formProps={{
+      foo: 'bar',
+      baz: { qux: 'qux' }
+    }}><input /></Form>
+);
+      `,
+		'should convert from function with multiple expression container props on form',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
+import React from 'react';
+import Form from '@atlaskit/form';
+
+const FormComponent1 = () => (
+  <Form onSubmit={() => {}}>
+    {({ formProps }) => (
+      <form {...formProps} foo>
+        <input />
+      </form>
+    )}
+  </Form>
+);
+
+const FormComponent2 = () => (
+  <>
+    <Form onSubmit={() => {}}>
+      {({ formProps }) => (
+        <form {...formProps} foo>
+          <input />
+        </form>
+      )}
+    </Form>
+  </>
+);
+
+class FormComponent3 extends React.Component {
+  render() {
+    return (
+      <Form onSubmit={() => {}}>
+        {({ formProps }) => (
+          <form {...formProps} foo>
+            <input />
+          </form>
+        )}
+      </Form>
+    );
+  }
+}
+
+const formElement = (
+  <Form onSubmit={() => {}}>
+    {({ formProps }) => (
+      <form {...formProps} foo>
+        <input />
+      </form>
+    )}
+  </Form>
+);
+      `,
+		`
+import React from 'react';
+import Form from '@atlaskit/form';
+
+const FormComponent1 = () => (
+  <Form
+    onSubmit={() => {}}
+    formProps={{
+      foo: true
+    }}><input /></Form>
+);
+
+const FormComponent2 = () => (
+  <>
+    <Form
+      onSubmit={() => {}}
+      formProps={{
+        foo: true
+      }}><input /></Form>
+  </>
+);
+
+class FormComponent3 extends React.Component {
+  render() {
+    return (
+      <Form
+        onSubmit={() => {}}
+        formProps={{
+          foo: true
+        }}><input /></Form>
+    );
+  }
+}
+
+const formElement = (
+  <Form
+    onSubmit={() => {}}
+    formProps={{
+      foo: true
+    }}><input /></Form>
+);
+      `,
+		'should convert from function with boolean props on form',
+	);
 });
 
 describe('Do not migrate Form when anything more than `formProps` in child arg', () => {

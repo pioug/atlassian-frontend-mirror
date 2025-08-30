@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import { breakout } from '@atlaskit/adf-schema';
-import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
 import type {
@@ -164,46 +160,6 @@ interface LayoutButtonWrapperProps
 	api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined;
 }
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined) => {
-		const { editorDisabled, isDragging, isPMDragging, mode } = useSharedPluginStateWithSelector(
-			api,
-			['editorViewMode', 'editorDisabled', 'blockControls'],
-			(states) => ({
-				isDragging: states.blockControlsState?.isDragging,
-				isPMDragging: states.blockControlsState?.isPMDragging,
-				mode: states.editorViewModeState?.mode,
-				editorDisabled: states.editorDisabledState?.editorDisabled,
-			}),
-		);
-		return {
-			breakoutNode: undefined,
-			isDragging,
-			isPMDragging,
-			mode,
-			editorDisabled,
-		};
-	},
-	(api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined) => {
-		// Re-render with `width` (but don't use state) due to https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/24272
-		const { breakoutState, editorViewModeState, editorDisabledState, blockControlsState } =
-			useSharedPluginState(api, [
-				'width',
-				'breakout',
-				'editorViewMode',
-				'editorDisabled',
-				'blockControls',
-			]);
-		return {
-			breakoutNode: breakoutState?.breakoutNode,
-			isDragging: blockControlsState?.isDragging,
-			isPMDragging: blockControlsState?.isPMDragging,
-			mode: editorViewModeState?.mode,
-			editorDisabled: editorDisabledState?.editorDisabled,
-		};
-	},
-);
-
 const LayoutButtonWrapper = ({
 	api,
 	editorView,
@@ -211,7 +167,16 @@ const LayoutButtonWrapper = ({
 	scrollableElement,
 	mountPoint,
 }: LayoutButtonWrapperProps) => {
-	const { breakoutNode, isDragging, isPMDragging, mode, editorDisabled } = useSharedState(api);
+	const { editorDisabled, isDragging, isPMDragging, mode } = useSharedPluginStateWithSelector(
+		api,
+		['editorViewMode', 'editorDisabled', 'blockControls'],
+		(states) => ({
+			isDragging: states.blockControlsState?.isDragging,
+			isPMDragging: states.blockControlsState?.isPMDragging,
+			mode: states.editorViewModeState?.mode,
+			editorDisabled: states.editorDisabledState?.editorDisabled,
+		}),
+	);
 	const [breakoutNodePresent, setBreakoutNodePresent] = useState(false);
 	const [breakoutMode, setBreakoutMode] = useState<BreakoutMode | undefined>(
 		getBreakoutMode(editorView.state),
@@ -250,7 +215,6 @@ const LayoutButtonWrapper = ({
 			mountPoint={mountPoint}
 			boundariesElement={boundariesElement}
 			scrollableElement={scrollableElement}
-			node={breakoutNode?.node ?? null}
 			isLivePage={isEditMode}
 			isBreakoutNodePresent={breakoutNodePresent}
 			breakoutMode={breakoutMode}

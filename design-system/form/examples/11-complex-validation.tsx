@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
@@ -44,104 +44,95 @@ const formContainerStyle = cssMap({
 	},
 });
 
-// eslint-disable-next-line import/no-anonymous-default-export, @repo/internal/react/no-class-components
-export default class extends Component<{}> {
-	handleSubmit = (data: FormData) => {
+export default () => {
+	const handleSubmit = (data: FormData) => {
 		return createUser(data);
 	};
 
-	validateUsername = (value: string = '') => {
+	const validateUsername = (value: string = '') => {
 		if (value.length < 5) {
 			return 'TOO_SHORT';
 		}
 		return undefined;
 	};
 
-	validateEmail = (value: string = '') => {
+	const validateEmail = (value: string = '') => {
 		if (!value.includes('@')) {
 			return 'INVALID_EMAIL';
 		}
 		return undefined;
 	};
 
-	render() {
-		return (
-			<Flex xcss={formContainerStyle.root} direction="column">
-				<Form<FormData> onSubmit={this.handleSubmit}>
-					{({ formProps, submitting }) => (
-						<form {...formProps}>
-							<FormHeader title="Create an account">
-								<Text as="p" aria-hidden={true}>
-									Required fields are marked with an asterisk <RequiredAsterisk />
-								</Text>
-							</FormHeader>
-							<Field
-								name="username"
-								label="Username"
-								defaultValue=""
-								isRequired
-								validate={this.validateUsername}
-							>
-								{({ fieldProps, error, valid }) => (
-									<Fragment>
-										<TextField autoComplete="username" {...fieldProps} />
-										<MessageWrapper>
-											{!error && !valid && (
-												<HelperMessage>Should be more than 4 characters</HelperMessage>
-											)}
-											{!error && valid && (
-												<ValidMessage>Nice one, this username is available</ValidMessage>
-											)}
-											{error === 'TOO_SHORT' && (
-												<ErrorMessage>
-													Please enter a username that's longer than 4 characters.
-												</ErrorMessage>
-											)}
-											{error === 'IN_USE' && (
-												<ErrorMessage>
-													This username is already in use, please enter a different username.
-												</ErrorMessage>
-											)}
-										</MessageWrapper>
-									</Fragment>
-								)}
-							</Field>
-							<Field
-								name="email"
-								label="Email"
-								defaultValue=""
-								isRequired
-								validate={this.validateEmail}
-							>
-								{({ fieldProps, error, valid }) => (
-									<Fragment>
-										<TextField autoComplete="email" {...fieldProps} />
-										<MessageWrapper>
-											{!error && !valid && <HelperMessage>Must contain @ symbol</HelperMessage>}
-											{!error && valid && <ValidMessage>Nice email!</ValidMessage>}
-											{error === 'INVALID_EMAIL' && (
-												<ErrorMessage>
-													Please enter your email in a valid format, like: name@example.com.
-												</ErrorMessage>
-											)}
-											{error === 'IN_USE' && (
-												<ErrorMessage>
-													This email is already in use, please enter a different email.
-												</ErrorMessage>
-											)}
-										</MessageWrapper>
-									</Fragment>
-								)}
-							</Field>
-							<FormFooter>
-								<Button appearance="primary" type="submit" isLoading={submitting}>
-									Create account
-								</Button>
-							</FormFooter>
-						</form>
-					)}
-				</Form>
-			</Flex>
-		);
-	}
-}
+	return (
+		<Flex xcss={formContainerStyle.root} direction="column">
+			<Form<FormData> onSubmit={handleSubmit}>
+				{({ formProps, submitting }) => (
+					<form {...formProps}>
+						<FormHeader title="Create an account">
+							<Text as="p" aria-hidden={true}>
+								Required fields are marked with an asterisk <RequiredAsterisk />
+							</Text>
+						</FormHeader>
+						<Field
+							name="username"
+							label="Username"
+							defaultValue=""
+							isRequired
+							validate={validateUsername}
+						>
+							{({ fieldProps, error, valid }) => (
+								<Fragment>
+									<TextField autoComplete="username" {...fieldProps} />
+									<MessageWrapper>
+										{!error && !valid && (
+											<HelperMessage>Should be more than 4 characters</HelperMessage>
+										)}
+										{!error && valid && (
+											<ValidMessage>Nice one, this username is available</ValidMessage>
+										)}
+										{error === 'TOO_SHORT' && (
+											<ErrorMessage>
+												Please enter a username that's longer than 4 characters.
+											</ErrorMessage>
+										)}
+										{error === 'IN_USE' && (
+											<ErrorMessage>
+												This username is already in use, please enter a different username.
+											</ErrorMessage>
+										)}
+									</MessageWrapper>
+								</Fragment>
+							)}
+						</Field>
+						<Field name="email" label="Email" defaultValue="" isRequired validate={validateEmail}>
+							{({ fieldProps, error, valid }) => (
+								<Fragment>
+									<TextField autoComplete="email" {...fieldProps} />
+									<MessageWrapper>
+										{!error && !valid && <HelperMessage>Must contain @ symbol</HelperMessage>}
+										{!error && valid && <ValidMessage>Nice email!</ValidMessage>}
+										{error === 'INVALID_EMAIL' && (
+											<ErrorMessage>
+												Please enter your email in a valid format, like: name@example.com.
+											</ErrorMessage>
+										)}
+										{error === 'IN_USE' && (
+											<ErrorMessage>
+												This email is already in use, please enter a different email.
+											</ErrorMessage>
+										)}
+									</MessageWrapper>
+								</Fragment>
+							)}
+						</Field>
+						<FormFooter>
+							<Button appearance="primary" type="submit" isLoading={submitting}>
+								Create account
+							</Button>
+						</FormFooter>
+					</form>
+				)}
+			</Form>
+		</Flex>
+	);
+};

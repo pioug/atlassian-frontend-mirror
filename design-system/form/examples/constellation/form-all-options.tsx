@@ -55,7 +55,6 @@ const FormAllOptionsExample = () => (
 
 					<FormSection>
 						<Field
-							aria-required={true}
 							name="textfield-name"
 							label="Textfield label"
 							isRequired

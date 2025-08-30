@@ -105,9 +105,7 @@ describe('getContainerProperties', () => {
 			containerType: 'ConfluenceSpace',
 		});
 		renderWithIntl(properties.title);
-		expect(
-			screen.getByText(messages.addConfluenceSpace.defaultMessage),
-		).toBeInTheDocument();
+		expect(screen.getByText(messages.addConfluenceSpace.defaultMessage)).toBeInTheDocument();
 	});
 
 	it('should return correct titles for loom container type when flag off and on', () => {
@@ -116,9 +114,7 @@ describe('getContainerProperties', () => {
 			containerType: 'LoomSpace',
 		});
 		renderWithIntl(properties.title);
-		expect(
-			screen.getByText(messages.addLoomContainerTitle.defaultMessage),
-		).toBeInTheDocument();
+		expect(screen.getByText(messages.addLoomContainerTitle.defaultMessage)).toBeInTheDocument();
 
 		// Turn flag on
 		(fg as jest.Mock).mockReturnValue(true);

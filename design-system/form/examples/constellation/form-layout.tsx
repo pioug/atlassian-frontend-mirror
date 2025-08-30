@@ -8,21 +8,8 @@ import { Checkbox } from '@atlaskit/checkbox';
 import Form, { Field, FormFooter, FormHeader, FormSection, RequiredAsterisk } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
-import Select, {
-	components,
-	type InputProps,
-	type OptionType,
-	type ValueType,
-} from '@atlaskit/select';
+import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';
-
-const RequiredInput = (props: InputProps<OptionType, false>) => {
-	const newProps = {
-		...props,
-		'aria-required': true,
-	};
-	return <components.Input {...newProps} />;
-};
 
 const styles = cssMap({
 	flex: {
@@ -75,16 +62,9 @@ const FormLayoutExample = () => {
 								)}
 							</Field>
 
-							<Field<ValueType<OptionType>>
-								aria-required={true}
-								name="project"
-								id="project"
-								label="Project"
-								isRequired
-							>
+							<Field<ValueType<OptionType>> name="project" id="project" label="Project" isRequired>
 								{({ fieldProps: { id, ...rest } }) => (
 									<Select
-										components={{ Input: RequiredInput }} // Needed to explicitly set required on the Select
 										id={`${id}-select`}
 										options={[
 											{ label: 'Atlaskit', value: 'atlaskit' },

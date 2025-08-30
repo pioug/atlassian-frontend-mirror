@@ -73,8 +73,12 @@ export default {
     'Ví dụ: các trang, hạng mục công việc và nhận xét mà bạn đã tạo trong sản phẩm.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Bạn hoặc những người dùng khác có thể đã cài đặt các ứng dụng bổ sung các tính năng vào sản phẩm Atlassian. Những ứng dụng này có thể đã lưu thông tin hồ sơ người dùng.',
+  'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin-appify':
+    'Bạn hoặc những người dùng khác có thể đã cài đặt ứng dụng của bên thứ ba để bổ sung tính năng cho ứng dụng Atlassian. Những ứng dụng này có thể đã lưu thông tin hồ sơ của người dùng.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
     'Bạn hoặc những người dùng khác có thể đã cài đặt các ứng dụng bổ sung các tính năng vào sản phẩm Atlassian. Những ứng dụng này có thể đã lưu thông tin hồ sơ của bạn.',
+  'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self-appify':
+    'Bạn hoặc những người dùng khác có thể đã cài đặt ứng dụng của bên thứ ba để bổ sung tính năng cho ứng dụng Atlassian. Những ứng dụng này có thể đã lưu thông tin hồ sơ của bạn.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.admin':
     'Thông tin liên quan đến việc mua hàng mà chúng tôi bắt buộc phải lưu giữ lại để lập báo cáo tài chính.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.self':
@@ -110,8 +114,12 @@ export default {
     'Sau thời gian ân hạn 14 ngày, bạn sẽ không thể hủy xóa tài khoản.',
   'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin':
     'Chúng tôi sẽ gửi cho bạn danh sách các ứng dụng có thể đã lưu dữ liệu cá nhân của họ qua email.',
+  'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin-appify':
+    'Chúng tôi sẽ gửi cho bạn danh sách các ứng dụng của bên thứ ba có thể đã lưu dữ liệu cá nhân của người dùng qua email.',
   'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.self':
     'Chúng tôi sẽ gửi cho bạn danh sách các ứng dụng có thể đã lưu dữ liệu cá nhân của bạn qua email.',
+  'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.self-appify':
+    'Chúng tôi sẽ gửi cho bạn danh sách các ứng dụng của bên thứ ba có thể đã lưu dữ liệu cá nhân của bạn qua email.',
   'focused-task-close-account.delete-account.overview.paragraph.loseAccess.admin':
     '{fullName} sẽ <b>ngay lập tức mất quyền truy cập</b> vào tất cả các dịch vụ tài khoản Atlassian. Họ hiện có quyền truy cập vào:',
   'focused-task-close-account.delete-account.overview.paragraph.loseAccess.admin.noSites':

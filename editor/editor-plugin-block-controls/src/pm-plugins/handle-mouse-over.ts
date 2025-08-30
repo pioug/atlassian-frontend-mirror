@@ -24,6 +24,14 @@ export const handleMouseOver = (
 		isMenuOpen,
 		menuTriggerBy: originalAnchorName,
 	} = api?.blockControls?.sharedState.currentState() || {};
+	const { editorDisabled } = api?.editorDisabled?.sharedState.currentState() || {
+		editorDisabled: false,
+	};
+
+	// We shouldn't be firing mouse over transactions when the editor is disabled
+	if (editorDisabled && fg('platform_editor_ai_rovo_free_gen')) {
+		return false;
+	}
 
 	// Most mouseover events don't fire during drag but some can slip through
 	// when the drag begins. This prevents those.

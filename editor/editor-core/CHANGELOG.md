@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 210.2.9
+
+### Patch Changes
+
+- [`121454855d5f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/121454855d5f5) -
+  Improve transaction and streaming stability
+
 ## 210.2.8
 
 ### Patch Changes

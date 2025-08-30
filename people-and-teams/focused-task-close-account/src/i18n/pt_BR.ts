@@ -73,8 +73,12 @@ export default {
     'Por exemplo, páginas, tickets e comentários que você criou em produtos.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Você ou outros usuários podem ter instalado aplicativos que adicionam funções aos produtos da Atlassian. Esses aplicativos podem ter armazenado as informações de perfil do usuário.',
+  'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin-appify':
+    'Você ou outros usuários podem ter instalado aplicativos de terceiros que adicionam funções aos apps da Atlassian e podem ter armazenado as informações de perfil do usuário.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
     'Você ou outros usuários podem ter instalado aplicativos que adicionam funções aos produtos da Atlassian. Esses aplicativos podem ter armazenado suas informações de perfil.',
+  'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self-appify':
+    'Você ou outros usuários podem ter instalado aplicativos de terceiros que adicionam funções aos apps da Atlassian e podem ter armazenado as informações do seu perfil.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.admin':
     'Informações relacionadas a compras, que precisamos manter para relatórios financeiros.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.self':
@@ -109,8 +113,12 @@ export default {
     'Depois de um período de carência de 14 dias, você não poderá cancelar a exclusão da conta.',
   'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin':
     'Vamos enviar um e-mail para você com uma lista de aplicativos que podem ter armazenado seus dados pessoais.',
+  'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin-appify':
+    'A gente vai enviar um e-mail para você com uma lista de aplicativos de terceiros que podem ter armazenado dados pessoais.',
   'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.self':
     'Vamos enviar um e-mail para você com uma lista de aplicativos que podem ter armazenado seus dados pessoais.',
+  'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.self-appify':
+    'A gente vai enviar um e-mail para você com uma lista de aplicativos de terceiros que podem ter armazenado seus dados pessoais.',
   'focused-task-close-account.delete-account.overview.paragraph.loseAccess.admin':
     '{fullName} <b>perderá o acesso imediatamente</b> a todos os serviços de conta da Atlassian. Atualmente ele(a) possui acesso a:',
   'focused-task-close-account.delete-account.overview.paragraph.loseAccess.admin.noSites':

@@ -57,7 +57,7 @@ export default () => {
 								Required fields are marked with an asterisk <RequiredAsterisk />
 							</p>
 						</FormHeader>
-						<Field aria-required={true} name="username" label="Username" defaultValue="" isRequired>
+						<Field name="username" label="Username" defaultValue="" isRequired>
 							{({ fieldProps, error }) => (
 								<Fragment>
 									<TextField {...fieldProps} />

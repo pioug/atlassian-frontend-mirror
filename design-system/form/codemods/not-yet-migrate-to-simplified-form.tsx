@@ -4,7 +4,6 @@ import {
 	type JSCodeshift,
 	type JSXElement,
 	type Options,
-	type Property,
 } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
@@ -97,7 +96,8 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 		// make new object and add each attribute on HTML `form` that is not a spread of `formProps` to new object
 		let otherSpreadPropsSeen = false;
 		// We are required to do it this way instead of a map to make the types work correctly.
-		const nonFormPropsAttributes: Property[] = [];
+		// We also have to use `any` here and below because typing in this SUCKS.
+		const nonFormPropsAttributes: any[] = [];
 		htmlForm?.openingElement?.attributes?.forEach((attr) => {
 			if (otherSpreadPropsSeen) {
 				return;
@@ -120,11 +120,13 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 				return;
 			}
 
-			let value;
+			let value: any;
 			if (attr.value === null) {
-				value = j.nullLiteral();
+				value = j.booleanLiteral(true) as any;
+			} else if (attr.value.type === 'JSXExpressionContainer') {
+				value = attr.value.expression as any;
 			} else {
-				value = attr.value;
+				value = attr.value as any;
 			}
 
 			nonFormPropsAttributes.push(j.property('init', attr.name, value));

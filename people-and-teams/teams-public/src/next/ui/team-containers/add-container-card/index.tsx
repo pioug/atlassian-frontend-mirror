@@ -19,10 +19,10 @@ const styles = cssMap({
 		paddingBottom: token('space.150'),
 		paddingLeft: token('space.075'),
 		borderRadius: token('border.radius.100', '8px'),
-		backgroundColor: token('color.background.input'),
+		backgroundColor: token('elevation.surface.raised'),
 		'&:hover': {
 			cursor: 'pointer',
-			backgroundColor: token('color.background.input.hovered'),
+			backgroundColor: token('elevation.surface.hovered'),
 		},
 	},
 	iconWrapper: {

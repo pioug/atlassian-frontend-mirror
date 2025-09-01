@@ -27,7 +27,7 @@ const RadiusCard = ({
 }) => {
 	const radiusMap = {
 		'border.radius.300': token('border.radius.300'),
-		'border.radius.200': token('border.radius.200'),
+		'border.radius.200': token('radius.large'),
 		'border.radius': token('border.radius'),
 	};
 

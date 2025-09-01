@@ -230,16 +230,16 @@ describe('Entry Point API (index.ts)', () => {
 			);
 		});
 
-		test('pagehide ends running session', () => {
+		test('beforeunload ends running session', () => {
 			init({
 				getAnalyticsWebClient: Promise.resolve(analyticsClientStub),
 				experiences: { expA: { enabled: true } },
 			});
 			insm.start('expA', { initial: true, contentId: '9001' });
-			window.dispatchEvent(new Event('pagehide'));
+			window.dispatchEvent(new Event('beforeunload'));
 			expect(analyticsSpy).toHaveBeenCalledWith(
 				expect.objectContaining({
-					attributes: expect.objectContaining({ endDetails: { stoppedBy: 'pagehide' } }),
+					attributes: expect.objectContaining({ endDetails: { stoppedBy: 'beforeunload' } }),
 				}),
 			);
 		});

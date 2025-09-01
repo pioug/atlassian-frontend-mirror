@@ -26,7 +26,7 @@ import { calcBreakoutWidth, canRenderDatasource } from '@atlaskit/editor-common/
 import { usePortal } from '../../ui/Renderer/PortalContext';
 
 const datasourceContainerStyle = css({
-	borderRadius: `${token('border.radius.200', '8px')}`,
+	borderRadius: `${token('radius.large', '8px')}`,
 	border: `1px solid ${token('color.border', N40)}`,
 	overflow: 'hidden',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space

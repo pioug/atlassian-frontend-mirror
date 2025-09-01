@@ -62,7 +62,7 @@ const searchInputStyles = css({
 	border: '2px solid',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderColor: `var(${varSearchBorderColor})`,
-	borderRadius: token('border.radius.200', '6px'),
+	borderRadius: token('radius.large', '6px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	color: `var(${varSearchColor})`,
 	font: token('font.body'),

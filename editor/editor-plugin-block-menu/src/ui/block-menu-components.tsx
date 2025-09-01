@@ -21,7 +21,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection, ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 import ChangesIcon from '@atlaskit/icon/core/changes';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin, BlockMenuPluginOptions } from '../blockMenuPluginType';
 import { type RegisterBlockMenuComponent } from '../blockMenuPluginType';
@@ -112,8 +111,7 @@ export const getBlockMenuComponents = ({
 	config: BlockMenuPluginOptions | undefined;
 }): RegisterBlockMenuComponent[] => {
 	return [
-		...(fg('platform_editor_block_menu_format') ? getFormatMenuComponents() : []),
-
+		...getFormatMenuComponents(),
 		{
 			type: 'block-menu-section',
 			key: COPY_MENU_SECTION.key,

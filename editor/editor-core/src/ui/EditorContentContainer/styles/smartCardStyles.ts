@@ -103,7 +103,7 @@ export const smartCardStyles: SerializedStyles = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			hideNativeBrowserTextSelectionStyles,
 			{
-				borderRadius: token('border.radius.200', '8px'),
+				borderRadius: token('radius.large', '8px'),
 			},
 		],
 
@@ -128,7 +128,7 @@ export const smartCardStyles: SerializedStyles = css({
 			[`.${DATASOURCE_INNER_CONTAINER_CLASSNAME}`]: {
 				cursor: 'pointer',
 				backgroundColor: token('color.background.neutral.subtle'),
-				borderRadius: token('border.radius.200', '8px'),
+				borderRadius: token('radius.large', '8px'),
 				border: `1px solid ${token('color.border')}`,
 				overflow: 'hidden',
 			},
@@ -282,7 +282,7 @@ export const smartCardStylesWithSearchMatch: SerializedStyles = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			hideNativeBrowserTextSelectionStyles,
 			{
-				borderRadius: token('border.radius.200', '8px'),
+				borderRadius: token('radius.large', '8px'),
 			},
 		],
 
@@ -307,7 +307,7 @@ export const smartCardStylesWithSearchMatch: SerializedStyles = css({
 			[`.${DATASOURCE_INNER_CONTAINER_CLASSNAME}`]: {
 				cursor: 'pointer',
 				backgroundColor: token('color.background.neutral.subtle'),
-				borderRadius: token('border.radius.200', '8px'),
+				borderRadius: token('radius.large', '8px'),
 				border: `1px solid ${token('color.border')}`,
 				overflow: 'hidden',
 			},
@@ -467,7 +467,7 @@ export const smartCardStylesWithSearchMatchAndBlockMenuDangerStyles = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			hideNativeBrowserTextSelectionStyles,
 			{
-				borderRadius: token('border.radius.200', '8px'),
+				borderRadius: token('radius.large', '8px'),
 			},
 		],
 
@@ -492,7 +492,7 @@ export const smartCardStylesWithSearchMatchAndBlockMenuDangerStyles = css({
 			[`.${DATASOURCE_INNER_CONTAINER_CLASSNAME}`]: {
 				cursor: 'pointer',
 				backgroundColor: token('color.background.neutral.subtle'),
-				borderRadius: token('border.radius.200', '8px'),
+				borderRadius: token('radius.large', '8px'),
 				border: `1px solid ${token('color.border')}`,
 				overflow: 'hidden',
 			},
@@ -592,7 +592,7 @@ export const smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness: Serial
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				hideNativeBrowserTextSelectionStyles,
 				{
-					borderRadius: token('border.radius.200', '8px'),
+					borderRadius: token('radius.large', '8px'),
 				},
 			],
 	},

@@ -1,5 +1,25 @@
 # @atlassian/navigation-system
 
+## 2.1.1
+
+### Patch Changes
+
+- [`23bcc5bbc9cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23bcc5bbc9cee) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
+## 2.1.0
+
+### Minor Changes
+
+- [`8f30ac4ceb737`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f30ac4ceb737) -
+  Adds extra guards for resizable slots to avoid invalid widths being set. This change is behind the
+  `platform_dst_nav4_panel_splitter_guards` feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

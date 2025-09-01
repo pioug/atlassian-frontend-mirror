@@ -62,7 +62,7 @@ const styles = cssMap({
 		backgroundColor: token('color.background.input'),
 		borderColor: token('color.border.input'),
 		borderStyle: 'solid',
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		borderWidth: token('border.width', '1px'),
 		'&:focus-within': {
 			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.input')}`,

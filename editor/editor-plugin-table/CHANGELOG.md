@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-table
 
+## 13.0.2
+
+### Patch Changes
+
+- [`2d07e62ac587d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d07e62ac587d) -
+  fix table data-ssr-placeholder value
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- [`bab1313bbea71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bab1313bbea71) -
+  Cleaned up feature flag for batch update
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.8
 
 ### Patch Changes

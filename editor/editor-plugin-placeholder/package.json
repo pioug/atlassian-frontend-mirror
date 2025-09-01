@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-placeholder",
-	"version": "3.2.3",
+	"version": "4.0.0",
 	"description": "Placeholder plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

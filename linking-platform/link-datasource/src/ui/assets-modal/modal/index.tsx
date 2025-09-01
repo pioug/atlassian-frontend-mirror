@@ -395,6 +395,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 					onSearch={handleOnSearch}
 					modalTitle={AssetsModalTitle}
 					isSearching={status === 'loading'}
+					onCancel={onCancel}
 				/>
 			);
 		}
@@ -407,6 +408,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 		objectSchemas,
 		handleOnSearch,
 		status,
+		onCancel,
 	]);
 
 	const getCancelButtonAnalyticsPayload = useCallback(() => {

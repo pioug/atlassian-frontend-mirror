@@ -39,8 +39,8 @@ const connectButtonStyles = css({
 });
 
 const basePreviewStyles = css({
-	borderTopLeftRadius: token('border.radius.200'),
-	borderTopRightRadius: token('border.radius.200'),
+	borderTopLeftRadius: token('radius.large'),
+	borderTopRightRadius: token('radius.large'),
 	marginBottom: token('space.100'),
 });
 

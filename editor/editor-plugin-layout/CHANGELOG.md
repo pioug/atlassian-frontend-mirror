@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-layout
 
+## 4.0.0
+
+### Patch Changes
+
+- [`e882e86092666`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e882e86092666) -
+  [ux] Register expand, layout and code block itmes in block menu. Update panel item.
+- Updated dependencies
+
 ## 3.2.2
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Modal, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
+import Modal, { ModalBody, ModalHeader, ModalTransition } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { CREATE_FORM_MAX_WIDTH_IN_PX } from '../../constants';
 import { ErrorBoundaryUI } from '../error-boundary-ui';
@@ -24,6 +25,7 @@ export const ErrorBoundaryModal = ({ active, onClose }: ErrorBoundaryModalProps)
 					shouldScrollInViewport={true}
 					width={`${CREATE_FORM_MAX_WIDTH_IN_PX}px`}
 				>
+					{fg('navx-1483-a11y-close-button-in-modal-updates') && <ModalHeader hasCloseButton />}
 					<ModalBody>
 						<ErrorBoundaryUI />
 					</ModalBody>

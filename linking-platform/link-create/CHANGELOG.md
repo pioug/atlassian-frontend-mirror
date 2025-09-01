@@ -1,5 +1,16 @@
 # @atlaskit/link-create
 
+## 4.4.0
+
+### Minor Changes
+
+- [`6ce6f7249075d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ce6f7249075d) -
+  [ux] NAVX-1483 using the ADS modal built in hasCloseButton for LP components to adhere to a11y
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.5
 
 ### Patch Changes

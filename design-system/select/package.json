@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "21.2.6",
+	"version": "21.2.8",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,14 +30,6 @@
 			"name": "Select",
 			"category": "Forms and input"
 		}
-	},
-	"af:exports": {
-		"./AsyncSelect": "./src/entry-points/async-select.tsx",
-		"./Select": "./src/entry-points/select.tsx",
-		"./AsyncCreatableSelect": "./src/entry-points/async-creatable-select.tsx",
-		"./CreatableSelect": "./src/entry-points/creatable-select.tsx",
-		"./types": "./src/types.tsx",
-		".": "./src/index.tsx"
 	},
 	"exports": {
 		"./AsyncSelect": "./src/entry-points/async-select.tsx",

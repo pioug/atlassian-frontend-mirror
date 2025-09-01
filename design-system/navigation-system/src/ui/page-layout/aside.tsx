@@ -26,6 +26,7 @@ import { PanelSplitterProvider } from './panel-splitter/provider';
 import type { ResizeBounds } from './panel-splitter/types';
 import type { CommonSlotProps } from './types';
 import { useResizingWidthCssVarOnRootElement } from './use-resizing-width-css-var-on-root-element';
+import { useSafeDefaultWidth } from './use-safe-default-width';
 
 const panelSplitterResizingVar = '--n_asdRsz';
 /**
@@ -82,6 +83,8 @@ const styles = cssMap({
 	},
 });
 
+const fallbackDefaultWidth = 330;
+
 /**
  * The Aside is rendered to the right (inline end) of the Main area.
  *
@@ -90,7 +93,7 @@ const styles = cssMap({
 export function Aside({
 	children,
 	xcss,
-	defaultWidth = 330,
+	defaultWidth: defaultWidthProp = fallbackDefaultWidth,
 	label = 'Aside',
 	skipLinkLabel = label,
 	testId,
@@ -111,12 +114,18 @@ export function Aside({
 	/**
 	 * The default width of the layout area.
 	 *
-	 * It should be between the resize bounds - the minimum is 120px and the maximum is 50% of the viewport width.
+	 * It should be an integer between the resize bounds - the minimum is 120px and the maximum is 50% of the viewport width.
 	 */
 	defaultWidth?: number;
 }) {
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
+
+	const defaultWidth = useSafeDefaultWidth({
+		defaultWidthProp,
+		fallbackDefaultWidth,
+		slotName: 'Aside',
+	});
 
 	/**
 	 * Don't show the skip link if the slot has 0 width.

@@ -1,5 +1,13 @@
 # @atlaskit/badge
 
+## 18.1.5
+
+### Patch Changes
+
+- [`3b5b4a919aaaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b5b4a919aaaf) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 18.1.4
 
 ### Patch Changes

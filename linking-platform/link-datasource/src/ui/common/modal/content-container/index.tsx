@@ -11,8 +11,8 @@ const styles = cssMap({
 		borderTop: `${token('border.width', '1px')} solid ${token('color.border', N40)}`,
 		borderLeft: `${token('border.width', '1px')} solid ${token('color.border', N40)}`,
 		borderRight: `${token('border.width', '1px')} solid ${token('color.border', N40)}`,
-		borderTopLeftRadius: token('border.radius.200', '8px'),
-		borderTopRightRadius: token('border.radius.200', '8px'),
+		borderTopLeftRadius: token('radius.large', '8px'),
+		borderTopRightRadius: token('radius.large', '8px'),
 	},
 	contentContainerStyles: {
 		display: 'grid',

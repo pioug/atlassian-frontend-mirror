@@ -15,7 +15,7 @@ import Tooltip from '@atlaskit/tooltip';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Toolbar = styled.div({
 	backgroundColor: token('color.background.neutral'),
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	display: 'flex',
 	padding: '5px',
 });
@@ -23,7 +23,7 @@ const Toolbar = styled.div({
 const Action = styled.button({
 	alignItems: 'center',
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	display: 'flex',
 	height: '24px',
 	justifyContent: 'center',

@@ -118,7 +118,7 @@ const blockStyles = css({
 	width: '100%',
 	height: '48px',
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 });
 
 const logoContainerStyles = css({

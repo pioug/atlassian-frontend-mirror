@@ -246,7 +246,7 @@ const headingHoverEffectStyles = css({
 	whiteSpace: 'nowrap',
 	'&:hover': {
 		backgroundColor: token('color.background.input.hovered', '#F7F8F9'),
-		borderRadius: token('border.radius.200', '3px'),
+		borderRadius: token('radius.large', '3px'),
 	},
 });
 

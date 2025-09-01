@@ -16,7 +16,7 @@ const styles = cssMap({
 		marginInline: 'auto',
 		marginTop: token('space.200'),
 		width: '90%',
-		borderRadius: token('border.radius.200'),
+		borderRadius: token('radius.large'),
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),

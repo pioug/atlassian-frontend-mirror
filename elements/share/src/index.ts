@@ -1,3 +1,8 @@
+/**
+ * @deprecated
+ * ⚠️ DO NOT USE — This package has been replaced by @atlassian/jira-share-dialog.
+ * It will be removed once the switch-over is complete.
+ */
 export { ShareDialogContainer } from './components/ShareDialogContainer';
 export { CopyLinkButton } from './components/CopyLinkButton';
 

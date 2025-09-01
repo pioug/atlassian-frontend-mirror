@@ -73,7 +73,7 @@ typescriptEslintTester.run(
             },
             blackBorder: {
               border: '1px solid black',
-              borderRadius: token('border.radius.100', '3px'),
+              borderRadius: token('radius.small', '3px'),
             },
           });
         `,

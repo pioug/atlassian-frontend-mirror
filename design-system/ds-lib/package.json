@@ -32,28 +32,6 @@
 			"category": "Libraries"
 		}
 	},
-	"af:exports": {
-		"./keycodes": "./src/utils/keycodes.tsx",
-		"./noop": "./src/utils/noop.tsx",
-		"./deprecation-warning": "./src/utils/deprecation-warning.tsx",
-		"./device-check": "./src/utils/device-check.tsx",
-		"./once": "./src/utils/once.tsx",
-		"./warn-once": "./src/utils/warn-once.tsx",
-		"./merge-refs": "./src/utils/merge-refs.tsx",
-		"./with-resolvers": "./src/utils/with-resolvers.tsx",
-		"./use-id": "./src/utils/use-id.tsx",
-		"./use-controlled": "./src/hooks/use-controlled.tsx",
-		"./use-lazy-ref": "./src/hooks/use-lazy-ref.tsx",
-		"./use-lazy-callback": "./src/hooks/use-lazy-callback.tsx",
-		"./use-layout-effect": "./src/hooks/use-layout-effect.tsx",
-		"./use-state-ref": "./src/hooks/use-state-ref.tsx",
-		"./use-focus-event": "./src/hooks/use-focus-event.tsx",
-		"./use-scrollbar-width": "./src/hooks/use-scrollbar-width.tsx",
-		"./use-previous-value": "./src/hooks/use-previous-value.tsx",
-		"./use-stable-ref": "./src/hooks/use-stable-ref.tsx",
-		"./use-close-on-escape-press": "./src/hooks/use-close-on-escape-press.tsx",
-		"./use-auto-focus": "./src/hooks/use-auto-focus.tsx"
-	},
 	"exports": {
 		"./keycodes": "./src/utils/keycodes.tsx",
 		"./noop": "./src/utils/noop.tsx",

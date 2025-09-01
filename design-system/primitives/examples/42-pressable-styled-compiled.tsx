@@ -10,7 +10,7 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: {
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		color: token('color.text.inverse'),
 		backgroundColor: token('color.background.brand.bold'),
 		paddingTop: token('space.100'),

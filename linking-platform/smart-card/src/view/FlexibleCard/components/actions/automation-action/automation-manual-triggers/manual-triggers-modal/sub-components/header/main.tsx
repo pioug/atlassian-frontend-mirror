@@ -8,6 +8,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import LegacyManualTriggerIcon from '@atlaskit/legacy-custom-icons/manual-trigger-icon';
 import { ModalHeader, useModal } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { G50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -51,7 +52,7 @@ export const AutomationModalHeader = ({
 	const showDescription = initialised && rules.length > 0 && !!modalDescription;
 
 	return (
-		<ModalHeader>
+		<ModalHeader hasCloseButton={fg('navx-1483-a11y-close-button-in-modal-updates')}>
 			<Stack>
 				<Inline alignBlock="center">
 					<Box

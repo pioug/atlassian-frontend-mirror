@@ -65,7 +65,7 @@ export default () => (
 			paddingBottom: token('space.100', '8px'),
 			border: `1px solid ${token('color.border')}`,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			borderRadius: token('border.radius.100', '3px'),
+			borderRadius: token('radius.small', '3px'),
 		}}
 	>
 		<AtlassianNavigation

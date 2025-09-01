@@ -1,5 +1,11 @@
 # @atlaskit/node-data-provider
 
+## 5.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.6.0
 
 ### Minor Changes

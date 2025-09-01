@@ -9,15 +9,7 @@ export class INSM {
 	analyticsWebClient?: AnalyticsWebClient;
 	runningSession?: INSMSession;
 	options: INSMOptions;
-	periodMeasurers: [
-		AnimationFPSIM,
-		INPTracker,
-		INPTracker,
-		INPTracker,
-		INPTracker,
-		INPTracker,
-		INPTracker,
-	];
+	periodMeasurers: [AnimationFPSIM, INPTracker];
 
 	/**
 	 * Heavy tasks are tracked at the insm layer as heavy tasks
@@ -27,15 +19,7 @@ export class INSM {
 	runningHeavyTasks: Set<string> = new Set();
 
 	constructor(options: INSMOptions) {
-		this.periodMeasurers = [
-			new AnimationFPSIM(),
-			new INPTracker(),
-			new INPTracker({ includedInteractions: ['pointerup'] }),
-			new INPTracker({ includedInteractions: ['pointerdown'] }),
-			new INPTracker({ includedInteractions: ['click'] }),
-			new INPTracker({ includedInteractions: ['keydown'] }),
-			new INPTracker({ includedInteractions: ['keyup'] }),
-		];
+		this.periodMeasurers = [new AnimationFPSIM(), new INPTracker()];
 		this.options = options;
 
 		// If this does throw -- we do want an unhandledRejection rejection to be passed to the window
@@ -44,11 +28,20 @@ export class INSM {
 			(analyticsWebClient) => (this.analyticsWebClient = analyticsWebClient),
 		);
 
-		// No cleanup needs to be performed -- as this is intended to run until the tab is closed
-		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-		window.addEventListener('pagehide', () => {
-			this.runningSession?.end({ stoppedBy: 'pagehide' });
-		});
+		// No cleanup needs to be performed -- as this tooling is intended to run until the tab is closed
+		// The use of beforeunload here is because using pagehide does not reliably result in the analytics
+		// being fired by the analytics web client.
+		// The use of this means we will miss events from mobile safari which does not reliably call this api
+		// however mobile browsers do not call when a browser closes - so we expect limited mobile data from
+		// this tooling in its current form.
+
+		// window will not be defined in server envs - in these envs -- there can never be a session end
+		if (typeof window !== 'undefined') {
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			window.addEventListener('beforeunload', () => {
+				this.runningSession?.end({ stoppedBy: 'beforeunload' });
+			});
+		}
 	}
 
 	/**

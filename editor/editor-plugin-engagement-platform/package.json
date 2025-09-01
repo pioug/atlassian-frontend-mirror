@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-engagement-platform",
-	"version": "4.0.1",
+	"version": "5.0.0",
 	"description": "Engagement platform plugin for @atlaskit/editor-core“",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

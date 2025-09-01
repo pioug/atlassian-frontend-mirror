@@ -25,10 +25,10 @@ const anchorStyles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		height: '32px',
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 	},
 	customLogoBorderRadius: {
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 	},
 	newMargin: {
 		// Additional margin is added to the left of the interactive element, to create visual alignment

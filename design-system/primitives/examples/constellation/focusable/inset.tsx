@@ -20,7 +20,7 @@ const styles = cssMap({
 		paddingBottom: token('space.100'),
 		paddingLeft: token('space.100'),
 		border: 'none',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		marginBlock: token('space.150'),
 		marginInline: 0,
 		cursor: 'pointer',

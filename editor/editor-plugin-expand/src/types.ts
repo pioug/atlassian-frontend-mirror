@@ -7,6 +7,7 @@ import type {
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
@@ -59,6 +60,7 @@ export type ExpandPluginDependencies = [
 	OptionalPlugin<EditorDisabledPlugin>,
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<EditorViewModePlugin>,
+	OptionalPlugin<BlockMenuPlugin>,
 ];
 
 export type ExpandPlugin = NextEditorPlugin<

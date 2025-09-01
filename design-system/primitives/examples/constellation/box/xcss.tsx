@@ -20,7 +20,7 @@ const styles = cssMap({
 		paddingRight: token('space.100'),
 		paddingBottom: token('space.100'),
 		paddingLeft: token('space.100'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		transitionDuration: '200ms',
 		listStyle: 'none',
 

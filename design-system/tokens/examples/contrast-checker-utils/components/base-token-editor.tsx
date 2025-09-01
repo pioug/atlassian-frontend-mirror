@@ -90,7 +90,7 @@ const styles = cssMap({
 		overflow: 'hidden',
 		display: 'flex',
 		flexGrow: '1',
-		borderRadius: token('border.radius.200'),
+		borderRadius: token('radius.large'),
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),

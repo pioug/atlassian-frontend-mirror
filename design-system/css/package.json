@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/css",
-	"version": "0.12.3",
+	"version": "0.12.5",
 	"description": "Style components backed by Atlassian Design System design tokens powered by Compiled CSS-in-JS.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,10 +43,6 @@
 		"dist/esm/test-utils/index.js"
 	],
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./test-utils": "./src/test-utils/index.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./test-utils": "./src/test-utils/index.tsx"

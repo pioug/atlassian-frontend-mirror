@@ -2,12 +2,14 @@
 /* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { cssMap } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import LinkComponent from '@atlaskit/link';
 import type { DatasourceParameters, Link } from '@atlaskit/linking-types';
 import {
+	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
@@ -15,6 +17,7 @@ import {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -64,6 +67,21 @@ import {
 } from '../types';
 
 import { modalMessages } from './messages';
+
+const styles = cssMap({
+	modalTitleContainer: {
+		gap: token('space.200'),
+		alignItems: 'center',
+	},
+	viewModeContainer: {
+		gap: token('space.100'),
+		alignItems: 'center',
+	},
+	flexStyles: {
+		flexDirection: 'row-reverse',
+		width: '100%',
+	},
+});
 
 const getDisplayValue = (currentViewMode: DisplayViewModes, itemCount: number) => {
 	if (currentViewMode === 'table') {
@@ -479,18 +497,40 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 					onClose={onCancel}
 					shouldReturnFocus={shouldReturnFocus}
 				>
-					<ModalHeader>
-						<ModalTitle>
-							<SiteSelector
-								availableSites={availableSites}
-								onSiteSelection={onSiteSelection}
-								selectedSite={selectedJiraSite}
-								testId="jira-datasource-modal--site-selector"
-								label={siteSelectorLabel}
-							/>
-						</ModalTitle>
-						{!hasNoJiraSites && <DatasourceViewModeDropDown />}
-					</ModalHeader>
+					{fg('navx-1483-a11y-close-button-in-modal-updates') ? (
+						<ModalHeader>
+							<Flex gap="space.200" justifyContent="space-between" xcss={styles.flexStyles}>
+								<Flex justifyContent="end" xcss={styles.viewModeContainer}>
+									{!hasNoJiraSites && <DatasourceViewModeDropDown />}
+									<CloseButton onClick={onCancel} />
+								</Flex>
+								<Flex justifyContent="start" xcss={styles.modalTitleContainer}>
+									<ModalTitle>
+										<SiteSelector
+											availableSites={availableSites}
+											onSiteSelection={onSiteSelection}
+											selectedSite={selectedJiraSite}
+											testId="jira-datasource-modal--site-selector"
+											label={siteSelectorLabel}
+										/>
+									</ModalTitle>
+								</Flex>
+							</Flex>
+						</ModalHeader>
+					) : (
+						<ModalHeader>
+							<ModalTitle>
+								<SiteSelector
+									availableSites={availableSites}
+									onSiteSelection={onSiteSelection}
+									selectedSite={selectedJiraSite}
+									testId="jira-datasource-modal--site-selector"
+									label={siteSelectorLabel}
+								/>
+							</ModalTitle>
+							{!hasNoJiraSites && <DatasourceViewModeDropDown />}
+						</ModalHeader>
+					)}
 					<ModalBody>
 						{!hasNoJiraSites ? (
 							<Fragment>

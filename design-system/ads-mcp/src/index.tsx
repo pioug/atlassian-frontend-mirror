@@ -5,12 +5,26 @@ import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprot
 
 import { instructions } from './instructions';
 import {
+	analyzeAccessibilityTool,
+	analyzeLocalhostAccessibilityTool,
+	listAnalyzeAccessibilityTool,
+	listAnalyzeLocalhostAccessibilityTool,
+} from './tools/analyze-accessibility';
+import {
+	getAccessibilityGuidelinesTool,
+	listGetAccessibilityGuidelinesTool,
+} from './tools/get-accessibility-guidelines';
+import {
 	getComponentDetailsTool,
 	listGetComponentDetailsTool,
 } from './tools/get-component-details';
 import { getComponentsTool, listGetComponentsTool } from './tools/get-components';
 import { getIconsTool, listGetIconsTool } from './tools/get-icons';
 import { getTokensTool, listGetTokensTool } from './tools/get-tokens';
+import {
+	listSuggestAccessibilityFixesTool,
+	suggestAccessibilityFixesTool,
+} from './tools/suggest-accessibility-fixes';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- this uses require because not all node versions this package supports use the same import assertions/attributes
 const pkgJson = require('@atlaskit/ads-mcp/package.json');
@@ -36,6 +50,10 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 			listGetComponentsTool,
 			listGetComponentDetailsTool,
 			listGetIconsTool,
+			listAnalyzeAccessibilityTool,
+			listAnalyzeLocalhostAccessibilityTool,
+			listGetAccessibilityGuidelinesTool,
+			listSuggestAccessibilityFixesTool,
 		],
 	};
 });
@@ -45,6 +63,10 @@ const callTools: Record<string, (params: any) => Promise<any>> = {
 	get_components: getComponentsTool,
 	get_component_details: getComponentDetailsTool,
 	get_icons: getIconsTool,
+	analyze_accessibility: analyzeAccessibilityTool,
+	analyze_localhost_accessibility: analyzeLocalhostAccessibilityTool,
+	get_accessibility_guidelines: getAccessibilityGuidelinesTool,
+	suggest_accessibility_fixes: suggestAccessibilityFixesTool,
 };
 
 // Handle tool execution

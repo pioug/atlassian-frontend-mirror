@@ -41,7 +41,7 @@ const targetStyles = css({
 	padding: '0 1em',
 	border: 0,
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	cursor: 'pointer',
 	fontSize: 'inherit',
 	lineHeight: '30px',
@@ -80,7 +80,7 @@ const bigTargetStyles = css({
 	flexDirection: 'column',
 	border: 0,
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	color: 'white',
 	cursor: 'pointer',
 	fontSize: 'inherit',

@@ -10,7 +10,7 @@ const styles = cssMap({
 	box: {
 		borderColor: token('color.border.discovery'),
 		borderStyle: 'solid',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		borderWidth: token('border.width'),
 	},
 });

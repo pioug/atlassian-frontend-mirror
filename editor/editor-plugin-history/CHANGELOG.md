@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-history
 
+## 4.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.1
 
 ### Patch Changes

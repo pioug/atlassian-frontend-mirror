@@ -16,7 +16,7 @@ const styles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		borderRadius: token('border.radius.200', '8px'),
+		borderRadius: token('radius.large', '8px'),
 		outlineColor: token('color.border'),
 		outlineStyle: 'solid',
 		backgroundColor: token('elevation.surface.sunken'),
@@ -40,7 +40,7 @@ const styles = cssMap({
 		backgroundColor: token('color.skeleton'),
 		width: '34px',
 		height: '34px',
-		borderRadius: token('border.radius.200', '8px'),
+		borderRadius: token('radius.large', '8px'),
 	},
 	skeletonSmall: {
 		backgroundColor: token('color.skeleton'),

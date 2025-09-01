@@ -60,6 +60,9 @@
 			"path": "../../design-system/code/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/datetime-picker/tsconfig.app.json"
 		},
 		{

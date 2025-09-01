@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 6.0.0
+
+### Patch Changes
+
+- [`eaaa054620847`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eaaa054620847) -
+  Cleanup media toolbar performance experiment
+- Updated dependencies
+
 ## 5.4.4
 
 ### Patch Changes

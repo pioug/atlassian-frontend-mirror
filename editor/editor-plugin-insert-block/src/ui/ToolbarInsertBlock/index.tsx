@@ -91,8 +91,8 @@ export const tableButtonWrapper = ({
 		${!isTableSelectorOpen && !isButtonDisabled && getHoverStyles('.table-toolbar-btn')}
 
   .table-toolbar-btn {
-			border-top-right-radius: ${token('border.radius.200', '0px')};
-			border-bottom-right-radius: ${token('border.radius.200', '0px')};
+			border-top-right-radius: ${token('radius.large', '0px')};
+			border-bottom-right-radius: ${token('radius.large', '0px')};
 			margin-right: ${token('space.025', '1px')};
 			padding: ${token('space.0', '0px')};
 			& > span {
@@ -109,8 +109,8 @@ export const tableButtonWrapper = ({
 				justify-content: center;
 			}
 
-			border-top-left-radius: ${token('border.radius.200', '0px')} !important;
-			border-bottom-left-radius: ${token('border.radius.200', '0px')} !important;
+			border-top-left-radius: ${token('radius.large', '0px')} !important;
+			border-bottom-left-radius: ${token('radius.large', '0px')} !important;
 		}
 	`;
 

@@ -4,8 +4,7 @@ import { cssMap } from '@compiled/react';
 
 import CloseIcon from '@atlaskit/icon/core/cross-circle';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled';
 import { components, type DropdownIndicatorProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
@@ -33,38 +32,20 @@ const CustomDropdownIndicator = (props: DropdownIndicatorProps<SelectOption, tru
 
 	return (
 		<components.DropdownIndicator {...props}>
-			{fg('navx-1184-fix-smart-link-a11y-interactive-states') ? (
-				<Pressable
-					xcss={styles.customDropdownIndicatorStyles}
-					onClick={() => {
-						if (selectProps.inputValue) {
-							selectProps.onInputChange &&
-								selectProps.onInputChange('', {
-									action: 'input-change',
-									prevInputValue: selectProps.inputValue,
-								});
-						}
-					}}
-				>
-					{selectProps.inputValue ? <CloseIcon label="" /> : <SearchIcon label="" />}
-				</Pressable>
-			) : (
-				// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
-				<Box
-					xcss={styles.customDropdownIndicatorStylesOld}
-					onClick={() => {
-						if (selectProps.inputValue) {
-							selectProps.onInputChange &&
-								selectProps.onInputChange('', {
-									action: 'input-change',
-									prevInputValue: selectProps.inputValue,
-								});
-						}
-					}}
-				>
-					{selectProps.inputValue ? <CloseIcon label="" /> : <SearchIcon label="" />}
-				</Box>
-			)}
+			<Pressable
+				xcss={styles.customDropdownIndicatorStyles}
+				onClick={() => {
+					if (selectProps.inputValue) {
+						selectProps.onInputChange &&
+							selectProps.onInputChange('', {
+								action: 'input-change',
+								prevInputValue: selectProps.inputValue,
+							});
+					}
+				}}
+			>
+				{selectProps.inputValue ? <CloseIcon label="" /> : <SearchIcon label="" />}
+			</Pressable>
 		</components.DropdownIndicator>
 	);
 };

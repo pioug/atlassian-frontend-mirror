@@ -31,12 +31,6 @@
 			"category": "Navigation"
 		}
 	},
-	"af:exports": {
-		"./BreadcrumbsItem": "./src/entry-points/breadcrumbs-item.tsx",
-		"./Breadcrumbs": "./src/entry-points/breadcrumbs.tsx",
-		".": "./src/index.tsx",
-		"./types": "./src/types.tsx"
-	},
 	"exports": {
 		"./BreadcrumbsItem": "./src/entry-points/breadcrumbs-item.tsx",
 		"./Breadcrumbs": "./src/entry-points/breadcrumbs.tsx",

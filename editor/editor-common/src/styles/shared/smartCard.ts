@@ -88,7 +88,7 @@ export const smartCardStyles = () => css`
 
 		&.${akEditorSelectedNodeClassName} .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div {
 			${getSelectionStyles([SelectionStyle.BoxShadow])}
-			border-radius: ${token('border.radius.200', '8px')};
+			border-radius: ${token('radius.large', '8px')};
 		}
 
 		&.danger {
@@ -106,7 +106,7 @@ export const smartCardStyles = () => css`
 		.${DATASOURCE_INNER_CONTAINER_CLASSNAME} {
 			cursor: pointer;
 			background-color: ${token('color.background.neutral.subtle')};
-			border-radius: ${token('border.radius.200', '8px')};
+			border-radius: ${token('radius.large', '8px')};
 			border: 1px solid ${token('color.border')};
 			overflow: hidden;
 		}

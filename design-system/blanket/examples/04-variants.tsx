@@ -33,7 +33,7 @@ const blanketStyles = cssMap({
 		borderColor: token('color.border'),
 		borderStyle: 'dashed',
 		borderWidth: token('border.width'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		pointerEvents: 'initial',
 	},
 });

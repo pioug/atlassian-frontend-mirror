@@ -24,7 +24,7 @@ const relativeDivStyles = css({
 	height: '200px',
 	position: 'relative',
 	backgroundColor: 'PaleVioletRed',
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	insetBlockStart: token('space.500', '40px'),
 	insetInlineStart: token('space.500', '40px'),
 	marginBlockStart: token('space.100', '8px'),

@@ -24,10 +24,6 @@
 		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./constants": "./src/constants.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./constants": "./src/constants.tsx"

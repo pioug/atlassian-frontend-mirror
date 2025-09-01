@@ -5,5 +5,7 @@ import ConfluenceSearchConfigModalNoInstances from '../../examples/vr/confluence
 snapshot(ConfluenceSearchConfigModalNoInstances, {
 	description: 'Confluence search config modal no instances view',
 	drawsOutsideBounds: true,
-	featureFlags: {},
+	featureFlags: {
+		'navx-1483-a11y-close-button-in-modal-updates': true,
+	},
 });

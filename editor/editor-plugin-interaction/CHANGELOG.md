@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-interaction
 
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.1
 
 ### Patch Changes

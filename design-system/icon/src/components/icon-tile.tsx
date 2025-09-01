@@ -121,7 +121,7 @@ const appearanceMap = cssMap({
 
 const shapeMap = cssMap({
 	square: {
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 	},
 	circle: {
 		borderRadius: token('border.radius.circle'),

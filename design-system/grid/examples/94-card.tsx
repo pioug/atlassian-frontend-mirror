@@ -6,7 +6,7 @@ import { Box, xcss } from '@atlaskit/primitives';
 const cardStyles = xcss({
 	borderColor: 'color.border',
 	borderWidth: 'border.width',
-	borderRadius: 'border.radius.200',
+	borderRadius: 'radius.large',
 	borderStyle: 'solid',
 });
 

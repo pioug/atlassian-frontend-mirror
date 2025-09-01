@@ -17,7 +17,7 @@ const styles = cssMap({
 		gridTemplateColumns: 'auto 1fr auto',
 		alignItems: 'center',
 		backgroundColor: token('color.background.input'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		boxSizing: 'border-box',
 		cursor: 'text',
 		display: 'none',

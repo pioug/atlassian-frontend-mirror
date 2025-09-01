@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "4.3.5",
+	"version": "4.4.0",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -134,6 +134,9 @@
 			"type": "boolean"
 		},
 		"layering-tree-graph": {
+			"type": "boolean"
+		},
+		"navx-1483-a11y-close-button-in-modal-updates": {
 			"type": "boolean"
 		}
 	},

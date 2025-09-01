@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 108.0.1
+
+### Patch Changes
+
+- [`4a31ea74ba10f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a31ea74ba10f) -
+  [ux] [ED-29057] create new ranks and groups for track changes section and render undo, redo and
+  diff in separate button groups behind platform_editor_toolbar_aifc_patch_2 gate
+- Updated dependencies
+
+## 108.0.0
+
+### Major Changes
+
+- [`526dfb01ae875`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/526dfb01ae875) -
+  [EDITOR-1450] Change Request - Update content of the discard modal, updated text and width
+  adjustment
+
+### Patch Changes
+
+- [`e882e86092666`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e882e86092666) -
+  [ux] Register expand, layout and code block itmes in block menu. Update panel item.
+- [`3b5b4a919aaaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b5b4a919aaaf) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 107.35.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 24.9.2
+
+### Patch Changes
+
+- [`d28c4180ae756`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d28c4180ae756) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 24.9.1
 
 ### Patch Changes

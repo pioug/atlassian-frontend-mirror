@@ -18,7 +18,7 @@ const panelStyles = css({
 	flexGrow: 1,
 	backgroundColor: token('color.background.neutral'),
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	color: token('color.text.subtlest'),
 	font: token('font.heading.xxlarge'),
 	marginBlockEnd: token('space.100'),

@@ -2,9 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, styled } from '@compiled/react';
+import { cssMap, jsx, styled } from '@compiled/react';
 
 import Form, { type OnSubmitHandler } from '@atlaskit/form';
+import { CloseButton } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -25,9 +28,21 @@ export interface SearchContainerProps {
 	isSearching: boolean;
 	// This is due to ModalTitle needing a ModalDialog so should be passed down
 	modalTitle?: JSX.Element;
+	onCancel: () => void;
 	onSearch: (aql: string, schemaId: string) => void;
 	workspaceId: string;
 }
+
+const styles = cssMap({
+	modalTitleContainer: {
+		gap: token('space.200'),
+		alignItems: 'center',
+	},
+	flexStyles: {
+		flexDirection: 'row-reverse',
+		width: '100%',
+	},
+});
 
 const DEFAULT_AQL_QUERY = '';
 const SEARCH_FORM_ID = 'linkDataSource.assets.configModal.searchContainer-form';
@@ -46,7 +61,7 @@ const FormContainer = styled.form({
 });
 
 export const AssetsSearchContainer = (props: SearchContainerProps) => {
-	const { onSearch, workspaceId, initialSearchData, modalTitle, isSearching } = props;
+	const { onSearch, workspaceId, initialSearchData, modalTitle, isSearching, onCancel } = props;
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	const onFormSubmit: OnSubmitHandler<SearchForm> = (searchFormValues) => {
@@ -63,15 +78,34 @@ export const AssetsSearchContainer = (props: SearchContainerProps) => {
 			{({ formProps }) => (
 				<FormContainer {...formProps} id={SEARCH_FORM_ID}>
 					<FormRowContainer isNarrowGap>
-						{modalTitle}
-						<SchemaSelectContainer>
-							<AssetsObjectSchemaSelect
-								value={initialSearchData.objectSchema ?? undefined}
-								workspaceId={workspaceId}
-								initialObjectSchemas={initialSearchData.objectSchemas ?? undefined}
-								classNamePrefix="assets-datasource-modal--object-schema-select"
-							/>
-						</SchemaSelectContainer>
+						{fg('navx-1483-a11y-close-button-in-modal-updates') ? (
+							<Flex gap="space.200" justifyContent="space-between" xcss={styles.flexStyles}>
+								<Flex justifyContent="end">
+									<CloseButton onClick={onCancel} />
+								</Flex>
+								<Flex justifyContent="start" xcss={styles.modalTitleContainer}>
+									{modalTitle}
+									<AssetsObjectSchemaSelect
+										value={initialSearchData.objectSchema ?? undefined}
+										workspaceId={workspaceId}
+										initialObjectSchemas={initialSearchData.objectSchemas ?? undefined}
+										classNamePrefix="assets-datasource-modal--object-schema-select"
+									/>
+								</Flex>
+							</Flex>
+						) : (
+							<div>
+								{modalTitle}
+								<SchemaSelectContainer>
+									<AssetsObjectSchemaSelect
+										value={initialSearchData.objectSchema ?? undefined}
+										workspaceId={workspaceId}
+										initialObjectSchemas={initialSearchData.objectSchemas ?? undefined}
+										classNamePrefix="assets-datasource-modal--object-schema-select"
+									/>
+								</SchemaSelectContainer>
+							</div>
+						)}
 					</FormRowContainer>
 					<FormRowContainer>
 						<AqlSearchInput

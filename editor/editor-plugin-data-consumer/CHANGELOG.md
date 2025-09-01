@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-data-consumer
 
+## 4.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.5
 
 ### Patch Changes

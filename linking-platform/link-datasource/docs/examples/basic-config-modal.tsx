@@ -4,10 +4,19 @@ import { IntlProvider } from 'react-intl-next';
 
 // eslint-disable-next-line no-restricted-imports
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common/types';
-import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+import {
+	CloseButton,
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+} from '@atlaskit/modal-dialog';
+import { Flex } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
 import { type ConfigModalProps } from '../../src/common/types';
@@ -23,6 +32,16 @@ import { DatasourceViewModeDropDown } from '../../src/ui/common/modal/mode-switc
 type MyConfigModalParameters = {
 	searchQuery: string;
 };
+
+const styles = cssMap({
+	flexStyles: {
+		flexDirection: 'row-reverse',
+		width: '100%',
+	},
+	viewModeContainer: {
+		gap: token('space.100'),
+	},
+});
 
 // isValidParameters()*` is a validation function provided by you.
 // When it returns false, the modal will not attempt to query the datasource for the preview items, and the InsertButton will also be disabled.
@@ -70,8 +89,15 @@ const ModalComponent = ({ onCancel }: ConnectedConfigModalProps) => {
 	return (
 		<DatasourceModal onClose={onCancel}>
 			<ModalHeader>
-				<ModalTitle>Basic Config Modal</ModalTitle>
-				<DatasourceViewModeDropDown />
+				<Flex gap="space.200" justifyContent="space-between" xcss={styles.flexStyles}>
+					<Flex justifyContent="end" xcss={styles.viewModeContainer}>
+						<DatasourceViewModeDropDown />
+						<CloseButton onClick={onCancel} />
+					</Flex>
+					<Flex justifyContent="start">
+						<ModalTitle>Basic Config Modal</ModalTitle>
+					</Flex>
+				</Flex>
 			</ModalHeader>
 			<ModalBody>
 				{

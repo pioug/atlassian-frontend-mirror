@@ -25,7 +25,7 @@ const styles = cssMap({
 		paddingRight: token('space.150'),
 		paddingBottom: token('space.150'),
 		paddingLeft: token('space.150'),
-		borderRadius: token('border.radius.100', '4px'),
+		borderRadius: token('radius.small', '4px'),
 		backgroundColor: token('elevation.surface'),
 		'&:hover': {
 			backgroundColor: token('elevation.surface.hovered'),

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tokens",
-	"version": "6.1.1",
+	"version": "6.1.3",
 	"description": "Design tokens are the single source of truth to name and store design decisions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

@@ -5,8 +5,6 @@ import { withTheme } from '@emotion/react';
 import classnames from 'classnames';
 
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -195,21 +193,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<typeof gridPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['width', 'grid'], selector);
-	},
-	(api: ExtractInjectionAPI<typeof gridPlugin> | undefined) => {
-		const { widthState, gridState } = useSharedPluginState(api, ['width', 'grid']);
-		return {
-			width: widthState?.width,
-			visible: gridState?.visible,
-			gridType: gridState?.gridType,
-			highlight: gridState?.highlight,
-		};
-	},
-);
-
 interface ContentComponentProps {
 	api: ExtractInjectionAPI<typeof gridPlugin> | undefined;
 	editorView: EditorView;
@@ -217,7 +200,11 @@ interface ContentComponentProps {
 }
 
 const ContentComponent = ({ api, editorView, options }: ContentComponentProps) => {
-	const { width, visible, gridType, highlight } = useSharedState(api);
+	const { width, visible, gridType, highlight } = useSharedPluginStateWithSelector(
+		api,
+		['width', 'grid'],
+		selector,
+	);
 
 	if (visible === undefined || !highlight) {
 		return null;

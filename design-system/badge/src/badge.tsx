@@ -19,7 +19,7 @@ const boxStyles = cssMapUnbound({
 		display: 'inline-flex',
 		flexShrink: 0,
 		blockSize: 'min-content',
-		borderRadius: token('border.radius.200'),
+		borderRadius: token('radius.large'),
 		paddingInline: token('space.075'),
 	},
 	added: { backgroundColor: token('color.background.success', '#E3FCEF') },

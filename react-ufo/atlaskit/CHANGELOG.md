@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.5.5
+
+### Patch Changes
+
+- [`d2a5fe501a90f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2a5fe501a90f) -
+  useUFOReportError hook for centrally managed error reporting for UFO
+
 ## 4.5.4
 
 ### Patch Changes

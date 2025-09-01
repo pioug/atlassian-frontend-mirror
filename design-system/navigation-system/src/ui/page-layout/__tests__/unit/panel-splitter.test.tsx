@@ -6,6 +6,7 @@ import invariant from 'tiny-invariant';
 
 import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import * as panelSplitterWidthUtils from '../../panel-splitter/get-width';
 import { PanelSplitter } from '../../panel-splitter/panel-splitter';
@@ -58,8 +59,11 @@ function setComputedWidth(element: HTMLElement, width: number): () => void {
 		return result;
 	};
 
+	const offsetWidthSpy = jest.spyOn(element, 'offsetWidth', 'get').mockReturnValue(width);
+
 	return function cleanup() {
 		window.getComputedStyle = original;
+		offsetWidthSpy.mockRestore();
 	};
 }
 
@@ -181,184 +185,192 @@ describe('PanelSplitter', () => {
 		expect(onCompleteResize).toHaveBeenCalledWith(100);
 	});
 
-	describe('when text direction is left to right (ltr)', () => {
-		describe('when position is end', () => {
-			it('should increase the width when resizing to the right with mouse', async () => {
-				render(
-					<TestComponent
-						initialPanelWidth={100}
-						getResizeBounds={() => ({ min: '50px', max: '500px' })}
-					/>,
-				);
+	ffTest.both(
+		'platform_dst_nav4_panel_splitter_guards',
+		'when text direction is left to right (ltr)',
+		() => {
+			describe('when position is end', () => {
+				it('should increase the width when resizing to the right with mouse', async () => {
+					render(
+						<TestComponent
+							initialPanelWidth={100}
+							getResizeBounds={() => ({ min: '50px', max: '500px' })}
+						/>,
+					);
 
-				const splitter = screen.getByTestId('panel-splitter');
+					const splitter = screen.getByTestId('panel-splitter');
 
-				fireEvent.dragStart(splitter, { clientX: 100 });
-				fireEvent.dragOver(splitter, { clientX: 200 });
+					fireEvent.dragStart(splitter, { clientX: 100 });
+					fireEvent.dragOver(splitter, { clientX: 200 });
 
-				rafStub.step();
+					rafStub.step();
 
-				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
-					[resizingCssVar]: 'clamp(50px, 200px, 500px)',
+					expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
+						[resizingCssVar]: 'clamp(50px, 200px, 500px)',
+					});
+				});
+
+				it('should decrease the width when resizing to the left with mouse', async () => {
+					render(
+						<TestComponent
+							initialPanelWidth={200}
+							getResizeBounds={() => ({ min: '50px', max: '500px' })}
+						/>,
+					);
+
+					const splitter = screen.getByTestId('panel-splitter');
+
+					fireEvent.dragStart(splitter, { clientX: 200 });
+					fireEvent.dragOver(splitter, { clientX: 100 });
+
+					rafStub.step();
+
+					expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
+						[resizingCssVar]: 'clamp(50px, 100px, 500px)',
+					});
 				});
 			});
 
-			it('should decrease the width when resizing to the left with mouse', async () => {
-				render(
-					<TestComponent
-						initialPanelWidth={200}
-						getResizeBounds={() => ({ min: '50px', max: '500px' })}
-					/>,
-				);
+			describe('when position is start', () => {
+				it('should decrease the width when resizing to the right', async () => {
+					render(
+						<TestComponent
+							initialPanelWidth={100}
+							getResizeBounds={() => ({ min: '50px', max: '500px' })}
+							position="start"
+						/>,
+					);
 
-				const splitter = screen.getByTestId('panel-splitter');
+					const splitter = screen.getByTestId('panel-splitter');
 
-				fireEvent.dragStart(splitter, { clientX: 200 });
-				fireEvent.dragOver(splitter, { clientX: 100 });
+					fireEvent.dragStart(splitter, { clientX: 100 });
+					fireEvent.dragOver(splitter, { clientX: 150 });
 
-				rafStub.step();
+					rafStub.step();
 
-				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
-					[resizingCssVar]: 'clamp(50px, 100px, 500px)',
+					expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
+						[resizingCssVar]: 'clamp(50px, 50px, 500px)',
+					});
+				});
+
+				it('should increase the width when resizing to the left', async () => {
+					render(
+						<TestComponent
+							initialPanelWidth={200}
+							getResizeBounds={() => ({ min: '50px', max: '500px' })}
+							position="start"
+						/>,
+					);
+					const splitter = screen.getByTestId('panel-splitter');
+
+					fireEvent.dragStart(splitter, { clientX: 200 });
+					fireEvent.dragOver(splitter, { clientX: 100 });
+
+					rafStub.step();
+
+					expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
+						[resizingCssVar]: 'clamp(50px, 300px, 500px)',
+					});
 				});
 			});
-		});
+		},
+	);
 
-		describe('when position is start', () => {
-			it('should decrease the width when resizing to the right', async () => {
-				render(
-					<TestComponent
-						initialPanelWidth={100}
-						getResizeBounds={() => ({ min: '50px', max: '500px' })}
-						position="start"
-					/>,
-				);
+	ffTest.both(
+		'platform_dst_nav4_panel_splitter_guards',
+		'when text direction is right to left (rtl)',
+		() => {
+			describe('when position is end', () => {
+				it('should decrease the width when resizing to the right', async () => {
+					render(
+						<TestComponent
+							initialPanelWidth={200}
+							getResizeBounds={() => ({ min: '50px', max: '500px' })}
+							textDirection="rtl"
+						/>,
+					);
 
-				const splitter = screen.getByTestId('panel-splitter');
+					const splitter = screen.getByTestId('panel-splitter');
 
-				fireEvent.dragStart(splitter, { clientX: 100 });
-				fireEvent.dragOver(splitter, { clientX: 150 });
+					fireEvent.dragStart(splitter, { clientX: 200 });
+					fireEvent.dragOver(splitter, { clientX: 300 });
 
-				rafStub.step();
+					rafStub.step();
 
-				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
-					[resizingCssVar]: 'clamp(50px, 50px, 500px)',
+					expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
+						[resizingCssVar]: 'clamp(50px, 100px, 500px)',
+					});
 				});
-			});
 
-			it('should increase the width when resizing to the left', async () => {
-				render(
-					<TestComponent
-						initialPanelWidth={200}
-						getResizeBounds={() => ({ min: '50px', max: '500px' })}
-						position="start"
-					/>,
-				);
-				const splitter = screen.getByTestId('panel-splitter');
+				it('should increase the width when resizing to the left', async () => {
+					render(
+						<TestComponent
+							initialPanelWidth={200}
+							getResizeBounds={() => ({ min: '50px', max: '500px' })}
+							textDirection="rtl"
+						/>,
+					);
 
-				fireEvent.dragStart(splitter, { clientX: 200 });
-				fireEvent.dragOver(splitter, { clientX: 100 });
+					const splitter = screen.getByTestId('panel-splitter');
 
-				rafStub.step();
+					fireEvent.dragStart(splitter, { clientX: 200 });
+					fireEvent.dragOver(splitter, { clientX: 100 });
 
-				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
-					[resizingCssVar]: 'clamp(50px, 300px, 500px)',
-				});
-			});
-		});
-	});
+					rafStub.step();
 
-	describe('when text direction is right to left (rtl)', () => {
-		describe('when position is end', () => {
-			it('should decrease the width when resizing to the right', async () => {
-				render(
-					<TestComponent
-						initialPanelWidth={200}
-						getResizeBounds={() => ({ min: '50px', max: '500px' })}
-						textDirection="rtl"
-					/>,
-				);
-
-				const splitter = screen.getByTestId('panel-splitter');
-
-				fireEvent.dragStart(splitter, { clientX: 200 });
-				fireEvent.dragOver(splitter, { clientX: 300 });
-
-				rafStub.step();
-
-				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
-					[resizingCssVar]: 'clamp(50px, 100px, 500px)',
-				});
-			});
-
-			it('should increase the width when resizing to the left', async () => {
-				render(
-					<TestComponent
-						initialPanelWidth={200}
-						getResizeBounds={() => ({ min: '50px', max: '500px' })}
-						textDirection="rtl"
-					/>,
-				);
-
-				const splitter = screen.getByTestId('panel-splitter');
-
-				fireEvent.dragStart(splitter, { clientX: 200 });
-				fireEvent.dragOver(splitter, { clientX: 100 });
-
-				rafStub.step();
-
-				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
-					[resizingCssVar]: 'clamp(50px, 300px, 500px)',
-				});
-			});
-		});
-
-		describe('when position is start', () => {
-			it('should increase the width when resizing to the right', async () => {
-				render(
-					<TestComponent
-						initialPanelWidth={200}
-						getResizeBounds={() => ({ min: '50px', max: '500px' })}
-						textDirection="rtl"
-						position="start"
-					/>,
-				);
-
-				const splitter = screen.getByTestId('panel-splitter');
-
-				fireEvent.dragStart(splitter, { clientX: 200 });
-				fireEvent.dragOver(splitter, { clientX: 300 });
-
-				rafStub.step();
-
-				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
-					[resizingCssVar]: 'clamp(50px, 300px, 500px)',
+					expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
+						[resizingCssVar]: 'clamp(50px, 300px, 500px)',
+					});
 				});
 			});
 
-			it('should decrease the width when resizing to the left', async () => {
-				render(
-					<TestComponent
-						initialPanelWidth={200}
-						getResizeBounds={() => ({ min: '50px', max: '500px' })}
-						textDirection="rtl"
-						position="start"
-					/>,
-				);
+			describe('when position is start', () => {
+				it('should increase the width when resizing to the right', async () => {
+					render(
+						<TestComponent
+							initialPanelWidth={200}
+							getResizeBounds={() => ({ min: '50px', max: '500px' })}
+							textDirection="rtl"
+							position="start"
+						/>,
+					);
 
-				const splitter = screen.getByTestId('panel-splitter');
+					const splitter = screen.getByTestId('panel-splitter');
 
-				fireEvent.dragStart(splitter, { clientX: 200 });
-				fireEvent.dragOver(splitter, { clientX: 100 });
+					fireEvent.dragStart(splitter, { clientX: 200 });
+					fireEvent.dragOver(splitter, { clientX: 300 });
 
-				rafStub.step();
+					rafStub.step();
 
-				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
-					[resizingCssVar]: 'clamp(50px, 100px, 500px)',
+					expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
+						[resizingCssVar]: 'clamp(50px, 300px, 500px)',
+					});
+				});
+
+				it('should decrease the width when resizing to the left', async () => {
+					render(
+						<TestComponent
+							initialPanelWidth={200}
+							getResizeBounds={() => ({ min: '50px', max: '500px' })}
+							textDirection="rtl"
+							position="start"
+						/>,
+					);
+
+					const splitter = screen.getByTestId('panel-splitter');
+
+					fireEvent.dragStart(splitter, { clientX: 200 });
+					fireEvent.dragOver(splitter, { clientX: 100 });
+
+					rafStub.step();
+
+					expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
+						[resizingCssVar]: 'clamp(50px, 100px, 500px)',
+					});
 				});
 			});
-		});
-	});
+		},
+	);
 
 	it('should handle changing text direction between drags', () => {
 		// Testing with position="end" to mimic the sidebar
@@ -447,7 +459,7 @@ describe('PanelSplitter', () => {
 			);
 
 			const rangeInput = screen.getByRole('slider', { name: 'Panel splitter', hidden: true });
-			rangeInput.focus();
+			fireEvent.focus(rangeInput);
 
 			// For react 18 compatibility, we need to wait for the component to be updated after the focus event
 			await waitFor(() => expect(rangeInput).toHaveAttribute('min', '50'));
@@ -468,7 +480,7 @@ describe('PanelSplitter', () => {
 
 			const rangeInput = screen.getByRole('slider', { name: 'Panel splitter', hidden: true });
 			// Focus to calculate and update the element properties
-			rangeInput.focus();
+			fireEvent.focus(rangeInput);
 
 			// Width is 300px, which is in the exact middle (50%) of the resizable area (100px to 500px)
 			// For react 18 compatibility, we need to wait for the component to be updated after the focus event
@@ -495,7 +507,7 @@ describe('PanelSplitter', () => {
 			);
 
 			const rangeInput = screen.getByRole('slider', { name: 'Panel splitter', hidden: true });
-			rangeInput.focus();
+			fireEvent.focus(rangeInput);
 			// For react 18 compatibility, we need to wait for the component to be updated after the focus event
 			await waitFor(() => expect(rangeInput).toHaveAttribute('min', '50'));
 
@@ -518,7 +530,7 @@ describe('PanelSplitter', () => {
 			);
 
 			const rangeInput = screen.getByRole('slider', { name: 'Panel splitter', hidden: true });
-			rangeInput.focus();
+			fireEvent.focus(rangeInput);
 			// For react 18 compatibility, we need to wait for the component to be updated after the focus event
 			await waitFor(() => expect(rangeInput).toHaveAttribute('min', '50'));
 
@@ -542,7 +554,7 @@ describe('PanelSplitter', () => {
 			);
 
 			const rangeInput = screen.getByRole('slider', { name: 'Panel splitter', hidden: true });
-			rangeInput.focus();
+			fireEvent.focus(rangeInput);
 
 			// Increase width to 600 (above the max of 500)
 			fireEvent.change(rangeInput, { target: { value: 600 } });
@@ -575,7 +587,7 @@ describe('PanelSplitter', () => {
 			render(<TestComponent initialPanelWidth={300} getResizeBounds={() => initialResizeBounds} />);
 
 			const rangeInput = screen.getByRole('slider', { name: 'Panel splitter', hidden: true });
-			rangeInput.focus();
+			fireEvent.focus(rangeInput);
 
 			// For react 18 compatibility, we need to wait for the component to be updated after the focus event
 			await waitFor(() => expect(rangeInput).toHaveAttribute('min', '50'));
@@ -667,7 +679,7 @@ describe('PanelSplitter', () => {
 			render(<TestComponent />);
 
 			const rangeInput = screen.getByRole('slider', { name: 'Panel splitter', hidden: true });
-			rangeInput.focus();
+			fireEvent.focus(rangeInput);
 
 			const splitter = screen.getByTestId('panel-splitter');
 
@@ -720,7 +732,7 @@ describe('PanelSplitter', () => {
 			);
 
 			const rangeInput = screen.getByRole('slider', { name: 'Panel splitter', hidden: true });
-			rangeInput.focus();
+			fireEvent.focus(rangeInput);
 			// For react 18 compatibility, we need to wait for the component to be updated after the focus event
 			await waitFor(() => expect(rangeInput).toHaveAttribute('min', '50'));
 
@@ -746,7 +758,7 @@ describe('PanelSplitter', () => {
 			);
 
 			const rangeInput = screen.getByRole('slider', { name: 'Panel splitter', hidden: true });
-			rangeInput.focus();
+			fireEvent.focus(rangeInput);
 
 			// Resize 3 times. `onResizeStart` should only be called once, right after the first resize.
 			fireEvent.change(rangeInput, { target: { value: 120 } });
@@ -811,7 +823,7 @@ describe('PanelSplitter', () => {
 			);
 
 			const rangeInput = screen.getByRole('slider', { name: 'Panel splitter', hidden: true });
-			rangeInput.focus();
+			fireEvent.focus(rangeInput);
 			// For react 18 compatibility, we need to wait for the component to be updated after the focus event
 			await waitFor(() => expect(rangeInput).toHaveAttribute('min', '50'));
 
@@ -837,7 +849,7 @@ describe('PanelSplitter', () => {
 			);
 
 			const rangeInput = screen.getByRole('slider', { name: 'Panel splitter', hidden: true });
-			rangeInput.focus();
+			fireEvent.focus(rangeInput);
 			// Resize 3 times. `onResizeEnd` should only be called once, at the end, after the debounce time.
 			fireEvent.change(rangeInput, { target: { value: 120 } });
 			fireEvent.change(rangeInput, { target: { value: 140 } });

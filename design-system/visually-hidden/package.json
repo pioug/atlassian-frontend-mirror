@@ -74,9 +74,6 @@
 			]
 		}
 	},
-	"af:exports": {
-		".": "./src/index.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx"
 	},

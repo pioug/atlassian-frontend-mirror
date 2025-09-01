@@ -25,10 +25,6 @@
 		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		"./types": "./src/entry-points/types.tsx",
-		".": "./src/index.tsx"
-	},
 	"exports": {
 		"./types": "./src/entry-points/types.tsx",
 		".": "./src/index.tsx"

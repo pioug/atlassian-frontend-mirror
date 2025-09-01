@@ -9,7 +9,7 @@ import { Target } from './styled';
 
 const parentBaseStyles = cssMap({
 	root: {
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		marginBottom: token('space.100', '8px'),
 		height: '80px',
 		paddingTop: token('space.100', '8px'),

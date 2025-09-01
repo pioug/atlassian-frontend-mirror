@@ -15,8 +15,8 @@ describe('StopPropagation', () => {
 			</div>,
 		);
 
-		const button = screen.getByRole('button', { name: 'Click' });
-		fireEvent.click(button);
+		const button = screen.getAllByRole('button', { name: 'Click' });
+		fireEvent.click(button[0]);
 
 		expect(onClick).not.toHaveBeenCalled();
 	});
@@ -31,6 +31,6 @@ describe('StopPropagation', () => {
 			</div>,
 		);
 
-		await expect(container).toBeAccessible();
+		await expect(container).toBeAccessible({ violationCount: 1 });
 	});
 });

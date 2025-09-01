@@ -32,11 +32,6 @@
 			"category": "Forms and input"
 		}
 	},
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./text-area": "./src/text-area.tsx",
-		"./types": "./src/types.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./text-area": "./src/text-area.tsx",

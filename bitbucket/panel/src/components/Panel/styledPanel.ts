@@ -46,7 +46,7 @@ export const PanelHeader: FC<
 > = withFocusWithin(styled.div<{ isFocused?: boolean }>`
 	align-items: center;
 	background-color: ${(props) => props.isFocused && token('elevation.surface.hovered', colors.N20)};
-	border-radius: ${token('border.radius.100', '3px')};
+	border-radius: ${token('radius.small', '3px')};
 	display: flex;
 	left: ${token('space.negative.300', '-24px')};
 	margin-bottom: ${token('space.100', '8px')};

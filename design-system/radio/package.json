@@ -31,12 +31,6 @@
 			"category": "Forms and input"
 		}
 	},
-	"af:exports": {
-		"./Radio": "./src/radio.tsx",
-		"./RadioGroup": "./src/radio-group.tsx",
-		"./types": "./src/types.tsx",
-		".": "./src/index.tsx"
-	},
 	"exports": {
 		"./Radio": "./src/radio.tsx",
 		"./RadioGroup": "./src/radio-group.tsx",

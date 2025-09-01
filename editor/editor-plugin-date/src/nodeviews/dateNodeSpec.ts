@@ -7,6 +7,7 @@ import { browser, timestampToString } from '@atlaskit/editor-common/utils';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N30A, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -56,6 +57,9 @@ export const dateToDOM = (
 		'data-prosemirror-node-inline': 'true',
 		draggable: 'true',
 	};
+	if (fg('platform_editor_adf_with_localid')) {
+		nodeWrapperAttrs['data-local-id'] = node.attrs.localId;
+	}
 	const wrapperAttrs: Record<string, string> = {
 		class: 'date-lozenger-container',
 		'data-node-type': 'date',

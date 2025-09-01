@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "2.0.0",
+	"version": "2.1.1",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -22,47 +22,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./top-nav-items/notifications": "./src/entry-points/top-nav-items/notifications.tsx",
-		"./top-nav-items/create-button": "./src/entry-points/top-nav-items/create-button.tsx",
-		"./top-nav-items/help": "./src/entry-points/top-nav-items/help.tsx",
-		"./top-nav-items/profile": "./src/entry-points/top-nav-items/profile.tsx",
-		"./top-nav-items/settings": "./src/entry-points/top-nav-items/settings.tsx",
-		"./top-nav-items/log-in": "./src/entry-points/top-nav-items/log-in.tsx",
-		"./top-nav-items/custom-title": "./src/entry-points/top-nav-items/custom-title.tsx",
-		"./top-nav-items": "./src/entry-points/top-nav-items/index.tsx",
-		"./side-nav-items/container-avatar": "./src/entry-points/side-nav-items/container-avatar.tsx",
-		"./side-nav-items/expandable-menu-item": "./src/entry-points/side-nav-items/expandable-menu-item.tsx",
-		"./side-nav-items/flyout-menu-item": "./src/entry-points/side-nav-items/flyout-menu-item.tsx",
-		"./side-nav-items/button-menu-item": "./src/entry-points/side-nav-items/button-menu-item.tsx",
-		"./side-nav-items/link-menu-item": "./src/entry-points/side-nav-items/link-menu-item.tsx",
-		"./side-nav-items/menu-list": "./src/entry-points/side-nav-items/menu-list.tsx",
-		"./side-nav-items/menu-list-item": "./src/entry-points/side-nav-items/menu-list-item.tsx",
-		"./side-nav-items/menu-section": "./src/entry-points/side-nav-items/menu-section.tsx",
-		"./side-nav-items/top-level-spacer": "./src/entry-points/side-nav-items/top-level-spacer.tsx",
-		"./side-nav-items/drag-and-drop/hitbox": "./src/entry-points/side-nav-items/drag-and-drop/hitbox.tsx",
-		"./side-nav-items/drag-and-drop/drag-preview": "./src/entry-points/side-nav-items/drag-and-drop/drag-preview.tsx",
-		"./side-nav-items/drag-and-drop/drop-indicator": "./src/entry-points/side-nav-items/drag-and-drop/drop-indicator.tsx",
-		"./side-nav-items/drag-and-drop/group-drop-indicator": "./src/entry-points/side-nav-items/drag-and-drop/group-drop-indicator.tsx",
-		"./side-nav-items/drag-and-drop/use-menu-item-drag-and-drop": "./src/entry-points/side-nav-items/drag-and-drop/use-menu-item-drag-and-drop.tsx",
-		"./layout/aside": "./src/entry-points/layout/aside.tsx",
-		"./layout/banner": "./src/entry-points/layout/banner.tsx",
-		"./layout/main": "./src/entry-points/layout/main.tsx",
-		"./layout/panel-splitter": "./src/entry-points/layout/panel-splitter.tsx",
-		"./layout/panel": "./src/entry-points/layout/panel.tsx",
-		"./layout/root": "./src/entry-points/layout/root.tsx",
-		"./layout/side-nav": "./src/entry-points/layout/side-nav.tsx",
-		"./layout/top-nav": "./src/entry-points/layout/top-nav.tsx",
-		"./layout/skip-links": "./src/entry-points/layout/skip-links.tsx",
-		"./experimental/top-nav-button": "./src/entry-points/experimental/top-nav-button.tsx",
-		"./experimental/use-has-custom-theme": "./src/entry-points/experimental/use-has-custom-theme.tsx",
-		"./experimental/use-legacy-search-theme": "./src/entry-points/experimental/use-legacy-search-theme.tsx",
-		"./experimental/color-utils/parse-hex": "./src/entry-points/experimental/color-utils/parse-hex.tsx",
-		"./experimental/color-utils/parse-hsl": "./src/entry-points/experimental/color-utils/parse-hsl.tsx",
-		"./experimental/color-utils/parse-rgb": "./src/entry-points/experimental/color-utils/parse-rgb.tsx",
-		"./experimental/color-utils/parse-user-color": "./src/entry-points/experimental/color-utils/parse-user-color.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./top-nav-items/notifications": "./src/entry-points/top-nav-items/notifications.tsx",
@@ -262,6 +221,9 @@
 			"type": "boolean"
 		},
 		"platform_dst_nav4_flyoutmenuitem_render_to_parent": {
+			"type": "boolean"
+		},
+		"platform_dst_nav4_panel_splitter_guards": {
 			"type": "boolean"
 		}
 	},

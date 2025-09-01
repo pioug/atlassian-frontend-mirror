@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 const styles = cssMap({
 	root: {
 		color: token('color.text.inverse'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		backgroundColor: token('color.background.neutral.bold'),
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.bold.hovered'),

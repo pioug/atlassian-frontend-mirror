@@ -99,7 +99,7 @@ const styles = cssMap({
 		minHeight: '100px',
 		padding: '1em',
 		alignItems: 'center',
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		marginBlockStart: '1em',
 		textAlign: 'left',
 		color: token('color.text'),

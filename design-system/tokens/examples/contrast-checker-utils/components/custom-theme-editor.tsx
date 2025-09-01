@@ -34,7 +34,7 @@ const styles = cssMap({
 	input: {
 		border: `2px solid ${token('color.border')}`,
 		backgroundColor: token('color.background.input'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		height: '32px',
 		'&:hover': {
 			backgroundColor: token('color.background.input.hovered'),

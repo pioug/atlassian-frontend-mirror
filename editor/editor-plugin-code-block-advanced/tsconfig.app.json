@@ -38,6 +38,9 @@
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-block-menu/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-code-block/tsconfig.app.json"
 		},
 		{
@@ -51,6 +54,12 @@
 		},
 		{
 			"path": "../editor-plugin-selection-marker/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-toolbar/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

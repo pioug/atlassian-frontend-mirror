@@ -74,9 +74,6 @@
 		}
 	},
 	"homepage": "https://atlassian.design/components/tag-group/",
-	"af:exports": {
-		".": "./src/index.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx"
 	}

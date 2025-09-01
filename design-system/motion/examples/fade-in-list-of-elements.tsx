@@ -60,7 +60,7 @@ export default () => {
 										css={{
 											width: '100%',
 											height: '48px',
-											borderRadius: token('border.radius.100', '3px'),
+											borderRadius: token('radius.small', '3px'),
 										}}
 									>
 										<div

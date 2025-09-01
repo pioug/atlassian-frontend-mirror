@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-card-provider",
-	"version": "5.6.1",
+	"version": "5.6.2",
 	"description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

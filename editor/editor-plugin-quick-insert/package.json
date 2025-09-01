@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-quick-insert",
-	"version": "3.0.10",
+	"version": "4.0.0",
 	"description": "Quick insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

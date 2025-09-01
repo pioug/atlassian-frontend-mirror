@@ -28,18 +28,6 @@
 		}
 	},
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./allowed-function-calls": "./src/allowed-function-calls/index.tsx",
-		"./create-rule": "./src/create-rule.tsx",
-		"./find-identifier-node": "./src/find-identifier-node.tsx",
-		"./find-variable": "./src/find-variable.tsx",
-		"./is-supported-import": "./src/is-supported-import.tsx",
-		"./create-no-exported-rule": "./src/create-no-exported-rule/main.tsx",
-		"./schema": "./src/schema.tsx",
-		"./walk-style-properties": "./src/walk-style-properties.tsx",
-		"./context-compat": "./src/context-compat.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./allowed-function-calls": "./src/allowed-function-calls/index.tsx",

@@ -10,7 +10,7 @@ import LinkRenderType from '../../../issue-like-table/render-type/link';
 
 const styles = cssMap({
 	placeholderSmartLinkStyles: {
-		borderRadius: token('border.radius.200', '3px'),
+		borderRadius: token('radius.large', '3px'),
 		color: token('color.text.brand'),
 		paddingTop: token('space.0'),
 		paddingBottom: token('space.0'),

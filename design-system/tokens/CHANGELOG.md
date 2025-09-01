@@ -1,5 +1,19 @@
 # @atlaskit/tokens
 
+## 6.1.3
+
+### Patch Changes
+
+- [`23bcc5bbc9cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23bcc5bbc9cee) -
+  Internal changes to how border radius is applied.
+
+## 6.1.2
+
+### Patch Changes
+
+- [`3b5b4a919aaaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b5b4a919aaaf) -
+  Internal changes to how border radius is applied.
+
 ## 6.1.1
 
 ### Patch Changes

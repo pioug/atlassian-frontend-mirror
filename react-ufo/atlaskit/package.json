@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "4.5.4",
+	"version": "4.5.5",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -54,6 +54,7 @@
 		"./load-hold": "./src/load-hold/index.ts",
 		"./placeholder": "./src/placeholder/index.ts",
 		"./resource-timing": "./src/resource-timing/index.ts",
+		"./report-error": "./src/report-error/index.ts",
 		"./round-number": "./src/round-number/index.ts",
 		"./route-name": "./src/route-name/index.ts",
 		"./route-name-context": "./src/route-name-context/index.ts",

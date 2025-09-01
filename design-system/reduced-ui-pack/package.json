@@ -52,9 +52,6 @@
 		"svg-sprite": "root:*",
 		"ts-node": "root:*"
 	},
-	"af:exports": {
-		".": "./src/bundle.css"
-	},
 	"exports": {
 		".": "./src/bundle.css"
 	},

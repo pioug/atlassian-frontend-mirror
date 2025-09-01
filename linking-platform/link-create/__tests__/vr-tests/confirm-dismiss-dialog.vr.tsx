@@ -18,4 +18,7 @@ const options: OptionsType = {
 
 snapshot(DefaultConfirmDismissDialog, {
 	...options,
+	featureFlags: {
+		'navx-1483-a11y-close-button-in-modal-updates': true,
+	},
 });

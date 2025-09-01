@@ -12,7 +12,7 @@ const styles = cssMap({
 		boxSizing: 'border-box',
 		height: '20px',
 		width: '20px',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 	},
 });
 

@@ -19,7 +19,7 @@ const styles = cssMap({
 		paddingInlineEnd: token('space.300'),
 		paddingBlockEnd: token('space.100'),
 		paddingInlineStart: token('space.300'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		backgroundColor: N10,
 		color: N500,
 		'&:hover': {

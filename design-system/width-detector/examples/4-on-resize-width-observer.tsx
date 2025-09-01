@@ -34,7 +34,7 @@ const styles = cssMap({
 		backgroundColor: 'rgb(0, 0, 0, 0.6)',
 		color: 'white',
 		padding: '10px',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 	},
 	relativeWrapper: {
 		position: 'relative',

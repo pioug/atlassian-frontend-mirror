@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 const styles = cssMap({
 	card: {
 		flex: '1',
-		borderRadius: token('border.radius.200'),
+		borderRadius: token('radius.large'),
 		overflowX: 'auto',
 		paddingBlock: token('space.100'),
 		paddingInline: token('space.150'),

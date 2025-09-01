@@ -1,5 +1,13 @@
 # @atlaskit/lozenge
 
+## 13.0.7
+
+### Patch Changes
+
+- [`23bcc5bbc9cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23bcc5bbc9cee) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 13.0.6
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-grid
 
+## 4.0.0
+
+### Patch Changes
+
+- [`0fda385059db0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fda385059db0) -
+  PR to cleanup platform_editor_usesharedpluginstatewithselector for `collab-edit`,
+  `floating-toolbar`, `grid` and `guideline`
+- Updated dependencies
+
 ## 3.1.1
 
 ### Patch Changes

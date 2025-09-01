@@ -1,5 +1,6 @@
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
@@ -18,6 +19,7 @@ export type LayoutPluginDependencies = [
 	OptionalPlugin<EditorDisabledPlugin>,
 	OptionalPlugin<GuidelinePlugin>,
 	OptionalPlugin<InteractionPlugin>,
+	OptionalPlugin<BlockMenuPlugin>,
 ];
 
 export type LayoutPlugin = NextEditorPlugin<

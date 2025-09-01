@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 5.2.7
+
+### Patch Changes
+
+- [`d28c4180ae756`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d28c4180ae756) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 5.2.6
 
 ### Patch Changes

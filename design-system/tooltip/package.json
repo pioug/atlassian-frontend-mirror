@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tooltip",
-	"version": "20.4.3",
+	"version": "20.4.4",
 	"description": "A tooltip is a floating, non-actionable label used to explain a user interface element or feature.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,14 +30,6 @@
 			"name": "Tooltip",
 			"category": "Overlays and layering"
 		}
-	},
-	"af:exports": {
-		".": "./src/index.ts",
-		"./Tooltip": "./src/tooltip.tsx",
-		"./TooltipContainer": "./src/tooltip-container.tsx",
-		"./TooltipPrimitive": "./src/tooltip-primitive.tsx",
-		"./types": "./src/types.tsx",
-		"./utilities": "./src/utilities.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",

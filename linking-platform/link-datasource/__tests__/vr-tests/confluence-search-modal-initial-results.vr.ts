@@ -5,4 +5,7 @@ import ConfluenceSearchConfigModalInitialResults from '../../examples/vr/conflue
 snapshot(ConfluenceSearchConfigModalInitialResults, {
 	description: 'Confluence search config modal initial results view',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'navx-1483-a11y-close-button-in-modal-updates': true,
+	},
 });

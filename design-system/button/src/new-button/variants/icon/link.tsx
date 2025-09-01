@@ -34,7 +34,7 @@ const styles = cssMap({
 		alignItems: 'baseline',
 		justifyContent: 'center',
 		columnGap: token('space.050'),
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		borderWidth: 0,
 		flexShrink: 0,
 		height: '2rem',

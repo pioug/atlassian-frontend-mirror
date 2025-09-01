@@ -34,7 +34,7 @@ const avatarStyles = xcss({
 });
 
 const cardContainerStyles = xcss({
-	borderRadius: 'border.radius.200',
+	borderRadius: 'radius.large',
 	boxShadow: 'elevation.shadow.overlay',
 	position: 'relative',
 });

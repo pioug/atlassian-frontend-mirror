@@ -75,7 +75,6 @@ import { clipboardTextSerializer } from './clipboard-text-serializer';
 import { createPluginState, pluginKey as stateKey } from './plugin-factory';
 import {
 	escapeBackslashAndLinksExceptCodeBlock,
-	escapeLinks,
 	getPasteSource,
 	htmlContainsSingleFile,
 	htmlHasInvalidLinkTags,
@@ -146,45 +145,13 @@ export function createPlugin(
 	const atlassianMarkDownParser = new MarkdownTransformer(schema, md);
 
 	function getMarkdownSlice(text: string, openStart: number, openEnd: number): Slice | undefined {
-		const escapedTextInput: string = fg('platform_editor_paste_code_block_do_not_escape')
-			? escapeBackslashAndLinksExceptCodeBlock(text)
-			: escapeLinks(escapeBackslashExceptCodeblock(text));
+		const escapedTextInput: string = escapeBackslashAndLinksExceptCodeBlock(text);
 
 		const doc = atlassianMarkDownParser.parse(escapedTextInput);
 		if (doc && doc.content) {
 			return new Slice(doc.content, openStart, openEnd);
 		}
 		return;
-	}
-
-	function escapeBackslashExceptCodeblock(textInput: string): string {
-		const codeToken = '```';
-		if (!textInput.includes(codeToken)) {
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			return textInput.replace(/\\/g, '\\\\');
-		}
-		let isInsideCodeblock = false;
-		let textSplitByNewLine = textInput.split('\n');
-		// In the splitted array, we traverse through every line and check if it will be parsed as a codeblock.
-		textSplitByNewLine = textSplitByNewLine.map((text) => {
-			if (text === codeToken) {
-				isInsideCodeblock = !isInsideCodeblock;
-			} else if (text.startsWith(codeToken) && isInsideCodeblock === false) {
-				// if there is some text after the ``` mark , it gets counted as language attribute only at the start of codeblock
-				isInsideCodeblock = true;
-			}
-			if (!isInsideCodeblock) {
-				// only escape text which is not inside a codeblock
-				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				text = text.replace(/\\/g, '\\\\');
-			}
-			return text;
-		});
-		textInput = textSplitByNewLine.join('\n');
-
-		return textInput;
 	}
 
 	let extensionAutoConverter: ExtensionAutoConvertHandler;

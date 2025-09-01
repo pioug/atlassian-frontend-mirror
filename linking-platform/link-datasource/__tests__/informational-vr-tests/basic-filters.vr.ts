@@ -76,9 +76,7 @@ snapshotInformational(WithModal, {
 		await page.getByTestId('mode-toggle-basic').click();
 	},
 	description: 'basic mode with basic filters',
-	featureFlags: {
-		'navx-1184-fix-smart-link-a11y-interactive-states': true,
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(WithIssueModalWithParameters, {
@@ -91,9 +89,7 @@ snapshotInformational(WithIssueModalWithParameters, {
 	selector: {
 		byTestId: 'jlol-basic-filter-container',
 	},
-	featureFlags: {
-		'navx-1184-fix-smart-link-a11y-interactive-states': true,
-	},
+	featureFlags: {},
 	waitForHold: true,
 });
 
@@ -112,7 +108,6 @@ filters.forEach((filter) => {
 		description: `${filter} open trigger`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
-			'navx-1184-fix-smart-link-a11y-interactive-states': true,
 		},
 		waitForHold: true,
 	});
@@ -126,7 +121,6 @@ filters.forEach((filter) => {
 		description: `${filter} open and option selected`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
-			'navx-1184-fix-smart-link-a11y-interactive-states': true,
 		},
 		waitForHold: true,
 	});
@@ -138,9 +132,7 @@ filters.forEach((filter) => {
 			await selectOption(page, filter);
 		},
 		description: `${filter} closed and multiple options selected`,
-		featureFlags: {
-			'navx-1184-fix-smart-link-a11y-interactive-states': true,
-		},
+		featureFlags: {},
 		waitForHold: true,
 	});
 
@@ -160,7 +152,6 @@ filters.forEach((filter) => {
 		description: `${filter} open and search text entered`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
-			'navx-1184-fix-smart-link-a11y-interactive-states': true,
 		},
 		waitForHold: true,
 	});
@@ -184,9 +175,7 @@ filters.forEach((filter) => {
 				.waitFor({ state: 'visible' });
 		},
 		description: `${filter} open and view loading state`,
-		featureFlags: {
-			'navx-1184-fix-smart-link-a11y-interactive-states': true,
-		},
+		featureFlags: {},
 		waitForHold: true,
 	});
 
@@ -214,9 +203,7 @@ filters.forEach((filter) => {
 			await component.getByTestId(`jlol-basic-filter-${filter}--no-options-message`);
 		},
 		description: `${filter} open and view empty state`,
-		featureFlags: {
-			'navx-1184-fix-smart-link-a11y-interactive-states': true,
-		},
+		featureFlags: {},
 		waitForHold: true,
 	});
 
@@ -235,7 +222,6 @@ filters.forEach((filter) => {
 		description: `${filter} open and focus show more button`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
-			'navx-1184-fix-smart-link-a11y-interactive-states': true,
 		},
 		waitForHold: true,
 	});

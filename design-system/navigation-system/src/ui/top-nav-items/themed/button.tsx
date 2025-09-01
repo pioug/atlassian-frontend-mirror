@@ -131,7 +131,7 @@ const styles = cssMap({
 		font: token('font.body'),
 		height: '2.2857142857142856em',
 		paddingBlock: token('space.0'),
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		transition: 'background 0.1s ease-out',
 		position: 'relative',
 		// Remove the default underline for link buttons

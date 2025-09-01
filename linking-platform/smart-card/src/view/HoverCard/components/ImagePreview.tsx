@@ -17,8 +17,8 @@ const ImagePreview = ({ fallbackElementHeight, response }: ImagePreviewProps) =>
 		if (previewBlockRef.current) {
 			const previewHeight = previewBlockRef.current?.getBoundingClientRect().height;
 			setDynamicStyles({
-				borderTopLeftRadius: token('border.radius.200'),
-				borderTopRightRadius: token('border.radius.200'),
+				borderTopLeftRadius: token('radius.large'),
+				borderTopRightRadius: token('radius.large'),
 				marginBottom: token('space.100'),
 				...(previewHeight ? { height: `${previewHeight}px` } : {}),
 			});

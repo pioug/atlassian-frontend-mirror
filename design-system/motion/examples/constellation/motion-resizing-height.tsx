@@ -48,7 +48,7 @@ const centeredContainerStyles = css({
 	width: '100%',
 	maxWidth: '500px',
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxShadow: token('elevation.shadow.overlay'),
 	marginBlockEnd: token('space.800'),
 	paddingBlockEnd: token('space.100'),

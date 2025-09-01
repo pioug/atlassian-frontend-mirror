@@ -70,7 +70,7 @@ const LinkCreateWithModal = ({
 						width={`${CREATE_FORM_MAX_WIDTH_IN_PX}px`}
 					>
 						<ModalHero hero={modalHero} />
-						<ModalHeader>
+						<ModalHeader hasCloseButton={fg('navx-1483-a11y-close-button-in-modal-updates')}>
 							<ModalTitle>{modalTitle || intl.formatMessage(messages.heading)}</ModalTitle>
 						</ModalHeader>
 						<ModalBody>

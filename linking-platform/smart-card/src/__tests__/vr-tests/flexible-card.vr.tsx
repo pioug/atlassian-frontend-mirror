@@ -180,7 +180,6 @@ snapshot(FlexibleUiElementLozenge, {
 	description: 'FlexibleUiElementLozenge',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'navx-1184-fix-smart-link-a11y-interactive-states': true,
 	},
 	variants: [
 		{

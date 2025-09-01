@@ -30,6 +30,7 @@ import type { ResizeBounds } from './panel-splitter/types';
 import { useSideNavRef } from './side-nav/element-context';
 import type { CommonSlotProps } from './types';
 import { useResizingWidthCssVarOnRootElement } from './use-resizing-width-css-var-on-root-element';
+import { useSafeDefaultWidth } from './use-safe-default-width';
 
 const panelSplitterResizingVar = '--n_pnlRsz';
 
@@ -122,6 +123,8 @@ const styles = cssMap({
 	},
 });
 
+const fallbackDefaultWidth = 365;
+
 /**
  * The Panel layout area is rendered to the right (inline end) of the Main area, or the Aside area if it is present.
  *
@@ -131,7 +134,7 @@ const styles = cssMap({
  */
 export function Panel({
 	children,
-	defaultWidth = 365,
+	defaultWidth: defaultWidthProp = fallbackDefaultWidth,
 	label = 'Panel',
 	skipLinkLabel = label,
 	testId,
@@ -150,7 +153,7 @@ export function Panel({
 	/**
 	 * The default width of the layout area.
 	 *
-	 * It should be between the resize bounds - the minimum is 120px and the maximum is 50% of the viewport width.
+	 * It should be an integer between the resize bounds - the minimum is 120px and the maximum is 50% of the viewport width.
 	 *
 	 * This value is also used as the minimum resizing width, except when the `defaultWidth` is greater then `400px`,
 	 * in which case `400px` will be used as the minimum resizing width instead.
@@ -171,6 +174,13 @@ export function Panel({
 }) {
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
+
+	const defaultWidth = useSafeDefaultWidth({
+		defaultWidthProp,
+		fallbackDefaultWidth,
+		slotName: 'Panel',
+	});
+
 	/**
 	 * Don't show the skip link if the slot has 0 width.
 	 *

@@ -63,7 +63,7 @@ export const spacingTests: Tests = {
 		},
 		{
 			options: [{ domains: ['spacing'], applyImport: false }],
-			code: `const styles = css({ borderRadius: token('border.radius.100', '3px') })`,
+			code: `const styles = css({ borderRadius: token('radius.small', '3px') })`,
 		},
 		{
 			options: [{ domains: ['spacing'], applyImport: false }],

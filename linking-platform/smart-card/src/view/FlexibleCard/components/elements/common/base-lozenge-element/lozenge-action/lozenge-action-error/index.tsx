@@ -136,28 +136,17 @@ const LozengeActionError = ({
 				</div>
 				{isPreviewAvailable ? (
 					<div css={styles.linkStyles}>
-						{fg('navx-1184-fix-smart-link-a11y-interactive-states') ? (
-							<Pressable
-								testId={`${testId}-open-embed`}
-								onClick={handlePreviewOpen}
-								xcss={styles.openIssueInJiraStyles}
-							>
-								{fg('confluence-issue-terminology-refresh') ? (
-									<FormattedMessage {...messages.open_issue_in_jiraIssueTermRefresh} />
-								) : (
-									<FormattedMessage {...messages.open_issue_in_jira} />
-								)}
-							</Pressable>
-						) : (
-							// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-							<a target="_blank" data-testid={`${testId}-open-embed`} onClick={handlePreviewOpen}>
-								{fg('confluence-issue-terminology-refresh') ? (
-									<FormattedMessage {...messages.open_issue_in_jiraIssueTermRefresh} />
-								) : (
-									<FormattedMessage {...messages.open_issue_in_jira} />
-								)}
-							</a>
-						)}
+						<Pressable
+							testId={`${testId}-open-embed`}
+							onClick={handlePreviewOpen}
+							xcss={styles.openIssueInJiraStyles}
+						>
+							{fg('confluence-issue-terminology-refresh') ? (
+								<FormattedMessage {...messages.open_issue_in_jiraIssueTermRefresh} />
+							) : (
+								<FormattedMessage {...messages.open_issue_in_jira} />
+							)}
+						</Pressable>
 					</div>
 				) : null}
 			</Fragment>

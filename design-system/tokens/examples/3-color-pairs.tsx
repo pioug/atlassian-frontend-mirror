@@ -409,7 +409,7 @@ const styles = cssMap({
 		margin: '0.5em',
 		padding: '1em',
 		border: 'none',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		fontSize: 'inherit',
 		textAlign: 'left',
 	},

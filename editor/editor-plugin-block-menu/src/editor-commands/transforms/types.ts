@@ -11,18 +11,19 @@ export type FormatNodeTargetType =
 	| 'paragraph'
 	| 'blockquote'
 	| 'expand'
+	| 'layout'
 	| 'panel'
-	| 'codeblock'
+	| 'codeBlock'
 	| 'bulletList'
 	| 'orderedList'
 	| 'taskList';
 
 export interface TransformContext {
-	tr: Transaction;
 	sourceNode: PMNode;
 	sourcePos: number | null;
-	targetNodeType: NodeType;
 	targetAttrs?: Record<string, unknown>;
+	targetNodeType: NodeType;
+	tr: Transaction;
 }
 
 export type TransformFunction = (context: TransformContext) => Transaction | null;

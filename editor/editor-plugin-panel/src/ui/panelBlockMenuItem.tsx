@@ -15,6 +15,8 @@ type Props = {
 	api: ExtractInjectionAPI<PanelPlugin> | undefined;
 };
 
+const nodeName = 'panel';
+
 const PanelBlockMenuItem = ({ api }: Props) => {
 	const { formatMessage } = useIntl();
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
@@ -26,14 +28,14 @@ const PanelBlockMenuItem = ({ api }: Props) => {
 
 		if (selection instanceof NodeSelection) {
 			// Note: we are checking for any type of panel, not just of type infopanel
-			return selection.node.type.name === 'panel';
+			return selection.node.type.name === nodeName;
 		}
 
 		return false;
 	}, [selection]);
 
 	const handleClick = () => {
-		api?.core.actions.execute(api?.blockMenu?.commands.formatNode('panel'));
+		api?.core.actions.execute(api?.blockMenu?.commands.formatNode(nodeName));
 	};
 
 	return (

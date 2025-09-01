@@ -8,10 +8,16 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import {
+	FORMAT_MENU_ITEM,
+	FORMAT_CODE_BLOCK_MENU_ITEM,
+	FORMAT_NESTED_MENU_RANK,
+} from '@atlaskit/editor-common/block-menu';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import { IconCode } from '@atlaskit/editor-common/quick-insert';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { CodeBlockPlugin } from './codeBlockPluginType';
 import { createInsertCodeBlockTransaction, insertCodeBlockWithAnalytics } from './editor-commands';
@@ -26,8 +32,24 @@ import keymap from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
 import refreshBrowserSelectionOnChange from './pm-plugins/refresh-browser-selection';
 import { getToolbarConfig } from './pm-plugins/toolbar';
+import { createCodeBlockMenuItem } from './ui/CodeBlockMenuItem';
 
 const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
+	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+		api?.blockMenu?.actions.registerBlockMenuComponents([
+			{
+				type: 'block-menu-item',
+				key: FORMAT_CODE_BLOCK_MENU_ITEM.key,
+				parent: {
+					type: 'block-menu-section' as const,
+					key: FORMAT_MENU_ITEM.key,
+					rank: FORMAT_NESTED_MENU_RANK[FORMAT_CODE_BLOCK_MENU_ITEM.key],
+				},
+				component: createCodeBlockMenuItem(api),
+			},
+		]);
+	}
+
 	return {
 		name: 'codeBlock',
 

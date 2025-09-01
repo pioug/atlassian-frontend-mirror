@@ -8,9 +8,7 @@ snapshotInformational(FlexibleUiElementLozengeDropdown, {
 	},
 	description: 'Flexible UI Element Lozenge Dropdown - options',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-1184-fix-smart-link-a11y-interactive-states': true,
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(FlexibleUiElementLozengeDropdown, {
@@ -20,7 +18,5 @@ snapshotInformational(FlexibleUiElementLozengeDropdown, {
 	},
 	description: 'Flexible UI Element Lozenge Dropdown - errored',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-1184-fix-smart-link-a11y-interactive-states': [true, false],
-	},
+	featureFlags: {},
 });

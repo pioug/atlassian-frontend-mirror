@@ -1,5 +1,11 @@
 # @atlaskit/editor-card-provider
 
+## 5.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.6.1
 
 ### Patch Changes

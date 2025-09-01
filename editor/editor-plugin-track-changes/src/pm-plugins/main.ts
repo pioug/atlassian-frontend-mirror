@@ -7,6 +7,7 @@ import {
 	ReplaceStep,
 	AddMarkStep,
 	RemoveMarkStep,
+	AttrStep,
 	type Step,
 } from '@atlaskit/editor-prosemirror/transform';
 
@@ -28,7 +29,10 @@ type TrackChangesPluginState = {
 // Exported for test purposes
 export const getBaselineFromSteps = (doc: PMNode, steps: InvertableStep[]) => {
 	try {
-		for (const step of steps.slice().reverse()) {
+		// Filter out AttrStep's since attribute changes shouldn't affect baseline content comparison
+		const contentSteps = steps.filter((step) => !(step.step instanceof AttrStep));
+
+		for (const step of contentSteps.slice().reverse()) {
 			const result = step.inverted.apply(doc);
 			if (result.failed === null && result.doc) {
 				doc = result.doc;
@@ -82,7 +86,8 @@ export const createTrackChangesPlugin = (
 							step instanceof ReplaceStep ||
 							step instanceof ReplaceAroundStep ||
 							step instanceof AddMarkStep ||
-							step instanceof RemoveMarkStep,
+							step instanceof RemoveMarkStep ||
+							step instanceof AttrStep,
 					);
 
 				if (!isDocChanged || tr.getMeta('isRemote') || tr.getMeta('replaceDocument')) {

@@ -426,7 +426,7 @@ export function MediaFromURL({
 									{strings.cancel}
 								</Button>
 								<Button
-									type="submit"
+									type="button"
 									appearance="primary"
 									isDisabled={
 										isOnlyExternalLinks

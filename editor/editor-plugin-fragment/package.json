@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-fragment",
-	"version": "3.0.5",
+	"version": "4.0.0",
 	"description": "Fragment plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

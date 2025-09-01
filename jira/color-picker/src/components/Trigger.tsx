@@ -92,7 +92,7 @@ const sharedColorContainerStyles = css({
 	position: 'relative',
 	border: `${token('border.width.outline')} solid transparent`,
 	boxSizing: 'border-box',
-	borderRadius: token('border.radius.200', '6px'),
+	borderRadius: token('radius.large', '6px'),
 	transition: 'border-color 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
 	backgroundColor: token('color.background.neutral.subtle', N0),
 	paddingTop: token('space.0', '0px'),

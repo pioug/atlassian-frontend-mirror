@@ -29,6 +29,9 @@
 			"path": "../../editor-plugin-analytics/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-block-menu/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-composition/afm-rovo-extension/tsconfig.json"
 		},
 		{
@@ -42,6 +45,12 @@
 		},
 		{
 			"path": "../../editor-plugin-interaction/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"

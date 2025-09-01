@@ -53,8 +53,8 @@ const contentContainerStyles = css({
 
 const tableBordersStyles = css({
 	border: `1px solid ${token('color.border', N40)}`,
-	borderTopLeftRadius: token('border.radius.200', '8px'),
-	borderTopRightRadius: token('border.radius.200', '8px'),
+	borderTopLeftRadius: token('radius.large', '8px'),
+	borderTopRightRadius: token('radius.large', '8px'),
 	borderBottom: `2px solid ${token('color.background.accent.gray.subtler', N40)}`,
 	backgroundImage: `
 		linear-gradient(90deg, ${token('utility.elevation.surface.current', '#FFF')} 30%, rgba(255, 255, 255, 0)),

@@ -33,7 +33,7 @@ const animatedSvgContainerStyles = cssMap({
 });
 
 const popupContainerStyles = css({
-	borderRadius: token('border.radius.200', '8px'),
+	borderRadius: token('radius.large', '8px'),
 	backgroundColor: token('elevation.surface.overlay', 'white'),
 	boxShadow: token(
 		'elevation.shadow.overlay',

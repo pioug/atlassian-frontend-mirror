@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/focus-ring",
-	"version": "3.0.2",
+	"version": "3.0.3",
 	"description": "A focus ring clearly indicates which item has keyboard focus.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,9 +41,6 @@
 		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		".": "./src/index.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx"
 	},

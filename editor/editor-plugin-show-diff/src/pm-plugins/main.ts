@@ -1,6 +1,3 @@
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { ChangeSet, simplifyChanges } from 'prosemirror-changeset';
-
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -11,69 +8,16 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { type DiffParams } from '../showDiffPluginType';
 
-import { createInlineChangedDecoration, createDeletedContentDecoration } from './decorations';
-import { getMarkChangeRanges } from './markDecorations';
+import { calculateDiffDecorations } from './calculateDiffDecorations';
 import { NodeViewSerializer } from './NodeViewSerializer';
-
-const calculateDecorations = ({
-	state,
-	pluginState,
-	nodeViewSerializer,
-}: {
-	nodeViewSerializer: NodeViewSerializer;
-	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
-	state: EditorState;
-}): DecorationSet => {
-	const { originalDoc, steps } = pluginState;
-	if (!originalDoc || !pluginState.isDisplayingChanges) {
-		return DecorationSet.empty;
-	}
-
-	const { tr } = state;
-	let steppedDoc = originalDoc;
-
-	let changeset = ChangeSet.create(originalDoc);
-	for (const step of steps) {
-		const result = step.apply(steppedDoc);
-		if (result.failed === null && result.doc) {
-			steppedDoc = result.doc;
-			changeset = changeset.addSteps(steppedDoc, [step.getMap()], tr.doc);
-		}
-	}
-	if (!steppedDoc.eq(tr.doc)) {
-		return DecorationSet.empty;
-	}
-	const changes = simplifyChanges(changeset.changes, tr.doc);
-	const decorations: Decoration[] = [];
-	changes.forEach((change) => {
-		if (change.inserted.length > 0) {
-			decorations.push(createInlineChangedDecoration(change));
-		}
-		if (change.deleted.length > 0) {
-			const decoration = createDeletedContentDecoration({
-				change,
-				doc: originalDoc,
-				nodeViewSerializer,
-			});
-			if (decoration) {
-				decorations.push(decoration);
-			}
-		}
-	});
-	getMarkChangeRanges(steps).forEach((change) => {
-		decorations.push(createInlineChangedDecoration(change));
-	});
-
-	return DecorationSet.empty.add(tr.doc, decorations);
-};
 
 export const showDiffPluginKey = new PluginKey<ShowDiffPluginState>('showDiffPlugin');
 
-type ShowDiffPluginState = {
+export type ShowDiffPluginState = {
 	decorations: DecorationSet;
 	isDisplayingChanges: boolean;
 	originalDoc: PMNode | undefined;
@@ -118,7 +62,7 @@ export const createPlugin = (config: DiffParams | undefined) => {
 							isDisplayingChanges: true,
 						};
 						// Calculate and store decorations in state
-						const decorations = calculateDecorations({
+						const decorations = calculateDiffDecorations({
 							state: newState,
 							pluginState: newPluginState,
 							nodeViewSerializer,

@@ -4,6 +4,7 @@ import { expandedState } from '@atlaskit/editor-common/expand';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
 import { expandMessages } from '@atlaskit/editor-common/ui';
 import type { DOMOutputSpec, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 export const buildExpandClassName = (type: string, expanded: boolean) => {
@@ -28,6 +29,7 @@ export const toDOM = (
     ),
 		'data-node-type': node.type.name,
 		'data-title': node.attrs.title,
+		...(fg('platform_editor_adf_with_localid') && { 'data-local-id': node.attrs.localId }),
 	},
 	[
 		'div',

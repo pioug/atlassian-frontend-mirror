@@ -32,11 +32,6 @@
 			"category": "Status indicators"
 		}
 	},
-	"af:exports": {
-		"./simple-tag": "./src/tag/simple-tag.tsx",
-		"./removable-tag": "./src/tag/removable-tag.tsx",
-		".": "./src/index.tsx"
-	},
 	"exports": {
 		"./simple-tag": "./src/tag/simple-tag.tsx",
 		"./removable-tag": "./src/tag/removable-tag.tsx",

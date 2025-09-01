@@ -26,4 +26,14 @@ export const messages = defineMessages({
 		defaultMessage: 'Paragraph',
 		description: 'Change the selected block to a paragraph',
 	},
+	codeBlock: {
+		id: 'fabric.editor.block.menu.code.block',
+		defaultMessage: 'Code block',
+		description: 'Convert to a code block',
+	},
+	layout: {
+		id: 'fabric.editor.block.menu.code.block',
+		defaultMessage: 'Layout',
+		description: 'Convert to a layout node',
+	},
 });

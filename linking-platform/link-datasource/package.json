@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.20.5",
+	"version": "4.21.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -186,10 +186,10 @@
 		"navx-1180-sllv-return-focus-on-escape": {
 			"type": "boolean"
 		},
-		"navx-1184-fix-smart-link-a11y-interactive-states": {
+		"lp_enable_datasource-table-view_height_override": {
 			"type": "boolean"
 		},
-		"lp_enable_datasource-table-view_height_override": {
+		"navx-1483-a11y-close-button-in-modal-updates": {
 			"type": "boolean"
 		}
 	},

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 5.0.0
+
+### Patch Changes
+
+- [`3b5b4a919aaaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b5b4a919aaaf) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 4.3.9
 
 ### Patch Changes

@@ -15,8 +15,10 @@ import VidFullScreenOnIcon from '@atlaskit/icon/core/migration/fullscreen-enter-
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import DownloadIconLegacy from '@atlaskit/icon/glyph/download';
 import VidFullScreenOffIcon from '@atlaskit/icon/glyph/vid-full-screen-off';
-import { useModal } from '@atlaskit/modal-dialog';
+import { CloseButton, useModal } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import { messages } from '../../../../messages';
 import { Icon } from '../../../common/Icon';
@@ -185,19 +187,34 @@ const LinkInfo = ({
 				{downloadButton}
 				{urlButton}
 				{sizeButton}
-				<LinkInfoButton
-					content={<FormattedMessage {...messages.preview_close} />}
-					icon={() => (
-						<CrossIcon
+				{fg('navx-1483-a11y-close-button-in-modal-updates') ? (
+					<Tooltip
+						content={<FormattedMessage {...messages.preview_close} />}
+						hideTooltipOnClick={true}
+						tag="span"
+						testId={`${testId}-close-tooltip`}
+					>
+						<CloseButton
+							onClick={onClose as () => void}
 							label={messages.preview_close.defaultMessage as string}
-							color="currentColor"
-							spacing="spacious"
+							testId={`${testId}-close-button`}
 						/>
-					)}
-					label={messages.preview_close}
-					onClick={onClose as () => void}
-					testId={`${testId}-close`}
-				/>
+					</Tooltip>
+				) : (
+					<LinkInfoButton
+						content={<FormattedMessage {...messages.preview_close} />}
+						icon={() => (
+							<CrossIcon
+								label={messages.preview_close.defaultMessage as string}
+								color="currentColor"
+								spacing="spacious"
+							/>
+						)}
+						label={messages.preview_close}
+						onClick={onClose as () => void}
+						testId={`${testId}-close`}
+					/>
+				)}
 			</div>
 		</div>
 	);

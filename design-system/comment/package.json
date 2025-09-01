@@ -93,10 +93,6 @@
 		}
 	},
 	"homepage": "https://atlassian.design/components/comment",
-	"af:exports": {
-		"./types": "./src/types.tsx",
-		".": "./src/index.tsx"
-	},
 	"exports": {
 		"./types": "./src/types.tsx",
 		".": "./src/index.tsx"

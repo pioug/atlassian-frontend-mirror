@@ -49,8 +49,8 @@ const styles = cssMap({
 		transition: 'all 0.2s',
 		'&:hover': {
 			height: '80px',
-			borderTopLeftRadius: token('border.radius.100'),
-			borderTopRightRadius: token('border.radius.100'),
+			borderTopLeftRadius: token('radius.small'),
+			borderTopRightRadius: token('radius.small'),
 			borderBottomLeftRadius: '0',
 			borderBottomRightRadius: '0',
 			marginBlockStart: '-8px',

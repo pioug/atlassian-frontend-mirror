@@ -60,6 +60,7 @@ const toDOM = (
     ),
 		'data-node-type': node.type.name,
 		'data-title': node.attrs.title,
+		...(fg('platform_editor_adf_with_localid') && { 'data-local-id': node.attrs.localId }),
 	},
 	[
 		'div',

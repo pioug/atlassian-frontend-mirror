@@ -19,6 +19,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { messages } from '../../../messages';
 
@@ -42,7 +43,7 @@ const WarningModal = (props: LinkWarningModalProps & WrappedComponentProps) => {
 		<ModalTransition>
 			{isOpen && (
 				<Modal onClose={onClose} testId="link-with-safety-warning">
-					<ModalHeader>
+					<ModalHeader hasCloseButton={fg('navx-1483-a11y-close-button-in-modal-updates')}>
 						<ModalTitle appearance="warning">
 							<FormattedMessage {...messages.check_this_link} />
 						</ModalTitle>

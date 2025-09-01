@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	container: {
-		borderRadius: token('border.radius.200'),
+		borderRadius: token('radius.large'),
 		marginBlockEnd: token('space.0'),
 		marginBlockStart: token('space.400'),
 		marginInline: token('space.negative.200'),
@@ -58,7 +58,7 @@ const styles = cssMap({
 	code: {
 		display: 'inline-block',
 		backgroundColor: token('color.background.neutral'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		color: token('color.text'),
 		fontSize: '1em',
 		lineHeight: '20px',

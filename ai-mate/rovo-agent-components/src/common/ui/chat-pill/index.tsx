@@ -34,7 +34,7 @@ const styles = cssMap({
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		font: token('font.body'),
 		fontWeight: token('font.weight.medium', '500'),
 		textOverflow: 'ellipsis',

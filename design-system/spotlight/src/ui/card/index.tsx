@@ -19,7 +19,7 @@ const styles = cssMap({
 	card: {
 		position: 'absolute',
 		width: '295px',
-		borderRadius: token('border.radius.200'),
+		borderRadius: token('radius.large'),
 		paddingBlock: token('space.150'),
 		display: 'flex',
 		flexDirection: 'column',

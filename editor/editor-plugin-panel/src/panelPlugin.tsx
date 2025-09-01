@@ -10,6 +10,7 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import {
+	FORMAT_MENU_ITEM,
 	FORMAT_PANEL_MENU_ITEM,
 	FORMAT_NESTED_MENU_RANK,
 } from '@atlaskit/editor-common/block-menu';
@@ -51,7 +52,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => {
 				key: FORMAT_PANEL_MENU_ITEM.key,
 				parent: {
 					type: 'block-menu-section' as const,
-					key: 'nested-menu-format-section-primary',
+					key: FORMAT_MENU_ITEM.key,
 					rank: FORMAT_NESTED_MENU_RANK[FORMAT_PANEL_MENU_ITEM.key],
 				},
 				component: createPanelBlockMenuItem(api),

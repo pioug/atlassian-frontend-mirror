@@ -17,6 +17,11 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import {
+	FORMAT_MENU_ITEM,
+	FORMAT_LAYOUT_MENU_ITEM,
+	FORMAT_NESTED_MENU_RANK,
+} from '@atlaskit/editor-common/block-menu';
 import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	layoutMessages,
@@ -36,6 +41,7 @@ import type { FloatingToolbarConfig, PMPlugin } from '@atlaskit/editor-common/ty
 import { TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPlugin } from './layoutPluginType';
@@ -49,6 +55,7 @@ import { pluginKey } from './pm-plugins/plugin-key';
 import { default as createLayoutResizingPlugin } from './pm-plugins/resizing';
 import type { LayoutState } from './pm-plugins/types';
 import { GlobalStylesWrapper } from './ui/global-styles';
+import { createLayoutBlockMenuItem } from './ui/LayoutBlockMenuItem';
 import { buildToolbar } from './ui/toolbar';
 
 /**
@@ -85,6 +92,21 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 	const allowAdvancedSingleColumnLayout =
 		editorExperiment('advanced_layouts', true) &&
 		editorExperiment('single_column_layouts', true, { exposure: true });
+
+	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+		api?.blockMenu?.actions.registerBlockMenuComponents([
+			{
+				type: 'block-menu-item',
+				key: FORMAT_LAYOUT_MENU_ITEM.key,
+				parent: {
+					type: 'block-menu-section' as const,
+					key: FORMAT_MENU_ITEM.key,
+					rank: FORMAT_NESTED_MENU_RANK[FORMAT_LAYOUT_MENU_ITEM.key],
+				},
+				component: createLayoutBlockMenuItem(api),
+			},
+		]);
+	}
 
 	return {
 		name: 'layout',

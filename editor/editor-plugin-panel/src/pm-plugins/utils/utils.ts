@@ -57,6 +57,12 @@ export const panelAttrsToDom = (
 			'data-panel-icon-text': panelIconText,
 		};
 	}
+	if (fg('platform_editor_adf_with_localid')) {
+		panelAttrs = {
+			...panelAttrs,
+			'data-local-id': attrs.localId,
+		};
+	}
 	const iconDiv: DOMOutputSpec = [
 		'div',
 		// EDITOR-266 This fixes an issue in LCM where if you have nested panels

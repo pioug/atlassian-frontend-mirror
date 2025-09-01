@@ -7,11 +7,11 @@ import path from 'path';
 // eslint-disable-next-line import/no-namespace
 import * as ts from 'typescript';
 
-interface ExtractedAfExportData {
+interface ExtractedExportData {
 	absoluteFilePath: string;
 	atlaskitImportName: string;
-	newAfExportKey: string;
-	newAfExportValue: string;
+	newExportKey: string;
+	newExportValue: string;
 	newRelativeFilePath: string;
 }
 
@@ -20,13 +20,13 @@ interface FileData {
 	newRelativeFilePath: string;
 }
 
-interface NewAfExportData {
-	newAfExportKey: string;
-	newAfExportValue: string;
+interface NewExportData {
+	newExportKey: string;
+	newExportValue: string;
 }
 
 export interface EntryPointData {
-	afExportData: NewAfExportData;
+	exportData: NewExportData;
 	atlaskitImportName: string;
 	fileData: FileData;
 }
@@ -41,7 +41,7 @@ function getExports(folderPath: string) {
 	}
 
 	const folderName = path.basename(folderPath);
-	const data: ExtractedAfExportData[] = [];
+	const data: ExtractedExportData[] = [];
 
 	for (const key in exportsValue) {
 		if (exportsValue.hasOwnProperty(key)) {
@@ -57,8 +57,8 @@ function getExports(folderPath: string) {
 			);
 			data.push({
 				newRelativeFilePath: newRelativeFilePath,
-				newAfExportKey: './' + path.join(shortenedFolderName, normalizedKey),
-				newAfExportValue: './' + newRelativeFilePath,
+				newExportKey: './' + path.join(shortenedFolderName, normalizedKey),
+				newExportValue: './' + newRelativeFilePath,
 				atlaskitImportName: path.join('@atlaskit', folderName, normalizedKey),
 				absoluteFilePath: path.join(folderPath, normalizedValue),
 			});
@@ -99,7 +99,7 @@ function isTypeExport(exportName: string, statements: string[]): boolean {
 	);
 }
 
-function createExportStatementsForAfExport(importName: string, filePath: string) {
+function createExportStatementsForExport(importName: string, filePath: string) {
 	const { variableExports, typeExports } = findExportedVariablesAndTypes(filePath);
 
 	const exportStatements = [
@@ -209,31 +209,28 @@ function getFileExportNames(fileName: string) {
 
 export function getEntryPointDataForPlugin(pluginPath: string): EntryPointData[] {
 	const exportsValue = getExports(pluginPath);
-	const newAfExportData: EntryPointData[] = [];
+	const newExportData: EntryPointData[] = [];
 
 	for (const {
 		newRelativeFilePath,
-		newAfExportKey,
-		newAfExportValue,
+		newExportKey,
+		newExportValue,
 		atlaskitImportName,
 		absoluteFilePath,
 	} of exportsValue) {
-		const exportStatements = createExportStatementsForAfExport(
-			atlaskitImportName,
-			absoluteFilePath,
-		);
-		newAfExportData.push({
+		const exportStatements = createExportStatementsForExport(atlaskitImportName, absoluteFilePath);
+		newExportData.push({
 			fileData: {
 				newRelativeFilePath,
 				fileContent: exportStatements,
 			},
-			afExportData: {
-				newAfExportKey: newAfExportKey,
-				newAfExportValue: newAfExportValue,
+			exportData: {
+				newExportKey,
+				newExportValue,
 			},
 			atlaskitImportName,
 		});
 	}
 
-	return newAfExportData;
+	return newExportData;
 }

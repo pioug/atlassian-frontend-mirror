@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.16.0",
+	"version": "40.17.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -226,9 +226,6 @@
 		"platform_editor_inline_card_selected_state_fix": {
 			"type": "boolean"
 		},
-		"navx-1184-fix-smart-link-a11y-interactive-states": {
-			"type": "boolean"
-		},
 		"navx-1304-related-links-remove-false-autofocus": {
 			"type": "boolean"
 		},
@@ -239,6 +236,9 @@
 			"type": "boolean"
 		},
 		"ptc-enable-embed-team-smart-links": {
+			"type": "boolean"
+		},
+		"navx-1483-a11y-close-button-in-modal-updates": {
 			"type": "boolean"
 		}
 	},

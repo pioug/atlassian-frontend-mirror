@@ -52,7 +52,7 @@ const borderRadiuses = [
 const borderRadiusMap = cssMap({
 	less: { borderRadius: 0 },
 	same: { borderRadius: token('border.radius') },
-	more: { borderRadius: token('border.radius.200') },
+	more: { borderRadius: token('radius.large') },
 });
 
 export function ModalWithCustomChildExample() {

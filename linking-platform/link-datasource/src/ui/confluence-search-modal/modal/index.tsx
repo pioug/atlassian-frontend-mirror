@@ -7,8 +7,15 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import LinkComponent from '@atlaskit/link';
 import { type DatasourceParameters } from '@atlaskit/linking-types';
-import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-import { Box } from '@atlaskit/primitives/compiled';
+import {
+	CloseButton,
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+} from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -53,6 +60,18 @@ const styles = cssMap({
 		alignItems: 'baseline',
 		display: 'flex',
 		minHeight: '72px',
+	},
+	modalTitleContainer: {
+		gap: token('space.200'),
+		alignItems: 'center',
+	},
+	flexStyles: {
+		flexDirection: 'row-reverse',
+		width: '100%',
+	},
+	viewModeContainer: {
+		gap: token('space.100'),
+		alignItems: 'center',
 	},
 });
 
@@ -389,18 +408,40 @@ export const PlainConfluenceSearchConfigModal = (
 	return (
 		<IntlMessagesProvider defaultMessages={i18nEN} loaderFn={fetchMessagesForLocale}>
 			<DatasourceModal testId="confluence-search-datasource-modal" onClose={onCancel}>
-				<ModalHeader>
-					<ModalTitle>
-						<SiteSelector
-							availableSites={availableSites}
-							onSiteSelection={onSiteSelection}
-							selectedSite={selectedConfluenceSite}
-							testId="confluence-search-datasource-modal--site-selector"
-							label={siteSelectorLabel}
-						/>
-					</ModalTitle>
-					{!hasNoConfluenceSites && <DatasourceViewModeDropDown />}
-				</ModalHeader>
+				{fg('navx-1483-a11y-close-button-in-modal-updates') ? (
+					<ModalHeader>
+						<Flex gap="space.200" justifyContent="space-between" xcss={styles.flexStyles}>
+							<Flex justifyContent="end" xcss={styles.viewModeContainer}>
+								{!hasNoConfluenceSites && <DatasourceViewModeDropDown />}
+								<CloseButton onClick={onCancel} />
+							</Flex>
+							<Flex justifyContent="start" xcss={styles.modalTitleContainer}>
+								<ModalTitle>
+									<SiteSelector
+										availableSites={availableSites}
+										onSiteSelection={onSiteSelection}
+										selectedSite={selectedConfluenceSite}
+										testId="confluence-search-datasource-modal--site-selector"
+										label={siteSelectorLabel}
+									/>
+								</ModalTitle>
+							</Flex>
+						</Flex>
+					</ModalHeader>
+				) : (
+					<ModalHeader>
+						<ModalTitle>
+							<SiteSelector
+								availableSites={availableSites}
+								onSiteSelection={onSiteSelection}
+								selectedSite={selectedConfluenceSite}
+								testId="confluence-search-datasource-modal--site-selector"
+								label={siteSelectorLabel}
+							/>
+						</ModalTitle>
+						{!hasNoConfluenceSites && <DatasourceViewModeDropDown />}
+					</ModalHeader>
+				)}
 				<ModalBody>
 					{!hasNoConfluenceSites ? (
 						<Fragment>

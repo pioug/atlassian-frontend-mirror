@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-expand
 
+## 5.0.1
+
+### Patch Changes
+
+- [`5f1d8eb6b1fa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f1d8eb6b1fa2) -
+  EDITOR-1464 Update toDOM methods to include localId
+- Updated dependencies
+
+## 5.0.0
+
+### Patch Changes
+
+- [`e882e86092666`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e882e86092666) -
+  [ux] Register expand, layout and code block itmes in block menu. Update panel item.
+- Updated dependencies
+
 ## 4.3.1
 
 ### Patch Changes

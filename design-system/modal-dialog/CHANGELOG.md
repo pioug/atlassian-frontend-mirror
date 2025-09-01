@@ -1,5 +1,21 @@
 # @atlaskit/modal-dialog
 
+## 14.3.8
+
+### Patch Changes
+
+- [`23bcc5bbc9cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23bcc5bbc9cee) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
+## 14.3.7
+
+### Patch Changes
+
+- [`3b5b4a919aaaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b5b4a919aaaf) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 14.3.6
 
 ### Patch Changes

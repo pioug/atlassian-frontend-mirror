@@ -29,6 +29,9 @@
 			"path": "../../editor-plugin-analytics/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-block-menu/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-decorations/afm-dev-agents/tsconfig.json"
 		},
 		{
@@ -50,7 +53,13 @@
 			"path": "../../editor-tables/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../editor-toolbar/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-dev-agents/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"

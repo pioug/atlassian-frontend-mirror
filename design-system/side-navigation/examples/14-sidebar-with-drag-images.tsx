@@ -54,7 +54,7 @@ const styles = cssMap({
 		paddingBottom: token('space.050'),
 		paddingLeft: token('space.050'),
 		backgroundColor: token('elevation.surface.raised'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		boxShadow: token('elevation.shadow.raised'),
 		objectFit: 'cover',
 		WebkitTouchCallout: 'none',

@@ -5,7 +5,7 @@ import type { FormatNodeTargetType } from './types';
 export const getTargetNodeInfo = (
 	targetType: FormatNodeTargetType,
 	nodes: Record<string, NodeType>,
-): { nodeType: NodeType; attrs?: Record<string, unknown> } | null => {
+): { attrs?: Record<string, unknown>; nodeType: NodeType } | null => {
 	switch (targetType) {
 		case 'heading1':
 			return { nodeType: nodes.heading, attrs: { level: 1 } };
@@ -27,7 +27,7 @@ export const getTargetNodeInfo = (
 			return { nodeType: nodes.expand };
 		case 'panel':
 			return { nodeType: nodes.panel, attrs: { panelType: 'info' } };
-		case 'codeblock':
+		case 'codeBlock':
 			return { nodeType: nodes.codeBlock };
 		case 'bulletList':
 			return { nodeType: nodes.bulletList };

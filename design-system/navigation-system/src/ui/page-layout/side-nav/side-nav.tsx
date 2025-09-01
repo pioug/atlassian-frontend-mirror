@@ -44,6 +44,7 @@ import { PanelSplitterProvider } from '../panel-splitter/provider';
 import type { ResizeBounds } from '../panel-splitter/types';
 import type { CommonSlotProps } from '../types';
 import { useResizingWidthCssVarOnRootElement } from '../use-resizing-width-css-var-on-root-element';
+import { useSafeDefaultWidth } from '../use-safe-default-width';
 
 import { useSideNavRef } from './element-context';
 import { sideNavFlyoutCloseDelayMs } from './flyout-close-delay-ms';
@@ -234,7 +235,8 @@ type SideNavProps = CommonSlotProps & {
 	defaultCollapsed?: boolean;
 	/**
 	 * The default width of the side nav layout area.
-	 * It should be between the resize bounds - the minimum is 240px and the maximum is 50% of the viewport width.
+	 *
+	 * It should be an integer between the resize bounds - the minimum is 240px and the maximum is 50% of the viewport width.
 	 *
 	 * It is only used when the side nav is first mounted, but you should continuously update your
 	 * persisted state using the `onResizeEnd` callback of `PanelSplitter`, to ensure it is up to date
@@ -251,6 +253,8 @@ type SideNavProps = CommonSlotProps & {
 	onCollapse?: VisibilityCallback;
 };
 
+const fallbackDefaultWidth = 320;
+
 /**
  * We need an additional component layer so we can wrap the side nav in a `OpenLayerObserver` and have access to the
  * context value.
@@ -258,7 +262,7 @@ type SideNavProps = CommonSlotProps & {
 function SideNavInternal({
 	children,
 	defaultCollapsed,
-	defaultWidth = 320,
+	defaultWidth: defaultWidthProp = fallbackDefaultWidth,
 	testId,
 	label = 'Sidebar',
 	skipLinkLabel = label,
@@ -299,6 +303,12 @@ function SideNavInternal({
 	// This is so we can use it in an effect _that only runs once_, after the initial render on the client,
 	// to sync the side nav context (provided in `<Root>`) with the `defaultCollapsed` prop provided to `<SideNav>`.
 	const [initialDefaultCollapsed] = useState(defaultCollapsed);
+
+	const defaultWidth = useSafeDefaultWidth({
+		defaultWidthProp,
+		fallbackDefaultWidth,
+		slotName: 'SideNav',
+	});
 
 	const [width, setWidth] = useState(defaultWidth);
 	const clampedWidth = `clamp(${widthResizeBounds.min}, ${width}px, ${widthResizeBounds.max})`;

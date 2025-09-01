@@ -110,11 +110,11 @@ export class INSMSession {
 	end(
 		endDetails:
 			| {
-					stoppedBy: 'new-experience';
-					experienceKey: string;
 					contentId?: string | null;
+					experienceKey: string;
+					stoppedBy: 'new-experience';
 			  }
-			| { stoppedBy: 'pagehide' }
+			| { stoppedBy: 'beforeunload' }
 			| { stoppedBy: 'early-stop'; reason: string; description?: string },
 	) {
 		if (this.running === false) {
@@ -155,8 +155,9 @@ export class INSMSession {
 				periods: periodResults,
 				endDetails: endDetails,
 			},
-			tags: ['insm'],
-			source: 'insm',
+			highPriority: true,
+			tags: ['editor'],
+			source: 'unknown',
 		};
 
 		this.insm.analyticsWebClient?.sendOperationalEvent(operationalEvent);

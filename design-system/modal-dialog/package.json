@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/modal-dialog",
-	"version": "14.3.6",
+	"version": "14.3.8",
 	"description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -120,18 +120,6 @@
 				"dist/types-ts4.5/index.d.ts"
 			]
 		}
-	},
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./types": "./src/types.tsx",
-		"./full-screen": "./src/full-screen.tsx",
-		"./hooks": "./src/hooks.tsx",
-		"./modal-dialog": "./src/modal-dialog.tsx",
-		"./modal-header": "./src/modal-header.tsx",
-		"./modal-title": "./src/modal-title.tsx",
-		"./modal-body": "./src/modal-body.tsx",
-		"./modal-footer": "./src/modal-footer.tsx",
-		"./modal-transition": "./src/modal-transition.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",

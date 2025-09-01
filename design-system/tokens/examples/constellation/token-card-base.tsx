@@ -26,7 +26,7 @@ const styles = cssMap({
 		padding: '1em',
 		alignItems: 'center',
 		columnGap: token('space.100'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		fontSize: '24px',
 		transition: 'box-shadow 200ms, background 200ms, border 200ms',
 		flexBasis: '0',

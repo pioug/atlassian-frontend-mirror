@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/menu",
-	"version": "8.3.1",
+	"version": "8.3.2",
 	"description": "A list of options to help users navigate, or perform actions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -102,19 +102,6 @@
 				"dist/types-ts4.5/index.d.ts"
 			]
 		}
-	},
-	"af:exports": {
-		"./button-item": "./src/entry-points/menu-item/button-item.tsx",
-		"./link-item": "./src/entry-points/menu-item/link-item.tsx",
-		"./custom-item": "./src/entry-points/menu-item/custom-item.tsx",
-		"./heading-item": "./src/entry-points/menu-item/heading-item.tsx",
-		"./skeleton-item": "./src/entry-points/menu-item/skeleton-item.tsx",
-		"./skeleton-heading-item": "./src/entry-points/menu-item/skeleton-heading-item.tsx",
-		"./section": "./src/entry-points/menu-section/section.tsx",
-		"./menu-group": "./src/entry-points/menu-section/menu-group.tsx",
-		"./popup-menu-group": "./src/entry-points/menu-section/popup-menu-group.tsx",
-		"./types": "./src/types.tsx",
-		".": "./src/index.tsx"
 	},
 	"exports": {
 		"./button-item": "./src/entry-points/menu-item/button-item.tsx",

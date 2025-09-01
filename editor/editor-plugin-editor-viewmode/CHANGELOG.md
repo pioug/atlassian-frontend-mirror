@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-editor-viewmode
 
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.4
 
 ### Patch Changes

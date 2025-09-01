@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "5.3.0",
+	"version": "5.3.1",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,20 +23,6 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./types": "./src/entry-points/types.tsx",
-		"./curves": "./src/entry-points/curves.tsx",
-		"./durations": "./src/entry-points/durations.tsx",
-		"./accessibility": "./src/entry-points/accessibility.tsx",
-		"./exiting-persistence": "./src/entry-points/exiting-persistence.tsx",
-		"./fade-in": "./src/entry-points/fade-in.tsx",
-		"./animate-in": "./src/entry-points/animate-in.tsx",
-		"./slide-in": "./src/entry-points/slide-in.tsx",
-		"./zoom-in": "./src/entry-points/zoom-in.tsx",
-		"./shrink-out": "./src/entry-points/shrink-out.tsx",
-		"./staggered-entrance": "./src/entry-points/staggered-entrance.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./types": "./src/entry-points/types.tsx",

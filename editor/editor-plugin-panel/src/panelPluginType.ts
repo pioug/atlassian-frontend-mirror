@@ -23,6 +23,7 @@ export interface PanelPluginConfig {
 
 export type DomPanelAtrrs = {
 	class: string;
+	'data-local-id'?: string;
 	'data-panel-color'?: string;
 	'data-panel-icon-id'?: string;
 	'data-panel-icon-text'?: string;
@@ -30,7 +31,6 @@ export type DomPanelAtrrs = {
 	'data-testid'?: string;
 	style: string;
 };
-
 export type EmojiInfo = {
 	id: string;
 	shortName: string;

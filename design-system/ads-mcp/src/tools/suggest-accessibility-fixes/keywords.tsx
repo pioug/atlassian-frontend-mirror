@@ -1,0 +1,70 @@
+/**
+ * Violation keywords mapping for fuzzy matching accessibility violations
+ *
+ * This file contains keyword synonyms and variations that users might use
+ * when describing accessibility violations. The keys should match the exact
+ * violation types defined in fixes.ts
+ *
+ * Each violation type has an array of keywords that help identify when a user
+ * is describing that particular type of accessibility issue, even if they
+ * don't use the exact technical terminology.
+ */
+
+export const violationKeywords: Record<string, string[]> = {
+	'button missing label': [
+		'button', 'missing', 'label', 'text', 'name', 'accessible', 'empty',
+		'discernible', 'aria-label', 'screen reader', 'button-name'
+	],
+	'image missing alt': [
+		'image', 'img', 'alt', 'alternative', 'text', 'missing', 'empty',
+		'accessibility', 'screen reader', 'image-alt'
+	],
+	'clickable div': [
+		'div', 'clickable', 'interactive', 'onclick', 'click', 'handler',
+		'button', 'focusable', 'keyboard', 'role'
+	],
+	'input missing label': [
+		'input', 'form', 'field', 'label', 'missing', 'accessibility',
+		'screen reader', 'associated', 'htmlfor', 'aria-label'
+	],
+	'form missing label': [
+		'form', 'label', 'missing', 'field', 'input', 'accessibility',
+		'screen reader', 'associated', 'htmlfor'
+	],
+	'hardcoded colors': [
+		'color', 'hardcoded', 'hex', 'rgb', 'design', 'token', 'theme',
+		'css', 'style', 'contrast'
+	],
+	'color contrast': [
+		'contrast', 'color', 'ratio', 'accessibility', 'wcag', 'aa',
+		'visibility', 'readability', 'low contrast'
+	],
+	'focus management': [
+		'focus', 'keyboard', 'navigation', 'tab', 'outline', 'indicator',
+		'visible', 'management', 'trap'
+	],
+	'heading structure': [
+		'heading', 'h1', 'h2', 'h3', 'hierarchy', 'structure', 'semantic',
+		'outline', 'skip', 'level'
+	],
+	'link accessibility': [
+		'link', 'anchor', 'href', 'accessible', 'name', 'text', 'descriptive',
+		'context', 'purpose'
+	],
+	'keyboard navigation': [
+		'keyboard', 'navigation', 'tab', 'arrow', 'enter', 'space',
+		'accessible', 'focus', 'trap'
+	],
+	'live regions': [
+		'live', 'region', 'aria-live', 'announcement', 'screen reader',
+		'dynamic', 'content', 'update'
+	],
+	'skip navigation': [
+		'skip', 'navigation', 'link', 'bypass', 'main', 'content',
+		'keyboard', 'users'
+	],
+	'table accessibility': [
+		'table', 'header', 'th', 'scope', 'caption', 'summary',
+		'accessibility', 'screen reader'
+	]
+};

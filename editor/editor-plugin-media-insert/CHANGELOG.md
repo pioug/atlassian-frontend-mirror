@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 10.0.0
+
+### Patch Changes
+
+- [`9404b6c00034a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9404b6c00034a) -
+  this is fix the bug of insert button having submission type
+- Updated dependencies
+
 ## 9.2.7
 
 ### Patch Changes

@@ -42,6 +42,7 @@ describe('AssetsSearchContainer', () => {
 	};
 	const workspaceId = 'workspaceId';
 	const mockOnSearch = jest.fn();
+	const mockOnCancel = jest.fn();
 	const renderAssetsSearchContainer = async (initialSearchData: InitialSearchData) => {
 		let renderFunction = render;
 		asMock(useValidateAqlText).mockReturnValue(getUseValidateAqlTextDefaultHookState);
@@ -52,6 +53,7 @@ describe('AssetsSearchContainer', () => {
 					onSearch={mockOnSearch}
 					initialSearchData={initialSearchData}
 					workspaceId={workspaceId}
+					onCancel={mockOnCancel}
 				/>,
 				{ wrapper: AssetsSearchContainerWrapper },
 			);

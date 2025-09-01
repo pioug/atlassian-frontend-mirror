@@ -1,5 +1,20 @@
 # @atlaskit/link-datasource
 
+## 4.21.0
+
+### Minor Changes
+
+- [`6ce6f7249075d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ce6f7249075d) -
+  [ux] NAVX-1483 using the ADS modal built in hasCloseButton for LP components to adhere to a11y
+
+### Patch Changes
+
+- [`d28c4180ae756`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d28c4180ae756) -
+  Internal changes to how border radius is applied.
+- [`fe80630362c42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe80630362c42) -
+  NAVX-1379 Cleaning up navx-1184-fix-smart-link-a-11-y-interactive-states
+- Updated dependencies
+
 ## 4.20.5
 
 ### Patch Changes

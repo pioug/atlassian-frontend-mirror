@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "3.5.1",
+	"version": "3.5.2",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -19,14 +19,6 @@
 		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./base": "./src/select.tsx",
-		"./async": "./src/async.tsx",
-		"./creatable": "./src/creatable.tsx",
-		"./async-creatable": "./src/async-creatable.tsx",
-		"./types": "./src/types.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./base": "./src/select.tsx",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popper",
-	"version": "7.1.1",
+	"version": "7.1.2",
 	"description": "A wrapper for React Popper for situations which require a bespoke popup where other ADS components are deemed unsuitable",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -80,10 +80,6 @@
 				"dist/types-ts4.5/index.d.ts"
 			]
 		}
-	},
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./Popper": "./src/popper.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",

@@ -42,13 +42,6 @@
 			}
 		}
 	},
-	"af:exports": {
-		"./types": "./src/types.tsx",
-		".": "./src/index.tsx",
-		"./Grid": "./src/grid-wrapper.tsx",
-		"./GridColumn": "./src/grid-column.tsx",
-		"./Page": "./src/page.tsx"
-	},
 	"exports": {
 		"./types": "./src/types.tsx",
 		".": "./src/index.tsx",

@@ -13,7 +13,7 @@ import ExampleBox from '../shared/example-box';
 const styles = cssMap({
 	flexContainer: {
 		display: 'flex',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		height: '6rem',
 	},
 });

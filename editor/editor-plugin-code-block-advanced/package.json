@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block-advanced",
-	"version": "3.2.4",
+	"version": "4.0.0",
 	"description": "CodeBlockAdvanced plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,12 +32,15 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/editor-plugin-block-menu": "workspace:^",
 		"@atlaskit/editor-plugin-code-block": "workspace:^",
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
 		"@atlaskit/editor-plugin-find-replace": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
 		"@atlaskit/editor-plugin-selection-marker": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-toolbar": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -56,7 +59,8 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-intl-next": "*"
 	},
 	"devDependencies": {
 		"@atlaskit/code": "workspace:^"

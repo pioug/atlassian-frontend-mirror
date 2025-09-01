@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-context-identifier
 
+## 4.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

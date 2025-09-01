@@ -9,7 +9,7 @@ const styles = cssMap({
 	root: {
 		paddingBlock: token('space.075'),
 		color: token('color.text.inverse'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		backgroundColor: token('color.background.neutral.bold'),
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.bold.hovered'),

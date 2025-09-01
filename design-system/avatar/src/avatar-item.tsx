@@ -23,7 +23,7 @@ const styles = cssMap({
 		alignItems: 'center',
 		backgroundColor: `var(${bgColorCssVar})`,
 		borderColor: 'transparent',
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width.outline', '2px'),
 		color: 'inherit',

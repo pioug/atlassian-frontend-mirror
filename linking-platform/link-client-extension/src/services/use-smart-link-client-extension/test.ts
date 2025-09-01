@@ -155,9 +155,19 @@ describe('useSmartLinkClientExtension', () => {
 					return useSmartLinkClientExtension(cardClient);
 				});
 
-				await expect(result.current.invoke(data)).rejects.toThrow(
-					new InvokeError(`Expected property name or '}' in JSON at position 1`, 400),
-				);
+				// NODE_UPGRADE_CLEANUP
+				if (process.version === 'v22.17.1') {
+					await expect(result.current.invoke(data)).rejects.toThrow(
+						new InvokeError(
+							`Expected property name or '}' in JSON at position 1 (line 1 column 2)`,
+							400,
+						),
+					);
+				} else {
+					await expect(result.current.invoke(data)).rejects.toThrow(
+						new InvokeError(`Expected property name or '}' in JSON at position 1`, 400),
+					);
+				}
 			});
 		};
 

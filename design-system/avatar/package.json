@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/avatar",
-	"version": "25.1.14",
+	"version": "25.1.15",
 	"description": "An avatar is a visual representation of a user or entity.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,15 +30,6 @@
 			"name": "Avatar",
 			"category": "Images and icons"
 		}
-	},
-	"af:exports": {
-		"./AvatarItem": "./src/entry-points/avatar-item.tsx",
-		"./Avatar": "./src/entry-points/avatar.tsx",
-		"./Presence": "./src/entry-points/presence.tsx",
-		"./Skeleton": "./src/entry-points/skeleton.tsx",
-		"./Status": "./src/entry-points/status.tsx",
-		"./types": "./src/entry-points/types.tsx",
-		".": "./src/index.tsx"
 	},
 	"exports": {
 		"./AvatarItem": "./src/entry-points/avatar-item.tsx",

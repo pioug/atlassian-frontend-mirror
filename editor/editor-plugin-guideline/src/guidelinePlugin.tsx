@@ -12,8 +12,6 @@ import type {
 	GuidelinePluginState,
 } from '@atlaskit/editor-common/guideline';
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -85,21 +83,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<typeof guidelinePlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['width', 'guideline'], selector);
-	},
-	(api: ExtractInjectionAPI<typeof guidelinePlugin> | undefined) => {
-		const { widthState, guidelineState } = useSharedPluginState(api, ['width', 'guideline']);
-		return {
-			width: widthState?.width,
-			lineLength: widthState?.lineLength,
-			guidelines: guidelineState?.guidelines,
-			rect: guidelineState?.rect,
-		};
-	},
-);
-
 const ContentComponent = ({
 	api,
 	editorView,
@@ -109,7 +92,11 @@ const ContentComponent = ({
 	editorView: EditorView;
 	options: GuidelinePluginOptions | undefined;
 }) => {
-	const { width, lineLength, guidelines, rect } = useSharedState(api);
+	const { width, lineLength, guidelines, rect } = useSharedPluginStateWithSelector(
+		api,
+		['width', 'guideline'],
+		selector,
+	);
 
 	if (!width || !lineLength || !guidelines || guidelines.length === 0) {
 		return null;

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-paste
 
+## 5.0.1
+
+### Patch Changes
+
+- [`9f1387a0e8ab4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f1387a0e8ab4) -
+  clean up ff platform_editor_paste_code_block_do_not_escape
+- Updated dependencies
+
+## 5.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.9
 
 ### Patch Changes

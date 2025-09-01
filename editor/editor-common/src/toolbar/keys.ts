@@ -493,8 +493,8 @@ export const TRACK_CHANGES_SECTION = {
 	type: 'section',
 } as const;
 
-export const TRACK_CHANGES_GROUP = {
-	key: 'track-changes-group',
+export const UNDO_CHANGES_GROUP = {
+	key: 'undo-changes-group',
 	type: 'group',
 } as const;
 
@@ -503,9 +503,19 @@ export const UNDO_BUTTON = {
 	type: 'button',
 } as const;
 
+export const REDO_CHANGES_GROUP = {
+	key: 'redo-changes-group',
+	type: 'group',
+} as const;
+
 export const REDO_BUTTON = {
 	key: 'redo-button',
 	type: 'button',
+} as const;
+
+export const TRACK_CHANGES_GROUP = {
+	key: 'track-changes-group',
+	type: 'group',
 } as const;
 
 export const TRACK_CHANGES_BUTTON = {

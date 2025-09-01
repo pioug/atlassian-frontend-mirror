@@ -5,4 +5,7 @@ import JiraIssuesConfigModalNoDisplayDropdown from '../../examples/vr/jira-issue
 snapshot(JiraIssuesConfigModalNoDisplayDropdown, {
 	description: 'Jira issues config modal without display dropdown',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'navx-1483-a11y-close-button-in-modal-updates': true,
+	},
 });

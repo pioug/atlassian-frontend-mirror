@@ -24,10 +24,6 @@
 		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./LocaleSelect": "./src/LocaleSelect.tsx"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./LocaleSelect": "./src/LocaleSelect.tsx"

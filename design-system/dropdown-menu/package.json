@@ -123,10 +123,6 @@
 			]
 		}
 	},
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./types": "./src/types.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./types": "./src/types.tsx"

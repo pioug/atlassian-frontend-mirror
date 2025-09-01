@@ -283,7 +283,6 @@ const PortaledPanelSplitter = ({
 					invariant(isPanelSplitterDragData(source.data));
 
 					preventUnhandled.stop();
-					invariant(isPanelSplitterDragData(source.data));
 
 					const finalWidth = getPixelWidth(panel);
 					onCompleteResize(finalWidth);

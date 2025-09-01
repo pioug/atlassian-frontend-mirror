@@ -72,16 +72,6 @@
 			]
 		}
 	},
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./styles": "./src/index.tsx",
-		"./base": "./src/base.tsx",
-		"./browser-fixes": "./src/browser-fixes.tsx",
-		"./bundle.css": "./src/bundle.css",
-		"./reset": "./src/reset.tsx",
-		"./tables": "./src/tables.tsx",
-		"./utils": "./src/utils.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./styles": "./src/index.tsx",

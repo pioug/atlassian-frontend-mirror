@@ -95,12 +95,6 @@
 			]
 		}
 	},
-	"af:exports": {
-		"./inline-edit": "./src/entry-points/inline-edit.ts",
-		"./inline-editable-textfield": "./src/entry-points/inline-editable-textfield.ts",
-		"./types": "./src/entry-points/types.ts",
-		".": "./src/index.ts"
-	},
 	"exports": {
 		"./inline-edit": "./src/entry-points/inline-edit.ts",
 		"./inline-editable-textfield": "./src/entry-points/inline-editable-textfield.ts",

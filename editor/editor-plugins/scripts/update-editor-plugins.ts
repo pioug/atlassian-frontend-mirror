@@ -142,13 +142,13 @@ function orderObjectByDepthAndRoot(input: { [key: string]: string }): {
 	);
 }
 
-function getNewAfExports(entryPointData: EntryPointData[]): Record<string, string> {
-	// af:exports we want to keep are hardcoded here
-	const afExports: Record<string, string> = {};
-	entryPointData.forEach(({ afExportData }) => {
-		afExports[afExportData.newAfExportKey] = afExportData.newAfExportValue;
+function getNewExports(entryPointData: EntryPointData[]): Record<string, string> {
+	// exports we want to keep are hardcoded here
+	const newExports: Record<string, string> = {};
+	entryPointData.forEach(({ exportData }) => {
+		newExports[exportData.newExportKey] = exportData.newExportValue;
 	});
-	return afExports;
+	return newExports;
 }
 
 function getUpdatedDependenciesFromPackageJsons(
@@ -265,7 +265,7 @@ This may be a problem with Prettier rather than code. Please check support chann
 }
 
 // Function to update plugin files based on dependencies
-// returns the afExports object
+// returns the exports object
 function updatePluginsFiles(
 	depFolderNames: string[],
 	entryPointDatas: EntryPointData[],
@@ -464,7 +464,7 @@ async function run() {
 		});
 		const allEntryPointData = Object.values(pluginEntryPointDataMap).flat();
 		updatePluginsFiles(depFolderNames, allEntryPointData, argv['dry-run']);
-		const newEditorPluginsAfExports = getNewAfExports(allEntryPointData);
+		const newEditorPluginsExports = getNewExports(allEntryPointData);
 		generateAllPluginTests(
 			pluginEntryPointDataMap,
 			path.join(editorPluginsPath, 'src', '__tests__'),
@@ -479,11 +479,19 @@ async function run() {
 			};
 			const updatedPackageJson = {
 				...editorPluginsPackageJson,
-				'af:exports': orderObjectByDepthAndRoot(newEditorPluginsAfExports),
-				exports: orderObjectByDepthAndRoot(newEditorPluginsAfExports),
+				exports: orderObjectByDepthAndRoot(newEditorPluginsExports),
 				dependencies: sortObjectKeys(updatedDeps),
 				'platform-feature-flags': featureFlags,
+				// only update the 'af:exports' property if it already exists in the package
+				...(editorPluginsPackageJson['af:exports'] && {
+					'af:exports': orderObjectByDepthAndRoot(newEditorPluginsExports),
+				}),
+				// only update the 'exports' property if it already exists in the package
+				...(editorPluginsPackageJson.exports && {
+					exports: orderObjectByDepthAndRoot(newEditorPluginsExports),
+				}),
 			};
+
 			const updatedPackageJsonString = JSON.stringify(updatedPackageJson, null, '\t') + '\n';
 
 			fs.writeFileSync(editorPluginsPackageJsonPath, updatedPackageJsonString);

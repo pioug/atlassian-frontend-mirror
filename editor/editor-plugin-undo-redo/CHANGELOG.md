@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-undo-redo
 
+## 4.0.1
+
+### Patch Changes
+
+- [`4a31ea74ba10f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a31ea74ba10f) -
+  [ux] [ED-29057] create new ranks and groups for track changes section and render undo, redo and
+  diff in separate button groups behind platform_editor_toolbar_aifc_patch_2 gate
+- Updated dependencies
+
+## 4.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.8
 
 ### Patch Changes

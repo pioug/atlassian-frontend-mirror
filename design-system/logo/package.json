@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/logo",
-	"version": "19.7.1",
+	"version": "19.7.2",
 	"description": "A logo is a visual representation of a brand or app. It can be a word, an image, or a combination of both.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -90,22 +90,6 @@
 				"dist/types-ts4.5/index.d.ts"
 			]
 		}
-	},
-	"af:exports": {
-		"./raw-icons": "./src/exports/raw-icons.tsx",
-		"./atlassian-icon": "./src/exports/atlassian-icon.tsx",
-		"./bitbucket-icon": "./src/exports/bitbucket-icon.tsx",
-		"./confluence-icon": "./src/exports/confluence-icon.tsx",
-		"./jira-icon": "./src/exports/jira-icon.tsx",
-		"./jira-service-management-icon": "./src/exports/jira-service-management-icon.tsx",
-		"./opsgenie-icon": "./src/exports/opsgenie.tsx",
-		"./statuspage-icon": "./src/exports/statuspage-icon.tsx",
-		"./trello-icon": "./src/exports/trello-icon.tsx",
-		"./jira-software-icon": "./src/legacy-logos/jira-software/icon.tsx",
-		"./atlas-icon": "./src/legacy-logos/atlas/icon.tsx",
-		"./constants": "./src/constants.tsx",
-		"./Wrapper": "./src/wrapper.tsx",
-		".": "./src/index.tsx"
 	},
 	"exports": {
 		"./raw-icons": "./src/exports/raw-icons.tsx",

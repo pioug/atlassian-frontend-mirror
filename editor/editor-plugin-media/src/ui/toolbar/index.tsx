@@ -906,10 +906,8 @@ export const floatingToolbar = (
 	const isSelectedNodeMediaSingle =
 		state.selection instanceof NodeSelection && state.selection.node.type === mediaSingle;
 
-	if (expValEquals('platform_editor_media_floating_toolbar_early_exit', 'isEnabled', true)) {
-		if (!isMediaSelection(state.selection, nodeType)) {
-			return;
-		}
+	if (!isMediaSelection(state.selection, nodeType)) {
+		return;
 	}
 
 	const baseToolbar: MediaToolbarBaseConfig = {

@@ -63,7 +63,7 @@ const IconSpacingExample = () => {
 const iconContainerStyles = cssMap({
 	root: {
 		borderStyle: 'dashed',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		borderColor: token('color.border.accent.magenta'),
 		lineHeight: 0,
 		borderWidth: token('border.width'),

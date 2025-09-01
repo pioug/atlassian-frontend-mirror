@@ -6,7 +6,6 @@ import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PluginInjectionAPI } from '../../types';
 import { isMinCellWidthTable, hasTableBeenResized } from '../table-resizing/utils/colgroup';
@@ -103,7 +102,7 @@ export const updateColumnWidths =
 			}
 		}
 
-		if (api?.batchAttributeUpdates && fg('platform_editor_batch_steps_table')) {
+		if (api?.batchAttributeUpdates) {
 			const batchStep = api.batchAttributeUpdates.actions.batchSteps({ steps, doc: tr.doc });
 			tr.step(batchStep);
 		} else {

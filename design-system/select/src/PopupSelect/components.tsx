@@ -34,7 +34,7 @@ interface MenuDialogProps {
 const menuDialogStyles = css({
 	zIndex: layers.modal(),
 	backgroundColor: token('elevation.surface.overlay', 'white'),
-	borderRadius: token('border.radius.100', '4px'),
+	borderRadius: token('radius.small', '4px'),
 	boxShadow: token('elevation.shadow.overlay', `0 0 0 1px ${N40A}, 0 4px 11px ${N40A}`),
 });
 

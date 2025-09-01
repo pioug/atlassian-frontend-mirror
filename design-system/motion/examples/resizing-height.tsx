@@ -70,7 +70,7 @@ export default () => {
 					css={css({
 						width: '100%',
 						maxWidth: '500px',
-						borderRadius: token('border.radius.100', '3px'),
+						borderRadius: token('radius.small', '3px'),
 						boxShadow: token('elevation.shadow.overlay'),
 						marginBlockEnd: '56px',
 						marginBlockStart: token('space.300', '24px'),

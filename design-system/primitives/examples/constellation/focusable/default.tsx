@@ -19,7 +19,7 @@ const styles = cssMap({
 		paddingRight: token('space.200'),
 		paddingBottom: token('space.200'),
 		paddingLeft: token('space.200'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		backgroundColor: token('elevation.surface'),
 		boxShadow: token('elevation.shadow.overlay'),
 		cursor: 'pointer',

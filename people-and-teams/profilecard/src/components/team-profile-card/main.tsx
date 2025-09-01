@@ -30,7 +30,7 @@ const styles = cssMap({
 	wrapperStyles: {
 		display: 'flex',
 		flexDirection: 'column',
-		borderRadius: token('border.radius.200'),
+		borderRadius: token('radius.large'),
 		width: '360px',
 		minWidth: '340px',
 		height: 'auto',

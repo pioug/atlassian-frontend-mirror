@@ -59,7 +59,7 @@ const progressBarStyles = css({
 const containerWithBorder = css({
 	borderStyle: 'solid',
 	borderWidth: token('border.width.outline'),
-	borderRadius: token('border.radius.200'),
+	borderRadius: token('radius.large'),
 });
 
 /**

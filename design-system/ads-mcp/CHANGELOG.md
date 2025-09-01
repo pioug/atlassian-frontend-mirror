@@ -1,5 +1,16 @@
 # @atlaskit/ads-mcp
 
+## 0.3.0
+
+### Minor Changes
+
+- [`e4500e5351ce1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4500e5351ce1) -
+  Added tooling to scan and fix a11y violations
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.5
 
 ### Patch Changes

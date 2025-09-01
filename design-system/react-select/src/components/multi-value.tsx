@@ -76,7 +76,7 @@ const multiValueStyles = cssMap({
 	refresh: {
 		backgroundColor: token('color.background.input'),
 		borderColor: '#B7B9BE',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width'),
 	},

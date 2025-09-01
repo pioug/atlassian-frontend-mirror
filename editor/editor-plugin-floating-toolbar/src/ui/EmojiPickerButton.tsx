@@ -10,8 +10,6 @@ import { css, jsx } from '@emotion/react';
 import { IconButton } from '@atlaskit/button/new';
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -77,19 +75,12 @@ const selector = (
 	return states.emojiState?.emojiProvider;
 };
 
-const useEmojiProvider = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined) => {
-		const emojiProvider = useSharedPluginStateWithSelector(api, ['emoji'], selector);
-		return emojiProvider ? Promise.resolve(emojiProvider) : undefined;
-	},
-	(api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined) => {
-		const { emojiState } = useSharedPluginState(api, ['emoji']);
-		return emojiState?.emojiProvider ? Promise.resolve(emojiState.emojiProvider) : undefined;
-	},
-);
-
 const EmojiPickerWithProvider = (props: EmojiPickerWithProviderProps) => {
-	const emojiProvider = useEmojiProvider(props.pluginInjectionApi);
+	const emojiProvider = useSharedPluginStateWithSelector(
+		props.pluginInjectionApi,
+		['emoji'],
+		selector,
+	);
 	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
 
 	if (!emojiProvider) {
@@ -98,7 +89,7 @@ const EmojiPickerWithProvider = (props: EmojiPickerWithProviderProps) => {
 
 	return (
 		<EmojiPicker
-			emojiProvider={emojiProvider}
+			emojiProvider={Promise.resolve(emojiProvider)}
 			onSelection={props.updateEmoji}
 			onPickerRef={setOutsideClickTargetRef}
 		/>

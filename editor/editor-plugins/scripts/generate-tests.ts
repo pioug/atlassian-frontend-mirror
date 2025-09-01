@@ -51,11 +51,11 @@ describe('${pluginName} wrapper', () => {
 }
 
 function generateEntryPointTest(entryPointData: EntryPointData) {
-	const wrapperImport = entryPointData.afExportData.newAfExportValue
+	const wrapperImport = entryPointData.exportData.newExportValue
 		.replace('src/', '')
 		.replace('.ts', '');
 	return `
-  it('check ${entryPointData.afExportData.newAfExportKey} exports all the same variables as the original', () => {
+  it('check ${entryPointData.exportData.newExportKey} exports all the same variables as the original', () => {
     const original = require('${entryPointData.atlaskitImportName}');
     const wrapper = require('.${wrapperImport}');
     const originalKeys = Object.keys(original).sort();

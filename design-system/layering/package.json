@@ -20,10 +20,6 @@
 		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./experimental/open-layer-observer": "./src/entry-points/experimental/open-layer-observer.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./experimental/open-layer-observer": "./src/entry-points/experimental/open-layer-observer.tsx"

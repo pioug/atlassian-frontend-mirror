@@ -54,7 +54,7 @@ const RelatedLinksBaseModal = ({ onClose, showModal, children }: RelatedLinksBas
 					onOpenComplete={openCompleteHandler}
 					height={'504px'}
 				>
-					<ModalHeader>
+					<ModalHeader hasCloseButton={fg('navx-1483-a11y-close-button-in-modal-updates')}>
 						<ModalTitle>
 							<FormattedMessage {...messages.related_links_modal_title} />
 						</ModalTitle>

@@ -116,7 +116,7 @@ export default class TableView extends ReactNodeView<Props> {
 		this.options = props.options;
 		this.getEditorFeatureFlags = props.getEditorFeatureFlags;
 
-		this.handleRef = (node: HTMLElement | null) => this._handleTableRef(node);
+		this.handleRef = (node: HTMLElement | null) => this._handleTableRef(node, props.node);
 	}
 
 	getContentDOM() {
@@ -172,7 +172,7 @@ export default class TableView extends ReactNodeView<Props> {
 	 * wasn't at start of node. This prevents duplicate tables and maintains editor state during
 	 * the DOM manipulation.
 	 */
-	private _handleTableRef(node: HTMLElement | null) {
+	private _handleTableRef(node: HTMLElement | null, pmNode: PmNode) {
 		let oldIgnoreMutation: (mutation: MutationRecord) => boolean;
 
 		let selectionBookmark: SelectionBookmark;
@@ -201,11 +201,8 @@ export default class TableView extends ReactNodeView<Props> {
 			}
 
 			if (expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
-				this.dom.setAttribute('data-ssr-placeholder', `table-nodeview-${this.node.attrs.localId}`);
-				this.dom.setAttribute(
-					'data-ssr-placeholder-replace',
-					`table-nodeview-${this.node.attrs.localId}`,
-				);
+				this.dom.setAttribute('data-ssr-placeholder', `table-nodeview-${pmNode.attrs.localId}`);
+				this.dom.setAttribute('data-ssr-placeholder-replace', `table-nodeview-${pmNode.attrs.localId}`);
 			}
 
 			// Remove the ProseMirror table DOM structure to avoid duplication, as it's replaced with the React table node.

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 1.0.1
+
+### Patch Changes
+
+- [`4144b576f0bf8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4144b576f0bf8) -
+  Ignore attribute changes when ensuring the steps match the final document
+- Updated dependencies
+
+## 1.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.1
 
 ### Patch Changes

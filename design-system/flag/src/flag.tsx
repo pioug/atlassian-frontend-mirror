@@ -36,7 +36,7 @@ const styles = cssMap({
 	},
 	flag: {
 		boxShadow: token('elevation.shadow.overlay', '0px 8px 12px #091e423f, 0px 0px 1px #091e424f'),
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		overflow: 'hidden',
 		zIndex: 600,
 		width: '100%',

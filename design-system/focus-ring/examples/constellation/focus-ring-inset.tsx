@@ -18,7 +18,7 @@ const buttonStyles = css({
 	padding: token('space.100'),
 	border: 'none',
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 });
 
 const spacerStyles = xcss({

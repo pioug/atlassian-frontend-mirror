@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 211.0.1
+
+### Patch Changes
+
+- [`5f1d8eb6b1fa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f1d8eb6b1fa2) -
+  EDITOR-1464 Update toDOM methods to include localId
+- Updated dependencies
+
+## 211.0.0
+
+### Patch Changes
+
+- [`3b5b4a919aaaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b5b4a919aaaf) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 210.2.9
 
 ### Patch Changes

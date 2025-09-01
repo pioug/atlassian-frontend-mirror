@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-ufo
 
+## 4.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.3
 
 ### Patch Changes

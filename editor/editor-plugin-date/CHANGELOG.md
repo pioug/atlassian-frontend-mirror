@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-date
 
+## 6.0.1
+
+### Patch Changes
+
+- [`5f1d8eb6b1fa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f1d8eb6b1fa2) -
+  EDITOR-1464 Update toDOM methods to include localId
+- Updated dependencies
+
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.13
 
 ### Patch Changes

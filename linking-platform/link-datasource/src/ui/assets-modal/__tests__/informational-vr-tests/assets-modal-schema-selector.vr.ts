@@ -14,7 +14,9 @@ snapshotInformational(WithAssetsModalVR, {
 			.click({ position: { x: 10, y: 10 } });
 		await page.getByRole('listbox').getByText('objSchema1').waitFor({ state: 'visible' });
 	},
-	featureFlags: {},
+	featureFlags: {
+		'navx-1483-a11y-close-button-in-modal-updates': true,
+	},
 });
 
 snapshotInformational(WithAssetsModalVR, {
@@ -28,7 +30,9 @@ snapshotInformational(WithAssetsModalVR, {
 		await page.getByRole('textbox').fill('objSchema');
 		await page.getByRole('listbox').getByText('objSchema1').waitFor({ state: 'visible' });
 	},
-	featureFlags: {},
+	featureFlags: {
+		'navx-1483-a11y-close-button-in-modal-updates': true,
+	},
 });
 
 snapshotInformational(WithAssetsModalVR, {
@@ -42,5 +46,7 @@ snapshotInformational(WithAssetsModalVR, {
 		await page.getByRole('textbox').fill('nonExistentSchema');
 		await page.getByRole('listbox').getByText('No options').waitFor({ state: 'visible' });
 	},
-	featureFlags: {},
+	featureFlags: {
+		'navx-1483-a11y-close-button-in-modal-updates': true,
+	},
 });

@@ -12,7 +12,7 @@ const popupStyles = css({
 	maxWidth: '160px',
 	backgroundColor: token('elevation.surface.overlay'),
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxShadow: token('elevation.shadow.raised'),
 	paddingBlockEnd: token('space.100'),
 	paddingBlockStart: token('space.100'),

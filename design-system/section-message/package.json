@@ -31,12 +31,6 @@
 			"category": "Messaging"
 		}
 	},
-	"af:exports": {
-		"./section-message": "./src/entry-points/section-message.tsx",
-		"./section-message-action": "./src/entry-points/section-message-action.tsx",
-		"./types": "./src/entry-points/types.tsx",
-		".": "./src/index.tsx"
-	},
 	"exports": {
 		"./section-message": "./src/entry-points/section-message.tsx",
 		"./section-message-action": "./src/entry-points/section-message-action.tsx",

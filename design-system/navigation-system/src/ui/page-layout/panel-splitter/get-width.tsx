@@ -1,3 +1,4 @@
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/types';
 
 export const getWidthFromDragLocation = ({
@@ -27,6 +28,11 @@ export const getWidthFromDragLocation = ({
  * Returns the computed width of an element in pixels.
  */
 export const getPixelWidth = (element: HTMLElement): number => {
+	if (fg('platform_dst_nav4_panel_splitter_guards')) {
+		// Always returns an integer. Returns 0 if element is hidden / removed.
+		return element.offsetWidth;
+	}
+
 	const { width } = window.getComputedStyle(element);
 
 	return parseInt(width);

@@ -26,7 +26,7 @@ const helpContentButtonContainerStyles = css({
 	paddingBottom: token('space.100', '8px'),
 	paddingLeft: token('space.100', '8px'),
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	border: 'none',
 	background: 'transparent',
 	font: token('font.body', 'inherit'),

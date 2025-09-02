@@ -1,7 +1,4 @@
 // THIS FILE IS GENERATED via packages/editor/editor-plugins/scripts/update-editor-plugins.ts. DO NOT MODIFY IT MANUALLY.
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
-export {
-	placeholderTextStyles,
-	placeholderTextStyles_fg_platform_editor_system_fake_text_highlight_colour,
-} from '@atlaskit/editor-plugin-placeholder-text/styles';
+export { placeholderTextStyles } from '@atlaskit/editor-plugin-placeholder-text/styles';

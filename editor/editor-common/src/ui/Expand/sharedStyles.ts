@@ -10,7 +10,7 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-const BORDER_RADIUS = token('border.radius.100', '4px');
+const BORDER_RADIUS = token('radius.small', '4px');
 
 const EXPAND_COLLAPSED_BACKGROUND = token('color.background.neutral.subtle', 'transparent');
 const EXPAND_SELECTED_BACKGROUND = token('elevation.surface', 'rgba(255, 255, 255, 0.6)');

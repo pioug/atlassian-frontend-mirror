@@ -18,7 +18,7 @@ const styles = cssMap({
 		paddingRight: token('space.075'),
 		paddingBottom: token('space.150'),
 		paddingLeft: token('space.075'),
-		borderRadius: token('border.radius.100', '8px'),
+		borderRadius: token('radius.small', '8px'),
 		backgroundColor: token('elevation.surface.raised'),
 		'&:hover': {
 			cursor: 'pointer',
@@ -26,7 +26,7 @@ const styles = cssMap({
 		},
 	},
 	iconWrapper: {
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		color: token('color.text.subtlest'),
 	},
 });

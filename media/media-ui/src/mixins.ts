@@ -33,12 +33,12 @@ export const absolute = (top = 0, left = 0) => `
 `;
 
 export const borderRadius = `
-  border-radius: ${token('border.radius.100', '3px')};
+  border-radius: ${token('radius.small', '3px')};
 `;
 
 export const borderRadiusBottom = `
-  border-bottom-left-radius: ${token('border.radius.100', '3px')};
-  border-bottom-right-radius: ${token('border.radius.100', '3px')};
+  border-bottom-left-radius: ${token('radius.small', '3px')};
+  border-bottom-right-radius: ${token('radius.small', '3px')};
 `;
 
 export const easeInOutCubic = 'cubic-bezier(0.645, 0.045, 0.355, 1)';

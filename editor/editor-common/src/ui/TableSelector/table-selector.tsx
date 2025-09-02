@@ -47,7 +47,7 @@ const buttonStyles = css({
 	border: `1px solid ${token('color.border', '#091e4224')}`,
 	backgroundColor: token('color.background.input', '#ffffff'),
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	cursor: 'pointer',
 	display: 'block',
 	'&:focus': {

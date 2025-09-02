@@ -39,7 +39,7 @@ const uploadPreview = css({
 	justifyContent: 'space-between',
 	alignItems: 'center',
 	backgroundColor: token('color.background.neutral', N20),
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	padding: '10px',
 });

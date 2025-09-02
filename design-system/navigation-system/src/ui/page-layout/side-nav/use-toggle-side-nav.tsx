@@ -1,7 +1,5 @@
 import { useCallback, useContext } from 'react';
 
-import invariant from 'tiny-invariant';
-
 import { SetSideNavVisibilityState } from './visibility-context';
 
 type ToggleSideNav = () => void;
@@ -22,7 +20,11 @@ export function useToggleSideNav(): ToggleSideNav {
 		const { matches } = window.matchMedia('(min-width: 64rem)');
 		if (matches) {
 			setSideNavState((currentState) => {
-				invariant(currentState, 'Side nav state should not be null');
+				// No-op if the side nav state has not been initialised yet
+				// e.g. if the SideNav has not been mounted yet
+				if (!currentState) {
+					return null;
+				}
 
 				return {
 					mobile: currentState.mobile,
@@ -32,7 +34,11 @@ export function useToggleSideNav(): ToggleSideNav {
 			});
 		} else {
 			setSideNavState((currentState) => {
-				invariant(currentState, 'Side nav state should not be null');
+				// No-op if the side nav state has not been initialised yet
+				// e.g. if the SideNav has not been mounted yet
+				if (!currentState) {
+					return null;
+				}
 
 				return {
 					desktop: currentState.desktop,

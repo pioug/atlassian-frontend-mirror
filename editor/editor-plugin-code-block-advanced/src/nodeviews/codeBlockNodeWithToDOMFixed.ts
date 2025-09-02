@@ -2,6 +2,7 @@ import { codeBlock } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { NodeSpec, DOMOutputSpec, Node } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 interface Config {
@@ -94,6 +95,7 @@ const toDOM = (node: Node, formattedAriaLabel: string, config: Config): DOMOutpu
 						spellcheck: 'false',
 						'data-testid': 'code-block--code',
 						'aria-label': formattedAriaLabel,
+						...(fg('platform_editor_adf_with_localid') && { 'data-local-id': node.attrs.localId }),
 					},
 					0,
 				],

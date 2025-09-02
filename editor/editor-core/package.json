@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "211.0.1",
+	"version": "211.1.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -484,9 +484,6 @@
 		"platform_editor_add_border_for_nested_panel": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_system_fake_text_highlight_colour": {
-			"type": "boolean"
 		},
 		"platform_editor_controls_increase_full_page_gutter": {
 			"type": "boolean"

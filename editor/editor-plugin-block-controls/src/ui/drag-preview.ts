@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 const previewStyle = {
 	borderColor: token('color.border', N30),
 	borderStyle: 'solid',
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	borderWidth: token('border.width.outline', '2px'),
 	backgroundColor: token('color.skeleton.subtle', N20),
 };

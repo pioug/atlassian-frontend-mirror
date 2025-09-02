@@ -12,7 +12,7 @@ const styles = cssMap({
 		outlineWidth: token('border.width'),
 		outlineColor: token('color.border'),
 		outlineStyle: 'solid',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		borderColor: token('color.border.accent.gray'),
 		color: token('color.text'),
 		paddingTop: token('space.200'),

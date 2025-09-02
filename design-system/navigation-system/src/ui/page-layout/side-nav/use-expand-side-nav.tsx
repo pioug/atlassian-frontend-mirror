@@ -1,7 +1,5 @@
 import { useCallback, useContext } from 'react';
 
-import invariant from 'tiny-invariant';
-
 import { SetSideNavVisibilityState } from './visibility-context';
 
 type ExpandSideNav = () => void;
@@ -22,7 +20,11 @@ export function useExpandSideNav(): ExpandSideNav {
 		const { matches } = window.matchMedia('(min-width: 64rem)');
 		if (matches) {
 			setSideNavState((currentState) => {
-				invariant(currentState, 'Side nav state should not be null');
+				// No-op if the side nav state has not been initialised yet
+				// e.g. if the SideNav has not been mounted yet
+				if (!currentState) {
+					return null;
+				}
 
 				// Skip the re-render if it's a no-op change
 				if (currentState.desktop === 'expanded' && currentState.flyout === 'closed') {
@@ -37,7 +39,11 @@ export function useExpandSideNav(): ExpandSideNav {
 			});
 		} else {
 			setSideNavState((currentState) => {
-				invariant(currentState, 'Side nav state should not be null');
+				// No-op if the side nav state has not been initialised yet
+				// e.g. if the SideNav has not been mounted yet
+				if (!currentState) {
+					return null;
+				}
 
 				// Skip the re-render if it's a no-op change
 				if (currentState.mobile === 'expanded' && currentState.flyout === 'closed') {

@@ -3,7 +3,11 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { TextSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
+import {
+	TextSelection,
+	type EditorState,
+	type Selection,
+} from '@atlaskit/editor-prosemirror/state';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFullPageToolbarHeight } from '@atlaskit/editor-shared-styles';
@@ -122,6 +126,32 @@ export const getFragmentInfoFromSelection = (
 
 export function getSelectionAdfInfo(state: EditorState): SelectionInfo {
 	const selection = state.selection;
+	let selectionInfo = {
+		selectedNode: selection.$from.node(),
+		nodePos: selection.$from.depth > 0 ? selection.$from.before() : selection.from,
+	};
+
+	if (selection instanceof TextSelection) {
+		const { $from, $to } = selection;
+		if ($from.parent === $to.parent) {
+			selectionInfo = getSelectionInfoFromSameNode(selection);
+		} else {
+			// TODO: ED-28405 - when selection spans multiple nodes including nested node, we need to iterate through the nodes
+		}
+	} else if (selection instanceof CellSelection) {
+		selectionInfo = getSelectionInfoFromCellSelection(selection);
+	}
+
+	const serializer = new JSONTransformer();
+	const selectedNodeAdf = serializer.encodeNode(selectionInfo.selectedNode);
+
+	return {
+		...selectionInfo,
+		selectedNodeAdf,
+	};
+}
+
+export function getSelectionAdfInfoNew(selection: Selection): SelectionInfo {
 	let selectionInfo = {
 		selectedNode: selection.$from.node(),
 		nodePos: selection.$from.depth > 0 ? selection.$from.before() : selection.from,

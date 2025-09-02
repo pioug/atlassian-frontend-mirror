@@ -46,7 +46,7 @@ const decisionStyles = css({
 	paddingRight: token('space.100', '8px'),
 	paddingBottom: token('space.100', '8px'),
 	paddingLeft: token('space.150', '12px'),
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	backgroundColor: token('color.background.neutral'),
 	position: 'relative',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

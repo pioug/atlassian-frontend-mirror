@@ -49,7 +49,7 @@ const wrapperStyle = css({
 	alignItems: 'center',
 	justifyContent: 'center',
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	backgroundColor: token('color.background.neutral', N20),
 	color: token('color.text.subtle', N800),
 	maxHeight: '100%',

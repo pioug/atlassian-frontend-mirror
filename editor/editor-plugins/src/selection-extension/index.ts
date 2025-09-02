@@ -20,4 +20,5 @@ export type {
 	SelectionExtensionSelectionInfo,
 	ToolbarExtensionConfiguration,
 	SelectionAdfResult,
+	SelectionExtensionCallbackOptions,
 } from '@atlaskit/editor-plugin-selection-extension';

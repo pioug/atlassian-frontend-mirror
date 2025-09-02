@@ -9,7 +9,7 @@ const styles = cssMap({
 		outlineWidth: token('border.width'),
 		outlineColor: token('color.border'),
 		outlineStyle: 'solid',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		borderColor: token('color.border.accent.gray'),
 		color: token('color.text'),
 		paddingTop: token('space.100'),
@@ -18,7 +18,7 @@ const styles = cssMap({
 		paddingLeft: token('space.100'),
 	},
 	containerIconSkeleton: {
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		height: '24px',
 		width: '24px',
 		paddingTop: token('space.100'),
@@ -36,7 +36,7 @@ const styles = cssMap({
 		width: '144px',
 	},
 	containerTypeIconSkeleton: {
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		height: '16px',
 		width: '16px',
 		paddingTop: token('space.100'),

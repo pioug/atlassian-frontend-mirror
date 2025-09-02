@@ -42,7 +42,7 @@ export function emojiToDom(node: PMNode): DOMOutputSpec {
 			margin: '-1px 0',
 			display: 'inline-block',
 			background: token('color.background.neutral'),
-			borderRadius: token('border.radius.100', '3px'),
+			borderRadius: token('radius.small', '3px'),
 			overflow: 'hidden',
 			verticalAlign: 'middle',
 			whiteSpace: 'nowrap',

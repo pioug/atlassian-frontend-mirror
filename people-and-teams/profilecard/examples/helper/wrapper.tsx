@@ -12,6 +12,6 @@ const themedBoxShadow = token(
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CardWrapper = styled.div({
 	display: 'inline-block',
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxShadow: themedBoxShadow,
 });

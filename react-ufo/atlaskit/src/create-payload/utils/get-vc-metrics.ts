@@ -17,18 +17,12 @@ async function getVCMetrics(
 	if (!config?.vc?.enabled) {
 		return {};
 	}
-	if (fg('platform_ufo_enable_vc_press_interactions')) {
-		if (
-			interaction.type !== 'page_load' &&
-			interaction.type !== 'transition' &&
-			interaction.type !== 'press'
-		) {
-			return {};
-		}
-	} else {
-		if (interaction.type !== 'page_load' && interaction.type !== 'transition') {
-			return {};
-		}
+	if (
+		interaction.type !== 'page_load' &&
+		interaction.type !== 'transition' &&
+		interaction.type !== 'press'
+	) {
+		return {};
 	}
 	const interactionStatus = getInteractionStatus(interaction);
 	const pageVisibilityUpToTTAI = getPageVisibilityUpToTTAI(interaction);

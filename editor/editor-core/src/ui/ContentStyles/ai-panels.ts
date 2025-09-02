@@ -75,7 +75,7 @@ const prismBorderStyles = (colorMode?: 'light' | 'dark', hover?: boolean) =>
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		left: `-1px`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		borderRadius: `calc(${token('border.radius.100', '3px')} + 1px)`,
+		borderRadius: `calc(${token('radius.small', '3px')} + 1px)`,
 		transform: 'translate3d(0, 0, 0)',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...(hover
@@ -142,7 +142,7 @@ export const aiPanelStyles: (colorMode?: 'light' | 'dark') => SerializedStyles =
 			}
 			& .with-margin-styles {
 				background-color: ${token('elevation.surface')} !important;
-				border-radius: ${token('border.radius.100', '3px')};
+				border-radius: ${token('radius.small', '3px')};
 			}
 		}
 	}

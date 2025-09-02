@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 8.0.1
+
+### Patch Changes
+
+- [`e5001e144b74e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5001e144b74e) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 8.0.0
 
 ### Patch Changes

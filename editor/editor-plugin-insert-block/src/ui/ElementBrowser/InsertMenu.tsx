@@ -301,7 +301,7 @@ const insertMenuWrapper = (height: number, isFullPageAppearance?: boolean) => {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		height: `${height}px`,
 		backgroundColor: `${token('elevation.surface.overlay', N0)}`,
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		boxShadow: `${token(
 			'elevation.shadow.overlay',
 			`0 0 0 1px ${N30A},

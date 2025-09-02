@@ -3,8 +3,6 @@ import React from 'react';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
@@ -192,24 +190,13 @@ const selector = (
 	};
 };
 
-const useAnnotationContentComponentPluginState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<typeof annotationPlugin> | undefined) => {
-		const annotationState = useSharedPluginStateWithSelector(api, ['annotation'], selector);
-		return annotationState;
-	},
-	(api: ExtractInjectionAPI<typeof annotationPlugin> | undefined) => {
-		const { annotationState } = useSharedPluginState(api, ['annotation']);
-		return annotationState;
-	},
-);
-
 function AnnotationContentComponent({
 	api,
 	editorView,
 	annotationProviders,
 	dispatchAnalyticsEvent,
 }: AnnotationContentComponentProps) {
-	const annotationState = useAnnotationContentComponentPluginState(api);
+	const annotationState = useSharedPluginStateWithSelector(api, ['annotation'], selector);
 
 	if (
 		annotationState &&

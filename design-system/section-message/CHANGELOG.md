@@ -1,5 +1,13 @@
 # @atlaskit/section-message
 
+## 8.7.0
+
+### Minor Changes
+
+- [`e2151927739e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2151927739e8) -
+  Explicit font styles have been set for the section message actions container, to prevent inherited
+  styles from affecting the component. This change is no longer behind a feature flag.
+
 ## 8.6.1
 
 ### Patch Changes

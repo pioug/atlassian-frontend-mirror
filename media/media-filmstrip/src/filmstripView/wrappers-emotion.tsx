@@ -17,7 +17,7 @@ const filmStripViewStyles = css({
 	position: 'relative',
 	padding: `${token('space.025', '3px')} 0`,
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&:hover .arrow': {
 		opacity: 1,

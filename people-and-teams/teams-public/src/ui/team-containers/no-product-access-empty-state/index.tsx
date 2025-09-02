@@ -14,7 +14,7 @@ const styles = cssMap({
 	emptyStateContainer: {
 		borderWidth: token('border.width'),
 		borderColor: token('color.border'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		paddingInline: token('space.400'),
 		outlineWidth: token('border.width'),
 		outlineColor: token('color.border'),
@@ -23,7 +23,7 @@ const styles = cssMap({
 	emptyStateContainerNext: {
 		borderWidth: token('border.width'),
 		borderColor: token('color.border'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		paddingInline: token('space.200'),
 		paddingBlock: token('space.200'),
 		outlineWidth: token('border.width'),

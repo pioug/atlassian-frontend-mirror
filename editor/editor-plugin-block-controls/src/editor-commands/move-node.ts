@@ -502,6 +502,7 @@ export const moveNode =
 		}
 		if (
 			sourceNode?.type.name === 'taskList' &&
+			sliceFrom > 0 &&
 			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 		) {
 			sliceFrom = sliceFrom - 1;

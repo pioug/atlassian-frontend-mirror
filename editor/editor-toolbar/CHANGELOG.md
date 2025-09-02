@@ -1,5 +1,28 @@
 # @atlaskit/editor-toolbar
 
+## 0.7.0
+
+### Minor Changes
+
+- [`50976babce55d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50976babce55d) -
+  Add new 'onClick' to dropdown menu, hook up new toolbar api to regsiter components on selection
+  change, add new safeRegistry method to replace existing objects
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.6.3
+
+### Patch Changes
+
+- [`d0de8927cce08`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0de8927cce08) -
+  [ux] [ED-29049] this change updates the specificity for toolbar button group styles to prevent the
+  table selector buttons from inheriting incorrect border radius. this is behind the experiment
+  platform_editor_toolbar_aifc_patch_2.
+- [`e5001e144b74e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5001e144b74e) -
+  Internal changes to how border radius is applied.
+
 ## 0.6.2
 
 ### Patch Changes

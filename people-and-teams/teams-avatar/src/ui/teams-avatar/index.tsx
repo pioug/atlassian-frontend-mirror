@@ -5,7 +5,6 @@ import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { TeamAvatarImage } from './teams-avatar-image';
-import { isSquareIcon } from './utils';
 
 /*
  * The component accepts src and teamId as input params. Order of preference:
@@ -28,13 +27,7 @@ export default function TeamAvatar({
 	// Strip ARI in case the teamId was given in that format
 	teamId = teamId.replace('ari:cloud:identity::team/', '');
 	return (
-		<Avatar
-			appearance={isSquareIcon(src) ? 'square' : 'circle'}
-			{...props}
-			size={size}
-			src={src}
-			testId={`${testId}-team-avatar`}
-		>
+		<Avatar appearance="square" {...props} size={size} src={src} testId={`${testId}-team-avatar`}>
 			<TeamAvatarImage src={src} size={size} testId={testId} teamId={teamId} />
 		</Avatar>
 	);

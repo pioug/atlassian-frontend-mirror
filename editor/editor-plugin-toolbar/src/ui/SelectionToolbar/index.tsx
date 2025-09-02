@@ -11,7 +11,7 @@ import {
 	calculateToolbarPositionTrackHead,
 	calculateToolbarPositionOnCellSelection,
 } from '@atlaskit/editor-common/utils';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { AllSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -33,9 +33,9 @@ const isToolbarComponent = (component: RegisterComponent): component is Register
 
 type SelectionToolbarProps = {
 	api?: ExtractInjectionAPI<ToolbarPlugin>;
+	disableSelectionToolbarWhenPinned: boolean;
 	editorView: EditorView;
 	mountPoint: HTMLElement | undefined;
-	disableSelectionToolbarWhenPinned: boolean;
 };
 
 export const SelectionToolbar = ({
@@ -54,23 +54,30 @@ export const SelectionToolbar = ({
 		},
 	);
 
-	const components = api?.toolbar?.actions?.getComponents?.();
+	const components = api?.toolbar?.actions.getComponents();
 	const toolbar = components?.find((component) => isToolbarComponent(component));
 
 	const currentUserIntent = useSharedPluginStateSelector(api, 'userIntent.currentUserIntent');
 	const connectivityStateMode = useSharedPluginStateSelector(api, 'connectivity.mode');
+	const toolbarDocking = useSharedPluginStateSelector(
+		api,
+		'userPreferences.preferences.toolbarDockingPosition',
+	);
+
 	const isOffline = connectivityStateMode === 'offline';
 	// TODO: ED-28735 - figure out a better way to control this - needed to re-render on selection change
 	// @ts-expect-error
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
 	const isTextSelection =
 		!editorView.state.selection.empty && editorView.state.selection instanceof TextSelection;
+
+	const isAllSelection =
+		!editorView.state.selection.empty &&
+		editorView.state.selection instanceof AllSelection &&
+		expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true);
+
 	const isCellSelection =
 		!editorView.state.selection.empty && '$anchorCell' in editorView.state.selection;
-	const toolbarDocking = useSharedPluginStateSelector(
-		api,
-		'userPreferences.preferences.toolbarDockingPosition',
-	);
 
 	const onPositionCalculated = useCallback(
 		(position: { left?: number; top?: number }) => {
@@ -104,7 +111,7 @@ export const SelectionToolbar = ({
 	}
 
 	if (
-		!(isTextSelection || isCellSelection) ||
+		!(isTextSelection || isCellSelection || isAllSelection) ||
 		currentUserIntent === 'dragging' ||
 		!shouldShowToolbar ||
 		(currentUserIntent === 'blockMenuOpen' &&

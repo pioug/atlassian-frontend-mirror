@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.5.7
+
+### Patch Changes
+
+- [`93b3a250fa490`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93b3a250fa490) -
+  Remove analysis code and add track for display contents occurrence
+
+## 4.5.6
+
+### Patch Changes
+
+- [`ae5b58482107e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae5b58482107e) -
+  Clean up fg React UFO
+
 ## 4.5.5
 
 ### Patch Changes

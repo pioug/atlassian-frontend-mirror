@@ -12,7 +12,7 @@ export const emojiPickerBoxShadow = token(
 	'0 3px 6px rgba(0, 0, 0, 0.2)',
 );
 export const noDialogContainerBorderColor = token('color.border', N40);
-export const noDialogContainerBorderRadius = token('border.radius.100', '3px');
+export const noDialogContainerBorderRadius = token('radius.small', '3px');
 export const noDialogContainerBoxShadow = token(
 	'elevation.shadow.overlay',
 	'0 3px 6px rgba(0, 0, 0, 0.2)',

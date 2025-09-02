@@ -30,8 +30,12 @@ export const toolbarPlugin: ToolbarPlugin = ({
 		name: 'toolbar',
 
 		actions: {
-			registerComponents: (toolbarComponents: RegisterComponent[]) => {
-				registry.register(toolbarComponents);
+			registerComponents: (toolbarComponents: RegisterComponent[], replaceItems = false) => {
+				if (replaceItems) {
+					registry.safeRegister(toolbarComponents);
+				} else {
+					registry.register(toolbarComponents);
+				}
 			},
 
 			getComponents: () => {

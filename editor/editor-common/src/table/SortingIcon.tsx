@@ -32,7 +32,7 @@ const buttonStyles = css`
 	right: 0;
 	top: 0;
 	border: 2px solid ${token('color.border', '#fff')};
-	border-radius: ${token('border.radius.100', '4px')};
+	border-radius: ${token('radius.small', '4px')};
 	background-color: ${token('elevation.surface.overlay')};
 	justify-content: center;
 	align-items: center;

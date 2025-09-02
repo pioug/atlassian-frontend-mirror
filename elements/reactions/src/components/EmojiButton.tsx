@@ -50,7 +50,7 @@ const styles = cssMap({
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		color: token('color.text.subtle'),
 		marginTop: token('space.0'),
 		marginRight: token('space.0'),

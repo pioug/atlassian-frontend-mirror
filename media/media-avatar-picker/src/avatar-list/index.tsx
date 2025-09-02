@@ -23,7 +23,7 @@ export interface AvatarListProps {
 }
 
 const smallAvatarImageStyles = css({
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	cursor: 'pointer',
 	width: token('space.500', '40px'),
 	height: token('space.500', '40px'),

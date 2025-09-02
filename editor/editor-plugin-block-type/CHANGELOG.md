@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-block-type
 
+## 7.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.0
 
 ### Patch Changes

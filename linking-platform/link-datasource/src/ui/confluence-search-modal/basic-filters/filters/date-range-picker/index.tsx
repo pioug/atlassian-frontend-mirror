@@ -37,7 +37,7 @@ const DateRangeErrorMessage = styled.div({
 const CustomDropdown = styled.div({
 	width: '340px',
 	backgroundColor: token('color.background.input', N0),
-	borderRadius: token('border.radius.100', '4px'),
+	borderRadius: token('radius.small', '4px'),
 	boxShadow: token(
 		'elevation.shadow.overlay',
 		'0px 0px 1px 0px rgba(9, 30, 66, 0.31), 0px 3px 5px 0px rgba(9, 30, 66, 0.20)',
@@ -53,7 +53,7 @@ const SelectDateRangeButton = styled.button({
 	width: '70px',
 	height: '40px',
 	marginTop: token('space.150', '12px'),
-	borderRadius: token('border.radius.100', '4px'),
+	borderRadius: token('radius.small', '4px'),
 	'&:hover': {
 		backgroundColor: token('color.background.accent.gray.subtler', N30),
 		cursor: 'pointer',

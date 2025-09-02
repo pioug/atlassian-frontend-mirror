@@ -33,7 +33,7 @@ export const SectionCard = styled.div`
 	padding: ${token('space.250')};
 	width: 100%;
 	background-color: ${(props: SectionCardProps) => getSelectedCardColor(props)};
-	border-radius: ${token('border.radius.100', '3px')};
+	border-radius: ${token('radius.small', '3px')};
 	box-shadow: ${token('elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`)};
 	margin-top: ${token('space.200')};
 `;

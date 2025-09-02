@@ -10,6 +10,7 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 
@@ -22,6 +23,7 @@ import type {
 	SelectionExtensionPluginOptions,
 	SelectionExtensionPluginState,
 	SelectionExtensionSelectionInfo,
+	ExtensionMenuItemConfiguration,
 } from './types';
 
 export type SelectionExtensionPlugin = NextEditorPlugin<
@@ -41,7 +43,7 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 				extension,
 				selection,
 			}: {
-				extension: SelectionExtension | DynamicSelectionExtension;
+				extension: SelectionExtension | DynamicSelectionExtension | ExtensionMenuItemConfiguration;
 				selection: SelectionExtensionSelectionInfo;
 			}) => EditorCommand;
 		};
@@ -53,6 +55,7 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 			OptionalPlugin<UserIntentPlugin>,
 			OptionalPlugin<SelectionPlugin>,
 			OptionalPlugin<BlockMenuPlugin>,
+			OptionalPlugin<ToolbarPlugin>,
 			SelectionToolbarPlugin,
 		];
 		pluginConfiguration: SelectionExtensionPluginOptions | undefined;

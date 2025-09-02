@@ -8,6 +8,7 @@ import type {
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CodeBlockPlugin } from '../codeBlockPluginType';
 import { resetShouldIgnoreFollowingMutations } from '../editor-commands';
@@ -48,6 +49,7 @@ const toDOM = (node: PMNode, contentEditable: boolean, formattedAriaLabel: strin
 						contenteditable: contentEditable ? 'true' : 'false',
 						'data-testid': 'code-block--code',
 						'aria-label': formattedAriaLabel,
+						...(fg('platform_editor_adf_with_localid') && { 'data-local-id': node.attrs.localId }),
 					},
 					0,
 				],

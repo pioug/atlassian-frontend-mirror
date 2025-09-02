@@ -57,7 +57,7 @@ export const EditorMain = styled.div`
 	.${TOOLTIP_CLASSNAME} {
 		background-color: ${token('color.background.neutral.bold', N800)};
 		color: ${token('color.text.inverse', N0)};
-		border-radius: ${token('border.radius.100', '3px')};
+		border-radius: ${token('radius.small', '3px')};
 		box-sizing: border-box;
 		font: ${token('font.body.UNSAFE_small')};
 		line-height: 1.3;
@@ -108,7 +108,7 @@ export const EditorViewContainer = styled.div<EditorViewContainerProps>(
 		borderStyle: 'solid',
 		borderWidth: token('border.width', '1px'),
 		borderColor: token('color.border.input', N100),
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		padding: token('border.width', '1px'),
 		boxSizing: 'border-box',
 		color: token('color.text', N900),

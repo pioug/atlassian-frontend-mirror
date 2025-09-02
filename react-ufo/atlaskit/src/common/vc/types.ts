@@ -146,7 +146,7 @@ export type RevisionPayloadEntry = {
 	ratios?: VCRatioType;
 	abortReason?: VCAbortReason | null;
 	abortTimestamp?: number;
-	childrenIgnoredCount?: number;
+	displayContentsOccurrence?: number;
 };
 
 export type RevisionPayload = RevisionPayloadEntry[];

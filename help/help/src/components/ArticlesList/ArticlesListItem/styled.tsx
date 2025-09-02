@@ -24,7 +24,7 @@ const articlesListItemWrapperStyles = css({
 	cursor: 'pointer',
 	color: token('color.text.subtlest', N200),
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	backgroundColor: token('color.background.neutral.subtle', 'transparent'),
 	'&:hover, &:focus, &:visited, &:active': {
 		textDecoration: 'none',

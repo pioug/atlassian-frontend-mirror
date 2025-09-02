@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { createPlugin, dispatchShouldHideDecorations, key } from './pm-plugins/main';
 import type { ReleaseHiddenDecoration, SelectionMarkerPlugin } from './selectionMarkerPluginType';
@@ -75,13 +76,14 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 				editorHasNotBeenFocused.current = true;
 			}, [editorView]);
 
-			const { hasFocus, isOpen, editorDisabled } = useSharedPluginStateWithSelector(
+			const { hasFocus, isOpen, editorDisabled, showToolbar } = useSharedPluginStateWithSelector(
 				api,
-				['focus', 'typeAhead', 'editorDisabled'],
+				['focus', 'typeAhead', 'editorDisabled', 'toolbar'],
 				(states) => ({
 					hasFocus: states.focusState?.hasFocus,
 					isOpen: states.typeAheadState?.isOpen,
 					editorDisabled: states.editorDisabledState?.editorDisabled,
+					showToolbar: states.toolbarState?.shouldShowToolbar,
 				}),
 			);
 			const isForcedHidden = useSharedPluginStateSelector(api, 'selectionMarker.isForcedHidden');
@@ -103,15 +105,17 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 				 * - Via the API: If another plugin has requested it to be hidden (force hidden).
 				 */
 				const shouldHide =
-					((config?.hideCursorOnInit && editorHasNotBeenFocused.current) ||
-						hasFocus ||
-						(isOpen ?? false) ||
-						isForcedHidden ||
-						(editorDisabled ?? false)) ??
-					true;
+					(config?.hideCursorOnInit && editorHasNotBeenFocused.current) ||
+					hasFocus ||
+					(isOpen ?? false) ||
+					isForcedHidden ||
+					(editorDisabled ?? false) ||
+					(expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true) &&
+						(showToolbar ?? false));
+				true;
 
 				requestAnimationFrame(() => dispatchShouldHideDecorations(editorView, shouldHide));
-			}, [editorView, hasFocus, isOpen, isForcedHidden, editorDisabled]);
+			}, [editorView, hasFocus, isOpen, isForcedHidden, editorDisabled, showToolbar]);
 		},
 
 		contentComponent() {

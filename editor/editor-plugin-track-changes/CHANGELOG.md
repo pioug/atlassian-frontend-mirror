@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 3.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.3
+
+### Patch Changes
+
+- [`12afb3988d02e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12afb3988d02e) -
+  [EDITOR-1429] fixed bug where creating inline comment is considered as changes in editor
+- Updated dependencies
+
 ## 3.0.2
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 13.0.4
+
+### Patch Changes
+
+- [`bb5564f5dadab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb5564f5dadab) -
+  fix table local id type error
+- Updated dependencies
+
+## 13.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.2
 
 ### Patch Changes

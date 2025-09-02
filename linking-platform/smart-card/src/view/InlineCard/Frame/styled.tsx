@@ -76,7 +76,7 @@ const baseWrapperStyles = css({
 	padding: `${token('space.025')} 0px`,
 	display: 'inline',
 	boxDecorationBreak: 'clone',
-	borderRadius: token('border.radius.100', '4px'),
+	borderRadius: token('radius.small', '4px'),
 	color: token('color.link', B400),
 	transition: '0.1s all ease-in-out',
 	MozUserSelect: 'none', // -moz-user-select

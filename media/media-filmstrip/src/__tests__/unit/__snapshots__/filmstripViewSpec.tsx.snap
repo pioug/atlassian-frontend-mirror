@@ -4,7 +4,7 @@ exports[`FilmstripView .render() styles 1`] = `
 .emotion-5 {
   position: relative;
   padding: var(--ds-space-025, 3px) 0;
-  border-radius: var(--ds-border-radius-100, 3px);
+  border-radius: var(--ds-radius-small, 3px);
 }
 
 .emotion-5:hover .arrow {

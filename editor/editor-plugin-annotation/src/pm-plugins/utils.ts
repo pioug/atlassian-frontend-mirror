@@ -263,14 +263,12 @@ export const resolveDraftBookmark = (
 };
 /**
  * get selection from position to apply new comment for
- * @return bookmarked positions if they exists, otherwise current selection positions
+ * @returns bookmarked positions if they exists, otherwise current selection positions
  */
 export function getSelectionPositions(
 	editorState: EditorState,
-	// when cleaning up platform_editor_usesharedpluginstatewithselector, can change this prop to bookmark
-	inlineCommentState?: Partial<InlineCommentPluginState> | null | undefined,
+	bookmark: SelectionBookmark | undefined,
 ): Selection {
-	const { bookmark } = inlineCommentState || {};
 	// get positions via saved bookmark if it is available
 	// this is to make comments box positioned relative to temporary highlight rather then current selection
 	if (bookmark) {

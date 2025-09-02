@@ -47,6 +47,7 @@ type ToolbarDropdownMenuProps = {
 	iconBefore: React.ReactNode;
 	isDisabled?: boolean;
 	label?: string;
+	onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 	testId?: string;
 };
 
@@ -56,6 +57,7 @@ const ToolbarDropdownMenuContent = ({
 	isDisabled,
 	testId,
 	label,
+	onClick,
 }: ToolbarDropdownMenuProps) => {
 	const { onDropdownOpenChanged } = useToolbarUI();
 	const menuContext = useToolbarDropdownMenu();
@@ -91,6 +93,7 @@ const ToolbarDropdownMenuContent = ({
 					onClick={(e) => {
 						handleClick();
 						triggerProps.onClick && triggerProps.onClick(e);
+						onClick && onClick(e);
 					}}
 					onFocus={triggerProps.onFocus}
 					testId={testId}
@@ -115,6 +118,7 @@ export const ToolbarDropdownMenu = ({
 	label,
 	hasSectionMargin = true,
 	enableMaxHeight = false,
+	onClick,
 }: ToolbarDropdownMenuProps) => {
 	if (expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true)) {
 		return (
@@ -123,6 +127,7 @@ export const ToolbarDropdownMenu = ({
 				isDisabled={isDisabled}
 				testId={testId}
 				label={label}
+				onClick={onClick}
 			>
 				<Box
 					xcss={cx(

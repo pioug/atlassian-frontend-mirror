@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 4.0.1
+
+### Patch Changes
+
+- [`528dc3058289e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/528dc3058289e) -
+  [ux] ED-29066 Disable selection marker when selection toolbar is showing up
+
 ## 4.0.0
 
 ### Patch Changes

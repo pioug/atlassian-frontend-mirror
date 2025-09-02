@@ -42,6 +42,7 @@ export const formatNode = (targetType: FormatNodeTargetType): EditorCommand => {
 				nodes.expand,
 				nodes.codeBlock,
 				nodes.listItem,
+				nodes.taskItem,
 				nodes.layoutSection,
 			])(selection);
 
@@ -49,8 +50,11 @@ export const formatNode = (targetType: FormatNodeTargetType): EditorCommand => {
 				nodeToFormat = parentNode.node;
 				nodePos = parentNode.pos;
 
+				const paragraphOrHeadingNode = findParentNodeOfType([nodes.paragraph, nodes.heading])(
+					selection,
+				);
 				// Special case: if we found a listItem, check if we need the parent list instead
-				if (parentNode.node.type === nodes.listItem) {
+				if (parentNode.node.type === nodes.listItem || parentNode.node.type === nodes.taskItem) {
 					const listParent = findParentNodeOfType([
 						nodes.bulletList,
 						nodes.orderedList,
@@ -62,6 +66,9 @@ export const formatNode = (targetType: FormatNodeTargetType): EditorCommand => {
 						nodeToFormat = listParent.node;
 						nodePos = listParent.pos;
 					}
+				} else if (paragraphOrHeadingNode) {
+					nodeToFormat = paragraphOrHeadingNode.node;
+					nodePos = paragraphOrHeadingNode.pos;
 				}
 			}
 		}

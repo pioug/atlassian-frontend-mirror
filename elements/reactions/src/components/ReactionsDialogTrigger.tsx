@@ -17,7 +17,7 @@ const styles = cssMap({
 		marginTop: token('space.050'),
 		minWidth: '32px',
 		height: '24px',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',

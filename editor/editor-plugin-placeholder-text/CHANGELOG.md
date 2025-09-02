@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-placeholder-text
 
+## 4.0.1
+
+### Patch Changes
+
+- [`1b0b9f3641b0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b0b9f3641b0f) -
+  [https://product-fabric.atlassian.net/browse/ED-28272](ED-28272) - cleanup
+  platform_editor_system_fake_text_highlight_colour FF
+- [`e5001e144b74e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5001e144b74e) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 4.0.0
 
 ### Patch Changes

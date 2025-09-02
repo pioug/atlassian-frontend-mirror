@@ -36,7 +36,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -65,7 +65,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -92,7 +92,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -119,7 +119,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -146,7 +146,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -173,7 +173,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -200,7 +200,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -227,7 +227,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -254,7 +254,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -281,7 +281,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -308,7 +308,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -335,7 +335,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -362,7 +362,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -389,7 +389,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -416,7 +416,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -443,7 +443,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -470,7 +470,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -497,7 +497,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -524,7 +524,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -551,7 +551,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -578,7 +578,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -605,7 +605,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -632,7 +632,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -659,7 +659,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -686,7 +686,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -713,7 +713,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -740,7 +740,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -767,7 +767,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -794,7 +794,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -821,7 +821,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -848,7 +848,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',
@@ -877,7 +877,7 @@ const flexStyles = css({
 				alignItems: 'center',
 				backgroundColor: token('color.background.neutral', '#091E420F'),
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				color: token('color.text', '#172B4D'),
 				justifyContent: 'center',
 				padding: '0.125rem 0',

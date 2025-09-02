@@ -56,7 +56,7 @@ const ErrorBoundaryComponent: React.FC<ErrorBoundaryProps> = ({ message, isSelec
 		gap: token('space.050'),
 		alignItems: 'center',
 		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		color: token('color.text', N900),
 		backgroundColor: token('color.background.neutral', N30A),
 		userSelect: 'text',

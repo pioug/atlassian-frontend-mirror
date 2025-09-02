@@ -12,6 +12,7 @@ import { type MutationData } from './types';
 import checkCssProperty from './utils/check-display-content';
 import checkWithinComponent, { cleanupCaches } from './utils/check-within-component';
 import isInVCIgnoreIfNoLayoutShiftMarker from './utils/is-in-vc-ignore-if-no-layout-shift-marker';
+import trackDisplayContentsOccurrence from './utils/track-display-content-occurrence';
 
 function isElementVisible(element: Element) {
 	if (!(element instanceof HTMLElement)) {
@@ -289,6 +290,9 @@ export default class ViewportObserver {
 					);
 				}
 			} else {
+				if (fg('platform_ufo_display_content_track_occurrence')) {
+					trackDisplayContentsOccurrence(addedNode);
+				}
 				this.intersectionObserver?.watchAndTag(
 					addedNode,
 					createElementMutationsWatcher(removedNodeRects),

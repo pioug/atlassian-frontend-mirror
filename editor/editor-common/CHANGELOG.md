@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 108.1.0
+
+### Minor Changes
+
+- [`50976babce55d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50976babce55d) -
+  Add new 'onClick' to dropdown menu, hook up new toolbar api to regsiter components on selection
+  change, add new safeRegistry method to replace existing objects
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.0.2
+
+### Patch Changes
+
+- [`e5001e144b74e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5001e144b74e) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 108.0.1
 
 ### Patch Changes

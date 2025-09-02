@@ -37,7 +37,7 @@ export const decisionItemSpecWithFixedToDOM = () => {
 							paddingLeft: token('space.150', '12px'),
 							margin: `${token('space.100', '8px')} 0 0 0`,
 							display: 'flex',
-							borderRadius: token('border.radius.100', '3px'),
+							borderRadius: token('radius.small', '3px'),
 						}),
 					},
 					[

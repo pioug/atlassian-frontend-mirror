@@ -56,10 +56,7 @@ import {
 	findReplaceStylesNew,
 } from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
-import {
-	placeholderTextStyles,
-	placeholderTextStyles_fg_platform_editor_system_fake_text_highlight_colour,
-} from '@atlaskit/editor-plugins/placeholder-text/styles';
+import { placeholderTextStyles } from '@atlaskit/editor-plugins/placeholder-text/styles';
 import {
 	SelectionStyle,
 	akEditorCalculatedWideLayoutWidth,
@@ -525,8 +522,6 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 
 	${firstFloatingToolbarButtonStyles}
 	${placeholderTextStyles}
-	${fg('platform_editor_system_fake_text_highlight_colour') &&
-	placeholderTextStyles_fg_platform_editor_system_fake_text_highlight_colour}
 	${placeholderStyles}
 	${editorExperiment('platform_editor_controls', 'variant1') ? placeholderOverflowStyles : null}
 	${editorExperiment('platform_editor_controls', 'variant1') &&

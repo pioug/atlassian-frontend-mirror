@@ -63,7 +63,7 @@ const offscreenStyles = {
 
 const rectMaskStyles = cssMap({
 	root: {
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 	},
 });
 
@@ -77,7 +77,7 @@ const containerStyles = cssMap({
 	root: {
 		position: 'relative',
 		overflow: 'hidden',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 	},
 });
 
@@ -85,7 +85,7 @@ const imageContainerStyles = cssMap({
 	root: {
 		position: 'absolute',
 		userSelect: 'none',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 	},
 });
 

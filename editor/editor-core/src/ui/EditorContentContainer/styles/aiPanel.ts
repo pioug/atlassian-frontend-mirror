@@ -101,7 +101,7 @@ export const aiPanelBaseStyles: SerializedStyles = css({
 				height: `calc(100% + 2px)`,
 				top: `-1px`,
 				left: `-1px`,
-				borderRadius: `calc(${token('border.radius.100', '3px')} + 1px)`,
+				borderRadius: `calc(${token('radius.small', '3px')} + 1px)`,
 				transform: 'translate3d(0, 0, 0)',
 				background: prismBorderBaseBackground,
 			},
@@ -116,7 +116,7 @@ export const aiPanelBaseStyles: SerializedStyles = css({
 			'& .with-margin-styles': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 				backgroundColor: `${token('elevation.surface')} !important`,
-				borderRadius: token('border.radius.100', '3px'),
+				borderRadius: token('radius.small', '3px'),
 			},
 		},
 	},

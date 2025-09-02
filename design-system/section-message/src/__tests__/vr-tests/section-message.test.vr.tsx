@@ -46,9 +46,6 @@ snapshot(Testing, {
 
 snapshot(ExplicitFontStyles, {
 	description: 'Explicit font styles - default state',
-	featureFlags: {
-		platform_ads_explicit_font_styles: [true, false],
-	},
 });
 
 snapshot(Dismissible);

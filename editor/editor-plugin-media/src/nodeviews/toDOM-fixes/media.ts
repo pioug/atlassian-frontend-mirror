@@ -66,7 +66,7 @@ export const mediaSpecWithFixedToDOM = () => {
 						marginLeft: '0',
 						marginRight: 'var(--ak-editor-media-margin-right, 4px)',
 						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-						borderRadius: token('border.radius.100', '3px'),
+						borderRadius: token('radius.small', '3px'),
 						outline: 'none',
 						flexBasis: `${defaultImageCardDimensions.width}px`,
 						backgroundColor: 'var(--ak-editor-media-card-background-color)',

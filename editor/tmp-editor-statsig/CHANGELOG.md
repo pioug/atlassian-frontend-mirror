@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.2.0
+
+### Minor Changes
+
+- [`50976babce55d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50976babce55d) -
+  Add new 'onClick' to dropdown menu, hook up new toolbar api to regsiter components on selection
+  change, add new safeRegistry method to replace existing objects
+
 ## 12.1.0
 
 ### Minor Changes

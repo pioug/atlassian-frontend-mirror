@@ -73,7 +73,7 @@ export interface State {
 const pickerContainerStyles = css({
 	background: token('elevation.surface.overlay', N0),
 	padding: `${token('space.100', '8px')} 0`,
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxShadow: token(
 		'elevation.shadow.overlay',
 		'0 0 1px rgba(9, 30, 66, 0.31), 0 4px 8px -2px rgba(9, 30, 66, 0.25)',

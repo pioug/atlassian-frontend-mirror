@@ -34,7 +34,7 @@ const styles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 	},
 });
 

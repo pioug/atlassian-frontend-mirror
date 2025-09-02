@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.13.0
+
+### Minor Changes
+
+- [`baa31419d9a48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/baa31419d9a48) -
+  Added accountDisplayName in assignedTeam type
+
 ## 4.12.0
 
 ### Minor Changes

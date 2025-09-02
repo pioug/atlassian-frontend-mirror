@@ -10,7 +10,7 @@ import { type MouseEventHandler, PureComponent, type ReactNode, type UIEvent } f
 
 const emojiScrollable = css({
 	border: `1px solid ${token('color.border', '#fff')}`,
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	display: 'block',
 	margin: '0',
 	overflowX: 'hidden',

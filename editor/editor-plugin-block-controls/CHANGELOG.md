@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 5.0.1
+
+### Patch Changes
+
+- [`e5001e144b74e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5001e144b74e) -
+  Internal changes to how border radius is applied.
+- [`6e785bffbac45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e785bffbac45) -
+  ED-29126: Fixed dnd task range error
+- Updated dependencies
+
 ## 5.0.0
 
 ### Patch Changes

@@ -58,7 +58,7 @@ const containerStyles = css({
 	borderWidth: '1px',
 	borderStyle: 'solid',
 	borderColor: 'transparent',
-	borderRadius: token('border.radius.100', '4px'),
+	borderRadius: token('radius.small', '4px'),
 	minHeight: '25px',
 	background: token('color.background.neutral.subtle', 'transparent'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

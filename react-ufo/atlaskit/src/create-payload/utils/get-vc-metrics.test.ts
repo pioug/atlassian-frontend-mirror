@@ -117,9 +117,7 @@ describe('getVCMetrics', () => {
 		expect(result).toEqual({});
 	});
 
-	it('should process press interaction correctly when feature flag is enabled', async () => {
-		enabledFg.add('platform_ufo_enable_vc_press_interactions');
-
+	it('should process press interaction correctly', async () => {
 		const mockGetMostRecentVCRevision = getMostRecentVCRevision as jest.MockedFunction<
 			typeof getMostRecentVCRevision
 		>;
@@ -144,21 +142,6 @@ describe('getVCMetrics', () => {
 		const result = await getVCMetrics(interaction);
 		expect(result).toMatchObject(expectedVCResult);
 		expect(mockVCObserver.stop).toHaveBeenCalledWith('test');
-	});
-
-	it('should return empty object for press interaction when feature flag is disabled', async () => {
-		// Feature flag is disabled by default in beforeEach
-
-		const interaction: InteractionMetrics = {
-			type: 'press',
-			start: 0,
-			end: 100,
-			ufoName: 'test',
-			vcObserver: createMockVCObserver(),
-		} as unknown as InteractionMetrics;
-
-		const result = await getVCMetrics(interaction);
-		expect(result).toEqual({});
 	});
 
 	it('should process page_load interaction correctly', async () => {

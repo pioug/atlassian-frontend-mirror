@@ -234,6 +234,6 @@ const colorPaletteMenuStyles = css({
 });
 
 const colorPaletteMenuStandardStyles = css({
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxShadow: token('elevation.shadow.overlay', `0 0 0 1px ${N40}, 0 0 8px ${N40}`),
 });

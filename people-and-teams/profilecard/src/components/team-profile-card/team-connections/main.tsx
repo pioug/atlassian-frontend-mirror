@@ -21,7 +21,7 @@ const styles = cssMap({
 		alignItems: 'center',
 	},
 	containerIconStyles: {
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		height: '24px',
 		width: '24px',
 	},

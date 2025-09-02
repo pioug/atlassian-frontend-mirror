@@ -1,13 +1,21 @@
 import React, { useRef } from 'react';
 
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type {
 	ExtensionConfiguration,
 	ToolbarExtensionConfiguration,
+	SelectionExtensionPlugin,
 } from '@atlaskit/editor-plugin-selection-extension';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import AddIcon from '@atlaskit/icon/core/add';
 import NoteIcon from '@atlaskit/icon/core/note';
 
-export const useNoteSelectionExtension = (editorApi: unknown) => {
+export const useNoteSelectionExtension = (
+	editorApi: PublicPluginAPI<
+		[ToolbarPlugin, EditorViewModePlugin, SelectionExtensionPlugin]
+	> | null,
+) => {
 	const editorApiRef = useRef(editorApi);
 	editorApiRef.current = editorApi;
 

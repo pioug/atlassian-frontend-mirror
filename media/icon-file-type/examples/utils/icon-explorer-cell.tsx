@@ -23,7 +23,7 @@ const IconExplorerLink = styled.a({
 	'&, &:hover, &:active, &:focus': {
 		display: 'block',
 		padding: '10px',
-		borderRadius: token('border.radius.100', '4px'),
+		borderRadius: token('radius.small', '4px'),
 		color: 'inherit',
 		cursor: 'pointer',
 		lineHeight: 0,

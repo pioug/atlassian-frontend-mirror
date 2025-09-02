@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 6.0.1
+
+### Patch Changes
+
+- [`e5001e144b74e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5001e144b74e) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

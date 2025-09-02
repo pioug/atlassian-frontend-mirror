@@ -42,7 +42,7 @@ const sidebarContainer = css({
 	zIndex: 11,
 	border: `1px solid ${token('color.border', '#dfe1e6')}`,
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxShadow: `${token('elevation.shadow.overflow', '0 8px 16px -4px rgba(9, 30, 66, 0.25)')}`,
 	backgroundColor: `${token('elevation.surface', '#fff')}`,
 	right: '12px',

@@ -20,7 +20,7 @@ export const dateVanillaStyles: SerializedStyles = css({
 	[`[data-prosemirror-node-name='date'] .${DateSharedCssClassName.DATE_WRAPPER} span`]: {
 		backgroundColor: token('color.background.neutral'),
 		color: token('color.text'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		padding: `${token('space.025')} ${token('space.050')}`,
 		margin: '0 1px',
 		position: 'relative',

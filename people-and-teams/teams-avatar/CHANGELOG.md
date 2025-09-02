@@ -1,5 +1,12 @@
 # @atlaskit/teams-avatar
 
+## 2.3.15
+
+### Patch Changes
+
+- [`765759f2ef1a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/765759f2ef1a6) -
+  Clean up of FGs
+
 ## 2.3.14
 
 ### Patch Changes

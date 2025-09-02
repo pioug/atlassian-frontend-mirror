@@ -37,7 +37,7 @@ export const taskDecisionStyles: SerializedStyles = css({
 		margin: `${token('space.100')} 0 0 0`,
 		padding: token('space.100'),
 		paddingLeft: token('space.150'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		backgroundColor: token('color.background.neutral'),
 		position: 'relative',
 	},

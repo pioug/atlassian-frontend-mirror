@@ -1,11 +1,5 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { VCObserverEntryType } from '../../types';
 import type { MutationData } from '../types';
-import {
-	checkedChildrenCache,
-	incrementCheckedInvalidChildrenCount,
-} from '../utils/check-display-content';
 
 type TagCallback = (props: { target: HTMLElement; rect: DOMRectReadOnly }) =>
 	| VCObserverEntryType
@@ -60,17 +54,6 @@ export function createIntersectionObserver({
 
 		entries.forEach((entry) => {
 			if (!(entry.target instanceof HTMLElement) || !isValidEntry(entry)) {
-				// TODO: Remove this logic when analysis is complete
-				if (fg('platform_ufo_display_content_resolution_ttvc_v3')) {
-					if (
-						entry.target instanceof HTMLElement &&
-						!isValidEntry(entry) &&
-						checkedChildrenCache.get(entry.target) === false
-					) {
-						incrementCheckedInvalidChildrenCount();
-						checkedChildrenCache.set(entry.target, true);
-					}
-				}
 				return;
 			}
 

@@ -30,7 +30,7 @@ const styles = cssMap({
 		paddingBottom: token('space.200'),
 		paddingLeft: token('space.200'),
 		backgroundColor: token('color.background.neutral.subtle'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		minWidth: '300px',
 	},
 	node: {

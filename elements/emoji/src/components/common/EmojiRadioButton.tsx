@@ -15,7 +15,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 const emojiButton = css({
 	backgroundColor: 'transparent',
 	border: '0',
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	cursor: 'pointer',
 	padding: 0,
 	position: 'relative',
@@ -65,7 +65,7 @@ const emojiRadio = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'+span': {
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

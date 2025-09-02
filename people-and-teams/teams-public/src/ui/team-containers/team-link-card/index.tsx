@@ -26,7 +26,7 @@ const styles = cssMap({
 		outlineWidth: token('border.width'),
 		outlineColor: token('color.border'),
 		outlineStyle: 'solid',
-		borderRadius: token('border.radius.100', '8px'),
+		borderRadius: token('radius.small', '8px'),
 		borderColor: token('color.border.accent.gray'),
 		paddingTop: token('space.150'),
 		paddingRight: token('space.150'),
@@ -40,7 +40,7 @@ const styles = cssMap({
 	},
 	anchor: {
 		textDecoration: 'none',
-		borderRadius: token('border.radius.100', '8px'),
+		borderRadius: token('radius.small', '8px'),
 		width: '100%',
 		color: token('color.text'),
 		'&:focus': {

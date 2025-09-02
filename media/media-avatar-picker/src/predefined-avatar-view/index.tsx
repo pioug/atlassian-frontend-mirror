@@ -24,7 +24,7 @@ export interface PredefinedAvatarViewProps {
 }
 
 const largeAvatarImageStyles = css({
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	cursor: 'pointer',
 	width: '72px',
 	height: '72px',

@@ -15,7 +15,7 @@ const styles = cssMap({
 		whiteSpace: 'nowrap',
 		alignItems: 'center',
 		justifyContent: 'center',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		minHeight: '28px',
 		color: token('color.text.subtle'),
 		fontWeight: token('font.weight.medium'),

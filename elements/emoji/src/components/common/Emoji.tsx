@@ -86,7 +86,7 @@ const emojiSpriteContainer = css({
 });
 
 const emojiImageContainer = css({
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	backgroundColor: 'transparent',
 	display: 'inline-block',
 	verticalAlign: 'middle',

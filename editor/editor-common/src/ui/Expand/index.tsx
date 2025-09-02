@@ -62,7 +62,7 @@ const expandIconWrapperStyle = () =>
 		cursor: 'pointer',
 		display: 'flex',
 		color: token('color.icon'),
-		borderRadius: token('border.radius.100', '4px'),
+		borderRadius: token('radius.small', '4px'),
 		width: '24px',
 		height: '24px',
 		'&:hover': {

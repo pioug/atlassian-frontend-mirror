@@ -13,5 +13,5 @@ export const ScrollableStyle = styled.div({
 	background: token('elevation.surface', 'white'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxHeight: scrollableMaxHeight,
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 });

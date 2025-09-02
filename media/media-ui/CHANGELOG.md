@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 28.6.11
+
+### Patch Changes
+
+- [`e5001e144b74e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5001e144b74e) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 28.6.10
 
 ### Patch Changes

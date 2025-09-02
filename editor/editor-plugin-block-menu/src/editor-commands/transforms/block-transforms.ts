@@ -1,5 +1,6 @@
 import { transformToContainer } from './container-transforms';
-import { transformToList } from './list-transforms';
+import { getInlineNodeTextContent } from './inline-node-transforms';
+import { transformBlockToList } from './list-transforms';
 import type { TransformContext, TransformFunction } from './types';
 import { isListNodeType, isContainerNodeType, isBlockNodeType } from './utils';
 
@@ -7,25 +8,38 @@ import { isListNodeType, isContainerNodeType, isBlockNodeType } from './utils';
  * Transform block nodes (paragraph, heading, codeblock)
  */
 export const transformBlockNode: TransformFunction = (context: TransformContext) => {
-	const { tr, targetNodeType, targetAttrs } = context;
-	const { selection } = tr;
-	const { $from, $to } = selection;
+	const { targetNodeType } = context;
 
 	// Handle transformation to list types
 	if (isListNodeType(targetNodeType)) {
-		return transformToList(context);
+		return transformBlockToList(context);
 	}
 
 	// Handle transformation to container types (panel, expand, blockquote)
 	if (isContainerNodeType(targetNodeType)) {
-		return transformToContainer();
+		return transformToContainer(context);
 	}
 
 	// Handle block type transformation (paragraph, heading, codeblock)
 	if (isBlockNodeType(targetNodeType)) {
-		tr.setBlockType($from.pos, $to.pos, targetNodeType, targetAttrs);
-		return tr;
+		return transformToBlockNode(context);
 	}
 
 	return null;
+};
+
+const transformToBlockNode = (context: TransformContext) => {
+	const { tr, targetNodeType, targetAttrs } = context;
+	const { selection, doc } = tr;
+	const { $from, $to } = selection;
+	const schema = doc.type.schema;
+
+	if (targetNodeType === schema.nodes.codeBlock) {
+		const textContent = getInlineNodeTextContent(selection.content().content, tr);
+		const node = schema.nodes.codeBlock.createChecked(undefined, textContent);
+		return tr.replaceRangeWith(selection.from, selection.to, node);
+	}
+
+	tr.setBlockType($from.pos, $to.pos, targetNodeType, targetAttrs);
+	return tr;
 };

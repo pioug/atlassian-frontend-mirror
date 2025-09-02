@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-annotation
 
+## 4.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.1
+
+### Patch Changes
+
+- [`b344c1b873169`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b344c1b873169) -
+  ED-29098: clean up sharedPluginStateHookMigratorFactory in annotation plugin
+- Updated dependencies
+
 ## 4.0.0
 
 ### Patch Changes

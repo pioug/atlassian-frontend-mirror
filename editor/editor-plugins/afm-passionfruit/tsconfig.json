@@ -269,7 +269,7 @@
 			"path": "../../editor-plugin-submit-editor/afm-passionfruit/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-synced-block/afm-passionfruit/tsconfig.json"
+			"path": "../../editor-plugin-synced-block-prototype/afm-passionfruit/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-table/afm-passionfruit/tsconfig.json"

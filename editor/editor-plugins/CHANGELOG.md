@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugins
 
+## 10.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.0
+
+### Minor Changes
+
+- [`c8c64e5781a02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8c64e5781a02) -
+  Changed @atlaskit/editor-plugin-synced-block to @atlaskit/editor-plugin-synced-block-prototype
+
+### Patch Changes
+
+- [`1b0b9f3641b0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b0b9f3641b0f) -
+  [https://product-fabric.atlassian.net/browse/ED-28272](ED-28272) - cleanup
+  platform_editor_system_fake_text_highlight_colour FF
+- Updated dependencies
+
 ## 10.2.27
 
 ### Patch Changes

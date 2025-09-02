@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 import { getAvatarText, pickContainerColor, pickTextColor } from './utils';
 
 const boxStyle = css({
-	borderRadius: token('border.radius.100', '4px'),
+	borderRadius: token('radius.small', '4px'),
 	borderWidth: token('border.width'),
 	borderStyle: 'solid',
 	borderColor: token('color.border'),

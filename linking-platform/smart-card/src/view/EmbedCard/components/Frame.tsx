@@ -56,7 +56,7 @@ const iframeStyles = css({
 	position: 'relative',
 	overflow: 'hidden',
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 });
 
 export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(

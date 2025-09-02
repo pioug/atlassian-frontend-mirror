@@ -528,7 +528,8 @@ const styles = css({
 				description: 'Provide additional context using aria-label or surrounding text',
 				before: `<Link href="/edit">Edit</Link>`,
 				after: `<Link href="/edit" aria-label="Edit user profile">Edit</Link>`,
-				explanation: 'Additional context clarifies the action when link text alone is insufficient.',
+				explanation:
+					'Additional context clarifies the action when link text alone is insufficient.',
 			},
 		],
 		bestPractices: [
@@ -577,7 +578,7 @@ const styles = css({
   <caption>User account information by department</caption>
   <thead>...</thead>
 </table>`,
-				explanation: 'Captions provide context about the table\'s purpose and structure.',
+				explanation: "Captions provide context about the table's purpose and structure.",
 			},
 		],
 		bestPractices: [
@@ -735,7 +736,8 @@ return (
     },
   },
 });`,
-				explanation: 'Respecting motion preferences prevents vestibular disorders and distractions.',
+				explanation:
+					'Respecting motion preferences prevents vestibular disorders and distractions.',
 			},
 			{
 				title: 'Provide controls for auto-playing content',

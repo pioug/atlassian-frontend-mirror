@@ -9,7 +9,6 @@ import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import type { CustomThemeButtonProps } from '@atlaskit/button/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -95,7 +94,7 @@ const FlagActions: FC<FlagActionsProps> = (props) => {
 				 * This approach is as close to the current behaviour as possible - where the button simply inherits the
 				 * font from its parent.
 				 */
-				fg('platform_ads_explicit_font_styles') && fontStyles,
+				fontStyles,
 			]}
 		>
 			<Inline

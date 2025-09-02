@@ -18,6 +18,7 @@ import {
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -176,11 +177,18 @@ const LayoutBreakoutResizer = ({
 
 type ForwardRef = (ref: HTMLElement | null) => void;
 
-const toDOM = () =>
+const toDOM = (node: PMNode) =>
 	[
 		'div',
 		{ class: 'layout-section-container' },
-		['div', { 'data-layout-section': true }, 0],
+		[
+			'div',
+			{
+				'data-layout-section': true,
+				...(fg('platform_editor_adf_with_localid') && { 'data-local-id': node.attrs.localId }),
+			},
+			0,
+		],
 	] as DOMOutputSpec;
 
 /**
@@ -230,7 +238,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	 * @returns
 	 */
 	getContentDOM() {
-		const { dom: container, contentDOM } = DOMSerializer.renderSpec(document, toDOM()) as {
+		const { dom: container, contentDOM } = DOMSerializer.renderSpec(document, toDOM(this.node)) as {
 			contentDOM?: HTMLElement;
 			dom: HTMLElement;
 		};
@@ -240,6 +248,9 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 		this.layoutDOM = container.querySelector('[data-layout-section]') as HTMLElement;
 		this.layoutDOM.setAttribute('data-column-rule-style', this.node.attrs.columnRuleStyle);
 		this.layoutDOM.setAttribute('data-empty-layout', Boolean(this.isEmpty).toString());
+		if (fg('platform_editor_adf_with_localid')) {
+			this.layoutDOM.setAttribute('data-local-id', this.node.attrs.localId);
+		}
 
 		return { dom: container, contentDOM };
 	}

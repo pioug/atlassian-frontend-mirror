@@ -9,7 +9,7 @@ import {
 	getSelectionStyles,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import { B75, N200 } from '@atlaskit/theme/colors';
+import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -58,15 +58,6 @@ export const placeholderTextStyles = css`
 			display: inline;
 			pointer-events: none;
 			position: relative;
-			background-color: ${token('color.background.selected', B75)};
-		}
-	}
-`;
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles,@atlaskit/design-system/no-css-tagged-template-expression
-export const placeholderTextStyles_fg_platform_editor_system_fake_text_highlight_colour = css`
-	.ProseMirror {
-		.ProseMirror-fake-text-selection {
 			/* Follow the system highlight colour to match native text selection */
 			background-color: Highlight;
 			/* We should also match the text colour to the system highlight text colour.

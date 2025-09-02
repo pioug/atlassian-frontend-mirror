@@ -37,7 +37,7 @@ export const contextualMenuColorIcon = (color?: string) => css`
 		content: '';
 		display: block;
 		border: 1px solid ${DEFAULT_BORDER_COLOR};
-		border-radius: ${token('border.radius.100', '3px')};
+		border-radius: ${token('radius.small', '3px')};
 		width: 20px;
 		height: 20px;
 		${color && `background: ${color}`}
@@ -45,7 +45,7 @@ export const contextualMenuColorIcon = (color?: string) => css`
 `;
 
 export const contextualSubMenu = (index: number) => css`
-	border-radius: ${token('border.radius.100', '3px')};
+	border-radius: ${token('radius.small', '3px')};
 	background: ${token('elevation.surface.overlay', 'white')};
 	box-shadow: ${token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`)};
 	display: flex;

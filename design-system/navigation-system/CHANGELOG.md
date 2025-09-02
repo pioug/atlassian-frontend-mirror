@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 2.1.2
+
+### Patch Changes
+
+- [`e276abaa88f28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e276abaa88f28) -
+  The `SideNavToggleButton`, `useExpandSideNav` and `useToggleSideNav` functions have been updated
+  to not throw an error if the side nav state is not initialised (for example, if the `SideNav` has
+  not mounted yet).
+
 ## 2.1.1
 
 ### Patch Changes

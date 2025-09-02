@@ -24,7 +24,7 @@ const getSelectedBorderStyle = ({ selected }: { selected?: boolean }) => `
       top: 0;
       box-sizing: border-box;
       pointer-events: none;
-      border-radius: ${token('border.radius.100', '3px')};
+      border-radius: ${token('radius.small', '3px')};
       ${selected ? getSelectionStyles([SelectionStyle.Border]) : ''}
     }
   `;
@@ -39,7 +39,7 @@ InlinePlayerWrapperProps) => css`
 	width: ${getDimensionsWithDefault(dimensions).width || '100%'};
 	height: ${getDimensionsWithDefault(dimensions).height || 'auto'};
 	overflow: hidden;
-	border-radius: ${token('border.radius.100', '3px')};
+	border-radius: ${token('radius.small', '3px')};
 	position: relative;
 	max-width: 100%;
 	max-height: 100%;

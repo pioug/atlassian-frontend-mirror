@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 40.17.1
+
+### Patch Changes
+
+- [`e5001e144b74e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5001e144b74e) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 40.17.0
 
 ### Minor Changes

@@ -180,6 +180,7 @@ export interface AssignedTeam {
 	scopeAlignmentMetadata: {
 		accountId: string;
 		timestamp: string;
+		accountDisplayName: string;
 	};
 }
 

@@ -41,7 +41,7 @@ export const blockCardSpecWithFixedToDOM = () => {
 							display: 'inline',
 							boxDecorationBreak: 'clone',
 							WebkitBoxDecorationBreak: 'clone',
-							borderRadius: token('border.radius.100', '4px'),
+							borderRadius: token('radius.small', '4px'),
 							color: token('color.link', B400),
 							lineHeight: '22px',
 							WebkitTransition: '0.1s all ease-in-out',

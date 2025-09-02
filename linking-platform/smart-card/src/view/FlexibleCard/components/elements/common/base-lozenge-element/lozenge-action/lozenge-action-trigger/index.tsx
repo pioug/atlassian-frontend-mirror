@@ -24,7 +24,7 @@ const styles = cssMap({
 	lozengeContainer: {
 		all: 'unset',
 		backgroundColor: 'transparent',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width'),
 		borderColor: 'transparent',

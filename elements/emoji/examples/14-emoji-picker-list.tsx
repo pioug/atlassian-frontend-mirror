@@ -28,7 +28,7 @@ const emojiPicker = css({
 	justifyContent: 'space-between',
 	backgroundColor: token('elevation.surface.overlay', 'white'),
 	border: `${token('color.border', N40)} 1px solid`,
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxShadow: token('elevation.shadow.overlay', '0 3px 6px rgba(0, 0, 0, 0.2)'),
 	height: '375px',
 	width: '350px',

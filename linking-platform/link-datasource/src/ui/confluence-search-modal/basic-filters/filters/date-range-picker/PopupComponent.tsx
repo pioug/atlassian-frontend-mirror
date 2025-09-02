@@ -12,7 +12,7 @@ const PopupComponentContainer = styled.div({
 	display: 'block',
 	flex: '1 1 auto',
 	overflow: 'visible',
-	borderRadius: token('border.radius.100', '4px'),
+	borderRadius: token('radius.small', '4px'),
 	backgroundColor: token('color.background.input', N0),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':focus': {

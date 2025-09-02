@@ -24,77 +24,79 @@ import { UndoButton } from './UndoButton';
 export const getToolbarComponents = (
 	api?: ExtractInjectionAPI<UndoRedoPlugin>,
 ): RegisterComponent[] => {
-	return expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true) ? [
-		{
-			type: UNDO_CHANGES_GROUP.type,
-			key: UNDO_CHANGES_GROUP.key,
-			parents: [
-				{
-					type: TRACK_CHANGES_SECTION.type,
-					key: TRACK_CHANGES_SECTION.key,
-					rank: TRACK_CHANGES_SECTION_RANK_NEW[UNDO_CHANGES_GROUP.key],
-				},
-			],
-		},
-		{
-			type: UNDO_BUTTON.type,
-			key: UNDO_BUTTON.key,
-			parents: [
+	return expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true)
+		? [
 				{
 					type: UNDO_CHANGES_GROUP.type,
 					key: UNDO_CHANGES_GROUP.key,
-					rank: UNDO_CHANGES_GROUP_RANK[UNDO_BUTTON.key],
+					parents: [
+						{
+							type: TRACK_CHANGES_SECTION.type,
+							key: TRACK_CHANGES_SECTION.key,
+							rank: TRACK_CHANGES_SECTION_RANK_NEW[UNDO_CHANGES_GROUP.key],
+						},
+					],
 				},
-			],
-			component: () => <UndoButton api={api} />,
-		},
-		{
-			type: REDO_CHANGES_GROUP.type,
-			key: REDO_CHANGES_GROUP.key,
-			parents: [
 				{
-					type: TRACK_CHANGES_SECTION.type,
-					key: TRACK_CHANGES_SECTION.key,
-					rank: TRACK_CHANGES_SECTION_RANK_NEW[REDO_CHANGES_GROUP.key],
+					type: UNDO_BUTTON.type,
+					key: UNDO_BUTTON.key,
+					parents: [
+						{
+							type: UNDO_CHANGES_GROUP.type,
+							key: UNDO_CHANGES_GROUP.key,
+							rank: UNDO_CHANGES_GROUP_RANK[UNDO_BUTTON.key],
+						},
+					],
+					component: () => <UndoButton api={api} />,
 				},
-			],
-		},
-		{
-			type: REDO_BUTTON.type,
-			key: REDO_BUTTON.key,
-			parents: [
 				{
 					type: REDO_CHANGES_GROUP.type,
 					key: REDO_CHANGES_GROUP.key,
-					rank: REDO_CHANGES_GROUP_RANK[REDO_BUTTON.key],
+					parents: [
+						{
+							type: TRACK_CHANGES_SECTION.type,
+							key: TRACK_CHANGES_SECTION.key,
+							rank: TRACK_CHANGES_SECTION_RANK_NEW[REDO_CHANGES_GROUP.key],
+						},
+					],
 				},
-			],
-			component: () => <RedoButton api={api} />,
-		},
-	] : [
-		{
-			type: UNDO_BUTTON.type,
-			key: UNDO_BUTTON.key,
-			parents: [
 				{
-					type: TRACK_CHANGES_GROUP.type,
-					key: TRACK_CHANGES_GROUP.key,
-					rank: TRACK_CHANGES_GROUP_RANK[UNDO_BUTTON.key],
+					type: REDO_BUTTON.type,
+					key: REDO_BUTTON.key,
+					parents: [
+						{
+							type: REDO_CHANGES_GROUP.type,
+							key: REDO_CHANGES_GROUP.key,
+							rank: REDO_CHANGES_GROUP_RANK[REDO_BUTTON.key],
+						},
+					],
+					component: () => <RedoButton api={api} />,
 				},
-			],
-			component: () => <UndoButton api={api} />,
-		},
-		{
-			type: REDO_BUTTON.type,
-			key: REDO_BUTTON.key,
-			parents: [
+			]
+		: [
 				{
-					type: TRACK_CHANGES_GROUP.type,
-					key: TRACK_CHANGES_GROUP.key,
-					rank: TRACK_CHANGES_GROUP_RANK[REDO_BUTTON.key],
+					type: UNDO_BUTTON.type,
+					key: UNDO_BUTTON.key,
+					parents: [
+						{
+							type: TRACK_CHANGES_GROUP.type,
+							key: TRACK_CHANGES_GROUP.key,
+							rank: TRACK_CHANGES_GROUP_RANK[UNDO_BUTTON.key],
+						},
+					],
+					component: () => <UndoButton api={api} />,
 				},
-			],
-			component: () => <RedoButton api={api} />,
-		},
-	];
+				{
+					type: REDO_BUTTON.type,
+					key: REDO_BUTTON.key,
+					parents: [
+						{
+							type: TRACK_CHANGES_GROUP.type,
+							key: TRACK_CHANGES_GROUP.key,
+							rank: TRACK_CHANGES_GROUP_RANK[REDO_BUTTON.key],
+						},
+					],
+					component: () => <RedoButton api={api} />,
+				},
+			];
 };

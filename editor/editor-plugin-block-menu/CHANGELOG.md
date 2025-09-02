@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 1.0.1
+
+### Patch Changes
+
+- [`ecae39119dc4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecae39119dc4b) -
+  [ux] ED-28558 Wrap block nodes inside container nodes
+- Updated dependencies
+
 ## 1.0.0
 
 ### Patch Changes

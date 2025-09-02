@@ -341,7 +341,7 @@ const customAudioPlayerWrapperStyles = css({
 const audioPlayerStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: blanketColor,
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	alignItems: 'center',
 	justifyContent: 'center',
 	width: '400px',

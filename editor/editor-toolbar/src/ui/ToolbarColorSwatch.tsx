@@ -15,7 +15,7 @@ const styles = cssMap({
 		justifyContent: 'center',
 		alignItems: 'center',
 		border: `${token('border.width')} solid ${token('color.border')}`,
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		width: '20px',
 		height: '20px',
 		marginLeft: token('space.negative.050'),

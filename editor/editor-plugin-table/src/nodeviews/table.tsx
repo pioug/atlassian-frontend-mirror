@@ -116,7 +116,7 @@ export default class TableView extends ReactNodeView<Props> {
 		this.options = props.options;
 		this.getEditorFeatureFlags = props.getEditorFeatureFlags;
 
-		this.handleRef = (node: HTMLElement | null) => this._handleTableRef(node, props.node);
+		this.handleRef = (node: HTMLElement | null) => this._handleTableRef(node);
 	}
 
 	getContentDOM() {
@@ -172,7 +172,7 @@ export default class TableView extends ReactNodeView<Props> {
 	 * wasn't at start of node. This prevents duplicate tables and maintains editor state during
 	 * the DOM manipulation.
 	 */
-	private _handleTableRef(node: HTMLElement | null, pmNode: PmNode) {
+	private _handleTableRef(node: HTMLElement | null) {
 		let oldIgnoreMutation: (mutation: MutationRecord) => boolean;
 
 		let selectionBookmark: SelectionBookmark;
@@ -200,9 +200,12 @@ export default class TableView extends ReactNodeView<Props> {
 				selectionBookmark = this.view.state.selection.getBookmark();
 			}
 
-			if (expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
-				this.dom.setAttribute('data-ssr-placeholder', `table-nodeview-${pmNode.attrs.localId}`);
-				this.dom.setAttribute('data-ssr-placeholder-replace', `table-nodeview-${pmNode.attrs.localId}`);
+			if (this.dom && expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
+				this.dom.setAttribute('data-ssr-placeholder', `table-nodeview-${this.node.attrs.localId}`);
+				this.dom.setAttribute(
+					'data-ssr-placeholder-replace',
+					`table-nodeview-${this.node.attrs.localId}`,
+				);
 			}
 
 			// Remove the ProseMirror table DOM structure to avoid duplication, as it's replaced with the React table node.
@@ -236,7 +239,7 @@ export default class TableView extends ReactNodeView<Props> {
 
 	setDomAttrs(node: PmNode) {
 		if (!this.table) {
-			return;
+			return; // width / attribute application to actual table will happen later when table is set
 		}
 		const attrs = tableAttributes(node);
 		(Object.keys(attrs) as Array<keyof typeof attrs>).forEach((attr) => {

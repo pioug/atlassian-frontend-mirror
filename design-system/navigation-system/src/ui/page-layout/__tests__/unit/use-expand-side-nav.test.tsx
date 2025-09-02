@@ -33,9 +33,15 @@ describe('useExpandSideNav', () => {
 
 		return (
 			<div>
-				<p>Mobile state: {sideNavState?.mobile}</p>
-				<p>Desktop state: {sideNavState?.desktop}</p>
-				<p>Flyout state: {sideNavState?.flyout}</p>
+				{sideNavState ? (
+					<>
+						<p>Mobile state: {sideNavState.mobile}</p>
+						<p>Desktop state: {sideNavState.desktop}</p>
+						<p>Flyout state: {sideNavState.flyout}</p>
+					</>
+				) : (
+					<p>State not initialised</p>
+				)}
 				<button type="button" onClick={expandSideNav}>
 					Expand side nav
 				</button>
@@ -50,7 +56,7 @@ describe('useExpandSideNav', () => {
 		initialState,
 	}: {
 		children: React.ReactNode;
-		initialState: SideNavState;
+		initialState: SideNavState | null;
 	}) {
 		// Defaults to null so we can determine if the value has been set yet (for SSR)
 		const [sideNavState, setSideNavState] = useState<SideNavState | null>(initialState);
@@ -98,7 +104,6 @@ describe('useExpandSideNav', () => {
 		});
 
 		it('should not change the side nav visibility state when already expanded on desktop', async () => {
-			setMediaQuery('(min-width: 64rem)', { initial: true });
 			const user = userEvent.setup();
 
 			render(
@@ -124,6 +129,25 @@ describe('useExpandSideNav', () => {
 			expect(screen.getByText('Mobile state: collapsed')).toBeInTheDocument();
 			expect(screen.getByText('Desktop state: expanded')).toBeInTheDocument();
 			expect(screen.getByText('Flyout state: closed')).toBeInTheDocument();
+		});
+
+		it('should not throw an error when clicked if the side nav state is not initialised', async () => {
+			const user = userEvent.setup();
+
+			render(
+				<MockProvider initialState={null}>
+					<TestComponent />
+				</MockProvider>,
+			);
+
+			expect(screen.getByText('State not initialised')).toBeInTheDocument();
+
+			await expect(
+				user.click(screen.getByRole('button', { name: 'Expand side nav' })),
+			).resolves.not.toThrow();
+
+			// Should be no change
+			expect(screen.getByText('State not initialised')).toBeInTheDocument();
 		});
 	});
 
@@ -182,6 +206,25 @@ describe('useExpandSideNav', () => {
 			expect(screen.getByText('Mobile state: expanded')).toBeInTheDocument();
 			expect(screen.getByText('Desktop state: collapsed')).toBeInTheDocument();
 			expect(screen.getByText('Flyout state: closed')).toBeInTheDocument();
+		});
+
+		it('should not throw an error when clicked if the side nav state is not initialised', async () => {
+			const user = userEvent.setup();
+
+			render(
+				<MockProvider initialState={null}>
+					<TestComponent />
+				</MockProvider>,
+			);
+
+			expect(screen.getByText('State not initialised')).toBeInTheDocument();
+
+			await expect(
+				user.click(screen.getByRole('button', { name: 'Expand side nav' })),
+			).resolves.not.toThrow();
+
+			// Should be no change
+			expect(screen.getByText('State not initialised')).toBeInTheDocument();
 		});
 	});
 

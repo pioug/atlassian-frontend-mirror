@@ -15,7 +15,7 @@ const placeholderContainer = css({
 	margin: '-1px 0',
 	display: 'inline-block',
 	backgroundColor: token('color.border', '#f7f7f7'),
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	overflow: 'hidden',
 	verticalAlign: 'middle',
 	whiteSpace: 'nowrap',

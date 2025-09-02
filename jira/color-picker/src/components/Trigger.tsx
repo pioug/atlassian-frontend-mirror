@@ -140,12 +140,12 @@ const colorCardWrapperStyles = css({
 });
 
 const colorCardContentStyles = cssUnbounded({
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxShadow: `inset 0px 0px 0px 1px ${token('color.background.inverse.subtle', DN600A)}`,
 });
 
 const colorCardContentStylesOutline = css({
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	borderWidth: token('border.width.outline', '2px'),
 	borderStyle: 'solid',
 });

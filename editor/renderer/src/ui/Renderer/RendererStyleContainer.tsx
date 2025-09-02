@@ -1117,7 +1117,7 @@ const baseOtherStyles = css({
 	},
 	'& span.date-node': {
 		background: token('color.background.neutral', N30A),
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		color: token('color.text', N800),
 		padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
 		margin: `0 1px`,
@@ -1928,7 +1928,7 @@ const codeBlockAndLayoutStyles = css({
 		maxWidth: '100%',
 		display: 'block',
 		position: 'relative',
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 
 		/*
 		 * The overall renderer has word-wrap: break; which causes issues with

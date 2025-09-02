@@ -30,7 +30,7 @@ export const dateNodeSpec = (node: PMNode): DOMOutputSpec => {
 			// Taken from @atlaskit/date Component
 			backgroundColor: token('color.background.neutral', N30A),
 			color: token('color.text', N800),
-			borderRadius: token('border.radius.100'),
+			borderRadius: token('radius.small'),
 			padding: `${token('space.025')} ${token('space.050')}`,
 			margin: '0 1px',
 		}),

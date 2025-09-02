@@ -50,6 +50,7 @@ import type { LabelStack, SegmentLabel } from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
 import { newVCObserver } from '../vc';
 import { type VCObserverInterface } from '../vc/types';
+import { resetCssIssueOccurrence } from '../vc/vc-observer-new/viewport-observer/utils/track-display-content-occurrence';
 
 import { interactions } from './common/constants';
 import InteractionExtraMetrics from './interaction-extra-metrics';
@@ -1061,6 +1062,7 @@ export function addNewInteraction(
 	routeName?: string | null,
 	trace: TraceIdContext | null = null,
 ) {
+	resetCssIssueOccurrence();
 	postInteractionLog.reset();
 	let vcObserver: VCObserverInterface | undefined;
 	let previousTime = startTime;
@@ -1200,7 +1202,7 @@ export function addNewInteraction(
 		}
 	}
 
-	if (type === 'press' && fg('platform_ufo_enable_vc_press_interactions')) {
+	if (type === 'press') {
 		// Use per-interaction VC observer if available, otherwise fall back to global
 		const observer = vcObserver;
 		if (observer) {

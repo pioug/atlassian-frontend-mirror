@@ -2,20 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
-import { AVATAR_SIZES, AvatarContent, type SizeType } from '@atlaskit/avatar';
-import PeopleGroupIcon from '@atlaskit/icon/core/people-group';
-import TeamIcon from '@atlaskit/icon/glyph/people';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { N0, N90 } from '@atlaskit/theme/colors';
+import { type SizeType } from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
 
 import { FallbackAvatar } from './fallback';
-import { TeamAvatarImage as TeamAvatarImageNext } from './teams-avatar-image-next';
+import { getTeamAvatarSrc } from './utils';
 
 type AvatarImageProps = {
 	size: SizeType;
@@ -25,19 +21,94 @@ type AvatarImageProps = {
 	teamId?: string;
 };
 
-const ICON_BACKGROUND = token('color.icon.inverse', N0);
-const ICON_COLOR = token('color.icon.subtle', N90);
-// used in a size calculation so can't be a token. Without this the avatar looks very squished
-const ICON_PADDING = 4;
+const boxShadowCssVar = '--avatar-box-shadow';
+const bgColorCssVar = '--avatar-bg-color';
 
-const avatarDefaultIconStyles = css({
-	display: 'flex',
-	backgroundColor: ICON_COLOR,
-	borderRadius: '50%',
-	width: '100%',
-	height: '100%',
-	justifyContent: 'center',
-	alignItems: 'center',
+/**
+ * We need to maintan the container styles manually until Avatar provides the correct border radius.
+ * After that we can return to wrapping in <AvatarContent> rather than span
+ */
+const containerStyles = cssMap({
+	root: {
+		display: 'flex',
+		position: 'static',
+		alignItems: 'stretch',
+		justifyContent: 'center',
+		flexDirection: 'column',
+		border: 'none',
+		cursor: 'inherit',
+		marginBlockEnd: token('space.025'),
+		marginBlockStart: token('space.025'),
+		marginInlineEnd: token('space.025'),
+		marginInlineStart: token('space.025'),
+		outline: 'none',
+		overflow: 'hidden',
+		paddingBlockEnd: token('space.0'),
+		paddingBlockStart: token('space.0'),
+		paddingInlineEnd: token('space.0'),
+		paddingInlineStart: token('space.0'),
+		transform: 'translateZ(0)',
+		transition: 'transform 200ms, opacity 200ms',
+		'&::after': {
+			width: '100%',
+			position: 'absolute',
+			inset: token('space.0'),
+			backgroundColor: 'transparent',
+			content: "' '",
+			opacity: 0,
+			pointerEvents: 'none',
+			transition: 'opacity 200ms',
+		},
+	},
+	circle: {
+		borderRadius: token('border.radius.circle', '50%'),
+		'&::after': {
+			borderRadius: token('border.radius.circle', '50%'),
+		},
+	},
+	positionRelative: {
+		position: 'relative',
+	},
+	disabled: {
+		cursor: 'not-allowed',
+		'&::after': {
+			backgroundColor: token('elevation.surface', '#FFFFFF'),
+			opacity: token('opacity.disabled', '0.7'),
+		},
+	},
+});
+
+const unboundStyles = cssMap({
+	root: {
+		boxSizing: 'content-box',
+		backgroundColor: `var(${bgColorCssVar})`,
+		boxShadow: `var(${boxShadowCssVar})`,
+	},
+	interactive: {
+		cursor: 'pointer',
+		'&:hover::after': {
+			backgroundColor: token('color.interaction.hovered', 'rgba(9, 30, 66, 0.36)'),
+			opacity: '1',
+		},
+		'&:active::after': {
+			backgroundColor: token('color.interaction.pressed', 'rgba(9, 30, 66, 0.36)'),
+			opacity: '1',
+		},
+		'@media screen and (forced-colors: active)': {
+			'&:focus-visible': {
+				outlineWidth: 1,
+			},
+		},
+	},
+});
+
+const avatarImageStyles = cssMap({
+	image: {
+		display: 'flex',
+		flex: '1 1 100%',
+		width: '100%',
+		height: '100%',
+	},
 });
 
 const SIZES: Record<SizeType, number> = {
@@ -49,35 +120,52 @@ const SIZES: Record<SizeType, number> = {
 	xxlarge: 128,
 };
 
-const nestedAvatarStyles = Object.entries(AVATAR_SIZES).reduce(
-	(styles, [key, size]) => {
-		return {
-			...styles,
-
-			[key]: css({
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				width: `${size}px`,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				height: `${size}px`,
-
-				// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-				'& svg': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					width: `${size - ICON_PADDING}px`,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					height: `${size - ICON_PADDING}px`,
-				},
-			}),
-		};
+const borderRadiusMap = cssMap({
+	xsmall: {
+		borderRadius: token('radius.small'),
 	},
-	{} as Record<SizeType, SerializedStyles>,
-);
+	small: {
+		borderRadius: token('radius.medium'),
+	},
+	medium: {
+		borderRadius: token('radius.large'),
+	},
+	large: {
+		borderRadius: '10px',
+	},
+	xlarge: {
+		borderRadius: '24px',
+	},
+	xxlarge: {
+		borderRadius: '32px',
+	},
+});
 
-const avatarImageStyles = css({
-	display: 'flex',
-	flex: '1 1 100%',
-	width: '100%',
-	height: '100%',
+const widthHeightMap = cssMap({
+	xsmall: {
+		width: '16px',
+		height: '16px',
+	},
+	small: {
+		width: '24px',
+		height: '24px',
+	},
+	medium: {
+		width: '32px',
+		height: '32px',
+	},
+	large: {
+		width: '40px',
+		height: '40px',
+	},
+	xlarge: {
+		width: '96px',
+		height: '96px',
+	},
+	xxlarge: {
+		width: '128px',
+		height: '128px',
+	},
 });
 
 /**
@@ -85,55 +173,40 @@ const avatarImageStyles = css({
  *
  * An avatar image is an internal component used to control the rendering phases of an image.
  */
-export const TeamAvatarImageLegacy = ({ alt = '', src, size, testId }: AvatarImageProps) => {
+export const TeamAvatarImage = ({ alt = '', src, size, testId, teamId }: AvatarImageProps) => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
+
+	const avatarSrc = getTeamAvatarSrc(src, teamId);
 
 	// If src changes, reset state
 	useEffect(() => {
 		setHasImageErrored(false);
-	}, [src]);
+	}, [avatarSrc]);
 
-	if (!src || hasImageErrored) {
-		if (fg('enable-team-avatar-switch')) {
-			return (
-				<FallbackAvatar
-					aria-label={alt}
-					width={SIZES[size]}
-					height={SIZES[size]}
-					data-testid={testId}
-				/>
-			);
-		}
+	if (!avatarSrc || hasImageErrored) {
 		return (
-			<span css={[avatarDefaultIconStyles, nestedAvatarStyles[size]]}>
-				<PeopleGroupIcon
-					label={alt}
-					color={ICON_BACKGROUND}
-					LEGACY_secondaryColor={ICON_COLOR}
-					testId={testId && `${testId}--team`}
-					spacing="spacious"
-					LEGACY_fallbackIcon={TeamIcon}
-				/>
-			</span>
+			<FallbackAvatar
+				aria-label={alt}
+				width={SIZES[size]}
+				height={SIZES[size]}
+				data-testid={testId}
+			/>
 		);
 	}
 
 	return (
-		<AvatarContent>
+		<span
+			css={[unboundStyles.root, containerStyles.root, borderRadiusMap[size], widthHeightMap[size]]}
+			data-testid={testId}
+			aria-label={alt}
+		>
 			<img
-				src={src}
+				src={avatarSrc}
 				alt={alt}
-				data-testid={testId && `${testId}--image`}
-				css={avatarImageStyles}
+				data-testId={testId && `${testId}--image`}
+				css={[avatarImageStyles.image]}
 				onError={() => setHasImageErrored(true)}
 			/>
-		</AvatarContent>
+		</span>
 	);
-};
-
-export const TeamAvatarImage = (props: AvatarImageProps) => {
-	if (fg('team-avatar-radii')) {
-		return <TeamAvatarImageNext {...props} />;
-	}
-	return <TeamAvatarImageLegacy {...props} />;
 };

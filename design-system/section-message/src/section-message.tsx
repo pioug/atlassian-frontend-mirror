@@ -8,7 +8,6 @@ import { IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/core/migration/cross';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -129,9 +128,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function Sec
 							rowSpace="space.0"
 							// Only use a list role if more than one action is present
 							role={actionsArray.length > 1 ? 'list' : undefined}
-							xcss={
-								fg('platform_ads_explicit_font_styles') && sectionMessageStyles.actionsContainer
-							}
+							xcss={sectionMessageStyles.actionsContainer}
 						>
 							{actionsArray.map((action, id) => (
 								// Only use a listitem role if more than one action is present

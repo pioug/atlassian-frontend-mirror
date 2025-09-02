@@ -524,7 +524,7 @@ export const TRACK_CHANGES_BUTTON = {
 } as const;
 
 /**
- * Overflow section in selection toolbar
+ * Overflow section
  */
 
 export const OVERFLOW_SECTION = {
@@ -600,4 +600,12 @@ export const LOOM_MENU_SECTION = {
 export const LOOM_MENU_ITEM = {
 	key: 'loom-menu-item',
 	type: 'menu-item',
+} as const;
+
+/**
+ * Selection extensions
+ */
+export const SELECTION_EXTENSION_MENU_SECTION = {
+	key: 'selection-extension-menu-section',
+	type: 'menu-section',
 } as const;

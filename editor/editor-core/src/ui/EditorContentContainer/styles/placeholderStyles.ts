@@ -62,26 +62,14 @@ export const placeholderTextStyles: SerializedStyles = css({
 			display: 'inline',
 			pointerEvents: 'none',
 			position: 'relative',
-			backgroundColor: token('color.background.selected', '#B3D4FF'),
+			// Follow the system highlight colour to match native text selection
+			backgroundColor: 'Highlight',
+			// We should also match the text colour to the system highlight text colour.
+			// That way if the system highlight background is dark, the text will still be readable.
+			color: 'HighlightText',
 		},
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const placeholderTextStylesMixin_fg_platform_editor_system_fake_text_highlight_colour: SerializedStyles =
-	css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ProseMirror': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.ProseMirror-fake-text-selection': {
-				// Follow the system highlight colour to match native text selection
-				backgroundColor: 'Highlight',
-				// We should also match the text colour to the system highlight text colour.
-				// That way if the system highlight background is dark, the text will still be readable.
-				color: 'HighlightText',
-			},
-		},
-	});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const placeholderStyles: SerializedStyles = css({

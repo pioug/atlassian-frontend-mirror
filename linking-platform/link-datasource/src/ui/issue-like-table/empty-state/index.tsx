@@ -27,7 +27,7 @@ type SkeletonProps = {
 
 const SkeletonComponent = ({ width, itemName }: SkeletonProps) => (
 	<Skeleton
-		borderRadius={token('border.radius.100', '8px')}
+		borderRadius={token('radius.small', '8px')}
 		testId={`${itemName}-empty-state-skeleton`}
 		height={14}
 		width={width}

@@ -59,6 +59,9 @@
 			"path": "../editor-plugin-selection-toolbar/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-toolbar/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-user-intent/tsconfig.app.json"
 		},
 		{
@@ -72,6 +75,9 @@
 		},
 		{
 			"path": "../editor-toolbar/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-toolbar-model/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"

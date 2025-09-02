@@ -13,15 +13,9 @@ snapshot(FlagsDifferentIcons);
 
 snapshot(ExplicitFontStyles, {
 	description: 'Explicit font styles - default state',
-	featureFlags: {
-		platform_ads_explicit_font_styles: [true, false],
-	},
 });
 snapshot(ExplicitFontStyles, {
 	description: 'Explicit font styles - action button hovered',
-	featureFlags: {
-		platform_ads_explicit_font_styles: true,
-	},
 	states: [
 		{
 			state: 'hovered',
@@ -37,9 +31,6 @@ snapshot(ExplicitFontStyles, {
 
 snapshot(ExplicitFontStyles, {
 	description: 'Explicit font styles - action button focused',
-	featureFlags: {
-		platform_ads_explicit_font_styles: true,
-	},
 	states: [
 		{
 			state: 'focused',

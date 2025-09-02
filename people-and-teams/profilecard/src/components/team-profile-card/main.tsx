@@ -101,7 +101,7 @@ const styles = cssMap({
 		paddingRight: token('space.300'),
 	},
 	viewProfileButtonStyles: {
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		backgroundColor: token('color.background.neutral.subtle'),
 		color: token('color.text.subtle'),
 		borderWidth: token('border.width'),

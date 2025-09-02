@@ -29,7 +29,7 @@ const styles = cssMap({
 	},
 	navButton: {
 		display: 'flex',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		backgroundColor: 'transparent',
 		flexDirection: 'column',
 		alignItems: 'center',

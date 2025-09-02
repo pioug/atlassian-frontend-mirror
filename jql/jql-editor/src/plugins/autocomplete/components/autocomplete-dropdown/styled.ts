@@ -13,7 +13,7 @@ export const AutocompleteContainer = styled.div<{
 	{
 		position: 'absolute',
 		backgroundColor: token('elevation.surface.overlay', 'white'),
-		borderRadius: token('border.radius.100', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		willChange: 'top, left',
 		zIndex: layers.dialog(),
 		boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),

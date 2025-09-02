@@ -14,7 +14,7 @@ export const tonePreviewTestId = 'tone-preview';
 const emojiButton = css({
 	backgroundColor: 'transparent',
 	border: '0',
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	cursor: 'pointer',
 	padding: 0,
 	position: 'relative',

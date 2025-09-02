@@ -116,7 +116,6 @@ import {
 	placeholderOverflowStyles,
 	placeholderStyles,
 	placeholderTextStyles,
-	placeholderTextStylesMixin_fg_platform_editor_system_fake_text_highlight_colour,
 	placeholderWrapStyles,
 } from './styles/placeholderStyles';
 import {
@@ -247,9 +246,6 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					firstFloatingToolbarButtonStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					placeholderTextStyles,
-					fg('platform_editor_system_fake_text_highlight_colour') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						placeholderTextStylesMixin_fg_platform_editor_system_fake_text_highlight_colour,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					placeholderStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

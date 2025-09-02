@@ -6,14 +6,14 @@ import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
-import type { ToolbarPluginOptions } from './types';
+import type { RegisterComponentsAction, ToolbarPluginOptions } from './types';
 
 export type ToolbarPlugin = NextEditorPlugin<
 	'toolbar',
 	{
 		actions: {
 			getComponents: () => Array<RegisterComponent>;
-			registerComponents: (toolbarComponents: Array<RegisterComponent>) => void;
+			registerComponents: RegisterComponentsAction;
 		};
 		dependencies: [
 			OptionalPlugin<UserIntentPlugin>,

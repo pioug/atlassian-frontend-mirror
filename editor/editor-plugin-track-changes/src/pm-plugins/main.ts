@@ -90,7 +90,15 @@ export const createTrackChangesPlugin = (
 							step instanceof AttrStep,
 					);
 
-				if (!isDocChanged || tr.getMeta('isRemote') || tr.getMeta('replaceDocument')) {
+				const isAnnotationStep = (step: Step): step is AddMarkStep =>
+					step instanceof AddMarkStep && step.mark.type.name === 'annotation';
+
+				if (
+					!isDocChanged ||
+					tr.getMeta('isRemote') ||
+					tr.getMeta('replaceDocument') ||
+					tr.steps.some(isAnnotationStep)
+				) {
 					// If the transaction is remote, we need to map the steps to the current document
 					return {
 						...state,

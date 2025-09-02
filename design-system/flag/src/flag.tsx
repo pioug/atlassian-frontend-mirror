@@ -11,7 +11,6 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 import { cssMap, jsx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -45,12 +44,6 @@ const styles = cssMap({
 });
 
 const CSS_VAR_ICON_COLOR = '--flag-icon-color';
-
-const oldDescriptionStyles = css({
-	maxHeight: 100, // height is defined as 5 lines maximum by design
-	overflow: 'auto',
-	overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
-});
 
 const descriptionStyles = css({
 	maxHeight: 100, // height is defined as 5 lines maximum by design
@@ -248,11 +241,7 @@ const Flag: FC<FlagProps> = (props) => {
 									<div
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										style={{ color: flagTextColorToken[appearance] }}
-										css={[
-											fg('platform_ads_explicit_font_styles')
-												? descriptionStyles
-												: oldDescriptionStyles,
-										]}
+										css={descriptionStyles}
 										data-testid={testId && `${testId}-description`}
 										/* if isDelayToAnnounce is true, we will hide the content form screen reader to avoid duplicate announcement */
 										aria-hidden={isDelayToAnnounce}

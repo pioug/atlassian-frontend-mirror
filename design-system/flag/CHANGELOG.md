@@ -1,5 +1,17 @@
 # @atlaskit/flag
 
+## 17.4.0
+
+### Minor Changes
+
+- [`c4a74a9386f47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4a74a9386f47) -
+  Flag description and actions now explicitly set the font style to use typography tokens, instead
+  of relying on the CSS reset to be present. This change is no longer behind a feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.3.5
 
 ### Patch Changes

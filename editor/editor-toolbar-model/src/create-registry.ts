@@ -38,8 +38,34 @@ export const createComponentRegistry = () => {
 		components.push(...newComponents);
 	};
 
+	/**
+	 * Similer to `register` but first checks the registry against `newComponents` using its
+	 * key and type, if it already exists it replaces the item instead of simply appending it.
+	 *
+	 * Most likely you should avoid using this and just use the `register` method as it's preferred
+	 * to register components statically.
+	 */
+	const safeRegister = (newComponents: RegisterComponent[]) => {
+		newComponents.forEach((newComponent) => {
+			const existingIndex = components.findIndex(
+				(existingComponent) =>
+					existingComponent.type === newComponent.type &&
+					existingComponent.key === newComponent.key,
+			);
+
+			if (existingIndex !== -1) {
+				// Replace existing component
+				components[existingIndex] = newComponent;
+			} else {
+				// Add new component
+				components.push(newComponent);
+			}
+		});
+	};
+
 	return {
 		register,
+		safeRegister,
 		components,
 	};
 };

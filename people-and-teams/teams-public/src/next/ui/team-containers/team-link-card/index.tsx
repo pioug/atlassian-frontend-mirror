@@ -18,7 +18,7 @@ const styles = cssMap({
 		paddingRight: token('space.075'),
 		paddingBottom: token('space.050'),
 		paddingLeft: token('space.075'),
-		borderRadius: token('border.radius.100', '4px'),
+		borderRadius: token('radius.small', '4px'),
 		color: token('color.text'),
 	},
 	card: {
@@ -27,7 +27,7 @@ const styles = cssMap({
 	},
 	anchor: {
 		textDecoration: 'none',
-		borderRadius: token('border.radius.100', '8px'),
+		borderRadius: token('radius.small', '8px'),
 		width: '100%',
 		color: token('color.text'),
 		'&:focus': {

@@ -1,24 +1,16 @@
-import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
+import { transformListStructure } from './list/transformBetweenListTypes';
 import type { TransformContext, TransformFunction } from './types';
 import { isBlockNodeType, isContainerNodeType, isListNodeType } from './utils';
 
 /**
  * Transform selection to list type
  */
-export const transformToList = ({
-	tr,
-	targetNodeType,
-	targetAttrs,
-}: {
-	targetAttrs?: Record<string, unknown>;
-	targetNodeType: NodeType;
-	tr: Transaction;
-}): Transaction | null => {
-	// Wrap selection in list of target type
+export const transformBlockToList = (context: TransformContext): Transaction | null => {
+	const { tr, targetNodeType, targetAttrs } = context;
 	const { $from, $to } = tr.selection;
 	const range = $from.blockRange($to);
 
@@ -26,13 +18,31 @@ export const transformToList = ({
 		return null;
 	}
 
-	// Find if we can wrap the selection in the target list type
-	const wrapping = findWrapping(range, targetNodeType, targetAttrs);
+	const { nodes } = tr.doc.type.schema;
+	const isTargetTask = targetNodeType === nodes.taskList;
+
+	// Handle task lists differently due to their structure
+	// TODO: ED-29152 - Implement task list transformation
+	if (isTargetTask) {
+		return null;
+	}
+
+	// For headings, convert to paragraph first since headings cannot be direct children of list items
+	const sourceNode = tr.doc.nodeAt(range.start);
+	if (sourceNode && sourceNode.type.name.startsWith('heading')) {
+		tr.setBlockType(range.start, range.end, nodes.paragraph);
+	}
+
+	// Get the current range (updated if we converted from heading)
+	const currentRange = tr.selection.$from.blockRange(tr.selection.$to) || range;
+
+	// Wrap in the target list type
+	const wrapping = findWrapping(currentRange, targetNodeType, targetAttrs);
 	if (!wrapping) {
 		return null;
 	}
 
-	tr.wrap(range, wrapping);
+	tr.wrap(currentRange, wrapping);
 	return tr;
 };
 
@@ -76,20 +86,36 @@ export const transformBetweenListTypes = ({ tr, targetNodeType }: TransformConte
 	const { selection } = tr;
 	const { nodes } = tr.doc.type.schema;
 
-	// Find the list node
-	const listNode = findParentNodeOfType([nodes.bulletList, nodes.orderedList, nodes.taskList])(
-		selection,
-	);
+	// Find the list node - support bullet lists, ordered lists, and task lists
+	const supportedListTypes = [nodes.bulletList, nodes.orderedList, nodes.taskList].filter(Boolean); // Filter out undefined nodes in case some schemas don't have all types
+
+	const listNode = findParentNodeOfType(supportedListTypes)(selection);
 
 	if (!listNode) {
 		return null;
 	}
 
+	const sourceListType = listNode.node.type;
+	const isSourceBulletOrOrdered =
+		sourceListType === nodes.bulletList || sourceListType === nodes.orderedList;
+	const isTargetTask = targetNodeType === nodes.taskList;
+	const isSourceTask = sourceListType === nodes.taskList;
+	const isTargetBulletOrOrdered =
+		targetNodeType === nodes.bulletList || targetNodeType === nodes.orderedList;
+
+	// Check if we need structure transformation
+	const needsStructureTransform =
+		(isSourceBulletOrOrdered && isTargetTask) || (isSourceTask && isTargetBulletOrOrdered);
 	try {
-		// Change the list type while preserving content
-		tr.setNodeMarkup(listNode.pos, targetNodeType);
-		return tr;
-	} catch (e) {
+		if (!needsStructureTransform) {
+			// Simple type change for same structure lists (bullet <-> ordered)
+			tr.setNodeMarkup(listNode.pos, targetNodeType);
+		} else {
+			tr = transformListStructure(tr, listNode, targetNodeType, nodes);
+		}
+	} catch {
 		return null;
 	}
+
+	return tr;
 };

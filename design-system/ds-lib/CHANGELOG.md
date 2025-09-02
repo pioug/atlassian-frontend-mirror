@@ -1,5 +1,15 @@
 # @atlaskit/ds-lib
 
+## 5.0.1
+
+### Patch Changes
+
+- [`23868361e470e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23868361e470e) -
+  Behind feature gates 'platform-dst-react-18-use-id' and
+  'platform-dst-react-18-use-id-selector-safe' makes the `useId()` function return a selector-safe
+  version of `React.useId()` matching React 19.x functionality per
+  https://github.com/facebook/react/pull/33422
+
 ## 5.0.0
 
 ### Major Changes

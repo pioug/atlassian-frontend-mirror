@@ -20,4 +20,5 @@ export type {
 	SelectionExtensionSelectionInfo,
 	ToolbarExtensionConfiguration,
 	SelectionAdfResult,
+	SelectionExtensionCallbackOptions,
 } from './types';

@@ -15,7 +15,7 @@ export const expandStyles: SerializedStyles = css({
 		borderWidth: '1px',
 		borderStyle: 'solid',
 		borderColor: 'transparent',
-		borderRadius: token('border.radius.100', '4px'),
+		borderRadius: token('radius.small', '4px'),
 		minHeight: '25px',
 		background: token('color.background.neutral.subtle', 'transparent'),
 		margin: `${token('space.050', '0.25rem')} 0 0`,

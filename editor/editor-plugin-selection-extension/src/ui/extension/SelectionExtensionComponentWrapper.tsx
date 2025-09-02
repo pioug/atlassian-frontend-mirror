@@ -80,6 +80,7 @@ export const SelectionExtensionComponentWrapper = ({
 		return null;
 	}
 
+	// TODO: ED-29142 - Currently this only accepts old extensions with `component` instead of `contentComponent`. Need to support ExtensionMenuItemConfiguration as well
 	const ExtensionComponent = activeExtension.extension.component;
 	return (
 		<ExtensionComponent closeExtension={handleOnClose} selection={activeExtension.selection} />

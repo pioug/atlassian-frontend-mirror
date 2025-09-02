@@ -17,7 +17,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -26,7 +25,7 @@ import {
 	getAnnotationInlineNodeTypes,
 	getRangeInlineNodeNames,
 } from '@atlaskit/editor-common/utils';
-import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -43,7 +42,6 @@ import {
 import {
 	getAllAnnotations,
 	getAnnotationViewKey,
-	getPluginState,
 	getSelectionPositions,
 } from '../pm-plugins/utils';
 import { type AnnotationProviders, AnnotationTestIds } from '../types';
@@ -95,43 +93,6 @@ const selector = (
 	};
 };
 
-const useAnnotationContentComponentPluginState = sharedPluginStateHookMigratorFactory(
-	({
-		api,
-	}: {
-		api: ExtractInjectionAPI<typeof annotationPlugin> | undefined;
-		state: EditorState;
-	}) => {
-		const annotationState = useSharedPluginStateWithSelector(api, ['annotation'], selector);
-		return annotationState;
-	},
-	({
-		state,
-	}: {
-		api: ExtractInjectionAPI<typeof annotationPlugin> | undefined;
-		state: EditorState;
-	}) => {
-		const {
-			annotations,
-			bookmark,
-			isInlineCommentViewClosed,
-			isOpeningMediaCommentFromToolbar,
-			selectAnnotationMethod,
-			selectedAnnotations,
-			isAnnotationManagerEnabled,
-		} = getPluginState(state) ?? {};
-		return {
-			annotations,
-			bookmark,
-			isInlineCommentViewClosed,
-			isOpeningMediaCommentFromToolbar,
-			selectAnnotationMethod,
-			selectedAnnotations,
-			isAnnotationManagerEnabled,
-		};
-	},
-);
-
 export function InlineCommentView({
 	providers,
 	editorView,
@@ -145,6 +106,7 @@ export function InlineCommentView({
 	const lastSelectedAnnotationId = useRef<string>();
 
 	const { createComponent: CreateComponent, viewComponent: ViewComponent } = inlineCommentProvider;
+
 	const {
 		annotations,
 		bookmark,
@@ -153,12 +115,11 @@ export function InlineCommentView({
 		selectAnnotationMethod,
 		selectedAnnotations,
 		isAnnotationManagerEnabled,
-	} = useAnnotationContentComponentPluginState({ api: editorAPI, state });
+	} = useSharedPluginStateWithSelector(editorAPI, ['annotation'], selector);
+
 	const annotationsList = getAllAnnotations(editorView.state.doc);
 
-	const selection = getSelectionPositions(state, {
-		bookmark,
-	});
+	const selection = getSelectionPositions(state, bookmark);
 	const position = findPosForDOM(selection);
 	let dom: HTMLElement | undefined;
 	try {

@@ -23,7 +23,7 @@ const styles = cssMap({
 		paddingRight: token('space.150'),
 		paddingBottom: token('space.150'),
 		paddingLeft: token('space.150'),
-		borderRadius: token('border.radius.100', '8px'),
+		borderRadius: token('radius.small', '8px'),
 		'&:hover': {
 			cursor: 'pointer',
 		},
@@ -32,7 +32,7 @@ const styles = cssMap({
 		outlineWidth: token('border.width'),
 		outlineColor: token('color.border'),
 		outlineStyle: 'dashed',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('radius.small'),
 		color: token('color.text.subtlest'),
 		'&:hover': {
 			outlineStyle: 'solid',

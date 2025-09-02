@@ -1,5 +1,12 @@
 # @atlaskit/task-decision
 
+## 19.2.10
+
+### Patch Changes
+
+- [`e5001e144b74e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5001e144b74e) -
+  Internal changes to how border radius is applied.
+
 ## 19.2.9
 
 ### Patch Changes

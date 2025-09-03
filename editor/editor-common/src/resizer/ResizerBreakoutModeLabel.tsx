@@ -13,7 +13,7 @@ const fullWidthLabelWrapperStyles = xcss({
 	height: token('space.400', '32px'),
 	display: 'flex',
 	backgroundColor: 'elevation.surface.overlay',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	boxShadow: 'elevation.shadow.overlay',
 	boxSizing: 'border-box',
 	alignItems: 'center',

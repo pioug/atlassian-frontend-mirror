@@ -45,7 +45,7 @@ const PreviewBoxStyles = xcss({
 	borderWidth: 'border.width',
 	borderStyle: 'dashed',
 	borderColor: 'color.border',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	height: '200px',
 });
 

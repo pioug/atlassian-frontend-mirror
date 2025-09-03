@@ -61,7 +61,7 @@ export const layoutColumnStylesAdvanced: SerializedStyles = css({
 				'::before': {
 					width: 'calc(100% - 8px)',
 					left: 4,
-					borderRadius: token('border.radius', '3px'),
+					borderRadius: token('radius.small', '3px'),
 				},
 			},
 		],

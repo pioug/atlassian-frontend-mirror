@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { bulletListSelector, orderedListSelector } from '@atlaskit/adf-schema';
 
@@ -60,7 +60,7 @@ export function getOrderedListInlineStyles(
 }
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766, There is some "flow-root" hack that is not actually valid css.  Do note, this might not even work in Compiled (or Emotion) due to the way tagged template expressions are parsed…
-export const listsSharedStyles = css`
+export const listsSharedStyles: SerializedStyles = css`
 	/* =============== INDENTATION SPACING ========= */
 
 	ul,

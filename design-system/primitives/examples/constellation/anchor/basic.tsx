@@ -16,7 +16,7 @@ const styles = cssMap({
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		display: 'inline-flex',
 		alignItems: 'center',
 		gap: token('space.100'),

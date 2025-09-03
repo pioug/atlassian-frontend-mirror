@@ -7,7 +7,7 @@ const customBorderStyles = xcss({
 	borderColor: 'color.border',
 	borderStyle: 'dashed',
 	borderWidth: 'border.width.outline',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 });
 
 const Block = () => (

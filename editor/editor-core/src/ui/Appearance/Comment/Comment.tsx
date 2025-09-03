@@ -65,7 +65,7 @@ const commentEditorStyles = css({
 	border: `1px solid ${token('color.border.input')}`,
 	boxSizing: 'border-box',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	maxWidth: 'inherit',
 	wordWrap: 'break-word',
 });

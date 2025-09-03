@@ -2,11 +2,7 @@
 import type { MouseEvent } from 'react';
 import React, { useCallback, useMemo, useRef } from 'react';
 
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -62,23 +58,6 @@ const getSelectedColumns = (selection: Selection) => {
 	return [];
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const { selection } = useSharedPluginStateWithSelector(api, ['selection'], (states) => ({
-			selection: states.selectionState?.selection,
-		}));
-		return {
-			selection,
-		};
-	},
-	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const { selectionState } = useSharedPluginState(api, ['selection']);
-		return {
-			selection: selectionState?.selection,
-		};
-	},
-);
-
 export const ColumnControls = ({
 	editorView,
 	tableActive,
@@ -97,7 +76,9 @@ export const ColumnControls = ({
 	api,
 }: ColumnControlsProps & { api?: ExtractInjectionAPI<TablePlugin> }) => {
 	const columnControlsRef = useRef<HTMLDivElement>(null);
-	const { selection } = useSharedState(api);
+	const { selection } = useSharedPluginStateWithSelector(api, ['selection'], (states) => ({
+		selection: states.selectionState?.selection,
+	}));
 
 	const widths =
 		colWidths

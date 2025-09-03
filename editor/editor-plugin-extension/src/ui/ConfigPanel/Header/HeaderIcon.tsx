@@ -13,7 +13,7 @@ const itemIconStyles = xcss({
 	height: iconWidth,
 	overflow: 'hidden',
 	border: `1px solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}`,
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxSizing: 'border-box',
 	display: 'flex',
 	justifyContent: 'center',

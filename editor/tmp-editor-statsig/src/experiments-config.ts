@@ -234,6 +234,14 @@ export const editorExperimentsConfig = {
 		values: ['control', 'variant1'],
 		defaultValue: 'control',
 	}),
+	// Added 2025-09-03
+	platform_editor_hydratable_ui: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_hydratable_ui',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-04-01
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_vanilla_dom/setup
 	platform_editor_vanilla_dom: createBooleanExperiment({

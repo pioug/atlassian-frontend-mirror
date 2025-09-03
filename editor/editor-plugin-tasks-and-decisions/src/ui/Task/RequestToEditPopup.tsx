@@ -59,7 +59,7 @@ const popupContentWrapper = css({
 	paddingBottom: token('space.025', '2px'),
 	paddingLeft: token('space.025', '2px'),
 	paddingRight: token('space.025', '2px'),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxShadow: token('elevation.shadow.overlay'),
 	backgroundColor: token('elevation.surface.overlay'),
 });

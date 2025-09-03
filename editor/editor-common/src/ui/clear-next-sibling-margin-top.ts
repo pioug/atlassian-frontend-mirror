@@ -1,10 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 // We use !important to ensure next sibling gets the margin reset no matter what
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const clearNextSiblingMarginTopStyle = css({
+export const clearNextSiblingMarginTopStyle: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& + *': {
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
@@ -19,7 +19,7 @@ const nextSiblingBlockMarkContentSelectors = textElements
 	.join(',');
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const clearNextSiblingBlockMarkMarginTopStyle = css({
+export const clearNextSiblingBlockMarkMarginTopStyle: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`${nextSiblingBlockMarkContentSelectors}`]: {
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766

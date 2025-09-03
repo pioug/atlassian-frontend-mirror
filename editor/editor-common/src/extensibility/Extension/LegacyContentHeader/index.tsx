@@ -36,7 +36,7 @@ const i18n = defineMessages({
 const lcmHeaderStyles = css({
 	padding: `0 ${token('space.200', '16px')} ${token('space.050', '4px')} ${token('space.200', '16px')}`,
 	backgroundColor: token('color.background.neutral', '#0515240F'),
-	borderRadius: `${token('border.radius', '4px')} ${token('border.radius', '4px')} 0 0`,
+	borderRadius: `${token('radius.small', '4px')} ${token('radius.small', '4px')} 0 0`,
 	boxShadow: `0 0 0 1px ${token('color.background.neutral', '#0515240F')}`,
 	position: 'relative',
 	top: `-1px`,

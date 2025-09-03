@@ -311,9 +311,7 @@ export function ReactEditorView(props: EditorViewProps) {
 				dispatchAnalyticsEvent: dispatchAnalyticsEvent,
 				featureFlags,
 				getIntl: () => props.intl,
-				onEditorStateUpdated: fg('platform_editor_catch_missing_injection_states')
-					? pluginInjectionAPI.current.onEditorViewUpdated
-					: undefined,
+				onEditorStateUpdated: pluginInjectionAPI.current.onEditorViewUpdated,
 			});
 
 			contentTransformer.current = contentTransformerProvider
@@ -542,9 +540,7 @@ export function ReactEditorView(props: EditorViewProps) {
 				dispatchAnalyticsEvent: dispatchAnalyticsEvent,
 				featureFlags,
 				getIntl: () => props.intl,
-				onEditorStateUpdated: fg('platform_editor_catch_missing_injection_states')
-					? pluginInjectionAPI.current.onEditorViewUpdated
-					: undefined,
+				onEditorStateUpdated: pluginInjectionAPI.current.onEditorViewUpdated,
 			});
 
 			const newState = state.reconfigure({ plugins: plugins as Plugin[] });
@@ -565,13 +561,6 @@ export function ReactEditorView(props: EditorViewProps) {
 			oldEditorState,
 			newEditorState,
 		}: EditorViewStateUpdatedCallbackProps) => {
-			if (!fg('platform_editor_catch_missing_injection_states')) {
-				pluginInjectionAPI.current.onEditorViewUpdated({
-					newEditorState,
-					oldEditorState,
-				});
-			}
-
 			config.current?.onEditorViewStateUpdatedCallbacks.forEach((entry) => {
 				entry.callback({
 					originalTransaction,

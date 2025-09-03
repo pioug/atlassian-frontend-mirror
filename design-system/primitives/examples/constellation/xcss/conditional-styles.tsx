@@ -7,7 +7,7 @@ import Toggle from '@atlaskit/toggle';
 const baseStyles = xcss({
 	paddingBlock: 'space.500',
 	width: '100%',
-	borderRadius: 'border.radius.100',
+	borderRadius: 'radius.small',
 });
 
 const enabledStyles = xcss({

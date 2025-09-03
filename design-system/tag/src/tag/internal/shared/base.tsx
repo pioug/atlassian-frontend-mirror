@@ -74,7 +74,7 @@ const baseStyles = css({
 	gap: token('space.050', '4px'),
 	backgroundColor: token('color.background.neutral.subtle'),
 	borderColor: `var(${borderColorCssVar})`,
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	borderStyle: 'solid',
 	borderWidth: token('border.width', '1px'),
 	color: token('color.text'),

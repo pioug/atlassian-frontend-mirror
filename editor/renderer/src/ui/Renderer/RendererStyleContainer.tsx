@@ -898,7 +898,7 @@ const codeMarkSharedStyles = css({
 		backgroundColor: `var(--ds--code--bg-color,${token('color.background.neutral', N20)})`,
 		color: token('color.text', N800),
 		borderStyle: 'none',
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		display: 'inline',
 		padding: '2px 0.5ch',
 		boxDecorationBreak: 'clone',

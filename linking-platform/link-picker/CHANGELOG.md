@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 3.9.9
+
+### Patch Changes
+
+- [`d857acc60ec22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d857acc60ec22) -
+  NAVX-1706 cleaning up navx-1368-link-picker-a11y-mandatory-states
+- Updated dependencies
+
 ## 3.9.8
 
 ### Patch Changes

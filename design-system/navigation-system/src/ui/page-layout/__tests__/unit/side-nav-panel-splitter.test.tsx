@@ -3,6 +3,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { SideNavPanelSplitter } from '../../panel-splitter/side-nav-panel-splitter';
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';
@@ -69,6 +71,34 @@ describe('SideNavPanelSplitter', () => {
 
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
 			expect(onCollapse).toHaveBeenCalledTimes(1);
+			expect(onCollapse).toHaveBeenCalledWith({
+				screen: 'desktop',
+			});
+		});
+
+		ffTest.on('navx-full-height-sidebar', 'callback should include trigger', async () => {
+			it('should collapse the side nav on double click by default', async () => {
+				const user = userEvent.setup();
+				const onCollapse = jest.fn();
+				setMediaQuery('(min-width: 64rem)', { initial: true });
+
+				render(
+					<Root>
+						<SideNav testId="sidenav" onCollapse={onCollapse}>
+							<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
+						</SideNav>
+					</Root>,
+				);
+
+				await user.dblClick(screen.getByTestId('panel-splitter'));
+
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
+				expect(onCollapse).toHaveBeenCalledTimes(1);
+				expect(onCollapse).toHaveBeenCalledWith({
+					screen: 'desktop',
+					trigger: 'double-click',
+				});
+			});
 		});
 
 		it('should not collapse the side nav on double click when `shouldCollapseOnDoubleClick` is false', async () => {

@@ -71,6 +71,7 @@ export const transformToContainer = ({
  */
 export const transformContainerNode: TransformFunction = ({
 	tr,
+	sourceNode,
 	sourcePos,
 	targetNodeType,
 	targetAttrs,
@@ -86,7 +87,7 @@ export const transformContainerNode: TransformFunction = ({
 
 	// Transform container to list type
 	if (isListNodeType(targetNodeType)) {
-		return unwrapAndConvertToList();
+		return unwrapAndConvertToList({ tr, sourceNode, sourcePos, targetNodeType, targetAttrs });
 	}
 
 	// Transform between container types
@@ -109,7 +110,66 @@ export const unwrapAndConvertToBlockType = () => {
 /**
  * Unwrap container node and convert content to list
  */
-export const unwrapAndConvertToList = () => {
-	// Convert to list directly
-	return null;
+export const unwrapAndConvertToList = ({
+	tr,
+	sourceNode,
+	sourcePos,
+	targetNodeType,
+	targetAttrs,
+}: TransformContext) => {
+	if (sourcePos === null) {
+		return tr;
+	}
+	const { schema } = tr.doc.type;
+	const { listItem, paragraph, taskList, taskItem } = schema.nodes;
+
+	const isTargetTaskList = targetNodeType === taskList;
+
+	const createListItemFromInline = (inlineFrag: Fragment) => {
+		return isTargetTaskList
+			? taskItem.create(null, inlineFrag)
+			: listItem.create(null, paragraph.create(null, inlineFrag));
+	};
+
+	const getInlineContent = (textblock: Node): Node[] => {
+		const inlineContent: Node[] = [];
+		textblock.forEach((inline) => {
+			inlineContent.push(inline);
+		});
+		return inlineContent;
+	};
+
+	const items: Node[] = [];
+
+	// Expand's title should become the first item of the list
+	if (sourceNode.type.name === 'expand') {
+		const title = sourceNode.attrs?.title;
+		if (title) {
+			const titleContent = schema.text(title);
+			items.push(
+				isTargetTaskList
+					? taskItem.create(null, titleContent)
+					: listItem.create(null, paragraph.create(null, titleContent)),
+			);
+		}
+	}
+
+	for (let i = 0; i < sourceNode.childCount; i++) {
+		const node = sourceNode.child(i);
+
+		// Abort early if unsupported content (e.g. table) encounted inside of the container
+		if (!node.isTextblock) {
+			return tr;
+		}
+
+		const inline = Fragment.from(getInlineContent(node));
+		items.push(createListItemFromInline(inline));
+	}
+
+	if (!items.length) {
+		return tr;
+	}
+
+	const list = targetNodeType.create(targetAttrs || null, Fragment.from(items));
+	return tr.replaceWith(sourcePos, sourcePos + sourceNode.nodeSize, list);
 };

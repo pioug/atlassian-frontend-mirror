@@ -77,7 +77,7 @@ const colorPickerButtonStyle = css({
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const colorPickerWrapper = () =>
 	css({
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		backgroundColor: token('elevation.surface.overlay'),
 		boxShadow: token('elevation.shadow.overlay'),
 		padding: `${token('space.100', '8px')} 0px`,
@@ -267,7 +267,7 @@ const ColorPickerButton = (props: Props) => {
 				content: "''",
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				border: `1px solid ${DEFAULT_BORDER_COLOR}`,
-				borderRadius: token('border.radius', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				backgroundColor: currentColor || 'transparent',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -294,7 +294,7 @@ const ColorPickerButton = (props: Props) => {
 				content: "''",
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				border: `1px solid ${DEFAULT_BORDER_COLOR}`,
-				borderRadius: token('border.radius', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				backgroundColor: currentColor || 'transparent',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

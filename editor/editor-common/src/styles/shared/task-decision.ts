@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { akEditorLineHeight, akEditorTableCellMinWidth } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
@@ -13,7 +13,7 @@ export const TaskDecisionSharedCssClassName = {
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const tasksAndDecisionsStyles = css`
+export const tasksAndDecisionsStyles: SerializedStyles = css`
 	.ProseMirror {
 		.taskItemView-content-wrap,
 		.${TaskDecisionSharedCssClassName.DECISION_CONTAINER} {

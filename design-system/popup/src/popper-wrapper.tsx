@@ -28,7 +28,7 @@ const wrapperStyles = cssMap({
 		boxSizing: 'border-box',
 		zIndex: 400,
 		backgroundColor: token('elevation.surface.overlay'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		boxShadow: token('elevation.shadow.overlay'),
 		// Resetting text color for portal content.
 		// Otherwise, when rendering into the parent (not using a portal),

@@ -28,7 +28,7 @@ const styles = cssMap({
 		flexDirection: 'column',
 		width: '200px',
 		height: '200px',
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 		backgroundColor: token('elevation.surface'),
 		borderLeftColor: token('color.border.accent.magenta'),
 		borderLeftWidth: '32px',

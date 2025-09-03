@@ -21,7 +21,7 @@ const styles = cssMap({
 		paddingLeft: token('space.200'),
 	},
 	avatarSkeleton: {
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		paddingTop: token('space.200'),
 		paddingRight: token('space.200'),
 		paddingBottom: token('space.200'),

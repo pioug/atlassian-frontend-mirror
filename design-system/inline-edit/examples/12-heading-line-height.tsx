@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 
 const messageStyles = cssMap({
 	root: {
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 });
 

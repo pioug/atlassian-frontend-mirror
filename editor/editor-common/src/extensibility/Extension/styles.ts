@@ -1,12 +1,12 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const wrapperDefault = css({
+export const wrapperDefault: SerializedStyles = css({
 	background: token('color.background.neutral'),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	position: 'relative',
 	verticalAlign: 'middle',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -24,8 +24,8 @@ export const wrapperDefault = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const overlay = css({
-	borderRadius: token('border.radius', '3px'),
+export const overlay: SerializedStyles = css({
+	borderRadius: token('radius.small', '3px'),
 	position: 'absolute',
 	width: '100%',
 	height: '100%',
@@ -37,7 +37,7 @@ export const overlay = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const placeholderFallback = css({
+export const placeholderFallback: SerializedStyles = css({
 	display: 'inline-flex',
 	alignItems: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -50,7 +50,7 @@ export const placeholderFallback = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const placeholderFallbackParams = css({
+export const placeholderFallbackParams: SerializedStyles = css({
 	display: 'inline-block',
 	maxWidth: '200px',
 	marginLeft: token('space.050', '4px'),
@@ -61,7 +61,7 @@ export const placeholderFallbackParams = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const styledImage = css({
+export const styledImage: SerializedStyles = css({
 	maxHeight: '16px',
 	maxWidth: '16px',
 	/* TODO: fix in develop: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E */

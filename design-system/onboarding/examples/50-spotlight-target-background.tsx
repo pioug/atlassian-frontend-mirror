@@ -15,7 +15,7 @@ import { Highlight, HighlightGroup } from './styled';
 
 const wrapperStyles = css({
 	backgroundColor: token('elevation.surface.raised'),
-	borderRadius: token('border.radius'),
+	borderRadius: token('radius.small'),
 	paddingBlockEnd: token('space.500'),
 	paddingBlockStart: token('space.500'),
 	paddingInlineEnd: token('space.500'),

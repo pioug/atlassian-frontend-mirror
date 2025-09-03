@@ -15,7 +15,7 @@ const panelStyles = css({
 	flexDirection: 'column',
 	flexGrow: 1,
 	backgroundColor: token('color.background.neutral'),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	color: token('color.text.subtlest'),
 	fontSize: '4em',
 	fontWeight: token('font.weight.medium', '500'),

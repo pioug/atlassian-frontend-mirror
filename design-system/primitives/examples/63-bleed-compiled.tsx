@@ -13,7 +13,7 @@ const styles = cssMap({
 	block: {
 		width: '3rem',
 		height: '3rem',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		borderWidth: token('border.width.outline'),
 		borderStyle: 'solid',
 		borderColor: token('color.border.discovery'),

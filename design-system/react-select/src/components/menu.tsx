@@ -292,7 +292,7 @@ const menuStyles = cssMap({
 		position: 'absolute',
 		width: '100%',
 		zIndex: 1,
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		marginBottom: token('space.100'),
 		marginTop: token('space.100'),
 		backgroundColor: token('elevation.surface.overlay', 'white'),

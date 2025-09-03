@@ -77,7 +77,7 @@ const styles = cssMap({
 	},
 	avatar: {
 		'&::before': {
-			borderRadius: token('border.radius.circle'),
+			borderRadius: token('radius.full'),
 		},
 	},
 	icon: {

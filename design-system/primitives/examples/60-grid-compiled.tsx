@@ -13,7 +13,7 @@ const styles = cssMap({
 		borderColor: token('color.border'),
 		borderStyle: 'dashed',
 		borderWidth: token('border.width.outline'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 	columns: {
 		gridTemplateColumns: '1fr 100px 1fr',

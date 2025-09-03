@@ -65,32 +65,55 @@ export const isTable = (node?: Node | null): boolean => {
  * Creates a NodeRange around the given taskItem and the following
  * ("nested") taskList, if one exists.
  */
-export const getBlockRange = ({
-	$from,
-	$to,
-	isLifting = false,
-}: {
-	$from: ResolvedPos;
-	$to: ResolvedPos;
-	isLifting?: boolean;
-}) => {
-	const { taskList, blockTaskItem } = $from.doc.type.schema.nodes;
+export const getBlockRange = ({ $from, $to }: { $from: ResolvedPos; $to: ResolvedPos }) => {
+	const { taskList, taskItem, blockTaskItem, paragraph } = $from.doc.type.schema.nodes;
 	const blockTaskItemNode = findFarthestParentNode((node) => node.type === blockTaskItem)($from);
 
 	if (blockTaskItem && blockTaskItemNode) {
-		const startOfNodeInBlockTaskItem = $from.doc.resolve(blockTaskItemNode.start);
-
+		let startOfBlockRange = blockTaskItemNode.start - 1;
+		const endNode = $to.end();
+		let $after = $to.doc.resolve(endNode + 1);
+		let after = $after.nodeAfter;
 		const lastNode = $to.node($to.depth);
-		const endOfNodeInBlockTaskItem = $from.doc.resolve($to.start() + lastNode.nodeSize - 1);
+		let rangeDepth = blockTaskItemNode.depth - 1;
+		let endOfBlockRange = $to.start() + lastNode.nodeSize;
 
-		return new NodeRange(
-			startOfNodeInBlockTaskItem,
-			endOfNodeInBlockTaskItem,
-			// When lifting we want to ignore the potential depth of nested nodes so reduce the depth
-			isLifting ? blockTaskItemNode.depth - 2 : blockTaskItemNode.depth - 1,
-		);
+		// If the lastNode is a paragraph need to resolve a little bit further to get the node after the block task item
+		if (lastNode.type === paragraph) {
+			$after = $to.doc.resolve(endNode + 2);
+
+			after = $after.nodeAfter;
+		}
+		// Otherwise assume it's a block node so increase the range depth
+		else {
+			rangeDepth = rangeDepth - 1;
+			endOfBlockRange = endOfBlockRange - 1;
+		}
+
+		// If the after node is a sibling taskList of the blockTaskItem, then extend the range
+		if (after && after.type === taskList && $after.depth === blockTaskItemNode.depth - 1) {
+			endOfBlockRange = endOfBlockRange + after.nodeSize;
+		}
+
+		// Is after another taskItem/ blockTaskItem
+		const $prevNode = $from.doc.resolve(startOfBlockRange - 1);
+		const prevNodeSize = $prevNode.nodeBefore?.nodeSize;
+		const $prevNodeParent = $from.doc.resolve($prevNode.pos - (prevNodeSize || 0) - 1);
+		const prevNodeParent = $prevNodeParent.nodeAfter;
+
+		// If after another taskItem/ blockTaskItem
+		if (prevNodeParent && [blockTaskItem, taskItem].includes(prevNodeParent.type)) {
+			rangeDepth = blockTaskItemNode.depth - 1;
+			endOfBlockRange = endOfBlockRange - 2;
+			startOfBlockRange = startOfBlockRange + 1;
+		}
+
+		const $endOfBlockRange = $to.doc.resolve(endOfBlockRange);
+		const $startOfBlockRange = $to.doc.resolve(startOfBlockRange);
+		const nodeRange = new NodeRange($startOfBlockRange, $endOfBlockRange, rangeDepth);
+
+		return nodeRange;
 	}
-
 	let end = $to.end();
 	const $after = $to.doc.resolve(end + 1);
 	const after = $after.nodeAfter;
@@ -245,7 +268,7 @@ export const liftBlock = (
 	$from: ResolvedPos,
 	$to: ResolvedPos,
 ): Transaction | null => {
-	const blockRange = getBlockRange({ $from, $to, isLifting: true });
+	const blockRange = getBlockRange({ $from, $to });
 	if (!blockRange) {
 		return null;
 	}

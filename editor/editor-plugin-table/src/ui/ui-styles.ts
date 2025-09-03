@@ -76,7 +76,7 @@ export const InsertMarker = (cssString?: string) => css`
 `;
 
 const Button = (cssString?: string) => css`
-	border-radius: ${token('border.radius', '3px')};
+	border-radius: ${token('radius.small', '3px')};
 	border-width: 0px;
 	display: inline-flex;
 	max-width: 100%;

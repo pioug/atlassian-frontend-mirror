@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.42.17
+
+### Patch Changes
+
+- [`91479b396011c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91479b396011c) -
+  Add TopNav to FDAS
+
 ## 0.42.16
 
 ### Patch Changes

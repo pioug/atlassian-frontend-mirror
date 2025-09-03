@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
 import { type DropdownMenuProps } from '../../types';
@@ -146,6 +147,7 @@ describe('dropdown menu', () => {
 		const NestedDropdown = ({ level = 0 }) => {
 			return createDropdown({
 				placement: 'right-start',
+				shouldRenderToParent: true,
 				testId: `nested-${level}`,
 				children: (
 					<DropdownItemGroup>
@@ -156,6 +158,13 @@ describe('dropdown menu', () => {
 				),
 			});
 		};
+
+		const pressEscKey = () =>
+			fireEvent.keyDown(document.body, {
+				key: 'Escape',
+				code: 27,
+			});
+
 		it('should render nested dropdown on the page', () => {
 			render(<NestedDropdown />);
 			let level = 0;
@@ -166,13 +175,11 @@ describe('dropdown menu', () => {
 				fireEvent.click(nestedTrigger);
 				level += 1;
 			}
+
 			jest.useFakeTimers();
 			while (level > 0) {
 				// close the dropdown by pressing Escape
-				fireEvent.keyDown(document.body, {
-					key: 'Escape',
-					code: 27,
-				});
+				pressEscKey();
 				// 0 timeout is needed to meet the same flow in layering
 				// avoid immediate cleanup using setTimeout when component unmount
 				// this will make sure non-top layer components can get the correct top level value
@@ -185,6 +192,34 @@ describe('dropdown menu', () => {
 				expect(screen.getByTestId(`nested-${level}--trigger`)).toBeInTheDocument();
 			}
 			jest.useRealTimers();
+		});
+
+		ffTest.on('platform-dst-nested-dropdown-menu-role', 'when role group is enabled', () => {
+			it('should have a role of group when nested under another menu', () => {
+				render(<NestedDropdown />);
+
+				const topLevelDropdownTrigger = screen.getByTestId('nested-0--trigger');
+
+				fireEvent.click(topLevelDropdownTrigger);
+				expect(screen.getByTestId('nested-0--content')).not.toHaveAttribute('role', 'group');
+
+				fireEvent.click(screen.getByTestId(`nested-1--trigger`));
+				expect(screen.getByTestId('nested-1--content')).toHaveAttribute('role', 'group');
+			});
+		});
+
+		ffTest.off('platform-dst-nested-dropdown-menu-role', 'when role group is disabled', () => {
+			it('should not have a role of group when nested under another menu', () => {
+				render(<NestedDropdown />);
+
+				const topLevelDropdownTrigger = screen.getByTestId('nested-0--trigger');
+
+				fireEvent.click(topLevelDropdownTrigger);
+				expect(screen.getByTestId('nested-0--content')).not.toHaveAttribute('role', 'group');
+
+				fireEvent.click(screen.getByTestId(`nested-1--trigger`));
+				expect(screen.getByTestId('nested-1--content')).not.toHaveAttribute('role', 'group');
+			});
 		});
 	});
 
@@ -278,7 +313,7 @@ describe('dropdown menu', () => {
 	});
 
 	describe('isLoading status', () => {
-		it('renders loading status as a menuitem', async () => {
+		it('renders loading status as a menuitem', () => {
 			render(
 				createDropdown({
 					isLoading: true,

@@ -22,7 +22,7 @@ import { Popup } from './PopperWrapper';
 const styles = cssMap({
 	loadingStyles: {
 		boxShadow: token('elevation.shadow.overlay'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 });
 

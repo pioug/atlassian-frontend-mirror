@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.2.0
+
+### Minor Changes
+
+- [`a3c753aa3c2e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3c753aa3c2e6) -
+  added agent avatar skeleton component
+
 ## 3.1.2
 
 ### Patch Changes

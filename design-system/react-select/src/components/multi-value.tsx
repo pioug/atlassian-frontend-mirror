@@ -48,7 +48,7 @@ const multiValueStyles = cssMap({
 		marginRight: token('space.025'),
 		marginBottom: token('space.025'),
 		marginLeft: token('space.025'),
-		borderRadius: token('border.radius.050', '2px'),
+		borderRadius: token('radius.xsmall', '2px'),
 		backgroundColor: token('color.background.neutral'),
 		maxWidth: '100%',
 		'@media screen and (-ms-high-contrast: active)': {
@@ -90,7 +90,7 @@ const multiValueLabelStyles = cssMap({
 	root: {
 		overflow: 'hidden',
 		whiteSpace: 'nowrap',
-		borderRadius: token('border.radius.050', '2px'),
+		borderRadius: token('radius.xsmall', '2px'),
 		font: token('font.body.UNSAFE_small'),
 		paddingTop: token('space.025', '2px'),
 		paddingRight: token('space.025', '2px'),
@@ -144,7 +144,7 @@ const multiValueRemoveStyles = cssMap({
 		justifyContent: 'center',
 		alignSelf: 'center',
 		appearance: 'none',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		color: token('color.text'),
 		paddingTop: token('space.025'),
 		paddingRight: token('space.025'),

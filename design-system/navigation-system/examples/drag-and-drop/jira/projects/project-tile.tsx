@@ -14,7 +14,7 @@ const styles = cssMap({
 	root: {
 		width: '20px',
 		height: '20px',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',

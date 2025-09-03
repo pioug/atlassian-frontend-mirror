@@ -40,7 +40,7 @@ export const codeBidiWarningStyles: SerializedStyles = css({
 			color: token('color.text.inverse'),
 			overflowWrap: 'break-word',
 			cursor: 'default',
-			borderRadius: token('border.radius'),
+			borderRadius: token('radius.small'),
 			margin: token('space.0'),
 			padding: `${token('space.025')} ${token('space.075')}`,
 			position: 'fixed',

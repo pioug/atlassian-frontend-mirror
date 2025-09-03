@@ -26,7 +26,7 @@ const inlineNodeStyle = css({
 	background: token('color.background.disabled'),
 	border: `1px dashed ${token('color.border.disabled')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxSizing: 'border-box',
 	cursor: 'default',
 	display: 'inline-flex',

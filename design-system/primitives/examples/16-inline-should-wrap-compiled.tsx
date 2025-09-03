@@ -17,7 +17,7 @@ const styles = cssMap({
 	},
 	fixedContainer: { maxWidth: '300px' },
 	block: {
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		paddingTop: token('space.050'),
 		paddingRight: token('space.050'),
 		paddingBottom: token('space.050'),

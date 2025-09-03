@@ -22,7 +22,7 @@ const longMessage = 'I am a longer tooltip with a decent amount of content insid
 const styles = cssMap({
 	root: {
 		backgroundColor: token('elevation.surface'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		boxShadow: token('elevation.shadow.overlay'),
 		color: token('color.text'),
 		maxHeight: '300px',

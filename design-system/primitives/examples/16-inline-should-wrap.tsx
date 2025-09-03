@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const fixedSizeContainerStyles = css({ maxWidth: '300px' });
-const blockStyles = xcss({ borderRadius: 'border.radius.050' });
+const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 
 export default () => (
 	<Box testId="inline-example" padding="space.100">

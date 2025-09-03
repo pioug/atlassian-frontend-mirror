@@ -28,7 +28,7 @@ const buttonWrapperStyles = css({
 	top: '50%',
 	transform: 'translateY(-50%)',
 	background: token('elevation.surface.raised'),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 });
 
 export interface OverlayButtonProps {

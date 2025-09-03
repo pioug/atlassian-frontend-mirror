@@ -66,7 +66,7 @@ const stickyButtonStyles = xcss({
 	width: token('space.300'),
 	border: 'none',
 	backgroundColor: 'color.background.neutral.subtle',
-	borderRadius: 'border.radius.circle',
+	borderRadius: 'radius.full',
 	zIndex: 'card',
 	outline: 'none',
 

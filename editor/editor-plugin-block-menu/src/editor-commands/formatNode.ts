@@ -66,7 +66,7 @@ export const formatNode = (targetType: FormatNodeTargetType): EditorCommand => {
 						nodeToFormat = listParent.node;
 						nodePos = listParent.pos;
 					}
-				} else if (paragraphOrHeadingNode) {
+				} else if (parentNode.node.type !== nodes.blockquote && paragraphOrHeadingNode) {
 					nodeToFormat = paragraphOrHeadingNode.node;
 					nodePos = paragraphOrHeadingNode.pos;
 				}

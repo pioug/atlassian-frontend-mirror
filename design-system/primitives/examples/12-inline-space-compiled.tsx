@@ -30,7 +30,7 @@ const styles = cssMap({
 	container: { width: '24px' },
 	spaceValue: { minWidth: '80px' },
 	block: {
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		paddingTop: token('space.200'),
 		paddingRight: token('space.200'),
 		paddingBottom: token('space.200'),

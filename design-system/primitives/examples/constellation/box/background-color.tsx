@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 const styles = cssMap({
 	box: {
 		borderStyle: 'solid',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		borderWidth: token('border.width'),
 	},
 	neutral: {

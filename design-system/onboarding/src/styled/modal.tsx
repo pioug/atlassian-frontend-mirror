@@ -33,8 +33,8 @@ const modalHeadingStyles = css({
 const modalImageStyles = css({
 	width: '100%',
 	height: 'auto',
-	borderStartEndRadius: token('border.radius', '3px'),
-	borderStartStartRadius: token('border.radius', '3px'),
+	borderStartEndRadius: token('radius.small', '3px'),
+	borderStartStartRadius: token('radius.small', '3px'),
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 320px) and (max-width: 480px)': {
 		borderRadius: 0,

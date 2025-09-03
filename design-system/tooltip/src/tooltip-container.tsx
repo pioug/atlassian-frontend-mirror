@@ -17,7 +17,7 @@ const baseStyles = css({
 	boxSizing: 'border-box',
 	maxWidth: '240px',
 	backgroundColor: token('color.background.neutral.bold', N800),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	color: token('color.text.inverse', N0),
 	font: token('font.body.UNSAFE_small'),
 	insetBlockStart: token('space.0', '0px'),

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 7.0.4
+
+### Patch Changes
+
+- [`cfa24f42cfba3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfa24f42cfba3) -
+  [EDITOR-1433] Backspace unindents blockTaskItems
+
+## 7.0.3
+
+### Patch Changes
+
+- [`255837cfba315`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/255837cfba315) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 7.0.2
 
 ### Patch Changes

@@ -1,5 +1,24 @@
 # @atlaskit/profilecard
 
+## 24.10.1
+
+### Patch Changes
+
+- [`7850e27fc7fa1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7850e27fc7fa1) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
+## 24.10.0
+
+### Minor Changes
+
+- [`c002dc5d4d6c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c002dc5d4d6c0) -
+  [ux] Agent profile card dismisses when user clicks a chat prompt
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.9.3
 
 ### Patch Changes

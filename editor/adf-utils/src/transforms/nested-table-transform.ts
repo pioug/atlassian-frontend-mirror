@@ -73,6 +73,7 @@ export const transformNestedTablesIncomingDocument = (
 				isTransformed = true;
 				return transformNestedTableExtension(node);
 			}
+			return;
 		},
 	}) as ADFEntity;
 

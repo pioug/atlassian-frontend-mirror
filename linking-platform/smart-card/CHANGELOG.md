@@ -1,5 +1,26 @@
 # @atlaskit/smart-card
 
+## 40.18.0
+
+### Minor Changes
+
+- [`7992070df7ee6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7992070df7ee6) -
+  Add functionality to enable resolving sharepoint hyperlinks on the renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 40.17.2
+
+### Patch Changes
+
+- [`e6dbebe004a7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6dbebe004a7f) -
+  NAVX-1706 Adding aria-hidden attribute to LayeredLink component to be accessible to users
+- [`6298cfc5a5088`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6298cfc5a5088) -
+  NAVX-1387 cleaning up platform-linking-ai-summary-migration-to-convo-ai
+- Updated dependencies
+
 ## 40.17.1
 
 ### Patch Changes

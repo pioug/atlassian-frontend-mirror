@@ -1,10 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const wrapperStyle = css({
+export const wrapperStyle: SerializedStyles = css({
 	display: 'inline-flex',
 	width: '100%',
 	height: '100%',
@@ -12,7 +12,7 @@ export const wrapperStyle = css({
 	justifyContent: 'center',
 
 	boxDecorationBreak: 'clone',
-	borderRadius: `${token('border.radius', '3px')}`,
+	borderRadius: `${token('radius.small', '3px')}`,
 	color: `${token('color.text')}`,
 	backgroundColor: `${token('color.background.neutral')}`,
 	transition: '0.1s all ease-in-out',

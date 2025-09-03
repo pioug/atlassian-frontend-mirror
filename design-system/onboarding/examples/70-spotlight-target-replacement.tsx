@@ -22,7 +22,7 @@ import logo from './assets/logo.png';
 
 const Replacement = (rect: any) => {
 	const style = {
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		overflow: 'hidden',
 		...rect,
 	};
@@ -38,7 +38,7 @@ const Replacement = (rect: any) => {
 const imageStyles = css({
 	width: '128px',
 	height: '128px',
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 });
 
 const Image = ({ alt, src }: ImgHTMLAttributes<HTMLImageElement>) => (

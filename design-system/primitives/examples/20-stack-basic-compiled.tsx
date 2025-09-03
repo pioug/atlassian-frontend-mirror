@@ -17,7 +17,7 @@ const styles = cssMap({
 		paddingLeft: token('space.100'),
 	},
 	surface: {
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		paddingTop: token('space.200'),
 		paddingRight: token('space.200'),
 		paddingBottom: token('space.200'),

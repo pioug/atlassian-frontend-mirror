@@ -37,12 +37,14 @@ export const transformIndentationMarks = (adf: ADFEntity): TransformIndentationM
 				isTransformed = true;
 				return removeIndentationFromHeadings(node);
 			}
+			return;
 		},
 		tableHeader: (node) => {
 			if (hasChildHeadingWithIndentation(node)) {
 				isTransformed = true;
 				return removeIndentationFromHeadings(node);
 			}
+			return;
 		},
 	}) as ADFEntity;
 

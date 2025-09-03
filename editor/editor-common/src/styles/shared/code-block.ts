@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- Should be safe to autofix, but ignoring for now */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import {
 	akEditorCodeFontFamily,
@@ -52,7 +52,7 @@ export const codeBlockSharedStyles = () => css`
 	.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} {
 		position: relative;
 		background-color: ${token('elevation.surface.raised')};
-		border-radius: ${token('border.radius', '3px')};
+		border-radius: ${token('radius.small', '3px')};
 		margin: ${blockNodesVerticalMargin} 0 0 0;
 		font-family: ${akEditorCodeFontFamily};
 		min-width: ${akEditorTableCellMinWidth}px;
@@ -86,7 +86,7 @@ export const codeBlockSharedStyles = () => css`
 			position: relative;
 			background-color: ${token('color.background.neutral')};
 			display: flex;
-			border-radius: ${token('border.radius', '3px')};
+			border-radius: ${token('radius.small', '3px')};
 			width: 100%;
 			counter-reset: line;
 			overflow-x: auto;
@@ -147,7 +147,7 @@ export const codeBlockSharedStyles = () => css`
 				tab-size: 4;
 				cursor: text;
 				color: ${token('color.text')};
-				border-radius: ${token('border.radius', '3px')};
+				border-radius: ${token('radius.small', '3px')};
 				margin: ${token('space.100', '8px')};
 				font-size: ${relativeFontSizeToBase16(14)};
 				line-height: 1.5rem;
@@ -171,7 +171,7 @@ export const codeBlockSharedStyles = () => css`
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const codeBlockInListSafariFix = css`
+export const codeBlockInListSafariFix: SerializedStyles = css`
 	::before {
 		content: ' ';
 		line-height: ${akEditorLineHeight};

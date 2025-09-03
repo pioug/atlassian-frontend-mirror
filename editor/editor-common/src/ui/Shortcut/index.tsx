@@ -17,7 +17,7 @@ const shortcutStyle = css({
 	paddingRight: token('space.050', '4px'),
 	color: token('color.text.subtle'),
 	backgroundColor: token('color.background.neutral'),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	'@media (max-width: 0px)': {
 		display: 'none',
 	},

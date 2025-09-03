@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 const stylesOld = cssMap({
 	container: {
 		display: 'inline-flex',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		blockSize: 'min-content',
 		position: 'static',
 		overflow: 'hidden',

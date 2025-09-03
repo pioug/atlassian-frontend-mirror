@@ -3,15 +3,16 @@ import React from 'react';
 import { di } from 'react-magnetic-di';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import AKLink from '@atlaskit/link';
 
 import { withLinkClickedEvent } from '../../utils/analytics/click';
 import { LinkAnalyticsContext } from '../../utils/analytics/LinkAnalyticsContext';
 
+import HyperlinkResolver from './HyperlinkResolver';
 import LinkWarningModal from './LinkWarningModal';
 import { useLinkWarningModal } from './LinkWarningModal/hooks/use-link-warning-modal';
 import { type LinkUrlProps, type PackageDataType } from './types';
-
 const PACKAGE_DATA: PackageDataType = {
 	packageName: process.env._PACKAGE_NAME_ as string,
 	packageVersion: process.env._PACKAGE_VERSION_ as string,
@@ -28,12 +29,17 @@ const LinkUrl = ({
 	onClick,
 	testId = 'link-with-safety',
 	isLinkComponent = false,
+	enableResolve = false,
 	...props
 }: LinkUrlProps) => {
 	di(LinkComponent, useLinkWarningModal);
 	const { isLinkSafe, showSafetyWarningModal, ...linkWarningModalProps } = useLinkWarningModal();
 
 	const Link = isLinkComponent ? LinkComponent : Anchor;
+
+	const resolveHyperlinkFG = FeatureGates.checkGate(
+		'platform_editor_resolve_hyperlinks_killswitch',
+	);
 
 	return (
 		<>
@@ -60,6 +66,7 @@ const LinkUrl = ({
 				</Link>
 			</LinkAnalyticsContext>
 			{checkSafety && <LinkWarningModal {...linkWarningModalProps} />}
+			{enableResolve && href && resolveHyperlinkFG && <HyperlinkResolver href={href} />}
 		</>
 	);
 };

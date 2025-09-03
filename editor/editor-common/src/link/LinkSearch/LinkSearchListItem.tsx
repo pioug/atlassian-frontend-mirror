@@ -5,7 +5,7 @@
 import React, { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import type { WrappedComponentProps } from 'react-intl-next';
@@ -19,7 +19,7 @@ import { transformTimeStamp } from './transformTimeStamp';
 import type { LinkSearchListItemData } from './types';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const container = css({
+export const container: SerializedStyles = css({
 	backgroundColor: 'transparent',
 	padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,
 	cursor: 'pointer',
@@ -28,7 +28,7 @@ export const container = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const containerSelected = css({
+export const containerSelected: SerializedStyles = css({
 	backgroundColor: token('color.background.neutral.subtle.hovered'),
 });
 
@@ -37,7 +37,7 @@ const nameWrapper = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const nameStyle = css({
+export const nameStyle: SerializedStyles = css({
 	color: token('color.text'),
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
@@ -47,7 +47,7 @@ export const nameStyle = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const containerName = css({
+export const containerName: SerializedStyles = css({
 	color: token('color.text.subtlest'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '14px',

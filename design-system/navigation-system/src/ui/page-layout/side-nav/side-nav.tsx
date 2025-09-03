@@ -271,7 +271,7 @@ function SideNavInternal({
 	id: providedId,
 }: SideNavProps) {
 	const id = useLayoutId({ providedId });
-	const expandSideNav = useExpandSideNav();
+	const expandSideNav = useExpandSideNav({ trigger: 'skip-link' });
 	/**
 	 * Called after clicking on the side nav skip link, and ensures the side nav is expanded so that it is focusable.
 	 *
@@ -342,8 +342,7 @@ function SideNavInternal({
 			setSideNavState((currentState) => {
 				if (currentState?.desktop === 'collapsed' && currentState?.flyout !== 'open') {
 					return {
-						desktop: currentState.desktop,
-						mobile: currentState.mobile,
+						...currentState,
 						flyout: 'open',
 					};
 				}
@@ -358,8 +357,7 @@ function SideNavInternal({
 			setSideNavState((currentState) => {
 				if (currentState?.desktop === 'collapsed' && currentState?.flyout === 'open') {
 					return {
-						desktop: currentState.desktop,
-						mobile: currentState.mobile,
+						...currentState,
 						flyout: 'triggered-animate-close',
 					};
 				}
@@ -437,7 +435,10 @@ function SideNavInternal({
 		};
 	}, [openLayerObserver, setSideNavState]);
 
-	const toggleVisibility = useToggleSideNav();
+	const toggleVisibilityByScreenResize = useToggleSideNav({ trigger: 'screen-resize' });
+	const toggleVisibilityByClickOutsideOnMobile = useToggleSideNav({
+		trigger: 'click-outside-on-mobile',
+	});
 
 	useEffect(() => {
 		// Sync the visibility in context (provided in `<Root>`) with the local `defaultCollapsed` prop provided to `SideNav`
@@ -446,12 +447,17 @@ function SideNavInternal({
 			desktop: initialDefaultCollapsed ? 'collapsed' : 'expanded',
 			mobile: 'collapsed',
 			flyout: 'closed',
+			lastTrigger: null,
 		});
 	}, [initialDefaultCollapsed, setSideNavState]);
 
 	const handleExpand = useCallback<VisibilityCallback>(
-		({ screen }) => {
-			onExpand?.({ screen });
+		({ screen, trigger }) => {
+			if (fg('navx-full-height-sidebar')) {
+				onExpand?.({ screen, trigger });
+			} else {
+				onExpand?.({ screen });
+			}
 
 			// When the side nav gets expanded, we close the flyout to reset it.
 			// This prevents the flyout from staying open and ensures we are respecting the user's intent to expand.
@@ -461,8 +467,12 @@ function SideNavInternal({
 	);
 
 	const handleCollapse = useCallback<VisibilityCallback>(
-		({ screen }) => {
-			onCollapse?.({ screen });
+		({ screen, trigger }) => {
+			if (fg('navx-full-height-sidebar')) {
+				onCollapse?.({ screen, trigger });
+			} else {
+				onCollapse?.({ screen });
+			}
 
 			// When the side nav gets collapsed, we close the flyout to reset it.
 			// This prevents the flyout from staying open and ensures we are respecting the user's intent to collapse.
@@ -476,6 +486,7 @@ function SideNavInternal({
 		onCollapse: handleCollapse,
 		isExpandedOnDesktop,
 		isExpandedOnMobile,
+		lastTrigger: sideNavState?.lastTrigger ?? null,
 	});
 
 	useEffect(() => {
@@ -487,12 +498,12 @@ function SideNavInternal({
 					// We're transitioning from tablet to desktop viewport size.
 					// We forcibly show the side nav if it was shown on mobile.
 					if (isExpandedOnMobile && !isExpandedOnDesktop) {
-						toggleVisibility();
+						toggleVisibilityByScreenResize();
 					}
 				}
 			},
 		});
-	}, [toggleVisibility, isExpandedOnDesktop, isExpandedOnMobile]);
+	}, [toggleVisibilityByScreenResize, isExpandedOnDesktop, isExpandedOnMobile]);
 
 	/**
 	 * Close the mobile side nav if there is a click outside.
@@ -557,10 +568,10 @@ function SideNavInternal({
 					return;
 				}
 
-				toggleVisibility();
+				toggleVisibilityByClickOutsideOnMobile();
 			},
 		});
-	}, [id, isExpandedOnMobile, toggleButtonElement, toggleVisibility]);
+	}, [id, isExpandedOnMobile, toggleButtonElement, toggleVisibilityByClickOutsideOnMobile]);
 
 	useEffect(() => {
 		if (!toggleButtonElement) {

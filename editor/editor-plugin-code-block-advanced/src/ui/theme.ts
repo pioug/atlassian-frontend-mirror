@@ -40,7 +40,7 @@ export const cmTheme = CodeMirror.theme({
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 'unset',
 		fontFamily: token('font.family.code'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		backgroundImage: overflowShadow({
 			leftCoverWidth: token('space.300'),
 		}),

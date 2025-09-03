@@ -16,7 +16,7 @@ import ExampleWrapper from './helper/example-wrapper';
 const css = cssMap({
 	wrapper: {
 		boxShadow: token('elevation.shadow.raised'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		width: '320px',
 	},
 });

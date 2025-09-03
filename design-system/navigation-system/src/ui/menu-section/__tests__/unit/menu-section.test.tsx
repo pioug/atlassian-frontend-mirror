@@ -2,6 +2,8 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { Divider } from '../../divider';
 import { MenuSection } from '../../menu-section';
 import { MenuSectionHeading } from '../../menu-section-heading';
@@ -20,7 +22,7 @@ describe('MenuSection', () => {
 		const { container } = render(
 			<MenuSection>
 				<MenuSectionHeading>Test title</MenuSectionHeading>
-				<button>Some menu item</button>
+				<button type="button">Some menu item</button>
 				<Divider />
 			</MenuSection>,
 		);
@@ -31,7 +33,7 @@ describe('MenuSection', () => {
 	it('should be accessible when heading is not provided', async () => {
 		const { container } = render(
 			<MenuSection>
-				<button>Some menu item</button>
+				<button type="button">Some menu item</button>
 				<Divider />
 			</MenuSection>,
 		);
@@ -82,7 +84,7 @@ describe('MenuSection', () => {
 	});
 });
 
-describe('MenuSectionHeading', () => {
+ffTest.off('platform_dst_nav4_menu_section_heading_a11y', 'MenuSectionHeading', () => {
 	it('should display a heading with correct name', () => {
 		render(
 			// Wrapping in MenuSection to provide context
@@ -92,5 +94,18 @@ describe('MenuSectionHeading', () => {
 		);
 
 		expect(screen.getByRole('heading', { name: 'Test title' })).toBeVisible();
+	});
+});
+
+ffTest.on('platform_dst_nav4_menu_section_heading_a11y', 'MenuSectionHeading', () => {
+	it('should display regular text', () => {
+		render(
+			// Wrapping in MenuSection to provide context
+			<MenuSection>
+				<MenuSectionHeading>Test title</MenuSectionHeading>
+			</MenuSection>,
+		);
+
+		expect(screen.getByText('Test title')).toBeVisible();
 	});
 });

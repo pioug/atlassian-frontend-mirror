@@ -12,8 +12,6 @@ import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
@@ -84,32 +82,6 @@ type AlignmentTableContainerProps = {
 	pluginInjectionApi?: PluginInjectionAPI;
 };
 
-const useAlignmentTableContainerSharedState = sharedPluginStateHookMigratorFactory(
-	(pluginInjectionApi: PluginInjectionAPI | undefined) => {
-		const { isFullWidthModeEnabled, wasFullWidthModeEnabled } = useSharedPluginStateWithSelector(
-			pluginInjectionApi,
-			['table'],
-			(states) => ({
-				isFullWidthModeEnabled: states.tableState?.isFullWidthModeEnabled,
-				wasFullWidthModeEnabled: states.tableState?.wasFullWidthModeEnabled,
-			}),
-		);
-		return {
-			tableState: undefined,
-			isFullWidthModeEnabled,
-			wasFullWidthModeEnabled,
-		};
-	},
-	(pluginInjectionApi: PluginInjectionAPI | undefined) => {
-		const { tableState } = useSharedPluginState(pluginInjectionApi, ['table']);
-		return {
-			tableState,
-			isFullWidthModeEnabled: tableState?.isFullWidthModeEnabled,
-			wasFullWidthModeEnabled: tableState?.wasFullWidthModeEnabled,
-		};
-	},
-);
-
 const AlignmentTableContainer = ({
 	node,
 	children,
@@ -118,17 +90,16 @@ const AlignmentTableContainer = ({
 	editorView,
 }: PropsWithChildren<AlignmentTableContainerProps>) => {
 	const alignment = node.attrs.layout !== ALIGN_START ? ALIGN_CENTER : ALIGN_START;
-	const { tableState, isFullWidthModeEnabled, wasFullWidthModeEnabled } =
-		useAlignmentTableContainerSharedState(pluginInjectionApi);
+	const { isFullWidthModeEnabled, wasFullWidthModeEnabled } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['table'],
+		(states) => ({
+			isFullWidthModeEnabled: states.tableState?.isFullWidthModeEnabled,
+			wasFullWidthModeEnabled: states.tableState?.wasFullWidthModeEnabled,
+		}),
+	);
 
 	useEffect(() => {
-		if (
-			!tableState &&
-			expValEquals('platform_editor_usesharedpluginstatewithselector', 'isEnabled', false)
-		) {
-			return;
-		}
-
 		if (editorView && getPos) {
 			const { state, dispatch } = editorView;
 
@@ -157,7 +128,7 @@ const AlignmentTableContainer = ({
 			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [editorView, tableState, isFullWidthModeEnabled, wasFullWidthModeEnabled, node]);
+	}, [editorView, isFullWidthModeEnabled, wasFullWidthModeEnabled, node]);
 
 	const style = useMemo(() => {
 		return getAlignmentStyle(alignment);
@@ -264,30 +235,6 @@ const selector = (
 	editorViewModeState: states.editorViewModeState,
 });
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: PluginInjectionAPI | undefined) => {
-		const { tableState, editorViewModeState } = useSharedPluginStateWithSelector(
-			api,
-			['table', 'editorViewMode'],
-			selector,
-		);
-		return {
-			tableState,
-			editorViewModeState,
-		};
-	},
-	(api: PluginInjectionAPI | undefined) => {
-		const { tableState, editorViewModeState } = useSharedPluginState(api, [
-			'table',
-			'editorViewMode',
-		]);
-		return {
-			tableState,
-			editorViewModeState,
-		};
-	},
-);
-
 const getPadding = (containerWidth: number) => {
 	return containerWidth <= akEditorFullPageNarrowBreakout &&
 		expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
@@ -319,7 +266,11 @@ const ResizableTableContainerLegacy = React.memo(
 		const tableWidthRef = useRef<number>(akEditorDefaultLayoutWidth);
 		const [resizing, setIsResizing] = useState(false);
 
-		const { tableState, editorViewModeState } = useSharedState(pluginInjectionApi);
+		const { tableState, editorViewModeState } = useSharedPluginStateWithSelector(
+			pluginInjectionApi,
+			['table', 'editorViewMode'],
+			selector,
+		);
 		const isFullWidthModeEnabled = tableState?.isFullWidthModeEnabled;
 		const mode = editorViewModeState?.mode;
 
@@ -560,7 +511,11 @@ const ResizableTableContainerNext = React.memo(
 		const [tableMaxWidthForFullPageOnLoad, setTableMaxWidthForFullPageOnLoad] =
 			useState<number>(tableWidth);
 
-		const { tableState, editorViewModeState } = useSharedState(pluginInjectionApi);
+		const { tableState, editorViewModeState } = useSharedPluginStateWithSelector(
+			pluginInjectionApi,
+			['table', 'editorViewMode'],
+			selector,
+		);
 		const isFullWidthModeEnabled = tableState?.isFullWidthModeEnabled;
 		const mode = editorViewModeState?.mode;
 

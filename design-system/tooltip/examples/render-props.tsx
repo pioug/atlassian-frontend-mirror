@@ -19,7 +19,7 @@ const longMessage = 'I am a longer tooltip with a decent amount of content insid
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const InlineDialog = styled<TooltipPrimitiveProps>(TooltipPrimitive)({
 	background: 'white',
-	borderRadius: token('border.radius', '4px'),
+	borderRadius: token('radius.small', '4px'),
 	boxShadow: '0 1px 2px rgba(0, 0, 0, 0.2)',
 	boxSizing: 'content-box',
 	color: token('color.text'),

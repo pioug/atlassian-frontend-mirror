@@ -12,7 +12,7 @@ import Tooltip, { TooltipPrimitive, type TooltipPrimitiveProps } from '@atlaskit
 const styles = cssMap({
 	root: {
 		backgroundColor: token('elevation.surface'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		boxShadow: token('elevation.shadow.overlay'),
 		color: token('color.text'),
 		maxHeight: '300px',

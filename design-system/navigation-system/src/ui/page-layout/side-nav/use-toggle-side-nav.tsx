@@ -1,8 +1,13 @@
 import { useCallback, useContext } from 'react';
 
+import { type SideNavTrigger } from './types';
 import { SetSideNavVisibilityState } from './visibility-context';
 
 type ToggleSideNav = () => void;
+
+type UseToggleSideNavOptions = {
+	trigger?: SideNavTrigger;
+};
 
 /**
  * __useToggleSideNav__
@@ -11,9 +16,11 @@ type ToggleSideNav = () => void;
  *
  * It will toggle the appropriate internal desktop or mobile side nav visibility state based on the current screen size.
  *
- * If you need a function to make the side nav visible, use `useShowSideNav` instead.
+ * If you need a function to make the side nav visible, use `useExpandSideNav` instead.
  */
-export function useToggleSideNav(): ToggleSideNav {
+export function useToggleSideNav({
+	trigger = 'programmatic',
+}: UseToggleSideNavOptions = {}): ToggleSideNav {
 	const setSideNavState = useContext(SetSideNavVisibilityState);
 
 	const toggleSideNav = useCallback(() => {
@@ -30,6 +37,7 @@ export function useToggleSideNav(): ToggleSideNav {
 					mobile: currentState.mobile,
 					desktop: currentState.desktop === 'expanded' ? 'collapsed' : 'expanded',
 					flyout: 'closed',
+					lastTrigger: trigger,
 				};
 			});
 		} else {
@@ -44,10 +52,11 @@ export function useToggleSideNav(): ToggleSideNav {
 					desktop: currentState.desktop,
 					mobile: currentState.mobile === 'expanded' ? 'collapsed' : 'expanded',
 					flyout: 'closed',
+					lastTrigger: trigger,
 				};
 			});
 		}
-	}, [setSideNavState]);
+	}, [setSideNavState, trigger]);
 
 	return toggleSideNav;
 }

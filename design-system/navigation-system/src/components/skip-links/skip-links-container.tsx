@@ -22,7 +22,7 @@ const styles = cssMap({
 		insetInlineStart: token('space.250'),
 		insetBlockStart: token('space.250'),
 		backgroundColor: token('elevation.surface.overlay'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		boxShadow: token('elevation.shadow.overlay'),
 		/**
 		 * Hiding the element while it has no focus within

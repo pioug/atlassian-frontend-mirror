@@ -281,7 +281,7 @@ const quickInsertStyles = () =>
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.blocks-quick-insert-tooltip': {
 			zIndex: layers.tooltip(),
-			borderRadius: token('border.radius'),
+			borderRadius: token('radius.small'),
 			padding: `${token('space.050')} 0`,
 			boxSizing: 'border-box',
 			maxWidth: '240px',

@@ -14,7 +14,7 @@ const styles = cssMap({
 		paddingBottom: token('space.0'),
 		paddingLeft: token('space.0'),
 		color: token('color.text.inverse'),
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 		borderWidth: token('border.width.outline'),
 		borderColor: token('color.border.bold'),
 		borderStyle: 'solid',

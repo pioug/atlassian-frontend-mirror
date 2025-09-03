@@ -20,11 +20,11 @@ const styles = cssMap({
 	},
 	container: {
 		display: 'flex',
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		height: '192px',
 	},
 	box: {
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		paddingTop: token('space.200'),
 		paddingRight: token('space.200'),
 		paddingBottom: token('space.200'),

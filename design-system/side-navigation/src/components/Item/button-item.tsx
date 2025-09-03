@@ -20,7 +20,7 @@ const styles = cssMap({
 		// is approximately center aligned with the horizontal app switcher.
 		paddingBlock: token('space.100', '8px'),
 		paddingInline: token('space.100', '8px'),
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		backgroundColor: token('color.background.neutral.subtle', 'transparent'),
 		'&:hover': {
 			color: token('color.text.subtle', N500),

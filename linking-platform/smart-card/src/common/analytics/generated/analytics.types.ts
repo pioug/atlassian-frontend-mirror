@@ -211,6 +211,19 @@ export type SmartLinkClickedTitleGoToLinkAttributesType = {
 	definitionId: string | null;
 	isModifierKeyPressed: boolean | null;
 };
+export type HyperlinkResolvedAttributesType = {
+	definitionId: string | null;
+	extensionKey: string | null;
+	resourceType: string | null;
+	duration: number | null;
+};
+export type HyperlinkUnresolvedAttributesType = {
+	definitionId: string | null;
+	extensionKey: string | null;
+	resourceType: string | null;
+	error: Record<string, unknown> | null;
+	reason: string;
+};
 export type HoverCardViewedAttributesType = {
 	previewDisplay: 'card' | 'embed';
 	previewInvokeMethod: 'keyboard' | 'mouse_hover' | 'mouse_click' | null;
@@ -380,6 +393,12 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * Fires an event when a Smart Link action is failed to resolved. */
 	'operational.smartLinkAction.unresolved': SmartLinkActionUnresolvedAttributesType;
+	/**
+	 * Fires an event when a Hyperlink is successfully resolved. */
+	'operational.hyperlink.resolved': HyperlinkResolvedAttributesType;
+	/**
+	 * Fires an event when a Hyperlink is failed to resolve. */
+	'operational.hyperlink.unresolved': HyperlinkUnresolvedAttributesType;
 	/**
 	 * fires an event that represents when a user clicks on a Smart Link. */
 	'ui.smartLink.clicked': SmartLinkClickedAttributesType;

@@ -37,7 +37,7 @@ export const mediaInlineSpecWithFixedToDOM = () => {
 							width: '100%',
 							// Transparent image workaround to control styling
 							src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
-							style: `display: inline-block; aspect-ratio: ${aspectRatio}; height: 100%; width: 100%; border-radius: ${token('border.radius', '3px')}; ${skeletonStyling}`,
+							style: `display: inline-block; aspect-ratio: ${aspectRatio}; height: 100%; width: 100%; border-radius: ${token('radius.small', '3px')}; ${skeletonStyling}`,
 						},
 					],
 				];

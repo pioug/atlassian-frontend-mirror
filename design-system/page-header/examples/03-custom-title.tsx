@@ -25,7 +25,7 @@ const editViewStyles = css({
 	boxSizing: 'border-box',
 	width: '100%',
 	border: `2px solid ${token('color.border')}`,
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	cursor: 'inherit',
 	font: token('font.heading.large'),
 	outline: 'none',

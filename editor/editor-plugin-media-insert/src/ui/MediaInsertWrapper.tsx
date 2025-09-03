@@ -11,7 +11,7 @@ const styles = xcss({
 	boxShadow: 'elevation.shadow.overflow',
 	width: '340px',
 	padding: 'space.200',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	backgroundColor: 'elevation.surface.overlay',
 });
 

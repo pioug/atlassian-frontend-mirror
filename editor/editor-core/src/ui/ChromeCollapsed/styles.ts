@@ -12,7 +12,7 @@ export const inputStyle: SerializedStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		border: `1px solid ${token('color.border.input', akEditorSubtleAccent)}`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		boxSizing: 'border-box',
 		height: '40px',
 		paddingLeft: token('space.250', '20px'),

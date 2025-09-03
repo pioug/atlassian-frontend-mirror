@@ -18,7 +18,7 @@ const containerStyles = cssMap({
 		borderStyle: 'solid',
 		borderColor: token('color.border.accent.purple'),
 		borderWidth: token('border.width'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		paddingBlockStart: token('space.300'),
 		paddingBlockEnd: token('space.300'),
 		paddingInlineStart: token('space.300'),

@@ -20,7 +20,7 @@ const toggleBoxStyles = css({
 	zIndex: 1,
 	backgroundColor: token('color.background.neutral.subtle'),
 	border: `1px solid ${token('color.border')}`,
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	insetBlockEnd: '1rem',
 	insetInlineStart: '50%',
 	transform: 'translate(-50%)',

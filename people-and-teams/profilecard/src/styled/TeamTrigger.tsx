@@ -11,7 +11,7 @@ const styles = cssMap({
 		display: 'inherit',
 	},
 	cardwrapper: {
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		width: '320px',
 		position: 'relative',
 	},

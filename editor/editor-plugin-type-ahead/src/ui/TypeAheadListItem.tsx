@@ -31,7 +31,7 @@ export const itemIcon = css({
 	height: token('space.500', '40px'),
 	overflow: 'hidden',
 	border: `1px solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}` /* N60 at 50% */,
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxSizing: 'border-box',
 
 	display: 'flex',

@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 211.2.1
+
+### Patch Changes
+
+- [`255837cfba315`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/255837cfba315) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
+## 211.2.0
+
+### Minor Changes
+
+- [`ddb46afe087a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddb46afe087a6) -
+  [https://product-fabric.atlassian.net/browse/ED-27795](ED-27795) - tidy up
+  platform_editor_catch_missing_injection_states FG
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 211.1.1
 
 ### Patch Changes

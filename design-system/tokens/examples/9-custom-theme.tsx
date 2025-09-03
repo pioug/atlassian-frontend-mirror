@@ -69,7 +69,7 @@ const styles = cssMap({
 	borderBox: {
 		borderColor: token('color.border'),
 		borderWidth: token('border.width'),
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		borderStyle: 'solid',
 	},
 	brandText: {
@@ -94,7 +94,7 @@ const styles = cssMap({
 		borderColor: token('color.border'),
 		borderStyle: 'solid',
 		width: 'fit-content',
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 	},
 });
 

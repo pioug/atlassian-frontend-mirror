@@ -1,7 +1,6 @@
 import uuid from 'uuid';
 
 import { type EnvironmentsKeys, getBaseUrl } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { readStream } from './readStream';
 import {
@@ -53,16 +52,12 @@ export class AISummaryService implements AISummaryServiceInt {
 	}
 
 	private getRequestUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string) => {
-		const path = fg('platform-linking-ai-summary-migration-to-convo-ai')
-			? CONVO_AI_ENDPOINT
-			: 'assist/chat/v1/invoke_agent/stream';
-
 		if (baseUrlOverride || envKey) {
 			const baseUrl = baseUrlOverride || getBaseUrl(envKey);
-			return addPath(baseUrl, path);
+			return addPath(baseUrl, CONVO_AI_ENDPOINT);
 		}
 
-		return addPath('/gateway/api/', path);
+		return addPath('/gateway/api/', CONVO_AI_ENDPOINT);
 	};
 
 	private fetchStream = async <T>() => {
@@ -76,13 +71,11 @@ export class AISummaryService implements AISummaryServiceInt {
 				locale: this.locale,
 			},
 			...{
-				ai_feature_input: fg('platform-linking-ai-summary-migration-to-convo-ai')
-					? {
-							content_url: this.url,
-							content_ari: this.ari,
-							locale: this.locale,
-						}
-					: undefined,
+				ai_feature_input: {
+					content_url: this.url,
+					content_ari: this.ari,
+					locale: this.locale,
+				},
 			},
 		};
 
@@ -132,9 +125,7 @@ export class AISummaryService implements AISummaryServiceInt {
 
 				//if AI Mate service returns cached summary we get the summary text in one piece as the last message
 				if (chunk.type === 'FINAL_RESPONSE') {
-					bufferContent = fg('platform-linking-ai-summary-migration-to-convo-ai')
-						? chunk.message.content
-						: chunk.message.message.content;
+					bufferContent = chunk.message.content;
 				}
 
 				if (chunk.type === 'ERROR') {

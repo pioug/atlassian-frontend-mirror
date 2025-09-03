@@ -56,7 +56,7 @@ const ITEM_PADDING = 12;
 
 const typeAheadContent = css({
 	background: token('elevation.surface.overlay', N0),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxShadow: token('elevation.shadow.overlay', `0 0 1px ${N60A}, 0 4px 8px -2px ${N50A}`),
 	padding: `${token('space.050', '4px')} 0`,
 	width: '320px',

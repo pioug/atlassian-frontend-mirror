@@ -8,11 +8,7 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { browser } from '@atlaskit/editor-common/browser';
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -319,31 +315,6 @@ const DragHandleComponent = ({
 	);
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const { hoveredColumns, hoveredRows } = useSharedPluginStateWithSelector(
-			api,
-			['table'],
-			(states) => ({
-				hoveredColumns: (states.tableState as TableSharedStateInternal)?.hoveredColumns,
-				hoveredRows: (states.tableState as TableSharedStateInternal)?.hoveredRows,
-			}),
-		);
-		return {
-			hoveredColumns,
-			hoveredRows,
-		};
-	},
-	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const { tableState } = useSharedPluginState(api, ['table']);
-		const tableStateInternal = tableState as TableSharedStateInternal;
-		return {
-			hoveredColumns: tableStateInternal?.hoveredColumns,
-			hoveredRows: tableStateInternal?.hoveredRows,
-		};
-	},
-);
-
 const DragHandleComponentWithSharedState = ({
 	isDragMenuTarget,
 	tableLocalId,
@@ -362,7 +333,14 @@ const DragHandleComponentWithSharedState = ({
 	intl,
 	api,
 }: DragHandleWithSharedStateProps & WrappedComponentProps) => {
-	const { hoveredColumns, hoveredRows } = useSharedState(api);
+	const { hoveredColumns, hoveredRows } = useSharedPluginStateWithSelector(
+		api,
+		['table'],
+		(states) => ({
+			hoveredColumns: (states.tableState as TableSharedStateInternal)?.hoveredColumns,
+			hoveredRows: (states.tableState as TableSharedStateInternal)?.hoveredRows,
+		}),
+	);
 	return (
 		<DragHandleComponent
 			isDragMenuTarget={isDragMenuTarget}

@@ -51,7 +51,7 @@ const borderRadiuses = [
 
 const borderRadiusMap = cssMap({
 	less: { borderRadius: 0 },
-	same: { borderRadius: token('border.radius') },
+	same: { borderRadius: token('radius.small') },
 	more: { borderRadius: token('radius.large') },
 });
 

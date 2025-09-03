@@ -27,6 +27,7 @@ export const transformTextLinkCodeMarks = (adf: ADFEntity) => {
 				isTransformed = true;
 				return removeCodeMarks(node);
 			}
+			return;
 		},
 	});
 

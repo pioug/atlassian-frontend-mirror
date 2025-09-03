@@ -206,7 +206,7 @@ export const prepareWrapperContentDOM = ({
 			'div',
 			{
 				style: convertToInlineCss({
-					borderRadius: token('border.radius', '3px'),
+					borderRadius: token('radius.small', '3px'),
 					width: mediaWidthCalc,
 					minWidth: mediaWidthCalc,
 					color: token('color.icon', N50),

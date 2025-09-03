@@ -34,7 +34,7 @@ const containerStyles = cssMap({
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 });
 

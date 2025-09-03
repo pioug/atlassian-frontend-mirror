@@ -46,7 +46,7 @@ export const outerContainerCSS = (opts: StyleOpts & { scrollbarWidth: number }) 
 			left: token('space.100', '8px'),
 			right: containerPadding + opts.scrollbarWidth,
 			height: scrollIndicatorHeight,
-			borderRadius: token('border.radius.050', scrollIndicatorBorderRadius),
+			borderRadius: token('radius.xsmall', scrollIndicatorBorderRadius),
 			backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${token('color.border', N30)})`,
 			position: 'absolute',
 			zIndex: scrollIndicatorZIndex,
@@ -56,7 +56,7 @@ export const outerContainerCSS = (opts: StyleOpts & { scrollbarWidth: number }) 
 			content: "''",
 			position: 'absolute',
 			display: 'block',
-			borderRadius: token('border.radius.050', scrollIndicatorBorderRadius),
+			borderRadius: token('radius.xsmall', scrollIndicatorBorderRadius),
 			flexShrink: 0,
 			height: scrollIndicatorHeight,
 			left: token('space.100', '8px'),
@@ -86,7 +86,7 @@ export const innerContainerCSS = (opts: StyleOpts) =>
 		...(!opts.showTopScrollIndicator &&
 			({
 				'&::before': {
-					borderRadius: token('border.radius.050', scrollIndicatorBorderRadius),
+					borderRadius: token('radius.xsmall', scrollIndicatorBorderRadius),
 					content: "''",
 					left: 0,
 					right: 0,
@@ -101,7 +101,7 @@ export const innerContainerCSS = (opts: StyleOpts) =>
 		// This after pseudo element abuses being a flex child and pushes itself down to the
 		// very bottom of the container - doing so ends up "masking" the actual scroll indicator.
 		'&::after': {
-			borderRadius: token('border.radius.050', scrollIndicatorBorderRadius),
+			borderRadius: token('radius.xsmall', scrollIndicatorBorderRadius),
 			content: "''",
 			display: 'block',
 			flexShrink: 0,

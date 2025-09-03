@@ -69,7 +69,7 @@ import { shortcutsArray } from './styles';
 
 const codeSm = xcss({
 	backgroundColor: 'color.background.neutral',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	width: token('space.300'),
 	display: 'inline-block',
 	height: token('space.300'),
@@ -79,7 +79,7 @@ const codeSm = xcss({
 
 const codeMd = xcss({
 	backgroundColor: 'color.background.neutral',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	display: 'inline-block',
 	height: token('space.300'),
 	lineHeight: token('space.300'),
@@ -88,7 +88,7 @@ const codeMd = xcss({
 });
 
 const codeLg = xcss({
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	display: 'inline-block',
 	height: token('space.300'),
 	lineHeight: token('space.300'),

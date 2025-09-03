@@ -5,7 +5,7 @@ import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const alignInlineItems = ['start', 'center', 'end'] as const;
 
-const blockStyles = xcss({ borderRadius: 'border.radius.050' });
+const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 
 export default () => (
 	<Box testId="inline-example" padding="space.100">

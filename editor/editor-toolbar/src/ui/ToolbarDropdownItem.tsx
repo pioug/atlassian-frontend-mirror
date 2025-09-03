@@ -30,7 +30,7 @@ const styles = cssMap({
 		paddingBlock: token('space.100'),
 		'&:focus-visible': {
 			outlineOffset: token('space.negative.025'),
-			borderRadius: token('border.radius'),
+			borderRadius: token('radius.small'),
 		},
 	},
 	enabled: {

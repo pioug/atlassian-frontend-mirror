@@ -7,6 +7,7 @@ import { messages } from '@atlaskit/editor-common/lists';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { MoreItemsIcon, ToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 import { useIndentationState } from '../utils/hooks';
@@ -23,6 +24,7 @@ export const ListsIndentationMenu = ({
 	allowHeadingAndParagraphIndentation,
 }: ListsIndentationMenuProps) => {
 	const { formatMessage } = useIntl();
+	const isPatch2Enabled = expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true);
 	const { editorView } = useEditorToolbar();
 
 	const indentationState = useIndentationState({
@@ -30,20 +32,19 @@ export const ListsIndentationMenu = ({
 		allowHeadingAndParagraphIndentation,
 		state: editorView?.state,
 	});
-	const { bulletListDisabled, orderedListDisabled } = useSharedPluginStateWithSelector(
-		api,
-		['list'],
-		(states) => ({
+	const { bulletListDisabled, orderedListDisabled, taskListActive } =
+		useSharedPluginStateWithSelector(api, ['list', 'taskDecision'], (states) => ({
 			bulletListDisabled: states.listState?.bulletListDisabled,
 			orderedListDisabled: states.listState?.orderedListDisabled,
-		}),
-	);
+			taskListActive: states.taskDecisionState?.isInsideTask,
+		}));
 
 	const allItemsDisabled =
 		bulletListDisabled &&
 		orderedListDisabled &&
 		indentationState?.indentDisabled &&
-		indentationState?.outdentDisabled;
+		indentationState?.outdentDisabled &&
+		!(isPatch2Enabled && taskListActive);
 
 	return (
 		<ToolbarDropdownMenu

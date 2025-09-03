@@ -45,7 +45,7 @@ const styles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		outlineColor: token('color.border'),
 		outlineStyle: 'solid',
 	},
@@ -56,7 +56,7 @@ const styles = cssMap({
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: token('color.background.neutral'),
-		borderRadius: token('border.radius', '6px'),
+		borderRadius: token('radius.small', '6px'),
 	},
 });
 

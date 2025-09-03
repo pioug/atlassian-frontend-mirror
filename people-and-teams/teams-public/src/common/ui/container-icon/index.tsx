@@ -31,7 +31,7 @@ const styles = cssMap({
 		marginRight: token('space.025', '2px'),
 		marginBottom: token('space.025', '2px'),
 		marginLeft: token('space.025', '2px'),
-		borderRadius: token('border.radius.050', '2px'),
+		borderRadius: token('radius.xsmall', '2px'),
 		outlineColor: token('color.border'),
 		outlineStyle: 'solid',
 		backgroundColor: token('elevation.surface.sunken'),
@@ -46,7 +46,7 @@ const styles = cssMap({
 		backgroundColor: token('color.skeleton'),
 		width: '24px',
 		height: '24px',
-		borderRadius: token('border.radius.050', '2px'),
+		borderRadius: token('radius.xsmall', '2px'),
 	},
 });
 

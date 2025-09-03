@@ -13,7 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
 	backgroundColor: token('color.background.neutral.bold'),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':focus': {
 		outline: 'none',

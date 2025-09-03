@@ -1,15 +1,28 @@
-import type { Node as PMNode, NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 /**
- * Extract all inline content from a node
+ * Convert a block node to inline content suitable for task items
  */
-const extractInlineContent = (node: PMNode): PMNode[] => {
-	const inlineContent: PMNode[] = [];
-	for (let i = 0; i < node.childCount; i++) {
-		inlineContent.push(node.child(i));
+const convertBlockToInlineContent = (node: PMNode, schema: Schema): PMNode[] => {
+	const { paragraph } = schema.nodes;
+
+	if (node.type === paragraph) {
+		// Extract inline content from paragraphs
+		return [...node.content.content];
+	} else if (node.isBlock) {
+		// For other block content types eg. codeBlock, extract their text content and create text nodes
+		const textContent = node.textContent;
+		if (textContent) {
+			const textNode = schema.text(textContent);
+			return [textNode];
+		}
+	} else {
+		// Already inline content, add directly
+		return [node];
 	}
-	return inlineContent;
+
+	return [];
 };
 
 /**
@@ -46,25 +59,11 @@ export const transformListStructure = (
 				// Extract inline content from all children within listItem
 				if (node.type === listItem) {
 					const inlineContent: PMNode[] = [];
+					// Extract inline content from all child nodes
+					node.forEach((child) => {
+						inlineContent.push(...convertBlockToInlineContent(child, tr.doc.type.schema));
+					});
 
-					// Extract all inline content from all child nodes
-					for (let i = 0; i < node.childCount; i++) {
-						const child = node.child(i);
-						if (child.type === paragraph) {
-							// Extract inline content from paragraphs
-							inlineContent.push(...extractInlineContent(child));
-						} else if (child.isBlock) {
-							// For other block content types eg. codeBlock, extract their text content and create text nodes
-							const textContent = child.textContent;
-							if (textContent) {
-								const textNode = tr.doc.type.schema.text(textContent);
-								inlineContent.push(textNode);
-							}
-						} else {
-							// Already inline content, add directly
-							inlineContent.push(child);
-						}
-					}
 					if (inlineContent.length > 0) {
 						const newItem = taskItem.create(null, inlineContent);
 						newListItems.push(newItem);
@@ -74,7 +73,7 @@ export const transformListStructure = (
 				// Converting from task list to bullet/ordered list
 				// Structure: taskItem > inline content -> listItem > paragraph > inline content
 				if (node.type === taskItem) {
-					const inlineContent = extractInlineContent(node);
+					const inlineContent = [...node.content.content];
 
 					if (inlineContent.length > 0) {
 						const paragraphNode = paragraph.create(null, inlineContent);

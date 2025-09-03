@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.5.8
+
+### Patch Changes
+
+- [`9b558aefd6806`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b558aefd6806) -
+  Reset extra interaction metrics when adding new interaction
+
 ## 4.5.7
 
 ### Patch Changes

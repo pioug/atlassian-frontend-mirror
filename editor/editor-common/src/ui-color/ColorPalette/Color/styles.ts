@@ -1,12 +1,12 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 /** this is not new usage - old code extracted from editor-core */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const buttonStyle = css({
+export const buttonStyle: SerializedStyles = css({
 	height: '26px',
 	width: '26px',
 	background: token('color.background.neutral'),
@@ -21,7 +21,7 @@ export const buttonStyle = css({
 /** this is not new usage - old code extracted from editor-core */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const buttonWrapperStyle = css({
+export const buttonWrapperStyle: SerializedStyles = css({
 	border: '1px solid transparent',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 0,

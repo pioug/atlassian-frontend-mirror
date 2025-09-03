@@ -89,7 +89,7 @@ export default () => {
 							boxSizing: 'border-box',
 							width: '100%',
 							border: 'none',
-							borderRadius: `${token('border.radius', '3px')} ${token('border.radius', '3px')} 0 0`,
+							borderRadius: `${token('radius.small', '3px')} ${token('radius.small', '3px')} 0 0`,
 							color: '#172b4d',
 							fontSize: '24px',
 							marginBlockEnd: token('space.100', '8px'),

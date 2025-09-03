@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "3.9.8",
+	"version": "3.9.9",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -51,9 +51,6 @@
 			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-linking-pla": {
-			"type": "boolean"
-		},
-		"navx-1368-link-picker-a11y-mandatory-states": {
 			"type": "boolean"
 		}
 	},

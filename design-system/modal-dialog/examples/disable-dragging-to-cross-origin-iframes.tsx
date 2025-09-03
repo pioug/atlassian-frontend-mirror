@@ -27,7 +27,7 @@ import { disableDraggingToCrossOriginIFramesForTextSelection } from '../src/inte
 const inIframeStyles = cssMap({
 	root: {
 		borderWidth: token('border.width.outline'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		borderColor: token('color.border.accent.red'),
 		display: 'flex',
 		flexDirection: 'column',
@@ -84,7 +84,7 @@ const dropTargetStyles = cssMap({
 		display: 'flex',
 		flexDirection: 'column',
 		flexGrow: '1',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 });
 
@@ -175,7 +175,7 @@ const draggableStyles = cssMap({
 		paddingBlockStart: token('space.100'),
 		paddingInlineEnd: token('space.100'),
 		paddingInlineStart: token('space.100'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 });
 
@@ -185,7 +185,7 @@ const unmanagedDraggableStyles = cssMap({
 		paddingBlockStart: token('space.100'),
 		paddingInlineEnd: token('space.100'),
 		paddingInlineStart: token('space.100'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 });
 
@@ -237,7 +237,7 @@ const parentStyles = cssMap({
 		flexDirection: 'column',
 	},
 	panel: {
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		borderWidth: token('border.width.outline'),
 		borderColor: token('color.border.accent.blue'),
 		display: 'flex',
@@ -280,7 +280,7 @@ const parentStyles = cssMap({
 		gap: token('space.100'),
 		borderWidth: token('border.width.outline'),
 		borderStyle: 'dashed',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		borderColor: token('color.border.accent.red'),
 	},
 });

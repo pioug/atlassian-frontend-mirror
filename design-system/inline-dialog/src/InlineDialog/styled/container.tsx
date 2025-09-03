@@ -25,7 +25,7 @@ const containerStyles = css({
 	maxHeight: `${8 * 56}px`,
 	zIndex: 300,
 	background: `var(${CSS_THEME_BACKGROUND})`,
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxShadow: `var(${CSS_THEME_BOX_SHADOW})`,
 	color: `var(${CSS_THEME_COLOR})`,
 	paddingBlockEnd: token('space.200', '16px'),

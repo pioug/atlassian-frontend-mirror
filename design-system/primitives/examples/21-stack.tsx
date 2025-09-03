@@ -24,14 +24,14 @@ const spaceItems = [
 	'space.1000',
 ] as const;
 
-const blockStyles = xcss({ borderRadius: 'border.radius.050' });
+const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 const Block = () => (
 	<Box xcss={blockStyles} padding="space.200" backgroundColor="color.background.discovery.bold" />
 );
 
 const containerStyles = xcss({
 	display: 'flex',
-	borderRadius: 'border.radius.050',
+	borderRadius: 'radius.xsmall',
 });
 
 /**

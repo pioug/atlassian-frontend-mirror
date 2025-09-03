@@ -462,7 +462,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
 .emotion-0 .ProseMirror .code-block {
   position: relative;
   background-color: var(--ds-surface-raised, #FFFFFF);
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   margin: 0.75rem 0 0 0;
   font-family: var(--ds-font-family-code);
   min-width: 48px;
@@ -498,7 +498,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   width: 100%;
   counter-reset: line;
   overflow-x: auto;
@@ -569,7 +569,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
   tab-size: 4;
   cursor: text;
   color: var(--ds-text, #172B4D);
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   margin: var(--ds-space-100, 8px);
   font-size: 0.875rem;
   line-height: 1.5rem;
@@ -847,7 +847,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
   display: inline;
   padding: 2px 0.5ch;
   background-color: var(--ds--code--bg-color,var(--ds-background-neutral, #091E420F));
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   border-style: none;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
@@ -1925,7 +1925,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
 }
 
 .emotion-0 .ProseMirror .ak-editor-panel {
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   margin: 0.75rem 0 0;
   padding-top: var(--ds-space-100, 8px);
   padding-right: var(--ds-space-200, 16px);
@@ -4417,7 +4417,7 @@ td>.emotion-0 .ak-editor-expand {
   color: var(--ds-text-inverse, #FFFFFF);
   overflow-wrap: break-word;
   cursor: default;
-  border-radius: var(--ds-border-radius, 4px);
+  border-radius: var(--ds-radius-small, 4px);
   margin: var(--ds-space-0, 0px);
   padding: var(--ds-space-025, 2px) var(--ds-space-075, 6px);
   position: fixed;
@@ -4959,7 +4959,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
 .emotion-0 .ProseMirror .code-block {
   position: relative;
   background-color: var(--ds-surface-raised, #FFFFFF);
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   margin: 0.75rem 0 0 0;
   font-family: var(--ds-font-family-code);
   min-width: 48px;
@@ -4995,7 +4995,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   width: 100%;
   counter-reset: line;
   overflow-x: auto;
@@ -5066,7 +5066,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
   tab-size: 4;
   cursor: text;
   color: var(--ds-text, #172B4D);
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   margin: var(--ds-space-100, 8px);
   font-size: 0.875rem;
   line-height: 1.5rem;
@@ -5344,7 +5344,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
   display: inline;
   padding: 2px 0.5ch;
   background-color: var(--ds--code--bg-color,var(--ds-background-neutral, #091E420F));
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   border-style: none;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
@@ -5960,7 +5960,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
 .emotion-0 .ProseMirror [data-layout-section] >[data-layout-column].ak-editor-selected-node:not(.danger)::before {
   width: calc(100% - 8px);
   left: 4px;
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
 }
 
 
@@ -6539,7 +6539,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
 }
 
 .emotion-0 .ProseMirror .ak-editor-panel {
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   margin: 0.75rem 0 0;
   padding-top: var(--ds-space-100, 8px);
   padding-right: var(--ds-space-200, 16px);
@@ -9191,7 +9191,7 @@ td>.emotion-0 .ak-editor-expand {
   color: var(--ds-text-inverse, #FFFFFF);
   overflow-wrap: break-word;
   cursor: default;
-  border-radius: var(--ds-border-radius, 4px);
+  border-radius: var(--ds-radius-small, 4px);
   margin: var(--ds-space-0, 0px);
   padding: var(--ds-space-025, 2px) var(--ds-space-075, 6px);
   position: fixed;
@@ -9717,7 +9717,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 .emotion-0 .ProseMirror .code-block {
   position: relative;
   background-color: var(--ds-surface-raised, #FFFFFF);
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   margin: 0.75rem 0 0 0;
   font-family: var(--ds-font-family-code, ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace);
   min-width: 48px;
@@ -9786,7 +9786,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   width: 100%;
   counter-reset: line;
   overflow-x: auto;
@@ -9824,7 +9824,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   tab-size: 4;
   cursor: text;
   color: var(--ds-text, #172B4D);
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   margin: var(--ds-space-100, 8px);
   font-size: 0.875rem;
   line-height: 1.5rem;
@@ -10096,7 +10096,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   display: inline;
   padding: 2px 0.5ch;
   background-color: var(--ds--code--bg-color,var(--ds-background-neutral, #091E420F));
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   border-style: none;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
@@ -10956,7 +10956,7 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 
 .emotion-0 .ProseMirror .ak-editor-panel {
   cursor: pointer;
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   margin: 0.75rem 0 0;
   padding-top: var(--ds-space-100, 8px);
   padding-right: var(--ds-space-200, 16px);
@@ -13271,7 +13271,7 @@ td>.emotion-0 .ak-editor-expand {
 .emotion-0 .ProseMirror [data-layout-section] >[data-layout-column].ak-editor-selected-node:not(.danger)::before {
   width: calc(100% - 8px);
   left: 4px;
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
 }
 
 
@@ -13999,7 +13999,7 @@ td>.emotion-0 .ak-editor-expand {
   color: var(--ds-text-inverse, #FFFFFF);
   overflow-wrap: break-word;
   cursor: default;
-  border-radius: var(--ds-border-radius, 4px);
+  border-radius: var(--ds-radius-small, 4px);
   margin: var(--ds-space-0, 0px);
   padding: var(--ds-space-025, 2px) var(--ds-space-075, 6px);
   position: fixed;
@@ -14629,7 +14629,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 .emotion-0 .ProseMirror .code-block {
   position: relative;
   background-color: var(--ds-surface-raised, #FFFFFF);
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   margin: 0.75rem 0 0 0;
   font-family: var(--ds-font-family-code, ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace);
   min-width: 48px;
@@ -14698,7 +14698,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   width: 100%;
   counter-reset: line;
   overflow-x: auto;
@@ -14736,7 +14736,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   tab-size: 4;
   cursor: text;
   color: var(--ds-text, #172B4D);
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   margin: var(--ds-space-100, 8px);
   font-size: 0.875rem;
   line-height: 1.5rem;
@@ -15008,7 +15008,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   display: inline;
   padding: 2px 0.5ch;
   background-color: var(--ds--code--bg-color,var(--ds-background-neutral, #091E420F));
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   border-style: none;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
@@ -15868,7 +15868,7 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 
 .emotion-0 .ProseMirror .ak-editor-panel {
   cursor: pointer;
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   margin: 0.75rem 0 0;
   padding-top: var(--ds-space-100, 8px);
   padding-right: var(--ds-space-200, 16px);
@@ -18650,7 +18650,7 @@ td>.emotion-0 .ak-editor-expand {
   color: var(--ds-text-inverse, #FFFFFF);
   overflow-wrap: break-word;
   cursor: default;
-  border-radius: var(--ds-border-radius, 4px);
+  border-radius: var(--ds-radius-small, 4px);
   margin: var(--ds-space-0, 0px);
   padding: var(--ds-space-025, 2px) var(--ds-space-075, 6px);
   position: fixed;

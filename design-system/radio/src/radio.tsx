@@ -75,7 +75,7 @@ const radioStyles = css({
 	/* Border should multiply by 24/14 to offset scale, a scale of 12 / 7 is to fix a Chrome bug that makes the circle become an oval and the
     inner circle not be centred at various zoom levels */
 	border: `${token('border.width', '1px')} solid var(--radio-border-color)`,
-	borderRadius: token('border.radius.circle', '50%'),
+	borderRadius: token('radius.full', '50%'),
 	MozAppearance: 'none',
 	outline: 'none',
 
@@ -102,7 +102,7 @@ const radioStyles = css({
 		position: 'absolute',
 		background: 'var(--radio-dot-color)',
 		// TODO Delete this comment after verifying spacing token -> previous value `'50%'`
-		borderRadius: token('border.radius.circle', '50%'),
+		borderRadius: token('radius.full', '50%'),
 		content: "''",
 		opacity: 'var(--radio-dot-opacity)',
 		transition: 'background-color 0.2s ease-in-out, opacity 0.2s ease-in-out',

@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import type { SideNavState } from '../../side-nav/types';
+import type { SideNavState, SideNavTrigger } from '../../side-nav/types';
 import { useToggleSideNav } from '../../side-nav/use-toggle-side-nav';
 import {
 	SetSideNavVisibilityState,
@@ -25,9 +25,13 @@ describe('useToggleSideNav', () => {
 	 * can access the current state when updating the value. This means we can't simply mock the function and assert with
 	 * `toHaveBeenCalledWith` - as it is called with a function, not a value.
 	 */
-	function TestComponent() {
+	function TestComponent({
+		trigger,
+	}: {
+		trigger?: SideNavTrigger;
+	} = {}) {
 		const sideNavState = useContext(SideNavVisibilityState);
-		const toggleSideNav = useToggleSideNav();
+		const toggleSideNav = useToggleSideNav({ trigger });
 
 		return (
 			<div>
@@ -36,6 +40,7 @@ describe('useToggleSideNav', () => {
 						<p>Mobile state: {sideNavState.mobile}</p>
 						<p>Desktop state: {sideNavState.desktop}</p>
 						<p>Flyout state: {sideNavState.flyout}</p>
+						<p>Last trigger: {sideNavState?.lastTrigger || 'null'}</p>
 					</>
 				) : (
 					<p>State not initialised</p>
@@ -82,6 +87,7 @@ describe('useToggleSideNav', () => {
 						mobile: 'collapsed',
 						desktop: 'collapsed',
 						flyout: 'closed',
+						lastTrigger: null,
 					}}
 				>
 					<TestComponent />
@@ -110,6 +116,7 @@ describe('useToggleSideNav', () => {
 						mobile: 'collapsed',
 						desktop: 'expanded',
 						flyout: 'closed',
+						lastTrigger: null,
 					}}
 				>
 					<TestComponent />
@@ -159,6 +166,7 @@ describe('useToggleSideNav', () => {
 						mobile: 'collapsed',
 						desktop: 'collapsed',
 						flyout: 'closed',
+						lastTrigger: null,
 					}}
 				>
 					<TestComponent />
@@ -187,6 +195,7 @@ describe('useToggleSideNav', () => {
 						mobile: 'expanded',
 						desktop: 'collapsed',
 						flyout: 'closed',
+						lastTrigger: null,
 					}}
 				>
 					<TestComponent />
@@ -236,6 +245,7 @@ describe('useToggleSideNav', () => {
 					mobile: 'collapsed',
 					desktop: 'collapsed',
 					flyout: 'closed',
+					lastTrigger: null,
 				}}
 			>
 				<TestComponent />
@@ -273,5 +283,59 @@ describe('useToggleSideNav', () => {
 		expect(screen.getByText('Mobile state: expanded')).toBeInTheDocument();
 		expect(screen.getByText('Desktop state: collapsed')).toBeInTheDocument();
 		expect(screen.getByText('Flyout state: closed')).toBeInTheDocument();
+	});
+
+	it('should set the trigger correctly when provided', async () => {
+		setMediaQuery('(min-width: 64rem)', { initial: true });
+		const user = userEvent.setup();
+
+		render(
+			<MockProvider
+				initialState={{
+					mobile: 'collapsed',
+					desktop: 'collapsed',
+					flyout: 'closed',
+					lastTrigger: null,
+				}}
+			>
+				<TestComponent trigger="programmatic" />
+			</MockProvider>,
+		);
+
+		// Verify initial state
+		expect(screen.getByText('Last trigger: null')).toBeInTheDocument();
+
+		await user.click(screen.getByRole('button', { name: 'Toggle side nav' }));
+
+		// Verify the trigger was set correctly
+		expect(screen.getByText('Last trigger: programmatic')).toBeInTheDocument();
+		expect(screen.getByText('Desktop state: expanded')).toBeInTheDocument();
+	});
+
+	it('should use default trigger "programmatic" when no trigger is provided', async () => {
+		setMediaQuery('(min-width: 64rem)', { initial: true });
+		const user = userEvent.setup();
+
+		render(
+			<MockProvider
+				initialState={{
+					mobile: 'collapsed',
+					desktop: 'collapsed',
+					flyout: 'closed',
+					lastTrigger: null,
+				}}
+			>
+				<TestComponent />
+			</MockProvider>,
+		);
+
+		// Verify initial state
+		expect(screen.getByText('Last trigger: null')).toBeInTheDocument();
+
+		await user.click(screen.getByRole('button', { name: 'Toggle side nav' }));
+
+		// Verify the default trigger was set
+		expect(screen.getByText('Last trigger: programmatic')).toBeInTheDocument();
+		expect(screen.getByText('Desktop state: expanded')).toBeInTheDocument();
 	});
 });

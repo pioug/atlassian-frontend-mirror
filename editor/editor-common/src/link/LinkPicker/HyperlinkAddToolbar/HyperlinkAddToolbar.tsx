@@ -6,7 +6,7 @@ import type { KeyboardEvent, RefObject } from 'react';
 import React, { PureComponent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 import debounce from 'lodash/debounce';
 import { flushSync } from 'react-dom';
 import type { WrappedComponentProps } from 'react-intl-next';
@@ -50,7 +50,7 @@ import { filterUniqueItems, mapContentTypeToIcon, sha1, wordCount } from './util
  * to provide more context to a non-sighted user.
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const visuallyHiddenStyles = css({
+export const visuallyHiddenStyles: SerializedStyles = css({
 	clip: 'rect(1px, 1px, 1px, 1px)',
 	clipPath: 'inset(50%)',
 	height: '1px',

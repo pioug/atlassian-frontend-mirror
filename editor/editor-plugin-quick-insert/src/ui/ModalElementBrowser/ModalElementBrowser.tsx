@@ -51,7 +51,7 @@ const wrapperStyles = css({
 	padding: `${token('space.200', '16px')} ${token('space.200', '16px')} 0 10px`,
 	overflow: 'hidden',
 	backgroundColor: token('elevation.surface.overlay', N0),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 });
 
 const modalFooterStyles = css({

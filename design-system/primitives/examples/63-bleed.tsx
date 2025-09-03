@@ -7,7 +7,7 @@ import { Bleed, Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 const blockStyles = xcss({
 	width: '3rem',
 	height: '3rem',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	borderWidth: 'border.width.outline',
 	borderStyle: 'solid',
 	borderColor: 'color.border.discovery',

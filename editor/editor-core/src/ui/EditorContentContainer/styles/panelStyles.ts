@@ -27,7 +27,7 @@ export const panelStyles: SerializedStyles = css({
 
 			// panelSharedStyles()
 			// panelSharedStylesWithoutPrefix()
-			borderRadius: token('border.radius', '3px'),
+			borderRadius: token('radius.small', '3px'),
 			margin: `0.75rem 0 0`,
 			paddingTop: token('space.100', '8px'),
 			paddingRight: token('space.200', '16px'),

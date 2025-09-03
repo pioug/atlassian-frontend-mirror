@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 5.0.2
+
+### Patch Changes
+
+- [`8805ad3ef90af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8805ad3ef90af) -
+  [ux] ED-28959 Add task list menu item to toolbar
+- Updated dependencies
+
 ## 5.0.1
 
 ### Patch Changes

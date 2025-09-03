@@ -3,10 +3,13 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';
 import { SideNavToggleButton } from '../../side-nav/toggle-button';
 import type { SideNavState } from '../../side-nav/types';
+import { useToggleSideNav } from '../../side-nav/use-toggle-side-nav';
 import {
 	SetSideNavVisibilityState,
 	SideNavVisibilityState,
@@ -115,7 +118,6 @@ describe('Side nav', () => {
 				}),
 			);
 			expect(onExpand).toHaveBeenCalledTimes(1);
-			expect(onExpand).toHaveBeenCalledWith({ screen: 'desktop' });
 		});
 
 		it('should not call onExpand when the user collapses the side nav', async () => {
@@ -205,6 +207,105 @@ describe('Side nav', () => {
 			expect(onExpand).toHaveBeenCalledTimes(1);
 			expect(onExpand).toHaveBeenCalledWith({ screen: 'desktop' });
 		});
+
+		ffTest.on('navx-full-height-sidebar', 'onExpand', () => {
+			it('should call onExpand with the correct screen and trigger type', async () => {
+				const user = userEvent.setup();
+				const onExpand = jest.fn();
+
+				setMediaQuery('(min-width: 64rem)', { initial: false });
+				render(
+					<Root>
+						<TopNav>
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						</TopNav>
+						<SideNav testId="sidenav" onExpand={onExpand}>
+							sidenav
+						</SideNav>
+					</Root>,
+				);
+
+				expect(onExpand).not.toHaveBeenCalled();
+
+				// Expand the side nav
+				await user.click(
+					screen.getByRole('button', {
+						name: 'Expand sidebar',
+					}),
+				);
+				expect(onExpand).toHaveBeenCalledTimes(1);
+				expect(onExpand).toHaveBeenCalledWith({ screen: 'mobile', trigger: 'toggle-button' });
+			});
+
+			it('should call onExpand when it is forcibly expanded for desktop', async () => {
+				const user = userEvent.setup();
+				const onExpand = jest.fn();
+
+				const matches = setMediaQuery('(min-width: 64rem)', { initial: false });
+				render(
+					<Root>
+						<TopNav>
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed
+							/>
+						</TopNav>
+						<SideNav testId="sidenav" onExpand={onExpand} defaultCollapsed>
+							sidenav
+						</SideNav>
+					</Root>,
+				);
+
+				// Expand the side nav
+				await user.click(
+					screen.getByRole('button', {
+						name: 'Expand sidebar',
+					}),
+				);
+
+				onExpand.mockReset();
+
+				// Change back to desktop
+				act(() => matches(true));
+				expect(onExpand).toHaveBeenCalledTimes(1);
+				expect(onExpand).toHaveBeenCalledWith({ screen: 'desktop', trigger: 'screen-resize' });
+			});
+
+			it('should set trigger to "programmatic" when expanding the side nav using useToggleSideNav without specifying a trigger', async () => {
+				const user = userEvent.setup();
+				const onExpand = jest.fn();
+				setMediaQuery('(min-width: 64rem)', { initial: true });
+
+				function CustomToggle() {
+					const toggleSideNav = useToggleSideNav();
+					return (
+						<button type="button" onClick={toggleSideNav}>
+							Custom Toggle
+						</button>
+					);
+				}
+
+				render(
+					<Root>
+						<TopNav>
+							<CustomToggle />
+						</TopNav>
+						<SideNav onExpand={onExpand} defaultCollapsed>
+							Content
+						</SideNav>
+					</Root>,
+				);
+
+				// Use toggle without specifying trigger
+				await user.click(screen.getByRole('button', { name: 'Custom Toggle' }));
+
+				expect(onExpand).toHaveBeenCalledWith({
+					screen: 'desktop',
+					trigger: 'programmatic',
+				});
+			});
+		});
 	});
 
 	describe('onCollapse', () => {
@@ -253,7 +354,6 @@ describe('Side nav', () => {
 				}),
 			);
 			expect(onCollapse).toHaveBeenCalledTimes(1);
-			expect(onCollapse).toHaveBeenCalledWith({ screen: 'desktop' });
 		});
 
 		it('should not call onCollapse when the user expands the side nav', async () => {
@@ -339,6 +439,142 @@ describe('Side nav', () => {
 
 			expect(onCollapse).toHaveBeenCalledTimes(0);
 		});
+
+		ffTest.on('navx-full-height-sidebar', 'onCollapse', () => {
+			it('should call onCollapse with the correct screen and trigger type', async () => {
+				const user = userEvent.setup();
+				const onCollapse = jest.fn();
+
+				setMediaQuery('(min-width: 64rem)', { initial: false });
+				render(
+					<Root>
+						<TopNav>
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						</TopNav>
+						<SideNav testId="sidenav" onCollapse={onCollapse}>
+							sidenav
+						</SideNav>
+					</Root>,
+				);
+
+				expect(onCollapse).not.toHaveBeenCalled();
+
+				// Expand the side nav
+				await user.click(
+					screen.getByRole('button', {
+						name: 'Expand sidebar',
+					}),
+				);
+
+				// Collapse the side nav
+				await user.click(
+					screen.getByRole('button', {
+						name: 'Collapse sidebar',
+					}),
+				);
+				expect(onCollapse).toHaveBeenCalledTimes(1);
+				expect(onCollapse).toHaveBeenCalledWith({ screen: 'mobile', trigger: 'toggle-button' });
+			});
+
+			it('should set trigger to "programmatic" when collapsing the side nav using useToggleSideNav without specifying a trigger', async () => {
+				const user = userEvent.setup();
+				const onCollapse = jest.fn();
+				setMediaQuery('(min-width: 64rem)', { initial: true });
+
+				function CustomToggle() {
+					const toggleSideNav = useToggleSideNav();
+					return (
+						<button type="button" onClick={toggleSideNav}>
+							Custom Toggle
+						</button>
+					);
+				}
+
+				render(
+					<Root>
+						<TopNav>
+							<CustomToggle />
+						</TopNav>
+						<SideNav onCollapse={onCollapse}>Content</SideNav>
+					</Root>,
+				);
+
+				// Use toggle without specifying trigger
+				await user.click(screen.getByRole('button', { name: 'Custom Toggle' }));
+
+				expect(onCollapse).toHaveBeenCalledWith({
+					screen: 'desktop',
+					trigger: 'programmatic',
+				});
+			});
+		});
+	});
+
+	describe('on click outside', () => {
+		it('should collapse the side nav when the user clicks outside of the side nav on small viewports', async () => {
+			const user = userEvent.setup();
+			const onCollapse = jest.fn();
+			setMediaQuery('(min-width: 64rem)', { initial: false });
+
+			render(
+				<Root>
+					<TopNav>
+						<SideNavToggleButton
+							collapseLabel="Collapse sidebar"
+							expandLabel="Expand sidebar"
+							defaultCollapsed
+						/>
+						<div data-testid="outside-click-target">outside click target</div>
+					</TopNav>
+					<SideNav testId="sidenav" onCollapse={onCollapse}>
+						sidenav
+					</SideNav>
+				</Root>,
+			);
+
+			await user.click(screen.getByRole('button', { name: 'Expand sidebar' }));
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'small,large');
+
+			await user.click(screen.getByTestId('outside-click-target'));
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
+			expect(onCollapse).toHaveBeenCalledTimes(1);
+			expect(onCollapse).toHaveBeenCalledWith({ screen: 'mobile' });
+		});
+
+		ffTest.on('navx-full-height-sidebar', 'onCollapse', () => {
+			it('should collapse the side nav when the user clicks outside of the side nav on small viewports', async () => {
+				const user = userEvent.setup();
+				const onCollapse = jest.fn();
+				setMediaQuery('(min-width: 64rem)', { initial: false });
+
+				render(
+					<Root>
+						<TopNav>
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed
+							/>
+							<div data-testid="outside-click-target">outside click target</div>
+						</TopNav>
+						<SideNav testId="sidenav" onCollapse={onCollapse}>
+							sidenav
+						</SideNav>
+					</Root>,
+				);
+
+				await user.click(screen.getByRole('button', { name: 'Expand sidebar' }));
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'small,large');
+
+				await user.click(screen.getByTestId('outside-click-target'));
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
+				expect(onCollapse).toHaveBeenCalledTimes(1);
+				expect(onCollapse).toHaveBeenCalledWith({
+					screen: 'mobile',
+					trigger: 'click-outside-on-mobile',
+				});
+			});
+		});
 	});
 
 	describe('post-SSR desktop visibility state sync', () => {
@@ -374,6 +610,7 @@ describe('Side nav', () => {
 				desktop: 'expanded',
 				mobile: 'collapsed',
 				flyout: 'closed',
+				lastTrigger: null,
 			});
 
 			// Rerender with `defaultCollapsed` now flipped to `true`
@@ -383,6 +620,7 @@ describe('Side nav', () => {
 						desktop: 'expanded',
 						mobile: 'collapsed',
 						flyout: 'closed',
+						lastTrigger: null,
 					}}
 				>
 					<SideNav defaultCollapsed={true}>sidenav</SideNav>
@@ -435,6 +673,7 @@ describe('Side nav', () => {
 				desktop: 'expanded',
 				mobile: 'collapsed',
 				flyout: 'closed',
+				lastTrigger: null,
 			});
 
 			await user.click(

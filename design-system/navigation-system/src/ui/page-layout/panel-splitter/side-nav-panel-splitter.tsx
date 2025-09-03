@@ -37,7 +37,7 @@ export const SideNavPanelSplitter = ({
 		context?.panelId === sideNavPanelSplitterId,
 		'SideNavPanelSplitter must be rendered as a child of <SideNav />.',
 	);
-	const toggleSideNav = useToggleSideNav();
+	const toggleSideNav = useToggleSideNav({ trigger: 'double-click' });
 
 	return (
 		<OnDoubleClickContext.Provider value={shouldCollapseOnDoubleClick ? toggleSideNav : undefined}>

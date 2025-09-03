@@ -45,7 +45,7 @@ const initialSizeState = {
 type SimpleEventHandler<T> = (event: T) => void;
 
 const tableSelectorPopupWrapperStyles = css({
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	backgroundColor: token('elevation.surface.overlay', N0),
 	boxShadow: token(
 		'elevation.shadow.overlay',

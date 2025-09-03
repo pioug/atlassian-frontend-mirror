@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -7,7 +7,7 @@ import { wrapperDefault } from '../Extension/styles';
 
 // Wrapper the extension title and extensionContainer
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const mbeExtensionWrapperCSSStyles = css(wrapperDefault, {
+export const mbeExtensionWrapperCSSStyles: SerializedStyles = css(wrapperDefault, {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {
 		marginTop: 0,
@@ -46,8 +46,8 @@ export const mbeExtensionWrapperCSSStyles = css(wrapperDefault, {
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const overlayStyles = css({
-	borderRadius: token('border.radius', '3px'),
+export const overlayStyles: SerializedStyles = css({
+	borderRadius: token('radius.small', '3px'),
 	position: 'absolute',
 	width: '100%',
 	height: '100%',

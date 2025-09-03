@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 7.1.0
+
+### Minor Changes
+
+- [`390ac7cfff929`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/390ac7cfff929) -
+  [https://product-fabric.atlassian.net/browse/ED-24010](ED-24010) - Adds numpad support to the
+  shortcuts for creating headings (Ctrl+Alt+0 to Ctrl+Alt+9)
+
 ## 7.0.1
 
 ### Patch Changes

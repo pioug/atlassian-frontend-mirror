@@ -280,11 +280,6 @@ const ColorPalette = ({
 								hexToPaletteColor={hexToPaletteColor}
 								decorator={decorator}
 								tabIndex={shouldBeFocusable ? 0 : -1}
-								autoFocus={
-									isSelectedColor &&
-									rowIndex === selectedRowIndex &&
-									colIndex === selectedColumnIndex
-								}
 							/>
 						);
 					})}

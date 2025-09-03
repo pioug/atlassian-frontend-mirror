@@ -4,7 +4,7 @@
  */
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -47,8 +47,8 @@ const mbeExtensionContainer = css({
 });
 
 const mbeNavigation = css({
-	borderTopLeftRadius: token('border.radius', '3px'),
-	borderTopRightRadius: token('border.radius', '3px'),
+	borderTopLeftRadius: token('radius.small', '3px'),
+	borderTopRightRadius: token('radius.small', '3px'),
 	userSelect: 'none',
 	WebkitUserModify: 'read-only',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
@@ -72,8 +72,8 @@ const extensionFrameContent = css({
 	display: 'block',
 	minHeight: '100px',
 	background: 'transparent',
-	borderBottomLeftRadius: token('border.radius', '3px'),
-	borderBottomRightRadius: token('border.radius', '3px'),
+	borderBottomLeftRadius: token('radius.small', '3px'),
+	borderBottomRightRadius: token('radius.small', '3px'),
 	marginLeft: token('space.100', '8px'),
 	marginRight: token('space.100', '8px'),
 	cursor: 'initial',
@@ -97,7 +97,7 @@ const extensionFrameContent = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const removeMarginsAndBorder = css({
+export const removeMarginsAndBorder: SerializedStyles = css({
 	marginLeft: 0,
 	marginRight: 0,
 	border: 'none',

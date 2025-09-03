@@ -1,5 +1,13 @@
 # @atlaskit/teams-avatar
 
+## 2.3.16
+
+### Patch Changes
+
+- [`7850e27fc7fa1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7850e27fc7fa1) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 2.3.15
 
 ### Patch Changes

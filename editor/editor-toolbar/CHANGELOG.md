@@ -1,5 +1,22 @@
 # @atlaskit/editor-toolbar
 
+## 0.7.2
+
+### Patch Changes
+
+- [`255837cfba315`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/255837cfba315) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
+## 0.7.1
+
+### Patch Changes
+
+- [`5ad508732d50d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ad508732d50d) -
+  [ux] ED-28783 [Responsiveness] Update AI improve description toolbar button on editor and fix
+  focus issue on ColorPalette
+- Updated dependencies
+
 ## 0.7.0
 
 ### Minor Changes

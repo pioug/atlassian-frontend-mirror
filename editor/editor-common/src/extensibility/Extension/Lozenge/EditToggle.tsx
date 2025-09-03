@@ -34,7 +34,7 @@ const buttonStyles = css({
 	cursor: 'pointer',
 	boxShadow: `0 0 0 1px ${token('color.border')}`,
 	minHeight: token('space.300'),
-	borderRadius: token('border.radius'),
+	borderRadius: token('radius.small'),
 	paddingLeft: token('space.150'),
 	paddingRight: token('space.150'),
 	font: token('font.body'),

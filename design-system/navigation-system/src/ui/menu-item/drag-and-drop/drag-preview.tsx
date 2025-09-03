@@ -35,7 +35,7 @@ const dragPreviewStyles = cssMap({
 		backgroundColor: token('elevation.surface'),
 		// menu items already have a border radius, but adding on this element too
 		// as we are adding a border on this element
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 
 		// helps the preview feel more feel more balanced
 		paddingInlineEnd: token('space.050'),

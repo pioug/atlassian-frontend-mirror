@@ -56,7 +56,7 @@ const DefaultFooter = ({ children }: { children: ReactNode }) => (
 const containerStyles = cssMap({
 	root: {
 		height: 'fit-content',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		color: token('color.text.inverse'),
 		overflow: 'auto',
 		minWidth: '160px',

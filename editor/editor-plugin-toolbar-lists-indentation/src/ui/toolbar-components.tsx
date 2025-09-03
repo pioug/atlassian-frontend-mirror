@@ -9,6 +9,7 @@ import {
 	LISTS_INDENTATION_MENU_SECTION,
 	NUMBERED_LIST_MENU_ITEM,
 	OUTDENT_MENU_ITEM,
+	TASK_LIST_MENU_ITEM,
 	TEXT_SECTION,
 	TEXT_SECTION_RANK,
 	LISTS_INDENTATION_GROUP_RANK,
@@ -30,6 +31,7 @@ import { ListsIndentationMenu } from './toolbar-components/ListsIndentationMenu'
 import { MenuSection } from './toolbar-components/MenuSection';
 import { NumberedListMenuItem } from './toolbar-components/NumberedListMenuItem';
 import { OutdentMenuItem } from './toolbar-components/OutdentMenuItem';
+import { TaskListMenuItem } from './toolbar-components/TaskListMenuItem';
 
 type GetToolbarComponentsProps = {
 	allowHeadingAndParagraphIndentation: boolean;
@@ -131,6 +133,20 @@ export const getToolbarComponents = ({
 				},
 			],
 			component: ({ parents }) => <NumberedListMenuItem api={api} parents={parents} />,
+		},
+		{
+			type: TASK_LIST_MENU_ITEM.type,
+			key: TASK_LIST_MENU_ITEM.key,
+			parents: [
+				{
+					type: LISTS_INDENTATION_MENU_SECTION.type,
+					key: LISTS_INDENTATION_MENU_SECTION.key,
+					rank: LISTS_INDENTATION_MENU_SECTION_RANK[TASK_LIST_MENU_ITEM.key],
+				},
+			],
+			component: expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true)
+				? ({ parents }) => <TaskListMenuItem api={api} parents={parents} />
+				: undefined,
 		},
 		{
 			type: OUTDENT_MENU_ITEM.type,

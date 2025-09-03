@@ -179,7 +179,7 @@ const mainDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => {
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Safe to autofix with a tiny tweak to `mainDynamicStyles` being an object, but holding off…
 export const panelSharedStylesWithoutPrefix = () => css`
-	border-radius: ${token('border.radius', '3px')};
+	border-radius: ${token('radius.small', '3px')};
 	margin: ${blockNodesVerticalMargin} 0 0;
 	padding-top: ${token('space.100', '8px')};
 	padding-right: ${token('space.200', '16px')};

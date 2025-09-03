@@ -7,11 +7,11 @@ const growItems = ['hug', 'fill'] as const;
 
 const containerStyles = xcss({
 	display: 'flex',
-	borderRadius: 'border.radius.050',
+	borderRadius: 'radius.xsmall',
 	height: 'size.1000',
 });
 
-const blockStyles = xcss({ borderRadius: 'border.radius.050' });
+const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 
 export default () => (
 	<Box testId="stack-example" padding="space.100">

@@ -88,6 +88,7 @@ export default function Link(props: MarkProps<LinkProps>) {
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...dataAttributes}
 				isLinkComponent
+				enableResolve={true}
 			>
 				{props.children}
 			</LinkUrl>

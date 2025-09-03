@@ -11,7 +11,7 @@ const mockTopBarStyles = xcss({
 	borderColor: 'color.border',
 	borderWidth: 'border.width',
 	borderStyle: 'solid',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	gap: 'space.200',
 });
 

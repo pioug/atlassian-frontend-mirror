@@ -111,7 +111,7 @@ const styles = cssMap({
 	},
 	cardContainerWithElevation: {
 		boxShadow: token('elevation.shadow.overlay'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 	detailsLabel: {
 		display: 'flex',
@@ -177,7 +177,7 @@ const styles = cssMap({
 	},
 	appTitleLabel: {
 		color: token('color.text'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		paddingRight: token('space.075'),
 		paddingLeft: token('space.075'),
 		width: 'fit-content',

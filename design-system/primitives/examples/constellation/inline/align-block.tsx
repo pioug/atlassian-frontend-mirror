@@ -20,7 +20,7 @@ const styles = cssMap({
 
 	visualContainer: {
 		display: 'flex',
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		height: '6rem',
 	},
 });

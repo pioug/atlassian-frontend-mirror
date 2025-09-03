@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 import { componentFromKeymapWrapperStyles } from './styles';
 
 const codeLg = xcss({
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	display: 'inline-block',
 	height: token('space.300'),
 	lineHeight: token('space.300'),
@@ -25,7 +25,7 @@ const codeLg = xcss({
 
 const codeMd = xcss({
 	backgroundColor: 'color.background.neutral',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	display: 'inline-block',
 	height: token('space.300'),
 	lineHeight: token('space.300'),
@@ -35,7 +35,7 @@ const codeMd = xcss({
 
 const codeSm = xcss({
 	backgroundColor: 'color.background.neutral',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	width: token('space.300'),
 	display: 'inline-block',
 	height: token('space.300'),

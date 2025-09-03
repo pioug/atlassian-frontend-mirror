@@ -16,7 +16,7 @@ const commonStyles: any = cssMap({
 		width: `var(--ds-dots-size)`,
 		height: `var(--ds-dots-size)`,
 		position: 'relative',
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 
 		'&::before': {
 			display: 'block',

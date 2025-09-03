@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.17.1",
+	"version": "40.18.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -193,9 +193,6 @@
 		"confluence-issue-terminology-refresh": {
 			"type": "boolean"
 		},
-		"platform-linking-ai-summary-migration-to-convo-ai": {
-			"type": "boolean"
-		},
 		"dst-a11y__replace-anchor-with-link__linking-platfo": {
 			"type": "boolean"
 		},
@@ -239,6 +236,9 @@
 			"type": "boolean"
 		},
 		"navx-1483-a11y-close-button-in-modal-updates": {
+			"type": "boolean"
+		},
+		"navx-1706-smart-link-layered-link-a11y-update": {
 			"type": "boolean"
 		}
 	},

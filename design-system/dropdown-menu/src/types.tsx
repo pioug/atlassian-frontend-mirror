@@ -119,6 +119,7 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	 * The tall menu won't scroll until the height exceeds the height of the viewport.
 	 */
 	appearance?: 'default' | 'tall';
+
 	/**
 	 * Controls if the first menu item receives focus when menu is opened. Note that the menu has a focus lock
 	 * which traps the focus within the menu. The first item gets focus automatically

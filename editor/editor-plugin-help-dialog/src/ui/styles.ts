@@ -23,7 +23,7 @@ export const header = css({
 	color: token('color.text', colors.N400),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	backgroundColor: token('color.background.neutral.subtle', colors.N0),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -41,7 +41,7 @@ export const footer = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const contentWrapper = css({
 	padding: `${token('space.250', '20px')} ${token('space.500', '40px')}`,
-	borderBottomRightRadius: token('border.radius', '3px'),
+	borderBottomRightRadius: token('radius.small', '3px'),
 	overflow: 'auto',
 	position: 'relative',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

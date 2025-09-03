@@ -39,7 +39,7 @@ const akEditorTableCellMinWidth = 48;
 const panelBaseStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&.ak-editor-panel': {
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		margin: `${blockNodesVerticalMargin} 0 0`,
 		paddingTop: token('space.100', '8px'),
 		paddingRight: token('space.200', '16px'),

@@ -355,8 +355,10 @@ export const useFilePreview = ({
 				ssrReliabilityRef.current.client = createFailedSSRObject(failedPreview, traceContext);
 			}
 
+			const isSSR = isSSRDataPreview(failedPreview);
+
 			// If the preview failed and it comes from server (global scope / ssrData), it means that we have reused it in client and the error counts for both: server & client.
-			if (isSSRDataPreview(failedPreview)) {
+			if (isSSR) {
 				ssrReliabilityRef.current.server = createFailedSSRObject(failedPreview, traceContext);
 				ssrReliabilityRef.current.client = createFailedSSRObject(failedPreview, traceContext);
 			}
@@ -367,7 +369,7 @@ export const useFilePreview = ({
 			}
 			const isLocal = isLocalPreview(failedPreview);
 			const isRemote = isRemotePreview(failedPreview);
-			if (isLocal || isRemote) {
+			if (isLocal || isRemote || isSSR) {
 				const error = new ImageLoadError(failedPreview?.source);
 				mediaFilePreviewCache.remove(identifier.id, resizeMode);
 
@@ -378,6 +380,7 @@ export const useFilePreview = ({
 					setStatus('error');
 					setError(error);
 				}
+
 				setPreview(undefined);
 			}
 		},

@@ -106,7 +106,7 @@ const basicStyles = css({
 	'&::before': {
 		position: 'absolute',
 		backgroundColor: token('color.icon.inverse', N0),
-		borderRadius: token('border.radius.circle', '50%'),
+		borderRadius: token('radius.full', '50%'),
 		content: '""',
 		insetBlockEnd: `4px`,
 		insetInlineStart: `4px`,

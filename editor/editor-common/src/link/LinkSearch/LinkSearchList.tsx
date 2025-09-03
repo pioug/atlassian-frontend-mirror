@@ -5,7 +5,7 @@
 import { PureComponent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -26,7 +26,7 @@ const spinnerContainer = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const linkSearchList = css({
+export const linkSearchList: SerializedStyles = css({
 	padding: 0,
 	listStyle: 'none',
 });

@@ -93,7 +93,7 @@ const dialogStyles = cssMap({
 	},
 	borderRadius: {
 		'@media (min-width: 30rem)': {
-			borderRadius: token('border.radius', '3px'),
+			borderRadius: token('radius.small', '3px'),
 		},
 	},
 });

@@ -66,7 +66,7 @@ const linkStyles = xcss({
 	zIndex: 'card',
 
 	backgroundColor: 'color.background.accent.gray.subtlest',
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	color: 'color.text.subtle',
 
 	textDecoration: 'none',

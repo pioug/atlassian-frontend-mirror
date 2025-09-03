@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -33,12 +33,12 @@ const wrapperStyleWithoutCursor = css(wrapperDefault, {
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.legacy-content': {
-		borderRadius: `0 0 ${token('border.radius', '3px')} ${token('border.radius', '3px')}`,
+		borderRadius: `0 0 ${token('radius.small', '3px')} ${token('radius.small', '3px')}`,
 	},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const wrapperStyleInheritedCursor = css(wrapperStyleWithoutCursor, {
+export const wrapperStyleInheritedCursor: SerializedStyles = css(wrapperStyleWithoutCursor, {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.extension-overflow-wrapper:has(.extension-editable-area)': {
 		cursor: 'inherit',
@@ -50,7 +50,7 @@ export const wrapperStyleInheritedCursor = css(wrapperStyleWithoutCursor, {
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const header = css({
+export const header: SerializedStyles = css({
 	padding: `${token('space.050', '4px')} ${token('space.050', '4px')} 0px`,
 	verticalAlign: 'middle',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -67,11 +67,11 @@ export const header = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const content = css({
+export const content: SerializedStyles = css({
 	padding: token('space.100', '8px'),
 	background: token('elevation.surface', 'white'),
 	border: `1px solid ${token('color.border')}`,
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	cursor: 'initial',
 	width: '100%',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -85,13 +85,13 @@ export const content = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const extensionContent = css({
+export const extensionContent: SerializedStyles = css({
 	boxSizing: 'border-box',
 	paddingTop: token('space.100', '8px'),
 	paddingBottom: token('space.100', '8px'),
 	background: token('elevation.surface', 'white'),
 	border: `1px solid ${token('color.border')}`,
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	cursor: 'initial',
 	width: '100%',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -105,7 +105,7 @@ export const extensionContent = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const contentWrapper = css({
+export const contentWrapper: SerializedStyles = css({
 	padding: `0 ${token('space.100', '8px')} ${token('space.100', '8px')}`,
 	display: 'flex',
 	justifyContent: 'center',
@@ -120,7 +120,7 @@ export const contentWrapper = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const overflowWrapperStyles = css({
+export const overflowWrapperStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {
 		margin: `0 ${token('space.negative.250', '-20px')}`,

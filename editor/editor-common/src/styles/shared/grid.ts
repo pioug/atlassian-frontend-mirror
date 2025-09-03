@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { akEditorGridLineZIndex } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 export const GRID_GUTTER = 12;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const gridStyles = css({
+export const gridStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.gridParent': {
 		width: `calc(100% + ${GRID_GUTTER * 2}px)`,

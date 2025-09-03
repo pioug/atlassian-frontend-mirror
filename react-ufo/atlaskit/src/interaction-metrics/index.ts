@@ -1063,6 +1063,7 @@ export function addNewInteraction(
 	trace: TraceIdContext | null = null,
 ) {
 	resetCssIssueOccurrence();
+	interactionExtraMetrics.reset();
 	postInteractionLog.reset();
 	let vcObserver: VCObserverInterface | undefined;
 	let previousTime = startTime;

@@ -55,7 +55,7 @@ const readViewWrapperStyles = css({
 	width: 'auto',
 	maxWidth: '100%',
 	borderColor: 'transparent',
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	borderStyle: 'solid',
 	borderWidth: token('border.width.outline'),
 	transition: 'background 0.2s',

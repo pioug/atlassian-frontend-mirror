@@ -1,5 +1,14 @@
 # @atlaskit/media-file-preview
 
+## 0.11.7
+
+### Patch Changes
+
+- [`e0cc5dd07934c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0cc5dd07934c) -
+  Fixed perpetual loading of Media Card when SSR failed or when an unsupported media file was
+  requested.
+- Updated dependencies
+
 ## 0.11.6
 
 ### Patch Changes

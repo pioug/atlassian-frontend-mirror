@@ -25,7 +25,7 @@ const styles = cssMap({
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		backgroundColor: `linear-gradient(
       45deg,
       ${token('elevation.surface.sunken')} 25%,
@@ -61,7 +61,7 @@ const styles = cssMap({
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		paddingTop: token('space.100'),
 		paddingRight: token('space.100'),
 		paddingBottom: token('space.100'),

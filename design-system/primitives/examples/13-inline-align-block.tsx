@@ -5,10 +5,10 @@ import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const alignBlockItems = ['start', 'center', 'end', 'baseline', 'stretch', undefined] as const;
 
-const blockStyles = xcss({ borderRadius: 'border.radius.050' });
+const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 const containerStyles = xcss({
 	display: 'flex',
-	borderRadius: 'border.radius.050',
+	borderRadius: 'radius.xsmall',
 	height: 'size.1000',
 });
 

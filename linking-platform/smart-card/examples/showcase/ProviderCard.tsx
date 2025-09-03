@@ -55,12 +55,6 @@ const lozengeWrapperStyles = css({
 	alignItems: 'center',
 });
 
-const tierToAppearanceMapping: Record<number, ThemeAppearance> = {
-	1: 'success',
-	2: 'inprogress',
-	3: 'moved',
-	4: 'removed',
-};
 const rolloutStatusToAppearanceMapping: Record<ExampleRolloutStatus, ThemeAppearance> = {
 	'not-started': 'inprogress',
 	'rolling-out': 'inprogress',
@@ -100,7 +94,6 @@ export const ProviderCard = ({
 	resolver,
 	examples,
 	avatarUrl,
-	reliability,
 	rollout,
 	expanded,
 	onCollapse,
@@ -125,13 +118,6 @@ export const ProviderCard = ({
 				<span css={spanStyle}>
 					<Avatar src={avatarUrl} size="small" />
 					<h6 css={headerStyle}>{resolver}</h6>
-					{reliability?.tier ? (
-						<span css={lozengeWrapperStyles}>
-							<Lozenge appearance={tierToAppearanceMapping[reliability.tier]}>
-								tier {reliability.tier}
-							</Lozenge>
-						</span>
-					) : null}
 					{rollout?.status ? (
 						<span css={lozengeWrapperStyles}>
 							<Lozenge appearance={rolloutStatusToAppearanceMapping[rollout.status]}>

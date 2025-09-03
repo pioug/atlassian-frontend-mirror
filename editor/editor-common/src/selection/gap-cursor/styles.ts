@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, keyframes } from '@emotion/react';
+import { css, keyframes, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -20,7 +20,7 @@ const wrapLeft = '[layout="wrap-left"]';
 const wrapRight = '[layout="wrap-right"]';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766, This needs manual remediation, it autofixes seemingly safely, but the code style and readability is destroyed.
-export const gapCursorStyles = css`
+export const gapCursorStyles: SerializedStyles = css`
 	/* =============== GAP CURSOR ================== */
 	.ProseMirror {
 		&.${hideCaretModifier} {

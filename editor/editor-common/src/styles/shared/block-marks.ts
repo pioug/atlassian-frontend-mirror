@@ -1,9 +1,9 @@
 /* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- Perfectly safe to auto-fix, but leaving it up to the team to remediate as the readability only gets worse with autofixing */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const blockMarksSharedStyles = css`
+export const blockMarksSharedStyles: SerializedStyles = css`
 	/**
    * We need to remove margin-top from first item
    * inside doc, tableCell, tableHeader, blockquote, etc.

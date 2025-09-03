@@ -75,12 +75,13 @@ const createTypewriterElement = (
 		};
 
 		const eraseLastCharacter = () => {
-			if (displayedText.length > 0) {
+			if (displayedText.length > 1) {
 				displayedText = displayedText.substring(0, displayedText.length - 1);
 				typewriterElement.textContent = displayedText;
 				scheduleTimeout(eraseLastCharacter, TYPEWRITER_ERASE_DELAY);
 			} else {
-				// Move to next prompt. Modulo lets us cycle infinitely
+				displayedText = ' ';
+				typewriterElement.textContent = displayedText;
 				currentPromptIndex = (currentPromptIndex + 1) % placeholderPrompts.length;
 				scheduleTimeout(startAnimationCycle, TYPEWRITER_CYCLE_DELAY);
 			}

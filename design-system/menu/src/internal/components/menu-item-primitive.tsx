@@ -143,7 +143,7 @@ const styles = cssMap({
 			width: 4,
 			position: 'absolute',
 			backgroundColor: token('color.border.selected', 'transparent'),
-			borderRadius: `0 ${token('border.radius', '4px')} ${token('border.radius', '4px')} 0`,
+			borderRadius: `0 ${token('radius.small', '4px')} ${token('radius.small', '4px')} 0`,
 			content: '""',
 			insetBlockEnd: token('space.150', '12px'),
 			insetBlockStart: token('space.150', '12px'),

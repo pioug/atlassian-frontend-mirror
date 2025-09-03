@@ -47,11 +47,13 @@ export function sanitizeNode(json: JSONNode, options: SanitizeNodeOptions = {}):
 			if (hasNestedTable(node)) {
 				return keepNestedTables ? node : transformNestedTableNodeOutgoingDocument(node);
 			}
+			return;
 		},
 		tableHeader: (node) => {
 			if (hasNestedTable(node)) {
 				return keepNestedTables ? node : transformNestedTableNodeOutgoingDocument(node);
 			}
+			return;
 		},
 		emoji: removeNonAnnotationMarks,
 		mention: removeNonAnnotationMarks,

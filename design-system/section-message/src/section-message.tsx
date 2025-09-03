@@ -17,7 +17,7 @@ import type { SectionMessageProps } from './types';
 const sectionMessageStyles = cssMap({
 	container: {
 		wordBreak: 'break-word',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		paddingBlock: token('space.200'),
 		paddingInline: token('space.200'),
 	},

@@ -42,7 +42,7 @@ const resizeIconButtonStyles = css({
 	position: 'absolute',
 	backgroundColor: token('elevation.surface.overlay', N0),
 	border: 0,
-	borderRadius: token('border.radius.circle', '50%'),
+	borderRadius: token('radius.full', '50%'),
 	boxShadow: `0 0 0 1px ${N30A}, 0 2px 4px 1px ${N30A}`,
 	color: token('color.text.subtle', N200),
 	cursor: 'pointer',

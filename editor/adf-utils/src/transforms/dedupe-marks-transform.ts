@@ -112,6 +112,7 @@ export const transformDedupeMarks = (adf: ADFEntity): TransformDedupeMarksResult
 					return result.node;
 				}
 			}
+			return;
 		},
 	}) as ADFEntity;
 

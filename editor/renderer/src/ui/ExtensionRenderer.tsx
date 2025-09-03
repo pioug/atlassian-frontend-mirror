@@ -20,6 +20,7 @@ import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 interface Props {
 	actions?: MultiBodiedExtensionActions;
@@ -61,6 +62,16 @@ const inlineExtensionStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& .rich-media-item': {
 		maxWidth: '100%',
+	},
+});
+
+const plainTextMacroStyle = css({
+	display: 'inline',
+	verticalAlign: 'baseline',
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-macro-body]': {
+		display: 'inline',
 	},
 });
 
@@ -109,6 +120,8 @@ export default function ExtensionRenderer(props: Props) {
 				fragmentLocalId,
 			};
 
+			const isPlainTextMacro = Boolean(node?.parameters?.macroParams?.__bodyContent);
+
 			let result = null;
 
 			try {
@@ -122,11 +135,19 @@ export default function ExtensionRenderer(props: Props) {
 					if (node.type === 'multiBodiedExtension') {
 						result = <NodeRenderer node={node} actions={actions} />;
 					} else if (node.type === 'inlineExtension') {
-						result = (
-							<InlineNodeRendererWrapper>
-								<NodeRenderer node={node} />
-							</InlineNodeRendererWrapper>
-						);
+						if (fg('platform_editor_renderer_inline_extension_improve')) {
+							result = (
+								<InlineNodeRendererWrapper isPlainTextMacro={isPlainTextMacro}>
+									<NodeRenderer node={node} />
+								</InlineNodeRendererWrapper>
+							);
+						} else {
+							result = (
+								<InlineNodeRendererWrapper>
+									<NodeRenderer node={node} />
+								</InlineNodeRendererWrapper>
+							);
+						}
 					} else {
 						result = <NodeRenderer node={node} />;
 					}
@@ -188,14 +209,19 @@ export default function ExtensionRenderer(props: Props) {
 
 export const InlineNodeRendererWrapper = ({
 	children,
+	isPlainTextMacro,
 	ssrPlaceholder,
 	ssrPlaceholderReplace,
-}: React.PropsWithChildren<{ ssrPlaceholder?: string; ssrPlaceholderReplace?: string }>) => {
+}: React.PropsWithChildren<{
+	isPlainTextMacro?: boolean;
+	ssrPlaceholder?: string;
+	ssrPlaceholderReplace?: string;
+}>) => {
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className="inline-extension-renderer"
-			css={inlineExtensionStyle}
+			className={`inline-extension-renderer ${isPlainTextMacro ? 'plain-text-macro' : ''}`}
+			css={[inlineExtensionStyle, isPlainTextMacro && plainTextMacroStyle]}
 			data-ssr-placeholder={ssrPlaceholder}
 			data-ssr-placeholder-replace={ssrPlaceholderReplace}
 		>

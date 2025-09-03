@@ -19,7 +19,6 @@ import { useMergeRefs } from 'use-callback-ref';
 import { cssMap } from '@atlaskit/css';
 import { ErrorMessage, Field } from '@atlaskit/form';
 import Selectclear from '@atlaskit/icon/core/migration/cross-circle--select-clear';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import Textfield, { type TextFieldProps } from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
@@ -182,11 +181,7 @@ export const TextInput = ({
 			<Field
 				label={label}
 				name={name}
-				elementAfterLabel={
-					isRequired && fg('navx-1368-link-picker-a11y-mandatory-states') ? (
-						<RequiredAsterisk />
-					) : undefined
-				}
+				elementAfterLabel={isRequired ? <RequiredAsterisk /> : undefined}
 			>
 				{({ fieldProps }) => {
 					return (
@@ -199,11 +194,7 @@ export const TextInput = ({
 									ref={textfieldRef}
 									elemAfterInput={clearText}
 									isInvalid={!!error}
-									{...(fg('navx-1368-link-picker-a11y-mandatory-states')
-										? {
-												'aria-describedby': `${restProps['aria-describedby']} ${fieldProps.id}-error`,
-											}
-										: {})}
+									aria-describedby={`${restProps['aria-describedby']} ${fieldProps.id}-error`}
 								/>
 								{error && <ErrorMessage testId={testIds.urlError}>{error}</ErrorMessage>}
 							</Fragment>

@@ -16,7 +16,7 @@ export const resizableMediaMigrationNotificationStyle = css({
 	right: `calc(${token('space.150', '12px')} + ${SPACE_FROM_EDGE})`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	backgroundColor: token('color.background.warning.bold', colors.Y300),
-	borderRadius: token('border.radius.circle', '50%'),
+	borderRadius: token('radius.full', '50%'),
 	width: `${NOTIFICATION_SIZE}px`,
 	height: `${NOTIFICATION_SIZE}px`,
 	pointerEvents: 'none',

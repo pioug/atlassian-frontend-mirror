@@ -12,6 +12,7 @@ import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockTypePlugin } from '../blockTypePluginType';
 
@@ -33,7 +34,7 @@ import {
 	getBlockTypesInDropdown,
 } from './block-types';
 import { setHeadingWithAnalytics, setNormalTextWithAnalytics } from './commands/block-type';
-import { HEADING_KEYS } from './consts';
+import { HEADING_KEYS, HEADING_NUMPAD_KEYS } from './consts';
 import type { BlockType } from './types';
 import { areBlockTypesDisabled, checkFormattingIsPresent, hasBlockQuoteInOptions } from './utils';
 
@@ -206,12 +207,17 @@ export const createPlugin = (
 			 * Shortcut on Windows: Ctrl-LeftAlt-{heading level}
 			 */
 			handleKeyDown: (view: EditorView, event: KeyboardEvent): boolean => {
-				const headingLevel = HEADING_KEYS.indexOf(event.keyCode) as HeadingLevels;
+				let headingLevel = HEADING_KEYS.indexOf(event.keyCode);
+				if (headingLevel === -1 && fg('platform_editor_heading_from_numpad')) {
+					// Check for numpad keys if not found in digits row
+					headingLevel = HEADING_NUMPAD_KEYS.indexOf(event.keyCode);
+				}
+
 				if (headingLevel > -1 && event.altKey) {
 					if (browser.mac && event.metaKey) {
 						return (
 							editorAPI?.core?.actions.execute(
-								autoformatHeading(headingLevel, editorAnalyticsApi),
+								autoformatHeading(headingLevel as HeadingLevels, editorAnalyticsApi),
 							) ?? false
 						);
 					} else if (
@@ -221,7 +227,7 @@ export const createPlugin = (
 					) {
 						return (
 							editorAPI?.core?.actions.execute(
-								autoformatHeading(headingLevel, editorAnalyticsApi),
+								autoformatHeading(headingLevel as HeadingLevels, editorAnalyticsApi),
 							) ?? false
 						);
 					}

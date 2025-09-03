@@ -1,5 +1,101 @@
 import type { DataConsumerDefinition, DocNode } from '@atlaskit/adf-schema';
 
+export const inlineExtensionAdf: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'paragraph',
+			content: [
+				{
+					text: 'hello!',
+					type: 'text',
+				},
+				{
+					type: 'inlineExtension',
+					attrs: {
+						extensionType: 'com.atlassian.confluence.macro.core',
+						extensionKey: 'inline-eh',
+						localId: 'a08ec99d-835d-4cfa-8c7f-9114ec265738',
+						text: 'Inline extension demo',
+					},
+				},
+				{
+					type: 'text',
+					text: 'goodbye!',
+				},
+			],
+		},
+	],
+};
+
+export const inlineExtensionPlainTextMacroAdfLongText: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'text',
+					text: 'hello!',
+				},
+				{
+					type: 'inlineExtension',
+					attrs: {
+						extensionType: 'com.atlassian.confluence.macro.core',
+						extensionKey: 'inline-eh',
+						localId: 'a08ec99d-835d-4cfa-8c7f-9114ec265738',
+						parameters: {
+							macroParams: {
+								__bodyContent:
+									'Inline extension with plain text macro, and very very very very very very very very very very very very very very very very very very very very very long text.',
+							},
+						},
+					},
+				},
+				{
+					type: 'text',
+					text: 'goodbye!',
+				},
+			],
+		},
+	],
+};
+
+export const inlineExtensionPlainTextMacroAdf: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'text',
+					text: 'hello!',
+				},
+				{
+					type: 'inlineExtension',
+					attrs: {
+						extensionType: 'com.atlassian.confluence.macro.core',
+						extensionKey: 'inline-eh',
+						localId: 'a08ec99d-835d-4cfa-8c7f-9114ec265738',
+						parameters: {
+							macroParams: {
+								__bodyContent: 'Inline extension with plain text macro',
+							},
+						},
+					},
+				},
+				{
+					type: 'text',
+					text: 'goodbye!',
+				},
+			],
+		},
+	],
+};
+
 export const extensionBlockEh: DocNode = {
 	version: 1,
 	type: 'doc',

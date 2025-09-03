@@ -143,7 +143,12 @@ export default class Example extends React.Component<{}, AdfState> {
 }
 
 const ComposableEditorWrapper = (props: EditorProps) => {
-	const universalPreset = useUniversalPreset({ props });
+	const initialPluginConfiguration = {
+		tasksAndDecisionsPlugin: {
+			allowBlockTaskItem: true,
+		},
+	};
+	const universalPreset = useUniversalPreset({ props, initialPluginConfiguration });
 	const { preset, editorApi } = usePreset(() => universalPreset, [universalPreset]);
 
 	return (

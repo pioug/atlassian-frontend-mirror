@@ -15,7 +15,7 @@ const popupStyles = cssMap({
 	root: {
 		boxSizing: 'border-box',
 		backgroundColor: token('elevation.surface.overlay'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		boxShadow: token('elevation.shadow.overlay'),
 		overflow: 'auto',
 		paddingBlockEnd: token('space.150'),

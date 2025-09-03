@@ -1,8 +1,13 @@
 import { useCallback, useContext } from 'react';
 
+import { type SideNavTrigger } from './types';
 import { SetSideNavVisibilityState } from './visibility-context';
 
 type ExpandSideNav = () => void;
+
+type UseExpandSideNavOptions = {
+	trigger?: SideNavTrigger;
+};
 
 /**
  * __useExpandSideNav__
@@ -13,7 +18,9 @@ type ExpandSideNav = () => void;
  *
  * If you need a function to toggle the side nav, use `useToggleSideNav` instead.
  */
-export function useExpandSideNav(): ExpandSideNav {
+export function useExpandSideNav({
+	trigger = 'programmatic',
+}: UseExpandSideNavOptions = {}): ExpandSideNav {
 	const setSideNavState = useContext(SetSideNavVisibilityState);
 
 	const expandSideNav = useCallback(() => {
@@ -35,6 +42,7 @@ export function useExpandSideNav(): ExpandSideNav {
 					mobile: currentState.mobile,
 					desktop: 'expanded',
 					flyout: 'closed',
+					lastTrigger: trigger,
 				};
 			});
 		} else {
@@ -54,10 +62,11 @@ export function useExpandSideNav(): ExpandSideNav {
 					desktop: currentState.desktop,
 					mobile: 'expanded',
 					flyout: 'closed',
+					lastTrigger: trigger,
 				};
 			});
 		}
-	}, [setSideNavState]);
+	}, [setSideNavState, trigger]);
 
 	return expandSideNav;
 }

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 13.0.6
+
+### Patch Changes
+
+- [`f3ccf5a62c62f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3ccf5a62c62f) -
+  PR to cleanup platform_editor_usesharedpluginstatewithselector for table
+
+## 13.0.5
+
+### Patch Changes
+
+- [`255837cfba315`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/255837cfba315) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 13.0.4
 
 ### Patch Changes

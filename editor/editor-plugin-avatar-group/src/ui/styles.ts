@@ -1,13 +1,13 @@
 /* eslint-disable @repo/internal/styles/no-exported-styles, @atlaskit/design-system/no-nested-styles */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { akEditorSmallZIndex, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const inviteTeamWrapperStyles = css({
+export const inviteTeamWrapperStyles: SerializedStyles = css({
 	background: token('color.background.neutral', N20),
 	borderRadius: '50%',
 	minWidth: token('space.400', '32px'),
@@ -15,7 +15,7 @@ export const inviteTeamWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const avatarContainerStyles = css({
+export const avatarContainerStyles: SerializedStyles = css({
 	marginRight: token('space.100', '8px'),
 	display: 'flex',
 	alignItems: 'center',

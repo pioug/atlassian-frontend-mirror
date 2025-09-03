@@ -28,7 +28,7 @@ const buttonWrapperBaseStyles = css({
 	width: token('space.400', '32px'),
 	zIndex: 200,
 	backgroundColor: token('elevation.surface.overlay', N0),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
 	font: token('font.body'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors

@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 16.3.8
+
+### Patch Changes
+
+- [`cdb2b90aee75b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdb2b90aee75b) -
+  Fixes accessibility violation of submenus not being either a `role='group'` or a `role='menuitem'`
+  when opened
+
 ## 16.3.7
 
 ### Patch Changes

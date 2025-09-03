@@ -3,6 +3,9 @@ import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
 import { transformListStructure } from './list/transformBetweenListTypes';
+import { transformOrderedUnorderedListToBlockNodes } from './list/transformOrderedUnorderedListToBlockNodes';
+import { transformTaskListToBlockNodes } from './list/transformTaskListToBlockNodes';
+import { transformToTaskList } from './list/transformToTaskList';
 import type { TransformContext, TransformFunction } from './types';
 import { isBlockNodeType, isContainerNodeType, isListNodeType } from './utils';
 
@@ -10,7 +13,7 @@ import { isBlockNodeType, isContainerNodeType, isListNodeType } from './utils';
  * Transform selection to list type
  */
 export const transformBlockToList = (context: TransformContext): Transaction | null => {
-	const { tr, targetNodeType, targetAttrs } = context;
+	const { tr, sourceNode, targetNodeType, targetAttrs } = context;
 	const { $from, $to } = tr.selection;
 	const range = $from.blockRange($to);
 
@@ -22,13 +25,11 @@ export const transformBlockToList = (context: TransformContext): Transaction | n
 	const isTargetTask = targetNodeType === nodes.taskList;
 
 	// Handle task lists differently due to their structure
-	// TODO: ED-29152 - Implement task list transformation
 	if (isTargetTask) {
-		return null;
+		return transformToTaskList(tr, range, targetNodeType, targetAttrs, nodes);
 	}
 
 	// For headings, convert to paragraph first since headings cannot be direct children of list items
-	const sourceNode = tr.doc.nodeAt(range.start);
 	if (sourceNode && sourceNode.type.name.startsWith('heading')) {
 		tr.setBlockType(range.start, range.end, nodes.paragraph);
 	}
@@ -47,6 +48,18 @@ export const transformBlockToList = (context: TransformContext): Transaction | n
 };
 
 /**
+ * Transform list to block nodes
+ */
+export const transformListToBlockNodes = (context: TransformContext): Transaction | null => {
+	const { sourceNode } = context;
+	if (sourceNode.type.name === 'taskList') {
+		return transformTaskListToBlockNodes(context);
+	} else {
+		return transformOrderedUnorderedListToBlockNodes(context);
+	}
+};
+
+/**
  * Transform list nodes
  */
 export const transformListNode: TransformFunction = (context: TransformContext) => {
@@ -54,7 +67,7 @@ export const transformListNode: TransformFunction = (context: TransformContext) 
 	// Transform list to block type
 	if (isBlockNodeType(targetNodeType)) {
 		// Lift list items out of the list and convert to target block type
-		return null;
+		return transformListToBlockNodes(context);
 	}
 
 	// Transform list to container type

@@ -4,7 +4,7 @@ import React from 'react';
 import { Pressable, xcss } from '@atlaskit/primitives';
 
 const pressableStyles = xcss({
-	borderRadius: 'border.radius.100',
+	borderRadius: 'radius.small',
 	color: 'color.text.inverse',
 });
 

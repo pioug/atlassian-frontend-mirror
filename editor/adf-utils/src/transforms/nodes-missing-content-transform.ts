@@ -35,6 +35,7 @@ const fixIfTableCellInvalidEmpty = (reportTransform: ReportTransform) => (node: 
 			content: createValidEmptyContent(node),
 		};
 	}
+	return;
 };
 
 const hasNonListItemChildren = (node: ADFEntity) =>
@@ -75,6 +76,7 @@ const fixIfListParentWithInvalidListItemChildren =
 				content: tryCreateValidListItemWrappedChildren(node),
 			};
 		}
+		return;
 	};
 
 const hasNonTableRowChildren = (node: ADFEntity) =>
@@ -110,7 +112,8 @@ const tryCreateValidTableRowWrappedChildren = (parentTableNode: ADFEntity) => {
 };
 
 const hasEmptyTableRowChildren = (node: ADFEntity) =>
-	node?.content?.some((node) => node?.type === 'tableRow' && node?.content?.length === 0);
+	node?.content?.some((node) => node?.type === 'tableRow' && node?.content?.length === 0) ||
+	undefined;
 
 const fixIfTableParentWithInvalidTableRowChildren =
 	(reportTransform: ReportTransform) => (node: ADFEntity) => {
@@ -121,6 +124,7 @@ const fixIfTableParentWithInvalidTableRowChildren =
 				content: tryCreateValidTableRowWrappedChildren(node),
 			};
 		}
+		return;
 	};
 
 const removeMediaSingleWithNoContent = (reportTransform: ReportTransform) => (node: ADFEntity) => {
@@ -128,6 +132,7 @@ const removeMediaSingleWithNoContent = (reportTransform: ReportTransform) => (no
 		reportTransform();
 		return false;
 	}
+	return;
 };
 
 type ReportTransform = () => void;

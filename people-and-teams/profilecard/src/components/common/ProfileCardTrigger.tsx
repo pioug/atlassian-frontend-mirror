@@ -1,4 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+	forwardRef,
+	useCallback,
+	useEffect,
+	useImperativeHandle,
+	useRef,
+	useState,
+} from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import Popup from '@atlaskit/popup';
@@ -22,18 +29,25 @@ const styles = cssMap({
 const DELAY_MS_SHOW = 800;
 const DELAY_MS_HIDE = 200;
 
-function ProfileCardTrigger<T>({
-	trigger,
-	ariaLabelledBy,
-	children,
-	renderProfileCard,
-	fetchProfile,
-	disabledAriaAttributes,
-	profileCardType,
-	fireAnalytics,
-	hideOverflow,
-	...popupProps
-}: ProfileCardTriggerProps<T>) {
+export interface ProfileCardHandle {
+	hideProfilecard: () => void;
+}
+
+function ProfileCardTriggerInner<T>(
+	{
+		trigger,
+		ariaLabelledBy,
+		children,
+		renderProfileCard,
+		fetchProfile,
+		disabledAriaAttributes,
+		profileCardType,
+		fireAnalytics,
+		hideOverflow,
+		...popupProps
+	}: ProfileCardTriggerProps<T>,
+	ref: React.Ref<ProfileCardHandle>,
+) {
 	const showDelay = trigger === 'click' ? 0 : DELAY_MS_SHOW;
 	const hideDelay = trigger === 'click' ? 0 : DELAY_MS_HIDE;
 
@@ -59,6 +73,14 @@ function ProfileCardTrigger<T>({
 			setVisible(false);
 		}, hideDelay);
 	}, [hideDelay]);
+
+	useImperativeHandle(
+		ref,
+		() => ({
+			hideProfilecard,
+		}),
+		[hideProfilecard],
+	);
 
 	const showProfilecard = useCallback(async () => {
 		clearTimeout(hideTimer.current);
@@ -122,5 +144,9 @@ function ProfileCardTrigger<T>({
 		/>
 	);
 }
+
+const ProfileCardTrigger = forwardRef(ProfileCardTriggerInner) as <T>(
+	props: ProfileCardTriggerProps<T> & { ref?: React.Ref<ProfileCardHandle> },
+) => React.ReactElement;
 
 export default ProfileCardTrigger;

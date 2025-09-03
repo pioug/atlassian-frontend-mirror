@@ -4,7 +4,7 @@ import React from 'react';
 import { Anchor, xcss } from '@atlaskit/primitives';
 
 const anchorStyles = xcss({
-	borderRadius: 'border.radius.100',
+	borderRadius: 'radius.small',
 	color: 'color.text.inverse',
 	display: 'inline-block',
 

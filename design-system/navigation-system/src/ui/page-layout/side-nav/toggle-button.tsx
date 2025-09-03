@@ -119,7 +119,7 @@ export const SideNavToggleButton = ({
 		});
 	}, [isSideNavExpandedOnDesktop, isSideNavExpandedOnMobile]);
 
-	const toggleVisibility = useToggleSideNav();
+	const toggleVisibility = useToggleSideNav({ trigger: 'toggle-button' });
 
 	const handleClick = useCallback(
 		(event: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => {

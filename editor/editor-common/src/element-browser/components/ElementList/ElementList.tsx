@@ -5,7 +5,7 @@
 import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { Grid, List } from 'react-virtualized';
 import type { Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
@@ -44,13 +44,13 @@ export const ICON_HEIGHT = 40;
 export const ICON_WIDTH = 40;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const itemIcon = css({
+export const itemIcon: SerializedStyles = css({
 	width: `${ICON_WIDTH}px`,
 	height: `${ICON_HEIGHT}px`,
 	overflow: 'hidden',
 	border: `1px solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxSizing: 'border-box',
 	display: 'flex',
 	justifyContent: 'center',

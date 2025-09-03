@@ -1,5 +1,12 @@
 # @atlaskit/platform-feature-flags
 
+## 1.1.2
+
+### Patch Changes
+
+- [`5617f37d39d84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5617f37d39d84) -
+  Update type import to cater for Node js and Typescript compatibility
+
 ## 1.1.1
 
 ### Patch Changes

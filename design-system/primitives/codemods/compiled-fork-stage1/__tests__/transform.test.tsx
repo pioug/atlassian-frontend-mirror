@@ -584,7 +584,7 @@ const actionStyles = xcss({
 
 const iconWrapper = xcss({
 	padding: 'space.050',
-	borderRadius: 'border.radius.100',
+	borderRadius: 'radius.small',
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
@@ -614,7 +614,7 @@ const actionStyles = xcss({
 
 const iconWrapper = xcss({
 	padding: 'space.050',
-	borderRadius: 'border.radius.100',
+	borderRadius: 'radius.small',
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',

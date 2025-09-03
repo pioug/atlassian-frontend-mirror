@@ -63,7 +63,7 @@ const labelStyles = css({
 	},
 	minHeight: token('space.300', '24px'),
 	alignItems: 'center',
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	paddingLeft: token('space.100', '8px'),
 	paddingRight: token('space.100', '8px'),
 	color: token('color.text.subtle'),

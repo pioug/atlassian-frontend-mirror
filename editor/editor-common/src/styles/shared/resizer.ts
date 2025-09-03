@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import {
 	akEditorDeleteIconColor,
@@ -32,7 +32,7 @@ export const resizerHandleThumbWidth = 3;
 export const resizerHandleZIndex = 1;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766, Seems perfectly safe to autofix, but comments would be lost…
-export const resizerStyles = css`
+export const resizerStyles: SerializedStyles = css`
 	.${resizerItemClassName} {
 		will-change: width;
 

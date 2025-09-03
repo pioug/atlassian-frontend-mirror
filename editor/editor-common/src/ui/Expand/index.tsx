@@ -6,7 +6,7 @@ import type { Ref } from 'react';
 import React, { forwardRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { defineMessages } from 'react-intl-next';
 
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
@@ -83,7 +83,7 @@ const expandIconWrapperExpandedStyle = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const expandLayoutWrapperStyle = css({
+export const expandLayoutWrapperStyle: SerializedStyles = css({
 	width: token('space.300', '24px'),
 	height: token('space.300', '24px'),
 });

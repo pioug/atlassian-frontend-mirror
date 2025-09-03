@@ -85,7 +85,7 @@ class DropList extends Component<Props> {
 		return css({
 			color: token('color.text.subtle'),
 			backgroundColor: token('elevation.surface.overlay'),
-			borderRadius: token('border.radius', '3px'),
+			borderRadius: token('radius.small', '3px'),
 			boxShadow: token('elevation.shadow.overlay'),
 			boxSizing: 'border-box',
 			overflow: 'auto',

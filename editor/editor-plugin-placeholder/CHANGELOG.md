@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 4.0.1
+
+### Patch Changes
+
+- [`5a18ea57e4ddc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a18ea57e4ddc) -
+  [ux] Fix cursor size when cycling through placeholderPrompts
+- Updated dependencies
+
 ## 4.0.0
 
 ### Patch Changes

@@ -1,12 +1,12 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 // Normal .className gets overridden by input[type=text] hence this hack to produce input.className
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const panelTextInput = css({
+export const panelTextInput: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'input&': {
 		background: 'transparent',

@@ -1682,5 +1682,57 @@ describe('useFilePreview', () => {
 				},
 			);
 		});
+
+		describe('SSR preview error handling', () => {
+			it('should reset preview and not remain in loading state when SSR data preview fails', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+					initialItems: fileItem,
+				});
+
+				jest.spyOn(mediaApi, 'getImage').mockRejectedValue(new Error('notfound'));
+
+				const globalScopePreview: MediaFilePreview = {
+					dataURI: 'global-scope-datauri',
+					source: 'ssr-data',
+					dimensions: { width: 100, height: 100 },
+				};
+
+				const { id, collectionName } = identifier;
+				setGlobalSSRData(`${id}-${collectionName}`, globalScopePreview);
+
+				const initialProps = {
+					identifier,
+					ssr: 'client',
+					traceContext: { traceId: 'some-trace' },
+				} as const;
+
+				const { result } = renderHook(useFilePreview, {
+					wrapper: ({ children }) => (
+						<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+					),
+					initialProps,
+				});
+
+				// Should initially have global scope preview and complete status
+				expect(result?.current.status).toBe('complete');
+				expect(result?.current.preview).toMatchObject(globalScopePreview);
+
+				// Trigger error on the SSR data preview (simulating image load failure due to notfound)
+				result?.current.onImageError(globalScopePreview);
+
+				// After error, preview should be reset and should not be in loading state
+				await waitFor(() => {
+					expect(result?.current.preview).toBeUndefined();
+				});
+
+				await waitFor(() => {
+					expect(result?.current.status).not.toBe('loading');
+				});
+
+				// Should be complete state, and no longer loading
+				expect('complete').toEqual(result?.current.status);
+			});
+		});
 	});
 });

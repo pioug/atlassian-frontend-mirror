@@ -14,7 +14,7 @@ const cardStyles = xcss({
 	borderColor: 'color.border',
 	borderWidth: 'border.width',
 	borderStyle: 'solid',
-	borderRadius: 'border.radius.100',
+	borderRadius: 'radius.small',
 	':hover': {
 		backgroundColor: 'elevation.surface.hovered',
 	},

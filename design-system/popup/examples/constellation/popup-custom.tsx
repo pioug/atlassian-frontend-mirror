@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
 	backgroundColor: token('color.background.brand.bold'),
-	borderRadius: token('border.radius'),
+	borderRadius: token('radius.small'),
 	color: token('color.text.inverse'),
 	paddingBlockEnd: token('space.200'),
 	paddingBlockStart: token('space.200'),

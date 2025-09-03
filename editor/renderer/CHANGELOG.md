@@ -1,5 +1,33 @@
 # @atlaskit/renderer
 
+## 121.1.1
+
+### Patch Changes
+
+- [`3ab04666dacdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ab04666dacdf) -
+  fix inline style for plain text inline extension macro
+
+## 121.1.0
+
+### Minor Changes
+
+- [`7992070df7ee6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7992070df7ee6) -
+  Add functionality to enable resolving sharepoint hyperlinks on the renderer
+
+### Patch Changes
+
+- [`d166c84c76a50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d166c84c76a50) -
+  Feature gate cleanup: cc_comments_more_complete_empty_text_check
+- Updated dependencies
+
+## 121.0.2
+
+### Patch Changes
+
+- [`255837cfba315`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/255837cfba315) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 121.0.1
 
 ### Patch Changes

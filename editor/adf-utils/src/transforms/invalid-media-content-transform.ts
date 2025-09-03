@@ -10,7 +10,7 @@ const getChildrenTypeCounts: (
 	allowedTypes: string[],
 ) => {
 	const childrenTypes: { [key: string]: number } = {};
-	nodeContent.forEach((childNode, index) => {
+	nodeContent.forEach((childNode) => {
 		if (!childNode?.type || !allowedTypes.includes(childNode.type)) {
 			return;
 		}
@@ -80,6 +80,7 @@ export const transformInvalidMediaContent = (adf: ADFEntity) => {
 				isTransformed = true;
 				return deduplicateMediaSingleChildren(node, childrenTypes);
 			}
+			return;
 		},
 	}) as ADFEntity;
 

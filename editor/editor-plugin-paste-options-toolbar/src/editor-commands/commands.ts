@@ -13,7 +13,10 @@ import type { LastContentPasted } from '@atlaskit/editor-plugin-paste';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { PastePluginActionTypes as ActionTypes } from '../editor-actions/actions';
+import {
+	PastePluginActionTypes as ActionTypes,
+	type ShowPasteOptions,
+} from '../editor-actions/actions';
 import { createCommand } from '../pm-plugins/plugin-factory';
 import {
 	formatMarkdown,
@@ -32,13 +35,13 @@ export const showToolbar = (
 			type: ActionTypes.SHOW_PASTE_OPTIONS,
 			data: {
 				selectedOption,
-				plaintext: lastContentPasted.text,
+				plaintext: lastContentPasted.text ?? '',
 				isPlainText: lastContentPasted.isPlainText,
 				richTextSlice: lastContentPasted.pastedSlice,
 				pasteStartPos: lastContentPasted.pasteStartPos,
 				pasteEndPos: lastContentPasted.pasteEndPos,
 			},
-		};
+		} satisfies ShowPasteOptions;
 	};
 
 	return createCommand(commandAction);

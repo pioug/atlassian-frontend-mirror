@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 5.0.2
+
+### Patch Changes
+
+- [`255837cfba315`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/255837cfba315) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 5.0.1
 
 ### Patch Changes

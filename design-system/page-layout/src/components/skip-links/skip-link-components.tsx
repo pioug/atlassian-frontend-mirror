@@ -35,7 +35,7 @@ const skipLinkStyles = css({
 	zIndex: -1,
 	background: token('elevation.surface.overlay', 'white'),
 	border: 'none',
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	boxShadow: token(
 		'elevation.shadow.overlay',
 		`0 0 0 1px ${N30A}, 0 2px 10px ${N30A}, 0 0 20px -4px ${N60A}`,

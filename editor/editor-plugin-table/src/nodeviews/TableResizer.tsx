@@ -13,11 +13,7 @@ import {
 import { browser } from '@atlaskit/editor-common/browser';
 import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { focusTableResizer, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { logException } from '@atlaskit/editor-common/monitoring';
@@ -202,21 +198,6 @@ const selector = (states: { tableState: TableSharedStateInternal | undefined }) 
 	widthToWidest: (states.tableState as TableSharedStateInternal | undefined)?.widthToWidest,
 });
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: PluginInjectionAPI | undefined) => {
-		const { widthToWidest } = useSharedPluginStateWithSelector(api, ['table'], selector);
-		return {
-			widthToWidest,
-		};
-	},
-	(api: PluginInjectionAPI | undefined) => {
-		const { tableState } = useSharedPluginState(api, ['table']);
-		return {
-			widthToWidest: (tableState as TableSharedStateInternal | undefined)?.widthToWidest,
-		};
-	},
-);
-
 export const TableResizer = ({
 	children,
 	width,
@@ -254,7 +235,11 @@ export const TableResizer = ({
 		'interaction.interactionState',
 	);
 
-	const { widthToWidest } = useSharedState(pluginInjectionApi);
+	const { widthToWidest } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['table'],
+		selector,
+	);
 
 	// used to reposition tooltip when table is resizing via keyboard
 	const updateTooltip = React.useRef<() => void>();

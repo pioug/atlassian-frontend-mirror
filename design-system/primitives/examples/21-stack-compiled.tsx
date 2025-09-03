@@ -33,7 +33,7 @@ const spaceItems = [
 
 const styles = cssMap({
 	block: {
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		paddingTop: token('space.200'),
 		paddingRight: token('space.200'),
 		paddingBottom: token('space.200'),
@@ -47,7 +47,7 @@ const styles = cssMap({
 	},
 	container: {
 		display: 'flex',
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		paddingTop: token('space.050'),
 		paddingRight: token('space.050'),
 		paddingBottom: token('space.050'),

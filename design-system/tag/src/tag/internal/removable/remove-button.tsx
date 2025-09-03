@@ -37,7 +37,7 @@ const removeButtonStyles = cssMap({
 		appearance: 'none',
 		backgroundColor: token('color.background.neutral.subtle'),
 		border: 'none',
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		color: token('color.text'),
 		cursor: 'pointer',
 		pointerEvents: 'auto',
@@ -76,7 +76,7 @@ const removeButtonStylesOld = cssMap({
 		appearance: 'none',
 		backgroundColor: token('color.background.neutral.subtle'),
 		border: 'none',
-		// Once legacy theming is dropped, this can be changed to 'border.radius'
+		// Once legacy theming is dropped, this can be changed to 'radius.small'
 		// NOTE: We are using `as var(--ds-…)` to hack this into our `@atlaskit/css` interface.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderRadius: 'var(--ds-br)' as 'var(--ds-border-radius)',

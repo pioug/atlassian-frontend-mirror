@@ -58,7 +58,7 @@ const colorGroups = Object.entries(colors).reduce(
 const colorPillStyles = css({
 	display: 'inline-block',
 	width: 'calc(33% - 20px)',
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	fontSize: '12px',
 	fontWeight: token('font.weight.semibold'),
 	marginBlockEnd: token('space.050', '4px'),

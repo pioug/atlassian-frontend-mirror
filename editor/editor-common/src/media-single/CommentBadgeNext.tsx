@@ -19,7 +19,7 @@ type CommentBadgeProps = {
 };
 
 const baseStyles = xcss({
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 });
 
 const mediumBadgeStyles = xcss({

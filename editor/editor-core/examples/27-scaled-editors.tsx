@@ -22,7 +22,7 @@ const user = xcss({
 
 const avatar = xcss({
 	marginRight: 'space.050',
-	borderRadius: 'border.radius.circle',
+	borderRadius: 'radius.full',
 	height: '24px',
 	width: '24px',
 });
@@ -43,7 +43,7 @@ const frame = xcss({
 	paddingInline: 'space.200',
 	paddingBlock: 'space.150',
 	border: `1px solid ${token('color.border')}`,
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	boxShadow: 'elevation.shadow.overlay',
 	justifyContent: 'space-between',
 });

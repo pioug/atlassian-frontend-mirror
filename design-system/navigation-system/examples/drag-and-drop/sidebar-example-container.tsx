@@ -24,7 +24,7 @@ const containerStyles = cssMap({
 		backgroundColor: token('elevation.surface'),
 		borderColor: token('color.border'),
 		borderWidth: token('border.width'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		borderStyle: 'solid',
 	},
 });

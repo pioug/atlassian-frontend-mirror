@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { akEditorWrappedNodeZIndex } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
@@ -33,6 +33,6 @@ export const embedCardStyles = () =>
 	});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const embedSpacingStyles = css({
+export const embedSpacingStyles: SerializedStyles = css({
 	margin: `0 ${token('space.150', '12px')}`,
 });

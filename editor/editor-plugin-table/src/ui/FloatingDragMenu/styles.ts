@@ -24,7 +24,7 @@ export const cellColourPreviewStyles = (selectedColor: string) =>
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const dragMenuBackgroundColorStyles = () => css`
 	.${ClassName.DRAG_SUBMENU} {
-		border-radius: ${token('border.radius', '3px')};
+		border-radius: ${token('radius.small', '3px')};
 		background: ${token('elevation.surface.overlay', 'white')};
 		box-shadow: ${token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`)};
 		display: block;
@@ -47,7 +47,7 @@ export const dragMenuBackgroundColorStyles = () => css`
 			content: '';
 			display: block;
 			border: 1px solid ${tableBackgroundBorderColor};
-			border-radius: ${token('border.radius', '3px')};
+			border-radius: ${token('radius.small', '3px')};
 			width: 14px;
 			height: 14px;
 		}

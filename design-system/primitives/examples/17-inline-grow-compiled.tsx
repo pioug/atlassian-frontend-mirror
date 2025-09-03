@@ -19,7 +19,7 @@ const styles = cssMap({
 	truncateContainer: { maxWidth: '200px' },
 	container: { width: '200px' },
 	block: {
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		paddingTop: token('space.200'),
 		paddingRight: token('space.200'),
 		paddingBottom: token('space.200'),

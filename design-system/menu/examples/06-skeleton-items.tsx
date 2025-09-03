@@ -32,7 +32,7 @@ const Item = ({ isLoading, ...props }: any) => {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					background: token('color.text.inverse'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					borderRadius: token('border.radius.circle', '50%'),
+					borderRadius: token('radius.full', '50%'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					width: 24,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -75,7 +75,7 @@ const MainComponent = ({ isLoading }: { isLoading: boolean }) => {
 					margin: '10px auto',
 					// TODO Delete this comment after verifying space token -> previous value `'4px'`
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					borderRadius: token('border.radius', '4px'),
+					borderRadius: token('radius.small', '4px'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					alignSelf: 'flex-start',
 				}}
@@ -108,7 +108,7 @@ const MainComponent = ({ isLoading }: { isLoading: boolean }) => {
 					margin: '10px auto',
 					// TODO Delete this comment after verifying space token -> previous value `'4px'`
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					borderRadius: token('border.radius', '4px'),
+					borderRadius: token('radius.small', '4px'),
 				}}
 			>
 				<MenuGroup maxHeight={300} testId="right-menu">

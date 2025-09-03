@@ -38,16 +38,10 @@ const allVariantsOptions: OptionsType = {
 
 snapshot(DefaultExample, {
 	...allVariantsOptions,
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
 });
 
 snapshot(WithCancelExample, {
 	...allVariantsOptions,
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
 });
 
 snapshot(ErrorBoundaryExample, {
@@ -64,63 +58,26 @@ snapshot(ErrorBoundaryExample, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
 });
 
 snapshot(PluginErrorExample, {
 	...allVariantsOptions,
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
 });
 
 snapshot(UnauthenticatedErrorExample, {
 	...allVariantsOptions,
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
 });
 
 /** Width examples */
-snapshot(DisableWidthExample, {
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
-});
-snapshot(DisableWidthWithPluginsExample, {
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
-});
-snapshot(DisableWidth500Example, {
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
-});
-snapshot(DisableWidth500ExampleWithPlugins, {
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
-});
-snapshot(DisableWidth300Example, {
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
-});
-snapshot(DisableWidth300ExampleWithPlugins, {
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
-});
+snapshot(DisableWidthExample);
+snapshot(DisableWidthWithPluginsExample);
+snapshot(DisableWidth500Example);
+snapshot(DisableWidth500ExampleWithPlugins);
+snapshot(DisableWidth300Example);
+snapshot(DisableWidth300ExampleWithPlugins);
 
 /** Padding examples */
-snapshot(ZeroPaddingExample, {
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
-});
+snapshot(ZeroPaddingExample);
 snapshot(LargePaddingUsingTokensExample, {
 	variants: [
 		{
@@ -130,25 +87,10 @@ snapshot(LargePaddingUsingTokensExample, {
 			},
 		},
 	],
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
 });
 
-snapshot(VaryingPaddingsExample, {
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
-});
+snapshot(VaryingPaddingsExample);
 
 /** Custom empty state */
-snapshot(CustomEmptyStateExample, {
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
-});
-snapshot(CustomEmptyStateWithAdaptiveHeightExample, {
-	featureFlags: {
-		'navx-1368-link-picker-a11y-mandatory-states': true,
-	},
-});
+snapshot(CustomEmptyStateExample);
+snapshot(CustomEmptyStateWithAdaptiveHeightExample);

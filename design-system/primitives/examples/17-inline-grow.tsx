@@ -16,7 +16,7 @@ const truncateStyles = css({
 	whiteSpace: 'nowrap',
 });
 
-const blockStyles = xcss({ borderRadius: 'border.radius.050' });
+const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 
 export default () => (
 	<Stack testId="inline-example" space="space.100" alignInline="start">

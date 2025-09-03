@@ -39,7 +39,7 @@ const baseStyles = css({
 	position: 'relative',
 	flex: '1 1 100%',
 
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	borderWidth: token('border.width'),
 	color: token('color.text', N900),
 	font: token('font.body'),

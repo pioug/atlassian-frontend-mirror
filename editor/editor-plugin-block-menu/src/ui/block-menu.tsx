@@ -30,7 +30,7 @@ const styles = cssMap({
 	base: {
 		backgroundColor: token('elevation.surface.overlay'),
 		boxShadow: token('elevation.shadow.overlay'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 });
 

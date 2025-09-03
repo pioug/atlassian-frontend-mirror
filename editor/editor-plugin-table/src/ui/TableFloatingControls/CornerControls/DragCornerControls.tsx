@@ -4,11 +4,7 @@ import classnames from 'classnames';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { findTable, isTableSelected, selectTable } from '@atlaskit/editor-tables/utils';
@@ -68,23 +64,6 @@ const DragCornerControlsComponent = ({
 	);
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const { selection } = useSharedPluginStateWithSelector(api, ['selection'], (states) => ({
-			selection: states.selectionState?.selection,
-		}));
-		return {
-			selection,
-		};
-	},
-	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const { selectionState } = useSharedPluginState(api, ['selection']);
-		return {
-			selection: selectionState?.selection,
-		};
-	},
-);
-
 const DragCornerControlsComponentWithSelection = ({
 	editorView,
 	isInDanger,
@@ -92,7 +71,9 @@ const DragCornerControlsComponentWithSelection = ({
 	intl: { formatMessage },
 	api,
 }: CornerControlProps & WrappedComponentProps & { api?: ExtractInjectionAPI<TablePlugin> }) => {
-	const { selection } = useSharedState(api);
+	const { selection } = useSharedPluginStateWithSelector(api, ['selection'], (states) => ({
+		selection: states.selectionState?.selection,
+	}));
 
 	const handleOnClick = () => {
 		const { state, dispatch } = editorView;

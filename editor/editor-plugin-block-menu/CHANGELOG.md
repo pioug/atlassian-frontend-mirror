@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 1.0.3
+
+### Patch Changes
+
+- [`3db18eece6c2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3db18eece6c2f) -
+  [ux] Adds basic conversion from expand, panel, blockquote to bulled, numbered or task list.
+- Updated dependencies
+
+## 1.0.2
+
+### Patch Changes
+
+- [`32434f817d714`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32434f817d714) -
+  ED-29126: Convert list to block nodes
+- [`255837cfba315`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/255837cfba315) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 1.0.1
 
 ### Patch Changes

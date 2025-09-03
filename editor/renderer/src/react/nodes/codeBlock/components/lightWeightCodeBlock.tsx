@@ -46,7 +46,7 @@ const codeBlockSharedStyles = css({
 	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
 		position: 'relative',
 		backgroundColor: token('elevation.surface.raised'),
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		margin: `${blockNodesVerticalMargin} 0 0 0`,
 		fontFamily: token('font.family.code'),
 		minWidth: `${akEditorTableCellMinWidth}px`,
@@ -81,7 +81,7 @@ const codeBlockSharedStyles = css({
 			position: 'relative',
 			backgroundColor: token('color.background.neutral'),
 			display: 'flex',
-			borderRadius: token('border.radius', '3px'),
+			borderRadius: token('radius.small', '3px'),
 			width: '100%',
 			counterReset: 'line',
 			overflowX: 'auto',
@@ -140,7 +140,7 @@ const codeBlockSharedStyles = css({
 				tabSize: 4,
 				cursor: 'text',
 				color: token('color.text'),
-				borderRadius: token('border.radius', '3px'),
+				borderRadius: token('radius.small', '3px'),
 				margin: token('space.100', '8px'),
 				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 				fontSize: `${14 / 16}rem`,

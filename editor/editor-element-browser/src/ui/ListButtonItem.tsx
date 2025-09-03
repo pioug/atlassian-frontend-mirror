@@ -16,7 +16,7 @@ const shortcutStyles = xcss({
 	color: 'color.text.subtle',
 	font: 'font.body.small',
 	backgroundColor: 'color.background.accent.gray.subtlest',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	borderStyle: 'none',
 });
 

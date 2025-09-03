@@ -1,5 +1,38 @@
 # @atlassian/navigation-system
 
+## 2.3.0
+
+### Minor Changes
+
+- [`40dea92e11501`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40dea92e11501) -
+  `MenuSectionHeading` has been updated to use regular text (`p` element) instead of a heading (`h2`
+  element). This change is behind a feature flag.
+
+  This has been done to resolve accessibility issues with the component. It does not need to be a
+  heading semantically.
+
+## 2.2.0
+
+### Minor Changes
+
+- [`cf5e597de761c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf5e597de761c) -
+  Adds a trigger value to the side nav's `onExpand` and `onCollapse` callbacks, allowing consumers
+  to identify the method used to expand or collapse the side nav. Also adds the ability to define
+  the trigger value when using the `useToggleSideNav` and `useExpandSideNav` hooks. This change is
+  behind the `navx-full-height-sidebar` feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.3
+
+### Patch Changes
+
+- [`255837cfba315`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/255837cfba315) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 2.1.2
 
 ### Patch Changes

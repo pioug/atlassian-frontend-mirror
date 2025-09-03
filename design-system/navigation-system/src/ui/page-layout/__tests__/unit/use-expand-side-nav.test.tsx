@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import type { SideNavState } from '../../side-nav/types';
+import type { SideNavState, SideNavTrigger } from '../../side-nav/types';
 import { useExpandSideNav } from '../../side-nav/use-expand-side-nav';
 import {
 	SetSideNavVisibilityState,
@@ -25,11 +25,17 @@ describe('useExpandSideNav', () => {
 	 * can access the current state when updating the value. This means we can't simply mock the function and assert with
 	 * `toHaveBeenCalledWith` - as it is called with a function, not a value.
 	 */
-	function TestComponent({ onRender }: { onRender?: () => void }) {
+	function TestComponent({
+		onRender,
+		trigger,
+	}: {
+		onRender?: () => void;
+		trigger?: SideNavTrigger;
+	}) {
 		onRender?.();
 
 		const sideNavState = useContext(SideNavVisibilityState);
-		const expandSideNav = useExpandSideNav();
+		const expandSideNav = useExpandSideNav({ trigger });
 
 		return (
 			<div>
@@ -38,6 +44,7 @@ describe('useExpandSideNav', () => {
 						<p>Mobile state: {sideNavState.mobile}</p>
 						<p>Desktop state: {sideNavState.desktop}</p>
 						<p>Flyout state: {sideNavState.flyout}</p>
+						<p>Last trigger: {sideNavState?.lastTrigger || 'null'}</p>
 					</>
 				) : (
 					<p>State not initialised</p>
@@ -84,6 +91,7 @@ describe('useExpandSideNav', () => {
 						mobile: 'collapsed',
 						desktop: 'collapsed',
 						flyout: 'closed',
+						lastTrigger: null,
 					}}
 				>
 					<TestComponent />
@@ -112,6 +120,7 @@ describe('useExpandSideNav', () => {
 						mobile: 'collapsed',
 						desktop: 'expanded',
 						flyout: 'closed',
+						lastTrigger: null,
 					}}
 				>
 					<TestComponent />
@@ -161,6 +170,7 @@ describe('useExpandSideNav', () => {
 						mobile: 'collapsed',
 						desktop: 'collapsed',
 						flyout: 'closed',
+						lastTrigger: null,
 					}}
 				>
 					<TestComponent />
@@ -189,6 +199,7 @@ describe('useExpandSideNav', () => {
 						mobile: 'expanded',
 						desktop: 'collapsed',
 						flyout: 'closed',
+						lastTrigger: null,
 					}}
 				>
 					<TestComponent />
@@ -238,6 +249,7 @@ describe('useExpandSideNav', () => {
 					mobile: 'collapsed',
 					desktop: 'collapsed',
 					flyout: 'closed',
+					lastTrigger: null,
 				}}
 			>
 				<TestComponent />
@@ -279,6 +291,7 @@ describe('useExpandSideNav', () => {
 					mobile: 'collapsed',
 					desktop: 'expanded',
 					flyout: 'closed',
+					lastTrigger: null,
 				}}
 			>
 				<TestComponent onRender={onRender} />
@@ -305,6 +318,7 @@ describe('useExpandSideNav', () => {
 					mobile: 'expanded',
 					desktop: 'collapsed',
 					flyout: 'closed',
+					lastTrigger: null,
 				}}
 			>
 				<TestComponent onRender={onRender} />
@@ -317,5 +331,59 @@ describe('useExpandSideNav', () => {
 		await user.click(screen.getByRole('button', { name: 'Expand side nav' }));
 
 		expect(onRender).not.toHaveBeenCalled();
+	});
+
+	it('should set the trigger correctly when provided', async () => {
+		setMediaQuery('(min-width: 64rem)', { initial: true });
+		const user = userEvent.setup();
+
+		render(
+			<MockProvider
+				initialState={{
+					mobile: 'collapsed',
+					desktop: 'collapsed',
+					flyout: 'closed',
+					lastTrigger: null,
+				}}
+			>
+				<TestComponent trigger="programmatic" />
+			</MockProvider>,
+		);
+
+		// Verify initial state
+		expect(screen.getByText('Last trigger: null')).toBeInTheDocument();
+
+		await user.click(screen.getByRole('button', { name: 'Expand side nav' }));
+
+		// Verify the trigger was set correctly
+		expect(screen.getByText('Last trigger: programmatic')).toBeInTheDocument();
+		expect(screen.getByText('Desktop state: expanded')).toBeInTheDocument();
+	});
+
+	it('should use default trigger "programmatic" when no trigger is provided', async () => {
+		setMediaQuery('(min-width: 64rem)', { initial: true });
+		const user = userEvent.setup();
+
+		render(
+			<MockProvider
+				initialState={{
+					mobile: 'collapsed',
+					desktop: 'collapsed',
+					flyout: 'closed',
+					lastTrigger: null,
+				}}
+			>
+				<TestComponent />
+			</MockProvider>,
+		);
+
+		// Verify initial state
+		expect(screen.getByText('Last trigger: null')).toBeInTheDocument();
+
+		await user.click(screen.getByRole('button', { name: 'Expand side nav' }));
+
+		// Verify the default trigger was set
+		expect(screen.getByText('Last trigger: programmatic')).toBeInTheDocument();
+		expect(screen.getByText('Desktop state: expanded')).toBeInTheDocument();
 	});
 });

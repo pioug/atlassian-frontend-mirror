@@ -3,11 +3,11 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
-const blockStyles = xcss({ borderRadius: 'border.radius.050' });
+const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 const flexStyles = xcss({ display: 'flex' });
 const containerStyles = xcss({
 	display: 'flex',
-	borderRadius: 'border.radius.050',
+	borderRadius: 'radius.xsmall',
 });
 
 export default () => (

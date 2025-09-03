@@ -9,7 +9,7 @@ import { DragInMotionIcon } from '../icons/DragInMotionIcon';
 const boxStyles = xcss({
 	borderColor: 'color.border.focused',
 	borderStyle: 'solid',
-	borderRadius: 'border.radius.100',
+	borderRadius: 'radius.small',
 	borderWidth: 'border.width.outline',
 	backgroundColor: 'color.blanket.selected',
 });

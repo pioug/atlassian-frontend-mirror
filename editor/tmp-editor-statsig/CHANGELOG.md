@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.3.0
+
+### Minor Changes
+
+- [`659a799cb7f84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/659a799cb7f84) -
+  Added platform_editor_hydratable_ui experiment
+
 ## 12.2.0
 
 ### Minor Changes

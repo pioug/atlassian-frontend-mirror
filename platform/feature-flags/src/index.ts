@@ -1,8 +1,5 @@
-import {
-	setBooleanResolver,
-	resolveBooleanFlag,
-	type FeatureFlagResolverBoolean,
-} from './resolvers';
+import { setBooleanResolver, resolveBooleanFlag } from './resolvers';
+import type { FeatureFlagResolverBoolean } from './resolvers';
 
 /**
  * This creates a boolean flag resolver that allows calls to `getBooleanFF` inside of Platform components to use a Product's

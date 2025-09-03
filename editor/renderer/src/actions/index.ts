@@ -5,7 +5,6 @@ import {
 	canApplyAnnotationOnRange,
 	getAnnotationIdsFromRange,
 	getAnnotationInlineNodeTypes,
-	isEmptyTextSelection,
 	isEmptyTextSelectionRenderer,
 } from '@atlaskit/editor-common/utils';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
@@ -112,11 +111,8 @@ export default class RendererActions
 			return false;
 		}
 
-		const isEmptyTextSelectionCheck = fg('cc_comments_more_complete_empty_text_check')
-			? isEmptyTextSelectionRenderer
-			: isEmptyTextSelection;
 		const currentSelection = TextSelection.create(this.doc, from, to);
-		if (isEmptyTextSelectionCheck(currentSelection, this.schema)) {
+		if (isEmptyTextSelectionRenderer(currentSelection, this.schema)) {
 			return false;
 		}
 

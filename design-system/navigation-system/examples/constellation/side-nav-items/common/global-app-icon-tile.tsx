@@ -15,7 +15,7 @@ type GlobalAppIconTileProps = {
 const styles = cssMap({
 	root: {
 		backgroundColor: token('color.background.brand.bold'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		width: 20,
 		height: 20,
 		display: 'inline-flex',

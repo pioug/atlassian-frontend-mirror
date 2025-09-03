@@ -11,7 +11,7 @@ const styles = cssMap({
 	base: {
 		backgroundColor: token('elevation.surface.overlay'),
 		boxShadow: token('elevation.shadow.overlay'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		marginBlock: token('space.050'),
 		marginInline: 'auto',
 		maxWidth: '320px',

@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import {
 	type BatchAttrsStep,
@@ -672,7 +672,7 @@ export const TELEPOINTER_DATA_SESSION_ID_ATTR = 'data-telepointer-sessionid';
 // ED-22557: Safely convert to object styling
 // Disable top: -14px since it is necessary to align to cursor
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const telepointerStyle = css`
+export const telepointerStyle: SerializedStyles = css`
 	@keyframes pulseIn {
 		0%,
 		100% {

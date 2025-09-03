@@ -9,13 +9,13 @@ const boxStyles = xcss({
 	backgroundColor: 'color.background.danger',
 	border: '2px solid rebeccapurple',
 	padding: 'space.200',
-	borderRadius: 'border.radius.050',
+	borderRadius: 'radius.xsmall',
 });
 
 const defaultStyles = xcss({
 	backgroundColor: 'color.background.success',
 	border: '2px solid green',
-	borderRadius: 'border.radius.050',
+	borderRadius: 'radius.xsmall',
 	opacity: 'opacity.disabled',
 });
 

@@ -1,8 +1,14 @@
 import { useEffect, useRef } from 'react';
 
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-export type VisibilityCallback = (args: { screen: 'mobile' | 'desktop' }) => void;
+import { type SideNavTrigger } from './types';
+
+export type VisibilityCallback = (args: {
+	screen: 'mobile' | 'desktop';
+	trigger?: SideNavTrigger | null;
+}) => void;
 
 /**
  * Calls the `onExpand` and `onCollapse` callbacks as required.
@@ -13,11 +19,13 @@ export function useSideNavVisibilityCallbacks({
 	onCollapse,
 	isExpandedOnDesktop,
 	isExpandedOnMobile,
+	lastTrigger,
 }: {
 	onExpand?: VisibilityCallback;
 	onCollapse?: VisibilityCallback;
 	isExpandedOnDesktop: boolean;
 	isExpandedOnMobile: boolean;
+	lastTrigger: SideNavTrigger | null;
 }) {
 	// Wrapping in refs so we can call them in `useEffect` without changes to them triggering the `useEffect`
 	const onExpandRef = useRef(onExpand);
@@ -44,11 +52,19 @@ export function useSideNavVisibilityCallbacks({
 		}
 
 		if (isExpandedOnDesktop) {
-			onExpandRef.current?.({ screen: 'desktop' });
+			if (fg('navx-full-height-sidebar')) {
+				onExpandRef.current?.({ screen: 'desktop', trigger: lastTrigger });
+			} else {
+				onExpandRef.current?.({ screen: 'desktop' });
+			}
 		} else {
-			onCollapseRef.current?.({ screen: 'desktop' });
+			if (fg('navx-full-height-sidebar')) {
+				onCollapseRef.current?.({ screen: 'desktop', trigger: lastTrigger });
+			} else {
+				onCollapseRef.current?.({ screen: 'desktop' });
+			}
 		}
-	}, [previousIsExpandedOnDesktop, isExpandedOnDesktop]);
+	}, [previousIsExpandedOnDesktop, isExpandedOnDesktop, lastTrigger]);
 
 	const previousIsExpandedOnMobile = usePreviousValue(isExpandedOnMobile);
 	useEffect(() => {
@@ -67,9 +83,17 @@ export function useSideNavVisibilityCallbacks({
 		}
 
 		if (isExpandedOnMobile) {
-			onExpandRef.current?.({ screen: 'mobile' });
+			if (fg('navx-full-height-sidebar')) {
+				onExpandRef.current?.({ screen: 'mobile', trigger: lastTrigger });
+			} else {
+				onExpandRef.current?.({ screen: 'mobile' });
+			}
 		} else {
-			onCollapseRef.current?.({ screen: 'mobile' });
+			if (fg('navx-full-height-sidebar')) {
+				onCollapseRef.current?.({ screen: 'mobile', trigger: lastTrigger });
+			} else {
+				onCollapseRef.current?.({ screen: 'mobile' });
+			}
 		}
-	}, [previousIsExpandedOnMobile, isExpandedOnMobile]);
+	}, [previousIsExpandedOnMobile, isExpandedOnMobile, lastTrigger]);
 }

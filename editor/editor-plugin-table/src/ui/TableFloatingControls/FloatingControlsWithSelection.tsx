@@ -1,10 +1,6 @@
 import React from 'react';
 
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -28,23 +24,6 @@ type FloatingControlsWithSelectionProps = {
 	tableRef: HTMLTableElement;
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const { selection } = useSharedPluginStateWithSelector(api, ['selection'], (states) => ({
-			selection: states.selectionState?.selection,
-		}));
-		return {
-			selection,
-		};
-	},
-	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const { selectionState } = useSharedPluginState(api, ['selection']);
-		return {
-			selection: selectionState?.selection,
-		};
-	},
-);
-
 export const FloatingControlsWithSelection = ({
 	editorView,
 	tableRef,
@@ -59,7 +38,9 @@ export const FloatingControlsWithSelection = ({
 	tableActive,
 	api,
 }: FloatingControlsWithSelectionProps) => {
-	const { selection } = useSharedState(api);
+	const { selection } = useSharedPluginStateWithSelector(api, ['selection'], (states) => ({
+		selection: states.selectionState?.selection,
+	}));
 	return (
 		<>
 			<CornerControls

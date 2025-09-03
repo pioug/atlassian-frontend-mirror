@@ -1,12 +1,12 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 import { RECENT_SEARCH_WIDTH_IN_PX, RECENT_SEARCH_WIDTH_WITHOUT_ITEMS_IN_PX } from '../../ui';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const inputWrapper = css({
+export const inputWrapper: SerializedStyles = css({
 	display: 'flex',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 0,
@@ -15,7 +15,7 @@ export const inputWrapper = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const container = css({
+export const container: SerializedStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
 	overflow: 'auto',
@@ -27,7 +27,7 @@ export const container = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const containerWithProvider = css({
+export const containerWithProvider: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `${RECENT_SEARCH_WIDTH_IN_PX}px`,
 });

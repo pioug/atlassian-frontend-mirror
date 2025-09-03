@@ -52,7 +52,7 @@ const dropTargetStyles = cssMap({
 		paddingRight: token('space.200'),
 		paddingBottom: token('space.200'),
 		paddingLeft: token('space.200'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 	isOver: {
 		backgroundColor: token('color.background.accent.purple.subtle.hovered'),

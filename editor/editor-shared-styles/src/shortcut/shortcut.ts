@@ -13,7 +13,7 @@ import { akEditorMobileMaxWidth, relativeFontSizeToBase16 } from '../consts';
 export const shortcutStyle = css`
 	background-color: ${token('color.background.neutral')};
 	color: ${token('color.text.subtle')};
-	border-radius: ${token('border.radius', '3px')};
+	border-radius: ${token('radius.small', '3px')};
 	padding: ${token('space.050', '4px')};
 	line-height: 12px;
 	font-size: ${relativeFontSizeToBase16(11.67)};

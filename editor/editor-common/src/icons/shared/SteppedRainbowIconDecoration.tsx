@@ -55,7 +55,7 @@ const barStyles = css({
 	margin: 'auto',
 	width: '12px',
 	height: '3px',
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 });
 
 const textColorIconWrapper = css({

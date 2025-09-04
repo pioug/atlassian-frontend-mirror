@@ -1,5 +1,19 @@
 # @atlaskit/dynamic-table
 
+## 18.2.13
+
+### Patch Changes
+
+- [`74c2f420ee49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74c2f420ee49b) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
+## 18.2.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.2.11
 
 ### Patch Changes

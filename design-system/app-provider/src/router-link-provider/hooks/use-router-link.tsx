@@ -25,6 +25,7 @@ const useRouterLink = <RouterLinkConfig extends Record<string, any> = never>():
 	if (routerLinkComponent) {
 		return routerLinkComponent as RouterLinkComponent<RouterLinkConfig>;
 	}
+	return;
 };
 
 export default useRouterLink;

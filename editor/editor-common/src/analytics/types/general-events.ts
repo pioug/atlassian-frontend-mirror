@@ -87,6 +87,7 @@ type EditorPerfAEP = OperationalAEPWithObjectId<
 		distortedDuration?: boolean;
 		duration: number;
 		nodes?: Record<string, number>;
+		nodesInViewport?: Record<string, number>;
 		severity?: SEVERITY;
 		startTime: number;
 		ttfb?: number;

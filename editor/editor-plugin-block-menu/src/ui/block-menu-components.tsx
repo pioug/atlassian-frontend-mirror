@@ -74,6 +74,7 @@ const getFormatMenuComponents = (): RegisterBlockMenuComponent[] => {
 						text="Format"
 						elemBefore={<ChangesIcon label="" />}
 						elemAfter={<ChevronRightIcon label={'example nested menu'} />}
+						enableMaxHeight={true}
 					>
 						{children}
 					</ToolbarNestedDropdownMenu>

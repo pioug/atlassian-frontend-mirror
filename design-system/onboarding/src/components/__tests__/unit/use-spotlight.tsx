@@ -72,4 +72,34 @@ describe('#useSpotlight', () => {
 		expect(newResult.isTargetRendered('target-2')).toBe(true);
 		expect(previousResult).toBe(newResult);
 	});
+
+	it('should return the correct isTargetVisible and isTargetRendered values for a hidden but rendered element', () => {
+		const hiddenElement = document.createElement('div');
+		hiddenElement.style.display = 'none';
+
+		// Mock checkVisibility to return false since it isn't yet implemented in jsdom
+		hiddenElement.checkVisibility = jest.fn().mockReturnValue(false);
+
+		const contextValue = {
+			opened: jest.fn(),
+			closed: jest.fn(),
+			targets: {
+				'hidden-target': hiddenElement,
+			},
+		};
+
+		const testWrapper = ({ children }: { children?: React.ReactNode }) => (
+			<SpotlightContext.Provider value={contextValue}>{children}</SpotlightContext.Provider>
+		);
+
+		const wrapper = (props: {}) => testWrapper(props);
+		const { result } = renderHook(() => useSpotlight(), { wrapper });
+
+		const {
+			current: { isTargetRendered, checkVisibility },
+		} = result;
+
+		expect(isTargetRendered('hidden-target')).toBe(true);
+		expect(checkVisibility('hidden-target')()).toBe(false);
+	});
 });

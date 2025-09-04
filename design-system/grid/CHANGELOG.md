@@ -1,5 +1,19 @@
 # @atlaskit/grid
 
+## 0.18.8
+
+### Patch Changes
+
+- [`74c2f420ee49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74c2f420ee49b) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
+## 0.18.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.18.6
 
 ### Patch Changes

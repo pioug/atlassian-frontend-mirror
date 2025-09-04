@@ -14,7 +14,7 @@ import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import { mediaInsertPlugin } from '@atlaskit/editor-plugin-media-insert';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-utils';
+import { withPlatformFeatureGates } from '@atlassian/feature-flags-storybook-utils';
 
 const MAX_URL_LENGTH = 2048;
 
@@ -110,7 +110,7 @@ function Editor() {
 };
 
 Example.decorators = [
-	withPlatformFeatureFlags({
+	withPlatformFeatureGates({
 		platform_editor_add_media_from_url_rollout: true,
 		platform_editor_media_from_url_remove_form: true,
 	}),

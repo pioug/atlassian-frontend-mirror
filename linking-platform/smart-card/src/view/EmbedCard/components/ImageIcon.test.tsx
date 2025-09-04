@@ -49,7 +49,7 @@ describe('ImageIcon', () => {
 		const image = screen.getByRole('img');
 		const style = window.getComputedStyle(image);
 
-		expect(style.borderRadius).toContain('--ds-border-radius-circle');
+		expect(style.borderRadius).toContain('--ds-radius-full');
 	});
 
 	it('should not render with round appearance', () => {
@@ -58,7 +58,7 @@ describe('ImageIcon', () => {
 		const image = screen.getByRole('img');
 		const style = window.getComputedStyle(image);
 
-		expect(style.borderRadius).toContain('--ds-border-radius');
+		expect(style.borderRadius).toContain('--ds-radius-small');
 	});
 
 	eeTest

@@ -11,7 +11,7 @@ import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import { mediaInsertPlugin } from '@atlaskit/editor-plugin-media-insert';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-utils';
+import { withPlatformFeatureGates } from '@atlassian/feature-flags-storybook-utils';
 
 function Editor() {
 	const { preset } = usePreset(() =>
@@ -59,7 +59,7 @@ function Editor() {
 };
 
 Example.decorators = [
-	withPlatformFeatureFlags({
+	withPlatformFeatureGates({
 		platform_editor_add_media_from_url_rollout: true,
 	}),
 ];

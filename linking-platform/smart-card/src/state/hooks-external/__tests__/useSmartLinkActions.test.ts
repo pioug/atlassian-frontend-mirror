@@ -7,9 +7,14 @@ import { extractInvokePreviewAction } from '../../../extractors/action/extract-i
 import { mocks } from '../../../utils/mocks';
 import { EmbedModalSize } from '../../../view/EmbedModal/types';
 import useInvokeClientAction from '../../hooks/use-invoke-client-action';
+import useResolve from '../../hooks/use-resolve';
 import { useSmartCardState } from '../../store';
 import { type CardState } from '../../types';
 import { useSmartLinkActions } from '../useSmartLinkActions';
+
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn(),
+}));
 
 jest.mock('../../analytics', () => ({
 	failUfoExperience: jest.fn(),
@@ -32,6 +37,11 @@ jest.mock('@atlaskit/link-provider', () => ({
 
 jest.mock('../../../extractors/action/extract-invoke-preview-action', () => ({
 	extractInvokePreviewAction: jest.fn(),
+}));
+
+jest.mock('../../hooks/use-resolve', () => ({
+	__esModule: true,
+	default: jest.fn(),
 }));
 
 const url = 'https://start.atlassian.com';
@@ -323,6 +333,287 @@ describe(useSmartLinkActions.name, () => {
 
 			// Just verify that the hook returns some actions when origin is provided
 			expect(result.current.length).toBeGreaterThan(0);
+		});
+	});
+
+	describe('prefetch functionality', () => {
+		beforeEach(() => {
+			// Reset the experiment mock before each test
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			(expValEquals as jest.Mock).mockReturnValue(false);
+		});
+
+		it('should call resolve when experiment is enabled, prefetch is true, and linkState.details is not available', () => {
+			const mockResolve = jest.fn();
+			const useResolve = require('../../hooks/use-resolve').default;
+			(useResolve as jest.Mock).mockReturnValue(mockResolve);
+
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			(expValEquals as jest.Mock).mockReturnValue(true);
+
+			const pendingState: CardState = { status: 'pending' };
+			(useSmartCardState as jest.Mock).mockReturnValue(pendingState);
+
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: undefined,
+				openPreviewPanel: undefined,
+			});
+
+			renderHook(() =>
+				useSmartLinkActions({
+					url,
+					appearance,
+					prefetch: true,
+				}),
+			);
+
+			expect(expValEquals as jest.Mock).toHaveBeenCalledWith(
+				'platform_hover_card_preview_panel',
+				'cohort',
+				'test',
+			);
+			expect(mockResolve).toHaveBeenCalledWith(url);
+		});
+
+		it('should not call resolve when experiment is disabled even if prefetch is true and linkState.details is not available', () => {
+			const mockResolve = jest.fn();
+			const useResolve = require('../../hooks/use-resolve').default;
+			(useResolve as jest.Mock).mockReturnValue(mockResolve);
+
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			(expValEquals as jest.Mock).mockReturnValue(false);
+
+			const pendingState: CardState = { status: 'pending' };
+			(useSmartCardState as jest.Mock).mockReturnValue(pendingState);
+
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: undefined,
+				openPreviewPanel: undefined,
+			});
+
+			renderHook(() =>
+				useSmartLinkActions({
+					url,
+					appearance,
+					prefetch: true,
+				}),
+			);
+
+			expect(expValEquals as jest.Mock).toHaveBeenCalledWith(
+				'platform_hover_card_preview_panel',
+				'cohort',
+				'test',
+			);
+			expect(mockResolve).not.toHaveBeenCalled();
+		});
+
+		it('should not call resolve when experiment is enabled but prefetch is false', () => {
+			const mockResolve = jest.fn();
+			const useResolve = require('../../hooks/use-resolve').default;
+			(useResolve as jest.Mock).mockReturnValue(mockResolve);
+
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			(expValEquals as jest.Mock).mockReturnValue(true);
+
+			const pendingState: CardState = { status: 'pending' };
+			(useSmartCardState as jest.Mock).mockReturnValue(pendingState);
+
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: undefined,
+				openPreviewPanel: undefined,
+			});
+
+			renderHook(() =>
+				useSmartLinkActions({
+					url,
+					appearance,
+					prefetch: false,
+				}),
+			);
+
+			expect(expValEquals as jest.Mock).toHaveBeenCalledWith(
+				'platform_hover_card_preview_panel',
+				'cohort',
+				'test',
+			);
+			expect(mockResolve).not.toHaveBeenCalled();
+		});
+
+		it('should not call resolve when experiment is enabled, prefetch is true, but linkState.details already exists', () => {
+			const mockResolve = jest.fn();
+			const useResolve = require('../../hooks/use-resolve').default;
+			(useResolve as jest.Mock).mockReturnValue(mockResolve);
+
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			(expValEquals as jest.Mock).mockReturnValue(true);
+
+			const resolvedState: CardState = { details: mocks.success, status: 'resolved' };
+			(useSmartCardState as jest.Mock).mockReturnValue(resolvedState);
+
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: undefined,
+				openPreviewPanel: undefined,
+			});
+
+			renderHook(() =>
+				useSmartLinkActions({
+					url,
+					appearance,
+					prefetch: true,
+				}),
+			);
+
+			expect(expValEquals as jest.Mock).toHaveBeenCalledWith(
+				'platform_hover_card_preview_panel',
+				'cohort',
+				'test',
+			);
+			expect(mockResolve).not.toHaveBeenCalled();
+		});
+
+		it('should not call resolve when experiment is enabled, prefetch is undefined, and linkState.details is not available', () => {
+			const mockResolve = jest.fn();
+			const useResolve = require('../../hooks/use-resolve').default;
+			(useResolve as jest.Mock).mockReturnValue(mockResolve);
+
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			(expValEquals as jest.Mock).mockReturnValue(true);
+
+			const pendingState: CardState = { status: 'pending' };
+			(useSmartCardState as jest.Mock).mockReturnValue(pendingState);
+
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: undefined,
+				openPreviewPanel: undefined,
+			});
+
+			renderHook(() =>
+				useSmartLinkActions({
+					url,
+					appearance,
+					// prefetch is undefined (default behavior)
+				}),
+			);
+
+			expect(expValEquals as jest.Mock).toHaveBeenCalledWith(
+				'platform_hover_card_preview_panel',
+				'cohort',
+				'test',
+			);
+			expect(mockResolve).not.toHaveBeenCalled();
+		});
+
+		it('should call resolve when all conditions are met: experiment enabled, prefetch true, no details', () => {
+			const mockResolve = jest.fn();
+			const useResolve = require('../../hooks/use-resolve').default;
+			(useResolve as jest.Mock).mockReturnValue(mockResolve);
+
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			(expValEquals as jest.Mock).mockReturnValue(true);
+
+			const pendingState: CardState = { status: 'pending' };
+			(useSmartCardState as jest.Mock).mockReturnValue(pendingState);
+
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: undefined,
+				openPreviewPanel: undefined,
+			});
+
+			renderHook(() =>
+				useSmartLinkActions({
+					url,
+					appearance,
+					prefetch: true,
+				}),
+			);
+
+			expect(expValEquals as jest.Mock).toHaveBeenCalledWith(
+				'platform_hover_card_preview_panel',
+				'cohort',
+				'test',
+			);
+			expect(mockResolve).toHaveBeenCalledWith(url);
+		});
+
+		it('should not call resolve when experiment is true but prefetch is true and linkState.details is already available', () => {
+			const mockResolve = jest.fn();
+			const useResolve = require('../../hooks/use-resolve').default;
+			(useResolve as jest.Mock).mockReturnValue(mockResolve);
+
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			(expValEquals as jest.Mock).mockReturnValue(true);
+
+			const resolvedState: CardState = { details: mocks.success, status: 'resolved' };
+			(useSmartCardState as jest.Mock).mockReturnValue(resolvedState);
+
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: undefined,
+				openPreviewPanel: undefined,
+			});
+
+			renderHook(() =>
+				useSmartLinkActions({
+					url,
+					appearance,
+					prefetch: true,
+				}),
+			);
+
+			expect(expValEquals as jest.Mock).toHaveBeenCalledWith(
+				'platform_hover_card_preview_panel',
+				'cohort',
+				'test',
+			);
+			expect(mockResolve).not.toHaveBeenCalled();
+		});
+
+		it('should not call resolve when prefetch is false', () => {
+			const mockResolve = jest.fn();
+			(useResolve as jest.Mock).mockReturnValue(mockResolve);
+
+			// Mock linkState with no details (pending state)
+			const pendingState: CardState = { status: 'pending' };
+			(useSmartCardState as jest.Mock).mockReturnValue(pendingState);
+
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: undefined,
+				openPreviewPanel: undefined,
+			});
+
+			renderHook(() =>
+				useSmartLinkActions({
+					url,
+					appearance,
+					prefetch: false,
+				}),
+			);
+
+			expect(mockResolve).not.toHaveBeenCalled();
+		});
+
+		it('should not call resolve when prefetch is undefined', () => {
+			const mockResolve = jest.fn();
+			const useResolve = require('../../hooks/use-resolve').default;
+			(useResolve as jest.Mock).mockReturnValue(mockResolve);
+
+			// Mock linkState with no details (pending state)
+			const pendingState: CardState = { status: 'pending' };
+			(useSmartCardState as jest.Mock).mockReturnValue(pendingState);
+
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: undefined,
+				openPreviewPanel: undefined,
+			});
+
+			renderHook(() =>
+				useSmartLinkActions({
+					url,
+					appearance,
+					// prefetch is undefined (default behavior)
+				}),
+			);
+
+			expect(mockResolve).not.toHaveBeenCalled();
 		});
 	});
 });

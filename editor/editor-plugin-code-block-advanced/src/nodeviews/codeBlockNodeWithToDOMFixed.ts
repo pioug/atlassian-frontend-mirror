@@ -1,4 +1,4 @@
-import { codeBlock } from '@atlaskit/adf-schema';
+import { codeBlock, codeBlockWithLocalId } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { NodeSpec, DOMOutputSpec, Node } from '@atlaskit/editor-prosemirror/model';
@@ -107,7 +107,7 @@ const toDOM = (node: Node, formattedAriaLabel: string, config: Config): DOMOutpu
 
 export const codeBlockNodeWithFixedToDOM = (config: Config): NodeSpec => {
 	return {
-		...codeBlock,
+		...(fg('platform_editor_adf_with_localid') ? codeBlockWithLocalId : codeBlock),
 		toDOM: (node) => toDOM(node, '', config),
 	};
 };

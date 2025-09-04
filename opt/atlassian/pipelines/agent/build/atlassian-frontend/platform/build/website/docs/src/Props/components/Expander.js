@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 const Expander = styled.span({
 	cursor: 'pointer',
 	padding: token('space.050'),
-	borderRadius: token('border.radius'),
+	borderRadius: token('radius.small'),
 	background: token('color.background.accent.gray.subtlest'),
 	color: token('color.text'),
 	transition: 'background 0.2s',

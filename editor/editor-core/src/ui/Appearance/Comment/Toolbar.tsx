@@ -11,6 +11,7 @@ import { css, jsx } from '@emotion/react';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
@@ -182,7 +183,7 @@ const StickyToolbar = (props: StickyToolbarProps) => {
 							props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
 							fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
 							stickyToolbarWrapperStyleNew,
-							expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) &&
+							editorExperiment('platform_editor_toolbar_aifc', true) &&
 								mainToolbarWithoutLeftPadding,
 						]
 					: [
@@ -190,7 +191,7 @@ const StickyToolbar = (props: StickyToolbarProps) => {
 							mainToolbarWrapperStyle(
 								props.twoLineEditorToolbar,
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true),
+								editorExperiment('platform_editor_toolbar_aifc', true),
 							),
 							stickyToolbarWrapperStyle,
 						]
@@ -220,14 +221,13 @@ const FixedToolbar = (props: FixedToolbarProps) => (
 						mainToolbarWrapperStyleNew,
 						props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
 						fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
-						expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) &&
-							mainToolbarWithoutLeftPadding,
+						editorExperiment('platform_editor_toolbar_aifc', true) && mainToolbarWithoutLeftPadding,
 					]
 				: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					mainToolbarWrapperStyle(
 						props.twoLineEditorToolbar,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true),
+						editorExperiment('platform_editor_toolbar_aifc', true),
 					)
 		}
 		data-testid="ak-editor-main-toolbar"

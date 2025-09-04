@@ -8,15 +8,12 @@ import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { AgentAvatarSkeleton } from '../agent-avatar/agent-avatar-skeleton';
-
 const styles = cssMap({
 	skeletonContainer: {
 		width: '100%',
 		display: 'flex',
 		alignItems: 'center',
 		gap: token('space.075'),
-		paddingLeft: token('space.075'),
-		paddingRight: token('space.075'),
 	},
 });
 
@@ -26,6 +23,11 @@ interface AgentMenuItemSkeletonProps {
 	skeletonTextHeight?: number; // in px
 	skeletonTextWidth?: number; // in px
 	skeletonAvatarSize?: SizeType;
+	/**
+	 * Horizontal padding for the skeleton container.
+	 * @default 'space.075'.
+	 */
+	paddingHorizontal?: string;
 }
 
 export const AgentMenuItemSkeleton = ({
@@ -34,13 +36,18 @@ export const AgentMenuItemSkeleton = ({
 	skeletonTextHeight = 16,
 	skeletonTextWidth = 170,
 	skeletonAvatarSize = 'small',
+	paddingHorizontal = token('space.075'),
 }: AgentMenuItemSkeletonProps) => {
 	return (
 		<Box
 			key={`skeleton-container-${index}`}
 			testId={`skeleton-container-${index}`}
 			xcss={styles.skeletonContainer}
-			style={{ height: `${containerHeight}px` }}
+			style={{
+				height: `${containerHeight}px`,
+				paddingLeft: paddingHorizontal,
+				paddingRight: paddingHorizontal,
+			}}
 		>
 			<AgentAvatarSkeleton
 				size={skeletonAvatarSize}

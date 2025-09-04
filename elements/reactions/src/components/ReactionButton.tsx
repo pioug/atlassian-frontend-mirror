@@ -21,7 +21,7 @@ const styles = cssMap({
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 		color: token('color.text.subtle'),
 		marginBlockStart: token('space.050'),
 		marginInlineEnd: token('space.050'),
@@ -40,7 +40,7 @@ const styles = cssMap({
 	},
 
 	reactionStylesRefresh: {
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 
 	reacted: {
@@ -86,7 +86,7 @@ const flashStyle = css({
 	display: 'flex',
 	flexDirection: 'row',
 	alignItems: 'center',
-	borderRadius: token('border.radius.050'),
+	borderRadius: token('radius.xsmall'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 	height: `${flashHeight}px`,
 });

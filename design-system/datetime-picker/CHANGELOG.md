@@ -1,5 +1,19 @@
 # @atlaskit/datetime-picker
 
+## 17.0.15
+
+### Patch Changes
+
+- [`74c2f420ee49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74c2f420ee49b) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
+## 17.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.13
 
 ### Patch Changes

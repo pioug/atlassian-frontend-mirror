@@ -15,7 +15,7 @@ export const formatNode = (targetType: FormatNodeTargetType): EditorCommand => {
 
 		// Find the node to format from the current selection
 		let nodeToFormat;
-		let nodePos: number | null = null;
+		let nodePos: number = selection.from;
 
 		// Try to find the current node from selection
 		const selectedNode = findSelectedNodeOfType([

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-type
 
+## 7.1.2
+
+### Patch Changes
+
+- [`db97eb262cc5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db97eb262cc5a) -
+  replace platform_editor_toolbar_aifc with separate experiements for jira and confluence
+- Updated dependencies
+
+## 7.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

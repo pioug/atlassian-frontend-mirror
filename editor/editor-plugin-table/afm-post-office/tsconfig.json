@@ -78,6 +78,9 @@
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../insm/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/menu/afm-post-office/tsconfig.json"
 		},
 		{

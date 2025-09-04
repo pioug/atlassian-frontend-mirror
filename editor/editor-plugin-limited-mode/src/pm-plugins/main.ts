@@ -21,14 +21,16 @@ export const createPlugin = () => {
 			},
 			apply: (tr, currentPluginState) => {
 				// Don't check the document size if we're already in limited mode.
-				if (currentPluginState.documentSizeBreachesThreshold) {
+				// We ALWAYS want to re-check the document size if we're replacing the document (e.g. live-to-live page navigation).
+				if (currentPluginState.documentSizeBreachesThreshold && !tr.getMeta('replaceDocument')) {
 					return currentPluginState;
 				}
 
 				if (tr.doc.nodeSize > expVal('cc_editor_limited_mode', 'nodeSize', 100)) {
 					return { ...currentPluginState, documentSizeBreachesThreshold: true };
 				}
-				return currentPluginState;
+
+				return { ...currentPluginState, documentSizeBreachesThreshold: false };
 			},
 		},
 	});

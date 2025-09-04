@@ -31,6 +31,11 @@ jest.mock('@atlaskit/link-provider', () => ({
 	}),
 }));
 
+jest.mock('../../hooks/use-resolve', () => ({
+	__esModule: true,
+	default: jest.fn(),
+}));
+
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn(),
 }));

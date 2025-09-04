@@ -50,7 +50,7 @@ const styles = cssMapUnbound({
 		justifyContent: 'center',
 		flexShrink: 0,
 		blockSize: 'min-content',
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		paddingInline: token('space.050'),
 	},
 	added: {

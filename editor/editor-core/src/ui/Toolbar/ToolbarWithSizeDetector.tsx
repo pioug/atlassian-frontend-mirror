@@ -67,7 +67,12 @@ const DynamicStyleToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps
 		const toolbarWidth =
 			isFullPage(props.appearance) && props.twoLineEditorToolbar ? ToolbarSize.S : ToolbarSize.M;
 		const toolbarMinWidth = toolbarSizeToWidth(toolbarWidth, props.appearance);
-		const minWidth = `min-width: ${props.hasMinWidth ? toolbarMinWidth : '254'}px`;
+		const isPreviewPanelResponsivenessEnabled = expValEquals(
+			'platform_editor_preview_panel_responsiveness',
+			'isEnabled',
+			true,
+		);
+		const minWidth = `min-width: ${props.hasMinWidth ? `${toolbarMinWidth}px` : isPreviewPanelResponsivenessEnabled ? 'fit-content' : '254px'}`;
 		return [toolbar, minWidth];
 	}, [props.appearance, props.hasMinWidth, props.twoLineEditorToolbar]);
 
@@ -101,18 +106,23 @@ const StaticStyleToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps)
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				widthToToolbarSize((width || elementWidth)!, props.appearance);
 
-	const minWidthValue = useMemo<number>((): number => {
+	const minWidthValue = useMemo<string>((): string => {
 		if (props.hasMinWidth) {
 			const toolbarWidth =
 				isFullPage(props.appearance) && props.twoLineEditorToolbar ? ToolbarSize.S : ToolbarSize.M;
-			return toolbarSizeToWidth(toolbarWidth, props.appearance);
+			return `${toolbarSizeToWidth(toolbarWidth, props.appearance)}px`;
 		} else {
-			return 254;
+			const isPreviewPanelResponsivenessEnabled = expValEquals(
+				'platform_editor_preview_panel_responsiveness',
+				'isEnabled',
+				true,
+			);
+			return isPreviewPanelResponsivenessEnabled ? 'fit-content' : '254px';
 		}
 	}, [props.appearance, props.hasMinWidth, props.twoLineEditorToolbar]);
 
 	return (
-		<div css={staticToolbar} style={{ minWidth: `${minWidthValue}px` }}>
+		<div css={staticToolbar} style={{ minWidth: minWidthValue }}>
 			<WidthObserver setWidth={setWidth} />
 			{props.editorView && toolbarSize ? (
 				<Toolbar

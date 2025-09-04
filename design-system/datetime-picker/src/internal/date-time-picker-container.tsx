@@ -63,7 +63,7 @@ const newBorderStyles = css({
 const baseContainerStyles = css({
 	display: 'flex',
 	backgroundColor: token('color.background.input'),
-	borderRadius: token('border.radius'),
+	borderRadius: token('radius.small'),
 	transition: 'background-color 200ms ease-in-out, border-color 200ms ease-in-out',
 	'&:hover': {
 		cursor: 'pointer',

@@ -1,5 +1,13 @@
 # @atlaskit/media-avatar-picker
 
+## 26.2.8
+
+### Patch Changes
+
+- [`beaa6ee463aa8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beaa6ee463aa8) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 26.2.7
 
 ### Patch Changes

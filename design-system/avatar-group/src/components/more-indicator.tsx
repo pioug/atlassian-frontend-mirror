@@ -62,7 +62,7 @@ const styles = cssMap({
 		},
 	},
 	circle: {
-		borderRadius: token('border.radius.circle', '50%'),
+		borderRadius: token('radius.full', '50%'),
 	},
 	active: {
 		backgroundColor: token('color.background.selected'),

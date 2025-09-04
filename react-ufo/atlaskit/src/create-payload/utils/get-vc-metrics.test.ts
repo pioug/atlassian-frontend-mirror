@@ -228,44 +228,6 @@ describe('getVCMetrics', () => {
 		expect(getSSRDoneTimeValue).toHaveBeenCalled();
 	});
 
-	it.each(['FAILED', 'ABORTED'])('should handle %s interaction status', async (status) => {
-		(getInteractionStatus as jest.Mock).mockReturnValue({
-			originalInteractionStatus: status,
-		});
-		enabledFg.add('platform_ufo_no_vc_on_aborted');
-
-		const mockVCObserver = createMockVCObserver();
-		const interaction: InteractionMetrics = {
-			type: 'page_load',
-			start: 0,
-			end: 100,
-			ufoName: 'test',
-			vcObserver: mockVCObserver,
-		} as unknown as InteractionMetrics;
-
-		const result = await getVCMetrics(interaction);
-		expect(result).toEqual({});
-		expect(mockVCObserver.stop).toHaveBeenCalledWith('test');
-	});
-
-	it.each(['hidden', 'mixed'])('should handle %s page visibility', async (pageVisibility) => {
-		(getPageVisibilityUpToTTAI as jest.Mock).mockReturnValue(pageVisibility);
-		enabledFg.add('platform_ufo_no_vc_on_aborted');
-
-		const mockVCObserver = createMockVCObserver();
-		const interaction: InteractionMetrics = {
-			type: 'page_load',
-			start: 0,
-			end: 100,
-			ufoName: 'test',
-			vcObserver: mockVCObserver,
-		} as unknown as InteractionMetrics;
-
-		const result = await getVCMetrics(interaction);
-		expect(result).toEqual({});
-		expect(mockVCObserver.stop).toHaveBeenCalledWith('test');
-	});
-
 	it('should stop VC observer when experimental metrics are enabled', async () => {
 		mockGetConfig.mockReturnValue({
 			product: 'test',
@@ -400,26 +362,6 @@ describe('getVCMetrics', () => {
 
 		const result = await getVCMetrics(interaction);
 		expect(result).toEqual(expectedVCResult);
-	});
-
-	it('should not report VC metrics if interaction status is not succeeded and flag is set', async () => {
-		(getInteractionStatus as jest.Mock).mockReturnValue({
-			originalInteractionStatus: 'FAILED',
-		});
-		enabledFg.add('platform_ufo_no_vc_on_aborted');
-
-		const mockVCObserver = createMockVCObserver();
-		const interaction: InteractionMetrics = {
-			type: 'page_load',
-			start: 0,
-			end: 100,
-			ufoName: 'test',
-			vcObserver: mockVCObserver,
-		} as unknown as InteractionMetrics;
-
-		const result = await getVCMetrics(interaction);
-		expect(result).toEqual({});
-		expect(mockVCObserver.stop).toHaveBeenCalledWith('test');
 	});
 
 	it('should use most recent VC revision from the experience key', async () => {

@@ -1,13 +1,32 @@
-import React, { type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ReactNode } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx, cssMap, cx } from '@compiled/react';
 
 import DropdownMenu from '@atlaskit/dropdown-menu';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { ToolbarDropdownItem } from './ToolbarDropdownItem';
+
+const styles = cssMap({
+	scrollContainer: {
+		maxHeight: '320px',
+		overflowY: 'auto',
+	},
+});
 
 type ToolbarNestedDropdownMenuProps = {
 	children?: ReactNode;
 	elemAfter: ReactNode;
 	elemBefore: ReactNode;
+	/**
+	 * Enforeces a max height of 320px for menus - when menu is larger a scroll is introduced
+	 */
+	enableMaxHeight?: boolean;
 	isDisabled?: boolean;
 	testId?: string;
 	text?: string;
@@ -20,6 +39,7 @@ export const ToolbarNestedDropdownMenu = ({
 	children,
 	isDisabled,
 	testId,
+	enableMaxHeight = false,
 }: ToolbarNestedDropdownMenuProps) => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
@@ -39,7 +59,7 @@ export const ToolbarNestedDropdownMenu = ({
 				</ToolbarDropdownItem>
 			)}
 		>
-			{children}
+			<Box xcss={cx(enableMaxHeight && styles.scrollContainer)}>{children}</Box>
 		</DropdownMenu>
 	);
 };

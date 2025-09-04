@@ -63,7 +63,7 @@ const styles = cssMap({
 		display: 'inline-flex',
 		alignItems: 'center',
 		gap: token('space.050'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		textDecoration: 'none',
 
 		'&:hover': {

@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 3.9.10
+
+### Patch Changes
+
+- [`beaa6ee463aa8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beaa6ee463aa8) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 3.9.9
 
 ### Patch Changes

@@ -92,7 +92,7 @@ const styles = cssMap({
 		paddingRight: token('space.150'),
 		paddingBottom: token('space.150'),
 		paddingLeft: token('space.150'),
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		marginTop: token('space.300'),
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',

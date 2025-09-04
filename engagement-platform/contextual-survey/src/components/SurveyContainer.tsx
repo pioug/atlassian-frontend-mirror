@@ -17,7 +17,7 @@ interface Props {
 
 const containerStyles = css({
 	backgroundColor: token('elevation.surface.overlay', N0),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	paddingTop: token('space.300', '24px'),
 	paddingRight: token('space.300', '24px'),
 	paddingBottom: token('space.300', '24px'),

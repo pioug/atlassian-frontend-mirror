@@ -68,7 +68,11 @@ export {
 	codeBlockSharedStyles,
 	codeBlockInListSafariFix,
 } from './shared/code-block';
-export { LAYOUT_SECTION_MARGIN, LAYOUT_COLUMN_PADDING } from './shared/layout';
+export {
+	LAYOUT_SECTION_MARGIN,
+	LAYOUT_COLUMN_PADDING,
+	DEFAULT_TWO_COLUMN_LAYOUT_COLUMN_WIDTH,
+} from './shared/layout';
 export { EXTENSION_PADDING, BODIED_EXT_PADDING } from './shared/extension';
 export {
 	resizerStyles,

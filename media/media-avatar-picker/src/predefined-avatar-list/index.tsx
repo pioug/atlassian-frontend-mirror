@@ -20,7 +20,7 @@ const predefinedAvatarsWrapperStyles = css({
 const showMoreButtonStyles = css({
 	width: '40px',
 	height: '40px',
-	borderRadius: token('border.radius.circle', '50%'),
+	borderRadius: token('radius.full', '50%'),
 	alignItems: 'center',
 	justifyContent: 'center',
 	margin: 0,

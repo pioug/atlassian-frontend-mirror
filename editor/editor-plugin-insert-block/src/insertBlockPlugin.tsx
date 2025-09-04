@@ -21,7 +21,6 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { InsertBlockPlugin } from './insertBlockPluginType';
@@ -180,7 +179,7 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		);
 	};
 
-	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+	if (editorExperiment('platform_editor_toolbar_aifc', true, { exposure: true })) {
 		api?.toolbar?.actions.registerComponents(
 			getToolbarComponents({
 				api,

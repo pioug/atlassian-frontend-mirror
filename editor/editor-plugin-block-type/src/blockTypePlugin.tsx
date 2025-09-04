@@ -33,7 +33,6 @@ import type {
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -142,6 +141,9 @@ const blockquotePluginOptions = (
 };
 
 const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
+	const isToolbarAIFCEnabled = editorExperiment('platform_editor_toolbar_aifc', true, {
+		exposure: true,
+	});
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		popupsMountPoint,
 		popupsBoundariesElement,
@@ -173,7 +175,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		);
 	};
 
-	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+	if (isToolbarAIFCEnabled) {
 		api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
 	} else {
 		api?.primaryToolbar?.actions.registerComponent({
@@ -273,7 +275,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 
 		pluginsOptions: {
-			...(!expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) && {
+			...(!isToolbarAIFCEnabled && {
 				selectionToolbar: () => {
 					const toolbarDocking = fg('platform_editor_use_preferences_plugin')
 						? api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition

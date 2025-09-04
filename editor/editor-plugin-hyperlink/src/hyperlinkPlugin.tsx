@@ -24,7 +24,6 @@ import { canLinkBeCreatedInRange } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/migration/link--editor-link';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -65,8 +64,11 @@ const selectionToolbarLinkButtonTestId = 'ak-editor-selection-toolbar-link-butto
  */
 export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) => {
 	let primaryToolbarComponent: ToolbarUIComponentFactory | undefined;
+	const isToolbarAIFCEnabled = editorExperiment('platform_editor_toolbar_aifc', true, {
+		exposure: true,
+	});
 
-	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+	if (isToolbarAIFCEnabled) {
 		api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
 	}
 
@@ -205,7 +207,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 
 			floatingToolbar: getToolbarConfig(options, api),
 
-			...(!expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) && {
+			...(!isToolbarAIFCEnabled && {
 				selectionToolbar: (state, { formatMessage }) => {
 					const toolbarDocking = fg('platform_editor_use_preferences_plugin')
 						? api?.userPreferences?.sharedState.currentState()?.preferences.toolbarDockingPosition
@@ -247,7 +249,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 				},
 			}),
 
-			...(!expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) && {
+			...(!isToolbarAIFCEnabled && {
 				primaryToolbarComponent:
 					!api?.primaryToolbar &&
 					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })

@@ -8,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	card: {
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		boxShadow: token('elevation.shadow.overlay'),
 		width: '400px',
 	},

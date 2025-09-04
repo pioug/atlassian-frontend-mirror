@@ -4,7 +4,7 @@ import React, { type ReactNode } from 'react';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 
 const iconStyles = xcss({
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	flexShrink: 0,
 	width: 'size.200',
 	height: 'size.200',

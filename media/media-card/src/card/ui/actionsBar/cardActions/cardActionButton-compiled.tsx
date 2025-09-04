@@ -29,7 +29,7 @@ const cardActionButtonStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	width: '26px',
 	height: '26px',
 	color: token('color.icon', N500),

@@ -96,7 +96,7 @@ const getCodeBlockStyles = cssMap({
 		fontSize: '12px',
 		fontWeight: token('font.weight.regular'),
 		borderStyle: 'none',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		// this is required to account for prismjs styles leaking into the codeblock
 		'code[class*="language-"], pre[class*="language-"], code': {
 			all: 'unset',

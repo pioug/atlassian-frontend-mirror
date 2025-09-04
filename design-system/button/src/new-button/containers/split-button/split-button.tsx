@@ -157,7 +157,7 @@ const buttonStyles = cssMap({
 		},
 	},
 	defaultAppearanceContainer: {
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		outlineColor: token('color.border'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		outlineOffset: -1,

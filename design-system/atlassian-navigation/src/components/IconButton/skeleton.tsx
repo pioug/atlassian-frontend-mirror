@@ -14,7 +14,7 @@ import { type IconButtonSkeletonProps } from './types';
 const buttonHeight = token('space.400', '32px');
 
 const skeletonStyles = css({
-	borderRadius: token('border.radius.circle', '50%'),
+	borderRadius: token('radius.full', '50%'),
 	opacity: 0.15,
 });
 

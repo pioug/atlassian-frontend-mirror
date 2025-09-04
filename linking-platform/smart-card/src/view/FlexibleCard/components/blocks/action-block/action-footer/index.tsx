@@ -17,7 +17,7 @@ import { type ActionFooterProps } from './types';
 const styles = cssMap({
 	containerStyles: {
 		all: 'unset',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		marginTop: token('space.100'),
 		marginRight: token('space.100'),
 		marginBottom: token('space.0'),

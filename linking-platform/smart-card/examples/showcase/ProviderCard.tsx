@@ -27,7 +27,7 @@ const base = css({
 	marginBottom: token('space.300', '24px'),
 	boxShadow: token('elevation.shadow.raised', `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`),
 	width: 'calc(85% - 48px)',
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	backgroundColor: token('elevation.surface.raised', 'white'),
 	cursor: 'pointer',
 	transition: '0.3s ease-in-out all',

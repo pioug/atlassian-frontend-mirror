@@ -22,7 +22,7 @@ const styles = cssMap({
 		textAlign: 'center',
 	},
 	mockImage: {
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 		height: '120px',
 		width: '120px',
 		backgroundColor: token('color.background.information'),

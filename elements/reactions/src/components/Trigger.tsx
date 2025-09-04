@@ -25,7 +25,7 @@ const styles = cssMap({
 		paddingLeft: token('space.0'),
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -41,7 +41,7 @@ const styles = cssMap({
 	},
 
 	triggerStylesRefresh: {
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 
 	transparentEnabledTrigger: {
@@ -79,7 +79,7 @@ const styles = cssMap({
 		paddingBottom: token('space.050'),
 		paddingLeft: token('space.050'),
 		borderStyle: 'none',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 
 	fullWidthSummaryViewReactionPickerTrigger: {

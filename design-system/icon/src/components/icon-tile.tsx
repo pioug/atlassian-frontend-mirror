@@ -124,7 +124,7 @@ const shapeMap = cssMap({
 		borderRadius: token('radius.small'),
 	},
 	circle: {
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 	},
 });
 

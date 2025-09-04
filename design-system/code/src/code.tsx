@@ -16,7 +16,7 @@ const styles = cssMap({
 		display: 'inline',
 		padding: '2px 0.5ch',
 		backgroundColor: `var(--ds--code--bg-color,${token('color.background.neutral')})`,
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		borderStyle: 'none',
 		boxDecorationBreak: 'clone',
 		color: token('color.text'),

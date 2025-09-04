@@ -7,7 +7,6 @@ import type {
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AlignmentPlugin } from './alignmentPluginType';
@@ -23,7 +22,9 @@ const defaultConfig: AlignmentPluginState = {
 };
 
 export const alignmentPlugin: AlignmentPlugin = ({ api }) => {
-	const isToolbarAIFCEnabled = expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true);
+	const isToolbarAIFCEnabled = editorExperiment('platform_editor_toolbar_aifc', true, {
+		exposure: true,
+	});
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,
 		popupsMountPoint,

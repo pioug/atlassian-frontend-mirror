@@ -19,13 +19,13 @@ const styles = cssMap({
 		borderColor: token('color.border'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 	selectedRuleButtonStyle: {
 		borderColor: token('color.border.accent.blue'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width.outline'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 	ruleNameStyle: {
 		height: '28px',

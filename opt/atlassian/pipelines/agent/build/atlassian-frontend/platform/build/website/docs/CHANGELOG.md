@@ -1,5 +1,19 @@
 # @atlaskit/docs
 
+## 11.0.11
+
+### Patch Changes
+
+- [`74c2f420ee49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74c2f420ee49b) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
+## 11.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.9
 
 ### Patch Changes

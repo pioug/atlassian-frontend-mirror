@@ -13,7 +13,7 @@ import ChevronDownIconMigration from '../utility/migration/chevron-down--hipchat
 
 const iconContainerStyles = xcss({
 	border: '1px dashed',
-	borderRadius: 'border.radius.100',
+	borderRadius: 'radius.small',
 	lineHeight: '0',
 	borderColor: 'color.border.accent.magenta',
 });

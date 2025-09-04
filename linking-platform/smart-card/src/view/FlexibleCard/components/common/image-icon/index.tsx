@@ -16,7 +16,7 @@ import { type ImageIconProps } from './types';
 
 const styles = cssMap({
 	roundImg: {
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 	},
 });
 

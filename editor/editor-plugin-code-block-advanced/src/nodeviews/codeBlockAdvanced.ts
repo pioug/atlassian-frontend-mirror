@@ -29,6 +29,7 @@ import type {
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { CodeBlockAdvancedPlugin } from '../codeBlockAdvancedPluginType';
@@ -140,7 +141,12 @@ class CodeBlockAdvancedNodeView implements NodeView {
 					CodeMirror.contentAttributes.of({ contentEditable: `${this.view.editable}` }),
 				]),
 				closeBrackets(),
-				CodeMirror.editorAttributes.of({ class: 'code-block' }),
+				CodeMirror.editorAttributes.of({
+					class: 'code-block',
+					...(fg('platform_editor_adf_with_localid') && {
+						'data-local-id': this.node.attrs.localId,
+					}),
+				}),
 				manageSelectionMarker(config.api),
 				prosemirrorDecorationPlugin(this.pmFacet, view, getPos),
 				tripleClickSelectAllExtension(),
@@ -165,6 +171,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		// inner editor
 		this.updating = false;
 		this.updateLanguage();
+		this.updateLocalIdAttribute();
 		this.wordWrappingEnabled = isCodeBlockWordWrapEnabled(node);
 
 		// Restore fold state after initialization
@@ -218,6 +225,17 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.languageLoader.updateLanguage(this.node.attrs.language);
 	}
 
+	private updateLocalIdAttribute() {
+		if (fg('platform_editor_adf_with_localid')) {
+			const localId = this.node.attrs.localId;
+			if (localId) {
+				this.cm.dom.setAttribute('data-local-id', localId);
+			} else {
+				this.cm.dom.removeAttribute('data-local-id');
+			}
+		}
+	}
+
 	private selectCodeBlockNode(relativeSelectionPos: RelativeSelectionPos | undefined) {
 		const tr = this.selectionAPI?.selectNearNode({
 			selectionRelativeToNode: relativeSelectionPos,
@@ -260,6 +278,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 			return true;
 		}
 		this.updateLanguage();
+		this.updateLocalIdAttribute();
 		const newText = node.textContent,
 			curText = this.cm.state.doc.toString();
 

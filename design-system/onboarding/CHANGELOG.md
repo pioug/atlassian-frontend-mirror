@@ -1,5 +1,19 @@
 # @atlaskit/onboarding
 
+## 14.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.4.0
+
+### Minor Changes
+
+- [`098c92cc2bdcd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/098c92cc2bdcd) -
+  Add `checkVisibility` to `useSpotlight` return value, allowing consumers to determine whether a
+  spotlight target is visible as determined by `checkVisibility`
+
 ## 14.3.8
 
 ### Patch Changes

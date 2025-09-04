@@ -1,5 +1,13 @@
 # @atlaskit/editor-card-provider
 
+## 5.6.3
+
+### Patch Changes
+
+- [`7c6ff04dd40e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c6ff04dd40e8) -
+  FG/Experiment jsc_nin_smart_link - jira_nin_smart_link Cleanup
+- Updated dependencies
+
 ## 5.6.2
 
 ### Patch Changes

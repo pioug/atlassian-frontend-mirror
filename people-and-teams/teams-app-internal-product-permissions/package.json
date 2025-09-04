@@ -84,7 +84,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-internal-product-permissions",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"description": "Fetches a user's product permissions, with support for permissions scoped to specific resources.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

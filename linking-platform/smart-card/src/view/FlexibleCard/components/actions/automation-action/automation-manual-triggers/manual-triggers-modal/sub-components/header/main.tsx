@@ -18,7 +18,7 @@ import { useAutomationMenu } from '../../menu-context';
 const styles = cssMap({
 	iconStyle: {
 		marginRight: token('space.150'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		paddingInline: token('space.050'),
 		paddingBlock: token('space.025'),
 	},

@@ -22,10 +22,10 @@ import {
  * @returns `reportError` function
  */
 export function useUFOReportError() {
-	const interaction = getActiveInteraction();
 	const ufoContext = useInteractionContext();
 
-	const reportError = (error: InteractionError) => {
+	const reportError = (error: Omit<InteractionError, 'labelStack' | 'errorType'>) => {
+		const interaction = getActiveInteraction();
 		if (interaction?.id) {
 			addError(
 				interaction.id,

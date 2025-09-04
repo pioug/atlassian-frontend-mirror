@@ -1,12 +1,12 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
 import { getObjectPropertyAsObject, getObjectPropertyAsLiteral } from '../util/handle-ast-object';
-import { getPackagesSync } from '@manypkg/get-packages';
+import { getPackagesSync, type Package } from '@manypkg/get-packages';
 import { findRootSync } from '@manypkg/find-root';
 
-const root = findRootSync(process.cwd());
-const pkgs = getPackagesSync(root).packages;
-const pkgMap = new Map(pkgs.map((pkg) => [pkg.packageJson.name, pkg]));
+let root: string | undefined;
+let pkgs: Package[] | undefined;
+let pkgMap: Map<string, Package>;
 
 const rule: Rule.RuleModule = {
 	meta: {
@@ -21,13 +21,16 @@ const rule: Rule.RuleModule = {
 		},
 	},
 	create(context) {
-		return {
-			ObjectExpression: async (node: Rule.Node) => {
-				// Only run this rule on package.json files
-				if (!context.filename.endsWith('package.json') || node.type !== 'ObjectExpression') {
-					return;
-				}
+		if (!context.filename.endsWith('package.json')) {
+			return {};
+		}
 
+		root ??= findRootSync(process.cwd());
+		pkgs ??= getPackagesSync(root).packages;
+		pkgMap ??= new Map(pkgs.map((pkg) => [pkg.packageJson.name, pkg]));
+
+		return {
+			ObjectExpression: (node) => {
 				// Private dependencies can be used in private packages
 				const isPrivatePkg = getObjectPropertyAsLiteral(node, 'private') === true;
 				if (isPrivatePkg === true) {

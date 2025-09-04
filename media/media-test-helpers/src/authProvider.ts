@@ -28,8 +28,10 @@ export class StoryBookAuthProvider {
 		};
 
 		return (authContext?: AuthContext): Promise<Auth> => {
-			const IS_UNIT_TEST = process.env.JEST_WORKER_ID !== undefined;
-			if (IS_UNIT_TEST) {
+			const isRunningInUnitTest =
+				typeof process.env.JEST_WORKER_ID !== 'undefined' || typeof jest !== 'undefined';
+
+			if (isRunningInUnitTest) {
 				// This is to prevent accidental staging environment calls from the auth provider in unit tests
 				// The implementation also means that it can effect unrelated tests due to the setInterval and unhandled promise rejection
 				throw new Error(

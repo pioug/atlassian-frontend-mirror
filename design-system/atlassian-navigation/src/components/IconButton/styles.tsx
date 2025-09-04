@@ -11,7 +11,7 @@ export const getIconButtonTheme =
 		return {
 			buttonStyles: {
 				...buttonStyles,
-				borderRadius: token('border.radius.circle', '100%'),
+				borderRadius: token('radius.full', '100%'),
 				display: 'flex',
 				margin: `0 ${token('space.025', '2px')}`,
 				// TODO Delete this comment after verifying space token -> previous value `4`

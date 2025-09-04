@@ -22,7 +22,7 @@ const styles = cssMap({
 		display: 'flex',
 		backgroundColor: token('color.background.neutral.subtle'),
 		borderWidth: '0',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		marginTop: token('space.0'),
 		marginRight: token('space.0'),
 		marginBottom: token('space.0'),

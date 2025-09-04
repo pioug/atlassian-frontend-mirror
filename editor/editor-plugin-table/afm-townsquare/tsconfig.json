@@ -78,6 +78,9 @@
 			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../insm/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/menu/afm-townsquare/tsconfig.json"
 		},
 		{

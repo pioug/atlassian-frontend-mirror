@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 4.0.4
+
+### Patch Changes
+
+- [`e239c0974b8dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e239c0974b8dc) -
+  EDITOR-1464 Use codeBlockWithLocalId and add local-id attribute to dom output.
+- Updated dependencies
+
+## 4.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.2
 
 ### Patch Changes

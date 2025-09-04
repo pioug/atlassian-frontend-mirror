@@ -98,7 +98,7 @@ const styles = cssMap({
 		paddingInlineStart: token('space.0'),
 	},
 	circle: {
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 	},
 });
 

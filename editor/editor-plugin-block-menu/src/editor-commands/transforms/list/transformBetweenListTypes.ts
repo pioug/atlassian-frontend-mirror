@@ -1,5 +1,7 @@
-import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+
+import type { TransformContext } from '../types';
+import { getSupportedListTypesSet, isBulletOrOrderedList, isTaskList } from '../utils';
 
 /**
  * Convert a block node to inline content suitable for task items
@@ -8,94 +10,91 @@ const convertBlockToInlineContent = (node: PMNode, schema: Schema): PMNode[] => 
 	const { paragraph } = schema.nodes;
 
 	if (node.type === paragraph) {
-		// Extract inline content from paragraphs
 		return [...node.content.content];
-	} else if (node.isBlock) {
-		// For other block content types eg. codeBlock, extract their text content and create text nodes
-		const textContent = node.textContent;
-		if (textContent) {
-			const textNode = schema.text(textContent);
-			return [textNode];
-		}
-	} else {
-		// Already inline content, add directly
-		return [node];
 	}
 
-	return [];
+	if (node.isBlock) {
+		const textContent = node.textContent;
+		return textContent ? [schema.text(textContent)] : [];
+	}
+
+	return [node];
 };
 
 /**
- * Transform list structure
+ * Transform list structure between different list types
  */
-export const transformListStructure = (
-	tr: Transaction,
-	listNode: { node: PMNode; pos: number },
-	targetNodeType: NodeType,
-	nodes: Record<string, NodeType>,
-) => {
+export const transformListStructure = (context: TransformContext) => {
+	const { tr, sourceNode, sourcePos, targetNodeType } = context;
+	const nodes = tr.doc.type.schema.nodes;
+
 	try {
+		const listNode = { node: sourceNode, pos: sourcePos };
 		const { node: sourceList, pos: listPos } = listNode;
-		const { bulletList, orderedList, taskList, listItem, taskItem, paragraph } = nodes;
+		const { taskList, listItem, taskItem, paragraph } = nodes;
 
-		const isSourceBulletOrOrdered =
-			sourceList.type === bulletList || sourceList.type === orderedList;
-		const isTargetTask = targetNodeType === taskList;
-		const isSourceTask = sourceList.type === taskList;
+		const isSourceBulletOrOrdered = isBulletOrOrderedList(sourceList.type);
+		const isTargetTask = isTaskList(targetNodeType);
+		const isSourceTask = isTaskList(sourceList.type);
+		const isTargetBulletOrOrdered = isBulletOrOrderedList(targetNodeType);
 
-		const newListItems: PMNode[] = [];
-		const listStart = listPos;
-		const listEnd = listPos + sourceList.nodeSize;
+		const supportedListTypes = getSupportedListTypesSet(nodes);
 
-		// Use nodesBetween to efficiently traverse the list structure
-		tr.doc.nodesBetween(listStart, listEnd, (node, pos, parent) => {
-			// Only process direct children of the list (depth 1)
-			if (parent !== sourceList) {
-				return true; // Continue traversal
-			}
+		const transformListRecursively = (listNode: PMNode): PMNode => {
+			const transformedItems: PMNode[] = [];
 
-			if (isSourceBulletOrOrdered && isTargetTask) {
-				// Converting from bullet/ordered list to task list
-				// Extract inline content from all children within listItem
-				if (node.type === listItem) {
-					const inlineContent: PMNode[] = [];
-					// Extract inline content from all child nodes
-					node.forEach((child) => {
-						inlineContent.push(...convertBlockToInlineContent(child, tr.doc.type.schema));
-					});
+			listNode.forEach((child) => {
+				if (isSourceBulletOrOrdered && isTargetTask) {
+					// Convert bullet/ordered => task
+					if (child.type === listItem) {
+						const inlineContent: PMNode[] = [];
+						const nestedTaskLists: PMNode[] = [];
 
-					if (inlineContent.length > 0) {
-						const newItem = taskItem.create(null, inlineContent);
-						newListItems.push(newItem);
+						child.forEach((grandChild) => {
+							if (supportedListTypes.has(grandChild.type) && grandChild.type !== taskList) {
+								nestedTaskLists.push(transformListRecursively(grandChild));
+							} else {
+								inlineContent.push(...convertBlockToInlineContent(grandChild, tr.doc.type.schema));
+							}
+						});
+
+						if (inlineContent.length > 0) {
+							transformedItems.push(taskItem.create(null, inlineContent));
+						}
+						transformedItems.push(...nestedTaskLists);
+					}
+				} else if (isSourceTask && isTargetBulletOrOrdered) {
+					// Convert task => bullet/ordered
+					if (child.type === taskItem) {
+						const inlineContent = [...child.content.content];
+						if (inlineContent.length > 0) {
+							const paragraphNode = paragraph.create(null, inlineContent);
+							transformedItems.push(listItem.create(null, [paragraphNode]));
+						}
+					} else if (child.type === taskList) {
+						const transformedNestedList = transformListRecursively(child);
+						const lastItem = transformedItems[transformedItems.length - 1];
+
+						if (lastItem?.type === listItem) {
+							// Attach nested list to previous item
+							const updatedContent = [...lastItem.content.content, transformedNestedList];
+							transformedItems[transformedItems.length - 1] = listItem.create(
+								lastItem.attrs,
+								updatedContent,
+							);
+						} else {
+							// No previous item, flatten nested items
+							transformedItems.push(...transformedNestedList.content.content);
+						}
 					}
 				}
-			} else if (isSourceTask && !isTargetTask) {
-				// Converting from task list to bullet/ordered list
-				// Structure: taskItem > inline content -> listItem > paragraph > inline content
-				if (node.type === taskItem) {
-					const inlineContent = [...node.content.content];
+			});
 
-					if (inlineContent.length > 0) {
-						const paragraphNode = paragraph.create(null, inlineContent);
-						const newListItem = listItem.create(null, paragraphNode);
-						newListItems.push(newListItem);
-					}
-				}
-			}
+			return targetNodeType.create(null, transformedItems);
+		};
 
-			return false; // Don't traverse into children of list items
-		});
-
-		if (newListItems.length === 0) {
-			return tr;
-		}
-
-		// Create new list with transformed items
-		const newList = targetNodeType.create(null, newListItems);
-
-		// Replace the entire list
-		tr.replaceWith(listStart, listEnd, newList);
-
+		const newList = transformListRecursively(sourceList);
+		tr.replaceWith(listPos, listPos + sourceList.nodeSize, newList);
 		return tr;
 	} catch {
 		return tr;

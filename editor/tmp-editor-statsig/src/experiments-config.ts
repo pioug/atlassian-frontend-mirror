@@ -609,8 +609,8 @@ export const editorExperimentsConfig = {
 	//Added 2025-07-16
 	platform_editor_toolbar_aifc: createBooleanExperiment({
 		productKeys: {
-			jira: 'platform_editor_toolbar_aifc',
-			confluence: 'platform_editor_toolbar_aifc',
+			jira: 'platform_editor_toolbar_aifc_jira',
+			confluence: 'platform_editor_toolbar_aifc_confluence',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -834,6 +834,23 @@ export const editorExperimentsConfig = {
 		productKeys: {
 			confluence: 'platform_editor_toolbar_aifc_patch_2',
 			jira: 'platform_editor_toolbar_aifc_patch_2',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-02
+	platform_editor_ttvc_nodes_in_viewport: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ttvc_nodes_in_viewport',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 03-09-2025
+	cc_editor_interactivity_monitoring: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_editor_interactivity_monitoring',
+			jira: 'cc_editor_interactivity_monitoring',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

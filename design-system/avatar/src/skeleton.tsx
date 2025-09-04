@@ -38,7 +38,7 @@ const styles = cssMap({
 		borderWidth: token('border.width.outline', '2px'),
 		borderStyle: 'solid',
 		borderColor: 'transparent',
-		borderRadius: token('border.radius.circle', '50%'),
+		borderRadius: token('radius.full', '50%'),
 		opacity: '0.15',
 	},
 	strongOpacity: {

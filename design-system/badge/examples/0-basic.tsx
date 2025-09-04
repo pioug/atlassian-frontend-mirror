@@ -17,7 +17,7 @@ const styles = cssMap({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		background: 'none',
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		color: 'inherit',
 		marginBlockEnd: token('space.050', '4px'),
 		'&:hover': {

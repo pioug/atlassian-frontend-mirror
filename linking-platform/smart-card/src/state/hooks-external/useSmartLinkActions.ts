@@ -4,6 +4,7 @@ import uuid from 'uuid';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { extractInvokeDownloadAction } from '../../extractors/action/extract-invoke-download-action';
@@ -14,6 +15,7 @@ import { toAction } from '../../utils/actions/to-action';
 import type { AnalyticsOrigin } from '../../utils/types';
 import type { CardActionOptions, CardInnerAppearance } from '../../view/Card/types';
 import useInvokeClientAction from '../hooks/use-invoke-client-action';
+import useResolve from '../hooks/use-resolve';
 import { useSmartCardState as useLinkState } from '../store';
 
 export interface LinkAction {
@@ -55,6 +57,11 @@ export interface UseSmartLinkActionsOpts {
 	 */
 	platform?: JsonLd.Primitives.Platforms;
 	/**
+	 * Whether to prefetch the link.
+	 * @default false
+	 */
+	prefetch?: boolean;
+	/**
 	 * Smart Link URL for which actions will be invoked.
 	 * @example https://start.atlassian.com
 	 */
@@ -66,6 +73,7 @@ export function useSmartLinkActions({
 	appearance,
 	origin,
 	actionOptions,
+	prefetch,
 }: UseSmartLinkActionsOpts) {
 	const id: string = useMemo(() => uuid(), []);
 
@@ -73,6 +81,15 @@ export function useSmartLinkActions({
 	const { fireEvent } = useAnalyticsEvents();
 	const { isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
 	const invokeClientAction = useInvokeClientAction({ fireEvent });
+	const resolve = useResolve();
+
+	if (
+		expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') &&
+		prefetch &&
+		!linkState.details
+	) {
+		resolve(url);
+	}
 
 	if (linkState.details && !actionOptions?.hide) {
 		const actions = [];

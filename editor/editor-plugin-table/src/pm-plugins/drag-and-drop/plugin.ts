@@ -6,9 +6,11 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getCellsInRow, getSelectedCellInfo } from '@atlaskit/editor-tables/utils';
+import { insm } from '@atlaskit/insm';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DraggableSourceData } from '../../types';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
@@ -48,6 +50,9 @@ const destroyFn = (
 						return type === 'table-row';
 					},
 					onDragStart() {
+						if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
+							insm.session?.startFeature('tableDragAndDrop');
+						}
 						// auto scroller doesn't work when scroll-behavior: smooth is set, this monitor temporarily removes it via inline styles
 						// Ignored via go/ees005
 						// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -57,6 +62,9 @@ const destroyFn = (
 						);
 					},
 					onDrop() {
+						if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
+							insm.session?.endFeature('tableDragAndDrop');
+						}
 						// 'null' will remove the inline style
 						// Ignored via go/ees005
 						// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -92,6 +100,9 @@ const destroyFn = (
 				return localId === tableNode?.attrs.localId;
 			},
 			onDragStart: ({ location }) => {
+				if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
+					insm.session?.startFeature('tableDragAndDrop');
+				}
 				toggleDragMenu(false)(editorView.state, editorView.dispatch);
 			},
 			onDrag(event) {
@@ -150,6 +161,9 @@ const destroyFn = (
 				if (!data) {
 					// If we're able to determine the source type of the dropped element then we should report to analytics that
 					// the drop event was cancelled. Otherwise we will cancel silently.
+					if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
+						insm.session?.endFeature('tableDragAndDrop');
+					}
 					if (
 						event?.source?.data?.type === 'table-row' ||
 						event?.source?.data?.type === 'table-column'
@@ -197,6 +211,9 @@ const destroyFn = (
 						TABLE_STATUS.INVALID,
 						tr,
 					)(editorView.state, editorView.dispatch);
+					if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
+						insm.session?.endFeature('tableDragAndDrop');
+					}
 					return;
 				}
 
@@ -251,6 +268,10 @@ const destroyFn = (
 					}
 
 					editorView.focus();
+
+					if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
+						insm.session?.endFeature('tableDragAndDrop');
+					}
 				});
 			},
 		}),

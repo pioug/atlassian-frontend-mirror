@@ -1,5 +1,19 @@
 # @atlaskit/menu
 
+## 8.4.0
+
+### Minor Changes
+
+- [`e2485470e4078`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2485470e4078) -
+  ButtonItem will convey its selected state to screen readers when isSelected. This is done through
+  the aria-current attribute.
+
+  This change was previously behind a feature flag, which has been removed.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.3
 
 ### Patch Changes

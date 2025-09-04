@@ -69,7 +69,7 @@ const rectMaskStyles = cssMap({
 
 const circularMaskStyles = cssMap({
 	root: {
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 	},
 });
 

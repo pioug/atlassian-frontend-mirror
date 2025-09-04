@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-card-provider",
-	"version": "5.6.2",
+	"version": "5.6.3",
 	"description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -60,9 +60,6 @@
 			"type": "boolean"
 		},
 		"plan_smart_link_base_url": {
-			"type": "boolean"
-		},
-		"jira_nin_smart_link": {
 			"type": "boolean"
 		},
 		"issue-link-suggestions-in-comments": {

@@ -46,6 +46,17 @@ export const getThirdPartyARI = (details?: SmartLinkResponse): string | undefine
 		) {
 			return details.entityData.thirdPartyAri;
 		}
+
+		if (
+			details?.data &&
+			'atlassian:ari' in details.data &&
+			typeof details.data['atlassian:ari'] === 'string'
+		) {
+			const ari = details.data['atlassian:ari'];
+			if (ari.includes('ari:third-party')) {
+				return ari;
+			}
+		}
 	}
 	return undefined;
 };
@@ -138,22 +149,24 @@ export const hasAuthScopeOverrides = (details?: JsonLd.Response) =>
 // Helper function to extract page ID from standard Confluence page URLs
 const extractPageIdFromURL = (url: string): string | undefined => {
 	try {
+		const urlObj = new URL(url);
+
 		// Following this pattern for confluence URL -> /wiki/spaces/{space}/pages/{pageId}/{title}
-		const pagesMatch = url.match(/(?!pages)(\d+)/);
-		if (pagesMatch && pagesMatch[0]) {
-			return pagesMatch[0];
+		const pagesMatch = urlObj.pathname.match(/\/wiki\/spaces\/[^\/]+\/pages\/(\d+)(?:\/|$)/);
+		if (pagesMatch && pagesMatch[1]) {
+			return pagesMatch[1];
 		}
 
 		// Following this pattern for confluence URL -> /wiki/pages/viewpage.action?pageId={pageId}
-		const pageIdParam = url.match(/(?!pageId=)(\d+)/);
-		if (pageIdParam && pageIdParam[0]) {
-			return pageIdParam[0];
+		const pageIdParam = urlObj.searchParams.get('pageId');
+		if (pageIdParam) {
+			return pageIdParam;
 		}
 
 		// Following this pattern for confluence URL -> /wiki/display/{space}/{pageId}
-		const displayMatch = url.match(/(?!display\/)(\d+)/);
-		if (displayMatch && displayMatch[0]) {
-			return displayMatch[0];
+		const displayMatch = urlObj.pathname.match(/\/wiki\/display\/[^\/]+\/(\d+)/);
+		if (displayMatch && displayMatch[1]) {
+			return displayMatch[1];
 		}
 	} catch {
 		return undefined;
@@ -164,22 +177,53 @@ const extractPageIdFromURL = (url: string): string | undefined => {
 
 const extractContentIdFromURL = (url: string): string | undefined => {
 	try {
-		const contentId = url.match(/content\.id=(\d+)/);
-		if (contentId && contentId[1]) {
-			// contentId[1] contains just the number
-			return contentId[1];
+		const urlObj = new URL(url);
+
+		// Pattern: ?content.id={contentId} (for app connector URLs and plugin servlet URLs)
+		const contentId = urlObj.searchParams.get('content.id');
+		if (contentId) {
+			return contentId;
+		}
+
+		// Also support URLs where content.id is in the query string but not parsed by URL (edge case)
+		// e.g., /wiki/plugins/servlet/ac/com.atlassian.perspectiveretros/perspective-retros?content.id=5662725850
+		const match = url.match(/[?&]content\.id=(\d+)/);
+		if (match && match[1]) {
+			return match[1];
 		}
 	} catch {
 		return undefined;
 	}
+
 	return undefined;
 };
 
 const extractJiraIssueIdFromURL = (url: string): string | undefined => {
 	try {
-		const browseMatch = url.match(/[A-Z0-9]+-\d+/);
-		if (browseMatch && browseMatch[0]) {
-			return browseMatch[0];
+		const urlObj = new URL(url);
+
+		// Support any case for Jira keys (e.g., AI3W-864, ai3w-864, Ai3W-864)
+		const browseMatch = urlObj.pathname.match(/\/browse\/([A-Za-z0-9]+-\d+)/);
+		if (browseMatch && browseMatch[1]) {
+			return browseMatch[1];
+		}
+
+		// /jira/browse/{issueKey}
+		const jiraBrowseMatch = urlObj.pathname.match(/\/jira\/browse\/([A-Za-z0-9]+-\d+)/);
+		if (jiraBrowseMatch && jiraBrowseMatch[1]) {
+			return jiraBrowseMatch[1];
+		}
+
+		// Query parameter ?selectedIssue={issueKey}
+		const selectedIssue = urlObj.searchParams.get('selectedIssue');
+		if (selectedIssue && /^[A-Za-z0-9]+-\d+$/.test(selectedIssue)) {
+			return selectedIssue;
+		}
+
+		// Query parameter ?issueKey={issueKey}
+		const issueKeyParam = urlObj.searchParams.get('issueKey');
+		if (issueKeyParam && /^[A-Za-z0-9]+-\d+$/.test(issueKeyParam)) {
+			return issueKeyParam;
 		}
 	} catch {
 		return undefined;

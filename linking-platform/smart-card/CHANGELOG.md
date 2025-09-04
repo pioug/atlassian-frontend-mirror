@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 40.19.1
+
+### Patch Changes
+
+- [`4f8a989dc9242`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f8a989dc9242) -
+  Fix regex and tests
+- Updated dependencies
+
+## 40.19.0
+
+### Minor Changes
+
+- [`9163aea4d4aee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9163aea4d4aee) -
+  Adds preview panel logic to embedded modal component and adds the ability to trigger the modal
+  action from within the useSmartLinkActions hook
+
+### Patch Changes
+
+- [`beaa6ee463aa8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beaa6ee463aa8) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 40.18.0
 
 ### Minor Changes

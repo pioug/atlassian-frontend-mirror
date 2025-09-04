@@ -7,7 +7,7 @@ import { Box, Grid, Inline, Pressable, Stack, Text, xcss } from '@atlaskit/primi
 import { LinkItemGroups } from '../utils/doc-quick-links';
 
 const pressableStyles = xcss({
-	borderRadius: 'border.radius.100',
+	borderRadius: 'radius.small',
 	borderColor: 'color.border',
 	borderWidth: 'border.width',
 	borderStyle: 'solid',

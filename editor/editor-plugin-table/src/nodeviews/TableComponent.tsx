@@ -282,6 +282,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					}
 				},
 			});
+
+			if (expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+				window.addEventListener('resize', this.handleWindowResizeNewDebounced);
+			}
 		}
 	}
 
@@ -371,8 +376,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				window.addEventListener('resize', this.handleWindowResizeDebounced);
 			}
-			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-			window.addEventListener('resize', this.handleWindowResizeNewDebounced);
 			this.handleTableResizingDebounced();
 		}
 
@@ -433,7 +436,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			window.removeEventListener('resize', this.handleWindowResizeDebounced);
 		}
 
-		if (allowColumnResizing) {
+		if (expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			window.removeEventListener('resize', this.handleWindowResizeNewDebounced);
 		}

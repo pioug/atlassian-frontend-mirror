@@ -82,7 +82,7 @@
 		}
 	},
 	"name": "@atlaskit/audit-logs-filters",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Add a description here.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

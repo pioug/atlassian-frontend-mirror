@@ -15,10 +15,16 @@ export default function useSpotlight() {
 
 	const isTargetRendered = useCallback((target: string) => !!targetRef.current[target], []);
 
+	const checkVisibility = useCallback(
+		(target: string) => targetRef.current[target]?.checkVisibility || (() => false),
+		[],
+	);
+
 	return useMemo(
 		() => ({
 			isTargetRendered,
+			checkVisibility,
 		}),
-		[isTargetRendered],
+		[isTargetRendered, checkVisibility],
 	);
 }

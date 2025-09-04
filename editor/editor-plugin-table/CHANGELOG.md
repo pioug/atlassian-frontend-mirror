@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 13.0.7
+
+### Patch Changes
+
+- [`5be5ab89fb72d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5be5ab89fb72d) -
+  Add tableDragAndDrop insm feature tracking
+- [`790dacebab86f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/790dacebab86f) -
+  fix table resize issue when table scailing experiment is on
+- Updated dependencies
+
 ## 13.0.6
 
 ### Patch Changes

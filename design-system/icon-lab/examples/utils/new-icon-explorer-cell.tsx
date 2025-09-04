@@ -16,7 +16,7 @@ import Textfield from '@atlaskit/textfield';
 import Tooltip from '@atlaskit/tooltip';
 
 const pressableStyles = xcss({
-	borderRadius: 'border.radius.100',
+	borderRadius: 'radius.small',
 	color: 'color.text',
 	width: 'size.600',
 	paddingInline: 'space.050',

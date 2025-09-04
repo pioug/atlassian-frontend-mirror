@@ -17,7 +17,7 @@ const styles = cssMap({
 	dropDownItemGroupStyles: {
 		width: '420px',
 		height: '116px',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 });
 

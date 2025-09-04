@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 5.0.5
+
+### Patch Changes
+
+- [`74c2f420ee49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74c2f420ee49b) -
+  Internal changes to how border radius is applied.
+
 ## 5.0.4
 
 ### Patch Changes

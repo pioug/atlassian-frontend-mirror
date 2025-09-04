@@ -1,5 +1,21 @@
 # @atlaskit/link-datasource
 
+## 4.21.3
+
+### Patch Changes
+
+- [`f3fc16f1c0a75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3fc16f1c0a75) -
+  NAVX-1839 cleaning up navx-1180-sllv-return-focus-on-escape
+- Updated dependencies
+
+## 4.21.2
+
+### Patch Changes
+
+- [`beaa6ee463aa8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beaa6ee463aa8) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 4.21.1
 
 ### Patch Changes

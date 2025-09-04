@@ -1,7 +1,7 @@
 import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl, type WithIntlProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps, WithIntlProps } from 'react-intl-next';
 import uuid from 'uuid/v4';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
@@ -78,6 +78,7 @@ import type { EditorViewStateUpdatedCallbackProps } from '../types/editor-config
 import type { EditorNextProps } from '../types/editor-props';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import { getNodesCount } from '../utils/getNodesCount';
+import { getNodesVisibleInViewport } from '../utils/getNodesVisibleInViewport';
 import { isFullPage } from '../utils/is-full-page';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 import measurements from '../utils/performance/measure-enum';
@@ -647,6 +648,14 @@ export function ReactEditorView(props: EditorViewProps) {
 							.api()
 							.base?.sharedState.currentState() as ContextIdentifierProvider | undefined;
 
+						const nodesInViewport = expValEquals(
+							'platform_editor_ttvc_nodes_in_viewport',
+							'isEnabled',
+							true,
+						)
+							? getNodesVisibleInViewport(viewRef.current.dom)
+							: {};
+
 						dispatchAnalyticsEvent({
 							action: ACTION.PROSEMIRROR_RENDERED,
 							actionSubject: ACTION_SUBJECT.EDITOR,
@@ -654,6 +663,7 @@ export function ReactEditorView(props: EditorViewProps) {
 								duration,
 								startTime,
 								nodes,
+								nodesInViewport,
 								ttfb,
 								severity: proseMirrorRenderedSeverity,
 								objectId: contextIdentifier?.objectId,

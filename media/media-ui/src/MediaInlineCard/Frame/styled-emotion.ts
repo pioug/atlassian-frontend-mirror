@@ -46,7 +46,7 @@ export const Wrapper = styled.span<WrapperProps>(
 		)} ${token('space.050', '4px')}`,
 		boxDecorationBreak: 'clone',
 		display: 'inline',
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		color: token('color.text', N900),
 		backgroundColor: token('color.background.neutral', N30A),
 	},

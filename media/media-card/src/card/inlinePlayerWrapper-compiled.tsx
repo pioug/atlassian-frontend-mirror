@@ -40,7 +40,7 @@ const borderStyle = css({
 		top: '0',
 		boxSizing: 'border-box',
 		pointerEvents: 'none',
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 	},
 });
 
@@ -50,7 +50,7 @@ const LOCAL_HEIGHT_VARIABLE = '--media-inline-player-wrapper-height';
 
 const inlinePlayerWrapperStyles = css({
 	overflow: 'hidden',
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	position: 'relative',
 	maxWidth: '100%',
 	maxHeight: '100%',

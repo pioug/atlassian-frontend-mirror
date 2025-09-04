@@ -15,6 +15,7 @@ import { ActionName, CardAction } from '../../index';
 import { getExtensionKey } from '../../state/helpers';
 import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
 import { canShowAction } from '../../utils/actions/can-show-action';
+import { isModalWithinPreviewPanelIFrame } from '../../utils/iframe-utils';
 import { type AnalyticsOrigin } from '../../utils/types';
 import { type EmbedModalProps } from '../../view/EmbedModal/types';
 import { openEmbedModal } from '../../view/EmbedModal/utils';
@@ -74,6 +75,10 @@ export const extractInvokePreviewAction = (
 
 	const hasPreviewPanel = hasPreviewPanelParams && isPreviewPanelAvailable!({ ari: ari! });
 
+	const isInPreviewPanel =
+		expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') &&
+		isModalWithinPreviewPanelIFrame();
+
 	const data = response.data as JsonLd.Data.BaseData;
 	const meta = response.meta as JsonLd.Meta.BaseMeta;
 
@@ -113,6 +118,9 @@ export const extractInvokePreviewAction = (
 							size: fg('platform_linking_enable_card_preview_action_size')
 								? actionOptions?.previewAction?.size
 								: undefined,
+							...(expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') && {
+								isInPreviewPanel,
+							}),
 						});
 					}
 				},

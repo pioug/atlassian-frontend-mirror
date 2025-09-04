@@ -57,7 +57,7 @@ const getSizeWithUnit = (value: string | number = '100%') => {
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled,@atlaskit/ui-styling-standard/no-exported-styles
 export const Image = styled.img({
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	overflow: 'hidden',
 	width: (props: ImageProps) => getSizeWithUnit(props.size),
 	height: (props: ImageProps) => getSizeWithUnit(props.size),
@@ -65,7 +65,7 @@ export const Image = styled.img({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled,@atlaskit/ui-styling-standard/no-exported-styles
 export const Thumbnail = styled.div({
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	width: '48px',
 	height: '48px',
 	float: 'right',

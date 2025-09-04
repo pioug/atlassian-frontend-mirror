@@ -12,7 +12,6 @@ import type {
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -29,6 +28,9 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 	const { showIndentationButtons = false, allowHeadingAndParagraphIndentation = false } =
 		config ?? {};
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
+	const isToolbarAIFCEnabled = editorExperiment('platform_editor_toolbar_aifc', true, {
+		exposure: true,
+	});
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,
@@ -56,7 +58,7 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 		);
 	};
 
-	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+	if (isToolbarAIFCEnabled) {
 		api?.toolbar?.actions.registerComponents(
 			getToolbarComponents({ api, showIndentationButtons, allowHeadingAndParagraphIndentation }),
 		);
@@ -71,7 +73,7 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 		name: 'toolbarListsIndentation',
 
 		pluginsOptions: {
-			...(!expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) && {
+			...(!isToolbarAIFCEnabled && {
 				selectionToolbar() {
 					const toolbarDocking = fg('platform_editor_use_preferences_plugin')
 						? api?.userPreferences?.sharedState.currentState()?.preferences.toolbarDockingPosition
@@ -113,9 +115,7 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 			}),
 		},
 		primaryToolbarComponent:
-			!expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) && !api?.primaryToolbar
-				? primaryToolbarComponent
-				: undefined,
+			!isToolbarAIFCEnabled && !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
 };
 

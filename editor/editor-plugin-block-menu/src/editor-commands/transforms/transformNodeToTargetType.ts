@@ -3,14 +3,21 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { transformBlockNode } from './block-transforms';
 import { transformContainerNode } from './container-transforms';
+import { convertToLayout } from './layout-transforms';
 import { transformListNode } from './list-transforms';
 import type { FormatNodeTargetType, TransformContext } from './types';
-import { getTargetNodeInfo, isBlockNode, isListNode, isContainerNode } from './utils';
+import {
+	getTargetNodeInfo,
+	isBlockNode,
+	isListNode,
+	isContainerNode,
+	isLayoutNodeType,
+} from './utils';
 
 export function transformNodeToTargetType(
 	tr: Transaction,
 	sourceNode: PMNode,
-	sourcePos: number | null,
+	sourcePos: number,
 	targetType: FormatNodeTargetType,
 ): Transaction | null {
 	const { nodes } = tr.doc.type.schema;
@@ -47,6 +54,10 @@ export function transformNodeToTargetType(
 
 	// Route to appropriate transformation strategy based on source node type
 	try {
+		if (isLayoutNodeType(targetNodeType)) {
+			return convertToLayout(transformationContext);
+		}
+
 		if (isBlockNode(sourceNode)) {
 			return transformBlockNode(transformationContext);
 		}

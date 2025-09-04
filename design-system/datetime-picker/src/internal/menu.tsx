@@ -39,7 +39,7 @@ function getValidDate(isos: string[]): {
 const menuStyles = css({
 	zIndex: 300,
 	backgroundColor: token('elevation.surface.overlay'),
-	borderRadius: token('border.radius'),
+	borderRadius: token('radius.small'),
 	boxShadow: token('elevation.shadow.overlay'),
 	overflow: 'hidden',
 });

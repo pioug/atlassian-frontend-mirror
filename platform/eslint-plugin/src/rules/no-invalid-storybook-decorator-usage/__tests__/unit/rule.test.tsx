@@ -5,12 +5,12 @@ describe('no-invalid-storybook-decorator-usage tests', () => {
 	tester.run('no-invalid-storybook-decorator-usage', rule, {
 		valid: [
 			{
-				code: `withPlatformFeatureFlags({})(<SampleComponent/>)`,
+				code: `withPlatformFeatureGates({})(<SampleComponent/>)`,
 			},
 		],
 		invalid: [
 			{
-				code: `const flags = {'uip.sample.color': true}; withPlatformFeatureFlags(flags)(<SampleComponent/>)`,
+				code: `const flags = {'uip.sample.color': true}; withPlatformFeatureGates(flags)(<SampleComponent/>)`,
 				errors: [{ messageId: 'onlyObjectExpression' }],
 			},
 		],

@@ -1,5 +1,26 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.5.11
+
+### Patch Changes
+
+- [`4b87ec99869df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b87ec99869df) -
+  Added data-vc information to unknown interactions
+
+## 4.5.10
+
+### Patch Changes
+
+- [`071602112aa5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/071602112aa5e) -
+  Set default unknown interaction rate when it is not configured
+
+## 4.5.9
+
+### Patch Changes
+
+- [`7cd8d49ea4953`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cd8d49ea4953) -
+  update parameters for useUFOReportError callback
+
 ## 4.5.8
 
 ### Patch Changes

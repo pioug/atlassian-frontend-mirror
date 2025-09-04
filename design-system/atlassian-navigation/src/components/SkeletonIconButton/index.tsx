@@ -15,7 +15,7 @@ const skeletonIconButtonStyles = css({
 	margin: 0,
 	padding: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
 	border: 0,
-	borderRadius: token('border.radius.circle', '100%'),
+	borderRadius: token('radius.full', '100%'),
 	pointerEvents: 'none',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':focus, :active, :hover': {
@@ -32,7 +32,7 @@ const skeletonIconButtonStyles = css({
 	'& > img': {
 		width: 24,
 		height: 24,
-		borderRadius: token('border.radius.circle', '100%'),
+		borderRadius: token('radius.full', '100%'),
 		verticalAlign: 'middle',
 	},
 });

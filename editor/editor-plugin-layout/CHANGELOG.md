@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-layout
 
+## 4.0.3
+
+### Patch Changes
+
+- [`b76a419d23d3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b76a419d23d3d) -
+  [ux] ED-29143 Transform nodes into layout
+- Updated dependencies
+
+## 4.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes

@@ -12,7 +12,7 @@ import type { SkeletonProps } from '../types';
 
 const skeletonStyles = css({
 	display: 'inline-block',
-	borderRadius: token('border.radius.circle', '50%'),
+	borderRadius: token('radius.full', '50%'),
 });
 
 const subtleOpacityStyles = css({

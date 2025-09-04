@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createTrackChangesPlugin, trackChangesPluginKey } from './pm-plugins/main';
 import { TOGGLE_TRACK_CHANGES_ACTION as ACTION } from './pm-plugins/types';
@@ -15,7 +15,7 @@ export const trackChangesPlugin: TrackChangesPlugin = ({ api, config: options })
 	};
 
 	if (options?.showOnToolbar === true) {
-		if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+		if (editorExperiment('platform_editor_toolbar_aifc', true)) {
 			api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
 		} else {
 			api?.primaryToolbar?.actions?.registerComponent({

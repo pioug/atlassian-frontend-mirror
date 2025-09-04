@@ -86,7 +86,7 @@ const imageBgStyles = css({
 	left: 0,
 	width: '256px',
 	height: '256px',
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 });
 
 const dragZoneTextBaseStyles = css({

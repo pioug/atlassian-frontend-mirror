@@ -69,7 +69,7 @@ const styles = cssMap({
 	},
 	menuGroupContainerStyles: {
 		color: token('color.text'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		alignItems: 'flex-start',
 		width: '150px',
 		marginBlock: token('space.negative.100'),

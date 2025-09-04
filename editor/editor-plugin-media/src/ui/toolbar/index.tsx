@@ -58,7 +58,6 @@ import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
 import { messages } from '@atlaskit/media-ui';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
@@ -566,7 +565,7 @@ const generateMediaSingleFloatingToolbar = (
 		}
 
 		// A separator is needed regardless switcher is enabled or not
-		if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+		if (editorExperiment('platform_editor_toolbar_aifc', true)) {
 			toolbarButtons.push({
 				type: 'separator',
 				fullHeight: true,

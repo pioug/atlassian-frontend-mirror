@@ -32,7 +32,7 @@ const LayoutBlockMenuItem = ({ api }: Props) => {
 	}, [selection]);
 
 	const handleClick = () => {
-		api?.core.actions.execute(api?.blockMenu?.commands.formatNode('layout'));
+		api?.core.actions.execute(api?.blockMenu?.commands.formatNode('layoutSection'));
 	};
 
 	return (

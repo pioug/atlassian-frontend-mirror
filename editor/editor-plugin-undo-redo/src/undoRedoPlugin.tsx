@@ -5,7 +5,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPlugin, ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { attachInputMetaWithAnalytics } from './pm-plugins/attach-input-meta';
@@ -21,6 +20,9 @@ import type { UndoRedoPlugin } from './undoRedoPluginType';
 
 export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
+	const isToolbarAIFCEnabled = editorExperiment('platform_editor_toolbar_aifc', true, {
+		exposure: true,
+	});
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,
@@ -37,7 +39,7 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 		);
 	};
 
-	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+	if (isToolbarAIFCEnabled) {
 		api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
 	} else {
 		api?.primaryToolbar?.actions.registerComponent({
@@ -118,8 +120,6 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 		},
 
 		primaryToolbarComponent:
-			!api?.primaryToolbar && !expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)
-				? primaryToolbarComponent
-				: undefined,
+			!api?.primaryToolbar && !isToolbarAIFCEnabled ? primaryToolbarComponent : undefined,
 	};
 };

@@ -35,7 +35,6 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -277,11 +276,7 @@ const ToolbarItems = React.memo(
 				case 'overflow-dropdown':
 					return (
 						<Dropdown
-							alignX={
-								expValEqualsNoExposure('platform_editor_toolbar_aifc', 'isEnabled', true)
-									? 'right'
-									: undefined
-							}
+							alignX={editorExperiment('platform_editor_toolbar_aifc', true) ? 'right' : undefined}
 							key={idx}
 							title={intl.formatMessage(commonMessages.viewMore)}
 							icon={<ShowMoreHorizontalIcon label="" spacing="spacious" />}

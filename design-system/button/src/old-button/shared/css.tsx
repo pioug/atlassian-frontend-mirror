@@ -288,7 +288,7 @@ export function getCss({
 		// 0px margin added to css-reset
 		alignItems: 'baseline',
 		borderWidth: 0,
-		borderRadius: token('border.radius', '3px'),
+		borderRadius: token('radius.small', '3px'),
 		boxSizing: 'border-box',
 		display: 'inline-flex',
 		fontSize: 'inherit',

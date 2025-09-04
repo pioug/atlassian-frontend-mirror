@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 108.3.0
+
+### Minor Changes
+
+- [`b76a419d23d3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b76a419d23d3d) -
+  [ux] ED-29143 Transform nodes into layout
+
+### Patch Changes
+
+- [`db97eb262cc5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db97eb262cc5a) -
+  replace platform_editor_toolbar_aifc with separate experiements for jira and confluence
+- Updated dependencies
+
+## 108.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.2.0
+
+### Minor Changes
+
+- [`e064fed8d33c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e064fed8d33c3) -
+  [EDITOR-1450] Follow up update content of the stop modal
+
+### Patch Changes
+
+- [`5c1589424fcc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c1589424fcc4) -
+  ED-29088 - Add nodesInViewport metric to proseMirrorRendered events.
+- Updated dependencies
+
 ## 108.1.1
 
 ### Patch Changes

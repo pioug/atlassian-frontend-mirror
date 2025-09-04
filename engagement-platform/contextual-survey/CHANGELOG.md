@@ -1,5 +1,13 @@
 # @atlaskit/contextual-survey
 
+## 5.0.9
+
+### Patch Changes
+
+- [`beaa6ee463aa8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beaa6ee463aa8) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 5.0.8
 
 ### Patch Changes

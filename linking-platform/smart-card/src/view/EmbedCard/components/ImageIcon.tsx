@@ -14,7 +14,7 @@ import { Image } from './styled';
 
 const styles = cssMap({
 	roundedImage: {
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 	},
 });
 

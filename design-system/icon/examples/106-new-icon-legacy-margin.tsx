@@ -19,7 +19,7 @@ const styles = xcss({ padding: 'space.200' });
 
 const iconContainerStyles = xcss({
 	border: '1px dashed',
-	borderRadius: 'border.radius.100',
+	borderRadius: 'radius.small',
 	borderColor: 'color.border.accent.magenta',
 });
 const bleedStyles = xcss({

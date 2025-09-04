@@ -20,7 +20,7 @@ const baseStyles = css({
 	backgroundRepeat: 'no-repeat',
 	height: token('space.200', '16px'),
 	width: token('space.200', '16px'),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	flexShrink: 0,
 });
 

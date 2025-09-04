@@ -43,7 +43,7 @@ const listStyles = css({
 		paddingLeft: token('space.100', '8px'),
 		'&:hover': {
 			backgroundColor: token('color.background.neutral', '#091E420F'),
-			borderRadius: token('border.radius', '4px'),
+			borderRadius: token('radius.small', '4px'),
 		},
 	},
 });

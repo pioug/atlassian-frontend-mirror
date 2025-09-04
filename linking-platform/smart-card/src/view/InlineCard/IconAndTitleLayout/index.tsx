@@ -61,14 +61,14 @@ const styles = cssMap({
 		paddingLeft: token('space.050'),
 	},
 	linkStyle: {
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 	},
 	noLinkAppearanceStyle: {
 		color: token('color.text.subtlest'),
 		marginLeft: token('space.050'),
 	},
 	roundImageStyle: {
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 	},
 });
 

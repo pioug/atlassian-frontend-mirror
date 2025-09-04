@@ -245,10 +245,14 @@ type SideNavProps = CommonSlotProps & {
 	defaultWidth?: number;
 	/**
 	 * Called when the side nav is expanded.
+	 *
+	 * Note: The trigger parameter is only provided when the `navx-full-height-sidebar` feature flag is enabled.
 	 */
 	onExpand?: VisibilityCallback;
 	/**
 	 * Called when the side nav is collapsed.
+	 *
+	 * Note: The trigger parameter is only provided when the `navx-full-height-sidebar` feature flag is enabled.
 	 */
 	onCollapse?: VisibilityCallback;
 };

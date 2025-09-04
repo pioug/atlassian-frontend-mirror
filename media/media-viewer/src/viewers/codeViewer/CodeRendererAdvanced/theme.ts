@@ -44,7 +44,7 @@ export const cmTheme = CodeMirror.theme({
 		// Custom syntax styling to match existing styling
 		['lineHeight']: 'unset',
 		fontFamily: token('font.family.code'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		backgroundImage: overflowShadow({
 			leftCoverWidth: token('space.300'),
 		}),

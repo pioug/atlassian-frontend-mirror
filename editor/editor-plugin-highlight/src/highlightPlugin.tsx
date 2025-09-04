@@ -7,7 +7,6 @@ import type {
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changeColor } from './editor-commands/change-color';
@@ -20,7 +19,9 @@ import { getToolbarComponent } from './ui/toolbar-component';
 
 export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
-	const isToolbarAifcEnabled = expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true);
+	const isToolbarAifcEnabled = editorExperiment('platform_editor_toolbar_aifc', true, {
+		exposure: true,
+	});
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		popupsMountPoint,

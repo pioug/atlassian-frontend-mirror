@@ -27,6 +27,10 @@ jest.mock('@atlaskit/editor-common/performance/navigation', () => ({
 	getResponseEndTime: jest.fn(() => mockResponseTime),
 }));
 
+jest.mock('../../../utils/getNodesVisibleInViewport', () => ({
+	getNodesVisibleInViewport: jest.fn(() => Promise.resolve({ testNode: 1 })),
+}));
+
 jest.mock('@atlaskit/editor-common/is-performance-api-available', () => ({
 	...jest.requireActual<Object>('@atlaskit/editor-common/is-performance-api-available'),
 	isPerformanceAPIAvailable: jest.fn(() => true),

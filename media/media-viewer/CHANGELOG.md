@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 52.4.18
+
+### Patch Changes
+
+- [`beaa6ee463aa8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beaa6ee463aa8) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 52.4.17
 
 ### Patch Changes

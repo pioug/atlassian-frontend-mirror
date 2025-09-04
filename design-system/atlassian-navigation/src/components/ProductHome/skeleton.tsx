@@ -34,7 +34,7 @@ const productHomeButtonStyles = css({
 	alignItems: 'center',
 	background: 'none',
 	border: 0,
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	color: 'inherit',
 	cursor: 'pointer',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -96,7 +96,7 @@ const productIconStyles = css({
 	display: 'flex',
 	width: 28,
 	height: 28,
-	borderRadius: token('border.radius.circle', '50%'),
+	borderRadius: token('radius.full', '50%'),
 	opacity: 0.15,
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
@@ -121,7 +121,7 @@ const siteTitleStyles = css({
 		width: '100%',
 		height: 14,
 		backgroundColor: `var(${VAR_SITE_TITLE_BG_COLOR_AFTER})`,
-		borderRadius: token('border.radius', '4px'),
+		borderRadius: token('radius.small', '4px'),
 		content: '""',
 	},
 });

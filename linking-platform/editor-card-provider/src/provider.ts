@@ -21,7 +21,6 @@ import {
 	type ProviderPattern,
 	type ProvidersData,
 } from './types';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import { CardClient } from '@atlaskit/link-provider';
 import { type EnvironmentsKeys, getBaseUrl, getResolverUrl } from '@atlaskit/linking-common';
@@ -364,11 +363,6 @@ export class EditorCardProvider
 			isConfluenceTeamCalendarsEvaluated = isConfluenceTeamCalendars(url);
 		}
 
-		let isJiraIssueNavigatorEvaluated;
-		if (this.getExperimentValue('jsc_nin_smart_link', 'isEnabled', false)) {
-			isJiraIssueNavigatorEvaluated = isJiraIssueNavigator(url);
-		}
-
 		if (
 			isJiraRoadmapOrTimeline(url) ||
 			isPolarisView(url) ||
@@ -390,23 +384,11 @@ export class EditorCardProvider
 			isJiraSummaryEvaluated ||
 			isCustomer360LandingPage(url) ||
 			isConfluenceTeamCalendarsEvaluated ||
-			isJiraIssueNavigatorEvaluated
+			isJiraIssueNavigator(url)
 		) {
 			return 'embed';
 		}
 	}
-
-	private getExperimentValue = <T>(
-		experimentName: string,
-		parameterName: string,
-		defaultValue: T,
-	) => {
-		try {
-			return FeatureGates.getExperimentValue(experimentName, parameterName, defaultValue);
-		} catch {
-			return defaultValue;
-		}
-	};
 
 	/**
 	 * Make a /resolve call and find out if result has embed capability

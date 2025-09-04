@@ -112,7 +112,7 @@ const styles = xcss({
 color: "color.text",
 zIndex: "layer",
 width: "size.100",
-borderRadius: "border.radius.050",
+borderRadius: "radius.xsmall",
 borderColor: "color.border.accent.orange",
 borderWidth: "border.width.indicator",
 fill: "color.icon.accent.orange",
@@ -141,7 +141,7 @@ const MyComponent = () => <Box xcss={styles} />`;
 			  color: token("color.text"),
 			  zIndex: 400,
 			  width: "1rem",
-			  borderRadius: token("border.radius.050"),
+			  borderRadius: token("radius.xsmall"),
 			  borderColor: token("color.border.accent.orange"),
 			  borderWidth: token("border.width.indicator"),
 			  fill: token("color.icon.accent.orange"),
@@ -260,7 +260,7 @@ const MyComponent = () => <Box xcss={styles} />`;
 		it('should replace two xcss objects with one cssMap', async () => {
 			const input = `import { Box, xcss } from "@atlaskit/primitives";
 const styles = xcss({
-borderRadius: "border.radius.050",
+borderRadius: "radius.xsmall",
 color: "red",
 });
 
@@ -283,7 +283,7 @@ export default ({ disabled }) => <Box xcss={[styles, disabled && disabledStyles]
 
 			const styles = cssMap({
 			  root: {
-			  borderRadius: token("border.radius.050"),
+			  borderRadius: token("radius.xsmall"),
 			  color: "red",
 			  },
 
@@ -625,7 +625,7 @@ const cardStyles = xcss({
 	display: 'block',
 	textDecoration: 'none',
 	height: '100%',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	transition: 'box-shadow 200ms',
 	color: 'color.text.subtlest',
 
@@ -688,7 +688,7 @@ export default CardLink;`;
 			        display: 'block',
 			        textDecoration: 'none',
 			        height: "100%",
-			        borderRadius: token("border.radius"),
+			        borderRadius: token("radius.small"),
 			        transition: 'box-shadow 200ms',
 			        color: token("color.text.subtlest"),
 
@@ -776,8 +776,8 @@ const headerStyles = xcss({
 	alignItems: 'center',
 	justifyContent: 'space-between',
 	lineHeight: '20px',
-	borderStartStartRadius: 'border.radius',
-	borderStartEndRadius: 'border.radius',
+	borderStartStartRadius: 'radius.small',
+	borderStartEndRadius: 'radius.small',
 });
 
 const contentStyles = xcss({
@@ -786,8 +786,8 @@ const contentStyles = xcss({
 	justifyContent: 'center',
 	alignItems: 'center',
 	transition: 'background-color 0.2s ease-in',
-	borderEndStartRadius: 'border.radius',
-	borderEndEndRadius: 'border.radius',
+	borderEndStartRadius: 'radius.small',
+	borderEndEndRadius: 'radius.small',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	img: {
 		maxHeight: '70px',
@@ -882,8 +882,8 @@ export default AssetCard;`;
 			        alignItems: 'center',
 			        justifyContent: 'space-between',
 			        lineHeight: '20px',
-			        borderStartStartRadius: token("border.radius"),
-			        borderStartEndRadius: token("border.radius")
+			        borderStartStartRadius: token("radius.small"),
+			        borderStartEndRadius: token("radius.small")
 			    },
 
 			    content: {
@@ -892,8 +892,8 @@ export default AssetCard;`;
 			        justifyContent: 'center',
 			        alignItems: 'center',
 			        transition: 'background-color 0.2s ease-in',
-			        borderEndStartRadius: token("border.radius"),
-			        borderEndEndRadius: token("border.radius"),
+			        borderEndStartRadius: token("radius.small"),
+			        borderEndEndRadius: token("radius.small"),
 			        // eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			        img: {
 			            maxHeight: '70px',
@@ -982,7 +982,7 @@ export default AssetCard;`;
 			const input = `
 			import { Stack, xcss, Box } from '@atlaskit/primitives';
 
-			const MyComponent = () => 
+			const MyComponent = () =>
 			<div>
 				<Stack xcss={xcss({
 					borderColor: 'color.border.input',
@@ -1014,7 +1014,7 @@ export default AssetCard;`;
 			    }
 			});
 
-			const MyComponent = () => 
+			const MyComponent = () =>
 			<div>
 			    <Stack xcss={stackStyles.root} />
 			    <Box xcss={boxStyles.root} />
@@ -1030,7 +1030,7 @@ export default AssetCard;`;
 				color: 'color.text',
 			});
 
-			const MyComponent = () => 
+			const MyComponent = () =>
 			<div>
 				<Stack xcss={xcss({
 					borderColor: 'color.border.input',
@@ -1069,7 +1069,7 @@ export default AssetCard;`;
 			    }
 			});
 
-			const MyComponent = () => 
+			const MyComponent = () =>
 			<div>
 			    <Stack xcss={stackStyles.root} />
 			    <Box xcss={boxStyles.root} />

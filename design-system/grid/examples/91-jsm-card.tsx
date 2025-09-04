@@ -10,7 +10,7 @@ import Card from './94-card';
 
 const boxStyles = xcss({
 	flexShrink: 0,
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	width: 'size.500',
 	height: 'size.500',
 });

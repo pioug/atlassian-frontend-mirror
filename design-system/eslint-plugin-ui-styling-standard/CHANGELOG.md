@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 1.4.5
+
+### Patch Changes
+
+- [`74c2f420ee49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74c2f420ee49b) -
+  Internal changes to how border radius is applied.
+
 ## 1.4.4
 
 ### Patch Changes

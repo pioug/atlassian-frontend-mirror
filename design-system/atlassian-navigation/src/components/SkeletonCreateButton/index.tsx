@@ -16,7 +16,7 @@ const skeletonCreateButtonStyles = css({
 	padding: `0 ${token('space.150', '12px')}`,
 	alignSelf: 'center',
 	border: 0,
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	font: token('font.body'),
 	fontWeight: token('font.weight.medium'),
 	pointerEvents: 'none',

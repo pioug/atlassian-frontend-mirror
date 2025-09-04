@@ -12,7 +12,7 @@ const iconContainerStyles = xcss({
 	justifyContent: 'center',
 	height: 'size.200',
 	width: 'size.200',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 });
 
 export const ShareMenuItem = ({

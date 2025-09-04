@@ -14,7 +14,7 @@ const imageContainerStyles = css({
 	height: '100%',
 	maxHeight: '100%',
 	overflow: 'hidden',
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 });
 
 const imageContainerCenterStyles = css({

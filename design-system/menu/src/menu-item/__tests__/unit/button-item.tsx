@@ -6,7 +6,6 @@ import { css, jsx } from '@compiled/react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import ButtonItem from '../../button-item';
 
@@ -140,11 +139,9 @@ describe('<ButtonItem />', () => {
 		expect(callback).not.toHaveBeenCalled();
 	});
 
-	ffTest.on('platform_dst_menu_item_button_aria_current', 'aria-current', () => {
-		it('should convey selected state to screen readers using aria-current', () => {
-			render(<ButtonItem isSelected>Hello world</ButtonItem>);
+	it('should convey selected state to screen readers using aria-current', () => {
+		render(<ButtonItem isSelected>Hello world</ButtonItem>);
 
-			expect(screen.getByRole('button')).toHaveAttribute('aria-current', 'true');
-		});
+		expect(screen.getByRole('button')).toHaveAttribute('aria-current', 'true');
 	});
 });

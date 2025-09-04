@@ -16,6 +16,8 @@ function getTestIdName(memoizedProps: Record<string, string>): string | null {
 		return `[data-testid=${memoizedProps['data-testid']}]`;
 	} else if (memoizedProps['data-test-id']) {
 		return `[data-test-id=${memoizedProps['data-testid']}]`;
+	} else if (memoizedProps['data-vc']) {
+		return `[data-vc=${memoizedProps['data-vc']}]`;
 	}
 	return null;
 }

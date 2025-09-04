@@ -25,7 +25,7 @@ import { IconAndTitleLayout } from '../IconAndTitleLayout';
 const styles = cssMap({
 	actionButtonLozengeStyle: {
 		backgroundColor: token('color.background.neutral.subtle'),
-		borderRadius: token('border.radius.050'),
+		borderRadius: token('radius.xsmall'),
 		paddingTop: token('space.0'),
 		paddingRight: token('space.0'),
 		paddingBottom: token('space.0'),

@@ -9,7 +9,7 @@ import { Box, xcss } from '@atlaskit/primitives';
 const containerStyles = xcss({
 	borderColor: 'color.border',
 	borderStyle: 'solid',
-	borderRadius: 'border.radius.100',
+	borderRadius: 'radius.small',
 	borderWidth: 'border.width',
 	marginTop: 'space.150',
 });

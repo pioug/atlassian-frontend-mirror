@@ -140,23 +140,21 @@ test.describe('JiraIssuesModal', () => {
 		await expect(page.getByTestId('jira-datasource-modal--body')).toBeHidden();
 	});
 
-	test.describe('with navx-1180-sllv-return-focus-on-escape enabled', () => {
-		test('should close modal and return focus on ESC keydown when ref is passed down', async ({
-			page,
-		}) => {
-			await setup(page, undefined, undefined, undefined, 'navx-1180-sllv-return-focus-on-escape');
-			await page.keyboard.press('Escape');
+	test('should close modal and return focus on ESC keydown when ref is passed down', async ({
+		page,
+	}) => {
+		await setup(page);
+		await page.keyboard.press('Escape');
 
-			// Open and close the modal to set focus on the button
-			const toggleModalButton = page.getByTestId('toggle-modal-button');
-			await toggleModalButton.click();
-			await expect(page.getByTestId('jira-datasource-modal--body')).toBeVisible();
-			await page.keyboard.press('Escape');
+		// Open and close the modal to set focus on the button
+		const toggleModalButton = page.getByTestId('toggle-modal-button');
+		await toggleModalButton.click();
+		await expect(page.getByTestId('jira-datasource-modal--body')).toBeVisible();
+		await page.keyboard.press('Escape');
 
-			await expect(page.getByTestId('jira-datasource-modal--body')).toBeHidden();
+		await expect(page.getByTestId('jira-datasource-modal--body')).toBeHidden();
 
-			await expect(toggleModalButton).toBeFocused({ timeout: 5000 });
-		});
+		await expect(toggleModalButton).toBeFocused({ timeout: 5000 });
 	});
 
 	test('table and table text in dropdown render correctly when table view is selected', async ({

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 6.0.2
+
+### Patch Changes
+
+- [`db97eb262cc5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db97eb262cc5a) -
+  replace platform_editor_toolbar_aifc with separate experiements for jira and confluence
+- Updated dependencies
+
 ## 6.0.1
 
 ### Patch Changes

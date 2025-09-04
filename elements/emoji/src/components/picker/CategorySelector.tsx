@@ -25,7 +25,7 @@ const styles = cssMap({
 	commonCategory: {
 		backgroundColor: token('color.background.neutral.subtle'),
 		borderWidth: 0,
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		paddingTop: token('space.0'),
 		paddingBottom: token('space.0'),
 		paddingLeft: token('space.0'),

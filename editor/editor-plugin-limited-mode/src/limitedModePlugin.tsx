@@ -18,7 +18,9 @@ export const limitedModePlugin: LimitedModePlugin = () => {
 			if (editorState) {
 				return {
 					get enabled() {
-						return limitedModePluginKey.getState(editorState).documentSizeBreachesThreshold;
+						return (
+							limitedModePluginKey.getState(editorState)?.documentSizeBreachesThreshold ?? false
+						);
 					},
 					limitedModePluginKey,
 				};

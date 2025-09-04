@@ -41,7 +41,7 @@ describe('ImageIcon', () => {
 		const image = screen.getByRole('presentation');
 		const style = window.getComputedStyle(image);
 
-		expect(style.borderRadius).toContain('--ds-border-radius-circle');
+		expect(style.borderRadius).toContain('--ds-radius-full');
 	});
 
 	it('should not render with round appearance', () => {

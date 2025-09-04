@@ -7,7 +7,6 @@ import type {
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -43,7 +42,8 @@ import { getToolbarComponents } from './ui/toolbar-components';
  * from `@atlaskit/editor-core`.
  */
 export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, api }) => {
-	const isToolbarAIFCEnabled = expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true);
+	const isToolbarAIFCEnabled = editorExperiment('platform_editor_toolbar_aifc', true);
+
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,
 		popupsMountPoint,

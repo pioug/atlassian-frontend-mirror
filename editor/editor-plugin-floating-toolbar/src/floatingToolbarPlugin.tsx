@@ -303,7 +303,7 @@ export function ContentComponent({
 	const { config, node } = configWithNodeInfo;
 
 	// When the new inline editor-toolbar is enabled, suppress floating toolbar for text selections.
-	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+	if (editorExperiment('platform_editor_toolbar_aifc', true)) {
 		const selection = editorView.state.selection as Selection;
 		const isCellSelection = '$anchorCell' in selection && !selection.empty;
 		const isTextSelected = selection instanceof TextSelection && !selection.empty;

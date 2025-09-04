@@ -296,7 +296,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 						useStickyToolbar={useStickyToolbar}
 						twoLineEditorToolbar={isTwoLineToolbarEnabled}
 					>
-						{expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) ? (
+						{editorExperiment('platform_editor_toolbar_aifc', true) ? (
 							<React.Fragment>
 								<CommentToolbar
 									editorAPI={editorAPI}

@@ -196,7 +196,7 @@ exports[`SearchResultsError Should match snapshot 1`] = `
   -ms-flex-align: baseline;
   align-items: baseline;
   border-width: 0;
-  border-radius: var(--ds-border-radius, 3px);
+  border-radius: var(--ds-radius-small, 3px);
   box-sizing: border-box;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;

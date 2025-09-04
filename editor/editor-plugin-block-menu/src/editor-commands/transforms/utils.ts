@@ -35,6 +35,8 @@ export const getTargetNodeInfo = (
 			return { nodeType: nodes.orderedList };
 		case 'taskList':
 			return { nodeType: nodes.taskList };
+		case 'layoutSection':
+			return { nodeType: nodes.layoutSection };
 		default:
 			return null;
 	}
@@ -46,7 +48,7 @@ export const isBlockNode = (node: PMNode): boolean => {
 };
 
 export const isListNode = (node: PMNode): boolean => {
-	return ['bulletList', 'orderedList', 'taskList', 'listItem'].includes(node.type.name);
+	return ['bulletList', 'orderedList', 'taskList'].includes(node.type.name);
 };
 
 export const isContainerNode = (node: PMNode): boolean => {
@@ -63,4 +65,25 @@ export const isListNodeType = (nodeType: NodeType): boolean => {
 
 export const isContainerNodeType = (nodeType: NodeType): boolean => {
 	return ['panel', 'expand', 'blockquote'].includes(nodeType.name);
+};
+
+// List type utilities
+export const isBulletOrOrderedList = (nodeType: NodeType): boolean => {
+	return nodeType.name === 'bulletList' || nodeType.name === 'orderedList';
+};
+
+export const isTaskList = (nodeType: NodeType): boolean => {
+	return nodeType.name === 'taskList';
+};
+
+export const getSupportedListTypes = (nodes: Record<string, NodeType>): NodeType[] => {
+	return [nodes.bulletList, nodes.orderedList, nodes.taskList].filter(Boolean);
+};
+
+export const getSupportedListTypesSet = (nodes: Record<string, NodeType>): Set<NodeType> => {
+	return new Set(getSupportedListTypes(nodes));
+};
+
+export const isLayoutNodeType = (nodeType: NodeType): boolean => {
+	return nodeType.name === 'layoutSection';
 };

@@ -2,6 +2,7 @@ import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getNodeIdProvider } from '../../node-anchor/node-anchor-provider';
 import type {
@@ -134,7 +135,9 @@ export const corePlugin: CorePlugin = ({ config }) => {
 					if (options?.scrollIntoView ?? true) {
 						editorView.dispatch(tr.scrollIntoView());
 					} else {
-						editorView.dispatch(tr);
+						if (editorExperiment('platform_editor_ai_aifc', true)) {
+							editorView.dispatch(tr.setMeta('scrollIntoView', false));
+						}
 					}
 					return true;
 				}

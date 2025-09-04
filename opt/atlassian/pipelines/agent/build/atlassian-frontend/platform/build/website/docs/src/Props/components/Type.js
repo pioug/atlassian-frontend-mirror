@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- Ignored via go/DSP-18766
 const Type = styled.span`
 	background-color: ${token('color.background.accent.purple.subtlest')};
-	border-radius: ${token('border.radius', '3px')};
+	border-radius: ${token('radius.small', '3px')};
 	color: ${token('color.text.accent.purple')};
 	display: inline-block;
 	margin: 2px 0;
@@ -28,7 +28,7 @@ export const StringType = styled(Type)`
 export const FunctionType = styled.span({
 	background: token('color.background.accent.teal.subtlest'),
 	color: token('color.text.accent.teal'),
-	borderRadius: token('border.radius'),
+	borderRadius: token('radius.small'),
 	padding: '0 0.2em',
 	fontFamily: 'monospace',
 });

@@ -78,150 +78,189 @@ describe('Toolbar', () => {
 	eeTest
 		.describe('platform_editor_core_static_emotion_non_central', 'static_emotion_non_central')
 		.each(() => {
-			it('should re-render with different toolbar size when toolbar width changes', async () => {
-				setElementWidth(501);
+			eeTest
+				.describe('platform_editor_preview_panel_responsiveness', 'preview_panel_responsiveness')
+				.each(() => {
+					it('should re-render with different toolbar size when toolbar width changes', async () => {
+						setElementWidth(501);
 
-				const toolbarItem = getMockedToolbarItem();
-				const toolbar = mount(
-					<ToolbarWithSizeDetector
-						items={[toolbarItem]}
-						editorView={{} as any}
-						eventDispatcher={{} as any}
-						providerFactory={{} as any}
-						appearance="full-page"
-						disabled={false}
-						containerElement={null}
-					/>,
-				);
+						const toolbarItem = getMockedToolbarItem();
+						const toolbar = mount(
+							<ToolbarWithSizeDetector
+								items={[toolbarItem]}
+								editorView={{} as any}
+								eventDispatcher={{} as any}
+								providerFactory={{} as any}
+								appearance="full-page"
+								disabled={false}
+								containerElement={null}
+							/>,
+						);
 
-				let toolbarElement = toolbar.getDOMNode() as Element | Array<Element | null>;
-				// getDOMNode seems to sometimes return an array instead of an element
-				// To fix that, we handle the array case by pulling out the first element value
-				if (Array.isArray(toolbarElement)) {
-					for (const el of toolbarElement) {
-						if (el && el instanceof Element) {
-							toolbarElement = el;
-							break;
+						let toolbarElement = toolbar.getDOMNode() as Element | Array<Element | null>;
+						// getDOMNode seems to sometimes return an array instead of an element
+						// To fix that, we handle the array case by pulling out the first element value
+						if (Array.isArray(toolbarElement)) {
+							for (const el of toolbarElement) {
+								if (el && el instanceof Element) {
+									toolbarElement = el;
+									break;
+								}
+							}
+							if (!(toolbarElement instanceof Element)) {
+								throw new Error('Toolbar returned an empty/nullish array from getDOMNode');
+							}
 						}
-					}
-					if (!(toolbarElement instanceof Element)) {
-						throw new Error('Toolbar returned an empty/nullish array from getDOMNode');
+
+						expect(toolbarItem).toHaveBeenCalledWith(
+							expect.objectContaining({
+								toolbarSize: ToolbarSize.M,
+							}),
+						);
+
+						act(() => setWidth(1000));
+
+						expect(toolbarItem).toHaveBeenCalledWith(
+							expect.objectContaining({
+								toolbarSize: ToolbarSize.XXL,
+							}),
+						);
+
+						act(() => setWidth(100));
+
+						expect(toolbarItem).toHaveBeenCalledWith(
+							expect.objectContaining({
+								toolbarSize: ToolbarSize.XXXS,
+							}),
+						);
+
+						expect(toolbarItem).toBeCalled();
+						toolbar.unmount();
+					});
+				});
+		});
+});
+
+eeTest
+	.describe('platform_editor_preview_panel_responsiveness', 'preview_panel_responsiveness')
+	.each(() => {
+		it('should apply correct min-width based on experiment flag', () => {
+			const toolbarItem = getMockedToolbarItem();
+			const toolbar = mount(
+				<ToolbarWithSizeDetector
+					items={[toolbarItem]}
+					editorView={{} as any}
+					eventDispatcher={{} as any}
+					providerFactory={{} as any}
+					appearance="full-page"
+					disabled={false}
+					containerElement={null}
+				/>,
+			);
+
+			let toolbarElement = toolbar.getDOMNode() as Element | Array<Element | null>;
+			if (Array.isArray(toolbarElement)) {
+				for (const el of toolbarElement) {
+					if (el && el instanceof Element) {
+						toolbarElement = el;
+						break;
 					}
 				}
-				expect(toolbarElement).toHaveStyle(`min-width: 254px;
-width: 100%;
+				if (!(toolbarElement instanceof Element)) {
+					throw new Error('Toolbar returned an empty/nullish array from getDOMNode');
+				}
+			}
+
+			expect(toolbarElement).toHaveStyle(`width: 100%;
 position: relative;`);
 
-				expect(toolbarItem).toHaveBeenCalledWith(
-					expect.objectContaining({
-						toolbarSize: ToolbarSize.M,
-					}),
-				);
-
-				act(() => setWidth(1000));
-
-				expect(toolbarItem).toHaveBeenCalledWith(
-					expect.objectContaining({
-						toolbarSize: ToolbarSize.XXL,
-					}),
-				);
-
-				act(() => setWidth(100));
-
-				expect(toolbarItem).toHaveBeenCalledWith(
-					expect.objectContaining({
-						toolbarSize: ToolbarSize.XXXS,
-					}),
-				);
-
-				toolbar.unmount();
-			});
+			toolbar.unmount();
 		});
-
-	it('should set reduced spacing for toolbar buttons if size is < ToolbarSize.XXL', () => {
-		const toolbarItem = getMockedToolbarItem();
-		const toolbar = mount(
-			<Toolbar
-				items={[toolbarItem]}
-				editorView={{} as any}
-				eventDispatcher={{} as any}
-				providerFactory={{} as any}
-				appearance="full-page"
-				disabled={false}
-				toolbarSize={ToolbarSize.XL}
-				containerElement={null}
-			/>,
-		);
-
-		// First call
-		expect(toolbarItem.mock.calls[0][0]).toMatchObject({
-			isToolbarReducedSpacing: true,
-		});
-
-		toolbar.unmount();
 	});
 
-	it('should set normal spacing for toolbar buttons if size is >= ToolbarSize.XXL', () => {
-		const toolbarItem = getMockedToolbarItem();
-		const toolbar = mount(
-			<Toolbar
-				items={[toolbarItem]}
-				editorView={{} as any}
-				eventDispatcher={{} as any}
-				providerFactory={{} as any}
-				appearance="full-page"
-				disabled={false}
-				toolbarSize={ToolbarSize.XXL}
-				containerElement={null}
-			/>,
-		);
+it('should set reduced spacing for toolbar buttons if size is < ToolbarSize.XXL', () => {
+	const toolbarItem = getMockedToolbarItem();
+	const toolbar = mount(
+		<Toolbar
+			items={[toolbarItem]}
+			editorView={{} as any}
+			eventDispatcher={{} as any}
+			providerFactory={{} as any}
+			appearance="full-page"
+			disabled={false}
+			toolbarSize={ToolbarSize.XL}
+			containerElement={null}
+		/>,
+	);
 
-		// First call
-		expect(toolbarItem.mock.calls[0][0]).toMatchObject({
-			isToolbarReducedSpacing: false,
-		});
-
-		toolbar.unmount();
+	// First call
+	expect(toolbarItem.mock.calls[0][0]).toMatchObject({
+		isToolbarReducedSpacing: true,
 	});
 
-	it('should not render Toolbar in SSR', () => {
-		(isSSR as jest.Mock).mockReturnValue(true);
-		const toolbarItem = getMockedToolbarItem();
-		const toolbar = mount(
-			<Toolbar
-				items={[toolbarItem]}
-				editorView={{} as any}
-				eventDispatcher={{} as any}
-				providerFactory={{} as any}
-				appearance="full-page"
-				disabled={false}
-				toolbarSize={ToolbarSize.L}
-				containerElement={null}
-			/>,
-		);
+	toolbar.unmount();
+});
 
-		expect(toolbarItem).not.toBeCalled();
-		toolbar.unmount();
+it('should set normal spacing for toolbar buttons if size is >= ToolbarSize.XXL', () => {
+	const toolbarItem = getMockedToolbarItem();
+	const toolbar = mount(
+		<Toolbar
+			items={[toolbarItem]}
+			editorView={{} as any}
+			eventDispatcher={{} as any}
+			providerFactory={{} as any}
+			appearance="full-page"
+			disabled={false}
+			toolbarSize={ToolbarSize.XXL}
+			containerElement={null}
+		/>,
+	);
+
+	// First call
+	expect(toolbarItem.mock.calls[0][0]).toMatchObject({
+		isToolbarReducedSpacing: false,
 	});
 
-	it('should render Toolbar UI in non SSR env', () => {
-		(isSSR as jest.Mock).mockReturnValue(false);
+	toolbar.unmount();
+});
 
-		const toolbarItem = getMockedToolbarItem();
-		const toolbar = mount(
-			<Toolbar
-				items={[toolbarItem]}
-				editorView={{} as any}
-				eventDispatcher={{} as any}
-				providerFactory={{} as any}
-				appearance="full-page"
-				disabled={false}
-				toolbarSize={ToolbarSize.L}
-				containerElement={null}
-			/>,
-		);
+it('should not render Toolbar in SSR', () => {
+	(isSSR as jest.Mock).mockReturnValue(true);
+	const toolbarItem = getMockedToolbarItem();
+	const toolbar = mount(
+		<Toolbar
+			items={[toolbarItem]}
+			editorView={{} as any}
+			eventDispatcher={{} as any}
+			providerFactory={{} as any}
+			appearance="full-page"
+			disabled={false}
+			toolbarSize={ToolbarSize.L}
+			containerElement={null}
+		/>,
+	);
 
-		expect(toolbarItem).toBeCalled();
-		toolbar.unmount();
-	});
+	expect(toolbarItem).not.toBeCalled();
+	toolbar.unmount();
+});
+
+it('should render Toolbar UI in non SSR env', () => {
+	(isSSR as jest.Mock).mockReturnValue(false);
+
+	const toolbarItem = getMockedToolbarItem();
+	const toolbar = mount(
+		<Toolbar
+			items={[toolbarItem]}
+			editorView={{} as any}
+			eventDispatcher={{} as any}
+			providerFactory={{} as any}
+			appearance="full-page"
+			disabled={false}
+			toolbarSize={ToolbarSize.L}
+			containerElement={null}
+		/>,
+	);
+
+	expect(toolbarItem).toBeCalled();
+	toolbar.unmount();
 });

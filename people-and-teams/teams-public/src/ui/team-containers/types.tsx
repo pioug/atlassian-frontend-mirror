@@ -90,8 +90,11 @@ export interface TeamContainersEmptyStateProps {
 	hasNoPermissions?: boolean;
 }
 
+export interface TeamContainersEmptyStateProps {
+	hasNoPermissions?: boolean;
+}
 export interface TeamContainersComponent {
-	ContainerCard: ComponentType<LinkedContainerCardProps>;
+	ContainerCard?: ComponentType<LinkedContainerCardProps>;
 	TeamContainersSkeleton?: ComponentType<TeamContainersSkeletonProps>;
 	TeamContainersEmptyState?: ComponentType<TeamContainersEmptyStateProps>;
 	AddContainerCard?: ComponentType<AddContainerCardProps>;

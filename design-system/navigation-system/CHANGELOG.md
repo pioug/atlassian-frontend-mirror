@@ -1,5 +1,18 @@
 # @atlassian/navigation-system
 
+## 2.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.1
+
+### Patch Changes
+
+- [`34635d754e047`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34635d754e047) -
+  Update the description of the Side nav's onExpand and onCollapse props.
+
 ## 2.3.0
 
 ### Minor Changes

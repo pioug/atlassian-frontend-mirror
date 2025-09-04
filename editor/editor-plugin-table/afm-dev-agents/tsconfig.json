@@ -78,6 +78,9 @@
 			"path": "../../../design-system/icon/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../insm/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/menu/afm-dev-agents/tsconfig.json"
 		},
 		{

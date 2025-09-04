@@ -28,7 +28,7 @@ export const aiExperienceApplicationMessages = defineMessages({
 	},
 	discardStreamingInDocumennt: {
 		id: 'fabric.editor.ai.experience.discardStreamingInDocumennt',
-		defaultMessage: 'Cancel request and delete generated response?',
+		defaultMessage: 'Cancel request and discard response?',
 		description:
 			'Message to confirm if the user wants to discard the generated response from Atlassian Intelligence in the document.',
 	},

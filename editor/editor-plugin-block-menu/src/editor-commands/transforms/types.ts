@@ -11,7 +11,7 @@ export type FormatNodeTargetType =
 	| 'paragraph'
 	| 'blockquote'
 	| 'expand'
-	| 'layout'
+	| 'layoutSection'
 	| 'panel'
 	| 'codeBlock'
 	| 'bulletList'
@@ -20,7 +20,7 @@ export type FormatNodeTargetType =
 
 export interface TransformContext {
 	sourceNode: PMNode;
-	sourcePos: number | null;
+	sourcePos: number;
 	targetAttrs?: Record<string, unknown>;
 	targetNodeType: NodeType;
 	tr: Transaction;

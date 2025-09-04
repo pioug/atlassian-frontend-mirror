@@ -66,7 +66,7 @@ describe('IconAndTitleLayout', () => {
 			const urlIcon = screen.getByTestId('inline-card-icon-image');
 			const styles = window.getComputedStyle(urlIcon);
 
-			expect(styles.borderRadius).toContain('--ds-border-radius-circle');
+			expect(styles.borderRadius).toContain('--ds-radius-full');
 		});
 
 		it('should not render round image if type is not profile', () => {

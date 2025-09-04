@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 1.0.5
+
+### Patch Changes
+
+- [`b76a419d23d3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b76a419d23d3d) -
+  [ux] ED-29143 Transform nodes into layout
+- [`0d741324d534a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d741324d534a) -
+  [ux] Adds wrapping of list node types in container node types.
+- Updated dependencies
+
+## 1.0.4
+
+### Patch Changes
+
+- [`30454d0f4baf2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30454d0f4baf2) -
+  Support multiple levels list to list transform
+- [`cb4decb701766`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb4decb701766) -
+  [ux] Enable max height on block menu flyout menu
+- Updated dependencies
+
 ## 1.0.3
 
 ### Patch Changes

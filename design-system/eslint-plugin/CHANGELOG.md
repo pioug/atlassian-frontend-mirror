@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.20.0
+
+### Minor Changes
+
+- [`e8f8ff85f4834`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8f8ff85f4834) -
+  Add cssmap support for no-physical-properties rule
+
 ## 13.19.6
 
 ### Patch Changes

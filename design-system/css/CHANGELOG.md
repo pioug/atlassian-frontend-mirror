@@ -1,5 +1,23 @@
 # @atlaskit/css
 
+## 0.13.1
+
+### Patch Changes
+
+- [`74c2f420ee49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74c2f420ee49b) -
+  Internal changes to how border radius is applied.
+
+## 0.13.0
+
+### Minor Changes
+
+- [`b2cbc15f17d6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2cbc15f17d6a) -
+  Added `radius.tile` token to be used exclusively for creating tiles.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.12.5
 
 ### Patch Changes

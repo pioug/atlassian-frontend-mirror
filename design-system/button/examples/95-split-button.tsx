@@ -248,7 +248,7 @@ export default () => {
 const boxStyles = xcss({
 	borderColor: 'color.border',
 	borderStyle: 'solid',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	borderWidth: 'border.width',
 	paddingBlockStart: 'space.100',
 	paddingBlockEnd: 'space.100',

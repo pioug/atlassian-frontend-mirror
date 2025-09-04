@@ -41,7 +41,7 @@ const styles = cssMap({
 		backgroundColor: token('color.background.accent.gray.subtler'),
 	},
 	circle: {
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 	},
 });
 

@@ -26,7 +26,6 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -74,10 +73,13 @@ const getToolbarDockingV2 = (
 export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) => {
 	const __selectionToolbarHandlers: SelectionToolbarHandler[] = [];
 	let primaryToolbarComponent: ToolbarUIComponentFactory | undefined;
+	const isToolbarAIFCEnabled = editorExperiment('platform_editor_toolbar_aifc', true, {
+		exposure: true,
+	});
 
 	const { userPreferencesProvider, contextualFormattingEnabled } = config;
 
-	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+	if (isToolbarAIFCEnabled) {
 		api?.toolbar?.actions.registerComponents(
 			getToolbarComponents(api, contextualFormattingEnabled),
 		);
@@ -344,7 +346,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 			];
 		},
 
-		pluginsOptions: expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)
+		pluginsOptions: isToolbarAIFCEnabled
 			? {}
 			: {
 					floatingToolbar(state, intl, providerFactory) {

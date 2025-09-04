@@ -25,6 +25,8 @@ export type EmbedModalProps = {
 	invokeDownloadAction?: InvokeClientActionProps;
 	/* An open link action to invoke with useInvokeClientAction */
 	invokeViewAction?: InvokeClientActionProps;
+	/* Determines whether modal is being opened from within preview panel */
+	isInPreviewPanel?: boolean;
 	// /* It determines whether a link source supports different design theme modes */
 	isSupportTheming?: boolean;
 	/* A flag that determines whether link source can be trusted in iframe */

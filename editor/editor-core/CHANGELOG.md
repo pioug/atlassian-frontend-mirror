@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 211.2.4
+
+### Patch Changes
+
+- [`db97eb262cc5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db97eb262cc5a) -
+  replace platform_editor_toolbar_aifc with separate experiements for jira and confluence
+- Updated dependencies
+
+## 211.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 211.2.2
+
+### Patch Changes
+
+- [`5c1589424fcc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c1589424fcc4) -
+  ED-29088 - Add nodesInViewport metric to proseMirrorRendered events.
+- Updated dependencies
+
 ## 211.2.1
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @atlaskit/rovo-triggers
 
+## 3.5.3
+
+### Patch Changes
+
+- [`74c2f420ee49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74c2f420ee49b) -
+  Internal changes to how border radius is applied.
+- [`afd8a4b9ec9dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afd8a4b9ec9dd) -
+  Add support for prefixing on the sourceId when requesting to generate a loom script for confluence
+  page. This change is feature gated behind rovo-chat-glitchiness-fix-loom-script-confluence
+
 ## 3.5.2
 
 ### Patch Changes

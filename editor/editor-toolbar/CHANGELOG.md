@@ -1,5 +1,16 @@
 # @atlaskit/editor-toolbar
 
+## 0.8.0
+
+### Minor Changes
+
+- [`cb4decb701766`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb4decb701766) -
+  [ux] Enable max height on block menu flyout menu
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.7.2
 
 ### Patch Changes

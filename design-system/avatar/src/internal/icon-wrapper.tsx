@@ -23,7 +23,7 @@ const styles = cssMap({
 		height: '100%',
 		alignItems: 'center',
 		alignContent: 'center',
-		borderRadius: token('border.radius.circle', '50%'),
+		borderRadius: token('radius.full', '50%'),
 		overflow: 'hidden',
 		borderWidth: token('border.width.outline', '2px'),
 		borderStyle: 'solid',

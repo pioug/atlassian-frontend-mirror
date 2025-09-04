@@ -84,6 +84,12 @@ export const createPlugin = () => {
 				if (transaction.getMeta('uiEvent') === 'cut') {
 					return;
 				}
+				// Ignore local ID updates for certain transactions
+				// this is purposely not a public API as we should not use
+				// this except in some circumstances (ie. streaming)
+				if (transaction.getMeta('ignoreLocalIdUpdate')) {
+					return;
+				}
 
 				transaction.steps.forEach((step) => {
 					if (!stepHasSlice(step)) {

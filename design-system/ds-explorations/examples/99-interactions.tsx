@@ -39,7 +39,7 @@ const fieldsetStyles = xcss({
 });
 
 const focusRingBoxStyles = xcss({
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	position: 'relative',
 });
 

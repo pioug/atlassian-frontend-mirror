@@ -58,7 +58,7 @@ const productHomeButtonStyles = css({
 	alignItems: 'center',
 	background: 'none',
 	border: 0,
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	color: 'inherit',
 	cursor: 'pointer',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766

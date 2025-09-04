@@ -163,7 +163,7 @@ const styles = cssMap({
 		verticalAlign: 'middle',
 	},
 	circle: {
-		borderRadius: token('border.radius.circle'),
+		borderRadius: token('radius.full'),
 	},
 	fullWidth: {
 		width: '100%',

@@ -58,6 +58,8 @@ type Rates = {
 export type TTVCRevision = 'fy25.01' | 'fy25.02' | 'fy25.03';
 export const DEFAULT_TTVC_REVISION = 'fy25.03';
 
+export const UNKNOWN_INTERACTION_RATE = 1000;
+
 export type ReactHydrationStats = {
 	/**
 	 * Indicates if hydration of SSR content failed, so React switching to client-side rendering and re-rendered from scratch.
@@ -269,6 +271,15 @@ export function getInteractionRate(name: string, interactionKind: InteractionKin
 			if (killswitch.includes(name)) {
 				return 0;
 			}
+		}
+
+		const isUnknown = name === 'unknown';
+		if (isUnknown) {
+			if (rates?.[name] != null) {
+				return rates[name];
+			}
+			// Return default rate for unknown events when no explicit rate is configured
+			return UNKNOWN_INTERACTION_RATE;
 		}
 
 		if (rates != null) {

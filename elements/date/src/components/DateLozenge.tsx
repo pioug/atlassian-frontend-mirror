@@ -15,7 +15,7 @@ export type Props = React.HTMLProps<HTMLSpanElement> & {
 };
 
 const baseStyles = css({
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: token('radius.small', '3px'),
 	paddingTop: token('space.025', '2px'),
 	paddingRight: token('space.050', '4px'),
 	paddingBottom: token('space.025', '2px'),

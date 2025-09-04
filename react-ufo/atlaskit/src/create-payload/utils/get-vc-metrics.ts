@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { type InteractionMetrics } from '../../common';
 import type { RevisionPayload, VCResult } from '../../common/vc/types';
 import { getConfig, getMostRecentVCRevision } from '../../config';
@@ -35,11 +33,6 @@ async function getVCMetrics(
 	const observer = interaction.vcObserver;
 
 	if (!observer) {
-		return {};
-	}
-
-	if (!shouldReportVCMetrics && fg('platform_ufo_no_vc_on_aborted')) {
-		observer.stop(interaction.ufoName);
 		return {};
 	}
 

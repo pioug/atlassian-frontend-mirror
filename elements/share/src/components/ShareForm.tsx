@@ -98,7 +98,7 @@ const requiredFieldInfoStyles = css({
 
 const menuGroupContainerStyles = xcss({
 	color: 'color.text',
-	borderRadius: 'border.radius',
+	borderRadius: 'radius.small',
 	backgroundColor: 'elevation.surface.overlay',
 	alignItems: 'flex-start',
 	width: '150px',

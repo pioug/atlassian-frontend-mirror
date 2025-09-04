@@ -1,13 +1,20 @@
+import { type Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
-import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
 import { transformListStructure } from './list/transformBetweenListTypes';
 import { transformOrderedUnorderedListToBlockNodes } from './list/transformOrderedUnorderedListToBlockNodes';
 import { transformTaskListToBlockNodes } from './list/transformTaskListToBlockNodes';
 import { transformToTaskList } from './list/transformToTaskList';
 import type { TransformContext, TransformFunction } from './types';
-import { isBlockNodeType, isContainerNodeType, isListNodeType } from './utils';
+import {
+	getSupportedListTypesSet,
+	isBulletOrOrderedList,
+	isBlockNodeType,
+	isContainerNodeType,
+	isListNodeType,
+	isTaskList,
+} from './utils';
 
 /**
  * Transform selection to list type
@@ -22,7 +29,7 @@ export const transformBlockToList = (context: TransformContext): Transaction | n
 	}
 
 	const { nodes } = tr.doc.type.schema;
-	const isTargetTask = targetNodeType === nodes.taskList;
+	const isTargetTask = isTaskList(targetNodeType);
 
 	// Handle task lists differently due to their structure
 	if (isTargetTask) {
@@ -60,6 +67,65 @@ export const transformListToBlockNodes = (context: TransformContext): Transactio
 };
 
 /**
+ * Wraps bulletList, orderedList or taskList in node of container type
+ */
+export const transformListToContainer = (context: TransformContext): Transaction | null => {
+	const { tr, sourceNode, sourcePos, targetNodeType, targetAttrs } = context;
+
+	if (sourcePos === null) {
+		return null;
+	}
+
+	const { schema } = tr.doc.type;
+	const { blockquote, taskList, taskItem, paragraph } = schema.nodes;
+
+	// Special case: Task list -> Blockquote
+	// Flattens the task list before wrapping by blockquote
+	if (sourceNode.type === taskList && targetNodeType === blockquote) {
+		const extractParagraphsFromTaskList = (node: PMNode): PMNode[] => {
+			const paragraphs: PMNode[] = [];
+
+			node.forEach((child) => {
+				if (child.type === taskItem) {
+					if (child.content.size > 0) {
+						const paragraphNode = paragraph.createChecked({}, child.content.content);
+						paragraphs.push(paragraphNode);
+					}
+				} else if (child.type === taskList) {
+					paragraphs.push(...extractParagraphsFromTaskList(child));
+				}
+			});
+
+			return paragraphs;
+		};
+
+		const liftedParagraphs = extractParagraphsFromTaskList(sourceNode);
+		const containerNode = targetNodeType.createAndFill(
+			targetAttrs,
+			Fragment.from(liftedParagraphs),
+		);
+
+		if (!containerNode) {
+			return null;
+		}
+
+		tr.replaceWith(sourcePos, sourcePos + sourceNode.nodeSize, containerNode);
+		return tr;
+	}
+
+	// Default case
+	const containerNode = targetNodeType.createAndFill(targetAttrs, [sourceNode]);
+
+	if (!containerNode) {
+		return null;
+	}
+
+	tr.replaceWith(sourcePos, sourcePos + sourceNode.nodeSize, containerNode);
+
+	return tr;
+};
+
+/**
  * Transform list nodes
  */
 export const transformListNode: TransformFunction = (context: TransformContext) => {
@@ -72,8 +138,8 @@ export const transformListNode: TransformFunction = (context: TransformContext) 
 
 	// Transform list to container type
 	if (isContainerNodeType(targetNodeType)) {
-		// Lift list items out of the list and convert to container type
-		return null;
+		// Wrap list items into container type, where possible
+		return transformListToContainer(context);
 	}
 
 	// Transform between list types
@@ -95,40 +161,54 @@ export const liftListToBlockType = () => {
 /**
  * Transform between different list types
  */
-export const transformBetweenListTypes = ({ tr, targetNodeType }: TransformContext) => {
-	const { selection } = tr;
+export const transformBetweenListTypes = (context: TransformContext) => {
+	const { tr, sourceNode, sourcePos, targetNodeType } = context;
 	const { nodes } = tr.doc.type.schema;
 
-	// Find the list node - support bullet lists, ordered lists, and task lists
-	const supportedListTypes = [nodes.bulletList, nodes.orderedList, nodes.taskList].filter(Boolean); // Filter out undefined nodes in case some schemas don't have all types
-
-	const listNode = findParentNodeOfType(supportedListTypes)(selection);
-
-	if (!listNode) {
-		return null;
-	}
-
-	const sourceListType = listNode.node.type;
-	const isSourceBulletOrOrdered =
-		sourceListType === nodes.bulletList || sourceListType === nodes.orderedList;
-	const isTargetTask = targetNodeType === nodes.taskList;
-	const isSourceTask = sourceListType === nodes.taskList;
-	const isTargetBulletOrOrdered =
-		targetNodeType === nodes.bulletList || targetNodeType === nodes.orderedList;
+	const sourceListType = sourceNode.type;
+	const isSourceBulletOrOrdered = isBulletOrOrderedList(sourceListType);
+	const isTargetTask = isTaskList(targetNodeType);
+	const isSourceTask = isTaskList(sourceListType);
+	const isTargetBulletOrOrdered = isBulletOrOrderedList(targetNodeType);
 
 	// Check if we need structure transformation
 	const needsStructureTransform =
 		(isSourceBulletOrOrdered && isTargetTask) || (isSourceTask && isTargetBulletOrOrdered);
+
 	try {
 		if (!needsStructureTransform) {
 			// Simple type change for same structure lists (bullet <-> ordered)
-			tr.setNodeMarkup(listNode.pos, targetNodeType);
+			// Apply to the main list
+			tr.setNodeMarkup(sourcePos, targetNodeType);
+
+			// Apply to nested lists
+			const listStart = sourcePos;
+			const listEnd = sourcePos + sourceNode.nodeSize;
+			const supportedListTypesSet = getSupportedListTypesSet(nodes);
+
+			tr.doc.nodesBetween(listStart, listEnd, (node, pos, parent) => {
+				// Only process nested lists (not the root list we already handled)
+				if (supportedListTypesSet.has(node.type) && pos !== sourcePos) {
+					const isNestedList =
+						parent && (supportedListTypesSet.has(parent.type) || parent.type === nodes.listItem);
+
+					if (isNestedList) {
+						const shouldTransformNode =
+							node.type === sourceListType ||
+							(isBulletOrOrderedList(node.type) && isTargetBulletOrOrdered);
+
+						if (shouldTransformNode) {
+							tr.setNodeMarkup(pos, targetNodeType);
+						}
+					}
+				}
+				return true; // Continue traversing
+			});
+			return tr;
 		} else {
-			tr = transformListStructure(tr, listNode, targetNodeType, nodes);
+			return transformListStructure(context);
 		}
 	} catch {
 		return null;
 	}
-
-	return tr;
 };

@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 const StyledButton = styled(Button)({
 	background: token('color.background.accent.purple.subtlest'),
 	color: token('color.text.accent.purple'),
-	borderRadius: token('border.radius'),
+	borderRadius: token('radius.small'),
 	'&:hover': {
 		background: token('color.background.accent.purple.subtlest.hovered'),
 	},

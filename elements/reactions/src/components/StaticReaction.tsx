@@ -23,7 +23,7 @@ const styles = cssMap({
 		paddingLeft: token('space.0'),
 		overflow: 'hidden',
 		border: 'none',
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 		'&:hover': {
 			cursor: 'default',
 			backgroundColor: token('color.background.neutral.subtle.hovered'),

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-media
 
+## 6.1.0
+
+### Minor Changes
+
+- [`a498274ad526d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a498274ad526d) -
+  Allow hiding of the 'Media' quick-insert option using `disableQuickInsert` boolean option
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.3
 
 ### Patch Changes

@@ -110,6 +110,9 @@ export default {
   'fabric.editor.ai.config.item.freeGenerate.disabled.promptHint':
     'Seleziona di seguito (la scrittura libera dei prompt è disabilitata in Elevate in questa fase)',
   'fabric.editor.ai.config.item.generateContent.promptHint': 'Scrivi con AI o seleziona qui sotto',
+  'fabric.editor.ai.config.item.generateEscalationNotes.description':
+    'Genera note di escalation in base al contesto del ticket',
+  'fabric.editor.ai.config.item.generateEscalationNotes.title': 'Genera note di escalation',
   'fabric.editor.ai.config.item.improveDescription.default.description':
     'Ristruttura la descrizione del ticket in base al tipo di ticket',
   'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one': 'Migliora descrizione',
@@ -225,7 +228,8 @@ export default {
     'Non è stato possibile completare la richiesta perché non è conforme ai nostri <link>Termini di utilizzo accettabile</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Vuoi eliminare la tua richiesta?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Vuoi eliminare la tua risposta?',
-  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Vuoi eliminare la risposta?',
+  'fabric.editor.ai.experience.discardStreamingInDocumennt':
+    'Vuoi annullare la richiesta ed eliminare la risposta generata?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'La scrittura libera dei prompt è disabilitata in Elevate in questa fase.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -310,7 +314,13 @@ export default {
   'fabric.editor.annotationToolbar': 'Barra degli strumenti di annotazione',
   'fabric.editor.backLink': 'Torna indietro',
   'fabric.editor.backgroundColor': 'Colore di sfondo',
+  'fabric.editor.block.menu.code.block': 'Layout',
+  'fabric.editor.block.menu.copy.block': 'Copia blocco',
   'fabric.editor.block.menu.copy.link': 'Copia link',
+  'fabric.editor.block.menu.delete.block': 'Elimina',
+  'fabric.editor.block.menu.move.down': 'Sposta giù',
+  'fabric.editor.block.menu.move.up': 'Sposta su',
+  'fabric.editor.block.menu.paragraph': 'Paragrafo',
   'fabric.editor.blockCardUnavailable':
     "Il collegamento in linea è all'interno di {node} e non è possibile modificare la relativa visualizzazione",
   'fabric.editor.blockControlDelete': 'Elimina',
@@ -839,9 +849,11 @@ export default {
   'fabric.editor.task': 'Task',
   'fabric.editor.taskDecision.markTaskAsCompleted': 'Contrassegna il task come completato',
   'fabric.editor.taskDecision.markTaskAsNotCompleted': 'Contrassegna il task come non completato',
+  'fabric.editor.taskList': 'Elenco dei task',
   'fabric.editor.taskPlaceholder': 'Digita la tua azione e usa “@” per assegnarla a qualcuno.',
   'fabric.editor.text.formatting.off': 'Formattazione del test disattivata',
   'fabric.editor.textColor': 'Colore del testo {selectedColorName}',
+  'fabric.editor.textColorHighlightTooltip': 'Testo e colore di evidenziazione',
   'fabric.editor.textColorTooltip': 'Colore del testo',
   'fabric.editor.textFormat': 'Formatta testo',
   'fabric.editor.textFormatting': 'Formattazione del testo',

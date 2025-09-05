@@ -28,6 +28,7 @@ export const mockWindowStorage = (
 ): void => {
 	// Handle SSR environment where window is undefined
 	let windowRef: Window & typeof globalThis;
+	let replacedWindowRef = false;
 	if (typeof window === 'undefined') {
 		// Ensure global exists and create window if needed
 		if (typeof global !== 'undefined') {
@@ -36,6 +37,7 @@ export const mockWindowStorage = (
 		} else {
 			// Fallback for environments where global might not exist
 			windowRef = {} as any;
+			replacedWindowRef = true;
 		}
 	} else {
 		windowRef = window;
@@ -44,6 +46,12 @@ export const mockWindowStorage = (
 	// Ensure windowRef is always defined and is an object
 	if (!windowRef || typeof windowRef !== 'object') {
 		windowRef = {} as any;
+		replacedWindowRef = true;
+	}
+
+	// If we had to replace the window reference, reflect it back to global.window
+	if (replacedWindowRef && typeof global !== 'undefined') {
+		(global as any).window = windowRef as any;
 	}
 
 	for (const storageToMockElement of storageToMock) {

@@ -108,6 +108,9 @@ export default {
   'fabric.editor.ai.config.item.freeGenerate.disabled.promptHint':
     'Выберите из списка ниже (свободная генерация в Elevate в настоящее время отключена).',
   'fabric.editor.ai.config.item.generateContent.promptHint': 'Пишите вместе с AI или выберите пункт из списка ниже.',
+  'fabric.editor.ai.config.item.generateEscalationNotes.description':
+    'Создание примечаний к эскалации на основе контекста задачи',
+  'fabric.editor.ai.config.item.generateEscalationNotes.title': 'Создание примечаний к эскалации',
   'fabric.editor.ai.config.item.improveDescription.default.description':
     'Изменяет структуру описания задачи в зависимости от ее типа.',
   'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one': 'Улучшить описание',
@@ -239,7 +242,7 @@ export default {
     'Не удалось выполнить запрос, так как он не соответствует нашей <link>Политике допустимого использования</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Хотите сбросить запрос?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Хотите сбросить ответ?',
-  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Удалить ответ?',
+  'fabric.editor.ai.experience.discardStreamingInDocumennt': 'Отменить запрос и удалить сгенерированный ответ?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'Свободная генерация в Elevate в настоящее время отключена',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -320,7 +323,13 @@ export default {
   'fabric.editor.annotationToolbar': 'Панель инструментов для примечаний',
   'fabric.editor.backLink': 'Назад',
   'fabric.editor.backgroundColor': 'Цвет фона',
+  'fabric.editor.block.menu.code.block': 'Макет',
+  'fabric.editor.block.menu.copy.block': 'Скопировать блок',
   'fabric.editor.block.menu.copy.link': 'Копировать ссылку',
+  'fabric.editor.block.menu.delete.block': 'Удалить',
+  'fabric.editor.block.menu.move.down': 'Переместить ниже',
+  'fabric.editor.block.menu.move.up': 'Переместить выше',
+  'fabric.editor.block.menu.paragraph': 'Абзац',
   'fabric.editor.blockCardUnavailable':
     'Встроенная ссылка находится внутри узла {node} — нельзя изменить представление',
   'fabric.editor.blockControlDelete': 'Удалить',
@@ -854,9 +863,11 @@ export default {
   'fabric.editor.task': 'Задание',
   'fabric.editor.taskDecision.markTaskAsCompleted': 'Отметить задачу как выполненную',
   'fabric.editor.taskDecision.markTaskAsNotCompleted': 'Отметить задачу как невыполненную',
+  'fabric.editor.taskList': 'Список задач',
   'fabric.editor.taskPlaceholder': 'Укажите задание и назначьте исполнителя с помощью значка «@».',
   'fabric.editor.text.formatting.off': 'Форматирование текста выкл.',
   'fabric.editor.textColor': 'Цвет текста: {selectedColorName}',
+  'fabric.editor.textColorHighlightTooltip': 'Цвет текста и выделения',
   'fabric.editor.textColorTooltip': 'Цвет текста',
   'fabric.editor.textFormat': 'Форматировать текст',
   'fabric.editor.textFormatting': 'Форматирование текста',

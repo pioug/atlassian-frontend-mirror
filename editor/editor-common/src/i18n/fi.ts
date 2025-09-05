@@ -108,6 +108,9 @@ export default {
   'fabric.editor.ai.config.item.freeGenerate.disabled.promptHint':
     'Valitse alta (vapaa luonti on poistettu käytöstä Elevatessa tällä hetkellä)',
   'fabric.editor.ai.config.item.generateContent.promptHint': 'Kirjoita AI:n avulla tai valitse alta',
+  'fabric.editor.ai.config.item.generateEscalationNotes.description':
+    'Luo eskalaation huomautuksia asian asiayhteyden perusteella.',
+  'fabric.editor.ai.config.item.generateEscalationNotes.title': 'Luo eskalaation huomautuksia',
   'fabric.editor.ai.config.item.improveDescription.default.description':
     'Järjestele asian kuvaus uudelleen asiatyypin perusteella',
   'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one': 'Paranna kuvausta',
@@ -218,7 +221,7 @@ export default {
     'Pyyntöä ei voitu toteuttaa, koska se ei ole <link>käyttösääntöjemme</link> mukainen.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Haluatko hylätä kehotteen?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Haluatko hylätä vastauksen?',
-  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Poistetaanko vastaus?',
+  'fabric.editor.ai.experience.discardStreamingInDocumennt': 'Peruutetaanko pyyntö ja poistetaanko luotu vastaus?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'Vapaa luonti on poistettu käytöstä Elevatessa tällä hetkellä.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -299,7 +302,13 @@ export default {
   'fabric.editor.annotationToolbar': 'Huomautuspalkki',
   'fabric.editor.backLink': 'Siirry takaisin',
   'fabric.editor.backgroundColor': 'Taustaväri',
+  'fabric.editor.block.menu.code.block': 'Asettelu',
+  'fabric.editor.block.menu.copy.block': 'Kopioi sisältö',
   'fabric.editor.block.menu.copy.link': 'Kopioi linkki',
+  'fabric.editor.block.menu.delete.block': 'Poista',
+  'fabric.editor.block.menu.move.down': 'Siirrä alas',
+  'fabric.editor.block.menu.move.up': 'Siirrä ylös',
+  'fabric.editor.block.menu.paragraph': 'Kappale',
   'fabric.editor.blockCardUnavailable': 'Sisäelementtilinkki on solmun {node} sisällä, eikä sen näkymää voi muuttaa',
   'fabric.editor.blockControlDelete': 'Poista',
   'fabric.editor.blockControlDragHandleMove': 'Siirrä vetämällä',
@@ -814,9 +823,11 @@ export default {
   'fabric.editor.task': 'Tehtävä',
   'fabric.editor.taskDecision.markTaskAsCompleted': 'Merkitse tehtävä suoritetuksi',
   'fabric.editor.taskDecision.markTaskAsNotCompleted': 'Merkitse tehtävä suorittamattomaksi',
+  'fabric.editor.taskList': 'Tehtävälista',
   'fabric.editor.taskPlaceholder': "Kirjoita toimintasi, käytä '@'-merkkiä määrätäksesi sen jollekin henkilölle.",
   'fabric.editor.text.formatting.off': 'Tekstin muotoilu pois käytöstä',
   'fabric.editor.textColor': '{selectedColorName} tekstin väri',
+  'fabric.editor.textColorHighlightTooltip': 'Teksti- ja korostusväri',
   'fabric.editor.textColorTooltip': 'Tekstin väri',
   'fabric.editor.textFormat': 'Muotoile tekstiä',
   'fabric.editor.textFormatting': 'Tekstin muotoilu',

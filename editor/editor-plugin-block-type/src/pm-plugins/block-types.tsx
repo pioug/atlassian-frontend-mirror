@@ -12,7 +12,16 @@ import {
 	NORMAL_TEXT_MENU_ITEM,
 	TEXT_STYLES_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/toolbar';
-import { QuoteIcon } from '@atlaskit/editor-toolbar';
+import {
+	TextIcon as EditorToolbarTextIcon,
+	QuoteIcon,
+	HeadingOneIcon,
+	HeadingTwoIcon,
+	HeadingThreeIcon,
+	HeadingFourIcon,
+	HeadingFiveIcon,
+	HeadingSixIcon,
+} from '@atlaskit/editor-toolbar';
 import TextHeadingFiveIcon from '@atlaskit/icon-lab/core/text-heading-five';
 import TextHeadingFourIcon from '@atlaskit/icon-lab/core/text-heading-four';
 import TextHeadingOneIcon from '@atlaskit/icon-lab/core/text-heading-one';
@@ -133,42 +142,49 @@ enum ToolbarBlockTypes {
 export const toolbarBlockTypesWithRank = (): Record<ToolbarBlockTypes, BlockTypeWithRank> => ({
 	normal: {
 		...NORMAL_TEXT,
+		icon: <EditorToolbarTextIcon size="small" label="" />,
 		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[NORMAL_TEXT_MENU_ITEM.key],
 		toolbarKey: NORMAL_TEXT_MENU_ITEM.key,
 	},
 	heading1: {
 		...HEADING_1,
+		icon: <HeadingOneIcon size="small" label="" />,
 		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[HEADING_1_MENU_ITEM.key],
 		toolbarKey: HEADING_1_MENU_ITEM.key,
 	},
 	heading2: {
 		...HEADING_2,
+		icon: <HeadingTwoIcon size="small" label="" />,
 		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[HEADING_2_MENU_ITEM.key],
 		toolbarKey: HEADING_2_MENU_ITEM.key,
 	},
 	heading3: {
 		...HEADING_3,
+		icon: <HeadingThreeIcon size="small" label="" />,
 		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[HEADING_3_MENU_ITEM.key],
 		toolbarKey: HEADING_3_MENU_ITEM.key,
 	},
 	heading4: {
 		...HEADING_4,
+		icon: <HeadingFourIcon size="small" label="" />,
 		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[HEADING_4_MENU_ITEM.key],
 		toolbarKey: HEADING_4_MENU_ITEM.key,
 	},
 	heading5: {
 		...HEADING_5,
+		icon: <HeadingFiveIcon size="small" label="" />,
 		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[HEADING_5_MENU_ITEM.key],
 		toolbarKey: HEADING_5_MENU_ITEM.key,
 	},
 	heading6: {
 		...HEADING_6,
+		icon: <HeadingSixIcon size="small" label="" />,
 		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[HEADING_6_MENU_ITEM.key],
 		toolbarKey: HEADING_6_MENU_ITEM.key,
 	},
 	blockquote: {
 		...BLOCK_QUOTE,
-		icon: <QuoteIcon label="" />,
+		icon: <QuoteIcon size="small" label="" />,
 		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[BLOCK_QUOTE_MENU_ITEM.key],
 		toolbarKey: BLOCK_QUOTE_MENU_ITEM.key,
 	},

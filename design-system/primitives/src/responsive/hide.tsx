@@ -86,7 +86,7 @@ export const Hide = ({
 			css={[
 				above && hideAboveQueries[above],
 				below && hideBelowQueries[below],
-				resolvedStyles.emotion,
+				...(resolvedStyles.emotion || []),
 			]}
 		>
 			{children}

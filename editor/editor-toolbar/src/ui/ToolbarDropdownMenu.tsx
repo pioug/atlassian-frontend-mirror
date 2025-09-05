@@ -18,7 +18,7 @@ import { ToolbarDropdownMenuProvider, useToolbarDropdownMenu } from './ToolbarDr
 
 const styles = cssMap({
 	sectionMargin: {
-		marginBlock: token('space.050'),
+		marginBlock: token('space.025'),
 	},
 
 	firstSectionSeparator: {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-highlight",
-	"version": "4.0.3",
+	"version": "4.0.5",
 	"description": "Highlight plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -49,6 +49,7 @@
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",

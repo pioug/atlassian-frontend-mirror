@@ -12,6 +12,8 @@ export default {
   'feedback-collector.anonymous.title': 'Anonim geri bildirim',
   'feedback-collector.can-be-contacted.label':
     'Evet, Atlassian takımları Atlassian ürünlerini ve hizmetlerini iyileştirmek üzere deneyimlerimi öğrenmek için benimle iletişime geçebilir. <a>Atlassian Gizlilik Politikası</a> hükümlerini onaylıyorum.',
+  'feedback-collector.can-be-contacted.label-appify':
+    'Evet, Atlassian takımları Atlassian uygulamalarını ve hizmetlerini iyileştirmek üzere deneyimlerimi öğrenmek için benimle iletişime geçebilir. <a>Atlassian Gizlilik Politikası</a> hükümlerini onaylıyorum.',
   'feedback-collector.cancel-button.label': 'İptal',
   'feedback-collector.default.custom.textarea.label': 'Düşüncelerinizi paylaşın',
   'feedback-collector.enrol-in-research.label': 'Ürün araştırmasına katılmak istiyorum',
@@ -36,6 +38,8 @@ export default {
   'feedback-collector.submit-button.label': 'Geri bildirim gönder',
   'feedback-collector.success-flag.description':
     'Değerli geri bildirimleriniz, ürünlerimizi sürekli olarak iyileştirmemize yardımcı oluyor.',
+  'feedback-collector.success-flag.description-appify':
+    'Değerli geri bildirimleriniz, uygulamalarımızı sürekli olarak iyileştirmemize yardımcı oluyor.',
   'feedback-collector.success-flag.title': 'Teşekkür ederiz!',
   'feedback-collector.summary-placeholder': 'Fikirlerinizi bizimle paylaşın',
   'feedback-collector.validation.description.required': 'Lütfen bir açıklama sağlayın',

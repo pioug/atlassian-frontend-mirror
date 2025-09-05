@@ -1,6 +1,7 @@
-import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-
 import { INPTracker } from '../inp-measurers/inp';
+
+// eslint-disable-next-line @atlaskit/platform/no-set-immediate
+export const flushPromises = () => new Promise((resolve) => setImmediate(resolve));
 
 // Mock PerformanceObserver
 class MockPerformanceObserver {

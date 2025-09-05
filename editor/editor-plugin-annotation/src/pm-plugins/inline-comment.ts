@@ -10,6 +10,8 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	clearDirtyMark,
@@ -23,6 +25,7 @@ import {
 	setPendingSelectedAnnotation,
 	setInlineCommentDraftState,
 } from '../editor-commands';
+import { resetUserIntent, setUserIntent } from '../editor-commands/utils';
 import { getAnnotationViewClassname, getBlockAnnotationViewClassname } from '../nodeviews';
 import type { InlineCommentAnnotationProvider } from '../types';
 
@@ -37,6 +40,7 @@ import {
 	startDraft,
 } from './annotation-manager-hooks';
 import { createPluginState } from './plugin-factory';
+import { shouldSuppressFloatingToolbar } from './toolbar';
 import type {
 	InlineCommentMap,
 	InlineCommentPluginOptions,
@@ -282,7 +286,8 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 
 			return {
 				update(view: EditorView, _prevState: EditorState) {
-					const { selectedAnnotations, annotations } = getPluginState(view.state) || {};
+					const { selectedAnnotations, annotations, isDrafting, bookmark } =
+						getPluginState(view.state) || {};
 					const { selectedAnnotations: prevSelectedAnnotations } = getPluginState(_prevState) || {};
 
 					const selectedAnnotationId =
@@ -308,6 +313,25 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 							// ...and start a new UFO press trace since the selected comment is changing
 							options.viewInlineCommentTraceUFOPress?.();
 						}
+					}
+
+					const { api } = options;
+					if (
+						isDrafting &&
+						!view.state.selection.eq(_prevState.selection) &&
+						editorExperiment('platform_editor_toolbar_aifc', true) &&
+						expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true)
+					) {
+						// It is possible that user update selection while having a active draft,
+						// so we need to reset the user intent to allow inline text toolbar to be visible
+						api?.core.actions.execute(({ tr }) => {
+							if (shouldSuppressFloatingToolbar({ state: view.state, bookmark })) {
+								setUserIntent(api, tr);
+							} else {
+								resetUserIntent(api, tr);
+							}
+							return tr;
+						});
 					}
 
 					if (annotationManager) {
@@ -346,10 +370,11 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 										if (isDrafting) {
 											// The user must have chosen to discard there draft. So before we flush the pending selections
 											// we need to clear the draft if there is one.
-											setInlineCommentDraftState(options.editorAnalyticsAPI)(false)(
-												view.state,
-												view.dispatch,
-											);
+											setInlineCommentDraftState(
+												options.editorAnalyticsAPI,
+												undefined,
+												options.api,
+											)(false)(view.state, view.dispatch);
 										}
 
 										// Flush the pending selections into the selected annotations list.

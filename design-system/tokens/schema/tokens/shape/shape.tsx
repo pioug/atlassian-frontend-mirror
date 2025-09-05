@@ -180,6 +180,14 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 				description: 'Used for circular containers, like a rounded button.',
 			},
 		},
+		tile: {
+			attributes: {
+				group: 'shape',
+				state: 'active',
+				introduced: '6.2.0',
+				description: 'Used for tiles only.',
+			},
+		},
 	},
 };
 export default shape;

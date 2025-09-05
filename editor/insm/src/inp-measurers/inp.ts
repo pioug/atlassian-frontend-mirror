@@ -76,7 +76,7 @@ class InteractionResult {
 		if (duration < this.min) {
 			this.min = duration;
 		}
-		this.numerator += this.average * (this.count - 1) + duration;
+		this.numerator += duration;
 		this.count += 1;
 		this.average = this.numerator / this.count;
 	}

@@ -55,7 +55,7 @@ export const FormatMenuItem = ({
 
 	return (
 		<ToolbarDropdownItem
-			elemBefore={<Icon label="" />}
+			elemBefore={<Icon size="small" label="" />}
 			elemAfter={shortcutContent && <ToolbarKeyboardShortcutHint shortcut={shortcutContent} />}
 			isDisabled={isDisabled}
 			isSelected={isActive}

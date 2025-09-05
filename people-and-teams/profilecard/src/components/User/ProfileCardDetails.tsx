@@ -72,6 +72,7 @@ const styles = cssMap({
 		'&#profilecard-name-label': {
 			marginTop: token('space.400'),
 			marginBottom: token('space.150'),
+			font: token('font.body.large'),
 		},
 	},
 	metaLabel: {
@@ -89,6 +90,7 @@ const styles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&#profilecard-name-label': {
 			marginTop: token('space.150'),
+			font: token('font.body.large'),
 		},
 		marginRight: '0',
 		marginBottom: '0',

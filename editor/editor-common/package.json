@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "108.3.0",
+	"version": "108.5.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -122,7 +122,8 @@
 		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts",
 		"./ncs-step-metrics": "./src/ncs-step-metrics/index.ts",
 		"./toolbar-flag-check": "./src/toolbar-flag-check.ts",
-		"./context-panel": "./src/ui/ContextPanel/context.tsx"
+		"./context-panel": "./src/ui/ContextPanel/context.tsx",
+		"./user-intent": "./src/user-intent/index.ts"
 	},
 	"exports": {
 		"./prosemirror-dom-metadata": "./src/prosemirror-dom-metadata/index.ts",
@@ -219,7 +220,8 @@
 		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts",
 		"./ncs-step-metrics": "./src/ncs-step-metrics/index.ts",
 		"./toolbar-flag-check": "./src/toolbar-flag-check.ts",
-		"./context-panel": "./src/ui/ContextPanel/context.tsx"
+		"./context-panel": "./src/ui/ContextPanel/context.tsx",
+		"./user-intent": "./src/user-intent/index.ts"
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "workspace:^",
@@ -434,6 +436,9 @@
 			"type": "boolean"
 		},
 		"confluence_connect_macro_preset_height": {
+			"type": "boolean"
+		},
+		"cc_comments_log_draft_annotation_ancestor_nodes": {
 			"type": "boolean"
 		},
 		"platform_editor_breakout_resizing_hello_release": {

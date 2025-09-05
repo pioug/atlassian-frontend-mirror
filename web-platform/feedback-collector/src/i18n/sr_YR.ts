@@ -12,6 +12,8 @@ export default {
   'feedback-collector.anonymous.title': 'Анонимне повратне информације',
   'feedback-collector.can-be-contacted.label':
     'Да, Atlassian тимови могу да ми се јаве да би сазнали каква су моја искуства ради побољшања Atlassian производа и услуга. Прихватам <a>Atlassian политику приватности</a>.',
+  'feedback-collector.can-be-contacted.label-appify':
+    'Да, Atlassian тимови могу да ми се јаве да би сазнали каква су моја искуства ради побољшања Atlassian апликација и сервиса. Прихватам <a>Atlassian политику приватности</a>.',
   'feedback-collector.cancel-button.label': 'Откажи',
   'feedback-collector.default.custom.textarea.label': 'О чему размишљате?',
   'feedback-collector.enrol-in-research.label': 'Желим да учествујем у истраживању производа',
@@ -36,6 +38,8 @@ export default {
   'feedback-collector.submit-button.label': 'Пошаљи информације',
   'feedback-collector.success-flag.description':
     'Ваше драгоцене повратне информације помажу нам да стално побољшавамо наше производе.',
+  'feedback-collector.success-flag.description-appify':
+    'Ваше драгоцене повратне информације помажу нам да стално побољшавамо наше апликације.',
   'feedback-collector.success-flag.title': 'Хвала!',
   'feedback-collector.summary-placeholder': 'Реците нам о чему размишљате',
   'feedback-collector.validation.description.required': 'Доставите опис',

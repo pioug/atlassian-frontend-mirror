@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 13.0.8
+
+### Patch Changes
+
+- [`a8630c1107c3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8630c1107c3d) -
+  [ED-28781] Hide inline text toolbar when other popups are open
+- Updated dependencies
+
 ## 13.0.7
 
 ### Patch Changes

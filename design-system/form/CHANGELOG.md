@@ -1,5 +1,18 @@
 # @atlaskit/form
 
+## 12.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.5.0
+
+### Minor Changes
+
+- [`c22bdb7c0b0f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c22bdb7c0b0f8) -
+  [ux] Added support for focusing error fields containing react-select when submitting with errors
+
 ## 12.4.1
 
 ### Patch Changes

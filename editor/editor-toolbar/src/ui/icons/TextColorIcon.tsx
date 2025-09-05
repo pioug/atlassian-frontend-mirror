@@ -14,7 +14,7 @@ type TextColorIconProps = NewCoreIconProps & {
 
 const styles = cssMap({
 	icon: {
-		marginTop: token('space.050'),
+		marginTop: token('space.075'),
 	},
 });
 

@@ -1409,7 +1409,7 @@ exports[`JIRA wiki markup - Text effects should auto-linkify text links with til
             {
               "attrs": {
                 "__confluenceMetadata": null,
-                "href": "https://example.com/~abc/def/^xyz!bang$.#!.bang",
+                "href": "https://example.com/~abc/def/%5Exyz!bang$.#!.bang",
               },
               "type": "link",
             },

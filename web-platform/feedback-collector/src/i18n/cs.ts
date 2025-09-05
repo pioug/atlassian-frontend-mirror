@@ -12,6 +12,8 @@ export default {
   'feedback-collector.anonymous.title': 'Anonymní zpětná vazba',
   'feedback-collector.can-be-contacted.label':
     'Ano, týmy Atlassian mě mohou kontaktovat ohledně mých zkušeností a pomoci s vylepšováním produktů a služeb společnosti Atlassian. Potvrzuji, že znám <a>Zásady ochrany osobních údajů společnosti Atlassian</a>.',
+  'feedback-collector.can-be-contacted.label-appify':
+    'Ano, týmy Atlassian mě mohou kontaktovat ohledně mých zkušeností a pomoci s vylepšováním aplikací a služeb společnosti Atlassian. Potvrzuji, že znám <a>Zásady ochrany osobních údajů společnosti Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Zrušit',
   'feedback-collector.default.custom.textarea.label': 'Co si myslíte?',
   'feedback-collector.enrol-in-research.label': 'Chci se zúčastnit produktového průzkumu',
@@ -35,6 +37,8 @@ export default {
   'feedback-collector.required.fields.summary': 'Povinná pole jsou označena hvězdičkou.',
   'feedback-collector.submit-button.label': 'Odeslat zpětnou vazbu',
   'feedback-collector.success-flag.description': 'Vaše cenná zpětná vazba nám pomáhá neustále zlepšovat naše produkty.',
+  'feedback-collector.success-flag.description-appify':
+    'Vaše cenná zpětná vazba nám pomáhá neustále zlepšovat naše aplikace.',
   'feedback-collector.success-flag.title': 'Díky!',
   'feedback-collector.summary-placeholder': 'Dejte nám vědět, co si myslíte',
   'feedback-collector.validation.description.required': 'Zadejte popis',

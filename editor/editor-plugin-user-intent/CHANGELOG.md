@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-user-intent
 
+## 2.0.1
+
+### Patch Changes
+
+- [`a8630c1107c3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8630c1107c3d) -
+  [ED-28781] Hide inline text toolbar when other popups are open
+- Updated dependencies
+
 ## 2.0.0
 
 ### Patch Changes

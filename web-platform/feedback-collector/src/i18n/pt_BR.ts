@@ -12,6 +12,8 @@ export default {
   'feedback-collector.anonymous.title': 'Feedback anônimo',
   'feedback-collector.can-be-contacted.label':
     'Sim, as equipes da Atlassian podem entrar em contato comigo para saber mais sobre minhas experiências para melhorar os produtos e serviços da Atlassian. Eu reconheço a <a>Política de Privacidade da Atlassian</a>.',
+  'feedback-collector.can-be-contacted.label-appify':
+    'Sim, as equipes da Atlassian podem entrar em contato comigo para saber mais sobre minhas experiências para melhorar os apps e serviços da Atlassian. Eu reconheço a <a>Política de Privacidade da Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Cancelar',
   'feedback-collector.default.custom.textarea.label': 'No que você está pensando?',
   'feedback-collector.enrol-in-research.label': 'Eu gostaria de participar da pesquisa de produtos',
@@ -36,6 +38,8 @@ export default {
   'feedback-collector.submit-button.label': 'Enviar feedback',
   'feedback-collector.success-flag.description':
     'Seu feedback é importante e ajuda a gente a sempre melhorar nossos produtos.',
+  'feedback-collector.success-flag.description-appify':
+    'Seu valioso feedback nos ajuda a sempre melhorar os aplicativos.',
   'feedback-collector.success-flag.title': 'Obrigado!',
   'feedback-collector.summary-placeholder': 'Deixe a gente saber sua opinião',
   'feedback-collector.validation.description.required': 'Apresente uma descrição',

@@ -1,5 +1,4 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ElementName } from '../../../../constants';
 import { type ElementItem } from '../../../FlexibleCard/components/blocks/types';
@@ -173,40 +172,22 @@ describe('getSimulatedBetterMetadata', () => {
 			const metadata = getSimulatedBetterMetadata(mockPassionfruitResponse as JsonLd.Response);
 			expect(metadata.titleMetadata).toEqual(defaultTitleMetadata);
 			expect(metadata.topMetadata).toEqual(defaultTopMetadata);
-			expect(metadata.bottomMetadata).toEqual(defaultBottomMetadata);
+			expect(metadata.bottomMetadata).toEqual([
+				{ name: ElementName.AppliedToComponentsCount },
+				...baseBottomMetaData,
+			]);
 		});
 
-		ffTest.off(
-			'passionfruit_ask_smart_links_enabled_afm',
-			'with passionfruit-smart-links disabled',
-			() => {
-				it('should return default metadata', () => {
-					const metadata = getSimulatedBetterMetadata(
-						mockPassionfruitResponseWithOwnedBy as JsonLd.Response,
-					);
-					expect(metadata.titleMetadata).toEqual(defaultTitleMetadata);
-					expect(metadata.topMetadata).toEqual(defaultTopMetadata);
-					expect(metadata.bottomMetadata).toEqual(defaultBottomMetadata);
-				});
-			},
-		);
-
-		ffTest.on(
-			'passionfruit_ask_smart_links_enabled_afm',
-			'with passionfruit-smart-links enabled',
-			() => {
-				it('should return ownedByGroup in top primary metadata when ownedBy is present', () => {
-					const metadata = getSimulatedBetterMetadata(
-						mockPassionfruitResponseWithOwnedBy as JsonLd.Response,
-					);
-					expect(metadata.topMetadata).toEqual([
-						{ name: ElementName.OwnedByGroup },
-						{ name: ElementName.OwnedBy },
-						...baseTopMetadata,
-					]);
-				});
-			},
-		);
+		it('should return ownedByGroup in top primary metadata when ownedBy is present', () => {
+			const metadata = getSimulatedBetterMetadata(
+				mockPassionfruitResponseWithOwnedBy as JsonLd.Response,
+			);
+			expect(metadata.topMetadata).toEqual([
+				{ name: ElementName.OwnedByGroup },
+				{ name: ElementName.OwnedBy },
+				...baseTopMetadata,
+			]);
+		});
 	});
 
 	describe('for Bitbucket objects', () => {

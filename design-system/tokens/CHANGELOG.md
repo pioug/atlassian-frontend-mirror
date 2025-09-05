@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 6.3.0
+
+### Minor Changes
+
+- [`d4a45d8562c6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4a45d8562c6d) -
+  Added `radius.tile` token to be used exclusively for creating tiles.
+
 ## 6.2.0
 
 ### Minor Changes

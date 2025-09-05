@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-type
 
+## 7.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.3
+
+### Patch Changes
+
+- [`555ac8f256674`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/555ac8f256674) -
+  Update menu item icon size to small, tweak paddings and font styles
+- Updated dependencies
+
 ## 7.1.2
 
 ### Patch Changes

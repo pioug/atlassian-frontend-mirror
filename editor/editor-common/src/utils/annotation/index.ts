@@ -160,6 +160,70 @@ export function getRangeInlineNodeNames({
 }
 
 /**
+ * This returns a list of ancestor node names that contain the given position.
+ */
+export function getRangeAncestorNodeNames({
+	doc,
+	pos,
+}: {
+	doc: PMNode;
+	pos: { from: number; to: number };
+}) {
+	if (!fg('cc_comments_log_draft_annotation_ancestor_nodes')) {
+		return undefined;
+	}
+
+	const nodeNames = new Set<string>();
+
+	try {
+		// For a range, we can get ancestors at both from and to positions
+		// or just use the from position if you want ancestors at the start
+		const resolvedFromPos = doc.resolve(pos.from);
+		const resolvedToPos = doc.resolve(pos.to);
+
+		// Collect ancestors at the 'from' position
+		for (let depth = resolvedFromPos.depth; depth > 0; depth--) {
+			const ancestorNode = resolvedFromPos.node(depth);
+			nodeNames.add(ancestorNode.type.name);
+		}
+
+		// Use nodesBetween to collect parent types without additional resolve() calls
+		// This isn't as precise as calling resolve() on each parent, but it's a lot faster
+		// and should hopefully provide a good approximation of the ancestor nodes
+		const seenParents = new Set<PMNode>();
+		doc.nodesBetween(pos.from, pos.to, (node, nodePos, parent) => {
+			// Collect parent chain using the parent parameter
+			const currentParent = parent;
+			if (!!currentParent && !seenParents.has(currentParent)) {
+				seenParents.add(currentParent);
+				nodeNames.add(currentParent.type.name);
+				// Note: We can't easily get the parent's parent from this context
+				// without additional resolve calls, so this approach has limitations
+			}
+
+			return true;
+		});
+
+		// Optionally collect ancestors at the 'to' position if different
+		// This ensures we capture all ancestor contexts across the range
+		if (pos.from !== pos.to) {
+			for (let depth = resolvedToPos.depth; depth > 0; depth--) {
+				const ancestorNode = resolvedToPos.node(depth);
+				nodeNames.add(ancestorNode.type.name);
+			}
+		}
+
+		return [...nodeNames];
+	} catch {
+		// Some callers have existing gaps where the positions are not valid,
+		// and so when called in the current document can throw an error if out of range.
+		//
+		// This is a defensive check to ensure we don't throw an error in those cases.
+		return undefined;
+	}
+}
+
+/**
  * This function returns a list of node types that are wrapped by an annotation mark.
  *
  * The `undefined` will be returned if `editor_inline_comments_on_inline_nodes` is off.

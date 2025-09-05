@@ -1,4 +1,5 @@
-import type { Node as PMNode, NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
 
 import type { FormatNodeTargetType } from './types';
 
@@ -86,4 +87,59 @@ export const getSupportedListTypesSet = (nodes: Record<string, NodeType>): Set<N
 
 export const isLayoutNodeType = (nodeType: NodeType): boolean => {
 	return nodeType.name === 'layoutSection';
+};
+
+/**
+ * Check if a node should be extracted as a standalone block node
+ * rather than converted to inline content
+ */
+export const isBlockNodeForExtraction = (node: PMNode): boolean => {
+	const blockNodesForExtraction = [
+		'table',
+		'mediaSingle',
+		'extension',
+		'bodiedExtension',
+		'blockCard',
+		'embedCard',
+	];
+
+	return blockNodesForExtraction.includes(node.type.name);
+};
+
+/**
+ * Get a function that checks if content is supported in the target container type
+ */
+export const getContentSupportChecker = (targetNodeType: NodeType): ((node: PMNode) => boolean) => {
+	return (node: PMNode): boolean => {
+		// Check if the target container type can contain this node
+		try {
+			return targetNodeType.validContent(Fragment.from(node));
+		} catch {
+			return false;
+		}
+	};
+};
+
+/**
+ * Convert a node to inline content that can be placed in a paragraph
+ */
+export const convertNodeToInlineContent = (node: PMNode, schema: Schema): PMNode[] => {
+	// Extract text and inline nodes from any complex node
+	const inlineNodes: PMNode[] = [];
+	node.descendants((childNode: PMNode) => {
+		if (childNode.isText) {
+			inlineNodes.push(childNode);
+		} else if (childNode.isInline) {
+			inlineNodes.push(childNode);
+		}
+		return true; // Continue traversing
+	});
+
+	// If no inline content was found but the node has text content,
+	// create a text node with the full text content
+	if (inlineNodes.length === 0 && node.textContent) {
+		return [schema.text(node.textContent)];
+	}
+
+	return inlineNodes;
 };

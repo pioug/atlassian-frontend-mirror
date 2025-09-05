@@ -1,5 +1,38 @@
 # @atlaskit/renderer
 
+## 121.3.0
+
+### Minor Changes
+
+- [`9fd320fad58ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fd320fad58ed) -
+  EDITOR-1516 Updated ADF experiments
+
+### Patch Changes
+
+- Updated dependencies
+
+## 121.2.1
+
+### Patch Changes
+
+- [`5237c47d9ee25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5237c47d9ee25) -
+  FD-95294 clean up fg sticky_header_in_embedded_confluence_fix
+- [`34525433d4537`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34525433d4537) -
+  Updated profile card snapshot
+- Updated dependencies
+
+## 121.2.0
+
+### Minor Changes
+
+- [`d9be3a6937275`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9be3a6937275) -
+  Add the list of ancestor node types to the result of applyAnnotation, to make it easier to debug
+  comments errors
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 121.1.1
 
 ### Patch Changes

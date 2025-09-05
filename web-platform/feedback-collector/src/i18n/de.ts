@@ -12,6 +12,8 @@ export default {
   'feedback-collector.anonymous.title': 'Anonymes Feedback',
   'feedback-collector.can-be-contacted.label':
     'Ja, Atlassian-Teams dürfen mich kontaktieren, um weitere Informationen zu meinen Erfahrungen zu erhalten, damit Produkte und Services von Atlassian verbessert werden können. Ich erkläre mich mit der <a>Datenschutzrichtlinie von Atlassian</a> einverstanden.',
+  'feedback-collector.can-be-contacted.label-appify':
+    'Ja, Atlassian-Teams dürfen mich kontaktieren, um weitere Informationen zu meinen Erfahrungen zu erhalten, damit Apps und Services von Atlassian verbessert werden können. Ich erkläre mich mit der <a>Datenschutzrichtlinie von Atlassian</a> einverstanden.',
   'feedback-collector.cancel-button.label': 'Abbrechen',
   'feedback-collector.default.custom.textarea.label': 'Teilen Sie uns Ihre Meinung mit.',
   'feedback-collector.enrol-in-research.label': 'Ich würde gerne an der Produktforschung teilnehmen.',
@@ -35,6 +37,8 @@ export default {
   'feedback-collector.required.fields.summary': 'Pflichtfelder sind mit einem Sternchen markiert.',
   'feedback-collector.submit-button.label': 'Feedback senden',
   'feedback-collector.success-flag.description': 'Ihr Feedback hilft uns dabei, unsere Produkte ständig zu verbessern.',
+  'feedback-collector.success-flag.description-appify':
+    'Ihr Feedback hilft uns dabei, unsere Apps stets weiter zu verbessern.',
   'feedback-collector.success-flag.title': 'Vielen Dank!',
   'feedback-collector.summary-placeholder': 'Teilen Sie uns Ihre Meinung mit.',
   'feedback-collector.validation.description.required': 'Geben Sie bitte eine Beschreibung ein',

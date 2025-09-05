@@ -73,6 +73,15 @@
       },
       "value": 9999
     },
+    "Shape rounder/radius.tile": {
+      "attributes": {
+        "group": "shape",
+        "state": "active",
+        "introduced": "6.2.0",
+        "description": "Used for tiles only."
+      },
+      "value": "25%"
+    },
     "Shape rounder/border.width": {
       "attributes": {
         "group": "shape",

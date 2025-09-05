@@ -85,6 +85,12 @@ const baseRadiusTokens = {
 			group: 'shape',
 		},
 	},
+	RadiusPercentage25: {
+		value: '25%',
+		attributes: {
+			group: 'shape',
+		},
+	},
 } as const;
 
 const shapePalette: ShapeScaleTokenSchema<BaseRadiusToken, BaseSizeToken> = {

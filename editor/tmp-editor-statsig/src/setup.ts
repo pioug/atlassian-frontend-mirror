@@ -45,6 +45,13 @@ export function setupEditorExperiments(
 	 * This is useful when you want to tweak the experiment parameters for testing.
 	 */
 	paramOverrides?: EditorExperimentParamOverrides,
+	options?: {
+		/**
+		 * By default, boolean experiments are enabled when using `product === test`
+		 * This option allows you to disable this behaviour (ie. for examples)
+		 */
+		disableTestOverrides?: boolean;
+	},
 ) {
 	if (groupOverrides) {
 		// When setting up overrides, we want to ensure that experiments don't end up with invalid
@@ -64,7 +71,7 @@ export function setupEditorExperiments(
 		_overrides = groupOverrides;
 	}
 
-	if (product === 'test') {
+	if (product === 'test' && !options?.disableTestOverrides) {
 		// Enforce expectation - file overrides, then global overrides, then default to true for boolean
 		// experiments, then last result use the default value
 		const testOverrides: EditorExperimentOverrides = Object.fromEntries(

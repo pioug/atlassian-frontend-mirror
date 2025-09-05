@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TopNavProps
  *
- * @codegen <<SignedSource::cfccf71be2860c34c0b3e8fd7e5bcc85>>
+ * @codegen <<SignedSource::fe99ce17aff09576c78fa26de85d9300>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/top-nav/__generated__/index.partial.tsx <<SignedSource::89ced6c24bd1d4d3dec7d8ef5b5723a7>>
+ * @codegenDependency ../../../../../../services/forge-common-app-gateway/src/components/navigation/TopNav.tsx <<SignedSource::0582686cebdccbf01ed0eb34a12d467d>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -14,9 +14,6 @@ import { TopNav as PlatformTopNav } from '@atlaskit/navigation-system/layout/top
 
 type PlatformTopNavProps = React.ComponentProps<typeof PlatformTopNav>;
 
-export type TopNavProps = Pick<
-  PlatformTopNavProps,
-  'children' | 'testId' | 'UNSAFE_theme'
->;
+export type TopNavProps = Pick<PlatformTopNavProps, 'children' | 'testId'>;
 
 export type TTopNav<T> = (props: TopNavProps) => T;

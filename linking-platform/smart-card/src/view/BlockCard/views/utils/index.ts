@@ -1,5 +1,4 @@
 import type { JsonLd } from '@atlaskit/json-ld-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	ElementName,
@@ -69,25 +68,13 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 				bottomMetadata: [{ name: ElementName.AppliedToComponentsCount }, ...baseBottomMetaData],
 			};
 		case 'integration-passionfruit-object-provider':
-			if (fg('passionfruit_ask_smart_links_enabled_afm')) {
-				return {
-					titleMetadata: defaultTitleMetadata,
-					topMetadata: extractOwnedBy(data)
-						? [
-								{ name: ElementName.OwnedByGroup },
-								{ name: ElementName.OwnedBy },
-								...baseTopMetadata,
-							]
-						: defaultTopMetadata,
-					bottomMetadata: [{ name: ElementName.AppliedToComponentsCount }, ...baseBottomMetaData],
-				};
-			} else {
-				return {
-					titleMetadata: defaultTitleMetadata,
-					topMetadata: defaultTopMetadata,
-					bottomMetadata: defaultBottomMetadata,
-				};
-			}
+			return {
+				titleMetadata: defaultTitleMetadata,
+				topMetadata: extractOwnedBy(data)
+					? [{ name: ElementName.OwnedByGroup }, { name: ElementName.OwnedBy }, ...baseTopMetadata]
+					: defaultTopMetadata,
+				bottomMetadata: [{ name: ElementName.AppliedToComponentsCount }, ...baseBottomMetaData],
+			};
 		case 'confluence-object-provider':
 			return {
 				titleMetadata: defaultTitleMetadata,

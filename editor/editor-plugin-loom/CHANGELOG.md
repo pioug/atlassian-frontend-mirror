@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-loom
 
+## 6.0.4
+
+### Patch Changes
+
+- [`555ac8f256674`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/555ac8f256674) -
+  Update menu item icon size to small, tweak paddings and font styles
+- Updated dependencies
+
 ## 6.0.3
 
 ### Patch Changes

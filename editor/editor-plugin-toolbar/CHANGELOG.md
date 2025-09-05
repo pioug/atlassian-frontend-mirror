@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 1.1.3
+
+### Patch Changes
+
+- [`a628d848005b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a628d848005b7) -
+  [ED-29180] Remove duplicative text style button from inline text toolbar
+- Updated dependencies
+
+## 1.1.2
+
+### Patch Changes
+
+- [`a8630c1107c3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8630c1107c3d) -
+  [ED-28781] Hide inline text toolbar when other popups are open
+- Updated dependencies
+
 ## 1.1.1
 
 ### Patch Changes

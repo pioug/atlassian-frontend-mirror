@@ -32,6 +32,7 @@ const shape: ValueSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 		large: { value: 'Radius12' },
 		xlarge: { value: 'Radius16' },
 		full: { value: 'Radius99' },
+		tile: { value: 'RadiusPercentage25' },
 	},
 };
 

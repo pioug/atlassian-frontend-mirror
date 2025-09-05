@@ -1,5 +1,25 @@
 # @atlaskit/editor-toolbar
 
+## 0.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.8.2
+
+### Patch Changes
+
+- [`98e68957ca04d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98e68957ca04d) -
+  [ux] ED-29186 Update responsiveness breakpoints to accommodate Jira and comment editor toolbar
+
+## 0.8.1
+
+### Patch Changes
+
+- [`555ac8f256674`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/555ac8f256674) -
+  Update menu item icon size to small, tweak paddings and font styles
+
 ## 0.8.0
 
 ### Minor Changes

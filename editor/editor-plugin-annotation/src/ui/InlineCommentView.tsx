@@ -196,7 +196,7 @@ export function InlineCommentView({
 					}}
 					onClose={() => {
 						if (!isAnnotationManagerEnabled) {
-							setInlineCommentDraftState(editorAnalyticsAPI)(false)(
+							setInlineCommentDraftState(editorAnalyticsAPI, undefined, editorAPI)(false)(
 								editorView.state,
 								editorView.dispatch,
 							);

@@ -242,7 +242,7 @@ const Pressable = forwardRef(
 					paddingInlineStart && paddingStylesMap.paddingInlineStart[paddingInlineStart],
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					paddingInlineEnd && paddingStylesMap.paddingInlineEnd[paddingInlineEnd],
-					resolvedStyles.emotion,
+					...(resolvedStyles.emotion || []),
 				]}
 				data-testid={testId}
 			>

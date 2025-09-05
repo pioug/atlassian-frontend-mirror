@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/insm",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "INSM tooling measures user-perceived interactivity of a page",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -31,9 +31,6 @@
 		"@atlaskit/analytics-listeners": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"
-	},
-	"devDependencies": {
-		"@atlaskit/editor-test-helpers": "workspace:^"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"

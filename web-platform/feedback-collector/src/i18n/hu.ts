@@ -12,6 +12,8 @@ export default {
   'feedback-collector.anonymous.title': 'Anonim visszajelzés',
   'feedback-collector.can-be-contacted.label':
     'Igen, az Atlassian csapatai felvehetik velem a kapcsolatot, hogy kikérjék a véleményemet az Atlassian termékeinek és szolgáltatásainak fejlesztéséről. Elfogadom az <a>Atlassian adatvédelmi nyilatkozatát</a>.',
+  'feedback-collector.can-be-contacted.label-appify':
+    'Igen, az Atlassian csapatai felvehetik velem a kapcsolatot, hogy kikérjék a véleményemet az Atlassian alkalmazásainak és szolgáltatásainak fejlesztéséről. Elfogadom az <a>Atlassian adatvédelmi nyilatkozatát</a>.',
   'feedback-collector.cancel-button.label': 'Mégse',
   'feedback-collector.default.custom.textarea.label': 'Mi jár a fejedben?',
   'feedback-collector.enrol-in-research.label': 'Szeretnék részt venni a termékekkel kapcsolatos kutatásban',
@@ -36,6 +38,8 @@ export default {
   'feedback-collector.submit-button.label': 'Visszajelzés elküldése',
   'feedback-collector.success-flag.description':
     'Értékes visszajelzésed segítségével folyamatosan fejlesztjük termékeinket.',
+  'feedback-collector.success-flag.description-appify':
+    'Értékes visszajelzésed segítségével folyamatosan fejlesztjük alkalmazásainkat.',
   'feedback-collector.success-flag.title': 'Köszönöm!',
   'feedback-collector.summary-placeholder': 'Mondd el, mi jár a fejedben!',
   'feedback-collector.validation.description.required': 'Adj meg egy leírást',

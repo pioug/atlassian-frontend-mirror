@@ -56,6 +56,9 @@
 			"path": "../../editor-toolbar-model/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/heading/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{

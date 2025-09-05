@@ -2,6 +2,7 @@
 
 exports[`RendererActions applyAnnotation should apply annotation to caption of top level media 1`] = `
 {
+  "ancestorNodeTypes": undefined,
   "doc": {
     "content": [
       {
@@ -189,6 +190,7 @@ exports[`RendererActions applyAnnotation should apply annotation to caption of t
 
 exports[`RendererActions applyAnnotation should apply annotation to text with inline nodes 1`] = `
 {
+  "ancestorNodeTypes": undefined,
   "doc": {
     "content": [
       {
@@ -304,6 +306,7 @@ exports[`RendererActions applyAnnotation should apply annotation to text with in
 
 exports[`RendererActions applyAnnotation should apply annotation to the caption of nested media 1`] = `
 {
+  "ancestorNodeTypes": undefined,
   "doc": {
     "content": [
       {
@@ -491,6 +494,7 @@ exports[`RendererActions applyAnnotation should apply annotation to the caption 
 
 exports[`RendererActions applyAnnotation should apply annotation to the formatted text 1`] = `
 {
+  "ancestorNodeTypes": undefined,
   "doc": {
     "content": [
       {
@@ -687,6 +691,7 @@ exports[`RendererActions applyAnnotation should apply annotation to the formatte
 
 exports[`RendererActions applyAnnotation should apply annotation to the nested media 1`] = `
 {
+  "ancestorNodeTypes": undefined,
   "doc": {
     "content": [
       {
@@ -869,6 +874,7 @@ exports[`RendererActions applyAnnotation should apply annotation to the nested m
 
 exports[`RendererActions applyAnnotation should apply annotation to the plain text 1`] = `
 {
+  "ancestorNodeTypes": undefined,
   "doc": {
     "content": [
       {
@@ -1056,6 +1062,7 @@ exports[`RendererActions applyAnnotation should apply annotation to the plain te
 
 exports[`RendererActions applyAnnotation should apply annotation to the top-level media 1`] = `
 {
+  "ancestorNodeTypes": undefined,
   "doc": {
     "content": [
       {

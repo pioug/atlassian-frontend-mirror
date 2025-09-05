@@ -11,6 +11,8 @@ export default {
   'feedback-collector.anonymous.title': '匿名意見反應',
   'feedback-collector.can-be-contacted.label':
     '是的，Atlassian 團隊可以與我聯繫，詢問我的使用體驗，以便改善 Atlassian 產品和服務。我同意 <a>Atlassian 隱私政策</a>。',
+  'feedback-collector.can-be-contacted.label-appify':
+    '是的，Atlassian 團隊可以與我聯繫，詢問我的使用體驗，以便改善 Atlassian 應用程式和服務。我同意<a>《Atlassian 隱私政策》</a>。',
   'feedback-collector.cancel-button.label': '取消',
   'feedback-collector.default.custom.textarea.label': '讓我們知道您的想法。',
   'feedback-collector.enrol-in-research.label': '我想要參與產品研究',
@@ -34,6 +36,7 @@ export default {
   'feedback-collector.required.fields.summary': '必填欄位標有星號',
   'feedback-collector.submit-button.label': '傳送意見反應',
   'feedback-collector.success-flag.description': '您的意見反應很珍貴，能幫助我們持續改善產品。',
+  'feedback-collector.success-flag.description-appify': '您的寶貴意見有助於我們持續改善應用程式。',
   'feedback-collector.success-flag.title': '謝謝！',
   'feedback-collector.summary-placeholder': '讓我們知道您的想法',
   'feedback-collector.validation.description.required': '請提供描述',

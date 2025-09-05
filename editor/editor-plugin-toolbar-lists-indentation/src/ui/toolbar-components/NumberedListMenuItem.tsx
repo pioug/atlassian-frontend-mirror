@@ -45,7 +45,7 @@ export const NumberedListMenuItem = ({ api, parents }: NumberedListMenuItemType)
 
 	return (
 		<ToolbarDropdownItem
-			elemBefore={<ListNumberedIcon label="" />}
+			elemBefore={<ListNumberedIcon size="small" label="" />}
 			elemAfter={shortcut ? <ToolbarKeyboardShortcutHint shortcut={shortcut} /> : undefined}
 			isSelected={orderedListActive}
 			isDisabled={orderedListDisabled}

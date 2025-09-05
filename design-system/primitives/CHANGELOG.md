@@ -1,5 +1,16 @@
 # @atlaskit/primitives
 
+## 14.14.0
+
+### Minor Changes
+
+- [`d4a45d8562c6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4a45d8562c6d) -
+  Added `radius.tile` token to be used exclusively for creating tiles.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.13.0
 
 ### Minor Changes

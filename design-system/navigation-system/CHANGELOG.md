@@ -1,5 +1,18 @@
 # @atlassian/navigation-system
 
+## 2.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.3
+
+### Patch Changes
+
+- [`5a4eb937344d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a4eb937344d9) -
+  Internal refactors to skip links. This was previously behind a feature flag, which is now removed.
+
 ## 2.3.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-scroll-into-view
 
+## 4.0.1
+
+### Patch Changes
+
+- [`2da1f6e7c6979`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2da1f6e7c6979) -
+  NO-ISSUE: Clean up platform_editor_skip_scroll_into_view_appended_tr
+- Updated dependencies
+
 ## 4.0.0
 
 ### Patch Changes

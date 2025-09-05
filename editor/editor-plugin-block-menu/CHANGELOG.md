@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 1.0.8
+
+### Patch Changes
+
+- [`b3e1332c170a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3e1332c170a6) -
+  Container to container transform with unsupportted content
+- Updated dependencies
+
+## 1.0.7
+
+### Patch Changes
+
+- [`34871606f04ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34871606f04ba) -
+  [ux] Updates unwrapAndConvertToList to support codeBlock to list case and cases where contnent is
+  not textblock.
+
+## 1.0.6
+
+### Patch Changes
+
+- [`40e6bcca6edd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40e6bcca6edd4) -
+  [ux] ED-29146: unwrap container to block nodes
+- Updated dependencies
+
 ## 1.0.5
 
 ### Patch Changes

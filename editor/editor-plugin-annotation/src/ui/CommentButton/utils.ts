@@ -161,6 +161,9 @@ export const startCommentExperience = ({
 		});
 		annotationProviders?.createCommentExperience?.initExperience.start();
 
-		return setInlineCommentDraftState(api?.analytics?.actions)(true)(state, dispatch);
+		return setInlineCommentDraftState(api?.analytics?.actions, undefined, api)(true)(
+			state,
+			dispatch,
+		);
 	}
 };

@@ -59,6 +59,9 @@
 			"path": "../../editor-toolbar-model/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/heading/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
 		},
 		{

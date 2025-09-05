@@ -59,6 +59,9 @@
 			"path": "../../editor-toolbar-model/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/heading/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-passionfruit/tsconfig.json"
 		},
 		{

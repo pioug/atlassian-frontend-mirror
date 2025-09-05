@@ -19,6 +19,7 @@ export {
 	getAnnotationInlineNodeTypes,
 	hasAnnotationMark,
 	getRangeInlineNodeNames,
+	getRangeAncestorNodeNames,
 	isEmptyTextSelection,
 	isEmptyTextSelectionRenderer,
 } from './annotation';

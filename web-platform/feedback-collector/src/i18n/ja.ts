@@ -12,6 +12,8 @@ export default {
   'feedback-collector.anonymous.title': '匿名のフィードバック',
   'feedback-collector.can-be-contacted.label':
     'はい、アトラシアンの製品とサービスの向上のために、アトラシアンのチームから利用体験に関する問い合わせを受け取ることを了承します。<a>アトラシアンのプライバシー ポリシー</a>に同意します。',
+  'feedback-collector.can-be-contacted.label-appify':
+    'はい、アトラシアンのアプリとサービスの向上のために、アトラシアンのチームから利用体験に関する問い合わせを受け取ることを了承します。<a>アトラシアンのプライバシー ポリシー</a>に同意します。',
   'feedback-collector.cancel-button.label': 'キャンセル',
   'feedback-collector.default.custom.textarea.label': 'ご意見をお聞かせください。',
   'feedback-collector.enrol-in-research.label': '製品調査に参加する',
@@ -36,6 +38,8 @@ export default {
   'feedback-collector.submit-button.label': 'フィードバックを送信',
   'feedback-collector.success-flag.description':
     'お寄せいただいた貴重なフィードバックは、製品のさらなる改善に役立てさせていただきます。',
+  'feedback-collector.success-flag.description-appify':
+    'お寄せいただいた貴重なフィードバックは、アプリの継続的な改善に役立てられます。',
   'feedback-collector.success-flag.title': 'よろしくお願いいたします。',
   'feedback-collector.summary-placeholder': '具体的な内容をご入力ください。',
   'feedback-collector.validation.description.required': '説明を入力してください',

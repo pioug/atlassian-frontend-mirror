@@ -97,7 +97,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 				name: 'annotationKeymap',
 				plugin: () => {
 					if (annotationProviders) {
-						return keymapPlugin(api?.analytics?.actions);
+						return keymapPlugin(api);
 					}
 					return;
 				},

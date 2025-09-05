@@ -36,7 +36,7 @@ export const AlignmentMenuItem = ({
 	return (
 		<ToolbarDropdownItem
 			isSelected={align === alignment}
-			elemBefore={<Icon label="" />}
+			elemBefore={<Icon size="small" label="" />}
 			elemAfter={shortcut && <ToolbarKeyboardShortcutHint shortcut={shortcut} />}
 			ariaKeyshortcuts={getAriaKeyshortcuts(keymap)}
 			onClick={() => {

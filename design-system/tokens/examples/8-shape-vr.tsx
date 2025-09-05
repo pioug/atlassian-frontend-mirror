@@ -56,9 +56,10 @@ export default () => {
 					<RadiusBox radius={token('radius.large')} />
 					<RadiusBox radius={token('radius.xlarge')} />
 					<RadiusBox radius={token('radius.full')} />
+					<RadiusBox radius={token('radius.tile')} />
 				</Inline>
 				<Inline space="space.100" alignBlock="center">
-					<Text weight="bold">Stroke width</Text>
+					<Text weight="bold">Border width</Text>
 					<WidthBox borderWidth={token('border.width')} />
 					<WidthBox borderWidth={token('border.width.selected')} />
 					<WidthBox borderWidth={token('border.width.focused')} />

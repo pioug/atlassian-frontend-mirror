@@ -10,6 +10,7 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { EditorViewModeEffectsPlugin } from '@atlaskit/editor-plugin-editor-viewmode-effects';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
@@ -35,6 +36,7 @@ export type AnnotationPluginDependencies = [
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<ConnectivityPlugin>,
 	OptionalPlugin<ToolbarPlugin>,
+	OptionalPlugin<UserIntentPlugin>,
 ];
 
 export type AnnotationPluginOptions = AnnotationProviders;

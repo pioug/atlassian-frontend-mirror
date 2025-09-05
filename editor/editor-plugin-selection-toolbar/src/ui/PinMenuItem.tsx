@@ -54,7 +54,9 @@ export const PinMenuItem = ({ api }: PinMenuItemProps) => {
 	return (
 		<ToolbarDropdownItem
 			onClick={onClick}
-			elemBefore={isToolbarDocked ? <PinnedIcon label="" /> : <PinIcon label="" />}
+			elemBefore={
+				isToolbarDocked ? <PinnedIcon size="small" label="" /> : <PinIcon size="small" label="" />
+			}
 		>
 			{message}
 		</ToolbarDropdownItem>

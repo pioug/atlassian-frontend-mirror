@@ -32,6 +32,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	editor_ai_inline_suggestion_date_v2: 'control',
 	platform_editor_add_orange_highlight_color: 'control',
 	platform_editor_ai_iw_adf_streaming: 'control',
+	platform_editor_ai_non_iw_adf_streaming: 'control',
 	platform_hover_card_preview_panel: 'control',
 };
 

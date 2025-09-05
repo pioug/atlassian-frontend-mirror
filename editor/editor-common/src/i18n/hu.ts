@@ -111,6 +111,9 @@ export default {
     'Válassz az alábbiak közül (a szabad generálás jelenleg le van tiltva az Elevate-ben)',
   'fabric.editor.ai.config.item.generateContent.promptHint':
     'Írj valamit az AI segítségével, vagy válassz az alábbiak közül',
+  'fabric.editor.ai.config.item.generateEscalationNotes.description':
+    'Eszkalálási jegyzeteket generál az ügy kontextusa alapján',
+  'fabric.editor.ai.config.item.generateEscalationNotes.title': 'Eszkalálási jegyzetek generálása',
   'fabric.editor.ai.config.item.improveDescription.default.description':
     'Az ügyleírás átstrukturálása az ügytípus alapján',
   'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one': 'Leírás javítása',
@@ -222,7 +225,7 @@ export default {
     'Nem sikerült végrehajtani ezt a kérelmet, mert nem felel meg az <link>Elfogadható használatra vonatkozó irányelveknek</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Szeretnéd elvetni a kérésedet?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Szeretnéd elvetni a válaszodat?',
-  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Törlöd a választ?',
+  'fabric.editor.ai.experience.discardStreamingInDocumennt': 'Megszakítod a kérelmet, és törlöd a generált választ?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'A szabad generálás jelenleg le van tiltva az Elevate-ben.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -306,7 +309,13 @@ export default {
   'fabric.editor.annotationToolbar': 'Jegyzeteszköztár',
   'fabric.editor.backLink': 'Vissza',
   'fabric.editor.backgroundColor': 'Háttérszín',
+  'fabric.editor.block.menu.code.block': 'Elrendezés',
+  'fabric.editor.block.menu.copy.block': 'Blokk másolása',
   'fabric.editor.block.menu.copy.link': 'Link másolása',
+  'fabric.editor.block.menu.delete.block': 'Törlés',
+  'fabric.editor.block.menu.move.down': 'Mozgatás le',
+  'fabric.editor.block.menu.move.up': 'Mozgatás fel',
+  'fabric.editor.block.menu.paragraph': 'Bekezdés',
   'fabric.editor.blockCardUnavailable':
     'A beillesztett link a(z) {node} csomóponton belül található, és nem módosítható a nézete',
   'fabric.editor.blockControlDelete': 'Törlés',
@@ -829,9 +838,11 @@ export default {
   'fabric.editor.task': 'Feladat',
   'fabric.editor.taskDecision.markTaskAsCompleted': 'Feladat megjelölése készként',
   'fabric.editor.taskDecision.markTaskAsNotCompleted': 'Feladat megjelölése nincs készként',
+  'fabric.editor.taskList': 'Feladatlista',
   'fabric.editor.taskPlaceholder': 'Írja be a műveletet. Az „@” jellel hozzárendelheti valakihez.',
   'fabric.editor.text.formatting.off': 'Szövegformázás kikapcsolva',
   'fabric.editor.textColor': '{selectedColorName} szövegszín',
+  'fabric.editor.textColorHighlightTooltip': 'Szöveg és kiemelés színe',
   'fabric.editor.textColorTooltip': 'Szövegszín',
   'fabric.editor.textFormat': 'Szöveg formázása',
   'fabric.editor.textFormatting': 'Szöveg formázása',

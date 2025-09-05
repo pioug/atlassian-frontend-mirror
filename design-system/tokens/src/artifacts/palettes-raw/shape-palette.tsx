@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f4b022d6e18730437f14e3f2a6430c5a>>
+ * @codegen <<SignedSource::56944727b3c1e10bac5077e2c3edc9bf>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -154,6 +154,25 @@ const tokens = [
     "path": [
       "radius",
       "Radius99"
+    ]
+  },
+  {
+    "value": "25%",
+    "attributes": {
+      "group": "shape"
+    },
+    "filePath": "schema/palettes/shape-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "25%",
+      "attributes": {
+        "group": "shape"
+      }
+    },
+    "name": "radius.RadiusPercentage25",
+    "path": [
+      "radius",
+      "RadiusPercentage25"
     ]
   },
   {

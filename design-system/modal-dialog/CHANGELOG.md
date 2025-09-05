@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 14.3.11
+
+### Patch Changes
+
+- [`71adf38dec5b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71adf38dec5b2) -
+  Increases the specificity of the insetBlockStart whitespace for the Modal Dialog to lessen the
+  impact of Compiled consumption issues in DC and Ecosystem.
+- Updated dependencies
+
 ## 14.3.10
 
 ### Patch Changes

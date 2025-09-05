@@ -8,9 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
 
-import { SkipLinksContainer } from '../../components/skip-links/skip-links-container';
 import { SkipLinksProvider } from '../../context/skip-links/skip-links-provider';
 import { TopNavStartProvider } from '../../context/top-nav-start/top-nav-start-context-provider';
 
@@ -142,17 +140,6 @@ This message will not be displayed in production.
 						<OpenLayerObserver>
 							<DangerouslyHoistSlotSizes.Provider value={UNSAFE_dangerouslyHoistSlotSizes}>
 								<SkipLinksProvider label={skipLinksLabel} testId={testId}>
-									{!fg('platform_dst_nav4_skip_links_hydration_fix') && (
-										// SkipLinksContainer is rendered directly inside SkipLinksProvider when the FG is enabled.
-										<SkipLinksContainer
-											label={skipLinksLabel}
-											testId={testId}
-											links={
-												// The links prop won't be used when the FG is disabled.
-												[]
-											}
-										/>
-									)}
 									<div
 										ref={ref}
 										css={styles.root}

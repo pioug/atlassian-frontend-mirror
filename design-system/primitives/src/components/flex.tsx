@@ -168,7 +168,7 @@ const Flex = memo(
 						direction && flexDirectionMap[direction],
 						justifyContent && justifyContentMap[justifyContent],
 						wrap && flexWrapMap[wrap],
-						resolvedStyles.emotion,
+						...(resolvedStyles.emotion || []),
 					]}
 					data-testid={testId}
 					ref={ref}

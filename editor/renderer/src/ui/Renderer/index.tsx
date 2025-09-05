@@ -773,14 +773,27 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 					 * Telepointer changes are always a singular node-adds or node-removes.
 					 */
 					const isAdfStreamingEnabled =
-						expValEqualsNoExposure('platform_editor_ai_iw_adf_streaming', 'cohort', 'adf') ||
 						expValEqualsNoExposure(
 							'platform_editor_ai_iw_adf_streaming',
 							'cohort',
-							'adf_personalisation',
+							'adf_gpt41mini',
+						) ||
+						expValEqualsNoExposure(
+							'platform_editor_ai_iw_adf_streaming',
+							'cohort',
+							'adf_gemini25flash',
 						) ||
 						expValEqualsNoExposure('platform_editor_ai_ct_sg_adf_streaming', 'isEnabled', true) ||
-						expValEqualsNoExposure('platform_editor_ai_non_iw_adf_streaming', 'isEnabled', true);
+						expValEqualsNoExposure(
+							'platform_editor_ai_non_iw_adf_streaming',
+							'cohort',
+							'adf_gpt41mini',
+						) ||
+						expValEqualsNoExposure(
+							'platform_editor_ai_non_iw_adf_streaming',
+							'cohort',
+							'adf_gemini25flash',
+						);
 					if (
 						isAdfStreamingEnabled &&
 						mutation.type === 'childList' &&

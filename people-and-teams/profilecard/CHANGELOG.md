@@ -1,5 +1,18 @@
 # @atlaskit/profilecard
 
+## 24.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.11.0
+
+### Minor Changes
+
+- [`34525433d4537`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34525433d4537) -
+  Fixed inline mentions starting a new line
+
 ## 24.10.2
 
 ### Patch Changes

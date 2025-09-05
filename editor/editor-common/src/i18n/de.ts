@@ -112,6 +112,9 @@ export default {
   'fabric.editor.ai.config.item.freeGenerate.disabled.promptHint':
     'Unten auswählen (aktuell ist die kostenlose Erstellung von Prompts in Elevate deaktiviert)',
   'fabric.editor.ai.config.item.generateContent.promptHint': 'Mit AI schreiben oder von unten auswählen',
+  'fabric.editor.ai.config.item.generateEscalationNotes.description':
+    'Generiert Eskalationsnotizen basierend auf dem Kontext des Problems.',
+  'fabric.editor.ai.config.item.generateEscalationNotes.title': 'Eskalationsnotizen generieren',
   'fabric.editor.ai.config.item.improveDescription.default.description':
     'Strukturiert die Vorgangsbeschreibung anhand des Vorgangstyps neu',
   'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one': 'Beschreibung verbessern',
@@ -243,7 +246,7 @@ export default {
     'Ihre Anfrage konnte nicht bearbeitet werden, da sie nicht unserer <link>Richtlinie zur akzeptablen Nutzung</link> entspricht.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Möchten Sie Ihre Aufforderung wirklich verwerfen?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Möchten Sie Ihre Antwort wirklich verwerfen?',
-  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Antwort löschen?',
+  'fabric.editor.ai.experience.discardStreamingInDocumennt': 'Anfrage verwerfen und generierte Antwort löschen?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'Aktuell ist die freie Erstellung von Aufforderungen in Elevate deaktiviert.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -329,7 +332,13 @@ export default {
   'fabric.editor.annotationToolbar': 'Symbolleiste für Anmerkungen',
   'fabric.editor.backLink': 'Zurück',
   'fabric.editor.backgroundColor': 'Hintergrundfarbe',
+  'fabric.editor.block.menu.code.block': 'Layout',
+  'fabric.editor.block.menu.copy.block': 'Block kopieren',
   'fabric.editor.block.menu.copy.link': 'Link kopieren',
+  'fabric.editor.block.menu.delete.block': 'Löschen',
+  'fabric.editor.block.menu.move.down': 'Nach unten verschieben',
+  'fabric.editor.block.menu.move.up': 'Nach oben verschieben',
+  'fabric.editor.block.menu.paragraph': 'Absatz',
   'fabric.editor.blockCardUnavailable':
     'Die Ansicht des Inline-Links kann nicht geändert werden, da sich der Link innerhalb von {node} befindet.',
   'fabric.editor.blockControlDelete': 'Löschen',
@@ -857,9 +866,11 @@ export default {
   'fabric.editor.task': 'Task',
   'fabric.editor.taskDecision.markTaskAsCompleted': 'Aufgabe als abgeschlossen markieren',
   'fabric.editor.taskDecision.markTaskAsNotCompleted': 'Aufgabe als nicht abgeschlossen markieren',
+  'fabric.editor.taskList': 'Aufgabenliste',
   'fabric.editor.taskPlaceholder': 'Geben Sie Ihre Aktion ein und weisen Sie sie mithilfe von „@” jemandem zu.',
   'fabric.editor.text.formatting.off': 'Textformatierung aus',
   'fabric.editor.textColor': 'Textfarbe: {selectedColorName}',
+  'fabric.editor.textColorHighlightTooltip': 'Farbe für Text und Hervorhebungen',
   'fabric.editor.textColorTooltip': 'Textfarbe',
   'fabric.editor.textFormat': 'Text formatieren',
   'fabric.editor.textFormatting': 'Textformatierung',

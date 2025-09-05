@@ -147,7 +147,5 @@ describe('_getEnvironmentFromDomain', () => {
 			url: `https://${hostname}`,
 		});
 		expect(_getEnvironmentFromDomain()).toEqual([env, perimeter]);
-		// @ts-ignore Mock window.location in Jest
-		delete globalThis.location;
 	});
 });

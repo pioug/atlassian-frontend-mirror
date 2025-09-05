@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5fd7a2193acea84566a4f17a6f50d7b2>>
+ * @codegen <<SignedSource::1ce1b3c3f1f76652ab1f337426556032>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -11,6 +11,7 @@ html[data-theme~="shape:shape"] {
   --ds-radius-large: 0.5rem;
   --ds-radius-xlarge: 0.75rem;
   --ds-radius-full: 624.9375rem;
+  --ds-radius-tile: 25%;
   --ds-border-radius: 0.25rem;
   --ds-border-radius-050: 0.125rem;
   --ds-border-radius-100: 0.25rem;

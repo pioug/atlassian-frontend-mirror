@@ -27,7 +27,7 @@ export const TaskListMenuItem = ({ api, parents }: TaskListMenuItemProps) => {
 
 	return (
 		<ToolbarDropdownItem
-			elemBefore={<TaskIcon label="" />}
+			elemBefore={<TaskIcon size="small" label="" />}
 			elemAfter={<ToolbarKeyboardShortcutHint shortcut="[]" />}
 			isSelected={taskListActive}
 			isDisabled={false}

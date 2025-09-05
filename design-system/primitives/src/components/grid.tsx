@@ -247,7 +247,7 @@ const Grid = memo(
 						alignContent && alignContentMap[alignContent],
 						justifyContent && justifyContentMap[justifyContent],
 						autoFlow && gridAutoFlowMap[autoFlow],
-						resolvedStyles.emotion,
+						...(resolvedStyles.emotion || []),
 					]}
 					data-testid={testId}
 					ref={ref}

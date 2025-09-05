@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { teamsClient } from '../main';
 import { logInfoMessage } from '../sentry/main';
@@ -33,6 +33,8 @@ export const useTeamsClientSetupNext = ({
 	orgId,
 	principalUserId,
 }: TeamsClientSetupProps) => {
+	const [isClientReady, setIsClientReady] = useState(false);
+
 	useEffect(() => {
 		if (!stargateRoot) {
 			return;
@@ -52,6 +54,9 @@ export const useTeamsClientSetupNext = ({
 				cloudId,
 			});
 		}
+
+		// Mark client as ready after context is set
+		setIsClientReady(true);
 	}, [cloudId, orgId, principalUserId]);
 
 	useEffect(() => {
@@ -64,4 +69,6 @@ export const useTeamsClientSetupNext = ({
 			userId: principalUserId,
 		});
 	}, [cloudId, orgId, principalUserId, stargateRoot]);
+
+	return { isClientReady };
 };

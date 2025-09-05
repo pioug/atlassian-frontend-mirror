@@ -1,0 +1,56 @@
+{
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__table",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../button/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../checkbox/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../css/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../focus-ring/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tooltip/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../visually-hidden/afm-cc/tsconfig.json"
+		}
+	]
+}

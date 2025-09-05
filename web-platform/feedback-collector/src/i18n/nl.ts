@@ -12,6 +12,8 @@ export default {
   'feedback-collector.anonymous.title': 'Anonieme feedback',
   'feedback-collector.can-be-contacted.label':
     'Ja, Atlassian-teams mogen contact met me opnemen om te vragen naar mijn ervaringen, zodat Atlassian-producten en -diensten kunnen worden verbeterd. Ik stem in met het <a>Privacybeleid van Atlassian</a>.',
+  'feedback-collector.can-be-contacted.label-appify':
+    'Ja, Atlassian-teams mogen contact met me opnemen om te vragen naar mijn ervaringen, zodat Atlassian-apps en -services kunnen worden verbeterd. Ik erken het <a>Privacybeleid van Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Annuleren',
   'feedback-collector.default.custom.textarea.label': 'Waar denk je aan?',
   'feedback-collector.enrol-in-research.label': 'Ik wil graag meewerken aan productonderzoek',
@@ -35,6 +37,8 @@ export default {
   'feedback-collector.required.fields.summary': 'Verplichte velden zijn aangeduid met een asterisk',
   'feedback-collector.submit-button.label': 'Feedback sturen',
   'feedback-collector.success-flag.description': 'Met jouw feedback kunnen we onze producten steeds verder verbeteren.',
+  'feedback-collector.success-flag.description-appify':
+    'Met jouw feedback kunnen we onze apps steeds verder verbeteren.',
   'feedback-collector.success-flag.title': 'Bedankt!',
   'feedback-collector.summary-placeholder': 'Laat ons weten wat je vindt',
   'feedback-collector.validation.description.required': 'Geef een omschrijving',

@@ -12,13 +12,13 @@ import { ResponsiveContainer } from './ResponsiveContainer';
 
 const styles = cssMap({
 	toolbarBase: {
-		backgroundColor: token('elevation.surface'),
 		borderRadius: token('radius.medium'),
 		display: 'flex',
 		alignItems: 'center',
 		gap: token('space.050'),
 	},
 	toolbar: {
+		backgroundColor: token('elevation.surface.overlay'),
 		height: '36px',
 		paddingRight: token('space.050'),
 		paddingLeft: token('space.050'),

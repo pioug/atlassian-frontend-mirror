@@ -55,8 +55,16 @@ describe('RLLPlaceholderHandlers', () => {
 		});
 
 		it('should collect placeholders when both window and document are available', () => {
-			// @ts-ignore
-			global.window = mockWindow;
+			Object.defineProperty(window, 'innerWidth', {
+				writable: true,
+				configurable: true,
+				value: mockWindow.innerWidth,
+			});
+			Object.defineProperty(window, 'innerHeight', {
+				writable: true,
+				configurable: true,
+				value: mockWindow.innerHeight,
+			});
 
 			// Create DOM with RLL placeholders
 			document.body.innerHTML = `
@@ -87,8 +95,16 @@ describe('RLLPlaceholderHandlers', () => {
 
 	describe('RLL placeholder collection', () => {
 		beforeEach(() => {
-			// @ts-ignore
-			global.window = mockWindow;
+			Object.defineProperty(window, 'innerWidth', {
+				writable: true,
+				configurable: true,
+				value: mockWindow.innerWidth,
+			});
+			Object.defineProperty(window, 'innerHeight', {
+				writable: true,
+				configurable: true,
+				value: mockWindow.innerHeight,
+			});
 		});
 
 		it('should handle empty DOM', () => {
@@ -203,8 +219,16 @@ describe('RLLPlaceholderHandlers', () => {
 
 	describe('viewport filtering', () => {
 		beforeEach(() => {
-			// @ts-ignore
-			global.window = mockWindow; // 1920x1080 viewport
+			Object.defineProperty(window, 'innerWidth', {
+				writable: true,
+				configurable: true,
+				value: mockWindow.innerWidth,
+			});
+			Object.defineProperty(window, 'innerHeight', {
+				writable: true,
+				configurable: true,
+				value: mockWindow.innerHeight,
+			});
 		});
 
 		it('should include elements fully in viewport', () => {
@@ -233,8 +257,7 @@ describe('RLLPlaceholderHandlers', () => {
 		});
 
 		it('should include elements partially in viewport', () => {
-			// @ts-ignore - Set up window mock properly with innerWidth and innerHeight
-			global.window = { ...mockWindow };
+			// Ensure viewport dimensions without replacing the window object
 			Object.defineProperty(window, 'innerWidth', {
 				writable: true,
 				configurable: true,
@@ -303,8 +326,7 @@ describe('RLLPlaceholderHandlers', () => {
 		});
 
 		it('should handle zero-size elements', () => {
-			// @ts-ignore - Set up window mock properly
-			global.window = { ...mockWindow };
+			// Ensure viewport dimensions without replacing the window object
 			Object.defineProperty(window, 'innerWidth', {
 				writable: true,
 				configurable: true,
@@ -333,8 +355,7 @@ describe('RLLPlaceholderHandlers', () => {
 		});
 
 		it('should handle elements at viewport edges', () => {
-			// @ts-ignore - Set up window mock properly
-			global.window = { ...mockWindow };
+			// Ensure viewport dimensions without replacing the window object
 			Object.defineProperty(window, 'innerWidth', {
 				writable: true,
 				configurable: true,
@@ -365,8 +386,7 @@ describe('RLLPlaceholderHandlers', () => {
 		});
 
 		it('should exclude elements with zero-width intersections', () => {
-			// @ts-ignore - Set up window mock properly
-			global.window = { ...mockWindow };
+			// Ensure viewport dimensions without replacing the window object
 			Object.defineProperty(window, 'innerWidth', {
 				writable: true,
 				configurable: true,
@@ -423,8 +443,16 @@ describe('RLLPlaceholderHandlers', () => {
 
 	describe('getPlaceholders', () => {
 		it('should return empty array when no placeholders collected', () => {
-			// @ts-ignore
-			global.window = mockWindow;
+			Object.defineProperty(window, 'innerWidth', {
+				writable: true,
+				configurable: true,
+				value: mockWindow.innerWidth,
+			});
+			Object.defineProperty(window, 'innerHeight', {
+				writable: true,
+				configurable: true,
+				value: mockWindow.innerHeight,
+			});
 			document.body.innerHTML = '';
 
 			const handler = RLLPlaceholderHandlers.getInstance();
@@ -432,8 +460,6 @@ describe('RLLPlaceholderHandlers', () => {
 		});
 
 		it('should return collected intersecting placeholders', () => {
-			// @ts-ignore
-			global.window = mockWindow;
 			Object.defineProperty(window, 'innerWidth', {
 				writable: true,
 				configurable: true,
@@ -470,8 +496,16 @@ describe('RLLPlaceholderHandlers', () => {
 		});
 
 		it('should return full rectangle when element is fully in viewport', () => {
-			// @ts-ignore
-			global.window = mockWindow;
+			Object.defineProperty(window, 'innerWidth', {
+				writable: true,
+				configurable: true,
+				value: mockWindow.innerWidth,
+			});
+			Object.defineProperty(window, 'innerHeight', {
+				writable: true,
+				configurable: true,
+				value: mockWindow.innerHeight,
+			});
 			Object.defineProperty(window, 'innerWidth', {
 				writable: true,
 				configurable: true,
@@ -510,8 +544,6 @@ describe('RLLPlaceholderHandlers', () => {
 
 	describe('isRLLPlaceholderHydration', () => {
 		beforeEach(() => {
-			// @ts-ignore
-			global.window = mockWindow;
 			Object.defineProperty(window, 'innerWidth', {
 				writable: true,
 				configurable: true,

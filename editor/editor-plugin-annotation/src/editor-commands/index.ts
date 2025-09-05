@@ -8,6 +8,8 @@ import {
 	NodeSelection,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
 import { createCommand } from '../pm-plugins/plugin-factory';
@@ -27,6 +29,7 @@ import { AnnotationSelectionType } from '../types';
 import type { InlineCommentInputMethod, TargetType } from '../types';
 
 import transform from './transform';
+import { resetUserIntent, setUserIntent } from './utils';
 
 export const updateInlineCommentResolvedState =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
@@ -297,7 +300,11 @@ export const showInlineCommentForBlockNode =
 	};
 
 export const setInlineCommentDraftState =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, supportedBlockNodes: string[] = []) =>
+	(
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+		supportedBlockNodes: string[] = [],
+		api?: ExtractInjectionAPI<AnnotationPlugin>,
+	) =>
 	(
 		drafting: boolean,
 		inputMethod: InlineCommentInputMethod = INPUT_METHOD.TOOLBAR,
@@ -312,10 +319,41 @@ export const setInlineCommentDraftState =
 			supportedBlockNodes,
 			isOpeningMediaCommentFromToolbar,
 		);
-		return createCommand(
-			commandAction,
-			transform.handleDraftState(editorAnalyticsAPI)(drafting, inputMethod),
-		);
+
+		if (
+			editorExperiment('platform_editor_toolbar_aifc', true) &&
+			expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true)
+		) {
+			return (state, dispatch) => {
+				const tr = transform.handleDraftState(editorAnalyticsAPI)(drafting, inputMethod)(
+					state.tr,
+					state,
+				);
+				const newPluginState = commandAction(state);
+
+				if (tr && newPluginState) {
+					tr.setMeta(inlineCommentPluginKey, newPluginState);
+
+					if (drafting) {
+						setUserIntent(api, tr);
+					} else {
+						resetUserIntent(api, tr);
+					}
+
+					if (dispatch) {
+						dispatch(tr);
+					}
+				} else {
+					return false;
+				}
+				return true;
+			};
+		} else {
+			return createCommand(
+				commandAction,
+				transform.handleDraftState(editorAnalyticsAPI)(drafting, inputMethod),
+			);
+		}
 	};
 
 export const addInlineComment =
@@ -338,10 +376,33 @@ export const addInlineComment =
 			},
 		});
 
-		return createCommand(
-			commandAction,
-			transform.addInlineComment(editorAnalyticsAPI, editorAPI)(id, supportedBlockNodes),
-		);
+		if (
+			editorExperiment('platform_editor_toolbar_aifc', true) &&
+			expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true)
+		) {
+			return (state, dispatch) => {
+				const tr = transform.addInlineComment(editorAnalyticsAPI, editorAPI)(
+					id,
+					supportedBlockNodes,
+				)(state.tr, state);
+
+				tr.setMeta(inlineCommentPluginKey, commandAction(state));
+				resetUserIntent(editorAPI, tr);
+
+				if (dispatch) {
+					dispatch(tr);
+
+					return true;
+				}
+
+				return false;
+			};
+		} else {
+			return createCommand(
+				commandAction,
+				transform.addInlineComment(editorAnalyticsAPI, editorAPI)(id, supportedBlockNodes),
+			);
+		}
 	};
 
 export const updateMouseState = (mouseData: InlineCommentMouseData): Command =>

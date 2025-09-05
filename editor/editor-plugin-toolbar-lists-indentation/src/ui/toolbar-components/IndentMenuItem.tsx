@@ -71,7 +71,7 @@ export const IndentMenuItem = ({
 
 	return (
 		<ToolbarDropdownItem
-			elemBefore={<IndentIcon label="" />}
+			elemBefore={<IndentIcon size="small" label="" />}
 			elemAfter={shortcut ? <ToolbarKeyboardShortcutHint shortcut={shortcut} /> : undefined}
 			isDisabled={indentationState?.indentDisabled}
 			ariaKeyshortcuts={shortcut}

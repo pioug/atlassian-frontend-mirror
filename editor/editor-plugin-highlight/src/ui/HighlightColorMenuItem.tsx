@@ -21,6 +21,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { ColorPalette, TextColorIcon, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import Heading from '@atlaskit/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
 import Icon from '@atlaskit/icon/core/text-style';
 import { Stack, Text, Box } from '@atlaskit/primitives/compiled';
@@ -109,7 +110,11 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 
 	return (
 		<Stack xcss={styles.container} testId="highlight-color-menu-item">
-			<Text weight="bold">{formatMessage(messages.highlight)}</Text>
+			{expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true) ? (
+				<Heading size="xxsmall">{formatMessage(messages.highlight)}</Heading>
+			) : (
+				<Text weight="bold">{formatMessage(messages.highlight)}</Text>
+			)}
 			<ColorPalette
 				onClick={(color) => {
 					handleHighlightColorChange(color);
@@ -126,7 +131,11 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 					appearance="subtle"
 					onClick={() => handleHighlightColorChange(REMOVE_HIGHLIGHT_COLOR)}
 				>
-					Remove highlight
+					{expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true) ? (
+						<Text weight="medium">Remove highlight</Text>
+					) : (
+						'Remove highlight'
+					)}
 				</Button>
 			</div>
 		</Stack>

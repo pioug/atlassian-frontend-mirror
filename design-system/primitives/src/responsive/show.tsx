@@ -87,7 +87,7 @@ export const Show = ({
 				defaultHiddenStyles,
 				above && showAboveQueries[above],
 				below && showBelowQueries[below],
-				resolvedStyles.emotion,
+				...(resolvedStyles.emotion || []),
 			]}
 		>
 			{children}

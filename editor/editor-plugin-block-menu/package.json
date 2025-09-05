@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-menu",
-	"version": "1.0.5",
+	"version": "1.0.8",
 	"description": "BlockMenu plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

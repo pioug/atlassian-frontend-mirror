@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.6.0
+
+### Minor Changes
+
+- [`9fd320fad58ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fd320fad58ed) -
+  EDITOR-1516 Updated ADF experiments
+
 ## 12.5.0
 
 ### Minor Changes

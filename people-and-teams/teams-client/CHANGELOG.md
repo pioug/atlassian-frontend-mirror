@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.13.1
+
+### Patch Changes
+
+- [`21d91ec75d514`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21d91ec75d514) -
+  Fix for race condition
+
 ## 4.13.0
 
 ### Minor Changes

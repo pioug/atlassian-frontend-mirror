@@ -56,6 +56,9 @@
 			"path": "../../editor-toolbar-model/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/heading/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"
 		},
 		{

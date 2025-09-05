@@ -56,6 +56,9 @@
 			"path": "../../editor-toolbar-model/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/heading/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
 		},
 		{

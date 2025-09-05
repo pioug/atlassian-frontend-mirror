@@ -104,6 +104,9 @@ export default {
   'fabric.editor.ai.config.item.freeGenerate.disabled.promptHint':
     'Изаберите у наставку (бесплатно генерисање је тренутно онемогућено за Elevate)',
   'fabric.editor.ai.config.item.generateContent.promptHint': 'Пишите користећи AI или изаберите у наставку',
+  'fabric.editor.ai.config.item.generateEscalationNotes.description':
+    'Генерише напомене о ескалацији на основу контекста ставки',
+  'fabric.editor.ai.config.item.generateEscalationNotes.title': 'Генериши напомене о ескалацији',
   'fabric.editor.ai.config.item.improveDescription.default.description':
     'Промени структуру описа проблема на основу типа проблема',
   'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one': 'Побољшај опис',
@@ -213,7 +216,8 @@ export default {
     'Нисмо могли да завршимо захтев јер није у складу да нашим <link>смерницама о прихватљивом коришћењу</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Желите ли да одбаците упит?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Желите ли да одбаците одговор?',
-  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Желите да избришете одговор?',
+  'fabric.editor.ai.experience.discardStreamingInDocumennt':
+    'Да ли желите да откажете захтев и избришете генерисани одговор?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'Бесплатно генерисање је тренутно онемогућено за Elevate.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -384,10 +388,13 @@ export default {
   'fabric.editor.annotationToolbar': 'Трака са алаткама за напомене',
   'fabric.editor.backLink': 'Назад',
   'fabric.editor.backgroundColor': 'Боја позадине',
+  'fabric.editor.block.menu.code.block': 'Распоред',
   'fabric.editor.block.menu.copy.block': 'Копирај блок',
   'fabric.editor.block.menu.copy.link': 'Копирај линк',
+  'fabric.editor.block.menu.delete.block': 'Избриши',
   'fabric.editor.block.menu.move.down': 'Помери надоле',
   'fabric.editor.block.menu.move.up': 'Помери нагоре',
+  'fabric.editor.block.menu.paragraph': 'Пасус',
   'fabric.editor.blockCardUnavailable': 'Уметнути линк је унутар {node} чвора и не може да му се промени приказ',
   'fabric.editor.blockControlDelete': 'Избриши',
   'fabric.editor.blockControlDragHandleMove': 'Превуците за померање',
@@ -891,9 +898,11 @@ export default {
   'fabric.editor.task': 'Задатак',
   'fabric.editor.taskDecision.markTaskAsCompleted': 'Означите задатак као довршен',
   'fabric.editor.taskDecision.markTaskAsNotCompleted': 'Означите задатак као недовршен',
+  'fabric.editor.taskList': 'Листа задатака',
   'fabric.editor.taskPlaceholder': 'Унесите радњу, користите „@“ да је доделите.',
   'fabric.editor.text.formatting.off': 'Искључено форматирање текста',
   'fabric.editor.textColor': '{selectedColorName} боја текста',
+  'fabric.editor.textColorHighlightTooltip': 'Боја текста и боја за истицање',
   'fabric.editor.textColorTooltip': 'Боја текста',
   'fabric.editor.textFormat': 'Форматирај текст',
   'fabric.editor.textFormatting': 'Форматирање текста',

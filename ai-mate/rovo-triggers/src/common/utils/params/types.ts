@@ -9,6 +9,7 @@ export interface BaseRovoChatParams {
 	triggerOpen: boolean;
 	initiator: string;
 	insertPrompt: 'highlight-action';
+	stagingAreaOpen: boolean;
 }
 
 export type ValidPrefix = 'rovoChat';

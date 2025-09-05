@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::430e50a41a04b0f7abd0e25105c1912e>>
+ * @codegen <<SignedSource::05611dfd0ca8208c27a67efbdb8a44f0>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -195,6 +195,32 @@ const tokens = [
       "full"
     ],
     "cleanName": "radius.full"
+  },
+  {
+    "attributes": {
+      "group": "shape",
+      "state": "active",
+      "introduced": "6.2.0",
+      "description": "Used for tiles only."
+    },
+    "value": "25%",
+    "filePath": "schema/themes/atlassian-shape-roundest/shape.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "shape",
+        "state": "active",
+        "introduced": "6.2.0",
+        "description": "Used for tiles only."
+      },
+      "value": "RadiusPercentage25"
+    },
+    "name": "radius.tile",
+    "path": [
+      "radius",
+      "tile"
+    ],
+    "cleanName": "radius.tile"
   },
   {
     "attributes": {

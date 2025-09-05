@@ -27,6 +27,7 @@ import {
 	ArrowKeyNavigationType,
 } from '@atlaskit/editor-common/ui-menu';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
@@ -45,6 +46,7 @@ import PaintBucketIcon from '@atlaskit/icon/core/migration/paint-bucket--editor-
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import Toggle from '@atlaskit/toggle';
 
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../pm-plugins/commands';
@@ -646,7 +648,7 @@ const DragMenu = React.memo(
 				: menuItems.push({ items: [createRowNumbersMenuItem()] });
 		}
 
-		return (
+		const Menu = (
 			<DropdownMenu
 				disableKeyboardHandling={isSubmenuOpen}
 				section={{ hasSeparator: true }}
@@ -661,6 +663,13 @@ const DragMenu = React.memo(
 				boundariesElement={boundariesElement}
 				scrollableElement={scrollableElement}
 			/>
+		);
+
+		return editorExperiment('platform_editor_toolbar_aifc', true) &&
+			expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true) ? (
+			<UserIntentPopupWrapper api={api}>{Menu}</UserIntentPopupWrapper>
+		) : (
+			Menu
 		);
 	},
 );

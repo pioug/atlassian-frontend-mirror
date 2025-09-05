@@ -107,6 +107,9 @@ export default {
     'Selecciona una de las siguientes opciones (la generación libre está desactivada en Elevate en este momento)',
   'fabric.editor.ai.config.item.generateContent.promptHint':
     'Escribe con AI o selecciona una de las siguientes opciones',
+  'fabric.editor.ai.config.item.generateEscalationNotes.description':
+    'Genera notas de derivación según el contexto de la incidencia',
+  'fabric.editor.ai.config.item.generateEscalationNotes.title': 'Generar notas de derivación',
   'fabric.editor.ai.config.item.improveDescription.default.description':
     'Reestructura la descripción de la incidencia en función del tipo de incidencia',
   'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one': 'Mejorar la descripción',
@@ -236,7 +239,8 @@ export default {
     'No hemos podido completar la solicitud porque no cumple con nuestra <link>Política de uso aceptable</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': '¿Quieres descartar el mensaje?',
   'fabric.editor.ai.experience.discardMessageResponse': '¿Quieres descartar la respuesta?',
-  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': '¿Eliminar la respuesta?',
+  'fabric.editor.ai.experience.discardStreamingInDocumennt':
+    '¿Quieres cancelar la solicitud y eliminar la respuesta generada?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'La generación libre está desactivada en Elevate en este momento.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -319,7 +323,13 @@ export default {
   'fabric.editor.annotationToolbar': 'Barra de herramientas de anotaciones',
   'fabric.editor.backLink': 'Regresar',
   'fabric.editor.backgroundColor': 'Color de fondo',
+  'fabric.editor.block.menu.code.block': 'Diseño',
+  'fabric.editor.block.menu.copy.block': 'Copiar bloque',
   'fabric.editor.block.menu.copy.link': 'Copiar enlace',
+  'fabric.editor.block.menu.delete.block': 'Eliminar',
+  'fabric.editor.block.menu.move.down': 'Bajar',
+  'fabric.editor.block.menu.move.up': 'Subir',
+  'fabric.editor.block.menu.paragraph': 'Párrafo',
   'fabric.editor.blockCardUnavailable': 'El enlace insertado está dentro de {node} y no puede cambiar de vista',
   'fabric.editor.blockControlDelete': 'Eliminar',
   'fabric.editor.blockControlDragHandleMove': 'Arrastrar para mover',
@@ -845,9 +855,11 @@ export default {
   'fabric.editor.task': 'Tarea',
   'fabric.editor.taskDecision.markTaskAsCompleted': 'Marcar tarea como completada',
   'fabric.editor.taskDecision.markTaskAsNotCompleted': 'Marcar tarea como no completada',
+  'fabric.editor.taskList': 'Lista de tareas',
   'fabric.editor.taskPlaceholder': 'Escribe la acción y usa "@" para asignársela a alguien.',
   'fabric.editor.text.formatting.off': 'Formato de texto desactivado',
   'fabric.editor.textColor': 'Color de texto {selectedColorName}',
+  'fabric.editor.textColorHighlightTooltip': 'Color de texto y resaltado',
   'fabric.editor.textColorTooltip': 'Color del texto',
   'fabric.editor.textFormat': 'Dar formato al texto',
   'fabric.editor.textFormatting': 'Formato de texto',

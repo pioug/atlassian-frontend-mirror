@@ -12,6 +12,8 @@ export default {
   'feedback-collector.anonymous.title': 'Анонімний відгук',
   'feedback-collector.can-be-contacted.label':
     'Так, команди Atlassian можуть зв’язуватися зі мною щодо моєї роботи з продуктами й службами Atlassian із метою вдосконалення їх. Я погоджуюся з <a>Політикою конфіденційності Atlassian</a>.',
+  'feedback-collector.can-be-contacted.label-appify':
+    'Так, команди Atlassian можуть зв’язуватися зі мною щодо моєї роботи з додатками й службами Atlassian із метою їх удосконалення. Я погоджуюся з <a>Політикою конфіденційності Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Скасувати',
   'feedback-collector.default.custom.textarea.label': 'Поділіться враженнями',
   'feedback-collector.enrol-in-research.label': 'Я хочу взяти участь у дослідженні продукту',
@@ -35,6 +37,8 @@ export default {
   'feedback-collector.required.fields.summary': 'Обов’язкові поля позначені зірочкою',
   'feedback-collector.submit-button.label': 'Надіслати відгук',
   'feedback-collector.success-flag.description': 'Ваші відгуки допомагають нам постійно покращувати продукти.',
+  'feedback-collector.success-flag.description-appify':
+    'Ваші цінні відгуки допомагають нам постійно вдосконалювати додатки.',
   'feedback-collector.success-flag.title': 'Дякую!',
   'feedback-collector.summary-placeholder': 'Поділіться враженнями',
   'feedback-collector.validation.description.required': 'Надайте опис',

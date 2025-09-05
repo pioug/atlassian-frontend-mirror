@@ -16,7 +16,6 @@ import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import type { TableLayout } from '@atlaskit/adf-schema';
 import { N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { Table } from './table';
 import { recursivelyInjectProps } from '../../utils/inject-props';
@@ -102,13 +101,7 @@ const FixedTableDiv = (props: FixedProps) => {
 				{
 					'--ak-renderer-sticky-header-zindex': stickyHeaderZIndex,
 					width: `${wrapperWidth}px`,
-					top: fg('sticky_header_in_embedded_confluence_fix')
-						? typeof top === 'number'
-							? `${top}px`
-							: undefined
-						: top
-							? `${top}px`
-							: undefined,
+					top: typeof top === 'number' ? `${top}px` : undefined,
 				} as React.CSSProperties
 			}
 		>

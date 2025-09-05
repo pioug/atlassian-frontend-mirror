@@ -1,11 +1,8 @@
 import React, { type ReactNode, useCallback, useMemo, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { SkipLinksContainer } from '../../components/skip-links/skip-links-container';
 
 import { SkipLinksContext, type SkipLinksContextData } from './skip-links-context';
-import { SkipLinksDataContext } from './skip-links-data-context';
 import { type SkipLinkData } from './types';
 
 const getByDomOrderSortFunction = () => {
@@ -36,7 +33,7 @@ const getByDomOrderSortFunction = () => {
  * Provider for skip links. Should be rendered at the top level of the application.
  *
  * - Provides the context to register/unregister skip links
- * - Renders the skip links container (when the feature flag 'platform_dst_nav4_skip_links_hydration_fix' is enabled)
+ * - Renders the skip links container
  */
 export function SkipLinksProvider({
 	children,
@@ -83,14 +80,8 @@ This error will not be shown in production, and the duplicate skip link will be 
 
 	return (
 		<SkipLinksContext.Provider value={contextValue}>
-			{fg('platform_dst_nav4_skip_links_hydration_fix') ? (
-				<>
-					<SkipLinksContainer label={label} testId={testId} links={links} />
-					{children}
-				</>
-			) : (
-				<SkipLinksDataContext.Provider value={links}>{children}</SkipLinksDataContext.Provider>
-			)}
+			<SkipLinksContainer label={label} testId={testId} links={links} />
+			{children}
 		</SkipLinksContext.Provider>
 	);
 }

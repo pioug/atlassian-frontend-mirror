@@ -97,7 +97,7 @@ export const startDraft =
 			});
 		}
 
-		setInlineCommentDraftState(options.editorAnalyticsAPI)(true)(
+		setInlineCommentDraftState(options.editorAnalyticsAPI, undefined, options.api)(true)(
 			editorView.state,
 			editorView.dispatch,
 		);
@@ -161,7 +161,7 @@ export const clearDraft =
 			};
 		}
 
-		setInlineCommentDraftState(options.editorAnalyticsAPI)(false)(
+		setInlineCommentDraftState(options.editorAnalyticsAPI, undefined, options.api)(false)(
 			editorView.state,
 			editorView.dispatch,
 		);

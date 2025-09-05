@@ -33,6 +33,7 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
@@ -421,7 +422,11 @@ export const TableResizer = ({
 			name: TABLE_OVERFLOW_CHANGE_TRIGGER.RESIZED,
 		});
 
-		if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+		if (
+			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) ||
+			(editorExperiment('platform_editor_toolbar_aifc', true) &&
+				expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true))
+		) {
 			pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('resizing')({ tr });
 		}
 
@@ -601,7 +606,11 @@ export const TableResizer = ({
 				tableRef: null,
 			});
 			tr.setMeta('is-resizer-resizing', false);
-			if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+			if (
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) ||
+				(editorExperiment('platform_editor_toolbar_aifc', true) &&
+					expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true))
+			) {
 				pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 			}
 			const frameRateSamples = endMeasure();

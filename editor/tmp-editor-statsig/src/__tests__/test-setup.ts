@@ -103,6 +103,12 @@ describe('test setup', () => {
 		expect(_overrides).toEqual(expect.objectContaining({ 'example-multivariate-2': 'one' }));
 	});
 
+	it('should not default to true for boolean experiments with NO overrides', () => {
+		// Test setup should override with default boolean of true
+		setupEditorExperiments('test', {}, {}, { disableTestOverrides: true });
+		expect(_overrides).toEqual({});
+	});
+
 	it('should default to false in production setup without test overrides', () => {
 		// Production setup should not override with default boolean of true
 		setupEditorExperiments('confluence');

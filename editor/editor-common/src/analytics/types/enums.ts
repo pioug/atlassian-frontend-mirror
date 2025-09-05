@@ -90,6 +90,7 @@ export enum ACTION {
 	OFFLINE_STORAGE_STEPS_DATABASE_ERROR = 'offlineStorageStepsDatabaseError',
 	OFFLINE_STORAGE_RESYNC_ONLINE = 'offlineStorageResyncOnline',
 	OFFLINE_STORAGE_BROADCAST_CHANNEL_FIRST_UPDATE = 'offlineStorageBroadcastChannelFirstUpdate',
+	OFFLINE_STORAGE_RESTORE_STEPS_INITIATED = 'offlineStorageRestoreStepsInitiated',
 	OPENED = 'opened',
 	OUTDENTED = 'outdented',
 	PASTED = 'pasted',

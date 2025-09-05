@@ -8,6 +8,7 @@ import { css, cssMap, jsx } from '@compiled/react';
 
 import { easeInOut } from '@atlaskit/motion/curves';
 import { durations } from '@atlaskit/motion/durations';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -47,6 +48,7 @@ const scrollStyles = cssMap({
 			maxWidth: maxWidthDimensions,
 			maxHeight: maxHeightDimensions,
 			position: 'absolute',
+			// TODO: When tidying 'platform_dst_modal_dialog_AFBH_1489', add `!important` here:
 			insetBlockStart: `${gutter}px`,
 			insetInlineEnd: 0,
 			insetInlineStart: 0,
@@ -58,6 +60,17 @@ const scrollStyles = cssMap({
 	// Full screen modals only support body scrolling.
 	// We don't need any extra scroll styles for full screen modals.
 	fullScreen: {},
+});
+
+/**
+ * TODO: when tidying this feature gate, add `!important` to `scrollStyles.body`
+ */
+const importantBodyFeatureGateStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 30rem)': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored for AFBH-1489
+		insetBlockStart: `${gutter}px !important`,
+	},
 });
 
 const stackTransitionStyles = css({
@@ -132,6 +145,9 @@ const Positioner = (props: PositionerProps) => {
 				/* We only want to apply transform on modals shifting to the back of the stack. */
 				stackIndex > 0 ? stackTransformStyles : stackIdleStyles,
 				scrollStyles[scrollBehavior],
+				scrollBehavior === 'body' &&
+					fg('platform_dst_modal_dialog_AFBH_1489') &&
+					importantBodyFeatureGateStyles,
 			]}
 			data-testid={testId && `${testId}--positioner`}
 		>

@@ -303,7 +303,11 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 									editorView={editorView}
 									editorAppearance={appearance}
 								/>
-								{customToolbarSlot}
+								{editorExperiment('platform_editor_toolbar_aifc_patch_2', true)
+									? customPrimaryToolbarComponents
+										? customToolbarSlot
+										: null
+									: customToolbarSlot}
 							</React.Fragment>
 						) : (
 							<ToolbarArrowKeyNavigationProvider

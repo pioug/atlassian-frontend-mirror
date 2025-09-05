@@ -44,6 +44,11 @@ export const getToolbarComponents: GetToolbarComponents = ({ api, config }) => {
 			?.map((extension) => migrateSelectionExtensionToMenuItem(extension, api))
 			.filter((extension) => extension !== undefined) || [];
 
+	const externalExtensions =
+		config?.extensions?.external
+			?.map((extension) => migrateSelectionExtensionToMenuItem(extension, api))
+			.filter((extension) => extension !== undefined) || [];
+
 	return [
 		{
 			type: APPS_SECTION.type,
@@ -75,6 +80,7 @@ export const getToolbarComponents: GetToolbarComponents = ({ api, config }) => {
 		},
 		...extensionToolbarComponents,
 		...registerFirstPartyExtensions(api, firstPartyExtensions),
+		...registerExternalExtensions(api, externalExtensions),
 	];
 };
 
@@ -92,6 +98,30 @@ const registerFirstPartyExtensions = (
 				type: 'menu-section',
 				key: SELECTION_EXTENSION_MENU_SECTION.key,
 				rank: 100,
+			},
+		],
+		component: () => {
+			return <MenuItem api={api} extensionMenuItems={extensions} />;
+		},
+	});
+
+	return components;
+};
+
+const registerExternalExtensions = (
+	api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined,
+	extensions: ExtensionMenuItemConfiguration[],
+) => {
+	const components: RegisterComponent[] = [];
+
+	components.push({
+		type: 'menu-item',
+		key: 'external-extensions-menu-item',
+		parents: [
+			{
+				type: 'menu-section',
+				key: SELECTION_EXTENSION_MENU_SECTION.key,
+				rank: 200,
 			},
 		],
 		component: () => {

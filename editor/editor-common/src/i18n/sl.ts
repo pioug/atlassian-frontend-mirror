@@ -104,6 +104,9 @@ export default {
   'fabric.editor.ai.config.item.freeGenerate.disabled.promptHint':
     'Izberite spodaj (prosto generiranje je trenutno onemogočeno v storitvi Elevate)',
   'fabric.editor.ai.config.item.generateContent.promptHint': 'Napišite z AI ali izberite spodaj',
+  'fabric.editor.ai.config.item.generateEscalationNotes.description':
+    'Ustvari opombe o eskalaciji glede na kontekst težave',
+  'fabric.editor.ai.config.item.generateEscalationNotes.title': 'Ustvarite opombe o eskalaciji',
   'fabric.editor.ai.config.item.improveDescription.default.description':
     'Prestrukturirajte opis zadeve glede na vrsto zadeve',
   'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one': 'Izboljšanje opisa',
@@ -218,7 +221,8 @@ export default {
     'Tega zahtevka nismo mogli zaključiti, ker ni v skladu z našim <link>pravilnikom o sprejemljivi uporabi</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Ali želite zavreči poziv?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Ali želite zavreči odgovor?',
-  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Želite izbrisati odgovor?',
+  'fabric.editor.ai.experience.discardStreamingInDocumennt':
+    'Želite preklicati zahtevo in izbrisati ustvarjen odgovor?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'Prosto generiranje je trenutno onemogočeno v storitvi Elevate.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -395,10 +399,13 @@ export default {
   'fabric.editor.annotationToolbar': 'Orodna vrstica za opombe',
   'fabric.editor.backLink': 'Nazaj',
   'fabric.editor.backgroundColor': 'Barva ozadja',
+  'fabric.editor.block.menu.code.block': 'Postavitev',
   'fabric.editor.block.menu.copy.block': 'Kopiraj blok',
   'fabric.editor.block.menu.copy.link': 'Kopiraj povezavo',
+  'fabric.editor.block.menu.delete.block': 'Izbriši',
   'fabric.editor.block.menu.move.down': 'Premakni dol',
   'fabric.editor.block.menu.move.up': 'Premakni gor',
+  'fabric.editor.block.menu.paragraph': 'Odstavek',
   'fabric.editor.blockCardUnavailable': 'Povezava v vrstici je znotraj vozlišča {node} in pogleda ni mogoče spremeniti',
   'fabric.editor.blockControlDelete': 'Izbriši',
   'fabric.editor.blockControlDragHandleMove': 'Povlecite, da premaknete',
@@ -909,9 +916,11 @@ export default {
   'fabric.editor.task': 'Opravilo',
   'fabric.editor.taskDecision.markTaskAsCompleted': 'Označi opravilo kot dokončano',
   'fabric.editor.taskDecision.markTaskAsNotCompleted': 'Označi opravilo kot nedokončano',
+  'fabric.editor.taskList': 'Seznam opravil',
   'fabric.editor.taskPlaceholder': "Vnesite dejanje in uporabite '@', da ga dodelite nekomu.",
   'fabric.editor.text.formatting.off': 'Oblikovanje besedila je izklopljeno',
   'fabric.editor.textColor': '{selectedColorName} barva besedila',
+  'fabric.editor.textColorHighlightTooltip': 'Barva besedila in označevanja',
   'fabric.editor.textColorTooltip': 'Barva besedila',
   'fabric.editor.textFormat': 'Oblikovanje besedila',
   'fabric.editor.textFormatting': 'Oblikovanje besedila',

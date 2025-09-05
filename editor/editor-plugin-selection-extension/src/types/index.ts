@@ -130,7 +130,7 @@ export type SelectionExtensionPluginState = {
 		coords: SelectionExtensionCoords;
 		// NEXT PR: extension should become optional
 		// extension?: SelectionExtension;
-		extension: SelectionExtension;
+		extension: SelectionExtension | ExtensionMenuItemConfiguration;
 		// NEXT PR: content component will be needed to render the new selected extension
 		// contentComponent?: React.ComponentType<SelectionExtensionComponentProps>;
 		selection: SelectionExtensionSelectionInfo;
@@ -196,7 +196,7 @@ export type ExtensionToolbarItemConfiguration = {
 
 export type ExtensionMenuItemConfiguration = {
 	contentComponent?: React.ComponentType<SelectionExtensionComponentProps>;
-	icon: React.ComponentType<React.PropsWithChildren<{ label: string }>>;
+	icon: React.ComponentType<React.PropsWithChildren<{ label: string; size?: 'small' | 'medium' }>>;
 	isDisabled?: boolean;
 	label: string;
 	onClick?: () => void;

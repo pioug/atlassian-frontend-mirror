@@ -23,6 +23,7 @@ import set from 'lodash/set';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type OnSubmitHandler } from './types';
+import { getFirstErrorField } from './utils';
 
 type DefaultValue<FieldValue> = (value?: FieldValue) => FieldValue;
 
@@ -141,8 +142,9 @@ export default function Form<FormValues extends Record<string, any> = {}>(
 			},
 		});
 
-		createDecorator<FormValues>(() =>
-			formRef.current ? Array.from(formRef.current.querySelectorAll('input')) : [],
+		createDecorator<FormValues>(
+			() => (formRef.current ? Array.from(formRef.current.querySelectorAll('input')) : []),
+			fg('platform-form-field-error-focus') ? getFirstErrorField : undefined,
 		)(finalForm);
 
 		return finalForm;
@@ -186,7 +188,6 @@ export default function Form<FormValues extends Record<string, any> = {}>(
 		if (e) {
 			e.preventDefault();
 		}
-
 		form.submit();
 	};
 

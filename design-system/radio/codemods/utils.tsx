@@ -238,19 +238,21 @@ export const createRenameFuncFor =
 			});
 		});
 
-		let variable = hasVariableAssignment(j, source, specifier);
-		if (variable) {
-			(variable as Collection<VariableDeclaration>)
-				.find(j.VariableDeclarator)
-				.forEach((declarator) => {
-					j(declarator)
-						.find(j.Identifier)
-						.filter((identifier) => identifier.name === 'id')
-						.forEach((ids) => {
-							findIdentifierAndReplaceAttribute(j, source, ids.node.name, from, to);
-						});
-				});
-		}
+		// Ignoring this because it's causing false positives for the radio rename initiative
+
+		// let variable = hasVariableAssignment(j, source, specifier);
+		// if (variable) {
+		// 	(variable as Collection<VariableDeclaration>)
+		// 		.find(j.VariableDeclarator)
+		// 		.forEach((declarator) => {
+		// 			j(declarator)
+		// 				.find(j.Identifier)
+		// 				.filter((identifier) => identifier.name === 'id')
+		// 				.forEach((ids) => {
+		// 					findIdentifierAndReplaceAttribute(j, source, ids.node.name, from, to);
+		// 				});
+		// 		});
+		// }
 	};
 
 export const createRemoveFuncFor =

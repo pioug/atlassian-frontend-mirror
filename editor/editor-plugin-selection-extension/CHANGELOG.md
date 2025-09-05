@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 4.2.1
+
+### Patch Changes
+
+- [`57592deee923b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57592deee923b) -
+  [ux] ED-29142 [Selection Extension] Support forge apps
+- Updated dependencies
+
+## 4.2.0
+
+### Minor Changes
+
+- [`555ac8f256674`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/555ac8f256674) -
+  Update menu item icon size to small, tweak paddings and font styles
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.2
 
 ### Patch Changes

@@ -71,7 +71,7 @@ export const OutdentMenuItem = ({
 
 	return (
 		<ToolbarDropdownItem
-			elemBefore={<OutdentIcon label="" />}
+			elemBefore={<OutdentIcon size="small" label="" />}
 			elemAfter={shortcut ? <ToolbarKeyboardShortcutHint shortcut={shortcut} /> : undefined}
 			isDisabled={indentationState?.outdentDisabled}
 			ariaKeyshortcuts={shortcut}

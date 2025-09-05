@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "12.4.1",
+	"version": "12.5.1",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -131,6 +131,9 @@
 			"type": "boolean"
 		},
 		"platform_design-system-team_checkbox-field-spread": {
+			"type": "boolean"
+		},
+		"platform-form-field-error-focus": {
 			"type": "boolean"
 		}
 	}

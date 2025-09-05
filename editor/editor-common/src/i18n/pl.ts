@@ -104,6 +104,9 @@ export default {
   'fabric.editor.ai.config.item.freeGenerate.disabled.promptHint':
     'Wybierz z poniższych opcji (samodzielnie generowane polecenia są obecnie wyłączone w Elevate)',
   'fabric.editor.ai.config.item.generateContent.promptHint': 'Napisz za pomocą AI lub wybierz jedną z poniższych opcji',
+  'fabric.editor.ai.config.item.generateEscalationNotes.description':
+    'Generuje notatki dotyczące eskalacji na podstawie kontekstu zgłoszenia',
+  'fabric.editor.ai.config.item.generateEscalationNotes.title': 'Generuj notatki dotyczące eskalacji',
   'fabric.editor.ai.config.item.improveDescription.default.description':
     'Zmień strukturę opisu zgłoszenia na podstawie typu zgłoszenia.',
   'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one': 'Popraw opis',
@@ -232,7 +235,7 @@ export default {
     'Nie można zrealizować tego wniosku, ponieważ nie jest on zgodny z naszymi <link>Zasadami dopuszczalnego użytkowania</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Czy chcesz odrzucić podpowiedź?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Czy chcesz odrzucić odpowiedź?',
-  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Usunąć odpowiedź?',
+  'fabric.editor.ai.experience.discardStreamingInDocumennt': 'Anulować wniosek i usunąć wygenerowaną odpowiedź?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'Samodzielnie generowane podpowiedzi są obecnie wyłączone w Elevate.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -314,10 +317,13 @@ export default {
   'fabric.editor.annotationToolbar': 'Pasek narzędzi adnotacji',
   'fabric.editor.backLink': 'Wróć',
   'fabric.editor.backgroundColor': 'Kolor tła',
+  'fabric.editor.block.menu.code.block': 'Układ',
   'fabric.editor.block.menu.copy.block': 'Kopiuj blok',
   'fabric.editor.block.menu.copy.link': 'Kopiuj łącze',
+  'fabric.editor.block.menu.delete.block': 'Usuń',
   'fabric.editor.block.menu.move.down': 'Przenieś w dół',
   'fabric.editor.block.menu.move.up': 'Przenieś w górę',
+  'fabric.editor.block.menu.paragraph': 'Akapit',
   'fabric.editor.blockCardUnavailable':
     'Łącze bezpośrednio w tekście jest wewnątrz węzła {node} i nie można zmienić jego widoku',
   'fabric.editor.blockControlDelete': 'Usuń',
@@ -848,9 +854,11 @@ export default {
   'fabric.editor.task': 'Zadanie',
   'fabric.editor.taskDecision.markTaskAsCompleted': 'Oznacz zadanie jako ukończone',
   'fabric.editor.taskDecision.markTaskAsNotCompleted': 'Oznacz zadanie jako nieukończone',
+  'fabric.editor.taskList': 'Lista zadań',
   'fabric.editor.taskPlaceholder': 'Wprowadź swoją akcję, użyj „@”, aby przypisać ją do użytkownika.',
   'fabric.editor.text.formatting.off': 'Formatowanie tekstu wył.',
   'fabric.editor.textColor': 'Kolor tekstu: {selectedColorName}',
+  'fabric.editor.textColorHighlightTooltip': 'Kolor tekstu i wyróżnienia',
   'fabric.editor.textColorTooltip': 'Kolor tekstu',
   'fabric.editor.textFormat': 'Formatuj tekst',
   'fabric.editor.textFormatting': 'Formatowanie tekstu',

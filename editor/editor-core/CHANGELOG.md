@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 211.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 211.2.5
+
+### Patch Changes
+
+- [`98e68957ca04d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98e68957ca04d) -
+  [ux] ED-29186 Update responsiveness breakpoints to accommodate Jira and comment editor toolbar
+- Updated dependencies
+
 ## 211.2.4
 
 ### Patch Changes

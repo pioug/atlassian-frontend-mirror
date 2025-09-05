@@ -85,7 +85,7 @@ const MenuItemComponent = React.forwardRef<HTMLElement, Props>(
 
 		return (
 			<ToolbarDropdownItem
-				elemBefore={<LoomIcon label="" />}
+				elemBefore={<LoomIcon size="small" label="" />}
 				isDisabled={disabled}
 				href={href}
 				target={target}

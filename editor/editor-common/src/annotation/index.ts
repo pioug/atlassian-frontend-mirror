@@ -46,6 +46,8 @@ type AnnotationByMatches = {
 
 // type ActionResult = { step: Step; doc: JSONDocNode } | false;
 export type ActionResult = {
+	/** The list of types of all nodes, which wrap the annotation. */
+	ancestorNodeTypes?: string[];
 	doc: JSONDocNode;
 	/** The list of types of all inline nodes, which were wrapped by annotation. */
 	inlineNodeTypes?: string[];

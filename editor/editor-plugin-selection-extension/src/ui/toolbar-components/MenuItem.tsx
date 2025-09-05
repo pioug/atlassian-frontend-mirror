@@ -56,7 +56,7 @@ export const MenuItem = ({ extensionMenuItems, api }: MenuItemProps) => {
 				return (
 					<ToolbarDropdownItem
 						key={extension.label}
-						elemBefore={<Icon label="" />}
+						elemBefore={<Icon size="small" label="" />}
 						onClick={onClickHandle(extension)}
 						isDisabled={extension.isDisabled}
 					>

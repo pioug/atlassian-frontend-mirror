@@ -416,7 +416,7 @@ export default function ProfilecardTriggerNext({
 	if (fg('enable_absolute_positioning_profile_card')) {
 		return (
 			<>
-				<Box xcss={styles.profileCardTrigger}>
+				<Box as="span" xcss={styles.profileCardTrigger}>
 					<Popup
 						isOpen={!!visible}
 						onClose={(event: React.KeyboardEvent) => {

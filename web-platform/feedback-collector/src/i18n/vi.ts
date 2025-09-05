@@ -12,6 +12,8 @@ export default {
   'feedback-collector.anonymous.title': 'Phản hồi ẩn danh',
   'feedback-collector.can-be-contacted.label':
     'Có, đội ngũ Atlassian có thể liên hệ với tôi để tìm hiểu thêm về trải nghiệm của tôi nhằm cải thiện các sản phẩm và dịch vụ của Atlassian. Tôi công nhận <a>Chính sách Quyền riêng tư của Atlassian</a>.',
+  'feedback-collector.can-be-contacted.label-appify':
+    'Có, các đội ngũ Atlassian có thể liên hệ để tìm hiểu về trải nghiệm của tôi cho mục đích cải thiện các ứng dụng và dịch vụ của Atlassian. Tôi công nhận <a>Chính sách quyền riêng tư của Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Hủy',
   'feedback-collector.default.custom.textarea.label': 'Bạn đang nghĩ gì?',
   'feedback-collector.enrol-in-research.label': 'Tôi muốn tham gia vào việc tìm kiếm sản phẩm',
@@ -36,6 +38,8 @@ export default {
   'feedback-collector.submit-button.label': 'Gửi phản hồi',
   'feedback-collector.success-flag.description':
     'Ý kiến phản hồi quý báu của bạn giúp chúng tôi liên tục cải tiến sản phẩm.',
+  'feedback-collector.success-flag.description-appify':
+    'Nhờ ý kiến phản hồi quý báu của bạn, chúng tôi có thể liên tục cải tiến ứng dụng.',
   'feedback-collector.success-flag.title': 'Cảm ơn bạn!',
   'feedback-collector.summary-placeholder': 'Hãy cho chúng tôi biết suy nghĩ của bạn',
   'feedback-collector.validation.description.required': 'Vui lòng cung cấp mô tả',

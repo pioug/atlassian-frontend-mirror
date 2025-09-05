@@ -12,6 +12,8 @@ export default {
   'feedback-collector.anonymous.title': 'Anonyymi palaute',
   'feedback-collector.can-be-contacted.label':
     'Kyllä, Atlassian-tiimit voivat ottaa minuun yhteyttä ja pyytää lisätietoja kokemuksistani Atlassian-tuotteiden ja ‑palveluiden parantamista varten. Hyväksyn <a>Atlassianin tietosuojakäytännön</a>.',
+  'feedback-collector.can-be-contacted.label-appify':
+    'Kyllä, Atlassian-tiimit voivat ottaa minuun yhteyttä ja pyytää lisätietoja kokemuksistani Atlassian-sovellusten ja ‑palveluiden parantamista varten. Hyväksyn <a>Atlassianin tietosuojakäytännön</a>.',
   'feedback-collector.cancel-button.label': 'Peruuta',
   'feedback-collector.default.custom.textarea.label': 'Mitä mietit?',
   'feedback-collector.enrol-in-research.label': 'Haluan osallistua tuotetutkimukseen',
@@ -36,6 +38,8 @@ export default {
   'feedback-collector.submit-button.label': 'Lähetä palaute',
   'feedback-collector.success-flag.description':
     'Arvokkaan palautteesi avulla voimme jatkuvasti parantaa tuotteitamme.',
+  'feedback-collector.success-flag.description-appify':
+    'Voimme jatkuvasti parantaa sovelluksiamme arvokkaan palautteesi avulla.',
   'feedback-collector.success-flag.title': 'Kiitos!',
   'feedback-collector.summary-placeholder': 'Kerro meille, mitä sinulla on mielessä',
   'feedback-collector.validation.description.required': 'Anna kuvaus',

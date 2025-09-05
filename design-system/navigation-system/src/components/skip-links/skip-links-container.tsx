@@ -2,11 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useMemo } from 'react';
+
 import { cssMap, jsx } from '@atlaskit/css';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { useSortedSkipLinks } from '../../context/skip-links/skip-links-data-context';
 import { type SkipLinkData } from '../../context/skip-links/types';
 
 import { SkipLink } from './skip-link';
@@ -73,6 +74,40 @@ const closeOnEscape = (event: React.KeyboardEvent) => {
 	}
 };
 
+const assignIndex = (num: number, arr: number[]): number => {
+	if (!arr.includes(num)) {
+		return num;
+	}
+	return assignIndex(num + 1, arr);
+};
+
+/**
+ * Sorts an array of skip links by list indexes.
+ *
+ * Skip links with custom list indexes are positioned first, followed by regular skip links,
+ * which are automatically assigned available index positions to avoid conflicts.
+ */
+function sortSkipLinks(arr: Array<SkipLinkData>): Array<SkipLinkData> {
+	const customLinks = arr.filter((link: SkipLinkData) => Number.isInteger(link.listIndex));
+	if (customLinks.length === 0) {
+		return arr;
+	}
+
+	const usedIndexes = customLinks.map((a) => a.listIndex) as number[];
+
+	const regularLinksWithIndex = arr
+		.filter((link) => link.listIndex === undefined)
+		.map((link, index) => {
+			const listIndex = assignIndex(index, usedIndexes);
+			usedIndexes.push(listIndex);
+			return {
+				...link,
+				listIndex,
+			};
+		});
+	return [...customLinks, ...regularLinksWithIndex].sort((a, b) => a.listIndex! - b.listIndex!);
+}
+
 const isOnlyWhitespaceRegex = /^\s*$/;
 
 /**
@@ -95,7 +130,9 @@ export function SkipLinksContainer({
 	testId?: string;
 	links: Array<SkipLinkData>;
 }) {
-	const sortedLinks = useSortedSkipLinks(links);
+	const sortedLinks = useMemo(() => {
+		return sortSkipLinks(links);
+	}, [links]);
 
 	if (sortedLinks.length === 0) {
 		return null;

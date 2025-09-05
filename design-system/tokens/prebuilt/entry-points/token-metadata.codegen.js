@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::2f0d0ffb7abcc77f7b99efa4241047a4>>
+ * @codegen <<SignedSource::8f8418aa1d6ba188bbe4113e52db79c6>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2233,6 +2233,11 @@ var tokens = exports.tokens = [{
   path: ['radius', 'full'],
   description: 'Used for circular containers, like a rounded button.',
   exampleValue: '624.9375rem'
+}, {
+  name: 'radius.tile',
+  path: ['radius', 'tile'],
+  description: 'Used for tiles only.',
+  exampleValue: '25%'
 }, {
   name: 'border.radius',
   path: ['border', 'radius', '[default]'],

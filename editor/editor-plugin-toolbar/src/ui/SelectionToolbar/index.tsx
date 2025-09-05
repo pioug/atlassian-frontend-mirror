@@ -116,6 +116,9 @@ export const SelectionToolbar = ({
 		!shouldShowToolbar ||
 		(currentUserIntent === 'blockMenuOpen' &&
 			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) ||
+		(currentUserIntent &&
+			currentUserIntent !== 'default' &&
+			expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true)) ||
 		isSSR()
 	) {
 		return null;

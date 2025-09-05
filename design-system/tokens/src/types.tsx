@@ -1157,6 +1157,7 @@ export interface ShapeTokenSchema<BaseToken> {
 		large: ShapeToken<BaseToken>;
 		xlarge: ShapeToken<BaseToken>;
 		full: ShapeToken<BaseToken>;
+		tile: ShapeToken<BaseToken>;
 	};
 }
 

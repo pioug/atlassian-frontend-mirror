@@ -104,6 +104,9 @@ export default {
   'fabric.editor.ai.config.item.freeGenerate.disabled.promptHint':
     'Odaberi u nastavku (besplatno generiranje je trenutno onemogućeno u Elevateu)',
   'fabric.editor.ai.config.item.generateContent.promptHint': 'Piši pomoću AI ili odaberi u nastavku',
+  'fabric.editor.ai.config.item.generateEscalationNotes.description':
+    'Stvara bilješke o eskalaciji ovisno o kontekstu problema',
+  'fabric.editor.ai.config.item.generateEscalationNotes.title': 'Stvori bilješke o eskalaciji',
   'fabric.editor.ai.config.item.improveDescription.default.description':
     'Ponovno strukturiraj opis pitanja na temelju vrste pitanja',
   'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one': 'Poboljšaj opis',
@@ -214,7 +217,7 @@ export default {
     'Nismo mogli dovršiti taj zahtjev jer nije u skladu s našim <link>Pravilima o prihvatljivoj upotrebi</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Želiš li odbaciti svoj upit?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Želiš li odbaciti svoj odgovor?',
-  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Izbrisati odgovor?',
+  'fabric.editor.ai.experience.discardStreamingInDocumennt': 'Otkaži zahtjev i izbriši generirani odgovor?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     'Besplatno generiranje trenutno je onemogućeno u Elevateu.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -391,10 +394,13 @@ export default {
   'fabric.editor.annotationToolbar': 'Alatna traka za bilješke',
   'fabric.editor.backLink': 'Idi natrag',
   'fabric.editor.backgroundColor': 'Boja pozadine',
+  'fabric.editor.block.menu.code.block': 'Izgled',
   'fabric.editor.block.menu.copy.block': 'Kopiraj blok',
   'fabric.editor.block.menu.copy.link': 'Kopiraj poveznicu',
+  'fabric.editor.block.menu.delete.block': 'Izbriši',
   'fabric.editor.block.menu.move.down': 'Premjesti dolje',
   'fabric.editor.block.menu.move.up': 'Premjesti gore',
+  'fabric.editor.block.menu.paragraph': 'Odlomak',
   'fabric.editor.blockCardUnavailable':
     'Ugrađena poveznica nalazi se unutar {node} i ne može se promijeniti njezin prikaz',
   'fabric.editor.blockControlDelete': 'Izbriši',
@@ -910,9 +916,11 @@ export default {
   'fabric.editor.task': 'Zadatak',
   'fabric.editor.taskDecision.markTaskAsCompleted': 'Označi zadatak kao dovršen',
   'fabric.editor.taskDecision.markTaskAsNotCompleted': 'Označi da zadatak nije dovršen',
+  'fabric.editor.taskList': 'Popis zadataka',
   'fabric.editor.taskPlaceholder': "Upiši svoju radnju, upotrijebi '@' za dodjelu nekome.",
   'fabric.editor.text.formatting.off': 'Formatiranje teksta isključeno',
   'fabric.editor.textColor': '{selectedColorName} Boja teksta',
+  'fabric.editor.textColorHighlightTooltip': 'Tekst i istakni boju',
   'fabric.editor.textColorTooltip': 'Boja teksta',
   'fabric.editor.textFormat': 'Formatiraj tekst',
   'fabric.editor.textFormatting': 'Formatiranje teksta',

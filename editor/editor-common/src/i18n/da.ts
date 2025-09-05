@@ -107,6 +107,9 @@ export default {
   'fabric.editor.ai.config.item.freeGenerate.disabled.promptHint':
     'Vælg mellem nedenstående (fri generering er deaktiveret i Elevate i øjeblikket)',
   'fabric.editor.ai.config.item.generateContent.promptHint': 'Skriv med AI, eller vælg en af mulighederne herunder',
+  'fabric.editor.ai.config.item.generateEscalationNotes.description':
+    'Genererer eskaleringsnoter baseret på sagens kontekst',
+  'fabric.editor.ai.config.item.generateEscalationNotes.title': 'Generer eskaleringsnoter',
   'fabric.editor.ai.config.item.improveDescription.default.description':
     'Omstrukturer sagsbeskrivelsen baseret på sagstypen',
   'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one': 'Forbedr beskrivelsen',
@@ -218,7 +221,8 @@ export default {
     'Vi kunne ikke fuldføre anmodningen, fordi den ikke overholder vores <link>politik for acceptabel brug</link>.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Vil du kassere din prompt?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Vil du kassere dit svar?',
-  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Slet svar?',
+  'fabric.editor.ai.experience.discardStreamingInDocumennt':
+    'Vil du annullere anmodningen og slette det genererede svar?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError': 'Fri generering er deaktiveret i Elevate i øjeblikket.',
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Nu kan du indsætte links 🔗 til Jira- og Confluence-indhold i dine prompter.',
@@ -298,7 +302,13 @@ export default {
   'fabric.editor.annotationToolbar': 'Værktøjslinje til annotationer',
   'fabric.editor.backLink': 'Gå tilbage',
   'fabric.editor.backgroundColor': 'Baggrundsfarve',
+  'fabric.editor.block.menu.code.block': 'Layout',
+  'fabric.editor.block.menu.copy.block': 'Kopiér blok',
   'fabric.editor.block.menu.copy.link': 'Kopiér link',
+  'fabric.editor.block.menu.delete.block': 'Slet',
+  'fabric.editor.block.menu.move.down': 'Flyt ned',
+  'fabric.editor.block.menu.move.up': 'Flyt op',
+  'fabric.editor.block.menu.paragraph': 'Afsnit',
   'fabric.editor.blockCardUnavailable': 'Det indbyggede link er inden i {node}, og dets visning kan ikke ændres',
   'fabric.editor.blockControlDelete': 'Slet',
   'fabric.editor.blockControlDragHandleMove': 'Træk for at flytte',
@@ -818,9 +828,11 @@ export default {
   'fabric.editor.task': 'Opgave',
   'fabric.editor.taskDecision.markTaskAsCompleted': 'Markér opgaven som fuldført',
   'fabric.editor.taskDecision.markTaskAsNotCompleted': 'Markér opgaven som ikke fuldført',
+  'fabric.editor.taskList': 'Opgaveliste',
   'fabric.editor.taskPlaceholder': 'Indtast din handling, og brug "@" for at tildele til nogen.',
   'fabric.editor.text.formatting.off': 'Tekstformatering fra',
   'fabric.editor.textColor': '{selectedColorName} tekstfarve',
+  'fabric.editor.textColorHighlightTooltip': 'Farve på tekst og fremhævning',
   'fabric.editor.textColorTooltip': 'Tekstfarve',
   'fabric.editor.textFormat': 'Formatér tekst',
   'fabric.editor.textFormatting': 'Tekstformatering',

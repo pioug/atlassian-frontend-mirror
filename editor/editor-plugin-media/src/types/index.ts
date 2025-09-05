@@ -65,6 +65,7 @@ export interface MediaPluginOptions {
 	altTextValidator?: (value: string) => string[];
 	customDropzoneContainer?: HTMLElement;
 	customMediaPicker?: CustomMediaPicker;
+	disableQuickInsert?: boolean;
 	editorAppearance?: EditorAppearance;
 	editorSelectionAPI?: EditorSelectionAPI;
 	enableDownloadButton?: boolean;

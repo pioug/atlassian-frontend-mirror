@@ -45,7 +45,7 @@ export const BulletedListMenuItem = ({ api, parents }: BulletedListMenuItemType)
 
 	return (
 		<ToolbarDropdownItem
-			elemBefore={<ListBulletedIcon label="" />}
+			elemBefore={<ListBulletedIcon size="small" label="" />}
 			elemAfter={shortcut ? <ToolbarKeyboardShortcutHint shortcut={shortcut} /> : undefined}
 			isSelected={bulletListActive}
 			isDisabled={bulletListDisabled}

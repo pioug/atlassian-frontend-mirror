@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::70683a619511de03d801680b44fe3e86>>
+ * @codegen <<SignedSource::9f7396048d77a42862f986e9f2aa144e>>
  * @codegenCommand yarn build tokens
  */
 var tokens = [{
@@ -153,6 +153,28 @@ var tokens = [{
   "name": "radius.full",
   "path": ["radius", "full"],
   "cleanName": "radius.full"
+}, {
+  "attributes": {
+    "group": "shape",
+    "state": "active",
+    "introduced": "6.2.0",
+    "description": "Used for tiles only."
+  },
+  "value": "25%",
+  "filePath": "schema/themes/atlassian-shape-rounder/shape.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "shape",
+      "state": "active",
+      "introduced": "6.2.0",
+      "description": "Used for tiles only."
+    },
+    "value": "RadiusPercentage25"
+  },
+  "name": "radius.tile",
+  "path": ["radius", "tile"],
+  "cleanName": "radius.tile"
 }, {
   "attributes": {
     "group": "shape",

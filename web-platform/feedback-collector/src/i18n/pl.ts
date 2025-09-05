@@ -12,6 +12,8 @@ export default {
   'feedback-collector.anonymous.title': 'Opinia anonimowa',
   'feedback-collector.can-be-contacted.label':
     'Tak, zespoły Atlassian mogą się ze mną kontaktować, aby poznać moją opinię i na jej podstawie ulepszać produkty oraz usługi Atlassian. Potwierdzam, że znam <a>Politykę prywatności Atlassian</a>.',
+  'feedback-collector.can-be-contacted.label-appify':
+    'Tak, zespoły Atlassian mogą się ze mną kontaktować, aby poznać moją opinię i na jej podstawie ulepszać aplikacje oraz usługi Atlassian. Potwierdzam, że znam <a>Politykę prywatności Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Anuluj',
   'feedback-collector.default.custom.textarea.label': 'Jakie spostrzeżenia chcesz przekazać?',
   'feedback-collector.enrol-in-research.label': 'Chcę uczestniczyć w badaniach nad produktem',
@@ -36,6 +38,8 @@ export default {
   'feedback-collector.submit-button.label': 'Prześlij opinię',
   'feedback-collector.success-flag.description':
     'Wartościowe opinie użytkowników pomagają nam stale doskonalić nasze produkty.',
+  'feedback-collector.success-flag.description-appify':
+    'Wartościowe opinie użytkowników pomagają nam stale doskonalić nasze aplikacje.',
   'feedback-collector.success-flag.title': 'Dziękuję!',
   'feedback-collector.summary-placeholder': 'Poinformuj nas, w czym problem',
   'feedback-collector.validation.description.required': 'Podaj opis',

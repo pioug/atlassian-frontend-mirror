@@ -403,7 +403,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 
 		pluginsOptions: {
 			quickInsert: ({ formatMessage }) =>
-				fg('platform_editor_add_media_from_url_rollout')
+				fg('platform_editor_add_media_from_url_rollout') || options?.disableQuickInsert
 					? []
 					: [
 							{

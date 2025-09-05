@@ -107,11 +107,6 @@ export const getToolbarComponents = (
 						parents: [
 							{
 								type: 'toolbar' as const,
-								key: TOOLBARS.INLINE_TEXT_TOOLBAR,
-								rank: TOOLBAR_RANK[TEXT_SECTION_COLLAPSED.key],
-							},
-							{
-								type: 'toolbar' as const,
 								key: TOOLBARS.PRIMARY_TOOLBAR,
 								rank: TOOLBAR_RANK[TEXT_SECTION_COLLAPSED.key],
 							},

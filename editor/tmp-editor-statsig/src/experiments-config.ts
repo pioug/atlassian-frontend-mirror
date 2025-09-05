@@ -436,7 +436,7 @@ export const editorExperimentsConfig = {
 			confluence: 'platform_editor_ai_iw_adf_streaming',
 		},
 		param: 'cohort',
-		values: ['control', 'adf', 'adf_personalisation'],
+		values: ['control', 'adf_gemini25flash', 'adf_gpt41mini'],
 		defaultValue: 'control',
 	}),
 	// Added 2025-06-18
@@ -448,12 +448,13 @@ export const editorExperimentsConfig = {
 		defaultValue: false,
 	}),
 	// Added 2025-08-20
-	platform_editor_ai_non_iw_adf_streaming: createBooleanExperiment({
+	platform_editor_ai_non_iw_adf_streaming: createMultivariateExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_non_iw_adf_streaming',
 		},
-		param: 'isEnabled',
-		defaultValue: false,
+		param: 'cohort',
+		values: ['control', 'adf_gemini25flash', 'adf_gpt41mini'],
+		defaultValue: 'control',
 	}),
 	// Added 2025-07-07
 	platform_editor_ai_remove_trivial_prompts_cc: createBooleanExperiment({

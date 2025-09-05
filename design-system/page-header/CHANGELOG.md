@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 12.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.4
 
 ### Patch Changes

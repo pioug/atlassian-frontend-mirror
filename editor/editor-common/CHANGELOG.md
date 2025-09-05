@@ -1,5 +1,44 @@
 # @atlaskit/editor-common
 
+## 108.5.1
+
+### Patch Changes
+
+- [`fe1807a838060`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe1807a838060) -
+  NOISSUE - Add OFFLINE_STORAGE_RESTORE_STEPS_INITIATED enum to analytics.
+- Updated dependencies
+
+## 108.5.0
+
+### Minor Changes
+
+- [`a8630c1107c3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8630c1107c3d) -
+  [ED-28781] Hide inline text toolbar when other popups are open
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.4.0
+
+### Minor Changes
+
+- [`d9be3a6937275`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9be3a6937275) -
+  Add the list of ancestor node types to the result of applyAnnotation, to make it easier to debug
+  comments errors
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.3.1
+
+### Patch Changes
+
+- [`475f52383eb41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/475f52383eb41) -
+  [ux] EDITOR-1472 - refine document streaming scroll
+- Updated dependencies
+
 ## 108.3.0
 
 ### Minor Changes

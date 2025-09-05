@@ -18,7 +18,7 @@ const styles = cssMap({
 		borderRadius: token('radius.small'),
 		minHeight: '28px',
 		color: token('color.text.subtle'),
-		fontWeight: token('font.weight.medium'),
+		font: token('font.body'),
 		paddingLeft: token('space.100'),
 		paddingRight: token('space.100'),
 		'&:focus-visible': {

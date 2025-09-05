@@ -96,7 +96,7 @@ const Bleed = React.memo(({ children, testId, inline, block, all, xcss }: BleedP
 				baseStyles,
 				(inline || all) && inlineBleedMap[(inline || all) as Space],
 				(block || all) && blockBleedMap[(block || all) as Space],
-				resolvedStyles.emotion,
+				...(resolvedStyles.emotion || []),
 			]}
 			data-testid={testId}
 		>

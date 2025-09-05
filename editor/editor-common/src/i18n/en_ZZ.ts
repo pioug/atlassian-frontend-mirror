@@ -285,7 +285,8 @@ export default {
     "⁣⁢We couldn’t complete that request because it doesn't comply with our <link>Acceptable Use Policy</link>.⁪⁫‍‍⁭⁭‍⁭⁫⁬⁯⁬⁡‌⁭⁬‍⁠⁫⁠؜⁫⁣⁤",
   'fabric.editor.ai.experience.discardMessagePrompt': '⁣⁢Do you want to discard your prompt?؜‌⁯⁯⁪⁯⁮⁫⁫؜⁪⁬⁬⁬‌⁪⁬؜⁠⁬‌⁪⁣⁤',
   'fabric.editor.ai.experience.discardMessageResponse': '⁣⁢Do you want to discard your response?⁠⁡⁠‌⁡⁬‌⁮⁠؜‌⁭⁬⁡‌⁪⁠⁡⁭⁭⁣⁤',
-  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': '⁣⁢Delete response?⁭⁡⁬⁪‍؜‍⁠‍⁮⁠؜⁪‌⁠⁮⁠⁡⁬⁯⁪⁣⁤',
+  'fabric.editor.ai.experience.discardStreamingInDocumennt':
+    '⁣⁢Cancel request and discard response?⁠⁯‍‌⁠⁫⁪⁯‌⁮⁡⁡⁬⁭⁪‌‌⁯⁪⁡⁡⁯⁠⁣⁤',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     '⁣⁢Free generate is disabled in Elevate at this time.⁠⁯⁬⁮⁫⁬؜⁯⁫⁯‍‍⁮⁯⁫‍⁫⁭‍⁭⁡⁮⁣⁤',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -496,6 +497,7 @@ export default {
   'fabric.editor.annotationToolbar': '⁣⁢Annotation toolbar⁯؜‌⁭⁫⁬⁠‍⁡⁬⁮⁭⁯⁠⁠⁡⁪‌⁫⁠‌⁫⁯⁣⁤',
   'fabric.editor.backLink': '⁣⁢Go back‍⁡⁮⁬⁭⁫⁭⁠⁠⁭⁬⁫‍⁠⁯⁡‌⁠⁠؜⁪⁭⁣⁤',
   'fabric.editor.backgroundColor': '⁣⁢Background color⁪‍⁫⁬⁯⁬⁪⁯‍⁬⁭⁪؜⁭⁬⁪‍⁮⁫⁬⁯⁡⁣⁤',
+  'fabric.editor.block.menu.code.block': '⁣⁢Layout⁮‌‍‌⁬⁠⁭⁠⁡⁯؜⁡⁯⁯⁡‍⁯⁯⁮⁮‌⁮⁣⁤',
   'fabric.editor.block.menu.copy.block': '⁣⁢Copy block⁫⁪⁠⁡‍‌⁭؜⁪⁠⁮⁡⁭⁫⁡‍؜؜‌‌⁫⁣⁤',
   'fabric.editor.block.menu.copy.link': '⁣⁢Copy link⁪⁮⁯⁭⁭⁠⁪⁫⁯‍⁮⁪⁯؜‍⁫‍‌⁮⁬‍‌⁣⁤',
   'fabric.editor.block.menu.delete.block': '⁣⁢Delete‌⁡⁪⁠‌⁭⁫⁯⁮⁪؜‌‌‍⁫⁪⁠⁣⁤',
@@ -1044,6 +1046,7 @@ export default {
   'fabric.editor.task': '⁣⁢Task⁮‍؜⁯⁮‌؜⁬⁮‌‌⁪⁭⁠⁬⁠⁡⁮‍؜⁭⁯⁭‍⁠⁬⁣⁤',
   'fabric.editor.taskDecision.markTaskAsCompleted': '⁣⁢Mark task as completed⁪⁭⁭⁬⁭⁪؜⁠⁫⁫⁮⁫⁪⁪⁡⁭‌⁠⁯‌⁬⁣⁤',
   'fabric.editor.taskDecision.markTaskAsNotCompleted': '⁣⁢Mark task as not completed⁪⁡⁪⁯‍⁡⁡⁪⁠⁪‍⁫⁡⁡⁭⁭⁫⁠⁡⁮⁣⁤',
+  'fabric.editor.taskList': '⁣⁢Task list⁫⁫⁡‌؜‍⁮‌‍؜‌⁬⁭‌‌⁠⁫⁮‍؜⁣⁤',
   'fabric.editor.taskPlaceholder': "⁣⁢Type your action, use '@' to assign to someone.⁡⁭⁫⁠⁡‌⁫⁠⁯⁪⁫⁡⁭⁬⁡‍⁬⁯⁭⁫⁫⁪‍⁭⁣⁤",
   'fabric.editor.text.formatting.off': '⁣⁢Text formatting Off⁭⁯‍؜⁬‍⁬⁫⁫⁡⁭⁠⁬‍⁬⁭⁡؜⁠⁭؜؜⁣⁤',
   'fabric.editor.textColor': '⁣⁢{selectedColorName} Text color⁫⁪؜⁠⁠⁮‌⁭⁬؜⁡⁡‌‌⁡⁡⁠⁮⁪‌⁡⁭⁯‌‌⁣⁤',

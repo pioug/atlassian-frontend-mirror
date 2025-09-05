@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e8517b9ad3938bbf0817b03b84147b13>>
+ * @codegen <<SignedSource::a94b2188961498bfd6fdb253df64406b>>
  * @codegenCommand yarn build tokens
  */
 export type InternalTokenIds =
@@ -448,6 +448,7 @@ export type InternalTokenIds =
 	| 'radius.large'
 	| 'radius.xlarge'
 	| 'radius.full'
+	| 'radius.tile'
 	| 'border.width.[default]'
 	| 'border.width.selected'
 	| 'border.width.focused';

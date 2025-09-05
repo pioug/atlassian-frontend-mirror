@@ -27,7 +27,10 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { AnalyticsEventPayload, AnnotationDeleteAEP } from '../analytics/events';
 import { createAnnotationStep, getPosFromRange } from '../steps';
-import { getRendererRangeInlineNodeNames } from './get-renderer-range-inline-node-names';
+import {
+	getRendererRangeInlineNodeNames,
+	getRendererRangeAncestorNodeNames,
+} from './get-renderer-range-inline-node-names';
 import { getIndexMatch } from './matches-utils';
 
 type ActionResult = { doc: JSONDocNode; step: Step } | false;
@@ -404,6 +407,10 @@ export default class RendererActions
 			step,
 			doc: this.transformer.encode(doc),
 			inlineNodeTypes: getRendererRangeInlineNodeNames({
+				actions: this,
+				pos: { from, to },
+			}),
+			ancestorNodeTypes: getRendererRangeAncestorNodeNames({
 				actions: this,
 				pos: { from, to },
 			}),

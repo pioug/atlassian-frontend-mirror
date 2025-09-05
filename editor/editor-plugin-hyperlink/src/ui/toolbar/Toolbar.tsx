@@ -44,6 +44,7 @@ import {
 	RECENT_SEARCH_HEIGHT_IN_PX,
 	RECENT_SEARCH_WIDTH_IN_PX,
 } from '@atlaskit/editor-common/ui';
+import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -53,6 +54,7 @@ import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink';
 import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -377,7 +379,8 @@ export const getToolbarConfig =
 									if (!view) {
 										return null;
 									}
-									return (
+
+									const Toolbar = (
 										<HyperlinkAddToolbarWithState
 											pluginInjectionApi={pluginInjectionApi}
 											view={view}
@@ -423,6 +426,14 @@ export const getToolbarConfig =
 												view.focus();
 											}}
 										/>
+									);
+									return editorExperiment('platform_editor_toolbar_aifc', true) &&
+										expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true) ? (
+										<UserIntentPopupWrapper api={pluginInjectionApi}>
+											{Toolbar}
+										</UserIntentPopupWrapper>
+									) : (
+										Toolbar
 									);
 								},
 							},

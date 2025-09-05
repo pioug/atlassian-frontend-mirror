@@ -59,6 +59,9 @@
 			"path": "../../editor-toolbar-model/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/heading/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
 		},
 		{

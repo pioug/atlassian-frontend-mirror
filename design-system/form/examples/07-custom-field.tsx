@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import { cssMap } from '@compiled/react';
-
 import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
@@ -67,14 +65,6 @@ const ColorButtons = ({ colors, changeHandler, setSelectedColor }: ColorButtonsP
 	</React.Fragment>
 );
 
-const styles = cssMap({
-	flex: {
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-	},
-});
-
 export default () => {
 	const [selectedColor, setSelectedColor] = useState('none');
 	const [isSubmit, setIsSubmit] = useState(false);
@@ -86,7 +76,7 @@ export default () => {
 	};
 
 	return (
-		<Flex xcss={styles.flex} direction="column">
+		<Flex direction="column">
 			<Form
 				onSubmit={async (data) => {
 					setIsSubmit(true);

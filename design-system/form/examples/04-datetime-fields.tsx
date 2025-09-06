@@ -1,7 +1,5 @@
 import React, { Fragment, useRef, useState } from 'react';
 
-import { cssMap } from '@compiled/react';
-
 import Button from '@atlaskit/button/new';
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
 import Form, {
@@ -20,14 +18,6 @@ interface FormData {
 	preference: string;
 }
 
-const styles = cssMap({
-	flex: {
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-	},
-});
-
 export default () => {
 	const [DOBfieldError, setDOBfieldError] = useState(false);
 	const [preferenceFieldError, setPreferenceFieldError] = useState(false);
@@ -45,7 +35,7 @@ export default () => {
 	};
 
 	return (
-		<Flex xcss={styles.flex} direction="column">
+		<Flex direction="column">
 			<Form<FormData>
 				onSubmit={(data) => {
 					console.log('form data', data);

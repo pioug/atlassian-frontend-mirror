@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import { cssMap } from '@atlaskit/css';
 import Form, {
 	ErrorMessage,
 	Field,
@@ -42,14 +41,6 @@ const errorMessages = {
 	usernameInUse: 'This username is already taken, try entering another one',
 	selectError: 'Please select a color',
 };
-
-const formContainerStyle = cssMap({
-	root: {
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-	},
-});
 
 const { shortFirstname, shortUsername, validUsername, usernameInUse, selectError } = errorMessages;
 
@@ -119,7 +110,7 @@ export default function FieldLevelValidationExample() {
 	}, [errorMessageText]);
 
 	return (
-		<Flex xcss={formContainerStyle.root} direction="column">
+		<Flex direction="column">
 			<Form onSubmit={handleSubmit}>
 				{({ formProps }) => (
 					<form {...formProps}>

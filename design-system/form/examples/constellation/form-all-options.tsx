@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
 
-import { cssMap } from '@compiled/react';
-
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
@@ -27,16 +25,8 @@ import TextArea from '@atlaskit/textarea';
 import TextField from '@atlaskit/textfield';
 import Toggle from '@atlaskit/toggle';
 
-const styles = cssMap({
-	flex: {
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-	},
-});
-
 const FormAllOptionsExample = () => (
-	<Flex xcss={styles.flex} direction="column">
+	<Flex direction="column">
 		<Form<{ username: string; password: string; remember: boolean }>
 			onSubmit={(data) => {
 				console.log('form data', data);

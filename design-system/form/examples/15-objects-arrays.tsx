@@ -1,23 +1,13 @@
 import React from 'react';
 
-import { cssMap } from '@compiled/react';
-
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter, FormHeader, RequiredAsterisk } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 
-const styles = cssMap({
-	flex: {
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-	},
-});
-
 export default () => (
-	<Flex xcss={styles.flex} direction="column">
+	<Flex direction="column">
 		<Form<{ username: string; password: string; remember: boolean }>
 			onSubmit={(data) => {
 				console.log('form data', data);

@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 211.2.7
+
+### Patch Changes
+
+- [`b16ba98653a42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b16ba98653a42) -
+  [ux] When Live page is rendered in preview panels using Embedded Confluence, this chnages the
+  header toolbar fixed width from 254px to `fit-content`
+
 ## 211.2.6
 
 ### Patch Changes

@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
-import { cssMap } from '@atlaskit/css';
 import Form, {
 	ErrorMessage,
 	Field,
@@ -34,14 +33,6 @@ const colors = [
 	{ label: 'Orange', value: 'orange' },
 	{ label: 'Teal', value: 'teal' },
 ];
-const formContainerStyle = cssMap({
-	root: {
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-	},
-});
-
 export default () => {
 	const getUser = async (value: string) => {
 		await sleep(300);
@@ -68,7 +59,7 @@ export default () => {
 	};
 
 	return (
-		<Flex xcss={formContainerStyle.root} direction="column">
+		<Flex direction="column">
 			<Form onSubmit={handleSubmit}>
 				{({ formProps }) => (
 					<form {...formProps}>

@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { cssMap } from '@compiled/react';
-
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter, FormHeader, RequiredAsterisk } from '@atlaskit/form';
@@ -10,16 +8,8 @@ import TextField from '@atlaskit/textfield';
 
 const BASE_SLUG = 'slug';
 
-const styles = cssMap({
-	flex: {
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-	},
-});
-
 export default () => (
-	<Flex xcss={styles.flex} direction="column">
+	<Flex direction="column">
 		<Form<{ username: string; slug: string }>
 			onSubmit={(data) => {
 				console.log('form data', data);

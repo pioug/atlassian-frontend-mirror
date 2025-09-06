@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
 
-import { cssMap } from '@compiled/react';
-
 import Button from '@atlaskit/button/new';
 import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
@@ -117,17 +115,9 @@ const CustomValueOption = ({ children, ...props }: SingleValueProps<Option, fals
 	</components.SingleValue>
 );
 
-const styles = cssMap({
-	flex: {
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-	},
-});
-
 const FormCustomSelectFieldExample = () => {
 	return (
-		<Flex xcss={styles.flex} direction="column">
+		<Flex direction="column">
 			<Form<Category>
 				onSubmit={(data) => {
 					console.log('form data', data);

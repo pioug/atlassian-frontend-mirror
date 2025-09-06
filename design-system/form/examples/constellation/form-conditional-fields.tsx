@@ -1,17 +1,8 @@
 import React from 'react';
 
-import { cssMap } from '@atlaskit/css';
 import Form, { Field, useFormState } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import TextField from '@atlaskit/textfield';
-
-const formContainerStyles = cssMap({
-	root: {
-		maxWidth: '400px',
-		margin: '0 auto',
-	},
-});
 
 const LoginForm = () => (
 	<>
@@ -45,30 +36,28 @@ export default function ConditionalFieldsExample() {
 	const formState = useFormState({ values: true });
 
 	return (
-		<Box xcss={formContainerStyles.root}>
-			<Form onSubmit={(data) => console.log('form data', data)}>
-				{({ formProps }) => (
-					<form {...formProps}>
-						<Field
-							label="Do you have an existing account?"
-							name="existingAccount"
-							defaultValue=""
-							isRequired
-						>
-							{({ fieldProps }) => (
-								<RadioGroup
-									{...fieldProps}
-									options={[
-										{ name: 'existingAccount', value: 'yes', label: 'Yes' },
-										{ name: 'existingAccount', value: 'no', label: 'No' },
-									]}
-								/>
-							)}
-						</Field>
-						{formState?.values.existingAccount === 'yes' ? <LoginForm /> : <SignUpForm />}
-					</form>
-				)}
-			</Form>
-		</Box>
+		<Form onSubmit={(data) => console.log('form data', data)}>
+			{({ formProps }) => (
+				<form {...formProps}>
+					<Field
+						label="Do you have an existing account?"
+						name="existingAccount"
+						defaultValue=""
+						isRequired
+					>
+						{({ fieldProps }) => (
+							<RadioGroup
+								{...fieldProps}
+								options={[
+									{ name: 'existingAccount', value: 'yes', label: 'Yes' },
+									{ name: 'existingAccount', value: 'no', label: 'No' },
+								]}
+							/>
+						)}
+					</Field>
+					{formState?.values.existingAccount === 'yes' ? <LoginForm /> : <SignUpForm />}
+				</form>
+			)}
+		</Form>
 	);
 }

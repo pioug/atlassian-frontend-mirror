@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
 
-import { cssMap } from '@compiled/react';
-
 import Button from '@atlaskit/button/new';
 import Form, {
 	ErrorMessage,
@@ -33,14 +31,6 @@ const createUser = async (data: { username: string; email: string }) => {
 	return errors;
 };
 
-const styles = cssMap({
-	flex: {
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-	},
-});
-
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
 	const handleSubmit = (data: { username: string; email: string }) => {
@@ -48,7 +38,7 @@ export default () => {
 	};
 
 	return (
-		<Flex xcss={styles.flex} direction="column">
+		<Flex direction="column">
 			<Form onSubmit={handleSubmit}>
 				{({ formProps, submitting }) => (
 					<form noValidate {...formProps}>

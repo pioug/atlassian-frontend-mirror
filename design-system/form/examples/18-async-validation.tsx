@@ -3,7 +3,6 @@ import React, { Fragment } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
-import { cssMap } from '@atlaskit/css';
 import Form, {
 	CheckboxField,
 	ErrorMessage,
@@ -17,14 +16,6 @@ import Form, {
 } from '@atlaskit/form';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
-
-const formContainerStyle = cssMap({
-	root: {
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-	},
-});
 
 export default () => {
 	const simpleMemoize = <T, U>(fn: (arg: T) => U): ((arg: T) => U) => {
@@ -54,7 +45,7 @@ export default () => {
 	});
 
 	return (
-		<Flex xcss={formContainerStyle.root} direction="column">
+		<Flex direction="column">
 			<Form<{ username: string; password: string; remember: boolean }>
 				onSubmit={(data) => {
 					console.log('form data', data);

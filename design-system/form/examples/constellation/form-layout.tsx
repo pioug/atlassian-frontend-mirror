@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { cssMap } from '@compiled/react';
-
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
@@ -11,17 +9,9 @@ import { RadioGroup } from '@atlaskit/radio';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';
 
-const styles = cssMap({
-	flex: {
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-	},
-});
-
 const FormLayoutExample = () => {
 	return (
-		<Flex xcss={styles.flex} direction="column">
+		<Flex direction="column">
 			<Form onSubmit={console.log}>
 				{({ formProps }) => (
 					<form

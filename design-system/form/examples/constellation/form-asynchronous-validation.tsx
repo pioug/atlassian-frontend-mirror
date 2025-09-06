@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
 
-import { cssMap } from '@compiled/react';
-
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
@@ -18,14 +16,6 @@ import Form, {
 } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
-
-const styles = cssMap({
-	flex: {
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-	},
-});
 
 export default () => {
 	const simpleMemoize = <T, U>(fn: (arg: T) => U): ((arg: T) => U) => {
@@ -55,7 +45,7 @@ export default () => {
 	});
 
 	return (
-		<Flex xcss={styles.flex} direction="column">
+		<Flex direction="column">
 			<Form<{ username: string; password: string; remember: boolean }>
 				onSubmit={(data) => {
 					console.log('form data', data);

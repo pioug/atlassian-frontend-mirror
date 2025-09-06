@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
 
-import { cssMap } from '@compiled/react';
-
 import Button from '@atlaskit/button/new';
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
 import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
@@ -31,17 +29,9 @@ const requiredValidator = (data: FormData, key: string, errors?: Record<string, 
 	return errors;
 };
 
-const styles = cssMap({
-	flex: {
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-	},
-});
-
 const FormDateTimePickerExample = () => {
 	return (
-		<Flex xcss={styles.flex} direction="column">
+		<Flex direction="column">
 			<Form<FormData>
 				onSubmit={(data) => {
 					console.log('form data', data);

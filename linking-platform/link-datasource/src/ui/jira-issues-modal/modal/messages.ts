@@ -137,4 +137,11 @@ export const modalMessages = defineMessages({
 			'The initial modal search state title that gives the user some idea about how to get information',
 		defaultMessage: 'Search for Jira work items',
 	},
+	checkConnectionWithSourceVisualRefreshSllvGalaxia: {
+		id: 'linkDataSource.jira-issues.checkConnectionWithSource.visual-refresh-sllv-galaxia',
+		description:
+			'Instructions to let the user know how to resolve the error that occured, or click the link provided to open the query in Jira',
+		defaultMessage:
+			'Check your connection and refresh, or <a>open this space in Jira</a> to review.',
+	},
 });

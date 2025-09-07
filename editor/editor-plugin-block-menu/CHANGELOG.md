@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 1.0.9
+
+### Patch Changes
+
+- [`da23530028aac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da23530028aac) -
+  [ux] ED-29145 Hide format menu for unsupported and nested nodes
+
 ## 1.0.8
 
 ### Patch Changes

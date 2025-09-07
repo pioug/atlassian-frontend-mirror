@@ -4,6 +4,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useRef } from 'react'
 import { cssMap } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import LinkComponent from '@atlaskit/link';
 import { type DatasourceParameters } from '@atlaskit/linking-types';
@@ -285,7 +286,13 @@ export const PlainConfluenceSearchConfigModal = (
 					<ModalLoadingError
 						errorMessage={
 							<FormattedMessage
-								{...confluenceSearchModalMessages.checkConnectionWithSource}
+								{...(FeatureGates.getExperimentValue(
+									'project-terminology-refresh',
+									'isEnabled',
+									false,
+								)
+									? confluenceSearchModalMessages.checkConnectionWithSourceGalaxia
+									: confluenceSearchModalMessages.checkConnectionWithSource)}
 								values={{
 									a: (urlText: React.ReactNode[]) => (
 										<LinkComponent href={selectedConfluenceSite.url}>{urlText}</LinkComponent>

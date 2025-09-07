@@ -48,6 +48,7 @@
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/empty-state": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/flag": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/heading": "workspace:^",

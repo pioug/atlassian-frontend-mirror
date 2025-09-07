@@ -4,7 +4,7 @@ import type { BlockMenuPlugin, RegisterBlockMenuComponent } from './blockMenuPlu
 import { createBlockMenuRegistry } from './editor-actions';
 import { formatNode } from './editor-commands/formatNode';
 import type { FormatNodeTargetType } from './editor-commands/transforms/types';
-import { createPlugin } from './pm-plugins/main';
+import { blockMenuPluginKey, createPlugin } from './pm-plugins/main';
 import BlockMenu from './ui/block-menu';
 import { getBlockMenuComponents } from './ui/block-menu-components';
 
@@ -35,6 +35,20 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 			formatNode: (targetType: FormatNodeTargetType) => {
 				return formatNode(targetType);
 			},
+		},
+		getSharedState: (editorState) => {
+			if (!editorState) {
+				return;
+			}
+			const pluginState = blockMenuPluginKey.getState(editorState);
+
+			if (!pluginState) {
+				return;
+			}
+
+			return {
+				isFormatMenuHidden: pluginState?.isFormatMenuHidden,
+			};
 		},
 		contentComponent({
 			editorView,

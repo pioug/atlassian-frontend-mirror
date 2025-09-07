@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 40.20.2
+
+### Patch Changes
+
+- [`3f4271f8a0790`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f4271f8a0790) -
+  Replace LP-CC-EMBED iframe with embedded confluence iframe
+
 ## 40.20.1
 
 ### Patch Changes

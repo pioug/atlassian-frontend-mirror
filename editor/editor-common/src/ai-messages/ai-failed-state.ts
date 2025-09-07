@@ -64,4 +64,9 @@ export const aiFailedStateMessages = defineMessages({
 		defaultMessage: `Atlassian Intelligence was unable to process your request as your content contains links to HIPAA restricted content. Please remove these links and try again.`,
 		description: `The input contained HIPAA content`,
 	},
+	adfStreamingError: {
+		id: 'fabric.editor.ai.experience.adfStreamingError',
+		defaultMessage: `We couldn't get a response due to a parsing error.`,
+		description: `We couldn't get a response due to a parsing error.`,
+	},
 });

@@ -5,6 +5,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } fr
 import { cssMap } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import LinkComponent from '@atlaskit/link';
 import type { DatasourceParameters, Link } from '@atlaskit/linking-types';
@@ -354,7 +355,13 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 					errorMessage={
 						jqlUrl ? (
 							<FormattedMessage
-								{...modalMessages.checkConnectionWithSourceVisualRefreshSllv}
+								{...(FeatureGates.getExperimentValue(
+									'project-terminology-refresh',
+									'isEnabled',
+									false,
+								)
+									? modalMessages.checkConnectionWithSourceVisualRefreshSllvGalaxia
+									: modalMessages.checkConnectionWithSourceVisualRefreshSllv)}
 								values={{
 									a: (urlText: React.ReactNode[]) => (
 										<LinkComponent href={jqlUrl}>{urlText}</LinkComponent>

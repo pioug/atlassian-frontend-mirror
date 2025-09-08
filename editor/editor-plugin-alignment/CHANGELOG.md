@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-alignment
 
+## 5.0.6
+
+### Patch Changes
+
+- [`c0113eeccb2df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0113eeccb2df) -
+  [ux] ED-29120 add a new config option for default editor preset
+  (`toolbar.enableNewToolbarExperience`) which allows the new toolbar to be disabled. This is needed
+  for editors that can't be excluded at the experiment level.
+- Updated dependencies
+
 ## 5.0.5
 
 ### Patch Changes

@@ -14,6 +14,7 @@ import { getToolbarComponents } from './ui/toolbar-components';
 export const loomPlugin: LoomPlugin = ({ config, api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
 	const isNewToolbarEnabled =
+		Boolean(api?.toolbar) &&
 		editorExperiment('platform_editor_toolbar_aifc', true, { exposure: true }) &&
 		expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true);
 

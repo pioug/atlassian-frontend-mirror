@@ -20,6 +20,7 @@ import invariant from 'tiny-invariant';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { blockDraggingToIFrames } from '@atlaskit/pragmatic-drag-and-drop/element/block-dragging-to-iframes';
@@ -79,10 +80,10 @@ const grabAreaStyles = cssMap({
 		width: '17px',
 		height: '100%',
 		position: 'absolute',
-		paddingTop: token('space.0'),
-		paddingRight: token('space.0'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.0'),
+		paddingBlockStart: token('space.0'),
+		paddingInlineEnd: token('space.0'),
+		paddingBlockEnd: token('space.0'),
+		paddingInlineStart: token('space.0'),
 		color: 'transparent',
 		backgroundColor: 'transparent',
 		transitionProperty: 'color',
@@ -104,6 +105,11 @@ const grabAreaStyles = cssMap({
 			color: token('color.link.pressed'),
 			// Removing the color transition so we instantly change from hovered to dragged colors.
 			transition: 'none',
+		},
+	},
+	fullHeightSidebar: {
+		'&:hover': {
+			cursor: 'col-resize',
 		},
 	},
 });
@@ -412,7 +418,10 @@ const PortaledPanelSplitter = ({
 			is provided via a dedicated keyboard shortcut elsewhere in the application. */}
 			<div
 				ref={splitterRef}
-				css={grabAreaStyles.root}
+				css={[
+					grabAreaStyles.root,
+					fg('navx-full-height-sidebar') && grabAreaStyles.fullHeightSidebar,
+				]}
 				data-testid={testId}
 				onDoubleClick={onDoubleClick}
 			>

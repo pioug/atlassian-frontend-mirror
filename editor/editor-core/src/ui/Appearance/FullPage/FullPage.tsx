@@ -200,7 +200,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 				}
 			>
 				{!isEditorToolbarHidden &&
-					(editorExperiment('platform_editor_toolbar_aifc', true) ? (
+					(Boolean(editorAPI?.toolbar) && editorExperiment('platform_editor_toolbar_aifc', true) ? (
 						<IntlProvider locale="en">
 							<FullPageToolbarNext
 								toolbarDockingPosition={toolbarDockingPosition ?? toolbarDocking}

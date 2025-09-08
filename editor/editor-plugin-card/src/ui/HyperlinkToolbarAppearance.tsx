@@ -6,6 +6,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { FloatingToolbarSeparator as Separator } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -80,6 +81,10 @@ export function HyperlinkToolbarAppearance(props: HyperlinkToolbarAppearanceProp
 		return null;
 	}
 
+	const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(
+		Boolean(props.editorPluginApi?.toolbar),
+	);
+
 	return (
 		<Flex>
 			<LinkToolbarAppearance
@@ -91,6 +96,7 @@ export function HyperlinkToolbarAppearance(props: HyperlinkToolbarAppearanceProp
 				allowEmbeds={cardOptions?.allowEmbeds}
 				allowBlockCards={cardOptions?.allowBlockCards}
 				editorAnalyticsApi={editorAnalyticsApi}
+				areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 			/>
 			{cardOptions?.allowDatasource && (
 				<DatasourceAppearanceButton
@@ -100,9 +106,10 @@ export function HyperlinkToolbarAppearance(props: HyperlinkToolbarAppearanceProp
 					editorView={editorView}
 					editorAnalyticsApi={editorAnalyticsApi}
 					inputMethod={INPUT_METHOD.FLOATING_TB}
+					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>
 			)}
-			<Separator />
+			<Separator areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled} />
 		</Flex>
 	);
 }

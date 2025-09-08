@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.8.4
+
+### Patch Changes
+
+- [`0812ff5bd7bd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0812ff5bd7bd1) -
+  Dont render menu sections in live view
+- Updated dependencies
+
 ## 0.8.3
 
 ### Patch Changes

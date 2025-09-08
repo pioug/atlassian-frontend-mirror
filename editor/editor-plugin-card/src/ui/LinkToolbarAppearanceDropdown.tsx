@@ -201,6 +201,7 @@ export const getLinkAppearanceDropdown = ({
 	showUpgradeDiscoverability = true,
 	isDatasourceView,
 	settingsConfig,
+	areAnyNewToolbarFlagsEnabled,
 }: LinkToolbarAppearanceProps & {
 	allowDatasource?: boolean;
 	settingsConfig: FloatingToolbarItem<Command>;
@@ -221,6 +222,7 @@ export const getLinkAppearanceDropdown = ({
 					allowDatasource={allowDatasource}
 					dispatchCommand={props.dispatchCommand}
 					settingsConfig={settingsConfig}
+					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>
 			);
 		},

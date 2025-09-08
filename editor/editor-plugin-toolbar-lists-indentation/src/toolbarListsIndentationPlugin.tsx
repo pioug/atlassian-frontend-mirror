@@ -28,9 +28,11 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 	const { showIndentationButtons = false, allowHeadingAndParagraphIndentation = false } =
 		config ?? {};
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
-	const isToolbarAIFCEnabled = editorExperiment('platform_editor_toolbar_aifc', true, {
-		exposure: true,
-	});
+	const isToolbarAIFCEnabled =
+		Boolean(api?.toolbar) &&
+		editorExperiment('platform_editor_toolbar_aifc', true, {
+			exposure: true,
+		});
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,

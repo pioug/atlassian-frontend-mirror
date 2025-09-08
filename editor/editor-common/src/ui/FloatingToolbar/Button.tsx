@@ -4,7 +4,6 @@ import Button from '@atlaskit/button/custom-theme-button';
 import { token } from '@atlaskit/tokens';
 import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 
-import { areToolbarFlagsEnabled } from '../../toolbar-flag-check';
 import type { ButtonAppearance } from '../../types';
 import type { FloatingToolbarButtonSpotlightConfig } from '../../types/floating-toolbar';
 import { Pulse } from '../Pulse/Pulse';
@@ -20,6 +19,7 @@ const customSizeAndPadding = {
 export interface Props {
 	appearance?: ButtonAppearance;
 	areaControls?: string;
+	areAnyNewToolbarFlagsEnabled: boolean;
 	ariaHasPopup?: boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid' | undefined;
 	ariaLabel?: string;
 	children?: React.ReactNode;
@@ -88,6 +88,7 @@ export default ({
 	isRadioButton,
 	pulse,
 	spotlightConfig,
+	areAnyNewToolbarFlagsEnabled,
 }: Props) => {
 	// Check if there's only an icon and add additional styles
 	const iconOnly = (icon || iconAfter) && !children;
@@ -148,7 +149,7 @@ export default ({
 												state: themeProps.state,
 												mode: themeProps.mode,
 											})),
-										...(areToolbarFlagsEnabled() ? customSizeAndPadding : {}),
+										...(areAnyNewToolbarFlagsEnabled ? customSizeAndPadding : {}),
 									},
 									...rest,
 								};
@@ -159,7 +160,7 @@ export default ({
 							role={isRadioButton ? 'radio' : undefined}
 							aria-expanded={ariaHasPopup ? selected : undefined}
 							aria-controls={ariaHasPopup ? areaControls : undefined}
-							spacing={areToolbarFlagsEnabled() ? 'default' : 'compact'}
+							spacing={areAnyNewToolbarFlagsEnabled ? 'default' : 'compact'}
 							href={href}
 							target={target}
 							appearance={appearance}

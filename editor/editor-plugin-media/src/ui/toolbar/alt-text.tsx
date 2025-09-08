@@ -98,6 +98,7 @@ const altTextEditComponent = (options?: AltTextToolbarOptions): FloatingToolbarC
 					altTextValidator={options && options.altTextValidator}
 					onEscape={setFocus}
 					onEnter={setFocus}
+					areAnyNewToolbarFlagsEnabled={options?.areAnyNewToolbarFlagsEnabled}
 				/>
 			);
 		},
@@ -106,6 +107,7 @@ const altTextEditComponent = (options?: AltTextToolbarOptions): FloatingToolbarC
 
 interface AltTextToolbarOptions {
 	altTextValidator?: (value: string) => string[];
+	areAnyNewToolbarFlagsEnabled?: boolean;
 	forceFocusSelector?: ForceFocusSelector;
 	triggerButtonSelector?: string;
 }

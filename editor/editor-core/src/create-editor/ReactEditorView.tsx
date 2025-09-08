@@ -20,7 +20,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { createDispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useConstructor, usePreviousState } from '@atlaskit/editor-common/hooks';
-import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
 import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
@@ -39,13 +38,7 @@ import type {
 	ContextIdentifierProvider,
 	ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type {
-	OptionalPlugin,
-	PMPlugin,
-	PublicPluginAPI,
-	Transformer,
-} from '@atlaskit/editor-common/types';
+import type { OptionalPlugin, PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
 import { ReactEditorViewContext } from '@atlaskit/editor-common/ui-react';
 import {
 	analyticsEventKey,
@@ -57,15 +50,9 @@ import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-i
 import { type CustomAutoformatPlugin } from '@atlaskit/editor-plugins/custom-autoformat';
 import { type EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
-import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
-import {
-	EditorState,
-	PluginKey,
-	Selection,
-	TextSelection,
-} from '@atlaskit/editor-prosemirror/state';
+import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -149,43 +136,6 @@ type ReactEditorViewPlugins = [
 	OptionalPlugin<EmojiPlugin>,
 	OptionalPlugin<CustomAutoformatPlugin>,
 ];
-
-const injectNodeViewNodeTypeList: readonly string[] = ['paragraph', 'heading'] as const;
-
-const createNodeViewPlugin = (schema: Schema): PMPlugin => {
-	const nodeViewEntries: [string, NodeViewConstructor][] = [];
-
-	schema.spec.nodes.forEach((nodeName, nodeSpec) => {
-		if (injectNodeViewNodeTypeList.includes(nodeName)) {
-			if (nodeSpec.toDOM && typeof nodeSpec.toDOM === 'function') {
-				const toDOM = nodeSpec.toDOM.bind(nodeSpec);
-				nodeViewEntries.push([
-					nodeName,
-					(node: PMNode) => DOMSerializer.renderSpec(document, toDOM(node)),
-				]);
-			}
-		}
-	});
-
-	return {
-		name: 'nodeViewInjectPlugin',
-		plugin: () =>
-			new SafePlugin({
-				state: {
-					init() {
-						return {};
-					},
-					apply(_tr, pluginState) {
-						return pluginState;
-					},
-				},
-				key: new PluginKey('nodeViewInjectPlugin'),
-				props: {
-					nodeViews: Object.fromEntries(nodeViewEntries),
-				},
-			}),
-	};
-};
 
 export function ReactEditorView(props: EditorViewProps) {
 	const {
@@ -292,10 +242,6 @@ export function ReactEditorView(props: EditorViewProps) {
 
 				schema = createSchema(config.current);
 				setEditorAPI(pluginInjectionAPI.current.api());
-
-				if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
-					config.current.pmPlugins.push(createNodeViewPlugin(schema));
-				}
 			}
 
 			const { contentTransformerProvider } = options.props.editorProps;

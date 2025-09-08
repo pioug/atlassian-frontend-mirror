@@ -31,6 +31,7 @@ import { WithCardContext } from './WithCardContext';
 export interface LinkToolbarAppearanceProps {
 	allowBlockCards?: boolean;
 	allowEmbeds?: boolean;
+	areAnyNewToolbarFlagsEnabled: boolean;
 	currentAppearance?: CardAppearance;
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined;
 	editorState: EditorState;
@@ -53,6 +54,7 @@ export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearance
 			editorAnalyticsApi,
 			showUpgradeDiscoverability = true,
 			isDatasourceView,
+			areAnyNewToolbarFlagsEnabled,
 		} = this.props;
 		const preview =
 			allowEmbeds && cardContext && url && cardContext.extractors.getPreview(url, 'web');
@@ -150,7 +152,7 @@ export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearance
 			<LinkToolbarButtonGroup
 				key="link-toolbar-button-group"
 				options={options.map((option) =>
-					getButtonGroupOption(intl, dispatchCommand, {
+					getButtonGroupOption(intl, areAnyNewToolbarFlagsEnabled, dispatchCommand, {
 						...option,
 						onClick: commandWithMetadata(option.onClick, {
 							inputMethod: INPUT_METHOD.FLOATING_TB,

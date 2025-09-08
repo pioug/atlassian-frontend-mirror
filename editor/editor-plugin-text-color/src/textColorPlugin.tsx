@@ -29,9 +29,9 @@ const pluginConfig = (
 };
 
 export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api }) => {
-	const isToolbarAifcEnabled = editorExperiment('platform_editor_toolbar_aifc', true, {
-		exposure: true,
-	});
+	const isToolbarAIFCEnabled =
+		Boolean(api?.toolbar) &&
+		editorExperiment('platform_editor_toolbar_aifc', true, { exposure: true });
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,
@@ -56,7 +56,7 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 		);
 	};
 
-	if (isToolbarAifcEnabled) {
+	if (isToolbarAIFCEnabled) {
 		if (api?.toolbar?.actions.registerComponents) {
 			api.toolbar.actions.registerComponents(getToolbarComponents(api));
 		}
@@ -96,7 +96,7 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 			},
 		},
 
-		pluginsOptions: !isToolbarAifcEnabled
+		pluginsOptions: !isToolbarAIFCEnabled
 			? {
 					selectionToolbar: () => {
 						const toolbarDocking = fg('platform_editor_use_preferences_plugin')

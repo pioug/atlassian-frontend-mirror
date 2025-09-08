@@ -32,6 +32,7 @@ const LeftIcon = ChevronLeftLargeIcon;
 const RightIcon = ChevronRightLargeIcon;
 
 interface ScrollButtonsProps {
+	areAnyNewToolbarFlagsEnabled: boolean;
 	disabled: boolean;
 	intl: IntlShape;
 	node: Node;
@@ -39,7 +40,13 @@ interface ScrollButtonsProps {
 }
 
 // Remove this component (replaced by ScrollButton) as part of platform_editor_controls clean up
-export const ScrollButtons = ({ intl, scrollContainerRef, node, disabled }: ScrollButtonsProps) => {
+export const ScrollButtons = ({
+	intl,
+	scrollContainerRef,
+	node,
+	disabled,
+	areAnyNewToolbarFlagsEnabled,
+}: ScrollButtonsProps) => {
 	const buttonsContainerRef = useRef<HTMLDivElement>(null);
 	const [needScroll, setNeedScroll] = useState(false);
 	const [canScrollLeft, setCanScrollLeft] = useState(true);
@@ -152,6 +159,7 @@ export const ScrollButtons = ({ intl, scrollContainerRef, node, disabled }: Scro
 				}
 				onClick={scrollLeft}
 				disabled={!canScrollLeft || disabled}
+				areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 			/>
 			<Button
 				title={intl.formatMessage(messages.floatingToolbarScrollRight)}
@@ -160,6 +168,7 @@ export const ScrollButtons = ({ intl, scrollContainerRef, node, disabled }: Scro
 				}
 				onClick={scrollRight}
 				disabled={!canScrollRight || disabled}
+				areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 			/>
 		</div>
 	) : null;

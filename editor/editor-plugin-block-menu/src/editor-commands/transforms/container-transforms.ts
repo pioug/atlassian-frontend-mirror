@@ -9,6 +9,8 @@ import {
 	isBlockNodeForExtraction,
 	convertNodeToInlineContent,
 	getContentSupportChecker,
+	convertCodeBlockContentToParagraphs,
+	filterMarksForTargetNodeType,
 } from './utils';
 
 const convertInvalidNodeToValidNodeType = (
@@ -46,11 +48,8 @@ export const transformToContainer = ({
 	let transformedContent = content;
 
 	if (sourceNode.type === schema.nodes.codeBlock) {
-		transformedContent = convertInvalidNodeToValidNodeType(
-			transformedContent,
-			schema.nodes.codeBlock,
-			schema.nodes.paragraph,
-		);
+		const paragraphNodes = convertCodeBlockContentToParagraphs(sourceNode, schema);
+		transformedContent = Fragment.fromArray(paragraphNodes);
 	}
 
 	if (targetNodeType === schema.nodes.blockquote) {
@@ -60,6 +59,13 @@ export const transformToContainer = ({
 			schema.nodes.paragraph,
 			true,
 		);
+	}
+
+	// Preserve marks that are allowed in the target node type
+	// e.g. blocks (heading/ paragraph) with alignment need to remove alignment
+	// as panel/ blockQuote/ expands does not support alignment
+	if (sourceNode.type === schema.nodes.paragraph || sourceNode.type === schema.nodes.heading) {
+		transformedContent = filterMarksForTargetNodeType(transformedContent, targetNodeType);
 	}
 
 	const newNode = targetNodeType.createAndFill(targetAttrs, transformedContent);
@@ -89,6 +95,16 @@ export const transformContainerNode: TransformFunction = ({
 
 	// Transform container to block type - unwrap and convert content
 	if (isBlockNodeType(targetNodeType)) {
+		// special case container to codeblock
+		if (targetNodeType.name === 'codeBlock') {
+			return transformBetweenContainerTypes({
+				tr,
+				sourceNode,
+				sourcePos,
+				targetNodeType,
+				targetAttrs,
+			});
+		}
 		return unwrapAndConvertToBlockType({ tr, sourceNode, sourcePos, targetNodeType, targetAttrs });
 	}
 
@@ -135,12 +151,7 @@ export const unwrapAndConvertToBlockType = (context: TransformContext) => {
 
 	// if the container is a code block, convert text content to multiple paragraphs
 	if (sourceNode.type === codeBlock) {
-		const codeText = sourceNode.textContent;
-		const lines = codeText.split('\n');
-		const paragraphNodes = lines.map((line) =>
-			paragraph.create(null, line ? schema.text(line) : null),
-		);
-		sourceChildren = paragraphNodes;
+		sourceChildren = convertCodeBlockContentToParagraphs(sourceNode, schema);
 	}
 
 	// if target node is a paragraph, just do unwrap
@@ -265,6 +276,18 @@ export const unwrapAndConvertToList = ({
 export const transformBetweenContainerTypes = (context: TransformContext) => {
 	const { tr, sourceNode, sourcePos, targetNodeType, targetAttrs } = context;
 
+	// Special handling for codeBlock target
+	if (targetNodeType.name === 'codeBlock') {
+		const contentSplits = splitContentForCodeBlock(
+			sourceNode,
+			targetNodeType,
+			targetAttrs,
+			tr.doc.type.schema,
+		);
+
+		return applySplitsToTransaction(tr, sourcePos, sourceNode.nodeSize, contentSplits);
+	}
+
 	// Get content validation for target container type
 	const isContentSupported = getContentSupportChecker(targetNodeType);
 
@@ -277,12 +300,23 @@ export const transformBetweenContainerTypes = (context: TransformContext) => {
 		tr.doc.type.schema,
 	);
 
-	// Replace the original node with the first split
+	return applySplitsToTransaction(tr, sourcePos, sourceNode.nodeSize, contentSplits);
+};
+
+/**
+ * Apply content splits to transaction - shared utility for replacing and inserting splits
+ */
+const applySplitsToTransaction = (
+	tr: TransformContext['tr'],
+	sourcePos: number,
+	sourceNodeSize: number,
+	contentSplits: PMNode[],
+) => {
 	let insertPos = sourcePos;
 	contentSplits.forEach((splitNode: PMNode, index: number) => {
 		if (index === 0) {
 			// Replace the original node with the first split
-			tr.replaceWith(sourcePos, sourcePos + sourceNode.nodeSize, splitNode);
+			tr.replaceWith(sourcePos, sourcePos + sourceNodeSize, splitNode);
 			insertPos = sourcePos + splitNode.nodeSize;
 		} else {
 			// Insert additional splits after
@@ -292,6 +326,71 @@ export const transformBetweenContainerTypes = (context: TransformContext) => {
 	});
 
 	return tr;
+};
+
+/**
+ * Split content for codeBlock transformation, creating codeBlocks for text content
+ * and preserving unsupported blocks (like tables) separately
+ */
+const splitContentForCodeBlock = (
+	sourceNode: PMNode,
+	targetNodeType: NodeType,
+	targetAttrs: Record<string, unknown> | undefined,
+	schema: Schema,
+): PMNode[] => {
+	const splits: PMNode[] = [];
+	const children = sourceNode.content.content;
+	let currentTextContent: string[] = [];
+
+	// Handle expand title - add as first text if source is expand with title
+	if (sourceNode.type.name === 'expand' && sourceNode.attrs?.title) {
+		currentTextContent.push(sourceNode.attrs.title);
+	}
+
+	const flushCurrentCodeBlock = () => {
+		if (currentTextContent.length > 0) {
+			const codeText = currentTextContent.join('\n');
+			const codeBlockNode = targetNodeType.create(targetAttrs, schema.text(codeText));
+			splits.push(codeBlockNode);
+			currentTextContent = [];
+		}
+	};
+
+	const isCodeBlockCompatible = (node: PMNode): boolean => {
+		// Only text blocks (paragraph, heading) can be converted to codeBlock text
+		return node.isTextblock || node.type.name === 'codeBlock';
+	};
+
+	children.forEach((childNode) => {
+		if (isCodeBlockCompatible(childNode)) {
+			// Extract text content from compatible nodes
+			if (childNode.type.name === 'codeBlock') {
+				// If it's already a codeBlock, extract its text
+				currentTextContent.push(childNode.textContent);
+			} else if (childNode.isTextblock) {
+				// Extract text from text blocks (paragraphs, headings, etc.)
+				const text = childNode.textContent;
+				if (text.trim()) {
+					currentTextContent.push(text);
+				}
+			}
+		} else if (isBlockNodeForExtraction(childNode)) {
+			// Unsupported block node (table, etc.) - flush current codeBlock, add block, continue
+			flushCurrentCodeBlock();
+			splits.push(childNode);
+		} else {
+			// Other unsupported content - try to extract text if possible
+			const text = childNode.textContent;
+			if (text && text.trim()) {
+				currentTextContent.push(text);
+			}
+		}
+	});
+
+	// Flush any remaining text content as a codeBlock
+	flushCurrentCodeBlock();
+
+	return splits;
 };
 
 /**
@@ -330,15 +429,15 @@ const splitContentAroundUnsupportedBlocks = (
 		if (isContentSupported(childNode)) {
 			// Supported content - add to current container
 			currentContainerContent.push(childNode);
-		} else if (isBlockNodeForExtraction(childNode)) {
-			// Unsupported block node - flush current container, add block, continue
-			flushCurrentContainer();
-			splits.push(childNode);
 		} else if (childNode.type.name === targetNodeType.name) {
 			// Same type of container merge contents
 			childNode.content.forEach((child) => {
 				currentContainerContent.push(child);
 			});
+		} else if (childNode.isBlock) {
+			// Unsupported block node - flush current container, add block, continue
+			flushCurrentContainer();
+			splits.push(childNode);
 		} else {
 			// Unsupported inline content - convert to paragraph and add to container
 			const inlineContent = convertNodeToInlineContent(childNode, schema);

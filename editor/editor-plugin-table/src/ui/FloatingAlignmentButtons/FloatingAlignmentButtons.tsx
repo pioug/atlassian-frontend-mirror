@@ -20,19 +20,29 @@ const containerStyles = xcss({
 
 type Props = {
 	alignmentButtons: FloatingToolbarItem<Command>[];
+	areAnyNewToolbarFlagsEnabled: boolean;
 	dispatchCommand: (command: Command) => void;
 };
 
-export const FloatingAlignmentButtons = ({ alignmentButtons, dispatchCommand }: Props) => {
+export const FloatingAlignmentButtons = ({
+	alignmentButtons,
+	dispatchCommand,
+	areAnyNewToolbarFlagsEnabled,
+}: Props) => {
 	return (
 		<Box xcss={containerStyles}>
 			<ButtonGroup>
 				{alignmentButtons.map((item, idx) => {
 					switch (item.type) {
 						case 'separator':
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/no-array-index-key
-							return <FloatingToolbarSeparator key={idx} />;
+							return (
+								<FloatingToolbarSeparator
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/no-array-index-key
+									key={idx}
+									areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
+								/>
+							);
 						case 'button':
 							// Ignored via go/ees005
 							// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,6 +59,7 @@ export const FloatingAlignmentButtons = ({ alignmentButtons, dispatchCommand }: 
 									onClick={() => {
 										dispatchCommand(item.onClick);
 									}}
+									areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 								/>
 							);
 					}

@@ -1,12 +1,14 @@
-import { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/error-reporter';
+import { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 import { sortByOrder } from '@atlaskit/editor-common/legacy-rank-plugins';
 import { type SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorPlugin, PluginsOptions } from '@atlaskit/editor-common/types';
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { EditorConfig, PMPluginCreateConfig } from '../types';
 
+import { createEditorNativeAnchorSupportPlugin } from './editorNativeAnchorSupportPlugin';
 import { createEditorStateNotificationPlugin } from './editorStateNotificationPlugin';
 
 export function sortByRank(a: { rank: number }, b: { rank: number }): number {
@@ -127,6 +129,11 @@ export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
 			}),
 		)
 		.filter((plugin): plugin is SafePlugin => typeof plugin !== 'undefined');
+
+	if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+		pmPlugins.push(createEditorNativeAnchorSupportPlugin(config.schema));
+	}
+
 	if (config.onEditorStateUpdated !== undefined) {
 		return [
 			createEditorStateNotificationPlugin(
@@ -136,6 +143,7 @@ export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
 			...pmPlugins,
 		];
 	}
+
 	return pmPlugins;
 }
 

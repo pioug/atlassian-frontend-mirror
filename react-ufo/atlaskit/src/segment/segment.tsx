@@ -17,9 +17,16 @@ import {
 } from 'scheduler';
 import { v4 as createUUID } from 'uuid';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import coinflip from '../coinflip';
 import type { EnhancedUFOInteractionContextType } from '../common';
-import { getConfig, getInteractionRate } from '../config';
+import {
+	getConfig,
+	getDoNotAbortActivePressInteraction,
+	getInteractionRate,
+	getMinorInteractions,
+} from '../config';
 import { getActiveTrace, setInteractionActiveTrace } from '../experience-trace-id-context';
 import UFOInteractionContext, { type LabelStack } from '../interaction-context';
 import UFOInteractionIDContext from '../interaction-id-context';
@@ -38,6 +45,7 @@ import {
 	addSpan,
 	type CustomData,
 	type CustomTiming,
+	getActiveInteraction,
 	removeHoldByID,
 	removeSegment,
 	type RequestInfo,
@@ -239,8 +247,26 @@ export default function UFOSegment({
 				name: string | undefined = 'unknown',
 				timestamp?: number,
 			): void {
-				if (interactionId.current != null) {
-					abortByNewInteraction(interactionId.current, name);
+				if (fg('platform_ufo_enable_minor_interactions')) {
+					const minorInteractions = [
+						...(getDoNotAbortActivePressInteraction() ?? []),
+						...(getMinorInteractions() ?? []),
+					];
+
+					if (minorInteractions.includes(name)) {
+						const activeInteraction = getActiveInteraction();
+						activeInteraction?.minorInteractions?.push({
+							name,
+							startTime: timestamp ?? performance.now(),
+						});
+						return;
+					} else if (interactionId.current != null) {
+						abortByNewInteraction(interactionId.current, name);
+					}
+				} else {
+					if (interactionId.current != null) {
+						abortByNewInteraction(interactionId.current, name);
+					}
 				}
 
 				const rate = getInteractionRate(name, 'press');

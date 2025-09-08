@@ -30,11 +30,6 @@ describe('Tile', () => {
 		expect(screen.getByText('🙂')).toBeInTheDocument();
 	});
 
-	it('renders hidden label', () => {
-		render(<Tile label="My label" testId="tile" />);
-		expect(screen.getByText('My label')).toBeInTheDocument();
-	});
-
 	it('applies data-testid when provided', () => {
 		render(
 			<Tile label="Label" testId="my-tile">

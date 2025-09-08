@@ -66,7 +66,7 @@ export const aiFailedStateMessages = defineMessages({
 	},
 	adfStreamingError: {
 		id: 'fabric.editor.ai.experience.adfStreamingError',
-		defaultMessage: `We couldn't get a response due to a parsing error.`,
-		description: `We couldn't get a response due to a parsing error.`,
+		defaultMessage: `Our apologies, we couldn't get a response.`,
+		description: `This error message is displayed when error(s) are encountered during processing of LLM response in ADF format.`,
 	},
 });

@@ -1,0 +1,42 @@
+context:
+  PackageMetaData: &PackageMetaDataContext
+    packageName:
+      type: string
+      description: name of the package the event was fired from
+    packageVersion:
+      type: string
+      description: version of the package the event was fired from
+
+events:
+  - button clicked (analyticsExample):
+      type: ui
+      description: fired when the teams-app-internal-analytics example button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        testAttribute:
+          type: string
+          description: test attribute
+  - automation triggered (analyticsExample):
+      type: track
+      description: fired when the teams-app-internal-analytics example button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        testAttribute:
+          type: string
+          description: test attribute
+  - automation fired (analyticsExample):
+      type: operational
+      description: fired when the teams-app-internal-analytics example button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        testAttribute:
+          type: string
+          description: test attribute
+  - analyticsExampleScreen viewed:
+      type: screen
+      description: fired when the teams-app-internal-analytics example is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+        testAttribute:
+          type: string
+          description: test attribute

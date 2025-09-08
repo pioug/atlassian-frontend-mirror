@@ -68,6 +68,9 @@
 			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-passionfruit/tsconfig.json"
 		},
 		{

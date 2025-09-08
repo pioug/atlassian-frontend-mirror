@@ -11,7 +11,6 @@ import { css, jsx } from '@emotion/react';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
@@ -155,6 +154,7 @@ const stickyToolbarWrapperStyleNew = css({
 type StickyToolbarProps = {
 	children?: React.ReactNode;
 	externalToolbarRef?: RefObject<HTMLElement>;
+	isNewToolbarEnabled?: boolean;
 	offsetTop?: number;
 	twoLineEditorToolbar?: boolean;
 };
@@ -183,15 +183,14 @@ const StickyToolbar = (props: StickyToolbarProps) => {
 							props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
 							fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
 							stickyToolbarWrapperStyleNew,
-							editorExperiment('platform_editor_toolbar_aifc', true) &&
-								mainToolbarWithoutLeftPadding,
+							props.isNewToolbarEnabled && mainToolbarWithoutLeftPadding,
 						]
 					: [
 							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							mainToolbarWrapperStyle(
 								props.twoLineEditorToolbar,
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								editorExperiment('platform_editor_toolbar_aifc', true),
+								props.isNewToolbarEnabled,
 							),
 							stickyToolbarWrapperStyle,
 						]
@@ -209,6 +208,7 @@ const StickyToolbar = (props: StickyToolbarProps) => {
 
 type FixedToolbarProps = {
 	children?: React.ReactNode;
+	isNewToolbarEnabled?: boolean;
 	twoLineEditorToolbar?: boolean;
 };
 
@@ -221,13 +221,13 @@ const FixedToolbar = (props: FixedToolbarProps) => (
 						mainToolbarWrapperStyleNew,
 						props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
 						fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
-						editorExperiment('platform_editor_toolbar_aifc', true) && mainToolbarWithoutLeftPadding,
+						props.isNewToolbarEnabled && mainToolbarWithoutLeftPadding,
 					]
 				: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					mainToolbarWrapperStyle(
 						props.twoLineEditorToolbar,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						editorExperiment('platform_editor_toolbar_aifc', true),
+						props.isNewToolbarEnabled,
 					)
 		}
 		data-testid="ak-editor-main-toolbar"
@@ -262,6 +262,7 @@ const getStickyParameters = (configuration: UseStickyToolbarType) => {
 
 type MainToolbarProps = {
 	children?: React.ReactNode;
+	isNewToolbarEnabled?: boolean;
 	twoLineEditorToolbar?: boolean;
 	useStickyToolbar?: UseStickyToolbarType;
 };
@@ -270,6 +271,7 @@ export const MainToolbar = ({
 	useStickyToolbar,
 	twoLineEditorToolbar,
 	children,
+	isNewToolbarEnabled,
 }: MainToolbarProps) => {
 	if (useStickyToolbar) {
 		return (
@@ -278,10 +280,18 @@ export const MainToolbar = ({
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...getStickyParameters(useStickyToolbar)}
 				twoLineEditorToolbar={twoLineEditorToolbar}
+				isNewToolbarEnabled={isNewToolbarEnabled}
 			>
 				{children}
 			</StickyToolbar>
 		);
 	}
-	return <FixedToolbar twoLineEditorToolbar={twoLineEditorToolbar}>{children}</FixedToolbar>;
+	return (
+		<FixedToolbar
+			twoLineEditorToolbar={twoLineEditorToolbar}
+			isNewToolbarEnabled={isNewToolbarEnabled}
+		>
+			{children}
+		</FixedToolbar>
+	);
 };

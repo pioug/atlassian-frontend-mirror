@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-list
 
+## 6.0.3
+
+### Patch Changes
+
+- [`0eac5a71c3834`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0eac5a71c3834) -
+  [ED-29037] Fix dynamic buttons (e.g. text style) in full page primary toolbar flickers during the
+  initial load
+- Updated dependencies
+
 ## 6.0.2
 
 ### Patch Changes

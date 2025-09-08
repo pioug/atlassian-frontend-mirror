@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 40.21.0
+
+### Minor Changes
+
+- [`31cb31489cef2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31cb31489cef2) -
+  [ux] exporting HoverCard allowEventPropagation prop
+
+## 40.20.3
+
+### Patch Changes
+
+- [`6012c22dec4c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6012c22dec4c0) -
+  Follow-up on the revert for PR #20864 to prevent Confluence SSR issue
+
 ## 40.20.2
 
 ### Patch Changes

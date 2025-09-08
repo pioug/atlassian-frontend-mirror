@@ -73,7 +73,7 @@ export interface Props {
 
 type GroupedItems = (Item | Item[])[];
 
-export function groupItems(items: Item[]): GroupedItems {
+export function groupItems(items: Item[], areAnyNewToolbarFlagsEnabled: boolean): GroupedItems {
 	const groupItems = items.reduce(
 		(
 			accumulator: {
@@ -108,7 +108,7 @@ export function groupItems(items: Item[]): GroupedItems {
 				} else {
 					finalOutput.push(item);
 				}
-			} else if (item.type === 'separator' && areToolbarFlagsEnabled()) {
+			} else if (item.type === 'separator' && areAnyNewToolbarFlagsEnabled) {
 				const isLeadingSeparator = i === 0;
 				const isTrailingSeparator = i === items.length - 1;
 				const isDuplicateSeparator = items[i - 1]?.type === 'separator';
@@ -163,7 +163,7 @@ const ToolbarItems = React.memo(
 				undefined
 			: popupsMountPoint;
 
-		const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
+		const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 		const renderItem = (item: Item, idx: number) => {
 			switch (item.type) {
@@ -251,6 +251,7 @@ const ToolbarItems = React.memo(
 							pulse={item.pulse}
 							spotlightConfig={item.spotlightConfig}
 							interactionName={item.interactionName}
+							areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 						>
 							{item.showTitle && item.title}
 						</Button>
@@ -276,7 +277,7 @@ const ToolbarItems = React.memo(
 				case 'overflow-dropdown':
 					return (
 						<Dropdown
-							alignX={editorExperiment('platform_editor_toolbar_aifc', true) ? 'right' : undefined}
+							alignX={areAnyNewToolbarFlagsEnabled ? 'right' : undefined}
 							key={idx}
 							title={intl.formatMessage(commonMessages.viewMore)}
 							icon={<ShowMoreHorizontalIcon label="" spacing="spacious" />}
@@ -296,6 +297,7 @@ const ToolbarItems = React.memo(
 							dropdownListId={item?.id && `${item.id}-dropdownList`}
 							alignDropdownWithToolbar={items.length === 1}
 							onClick={item.onClick}
+							areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 						/>
 					);
 
@@ -329,6 +331,7 @@ const ToolbarItems = React.memo(
 							onClick={item.onClick}
 							pulse={item.pulse}
 							shouldFitContainer={item.shouldFitContainer}
+							areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 						/>
 					);
 
@@ -423,17 +426,29 @@ const ToolbarItems = React.memo(
 							popupsScrollableElement={popupsScrollableElement}
 							alignDropdownWithToolbar={items.length === 1}
 							scrollable={scrollable}
+							areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 						/>
 					);
 				case 'separator':
-					if (isNewEditorToolbarEnabled) {
-						return item.fullHeight ? <Separator key={idx} fullHeight={true} /> : null;
+					if (areAnyNewToolbarFlagsEnabled) {
+						return item.fullHeight ? (
+							<Separator key={idx} fullHeight={true} areAnyNewToolbarFlagsEnabled={true} />
+						) : null;
 					}
-					return <Separator key={idx} fullHeight={item.fullHeight} />;
+					return (
+						<Separator
+							key={idx}
+							fullHeight={item.fullHeight}
+							areAnyNewToolbarFlagsEnabled={false}
+						/>
+					);
 			}
 		};
 
-		const groupedItems = groupItems(items.filter((item) => !item.hidden));
+		const groupedItems = groupItems(
+			items.filter((item) => !item.hidden),
+			areAnyNewToolbarFlagsEnabled,
+		);
 
 		return (
 			<ButtonGroup testId="editor-floating-toolbar-items">
@@ -446,7 +461,7 @@ const ToolbarItems = React.memo(
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/no-array-index-key
 								key={index}
-								css={isNewEditorToolbarEnabled ? buttonGroupStylesNew : buttonGroupStyles}
+								css={areAnyNewToolbarFlagsEnabled ? buttonGroupStylesNew : buttonGroupStyles}
 								role="radiogroup"
 								aria-label={groupLabel ?? undefined}
 								data-testid="editor-floating-toolbar-grouped-buttons"
@@ -492,6 +507,7 @@ const buttonGroupStylesNew = css({
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const toolbarContainer = (
+	areAnyNewToolbarFlagsEnabled: boolean,
 	scrollable?: boolean,
 	hasSelect?: boolean,
 	firstElementIsSelect?: boolean,
@@ -532,7 +548,7 @@ const toolbarContainer = (
 					},
 				)
 			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				areToolbarFlagsEnabled()
+				areAnyNewToolbarFlagsEnabled
 				? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					css(
 						{
@@ -559,7 +575,7 @@ const toolbarContainer = (
 							}),
 					),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		areToolbarFlagsEnabled()
+		areAnyNewToolbarFlagsEnabled
 			? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				css({ minHeight: token('space.500') })
 			: undefined,
@@ -570,7 +586,9 @@ const toolbarOverflow = ({
 	scrollable,
 	scrollDisabled,
 	firstElementIsSelect,
+	areAnyNewToolbarFlagsEnabled,
 }: {
+	areAnyNewToolbarFlagsEnabled: boolean;
 	firstElementIsSelect?: boolean;
 	scrollable?: boolean;
 	scrollDisabled?: boolean;
@@ -616,7 +634,7 @@ const toolbarOverflow = ({
 						},
 					},
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-					areToolbarFlagsEnabled()
+					areAnyNewToolbarFlagsEnabled
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							css({
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -749,7 +767,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 
 	render() {
 		const { items, className, node, intl, scrollable, mediaAssistiveMessage } = this.props;
-		const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
+		const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(this.props.api?.toolbar));
 
 		if (!items || !items.length) {
 			return null;
@@ -780,14 +798,19 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 					<div
 						ref={this.toolbarContainerRef}
 						css={() => [
-							toolbarContainer(scrollable, hasSelect !== undefined, firstElementIsSelect),
+							toolbarContainer(
+								areAnyNewToolbarFlagsEnabled,
+								scrollable,
+								hasSelect !== undefined,
+								firstElementIsSelect,
+							),
 						]}
 						aria-label={intl.formatMessage(messages.floatingToolbarAriaLabel)}
 						role="toolbar"
 						data-testid="editor-floating-toolbar"
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={className}
-						onMouseDown={isNewEditorToolbarEnabled ? this.captureMouseEvent : undefined}
+						onMouseDown={areAnyNewToolbarFlagsEnabled ? this.captureMouseEvent : undefined}
 					>
 						<Announcer
 							text={
@@ -799,7 +822,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 							}
 							delay={250}
 						/>
-						{scrollable && isNewEditorToolbarEnabled && (
+						{scrollable && areAnyNewToolbarFlagsEnabled && (
 							<ScrollButton
 								intl={intl}
 								scrollContainerRef={this.scrollContainerRef}
@@ -813,6 +836,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 							ref={this.scrollContainerRef}
 							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 							css={toolbarOverflow({
+								areAnyNewToolbarFlagsEnabled,
 								scrollable,
 								scrollDisabled: this.state.scrollDisabled,
 								firstElementIsSelect,
@@ -828,7 +852,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 							/>
 						</div>
 						{scrollable &&
-							(isNewEditorToolbarEnabled ? (
+							(areAnyNewToolbarFlagsEnabled ? (
 								<ScrollButton
 									intl={intl}
 									scrollContainerRef={this.scrollContainerRef}
@@ -842,6 +866,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 									scrollContainerRef={this.scrollContainerRef}
 									node={node}
 									disabled={this.state.scrollDisabled}
+									areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 								/>
 							))}
 					</div>

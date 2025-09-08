@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 1.0.11
+
+### Patch Changes
+
+- [`fcef7ff2e1083`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcef7ff2e1083) -
+  Split unsupported content when converting to codeblock
+- [`1754f5027f568`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1754f5027f568) -
+  Fix missing copy link on table node
+- Updated dependencies
+
+## 1.0.10
+
+### Patch Changes
+
+- [`74c42a764926a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74c42a764926a) -
+  Hide copy link option when platform_editor_adf_with_localid FG is off or when selection is a
+  nested node
+- [`614ef1a575e84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/614ef1a575e84) -
+  [ux] ED-29183: Fixed p and headings with alignment not able to convert to panel, expand, block
+  quote
+
 ## 1.0.9
 
 ### Patch Changes

@@ -293,8 +293,9 @@ const buildAlignmentOptions = (
 	widthPluginDependencyApi: PluginDependenciesAPI<WidthPlugin> | undefined,
 	analyticsApi: EditorAnalyticsAPI | undefined,
 	cardOptions?: CardOptions,
+	areAnyNewToolbarFlagsEnabled?: boolean,
 ): FloatingToolbarItem<Command>[] => {
-	if (areToolbarFlagsEnabled()) {
+	if (areAnyNewToolbarFlagsEnabled) {
 		return buildLayoutDropdown(
 			state,
 			intl,
@@ -374,7 +375,9 @@ const generateToolbarItems =
 			};
 		}
 
-		const isNewEditorToolbarDisabled = !areToolbarFlagsEnabled();
+		const areAllNewToolbarFlagsDisabled = !areToolbarFlagsEnabled(
+			Boolean(pluginInjectionApi?.toolbar),
+		);
 
 		const currentAppearance = appearanceForNodeType(node.type);
 		const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
@@ -463,6 +466,7 @@ const generateToolbarItems =
 									editorView={editorView}
 									onLinkEditClick={getEditLinkCallback(editorAnalyticsApi, true)}
 									currentAppearance={currentAppearance}
+									areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
 								/>
 							),
 						},
@@ -515,6 +519,7 @@ const generateToolbarItems =
 									editorView={editorView}
 									onLinkEditClick={getEditLinkCallback(editorAnalyticsApi, true)}
 									currentAppearance={currentAppearance}
+									areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
 								/>
 							),
 						},
@@ -546,13 +551,14 @@ const generateToolbarItems =
 									node={node}
 									intl={intl}
 									editorAnalyticsApi={editorAnalyticsApi}
+									areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
 								/>
 							),
 						},
 					]
 				: [];
 
-			const toolbarItems: Array<FloatingToolbarItem<Command>> = isNewEditorToolbarDisabled
+			const toolbarItems: Array<FloatingToolbarItem<Command>> = areAllNewToolbarFlagsDisabled
 				? [
 						...editItems,
 						...commentItems,
@@ -570,7 +576,14 @@ const generateToolbarItems =
 							target: '_blank',
 						},
 						{ type: 'separator' },
-						...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
+						...getUnlinkButtonGroup(
+							state,
+							intl,
+							node,
+							inlineCard,
+							editorAnalyticsApi,
+							!areAllNewToolbarFlagsDisabled,
+						),
 						{
 							type: 'copy-button',
 							items: [
@@ -604,10 +617,24 @@ const generateToolbarItems =
 						...editButtonItems,
 						...(fg('platform_editor_controls_patch_15')
 							? ([
-									...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
+									...getUnlinkButtonGroup(
+										state,
+										intl,
+										node,
+										inlineCard,
+										editorAnalyticsApi,
+										!areAllNewToolbarFlagsDisabled,
+									),
 									{ type: 'separator', fullHeight: true },
 								] as FloatingToolbarItem<Command>[])
-							: getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi)),
+							: getUnlinkButtonGroup(
+									state,
+									intl,
+									node,
+									inlineCard,
+									editorAnalyticsApi,
+									!areAllNewToolbarFlagsDisabled,
+								)),
 						{
 							id: 'editor.link.openLink',
 							type: 'button',
@@ -632,8 +659,9 @@ const generateToolbarItems =
 					pluginInjectionApi?.width,
 					pluginInjectionApi?.analytics?.actions,
 					cardOptions,
+					!areAllNewToolbarFlagsDisabled,
 				);
-				if (alignmentOptions.length && isNewEditorToolbarDisabled) {
+				if (alignmentOptions.length && areAllNewToolbarFlagsDisabled) {
 					alignmentOptions.push({
 						type: 'separator',
 					});
@@ -650,7 +678,7 @@ const generateToolbarItems =
 
 				toolbarItems.unshift(
 					...getToolbarViewedItem(url, currentAppearance),
-					isNewEditorToolbarDisabled
+					areAllNewToolbarFlagsDisabled
 						? {
 								type: 'custom',
 								fallback: [],
@@ -666,6 +694,7 @@ const generateToolbarItems =
 										allowBlockCards={allowBlockCards}
 										editorAnalyticsApi={editorAnalyticsApi}
 										showUpgradeDiscoverability={showUpgradeDiscoverability}
+										areAnyNewToolbarFlagsEnabled={false}
 									/>
 								),
 							}
@@ -685,8 +714,9 @@ const generateToolbarItems =
 									cardOptions.userPreferencesLink,
 								),
 								isDatasourceView: isDatasource,
+								areAnyNewToolbarFlagsEnabled: !areAllNewToolbarFlagsDisabled,
 							}),
-					...(showDatasourceAppearance && isNewEditorToolbarDisabled
+					...(showDatasourceAppearance && areAllNewToolbarFlagsDisabled
 						? [
 								{
 									type: 'custom',
@@ -699,18 +729,19 @@ const generateToolbarItems =
 											editorView={editorView}
 											editorState={state}
 											inputMethod={INPUT_METHOD.FLOATING_TB}
+											areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
 										/>
 									),
 								} satisfies FloatingToolbarItem<never>,
 							]
 						: []),
-					...(!isNewEditorToolbarDisabled
+					...(!areAllNewToolbarFlagsDisabled
 						? []
 						: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
 				);
 			}
 
-			if (!isNewEditorToolbarDisabled) {
+			if (!areAllNewToolbarFlagsDisabled) {
 				const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) => ({
 					onMouseEnter: hoverDecoration?.(nodeType, true, className),
 					onMouseLeave: hoverDecoration?.(nodeType, false, className),
@@ -764,6 +795,7 @@ const getUnlinkButtonGroup = (
 	node: Node,
 	inlineCard: NodeType,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	areAnyNewToolbarFlagsEnabled?: boolean,
 ) => {
 	return node.type === inlineCard
 		? ([
@@ -776,7 +808,7 @@ const getUnlinkButtonGroup = (
 					iconFallback: UnlinkIcon,
 					onClick: withToolbarMetadata(unlinkCard(node, state, editorAnalyticsApi)),
 				},
-				...(areToolbarFlagsEnabled() ? [] : [{ type: 'separator' }]),
+				...(areAnyNewToolbarFlagsEnabled ? [] : [{ type: 'separator' }]),
 			] as Array<FloatingToolbarItem<Command>>)
 		: [];
 };
@@ -811,7 +843,9 @@ const getDatasourceButtonGroup = (
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
 ): FloatingToolbarItem<Command>[] => {
 	const toolbarItems: Array<FloatingToolbarItem<Command>> = [];
-	const isNewEditorToolbarDisabled = !areToolbarFlagsEnabled();
+	const areAllNewToolbarFlagsDisabled = !areToolbarFlagsEnabled(
+		Boolean(pluginInjectionApi?.toolbar),
+	);
 
 	const canShowAppearanceSwitch = () => {
 		// we do not show smart-link or the datasource icons when the node does not have a url to resolve
@@ -826,7 +860,7 @@ const getDatasourceButtonGroup = (
 
 		const { url } = metadata;
 
-		if (isNewEditorToolbarDisabled) {
+		if (areAllNewToolbarFlagsDisabled) {
 			toolbarItems.push(
 				{
 					type: 'custom',
@@ -845,6 +879,7 @@ const getDatasourceButtonGroup = (
 								editorAnalyticsApi={editorAnalyticsApi}
 								showUpgradeDiscoverability={showUpgradeDiscoverability}
 								isDatasourceView
+								areAnyNewToolbarFlagsEnabled={false}
 							/>
 						);
 					},
@@ -861,6 +896,7 @@ const getDatasourceButtonGroup = (
 							editorState={state}
 							selected={true}
 							inputMethod={INPUT_METHOD.FLOATING_TB}
+							areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
 						/>
 					),
 				} satisfies FloatingToolbarItem<never>,
@@ -884,6 +920,7 @@ const getDatasourceButtonGroup = (
 						cardOptions.userPreferencesLink,
 					),
 					isDatasourceView: true,
+					areAnyNewToolbarFlagsEnabled: !areAllNewToolbarFlagsDisabled,
 				}),
 
 				{ type: 'separator' },
@@ -907,6 +944,7 @@ const getDatasourceButtonGroup = (
 				editorView={editorView}
 				onLinkEditClick={getEditLinkCallback(editorAnalyticsApi, false)}
 				currentAppearance="datasource"
+				areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
 			/>
 		),
 	});
@@ -924,12 +962,12 @@ const getDatasourceButtonGroup = (
 			href: node.attrs.url,
 			target: '_blank',
 		});
-		if (isNewEditorToolbarDisabled) {
+		if (areAllNewToolbarFlagsDisabled) {
 			toolbarItems.push({ type: 'separator' });
 		}
 	}
 
-	if (isNewEditorToolbarDisabled) {
+	if (areAllNewToolbarFlagsDisabled) {
 		toolbarItems.push(
 			{
 				type: 'copy-button',
@@ -1044,6 +1082,8 @@ export const getStartingToolbarItems = (
 		metadata: { title: string; url: string },
 		state?: EditorState,
 	): FloatingToolbarItem<Command>[] => {
+		const areAllNewToolbarFlagsDisabled = !areToolbarFlagsEnabled(Boolean(api?.toolbar));
+
 		const editLinkItem: FloatingToolbarItem<Command>[] = options.allowDatasource
 			? [
 					{
@@ -1062,6 +1102,7 @@ export const getStartingToolbarItems = (
 									editorView={editorView}
 									onLinkEditClick={onEditLink}
 									currentAppearance="url"
+									areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
 								/>
 							);
 						},
@@ -1083,7 +1124,7 @@ export const getStartingToolbarItems = (
 					},
 				];
 
-		if (areToolbarFlagsEnabled()) {
+		if (!areAllNewToolbarFlagsDisabled) {
 			const hyperlinkAppearance = [
 				getCustomHyperlinkAppearanceDropdown({
 					url: link,
@@ -1166,7 +1207,10 @@ export const getEndingToolbarItems =
 		 * Require either provider to be supplied (controls link preferences)
 		 * Or explicit user preferences config in order to enable button
 		 */
-		if ((options.provider || options.userPreferencesLink) && !areToolbarFlagsEnabled()) {
+		if (
+			(options.provider || options.userPreferencesLink) &&
+			!areToolbarFlagsEnabled(Boolean(api?.toolbar))
+		) {
 			return [
 				{ type: 'separator' },
 				getSettingsButton(intl, api?.analytics?.actions, options.userPreferencesLink),

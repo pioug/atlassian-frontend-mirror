@@ -38,7 +38,7 @@ export const TrackChangesToolbarButton = ({ api }: TrackChangesToolbarButtonProp
 
 	return (
 		<ToolbarTooltip content={formatMessage(trackChangesMessages.toolbarIconLabel)}>
-			{editorExperiment('platform_editor_toolbar_aifc', true) ? (
+			{Boolean(api?.toolbar) && editorExperiment('platform_editor_toolbar_aifc', true) ? (
 				<ToolbarButton
 					iconBefore={
 						<HistoryIcon

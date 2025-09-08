@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.21.5
+
+### Patch Changes
+
+- [`7801cfbcf9a8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7801cfbcf9a8d) -
+  Rebranding strings to contain space term instead of project
+- Updated dependencies
+
 ## 4.21.4
 
 ### Patch Changes

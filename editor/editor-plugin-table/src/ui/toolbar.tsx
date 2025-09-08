@@ -494,7 +494,7 @@ export const getToolbarConfig =
 		const isTableScalingEnabled = options?.isTableScalingEnabled || false;
 		const nodeType = state.schema.nodes.table;
 		const toolbarTitle = 'Table floating controls';
-		const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
+		const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 		if (editorExperiment('platform_editor_controls', 'variant1')) {
 			let isDragHandleMenuOpened = false;
@@ -570,6 +570,7 @@ export const getToolbarConfig =
 							getEditorContainerWidth,
 							editorView,
 							shouldUseIncreasedScalingPercent,
+							areAnyNewToolbarFlagsEnabled,
 							options?.fullWidthEnabled,
 							options?.isCommentEditor,
 						)
@@ -604,7 +605,7 @@ export const getToolbarConfig =
 					)
 				: [];
 
-			const colorPicker = !isNewEditorToolbarEnabled
+			const colorPicker = !areAnyNewToolbarFlagsEnabled
 				? getColorPicker(state, menu, intl, editorAnalyticsAPI, getEditorView)
 				: [];
 
@@ -686,13 +687,13 @@ export const getToolbarConfig =
 				zIndex: akEditorFloatingPanelZIndex + 1, // Place the context menu slightly above the others
 				items: [
 					menu,
-					...(!isNewEditorToolbarEnabled ? [separator(menu.hidden)] : []),
+					...(!areAnyNewToolbarFlagsEnabled ? [separator(menu.hidden)] : []),
 					...alignmentMenu,
-					...(!isNewEditorToolbarEnabled ? [separator(alignmentMenu.length === 0)] : []),
+					...(!areAnyNewToolbarFlagsEnabled ? [separator(alignmentMenu.length === 0)] : []),
 					...cellItems,
 					...columnSettingsItems,
 					...colorPicker,
-					...((!isNewEditorToolbarEnabled
+					...((!areAnyNewToolbarFlagsEnabled
 						? ([
 								{
 									type: 'extensions-placeholder',
@@ -703,7 +704,7 @@ export const getToolbarConfig =
 								deleteButton,
 							] as Array<FloatingToolbarItem<Command>>)
 						: [
-								isNewEditorToolbarEnabled && { type: 'separator', fullHeight: true },
+								areAnyNewToolbarFlagsEnabled && { type: 'separator', fullHeight: true },
 								{
 									type: 'overflow-dropdown',
 									testId: overflowDropdownTestId,
@@ -738,13 +739,14 @@ export const getToolbarConfig =
 																['referentiality:connections', 'chart:insert-chart'].includes(key)
 															);
 														}}
+														areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 													/>
 												);
 											},
 										},
 										...(extensionApi &&
 										extensionState?.extensionProvider &&
-										!areToolbarFlagsEnabled()
+										!areAnyNewToolbarFlagsEnabled
 											? [{ type: 'separator' }]
 											: []),
 										{
@@ -912,7 +914,7 @@ const getColumnSettingItems = (
 		});
 	}
 
-	if (items.length !== 0 && !areToolbarFlagsEnabled()) {
+	if (items.length !== 0 && !areToolbarFlagsEnabled(Boolean(api?.toolbar))) {
 		items.push({
 			type: 'separator',
 		});
@@ -1015,6 +1017,7 @@ const getAlignmentOptionsConfig = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 	editorView: EditorView | null,
 	shouldUseIncreasedScalingPercent: boolean,
+	areAnyNewToolbarFlagsEnabled: boolean,
 	isFullWidthEditor?: boolean,
 	isCommentEditor?: boolean,
 ): Array<FloatingToolbarDropdown<Command>> => {
@@ -1093,6 +1096,7 @@ const getAlignmentOptionsConfig = (
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...props}
+					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>
 			);
 		},

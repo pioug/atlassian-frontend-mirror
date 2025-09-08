@@ -300,6 +300,59 @@ describe('standalone hover card', () => {
 
 			expect(mockOnClick).not.toHaveBeenCalled();
 		});
+
+		describe('allowEventPropagation prop', () => {
+			const renderAllowEventPropagationTest = async (allowEventPropagation?: boolean) => {
+				const mockOnClick = jest.fn();
+				const testId = 'hover-test-div';
+
+				const hoverCardProps: any = {
+					url: mockUrl,
+					id: 'some-id',
+				};
+				if (allowEventPropagation) {
+					hoverCardProps.allowEventPropagation = allowEventPropagation;
+				}
+
+				const { element, event } = await setupEventPropagationTest({
+					mockOnClick,
+					component: (
+						<IntlProvider locale="en">
+							<StandaloneHoverCard {...hoverCardProps}>
+								<div data-testid={testId}>Hover on me</div>
+							</StandaloneHoverCard>
+						</IntlProvider>
+					),
+					testId,
+				});
+
+				return { element, event, mockOnClick };
+			};
+
+			it('should prevent event propagation by default', async () => {
+				const { element, event, mockOnClick } = await renderAllowEventPropagationTest();
+
+				await event.click(element);
+
+				expect(mockOnClick).not.toHaveBeenCalled();
+			});
+
+			it('should allow event propagation when set to true', async () => {
+				const { element, event, mockOnClick } = await renderAllowEventPropagationTest(true);
+
+				await event.click(element);
+
+				expect(mockOnClick).toHaveBeenCalledTimes(1);
+			});
+
+			it('should prevent event propagation when explicitly set to false', async () => {
+				const { element, event, mockOnClick } = await renderAllowEventPropagationTest(false);
+
+				await event.click(element);
+
+				expect(mockOnClick).not.toHaveBeenCalled();
+			});
+		});
 	});
 
 	describe('starts resolving a link after 100ms on hover', () => {

@@ -166,6 +166,7 @@ export const ToolbarDropdownItem = ({
 					: CustomDropdownMenuItemButton
 			}
 			testId={testId}
+			data-toolbar-component="menu-item"
 		>
 			{children}
 		</DropdownItem>

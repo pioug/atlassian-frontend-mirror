@@ -136,6 +136,7 @@ export const ToolbarDropdownMenu = ({
 						expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true) &&
 							styles.firstSectionSeparator,
 					)}
+					data-toolbar-component="menu"
 				>
 					{children}
 				</Box>

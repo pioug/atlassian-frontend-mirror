@@ -1,21 +1,14 @@
 import React from 'react';
 
-import { Example, md, Props } from '@atlaskit/docs';
+import { md } from '@atlaskit/docs';
+import Link from '@atlaskit/link';
+import SectionMessage from '@atlaskit/section-message';
 
 export default md`
-
-  TODO
-
-  ## Usage
-
-  ${(
-		<Example
-			packageName="@atlaskit/tile"
-			Component={require('../examples/basic').default}
-			title="Basic example"
-			source={require('!!raw-loader!../examples/basic')}
-		/>
-	)}
-
-  ${(<Props heading="Tile Props" props={require('!!extract-react-types-loader!../src')} />)}
+${(
+	<SectionMessage appearance="information">
+		This component is now documented on{' '}
+		<Link href="https://atlassian.design/components/tile">atlassian.design</Link>
+	</SectionMessage>
+)}
 `;

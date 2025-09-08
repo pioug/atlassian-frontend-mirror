@@ -11,6 +11,7 @@ import { type CardType } from '../../types';
 export type EditVariant = 'none' | 'edit-link' | 'edit-datasource' | 'edit-dropdown';
 
 export interface EditDatasourceToolbarButtonWithCommonProps {
+	areAnyNewToolbarFlagsEnabled: boolean;
 	currentAppearance?: CardType;
 	editorAnalyticsApi?: EditorAnalyticsAPI;
 	editorView?: EditorView;

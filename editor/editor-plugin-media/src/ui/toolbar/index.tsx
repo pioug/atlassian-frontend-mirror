@@ -198,13 +198,13 @@ const generateMediaCardFloatingToolbar = (
 	isViewOnly: boolean | undefined,
 ): FloatingToolbarItem<Command>[] => {
 	const disableDownloadButton = getIsDownloadDisabledByDataSecurityPolicy(mediaPluginState);
-	const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
+	const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar));
 
 	const preview: FloatingToolbarButton<Command> = {
 		id: 'editor.media.viewer',
 		testId: 'file-preview-toolbar-button',
 		type: 'button',
-		icon: isNewEditorToolbarEnabled ? GrowDiagonalIcon : MaximizeIcon,
+		icon: areAnyNewToolbarFlagsEnabled ? GrowDiagonalIcon : MaximizeIcon,
 		title: intl.formatMessage(messages.preview),
 		onClick: () => {
 			return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
@@ -223,17 +223,17 @@ const generateMediaCardFloatingToolbar = (
 		},
 		title: intl.formatMessage(messages.download),
 		disabled: disableDownloadButton,
-		...(isNewEditorToolbarEnabled && { supportsViewMode: true }),
+		...(areAnyNewToolbarFlagsEnabled && { supportsViewMode: true }),
 	};
 
-	if (isViewOnly && !isNewEditorToolbarEnabled) {
+	if (isViewOnly && !areAnyNewToolbarFlagsEnabled) {
 		return [];
 	}
 
 	const { mediaGroup } = state.schema.nodes;
 	const items: FloatingToolbarItem<Command>[] = [];
 
-	if (!isNewEditorToolbarEnabled) {
+	if (!areAnyNewToolbarFlagsEnabled) {
 		items.push(
 			{
 				id: 'editor.media.view.switcher.inline',
@@ -355,7 +355,7 @@ const generateMediaSingleFloatingToolbar = (
 
 	let toolbarButtons: FloatingToolbarItem<Command>[] = [];
 	const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
-	const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
+	const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar));
 	const disableDownloadButton = getIsDownloadDisabledByDataSecurityPolicy(pluginState);
 
 	if (shouldShowImageBorder(state)) {
@@ -382,7 +382,7 @@ const generateMediaSingleFloatingToolbar = (
 				);
 			},
 		});
-		if (!isNewEditorToolbarEnabled) {
+		if (!areAnyNewToolbarFlagsEnabled) {
 			toolbarButtons.push({ type: 'separator' });
 		}
 	}
@@ -420,7 +420,7 @@ const generateMediaSingleFloatingToolbar = (
 		);
 
 		const addLayoutDropdownToToolbar = () => {
-			if (isNewEditorToolbarEnabled) {
+			if (areAnyNewToolbarFlagsEnabled) {
 				const layoutDropdown = buildLayoutDropdown(
 					state,
 					intl,
@@ -451,6 +451,7 @@ const generateMediaSingleFloatingToolbar = (
 									// Ignored via go/ees005
 									// eslint-disable-next-line react/jsx-props-no-spreading
 									{...props}
+									areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 								/>
 							);
 						},
@@ -469,7 +470,7 @@ const generateMediaSingleFloatingToolbar = (
 					toolbarButtons = [
 						...toolbarButtons,
 						trigger,
-						...(isNewEditorToolbarEnabled
+						...(areAnyNewToolbarFlagsEnabled
 							? []
 							: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
 					];
@@ -493,7 +494,7 @@ const generateMediaSingleFloatingToolbar = (
 			} else {
 				toolbarButtons = [...toolbarButtons, ...layoutButtons];
 
-				if (layoutButtons.length && !isNewEditorToolbarEnabled) {
+				if (layoutButtons.length && !areAnyNewToolbarFlagsEnabled) {
 					toolbarButtons.push({ type: 'separator' });
 				}
 			}
@@ -513,7 +514,7 @@ const generateMediaSingleFloatingToolbar = (
 					mediaAndEmbedToolbarMessages.changeToMediaSingle,
 				);
 
-				if (!isNewEditorToolbarEnabled) {
+				if (!areAnyNewToolbarFlagsEnabled) {
 					toolbarButtons.push(
 						{
 							type: 'button',
@@ -565,7 +566,10 @@ const generateMediaSingleFloatingToolbar = (
 		}
 
 		// A separator is needed regardless switcher is enabled or not
-		if (editorExperiment('platform_editor_toolbar_aifc', true)) {
+		if (
+			Boolean(pluginInjectionApi?.toolbar) &&
+			editorExperiment('platform_editor_toolbar_aifc', true)
+		) {
 			toolbarButtons.push({
 				type: 'separator',
 				fullHeight: true,
@@ -619,13 +623,13 @@ const generateMediaSingleFloatingToolbar = (
 				}
 				return [sizeInput];
 			}
-			if (!isNewEditorToolbarEnabled) {
+			if (!areAnyNewToolbarFlagsEnabled) {
 				toolbarButtons.push(sizeInput);
 				toolbarButtons.push({ type: 'separator' });
 			}
 		}
 
-		if (!isNewEditorToolbarEnabled) {
+		if (!areAnyNewToolbarFlagsEnabled) {
 			if (allowCommentsOnMedia) {
 				toolbarButtons.push(commentButton(intl, state, pluginInjectionApi, onCommentButtonMount), {
 					type: 'separator',
@@ -673,6 +677,7 @@ const generateMediaSingleFloatingToolbar = (
 									onEditLink={editLink}
 									onOpenLink={openLink}
 									isViewOnly={isViewOnly}
+									areAnyNewToolbarFlagsEnabled={false}
 								/>
 							);
 						}
@@ -733,7 +738,7 @@ const generateMediaSingleFloatingToolbar = (
 		);
 	}
 
-	if (!isNewEditorToolbarEnabled) {
+	if (!areAnyNewToolbarFlagsEnabled) {
 		if (allowAltTextOnImages) {
 			toolbarButtons.push(altTextButton(intl, state, pluginInjectionApi?.analytics?.actions), {
 				type: 'separator',
@@ -953,6 +958,7 @@ export const floatingToolbar = (
 				altTextValidator,
 				forceFocusSelector: pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector,
 				triggerButtonSelector: overflowButtonSelector,
+				areAnyNewToolbarFlagsEnabled: areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar)),
 			});
 		}
 	}
@@ -1031,7 +1037,10 @@ export const floatingToolbar = (
 		);
 	}
 
-	if (!mediaPluginState.isResizing && areToolbarFlagsEnabled()) {
+	if (
+		!mediaPluginState.isResizing &&
+		areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar))
+	) {
 		updateToFullHeightSeparator(items);
 
 		const customOptions: FloatingToolbarOverflowDropdownOptions<Command> = [

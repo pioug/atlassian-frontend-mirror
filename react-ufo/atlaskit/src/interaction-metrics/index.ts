@@ -1154,6 +1154,7 @@ export function addNewInteraction(
 		vcObserver,
 		hold3pActive: new Map(),
 		hold3pInfo: [],
+		minorInteractions: [],
 	};
 	if (addFeatureFlagsToInteraction) {
 		currentFeatureFlagsAccessed.clear();

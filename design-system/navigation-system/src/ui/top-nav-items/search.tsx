@@ -4,9 +4,10 @@
  */
 import React, { Fragment } from 'react';
 
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import type { NewIconProps } from '@atlaskit/icon';
 import SearchIcon from '@atlaskit/icon/core/search';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable, Show, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -49,6 +50,10 @@ const styles = cssMap({
 		display: 'flex',
 		gridColumn: 3,
 		gridRow: 1,
+	},
+	// Aligning max width with real search component and our docs / Figma
+	fullHeightSidebar: {
+		maxWidth: '780px',
 	},
 });
 
@@ -97,7 +102,7 @@ export const Search = ({
 				border: `${token('border.width')} solid ${token('color.border.input')}`,
 			}}
 			onClick={onClick}
-			xcss={styles.root}
+			xcss={cx(styles.root, fg('navx-full-height-sidebar') && styles.fullHeightSidebar)}
 			interactionName={interactionName}
 			aria-haspopup={ariaHaspopup}
 		>

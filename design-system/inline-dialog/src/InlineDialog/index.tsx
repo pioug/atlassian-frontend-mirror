@@ -5,12 +5,10 @@ import { bind } from 'bind-event-listener';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import { Layering, useCloseOnEscapePress, useLayering } from '@atlaskit/layering';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Popper, Reference } from '@atlaskit/popper';
 
 import type { InlineDialogProps } from '../types';
 
-import NodeResolverWrapper from './node-resolver-wrapper';
 import { Container } from './styled/container';
 
 interface ReferenceChildrenProps {
@@ -190,19 +188,20 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 		<Manager>
 			<Reference>
 				{({ ref }: ReferenceChildrenProps) => (
-					<NodeResolverWrapper
-						innerRef={(node: HTMLElement) => {
-							triggerRef.current = node;
+					<div
+						ref={(node: HTMLDivElement) => {
+							// Resolve to the first element child of the div in `children`
+							const firstElementChild = (node?.firstElementChild || null) as HTMLElement | null;
+							triggerRef.current = firstElementChild;
 							if (typeof ref === 'function') {
-								ref(node);
+								ref(firstElementChild);
 							} else {
-								(ref as React.MutableRefObject<HTMLElement>).current = node;
+								(ref as React.MutableRefObject<HTMLElement | null>).current = firstElementChild;
 							}
 						}}
-						hasNodeResolver={!fg('platform_design_system_team_portal_logic_r18_fix')}
 					>
 						<React.Fragment>{children}</React.Fragment>
-					</NodeResolverWrapper>
+					</div>
 				)}
 			</Reference>
 			{isOpen ? (

@@ -40,6 +40,7 @@ export const appearancePropsMap = {
 
 export const getButtonGroupOption = (
 	intl: IntlShape,
+	areAnyNewToolbarFlagsEnabled: boolean,
 	dispatchCommand: (command: Command) => void,
 	{ disabled, onClick, selected, appearance, testId, tooltip }: OptionConfig,
 ): ButtonOptionProps => {
@@ -54,5 +55,6 @@ export const getButtonGroupOption = (
 		tooltipContent: tooltip || null,
 		testId,
 		selected,
+		areAnyNewToolbarFlagsEnabled: areAnyNewToolbarFlagsEnabled,
 	};
 };

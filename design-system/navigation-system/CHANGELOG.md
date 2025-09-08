@@ -1,5 +1,16 @@
 # @atlassian/navigation-system
 
+## 2.4.0
+
+### Minor Changes
+
+- [`6743796745b3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6743796745b3d) -
+  Changes PanelSplitter to use a `col-resize` cursor instead of `ew-resize`, when the
+  `navx-full-height-sidebar` feature gate is enabled.
+- [`ad74a7aedf419`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad74a7aedf419) -
+  Adds layout changes to support a full height sidebar behind the `navx-full-height-sidebar` feature
+  gate.
+
 ## 2.3.4
 
 ### Patch Changes

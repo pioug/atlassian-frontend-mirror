@@ -31,9 +31,11 @@ import { getToolbarComponents } from './ui/toolbar-components';
 
 export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders, api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState();
-	const isToolbarAIFCEnabled = editorExperiment('platform_editor_toolbar_aifc', true, {
-		exposure: true,
-	});
+	const isToolbarAIFCEnabled =
+		Boolean(api?.toolbar) &&
+		editorExperiment('platform_editor_toolbar_aifc', true, {
+			exposure: true,
+		});
 
 	if (isToolbarAIFCEnabled) {
 		api?.toolbar?.actions.registerComponents(getToolbarComponents(api, annotationProviders));

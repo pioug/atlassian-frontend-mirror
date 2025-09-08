@@ -94,18 +94,18 @@ export const generateMediaInlineFloatingToolbar = (
 
 	const items: FloatingToolbarItem<Command>[] = [];
 
-	const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
+	const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar));
 
 	const preview: FloatingToolbarButton<Command> = {
 		id: 'editor.media.viewer',
 		testId: 'file-preview-toolbar-button',
 		type: 'button',
-		icon: isNewEditorToolbarEnabled ? GrowDiagonalIcon : MaximizeIcon,
+		icon: areAnyNewToolbarFlagsEnabled ? GrowDiagonalIcon : MaximizeIcon,
 		title: intl.formatMessage(messages.preview),
 		onClick: () => {
 			return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
 		},
-		...(isNewEditorToolbarEnabled && { supportsViewMode: true }),
+		...(areAnyNewToolbarFlagsEnabled && { supportsViewMode: true }),
 	};
 
 	const disableDownloadButton = getIsDownloadDisabledByDataSecurityPolicy(mediaPluginState);
@@ -120,10 +120,10 @@ export const generateMediaInlineFloatingToolbar = (
 		},
 		disabled: disableDownloadButton,
 		title: intl.formatMessage(messages.download),
-		...(isNewEditorToolbarEnabled && { supportsViewMode: true }),
+		...(areAnyNewToolbarFlagsEnabled && { supportsViewMode: true }),
 	};
 
-	if (!isNewEditorToolbarEnabled) {
+	if (!areAnyNewToolbarFlagsEnabled) {
 		items.push(
 			{
 				id: 'editor.media.view.switcher.inline',
@@ -354,6 +354,9 @@ const getMediaInlineImageToolbar = (
 								onOpenLink={openLink}
 								isInlineNode
 								isViewOnly={options.isViewOnly}
+								areAnyNewToolbarFlagsEnabled={areToolbarFlagsEnabled(
+									Boolean(pluginInjectionApi?.toolbar),
+								)}
 							/>
 						);
 					}

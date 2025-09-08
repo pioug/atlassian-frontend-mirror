@@ -84,6 +84,7 @@ export type ReactHydrationStats = {
 export type Config = {
 	readonly enabled?: boolean;
 	readonly interactionTimeout?: Record<string, number>;
+	readonly minorInteractions?: string[];
 	readonly doNotAbortActivePressInteraction?: string[];
 	readonly doNotAbortActivePressInteractionOnTransition?: string[];
 	readonly awaitBM3TTI?: string[];
@@ -477,6 +478,19 @@ export function getUfoNameOverrides(): UFONameOverride | undefined {
 			return ufoNameOverrides;
 		}
 		return undefined;
+	} catch (e: any) {
+		return undefined;
+	}
+}
+
+export function getMinorInteractions(): string[] | undefined {
+	try {
+		if (!config) {
+			return undefined;
+		}
+		const { minorInteractions } = config;
+
+		return minorInteractions;
 	} catch (e: any) {
 		return undefined;
 	}

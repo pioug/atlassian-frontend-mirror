@@ -1,11 +1,19 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
 import { useColorMode } from '@atlaskit/app-provider';
+import { css, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import Tile from '@atlaskit/tile';
 
-export default function Basic() {
+const containerStyles = css({
+	maxWidth: '600px',
+});
+
+export default function Variations() {
 	const colorMode = useColorMode();
 
 	const gitHubInsetSVG = (
@@ -59,145 +67,147 @@ export default function Basic() {
 	);
 
 	return (
-		<Stack space="space.200">
-			<div>
-				<Heading size="xsmall">Default, empty tiles</Heading>
-				<Inline space="space.100" alignBlock="end">
-					<Tile label="" size="xxsmall" />
-					<Tile label="" size="xsmall" />
-					<Tile label="" size="small" />
-					<Tile label="" size="medium" />
-					<Tile label="" size="large" />
-					<Tile label="" size="xlarge" />
-				</Inline>
-			</div>
-			<div>
-				<Heading size="xsmall">Colored tiles</Heading>
-				<Inline space="space.100" alignBlock="end">
-					<Tile label="" size="xxsmall" backgroundColor="color.background.accent.blue.bolder" />
-					<Tile label="" size="xsmall" backgroundColor="color.background.accent.blue.bolder" />
-					<Tile label="" size="small" backgroundColor="color.background.accent.purple.subtle" />
-					<Tile label="" size="medium" backgroundColor="color.background.danger.bold" />
-					<Tile label="" size="large" backgroundColor="color.background.discovery.bold" />
-					<Tile label="" size="xlarge" backgroundColor="color.background.accent.teal.subtler" />
-				</Inline>
-			</div>
-			<div>
-				<Heading size="xsmall">Inset 3P logo with border</Heading>
-				<Inline space="space.100" alignBlock="end">
-					<Tile label="" size="xxsmall" backgroundColor="color.background.neutral" hasBorder>
-						{insetCloudSVG}
-					</Tile>
-					<Tile label="" size="xsmall" backgroundColor="color.background.neutral" hasBorder>
-						{insetCloudSVG}
-					</Tile>
-					<Tile label="" size="small" backgroundColor="color.background.neutral" hasBorder>
-						{insetCloudSVG}
-					</Tile>
-					<Tile label="" size="medium" backgroundColor="color.background.neutral" hasBorder>
-						{insetCloudSVG}
-					</Tile>
-					<Tile label="" size="large" backgroundColor="color.background.neutral" hasBorder>
-						{insetCloudSVG}
-					</Tile>
-					<Tile label="" size="xlarge" backgroundColor="color.background.neutral" hasBorder>
-						{insetCloudSVG}
-					</Tile>
-				</Inline>
-			</div>
-			<div>
-				<Heading size="xsmall">Inset 3P logo with border - with static white background</Heading>
-				<Inline space="space.100" alignBlock="end">
-					<Tile label="" size="xxsmall" backgroundColor="white" hasBorder>
-						{insetCloudSVG}
-					</Tile>
-					<Tile label="" size="xsmall" backgroundColor="white" hasBorder>
-						{insetCloudSVG}
-					</Tile>
-					<Tile label="" size="small" backgroundColor="white" hasBorder>
-						{insetCloudSVG}
-					</Tile>
-					<Tile label="" size="medium" backgroundColor="white" hasBorder>
-						{insetCloudSVG}
-					</Tile>
-					<Tile label="" size="large" backgroundColor="white" hasBorder>
-						{insetCloudSVG}
-					</Tile>
-					<Tile label="" size="xlarge" backgroundColor="white" hasBorder>
-						{insetCloudSVG}
-					</Tile>
-				</Inline>
-			</div>
-			<div>
-				<Heading size="xsmall">Inset 3P logo - with static black background</Heading>
-				<Inline space="space.100" alignBlock="end">
-					<Tile label="" size="xxsmall" backgroundColor="black">
-						{gitHubInsetSVG}
-					</Tile>
-					<Tile label="" size="xsmall" backgroundColor="black">
-						{gitHubInsetSVG}
-					</Tile>
-					<Tile label="" size="small" backgroundColor="black">
-						{gitHubInsetSVG}
-					</Tile>
-					<Tile label="" size="medium" backgroundColor="black">
-						{gitHubInsetSVG}
-					</Tile>
-					<Tile label="" size="large" backgroundColor="black">
-						{gitHubInsetSVG}
-					</Tile>
-					<Tile label="" size="xlarge" backgroundColor="black">
-						{gitHubInsetSVG}
-					</Tile>
-				</Inline>
-			</div>
-			<div>
-				<Heading size="xsmall">Non-inset 3P logo - static image</Heading>
-				<Inline space="space.100" alignBlock="end">
-					<Tile label="" size="xxsmall" isInset={false}>
-						{gitHubNonInsetSVG}
-					</Tile>
-					<Tile label="" size="xsmall" isInset={false}>
-						{gitHubNonInsetSVG}
-					</Tile>
-					<Tile label="" size="small" isInset={false}>
-						{gitHubNonInsetSVG}
-					</Tile>
-					<Tile label="" size="medium" isInset={false}>
-						{gitHubNonInsetSVG}
-					</Tile>
-					<Tile label="" size="large" isInset={false}>
-						{gitHubNonInsetSVG}
-					</Tile>
-					<Tile label="" size="xlarge" isInset={false}>
-						{gitHubNonInsetSVG}
-					</Tile>
-				</Inline>
-			</div>
-			<div>
-				<Heading size="xsmall">Themed images</Heading>
-				<p>Using existing ADS theming, assets can change between light and dark mode</p>
-				<Inline space="space.100" alignBlock="end">
-					<Tile hasBorder label="" size="xxsmall" isInset={false}>
-						{colorMode === 'light' ? gitHubInsetLightSVG : gitHubInsetDarkSVG}
-					</Tile>
-					<Tile hasBorder label="" size="xsmall" isInset={false}>
-						{colorMode === 'light' ? gitHubInsetLightSVG : gitHubInsetDarkSVG}
-					</Tile>
-					<Tile hasBorder label="" size="small" isInset={false}>
-						{colorMode === 'light' ? gitHubInsetLightSVG : gitHubInsetDarkSVG}
-					</Tile>
-					<Tile hasBorder label="" size="medium" isInset={false}>
-						{colorMode === 'light' ? gitHubInsetLightSVG : gitHubInsetDarkSVG}
-					</Tile>
-					<Tile hasBorder label="" size="large" isInset={false}>
-						{colorMode === 'light' ? gitHubInsetLightSVG : gitHubInsetDarkSVG}
-					</Tile>
-					<Tile hasBorder label="" size="xlarge" isInset={false}>
-						{colorMode === 'light' ? gitHubInsetLightSVG : gitHubInsetDarkSVG}
-					</Tile>
-				</Inline>
-			</div>
-		</Stack>
+		<div css={containerStyles}>
+			<Stack space="space.200">
+				<div>
+					<Heading size="xsmall">Default, empty tiles</Heading>
+					<Inline space="space.100" alignBlock="end">
+						<Tile label="" size="xxsmall" />
+						<Tile label="" size="xsmall" />
+						<Tile label="" size="small" />
+						<Tile label="" size="medium" />
+						<Tile label="" size="large" />
+						<Tile label="" size="xlarge" />
+					</Inline>
+				</div>
+				<div>
+					<Heading size="xsmall">Colored tiles</Heading>
+					<Inline space="space.100" alignBlock="end">
+						<Tile label="" size="xxsmall" backgroundColor="color.background.accent.blue.bolder" />
+						<Tile label="" size="xsmall" backgroundColor="color.background.accent.blue.bolder" />
+						<Tile label="" size="small" backgroundColor="color.background.accent.purple.subtle" />
+						<Tile label="" size="medium" backgroundColor="color.background.danger.bold" />
+						<Tile label="" size="large" backgroundColor="color.background.discovery.bold" />
+						<Tile label="" size="xlarge" backgroundColor="color.background.accent.teal.subtler" />
+					</Inline>
+				</div>
+				<div>
+					<Heading size="xsmall">Inset 3P logo with border</Heading>
+					<Inline space="space.100" alignBlock="end">
+						<Tile label="" size="xxsmall" backgroundColor="color.background.neutral" hasBorder>
+							{insetCloudSVG}
+						</Tile>
+						<Tile label="" size="xsmall" backgroundColor="color.background.neutral" hasBorder>
+							{insetCloudSVG}
+						</Tile>
+						<Tile label="" size="small" backgroundColor="color.background.neutral" hasBorder>
+							{insetCloudSVG}
+						</Tile>
+						<Tile label="" size="medium" backgroundColor="color.background.neutral" hasBorder>
+							{insetCloudSVG}
+						</Tile>
+						<Tile label="" size="large" backgroundColor="color.background.neutral" hasBorder>
+							{insetCloudSVG}
+						</Tile>
+						<Tile label="" size="xlarge" backgroundColor="color.background.neutral" hasBorder>
+							{insetCloudSVG}
+						</Tile>
+					</Inline>
+				</div>
+				<div>
+					<Heading size="xsmall">Inset 3P logo with border - with static white background</Heading>
+					<Inline space="space.100" alignBlock="end">
+						<Tile label="" size="xxsmall" backgroundColor="white" hasBorder>
+							{insetCloudSVG}
+						</Tile>
+						<Tile label="" size="xsmall" backgroundColor="white" hasBorder>
+							{insetCloudSVG}
+						</Tile>
+						<Tile label="" size="small" backgroundColor="white" hasBorder>
+							{insetCloudSVG}
+						</Tile>
+						<Tile label="" size="medium" backgroundColor="white" hasBorder>
+							{insetCloudSVG}
+						</Tile>
+						<Tile label="" size="large" backgroundColor="white" hasBorder>
+							{insetCloudSVG}
+						</Tile>
+						<Tile label="" size="xlarge" backgroundColor="white" hasBorder>
+							{insetCloudSVG}
+						</Tile>
+					</Inline>
+				</div>
+				<div>
+					<Heading size="xsmall">Inset 3P logo - with static black background</Heading>
+					<Inline space="space.100" alignBlock="end">
+						<Tile label="" size="xxsmall" backgroundColor="black">
+							{gitHubInsetSVG}
+						</Tile>
+						<Tile label="" size="xsmall" backgroundColor="black">
+							{gitHubInsetSVG}
+						</Tile>
+						<Tile label="" size="small" backgroundColor="black">
+							{gitHubInsetSVG}
+						</Tile>
+						<Tile label="" size="medium" backgroundColor="black">
+							{gitHubInsetSVG}
+						</Tile>
+						<Tile label="" size="large" backgroundColor="black">
+							{gitHubInsetSVG}
+						</Tile>
+						<Tile label="" size="xlarge" backgroundColor="black">
+							{gitHubInsetSVG}
+						</Tile>
+					</Inline>
+				</div>
+				<div>
+					<Heading size="xsmall">Non-inset 3P logo - static image</Heading>
+					<Inline space="space.100" alignBlock="end">
+						<Tile label="" size="xxsmall" isInset={false}>
+							{gitHubNonInsetSVG}
+						</Tile>
+						<Tile label="" size="xsmall" isInset={false}>
+							{gitHubNonInsetSVG}
+						</Tile>
+						<Tile label="" size="small" isInset={false}>
+							{gitHubNonInsetSVG}
+						</Tile>
+						<Tile label="" size="medium" isInset={false}>
+							{gitHubNonInsetSVG}
+						</Tile>
+						<Tile label="" size="large" isInset={false}>
+							{gitHubNonInsetSVG}
+						</Tile>
+						<Tile label="" size="xlarge" isInset={false}>
+							{gitHubNonInsetSVG}
+						</Tile>
+					</Inline>
+				</div>
+				<div>
+					<Heading size="xsmall">Themed images</Heading>
+					<p>Using existing ADS theming, assets can change between light and dark mode</p>
+					<Inline space="space.100" alignBlock="end">
+						<Tile hasBorder label="" size="xxsmall" isInset={false}>
+							{colorMode === 'light' ? gitHubInsetLightSVG : gitHubInsetDarkSVG}
+						</Tile>
+						<Tile hasBorder label="" size="xsmall" isInset={false}>
+							{colorMode === 'light' ? gitHubInsetLightSVG : gitHubInsetDarkSVG}
+						</Tile>
+						<Tile hasBorder label="" size="small" isInset={false}>
+							{colorMode === 'light' ? gitHubInsetLightSVG : gitHubInsetDarkSVG}
+						</Tile>
+						<Tile hasBorder label="" size="medium" isInset={false}>
+							{colorMode === 'light' ? gitHubInsetLightSVG : gitHubInsetDarkSVG}
+						</Tile>
+						<Tile hasBorder label="" size="large" isInset={false}>
+							{colorMode === 'light' ? gitHubInsetLightSVG : gitHubInsetDarkSVG}
+						</Tile>
+						<Tile hasBorder label="" size="xlarge" isInset={false}>
+							{colorMode === 'light' ? gitHubInsetLightSVG : gitHubInsetDarkSVG}
+						</Tile>
+					</Inline>
+				</div>
+			</Stack>
+		</div>
 	);
 }

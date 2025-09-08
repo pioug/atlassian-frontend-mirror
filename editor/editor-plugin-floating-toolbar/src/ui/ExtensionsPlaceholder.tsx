@@ -23,10 +23,10 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import Dropdown from './Dropdown';
-
 interface Props {
 	alignDropdownWithToolbar?: boolean;
 	applyChangeToContextPanel: ApplyChangeHandler | undefined;
+	areAnyNewToolbarFlagsEnabled: boolean;
 	dispatchCommand?: (command: Function) => void;
 	editorView: EditorView;
 	extensionApi: ExtensionAPI | undefined;
@@ -43,6 +43,7 @@ interface Props {
 
 type ExtensionButtonProps = {
 	applyChangeToContextPanel: ApplyChangeHandler | undefined;
+	areAnyNewToolbarFlagsEnabled: boolean;
 	editorView: EditorView;
 	extensionApi: ExtensionAPI | undefined;
 	item: ExtensionToolbarButton;
@@ -66,7 +67,7 @@ const resolveExtensionIcon = async (getIcon: ExtensionIconModule) => {
 };
 
 const ExtensionButton = (props: ExtensionButtonProps) => {
-	const { item, node, extensionApi } = props;
+	const { item, node, extensionApi, areAnyNewToolbarFlagsEnabled } = props;
 
 	const ButtonIcon = React.useMemo(
 		() =>
@@ -117,6 +118,7 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
 			tooltipContent={item.tooltip}
 			tooltipStyle={item.tooltipStyle}
 			disabled={item.disabled}
+			areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 		>
 			{item.label}
 		</Button>
@@ -138,6 +140,7 @@ export const ExtensionsPlaceholder = (props: Props) => {
 		popupsBoundariesElement,
 		popupsScrollableElement,
 		alignDropdownWithToolbar,
+		areAnyNewToolbarFlagsEnabled,
 	} = props;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -171,7 +174,7 @@ export const ExtensionsPlaceholder = (props: Props) => {
 	// but count fragment as 1 child, so here we create the children manually.
 	const children: JSX.Element[] = [];
 	if (separator && ['start', 'both'].includes(separator)) {
-		children.push(<Separator />);
+		children.push(<Separator areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled} />);
 	}
 
 	const isNestedTable =
@@ -212,6 +215,7 @@ export const ExtensionsPlaceholder = (props: Props) => {
 					onMount={item.onMount}
 					onClick={item.onClick}
 					pulse={item.pulse}
+					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>,
 			);
 		} else {
@@ -222,16 +226,17 @@ export const ExtensionsPlaceholder = (props: Props) => {
 					editorView={editorView}
 					applyChangeToContextPanel={applyChangeToContextPanel}
 					extensionApi={extensionApi}
+					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>,
 			);
 		}
 
 		if (index < extensionItems.length - 1) {
-			children.push(<Separator />);
+			children.push(<Separator areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled} />);
 		}
 	});
 	if (separator && ['end', 'both'].includes(separator)) {
-		children.push(<Separator />);
+		children.push(<Separator areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled} />);
 	}
 
 	// eslint-disable-next-line react/no-children-prop

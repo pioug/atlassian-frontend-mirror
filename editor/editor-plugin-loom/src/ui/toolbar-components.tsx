@@ -12,11 +12,13 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LoomPlugin } from '../loomPluginType';
 import type { LoomPluginOptions } from '../types';
 
 import { LoomMenuItem } from './LoomMenuItem';
+import { MenuSection } from './MenuSection';
 
 export const getToolbarComponents = (
 	config: LoomPluginOptions,
@@ -39,6 +41,10 @@ export const getToolbarComponents = (
 				},
 			],
 			component: ({ children }) => {
+				if (expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)) {
+					return <MenuSection api={api}>{children}</MenuSection>;
+				}
+
 				return (
 					<ToolbarDropdownItemSection hasSeparator={true}>{children}</ToolbarDropdownItemSection>
 				);

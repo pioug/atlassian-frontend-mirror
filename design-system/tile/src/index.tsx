@@ -1,2 +1,2 @@
-export { default } from './ui/index';
-export { type TileProps } from './ui/types';
+export { default } from './tile';
+export { type TileProps } from './types';

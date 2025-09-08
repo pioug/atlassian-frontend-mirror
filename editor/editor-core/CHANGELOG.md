@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 211.2.9
+
+### Patch Changes
+
+- [`0eac5a71c3834`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0eac5a71c3834) -
+  [ED-29037] Fix dynamic buttons (e.g. text style) in full page primary toolbar flickers during the
+  initial load
+- [`c0113eeccb2df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0113eeccb2df) -
+  [ux] ED-29120 add a new config option for default editor preset
+  (`toolbar.enableNewToolbarExperience`) which allows the new toolbar to be disabled. This is needed
+  for editors that can't be excluded at the experiment level.
+- Updated dependencies
+
+## 211.2.8
+
+### Patch Changes
+
+- [`e834d11aee625`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e834d11aee625) -
+  Add z-index to new main primary toolbar, to fix stacking issues
+- Updated dependencies
+
 ## 211.2.7
 
 ### Patch Changes

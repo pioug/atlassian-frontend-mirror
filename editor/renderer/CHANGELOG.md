@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 121.3.1
+
+### Patch Changes
+
+- [`e8bb67ae70797`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8bb67ae70797) -
+  [ux] Update CardSSR to have HoverLinkOverlay shown on hover
+- Updated dependencies
+
 ## 121.3.0
 
 ### Minor Changes

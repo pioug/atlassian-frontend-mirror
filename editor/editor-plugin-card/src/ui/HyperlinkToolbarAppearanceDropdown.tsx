@@ -34,6 +34,9 @@ const CustomHyperlinkDropdown = (
 	const [isOpen, setIsOpen] = useState(false);
 	const cardProvider = useRef<CardProvider | undefined>(undefined);
 	const containerRef = useRef<HTMLElement | undefined>(undefined);
+	const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(
+		Boolean(props.editorPluginApi?.toolbar),
+	);
 
 	const {
 		url,
@@ -120,6 +123,7 @@ const CustomHyperlinkDropdown = (
 			onClick={toggleOpen}
 			icon={currentAppearanceDisplayInformation.icon({ label: '' })}
 			iconAfter={<ChevronDownIcon label="" spacing="compact" size="small" />}
+			areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 		>
 			{title}
 		</Button>
@@ -152,9 +156,19 @@ const CustomHyperlinkDropdown = (
 					allowDatasource={allowDatasource}
 					dispatchCommand={dispatchCommand}
 					settingsConfig={settingsConfig}
+					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>
 			</UiDropdown>
-			{!(areToolbarFlagsEnabled() && fg('platform_editor_controls_patch_15')) && <Separator />}
+			{!(
+				areToolbarFlagsEnabled(Boolean(props.editorPluginApi?.toolbar)) &&
+				fg('platform_editor_controls_patch_15')
+			) && (
+				<Separator
+					areAnyNewToolbarFlagsEnabled={areToolbarFlagsEnabled(
+						Boolean(props.editorPluginApi?.toolbar),
+					)}
+				/>
+			)}
 		</Flex>
 	);
 };

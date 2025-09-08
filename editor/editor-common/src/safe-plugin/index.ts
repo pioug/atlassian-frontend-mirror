@@ -29,7 +29,7 @@ type NodeViewConstructor = (
  * This function is useful for annotating DOM elements with metadata that describes the type and characteristics of the ProseMirror node.
  *
  *
- * @param {Object} params - The parameters for the function.
+ * @param {object} params - The parameters for the function.
  * @param {PMNode} params.node - The ProseMirror node from which to derive metadata.
  * @param {HTMLElement} params.dom - The DOM element to which the metadata attributes will be attached.
  */

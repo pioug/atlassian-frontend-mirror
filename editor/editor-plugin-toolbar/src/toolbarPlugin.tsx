@@ -19,9 +19,14 @@ export type EditorToolbarPluginState = {
 
 export const toolbarPlugin: ToolbarPlugin = ({
 	api,
-	config = { disableSelectionToolbar: false, disableSelectionToolbarWhenPinned: false },
+	config = {
+		disableSelectionToolbar: false,
+		disableSelectionToolbarWhenPinned: false,
+		enableNewToolbarExperience: true,
+	},
 }) => {
 	const { disableSelectionToolbar, disableSelectionToolbarWhenPinned } = config;
+
 	const registry = createComponentRegistry();
 
 	registry.register(getToolbarComponents(api, disableSelectionToolbar));

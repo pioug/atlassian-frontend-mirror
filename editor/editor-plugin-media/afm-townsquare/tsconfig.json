@@ -71,6 +71,9 @@
 			"path": "../../editor-plugin-selection/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-width/afm-townsquare/tsconfig.json"
 		},
 		{

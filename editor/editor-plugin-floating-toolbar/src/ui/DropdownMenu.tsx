@@ -12,7 +12,6 @@ import { injectIntl } from 'react-intl-next';
 
 import type { ExtensionAPI, ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { DropdownMenuItem, DropdownSeparator } from '@atlaskit/editor-common/floating-toolbar';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	DropdownOptionT,
 	FloatingToolbarOverflowDropdownOptions,
@@ -52,6 +51,7 @@ const menuContainerStyles = css({
 // itemSpacing is used in calculations expecting a number, hence not using a space token
 export const itemSpacing = 4;
 export interface Props {
+	areAnyNewToolbarFlagsEnabled?: boolean;
 	dispatchCommand: Function;
 	editorView?: EditorView;
 	hide: Function;
@@ -73,9 +73,17 @@ export interface DropdownButtonItemProps extends ButtonItemProps {
 }
 
 const Dropdown = memo((props: Props & WrappedComponentProps) => {
-	const { hide, dispatchCommand, items, intl, editorView, showSelected = true } = props;
+	const {
+		hide,
+		dispatchCommand,
+		items,
+		intl,
+		editorView,
+		showSelected = true,
+		areAnyNewToolbarFlagsEnabled,
+	} = props;
 
-	if (areToolbarFlagsEnabled()) {
+	if (areAnyNewToolbarFlagsEnabled) {
 		return (
 			<div css={menuContainerStyles} role="menu">
 				{items

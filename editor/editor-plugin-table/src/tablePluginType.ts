@@ -17,6 +17,7 @@ import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
@@ -88,6 +89,7 @@ export type TablePluginDependencies = [
 	OptionalPlugin<ExtensionPlugin>,
 	OptionalPlugin<InteractionPlugin>,
 	OptionalPlugin<UserIntentPlugin>,
+	OptionalPlugin<ToolbarPlugin>,
 ];
 
 export type TablePlugin = NextEditorPlugin<

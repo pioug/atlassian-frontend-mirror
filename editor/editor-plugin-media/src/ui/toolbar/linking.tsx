@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { linkMessages, linkToolbarMessages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	Command,
 	ExtractInjectionAPI,
@@ -153,6 +154,9 @@ export const getLinkingToolbar = (
 									onBlur={() => {
 										hideLinkingToolbar(view.state, view.dispatch, view);
 									}}
+									areAnyNewToolbarFlagsEnabled={areToolbarFlagsEnabled(
+										Boolean(pluginInjectionApi?.toolbar),
+									)}
 								/>
 							);
 						},

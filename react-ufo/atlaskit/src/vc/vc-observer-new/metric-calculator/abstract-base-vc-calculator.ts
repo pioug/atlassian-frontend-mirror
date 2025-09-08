@@ -163,6 +163,13 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		let enhancedVcLogs: EnhancedVcLogEntry[] = vcLogs
 			? vcLogs.map((log) => ({
 					...log,
+					...(fg('platform_ufo_serialise_ttvc_v3_debug_data') && {
+						entries: log.entries.map((entry) => ({
+							...entry,
+							rect: entry.rect?.toJSON(),
+							previousRect: entry.previousRect?.toJSON(),
+						})),
+					}),
 					viewportPercentage: log.viewportPercentage as number | null,
 				}))
 			: [];
@@ -225,6 +232,10 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 
 					ignoredEntriesByTime.get(timestamp)?.push({
 						...viewportData,
+						...(fg('platform_ufo_serialise_ttvc_v3_debug_data') && {
+							rect: viewportData.rect?.toJSON(),
+							previousRect: viewportData.previousRect?.toJSON(),
+						}),
 						ignoreReason: (viewportData.visible
 							? viewportData.type
 							: 'not-visible') as VCIgnoreReason,

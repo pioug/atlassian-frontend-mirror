@@ -276,6 +276,9 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 		</div>
 	);
 
+	const isToolbarAIFCEnabled =
+		Boolean(editorAPI?.toolbar) && expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true);
+
 	return (
 		<WithFlash animate={maxContentSizeReached}>
 			<WidthProvider>
@@ -295,8 +298,9 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 					<MainToolbar
 						useStickyToolbar={useStickyToolbar}
 						twoLineEditorToolbar={isTwoLineToolbarEnabled}
+						isNewToolbarEnabled={isToolbarAIFCEnabled}
 					>
-						{editorExperiment('platform_editor_toolbar_aifc', true) ? (
+						{isToolbarAIFCEnabled ? (
 							<React.Fragment>
 								<CommentToolbar
 									editorAPI={editorAPI}

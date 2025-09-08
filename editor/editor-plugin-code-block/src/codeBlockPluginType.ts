@@ -9,6 +9,7 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { CodeBlockPluginOptions } from './types';
@@ -23,6 +24,7 @@ type CodeBlockDependencies = [
 	OptionalPlugin<EditorViewModePlugin>,
 	OptionalPlugin<BlockMenuPlugin>,
 	OptionalPlugin<SelectionPlugin>,
+	OptionalPlugin<ToolbarPlugin>,
 ];
 
 export type CodeBlockPlugin = NextEditorPlugin<

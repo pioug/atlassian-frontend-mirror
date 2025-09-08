@@ -1,5 +1,14 @@
 # @atlaskit/editor-shared-styles
 
+## 3.6.7
+
+### Patch Changes
+
+- [`0eac5a71c3834`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0eac5a71c3834) -
+  [ED-29037] Fix dynamic buttons (e.g. text style) in full page primary toolbar flickers during the
+  initial load
+- Updated dependencies
+
 ## 3.6.6
 
 ### Patch Changes

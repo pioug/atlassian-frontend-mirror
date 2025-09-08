@@ -19,21 +19,32 @@ const containerStyles = xcss({
 });
 
 type Props = {
+	areAnyNewToolbarFlagsEnabled: boolean;
 	dispatchCommand: (command: Command) => void;
 	hide: () => void;
 	layoutButtons: FloatingToolbarItem<Command>[];
 };
 
-export const LayoutGroup = ({ layoutButtons, dispatchCommand, hide }: Props) => {
+export const LayoutGroup = ({
+	layoutButtons,
+	dispatchCommand,
+	hide,
+	areAnyNewToolbarFlagsEnabled,
+}: Props) => {
 	return (
 		<Box xcss={containerStyles}>
 			<ButtonGroup>
 				{layoutButtons.map((item, idx) => {
 					switch (item.type) {
 						case 'separator':
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/no-array-index-key
-							return <FloatingToolbarSeparator key={idx} />;
+							return (
+								<FloatingToolbarSeparator
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/no-array-index-key
+									key={idx}
+									areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
+								/>
+							);
 						case 'button':
 							// Ignored via go/ees005
 							// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -51,6 +62,7 @@ export const LayoutGroup = ({ layoutButtons, dispatchCommand, hide }: Props) => 
 										dispatchCommand(item.onClick);
 										hide();
 									}}
+									areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 								/>
 							);
 					}

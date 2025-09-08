@@ -29,6 +29,7 @@ import { DatasourceIcon } from './DatasourceIcon';
 import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
 
 export interface DatasourceAppearanceButtonProps {
+	areAnyNewToolbarFlagsEnabled: boolean;
 	cardContext?: CardContext;
 	editorAnalyticsApi?: EditorAnalyticsAPI;
 	editorState: EditorState;
@@ -51,6 +52,7 @@ const DatasourceAppearanceButtonWithCardContext = ({
 	editorState,
 	selected,
 	inputMethod,
+	areAnyNewToolbarFlagsEnabled,
 }: DatasourceAppearanceButtonProps) => {
 	const { datasourceId, parameters } = useFetchDatasourceInfo({
 		isRegularCardNode: true,
@@ -122,6 +124,7 @@ const DatasourceAppearanceButtonWithCardContext = ({
 				selected={selected}
 				onClick={onChangeAppearance}
 				testId={'card-datasource-appearance-button'}
+				areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 			/>
 		</Flex>
 	);
@@ -135,6 +138,7 @@ export const DatasourceAppearanceButton = ({
 	editorState,
 	selected,
 	inputMethod,
+	areAnyNewToolbarFlagsEnabled,
 }: DatasourceAppearanceButtonProps) => {
 	const cardContext = useSmartLinkContext();
 	return (
@@ -147,6 +151,7 @@ export const DatasourceAppearanceButton = ({
 			cardContext={cardContext}
 			selected={selected}
 			inputMethod={inputMethod}
+			areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 		/>
 	);
 };

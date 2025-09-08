@@ -28,6 +28,7 @@ import { stateKey } from '../../pm-plugins/plugin-key';
 import { checkMediaType } from '../../pm-plugins/utils/check-media-type';
 
 export interface LinkingToolbarProps {
+	areAnyNewToolbarFlagsEnabled: boolean;
 	editorState: EditorState;
 	intl: IntlShape;
 	isInlineNode?: boolean;
@@ -52,6 +53,7 @@ export const LinkToolbarAppearance = ({
 	onOpenLink,
 	isInlineNode,
 	isViewOnly,
+	areAnyNewToolbarFlagsEnabled,
 }: LinkingToolbarProps) => {
 	const [showLinkingControls, setShowLinkingControls] = useState(true);
 
@@ -96,6 +98,7 @@ export const LinkToolbarAppearance = ({
 							title={title}
 							tooltipContent={<ToolTipContent description={title} keymap={addLink} />}
 							testId="edit-link-button"
+							areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 						>
 							{title}
 						</ToolbarButton>
@@ -116,8 +119,9 @@ export const LinkToolbarAppearance = ({
 					}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="hyperlink-open-link"
+					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>
-				<Separator />
+				<Separator areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled} />
 			</Fragment>
 		);
 	} else {
@@ -130,8 +134,9 @@ export const LinkToolbarAppearance = ({
 					title={title}
 					tooltipContent={<ToolTipContent description={title} keymap={addLink} />}
 					icon={<LinkIcon color="currentColor" label={title} spacing="spacious" />}
+					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>
-				<Separator />
+				<Separator areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled} />
 			</Fragment>
 		) : null;
 	}

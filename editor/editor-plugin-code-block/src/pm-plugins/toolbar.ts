@@ -109,7 +109,7 @@ export const getToolbarConfig =
 			type: 'separator',
 		};
 
-		const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
+		const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 		const copyToClipboardItems = !allowCopyToClipboard
 			? []
@@ -142,7 +142,7 @@ export const getToolbarConfig =
 				] as const);
 
 		let copyAndDeleteButtonMenuItems: FloatingToolbarItem<Command>[] = [];
-		if (isNewEditorToolbarEnabled) {
+		if (areAnyNewToolbarFlagsEnabled) {
 			const overflowMenuOptions: FloatingToolbarOverflowDropdownOptions<Command> = [
 				{
 					title: formatMessage(commonMessages.delete),
@@ -220,7 +220,7 @@ export const getToolbarConfig =
 			nodeType,
 			items: [
 				languageSelect,
-				...(isNewEditorToolbarEnabled ? [] : [separator]),
+				...(areAnyNewToolbarFlagsEnabled ? [] : [separator]),
 				codeBlockWrapButton,
 				...copyAndDeleteButtonMenuItems,
 			],

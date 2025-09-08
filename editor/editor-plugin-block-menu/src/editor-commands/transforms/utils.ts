@@ -143,3 +143,42 @@ export const convertNodeToInlineContent = (node: PMNode, schema: Schema): PMNode
 
 	return inlineNodes;
 };
+
+/**
+ * Filter marks from content based on the target node type
+ * @param content The content fragment to filter
+ * @param targetNodeType The target node type to check against
+ * @returns A new fragment with marks filtered for the target node type
+ */
+export const filterMarksForTargetNodeType = (
+	content: Fragment,
+	targetNodeType: NodeType,
+): Fragment => {
+	const withValidMarks: PMNode[] = [];
+	content.forEach((node) => {
+		if (node.marks.length > 0) {
+			const allowedMarks = targetNodeType.allowedMarks(node.marks);
+			const updatedNode = node.mark(allowedMarks);
+			withValidMarks.push(updatedNode);
+		} else {
+			withValidMarks.push(node);
+		}
+	});
+	return Fragment.from(withValidMarks);
+};
+
+/** * Convert content from a code block node into multiple paragraph nodes
+ */
+export const convertCodeBlockContentToParagraphs = (
+	codeBlockNode: PMNode,
+	schema: Schema,
+): PMNode[] => {
+	const paragraphNodes: PMNode[] = [];
+	const codeText = codeBlockNode.textContent;
+	const lines = codeText.split('\n');
+	lines.forEach((line) => {
+		const paragraphNode = schema.nodes.paragraph.create(null, line ? schema.text(line) : null);
+		paragraphNodes.push(paragraphNode);
+	});
+	return paragraphNodes;
+};

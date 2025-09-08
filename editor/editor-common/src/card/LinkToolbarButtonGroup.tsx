@@ -44,6 +44,7 @@ const disallowedWrapperStyle = css({
 });
 
 export interface ButtonOptionProps {
+	areAnyNewToolbarFlagsEnabled: boolean;
 	disabled: boolean;
 	icon: (props: NewCoreIconProps) => JSX.Element;
 	iconFallback: (props: IconProps) => JSX.Element;
@@ -62,7 +63,17 @@ export const LinkToolbarButtonGroup = ({ options }: LinkToolbarButtonGroupProps)
 	return (
 		<ButtonGroup>
 			{options.map(
-				({ onClick, selected, disabled, testId, tooltipContent, title, icon, iconFallback }) => {
+				({
+					onClick,
+					selected,
+					disabled,
+					testId,
+					tooltipContent,
+					title,
+					icon,
+					iconFallback,
+					areAnyNewToolbarFlagsEnabled,
+				}) => {
 					const ButtonIcon = icon as (props: NewCoreIconProps) => JSX.Element;
 					return (
 						<DisallowedWrapper
@@ -86,6 +97,7 @@ export const LinkToolbarButtonGroup = ({ options }: LinkToolbarButtonGroupProps)
 								testId={testId}
 								disabled={disabled}
 								tooltipContent={tooltipContent}
+								areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 							/>
 						</DisallowedWrapper>
 					);

@@ -9,6 +9,7 @@ import { cx, jsx } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
 import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -54,6 +55,11 @@ const containerStyles = cssMap({
 			// So we need to justify the content to the end of the column
 			justifySelf: 'end',
 		},
+	},
+	fullHeightSidebar: {
+		// Pointer events are disabled on the top nav
+		// So we need to restore them for the slot
+		pointerEvents: 'auto',
 	},
 });
 
@@ -124,7 +130,13 @@ export function TopNavEnd({
 	}, [query]);
 
 	return (
-		<nav aria-label={label} css={containerStyles.root}>
+		<nav
+			aria-label={label}
+			css={[
+				containerStyles.root,
+				fg('navx-full-height-sidebar') && containerStyles.fullHeightSidebar,
+			]}
+		>
 			{isMobile ? (
 				<Popup
 					isOpen={isOpen}

@@ -4,11 +4,19 @@ import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { TOOLBARS } from '@atlaskit/editor-common/toolbar';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { PublicPluginAPI, DocBuilder } from '@atlaskit/editor-common/types';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 import { FullPageToolbarNext } from '../../../../src/ui/Appearance/FullPage/FullPageToolbarNext';
+
+const createEditor = createEditorFactory();
+const editor = (doc?: DocBuilder) =>
+	createEditor({
+		doc,
+	});
 
 const primaryToolbarComponent = {
 	type: 'toolbar',
@@ -37,6 +45,10 @@ const getMockEditorAPIEmptyToolbar = () =>
 	}) as PublicPluginAPI<ToolbarPlugin>;
 
 describe('FullPageToolbarNext', () => {
+	let editorView: EditorView;
+	beforeEach(() => {
+		editorView = editor().editorView;
+	});
 	describe('when primary toolbar is registered', () => {
 		describe('and toolbarDockingPosition is "top"', () => {
 			it('should render the primary toolbar', () => {
@@ -46,6 +58,7 @@ describe('FullPageToolbarNext', () => {
 							editorAPI={getMockEditorAPIWithToolbar()}
 							toolbarDockingPosition="top"
 							showKeyline={false}
+							editorView={editorView}
 						/>
 					</IntlProvider>,
 				);
@@ -61,6 +74,7 @@ describe('FullPageToolbarNext', () => {
 							editorAPI={getMockEditorAPIWithToolbar()}
 							toolbarDockingPosition="none"
 							showKeyline={false}
+							editorView={editorView}
 						/>
 					</IntlProvider>,
 				);
@@ -76,6 +90,7 @@ describe('FullPageToolbarNext', () => {
 							editorAPI={getMockEditorAPIWithToolbar()}
 							toolbarDockingPosition={undefined}
 							showKeyline={false}
+							editorView={editorView}
 						/>
 					</IntlProvider>,
 				);
@@ -93,6 +108,7 @@ describe('FullPageToolbarNext', () => {
 							editorAPI={getMockEditorAPIEmptyToolbar()}
 							toolbarDockingPosition="top"
 							showKeyline={false}
+							editorView={editorView}
 						/>
 					</IntlProvider>,
 				);
@@ -108,6 +124,7 @@ describe('FullPageToolbarNext', () => {
 							editorAPI={getMockEditorAPIEmptyToolbar()}
 							toolbarDockingPosition="none"
 							showKeyline={false}
+							editorView={editorView}
 						/>
 					</IntlProvider>,
 				);
@@ -123,6 +140,7 @@ describe('FullPageToolbarNext', () => {
 							editorAPI={getMockEditorAPIEmptyToolbar()}
 							toolbarDockingPosition={undefined}
 							showKeyline={false}
+							editorView={editorView}
 						/>
 					</IntlProvider>,
 				);
@@ -150,6 +168,7 @@ describe('FullPageToolbarNext', () => {
 								toolbarDockingPosition="top"
 								showKeyline={false}
 								customPrimaryToolbarComponents={customComponent}
+								editorView={editorView}
 							/>
 						</IntlProvider>,
 					);
@@ -170,6 +189,7 @@ describe('FullPageToolbarNext', () => {
 									before: beforeComponent,
 									after: afterComponent,
 								}}
+								editorView={editorView}
 							/>
 						</IntlProvider>,
 					);
@@ -190,6 +210,7 @@ describe('FullPageToolbarNext', () => {
 								editorAPI={getMockEditorAPIWithToolbar()}
 								toolbarDockingPosition="top"
 								showKeyline={false}
+								editorView={editorView}
 							/>
 						</IntlProvider>,
 					);
@@ -209,6 +230,7 @@ describe('FullPageToolbarNext', () => {
 								toolbarDockingPosition="none"
 								showKeyline={false}
 								customPrimaryToolbarComponents={customComponent}
+								editorView={editorView}
 							/>
 						</IntlProvider>,
 					);

@@ -29,12 +29,14 @@ import { token } from '@atlaskit/tokens';
 import { useSkipLinkInternal } from '../../../context/skip-links/skip-links-context';
 import { TopNavStartElement } from '../../../context/top-nav-start/top-nav-start-context';
 import {
+	bannerMountedVar,
 	contentHeightWhenFixed,
 	contentInsetBlockStart,
 	localSlotLayers,
 	sideNavLiveWidthVar,
 	sideNavPanelSplitterId,
 	sideNavVar,
+	topNavMountedVar,
 	UNSAFE_sideNavLayoutVar,
 } from '../constants';
 import { DangerouslyHoistSlotSizes } from '../hoist-slot-sizes-context';
@@ -205,6 +207,25 @@ const styles = cssMap({
 	hiddenDesktopOnly: {
 		'@media (min-width: 64rem)': {
 			display: 'none',
+		},
+	},
+	fullHeightSidebar: {
+		'@media (min-width: 64rem)': {
+			// We want it to overlap the top nav
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			height: `calc(100vh - var(${bannerMountedVar}, 0px))`,
+
+			// This is the stick point for the sticky positioning, only relevant if the whole page scrolls for some reason
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			insetBlockStart: `calc(var(${bannerMountedVar}, 0px))`,
+
+			// Push the side nav items down, creating room for the top nav start items
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			paddingBlockStart: `calc(var(${topNavMountedVar}, 0px))`,
+
+			// Bleed for the side nav to overlap the top nav, relevant for the initial positioning / when the whole page is not scrolled
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			marginBlockStart: `calc(-1 * var(${topNavMountedVar}, 0px))`,
 		},
 	},
 });
@@ -793,6 +814,8 @@ function SideNavInternal({
 		panelId: sideNavPanelSplitterId,
 	});
 
+	const isFlyoutClosed = sideNavState?.flyout === 'closed' || sideNavState?.flyout === undefined;
+
 	return (
 		<nav
 			id={id}
@@ -823,6 +846,8 @@ function SideNavInternal({
 					fg('platform_design_system_nav4_sidenav_border') &&
 					styles.newBorderFlyoutOpen,
 				sideNavState?.flyout === 'triggered-animate-close' && styles.flyoutAnimateClosed,
+				// Flyout is not using full height styles
+				isFlyoutClosed && fg('navx-full-height-sidebar') && styles.fullHeightSidebar,
 			]}
 			data-testid={testId}
 		>

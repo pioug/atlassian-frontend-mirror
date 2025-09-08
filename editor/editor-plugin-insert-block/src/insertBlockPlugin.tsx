@@ -179,7 +179,10 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		);
 	};
 
-	if (editorExperiment('platform_editor_toolbar_aifc', true, { exposure: true })) {
+	if (
+		Boolean(api?.toolbar) &&
+		editorExperiment('platform_editor_toolbar_aifc', true, { exposure: true })
+	) {
 		api?.toolbar?.actions.registerComponents(
 			getToolbarComponents({
 				api,

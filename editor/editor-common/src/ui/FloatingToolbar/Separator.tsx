@@ -7,8 +7,6 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { areToolbarFlagsEnabled } from '../../toolbar-flag-check';
-
 const separator = css({
 	background: token('color.border'),
 	width: '1px',
@@ -29,6 +27,7 @@ const separatorFullHeight = css({
 });
 
 type SeparatorProps = {
+	areAnyNewToolbarFlagsEnabled: boolean;
 	/**
 	 * @private
 	 * @deprecated
@@ -38,9 +37,12 @@ type SeparatorProps = {
 	fullHeight?: boolean;
 };
 
-export default ({ fullHeight }: SeparatorProps) => (
+export default ({ fullHeight, areAnyNewToolbarFlagsEnabled }: SeparatorProps) => (
 	<div
-		css={[areToolbarFlagsEnabled() ? separatorNew : separator, fullHeight && separatorFullHeight]}
+		css={[
+			areAnyNewToolbarFlagsEnabled ? separatorNew : separator,
+			fullHeight && separatorFullHeight,
+		]}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		className="separator"
 	/>

@@ -945,6 +945,11 @@ async function createInteractionMetricsPayload(
 					'metric:experimental:ttai': expTTAI,
 					...(unknownElementName ? { unknownElementName } : {}),
 					...(unknownElementHierarchy ? { unknownElementHierarchy } : {}),
+					...(fg('platform_ufo_enable_minor_interactions')
+						? {
+								minorInteractions: interaction.minorInteractions,
+							}
+						: {}),
 				},
 				'ufo:payloadTime': roundEpsilon(performance.now() - interactionPayloadStart),
 			},

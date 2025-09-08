@@ -20,9 +20,11 @@ import type { UndoRedoPlugin } from './undoRedoPluginType';
 
 export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
-	const isToolbarAIFCEnabled = editorExperiment('platform_editor_toolbar_aifc', true, {
-		exposure: true,
-	});
+	const isToolbarAIFCEnabled =
+		Boolean(api?.toolbar) &&
+		editorExperiment('platform_editor_toolbar_aifc', true, {
+			exposure: true,
+		});
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,

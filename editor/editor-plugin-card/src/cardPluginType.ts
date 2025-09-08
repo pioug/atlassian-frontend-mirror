@@ -12,6 +12,7 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type { CardPluginOptions, CardPluginState } from './types';
@@ -42,6 +43,7 @@ export type CardPluginDependencies = [
 	OptionalPlugin<DummyAnnotationPlugin>,
 	OptionalPlugin<ConnectivityPlugin>,
 	OptionalPlugin<BasePlugin>,
+	OptionalPlugin<ToolbarPlugin>,
 ];
 
 export type CardPlugin = NextEditorPlugin<

@@ -254,7 +254,9 @@ export const getToolbarConfig =
 						metadata.title = activeLinkMark.node.text;
 					}
 
-					const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
+					const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(
+						Boolean(pluginInjectionApi?.toolbar),
+					);
 
 					const cardActions = pluginInjectionApi?.card?.actions;
 					const startingToolbarItems = cardActions?.getStartingToolbarItems(
@@ -262,7 +264,7 @@ export const getToolbarConfig =
 						link,
 						editInsertedLink(editorAnalyticsApi),
 						metadata,
-						isNewEditorToolbarEnabled ? state : undefined,
+						areAnyNewToolbarFlagsEnabled ? state : undefined,
 					) ?? [
 						{
 							id: 'editor.link.edit',
@@ -270,9 +272,9 @@ export const getToolbarConfig =
 							type: 'button',
 							onClick: editInsertedLink(editorAnalyticsApi),
 							title: editLink,
-							showTitle: isNewEditorToolbarEnabled ? false : true,
+							showTitle: areAnyNewToolbarFlagsEnabled ? false : true,
 							metadata: metadata,
-							icon: isNewEditorToolbarEnabled ? EditIcon : undefined,
+							icon: areAnyNewToolbarFlagsEnabled ? EditIcon : undefined,
 						},
 						{
 							type: 'separator',
@@ -308,7 +310,7 @@ export const getToolbarConfig =
 
 					const items: Array<FloatingToolbarItem<Command>> = [
 						...startingToolbarItems,
-						...((isNewEditorToolbarEnabled && fg('platform_editor_controls_patch_15')
+						...((areAnyNewToolbarFlagsEnabled && fg('platform_editor_controls_patch_15')
 							? [
 									unlinkButton,
 									{

@@ -115,7 +115,6 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",
 		"@testing-library/user-event": "root:*",
-		"@types/react-router-dom": "root:*",
 		"enzyme": "root:*",
 		"es6-promise": "root:*",
 		"fetch-mock": "root:*",

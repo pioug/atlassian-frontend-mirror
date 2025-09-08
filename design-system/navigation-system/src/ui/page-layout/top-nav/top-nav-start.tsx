@@ -4,13 +4,13 @@
  */
 import React, { useContext, useEffect, useRef } from 'react';
 
-import { jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
-import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-start-context';
+import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
 
 const styles = cssMap({
 	root: {
@@ -37,6 +37,23 @@ const styles = cssMap({
 			minWidth: '300px',
 			// We want the specified width to be inclusive of padding
 			boxSizing: 'border-box',
+		},
+	},
+	fullHeightSidebar: {
+		// Using width to provide the end padding
+		// To avoid this element covering the resize grab area
+		maxWidth: `calc(100% - ${token('space.200')})`,
+		// Start padding is not applied to the top nav itself, to avoid misalignment with the side nav
+		paddingInlineStart: token('space.150'),
+		// Pointer events are disabled on the top nav
+		// So we need to restore them for the slot
+		pointerEvents: 'auto',
+	},
+	// When the full height sidebar is visible, the regular 300px min width should not be applied
+	// Otherwise the slot covers the side nav panel splitter
+	fullHeightSidebarExpanded: {
+		'@media (min-width: 64rem)': {
+			minWidth: 'unset',
 		},
 	},
 });
@@ -70,9 +87,16 @@ export function TopNavStart({
 		}
 	}, [elementRef, ref]);
 
+	// Need to use `{ defaultCollapsed: true }` otherwise when there is no side nav mounted this never becomes false
+	const { isExpandedOnDesktop } = useSideNavVisibility({ defaultCollapsed: true });
+
 	return (
 		<div
-			css={styles.root}
+			css={[
+				styles.root,
+				fg('navx-full-height-sidebar') && styles.fullHeightSidebar,
+				isExpandedOnDesktop && fg('navx-full-height-sidebar') && styles.fullHeightSidebarExpanded,
+			]}
 			ref={fg('platform_fix_component_state_update_for_suspense') ? elementRef : ref}
 			data-testid={testId}
 		>

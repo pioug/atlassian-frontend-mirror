@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 108.6.2
+
+### Patch Changes
+
+- [`c0113eeccb2df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0113eeccb2df) -
+  [ux] ED-29120 add a new config option for default editor preset
+  (`toolbar.enableNewToolbarExperience`) which allows the new toolbar to be disabled. This is needed
+  for editors that can't be excluded at the experiment level.
+- [`7e2bd9dc6d5ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e2bd9dc6d5ca) -
+  EDITOR-1531 Updated error message.
+- Updated dependencies
+
+## 108.6.1
+
+### Patch Changes
+
+- [`1315abde398a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1315abde398a6) -
+  [ux] a11y: make search result items focusable under insert link popup
+- [`c308a1fcb2292`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c308a1fcb2292) -
+  Fix codeblock block menu option text
+- Updated dependencies
+
+## 108.6.0
+
+### Minor Changes
+
+- [`18b64e2d65525`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18b64e2d65525) -
+  EDITOR-1495 Automatic retry once if ADF parsing fails for 10 seconds. Show error screen for error
+  state on streaming complete.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 108.5.1
 
 ### Patch Changes

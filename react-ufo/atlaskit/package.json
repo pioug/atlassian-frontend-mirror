@@ -64,6 +64,7 @@
 		"./ssr": "./src/ssr/index.ts",
 		"./ssr-scripts": "./src/vc/vc-observer/observers/ssr-placeholders/ssr-scripts/index.ts",
 		"./suspense": "./src/suspense/index.ts",
+		"./trace-hover": "./src/trace-hover/index.ts",
 		"./trace-interaction": "./src/trace-interaction/index.ts",
 		"./trace-pageload": "./src/trace-pageload/index.ts",
 		"./trace-press": "./src/trace-press/index.ts",
@@ -134,6 +135,9 @@
 		"platform_ufo_canvas_heatmap_full_precision": {
 			"type": "boolean"
 		},
+		"platform_ufo_enable_minor_interactions": {
+			"type": "boolean"
+		},
 		"platform_ufo_enable_media_for_ttvc_v3": {
 			"type": "boolean"
 		},
@@ -150,6 +154,9 @@
 			"type": "boolean"
 		},
 		"ufo_payload_use_idle_callback": {
+			"type": "boolean"
+		},
+		"platform_ufo_serialise_ttvc_v3_debug_data": {
 			"type": "boolean"
 		},
 		"platform_ufo_assets_check_for_nan": {

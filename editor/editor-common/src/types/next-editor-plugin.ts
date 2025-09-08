@@ -67,9 +67,10 @@ export type CorePlugin = NextEditorPlugin<
 			 * Get the anchor ID for a ProseMirror node.
 			 *
 			 * @param node - The ProseMirror node to get the anchor ID for.
+			 * @param pos - The position of the node in the document.
 			 * @returns The anchor ID if found, otherwise undefined.
 			 */
-			getAnchorIdForNode: (node: PMNode) => string | undefined;
+			getAnchorIdForNode: (node: PMNode, pos: number) => string | undefined;
 
 			/**
 			 * Replaces the current content of the editor with the provided raw value.

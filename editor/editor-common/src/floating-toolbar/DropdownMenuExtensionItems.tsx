@@ -14,7 +14,6 @@ import type {
 	ExtensionToolbarButton,
 } from '../extensions';
 import { getContextualToolbarItemsFromModule } from '../extensions';
-import { areToolbarFlagsEnabled } from '../toolbar-flag-check';
 import type { DropdownOptionT } from '../types';
 import { nodeToJSON } from '../utils';
 
@@ -29,6 +28,7 @@ export interface DropdownMenuOptions {
 }
 
 type OverflowExtensionPlaceholderProps = {
+	areAnyNewToolbarFlagsEnabled: boolean;
 	disabled?: (key: string) => boolean;
 	dropdownOptions?: DropdownMenuOptions;
 	editorView: EditorView;
@@ -144,7 +144,8 @@ const DropdownMenuExtensionItem = ({
 };
 
 export const DropdownMenuExtensionItems = (props: OverflowExtensionPlaceholderProps) => {
-	const { node, editorView, extension, disabled, dropdownOptions } = props;
+	const { node, editorView, extension, disabled, dropdownOptions, areAnyNewToolbarFlagsEnabled } =
+		props;
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -190,7 +191,7 @@ export const DropdownMenuExtensionItems = (props: OverflowExtensionPlaceholderPr
 					/>
 				);
 			})}
-			{areToolbarFlagsEnabled() && <DropdownSeparator />}
+			{areAnyNewToolbarFlagsEnabled && <DropdownSeparator />}
 		</>
 	);
 };

@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugins
 
+## 10.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.4.0
+
+### Minor Changes
+
+- [`168d76bdf8be6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/168d76bdf8be6) -
+  Created new synced-block plugin (scaffolding only)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.3.16
 
 ### Patch Changes

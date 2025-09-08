@@ -22,6 +22,7 @@ import {
 export const transformBlockToList = (context: TransformContext): Transaction | null => {
 	const { tr, sourceNode, targetNodeType, targetAttrs } = context;
 	const { $from, $to } = tr.selection;
+	const schema = tr.doc.type.schema;
 	const range = $from.blockRange($to);
 
 	if (!range) {
@@ -34,6 +35,12 @@ export const transformBlockToList = (context: TransformContext): Transaction | n
 	// Handle task lists differently due to their structure
 	if (isTargetTask) {
 		return transformToTaskList(tr, range, targetNodeType, targetAttrs, nodes);
+	}
+
+	// filter marks that are not allowed in the target node type
+	if (sourceNode.type === schema.nodes.paragraph || sourceNode.type === schema.nodes.heading) {
+		const allowedMarks = targetNodeType.allowedMarks(sourceNode.marks);
+		tr.setNodeMarkup(range.start, null, null, allowedMarks);
 	}
 
 	// For headings, convert to paragraph first since headings cannot be direct children of list items

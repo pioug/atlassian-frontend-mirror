@@ -4,9 +4,9 @@
  */
 import React from 'react';
 
-import { jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
-import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -63,6 +63,11 @@ const styles = cssMap({
 			justifyItems: 'end',
 		},
 	},
+	fullHeightSidebar: {
+		// Pointer events are disabled on the top nav
+		// So we need to restore them for the slot
+		pointerEvents: 'auto',
+	},
 });
 
 /**
@@ -86,5 +91,9 @@ export function TopNavMiddle({
 	 */
 	children: React.ReactNode;
 }) {
-	return <div css={styles.root}>{children}</div>;
+	return (
+		<div css={[styles.root, fg('navx-full-height-sidebar') && styles.fullHeightSidebar]}>
+			{children}
+		</div>
+	);
 }

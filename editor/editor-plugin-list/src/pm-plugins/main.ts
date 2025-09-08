@@ -9,11 +9,17 @@ import {
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { getItemCounterDigitsSize, isListNode, pluginFactory } from '@atlaskit/editor-common/utils';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	Selection,
+} from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ListState } from '../types';
 
@@ -89,6 +95,31 @@ export const getDecorations = (
 	return DecorationSet.empty.add(doc, decorations);
 };
 
+const getListState = (doc: Node, selection: Selection): Omit<ListState, 'decorationSet'> => {
+	const { bulletList, orderedList, taskList } = doc.type.schema.nodes;
+	const listParent = findParentNodeOfType([bulletList, orderedList, taskList])(selection);
+
+	const bulletListActive = !!listParent && listParent.node.type === bulletList;
+	const orderedListActive = !!listParent && listParent.node.type === orderedList;
+	const bulletListDisabled = !(
+		bulletListActive ||
+		orderedListActive ||
+		isWrappingPossible(bulletList, selection)
+	);
+	const orderedListDisabled = !(
+		bulletListActive ||
+		orderedListActive ||
+		isWrappingPossible(orderedList, selection)
+	);
+
+	return {
+		bulletListActive,
+		bulletListDisabled,
+		orderedListActive,
+		orderedListDisabled,
+	};
+};
+
 const handleDocChanged =
 	(featureFlags: FeatureFlags) =>
 	(tr: ReadonlyTransaction, pluginState: ListState, editorState: EditorState): ListState => {
@@ -101,21 +132,8 @@ const handleDocChanged =
 	};
 
 const handleSelectionChanged = (tr: ReadonlyTransaction, pluginState: ListState): ListState => {
-	const { bulletList, orderedList, taskList } = tr.doc.type.schema.nodes;
-	const listParent = findParentNodeOfType([bulletList, orderedList, taskList])(tr.selection);
-
-	const bulletListActive = !!listParent && listParent.node.type === bulletList;
-	const orderedListActive = !!listParent && listParent.node.type === orderedList;
-	const bulletListDisabled = !(
-		bulletListActive ||
-		orderedListActive ||
-		isWrappingPossible(bulletList, tr.selection)
-	);
-	const orderedListDisabled = !(
-		bulletListActive ||
-		orderedListActive ||
-		isWrappingPossible(orderedList, tr.selection)
-	);
+	const { bulletListActive, orderedListActive, bulletListDisabled, orderedListDisabled } =
+		getListState(tr.doc, tr.selection);
 
 	if (
 		bulletListActive !== pluginState.bulletListActive ||
@@ -144,7 +162,12 @@ const reducer =
 
 const createInitialState = (featureFlags: FeatureFlags) => (state: EditorState) => {
 	return {
-		...initialState,
+		// When plugin is initialised, editor state is defined with selection
+		// hence returning the list state based on the selection to avoid list button in primary toolbar flickering during initial load
+		...(editorExperiment('platform_editor_toolbar_aifc', true) &&
+		expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
+			? getListState(state.doc, state.selection)
+			: initialState),
 		decorationSet: getDecorations(state.doc, state, featureFlags),
 	};
 };

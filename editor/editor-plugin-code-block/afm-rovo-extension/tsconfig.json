@@ -50,6 +50,9 @@
 			"path": "../../editor-plugin-selection/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-toolbar/afm-rovo-extension/tsconfig.json"
 		},
 		{

@@ -5,7 +5,6 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { type TileProps } from './types';
 
@@ -16,8 +15,7 @@ const styles = cssMap({
 		boxSizing: 'border-box',
 		alignItems: 'center',
 		justifyContent: 'center',
-		// TODO: Tokenize after PYX-2175 is merged
-		borderRadius: '25%',
+		borderRadius: token('radius.tile'),
 		overflow: 'hidden',
 		flexShrink: 0,
 		flexGrow: 0,
@@ -25,7 +23,7 @@ const styles = cssMap({
 		minHeight: 0,
 	},
 	border: {
-		borderSize: token('border.width'),
+		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
 	},
@@ -269,9 +267,10 @@ export default function Tile(props: TileProps) {
 				backgroundColorMap[backgroundColor || 'color.background.neutral'],
 				hasBorder && styles.border,
 			]}
+			aria-label={label !== '' ? label : undefined}
+			role={label !== '' ? 'img' : undefined}
 		>
 			{children}
-			<VisuallyHidden>{label}</VisuallyHidden>
 		</span>
 	);
 }

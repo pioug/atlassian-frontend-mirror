@@ -303,7 +303,10 @@ export function ContentComponent({
 	const { config, node } = configWithNodeInfo;
 
 	// When the new inline editor-toolbar is enabled, suppress floating toolbar for text selections.
-	if (editorExperiment('platform_editor_toolbar_aifc', true)) {
+	if (
+		Boolean(pluginInjectionApi?.toolbar) &&
+		editorExperiment('platform_editor_toolbar_aifc', true)
+	) {
 		const selection = editorView.state.selection as Selection;
 		const isCellSelection = '$anchorCell' in selection && !selection.empty;
 		const isTextSelected = selection instanceof TextSelection && !selection.empty;
@@ -356,7 +359,7 @@ export function ContentComponent({
 		);
 	}
 
-	if (areToolbarFlagsEnabled()) {
+	if (areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar))) {
 		// Consolidate floating toolbar items
 		const toolbarItemsArray = Array.isArray(items) ? items : items?.(node);
 		const overflowDropdownItems = toolbarItemsArray.filter(

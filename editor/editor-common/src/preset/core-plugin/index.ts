@@ -166,12 +166,26 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				return cb(view?.state.schema);
 			},
 
-			getAnchorIdForNode(node): string | undefined {
+			getAnchorIdForNode(node, pos): string | undefined {
 				const view = config?.getEditorView() ?? null;
 				if (!view) {
 					return undefined;
 				}
-				return getNodeIdProvider(view).getIdForNode(node);
+
+				const cachedId = getNodeIdProvider(view).getIdForNode(node);
+				if (cachedId) {
+					return cachedId;
+				}
+
+				if (pos < 0) {
+					return undefined;
+				}
+				const nodeDOM = view.nodeDOM(pos);
+				if (nodeDOM instanceof HTMLElement) {
+					return nodeDOM.getAttribute('data-node-anchor') || undefined;
+				}
+
+				return undefined;
 			},
 		},
 	};

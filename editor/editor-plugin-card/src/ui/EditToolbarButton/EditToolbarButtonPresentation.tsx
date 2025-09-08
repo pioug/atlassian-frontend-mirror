@@ -9,7 +9,6 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { linkToolbarMessages, cardMessages as messages } from '@atlaskit/editor-common/messages';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import {
 	FloatingToolbarButton as Button,
 	FloatingToolbarSeparator as Separator,
@@ -48,6 +47,7 @@ const EditToolbarButtonPresentation = ({
 	extensionKey,
 	onLinkEditClick,
 	intl,
+	areAnyNewToolbarFlagsEnabled,
 }: EditToolbarPresentationProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const containerRef = useRef();
@@ -75,10 +75,9 @@ const EditToolbarButtonPresentation = ({
 		}
 	}, [currentAppearance, datasourceId, editorAnalyticsApi, editorView, extensionKey]);
 
-	const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
-	const icon = isNewEditorToolbarEnabled ? <EditIcon label="" /> : undefined;
+	const icon = areAnyNewToolbarFlagsEnabled ? <EditIcon label="" /> : undefined;
 
-	const tooltipContent = isNewEditorToolbarEnabled
+	const tooltipContent = areAnyNewToolbarFlagsEnabled
 		? intl.formatMessage(linkToolbarMessages.editLink)
 		: undefined;
 
@@ -91,8 +90,9 @@ const EditToolbarButtonPresentation = ({
 						onClick={onEditLink}
 						icon={icon}
 						tooltipContent={tooltipContent}
+						areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 					>
-						{!isNewEditorToolbarEnabled && (
+						{!areAnyNewToolbarFlagsEnabled && (
 							<FormattedMessage
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/jsx-props-no-spreading
@@ -100,7 +100,7 @@ const EditToolbarButtonPresentation = ({
 							/>
 						)}
 					</Button>
-					{!isNewEditorToolbarEnabled && <Separator />}
+					{!areAnyNewToolbarFlagsEnabled && <Separator areAnyNewToolbarFlagsEnabled={false} />}
 				</Flex>
 			);
 		}
@@ -111,6 +111,7 @@ const EditToolbarButtonPresentation = ({
 						testId="edit-datasource"
 						tooltipContent={intl.formatMessage(linkToolbarMessages.editDatasourceStandaloneTooltip)}
 						onClick={onEditDatasource}
+						areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 					>
 						<FormattedMessage
 							// Ignored via go/ees005
@@ -119,7 +120,7 @@ const EditToolbarButtonPresentation = ({
 						/>
 					</Button>
 
-					{!isNewEditorToolbarEnabled && <Separator />}
+					{!areAnyNewToolbarFlagsEnabled && <Separator areAnyNewToolbarFlagsEnabled={false} />}
 				</Flex>
 			);
 		}
@@ -140,6 +141,7 @@ const EditToolbarButtonPresentation = ({
 						selected={isOpen}
 						disabled={false}
 						ariaHasPopup
+						areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 					>
 						<FormattedMessage
 							// Ignored via go/ees005
@@ -148,7 +150,7 @@ const EditToolbarButtonPresentation = ({
 						/>
 					</Button>
 
-					{!isNewEditorToolbarEnabled && <Separator />}
+					{!areAnyNewToolbarFlagsEnabled && <Separator areAnyNewToolbarFlagsEnabled={false} />}
 				</Flex>
 			);
 

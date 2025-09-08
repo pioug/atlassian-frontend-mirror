@@ -71,6 +71,9 @@
 			"path": "../../editor-plugin-selection/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-width/afm-cc/tsconfig.json"
 		},
 		{

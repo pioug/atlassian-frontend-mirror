@@ -67,6 +67,9 @@ type Options = {
 
 /**
  *
+ * NOTE: Generally you want to use `usePluginStateWithSelector` over this which behaves similarly
+ * but selects a slice of the state which is more performant.
+ * 
  * ⚠️⚠️⚠️ This is a debounced hook ⚠️⚠️⚠️
  * If the plugins you are listening to generate multiple shared states while the user is typing,
  * your React Component will get only the last one.

@@ -39,9 +39,6 @@
 	"references": [
 		{
 			"path": "../tokens/tsconfig.app.json"
-		},
-		{
-			"path": "../visually-hidden/tsconfig.app.json"
 		}
 	],
 	"files": []

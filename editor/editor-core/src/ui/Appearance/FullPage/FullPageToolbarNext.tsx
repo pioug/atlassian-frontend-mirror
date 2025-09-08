@@ -55,6 +55,11 @@ const styles = cssMap({
 		display: 'flex',
 		height: '32px',
 	},
+	mainToolbarZIndex: {
+		// same value akEditorFloatingDialogZIndex and is accepted
+		zIndex: 510,
+		position: 'relative',
+	},
 	mainToolbarWithKeyline: {
 		boxShadow: token('elevation.shadow.overflow'),
 	},
@@ -95,6 +100,8 @@ const MainToolbarWrapper = ({
 				showKeyline && styles.mainToolbarWithKeyline,
 				expValEquals('platform_editor_toolbar_support_custom_components', 'isEnabled', true) &&
 					styles.mainToolbarNew,
+				expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) &&
+					styles.mainToolbarZIndex,
 			]}
 			data-testid={testId}
 		>
@@ -214,16 +221,20 @@ export const FullPageToolbarNext = ({
 							) ? (
 								<>
 									<FirstChildWrapper>
-										{toolbarDockingPosition !== 'none' && components && isToolbar(toolbar) && (
-											<ToolbarNext
-												toolbar={toolbar}
-												components={components}
-												editorView={editorView}
-												editorAPI={editorAPI}
-												popupsMountPoint={mountPoint}
-												editorAppearance="full-page"
-											/>
-										)}
+										{toolbarDockingPosition !== 'none' &&
+											components &&
+											isToolbar(toolbar) &&
+											(!expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ||
+												editorView) && (
+												<ToolbarNext
+													toolbar={toolbar}
+													components={components}
+													editorView={editorView}
+													editorAPI={editorAPI}
+													popupsMountPoint={mountPoint}
+													editorAppearance="full-page"
+												/>
+											)}
 									</FirstChildWrapper>
 									<SecondChildWrapper>
 										<div css={styles.customToolbarWrapperStyle}>
@@ -245,7 +256,9 @@ export const FullPageToolbarNext = ({
 							) : (
 								toolbarDockingPosition !== 'none' &&
 								components &&
-								isToolbar(toolbar) && (
+								isToolbar(toolbar) &&
+								(!expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ||
+									editorView) && (
 									<ToolbarNext
 										toolbar={toolbar}
 										components={components}

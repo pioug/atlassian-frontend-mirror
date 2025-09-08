@@ -37,6 +37,7 @@ import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type Props = {
+	areAnyNewToolbarFlagsEnabled: boolean;
 	displayUrl?: string;
 	editing: boolean;
 	intl: IntlShape;
@@ -191,6 +192,7 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 										);
 									}
 								}}
+								areAnyNewToolbarFlagsEnabled={this.props.areAnyNewToolbarFlagsEnabled}
 							/>
 						</span>
 						<PanelTextInput
@@ -219,7 +221,7 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 						</label>
 						{normalizeUrl(displayUrl) && (
 							<Fragment>
-								<Separator />
+								<Separator areAnyNewToolbarFlagsEnabled={this.props.areAnyNewToolbarFlagsEnabled} />
 								<Button
 									title={formatUnlinkText}
 									icon={<EditorUnlinkIcon label={formatUnlinkText} />}
@@ -230,6 +232,7 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 											this.handleUnlink(true);
 										}
 									}}
+									areAnyNewToolbarFlagsEnabled={this.props.areAnyNewToolbarFlagsEnabled}
 								/>
 							</Fragment>
 						)}

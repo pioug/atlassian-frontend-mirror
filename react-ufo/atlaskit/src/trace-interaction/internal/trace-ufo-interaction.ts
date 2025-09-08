@@ -1,7 +1,13 @@
 import { v4 as createUUID } from 'uuid';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import coinflip from '../../coinflip';
-import { getDoNotAbortActivePressInteraction, getInteractionRate } from '../../config';
+import {
+	getDoNotAbortActivePressInteraction,
+	getInteractionRate,
+	getMinorInteractions,
+} from '../../config';
 import { getActiveTrace, setInteractionActiveTrace } from '../../experience-trace-id-context';
 import { DefaultInteractionID } from '../../interaction-id-context';
 import { abortAll, addNewInteraction, getActiveInteraction } from '../../interaction-metrics';
@@ -16,16 +22,32 @@ function traceUFOInteraction(
 ): void {
 	const rate = getInteractionRate(name, interactionType);
 	const pressInteractionsList = getDoNotAbortActivePressInteraction();
-	if (pressInteractionsList?.includes(name)) {
-		const interaction = getActiveInteraction();
-		if (interaction?.ufoName !== 'unknown' && interaction?.type === 'press') {
+
+	if (fg('platform_ufo_enable_minor_interactions')) {
+		const minorInteractions = (pressInteractionsList ?? []).concat(getMinorInteractions() ?? []);
+		if (minorInteractions.includes(name)) {
+			const activeInteraction = getActiveInteraction();
+			activeInteraction?.minorInteractions?.push({
+				name,
+				startTime: startTime ?? performance.now(),
+			});
 			return;
+		} else {
+			abortAll('new_interaction', name);
 		}
 	} else {
-		// Abort any existing interaction regardless of the coinflip outcome
-		// Ensures measurements are not carried over between distinct interactions
-		abortAll('new_interaction', name);
+		if (pressInteractionsList?.includes(name)) {
+			const interaction = getActiveInteraction();
+			if (interaction?.ufoName !== 'unknown' && interaction?.type === 'press') {
+				return;
+			}
+		} else {
+			// Abort any existing interaction regardless of the coinflip outcome
+			// Ensures measurements are not carried over between distinct interactions
+			abortAll('new_interaction', name);
+		}
 	}
+
 	if (coinflip(rate)) {
 		const startTimestamp = startTime ?? performance.now();
 		const newId = createUUID();

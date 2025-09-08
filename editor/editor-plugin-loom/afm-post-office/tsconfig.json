@@ -29,6 +29,9 @@
 			"path": "../../editor-plugin-analytics/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-editor-viewmode/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-hyperlink/afm-post-office/tsconfig.json"
 		},
 		{

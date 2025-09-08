@@ -19,6 +19,7 @@ import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type { MediaPluginState } from './pm-plugins/types';
@@ -42,6 +43,7 @@ export type MediaPluginDependencies = [
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<ConnectivityPlugin>,
 	OptionalPlugin<InteractionPlugin>,
+	OptionalPlugin<ToolbarPlugin>,
 ];
 
 export type MediaNextEditorPluginType = NextEditorPlugin<

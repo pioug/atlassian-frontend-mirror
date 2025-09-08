@@ -1,5 +1,17 @@
 # @atlaskit/inline-dialog
 
+## 18.0.0
+
+### Major Changes
+
+- [`d636af20c6304`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d636af20c6304) -
+  This replaces `react-node-resolver` which uses `findDOMNode` under the hood with a direct `ref`
+  functionality to pass the first child of an Inline Dialog around for internal use.
+
+  There is some risk to this as while we tested this internally via a feature gate with no issues,
+  this could be breaking in the instance where the children you pass to `<InlineDialog />` is either
+  inconsistent, or the first element is not the target we expected.
+
 ## 17.2.9
 
 ### Patch Changes

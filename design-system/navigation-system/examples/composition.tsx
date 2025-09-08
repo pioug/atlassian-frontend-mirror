@@ -219,15 +219,15 @@ export default function Composition({
 							collapseLabel="Collapse sidebar"
 							expandLabel="Expand sidebar"
 						/>
-						<AppSwitcher label="Switch apps" />
+						<AppSwitcher label="Switch apps" onClick={() => console.log('app switcher clicked')} />
 						<AppLogo href="" icon={JiraIcon} name="Confluence" label="Home page" />
 					</TopNavStart>
 					<TopNavMiddle>
 						{isMockProductSearch ? <MockSearch /> : <Search label="Search" />}
-						<CreateButton>Create</CreateButton>
+						<CreateButton onClick={() => console.log('create button clicked')}>Create</CreateButton>
 					</TopNavMiddle>
 					<TopNavEnd>
-						<Help label="Help" />
+						<Help label="Help" onClick={() => console.log('help button clicked')} />
 						<Notifications
 							badge={() => (
 								<Badge max={9} appearance="important">

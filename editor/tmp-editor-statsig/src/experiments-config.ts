@@ -616,6 +616,15 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	//Added 2025-07-16
+	platform_editor_toolbar_aifc_patch_3: createBooleanExperiment({
+		productKeys: {
+			jira: 'platform_editor_toolbar_aifc_patch_3',
+			confluence: 'platform_editor_toolbar_aifc_patch_3',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	//Added 2025-08-13
 	platform_editor_ai_aifc: createBooleanExperiment({
 		productKeys: {
@@ -783,6 +792,15 @@ export const editorExperimentsConfig = {
 	platform_editor_breakout_resizing_vc90_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_breakout_resizing_vc90_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-08-29
+	platform_editor_toolbar_aifc_exp_code_toggle: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_aifc_exp_code_toggle',
+			jira: 'platform_editor_toolbar_aifc_exp_code_toggle',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

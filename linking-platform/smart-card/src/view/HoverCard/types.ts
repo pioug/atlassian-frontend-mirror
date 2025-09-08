@@ -16,6 +16,11 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	actionOptions?: CardActionOptions;
 
 	/**
+	 * Allow click event to bubble up from hover preview trigger component.
+	 */
+	allowEventPropagation?: boolean;
+
+	/**
 	 * Determines if the hover card is allowed to open. If changed from true to false while the
 	 * hover card is open, the hover card will be closed.
 	 */
@@ -79,11 +84,6 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
  * standalone hover card.
  */
 export interface HoverCardInternalProps {
-	/**
-	 * Allow click event to bubble up from hover preview trigger component.
-	 * @see EDM-7187 for further details
-	 */
-	allowEventPropagation?: boolean;
 	/**
 	 * Suspend hover card UI delays (fade-in, fade-out) for VR testing purposes.
 	 */

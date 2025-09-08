@@ -8,6 +8,7 @@ import type {
 	HoldActive,
 	InteractionError,
 	InteractionType,
+	MinorInteraction,
 	SegmentInfo,
 } from './common/types';
 import type { RevisionPayload } from './vc/types';
@@ -175,6 +176,7 @@ export type ReactUFOPayload = {
 				holdActive: HoldActive[];
 				unknownElementName?: string;
 				unknownElementHierarchy?: string;
+				minorInteractions?: MinorInteraction[];
 				// TODO: fix typings here - update as necessary for integration tests
 				// marks: [];
 				// redirects: [];

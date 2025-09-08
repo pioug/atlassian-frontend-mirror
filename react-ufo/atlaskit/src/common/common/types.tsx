@@ -132,6 +132,11 @@ export type ResponsivenessMetric = {
 	totalBlockingTime?: number;
 };
 
+export type MinorInteraction = {
+	name: string;
+	startTime: DOMHighResTimeStamp;
+};
+
 export interface InteractionMetrics {
 	id: string;
 	start: number;
@@ -204,6 +209,7 @@ export interface InteractionMetrics {
 	unknownElementHierarchy?: string;
 	hold3pActive?: Map<string, HoldActive>;
 	hold3pInfo?: HoldInfo[];
+	minorInteractions?: MinorInteraction[];
 }
 
 export type LoadProfilerEventInfo = {

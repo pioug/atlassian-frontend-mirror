@@ -25,6 +25,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { escape, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { altTextMessages as messages } from '@atlaskit/editor-common/media';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import {
 	RECENT_SEARCH_WIDTH_IN_PX as CONTAINER_WIDTH_IN_PX,
 	FloatingToolbarButton as Button,
@@ -97,6 +98,7 @@ const clearTextStyles = css({
 
 type Props = {
 	altTextValidator?: (value: string) => string[];
+	areAnyNewToolbarFlagsEnabled?: boolean;
 	mediaType: 'file' | 'image' | 'external';
 	nodeType: 'mediaSingle' | 'mediaInline';
 	onEnter?: () => void;
@@ -188,6 +190,9 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 							icon={<ChevronLeftLargeIcon label={formatMessage(messages.back)} size="small" />}
 							tooltipContent={backButtonMessageComponent}
 							onClick={this.closeMediaAltTextMenu}
+							areAnyNewToolbarFlagsEnabled={
+								this.props.areAnyNewToolbarFlagsEnabled ?? areToolbarFlagsEnabled()
+							}
 						/>
 					</div>
 					<PanelTextInput
@@ -217,6 +222,9 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 								}
 								tooltipContent={formatMessage(messages.clear)}
 								onClick={this.handleClearText}
+								areAnyNewToolbarFlagsEnabled={
+									this.props.areAnyNewToolbarFlagsEnabled ?? areToolbarFlagsEnabled()
+								}
 							/>
 						</div>
 					)}

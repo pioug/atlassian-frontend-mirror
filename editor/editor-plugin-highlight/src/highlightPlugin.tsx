@@ -19,9 +19,11 @@ import { getToolbarComponent } from './ui/toolbar-component';
 
 export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
-	const isToolbarAifcEnabled = editorExperiment('platform_editor_toolbar_aifc', true, {
-		exposure: true,
-	});
+	const isToolbarAifcEnabled =
+		Boolean(api?.toolbar) &&
+		editorExperiment('platform_editor_toolbar_aifc', true, {
+			exposure: true,
+		});
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		popupsMountPoint,

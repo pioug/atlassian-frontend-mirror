@@ -9,7 +9,6 @@ import React, { Component } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	CommandDispatch,
 	DropdownOptions,
@@ -62,6 +61,7 @@ export interface Props {
 	// A prop to align the dropdown with the floating toolbar instead of the toolbar item
 	alignDropdownWithToolbar?: boolean;
 	alignX?: 'left' | 'right' | 'center';
+	areAnyNewToolbarFlagsEnabled: boolean;
 	boundariesElement?: HTMLElement;
 	buttonTestId?: string;
 	disabled?: boolean;
@@ -132,6 +132,7 @@ export default class Dropdown extends Component<Props, State> {
 			spotlightConfig,
 			shouldFitContainer,
 			alignX,
+			areAnyNewToolbarFlagsEnabled,
 		} = this.props;
 
 		let trigger;
@@ -147,10 +148,11 @@ export default class Dropdown extends Component<Props, State> {
 					selected={isOpen}
 					disabled={disabled}
 					tooltipContent={tooltip}
-					ariaHasPopup={areToolbarFlagsEnabled() ? true : undefined}
+					ariaHasPopup={areAnyNewToolbarFlagsEnabled ? true : undefined}
 					onMount={onMount}
 					pulse={pulse}
 					spotlightConfig={spotlightConfig}
+					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>
 			);
 		} else {
@@ -179,6 +181,7 @@ export default class Dropdown extends Component<Props, State> {
 					onMount={onMount}
 					pulse={pulse}
 					spotlightConfig={spotlightConfig}
+					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				>
 					{title}
 				</Button>
@@ -249,7 +252,7 @@ export default class Dropdown extends Component<Props, State> {
 	private renderArrayOptions = (
 		options: Array<DropdownOptionT<Function>> | FloatingToolbarOverflowDropdownOptions<Function>,
 	) => {
-		const { showSelected, dispatchCommand, editorView } = this.props;
+		const { showSelected, dispatchCommand, editorView, areAnyNewToolbarFlagsEnabled } = this.props;
 		return (
 			<DropdownMenu
 				hide={this.hide}
@@ -257,6 +260,7 @@ export default class Dropdown extends Component<Props, State> {
 				items={options}
 				showSelected={showSelected}
 				editorView={editorView}
+				areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 			/>
 		);
 	};

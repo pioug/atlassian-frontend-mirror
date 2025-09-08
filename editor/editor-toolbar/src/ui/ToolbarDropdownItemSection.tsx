@@ -14,7 +14,11 @@ export const ToolbarDropdownItemSection = ({
 	title,
 }: ToolbarDropdownItemSectionProps) => {
 	return (
-		<DropdownItemGroup hasSeparator={hasSeparator} title={title}>
+		<DropdownItemGroup
+			hasSeparator={hasSeparator}
+			title={title}
+			data-toolbar-component="menu-section"
+		>
 			{children}
 		</DropdownItemGroup>
 	);

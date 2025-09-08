@@ -144,7 +144,13 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.maybeAdd(historyPlugin, Boolean(options.allowUndoRedoButtons))
 		.maybeAdd(
 			[toolbarPlugin, options.toolbar || {}],
-			editorExperiment('platform_editor_toolbar_aifc', true, { exposure: true }),
+			// if explicitly set to false, don't enable. If undefined treat as truthy and allow plugin to be enabled under experiment
+			Boolean(
+				expValEquals('platform_editor_toolbar_aifc_exp_code_toggle', 'isEnabled', true)
+					? options.toolbar?.enableNewToolbarExperience !== false &&
+							editorExperiment('platform_editor_toolbar_aifc', true)
+					: editorExperiment('platform_editor_toolbar_aifc', true),
+			),
 		)
 		.add([primaryToolbarPlugin, { contextualFormattingEnabled: isFullPage }])
 		.maybeAdd(

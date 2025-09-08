@@ -104,6 +104,7 @@ export type InitialPluginConfiguration = {
 	};
 	toolbarPlugin?: {
 		disableSelectionToolbar?: boolean;
+		enableNewToolbarExperience?: boolean;
 	};
 	trackChangesPlugin?: {
 		showOnToolbar?: boolean;

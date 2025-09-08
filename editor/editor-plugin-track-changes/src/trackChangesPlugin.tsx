@@ -15,7 +15,7 @@ export const trackChangesPlugin: TrackChangesPlugin = ({ api, config: options })
 	};
 
 	if (options?.showOnToolbar === true) {
-		if (editorExperiment('platform_editor_toolbar_aifc', true)) {
+		if (Boolean(api?.toolbar) && editorExperiment('platform_editor_toolbar_aifc', true)) {
 			api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
 		} else {
 			api?.primaryToolbar?.actions?.registerComponent({

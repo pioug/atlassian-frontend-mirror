@@ -1,4 +1,5 @@
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { token } from '@atlaskit/tokens';
@@ -111,6 +112,13 @@ export const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
 const DEFAULT_FONT_SIZE = 14;
 
 export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = () => {
+	// eslint-disable-next-line no-constant-condition
+	if (
+		editorExperiment('platform_editor_toolbar_aifc', true, { exposure: true }) &&
+		expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
+	) {
+		return '44px';
+	}
 	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
 		return token('space.500', '40px');
 	}

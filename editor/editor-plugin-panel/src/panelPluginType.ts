@@ -10,6 +10,7 @@ import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { type EmojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 export const pluginKey = new PluginKey('panelPlugin');
@@ -39,6 +40,7 @@ export type EmojiInfo = {
 export type PanelPluginDependencies = [
 	typeof decorationsPlugin,
 	OptionalPlugin<typeof analyticsPlugin>,
+	OptionalPlugin<ToolbarPlugin>,
 	EmojiPlugin,
 	OptionalPlugin<BlockMenuPlugin>,
 	OptionalPlugin<SelectionPlugin>,

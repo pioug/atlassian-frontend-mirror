@@ -81,9 +81,10 @@ export const getToolbarItems = (
 	state?: EditorState,
 	api?: ExtractInjectionAPI<PanelPlugin>,
 ): FloatingToolbarItem<Command>[] => {
-	const isNewEditorToolbarDisabled = !areToolbarFlagsEnabled();
+	const areAllNewToolbarFlagsDisabled = !areToolbarFlagsEnabled(Boolean(api?.toolbar));
+
 	// TODO: ED-14403 - investigate why these titles are not getting translated for the tooltips
-	const items: FloatingToolbarItem<Command>[] = isNewEditorToolbarDisabled
+	const items: FloatingToolbarItem<Command>[] = areAllNewToolbarFlagsDisabled
 		? [
 				{
 					id: 'editor.panel.info',
@@ -133,7 +134,7 @@ export const getToolbarItems = (
 			]
 		: [
 				panelTypeDropdown({ activePanelType, editorAnalyticsAPI, formatMessage }),
-				...(editorExperiment('platform_editor_toolbar_aifc', true)
+				...(Boolean(api?.toolbar) && editorExperiment('platform_editor_toolbar_aifc', true)
 					? []
 					: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
 			];
@@ -314,7 +315,7 @@ export const getToolbarItems = (
 		}
 	}
 
-	if (isNewEditorToolbarDisabled) {
+	if (areAllNewToolbarFlagsDisabled) {
 		if (state) {
 			items.push({
 				type: 'separator',
@@ -418,7 +419,7 @@ export const getToolbarConfig = (
 			options.allowCustomPanel ? panelColor : undefined,
 			options.allowCustomPanel ? panelIcon || isStandardPanel(panelType) : undefined,
 			state,
-			areToolbarFlagsEnabled() ? api : undefined,
+			areToolbarFlagsEnabled(Boolean(api?.toolbar)) ? api : undefined,
 		);
 
 		const getDomRef = (editorView: EditorView) => {

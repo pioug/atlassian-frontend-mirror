@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.8.0
+
+### Minor Changes
+
+- [`c0113eeccb2df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0113eeccb2df) -
+  [ux] ED-29120 add a new config option for default editor preset
+  (`toolbar.enableNewToolbarExperience`) which allows the new toolbar to be disabled. This is needed
+  for editors that can't be excluded at the experiment level.
+
+## 12.7.0
+
+### Minor Changes
+
+- [`0812ff5bd7bd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0812ff5bd7bd1) -
+  Dont render menu sections in live view
+
 ## 12.6.0
 
 ### Minor Changes

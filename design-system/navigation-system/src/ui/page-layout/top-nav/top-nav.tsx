@@ -2,11 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useSkipLink } from '../../../context/skip-links/skip-links-context';
@@ -22,8 +23,17 @@ import {
 import { DangerouslyHoistSlotSizes } from '../hoist-slot-sizes-context';
 import { DangerouslyHoistCssVarToDocumentRoot, HoistCssVarToLocalGrid } from '../hoist-utils';
 import { useLayoutId } from '../id-utils';
+import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
 import type { CommonSlotProps } from '../types';
 
+/**
+ * Styles for the container for the top nav items.
+ *
+ * The background and border are applied to a different element for z-indexing reasons:
+ *
+ * - The items sit above the expanded side nav
+ * - The background sits below the expanded side nav
+ */
 const styles = cssMap({
 	root: {
 		gridArea: 'top-bar',
@@ -58,6 +68,61 @@ const styles = cssMap({
 			// Using `1fr` for the left and right columns allows them to stay equal for as long as possible
 			// There is another grid layout in `TopNavMiddle` that allows the middle column to grow and shrink in a constrained way
 			gridTemplateColumns: '1fr minmax(min-content, max-content) 1fr',
+		},
+	},
+	fullHeightSidebar: {
+		// We don't want start padding, because `TopNavStart` has exactly the same width as the side nav
+		// If we had padding it would be misaligned
+		paddingInlineStart: token('space.0'),
+		paddingInlineEnd: token('space.150'),
+		// The background and border are now on a sibling element for layering reasons
+		backgroundColor: 'none',
+		borderBlockEnd: 'none',
+		// Pointer events are disabled so the side nav panel splitter remains interactive from behind the top nav items.
+		// We re-enable pointer events on the top nav slots.
+		pointerEvents: 'none',
+		'@media (min-width: 64rem)': {
+			gap: token('space.150'),
+		},
+	},
+	fullHeightSidebarExpanded: {
+		'@media (min-width: 64rem)': {
+			// Use the live side nav width for the first column (`TopNavStart`) width
+			// Fall back to 1fr when there's no side nav mounted
+			gridTemplateColumns: 'var(--n_sNvlw, 1fr) minmax(min-content, max-content) 1fr',
+		},
+	},
+});
+
+/**
+ * Styles for the visible 'bar' of the top nav, including background and border.
+ *
+ * This is on a lower z-index than the expanded side nav, and is separate to the top nav items which are above the expanded side nav.
+ */
+const backgroundStyles = cssMap({
+	root: {
+		// Occupies the same grid area as the top nav item container (but is below it)
+		gridArea: 'top-bar',
+		width: '100%',
+		height: '100%',
+		backgroundColor: token('elevation.surface'),
+		boxSizing: 'border-box',
+		borderBlockEnd: `1px solid ${token('color.border')}`,
+		// Stick point for sticky positioning, relevant on mobile or if the whole page scrolls for some reason
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		insetBlockStart: `var(${bannerMountedVar}, 0px)`,
+		position: 'sticky',
+		pointerEvents: 'none',
+		// By default the background is still above everything
+		// This prevents shadows from the side nav and panel from showing above the top nav border.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		zIndex: localSlotLayers.topBar,
+	},
+	sideNavExpanded: {
+		'@media (min-width: 64rem)': {
+			// We want the background to appear behind the full height side nav
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			zIndex: localSlotLayers.sideNav,
 		},
 	},
 });
@@ -101,16 +166,59 @@ export function TopNav({
 
 	const customTheme = useCustomTheme(UNSAFE_theme);
 
+	/**
+	 * With the full height sidebar we have a foreground and background element,
+	 * so we need to apply the custom theme styles to the correct element.
+	 *
+	 * The foreground element should not have a background color,
+	 * and the background element doesn't need any of the other styles.
+	 */
+	const { backgroundStyle, foregroundStyle } = useMemo(() => {
+		if (!customTheme.isEnabled) {
+			return { backgroundStyle: undefined, foregroundStyle: undefined };
+		}
+
+		const { backgroundColor, ...foregroundStyle } = customTheme.style;
+
+		return {
+			backgroundStyle: { backgroundColor },
+			foregroundStyle,
+		};
+	}, [customTheme]);
+
+	const { isExpandedOnDesktop } = useSideNavVisibility();
+
 	return (
 		<HasCustomThemeContext.Provider value={customTheme.isEnabled}>
+			{fg('navx-full-height-sidebar') && (
+				// The separate element allows top nav items to sit in front of the sidebar, while the background sits behind.
+				// It also has a simple story around z-index and positioning.
+				<div
+					data-layout-slot
+					css={[backgroundStyles.root, isExpandedOnDesktop && backgroundStyles.sideNavExpanded]}
+					aria-hidden
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					style={fg('navx-full-height-sidebar') ? backgroundStyle : undefined}
+				/>
+			)}
 			<header
 				id={id}
 				data-layout-slot
-				css={styles.root}
+				css={[
+					styles.root,
+					fg('navx-full-height-sidebar') && styles.fullHeightSidebar,
+					isExpandedOnDesktop && fg('navx-full-height-sidebar') && styles.fullHeightSidebarExpanded,
+				]}
 				className={xcss}
 				data-testid={testId}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				style={customTheme.isEnabled ? customTheme.style : undefined}
+				style={
+					fg('navx-full-height-sidebar')
+						? foregroundStyle
+						: customTheme.isEnabled
+							? customTheme.style
+							: undefined
+				}
 			>
 				<HoistCssVarToLocalGrid variableName={topNavMountedVar} value={height} />
 				{dangerouslyHoistSlotSizes && (

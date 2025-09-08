@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactNode } from 'react';
 
 import { act, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
@@ -23,6 +23,18 @@ import {
 	resetMatchMedia,
 	setMediaQuery,
 } from './_test-utils';
+
+/**
+ * Mocking `TopNavStart` here because JSDOM struggles to properly resolve the Compiled styles,
+ * and doesn't pick up on the `pointerEvents: 'auto'` set on the real `TopNavStart`.
+ * As a result it thinks that top nav items are not interactive.
+ *
+ * We have a browser test in `pointer-events.spec.tsx` that ensures top nav items are interactive.
+ */
+const TopNavStart = ({ children }: { children: ReactNode }) => (
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+	<div style={{ pointerEvents: 'auto' }}>{children}</div>
+);
 
 describe('Side nav', () => {
 	let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
@@ -80,7 +92,9 @@ describe('Side nav', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						<TopNavStart>
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						</TopNavStart>
 					</TopNav>
 					<SideNav testId="sidenav" onExpand={onExpand}>
 						sidenav
@@ -99,11 +113,13 @@ describe('Side nav', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart>
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed
+							/>
+						</TopNavStart>
 					</TopNav>
 					<SideNav testId="sidenav" onExpand={onExpand} defaultCollapsed>
 						sidenav
@@ -128,7 +144,9 @@ describe('Side nav', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						<TopNavStart>
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						</TopNavStart>
 					</TopNav>
 					<SideNav testId="sidenav" onExpand={onExpand}>
 						sidenav
@@ -153,7 +171,9 @@ describe('Side nav', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						<TopNavStart>
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						</TopNavStart>
 					</TopNav>
 					<SideNav testId="sidenav" onExpand={onExpand}>
 						sidenav
@@ -181,11 +201,13 @@ describe('Side nav', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart>
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed
+							/>
+						</TopNavStart>
 					</TopNav>
 					<SideNav testId="sidenav" onExpand={onExpand} defaultCollapsed>
 						sidenav
@@ -217,7 +239,12 @@ describe('Side nav', () => {
 				render(
 					<Root>
 						<TopNav>
-							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+							<TopNavStart>
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+								/>
+							</TopNavStart>
 						</TopNav>
 						<SideNav testId="sidenav" onExpand={onExpand}>
 							sidenav
@@ -245,11 +272,13 @@ describe('Side nav', () => {
 				render(
 					<Root>
 						<TopNav>
-							<SideNavToggleButton
-								collapseLabel="Collapse sidebar"
-								expandLabel="Expand sidebar"
-								defaultCollapsed
-							/>
+							<TopNavStart>
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							</TopNavStart>
 						</TopNav>
 						<SideNav testId="sidenav" onExpand={onExpand} defaultCollapsed>
 							sidenav
@@ -289,7 +318,9 @@ describe('Side nav', () => {
 				render(
 					<Root>
 						<TopNav>
-							<CustomToggle />
+							<TopNavStart>
+								<CustomToggle />
+							</TopNavStart>
 						</TopNav>
 						<SideNav onExpand={onExpand} defaultCollapsed>
 							Content
@@ -316,11 +347,13 @@ describe('Side nav', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart>
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed
+							/>
+						</TopNavStart>
 					</TopNav>
 					<SideNav testId="sidenav" onCollapse={onCollapse} defaultCollapsed>
 						sidenav
@@ -339,7 +372,9 @@ describe('Side nav', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						<TopNavStart>
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						</TopNavStart>
 					</TopNav>
 					<SideNav testId="sidenav" onCollapse={onCollapse}>
 						sidenav
@@ -364,11 +399,13 @@ describe('Side nav', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart>
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed
+							/>
+						</TopNavStart>
 					</TopNav>
 					<SideNav testId="sidenav" onCollapse={onCollapse} defaultCollapsed>
 						sidenav
@@ -393,7 +430,9 @@ describe('Side nav', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						<TopNavStart>
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						</TopNavStart>
 					</TopNav>
 					<SideNav testId="sidenav" onCollapse={onCollapse}>
 						sidenav
@@ -427,7 +466,9 @@ describe('Side nav', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						<TopNavStart>
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						</TopNavStart>
 					</TopNav>
 					<SideNav testId="sidenav" onCollapse={onCollapse}>
 						sidenav
@@ -449,7 +490,12 @@ describe('Side nav', () => {
 				render(
 					<Root>
 						<TopNav>
-							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+							<TopNavStart>
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+								/>
+							</TopNavStart>
 						</TopNav>
 						<SideNav testId="sidenav" onCollapse={onCollapse}>
 							sidenav
@@ -493,7 +539,9 @@ describe('Side nav', () => {
 				render(
 					<Root>
 						<TopNav>
-							<CustomToggle />
+							<TopNavStart>
+								<CustomToggle />
+							</TopNavStart>
 						</TopNav>
 						<SideNav onCollapse={onCollapse}>Content</SideNav>
 					</Root>,
@@ -519,12 +567,14 @@ describe('Side nav', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
-						<div data-testid="outside-click-target">outside click target</div>
+						<TopNavStart>
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed
+							/>
+							<div data-testid="outside-click-target">outside click target</div>
+						</TopNavStart>
 					</TopNav>
 					<SideNav testId="sidenav" onCollapse={onCollapse}>
 						sidenav
@@ -550,12 +600,14 @@ describe('Side nav', () => {
 				render(
 					<Root>
 						<TopNav>
-							<SideNavToggleButton
-								collapseLabel="Collapse sidebar"
-								expandLabel="Expand sidebar"
-								defaultCollapsed
-							/>
-							<div data-testid="outside-click-target">outside click target</div>
+							<TopNavStart>
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+								<div data-testid="outside-click-target">outside click target</div>
+							</TopNavStart>
 						</TopNav>
 						<SideNav testId="sidenav" onCollapse={onCollapse}>
 							sidenav
@@ -657,11 +709,13 @@ describe('Side nav', () => {
 			render(
 				<MockProvider sideNavState={null}>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed={false}
-						/>
+						<TopNavStart>
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed={false}
+							/>
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed={false}>sidenav</SideNav>
 				</MockProvider>,

@@ -105,7 +105,7 @@ const helpContentButtonIconStyles = css({
 	verticalAlign: 'middle',
 	width: '20px',
 	height: '20px',
-	borderRadius: '4px',
+	borderRadius: token('radius.small'),
 	position: 'relative',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'& span': {

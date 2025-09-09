@@ -21,7 +21,7 @@ const getEmailAvatarWrapperStyle = (isLozenge?: boolean, isPendingAction?: boole
 		padding,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		backgroundColor,
-		borderRadius: '50%',
+		borderRadius: token('radius.full'),
 		display: 'flex',
 		alignItems: 'center',
 		marginLeft: token('space.025', '2px'),

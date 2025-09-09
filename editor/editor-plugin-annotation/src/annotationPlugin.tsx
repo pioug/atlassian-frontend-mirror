@@ -7,7 +7,6 @@ import {
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnnotationPlugin } from './annotationPluginType';
@@ -203,19 +202,8 @@ function AnnotationContentComponent({
 }: AnnotationContentComponentProps) {
 	const annotationState = useSharedPluginStateWithSelector(api, ['annotation'], selector);
 
-	if (
-		annotationState &&
-		!annotationState.isVisible &&
-		expValEquals('platform_editor_usesharedpluginstatewithselector', 'isEnabled', false)
-	) {
-		return null;
-	}
-
 	// need to explicitly check for false as undefined is also a valid value to continue
-	if (
-		annotationState?.isVisible === false &&
-		expValEquals('platform_editor_usesharedpluginstatewithselector', 'isEnabled', true)
-	) {
+	if (annotationState?.isVisible === false) {
 		return null;
 	}
 

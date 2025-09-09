@@ -1,5 +1,24 @@
 # @atlaskit/media-avatar-picker
 
+## 26.3.0
+
+### Minor Changes
+
+- [`a18b8f793d71c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a18b8f793d71c) -
+  Updated icon sizing for unlink icon to third party connectors
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.2.10
+
+### Patch Changes
+
+- [`5d0b8ba5e6f7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d0b8ba5e6f7f) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
 ## 26.2.9
 
 ### Patch Changes

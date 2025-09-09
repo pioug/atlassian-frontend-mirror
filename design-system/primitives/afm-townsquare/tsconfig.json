@@ -38,9 +38,6 @@
 			"path": "../../../observability/interaction-context/afm-townsquare/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-townsquare/tsconfig.json"
 		},
 		{

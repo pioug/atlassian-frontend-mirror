@@ -22,6 +22,29 @@ tester.run('no-custom-icons', rule, {
 });
 
 describe('no-custom-icons', () => {
+	tester.run(`import from @atlaskit/icon/svg`, rule, {
+		valid: [],
+		invalid: [
+			{
+				name: 'Import custom SVG icon',
+				code: `
+					import SVG from '@atlaskit/icon/svg';
+					<SVG primaryColor={primaryColor} size={size} label={label}>
+						<path
+							fill="currentColor"
+							d="M8.1926 18.5576c-.27 0-.55-.11-.76-.32-.42-.42-.42-1.1 0-1.52l4.71-4.71-4.75-4.74c-.42-.42-.42-1.1 0-1.52.42-.42 1.1-.42 1.52 0l5.51 5.51c.2.2.32.48.32.76s-.11.56-.32.76l-5.47 5.47c-.21.21-.49.32-.76.32v-.01Z"
+						/>
+					</SVG>
+				`,
+				errors: [
+					{
+						messageId: 'noCustomIcons',
+					},
+				],
+			},
+		],
+	});
+
 	['@atlaskit/icon', '@atlaskit/icon/base'].forEach((l) => {
 		tester.run(`import from ${l}`, rule, {
 			valid: [],

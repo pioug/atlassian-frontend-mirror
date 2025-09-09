@@ -129,14 +129,14 @@ export default function Example() {
 					options={options}
 					defaultValue={'medium'}
 					onChange={onChange}
-					aria-labelledby="radiogroup-label"
+					labelId="radiogroup-label"
 				/>
 				<RadioGroup
 					isDisabled={false}
 					options={snapping}
 					defaultValue={'false'}
 					onChange={onChangeSnap}
-					aria-labelledby="radiogroup-label"
+					labelId="radiogroup-label"
 				/>
 			</div>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}

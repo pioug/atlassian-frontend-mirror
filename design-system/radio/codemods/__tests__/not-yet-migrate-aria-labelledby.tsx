@@ -304,7 +304,7 @@ const localStyles = cssMap({
   optionValueBorder: {
     borderBottomStyle: 'solid',
     borderBottomColor: token('color.border'),
-    borderBottomWidth: token('border.width.outline'),
+    borderBottomWidth: token('border.width.selected'),
   },
   optionValueContent: {
     flex: '1 1 0',
@@ -531,7 +531,7 @@ const localStyles = cssMap({
   optionValueBorder: {
     borderBottomStyle: 'solid',
     borderBottomColor: token('color.border'),
-    borderBottomWidth: token('border.width.outline'),
+    borderBottomWidth: token('border.width.selected'),
   },
   optionValueContent: {
     flex: '1 1 0',

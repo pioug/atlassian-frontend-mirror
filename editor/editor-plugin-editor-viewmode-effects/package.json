@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-editor-viewmode-effects",
-	"version": "4.0.0",
+	"version": "5.0.0",
 	"description": "Editor-Viewmode effects plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,6 +33,7 @@
 		"@atlaskit/editor-plugin-collab-edit": "workspace:^",
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {

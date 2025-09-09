@@ -10,18 +10,11 @@ export const THEME_MODES = ['light', 'dark'];
 
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
- * @deprecated Use `token('space.100', '8px')` instead with any of the space tokens.
- * Available space tokens can be found on {@link https://atlassian.design/foundations/spacing/#scale}
- */
-export const gridSize = () => 8;
-
-/**
- * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * Please use `@atlaskit/focus-ring` instead.
  */
 export const focusRing = (
 	color: string = token('color.border.focused', B200),
-	outlineWidth: number = gridSize() / 4,
+	outlineWidth: number = 2,
 ) => {
 	deprecationWarning(
 		'@atlaskit/theme',

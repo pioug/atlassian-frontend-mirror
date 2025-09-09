@@ -93,7 +93,7 @@ const dotStyles = css({
 });
 
 const dotStylesUnbounded = cssUnbounded({
-	borderRadius: '50%',
+	borderRadius: token('radius.full'),
 });
 
 const pressableStyles = cssMap({

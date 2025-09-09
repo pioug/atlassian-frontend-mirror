@@ -1,5 +1,18 @@
 # @atlaskit/teams-avatar
 
+## 2.3.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.19
+
+### Patch Changes
+
+- [`5d0b8ba5e6f7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d0b8ba5e6f7f) -
+  Internal changes to how borders are applied.
+
 ## 2.3.18
 
 ### Patch Changes

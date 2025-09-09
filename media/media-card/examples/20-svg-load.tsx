@@ -177,7 +177,7 @@ export default function () {
 							setReloadkey(reloadKey + 1);
 							setDelayedPreview(value === 'true');
 						}}
-						aria-labelledby="radiogroup-label"
+						labelId="radiogroup-label"
 					/>
 					<ToggleBox
 						label={'Binary fetch error'}

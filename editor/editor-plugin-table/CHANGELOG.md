@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 14.0.1
+
+### Patch Changes
+
+- [`c0656bad0f992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0656bad0f992) -
+  EDITOR-1389 fix table container width behind platform_editor_table_container_width_fix
+- [`f0662cd7a143e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0662cd7a143e) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.0
 
 ### Minor Changes

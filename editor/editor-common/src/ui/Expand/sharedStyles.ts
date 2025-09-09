@@ -40,7 +40,7 @@ const containerStyles = (styleProps: StyleProps) => {
 
 	return () =>
 		css({
-			borderWidth: '1px',
+			borderWidth: token('border.width'),
 			borderStyle: 'solid',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderColor: focused

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 5.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes

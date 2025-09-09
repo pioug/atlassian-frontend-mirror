@@ -5,7 +5,7 @@ export default () => {
 	return (
 		<span data-vc={'icon-editor-dropbox'} aria-hidden={true}>
 			{/* This colour is not ADG - it is the dropbox brand color */}
-			{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview*/}
+			{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-custom-icons*/}
 			<SVG primaryColor="#0061FF" label="dropbox-icon">
 				<path
 					fill="currentcolor"

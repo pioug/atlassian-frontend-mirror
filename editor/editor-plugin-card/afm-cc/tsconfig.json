@@ -32,7 +32,7 @@
 			"path": "../../custom-steps/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../../linking-platform/editor-card-provider/afm-cc/tsconfig.json"
+			"path": "../../editor-card-provider/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"

@@ -35,7 +35,7 @@ const maskPositionStyle = cssMap({
 		position: 'absolute',
 		'&:focus-visible': {
 			outlineOffset: token('space.025'),
-			outlineWidth: token('border.width.outline'),
+			outlineWidth: token('border.width.focused'),
 			outlineColor: token('color.border.focused'),
 			outlineStyle: 'solid',
 		},

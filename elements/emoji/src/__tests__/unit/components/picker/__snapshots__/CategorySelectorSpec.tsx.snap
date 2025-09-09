@@ -4,7 +4,7 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
 <button
   aria-label="Activity"
   aria-selected="true"
-  class="_mizu194a _1ah31bk5 _ra3xnqa1 _128m1bk5 _1cvmnqa1 _4davt94y _19itglyw _vchhusvi _r06hglyw _80omtlke _2rko12b0 _v564h5h4 _189eidpf _bfhksm61 _ca0qze3t _n3tdze3t _19bvze3t _u5f3ze3t _syazaqb7 _30l3aqb7"
+  class="_mizu194a _1ah3dkaa _ra3xnqa1 _128mdkaa _1cvmnqa1 _4davt94y _19itglyw _vchhusvi _r06hglyw _80omtlke _2rko12b0 _v564h5h4 _189eidpf _bfhksm61 _ca0qze3t _n3tdze3t _19bvze3t _u5f3ze3t _syazaqb7 _30l3aqb7"
   data-focus-index="3"
   data-testid="category-selector-ACTIVITY"
   id="category-selector-ACTIVITY"

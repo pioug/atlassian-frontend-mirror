@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { EditorToolbarContextType } from '@atlaskit/editor-common/toolbar';
 import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
@@ -15,6 +16,8 @@ import {
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterComponent, RegisterToolbar } from '@atlaskit/editor-toolbar-model';
+import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarProps } from './toolbar-types';
 import { ToolbarInner } from './ToolbarInner';
@@ -56,6 +59,33 @@ type NewToolbarProps = Pick<
 		toolbar: RegisterToolbar;
 	};
 
+const usePluginState = conditionalHooksFactory(
+	() => expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true),
+	(api?: PublicPluginAPI<[ToolbarPlugin]>) => {
+		return useSharedPluginStateWithSelector(
+			api,
+			['connectivity', 'editorViewMode', 'userPreferences'],
+			(state) => {
+				return {
+					connectivityStateMode: state.connectivityState?.mode,
+					editorViewMode: state.editorViewModeState?.mode,
+					editorToolbarDockingPreference:
+						state.userPreferencesState?.preferences?.toolbarDockingPosition,
+				};
+			},
+		);
+	},
+	(api?: PublicPluginAPI<[ToolbarPlugin]>) => {
+		const connectivityStateMode = useSharedPluginStateSelector(api, 'connectivity.mode');
+
+		return {
+			connectivityStateMode,
+			editorViewMode: undefined,
+			editorToolbarDockingPreference: undefined,
+		};
+	},
+);
+
 /**
  * Renders a primary toolbar, driven by components registed by `editor-plugin-toolbar`. `ToolbarModelRenderer` will just
  * render the toolbar structure, the design is driven per component registered including the toolbar itself.
@@ -72,11 +102,17 @@ export const ToolbarNext = ({
 	popupsBoundariesElement,
 	popupsScrollableElement,
 }: NewToolbarProps) => {
-	const connectivityStateMode = useSharedPluginStateSelector(editorAPI, 'connectivity.mode');
+	const { connectivityStateMode, editorViewMode, editorToolbarDockingPreference } =
+		usePluginState(editorAPI);
 	const isOffline = connectivityStateMode === 'offline';
 
 	return (
-		<EditorToolbarProvider editorView={editorView ?? null} editorAppearance={editorAppearance}>
+		<EditorToolbarProvider
+			editorView={editorView ?? null}
+			editorAppearance={editorAppearance}
+			editorViewMode={editorViewMode}
+			editorToolbarDockingPreference={editorToolbarDockingPreference}
+		>
 			<EditorToolbarUIProvider
 				api={editorAPI}
 				isDisabled={isOffline}

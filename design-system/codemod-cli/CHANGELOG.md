@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.29.0
+
+### Minor Changes
+
+- [`e1d1e430b2dbb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1d1e430b2dbb) -
+  Created a new codemod called "migrate-icon-object-to-object" to migrate the
+  `@atlaskit/icon-object` package to `@atlaskit/object`.
+
 ## 0.28.3
 
 ### Patch Changes

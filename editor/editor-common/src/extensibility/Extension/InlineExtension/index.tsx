@@ -16,11 +16,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '../../../hooks';
+import { useSharedPluginStateWithSelector } from '../../../hooks';
 import { createWidthContext, WidthContext } from '../../../ui';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../../types';
 import ExtensionLozenge from '../Lozenge';
@@ -39,27 +35,6 @@ export interface Props {
 	setIsNodeHovered?: (isHovered: boolean) => void;
 }
 
-const useInlineExtensionSharedPluginState = sharedPluginStateHookMigratorFactory<
-	{ widthState: { width?: number } },
-	ExtensionsPluginInjectionAPI
->(
-	(pluginInjectionApi) => {
-		const { width } = useSharedPluginStateWithSelector(pluginInjectionApi, ['width'], (states) => {
-			return {
-				width: states.widthState?.width,
-			};
-		});
-
-		return {
-			widthState: { width },
-		};
-	},
-	(pluginInjectionApi) => {
-		const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
-		return { widthState: { width: widthState?.width } };
-	},
-);
-
 const InlineExtension = (props: Props) => {
 	const {
 		node,
@@ -73,7 +48,11 @@ const InlineExtension = (props: Props) => {
 	} = props;
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
 
-	const { widthState } = useInlineExtensionSharedPluginState(pluginInjectionApi);
+	const { width } = useSharedPluginStateWithSelector(pluginInjectionApi, ['width'], (states) => {
+		return {
+			width: states.widthState?.width,
+		};
+	});
 
 	const hasChildren = !!children;
 
@@ -86,18 +65,16 @@ const InlineExtension = (props: Props) => {
 
 	let rendererContainerWidth = 0;
 	if (expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)) {
-		if (widthState.width) {
+		if (width) {
 			const padding =
-				widthState.width > akEditorFullPageNarrowBreakout
+				width > akEditorFullPageNarrowBreakout
 					? akEditorGutterPaddingDynamic()
 					: akEditorGutterPaddingReduced;
 
-			rendererContainerWidth = widthState.width - padding * 2;
+			rendererContainerWidth = width - padding * 2;
 		}
 	} else {
-		rendererContainerWidth = widthState.width
-			? widthState.width - akEditorGutterPaddingDynamic() * 2
-			: 0;
+		rendererContainerWidth = width ? width - akEditorGutterPaddingDynamic() * 2 : 0;
 	}
 
 	const handleMouseEvent = (didHover: boolean) => {

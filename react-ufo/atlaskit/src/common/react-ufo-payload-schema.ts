@@ -217,6 +217,8 @@ export type LateMutation = {
 	time: number;
 	element: string;
 	viewportHeatmapPercentage: number;
+	segment?: string;
+	labelStack?: string;
 };
 
 export type PostInteractionLogPayload = {

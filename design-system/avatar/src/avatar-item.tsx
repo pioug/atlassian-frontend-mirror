@@ -25,7 +25,7 @@ const styles = cssMap({
 		borderColor: 'transparent',
 		borderRadius: token('radius.small', '3px'),
 		borderStyle: 'solid',
-		borderWidth: token('border.width.outline', '2px'),
+		borderWidth: token('border.width.selected', '2px'),
 		color: 'inherit',
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: 'inherit',

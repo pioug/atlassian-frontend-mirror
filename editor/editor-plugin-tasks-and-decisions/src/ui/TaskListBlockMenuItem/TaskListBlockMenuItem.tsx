@@ -13,7 +13,7 @@ import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType'
 export const TaskListBlockMenuItem = ({
 	api,
 }: {
-	api: ExtractInjectionAPI<TasksAndDecisionsPlugin>;
+	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
 }) => {
 	const { formatMessage } = useIntl();
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');

@@ -13,11 +13,10 @@ import { CellSelection } from '@atlaskit/editor-tables';
  * @param selection - The current ProseMirror selection
  * @returns true if nested, false if top-level
  */
-export const isNestedNode = (selection: Selection | undefined): boolean => {
+export const isNestedNode = (selection: Selection | undefined, menuTriggerBy: string): boolean => {
 	if (!selection) {
 		return false;
 	}
-
 	const { $from } = selection;
 	const depth = $from.depth;
 
@@ -31,7 +30,7 @@ export const isNestedNode = (selection: Selection | undefined): boolean => {
 	}
 
 	// Depth 4+: Always nested
-	if (depth > 3) {
+	if (depth > 4) {
 		return true;
 	}
 
@@ -47,12 +46,14 @@ export const isNestedNode = (selection: Selection | undefined): boolean => {
 	}
 
 	const parentType = parentNode.type.name;
+	const isTriggeredByBlockquote = menuTriggerBy.includes('blockquote');
 
 	// Special cases where content is still top-level
 	if (
 		(parentType === 'listItem' && depth === 3) ||
-		(parentType === 'blockquote' && depth === 2) ||
-		(parentType === 'taskList' && depth === 2)
+		(parentType === 'blockquote' && depth === 2 && isTriggeredByBlockquote) ||
+		(parentType === 'taskList' && depth === 2) ||
+		(parentType === 'listItem' && depth === 4 && isTriggeredByBlockquote)
 	) {
 		return false;
 	}

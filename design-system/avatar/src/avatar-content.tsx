@@ -52,7 +52,7 @@ const styles = cssMap({
 			outlineColor: token('color.border.focused', '#2684FF'),
 			outlineOffset: token('space.025', '2px'),
 			outlineStyle: 'solid',
-			outlineWidth: token('border.width.outline', '2px'),
+			outlineWidth: token('border.width.focused', '2px'),
 		},
 		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
 			'&:focus-visible': {

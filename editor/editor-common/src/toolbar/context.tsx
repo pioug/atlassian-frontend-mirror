@@ -3,15 +3,20 @@ import React, { createContext, useContext } from 'react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { EditorAppearance } from '../types';
+import type { ToolbarDocking } from '../user-preferences';
 
 export type EditorToolbarContextType = {
 	editorAppearance?: EditorAppearance;
+	editorToolbarDockingPreference?: ToolbarDocking;
 	editorView: EditorView | null;
+	editorViewMode?: 'edit' | 'view';
 };
 
 const EditorToolbarContext = createContext<EditorToolbarContextType>({
 	editorView: null,
 	editorAppearance: undefined,
+	editorViewMode: undefined,
+	editorToolbarDockingPreference: undefined,
 });
 
 /**
@@ -35,12 +40,16 @@ export const EditorToolbarProvider = ({
 	children,
 	editorView,
 	editorAppearance,
+	editorViewMode,
+	editorToolbarDockingPreference,
 }: EditorToolbarProviderProps) => {
 	return (
 		<EditorToolbarContext.Provider
 			value={{
 				editorView,
 				editorAppearance,
+				editorViewMode,
+				editorToolbarDockingPreference,
 			}}
 		>
 			{children}

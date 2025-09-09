@@ -49,6 +49,8 @@ const CodeBlockMenuItem = ({ api }: Props) => {
 	);
 };
 
-export const createCodeBlockMenuItem = (api: ExtractInjectionAPI<CodeBlockAdvancedPlugin>) => {
+export const createCodeBlockMenuItem = (
+	api: ExtractInjectionAPI<CodeBlockAdvancedPlugin> | undefined,
+) => {
 	return () => <CodeBlockMenuItem api={api} />;
 };

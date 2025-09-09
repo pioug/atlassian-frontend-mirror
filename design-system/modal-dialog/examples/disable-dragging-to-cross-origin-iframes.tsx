@@ -26,7 +26,7 @@ import { disableDraggingToCrossOriginIFramesForTextSelection } from '../src/inte
 
 const inIframeStyles = cssMap({
 	root: {
-		borderWidth: token('border.width.outline'),
+		borderWidth: token('border.width.selected'),
 		borderRadius: token('radius.small'),
 		borderColor: token('color.border.accent.red'),
 		display: 'flex',
@@ -238,7 +238,7 @@ const parentStyles = cssMap({
 	},
 	panel: {
 		borderRadius: token('radius.small'),
-		borderWidth: token('border.width.outline'),
+		borderWidth: token('border.width.selected'),
 		borderColor: token('color.border.accent.blue'),
 		display: 'flex',
 		flexDirection: 'column',
@@ -263,7 +263,7 @@ const parentStyles = cssMap({
 		paddingBlockStart: token('space.100'),
 		paddingInlineEnd: token('space.100'),
 		paddingInlineStart: token('space.100'),
-		borderWidth: token('border.width.outline'),
+		borderWidth: token('border.width.selected'),
 		borderStyle: 'dashed',
 		borderColor: token('color.border.accent.blue'),
 	},
@@ -273,12 +273,12 @@ const parentStyles = cssMap({
 	iframeContainer: {
 		display: 'flex',
 		flexDirection: 'column',
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 		gap: token('space.100'),
-		borderWidth: token('border.width.outline'),
+		borderWidth: token('border.width.selected'),
 		borderStyle: 'dashed',
 		borderRadius: token('radius.small'),
 		borderColor: token('color.border.accent.red'),

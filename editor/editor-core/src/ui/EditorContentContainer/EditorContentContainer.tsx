@@ -152,7 +152,11 @@ import {
 	statusStylesMixin_without_fg_platform_component_visual_refresh,
 	statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match,
 } from './styles/statusStyles';
-import { tableCommentEditorStyles, tableLayoutFixes } from './styles/tableStyles';
+import {
+	tableCommentEditorStyles,
+	tableContainerStyles,
+	tableLayoutFixes,
+} from './styles/tableStyles';
 import {
 	decisionStyles,
 	tasksAndDecisionsStyles,
@@ -527,6 +531,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					mediaAlignmentStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					tableLayoutFixes,
+					expValEquals('platform_editor_table_container_width_fix', 'isEnabled', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						tableContainerStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					hyperLinkFloatingToolbarStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

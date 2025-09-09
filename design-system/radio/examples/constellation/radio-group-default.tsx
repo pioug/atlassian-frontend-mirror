@@ -9,6 +9,7 @@ import { css, jsx } from '@compiled/react';
 import { Checkbox } from '@atlaskit/checkbox';
 import { RadioGroup } from '@atlaskit/radio';
 import { type OptionsPropType } from '@atlaskit/radio/types';
+import { token } from '@atlaskit/tokens';
 
 const options: OptionsPropType = [
 	{ name: 'color', value: 'red', label: 'Red' },
@@ -23,7 +24,7 @@ const radioGroupStyles = css({
 	padding: '0.5em',
 	borderColor: '#ccc',
 	borderStyle: 'dashed',
-	borderWidth: '1px',
+	borderWidth: token('border.width'),
 	color: '#ccc',
 });
 
@@ -48,7 +49,7 @@ export default function BasicExample() {
 				isDisabled={isDisabled}
 				options={options}
 				onChange={onChange}
-				aria-labelledby="radiogroup-label"
+				labelId="radiogroup-label"
 			/>
 			<div css={radioGroupStyles}>{onChangeResult}</div>
 			<Checkbox

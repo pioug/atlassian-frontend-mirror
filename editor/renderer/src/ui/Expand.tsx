@@ -55,7 +55,7 @@ const titleStyles = css({
 });
 
 const containerStyles = css({
-	borderWidth: '1px',
+	borderWidth: token('border.width'),
 	borderStyle: 'solid',
 	borderColor: 'transparent',
 	borderRadius: token('radius.small', '4px'),

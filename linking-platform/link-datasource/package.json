@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.21.5",
+	"version": "4.21.7",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -188,6 +188,9 @@
 			"type": "boolean"
 		},
 		"navx-1483-a11y-close-button-in-modal-updates": {
+			"type": "boolean"
+		},
+		"navx-1334-datasource-deep-compare-params": {
 			"type": "boolean"
 		}
 	},

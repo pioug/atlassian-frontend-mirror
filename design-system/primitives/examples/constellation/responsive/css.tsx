@@ -27,7 +27,7 @@ const cardStyles = css({
 		paddingInlineStart: token('space.150'),
 	},
 	'@media (min-width: 64rem)': {
-		borderWidth: token('border.width.outline'),
+		borderWidth: token('border.width.selected'),
 		paddingBlockEnd: token('space.200'),
 		paddingBlockStart: token('space.200'),
 		paddingInlineEnd: token('space.200'),

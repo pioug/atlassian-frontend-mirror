@@ -1,5 +1,11 @@
 # @atlaskit/quick-search
 
+## 10.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.20
 
 ### Patch Changes

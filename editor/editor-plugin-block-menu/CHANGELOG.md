@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 2.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.13
+
+### Patch Changes
+
+- [`c24edcf83432c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c24edcf83432c) -
+  [ux] ED-29147 Add functionality to convert layout to nodes
+- Updated dependencies
+
+## 1.0.12
+
+### Patch Changes
+
+- [`6e27819feadc7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e27819feadc7) -
+  ED-29183: Fixed aligned p and heading not able to convert to list
+- [`6a9265f5389db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a9265f5389db) -
+  Fix container transform with blockquote containing list
+- [`24e0d952943aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24e0d952943aa) -
+  ED-29206: Fixed conversion from code block to panel, expand text formatting issue
+- Updated dependencies
+
 ## 1.0.11
 
 ### Patch Changes

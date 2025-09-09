@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "14.5.0",
+	"version": "14.6.0",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -101,6 +101,9 @@
 			"type": "boolean"
 		},
 		"feedback-collector-custom-validation": {
+			"type": "boolean"
+		},
+		"jfp_a11y_team_feedback_collector_nested_elements": {
 			"type": "boolean"
 		}
 	}

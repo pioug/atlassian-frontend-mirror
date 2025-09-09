@@ -231,9 +231,11 @@ function createPostInteractionLogPayload({
 		}
 
 		const vcDetails = postInteractionFinishRevision.vcDetails;
+		const labelStacks = postInteractionFinishRevision.labelStacks;
 		if (vcDetails) {
 			lateMutations = getLateMutations(
 				vcDetails,
+				labelStacks,
 				lastInteractionFinish,
 				postInteractionFinishVCRatios,
 			);

@@ -20,7 +20,6 @@ import { type RouterLinkComponentProps, useRouterLink } from '@atlaskit/app-prov
 import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
-import { fg } from '@atlaskit/platform-feature-flags';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
@@ -134,7 +133,7 @@ const focusRingStyles = css({
 		outlineOffset: positiveSpaceMap['space.025'],
 		outlineStyle: 'solid',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		outlineWidth: borderWidthMap['border.width.outline'],
+		outlineWidth: borderWidthMap['border.width.focused'],
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:focus:not(:focus-visible)': {
@@ -272,7 +271,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 			}
 			css={[
 				baseStyles,
-				fg('platform_design-system-team_anchor-positioning') ? positionStyles : undefined,
+				positionStyles,
 				focusRingStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				backgroundColor && backgroundColorStylesMap[backgroundColor],

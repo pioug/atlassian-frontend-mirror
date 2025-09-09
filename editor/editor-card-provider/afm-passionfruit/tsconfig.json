@@ -1,0 +1,59 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__editor-card-provider/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../editor-json-transformer/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/json-ld-types/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-client-extension/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-extractors/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/linking-common/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/linking-types/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../node-data-provider/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-provider/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

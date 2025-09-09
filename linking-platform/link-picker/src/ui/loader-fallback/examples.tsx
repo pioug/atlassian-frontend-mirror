@@ -8,6 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
 import { Box, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { MockLinkPickerPromisePlugin } from '../../__tests__/__helpers/mock-plugins';
@@ -33,7 +34,7 @@ const borderStyle = css({
 	alignItems: 'flex-start',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > div': {
-		borderWidth: '1px',
+		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: 'red',
 		marginRight: '5px',

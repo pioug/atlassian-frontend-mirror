@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { type RevisionPayloadEntry } from '../../common/vc/types';
 import { SSRPlaceholderHandlers } from '../vc-observer/observers/ssr-placeholders';
 
@@ -6,7 +8,7 @@ import getElementName, { type SelectorConfig } from './get-element-name';
 import VCCalculator_FY25_03 from './metric-calculator/fy25_03';
 import getViewportHeight from './metric-calculator/utils/get-viewport-height';
 import getViewportWidth from './metric-calculator/utils/get-viewport-width';
-import type { VCObserverGetVCResultParam } from './types';
+import type { VCObserverGetVCResultParam, VCObserverLabelStacks, ViewportEntryData } from './types';
 import ViewportObserver from './viewport-observer';
 import WindowEventObserver from './window-event-observer';
 
@@ -84,18 +86,31 @@ export default class VCObserverNew {
 					elementName = this.getElementName(element);
 				}
 
+				const data: ViewportEntryData = {
+					type,
+					elementName,
+					rect,
+					previousRect,
+					visible,
+					attributeName: mutationData?.attributeName,
+					oldValue: mutationData?.oldValue,
+					newValue: mutationData?.newValue,
+				};
+
+				if (
+					element &&
+					this.isPostInteraction &&
+					fg('platform_ufo_enable_late_mutation_label_stacks')
+				) {
+					const labelStacks = getLabelStacks(element);
+					if (labelStacks) {
+						Object.assign(data, { labelStacks });
+					}
+				}
+
 				this.entriesTimeline.push({
 					time,
-					data: {
-						type,
-						elementName,
-						rect,
-						previousRect,
-						visible,
-						attributeName: mutationData?.attributeName,
-						oldValue: mutationData?.oldValue,
-						newValue: mutationData?.newValue,
-					},
+					data,
 				});
 			},
 			// Pass SSR context to ViewportObserver
@@ -274,4 +289,64 @@ export default class VCObserverNew {
 	private getElementName(element: HTMLElement) {
 		return getElementName(this.selectorConfig, element);
 	}
+}
+
+type ReactFiberType = {
+	memoizedProps?: Record<string, any>;
+	child?: ReactFiberType | null;
+	type: { displayName?: any; name?: any } | null;
+	return: ReactFiberType | null;
+};
+
+function labelStackFromFiber(fiber: ReactFiberType): { name: string; segmentId?: string }[] {
+	const value = fiber?.child?.memoizedProps?.value;
+	return Array.isArray(value?.labelStack) ? value.labelStack : [];
+}
+
+function labelStackToString(labelStack: { name: string; segmentId?: string }[]): string {
+	return labelStack.map((label) => label.name).join('/');
+}
+
+function labelStackToSegment(labelStack: { name: string; segmentId?: string }[]): string {
+	let segmentIndex = -1;
+	for (let i = labelStack.length - 1; i >= 0; i--) {
+		if (labelStack[i].segmentId) {
+			segmentIndex = i;
+			break;
+		}
+	}
+	return labelStack
+		.slice(0, segmentIndex + 1)
+		.map((label) => label.name)
+		.join('/');
+}
+
+function traverseFiber(fiber: ReactFiberType): VCObserverLabelStacks {
+	let segment: string = 'unknown';
+	let labelStackString: string = 'unknown';
+	let currentFiber: null | ReactFiberType = fiber;
+	while (currentFiber) {
+		if (currentFiber.type) {
+			const componentName = currentFiber.type.displayName || currentFiber.type.name;
+
+			if (componentName === 'UFOSegment' || componentName === 'UFOLabel') {
+				const labelStack = labelStackFromFiber(currentFiber);
+				labelStackString = labelStackToString(labelStack) || 'unknown';
+				segment = labelStackToSegment(labelStack) || 'unknown';
+				break;
+			}
+		}
+		currentFiber = currentFiber.return;
+	}
+
+	return { segment, labelStack: labelStackString };
+}
+
+function getLabelStacks(element: HTMLElement): VCObserverLabelStacks | null {
+	const reactFiberKey = Object.keys(element as any).find((key) => key.startsWith('__reactFiber$'));
+	if (!reactFiberKey) {
+		return null;
+	}
+	const fiber = (element as any)[reactFiberKey] as ReactFiberType | undefined;
+	return fiber ? traverseFiber(fiber) : null;
 }

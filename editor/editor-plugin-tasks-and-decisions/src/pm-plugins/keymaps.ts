@@ -17,6 +17,7 @@ import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types
 import {
 	deleteEmptyParagraphAndMoveBlockUp,
 	filterCommand as filter,
+	findFarthestParentNode,
 	isEmptySelectionAtEnd,
 	isEmptySelectionAtStart,
 } from '@atlaskit/editor-common/utils';
@@ -31,6 +32,7 @@ import {
 	findParentNodeOfTypeClosestToPos,
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 import type { GetContextIdentifier, TaskDecisionListType } from '../types';
@@ -197,23 +199,56 @@ const backspaceFrom =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	($from: ResolvedPos): Command =>
 	(state, dispatch) => {
-		// previous was empty, just delete backwards
-		const taskBefore = $from.doc.resolve($from.before());
-		if (
-			taskBefore.nodeBefore &&
-			isActionOrDecisionItem(taskBefore.nodeBefore) &&
-			taskBefore.nodeBefore.nodeSize === 2
-		) {
-			return false;
+		const { taskList, blockTaskItem, paragraph } = state.schema.nodes;
+
+		if (expValEquals('editor_refactor_backspace_task_and_decisions', 'isEnabled', true)) {
+			// Check if selection is inside a blockTaskItem paragraph
+			const blockTaskItemNode = findFarthestParentNode((node) => node.type === blockTaskItem)(
+				$from,
+			);
+			const isInBlockTaskItemParagraph = !!blockTaskItemNode && $from.parent.type === paragraph;
+
+			// Get the node before the current position
+			const beforePos = isInBlockTaskItemParagraph ? $from.before() - 1 : $from.before();
+			const nodeBefore = $from.doc.resolve(beforePos).nodeBefore;
+
+			// Check if the node before is an empty task item
+			const isEmptyActionOrDecisionItem =
+				nodeBefore && isActionOrDecisionItem(nodeBefore) && nodeBefore.content.size === 0;
+
+			const isEmptyBlockTaskItem =
+				nodeBefore?.type === blockTaskItem &&
+				nodeBefore.firstChild?.type === paragraph &&
+				nodeBefore.firstChild.content?.size === 0;
+
+			// previous was empty, just delete backwards
+			if (isEmptyActionOrDecisionItem || isEmptyBlockTaskItem) {
+				return false;
+			}
+
+			// If nested in a taskList, unindent
+			const parentDepth = isInBlockTaskItemParagraph ? $from.depth - 3 : $from.depth - 2;
+			if ($from.node(parentDepth).type === taskList) {
+				return getUnindentCommand(editorAnalyticsAPI)()(state, dispatch);
+			}
+		} else {
+			// previous was empty, just delete backwards
+			const taskBefore = $from.doc.resolve($from.before());
+			if (
+				taskBefore.nodeBefore &&
+				isActionOrDecisionItem(taskBefore.nodeBefore) &&
+				taskBefore.nodeBefore.nodeSize === 2
+			) {
+				return false;
+			}
+
+			// if nested, just unindent
+			if ($from.node($from.depth - 2).type === taskList) {
+				return getUnindentCommand(editorAnalyticsAPI)()(state, dispatch);
+			}
 		}
 
-		// if nested, just unindent
-		const { taskList, paragraph } = state.schema.nodes;
-		if ($from.node($from.depth - 2).type === taskList) {
-			return getUnindentCommand(editorAnalyticsAPI)()(state, dispatch);
-		}
-
-		// bottom level, should "unwrap" taskItem contents into paragraph
+		// If at the end of an item, unwrap contents into a paragraph
 		// we achieve this by slicing the content out, and replacing
 		if (actionDecisionFollowsOrNothing($from)) {
 			if (dispatch) {
@@ -359,19 +394,59 @@ const splitListItemWith = (
 	setSelection: boolean,
 ) => {
 	const origDoc = tr.doc;
+	const { blockTaskItem, paragraph, taskList } = tr.doc.type.schema.nodes;
+	let baseDepth = $from.depth;
+	let $oldAfter = origDoc.resolve($from.after());
+	let textSelectionModifier = 0;
+	let replaceFromModifier = 0;
+	let replaceToModifier = 0;
+	let deleteBlockModifier = 0;
+
+	if (blockTaskItem) {
+		const blockTaskItemNode = findFarthestParentNode((node) => node.type === blockTaskItem)($from);
+		if (blockTaskItemNode) {
+			const isParagraphChild = blockTaskItemNode.node.firstChild?.type === paragraph;
+			// If the case there is a paragraph in the block task item we need to
+			// adjust some calculations
+			if (isParagraphChild) {
+				baseDepth = $from.depth - 1;
+				$oldAfter = origDoc.resolve(blockTaskItemNode.pos + blockTaskItemNode.node.nodeSize);
+				textSelectionModifier = 1;
+			}
+
+			const hasSiblingTaskList = $oldAfter.nodeAfter?.type === taskList;
+			if (hasSiblingTaskList) {
+				// Make sure we're wrapping around the whole list
+				replaceToModifier = 3;
+			}
+
+			const posNodeBefore = origDoc.resolve($oldAfter.pos - blockTaskItemNode.node.nodeSize - 1);
+			const hasPreviousTaskItem = !!findFarthestParentNode((node) => node.type === blockTaskItem)(
+				posNodeBefore,
+			);
+			if (!hasPreviousTaskItem) {
+				// Go down one step to get to the doc node
+				replaceFromModifier = 1;
+			}
+
+			// When we're removing the extra empty task item we need to reduce the range a bit
+			deleteBlockModifier = 2;
+		}
+	}
 
 	// split just before the current item
 	// we can only split if there was a list item before us
-	const container = $from.node($from.depth - 2);
-	const posInList = $from.index($from.depth - 1);
+	const container = $from.node(baseDepth - 2);
+	const posInList = $from.index(baseDepth - 1);
 	const shouldSplit = !(!isActionOrDecisionList(container) && posInList === 0);
 	const frag = Fragment.from(content);
 	const isNestedActionInsideLists =
 		frag.childCount === 1 && frag.firstChild?.type.name === 'listItem';
 
-	/* We don't split the list item if it's nested inside lists
-    to have consistent behaviour and their resolution.
-  */
+	/*
+	 * We don't split the list item if it's nested inside lists
+	 * to have consistent behaviour and their resolution.
+	 */
 	if (shouldSplit && !isNestedActionInsideLists) {
 		// this only splits a node to delete it, so we probably don't need a random uuid
 		// but generate one anyway for correctness
@@ -382,34 +457,30 @@ const splitListItemWith = (
 			},
 		]);
 	}
+
 	/*
-    In case of nested action inside lists we explicitly set the cursor
-    We need to insert it relatively to previous doc structure
-    So we calculate the position of previous list item and save that position
-    (The cursor can be placed easily next to list item)
-  */
-	const previousListItemPos = isNestedActionInsideLists ? $from.start($from.depth - 2) : 0;
-
-	// and delete the action at the current pos
-	// we can do this because we know either first new child will be taskItem or nothing at all
-
+	 * In case of nested action inside lists we explicitly set the cursor
+	 * We need to insert it relatively to previous doc structure
+	 * So we calculate the position of previous list item and save that position
+	 * (The cursor can be placed easily next to list item)
+	 */
+	const previousListItemPos = isNestedActionInsideLists ? $from.start(baseDepth - 2) : 0;
 	tr = tr.replace(
-		tr.mapping.map($from.start() - 2),
-		tr.mapping.map($from.end() + 2),
+		tr.mapping.map($from.start() - (2 + replaceFromModifier)),
+		tr.mapping.map($from.end() + (2 + replaceToModifier)),
 		frag.size ? new Slice(frag, 0, 0) : Slice.empty,
 	);
 
-	// put cursor inside paragraph
 	if (setSelection && !isNestedActionInsideLists) {
-		tr = tr.setSelection(new TextSelection(tr.doc.resolve($from.pos + 1 - (shouldSplit ? 0 : 2))));
+		tr = tr.setSelection(
+			new TextSelection(
+				tr.doc.resolve($from.pos + 1 - ((shouldSplit ? 0 : 2) + textSelectionModifier)),
+			),
+		);
 	}
-	// lift list up if the node after the initial one was a taskList
-	// which means it would have empty placeholder content if we just immediately delete it
-	// if it's a taskItem then it can stand alone, so it's fine
-	const $oldAfter = origDoc.resolve($from.after());
 
 	// if different levels then we shouldn't lift
-	if ($oldAfter.depth === $from.depth - 1) {
+	if ($oldAfter.depth === baseDepth - 1) {
 		if ($oldAfter.nodeAfter && isActionOrDecisionList($oldAfter.nodeAfter)) {
 			// getBlockRange expects to be inside the taskItem
 			const pos = tr.mapping.map($oldAfter.pos + 2);
@@ -423,10 +494,14 @@ const splitListItemWith = (
 				tr = tr.lift(blockRange, blockRange.depth - 1).scrollIntoView();
 			}
 
-			// we delete 1 past the range of the empty taskItem
+			// After replacing the range there is an empty task item that
+			// we need to remove.
+			// We delete 1 past the range of the empty taskItem
 			// otherwise we hit a bug in prosemirror-transform:
 			// Cannot read property 'content' of undefined
-			tr = tr.deleteRange(pos - 3, pos - 1);
+			// If this operation was done on a blockTaskItem we
+			// have a modifier for the position
+			tr = tr.deleteRange(pos - 3 - deleteBlockModifier, pos - 1 - deleteBlockModifier);
 		}
 	}
 

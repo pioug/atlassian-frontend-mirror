@@ -84,6 +84,7 @@ describe('Messages', () => {
 							<ErrorMessage testId="error-test">Error Test</ErrorMessage>
 						</MessageWrapper>,
 					);
+					// Content should be immediately available, not delayed, even with feature flag enabled
 					expect(screen.getByTestId('error-test')).toHaveTextContent('Error Test');
 				});
 
@@ -99,11 +100,21 @@ describe('Messages', () => {
 
 			describe('all message types', () => {
 				[ErrorMessage, ValidMessage, HelperMessage].forEach((Component) => {
-					it(`${Component.name} should delay rendering when feature flag is enabled`, async () => {
+					it(`${Component.name} should delay rendering when feature flag is enabled and no wrapper`, async () => {
 						render(<Component testId={`${Component.name}-test`}>Test Message</Component>);
 
 						// Use findByTestId as message is rendered after timeout
 						await screen.findByTestId(`${Component.name}-test`);
+					});
+
+					it(`${Component.name} should render immediately when wrapped, even with feature flag enabled`, () => {
+						render(
+							<MessageWrapper>
+								<Component testId={`${Component.name}-test`}>Test Message</Component>
+							</MessageWrapper>,
+						);
+						// Should be immediate, not delayed, because wrapper takes priority
+						expect(screen.getByTestId(`${Component.name}-test`)).toHaveTextContent('Test Message');
 					});
 				});
 			});
@@ -120,7 +131,7 @@ describe('Messages', () => {
 					expect(screen.getByTestId('error-test')).toHaveTextContent('Error Test');
 				});
 
-				it('should have aria-live attribute when not wrapped (legacy behavior)', () => {
+				it('should have aria-live attribute when not wrapped', () => {
 					render(<ErrorMessage testId="error-test">Error Test</ErrorMessage>);
 					expect(screen.getByTestId('error-test')).toHaveAttribute('aria-live', 'polite');
 				});

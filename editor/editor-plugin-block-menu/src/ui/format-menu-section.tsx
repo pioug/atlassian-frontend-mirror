@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
+
+import { checkIsFormatMenuHidden } from './utils/checkIsFormatMenuHidden';
 
 export const FormatMenuSection = ({
 	children,
@@ -13,9 +14,11 @@ export const FormatMenuSection = ({
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
 	children: React.ReactNode;
 }) => {
-	const isFormatMenuHidden = useSharedPluginStateSelector(api, 'blockMenu.isFormatMenuHidden');
+	const isFormatMenuHidden = useCallback(() => {
+		return checkIsFormatMenuHidden(api);
+	}, [api]);
 
-	if (isFormatMenuHidden) {
+	if (isFormatMenuHidden()) {
 		return null;
 	}
 

@@ -15,7 +15,7 @@ const Popup = styled.div({
 	background: 'white',
 	borderColor: 'red',
 	borderStyle: 'solid',
-	borderWidth: '2px',
+	borderWidth: token('border.width.selected'),
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
 	maxWidth: '160px',
@@ -62,7 +62,7 @@ const containerStyles = css({
 	maxHeight: '400px',
 	borderColor: 'black',
 	borderStyle: 'solid',
-	borderWidth: '1px',
+	borderWidth: token('border.width'),
 	marginBlockStart: token('space.250', '20px'),
 	overflow: 'auto',
 });

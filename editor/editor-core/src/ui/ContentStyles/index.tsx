@@ -417,10 +417,12 @@ const firstFloatingToolbarButtonStyles = css({
 // The breakpoint for small devices is 1266px, copied from getBreakpoint in platform/packages/editor/editor-common/src/ui/WidthProvider/index.tsx
 const akEditorBreakpointForSmallDevice = `1266px`;
 
-// We are going to deprecate this in near future
-// Currently, we are migrating content styles in packages/editor/editor-core/src/ui/EditorContentContainer.tsx
-// Under editor experiment platform_editor_core_static_emotion
-// If you are making changes to this file, please make sure to update in EditorContentContainer.tsx as well
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
+/**
+ * @deprecated
+ * DO NOT USE THIS WILL BE REMOVED SOON.
+ * use this instead: packages/editor/editor-core/src/ui/EditorContentContainer.tsx
+ */
 const legacyContentStyles = (props: ContentStylesProps) => css`
 	--ak-editor--default-gutter-padding: ${akEditorGutterPadding}px;
 	/* 52 is from akEditorGutterPaddingDynamic via editor-shared-styles */

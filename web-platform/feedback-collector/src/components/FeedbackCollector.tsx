@@ -84,8 +84,12 @@ export interface Props {
 	feedbackTitleDetails?: React.ReactChild;
 	/**  Message which will be shown next to the enrol in research checkbox */
 	enrolInResearchLabel?: React.ReactChild;
+	/**  Message which will be shown below the enrol in research checkbox */
+	enrolInResearchLink?: React.ReactChild;
 	/**  Message which will be shown next to the can be contacted checkbox */
 	canBeContactedLabel?: React.ReactChild;
+	/**  Link which will be shown below the can be contacted checkbox */
+	canBeContactedLink?: React.ReactNode;
 	/**  Message which will be shown inside the summary text field */
 	summaryPlaceholder?: string;
 	/**  Message for submit button label */
@@ -526,6 +530,10 @@ export default class FeedbackCollector extends Component<Props> {
 				customFeedbackOptions={this.props.customFeedbackOptions}
 				shouldReturnFocusRef={this.props.shouldReturnFocusRef}
 				disableSubmitButton={this.props.disableSubmitButton}
+				{...(fg('jfp_a11y_team_feedback_collector_nested_elements') && {
+					enrolInResearchLink: this.props.enrolInResearchLink,
+					canBeContactedLink: this.props.canBeContactedLink,
+				})}
 			/>
 		);
 	}

@@ -23,7 +23,7 @@ const baseInsetStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	outlineOffset: -BORDER_WIDTH,
 	outlineStyle: 'solid',
-	outlineWidth: token('border.width.outline', '2px'),
+	outlineWidth: token('border.width.focused', '2px'),
 });
 
 const focusRingStyles = css({

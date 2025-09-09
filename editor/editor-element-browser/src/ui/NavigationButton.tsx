@@ -28,7 +28,7 @@ const buttonStyles = xcss({
 	paddingInline: 'space.100',
 
 	borderRadius: 'radius.small',
-	borderWidth: 'border.width.0',
+	borderWidth: '0',
 
 	font: 'font.body',
 	fontWeight: 'font.weight.medium',

@@ -16,17 +16,14 @@ import {
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import messages from '@atlaskit/editor-common/messages';
-import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
 import type { EditorAppearance, OptionalPlugin } from '@atlaskit/editor-common/types';
 import { WidthConsumer, WidthProvider } from '@atlaskit/editor-common/ui';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import type { MaxContentSizePlugin } from '@atlaskit/editor-plugins/max-content-size';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
-import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -36,7 +33,6 @@ import type { EditorAppearanceComponentProps } from '../../../types';
 // eslint-disable-next-line import/no-named-as-default
 import ClickAreaBlock from '../../Addon/ClickAreaBlock';
 import { contentComponentClickWrapper } from '../../Addon/ClickAreaBlock/contentComponentWrapper';
-import { createEditorContentStyle } from '../../ContentStyles';
 import EditorContentContainer from '../../EditorContentContainer/EditorContentContainer';
 import PluginSlot from '../../PluginSlot';
 import { getPrimaryToolbarComponents } from '../../Toolbar/getPrimaryToolbarComponents';
@@ -46,7 +42,6 @@ import WithFlash from '../../WithFlash';
 import { CommentToolbar } from './CommentToolbar';
 import { MainToolbar } from './Toolbar';
 
-const CommentEditorMargin = 14;
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
 
 const commentEditorStyles = css({
@@ -69,32 +64,6 @@ const commentEditorStyles = css({
 	maxWidth: 'inherit',
 	wordWrap: 'break-word',
 });
-
-const ContentArea = createEditorContentStyle(
-	css(
-		{
-			flexGrow: 1,
-			overflowX: 'clip',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: '24px',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'.ProseMirror': {
-				margin: token('space.150', '12px'),
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'.gridParent': {
-				marginLeft: token('space.025', '2px'),
-				marginRight: token('space.025', '2px'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				width: `calc(100% + ${CommentEditorMargin - GRID_GUTTER}px)`,
-			},
-			padding: token('space.250', '20px'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		tableCommentEditorStyles,
-	),
-);
-ContentArea.displayName = 'ContentArea';
 
 const secondaryToolbarStyles = css({
 	boxSizing: 'border-box',
@@ -156,12 +125,6 @@ type ComponentProps = EditorAppearanceComponentProps<
 		OptionalPlugin<ToolbarPlugin>,
 	]
 >;
-
-const EditorContainer = componentWithCondition(
-	() => editorExperiment('platform_editor_core_static_emotion', true, { exposure: true }),
-	EditorContentContainer,
-	ContentArea,
-);
 
 export const CommentEditorWithIntl = (props: ComponentProps) => {
 	const { editorAPI } = props;
@@ -352,7 +315,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 						<WidthConsumer>
 							{({ width }) => {
 								return (
-									<EditorContainer
+									<EditorContentContainer
 										ref={containerElement}
 										css={[
 											maxHeight
@@ -400,7 +363,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 										{customContentComponents && 'after' in customContentComponents
 											? contentComponentClickWrapper(customContentComponents.after)
 											: null}
-									</EditorContainer>
+									</EditorContentContainer>
 								);
 							}}
 						</WidthConsumer>

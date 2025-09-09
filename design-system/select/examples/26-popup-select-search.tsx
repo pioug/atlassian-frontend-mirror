@@ -34,7 +34,7 @@ const SelectPopupSearchExample = () => {
 				defaultValue={'1'}
 				options={radio_options}
 				onChange={(e) => setSearchThreshold(e.target.value)}
-				aria-labelledby="radiogroup-label"
+				labelId="radiogroup-label"
 			/>
 			<Checkbox
 				value="isSearchable"

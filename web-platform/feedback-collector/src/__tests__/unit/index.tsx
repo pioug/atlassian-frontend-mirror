@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import FeedbackCollector from '../../components/FeedbackCollector';
@@ -13,6 +14,11 @@ import { customFieldRecords, emptyOptionData } from './_data';
 
 jest.mock('../../i18n/fr', () => ({
 	'feedback-collector.feedback-title': 'Translated feedback title (FR)',
+}));
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	...jest.requireActual<any>('@atlaskit/platform-feature-flags'),
+	fg: jest.fn(),
 }));
 
 jest
@@ -783,6 +789,52 @@ We have some formatting here
 			expect(label).toBeInTheDocument();
 		});
 
+		test('should not render the link inside the label with link passed via prop', () => {
+			(fg as jest.Mock).mockReturnValue(true);
+			const { getByRole, getAllByRole } = render(
+				<FeedbackForm
+					locale={'en'}
+					onClose={() => {}}
+					onSubmit={async () => {}}
+					canBeContactedLabel={<p>Test Label</p>}
+					canBeContactedLink={<a href="https://test.com">Test Link</a>}
+				/>,
+			);
+
+			const select = getByRole('combobox', { name: 'Select feedback' });
+			fireEvent.change(select, { target: { value: 'comment' } });
+			fireEvent.keyDown(select, { key: 'Enter', code: 13 });
+
+			const checkBoxes = getAllByRole('checkbox');
+
+			const label = checkBoxes[0].closest('label');
+
+			expect(label?.querySelector('a')).toBeNull();
+
+			const policyLink = getByRole('link', { name: 'Test Link' });
+			expect(policyLink).toBeVisible();
+		});
+
+		test('should not render the link inside label with default label & policy link', () => {
+			(fg as jest.Mock).mockReturnValue(true);
+			const { getByRole, getAllByRole } = render(
+				<FeedbackForm locale={'en'} onClose={() => {}} onSubmit={async () => {}} />,
+			);
+
+			const select = getByRole('combobox', { name: 'Select feedback' });
+			fireEvent.change(select, { target: { value: 'comment' } });
+			fireEvent.keyDown(select, { key: 'Enter', code: 13 });
+
+			const checkBoxes = getAllByRole('checkbox');
+
+			const label = checkBoxes[0].closest('label');
+
+			expect(label?.querySelector('a')).toBeNull();
+
+			const policyLink = getByRole('link', { name: /Atlassian Privacy Policy/ });
+			expect(policyLink).toBeVisible();
+		});
+
 		describe('disableSubmitButton', () => {
 			const enterFormData = () => {
 				const select = screen.getAllByRole('combobox')[0];
@@ -820,6 +872,7 @@ We have some formatting here
 
 	describe('Feedback Flag', () => {
 		test('FeedbackFlag should have default content', () => {
+			(fg as jest.Mock).mockReturnValue(false);
 			const { getByText } = render(<FeedbackFlag />);
 			const title = getByText('Thanks!');
 			const description = getByText(

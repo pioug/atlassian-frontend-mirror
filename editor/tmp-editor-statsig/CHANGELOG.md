@@ -1,5 +1,38 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.10.0
+
+### Minor Changes
+
+- [`73bece405a55b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73bece405a55b) -
+  [EDITOR-1433] Add editor_refactor_backspace_task_and_decisions experiment
+
+### Patch Changes
+
+- [`c0656bad0f992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0656bad0f992) -
+  EDITOR-1389 fix table container width behind platform_editor_table_container_width_fix
+
+## 12.9.1
+
+### Patch Changes
+
+- [`88eddbfa8aadd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88eddbfa8aadd) -
+  clean up FF of static emotion for editor
+
+## 12.9.0
+
+### Minor Changes
+
+- [`3764ac0028e9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3764ac0028e9d) -
+  [ux] CONFCLOUD-68427-allow-elements-in-expands-to-be-aligned
+
+### Patch Changes
+
+- [`0d0fe7a300841`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d0fe7a300841) -
+  Cleanup platform_editor_usesharedpluginstatewithselector experiment
+
+  - BREAKING CHANGE: sharedPluginStateHookMigratorFactory is deleted from @atlaskit/editor-common
+
 ## 12.8.0
 
 ### Minor Changes

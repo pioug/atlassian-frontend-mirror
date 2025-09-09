@@ -58,7 +58,7 @@ const progressBarStyles = css({
 // In this case, we use it because `borderRadius` doesn't match our interface.
 const containerWithBorder = css({
 	borderStyle: 'solid',
-	borderWidth: token('border.width.outline'),
+	borderWidth: token('border.width.selected'),
 	borderRadius: token('radius.large'),
 });
 

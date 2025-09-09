@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 23.4.8
+
+### Patch Changes
+
+- [`f452c6c97d1d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f452c6c97d1d6) -
+  Internal change to remove gridSize reference.
+- Updated dependencies
+
 ## 23.4.7
 
 ### Patch Changes

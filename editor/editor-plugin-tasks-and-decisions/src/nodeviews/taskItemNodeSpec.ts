@@ -1,6 +1,6 @@
 import { type IntlShape } from 'react-intl-next';
 
-import { taskItem, blockTaskItemStage0 as blockTaskItem } from '@atlaskit/adf-schema';
+import { taskItem, blockTaskItem } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';

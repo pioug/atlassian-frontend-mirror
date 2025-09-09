@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 const overrideStyles = css({
 	borderColor: 'orange',
 	borderStyle: 'solid',
-	borderWidth: '2px ',
+	borderWidth: token('border.width.selected'),
 	paddingBlockEnd: token('space.075'),
 	paddingBlockStart: token('space.075'),
 	paddingInlineEnd: token('space.075'),
@@ -20,7 +20,7 @@ const overrideStyles = css({
 	'& > [data-ds--text-field--input]': {
 		borderColor: 'green',
 		borderStyle: 'solid',
-		borderWidth: '2px ',
+		borderWidth: token('border.width.selected'),
 		fontSize: 20,
 		lineHeight: 1.5,
 	},

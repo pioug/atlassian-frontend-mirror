@@ -27,6 +27,7 @@ import { type RegisterBlockMenuComponent } from '../blockMenuPluginType';
 
 import CopyBlockMenuItem from './copy-block';
 import { CopyLinkDropdownItem } from './copy-link';
+import { CopySection } from './copy-section';
 import { DeleteDropdownItem } from './delete-button';
 import { FormatMenuSection } from './format-menu-section';
 import { MoveDownDropdownItem } from './move-down';
@@ -60,7 +61,7 @@ const getMoveUpMoveDownMenuComponents = (
 };
 
 const getFormatMenuComponents = (
-	api?: ExtractInjectionAPI<BlockMenuPlugin>,
+	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined,
 ): RegisterBlockMenuComponent[] => {
 	return [
 		{
@@ -120,15 +121,9 @@ export const getBlockMenuComponents = ({
 			type: 'block-menu-section',
 			key: COPY_MENU_SECTION.key,
 			rank: BLOCK_MENU_SECTION_RANK[COPY_MENU_SECTION.key],
-			component: ({ children }: { children: React.ReactNode }) => {
-				return (
-					<ToolbarDropdownItemSection
-						hasSeparator={!api?.blockMenu.sharedState.currentState()?.isFormatMenuHidden}
-					>
-						{children}
-					</ToolbarDropdownItemSection>
-				);
-			},
+			component: ({ children }: { children: React.ReactNode }) => (
+				<CopySection api={api}>{children}</CopySection>
+			),
 		},
 		{
 			type: 'block-menu-item',

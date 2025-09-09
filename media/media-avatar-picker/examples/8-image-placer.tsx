@@ -42,7 +42,7 @@ const labelStyles = css({
 });
 
 const exportedImageStyles = css({
-	borderWidth: '1px',
+	borderWidth: token('border.width'),
 	borderStyle: 'solid',
 	borderColor: token('color.border', '#ccc'),
 });

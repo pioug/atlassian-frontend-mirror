@@ -50,7 +50,6 @@
 		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"@types/date-fns": "root:*",
 		"react": "root:*"
 	},
 	"keywords": [

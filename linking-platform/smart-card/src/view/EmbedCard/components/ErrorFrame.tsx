@@ -63,14 +63,14 @@ const expandedFrameSelectedStyles = css({
 	borderRadius: token('radius.small', '3px'),
 	borderColor: token('color.border.selected', B200),
 	borderStyle: 'solid',
-	borderWidth: '2px',
+	borderWidth: token('border.width.selected'),
 });
 
 const expandedFrameNotSelectedStyles = css({
 	borderRadius: '1.5px',
 	borderColor: 'transparent',
 	borderStyle: 'solid',
-	borderWidth: '2px',
+	borderWidth: token('border.width.selected'),
 });
 
 const expandedFrameStyles = css({

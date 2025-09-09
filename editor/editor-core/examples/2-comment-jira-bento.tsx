@@ -179,7 +179,7 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							border: '1px solid #ccc',
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							borderRadius: '4px',
+							borderRadius: token('radius.small'),
 						}}
 					>
 						<SmartCardProvider client={smartCardClient}>

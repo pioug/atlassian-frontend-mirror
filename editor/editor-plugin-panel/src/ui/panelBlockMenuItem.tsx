@@ -49,6 +49,6 @@ const PanelBlockMenuItem = ({ api }: Props) => {
 	);
 };
 
-export const createPanelBlockMenuItem = (api: ExtractInjectionAPI<PanelPlugin>) => {
+export const createPanelBlockMenuItem = (api: ExtractInjectionAPI<PanelPlugin> | undefined) => {
 	return () => <PanelBlockMenuItem api={api} />;
 };

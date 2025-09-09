@@ -65,7 +65,7 @@ describe('xcss()', () => {
 		const styles = xcss({
 			':hover': {
 				display: 'flex',
-				borderWidth: 'border.width.outline',
+				borderWidth: 'border.width.selected',
 			},
 			':visited': {
 				borderWidth: 'border.width',
@@ -76,7 +76,7 @@ describe('xcss()', () => {
 		{
 		  Symbol(UNSAFE_INTERNAL_styles): {
 		    ":hover": {
-		      "borderWidth": "var(--ds-border-width-outline, 2px)",
+		      "borderWidth": "var(--ds-border-width-selected, 2px)",
 		      "display": "flex",
 		    },
 		    ":visited": {

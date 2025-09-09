@@ -14,15 +14,10 @@ import type {
 	MaxContentSizePlugin,
 	MaxContentSizePluginState,
 } from '@atlaskit/editor-plugins/max-content-size';
-import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearanceComponentProps } from '../../types';
-import { createEditorContentStyle } from '../ContentStyles';
 import EditorContentContainer from '../EditorContentContainer/EditorContentContainer';
 import PluginSlot from '../PluginSlot';
 import WithFlash from '../WithFlash';
@@ -47,34 +42,6 @@ const scrollbarStylesNew = css({
 		backgroundColor: token('color.background.neutral.bold.hovered'),
 	},
 });
-
-const chromelessEditorStyles = css(
-	{
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: '20px',
-		height: 'auto',
-		overflowX: 'hidden',
-		overflowY: 'auto',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	scrollbarStyles,
-	{
-		maxWidth: 'inherit',
-		boxSizing: 'border-box',
-		wordWrap: 'break-word',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'div > .ProseMirror': {
-			outline: 'none',
-			whiteSpace: 'pre-wrap',
-			padding: 0,
-			margin: 0,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-			'& > :last-child': {
-				paddingBottom: token('space.100', '0.5em'),
-			},
-		},
-	},
-);
 
 const chromelessEditorStylesNew = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -108,18 +75,9 @@ const extraSpaceLastLineFix = css({
 	},
 });
 
-export const ContentArea = createEditorContentStyle();
-ContentArea.displayName = 'ContentArea';
-
 type AppearanceProps = EditorAppearanceComponentProps<
 	[OptionalPlugin<MaxContentSizePlugin>, OptionalPlugin<EditorViewModePlugin>]
 >;
-
-const EditorContainer = componentWithCondition(
-	() => editorExperiment('platform_editor_core_static_emotion', true, { exposure: true }),
-	EditorContentContainer,
-	ContentArea,
-);
 
 /**
  * Render the editor in a chromeless appearance.
@@ -167,7 +125,7 @@ export default class Editor extends React.Component<AppearanceProps> {
 					minHeight={minHeight}
 					containerRef={(ref: HTMLElement | null) => (this.containerElement = ref)}
 				>
-					<EditorContainer
+					<EditorContentContainer
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 						className="ak-editor-content-area"
 						featureFlags={featureFlags}
@@ -197,7 +155,7 @@ export default class Editor extends React.Component<AppearanceProps> {
 						{customContentComponents && 'after' in customContentComponents
 							? customContentComponents.after
 							: null}
-					</EditorContainer>
+					</EditorContentContainer>
 				</ChromelessEditorContainer>
 			</WithFlash>
 		);
@@ -237,7 +195,7 @@ interface ChromelessEditorContainerProps {
 	minHeight: number;
 }
 
-function ChromelessEditorContainerNext({
+export function ChromelessEditorContainer({
 	maxHeight,
 	minHeight,
 	children,
@@ -262,41 +220,3 @@ function ChromelessEditorContainerNext({
 		</div>
 	);
 }
-
-function ChromelessEditorContainerOld({
-	maxHeight,
-	minHeight,
-	children,
-	containerRef,
-}: ChromelessEditorContainerProps) {
-	return (
-		<div
-			css={[
-				chromelessEditorStyles,
-				maxHeight &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					css({
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						maxHeight: `${maxHeight}px`,
-					}),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css({
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					minHeight: `${minHeight}px`,
-				}),
-				fg('platform_fix_extra_space_last_line_comment_editor') && extraSpaceLastLineFix,
-			]}
-			data-testid="chromeless-editor"
-			id="chromeless-editor"
-			ref={containerRef}
-		>
-			{children}
-		</div>
-	);
-}
-
-export const ChromelessEditorContainer = componentWithCondition(
-	() => expValEquals('platform_editor_core_static_emotion', 'isEnabled', true),
-	ChromelessEditorContainerNext,
-	ChromelessEditorContainerOld,
-);

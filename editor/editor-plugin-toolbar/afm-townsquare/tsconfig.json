@@ -39,6 +39,9 @@
 			"path": "../../editor-toolbar-model/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../tmp-editor-statsig/afm-townsquare/tsconfig.json"
 		},
 		{

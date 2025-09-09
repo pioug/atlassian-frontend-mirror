@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-local-id
 
+## 3.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.2
+
+### Patch Changes
+
+- [`2e3c46a7095f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e3c46a7095f7) -
+  Ignore remote transactions for appending local id transactions
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

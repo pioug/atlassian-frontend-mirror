@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import UFOLabel from '@atlaskit/react-ufo/label';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import UFOSegment from '@atlaskit/react-ufo/segment';
 
@@ -217,32 +218,33 @@ const SectionEight = ({ base, appCreatedAt }: { base: number; appCreatedAt: numb
 const SectionNine = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
+	// create an intentional UFO blindspot
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-9"></UFOLoadHold>;
+		return null;
 	}
 
 	return (
-		<div data-testid="sectionNine" css={sectionNineStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<UFOLabel name="section-nine">
+			<div data-testid="sectionNine" css={sectionNineStyle}>
+				<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+				<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+			</div>
+		</UFOLabel>
 	);
 };
 
 const SectionTen = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
-	if (!visibleAt) {
-		// create an intentional UFO blindspot
-		// return <UFOLoadHold name="section-10"></UFOLoadHold>;
-		return null;
-	}
-
 	return (
-		<div data-testid="sectionTen" css={sectionTenStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<UFOSegment name="blindspot-segment">
+			{visibleAt /* create an intentional UFO blindspot */ ? (
+				<div data-testid="sectionTen" css={sectionTenStyle}>
+					<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+					<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+				</div>
+			) : null}
+		</UFOSegment>
 	);
 };
 
@@ -258,11 +260,13 @@ export default function Example() {
 				<SectionThree base={3} appCreatedAt={appCreatedAt} />
 				<SectionFour base={4} appCreatedAt={appCreatedAt} />
 				<SectionFive base={5} appCreatedAt={appCreatedAt} />
-				<SectionSix base={6} appCreatedAt={appCreatedAt} />
-				<SectionSeven base={7} appCreatedAt={appCreatedAt} />
-				<SectionEight base={8} appCreatedAt={appCreatedAt} />
-				<SectionNine base={9} appCreatedAt={appCreatedAt} />
-				<SectionTen base={10} appCreatedAt={appCreatedAt} />
+				<UFOLabel name="slow-components">
+					<SectionSix base={6} appCreatedAt={appCreatedAt} />
+					<SectionSeven base={7} appCreatedAt={appCreatedAt} />
+					<SectionEight base={8} appCreatedAt={appCreatedAt} />
+					<SectionNine base={9} appCreatedAt={appCreatedAt} />
+					<SectionTen base={10} appCreatedAt={appCreatedAt} />
+				</UFOLabel>
 			</div>
 		</UFOSegment>
 	);

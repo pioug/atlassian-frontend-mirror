@@ -67,7 +67,7 @@ const activeShimmerStyles = css({
 const Skeleton = ({
 	width,
 	height,
-	borderRadius = '4px',
+	borderRadius = token('radius.small'),
 	color,
 	ShimmeringEndColor,
 	isShimmering = false,

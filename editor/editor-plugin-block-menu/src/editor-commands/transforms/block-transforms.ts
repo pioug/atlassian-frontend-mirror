@@ -1,5 +1,5 @@
 import { transformToContainer, unwrapAndConvertToBlockType } from './container-transforms';
-import { getInlineNodeTextContent } from './inline-node-transforms';
+import { getInlineNodeTextNode } from './inline-node-transforms';
 import { transformBlockToList } from './list-transforms';
 import type { TransformContext, TransformFunction } from './types';
 import { isListNodeType, isContainerNodeType, isBlockNodeType } from './utils';
@@ -35,7 +35,7 @@ const transformToBlockNode = (context: TransformContext) => {
 	const schema = doc.type.schema;
 
 	if (targetNodeType === schema.nodes.codeBlock) {
-		const textContent = getInlineNodeTextContent(selection.content().content, tr);
+		const textContent = getInlineNodeTextNode(selection.content().content, schema);
 		const node = schema.nodes.codeBlock.createChecked(undefined, textContent);
 		return tr.replaceRangeWith(selection.from, selection.to, node);
 	}

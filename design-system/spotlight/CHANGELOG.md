@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.2.5
+
+### Patch Changes
+
+- [`568c26a3efec9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/568c26a3efec9) -
+  Apply elevation.shadow.overflow box-shadow to SpotlightCard.
+
 ## 0.2.4
 
 ### Patch Changes

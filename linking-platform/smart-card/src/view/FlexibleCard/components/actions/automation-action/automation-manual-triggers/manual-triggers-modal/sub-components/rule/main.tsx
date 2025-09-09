@@ -24,7 +24,7 @@ const styles = cssMap({
 	selectedRuleButtonStyle: {
 		borderColor: token('color.border.accent.blue'),
 		borderStyle: 'solid',
-		borderWidth: token('border.width.outline'),
+		borderWidth: token('border.width.selected'),
 		borderRadius: token('radius.small'),
 	},
 	ruleNameStyle: {

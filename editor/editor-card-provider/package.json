@@ -1,0 +1,70 @@
+{
+	"name": "@atlaskit/editor-card-provider",
+	"version": "5.6.5",
+	"description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Lego",
+		"website": {
+			"name": "EditorCardProvider"
+		}
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/editor-json-transformer": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
+		"@atlaskit/json-ld-types": "workspace:^",
+		"@atlaskit/link-client-extension": "workspace:^",
+		"@atlaskit/link-extractors": "workspace:^",
+		"@atlaskit/linking-common": "workspace:^",
+		"@atlaskit/linking-types": "workspace:^",
+		"@atlaskit/node-data-provider": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
+		"@babel/runtime": "root:*",
+		"dataloader": "root:*"
+	},
+	"peerDependencies": {
+		"@atlaskit/link-provider": "workspace:^",
+		"react": "^18.2.0"
+	},
+	"devDependencies": {
+		"@atlassian/feature-flags-test-utils": "workspace:^"
+	},
+	"platform-feature-flags": {
+		"smartlink_jira_software_form": {
+			"type": "boolean"
+		},
+		"tc_smart_link_embed_view": {
+			"type": "boolean"
+		},
+		"plan_smart_link_base_url": {
+			"type": "boolean"
+		},
+		"issue-link-suggestions-in-comments": {
+			"type": "boolean"
+		}
+	},
+	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/e145f3e3-514b-410f-a274-a92e6e6f9c47"
+}

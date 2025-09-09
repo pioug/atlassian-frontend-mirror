@@ -16,6 +16,7 @@ describe('getTokenValue', () => {
 	const setup = () =>
 		render(
 			<>
+				{/* eslint-disable-next-line @atlassian/a11y/document-title -- IGNORED: Test file. */}
 				<head>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles --  -- Ignored via go/DSP-18766 */}
 					<style>

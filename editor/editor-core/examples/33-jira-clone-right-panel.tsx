@@ -69,7 +69,7 @@ const detailsHeaderContainer = css({
 	justifyContent: 'space-between',
 	padding: `11px ${token('space.150', '12px')} 11px ${token('space.150', '12px')}`,
 	border: 'solid 1px rgb(235, 236, 240)',
-	borderRadius: '4px 4px 0px 0px',
+	borderRadius: `${token('radius.small')} ${token('radius.small')} 0px 0px`,
 	position: 'sticky',
 	top: token('space.400', '32px'),
 	background: 'white none repeat scroll 0% 0%',

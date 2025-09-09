@@ -8,7 +8,7 @@ const blockStyles = xcss({
 	width: '3rem',
 	height: '3rem',
 	borderRadius: 'radius.small',
-	borderWidth: 'border.width.outline',
+	borderWidth: 'border.width.selected',
 	borderStyle: 'solid',
 	borderColor: 'color.border.discovery',
 });

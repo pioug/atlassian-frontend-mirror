@@ -12,7 +12,7 @@ export const taskDecisionStyles: SerializedStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		[
 			{
-				borderRadius: '4px',
+				borderRadius: token('radius.small'),
 			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Blanket]),

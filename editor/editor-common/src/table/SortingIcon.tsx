@@ -75,7 +75,7 @@ const iconWrapperStyles = css`
 const iconStyles = css({
 	height: '100%',
 	width: '2px',
-	borderRadius: '50px',
+	borderRadius: token('radius.full'),
 	background: token('color.icon', '#42526E'),
 	userSelect: 'none',
 	'&::before, &::after': {
@@ -84,7 +84,7 @@ const iconStyles = css({
 		height: '2px',
 		width: '6px',
 		position: 'absolute',
-		borderRadius: '50px',
+		borderRadius: token('radius.full'),
 	},
 	'&::before': {
 		transform: 'rotate(45deg) translate(3.4px, 8.5px)',

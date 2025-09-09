@@ -14,15 +14,15 @@ const styles = cssMap({
 		width: '3rem',
 		height: '3rem',
 		borderRadius: token('radius.small'),
-		borderWidth: token('border.width.outline'),
+		borderWidth: token('border.width.selected'),
 		borderStyle: 'solid',
 		borderColor: token('color.border.discovery'),
 	},
 	padded: {
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 	},
 });
 

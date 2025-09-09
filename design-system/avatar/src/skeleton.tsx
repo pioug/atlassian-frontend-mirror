@@ -35,7 +35,7 @@ const styles = cssMap({
 	root: {
 		display: 'inline-block',
 		backgroundColor: `var(${bgColorCssVar})`,
-		borderWidth: token('border.width.outline', '2px'),
+		borderWidth: token('border.width.selected', '2px'),
 		borderStyle: 'solid',
 		borderColor: 'transparent',
 		borderRadius: token('radius.full', '50%'),

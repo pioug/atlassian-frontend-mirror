@@ -33,7 +33,11 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 
 	const checkIsNestedNode = useCallback(() => {
 		const selection = api?.selection?.sharedState?.currentState()?.selection;
-		return isNestedNode(selection);
+		const menuTriggerBy = api?.blockControls?.sharedState?.currentState()?.menuTriggerBy;
+		if (!selection || !menuTriggerBy) {
+			return false;
+		}
+		return isNestedNode(selection, menuTriggerBy);
 	}, [api]);
 
 	// Hide copy link when `platform_editor_adf_with_localid` feature flag is off or when the node is nested

@@ -10,7 +10,7 @@ const boxStyles = xcss({
 	borderColor: 'color.border.focused',
 	borderStyle: 'solid',
 	borderRadius: 'radius.small',
-	borderWidth: 'border.width.outline',
+	borderWidth: 'border.width.focused',
 	backgroundColor: 'color.blanket.selected',
 });
 

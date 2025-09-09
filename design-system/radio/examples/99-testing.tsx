@@ -20,7 +20,7 @@ export default function BasicExample() {
 	return (
 		<Fragment>
 			<h4 id="radiogroup-testing-label">Choose a color:</h4>
-			<RadioGroup options={options} aria-labelledby="radiogroup-testing-label" />
+			<RadioGroup options={options} labelId="radiogroup-testing-label" />
 		</Fragment>
 	);
 }

@@ -1,0 +1,59 @@
+{
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__editor-card-provider",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../editor-json-transformer/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/json-ld-types/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-client-extension/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-extractors/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/linking-common/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/linking-types/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../node-data-provider/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-provider/afm-cc/tsconfig.json"
+		}
+	]
+}

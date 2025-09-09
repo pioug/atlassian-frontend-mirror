@@ -26,6 +26,13 @@ export type VCRatioType = {
 	[elementName: string]: number;
 };
 
+export type VCLabelStacks = {
+	[elementName: string]: {
+		segment: string;
+		labelStack: string;
+	};
+};
+
 export type VCRawDataType = {
 	abortReasonInfo: string | null;
 	abortReason: VCAbortReasonType;
@@ -144,6 +151,7 @@ export type RevisionPayloadEntry = {
 	clean: boolean;
 	vcDetails?: RevisionPayloadVCDetails;
 	ratios?: VCRatioType;
+	labelStacks?: VCLabelStacks;
 	abortReason?: VCAbortReason | null;
 	abortTimestamp?: number;
 	displayContentsOccurrence?: number;

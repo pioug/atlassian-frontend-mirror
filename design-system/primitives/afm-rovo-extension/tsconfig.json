@@ -38,9 +38,6 @@
 			"path": "../../../observability/interaction-context/afm-rovo-extension/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-rovo-extension/tsconfig.json"
 		},
 		{

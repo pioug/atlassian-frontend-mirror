@@ -5,7 +5,15 @@ import {
 	TextSelection,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
+import {
+	AddMarkStep,
+	AddNodeMarkStep,
+	ReplaceAroundStep,
+	ReplaceStep,
+	RemoveMarkStep,
+	RemoveNodeMarkStep,
+} from '@atlaskit/editor-prosemirror/transform';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type EditorViewModeEffectsPlugin } from './editorViewmodeEffectsPluginType';
 import { ViewModeNodeStep, ViewModeStep } from './pm-plugins/viewModeStep';
@@ -32,10 +40,26 @@ const createFilterStepsPlugin =
 				}, []);
 
 				if (viewModeSteps.length === 0 || !api) {
-					// Ignored via go/ees007
-					// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-					// TODO: Do we want to block everything?
-					// If yes, we should return false;
+					// Editor should not allow local edits in view mode (except for comments) which are handled
+					// via ViewModeSteps. If we have no ViewModeSteps, we should block the transaction.
+					if (editorExperiment('platform_editor_ai_aifc', true)) {
+						if (
+							tr.docChanged &&
+							// Check if the transaction contains any steps that modify the document (view mode steps do not)
+							tr.steps.filter(
+								(s) =>
+									s instanceof ReplaceAroundStep ||
+									s instanceof ReplaceStep ||
+									s instanceof AddMarkStep ||
+									s instanceof AddNodeMarkStep ||
+									s instanceof RemoveMarkStep ||
+									s instanceof RemoveNodeMarkStep,
+							).length
+						) {
+							return false;
+						}
+						return true;
+					}
 					return true;
 				}
 

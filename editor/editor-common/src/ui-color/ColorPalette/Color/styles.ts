@@ -11,7 +11,7 @@ export const buttonStyle: SerializedStyles = css({
 	width: '26px',
 	background: token('color.background.neutral'),
 	padding: 0,
-	borderRadius: '4px',
+	borderRadius: token('radius.small'),
 	border: `1px solid ${token('color.border.inverse')}`,
 	cursor: 'pointer',
 	display: 'block',

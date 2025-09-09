@@ -333,6 +333,8 @@ export enum ACTION_SUBJECT_ID {
 	AI_PROMPT_LINK_PICKER_BUTTON = 'aiPromptLinkPickerButton',
 	AI_PROMPT_MENTION_BUTTON = 'aiPromptMentionButton',
 	AI_PROACTIVE_FEEDBACK_DIALOG = 'aiProactiveFeedbackDialog',
+	AI_ASK_ROVO_BUTTON = 'aiAskRovoButton',
+	AI_HERO_PROMPT_BUTTON = 'aiHeroPromptButton',
 	ALL = 'all',
 	ALT_TEXT = 'altText',
 	ANNOTATE_BUTTON = 'annotateButton',

@@ -1,5 +1,58 @@
 # @atlaskit/editor-common
 
+## 109.1.0
+
+### Minor Changes
+
+- [`6e317c17582a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e317c17582a0) -
+  [EDITOR-1508] Add Define to old and new toolbar in edit mode for classic/live page
+- [`4edb2aee0da9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4edb2aee0da9c) -
+  Add conditionalHooksFactory and migrate usage of useSharedPluginStateSelector to useEditorToolbar
+  and useSharedPluginStateWithSelector
+
+### Patch Changes
+
+- [`b6b37e0d4d2aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6b37e0d4d2aa) -
+  [ux] If there are items in the list, allow normal tabbing so focus moves to the next interactive
+  element (in this case, a search result item).
+- [`f0662cd7a143e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0662cd7a143e) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
+## 109.0.0
+
+### Major Changes
+
+- [`0d0fe7a300841`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d0fe7a300841) -
+  Cleanup platform_editor_usesharedpluginstatewithselector experiment
+
+  - BREAKING CHANGE: sharedPluginStateHookMigratorFactory is deleted from @atlaskit/editor-common
+
+### Minor Changes
+
+- [`3764ac0028e9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3764ac0028e9d) -
+  [ux] CONFCLOUD-68427-allow-elements-in-expands-to-be-aligned
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.7.0
+
+### Minor Changes
+
+- [`5323167beaba0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5323167beaba0) -
+  EDITOR-1477: Add "button viewed" events to AI floating toolbar entry point button render paths
+  (and fix existing Rovo engagement platform breakage) (behind fg platform_editor_ai_aifc_analytics)
+
+## 108.6.3
+
+### Patch Changes
+
+- [`cb621391133f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb621391133f0) -
+  Fix the codeblock key issue
+- Updated dependencies
+
 ## 108.6.2
 
 ### Patch Changes

@@ -63,7 +63,7 @@ const productHomeButtonStyles = css({
 	'&:focus-visible': {
 		backgroundColor: `var(${VAR_PRODUCT_HOME_BACKGROUND_COLOR_FOCUS})`,
 		color: `var(${VAR_PRODUCT_HOME_COLOR_FOCUS})`,
-		outline: `${token('border.width.outline', '2px')} solid ${token(
+		outline: `${token('border.width.focused', '2px')} solid ${token(
 			'color.border.focused',
 			'#4C9AFF',
 		)}`,

@@ -80,12 +80,12 @@ a:active {
 	color: var(--ds-link-pressed, #0747a6);
 }
 a:focus-visible {
-	outline: var(--ds-border-width-outline, 2px) solid var(--ds-border-focused, #2684ff);
+	outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #2684ff);
 	outline-offset: var(--ds-space-025, 2px);
 }
 @supports not selector(*:focus-visible) {
 	a:focus {
-		outline: var(--ds-border-width-outline, 2px) solid var(--ds-border-focused, #4c9aff);
+		outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #4c9aff);
 		outline-offset: var(--ds-space-025, 2px);
 	}
 }

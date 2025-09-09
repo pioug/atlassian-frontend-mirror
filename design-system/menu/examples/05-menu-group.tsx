@@ -38,7 +38,7 @@ export default () => {
 				style={{
 					border: `1px solid ${token('color.border')}`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					borderRadius: '4px',
+					borderRadius: token('radius.small'),
 				}}
 			>
 				<MenuGroup testId="with-adjacent-sections" maxWidth={600} maxHeight={1000}>
@@ -154,7 +154,7 @@ export default () => {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					height: 'max-content',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					borderRadius: '4px',
+					borderRadius: token('radius.small'),
 				}}
 			>
 				<PopupMenuGroup testId="mock-starred-menu" maxHeight={500}>

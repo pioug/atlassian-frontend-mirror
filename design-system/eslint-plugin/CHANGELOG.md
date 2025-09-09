@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.20.1
+
+### Patch Changes
+
+- [`2896429aaa267`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2896429aaa267) -
+  Update the no-custom-icons eslint rule to include checking for custom svg usage
+
 ## 13.20.0
 
 ### Minor Changes

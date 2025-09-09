@@ -389,10 +389,17 @@ const ResizableTableContainerLegacy = React.memo(
 				? containerWidth - padding * 2
 				: containerWidth - padding * 2 - resizeHandleSpacing;
 		}
-		const width =
+		// Fix for HOT-119925: Ensure table width is properly constrained and responsive
+		// For wide tables, ensure they don't exceed container width and can be scrolled
+		const calculatedWidth =
 			!node.attrs.width && isCommentEditor
 				? responsiveContainerWidth
 				: Math.min(tableWidth, responsiveContainerWidth);
+
+		// Ensure minimum width for usability while respecting container constraints
+		const width = expValEquals('platform_editor_table_container_width_fix', 'isEnabled', true)
+			? Math.max(calculatedWidth, Math.min(responsiveContainerWidth * 0.5, 300))
+			: calculatedWidth;
 
 		if (!isResizing) {
 			tableWidthRef.current = width;
@@ -635,10 +642,17 @@ const ResizableTableContainerNext = React.memo(
 				: containerWidth - padding * 2 - resizeHandleSpacing;
 		}
 
-		const width =
+		// Fix for HOT-119925: Ensure table width is properly constrained and responsive
+		// For wide tables, ensure they don't exceed container width and can be scrolled
+		const calculatedWidth =
 			!node.attrs.width && isCommentEditor
 				? responsiveContainerWidth
 				: Math.min(tableWidth, responsiveContainerWidth);
+
+		// Ensure minimum width for usability while respecting container constraints
+		const width = expValEquals('platform_editor_table_container_width_fix', 'isEnabled', true)
+			? Math.max(calculatedWidth, Math.min(responsiveContainerWidth * 0.5, 300))
+			: calculatedWidth;
 
 		if (!isResizing) {
 			tableWidthRef.current = width;

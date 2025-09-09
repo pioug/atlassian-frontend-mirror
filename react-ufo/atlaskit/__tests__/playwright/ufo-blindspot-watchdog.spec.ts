@@ -5,7 +5,8 @@ import { expect, test, viewports } from './fixtures';
 
 test.describe('UFO Blindspot Watchdog', () => {
 	test.use({
-		examplePage: 'basic-with-blindspot', // 10 sections, but last section is missing a UFO Hold
+		examplePage: 'basic-with-blindspot', // 10 sections, but last 2 sections are missing a UFO Hold
+		featureFlags: ['platform_ufo_enable_late_mutation_label_stacks'],
 	});
 
 	for (const viewport of viewports) {
@@ -59,16 +60,33 @@ test.describe('UFO Blindspot Watchdog', () => {
 				expect(postInteractionLog.revisedTtai).toMatchTimestamp(sectionTenVisibleAt);
 				expect(postInteractionLog.revisedVC90).toMatchTimestamp(sectionNineVisibleAt);
 
-				expect(postInteractionLog.lateMutations.length >= 1).toBe(true);
+				expect(postInteractionLog.lateMutations.length >= 2).toBe(true);
+
+				const sectionNineLateMutationRecord = postInteractionLog.lateMutations.find(({ element }) =>
+					element.includes('sectionNine'),
+				);
 				const sectionTenLateMutationRecord = postInteractionLog.lateMutations.find(({ element }) =>
 					element.includes('sectionTen'),
 				);
 
+				expect(sectionNineLateMutationRecord?.element).toBe('div[data-testid="sectionNine"]');
+				expect(sectionNineLateMutationRecord?.time).toMatchTimestamp(sectionNineVisibleAt);
+				expect(sectionNineLateMutationRecord?.labelStack).toBe(
+					'app-root/slow-components/section-nine',
+				);
+				expect(sectionNineLateMutationRecord?.segment).toBe('app-root');
+
 				expect(sectionTenLateMutationRecord?.element).toBe('div[data-testid="sectionTen"]');
 				expect(sectionTenLateMutationRecord?.time).toMatchTimestamp(sectionTenVisibleAt);
+				expect(sectionTenLateMutationRecord?.labelStack).toBe(
+					'app-root/slow-components/blindspot-segment',
+				);
+				expect(sectionTenLateMutationRecord?.segment).toBe(
+					'app-root/slow-components/blindspot-segment',
+				);
 
-				expect(postInteractionLog.reactProfilerTimings.length).toBe(1);
-				expect(postInteractionLog.reactProfilerTimings[0].endTime).toMatchTimestamp(
+				expect(postInteractionLog.reactProfilerTimings.length).toBe(2);
+				expect(postInteractionLog.reactProfilerTimings[1].endTime).toMatchTimestamp(
 					sectionTenVisibleAt,
 				);
 			});

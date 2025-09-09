@@ -7,9 +7,9 @@ import { Fragment, useCallback, useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
-import CheckIcon from '@atlaskit/icon/glyph/check';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
-import EditIcon from '@atlaskit/icon/glyph/edit';
+import CheckIcon from '@atlaskit/icon/core/check-mark';
+import CrossIcon from '@atlaskit/icon/core/cross';
+import EditIcon from '@atlaskit/icon/core/edit';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
@@ -97,10 +97,10 @@ const styles = cssMap({
 		flexBasis: 'min-content',
 	},
 	paletteBlock: {
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 		minWidth: '12rem',
 	},
 	flexShrink: {
@@ -207,9 +207,21 @@ const PaletteBlock = ({
 		[onChange, originalValue, resetField],
 	);
 
-	const CrossIconWithColorOverrides = () => <CrossIcon primaryColor={textColor} label="close" />;
-	const CheckIconWithColorOverrides = () => <CheckIcon primaryColor={textColor} label="confirm" />;
-	const EditIconWithColorOverrides = () => <EditIcon primaryColor={textColor} label="edit" />;
+	const CrossIconWithColorOverrides = () => (
+		<span style={{ color: textColor }}>
+			<CrossIcon label="close" />
+		</span>
+	);
+	const CheckIconWithColorOverrides = () => (
+		<span style={{ color: textColor }}>
+			<CheckIcon label="confirm" />
+		</span>
+	);
+	const EditIconWithColorOverrides = () => (
+		<span style={{ color: textColor }}>
+			<EditIcon label="edit" />
+		</span>
+	);
 
 	return (
 		<div

@@ -12,7 +12,6 @@ jest.mock('@atlaskit/platform-feature-flags', () => ({
 }));
 const fgMock = fg as jest.Mock;
 
-import { ScrollContainer } from '../../../ui/Appearance/FullPage/FullPageContentArea';
 import EditorContentContainer from '../../../ui/EditorContentContainer/EditorContentContainer';
 
 // jest doesn't support @container styles in css
@@ -47,9 +46,7 @@ describe('Editor Content styles in FullPageContentArea', () => {
 		jest.clearAllMocks();
 	});
 
-	// fullpage editor used the base styles, so we used this as main test to check legacy and new styles are matching
 	describe('fullpage editor', () => {
-		// new editor content styles WIP under the editor experiment platform_editor_core_static_emotion
 		it('renders correct styles for new editor content styles for chromeless editor with experiments on', () => {
 			setupEditorExperiments('test', {
 				advanced_layouts: true,
@@ -76,7 +73,6 @@ describe('Editor Content styles in FullPageContentArea', () => {
 			expect(results).toMatchSnapshot('new styles with experiments on');
 		});
 
-		// new editor content styles WIP under the editor experiment platform_editor_core_static_emotion
 		it('renders correct styles for new editor content styles for fullpage editor', () => {
 			render(
 				<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
@@ -96,41 +92,6 @@ describe('Editor Content styles in FullPageContentArea', () => {
 			const results = screen.getByTestId('editor-content-container');
 			expect(results).toBeInTheDocument();
 			expect(results).toMatchSnapshot('new styles');
-		});
-
-		// legacy editor content styles
-		it('renders correct styles for legacy editor content styles for fullpage editor with experiments on', async () => {
-			setupEditorExperiments('test', {
-				advanced_layouts: true,
-				platform_editor_breakout_resizing: true,
-				platform_editor_controls: 'variant1',
-			});
-			render(
-				<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
-					<ScrollContainer>
-						<div data-testid="child-component">Chromeless</div>
-					</ScrollContainer>
-				</BaseTheme>,
-			);
-
-			const results = screen.getByTestId('editor-content-container');
-			expect(results).toBeInTheDocument();
-			expect(results).toMatchSnapshot();
-		});
-
-		// legacy editor content styles
-		it('renders correct styles for legacy editor content styles for fullpage editor', async () => {
-			render(
-				<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
-					<ScrollContainer>
-						<div data-testid="child-component">Fullpage</div>
-					</ScrollContainer>
-				</BaseTheme>,
-			);
-
-			const results = screen.getByTestId('editor-content-container');
-			expect(results).toBeInTheDocument();
-			expect(results).toMatchSnapshot();
 		});
 	});
 });

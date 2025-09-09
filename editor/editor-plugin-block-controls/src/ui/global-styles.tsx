@@ -236,7 +236,7 @@ const quickInsertStyles = () =>
 			height: token('space.300'),
 			width: token('space.300'),
 			border: 'none',
-			borderRadius: '50%',
+			borderRadius: token('radius.full'),
 			zIndex: layers.card(),
 			outline: 'none',
 			cursor: 'pointer',

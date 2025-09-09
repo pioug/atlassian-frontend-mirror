@@ -15,11 +15,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ExtensionProvider, ReferenceEntity } from '../../../extensions';
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '../../../hooks';
+import { useSharedPluginStateWithSelector } from '../../../hooks';
 import type { ProsemirrorGetPosHandler } from '../../../react-node-view';
 import type { EditorAppearance, EditorContainerWidth } from '../../../types';
 import type { OverflowShadowProps } from '../../../ui';
@@ -312,40 +308,28 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 	);
 }
 
-const useExtensionSharedPluginState = sharedPluginStateHookMigratorFactory<
-	{ widthState: { lineLength?: number; width: number } },
-	ExtensionsPluginInjectionAPI
->(
-	(pluginInjectionApi) => {
-		const { lineLength, width } = useSharedPluginStateWithSelector(
-			pluginInjectionApi,
-			['width'],
-			(states) => ({
-				width: states.widthState?.width ?? 0,
-				lineLength: states.widthState?.lineLength,
-			}),
-		);
-
-		return {
-			widthState: {
-				width: width ?? 0,
-				lineLength,
-			},
-		};
-	},
-	(pluginInjectionApi) => {
-		const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
-		return { widthState: { width: widthState?.width ?? 0, lineLength: widthState?.lineLength } };
-	},
-);
-
 const Extension = (props: Props & OverflowShadowProps) => {
 	const { pluginInjectionApi } = props;
-	const { widthState } = useExtensionSharedPluginState(pluginInjectionApi);
+	const { lineLength, width } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['width'],
+		(states) => ({
+			width: states.widthState?.width ?? 0,
+			lineLength: states.widthState?.lineLength,
+		}),
+	);
 
 	// Ignored via go/ees005
-	// eslint-disable-next-line react/jsx-props-no-spreading
-	return <ExtensionWithPluginState widthState={widthState} {...props} />;
+	return (
+		<ExtensionWithPluginState
+			widthState={{
+				width: width ?? 0,
+				lineLength,
+			}}
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+		/>
+	);
 };
 
 export default overflowShadow(Extension, {

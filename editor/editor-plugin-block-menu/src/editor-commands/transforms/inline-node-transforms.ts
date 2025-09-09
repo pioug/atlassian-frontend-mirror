@@ -1,11 +1,10 @@
-import type { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 
-export const getInlineNodeTextContent = (sourceContent: Fragment, tr: Transaction) => {
+export const getInlineNodeTextContent = (sourceContent: Fragment) => {
 	let validTransformedContent: string = '';
-	const schema = tr.doc.type.schema;
-	if (sourceContent.content.length > 1) {
-		return;
+
+	if (sourceContent.content.length < 1) {
+		return '';
 	}
 	// Headings are not valid inside headings so convert heading nodes to paragraphs
 	sourceContent.forEach((node) => {
@@ -17,8 +16,13 @@ export const getInlineNodeTextContent = (sourceContent: Fragment, tr: Transactio
 					validTransformedContent += `${inlineNode.textContent}`;
 				}
 			});
-			validTransformedContent;
 		}
 	});
-	return schema.text(validTransformedContent);
+
+	return validTransformedContent;
+};
+
+export const getInlineNodeTextNode = (sourceContent: Fragment, schema: Schema) => {
+	const text = getInlineNodeTextContent(sourceContent);
+	return schema.text(text);
 };

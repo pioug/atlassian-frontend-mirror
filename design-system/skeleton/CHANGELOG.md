@@ -1,5 +1,13 @@
 # @atlaskit/skeleton
 
+## 2.1.2
+
+### Patch Changes
+
+- [`f0662cd7a143e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0662cd7a143e) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

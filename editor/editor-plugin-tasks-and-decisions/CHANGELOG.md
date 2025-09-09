@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 8.0.1
+
+### Patch Changes
+
+- [`73bece405a55b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73bece405a55b) -
+  [EDITOR-1433] Handle backspace for deeply indented blockTaskItems
+- [`f0662cd7a143e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0662cd7a143e) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
+## 8.0.0
+
+### Minor Changes
+
+- [`0d497d7b37080`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d497d7b37080) -
+  EDITOR-1432 Updating editor-plugin-tasks-and-decisions to be compatible with adf-schema 51.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.6
 
 ### Patch Changes

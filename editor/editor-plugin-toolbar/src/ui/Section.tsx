@@ -6,6 +6,8 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import { ToolbarSection } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentType, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarPlugin } from '../toolbarPluginType';
 
@@ -44,6 +46,33 @@ const shouldShowSection = (
 	return false;
 };
 
+const usePluginState = conditionalHooksFactory(
+	() => expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true),
+	(api?: ExtractInjectionAPI<ToolbarPlugin> | undefined) => {
+		const { editorViewMode, editorToolbarDockingPreference, editorAppearance } = useEditorToolbar();
+
+		return {
+			editorViewMode,
+			editorToolbarDockingPreference,
+			editorAppearance,
+		};
+	},
+	(api?: ExtractInjectionAPI<ToolbarPlugin> | undefined) => {
+		const editorViewMode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
+		const editorToolbarDockingPreference = useSharedPluginStateSelector(
+			api,
+			'userPreferences.preferences.toolbarDockingPosition',
+		);
+		const { editorAppearance } = useEditorToolbar();
+
+		return {
+			editorViewMode,
+			editorToolbarDockingPreference,
+			editorAppearance,
+		};
+	},
+);
+
 export const Section = ({
 	children,
 	parents,
@@ -53,17 +82,17 @@ export const Section = ({
 	isSharedSection = true,
 	disableSelectionToolbar,
 }: SectionProps) => {
-	const editMode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
-	const toolbarDocking = useSharedPluginStateSelector(
-		api,
-		'userPreferences.preferences.toolbarDockingPosition',
-	);
+	const { editorViewMode, editorToolbarDockingPreference, editorAppearance } = usePluginState(api);
 	const toolbar = parents.find((parent) => parent.type === 'toolbar');
-	const { editorAppearance } = useEditorToolbar();
 
 	if (
 		isSharedSection &&
-		!shouldShowSection(editMode, toolbar, toolbarDocking, disableSelectionToolbar)
+		!shouldShowSection(
+			editorViewMode,
+			toolbar,
+			editorToolbarDockingPreference,
+			disableSelectionToolbar,
+		)
 	) {
 		return null;
 	}

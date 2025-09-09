@@ -16,7 +16,7 @@ const backgroundStyles = css({
 	width: `${discSize}px`,
 	height: `${discSize}px`,
 	backgroundColor: token('color.background.neutral.bold', N90A),
-	borderRadius: '100%',
+	borderRadius: token('radius.full'),
 });
 
 export const PlayButtonBackground = () => {

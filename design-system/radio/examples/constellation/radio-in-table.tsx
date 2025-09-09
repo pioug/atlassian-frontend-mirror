@@ -108,7 +108,7 @@ export default function RadioInputExample() {
 									onChange={onChange}
 									name={item.name}
 									value={item.value}
-									aria-labelledby={`head-description row-${item.id}-description head-commit row-${item.id}-commit head-updated row-${item.id}-updated`}
+									labelId={`head-description row-${item.id}-description head-commit row-${item.id}-commit head-updated row-${item.id}-updated`}
 								/>
 							</th>
 							<td id={`row-${item.id}-description`}>{item.description}</td>

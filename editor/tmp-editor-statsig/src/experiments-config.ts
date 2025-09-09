@@ -302,14 +302,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-07-24
-	platform_editor_usesharedpluginstatewithselector: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_usesharedpluginstatewithselector',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-04-23
 	platform_renderer_fix_analytics_memo_callback: createBooleanExperiment({
 		productKeys: {
@@ -322,14 +314,6 @@ export const editorExperimentsConfig = {
 	platform_editor_stop_width_reflows: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_stop_width_reflows',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-05-08
-	platform_editor_core_static_emotion: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_core_static_emotion',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -616,6 +600,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-09-04
+	editor_refactor_backspace_task_and_decisions: createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_refactor_backspace_task_and_decisions',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	//Added 2025-07-16
 	platform_editor_toolbar_aifc_patch_3: createBooleanExperiment({
 		productKeys: {
@@ -748,6 +740,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-08-28
+	editor_enable_image_alignment_in_expand: createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_enable_image_alignment_in_expand',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-08-05
 	platform_editor_august_a11y: createBooleanExperiment({
 		productKeys: {
@@ -844,6 +844,15 @@ export const editorExperimentsConfig = {
 		productKeys: {
 			confluence: 'platform_editor_toolbar_aifc_patch_1',
 			jira: 'platform_editor_toolbar_aifc_patch_1',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-08
+	platform_editor_table_container_width_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_container_width_fix',
+			jira: 'platform_editor_table_container_width_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

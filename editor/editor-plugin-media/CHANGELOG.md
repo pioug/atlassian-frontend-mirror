@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-media
 
+## 7.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.0
+
+### Patch Changes
+
+- [`0d0fe7a300841`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d0fe7a300841) -
+  Cleanup platform_editor_usesharedpluginstatewithselector experiment
+
+  - BREAKING CHANGE: sharedPluginStateHookMigratorFactory is deleted from @atlaskit/editor-common
+
+- Updated dependencies
+
+## 6.2.1
+
+### Patch Changes
+
+- [`8c22cc3a06ba9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c22cc3a06ba9) -
+  FD-85117 clean up fg platform_editor_axe_leading_paragraph_from_media
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

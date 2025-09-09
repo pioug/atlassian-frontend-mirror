@@ -18,7 +18,7 @@ const styles = cssMap({
 		display: 'grid',
 		maxHeight: '420px',
 		overflow: 'auto',
-		borderBottom: `${token('border.width.outline', '2px')} solid ${token('color.border', N40)}`,
+		borderBottom: `${token('border.width.selected', '2px')} solid ${token('color.border', N40)}`,
 		backgroundImage: `
 		linear-gradient(90deg, ${token('utility.elevation.surface.current', '#FFF')} 30%, rgba(255, 255, 255, 0)),
 		linear-gradient(90deg, ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.1)')}, rgba(0, 0, 0, 0)),

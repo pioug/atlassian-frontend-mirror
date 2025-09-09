@@ -44,10 +44,10 @@ const multiValueStyles = cssMap({
 	root: {
 		display: 'flex',
 		minWidth: token('space.0'), // resolves flex/text-overflow bug
-		marginTop: token('space.025'),
-		marginRight: token('space.025'),
-		marginBottom: token('space.025'),
-		marginLeft: token('space.025'),
+		marginBlockStart: token('space.025'),
+		marginInlineEnd: token('space.025'),
+		marginBlockEnd: token('space.025'),
+		marginInlineStart: token('space.025'),
 		borderRadius: token('radius.xsmall', '2px'),
 		backgroundColor: token('color.background.neutral'),
 		maxWidth: '100%',
@@ -92,10 +92,10 @@ const multiValueLabelStyles = cssMap({
 		whiteSpace: 'nowrap',
 		borderRadius: token('radius.xsmall', '2px'),
 		font: token('font.body.UNSAFE_small'),
-		paddingTop: token('space.025', '2px'),
-		paddingRight: token('space.025', '2px'),
-		paddingBottom: token('space.025', '2px'),
-		paddingLeft: token('space.075', '6px'),
+		paddingBlockStart: token('space.025', '2px'),
+		paddingInlineEnd: token('space.025', '2px'),
+		paddingBlockEnd: token('space.025', '2px'),
+		paddingInlineStart: token('space.075', '6px'),
 		color: 'inherit',
 	},
 	disabled: {
@@ -106,9 +106,9 @@ const multiValueLabelStyles = cssMap({
 	},
 	refresh: {
 		font: token('font.body'),
-		paddingTop: 0,
-		paddingBottom: 0,
-		paddingLeft: token('space.050'),
+		paddingBlockStart: 0,
+		paddingBlockEnd: 0,
+		paddingInlineStart: token('space.050'),
 	},
 });
 
@@ -123,9 +123,9 @@ const multiValueRemoveStyles = cssMap({
 		alignItems: 'center',
 		display: 'flex',
 		fill: token('color.text', '#000'),
-		paddingLeft: token('space.025', '2px'),
-		paddingRight: token('space.025', '2px'),
-		borderRadius: '0px 2px 2px 0px',
+		paddingInlineStart: token('space.025', '2px'),
+		paddingInlineEnd: token('space.025', '2px'),
+		borderRadius: `0px ${token('radius.xsmall')} ${token('radius.xsmall')} 0px`,
 
 		// DSP-6470 we should style like Tag once we have the :has selector
 		'&:hover': {
@@ -146,11 +146,11 @@ const multiValueRemoveStyles = cssMap({
 		appearance: 'none',
 		borderRadius: token('radius.small'),
 		color: token('color.text'),
-		paddingTop: token('space.025'),
-		paddingRight: token('space.025'),
-		paddingBottom: token('space.025'),
-		paddingLeft: token('space.025'),
-		marginRight: token('space.025'),
+		paddingBlockStart: token('space.025'),
+		paddingInlineEnd: token('space.025'),
+		paddingBlockEnd: token('space.025'),
+		paddingInlineStart: token('space.025'),
+		marginInlineEnd: token('space.025'),
 		'&:focus-visible': {
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 			outlineOffset: -2,

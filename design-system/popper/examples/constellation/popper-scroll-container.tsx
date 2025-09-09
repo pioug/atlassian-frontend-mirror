@@ -57,7 +57,7 @@ const containerStyles = css({
 	maxHeight: '400px',
 	borderColor: 'black',
 	borderStyle: 'solid',
-	borderWidth: '1px',
+	borderWidth: token('border.width'),
 	marginBlockStart: token('space.250'),
 	overflow: 'auto',
 });

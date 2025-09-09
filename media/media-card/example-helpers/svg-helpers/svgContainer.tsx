@@ -14,7 +14,7 @@ const containerStyles = xcss({
 	boxSizing: 'border-box',
 	outlineColor: 'color.border.accent.orange',
 	outlineStyle: 'solid',
-	outlineWidth: 'border.width.indicator',
+	outlineWidth: 'border.width.selected',
 	margin: 'auto',
 	marginTop: 'space.100',
 	backgroundColor: 'color.background.accent.green.subtler',

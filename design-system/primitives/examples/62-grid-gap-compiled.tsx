@@ -12,12 +12,12 @@ const styles = cssMap({
 	block: {
 		borderColor: token('color.border'),
 		borderStyle: 'dashed',
-		borderWidth: token('border.width.outline'),
+		borderWidth: token('border.width.selected'),
 		borderRadius: token('radius.small'),
-		paddingTop: token('space.600'),
-		paddingRight: token('space.600'),
-		paddingBottom: token('space.600'),
-		paddingLeft: token('space.600'),
+		paddingBlockStart: token('space.600'),
+		paddingInlineEnd: token('space.600'),
+		paddingBlockEnd: token('space.600'),
+		paddingInlineStart: token('space.600'),
 	},
 });
 

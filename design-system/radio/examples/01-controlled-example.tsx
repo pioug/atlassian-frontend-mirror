@@ -9,6 +9,7 @@ import { css, jsx } from '@compiled/react';
 import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter } from '@atlaskit/form';
 import { RadioGroup } from '@atlaskit/radio';
+import { token } from '@atlaskit/tokens';
 
 const options = [
 	{ name: 'color2', value: 'red', label: 'Red' },
@@ -22,7 +23,7 @@ const radioGroupStyles = css({
 	padding: '0.5em',
 	borderColor: '#ccc',
 	borderStyle: 'dashed',
-	borderWidth: '1px',
+	borderWidth: token('border.width'),
 	color: '#ccc',
 });
 

@@ -11,7 +11,6 @@ export {
 	THEME_MODES,
 	assistive,
 	focusRing,
-	gridSize,
 	layers,
 	noFocusRing,
 	skeletonShimmer,

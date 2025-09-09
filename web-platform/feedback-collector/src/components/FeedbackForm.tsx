@@ -32,8 +32,12 @@ interface Props {
 	feedbackTitleDetails?: React.ReactChild;
 	/**  Message which will be shown next to the enrol in research checkbox **/
 	enrolInResearchLabel?: React.ReactChild;
+	/**  Message which will be shown below the enrol in research checkbox **/
+	enrolInResearchLink?: React.ReactNode;
 	/**  Message which will be shown next to the can be contacted checkbox **/
 	canBeContactedLabel?: React.ReactChild;
+	/**  Link which will be shown below the can be contacted checkbox **/
+	canBeContactedLink?: React.ReactNode;
 	/**  Message which will be shown inside the summary text field **/
 	summaryPlaceholder?: string;
 	/**  Message for submit button label **/
@@ -69,6 +73,21 @@ export interface OptionType {
 	value: SelectValue;
 }
 
+const LinkWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+	return (
+		<span
+			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				paddingInlineStart: token('space.300'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				marginInlineStart: token('space.050'),
+			}}
+		>
+			{children}
+		</span>
+	);
+};
+
 const FeedbackForm: React.FunctionComponent<Props> = ({
 	showTypeField = true,
 	showDefaultTextFields = true,
@@ -80,7 +99,9 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 	feedbackGroupLabels,
 	summaryPlaceholder,
 	canBeContactedLabel,
+	canBeContactedLink,
 	enrolInResearchLabel,
+	enrolInResearchLink,
 	submitButtonLabel,
 	cancelButtonLabel,
 	anonymousFeedback,
@@ -182,6 +203,22 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 		customFeedbackOptions.length > 0
 			? customFeedbackOptions
 			: getSelectOptions(feedbackGroupLabels);
+
+	const renderContactLabelAppify = () => {
+		if (fg('jfp_a11y_team_feedback_collector_nested_elements')) {
+			return messages.canBeContactedLabelAppifyWithoutLink;
+		}
+
+		return messages.canBeContactedLabelAppify;
+	};
+
+	const renderContactLabel = () => {
+		if (fg('jfp_a11y_team_feedback_collector_nested_elements')) {
+			return messages.canBeContactedLabelWithoutLink;
+		}
+
+		return messages.canBeContactedLabel;
+	};
 
 	return (
 		<Modal
@@ -321,43 +358,71 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 											</legend>
 											<Field name="can-be-contacted">
 												{({ fieldProps }) => (
-													<Checkbox
-														{...fieldProps}
-														aria-describedby={undefined} // JCA11Y-1988
-														label={
-															canBeContactedLabel || (
-																<FormattedMessage
-																	{...(fg('product-terminology-refresh')
-																		? messages.canBeContactedLabelAppify
-																		: messages.canBeContactedLabel)}
-																	values={{
-																		a: (chunks: React.ReactNode[]) => (
-																			<Link
-																				href="https://www.atlassian.com/legal/privacy-policy"
-																				target="_blank"
-																			>
-																				{chunks}
-																			</Link>
-																		),
-																	}}
-																/>
-															)
-														}
-														onChange={(event) => setCanBeContacted(event.target.checked)}
-													/>
+													<>
+														<Checkbox
+															{...fieldProps}
+															aria-describedby={undefined} // JCA11Y-1988
+															label={
+																canBeContactedLabel || (
+																	<FormattedMessage
+																		{...(fg('product-terminology-refresh')
+																			? renderContactLabelAppify()
+																			: renderContactLabel())}
+																		{...(!fg(
+																			'jfp_a11y_team_feedback_collector_nested_elements',
+																		) && {
+																			values: {
+																				a: (chunks: React.ReactNode[]) => (
+																					<Link
+																						href="https://www.atlassian.com/legal/privacy-policy"
+																						target="_blank"
+																					>
+																						{chunks}
+																					</Link>
+																				),
+																			},
+																		})}
+																	/>
+																)
+															}
+															onChange={(event) => setCanBeContacted(event.target.checked)}
+														/>
+														{canBeContactedLabel &&
+															canBeContactedLink &&
+															fg('jfp_a11y_team_feedback_collector_nested_elements') && (
+																<LinkWrapper>{canBeContactedLink}</LinkWrapper>
+															)}
+														{!canBeContactedLabel &&
+															fg('jfp_a11y_team_feedback_collector_nested_elements') && (
+																<LinkWrapper>
+																	<Link
+																		href="https://www.atlassian.com/legal/privacy-policy"
+																		target="_blank"
+																	>
+																		{formatMessage(messages.privacyPolicy)}
+																	</Link>
+																</LinkWrapper>
+															)}
+													</>
 												)}
 											</Field>
-
 											<Field name="enroll-in-research-group">
 												{({ fieldProps }) => (
-													<Checkbox
-														{...fieldProps}
-														aria-describedby={undefined} // JCA11Y-1988
-														label={
-															enrolInResearchLabel || formatMessage(messages.enrolInResearchLabel)
-														}
-														onChange={(event) => setEnrollInResearchGroup(event.target.checked)}
-													/>
+													<>
+														<Checkbox
+															{...fieldProps}
+															aria-describedby={undefined} // JCA11Y-1988
+															label={
+																enrolInResearchLabel || formatMessage(messages.enrolInResearchLabel)
+															}
+															onChange={(event) => setEnrollInResearchGroup(event.target.checked)}
+														/>
+														{enrolInResearchLabel &&
+															enrolInResearchLink &&
+															fg('jfp_a11y_team_feedback_collector_nested_elements') && (
+																<LinkWrapper>{enrolInResearchLink}</LinkWrapper>
+															)}
+													</>
 												)}
 											</Field>
 										</Fieldset>

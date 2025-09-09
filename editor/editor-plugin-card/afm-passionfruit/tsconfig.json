@@ -32,7 +32,7 @@
 			"path": "../../custom-steps/afm-passionfruit/tsconfig.json"
 		},
 		{
-			"path": "../../../linking-platform/editor-card-provider/afm-passionfruit/tsconfig.json"
+			"path": "../../editor-card-provider/afm-passionfruit/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-analytics/afm-passionfruit/tsconfig.json"

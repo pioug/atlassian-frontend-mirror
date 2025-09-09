@@ -15,7 +15,7 @@ export const blocktypeStyles: SerializedStyles = css({
 			width: '100%',
 			display: 'inline-block',
 			paddingLeft: token('space.200', '16px'),
-			borderLeftWidth: '2px',
+			borderLeftWidth: token('border.width.selected'),
 			borderLeftStyle: 'solid',
 			borderLeftColor: token('color.border'),
 			margin: '0.75rem 0 0 0', // From https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128

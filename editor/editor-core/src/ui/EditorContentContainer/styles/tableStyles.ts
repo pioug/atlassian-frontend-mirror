@@ -31,3 +31,27 @@ export const tableCommentEditorStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.ProseMirror .pm-table-wrapper > table`]: [tableCommentEditorMarginOverride, scrollbarStyles],
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const tableContainerStyles: SerializedStyles = css({
+	/* Fix for HOT-119925: Ensure table containers have proper width constraints and overflow handling */
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror .pm-table-wrapper': {
+		maxWidth: '100%',
+		overflowX: 'auto',
+		overflowY: 'visible',
+		// Ensure the wrapper doesn't grow beyond its container
+		width: '100%',
+		boxSizing: 'border-box',
+	},
+
+	/* Fix for HOT-119925: Ensure table elements are responsive and don't overflow */
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror .pm-table-wrapper table': {
+		maxWidth: '100%',
+		width: '100%',
+		tableLayout: 'fixed',
+		// Ensure tables can be scrolled horizontally if needed
+		minWidth: 'auto',
+	},
+});

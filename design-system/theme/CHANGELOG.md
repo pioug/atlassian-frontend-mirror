@@ -1,5 +1,16 @@
 # @atlaskit/theme
 
+## 21.0.0
+
+### Major Changes
+
+- [`f452c6c97d1d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f452c6c97d1d6) -
+  Removed `gridSize` constant. For margin and padding use space tokens instead.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.1
 
 ### Patch Changes

@@ -42,5 +42,5 @@ export const backgroundStyles = css({
 	width: `${discSize}px`,
 	height: `${discSize}px`,
 	background: token('color.background.neutral.bold', N90A),
-	borderRadius: '100%',
+	borderRadius: token('radius.full'),
 });

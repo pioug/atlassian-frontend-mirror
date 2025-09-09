@@ -63,10 +63,10 @@ const focusRingStyles = cssMap({
 		'&:focus-visible': {
 			outlineColor: token('color.border.focused', '#2684ff'),
 			// @ts-ignore
-			outlineOffset: token('border.width.outline'),
+			outlineOffset: token('border.width.focused'),
 			outlineStyle: 'solid',
 			// @ts-ignore
-			outlineWidth: token('border.width.outline'),
+			outlineWidth: token('border.width.focused'),
 		},
 		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
 			'&:focus-visible': {

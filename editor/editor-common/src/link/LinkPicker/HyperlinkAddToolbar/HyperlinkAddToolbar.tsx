@@ -849,6 +849,12 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		const KEY_CODE_TAB = 9;
 		const { keyCode } = event;
 		if (keyCode === KEY_CODE_TAB) {
+			/** If there are items in the list, allow normal tabbing so focus moves to the next interactive element (in this case, a search result item).
+			 */
+			if (this.state.items.length > 0 && fg('platform_editor_a11y_insert_link_item_focus')) {
+				return;
+			}
+
 			if (!this.submitted) {
 				const { displayUrl, displayText } = this.state;
 				const url = normalizeUrl(displayUrl);

@@ -29,7 +29,7 @@ const styles = cssMap({
 		 * The combined vertical spacing is maintained by subtracting the
 		 * keyline height from header and footer using negative margins.
 		 */
-		paddingBlock: token('border.width.outline'),
+		paddingBlock: token('space.025'),
 	},
 	paddingInline: {
 		paddingInline: token('space.300'),

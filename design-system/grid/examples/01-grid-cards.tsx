@@ -10,7 +10,7 @@ const itemStyles = xcss({
 	justifyContent: 'center',
 	backgroundColor: 'elevation.surface.sunken',
 	borderColor: 'color.border',
-	borderWidth: '3px',
+	borderWidth: 'border.width.selected',
 	borderStyle: 'solid',
 	height: 'size.600',
 });

@@ -111,8 +111,8 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 					isForcedHidden ||
 					(editorDisabled ?? false) ||
 					(expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true) &&
-						(showToolbar ?? false));
-				true;
+						(showToolbar ?? false)) ||
+					expValEquals('platform_editor_ai_aifc', 'isEnabled', true);
 
 				requestAnimationFrame(() => dispatchShouldHideDecorations(editorView, shouldHide));
 			}, [editorView, hasFocus, isOpen, isForcedHidden, editorDisabled, showToolbar]);

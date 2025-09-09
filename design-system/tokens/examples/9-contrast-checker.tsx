@@ -11,8 +11,8 @@ import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 import { Label } from '@atlaskit/form';
 import Grid, { GridItem } from '@atlaskit/grid';
 import Heading from '@atlaskit/heading';
-import LinkIcon from '@atlaskit/icon/glyph/link';
-import TrashIcon from '@atlaskit/icon/glyph/trash';
+import DeleteIcon from '@atlaskit/icon/core/delete';
+import LinkIcon from '@atlaskit/icon/core/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Popup } from '@atlaskit/popup';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
@@ -102,10 +102,10 @@ function getThemeCSS(
 
 const styles = cssMap({
 	stack: {
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 		maxWidth: '400px',
 	},
 	box: {
@@ -218,7 +218,7 @@ const CustomThemeActions = ({
 			/>
 		</Tooltip>
 		<Tooltip content="Delete custom theme">
-			<IconButton icon={TrashIcon} onClick={onClear} label="Remove custom theme" />
+			<IconButton icon={DeleteIcon} onClick={onClear} label="Remove custom theme" />
 		</Tooltip>
 	</ButtonGroup>
 );

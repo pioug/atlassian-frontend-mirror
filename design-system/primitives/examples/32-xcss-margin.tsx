@@ -8,7 +8,7 @@ const wrapperBoxStyles = xcss({
 	backgroundColor: 'color.background.accent.gray.subtlest',
 	borderColor: 'color.border.discovery',
 	borderStyle: 'solid',
-	borderWidth: 'border.width.outline',
+	borderWidth: 'border.width.selected',
 });
 
 const baseDisplayStyles = xcss({

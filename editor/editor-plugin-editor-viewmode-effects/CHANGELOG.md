@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-editor-viewmode-effects
 
+## 5.0.0
+
+### Patch Changes
+
+- [`4d53fe53c6ccc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d53fe53c6ccc) -
+  Gated change to disable document changes while in view mode
+- Updated dependencies
+
 ## 4.0.0
 
 ### Patch Changes

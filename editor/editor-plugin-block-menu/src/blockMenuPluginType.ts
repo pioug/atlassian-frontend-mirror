@@ -27,11 +27,6 @@ export type BlockMenuPlugin = NextEditorPlugin<
 			OptionalPlugin<DecorationsPlugin>,
 		];
 		pluginConfiguration?: BlockMenuPluginOptions;
-		sharedState:
-			| {
-					isFormatMenuHidden?: boolean;
-			  }
-			| undefined;
 	}
 >;
 

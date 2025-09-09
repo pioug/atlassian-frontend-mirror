@@ -1,5 +1,18 @@
 # @atlaskit/teams-public
 
+## 0.56.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.56.6
+
+### Patch Changes
+
+- [`5d0b8ba5e6f7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d0b8ba5e6f7f) -
+  Internal changes to how borders are applied.
+
 ## 0.56.5
 
 ### Patch Changes

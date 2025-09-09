@@ -64,7 +64,7 @@ const grabAreaCollapsedStyles = css({
 
 const lineStyles = css({
 	display: 'block',
-	width: token('border.width.outline', '2px'),
+	width: '2px',
 	height: '100%',
 	backgroundColor: 'var(--ds-line)',
 	transition: 'background-color 200ms',

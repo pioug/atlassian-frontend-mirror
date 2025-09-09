@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 const styles = cssMap({
 	customStylesContainer: {
 		width: '200px',
-		borderWidth: token('border.width.indicator'),
+		borderWidth: token('border.width.selected'),
 		borderColor: token('color.border.accent.magenta'),
 		borderStyle: 'solid',
 	},

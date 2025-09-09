@@ -9,13 +9,13 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	button: {
-		paddingTop: token('space.0'),
-		paddingRight: token('space.0'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.0'),
+		paddingBlockStart: token('space.0'),
+		paddingInlineEnd: token('space.0'),
+		paddingBlockEnd: token('space.0'),
+		paddingInlineStart: token('space.0'),
 		color: token('color.text.inverse'),
 		borderRadius: token('radius.full'),
-		borderWidth: token('border.width.outline'),
+		borderWidth: token('border.width.selected'),
 		borderColor: token('color.border.bold'),
 		borderStyle: 'solid',
 		backgroundColor: token('color.background.neutral.bold'),

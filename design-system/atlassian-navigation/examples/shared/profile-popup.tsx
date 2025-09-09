@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Profile } from '@atlaskit/atlassian-navigation';
 import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
+import { token } from '@atlaskit/tokens';
 
 const onClick = (...args: any[]) => {
 	console.log('profile click', ...args);
@@ -38,7 +39,7 @@ const ProfileContent = () => (
 );
 
 const imgCSS = {
-	borderRadius: '100%',
+	borderRadius: token('radius.full'),
 	height: 24,
 	width: 24,
 };

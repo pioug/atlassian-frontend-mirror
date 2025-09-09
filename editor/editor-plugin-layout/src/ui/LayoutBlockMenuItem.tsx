@@ -46,6 +46,6 @@ const LayoutBlockMenuItem = ({ api }: Props) => {
 	);
 };
 
-export const createLayoutBlockMenuItem = (api: ExtractInjectionAPI<LayoutPlugin>) => {
+export const createLayoutBlockMenuItem = (api: ExtractInjectionAPI<LayoutPlugin> | undefined) => {
 	return () => <LayoutBlockMenuItem api={api} />;
 };

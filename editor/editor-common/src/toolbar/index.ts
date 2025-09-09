@@ -172,6 +172,7 @@ export {
 	OVERFLOW_GROUP_PRIMARY_TOOLBAR,
 	OVERFLOW_MENU_PRIMARY_TOOLBAR,
 	SELECTION_EXTENSION_MENU_SECTION,
+	DEFINE_MENU_ITEM,
 } from './keys';
 
 export { useEditorToolbar, EditorToolbarProvider, type EditorToolbarContextType } from './context';

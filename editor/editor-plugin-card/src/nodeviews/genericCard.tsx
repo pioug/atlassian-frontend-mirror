@@ -8,8 +8,6 @@ import type { OnClickCallback } from '@atlaskit/editor-common/card';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	type NamedPluginStatesFromInjectionAPI,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory, Providers } from '@atlaskit/editor-common/provider-factory';
@@ -72,29 +70,6 @@ export interface SmartCardProps extends CardProps {
 	provider?: Providers['cardProvider'];
 }
 
-const selector = (
-	states: NamedPluginStatesFromInjectionAPI<
-		ExtractInjectionAPI<typeof cardPlugin>,
-		'editorViewMode'
-	>,
-) => {
-	return {
-		mode: states.editorViewModeState?.mode,
-	};
-};
-
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(pluginInjectionApi, ['editorViewMode'], selector);
-	},
-	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode']);
-		return {
-			mode: editorViewModeState?.mode,
-		};
-	},
-);
-
 const WithClickHandler = ({
 	pluginInjectionApi,
 	url,
@@ -108,7 +83,20 @@ const WithClickHandler = ({
 	pluginInjectionApi: ExtractInjectionAPI<CardPlugin> | undefined;
 	url?: string;
 }) => {
-	const { mode } = useSharedState(pluginInjectionApi);
+	const { mode } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['editorViewMode'],
+		(
+			states: NamedPluginStatesFromInjectionAPI<
+				ExtractInjectionAPI<typeof cardPlugin>,
+				'editorViewMode'
+			>,
+		) => {
+			return {
+				mode: states.editorViewModeState?.mode,
+			};
+		},
+	);
 	const onClick = useCallback(
 		(event: React.MouseEvent<HTMLAnchorElement>) => {
 			if (typeof onClickCallback === 'function') {

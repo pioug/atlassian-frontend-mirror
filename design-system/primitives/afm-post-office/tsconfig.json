@@ -38,9 +38,6 @@
 			"path": "../../../observability/interaction-context/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-post-office/tsconfig.json"
 		},
 		{

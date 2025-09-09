@@ -81,7 +81,12 @@ export const createPlugin = () => {
 					return;
 				}
 
-				if (transaction.getMeta('uiEvent') === 'cut') {
+				if (
+					transaction.getMeta('uiEvent') === 'cut' ||
+					// We skip remote transactions as we don't want to affect transactions created
+					// by other users
+					Boolean(transaction.getMeta('isRemote'))
+				) {
 					return;
 				}
 				// Ignore local ID updates for certain transactions

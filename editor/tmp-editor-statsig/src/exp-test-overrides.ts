@@ -66,7 +66,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_tables_table_selector: false,
 	platform_renderer_fix_analytics_memo_callback: false,
 	platform_editor_stop_width_reflows: false,
-	platform_editor_core_static_emotion: false,
 	platform_editor_core_static_emotion_non_central: false,
 	platform_editor_no_cursor_on_edit_page_init: false,
 	'jira-work-sync-desc-comment-summary': false,

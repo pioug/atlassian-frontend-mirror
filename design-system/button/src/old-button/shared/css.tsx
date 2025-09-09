@@ -2,10 +2,6 @@
 import { css, type CSSObject } from '@emotion/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import {
-	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-	gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
 import { type ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
@@ -13,7 +9,7 @@ import { type Appearance, type Spacing } from '../types';
 
 import colors, { type ColorGroup, type ColorRule } from './colors';
 
-const gridSize: number = getGridSize();
+const gridSize: number = 8;
 const HAS_DISABLED_BACKGROUND = ['default', 'primary', 'danger', 'warning'];
 
 // ## Button layout

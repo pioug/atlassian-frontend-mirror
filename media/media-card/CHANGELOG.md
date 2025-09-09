@@ -1,5 +1,27 @@
 # @atlaskit/media-card
 
+## 79.5.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 79.5.9
+
+### Patch Changes
+
+- [`5d0b8ba5e6f7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d0b8ba5e6f7f) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
+## 79.5.8
+
+### Patch Changes
+
+- [`20056074447a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20056074447a2) -
+  Switch to more semantically accurate label prop in internal radio and radio group instances.
+- Updated dependencies
+
 ## 79.5.7
 
 ### Patch Changes

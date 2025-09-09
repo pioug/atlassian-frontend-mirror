@@ -54,6 +54,9 @@
 		},
 		{
 			"path": "../../design-system/textarea/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	]
 }

@@ -22,7 +22,7 @@ import { Toolbar } from './Toolbar';
 import { toolbarSizeToWidth, widthToToolbarSize } from './toolbar-size';
 import type { ToolbarWithSizeDetectorProps } from './toolbar-types';
 
-// Remove when platform_editor_core_static_emotion is cleaned up
+// Remove when platform_editor_core_static_emotion_non_central is cleaned up
 const toolbar = css({
 	width: '100%',
 	position: 'relative',
@@ -35,7 +35,7 @@ const toolbar = css({
 	},
 });
 
-// Rename to toolbar when platform_editor_core_static_emotion is cleaned up
+// Rename to toolbar when platform_editor_core_static_emotion_non_central is cleaned up
 const staticToolbar = css({
 	width: '100%',
 	position: 'relative',

@@ -16,6 +16,7 @@ import type {
 	AdfNode,
 } from '@atlaskit/editor-performance-metrics/src/page-complexity-score/types';
 import TextArea from '@atlaskit/textarea';
+import { token } from '@atlaskit/tokens';
 
 import bigDocumentADF from './big-document.json';
 
@@ -54,7 +55,7 @@ const inputStyle = css({
 	borderRadius: '4px',
 	borderColor: '#ccc',
 	borderStyle: 'solid',
-	borderWidth: '1px',
+	borderWidth: token('border.width'),
 	fontFamily: 'monospace',
 });
 
@@ -69,7 +70,7 @@ const pathItemStyle = css({
 	borderRadius: '4px',
 	borderColor: '#e9ecef',
 	borderStyle: 'solid',
-	borderWidth: '1px',
+	borderWidth: token('border.width'),
 });
 
 const weightStyle = css({
@@ -142,7 +143,7 @@ const executionHistoryStyle = css({
 	borderRadius: '4px',
 	borderColor: '#e9ecef',
 	borderStyle: 'solid',
-	borderWidth: '1px',
+	borderWidth: token('border.width'),
 });
 
 const executionHistoryItemStyle = css({

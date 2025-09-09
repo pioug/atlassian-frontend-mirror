@@ -13,7 +13,7 @@ const containerStyles = xcss({
 	boxSizing: 'border-box',
 	borderColor: 'color.border.accent.orange',
 	borderStyle: 'solid',
-	borderWidth: 'border.width.indicator',
+	borderWidth: 'border.width.selected',
 	margin: 'auto',
 	marginTop: 'space.100',
 	backgroundColor: 'color.background.accent.green.subtler',

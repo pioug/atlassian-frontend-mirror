@@ -127,7 +127,7 @@ const focusRingStyles = css({
 		outlineOffset: positiveSpaceMap['space.025'],
 		outlineStyle: 'solid',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		outlineWidth: borderWidthMap['border.width.outline'],
+		outlineWidth: borderWidthMap['border.width.focused'],
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:focus:not(:focus-visible)': {

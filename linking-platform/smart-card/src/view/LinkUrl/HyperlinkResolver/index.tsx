@@ -10,14 +10,19 @@ export interface HyperlinkResolverProps {
 	href: string;
 }
 
-export const isSharePointDomain = (href: string): boolean => {
+const isSharePointDomain = (href: string): boolean => {
 	try {
 		const hostname = new URL(href).hostname.toLowerCase();
-		return (
-			hostname.includes('sharepoint.com') ||
-			hostname.includes('onedrive.com') ||
-			hostname.includes('.live.com')
-		);
+		return hostname.includes('sharepoint.com') || hostname.includes('onedrive.live.com');
+	} catch {
+		return false;
+	}
+};
+
+const isGoogleDomain = (href: string): boolean => {
+	try {
+		const hostname = new URL(href).hostname.toLowerCase();
+		return hostname.includes('docs.google.com') || hostname.includes('drive.google.com');
 	} catch {
 		return false;
 	}
@@ -25,7 +30,7 @@ export const isSharePointDomain = (href: string): boolean => {
 
 const HyperlinkResolver = ({ href }: HyperlinkResolverProps) => {
 	const hasSmartCardProvider = !!useContext(SmartCardContext);
-	const isHyperlinkResolveExperimentEnabled =
+	const isSharePointResolveEnabled =
 		FeatureGates.getExperimentValue(
 			'platform_editor_resolve_hyperlinks_confluence',
 			'isEnabled',
@@ -33,7 +38,18 @@ const HyperlinkResolver = ({ href }: HyperlinkResolverProps) => {
 		) ||
 		FeatureGates.getExperimentValue('platform_editor_resolve_hyperlinks_jira', 'isEnabled', false);
 
-	if (!isSharePointDomain(href) || !hasSmartCardProvider || !isHyperlinkResolveExperimentEnabled) {
+	const isGoogleResolveEnabled = FeatureGates.getExperimentValue(
+		'platform_editor_resolve_google_hyperlinks',
+		'isEnabled',
+		false,
+	);
+
+	const shouldResolveSharePoint = isSharePointDomain(href) && isSharePointResolveEnabled;
+	const shouldResolveGoogle = isGoogleDomain(href) && isGoogleResolveEnabled;
+	const shouldResolveHyperlink =
+		hasSmartCardProvider && (shouldResolveSharePoint || shouldResolveGoogle);
+
+	if (!shouldResolveHyperlink) {
 		return null;
 	}
 

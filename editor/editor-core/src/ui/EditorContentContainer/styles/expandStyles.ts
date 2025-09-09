@@ -12,7 +12,7 @@ export const expandStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-expand': {
 		// sharedExpandStyles.containerStyles({ expanded: false, focused: false })(),
-		borderWidth: '1px',
+		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: 'transparent',
 		borderRadius: token('radius.small', '4px'),

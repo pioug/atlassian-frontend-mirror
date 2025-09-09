@@ -1,5 +1,18 @@
 # @atlaskit/form
 
+## 12.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.5.2
+
+### Patch Changes
+
+- [`020fb99d98aff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/020fb99d98aff) -
+  Simplified screenreader logic for message components when MessageWrapper is present
+
 ## 12.5.1
 
 ### Patch Changes

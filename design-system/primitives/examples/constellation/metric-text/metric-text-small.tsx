@@ -11,13 +11,13 @@ const styles = cssMap({
 	},
 	statsCard: {
 		backgroundColor: token('elevation.surface'),
-		borderWidth: token('border.width.outline'),
+		borderWidth: token('border.width.selected'),
 		borderColor: token('color.border'),
 		borderStyle: 'solid',
-		paddingTop: token('space.150'),
-		paddingRight: token('space.150'),
-		paddingBottom: token('space.150'),
-		paddingLeft: token('space.150'),
+		paddingBlockStart: token('space.150'),
+		paddingInlineEnd: token('space.150'),
+		paddingBlockEnd: token('space.150'),
+		paddingInlineStart: token('space.150'),
 		borderRadius: token('radius.small'),
 	},
 });

@@ -38,14 +38,14 @@ const codeBlockButtonsStyle = css({
 		height: '32px',
 		width: '32px',
 		border: `2px solid ${token('color.border', N0)}`,
-		borderRadius: '4px',
+		borderRadius: token('radius.small'),
 		marginLeft: token('space.050', '4px'),
 		padding: token('space.025', '2px'),
 		background: `${token('elevation.surface.overlay', N20)}`,
 		color: `${token('color.icon', 'rgb(66, 82, 110)')}`,
 
 		'&:hover': {
-			borderWidth: '2px',
+			borderWidth: token('border.width.selected'),
 			backgroundColor: `${token('elevation.surface.overlay.hovered', N30)}`,
 			height: '32px',
 			width: '32px',
@@ -53,7 +53,7 @@ const codeBlockButtonsStyle = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&.clicked': {
 			backgroundColor: `${token('color.background.neutral.bold.pressed', N700)}`,
-			borderRadius: '4px',
+			borderRadius: token('radius.small'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 			color: `${token('color.icon.inverse', N0)} !important`,
 		},

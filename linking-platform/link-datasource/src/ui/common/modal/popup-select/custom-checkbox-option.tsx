@@ -17,7 +17,7 @@ const checkboxStyles = css({
 	paddingBlockEnd: token('space.050'),
 	paddingInlineStart: token('space.200'),
 	paddingInlineEnd: token('space.200'),
-	borderWidth: '2px',
+	borderWidth: token('border.width.selected'),
 	borderStyle: 'solid',
 	borderColor: 'transparent',
 	'&:hover': {

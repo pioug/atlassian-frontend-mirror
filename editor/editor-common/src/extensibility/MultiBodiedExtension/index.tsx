@@ -16,11 +16,7 @@ import EditorFileIcon from '@atlaskit/icon/core/migration/file--editor-file';
 
 import type { EventDispatcher } from '../../event-dispatcher';
 import type { MultiBodiedExtensionActions } from '../../extensions';
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '../../hooks';
+import { useSharedPluginStateWithSelector } from '../../hooks';
 import type { EditorAppearance, EditorContainerWidth } from '../../types';
 import type { OverflowShadowProps } from '../../ui';
 import {
@@ -333,36 +329,24 @@ const MultiBodiedExtensionWithWidth = ({
 	);
 };
 
-const useMultiBodyExtensionSharedPluginState = sharedPluginStateHookMigratorFactory<
-	{ widthState: { lineLength?: number; width: number } | undefined },
-	ExtensionsPluginInjectionAPI
->(
-	(pluginInjectionApi) => {
-		const { width, lineLength } = useSharedPluginStateWithSelector(
-			pluginInjectionApi,
-			['width'],
-			(states) => ({
-				width: states.widthState?.width,
-				lineLength: states.widthState?.lineLength,
-			}),
-		);
-
-		return {
-			widthState: width === undefined ? undefined : { width, lineLength },
-		};
-	},
-	(pluginInjectionApi) => {
-		const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
-		return { widthState };
-	},
-);
-
 const MultiBodiedExtension = (props: Props & OverflowShadowProps) => {
 	const { pluginInjectionApi } = props;
-	const { widthState } = useMultiBodyExtensionSharedPluginState(pluginInjectionApi);
+	const { width, lineLength } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['width'],
+		(states) => ({
+			width: states.widthState?.width,
+			lineLength: states.widthState?.lineLength,
+		}),
+	);
 	// Ignored via go/ees005
-	// eslint-disable-next-line react/jsx-props-no-spreading
-	return <MultiBodiedExtensionWithWidth widthState={widthState} {...props} />;
+	return (
+		<MultiBodiedExtensionWithWidth
+			widthState={width === undefined ? undefined : { width, lineLength }}
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+		/>
+	);
 };
 
 export default MultiBodiedExtension;

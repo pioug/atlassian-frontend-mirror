@@ -185,7 +185,7 @@ const ControlOption = <Option, IsMulti extends boolean = false>(
 };
 
 const NewCheckboxIcon = (props: IconProps) => (
-	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-custom-icons
 	<PrimitiveSVGIcon {...props}>
 		<g fillRule="evenodd">
 			<rect x="5.5" y="5.5" width="13" height="13" rx="1.5" fill="currentColor" />
@@ -200,7 +200,7 @@ const NewCheckboxIcon = (props: IconProps) => (
 );
 
 const NewRadioIcon = (props: IconProps) => (
-	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-custom-icons
 	<PrimitiveSVGIcon {...props}>
 		<g fillRule="evenodd">
 			<circle cx="12" cy="12" r="6.75" fill="currentColor" strokeWidth="1.5" />

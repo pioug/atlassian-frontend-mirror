@@ -6,7 +6,7 @@ import { Box, Grid, xcss } from '@atlaskit/primitives';
 const customBorderStyles = xcss({
 	borderColor: 'color.border',
 	borderStyle: 'dashed',
-	borderWidth: 'border.width.outline',
+	borderWidth: 'border.width.selected',
 	borderRadius: 'radius.small',
 });
 

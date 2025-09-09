@@ -67,9 +67,9 @@ const dialogStyles = cssMap({
 		'&:focus-visible': {
 			outlineColor: token('color.border.focused'),
 			// @ts-expect-error
-			outlineOffset: token('border.width.outline'),
+			outlineOffset: token('border.width.focused'),
 			outlineStyle: 'solid',
-			outlineWidth: token('border.width.outline'),
+			outlineWidth: token('border.width.focused'),
 		},
 
 		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {

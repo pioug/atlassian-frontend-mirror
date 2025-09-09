@@ -56,6 +56,9 @@
 			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../tmp-editor-statsig/afm-passionfruit/tsconfig.json"
 		},
 		{

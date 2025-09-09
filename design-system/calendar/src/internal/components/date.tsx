@@ -71,7 +71,7 @@ const dateCellStyles = css({
 	borderColor: 'transparent',
 	borderRadius: 3,
 	borderStyle: 'solid',
-	borderWidth: '2px',
+	borderWidth: token('border.width.selected'),
 	color: token('color.text', N900),
 	cursor: 'pointer',
 	font: token('font.body'),
@@ -85,7 +85,7 @@ const dateCellStyles = css({
 	'&:focus-visible': {
 		borderColor: token('color.border.focused', B200),
 		borderStyle: 'solid',
-		borderWidth: '2px',
+		borderWidth: token('border.width.focused'),
 	},
 	'&:hover': {
 		backgroundColor: token('color.background.neutral.subtle.hovered', N30),

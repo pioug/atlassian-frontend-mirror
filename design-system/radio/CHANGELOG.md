@@ -1,5 +1,20 @@
 # @atlaskit/radio
 
+## 8.3.5
+
+### Patch Changes
+
+- [`f0662cd7a143e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0662cd7a143e) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
+## 8.3.4
+
+### Patch Changes
+
+- [`20056074447a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20056074447a2) -
+  Switch to more semantically accurate label prop in internal radio and radio group instances.
+
 ## 8.3.3
 
 ### Patch Changes

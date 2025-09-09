@@ -10,7 +10,7 @@ import { VariableSizeList as List } from 'react-window';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import Heading from '@atlaskit/heading';
-import SearchIcon from '@atlaskit/icon/glyph/search';
+import SearchIcon from '@atlaskit/icon/core/search';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
@@ -53,7 +53,7 @@ const styles = cssMap({
 		paddingInline: token('space.100'),
 	},
 	searchIcon: {
-		paddingInline: token('space.100'),
+		paddingInlineStart: token('space.100'),
 	},
 	resultsCustomContainer: {
 		overflow: 'auto',

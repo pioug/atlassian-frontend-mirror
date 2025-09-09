@@ -16,11 +16,11 @@ const dragZoneStyles = css({
 	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: token('space.200', '15px'),
 	position: 'relative',
-	borderRadius: '100%',
+	borderRadius: token('radius.full'),
 	transition: 'background-color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1)',
 	'&::after': {
 		content: "''",
-		borderRadius: '100%',
+		borderRadius: token('radius.full'),
 		position: 'absolute',
 		top: 0,
 		left: 0,
@@ -53,7 +53,7 @@ const droppingAnimation = css({
 
 const border = css({
 	'&::after': {
-		borderWidth: '2px',
+		borderWidth: token('border.width.selected'),
 		borderStyle: 'dashed',
 		borderColor: token('color.border', '#d0d6d0'),
 	},

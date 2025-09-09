@@ -18,7 +18,7 @@ const headerStyles = css({
 	position: 'relative',
 	alignItems: 'center',
 	justifyContent: 'space-between',
-	marginBlockEnd: `calc(-1 * ${token('border.width.outline')})`,
+	marginBlockEnd: token('space.negative.025'),
 	paddingBlockEnd: token('space.200'),
 	paddingBlockStart: token('space.300'),
 	paddingInline: token('space.300'),

@@ -24,41 +24,42 @@ const styles = cssMap({
 		display: 'flex',
 		flexDirection: 'column',
 		gap: token('space.200'),
+		boxShadow: token('elevation.shadow.overflow'),
 	},
 });
 
 const placementStyles = cssMap({
 	'top-start': {
-		bottom: token('space.075'),
-		right: token('space.negative.200'),
+		insetBlockEnd: token('space.075'),
+		insetInlineEnd: token('space.negative.200'),
 	},
 	'top-end': {
-		bottom: token('space.075'),
-		left: token('space.negative.200'),
+		insetBlockEnd: token('space.075'),
+		insetInlineStart: token('space.negative.200'),
 	},
 	'right-start': {
-		left: token('space.075'),
-		bottom: token('space.negative.200'),
+		insetInlineStart: token('space.075'),
+		insetBlockEnd: token('space.negative.200'),
 	},
 	'right-end': {
-		left: token('space.075'),
-		top: token('space.negative.200'),
+		insetInlineStart: token('space.075'),
+		insetBlockStart: token('space.negative.200'),
 	},
 	'bottom-start': {
-		top: token('space.075'),
-		right: token('space.negative.200'),
+		insetBlockStart: token('space.075'),
+		insetInlineEnd: token('space.negative.200'),
 	},
 	'bottom-end': {
-		top: token('space.075'),
-		left: token('space.negative.200'),
+		insetBlockStart: token('space.075'),
+		insetInlineStart: token('space.negative.200'),
 	},
 	'left-start': {
-		right: token('space.075'),
-		bottom: token('space.negative.200'),
+		insetInlineEnd: token('space.075'),
+		insetBlockEnd: token('space.negative.200'),
 	},
 	'left-end': {
-		right: token('space.075'),
-		top: token('space.negative.200'),
+		insetInlineEnd: token('space.075'),
+		insetBlockStart: token('space.negative.200'),
 	},
 });
 

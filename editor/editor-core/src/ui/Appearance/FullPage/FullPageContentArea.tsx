@@ -34,9 +34,7 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
-import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -48,7 +46,6 @@ import type { ContentComponents, ReactComponents } from '../../../types';
 // eslint-disable-next-line import/no-named-as-default
 import ClickAreaBlock from '../../Addon/ClickAreaBlock';
 import { contentComponentClickWrapper } from '../../Addon/ClickAreaBlock/contentComponentWrapper';
-import { createEditorContentStyle } from '../../ContentStyles';
 import { ContextPanel } from '../../ContextPanel';
 import EditorContentContainer from '../../EditorContentContainer/EditorContentContainer';
 import PluginSlot from '../../PluginSlot';
@@ -412,30 +409,6 @@ interface FullPageEditorContentAreaProps {
 export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
 export const EDITOR_CONTAINER = 'ak-editor-container';
 
-const scrollStyles = css(
-	{
-		flexGrow: 1,
-		height: '100%',
-		overflowY: 'scroll',
-		position: 'relative',
-		display: 'flex',
-		flexDirection: 'column',
-		scrollBehavior: 'smooth',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	scrollbarStyles,
-);
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const ScrollContainer = createEditorContentStyle(scrollStyles);
-ScrollContainer.displayName = 'ScrollContainer';
-
-const EditorContainer = componentWithCondition(
-	() => editorExperiment('platform_editor_core_static_emotion', true, { exposure: true }),
-	EditorContentContainer,
-	ScrollContainer,
-);
-
 const Content = React.forwardRef<
 	ScrollContainerRefs,
 	FullPageEditorContentAreaProps & WrappedComponentProps
@@ -500,7 +473,7 @@ const Content = React.forwardRef<
 				data-testid={EDITOR_CONTAINER}
 				data-editor-container={'true'}
 			>
-				<EditorContainer
+				<EditorContentContainer
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="fabric-editor-popup-scroll-parent"
 					featureFlags={props.featureFlags}
@@ -615,7 +588,7 @@ const Content = React.forwardRef<
 							</div>
 						</div>
 					</ClickAreaBlock>
-				</EditorContainer>
+				</EditorContentContainer>
 			</div>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={sidebarArea}>

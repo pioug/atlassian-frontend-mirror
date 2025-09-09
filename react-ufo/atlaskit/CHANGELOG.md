@@ -1,5 +1,17 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.6.0
+
+### Minor Changes
+
+- [`a5c2905c301d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5c2905c301d6) -
+  add tracking of minor interactions
+
+### Patch Changes
+
+- [`135fc7330f9f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/135fc7330f9f3) -
+  serialise TTVC v3 debug data rectangles
+
 ## 4.5.12
 
 ### Patch Changes

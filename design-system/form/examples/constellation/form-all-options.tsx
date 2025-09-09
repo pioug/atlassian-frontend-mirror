@@ -17,7 +17,7 @@ import Form, {
 	RangeField,
 	RequiredAsterisk,
 } from '@atlaskit/form';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import Range from '@atlaskit/range';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
@@ -148,8 +148,16 @@ const FormAllOptionsExample = () => (
 							</Field>
 						</Fieldset>
 
-						<Label htmlFor="toggle-default">Toggle label</Label>
-						<Toggle id="toggle-default" />
+						<CheckboxField name="toggle-default">
+							{({ fieldProps }) => (
+								<Flex alignItems="center">
+									<Box>
+										<Label htmlFor="toggle-default">Toggle label</Label>
+									</Box>
+									<Toggle {...fieldProps} id="toggle-default" value="test value" />
+								</Flex>
+							)}
+						</CheckboxField>
 					</FormSection>
 
 					<FormFooter>

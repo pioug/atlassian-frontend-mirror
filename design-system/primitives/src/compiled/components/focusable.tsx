@@ -19,9 +19,9 @@ import type { BasePrimitiveProps, StyleProp } from '../components/types';
 const focusRingStyles = css({
 	'&:focus-visible': {
 		outlineColor: token('color.border.focused', '#2684FF'),
-		outlineOffset: token('border.width.outline'),
+		outlineOffset: token('border.width.focused'),
 		outlineStyle: 'solid',
-		outlineWidth: token('border.width.outline'),
+		outlineWidth: token('border.width.focused'),
 	},
 	'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
 		'&:focus-visible': {
@@ -33,11 +33,11 @@ const focusRingStyles = css({
 
 const insetFocusRingStyles = css({
 	'&:focus-visible': {
-		outlineOffset: `calc(0px - ${token('border.width.outline')})`,
+		outlineOffset: `calc(0px - ${token('border.width.focused')})`,
 	},
 	'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
 		'&:focus-visible': {
-			outlineOffset: `calc(0px - ${token('border.width.outline')})`,
+			outlineOffset: `calc(0px - ${token('border.width.focused')})`,
 		},
 	},
 });

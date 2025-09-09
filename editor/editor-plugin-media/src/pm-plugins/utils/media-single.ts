@@ -29,7 +29,6 @@ import type {
 import { checkNodeDown, isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert as pmSafeInsert, removeSelectedNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -90,51 +89,32 @@ function insertNodesWithOptionalParagraph({
 	nodes: PMNode[];
 }): Command {
 	return function (state, dispatch) {
-		const { tr, schema } = state;
+		const { tr } = state;
 
-		const { paragraph } = schema.nodes;
 		const { inputMethod, fileExtension, newType, previousType } = analyticsAttributes;
 
 		let updatedTr = tr;
-		let openEnd = 0;
-		if (shouldAddParagraph(state) && !fg('platform_editor_axe_leading_paragraph_from_media')) {
-			nodes.push(paragraph.create());
-			openEnd = 1;
-		}
+		const openEnd = 0;
 
 		if (state.selection.empty) {
-			const insertFrom =
-				atTheBeginningOfBlock(state) && fg('platform_editor_axe_leading_paragraph_from_media')
-					? state.selection.$from.before()
-					: state.selection.from;
+			const insertFrom = atTheBeginningOfBlock(state)
+				? state.selection.$from.before()
+				: state.selection.from;
 
-			if (fg('platform_editor_axe_leading_paragraph_from_media')) {
-				if (fg('platform_editor_multi_images_overridden_upload_fix')) {
-					// the use of pmSafeInsert causes the node selection to media single node.
-					// It leads to discrepancy between the full-page and comment editor - not sure why :shrug:
-					// When multiple images are uploaded, the node selection is set to the previous node
-					// and got overridden by the next node inserted.
-					// It also causes the images position shifted when the images are uploaded.
-					// E.g the images are uploaded after a table, the images will be inserted inside the table.
-					// so we revert to use tr.insert instead. No extra paragraph is added.
-					updatedTr = updatedTr.insert(insertFrom, nodes);
-				} else {
-					const shouldInsertFrom = !isInsidePotentialEmptyParagraph(state);
-					updatedTr = atTheBeginningOfBlock(state)
-						? pmSafeInsert(nodes[0], shouldInsertFrom ? insertFrom : undefined, false)(updatedTr)
-						: updatedTr.insert(insertFrom, nodes);
-				}
+			if (fg('platform_editor_multi_images_overridden_upload_fix')) {
+				// the use of pmSafeInsert causes the node selection to media single node.
+				// It leads to discrepancy between the full-page and comment editor - not sure why :shrug:
+				// When multiple images are uploaded, the node selection is set to the previous node
+				// and got overridden by the next node inserted.
+				// It also causes the images position shifted when the images are uploaded.
+				// E.g the images are uploaded after a table, the images will be inserted inside the table.
+				// so we revert to use tr.insert instead. No extra paragraph is added.
+				updatedTr = updatedTr.insert(insertFrom, nodes);
 			} else {
-				updatedTr.insert(insertFrom, nodes);
-			}
-
-			const endPos =
-				state.selection.from +
-				nodes.reduce((totalSize, currNode) => totalSize + currNode.nodeSize, 0);
-			if (!fg('platform_editor_axe_leading_paragraph_from_media')) {
-				updatedTr.setSelection(
-					new TextSelection(updatedTr.doc.resolve(endPos), updatedTr.doc.resolve(endPos)),
-				);
+				const shouldInsertFrom = !isInsidePotentialEmptyParagraph(state);
+				updatedTr = atTheBeginningOfBlock(state)
+					? pmSafeInsert(nodes[0], shouldInsertFrom ? insertFrom : undefined, false)(updatedTr)
+					: updatedTr.insert(insertFrom, nodes);
 			}
 		} else {
 			updatedTr.replaceSelection(new Slice(Fragment.from(nodes), 0, openEnd));

@@ -47,7 +47,7 @@ export class Slider extends Component<SliderProps & WrappedComponentProps, {}> {
 				<Button
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="zoom_button zoom_button_small"
-					iconAfter={<ScaleSmallIcon label="scale-small-icon" />}
+					iconAfter={<ScaleSmallIcon label="scale-small-icon" size="small" spacing="spacious" />}
 					onClick={() => onChange(0)}
 					aria-label={formatMessage(messages.image_cropper_zoom_out)}
 				/>
@@ -59,7 +59,7 @@ export class Slider extends Component<SliderProps & WrappedComponentProps, {}> {
 				<Button
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="zoom_button zoom_button_large"
-					iconAfter={<ScaleLargeIcon label="scale-large-icon" />}
+					iconAfter={<ScaleLargeIcon label="scale-large-icon" spacing="spacious" />}
 					onClick={() => onChange(100)}
 					aria-label={formatMessage(messages.image_cropper_zoom_in)}
 				/>

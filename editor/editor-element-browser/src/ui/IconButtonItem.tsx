@@ -24,7 +24,7 @@ const largeButtonStyles = xcss({
 	width: `${WIDTH}`,
 
 	borderRadius: 'radius.small',
-	borderWidth: 'border.width.0',
+	borderWidth: '0',
 
 	font: 'font.body',
 	fontWeight: 'font.weight.medium',

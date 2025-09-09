@@ -148,7 +148,12 @@ export const aiMessages = defineMessages({
 		description:
 			'Title for an option in the Change Tone menu to use Atlassian Intellgience to change the tone of the content currently selected by the user to be more empathetic.',
 	},
-
+	DefineDropdownIconTitle: {
+		id: 'fabric.editor.ai.toolbar.DefineDropdownIconTitle.title',
+		defaultMessage: 'Define',
+		description:
+			'Title for an option to use Atlassian Intellgience for the Define Button to define the content currently selected by the user',
+	},
 	// Prebuilt messages
 	atlasGenerateContentConfigItemDescription: {
 		id: 'fabric.editor.ai.atlas-prebuilt.atlasGenerateContentConfigItemDescription',

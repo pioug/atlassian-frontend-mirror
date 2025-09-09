@@ -31,7 +31,7 @@ const basicStyles = css({
 	backgroundColor: token('color.background.neutral.bold', N200),
 	borderColor: 'transparent',
 	borderStyle: 'solid',
-	borderWidth: '2px',
+	borderWidth: token('border.width.selected'),
 	color: token('color.icon.inverse', N0),
 	marginBlockEnd: token('space.025'),
 	marginBlockStart: token('space.025'),
@@ -46,7 +46,7 @@ const basicStyles = css({
 	'&:has(:focus-visible)': {
 		borderColor: token('color.border.focused', B200),
 		borderStyle: 'solid',
-		borderWidth: '2px',
+		borderWidth: token('border.width.focused'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&[data-disabled]:not([data-checked])': {

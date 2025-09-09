@@ -61,9 +61,9 @@ const containerStyles = cssMap({
 		},
 	},
 	circle: {
-		borderRadius: token('border.radius.circle', '50%'),
+		borderRadius: token('radius.full', '50%'),
 		'&::after': {
-			borderRadius: token('border.radius.circle', '50%'),
+			borderRadius: token('radius.full', '50%'),
 		},
 	},
 	positionRelative: {

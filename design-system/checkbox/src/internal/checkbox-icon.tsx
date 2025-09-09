@@ -65,6 +65,7 @@ const CheckboxIcon = memo<{
 	const icon = useMemo(() => getIcon(isIndeterminate, isChecked), [isIndeterminate, isChecked]);
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-custom-icons
 		<PrimitiveSVGIcon
 			label=""
 			primaryColor="var(--checkbox-background-color)"

@@ -19,7 +19,6 @@ import { type RouterLinkComponentProps, useRouterLink } from '@atlaskit/app-prov
 import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
-import { fg } from '@atlaskit/platform-feature-flags';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import Focusable from './focusable';
@@ -185,11 +184,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 					? `${ariaLabelledBy} ${opensNewWindowLabelId}`
 					: ariaLabelledBy
 			}
-			xcss={cx(
-				styles.root,
-				fg('platform_design-system-team_anchor-positioning') ? styles.position : undefined,
-				xcss,
-			)}
+			xcss={cx(styles.root, styles.position, xcss)}
 			testId={testId}
 			data-is-router-link={testId ? (isRouterLink ? 'true' : 'false') : undefined}
 		>

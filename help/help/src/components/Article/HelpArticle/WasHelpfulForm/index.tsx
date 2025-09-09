@@ -254,7 +254,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 																{...fieldProps}
 																options={negativeFeedbackReason}
 																onChange={radioGroupReasonOnChange}
-																aria-labelledby="feedbackReason-label"
+																labelId="feedbackReason-label"
 															/>
 														)}
 													</Field>
@@ -272,7 +272,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 														<TextArea
 															{...fieldProps}
 															minimumRows={4}
-															aria-labelledby="articleFeedbackText"
+															labelId="articleFeedbackText"
 															maxLength={FEEDBACK_REASON_TEXT_MAX_LENGTH}
 															value={feedbackReasonText}
 															onChange={feedbackReasonTextOnChange}

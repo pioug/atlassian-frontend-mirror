@@ -48,6 +48,10 @@ export const isBlockNode = (node: PMNode): boolean => {
 	return ['paragraph', 'heading', 'codeBlock'].includes(node.type.name);
 };
 
+export const isHeadingOrParagraphNode = (node: PMNode): boolean => {
+	return ['paragraph', 'heading'].includes(node.type.name);
+};
+
 export const isListNode = (node: PMNode): boolean => {
 	return ['bulletList', 'orderedList', 'taskList'].includes(node.type.name);
 };
@@ -87,6 +91,10 @@ export const getSupportedListTypesSet = (nodes: Record<string, NodeType>): Set<N
 
 export const isLayoutNodeType = (nodeType: NodeType): boolean => {
 	return nodeType.name === 'layoutSection';
+};
+
+export const isLayoutNode = (node: PMNode): boolean => {
+	return node.type.name === 'layoutSection';
 };
 
 /**

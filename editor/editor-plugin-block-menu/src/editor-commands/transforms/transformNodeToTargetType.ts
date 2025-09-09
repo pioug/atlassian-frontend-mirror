@@ -3,7 +3,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { transformBlockNode } from './block-transforms';
 import { transformContainerNode, unwrapAndConvertToList } from './container-transforms';
-import { convertToLayout } from './layout-transforms';
+import { convertToLayout, transformLayoutNode } from './layout-transforms';
 import { transformListNode } from './list-transforms';
 import type { FormatNodeTargetType, TransformContext } from './types';
 import {
@@ -13,6 +13,7 @@ import {
 	isListNodeType,
 	isContainerNode,
 	isLayoutNodeType,
+	isLayoutNode,
 } from './utils';
 
 export function transformNodeToTargetType(
@@ -62,6 +63,9 @@ export function transformNodeToTargetType(
 		// special case codeblock to listType
 		if (sourceNode.type.name === 'codeBlock' && isListNodeType(targetNodeType)) {
 			return unwrapAndConvertToList(transformationContext);
+		}
+		if (isLayoutNode(sourceNode)) {
+			return transformLayoutNode(transformationContext);
 		}
 
 		if (isBlockNode(sourceNode)) {

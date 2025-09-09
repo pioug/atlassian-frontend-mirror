@@ -9,8 +9,8 @@ import { cssMap, jsx } from '@compiled/react';
 import debounce from 'lodash/debounce';
 
 import Button, { IconButton } from '@atlaskit/button/new';
-import AddIcon from '@atlaskit/icon/glyph/add';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import AddIcon from '@atlaskit/icon/core/add';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
@@ -32,7 +32,7 @@ const styles = cssMap({
 		flexShrink: '0',
 	},
 	input: {
-		border: `2px solid ${token('color.border')}`,
+		border: `1px solid ${token('color.border.input')}`,
 		backgroundColor: token('color.background.input'),
 		borderRadius: token('radius.small'),
 		height: '32px',
@@ -181,8 +181,6 @@ const TokenSelect = ({
 					placeholder="Choose a value"
 					inputId={`token-select-${selectedToken}`}
 					spacing={'compact'}
-					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-					css={styles.select}
 				/>
 				{currentBaseTokenValue.value === 'custom' && (
 					<Inline space="space.025" grow="hug">

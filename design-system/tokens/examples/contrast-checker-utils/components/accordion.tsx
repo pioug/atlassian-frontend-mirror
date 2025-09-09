@@ -7,7 +7,7 @@ import { Fragment, useState } from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
-import ChevronRightLargeIcon from '@atlaskit/icon/glyph/chevron-right-large';
+import ChevronRightLargeIcon from '@atlaskit/icon/core/chevron-right';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

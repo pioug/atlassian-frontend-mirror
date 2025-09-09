@@ -90,7 +90,7 @@ export default ColorCard;
 const sharedColorContainerStyles = css({
 	display: 'inline-block',
 	position: 'relative',
-	border: `${token('border.width.outline')} solid transparent`,
+	border: `${token('border.width.selected')} solid transparent`,
 	boxSizing: 'border-box',
 	borderRadius: token('radius.large', '6px'),
 	transition: 'border-color 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
@@ -146,7 +146,7 @@ const colorCardContentStyles = cssUnbounded({
 
 const colorCardContentStylesOutline = css({
 	borderRadius: token('radius.small', '3px'),
-	borderWidth: token('border.width.outline', '2px'),
+	borderWidth: token('border.width.selected', '2px'),
 	borderStyle: 'solid',
 });
 

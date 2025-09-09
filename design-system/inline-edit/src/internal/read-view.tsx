@@ -17,18 +17,18 @@ const readViewContainerStyles = css({
 const editButtonStyles = cssMap({
 	root: {
 		display: 'block',
-		marginTop: token('space.0'),
-		marginRight: token('space.0'),
-		marginBottom: token('space.0'),
-		marginLeft: token('space.0'),
-		paddingTop: token('space.0'),
-		paddingRight: token('space.0'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.0'),
+		marginBlockEnd: token('space.0'),
+		marginInlineStart: token('space.0'),
+		paddingBlockStart: token('space.0'),
+		paddingInlineEnd: token('space.0'),
+		paddingBlockEnd: token('space.0'),
+		paddingInlineStart: token('space.0'),
 		appearance: 'none',
 		backgroundColor: 'transparent',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		borderWidth: token('border.width.0') as 'var(--ds-border-width)',
+		borderWidth: '0',
 		borderStyle: 'none',
 		borderColor: 'transparent',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography
@@ -43,7 +43,7 @@ const editButtonStyles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&:focus + div': {
 			borderColor: token('color.border.focused'),
-			borderWidth: token('border.width.outline'),
+			borderWidth: token('border.width.focused'),
 			borderStyle: 'solid',
 		},
 	},
@@ -57,7 +57,7 @@ const readViewWrapperStyles = css({
 	borderColor: 'transparent',
 	borderRadius: token('radius.small', '3px'),
 	borderStyle: 'solid',
-	borderWidth: token('border.width.outline'),
+	borderWidth: token('border.width.selected'),
 	transition: 'background 0.2s',
 	'&:hover': {
 		backgroundColor: token('color.background.neutral.subtle.hovered', N30),

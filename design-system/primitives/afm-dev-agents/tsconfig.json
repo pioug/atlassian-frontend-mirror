@@ -38,9 +38,6 @@
 			"path": "../../../observability/interaction-context/afm-dev-agents/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-dev-agents/tsconfig.json"
 		},
 		{

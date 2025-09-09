@@ -10,6 +10,7 @@ import { token } from '@atlaskit/tokens';
  * with modifications
  */
 const AiIcon = (props: SVGProps) => (
+	// eslint-disable-next-line @atlaskit/design-system/no-custom-icons
 	<SVG {...props}>
 		{/* Safari has a nasty habit of occasionally not applying these gradients if they are defined after the path
         elements. So let's define them first. */}

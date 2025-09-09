@@ -12,7 +12,7 @@ const styles = cssMap({
 	customBorder: {
 		borderColor: token('color.border'),
 		borderStyle: 'dashed',
-		borderWidth: token('border.width.outline'),
+		borderWidth: token('border.width.selected'),
 		borderRadius: token('radius.small'),
 	},
 	columns: {

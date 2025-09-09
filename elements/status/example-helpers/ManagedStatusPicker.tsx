@@ -51,7 +51,7 @@ export default class ManagedStatusPicker extends React.Component<Props, State> {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					width: '225px',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					borderRadius: '4px',
+					borderRadius: token('radius.small'),
 					padding: `${token('space.150', '12px')} 0`, // Added 12px padding instead of 10px, since Design tokens supports 8 and 12 px only
 				}}
 			>

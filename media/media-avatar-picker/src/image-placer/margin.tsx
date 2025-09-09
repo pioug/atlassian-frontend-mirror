@@ -34,7 +34,7 @@ const marginWrapperCircleBaseStyles = css({
 const marginWrapperCircleAfterBaseStyles = css({
 	content: "''",
 	position: 'absolute',
-	borderRadius: '100%',
+	borderRadius: token('radius.full'),
 	opacity: token('opacity.disabled', '0.3'),
 });
 

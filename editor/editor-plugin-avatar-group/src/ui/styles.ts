@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const inviteTeamWrapperStyles: SerializedStyles = css({
 	background: token('color.background.neutral', N20),
-	borderRadius: '50%',
+	borderRadius: token('radius.full'),
 	minWidth: token('space.400', '32px'),
 	marginLeft: token('space.negative.050', '-4px'),
 });
@@ -25,7 +25,7 @@ export const avatarContainerStyles: SerializedStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'div:last-child button.invite-to-edit': {
-		borderRadius: '50%',
+		borderRadius: token('radius.full'),
 		height: '32px',
 		width: '32px',
 		padding: token('space.025', '2px'),

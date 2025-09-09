@@ -262,7 +262,7 @@ const styles = cssMap({
 	},
 	contentStyle: {
 		border: `solid 1px ${token('color.border')}`,
-		borderRadius: '4px',
+		borderRadius: token('radius.small'),
 		backgroundColor: token('elevation.surface.raised'),
 		flexGrow: 1,
 		overflow: 'hidden',

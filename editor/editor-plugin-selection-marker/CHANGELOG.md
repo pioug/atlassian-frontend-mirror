@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 5.0.1
+
+### Patch Changes
+
+- [`6e317c17582a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e317c17582a0) -
+  [EDITOR-1508] Add Define to old and new toolbar in edit mode for classic/live page
+- Updated dependencies
+
+## 5.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes

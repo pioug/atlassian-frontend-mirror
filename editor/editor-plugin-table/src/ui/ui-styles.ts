@@ -64,7 +64,7 @@ const Marker = () =>
 		height: `${lineMarkerSize}px`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${lineMarkerSize}px`,
-		borderRadius: '50%',
+		borderRadius: token('radius.full'),
 		pointerEvents: 'none',
 	});
 

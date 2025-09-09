@@ -36,10 +36,10 @@ const styles = cssMap({
 		},
 	},
 	topKeyline: {
-		borderBlockStart: `${token('border.width.outline')} solid ${keylineColor}`,
+		borderBlockStart: `${token('border.width.selected')} solid ${keylineColor}`,
 	},
 	bottomKeyline: {
-		borderBlockEnd: `${token('border.width.outline')} solid ${keylineColor}`,
+		borderBlockEnd: `${token('border.width.selected')} solid ${keylineColor}`,
 	},
 });
 

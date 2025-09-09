@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-scroll-into-view",
-	"version": "4.0.1",
+	"version": "5.0.0",
 	"description": "Scroll-into-view plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -1,8 +1,6 @@
-import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { useLayoutEffect, useMemo, useRef } from 'react';
 
 import debounce from 'lodash/debounce';
-
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type {
 	BasePluginDependenciesAPI,
@@ -163,24 +161,7 @@ function usePluginStateEffectInternal<P extends NamedPluginKeys>(
 	// We should store the latest effect in a reference so it is more intuitive to the user
 	// and we are not causing a memory leak by having references to old state.
 	useLayoutEffect(() => {
-		if (
-			options.disabled ||
-			!expValEquals('platform_editor_usesharedpluginstatewithselector', 'isEnabled', true)
-		) {
-			return;
-		}
-
-		latestEffect.current = debounce(effect);
-		return () => {
-			latestEffect.current = undefined;
-		};
-	}, [effect, options.disabled]);
-
-	useEffect(() => {
-		if (
-			options.disabled ||
-			expValEquals('platform_editor_usesharedpluginstatewithselector', 'isEnabled', true)
-		) {
+		if (options.disabled) {
 			return;
 		}
 

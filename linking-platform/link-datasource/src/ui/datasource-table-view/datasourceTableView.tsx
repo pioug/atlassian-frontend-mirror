@@ -21,6 +21,7 @@ import {
 	useDatasourceExperienceId,
 } from '../../contexts/datasource-experience-id';
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
+import { useDeepEffect } from '../../hooks/useDeepEffect';
 import i18nEN from '../../i18n/en';
 import { StoreContainer } from '../../state';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
@@ -88,12 +89,27 @@ const DatasourceTableViewWithoutAnalytics = ({
 
 	visibleColumnCount.current = visibleColumnKeys?.length || 0;
 
-	useEffect(() => {
-		if (!isInitialRender.current) {
-			reset();
-		}
-		isInitialRender.current = false;
-	}, [reset, parameters]);
+	if (fg('navx-1334-datasource-deep-compare-params')) {
+		// parameters is an object that we want to track, and when something inside it changes we want to
+		// call effect callback. Normal useEffect will not do deep comparison, but only reference one.
+		// This hook will do deep comparison making sure we don’t call reset() when only reference to an object
+		// has changed but not the content.
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		useDeepEffect(() => {
+			if (!isInitialRender.current) {
+				reset();
+			}
+			isInitialRender.current = false;
+		}, [reset, parameters]);
+	} else {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		useEffect(() => {
+			if (!isInitialRender.current) {
+				reset();
+			}
+			isInitialRender.current = false;
+		}, [reset, parameters]);
+	}
 
 	useEffect(() => {
 		if (

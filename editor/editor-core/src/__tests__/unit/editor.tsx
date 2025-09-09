@@ -139,7 +139,7 @@ describe(`Editor`, () => {
 
 				const editorElement = screen.getByTestId('chromeless-editor');
 
-				expect(editorElement).toHaveStyleRule('min-height', '250px');
+				expect(editorElement).toHaveStyle('min-height: 250px');
 			});
 
 			// Testing prop-types has some issues due to `loggedTypeFailures` preventing multiple errors of the same code being logged

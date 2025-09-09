@@ -1,5 +1,16 @@
 # @atlaskit/feedback-collector
 
+## 14.6.0
+
+### Minor Changes
+
+- [`49f87eed70de3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49f87eed70de3) -
+  Move the links out of the label for feedback collector checkbox
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.5.0
 
 ### Minor Changes

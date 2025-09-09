@@ -91,6 +91,11 @@ export const TRANSLATE_MENU_SECTION = {
 	type: 'menu-section',
 } as const;
 
+export const DEFINE_MENU_ITEM = {
+	key: 'define-menu-item',
+	type: 'menu-item',
+} as const;
+
 /**
  * Text section
  */

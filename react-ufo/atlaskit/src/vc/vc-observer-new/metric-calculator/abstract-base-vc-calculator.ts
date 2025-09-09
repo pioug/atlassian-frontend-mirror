@@ -5,6 +5,7 @@ import type {
 	RevisionPayloadVCDetails,
 	VCAbortReason,
 	VCIgnoreReason,
+	VCLabelStacks,
 	VCRatioType,
 } from '../../../common/vc/types';
 import type { VCRevisionDebugDetails } from '../../vc-observer/getVCRevisionDebugDetails';
@@ -83,6 +84,19 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		}
 
 		return ratios;
+	}
+
+	private getLabelStacks(filteredEntries: ReadonlyArray<VCObserverEntry>): VCLabelStacks {
+		const labelStacks: VCLabelStacks = {};
+		for (const entry of filteredEntries) {
+			if ('elementName' in entry.data && entry.data.labelStacks) {
+				labelStacks[entry.data.elementName] = {
+					segment: entry.data.labelStacks.segment,
+					labelStack: entry.data.labelStacks.labelStack,
+				};
+			}
+		}
+		return labelStacks;
 	}
 
 	private async calculateWithDebugInfo(
@@ -365,6 +379,11 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		};
 
 		result.ratios = this.calculateRatios(filteredEntries);
+
+		if (isPostInteraction) {
+			result.labelStacks = this.getLabelStacks(filteredEntries);
+		}
+
 		if (fg('platform_ufo_display_content_track_occurrence')) {
 			result.displayContentsOccurrence = cssIssueOccurrence;
 		}

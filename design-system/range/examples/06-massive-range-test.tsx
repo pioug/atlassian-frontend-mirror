@@ -10,6 +10,7 @@ import { css, jsx } from '@compiled/react';
 import { Label } from '@atlaskit/form';
 import { Text } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
+import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const containerStyles = css({
@@ -37,7 +38,7 @@ function MassiveRangeTest() {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					borderStyle: 'dashed',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					borderWidth: '1px',
+					borderWidth: token('border.width'),
 
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					borderColor: '#ccc',

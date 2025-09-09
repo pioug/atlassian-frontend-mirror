@@ -31,10 +31,10 @@ const styles = cssMap({
 		boxSizing: 'border-box',
 		width: '100%',
 		minHeight: 40,
-		marginTop: token('space.0', '0px'),
-		marginRight: token('space.0', '0px'),
-		marginBottom: token('space.0', '0px'),
-		marginLeft: token('space.0', '0px'),
+		marginBlockStart: token('space.0', '0px'),
+		marginInlineEnd: token('space.0', '0px'),
+		marginBlockEnd: token('space.0', '0px'),
+		marginInlineStart: token('space.0', '0px'),
 		alignItems: 'center',
 		border: 0,
 		outline: 0,
@@ -47,10 +47,10 @@ const styles = cssMap({
 		'&:focus, &:focus-visible': {
 			outlineColor: token('color.border.focused', '#2684FF'),
 			// @ts-ignore
-			outlineOffset: `calc(0px - ${token('border.width.outline')})`,
+			outlineOffset: `calc(0px - ${token('border.width.focused')})`,
 			outlineStyle: 'solid',
 			// @ts-ignore
-			outlineWidth: token('border.width.outline'),
+			outlineWidth: token('border.width.focused'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&:focus:not(:focus-visible)': {

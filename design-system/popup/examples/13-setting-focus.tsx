@@ -79,7 +79,7 @@ export default () => {
 				onChange={({ currentTarget: { value } }) => setButtonToFocus(value)}
 				defaultValue={radioValues[0].value}
 				options={radioValues}
-				aria-labelledby="radiogroup-label"
+				labelId="radiogroup-label"
 			/>
 			<Popup
 				shouldRenderToParent

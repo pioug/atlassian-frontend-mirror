@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-card
 
+## 9.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.0
+
+### Patch Changes
+
+- [`0d0fe7a300841`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d0fe7a300841) -
+  Cleanup platform_editor_usesharedpluginstatewithselector experiment
+
+  - BREAKING CHANGE: sharedPluginStateHookMigratorFactory is deleted from @atlaskit/editor-common
+
+- Updated dependencies
+
 ## 8.1.0
 
 ### Minor Changes

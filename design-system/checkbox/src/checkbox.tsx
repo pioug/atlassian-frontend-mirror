@@ -65,7 +65,7 @@ const checkboxStyles = cssMap({
 		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
 		'&&:focus + svg, &&:checked:focus + svg': {
 			borderRadius: token('radius.small', '0.25rem'),
-			outline: `${token('border.width.outline', '2px')} solid ${token('color.border.focused', '#2684FF')}`,
+			outline: `${token('border.width.focused', '2px')} solid ${token('color.border.focused', '#2684FF')}`,
 			outlineOffset: token('space.negative.025', '-2px'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

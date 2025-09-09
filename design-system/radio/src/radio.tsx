@@ -116,8 +116,9 @@ const radioStyles = css({
 		'--radio-background-color': token('color.background.input.pressed', N30),
 	},
 	'&:focus': {
-		outline: `${token('border.width.outline', '3px')} solid ${token('color.border.focused', B200)}`,
-		outlineOffset: token('border.width.indicator', '3px'),
+		outline: `${token('border.width.focused', '3px')} solid ${token('color.border.focused', B200)}`,
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		outlineOffset: '3px',
 	},
 
 	'&:checked': {
@@ -135,8 +136,9 @@ const radioStyles = css({
 		'--radio-dot-color': token('color.icon.inverse', B400),
 	},
 	'&:checked:focus': {
-		outline: `${token('border.width.outline', '3px')} solid ${token('color.border.focused', B200)}`,
-		outlineOffset: token('border.width.indicator', '3px'),
+		outline: `${token('border.width.focused', '3px')} solid ${token('color.border.focused', B200)}`,
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		outlineOffset: '3px',
 	},
 
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

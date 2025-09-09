@@ -44,7 +44,7 @@ const styles = cssMap({
 		width: '100%',
 		color: token('color.text'),
 		'&:focus': {
-			outlineWidth: token('border.width.outline'),
+			outlineWidth: token('border.width.focused'),
 			outlineColor: token('color.border.focused'),
 			outlineStyle: 'solid',
 			outlineOffset: token('space.025'),

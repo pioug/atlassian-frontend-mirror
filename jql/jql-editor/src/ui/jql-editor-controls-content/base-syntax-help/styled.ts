@@ -9,7 +9,7 @@ export const SyntaxHelpContainer = styled.div({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> a': {
 		background: token('color.background.neutral.bold', N70),
-		borderRadius: '100%',
+		borderRadius: token('radius.full'),
 		margin: token('space.050', '4px'),
 		'&:hover': {
 			background: token('color.background.neutral.bold.hovered', N500),

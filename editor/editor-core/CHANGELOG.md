@@ -1,5 +1,51 @@
 # @atlaskit/editor-core
 
+## 212.1.0
+
+### Minor Changes
+
+- [`4edb2aee0da9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4edb2aee0da9c) -
+  Add conditionalHooksFactory and migrate usage of useSharedPluginStateSelector to useEditorToolbar
+  and useSharedPluginStateWithSelector
+
+### Patch Changes
+
+- [`c0656bad0f992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0656bad0f992) -
+  EDITOR-1389 fix table container width behind platform_editor_table_container_width_fix
+- [`f0662cd7a143e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0662cd7a143e) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
+## 212.0.1
+
+### Patch Changes
+
+- [`88eddbfa8aadd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88eddbfa8aadd) -
+  clean up FF of static emotion for editor
+- Updated dependencies
+
+## 212.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 211.2.11
+
+### Patch Changes
+
+- [`8c22cc3a06ba9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c22cc3a06ba9) -
+  FD-85117 clean up fg platform_editor_axe_leading_paragraph_from_media
+- Updated dependencies
+
+## 211.2.10
+
+### Patch Changes
+
+- [`20056074447a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20056074447a2) -
+  Switch to more semantically accurate label prop in internal radio and radio group instances.
+- Updated dependencies
+
 ## 211.2.9
 
 ### Patch Changes

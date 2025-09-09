@@ -16,7 +16,7 @@ import type { ColorProps } from './types';
 const buttonWrapperStyles = css({
 	borderColor: 'transparent',
 	borderStyle: 'solid',
-	borderWidth: '1px',
+	borderWidth: token('border.width'),
 	display: 'flex',
 	alignItems: 'center',
 	paddingTop: token('space.025', '2px'),

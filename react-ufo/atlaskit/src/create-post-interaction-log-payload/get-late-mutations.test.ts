@@ -1,7 +1,12 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { LastInteractionFinishInfo } from '../common';
-import type { RevisionPayloadVCDetails } from '../common/vc/types';
+import type { RevisionPayloadVCDetails, VCLabelStacks } from '../common/vc/types';
 
 import getLateMutations from './get-late-mutations';
+
+jest.mock('@atlaskit/platform-feature-flags');
+const mockFg = fg as unknown as jest.Mock;
 
 describe('getLateMutations', () => {
 	const mockLastInteractionFinish: LastInteractionFinishInfo = {
@@ -28,7 +33,7 @@ describe('getLateMutations', () => {
 			},
 		};
 
-		const result = getLateMutations(vcDetails, mockLastInteractionFinish, mockVCRatios);
+		const result = getLateMutations(vcDetails, undefined, mockLastInteractionFinish, mockVCRatios);
 		expect(result).toEqual([]);
 	});
 
@@ -61,7 +66,7 @@ describe('getLateMutations', () => {
 			},
 		];
 
-		const result = getLateMutations(vcDetails, mockLastInteractionFinish, mockVCRatios);
+		const result = getLateMutations(vcDetails, undefined, mockLastInteractionFinish, mockVCRatios);
 		expect(result).toEqual(expected);
 	});
 
@@ -81,7 +86,7 @@ describe('getLateMutations', () => {
 			},
 		];
 
-		const result = getLateMutations(vcDetails, mockLastInteractionFinish, mockVCRatios);
+		const result = getLateMutations(vcDetails, undefined, mockLastInteractionFinish, mockVCRatios);
 		expect(result).toEqual(expected);
 	});
 
@@ -106,7 +111,7 @@ describe('getLateMutations', () => {
 			},
 		];
 
-		const result = getLateMutations(vcDetails, mockLastInteractionFinish, mockVCRatios);
+		const result = getLateMutations(vcDetails, undefined, mockLastInteractionFinish, mockVCRatios);
 		expect(result).toEqual(expected);
 	});
 
@@ -118,7 +123,7 @@ describe('getLateMutations', () => {
 			},
 		};
 
-		const result = getLateMutations(vcDetails, mockLastInteractionFinish, mockVCRatios);
+		const result = getLateMutations(vcDetails, undefined, mockLastInteractionFinish, mockVCRatios);
 		expect(result).toEqual([]);
 	});
 
@@ -139,7 +144,7 @@ describe('getLateMutations', () => {
 			},
 		];
 
-		const result = getLateMutations(vcDetails, mockLastInteractionFinish, mockVCRatios);
+		const result = getLateMutations(vcDetails, undefined, mockLastInteractionFinish, mockVCRatios);
 		expect(result).toEqual(expected);
 	});
 
@@ -151,7 +156,12 @@ describe('getLateMutations', () => {
 			},
 		};
 
-		const result = getLateMutations(vcDetails, mockLastInteractionFinish, mockVCRatios);
+		const result = getLateMutations(
+			vcDetails,
+			undefined as any,
+			mockLastInteractionFinish,
+			mockVCRatios,
+		);
 		expect(result).toEqual([]);
 	});
 
@@ -163,7 +173,12 @@ describe('getLateMutations', () => {
 			},
 		};
 
-		const result = getLateMutations(vcDetails, mockLastInteractionFinish, mockVCRatios);
+		const result = getLateMutations(
+			vcDetails,
+			undefined as any,
+			mockLastInteractionFinish,
+			mockVCRatios,
+		);
 		expect(result).toEqual([]);
 	});
 
@@ -188,7 +203,7 @@ describe('getLateMutations', () => {
 			},
 		];
 
-		const result = getLateMutations(vcDetails, mockLastInteractionFinish, mockVCRatios);
+		const result = getLateMutations(vcDetails, undefined, mockLastInteractionFinish, mockVCRatios);
 		expect(result).toEqual(expected);
 	});
 
@@ -221,7 +236,45 @@ describe('getLateMutations', () => {
 			},
 		];
 
-		const result = getLateMutations(vcDetails, mockLastInteractionFinish, mockVCRatios);
+		const result = getLateMutations(vcDetails, undefined, mockLastInteractionFinish, mockVCRatios);
 		expect(result).toEqual(expected);
+	});
+
+	it('should include segment and labelStack only when feature flag is on', () => {
+		const vcDetails: RevisionPayloadVCDetails = {
+			'50': {
+				e: ['div[testid=section1]'],
+				t: 150,
+			},
+		};
+
+		const labels: VCLabelStacks = {
+			'div[testid=section1]': {
+				segment: 'app-root/test-segment',
+				labelStack: 'app-root/test-segment/test-label',
+			} as any,
+		};
+
+		mockFg.mockReturnValueOnce(true);
+		const enabled = getLateMutations(vcDetails, labels, mockLastInteractionFinish, mockVCRatios);
+		expect(enabled).toEqual([
+			{
+				time: 150,
+				element: 'div[testid=section1]',
+				viewportHeatmapPercentage: 0.5,
+				segment: 'app-root/test-segment',
+				labelStack: 'app-root/test-segment/test-label',
+			},
+		]);
+
+		mockFg.mockReturnValueOnce(false);
+		const disabled = getLateMutations(vcDetails, labels, mockLastInteractionFinish, mockVCRatios);
+		expect(disabled).toEqual([
+			{
+				time: 150,
+				element: 'div[testid=section1]',
+				viewportHeatmapPercentage: 0.5,
+			},
+		]);
 	});
 });

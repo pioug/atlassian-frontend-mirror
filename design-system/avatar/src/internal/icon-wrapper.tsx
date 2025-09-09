@@ -25,7 +25,7 @@ const styles = cssMap({
 		alignContent: 'center',
 		borderRadius: token('radius.full', '50%'),
 		overflow: 'hidden',
-		borderWidth: token('border.width.outline', '2px'),
+		borderWidth: token('border.width.selected', '2px'),
 		borderStyle: 'solid',
 		backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
 	},

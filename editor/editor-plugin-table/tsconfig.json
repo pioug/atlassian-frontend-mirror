@@ -13,6 +13,6 @@
     "**/stories/*.tsx",
     "**/stories/**/*.ts",
     "**/stories/**/*.tsx"
-  ],
+, "../editor-plugin-table-tests/src/__tests__/playwright/table-width-responsive.spec.ts"  ],
   "compilerOptions": {}
 }

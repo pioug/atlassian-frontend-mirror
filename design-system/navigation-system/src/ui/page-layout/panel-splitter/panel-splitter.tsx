@@ -118,7 +118,7 @@ const lineStyles = cssMap({
 	root: {
 		position: 'absolute',
 		display: 'block',
-		width: token('border.width.indicator'),
+		width: '3px',
 		height: '100%',
 		color: 'inherit',
 		backgroundColor: 'currentcolor',

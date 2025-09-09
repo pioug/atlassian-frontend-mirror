@@ -64,7 +64,7 @@ const arrowWrapperStyles = css({
 	top: '50%',
 	transform: 'translateY(-50%)',
 	backgroundColor: token('elevation.surface.overlay', N20),
-	borderRadius: '100%',
+	borderRadius: token('radius.full'),
 	display: 'flex',
 	cursor: 'pointer',
 	transition: 'opacity 0.3s',

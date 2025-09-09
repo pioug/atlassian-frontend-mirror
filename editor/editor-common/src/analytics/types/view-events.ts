@@ -15,4 +15,33 @@ export type ViewInlineCommentsButtonEventAEP = UIAEP<
 	undefined
 >;
 
-export type ViewEventPayload = ViewInlineCommentsButtonEventAEP;
+export type ViewAIRovoButtonEventAEP = UIAEP<
+	ACTION.VIEWED,
+	ACTION_SUBJECT.BUTTON,
+	ACTION_SUBJECT_ID.AI_ASK_ROVO_BUTTON,
+	{
+		inputMethod: INPUT_METHOD.FLOATING_TB;
+		mode: MODE.EDITOR;
+		selectionCharCount: number;
+		selectionWordCount: number;
+	},
+	undefined
+>;
+
+export type ViewAIHeroPromptButtonEventAEP = UIAEP<
+	ACTION.VIEWED,
+	ACTION_SUBJECT.BUTTON,
+	ACTION_SUBJECT_ID.AI_HERO_PROMPT_BUTTON,
+	{
+		inputMethod: INPUT_METHOD.FLOATING_TB;
+		mode: MODE.EDITOR;
+		selectionCharCount: number;
+		selectionWordCount: number;
+	},
+	undefined
+>;
+
+export type ViewEventPayload =
+	| ViewAIRovoButtonEventAEP
+	| ViewAIHeroPromptButtonEventAEP
+	| ViewInlineCommentsButtonEventAEP;

@@ -26,6 +26,12 @@ export type ViewportEntryData = {
 	readonly attributeName?: string | null | undefined;
 	readonly oldValue?: string | null | undefined;
 	readonly newValue?: string | null | undefined;
+	readonly labelStacks?: VCObserverLabelStacks;
+};
+
+export type VCObserverLabelStacks = {
+	segment: string;
+	labelStack: string;
 };
 
 export type WindowEventEntryData = {

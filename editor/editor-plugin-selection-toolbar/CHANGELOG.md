@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 6.1.0
+
+### Minor Changes
+
+- [`4edb2aee0da9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4edb2aee0da9c) -
+  Add conditionalHooksFactory and migrate usage of useSharedPluginStateSelector to useEditorToolbar
+  and useSharedPluginStateWithSelector
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.7
 
 ### Patch Changes

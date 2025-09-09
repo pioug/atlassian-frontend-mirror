@@ -21,6 +21,7 @@ import {
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -38,36 +39,74 @@ type SelectionToolbarProps = {
 	mountPoint: HTMLElement | undefined;
 };
 
+const usePluginState = conditionalHooksFactory(
+	() => expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true),
+	(api?: ExtractInjectionAPI<ToolbarPlugin>) => {
+		return useSharedPluginStateWithSelector(
+			api,
+			['connectivity', 'userPreferences', 'toolbar', 'selection', 'userIntent', 'editorViewMode'],
+			(state) => {
+				return {
+					connectivityStateMode: state.connectivityState?.mode,
+					editorToolbarDockingPreference:
+						state.userPreferencesState?.preferences?.toolbarDockingPosition,
+					shouldShowToolbar: state.toolbarState?.shouldShowToolbar,
+					selection: state.selectionState?.selection,
+					currentUserIntent: state.userIntentState?.currentUserIntent,
+					editorViewMode: state.editorViewModeState?.mode,
+				};
+			},
+		);
+	},
+	(api?: ExtractInjectionAPI<ToolbarPlugin>) => {
+		const connectivityStateMode = useSharedPluginStateSelector(api, 'connectivity.mode');
+		const editorToolbarDockingPreference = useSharedPluginStateSelector(
+			api,
+			'userPreferences.preferences.toolbarDockingPosition',
+		);
+		const currentUserIntent = useSharedPluginStateSelector(api, 'userIntent.currentUserIntent');
+		const selection = useSharedPluginStateSelector(api, 'selection.selection');
+		const { shouldShowToolbar } = useSharedPluginStateWithSelector(
+			api,
+			['toolbar'],
+			(state: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<ToolbarPlugin>, 'toolbar'>) => {
+				return {
+					shouldShowToolbar: state.toolbarState?.shouldShowToolbar,
+				};
+			},
+		);
+
+		return {
+			connectivityStateMode,
+			editorToolbarDockingPreference,
+			currentUserIntent,
+			shouldShowToolbar,
+			selection,
+			editorViewMode: undefined,
+		};
+	},
+);
+
 export const SelectionToolbar = ({
 	api,
 	editorView,
 	mountPoint,
 	disableSelectionToolbarWhenPinned,
 }: SelectionToolbarProps) => {
-	const { shouldShowToolbar } = useSharedPluginStateWithSelector(
-		api,
-		['toolbar'],
-		(state: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<ToolbarPlugin>, 'toolbar'>) => {
-			return {
-				shouldShowToolbar: state.toolbarState?.shouldShowToolbar,
-			};
-		},
-	);
+	const {
+		connectivityStateMode,
+		editorToolbarDockingPreference,
+		currentUserIntent,
+		shouldShowToolbar,
+		editorViewMode,
+		// @ts-expect-error
+		selection,
+	} = usePluginState(api);
 
 	const components = api?.toolbar?.actions.getComponents();
 	const toolbar = components?.find((component) => isToolbarComponent(component));
 
-	const currentUserIntent = useSharedPluginStateSelector(api, 'userIntent.currentUserIntent');
-	const connectivityStateMode = useSharedPluginStateSelector(api, 'connectivity.mode');
-	const toolbarDocking = useSharedPluginStateSelector(
-		api,
-		'userPreferences.preferences.toolbarDockingPosition',
-	);
-
 	const isOffline = connectivityStateMode === 'offline';
-	// TODO: ED-28735 - figure out a better way to control this - needed to re-render on selection change
-	// @ts-expect-error
-	const selection = useSharedPluginStateSelector(api, 'selection.selection');
 	const isTextSelection =
 		!editorView.state.selection.empty && editorView.state.selection instanceof TextSelection;
 
@@ -102,7 +141,7 @@ export const SelectionToolbar = ({
 
 	if (
 		(expValEquals('platform_editor_toolbar_aifc_template_editor', 'isEnabled', true) &&
-			toolbarDocking === 'top' &&
+			editorToolbarDockingPreference === 'top' &&
 			disableSelectionToolbarWhenPinned) ||
 		!components ||
 		!toolbar
@@ -131,7 +170,11 @@ export const SelectionToolbar = ({
 			onPositionCalculated={onPositionCalculated}
 			mountTo={mountPoint}
 		>
-			<EditorToolbarProvider editorView={editorView}>
+			<EditorToolbarProvider
+				editorView={editorView}
+				editorToolbarDockingPreference={editorToolbarDockingPreference}
+				editorViewMode={editorViewMode}
+			>
 				<EditorToolbarUIProvider api={api} isDisabled={isOffline}>
 					<ToolbarModelRenderer
 						toolbar={toolbar as RegisterToolbar}

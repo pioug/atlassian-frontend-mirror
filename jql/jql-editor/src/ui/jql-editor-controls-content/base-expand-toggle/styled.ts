@@ -9,7 +9,7 @@ export const ExpandToggleContainer = styled.div({
 	/* Override background styles for our button to match designs */
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> button': {
-		borderRadius: '100%',
+		borderRadius: token('radius.full'),
 		/* Fill the remaining vertical space for a single line in our editor and space between buttons */
 		margin: `${token('space.050', '4px')} 0`,
 		'&:hover': {

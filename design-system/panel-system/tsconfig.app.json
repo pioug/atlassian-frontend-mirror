@@ -38,7 +38,16 @@
 	},
 	"references": [
 		{
+			"path": "../button/tsconfig.app.json"
+		},
+		{
 			"path": "../css/tsconfig.app.json"
+		},
+		{
+			"path": "../heading/tsconfig.app.json"
+		},
+		{
+			"path": "../icon/tsconfig.app.json"
 		},
 		{
 			"path": "../primitives/tsconfig.app.json"

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 3.0.1
+
+### Patch Changes
+
+- [`73f45bc07b4c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73f45bc07b4c6) -
+  ED-29240: Fixed not able to delete table when it is last element
+- Updated dependencies
+
+## 3.0.0
+
+### Major Changes
+
+- [`bdad0e9db564d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdad0e9db564d) -
+  [ux] ED-29214 Clean up isFormatMenuHidden shared state and add logic for blockquote selections
+
 ## 2.0.0
 
 ### Patch Changes

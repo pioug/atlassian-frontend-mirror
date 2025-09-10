@@ -55,11 +55,7 @@ export const TeamConnections = ({
 	}, [containerType, createAnalyticsEvent]);
 
 	return (
-		<LinkItem
-			href={link}
-			onClick={onClick}
-			{...(fg('enable_new_tab_for_team_container') ? { target: '_blank' } : {})}
-		>
+		<LinkItem href={link} onClick={onClick} target="_blank">
 			<Inline space="space.100" xcss={styles.containerWrapperStyles}>
 				{isContainerIconEnabled ? (
 					<ContainerIcon
@@ -128,7 +124,7 @@ export const NewTeamConnections = ({
 		<LinkItem
 			href={link}
 			onClick={onClick}
-			{...(fg('enable_new_tab_for_team_container') ? { target: '_blank' } : {})}
+			target="_blank"
 			description={
 				<Inline space="space.050">
 					<Text size="small" color="color.text.subtlest">

@@ -63,7 +63,6 @@ snapshotInformational(LayersInMainShouldForceOpenLayers, {
 	featureFlags: {
 		platform_dst_nav4_layering_in_main_slot_fixes: [true, false],
 		'platform-component-visual-refresh': true,
-		platform_design_system_nav4_panel_default_border: true,
 	},
 });
 
@@ -73,7 +72,6 @@ snapshotInformational(LayersInMainShouldForceOpenLayers, {
 	featureFlags: {
 		platform_dst_nav4_layering_in_main_slot_fixes: [true, false],
 		'platform-component-visual-refresh': true,
-		platform_design_system_nav4_panel_default_border: true,
 	},
 	prepare: async (page) => {
 		await page.setViewportSize({ width: 1280, height: 400 });

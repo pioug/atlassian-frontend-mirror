@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 6.0.1
+
+### Patch Changes
+
+- [`a159cb5368d07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a159cb5368d07) -
+  Add insm feature tracking for paste event
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

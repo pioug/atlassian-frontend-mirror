@@ -503,10 +503,15 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 							: undefined;
 					},
 				},
+
 				{
 					name: 'tableLocalId',
-					plugin: ({ dispatch }) => createTableLocalIdPlugin(dispatch),
+					plugin: ({ dispatch }) =>
+						!fg('platform_editor_adf_with_localid')
+							? createTableLocalIdPlugin(dispatch)
+							: undefined,
 				},
+
 				{
 					name: 'tableWidth',
 					plugin: ({ dispatchAnalyticsEvent, dispatch }) =>

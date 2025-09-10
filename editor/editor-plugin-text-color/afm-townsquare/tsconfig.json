@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/button/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/css/afm-townsquare/tsconfig.json"
 		},
 		{

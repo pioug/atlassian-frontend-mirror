@@ -1,6 +1,7 @@
 import { Mark, type MarkType, type Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, SelectionRange } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
  * Determine if a mark of a specific type exists anywhere in the selection.
@@ -117,7 +118,9 @@ const wholeRangeHasMarks = (
 	markTypes: (Mark | MarkType)[],
 ): MarkMap => {
 	const hasMarks: MarkMap = new Map(markTypes.map((markType) => [markType, true]));
+	const hasNoMarks: MarkMap = new Map(markTypes.map((markType) => [markType, false]));
 
+	let isTextContent = false;
 	doc.nodesBetween(from, to, (node) => {
 		if (allMarksAreRuledOut(hasMarks)) {
 			// This won't be a true early exit, but will prevent diving into nodes and
@@ -128,6 +131,8 @@ const wholeRangeHasMarks = (
 		if (!node.type.isText) {
 			return true; // continue traversing
 		}
+
+		isTextContent = true;
 
 		for (const [markType, hasMark] of hasMarks) {
 			if (!hasMark) {
@@ -140,6 +145,11 @@ const wholeRangeHasMarks = (
 			hasMarks.set(markType, value);
 		}
 	});
+
+	if (expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)) {
+		return isTextContent ? hasMarks : hasNoMarks;
+	}
+
 	return hasMarks;
 };
 

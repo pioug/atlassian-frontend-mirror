@@ -9,6 +9,7 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { changeColor as changeColorCommand } from './editor-commands/change-color';
 import { changeColor } from './pm-plugins/commands/change-color';
 import type { TextColorPluginConfig } from './pm-plugins/main';
 import { createPlugin, pluginKey as textColorPluginKey } from './pm-plugins/main';
@@ -93,6 +94,12 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 		actions: {
 			changeColor: (color: string, inputMethod?: TextColorInputMethod) => {
 				return changeColor(color, api?.analytics?.actions, inputMethod);
+			},
+		},
+
+		commands: {
+			changeColor: (color: string, inputMethod?: TextColorInputMethod) => {
+				return changeColorCommand(color, api, inputMethod);
 			},
 		},
 

@@ -47,10 +47,25 @@
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
 		},
 		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../heading/tsconfig.app.json"
+		},
+		{
+			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../primitives/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
 		}
 	]
 }

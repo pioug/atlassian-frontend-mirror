@@ -335,8 +335,24 @@ export const insertContentDeleteRange = (
 	tr.setSelection(new TextSelection(getSelectionResolvedPos(tr)));
 };
 
+/**
+ * Check if the selection is empty and at the start of a task or list item
+ * @param state Editor state
+ * @returns true if selection is empty and at the start of a task or list item
+ */
 export const isEmptySelectionAtStart = (state: EditorState): boolean => {
+	const { blockTaskItem } = state.schema.nodes;
 	const { empty, $from } = state.selection;
+
+	// If blockTaskItem is in the schema & the selection is empty
+	if (blockTaskItem && empty && $from.parent.type === blockTaskItem) {
+		const blockTaskItemDepth = $from.depth - 1;
+		const firstPosInBlockTaskItem = $from.start(blockTaskItemDepth) + 1;
+
+		// Is the selection at the first possible position inside the blockTaskItem
+		return $from.pos === firstPosInBlockTaskItem;
+	}
+
 	return empty && ($from.parentOffset === 0 || state.selection instanceof GapCursorSelection);
 };
 

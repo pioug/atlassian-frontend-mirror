@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate example component correctly', async () => {
-	const examplePath = require.resolve('../../../examples/basic');
+	const examplePath = require.resolve('../../../examples/00-basic-panel');
 	const elem = document.createElement('div');
 	const { html, styles } = await ssr(examplePath);
 	elem.innerHTML = html;
@@ -18,7 +18,7 @@ test('should ssr then hydrate example component correctly', async () => {
 	await hydrateWithAct(examplePath, elem, styles, true);
 
 	// Wait for our actual component to render following hydration
-	await screen.findByTestId('panel-system');
+	await screen.findByTestId('basic-panel');
 
 	// Assert there's no hydration errors
 	const mockCalls = (console.error as jest.Mock).mock.calls;

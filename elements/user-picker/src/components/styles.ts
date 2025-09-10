@@ -14,7 +14,6 @@ export const getStyles = memoizeOne(
 		isMulti?: boolean,
 		isCompact?: boolean,
 		overrideStyles?: StylesConfig,
-		isInvalid?: boolean,
 		isVisualRefresh?: boolean,
 		isPopupStyles?: boolean,
 		height?: number | string,
@@ -35,21 +34,13 @@ export const getStyles = memoizeOne(
 				return {
 					...css,
 					width,
-					borderColor: fg('uxissue-914')
-						? state.isFocused
-							? token('color.border.focused', css.borderColor)
-							: state.isInvalid
-								? token('color.border.danger', R400)
-								: state.selectProps.subtle || state.selectProps.noBorder
-									? 'transparent'
-									: token('color.border.input', N90)
-						: isInvalid
+					borderColor: state.isFocused
+						? token('color.border.focused', css.borderColor)
+						: state.isInvalid
 							? token('color.border.danger', R400)
-							: state.isFocused
-								? token('color.border.focused', css.borderColor)
-								: state.selectProps.subtle || state.selectProps.noBorder
-									? 'transparent'
-									: token('color.border.input', N90),
+							: state.selectProps.subtle || state.selectProps.noBorder
+								? 'transparent'
+								: token('color.border.input', N90),
 					backgroundColor: state.isFocused
 						? token('color.background.input', css['backgroundColor'])
 						: state.selectProps.subtle
@@ -60,25 +51,15 @@ export const getStyles = memoizeOne(
 					'&:hover .fabric-user-picker__clear-indicator': { opacity: 1 },
 					':hover': {
 						...css[':hover'],
-						borderColor: fg('uxissue-914')
-							? state.isFocused
-								? css[':hover']
-									? token('color.border.focused', css[':hover'].borderColor)
-									: token('color.border.focused', B100)
-								: state.isInvalid
-									? token('color.border.danger', R400)
-									: state.selectProps.subtle
-										? 'transparent'
-										: token('color.border.input', N90)
-							: isInvalid
+						borderColor: state.isFocused
+							? css[':hover']
+								? token('color.border.focused', css[':hover'].borderColor)
+								: token('color.border.focused', B100)
+							: state.isInvalid
 								? token('color.border.danger', R400)
-								: state.isFocused
-									? css[':hover']
-										? token('color.border.focused', css[':hover'].borderColor)
-										: token('color.border.focused', B100)
-									: state.selectProps.subtle
-										? 'transparent'
-										: token('color.border.input', N90),
+								: state.selectProps.subtle
+									? 'transparent'
+									: token('color.border.input', N90),
 						backgroundColor:
 							state.selectProps.subtle && state.selectProps.hoveringClearIndicator
 								? token('color.background.danger', R50)
@@ -223,6 +204,6 @@ export const getPopupStyles = memoizeOne(
 		overrideStyles?: StylesConfig,
 		isVisualRefresh?: boolean,
 	): StylesConfig => ({
-		...getStyles(width, isMulti, false, overrideStyles, false, isVisualRefresh, true),
+		...getStyles(width, isMulti, false, overrideStyles, isVisualRefresh, true),
 	}),
 );

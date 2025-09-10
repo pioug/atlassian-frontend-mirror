@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 3.10.0
+
+### Minor Changes
+
+- [`b3bf6b4e7fcb0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3bf6b4e7fcb0) -
+  [ux] Integrated empty state UI in link picker for Google Drive tab, added remote-link object type
+  to Google Drive plugin configuration and enabled ScrollingTabList for link picker if the Google
+  Drive tab is shown in the link picker
+
 ## 3.9.13
 
 ### Patch Changes

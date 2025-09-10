@@ -56,6 +56,9 @@
 			"path": "../../editor-tables/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../insm/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../media/media-client/afm-rovo-extension/tsconfig.json"
 		},
 		{

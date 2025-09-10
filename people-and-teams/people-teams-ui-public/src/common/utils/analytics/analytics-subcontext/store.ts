@@ -42,9 +42,16 @@ const AnalyticsSubcontextStore = createStore<PeopleTeamsAnalyticsSubcontextState
 	actions,
 });
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const usePeopleTeamsAnalyticsSubcontext = createHook(AnalyticsSubcontextStore);
 
 /**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ *
  * Inject an attribute into all events using `usePeopleTeamAnalyticsEvents`
  * It sets the attribute when the hook is called and clears it when the component is unmounted
  */

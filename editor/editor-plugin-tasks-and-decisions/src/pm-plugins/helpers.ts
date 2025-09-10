@@ -1,3 +1,4 @@
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { findFarthestParentNode, isListNode } from '@atlaskit/editor-common/utils';
 import {
 	NodeRange,
@@ -14,10 +15,12 @@ import {
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { stateKey } from './plugin-key';
 import type { TaskItemData } from './types';
 import { ACTIONS } from './types';
+import { findBlockTaskItem } from './utils';
 
 export const isInsideTaskOrDecisionItem = (state: EditorState) => {
 	const { decisionItem, taskItem, blockTaskItem } = state.schema.nodes;
@@ -67,52 +70,57 @@ export const isTable = (node?: Node | null): boolean => {
  */
 export const getBlockRange = ({ $from, $to }: { $from: ResolvedPos; $to: ResolvedPos }) => {
 	const { taskList, taskItem, blockTaskItem, paragraph } = $from.doc.type.schema.nodes;
-	const blockTaskItemNode = findFarthestParentNode((node) => node.type === blockTaskItem)($from);
 
-	if (blockTaskItem && blockTaskItemNode) {
-		let startOfBlockRange = blockTaskItemNode.start - 1;
-		const endNode = $to.end();
-		let $after = $to.doc.resolve(endNode + 1);
-		let after = $after.nodeAfter;
-		const lastNode = $to.node($to.depth);
-		let rangeDepth = blockTaskItemNode.depth - 1;
-		let endOfBlockRange = $to.start() + lastNode.nodeSize;
+	if (blockTaskItem) {
+		const result = findBlockTaskItem($from);
+		if (result) {
+			const { hasParagraph } = result;
+			const blockTaskItemDepth = hasParagraph ? $from.depth - 1 : $from.depth;
+			let blockRangeDepth = blockTaskItemDepth - 1;
 
-		// If the lastNode is a paragraph need to resolve a little bit further to get the node after the block task item
-		if (lastNode.type === paragraph) {
-			$after = $to.doc.resolve(endNode + 2);
+			// Calculate start position of the block range
+			let startPos = $from.start(blockTaskItemDepth) - 1;
 
-			after = $after.nodeAfter;
+			// Calculate end position and get node after the current selection
+			const endPos = $to.end();
+			let $after = $to.doc.resolve(endPos + 1);
+			let afterNode = $after.nodeAfter;
+			const lastNode = $to.node($to.depth);
+			let endRangePos = $to.start() + lastNode.nodeSize;
+
+			// Make adjustments for paragraph nodes
+			if (lastNode.type === paragraph) {
+				$after = $to.doc.resolve(endPos + 2);
+				afterNode = $after.nodeAfter;
+			} else {
+				blockRangeDepth--;
+				endRangePos--;
+			}
+
+			// Extend range if there's a sibling taskList
+			if (afterNode && afterNode.type === taskList && $after.depth === blockTaskItemDepth - 1) {
+				endRangePos += afterNode.nodeSize;
+			}
+
+			// Check if preceded by another taskItem/blockTaskItem
+			const $prevNode = $from.doc.resolve(startPos - 1);
+			const prevNodeSize = $prevNode.nodeBefore?.nodeSize || 0;
+			const $prevNodeParent = $from.doc.resolve($prevNode.pos - prevNodeSize - 1);
+			const prevNodeParent = $prevNodeParent.nodeAfter;
+
+			if (prevNodeParent && [blockTaskItem, taskItem].includes(prevNodeParent.type)) {
+				blockRangeDepth = blockTaskItemDepth - 1;
+				endRangePos -= 2;
+				startPos += 1;
+			}
+
+			// Create and return the NodeRange
+			return new NodeRange(
+				$to.doc.resolve(startPos),
+				$to.doc.resolve(endRangePos),
+				blockRangeDepth,
+			);
 		}
-		// Otherwise assume it's a block node so increase the range depth
-		else {
-			rangeDepth = rangeDepth - 1;
-			endOfBlockRange = endOfBlockRange - 1;
-		}
-
-		// If the after node is a sibling taskList of the blockTaskItem, then extend the range
-		if (after && after.type === taskList && $after.depth === blockTaskItemNode.depth - 1) {
-			endOfBlockRange = endOfBlockRange + after.nodeSize;
-		}
-
-		// Is after another taskItem/ blockTaskItem
-		const $prevNode = $from.doc.resolve(startOfBlockRange - 1);
-		const prevNodeSize = $prevNode.nodeBefore?.nodeSize;
-		const $prevNodeParent = $from.doc.resolve($prevNode.pos - (prevNodeSize || 0) - 1);
-		const prevNodeParent = $prevNodeParent.nodeAfter;
-
-		// If after another taskItem/ blockTaskItem
-		if (prevNodeParent && [blockTaskItem, taskItem].includes(prevNodeParent.type)) {
-			rangeDepth = blockTaskItemNode.depth - 1;
-			endOfBlockRange = endOfBlockRange - 2;
-			startOfBlockRange = startOfBlockRange + 1;
-		}
-
-		const $endOfBlockRange = $to.doc.resolve(endOfBlockRange);
-		const $startOfBlockRange = $to.doc.resolve(startOfBlockRange);
-		const nodeRange = new NodeRange($startOfBlockRange, $endOfBlockRange, rangeDepth);
-
-		return nodeRange;
 	}
 	let end = $to.end();
 	const $after = $to.doc.resolve(end + 1);
@@ -286,15 +294,29 @@ export function getTaskItemDataAtPos(view: EditorView) {
 	const { state } = view;
 	const { selection, schema } = state;
 	const { $from } = selection;
-	const isInTaskItem = $from.node().type === schema.nodes.taskItem;
 
-	// current selection has to be inside taskitem
-	if (isInTaskItem) {
-		const taskItemPos = $from.before();
-		return {
-			pos: taskItemPos,
-			localId: $from.node().attrs.localId,
-		};
+	if (expValEquals('platform_editor_blocktaskitem_patch_1', 'isEnabled', true)) {
+		const { taskItem, blockTaskItem } = schema.nodes;
+		const maybeTask = findParentNodeOfTypeClosestToPos($from, [taskItem, blockTaskItem]);
+
+		// current selection has to be inside taskitem
+		if (maybeTask) {
+			return {
+				pos: maybeTask?.pos,
+				localId: maybeTask?.node.attrs.localId,
+			};
+		}
+	} else {
+		const isInTaskItem = $from.node().type === schema.nodes.taskItem;
+
+		// current selection has to be inside taskitem
+		if (isInTaskItem) {
+			const taskItemPos = $from.before();
+			return {
+				pos: taskItemPos,
+				localId: $from.node().attrs.localId,
+			};
+		}
 	}
 }
 
@@ -302,20 +324,28 @@ export function getAllTaskItemsDataInRootTaskList(view: EditorView) {
 	const { state } = view;
 	const { schema } = state;
 	const $fromPos = state.selection.$from;
-	const isInTaskItem = $fromPos.node().type === schema.nodes.taskItem;
+
+	const isInTaskItem = expValEquals('platform_editor_blocktaskitem_patch_1', 'isEnabled', true)
+		? isInsideTask(state)
+		: $fromPos.node().type === schema.nodes.taskItem;
 	// if not inside task item then return undefined;
 	if (!isInTaskItem) {
 		return;
 	}
 
-	const { taskList, taskItem } = schema.nodes;
+	const { taskList, taskItem, blockTaskItem } = schema.nodes;
 	const rootTaskListData = findFarthestParentNode((node) => node.type === taskList)($fromPos);
 	if (rootTaskListData) {
 		const rootTaskList = rootTaskListData.node;
 		const rootTaskListStartPos = rootTaskListData.start;
 		const allTaskItems: Array<{ index: number; node: Node; pos: number }> = [];
 		rootTaskList.descendants((node, pos, parent, index) => {
-			if (node.type === taskItem) {
+			if (
+				node.type === taskItem ||
+				(expValEquals('platform_editor_blocktaskitem_patch_1', 'isEnabled', true) &&
+					blockTaskItem &&
+					node.type === blockTaskItem)
+			) {
 				allTaskItems.push({
 					node,
 					pos: pos + rootTaskListStartPos,
@@ -332,19 +362,31 @@ export function getCurrentTaskItemIndex(
 	allTaskItems: Array<{ index: number; node: Node; pos: number }>,
 ) {
 	const { state } = view;
+	const { schema } = state;
+	const { taskItem, blockTaskItem } = schema.nodes;
+
 	const $fromPos = state.selection.$from;
 	const allTaskItemNodes = allTaskItems.map((nodeData) => nodeData.node);
-	const currentTaskItem = $fromPos.node($fromPos.depth);
-	const currentTaskItemIndex = allTaskItemNodes.indexOf(currentTaskItem);
-	return currentTaskItemIndex;
+	const currentTaskItem = expValEquals('platform_editor_blocktaskitem_patch_1', 'isEnabled', true)
+		? findParentNodeOfTypeClosestToPos($fromPos, [taskItem, blockTaskItem])?.node
+		: $fromPos.node($fromPos.depth);
+
+	if (currentTaskItem) {
+		const currentTaskItemIndex = allTaskItemNodes.indexOf(currentTaskItem);
+		return currentTaskItemIndex;
+	} else {
+		return -1;
+	}
 }
 
 export function getTaskItemDataToFocus(view: EditorView, direction: 'next' | 'previous') {
 	const allTaskItems = getAllTaskItemsDataInRootTaskList(view);
+
 	// if not inside task item then allTaskItems will be undefined;
 	if (!allTaskItems) {
 		return;
 	}
+
 	const currentTaskItemIndex = getCurrentTaskItemIndex(view, allTaskItems);
 	if (
 		direction === 'next'
@@ -382,9 +424,28 @@ export function focusCheckboxAndUpdateSelection(view: EditorView, taskItemData: 
 	const { pos, localId } = taskItemData;
 	const { state, dispatch } = view;
 	const { doc } = state;
+	const { schema } = state;
+	const { extension } = schema.nodes;
 
 	const tr = state.tr;
-	tr.setSelection(new TextSelection(doc.resolve(pos + 1)));
+
+	// if there's an extension at this position, we're in a blockTaskItem, set a gapCursor
+	if (
+		expValEquals('platform_editor_blocktaskitem_patch_1', 'isEnabled', true) &&
+		extension &&
+		doc.resolve(pos + 1).nodeAfter?.type === extension
+	) {
+		tr.setSelection(new GapCursorSelection(doc.resolve(pos + 1)));
+		// if there's a textblock at this position, we're in a blockTaskItem, add an extra hop into the content
+	} else if (
+		expValEquals('platform_editor_blocktaskitem_patch_1', 'isEnabled', true) &&
+		doc.resolve(pos + 1).nodeAfter?.isTextblock
+	) {
+		tr.setSelection(new TextSelection(doc.resolve(pos + 2)));
+		// else, this is an ordinary task item with inline content
+	} else {
+		tr.setSelection(new TextSelection(doc.resolve(pos + 1)));
+	}
 	tr.setMeta(stateKey, {
 		action: ACTIONS.FOCUS_BY_LOCALID,
 		data: localId,

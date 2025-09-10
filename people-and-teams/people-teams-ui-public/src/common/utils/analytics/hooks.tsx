@@ -7,6 +7,10 @@ const defaultAnalyticsContextData = {
 	packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export function PeopleTeamsAnalyticsProvider({
 	analyticsContextData,
 	children,

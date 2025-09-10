@@ -13,11 +13,11 @@ import {
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { toggleTaskItemCheckbox } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	deleteEmptyParagraphAndMoveBlockUp,
 	filterCommand as filter,
-	findFarthestParentNode,
 	isEmptySelectionAtEnd,
 	isEmptySelectionAtStart,
 } from '@atlaskit/editor-common/utils';
@@ -54,7 +54,7 @@ import {
 	walkOut,
 } from './helpers';
 import { insertTaskDecisionWithAnalytics } from './insert-commands';
-import { normalizeTaskItemsSelection } from './utils';
+import { findBlockTaskItem, normalizeTaskItemsSelection } from './utils';
 
 type IndentationInputMethod =
 	| INPUT_METHOD.KEYBOARD
@@ -203,10 +203,9 @@ const backspaceFrom =
 
 		if (expValEquals('editor_refactor_backspace_task_and_decisions', 'isEnabled', true)) {
 			// Check if selection is inside a blockTaskItem paragraph
-			const blockTaskItemNode = findFarthestParentNode((node) => node.type === blockTaskItem)(
-				$from,
-			);
-			const isInBlockTaskItemParagraph = !!blockTaskItemNode && $from.parent.type === paragraph;
+			const resultOfFindBlockTaskItem = findBlockTaskItem($from);
+			const isInBlockTaskItemParagraph =
+				resultOfFindBlockTaskItem && resultOfFindBlockTaskItem?.hasParagraph;
 
 			// Get the node before the current position
 			const beforePos = isInBlockTaskItemParagraph ? $from.before() - 1 : $from.before();
@@ -254,15 +253,28 @@ const backspaceFrom =
 			if (dispatch) {
 				const taskContent = state.doc.slice($from.start(), $from.end()).content;
 
-				// might be end of document after
-				const slice = taskContent.size
-					? paragraph.createChecked(undefined, taskContent)
-					: paragraph.createChecked();
+				let slice: Fragment | Node | Node[];
 
-				dispatch(splitListItemWith(state.tr, slice, $from, true));
+				try {
+					slice = taskContent.size
+						? paragraph.createChecked(undefined, taskContent)
+						: paragraph.createChecked();
+					// might be end of document after
+					const tr = splitListItemWith(state.tr, slice, $from, true);
+					dispatch(tr);
+					return true;
+				} catch (error) {
+					// If there's an error creating a paragraph, then just pass the content as is
+					// Block task item's can have non-text content that cannot be wrapped in a paragraph
+					if (blockTaskItem) {
+						// Create an array from the fragment to pass into splitListItemWith, as the `content` property is readonly
+						slice = Array.from(taskContent.content);
+						const tr = splitListItemWith(state.tr, slice, $from, true);
+						dispatch(tr);
+						return true;
+					}
+				}
 			}
-
-			return true;
 		}
 
 		return false;
@@ -394,43 +406,50 @@ const splitListItemWith = (
 	setSelection: boolean,
 ) => {
 	const origDoc = tr.doc;
-	const { blockTaskItem, paragraph, taskList } = tr.doc.type.schema.nodes;
+	const { blockTaskItem, taskList } = tr.doc.type.schema.nodes;
 	let baseDepth = $from.depth;
 	let $oldAfter = origDoc.resolve($from.after());
 	let textSelectionModifier = 0;
 	let replaceFromModifier = 0;
 	let replaceToModifier = 0;
 	let deleteBlockModifier = 0;
+	let isGapCursorSelection = false;
 
 	if (blockTaskItem) {
-		const blockTaskItemNode = findFarthestParentNode((node) => node.type === blockTaskItem)($from);
-		if (blockTaskItemNode) {
-			const isParagraphChild = blockTaskItemNode.node.firstChild?.type === paragraph;
-			// If the case there is a paragraph in the block task item we need to
-			// adjust some calculations
-			if (isParagraphChild) {
-				baseDepth = $from.depth - 1;
-				$oldAfter = origDoc.resolve(blockTaskItemNode.pos + blockTaskItemNode.node.nodeSize);
+		const result = findBlockTaskItem($from);
+		if (result) {
+			const { blockTaskItemNode, hasParagraph } = result;
+			if (blockTaskItemNode) {
+				// If the case there is a paragraph in the block task item we need to
+				// adjust some calculations
+				if (hasParagraph) {
+					baseDepth = $from.depth - 1;
+					$oldAfter = origDoc.resolve($from.after() + 1);
+
+					// When we're removing the extra empty task item we need to reduce the range a bit
+					deleteBlockModifier = 2;
+				} else {
+					textSelectionModifier = 1;
+					isGapCursorSelection = true;
+				}
+
 				textSelectionModifier = 1;
-			}
 
-			const hasSiblingTaskList = $oldAfter.nodeAfter?.type === taskList;
-			if (hasSiblingTaskList) {
-				// Make sure we're wrapping around the whole list
-				replaceToModifier = 3;
-			}
+				const hasSiblingTaskList = $oldAfter.nodeAfter?.type === taskList;
+				if (hasSiblingTaskList) {
+					// Make sure we're wrapping around the whole list
+					replaceToModifier = hasParagraph ? 3 : 1;
+				}
 
-			const posNodeBefore = origDoc.resolve($oldAfter.pos - blockTaskItemNode.node.nodeSize - 1);
-			const hasPreviousTaskItem = !!findFarthestParentNode((node) => node.type === blockTaskItem)(
-				posNodeBefore,
-			);
-			if (!hasPreviousTaskItem) {
-				// Go down one step to get to the doc node
-				replaceFromModifier = 1;
-			}
+				const posPreviousSibling = $from.start(hasParagraph ? $from.depth - 1 : $from.depth) - 1;
+				const $posPreviousSibling = tr.doc.resolve(posPreviousSibling);
 
-			// When we're removing the extra empty task item we need to reduce the range a bit
-			deleteBlockModifier = 2;
+				const hasPreviousTaskItem = $posPreviousSibling.nodeBefore?.type === blockTaskItem;
+				if (!hasPreviousTaskItem && hasParagraph) {
+					// Go down one step to get to the doc node
+					replaceFromModifier = 1;
+				}
+			}
 		}
 	}
 
@@ -465,6 +484,7 @@ const splitListItemWith = (
 	 * (The cursor can be placed easily next to list item)
 	 */
 	const previousListItemPos = isNestedActionInsideLists ? $from.start(baseDepth - 2) : 0;
+
 	tr = tr.replace(
 		tr.mapping.map($from.start() - (2 + replaceFromModifier)),
 		tr.mapping.map($from.end() + (2 + replaceToModifier)),
@@ -472,11 +492,12 @@ const splitListItemWith = (
 	);
 
 	if (setSelection && !isNestedActionInsideLists) {
-		tr = tr.setSelection(
-			new TextSelection(
-				tr.doc.resolve($from.pos + 1 - ((shouldSplit ? 0 : 2) + textSelectionModifier)),
-			),
-		);
+		const newPos = $from.pos + 1 - ((shouldSplit ? 0 : 2) + textSelectionModifier);
+		if (isGapCursorSelection) {
+			tr = tr.setSelection(new GapCursorSelection(tr.doc.resolve(newPos), Side.LEFT));
+		} else {
+			tr = tr.setSelection(new TextSelection(tr.doc.resolve(newPos)));
+		}
 	}
 
 	// if different levels then we shouldn't lift

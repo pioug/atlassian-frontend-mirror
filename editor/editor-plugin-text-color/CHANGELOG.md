@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-text-color
 
+## 5.1.0
+
+### Minor Changes
+
+- [`52e588636f4d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52e588636f4d0) -
+  Add new 'changeColor' Editor Command to editor-plugin-text-color, add new keys for clear color
+  menu item, add new clear color menu item, add new platform_editor_toolbar_aifc_patch_4 experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.1
 
 ### Patch Changes

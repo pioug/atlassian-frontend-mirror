@@ -13,8 +13,6 @@ export function init(options: INSMOptions): void {
 
 function insmInitialised() {
 	if (!initialisedInsm) {
-		// eslint-disable-next-line no-console
-		console.error('INSM used when not initialised');
 		return false;
 	}
 	return true;

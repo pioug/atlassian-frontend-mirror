@@ -1,9 +1,7 @@
 import { findCutBefore } from '@atlaskit/editor-common/commands';
 import type { Command } from '@atlaskit/editor-common/types';
-import { findFarthestParentNode } from '@atlaskit/editor-common/utils';
 import { type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { findWrapping, ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
-import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
 import {
 	getBlockRange,
@@ -12,7 +10,7 @@ import {
 	liftBlock,
 	subtreeHeight,
 } from './helpers';
-import { normalizeTaskItemsSelection } from './utils';
+import { findBlockTaskItem, normalizeTaskItemsSelection } from './utils';
 
 export const liftSelection: Command = (state, dispatch) => {
 	const normalizedSelection = normalizeTaskItemsSelection(state.selection);
@@ -51,18 +49,17 @@ export const wrapSelectionInTaskList: Command = (state, dispatch) => {
 	const { taskList, taskItem, blockTaskItem } = state.schema.nodes;
 	let maxDepth = subtreeHeight($from, $to, [taskList, taskItem]);
 
-	const isBlockTaskItem = hasParentNodeOfType([blockTaskItem])(state.selection);
-	const blockTaskItemNode = findFarthestParentNode((node) => node.type === blockTaskItem)($from);
-
-	if (blockTaskItem && isBlockTaskItem && blockTaskItemNode) {
-		// If the selection is inside a nested node inside the blockTaskItem
-		// Remove the difference in depth between the selection and the blockTaskItemNode
-		if ($from.depth > blockTaskItemNode.depth) {
-			maxDepth =
-				subtreeHeight($from, $to, [taskList, blockTaskItem]) -
-				($from.depth - blockTaskItemNode.depth);
-		} else {
-			maxDepth = subtreeHeight($from, $to, [taskList, blockTaskItem]);
+	if (blockTaskItem) {
+		const resultOfFindBlockTaskItem = findBlockTaskItem($from);
+		if (resultOfFindBlockTaskItem) {
+			const { hasParagraph } = resultOfFindBlockTaskItem;
+			// If the selection is inside a nested node inside the blockTaskItem
+			// Remove the difference in depth between the selection and the blockTaskItemNode
+			if (hasParagraph) {
+				maxDepth = subtreeHeight($from, $to, [taskList, blockTaskItem]) - 1;
+			} else {
+				maxDepth = subtreeHeight($from, $to, [taskList, blockTaskItem]);
+			}
 		}
 	}
 

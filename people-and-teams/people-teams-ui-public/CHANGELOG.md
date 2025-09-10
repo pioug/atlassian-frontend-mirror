@@ -1,5 +1,12 @@
 # @atlaskit/people-teams-ui-public
 
+## 3.2.0
+
+### Minor Changes
+
+- [`62797df0ee023`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62797df0ee023) -
+  Deprecated analytics implementation in favour of @atlaskit/teams-app-internal-analytics
+
 ## 3.1.7
 
 ### Patch Changes

@@ -47,6 +47,9 @@
 			"path": "../../../design-system/icon/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../insm/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/menu/afm-passionfruit/tsconfig.json"
 		},
 		{

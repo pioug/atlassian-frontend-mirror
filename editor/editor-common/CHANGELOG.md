@@ -1,5 +1,34 @@
 # @atlaskit/editor-common
 
+## 109.2.0
+
+### Minor Changes
+
+- [`52e588636f4d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52e588636f4d0) -
+  Add new 'changeColor' Editor Command to editor-plugin-text-color, add new keys for clear color
+  menu item, add new clear color menu item, add new platform_editor_toolbar_aifc_patch_4 experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.1.2
+
+### Patch Changes
+
+- [`6cbab7879c7ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cbab7879c7ac) -
+  [EDITOR-1433] Make sure isEmptySelectionAtStart can handle blockTaskItems
+- Updated dependencies
+
+## 109.1.1
+
+### Patch Changes
+
+- [`360b8c9d0b280`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/360b8c9d0b280) -
+  [ux] [ED-29055] selections with no text nodes will always return text formatting marks as active.
+  this is behind the aifc experiment and patch 3 experiment
+- Updated dependencies
+
 ## 109.1.0
 
 ### Minor Changes

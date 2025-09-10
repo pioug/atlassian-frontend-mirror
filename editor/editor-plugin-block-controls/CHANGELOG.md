@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 6.0.2
+
+### Patch Changes
+
+- [`5de213b733131`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5de213b733131) -
+  [ux] ED-29123 fix paragraph shifting on hover when next to image with wrap-right/left
+- Updated dependencies
+
 ## 6.0.1
 
 ### Patch Changes

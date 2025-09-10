@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 8.0.4
+
+### Patch Changes
+
+- [`5b8be893d14b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b8be893d14b5) -
+  [EDITOR-1433] Handle deleting blockTaskItems with backspace and refactor to remove iterative depth
+  search for blockTaskItems and instead use position logic to get the relevant nodes
+- [`68424716235d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68424716235d0) -
+  [ux] EDITOR-1156 Allow checkbox in blockTaskItem node to be selected with keyboard arrows
+- Updated dependencies
+
+## 8.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.2
+
+### Patch Changes
+
+- [`52c2f0aa06497`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52c2f0aa06497) -
+  [EDITOR-1433] Handle backspace for deeply indented blockTaskItems
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

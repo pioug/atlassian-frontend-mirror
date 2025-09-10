@@ -110,6 +110,16 @@ export const getToolbarComponents = (
 								key: TOOLBARS.PRIMARY_TOOLBAR,
 								rank: TOOLBAR_RANK[TEXT_SECTION_COLLAPSED.key],
 							},
+
+							expValEquals(
+								'platform_editor_aifc_selection_toolbar_responsive',
+								'isEnabled',
+								true,
+							) && {
+								type: 'toolbar',
+								key: TOOLBARS.INLINE_TEXT_TOOLBAR,
+								rank: TOOLBAR_RANK[TEXT_SECTION_COLLAPSED.key],
+							},
 						],
 						component: ({ children, parents }) => {
 							return (

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { akEditorUnitZIndex, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 // Ignored via go/ees005
@@ -9,7 +9,7 @@ import { B300, N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const header = css({
+export const header: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: akEditorUnitZIndex,
 	minHeight: token('space.300', '24px'),
@@ -27,7 +27,7 @@ export const header = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const footer = css({
+export const footer: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: akEditorUnitZIndex,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -39,7 +39,7 @@ export const footer = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const contentWrapper = css({
+export const contentWrapper: SerializedStyles = css({
 	padding: `${token('space.250', '20px')} ${token('space.500', '40px')}`,
 	borderBottomRightRadius: token('radius.small', '3px'),
 	overflow: 'auto',
@@ -51,7 +51,7 @@ export const contentWrapper = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const line = css({
+export const line: SerializedStyles = css({
 	background: token('color.background.neutral.subtle', '#fff'),
 	content: "''",
 	display: 'block',
@@ -65,7 +65,7 @@ export const line = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const content = css({
+export const content: SerializedStyles = css({
 	minWidth: '524px',
 	width: '100%',
 	position: 'relative',
@@ -81,7 +81,7 @@ export const column = {
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const row = css({
+export const row: SerializedStyles = css({
 	margin: `${token('space.250', '20px')} 0`,
 	display: 'flex',
 	justifyContent: 'space-between',
@@ -98,7 +98,7 @@ export const dialogHeader = {
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const shortcutsArray = css({
+export const shortcutsArray: SerializedStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
 	flexShrink: 0,
@@ -106,12 +106,12 @@ export const shortcutsArray = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const componentFromKeymapWrapperStyles = css({
+export const componentFromKeymapWrapperStyles: SerializedStyles = css({
 	flexShrink: 0,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const toolbarButton = css({
+export const toolbarButton: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:focus:not(:focus-visible)': {
 		outline: `2px solid ${token('color.border.focused', B300)}`,

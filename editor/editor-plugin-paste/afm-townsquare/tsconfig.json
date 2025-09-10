@@ -56,6 +56,9 @@
 			"path": "../../editor-tables/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../insm/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../media/media-client/afm-townsquare/tsconfig.json"
 		},
 		{

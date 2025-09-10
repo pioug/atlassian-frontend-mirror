@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/panel-system",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "A set of UI components to standardize the display of content in panels across Atlassian products.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,7 +32,10 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
+		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",

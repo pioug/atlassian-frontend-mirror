@@ -1,5 +1,28 @@
 # @atlaskit/profilecard
 
+## 24.12.1
+
+### Patch Changes
+
+- [`b37d51d7eefd7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b37d51d7eefd7) -
+  Clean up feature gate enable_new_tab_for_team_container
+- [`92fb1106594be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92fb1106594be) -
+  tidy up ff for a style fix for profile card
+- [`a95028d1acf41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a95028d1acf41) -
+  migrate people-and-teams platform packages to use i18n NPM packages published by Traduki
+- Updated dependencies
+
+## 24.12.0
+
+### Minor Changes
+
+- [`62797df0ee023`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62797df0ee023) -
+  Deprecated analytics implementation in favour of @atlaskit/teams-app-internal-analytics
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.11.3
 
 ### Patch Changes

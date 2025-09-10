@@ -24,7 +24,7 @@ export type VCLogEntry = {
 export interface VCRevisionDebugDetails {
 	revision: string;
 	isClean: boolean;
-	abortReason?: VCAbortReason | null;
+	abortReason?: string | null;
 	abortTimestamp?: number;
 	vcLogs: VCLogEntry[];
 	interactionId?: string;

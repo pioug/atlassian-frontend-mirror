@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 5.0.2
+
+### Patch Changes
+
+- [`6b9ea765dedda`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b9ea765dedda) -
+  Patches emotion CSS exports in various editor packages
+- Updated dependencies
+
 ## 5.0.1
 
 ### Patch Changes

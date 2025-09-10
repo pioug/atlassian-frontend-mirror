@@ -8,7 +8,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { ResponsiveContainerProps } from './ResponsiveContainer';
-import { ResponsiveContainer } from './ResponsiveContainer';
+import { ResponsiveContainer, ResponsiveWrapper } from './ResponsiveContainer';
 
 const styles = cssMap({
 	toolbarBase: {
@@ -23,6 +23,10 @@ const styles = cssMap({
 		paddingRight: token('space.050'),
 		paddingLeft: token('space.050'),
 		boxShadow: token('elevation.shadow.overlay'),
+	},
+	toolbarResponsive: {
+		// Adding extra margin around the toolbar so that it collapses earlier before it hits responsive breakpoints
+		marginInline: token('space.200'),
 	},
 	primaryToolbar: {
 		backgroundColor: token('elevation.surface'),
@@ -56,13 +60,21 @@ type ToolbarProps = {
 
 /**
  * A simple component representing a toolbar with box shadows - used to represent a secondary/floating toolbar
+ *
+ * @note: Responsiveness support replies on container query with container editor-area and media query
  */
 export const Toolbar = ({ children, label }: ToolbarProps) => {
-	return (
+	const isResponsiveEnabled = expValEquals(
+		'platform_editor_aifc_selection_toolbar_responsive',
+		'isEnabled',
+		true,
+	);
+	const toolbar = (
 		<Box
 			xcss={cx(
 				styles.toolbarBase,
 				styles.toolbar,
+				isResponsiveEnabled && styles.toolbarResponsive,
 				expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true) &&
 					styles.hiddenSelectors,
 			)}
@@ -72,6 +84,12 @@ export const Toolbar = ({ children, label }: ToolbarProps) => {
 			{children}
 		</Box>
 	);
+
+	if (isResponsiveEnabled) {
+		return <ResponsiveWrapper>{toolbar}</ResponsiveWrapper>;
+	} else {
+		return toolbar;
+	}
 };
 
 type PrimaryToolbarProps = ToolbarProps & ResponsiveContainerProps;

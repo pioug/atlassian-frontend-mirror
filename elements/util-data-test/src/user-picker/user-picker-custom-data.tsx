@@ -8,7 +8,7 @@ export const userPickerCustomData: Custom[] = [
 		name: 'Custom option with highlight',
 		fixed: false,
 		avatarUrl:
-			'https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/1.svg',
+			'https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/1.svg',
 		highlight: {
 			name: [
 				{

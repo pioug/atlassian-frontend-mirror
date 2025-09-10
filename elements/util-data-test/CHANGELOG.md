@@ -1,5 +1,12 @@
 # @atlaskit/util-data-test
 
+## 18.2.0
+
+### Minor Changes
+
+- [`6b26105cca8ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b26105cca8ec) -
+  Migrated people and teams assets to teams directory frontend service
+
 ## 18.1.4
 
 ### Patch Changes

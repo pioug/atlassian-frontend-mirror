@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.8.6
+
+### Patch Changes
+
+- [`345a4e1939d12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/345a4e1939d12) -
+  [ux] [ED-28733] Add responsiveness support for selection toolbar
+- Updated dependencies
+
 ## 0.8.5
 
 ### Patch Changes

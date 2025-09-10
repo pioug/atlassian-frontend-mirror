@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.2.6
+
+### Patch Changes
+
+- [`918be17f9334c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/918be17f9334c) -
+  Vertically align heading to caret.
+
 ## 0.2.5
 
 ### Patch Changes

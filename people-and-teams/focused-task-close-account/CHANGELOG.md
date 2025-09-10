@@ -1,5 +1,12 @@
 # @atlaskit/focused-task-close-account
 
+## 3.2.6
+
+### Patch Changes
+
+- [`a95028d1acf41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a95028d1acf41) -
+  migrate people-and-teams platform packages to use i18n NPM packages published by Traduki
+
 ## 3.2.5
 
 ### Patch Changes

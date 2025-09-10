@@ -71,6 +71,9 @@
 			"path": "../editor-tables/tsconfig.app.json"
 		},
 		{
+			"path": "../insm/tsconfig.app.json"
+		},
+		{
 			"path": "../../linking-platform/linking-common/tsconfig.app.json"
 		},
 		{

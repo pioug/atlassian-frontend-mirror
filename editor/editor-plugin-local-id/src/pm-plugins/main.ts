@@ -160,4 +160,5 @@ export const createPlugin = () => {
  */
 export const addLocalIdToNode = (pos: number, tr: Transaction) => {
 	tr.setNodeAttribute(pos, 'localId', uuid.generate());
+	tr.setMeta('addToHistory', false);
 };

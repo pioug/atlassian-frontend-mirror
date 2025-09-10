@@ -41,3 +41,36 @@ export const normalizeTaskItemsSelection = (selection: Selection): Selection => 
 
 	return new TextSelection(anchor, head);
 };
+
+/**
+ * Gets the blockTaskItem node and whether it has a paragraph child if it exists near the given resolved position.
+ * @param $from resolved position, typically from the selection when the selection is an empty selection at the start of a task item
+ * @returns {{ blockTaskItemNode: PMNode; hasParagraph: boolean } | false} An object with blockTaskItemNode and hasParagraph if found, or false if there is no blockTaskItem node.
+ */
+export const findBlockTaskItem = (
+	$from: ResolvedPos,
+): { blockTaskItemNode: PMNode; hasParagraph: boolean } | false => {
+	const { blockTaskItem, paragraph } = $from.doc.type.schema.nodes;
+	const firstParent = $from.parent;
+	if (firstParent.type === blockTaskItem) {
+		return {
+			blockTaskItemNode: firstParent,
+			hasParagraph: false,
+		};
+	} else if (firstParent.type === paragraph) {
+		if ($from.depth >= 1) {
+			const secondParent = $from.node($from.depth - 1);
+			if (secondParent.type === blockTaskItem) {
+				return {
+					blockTaskItemNode: secondParent,
+					hasParagraph: true,
+				};
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	return false;
+};

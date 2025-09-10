@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-base
 
+## 6.0.1
+
+### Patch Changes
+
+- [`dae03b426a38d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dae03b426a38d) -
+  ED-29162: fix editorcontentcontainer hydration issue
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

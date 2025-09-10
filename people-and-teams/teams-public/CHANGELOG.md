@@ -1,5 +1,23 @@
 # @atlaskit/teams-public
 
+## 0.57.1
+
+### Patch Changes
+
+- [`a95028d1acf41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a95028d1acf41) -
+  migrate people-and-teams platform packages to use i18n NPM packages published by Traduki
+
+## 0.57.0
+
+### Minor Changes
+
+- [`62797df0ee023`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62797df0ee023) -
+  Deprecated analytics implementation in favour of @atlaskit/teams-app-internal-analytics
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.56.7
 
 ### Patch Changes

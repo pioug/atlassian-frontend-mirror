@@ -158,7 +158,11 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 
 	const MaybeOverlay = cardContext?.value ? OverlayWithCardContext : HoverLinkOverlayNoop;
 
-	if (ssr && url && !editorExperiment('platform_editor_preview_panel_linking_exp', true)) {
+	if (
+		ssr &&
+		url &&
+		!editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true })
+	) {
 		if (
 			// eslint-disable-next-line @atlaskit/platform/no-invalid-feature-flag-usage
 			fg('editor_inline_comments_on_inline_nodes')
@@ -195,7 +199,11 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 				/>
 			</AnalyticsContext>
 		);
-	} else if (ssr && url && editorExperiment('platform_editor_preview_panel_linking_exp', true)) {
+	} else if (
+		ssr &&
+		url &&
+		editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true })
+	) {
 		if (
 			// eslint-disable-next-line @atlaskit/platform/no-invalid-feature-flag-usage
 			fg('editor_inline_comments_on_inline_nodes')

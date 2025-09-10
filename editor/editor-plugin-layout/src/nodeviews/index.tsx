@@ -280,6 +280,13 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 			this.layoutDOM.setAttribute('data-empty-layout', Boolean(this.isEmpty).toString());
 		}
 
+		if (
+			expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
+			expValEquals('platform_editor_layout_node_view_early_exit', 'isEnabled', true)
+		) {
+			return null;
+		}
+
 		return (
 			<LayoutBreakoutResizer
 				pluginInjectionApi={props.pluginInjectionApi}

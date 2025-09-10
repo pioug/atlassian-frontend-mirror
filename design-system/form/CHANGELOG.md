@@ -1,5 +1,12 @@
 # @atlaskit/form
 
+## 12.5.4
+
+### Patch Changes
+
+- [`281cc603f5925`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/281cc603f5925) -
+  Improve typing within checkbox field
+
 ## 12.5.3
 
 ### Patch Changes

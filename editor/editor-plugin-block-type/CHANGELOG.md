@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-type
 
+## 8.0.3
+
+### Patch Changes
+
+- [`6b9ea765dedda`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b9ea765dedda) -
+  Patches emotion CSS exports in various editor packages
+- [`d7109317309cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7109317309cf) -
+  [ux] ED-29001 Add selected state to text styles menu
+- Updated dependencies
+
+## 8.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

@@ -1,5 +1,39 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.14.0
+
+### Minor Changes
+
+- [`345a4e1939d12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/345a4e1939d12) -
+  [ux] [ED-28733] Add responsiveness support for selection toolbar
+- [`68424716235d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68424716235d0) -
+  [ux] EDITOR-1156 Allow checkbox in blockTaskItem node to be selected with keyboard arrows
+
+## 12.13.0
+
+### Minor Changes
+
+- [`52e588636f4d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52e588636f4d0) -
+  Add new 'changeColor' Editor Command to editor-plugin-text-color, add new keys for clear color
+  menu item, add new clear color menu item, add new platform_editor_toolbar_aifc_patch_4 experiment
+- [`599faf4ddf537`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/599faf4ddf537) -
+  [ED-29230] Fixes the VC offender div.layout-section-container from unnecessarily mutating the DOM
+  by returning null instead of a div
+
+## 12.12.0
+
+### Minor Changes
+
+- [`5de213b733131`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5de213b733131) -
+  [ux] ED-29123 fix paragraph shifting on hover when next to image with wrap-right/left
+
+## 12.11.0
+
+### Minor Changes
+
+- [`52c2f0aa06497`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52c2f0aa06497) -
+  [EDITOR-1433] Add editor_refactor_backspace_task_and_decisions experiment
+
 ## 12.10.0
 
 ### Minor Changes

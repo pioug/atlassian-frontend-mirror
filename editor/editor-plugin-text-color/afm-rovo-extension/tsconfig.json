@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/button/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/css/afm-rovo-extension/tsconfig.json"
 		},
 		{

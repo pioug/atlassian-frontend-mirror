@@ -499,10 +499,6 @@
 		"platform_fix_extra_space_last_line_comment_editor": {
 			"type": "boolean"
 		},
-		"platform_editor_profilecard_style_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_task_check_status_fix": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -514,6 +510,10 @@
 			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_use_localid_dedupe": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

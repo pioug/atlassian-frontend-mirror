@@ -38,6 +38,7 @@ import {
 	type RemoveTeamWatcherMutationResponse,
 	type RemoveTeamWatcherMutationVariables,
 } from './mutations/remove-team-watcher.graphql';
+import { IsTeamWatcherQuery, type IsTeamWatcherQueryResponse, type IsTeamWatcherQueryVariables } from './queries/is-team-watcher.graphql';
 import {
 	TagListQuery,
 	type TagListQueryResponse,
@@ -58,6 +59,27 @@ export class TeamCentralClient extends BaseGraphQlClient {
 				? getTeamCentralGraphqlUrl(baseUrl, cloudId)
 				: getUnshardedTeamCentralGraphqlUrl(baseUrl),
 		);
+	}
+
+	async isTeamWatcher(teamId: string, cloudId?: string): Promise<IsTeamWatcherQueryResponse> {
+		const response = await this.makeGraphQLRequest<
+			'isTeamWatcher',
+			IsTeamWatcherQueryResponse,
+			IsTeamWatcherQueryVariables
+		>(
+			{
+				query: IsTeamWatcherQuery,
+				variables: {
+					teamId: teamId.replace('ari:cloud:identity::team/', ''),
+					cloudId: cloudId || 'None',
+				},
+			},
+			{
+				operationName: 'isTeamWatcher',
+			},
+		);
+
+		return response.isTeamWatcher;
 	}
 
 	async addTeamWatcher(teamId: string, cloudId?: string): Promise<AddTeamWatcherMutationResponse> {

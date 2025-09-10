@@ -35,6 +35,10 @@ interface AnalyticsEvent {
 	source?: string;
 }
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const fireEvent = (
 	createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
 	body: AnalyticsEvent,
@@ -53,6 +57,10 @@ const TEAM_SUBJECT = 'teamProfileCard';
 const USER_SUBJECT = 'profilecard';
 const AGENT_SUBJECT = 'rovoAgentProfilecard';
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 const createEvent = (
 	eventType: 'ui' | 'operational',
 	action: string,

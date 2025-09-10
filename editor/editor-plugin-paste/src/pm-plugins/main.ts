@@ -37,6 +37,7 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { contains, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
+import { insm } from '@atlaskit/insm';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -190,11 +191,19 @@ export function createPlugin(
 			// For serialising to plain text
 			clipboardTextSerializer,
 			handleDOMEvents: {
+				// note
 				paste: (view, event) => {
 					mostRecentPasteEvent = event as ClipboardEvent;
+					if (
+						expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true) &&
+						event.clipboardData
+					) {
+						insm.startHeavyTask('paste');
+					}
 					return false;
 				},
 			},
+			// note
 			handlePaste(view, rawEvent, slice) {
 				const event = rawEvent as ClipboardEvent;
 				if (!event.clipboardData) {
@@ -230,6 +239,9 @@ export function createPlugin(
 				// Bail if copied content has files
 				if (isPastedFile) {
 					if (!html) {
+						if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
+							insm.endHeavyTask('paste');
+						}
 						/**
 						 * Microsoft Office, Number, Pages, etc. adds an image to clipboard
 						 * with other mime-types so we don't let the event reach media.
@@ -248,6 +260,9 @@ export function createPlugin(
 					 * is skipped and handled in handleRichText
 					 */
 					if (htmlContainsSingleFile(html) && !isInsideBlockQuote(view.state)) {
+						if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
+							insm.endHeavyTask('paste');
+						}
 						return true;
 					}
 
@@ -273,6 +288,9 @@ export function createPlugin(
 					});
 					if (payload) {
 						dispatchAnalyticsEvent(payload);
+					}
+					if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
+						insm.endHeavyTask('paste');
 					}
 				});
 				const getLastPastedSlice = (tr: Transaction) => {

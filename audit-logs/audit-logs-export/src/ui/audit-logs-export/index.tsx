@@ -1,121 +1,221 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
+import React, { useRef, useState } from 'react';
 
-import { css } from '@compiled/react';
+import { parse } from 'query-string';
+import { FormattedMessage, useIntl } from 'react-intl-next';
 
-import { cssMap, cx, jsx } from '@atlaskit/css';
-import { Anchor, Box, Text } from '@atlaskit/primitives/compiled';
+import Button, { type Appearance } from '@atlaskit/button/new';
+import { Checkbox } from '@atlaskit/checkbox';
+import AutoDismissFlag from '@atlaskit/flag';
+import { ErrorMessage } from '@atlaskit/form';
+import Heading from '@atlaskit/heading';
+import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
+import ModalDialog, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '@atlaskit/modal-dialog';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { PROGRESS_BAR_TEST_ID } from './constants';
-import type { AuditLogsExportProps, ProgressBarProps } from './types';
+import { defaultMessages } from './messages';
 
-const styles = cssMap({
-	container: {
-		marginTop: token('space.200'),
-		marginRight: token('space.200'),
-		marginBottom: token('space.200'),
-		marginLeft: token('space.200'),
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
-	},
-	selected: {
-		backgroundColor: token('color.background.selected'),
-		borderColor: token('color.border.selected'),
-		color: token('color.text.selected'),
-		'&:hover': {
-			backgroundColor: token('color.background.selected.hovered'),
-		},
-	},
-	unselected: {
-		borderColor: token('color.border'),
-		'&:hover': {
-			backgroundColor: token('color.background.neutral.hovered'),
-		},
-	},
-	progressBarContainer: {
-		marginTop: token('space.200'),
-		marginLeft: 0,
-		marginRight: 0,
-		marginBottom: 0,
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
-		color: token('color.text'),
-	},
-});
-
-const progressBarStyles = css({
-	marginLeft: token('space.100'),
-});
-
-// NOTE: You can still use raw `css` from `@compiled/react` if you need to.
-// In this case, we use it because `borderRadius` doesn't match our interface.
-const containerWithBorder = css({
-	borderStyle: 'solid',
-	borderWidth: token('border.width.outline'),
-	borderRadius: token('radius.large'),
-});
-
-/**
- * NOTE: A progress bar is available through `@atlaskit/progress-bar`,
- * we create our own progress bar component here for the sake of example.
- *
- * Please use `@atlaskit/progress-bar` for accessibility compliance, this is not accessible.
- */
-function ProgressBar({ value }: ProgressBarProps) {
-	return (
-		<Box
-			backgroundColor="color.background.warning"
-			xcss={cx(styles.container, styles.progressBarContainer)}
-		>
-			<label htmlFor="progress-bar">Progress:</label>
-			<progress
-				id="progress-bar"
-				data-testid={PROGRESS_BAR_TEST_ID}
-				max="100"
-				value={value}
-				css={progressBarStyles}
-			/>
-		</Box>
-	);
+export interface AuditLogExportButtonProps {
+  /** Function to call when export is initiated. Should handle the actual export logic. */
+  onExport: (params: {
+    action?: string;
+    actor?: string;
+    from?: string;
+    ip?: string;
+    location?: string;
+    orgId: string;
+    product?: string;
+    q?: string;
+    to?: string;
+  }) => Promise<void>;
+  /** Organization ID for the export */
+  orgId: string;
+  /** Search parameters as a string (e.g., "?from=2023-01-01&to=2023-12-31") */
+  search?: string;
+  /** Optional test ID for the export button */
+  testId?: string;
 }
 
-export default function AuditLogsExport({ isSelected, testId, width }: AuditLogsExportProps) {
-	return (
-		<div
-			style={{ width }}
-			css={[
-				// NOTE: While `<Box>` is preferred for consistency, if you need complexity
-				// that doesn't align with the types, using a raw `<div>` is acceptable,
-				// just use `@atlaskit/css` where available
-				styles.container,
-				containerWithBorder,
-				isSelected ? styles.selected : styles.unselected,
-			]}
-			data-testid={testId}
-		>
-			<Text as="p">
-				Hello world! Usually you'll be using{' '}
-				<Anchor href="https://atlassian.design/components">
-					Atlassian Design System components
-				</Anchor>{' '}
-				and{' '}
-				<Anchor href="https://atlassian.design/components/primitives">
-					Atlassian Design System Primitives
-				</Anchor>{' '}
-				to build your UI.
-			</Text>
-			<Text as="p">
-				In the rare case that you need a bespoke solution that you can't achieve Atlassian Design
-				System, you can create a custom component like the ProgressBar below.
-			</Text>
-			<ProgressBar value={95} />
-		</div>
-	);
-}
+export const AuditLogExportButton = ({
+  onExport,
+  orgId,
+  search = '',
+  testId = 'audit-log-export-button',
+}: AuditLogExportButtonProps) => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isTermsChecked, setIsTermsChecked] = useState<boolean>(false);
+  const [hasTermsError, setHasTermsError] = useState<boolean>(false);
+  const [showSuccessFlag, setShowSuccessFlag] = useState<boolean>(false);
+  const [showErrorFlag, setShowErrorFlag] = useState<boolean>(false);
+  const { formatMessage } = useIntl();
+  const checkboxRef = useRef<HTMLInputElement>(null);
+
+  const onClose = () => {
+    closeModal();
+  };
+
+  const onCheckBoxChange = () => {
+    if (!isTermsChecked) {
+      setHasTermsError(false);
+    }
+
+    setIsTermsChecked(!isTermsChecked);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsLoading(false);
+    setIsModalOpen(false);
+    setIsTermsChecked(false);
+    setHasTermsError(false);
+    // Do not reset success or error flags here; they should be controlled by the flag's auto-dismiss or user action
+  };
+
+  const startExport = async () => {
+    if (!isTermsChecked) {
+      setHasTermsError(true);
+
+      // Focus the checkbox after a brief delay to ensure error is rendered
+      setTimeout(() => {
+        checkboxRef.current?.focus();
+      }, 100);
+
+      return;
+    }
+
+    const { from, to, q, action, actor, ip, location, product } = parse(search) as any;
+
+    if (isLoading) {
+      return;
+    }
+    setIsLoading(true);
+
+    try {
+      await onExport({ orgId, to, from, q, action, actor, ip, location, product });
+
+      setShowSuccessFlag(true);
+    } catch (error) {
+      setShowErrorFlag(true);
+    } finally {
+      closeModal();
+    }
+  };
+
+
+  const actions = [
+    { id: 'cancelButton', text: formatMessage(defaultMessages.cancel), onClick: onClose, appearance: 'subtle' as Appearance },
+    { id: 'exportButton', text: formatMessage(defaultMessages.export), onClick: startExport, appearance: 'primary' as Appearance },
+  ];
+
+  return (
+    <>
+      {showSuccessFlag && (
+        <AutoDismissFlag
+          id="audit-log-export-success-flag"
+          icon={<SuccessIcon label="Success" spacing="spacious" color={token('color.icon.success')} />}
+          title={formatMessage(defaultMessages.successFlagTitle)}
+          description={formatMessage(defaultMessages.successFlagDescription)}
+					onDismissed={() => setShowSuccessFlag(false)}
+        />
+      )}
+      {showErrorFlag && (
+        <AutoDismissFlag
+          id="audit-log-export-error-flag"
+          icon={<WarningIcon label="Warning" spacing="spacious" color={token('color.icon.warning')} />}
+          title={formatMessage(defaultMessages.errorFlagTitle)}
+          description={formatMessage(defaultMessages.errorFlagDescription)}
+					onDismissed={() => setShowErrorFlag(false)}
+        />
+      )}
+      <Button onClick={openModal} testId={testId}>
+        <FormattedMessage {...defaultMessages.exportButton} />
+      </Button>
+      <ModalTransition>
+        {isModalOpen && (
+          <ModalDialog width="medium" onClose={onClose}>
+              <ModalHeader>
+                <ModalTitle>{formatMessage(defaultMessages.modalTitle)}</ModalTitle>
+              </ModalHeader>
+              <ModalBody>
+                <Box>
+                  <Text color="color.text.subtle">
+                    <FormattedMessage
+                      {...defaultMessages.modalDescription}
+                      values={{
+                        matchFilterText: (
+                          <Text as="strong">
+                            <FormattedMessage {...defaultMessages.modalDescription2} />
+                          </Text>
+                        ),
+                      }}
+                    />
+                  </Text>
+                </Box>
+                <Box paddingBlockStart="space.150">
+                  <Box paddingBlockEnd="space.050">
+                    <Heading size="xxsmall" as="div">
+                      <Text color="color.text.subtle">
+                        <FormattedMessage {...defaultMessages.exportTermsTitle} />
+                      </Text>
+                    </Heading>
+                  </Box>
+                  <Box paddingBlockEnd="space.150">
+                    <Checkbox
+                      ref={checkboxRef}
+                      label={
+                        <Text color="color.text.subtle">
+                          <FormattedMessage {...defaultMessages.exportTermsDescription} />
+                        </Text>
+                      }
+                      onChange={onCheckBoxChange}
+                      id="audit-log-export-terms-checkbox"
+                      testId="audit-log-export-terms-checkbox"
+                      isDisabled={isLoading}
+                      isChecked={isTermsChecked}
+                      isInvalid={hasTermsError}
+                      aria-label="checkbox"
+                      aria-describedby={hasTermsError ? 'audit-log-export-terms-error' : undefined}
+                      name="audit-log-export-terms-checkbox"
+                      type="checkbox"
+                    />
+                  </Box>
+                  {hasTermsError && (
+                    <div
+                      id="audit-log-export-terms-error"
+                      role="alert"
+                      aria-live="assertive"
+                      data-testid="audit-log-export-terms-error-message"
+                    >
+                      <ErrorMessage>
+                        <Text weight="medium">
+                          <FormattedMessage {...defaultMessages.exportTermsError} />
+                        </Text>
+                      </ErrorMessage>
+                    </div>
+                  )}
+                </Box>
+              </ModalBody>
+              <ModalFooter>
+                {actions.map((props, index) => (
+                  <Button key={props.id} {...props} appearance={index === 0 ? props.appearance || 'primary' : props.appearance || 'subtle'}>
+                    {props.text}
+                  </Button>
+                ))}
+              </ModalFooter>
+            </ModalDialog>
+        )}
+      </ModalTransition>
+    </>
+  );
+};

@@ -11,9 +11,9 @@ export default md`
   ${(
 		<Example
 			packageName="@atlaskit/panel-system"
-			Component={require('../examples/basic').default}
+			Component={require('../examples/00-basic-panel').default}
 			title="Basic example"
-			source={require('!!raw-loader!../examples/basic')}
+			source={require('!!raw-loader!../examples/00-basic-panel')}
 		/>
 	)}
 

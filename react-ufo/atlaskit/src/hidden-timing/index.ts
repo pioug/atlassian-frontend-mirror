@@ -74,6 +74,11 @@ export function setupHiddenTimingCapture() {
 }
 
 export function getPageVisibilityState(start: number, end: number): PageVisibility {
+	// Input validation - return default for invalid inputs
+	if (!Number.isFinite(start) || !Number.isFinite(end)) {
+		return 'visible';
+	}
+
 	// Desirable default value is visible
 	if (timings.length === 0) {
 		return 'visible';
@@ -88,7 +93,8 @@ export function getPageVisibilityState(start: number, end: number): PageVisibili
 	// currentSize is capped at SIZE.
 	for (let i = 0; i < currentSize; i++) {
 		const tmpIdx = (insertIndex + i) % currentSize;
-		if (timings[tmpIdx].time <= end) {
+		// Add bounds checking before accessing array element
+		if (timings[tmpIdx] && timings[tmpIdx].time <= end) {
 			endIdx = tmpIdx;
 			if (timings[tmpIdx].time <= start) {
 				startIdx = tmpIdx;
@@ -96,12 +102,9 @@ export function getPageVisibilityState(start: number, end: number): PageVisibili
 		}
 	}
 
-	if (endIdx - startIdx === 0) {
-		if (timings[startIdx].hidden) {
-			hiddenState = 'hidden';
-		} else {
-			hiddenState = 'visible';
-		}
+	// Add bounds checking before accessing timings array
+	if (endIdx - startIdx === 0 && timings[startIdx]) {
+		hiddenState = timings[startIdx].hidden ? 'hidden' : 'visible';
 	}
 	return hiddenState;
 }

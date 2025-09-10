@@ -31,6 +31,7 @@
 		"./next": "./src/next/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-people-and-teams-teams-public": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/button": "workspace:^",
@@ -115,7 +116,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.56.7",
+	"version": "0.57.1",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

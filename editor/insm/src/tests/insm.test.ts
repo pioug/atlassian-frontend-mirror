@@ -5,7 +5,6 @@ import type { INSMOptions, PeriodMeasurer } from '../types';
 // --- Mocks ---
 let rafCallbacks: { cb: FrameRequestCallback; id: number }[] = [];
 let rafId = 1;
-let consoleErrorSpy: jest.SpyInstance;
 let analyticsSpy: jest.Mock = jest.fn();
 let visibilityState = 'visible';
 
@@ -48,9 +47,6 @@ function resetMocks() {
 	rafCallbacks = [];
 	rafId = 1;
 	visibilityState = 'visible';
-	if (consoleErrorSpy) {
-		consoleErrorSpy.mockRestore();
-	}
 	if (analyticsSpy) {
 		analyticsSpy.mockReset();
 	}
@@ -131,14 +127,12 @@ describe('Entry Point API (index.ts)', () => {
 	});
 
 	describe('Guard rails', () => {
-		test('when used before init, logs error and returns undefined', () => {
-			consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+		test('when used before init, returns undefined', () => {
 			expect(insm.start('made-up', { initial: true, contentId: '9001' })).toBeUndefined();
 			expect(insm.stopEarly('error-boundary', 'error details')).toBeUndefined();
 			expect(insm.session).toBeUndefined();
 			expect(insm.startHeavyTask('page-load')).toBeUndefined();
 			expect(insm.endHeavyTask('page-load')).toBeUndefined();
-			expect(consoleErrorSpy).toHaveBeenCalledWith('INSM used when not initialised');
 		});
 
 		test('safe behavior when analytics client fails to resolve', () => {

@@ -30,6 +30,7 @@ import {
 	focusCheckboxAndUpdateSelection,
 	getTaskItemDataAtPos,
 	getTaskItemDataToFocus,
+	isInsideTask,
 	removeCheckboxFocus,
 } from './helpers';
 import { stateKey } from './plugin-key';
@@ -124,7 +125,13 @@ export function createPlugin(
 				const { selection, schema } = state;
 				const { $from, $to } = selection;
 				const parentOffset = $from.parentOffset;
-				const isInTaskItem = $from.node().type === schema.nodes.taskItem;
+				const isInTaskItem = expValEquals(
+					'platform_editor_blocktaskitem_patch_1',
+					'isEnabled',
+					true,
+				)
+					? isInsideTask(state)
+					: $from.node().type === schema.nodes.taskItem;
 
 				const focusedTaskItemLocalId = stateKey.getState(state).focusedTaskItemLocalId;
 
@@ -169,6 +176,7 @@ export function createPlugin(
 						removeCheckboxFocus(view);
 						return true;
 					}
+
 					if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
 						const taskItemData = getTaskItemDataToFocus(
 							view,

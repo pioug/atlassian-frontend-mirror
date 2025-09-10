@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { headingsSharedStyles, blockquoteSharedStyles } from '@atlaskit/editor-common/styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
@@ -49,29 +49,29 @@ export const blockTypeMenuItemStyle = (
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const keyboardShortcut = css(shortcutStyle, {
+export const keyboardShortcut: SerializedStyles = css(shortcutStyle, {
 	marginLeft: token('space.200', '16px'),
 	color: token('color.icon', N400),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const keyboardShortcutSelect = css({
+export const keyboardShortcutSelect: SerializedStyles = css({
 	color: token('color.icon', N400),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const wrapperSmallStyle = css({
+export const wrapperSmallStyle: SerializedStyles = css({
 	marginLeft: token('space.050', '4px'),
 	minWidth: '40px',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const expandIconWrapperStyle = css({
+export const expandIconWrapperStyle: SerializedStyles = css({
 	marginLeft: token('space.negative.100', '-8px'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const floatingToolbarWrapperStyle = css({
+export const floatingToolbarWrapperStyle: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	"[data-role='droplistContent']": {
 		maxHeight: '90vh',

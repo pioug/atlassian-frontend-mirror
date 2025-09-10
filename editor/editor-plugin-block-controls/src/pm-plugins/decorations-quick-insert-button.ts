@@ -8,6 +8,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -97,6 +98,11 @@ export const quickInsertButtonDecoration = ({
 			if (fg('platform_editor_controls_patch_15')) {
 				// inline decoration causes cursor disappear when focusing editor at the first line (e.g. press Tab when title is focused)
 				element.style.display = 'block';
+
+				if (expValEquals('platform_editor_quick_insert_image_wrap_right_fix', 'isEnabled', true)) {
+					// make sure it does not interfere with elements floating next to each other e.g. paragraph next to image with wrap-right
+					element.style.clear = 'unset';
+				}
 			}
 			element.contentEditable = 'false';
 			element.setAttribute('data-blocks-quick-insert-container', 'true');

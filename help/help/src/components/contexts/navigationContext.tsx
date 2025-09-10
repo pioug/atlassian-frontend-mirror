@@ -184,7 +184,7 @@ const navigationReducer = (
 				...currentHistory,
 				getNewHistoryItem(newArticleId.id, newArticleId.type, newArticleId.contentAri),
 			],
-			view: getViewForArticleId(currentArticleId),
+			view: getViewForArticleId(newArticleId),
 		};
 	} else if (action.type === 'updateHistoryItem' && action.payload) {
 		const { payload: HistoryItemUpdate }: navigationReducerAction<HistoryItem> = action;

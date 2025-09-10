@@ -20,10 +20,11 @@ const styles = cssMap({
 		position: 'absolute',
 		width: '295px',
 		borderRadius: token('radius.large'),
-		paddingBlock: token('space.150'),
+		paddingBlockStart: token('space.100'),
+		paddingBlockEnd: token('space.150'),
 		display: 'flex',
 		flexDirection: 'column',
-		gap: token('space.200'),
+		gap: token('space.100'),
 		boxShadow: token('elevation.shadow.overflow'),
 	},
 });
@@ -31,11 +32,11 @@ const styles = cssMap({
 const placementStyles = cssMap({
 	'top-start': {
 		insetBlockEnd: token('space.075'),
-		insetInlineEnd: token('space.negative.200'),
+		insetInlineEnd: token('space.negative.250'),
 	},
 	'top-end': {
 		insetBlockEnd: token('space.075'),
-		insetInlineStart: token('space.negative.200'),
+		insetInlineStart: token('space.negative.250'),
 	},
 	'right-start': {
 		insetInlineStart: token('space.075'),
@@ -47,11 +48,11 @@ const placementStyles = cssMap({
 	},
 	'bottom-start': {
 		insetBlockStart: token('space.075'),
-		insetInlineEnd: token('space.negative.200'),
+		insetInlineEnd: token('space.negative.250'),
 	},
 	'bottom-end': {
 		insetBlockStart: token('space.075'),
-		insetInlineStart: token('space.negative.200'),
+		insetInlineStart: token('space.negative.250'),
 	},
 	'left-start': {
 		insetInlineEnd: token('space.075'),

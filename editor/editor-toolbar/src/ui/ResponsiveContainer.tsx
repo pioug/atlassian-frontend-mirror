@@ -130,6 +130,68 @@ const styles = cssMap({
 			},
 		},
 	},
+	responsiveRulesWrapper: {
+		// @ts-expect-error
+		'.show-above-sm, .show-above-md, .show-above-lg, .show-above-xl': {
+			display: 'block',
+		},
+
+		'.show-below-sm, .show-below-md, .show-below-lg, .show-below-xl': {
+			display: 'none',
+		},
+		// We need to set breakpoints on both media queries and container queries
+		// because editor-area does not shrink less than 700px (if no panels are open), hence we need media query for smaller screens
+		// and when other panels are open, media query cannot detect, hence we need container query for smaller editor areas.
+		'@media (max-width: 365px)': {
+			'.show-above-sm': {
+				display: 'none',
+			},
+			'.show-below-sm': {
+				display: 'block',
+			},
+		},
+		'@container editor-area  (max-width: 365px)': {
+			'.show-above-sm': {
+				display: 'none',
+			},
+			'.show-below-sm': {
+				display: 'block',
+			},
+		},
+		'@media (max-width: 533px)': {
+			'.show-above-md': {
+				display: 'none',
+			},
+			'.show-below-md': {
+				display: 'block',
+			},
+		},
+		'@container editor-area (max-width: 533px)': {
+			'.show-above-md': {
+				display: 'none',
+			},
+			'.show-below-md': {
+				display: 'block',
+			},
+		},
+
+		'@media (max-width: 700px)': {
+			'.show-above-lg': {
+				display: 'none',
+			},
+			'.show-below-lg': {
+				display: 'block',
+			},
+		},
+		'@container editor-area (max-width: 700px)': {
+			'.show-above-lg': {
+				display: 'none',
+			},
+			'.show-below-lg': {
+				display: 'block',
+			},
+		},
+	},
 });
 
 export type ResponsiveContainerProps = {
@@ -201,4 +263,11 @@ export const ResponsiveContainer = ({ children, reducedBreakpoints }: Responsive
 			{children}
 		</Box>
 	);
+};
+
+/**
+ * A wrapper that supports responsiveness with media queries. It needs to used together with Show component
+ */
+export const ResponsiveWrapper = ({ children }: { children: ReactNode }) => {
+	return <Box xcss={styles.responsiveRulesWrapper}>{children}</Box>;
 };

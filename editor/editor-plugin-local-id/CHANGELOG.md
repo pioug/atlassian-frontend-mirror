@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-local-id
 
+## 3.0.1
+
+### Patch Changes
+
+- [`11af83fec458a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11af83fec458a) -
+  Don't add localId transactions to history
+
 ## 3.0.0
 
 ### Patch Changes

@@ -155,6 +155,7 @@ describe('AbstractVCCalculatorBase V1', () => {
 				'95': { t: 200, e: ['div3'] },
 				'98': { t: 200, e: ['div3'] },
 				'99': { t: 200, e: ['div3'] },
+				'100': { t: 200, e: ['div3'] },
 			},
 		});
 	});

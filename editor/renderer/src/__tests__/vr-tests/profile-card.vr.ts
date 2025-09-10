@@ -3,7 +3,7 @@ import { ProfileCardInRenderer } from './profile-card.fixture';
 
 snapshot(ProfileCardInRenderer, {
 	featureFlags: {
-		platform_editor_profilecard_style_fix: [true, false],
 		platform_editor_typography_ugc: true,
+		enable_absolute_positioning_profile_card: true,
 	},
 });

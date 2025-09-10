@@ -26,6 +26,10 @@ interface AnalyticsEvent {
 	source?: string;
 }
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const usePeopleAndTeamAnalytics = () => {
 	const [{ eventAttributes: injectedEventAttributes }] = usePeopleTeamsAnalyticsSubcontext();
 	const fireEvent =

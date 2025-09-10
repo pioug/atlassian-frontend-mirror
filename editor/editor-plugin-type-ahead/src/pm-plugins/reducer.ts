@@ -2,6 +2,8 @@ import { InsertTypeAheadStages, InsertTypeAheadStep } from '@atlaskit/adf-schema
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { insm } from '@atlaskit/insm';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type {
 	CreateTypeAheadDecorations,
@@ -92,6 +94,9 @@ export const createReducer = ({
 			inputMethod,
 			reopenQuery,
 		});
+		if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
+			insm.session?.startFeature('typeaheadOpen');
+		}
 		return {
 			...currentPluginState,
 			stats,
@@ -108,6 +113,9 @@ export const createReducer = ({
 
 	const closeMenu = (currentPluginState: TypeAheadPluginState): TypeAheadPluginState => {
 		removeDecorations(currentPluginState.decorationSet);
+		if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
+			insm.session?.endFeature('typeaheadOpen');
+		}
 		return {
 			...currentPluginState,
 			inputMethod: null,

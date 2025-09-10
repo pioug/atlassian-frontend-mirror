@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.6.2
+
+### Patch Changes
+
+- [`4dd6789885500`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4dd6789885500) -
+  Fix unhandled hidden timing error
+- [`25fbcd6f57e2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25fbcd6f57e2f) -
+  clean up fg
+
+## 4.6.1
+
+### Patch Changes
+
+- [`a308f1abf3cf2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a308f1abf3cf2) -
+  unify abort status within TTVC debug data
+
 ## 4.6.0
 
 ### Minor Changes

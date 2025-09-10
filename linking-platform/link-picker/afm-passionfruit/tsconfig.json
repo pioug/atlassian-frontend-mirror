@@ -35,6 +35,9 @@
 			"path": "../../../design-system/css/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../../measurement/feature-gate-js-client/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/form/afm-passionfruit/tsconfig.json"
 		},
 		{

@@ -56,6 +56,9 @@
 			"path": "../../editor-tables/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../insm/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../media/media-client/afm-post-office/tsconfig.json"
 		},
 		{

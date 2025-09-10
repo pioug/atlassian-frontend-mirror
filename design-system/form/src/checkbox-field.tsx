@@ -72,7 +72,7 @@ const CheckboxField = ({
 	);
 
 	return value !== undefined ? (
-		<Field<any>
+		<Field
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...(fg('platform_design-system-team_checkbox-field-spread') ? {} : { ...rest })}
 			defaultValue={defaultValue}
@@ -81,15 +81,17 @@ const CheckboxField = ({
 			label={label}
 			name={name}
 			transform={(event, currentValue: string[]) =>
-				event.currentTarget.checked && currentValue
+				!Array.isArray(event) && event.currentTarget.checked && currentValue
 					? [...currentValue, value]
 					: currentValue.filter((v) => v !== value)
 			}
 		>
-			{({ fieldProps: { value: fieldValue, ...otherFieldProps }, ...others }) =>
+			{({ fieldProps: { value: fieldValue, onChange, ...otherFieldProps }, ...others }) =>
 				children({
 					fieldProps: {
 						...otherFieldProps,
+						// Setting to any because it's typed weirdly at the field level
+						onChange: (v: any) => onChange(v),
 						isChecked: !!fieldValue.find((v: string) => v === value),
 						value,
 					},
@@ -98,7 +100,7 @@ const CheckboxField = ({
 			}
 		</Field>
 	) : (
-		<Field<any>
+		<Field
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...(fg('platform_design-system-team_checkbox-field-spread') ? {} : { ...rest })}
 			defaultValue={defaultIsChecked}
@@ -106,12 +108,14 @@ const CheckboxField = ({
 			isRequired={isRequired}
 			label={label}
 			name={name}
-			transform={(event) => event.currentTarget.checked}
+			transform={(event) => (typeof event === 'boolean' ? event : event.currentTarget.checked)}
 		>
-			{({ fieldProps: { value: fieldValue, ...otherFieldProps }, ...others }) =>
+			{({ fieldProps: { value: fieldValue, onChange, ...otherFieldProps }, ...others }) =>
 				children({
 					fieldProps: {
 						...otherFieldProps,
+						// Setting to any because it's typed weirdly at the field level
+						onChange: (v: any) => onChange(v),
 						isChecked: fieldValue,
 						value,
 					},

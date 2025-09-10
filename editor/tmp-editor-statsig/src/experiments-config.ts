@@ -617,6 +617,15 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	//Added 2025-09-09
+	platform_editor_toolbar_aifc_patch_4: createBooleanExperiment({
+		productKeys: {
+			jira: 'platform_editor_toolbar_aifc_patch_4',
+			confluence: 'platform_editor_toolbar_aifc_patch_4',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	//Added 2025-08-13
 	platform_editor_ai_aifc: createBooleanExperiment({
 		productKeys: {
@@ -712,6 +721,14 @@ export const editorExperimentsConfig = {
 	platform_editor_blocktaskitem_node: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_blocktaskitem_node',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-08
+	platform_editor_blocktaskitem_patch_1: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_blocktaskitem_patch_1',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -874,11 +891,35 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-09-11
+	platform_editor_quick_insert_image_wrap_right_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_quick_insert_image_wrap_right_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-05
+	platform_editor_aifc_selection_toolbar_responsive: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_aifc_selection_toolbar_responsive',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 03-09-2025
 	cc_editor_interactivity_monitoring: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_interactivity_monitoring',
 			jira: 'cc_editor_interactivity_monitoring',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-09
+	platform_editor_layout_node_view_early_exit: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_layout_node_view_early_exit',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

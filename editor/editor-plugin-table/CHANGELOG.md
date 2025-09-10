@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 14.0.2
+
+### Patch Changes
+
+- [`33f34d6fd24f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33f34d6fd24f3) -
+  NO-ISSUE Prevent tableLocalId plugin running if platform_editor_adf_with_localid is true
+- Updated dependencies
+
 ## 14.0.1
 
 ### Patch Changes

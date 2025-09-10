@@ -1,10 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const triggerWrapper = css({
+export const triggerWrapper: SerializedStyles = css({
 	width: '42px',
 	display: 'flex',
 	alignItems: 'center',
@@ -19,6 +19,6 @@ export const triggerWrapper = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const expandWrapperStyle = css({
+export const expandWrapperStyle: SerializedStyles = css({
 	marginLeft: token('space.050', '4px'),
 });

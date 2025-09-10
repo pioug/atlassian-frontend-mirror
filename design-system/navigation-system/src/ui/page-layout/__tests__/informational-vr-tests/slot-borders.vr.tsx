@@ -7,7 +7,6 @@ import { CompositionVR } from '../../../../../examples/composition';
 snapshotInformational(CompositionVR, {
 	description: 'above md breakpoint - side nav expanded',
 	featureFlags: {
-		platform_design_system_nav4_panel_default_border: [false, true],
 		platform_design_system_nav4_sidenav_border: [false, true],
 	},
 	prepare: async (page: Page) => {
@@ -21,7 +20,6 @@ snapshotInformational(CompositionVR, {
 snapshotInformational(CompositionVR, {
 	description: 'above md breakpoint - side nav flyout',
 	featureFlags: {
-		platform_design_system_nav4_panel_default_border: [false, true],
 		platform_design_system_nav4_sidenav_border: [false, true],
 	},
 	prepare: async (page: Page) => {
@@ -40,7 +38,6 @@ snapshotInformational(CompositionVR, {
 snapshotInformational(CompositionVR, {
 	description: 'below md breakpoint - side nav expanded',
 	featureFlags: {
-		platform_design_system_nav4_panel_default_border: [false, true],
 		platform_design_system_nav4_sidenav_border: [false, true],
 	},
 	prepare: async (page: Page) => {

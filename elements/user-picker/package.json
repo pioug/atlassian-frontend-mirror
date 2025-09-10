@@ -124,9 +124,6 @@
 		},
 		"product-terminology-refresh": {
 			"type": "boolean"
-		},
-		"uxissue-914": {
-			"type": "boolean"
 		}
 	}
 }

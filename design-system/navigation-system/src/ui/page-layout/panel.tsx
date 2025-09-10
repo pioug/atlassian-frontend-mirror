@@ -140,7 +140,7 @@ export function Panel({
 	testId,
 	id: providedId,
 	xcss,
-	hasBorder = fg('platform_design_system_nav4_panel_default_border'),
+	hasBorder = true,
 }: CommonSlotProps & {
 	/**
 	 * The content of the layout area.
@@ -163,12 +163,14 @@ export function Panel({
 	 * Bounded style overrides.
 	 */
 	xcss?: StrictXCSSProp<'backgroundColor', never>;
+	// We can clean up AFM usage
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 	/**
 	 * Whether or not the slot has its own border. On small screens this becomes a shadow.
 	 *
-	 * Defaults to the `platform_design_system_nav4_panel_default_border` gate.
-	 * This will be `false` while we update app usage, eventually becoming `true`.
-	 * Then this prop will be removed.
+	 * Defaults to true. Will be removed in the future (and disabling the border will not be supported).
+	 *
+	 * @deprecated
 	 */
 	hasBorder?: boolean;
 }) {

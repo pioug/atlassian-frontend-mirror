@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 3.6.0
+
+### Minor Changes
+
+- [`11044e9b6f9f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11044e9b6f9f6) -
+  Passing preview message ID to home preview button
+
 ## 3.5.3
 
 ### Patch Changes

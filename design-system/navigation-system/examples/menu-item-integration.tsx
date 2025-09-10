@@ -154,7 +154,7 @@ export default function MenuItemIntegrationExample() {
 											{...props}
 											spacing="compact"
 											appearance="subtle"
-											label="Open"
+											label="Starred more options"
 											icon={(iconProps) => <ShowMoreHorizontal {...iconProps} size="small" />}
 										/>
 									)}
@@ -178,7 +178,7 @@ export default function MenuItemIntegrationExample() {
 											{...props}
 											spacing="compact"
 											appearance="subtle"
-											label="Open"
+											label="Filters more options"
 											icon={(iconProps) => <ShowMoreHorizontal {...iconProps} size="small" />}
 										/>
 									)}

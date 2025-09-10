@@ -1,4 +1,9 @@
-import type { Command, NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	EditorCommand,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { HighlightPlugin } from '@atlaskit/editor-plugin-highlight';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
@@ -25,6 +30,9 @@ export type TextColorPlugin = NextEditorPlugin<
 	{
 		actions: {
 			changeColor: (color: string, inputMethod?: TextColorInputMethod) => Command;
+		};
+		commands: {
+			changeColor: (color: string, inputMethod?: TextColorInputMethod) => EditorCommand;
 		};
 		dependencies: Dependencies;
 		pluginConfiguration: TextColorPluginOptions | undefined;

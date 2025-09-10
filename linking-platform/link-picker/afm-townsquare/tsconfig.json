@@ -35,6 +35,9 @@
 			"path": "../../../design-system/css/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../../measurement/feature-gate-js-client/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/form/afm-townsquare/tsconfig.json"
 		},
 		{

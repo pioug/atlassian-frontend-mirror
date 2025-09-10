@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 5.0.2
+
+### Patch Changes
+
+- [`58d0470dead2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58d0470dead2e) -
+  Add insm feature tracking for typeaheadOpen
+- Updated dependencies
+
 ## 5.0.1
 
 ### Patch Changes

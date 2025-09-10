@@ -13,4 +13,10 @@ export const highlightMessages = defineMessages({
 		description:
 			'Button content for the highlight color menu option in the editor floating toolbar. Opens up the color palette for the highlight colors.',
 	},
+	removeColor: {
+		id: 'fabric.editor.highlight.removeColor',
+		defaultMessage: 'Remove color',
+		description:
+			'Button content for the combined text highlight and color menu, removes either the applied text color or highlight color.',
+	},
 });

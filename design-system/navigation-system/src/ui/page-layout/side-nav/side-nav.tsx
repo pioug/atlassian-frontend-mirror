@@ -560,6 +560,16 @@ function SideNavInternal({
 					return;
 				}
 
+				if (!event.target.isConnected && fg('platform_dst_nav4_side_nav_click_outside_fix')) {
+					/**
+					 * If the element that was clicked is no longer in the document, we should not collapse the side nav.
+					 * This can happen when the user clicks on a dropdown menu item (such as one used in a `...` More menu),
+					 * as the dropdown menu will close after being clicked. By the time this event listener runs, the clicked
+					 * element will no longer be in the document, so the check below for `sideNav.contains(event.target)` will fail.
+					 */
+					return;
+				}
+
 				if (sideNav.contains(event.target)) {
 					// Clicks inside the side nav should not close it
 					return;

@@ -19,6 +19,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
 import { Box } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
@@ -100,8 +101,9 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps) => {
 		);
 	};
 	const shortcut = formatShortcut(shortcuts[blockType.name as HeadingName]);
+	expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
 
-	const isSelected = currentBlockType === blockType;
+	const isSelected = expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ? currentBlockType?.name === blockType.name : currentBlockType === blockType;
 
 	return (
 		<ToolbarDropdownItem

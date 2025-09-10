@@ -12,6 +12,7 @@ import {
 	TEXT_COLOR_HIGHLIGHT_MENU_RANK,
 	TEXT_COLLAPSED_MENU_RANK,
 	TEXT_COLLAPSED_MENU,
+	CLEAR_COLOR_MENU_ITEM,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
@@ -19,6 +20,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TextColorPlugin } from '../textColorPluginType';
 
+import { RemoveColorMenuItem } from './RemoveColorMenuItem';
 import { TextColorHighlightMenu } from './TextColorHighlightMenu';
 import { TextColorMenuItem } from './TextColorMenuItem';
 import { TextMenuSection } from './TextMenuSection';
@@ -81,5 +83,21 @@ export const getToolbarComponents = (
 				<TextColorMenuItem api={api} parents={parents} />
 			),
 		},
+		...(expValEquals('platform_editor_toolbar_aifc_patch_4', 'isEnabled', true)
+			? [
+					{
+						...CLEAR_COLOR_MENU_ITEM,
+						parents: [
+							{
+								...TEXT_COLOR_HIGHLIGHT_MENU_SECTION,
+								rank: TEXT_COLOR_HIGHLIGHT_MENU_SECTION_RANK[CLEAR_COLOR_MENU_ITEM.key],
+							},
+						],
+						component: ({ parents }: { parents: ToolbarComponentTypes }) => {
+							return <RemoveColorMenuItem api={api} parents={parents} />;
+						},
+					},
+				]
+			: []),
 	];
 };

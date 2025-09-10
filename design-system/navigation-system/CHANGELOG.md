@@ -1,5 +1,21 @@
 # @atlassian/navigation-system
 
+## 2.6.0
+
+### Minor Changes
+
+- [`e9ddf34435a22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9ddf34435a22) -
+  Clicking dropdown menu items will no longer collapse the side navigation on mobile. This change is
+  behind a feature flag.
+
+## 2.5.0
+
+### Minor Changes
+
+- [`f506e887c7e55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f506e887c7e55) -
+  Cleans up `platform_design_system_nav4_panel_default_border` feature flag. The `Panel` slot will
+  have a border by default.
+
 ## 2.4.1
 
 ### Patch Changes

@@ -259,8 +259,5 @@ snapshot(CompanyHubMockExample, {
 		},
 		/* eslint-enable @atlaskit/design-system/no-dark-theme-vr-tests */
 	],
-	featureFlags: {
-		platform_design_system_nav4_panel_default_border: true,
-	},
 	description: 'Panel default background color',
 });

@@ -114,7 +114,7 @@ export const mentions = [
 	{
 		id: '12312594',
 		avatarUrl:
-			'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/teams/avatars/0.svg',
+			'https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/0.svg',
 		name: 'The Cool Cats',
 		userType: 'TEAM',
 		context: {
@@ -127,7 +127,7 @@ export const mentions = [
 	{
 		id: '12312595',
 		avatarUrl:
-			'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/teams/avatars/1.svg',
+			'https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/1.svg',
 		name: 'Your Team',
 		userType: 'TEAM',
 		context: {
@@ -140,7 +140,7 @@ export const mentions = [
 	{
 		id: '12312596',
 		avatarUrl:
-			'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/teams/avatars/2.svg',
+			'https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/2.svg',
 		name: 'A very big team',
 		userType: 'TEAM',
 		context: {
@@ -153,7 +153,7 @@ export const mentions = [
 	{
 		id: '12312597',
 		avatarUrl:
-			'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/teams/avatars/3.svg',
+			'https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/3.svg',
 		name: 'The whole company',
 		userType: 'TEAM',
 		context: {
@@ -166,7 +166,7 @@ export const mentions = [
 	{
 		id: '12312598',
 		avatarUrl:
-			'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/teams/avatars/4.svg',
+			'https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/4.svg',
 		name: 'Your private team',
 		userType: 'TEAM',
 		context: {

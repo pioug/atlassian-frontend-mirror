@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-layout
 
+## 5.0.2
+
+### Patch Changes
+
+- [`599faf4ddf537`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/599faf4ddf537) -
+  [ED-29230] Fixes the VC offender div.layout-section-container from unnecessarily mutating the DOM
+  by returning null instead of a div
+- Updated dependencies
+
+## 5.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.0
 
 ### Patch Changes

@@ -909,6 +909,12 @@ export class TeamsClient {
 		return this._teamCentralClient.addTeamWatcher(...args);
 	}
 
+	async isTeamWatcher(
+		...args: Parameters<typeof teamCentralClient.isTeamWatcher>
+	): Promise<AwaitedReturn<typeof teamCentralClient.isTeamWatcher>> {
+		return this._teamCentralClient.isTeamWatcher(...args);
+	}
+
 	async removeTeamWatcher(
 		...args: Parameters<typeof teamCentralClient.removeTeamWatcher>
 	): Promise<AwaitedReturn<typeof teamCentralClient.removeTeamWatcher>> {

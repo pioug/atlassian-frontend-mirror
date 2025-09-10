@@ -125,19 +125,22 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 					hexToPaletteColor: hexToEditorTextBackgroundPaletteColor,
 				}}
 			/>
-			<div css={styles.removeHighlightButton}>
-				<Button
-					shouldFitContainer
-					appearance="subtle"
-					onClick={() => handleHighlightColorChange(REMOVE_HIGHLIGHT_COLOR)}
-				>
-					{expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true) ? (
-						<Text weight="medium">Remove highlight</Text>
-					) : (
-						'Remove highlight'
-					)}
-				</Button>
-			</div>
+			{/* moved to editor-plugin-text-color  */}
+			{expValEquals('platform_editor_toolbar_aifc_patch_4', 'isEnabled', true) ? undefined : (
+				<div css={styles.removeHighlightButton}>
+					<Button
+						shouldFitContainer
+						appearance="subtle"
+						onClick={() => handleHighlightColorChange(REMOVE_HIGHLIGHT_COLOR)}
+					>
+						{expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true) ? (
+							<Text weight="medium">Remove highlight</Text>
+						) : (
+							'Remove highlight'
+						)}
+					</Button>
+				</div>
+			)}
 		</Stack>
 	);
 }

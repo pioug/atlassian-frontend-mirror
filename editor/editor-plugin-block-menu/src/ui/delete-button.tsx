@@ -34,8 +34,8 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 			} else if (isTableSelected(selection)) {
 				const table = findTable(selection);
 				if (table) {
-					from = table.start - 1;
-					to = table.start + table.node.nodeSize;
+					from = table.pos;
+					to = table.pos + table.node.nodeSize;
 				}
 			}
 			tr.deleteRange(from, to);

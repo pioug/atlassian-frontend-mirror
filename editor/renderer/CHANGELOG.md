@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 122.0.2
+
+### Patch Changes
+
+- [`217c12d914348`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/217c12d914348) -
+  [ux] Fire exposure for Preview panel linking experiment in renderer to fix exposure imbalance.
+- Updated dependencies
+
 ## 122.0.1
 
 ### Patch Changes

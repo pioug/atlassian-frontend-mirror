@@ -5,7 +5,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /* eslint-disable */
 
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { N40A, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -27,7 +27,7 @@ const statusSelector = '.lozenge-wrapper';
 const mentionSelector = '.editor-mention-primitive';
 const dateSelector = '.date-lozenger-container>span';
 
-export const findReplaceStyles = css({
+export const findReplaceStyles: SerializedStyles = css({
 	[`.${searchMatchClass}`]: {
 		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 		borderRadius: token('radius.small', '3px'),
@@ -42,7 +42,7 @@ export const findReplaceStyles = css({
 	},
 });
 
-export const findReplaceStylesNew = css({
+export const findReplaceStylesNew: SerializedStyles = css({
 	/** Text match styles */
 
 	/** Light mode */

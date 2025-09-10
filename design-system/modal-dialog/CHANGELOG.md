@@ -1,5 +1,12 @@
 # @atlaskit/modal-dialog
 
+## 14.3.13
+
+### Patch Changes
+
+- [`96f58298f6919`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96f58298f6919) -
+  Converts `${gutter}px` to a hardcoded '60px' to avoid a Compiled bug.
+
 ## 14.3.12
 
 ### Patch Changes

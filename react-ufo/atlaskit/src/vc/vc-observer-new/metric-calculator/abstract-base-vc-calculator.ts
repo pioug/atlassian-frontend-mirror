@@ -8,6 +8,9 @@ import type {
 	VCLabelStacks,
 	VCRatioType,
 } from '../../../common/vc/types';
+import getPageVisibilityUpToTTAI from '../../../create-payload/utils/get-page-visibility-up-to-ttai';
+import { getInteractionId } from '../../../interaction-id-context';
+import { interactions } from '../../../interaction-metrics/common/constants';
 import type { VCRevisionDebugDetails } from '../../vc-observer/getVCRevisionDebugDetails';
 import type { VCObserverEntry, ViewportEntryData } from '../types';
 import { cssIssueOccurrence } from '../viewport-observer/utils/track-display-content-occurrence';
@@ -110,10 +113,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		allEntries?: ReadonlyArray<VCObserverEntry>,
 		include3p?: boolean,
 	): Promise<RevisionPayloadVCDetails> {
-		const percentiles = [25, 50, 75, 80, 85, 90, 95, 98, 99];
-		if (fg('platform_ufo_send_vc_100')) {
-			percentiles.push(100);
-		}
+		const percentiles = [25, 50, 75, 80, 85, 90, 95, 98, 99, 100];
 		const viewportEntries = this.filterViewportEntries(filteredEntries);
 		const vcLogs = await calculateTTVCPercentilesWithDebugInfo({
 			viewport: {
@@ -277,13 +277,34 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		// Only create debug details if callbacks exist
 		let v3RevisionDebugDetails: VCRevisionDebugDetails | null = null;
 		if (shouldCalculateDebugDetails) {
-			v3RevisionDebugDetails = {
-				revision: this.revisionNo,
-				isClean: isVCClean,
-				abortReason: dirtyReason,
-				vcLogs: enhancedVcLogs,
-				interactionId,
-			};
+			if (fg('platform_ufo_unify_abort_status_in_ttvc_debug_data')) {
+				// NOTE: using this instead of directly calling `getActiveInteraction()` to get around circular dependencies
+				const activeInteractionId = getInteractionId();
+				const activeInteraction = interactions.get(activeInteractionId.current ?? '');
+
+				const pageVisibilityUpToTTAI = activeInteraction
+					? getPageVisibilityUpToTTAI(activeInteraction)
+					: null;
+				const isBackgrounded = pageVisibilityUpToTTAI !== 'visible';
+
+				v3RevisionDebugDetails = {
+					revision: this.revisionNo,
+					isClean: isVCClean && !activeInteraction?.abortReason && !isBackgrounded,
+					abortReason: isBackgrounded
+						? 'browser_backgrounded'
+						: dirtyReason ?? activeInteraction?.abortReason,
+					vcLogs: enhancedVcLogs,
+					interactionId,
+				};
+			} else {
+				v3RevisionDebugDetails = {
+					revision: this.revisionNo,
+					isClean: isVCClean,
+					abortReason: dirtyReason,
+					vcLogs: enhancedVcLogs,
+					interactionId,
+				};
+			}
 		}
 
 		// Handle devtool callback

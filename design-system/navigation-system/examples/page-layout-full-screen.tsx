@@ -70,7 +70,6 @@ const panelStyles = cssMap({
 		paddingRight: token('space.300'),
 		paddingBottom: token('space.300'),
 		paddingLeft: token('space.300'),
-		borderInlineStart: `${token('border.width')} solid ${token('color.border')}`,
 	},
 });
 

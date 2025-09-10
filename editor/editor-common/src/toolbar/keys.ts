@@ -278,6 +278,11 @@ export const HIGHLIGHT_MENU_ITEM = {
 	type: 'menu-item',
 } as const;
 
+export const CLEAR_COLOR_MENU_ITEM = {
+	key: 'clear-color-menu-item',
+	type: 'menu-item',
+} as const;
+
 /*
  * Alignment
  */

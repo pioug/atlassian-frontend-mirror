@@ -1,5 +1,33 @@
 # @atlaskit/link-datasource
 
+## 4.23.0
+
+### Minor Changes
+
+- [`b367661ba720e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b367661ba720e) -
+  EDITOR-1562 bump adf-schema for afm
+
+## 4.22.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.22.1
+
+### Patch Changes
+
+- [`22c5a8cbe641a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22c5a8cbe641a) -
+  Migrate platform/linking-platform pkgs to use i18n NPM pkgs from Traduki
+- Updated dependencies
+
+## 4.22.0
+
+### Minor Changes
+
+- [`64ec65231b4cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64ec65231b4cf) -
+  EDITOR-1568 bump adf-schema for afm
+
 ## 4.21.7
 
 ### Patch Changes

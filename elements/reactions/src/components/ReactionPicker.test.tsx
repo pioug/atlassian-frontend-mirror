@@ -9,13 +9,13 @@ import { Popper } from '@atlaskit/popper';
 
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { DefaultReactions } from '../shared/constants';
-import { ReactionPicker } from './ReactionPicker';
 import { RENDER_BUTTON_TESTID } from './EmojiButton';
 import { RENDER_TRIGGER_BUTTON_TESTID, RENDER_LIST_ITEM_WRAPPER_TESTID } from './Trigger';
 import {
 	RENDER_REACTIONPICKERPANEL_TESTID,
 	PopperWrapper,
 	type PopperWrapperProps,
+	ReactionPicker,
 } from './ReactionPicker';
 import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 
@@ -210,9 +210,9 @@ jest.mock('@atlaskit/popper', () => ({
 	Popper: jest.fn(({ children }) => children({ ref: jest.fn(), style: {}, update: jest.fn() })),
 }));
 
-const mockRenderPopperWrapper = (settings: PopperWrapperProps['settings']) => {
+const mockRenderPopperWrapper = (settings: PopperWrapperProps['settings'], isOpen: boolean) => {
 	return renderWithIntl(
-		<PopperWrapper settings={settings}>
+		<PopperWrapper settings={settings} isOpen={isOpen} triggerRef={null} onClose={jest.fn()}>
 			<div>Mock children</div>
 		</PopperWrapper>,
 	);
@@ -225,7 +225,7 @@ const popperWrapperProps: PopperWrapperProps['settings'] = {
 
 describe('PopperWrapper', () => {
 	it('should use bottom-start placement when placement is bottom-start', async () => {
-		mockRenderPopperWrapper(popperWrapperProps);
+		mockRenderPopperWrapper(popperWrapperProps, true);
 		expect(Popper).toHaveBeenCalledWith(
 			expect.objectContaining({ placement: 'bottom-start' }),
 			expect.anything(),

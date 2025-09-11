@@ -13,6 +13,7 @@ import {
 	ToolbarTooltip,
 } from '@atlaskit/editor-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { AnnotationPlugin } from '../../annotationPluginType';
 import { isSelectionValid } from '../../pm-plugins/utils';
@@ -35,25 +36,67 @@ export const CommentButton = ({ api, annotationProviders }: CommentButtonProps) 
 	const isVisible = useSharedPluginStateSelector(api, 'annotation.isVisible');
 	const bookmark = useSharedPluginStateSelector(api, 'annotation.bookmark');
 	const { editorView } = useEditorToolbar();
+	// Warning! Do not destructure editorView, it will become stale
 	const { state, dispatch } = editorView ?? { state: null, dispatch: null };
 
 	const annotationSelectionType = state ? isSelectionValid(state) : AnnotationSelectionType.INVALID;
-	useCommentButtonMount({ state, annotationProviders, api, annotationSelectionType, bookmark });
+	const { getCanAddComments, contentType } = annotationProviders?.inlineComment ?? {};
+
+	useCommentButtonMount({
+		state: expValEquals('platform_editor_toolbar_aifc_fix_editor_view', 'isEnabled', true)
+			? editorView?.state
+			: state,
+		annotationProviders,
+		api,
+		annotationSelectionType,
+		bookmark,
+	});
 
 	const intl = useIntl();
 
 	const onClick = () => {
-		if (!api || !state || !dispatch || !annotationProviders) {
+		if (
+			!api ||
+			!state ||
+			!dispatch ||
+			!annotationProviders ||
+			!editorView?.state ||
+			!editorView?.dispatch
+		) {
 			return;
 		}
 
 		fireOnClickAnalyticsEvent({ api });
-		startCommentExperience({ annotationProviders, api, state, dispatch });
+
+		if (expValEquals('platform_editor_toolbar_aifc_fix_editor_view', 'isEnabled', true)) {
+			startCommentExperience({
+				annotationProviders,
+				api,
+				state: editorView.state,
+				dispatch: editorView.dispatch,
+			});
+		} else {
+			startCommentExperience({ annotationProviders, api, state, dispatch });
+		}
 	};
 
-	if (!shouldShowCommentButton({ state, isVisible, annotationSelectionType })) {
+	if (
+		!shouldShowCommentButton({
+			state: expValEquals('platform_editor_toolbar_aifc_fix_editor_view', 'isEnabled', true)
+				? editorView?.state
+				: state,
+			isVisible,
+			annotationSelectionType,
+		})
+	) {
 		return null;
 	}
+
+	const canAddComments =
+		expValEquals('platform_editor_toolbar_aifc_fix_editor_view', 'isEnabled', true) &&
+		getCanAddComments
+			? getCanAddComments()
+			: true;
 
 	const commentMessage = intl.formatMessage(annotationMessages.createComment);
 
@@ -63,13 +106,28 @@ export const CommentButton = ({ api, annotationProviders }: CommentButtonProps) 
 			: annotationMessages.createCommentInvalid,
 	);
 
-	const isDisabled = isButtonDisabled({ state, api });
+	const noPermissionToAddCommentMessage = intl.formatMessage(
+		annotationMessages.noPermissionToAddComment,
+		{ contentType },
+	);
+
+	const isDisabled = isButtonDisabled({
+		state: expValEquals('platform_editor_toolbar_aifc_fix_editor_view', 'isEnabled', true)
+			? editorView?.state
+			: state,
+		api,
+		canAddComments,
+	});
 
 	return (
 		<ToolbarTooltip
 			content={
 				isDisabled ? (
-					commentDisabledMessage
+					!canAddComments ? (
+						noPermissionToAddCommentMessage
+					) : (
+						commentDisabledMessage
+					)
 				) : (
 					<ToolTipContent description={commentMessage} keymap={addInlineComment} />
 				)

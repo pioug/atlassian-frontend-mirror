@@ -1,5 +1,20 @@
 # @atlaskit/form
 
+## 12.6.1
+
+### Patch Changes
+
+- [`2e9c49d200b1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e9c49d200b1d) -
+  Added resetFieldState to Form children props
+- Updated dependencies
+
+## 12.6.0
+
+### Minor Changes
+
+- [`27fa43b33e35e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27fa43b33e35e) -
+  Add optional testId prop that applies a data-testid attribute to the underlying form element
+
 ## 12.5.4
 
 ### Patch Changes

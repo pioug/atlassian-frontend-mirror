@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-loom
 
+## 7.1.1
+
+### Patch Changes
+
+- [`7e4750e649998`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e4750e649998) -
+  Hide Menu section for loom and pinning when in view mode
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

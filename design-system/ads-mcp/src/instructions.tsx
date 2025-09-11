@@ -9,4 +9,8 @@ Accessibility Tools Available:
 - analyze_accessibility: Analyze React component code for accessibility violations
 - get_accessibility_guidelines: Get specific accessibility guidelines and best practices
 - suggest_accessibility_fixes: Get specific fix suggestions for accessibility violations
+- get_all_tokens: Get all tokens and their example values
+- search_tokens: Search for token(s) and their example value(s)
+- get_all_icons: Get all icons and their usage
+- search_icons: Search for icon(s) and their usage
 `;

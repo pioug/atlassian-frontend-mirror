@@ -53,6 +53,7 @@ export class INSM {
 		this.runningHeavyTasks.add(heavyTaskName);
 		this.runningSession?.periodTracking?.startHeavyTask(heavyTaskName);
 		this.runningSession?.periodTracking.pause(heavyTaskName);
+		this.session?.longAnimationFrameMeasurer.pause();
 	}
 
 	/**
@@ -61,6 +62,10 @@ export class INSM {
 	endHeavyTask(heavyTaskName: string) {
 		this.runningHeavyTasks.delete(heavyTaskName);
 		this.runningSession?.periodTracking.resume(heavyTaskName);
+
+		if (this.runningHeavyTasks.size === 0) {
+			this.session?.longAnimationFrameMeasurer.resume();
+		}
 	}
 
 	/**

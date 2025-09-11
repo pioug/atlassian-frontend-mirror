@@ -1,5 +1,41 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.18.0
+
+### Minor Changes
+
+- [`cebd8f9171426`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cebd8f9171426) -
+  [ux] ED-29159 Implement transform task inside lists - handle logic
+
+## 12.17.0
+
+### Minor Changes
+
+- [`cef73d344aa16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cef73d344aa16) -
+  EDITOR-1391 add analytics event for initial editor width
+
+## 12.16.0
+
+### Minor Changes
+
+- [`99f67e6caf2b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99f67e6caf2b2) -
+  Add aria-label to table floating insert buttons to address button-name A11Y violation
+- [`d352feb9b2d97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d352feb9b2d97) -
+  [ux] NO-ISSUE Change blocktaskItem enablement experiment to a new tenantId based experiment
+
+## 12.15.0
+
+### Minor Changes
+
+- [`66414cddf2784`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66414cddf2784) -
+  Add new platform_editor_toolbar_aifc_fix_editor_view experiment, replace destructured objects with
+  direct property access
+
+### Patch Changes
+
+- [`f31129999be36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f31129999be36) -
+  Add improve writing on paste AA test
+
 ## 12.14.0
 
 ### Minor Changes

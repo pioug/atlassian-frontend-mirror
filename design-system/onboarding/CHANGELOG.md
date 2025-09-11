@@ -1,5 +1,12 @@
 # @atlaskit/onboarding
 
+## 14.4.3
+
+### Patch Changes
+
+- [`b64b505de466e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b64b505de466e) -
+  fix: Resolve `this` binding issue that caused new `checkVisibility` function to throw an error
+
 ## 14.4.2
 
 ### Patch Changes

@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 41.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 40.22.2
+
+### Patch Changes
+
+- [`22c5a8cbe641a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22c5a8cbe641a) -
+  Migrate platform/linking-platform pkgs to use i18n NPM pkgs from Traduki
+- Updated dependencies
+
+## 40.22.1
+
+### Patch Changes
+
+- [`dea73b984ba7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dea73b984ba7b) -
+  NAVX-1842 Adding aria-hidden attribute to dropdown chevron in smart-card lozenge
+- Updated dependencies
+
 ## 40.22.0
 
 ### Minor Changes

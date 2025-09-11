@@ -89,8 +89,15 @@ export const SearchResults = ({
 }: SearchResultsProps): JSX.Element => {
 	const isActivePlugin = !!activePlugin;
 	// Experiment with new 3P tabs in link picker where "Google Drive" is shown as the second tab. For more info, please see: go/link-picker-3p-drive-one-pager.
-	const linkPicker3pDriveExperimentCohort = FeatureGates.initializeCalled() ? FeatureGates.getExperimentValue<'control' | 'show_google_drive_tab' | 'show_connectors_tab'>('link_picker_3p_drive_experiment', 'cohort', 'control') : 'control';
-	const googleDriveTabExperimentEnabled = linkPicker3pDriveExperimentCohort === 'show_google_drive_tab';
+	const linkPicker3pDriveExperimentCohort = FeatureGates.initializeCalled()
+		? FeatureGates.getExperimentValue<'control' | 'show_google_drive_tab' | 'show_connectors_tab'>(
+				'link_picker_3p_drive_experiment',
+				'cohort',
+				'control',
+			)
+		: 'control';
+	const googleDriveTabExperimentEnabled =
+		linkPicker3pDriveExperimentCohort === 'show_google_drive_tab';
 	const showScrollingTabList = featureFlags?.scrollingTabs || googleDriveTabExperimentEnabled;
 
 	const tabList = (
@@ -128,11 +135,7 @@ export const SearchResults = ({
 								selected={activeTab}
 								onChange={handleTabChange}
 							>
-								{showScrollingTabList ? (
-									<ScrollingTabList>{tabList}</ScrollingTabList>
-								) : (
-									tabList
-								)}
+								{showScrollingTabList ? <ScrollingTabList>{tabList}</ScrollingTabList> : tabList}
 							</Tabs>
 							<TrackTabViewed activePlugin={activePlugin} />
 						</Box>

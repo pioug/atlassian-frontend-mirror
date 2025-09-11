@@ -110,10 +110,14 @@ import {
 	TEXT_COLLAPSED_MENU,
 	SELECTION_EXTENSION_MENU_SECTION,
 	DEFINE_MENU_ITEM,
+	DEFINE_BUTTON,
+	DEFINE_GROUP,
+	AI_VIEW_SECTION,
 } from './keys';
 
 export const TOOLBAR_RANK = {
 	[AI_SECTION.key]: 100,
+	[AI_VIEW_SECTION.key]: 100,
 	[TEXT_SECTION.key]: 200,
 	/* Same rank as TEXT_SECTION as only one is ever shown at a time */
 	[TEXT_SECTION_COLLAPSED.key]: 200,
@@ -132,12 +136,17 @@ export const TOOLBAR_RANK = {
  */
 export const AI_SECTION_RANK = {
 	[ROVO_GROUP.key]: 100,
-	[IMPROVE_WRITING_GROUP.key]: 200,
+	[DEFINE_GROUP.key]: 200,
+	[IMPROVE_WRITING_GROUP.key]: 300,
 };
 
 export const ROVO_GROUP_RANK = {
 	[ROVO_HERO_BUTTON.key]: 100,
 	[ROVO_MENU.key]: 200,
+};
+
+export const DEFINE_GROUP_RANK = {
+	[DEFINE_BUTTON.key]: 100,
 };
 
 export const IMPROVE_WRITING_GROUP_RANK = {

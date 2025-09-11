@@ -1,23 +1,25 @@
+import {
+	transformListRecursively,
+	isBulletOrOrderedList,
+	isTaskList,
+	getSupportedListTypesSet,
+} from '@atlaskit/editor-common/transforms';
+import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import type { NodeType, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 
 import { getInlineNodeTextContent } from '../inline-node-transforms';
-import { transformListRecursively } from '../list/transformBetweenListTypes';
-import type { TransformContext } from '../types';
 import {
 	getContentSupportChecker,
-	getSupportedListTypesSet,
 	isBlockNode,
 	isBlockNodeForExtraction,
 	isBlockNodeType,
-	isBulletOrOrderedList,
 	isContainerNode,
 	isContainerNodeType,
 	isHeadingOrParagraphNode,
 	isListNode,
 	isListNodeType,
-	isTaskList,
 } from '../utils';
 
 export const unwrapLayoutNodesToTextNodes = (
@@ -30,10 +32,22 @@ export const unwrapLayoutNodesToTextNodes = (
 
 	const createTextNode = (node: PMNode): PMNode => {
 		const isTextNode = node.type.name === 'text';
-		if (isValid(node) && !isTextNode) {
-			return node;
+		let nodeToTransform = node;
+		if (isContainerNodeType(finalTargetNodeType) || isListNodeType(finalTargetNodeType)) {
+			nodeToTransform = node.mark(
+				node.marks.filter((mark) => !['alignment', 'indentation'].includes(mark.type.name)),
+			);
 		}
-		return targetNodeType.createChecked(targetAttrs, isTextNode ? node : node.content, node.marks);
+
+		if (isValid(nodeToTransform) && !isTextNode) {
+			return nodeToTransform;
+		}
+
+		return targetNodeType.createChecked(
+			targetAttrs,
+			isTextNode ? nodeToTransform : nodeToTransform.content,
+			nodeToTransform.marks,
+		);
 	};
 
 	if (isBlockNode(sourceNode)) {
@@ -88,62 +102,111 @@ export const unwrapLayoutNodesToTextNodes = (
 	return [sourceNode];
 };
 
+const transformToCodeBlock = (nodes: PMNode[], schema: Schema): PMNode[] => {
+	const newNodes: (
+		| { canBeTransformed: true; content: string[] }
+		| { canBeTransformed: false; content: PMNode }
+	)[] = [];
+
+	const addToNewNodes = (content: string[]) => {
+		if (newNodes.length === 0) {
+			newNodes.push({
+				canBeTransformed: true,
+				content,
+			});
+		} else {
+			// Check if last node can also be transformed, if yes then append content
+			const lastItem = newNodes[newNodes.length - 1];
+			if (lastItem.canBeTransformed) {
+				newNodes[newNodes.length - 1] = {
+					content: [...lastItem.content, ...content],
+					canBeTransformed: true,
+				};
+			} else {
+				newNodes.push({ content, canBeTransformed: true });
+			}
+		}
+	};
+
+	nodes.forEach((node) => {
+		if (node.isTextblock) {
+			const inlineTextContent =
+				node.type === schema.nodes.codeBlock
+					? node.textContent
+					: getInlineNodeTextContent(Fragment.from(node));
+
+			// For first node, add directly
+			addToNewNodes([inlineTextContent]);
+		} else if (isListNode(node)) {
+			const textContent: string[] = [];
+			const listItemType =
+				node.type === schema.nodes.taskList ? schema.nodes.taskItem : schema.nodes.listItem;
+			const listItems = findChildrenByType(node, listItemType).map((item) => item.node);
+			listItems.forEach((listItem) => {
+				if (listItem.type === schema.nodes.taskItem) {
+					const inlineTextContent = getInlineNodeTextContent(Fragment.from(listItem));
+					textContent.push(inlineTextContent);
+				} else {
+					const inlineTextContent = getInlineNodeTextContent(listItem.content);
+					textContent.push(inlineTextContent);
+				}
+			});
+			addToNewNodes(textContent);
+		} else {
+			// If not text block or list node, then cannot be transformed
+			newNodes.push({ canBeTransformed: false, content: node });
+		}
+	});
+
+	return newNodes
+		.map(({ canBeTransformed, content }) => {
+			if (canBeTransformed) {
+				const text = content.join('\n');
+				if (text === '') {
+					return undefined;
+				}
+				return schema.nodes.codeBlock.createChecked(null, schema.text(text));
+			} else {
+				return content;
+			}
+		})
+		.filter(Boolean) as PMNode[];
+};
+
 const transformToBlockNode = (
 	nodes: PMNode[],
 	targetNodeType: NodeType,
 	schema: Schema,
 ): PMNode[] => {
 	if (targetNodeType === schema.nodes.codeBlock) {
-		const newNodes: (
-			| { canBeTransformed: true; content: string[] }
-			| { canBeTransformed: false; content: PMNode }
-		)[] = [];
-		nodes.forEach((node) => {
-			if (node.isTextblock) {
-				const inlineTextContent =
-					node.type === schema.nodes.codeBlock
-						? node.textContent
-						: getInlineNodeTextContent(Fragment.from(node));
-
-				// For first node, add directly
-				if (newNodes.length === 0) {
-					newNodes.push({
-						canBeTransformed: true,
-						content: [inlineTextContent],
-					});
-				} else {
-					// Check if last node can also be transformed, if yes then append content
-					const lastItem = newNodes[newNodes.length - 1];
-					if (lastItem.canBeTransformed) {
-						newNodes[newNodes.length - 1] = {
-							content: [...lastItem.content, inlineTextContent],
-							canBeTransformed: true,
-						};
-					} else {
-						newNodes.push({ content: [inlineTextContent], canBeTransformed: true });
-					}
-				}
-			} else {
-				// If not text block, then cannot be transformed
-				newNodes.push({ canBeTransformed: false, content: node });
-			}
-		});
-
-		return newNodes
-			.map(({ canBeTransformed, content }) => {
-				if (canBeTransformed) {
-					const text = content.join('\n');
-					if (text === '') {
-						return undefined;
-					}
-					return targetNodeType.createChecked(null, schema.text(text));
-				} else {
-					return content;
-				}
-			})
-			.filter(Boolean) as PMNode[];
+		return transformToCodeBlock(nodes, schema);
 	}
-	return nodes;
+	const newNodes: PMNode[] = [];
+	nodes.forEach((node) => {
+		if (isListNode(node)) {
+			const listItemType =
+				node.type === schema.nodes.taskList ? schema.nodes.taskItem : schema.nodes.listItem;
+			const listItems = findChildrenByType(node, listItemType).map((item) => item.node);
+			listItems.forEach((listItem) => {
+				if (listItem.type === schema.nodes.taskItem) {
+					const inlineContent = [...listItem.content.content];
+					if (inlineContent.length > 0) {
+						newNodes.push(targetNodeType.createChecked(null, inlineContent));
+					}
+				} else {
+					listItem.forEach((child) => {
+						if (isHeadingOrParagraphNode(child)) {
+							newNodes.push(targetNodeType.createChecked(null, [...child.content.content]));
+						}
+					});
+				}
+			});
+		} else {
+			newNodes.push(node);
+		}
+	});
+
+	return newNodes;
 };
 
 const transformToContainerNode = (nodes: PMNode[], targetNodeType: NodeType): PMNode[] => {
@@ -158,20 +221,15 @@ const transformToContainerNode = (nodes: PMNode[], targetNodeType: NodeType): PM
 		if (isBlockNodeForExtraction(node)) {
 			newNodes.push({ node: node, canBeTransformed: false });
 		} else {
-			// Remove alignment marks as container nodes don't support them
-			const nodeWithValidAttrs = node.mark(
-				node.marks.filter((mark) => mark.type.name !== 'alignment'),
-			);
-
 			const isSameNodeType = node.type === targetNodeType;
 
 			// If the node is not valid and not the same type, we cannot transform it
-			if (!isNodeValid(nodeWithValidAttrs) && !isSameNodeType) {
+			if (!isNodeValid(node) && !isSameNodeType) {
 				newNodes.push({ node: node, canBeTransformed: false });
 				return;
 			}
 
-			const nodes = isSameNodeType ? node.content.content : [nodeWithValidAttrs];
+			const nodes = isSameNodeType ? node.content.content : [node];
 
 			if (newNodes.length === 0) {
 				newNodes.push({
@@ -291,7 +349,28 @@ export const convertUnwrappedLayoutContent = (
 	nodes: PMNode[],
 	targetNodeType: NodeType,
 	schema: Schema,
+	targetAttrs?: TransformContext['targetAttrs'],
 ): PMNode[] => {
+	if (nodes.length === 1 && nodes[0].content.size === 0 && !isContainerNodeType(targetNodeType)) {
+		if (isBlockNodeType(targetNodeType)) {
+			if (['heading', 'paragraph'].includes(targetNodeType.name)) {
+				return [targetNodeType.createChecked(targetAttrs)];
+			}
+			if (targetNodeType.name === 'codeBlock') {
+				return [targetNodeType.createChecked()];
+			}
+		}
+
+		if (isListNodeType(targetNodeType)) {
+			const listItem = isTaskList(targetNodeType)
+				? schema.nodes.taskItem.createChecked()
+				: schema.nodes.listItem.createChecked(null, schema.nodes.paragraph.createChecked());
+			return [targetNodeType.createChecked(null, listItem)];
+		}
+
+		return nodes;
+	}
+
 	if (isBlockNodeType(targetNodeType)) {
 		return transformToBlockNode(nodes, targetNodeType, schema);
 	}

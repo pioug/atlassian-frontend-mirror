@@ -144,7 +144,7 @@ export const getToolbarComponents = ({
 					rank: LISTS_INDENTATION_MENU_SECTION_RANK[TASK_LIST_MENU_ITEM.key],
 				},
 			],
-			component: expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true)
+			component: expValEquals('platform_editor_toolbar_task_list_menu_item', 'isEnabled', true)
 				? ({ parents }) => <TaskListMenuItem api={api} parents={parents} />
 				: undefined,
 		},

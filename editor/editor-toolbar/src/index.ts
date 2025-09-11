@@ -34,6 +34,7 @@ export { AddIcon } from './ui/icons/AddIcon';
 export { AppsIcon } from './ui/icons/AppsIcon';
 export { BoldIcon } from './ui/icons/BoldIcon';
 export { CommentIcon } from './ui/icons/CommentIcon';
+export { DefineIcon } from './ui/icons/DefineIcon';
 export { HeadingFiveIcon } from './ui/icons/HeadingFiveIcon';
 export { HeadingFourIcon } from './ui/icons/HeadingFourIcon';
 export { HeadingOneIcon } from './ui/icons/HeadingOneIcon';
@@ -72,6 +73,7 @@ export { UndoIcon } from './ui/icons/UndoIcon';
 export { RedoIcon } from './ui/icons/RedoIcon';
 export { HistoryIcon } from './ui/icons/HistoryIcon';
 export { LoomIcon } from './ui/icons/LoomIcon';
+export { PlusIcon } from './ui/icons/PlusIcon';
 
 export { default as ColorPalette } from './ui/ColorPalette';
 export { getContrastingBackgroundColor } from './ui/ColorPalette/utils';

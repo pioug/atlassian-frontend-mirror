@@ -53,7 +53,7 @@ describe('getContainerProperties', () => {
 		});
 		renderWithIntl(properties.description);
 		expect(
-			screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
+			screen.getByText(messages.emptyLinkContainerDescription.defaultMessage),
 		).toBeInTheDocument();
 	});
 	it('should return correct properties for web link container type', () => {
@@ -62,9 +62,7 @@ describe('getContainerProperties', () => {
 			isEmptyContainer: false,
 		});
 		renderWithIntl(properties.description);
-		expect(
-			screen.getByText(messages.webLinkContainerDescription.defaultMessage),
-		).toBeInTheDocument();
+		expect(screen.getByText(messages.linkContainerDescription.defaultMessage)).toBeInTheDocument();
 	});
 
 	it('should return correct properties for web link container type when displayed on profile card', () => {
@@ -74,9 +72,7 @@ describe('getContainerProperties', () => {
 			isDisplayedOnProfileCard: true,
 		});
 		renderWithIntl(properties.description);
-		expect(
-			screen.getByText(messages.webLinkContainerDescription.defaultMessage),
-		).toBeInTheDocument();
+		expect(screen.getByText(messages.linkContainerDescription.defaultMessage)).toBeInTheDocument();
 
 		renderWithIntl(properties.icon);
 		expect(screen.getByTestId('team-link-card-external-link-icon')).toBeInTheDocument();
@@ -90,9 +86,7 @@ describe('getContainerProperties', () => {
 			isDisplayedOnProfileCard: false,
 		});
 		renderWithIntl(properties.description);
-		expect(
-			screen.getByText(messages.webLinkContainerDescription.defaultMessage),
-		).toBeInTheDocument();
+		expect(screen.getByText(messages.linkContainerDescription.defaultMessage)).toBeInTheDocument();
 
 		renderWithIntl(properties.icon);
 		expect(screen.getByTestId('team-link-card-globe-icon')).toBeInTheDocument();
@@ -147,6 +141,6 @@ describe('getContainerProperties', () => {
 			containerType: 'WebLink',
 		});
 		renderWithIntl(properties.title);
-		expect(screen.getByText(messages.addWebLink.defaultMessage)).toBeInTheDocument();
+		expect(screen.getByText(messages.addLink.defaultMessage)).toBeInTheDocument();
 	});
 });

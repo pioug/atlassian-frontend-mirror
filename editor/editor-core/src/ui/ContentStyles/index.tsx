@@ -564,7 +564,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 		: findReplaceStyles}
   ${textHighlightStyle}
   ${taskDecisionStyles}
-	${expValEqualsNoExposure('platform_editor_blocktaskitem_node', 'isEnabled', true)
+	${expValEqualsNoExposure('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true)
 		? taskItemStylesWithBlockTaskItem
 		: taskItemStyles}
   /* Switch between the two icons based on the visual refresh feature gate */

@@ -1,3 +1,4 @@
+import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -5,7 +6,7 @@ import { transformBlockNode } from './block-transforms';
 import { transformContainerNode, unwrapAndConvertToList } from './container-transforms';
 import { convertToLayout, transformLayoutNode } from './layout-transforms';
 import { transformListNode } from './list-transforms';
-import type { FormatNodeTargetType, TransformContext } from './types';
+import type { FormatNodeTargetType } from './types';
 import {
 	getTargetNodeInfo,
 	isBlockNode,

@@ -1,5 +1,59 @@
 # @atlaskit/renderer
 
+## 123.1.0
+
+### Minor Changes
+
+- [`b367661ba720e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b367661ba720e) -
+  EDITOR-1562 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
+## 123.0.0
+
+### Patch Changes
+
+- [`17a448dee00a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17a448dee00a6) -
+  FD-86538 clean up fg platform_editor_renderer_table_header_styles
+- Updated dependencies
+
+## 122.3.0
+
+### Minor Changes
+
+- [`d352feb9b2d97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d352feb9b2d97) -
+  [ux] NO-ISSUE Change blocktaskItem enablement experiment to a new tenantId based experiment
+- [`b7f7b3822d9ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7f7b3822d9ed) -
+  Add data-local-id on node components and scroll to block under platform_editor_block_menu FG
+
+### Patch Changes
+
+- Updated dependencies
+
+## 122.2.0
+
+### Minor Changes
+
+- [`1659bfa496416`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1659bfa496416) -
+  Fix for preview panels hover on Smartlinks for shortened confluence urls
+
+### Patch Changes
+
+- Updated dependencies
+
+## 122.1.0
+
+### Minor Changes
+
+- [`64ec65231b4cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64ec65231b4cf) -
+  EDITOR-1568 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 122.0.2
 
 ### Patch Changes

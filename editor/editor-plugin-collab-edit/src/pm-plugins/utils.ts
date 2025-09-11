@@ -17,7 +17,7 @@ import {
 	Selection,
 	TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
-import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { AttrStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
@@ -269,6 +269,12 @@ export const isOrganicChange = (tr: ReadonlyTransaction) => {
 		if (step instanceof AnalyticsStep) {
 			return false;
 		}
+
+		// editor-plugin-local-id uses AttrStep to set the localId attribute
+		if (step instanceof AttrStep && step.attr === 'localId') {
+			return false;
+		}
+
 		// If a step is not an instance of SetAttrsStep, it is considered organic
 		if (!(step instanceof SetAttrsStep)) {
 			return true;

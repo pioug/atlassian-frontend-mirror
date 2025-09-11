@@ -11,15 +11,14 @@ const GUTTER_SELECTOR_NAME = 'editor-scroll-gutter';
  * Create a gutter element that can be added or removed from the DOM.
  */
 function createGutter(gutterSize: number, parent: HTMLElement | null) {
-
-	if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)){
+	if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)) {
 		const gutterInDom = document.getElementById(GUTTER_SELECTOR_NAME);
 
 		if (gutterInDom) {
 			// already in SSR output.
 			return () => {
 				parent?.removeChild(gutterInDom);
-			}
+			};
 		}
 	}
 

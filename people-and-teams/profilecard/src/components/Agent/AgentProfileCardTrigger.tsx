@@ -16,7 +16,7 @@ import ProfileCardTrigger, { type ProfileCardHandle } from '../common/ProfileCar
 import { AgentProfileCardLazy } from './lazyAgentProfileCard';
 
 export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfileCardTriggerProps>(
-	({ trigger = 'hover', viewingUserId, product, hideOverflow, ...props }, ref) => {
+	({ trigger = 'hover', viewingUserId, product, ...props }, ref) => {
 		const { resourceClient, agentId: userId, cloudId } = props;
 
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -127,7 +127,6 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 				fetchProfile={fetchAgentProfile}
 				fireAnalytics={fireAnalytics}
 				profileCardType="agent"
-				hideOverflow={hideOverflow}
 			/>
 		);
 	},

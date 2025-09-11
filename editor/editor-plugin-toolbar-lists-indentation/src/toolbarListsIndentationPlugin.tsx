@@ -11,6 +11,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -43,6 +44,10 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 		disabled,
 		isToolbarReducedSpacing,
 	}) => {
+		if (!editorView) {
+			return null;
+		}
+
 		return (
 			<PrimaryToolbarComponent
 				featureFlags={featureFlags}
@@ -149,7 +154,7 @@ export function PrimaryToolbarComponent({
 	showIndentationButtons,
 	pluginInjectionApi,
 	allowHeadingAndParagraphIndentation,
-}: PrimaryToolbarComponentProps) {
+}: PrimaryToolbarComponentProps & { editorView: EditorView }) {
 	const {
 		bulletListActive,
 		bulletListDisabled,

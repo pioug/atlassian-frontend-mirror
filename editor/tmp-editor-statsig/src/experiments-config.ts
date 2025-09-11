@@ -159,6 +159,14 @@ export const editorExperimentsConfig = {
 		values: ['control', 'test'],
 		defaultValue: 'control',
 	}),
+	platform_editor_toolbar_aifc_fix_editor_view: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_aifc_fix_editor_view',
+			jira: 'platform_editor_toolbar_aifc_fix_editor_view',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// added 2024-11-06
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nested_tables/setup
 	'nested-tables-in-tables': createBooleanExperiment({
@@ -718,9 +726,9 @@ export const editorExperimentsConfig = {
 		defaultValue: false,
 	}),
 	// Added 2025-07-30
-	platform_editor_blocktaskitem_node: createBooleanExperiment({
+	platform_editor_blocktaskitem_node_tenantid: createBooleanExperiment({
 		productKeys: {
-			confluence: 'platform_editor_blocktaskitem_node',
+			confluence: 'platform_editor_blocktaskitem_node_tenantid',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -785,6 +793,14 @@ export const editorExperimentsConfig = {
 	cc_improve_writing_on_paste: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_improve_writing_on_paste',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-10
+	cc_improve_writing_on_paste_aa: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_improve_writing_on_paste_aa',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -883,6 +899,15 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-09-08
+	platform_editor_editor_width_analytics: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_editor_width_analytics',
+			jira: 'platform_editor_editor_width_analytics',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-09-02
 	platform_editor_ttvc_nodes_in_viewport: createBooleanExperiment({
 		productKeys: {
@@ -891,10 +916,34 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-09-10
+	platform_editor_fix_button_name_violation_in_table: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_button_name_violation_in_table',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-09-11
 	platform_editor_quick_insert_image_wrap_right_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_quick_insert_image_wrap_right_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-11
+	platform_editor_block_menu_layout_format: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_block_menu_layout_format',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-11
+	platform_editor_block_menu_expand_format: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_block_menu_expand_format',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -920,6 +969,14 @@ export const editorExperimentsConfig = {
 	platform_editor_layout_node_view_early_exit: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_layout_node_view_early_exit',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 10-09-2025
+	platform_editor_toolbar_task_list_menu_item: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_task_list_menu_item',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

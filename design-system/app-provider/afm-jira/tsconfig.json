@@ -23,6 +23,12 @@
 	],
 	"references": [
 		{
+			"path": "../../css/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-jira/tsconfig.json"
 		}
 	]

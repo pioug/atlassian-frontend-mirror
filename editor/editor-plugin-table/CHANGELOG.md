@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-table
 
+## 14.2.0
+
+### Minor Changes
+
+- [`b367661ba720e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b367661ba720e) -
+  EDITOR-1562 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.1
+
+### Patch Changes
+
+- [`99f67e6caf2b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99f67e6caf2b2) -
+  Add aria-label to table floating insert buttons to address button-name A11Y violation
+- Updated dependencies
+
+## 14.1.0
+
+### Minor Changes
+
+- [`64ec65231b4cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64ec65231b4cf) -
+  EDITOR-1568 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.2
 
 ### Patch Changes

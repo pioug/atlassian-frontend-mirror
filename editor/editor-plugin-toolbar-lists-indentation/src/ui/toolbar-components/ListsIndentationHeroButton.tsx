@@ -31,7 +31,11 @@ type ListsIndentationHeroButtonProps = {
 
 export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHeroButtonProps) => {
 	const { formatMessage } = useIntl();
-	const isPatch2Enabled = expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true);
+	const isTaskListItemEnabled = expValEquals(
+		'platform_editor_toolbar_task_list_menu_item',
+		'isEnabled',
+		true,
+	);
 
 	const { bulletListActive, bulletListDisabled, orderedListActive, taskListActive } =
 		useSharedPluginStateWithSelector(api, ['list', 'taskDecision'], (states) => ({
@@ -42,7 +46,7 @@ export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHer
 		}));
 
 	const shortcut =
-		isPatch2Enabled && taskListActive
+		isTaskListItemEnabled && taskListActive
 			? formatShortcut(toggleTaskItemCheckboxKeymap)
 			: orderedListActive
 				? formatShortcut(toggleOrderedListKeymap)
@@ -50,9 +54,8 @@ export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHer
 
 	const onClick = () => {
 		const inputMethod = getInputMethodFromParentKeys(parents);
-		if (isPatch2Enabled && taskListActive) {
-			// Placeholder onClick for task list - no logic as per requirements
-			// This will be implemented in a separate ticket
+		if (isTaskListItemEnabled && taskListActive) {
+			api?.core.actions.execute(api?.taskDecision?.commands.toggleTaskList());
 		} else if (orderedListActive) {
 			api?.core.actions.execute(api?.list.commands.toggleOrderedList(inputMethod));
 		} else {
@@ -63,7 +66,7 @@ export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHer
 	return (
 		<ToolbarTooltip
 			content={
-				isPatch2Enabled && taskListActive
+				isTaskListItemEnabled && taskListActive
 					? formatMessage(tasksAndDecisionsMessages.taskList)
 					: orderedListActive
 						? formatMessage(listMessages.orderedList)
@@ -72,7 +75,7 @@ export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHer
 		>
 			<ToolbarButton
 				iconBefore={
-					isPatch2Enabled && taskListActive ? (
+					isTaskListItemEnabled && taskListActive ? (
 						<TaskIcon label={formatMessage(tasksAndDecisionsMessages.taskList)} size="small" />
 					) : orderedListActive ? (
 						<ListNumberedIcon label={formatMessage(listMessages.orderedList)} size="small" />
@@ -80,9 +83,11 @@ export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHer
 						<ListBulletedIcon label={formatMessage(listMessages.bulletedList)} size="small" />
 					)
 				}
-				isSelected={bulletListActive || orderedListActive || (isPatch2Enabled && taskListActive)}
+				isSelected={
+					bulletListActive || orderedListActive || (isTaskListItemEnabled && taskListActive)
+				}
 				isDisabled={
-					!orderedListActive && !(isPatch2Enabled && taskListActive) && bulletListDisabled
+					!orderedListActive && !(isTaskListItemEnabled && taskListActive) && bulletListDisabled
 				}
 				ariaKeyshortcuts={shortcut}
 				onClick={onClick}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "4.4.3",
+	"version": "4.4.4",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,6 +39,7 @@
 		"./i18n/*": "./src/i18n/*.ts"
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-linking-platform-link-create": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/button": "workspace:^",

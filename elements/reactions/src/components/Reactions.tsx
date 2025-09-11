@@ -38,22 +38,9 @@ import {
 import { ReactionDialogOpened, ReactionDialogSelectedReactionChanged } from '../ufo';
 import { Reaction } from './Reaction';
 import { ReactionsDialog } from './ReactionsDialog';
-import { ReactionPicker as ReactionPickerOld, type ReactionPickerProps } from './ReactionPicker';
-import { ReactionPicker as ReactionPickerNew } from './ReactionPickerNew';
+import { ReactionPicker, type ReactionPickerProps } from './ReactionPicker';
 import { type SelectorProps } from './Selector';
 import { ReactionSummaryView } from './ReactionSummaryView';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
-import { fg } from '@atlaskit/platform-feature-flags';
-
-const ReactionPicker = componentWithCondition(
-	() => {
-		return (
-			fg('platform_editor_reactions_picker_fix') || fg('platform_editor_reactions_picker_fix_jira')
-		);
-	},
-	ReactionPickerNew,
-	ReactionPickerOld,
-);
 
 const wrapperStyle = css({
 	display: 'flex',

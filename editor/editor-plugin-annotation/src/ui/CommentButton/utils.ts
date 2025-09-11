@@ -10,6 +10,7 @@ import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnnotationPlugin } from '../../annotationPluginType';
 import { setInlineCommentDraftState } from '../../editor-commands';
@@ -19,12 +20,15 @@ import { AnnotationSelectionType, type AnnotationProviders } from '../../types';
 export const isButtonDisabled = ({
 	state,
 	api,
+	canAddComments,
 }: {
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
-	state: EditorState | null;
+	canAddComments: boolean;
+	state: EditorState | null | undefined;
 }) => {
 	const annotationSelectionType = state ? isSelectionValid(state) : AnnotationSelectionType.INVALID;
 	return (
+		!canAddComments ||
 		annotationSelectionType === AnnotationSelectionType.DISABLED ||
 		api?.connectivity?.sharedState?.currentState()?.mode === 'offline'
 	);
@@ -37,7 +41,7 @@ export const shouldShowCommentButton = ({
 }: {
 	annotationSelectionType: AnnotationSelectionType;
 	isVisible?: boolean;
-	state: EditorState | null;
+	state: EditorState | null | undefined;
 }) => {
 	const isMediaSelected = state ? currentMediaNodeWithPos(state) : false;
 
@@ -130,6 +134,9 @@ export const startCommentExperience = ({
 						attributes: {
 							pageClass: 'editor',
 							commentType: 'inline',
+							...(fg('cc_comments_create_inline_experience_entry_point')
+								? { entryPoint: 'highlightActions' }
+								: {}),
 						},
 					});
 					annotationProviders.createCommentExperience?.initExperience.start();
@@ -157,6 +164,9 @@ export const startCommentExperience = ({
 			attributes: {
 				pageClass: 'editor',
 				commentType: 'inline',
+				...(fg('cc_comments_create_inline_experience_entry_point')
+					? { entryPoint: 'highlightActions' }
+					: {}),
 			},
 		});
 		annotationProviders?.createCommentExperience?.initExperience.start();

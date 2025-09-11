@@ -81,5 +81,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_toggle_expand_on_match_found: false,
 	platform_editor_reduce_noisy_steps_ncs: false,
 	cc_improve_writing_on_paste: false,
+	cc_improve_writing_on_paste_aa: false,
 	platform_editor_ai_aifc: false,
 };

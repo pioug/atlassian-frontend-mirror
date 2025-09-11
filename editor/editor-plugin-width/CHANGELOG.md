@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-width
 
+## 6.0.1
+
+### Patch Changes
+
+- [`cef73d344aa16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cef73d344aa16) -
+  EDITOR-1391 add analytics event for initial editor width
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

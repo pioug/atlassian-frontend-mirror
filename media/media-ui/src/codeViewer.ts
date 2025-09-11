@@ -1,4 +1,5 @@
 import type { SupportedLanguages } from '@atlaskit/code/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * Given an item, it grabs the file name of that item. For example, an item with the filename item.txt
@@ -167,6 +168,9 @@ export function getLanguageType(name: string, mimetype?: string): SupportedLangu
 		case 'yml':
 			return 'yaml';
 		default:
+			if (mimetype === 'text/plain' && fg('platform_media-default-code-viewer-for-plain-text')) {
+				return 'text';
+			}
 			return null;
 	}
 }

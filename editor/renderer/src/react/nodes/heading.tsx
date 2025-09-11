@@ -12,7 +12,7 @@ import {
 
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { copyTextToClipboard } from '../utils/clipboard';
-import { type NodeProps } from '../types';
+import type { NodeProps } from '../types';
 import {
 	type HeadingAnchorLinksProps,
 	type HeadingAnchorLinksConfig,
@@ -77,11 +77,12 @@ function Heading(
 		headingId?: string;
 		invisible?: boolean;
 		level: HeadingLevels;
+		localId?: string;
 		marks?: PMNode['marks'];
 		showAnchorLink?: boolean;
 	}>,
 ) {
-	const { headingId, dataAttributes, allowHeadingAnchorLinks, marks, invisible } = props;
+	const { headingId, dataAttributes, allowHeadingAnchorLinks, marks, invisible, localId } = props;
 	const HX = `h${props.level}` as 'h1';
 	const mouseEntered = React.useRef(false);
 	const showAnchorLink = !!props.showAnchorLink;
@@ -105,6 +106,7 @@ function Heading(
 		<>
 			<HX
 				id={headingIdToUse}
+				data-local-id={localId}
 				data-renderer-start-pos={dataAttributes['data-renderer-start-pos']}
 				onMouseEnter={mouseEnterHandler}
 			>

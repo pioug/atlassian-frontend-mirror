@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-rule
 
+## 5.2.0
+
+### Minor Changes
+
+- [`b367661ba720e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b367661ba720e) -
+  EDITOR-1562 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.0
+
+### Minor Changes
+
+- [`64ec65231b4cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64ec65231b4cf) -
+  EDITOR-1568 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.0
 
 ### Patch Changes

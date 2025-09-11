@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-card
 
+## 10.1.0
+
+### Minor Changes
+
+- [`b367661ba720e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b367661ba720e) -
+  EDITOR-1562 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.0
+
+### Minor Changes
+
+- [`64ec65231b4cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64ec65231b4cf) -
+  EDITOR-1568 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.1
 
 ### Patch Changes

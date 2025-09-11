@@ -5,6 +5,7 @@ import {
 	type MediaState,
 	type MediaStateEventSubscriber,
 } from '@atlaskit/editor-plugin-media/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { MediaInsertPlugin, MediaInsertPluginConfig } from '../mediaInsertPluginType';
 
@@ -44,4 +45,6 @@ export type MediaInsertPickerProps = Pick<
 	insertMediaSingle: InsertMediaSingle;
 	isOnlyExternalLinks: MediaInsertPluginConfig['isOnlyExternalLinks'];
 	mediaProvider?: Providers['mediaProvider'];
+} & {
+	editorView: EditorView;
 };

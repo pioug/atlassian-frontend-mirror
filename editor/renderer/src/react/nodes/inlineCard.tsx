@@ -16,6 +16,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { CardErrorBoundary } from './fallback';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
@@ -75,6 +76,15 @@ const OverlayWithCardContext = ({
 	const ari = getObjectAri(cardState?.details);
 	const name = getObjectName(cardState?.details);
 	const iconUrl = getObjectIconUrl(cardState?.details);
+	// Get resolved URL from card state, fallback to original URL if not available
+	let resolvedUrl = url;
+	if (expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')) {
+		const cardStateUrl =
+			cardState?.details?.data && 'url' in cardState.details.data
+				? (cardState.details.data as { url?: string }).url
+				: undefined;
+		resolvedUrl = cardStateUrl || url;
+	}
 	const isPanelAvailable = ari && cardContext?.value?.isPreviewPanelAvailable?.({ ari });
 	const openPreviewPanel = cardContext?.value?.openPreviewPanel;
 
@@ -102,7 +112,7 @@ const OverlayWithCardContext = ({
 					// When glance panel is available, let openPreviewPanel handle it
 					event.preventDefault();
 					openPreviewPanel?.({
-						url: url || '',
+						url: resolvedUrl || '',
 						ari: ari || '',
 						name: name || '',
 						iconUrl,

@@ -1,11 +1,51 @@
 import { nextTick } from '@atlaskit/media-common/test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { request } from '..';
 import { isRequestError, RequestError } from '../errors';
 import { fetchRetry } from '../helpers';
 import { type RequestMetadata } from '../types';
 
+// Mock dependencies for Edge retry functionality
+jest.mock('../../pathBasedUrl');
+jest.mock('../../getNavigator');
+jest.mock('../helpers', () => ({
+	...jest.requireActual('../helpers'),
+	isFetchNetworkError: jest.fn(),
+	defaultShouldRetryError: jest.fn(),
+}));
+
+import { mapRetryUrlToPathBasedUrl } from '../../pathBasedUrl';
+import getNavigator from '../../getNavigator';
+import { isFetchNetworkError, defaultShouldRetryError } from '../helpers';
+
+// Type the mocked functions
+const mockMapRetryUrlToPathBasedUrl = mapRetryUrlToPathBasedUrl as jest.MockedFunction<
+	typeof mapRetryUrlToPathBasedUrl
+>;
+const mockGetNavigator = getNavigator as jest.MockedFunction<typeof getNavigator>;
+const mockIsFetchNetworkError = isFetchNetworkError as jest.MockedFunction<
+	typeof isFetchNetworkError
+>;
+const mockDefaultShouldRetryError = defaultShouldRetryError as jest.MockedFunction<
+	typeof defaultShouldRetryError
+>;
+
 describe('request', () => {
+	beforeEach(() => {
+		// Reset all mocks before each test
+		jest.clearAllMocks();
+
+		// Default mock implementations
+		mockGetNavigator.mockReturnValue({
+			userAgent:
+				'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+		} as Navigator);
+		mockMapRetryUrlToPathBasedUrl.mockImplementation((url) => new URL(url));
+		mockIsFetchNetworkError.mockReturnValue(false);
+		mockDefaultShouldRetryError.mockReturnValue(true);
+	});
+
 	describe('fetchRetry', () => {
 		const emptyMetadata: RequestMetadata = {};
 
@@ -719,6 +759,216 @@ describe('request', () => {
 				mediaRegion: 'unknown',
 				mediaEnv: 'unknown',
 				statusCode: 400,
+			});
+		});
+	});
+
+	describe('Edge browser retry functionality', () => {
+		const url = 'http://api.media.atlassian.com/test';
+		const requestOptions = {
+			method: 'GET' as const,
+			endpoint: '/test',
+			clientOptions: {
+				retryOptions: { startTimeoutInMs: 1, maxAttempts: 3, factor: 1 },
+			},
+		};
+
+		beforeAll(() => {
+			// Note: Using beforeAll instead of beforeEach means mocks are only reset once
+			// before all tests run, not between individual tests. This could potentially
+			// cause test interference if tests modify mock behavior.
+			fetchMock.resetMocks();
+			jest.clearAllMocks();
+		});
+
+		describe('when platform_media_retry_edge_error is enabled', () => {
+			ffTest.on('platform_media_retry_edge_error', 'when feature flag is on', () => {
+				it('should not retry original URL but fallback to path-based URL on Edge browser with fetch network errors', async () => {
+					mockGetNavigator.mockReturnValue({
+						userAgent:
+							'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.2210.91',
+					} as Navigator);
+
+					// Mock that the error is a fetch network error
+					mockIsFetchNetworkError.mockReturnValue(true);
+					mockDefaultShouldRetryError.mockReturnValue(true); // would normally retry
+
+					const pathBasedUrl = 'https://current.atlassian.net/test';
+					mockMapRetryUrlToPathBasedUrl.mockReturnValue(new URL(pathBasedUrl));
+
+					const fetchError = new TypeError('failed to fetch');
+					// Mock enough failures for both original URL and path-based URL retries
+					fetchMock.mockReject(fetchError);
+
+					let error1: any;
+					try {
+						await request(url, requestOptions);
+					} catch (e) {
+						error1 = e;
+					}
+
+					expect(error1).toBeDefined();
+					// The path-based URL retry will also eventually fail and throw a RequestError
+					expect(isRequestError(error1)).toBeTruthy();
+					if (isRequestError(error1)) {
+						expect(error1.reason).toBe('serverUnexpectedError');
+						expect(error1.attributes?.clientExhaustedRetries).toBe(true);
+					}
+					// Should have 1 call with original URL + 3 calls with path-based URL (maxAttempts)
+					expect(fetchMock).toHaveBeenCalledTimes(4);
+					expect(fetchMock).toHaveBeenNthCalledWith(1, url, expect.any(Object));
+					expect(fetchMock).toHaveBeenNthCalledWith(2, pathBasedUrl, expect.any(Object));
+					expect(fetchMock).toHaveBeenNthCalledWith(3, pathBasedUrl, expect.any(Object));
+					expect(fetchMock).toHaveBeenNthCalledWith(4, pathBasedUrl, expect.any(Object));
+					expect(mockIsFetchNetworkError).toHaveBeenCalled();
+					expect(mockGetNavigator).toHaveBeenCalled();
+					expect(mockMapRetryUrlToPathBasedUrl).toHaveBeenCalledWith(url);
+				});
+
+				it('should retry with path-based URL on Edge browser when fetch network error occurs', async () => {
+					mockGetNavigator.mockReturnValue({
+						userAgent:
+							'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.2210.91',
+					} as Navigator);
+
+					// Mock that the error is a fetch network error
+					mockIsFetchNetworkError.mockReturnValue(true);
+					mockDefaultShouldRetryError.mockReturnValue(true);
+
+					const pathBasedUrl = 'https://current.atlassian.net/test';
+					mockMapRetryUrlToPathBasedUrl.mockReturnValue(new URL(pathBasedUrl));
+
+					// First attempt with original URL fails (shouldRetryError returns false for Edge+fetch network error)
+					// Then path-based URL succeeds on first try
+					fetchMock
+						.mockRejectOnce(new TypeError('failed to fetch'))
+						.mockResponseOnce('Ok', { status: 200 });
+
+					const response = await request(url, requestOptions);
+
+					expect(response.status).toBe(200);
+					expect(mockGetNavigator).toHaveBeenCalled();
+					expect(mockMapRetryUrlToPathBasedUrl).toHaveBeenCalledWith(url);
+
+					// Should have 1 call with original URL (fails due to custom shouldRetryError), then 1 call with path-based URL (succeeds)
+					expect(fetchMock).toHaveBeenCalledTimes(2);
+					expect(fetchMock).toHaveBeenNthCalledWith(1, url, expect.any(Object));
+					expect(fetchMock).toHaveBeenNthCalledWith(2, pathBasedUrl, expect.any(Object));
+				});
+
+				it('should retry path-based URL multiple times on Edge browser when needed', async () => {
+					mockGetNavigator.mockReturnValue({
+						userAgent:
+							'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.2210.91',
+					} as Navigator);
+
+					// Mock that the error is a fetch network error
+					mockIsFetchNetworkError.mockReturnValue(true);
+					mockDefaultShouldRetryError.mockReturnValue(true);
+
+					const pathBasedUrl = 'https://current.atlassian.net/test';
+					mockMapRetryUrlToPathBasedUrl.mockReturnValue(new URL(pathBasedUrl));
+
+					// First attempt with original URL fails, then path-based URL retries multiple times
+					fetchMock
+						.mockRejectOnce(new TypeError('failed to fetch'))
+						.mockResponseOnce('Internal Server Error', { status: 500 })
+						.mockResponseOnce('Internal Server Error', { status: 500 })
+						.mockResponseOnce('Ok', { status: 200 });
+
+					const response = await request(url, requestOptions);
+
+					expect(response.status).toBe(200);
+					expect(mockGetNavigator).toHaveBeenCalled();
+					expect(mockMapRetryUrlToPathBasedUrl).toHaveBeenCalledWith(url);
+
+					// Should have 1 call with original URL, then 3 calls with path-based URL (2 retries + success)
+					expect(fetchMock).toHaveBeenCalledTimes(4);
+					expect(fetchMock).toHaveBeenNthCalledWith(1, url, expect.any(Object));
+					expect(fetchMock).toHaveBeenNthCalledWith(2, pathBasedUrl, expect.any(Object));
+					expect(fetchMock).toHaveBeenNthCalledWith(3, pathBasedUrl, expect.any(Object));
+					expect(fetchMock).toHaveBeenNthCalledWith(4, pathBasedUrl, expect.any(Object));
+				});
+
+				it('should retry normally on non-Edge browsers even with fetch network errors', async () => {
+					// Chrome user agent (non-Edge)
+					mockGetNavigator.mockReturnValue({
+						userAgent:
+							'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+					} as Navigator);
+
+					// Mock that the error is a fetch network error
+					mockIsFetchNetworkError.mockReturnValue(true);
+					mockDefaultShouldRetryError.mockReturnValue(true);
+
+					fetchMock.mockReject(new TypeError('failed to fetch'));
+
+					let error3: any;
+					try {
+						await request(url, requestOptions);
+					} catch (e) {
+						error3 = e;
+					}
+
+					expect(isRequestError(error3)).toBeTruthy();
+					if (isRequestError(error3)) {
+						expect(error3.reason).toBe('serverUnexpectedError');
+					}
+					// Should be called maxAttempts times (retries normally because not Edge)
+					expect(fetchMock).toHaveBeenCalledTimes(3);
+					expect(mockGetNavigator).toHaveBeenCalled();
+					expect(mockMapRetryUrlToPathBasedUrl).not.toHaveBeenCalled();
+				});
+
+				it('should not retry with path-based URL for non-fetch network errors', async () => {
+					mockGetNavigator.mockReturnValue({
+						userAgent:
+							'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.2210.91',
+					} as Navigator);
+
+					// Reset to default behavior for this test
+					mockIsFetchNetworkError.mockReturnValue(false);
+					mockDefaultShouldRetryError.mockReturnValue(false); // 400 errors shouldn't retry
+
+					// Return a 400 error instead of fetch error
+					fetchMock.mockResponse('Bad Request', { status: 400 });
+
+					let error2: any;
+					try {
+						await request(url, requestOptions);
+					} catch (e) {
+						error2 = e;
+					}
+
+					expect(isRequestError(error2)).toBeTruthy();
+					if (isRequestError(error2)) {
+						expect(error2.reason).toBe('serverBadRequest');
+					}
+					// Should only be called once since 400 errors don't retry
+					expect(fetchMock).toHaveBeenCalledTimes(1);
+					// Navigator should not be checked for non-fetch network errors during retry phase
+					expect(mockMapRetryUrlToPathBasedUrl).not.toHaveBeenCalled();
+				});
+			});
+		});
+
+		describe('when platform_media_retry_edge_error is disabled', () => {
+			ffTest.off('platform_media_retry_edge_error', 'when feature flag is off', () => {
+				it('should use normal fetchRetry without Edge-specific retry logic', async () => {
+					// Reset mocks to defaults
+					mockIsFetchNetworkError.mockReturnValue(false);
+					mockDefaultShouldRetryError.mockReturnValue(true);
+
+					fetchMock.mockResponse('Ok', { status: 200 });
+
+					const response = await request(url, requestOptions);
+
+					expect(response.status).toBe(200);
+					// Should not call any of the Edge-specific functions when feature flag is off
+					expect(mockGetNavigator).not.toHaveBeenCalled();
+					expect(mockMapRetryUrlToPathBasedUrl).not.toHaveBeenCalled();
+					expect(mockIsFetchNetworkError).not.toHaveBeenCalled();
+				});
 			});
 		});
 	});

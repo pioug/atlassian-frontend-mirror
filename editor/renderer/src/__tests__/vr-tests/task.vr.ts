@@ -3,7 +3,7 @@ import { TaskRenderer, TaskRendererWithReactLooselyLazy } from './task.fixture';
 
 snapshot(TaskRenderer, {
 	featureFlags: {
-		platform_editor_blocktaskitem_node: true,
+		platform_editor_blocktaskitem_node_tenantid: true,
 	},
 });
 snapshot(TaskRendererWithReactLooselyLazy, {
@@ -15,6 +15,6 @@ snapshot(TaskRendererWithReactLooselyLazy, {
 		},
 	],
 	featureFlags: {
-		platform_editor_blocktaskitem_node: true,
+		platform_editor_blocktaskitem_node_tenantid: true,
 	},
 });

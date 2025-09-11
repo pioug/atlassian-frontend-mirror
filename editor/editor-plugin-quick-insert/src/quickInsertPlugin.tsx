@@ -104,6 +104,10 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		},
 
 		contentComponent({ editorView }) {
+			if (!editorView) {
+				return null;
+			}
+
 			if (options?.enableElementBrowser) {
 				return (
 					<ModalElementBrowser

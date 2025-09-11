@@ -13,6 +13,10 @@ export const avatarGroupPlugin: AvatarGroupPlugin = ({ config: props, api }) => 
 		eventDispatcher,
 		dispatchAnalyticsEvent,
 	}) => {
+		if (!editorView) {
+			return null;
+		}
+
 		return (
 			<AvatarGroupPluginWrapper
 				dispatchAnalyticsEvent={dispatchAnalyticsEvent}

@@ -76,6 +76,9 @@
 			"path": "../../design-system/page/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/select/tsconfig.app.json"
 		},
 		{

@@ -51,6 +51,8 @@ import {
 	type DocumentPageRangeContent,
 	type GetDocumentContentOptions,
 } from '../../models/document';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { mapToPathBasedUrl } from '../../utils/pathBasedUrl';
 
 const MEDIA_API_REGION = 'media-api-region';
 const MEDIA_API_ENVIRONMENT = 'media-api-environment';
@@ -759,6 +761,10 @@ export class MediaStore implements MediaApi {
 
 		if (useMediaCdn) {
 			url = mapToMediaCdnUrl(url, auth.token);
+		}
+
+		if (fg('platform_media_path_based_route')) {
+			url = mapToPathBasedUrl(url);
 		}
 
 		const response = await request(

@@ -38,7 +38,11 @@ import {
 	type RemoveTeamWatcherMutationResponse,
 	type RemoveTeamWatcherMutationVariables,
 } from './mutations/remove-team-watcher.graphql';
-import { IsTeamWatcherQuery, type IsTeamWatcherQueryResponse, type IsTeamWatcherQueryVariables } from './queries/is-team-watcher.graphql';
+import {
+	IsTeamWatcherQuery,
+	type IsTeamWatcherQueryResponse,
+	type IsTeamWatcherQueryVariables,
+} from './queries/is-team-watcher.graphql';
 import {
 	TagListQuery,
 	type TagListQueryResponse,

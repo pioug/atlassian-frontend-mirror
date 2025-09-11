@@ -58,6 +58,10 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api, config }) => {
 			popupsBoundariesElement,
 			popupsScrollableElement,
 		}) => {
+			if (!editorView) {
+				return null;
+			}
+
 			const insertMediaSingle: InsertMediaSingle = ({ mediaState, inputMethod }) => {
 				const { id, dimensions, contextId, scaleFactor = 1, fileName, collection } = mediaState;
 				const { width, height } = dimensions || {

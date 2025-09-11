@@ -1,0 +1,33 @@
+{
+	"extends": "../../../../tsconfig.entry-points.adminhub.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../adminhub/tsDist/@atlaskit__portal/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../platform/feature-flags/afm-adminhub/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-adminhub/tsconfig.json"
+		}
+	]
+}

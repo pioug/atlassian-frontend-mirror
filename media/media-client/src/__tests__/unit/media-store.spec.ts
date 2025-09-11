@@ -1,5 +1,6 @@
 jest.mock('../../utils/checkWebpSupport');
 jest.mock('../../client/media-store/resolveAuth');
+jest.mock('../../utils/pathBasedUrl');
 import {
 	type CreatedTouchedFile,
 	MediaStore,
@@ -26,8 +27,10 @@ import { type Auth } from '@atlaskit/media-core';
 import * as requestModule from '../../utils/request';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { nextTick } from '@atlaskit/media-common/test-helpers';
+import { mapToPathBasedUrl } from '../../utils/pathBasedUrl';
 
 const requestModuleMock = jest.spyOn(requestModule, 'request');
+const mapToPathBasedUrlMock = mapToPathBasedUrl as jest.MockedFunction<typeof mapToPathBasedUrl>;
 
 export const ZipkinHeaderKeys = {
 	traceId: 'x-b3-traceid',
@@ -84,6 +87,9 @@ describe('MediaStore', () => {
 			// @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
 			delete global.MICROS_PERIMETER;
 			window.location.hostname = 'hello.atlassian.net';
+
+			// Reset path-based URL mock to return input unchanged by default
+			mapToPathBasedUrlMock.mockImplementation((url: string) => url);
 		});
 
 		describe('fetch media region & environment', () => {
@@ -128,6 +134,70 @@ describe('MediaStore', () => {
 				expect(window.sessionStorage.getItem('media-api-region')).toEqual('someRegion');
 				expect(getMediaRegion()).toEqual('someRegion');
 			});
+		});
+
+		describe('path-based URL transformation', () => {
+			ffTest(
+				'platform_media_path_based_route',
+				async () => {
+					const collectionName = 'some-collection-name';
+					const data: ItemsPayload[] = [];
+					const transformedUrl = 'https://current.atlassian.net/items';
+
+					// Mock the transformation
+					mapToPathBasedUrlMock.mockReturnValue(transformedUrl);
+
+					fetchMock.once(JSON.stringify({ data }), {
+						status: 200,
+						statusText: 'Ok',
+					});
+
+					await mediaStore.getItems(['some-id'], collectionName);
+
+					// Verify mapToPathBasedUrl was called with the original URL
+					expect(mapToPathBasedUrlMock).toHaveBeenCalledWith(`${baseUrl}/items`);
+					expect(mapToPathBasedUrlMock).toHaveBeenCalledTimes(1);
+
+					// Verify the transformed URL was used in the request
+					expect(requestModuleMock).toHaveBeenCalledWith(
+						transformedUrl,
+						expect.objectContaining({
+							auth: expect.objectContaining({
+								baseUrl,
+								clientId,
+								token,
+							}),
+							method: 'POST',
+							endpoint: '/items',
+						}),
+						undefined,
+					);
+				},
+				async () => {
+					const collectionName = 'some-collection-name';
+					const data: ItemsPayload[] = [];
+
+					fetchMock.once(JSON.stringify({ data }), {
+						status: 200,
+						statusText: 'Ok',
+					});
+
+					await mediaStore.getItems(['some-id'], collectionName);
+
+					// Verify mapToPathBasedUrl was NOT called
+					expect(mapToPathBasedUrlMock).not.toHaveBeenCalled();
+
+					// Verify the original URL was used
+					expect(requestModuleMock).toHaveBeenCalledWith(
+						`${baseUrl}/items`,
+						expect.objectContaining({
+							method: 'POST',
+							endpoint: '/items',
+						}),
+						undefined,
+					);
+				},
+			);
 		});
 
 		describe('createUpload', () => {

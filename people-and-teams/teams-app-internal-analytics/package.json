@@ -24,8 +24,7 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts",
-		"./test-utils": "./src/common/test-utils/index.ts"
+		".": "./src/index.ts"
 	},
 	"scripts": {
 		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics --output ./src/common/utils/generated"
@@ -91,7 +90,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-internal-analytics",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "A package used by the teams app and platform packages to handle people and teams analytics",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

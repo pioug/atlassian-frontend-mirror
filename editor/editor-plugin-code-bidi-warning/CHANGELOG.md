@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-bidi-warning
 
+## 5.0.1
+
+### Patch Changes
+
+- [`ff72875304f9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff72875304f9a) -
+  Fix SSR bug in vanilla codebidi warning
+- Updated dependencies
+
 ## 5.0.0
 
 ### Patch Changes

@@ -116,7 +116,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.57.1",
+	"version": "0.57.2",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -269,4 +269,43 @@ describe('Form', () => {
 			);
 		});
 	});
+
+	ffTest.on('platform-form-reset-field-state', 'should be able to reset field state', async () => {
+		it('should be able to reset field state', async () => {
+			const handleSubmit = jest.fn();
+			render(
+				<Form onSubmit={(values) => handleSubmit(values)}>
+					{({ formProps, resetFieldState }) => (
+						<form {...formProps}>
+							<Field name="username" label="Username" defaultValue="">
+								{({ fieldProps, meta: { touched } }) => {
+									return (
+										<div>
+											<TextField {...fieldProps} testId="Username" />
+											{touched ? (
+												<div data-testid="not-pristine">This field is not pristine</div>
+											) : null}
+										</div>
+									);
+								}}
+							</Field>
+							<Button
+								onClick={() => {
+									resetFieldState?.('username');
+								}}
+							>
+								Reset
+							</Button>
+						</form>
+					)}
+				</Form>,
+			);
+
+			(await screen.findByTestId('Username')).focus();
+			(await screen.findByTestId('Username')).blur();
+			expect(await screen.findByTestId('not-pristine')).toBeVisible();
+			await user.click(screen.getByRole('button', { name: 'Reset' }));
+			expect(screen.queryByTestId('not-pristine')).not.toBeInTheDocument();
+		});
+	});
 });

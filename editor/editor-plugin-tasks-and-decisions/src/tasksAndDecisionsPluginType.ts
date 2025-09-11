@@ -34,6 +34,7 @@ export type TasksAndDecisionsPlugin = NextEditorPlugin<
 			setProvider: (provider: Promise<TaskDecisionProvider>) => Promise<boolean>;
 		};
 		commands: {
+			toggleTaskList: (targetType?: 'orderedList' | 'bulletList' | 'paragraph') => EditorCommand;
 			updateEditPermission: (hasEditPermission: boolean | undefined) => EditorCommand;
 			updateHasRequestedEditPermission: (hasRequestedEditPermission: boolean) => EditorCommand;
 		};

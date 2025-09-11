@@ -379,7 +379,6 @@ export interface AgentProfileCardTriggerProps extends AgentActionsType {
 	product?: string;
 	viewingUserId?: string;
 	onDeleteAgent?: (agentId: string) => { restore: () => void };
-	hideOverflow?: boolean;
 }
 
 export type AgentProfileCardProps = {

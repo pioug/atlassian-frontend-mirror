@@ -1,5 +1,39 @@
 # @atlaskit/node-data-provider
 
+## 6.3.0
+
+### Minor Changes
+
+- [`b367661ba720e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b367661ba720e) -
+  EDITOR-1562 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.0
+
+### Minor Changes
+
+- [`42c3b1237eb32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42c3b1237eb32) -
+  [https://product-fabric.atlassian.net/browse/ED-29263](ED-29263) - export `findNodesToPrefetch`
+  function from the @atlaskit/node-data-provider package
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.0
+
+### Minor Changes
+
+- [`64ec65231b4cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64ec65231b4cf) -
+  EDITOR-1568 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

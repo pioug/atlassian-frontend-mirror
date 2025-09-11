@@ -122,6 +122,10 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 			popupsScrollableElement,
 			popupsBoundariesElement,
 		}) {
+			if (!editorView) {
+				return null;
+			}
+
 			const breakoutEnabled = options.editorAppearance === 'full-page';
 			return (
 				<>

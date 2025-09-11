@@ -231,6 +231,7 @@ PanelStyled.displayName = 'PanelStyled';
 export interface Props {
 	allowCustomPanels?: boolean;
 	children?: React.ReactNode;
+	localId?: string;
 	panelColor?: string;
 	panelIcon?: string;
 	panelIconId?: string;
@@ -261,6 +262,7 @@ const Panel = (props: Props) => {
 		panelIconText,
 		providers,
 		children,
+		localId,
 	} = props;
 	// only allow custom panel type if flag is set
 	// otherwise fall back to info if custom panel is given
@@ -299,6 +301,7 @@ const Panel = (props: Props) => {
 		<PanelStyled
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={PanelSharedCssClassName.prefix}
+			data-local-id={localId}
 			data-panel-type={panelType}
 			data-panel-color={panelColor}
 			data-panel-icon={panelIcon}

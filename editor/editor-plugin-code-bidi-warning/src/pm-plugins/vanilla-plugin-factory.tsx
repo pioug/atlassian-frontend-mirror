@@ -24,6 +24,21 @@ export const pluginFactoryCreator = () =>
 		},
 	});
 
+function assertIsElement(node: Node): asserts node is Element {
+	// Using 1 instead of Node.ELEMENT_NODE just in case Node is not defined in some environments
+	if (node.nodeType !== 1) {
+		throw new Error('Code Bidi Warning DOM spec did not return an Element node');
+	}
+}
+
+/**
+ * Creates a DecorationSet containing widgets for each detected bidi character in code snippets within the document.
+ * @param props - The properties for creating the decoration set.
+ * @param props.doc - The ProseMirror document to scan for bidi characters.
+ * @param props.codeBidiWarningLabel - The label to use for the warning tooltip.
+ * @param props.tooltipEnabled - Whether tooltips are enabled for the warnings.
+ * @returns A DecorationSet with widgets at the positions of detected bidi characters.
+ */
 export function createBidiWarningsDecorationSetFromDoc({
 	doc,
 	codeBidiWarningLabel,
@@ -78,36 +93,32 @@ export function createBidiWarningsDecorationSetFromDoc({
 		return DecorationSet.empty;
 	}
 
-	const newBidiWarningsDecorationSet = DecorationSet.create(
+	return DecorationSet.create(
 		doc,
 		bidiCharactersAndTheirPositions.map(({ position, bidiCharacter }) => {
 			return Decoration.widget(
 				position,
-				(el) => renderDOM(bidiCharacter, codeBidiWarningLabel, tooltipEnabled),
+				() => renderDOM(bidiCharacter, codeBidiWarningLabel, tooltipEnabled),
 				{
-					destroy: (el) => {
-						if (!(el instanceof HTMLElement)) {
-							throw new Error('Code Bidi Warning DOM spec did not return an HTMLElement');
-						}
-						el.remove();
+					destroy: (node) => {
+						assertIsElement(node);
+						node.remove();
 					},
 				},
 			);
 		}),
 	);
-
-	return newBidiWarningsDecorationSet;
 }
 
 function renderDOM(
 	bidiCharacter: string,
 	codeBidiWarningLabel: string,
 	tooltipEnabled: boolean,
-): HTMLElement {
+): Element {
 	const spec = getCodeBidiWarningDomSpec(bidiCharacter, codeBidiWarningLabel, tooltipEnabled);
 	const { dom } = DOMSerializer.renderSpec(document, spec);
-	if (!(dom instanceof HTMLElement)) {
-		throw new Error('Code Bidi Warning DOM spec did not return an HTMLElement');
-	}
+	// In SSR or non-browser DOM implementations, HTMLElement may not be present or cross-realm.
+	// Accept any Element node (nodeType === Node.ELEMENT_NODE) instead of relying on instanceof checks.
+	assertIsElement(dom);
 	return dom;
 }

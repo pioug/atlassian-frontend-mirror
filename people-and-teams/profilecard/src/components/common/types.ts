@@ -18,5 +18,4 @@ export type ProfileCardTriggerProps<T> = {
 	fetchProfile?: () => Promise<T>;
 	profileCardType: ProfileType;
 	fireAnalytics?: (payload: AnalyticsEventPayload) => void;
-	hideOverflow?: boolean;
 } & Omit<PopupProps, 'trigger' | 'isOpen' | 'content'>;

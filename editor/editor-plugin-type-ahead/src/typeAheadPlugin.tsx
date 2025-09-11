@@ -298,6 +298,10 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 				popupsScrollableElement: popupsScrollableElement || containerElement || undefined,
 			};
 
+			if (!editorView) {
+				return null;
+			}
+
 			return <ContentComponent editorView={editorView} popupMountRef={popupMountRef} api={api} />;
 		},
 

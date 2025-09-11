@@ -142,6 +142,10 @@ export const toolbarPlugin: ToolbarPlugin = ({
 
 		contentComponent: !disableSelectionToolbar
 			? ({ editorView, popupsMountPoint }) => {
+					if (!editorView) {
+						return null;
+					}
+
 					return (
 						<SelectionToolbar
 							api={api}

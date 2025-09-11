@@ -50,7 +50,7 @@ export const Toolbar = (props: ToolbarProps): JSX.Element => {
 
 type NewToolbarProps = Pick<
 	ToolbarUIContextType,
-	'popupsMountPoint' | 'popupsBoundariesElement' | 'popupsScrollableElement'
+	'popupsMountPoint' | 'popupsBoundariesElement' | 'popupsScrollableElement' | 'isDisabled'
 > &
 	Pick<EditorToolbarContextType, 'editorAppearance'> & {
 		components: RegisterComponent[];
@@ -101,6 +101,7 @@ export const ToolbarNext = ({
 	editorAppearance,
 	popupsBoundariesElement,
 	popupsScrollableElement,
+	isDisabled,
 }: NewToolbarProps) => {
 	const { connectivityStateMode, editorViewMode, editorToolbarDockingPreference } =
 		usePluginState(editorAPI);
@@ -115,7 +116,7 @@ export const ToolbarNext = ({
 		>
 			<EditorToolbarUIProvider
 				api={editorAPI}
-				isDisabled={isOffline}
+				isDisabled={isOffline || isDisabled}
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}

@@ -17,6 +17,7 @@ type ExtraProps = {
 export default function OrderedList(props: {
 	children: React.ReactNode;
 	content?: Node[];
+	localId?: string;
 	order?: number;
 	path?: Node[];
 	start?: number;
@@ -38,6 +39,7 @@ export default function OrderedList(props: {
 		<ol
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={orderedListSelector.substr(1)}
+			data-local-id={props.localId}
 			data-indent-level={props.path ? getListIndentLevel(props.path) : 1}
 			start={props.start}
 			// Ignored via go/ees005

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-placeholder-text",
-	"version": "5.0.1",
+	"version": "5.2.0",
 	"description": "placeholder text plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

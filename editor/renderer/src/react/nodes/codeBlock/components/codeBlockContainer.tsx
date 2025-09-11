@@ -76,6 +76,7 @@ const codeBlockStyleOverrides = css({
 interface ContainerProps extends CodeBlockButtonContainerProps {
 	children: ReactNode;
 	className?: string;
+	localId?: string;
 }
 
 const CodeBlockContainer = ({
@@ -83,6 +84,7 @@ const CodeBlockContainer = ({
 	allowWrapCodeBlock,
 	children,
 	className,
+	localId,
 	setWrapLongLines,
 	text,
 	wrapLongLines,
@@ -91,6 +93,7 @@ const CodeBlockContainer = ({
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
+			data-local-id={localId}
 			css={codeBlockStyleOverrides}
 		>
 			<CodeBlockButtonContainer

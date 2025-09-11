@@ -34,7 +34,8 @@ type MediaQuery =
 
 const { XCSSProp, css, cssMap, cx } = createStrictAPI<DesignTokenStyles, { media: MediaQuery }>();
 
-export { css, cssMap, cx, type XCSSAllProperties, type XCSSAllPseudos };
+export { css, cssMap, cx };
+export type { XCSSAllProperties, XCSSAllPseudos };
 
 // This is to mitigate local TS error TS2315: Type 'StrictXCSSProp' is not generic.
 // Currently for some reason tsc is generating malformed .d.ts in local dev environment, below change fixes it

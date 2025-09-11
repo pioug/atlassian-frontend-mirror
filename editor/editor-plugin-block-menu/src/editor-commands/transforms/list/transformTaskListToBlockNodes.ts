@@ -1,9 +1,8 @@
+import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
-
-import type { TransformContext } from '.././types';
 
 export const transformTaskListToBlockNodes = (context: TransformContext): Transaction | null => {
 	const { tr, targetNodeType, targetAttrs, sourceNode, sourcePos } = context;

@@ -102,4 +102,64 @@ describe('#useSpotlight', () => {
 		expect(isTargetRendered('hidden-target')).toBe(true);
 		expect(checkVisibility('hidden-target')()).toBe(false);
 	});
+
+	// There was a bug where checkVisibility() would error due to missing `this` context
+	it('should not error when calling checkVisibility', () => {
+		const element = document.createElement('div');
+
+		// Mock checkVisibility since it isn't implemented in jsdom. Make sure it throws if the value of `this` is lost.
+		const mockCheckVisibility = jest.fn(function (_options?: CheckVisibilityOptions) {
+			if (this !== element) {
+				throw new Error('Illegal invocation');
+			}
+			return false;
+		});
+
+		// `this` in the mock function should now refer to `element`:
+		element.checkVisibility = mockCheckVisibility;
+
+		const contextValue = {
+			opened: jest.fn(),
+			closed: jest.fn(),
+			targets: {
+				'test-target': element,
+			},
+		};
+
+		const testWrapper = ({ children }: { children?: React.ReactNode }) => (
+			<SpotlightContext.Provider value={contextValue}>{children}</SpotlightContext.Provider>
+		);
+
+		const wrapper = (props: {}) => testWrapper(props);
+		const { result } = renderHook(() => useSpotlight(), { wrapper });
+
+		const {
+			current: { checkVisibility },
+		} = result;
+
+		expect(() => checkVisibility('test-target')()).not.toThrow();
+		expect(checkVisibility('test-target')()).toBe(false);
+		expect(mockCheckVisibility).toHaveBeenCalledWith(undefined);
+	});
+
+	it('should return false when calling checkVisibility on non-existent targets', () => {
+		const contextValue = {
+			opened: jest.fn(),
+			closed: jest.fn(),
+			targets: {},
+		};
+
+		const testWrapper = ({ children }: { children?: React.ReactNode }) => (
+			<SpotlightContext.Provider value={contextValue}>{children}</SpotlightContext.Provider>
+		);
+
+		const wrapper = (props: {}) => testWrapper(props);
+		const { result } = renderHook(() => useSpotlight(), { wrapper });
+
+		const {
+			current: { checkVisibility },
+		} = result;
+
+		expect(checkVisibility('non-existent-target')()).toBe(false);
+	});
 });

@@ -327,7 +327,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			popupsMountPoint,
 			popupsScrollableElement,
 		}) {
-			if (!api || editorExperiment('platform_editor_controls', 'control')) {
+			if (!api || editorExperiment('platform_editor_controls', 'control') || !editorView) {
 				return null;
 			}
 

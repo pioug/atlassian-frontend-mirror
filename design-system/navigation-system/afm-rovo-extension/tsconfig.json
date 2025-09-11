@@ -51,6 +51,9 @@
 			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../popup/afm-rovo-extension/tsconfig.json"
 		},
 		{

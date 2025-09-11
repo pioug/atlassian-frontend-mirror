@@ -149,6 +149,7 @@
 		"./rename-mapping": "./src/entry-points/rename-mapping.tsx",
 		"./babel-plugin": {
 			"types": "./src/entry-points/babel-plugin.tsx",
+			"publish": "./src/entry-points/babel-plugin.tsx",
 			"default": "./babel-plugin.js"
 		},
 		"./css-type-schema": "./src/entry-points/css-type-schema.codegen.tsx"

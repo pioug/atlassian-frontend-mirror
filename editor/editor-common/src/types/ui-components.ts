@@ -15,7 +15,7 @@ export type UiComponentFactoryParams = {
 	disabled: boolean;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	editorActions: EditorActionsOptions;
-	editorView: EditorView;
+	editorView?: EditorView;
 	eventDispatcher: EventDispatcher;
 	popupsBoundariesElement?: HTMLElement;
 	popupsMountPoint?: HTMLElement;
@@ -30,5 +30,7 @@ export type UIComponentFactory = (
 ) => React.ReactElement<any> | null;
 
 export type ReactHookFactory = (
-	params: Pick<UiComponentFactoryParams, 'editorView' | 'containerElement'>,
+	params: Pick<UiComponentFactoryParams, 'editorView' | 'containerElement'> & {
+		editorView: EditorView;
+	},
 ) => void;

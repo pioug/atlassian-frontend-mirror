@@ -174,6 +174,10 @@ export const statusPlugin: StatusPlugin = ({ config: options, api }) => ({
 		popupsBoundariesElement,
 		popupsScrollableElement,
 	}) {
+		if (!editorView) {
+			return null;
+		}
+
 		const domAtPos = editorView.domAtPos.bind(editorView);
 
 		return (

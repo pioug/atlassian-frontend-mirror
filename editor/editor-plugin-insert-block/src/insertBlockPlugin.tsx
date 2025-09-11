@@ -20,6 +20,7 @@ import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -130,6 +131,10 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		isLastItem,
 	}) => {
 		const renderNode = (providers: Providers) => {
+			if (!editorView) {
+				return null;
+			}
+
 			return (
 				<ToolbarInsertBlockWithInjectionApi
 					pluginInjectionApi={api}
@@ -151,6 +156,10 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 			);
 		};
 		if (editorExperiment('platform_editor_prevent_toolbar_layout_shifts', true)) {
+			if (!editorView) {
+				return null;
+			}
+
 			return (
 				<ToolbarInsertBlockWithInjectionApi
 					pluginInjectionApi={api}
@@ -318,11 +327,10 @@ function ToolbarInsertBlockWithInjectionApi({
 	disabled,
 	isToolbarReducedSpacing,
 	isLastItem,
-	providers,
 	pluginInjectionApi,
 	options,
 	appearance,
-}: ToolbarInsertBlockWithInjectionApiProps) {
+}: ToolbarInsertBlockWithInjectionApiProps & { editorView: EditorView }) {
 	const buttons = toolbarSizeToButtons(toolbarSize, appearance);
 	const {
 		emojiProviderSelector,

@@ -1,4 +1,4 @@
-import type { Node as PMNode, NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 export type FormatNodeTargetType =
@@ -18,12 +18,6 @@ export type FormatNodeTargetType =
 	| 'orderedList'
 	| 'taskList';
 
-export interface TransformContext {
-	sourceNode: PMNode;
-	sourcePos: number;
-	targetAttrs?: Record<string, unknown>;
-	targetNodeType: NodeType;
-	tr: Transaction;
-}
+// TransformContext moved to @atlaskit/editor-common/transforms
 
 export type TransformFunction = (context: TransformContext) => Transaction | null;

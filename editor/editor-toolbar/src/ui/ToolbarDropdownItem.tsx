@@ -114,6 +114,7 @@ type ToolbarDropdownItemProps = {
 	isSelected?: boolean;
 	onClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
 	rel?: string;
+	shouldTitleWrap?: boolean;
 	target?: string;
 	testId?: string;
 	textStyle?: TextStyle;
@@ -129,6 +130,7 @@ export const ToolbarDropdownItem = ({
 	isDisabled,
 	hasNestedDropdownMenu,
 	triggerRef,
+	shouldTitleWrap = true,
 	testId,
 	ariaKeyshortcuts,
 	href,
@@ -167,6 +169,7 @@ export const ToolbarDropdownItem = ({
 			}
 			testId={testId}
 			data-toolbar-component="menu-item"
+			shouldTitleWrap={shouldTitleWrap}
 		>
 			{children}
 		</DropdownItem>

@@ -133,7 +133,11 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 			];
 		},
 
-		contentComponent({ providerFactory }) {
+		contentComponent({ editorView, providerFactory }) {
+			if (!editorView) {
+				return null;
+			}
+
 			return (
 				<WithProviders
 					providers={['mentionProvider']}
@@ -146,6 +150,10 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 		},
 
 		secondaryToolbarComponent({ editorView, disabled }) {
+			if (!editorView) {
+				return null;
+			}
+
 			return (
 				<SecondaryToolbarComponent
 					editorView={editorView}

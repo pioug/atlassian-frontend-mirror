@@ -55,6 +55,7 @@ type ToolbarButtonProps = Partial<TriggerProps> & {
 	ariaKeyshortcuts?: string;
 	children?: ReactNode;
 	iconBefore: React.ReactNode;
+	interactionName?: string;
 	isDisabled?: boolean;
 	isSelected?: boolean;
 	label?: string;
@@ -81,6 +82,7 @@ export const ToolbarButton = forwardRef(
 			isDisabled,
 			ariaKeyshortcuts,
 			label,
+			interactionName,
 		}: ToolbarButtonProps,
 		ref: Ref<HTMLButtonElement>,
 	) => {
@@ -112,6 +114,7 @@ export const ToolbarButton = forwardRef(
 					}
 				}}
 				data-toolbar-component="button"
+				interactionName={interactionName}
 			>
 				{iconBefore}
 				{children}

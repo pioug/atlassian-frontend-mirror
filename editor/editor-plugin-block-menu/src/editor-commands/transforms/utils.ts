@@ -72,22 +72,7 @@ export const isContainerNodeType = (nodeType: NodeType): boolean => {
 	return ['panel', 'expand', 'blockquote'].includes(nodeType.name);
 };
 
-// List type utilities
-export const isBulletOrOrderedList = (nodeType: NodeType): boolean => {
-	return nodeType.name === 'bulletList' || nodeType.name === 'orderedList';
-};
-
-export const isTaskList = (nodeType: NodeType): boolean => {
-	return nodeType.name === 'taskList';
-};
-
-export const getSupportedListTypes = (nodes: Record<string, NodeType>): NodeType[] => {
-	return [nodes.bulletList, nodes.orderedList, nodes.taskList].filter(Boolean);
-};
-
-export const getSupportedListTypesSet = (nodes: Record<string, NodeType>): Set<NodeType> => {
-	return new Set(getSupportedListTypes(nodes));
-};
+// List type utilities moved to @atlaskit/editor-common/transforms
 
 export const isLayoutNodeType = (nodeType: NodeType): boolean => {
 	return nodeType.name === 'layoutSection';

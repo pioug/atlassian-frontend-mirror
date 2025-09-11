@@ -28,6 +28,7 @@ import type {
 import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -67,6 +68,8 @@ function ContentComponent({
 	dependencyApi?: ExtractInjectionAPI<typeof datePlugin>;
 } & {
 	weekStartDay?: WeekDay;
+} & {
+	editorView: EditorView;
 }): JSX.Element | null {
 	const { dispatch } = editorView;
 	const domAtPos = editorView.domAtPos.bind(editorView);
@@ -201,6 +204,9 @@ const datePlugin: DatePlugin = ({ config = {}, api }) => ({
 		popupsBoundariesElement,
 		popupsScrollableElement,
 	}) {
+		if (!editorView) {
+			return null;
+		}
 		return (
 			<ContentComponent
 				dependencyApi={api}

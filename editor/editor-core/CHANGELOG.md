@@ -1,5 +1,53 @@
 # @atlaskit/editor-core
 
+## 213.1.0
+
+### Minor Changes
+
+- [`b367661ba720e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b367661ba720e) -
+  EDITOR-1562 bump adf-schema for afm
+- [`14595a9c17edc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14595a9c17edc) -
+  Exclude Editor PluginSlot components from SSR rendering
+
+### Patch Changes
+
+- Updated dependencies
+
+## 213.0.0
+
+### Patch Changes
+
+- [`17a448dee00a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17a448dee00a6) -
+  FD-86538 clean up fg platform_editor_renderer_table_header_styles
+- [`8e1d76c39d80c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e1d76c39d80c) -
+  [ux] A11Y-10288 fix: missing aria-modal="false" for Non-modal dialog
+- [`6a14edd919345`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a14edd919345) -
+  [ux] ED-29279 [SoftServ] Options in pinned toolbar are enabled when cursor is set in page title
+  field
+- Updated dependencies
+
+## 212.3.0
+
+### Minor Changes
+
+- [`d352feb9b2d97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d352feb9b2d97) -
+  [ux] NO-ISSUE Change blocktaskItem enablement experiment to a new tenantId based experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 212.2.0
+
+### Minor Changes
+
+- [`64ec65231b4cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64ec65231b4cf) -
+  EDITOR-1568 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 212.1.0
 
 ### Minor Changes

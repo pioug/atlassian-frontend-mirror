@@ -18,6 +18,7 @@ import type {
 	UIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type EditorActions from '../../actions';
 import type {} from '../../types';
@@ -63,7 +64,10 @@ const PluginSlot = ({
 	wrapperElement,
 	pluginHooks,
 }: Props) => {
-	if ((!items && !pluginHooks) || !editorView) {
+	if (
+		(!items && !pluginHooks) ||
+		(!editorView && !expVal('platform_editor_hydratable_ui', 'isEnabled', false))
+	) {
 		return null;
 	}
 

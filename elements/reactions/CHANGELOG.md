@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.2.21
+
+### Patch Changes
+
+- [`2ca8e1156c6f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ca8e1156c6f5) -
+  tidy up FF for reactions picker
+- Updated dependencies
+
 ## 33.2.20
 
 ### Patch Changes

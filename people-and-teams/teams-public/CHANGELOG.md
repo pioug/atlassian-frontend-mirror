@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.57.2
+
+### Patch Changes
+
+- [`e64ba17b1f714`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e64ba17b1f714) -
+  [ux] NO-ISSUE Update team link card's icon and text
+- Updated dependencies
+
 ## 0.57.1
 
 ### Patch Changes

@@ -190,6 +190,7 @@ export enum ACTION {
 	SUGGESTION_INSERTED = 'suggestionInserted',
 	SUGGESTION_DISMISSED = 'suggestionDismissed',
 	SUGGESTION_VIEWED = 'suggestionViewed',
+	INITIAL_EDITOR_WIDTH = 'initialEditorWidth',
 }
 
 export enum INPUT_METHOD {

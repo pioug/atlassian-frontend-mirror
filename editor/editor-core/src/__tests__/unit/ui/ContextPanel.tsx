@@ -11,6 +11,7 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ContextPanel, SwappableContentArea } from '../../../ui/ContextPanel';
 
@@ -134,6 +135,38 @@ describe('ContextPanel', () => {
 		);
 		expect(screen.queryByText('yoshi bongo')).not.toBeInTheDocument();
 		expect(screen.getByText('mario saxaphone')).toBeInTheDocument();
+	});
+
+	describe('renders the context panel with correct role and aria attributes', () => {
+		ffTest(
+			'platform_editor_a11y_macro_sidebar_dialog',
+			() => {
+				renderWithIntl(
+					<ContextPanel editorAPI={undefined} visible={true}>
+						<div id="context-panel-title">Blog posts</div>
+					</ContextPanel>,
+				);
+				const panel = screen.getByTestId('context-panel-panel');
+				expect(panel).toBeInTheDocument();
+				expect(panel).toHaveAttribute('role', 'dialog');
+				expect(panel).toHaveAttribute('aria-modal', 'false');
+				expect(panel).toHaveAttribute('aria-label', 'Context panel');
+				expect(panel).not.toHaveAttribute('aria-labelledby');
+			},
+			() => {
+				renderWithIntl(
+					<ContextPanel editorAPI={undefined} visible={true}>
+						<div id="context-panel-title">Blog posts</div>
+					</ContextPanel>,
+				);
+				const panel = screen.getByTestId('context-panel-panel');
+				expect(panel).toBeInTheDocument();
+				expect(panel).toHaveAttribute('role', 'dialog');
+				expect(panel).not.toHaveAttribute('aria-modal');
+				expect(panel).toHaveAttribute('aria-label', 'Context panel');
+				expect(panel).toHaveAttribute('aria-labelledby', 'context-panel-title');
+			},
+		);
 	});
 
 	it('should focus editor on ESC from the sidebar config panel', async () => {

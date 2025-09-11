@@ -7,6 +7,7 @@ import {
 	PanelActionNewTab,
 	PanelBody,
 	PanelContainer,
+	PanelFooter,
 	PanelHeader,
 	PanelTitle,
 } from '@atlaskit/panel-system';
@@ -37,6 +38,11 @@ export default function BasicPanel() {
 					The panel includes a header with title and actions, and a body area for content.
 				</Text>
 			</PanelBody>
+			<PanelFooter>
+				<Text as="p" size="small" color="color.text.subtle">
+					Last updated: {new Date().toLocaleDateString()}
+				</Text>
+			</PanelFooter>
 		</PanelContainer>
 	);
 }

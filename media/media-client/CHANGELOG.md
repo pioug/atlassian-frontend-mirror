@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 35.3.2
+
+### Patch Changes
+
+- [`b87ad4064e4f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b87ad4064e4f8) -
+  Added path based routing support to media client behind a feature flag and added retry logic for
+  serverUnexpectedError for Edge due to hot
+
 ## 35.3.1
 
 ### Patch Changes

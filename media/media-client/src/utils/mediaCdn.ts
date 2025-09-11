@@ -13,10 +13,12 @@ export const MEDIA_CDN_MAP: { [key: string]: string } = {
 const MEDIA_TOKEN_LENGTH_LIMIT = 7000;
 
 export function isCDNEnabled(): boolean {
-	const isIsolatedCloudWithDisabledCDN =
-		fg('platform_disable_isolated_cloud_media_cdn_delivery') && isIsolatedCloud();
-
-	return isCommercial() && !isIsolatedCloudWithDisabledCDN && fg('platform_media_cdn_delivery');
+	return (
+		isCommercial() &&
+		!isIsolatedCloud() &&
+		fg('platform_media_cdn_delivery') &&
+		!fg('platform_media_path_based_route')
+	);
 }
 
 export function mapToMediaCdnUrl(url: string, token: string) {

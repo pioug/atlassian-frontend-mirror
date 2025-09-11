@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.8.7
+
+### Patch Changes
+
+- [`08039ab948fd7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08039ab948fd7) -
+  [ux] [ED-28824] add optional props to support confluence renderer toolbar implementation
+- Updated dependencies
+
 ## 0.8.6
 
 ### Patch Changes

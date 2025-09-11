@@ -71,6 +71,7 @@ import type { TypeAheadPayload } from './type-ahead';
 import type { MediaUploadEventPayload } from './upload-media-events';
 import type { OperationalAEP, OperationalExposureAEP, TrackAEP } from './utils';
 import type { ViewEventPayload } from './view-events';
+import type { InitialEditorWidthPayload } from './width-events';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -144,7 +145,8 @@ export type AnalyticsEventPayload<T = void> =
 	| UndoRedoAEP
 	| OfflineEditingEventPayload
 	| NcsSessionStepEventAEP
-	| FloatingToolbarOverflowEventPayload;
+	| FloatingToolbarOverflowEventPayload
+	| InitialEditorWidthPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

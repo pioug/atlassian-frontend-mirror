@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 6.1.0
+
+### Minor Changes
+
+- [`cebd8f9171426`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cebd8f9171426) -
+  [ux] ED-29159 Implement transform task inside lists - handle logic
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

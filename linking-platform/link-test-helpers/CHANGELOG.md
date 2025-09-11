@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 8.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.1
 
 ### Patch Changes

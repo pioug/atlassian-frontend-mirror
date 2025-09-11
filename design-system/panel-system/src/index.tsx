@@ -11,6 +11,8 @@ export { PanelTitle, type PanelTitleProps } from './components/panel-title/panel
 
 export { PanelBody, type PanelBodyProps } from './components/panel-body/panel-body';
 
+export { PanelFooter, type PanelFooterProps } from './components/panel-footer/panel-footer';
+
 export { PanelAction } from './components/panel-action/panel-action';
 export type { PanelActionProps } from './components/panel-action/types';
 

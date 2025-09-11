@@ -1,5 +1,23 @@
 # @atlassian/navigation-system
 
+## 2.7.0
+
+### Minor Changes
+
+- [`e091edd5f5159`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e091edd5f5159) -
+  Update AppLogo to use non-deprecated primitives
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.1
+
+### Patch Changes
+
+- [`2445e6e19f1c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2445e6e19f1c7) -
+  pass testId to menuList
+
 ## 2.6.0
 
 ### Minor Changes

@@ -18,6 +18,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -42,6 +43,7 @@ import {
 import keymap, { getIndentCommand, getUnindentCommand } from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
 import { stateKey as taskPluginKey } from './pm-plugins/plugin-key';
+import { toggleTaskList } from './pm-plugins/toggle-tasklist-commands';
 import type { TasksAndDecisionsPlugin } from './tasksAndDecisionsPluginType';
 import type { TaskDecisionListType } from './types';
 import { RequestToEditPopup } from './ui/Task/RequestToEditPopup';
@@ -69,20 +71,20 @@ const addItem =
 
 function ContentComponent({
 	editorView,
-	dispatchAnalyticsEvent,
 	popupsMountPoint,
 	popupsBoundariesElement,
 	popupsScrollableElement,
 	dependencyApi,
 }: Pick<
 	UiComponentFactoryParams,
-	| 'editorView'
 	| 'dispatchAnalyticsEvent'
 	| 'popupsMountPoint'
 	| 'popupsBoundariesElement'
 	| 'popupsScrollableElement'
 > & {
 	dependencyApi?: ExtractInjectionAPI<typeof tasksAndDecisionsPlugin>;
+} & {
+	editorView: EditorView;
 }): JSX.Element | null {
 	const domAtPos = editorView.domAtPos.bind(editorView);
 	const openRequestToEditPopupAt = useSharedPluginStateSelector(
@@ -172,7 +174,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					node: taskList,
 				},
 				{ name: 'taskItem', node: taskItemNodeSpec() },
-				...(expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true) &&
+				...(expValEquals('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true) &&
 				allowBlockTaskItem
 					? [{ name: 'blockTaskItem', node: blockTaskItemNodeSpec() }]
 					: []),
@@ -205,6 +207,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		},
 
 		commands: {
+			toggleTaskList,
 			updateEditPermission:
 				(hasEditPermission: boolean | undefined) =>
 				({ tr }) =>
@@ -290,6 +293,10 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 			popupsBoundariesElement,
 			popupsScrollableElement,
 		}) {
+			if (!editorView) {
+				return null;
+			}
+
 			return (
 				<ContentComponent
 					dependencyApi={api}

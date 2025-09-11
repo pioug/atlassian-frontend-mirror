@@ -13,16 +13,15 @@ import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentatio
 
 type TaskListMenuItemProps = {
 	api?: ExtractInjectionAPI<ToolbarListsIndentationPlugin>;
-	parents: ToolbarComponentTypes;
+	parents?: ToolbarComponentTypes;
 };
 
-export const TaskListMenuItem = ({ api, parents }: TaskListMenuItemProps) => {
+export const TaskListMenuItem = ({ api }: TaskListMenuItemProps) => {
 	const { formatMessage } = useIntl();
 	const taskListActive = useSharedPluginStateSelector(api, 'taskDecision.isInsideTask');
 
 	const handleClick = () => {
-		// Placeholder onClick - no logic as per requirements
-		// This will be implemented in a separate ticket
+		api?.core.actions.execute(api?.taskDecision?.commands.toggleTaskList());
 	};
 
 	return (

@@ -1,5 +1,13 @@
 # @atlaskit/app-provider
 
+## 3.2.0
+
+### Minor Changes
+
+- [`0f3043fe00379`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f3043fe00379) -
+  Adds subtree theming implementation behind feature gate. Exports `ThemeProvider` as first-class
+  API.
+
 ## 3.1.0
 
 ### Minor Changes

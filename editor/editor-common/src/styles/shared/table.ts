@@ -164,9 +164,8 @@ const tableSharedStyle = () => css`
 				background-color: ${token('color.background.neutral.subtle', 'white')};
 			}
 
-			${fg('platform_editor_renderer_table_header_styles')
-				? `> tbody > tr > th, > tbody > tr > td`
-				: 'th, td'} {
+			> tbody > tr > th,
+			> tbody > tr > td {
 				min-width: ${tableCellMinWidth}px;
 				font-weight: ${token('font.weight.regular')};
 				vertical-align: top;

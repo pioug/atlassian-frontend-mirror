@@ -31,6 +31,10 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 		disabled,
 		isToolbarReducedSpacing,
 	}) => {
+		if (!editorView) {
+			return null;
+		}
+
 		return (
 			<ToolbarUndoRedo
 				isReducedSpacing={isToolbarReducedSpacing}

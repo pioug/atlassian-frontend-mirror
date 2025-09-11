@@ -1,5 +1,49 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 8.4.0
+
+### Minor Changes
+
+- [`b367661ba720e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b367661ba720e) -
+  EDITOR-1562 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.0
+
+### Minor Changes
+
+- [`cebd8f9171426`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cebd8f9171426) -
+  [ux] ED-29159 Implement transform task inside lists - handle logic
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.0
+
+### Minor Changes
+
+- [`d352feb9b2d97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d352feb9b2d97) -
+  [ux] NO-ISSUE Change blocktaskItem enablement experiment to a new tenantId based experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.0
+
+### Minor Changes
+
+- [`64ec65231b4cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64ec65231b4cf) -
+  EDITOR-1568 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.4
 
 ### Patch Changes

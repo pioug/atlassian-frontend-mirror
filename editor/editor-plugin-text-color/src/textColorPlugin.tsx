@@ -43,6 +43,10 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 		dispatchAnalyticsEvent,
 		disabled,
 	}) => {
+		if (!editorView) {
+			return null;
+		}
+
 		return (
 			<PrimaryToolbarComponent
 				isReducedSpacing={isToolbarReducedSpacing}

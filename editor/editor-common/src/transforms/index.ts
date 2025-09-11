@@ -27,3 +27,18 @@ export {
 	findCodeBlock,
 } from './code-block';
 export { transformSliceToDecisionList } from './decision-list';
+export {
+	transformListStructure,
+	transformBetweenListTypes,
+	transformListRecursively,
+	transformToTaskList,
+	transformTaskListToBlockNodes,
+	getFormattedNode,
+} from './list-transforms';
+export {
+	isBulletOrOrderedList,
+	isTaskList,
+	getSupportedListTypesSet,
+	convertBlockToInlineContent,
+} from './list-utils';
+export type { TransformContext, TransformFunction } from './list-types';

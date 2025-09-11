@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.7.0
+
+### Minor Changes
+
+- [`dbde6617644d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbde6617644d6) -
+  [NO-ISSUE] Exclude contenteditable, data-has-collab-initialised, and translate attributes from VC
+  calculation
+
 ## 4.6.2
 
 ### Patch Changes

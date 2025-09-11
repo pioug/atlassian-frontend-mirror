@@ -41,7 +41,21 @@ export type ViewAIHeroPromptButtonEventAEP = UIAEP<
 	undefined
 >;
 
+export type ViewDefineButtonEventAEP = UIAEP<
+	ACTION.VIEWED,
+	ACTION_SUBJECT.BUTTON,
+	ACTION_SUBJECT_ID.AI_DEFINITIONS_DEFINE_BUTTON,
+	{
+		inputMethod: INPUT_METHOD.FLOATING_TB;
+		mode: MODE.EDITOR;
+		selectionCharCount: number;
+		selectionWordCount: number;
+	},
+	undefined
+>;
+
 export type ViewEventPayload =
 	| ViewAIRovoButtonEventAEP
 	| ViewAIHeroPromptButtonEventAEP
+	| ViewDefineButtonEventAEP
 	| ViewInlineCommentsButtonEventAEP;

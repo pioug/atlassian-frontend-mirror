@@ -367,8 +367,22 @@ export const apply = (
 			}
 		} else {
 			if (activeNode && meta?.isDragging !== true) {
-				const mappedPos = tr.mapping.mapResult(activeNode.pos, -1);
-				isActiveNodeDeleted = mappedPos.deletedAfter;
+				let mappedPos;
+				// In safari, when platform_editor_controls is on,
+				// sometimes the drag handle for the layout disppears after you click on the handle for a few times
+				// Which caused the drag handle onClick event not firing, then block menu wouldn't be opened
+				// This is caused by the mappedPos.deletedAfter sometimes returning true in webkit browsers even though the active node still exists
+				// This is likely a prosemirror and safari integration bug, but to unblock the issue, we are going to use mappedPos.deleted in safari for now
+				if (
+					browser.webkit &&
+					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+				) {
+					mappedPos = tr.mapping.mapResult(activeNode.pos);
+					isActiveNodeDeleted = mappedPos.deleted;
+				} else {
+					mappedPos = tr.mapping.mapResult(activeNode.pos, -1);
+					isActiveNodeDeleted = mappedPos.deletedAfter;
+				}
 				// for editor controls, remap the rootPos as well
 				let mappedRootPos;
 				if (activeNode.rootPos !== undefined) {

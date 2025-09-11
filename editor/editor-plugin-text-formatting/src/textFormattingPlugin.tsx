@@ -53,6 +53,10 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 		toolbarSize,
 		disabled,
 	}) => {
+		if (!editorView) {
+			return null;
+		}
+
 		if (
 			editorExperiment('platform_editor_toolbar_rerender_optimization_exp', true, {
 				exposure: true,

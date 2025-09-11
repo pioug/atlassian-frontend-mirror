@@ -6,12 +6,18 @@ import Tooltip from '@atlaskit/tooltip';
 type ToolbarTooltipProps = {
 	children: React.ReactNode;
 	content: React.ReactNode;
+	delay?: number;
 	position?: PositionType;
 };
 
-export const ToolbarTooltip = ({ content, children, position = 'top' }: ToolbarTooltipProps) => {
+export const ToolbarTooltip = ({
+	content,
+	children,
+	position = 'top',
+	delay,
+}: ToolbarTooltipProps) => {
 	return (
-		<Tooltip content={content} position={position}>
+		<Tooltip content={content} position={position} delay={delay}>
 			{children}
 		</Tooltip>
 	);

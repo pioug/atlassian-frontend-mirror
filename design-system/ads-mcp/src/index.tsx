@@ -14,13 +14,15 @@ import {
 	getAccessibilityGuidelinesTool,
 	listGetAccessibilityGuidelinesTool,
 } from './tools/get-accessibility-guidelines';
+import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
+import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
 import {
 	getComponentDetailsTool,
 	listGetComponentDetailsTool,
 } from './tools/get-component-details';
 import { getComponentsTool, listGetComponentsTool } from './tools/get-components';
-import { getIconsTool, listGetIconsTool } from './tools/get-icons';
-import { getTokensTool, listGetTokensTool } from './tools/get-tokens';
+import { listSearchIconsTool, searchIconsTool } from './tools/search-icons';
+import { listSearchTokensTool, searchTokensTool } from './tools/search-tokens';
 import {
 	listSuggestAccessibilityFixesTool,
 	suggestAccessibilityFixesTool,
@@ -46,10 +48,12 @@ const server = new Server(
 server.setRequestHandler(ListToolsRequestSchema, async () => {
 	return {
 		tools: [
-			listGetTokensTool,
+			listGetAllTokensTool,
 			listGetComponentsTool,
 			listGetComponentDetailsTool,
-			listGetIconsTool,
+			listGetAllIconsTool,
+			listSearchIconsTool,
+			listSearchTokensTool,
 			listAnalyzeAccessibilityTool,
 			listAnalyzeLocalhostAccessibilityTool,
 			listGetAccessibilityGuidelinesTool,
@@ -59,10 +63,12 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 });
 
 const callTools: Record<string, (params: any) => Promise<any>> = {
-	get_tokens: getTokensTool,
+	get_all_tokens: getAllTokensTool,
+	search_tokens: searchTokensTool,
 	get_components: getComponentsTool,
 	get_component_details: getComponentDetailsTool,
-	get_icons: getIconsTool,
+	get_all_icons: getAllIconsTool,
+	search_icons: searchIconsTool,
 	analyze_accessibility: analyzeAccessibilityTool,
 	analyze_localhost_accessibility: analyzeLocalhostAccessibilityTool,
 	get_accessibility_guidelines: getAccessibilityGuidelinesTool,

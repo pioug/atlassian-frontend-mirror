@@ -34,6 +34,10 @@ export const alignmentPlugin: AlignmentPlugin = ({ api }) => {
 		disabled,
 		isToolbarReducedSpacing,
 	}) => {
+		if (!editorView) {
+			return null;
+		}
+
 		return (
 			<PrimaryToolbarComponent
 				api={api}

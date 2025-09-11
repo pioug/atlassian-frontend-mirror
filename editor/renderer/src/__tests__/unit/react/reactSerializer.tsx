@@ -13,7 +13,7 @@ describe('ReactSerializer', () => {
 
 	describe('Block task items - parentIsIncompleteTask correctly calculated', () => {
 		eeTest
-			.describe('platform_editor_blocktaskitem_node', 'Block task item experiment enabled')
+			.describe('platform_editor_blocktaskitem_node_tenantid', 'Block task item experiment enabled')
 			.variant(true, () => {
 				it('should handle nested nodes in blockTaskItem when experiment is enabled', () => {
 					const taskDoc = {
@@ -86,7 +86,7 @@ describe('ReactSerializer', () => {
 			});
 
 		eeTest
-			.describe('platform_editor_blocktaskitem_node', 'Block task item experiment enabled')
+			.describe('platform_editor_blocktaskitem_node_tenantid', 'Block task item experiment enabled')
 			.variant(false, () => {
 				it('should handle nested nodes in blockTaskItem when experiment is disabled', () => {
 					const taskDoc = {

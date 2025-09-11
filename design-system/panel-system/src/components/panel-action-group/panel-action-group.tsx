@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-
 export interface PanelActionGroupProps {
 	/**
 	 * The action components to group together.

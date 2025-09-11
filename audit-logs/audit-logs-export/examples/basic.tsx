@@ -18,7 +18,7 @@ export default function Basic() {
 	}) => {
 		console.log('Export parameters:', params);
 		// Simulate API call
-		await new Promise(resolve => setTimeout(resolve, 1000));
+		await new Promise((resolve) => setTimeout(resolve, 1000));
 		alert('Export completed! Check console for parameters.');
 	};
 

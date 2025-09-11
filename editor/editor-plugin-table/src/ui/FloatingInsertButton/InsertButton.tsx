@@ -11,6 +11,7 @@ import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { tableMarginTop } from '@atlaskit/editor-common/styles';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -217,6 +218,11 @@ const InsertButton = ({
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={ClassName.CONTROLS_INSERT_BUTTON}
 						onMouseDown={onMouseDown}
+						aria-label={
+							expValEquals('platform_editor_fix_button_name_violation_in_table', 'isEnabled', true)
+								? formatMessage(tooltipMessageByType(type))
+								: undefined
+						}
 					>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
 						<svg className={ClassName.CONTROLS_BUTTON_ICON}>

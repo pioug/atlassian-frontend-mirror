@@ -21,6 +21,7 @@ export interface Props {
 	className?: string;
 	codeBidiWarningTooltipEnabled: boolean;
 	language: SupportedLanguages;
+	localId?: string;
 	text: string;
 }
 
@@ -31,6 +32,7 @@ function CodeBlock(props: Props & WrappedComponentProps) {
 		allowCopyToClipboard = false,
 		allowWrapCodeBlock = false,
 		codeBidiWarningTooltipEnabled,
+		localId,
 	} = props;
 
 	const codeBidiWarningLabel = props.intl.formatMessage(codeBidiWarningMessages.label);
@@ -45,6 +47,7 @@ function CodeBlock(props: Props & WrappedComponentProps) {
 			allowWrapCodeBlock={allowWrapCodeBlock}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
+			localId={localId}
 			setWrapLongLines={setWrapLongLines}
 			text={text}
 			wrapLongLines={wrapLongLines}

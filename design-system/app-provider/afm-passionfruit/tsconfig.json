@@ -23,6 +23,12 @@
 	],
 	"references": [
 		{
+			"path": "../../css/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-passionfruit/tsconfig.json"
 		}
 	]

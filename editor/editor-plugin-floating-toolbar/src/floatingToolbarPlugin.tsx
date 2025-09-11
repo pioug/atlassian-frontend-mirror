@@ -226,6 +226,10 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 			providerFactory,
 			dispatchAnalyticsEvent,
 		}) {
+			if (!editorView) {
+				return null;
+			}
+
 			return (
 				<ContentComponent
 					editorView={editorView}
@@ -259,7 +263,7 @@ export function ContentComponent({
 	| 'popupsScrollableElement'
 > & {
 	pluginInjectionApi: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
-}) {
+} & { editorView: EditorView }) {
 	const {
 		floatingToolbarState,
 		editorDisabledState,

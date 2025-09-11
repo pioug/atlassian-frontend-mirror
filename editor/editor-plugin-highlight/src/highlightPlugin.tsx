@@ -33,6 +33,10 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 		isToolbarReducedSpacing,
 		editorView,
 	}) => {
+		if (!editorView) {
+			return null;
+		}
+
 		return (
 			<PrimaryToolbarHighlightColor
 				popupsMountPoint={popupsMountPoint}

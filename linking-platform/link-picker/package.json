@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "3.10.0",
+	"version": "3.10.2",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -58,6 +58,7 @@
 		"codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/link-picker run codegen-analytics'"
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-linking-platform-link-picker": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/button": "workspace:^",

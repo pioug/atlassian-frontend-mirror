@@ -2,6 +2,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockMenuPlugin } from '../../blockMenuPluginType';
 
@@ -16,18 +17,26 @@ const getIsFormatMenuHidden = (selection: Selection, schema: Schema, menuTrigger
 
 	let content: PMNode | undefined;
 
-	const selectedNode = findSelectedNodeOfType([
+	const allowedNodes = [
 		nodes.paragraph,
 		nodes.heading,
 		nodes.blockquote,
 		nodes.panel,
-		nodes.expand,
 		nodes.codeBlock,
 		nodes.bulletList,
 		nodes.orderedList,
 		nodes.taskList,
-		nodes.layoutSection,
-	])(selection);
+	];
+
+	if (expValEquals('platform_editor_block_menu_layout_format', 'isEnabled', true)) {
+		allowedNodes.push(nodes.layoutSection);
+	}
+
+	if (expValEquals('platform_editor_block_menu_expand_format', 'isEnabled', true)) {
+		allowedNodes.push(nodes.expand);
+	}
+
+	const selectedNode = findSelectedNodeOfType(allowedNodes)(selection);
 
 	if (selectedNode) {
 		content = selectedNode.node;

@@ -1,5 +1,12 @@
 # @atlaskit/panel-system
 
+## 0.0.4
+
+### Patch Changes
+
+- [`5bc5265a7d064`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bc5265a7d064) -
+  Create simple PanelFooter component.
+
 ## 0.0.3
 
 ### Patch Changes

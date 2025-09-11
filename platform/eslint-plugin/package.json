@@ -35,6 +35,7 @@
 	"exports": {
 		".": {
 			"types": "./src/index.tsx",
+			"publish": "./src/index.tsx",
 			"default": "./index.js"
 		},
 		"./package.json": "./package.json"

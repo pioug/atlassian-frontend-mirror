@@ -92,7 +92,7 @@ export function taskItemToDom(node: PMNode, placeholder: string, intl: IntlShape
 
 	let contentDomDataAttrs = node.content.childCount > 0 ? {} : { 'data-empty': 'true' };
 
-	if (expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true)) {
+	if (expValEquals('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true)) {
 		contentDomDataAttrs = isContentEmpty(node) ? { 'data-empty': 'true' } : {};
 	}
 

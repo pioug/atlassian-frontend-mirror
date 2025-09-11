@@ -1,9 +1,9 @@
 import { DEFAULT_TWO_COLUMN_LAYOUT_COLUMN_WIDTH } from '@atlaskit/editor-common/styles';
+import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 
 import { convertUnwrappedLayoutContent, unwrapLayoutNodesToTextNodes } from './layout/utils';
-import type { TransformContext } from './types';
 
 export const convertToLayout = (context: TransformContext) => {
 	const { tr, sourceNode, sourcePos } = context;
@@ -62,7 +62,9 @@ export const transformLayoutNode = (context: TransformContext) => {
 				unwrappedContent,
 				targetNodeType,
 				schema,
+				targetAttrs,
 			);
+
 			layoutColumnNodes.push(
 				layoutColumn.createChecked(child.attrs, Fragment.fromArray(newColumnContent), child.marks),
 			);

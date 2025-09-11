@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-analytics",
-	"version": "10.0.6",
+	"version": "11.0.0",
 	"description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 24.13.0
+
+### Minor Changes
+
+- [`e552623e58ad3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e552623e58ad3) -
+  [ux] Fix agent title truncation [ux] Remove optional hidden overflow from agent profile card since
+  it is no longer needed
+
 ## 24.12.1
 
 ### Patch Changes

@@ -1,8 +1,7 @@
+import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
-
-import type { TransformContext } from '.././types';
 
 export const transformOrderedUnorderedListToBlockNodes = (
 	context: TransformContext,

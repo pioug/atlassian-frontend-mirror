@@ -32,6 +32,7 @@
 	"exports": {
 		".": {
 			"types": "./src/index.ts",
+			"publish": "./src/index.ts",
 			"default": "./index.js"
 		},
 		"./cli": "./src/cli.ts",

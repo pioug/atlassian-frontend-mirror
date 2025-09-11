@@ -144,6 +144,10 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 			});
 		},
 		contentComponent: ({ editorView }) => {
+			if (!editorView) {
+				return null;
+			}
+
 			return (
 				<SelectionExtensionComponentWrapper
 					editorView={editorView}
@@ -170,7 +174,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 
 						// Content Mode Validation
 						// Check if pageModes is provided and matches against current content mode
-						// This will eventially transition from mode to contentMode
+						// This will eventually transition from mode to contentMode
 						const editorContentMode = api?.editorViewMode?.sharedState.currentState()?.mode;
 
 						if (pageModes) {

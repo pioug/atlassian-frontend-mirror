@@ -3,7 +3,7 @@ import React, { type ReactNode } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { cssMap } from '@atlaskit/css';
-import GlobeIcon from '@atlaskit/icon/core/globe';
+import LinkIcon from '@atlaskit/icon/core/link';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import Image from '@atlaskit/image';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -39,7 +39,7 @@ const styles = cssMap({
 		width: '16px',
 		height: '16px',
 	},
-	globeIconWrapper: {
+	linkIconWrapper: {
 		width: '16px',
 		height: '16px',
 		display: 'flex',
@@ -49,7 +49,7 @@ const styles = cssMap({
 		outlineColor: token('color.border'),
 		outlineStyle: 'solid',
 	},
-	globeAvatarWrapper: {
+	linkAvatarWrapper: {
 		width: '24px',
 		height: '24px',
 		display: 'flex',
@@ -126,20 +126,20 @@ export const messages = defineMessages({
 		defaultMessage: 'space',
 		description: 'Text for space type containers',
 	},
-	emptyWebLinkContainerDescription: {
-		id: 'platform.teams.containers.empty-web-link-description',
-		defaultMessage: 'Add any web link',
-		description: 'Description displayed on the empty card for adding a web link to a team',
+	emptyLinkContainerDescription: {
+		id: 'platform.teams.containers.empty-link-description',
+		defaultMessage: 'Add any link',
+		description: 'Description displayed on the empty card for adding a link to a team',
 	},
-	addWebLink: {
-		id: 'platform.teams.containers.add-web-link',
-		defaultMessage: 'Add Web Link',
-		description: 'Title of the card to add a web link to a team',
+	addLink: {
+		id: 'platform.teams.containers.add-link',
+		defaultMessage: 'Add Link',
+		description: 'Title of the card to add a link to a team',
 	},
-	webLinkContainerDescription: {
-		id: 'platform.teams.containers.web-link-title-description',
-		defaultMessage: 'Web link',
-		description: 'Description displayed for web link containers in team profile',
+	linkContainerDescription: {
+		id: 'platform.teams.containers.link-title-description',
+		defaultMessage: 'Link',
+		description: 'Description displayed for link containers in team profile',
 	},
 });
 
@@ -213,23 +213,23 @@ const getWebLinkContainerProperties = ({
 	return {
 		description: isEmptyContainer ? (
 			<Text size="medium" weight="medium">
-				<FormattedMessage {...messages.emptyWebLinkContainerDescription} />
+				<FormattedMessage {...messages.emptyLinkContainerDescription} />
 			</Text>
 		) : (
-			<FormattedMessage {...messages.webLinkContainerDescription} />
+			<FormattedMessage {...messages.linkContainerDescription} />
 		),
 		icon: isEmptyContainer ? (
-			<Box xcss={styles.globeAvatarWrapper} testId="team-link-card-globe-icon">
-				<GlobeIcon label="" size="medium" />
+			<Box xcss={styles.linkAvatarWrapper} testId="team-link-card-globe-icon">
+				<LinkIcon label="" size="medium" />
 			</Box>
 		) : isDisplayedOnProfileCard ? (
 			<LinkExternalIcon label="" size="small" testId="team-link-card-external-link-icon" />
 		) : (
-			<Box xcss={styles.globeIconWrapper} testId="team-link-card-globe-icon">
-				<GlobeIcon label="" size="small" />
+			<Box xcss={styles.linkIconWrapper} testId="team-link-card-globe-icon">
+				<LinkIcon label="" size="small" />
 			</Box>
 		),
-		title: newTeamProfilePage ? <FormattedMessage {...messages.addWebLink} /> : null,
+		title: newTeamProfilePage ? <FormattedMessage {...messages.addLink} /> : null,
 		containerTypeText: null,
 	};
 };

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-ui",
-	"version": "28.6.15",
+	"version": "28.7.0",
 	"description": "Includes common components and utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -100,6 +100,9 @@
 			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-media-exif": {
+			"type": "boolean"
+		},
+		"platform_media-default-code-viewer-for-plain-text": {
 			"type": "boolean"
 		}
 	},

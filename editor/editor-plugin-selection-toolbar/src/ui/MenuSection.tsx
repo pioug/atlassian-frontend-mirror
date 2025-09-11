@@ -36,5 +36,9 @@ export const MenuSection = ({ children, api }: MenuSectionProps) => {
 	const { editorViewMode } = usePluginState(api);
 	const isEdit = editorViewMode === 'edit';
 
+	if (!isEdit) {
+		return null;
+	}
+
 	return <ToolbarDropdownItemSection hasSeparator={isEdit}>{children}</ToolbarDropdownItemSection>;
 };

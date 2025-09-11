@@ -42,7 +42,7 @@ export type ContentComponentProps = {
 	defaultGetEditorContainerWidth: GetEditorContainerWidth;
 	defaultGetEditorFeatureFlags: GetEditorFeatureFlags;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
-	editorView: EditorView;
+	editorView?: EditorView;
 	isTableSelectorEnabled: boolean | undefined;
 	options?: TablePluginOptions;
 	popupsBoundariesElement?: HTMLElement;
@@ -127,6 +127,10 @@ const ContentComponentInternal = ({
 	} = useSharedPluginStateWithSelector(api, ['table'], selector);
 
 	const { allowControls } = pluginConfig ?? {};
+
+	if (!editorView) {
+		return null;
+	}
 
 	return (
 		<>

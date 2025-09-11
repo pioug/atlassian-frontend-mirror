@@ -13,6 +13,7 @@ import {
 	PanelActionNewTab,
 	PanelBody,
 	PanelContainer,
+	PanelFooter,
 	PanelHeader,
 	PanelTitle,
 } from '@atlaskit/panel-system';
@@ -106,6 +107,16 @@ export function BasicPanelExample() {
 							<Text>Led by the Design System team.</Text>
 						</Stack>
 					</PanelBody>
+					<PanelFooter>
+						<Stack space="space.100">
+							<Text size="small" color="color.text.subtle">
+								Status: Active
+							</Text>
+							<Text size="small" color="color.text.subtle">
+								Last modified: {new Date().toLocaleDateString()}
+							</Text>
+						</Stack>
+					</PanelFooter>
 				</PanelContainer>
 			</Box>
 		</Flex>

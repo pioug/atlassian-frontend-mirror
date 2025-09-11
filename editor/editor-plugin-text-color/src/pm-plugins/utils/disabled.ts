@@ -81,8 +81,7 @@ export const getDisabledStateNew = (tr: Transaction): boolean => {
 		if (
 			isMarkExcluded(
 				textColor,
-				tr.storedMarks?.filter(omitOverrides) ||
-					($cursor && $cursor.marks().filter(omitOverrides)),
+				tr.storedMarks?.filter(omitOverrides) || ($cursor && $cursor.marks().filter(omitOverrides)),
 			)
 		) {
 			return true;

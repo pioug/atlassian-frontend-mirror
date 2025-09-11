@@ -2,6 +2,7 @@ import type { INSM } from './insm';
 import type { AddedProperties, ExperienceProperties } from './types';
 
 import { PeriodTracking } from './insm-period';
+import { LongAnimationFrameMeasurer } from './session-measurers/LongAnimationFrameMeasurer';
 
 /**
  * Only intended for internal use.
@@ -18,12 +19,20 @@ export class INSMSession {
 
 	runningFeatures: Set<string> = new Set();
 	periodTracking: PeriodTracking;
+	longAnimationFrameMeasurer: LongAnimationFrameMeasurer;
 
 	constructor(experienceKey: string, experienceProperties: ExperienceProperties, insm: INSM) {
 		this.experienceKey = experienceKey;
 		this.experienceProperties = experienceProperties;
 		this.insm = insm;
 		this.periodTracking = new PeriodTracking(this);
+
+		this.longAnimationFrameMeasurer = new LongAnimationFrameMeasurer({
+			initial: this.experienceProperties.initial,
+			limit: 3,
+			insmSession: this,
+			reportingThreshold: 500,
+		});
 
 		/**
 		 * Note: Events are not reliably fired from mobile browsers (ie. when a browser is closed when not in use)
@@ -154,6 +163,7 @@ export class INSMSession {
 				},
 				periods: periodResults,
 				endDetails: endDetails,
+				longAnimationFrames: this.longAnimationFrameMeasurer.current,
 			},
 			highPriority: true,
 			tags: ['editor'],
@@ -161,5 +171,6 @@ export class INSMSession {
 		};
 
 		this.insm.analyticsWebClient?.sendOperationalEvent(operationalEvent);
+		this.longAnimationFrameMeasurer.cleanup();
 	}
 }

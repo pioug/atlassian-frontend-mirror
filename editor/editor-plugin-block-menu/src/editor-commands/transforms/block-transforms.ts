@@ -1,7 +1,9 @@
+import type { TransformContext } from '@atlaskit/editor-common/transforms';
+
 import { transformToContainer, unwrapAndConvertToBlockType } from './container-transforms';
 import { getInlineNodeTextNode } from './inline-node-transforms';
 import { transformBlockToList } from './list-transforms';
-import type { TransformContext, TransformFunction } from './types';
+import type { TransformFunction } from './types';
 import { isListNodeType, isContainerNodeType, isBlockNodeType } from './utils';
 
 /**

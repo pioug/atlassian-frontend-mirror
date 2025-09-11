@@ -26,6 +26,7 @@ import { useToolbarPortal } from '../../Toolbar/ToolbarPortal';
 type FullPageToolbarNextProps = {
 	beforeIcon?: React.ReactNode;
 	customPrimaryToolbarComponents?: PrimaryToolbarComponents;
+	disabled?: boolean; // make it required when cleaning up platform_editor_toolbar_aifc_patch_4
 	editorAPI?: PublicPluginAPI<[ToolbarPlugin]>;
 	editorView?: EditorView;
 	popupsBoundariesElement?: HTMLElement;
@@ -134,6 +135,7 @@ export const FullPageToolbarNext = ({
 	popupsMountPoint,
 	showKeyline,
 	customPrimaryToolbarComponents,
+	disabled,
 }: FullPageToolbarNextProps) => {
 	const components = editorAPI?.toolbar?.actions.getComponents();
 	const intl = useIntl();
@@ -233,6 +235,7 @@ export const FullPageToolbarNext = ({
 													editorAPI={editorAPI}
 													popupsMountPoint={mountPoint}
 													editorAppearance="full-page"
+													isDisabled={disabled}
 												/>
 											)}
 									</FirstChildWrapper>
@@ -266,6 +269,7 @@ export const FullPageToolbarNext = ({
 										editorAPI={editorAPI}
 										popupsMountPoint={mountPoint}
 										editorAppearance="full-page"
+										isDisabled={disabled}
 									/>
 								)
 							)}

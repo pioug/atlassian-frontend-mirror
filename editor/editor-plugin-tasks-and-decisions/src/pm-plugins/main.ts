@@ -77,7 +77,7 @@ export function createPlugin(
 				decisionItem: ((node) => {
 					return new DecisionItemNodeView(node, getIntl());
 				}) satisfies NodeViewConstructor,
-				...(expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true)
+				...(expValEquals('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true)
 					? { blockTaskItem: taskView(api, getIntl(), taskPlaceholder) }
 					: {}),
 			},

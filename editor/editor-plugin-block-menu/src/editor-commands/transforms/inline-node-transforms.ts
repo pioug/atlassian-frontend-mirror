@@ -8,7 +8,7 @@ export const getInlineNodeTextContent = (sourceContent: Fragment) => {
 	}
 	// Headings are not valid inside headings so convert heading nodes to paragraphs
 	sourceContent.forEach((node) => {
-		if (['paragraph', 'heading'].includes(node.type.name)) {
+		if (['paragraph', 'heading', 'taskItem'].includes(node.type.name)) {
 			node.content.forEach((inlineNode) => {
 				if (inlineNode.type.name === 'status') {
 					validTransformedContent += inlineNode.attrs.text;

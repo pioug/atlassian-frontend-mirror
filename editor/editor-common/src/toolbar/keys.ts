@@ -11,6 +11,11 @@ export const AI_SECTION = {
 	type: 'section',
 } as const;
 
+export const AI_VIEW_SECTION = {
+	key: 'ai-view-section',
+	type: 'section',
+} as const;
+
 export const ROVO_GROUP = {
 	key: 'rovo-group',
 	type: 'group',
@@ -94,6 +99,16 @@ export const TRANSLATE_MENU_SECTION = {
 export const DEFINE_MENU_ITEM = {
 	key: 'define-menu-item',
 	type: 'menu-item',
+} as const;
+
+export const DEFINE_GROUP = {
+	key: 'define-group',
+	type: 'group',
+} as const;
+
+export const DEFINE_BUTTON = {
+	key: 'define-button',
+	type: 'button',
 } as const;
 
 /**

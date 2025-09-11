@@ -289,6 +289,10 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 		popupsBoundariesElement,
 		popupsScrollableElement,
 	}) {
+		if (!editorView) {
+			return null;
+		}
+
 		if (
 			expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
 			fg('platform_editor_breakout_resizing_hello_release')

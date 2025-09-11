@@ -1,4 +1,11 @@
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { getLanguageType, getExtension, isCodeViewerItem } from '../../codeViewer';
+
+beforeEach(() => {
+	setBooleanFeatureFlagResolver(
+		(flagName) => flagName === 'platform_media-default-code-viewer-for-plain-text',
+	);
+});
 
 describe(getLanguageType, () => {
 	test.each([
@@ -102,6 +109,7 @@ describe(getLanguageType, () => {
 	test.each([
 		['application/json', '', 'json'],
 		['text/html', '', 'html'],
+		['text/plain', '', 'text'],
 		[undefined, '.nope', null],
 	])(
 		'Should identify the correct type when mimetype=$s extension=%s expected=%s is supplied',
@@ -127,6 +135,7 @@ describe(isCodeViewerItem, () => {
 		['file', 'text/html', true],
 		['file.cs', undefined, true],
 		['file.doc', undefined, false],
+		['file', 'text/plain', true],
 	])(
 		'filename %s with mimetype %s is a code viewer item? %s',
 		(filename, mimetype, shouldBeCodeViewer) => {

@@ -1,5 +1,51 @@
 # @atlaskit/editor-common
 
+## 109.5.0
+
+### Minor Changes
+
+- [`b367661ba720e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b367661ba720e) -
+  EDITOR-1562 bump adf-schema for afm
+
+### Patch Changes
+
+- [`15cb4a4f3157a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15cb4a4f3157a) -
+  [EDITOR-1497] Remove Ask Rovo Dropdown Button and Improve Writing Button, and also Show Define
+  Button in Live-view mode
+- Updated dependencies
+
+## 109.4.0
+
+### Minor Changes
+
+- [`cebd8f9171426`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cebd8f9171426) -
+  [ux] ED-29159 Implement transform task inside lists - handle logic
+
+### Patch Changes
+
+- [`17a448dee00a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17a448dee00a6) -
+  FD-86538 clean up fg platform_editor_renderer_table_header_styles
+- Updated dependencies
+
+## 109.3.1
+
+### Patch Changes
+
+- [`cef73d344aa16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cef73d344aa16) -
+  EDITOR-1391 add analytics event for initial editor width
+- Updated dependencies
+
+## 109.3.0
+
+### Minor Changes
+
+- [`64ec65231b4cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64ec65231b4cf) -
+  EDITOR-1568 bump adf-schema for afm
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.2.0
 
 ### Minor Changes

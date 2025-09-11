@@ -1,9 +1,16 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
+import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	getGlobalTheme,
+	getThemeHtmlAttrs,
 	setGlobalTheme,
 	ThemeMutationObserver,
 	type ThemeState,
@@ -133,6 +140,12 @@ function getReconciledColorMode(colorMode: ColorMode): ReconciledColorMode {
 	return colorMode;
 }
 
+const contentStyles = cssMap({
+	body: {
+		display: 'contents',
+	},
+});
+
 interface ThemeProviderProps {
 	defaultColorMode: ColorMode;
 	defaultTheme?: Partial<Theme>;
@@ -169,6 +182,11 @@ function ThemeProvider({ children, defaultColorMode, defaultTheme }: ThemeProvid
 	const lastSetGlobalThemePromiseRef = useRef<ReturnType<typeof setGlobalTheme> | null>(null);
 
 	useEffect(() => {
+		// If fg enabled avoid mounting themes
+		if (fg('platform-static-theme-loading')) {
+			return;
+		}
+
 		/**
 		 * We need to wait for any previous `setGlobalTheme` calls to finish before calling it again.
 		 * This is to prevent race conditions as `setGlobalTheme` is async and mutates the DOM (e.g. sets the
@@ -227,11 +245,25 @@ function ThemeProvider({ children, defaultColorMode, defaultTheme }: ThemeProvid
 		return unbindListener;
 	}, [chosenColorMode]);
 
+	const attrs = getThemeHtmlAttrs({ ...theme, colorMode: reconciledColorMode });
+
 	return (
 		<ColorModeContext.Provider value={reconciledColorMode}>
 			<SetColorModeContext.Provider value={setColorMode}>
 				<ThemeContext.Provider value={theme}>
-					<SetThemeContext.Provider value={setPartialTheme}>{children}</SetThemeContext.Provider>
+					<SetThemeContext.Provider value={setPartialTheme}>
+						{fg('platform-static-theme-loading') ? (
+							<div
+								data-theme={attrs['data-theme']}
+								data-color-mode={attrs['data-color-mode']}
+								css={contentStyles.body}
+							>
+								{children}
+							</div>
+						) : (
+							children
+						)}
+					</SetThemeContext.Provider>
 				</ThemeContext.Provider>
 			</SetColorModeContext.Provider>
 		</ColorModeContext.Provider>

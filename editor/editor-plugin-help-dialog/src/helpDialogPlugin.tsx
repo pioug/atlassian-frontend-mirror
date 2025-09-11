@@ -84,6 +84,10 @@ export const helpDialogPlugin: HelpDialogPlugin = ({ config, api }) => {
 		},
 
 		contentComponent({ editorView }) {
+			if (!editorView) {
+				return null;
+			}
+
 			return (
 				<HelpDialogLoader
 					pluginInjectionApi={api}

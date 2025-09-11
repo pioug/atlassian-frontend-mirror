@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import { cssMap } from '@atlaskit/css';
-import LinkIcon from '@atlaskit/icon/core/link';
+import GlobeIcon from '@atlaskit/icon/core/globe';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -10,7 +10,7 @@ import { type ContainerTypes } from '../../types';
 import { LoomSpaceAvatar } from '../loom-avatar';
 
 const styles = cssMap({
-	linkIconWrapperMedium: {
+	globeIconWrapperMedium: {
 		width: '34px',
 		height: '34px',
 		display: 'flex',
@@ -21,7 +21,7 @@ const styles = cssMap({
 		outlineStyle: 'solid',
 		backgroundColor: token('elevation.surface.sunken'),
 	},
-	linkIconWrapperSmall: {
+	globeIconWrapperSmall: {
 		width: '24px',
 		height: '24px',
 		display: 'flex',
@@ -95,8 +95,8 @@ export const ContainerIcon = ({
 
 		if (!containerIcon) {
 			return (
-				<Box xcss={isMedium ? styles.linkIconWrapperMedium : styles.linkIconWrapperSmall}>
-					<LinkIcon label="" testId="linked-container-WebLink-icon" />
+				<Box xcss={isMedium ? styles.globeIconWrapperMedium : styles.globeIconWrapperSmall}>
+					<GlobeIcon label="" testId="linked-container-WebLink-icon" />
 				</Box>
 			);
 		}

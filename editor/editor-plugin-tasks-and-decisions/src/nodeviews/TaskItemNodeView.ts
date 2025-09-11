@@ -154,7 +154,7 @@ export class TaskItemNodeView implements NodeView {
 	// Update the placeholder visibility based on content
 	private updatePlaceholder(node: PMNode) {
 		let currentIsContentEmpty = this.isContentEmpty(node);
-		if (expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true)) {
+		if (expValEquals('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true)) {
 			currentIsContentEmpty = isContentEmpty(node);
 		}
 		if (currentIsContentEmpty !== this.emptyContent) {

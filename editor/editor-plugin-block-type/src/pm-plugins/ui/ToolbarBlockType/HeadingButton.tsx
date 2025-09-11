@@ -101,9 +101,11 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps) => {
 		);
 	};
 	const shortcut = formatShortcut(shortcuts[blockType.name as HeadingName]);
-	expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
+	expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true);
 
-	const isSelected = expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ? currentBlockType?.name === blockType.name : currentBlockType === blockType;
+	const isSelected = expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
+		? currentBlockType?.name === blockType.name
+		: currentBlockType === blockType;
 
 	return (
 		<ToolbarDropdownItem

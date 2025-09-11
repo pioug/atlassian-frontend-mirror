@@ -77,6 +77,7 @@ type FormChildrenArgs<FormValues> = {
 	getState: () => FormState<FormValues>;
 	getValues: () => FormValues;
 	setFieldValue: (name: string, value: any) => void;
+	resetFieldState?: (name: string) => void;
 	reset: (initialValues?: FormValues) => void;
 };
 
@@ -108,12 +109,16 @@ export interface FormProps<FormValues> {
 	 *   Sets the form and its fields as disabled. Users cannot edit or focus on the fields.
 	 */
 	isDisabled?: boolean;
+	/**
+	 * A test identifier for the form element. This will be applied as `data-testid` attribute.
+	 */
+	testId?: string;
 }
 
 export default function Form<FormValues extends Record<string, any> = {}>(
 	props: FormProps<FormValues>,
 ) {
-	const { formProps: userProvidedFormProps, onSubmit } = props;
+	const { formProps: userProvidedFormProps, onSubmit, testId } = props;
 
 	const formRef = useRef<HTMLFormElement | null>(null);
 	const onSubmitRef = useRef(onSubmit);
@@ -231,6 +236,7 @@ export default function Form<FormValues extends Record<string, any> = {}>(
 		onKeyDown: handleKeyDown,
 		onSubmit: handleSubmit,
 		ref: formRef,
+		...(testId && { 'data-testid': testId }),
 	};
 
 	const childrenContent = (() => {
@@ -246,6 +252,9 @@ export default function Form<FormValues extends Record<string, any> = {}>(
 							getState: () => form.getState(),
 							getValues: () => form.getState().values,
 							setFieldValue: form.change,
+							...(fg('platform-form-reset-field-state') && {
+								resetFieldState: form.resetFieldState,
+							}),
 						})
 					: (children as () => ReactNode | void)();
 			return result === undefined ? null : result;

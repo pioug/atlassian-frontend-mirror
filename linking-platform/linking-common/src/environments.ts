@@ -30,8 +30,9 @@ export const getBaseUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string) 
 			: prodBaseUrl;
 	}
 
-	// Otherwise, use the current origin of the page.
-	return typeof window.location !== 'undefined' ? window.location.origin : '';
+	return typeof window !== 'undefined' && typeof window.location !== 'undefined'
+		? window.location.origin
+		: '';
 };
 
 export const getResolverUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string) => {

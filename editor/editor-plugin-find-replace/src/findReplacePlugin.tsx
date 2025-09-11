@@ -34,6 +34,10 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 		containerElement,
 		dispatchAnalyticsEvent,
 	}) => {
+		if (!editorView) {
+			return null;
+		}
+
 		const isButtonHidden = fg('platform_editor_toolbar_responsive_fixes')
 			? toolbarSize < ToolbarSize.XL
 			: false;
@@ -168,7 +172,7 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 					wrapperElement,
 					dispatchAnalyticsEvent,
 				}) => {
-					if (toolbarButtonRegisteredExternally.current) {
+					if (toolbarButtonRegisteredExternally.current || !editorView) {
 						return null;
 					}
 

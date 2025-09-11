@@ -156,7 +156,11 @@ export const guidelinePlugin: GuidelinePlugin = ({ config: options, api }) => ({
 		];
 	},
 
-	contentComponent: ({ editorView }) => (
-		<ContentComponent editorView={editorView} options={options} api={api} />
-	),
+	contentComponent: ({ editorView }) => {
+		if (!editorView) {
+			return null;
+		}
+
+		return <ContentComponent editorView={editorView} options={options} api={api} />;
+	},
 });

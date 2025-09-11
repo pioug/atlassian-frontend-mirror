@@ -16,6 +16,7 @@ import {
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 
@@ -26,18 +27,26 @@ type BulletedListMenuItemType = {
 
 export const BulletedListMenuItem = ({ api, parents }: BulletedListMenuItemType) => {
 	const { formatMessage } = useIntl();
-	const { bulletListActive, bulletListDisabled } = useSharedPluginStateWithSelector(
+	const isTaskListItemEnabled = expValEquals(
+		'platform_editor_toolbar_task_list_menu_item',
+		'isEnabled',
+		true,
+	);
+	const { bulletListActive, bulletListDisabled, taskListActive } = useSharedPluginStateWithSelector(
 		api,
-		['list'],
+		['list', 'taskDecision'],
 		(states) => ({
 			bulletListActive: states.listState?.bulletListActive,
 			bulletListDisabled: states.listState?.bulletListDisabled,
+			taskListActive: states.taskDecisionState?.isInsideTask,
 		}),
 	);
 
 	const onClick = () => {
 		api?.core.actions.execute(
-			api?.list.commands.toggleBulletList(getInputMethodFromParentKeys(parents)),
+			isTaskListItemEnabled && taskListActive
+				? api?.taskDecision?.commands.toggleTaskList('bulletList')
+				: api?.list.commands.toggleBulletList(getInputMethodFromParentKeys(parents)),
 		);
 	};
 
@@ -48,7 +57,9 @@ export const BulletedListMenuItem = ({ api, parents }: BulletedListMenuItemType)
 			elemBefore={<ListBulletedIcon size="small" label="" />}
 			elemAfter={shortcut ? <ToolbarKeyboardShortcutHint shortcut={shortcut} /> : undefined}
 			isSelected={bulletListActive}
-			isDisabled={bulletListDisabled}
+			isDisabled={
+				isTaskListItemEnabled ? bulletListDisabled && !taskListActive : bulletListDisabled
+			}
 			onClick={onClick}
 			ariaKeyshortcuts={shortcut}
 		>

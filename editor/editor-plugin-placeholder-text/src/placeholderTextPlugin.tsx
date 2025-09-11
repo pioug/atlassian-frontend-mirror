@@ -175,13 +175,14 @@ export function createPlugin(
 
 type ContentComponentProps = Pick<
 	UiComponentFactoryParams,
-	| 'editorView'
 	| 'dispatchAnalyticsEvent'
 	| 'popupsMountPoint'
 	| 'popupsBoundariesElement'
 	| 'popupsScrollableElement'
 > & {
 	dependencyApi: ExtractInjectionAPI<typeof placeholderTextPlugin> | undefined;
+} & {
+	editorView: EditorView;
 };
 
 function ContentComponent({
@@ -261,6 +262,9 @@ const basePlaceholderTextPlugin: PlaceholderTextPlugin = ({ api, config: options
 	},
 
 	contentComponent({ editorView, popupsMountPoint, popupsBoundariesElement }) {
+		if (!editorView) {
+			return null;
+		}
 		return (
 			<ContentComponent
 				editorView={editorView}

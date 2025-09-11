@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.22.0",
+	"version": "41.0.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,6 +26,7 @@
 		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card --output ./src/common/analytics/generated"
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-linking-platform-smart-card": "root:*",
 		"@atlaskit/analytics-gas-types": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
@@ -239,6 +240,9 @@
 			"type": "boolean"
 		},
 		"navx-1706-smart-link-layered-link-a11y-update": {
+			"type": "boolean"
+		},
+		"navx-1842-hiding-unnecessary-image-descriptions": {
 			"type": "boolean"
 		}
 	},

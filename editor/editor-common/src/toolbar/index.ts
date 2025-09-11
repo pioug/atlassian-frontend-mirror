@@ -59,6 +59,7 @@ export {
 	OVERFLOW_SECTION_PRIMARY_TOOLBAR_RANK,
 	OVERFLOW_GROUP_PRIMARY_TOOLBAR_RANK,
 	OVERFLOW_MENU_PRIMARY_TOOLBAR_RANK,
+	DEFINE_GROUP_RANK,
 } from './rank';
 
 export {
@@ -174,6 +175,9 @@ export {
 	OVERFLOW_MENU_PRIMARY_TOOLBAR,
 	SELECTION_EXTENSION_MENU_SECTION,
 	DEFINE_MENU_ITEM,
+	DEFINE_GROUP,
+	DEFINE_BUTTON,
+	AI_VIEW_SECTION,
 } from './keys';
 
 export { useEditorToolbar, EditorToolbarProvider, type EditorToolbarContextType } from './context';

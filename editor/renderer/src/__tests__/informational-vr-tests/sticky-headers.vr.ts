@@ -54,9 +54,6 @@ snapshotInformational(StickyHeaderUnResizedTableRenderer, {
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 80);
 	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
-	},
 });
 
 // skipping as I can't replicate bug
@@ -65,18 +62,12 @@ snapshotInformational.skip(StickyHeaderUnResizedTableNumberedColumnRenderer, {
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 80);
 	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
-	},
 });
 
 snapshotInformational(StickyHeaderUnResizedTableWithoutHeaderRowRenderer, {
 	description: 'should have the header not stick for an unresized-table with no header row',
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 120);
-	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
 	},
 });
 
@@ -85,18 +76,12 @@ snapshotInformational(StickyHeaderRowWithOnlyHeader, {
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 120);
 	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
-	},
 });
 
 snapshotInformational(StickyHeaderRowWithOnlyNonHeader, {
 	description: 'should have the header not stick for a table with only regular row',
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 120);
-	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
 	},
 });
 
@@ -105,18 +90,12 @@ snapshotInformational(StickyHeaderRowWithResizedColumns, {
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 120);
 	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
-	},
 });
 
 snapshotInformational(StickyHeadersBrokenOutTableNoResize, {
 	description: 'should have the header stick for a broken out table with no resized columns',
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 80);
-	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
 	},
 });
 
@@ -125,18 +104,12 @@ snapshotInformational(StickyHeadersBrokenOutTableResized, {
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 60);
 	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
-	},
 });
 
 snapshotInformational(StickyHeadersBrokenOutTableOverflowing, {
 	description: 'should have the header stick for a broken out table overflow',
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 120);
-	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
 	},
 });
 
@@ -145,18 +118,12 @@ snapshotInformational(StickyHeadersTableOverflowing, {
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 120);
 	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
-	},
 });
 
 snapshotInformational(StickyHeadersTableOverflowingNumberedColumn, {
 	description: 'should have the header stick for an table with overflow and numbered column',
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 120);
-	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
 	},
 });
 
@@ -165,18 +132,12 @@ snapshotInformational(StickyHeadersTableInsideLayout, {
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 120);
 	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
-	},
 });
 
 snapshotInformational(StickyHeadersTableInsideLayoutBrokenOut, {
 	description: 'should have the header stick for an table within layout and brokenout',
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 120);
-	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
 	},
 });
 
@@ -185,9 +146,6 @@ snapshotInformational(StickyHeadersTableMultipleHeaderRows, {
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 90);
 	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
-	},
 });
 
 snapshotInformational(StickyHeadersTableMultipleHeaderRows, {
@@ -195,17 +153,11 @@ snapshotInformational(StickyHeadersTableMultipleHeaderRows, {
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 234);
 	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
-	},
 });
 
 snapshotInformational(StickyHeadersTableMergedRows, {
 	description: 'should have the headers not stick for an table with merged cells',
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 90);
-	},
-	featureFlags: {
-		platform_editor_renderer_table_header_styles: true,
 	},
 });

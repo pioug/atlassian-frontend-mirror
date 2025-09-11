@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 3.1.1
+
+### Patch Changes
+
+- [`c30d1876a650a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c30d1876a650a) -
+  ED-29256 Transform content with indentation in layouts
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [`cebd8f9171426`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cebd8f9171426) -
+  [ux] ED-29159 Implement transform task inside lists - handle logic
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.2
+
+### Patch Changes
+
+- [`d6f3f3b09ebff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6f3f3b09ebff) -
+  [ux] ED-29255 Fix layout transformation when column is empty, transform nested lists to match
+  container to list transformations and fix task list transforms when task item is empty
+
 ## 3.0.1
 
 ### Patch Changes

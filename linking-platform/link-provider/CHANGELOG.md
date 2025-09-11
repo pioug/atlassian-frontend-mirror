@@ -1,5 +1,17 @@
 # @atlaskit/link-provider
 
+## 4.0.0
+
+### Major Changes
+
+- [`4535040a84a6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4535040a84a6e) -
+  add isAdminHubAIEnabled in the merge alsong with isPreviewPanelAvailable and openPreviewPanel for
+  confluencePreview Panels.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.7.2
 
 ### Patch Changes

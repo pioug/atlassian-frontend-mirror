@@ -1,5 +1,13 @@
 # @atlaskit/link-create
 
+## 4.4.4
+
+### Patch Changes
+
+- [`22c5a8cbe641a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22c5a8cbe641a) -
+  Migrate platform/linking-platform pkgs to use i18n NPM pkgs from Traduki
+- Updated dependencies
+
 ## 4.4.3
 
 ### Patch Changes

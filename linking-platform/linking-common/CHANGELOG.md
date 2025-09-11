@@ -1,5 +1,15 @@
 # @atlaskit/linking-common
 
+## 9.5.7
+
+### Patch Changes
+
+- [`37edfa8b5db63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37edfa8b5db63) -
+  CNS-19533: This change adds an extra check to the `getBaseUrl` method to ensure that the window is
+  defined. The reason this is required is that in environments that live within iframes that are
+  rendered with SSR, this check can cause issues as the window is not always defined throughout the
+  entire rendering process. (See Whiteboards / Databases).
+
 ## 9.5.6
 
 ### Patch Changes

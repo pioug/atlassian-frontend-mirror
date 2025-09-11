@@ -1,5 +1,22 @@
 # @atlaskit/ads-mcp
 
+## 0.4.1
+
+### Patch Changes
+
+- [`217beed112e9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/217beed112e9f) -
+  fix broken import
+
+## 0.4.0
+
+### Minor Changes
+
+- [`b89521ec6e0ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b89521ec6e0ab) -
+  Replaced deprecated token and icon tools with new `get_all_tokens`, `search_tokens`,
+  `get_all_icons`, and `search_icons` (supporting multiple search terms with improved search
+  accuracy and optimised results), updated dependencies and instructions, refactored related files,
+  and enhanced search functionality and result limits for both tokens and icons.
+
 ## 0.3.0
 
 ### Minor Changes

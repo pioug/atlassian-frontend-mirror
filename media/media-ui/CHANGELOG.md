@@ -1,5 +1,17 @@
 # @atlaskit/media-ui
 
+## 28.7.0
+
+### Minor Changes
+
+- [`07a59b636b6b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07a59b636b6b4) -
+  [ux] Set CodeViewer as the default viewer for text/plain files, prevents rendering text files
+  using DocViewer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.6.15
 
 ### Patch Changes

@@ -114,6 +114,9 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 				attributeName === 'id' ||
 				attributeName === 'tabindex' ||
 				attributeName === 'data-is-ttvc-ready' ||
+				attributeName === 'contenteditable' ||
+				attributeName === 'data-has-collab-initialised' ||
+				attributeName === 'translate' ||
 				NON_VISUAL_ARIA_ATTRIBUTES.includes(attributeName) ||
 				(THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES.includes(attributeName) &&
 					fg('platform_ufo_exclude_3p_extensions_from_ttvc'))

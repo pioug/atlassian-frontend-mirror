@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "2.6.0",
+	"version": "2.7.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -116,6 +116,7 @@
 		"@atlaskit/layering": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "workspace:^",
@@ -186,6 +187,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"jfp-magma-hydration-harmonise-applogo-classname": {
+			"type": "boolean"
+		},
 		"platform-component-visual-refresh": {
 			"type": "boolean",
 			"referenceOnly": true

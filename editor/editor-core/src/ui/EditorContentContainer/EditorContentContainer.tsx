@@ -338,7 +338,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					decisionStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					expValEqualsNoExposure('platform_editor_blocktaskitem_node', 'isEnabled', true)
+					expValEqualsNoExposure('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							taskItemStylesWithBlockTaskItem
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

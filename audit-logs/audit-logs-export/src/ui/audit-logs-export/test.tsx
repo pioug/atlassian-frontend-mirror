@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { fireEvent, render, screen, waitFor, waitForElementToBeRemoved, within } from '@testing-library/react';
+import {
+	fireEvent,
+	render,
+	screen,
+	waitFor,
+	waitForElementToBeRemoved,
+	within,
+} from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { AuditLogExportButton } from './index';
@@ -12,19 +19,23 @@ const renderWithIntl = (component: React.ReactElement) => {
 	return render(
 		<IntlProvider locale="en" messages={{}}>
 			{component}
-		</IntlProvider>
+		</IntlProvider>,
 	);
 };
 
 describe('AuditLogExportButton', () => {
 	it('should capture and report a11y violations', async () => {
-		const { container } = renderWithIntl(<AuditLogExportButton testId={testId} onExport={jest.fn()} orgId="test-org-123" />);
+		const { container } = renderWithIntl(
+			<AuditLogExportButton testId={testId} onExport={jest.fn()} orgId="test-org-123" />,
+		);
 
 		await expect(container).toBeAccessible();
 	});
 
 	it('should find AuditLogExportButton by its testid', async () => {
-		renderWithIntl(<AuditLogExportButton testId={testId} onExport={jest.fn()} orgId="test-org-123" />);
+		renderWithIntl(
+			<AuditLogExportButton testId={testId} onExport={jest.fn()} orgId="test-org-123" />,
+		);
 
 		expect(screen.getByTestId(testId)).toBeTruthy();
 	});
@@ -58,7 +69,7 @@ describe('AuditLogExportButton', () => {
 		const modal = screen.getByTestId('modal-dialog');
 		expect(within(modal).getByText('Export log')).toBeInTheDocument();
 		expect(within(modal).getByTestId('modal-dialog--body')).toHaveTextContent(
-			'We\'ll email you a CSV file of all activities matching your filter criteria is ready to download.'
+			"We'll email you a CSV file of all activities matching your filter criteria is ready to download.",
 		);
 	});
 
@@ -84,7 +95,9 @@ describe('AuditLogExportButton', () => {
 		const modal = screen.getByTestId('modal-dialog');
 		expect(within(modal).getByText('Please read and accept to continue')).toBeInTheDocument();
 		expect(
-			within(modal).getByText(/I understand that if I share these audit logs with people that don't otherwise have access to them, any existing user permissions set in Atlassian Administration and other apps will no longer apply to them./)
+			within(modal).getByText(
+				/I understand that if I share these audit logs with people that don't otherwise have access to them, any existing user permissions set in Atlassian Administration and other apps will no longer apply to them./,
+			),
 		).toBeInTheDocument();
 		// Checkbox is rendered inside a label, so query within the modal for the input instead
 		expect(within(modal).getByRole('checkbox', { name: 'checkbox' })).toBeInTheDocument();
@@ -99,9 +112,7 @@ describe('AuditLogExportButton', () => {
 		fireEvent.click(within(modal).getByText('Export'));
 
 		await waitFor(() => {
-			expect(
-				within(modal).getByText('This field is required')
-			).toBeInTheDocument();
+			expect(within(modal).getByText('This field is required')).toBeInTheDocument();
 		});
 
 		expect(mockOnExport).not.toHaveBeenCalled();
@@ -142,7 +153,11 @@ describe('AuditLogExportButton', () => {
 
 		await waitFor(() => {
 			expect(screen.getByText('Exporting logs')).toBeInTheDocument();
-			expect(screen.getByText('Check your email to download the CSV file. It might take a few minutes to arrive.')).toBeInTheDocument();
+			expect(
+				screen.getByText(
+					'Check your email to download the CSV file. It might take a few minutes to arrive.',
+				),
+			).toBeInTheDocument();
 		});
 	});
 

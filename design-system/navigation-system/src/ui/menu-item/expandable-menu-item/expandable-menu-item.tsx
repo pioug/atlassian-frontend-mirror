@@ -50,6 +50,11 @@ export type ExpandableMenuItemProps = {
 	 * and not when only the `ExpandableMenuItemTrigger` is a drop target.
 	 */
 	dropIndicator?: ReactNode;
+
+	/**
+	 * testId for MenuListItem
+	 */
+	testId?: string;
 };
 
 const relativeStyles = cssMap({
@@ -86,6 +91,7 @@ export const ExpandableMenuItem = forwardRef<HTMLDivElement, ExpandableMenuItemP
 			onExpansionToggle,
 			children,
 			dropIndicator,
+			testId,
 		},
 		forwardedRef,
 	) => {
@@ -93,13 +99,12 @@ export const ExpandableMenuItem = forwardRef<HTMLDivElement, ExpandableMenuItemP
 			isExpandedControlled,
 			() => isDefaultExpanded,
 		);
-
 		return (
 			<IsExpandedContext.Provider value={isExpanded}>
 				<SetIsExpandedContext.Provider value={setIsExpanded}>
 					<OnExpansionToggleContext.Provider value={onExpansionToggle ?? null}>
 						{/* Wrapping in a `li` to group all the composable elements together, as part of the disclosure pattern */}
-						<MenuListItem ref={forwardedRef}>
+						<MenuListItem ref={forwardedRef} testId={testId}>
 							{/* Adding `position:relative` only when it's needed by the drop indicator */}
 							<div css={[dropIndicator && relativeStyles.root]}>
 								{children}

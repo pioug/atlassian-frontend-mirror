@@ -1,5 +1,16 @@
 # @atlaskit/docs
 
+## 11.1.0
+
+### Minor Changes
+
+- [`6c63bce566a85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c63bce566a85) -
+  Update GlobalSideNav documentation, and tweak Atlaskit styling for code blocks and headings
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.13
 
 ### Patch Changes

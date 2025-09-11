@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "12.5.4",
+	"version": "12.6.1",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -134,6 +134,9 @@
 			"type": "boolean"
 		},
 		"platform-form-field-error-focus": {
+			"type": "boolean"
+		},
+		"platform-form-reset-field-state": {
 			"type": "boolean"
 		}
 	}

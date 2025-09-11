@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-client-extension",
-	"version": "5.0.6",
+	"version": "6.0.0",
 	"description": "Extension methods for linking platform client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

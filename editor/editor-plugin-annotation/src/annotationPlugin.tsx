@@ -159,7 +159,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 		},
 
 		contentComponent({ editorView, dispatchAnalyticsEvent }) {
-			if (!annotationProviders) {
+			if (!annotationProviders || !editorView) {
 				return null;
 			}
 			return (

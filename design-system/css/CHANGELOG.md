@@ -1,5 +1,12 @@
 # @atlaskit/css
 
+## 0.14.1
+
+### Patch Changes
+
+- [`eb69a4b60c75e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb69a4b60c75e) -
+  Split type export and regular export
+
 ## 0.14.0
 
 ### Minor Changes

@@ -1,20 +1,14 @@
+import { transformBetweenListTypes, isTaskList } from '@atlaskit/editor-common/transforms';
+import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import { type Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
 
-import { transformListStructure } from './list/transformBetweenListTypes';
 import { transformOrderedUnorderedListToBlockNodes } from './list/transformOrderedUnorderedListToBlockNodes';
 import { transformTaskListToBlockNodes } from './list/transformTaskListToBlockNodes';
 import { transformToTaskList } from './list/transformToTaskList';
-import type { TransformContext, TransformFunction } from './types';
-import {
-	getSupportedListTypesSet,
-	isBulletOrOrderedList,
-	isBlockNodeType,
-	isContainerNodeType,
-	isListNodeType,
-	isTaskList,
-} from './utils';
+import type { TransformFunction } from './types';
+import { isBlockNodeType, isContainerNodeType, isListNodeType } from './utils';
 
 /**
  * Transform selection to list type
@@ -165,57 +159,4 @@ export const liftListToBlockType = () => {
 	return null;
 };
 
-/**
- * Transform between different list types
- */
-export const transformBetweenListTypes = (context: TransformContext) => {
-	const { tr, sourceNode, sourcePos, targetNodeType } = context;
-	const { nodes } = tr.doc.type.schema;
-
-	const sourceListType = sourceNode.type;
-	const isSourceBulletOrOrdered = isBulletOrOrderedList(sourceListType);
-	const isTargetTask = isTaskList(targetNodeType);
-	const isSourceTask = isTaskList(sourceListType);
-	const isTargetBulletOrOrdered = isBulletOrOrderedList(targetNodeType);
-
-	// Check if we need structure transformation
-	const needsStructureTransform =
-		(isSourceBulletOrOrdered && isTargetTask) || (isSourceTask && isTargetBulletOrOrdered);
-
-	try {
-		if (!needsStructureTransform) {
-			// Simple type change for same structure lists (bullet <-> ordered)
-			// Apply to the main list
-			tr.setNodeMarkup(sourcePos, targetNodeType);
-
-			// Apply to nested lists
-			const listStart = sourcePos;
-			const listEnd = sourcePos + sourceNode.nodeSize;
-			const supportedListTypesSet = getSupportedListTypesSet(nodes);
-
-			tr.doc.nodesBetween(listStart, listEnd, (node, pos, parent) => {
-				// Only process nested lists (not the root list we already handled)
-				if (supportedListTypesSet.has(node.type) && pos !== sourcePos) {
-					const isNestedList =
-						parent && (supportedListTypesSet.has(parent.type) || parent.type === nodes.listItem);
-
-					if (isNestedList) {
-						const shouldTransformNode =
-							node.type === sourceListType ||
-							(isBulletOrOrderedList(node.type) && isTargetBulletOrOrdered);
-
-						if (shouldTransformNode) {
-							tr.setNodeMarkup(pos, targetNodeType);
-						}
-					}
-				}
-				return true; // Continue traversing
-			});
-			return tr;
-		} else {
-			return transformListStructure(context);
-		}
-	} catch {
-		return null;
-	}
-};
+// transformBetweenListTypes is now imported from @atlaskit/editor-common/transforms

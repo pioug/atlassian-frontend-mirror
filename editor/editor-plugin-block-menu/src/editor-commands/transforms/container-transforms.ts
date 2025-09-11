@@ -1,7 +1,8 @@
+import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 
-import type { TransformContext, TransformFunction } from './types';
+import type { TransformFunction } from './types';
 import {
 	isBlockNodeType,
 	isListNodeType,

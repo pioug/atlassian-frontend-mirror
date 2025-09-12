@@ -1,5 +1,16 @@
 # @atlaskit/editor-toolbar
 
+## 0.9.0
+
+### Minor Changes
+
+- [`553afc302139b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/553afc302139b) -
+  Add analytic emitter component which fires an event when dropdowns are viewed
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.8.7
 
 ### Patch Changes

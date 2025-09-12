@@ -2,7 +2,18 @@ import React, { createContext, useContext } from 'react';
 
 import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
 
+type AnalyticsEventPayload = {
+	action: string;
+	actionSubject?: string;
+	actionSubjectId?: string;
+	eventType: string;
+};
+
+type FireAnalyticsEvent = (payload: AnalyticsEventPayload) => void | undefined;
+
 export type ToolbarUIContextType = {
+	fireAnalyticsEvent?: FireAnalyticsEvent;
+
 	/**
 	 * Indicates whether the toolbar is disabled when the editor is offline.
 	 */
@@ -14,7 +25,6 @@ export type ToolbarUIContextType = {
 	 * If the dropdown was closed programmatically, the `event` parameter will be `null`.
 	 */
 	onDropdownOpenChanged: (args: OnOpenChangeArgs) => void;
-
 	popupsBoundariesElement?: HTMLElement;
 	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
@@ -29,6 +39,7 @@ const ToolbarUIContext = createContext<ToolbarUIContextType>({
 	preventDefaultOnMouseDown: false,
 	isDisabled: false,
 	popupsMountPoint: undefined,
+	fireAnalyticsEvent: undefined,
 });
 
 /**
@@ -56,6 +67,7 @@ export const ToolbarUIProvider = ({
 	popupsMountPoint,
 	popupsBoundariesElement,
 	popupsScrollableElement,
+	fireAnalyticsEvent,
 }: ToolbarUIProviderProps) => {
 	return (
 		<ToolbarUIContext.Provider
@@ -66,6 +78,7 @@ export const ToolbarUIProvider = ({
 				popupsMountPoint,
 				popupsBoundariesElement,
 				popupsScrollableElement,
+				fireAnalyticsEvent,
 			}}
 		>
 			{children}

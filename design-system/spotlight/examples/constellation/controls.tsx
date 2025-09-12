@@ -6,7 +6,6 @@ import { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { jsx } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { Text } from '@atlaskit/primitives/compiled';
 import {
 	PopoverContent,
@@ -21,7 +20,6 @@ import {
 	SpotlightHeader,
 	SpotlightHeadline,
 	SpotlightPrimaryAction,
-	SpotlightShowMoreControl,
 } from '@atlaskit/spotlight';
 
 const Example = () => {
@@ -39,17 +37,6 @@ const Example = () => {
 							<SpotlightHeadline>Headline</SpotlightHeadline>
 							<SpotlightControls>
 								<SpotlightDismissControl onClick={() => setIsVisible(false)} />
-								<DropdownMenu<HTMLButtonElement>
-									trigger={({ triggerRef, onClick }) => (
-										<SpotlightShowMoreControl ref={triggerRef} onClick={onClick} />
-									)}
-									shouldRenderToParent={false}
-								>
-									<DropdownItemGroup>
-										<DropdownItem>Not interested</DropdownItem>
-										<DropdownItem>Why am I seeing this?</DropdownItem>
-									</DropdownItemGroup>
-								</DropdownMenu>
 							</SpotlightControls>
 						</SpotlightHeader>
 						<SpotlightBody>

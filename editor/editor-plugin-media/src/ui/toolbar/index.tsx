@@ -58,6 +58,7 @@ import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
 import { messages } from '@atlaskit/media-ui';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
@@ -529,6 +530,13 @@ const generateMediaSingleFloatingToolbar = (
 							),
 							onClick: changeMediaSingleToMediaInline(pluginInjectionApi?.analytics?.actions),
 							testId: 'image-inline-appearance',
+							selected: expValEquals(
+								'platform_editor_add_aria_checked_to_inline_img_btn',
+								'isEnabled',
+								true,
+							)
+								? false
+								: undefined,
 						},
 						{
 							type: 'button',

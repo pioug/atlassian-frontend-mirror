@@ -2,6 +2,7 @@
 // Entry file in package.json
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 
 import { type EditorExperimentsConfig, editorExperimentsConfig } from './experiments-config';
 import { _overrides, _paramOverrides, _product } from './setup';
@@ -98,6 +99,15 @@ export function editorExperiment<ExperimentName extends keyof EditorExperimentsC
 		experimentConfig.defaultValue,
 		{ typeGuard: experimentConfig.typeGuard, fireExperimentExposure: options.exposure },
 	);
+
+	if (
+		// When cleaning this gate up -- `calling where the experiments have the product key set`
+		// in __tests__/experiments should be updated (as it's had the count bumped to include these).
+		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+		FeatureGates.getExperimentValue('cc_editor_experiments_ufo_gate_reporting', 'isEnabled', false)
+	) {
+		addFeatureFlagAccessed(`${experimentName}:${experimentConfig.param}`, experimentValue);
+	}
 
 	return expectedExperimentValue === experimentValue;
 }

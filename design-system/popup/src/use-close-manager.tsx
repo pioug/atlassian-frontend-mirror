@@ -1,6 +1,6 @@
 import type React from 'react';
 // eslint-disable-next-line no-duplicate-imports
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { bind, bindAll } from 'bind-event-listener';
 
@@ -25,6 +25,7 @@ export const useCloseManager = ({
 }: CloseManagerHook): void => {
 	const { isLayerDisabled, currentLevel } = useLayering();
 	const { requestFrame, cancelAllFrames } = useAnimationFrame();
+	const mouseDownTarget = useRef<EventTarget | null>(null);
 
 	useEffect(() => {
 		if (!isOpen || !popupRef) {
@@ -89,8 +90,16 @@ export const useCloseManager = ({
 
 			const isClickOnPopup = popupRef && popupRef.contains(target as Node);
 			const isClickOnTrigger = triggerRef && triggerRef.contains(target as Node);
+			const didClickStartInsidePopup =
+				popupRef &&
+				mouseDownTarget.current instanceof Node &&
+				popupRef.contains(mouseDownTarget.current);
 
-			if (!isClickOnPopup && !isClickOnTrigger) {
+			if (
+				!isClickOnPopup &&
+				!isClickOnTrigger &&
+				(fg('popup-onclose-fix-mouse-down-inside-popup') ? !didClickStartInsidePopup : true)
+			) {
 				closePopup(event);
 				// If there was an outside click on a non-interactive element, the focus should be on the trigger.
 				if (
@@ -101,6 +110,20 @@ export const useCloseManager = ({
 					triggerRef?.focus();
 				}
 			}
+		};
+
+		const onMouseDown = (event: MouseEvent) => {
+			/**
+			 * Tracking the target of the mouse down event.
+			 * This is used to prevent the popup from closing when the user mouses down inside the popup, but then
+			 * moves the mouse outside the popup before releasing the mouse button.
+			 *
+			 * This is a common user interaction - users may have mistakenly clicked on something, or changed their mind,
+			 * so they try to cancel their click by moving their mouse away from what they had moused down on.
+			 *
+			 * Blanket uses the same technique.
+			 */
+			mouseDownTarget.current = event.target;
 		};
 
 		const onKeyDown = (event: KeyboardEvent | React.KeyboardEvent) => {
@@ -204,6 +227,10 @@ export const useCloseManager = ({
 						type: 'keydown',
 						listener: onKeyDown,
 					},
+					{
+						type: 'mousedown',
+						listener: onMouseDown,
+					},
 				]);
 			}, 0);
 		} else {
@@ -216,6 +243,10 @@ export const useCloseManager = ({
 				{
 					type: 'keydown',
 					listener: onKeyDown,
+				},
+				{
+					type: 'mousedown',
+					listener: onMouseDown,
 				},
 			]);
 		}

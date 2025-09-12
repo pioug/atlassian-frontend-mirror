@@ -12,10 +12,39 @@ to help ensure your interfaces are accessible to all users.
 
 ### Design System Tools
 
-- `get_tokens` - Get design tokens for colors, spacing, typography, etc.
-- `get_components` - Get a list of available components
-- `get_component_details` - Get detailed information about a specific component
-- `get_icons` - Get a list of available icons
+- `get_all_tokens` - Get all available design tokens for colors, spacing, typography, etc.
+- `search_tokens` - Search for specific design tokens by name, description, or example values
+- `get_components` - Get a list of all available components with basic information
+- `search_components` - Search for components by name, description, category, or package name
+- `get_all_icons` - Get all available icons from the design system
+- `search_icons` - Search for specific icons by name, keywords, or categorization
+
+#### Design System Tools Usage
+
+```typescript
+// Search for components (recommended approach)
+const buttonComponents = await search_components({
+	terms: ['button', 'click'],
+	limit: 3,
+});
+
+// Search for specific tokens
+const colorTokens = await search_tokens({
+	terms: ['color.text', 'primary'],
+	limit: 5,
+});
+
+// Search for icons
+const addIcons = await search_icons({
+	terms: ['add', 'plus', 'create'],
+	limit: 2,
+});
+
+// Get all available items (fallback when search doesn't find what you need)
+const allComponents = await get_components();
+const allTokens = await get_all_tokens();
+const allIcons = await get_all_icons();
+```
 
 ### Accessibility Tools
 

@@ -214,6 +214,7 @@ const ContentContainer = (props: StyleProps) => {
 export interface ExpandProps {
 	children: React.ReactNode;
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	localId?: string;
 	nestedHeaderIds?: Array<string>;
 	nodeType: 'expand' | 'nestedExpand';
 	rendererAppearance?: RendererAppearance;
@@ -247,6 +248,7 @@ function Expand({
 	nodeType,
 	intl,
 	fireAnalyticsEvent,
+	localId,
 	nestedHeaderIds,
 	rendererAppearance,
 }: ExpandProps & WrappedComponentProps) {
@@ -268,6 +270,7 @@ function Expand({
 			data-node-type={nodeType}
 			data-title={title}
 			data-expanded={expanded}
+			data-local-id={localId}
 			expanded={expanded}
 			focused={focused}
 		>

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-annotation
 
+## 5.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.1
+
+### Patch Changes
+
+- [`b85694a21dec9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b85694a21dec9) -
+  [ux] [ED-29271] don't show Comment button if a draft comment is in progress
+- Updated dependencies
+
 ## 5.3.0
 
 ### Minor Changes

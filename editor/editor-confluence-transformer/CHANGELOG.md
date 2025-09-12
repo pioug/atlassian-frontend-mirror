@@ -1,5 +1,13 @@
 # @atlaskit/editor-cq-transformer
 
+## 12.2.1
+
+### Patch Changes
+
+- [`39f3b00f65aa0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39f3b00f65aa0) -
+  NOISSUE: Patches emotion CSS exports in various editor packages
+- Updated dependencies
+
 ## 12.2.0
 
 ### Minor Changes

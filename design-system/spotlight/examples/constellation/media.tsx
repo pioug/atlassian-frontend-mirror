@@ -29,10 +29,10 @@ import ExampleImage from '../assets/295x135.png';
 
 const styles = cssMap({
 	root: {
-		paddingTop: token('space.400'),
-		paddingRight: token('space.400'),
-		paddingBottom: token('space.400'),
-		paddingLeft: token('space.400'),
+		paddingBlockStart: token('space.400'),
+		paddingInlineEnd: token('space.400'),
+		paddingBlockEnd: token('space.400'),
+		paddingInlineStart: token('space.400'),
 		height: '100%',
 	},
 });

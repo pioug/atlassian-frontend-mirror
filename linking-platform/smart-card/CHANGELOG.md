@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 41.0.2
+
+### Patch Changes
+
+- [`8c475e7c2ad09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c475e7c2ad09) -
+  NAVX-1895 Updating fg for code causing issues in home so it doesn't block the release of other
+  changes
+- Updated dependencies
+
+## 41.0.1
+
+### Patch Changes
+
+- [`a4a5ca6a21bae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4a5ca6a21bae) -
+  Update i18n NPM package versions for platform packages
+
 ## 41.0.0
 
 ### Patch Changes

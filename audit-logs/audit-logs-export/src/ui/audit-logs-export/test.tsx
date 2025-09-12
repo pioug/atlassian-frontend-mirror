@@ -119,7 +119,8 @@ describe('AuditLogExportButton', () => {
 	});
 
 	it('should call onExport when terms are accepted and export is clicked', async () => {
-		renderWithIntl(<AuditLogExportButton {...defaultProps} />);
+		const mockOnSuccess = jest.fn();
+		renderWithIntl(<AuditLogExportButton {...defaultProps} onSuccess={mockOnSuccess} />);
 
 		fireEvent.click(screen.getByTestId('audit-log-export-button'));
 		const modal = screen.getByTestId('modal-dialog');
@@ -141,10 +142,11 @@ describe('AuditLogExportButton', () => {
 		});
 	});
 
-	it('should show success flag when export succeeds', async () => {
+	it('should call onSuccess when export succeeds', async () => {
 		mockOnExport.mockResolvedValue(undefined);
+		const mockOnSuccess = jest.fn();
 
-		renderWithIntl(<AuditLogExportButton {...defaultProps} />);
+		renderWithIntl(<AuditLogExportButton {...defaultProps} onSuccess={mockOnSuccess} />);
 
 		fireEvent.click(screen.getByTestId('audit-log-export-button'));
 		const modal = screen.getByTestId('modal-dialog');
@@ -152,19 +154,16 @@ describe('AuditLogExportButton', () => {
 		fireEvent.click(within(modal).getByText('Export'));
 
 		await waitFor(() => {
-			expect(screen.getByText('Exporting logs')).toBeInTheDocument();
-			expect(
-				screen.getByText(
-					'Check your email to download the CSV file. It might take a few minutes to arrive.',
-				),
-			).toBeInTheDocument();
+			expect(mockOnSuccess).toHaveBeenCalled();
 		});
 	});
 
-	it('should show error flag when export fails', async () => {
-		mockOnExport.mockRejectedValue(new Error('Export failed'));
+	it('should call onError when export fails', async () => {
+		const testError = new Error('Export failed');
+		mockOnExport.mockRejectedValue(testError);
+		const mockOnError = jest.fn();
 
-		renderWithIntl(<AuditLogExportButton {...defaultProps} />);
+		renderWithIntl(<AuditLogExportButton {...defaultProps} onError={mockOnError} />);
 
 		fireEvent.click(screen.getByTestId('audit-log-export-button'));
 		const modal = screen.getByTestId('modal-dialog');
@@ -172,8 +171,7 @@ describe('AuditLogExportButton', () => {
 		fireEvent.click(within(modal).getByText('Export'));
 
 		await waitFor(() => {
-			expect(screen.getByText('Something went wrong')).toBeInTheDocument();
-			expect(screen.getByText('Try again later')).toBeInTheDocument();
+			expect(mockOnError).toHaveBeenCalled();
 		});
 	});
 

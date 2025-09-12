@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 2.1.3
+
+### Patch Changes
+
+- [`553afc302139b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/553afc302139b) -
+  Add analytic emitter component which fires an event when dropdowns are viewed
+- Updated dependencies
+
+## 2.1.2
+
+### Patch Changes
+
+- [`30aad83e7ded7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30aad83e7ded7) -
+  When editorViewMode is undefined, default to 'edit' as the plugin may not be present.
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

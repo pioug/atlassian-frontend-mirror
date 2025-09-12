@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-plugin-analytics/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-connectivity/afm-townsquare/tsconfig.json"
 		},
 		{

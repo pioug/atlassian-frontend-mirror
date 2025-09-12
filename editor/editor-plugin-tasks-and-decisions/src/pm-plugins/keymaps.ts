@@ -216,9 +216,10 @@ const backspaceFrom =
 				nodeBefore && isActionOrDecisionItem(nodeBefore) && nodeBefore.content.size === 0;
 
 			const isEmptyBlockTaskItem =
+				blockTaskItem &&
 				nodeBefore?.type === blockTaskItem &&
-				nodeBefore.firstChild?.type === paragraph &&
-				nodeBefore.firstChild.content?.size === 0;
+				nodeBefore?.firstChild?.type === paragraph &&
+				nodeBefore?.firstChild?.content?.size === 0;
 
 			// previous was empty, just delete backwards
 			if (isEmptyActionOrDecisionItem || isEmptyBlockTaskItem) {

@@ -22,28 +22,32 @@ const TYPEWRITER_TYPE_DELAY = 50; // Delay between typing each character
 const TYPEWRITER_PAUSE_BEFORE_ERASE = 2000; // Pause before starting to erase text
 const TYPEWRITER_ERASE_DELAY = 40; // Delay between erasing each character
 const TYPEWRITER_CYCLE_DELAY = 500; // Delay before starting next cycle
+const TYPEWRITER_TYPED_AND_DELETED_DELAY = 1500; // Delay before starting animation after user typed and deleted
 
 export const pluginKey = new PluginKey('placeholderPlugin');
+const placeholderTestId = 'placeholder-test-id';
 interface PlaceHolderState {
 	hasPlaceholder: boolean;
 	placeholderPrompts?: string[];
 	placeholderText?: string;
 	pos?: number;
+	typedAndDeleted?: boolean;
+	userHadTyped?: boolean;
 }
 
 function getPlaceholderState(editorState: EditorState): PlaceHolderState {
 	return pluginKey.getState(editorState);
 }
-export const placeholderTestId = 'placeholder-test-id';
 
 const nodeTypesWithLongPlaceholderText = ['expand', 'panel'];
 const nodeTypesWithShortPlaceholderText = ['tableCell', 'tableHeader'];
 
-const createTypewriterElement = (
+const cycleThroughPlaceholderPrompts = (
 	placeholderPrompts: string[],
 	activeTypewriterTimeouts: (() => void)[] | undefined,
-): HTMLElement => {
-	const typewriterElement = document.createElement('span');
+	placeholderNodeWithText: HTMLElement,
+	initialDelayWhenUserTypedAndDeleted: number = 0,
+) => {
 	let currentPromptIndex = 0;
 	let displayedText = '';
 	let animationTimeouts: (number | NodeJS.Timeout)[] = [];
@@ -66,7 +70,7 @@ const createTypewriterElement = (
 		const typeNextCharacter = () => {
 			if (characterIndex < currentPrompt.length) {
 				displayedText = currentPrompt.substring(0, characterIndex + 1);
-				typewriterElement.textContent = displayedText;
+				placeholderNodeWithText.textContent = displayedText;
 				characterIndex++;
 				scheduleTimeout(typeNextCharacter, TYPEWRITER_TYPE_DELAY);
 			} else {
@@ -77,11 +81,11 @@ const createTypewriterElement = (
 		const eraseLastCharacter = () => {
 			if (displayedText.length > 1) {
 				displayedText = displayedText.substring(0, displayedText.length - 1);
-				typewriterElement.textContent = displayedText;
+				placeholderNodeWithText.textContent = displayedText;
 				scheduleTimeout(eraseLastCharacter, TYPEWRITER_ERASE_DELAY);
 			} else {
 				displayedText = ' ';
-				typewriterElement.textContent = displayedText;
+				placeholderNodeWithText.textContent = displayedText;
 				currentPromptIndex = (currentPromptIndex + 1) % placeholderPrompts.length;
 				scheduleTimeout(startAnimationCycle, TYPEWRITER_CYCLE_DELAY);
 			}
@@ -92,8 +96,12 @@ const createTypewriterElement = (
 
 	activeTypewriterTimeouts?.push(clearAllTimeouts);
 
-	startAnimationCycle();
-	return typewriterElement;
+	if (initialDelayWhenUserTypedAndDeleted > 0) {
+		placeholderNodeWithText.textContent = ' ';
+		scheduleTimeout(startAnimationCycle, initialDelayWhenUserTypedAndDeleted);
+	} else {
+		startAnimationCycle();
+	}
 };
 
 export function createPlaceholderDecoration(
@@ -102,10 +110,10 @@ export function createPlaceholderDecoration(
 	placeholderPrompts?: string[],
 	activeTypewriterTimeouts?: (() => void)[],
 	pos: number = 1,
+	initialDelayWhenUserTypedAndDeleted: number = 0,
 ): DecorationSet {
 	const placeholderDecoration = document.createElement('span');
 	let placeholderNodeWithText = placeholderDecoration;
-	let typewriterElement: HTMLElement | null = null;
 
 	placeholderDecoration.setAttribute('data-testid', placeholderTestId);
 	placeholderDecoration.className = 'placeholder-decoration';
@@ -120,8 +128,12 @@ export function createPlaceholderDecoration(
 	}
 
 	if (placeholderPrompts) {
-		typewriterElement = createTypewriterElement(placeholderPrompts, activeTypewriterTimeouts);
-		placeholderNodeWithText.appendChild(typewriterElement);
+		cycleThroughPlaceholderPrompts(
+			placeholderPrompts,
+			activeTypewriterTimeouts,
+			placeholderNodeWithText,
+			initialDelayWhenUserTypedAndDeleted,
+		);
 	} else {
 		placeholderNodeWithText.textContent = placeholderText || ' ';
 	}
@@ -157,22 +169,29 @@ function setPlaceHolderState(
 	placeholderText?: string,
 	pos?: number,
 	placeholderPrompts?: string[],
+	typedAndDeleted?: boolean,
+	userHadTyped?: boolean,
 ): PlaceHolderState {
 	return {
 		hasPlaceholder: true,
 		placeholderText,
 		placeholderPrompts,
 		pos: pos ? pos : 1,
+		typedAndDeleted,
+		userHadTyped,
 	};
 }
 
 const emptyPlaceholder = (
 	placeholderText: string | undefined,
 	placeholderPrompts?: string[],
+	userHadTyped?: boolean,
 ): PlaceHolderState => ({
 	hasPlaceholder: false,
 	placeholderText,
 	placeholderPrompts,
+	userHadTyped,
+	typedAndDeleted: false,
 });
 
 type CreatePlaceholderStateProps = {
@@ -184,6 +203,8 @@ type CreatePlaceholderStateProps = {
 	isEditorFocused: boolean;
 	isTypeAheadOpen: ((editorState: EditorState) => boolean) | undefined;
 	placeholderPrompts?: string[];
+	typedAndDeleted?: boolean;
+	userHadTyped?: boolean;
 };
 
 function createPlaceHolderStateFrom({
@@ -195,19 +216,28 @@ function createPlaceHolderStateFrom({
 	bracketPlaceholderText,
 	emptyLinePlaceholder,
 	placeholderPrompts,
+	typedAndDeleted,
+	userHadTyped,
 }: CreatePlaceholderStateProps): PlaceHolderState {
 	if (isTypeAheadOpen?.(editorState)) {
-		return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts);
+		return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts, userHadTyped);
 	}
+
 	if ((defaultPlaceholderText || placeholderPrompts) && isEmptyDocument(editorState.doc)) {
-		return setPlaceHolderState(defaultPlaceholderText, 1, placeholderPrompts);
+		return setPlaceHolderState(
+			defaultPlaceholderText,
+			1,
+			placeholderPrompts,
+			typedAndDeleted,
+			userHadTyped,
+		);
 	}
 
 	if (isEditorFocused && editorExperiment('platform_editor_controls', 'variant1')) {
 		const { $from, $to } = editorState.selection;
 
 		if ($from.pos !== $to.pos) {
-			return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts);
+			return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts, userHadTyped);
 		}
 
 		const parentNode = $from.node($from.depth - 1);
@@ -216,7 +246,13 @@ function createPlaceHolderStateFrom({
 		if (emptyLinePlaceholder && parentType === 'doc') {
 			const isEmptyLine = isEmptyParagraph($from.parent);
 			if (isEmptyLine) {
-				return setPlaceHolderState(emptyLinePlaceholder, $from.pos);
+				return setPlaceHolderState(
+					emptyLinePlaceholder,
+					$from.pos,
+					placeholderPrompts,
+					typedAndDeleted,
+					userHadTyped,
+				);
 			}
 		}
 
@@ -231,7 +267,7 @@ function createPlaceHolderStateFrom({
 			);
 
 			if (!table) {
-				return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts);
+				return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts, userHadTyped);
 			}
 
 			const isFirstCell = table?.node.firstChild?.content.firstChild === parentNode;
@@ -239,6 +275,9 @@ function createPlaceHolderStateFrom({
 				return setPlaceHolderState(
 					intl.formatMessage(messages.shortEmptyNodePlaceholderText),
 					$from.pos,
+					placeholderPrompts,
+					typedAndDeleted,
+					userHadTyped,
 				);
 			}
 		}
@@ -247,20 +286,58 @@ function createPlaceHolderStateFrom({
 			return setPlaceHolderState(
 				intl.formatMessage(messages.longEmptyNodePlaceholderText),
 				$from.pos,
+				placeholderPrompts,
+				typedAndDeleted,
+				userHadTyped,
 			);
 		}
 
-		return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts);
+		return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts, userHadTyped);
 	}
 
 	if (bracketPlaceholderText && bracketTyped(editorState) && isEditorFocused) {
 		const { $from } = editorState.selection;
 		// Space is to account for positioning of the bracket
 		const bracketHint = '  ' + bracketPlaceholderText;
-		return setPlaceHolderState(bracketHint, $from.pos - 1, placeholderPrompts);
+		return setPlaceHolderState(
+			bracketHint,
+			$from.pos - 1,
+			placeholderPrompts,
+			typedAndDeleted,
+			userHadTyped,
+		);
 	}
 
-	return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts);
+	return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts, userHadTyped);
+}
+
+type UserInteractionState = {
+	newEditorState: EditorState;
+	oldEditorState?: EditorState;
+	placeholderState?: PlaceHolderState;
+};
+
+function calculateUserInteractionState({
+	placeholderState,
+	oldEditorState,
+	newEditorState,
+}: UserInteractionState): { typedAndDeleted: boolean; userHadTyped: boolean } {
+	const wasEmpty = oldEditorState ? isEmptyDocument(oldEditorState.doc) : true;
+	const isEmpty = isEmptyDocument(newEditorState.doc);
+	const hasEverTyped =
+		Boolean(placeholderState?.userHadTyped) || // Previously typed
+		!wasEmpty || // Had content before
+		(wasEmpty && !isEmpty); // Just added content
+	const justDeletedAll = hasEverTyped && isEmpty && !wasEmpty;
+	const isInTypedAndDeletedState =
+		justDeletedAll || (Boolean(placeholderState?.typedAndDeleted) && isEmpty);
+	// Only reset user interaction tracking when editor is cleanly empty
+	const shouldResetInteraction = isEmpty && !isInTypedAndDeletedState;
+
+	return {
+		userHadTyped: shouldResetInteraction ? false : hasEverTyped,
+		typedAndDeleted: isInTypedAndDeletedState,
+	};
 }
 
 export function createPlugin(
@@ -294,40 +371,34 @@ export function createPlugin(
 					bracketPlaceholderText,
 					emptyLinePlaceholder,
 					placeholderPrompts,
+					typedAndDeleted: false,
+					userHadTyped: false,
 					intl,
 				}),
 			apply: (tr, placeholderState, _oldEditorState, newEditorState) => {
 				const meta = tr.getMeta(pluginKey);
 				const isEditorFocused = Boolean(api?.focus?.sharedState.currentState()?.hasFocus);
 
-				const newPlaceholderState =
-					meta?.placeholderText !== undefined || meta?.placeholderPrompts !== undefined
-						? createPlaceHolderStateFrom({
-								isEditorFocused,
-								editorState: newEditorState,
-								isTypeAheadOpen: api?.typeAhead?.actions.isOpen,
-								defaultPlaceholderText:
-									meta.placeholderText ??
-									placeholderState?.placeholderText ??
-									defaultPlaceholderText,
-								bracketPlaceholderText,
-								emptyLinePlaceholder,
-								placeholderPrompts:
-									meta.placeholderPrompts ??
-									placeholderState?.placeholderPrompts ??
-									placeholderPrompts,
-								intl,
-							})
-						: createPlaceHolderStateFrom({
-								isEditorFocused,
-								editorState: newEditorState,
-								isTypeAheadOpen: api?.typeAhead?.actions.isOpen,
-								defaultPlaceholderText: placeholderState?.placeholderText ?? defaultPlaceholderText,
-								bracketPlaceholderText,
-								emptyLinePlaceholder,
-								placeholderPrompts: placeholderState?.placeholderPrompts ?? placeholderPrompts,
-								intl,
-							});
+				const { userHadTyped, typedAndDeleted } = calculateUserInteractionState({
+					placeholderState,
+					oldEditorState: _oldEditorState,
+					newEditorState,
+				});
+
+				const newPlaceholderState = createPlaceHolderStateFrom({
+					isEditorFocused,
+					editorState: newEditorState,
+					isTypeAheadOpen: api?.typeAhead?.actions.isOpen,
+					defaultPlaceholderText:
+						meta?.placeholderText ?? placeholderState?.placeholderText ?? defaultPlaceholderText,
+					bracketPlaceholderText,
+					emptyLinePlaceholder,
+					placeholderPrompts:
+						meta?.placeholderPrompts ?? placeholderState?.placeholderPrompts ?? placeholderPrompts,
+					typedAndDeleted,
+					userHadTyped,
+					intl,
+				});
 
 				// Clear timeouts when hasPlaceholder becomes false
 				if (!newPlaceholderState.hasPlaceholder) {
@@ -339,7 +410,8 @@ export function createPlugin(
 		},
 		props: {
 			decorations(editorState): DecorationSet | undefined {
-				const { hasPlaceholder, placeholderText, pos } = getPlaceholderState(editorState);
+				const { hasPlaceholder, placeholderText, pos, typedAndDeleted } =
+					getPlaceholderState(editorState);
 
 				// Decorations is still called after plugin is destroyed
 				// So we need to make sure decorations is not called if plugin has been destroyed to prevent the placeholder animations' setTimeouts called infinitely
@@ -359,12 +431,16 @@ export function createPlugin(
 					!compositionPluginState?.isComposing &&
 					!isShowingDiff
 				) {
+					const initialDelayWhenUserTypedAndDeleted = typedAndDeleted
+						? TYPEWRITER_TYPED_AND_DELETED_DELAY
+						: 0;
 					return createPlaceholderDecoration(
 						editorState,
 						placeholderText ?? '',
 						placeholderPrompts,
 						activeTypewriterTimeouts,
 						pos,
+						initialDelayWhenUserTypedAndDeleted,
 					);
 				}
 				return;

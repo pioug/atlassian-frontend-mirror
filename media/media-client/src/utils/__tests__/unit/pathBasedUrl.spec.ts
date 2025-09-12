@@ -98,11 +98,9 @@ describe('pathBasedUrl', () => {
 					mockGetDocument.mockReturnValue(undefined);
 				});
 
-				it('should fallback to original host when document is undefined', () => {
+				it('should return relative URL when document is undefined', () => {
 					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-					expect(mapToPathBasedUrl(originalUrl)).toBe(
-						'https://api.media.atlassian.com/media-api/path/to/resource',
-					);
+					expect(mapToPathBasedUrl(originalUrl)).toBe('/path/to/resource');
 				});
 			});
 
@@ -111,9 +109,9 @@ describe('pathBasedUrl', () => {
 					mockGetDocument.mockReturnValue({} as any);
 				});
 
-				it('should throw an error when document.location is undefined', () => {
+				it('should return relative URL when document.location is undefined', () => {
 					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-					expect(() => mapToPathBasedUrl(originalUrl)).toThrow();
+					expect(mapToPathBasedUrl(originalUrl)).toBe('/path/to/resource');
 				});
 			});
 
@@ -124,10 +122,10 @@ describe('pathBasedUrl', () => {
 					} as any);
 				});
 
-				it('should fallback to original host when document.location.host is undefined', () => {
+				it('should use undefined host when document.location.host is undefined', () => {
 					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
 					expect(mapToPathBasedUrl(originalUrl)).toBe(
-						'https://api.media.atlassian.com/media-api/path/to/resource',
+						'https://undefined/media-api/path/to/resource',
 					);
 				});
 			});

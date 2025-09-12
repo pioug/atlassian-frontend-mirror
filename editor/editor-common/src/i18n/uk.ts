@@ -303,7 +303,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Панель приміток',
   'fabric.editor.backLink': 'Назад',
   'fabric.editor.backgroundColor': 'Колір фону',
-  'fabric.editor.block.menu.code.block': 'Макет',
   'fabric.editor.block.menu.copy.block': 'Копіювати блок',
   'fabric.editor.block.menu.copy.link': 'Копіювати посилання',
   'fabric.editor.block.menu.delete.block': 'Видалити',

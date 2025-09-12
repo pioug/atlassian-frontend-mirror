@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 5.1.0
+
+### Minor Changes
+
+- [`06349e515f94e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06349e515f94e) -
+  [ux] Add a delay to starting text cycling animation when user typed and deleted prompt text
+
 ## 5.0.0
 
 ### Patch Changes

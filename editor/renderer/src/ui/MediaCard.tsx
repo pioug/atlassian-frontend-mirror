@@ -52,6 +52,7 @@ export interface MediaCardProps {
 	featureFlags?: MediaFeatureFlags;
 	id?: string;
 	imageStatus?: ImageStatus;
+	localId?: string;
 	occurrenceKey?: string;
 	originalDimensions?: NumericalCardDimensions;
 	rendererAppearance?: RendererAppearance;
@@ -201,6 +202,7 @@ export class MediaCardView extends Component<
 			mediaClient,
 			dataAttributes,
 			enableSyncMediaCard,
+			localId,
 		} = this.props;
 
 		if (imageStatus === 'loading' || !url) {
@@ -221,7 +223,7 @@ export class MediaCardView extends Component<
 		return (
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading
-			<div {...dataAttributes} data-node-type="media">
+			<div {...dataAttributes} data-node-type="media" data-local-id={localId}>
 				<Card
 					// TODO: MPT-315 - clean up after we move mediaClientConfig into FileIdentifier
 					// context is not really used when the type is external and we want to render the component asap
@@ -290,6 +292,7 @@ export class MediaCardView extends Component<
 			mediaClient,
 			dataAttributes,
 			enableSyncMediaCard,
+			localId,
 		} = this.props;
 
 		const isMobile = false;
@@ -345,6 +348,7 @@ export class MediaCardView extends Component<
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...dataAttributes}
+				data-local-id={localId}
 			>
 				<Card
 					identifier={identifier}

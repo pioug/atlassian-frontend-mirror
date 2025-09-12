@@ -187,7 +187,7 @@ const LinkInfo = ({
 				{downloadButton}
 				{urlButton}
 				{sizeButton}
-				{fg('navx-1483-a11y-close-button-in-modal-updates') ? (
+				{fg('navx-1895-a11y-close-button-in-preview-modal') ? (
 					<Tooltip
 						content={<FormattedMessage {...messages.preview_close} />}
 						hideTooltipOnClick={true}

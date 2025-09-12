@@ -283,6 +283,10 @@ export class MediaStore implements MediaApi {
 
 		const imageEndpoint = cdnFeatureFlag('image');
 
+		if (fg('platform_media_path_based_route')) {
+			return mapToPathBasedUrl(createUrl(`${auth.baseUrl}/file/${id}/${imageEndpoint}`, options));
+		}
+
 		return mapToMediaCdnUrl(
 			createUrl(`${auth.baseUrl}/file/${id}/${imageEndpoint}`, options),
 			auth.token,

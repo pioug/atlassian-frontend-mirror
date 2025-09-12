@@ -38,6 +38,7 @@ describe('expValEquals', () => {
 	afterEach(() => {
 		// @ts-ignore
 		setupEditorExperiments(undefined, {});
+		mockGetExperimentValue.mockClear();
 	});
 
 	test('expValEquals returns correct value for boolean experiment', () => {
@@ -61,7 +62,7 @@ describe('expValEquals', () => {
 		// @ts-expect-error
 		expValEquals('test-boolean', 'isEnabled', true);
 
-		expect(mockGetExperimentValue).toHaveBeenLastCalledWith('test-boolean', 'isEnabled', null, {
+		expect(mockGetExperimentValue).toHaveBeenCalledWith('test-boolean', 'isEnabled', null, {
 			fireExperimentExposure: true,
 		});
 	});
@@ -112,7 +113,7 @@ describe('expValEqualsNoExposure', () => {
 		// @ts-expect-error
 		expValEqualsNoExposure('test-boolean', 'isEnabled', true);
 
-		expect(mockGetExperimentValue).toHaveBeenLastCalledWith('test-boolean', 'isEnabled', null, {
+		expect(mockGetExperimentValue).toHaveBeenCalledWith('test-boolean', 'isEnabled', null, {
 			fireExperimentExposure: false,
 		});
 	});

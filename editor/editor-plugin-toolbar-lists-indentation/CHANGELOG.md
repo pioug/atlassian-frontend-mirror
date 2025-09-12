@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 6.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.1
+
+### Patch Changes
+
+- [`a1f108aecc0d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a1f108aecc0d2) -
+  ED-29302 [SoftServ] Task list is available from Page comment editor toolbar
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

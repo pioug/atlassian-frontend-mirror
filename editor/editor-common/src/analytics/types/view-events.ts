@@ -54,8 +54,20 @@ export type ViewDefineButtonEventAEP = UIAEP<
 	undefined
 >;
 
+export type ViewSelectionToolbarEventAEP = UIAEP<
+	ACTION.VIEWED,
+	ACTION_SUBJECT.TOOLBAR,
+	ACTION_SUBJECT_ID.SELECTION_TOOLBAR,
+	{
+		// mode could be live-view?
+		mode: MODE.EDITOR;
+	},
+	undefined
+>;
+
 export type ViewEventPayload =
 	| ViewAIRovoButtonEventAEP
 	| ViewAIHeroPromptButtonEventAEP
 	| ViewDefineButtonEventAEP
-	| ViewInlineCommentsButtonEventAEP;
+	| ViewInlineCommentsButtonEventAEP
+	| ViewSelectionToolbarEventAEP;

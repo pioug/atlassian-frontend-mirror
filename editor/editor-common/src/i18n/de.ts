@@ -332,7 +332,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Symbolleiste für Anmerkungen',
   'fabric.editor.backLink': 'Zurück',
   'fabric.editor.backgroundColor': 'Hintergrundfarbe',
-  'fabric.editor.block.menu.code.block': 'Layout',
   'fabric.editor.block.menu.copy.block': 'Block kopieren',
   'fabric.editor.block.menu.copy.link': 'Link kopieren',
   'fabric.editor.block.menu.delete.block': 'Löschen',

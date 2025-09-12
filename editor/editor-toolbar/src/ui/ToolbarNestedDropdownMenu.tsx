@@ -28,6 +28,7 @@ type ToolbarNestedDropdownMenuProps = {
 	 */
 	enableMaxHeight?: boolean;
 	isDisabled?: boolean;
+	onClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
 	testId?: string;
 	text?: string;
 };
@@ -40,6 +41,7 @@ export const ToolbarNestedDropdownMenu = ({
 	isDisabled,
 	testId,
 	enableMaxHeight = false,
+	onClick,
 }: ToolbarNestedDropdownMenuProps) => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
@@ -49,7 +51,10 @@ export const ToolbarNestedDropdownMenu = ({
 					elemBefore={elemBefore}
 					elemAfter={elemAfter}
 					isSelected={triggerProps.isSelected}
-					onClick={triggerProps.onClick}
+					onClick={(e) => {
+						onClick && onClick(e);
+						triggerProps.onClick && triggerProps.onClick(e);
+					}}
 					testId={testId}
 					triggerRef={triggerProps.triggerRef}
 					hasNestedDropdownMenu={true}

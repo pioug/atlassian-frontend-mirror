@@ -300,7 +300,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Panel nástrojů poznámek',
   'fabric.editor.backLink': 'Zpět',
   'fabric.editor.backgroundColor': 'Barva pozadí',
-  'fabric.editor.block.menu.code.block': 'Rozvržení',
   'fabric.editor.block.menu.copy.block': 'Kopírovat blok',
   'fabric.editor.block.menu.copy.link': 'Kopírovat odkaz',
   'fabric.editor.block.menu.delete.block': 'Odstranit',

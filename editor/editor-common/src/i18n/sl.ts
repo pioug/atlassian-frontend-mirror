@@ -399,7 +399,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Orodna vrstica za opombe',
   'fabric.editor.backLink': 'Nazaj',
   'fabric.editor.backgroundColor': 'Barva ozadja',
-  'fabric.editor.block.menu.code.block': 'Postavitev',
   'fabric.editor.block.menu.copy.block': 'Kopiraj blok',
   'fabric.editor.block.menu.copy.link': 'Kopiraj povezavo',
   'fabric.editor.block.menu.delete.block': 'Izbriši',

@@ -70,6 +70,7 @@ export const getPermissionMap = (
 	isOrgAdmin: boolean,
 	source?: ExternalReferenceSource,
 ): PermissionMap => {
+	const newTeamProfileEnabled = fg('enable_new_team_profile');
 	if (settings === 'OPEN') {
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember),
@@ -85,6 +86,8 @@ export const getPermissionMap = (
 		return {
 			...allPermissions(false, isMember),
 			...SCIMSyncTeamPermissions(isMember, isOrgAdmin, source),
+			ADD_AGENT_TO_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
+			REMOVE_AGENT_FROM_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
 		};
 	}
 	return allPermissions(false, false);

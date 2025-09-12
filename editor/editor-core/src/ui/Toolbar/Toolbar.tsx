@@ -1,5 +1,6 @@
 import React from 'react';
 
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { EditorToolbarContextType } from '@atlaskit/editor-common/toolbar';
 import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar';
@@ -111,7 +112,11 @@ export const ToolbarNext = ({
 		<EditorToolbarProvider
 			editorView={editorView ?? null}
 			editorAppearance={editorAppearance}
-			editorViewMode={editorViewMode}
+			editorViewMode={
+				expValEquals('platform_editor_toolbar_aifc_patch_4', 'isEnabled', true)
+					? editorViewMode ?? 'edit'
+					: editorViewMode
+			}
 			editorToolbarDockingPreference={editorToolbarDockingPreference}
 		>
 			<EditorToolbarUIProvider
@@ -120,6 +125,14 @@ export const ToolbarNext = ({
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}
+				// supress type checks for now
+				fireAnalyticsEvent={
+					expValEquals('platform_editor_toolbar_aifc_toolbar_analytic', 'isEnabled', true)
+						? (payload: unknown) => {
+								editorAPI?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
+							}
+						: undefined
+				}
 			>
 				<ToolbarModelRenderer
 					toolbar={toolbar}

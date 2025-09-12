@@ -2,14 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-start-context';
+import { SideNavToggleButtonSlotProvider } from '../side-nav/toggle-button-provider';
 import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
 
 const styles = cssMap({
@@ -40,23 +42,32 @@ const styles = cssMap({
 		},
 	},
 	fullHeightSidebar: {
-		// Using width to provide the end padding
-		// To avoid this element covering the resize grab area
-		maxWidth: `calc(100% - ${token('space.200')})`,
 		// Start padding is not applied to the top nav itself, to avoid misalignment with the side nav
 		paddingInlineStart: token('space.150'),
 		// Pointer events are disabled on the top nav
 		// So we need to restore them for the slot
 		pointerEvents: 'auto',
 	},
-	// When the full height sidebar is visible, the regular 300px min width should not be applied
-	// Otherwise the slot covers the side nav panel splitter
 	fullHeightSidebarExpanded: {
 		'@media (min-width: 64rem)': {
+			// When the full height sidebar is visible, the regular 300px min width should not be applied
+			// Otherwise the slot covers the side nav panel splitter
 			minWidth: 'unset',
+			width: '100%',
+			// Using width to provide the end padding
+			// To avoid this element covering the resize grab area
+			maxWidth: `calc(100% - ${token('space.200')})`,
 		},
 	},
 });
+
+/**
+ * The consistent key used for the side nav toggle button to ensure it does not get remounted
+ * when it is reordered.
+ *
+ * This ensures we get focus restoration for free.
+ */
+const sideNavToggleButtonKey = 'side-nav-toggle-button';
 
 /**
  * __TopNavStart__
@@ -66,6 +77,7 @@ const styles = cssMap({
 export function TopNavStart({
 	children,
 	testId,
+	sideNavToggleButton,
 }: {
 	/**
 	 * The content of the layout area.
@@ -77,6 +89,17 @@ export function TopNavStart({
 	 * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
 	 */
 	testId?: string;
+	/**
+	 * Slot for the side nav toggle button.
+	 *
+	 * You should only render `<SideNavToggleButton>` inside this slot, not as a child.
+	 *
+	 * After `platform_dst_nav4_full_height_sidebar_api_changes` rolls out,
+	 * this prop will become required.
+	 *
+	 * Consumers that do not need a toggle button can explicitly pass `null`.
+	 */
+	sideNavToggleButton?: React.ReactNode;
 }) {
 	const ref = useContext(TopNavStartAttachRef);
 	const elementRef = useRef(null);
@@ -87,8 +110,27 @@ export function TopNavStart({
 		}
 	}, [elementRef, ref]);
 
-	// Need to use `{ defaultCollapsed: true }` otherwise when there is no side nav mounted this never becomes false
+	// This needs the real `defaultCollapsed` state or will not SSR properly
+	// TODO: lift `defaultCollapsed` state to `Root` (DSP-23683)
+	// then context value will be correct in SSR / from initial render
 	const { isExpandedOnDesktop } = useSideNavVisibility({ defaultCollapsed: true });
+
+	// For SSR assume desktop
+	const [isDesktop, setIsDesktop] = useState(true);
+	// Set state to real value on client
+	// This could result in some visible shift on mobile when hydrating SSR
+	// TODO: review and improve SSR behavior as necessary (DSP-23817)
+	useLayoutEffect(() => {
+		// Checking this to avoid breaking tests when `matchMedia` is not mocked
+		// Ideally we wouldn't cater to test environments, but this avoids introducing unnecessary friction
+		if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+			setIsDesktop(window.matchMedia('(min-width: 64rem)').matches);
+		}
+	}, []);
+
+	UNSAFE_useMediaQuery('above.md', (event) => {
+		setIsDesktop(event.matches);
+	});
 
 	return (
 		<div
@@ -100,7 +142,35 @@ export function TopNavStart({
 			ref={fg('platform_fix_component_state_update_for_suspense') ? elementRef : ref}
 			data-testid={testId}
 		>
+			{/* If FHS is not enabled, the toggle button is always at the start */}
+			{!fg('navx-full-height-sidebar') && (
+				<SideNavToggleButtonSlotProvider key={sideNavToggleButtonKey}>
+					{sideNavToggleButton}
+				</SideNavToggleButtonSlotProvider>
+			)}
+			{/**
+			 * If FHS is enabled, the toggle button is at the start when:
+			 *
+			 * - on mobile (always)
+			 * - collapsed on desktop
+			 */}
+			{sideNavToggleButton &&
+				(!isDesktop || !isExpandedOnDesktop) &&
+				fg('navx-full-height-sidebar') && (
+					<SideNavToggleButtonSlotProvider key={sideNavToggleButtonKey}>
+						{sideNavToggleButton}
+					</SideNavToggleButtonSlotProvider>
+				)}
 			{children}
+			{/* If FHS is enabled, the toggle button is at the end ONLY when expanded on desktop */}
+			{sideNavToggleButton &&
+				isDesktop &&
+				isExpandedOnDesktop &&
+				fg('navx-full-height-sidebar') && (
+					<SideNavToggleButtonSlotProvider key={sideNavToggleButtonKey}>
+						{sideNavToggleButton}
+					</SideNavToggleButtonSlotProvider>
+				)}
 		</div>
 	);
 }

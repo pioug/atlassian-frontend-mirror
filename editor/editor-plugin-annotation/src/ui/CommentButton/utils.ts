@@ -11,10 +11,11 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { AnnotationPlugin } from '../../annotationPluginType';
 import { setInlineCommentDraftState } from '../../editor-commands';
-import { isSelectionValid } from '../../pm-plugins/utils';
+import { inlineCommentPluginKey, isSelectionValid } from '../../pm-plugins/utils';
 import { AnnotationSelectionType, type AnnotationProviders } from '../../types';
 
 export const isButtonDisabled = ({
@@ -45,8 +46,14 @@ export const shouldShowCommentButton = ({
 }) => {
 	const isMediaSelected = state ? currentMediaNodeWithPos(state) : false;
 
+	let isDrafting = false;
+	if (expValEquals('platform_editor_toolbar_aifc_patch_4', 'isEnabled', true) && state) {
+		isDrafting = inlineCommentPluginKey.getState(state)?.isDrafting || false;
+	}
+
 	// comments on media can only be added via media floating toolbar
 	if (
+		isDrafting ||
 		isMediaSelected ||
 		annotationSelectionType === AnnotationSelectionType.INVALID ||
 		!isVisible

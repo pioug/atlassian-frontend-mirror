@@ -10,9 +10,6 @@ import {
  */
 snapshotInformational(CompanyHubMockSmallDefaultPanelWidthExample, {
 	description: 'small panel default width on mobile',
-	featureFlags: {
-		platform_design_system_nav4_panel_mobile_width_fix: [true, false],
-	},
 	variants: [
 		{
 			device: Device.DESKTOP_CHROME,
@@ -34,9 +31,6 @@ snapshotInformational(CompanyHubMockSmallDefaultPanelWidthExample, {
  */
 snapshotInformational(CompanyHubMockExample, {
 	description: 'large panel default width on mobile',
-	featureFlags: {
-		platform_design_system_nav4_panel_mobile_width_fix: [true, false],
-	},
 	variants: [
 		{
 			device: Device.DESKTOP_CHROME,

@@ -299,7 +299,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Verktøylinje for kommentarer',
   'fabric.editor.backLink': 'Gå tilbake',
   'fabric.editor.backgroundColor': 'Bakgrunnsfarge',
-  'fabric.editor.block.menu.code.block': 'Oppsett',
   'fabric.editor.block.menu.copy.block': 'Kopier blokk',
   'fabric.editor.block.menu.copy.link': 'Kopier kobling',
   'fabric.editor.block.menu.delete.block': 'Slett',

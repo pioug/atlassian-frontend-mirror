@@ -4,6 +4,8 @@ import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import { type Token, tokens } from '@atlaskit/tokens/token-metadata';
 
+import { cleanQuery } from '../../helpers';
+
 const inputSchema = z.object({
 	terms: z.array(z.string()).describe('Search term(s) to find tokens by name or description'),
 	limit: z
@@ -17,8 +19,6 @@ const inputSchema = z.object({
 		.default(false)
 		.describe('Whether to search for exact match only for the token name'),
 });
-
-const cleanQuery = (query: string) => query.trim().toLowerCase().replace(/\s+/g, '');
 
 export const listSearchTokensTool = {
 	name: 'search_tokens',

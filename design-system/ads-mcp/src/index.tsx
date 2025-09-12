@@ -16,11 +16,8 @@ import {
 } from './tools/get-accessibility-guidelines';
 import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
 import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
-import {
-	getComponentDetailsTool,
-	listGetComponentDetailsTool,
-} from './tools/get-component-details';
 import { getComponentsTool, listGetComponentsTool } from './tools/get-components';
+import { listSearchComponentsTool, searchComponentsTool } from './tools/search-components';
 import { listSearchIconsTool, searchIconsTool } from './tools/search-icons';
 import { listSearchTokensTool, searchTokensTool } from './tools/search-tokens';
 import {
@@ -50,7 +47,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 		tools: [
 			listGetAllTokensTool,
 			listGetComponentsTool,
-			listGetComponentDetailsTool,
+			listSearchComponentsTool,
 			listGetAllIconsTool,
 			listSearchIconsTool,
 			listSearchTokensTool,
@@ -66,7 +63,7 @@ const callTools: Record<string, (params: any) => Promise<any>> = {
 	get_all_tokens: getAllTokensTool,
 	search_tokens: searchTokensTool,
 	get_components: getComponentsTool,
-	get_component_details: getComponentDetailsTool,
+	search_components: searchComponentsTool,
 	get_all_icons: getAllIconsTool,
 	search_icons: searchIconsTool,
 	analyze_accessibility: analyzeAccessibilityTool,

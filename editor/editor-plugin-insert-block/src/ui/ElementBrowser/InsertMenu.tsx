@@ -6,7 +6,7 @@ import type { ComponentClass, HTMLAttributes, ReactElement } from 'react';
 import { useCallback, useContext, useLayoutEffect, useMemo, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
@@ -311,7 +311,7 @@ const insertMenuWrapper = (height: number, isFullPageAppearance?: boolean) => {
 	});
 };
 
-const flexWrapperStyles = css({
+const flexWrapperStyles: SerializedStyles = css({
 	display: 'flex',
 	flex: 1,
 	boxSizing: 'border-box',

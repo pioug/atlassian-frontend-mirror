@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "2.7.0",
+	"version": "2.9.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -203,9 +203,6 @@
 		"platform_fix_component_state_update_for_suspense": {
 			"type": "boolean"
 		},
-		"platform_design_system_nav4_panel_mobile_width_fix": {
-			"type": "boolean"
-		},
 		"jiv-20710-fix-nav-rerender": {
 			"type": "boolean"
 		},
@@ -225,6 +222,9 @@
 			"type": "boolean"
 		},
 		"navx-full-height-sidebar": {
+			"type": "boolean"
+		},
+		"platform_dst_nav4_full_height_sidebar_api_changes": {
 			"type": "boolean"
 		},
 		"platform_dst_nav4_menu_section_heading_a11y": {

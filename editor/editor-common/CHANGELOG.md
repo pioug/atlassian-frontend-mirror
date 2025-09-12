@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 109.6.0
+
+### Minor Changes
+
+- [`553afc302139b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/553afc302139b) -
+  Add analytic emitter component which fires an event when dropdowns are viewed
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.5.1
+
+### Patch Changes
+
+- [`5dcdc48ce4da9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dcdc48ce4da9) -
+  stop scroll on dropdown changes
+- Updated dependencies
+
 ## 109.5.0
 
 ### Minor Changes

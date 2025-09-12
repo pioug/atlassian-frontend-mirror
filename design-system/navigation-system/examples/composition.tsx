@@ -213,12 +213,15 @@ export default function Composition({
 			<Root testId="root">
 				<Banner xcss={bannerStyles.root}> </Banner>
 				<TopNav>
-					<TopNavStart>
-						<SideNavToggleButton
-							testId="side-nav-toggle-button"
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-						/>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton
+								testId="side-nav-toggle-button"
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+							/>
+						}
+					>
 						<AppSwitcher label="Switch apps" onClick={() => console.log('app switcher clicked')} />
 						<AppLogo href="" icon={JiraIcon} name="Confluence" label="Home page" />
 					</TopNavStart>

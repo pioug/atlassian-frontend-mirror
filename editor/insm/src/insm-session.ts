@@ -1,3 +1,7 @@
+import Bowser from 'bowser-ultralight';
+
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 import type { INSM } from './insm';
 import type { AddedProperties, ExperienceProperties } from './types';
 
@@ -37,6 +41,10 @@ export class INSMSession {
 		/**
 		 * Note: Events are not reliably fired from mobile browsers (ie. when a browser is closed when not in use)
 		 */
+	}
+
+	updateExperienceKey(experienceKey: string) {
+		this.experienceKey = experienceKey;
 	}
 
 	/**
@@ -124,7 +132,7 @@ export class INSMSession {
 					stoppedBy: 'new-experience';
 			  }
 			| { stoppedBy: 'beforeunload' }
-			| { stoppedBy: 'early-stop'; reason: string; description?: string },
+			| { description?: string; reason: string; stoppedBy: 'early-stop' },
 	) {
 		if (this.running === false) {
 			// If an experience has already been ended -- don't repeat the ending
@@ -165,6 +173,9 @@ export class INSMSession {
 				endDetails: endDetails,
 				longAnimationFrames: this.longAnimationFrameMeasurer.current,
 			},
+			deviceDetails: expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)
+				? getDeviceDetails()
+				: undefined,
 			highPriority: true,
 			tags: ['editor'],
 			source: 'unknown',
@@ -173,4 +184,43 @@ export class INSMSession {
 		this.insm.analyticsWebClient?.sendOperationalEvent(operationalEvent);
 		this.longAnimationFrameMeasurer.cleanup();
 	}
+}
+
+// Functionality vendored from UFO
+function getDeviceDetails() {
+	const telemetry = {};
+
+	// /platform/packages/data/ufo-internal/src/core/publisher/plugins/browser.ts
+	if (Bowser.getParser) {
+		const browser = Bowser.getParser(
+			(typeof window !== 'undefined' && !!window ? window : undefined)?.navigator?.userAgent || '',
+		);
+		Object.assign(telemetry, {
+			'event:browser:name': browser.getBrowserName(),
+			'event:browser:version': browser.getBrowserVersion(),
+		});
+	}
+
+	// /platform/packages/data/ufo-internal/src/core/publisher/plugins/cpus.ts
+	Object.assign(telemetry, { 'event:cpus': navigator.hardwareConcurrency });
+
+	// /platform/packages/data/ufo-internal/src/core/publisher/plugins/memory.ts
+	// @ts-ignore: deviceMemory is exposed in some browsers
+	Object.assign(telemetry, { 'event:memory': navigator.deviceMemory });
+
+	// /platform/packages/data/ufo-internal/src/core/publisher/plugins/network.ts
+	Object.assign(telemetry, {
+		// Network
+		// @ts-ignore: connection is available in some browsers
+		// eslint-disable-next-line compat/compat
+		'event:network:effectiveType': navigator.connection?.effectiveType,
+		// @ts-ignore: connection is available in some browsers
+		// eslint-disable-next-line compat/compat
+		'event:network:rtt': navigator.connection?.rtt,
+		// @ts-ignore: connection is available in some browsers
+		// eslint-disable-next-line compat/compat
+		'event:network:downlink': navigator.connection?.downlink,
+	});
+
+	return telemetry;
 }

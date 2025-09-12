@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 123.1.1
+
+### Patch Changes
+
+- [`0b31405e5ec3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b31405e5ec3b) -
+  Add local-id data attribute on nodes
+- Updated dependencies
+
 ## 123.1.0
 
 ### Minor Changes

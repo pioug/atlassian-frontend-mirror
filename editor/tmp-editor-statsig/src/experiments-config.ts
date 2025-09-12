@@ -208,6 +208,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	platform_editor_toolbar_aifc_toolbar_analytic: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_aifc_toolbar_analytic',
+			jira: 'platform_editor_toolbar_aifc_toolbar_analytic',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-02-10
 	platform_editor_controls: createMultivariateExperiment({
 		productKeys: {
@@ -961,6 +969,14 @@ export const editorExperimentsConfig = {
 		productKeys: {
 			confluence: 'cc_editor_interactivity_monitoring',
 			jira: 'cc_editor_interactivity_monitoring',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-11
+	platform_editor_add_aria_checked_to_inline_img_btn: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_add_aria_checked_to_inline_image_btn',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

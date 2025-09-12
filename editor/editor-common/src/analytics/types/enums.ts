@@ -322,6 +322,8 @@ export enum ACTION_SUBJECT {
 	USER_PREFERENCES = 'userPreferences',
 	ALIGNMENT = 'alignment',
 	OFFLINE_EDITING = 'offlineEditing',
+	TOOLBAR_DROPDOWN_MENU = 'toolbarDropdownMenu',
+	TOOLBAR_DROPDOWN_MENU_ITEM = 'toolbarDropdownMenuItem',
 }
 
 export enum ACTION_SUBJECT_ID {
@@ -336,6 +338,9 @@ export enum ACTION_SUBJECT_ID {
 	AI_PROACTIVE_FEEDBACK_DIALOG = 'aiProactiveFeedbackDialog',
 	AI_ASK_ROVO_BUTTON = 'aiAskRovoButton',
 	AI_HERO_PROMPT_BUTTON = 'aiHeroPromptButton',
+	AI_MORE_ROVO_OPTIONS = 'aiMoreRovoOptions',
+	AI_TRANSLATE = 'aiTranslate',
+	AI_CHANGE_TONE = 'aiChangeTone',
 	ALL = 'all',
 	ALT_TEXT = 'altText',
 	ANNOTATE_BUTTON = 'annotateButton',
@@ -481,6 +486,7 @@ export enum ACTION_SUBJECT_ID {
 	MULTI_BODIED_EXTENSION = 'multiBodiedExtension',
 	UPLOAD_MEDIA = 'uploadMedia',
 	SELECTION_TOOLBAR_PREFERENCES = 'selectionToolbarPreferences',
+	SELECTION_TOOLBAR = 'selectionToolbar',
 	EDITOR_PLUGIN_SELECTION_EXTENSION_DROPDOWN = 'editorPluginSelectionExtensionDropdown',
 	EDITOR_PLUGIN_SELECTION_EXTENSION_ITEM = 'editorPluginSelectionExtensionItem',
 	EDITOR_PLUGIN_SELECTION_EXTENSION_COMPONENT = 'editorPluginSelectionExtensionComponent',

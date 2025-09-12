@@ -299,7 +299,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Verktygsfält för kommentarer',
   'fabric.editor.backLink': 'Gå tillbaka',
   'fabric.editor.backgroundColor': 'Bakgrundsfärg',
-  'fabric.editor.block.menu.code.block': 'Layout',
   'fabric.editor.block.menu.copy.block': 'Kopiera block',
   'fabric.editor.block.menu.copy.link': 'Kopiera länk',
   'fabric.editor.block.menu.delete.block': 'Radera',

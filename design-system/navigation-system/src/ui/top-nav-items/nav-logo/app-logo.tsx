@@ -7,6 +7,7 @@ import React, { useCallback, useRef } from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import type { LogoProps } from '@atlaskit/logo';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import {
 	Anchor as AnchorLegacy,
@@ -83,11 +84,20 @@ const anchorStyles = cssMap({
 			backgroundColor: 'var(--ds-top-bar-button-background-pressed)!important',
 		},
 	},
+	// With FHS enabled, we are allowing app logos to get truncated
+	fullHeightSidebar: {
+		flexShrink: 1,
+		overflow: 'hidden',
+	},
 });
 
 const logoWrapperStyles = cssMap({
 	root: {
 		paddingInline: token('space.050'),
+	},
+	// Required for the text to truncate
+	fullHeightSidebar: {
+		maxWidth: '100%',
 	},
 });
 
@@ -97,6 +107,10 @@ const iconContainerStyles = cssMap({
 		overflow: 'hidden',
 		display: 'flex',
 		maxWidth: 24,
+	},
+	// Prevents the icon from getting squished
+	fullHeightSidebar: {
+		flexShrink: 0,
 	},
 });
 
@@ -186,11 +200,24 @@ export const AppLogo = ({
 				hasCustomTheme
 					? anchorStyles.interactionStatesCustomTheming
 					: anchorStyles.interactionStates,
+				fg('navx-full-height-sidebar') && anchorStyles.fullHeightSidebar,
 			)}
 			onClick={onClick}
 		>
-			<Inline space="space.075" alignBlock="center" xcss={logoWrapperStyles.root}>
-				<div css={[iconContainerStyles.root]}>
+			<Inline
+				space="space.075"
+				alignBlock="center"
+				xcss={cx(
+					logoWrapperStyles.root,
+					fg('navx-full-height-sidebar') && logoWrapperStyles.fullHeightSidebar,
+				)}
+			>
+				<div
+					css={[
+						iconContainerStyles.root,
+						fg('navx-full-height-sidebar') && iconContainerStyles.fullHeightSidebar,
+					]}
+				>
 					<LogoRenderer
 						// Top nav always uses the new logo design
 						shouldUseNewLogoDesign={true}

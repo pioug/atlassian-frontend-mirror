@@ -290,7 +290,6 @@ export default {
   'fabric.editor.annotationToolbar': '주석 도구 모음',
   'fabric.editor.backLink': '뒤로 가기',
   'fabric.editor.backgroundColor': '배경색',
-  'fabric.editor.block.menu.code.block': '레이아웃',
   'fabric.editor.block.menu.copy.block': '블록 복사',
   'fabric.editor.block.menu.copy.link': '링크 복사',
   'fabric.editor.block.menu.delete.block': '삭제',

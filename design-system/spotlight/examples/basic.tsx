@@ -17,7 +17,6 @@ import {
 	SpotlightMedia,
 	SpotlightPrimaryAction,
 	SpotlightSecondaryAction,
-	SpotlightShowMoreControl,
 } from '@atlaskit/spotlight';
 import { token } from '@atlaskit/tokens';
 
@@ -25,10 +24,10 @@ import ExampleImage from './assets/295x135.png';
 
 const styles = cssMap({
 	root: {
-		paddingTop: token('space.400'),
-		paddingRight: token('space.400'),
-		paddingBottom: token('space.400'),
-		paddingLeft: token('space.400'),
+		paddingBlockStart: token('space.400'),
+		paddingInlineEnd: token('space.400'),
+		paddingBlockEnd: token('space.400'),
+		paddingInlineStart: token('space.400'),
 		minHeight: '400px',
 	},
 });
@@ -41,7 +40,6 @@ export default function Basic() {
 					<SpotlightHeadline>Headline</SpotlightHeadline>
 					<SpotlightControls>
 						<SpotlightDismissControl />
-						<SpotlightShowMoreControl />
 					</SpotlightControls>
 				</SpotlightHeader>
 				<SpotlightMedia>

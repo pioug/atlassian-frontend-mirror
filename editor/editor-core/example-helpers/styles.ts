@@ -1,12 +1,12 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const content = css({
+export const content: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& div.toolsDrawer': {
 		marginTop: token('space.200', '16px'),
@@ -36,7 +36,7 @@ export const content = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const buttonGroup = css({
+export const buttonGroup: SerializedStyles = css({
 	display: 'flex',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > button': {

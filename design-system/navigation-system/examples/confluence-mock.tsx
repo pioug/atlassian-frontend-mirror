@@ -81,7 +81,7 @@ const panelStyles = cssMap({
 		borderBlockEndWidth: token('border.width'),
 		alignItems: 'center',
 		position: 'sticky',
-		top: token('space.0'),
+		insetBlockStart: token('space.0'),
 		backgroundColor: token('elevation.surface'),
 		zIndex: 1,
 		overflow: 'hidden',
@@ -145,12 +145,15 @@ export default function ConfluenceMockExample() {
 			<Root testId="root">
 				<Banner xcss={bannerStyles.root}> </Banner>
 				<TopNav>
-					<TopNavStart>
-						<SideNavToggleButton
-							testId="side-nav-toggle-button"
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-						/>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton
+								testId="side-nav-toggle-button"
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+							/>
+						}
+					>
 						<AppSwitcher label="Switch apps" />
 						<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
 					</TopNavStart>

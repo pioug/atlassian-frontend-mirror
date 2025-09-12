@@ -96,7 +96,8 @@ describe('editor experiments', () => {
 			expect(editorExperiment('test-multivariate', 'default value')).toBe(true);
 			// @ts-ignore
 			expect(editorExperiment('test-multivariate', 'not default value')).toBe(false);
-			expect(mockGetExperimentValue).toHaveBeenCalledTimes(4);
+			// Temporarily has 8 calls while there is an experiment check inside the experiment api
+			expect(mockGetExperimentValue).toHaveBeenCalledTimes(8);
 		});
 		test("calling where the experiments don't have the product key set", () => {
 			setupEditorExperiments('jira');
@@ -121,7 +122,7 @@ describe('editor experiments', () => {
 			// @ts-ignore
 			editorExperiment('test-boolean', true);
 
-			expect(mockGetExperimentValue).toHaveBeenLastCalledWith(
+			expect(mockGetExperimentValue).toHaveBeenCalledWith(
 				'confluence_boolean_example',
 				'isEnabled',
 				false,
@@ -138,7 +139,7 @@ describe('editor experiments', () => {
 			// @ts-ignore
 			editorExperiment('test-boolean', true, { exposure: true });
 
-			expect(mockGetExperimentValue).toHaveBeenLastCalledWith(
+			expect(mockGetExperimentValue).toHaveBeenCalledWith(
 				'confluence_boolean_example',
 				'isEnabled',
 				false,

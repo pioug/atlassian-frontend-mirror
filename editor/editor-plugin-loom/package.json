@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-loom",
-	"version": "7.1.1",
+	"version": "7.1.2",
 	"description": "Loom plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

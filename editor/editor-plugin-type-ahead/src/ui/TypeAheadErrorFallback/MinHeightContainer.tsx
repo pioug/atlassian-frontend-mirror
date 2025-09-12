@@ -5,10 +5,10 @@
 import React, { forwardRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const minHeightComponentStyles = css({
+export const minHeightComponentStyles: SerializedStyles = css({
 	display: 'flex',
 	alignItems: 'stretch',
 	justifyContent: 'center',

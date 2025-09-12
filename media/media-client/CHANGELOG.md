@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 35.3.3
+
+### Patch Changes
+
+- [`f03a6554f340c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f03a6554f340c) -
+  Fixed the resolution of path based routing in SSR
+
 ## 35.3.2
 
 ### Patch Changes

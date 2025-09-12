@@ -13,6 +13,9 @@ import { Device, snapshotInformational } from '@af/visual-regression';
 
 import CompanyHubMockExample from '../../../../../examples/company-hub-mock';
 import CompositionExample, { CompositionVR } from '../../../../../examples/composition';
+import NavigationShellExample, {
+	NavigationShellWithToggleButtonSpotlight,
+} from '../../../../../examples/navigation-shell';
 import TopNavigationThemingWithPickerExample from '../../../../../examples/top-navigation-theming-with-picker';
 
 const variants = {
@@ -44,7 +47,6 @@ snapshotInformational(CompanyHubMockExample, {
 	variants: [variants.desktop],
 	featureFlags: {
 		platform_design_system_nav4_sidenav_border: true,
-		platform_design_system_nav4_panel_default_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -68,7 +70,6 @@ snapshotInformational(CompanyHubMockExample, {
 	variants: [variants.desktop],
 	featureFlags: {
 		platform_design_system_nav4_sidenav_border: true,
-		platform_design_system_nav4_panel_default_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -92,7 +93,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		platform_design_system_nav4_sidenav_border: true,
-		platform_design_system_nav4_panel_default_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -116,7 +116,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		platform_design_system_nav4_sidenav_border: true,
-		platform_design_system_nav4_panel_default_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -144,7 +143,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		platform_design_system_nav4_sidenav_border: true,
-		platform_design_system_nav4_panel_default_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -182,7 +180,6 @@ snapshotInformational(CompositionExample, {
 	variants: [variants.mobile],
 	featureFlags: {
 		platform_design_system_nav4_sidenav_border: true,
-		platform_design_system_nav4_panel_default_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -204,7 +201,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.mobile],
 	featureFlags: {
 		platform_design_system_nav4_sidenav_border: true,
-		platform_design_system_nav4_panel_default_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -234,7 +230,45 @@ snapshotInformational(TopNavigationThemingWithPickerExample, {
 	variants: [variants.desktop],
 	featureFlags: {
 		platform_design_system_nav4_sidenav_border: true,
-		platform_design_system_nav4_panel_default_border: true,
 		'navx-full-height-sidebar': true,
+	},
+});
+
+/**
+ * Logo truncation test. Doesn't seem to be covered by anything that already exists.
+ */
+snapshotInformational(NavigationShellExample, {
+	description: 'logo truncation',
+	drawsOutsideBounds: true,
+	variants: [variants.desktop],
+	featureFlags: {
+		platform_design_system_nav4_sidenav_border: true,
+		'navx-full-height-sidebar': true,
+	},
+});
+
+/**
+ * Ensuring that spotlights on the toggle button won't regress from the margin-left around it.
+ */
+snapshotInformational(NavigationShellWithToggleButtonSpotlight, {
+	description: 'spotlight on toggle button',
+	drawsOutsideBounds: true,
+	variants: [variants.desktop],
+	featureFlags: {
+		platform_design_system_nav4_sidenav_border: true,
+		'navx-full-height-sidebar': true,
+	},
+});
+
+/**
+ * Checking usage of the new slot with the flag disabled,
+ * to make sure we don't break anyone during migration.
+ */
+snapshotInformational(NavigationShellExample, {
+	description: 'sideNavToggleButton slot with flag disabled',
+	drawsOutsideBounds: true,
+	variants: [variants.desktop],
+	featureFlags: {
+		platform_design_system_nav4_sidenav_border: true,
 	},
 });

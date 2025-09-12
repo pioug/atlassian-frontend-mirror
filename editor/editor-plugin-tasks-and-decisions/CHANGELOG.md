@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 8.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.4.1
+
+### Patch Changes
+
+- [`89232995f69a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89232995f69a4) -
+  [ux] EDITOR-1583 Ensure blockTaskItem schema node exists before performing further assertions on
+  it in tasks and decisions backspace handler
+- Updated dependencies
+
 ## 8.4.0
 
 ### Minor Changes

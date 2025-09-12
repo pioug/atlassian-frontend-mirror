@@ -30,6 +30,7 @@ import {
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { insm } from '@atlaskit/insm';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -403,6 +404,9 @@ export const TableResizer = ({
 	}, [editorView, displayGuideline, displayGapCursor]);
 
 	const handleResizeStart = useCallback(() => {
+		if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
+			insm.session?.startFeature('tableResize');
+		}
 		startMeasure();
 		isResizing.current = true;
 		const {
@@ -692,6 +696,10 @@ export const TableResizer = ({
 
 			if (onResizeStop) {
 				onResizeStop();
+			}
+
+			if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
+				insm.session?.endFeature('tableResize');
 			}
 
 			return newWidth;

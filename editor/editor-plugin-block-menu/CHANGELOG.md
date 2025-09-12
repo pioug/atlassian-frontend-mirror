@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 3.1.4
+
+### Patch Changes
+
+- [`f2000345dec2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2000345dec2c) -
+  ED-29258 Break up list items into new lines when converted into codeblock
+
+## 3.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.2
+
+### Patch Changes
+
+- [`77f5d276a6b30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77f5d276a6b30) -
+  [ux] Put layout and expand format menu visibility behind experiment flags
+- Updated dependencies
+
 ## 3.1.1
 
 ### Patch Changes

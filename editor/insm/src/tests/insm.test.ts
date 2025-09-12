@@ -166,6 +166,38 @@ describe('Entry Point API (index.ts)', () => {
 			expect(insm.session).toBeTruthy();
 		});
 
+		describe('overrideExperienceKey', () => {
+			test('if no experience has been started it does nothing', () => {
+				init({
+					getAnalyticsWebClient: Promise.resolve(analyticsClientStub),
+					experiences: { expA: { enabled: true } },
+				});
+				insm.overrideExperienceKey('expA');
+				expect(insm.session).toBeFalsy();
+			});
+
+			test('if a non whitelisted experience has been started it starts a new experience', () => {
+				init({
+					getAnalyticsWebClient: Promise.resolve(analyticsClientStub),
+					experiences: { expA: { enabled: true } },
+				});
+				insm.start('nonWhitelisted', { initial: true, contentId: '9001' });
+				insm.overrideExperienceKey('expA');
+				expect(insm.session).toBeTruthy();
+			});
+
+			test('if a whitelisted experience has been started it updates the existing experience rather than create a new one', () => {
+				init({
+					getAnalyticsWebClient: Promise.resolve(analyticsClientStub),
+					experiences: { expA: { enabled: true }, expB: { enabled: true } },
+				});
+				insm.start('expA', { initial: true, contentId: '9001' });
+				const session = insm.session;
+				insm.overrideExperienceKey('expB');
+				expect(session).toBe(insm.session);
+			});
+		});
+
 		test('session end captures measurer details and attributes order', () => {
 			init({
 				getAnalyticsWebClient: Promise.resolve(analyticsClientStub),

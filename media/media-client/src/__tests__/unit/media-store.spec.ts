@@ -1049,6 +1049,158 @@ describe('MediaStore', () => {
 			});
 		});
 
+		describe('path-based URL functionality', () => {
+			const collection = 'some-collection';
+			const fileId = '1234';
+			const pathBasedUrl =
+				'https://current.atlassian.net/media-api/file/1234/image?allowAnimated=true&client=some-client-id&collection=some-collection&max-age=2592000&mode=crop&token=some-token';
+			const originalUrl = `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
+
+			describe('getFileImageURL', () => {
+				ffTest(
+					'platform_media_path_based_route',
+					async () => {
+						// Mock mapToPathBasedUrl to return a transformed URL
+						mapToPathBasedUrlMock.mockReturnValue(pathBasedUrl);
+
+						const url = await mediaStore.getFileImageURL(fileId, { collection });
+
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
+
+						// Verify mapToPathBasedUrl was called with the original URL
+						expect(mapToPathBasedUrlMock).toHaveBeenCalledWith(originalUrl);
+						expect(mapToPathBasedUrlMock).toHaveBeenCalledTimes(1);
+
+						// Should return the path-based URL
+						expect(url).toEqual(pathBasedUrl);
+					},
+					async () => {
+						const url = await mediaStore.getFileImageURL(fileId, { collection });
+
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
+
+						// mapToPathBasedUrl should NOT be called when feature flag is off
+						expect(mapToPathBasedUrlMock).not.toHaveBeenCalled();
+
+						// Should return the original CDN URL (existing behavior)
+						expect(url).toEqual(originalUrl);
+					},
+				);
+			});
+
+			describe('getFileImageURLSync', () => {
+				let mediaStoreSync: MediaStore;
+
+				beforeEach(() => {
+					mediaStoreSync = new MediaStore({
+						authProvider,
+						initialAuth: auth,
+					});
+				});
+
+				ffTest(
+					'platform_media_path_based_route',
+					() => {
+						// Mock mapToPathBasedUrl to return a transformed URL
+						mapToPathBasedUrlMock.mockReturnValue(pathBasedUrl);
+
+						const url = mediaStoreSync.getFileImageURLSync(fileId, { collection });
+
+						expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+
+						// Verify mapToPathBasedUrl was called with the original URL
+						expect(mapToPathBasedUrlMock).toHaveBeenCalledWith(originalUrl);
+						expect(mapToPathBasedUrlMock).toHaveBeenCalledTimes(1);
+
+						// Should return the path-based URL
+						expect(url).toEqual(pathBasedUrl);
+					},
+					() => {
+						const url = mediaStoreSync.getFileImageURLSync(fileId, { collection });
+
+						expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+
+						// mapToPathBasedUrl should NOT be called when feature flag is off
+						expect(mapToPathBasedUrlMock).not.toHaveBeenCalled();
+
+						// Should return the original CDN URL (existing behavior)
+						expect(url).toEqual(originalUrl);
+					},
+				);
+			});
+
+			describe('edge cases with path-based URLs', () => {
+				ffTest(
+					'platform_media_path_based_route',
+					async () => {
+						// Test with custom parameters
+						const customParams = {
+							collection,
+							width: 500,
+							height: 300,
+							mode: 'full-fit' as const,
+							upscale: true,
+						};
+
+						const expectedOriginalUrl = `${baseUrl}/file/${fileId}/image?allowAnimated=true&client=some-client-id&collection=${collection}&height=300&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&token=${token}&upscale=true&width=500`;
+						const expectedPathBasedUrl =
+							'https://current.atlassian.net/media-api/file/1234/image?allowAnimated=true&client=some-client-id&collection=some-collection&height=300&max-age=2592000&mode=full-fit&token=some-token&upscale=true&width=500';
+
+						mapToPathBasedUrlMock.mockReturnValue(expectedPathBasedUrl);
+
+						const url = await mediaStore.getFileImageURL(fileId, customParams);
+
+						expect(mapToPathBasedUrlMock).toHaveBeenCalledWith(expectedOriginalUrl);
+						expect(url).toEqual(expectedPathBasedUrl);
+
+						// Test without collection parameter
+						const expectedOriginalUrlNoCollection = `${baseUrl}/file/${fileId}/image?allowAnimated=true&client=some-client-id&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
+						const expectedPathBasedUrlNoCollection =
+							'https://current.atlassian.net/media-api/file/1234/image?allowAnimated=true&client=some-client-id&max-age=2592000&mode=crop&token=some-token';
+
+						mapToPathBasedUrlMock.mockReturnValue(expectedPathBasedUrlNoCollection);
+
+						const urlNoCollection = await mediaStore.getFileImageURL(fileId);
+
+						expect(mapToPathBasedUrlMock).toHaveBeenCalledWith(expectedOriginalUrlNoCollection);
+						expect(urlNoCollection).toEqual(expectedPathBasedUrlNoCollection);
+					},
+					async () => {
+						// Test that edge cases work normally when feature flag is disabled
+						const customParams = {
+							collection,
+							width: 500,
+							height: 300,
+							mode: 'full-fit' as const,
+							upscale: true,
+						};
+
+						const expectedOriginalUrl = `${baseUrl}/file/${fileId}/image?allowAnimated=true&client=some-client-id&collection=${collection}&height=300&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&token=${token}&upscale=true&width=500`;
+
+						const url = await mediaStore.getFileImageURL(fileId, customParams);
+
+						// mapToPathBasedUrl should NOT be called when feature flag is off
+						expect(mapToPathBasedUrlMock).not.toHaveBeenCalled();
+
+						// Should return the original CDN URL
+						expect(url).toEqual(expectedOriginalUrl);
+					},
+				);
+			});
+		});
+
 		describe('getImage', () => {
 			describe('should return file image preview only in commercial environment', () => {
 				const nonCdnURL = `${baseUrl}/file/123/image?allowAnimated=true&clientId=some-client-id&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`;

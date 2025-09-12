@@ -5,7 +5,7 @@
 import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -26,7 +26,7 @@ import { token } from '@atlaskit/tokens';
 import { type TypeAheadPlugin } from '../typeAheadPluginType';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const itemIcon = css({
+export const itemIcon: SerializedStyles = css({
 	width: token('space.500', '40px'),
 	height: token('space.500', '40px'),
 	overflow: 'hidden',

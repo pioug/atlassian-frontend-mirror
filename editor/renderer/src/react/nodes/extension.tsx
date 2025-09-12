@@ -78,6 +78,7 @@ export const renderExtension = (
 	extensionId?: string,
 	extensionViewportSizes?: ExtensionViewportSize[],
 	nodeHeight?: string,
+	localId?: string,
 ) => {
 	const overflowContainerClass = !removeOverflow
 		? RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER
@@ -112,6 +113,7 @@ export const renderExtension = (
 						minHeight: `${extensionHeight}px`,
 					}}
 					data-layout={layout}
+					data-local-id={localId}
 				>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
 					<div className={overflowContainerClass}>{content}</div>
@@ -131,6 +133,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 		extensionViewportSizes,
 		parameters,
 		nodeHeight,
+		localId,
 	} = props;
 
 	return (
@@ -156,6 +159,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 							parameters?.extensionId,
 							extensionViewportSizes,
 							nodeHeight,
+							localId,
 						);
 					}
 				} catch (e) {
@@ -175,6 +179,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 					parameters?.extensionId,
 					extensionViewportSizes,
 					nodeHeight,
+					localId,
 				);
 			}}
 		</ExtensionRenderer>

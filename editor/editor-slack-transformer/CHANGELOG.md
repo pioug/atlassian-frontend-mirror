@@ -1,5 +1,12 @@
 # @atlaskit/editor-slack-transformer
 
+## 4.1.2
+
+### Patch Changes
+
+- [`39f3b00f65aa0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39f3b00f65aa0) -
+  NOISSUE: Patches emotion CSS exports in various editor packages
+
 ## 4.1.1
 
 ### Patch Changes

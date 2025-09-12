@@ -486,6 +486,32 @@ type CopyLinkToAnchorButtonAEP = ButtonAEP<
 	}
 >;
 
+type RovoMoreOptionsClickedAEP = ButtonAEP<
+	ACTION_SUBJECT_ID.AI_MORE_ROVO_OPTIONS,
+	{
+		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
+		opened: boolean;
+	}
+>;
+
+type ChangeToneMenuItemClickedAEP = UIAEP<
+	ACTION.CLICKED,
+	ACTION_SUBJECT.TOOLBAR_DROPDOWN_MENU_ITEM,
+	ACTION_SUBJECT_ID.AI_CHANGE_TONE,
+	{
+		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
+	}
+>;
+
+type TranslateMenuItemClickedAEP = UIAEP<
+	ACTION.CLICKED,
+	ACTION_SUBJECT.TOOLBAR_DROPDOWN_MENU_ITEM,
+	ACTION_SUBJECT_ID.AI_TRANSLATE,
+	{
+		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
+	}
+>;
+
 export type GeneralEventPayload<T = void> =
 	| AnnotateButtonAEP
 	| AnnotationAEP
@@ -534,4 +560,7 @@ export type GeneralEventPayload<T = void> =
 	| RequestToEditAEP
 	| SingleColumLayoutDetectedAEP
 	| CopyLinkToAnchorButtonAEP
-	| DockedPrimaryToolbarRenderedAEP;
+	| DockedPrimaryToolbarRenderedAEP
+	| RovoMoreOptionsClickedAEP
+	| ChangeToneMenuItemClickedAEP
+	| TranslateMenuItemClickedAEP;

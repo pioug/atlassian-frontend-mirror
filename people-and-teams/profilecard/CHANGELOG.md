@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 24.13.1
+
+### Patch Changes
+
+- [`a4a5ca6a21bae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4a5ca6a21bae) -
+  Update i18n NPM package versions for platform packages
+- Updated dependencies
+
 ## 24.13.0
 
 ### Minor Changes

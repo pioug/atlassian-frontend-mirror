@@ -351,7 +351,7 @@ const emojiStylesWithSelectorFixes = css`
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const placeholderStyles = css({
+export const placeholderStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror .placeholder-decoration': {
 		color: token('color.text.subtlest'),

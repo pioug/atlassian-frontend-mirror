@@ -116,11 +116,11 @@ export const selectedNodeStyles: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const dangerBorderStyles = css({
+export const dangerBorderStyles: SerializedStyles = css({
 	boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const dangerBackgroundStyles = css({
+export const dangerBackgroundStyles: SerializedStyles = css({
 	backgroundColor: token('color.background.danger'),
 });

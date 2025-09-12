@@ -1,5 +1,29 @@
 # @atlassian/navigation-system
 
+## 2.9.0
+
+### Minor Changes
+
+- [`d64bfbee2463f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d64bfbee2463f) -
+  Cleans up the `platform_design_system_nav4_panel_mobile_width_fix` feature gate. Mobile panel
+  sizes are now more consistent with their desktop sizes, when screen width permits.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.0
+
+### Minor Changes
+
+- [`a515e172559b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a515e172559b8) -
+  Adds `sideNavToggleButton` slot to `TopNavStart` to be used instead of rendering
+  `<SideNavToggleButton>` as a child. When `navx-full-height-sidebar` is enabled, the slot is used
+  to move the button between start and end positions based on sidebar collapse state.
+- [`a515e172559b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a515e172559b8) -
+  App logo text will now truncate if there is no available space, when `navx-full-height-sidebar` is
+  enabled.
+
 ## 2.7.0
 
 ### Minor Changes

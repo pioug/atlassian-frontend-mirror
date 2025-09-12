@@ -193,7 +193,7 @@ export function init(
 			experimentalVC.initialize(vcOptions).start({ startTime: 0 });
 		}
 
-		if (config?.extraInteractionMetrics?.enabled && fg('platform_ufo_enable_ttai_with_3p')) {
+		if (config?.extraInteractionMetrics?.enabled) {
 			interactionExtraMetrics.initializeVCObserver(vcOptions);
 		}
 	}

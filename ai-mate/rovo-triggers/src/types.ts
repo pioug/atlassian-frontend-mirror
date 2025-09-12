@@ -52,6 +52,7 @@ export type ChatNewPayload = PayloadCore<
 		}>;
 		// Used for follow-up prompt once chat is created
 		prompt?: string | DocNode;
+		contentContext?: 'staging-area' | 'global';
 		sourceId?: string;
 	} & Partial<TargetAgentParam>
 >;

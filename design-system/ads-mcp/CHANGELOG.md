@@ -1,5 +1,13 @@
 # @atlaskit/ads-mcp
 
+## 0.5.0
+
+### Minor Changes
+
+- [`0276dc4a39d9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0276dc4a39d9d) -
+  Renamed `get_component_details` to `search_components` tool and adjusted related references in the
+  codebase and improved querying of components.
+
 ## 0.4.1
 
 ### Patch Changes

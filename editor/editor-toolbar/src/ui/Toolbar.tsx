@@ -9,6 +9,7 @@ import { token } from '@atlaskit/tokens';
 
 import type { ResponsiveContainerProps } from './ResponsiveContainer';
 import { ResponsiveContainer, ResponsiveWrapper } from './ResponsiveContainer';
+import { ACTION_SUBJECT, ViewEventEmitter, type ViewEventEmitterProps } from './ViewEventEmitter';
 
 const styles = cssMap({
 	toolbarBase: {
@@ -56,19 +57,20 @@ type ToolbarProps = {
 	 * use case: query select the toolbar to position floating toolbar
 	 */
 	label: string;
-};
+} & ViewEventEmitterProps;
 
 /**
  * A simple component representing a toolbar with box shadows - used to represent a secondary/floating toolbar
  *
  * @note: Responsiveness support replies on container query with container editor-area and media query
  */
-export const Toolbar = ({ children, label }: ToolbarProps) => {
+export const Toolbar = ({ children, label, actionSubjectId }: ToolbarProps) => {
 	const isResponsiveEnabled = expValEquals(
 		'platform_editor_aifc_selection_toolbar_responsive',
 		'isEnabled',
 		true,
 	);
+
 	const toolbar = (
 		<Box
 			xcss={cx(
@@ -81,6 +83,12 @@ export const Toolbar = ({ children, label }: ToolbarProps) => {
 			role="toolbar"
 			aria-label={label}
 		>
+			{expValEquals('platform_editor_toolbar_aifc_toolbar_analytic', 'isEnabled', true) ? (
+				<ViewEventEmitter
+					actionSubject={ACTION_SUBJECT.TOOLBAR}
+					actionSubjectId={actionSubjectId}
+				/>
+			) : null}
 			{children}
 		</Box>
 	);

@@ -323,7 +323,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Панель инструментов для примечаний',
   'fabric.editor.backLink': 'Назад',
   'fabric.editor.backgroundColor': 'Цвет фона',
-  'fabric.editor.block.menu.code.block': 'Макет',
   'fabric.editor.block.menu.copy.block': 'Скопировать блок',
   'fabric.editor.block.menu.copy.link': 'Копировать ссылку',
   'fabric.editor.block.menu.delete.block': 'Удалить',

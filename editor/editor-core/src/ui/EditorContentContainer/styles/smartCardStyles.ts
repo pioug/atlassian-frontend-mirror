@@ -390,7 +390,7 @@ export const smartCardStylesWithSearchMatch: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const smartCardStylesWithSearchMatchAndBlockMenuDangerStyles = css({
+export const smartCardStylesWithSearchMatchAndBlockMenuDangerStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 	[`.${SmartCardSharedCssClassName.INLINE_CARD_CONTAINER}`]: {
 		maxWidth: 'calc(100% - 20px)',

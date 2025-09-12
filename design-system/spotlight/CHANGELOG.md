@@ -1,5 +1,16 @@
 # @atlaskit/spotlight
 
+## 0.3.0
+
+### Minor Changes
+
+- [`7e3c08df816e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e3c08df816e2) - -
+  Apply `z-index: 700` to caret to fix a bug with box-shadow in dark mode.
+  - Apply `color: var(--ds-color-text-inverse)` to `SpotlightCard` so consumers get inverse color
+    styles without needing to use `Text`.
+  - Remove `SpotlightShowMoreControl` references in examples and documentation. Functionality
+    remains unchanged.
+
 ## 0.2.6
 
 ### Patch Changes
@@ -61,7 +72,7 @@
 ### Patch Changes
 
 - [`6fa400e1910b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fa400e1910b7) -
-  Styling update to `PopoverContent` to set `z-index: 800` to ensure `Spotlight` displays correctly
+  Styling update to `PopoverContent` to set `z-index: 700` to ensure `Spotlight` displays correctly
   on top of Atlassian layering elements.
 - Updated dependencies
 

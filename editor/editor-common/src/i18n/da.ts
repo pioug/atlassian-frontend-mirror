@@ -302,7 +302,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Værktøjslinje til annotationer',
   'fabric.editor.backLink': 'Gå tilbage',
   'fabric.editor.backgroundColor': 'Baggrundsfarve',
-  'fabric.editor.block.menu.code.block': 'Layout',
   'fabric.editor.block.menu.copy.block': 'Kopiér blok',
   'fabric.editor.block.menu.copy.link': 'Kopiér link',
   'fabric.editor.block.menu.delete.block': 'Slet',

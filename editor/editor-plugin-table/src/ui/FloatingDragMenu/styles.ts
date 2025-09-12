@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { tableBackgroundBorderColor } from '@atlaskit/adf-schema';
 import { N60A, N90 } from '@atlaskit/theme/colors';
@@ -62,7 +62,7 @@ export const dragMenuBackgroundColorStyles = () => css`
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const toggleStyles = css({
+export const toggleStyles: SerializedStyles = css({
 	display: 'flex',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"input[type='checkbox']": {

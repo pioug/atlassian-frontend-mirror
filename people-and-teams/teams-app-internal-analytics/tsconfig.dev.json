@@ -29,8 +29,7 @@
 		"**/stories/*.ts",
 		"**/stories/*.tsx",
 		"**/stories/**/*.ts",
-		"**/stories/**/*.tsx",
-		"**/test-utils/*.ts"
+		"**/stories/**/*.tsx"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
@@ -55,6 +54,9 @@
 		},
 		{
 			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../ptc-test-utils/tsconfig.app.json"
 		}
 	]
 }

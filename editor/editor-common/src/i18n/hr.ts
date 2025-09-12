@@ -394,7 +394,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Alatna traka za bilješke',
   'fabric.editor.backLink': 'Idi natrag',
   'fabric.editor.backgroundColor': 'Boja pozadine',
-  'fabric.editor.block.menu.code.block': 'Izgled',
   'fabric.editor.block.menu.copy.block': 'Kopiraj blok',
   'fabric.editor.block.menu.copy.link': 'Kopiraj poveznicu',
   'fabric.editor.block.menu.delete.block': 'Izbriši',

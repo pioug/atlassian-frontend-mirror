@@ -91,8 +91,35 @@ export class INSM {
 				contentId: experienceProperties.contentId,
 			});
 		}
+		this.lastStartedExperienceProperties = experienceProperties;
 		if (this.options.experiences[experienceKey]?.enabled) {
 			this.runningSession = new INSMSession(experienceKey, experienceProperties, this);
+		}
+	}
+
+	private lastStartedExperienceProperties: ExperienceProperties | undefined;
+
+	/**
+	 * Call this to update the name of the running session after it's started
+	 * In the case it's been started with an unregistered name, and there is not running
+	 * session. This will also trigger the session being started.
+	 */
+	overrideExperienceKey(experienceKey: string) {
+		if (this.runningSession !== undefined) {
+			// If there is a running session - we update its name
+			this.runningSession.updateExperienceKey(experienceKey);
+		} else {
+			// otherwise - we assume the last session was not registered, and start it with the new name
+			if (
+				this.options.experiences[experienceKey]?.enabled &&
+				this.lastStartedExperienceProperties
+			) {
+				this.runningSession = new INSMSession(
+					experienceKey,
+					this.lastStartedExperienceProperties,
+					this,
+				);
+			}
 		}
 	}
 

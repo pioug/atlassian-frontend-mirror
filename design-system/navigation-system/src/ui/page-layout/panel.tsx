@@ -7,7 +7,6 @@ import { type CSSProperties, useCallback, useContext, useEffect, useRef, useStat
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
 
@@ -33,6 +32,8 @@ import { useResizingWidthCssVarOnRootElement } from './use-resizing-width-css-va
 import { useSafeDefaultWidth } from './use-safe-default-width';
 
 const panelSplitterResizingVar = '--n_pnlRsz';
+
+const fallbackDefaultWidth = 365;
 
 /**
  * We typically use the `defaultWidth` as the minimum resizing width,
@@ -62,6 +63,17 @@ const styles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		insetBlockStart: contentInsetBlockStart,
 		backgroundColor: token('elevation.surface.overlay'),
+		/**
+		 * For mobile viewports, the panel will try to take the minimum width, but no larger than 90% of the screen width.
+		 *
+		 * The minimum width is derived from the default width of the panel.
+		 *
+		 * This ensures the panel:
+		 *
+		 * - only shrinks below its minimum width if the viewport is too small
+		 * - is not forced to grow if it is smaller than `365px`
+		 */
+		width: `min(90%, var(--minWidth))`,
 		'@media (min-width: 48rem)': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 			width: `var(${panelSplitterResizingVar}, var(${panelVar}))`,
@@ -104,26 +116,7 @@ const styles = cssMap({
 		 */
 		display: 'none',
 	},
-	oldMobileWidth: {
-		// For mobile viewports, the panel will take up 90% of the screen width, up to a maximum of 365px (the default Panel width).
-		width: 'min(90%, 365px)',
-	},
-	newMobileWidth: {
-		/**
-		 * For mobile viewports, the panel will try to take the minimum width, but no larger than 90% of the screen width.
-		 *
-		 * The minimum width is derived from the default width of the panel.
-		 *
-		 * This ensures the panel:
-		 *
-		 * - only shrinks below its minimum width if the viewport is too small
-		 * - is not forced to grow if it is smaller than `365px`
-		 */
-		width: 'min(90%, var(--minWidth))',
-	},
 });
-
-const fallbackDefaultWidth = 365;
 
 /**
  * The Panel layout area is rendered to the right (inline end) of the Main area, or the Aside area if it is present.
@@ -268,21 +261,12 @@ export function Panel({
 			data-layout-slot
 			aria-label={label}
 			className={xcss}
-			css={[
-				styles.root,
-				defaultWidth === 0 && styles.hidden,
-				hasBorder && styles.border,
-				fg('platform_design_system_nav4_panel_mobile_width_fix')
-					? styles.newMobileWidth
-					: styles.oldMobileWidth,
-			]}
+			css={[styles.root, defaultWidth === 0 && styles.hidden, hasBorder && styles.border]}
 			style={
 				{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values
 					[panelVar]: panelVariableWidth,
-					'--minWidth': fg('platform_design_system_nav4_panel_mobile_width_fix')
-						? `${minWidth}px`
-						: undefined,
+					'--minWidth': `${minWidth}px`,
 				} as CSSProperties
 			}
 			data-testid={testId}

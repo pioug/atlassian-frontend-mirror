@@ -84,7 +84,7 @@ export const dateStyles: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const dangerDateStyles = css({
+export const dangerDateStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 	[`.${DateSharedCssClassName.DATE_CONTAINER}.ak-editor-selected-node.danger .${DateSharedCssClassName.DATE_WRAPPER} > span`]:
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values

@@ -19,3 +19,8 @@ export const SideNavToggleButtonElement = createContext<HTMLButtonElement | null
  */
 export const SideNavToggleButtonAttachRef =
 	createContext<(newVal: HTMLButtonElement | null) => void>(__noop);
+
+/**
+ * Used to check if the SideNavToggleButton is rendered inside of its slot in `TopNavStart`.
+ */
+export const SideNavToggleButtonSlotContext = createContext<boolean>(false);

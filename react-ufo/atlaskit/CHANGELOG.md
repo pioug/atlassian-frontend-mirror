@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.7.1
+
+### Patch Changes
+
+- [`8f8b18e77c187`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f8b18e77c187) -
+  Add more timings info into interaction-extra-metrics
+
 ## 4.7.0
 
 ### Minor Changes

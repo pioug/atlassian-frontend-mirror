@@ -1,5 +1,26 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.21.0
+
+### Minor Changes
+
+- [`553afc302139b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/553afc302139b) -
+  Add analytic emitter component which fires an event when dropdowns are viewed
+
+## 12.20.0
+
+### Minor Changes
+
+- [`28ca2de894404`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28ca2de894404) -
+  ENGHEALTH-40158 fix inline image button in media element menu missing aria-checked when unselected
+
+## 12.19.0
+
+### Minor Changes
+
+- [`77f5d276a6b30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77f5d276a6b30) -
+  [ux] Put layout and expand format menu visibility behind experiment flags
+
 ## 12.18.0
 
 ### Minor Changes

@@ -4,6 +4,8 @@ import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import { coreIconMetadata } from '@atlaskit/icon/metadata';
 
+import { cleanQuery } from '../../helpers';
+
 const inputSchema = z.object({
 	terms: z
 		.array(z.string())
@@ -59,7 +61,7 @@ export const listSearchIconsTool = {
 	<Button iconAfter={AddIcon}>Create</Button>
 	\`\`\`
 
-	You SHOULD check proper usage (props, example usage, etc.) of the icon component using \`get_component_details\` tool before using this tool.
+	You SHOULD check proper usage (props, example usage, etc.) of the icon component using \`search_components\` tool.
 	`,
 	annotations: {
 		title: 'Search ADS icons',
@@ -71,11 +73,21 @@ export const listSearchIconsTool = {
 	inputSchema: zodToJsonSchema(inputSchema),
 };
 
-const cleanQuery = (query: string) => query.trim().toLowerCase().replace(/\s+/g, '');
-
 export const searchIconsTool = async (params: z.infer<typeof inputSchema>) => {
 	const { terms, limit = 1, exactName = false } = params;
 	const searchTerms = terms.filter(Boolean).map(cleanQuery);
+
+	if (!searchTerms.length) {
+		return {
+			isError: true,
+			content: [
+				{
+					type: 'text',
+					text: `Error: Required parameter 'terms' is missing or empty`,
+				},
+			],
+		};
+	}
 
 	if (exactName) {
 		// for each search term, search for the exact match
@@ -145,7 +157,20 @@ export const searchIconsTool = async (params: z.infer<typeof inputSchema>) => {
 
 			return fuse.search(term).slice(0, limit);
 		})
+
 		.flat();
+
+	if (!results.length) {
+		return {
+			isError: true,
+			content: [
+				{
+					type: 'text',
+					text: `Error: No icons found for '${terms.join(', ')}'. Available icons: ${icons.map((i) => i.componentName).join(', ')}`,
+				},
+			],
+		};
+	}
 
 	const matchedIcons = results.map((result) => {
 		return {

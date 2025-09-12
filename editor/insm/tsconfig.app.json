@@ -39,6 +39,9 @@
 	"references": [
 		{
 			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
+		},
+		{
+			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		}
 	],
 	"files": []

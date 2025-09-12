@@ -2,15 +2,11 @@ import React, { useRef, useState } from 'react';
 
 import { parse } from 'query-string';
 import { FormattedMessage, useIntl } from 'react-intl-next';
-import { v4 as uuidv4 } from 'uuid';
 
 import Button, { type Appearance } from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
-import Flag, { FlagGroup } from '@atlaskit/flag';
 import { ErrorMessage } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
-import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
-import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,
@@ -19,11 +15,12 @@ import ModalDialog, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import { token } from '@atlaskit/tokens';
 
 import { defaultMessages } from './messages';
 
 export interface AuditLogExportButtonProps {
+	/** Function to call when export fails */
+	onError?: () => void;
 	/** Function to call when export is initiated. Should handle the actual export logic. */
 	onExport: (params: {
 		action?: string;
@@ -36,6 +33,8 @@ export interface AuditLogExportButtonProps {
 		q?: string;
 		to?: string;
 	}) => Promise<void>;
+	/** Function to call when export succeeds */
+	onSuccess?: () => void;
 	/** Organization ID for the export */
 	orgId: string;
 	/** Search parameters as a string (e.g., "?from=2023-01-01&to=2023-12-31") */
@@ -46,16 +45,16 @@ export interface AuditLogExportButtonProps {
 
 export const AuditLogExportButton = ({
 	onExport,
+	onSuccess,
+	onError,
 	orgId,
 	search = '',
 	testId = 'audit-log-export-button',
 }: AuditLogExportButtonProps) => {
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-	const [flagId] = useState<string>(uuidv4());
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isTermsChecked, setIsTermsChecked] = useState<boolean>(false);
 	const [hasTermsError, setHasTermsError] = useState<boolean>(false);
-	const [flags, setFlags] = useState<Array<{ id: string; type: 'success' | 'error' }>>([]);
 	const { formatMessage } = useIntl();
 	const checkboxRef = useRef<HTMLInputElement>(null);
 
@@ -71,15 +70,6 @@ export const AuditLogExportButton = ({
 		setIsTermsChecked(!isTermsChecked);
 	};
 
-	const addFlag = (type: 'success' | 'error') => {
-		const newFlag = { id: flagId, type };
-		setFlags((prevFlags) => [newFlag, ...prevFlags]);
-	};
-
-	const handleFlagDismiss = () => {
-		setFlags((prevFlags) => prevFlags.slice(1));
-	};
-
 	const openModal = () => {
 		setIsModalOpen(true);
 	};
@@ -89,7 +79,6 @@ export const AuditLogExportButton = ({
 		setIsModalOpen(false);
 		setIsTermsChecked(false);
 		setHasTermsError(false);
-		// Do not reset flags here; they should be controlled by the flag's auto-dismiss or user action
 	};
 
 	const startExport = async () => {
@@ -114,9 +103,9 @@ export const AuditLogExportButton = ({
 		try {
 			await onExport({ orgId, to, from, q, action, actor, ip, location, product });
 
-			addFlag('success');
+			onSuccess?.();
 		} catch (error) {
-			addFlag('error');
+			onError?.();
 		} finally {
 			closeModal();
 		}
@@ -223,43 +212,6 @@ export const AuditLogExportButton = ({
 					</ModalDialog>
 				)}
 			</ModalTransition>
-			<FlagGroup onDismissed={handleFlagDismiss} shouldRenderToParent>
-				{flags.map((flag) => {
-					if (flag.type === 'success') {
-						return (
-							<Flag
-								key={flag.id}
-								id={flag.id}
-								icon={
-									<SuccessIcon
-										label="Success"
-										spacing="spacious"
-										color={token('color.icon.success')}
-									/>
-								}
-								title={formatMessage(defaultMessages.successFlagTitle)}
-								description={formatMessage(defaultMessages.successFlagDescription)}
-							/>
-						);
-					} else {
-						return (
-							<Flag
-								key={flag.id}
-								id={flag.id}
-								icon={
-									<WarningIcon
-										label="Warning"
-										spacing="spacious"
-										color={token('color.icon.warning')}
-									/>
-								}
-								title={formatMessage(defaultMessages.errorFlagTitle)}
-								description={formatMessage(defaultMessages.errorFlagDescription)}
-							/>
-						);
-					}
-				})}
-			</FlagGroup>
 		</>
 	);
 };

@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.14.0
+
+### Minor Changes
+
+- [`9dd1cc0756413`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9dd1cc0756413) -
+  Created agents tab for the new profile page
+
 ## 4.13.1
 
 ### Patch Changes

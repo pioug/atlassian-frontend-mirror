@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 10.1.1
+
+### Patch Changes
+
+- [`910ca893a9910`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/910ca893a9910) -
+  ED-29307: experiment config clean up
+- Updated dependencies
+
 ## 10.1.0
 
 ### Minor Changes

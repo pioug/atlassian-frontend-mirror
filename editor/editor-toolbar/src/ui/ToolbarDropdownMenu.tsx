@@ -47,7 +47,7 @@ type ToolbarDropdownMenuProps = {
 	iconBefore: React.ReactNode;
 	isDisabled?: boolean;
 	label?: string;
-	onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	onClick?: (event: React.MouseEvent<HTMLButtonElement>, isOpen: boolean) => void;
 	testId?: string;
 };
 
@@ -91,9 +91,9 @@ const ToolbarDropdownMenuContent = ({
 					aria-controls={triggerProps['aria-controls']}
 					onBlur={triggerProps.onBlur}
 					onClick={(e) => {
+						onClick && onClick(e, !menuContext?.isOpen);
 						handleClick();
 						triggerProps.onClick && triggerProps.onClick(e);
-						onClick && onClick(e);
 					}}
 					onFocus={triggerProps.onFocus}
 					testId={testId}

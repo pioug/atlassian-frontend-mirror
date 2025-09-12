@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-import { SideNavToggleButtonAttachRef, SideNavToggleButtonElement } from './toggle-button-context';
+import {
+	SideNavToggleButtonAttachRef,
+	SideNavToggleButtonElement,
+	SideNavToggleButtonSlotContext,
+} from './toggle-button-context';
 
 /**
  * Provider for the side nav toggle button contexts.
@@ -24,5 +28,18 @@ export const SideNavToggleButtonProvider = ({ children }: { children: React.Reac
 				{children}
 			</SideNavToggleButtonAttachRef.Provider>
 		</SideNavToggleButtonElement.Provider>
+	);
+};
+
+/**
+ * Provider for the side nav toggle button slot.
+ *
+ * This allows us to determine if the toggle button is rendered inside or outside of its slot.
+ */
+export const SideNavToggleButtonSlotProvider = ({ children }: { children: React.ReactNode }) => {
+	return (
+		<SideNavToggleButtonSlotContext.Provider value={true}>
+			{children}
+		</SideNavToggleButtonSlotContext.Provider>
 	);
 };

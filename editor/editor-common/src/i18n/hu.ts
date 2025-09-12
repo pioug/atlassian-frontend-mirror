@@ -309,7 +309,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Jegyzeteszköztár',
   'fabric.editor.backLink': 'Vissza',
   'fabric.editor.backgroundColor': 'Háttérszín',
-  'fabric.editor.block.menu.code.block': 'Elrendezés',
   'fabric.editor.block.menu.copy.block': 'Blokk másolása',
   'fabric.editor.block.menu.copy.link': 'Link másolása',
   'fabric.editor.block.menu.delete.block': 'Törlés',

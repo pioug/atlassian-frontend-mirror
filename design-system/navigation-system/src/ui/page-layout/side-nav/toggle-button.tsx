@@ -16,7 +16,10 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { IconButton } from '../../top-nav-items/themed/migration';
 
-import { SideNavToggleButtonAttachRef } from './toggle-button-context';
+import {
+	SideNavToggleButtonAttachRef,
+	SideNavToggleButtonSlotContext,
+} from './toggle-button-context';
 import { useSideNavVisibility } from './use-side-nav-visibility';
 import { useToggleSideNav } from './use-toggle-side-nav';
 
@@ -36,6 +39,16 @@ const silentIconStyles = css({
 	display: 'contents',
 	// Don't let movement over icons be relevant for events
 	pointerEvents: 'none',
+});
+
+/**
+ * Wrapper styles to align the toggle button to the end of `TopNavStart`
+ * when FHS is expanded.
+ */
+const fullHeightSidebarExpandedWrapperStyles = css({
+	'@media (min-width: 64rem)': {
+		marginInlineStart: 'auto',
+	},
 });
 
 /**
@@ -150,7 +163,7 @@ export const SideNavToggleButton = ({
 		</span>
 	);
 
-	return (
+	const iconButton = (
 		<IconButton
 			appearance="subtle"
 			label={isSideNavExpanded ? collapseLabel : expandLabel}
@@ -163,4 +176,20 @@ export const SideNavToggleButton = ({
 			tooltip={toggleButtonTooltipOptions}
 		/>
 	);
+
+	const isInsideSlot = useContext(SideNavToggleButtonSlotContext);
+
+	// Checking `isInsideSlot` in case an app isn't using the slot
+	// We don't want to break existing non-slot usage with the left margin
+	// This check can be removed in the future, after slot is required for a while.
+	if (isInsideSlot && fg('navx-full-height-sidebar')) {
+		return (
+			// Wrapper is to align the button to the end when FHS is expanded
+			<div css={isSideNavExpandedOnDesktop && fullHeightSidebarExpandedWrapperStyles}>
+				{iconButton}
+			</div>
+		);
+	}
+
+	return iconButton;
 };

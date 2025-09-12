@@ -169,6 +169,20 @@ insm.start(experienceKey, {
 Note: calling this will end any existing experience (unless the experience key and properties
 match - in which case no session change will occur).
 
+#### Updating a page session experienceKey after it's started
+
+In some scenarios you may need to update the running sessions experience key after it has started,
+in these cases you can use `overrideExperienceKey`.
+
+If there is a running experience, it will update the running experiences name.
+
+If there is no running experience (ie. if the original experienceKey had not been whitelisted), it
+will start a new experience using the last started experienceProperties.
+
+```ts
+insm.overrideExperienceKey('new-key');
+```
+
 #### Naming guidance
 
 Choose an `experienceKey` that reflects the product and content type you want to analyze.

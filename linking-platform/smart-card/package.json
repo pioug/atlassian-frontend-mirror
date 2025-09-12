@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "41.0.0",
+	"version": "41.0.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -243,6 +243,9 @@
 			"type": "boolean"
 		},
 		"navx-1842-hiding-unnecessary-image-descriptions": {
+			"type": "boolean"
+		},
+		"navx-1895-a11y-close-button-in-preview-modal": {
 			"type": "boolean"
 		}
 	},

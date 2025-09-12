@@ -34,6 +34,7 @@ export default {
   'feedback-collector.option.default.placeholder': 'Wybierz jedną',
   'feedback-collector.option.question.label': 'Zadać pytanie',
   'feedback-collector.option.suggestion.label': 'Zasugerować ulepszenie',
+  'feedback-collector.privacy-policy': 'Politykę prywatności Atlassian',
   'feedback-collector.required.fields.summary': 'Pola wymagane są oznaczone gwiazdką',
   'feedback-collector.submit-button.label': 'Prześlij opinię',
   'feedback-collector.success-flag.description':

@@ -7,13 +7,7 @@ import { getLighthouseMetrics } from '../additional-payload';
 import { CHRReporter } from '../assets';
 import * as bundleEvalTiming from '../bundle-eval-timing';
 import coinflip from '../coinflip';
-import type {
-	ApdexType,
-	BM3Event,
-	InteractionMetrics,
-	InteractionType,
-	RevisionPayload,
-} from '../common';
+import type { BM3Event, InteractionMetrics, InteractionType, RevisionPayload } from '../common';
 import { type ResourceTiming } from '../common/react-ufo-payload-schema';
 import { getConfig, getExperimentalInteractionRate, getUfoNameOverrides } from '../config';
 import { getExperimentalVCMetrics } from '../create-experimental-interaction-metrics-payload';
@@ -22,10 +16,7 @@ import { getGlobalErrorCount } from '../global-error-handler';
 import { getPageVisibilityState } from '../hidden-timing';
 import * as initialPageLoadExtraTiming from '../initial-page-load-extra-timing';
 import type { LabelStack } from '../interaction-context';
-import {
-	interactionSpans as atlaskitInteractionSpans,
-	segmentUnmountCache,
-} from '../interaction-metrics';
+import { interactionSpans as atlaskitInteractionSpans } from '../interaction-metrics';
 import { createMemoryStateReport, createPressureStateReport } from '../machine-utilisation';
 import type { ResourceTimings } from '../resource-timing';
 import * as resourceTiming from '../resource-timing';
@@ -47,6 +38,7 @@ import type { CriticalMetricsPayload } from './critical-metrics-payload/types';
 import { addPerformanceMeasures } from './utils/add-performance-measures';
 import { getBrowserMetadataToLegacyFormat } from './utils/get-browser-metadata';
 import getInteractionStatus from './utils/get-interaction-status';
+import { getMoreAccuratePageVisibilityUpToTTAI } from './utils/get-more-accurate-page-visibility-up-to-ttai';
 import { getNavigationMetricsToLegacyFormat } from './utils/get-navigation-metrics';
 import getPageVisibilityUpToTTAI from './utils/get-page-visibility-up-to-ttai';
 import { getPaintMetricsToLegacyFormat } from './utils/get-paint-metrics';
@@ -56,6 +48,14 @@ import getSSRDoneTimeValue from './utils/get-ssr-done-time-value';
 import getSSRSuccessUtil from './utils/get-ssr-success';
 import getTTAI from './utils/get-ttai';
 import getVCMetrics from './utils/get-vc-metrics';
+import { getVisibilityStateFromPerformance } from './utils/get-visibility-state-from-performance';
+import { optimizeApdex } from './utils/optimize-apdex';
+import { optimizeCustomTimings } from './utils/optimize-custom-timings';
+import { optimizeHoldInfo } from './utils/optimize-hold-info';
+import { optimizeMarks } from './utils/optimize-marks';
+import { optimizeReactProfilerTimings } from './utils/optimize-react-profiler-timings';
+import { optimizeRequestInfo } from './utils/optimize-request-info';
+import { optimizeSpans } from './utils/optimize-spans';
 
 function getUfoNameOverride(interaction: InteractionMetrics): string {
 	const { ufoName, apdex } = interaction;
@@ -108,32 +108,6 @@ function getPageVisibilityUpToTTI(interaction: InteractionMetrics) {
 	return getPageVisibilityState(start, bm3EndTimeOrInteractionEndTime);
 }
 
-function getVisibilityStateFromPerformance(stop: number) {
-	try {
-		const results = performance.getEntriesByType('visibility-state');
-		if (!results || results.length === 0) {
-			return null;
-		}
-		return results.reduce((acc: null | string = null, { name, startTime }) => {
-			if (startTime > stop) {
-				return acc;
-			}
-			if (acc === null && name === null) {
-				return null;
-			}
-			if (acc === null) {
-				return name;
-			}
-			if (acc !== name) {
-				return 'mixed';
-			}
-			return acc;
-		}, null);
-	} catch (e) {
-		return null;
-	}
-}
-
 function getMoreAccuratePageVisibilityUpToTTI(interaction: InteractionMetrics) {
 	const old = getPageVisibilityUpToTTI(interaction);
 	const tti = getEarliestLegacyStopTime(interaction, []);
@@ -141,18 +115,6 @@ function getMoreAccuratePageVisibilityUpToTTI(interaction: InteractionMetrics) {
 		return old;
 	}
 	const buffered = getVisibilityStateFromPerformance(tti);
-	if (!buffered) {
-		return old;
-	}
-	if (buffered !== old) {
-		return 'mixed';
-	}
-	return old;
-}
-
-export function getMoreAccuratePageVisibilityUpToTTAI(interaction: InteractionMetrics) {
-	const old = getPageVisibilityUpToTTAI(interaction);
-	const buffered = getVisibilityStateFromPerformance(interaction.end);
 	if (!buffered) {
 		return old;
 	}
@@ -328,56 +290,6 @@ function optimizeCustomData(interaction: InteractionMetrics) {
 	return [...customDataMap.values()];
 }
 
-function optimizeReactProfilerTimings(
-	reactProfilerTimings: InteractionMetrics['reactProfilerTimings'],
-	interactionStart: number,
-	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
-) {
-	const reactProfilerTimingsMap = reactProfilerTimings.reduce(
-		(result, { labelStack, startTime, commitTime, actualDuration, type }) => {
-			if (labelStack && startTime >= interactionStart) {
-				const label = stringifyLabelStackFully(labelStack);
-				const start = Math.round(startTime);
-				const end = Math.round(commitTime);
-
-				const timing = result.get(label) || {
-					labelStack: optimizeLabelStack(labelStack, reactUFOVersion),
-					startTime: start,
-					endTime: end,
-					mountCount: 0,
-					rerenderCount: 0,
-					renderDuration: 0,
-				};
-
-				if (start < timing.startTime) {
-					timing.startTime = start;
-				}
-				if (end > timing.endTime) {
-					timing.endTime = end;
-				}
-				if (type === 'mount') {
-					timing.mountCount += 1;
-				}
-				if (type === 'update') {
-					timing.rerenderCount += 1;
-				}
-				if (segmentUnmountCache.has(label) && fg('platform_ufo_segment_unmount_count')) {
-					timing.unmountCount = segmentUnmountCache.get(label) || 0;
-					segmentUnmountCache.delete(label);
-				}
-				timing.renderDuration += Math.round(actualDuration);
-
-				result.set(label, timing);
-			}
-
-			return result;
-		},
-		new Map(),
-	);
-
-	return [...reactProfilerTimingsMap.values()];
-}
-
 function optimizeRedirects(redirects: InteractionMetrics['redirects'], interactionStart: number) {
 	let lastRedirectTime = interactionStart;
 	const updatedRedirects = redirects
@@ -405,151 +317,6 @@ function optimizeRedirects(redirects: InteractionMetrics['redirects'], interacti
 		);
 
 	return updatedRedirects;
-}
-
-export function optimizeHoldInfo(
-	holdInfo: InteractionMetrics['holdInfo'],
-	interactionStart: number,
-	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
-) {
-	const holdInfoMap = holdInfo.reduce((result, hold) => {
-		const { labelStack, name, start, end, ignoreOnSubmit } = hold;
-
-		if (labelStack && !ignoreOnSubmit && start >= interactionStart) {
-			const label = stringifyLabelStackFully([...labelStack, { name }]);
-			const startTime = Math.round(start);
-			const endTime = Math.round(end);
-
-			const timing = result.get(label) || {
-				labelStack: optimizeLabelStack([...labelStack, { name }], reactUFOVersion),
-				startTime,
-				endTime,
-			};
-
-			if (startTime < timing.startTime) {
-				timing.startTime = startTime;
-			}
-			if (endTime > timing.endTime) {
-				timing.endTime = endTime;
-			}
-
-			result.set(label, timing);
-		}
-
-		return result;
-	}, new Map());
-
-	return [...holdInfoMap.values()];
-}
-
-function optimizeSpans(
-	spans: InteractionMetrics['spans'],
-	interactionStart: number,
-	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
-) {
-	const updatedSpans = spans.reduce(
-		(result, span) => {
-			const { labelStack, type, name, start, end } = span;
-
-			if (labelStack && start >= interactionStart) {
-				result.push({
-					labelStack: optimizeLabelStack([...labelStack, { name }], reactUFOVersion),
-					startTime: Math.round(start),
-					endTime: Math.round(end),
-					type,
-				});
-			}
-
-			return result;
-		},
-		[] as {
-			labelStack: OptimizedLabelStack;
-			startTime: number;
-			endTime: number;
-			type: string;
-		}[],
-	);
-
-	return updatedSpans;
-}
-
-function optimizeRequestInfo(
-	requestInfo: InteractionMetrics['requestInfo'],
-	interactionStart: number,
-	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
-) {
-	const updatedRequestInfo = requestInfo.reduce(
-		(result, reqInfo) => {
-			const { labelStack, name, start, end, networkStart, networkComplete } = reqInfo;
-			const startTime = networkStart ?? start;
-			const endTime = networkComplete ?? end;
-
-			if (labelStack && start >= interactionStart && endTime) {
-				result.push({
-					labelStack: optimizeLabelStack([...labelStack, { name }], reactUFOVersion),
-					startTime: Math.round(startTime),
-					endTime: Math.round(endTime),
-				});
-			}
-
-			return result;
-		},
-		[] as {
-			labelStack: OptimizedLabelStack;
-			startTime: number;
-			endTime: number;
-		}[],
-	);
-
-	return updatedRequestInfo;
-}
-
-function optimizeCustomTimings(
-	customTimings: InteractionMetrics['customTimings'],
-	interactionStart: number,
-) {
-	return customTimings.reduce(
-		(result, item) => {
-			Object.keys(item.data).forEach((key) => {
-				if (item.data[key].startTime >= interactionStart) {
-					result.push({
-						labelStack: [{ n: key }],
-						startTime: Math.round(item.data[key].startTime),
-						endTime: Math.round(item.data[key].endTime),
-					});
-				}
-			});
-
-			return result;
-		},
-		[] as {
-			labelStack: OptimizedLabelStack;
-			startTime: number;
-			endTime: number;
-		}[],
-	);
-}
-
-function optimizeMarks(
-	marks: InteractionMetrics['marks'],
-	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
-) {
-	return marks.map(({ labelStack, time, ...others }) => ({
-		...others,
-		labelStack: labelStack && optimizeLabelStack(labelStack, reactUFOVersion),
-		time: Math.round(time),
-	}));
-}
-
-function optimizeApdex(
-	apdex: ApdexType[],
-	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
-) {
-	return apdex.map(({ stopTime, labelStack, ...others }) => ({
-		...others,
-		stopTime: Math.round(stopTime),
-		...(labelStack ? { labelStack: optimizeLabelStack(labelStack, reactUFOVersion) } : {}),
-	}));
 }
 
 function objectToArray(obj: Record<string, any> = {}) {

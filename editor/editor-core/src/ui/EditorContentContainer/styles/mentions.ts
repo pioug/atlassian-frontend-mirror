@@ -191,7 +191,7 @@ export const mentionsSelectionStylesWithSearchMatch: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const mentionDangerStyles = css({
+export const mentionDangerStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.${akEditorSelectedNodeClassName}:not(.search-match-block).danger`]: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

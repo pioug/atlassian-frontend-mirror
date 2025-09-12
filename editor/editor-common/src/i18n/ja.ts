@@ -298,7 +298,6 @@ export default {
   'fabric.editor.annotationToolbar': '注釈ツールバー',
   'fabric.editor.backLink': '戻る',
   'fabric.editor.backgroundColor': '背景色',
-  'fabric.editor.block.menu.code.block': 'レイアウト',
   'fabric.editor.block.menu.copy.block': 'ブロックをコピー',
   'fabric.editor.block.menu.copy.link': 'リンクをコピー',
   'fabric.editor.block.menu.delete.block': '削除',

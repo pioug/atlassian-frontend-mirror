@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 14.2.1
+
+### Patch Changes
+
+- [`8b18612863ea6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b18612863ea6) -
+  Add insm feature tracking for tableResize
+- [`39f3b00f65aa0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39f3b00f65aa0) -
+  NOISSUE: Patches emotion CSS exports in various editor packages
+- Updated dependencies
+
 ## 14.2.0
 
 ### Minor Changes

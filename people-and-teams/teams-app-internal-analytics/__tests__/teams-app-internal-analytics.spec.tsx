@@ -4,6 +4,10 @@ import { screen } from '@testing-library/react';
 import { act } from '@testing-library/react-hooks';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import {
+	createMockAnalyticsClient,
+	renderWithAnalyticsListener,
+} from '@atlassian/ptc-test-utils/analytics';
 
 import { ButtonWithAnalytics as ButtonWithPTCHookAnalytics } from '../examples/helpers/button-with-analytics';
 import { ButtonWithAnalytics as ButtonWithNextHOCAnalytics } from '../examples/helpers/button-with-analytics-next-hoc';
@@ -14,7 +18,6 @@ import {
 	trackExampleEvent,
 	uiExampleEvent,
 } from '../examples/helpers/utils';
-import { createMockAnalyticsClient, renderWithAnalyticsListener } from '../src/common/test-utils';
 import {
 	defaultAnalyticsContextData as defaultPeopleAndTeamsContextBaseAttributes,
 	TeamsAppAnalyticsContext,

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import {
 	INSERT_BLOCK_SECTION,
 	LINKING_SECTION,
@@ -44,7 +45,14 @@ export const getToolbarComponents = (
 			type: 'toolbar',
 			key: TOOLBARS.INLINE_TEXT_TOOLBAR,
 			component: ({ children }) => {
-				return <Toolbar label={SELECTION_TOOLBAR_LABEL}>{children}</Toolbar>;
+				return (
+					<Toolbar
+						label={SELECTION_TOOLBAR_LABEL}
+						actionSubjectId={ACTION_SUBJECT_ID.SELECTION_TOOLBAR}
+					>
+						{children}
+					</Toolbar>
+				);
 			},
 		},
 		{

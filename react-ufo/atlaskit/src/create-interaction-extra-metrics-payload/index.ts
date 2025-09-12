@@ -2,18 +2,33 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import coinflip from '../coinflip';
 import type { InteractionMetrics } from '../common';
-import { getConfig, getExtraInteractionRate } from '../config';
-import { getMoreAccuratePageVisibilityUpToTTAI, optimizeHoldInfo } from '../create-payload';
+import {
+	DEFAULT_TTVC_REVISION,
+	getConfig,
+	getExtraInteractionRate,
+	getMostRecentVCRevision,
+} from '../config';
 import {
 	buildSegmentTree,
 	getOldSegmentsLabelStack,
+	optimizeLabelStack,
 	sanitizeUfoName,
 } from '../create-payload/common/utils';
+import { getMoreAccuratePageVisibilityUpToTTAI } from '../create-payload/utils/get-more-accurate-page-visibility-up-to-ttai';
 import getPageVisibilityUpToTTAI from '../create-payload/utils/get-page-visibility-up-to-ttai';
 import getPayloadSize from '../create-payload/utils/get-payload-size';
 import { getReactUFOPayloadVersion } from '../create-payload/utils/get-react-ufo-payload-version';
 import getTTAI from '../create-payload/utils/get-ttai';
 import getVCMetrics from '../create-payload/utils/get-vc-metrics';
+import { optimizeApdex } from '../create-payload/utils/optimize-apdex';
+import { optimizeCustomTimings } from '../create-payload/utils/optimize-custom-timings';
+import { optimizeHoldInfo } from '../create-payload/utils/optimize-hold-info';
+import { optimizeMarks } from '../create-payload/utils/optimize-marks';
+import { optimizeReactProfilerTimings } from '../create-payload/utils/optimize-react-profiler-timings';
+import { optimizeRequestInfo } from '../create-payload/utils/optimize-request-info';
+import { optimizeSpans } from '../create-payload/utils/optimize-spans';
+import type { LabelStack } from '../interaction-context';
+import { interactionSpans as atlaskitInteractionSpans } from '../interaction-metrics';
 
 async function createInteractionExtraLogPayload(
 	interactionId: string,
@@ -62,24 +77,65 @@ async function createInteractionExtraLogPayload(
 
 	const newUFOName = sanitizeUfoName(ufoName);
 
+	const mostRecentVCRevision = getMostRecentVCRevision(newUFOName) ?? DEFAULT_TTVC_REVISION;
 	const finalVCMetrics = await getVCMetrics(interaction, true);
-	const holdInfo = optimizeHoldInfo(
-		interaction.hold3pInfo ?? [],
-		start,
-		getReactUFOPayloadVersion(interaction.type),
-	);
+
+	// Helper function to check if labelStack contains third-party type
+	const isThirdParty = (labelStack?: LabelStack | null) => {
+		return labelStack?.some((entry) => 'type' in entry && entry.type === 'third-party') ?? false;
+	};
+
+	// Pre-filter 3p data
+	const filteredData = {
+		errors: interaction.errors.filter((error) => isThirdParty(error.labelStack)),
+		spans: [...interaction.spans, ...atlaskitInteractionSpans].filter((span) =>
+			isThirdParty(span.labelStack),
+		),
+		requestInfo: interaction.requestInfo.filter((req) => isThirdParty(req.labelStack)),
+		customTimings: interaction.customTimings.filter((timing) => isThirdParty(timing.labelStack)),
+		apdex: interaction.apdex.filter((apdex) => isThirdParty(apdex.labelStack)),
+		reactProfilerTimings: interaction.reactProfilerTimings.filter((timing) =>
+			isThirdParty(timing.labelStack),
+		),
+		customData: interaction.customData.filter((data) => isThirdParty(data.labelStack)),
+		segments: knownSegments.filter((segment) => isThirdParty(segment.labelStack)),
+		marks: interaction.marks.filter((mark) => isThirdParty(mark.labelStack)),
+	};
+	// Clear atlaskit spans after filtering
+	atlaskitInteractionSpans.length = 0;
+
+	// Detailed payload
+	const getDetailedInteractionMetrics = () => {
+		return {
+			errors: filteredData.errors.map(({ labelStack, ...others }) => ({
+				...others,
+				labelStack:
+					labelStack && optimizeLabelStack(labelStack, getReactUFOPayloadVersion(interaction.type)),
+			})),
+			holdActive: interaction.hold3pActive ? [...interaction.hold3pActive.values()] : [],
+			holdInfo: optimizeHoldInfo(
+				interaction.hold3pInfo ?? [],
+				start,
+				getReactUFOPayloadVersion(interaction.type),
+			),
+			spans: optimizeSpans(filteredData.spans, start, getReactUFOPayloadVersion(interaction.type)),
+			requestInfo: optimizeRequestInfo(
+				filteredData.requestInfo,
+				start,
+				getReactUFOPayloadVersion(interaction.type),
+			),
+			customTimings: optimizeCustomTimings(filteredData.customTimings, start),
+		};
+	};
 
 	const segments3p =
 		!fg('platform_ufo_remove_deprecated_config_fields') && config.killswitchNestedSegments
 			? []
-			: knownSegments.filter((knownSegment) =>
-					knownSegment.labelStack.some((entry) => 'type' in entry && entry.type === 'third-party'),
-				);
+			: filteredData.segments;
 	const segmentTree =
 		getReactUFOPayloadVersion(interaction.type) === '2.0.0'
 			? buildSegmentTree(segments3p.map((segment) => segment.labelStack))
 			: {};
-
 	const payload = {
 		actionSubject: 'experience',
 		action: 'measured',
@@ -120,12 +176,21 @@ async function createInteractionExtraLogPayload(
 					start: Math.round(start),
 					'metric:ttai:3p': extraTTAI,
 					...finalVCMetrics,
-					holdInfo,
 					segments:
 						getReactUFOPayloadVersion(interaction.type) === '2.0.0'
 							? segmentTree
 							: getOldSegmentsLabelStack(segments3p, interaction.type),
+					marks: optimizeMarks(filteredData.marks, getReactUFOPayloadVersion(interaction.type)),
+					apdex: optimizeApdex(filteredData.apdex, getReactUFOPayloadVersion(interaction.type)),
+					reactProfilerTimings: optimizeReactProfilerTimings(
+						filteredData.reactProfilerTimings,
+						start,
+						getReactUFOPayloadVersion(interaction.type),
+					),
+					customData: filteredData.customData,
+					...getDetailedInteractionMetrics(),
 				},
+				'vc:effective:revision': mostRecentVCRevision,
 			},
 		},
 	};

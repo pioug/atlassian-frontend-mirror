@@ -280,7 +280,6 @@ export default {
   'fabric.editor.annotationToolbar': '标注工具栏',
   'fabric.editor.backLink': '返回',
   'fabric.editor.backgroundColor': '背景颜色',
-  'fabric.editor.block.menu.code.block': '布局',
   'fabric.editor.block.menu.copy.block': '复制区块',
   'fabric.editor.block.menu.copy.link': '复制链接',
   'fabric.editor.block.menu.delete.block': '删除',

@@ -1,5 +1,12 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.18.1
+
+### Patch Changes
+
+- [`39f3b00f65aa0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39f3b00f65aa0) -
+  NOISSUE: Patches emotion CSS exports in various editor packages
+
 ## 11.18.0
 
 ### Minor Changes

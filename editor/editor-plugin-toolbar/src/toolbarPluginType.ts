@@ -1,4 +1,5 @@
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
@@ -21,6 +22,7 @@ export type ToolbarPlugin = NextEditorPlugin<
 			OptionalPlugin<UserPreferencesPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<ConnectivityPlugin>,
+			OptionalPlugin<AnalyticsPlugin>,
 		];
 		pluginConfiguration?: ToolbarPluginOptions;
 		sharedState: {

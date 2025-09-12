@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -173,9 +174,24 @@ export const SelectionToolbar = ({
 			<EditorToolbarProvider
 				editorView={editorView}
 				editorToolbarDockingPreference={editorToolbarDockingPreference}
-				editorViewMode={editorViewMode}
+				editorViewMode={
+					expValEquals('platform_editor_toolbar_aifc_patch_4', 'isEnabled', true)
+						? editorViewMode ?? 'edit'
+						: editorViewMode
+				}
 			>
-				<EditorToolbarUIProvider api={api} isDisabled={isOffline}>
+				<EditorToolbarUIProvider
+					api={api}
+					isDisabled={isOffline}
+					// supress type checks for now
+					fireAnalyticsEvent={
+						expValEquals('platform_editor_toolbar_aifc_toolbar_analytic', 'isEnabled', true)
+							? (payload: unknown) => {
+									api?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
+								}
+							: undefined
+					}
+				>
 					<ToolbarModelRenderer
 						toolbar={toolbar as RegisterToolbar}
 						components={components}

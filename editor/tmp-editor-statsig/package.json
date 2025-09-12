@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tmp-editor-statsig",
-	"version": "12.18.0",
+	"version": "12.21.0",
 	"description": "Temp plugin to ease use of statsig feature flags until platform feature flags are available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,6 +42,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/feature-gate-js-client": "workspace:^",
+		"@atlaskit/react-ufo": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {

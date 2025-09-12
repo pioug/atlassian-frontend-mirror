@@ -1,12 +1,24 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 import getDocument from './getDocument';
 
+function getRelativeUrl(absoluteUrl: string) {
+	const url = new URL(absoluteUrl);
+	return `${url.pathname}${url.search}${url.hash}`;
+}
+
 export function mapToPathBasedUrl(url: string) {
 	if (fg('platform_media_path_based_route')) {
 		const parsedUrl = new URL(url);
 
-		parsedUrl.host = getDocument()?.location.host ?? parsedUrl.host;
 		parsedUrl.pathname = `/media-api${parsedUrl.pathname}`;
+		const location = getDocument()?.location;
+
+		// in this case we are most likely in SSR / a non browser environment so just return a relative URL
+		if (!location) {
+			return getRelativeUrl(url);
+		}
+
+		parsedUrl.host = location.host;
 		return parsedUrl.toString();
 	}
 
@@ -15,7 +27,7 @@ export function mapToPathBasedUrl(url: string) {
 
 export function mapRetryUrlToPathBasedUrl(url: string) {
 	const parsedUrl = new URL(url);
-	parsedUrl.host = getDocument()?.location.host ?? parsedUrl.host;
+	parsedUrl.host = getDocument()?.location.host ?? '';
 
 	// remove CDN from the URL for retry if it exists
 	const pathname = parsedUrl.pathname;

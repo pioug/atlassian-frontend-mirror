@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
@@ -10,7 +10,7 @@ const NOTIFICATION_SIZE = 8;
 const SPACE_FROM_EDGE = token('space.100', '8px');
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const resizableMediaMigrationNotificationStyle = css({
+export const resizableMediaMigrationNotificationStyle: SerializedStyles = css({
 	position: 'absolute',
 	top: SPACE_FROM_EDGE,
 	right: `calc(${token('space.150', '12px')} + ${SPACE_FROM_EDGE})`,

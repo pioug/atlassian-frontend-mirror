@@ -1,7 +1,9 @@
 import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 
+import { getInlineNodeTextContent } from './inline-node-transforms';
 import type { TransformFunction } from './types';
 import {
 	isBlockNodeType,
@@ -370,7 +372,7 @@ const splitContentForCodeBlock = (
 				currentTextContent.push(childNode.textContent);
 			} else if (childNode.isTextblock) {
 				// Extract text from text blocks (paragraphs, headings, etc.)
-				const text = childNode.textContent;
+				const text = getInlineNodeTextContent(Fragment.from(childNode));
 				if (text.trim()) {
 					currentTextContent.push(text);
 				}
@@ -379,6 +381,21 @@ const splitContentForCodeBlock = (
 			// Unsupported block node (table, etc.) - flush current codeBlock, add block, continue
 			flushCurrentCodeBlock();
 			splits.push(childNode);
+		} else if (isListNodeType(childNode.type)) {
+			const isTaskList = childNode.type.name === 'taskList';
+			const listItemType = isTaskList
+				? childNode.type.schema.nodes.taskItem
+				: childNode.type.schema.nodes.listItem;
+
+			const listItems = findChildrenByType(childNode, listItemType);
+			listItems.forEach((listItem) => {
+				const inlineContent = getInlineNodeTextContent(
+					isTaskList ? Fragment.from(listItem.node) : listItem.node.content,
+				);
+				if (inlineContent.trim()) {
+					currentTextContent.push(inlineContent);
+				}
+			});
 		} else {
 			// Other unsupported content - try to extract text if possible
 			const text = childNode.textContent;

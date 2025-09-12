@@ -24,6 +24,9 @@
 	"references": [
 		{
 			"path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-cc/tsconfig.json"
 		}
 	]
 }

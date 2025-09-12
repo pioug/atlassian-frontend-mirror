@@ -206,7 +206,13 @@ describe('In SCIM-synced teams', () => {
 		});
 		it.each(
 			AllTeamActions.filter((a) =>
-				['EDIT_DESCRIPTION', 'EDIT_TEAM_LINK', 'EDIT_TEAM_SETTINGS'].some((s) => a.includes(s)),
+				[
+					'EDIT_DESCRIPTION',
+					'EDIT_TEAM_LINK',
+					'EDIT_TEAM_SETTINGS',
+					'REMOVE_AGENT_FROM_TEAM',
+					'ADD_AGENT_TO_TEAM',
+				].some((s) => a.includes(s)),
 			),
 		)('members can perform %s', (action) => {
 			expect(hasPermission(action, 'EXTERNAL', undefined, true, currentMemberMembership)).toBe(
@@ -217,7 +223,13 @@ describe('In SCIM-synced teams', () => {
 		it.each(
 			AllTeamActions.filter(
 				(a) =>
-					!['EDIT_DESCRIPTION', 'EDIT_TEAM_LINK', 'EDIT_TEAM_SETTINGS'].some((s) => a.includes(s)),
+					![
+						'EDIT_DESCRIPTION',
+						'EDIT_TEAM_LINK',
+						'EDIT_TEAM_SETTINGS',
+						'REMOVE_AGENT_FROM_TEAM',
+						'ADD_AGENT_TO_TEAM',
+					].some((s) => a.includes(s)),
 			),
 		)('members cannot perform %s', (action) => {
 			expect(hasPermission(action, 'EXTERNAL', undefined, true, currentMemberMembership)).toBe(
@@ -241,7 +253,13 @@ describe('In SCIM-synced teams', () => {
 		});
 		it.each(
 			AllTeamActions.filter((a) =>
-				['EDIT_DESCRIPTION', 'EDIT_TEAM_LINK', 'EDIT_TEAM_SETTINGS'].some((s) => a.includes(s)),
+				[
+					'EDIT_DESCRIPTION',
+					'EDIT_TEAM_LINK',
+					'EDIT_TEAM_SETTINGS',
+					'REMOVE_AGENT_FROM_TEAM',
+					'ADD_AGENT_TO_TEAM',
+				].some((s) => a.includes(s)),
 			),
 		)('members can perform %s', (action) => {
 			expect(
@@ -256,7 +274,13 @@ describe('In SCIM-synced teams', () => {
 		it.each(
 			AllTeamActions.filter(
 				(a) =>
-					!['EDIT_DESCRIPTION', 'EDIT_TEAM_LINK', 'EDIT_TEAM_SETTINGS'].some((s) => a.includes(s)),
+					![
+						'EDIT_DESCRIPTION',
+						'EDIT_TEAM_LINK',
+						'EDIT_TEAM_SETTINGS',
+						'REMOVE_AGENT_FROM_TEAM',
+						'ADD_AGENT_TO_TEAM',
+					].some((s) => a.includes(s)),
 			),
 		)('members cannot perform %s', (action) => {
 			expect(

@@ -274,7 +274,6 @@ export default {
   'fabric.editor.annotationToolbar': 'แถบเครื่องมือข้อความหมายเหตุ',
   'fabric.editor.backLink': 'ย้อนกลับ',
   'fabric.editor.backgroundColor': 'สีพื้นหลัง',
-  'fabric.editor.block.menu.code.block': 'เค้าโครง',
   'fabric.editor.block.menu.copy.block': 'คัดลอกบล็อก',
   'fabric.editor.block.menu.copy.link': 'คัดลอกลิงก์',
   'fabric.editor.block.menu.delete.block': 'ลบ',

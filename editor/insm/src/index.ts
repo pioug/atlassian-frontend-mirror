@@ -21,7 +21,10 @@ function insmInitialised() {
 /**
  * **In**teractivity **s**ession **m**onitoring
  */
-export const insm: Pick<INSM, 'start' | 'stopEarly' | 'startHeavyTask' | 'endHeavyTask'> & {
+export const insm: Pick<
+	INSM,
+	'start' | 'stopEarly' | 'startHeavyTask' | 'endHeavyTask' | 'overrideExperienceKey'
+> & {
 	session:
 		| Pick<INSMSession, 'details' | 'startFeature' | 'endFeature' | 'addProperties'>
 		| undefined;
@@ -40,6 +43,12 @@ export const insm: Pick<INSM, 'start' | 'stopEarly' | 'startHeavyTask' | 'endHea
 	start(experienceKey: string, experienceProperties: ExperienceProperties) {
 		if (insmInitialised()) {
 			initialisedInsm.start(experienceKey, experienceProperties);
+		}
+	},
+
+	overrideExperienceKey(experienceKey: string) {
+		if (insmInitialised()) {
+			initialisedInsm.overrideExperienceKey(experienceKey);
 		}
 	},
 

@@ -326,7 +326,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Aantekeningentaakbalk',
   'fabric.editor.backLink': 'Ga terug',
   'fabric.editor.backgroundColor': 'Achtergrondkleur',
-  'fabric.editor.block.menu.code.block': 'Opmaak',
   'fabric.editor.block.menu.copy.block': 'Blok kopiëren',
   'fabric.editor.block.menu.copy.link': 'Link kopiëren',
   'fabric.editor.block.menu.delete.block': 'Verwijderen',

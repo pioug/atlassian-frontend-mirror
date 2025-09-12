@@ -288,7 +288,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Thanh công cụ chú thích',
   'fabric.editor.backLink': 'Quay lại',
   'fabric.editor.backgroundColor': 'Màu nền',
-  'fabric.editor.block.menu.code.block': 'Bố cục',
   'fabric.editor.block.menu.copy.block': 'Sao chép khối',
   'fabric.editor.block.menu.copy.link': 'Sao chép liên kết',
   'fabric.editor.block.menu.delete.block': 'Xóa',

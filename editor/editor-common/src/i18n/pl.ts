@@ -317,7 +317,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Pasek narzędzi adnotacji',
   'fabric.editor.backLink': 'Wróć',
   'fabric.editor.backgroundColor': 'Kolor tła',
-  'fabric.editor.block.menu.code.block': 'Układ',
   'fabric.editor.block.menu.copy.block': 'Kopiuj blok',
   'fabric.editor.block.menu.copy.link': 'Kopiuj łącze',
   'fabric.editor.block.menu.delete.block': 'Usuń',

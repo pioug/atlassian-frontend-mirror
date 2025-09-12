@@ -38,12 +38,6 @@
 	},
 	"references": [
 		{
-			"path": "../../analytics/analytics-gas-types/tsconfig.app.json"
-		},
-		{
-			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
-		},
-		{
 			"path": "../../analytics/analytics-namespaced-context/tsconfig.app.json"
 		},
 		{

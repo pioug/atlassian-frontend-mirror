@@ -388,7 +388,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Трака са алаткама за напомене',
   'fabric.editor.backLink': 'Назад',
   'fabric.editor.backgroundColor': 'Боја позадине',
-  'fabric.editor.block.menu.code.block': 'Распоред',
   'fabric.editor.block.menu.copy.block': 'Копирај блок',
   'fabric.editor.block.menu.copy.link': 'Копирај линк',
   'fabric.editor.block.menu.delete.block': 'Избриши',

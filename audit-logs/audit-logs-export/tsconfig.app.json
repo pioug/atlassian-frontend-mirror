@@ -44,25 +44,16 @@
 			"path": "../../design-system/checkbox/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/flag/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/form/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/heading/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/icon/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	],
 	"files": []

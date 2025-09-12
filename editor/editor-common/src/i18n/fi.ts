@@ -302,7 +302,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Huomautuspalkki',
   'fabric.editor.backLink': 'Siirry takaisin',
   'fabric.editor.backgroundColor': 'Taustaväri',
-  'fabric.editor.block.menu.code.block': 'Asettelu',
   'fabric.editor.block.menu.copy.block': 'Kopioi sisältö',
   'fabric.editor.block.menu.copy.link': 'Kopioi linkki',
   'fabric.editor.block.menu.delete.block': 'Poista',

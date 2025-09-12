@@ -301,7 +301,6 @@ export default {
   'fabric.editor.annotationToolbar': 'Not ekleme araç çubuğu',
   'fabric.editor.backLink': 'Geri dön',
   'fabric.editor.backgroundColor': 'Arkaplan rengi',
-  'fabric.editor.block.menu.code.block': 'Yerleşim',
   'fabric.editor.block.menu.copy.block': 'Bloğu kopyala',
   'fabric.editor.block.menu.copy.link': 'Bağlantıyı kopyala',
   'fabric.editor.block.menu.delete.block': 'Sil',

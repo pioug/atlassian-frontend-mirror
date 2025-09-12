@@ -53,22 +53,4 @@ Media can be an image, video, animation, or any other visual aid to communicate 
 ## Controls
 
 `SpotlightDismissControl` is required for all `SpotlightCard` components. It **must** be the first
-focusable element on the `SpotlightCard` card. This means that when defining the controls,
-`SpotlightDismissControl` should appear first in the DOM order:
-
-```tsx
-<SpotlighControls>
-	<SpotlightDismissControl />
-	<SpotlightShowMoreControl />
-</SpotlighControls>
-```
-
-Internally, `SpotlighControls` applies `flex-direction: row-reverse;` so that
-`SpotlightDismissControl` visually displays after `SpotlightShowMoreControl` while maintaining
-correct tabbing order.
-
-`SpotlightShowMoreControl` is optional for `SpotlightCard` components. It should be used to allow
-users to opt out of a spotlight experience, or understand why they are seeing the spotlight
-experience.
-
-<Example Component={ControlsExample} packageName="@atlaskit/spinner" />
+focusable element on the `SpotlightCard` card to provide an accessible experience.

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-media
 
+## 7.2.1
+
+### Patch Changes
+
+- [`28ca2de894404`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28ca2de894404) -
+  ENGHEALTH-40158 fix inline image button in media element menu missing aria-checked when unselected
+- [`39f3b00f65aa0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39f3b00f65aa0) -
+  NOISSUE: Patches emotion CSS exports in various editor packages
+- Updated dependencies
+
 ## 7.2.0
 
 ### Minor Changes

@@ -38,7 +38,7 @@ type TargetAgentParam =
 export type ChatNewPayload = PayloadCore<
 	'chat-new',
 	{
-		name: string;
+		name?: string;
 		// Used to prefab the chat history
 		dialogues: Array<{
 			human_message: {

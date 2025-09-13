@@ -14,7 +14,9 @@ export const calculateDiffDecorations = ({
 	state,
 	pluginState,
 	nodeViewSerializer,
+	colourScheme,
 }: {
+	colourScheme?: 'standard' | 'traditional';
 	nodeViewSerializer: NodeViewSerializer;
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
 	state: EditorState;
@@ -44,13 +46,14 @@ export const calculateDiffDecorations = ({
 	const decorations: Decoration[] = [];
 	changes.forEach((change) => {
 		if (change.inserted.length > 0) {
-			decorations.push(createInlineChangedDecoration(change));
+			decorations.push(createInlineChangedDecoration(change, colourScheme));
 		}
 		if (change.deleted.length > 0) {
 			const decoration = createDeletedContentDecoration({
 				change,
 				doc: originalDoc,
 				nodeViewSerializer,
+				colourScheme,
 			});
 			if (decoration) {
 				decorations.push(decoration);
@@ -58,7 +61,7 @@ export const calculateDiffDecorations = ({
 		}
 	});
 	getMarkChangeRanges(steps).forEach((change) => {
-		decorations.push(createInlineChangedDecoration(change));
+		decorations.push(createInlineChangedDecoration(change, colourScheme));
 	});
 
 	return DecorationSet.empty.add(tr.doc, decorations);

@@ -29,10 +29,16 @@ const createPubSub = () => {
 	let subscribedEvents: TopicEvents = {};
 	let publishQueue: TopicEventQueue = {};
 	let wildcardEvents: Array<{ callback: Callback; id: string }> = [];
+	let subIdCounter = 0;
+
+	const generateSubId = () => {
+		subIdCounter += 1;
+		return subIdCounter.toString();
+	};
 
 	const subscribe: Subscribe = ({ topic, triggerLatest }, callback) => {
 		const events = subscribedEvents[topic] ?? [];
-		const subId = events.length.toString();
+		const subId = generateSubId();
 		const subExists = events.some(({ id }) => id === subId);
 
 		// Push to Topic stack if not already there

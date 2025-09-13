@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0e01e881cc8c5afe12e48f6b124be763>>
+ * @codegen <<SignedSource::ba900c72212c64dae6bc7b16bbe38cce>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,13 +16,13 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "Menu".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for accessing the menu in global product navigation.
+ * Usage guidance: Single purpose - Reserved for accessing the menu in global app navigation.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const MenuIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
   name: "MenuIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M15 3.5H1V2h14zm0 5.25H1v-1.5h14zM15 14H1v-1.5h14z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M15 12.5V14H1v-1.5zm0-5.25v1.5H1v-1.5zM15 2v1.5H1V2z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 MenuIcon.displayName = 'MenuIcon';

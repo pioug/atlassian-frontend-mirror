@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 2.1.0
+
+### Minor Changes
+
+- [`5eadb7f870272`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5eadb7f870272) -
+  [ux] Adds a new plugin configuration to adjust the styling scheme for diffs. By default it will
+  use standard, but traditional (for green + red) is also available.
+
 ## 2.0.0
 
 ### Patch Changes

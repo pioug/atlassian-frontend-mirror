@@ -45,6 +45,30 @@ describe('PubSub', () => {
 			expect(callback).not.toHaveBeenCalled();
 		});
 
+		it('should unsubscribe the correct callback when multiple subscribers exist', () => {
+			const callbackA = jest.fn();
+			const callbackB = jest.fn();
+
+			const { unmount: unmountA } = renderHook(() => useSubscribe({ topic }, callbackA));
+			const { unmount: unmountB } = renderHook(() => useSubscribe({ topic }, callbackB));
+			// Expected stack: [callbackA, callbackB]
+
+			unmountA();
+			// Expected stack: [callbackB]
+
+			renderHook(() => useSubscribe({ topic }, callbackA));
+			// Expected stack: [callbackB, callbackA]
+
+			unmountB();
+			// Expected stack: [callbackA]
+
+			const { result } = renderHook(() => usePublish(topic));
+			result.current(payload);
+
+			expect(callbackA).toHaveBeenCalled();
+			expect(callbackB).not.toHaveBeenCalled();
+		});
+
 		describe('useSubscribe with triggerLatest', () => {
 			it('should call the latest topic event when subscribing after the event was published', () => {
 				const { result } = renderHook(() => usePublish(topic));

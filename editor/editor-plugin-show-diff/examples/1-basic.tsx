@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import applyDevTools from 'prosemirror-dev-tools';
 
+import Button from '@atlaskit/button/new';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
@@ -53,114 +54,127 @@ const step1 = {
 };
 
 export default function Editor() {
-	const { preset } = usePreset((builder) =>
-		builder
-			.add(basePlugin)
-			.add(blockTypePlugin)
-			.add(focusPlugin)
-			.add(typeAheadPlugin)
-			.add(quickInsertPlugin)
-			.add(selectionPlugin)
-			.add(decorationsPlugin)
-			.add(layoutPlugin)
-			.add(listPlugin)
-			.add([analyticsPlugin, {}])
-			.add(contentInsertionPlugin)
-			.add(widthPlugin)
-			.add(guidelinePlugin)
-			.add(textFormattingPlugin)
-			.add([
-				tablesPlugin,
-				{
-					tableOptions: {
-						advanced: true,
-						allowColumnResizing: true,
-						allowHeaderRow: true,
-						allowTableResizing: true,
+	const [colourScheme, setColourScheme] = useState<'standard' | 'traditional'>('traditional');
+	const { preset } = usePreset(
+		(builder) =>
+			builder
+				.add(basePlugin)
+				.add(blockTypePlugin)
+				.add(focusPlugin)
+				.add(typeAheadPlugin)
+				.add(quickInsertPlugin)
+				.add(selectionPlugin)
+				.add(decorationsPlugin)
+				.add(layoutPlugin)
+				.add(listPlugin)
+				.add([analyticsPlugin, {}])
+				.add(contentInsertionPlugin)
+				.add(widthPlugin)
+				.add(guidelinePlugin)
+				.add(textFormattingPlugin)
+				.add([
+					tablesPlugin,
+					{
+						tableOptions: {
+							advanced: true,
+							allowColumnResizing: true,
+							allowHeaderRow: true,
+							allowTableResizing: true,
+						},
+						isTableScalingEnabled: true,
+						dragAndDropEnabled: true,
+						allowContextualMenu: true,
+						fullWidthEnabled: true,
 					},
-					isTableScalingEnabled: true,
-					dragAndDropEnabled: true,
-					allowContextualMenu: true,
-					fullWidthEnabled: true,
-				},
-			])
-			.add(emojiPlugin)
-			.add(panelPlugin)
-			.add(rulePlugin)
-			.add(tasksAndDecisionsPlugin)
-			.add([expandPlugin, { allowInsertion: true, appearance: 'full-page' }])
-			.add(editorDisabledPlugin)
-			.add(copyButtonPlugin)
-			.add(compositionPlugin)
-			.add(codeBlockPlugin)
-			.add(blockControlsPlugin)
-			.add(breakoutPlugin)
-			.add(gridPlugin)
-			.add(floatingToolbarPlugin)
-			.add([editorViewModePlugin, { mode: 'view' }])
-			.add([
-				mediaPlugin,
-				{
-					allowMediaSingle: { disableLayout: true },
-					allowMediaGroup: false,
-					allowResizing: true,
-					isCopyPasteEnabled: true,
-					allowBreakoutSnapPoints: true,
-					allowAdvancedToolBarOptions: true,
-					allowDropzoneDropLine: true,
-					allowMediaSingleEditable: true,
-					allowImagePreview: true,
-					fullWidthEnabled: true,
-					waitForMediaUpload: true,
-				},
-			])
-			.add([
-				annotationPlugin,
-				{
-					inlineComment: {},
-				} as AnnotationProviders,
-			])
-			.add(extensionPlugin)
-			.add([
-				showDiffPlugin,
-				{
-					steps: [step1],
-					originalDoc: {
-						type: 'doc',
-						version: 1,
-						content: [
-							{
-								type: 'paragraph',
-								content: [{ type: 'text', text: 'uiod' }],
-							},
-						],
+				])
+				.add(emojiPlugin)
+				.add(panelPlugin)
+				.add(rulePlugin)
+				.add(tasksAndDecisionsPlugin)
+				.add([expandPlugin, { allowInsertion: true, appearance: 'full-page' }])
+				.add(editorDisabledPlugin)
+				.add(copyButtonPlugin)
+				.add(compositionPlugin)
+				.add(codeBlockPlugin)
+				.add(blockControlsPlugin)
+				.add(breakoutPlugin)
+				.add(gridPlugin)
+				.add(floatingToolbarPlugin)
+				.add([editorViewModePlugin, { mode: 'view' }])
+				.add([
+					mediaPlugin,
+					{
+						allowMediaSingle: { disableLayout: true },
+						allowMediaGroup: false,
+						allowResizing: true,
+						isCopyPasteEnabled: true,
+						allowBreakoutSnapPoints: true,
+						allowAdvancedToolBarOptions: true,
+						allowDropzoneDropLine: true,
+						allowMediaSingleEditable: true,
+						allowImagePreview: true,
+						fullWidthEnabled: true,
+						waitForMediaUpload: true,
 					},
-				},
-			]),
+				])
+				.add([
+					annotationPlugin,
+					{
+						inlineComment: {},
+					} as AnnotationProviders,
+				])
+				.add(extensionPlugin)
+				.add([
+					showDiffPlugin,
+					{
+						steps: [step1],
+						colourScheme: colourScheme,
+						originalDoc: {
+							type: 'doc',
+							version: 1,
+							content: [
+								{
+									type: 'paragraph',
+									content: [{ type: 'text', text: 'uiod' }],
+								},
+							],
+						},
+					},
+				]),
+		[colourScheme],
 	);
 
 	return (
-		<ComposableEditor
-			appearance="full-page"
-			onChange={(view) => {
-				applyDevTools(view);
-			}}
-			preset={preset}
-			defaultValue={{
-				type: 'doc',
-				version: 1,
-				content: [
-					{
-						type: 'paragraph',
-						content: [
-							{
-								type: 'text',
-								text: 'abc',
-							},
-						],
-					},
-				],
-			}}
-		/>
+		<>
+			<Button
+				onClick={() => {
+					setColourScheme(colourScheme === 'traditional' ? 'standard' : 'traditional');
+				}}
+			>
+				Colour scheme: {colourScheme}
+			</Button>
+			<ComposableEditor
+				appearance="full-page"
+				onChange={(view) => {
+					applyDevTools(view);
+				}}
+				preset={preset}
+				defaultValue={{
+					type: 'doc',
+					version: 1,
+					content: [
+						{
+							type: 'paragraph',
+							content: [
+								{
+									type: 'text',
+									text: 'abc',
+								},
+							],
+						},
+					],
+				}}
+			/>
+		</>
 	);
 }

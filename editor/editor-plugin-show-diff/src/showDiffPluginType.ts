@@ -5,6 +5,12 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
 export type DiffParams = {
+	/**
+	 * Color scheme to use for displaying diffs.
+	 * 'standard' (default) uses purple for highlighting changes
+	 * 'traditional' uses green for additions and red for deletions
+	 */
+	colourScheme?: 'standard' | 'traditional';
 	originalDoc: JSONDocNode;
 	/**
 	 * Prosemirror steps. This is used to calculate and show the diff in the editor

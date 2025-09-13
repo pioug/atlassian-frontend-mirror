@@ -120,6 +120,9 @@
 		},
 		"platform_editor_sharepoint_url_smart_card_fallback": {
 			"type": "boolean"
+		},
+		"platform_editor_sharepoint_url_smart_card_jira": {
+			"type": "boolean"
 		}
 	}
 }

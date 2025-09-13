@@ -1,5 +1,28 @@
 # @atlaskit/icon
 
+## 28.2.0
+
+### Minor Changes
+
+- [`9ae6dba1e1062`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ae6dba1e1062) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `app-switcher-legacy`
+  - `app-switcher`
+  - `app`
+  - `apps`
+  - `atlassian-intelligence`
+  - `chart-pie`
+  - `form`
+  - `megaphone`
+  - `menu`
+  - `notification`
+  - `on-call`
+
 ## 28.1.2
 
 ### Patch Changes

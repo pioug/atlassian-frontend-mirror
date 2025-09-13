@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.22.0
+
+### Minor Changes
+
+- [`dfbeee51d9d4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dfbeee51d9d4a) -
+  Registers Editor Experiment checks with UFOs gate tracking
+
 ## 12.21.0
 
 ### Minor Changes

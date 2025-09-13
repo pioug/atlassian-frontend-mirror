@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 3.9.0
+
+### Minor Changes
+
+- [`13fbf4dfcc7a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13fbf4dfcc7a4) -
+  Prevent Rovo pubsub subscribers from being erreonously dropped
+- [`0a6f3cc9c2aeb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a6f3cc9c2aeb) -
+  Open chat sidebar when using inline prompt with agent
+
 ## 3.8.0
 
 ### Minor Changes

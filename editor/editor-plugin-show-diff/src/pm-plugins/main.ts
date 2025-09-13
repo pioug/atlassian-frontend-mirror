@@ -66,6 +66,7 @@ export const createPlugin = (config: DiffParams | undefined) => {
 							state: newState,
 							pluginState: newPluginState,
 							nodeViewSerializer,
+							colourScheme: config?.colourScheme,
 						});
 						// Update the decorations
 						newPluginState.decorations = decorations;

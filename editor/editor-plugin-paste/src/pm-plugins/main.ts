@@ -681,7 +681,11 @@ export function createPlugin(
 
 					// Special handling for SharePoint URLs generated from Share button
 					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-					if (fg('platform_editor_sharepoint_url_smart_card_fallback') && isSharePointUrl(text)) {
+					if (
+						isSharePointUrl(text) &&
+						(fg('platform_editor_sharepoint_url_smart_card_fallback') ||
+							fg('platform_editor_sharepoint_url_smart_card_jira'))
+					) {
 						// Create an inline card directly for SharePoint URLs to show the "Connect" button
 						const inlineCardNode = schema.nodes.inlineCard.create({
 							url: text,

@@ -7,25 +7,37 @@ import { token } from '@atlaskit/tokens';
 
 import type { NodeViewSerializer } from './NodeViewSerializer';
 
-const style = convertToInlineCss({
+const editingStyle = convertToInlineCss({
 	background: token('color.background.accent.purple.subtlest'),
 	textDecoration: 'underline',
 	textDecorationStyle: 'dotted',
 	textDecorationThickness: token('space.025'),
 	textDecorationColor: token('color.border.accent.purple'),
 });
+
+const traditionalInsertStyle = convertToInlineCss({
+	background: token('color.background.accent.green.subtlest'),
+	textDecoration: 'underline',
+	textDecorationStyle: 'solid',
+	textDecorationThickness: token('space.025'),
+	textDecorationColor: token('color.border.accent.green'),
+});
+
 /**
  * Inline decoration used for insertions as the content already exists in the document
  *
  * @param change Changeset "change" containing information about the change content + range
  * @returns Prosemirror inline decoration
  */
-export const createInlineChangedDecoration = (change: { fromB: number; toB: number }) =>
+export const createInlineChangedDecoration = (
+	change: { fromB: number; toB: number },
+	colourScheme?: 'standard' | 'traditional',
+) =>
 	Decoration.inline(
 		change.fromB,
 		change.toB,
 		{
-			style,
+			style: colourScheme === 'traditional' ? traditionalInsertStyle : editingStyle,
 			'data-testid': 'show-diff-changed-decoration',
 		},
 		{},
@@ -33,6 +45,7 @@ export const createInlineChangedDecoration = (change: { fromB: number; toB: numb
 
 interface DeletedContentDecorationProps {
 	change: Change;
+	colourScheme?: 'standard' | 'traditional';
 	doc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
 }
@@ -54,10 +67,36 @@ const deletedContentStyleUnbounded = convertToInlineCss({
 	zIndex: 1,
 });
 
+const deletedTraditionalContentStyle = convertToInlineCss({
+	textDecorationColor: token('color.border.accent.red'),
+	textDecoration: 'line-through',
+	position: 'relative',
+	opacity: 1,
+});
+
+const deletedTraditionalContentStyleUnbounded = convertToInlineCss({
+	position: 'absolute',
+	top: '50%',
+	width: '100%',
+	display: 'inline-block',
+	borderTop: `1px solid ${token('color.border.accent.red')}`,
+	pointerEvents: 'none',
+	zIndex: 1,
+});
+
+const getDeletedContentStyleUnbounded = (colourScheme?: 'standard' | 'traditional') =>
+	colourScheme === 'traditional'
+		? deletedTraditionalContentStyleUnbounded
+		: deletedContentStyleUnbounded;
+
+const getDeletedContentStyle = (colourScheme?: 'standard' | 'traditional') =>
+	colourScheme === 'traditional' ? deletedTraditionalContentStyle : deletedContentStyle;
+
 export const createDeletedContentDecoration = ({
 	change,
 	doc,
 	nodeViewSerializer,
+	colourScheme,
 }: DeletedContentDecorationProps) => {
 	const slice = doc.slice(change.fromA, change.toA);
 
@@ -79,7 +118,7 @@ export const createDeletedContentDecoration = ({
 
 	// For non-table content, use the existing span wrapper approach
 	const dom = document.createElement('span');
-	dom.setAttribute('style', deletedContentStyle);
+	dom.setAttribute('style', getDeletedContentStyle(colourScheme));
 
 	/*
 	 * The thinking is we separate out the fragment we got from doc.slice
@@ -95,7 +134,7 @@ export const createDeletedContentDecoration = ({
 			wrapper.style.width = 'fit-content';
 
 			const strikethrough = document.createElement('span');
-			strikethrough.setAttribute('style', deletedContentStyleUnbounded);
+			strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colourScheme));
 			wrapper.append(strikethrough);
 
 			return wrapper;

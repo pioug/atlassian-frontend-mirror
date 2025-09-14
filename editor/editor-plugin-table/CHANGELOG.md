@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 14.2.2
+
+### Patch Changes
+
+- [`c1ef6524373ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1ef6524373ae) -
+  Add insm feature tracking for tableColumnResize
+
 ## 14.2.1
 
 ### Patch Changes

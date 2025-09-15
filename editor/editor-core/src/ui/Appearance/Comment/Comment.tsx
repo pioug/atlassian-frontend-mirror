@@ -240,7 +240,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 	);
 
 	const isToolbarAIFCEnabled =
-		Boolean(editorAPI?.toolbar) && expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true);
+		Boolean(editorAPI?.toolbar) && editorExperiment('platform_editor_toolbar_aifc', true);
 
 	return (
 		<WithFlash animate={maxContentSizeReached}>

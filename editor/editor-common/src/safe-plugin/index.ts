@@ -48,6 +48,13 @@ export const attachGenericProseMirrorMetadata = ({
 
 	Object.entries(metadata).forEach(([name, value]) => {
 		dom.setAttribute(name, value);
+
+		if (
+			name === 'data-node-anchor' &&
+			expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+		) {
+			dom.style.setProperty('anchor-name', value);
+		}
 	});
 };
 

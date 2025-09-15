@@ -86,7 +86,7 @@ function ContentComponent({
 } & {
 	editorView: EditorView;
 }): JSX.Element | null {
-	const domAtPos = editorView.domAtPos.bind(editorView);
+
 	const openRequestToEditPopupAt = useSharedPluginStateSelector(
 		dependencyApi,
 		'taskDecision.openRequestToEditPopupAt',
@@ -97,9 +97,15 @@ function ContentComponent({
 		'taskDecision.hasEditPermission',
 	);
 
+	if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView){
+		return null;
+	}
+
 	if (hasEditPermission || !openRequestToEditPopupAt) {
 		return null;
 	}
+
+	const domAtPos = editorView.domAtPos.bind(editorView);
 
 	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const element = findDomRefAtPos(openRequestToEditPopupAt, domAtPos) as HTMLElement;

@@ -83,13 +83,6 @@
 			]
 		}
 	},
-	"af:exports": {
-		"./colors": "./src/colors.tsx",
-		"./components": "./src/components.tsx",
-		"./constants": "./src/constants.tsx",
-		"./types": "./src/types.tsx",
-		"./typography": "./src/typography.tsx"
-	},
 	"exports": {
 		"./colors": "./src/colors.tsx",
 		"./components": "./src/components.tsx",

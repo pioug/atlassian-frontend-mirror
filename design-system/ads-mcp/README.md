@@ -18,6 +18,7 @@ to help ensure your interfaces are accessible to all users.
 - `search_components` - Search for components by name, description, category, or package name
 - `get_all_icons` - Get all available icons from the design system
 - `search_icons` - Search for specific icons by name, keywords, or categorization
+- `plan` - Search for multiple design system resources (tokens, icons, components) in a single efficient operation
 
 #### Design System Tools Usage
 
@@ -38,6 +39,14 @@ const colorTokens = await search_tokens({
 const addIcons = await search_icons({
 	terms: ['add', 'plus', 'create'],
 	limit: 2,
+});
+
+// Search for multiple resources at once (most efficient for complex UI patterns)
+const designResources = await plan({
+  tokens_search: ['color.text', 'space.100', 'border.radius'],
+  icons_search: ['add', 'edit', 'delete'],
+  components_search: ['Button', 'TextField', 'Modal'],
+  limit: 2
 });
 
 // Get all available items (fallback when search doesn't find what you need)

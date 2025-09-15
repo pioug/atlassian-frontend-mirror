@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-
+/// <reference types="node" />
 import { Component, createRef, type CSSProperties } from 'react';
 
 import { isValid, parseISO } from 'date-fns';

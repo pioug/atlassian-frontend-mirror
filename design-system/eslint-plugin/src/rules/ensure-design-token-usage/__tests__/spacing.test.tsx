@@ -59,7 +59,7 @@ export const spacingTests: Tests = {
 		},
 		{
 			options: [{ domains: ['spacing'], applyImport: false }],
-			code: `const styles = css({ borderRadius: token('border.radius', '3px') })`,
+			code: `const styles = css({ borderRadius: token('radius.small', '3px') })`,
 		},
 		{
 			options: [{ domains: ['spacing'], applyImport: false }],
@@ -299,7 +299,7 @@ export const spacingTests: Tests = {
             borderRadius: 3,
           })`,
 			output: `const styles = css({
-            borderRadius: token('border.radius', '3px'),
+            borderRadius: token('radius.small', '3px'),
           })`,
 			errors: [{ messageId: 'noRawSpacingValues' }],
 		},
@@ -310,7 +310,7 @@ export const spacingTests: Tests = {
             borderRadius: '50%',
           })`,
 			output: `const styles = css({
-            borderRadius: token('border.radius.circle', '50%'),
+            borderRadius: token('radius.full', '50%'),
           })`,
 			errors: [{ messageId: 'noRawSpacingValues' }],
 		},
@@ -321,7 +321,7 @@ export const spacingTests: Tests = {
                 borderRadius: borderRadius(),
               })`,
 			output: `const styles = css({
-                borderRadius: token('border.radius', '3px'),
+                borderRadius: token('radius.small', '3px'),
               })`,
 			errors: [{ messageId: 'noRawSpacingValues' }],
 		},
@@ -332,7 +332,7 @@ export const spacingTests: Tests = {
                 borderRadius: \`\${borderRadius()}px\`,
               })`,
 			output: `const styles = css({
-                borderRadius: token('border.radius', '3px'),
+                borderRadius: token('radius.small', '3px'),
               })`,
 			errors: [{ messageId: 'noRawSpacingValues' }],
 		},

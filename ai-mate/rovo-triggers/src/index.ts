@@ -17,7 +17,6 @@ export type {
 	UpdateRuleRovoPayload,
 	DeleteRuleRovoPayload,
 	JiraWorkflowWizardAction,
-	JiraIssueWorkBreakdownAction,
 	DashboardInsightsActionsPayload,
 	DashboardInsightsActionsPayloadData,
 	ChatCallToActionClickedPayload,

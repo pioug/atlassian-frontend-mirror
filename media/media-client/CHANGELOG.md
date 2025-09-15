@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 35.3.4
+
+### Patch Changes
+
+- [`2afa974d4668f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2afa974d4668f) -
+  Fixed path based URLs in SSR not including media-api prefix
+
 ## 35.3.3
 
 ### Patch Changes

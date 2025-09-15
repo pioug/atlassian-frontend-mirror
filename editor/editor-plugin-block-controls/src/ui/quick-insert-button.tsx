@@ -37,10 +37,10 @@ import {
 import { getLeftPositionForRootElement } from '../pm-plugins/utils/widget-positions';
 
 import {
-	rootElementGap,
-	topPositionAdjustment,
 	QUICK_INSERT_DIMENSIONS,
 	QUICK_INSERT_LEFT_OFFSET,
+	rootElementGap,
+	topPositionAdjustment,
 } from './consts';
 import { refreshAnchorName } from './utils/anchor-name';
 import {
@@ -49,6 +49,7 @@ import {
 	isNonEditableBlock,
 	isSelectionInNode,
 } from './utils/document-checks';
+import { getAnchorAttrName } from './utils/dom-attr-name';
 import { createNewLine } from './utils/editor-commands';
 import { VisibilityContainer } from './visibility-container';
 
@@ -159,7 +160,7 @@ export const TypeAheadControl = ({
 		const safeAnchorName = refreshAnchorName({ getPos, view, anchorName: rootAnchorName });
 
 		const dom: HTMLElement | null = view.dom.querySelector(
-			`[data-drag-handler-anchor-name="${safeAnchorName}"]`,
+			`[${getAnchorAttrName()}="${safeAnchorName}"]`,
 		);
 
 		const hasResizer = rootNodeType === 'table' || rootNodeType === 'mediaSingle';
@@ -231,7 +232,7 @@ export const TypeAheadControl = ({
 
 		if (rootNodeType === 'extension' || rootNodeType === 'embedCard') {
 			const dom: HTMLElement | null = view.dom.querySelector(
-				`[data-drag-handler-anchor-name="${rootAnchorName}"]`,
+				`[${getAnchorAttrName()}="${rootAnchorName}"]`,
 			);
 			if (!dom) {
 				return;

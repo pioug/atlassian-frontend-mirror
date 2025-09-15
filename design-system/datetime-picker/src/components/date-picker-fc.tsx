@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+/// <reference types="node" />
+// for typing `process`
 import {
 	type CSSProperties,
 	forwardRef,

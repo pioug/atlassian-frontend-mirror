@@ -19,6 +19,7 @@ import {
 	overflowShadow,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { browser } from '../../utils/browser';
@@ -198,7 +199,9 @@ const tableSharedStyle = () => css`
 
 				/* only apply this styling to codeblocks in default background headercells */
 				/* TODO this needs to be overhauled as it relies on unsafe selectors */
-				&:not([style]):not(.danger) {
+				${expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+					? '&:not(.danger)'
+					: '&:not([style]):not(.danger)'} {
 					.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}:not(.danger) {
 						background-color: ${token('elevation.surface.raised', 'rgb(235, 237, 240)')};
 

@@ -1,6 +1,10 @@
-import React, { forwardRef } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { forwardRef } from 'react';
 
-import { cssMap } from '@atlaskit/css';
+import { cssMap, jsx } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

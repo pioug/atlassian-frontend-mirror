@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
 import {
+	type AccessibleProduct,
+	type AccessibleProductResponse,
 	type AvailableSite,
 	AvailableSitesProductType,
 	type AvailableSitesRequest,
@@ -12,6 +14,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { useIsMounted } from '../useIsMounted';
 
 import { getOperationFailedAttributes } from './utils';
+import { fg } from "@atlaskit/platform-feature-flags";
 
 const defaultProducts = [
 	AvailableSitesProductType.WHITEBOARD,
@@ -80,6 +83,29 @@ export const useAvailableSites = ({
 	return state;
 };
 
+export const mapAccessibleProductsToAvailableSites = (data: AccessibleProduct): AvailableSite[] => {
+	const sites: AvailableSite[] = []
+
+	data.products.forEach(product => {
+		product.workspaces.forEach(workspace => {
+			const currentSite = sites.find(site => site.cloudId === workspace.cloudId);
+			if (currentSite) {
+				currentSite.products.push(product.productId)
+				return currentSite
+			}
+			sites.push({
+				avatarUrl: workspace.workspaceAvatarUrl,
+				cloudId: workspace.cloudId,
+				displayName: workspace.workspaceDisplayName,
+				isVertigo: workspace.vortexMode === 'ENABLED',
+				products: [product.productId],
+				url: workspace.workspaceUrl
+			})
+		})
+	})
+	return sites
+}
+
 export const useAvailableSitesV2 = ({ gatewayBaseUrl }: { gatewayBaseUrl?: string }) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const isMounted = useIsMounted();
@@ -95,17 +121,32 @@ export const useAvailableSitesV2 = ({ gatewayBaseUrl }: { gatewayBaseUrl?: strin
 	useEffect(() => {
 		const fetchSites = async () => {
 			try {
-				const { sites } = await getAvailableSites({
-					products: defaultProducts,
-					gatewayBaseUrl,
-				});
+				if (fg('navx-1819-link-create-confluence-site-migration')) {
+					const { data } = await getAccessibleProducts({
+						products: defaultProducts,
+						gatewayBaseUrl,
+					})
 
-				if (isMounted()) {
-					setState({
-						data: sites,
-						loading: false,
-						error: undefined,
+					if (isMounted()) {
+						setState({
+							data: mapAccessibleProductsToAvailableSites(data),
+							loading: false,
+							error: undefined,
+						});
+					}
+				} else {
+					const { sites } = await getAvailableSites({
+						products: defaultProducts,
+						gatewayBaseUrl,
 					});
+
+					if (isMounted()) {
+						setState({
+							data: sites,
+							loading: false,
+							error: undefined,
+						});
+					}
 				}
 			} catch (error: unknown) {
 				if (isMounted()) {
@@ -145,6 +186,36 @@ async function getAvailableSites({
 		gatewayBaseUrl
 			? `${gatewayBaseUrl}/gateway/api/available-sites`
 			: '/gateway/api/available-sites',
+		requestConfig,
+	);
+	if (response.ok) {
+		return response.json();
+	}
+	throw response;
+}
+
+async function getAccessibleProducts({
+ 	products,
+ 	gatewayBaseUrl,
+}: AvailableSitesRequest): Promise<AccessibleProductResponse> {
+	const requestConfig = {
+		method: 'POST',
+		credentials: 'include' as RequestCredentials,
+		headers: {
+			Accept: 'application/json',
+			'Cache-Control': 'no-cache',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			productIds: products,
+			permissionIds: [],
+		}),
+	};
+
+	const response = await window.fetch(
+		gatewayBaseUrl
+			? `${gatewayBaseUrl}/gateway/api/v2/accessible-products`
+			: '/gateway/api/v2/accessible-products',
 		requestConfig,
 	);
 	if (response.ok) {

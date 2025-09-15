@@ -141,9 +141,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 				const data = entry.data as WindowEventEntryData;
 				if (ABORTING_WINDOW_EVENT.includes(data.eventType)) {
 					dirtyReason = data.eventType === 'keydown' ? 'keypress' : data.eventType;
-					if (fg('platform_ufo_abort_timestamp_by_revision')) {
-						abortTimestamp = Math.round(entry.time);
-					}
+					abortTimestamp = Math.round(entry.time);
 					return true;
 				}
 			}
@@ -154,7 +152,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 			return {
 				isVCClean: false,
 				dirtyReason,
-				...(fg('platform_ufo_abort_timestamp_by_revision') ? { abortTimestamp } : {}),
+				abortTimestamp,
 			};
 		}
 

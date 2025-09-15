@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 41.0.3
+
+### Patch Changes
+
+- [`335984a76875c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/335984a76875c) -
+  NAVX-1895 fixing error in home with embed modal close button label
+- [`5ad76e50d561a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ad76e50d561a) -
+  NAVX-1851 cleaning up navx-1304-related-links-remove-false-autofocus
+- Updated dependencies
+
 ## 41.0.2
 
 ### Patch Changes

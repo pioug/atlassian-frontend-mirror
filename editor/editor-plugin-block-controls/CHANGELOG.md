@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 6.3.0
+
+### Minor Changes
+
+- [`4fb6d9ad07d59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fb6d9ad07d59) -
+  ED-28777 Integrate native anchor for block controls
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

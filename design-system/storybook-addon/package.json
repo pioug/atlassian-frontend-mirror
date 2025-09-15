@@ -28,15 +28,24 @@
 		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		".": "./src/index.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./preview": "./preview.js",
-		"./preset": "./preset.js",
-		"./manager": "./manager.js",
-		"./package.json": "./package.json"
+		"./preview": {
+			"publish": null,
+			"default": "./preview.js"
+		},
+		"./preset": {
+			"publish": null,
+			"default": "./preset.js"
+		},
+		"./manager": {
+			"publish": null,
+			"default": "./manager.js"
+		},
+		"./package.json": {
+			"publish": null,
+			"default": "./package.json"
+		}
 	},
 	"dependencies": {
 		"@atlaskit/tokens": "workspace:^",

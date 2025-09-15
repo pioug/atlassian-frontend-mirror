@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/icon/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-passionfruit/tsconfig.json"
 		}
 	]

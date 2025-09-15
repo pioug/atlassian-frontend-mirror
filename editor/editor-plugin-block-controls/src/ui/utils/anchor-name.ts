@@ -1,4 +1,5 @@
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { findNodeDecs } from '../../pm-plugins/decorations-anchor';
 import { key } from '../../pm-plugins/main';
@@ -15,6 +16,9 @@ type RefreshAnchorNameParams = {
  */
 export const refreshAnchorName = ({ getPos, view, anchorName }: RefreshAnchorNameParams) => {
 	let newAnchorName = anchorName || '';
+	if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+		return newAnchorName;
+	}
 	const pos = getPos();
 
 	if (anchorName || pos === undefined) {

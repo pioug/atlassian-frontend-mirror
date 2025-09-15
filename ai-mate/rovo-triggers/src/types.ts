@@ -303,24 +303,6 @@ export type DashboardInsightsActionsPayloadData =
 	  }
 	| undefined;
 
-type ChildIssues = {
-	summary: string;
-	description: string;
-	issueType: string;
-};
-
-export type JiraIssueWorkBreakdownAction = {
-	operationType: 'UPDATE'; // can extend to have more types here
-	childIssues: ChildIssues[];
-};
-
-export type JiraIssueWorkBreakdownActionPayload = PayloadCore<
-	'jira-issue-work-breakdown-actions',
-	{
-		operations: JiraIssueWorkBreakdownAction;
-	}
->;
-
 export type SetChatContextPayload = PayloadCore<'set-message-context', ChatContextPayload>;
 
 export type Payload =
@@ -340,7 +322,6 @@ export type Payload =
 	| ForgeAppAuthFailure
 	| JiraWorkflowWizardActionsPayload
 	| InsertPromptPayload
-	| JiraIssueWorkBreakdownActionPayload
 	| DashboardInsightsActionsPayload
 	| SetChatContextPayload
 	| ChatCallToActionClickedPayload

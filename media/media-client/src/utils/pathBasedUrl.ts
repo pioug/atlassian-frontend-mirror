@@ -15,7 +15,7 @@ export function mapToPathBasedUrl(url: string) {
 
 		// in this case we are most likely in SSR / a non browser environment so just return a relative URL
 		if (!location) {
-			return getRelativeUrl(url);
+			return getRelativeUrl(parsedUrl.toString());
 		}
 
 		parsedUrl.host = location.host;

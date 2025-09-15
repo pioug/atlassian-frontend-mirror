@@ -150,7 +150,7 @@ export const createDeletedContentDecoration = ({
 						targetNode = node;
 						dom.append(lineBreak);
 						const wrapper = createWrapperWithStrikethrough();
-						wrapper.append(childNodeView.dom);
+						wrapper.append(childNodeView);
 						dom.append(wrapper);
 					} else {
 						// Fallback to serializing the individual child node
@@ -175,7 +175,7 @@ export const createDeletedContentDecoration = ({
 			if (handleMultipleChildNodes(node)) {
 				return;
 			}
-			targetNode = node.content.content[0];
+			targetNode = node;
 			fallbackSerialization = () => serializer.serializeFragment(node.content);
 		} else if (isLast && slice.content.childCount === 2) {
 			if (handleMultipleChildNodes(node)) {
@@ -200,7 +200,7 @@ export const createDeletedContentDecoration = ({
 			if (handleMultipleChildNodes(node)) {
 				return;
 			}
-			targetNode = node.content.content[0] || node;
+			targetNode = node;
 			fallbackSerialization = () => serializer.serializeNode(node);
 		}
 
@@ -208,9 +208,13 @@ export const createDeletedContentDecoration = ({
 		const nodeView = serializer.tryCreateNodeView(targetNode);
 
 		if (nodeView) {
-			const wrapper = createWrapperWithStrikethrough();
-			wrapper.append(nodeView.dom);
-			dom.append(wrapper);
+			if (targetNode.isInline) {
+				const wrapper = createWrapperWithStrikethrough();
+				wrapper.append(nodeView);
+				dom.append(wrapper);
+			} else {
+				dom.append(nodeView);
+			}
 		} else if (
 			nodeViewSerializer
 				.getFilteredNodeViewBlocklist(['paragraph', 'tableRow'])

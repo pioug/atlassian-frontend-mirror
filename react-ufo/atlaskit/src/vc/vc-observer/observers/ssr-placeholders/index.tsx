@@ -162,7 +162,7 @@ export class SSRPlaceholderHandlers {
 		return element;
 	}
 
-	// NOTE - for use when the FG `platform_ufo_ssr_placeholder_resolution_ttvc_v3` is disabled
+	// Validates placeholder match using asynchronous observation and resolves with the result
 	checkIfExistedAndSizeMatching(el: HTMLElement) {
 		el = this.findNearestPlaceholderContainerIfIgnored(el);
 		const id = this.getPlaceholderId(el);
@@ -177,7 +177,7 @@ export class SSRPlaceholderHandlers {
 		});
 	}
 
-	// NOTE - for use when the FG `platform_ufo_ssr_placeholder_resolution_ttvc_v3` is enabled
+	// Validates placeholder match synchronously using stored SSR dimensions and current bounds
 	checkIfExistedAndSizeMatchingV3(el: HTMLElement) {
 		el = this.findNearestPlaceholderContainerIfIgnored(el);
 		const id = this.getPlaceholderId(el);

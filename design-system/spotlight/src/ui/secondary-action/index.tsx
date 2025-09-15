@@ -1,6 +1,10 @@
-import React, { forwardRef, type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { forwardRef, type ReactNode } from 'react';
 
-import { cssMap } from '@atlaskit/css';
+import { cssMap, jsx } from '@atlaskit/css';
 import { Pressable, type PressableProps, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

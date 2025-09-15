@@ -355,6 +355,11 @@ export const aiConfigItemMessages = defineMessages({
 		defaultMessage: 'Write with AI or select from below',
 		description: 'Placeholder text in the prompt input guiding user interaction.',
 	},
+	freeGenerateRovoPromptHint: {
+		id: 'fabric.editor.ai.config.item.generateContent.rovoPromptHint',
+		defaultMessage: 'Write with Rovo or select from below',
+		description: 'Placeholder text in the prompt input guiding user interaction.',
+	},
 
 	// Free generate disabled messages
 	freeGenerateDisabledPromptHint: {

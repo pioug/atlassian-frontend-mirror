@@ -130,23 +130,6 @@
 			]
 		}
 	},
-	"af:exports": {
-		"./classNames": "./src/classNames.ts",
-		"./media-type-icon": "./src/media-type-icon.tsx",
-		"./mime-type-icon": "./src/mime-type-icon.tsx",
-		"./truncateText": "./src/truncateText.tsx",
-		"./messages": "./src/messages.ts",
-		"./modalSpinner": "./src/modalSpinner.tsx",
-		"./browser": "./src/browser.tsx",
-		"./codeViewer": "./src/codeViewer.ts",
-		"./util": "./src/util.ts",
-		"./errorIcon": "./src/errorIcon.tsx",
-		"./types": "./src/types.ts",
-		"./formatDate": "./src/formatDate.ts",
-		"./locales": "./src/locales.ts",
-		"./abuseModal": "./src/abuseModal/index.ts",
-		".": "./src/index.ts"
-	},
 	"exports": {
 		"./classNames": "./src/classNames.ts",
 		"./media-type-icon": "./src/media-type-icon.tsx",
@@ -162,7 +145,10 @@
 		"./formatDate": "./src/formatDate.ts",
 		"./locales": "./src/locales.ts",
 		"./abuseModal": "./src/abuseModal/index.ts",
-		"./i18n/*": "./src/i18n/*.ts",
+		"./i18n/*": {
+			"publish": null,
+			"default": "./src/i18n/*.ts"
+		},
 		".": "./src/index.ts"
 	}
 }

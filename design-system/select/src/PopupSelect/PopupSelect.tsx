@@ -152,6 +152,10 @@ export interface PopupSelectProps<
 	 * The `testId` prop appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests. It will be set on the menu element when defined: `{testId}--menu`
 	 */
 	testId?: string;
+	/**
+	 * If `true`, the input value will be kept when an option is selected. The default is `false`.
+	 */
+	shouldKeepInputOnSelect?: boolean;
 }
 
 interface State<Modifiers = string> {

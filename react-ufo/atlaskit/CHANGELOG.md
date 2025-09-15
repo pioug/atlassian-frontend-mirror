@@ -1,5 +1,25 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.7.3
+
+### Patch Changes
+
+- [`0a9ee11a008bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a9ee11a008bd) -
+  FG cleanup - platform_ufo_abort_timestamp_by_revision
+- [`8127ae8dc5d5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8127ae8dc5d5b) -
+  FG cleanup - ufo_disable_aborted_new_interaction_on_confluence
+- [`53e3c6f5e41ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53e3c6f5e41ac) -
+  Check vc clean before sending custom.interaction-extra-metrics
+
+## 4.7.2
+
+### Patch Changes
+
+- [`d1ac995997b02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1ac995997b02) -
+  FG cleanup - platform_ufo_ssr_placeholder_resolution_ttvc_v3
+- [`c7980ce6abb45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7980ce6abb45) -
+  FG cleanup - platform_ufo_serialise_ttvc_v3_debug_data
+
 ## 4.7.1
 
 ### Patch Changes

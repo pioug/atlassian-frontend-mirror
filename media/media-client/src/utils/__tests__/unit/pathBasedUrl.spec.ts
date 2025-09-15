@@ -100,7 +100,7 @@ describe('pathBasedUrl', () => {
 
 				it('should return relative URL when document is undefined', () => {
 					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-					expect(mapToPathBasedUrl(originalUrl)).toBe('/path/to/resource');
+					expect(mapToPathBasedUrl(originalUrl)).toBe('/media-api/path/to/resource');
 				});
 			});
 
@@ -111,7 +111,7 @@ describe('pathBasedUrl', () => {
 
 				it('should return relative URL when document.location is undefined', () => {
 					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-					expect(mapToPathBasedUrl(originalUrl)).toBe('/path/to/resource');
+					expect(mapToPathBasedUrl(originalUrl)).toBe('/media-api/path/to/resource');
 				});
 			});
 

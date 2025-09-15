@@ -1,12 +1,13 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
-	NESTED_DEPTH,
 	getNodeAnchor,
 	getNodeTypeWithLevel,
+	NESTED_DEPTH,
 	TYPE_NODE_DEC,
 } from './decorations-common';
 
@@ -19,10 +20,10 @@ const IGNORE_NODES = [
 	'layoutColumn',
 ];
 
-const IGNORE_NODES_NEXT = ['tableCell', 'tableHeader', 'tableRow', 'listItem', 'caption'];
+export const IGNORE_NODES_NEXT = ['tableCell', 'tableHeader', 'tableRow', 'listItem', 'caption'];
 
 const IGNORE_NODE_DESCENDANTS = ['listItem', 'taskList', 'decisionList', 'mediaSingle'];
-const IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT = ['listItem', 'taskList', 'decisionList'];
+export const IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT = ['listItem', 'taskList', 'decisionList'];
 
 export const shouldDescendIntoNode = (node: PMNode) => {
 	// Optimisation to avoid drawing node decorations for empty table cells
@@ -155,6 +156,10 @@ export const findNodeDecs = (
 
 export const nodeDecorations = (newState: EditorState, from?: number, to?: number) => {
 	const decs: Decoration[] = [];
+
+	if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+		return [];
+	}
 
 	const docFrom = from === undefined || from < 0 ? 0 : from;
 	const docTo = to === undefined || to > newState.doc.nodeSize - 2 ? newState.doc.nodeSize - 2 : to;

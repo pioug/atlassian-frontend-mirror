@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 3.1.5
+
+### Patch Changes
+
+- [`6087f73c2a306`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6087f73c2a306) -
+  [ux] ED-29309 Insert unsupported content from lists when transformed
+- Updated dependencies
+
 ## 3.1.4
 
 ### Patch Changes

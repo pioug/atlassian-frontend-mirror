@@ -8,6 +8,7 @@ import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/m
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { type Decoration } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
@@ -370,7 +371,11 @@ export const getActiveDropTargetDecorations = (
 		}
 	}
 
-	defaultActiveAnchorTracker.emit(getNodeAnchor(rootNodeWithPos.node));
+	defaultActiveAnchorTracker.emit(
+		expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+			? api.core.actions.getAnchorIdForNode(rootNodeWithPos.node, rootNodeWithPos.pos) || ''
+			: getNodeAnchor(rootNodeWithPos.node),
+	);
 
 	return { decsToAdd, decsToRemove };
 };

@@ -52,6 +52,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
+import { getNodeTypeWithLevel } from '../pm-plugins/decorations-common';
 import { key } from '../pm-plugins/main';
 import { getMultiSelectAnalyticsAttributes } from '../pm-plugins/utils/analytics';
 import { type AnchorRectCache } from '../pm-plugins/utils/anchor-utils';
@@ -85,6 +86,7 @@ import {
 import type { DragPreviewContent } from './drag-preview';
 import { dragPreview } from './drag-preview';
 import { refreshAnchorName } from './utils/anchor-name';
+import { getAnchorAttrName } from './utils/dom-attr-name';
 import { VisibilityContainer } from './visibility-container';
 
 const iconWrapperStyles = xcss({
@@ -406,7 +408,7 @@ export const DragHandle = ({
 		// blockCard/datasource width is rendered correctly after this decoraton does. We need to observe for changes.
 		if (nodeType === 'blockCard') {
 			const dom: HTMLElement | null = view.dom.querySelector(
-				`[data-drag-handler-anchor-name="${anchorName}"]`,
+				`[${getAnchorAttrName()}="${anchorName}"]`,
 			);
 			const container = dom?.querySelector('.datasourceView-content-inner-wrap');
 			if (container) {
@@ -650,7 +652,7 @@ export const DragHandle = ({
 					},
 					render: ({ container }) => {
 						const dom: HTMLElement | null = view.dom.querySelector(
-							`[data-drag-handler-anchor-name="${anchorName}"]`,
+							`[${getAnchorAttrName()}="${anchorName}"]`,
 						);
 
 						if (!dom) {
@@ -734,7 +736,9 @@ export const DragHandle = ({
 		}
 
 		const pos = getPos();
-		const $pos = pos && view.state.doc.resolve(pos);
+		const $pos = expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+			? typeof pos === 'number' && view.state.doc.resolve(pos)
+			: pos && view.state.doc.resolve(pos);
 		const parentPos = $pos && $pos.depth ? $pos.before() : undefined;
 		const node = parentPos !== undefined ? view.state.doc.nodeAt(parentPos) : undefined;
 		const parentNodeType = node?.type.name;
@@ -747,7 +751,7 @@ export const DragHandle = ({
 			: anchorName;
 
 		const dom: HTMLElement | null = view.dom.querySelector(
-			`[data-drag-handler-anchor-name="${safeAnchorName}"]`,
+			`[${getAnchorAttrName()}="${safeAnchorName}"]`,
 		);
 
 		const hasResizer = nodeType === 'table' || nodeType === 'mediaSingle';
@@ -794,7 +798,11 @@ export const DragHandle = ({
 				top:
 					editorExperiment('advanced_layouts', true) && isLayoutColumn
 						? `calc(anchor(${safeAnchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
-						: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(nodeType)}px)`,
+						: `calc(anchor(${safeAnchorName} start) + ${
+								expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+									? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
+									: nodeType
+							}px)`,
 
 				...bottom,
 			};
@@ -830,7 +838,9 @@ export const DragHandle = ({
 
 	const calculatePositionOld = useCallback(() => {
 		const pos = getPos();
-		const $pos = pos && view.state.doc.resolve(pos);
+		const $pos = expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+			? typeof pos === 'number' && view.state.doc.resolve(pos)
+			: pos && view.state.doc.resolve(pos);
 		const parentPos = $pos && $pos.depth ? $pos.before() : undefined;
 		const node = parentPos !== undefined ? view.state.doc.nodeAt(parentPos) : undefined;
 		const parentNodeType = node?.type.name;
@@ -843,7 +853,7 @@ export const DragHandle = ({
 			: anchorName;
 
 		const dom: HTMLElement | null = view.dom.querySelector(
-			`[data-drag-handler-anchor-name="${safeAnchorName}"]`,
+			`[${getAnchorAttrName()}="${safeAnchorName}"]`,
 		);
 
 		const hasResizer = nodeType === 'table' || nodeType === 'mediaSingle';
@@ -889,7 +899,11 @@ export const DragHandle = ({
 				top:
 					editorExperiment('advanced_layouts', true) && isLayoutColumn
 						? `calc(anchor(${safeAnchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
-						: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(nodeType)}px)`,
+						: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(
+								expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+									? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
+									: nodeType,
+							)}px)`,
 
 				...bottom,
 			};
@@ -932,7 +946,7 @@ export const DragHandle = ({
 
 		if (nodeType === 'extension' || nodeType === 'embedCard') {
 			const dom: HTMLElement | null = view.dom.querySelector(
-				`[data-drag-handler-anchor-name="${anchorName}"]`,
+				`[${getAnchorAttrName()}="${anchorName}"]`,
 			);
 			if (!dom) {
 				return;
@@ -963,7 +977,7 @@ export const DragHandle = ({
 
 		if (nodeType === 'extension' || nodeType === 'embedCard') {
 			const dom: HTMLElement | null = view.dom.querySelector(
-				`[data-drag-handler-anchor-name="${anchorName}"]`,
+				`[${getAnchorAttrName()}="${anchorName}"]`,
 			);
 			if (!dom) {
 				return;

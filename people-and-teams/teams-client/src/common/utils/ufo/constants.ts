@@ -72,6 +72,7 @@ const TeamsClientExperienceKeyList = [
 	'getAssignedTeams',
 	'setTeamSiteAssignmentPermission',
 	'getUnassignedTeams',
+	'getTeamSiteAssignmentOrgDetails',
 ] as const;
 export type TeamsClientExperienceKeys = (typeof TeamsClientExperienceKeyList)[number];
 

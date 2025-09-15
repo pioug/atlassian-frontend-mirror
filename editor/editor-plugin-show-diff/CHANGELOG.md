@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 2.1.1
+
+### Patch Changes
+
+- [`c6b6ef91296ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6b6ef91296ca) -
+  [ux] Better support for block nodes for deleted diffs.
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

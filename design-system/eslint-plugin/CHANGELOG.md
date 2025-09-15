@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.21.0
+
+### Minor Changes
+
+- [`8a95abe487d79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a95abe487d79) - -
+  Added `use-tokens-shape` rule to enforce borderRadius and borderWidth values.
+  - Updated `ensure-design-token-usage` rule to apply correct shape tokens. Note this rule should
+    not be used for shape - instead use the `use-tokens-shape` rule instead.
+
 ## 13.20.1
 
 ### Patch Changes

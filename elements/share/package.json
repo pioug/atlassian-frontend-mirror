@@ -111,16 +111,14 @@
 			]
 		}
 	},
-	"af:exports": {
-		".": "./src/index.ts",
-		"./clients": "./src/clients/index.ts",
-		"./copy-link-button": "./src/components/CopyLinkButton.tsx"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./clients": "./src/clients/index.ts",
 		"./copy-link-button": "./src/components/CopyLinkButton.tsx",
-		"./i18n/*": "./src/i18n/*.ts"
+		"./i18n/*": {
+			"publish": null,
+			"default": "./src/i18n/*.ts"
+		}
 	},
 	"platform-feature-flags": {
 		"enable-appropriate-reading-order-in-share-dialog": {

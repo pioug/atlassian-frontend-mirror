@@ -102,21 +102,14 @@
 		"fabric",
 		"ui"
 	],
-	"af:exports": {
-		".": "./src/index.ts",
-		"./admin": "./src/admin.ts",
-		"./element": "./src/element.ts",
-		"./picker": "./src/picker.ts",
-		"./resource": "./src/resource.ts",
-		"./typeahead": "./src/typeahead.ts",
-		"./types": "./src/types.ts",
-		"./utils": "./src/utils.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./admin": "./src/admin.ts",
 		"./element": "./src/element.ts",
-		"./i18n/*": "./src/i18n/*.ts",
+		"./i18n/*": {
+			"publish": null,
+			"default": "./src/i18n/*.ts"
+		},
 		"./picker": "./src/picker.ts",
 		"./resource": "./src/resource.ts",
 		"./typeahead": "./src/typeahead.ts",

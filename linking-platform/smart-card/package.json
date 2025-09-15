@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "41.0.2",
+	"version": "41.0.3",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -158,21 +158,16 @@
 			]
 		}
 	},
-	"af:exports": {
-		"./ssr": "./src/ssr.tsx",
-		"./types": "./src/types.ts",
-		"./hooks": "./src/hooks.ts",
-		"./hover-card": "./src/hoverCard.ts",
-		"./link-url": "./src/linkUrl.ts",
-		".": "./src/index.ts"
-	},
 	"exports": {
 		"./ssr": "./src/ssr.tsx",
 		"./types": "./src/types.ts",
 		"./hooks": "./src/hooks.ts",
 		"./hover-card": "./src/hoverCard.ts",
 		"./link-url": "./src/linkUrl.ts",
-		"./i18n/*": "./src/i18n/*.ts",
+		"./i18n/*": {
+			"publish": null,
+			"default": "./src/i18n/*.ts"
+		},
 		".": "./src/index.ts"
 	},
 	"platform-feature-flags": {
@@ -222,9 +217,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_inline_card_selected_state_fix": {
-			"type": "boolean"
-		},
-		"navx-1304-related-links-remove-false-autofocus": {
 			"type": "boolean"
 		},
 		"platform_smartlink_3pclick_analytics": {

@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 3.6.0
+
+### Minor Changes
+
+- [`153fad932190f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/153fad932190f) -
+  [ux] Added a new prop shouldKeepInputOnSelect to the select component to prevent clearing the
+  input when isMulti is true
+
 ## 3.5.4
 
 ### Patch Changes

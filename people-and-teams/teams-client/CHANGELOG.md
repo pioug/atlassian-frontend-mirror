@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.15.0
+
+### Minor Changes
+
+- [`1479c40dd71d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1479c40dd71d7) -
+  Added getTeamSiteAssignmentOrgDetails
+
 ## 4.14.0
 
 ### Minor Changes

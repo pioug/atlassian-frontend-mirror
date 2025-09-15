@@ -1,3 +1,4 @@
+import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
 import Fuse from 'fuse.js';
 import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
@@ -73,7 +74,7 @@ export const listSearchIconsTool = {
 	inputSchema: zodToJsonSchema(inputSchema),
 };
 
-export const searchIconsTool = async (params: z.infer<typeof inputSchema>) => {
+export const searchIconsTool = async (params: z.infer<typeof inputSchema>): Promise<CallToolResult> => {
 	const { terms, limit = 1, exactName = false } = params;
 	const searchTerms = terms.filter(Boolean).map(cleanQuery);
 
@@ -172,7 +173,12 @@ export const searchIconsTool = async (params: z.infer<typeof inputSchema>) => {
 		};
 	}
 
-	const matchedIcons = results.map((result) => {
+	// Remove duplicates based on componentName
+	const uniqueResults = results.filter((result, index, arr) => {
+		return arr.findIndex(r => r.item.componentName === result.item.componentName) === index;
+	});
+
+	const matchedIcons = uniqueResults.map((result) => {
 		return {
 			componentName: result.item.componentName,
 			package: result.item.package,

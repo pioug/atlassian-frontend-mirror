@@ -15,6 +15,7 @@ import { layoutBreakpointWidth } from '@atlaskit/editor-shared-styles';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { B200 } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -22,6 +23,8 @@ import { getNodeAnchor } from '../pm-plugins/decorations-common';
 import { useActiveAnchorTracker } from '../pm-plugins/utils/active-anchor-tracker';
 import { type AnchorRectCache, isAnchorSupported } from '../pm-plugins/utils/anchor-utils';
 import { getInsertLayoutStep, updateSelection } from '../pm-plugins/utils/update-selection';
+
+import { getAnchorAttrName } from './utils/dom-attr-name';
 
 // 8px gap + 16px on left and right
 const DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH = 40;
@@ -62,9 +65,8 @@ export const DropTargetLayout = (
 
 	const anchorName = getNodeAnchor(parent);
 
-	const nextNodeAnchorName = ref.current?.parentElement?.nextElementSibling?.getAttribute(
-		'data-drag-handler-anchor-name',
-	);
+	const nextNodeAnchorName =
+		ref.current?.parentElement?.nextElementSibling?.getAttribute(getAnchorAttrName());
 	let height = '100%';
 	if (nextNodeAnchorName) {
 		if (isAnchorSupported()) {
@@ -141,7 +143,8 @@ export const DropTargetLayout = (
 			{isDraggedOver ? (
 				<DropIndicator edge="right" gap={`-${DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH}px`} />
 			) : (
-				isActiveAnchor && (
+				(isActiveAnchor ||
+					expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) && (
 					<div
 						data-testid="block-ctrl-drop-hint"
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage

@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 109.7.0
+
+### Minor Changes
+
+- [`4fb6d9ad07d59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fb6d9ad07d59) -
+  ED-28777 Integrate native anchor for block controls
+- [`6087f73c2a306`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6087f73c2a306) -
+  [ux] ED-29309 Insert unsupported content from lists when transformed
+
+### Patch Changes
+
+- [`53924675c57a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53924675c57a7) -
+  Updated all references to AI and the AI icon to use Rovo and the new Rovo Icon
+- Updated dependencies
+
 ## 109.6.0
 
 ### Minor Changes

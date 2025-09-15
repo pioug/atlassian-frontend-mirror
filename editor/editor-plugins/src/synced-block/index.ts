@@ -2,4 +2,9 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { syncedBlockPlugin } from '@atlaskit/editor-plugin-synced-block';
-export type { SyncedBlockPlugin } from '@atlaskit/editor-plugin-synced-block';
+export type {
+	SyncedBlockPlugin,
+	SyncedBlockPluginOptions,
+	SyncedBlockEditorProps,
+	SyncedBlockRendererProps,
+} from '@atlaskit/editor-plugin-synced-block';

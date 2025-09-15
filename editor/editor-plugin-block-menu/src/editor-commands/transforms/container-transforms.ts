@@ -344,7 +344,7 @@ const splitContentForCodeBlock = (
 	const splits: PMNode[] = [];
 	const children = sourceNode.content.content;
 	let currentTextContent: string[] = [];
-
+	const invalidContent: PMNode[] = [];
 	// Handle expand title - add as first text if source is expand with title
 	if (sourceNode.type.name === 'expand' && sourceNode.attrs?.title) {
 		currentTextContent.push(sourceNode.attrs.title);
@@ -372,7 +372,7 @@ const splitContentForCodeBlock = (
 				currentTextContent.push(childNode.textContent);
 			} else if (childNode.isTextblock) {
 				// Extract text from text blocks (paragraphs, headings, etc.)
-				const text = getInlineNodeTextContent(Fragment.from(childNode));
+				const text = getInlineNodeTextContent(Fragment.from(childNode)).inlineTextContent;
 				if (text.trim()) {
 					currentTextContent.push(text);
 				}
@@ -389,11 +389,15 @@ const splitContentForCodeBlock = (
 
 			const listItems = findChildrenByType(childNode, listItemType);
 			listItems.forEach((listItem) => {
-				const inlineContent = getInlineNodeTextContent(
-					isTaskList ? Fragment.from(listItem.node) : listItem.node.content,
-				);
-				if (inlineContent.trim()) {
-					currentTextContent.push(inlineContent);
+				const content = isTaskList ? Fragment.from(listItem.node) : listItem.node.content;
+
+				const inlineContent = getInlineNodeTextContent(content);
+
+				if (inlineContent.inlineTextContent.trim()) {
+					currentTextContent.push(inlineContent.inlineTextContent);
+				}
+				if (inlineContent.invalidContent.length > 0) {
+					invalidContent.push(...inlineContent.invalidContent);
 				}
 			});
 		} else {
@@ -408,7 +412,7 @@ const splitContentForCodeBlock = (
 	// Flush any remaining text content as a codeBlock
 	flushCurrentCodeBlock();
 
-	return splits;
+	return [...splits, ...invalidContent];
 };
 
 /**

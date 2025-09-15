@@ -2864,12 +2864,10 @@ describe('vc-observer', () => {
 			});
 
 			expect(result).toEqual({
-				'vc:state': false,
-				'vc:abort:reason': 'resize',
-				'vc:abort:timestamp': 0,
 				'vc:rev': [
 					{
 						abortReason: 'resize',
+						abortTimestamp: 0,
 						clean: false,
 						'metric:vc90': null,
 						revision: 'fy25.02',
@@ -2901,12 +2899,10 @@ describe('vc-observer', () => {
 			});
 
 			expect(result).toEqual({
-				'vc:state': false,
-				'vc:abort:reason': 'keypress',
-				'vc:abort:timestamp': 0,
 				'vc:rev': [
 					{
 						abortReason: 'keypress',
+						abortTimestamp: 0,
 						clean: false,
 						'metric:vc90': null,
 						revision: 'fy25.02',
@@ -2938,17 +2934,15 @@ describe('vc-observer', () => {
 			});
 
 			expect(result).toEqual({
-				'vc:abort:reason': 'scroll',
-				'vc:abort:timestamp': 0,
 				'vc:rev': [
 					{
 						abortReason: 'scroll',
+						abortTimestamp: 0,
 						clean: false,
 						'metric:vc90': null,
 						revision: 'fy25.02',
 					},
 				],
-				'vc:state': false,
 			});
 
 			expect(mockUnbindFn).toHaveBeenCalled();
@@ -2980,12 +2974,10 @@ describe('vc-observer', () => {
 				experienceKey: 'test',
 			}),
 		).toEqual({
-			'vc:state': false,
-			'vc:abort:reason': 'not-supported',
-			'vc:abort:timestamp': 0,
 			'vc:rev': [
 				{
 					abortReason: 'not-supported',
+					abortTimestamp: 0,
 					clean: false,
 					'metric:vc90': null,
 					revision: 'fy25.02',

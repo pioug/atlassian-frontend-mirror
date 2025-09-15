@@ -1,6 +1,5 @@
 import { v4 as createUUID } from 'uuid';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import coinflip from '../coinflip';
@@ -928,24 +927,6 @@ function callCancelCallbacks(interaction: InteractionMetrics) {
 }
 
 export function abort(interactionId: string, abortReason: AbortReasonType) {
-	const activeInteraction = getActiveInteraction();
-
-	if (
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		abortReason === 'new_interaction' &&
-		fg('ufo_targeting_confluence_hello') &&
-		// list of enabled experiences managed in switcheroo/statsig
-		// ignoring as per https://atlassian.slack.com/archives/C026LTWFZ47/p1752798490250649
-		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-		FeatureGates.getExperimentValue(
-			'ufo_disable_aborted_new_interaction_on_confluence',
-			'enabledExperiences',
-			[] as string[],
-		)?.includes(activeInteraction?.ufoName || '')
-	) {
-		return;
-	}
-
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		callCancelCallbacks(interaction);
@@ -966,22 +947,6 @@ export function abort(interactionId: string, abortReason: AbortReasonType) {
 }
 
 export function abortByNewInteraction(interactionId: string, interactionName: string) {
-	const activeInteraction = getActiveInteraction();
-	if (
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		fg('ufo_targeting_confluence_hello') &&
-		// list of enabled experiences managed in switcheroo/statsig
-		// ignoring as per https://atlassian.slack.com/archives/C026LTWFZ47/p1752798490250649
-		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-		FeatureGates.getExperimentValue(
-			'ufo_disable_aborted_new_interaction_on_confluence',
-			'enabledExperiences',
-			[] as string[],
-		)?.includes(activeInteraction?.ufoName || '')
-	) {
-		return;
-	}
-
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		callCancelCallbacks(interaction);
@@ -1003,24 +968,6 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 }
 
 export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?: string) {
-	const activeInteraction = getActiveInteraction();
-
-	if (
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		abortReason === 'new_interaction' &&
-		fg('ufo_targeting_confluence_hello') &&
-		// list of enabled experiences managed in switcheroo/statsig
-		// ignoring as per https://atlassian.slack.com/archives/C026LTWFZ47/p1752798490250649
-		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-		FeatureGates.getExperimentValue(
-			'ufo_disable_aborted_new_interaction_on_confluence',
-			'enabledExperiences',
-			[] as string[],
-		)?.includes(activeInteraction?.ufoName || '')
-	) {
-		return;
-	}
-
 	interactions.forEach((interaction, interactionId) => {
 		const noMoreHolds = interaction.holdActive.size === 0;
 		if (!noMoreHolds) {

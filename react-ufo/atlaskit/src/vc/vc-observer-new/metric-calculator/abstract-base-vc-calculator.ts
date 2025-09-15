@@ -177,13 +177,11 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		let enhancedVcLogs: EnhancedVcLogEntry[] = vcLogs
 			? vcLogs.map((log) => ({
 					...log,
-					...(fg('platform_ufo_serialise_ttvc_v3_debug_data') && {
-						entries: log.entries.map((entry) => ({
-							...entry,
-							rect: entry.rect?.toJSON(),
-							previousRect: entry.previousRect?.toJSON(),
-						})),
-					}),
+					entries: log.entries.map((entry) => ({
+						...entry,
+						rect: entry.rect?.toJSON(),
+						previousRect: entry.previousRect?.toJSON(),
+					})),
 					viewportPercentage: log.viewportPercentage as number | null,
 				}))
 			: [];
@@ -246,10 +244,8 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 
 					ignoredEntriesByTime.get(timestamp)?.push({
 						...viewportData,
-						...(fg('platform_ufo_serialise_ttvc_v3_debug_data') && {
-							rect: viewportData.rect?.toJSON(),
-							previousRect: viewportData.previousRect?.toJSON(),
-						}),
+						rect: viewportData.rect?.toJSON(),
+						previousRect: viewportData.previousRect?.toJSON(),
 						ignoreReason: (viewportData.visible
 							? viewportData.type
 							: 'not-visible') as VCIgnoreReason,
@@ -292,7 +288,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 					isClean: isVCClean && !activeInteraction?.abortReason && !isBackgrounded,
 					abortReason: isBackgrounded
 						? 'browser_backgrounded'
-						: dirtyReason ?? activeInteraction?.abortReason,
+						: (dirtyReason ?? activeInteraction?.abortReason),
 					vcLogs: enhancedVcLogs,
 					interactionId,
 				};
@@ -372,11 +368,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 				'metric:vc90': null,
 				clean: false,
 				abortReason: dirtyReason,
-				...(fg('platform_ufo_abort_timestamp_by_revision')
-					? {
-							abortTimestamp: getVCCleanStatusResult.abortTimestamp,
-						}
-					: {}),
+				abortTimestamp: getVCCleanStatusResult.abortTimestamp,
 			};
 		}
 

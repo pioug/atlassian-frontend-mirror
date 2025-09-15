@@ -25,6 +25,7 @@ import { token } from '@atlaskit/tokens';
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
 import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP } from './consts';
+import { NODE_ANCHOR_ATTR_NAME } from './utils/dom-attr-name';
 
 /**
  * This anchor element selector disregards anchors that are solely utilized for size measurements,
@@ -32,6 +33,7 @@ import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP } from './consts';
  */
 const dragHandlerAnchorSelector =
 	'[data-drag-handler-anchor-name]:not([data-drag-handler-node-type="tableRow"], [data-drag-handler-node-type="media"])';
+const dragHandlerAnchorSelectorNext = `[${NODE_ANCHOR_ATTR_NAME}]:not([data-prosemirror-node-name="tableRow"], [data-prosemirror-node-name="tableCell"], [data-prosemirror-node-name="media"])`;
 
 const gutterPaddingWidth = () =>
 	editorExperiment('platform_editor_controls', 'variant1')
@@ -123,6 +125,90 @@ const extendedHoverZone = () =>
 		},
 	});
 
+const extendedHoverZoneNext = () =>
+	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`.block-ctrl-drag-preview ${dragHandlerAnchorSelectorNext}::after`]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			display: 'none !important',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+			[`&& ${dragHandlerAnchorSelectorNext}::after`]: {
+				content: '""',
+				position: 'absolute',
+				top: 0,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				left: `-${DRAG_HANDLE_MAX_WIDTH_PLUS_GAP}px`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				width: `${DRAG_HANDLE_MAX_WIDTH_PLUS_GAP}px`,
+				height: '100%',
+				cursor: 'default',
+				zIndex: 1,
+			},
+
+			// Top level depth hover zone should extend to gutter padding area
+			// we select the top level by using NOT nested anchor selector
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`&& ${dragHandlerAnchorSelectorNext}:not([${NODE_ANCHOR_ATTR_NAME}] [${NODE_ANCHOR_ATTR_NAME}])::after`]:
+				{
+					content: '""',
+					position: 'absolute',
+					top: 0,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+					left: gutterPaddingLeft(),
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+					width: gutterPaddingWidth(),
+					height: '100%',
+					cursor: 'default',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+					zIndex: -1,
+				},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+			[`&& :is(.pm-table-cell-content-wrap, .pm-table-header-content-wrap) > ${dragHandlerAnchorSelectorNext}::after`]:
+				{
+					content: '""',
+					position: 'absolute',
+					top: 0,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					left: 0,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					width: 0,
+					height: '100%',
+					cursor: 'default',
+					zIndex: 1,
+				},
+
+			// hover zone for layout column should be placed near the top of the column (where drag handle is)
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&& [data-drag-handler-anchor-name][data-layout-column]::after': {
+				content: '""',
+				position: 'absolute',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				top: `${-DRAG_HANDLE_WIDTH / 2}px`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				left: 0,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				width: '100%',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				height: `${DRAG_HANDLE_WIDTH}px`,
+				cursor: 'default',
+				zIndex: 1,
+			},
+		},
+		// TODO: ED-23995 - this style override needs to be moved to the Rule styles after FF cleanup packages/editor/editor-common/src/styles/shared/rule.ts
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'hr[data-drag-handler-anchor-name]': {
+			overflow: 'visible',
+		},
+		//Hide pseudo element at top depth level. Leave for nested depths to prevent mouseover loop.
+		//eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-blocks-drag-handle-container="true"] + [data-drag-handler-anchor-depth="0"]::after': {
+			display: 'none',
+		},
+	});
+
 const extendHoverZoneReduced = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
@@ -139,11 +225,38 @@ const extendHoverZoneReduced = css({
 	},
 });
 
+const extendHoverZoneReducedNext = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`> ${dragHandlerAnchorSelectorNext}::after`]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				left: `-${akEditorGutterPaddingReduced}px`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				width: `${akEditorGutterPaddingReduced}px`,
+			},
+		},
+	},
+});
+
 const extendedDragZone = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 		[`&& [data-drag-handler-anchor-depth="0"]${dragHandlerAnchorSelector}::after`]: {
+			width: 'var(--ak-editor-max-container-width)',
+			left: `calc((100% - var(--ak-editor-max-container-width))/2)`,
+		},
+	},
+});
+
+const extendedDragZoneNext = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`&& > ${dragHandlerAnchorSelectorNext}::after`]: {
 			width: 'var(--ak-editor-max-container-width)',
 			left: `calc((100% - var(--ak-editor-max-container-width))/2)`,
 		},
@@ -379,11 +492,38 @@ const withRelativePosStyle = css({
 	},
 });
 
+const withRelativePosStyleNext = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`&& ${dragHandlerAnchorSelectorNext}`]: {
+			position: 'relative',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`&& ${dragHandlerAnchorSelectorNext}:has(> .ProseMirror-trailingBreak:only-child)::before`]: {
+			// Workaround to force safari to show the cursor on blank lines even when there is no content
+			// See: CONFCLOUD-80210
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			content: `"${ZERO_WIDTH_SPACE}"`,
+		},
+	},
+});
+
 const withAnchorNameZindexStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&& [data-drag-handler-anchor-depth="0"][data-drag-handler-anchor-name]': {
+			zIndex: 1,
+		},
+	},
+});
+
+const withAnchorNameZindexStyleNext = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'> [data-drag-handler-anchor-name]': {
 			zIndex: 1,
 		},
 	},
@@ -422,10 +562,17 @@ export const GlobalStylesWrapper = ({
 			styles={[
 				globalStyles(),
 				globalDnDStyle,
-				extendedHoverZone(),
-				isDragging && extendedDragZone,
+				expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+					? extendedHoverZoneNext()
+					: extendedHoverZone(),
+				isDragging &&
+					(expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+						? extendedDragZoneNext
+						: extendedDragZone),
 				expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
-					? extendHoverZoneReduced
+					? expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+						? extendHoverZoneReducedNext
+						: extendHoverZoneReduced
 					: undefined,
 				editorExperiment('platform_editor_controls', 'variant1') ? undefined : withInlineNodeStyle,
 				editorExperiment('platform_editor_block_control_optimise_render', true)
@@ -438,9 +585,13 @@ export const GlobalStylesWrapper = ({
 				editorExperiment('advanced_layouts', true) ? blockCardWithoutLayout : undefined,
 				withDividerInPanelStyleFix,
 				withFormatInLayoutStyleFix,
-				withRelativePosStyle,
+				expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+					? withRelativePosStyleNext
+					: withRelativePosStyle,
 				topLevelNodeMarginStyles,
-				withAnchorNameZindexStyle,
+				expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+					? withAnchorNameZindexStyleNext
+					: withAnchorNameZindexStyle,
 			]}
 		/>
 	);

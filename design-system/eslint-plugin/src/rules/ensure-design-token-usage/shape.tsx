@@ -8,6 +8,10 @@ const shapeProperties = [
 	'borderBottomRightRadius',
 	'borderBottomLeftRadius',
 	'borderRadius',
+	'borderStartStartRadius',
+	'borderStartEndRadius',
+	'borderEndStartRadius',
+	'borderEndEndRadius',
 ];
 
 const borderSizeProperties = [
@@ -23,14 +27,16 @@ const borderSizeProperties = [
 
 export const radiusValueToToken = Object.fromEntries(
 	shapeTokens
-		.filter((t) => t.name.startsWith('border.radius'))
-		// we prefer using the default (border.radius) over its aliases
-		.filter((t) => !t.name.startsWith('border.radius.100'))
+		.filter((t) => t.name.startsWith('radius'))
 		.map((t) => {
 			return [t.value, t.cleanName];
 		})
-		.concat([['3px', 'border.radius']]) // add in an extra entry to resolve 3px to border.radius (normally 4px)
-		.concat([['50%', 'border.radius.circle']]), // add in an extra entry to resolve 50% to border.radius.circle (normally 2002rem)
+		// add in extra entries to resolve 3px, 50%, and 100% to tokens
+		.concat([
+			['3px', 'radius.small'],
+			['50%', 'radius.full'],
+			['100%', 'radius.full'],
+		]),
 );
 
 export const borderWidthValueToToken = Object.fromEntries(

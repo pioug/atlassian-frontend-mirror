@@ -1,7 +1,5 @@
 import { type UnbindFn } from 'bind-event-listener';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type {
 	ComponentsLogType,
 	RevisionPayload,
@@ -257,56 +255,29 @@ export class VCObserver implements VCObserverInterface {
 				}
 			} catch (e) {}
 
-			if (fg('platform_ufo_abort_timestamp_by_revision')) {
-				const vcAbortedResultWithRevisions = {
-					[`${fullPrefix}vc:rev`]: [
-						{
-							revision: 'fy25.02',
-							clean: false,
-							'metric:vc90': null,
-							abortReason: abortReason.reason,
-							abortTimestamp: Math.round(abortReason.timestamp),
-						},
-					] as RevisionPayload,
-				};
-
-				if (!isTTVCv1Disabled) {
-					(vcAbortedResultWithRevisions[`${fullPrefix}vc:rev`] as RevisionPayload).push({
-						revision: 'fy25.01',
+			const vcAbortedResultWithRevisions = {
+				[`${fullPrefix}vc:rev`]: [
+					{
+						revision: 'fy25.02',
 						clean: false,
 						'metric:vc90': null,
 						abortReason: abortReason.reason,
 						abortTimestamp: Math.round(abortReason.timestamp),
-					});
-				}
+					},
+				] as RevisionPayload,
+			};
 
-				return vcAbortedResultWithRevisions;
-			} else {
-				const vcAbortedResultWithRevisions = {
-					[`${fullPrefix}vc:state`]: false,
-					[`${fullPrefix}vc:abort:reason`]: abortReason.reason,
-					[`${fullPrefix}vc:abort:timestamp`]: abortReason.timestamp,
-					[`${fullPrefix}vc:rev`]: [
-						{
-							revision: 'fy25.02',
-							clean: false,
-							'metric:vc90': null,
-							abortReason: abortReason.reason,
-						},
-					] as RevisionPayload,
-				};
-
-				if (!isTTVCv1Disabled) {
-					(vcAbortedResultWithRevisions[`${fullPrefix}vc:rev`] as RevisionPayload).push({
-						revision: 'fy25.01',
-						clean: false,
-						'metric:vc90': null,
-						abortReason: abortReason.reason,
-					});
-				}
-
-				return vcAbortedResultWithRevisions;
+			if (!isTTVCv1Disabled) {
+				(vcAbortedResultWithRevisions[`${fullPrefix}vc:rev`] as RevisionPayload).push({
+					revision: 'fy25.01',
+					clean: false,
+					'metric:vc90': null,
+					abortReason: abortReason.reason,
+					abortTimestamp: Math.round(abortReason.timestamp),
+				});
 			}
+
+			return vcAbortedResultWithRevisions;
 		}
 
 		const ttvcV1Result = isTTVCv1Disabled

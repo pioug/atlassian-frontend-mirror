@@ -15,6 +15,7 @@ import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { B200 } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { getNodeAnchor } from '../pm-plugins/decorations-common';
@@ -124,8 +125,12 @@ export const InlineDropTarget = ({
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 
 	const anchorName = useMemo(() => {
+		if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+			return nextNode ? api?.core.actions.getAnchorIdForNode(nextNode, getPos() || -1) || '' : '';
+		}
+
 		return nextNode ? getNodeAnchor(nextNode) : '';
-	}, [nextNode]);
+	}, [api, getPos, nextNode]);
 
 	const [isActiveAnchor] = useActiveAnchorTracker(anchorName);
 
@@ -135,6 +140,8 @@ export const InlineDropTarget = ({
 		if (!nextNode) {
 			return defaultNodeDimension;
 		}
+		const nextNodePos = getPos();
+
 		let innerContainerWidth: string | null = null;
 		let targetAnchorName = anchorName;
 		if (['blockCard', 'embedCard', 'extension'].includes(nextNode.type.name)) {
@@ -162,7 +169,16 @@ export const InlineDropTarget = ({
 				innerContainerWidth = `calc(var(--ak-editor--line-length) * ${percentageWidth})`;
 			}
 		} else if (nextNode.type.name === 'table' && nextNode.firstChild) {
-			const tableWidthAnchor = getNodeAnchor(nextNode.firstChild);
+			const tableWidthAnchor = expValEquals(
+				'platform_editor_native_anchor_support',
+				'isEnabled',
+				true,
+			)
+				? typeof nextNodePos === 'number'
+					? api?.core.actions.getAnchorIdForNode(nextNode.firstChild, nextNodePos + 1) || ''
+					: ''
+				: getNodeAnchor(nextNode.firstChild);
+
 			const isNumberColumnEnabled = Boolean(nextNode.attrs.isNumberColumnEnabled);
 			if (isAnchorSupported()) {
 				innerContainerWidth = isNumberColumnEnabled
@@ -177,15 +193,44 @@ export const InlineDropTarget = ({
 				innerContainerWidth = `min(${nextNode.attrs.width}px, ${innerContainerWidth})`;
 			}
 		} else if (nextNode.type.name === 'mediaSingle' && nextNode.firstChild) {
-			targetAnchorName = getNodeAnchor(nextNode.firstChild);
+			if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+				// check pos is a number
+				if (typeof nextNodePos === 'number' && nextNode.firstChild?.type.name === 'media') {
+					targetAnchorName =
+						api?.core.actions.getAnchorIdForNode(nextNode.firstChild, nextNodePos + 1) || '';
+				}
+			} else {
+				targetAnchorName = getNodeAnchor(nextNode.firstChild);
+			}
 		}
 
 		// Set the height target anchor name to the first or last column of the layout section so that it also works for stacked layout
 		let heightTargetAnchorName = targetAnchorName;
 		if (nextNode.type.name === 'layoutSection' && nextNode.firstChild && nextNode.lastChild) {
-			heightTargetAnchorName = isLeftPosition
-				? getNodeAnchor(nextNode.firstChild)
-				: getNodeAnchor(nextNode.lastChild);
+			if (isLeftPosition) {
+				if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+					if (typeof nextNodePos === 'number') {
+						heightTargetAnchorName =
+							api?.core.actions.getAnchorIdForNode(nextNode.firstChild, nextNodePos + 1) || '';
+					} else {
+						heightTargetAnchorName = '';
+					}
+				} else {
+					heightTargetAnchorName = getNodeAnchor(nextNode.firstChild);
+				}
+			} else {
+				if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+					if (typeof nextNodePos === 'number') {
+						const lastNodeStartPos = nextNode.content.size - nextNode.lastChild.nodeSize;
+						heightTargetAnchorName =
+							api?.core.actions.getAnchorIdForNode(nextNode.lastChild, lastNodeStartPos + 1) || '';
+					} else {
+						heightTargetAnchorName = '';
+					}
+				} else {
+					heightTargetAnchorName = getNodeAnchor(nextNode.lastChild);
+				}
+			}
 		}
 
 		if (isAnchorSupported()) {
@@ -221,7 +266,7 @@ export const InlineDropTarget = ({
 		}
 
 		return defaultNodeDimension;
-	}, [anchorName, anchorRectCache, nextNode, position, isLeftPosition]);
+	}, [nextNode, anchorName, anchorRectCache, getPos, api, isLeftPosition, position]);
 
 	const onDrop = useCallback(() => {
 		const { activeNode } = api?.blockControls?.sharedState.currentState() || {};

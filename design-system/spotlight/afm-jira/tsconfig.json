@@ -1,0 +1,50 @@
+{
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__spotlight/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../button/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../css/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../heading/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../image/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../popper/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-jira/tsconfig.json"
+		}
+	]
+}

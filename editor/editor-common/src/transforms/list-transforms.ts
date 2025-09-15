@@ -26,8 +26,22 @@ type TransformListRecursivelyProps = {
 	targetNodeType: NodeType;
 };
 
-export const transformListRecursively = (props: TransformListRecursivelyProps): PMNode => {
+const getContentSupportChecker = (targetNodeType: NodeType): ((node: PMNode) => boolean) => {
+	return (node: PMNode): boolean => {
+		try {
+			return targetNodeType.validContent(Fragment.from(node));
+		} catch {
+			return false;
+		}
+	};
+};
+
+export const transformListRecursively = (
+	props: TransformListRecursivelyProps,
+	onhandleUnsupportedContent?: (content: PMNode) => void,
+): PMNode => {
 	const transformedItems: PMNode[] = [];
+
 	const {
 		listNode,
 		isSourceBulletOrOrdered,
@@ -49,7 +63,14 @@ export const transformListRecursively = (props: TransformListRecursivelyProps): 
 
 				child.forEach((grandChild) => {
 					if (supportedListTypes.has(grandChild.type) && grandChild.type !== taskList) {
-						nestedTaskLists.push(transformListRecursively({ ...props, listNode: grandChild }));
+						nestedTaskLists.push(
+							transformListRecursively(
+								{ ...props, listNode: grandChild },
+								onhandleUnsupportedContent,
+							),
+						);
+					} else if (!getContentSupportChecker(taskItem)(grandChild) && !grandChild.isTextblock) {
+						onhandleUnsupportedContent?.(grandChild);
 					} else {
 						inlineContent.push(...convertBlockToInlineContent(grandChild, schema));
 					}
@@ -58,7 +79,6 @@ export const transformListRecursively = (props: TransformListRecursivelyProps): 
 				transformedItems.push(
 					taskItem.create(null, inlineContent.length > 0 ? inlineContent : null),
 				);
-
 				transformedItems.push(...nestedTaskLists);
 			}
 		} else if (isSourceTask && isTargetBulletOrOrdered) {
@@ -71,7 +91,10 @@ export const transformListRecursively = (props: TransformListRecursivelyProps): 
 				);
 				transformedItems.push(listItem.create(null, [paragraphNode]));
 			} else if (child.type === taskList) {
-				const transformedNestedList = transformListRecursively({ ...props, listNode: child });
+				const transformedNestedList = transformListRecursively(
+					{ ...props, listNode: child },
+					onhandleUnsupportedContent,
+				);
 				const lastItem = transformedItems[transformedItems.length - 1];
 
 				if (lastItem?.type === listItem) {
@@ -91,10 +114,13 @@ export const transformListRecursively = (props: TransformListRecursivelyProps): 
 				const convertedNestedLists: PMNode[] = [];
 				child.forEach((grandChild) => {
 					if (supportedListTypes.has(grandChild.type) && grandChild.type !== targetNodeType) {
-						const convertedNode = transformListRecursively({
-							...props,
-							listNode: grandChild,
-						});
+						const convertedNode = transformListRecursively(
+							{
+								...props,
+								listNode: grandChild,
+							},
+							onhandleUnsupportedContent,
+						);
 						convertedNestedLists.push(convertedNode);
 					} else {
 						convertedNestedLists.push(grandChild);
@@ -114,6 +140,11 @@ export const transformListRecursively = (props: TransformListRecursivelyProps): 
 export const transformListStructure = (context: TransformContext) => {
 	const { tr, sourceNode, sourcePos, targetNodeType } = context;
 	const nodes = tr.doc.type.schema.nodes;
+	const unsupportedContent: PMNode[] = [];
+
+	const onhandleUnsupportedContent = (content: PMNode) => {
+		unsupportedContent.push(content);
+	};
 
 	try {
 		const listNode = { node: sourceNode, pos: sourcePos };
@@ -127,18 +158,21 @@ export const transformListStructure = (context: TransformContext) => {
 
 		const supportedListTypes = getSupportedListTypesSet(nodes);
 
-		const newList = transformListRecursively({
-			isSourceBulletOrOrdered,
-			isSourceTask,
-			isTargetBulletOrOrdered,
-			isTargetTask,
-			listNode: sourceList,
-			schema: tr.doc.type.schema,
-			supportedListTypes,
-			targetNodeType,
-		});
+		const newList = transformListRecursively(
+			{
+				isSourceBulletOrOrdered,
+				isSourceTask,
+				isTargetBulletOrOrdered,
+				isTargetTask,
+				listNode: sourceList,
+				schema: tr.doc.type.schema,
+				supportedListTypes,
+				targetNodeType,
+			},
+			onhandleUnsupportedContent,
+		);
 
-		tr.replaceWith(listPos, listPos + sourceList.nodeSize, newList);
+		tr.replaceWith(listPos, listPos + sourceList.nodeSize, [newList, ...unsupportedContent]);
 		return tr;
 	} catch {
 		return tr;

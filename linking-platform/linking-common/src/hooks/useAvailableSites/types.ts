@@ -7,6 +7,29 @@ export interface AvailableSite {
 	url: string;
 }
 
+export interface AccessibleProduct {
+	products: Product[]
+}
+
+export interface Product {
+	productDisplayName: string,
+	productId: AvailableSitesProductType,
+	workspaces: Workspace[]
+}
+
+export interface Workspace {
+	cloudId: string
+	cloudUrl?: string
+	isPartOf?: string[]
+	orgId?: string
+	vortexMode: string
+	workspaceAri?: string
+	workspaceAvatarUrl: string
+	workspaceDisplayName: string
+	workspacePermissionIds?: string[]
+	workspaceUrl: string
+}
+
 export type ProductName = 'jira' | 'confluence';
 
 export interface Site {
@@ -27,6 +50,10 @@ export type AvailableSitesRequest = {
 
 export interface AvailableSitesResponse {
 	sites: AvailableSite[];
+}
+
+export interface AccessibleProductResponse {
+	data: AccessibleProduct;
 }
 
 export enum AvailableSitesProductType {

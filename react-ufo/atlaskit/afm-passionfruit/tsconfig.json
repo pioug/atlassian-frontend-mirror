@@ -26,9 +26,6 @@
 			"path": "../../../helpers/browser-apis/afm-passionfruit/tsconfig.json"
 		},
 		{
-			"path": "../../../measurement/feature-gate-js-client/afm-passionfruit/tsconfig.json"
-		},
-		{
 			"path": "../../../observability/interaction-context/afm-passionfruit/tsconfig.json"
 		},
 		{

@@ -44,6 +44,7 @@
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/badge": "workspace:^",
+		"@atlaskit/link": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",

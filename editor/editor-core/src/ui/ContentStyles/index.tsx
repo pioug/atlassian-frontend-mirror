@@ -304,29 +304,6 @@ const listsStyles = css`
 `;
 
 const emojiStyles = css`
-	.${EmojiSharedCssClassName.EMOJI_CONTAINER} {
-		display: inline-block;
-	}
-
-	.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
-		background: no-repeat transparent;
-		display: inline-block;
-		height: ${defaultEmojiHeight}px;
-		max-height: ${defaultEmojiHeight}px;
-		cursor: pointer;
-		vertical-align: middle;
-		user-select: all;
-	}
-
-	.${akEditorSelectedNodeClassName} {
-		.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
-			border-radius: 2px;
-			${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.BoxShadow])}
-		}
-	}
-`;
-
-const emojiStylesWithSelectorFixes = css`
 	.ProseMirror .${EmojiSharedCssClassName.EMOJI_CONTAINER} {
 		display: inline-block;
 	}
@@ -551,7 +528,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 	${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 		? mentionsSelectionStylesWithSearchMatch
 		: mentionSelectionStyles}
-  ${fg('platform_editor_fix_emoji_style_selectors') ? emojiStylesWithSelectorFixes : emojiStyles}
+  ${emojiStyles}
   ${tasksAndDecisionsStyles}
   ${gridStyles}
   ${linkStyles}

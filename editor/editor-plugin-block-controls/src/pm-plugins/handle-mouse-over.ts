@@ -1,10 +1,21 @@
+import memoizeOne from 'memoize-one';
+
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockControlsPlugin } from '../blockControlsPluginType';
+import {
+	getAnchorAttrName,
+	getTypeNameAttrName,
+	getTypeNameFromDom,
+	NODE_ANCHOR_ATTR_NAME,
+} from '../ui/utils/dom-attr-name';
+
+import { IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT, IGNORE_NODES_NEXT } from './decorations-anchor';
 
 const isEmptyNestedParagraphOrHeading = (target: EventTarget | null) => {
 	if (target instanceof HTMLHeadingElement || target instanceof HTMLParagraphElement) {
@@ -12,6 +23,38 @@ const isEmptyNestedParagraphOrHeading = (target: EventTarget | null) => {
 	}
 	return false;
 };
+
+const getNodeSelector = (ignoreNodes: string[], ignoreNodeDescendants: string[]) => {
+	const baseSelector = `[${NODE_ANCHOR_ATTR_NAME}]`;
+
+	if (ignoreNodes.length === 0 && ignoreNodeDescendants.length === 0) {
+		return baseSelector;
+	}
+
+	const ignoreNodeSelectorList = ignoreNodes.map(
+		(node) => `[data-prosemirror-node-name="${node}"]`,
+	);
+
+	const ignoreNodeDescendantsSelectorList = ignoreNodeDescendants.map(
+		(node) => `[data-prosemirror-node-name="${node}"] [data-node-anchor]`,
+	);
+
+	const ignoreSelector = [
+		...ignoreNodeSelectorList,
+		...ignoreNodeDescendantsSelectorList,
+		'[data-prosemirror-node-inline="true"]',
+	].join(', ');
+
+	return `${baseSelector}:not(${ignoreSelector})`;
+};
+
+const getDefaultNodeSelector = memoizeOne(() => {
+	// we don't show handler for node nested in table
+	return getNodeSelector(
+		[...IGNORE_NODES_NEXT],
+		[...IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT, 'table'],
+	);
+});
 
 export const handleMouseOver = (
 	view: EditorView,
@@ -47,7 +90,12 @@ export const handleMouseOver = (
 		return false;
 	}
 
-	let rootElement = target?.closest('[data-drag-handler-anchor-name]');
+	let rootElement = target?.closest(
+		expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+			? getDefaultNodeSelector()
+			: `[data-drag-handler-anchor-name]`,
+	);
+
 	if (rootElement) {
 		// We want to exlude handles from showing for empty paragraph and heading nodes
 		if (isEmptyNestedParagraphOrHeading(rootElement)) {
@@ -55,11 +103,11 @@ export const handleMouseOver = (
 		}
 
 		if (
-			rootElement.getAttribute('data-drag-handler-node-type') === 'media' &&
+			rootElement.getAttribute(getTypeNameAttrName()) === 'media' &&
 			editorExperiment('advanced_layouts', true)
 		) {
 			rootElement = rootElement.closest(
-				'[data-drag-handler-anchor-name][data-drag-handler-node-type="mediaSingle"]',
+				`[${getAnchorAttrName()}][${getTypeNameAttrName()}="mediaSingle"]`,
 			);
 
 			if (!rootElement) {
@@ -67,8 +115,14 @@ export const handleMouseOver = (
 			}
 		}
 
-		const parentElement = rootElement.parentElement?.closest('[data-drag-handler-anchor-name]');
-		const parentElementType = parentElement?.getAttribute('data-drag-handler-node-type');
+		const parentElement = rootElement.parentElement?.closest(`[${getAnchorAttrName()}]`);
+		const parentElementType = expValEquals(
+			'platform_editor_native_anchor_support',
+			'isEnabled',
+			true,
+		)
+			? getTypeNameFromDom(parentElement)
+			: parentElement?.getAttribute('data-drag-handler-node-type');
 
 		if (editorExperiment('advanced_layouts', true)) {
 			// We want to exclude handles from showing for direct descendant of table nodes (i.e. nodes in cells)
@@ -77,11 +131,15 @@ export const handleMouseOver = (
 					rootElement = parentElement;
 				} else if (parentElement && parentElementType === 'tableRow') {
 					const grandparentElement = parentElement?.parentElement?.closest(
-						'[data-drag-handler-anchor-name]',
+						`[${getAnchorAttrName()}]`,
 					);
-					const grandparentElementType = grandparentElement?.getAttribute(
-						'data-drag-handler-node-type',
-					);
+					const grandparentElementType = expValEquals(
+						'platform_editor_native_anchor_support',
+						'isEnabled',
+						true,
+					)
+						? getTypeNameFromDom(grandparentElement)
+						: grandparentElement?.getAttribute('data-drag-handler-node-type');
 
 					if (grandparentElement && grandparentElementType === 'table') {
 						rootElement = grandparentElement;
@@ -102,7 +160,7 @@ export const handleMouseOver = (
 
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		const anchorName = rootElement.getAttribute('data-drag-handler-anchor-name')!;
+		const anchorName = rootElement.getAttribute(getAnchorAttrName())!;
 		// No need to update handle position if its already there
 		if (activeNode?.anchorName === anchorName) {
 			return false;
@@ -158,13 +216,17 @@ export const handleMouseOver = (
 			if (targetPos !== rootPos) {
 				const rootDOM = view.nodeDOM(rootPos);
 				if (rootDOM instanceof HTMLElement) {
-					rootAnchorName = rootDOM.getAttribute('data-drag-handler-anchor-name') ?? undefined;
-					rootNodeType = rootDOM.getAttribute('data-drag-handler-node-type') ?? undefined;
+					rootAnchorName = rootDOM.getAttribute(getAnchorAttrName()) ?? undefined;
+					rootNodeType = expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+						? getTypeNameFromDom(rootDOM)
+						: rootDOM.getAttribute('data-drag-handler-node-type');
 				}
 			}
 		}
 
-		const nodeType = rootElement.getAttribute('data-drag-handler-node-type');
+		const nodeType = expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+			? getTypeNameFromDom(rootElement)
+			: rootElement.getAttribute('data-drag-handler-node-type');
 
 		if (nodeType) {
 			if (editorExperiment('platform_editor_controls', 'variant1')) {

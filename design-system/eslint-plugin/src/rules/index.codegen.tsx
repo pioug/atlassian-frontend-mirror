@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::53ad66d79f989ce9beb46ee0186685b2>>
+ * @codegen <<SignedSource::5fbd59fcd3fd6cb0602821de4a0a32aa>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -66,6 +66,7 @@ import usePrimitives from './use-primitives';
 import usePrimitivesText from './use-primitives-text';
 import useShouldRenderToParent from './use-should-render-to-parent';
 import useTagGroupLabel from './use-tag-group-label';
+import useTokensShape from './use-tokens-shape';
 import useTokensSpace from './use-tokens-space';
 import useTokensTypography from './use-tokens-typography';
 import useVisuallyHidden from './use-visually-hidden';
@@ -134,6 +135,7 @@ export const rules = {
 	'use-primitives-text': usePrimitivesText,
 	'use-should-render-to-parent': useShouldRenderToParent,
 	'use-tag-group-label': useTagGroupLabel,
+	'use-tokens-shape': useTokensShape,
 	'use-tokens-space': useTokensSpace,
 	'use-tokens-typography': useTokensTypography,
 	'use-visually-hidden': useVisuallyHidden,

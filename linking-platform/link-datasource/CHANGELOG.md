@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.23.2
+
+### Patch Changes
+
+- [`77390309d37e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77390309d37e5) -
+  [ux] NAVX-1241 Adding tooltip to SLLV filter options
+- Updated dependencies
+
 ## 4.23.1
 
 ### Patch Changes

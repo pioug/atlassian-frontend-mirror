@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+/// <reference types="node" />
 import {
 	useState,
 	useCallback,

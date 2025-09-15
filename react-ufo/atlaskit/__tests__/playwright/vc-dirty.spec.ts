@@ -45,14 +45,21 @@ test.describe('TTVC Dirty Scenarios', () => {
 				expect(reactUFOPayload).toBeDefined();
 
 				expect(typeof reactUFOPayload!.attributes.properties).toBe('object');
-				const vcAbortReason = reactUFOPayload!.attributes.properties['ufo:vc:abort:reason'];
-				expect(vcAbortReason).toBe('resize');
-
 				const ufoVCRev = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
-				expect(ufoVCRev).toEqual([
-					{ abortReason: 'resize', clean: false, 'metric:vc90': null, revision: 'fy25.02' },
-					{ abortReason: 'resize', clean: false, 'metric:vc90': null, revision: 'fy25.03' },
-				]);
+				expect(Array.isArray(ufoVCRev)).toBe(true);
+				expect(ufoVCRev?.length).toBeGreaterThanOrEqual(2);
+				const fy25_02 = ufoVCRev?.find(({ revision }) => revision === 'fy25.02');
+				const fy25_03 = ufoVCRev?.find(({ revision }) => revision === 'fy25.03');
+				expect(fy25_02).toBeTruthy();
+				expect(fy25_03).toBeTruthy();
+				expect(fy25_02!.abortReason).toBe('resize');
+				expect(fy25_03!.abortReason).toBe('resize');
+				expect(fy25_02!['metric:vc90']).toBeNull();
+				expect(fy25_03!['metric:vc90']).toBeNull();
+				expect(fy25_02!.clean).toBe(false);
+				expect(fy25_03!.clean).toBe(false);
+				expect(typeof fy25_02!.abortTimestamp).toBe('number');
+				expect(typeof fy25_03!.abortTimestamp).toBe('number');
 			});
 
 			test('ufo:vc:abort:reason is `keypress`, and there is no VC fields, when there is a keypress event', async ({
@@ -68,14 +75,21 @@ test.describe('TTVC Dirty Scenarios', () => {
 				expect(reactUFOPayload).toBeDefined();
 
 				expect(typeof reactUFOPayload!.attributes.properties).toBe('object');
-				const vcAbortReason = reactUFOPayload!.attributes.properties['ufo:vc:abort:reason'];
-				expect(vcAbortReason).toBe('keypress');
-
 				const ufoVCRev = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
-				expect(ufoVCRev).toEqual([
-					{ abortReason: 'keypress', clean: false, 'metric:vc90': null, revision: 'fy25.02' },
-					{ abortReason: 'keypress', clean: false, 'metric:vc90': null, revision: 'fy25.03' },
-				]);
+				expect(Array.isArray(ufoVCRev)).toBe(true);
+				expect(ufoVCRev?.length).toBeGreaterThanOrEqual(2);
+				const fy25_02 = ufoVCRev?.find(({ revision }) => revision === 'fy25.02');
+				const fy25_03 = ufoVCRev?.find(({ revision }) => revision === 'fy25.03');
+				expect(fy25_02).toBeTruthy();
+				expect(fy25_03).toBeTruthy();
+				expect(fy25_02!.abortReason).toBe('keypress');
+				expect(fy25_03!.abortReason).toBe('keypress');
+				expect(fy25_02!['metric:vc90']).toBeNull();
+				expect(fy25_03!['metric:vc90']).toBeNull();
+				expect(fy25_02!.clean).toBe(false);
+				expect(fy25_03!.clean).toBe(false);
+				expect(typeof fy25_02!.abortTimestamp).toBe('number');
+				expect(typeof fy25_03!.abortTimestamp).toBe('number');
 			});
 
 			test('should capture and report a11y violations', async ({

@@ -14,6 +14,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { layers } from '@atlaskit/theme/constants';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -110,14 +111,17 @@ const HoverZone = ({
 	onDragLeave,
 	onDrop,
 	node,
+	pos,
 	parent,
 	editorWidth,
 	anchorRectCache,
 	position,
 	isNestedDropTarget,
 	dropTargetStyle,
+	api,
 }: {
 	anchorRectCache?: AnchorRectCache;
+	api?: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
 	dropTargetStyle?: DropTargetStyle;
 	editorWidth?: number;
 	isNestedDropTarget?: boolean;
@@ -126,6 +130,7 @@ const HoverZone = ({
 	onDragLeave: () => void;
 	onDrop: () => void;
 	parent?: PMNode;
+	pos?: number;
 	position: 'upper' | 'lower';
 }) => {
 	const ref = useRef<HTMLDivElement | null>(null);
@@ -133,8 +138,17 @@ const HoverZone = ({
 	const isRemainingheight = dropTargetStyle === 'remainingHeight';
 
 	const anchorName = useMemo(() => {
+		if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+			if (node && typeof pos === 'number') {
+				const posOffset = position === 'upper' ? -node.nodeSize : 0;
+
+				return api?.core.actions.getAnchorIdForNode(node, pos + posOffset) || '';
+			}
+			return '';
+		}
+
 		return node ? getNodeAnchor(node) : '';
-	}, [node]);
+	}, [api, node, pos, position]);
 	const [_isActive, setActiveAnchor] = useActiveAnchorTracker(anchorName);
 
 	useEffect(() => {
@@ -189,7 +203,11 @@ const HoverZone = ({
 		// only apply upper drop zone
 		if (isRemainingheight && position === 'upper') {
 			// previous node
-			const anchorName = node ? getNodeAnchor(node) : '';
+			const anchorName = node
+				? expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+					? api?.core.actions.getAnchorIdForNode(node, pos || -1) || ''
+					: getNodeAnchor(node)
+				: '';
 
 			let top = 'unset';
 			if (anchorName) {
@@ -224,7 +242,7 @@ const HoverZone = ({
 			});
 		}
 		return null;
-	}, [anchorRectCache, isRemainingheight, node, position]);
+	}, [anchorRectCache, api, isRemainingheight, node, pos, position]);
 
 	const isFullHeightInLayout = isRemainingheight && parent?.type.name === 'layoutColumn';
 
@@ -303,11 +321,13 @@ export const DropTarget = (
 				onDragLeave={() => setIsDraggedOver(false)}
 				onDrop={onDrop}
 				node={prevNode}
+				pos={getPos()}
 				editorWidth={lineLength}
 				anchorRectCache={anchorRectCache}
 				position="upper"
 				isNestedDropTarget={isNestedDropTarget}
 				dropTargetStyle={dropTargetStyle}
+				api={api}
 			/>
 			<div
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
@@ -329,11 +349,13 @@ export const DropTarget = (
 					onDragLeave={() => setIsDraggedOver(false)}
 					onDrop={onDrop}
 					node={nextNode}
+					pos={getPos()}
 					parent={parentNode}
 					editorWidth={lineLength}
 					anchorRectCache={anchorRectCache}
 					position="lower"
 					isNestedDropTarget={isNestedDropTarget}
+					api={api}
 				/>
 			)}
 

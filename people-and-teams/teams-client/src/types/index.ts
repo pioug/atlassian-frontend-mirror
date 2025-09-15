@@ -14,6 +14,8 @@ export type {
 	AssignedTeamsResponse,
 	UnassignedTeam,
 	UnassignedTeamsResponse,
+	AlignmentPermission,
+	TeamSiteAssignmentOrgDetailsResponse,
 } from './team';
 
 export type { TeamsClientUser as User, EditableUserFields } from './user';

@@ -11,6 +11,7 @@ import {
 	type TeamWithMemberships,
 } from '../../types';
 import {
+	type AlignmentPermission,
 	type AssignedTeamsResponse,
 	type AssignTeamsToSitesResponse,
 	type ExternalReference,
@@ -20,6 +21,7 @@ import {
 	type SoftDeletedTeam,
 	type SoftDeletedTeamResponse,
 	type TeamEnabledSitesResponse,
+	type TeamSiteAssignmentOrgDetailsResponse,
 	type TeamsPermissionFromApi,
 	type UnassignedTeamsResponse,
 } from '../../types/team';
@@ -59,8 +61,6 @@ export interface SortField {
 	field: string;
 	order: 'asc' | 'desc';
 }
-
-export type AlignmentPermission = 'ALL_USERS' | 'ORG_ADMIN';
 
 /**
  * @type AllTeamsQuery
@@ -210,6 +210,8 @@ export interface LegionClient {
 		cursor?: string | null,
 		query?: string | null,
 	): Promise<UnassignedTeamsResponse>;
+
+	getTeamSiteAssignmentOrgDetails(): Promise<TeamSiteAssignmentOrgDetailsResponse>;
 }
 
 const v3UrlPath = `/v3/teams`;
@@ -786,6 +788,19 @@ export class LegionClient extends RestClient implements LegionClient {
 			},
 		);
 		return unassignedTeamsResponse;
+	}
+
+	async getTeamSiteAssignmentOrgDetails(): Promise<TeamSiteAssignmentOrgDetailsResponse> {
+		const orgId = this.getContext().orgId;
+
+		if (!orgId) {
+			const err = new Error('Organization ID is required');
+			this.logException(err, 'getTeamSiteAssignmentOrgDetails');
+			throw err;
+		}
+		return this.getResource<TeamSiteAssignmentOrgDetailsResponse>(
+			`${v4UrlPath}/migrations/scope/details/${orgId}`,
+		);
 	}
 
 	// some Legion APIs return team id with the team ARI

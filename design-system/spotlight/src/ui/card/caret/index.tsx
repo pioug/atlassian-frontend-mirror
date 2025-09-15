@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-
 import { forwardRef, useContext } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';

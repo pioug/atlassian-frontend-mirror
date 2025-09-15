@@ -13,7 +13,7 @@ import type { SelectionPlugin } from '../selectionPluginType';
  * @param selection The selection to get the slice for.
  * @returns The slice of the document corresponding to the selection.
  */
-const getSlice = (selection: Selection): Fragment => {
+export const getSliceFromSelection = (selection: Selection): Fragment => {
 	const { from, to } = selection;
 	if (from === to) {
 		return Fragment.empty;
@@ -46,7 +46,7 @@ export const getSelectionFragment =
 			return null;
 		}
 
-		const slice = getSlice(selection);
+		const slice = getSliceFromSelection(selection);
 		const content = slice.content;
 
 		const fragment: JSONNode[] = [];
@@ -77,7 +77,7 @@ export const getSelectionLocalIds =
 		} else if (selection.empty) {
 			return [selection.$from.parent.attrs.localId];
 		}
-		const content = getSlice(selection).content;
+		const content = getSliceFromSelection(selection).content;
 
 		const ids: string[] = [];
 		content.forEach((node) => {

@@ -4,9 +4,11 @@
  */
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type OptionProps } from '@atlaskit/react-select';
 import { CheckboxOption } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import type { SelectOption } from './types';
 
@@ -43,7 +45,21 @@ const checkboxFocusedStyles = css({
 });
 
 export const CustomCheckboxOption = ({ children, ...props }: OptionProps<SelectOption, true>) => {
-	return (
+	return fg('navx-1241-sllv-filters-add-tooltip-to-options') ? (
+		<Tooltip content={props.label}>
+			<CheckboxOption
+				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
+				css={[
+					checkboxStyles,
+					props.isSelected && checkboxSelectedStyles,
+					props.isFocused && checkboxFocusedStyles,
+				]}
+				{...props}
+			>
+				{children}
+			</CheckboxOption>
+		</Tooltip>
+	) : (
 		<CheckboxOption
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 			css={[

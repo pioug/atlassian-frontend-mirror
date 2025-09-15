@@ -31,6 +31,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DatePlugin } from './datePluginType';
 import { closeDatePicker, closeDatePickerWithAnalytics, createDate } from './pm-plugins/actions';
@@ -48,6 +49,25 @@ const DatePicker = Loadable({
 		) as Promise<React.ComponentType<React.PropsWithChildren<DatePickerProps>>>,
 	loading: () => null,
 });
+
+function getDateNode(editorView: EditorView | undefined, showDatePickerAt: number) {
+	if (!editorView) {
+		return null;
+	}
+
+	const domAtPos = editorView.domAtPos.bind(editorView);
+
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
+	const element = findDomRefAtPos(showDatePickerAt, domAtPos) as HTMLElement;
+
+	// Resolves ED-23702 for when the date is wrapped in an inline comment
+	const dateNode = element?.classList.contains(DateSharedCssClassName.DATE_CONTAINER)
+		? element
+		: (element?.querySelector(`.${DateSharedCssClassName.DATE_CONTAINER}`) as HTMLElement | null);
+
+	return dateNode || element;
+}
 
 function ContentComponent({
 	editorView,
@@ -68,11 +88,7 @@ function ContentComponent({
 	dependencyApi?: ExtractInjectionAPI<typeof datePlugin>;
 } & {
 	weekStartDay?: WeekDay;
-} & {
-	editorView: EditorView;
 }): JSX.Element | null {
-	const { dispatch } = editorView;
-	const domAtPos = editorView.domAtPos.bind(editorView);
 	const { editorDisabledState, dateState } = useSharedPluginState(dependencyApi, [
 		'date',
 		'editorDisabled',
@@ -84,26 +100,22 @@ function ContentComponent({
 
 	const { showDatePickerAt, isNew, focusDateInput } = dateState;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @atlaskit/editor/no-as-casting
-	const element = findDomRefAtPos(showDatePickerAt, domAtPos) as HTMLElement;
-
-	// Resolves ED-23702 for when the date is wrapped in an inline comment
-	const dateNode = element?.classList.contains(DateSharedCssClassName.DATE_CONTAINER)
-		? element
-		: (element?.querySelector(`.${DateSharedCssClassName.DATE_CONTAINER}`) as HTMLElement | null);
+	const dateNode = getDateNode(editorView, showDatePickerAt);
 	return (
 		<DatePicker
 			mountTo={popupsMountPoint}
 			boundariesElement={popupsBoundariesElement}
 			scrollableElement={popupsScrollableElement}
 			key={showDatePickerAt}
-			element={dateNode || element}
+			element={dateNode}
 			isNew={isNew}
 			autoFocus={focusDateInput}
 			onDelete={() => {
+				if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
+					return;
+				}
 				dependencyApi?.core?.actions.execute(deleteDateCommand(dependencyApi));
-				editorView.focus();
+				editorView?.focus();
 			}}
 			onSelect={(
 				date: DateType | null,
@@ -113,13 +125,16 @@ function ContentComponent({
 				if (date === undefined || date === null) {
 					return;
 				}
+				if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
+					return;
+				}
 				dependencyApi?.core?.actions.execute(
 					insertDateCommand(dependencyApi)({
 						date,
 						commitMethod,
 					}),
 				);
-				editorView.focus();
+				editorView?.focus();
 			}}
 			onTextChanged={(date?: DateType) => {
 				dependencyApi?.core?.actions.execute(
@@ -130,11 +145,17 @@ function ContentComponent({
 				);
 			}}
 			closeDatePicker={() => {
-				closeDatePicker()(editorView.state, dispatch);
-				editorView.focus();
+				if (!editorView) {
+					return;
+				}
+				closeDatePicker()(editorView.state, editorView.dispatch);
+				editorView?.focus();
 			}}
 			closeDatePickerWithAnalytics={({ date }: { date?: DateType }) => {
-				closeDatePickerWithAnalytics({ date })(editorView.state, dispatch);
+				if (!editorView) {
+					return;
+				}
+				closeDatePickerWithAnalytics({ date })(editorView.state, editorView.dispatch);
 				editorView.focus();
 			}}
 			dispatchAnalyticsEvent={dispatchAnalyticsEvent}

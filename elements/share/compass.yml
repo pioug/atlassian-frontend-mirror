@@ -7,7 +7,7 @@ ownerId: 'ari:cloud:teams::team/229da7a2-bf93-4813-9e24-a6efbd2d445e'
 fields:
   tier: 2
 links:
-  - name: null
+  - name: ''
     type: REPOSITORY
     url: 'https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/elements/share/'
   - name: '#pt-team-collective'

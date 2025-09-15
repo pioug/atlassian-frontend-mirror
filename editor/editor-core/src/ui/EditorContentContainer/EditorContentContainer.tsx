@@ -53,7 +53,7 @@ import { cursorStyles } from './styles/cursorStyles';
 import { dangerDateStyles, dateStyles, dateVanillaStyles } from './styles/dateStyles';
 import { editorUGCTokensDefault, editorUGCTokensRefreshed } from './styles/editorUGCTokenStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
-import { emojiDangerStyles, emojiStyles, emojiStylesWithSelectorFixes } from './styles/emoji';
+import { emojiDangerStyles, emojiStyles } from './styles/emoji';
 import {
 	expandStyles,
 	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
@@ -518,11 +518,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('platform_editor_centre_mention_padding') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						mentionsStylesMixin_platform_editor_centre_mention_padding,
-					fg('platform_editor_fix_emoji_style_selectors')
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							emojiStylesWithSelectorFixes
-						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							emojiStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					emojiStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					panelViewStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

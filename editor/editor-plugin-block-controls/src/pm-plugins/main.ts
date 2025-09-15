@@ -41,6 +41,7 @@ import type {
 	PluginState,
 } from '../blockControlsPluginType';
 import { BLOCK_MENU_ENABLED } from '../ui/consts';
+import { getAnchorAttrName } from '../ui/utils/dom-attr-name';
 
 import { findNodeDecs, nodeDecorations } from './decorations-anchor';
 import {
@@ -881,7 +882,7 @@ export const createPlugin = (
 						return false;
 					}
 
-					const nodeElement = event.target?.closest?.('[data-drag-handler-anchor-name]');
+					const nodeElement = event.target?.closest?.(`[${getAnchorAttrName()}]`);
 					if (!nodeElement) {
 						return false;
 					}
@@ -941,9 +942,7 @@ export const createPlugin = (
 							);
 
 							if (closestParentElement) {
-								const currentAnchor = closestParentElement.getAttribute(
-									'data-drag-handler-anchor-name',
-								);
+								const currentAnchor = closestParentElement.getAttribute(getAnchorAttrName());
 
 								if (currentAnchor) {
 									defaultActiveAnchorTracker.emit(currentAnchor);

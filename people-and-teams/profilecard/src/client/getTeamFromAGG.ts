@@ -1,3 +1,5 @@
+/// <reference types="node" />
+// for typing `process`
 import type { Team } from '../types';
 
 import { AGGQuery } from './graphqlUtils';

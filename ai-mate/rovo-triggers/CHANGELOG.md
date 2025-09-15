@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 3.10.0
+
+### Minor Changes
+
+- [`93ca2cbba6084`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93ca2cbba6084) -
+  Clean up the integrate_aiwb_to_rovo_chat feature flag
+
 ## 3.9.0
 
 ### Minor Changes

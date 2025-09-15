@@ -5,11 +5,20 @@ import {
 	mockedAvailableSitesResult,
 	mockedAvailableSitesResultWithGatewayBaseUrl,
 } from './available-sites-result';
+import { mockedAccessibleProductsResult } from './accessible-products-result';
 
 const fetchAvailableSiteEndpoint = /\/gateway\/api\/available-sites/;
+const fetchAccessibleProductsEndpoint = /\/gateway\/api\/v2\/accessible-products/;
 
 export const mockAvailableSites = (responseData?: any) => {
 	fetchMock.post(fetchAvailableSiteEndpoint, responseData || mockedAvailableSitesResult, {
+		delay: 10,
+		overwriteRoutes: true,
+	});
+};
+
+export const mockAccessibleProducts = (responseData?: any) => {
+	fetchMock.post(fetchAccessibleProductsEndpoint, responseData || mockedAccessibleProductsResult, {
 		delay: 10,
 		overwriteRoutes: true,
 	});
@@ -32,6 +41,13 @@ export const mockAvailableSitesForGatewayUrl = (gatewayBaseUrl: string) => {
 
 export const mockAvailableSitesWithError = () => {
 	fetchMock.post(fetchAvailableSiteEndpoint, 503, {
+		delay: 10,
+		overwriteRoutes: true,
+	});
+};
+
+export const mockAccessibleProductsWithError = () => {
+	fetchMock.post(fetchAccessibleProductsEndpoint, 503, {
 		delay: 10,
 		overwriteRoutes: true,
 	});

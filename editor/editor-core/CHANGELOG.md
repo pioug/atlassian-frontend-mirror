@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 213.2.0
+
+### Minor Changes
+
+- [`4fb6d9ad07d59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fb6d9ad07d59) -
+  ED-28777 Integrate native anchor for block controls
+
+### Patch Changes
+
+- [`3922df338eb20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3922df338eb20) -
+  ED-29170: fix tasks under hydration
+- [`bdea0894bbacb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdea0894bbacb) -
+  Cleanup fg platform_editor_fix_emoji_style_selectors
+- Updated dependencies
+
+## 213.1.3
+
+### Patch Changes
+
+- [`4e3d606cc7d01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e3d606cc7d01) -
+  Remove refence to expValEquals('platform_editor_toolbar_aifc')
+- Updated dependencies
+
 ## 213.1.2
 
 ### Patch Changes
@@ -8430,7 +8453,8 @@
 
 - [#57786](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57786)
   [`632207571c08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/632207571c08) -
-  [NO ISSUE] Reduce Editor re-renderers with proper memonization (behind flag platform.editor.less-editor-props-rerendering)'
+  [NO ISSUE] Reduce Editor re-renderers with proper memonization (behind flag
+  platform.editor.less-editor-props-rerendering)'
 - [#56858](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56858)
   [`ae1466a4a6ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae1466a4a6ab) -
   Extract clear marks on empty doc plugin from editor-core to new plugin.

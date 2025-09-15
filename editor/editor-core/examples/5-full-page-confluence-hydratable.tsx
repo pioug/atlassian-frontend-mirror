@@ -30,6 +30,7 @@ const HydratableEditorExample = () => {
 		overridedFullPagePresetProps: {
 			providers,
 		},
+		// hasEditPermission: false, //  uncomment to enable request to edit on tasks
 	});
 
 	return (

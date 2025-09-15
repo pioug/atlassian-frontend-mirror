@@ -43,7 +43,6 @@ import { rulePlugin } from '@atlaskit/editor-plugins/rule';
 import { saveOnEnterPlugin } from '@atlaskit/editor-plugins/save-on-enter';
 import { scrollIntoViewPlugin } from '@atlaskit/editor-plugins/scroll-into-view';
 import { statusPlugin } from '@atlaskit/editor-plugins/status';
-import { syncedBlockPrototypePlugin } from '@atlaskit/editor-plugins/synced-block-prototype';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
@@ -461,7 +460,6 @@ export default function createUniversalPresetInternal({
 			],
 			Boolean(props.allowStatus),
 		)
-		.maybeAdd(syncedBlockPrototypePlugin, fg('platform_synced_block_demo'))
 		.maybeAdd(indentationPlugin, Boolean(props.allowIndentation))
 		.maybeAdd(scrollIntoViewPlugin, Boolean(props.autoScrollIntoView !== false))
 		.add([

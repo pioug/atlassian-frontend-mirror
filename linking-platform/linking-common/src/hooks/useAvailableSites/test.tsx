@@ -6,12 +6,16 @@ import '@atlaskit/link-test-helpers/jest';
 import fetchMock from 'fetch-mock/cjs/client';
 
 import {
+	mockAccessibleProducts,
+	mockAccessibleProductsWithError,
 	mockAvailableSites,
 	mockAvailableSitesWithError,
 } from '../../common/mocks/mockAvailableSites';
-import { useAvailableSites, useAvailableSitesV2 } from '.';
+import { mapAccessibleProductsToAvailableSites, useAvailableSites, useAvailableSitesV2 } from '.';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { getOperationFailedAttributes } from './utils';
+import { ffTest } from "@atlassian/feature-flags-test-utils";
+import { AvailableSitesProductType, type AccessibleProduct, type AvailableSite } from './types';
 
 describe('useAvailableSites', () => {
 	beforeEach(() => {
@@ -80,49 +84,203 @@ describe('useAvailableSites', () => {
 	});
 });
 
+describe('mapAccessibleProductsToAvailableSites', () => {
+	it('should map the response from /v2/accessible-products endpoint to match the AvailableSites[] format', () => {
+		const accessibleProductsResponse: AccessibleProduct = {
+			products: [
+				{
+					productDisplayName: 'confluence',
+					productId: AvailableSitesProductType.CONFLUENCE,
+					workspaces: [
+						{
+							cloudId: '11111',
+							vortexMode: 'ENABLED',
+							workspaceAvatarUrl: 'www.avatarurl.com',
+							workspaceDisplayName: 'custom site 1',
+							workspaceUrl: 'https://customsite-1.atlassian.net'
+						},
+						{
+							cloudId: '22222',
+							vortexMode: 'ENABLED',
+							workspaceAvatarUrl: 'www.avatarurl.com',
+							workspaceDisplayName: 'custom site 2',
+							workspaceUrl: 'https://customsite-2.atlassian.net'
+						}
+					]
+				},
+				{
+					productDisplayName: 'jira software',
+					productId: AvailableSitesProductType.JIRA_SOFTWARE,
+					workspaces: [
+						{
+							cloudId: '11111',
+							vortexMode: 'ENABLED',
+							workspaceAvatarUrl: 'www.avatarurl.com',
+							workspaceDisplayName: 'custom site 1',
+							workspaceUrl: 'https://customsite-1.atlassian.net'
+						},
+						{
+							cloudId: '33333',
+							vortexMode: 'ENABLED',
+							workspaceAvatarUrl: 'www.avatarurl.com',
+							workspaceDisplayName: 'custom site 3',
+							workspaceUrl: 'https://customsite-3.atlassian.net'
+						}
+					]
+				},
+				{
+					productDisplayName: 'JPD',
+					productId: AvailableSitesProductType.JIRA_PRODUCT_DISCOVERY,
+					workspaces: [
+						{
+							cloudId: '22222',
+							vortexMode: 'ENABLED',
+							workspaceAvatarUrl: 'www.avatarurl.com',
+							workspaceDisplayName: 'custom site 2',
+							workspaceUrl: 'https://customsite-2.atlassian.net'
+						}
+					]
+				}
+			]
+		}
+		const availableSitesResponse: AvailableSite[] = [
+			{
+				avatarUrl: 'www.avatarurl.com',
+				cloudId: '11111',
+				displayName: 'custom site 1',
+				isVertigo: true,
+				products: [AvailableSitesProductType.CONFLUENCE, AvailableSitesProductType.JIRA_SOFTWARE],
+				url: 'https://customsite-1.atlassian.net'
+			},
+			{
+				avatarUrl: 'www.avatarurl.com',
+				cloudId: '22222',
+				displayName: 'custom site 2',
+				isVertigo: true,
+				products: [AvailableSitesProductType.CONFLUENCE, AvailableSitesProductType.JIRA_PRODUCT_DISCOVERY],
+				url: 'https://customsite-2.atlassian.net'
+			},
+			{
+				avatarUrl: 'www.avatarurl.com',
+				cloudId: '33333',
+				displayName: 'custom site 3',
+				isVertigo: true,
+				products: [AvailableSitesProductType.JIRA_SOFTWARE],
+				url: 'https://customsite-3.atlassian.net'
+			}
+		]
+
+		expect(mapAccessibleProductsToAvailableSites(accessibleProductsResponse)).toEqual(availableSitesResponse)
+	})
+})
+
 describe('useAvailableSitesV2', () => {
-	beforeEach(() => {
-		fetchMock.restore();
-	});
-
-	it('should return loading status and the result', async () => {
-		mockAvailableSites();
-		const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}));
-
-		expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": [],
-        "loading": true,
-      }
-    `);
-
-		await waitForNextUpdate();
-
-		expect(result.current.loading).toBe(false);
-		expect(result.current.data.length).toBeGreaterThan(0);
-	});
-
-	it('should return loading status and the result', async () => {
-		mockAvailableSitesWithError();
-		const spy = jest.fn();
-		const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}), {
-			wrapper: ({ children }) => (
-				<AnalyticsListener channel={'*'} onEvent={spy}>
-					{children}
-				</AnalyticsListener>
-			),
+	ffTest.on('navx-1819-link-create-confluence-site-migration', '', () => {
+		beforeEach(() => {
+			fetchMock.restore();
 		});
 
-		expect(result.current).toMatchInlineSnapshot(`
+		it('should return loading status and the result', async () => {
+			mockAccessibleProducts();
+			const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}));
+
+			expect(result.current).toMatchInlineSnapshot(`
       {
         "data": [],
         "loading": true,
       }
     `);
 
-		await waitForNextUpdate();
+			await waitForNextUpdate();
 
-		expect(result.current).toMatchInlineSnapshot(`
+			expect(result.current.loading).toBe(false);
+			expect(result.current.data.length).toBeGreaterThan(0);
+		});
+
+		it('should return loading status and the result', async () => {
+			mockAccessibleProductsWithError();
+			const spy = jest.fn();
+			const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}), {
+				wrapper: ({ children }) => (
+					<AnalyticsListener channel={'*'} onEvent={spy}>
+						{children}
+					</AnalyticsListener>
+				),
+			});
+
+			expect(result.current).toMatchInlineSnapshot(`
+      {
+        "data": [],
+        "loading": true,
+      }
+    `);
+
+			await waitForNextUpdate();
+
+			expect(result.current).toMatchInlineSnapshot(`
+      {
+        "data": [],
+        "error": Response {
+          "_bodyInit": undefined,
+          "_bodyText": "",
+          "headers": Headers {
+            "map": {},
+          },
+          "ok": false,
+          "status": 503,
+          "statusText": "Service Unavailable",
+          "type": "default",
+          "url": "/gateway/api/v2/accessible-products",
+        },
+        "loading": false,
+      }
+    `);
+		});
+	});
+
+	ffTest.off('navx-1819-link-create-confluence-site-migration', '', () => {
+		beforeEach(() => {
+			fetchMock.restore();
+		});
+
+		it('should return loading status and the result', async () => {
+			mockAvailableSites();
+			const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}));
+
+			expect(result.current).toMatchInlineSnapshot(`
+      {
+        "data": [],
+        "loading": true,
+      }
+    `);
+
+			await waitForNextUpdate();
+
+			expect(result.current.loading).toBe(false);
+			expect(result.current.data.length).toBeGreaterThan(0);
+		});
+
+		it('should return loading status and the result', async () => {
+			mockAvailableSitesWithError();
+			const spy = jest.fn();
+			const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}), {
+				wrapper: ({ children }) => (
+					<AnalyticsListener channel={'*'} onEvent={spy}>
+						{children}
+					</AnalyticsListener>
+				),
+			});
+
+			expect(result.current).toMatchInlineSnapshot(`
+      {
+        "data": [],
+        "loading": true,
+      }
+    `);
+
+			await waitForNextUpdate();
+
+			expect(result.current).toMatchInlineSnapshot(`
       {
         "data": [],
         "error": Response {
@@ -140,6 +298,7 @@ describe('useAvailableSitesV2', () => {
         "loading": false,
       }
     `);
+		});
 	});
 });
 

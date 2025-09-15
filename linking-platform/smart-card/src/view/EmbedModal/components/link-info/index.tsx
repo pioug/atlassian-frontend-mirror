@@ -5,7 +5,7 @@
 import React, { useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Heading from '@atlaskit/heading';
 import DownloadIcon from '@atlaskit/icon/core/download';
@@ -89,6 +89,7 @@ const LinkInfo = ({
 	title,
 }: LinkInfoProps): JSX.Element => {
 	const { onClose } = useModal();
+	const { formatMessage } = useIntl();
 
 	const downloadButton = useMemo(() => {
 		if (onDownloadButtonClick) {
@@ -196,7 +197,7 @@ const LinkInfo = ({
 					>
 						<CloseButton
 							onClick={onClose as () => void}
-							label={messages.preview_close.defaultMessage as string}
+							label={formatMessage(messages.preview_close)}
 							testId={`${testId}-close-button`}
 						/>
 					</Tooltip>

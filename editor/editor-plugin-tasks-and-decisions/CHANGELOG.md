@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 8.4.3
+
+### Patch Changes
+
+- [`3922df338eb20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3922df338eb20) -
+  ED-29170: fix tasks under hydration
+- Updated dependencies
+
 ## 8.4.2
 
 ### Patch Changes

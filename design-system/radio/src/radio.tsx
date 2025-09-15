@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+/// <reference types="node" />
+// for typing `process`
 import { forwardRef, memo, type Ref } from 'react';
 
 import { css, jsx } from '@compiled/react';

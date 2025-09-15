@@ -47,6 +47,9 @@
 			"path": "../../../packages/design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../../packages/design-system/link/tsconfig.app.json"
+		},
+		{
 			"path": "../../../packages/design-system/primitives/tsconfig.app.json"
 		},
 		{

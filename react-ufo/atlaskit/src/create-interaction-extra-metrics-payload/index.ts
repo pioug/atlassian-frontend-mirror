@@ -2,11 +2,11 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import coinflip from '../coinflip';
 import type { InteractionMetrics } from '../common';
+import type { RevisionPayload } from '../common/vc/types';
 import {
 	DEFAULT_TTVC_REVISION,
 	getConfig,
 	getExtraInteractionRate,
-	getMostRecentVCRevision,
 } from '../config';
 import {
 	buildSegmentTree,
@@ -77,8 +77,17 @@ async function createInteractionExtraLogPayload(
 
 	const newUFOName = sanitizeUfoName(ufoName);
 
-	const mostRecentVCRevision = getMostRecentVCRevision(newUFOName) ?? DEFAULT_TTVC_REVISION;
 	const finalVCMetrics = await getVCMetrics(interaction, true);
+
+	// Check if VC is clean and has valid metric
+	const vcRevisionPayload = finalVCMetrics?.['ufo:vc:rev'] as RevisionPayload;
+	const effectiveVCRevisionPayload = vcRevisionPayload?.find(
+		({ revision }) => revision === DEFAULT_TTVC_REVISION,
+	);
+	if (!effectiveVCRevisionPayload?.clean || effectiveVCRevisionPayload?.['metric:vc90'] === undefined) {
+		return null;
+	}
+
 
 	// Helper function to check if labelStack contains third-party type
 	const isThirdParty = (labelStack?: LabelStack | null) => {
@@ -190,7 +199,7 @@ async function createInteractionExtraLogPayload(
 					customData: filteredData.customData,
 					...getDetailedInteractionMetrics(),
 				},
-				'vc:effective:revision': mostRecentVCRevision,
+				'vc:effective:revision': DEFAULT_TTVC_REVISION,
 			},
 		},
 	};

@@ -1,5 +1,17 @@
 # @atlaskit/select
 
+## 21.3.0
+
+### Minor Changes
+
+- [`153fad932190f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/153fad932190f) -
+  [ux] Added a new prop shouldKeepInputOnSelect to the select component to prevent clearing the
+  input when isMulti is true
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.2.10
 
 ### Patch Changes

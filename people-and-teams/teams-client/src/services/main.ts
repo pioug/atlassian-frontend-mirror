@@ -667,6 +667,17 @@ export class TeamsClient {
 	}
 
 	/**
+	 * Get team site assignment org details
+	 */
+	async getTeamSiteAssignmentOrgDetails(
+		...args: Parameters<typeof defaultLegionClient.getTeamSiteAssignmentOrgDetails>
+	): Promise<AwaitedReturn<typeof defaultLegionClient.getTeamSiteAssignmentOrgDetails>> {
+		return this.measurePerformance('getTeamSiteAssignmentOrgDetails', () =>
+			this._legionClient.getTeamSiteAssignmentOrgDetails(...args),
+		);
+	}
+
+	/**
 	 * Is the current user a site admin
 	 */
 	getIsSiteAdmin(

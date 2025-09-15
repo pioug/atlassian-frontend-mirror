@@ -1,10 +1,16 @@
-import React, {
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import {
 	createContext,
 	type Dispatch,
 	type ReactNode,
 	type SetStateAction,
 	useState,
 } from 'react';
+
+import { jsx } from '@atlaskit/css';
 
 import type { Placement } from '../types';
 

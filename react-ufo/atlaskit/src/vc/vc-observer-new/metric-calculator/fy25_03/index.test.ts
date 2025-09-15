@@ -369,6 +369,7 @@ describe('VCCalculator_FY25_03', () => {
 			expect(calculator['getVCCleanStatus'](entries)).toEqual({
 				isVCClean: false,
 				dirtyReason: 'scroll',
+				abortTimestamp: 0,
 			});
 		});
 

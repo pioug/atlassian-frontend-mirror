@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 10.1.2
+
+### Patch Changes
+
+- [`13e707b0d5324`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13e707b0d5324) -
+  Hydration fixes for card plugin ContentComponent
+- Updated dependencies
+
 ## 10.1.1
 
 ### Patch Changes

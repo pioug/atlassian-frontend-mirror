@@ -1005,7 +1005,7 @@ export function ReactEditorView(props: EditorViewProps) {
 			)}
 
 			{props.render
-				? props.render?.({
+				? (props.render?.({
 						editor,
 						view: viewRef.current,
 						config: config.current,
@@ -1014,7 +1014,7 @@ export function ReactEditorView(props: EditorViewProps) {
 						dispatchAnalyticsEvent: dispatchAnalyticsEvent,
 						editorRef: editorRef,
 						editorAPI: editorAPI,
-					}) ?? editor
+					}) ?? editor)
 				: editor}
 		</ReactEditorViewContext.Provider>
 	);

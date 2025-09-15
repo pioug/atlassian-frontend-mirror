@@ -1,0 +1,45 @@
+const radiusTokenMap: { [key: string]: string } = {
+	'2px': 'radius.xsmall',
+	'3px': 'radius.small',
+	'4px': 'radius.small',
+	'6px': 'radius.medium',
+	'8px': 'radius.large',
+	'12px': 'radius.xlarge',
+	'50%': 'radius.full',
+	'100%': 'radius.full',
+	2: 'radius.xsmall',
+	3: 'radius.small',
+	4: 'radius.small',
+	6: 'radius.medium',
+	8: 'radius.large',
+	12: 'radius.xlarge',
+	'0.125rem': 'radius.xsmall',
+	'0.25rem': 'radius.small',
+	'0.375rem': 'radius.medium',
+	'0.5rem': 'radius.large',
+	'0.75rem': 'radius.xlarge',
+};
+
+const borderWidthTokenMap: { [key: string]: string } = {
+	'1px': 'border.width',
+};
+
+export const styleMap: { [key: string]: typeof radiusTokenMap | typeof borderWidthTokenMap } = {
+	borderRadius: radiusTokenMap,
+	borderTopLeftRadius: radiusTokenMap,
+	borderTopRightRadius: radiusTokenMap,
+	borderBottomRightRadius: radiusTokenMap,
+	borderBottomLeftRadius: radiusTokenMap,
+	borderStartStartRadius: radiusTokenMap,
+	borderStartEndRadius: radiusTokenMap,
+	borderEndStartRadius: radiusTokenMap,
+	borderEndEndRadius: radiusTokenMap,
+	borderWidth: borderWidthTokenMap,
+	borderBottomWidth: borderWidthTokenMap,
+	borderLeftWidth: borderWidthTokenMap,
+	borderRightWidth: borderWidthTokenMap,
+	borderTopWidth: borderWidthTokenMap,
+	borderBlockWidth: borderWidthTokenMap,
+	borderInlineWidth: borderWidthTokenMap,
+	outlineWidth: borderWidthTokenMap,
+};

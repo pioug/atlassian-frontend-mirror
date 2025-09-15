@@ -1,0 +1,480 @@
+import { icon } from './icons';
+
+export const mockedAccessibleProductsResult = {
+	data: {
+		products: [
+			{
+				productId: 'confluence.ondemand',
+				productDisplayName: 'Confluence',
+				workspaces: [
+					{
+						cloudId: '0131afab-28cf-45ea-a211-963f638f99bc',
+						workspaceUrl: 'https://customdomains.jira-dev.com',
+						workspaceDisplayName: 'customdomains',
+						workspaceAvatarUrl: icon.star.base64,
+						vortexMode: "ENABLED"
+					},
+					{
+						cloudId: '0706eddc-00d7-4e1c-9268-ee3c1d2408cc',
+						workspaceUrl: 'https://sre-ehlo.jira-dev.com',
+						workspaceDisplayName: 'sre-ehlo',
+						workspaceAvatarUrl: icon.rings.base64,
+						vortexMode: "ENABLED"
+					},
+					{
+						cloudId: '0831225f-7896-4fe6-add5-b1fc432f8eff',
+						workspaceUrl: 'https://laika.jira-dev.com',
+						workspaceDisplayName: 'laika',
+						workspaceAvatarUrl: icon.trophy.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '242c8d59-775f-43df-8833-004468c2398e',
+						workspaceUrl: 'https://atl-jb-atjong-3.jira-dev.com',
+						workspaceDisplayName: 'atl-jb-atjong-3',
+						workspaceAvatarUrl: icon.koala.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '252c8cca-c152-45c0-bb7a-ffa97284d36b',
+						workspaceUrl: 'https://akohut2-serverid-missing-test-4.jira-dev.com',
+						workspaceDisplayName: 'akohut2-serverid-missing-test-4',
+						workspaceAvatarUrl: icon.pencilmarker.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '3ac63b37-9bca-435e-9840-eff6f8739dba',
+						workspaceUrl: 'https://atl-smartlinks.jira-dev.com',
+						workspaceDisplayName: 'atl-smartlinks',
+						workspaceAvatarUrl: icon.cup.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '3c621e59-faba-4f7c-b258-103383b63f45',
+						workspaceUrl: 'https://atl-jb-atjong-1.jira-dev.com',
+						workspaceDisplayName: 'atl-jb-atjong-1',
+						workspaceAvatarUrl: icon.jersey.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '493f2468-2a37-4ffe-8d68-fc0da67e9a3e',
+						workspaceUrl: 'https://ckohler-3188.jira-dev.com',
+						workspaceDisplayName: 'ckohler-3188',
+						workspaceAvatarUrl: icon.lightbulb.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5',
+						workspaceUrl: 'https://jdog.jira-dev.com',
+						workspaceDisplayName: 'jdog',
+						workspaceAvatarUrl: icon.triangle.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '4fdd36f2-2011-47d2-986f-b31e04d95088',
+						workspaceUrl: 'https://akohut2-serverid-missing-test-4-sandbox-368.jira-dev.com',
+						workspaceDisplayName: 'akohut2-serverid-missing-test-4-sandbox-368',
+						workspaceAvatarUrl: icon.flag.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '7088b486-bbf4-4e1f-9195-412bfac4be28',
+						workspaceUrl: 'https://not-fussed.jira-dev.com',
+						workspaceDisplayName: 'not-fussed',
+						workspaceAvatarUrl: icon.rocket.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '9a257bbc-b7c6-47c8-b1dc-c3db3ac8954b',
+						workspaceUrl: 'https://supertong.jira-dev.com',
+						workspaceDisplayName: 'supertong',
+						workspaceAvatarUrl: icon.compass.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'DUMMY-7c8a2b74-595a-41c7-960c-fd32f8572cea',
+						workspaceUrl: 'https://sdog.jira-dev.com',
+						workspaceDisplayName: 'sdog',
+						workspaceAvatarUrl: icon.flag.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
+						workspaceUrl: 'https://pug.jira-dev.com',
+						workspaceDisplayName: 'pug',
+						workspaceAvatarUrl: icon.flag.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'f2a3ac59-ce58-4270-baae-f2d68fecdfa5',
+						workspaceUrl: 'https://plai-playground.jira-dev.com',
+						workspaceDisplayName: 'plai-playground',
+						workspaceAvatarUrl: icon.rings.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'ee0cdd5b-726c-46f9-b038-3173a3a87264',
+						workspaceUrl: 'https://apradhan2.jira-dev.com',
+						workspaceDisplayName: 'apradhan2',
+						workspaceAvatarUrl: icon.flag.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'e60ab36b-1b37-4090-a566-cc6dbb1636dd',
+						workspaceUrl: 'https://jsw-roadmap-macro-checks.jira-dev.com',
+						workspaceDisplayName: 'jsw-roadmap-macro-checks',
+						workspaceAvatarUrl: icon.cup.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'eb7d238c-d21f-4e48-bd92-1d6bded77605',
+						workspaceUrl: 'https://supertong2.jira-dev.com',
+						workspaceDisplayName: 'supertong2',
+						workspaceAvatarUrl: icon.rocket.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'c95537b3-71ef-433e-965a-ad6fbece501d',
+						workspaceUrl: 'https://custom-domains-upp-stg.jira-dev.com',
+						workspaceDisplayName: 'custom-domains-upp-stg',
+						workspaceAvatarUrl: icon.site.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'adabbd0c-91c5-4229-9eb2-9915aa3abe49',
+						workspaceUrl: 'https://wneto-forge.jira-dev.com',
+						workspaceDisplayName: 'wneto-forge',
+						workspaceAvatarUrl: icon.rings.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'DUMMY-b709a656-6abc-4bff-a067-db63db1da2c9',
+						workspaceUrl: 'https://sd-fluxxie.jira-dev.com',
+						workspaceDisplayName: 'sd-fluxxie',
+						workspaceAvatarUrl: icon.koala.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'a957adff-45b0-4f4f-8669-b640ed9973b6',
+						workspaceUrl: 'https://forge-smart-link-battleground.jira-dev.com',
+						workspaceDisplayName: 'forge-smart-link-battleground',
+						workspaceAvatarUrl: icon.triangle.base64,
+						vortexMode: "ENABLED",
+					},
+				]
+			},
+			{
+				productId: 'jira-software.ondemand',
+				productDisplayName: 'Jira',
+				workspaces: [
+					{
+						cloudId: '0131afab-28cf-45ea-a211-963f638f99bc',
+						workspaceUrl: 'https://customdomains.jira-dev.com',
+						workspaceDisplayName: 'customdomains',
+						workspaceAvatarUrl: icon.star.base64,
+						vortexMode: "ENABLED"
+					},
+					{
+						cloudId: '0706eddc-00d7-4e1c-9268-ee3c1d2408cc',
+						workspaceUrl: 'https://sre-ehlo.jira-dev.com',
+						workspaceDisplayName: 'sre-ehlo',
+						workspaceAvatarUrl: icon.rings.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '0831225f-7896-4fe6-add5-b1fc432f8eff',
+						workspaceUrl: 'https://laika.jira-dev.com',
+						workspaceDisplayName: 'laika',
+						workspaceAvatarUrl: icon.trophy.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '242c8d59-775f-43df-8833-004468c2398e',
+						workspaceUrl: 'https://atl-jb-atjong-3.jira-dev.com',
+						workspaceDisplayName: 'atl-jb-atjong-3',
+						workspaceAvatarUrl: icon.koala.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '252c8cca-c152-45c0-bb7a-ffa97284d36b',
+						workspaceUrl: 'https://akohut2-serverid-missing-test-4.jira-dev.com',
+						workspaceDisplayName: 'akohut2-serverid-missing-test-4',
+						workspaceAvatarUrl: icon.pencilmarker.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '3ac63b37-9bca-435e-9840-eff6f8739dba',
+						workspaceUrl: 'https://atl-smartlinks.jira-dev.com',
+						workspaceDisplayName: 'atl-smartlinks',
+						workspaceAvatarUrl: icon.cup.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '3c621e59-faba-4f7c-b258-103383b63f45',
+						workspaceUrl: 'https://atl-jb-atjong-1.jira-dev.com',
+						workspaceDisplayName: 'atl-jb-atjong-1',
+						workspaceAvatarUrl: icon.jersey.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5',
+						workspaceUrl: 'https://jdog.jira-dev.com',
+						workspaceDisplayName: 'jdog',
+						workspaceAvatarUrl: icon.triangle.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '7088b486-bbf4-4e1f-9195-412bfac4be28',
+						workspaceUrl: 'https://not-fussed.jira-dev.com',
+						workspaceDisplayName: 'not-fussed',
+						workspaceAvatarUrl: icon.rocket.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '9a257bbc-b7c6-47c8-b1dc-c3db3ac8954b',
+						workspaceUrl: 'https://supertong.jira-dev.com',
+						workspaceDisplayName: 'supertong',
+						workspaceAvatarUrl: icon.compass.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'DUMMY-7c8a2b74-595a-41c7-960c-fd32f8572cea',
+						workspaceUrl: 'https://sdog.jira-dev.com',
+						workspaceDisplayName: 'sdog',
+						workspaceAvatarUrl: icon.flag.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
+						workspaceUrl: 'https://pug.jira-dev.com',
+						workspaceDisplayName: 'pug',
+						workspaceAvatarUrl: icon.flag.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'cf2285a2-2c26-4996-8501-f390c14f593a',
+						workspaceUrl: 'https://nabin.jira-dev.com',
+						workspaceDisplayName: 'nabin',
+						workspaceAvatarUrl: icon.trophy.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'f2a3ac59-ce58-4270-baae-f2d68fecdfa5',
+						workspaceUrl: 'https://plai-playground.jira-dev.com',
+						workspaceDisplayName: 'plai-playground',
+						workspaceAvatarUrl: icon.rings.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'ee0cdd5b-726c-46f9-b038-3173a3a87264',
+						workspaceUrl: 'https://apradhan2.jira-dev.com',
+						workspaceDisplayName: 'apradhan2',
+						workspaceAvatarUrl: icon.flag.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'e60ab36b-1b37-4090-a566-cc6dbb1636dd',
+						workspaceUrl: 'https://jsw-roadmap-macro-checks.jira-dev.com',
+						workspaceDisplayName: 'jsw-roadmap-macro-checks',
+						workspaceAvatarUrl: icon.cup.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'eb7d238c-d21f-4e48-bd92-1d6bded77605',
+						workspaceUrl: 'https://supertong2.jira-dev.com',
+						workspaceDisplayName: 'supertong2',
+						workspaceAvatarUrl: icon.rocket.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'c95537b3-71ef-433e-965a-ad6fbece501d',
+						workspaceUrl: 'https://custom-domains-upp-stg.jira-dev.com',
+						workspaceDisplayName: 'custom-domains-upp-stg',
+						workspaceAvatarUrl: icon.site.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'DUMMY-b709a656-6abc-4bff-a067-db63db1da2c9',
+						workspaceUrl: 'https://sd-fluxxie.jira-dev.com',
+						workspaceDisplayName: 'sd-fluxxie',
+						workspaceAvatarUrl: icon.koala.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'a957adff-45b0-4f4f-8669-b640ed9973b6',
+						workspaceUrl: 'https://forge-smart-link-battleground.jira-dev.com',
+						workspaceDisplayName: 'forge-smart-link-battleground',
+						workspaceAvatarUrl: icon.triangle.base64,
+						vortexMode: "ENABLED",
+					},
+				]
+			},
+			{
+				productId: 'jira-servicedesk.ondemand',
+				productDisplayName: 'Jira Service Desk',
+				workspaces: [
+					{
+						cloudId: '0131afab-28cf-45ea-a211-963f638f99bc',
+						workspaceUrl: 'https://customdomains.jira-dev.com',
+						workspaceDisplayName: 'customdomains',
+						workspaceAvatarUrl: icon.star.base64,
+						vortexMode: "ENABLED"
+					},
+					{
+						cloudId: '0831225f-7896-4fe6-add5-b1fc432f8eff',
+						workspaceUrl: 'https://laika.jira-dev.com',
+						workspaceDisplayName: 'laika',
+						workspaceAvatarUrl: icon.trophy.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '493f2468-2a37-4ffe-8d68-fc0da67e9a3e',
+						workspaceUrl: 'https://ckohler-3188.jira-dev.com',
+						workspaceDisplayName: 'ckohler-3188',
+						workspaceAvatarUrl: icon.lightbulb.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5',
+						workspaceUrl: 'https://jdog.jira-dev.com',
+						workspaceDisplayName: 'jdog',
+						workspaceAvatarUrl: icon.triangle.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'DUMMY-7c8a2b74-595a-41c7-960c-fd32f8572cea',
+						workspaceUrl: 'https://sdog.jira-dev.com',
+						workspaceDisplayName: 'sdog',
+						workspaceAvatarUrl: icon.flag.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'ee0cdd5b-726c-46f9-b038-3173a3a87264',
+						workspaceUrl: 'https://apradhan2.jira-dev.com',
+						workspaceDisplayName: 'apradhan2',
+						workspaceAvatarUrl: icon.flag.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'c95537b3-71ef-433e-965a-ad6fbece501d',
+						workspaceUrl: 'https://custom-domains-upp-stg.jira-dev.com',
+						workspaceDisplayName: 'custom-domains-upp-stg',
+						workspaceAvatarUrl: icon.site.base64,
+						vortexMode: "ENABLED",
+					},
+				]
+			},
+			{
+				productId: 'jira-core.ondemand',
+				productDisplayName: 'Jira Core',
+				workspaces: [
+					{
+						cloudId: '3c621e59-faba-4f7c-b258-103383b63f45',
+						workspaceUrl: 'https://atl-jb-atjong-1.jira-dev.com',
+						workspaceDisplayName: 'atl-jb-atjong-1',
+						workspaceAvatarUrl: icon.jersey.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: '7088b486-bbf4-4e1f-9195-412bfac4be28',
+						workspaceUrl: 'https://not-fussed.jira-dev.com',
+						workspaceDisplayName: 'not-fussed',
+						workspaceAvatarUrl: icon.rocket.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'cf2285a2-2c26-4996-8501-f390c14f593a',
+						workspaceUrl: 'https://nabin.jira-dev.com',
+						workspaceDisplayName: 'nabin',
+						workspaceAvatarUrl: icon.trophy.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'ee0cdd5b-726c-46f9-b038-3173a3a87264',
+						workspaceUrl: 'https://apradhan2.jira-dev.com',
+						workspaceDisplayName: 'apradhan2',
+						workspaceAvatarUrl: icon.flag.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'c95537b3-71ef-433e-965a-ad6fbece501d',
+						workspaceUrl: 'https://custom-domains-upp-stg.jira-dev.com',
+						workspaceDisplayName: 'custom-domains-upp-stg',
+						workspaceAvatarUrl: icon.site.base64,
+						vortexMode: "ENABLED",
+					},
+					{
+						cloudId: 'DUMMY-b709a656-6abc-4bff-a067-db63db1da2c9',
+						workspaceUrl: 'https://sd-fluxxie.jira-dev.com',
+						workspaceDisplayName: 'sd-fluxxie',
+						workspaceAvatarUrl: icon.koala.base64,
+						vortexMode: "ENABLED",
+					},
+				]
+			},
+			{
+				productId: 'jira-product-discovery',
+				productDisplayName: 'JPD',
+				workspaces: [
+					{
+						cloudId: '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5',
+						workspaceUrl: 'https://jdog.jira-dev.com',
+						workspaceDisplayName: 'jdog',
+						workspaceAvatarUrl: icon.triangle.base64,
+						vortexMode: "ENABLED",
+					},
+				]
+			}
+		]
+	}
+};
+
+/**
+ * Mock availableSites response for a specific gatewayBaseUrl
+ */
+export const mockedAccessibleResultWithGatewayBaseUrl = {
+	data: {
+		products: [
+			...mockedAccessibleProductsResult.data.products,
+			{
+				...mockedAccessibleProductsResult.data.products[0],
+				workspaces: [
+					...mockedAccessibleProductsResult.data.products[0].workspaces,
+					{
+						cloudId: 'cloudid-for-custom-baseworkspaceUrl',
+						workspaceUrl: 'https://custom-domain-for-custom-baseworkspaceUrl.jira-dev.com',
+						workspaceDisplayName: 'custom-domain-for-custom-baseworkspaceUrl',
+						workspaceAvatarUrl: icon.star.base64,
+						vortexMode: "ENABLED",
+					}
+				]
+			},
+			{
+				...mockedAccessibleProductsResult.data.products[1],
+				workspaces: [
+					...mockedAccessibleProductsResult.data.products[1].workspaces,
+					{
+						cloudId: 'cloudid-for-custom-baseworkspaceUrl',
+						workspaceUrl: 'https://custom-domain-for-custom-baseworkspaceUrl.jira-dev.com',
+						workspaceDisplayName: 'custom-domain-for-custom-baseworkspaceUrl',
+						workspaceAvatarUrl: icon.star.base64,
+						vortexMode: "ENABLED",
+					}
+				]
+			},
+			{
+				...mockedAccessibleProductsResult.data.products[2],
+				workspaces: [
+					...mockedAccessibleProductsResult.data.products[2].workspaces,
+					{
+						cloudId: 'cloudid-for-custom-baseworkspaceUrl',
+						workspaceUrl: 'https://custom-domain-for-custom-baseworkspaceUrl.jira-dev.com',
+						workspaceDisplayName: 'custom-domain-for-custom-baseworkspaceUrl',
+						workspaceAvatarUrl: icon.star.base64,
+						vortexMode: "ENABLED",
+					}
+				]
+			}
+		],
+	}
+};

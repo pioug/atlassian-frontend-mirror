@@ -1,5 +1,12 @@
 # @atlaskit/editor-toolbar
 
+## 0.9.1
+
+### Patch Changes
+
+- [`dc592a66e5d2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc592a66e5d2a) -
+  Updated the rovo icon to the latest svg graphic
+
 ## 0.9.0
 
 ### Minor Changes

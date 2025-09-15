@@ -16,6 +16,7 @@ import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
 import { getBlockMenuItems, menuItemsCallback } from './block-menu-items';
 import { BLOCK_MENU_WIDTH } from './consts';
+import { getAnchorAttrName } from './utils/dom-attr-name';
 
 type BlockMenuProps = {
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
@@ -39,7 +40,7 @@ const BlockMenuContent = ({
 	menuTriggerBy,
 	formatMessage,
 }: BlockMenuContentProps) => {
-	const activeNodeSelector = `[data-drag-handler-anchor-name=${menuTriggerBy}]`;
+	const activeNodeSelector = `[${getAnchorAttrName()}=${menuTriggerBy}]`;
 	const targetHandleRef = document.querySelector(activeNodeSelector);
 	const items = getBlockMenuItems(formatMessage);
 
@@ -137,7 +138,7 @@ const BlockMenu = ({
 		);
 	}
 
-	const activeNodeSelector = `[data-drag-handler-anchor-name=${menuTriggerBy}]`;
+	const activeNodeSelector = `[${getAnchorAttrName()}=${menuTriggerBy}]`;
 	const targetHandleRef = document.querySelector(activeNodeSelector);
 	const items = getBlockMenuItems(formatMessage);
 

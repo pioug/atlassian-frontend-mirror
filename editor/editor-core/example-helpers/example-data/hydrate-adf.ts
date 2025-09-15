@@ -3,6 +3,59 @@ export const hydrateAdf = {
 	type: 'doc',
 	content: [
 		{
+			type: 'taskList',
+			attrs: {
+				localId: '71f8c24d-4b69-48c4-9fa9-be30a8050158',
+			},
+			content: [
+				{
+					type: 'taskItem',
+					attrs: {
+						localId: '8a0fe9b4-f087-4079-90be-230c89902a30',
+						state: 'TODO',
+					},
+					content: [
+						{
+							type: 'text',
+							text: 'items 1',
+						},
+					],
+				},
+				{
+					type: 'taskItem',
+					attrs: {
+						localId: 'dfbd3b3f-915e-45cc-8fdb-4dcf57a3bcbe',
+						state: 'TODO',
+					},
+					content: [
+						{
+							type: 'text',
+							text: 'item 2',
+						},
+					],
+				},
+				{
+					type: 'taskItem',
+					attrs: {
+						localId: '543abf63-1883-4bbc-8a15-3dfeed52325d',
+						state: 'TODO',
+					},
+					content: [
+						{
+							type: 'date',
+							attrs: {
+								timestamp: '1650499200000',
+							},
+						},
+						{
+							type: 'text',
+							text: ' ',
+						},
+					],
+				},
+			],
+		},
+		{
 			type: 'bulletList',
 			attrs: {
 				localId: '12c103f9-b76d-4f1e-b961-a3936b2702de',
@@ -22,7 +75,14 @@ export const hydrateAdf = {
 							content: [
 								{
 									type: 'text',
-									text: 'Hello',
+									text: 'Hello ',
+								},
+								{
+									type: 'date',
+									attrs: {
+										timestamp: '1757635200000',
+										localId: '55acf137-5d94-45d9-90b4-b723fa28c985',
+									},
 								},
 							],
 						},
@@ -58,6 +118,13 @@ export const hydrateAdf = {
 					],
 				},
 			],
+		},
+		{
+			type: 'blockCard',
+			attrs: {
+				localId: 'c7f5005a-fea1-45ea-8f8d-c5b343c97b9e',
+				url: 'https://google.com',
+			},
 		},
 		{
 			type: 'paragraph',

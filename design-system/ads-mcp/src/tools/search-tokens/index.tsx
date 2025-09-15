@@ -1,3 +1,4 @@
+import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
 import Fuse from 'fuse.js';
 import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
@@ -52,7 +53,7 @@ borderRadius: token('border.radius'),
 	inputSchema: zodToJsonSchema(inputSchema),
 };
 
-export const searchTokensTool = async (params: z.infer<typeof inputSchema>) => {
+export const searchTokensTool = async (params: z.infer<typeof inputSchema>): Promise<CallToolResult> => {
 	const { terms, limit = 1, exactName = false } = params;
 	const searchTerms = terms.filter(Boolean).map(cleanQuery);
 
@@ -106,7 +107,12 @@ export const searchTokensTool = async (params: z.infer<typeof inputSchema>) => {
 		})
 		.flat();
 
-	const matchedTokens = results.map((result) => {
+	// Remove duplicates based on token name
+	const uniqueResults = results.filter((result, index, arr) => {
+		return arr.findIndex(r => r.item.name === result.item.name) === index;
+	});
+
+	const matchedTokens = uniqueResults.map((result) => {
 		return {
 			name: result.item.name,
 			exampleValue: result.item.exampleValue,

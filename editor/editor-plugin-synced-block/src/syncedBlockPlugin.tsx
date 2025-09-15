@@ -1,24 +1,51 @@
-import { getSyncedBlockNodeView } from './nodeviews/syncedBlock';
+import React from 'react';
+
+import { syncBlock } from '@atlaskit/adf-schema';
+import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/dist/types/state';
+import SmartLinkIcon from '@atlaskit/icon/core/smart-link';
+
+import { createSyncedBlock } from './pm-plugins/actions';
 import { createPlugin } from './pm-plugins/main';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
 import { getToolbarConfig } from './ui/floating-toolbar';
 
-export const syncedBlockPlugin: SyncedBlockPlugin = () => ({
+export const syncedBlockPlugin: SyncedBlockPlugin = ({ config }) => ({
 	name: 'syncedBlock',
-	props: {
-		nodeViews: {
-			syncedBlock: getSyncedBlockNodeView(),
-		},
+
+	nodes() {
+		return [
+			{
+				name: 'syncBlock',
+				node: syncBlock,
+			},
+		];
 	},
+
 	pmPlugins() {
 		return [
 			{
 				name: 'syncedBlockPlugin',
-				plugin: createPlugin,
+				plugin: (params: PMPluginFactoryParams) => createPlugin(config, params),
 			},
 		];
 	},
 	pluginsOptions: {
+		quickInsert: () => [
+			{
+				id: 'syncBlock',
+				title: 'Synced Block',
+				description: 'Create a synced block',
+				priority: 800,
+				keywords: ['synced', 'block', 'synced-block', 'sync', 'sync-block'],
+				keyshortcut: '',
+				icon: () => <SmartLinkIcon label="Synced Block" />,
+				action: (_insert: QuickInsertActionInsert, state: EditorState) => {
+					return createSyncedBlock(state);
+				},
+			},
+		],
 		floatingToolbar: getToolbarConfig(),
 	},
 });

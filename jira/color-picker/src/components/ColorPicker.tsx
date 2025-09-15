@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+/// <reference types="node" />
+// for typing `process`
 import React from 'react';
 import { PopupSelect, type PopupSelectProps, type ValueType } from '@atlaskit/select';
 import Trigger from './Trigger';

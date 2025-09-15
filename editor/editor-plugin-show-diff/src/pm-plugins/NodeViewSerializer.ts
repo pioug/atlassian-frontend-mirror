@@ -51,9 +51,7 @@ export class NodeViewSerializer {
 		if (params?.editorView) {
 			this.init({ editorView: params.editorView });
 		}
-		this.nodeViewBlocklist = new Set(
-			params.blocklist ?? ['table', 'tableRow', 'tableHeader', 'tableCell', 'paragraph'],
-		);
+		this.nodeViewBlocklist = new Set(params.blocklist ?? ['paragraph']);
 	}
 
 	/**
@@ -83,13 +81,43 @@ export class NodeViewSerializer {
 			return null;
 		}
 		const constructor = this.nodeViews?.[targetNode.type.name];
-		if (!constructor) {
-			return null;
-		}
 		if (this.nodeViewBlocklist.has(targetNode.type.name)) {
 			return null;
 		}
-		return constructor(targetNode, this.editorView, () => 0, [], {} as DecorationSource);
+		if (!constructor) {
+			if (targetNode.isInline) {
+				return null;
+			}
+			const toDOMResult = targetNode.type.spec.toDOM?.(targetNode);
+			if (!toDOMResult) {
+				return null;
+			}
+			const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOMResult);
+			if (dom instanceof HTMLElement) {
+				if (targetNode.type.name === 'paragraph' && targetNode.children.length === 1) {
+					return this.serializeFragment(targetNode.content);
+				}
+
+				// Iteratively populate children
+				targetNode.children.forEach((child) => {
+					contentDOM?.append(this.tryCreateNodeView(child) || this.serializeNode(child));
+				});
+			}
+			return dom;
+		}
+
+		const { dom, contentDOM } = constructor(
+			targetNode,
+			this.editorView,
+			() => 0,
+			[],
+			{} as DecorationSource,
+		);
+		// Iteratively populate children
+		targetNode.children.forEach((child) => {
+			contentDOM?.append(this.tryCreateNodeView(child) || this.serializeNode(child));
+		});
+		return dom;
 	}
 
 	/**

@@ -133,9 +133,8 @@ const transformToCodeBlock = (nodes: PMNode[], schema: Schema): PMNode[] => {
 			const inlineTextContent =
 				node.type === schema.nodes.codeBlock
 					? node.textContent
-					: getInlineNodeTextContent(Fragment.from(node));
+					: getInlineNodeTextContent(Fragment.from(node)).inlineTextContent;
 
-			// For first node, add directly
 			addToNewNodes([inlineTextContent]);
 		} else if (isListNode(node)) {
 			const textContent: string[] = [];
@@ -144,10 +143,12 @@ const transformToCodeBlock = (nodes: PMNode[], schema: Schema): PMNode[] => {
 			const listItems = findChildrenByType(node, listItemType).map((item) => item.node);
 			listItems.forEach((listItem) => {
 				if (listItem.type === schema.nodes.taskItem) {
-					const inlineTextContent = getInlineNodeTextContent(Fragment.from(listItem));
+					const inlineTextContent = getInlineNodeTextContent(
+						Fragment.from(listItem),
+					).inlineTextContent;
 					textContent.push(inlineTextContent);
 				} else {
-					const inlineTextContent = getInlineNodeTextContent(listItem.content);
+					const inlineTextContent = getInlineNodeTextContent(listItem.content).inlineTextContent;
 					textContent.push(inlineTextContent);
 				}
 			});
@@ -271,6 +272,10 @@ export const transformToListNode = (
 	)[] = [];
 
 	const listItemType = isTargetTask ? schema.nodes.taskItem : schema.nodes.listItem;
+	const unsupportedContent: PMNode[] = [];
+	const onhandleUnsupportedContent = (content: PMNode) => {
+		unsupportedContent.push(content);
+	};
 
 	const isValid = getContentSupportChecker(listItemType);
 
@@ -293,16 +298,19 @@ export const transformToListNode = (
 					// For the same list type, we can keep the structure
 					newListItems = node.content.content;
 				} else {
-					const newList = transformListRecursively({
-						isSourceBulletOrOrdered,
-						isSourceTask,
-						isTargetBulletOrOrdered,
-						isTargetTask,
-						listNode: node,
-						schema,
-						supportedListTypes,
-						targetNodeType,
-					});
+					const newList = transformListRecursively(
+						{
+							isSourceBulletOrOrdered,
+							isSourceTask,
+							isTargetBulletOrOrdered,
+							isTargetTask,
+							listNode: node,
+							schema,
+							supportedListTypes,
+							targetNodeType,
+						},
+						onhandleUnsupportedContent,
+					);
 					newListItems = [...newList.content.content];
 				}
 			} else if (isHeadingOrParagraphNode(node) || isValid(node)) {
@@ -336,13 +344,16 @@ export const transformToListNode = (
 		}
 	});
 
-	return listItems.map(({ node, canBeTransformed }) => {
-		if (canBeTransformed) {
-			return targetNodeType.createChecked(null, Fragment.fromArray(node));
-		} else {
-			return node;
-		}
-	});
+	return [
+		...listItems.map(({ node, canBeTransformed }) => {
+			if (canBeTransformed) {
+				return targetNodeType.createChecked(null, Fragment.fromArray(node));
+			} else {
+				return node;
+			}
+		}),
+		...unsupportedContent,
+	];
 };
 
 export const convertUnwrappedLayoutContent = (

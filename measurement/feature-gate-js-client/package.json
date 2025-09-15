@@ -27,15 +27,17 @@
 		"*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./client": "./src/client.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./client": "./src/client.ts",
-		"./file-persistent-override-adapter": "./src/client/FilePeristentOverrideAdapter.ts",
-		"./persistent-override-adapter": "./src/client/PersistentOverrideAdapter.ts"
+		"./file-persistent-override-adapter": {
+			"publish": null,
+			"default": "./src/client/FilePeristentOverrideAdapter.ts"
+		},
+		"./persistent-override-adapter": {
+			"publish": null,
+			"default": "./src/client/PersistentOverrideAdapter.ts"
+		}
 	},
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",

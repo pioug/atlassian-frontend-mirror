@@ -1,3 +1,4 @@
+/// <reference types="node" />
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 import React, { type SyntheticEvent, useCallback, useEffect } from 'react';
 

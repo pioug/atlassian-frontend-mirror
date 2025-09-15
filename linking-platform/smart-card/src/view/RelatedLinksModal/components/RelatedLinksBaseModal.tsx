@@ -49,7 +49,6 @@ const RelatedLinksBaseModal = ({ onClose, showModal, children }: RelatedLinksBas
 					testId="related-links-modal"
 					onClose={closeHandler}
 					width={fixedWidth}
-					{...(fg('navx-1304-related-links-remove-false-autofocus') ? {} : { autoFocus: false })}
 					shouldReturnFocus={false}
 					onOpenComplete={openCompleteHandler}
 					height={'504px'}

@@ -2,6 +2,8 @@ import memoizeOne from 'memoize-one';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { getAnchorAttrName } from '../../ui/utils/dom-attr-name';
+
 export const isAnchorSupported = memoizeOne(() => {
 	// directly use CSS would cause failed SSR tests.
 	if (window.CSS && window.CSS.supports) {
@@ -33,9 +35,9 @@ export class AnchorRectCache {
 	private getRects() {
 		if (this.isDirty) {
 			const anchorElements: NodeListOf<HTMLElement> | never[] =
-				this.view?.dom.querySelectorAll('[data-drag-handler-anchor-name]') || [];
+				this.view?.dom.querySelectorAll(`[${getAnchorAttrName()}]`) || [];
 			this.anchorRectMap = Array.from(anchorElements).reduce((prev, curr) => {
-				const anchorName = curr.getAttribute('data-drag-handler-anchor-name');
+				const anchorName = curr.getAttribute(getAnchorAttrName());
 
 				if (anchorName) {
 					return {

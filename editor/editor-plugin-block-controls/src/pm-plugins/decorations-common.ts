@@ -9,7 +9,6 @@ export const TYPE_HANDLE_DEC = 'drag-handle';
 export const TYPE_NODE_DEC = 'node-decoration';
 
 export const NESTED_DEPTH = 100;
-
 export const getNodeAnchor = (node: PMNode) => {
 	const handleId = ObjHash.getForNode(node);
 	return `--node-anchor-${node.type.name}-${handleId}`;

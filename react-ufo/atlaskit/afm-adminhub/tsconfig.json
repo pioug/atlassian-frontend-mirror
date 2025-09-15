@@ -26,9 +26,6 @@
 			"path": "../../../helpers/browser-apis/afm-adminhub/tsconfig.json"
 		},
 		{
-			"path": "../../../measurement/feature-gate-js-client/afm-adminhub/tsconfig.json"
-		},
-		{
 			"path": "../../../observability/interaction-context/afm-adminhub/tsconfig.json"
 		},
 		{

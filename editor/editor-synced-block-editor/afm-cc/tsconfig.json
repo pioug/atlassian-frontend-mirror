@@ -1,0 +1,34 @@
+{
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__editor-synced-block-editor",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/mocks/*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-core/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-json-transformer/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugins/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-cc/tsconfig.json"
+		}
+	]
+}

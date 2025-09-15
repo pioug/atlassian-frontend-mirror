@@ -1,5 +1,15 @@
 # @atlaskit/ads-mcp
 
+## 0.6.0
+
+### Minor Changes
+
+- [`c93f651e4d55f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c93f651e4d55f) - -
+  Added `plan` tool, a grouped API tool call for `search_tokens`, `search_icons` and
+  `get_components` combined
+  - Remove duplicate results in search tools for `search-components`, `search-icons`, and
+    `search-tokens`
+
 ## 0.5.0
 
 ### Minor Changes

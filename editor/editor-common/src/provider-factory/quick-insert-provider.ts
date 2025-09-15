@@ -50,7 +50,8 @@ export type QuickInsertItemId =
 	| 'twocolumnslayout'
 	| 'threecolumnslayout'
 	| 'fourcolumnslayout'
-	| 'fivecolumnslayout';
+	| 'fivecolumnslayout'
+	| 'syncBlock';
 
 export type QuickInsertItem = TypeAheadItem & {
 	/**

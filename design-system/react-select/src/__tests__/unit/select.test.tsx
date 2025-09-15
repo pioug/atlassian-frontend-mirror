@@ -3195,6 +3195,7 @@ describe('fg platform_do_not_clear_input_for_multiselect', () => {
 				<Select
 					{...BASIC_PROPS}
 					isMulti
+					shouldKeepInputOnSelect
 					onInputChange={onInputChangeSpy}
 					inputValue="1"
 					menuIsOpen
@@ -3215,6 +3216,7 @@ describe('fg platform_do_not_clear_input_for_multiselect', () => {
 				<Select
 					{...BASIC_PROPS}
 					isMulti
+					shouldKeepInputOnSelect
 					onInputChange={onInputChangeSpy}
 					inputValue="1"
 					menuIsOpen

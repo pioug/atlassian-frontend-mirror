@@ -1,5 +1,12 @@
 # @atlaskit/linking-common
 
+## 9.6.0
+
+### Minor Changes
+
+- [`c57fe7bca2c13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c57fe7bca2c13) -
+  NAVX-1819 migrating site api endpoint from /available-sites to /v2/accessible-products
+
 ## 9.5.7
 
 ### Patch Changes

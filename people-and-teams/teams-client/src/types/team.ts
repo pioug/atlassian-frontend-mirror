@@ -207,3 +207,10 @@ export interface UnassignedTeamsResponse {
 	teams: UnassignedTeam[];
 	cursor: string;
 }
+
+export type AlignmentPermission = 'ALL_USERS' | 'ORG_ADMIN';
+
+export interface TeamSiteAssignmentOrgDetailsResponse {
+	cutoffDate: string;
+	permission: AlignmentPermission;
+}

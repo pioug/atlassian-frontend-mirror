@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-date
 
+## 7.2.1
+
+### Patch Changes
+
+- [`34d0a1168dab6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34d0a1168dab6) -
+  Hydration fixes for date plugin ContentComponent
+- Updated dependencies
+
 ## 7.2.0
 
 ### Minor Changes

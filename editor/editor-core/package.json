@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "213.1.2",
+	"version": "213.2.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -502,9 +502,6 @@
 		"platform_synced_block_demo": {
 			"type": "boolean"
 		},
-		"platform_editor_fix_emoji_style_selectors": {
-			"type": "boolean"
-		},
 		"platform_editor_adf_with_localid": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -531,26 +528,6 @@
 			"checkDevDependencies": true
 		}
 	},
-	"af:exports": {
-		".": "./src/index.ts",
-		"./composable-editor": "./src/composable-editor.ts",
-		"./create-editor-content-style": "./src/ui/ContentStyles/index.tsx",
-		"./editor-context": "./src/editor-context.ts",
-		"./editor": "./src/editor.tsx",
-		"./i18n": "./src/i18n/index.ts",
-		"./i18n-languages": "./src/i18n/languages.ts",
-		"./labs-next": "./src/labs-next.ts",
-		"./preset-default": "./src/preset-default.ts",
-		"./preset-universal": "./src/preset-universal.ts",
-		"./test-utils": "./src/test-utils.ts",
-		"./use-preset": "./src/use-preset.ts",
-		"./use-preset-context": "./src/presets/context.tsx",
-		"./appearance-editor-full-page": "./src/editor-appearances/FullPageEditor.tsx",
-		"./appearance-editor-full-width": "./src/editor-appearances/FullWidthEditor.tsx",
-		"./appearance-editor-comment": "./src/editor-appearances/CommentEditor.tsx",
-		"./appearance-editor-chromeless": "./src/editor-appearances/ChromelessEditor.tsx",
-		"./version-wrapper": "./src/version-wrapper.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./composable-editor": "./src/composable-editor.ts",
@@ -558,7 +535,10 @@
 		"./editor-context": "./src/editor-context.ts",
 		"./editor": "./src/editor.tsx",
 		"./i18n": "./src/i18n/index.ts",
-		"./i18n/*": "./src/i18n/*.ts",
+		"./i18n/*": {
+			"publish": null,
+			"default": "./src/i18n/*.ts"
+		},
 		"./i18n-languages": "./src/i18n/languages.ts",
 		"./labs-next": "./src/labs-next.ts",
 		"./preset-default": "./src/preset-default.ts",
@@ -571,6 +551,9 @@
 		"./appearance-editor-comment": "./src/editor-appearances/CommentEditor.tsx",
 		"./appearance-editor-chromeless": "./src/editor-appearances/ChromelessEditor.tsx",
 		"./version-wrapper": "./src/version-wrapper.ts",
-		"./package.json": "./package.json"
+		"./package.json": {
+			"publish": null,
+			"default": "./package.json"
+		}
 	}
 }

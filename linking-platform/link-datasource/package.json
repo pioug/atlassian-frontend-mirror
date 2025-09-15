@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.23.1",
+	"version": "4.23.2",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -154,14 +154,13 @@
 			]
 		}
 	},
-	"af:exports": {
-		".": "./src/index.ts",
-		"./elements": "./src/elements.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./elements": "./src/elements.ts",
-		"./i18n/*": "./src/i18n/*.ts"
+		"./i18n/*": {
+			"publish": null,
+			"default": "./src/i18n/*.ts"
+		}
 	},
 	"platform-feature-flags": {
 		"platform-datasources-enable-two-way-sync-assignee": {
@@ -192,6 +191,9 @@
 			"type": "boolean"
 		},
 		"navx-1334-datasource-deep-compare-params": {
+			"type": "boolean"
+		},
+		"navx-1241-sllv-filters-add-tooltip-to-options": {
 			"type": "boolean"
 		}
 	},

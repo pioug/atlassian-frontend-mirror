@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.3.1
+
+### Patch Changes
+
+- [`89687a02d7e6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89687a02d7e6b) -
+  Internal changes to support @compiled/react.
+
 ## 0.3.0
 
 ### Minor Changes

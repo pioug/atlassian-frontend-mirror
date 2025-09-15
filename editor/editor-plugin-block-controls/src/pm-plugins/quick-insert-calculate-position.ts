@@ -10,6 +10,7 @@ import {
 	QUICK_INSERT_LEFT_OFFSET,
 } from '../ui/consts';
 import { refreshAnchorName } from '../ui/utils/anchor-name';
+import { getAnchorAttrName } from '../ui/utils/dom-attr-name';
 
 import { type AnchorRectCache } from './utils/anchor-utils';
 import {
@@ -50,7 +51,7 @@ export const calculatePosition = ({
 	const safeAnchorName = refreshAnchorName({ getPos, view, anchorName: rootAnchorName });
 
 	const dom: HTMLElement | null = view.dom.querySelector(
-		`[data-drag-handler-anchor-name="${safeAnchorName}"]`,
+		`[${getAnchorAttrName()}="${safeAnchorName}"]`,
 	);
 
 	const hasResizer = rootNodeType === 'table' || rootNodeType === 'mediaSingle';

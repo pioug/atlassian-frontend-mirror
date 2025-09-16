@@ -6,7 +6,6 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { IntlProvider } from 'react-intl-next';
 
 import { browser } from '@atlaskit/editor-common/browser';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -202,24 +201,22 @@ export const FullPageEditor = (props: ComponentProps) => {
 			>
 				{!isEditorToolbarHidden &&
 					(Boolean(editorAPI?.toolbar) && editorExperiment('platform_editor_toolbar_aifc', true) ? (
-						<IntlProvider locale="en">
-							<FullPageToolbarNext
-								disabled={
-									expValEquals('platform_editor_toolbar_aifc_patch_4', 'isEnabled', true)
-										? !!props.disabled
-										: undefined
-								}
-								toolbarDockingPosition={toolbarDockingPosition ?? toolbarDocking}
-								beforeIcon={props.primaryToolbarIconBefore}
-								editorAPI={editorAPI}
-								editorView={props.editorView}
-								popupsMountPoint={props.popupsMountPoint}
-								popupsBoundariesElement={props.popupsBoundariesElement}
-								popupsScrollableElement={props.popupsScrollableElement}
-								showKeyline={showKeyline}
-								customPrimaryToolbarComponents={props.customPrimaryToolbarComponents}
-							/>
-						</IntlProvider>
+						<FullPageToolbarNext
+							disabled={
+								expValEquals('platform_editor_toolbar_aifc_patch_4', 'isEnabled', true)
+									? !!props.disabled
+									: undefined
+							}
+							toolbarDockingPosition={toolbarDockingPosition ?? toolbarDocking}
+							beforeIcon={props.primaryToolbarIconBefore}
+							editorAPI={editorAPI}
+							editorView={props.editorView}
+							popupsMountPoint={props.popupsMountPoint}
+							popupsBoundariesElement={props.popupsBoundariesElement}
+							popupsScrollableElement={props.popupsScrollableElement}
+							showKeyline={showKeyline}
+							customPrimaryToolbarComponents={props.customPrimaryToolbarComponents}
+						/>
 					) : (
 						<FullPageToolbar
 							appearance={props.appearance}

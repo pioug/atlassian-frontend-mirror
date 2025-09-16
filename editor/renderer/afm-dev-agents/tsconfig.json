@@ -36,6 +36,9 @@
 			"path": "../../../analytics/analytics-next/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../../helpers/browser-apis/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/button/afm-dev-agents/tsconfig.json"
 		},
 		{

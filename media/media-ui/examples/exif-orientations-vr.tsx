@@ -42,7 +42,7 @@ const ItemWrapper = styled.div({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	img: {
 		imageRendering: 'pixelated',
-		border: token('space.025', '2px'),
+		border: token('border.width.selected'),
 	},
 });
 

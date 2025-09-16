@@ -40,7 +40,7 @@ const styles = cssMap({
 		borderTopLeftRadius: 0,
 		borderTopRightRadius: 0,
 		backgroundColor: token('elevation.surface.raised'),
-		borderTop: `1px solid ${token('color.border')}`,
+		borderTop: `${token('border.width')} solid ${token('color.border')}`,
 	},
 	separator: {
 		color: token('color.border'),

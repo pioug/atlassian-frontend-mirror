@@ -34,6 +34,16 @@ const placementStyles = cssMap({
 		insetBlockEnd: token('space.075'),
 		insetInlineEnd: token('space.negative.250'),
 	},
+	'top-center': {
+		insetBlockEnd: token('space.075'),
+		/**
+		 * To center the card in relation to the caret, we need to pull it to the left
+		 * by half the card with (295px) and offset by half the caret width (15px). So:
+		 * (295 / 2) - (15 / 2) = 140
+		 */
+		// @ts-expect-error See comment
+		insetInlineStart: '-140px',
+	},
 	'top-end': {
 		insetBlockEnd: token('space.075'),
 		insetInlineStart: token('space.negative.250'),
@@ -49,6 +59,16 @@ const placementStyles = cssMap({
 	'bottom-start': {
 		insetBlockStart: token('space.075'),
 		insetInlineEnd: token('space.negative.250'),
+	},
+	'bottom-center': {
+		insetBlockStart: token('space.075'),
+		/**
+		 * To center the card in relation to the caret, we need to pull it to the left
+		 * by half the card with (295px) and offset by half the caret width (15px). So:
+		 * (295 / 2) - (15 / 2) = 140
+		 */
+		// @ts-expect-error See comment
+		insetInlineStart: '-140px',
 	},
 	'bottom-end': {
 		insetBlockStart: token('space.075'),

@@ -15,13 +15,14 @@ const borderColors = [
 ] as const;
 
 const borderStyles = ['none', 'solid'] as const;
-const borderWidths = ['border.width', 'border.width.outline', 'border.width.indicator'] as const;
+const borderWidths = ['border.width', 'border.width.selected', 'border.width.focused'] as const;
 const borderRadii = [
-	'border.radius.100',
-	'border.radius.200',
-	'border.radius.300',
-	'border.radius.400',
-	'border.radius.circle',
+	'radius.xsmall',
+	'radius.small',
+	'radius.medium',
+	'radius.large',
+	'radius.xlarge',
+	'radius.full',
 ] as const;
 
 const baseBorderStyles = xcss({

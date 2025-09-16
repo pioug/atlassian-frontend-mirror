@@ -9,7 +9,7 @@ export const Quiz = styled.div({
 	font: token('font.body.large'),
 	width: '100%',
 	padding: `${token('space.250', '20px')} 30px ${token('space.250', '20px')} 0`,
-	border: '1px solid grey',
+	border: `${token('border.width')} solid grey`,
 	borderRadius: '28px',
 	minWidth: '300px',
 	maxWidth: '380px',

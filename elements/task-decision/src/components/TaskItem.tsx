@@ -156,7 +156,7 @@ const checkboxStyles = css({
 			position: 'absolute',
 			width: token('space.200', '16px'),
 			height: token('space.200', '16px'),
-			border: `2px solid ${token('color.border.focused')}`,
+			border: `${token('border.width.selected')} solid ${token('color.border.focused')}`,
 			borderRadius: token('space.050', '4px'),
 			content: "''",
 			display: 'block',

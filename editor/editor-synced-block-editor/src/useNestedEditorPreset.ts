@@ -1,6 +1,3 @@
-
-
-
 import { useMemo } from 'react';
 
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';

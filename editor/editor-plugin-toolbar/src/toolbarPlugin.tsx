@@ -3,19 +3,78 @@ import React from 'react';
 import { bind } from 'bind-event-listener';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { createComponentRegistry } from '@atlaskit/editor-toolbar-model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { findSelectedNodeOfType, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { createComponentRegistry } from '@atlaskit/editor-toolbar-model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { editorToolbarPluginKey } from './pm-plugins/plugin-key';
-import type { ToolbarPlugin } from './toolbarPluginType';
+import type { EditorToolbarPluginState, ToolbarPlugin } from './toolbarPluginType';
 import { DEFAULT_POPUP_SELECTORS } from './ui/consts';
 import { SelectionToolbar } from './ui/SelectionToolbar';
 import { getToolbarComponents } from './ui/toolbar-components';
 import { isEventInContainer } from './ui/utils/toolbar';
 
-export type EditorToolbarPluginState = {
-	shouldShowToolbar: boolean;
-};
+function getSelectedNode(editorState: EditorState): EditorToolbarPluginState['selectedNode'] {
+	const { selection } = editorState;
+
+	if (selection instanceof NodeSelection) {
+		return {
+			node: selection.node,
+			pos: selection.from,
+			nodeType: selection.node.type.name,
+			marks: selection.node.marks.map((mark) => `${mark.type.name}:${JSON.stringify(mark.attrs)}`),
+		};
+	}
+
+	const { nodes } = editorState.schema;
+	const selectedNode = findSelectedNodeOfType([
+		nodes.paragraph,
+		nodes.heading,
+		nodes.blockquote,
+		nodes.panel,
+		nodes.codeBlock,
+	])(selection);
+
+	if (selectedNode) {
+		return {
+			node: selectedNode.node,
+			pos: selectedNode.pos,
+			nodeType: selectedNode.node.type.name,
+			marks: selectedNode.node.marks.map(
+				(mark) => `${mark.type.name}:${JSON.stringify(mark.attrs)}`,
+			),
+		};
+	}
+
+	const parentNode = findParentNodeOfType([
+		nodes.paragraph,
+		nodes.heading,
+		nodes.blockquote,
+		nodes.panel,
+		nodes.listItem,
+		nodes.taskItem,
+	])(selection);
+
+	if (parentNode) {
+		return {
+			node: parentNode.node,
+			pos: parentNode.pos,
+			nodeType: parentNode.node.type.name,
+			marks: parentNode.node.marks.map((mark) => `${mark.type.name}:${JSON.stringify(mark.attrs)}`),
+		};
+	}
+
+	const $pos = selection.$from;
+	return {
+		node: $pos.parent,
+		pos: $pos.pos,
+		nodeType: $pos.parent.type.name,
+		marks: $pos.marks().map((mark) => `${mark.type.name}:${JSON.stringify(mark.attrs)}`),
+	};
+}
 
 export const toolbarPlugin: ToolbarPlugin = ({
 	api,
@@ -62,16 +121,38 @@ export const toolbarPlugin: ToolbarPlugin = ({
 						return new SafePlugin({
 							key: editorToolbarPluginKey,
 							state: {
-								init(): EditorToolbarPluginState {
+								init(_, editorState): EditorToolbarPluginState {
 									return {
 										shouldShowToolbar: false,
+										selectedNode: getSelectedNode(editorState),
 									};
 								},
-								apply(tr, pluginState: EditorToolbarPluginState) {
+								apply(tr, pluginState: EditorToolbarPluginState, _, newState) {
 									const meta = tr.getMeta(editorToolbarPluginKey);
-									const newPluginState = pluginState;
+									let newPluginState = { ...pluginState };
+
+									if (expValEquals('platform_editor_toolbar_aifc_patch_5', 'isEnabled', true)) {
+										const shouldUpdateNode = tr.docChanged || tr.selectionSet;
+
+										if (shouldUpdateNode) {
+											const newSelectedNode = getSelectedNode(newState);
+											const oldNode = pluginState.selectedNode;
+
+											const hasNodeChanged =
+												!oldNode ||
+												!newSelectedNode ||
+												oldNode.nodeType !== newSelectedNode.nodeType ||
+												oldNode.pos !== newSelectedNode.pos ||
+												JSON.stringify(oldNode.marks) !== JSON.stringify(newSelectedNode.marks);
+
+											if (hasNodeChanged) {
+												newPluginState.selectedNode = newSelectedNode;
+											}
+										}
+									}
+
 									if (meta) {
-										return {
+										newPluginState = {
 											...newPluginState,
 											...meta,
 										};

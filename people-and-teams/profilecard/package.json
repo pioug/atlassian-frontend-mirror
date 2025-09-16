@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.13.1",
+	"version": "24.13.2",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,22 +27,14 @@
 			"name": "Profilecard"
 		}
 	},
-	"af:exports": {
-		"./client": "./src/client/index.ts",
-		"./messages": "./src/messages.ts",
-		"./i18n": "./src/i18n/index.ts",
-		"./team": "./src/components/Team/index.ts",
-		"./types": "./src/types.ts",
-		"./user": "./src/components/User/index.ts",
-		"./agent": "./src/components/Agent/index.ts",
-		"./mocks": "./src/mocks/index.ts",
-		".": "./src/index.ts"
-	},
 	"exports": {
 		"./client": "./src/client/index.ts",
 		"./messages": "./src/messages.ts",
 		"./i18n": "./src/i18n/index.ts",
-		"./i18n/*": "./src/i18n/*.ts",
+		"./i18n/*": {
+			"publish": null,
+			"default": "./src/i18n/*.ts"
+		},
 		"./team": "./src/components/Team/index.ts",
 		"./types": "./src/types.ts",
 		"./user": "./src/components/User/index.ts",

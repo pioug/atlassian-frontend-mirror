@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/primitives/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../tmp-editor-statsig/afm-dev-agents/tsconfig.json"
 		},
 		{

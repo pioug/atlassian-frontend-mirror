@@ -27,6 +27,7 @@ import {
 	defaultCollectionName,
 	defaultMediaPickerCollectionName,
 } from '@atlaskit/media-test-helpers/collectionNames';
+import { token } from '@atlaskit/tokens';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
@@ -50,7 +51,7 @@ const content = css({
 	padding: 0,
 	height: '100%',
 	width: '50%',
-	border: '2px solid #ccc',
+	border: `${token('border.width.selected')} solid #ccc`,
 	boxSizing: 'border-box',
 });
 

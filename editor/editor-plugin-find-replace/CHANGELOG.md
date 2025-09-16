@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 5.0.5
+
+### Patch Changes
+
+- [`6fb79942fc3a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fb79942fc3a5) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
 ## 5.0.4
 
 ### Patch Changes

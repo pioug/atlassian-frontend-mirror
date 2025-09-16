@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 2.1.0
+
+### Minor Changes
+
+- [`2ce1b7efe1d2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ce1b7efe1d2e) -
+  EDITOR-1640 Create Sync-Block data manager scaffolding
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

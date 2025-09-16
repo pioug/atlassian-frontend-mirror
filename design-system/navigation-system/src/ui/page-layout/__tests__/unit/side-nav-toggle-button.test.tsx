@@ -2,6 +2,9 @@ import React from 'react';
 
 import { act, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { renderToString } from 'react-dom/server';
+
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';
@@ -400,5 +403,68 @@ describe('SideNavToggleButton', () => {
 
 		// Side nav should now be collapsed
 		expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
+	});
+
+	describe('SSR', () => {
+		function renderHtml(element: React.ReactNode) {
+			return render(<div dangerouslySetInnerHTML={{ __html: renderToString(element) }} />);
+		}
+
+		ffTest.on('platform_dst_nav4_full_height_sidebar_api_changes', 'future state', () => {
+			it('should use the root collapse state for the initial render', () => {
+				// Intentionally using opposite values on root and button
+				// to demonstrate that only the root value is used
+				const { unmount } = renderHtml(
+					<Root defaultSideNavCollapsed={true}>
+						<TopNav>
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed={false}
+							/>
+						</TopNav>
+					</Root>,
+				);
+
+				expect(screen.getByRole('button', { name: 'Expand sidebar' })).toBeInTheDocument();
+				expect(screen.queryByRole('button', { name: 'Collapse sidebar' })).not.toBeInTheDocument();
+
+				unmount();
+
+				// Intentionally using opposite values on root and button
+				// to demonstrate that only the root value is used
+				renderHtml(
+					<Root defaultSideNavCollapsed={false}>
+						<TopNav>
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed={true}
+							/>
+						</TopNav>
+					</Root>,
+				);
+
+				expect(screen.getByRole('button', { name: 'Collapse sidebar' })).toBeInTheDocument();
+				expect(screen.queryByRole('button', { name: 'Expand sidebar' })).not.toBeInTheDocument();
+			});
+
+			it('should use the root collapse state post-SSR', () => {
+				render(
+					<Root defaultSideNavCollapsed={true}>
+						<TopNav>
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed={false}
+							/>
+						</TopNav>
+					</Root>,
+				);
+
+				expect(screen.getByRole('button', { name: 'Expand sidebar' })).toBeInTheDocument();
+				expect(screen.queryByRole('button', { name: 'Collapse sidebar' })).not.toBeInTheDocument();
+			});
+		});
 	});
 });

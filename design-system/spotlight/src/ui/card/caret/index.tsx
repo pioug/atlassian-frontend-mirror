@@ -21,10 +21,16 @@ const styles = cssMap({
 	'top-start': {
 		borderEndEndRadius: '1px',
 	},
+	'top-center': {
+		borderEndEndRadius: '1px',
+	},
 	'top-end': {
 		borderEndEndRadius: '1px',
 	},
 	'bottom-start': {
+		borderStartStartRadius: '1px',
+	},
+	'bottom-center': {
 		borderStartStartRadius: '1px',
 	},
 	'bottom-end': {

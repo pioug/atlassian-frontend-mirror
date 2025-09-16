@@ -42,7 +42,7 @@ const helpFooterStyles = css({
 	paddingLeft: 0,
 	boxSizing: 'border-box',
 	backgroundColor: token('color.background.neutral', N10),
-	borderTop: `${token('space.025', '2px')} solid ${token('color.border', N30)}`,
+	borderTop: `${token('border.width.selected')} solid ${token('color.border', N30)}`,
 	justifyContent: 'space-between',
 });
 
@@ -99,7 +99,7 @@ const loadingRectangleStyles = css({
 	height: token('space.200', '1rem'),
 	marginTop: token('space.100', '8px'),
 	width: '100%',
-	borderRadius: token('space.025', '2px'),
+	borderRadius: token('radius.xsmall'),
 	animationDuration: '1.2s',
 	animationFillMode: 'forwards',
 	animationIterationCount: 'infinite',

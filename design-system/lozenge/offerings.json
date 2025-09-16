@@ -1,0 +1,38 @@
+[
+	{
+		"name": "Lozenge",
+		"package": "@atlaskit/lozenge",
+		"import": {
+			"name": "Lozenge",
+			"package": "@atlaskit/lozenge",
+			"type": "default"
+		},
+		"keywords": ["lozenge", "badge", "label", "status", "indicator", "pill"],
+		"categories": ["status-indicators"],
+		"shortDescription": "A lozenge is a small visual indicator used to show status, category, or other short text labels.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Ensure sufficient color contrast for text readability",
+			"Provide appropriate labels for screen readers",
+			"Use meaningful colors and appearances",
+			"Consider color-blind users when choosing colors"
+		],
+		"usageGuidelines": [
+			"Use for status indicators or short labels",
+			"Choose appropriate appearance variants",
+			"Keep text concise and meaningful",
+			"Use consistent styling across similar lozenges",
+			"Consider color coding for different status types"
+		],
+		"contentGuidelines": [
+			"Use clear, concise text",
+			"Ensure text is meaningful and descriptive",
+			"Use consistent terminology across lozenges",
+			"Consider text length and readability"
+		],
+		"generativeInstructions": "./docs/ai/lozenge-instructions.md",
+		"examples": {
+			"basic": "./examples/ai/lozenge.tsx"
+		}
+	}
+]

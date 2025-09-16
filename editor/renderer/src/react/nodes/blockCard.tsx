@@ -27,7 +27,7 @@ import { usePortal } from '../../ui/Renderer/PortalContext';
 
 const datasourceContainerStyle = css({
 	borderRadius: `${token('radius.large', '8px')}`,
-	border: `1px solid ${token('color.border', N40)}`,
+	border: `${token('border.width')} solid ${token('color.border', N40)}`,
 	overflow: 'hidden',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	marginLeft: '50%',
@@ -41,12 +41,13 @@ export default function BlockCard(props: {
 	eventHandlers?: EventHandlers;
 	isNodeNested?: boolean;
 	layout?: string;
+	localId?: string;
 	portal?: HTMLElement;
 	rendererAppearance?: RendererAppearance;
 	smartLinks?: SmartLinksOptions;
 	url?: string;
 }) {
-	const { url, data, eventHandlers, smartLinks, isNodeNested } = props;
+	const { url, data, eventHandlers, smartLinks, isNodeNested, localId } = props;
 	const portal = usePortal(props);
 	const { actionOptions } = smartLinks || {};
 	const onClick = getCardClickHandler(eventHandlers, url);
@@ -112,6 +113,7 @@ export default function BlockCard(props: {
 								<div
 									css={datasourceContainerStyle}
 									data-testid="renderer-datasource-table"
+									data-local-id={localId}
 									style={{
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										width: isNodeNested ? '100%' : calcBreakoutWidth(layout, width),
@@ -179,6 +181,7 @@ export default function BlockCard(props: {
 				data-block-card
 				data-card-data={data ? JSON.stringify(data) : undefined}
 				data-card-url={url}
+				data-local-id={localId}
 			>
 				<CardErrorBoundary
 					unsupportedComponent={UnsupportedBlock}

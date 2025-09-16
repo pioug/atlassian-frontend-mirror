@@ -345,7 +345,8 @@ export const OverflowShadow = (isDragAndDropEnabled: boolean | undefined) => css
 		width: ${tableOverflowShadowWidthWide}px;
 	}
 	.${ClassName.TABLE_LEFT_SHADOW} {
-		background: linear-gradient(
+		background:
+			linear-gradient(
 				to left,
 				transparent 0,
 				${token('elevation.shadow.overflow.spread', N40A)} 140%
@@ -361,7 +362,8 @@ export const OverflowShadow = (isDragAndDropEnabled: boolean | undefined) => css
 		left: ${akEditorTableNumberColumnWidth - 1}px;
 	}
 	.${ClassName.TABLE_RIGHT_SHADOW} {
-		background: linear-gradient(
+		background:
+			linear-gradient(
 				to right,
 				transparent 0,
 				${token('elevation.shadow.overflow.spread', N40A)} 140%

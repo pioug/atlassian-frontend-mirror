@@ -37,7 +37,7 @@ const codeBlockButtonsStyle = css({
 	button: {
 		height: '32px',
 		width: '32px',
-		border: `2px solid ${token('color.border', N0)}`,
+		border: `${token('border.width.selected')} solid ${token('color.border', N0)}`,
 		borderRadius: token('radius.small'),
 		marginLeft: token('space.050', '4px'),
 		padding: token('space.025', '2px'),

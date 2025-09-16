@@ -27,12 +27,12 @@ const markStyles = css({
 	[`&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}']`]: {
 		// was from blur in AnnotationSharedCSSByState().blur
 		background: token('color.background.accent.yellow.subtlest'),
-		borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
+		borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow')}`,
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&[data-has-focus="true"]': {
 			background: token('color.background.accent.yellow.subtler'),
-			borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
+			borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow')}`,
 			// TODO: DSP-4147 - Annotation shadow
 			boxShadow: token('elevation.shadow.overlay'),
 			cursor: 'pointer',
@@ -73,9 +73,9 @@ const markStylesWithInlineComments = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}']`]: {
 		// was from common in AnnotationSharedCSSByState().common
-		borderBottom: '2px solid transparent',
+		borderBottom: `${token('border.width.selected')} solid transparent`,
 		cursor: 'pointer',
-		padding: '1px 0 2px',
+		padding: `1px 0 ${token('space.025')}`,
 
 		// it was under fg(annotations_align_editor_and_renderer_styles) from AnnotationSharedCSSByState().common, assume it's on as already rolled out
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors

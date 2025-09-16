@@ -20,27 +20,13 @@ export const md = defaultMD.customize({
 			</>
 		),
 		link: (props) => {
-			const { href, children, ...otherProps } = props;
+			const { children, href, ...otherProps } = props;
 
-			// Check if this is an internal link (starts with /)
-			const isInternalLink = href?.startsWith('/');
-
-			// For external links, use Link component
-			if (!isInternalLink) {
-				return (
-					<Link href={href} openNewTab {...otherProps}>
-						{children}
-					</Link>
-				);
-			}
-
-			// Transform internal links for hash-based routing (staging Bifrost deployment)
-			// When USE_HASH_ROUTER is true, convert "/docs/example" to "/#/docs/example"
-			/*global USE_HASH_ROUTER*/
-			const transformedHref = USE_HASH_ROUTER ? `/#${href}` : href;
+			const isRelativePath = (path) => path?.startsWith('./') || path?.startsWith('/');
+			const target = isRelativePath(href) ? '_self' : '_blank';
 
 			return (
-				<Link href={transformedHref} {...otherProps}>
+				<Link target={target} href={href} {...otherProps}>
 					{children}
 				</Link>
 			);

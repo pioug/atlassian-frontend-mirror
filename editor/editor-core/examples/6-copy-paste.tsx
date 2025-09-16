@@ -59,14 +59,14 @@ const content = css({
 	padding: 0,
 	height: '100%',
 	width: '50%',
-	border: '2px solid #ccc',
+	border: `${token('border.width.selected')} solid #ccc`,
 	boxSizing: 'border-box',
 });
 
 const fullWidthEditorStyles = css({
 	padding: 0,
 	width: '100%',
-	border: '2px solid #ccc',
+	border: `${token('border.width.selected')} solid #ccc`,
 	boxSizing: 'border-box',
 });
 
@@ -77,7 +77,7 @@ const rendererWrapper = css({
 const externalClipboardWrapper = css({
 	width: '500px',
 	padding: token('space.150', '12px'),
-	border: '1px dashed #ccc',
+	border: `${token('border.width')} dashed #ccc`,
 });
 
 const pastedImageStyles = css({

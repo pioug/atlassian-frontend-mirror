@@ -54,8 +54,10 @@ const popperPlacementMap: Record<
 	Extract<PopperPlacement, 'top' | 'right' | 'bottom' | 'left'>
 > = {
 	'top-start': 'top',
+	'top-center': 'top',
 	'top-end': 'top',
 	'bottom-start': 'bottom',
+	'bottom-center': 'bottom',
 	'bottom-end': 'bottom',
 	'right-start': 'right',
 	'right-end': 'right',

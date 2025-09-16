@@ -210,20 +210,18 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 				: selectionDraftDocumentPosition || documentPosition;
 
 			if (!positionToAnnotate || !applyAnnotation || !options.annotationId) {
-				if (fg('cc_comments_improve_apply_draft_errors')) {
-					if (createAnalyticsEvent) {
-						createAnalyticsEvent({
-							action: ACTION.CREATE_NOT_ALLOWED,
-							actionSubject: ACTION_SUBJECT.ANNOTATION,
-							actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
-							attributes: {
-								positionToAnnotate,
-								applyAnnotationMissing: !applyAnnotation,
-								annotationId: options.annotationId,
-							},
-							eventType: EVENT_TYPE.TRACK,
-						}).fire(FabricChannel.editor);
-					}
+				if (createAnalyticsEvent) {
+					createAnalyticsEvent({
+						action: ACTION.CREATE_NOT_ALLOWED,
+						actionSubject: ACTION_SUBJECT.ANNOTATION,
+						actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+						attributes: {
+							positionToAnnotate,
+							applyAnnotationMissing: !applyAnnotation,
+							annotationId: options.annotationId,
+						},
+						eventType: EVENT_TYPE.TRACK,
+					}).fire(FabricChannel.editor);
 				}
 				return false;
 			}

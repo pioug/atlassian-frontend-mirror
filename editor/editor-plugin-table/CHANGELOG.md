@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 14.2.4
+
+### Patch Changes
+
+- [`6759639cbc48a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6759639cbc48a) -
+  Optimized table resizing in full page mode by bundling layout calculations and clean up old
+  expensive layout calculations
+
+## 14.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.2
 
 ### Patch Changes

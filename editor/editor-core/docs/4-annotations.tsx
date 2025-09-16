@@ -204,7 +204,7 @@ class SplitExample extends React.Component<{ initialAdf: object }> {
 						padding: token('space.100', '8px'),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						backgroundColor: N20,
-						border: `1px solid ${N30}`,
+						border: `${token('border.width')} solid ${N30}`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						flex: 1,
 					}}
@@ -252,7 +252,7 @@ ${(
 			padding: token('space.100', '8px'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			backgroundColor: N20,
-			border: `1px solid ${N30}`,
+			border: `${token('border.width')} solid ${N30}`,
 		}}
 	>
 		{inlineCommentEditor(initialExample)}

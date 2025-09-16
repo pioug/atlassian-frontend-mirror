@@ -14,6 +14,7 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
+import { token } from '@atlaskit/tokens';
 
 import { useStateFromPromise } from '../../src/ui/ConfigPanel/use-state-from-promise';
 
@@ -45,11 +46,11 @@ export default function ExtensionNodePicker({
 	return (
 		<div
 			style={{
-				border: `1px solid #ccc`,
+				border: `${token('border.width')} solid #ccc`,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				boxShadow: '0px 4px 8px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				borderRadius: 4,
+				borderRadius: token('radius.small'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				maxWidth: 320,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

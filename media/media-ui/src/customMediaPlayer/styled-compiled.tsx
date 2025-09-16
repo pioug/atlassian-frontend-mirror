@@ -153,7 +153,7 @@ const currentTimeLineThumbStyles = css({
 	pointerEvents: 'none',
 	borderRadius: token('radius.full'),
 	opacity: '0',
-	outline: `2px solid ${token('color.border.focused', '#85B8FF')}`,
+	outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#85B8FF')}`,
 	outlineOffset: token('space.025', '2px'),
 
 	'&:focus': {

@@ -1,0 +1,33 @@
+[
+	{
+		"name": "Spotlight",
+		"package": "@atlaskit/spotlight",
+		"import": {
+			"name": "Spotlight",
+			"package": "@atlaskit/spotlight",
+			"type": "named"
+		},
+		"keywords": ["spotlight", "search", "command", "palette", "quick"],
+		"categories": ["navigation"],
+		"shortDescription": "A component for quick search and command execution.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Ensure proper keyboard navigation",
+			"Provide clear search functionality",
+			"Use appropriate ARIA attributes",
+			"Consider screen reader announcements"
+		],
+		"usageGuidelines": [
+			"Use for quick search and commands",
+			"Provide clear search functionality",
+			"Consider keyboard shortcuts",
+			"Handle search results appropriately"
+		],
+		"contentGuidelines": [
+			"Use clear, descriptive search labels",
+			"Provide helpful search suggestions",
+			"Use consistent command naming",
+			"Keep search results relevant"
+		]
+	}
+]

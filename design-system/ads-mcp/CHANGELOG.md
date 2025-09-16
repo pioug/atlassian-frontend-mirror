@@ -1,5 +1,19 @@
 # @atlaskit/ads-mcp
 
+## 0.6.2
+
+### Patch Changes
+
+- [`28e3bab9e4314`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28e3bab9e4314) -
+  Migrated old shape tokens to new tokens. No visual change.
+
+## 0.6.1
+
+### Patch Changes
+
+- [`5d3c3001f9c72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d3c3001f9c72) -
+  Namespacing tools to define clear boundaries in functionality
+
 ## 0.6.0
 
 ### Minor Changes

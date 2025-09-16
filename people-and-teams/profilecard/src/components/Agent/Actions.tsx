@@ -50,7 +50,7 @@ const chatPillIconWrapper = xcss({
 });
 
 const actionsWrapperStyles = xcss({
-	borderTop: '1px',
+	borderTop: 'border.width',
 	borderTopStyle: 'solid',
 	borderColor: 'color.border',
 	padding: 'space.200',

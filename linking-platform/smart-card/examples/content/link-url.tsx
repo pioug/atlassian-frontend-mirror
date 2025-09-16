@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Link from '@atlaskit/link';
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { UnAuthClient } from '@atlaskit/link-test-helpers';
 
 import LinkUrl from '../../src/view/LinkUrl';
 
@@ -45,6 +47,27 @@ export default () => (
 					<div>Help</div>
 					<span>https://hello.atlas...</span>
 				</LinkUrl>
+			</li>
+		</ul>
+		<h2>Link with smart link resolver</h2>
+		<ul>
+			<li>
+				This link trigger smart link resolver
+				<br />
+				<SmartCardProvider client={new CardClient('stg')}>
+					<LinkUrl enableResolve={true} href="https://www.google.com/">
+						https://www.resolved-link.com/
+					</LinkUrl>
+				</SmartCardProvider>
+			</li>
+			<li>
+				This link trigger smart link resolver with unauth
+				<br />
+				<SmartCardProvider client={new UnAuthClient()}>
+					<LinkUrl enableResolve={true} href="https://www.unauth-link.com/">
+						https://www.unauth-link.com/
+					</LinkUrl>
+				</SmartCardProvider>
 			</li>
 		</ul>
 	</div>

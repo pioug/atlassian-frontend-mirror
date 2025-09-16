@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "213.2.0",
+	"version": "213.2.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,6 +40,7 @@
 	"dependencies": {
 		"@atlaskit/activity-provider": "workspace:^",
 		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/afm-i18n-platform-editor-editor-core": "root:*",
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/analytics-next-stable-react-context": "root:*",
@@ -487,9 +488,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_vanilla_codebidi_warning": {
-			"type": "boolean"
-		},
-		"platform_editor_controls_patch_15": {
 			"type": "boolean"
 		},
 		"platform_fix_extra_space_last_line_comment_editor": {

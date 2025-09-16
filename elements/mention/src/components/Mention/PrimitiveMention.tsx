@@ -55,7 +55,7 @@ const PrimitiveMention = forwardRef<HTMLSpanElement, PrimitiveMentionProps>(
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={css`
 					display: inline;
-					border: 1px solid ${getStyle({ mentionType }, 'borderColor')};
+					border: ${token('border.width')} solid ${getStyle({ mentionType }, 'borderColor')};
 					background: ${getStyle({ mentionType }, 'background')};
 					color: ${getStyle({ mentionType }, 'text')};
 					border-radius: 20px;

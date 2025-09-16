@@ -19,7 +19,7 @@ const mediaClientConfig = createUploadMediaClientConfig(undefined, env);
 const mediaClient = new MediaClient(mediaClientConfig);
 
 const cardWrapperStyles = css({
-	border: '1px solid',
+	border: `${token('border.width')} solid`,
 	padding: token('space.100', '8px'),
 	margin: token('space.050', '4px'),
 	overflow: 'auto',

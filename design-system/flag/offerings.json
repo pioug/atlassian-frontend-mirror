@@ -1,0 +1,37 @@
+[
+	{
+		"name": "Flag",
+		"package": "@atlaskit/flag",
+		"import": {
+			"name": "Flag",
+			"package": "@atlaskit/flag",
+			"type": "default"
+		},
+		"keywords": ["flag", "message", "notification", "alert", "toast"],
+		"categories": ["feedback"],
+		"shortDescription": "A component for displaying brief messages.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Ensure flag content is announced by screen readers",
+			"Use appropriate timing for auto-dismiss",
+			"Provide clear action options",
+			"Consider screen reader announcement conflicts"
+		],
+		"usageGuidelines": [
+			"Use for confirmations and alerts needing minimal interaction",
+			"Display event-driven messages",
+			"Position at bottom left of screen",
+			"Consider auto-dismiss timing"
+		],
+		"contentGuidelines": [
+			"Be clear about what went wrong for errors",
+			"Provide specific steps to resolve issues",
+			"Use a helpful, non-threatening tone",
+			"Clearly state potential consequences for warnings",
+			"Confirm outcome then get out of the way for success messages"
+		],
+		"examples": {
+			"basic": "./examples/ai/flag.tsx"
+		}
+	}
+]

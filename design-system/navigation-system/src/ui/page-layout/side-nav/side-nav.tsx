@@ -242,6 +242,13 @@ type SideNavProps = CommonSlotProps & {
 	 */
 	label?: string;
 	/**
+	 * @deprecated
+	 *
+	 * This prop is being replaced by `defaultSideNavCollapsed` on the `Root` element,
+	 * and will be removed after `platform_dst_nav4_full_height_sidebar_api_changes` is cleaned up.
+	 *
+	 * ---
+	 *
 	 * Whether the side nav should be collapsed by default __on desktop screens__.
 	 *
 	 * It is always collapsed by default for mobile screens.
@@ -466,6 +473,11 @@ function SideNavInternal({
 	});
 
 	useEffect(() => {
+		if (fg('platform_dst_nav4_full_height_sidebar_api_changes')) {
+			// We are passing initial state to the Root now, so no initial sync is required
+			return;
+		}
+
 		// Sync the visibility in context (provided in `<Root>`) with the local `defaultCollapsed` prop provided to `SideNav`
 		// after SSR hydration. This should only run once, after the initial render on the client.
 		setSideNavState({

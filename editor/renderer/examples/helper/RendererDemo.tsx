@@ -259,7 +259,7 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							boxSizing: 'border-box',
-							border: `1px solid ${token('color.border.input', 'lightgray')}`,
+							border: `${token('border.width')} solid ${token('color.border.input', 'lightgray')}`,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							fontFamily: 'monospace',
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

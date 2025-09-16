@@ -62,17 +62,17 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 });
 
 const callTools: Record<string, (params: any) => Promise<any>> = {
-	get_all_tokens: getAllTokensTool,
-	search_tokens: searchTokensTool,
-	get_components: getComponentsTool,
-	search_components: searchComponentsTool,
-	get_all_icons: getAllIconsTool,
-	search_icons: searchIconsTool,
-	plan: planTool,
-	analyze_accessibility: analyzeAccessibilityTool,
-	analyze_localhost_accessibility: analyzeLocalhostAccessibilityTool,
-	get_accessibility_guidelines: getAccessibilityGuidelinesTool,
-	suggest_accessibility_fixes: suggestAccessibilityFixesTool,
+	ads_get_all_tokens: getAllTokensTool,
+	ads_search_tokens: searchTokensTool,
+	ads_get_components: getComponentsTool,
+	ads_search_components: searchComponentsTool,
+	ads_get_all_icons: getAllIconsTool,
+	ads_search_icons: searchIconsTool,
+	ads_plan: planTool,
+	ads_analyze_accessibility: analyzeAccessibilityTool,
+	ads_analyze_localhost_accessibility: analyzeLocalhostAccessibilityTool,
+	ads_get_accessibility_guidelines: getAccessibilityGuidelinesTool,
+	ads_suggest_accessibility_fixes: suggestAccessibilityFixesTool,
 };
 
 // Handle tool execution

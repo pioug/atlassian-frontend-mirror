@@ -65,6 +65,13 @@ export const SideNavToggleButton = ({
 	onClick,
 }: {
 	/**
+	 * @deprecated
+	 *
+	 * This prop is being replaced by `defaultSideNavCollapsed` on the `Root` element,
+	 * and will be removed after `platform_dst_nav4_full_height_sidebar_api_changes` is cleaned up.
+	 *
+	 * ---
+	 *
 	 * Whether the side nav should be collapsed by default __on desktop screens__.
 	 *
 	 * It is always collapsed by default for mobile screens.
@@ -103,7 +110,13 @@ export const SideNavToggleButton = ({
 		isExpandedOnMobile: isSideNavExpandedOnMobile,
 	} = useSideNavVisibility({ defaultCollapsed });
 
-	const [isSideNavExpanded, setIsSideNavExpanded] = useState<boolean>(!defaultCollapsed);
+	// When `platform_dst_nav4_full_height_sidebar_api_changes` is enabled,
+	// we default to the desktop state for SSR
+	const [isSideNavExpanded, setIsSideNavExpanded] = useState<boolean>(
+		fg('platform_dst_nav4_full_height_sidebar_api_changes')
+			? isSideNavExpandedOnDesktop
+			: !defaultCollapsed,
+	);
 
 	const ref = useContext(SideNavToggleButtonAttachRef);
 	const elementRef = useRef(null);

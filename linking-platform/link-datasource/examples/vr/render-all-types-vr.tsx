@@ -35,7 +35,7 @@ const tableHeaderStyles = css({
 });
 
 const tableRowStyles = css({
-	borderBottom: '1px solid #DFE1E6',
+	borderBottom: `${token('border.width')} solid #DFE1E6`,
 });
 
 interface Item {

@@ -2,4 +2,8 @@
 // Entry file in package.json
 
 export { limitedModePlugin } from './limitedModePlugin';
-export type { LimitedModePlugin, LimitedModePluginState } from './limitedModePluginType';
+export type {
+	LimitedModePlugin,
+	LimitedModePluginState,
+	LimitedModePluginOptions,
+} from './limitedModePluginType';

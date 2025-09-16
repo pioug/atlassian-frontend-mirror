@@ -61,32 +61,42 @@ describe.skip('basic behavior', () => {
 	});
 });
 
+const OptionsListWrapper = ({ children }: { children: React.ReactNode }) => {
+	return (
+		<ul role="listbox" aria-label="options list">
+			{children}
+		</ul>
+	);
+};
+
 describe('interactions', () => {
 	it('should capture and report a11y violations', async () => {
 		const onClick = jest.fn();
 		const { container } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={onClick}
-				onMouseMove={noop}
-				option={testOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={onClick}
+					onMouseMove={noop}
+					option={testOption}
+				/>
+			</OptionsListWrapper>,
 		);
 
-		await expect(container).toBeAccessible({
-			violationCount: 1,
-		});
+		await expect(container).toBeAccessible({ violationCount: 0 });
 	});
 
 	it('calls onClick callback', () => {
 		const onClick = jest.fn();
 		const { getByText } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={onClick}
-				onMouseMove={noop}
-				option={testOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={onClick}
+					onMouseMove={noop}
+					option={testOption}
+				/>
+			</OptionsListWrapper>,
 		);
 		fireEvent.click(getByText(testOption.name));
 		expect(onClick).toHaveBeenCalledTimes(1);
@@ -95,12 +105,14 @@ describe('interactions', () => {
 	it('calls onMouseMove callback', () => {
 		const onMouseMove = jest.fn();
 		const { getByText } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={onMouseMove}
-				option={testOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={onMouseMove}
+					option={testOption}
+				/>
+			</OptionsListWrapper>,
 		);
 		fireEvent.mouseMove(getByText(testOption.name));
 		expect(onMouseMove).toHaveBeenCalledTimes(1);
@@ -108,12 +120,14 @@ describe('interactions', () => {
 	it('does not call onClick callback if option is deprecated', () => {
 		const onClick = jest.fn();
 		const { getByText } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={onClick}
-				onMouseMove={noop}
-				option={deprecatedTestOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={onClick}
+					onMouseMove={noop}
+					option={deprecatedTestOption}
+				/>
+			</OptionsListWrapper>,
 		);
 		fireEvent.click(getByText(deprecatedTestOption.name));
 		expect(onClick).toHaveBeenCalledTimes(0);
@@ -122,12 +136,14 @@ describe('interactions', () => {
 	it('it does not call onMouseMove callback if option is deprecated', () => {
 		const onMouseMove = jest.fn();
 		const { getByText } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={onMouseMove}
-				option={deprecatedTestOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={onMouseMove}
+					option={deprecatedTestOption}
+				/>
+			</OptionsListWrapper>,
 		);
 		fireEvent.mouseMove(getByText(deprecatedTestOption.name));
 		expect(onMouseMove).toHaveBeenCalledTimes(0);
@@ -138,28 +154,30 @@ describe('highlighting', () => {
 	it('should capture and report a11y violations', async () => {
 		const matchingOption = { ...testOption, matchedText: 'vani' };
 		const { container } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={noop}
-				option={matchingOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={noop}
+					option={matchingOption}
+				/>
+			</OptionsListWrapper>,
 		);
 
-		await expect(container).toBeAccessible({
-			violationCount: 1,
-		});
+		await expect(container).toBeAccessible({ violationCount: 0 });
 	});
 
 	it('highlights matching part of the user query', () => {
 		const matchingOption = { ...testOption, matchedText: 'vani' };
 		const { getByText } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={noop}
-				option={matchingOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={noop}
+					option={matchingOption}
+				/>
+			</OptionsListWrapper>,
 		);
 		const highlighted = getByText('Vani');
 		const plain = getByText('lla cheesecake');
@@ -170,12 +188,14 @@ describe('highlighting', () => {
 	it('ignores case and accents while matching', () => {
 		const matchingOption = { ...testOption, matchedText: 'ChéeseCake' };
 		const { getByText } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={noop}
-				option={matchingOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={noop}
+					option={matchingOption}
+				/>
+			</OptionsListWrapper>,
 		);
 		const plain = getByText('Vanilla');
 		const highlighted = getByText('cheesecake');
@@ -186,12 +206,14 @@ describe('highlighting', () => {
 	it('ignores opening quotes while matching', () => {
 		const matchingOption = { ...testOption, matchedText: '"vanilla' };
 		const { getByText } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={noop}
-				option={matchingOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={noop}
+					option={matchingOption}
+				/>
+			</OptionsListWrapper>,
 		);
 		const highlighted = getByText('Vanilla');
 		const plain = getByText('cheesecake');
@@ -202,12 +224,14 @@ describe('highlighting', () => {
 	it('ignores surrounding quotes while matching', () => {
 		const matchingOption = { ...testOption, matchedText: '"vanilla"' };
 		const { getByText } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={noop}
-				option={matchingOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={noop}
+					option={matchingOption}
+				/>
+			</OptionsListWrapper>,
 		);
 		const highlighted = getByText('Vanilla');
 		const plain = getByText('cheesecake');
@@ -217,12 +241,14 @@ describe('highlighting', () => {
 
 	it('does not highlight text when query is empty', () => {
 		const { getByText } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={noop}
-				option={testOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={noop}
+					option={testOption}
+				/>
+			</OptionsListWrapper>,
 		);
 		const option = getByText(testOption.name);
 		expect(getComputedStyle(option).fontWeight).not.toBe('var(--ds-font-weight-bold, 700)');
@@ -231,12 +257,14 @@ describe('highlighting', () => {
 	it('does not highlight text when there is no match', () => {
 		const nonMatchingOption = { ...testOption, matchedText: 'choco' };
 		const { getByText } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={noop}
-				option={nonMatchingOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={noop}
+					option={nonMatchingOption}
+				/>
+			</OptionsListWrapper>,
 		);
 		const option = getByText(nonMatchingOption.name);
 		expect(getComputedStyle(option).fontWeight).not.toBe('var(--ds-font-weight-bold, 700)');
@@ -247,28 +275,30 @@ describe('field type', () => {
 	it('should capture and report a11y violations', async () => {
 		const optionWithType = { ...testOption, fieldType: 'Potato' };
 		const { container } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={noop}
-				option={optionWithType}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={noop}
+					option={optionWithType}
+				/>
+			</OptionsListWrapper>,
 		);
 
-		await expect(container).toBeAccessible({
-			violationCount: 1,
-		});
+		await expect(container).toBeAccessible({ violationCount: 0 });
 	});
 
 	it('renders field type when provided', () => {
 		const optionWithType = { ...testOption, fieldType: 'Potato' };
 		const { queryByText, queryByTestId } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={noop}
-				option={optionWithType}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={noop}
+					option={optionWithType}
+				/>
+			</OptionsListWrapper>,
 		);
 		expect(queryByText(optionWithType.fieldType)).toBeInTheDocument();
 		expect(queryByTestId('jql-editor-field-type-icon')).toBeNull();
@@ -277,12 +307,14 @@ describe('field type', () => {
 	it('renders field type and icon when supported', () => {
 		const optionWithType = { ...testOption, fieldType: 'Dropdown' };
 		const { queryByText, queryByTestId } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={noop}
-				option={optionWithType}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={noop}
+					option={optionWithType}
+				/>
+			</OptionsListWrapper>,
 		);
 		expect(queryByText(optionWithType.fieldType)).toBeInTheDocument();
 		expect(queryByTestId('jql-editor-field-type-icon')).toBeInTheDocument();
@@ -292,39 +324,43 @@ describe('field type', () => {
 describe('deprecated icon', () => {
 	it('should capture and report a11y violations', async () => {
 		const { container } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={noop}
-				option={testOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={noop}
+					option={testOption}
+				/>
+			</OptionsListWrapper>,
 		);
 
-		await expect(container).toBeAccessible({
-			violationCount: 1,
-		});
+		await expect(container).toBeAccessible({ violationCount: 0 });
 	});
 
 	it('does not renders deprecated icon when field is not deprecated', () => {
 		const { queryByTestId } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={noop}
-				option={testOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={noop}
+					option={testOption}
+				/>
+			</OptionsListWrapper>,
 		);
 		expect(queryByTestId('jql-editor-deprecated-icon')).toBeNull();
 	});
 
 	it('renders deprecated icon when field is deprecated', () => {
 		const { queryByTestId } = render(
-			<AutocompleteOption
-				isSelected={false}
-				onClick={noop}
-				onMouseMove={noop}
-				option={deprecatedTestOption}
-			/>,
+			<OptionsListWrapper>
+				<AutocompleteOption
+					isSelected={false}
+					onClick={noop}
+					onMouseMove={noop}
+					option={deprecatedTestOption}
+				/>
+			</OptionsListWrapper>,
 		);
 		expect(queryByTestId('jql-editor-deprecated-icon')).toBeInTheDocument();
 	});

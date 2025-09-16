@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-limited-mode
 
+## 2.1.0
+
+### Minor Changes
+
+- [`a471e1e42004e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a471e1e42004e) -
+  [ux] ED-29329: Remove limited mode banner and replace with a limited mode flag, reusing
+  confluence's flag setup.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.0
 
 ### Patch Changes

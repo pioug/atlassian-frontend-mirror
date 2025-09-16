@@ -53,7 +53,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink';
 import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -310,7 +309,7 @@ export const getToolbarConfig =
 
 					const items: Array<FloatingToolbarItem<Command>> = [
 						...startingToolbarItems,
-						...((areAnyNewToolbarFlagsEnabled && fg('platform_editor_controls_patch_15')
+						...((areAnyNewToolbarFlagsEnabled
 							? [
 									unlinkButton,
 									{

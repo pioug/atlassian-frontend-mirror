@@ -1,0 +1,38 @@
+[
+	{
+		"name": "Badge",
+		"package": "@atlaskit/badge",
+		"import": {
+			"name": "Badge",
+			"package": "@atlaskit/badge",
+			"type": "default"
+		},
+		"keywords": ["badge", "indicator", "numeric", "tally", "score", "count", "status"],
+		"categories": ["status-indicators"],
+		"shortDescription": "A badge is a visual indicator for numeric values such as tallies and scores, providing quick visual feedback.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Ensure badge content is announced by screen readers",
+			"Use appropriate color contrast for text readability",
+			"Provide meaningful context for numeric values",
+			"Consider alternative text for non-numeric badges"
+		],
+		"usageGuidelines": [
+			"Use for displaying counts, scores, or status indicators",
+			"Keep badge content concise and meaningful",
+			"Use appropriate appearance variants for different contexts",
+			"Position badges near relevant content",
+			"Consider maximum value display limits"
+		],
+		"contentGuidelines": [
+			"Use clear, concise numeric or text values",
+			"Ensure values are meaningful to users",
+			"Consider localization for number formatting",
+			"Use consistent formatting across similar badges"
+		],
+		"generativeInstructions": "./docs/ai/badge-instructions.md",
+		"examples": {
+			"basic": "./examples/ai/badge.tsx"
+		}
+	}
+]

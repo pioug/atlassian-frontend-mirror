@@ -19,16 +19,6 @@
 		}
 	},
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./cli": "./src/cli.ts",
-		"./filepath": "./src/filepath.ts",
-		"./main": "./src/main.ts",
-		"./sinceRef": "./src/sinceRef.ts",
-		"./transforms": "./src/transforms.ts",
-		"./types": "./src/types.ts",
-		"./utils": "./src/utils.ts"
-	},
 	"exports": {
 		".": {
 			"types": "./src/index.ts",

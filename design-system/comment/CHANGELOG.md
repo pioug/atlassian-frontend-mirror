@@ -284,8 +284,7 @@
   handle`.css` imports correctly.Most bundlers come with built-in support for `.css` imports, so you
   may notneed to do anything. If you are using a different bundler, please refer to the
   documentation forthat bundler to understand how to handle `.css` imports.For more information on
-  the migration,please refer to [RFC-73 Migrating our
-  components
+  the migration,please refer to [RFC-73 Migrating our components
   toCompiledCSS-in-JS](https://community.developer.atlassian.com/t/rfc-73-migrating-our-components-to-compiled-css-in-js/859
 
 ## 11.1.5

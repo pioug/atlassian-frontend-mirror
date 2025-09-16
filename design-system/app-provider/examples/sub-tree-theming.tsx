@@ -25,7 +25,7 @@ const contentStyles = cssMap({
 		paddingInlineEnd: token('space.300'),
 		paddingBlockEnd: token('space.300'),
 		paddingInlineStart: token('space.300'),
-		borderRadius: token('border.radius.400'),
+		borderRadius: token('radius.xlarge'),
 		overflow: 'hidden',
 	},
 });

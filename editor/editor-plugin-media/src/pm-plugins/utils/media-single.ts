@@ -35,10 +35,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaState } from '../../types';
-import {
-	copyOptionalAttrsFromMediaState,
-	isInsidePotentialEmptyParagraph,
-} from '../utils/media-common';
+import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 
 import { findChangeFromLocation, getChangeMediaAnalytics } from './analytics';
 import { isImage } from './is-type';
@@ -101,21 +98,14 @@ function insertNodesWithOptionalParagraph({
 				? state.selection.$from.before()
 				: state.selection.from;
 
-			if (fg('platform_editor_multi_images_overridden_upload_fix')) {
-				// the use of pmSafeInsert causes the node selection to media single node.
-				// It leads to discrepancy between the full-page and comment editor - not sure why :shrug:
-				// When multiple images are uploaded, the node selection is set to the previous node
-				// and got overridden by the next node inserted.
-				// It also causes the images position shifted when the images are uploaded.
-				// E.g the images are uploaded after a table, the images will be inserted inside the table.
-				// so we revert to use tr.insert instead. No extra paragraph is added.
-				updatedTr = updatedTr.insert(insertFrom, nodes);
-			} else {
-				const shouldInsertFrom = !isInsidePotentialEmptyParagraph(state);
-				updatedTr = atTheBeginningOfBlock(state)
-					? pmSafeInsert(nodes[0], shouldInsertFrom ? insertFrom : undefined, false)(updatedTr)
-					: updatedTr.insert(insertFrom, nodes);
-			}
+			// the use of pmSafeInsert causes the node selection to media single node.
+			// It leads to discrepancy between the full-page and comment editor - not sure why :shrug:
+			// When multiple images are uploaded, the node selection is set to the previous node
+			// and got overridden by the next node inserted.
+			// It also causes the images position shifted when the images are uploaded.
+			// E.g the images are uploaded after a table, the images will be inserted inside the table.
+			// so we revert to use tr.insert instead. No extra paragraph is added.
+			updatedTr = updatedTr.insert(insertFrom, nodes);
 		} else {
 			updatedTr.replaceSelection(new Slice(Fragment.from(nodes), 0, openEnd));
 		}

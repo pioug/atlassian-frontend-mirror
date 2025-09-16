@@ -47,7 +47,7 @@ export default class ManagedStatusPicker extends React.Component<Props, State> {
 			<div
 				id="container"
 				style={{
-					border: `1px solid ${token('color.border', '#ccc')}`,
+					border: `${token('border.width')} solid ${token('color.border', '#ccc')}`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					width: '225px',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

@@ -3,11 +3,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import coinflip from '../coinflip';
 import type { InteractionMetrics } from '../common';
 import type { RevisionPayload } from '../common/vc/types';
-import {
-	DEFAULT_TTVC_REVISION,
-	getConfig,
-	getExtraInteractionRate,
-} from '../config';
+import { DEFAULT_TTVC_REVISION, getConfig, getExtraInteractionRate } from '../config';
 import {
 	buildSegmentTree,
 	getOldSegmentsLabelStack,
@@ -84,10 +80,12 @@ async function createInteractionExtraLogPayload(
 	const effectiveVCRevisionPayload = vcRevisionPayload?.find(
 		({ revision }) => revision === DEFAULT_TTVC_REVISION,
 	);
-	if (!effectiveVCRevisionPayload?.clean || effectiveVCRevisionPayload?.['metric:vc90'] === undefined) {
+	if (
+		!effectiveVCRevisionPayload?.clean ||
+		effectiveVCRevisionPayload?.['metric:vc90'] === undefined
+	) {
 		return null;
 	}
-
 
 	// Helper function to check if labelStack contains third-party type
 	const isThirdParty = (labelStack?: LabelStack | null) => {

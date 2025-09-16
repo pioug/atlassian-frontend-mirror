@@ -19,6 +19,7 @@ import type {
 	HeadingAnchorLinksProps,
 	NodeComponentsProps,
 	RendererAppearance,
+	RendererContentMode,
 	StickyHeaderProps,
 } from './Renderer/types';
 
@@ -55,7 +56,31 @@ export interface RendererProps {
 		severityNormalThreshold: number;
 	};
 	annotationProvider?: AnnotationProviders | null;
+	// Note: this comment is replicated in packages/editor/editor-core/src/types/editor-props.ts
+	// any changes should be made in both locations
+	/*
+	Configure the display mode of the editor. Different modes may have different feature sets supported.
+
+	- `comment` - should be used for things like comments where you have a field input but require a toolbar & save/cancel buttons
+	- `full-page` - should be used for a full page editor where it is the user focus of the page
+	- `chromeless` - is essentially the `comment` editor but without the editor chrome, like toolbar & save/cancel buttons
+	*/
 	appearance?: RendererAppearance;
+	// Note: this comment is replicated in packages/editor/editor-core/src/types/editor-props.ts
+	// any changes should be made in both locations
+	/**
+	 * **WARNING** this attribute is not supported outside of Confluence Full Page editors
+	 *
+	 * Configures the content mode of the editor.
+	 *
+	 * - `"standard"` | `undefined` - normal content mode <- Default
+	 * - `"dense"` - content in editor has reduced size
+	 *
+	 * @private
+	 * @deprecated this attribute is not supported outside of Confluence Full Page editors
+	 */
+	contentMode?: RendererContentMode;
+
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	/**
 	 * Creates a new `Serializer` to transform the ADF `document` into `JSX.Element`.

@@ -157,7 +157,7 @@ describe('Container', () => {
 	});
 
 	describe('hideElevation', () => {
-		const border = '1px solid var(--ds-border,#091e4224)';
+		const border = 'var(--ds-border-width,1px) solid var(--ds-border,#091e4224)';
 		const borderRadius = 'var(--ds-radius-xlarge,9pt)';
 
 		it('shows elevation by default', async () => {
@@ -183,7 +183,10 @@ describe('Container', () => {
 
 			const container = await screen.findByTestId(testId);
 
-			expect(container).not.toHaveCompiledCss('border', '1px solid var(--ds-border,#dfe1e6');
+			expect(container).not.toHaveCompiledCss(
+				'border',
+				'var(--ds-border-width,1px) solid var(--ds-border,#091e4224)',
+			);
 			expect(container).not.toHaveCompiledCss('border-radius', borderRadius);
 		});
 	});

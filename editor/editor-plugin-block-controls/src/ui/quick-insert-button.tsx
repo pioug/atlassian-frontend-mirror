@@ -80,7 +80,7 @@ const stickyButtonStyles = xcss({
 	},
 
 	':focus': {
-		outline: `2px solid ${token('color.border.focused', '#388BFF')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
 	},
 });
 

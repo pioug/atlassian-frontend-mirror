@@ -69,6 +69,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
 		extensionType,
 		parameters,
 		extensionViewportSizes,
+		localId,
 	} = props;
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const removeOverflow = React.Children.toArray(children)
@@ -109,6 +110,8 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
 										removeOverflow,
 										parameters?.extensionId,
 										extensionViewportSizes,
+										undefined,
+										localId,
 									);
 								}
 							} catch (e) {
@@ -126,6 +129,8 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
 								removeOverflow,
 								parameters?.extensionId,
 								extensionViewportSizes,
+								undefined,
+								localId,
 							);
 						}}
 					</ExtensionRenderer>

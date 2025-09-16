@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-hyperlink",
-	"version": "7.3.1",
+	"version": "7.3.2",
 	"description": "Hyperlink plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -104,9 +104,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_use_preferences_plugin": {
-			"type": "boolean"
-		},
-		"platform_editor_controls_patch_15": {
 			"type": "boolean"
 		}
 	}

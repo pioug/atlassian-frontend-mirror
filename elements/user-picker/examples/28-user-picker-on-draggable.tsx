@@ -156,7 +156,7 @@ const getListStyle = (isDraggingOver: boolean) => ({
 	transition: 'background 0.2s ease, box-shadow 0.2s ease',
 
 	width: 250,
-	border: `1px solid ${token('color.border', '#C1C7D0')} `,
+	border: `${token('border.width')} solid ${token('color.border', '#C1C7D0')} `,
 });
 
 export default Example;

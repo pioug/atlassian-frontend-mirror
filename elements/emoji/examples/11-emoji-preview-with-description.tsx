@@ -25,7 +25,7 @@ const emoji = {
 
 const borderedStyle = {
 	margin: '20px',
-	border: `1px solid ${token('color.border', '#ddd')}`,
+	border: `${token('border.width')} solid ${token('color.border', '#ddd')}`,
 	backgroundColor: token('elevation.surface', 'white'),
 	width: emojiPickerWidth,
 };

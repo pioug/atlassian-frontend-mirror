@@ -16,7 +16,7 @@ import type { LinkSearchListItemData } from './types';
 const listContainer = css({
 	paddingTop: 0,
 	marginTop: token('space.150', '12px'),
-	borderTop: `1px solid ${token('color.border')}`,
+	borderTop: `${token('border.width')} solid ${token('color.border')}`,
 });
 
 const spinnerContainer = css({

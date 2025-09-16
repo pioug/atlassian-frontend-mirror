@@ -38,13 +38,13 @@ export interface OnTableSizeSelection {
 
 const selectedButtonStyles = css({
 	backgroundColor: token('color.background.accent.blue.subtlest', '#579DFF'),
-	border: `1px solid ${token('color.background.accent.blue.subtle', '#579DFF')}`,
+	border: `${token('border.width')} solid ${token('color.background.accent.blue.subtle', '#579DFF')}`,
 });
 
 const buttonStyles = css({
 	height: `${TABLE_SELECTOR_BUTTON_SIZE}px`,
 	width: `${TABLE_SELECTOR_BUTTON_SIZE}px`,
-	border: `1px solid ${token('color.border', '#091e4224')}`,
+	border: `${token('border.width')} solid ${token('color.border', '#091e4224')}`,
 	backgroundColor: token('color.background.input', '#ffffff'),
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
@@ -52,7 +52,7 @@ const buttonStyles = css({
 	display: 'block',
 	'&:focus': {
 		outline: 'none',
-		border: `1px solid ${token('color.border.focused', B100)}`,
+		border: `${token('border.width')} solid ${token('color.border.focused', B100)}`,
 		boxShadow: `0 0 0 0.5px ${token('color.border.focused', B100)}`,
 	},
 });

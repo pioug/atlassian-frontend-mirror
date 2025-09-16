@@ -22,11 +22,11 @@ const inputSchema = z.object({
 });
 
 export const listSearchTokensTool = {
-	name: 'search_tokens',
-	description: `You SHOULD Search for Atlassian Design System tokens based on multiple query strings (if there's multiple candidates of token names, descriptions or example values, you SHOULD pass them in a single call). You SHOULD use default \`limit\` value of 1 first and only set a higher limit like 5 or 10 if you can't find the token you need). Fallback to \`get_all_tokens\` if nothing is found). This tool searches through token names, descriptions, and example values to find the most relevant design tokens.
+	name: 'ads_search_tokens',
+	description: `You SHOULD Search for Atlassian Design System tokens based on multiple query strings (if there's multiple candidates of token names, descriptions or example values, you SHOULD pass them in a single call). You SHOULD use default \`limit\` value of 1 first and only set a higher limit like 5 or 10 if you can't find the token you need). Fallback to \`ads_get_all_tokens\` if nothing is found). This tool searches through token names, descriptions, and example values to find the most relevant design tokens.
 
 The search will match against:
-- Token names (e.g., "color.text", "space.100", "border.radius")
+- Token names (e.g., "color.text", "space.100", "radius.small")
 - Token descriptions
 - Token example values (eg. "#2898BD" -> "color.icon.accent.teal")
 
@@ -39,7 +39,7 @@ import { token } from '@atlaskit/tokens';
 const styles = css({
 color: token('color.text'),
 padding: token('space.100'),
-borderRadius: token('border.radius'),
+borderRadius: token('radius.small'),
 });
 \`\`\`
 `,
@@ -53,7 +53,9 @@ borderRadius: token('border.radius'),
 	inputSchema: zodToJsonSchema(inputSchema),
 };
 
-export const searchTokensTool = async (params: z.infer<typeof inputSchema>): Promise<CallToolResult> => {
+export const searchTokensTool = async (
+	params: z.infer<typeof inputSchema>,
+): Promise<CallToolResult> => {
 	const { terms, limit = 1, exactName = false } = params;
 	const searchTerms = terms.filter(Boolean).map(cleanQuery);
 
@@ -109,7 +111,7 @@ export const searchTokensTool = async (params: z.infer<typeof inputSchema>): Pro
 
 	// Remove duplicates based on token name
 	const uniqueResults = results.filter((result, index, arr) => {
-		return arr.findIndex(r => r.item.name === result.item.name) === index;
+		return arr.findIndex((r) => r.item.name === result.item.name) === index;
 	});
 
 	const matchedTokens = uniqueResults.map((result) => {

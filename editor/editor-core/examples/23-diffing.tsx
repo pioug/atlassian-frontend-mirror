@@ -37,7 +37,7 @@ const diffContainer = css({
 	fontFamily: token('font.family.code'),
 	color: token('color.text.accent.gray'),
 	backgroundColor: token('color.background.neutral.subtle'),
-	border: `2px solid ${token('color.border')}`,
+	border: `${token('border.width.selected')} solid ${token('color.border')}`,
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
 	boxSizing: 'border-box',
@@ -79,7 +79,7 @@ const RemovedLine = ({ children }: LineProps) => (
 const label = css({
 	width: '100%',
 	textAlign: 'center',
-	borderTop: `1px solid ${token('color.border')}`,
+	borderTop: `${token('border.width')} solid ${token('color.border')}`,
 	fontSize: '16px',
 	paddingTop: token('space.200', '16px'),
 });

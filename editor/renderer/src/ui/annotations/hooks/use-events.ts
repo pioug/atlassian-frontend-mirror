@@ -18,7 +18,6 @@ import {
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	useAnnotationManagerDispatch,
@@ -137,12 +136,6 @@ export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => 
 
 		const removeHoverEffect = () => {
 			setIsHovered(false);
-			if (
-				document.activeElement instanceof HTMLElement &&
-				!fg('confluence_frontend_comments_panel_editor_focus')
-			) {
-				document.activeElement.blur();
-			}
 		};
 
 		if (!isAnnotationManagerEnabled) {

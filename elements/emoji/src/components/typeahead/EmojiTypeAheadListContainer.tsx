@@ -18,7 +18,7 @@ const typeAheadEmpty = css({
 const typeAheadWidth: EmojiTypeAheadWidth = 350;
 const typeAheadList = css({
 	backgroundColor: token('elevation.surface.overlay', 'white'),
-	border: `1px solid ${token('color.border', N40)}`,
+	border: `${token('border.width')} solid ${token('color.border', N40)}`,
 	borderRadius: token('radius.small', '3px'),
 	boxShadow: token('elevation.shadow.overlay', '0 3px 6px rgba(0, 0, 0, 0.2)'),
 	color: token('color.text.subtle', '#333'),

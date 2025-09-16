@@ -27,8 +27,8 @@ export const getResolvedAttributes = (
 		statusDetails: details?.meta?.requestAccess?.accessType ?? null,
 		displayCategory,
 		extensionKey: fg('platform_bandicoots-smartlink-unresolved-error-key')
-			? details?.meta?.key ?? error?.extensionKey ?? null
-			: details?.meta?.key ?? null,
+			? (details?.meta?.key ?? error?.extensionKey ?? null)
+			: (details?.meta?.key ?? null),
 		destinationTenantId: details?.meta?.tenantId ?? null,
 		destinationActivationId: details?.meta?.activationId ?? null,
 		destinationContainerId: details?.meta?.containerId ?? null,

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 10.1.3
+
+### Patch Changes
+
+- [`1c474ad18f3ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c474ad18f3ac) -
+  [ED-28566] Clean up platform_editor_controls_patch_15
+- Updated dependencies
+
 ## 10.1.2
 
 ### Patch Changes

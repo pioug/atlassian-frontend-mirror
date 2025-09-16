@@ -1,0 +1,36 @@
+[
+	{
+		"name": "PageHeader",
+		"package": "@atlaskit/page-header",
+		"import": {
+			"name": "PageHeader",
+			"package": "@atlaskit/page-header",
+			"type": "default"
+		},
+		"keywords": ["page", "header", "title", "breadcrumbs", "actions"],
+		"categories": ["layout"],
+		"shortDescription": "A component for page headers.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Provide clear page titles",
+			"Use appropriate heading hierarchy",
+			"Ensure breadcrumb navigation is accessible",
+			"Provide clear action labels"
+		],
+		"usageGuidelines": [
+			"Use for consistent page header layout",
+			"Include breadcrumbs for navigation context",
+			"Provide relevant page actions",
+			"Use appropriate header hierarchy"
+		],
+		"contentGuidelines": [
+			"Use clear, descriptive page titles",
+			"Provide meaningful breadcrumb labels",
+			"Use action-oriented button text",
+			"Keep header content focused"
+		],
+		"examples": {
+			"basic": "./examples/ai/page-header.tsx"
+		}
+	}
+]

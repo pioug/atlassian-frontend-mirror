@@ -42,7 +42,7 @@ function stripHeaderType(schema: Schema, cells: Fragment): Fragment {
 		const tableCell =
 			cell.type === cellNodeType
 				? cell
-				: cellNodeType.createAndFill(cell.attrs, cell.content, cell.marks) ?? cell;
+				: (cellNodeType.createAndFill(cell.attrs, cell.content, cell.marks) ?? cell);
 
 		newCells.push(tableCell);
 	});

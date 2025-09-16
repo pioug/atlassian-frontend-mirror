@@ -99,8 +99,7 @@ const isJiraBoard = (url: string) => {
 const isJiraPlan = (url: string) => {
 	return (
 		// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
-		(url.match(/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)/) &&
-			fg('plan_smart_link_base_url')) ||
+		url.match(/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)/) ||
 		url.match(
 			// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 			/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)\/scenarios\/(?<resourceContext>\d+)\/(timeline|summary|calendar|program\/\d+|dependencies)\/?/,

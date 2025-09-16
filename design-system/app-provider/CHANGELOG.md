@@ -1,5 +1,12 @@
 # @atlaskit/app-provider
 
+## 3.2.1
+
+### Patch Changes
+
+- [`28e3bab9e4314`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28e3bab9e4314) -
+  Migrated old shape tokens to new tokens. No visual change.
+
 ## 3.2.0
 
 ### Minor Changes

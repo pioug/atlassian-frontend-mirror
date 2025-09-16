@@ -2,13 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import {
-	createContext,
-	type Dispatch,
-	type ReactNode,
-	type SetStateAction,
-	useState,
-} from 'react';
+import { createContext, type Dispatch, type ReactNode, type SetStateAction, useState } from 'react';
 
 import { jsx } from '@atlaskit/css';
 

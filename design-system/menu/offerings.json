@@ -1,0 +1,36 @@
+[
+	{
+		"name": "MenuGroup",
+		"package": "@atlaskit/menu",
+		"import": {
+			"name": "MenuGroup",
+			"package": "@atlaskit/menu",
+			"type": "named"
+		},
+		"keywords": ["menu", "group", "navigation", "section", "items"],
+		"categories": ["navigation"],
+		"shortDescription": "A component for displaying menus with grouped items.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Provide clear menu item labels",
+			"Use appropriate ARIA attributes",
+			"Ensure keyboard navigation with arrow keys",
+			"Provide clear section titles"
+		],
+		"usageGuidelines": [
+			"Use for organizing menu items into sections",
+			"Group related menu items together",
+			"Use clear section titles",
+			"Consider menu density and spacing"
+		],
+		"contentGuidelines": [
+			"Use clear, descriptive menu item labels",
+			"Group related items logically",
+			"Use consistent terminology",
+			"Keep menu structure simple"
+		],
+		"examples": {
+			"basic": "./examples/ai/menu.tsx"
+		}
+	}
+]

@@ -5,4 +5,5 @@ export { limitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
 export type {
 	LimitedModePlugin,
 	LimitedModePluginState,
+	LimitedModePluginOptions,
 } from '@atlaskit/editor-plugin-limited-mode';

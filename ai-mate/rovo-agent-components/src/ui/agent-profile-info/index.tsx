@@ -109,7 +109,7 @@ export const AgentProfileCreator = ({
 			return formatMessage(messages.agentCreatedBy, {
 				creatorNameWithLink: (
 					<Inline alignBlock="center" testId="atlassian-icon">
-						<AtlassianIcon size="small" appearance="brand" />
+						<AtlassianIcon label="" size="small" appearance="brand" />
 						<Box>Atlassian</Box>
 					</Inline>
 				),

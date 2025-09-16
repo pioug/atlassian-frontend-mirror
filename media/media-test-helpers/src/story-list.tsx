@@ -28,7 +28,7 @@ const styles: {
 			margin: token('space.100'),
 		},
 		stateTitle: {
-			borderBottom: `1px solid ${token('color.border', '#ccc')}`,
+			borderBottom: `${token('border.width')} solid ${token('color.border', '#ccc')}`,
 			marginBottom: token('space.100'),
 			color: token('color.text', '#606369'),
 			width: '100%',
@@ -50,7 +50,7 @@ const styles: {
 			margin: token('space.100'),
 		},
 		stateTitle: {
-			borderBottom: `1px solid ${token('color.border', '#ccc')}`,
+			borderBottom: `${token('border.width')} solid ${token('color.border', '#ccc')}`,
 			marginBottom: token('space.100'),
 			color: token('color.text', '#606369'),
 			width: '100%',

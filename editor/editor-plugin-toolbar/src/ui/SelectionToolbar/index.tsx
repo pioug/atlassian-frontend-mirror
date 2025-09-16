@@ -52,6 +52,7 @@ const usePluginState = conditionalHooksFactory(
 					editorToolbarDockingPreference:
 						state.userPreferencesState?.preferences?.toolbarDockingPosition,
 					shouldShowToolbar: state.toolbarState?.shouldShowToolbar,
+					selectedNode: state.toolbarState?.selectedNode,
 					selection: state.selectionState?.selection,
 					currentUserIntent: state.userIntentState?.currentUserIntent,
 					editorViewMode: state.editorViewModeState?.mode,
@@ -67,12 +68,13 @@ const usePluginState = conditionalHooksFactory(
 		);
 		const currentUserIntent = useSharedPluginStateSelector(api, 'userIntent.currentUserIntent');
 		const selection = useSharedPluginStateSelector(api, 'selection.selection');
-		const { shouldShowToolbar } = useSharedPluginStateWithSelector(
+		const { shouldShowToolbar, selectedNode } = useSharedPluginStateWithSelector(
 			api,
 			['toolbar'],
 			(state: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<ToolbarPlugin>, 'toolbar'>) => {
 				return {
 					shouldShowToolbar: state.toolbarState?.shouldShowToolbar,
+					selectedNode: state.toolbarState?.selectedNode,
 				};
 			},
 		);
@@ -84,6 +86,7 @@ const usePluginState = conditionalHooksFactory(
 			shouldShowToolbar,
 			selection,
 			editorViewMode: undefined,
+			selectedNode,
 		};
 	},
 );
@@ -133,9 +136,7 @@ export const SelectionToolbar = ({
 			if (isCellSelection && isEditorControlsEnabled) {
 				return calculateToolbarPositionOnCellSelection(toolbarTitle)(editorView, position);
 			}
-
-			const calc = calculateToolbarPositionTrackHead;
-			return calc(toolbarTitle)(editorView, position);
+			return calculateToolbarPositionTrackHead(toolbarTitle)(editorView, position);
 		},
 		[editorView],
 	);
@@ -176,7 +177,7 @@ export const SelectionToolbar = ({
 				editorToolbarDockingPreference={editorToolbarDockingPreference}
 				editorViewMode={
 					expValEquals('platform_editor_toolbar_aifc_patch_4', 'isEnabled', true)
-						? editorViewMode ?? 'edit'
+						? (editorViewMode ?? 'edit')
 						: editorViewMode
 				}
 			>

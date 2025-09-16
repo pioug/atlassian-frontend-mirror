@@ -35,12 +35,12 @@ const buttonStyles = css({
 	backgroundColor: token('color.background.neutral'),
 	padding: 0,
 	borderRadius: token('radius.small', '4px'),
-	border: `1px solid ${token('color.border.inverse')}`,
+	border: `${token('border.width')} solid ${token('color.border.inverse')}`,
 	cursor: 'pointer',
 	display: 'block',
 	position: 'relative',
 	'&:focus': {
-		outline: `2px solid ${token('color.border.focused')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 		outlineOffset: token('space.025', '2px'),
 	},
 });
@@ -103,7 +103,7 @@ export const Color = memo<ColorProps>(
 						tabIndex={tabIndex}
 						style={{
 							backgroundColor: colorStyle || token('color.background.input', '#FFFFFF'),
-							border: `1px solid ${borderColor}`,
+							border: `${token('border.width')} solid ${borderColor}`,
 						}}
 						autoFocus={autoFocus}
 					>

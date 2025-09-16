@@ -115,7 +115,7 @@ const helpFooterStyles = css({
 	boxSizing: 'border-box',
 	width: '100%',
 	backgroundColor: token('color.background.neutral', N10),
-	borderTop: `${token('space.025', '2px')} solid ${token('color.border', N30)}`,
+	borderTop: `${token('border.width.selected')} solid ${token('color.border', N30)}`,
 	justifyContent: 'space-between',
 });
 

@@ -150,7 +150,7 @@ const executionHistoryItemStyle = css({
 	display: 'flex',
 	gap: '10px',
 	padding: '0.5rem',
-	borderBottom: '1px solid #e9ecef',
+	borderBottom: `${token('border.width')} solid #e9ecef`,
 });
 const calculateAverage = (times: Array<{ time: number }>) => {
 	if (times.length === 0) {

@@ -13,7 +13,7 @@ const flexibleBlockCardStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > div': {
 		borderRadius: token('radius.large', '8px'),
-		border: `1px solid ${token('color.border', N40)}`,
+		border: `${token('border.width')} solid ${token('color.border', N40)}`,
 	},
 });
 

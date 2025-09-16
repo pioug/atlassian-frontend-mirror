@@ -24,7 +24,7 @@ const listStyles = xcss({
 const getStyles = (style: string) => {
 	if (style === 'secondary') {
 		return {
-			border: `2px solid ${token('color.border', N30)}`,
+			border: `${token('border.width.selected')} solid ${token('color.border', N30)}`,
 			padding: token('space.200', '16px'),
 			marginBottom: token('space.150', '12px'),
 		};

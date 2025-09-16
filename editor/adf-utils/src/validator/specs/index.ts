@@ -85,4 +85,5 @@ export {
 	text_formatted,
 	text_link_inline,
 	underline,
+	syncBlock,
 } from '@atlaskit/adf-schema/schema-validator';

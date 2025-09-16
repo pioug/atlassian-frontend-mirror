@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 3.1.6
+
+### Patch Changes
+
+- [`f1e12e7cf00ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1e12e7cf00ba) -
+  ED-29083: Fixed copying code block only copy texts
+- Updated dependencies
+
 ## 3.1.5
 
 ### Patch Changes

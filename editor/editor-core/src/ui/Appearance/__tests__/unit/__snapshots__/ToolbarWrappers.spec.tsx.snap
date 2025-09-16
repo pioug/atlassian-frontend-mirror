@@ -199,7 +199,7 @@ exports[`Toolbar wrapper components MainToolbarWrapper should match snapshot whe
   -ms-flex-align: center;
   align-items: center;
   box-shadow: none;
-  border-bottom: 1px solid var(--ds-border, #091E4224);
+  border-bottom: var(--ds-border-width, 1px) solid var(--ds-border, #091E4224);
   -webkit-transition: box-shadow 200ms cubic-bezier(0.15, 1, 0.3, 1);
   transition: box-shadow 200ms cubic-bezier(0.15, 1, 0.3, 1);
   z-index: 510;
@@ -244,7 +244,7 @@ exports[`Toolbar wrapper components MainToolbarWrapper should match snapshot whe
   -ms-flex-align: center;
   align-items: center;
   box-shadow: none;
-  border-bottom: 1px solid var(--ds-border, #091E4224);
+  border-bottom: var(--ds-border-width, 1px) solid var(--ds-border, #091E4224);
   -webkit-transition: box-shadow 200ms cubic-bezier(0.15, 1, 0.3, 1);
   transition: box-shadow 200ms cubic-bezier(0.15, 1, 0.3, 1);
   z-index: 510;
@@ -282,7 +282,7 @@ exports[`Toolbar wrapper components MainToolbarWrapper should match snapshot –
   -ms-flex-align: center;
   align-items: center;
   box-shadow: none;
-  border-bottom: 1px solid var(--ds-border, #091E4224);
+  border-bottom: var(--ds-border-width, 1px) solid var(--ds-border, #091E4224);
   -webkit-transition: box-shadow 200ms cubic-bezier(0.15, 1, 0.3, 1);
   transition: box-shadow 200ms cubic-bezier(0.15, 1, 0.3, 1);
   z-index: 510;
@@ -328,7 +328,7 @@ exports[`Toolbar wrapper components MainToolbarWrapper should match snapshot –
   -ms-flex-align: center;
   align-items: center;
   box-shadow: none;
-  border-bottom: 1px solid var(--ds-border, #091E4224);
+  border-bottom: var(--ds-border-width, 1px) solid var(--ds-border, #091E4224);
   -webkit-transition: box-shadow 200ms cubic-bezier(0.15, 1, 0.3, 1);
   transition: box-shadow 200ms cubic-bezier(0.15, 1, 0.3, 1);
   z-index: 510;

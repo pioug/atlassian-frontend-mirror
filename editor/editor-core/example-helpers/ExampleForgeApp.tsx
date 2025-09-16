@@ -61,7 +61,7 @@ export const ExampleForgeApp = ({
 						position: 'absolute',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 						pointerEvents: 'none',
-						border: `1px dashed ${token('color.border.accent.green', '#ccc')}`,
+						border: `${token('border.width')} dashed ${token('color.border.accent.green', '#ccc')}`,
 						top: selection.coords.top - EXAMPLE_LIVE_PAGE_PAGE_PADDING_TOP,
 						left: selection.coords.left,
 						width: selection.coords.right - selection.coords.left,

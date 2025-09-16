@@ -16,7 +16,7 @@ const inputSchema = z.object({
 });
 
 export const listAnalyzeAccessibilityTool = {
-	name: 'analyze_accessibility',
+	name: 'ads_analyze_accessibility',
 	description: `Analyze React component code for accessibility violations using axe-core and intelligently generate Atlassian Design System specific suggestions. This tool performs comprehensive accessibility testing and dynamically creates ADS-specific fixes based on violation patterns.
 
 Use this tool when:
@@ -65,7 +65,7 @@ const urlInputSchema = z.object({
 });
 
 export const listAnalyzeLocalhostAccessibilityTool = {
-	name: 'analyze_localhost_accessibility',
+	name: 'ads_analyze_localhost_accessibility',
 	description: `Analyze a live web page (e.g. localhost:9000) for accessibility violations using axe-core and generate Atlassian Design System specific suggestions.
 
 Use this tool to:

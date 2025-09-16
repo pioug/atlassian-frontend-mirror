@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 11.6.6
+
+### Patch Changes
+
+- [`6fb79942fc3a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fb79942fc3a5) -
+  Internal changes to how borders are applied.
+
 ## 11.6.5
 
 ### Patch Changes

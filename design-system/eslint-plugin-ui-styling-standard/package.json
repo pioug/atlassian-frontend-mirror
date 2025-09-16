@@ -35,10 +35,6 @@
 		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./package.json": "./package.json"
-	},
 	"exports": {
 		".": {
 			"types": "./src/index.tsx",

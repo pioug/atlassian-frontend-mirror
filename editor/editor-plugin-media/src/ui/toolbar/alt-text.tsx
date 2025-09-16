@@ -19,8 +19,6 @@ import { type NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ImageAltTextIcon from '@atlaskit/icon-lab/core/image-alt-text';
-import TextIcon from '@atlaskit/icon/core/text';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { openMediaAltTextMenu } from '../../pm-plugins/alt-text/commands';
@@ -142,11 +140,7 @@ export const getAltTextDropdownOption = (
 			{
 				title: formatMessage(messages.addAltText),
 				onClick: openMediaAltTextMenu(editorAnalyticsAPI),
-				icon: fg('platform_editor_controls_patch_15') ? (
-					<ImageAltTextIcon label="" />
-				) : (
-					<TextIcon label="" />
-				),
+				icon: <ImageAltTextIcon label="" />,
 				testId: 'media-alt-text-dropdown-option',
 			},
 		];

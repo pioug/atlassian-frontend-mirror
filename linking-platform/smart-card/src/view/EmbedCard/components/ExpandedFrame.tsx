@@ -208,7 +208,7 @@ const styles = cssMap({
 	linkWrapperBorderAndBackground: {
 		'&::after': {
 			backgroundColor: token('elevation.surface.raised'),
-			outline: `1px solid ${token('color.border')}`,
+			outline: `${token('border.width')} solid ${token('color.border')}`,
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.embed-header': {
@@ -219,7 +219,7 @@ const styles = cssMap({
 		'&:hover': {
 			'&::after': {
 				backgroundColor: token('elevation.surface.raised'),
-				outline: `1px solid ${token('color.border')}`,
+				outline: `${token('border.width')} solid ${token('color.border')}`,
 			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'.embed-header': {
@@ -261,7 +261,7 @@ const styles = cssMap({
 		height: '16px',
 	},
 	contentStyle: {
-		border: `solid 1px ${token('color.border')}`,
+		border: `solid ${token('border.width')} ${token('color.border')}`,
 		borderRadius: token('radius.small'),
 		backgroundColor: token('elevation.surface.raised'),
 		flexGrow: 1,

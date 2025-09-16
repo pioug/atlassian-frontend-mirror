@@ -389,7 +389,7 @@ const telepointerStyles = css({
 			paddingLeft: '1.5px',
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			lineHeight: 'initial',
-			borderRadius: '0px 2px 2px 0px',
+			borderRadius: `0px ${token('radius.xsmall')} ${token('radius.xsmall')} 0px`,
 			color: token('color.text.inverse', 'white'),
 			backgroundColor: token('color.background.brand.bold'),
 		},
@@ -454,7 +454,7 @@ const blockquoteSharedStyles = css({
 		display: 'inline-block',
 		paddingLeft: token('space.200', '16px'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		borderLeft: `2px solid ${token('color.border', akEditorBlockquoteBorderColor)}`,
+		borderLeft: `${token('border.width.selected')} solid ${token('color.border', akEditorBlockquoteBorderColor)}`,
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		margin: `${blockNodesVerticalMargin} 0 0 0`,
 		marginRight: 0,
@@ -1570,7 +1570,7 @@ const tableRendererHeaderStylesForTableCellOnly = css({
 			minWidth: `${tableCellMinWidth}px`,
 			fontWeight: token('font.weight.regular'),
 			verticalAlign: 'top',
-			border: `1px solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
+			border: `${token('border.width')} solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
 			borderRightWidth: 0,
 			borderBottomWidth: 0,
 			padding: token('space.100', '8px'),
@@ -1819,7 +1819,7 @@ const rendererTableColumnStylesOld = css({
 		'table[data-number-column="true"]': {
 			[`.${RendererCssClassName.NUMBER_COLUMN}`]: {
 				backgroundColor: `${token('color.background.neutral', akEditorTableToolbar)}`,
-				borderRight: `1px solid
+				borderRight: `${token('border.width')} solid
 								${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
 				width: `${akEditorTableNumberColumnWidth}px`,
 				textAlign: 'center',
@@ -1840,7 +1840,7 @@ const rendererTableColumnStyles = css({
 		'table[data-number-column="true"]': {
 			[`.${RendererCssClassName.NUMBER_COLUMN}`]: {
 				backgroundColor: `${token('color.background.accent.gray.subtlest')}`,
-				borderRight: `1px solid
+				borderRight: `${token('border.width')} solid
 								${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
 				width: `${akEditorTableNumberColumnWidth}px`,
 				textAlign: 'center',
@@ -1885,8 +1885,8 @@ const stickyHeaderStyles = css({
 		overflow: 'hidden',
 		zIndex: `${akEditorStickyHeaderZIndex}`,
 
-		borderRight: `1px solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
-		borderBottom: `1px solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
+		borderRight: `${token('border.width')} solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
+		borderBottom: `${token('border.width')} solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
 
 		/* this is to compensate for the table border */
 		transform: 'translateX(-1px)',
@@ -2099,7 +2099,7 @@ const rendererAnnotationStyles = css({
 	"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark], & [data-annotation-draft-mark][data-annotation-inline-node]":
 		{
 			background: token('color.background.accent.yellow.subtler', Y75),
-			borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
+			borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow', Y300)}`,
 			boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
 			cursor: 'pointer',
 			padding: `${token('space.050', '4px')} ${token('space.025', '2px')}`,
@@ -2109,9 +2109,9 @@ const rendererAnnotationStyles = css({
 const rendererAnnotationStylesCommentHeightFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'& [data-annotation-draft-mark][data-annotation-inline-node]': {
-		borderBottom: '2px solid transparent',
+		borderBottom: `${token('border.width.selected')} solid transparent`,
 		cursor: 'pointer',
-		padding: '1px 0 2px',
+		padding: `1px 0 ${token('space.025')}`,
 		background: token('color.background.accent.yellow.subtler', Y75),
 		borderBottomColor: token('color.border.accent.yellow', Y300),
 		boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
@@ -2131,6 +2131,7 @@ type RendererStyleContainerProps = Pick<
 	| 'onClick'
 	| 'onMouseDown'
 	| 'appearance'
+	| 'contentMode'
 	| 'allowNestedHeaderLinks'
 	| 'allowColumnSorting'
 	| 'useBlockRenderForCodeBlock'
@@ -2148,6 +2149,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 		onClick,
 		onMouseDown,
 		appearance,
+		contentMode,
 		allowNestedHeaderLinks,
 		allowColumnSorting,
 		useBlockRenderForCodeBlock,
@@ -2177,7 +2179,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 			onMouseDown={onMouseDown}
 			style={
 				{
-					'--ak-renderer-base-font-size': `${getBaseFontSize(appearance)}px`,
+					'--ak-renderer-base-font-size': `${getBaseFontSize(appearance, contentMode)}px`,
 					'--ak-renderer-editor-font-heading-h1': `${editorUGCToken('editor.font.heading.h1')}`,
 					'--ak-renderer-editor-font-heading-h2': `${editorUGCToken('editor.font.heading.h2')}`,
 					'--ak-renderer-editor-font-heading-h3': `${editorUGCToken('editor.font.heading.h3')}`,

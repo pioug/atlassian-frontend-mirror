@@ -30,7 +30,7 @@ export const itemIcon: SerializedStyles = css({
 	width: token('space.500', '40px'),
 	height: token('space.500', '40px'),
 	overflow: 'hidden',
-	border: `1px solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}` /* N60 at 50% */,
+	border: `${token('border.width')} solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}` /* N60 at 50% */,
 	borderRadius: token('radius.small', '3px'),
 	boxSizing: 'border-box',
 

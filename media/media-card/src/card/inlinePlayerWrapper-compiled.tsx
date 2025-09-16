@@ -23,7 +23,7 @@ const hideNativeBrowserTextSelectionStyles = css({
 
 const selectedBorderStyle = css({
 	'&::after': {
-		border: `1px solid ${token('color.border.selected')}`,
+		border: `${token('border.width')} solid ${token('color.border.selected')}`,
 	},
 });
 

@@ -387,8 +387,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
-					((expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
-						fg('platform_editor_controls_patch_15')) ||
+					(expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') ||
 						editorExperiment('platform_editor_preview_panel_linking_exp', true)) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						editorControlsSmartCardStyles,

@@ -19,9 +19,5 @@ const SyncedBlockRenderer = ({ docNode }: SyncedBlockRendererProps) => {
 };
 
 export const getSyncedBlockRenderer = (props: SyncedBlockRendererProps): React.JSX.Element => {
-	return (
-		<SyncedBlockRenderer
-			docNode={props.docNode}
-		/>
-	);
+	return <SyncedBlockRenderer docNode={props.docNode} />;
 };

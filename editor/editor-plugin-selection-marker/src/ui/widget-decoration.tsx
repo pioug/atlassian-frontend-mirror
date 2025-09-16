@@ -52,7 +52,7 @@ const selectionMarkerInlineCursorStyles = {
 	content: "''",
 	position: 'relative',
 	pointerEvents: 'none',
-	borderLeft: `1px solid ${token('color.text', N500)}`,
+	borderLeft: `${token('border.width')} solid ${token('color.text', N500)}`,
 	marginLeft: '-1px',
 	left: '0.5px',
 };

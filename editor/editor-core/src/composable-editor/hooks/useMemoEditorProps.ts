@@ -18,6 +18,7 @@ export const useMemoEditorProps = (
 		const allProps: All = {
 			preset: passedProps.preset,
 			appearance: passedProps.appearance,
+			contentMode: passedProps.contentMode,
 			contentComponents: passedProps.contentComponents,
 			primaryToolbarIconBefore: passedProps.primaryToolbarIconBefore,
 			secondaryToolbarComponents: passedProps.secondaryToolbarComponents,
@@ -126,6 +127,7 @@ export const useMemoEditorProps = (
 	}, [
 		passedProps.preset,
 		passedProps.appearance,
+		passedProps.contentMode,
 		passedProps.contentComponents,
 		passedProps.primaryToolbarIconBefore,
 		passedProps.secondaryToolbarComponents,

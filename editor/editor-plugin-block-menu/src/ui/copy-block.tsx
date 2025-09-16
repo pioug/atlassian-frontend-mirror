@@ -54,6 +54,15 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 					fragment = layoutContent?.content || Fragment.empty;
 				}
 
+				// if text is inside of an expand, the selection contains an expand for some reason
+				// the expandNode always and only have one child, no matter how much contents are inside the expand,
+				// and the one child is the line that is being selected, so we can use the .firstChild again
+				if (fragment?.firstChild && fragment.firstChild.type.name === 'expand') {
+					const expandNode = fragment.firstChild;
+					const actualNodeToCopy = expandNode.firstChild;
+					fragment = Fragment.from(actualNodeToCopy) || Fragment.empty;
+				}
+
 				const domNode = toDOMFromFragment(fragment, schema);
 				const div = document.createElement('div');
 				div.appendChild(domNode);
@@ -74,6 +83,14 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 			// for other nodes
 			if (selection instanceof NodeSelection) {
 				const nodeType = selection.node.type;
+
+				// code block is a special case where it is a block node but has inlineContent to true,
+				// When nodeType.inlineContent is true, it will be treated as an inline node in the copyDomNode function,
+				// but we want to treat it as a block node when copying, hence setting it to false here
+				if (selection.node.type.name === 'codeBlock') {
+					nodeType.inlineContent = false;
+				}
+
 				const domNode = toDOM(selection.node, schema);
 				copyDomNode(domNode, nodeType, selection);
 			}

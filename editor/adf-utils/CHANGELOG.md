@@ -1,5 +1,14 @@
 # @atlaskit/adf-utils
 
+## 19.23.1
+
+### Patch Changes
+
+- [`4811d1540db93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4811d1540db93) -
+  Exclude afm-\* folders from the adf-utils package
+- [`25277ef85f102`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25277ef85f102) -
+  EDITOR-1562 update adf-utils to include sync-block
+
 ## 19.23.0
 
 ### Minor Changes

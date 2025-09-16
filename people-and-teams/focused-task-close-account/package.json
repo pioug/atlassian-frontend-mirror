@@ -21,12 +21,12 @@
 		}
 	},
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
-		"./i18n/*": "./src/i18n/*.ts"
+		"./i18n/*": {
+			"publish": null,
+			"default": "./src/i18n/*.ts"
+		}
 	},
 	"scripts": {
 		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/focused-task-close-account/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/focused-task-close-account/src/**\", \"!packages/people-and-teams/focused-task-close-account/src/**/**/types.ts\", \"!packages/people-and-teams/focused-task-close-account/src/ui/**/styled.tsx\"]')"

@@ -72,6 +72,7 @@ export function Root({
 	UNSAFE_dangerouslyHoistSlotSizes = false,
 	skipLinksLabel = 'Skip to:',
 	testId,
+	defaultSideNavCollapsed = false,
 }: {
 	/**
 	 * For rendering the layout areas, e.g. TopNav, SideNav, Main.
@@ -98,6 +99,18 @@ export function Root({
 	 * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
 	 */
 	testId?: string;
+	/**
+	 * Whether the side nav should be collapsed by default __on desktop screens__.
+	 *
+	 * It is always collapsed by default for mobile screens.
+	 *
+	 * This value is used when the side nav is first mounted, but you should continuously update your
+	 * persisted state using the `onCollapse` and `onExpand` callbacks, to ensure it is up to date
+	 * when the app is reloaded.
+	 *
+	 * __Note:__ This prop will only work when the `platform_dst_nav4_full_height_sidebar_api_changes` gate is enabled.
+	 */
+	defaultSideNavCollapsed?: boolean;
 }) {
 	const ref = useRef<HTMLDivElement>(null);
 
@@ -133,7 +146,7 @@ This message will not be displayed in production.
 	}, []);
 
 	return (
-		<SideNavVisibilityProvider>
+		<SideNavVisibilityProvider defaultCollapsed={defaultSideNavCollapsed}>
 			<SideNavToggleButtonProvider>
 				<SideNavElementProvider>
 					<TopNavStartProvider>

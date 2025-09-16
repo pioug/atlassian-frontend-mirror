@@ -1037,7 +1037,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				tableWrapperHeight={this.state.tableWrapperHeight}
 				isTableResizingEnabled={allowTableResizing}
 				isResizing={isResizing}
-				isWindowResized={this.state.windowResized}
 				isTableScalingEnabled={isTableScalingEnabled}
 				isTableWithFixedColumnWidthsOptionEnabled={tableWithFixedColumnWidthsOption}
 				isWholeTableInDanger={isWholeTableInDanger}

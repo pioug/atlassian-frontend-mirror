@@ -77,7 +77,7 @@ const customTabListStyles = css({
 	},
 	width: '100%',
 	alignItems: 'flex-start',
-	borderBottom: `1px solid ${token('color.border', '#EBECF0')}`,
+	borderBottom: `${token('border.width')} solid ${token('color.border', '#EBECF0')}`,
 });
 
 const customTabWrapper = cssMap({

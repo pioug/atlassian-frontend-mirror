@@ -1,0 +1,37 @@
+[
+	{
+		"name": "EmptyState",
+		"package": "@atlaskit/empty-state",
+		"import": {
+			"name": "EmptyState",
+			"package": "@atlaskit/empty-state",
+			"type": "default"
+		},
+		"keywords": ["empty", "state", "placeholder", "no-content", "void"],
+		"categories": ["status"],
+		"shortDescription": "A component for empty states.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Provide clear empty state messaging",
+			"Use appropriate headings and structure",
+			"Ensure actionable content is accessible",
+			"Consider screen reader experience"
+		],
+		"usageGuidelines": [
+			"Use when nothing to display in a view",
+			"Explain why the state is empty",
+			"Provide clear next steps",
+			"Keep tone helpful and encouraging",
+			"Consider all scenarios causing the empty state"
+		],
+		"contentGuidelines": [
+			"Use inspirational, motivating tone for first-time view",
+			"Provide specific next steps",
+			"Avoid negative language",
+			"Use clear, descriptive headers"
+		],
+		"examples": {
+			"basic": "./examples/ai/empty-state.tsx"
+		}
+	}
+]

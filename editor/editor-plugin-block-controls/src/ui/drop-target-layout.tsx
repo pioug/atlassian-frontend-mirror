@@ -49,7 +49,7 @@ const dropTargetLayoutStyle = css({
 const dropTargetLayoutHintStyle = css({
 	height: '100%',
 	position: 'relative',
-	borderRight: `1px dashed ${token('color.border.focused', B200)}`,
+	borderRight: `${token('border.width')} dashed ${token('color.border.focused', B200)}`,
 	width: 0,
 });
 

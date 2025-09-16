@@ -12,10 +12,10 @@ const extractLinkTitle = (
 ): LinkTitle | undefined => {
 	const responseUrl = extractSmartLinkUrl(response);
 
-	const url = status === SmartLinkStatus.Resolved ? responseUrl ?? propUrl : propUrl;
+	const url = status === SmartLinkStatus.Resolved ? (responseUrl ?? propUrl) : propUrl;
 	const name = extractSmartLinkTitle(response);
 
-	const text = status === SmartLinkStatus.Resolved ? name ?? responseUrl ?? propUrl : propUrl;
+	const text = status === SmartLinkStatus.Resolved ? (name ?? responseUrl ?? propUrl) : propUrl;
 
 	return { onClick, text, url };
 };

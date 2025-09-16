@@ -9,18 +9,17 @@ const getRandomId = (): string => {
 	return globalThis.crypto.randomUUID();
 };
 
-export const createSyncedBlock =
-	(state: EditorState): Transaction => {
-		const tr = state.tr;
-		// const { breakout } = state.schema.marks;
-		const node = state.schema.nodes.syncBlock.createChecked(
-			{
-				resourceId: getRandomId(),
-				localId: getRandomId(),
-			},
-			null,
-			// [breakout.create({ mode: 'wide' })],
-		) as PMNode;
-		safeInsert(node)(tr);
-		return tr;
-	};
+export const createSyncedBlock = (state: EditorState): Transaction => {
+	const tr = state.tr;
+	// const { breakout } = state.schema.marks;
+	const node = state.schema.nodes.syncBlock.createChecked(
+		{
+			resourceId: getRandomId(),
+			localId: getRandomId(),
+		},
+		null,
+		// [breakout.create({ mode: 'wide' })],
+	) as PMNode;
+	safeInsert(node)(tr);
+	return tr;
+};

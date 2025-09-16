@@ -59,10 +59,12 @@ const styles = cssMap({
 
 const cardPlacements = [
 	'bottom-start',
+	'bottom-center',
 	'bottom-end',
 	'left-start',
 	'left-end',
 	'top-start',
+	'top-center',
 	'top-end',
 	'right-start',
 	'right-end',

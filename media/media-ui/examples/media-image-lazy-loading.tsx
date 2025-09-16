@@ -16,7 +16,7 @@ const paddingBoxStyle: CSSProperties = {
 const imageBoxStyle: CSSProperties = {
 	position: 'relative',
 	height: '20rem',
-	border: `1px solid ${token('color.border', 'black')}`,
+	border: `${token('border.width')} solid ${token('color.border', 'black')}`,
 };
 
 export default () => {

@@ -1,0 +1,39 @@
+[
+	{
+		"name": "Checkbox",
+		"package": "@atlaskit/checkbox",
+		"import": {
+			"name": "Checkbox",
+			"package": "@atlaskit/checkbox",
+			"type": "default"
+		},
+		"keywords": ["checkbox", "input", "form", "selection", "choice", "option", "multiple"],
+		"categories": ["forms-and-input"],
+		"shortDescription": "A checkbox is an input control that allows a user to select one or more options from a number of choices.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Ensure proper labeling for all checkboxes",
+			"Use clear, descriptive labels that explain the choice",
+			"Provide keyboard navigation support",
+			"Indicate required fields clearly",
+			"Use appropriate error states and messaging"
+		],
+		"usageGuidelines": [
+			"Use for multiple choice selections",
+			"Group related checkboxes logically",
+			"Provide clear labels for each option",
+			"Use indeterminate state for partial selections",
+			"Consider default states carefully"
+		],
+		"contentGuidelines": [
+			"Write clear, descriptive labels",
+			"Use consistent language across related options",
+			"Avoid negative phrasing when possible",
+			"Group related options together"
+		],
+		"generativeInstructions": "./docs/ai/checkbox-instructions.md",
+		"examples": {
+			"basic": "./examples/ai/checkbox.tsx"
+		}
+	}
+]

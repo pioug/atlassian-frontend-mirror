@@ -22,13 +22,12 @@
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./option": "./src/option.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
-		"./i18n/*": "./src/i18n/*.ts",
+		"./i18n/*": {
+			"publish": null,
+			"default": "./src/i18n/*.ts"
+		},
 		"./option": "./src/option.ts"
 	},
 	"atlassian": {

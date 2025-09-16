@@ -1,0 +1,69 @@
+[
+	{
+		"name": "Code",
+		"package": "@atlaskit/code",
+		"import": {
+			"name": "Code",
+			"package": "@atlaskit/code",
+			"type": "named"
+		},
+		"keywords": ["code", "snippet", "inline", "syntax", "programming"],
+		"categories": ["data-display"],
+		"shortDescription": "A component for displaying code snippets.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Ensure code content is announced properly by screen readers",
+			"Use appropriate contrast for code readability",
+			"Consider code context and meaning"
+		],
+		"usageGuidelines": [
+			"Use for inline code snippets",
+			"Consider syntax highlighting needs",
+			"Use appropriate font styling",
+			"Consider code block vs inline code"
+		],
+		"contentGuidelines": [
+			"Use clear, readable code examples",
+			"Consider code formatting and indentation",
+			"Use meaningful variable names in examples",
+			"Keep code snippets concise"
+		],
+		"examples": {
+			"basic": "./examples/ai/code.tsx"
+		}
+	},
+	{
+		"name": "CodeBlock",
+		"package": "@atlaskit/code",
+		"import": {
+			"name": "CodeBlock",
+			"package": "@atlaskit/code",
+			"type": "named"
+		},
+		"keywords": ["code", "block", "syntax", "highlighting", "multiline"],
+		"categories": ["data-display"],
+		"shortDescription": "A component for displaying multi-line code blocks with syntax highlighting.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Ensure code blocks are announced properly by screen readers",
+			"Use appropriate contrast for code readability",
+			"Consider code context and meaning",
+			"Provide proper language identification"
+		],
+		"usageGuidelines": [
+			"Use for multi-line code examples",
+			"Specify appropriate language for syntax highlighting",
+			"Consider code block sizing and scrolling",
+			"Use for code snippets that need formatting"
+		],
+		"contentGuidelines": [
+			"Use clear, readable code examples",
+			"Consider code formatting and indentation",
+			"Use meaningful variable names in examples",
+			"Keep code blocks focused and relevant"
+		],
+		"examples": {
+			"basic": "./examples/ai/code-block.tsx"
+		}
+	}
+]

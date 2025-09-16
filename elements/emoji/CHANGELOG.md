@@ -1,5 +1,12 @@
 # @atlaskit/emoji
 
+## 69.5.9
+
+### Patch Changes
+
+- [`6fb79942fc3a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fb79942fc3a5) -
+  Internal changes to how borders are applied.
+
 ## 69.5.8
 
 ### Patch Changes

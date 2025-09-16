@@ -60,7 +60,7 @@ const emojiToneSelectorContainer = css({
 
 const previewFooter = css({
 	flex: '0 0 auto',
-	borderBottom: `2px solid ${token('color.border', N30A)}`,
+	borderBottom: `${token('border.width.selected')} solid ${token('color.border', N30A)}`,
 	boxShadow: `0px 1px 1px 0px ${token('color.border', 'rgba(0, 0, 0, 0.1)')}`,
 });
 

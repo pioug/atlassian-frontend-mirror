@@ -86,7 +86,6 @@ function ContentComponent({
 } & {
 	editorView: EditorView;
 }): JSX.Element | null {
-
 	const openRequestToEditPopupAt = useSharedPluginStateSelector(
 		dependencyApi,
 		'taskDecision.openRequestToEditPopupAt',
@@ -97,7 +96,7 @@ function ContentComponent({
 		'taskDecision.hasEditPermission',
 	);
 
-	if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView){
+	if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
 		return null;
 	}
 

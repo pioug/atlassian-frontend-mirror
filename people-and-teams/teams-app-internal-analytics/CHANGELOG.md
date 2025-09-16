@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.3.0
+
+### Minor Changes
+
+- [`c5c355893ce53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5c355893ce53) -
+  Added teams common analytics to spec
+
 ## 1.2.0
 
 ### Minor Changes

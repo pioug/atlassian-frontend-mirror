@@ -32,8 +32,8 @@ const inputSchema = z.object({
 });
 
 export const listPlanTool = {
-	name: 'plan',
-	description: `You SHOULD use this to plan and search for multiple Atlassian Design System resources in a single call when you need tokens, icons, and components for implementing a complete feature or UI pattern. You SHOULD use this tool instead of making separate calls to search_tokens, search_icons, and search_components when you need resources from multiple categories.
+	name: 'ads_plan',
+	description: `You SHOULD use this to plan and search for multiple Atlassian Design System resources in a single call when you need tokens, icons, and components for implementing a complete feature or UI pattern. You SHOULD use this tool instead of making separate calls to ads_search_tokens, ads_search_icons, and ads_search_components when you need resources from multiple categories.
 
 	You SHOULD use this tool when you need to find:
 	- Multiple types of design system resources at once
@@ -92,7 +92,7 @@ export const planTool = async (params: z.infer<typeof inputSchema>) => {
 		searchPromises.push(
 			searchTokensTool({ terms: tokens_search, limit, exactName }).then((result) => {
 				results.tokens = result;
-			})
+			}),
 		);
 	}
 
@@ -100,7 +100,7 @@ export const planTool = async (params: z.infer<typeof inputSchema>) => {
 		searchPromises.push(
 			searchIconsTool({ terms: icons_search, limit, exactName }).then((result) => {
 				results.icons = result;
-			})
+			}),
 		);
 	}
 
@@ -108,7 +108,7 @@ export const planTool = async (params: z.infer<typeof inputSchema>) => {
 		searchPromises.push(
 			searchComponentsTool({ terms: components_search, limit, exactName }).then((result) => {
 				results.components = result;
-			})
+			}),
 		);
 	}
 

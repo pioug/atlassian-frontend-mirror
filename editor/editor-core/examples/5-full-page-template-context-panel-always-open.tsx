@@ -49,7 +49,7 @@ templates[1] = {
 };
 
 const templateCard = css({
-	border: `1px solid ${token('color.border')}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 	padding: token('space.100', '8px'),
 	marginBottom: token('space.100', '8px'),
 	borderRadius: '5px',

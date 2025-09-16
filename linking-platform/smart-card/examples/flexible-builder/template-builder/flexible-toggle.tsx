@@ -11,7 +11,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { type TemplateDisplay } from '../types';
 
 const containerStyles = xcss({
-	borderBottom: `1px solid ${token('color.border')}`,
+	borderBottom: `${token('border.width')} solid ${token('color.border')}`,
 });
 
 const FlexibleToggle = ({

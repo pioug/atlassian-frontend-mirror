@@ -70,7 +70,7 @@ const ColumnPickerHeader = styled.th({
 				'#FFF',
 			)} 10% )`,
 			/* It is required to have solid (not half-transparent) color because of this gradient business below */
-			borderBottom: `2px solid ${token('color.border', N40)}`,
+			borderBottom: `${token('border.width.selected')} solid ${token('color.border', N40)}`,
 			paddingRight: tableSidePadding,
 			/* Keeps dropdown button in the middle */
 			verticalAlign: 'middle',
@@ -109,7 +109,7 @@ const TableHeading = styled.th({
 		paddingBottom: token('space.025', '2px'),
 		paddingLeft: token('space.050', '4px'),
 		borderRight: `0.5px solid ${token('color.border', N40)}`,
-		borderBottom: `2px solid ${token('color.border', N40)}`,
+		borderBottom: `${token('border.width.selected')} solid ${token('color.border', N40)}`,
 		/*
 	  lineHeight * 2 -> Max height of two lined header
 	  verticalPadding * 2 -> padding for this component itself

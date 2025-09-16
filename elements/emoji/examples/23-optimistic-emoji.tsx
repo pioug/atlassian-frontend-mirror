@@ -26,7 +26,7 @@ const EmojiWrapper = ({ children }: React.PropsWithChildren<unknown>) => {
 				margin: '8px 0',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				padding: '8px',
-				border: `1px ${token('color.skeleton', N30)} solid`,
+				border: `${token('border.width')} ${token('color.skeleton', N30)} solid`,
 			}}
 		>
 			{children}

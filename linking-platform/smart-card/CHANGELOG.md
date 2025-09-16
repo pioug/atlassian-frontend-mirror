@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 41.0.5
+
+### Patch Changes
+
+- [`717cc94987686`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/717cc94987686) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
+## 41.0.4
+
+### Patch Changes
+
+- [`715fccf11b23f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/715fccf11b23f) -
+  Refactor resolve LinkUrl experiment
+- Updated dependencies
+
 ## 41.0.3
 
 ### Patch Changes

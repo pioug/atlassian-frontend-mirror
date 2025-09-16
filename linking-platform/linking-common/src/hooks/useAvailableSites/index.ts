@@ -14,7 +14,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { useIsMounted } from '../useIsMounted';
 
 import { getOperationFailedAttributes } from './utils';
-import { fg } from "@atlaskit/platform-feature-flags";
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const defaultProducts = [
 	AvailableSitesProductType.WHITEBOARD,
@@ -84,14 +84,14 @@ export const useAvailableSites = ({
 };
 
 export const mapAccessibleProductsToAvailableSites = (data: AccessibleProduct): AvailableSite[] => {
-	const sites: AvailableSite[] = []
+	const sites: AvailableSite[] = [];
 
-	data.products.forEach(product => {
-		product.workspaces.forEach(workspace => {
-			const currentSite = sites.find(site => site.cloudId === workspace.cloudId);
+	data.products.forEach((product) => {
+		product.workspaces.forEach((workspace) => {
+			const currentSite = sites.find((site) => site.cloudId === workspace.cloudId);
 			if (currentSite) {
-				currentSite.products.push(product.productId)
-				return currentSite
+				currentSite.products.push(product.productId);
+				return currentSite;
 			}
 			sites.push({
 				avatarUrl: workspace.workspaceAvatarUrl,
@@ -99,12 +99,12 @@ export const mapAccessibleProductsToAvailableSites = (data: AccessibleProduct): 
 				displayName: workspace.workspaceDisplayName,
 				isVertigo: workspace.vortexMode === 'ENABLED',
 				products: [product.productId],
-				url: workspace.workspaceUrl
-			})
-		})
-	})
-	return sites
-}
+				url: workspace.workspaceUrl,
+			});
+		});
+	});
+	return sites;
+};
 
 export const useAvailableSitesV2 = ({ gatewayBaseUrl }: { gatewayBaseUrl?: string }) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -125,7 +125,7 @@ export const useAvailableSitesV2 = ({ gatewayBaseUrl }: { gatewayBaseUrl?: strin
 					const { data } = await getAccessibleProducts({
 						products: defaultProducts,
 						gatewayBaseUrl,
-					})
+					});
 
 					if (isMounted()) {
 						setState({
@@ -195,8 +195,8 @@ async function getAvailableSites({
 }
 
 async function getAccessibleProducts({
- 	products,
- 	gatewayBaseUrl,
+	products,
+	gatewayBaseUrl,
 }: AvailableSitesRequest): Promise<AccessibleProductResponse> {
 	const requestConfig = {
 		method: 'POST',

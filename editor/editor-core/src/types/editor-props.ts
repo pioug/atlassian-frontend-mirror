@@ -85,7 +85,7 @@ interface EditorBaseProps {
 	 */
 	__livePage?: boolean;
 
-	// Note: this comment is replicated in packages/editor/renderer/src/ui/Renderer/types.ts
+	// Note: this comment is replicated in packages/editor/renderer/src/ui/renderer-props.ts
 	// any changes should be made in both locations
 	/*
   Configure the display mode of the editor. Different modes may have different feature sets supported.
@@ -103,6 +103,21 @@ interface EditorBaseProps {
 
 	// React components declared in this prop will be inserted into the editor content area
 	contentComponents?: ContentComponents;
+
+	// Note: this comment is replicated in packages/editor/renderer/src/ui/renderer-props.ts
+	// any changes should be made in both locations
+	/**
+	 * **WARNING** this attribute is not supported outside of Confluence Full Page editors
+	 *
+	 * Configures the content mode of the editor.
+	 *
+	 * - `"standard"` | `undefined` - normal content mode <- Default
+	 * - `"dense"` - content in editor has reduced size
+	 *
+	 * @private
+	 * @deprecated this attribute is not supported outside of Confluence Full Page editors
+	 */
+	contentMode?: 'standard' | 'dense' | undefined;
 
 	contentTransformerProvider?: (schema: Schema) => Transformer<string>;
 

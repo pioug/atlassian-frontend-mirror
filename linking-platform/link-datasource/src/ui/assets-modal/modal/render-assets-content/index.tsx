@@ -52,10 +52,10 @@ const contentContainerStyles = css({
 });
 
 const tableBordersStyles = css({
-	border: `1px solid ${token('color.border', N40)}`,
+	border: `${token('border.width')} solid ${token('color.border', N40)}`,
 	borderTopLeftRadius: token('radius.large', '8px'),
 	borderTopRightRadius: token('radius.large', '8px'),
-	borderBottom: `2px solid ${token('color.background.accent.gray.subtler', N40)}`,
+	borderBottom: `${token('border.width.selected')} solid ${token('color.background.accent.gray.subtler', N40)}`,
 	backgroundImage: `
 		linear-gradient(90deg, ${token('utility.elevation.surface.current', '#FFF')} 30%, rgba(255, 255, 255, 0)),
 		linear-gradient(90deg, ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.1)')}, rgba(0, 0, 0, 0)),

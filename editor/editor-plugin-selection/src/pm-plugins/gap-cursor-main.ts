@@ -36,7 +36,7 @@ const plugin = new SafePlugin({
 				selectionIsGapCursor,
 				// only attempt to hide gap cursor if selection is gap cursor
 				displayGapCursor: selectionIsGapCursor
-					? meta?.displayGapCursor ?? pluginState.displayGapCursor
+					? (meta?.displayGapCursor ?? pluginState.displayGapCursor)
 					: true,
 			};
 		},

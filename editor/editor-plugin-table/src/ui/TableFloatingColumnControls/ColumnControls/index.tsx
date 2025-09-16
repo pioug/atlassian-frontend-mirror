@@ -97,7 +97,7 @@ export const ColumnControls = ({
 	const hasHeaderRow = firstRow ? firstRow.getAttribute('data-header-row') : false;
 
 	const rowControlStickyTop = 45;
-	const marginTop = hasHeaderRow && stickyTop !== undefined ? rowControlStickyTop ?? 0 : 0;
+	const marginTop = hasHeaderRow && stickyTop !== undefined ? (rowControlStickyTop ?? 0) : 0;
 
 	const handleClick = useCallback(
 		(event: MouseEvent) => {

@@ -1,5 +1,12 @@
 # @atlaskit/editor-card-provider
 
+## 6.0.1
+
+### Patch Changes
+
+- [`33b52064dca14`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33b52064dca14) -
+  Cleaned up feature gate: plan_smart_link_base_url
+
 ## 6.0.0
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 2.1.4
+
+### Patch Changes
+
+- [`e24c73c66f022`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e24c73c66f022) -
+  [ux] ED-29268 [SoftServ] Toolbar doesn’t move with text when text alignment change
+- Updated dependencies
+
 ## 2.1.3
 
 ### Patch Changes

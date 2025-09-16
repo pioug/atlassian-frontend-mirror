@@ -182,7 +182,7 @@ const panelNestedIconStyles = css({
 const nestedPanelStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-panel__content .ak-editor-panel': {
-		border: `1px solid ${token('color.border', '#091E42')}`,
+		border: `${token('border.width')} solid ${token('color.border', '#091E42')}`,
 	},
 });
 

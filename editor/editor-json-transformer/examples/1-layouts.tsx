@@ -26,7 +26,7 @@ const container = css({
 	gridTemplateColumns: '50% 50%',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'#output': {
-		border: '2px solid',
+		border: `${token('border.width.selected')} solid`,
 		margin: token('space.100', '8px'),
 		padding: token('space.100', '8px'),
 		whiteSpace: 'pre-wrap',

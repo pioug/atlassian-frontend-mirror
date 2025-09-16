@@ -61,7 +61,7 @@ const validationWrapper = css({
 		'12px',
 	)} 0`,
 	margin: `0 ${token('space.050', '4px')} 0 ${token('space.400', '32px')}`,
-	borderTop: `1px solid ${token('color.border.danger', R400)}`,
+	borderTop: `${token('border.width')} solid ${token('color.border.danger', R400)}`,
 	alignItems: 'start',
 	display: 'flex',
 	flexDirection: 'column',

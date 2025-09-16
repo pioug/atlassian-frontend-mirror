@@ -1,0 +1,36 @@
+[
+	{
+		"name": "VisuallyHidden",
+		"package": "@atlaskit/visually-hidden",
+		"import": {
+			"name": "VisuallyHidden",
+			"package": "@atlaskit/visually-hidden",
+			"type": "default"
+		},
+		"keywords": ["hidden", "accessibility", "screen-reader", "aria", "utility"],
+		"categories": ["utility"],
+		"shortDescription": "A utility component for accessibility.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Use for screen reader only content",
+			"Ensure content is meaningful for assistive technology",
+			"Use appropriate ARIA roles when needed",
+			"Consider content context and purpose"
+		],
+		"usageGuidelines": [
+			"Use for screen reader only content",
+			"Provide meaningful hidden content",
+			"Use for accessibility enhancements",
+			"Consider content context and purpose"
+		],
+		"contentGuidelines": [
+			"Use clear, descriptive hidden content",
+			"Ensure content adds value for screen readers",
+			"Use appropriate language and tone",
+			"Keep content concise but meaningful"
+		],
+		"examples": {
+			"basic": "./examples/ai/visually-hidden.tsx"
+		}
+	}
+]

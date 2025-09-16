@@ -68,7 +68,7 @@ const detailsHeaderContainer = css({
 	display: 'flex',
 	justifyContent: 'space-between',
 	padding: `11px ${token('space.150', '12px')} 11px ${token('space.150', '12px')}`,
-	border: 'solid 1px rgb(235, 236, 240)',
+	border: `solid ${token('border.width')} rgb(235, 236, 240)`,
 	borderRadius: `${token('radius.small')} ${token('radius.small')} 0px 0px`,
 	position: 'sticky',
 	top: token('space.400', '32px'),
@@ -78,7 +78,7 @@ const detailsHeaderContainer = css({
 
 const detialsContentContainer = css({
 	padding: `11px ${token('space.150', '12px')} 11px ${token('space.150', '12px')}`,
-	border: 'solid 1px rgb(235, 236, 240)',
+	border: `solid ${token('border.width')} rgb(235, 236, 240)`,
 	borderRadius: '0px 0px 4px 4px',
 	borderTop: '0px',
 });

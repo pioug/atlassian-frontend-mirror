@@ -1,5 +1,12 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.1.7
+
+### Patch Changes
+
+- [`6fb79942fc3a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fb79942fc3a5) -
+  Internal changes to how borders are applied.
+
 ## 2.1.6
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "123.1.1",
+	"version": "123.2.2",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,9 +25,11 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/adf-utils": "workspace:^",
+		"@atlaskit/afm-i18n-platform-editor-renderer": "root:*",
 		"@atlaskit/analytics-listeners": "workspace:^",
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/code": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
@@ -123,9 +125,6 @@
 	},
 	"platform-feature-flags": {
 		"confluence_frontend_table_scrollbar_ttvc_fix": {
-			"type": "boolean"
-		},
-		"cc_comments_improve_apply_draft_errors": {
 			"type": "boolean"
 		},
 		"cc_comments_create_inline_experience_entry_point": {
@@ -240,9 +239,6 @@
 			"type": "boolean"
 		},
 		"issue_table_single_line_row_height_fast_follows": {
-			"type": "boolean"
-		},
-		"confluence_frontend_comments_panel_editor_focus": {
 			"type": "boolean"
 		},
 		"platform_custom_number_column": {

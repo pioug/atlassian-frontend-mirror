@@ -18,7 +18,7 @@ const containerStyles = xcss({
 });
 
 const contentStyles = xcss({
-	borderTop: `1px solid ${token('color.border')}`,
+	borderTop: `${token('border.width')} solid ${token('color.border')}`,
 	marginTop: 'space.100',
 	padding: 'space.050',
 });

@@ -7,6 +7,42 @@ context:
       type: string
       description: version of the package the event was fired from
 
+shared:
+  TeamCreateDialogSuccessAttributes: &TeamCreateDialogSuccessAttributes
+    teamId:
+      type: string
+      description: The id of the team
+    numberOfMembers:
+      type: number
+      description: The number of members
+    defaultTeamType:
+      type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL']
+      description: The default team type
+    chosenTeamType:
+      type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL']
+      description: The chosen team type
+    teamTypeChoiceEnabled:
+      type: boolean
+      description: Whether the team type choice is enabled
+  ErrorAttributes: &ErrorAttributes
+    numberOfMembers:
+      type: number
+      description: The number of members
+    errorMessage:
+      type: string
+      description: The error message
+    errorStack:
+      type: string
+      required: false
+      description: The error stack
+    errorStatus:
+      type: number
+      description: The error status
+    traceId:
+      type: string
+      required: false
+      description: The trace id
+
 events:
   - button clicked (analyticsExample):
       type: ui
@@ -40,3 +76,487 @@ events:
         testAttribute:
           type: string
           description: test attribute
+  - memberPicker error:
+      type: track
+      description: fired when the member picker error is triggered
+      attributes:
+        <<: *PackageMetaDataContext
+  - requestedContainers requested:
+      type: track
+      description: fired when the teams containers are requested
+      attributes:
+        <<: *PackageMetaDataContext
+        containers:
+          type: object
+          description: the containers that are requested
+  - teamCreateDialog viewed:
+      type: screen
+      description: fired when the team create dialog is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+        proposedMembersLength:
+          type: number
+          description: the number of proposed members
+  - member suggested:
+      type: ui
+      description: fired when the member is suggested
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamCreateDialog submitted:
+      type: ui
+      description: fired when the team create dialog is submitted
+      attributes:
+        <<: *PackageMetaDataContext
+        canCreateTeam:
+          type: boolean
+          description: whether the team can be created
+        numberOfMembers:
+          type: number
+          description: the number of members
+        numberOfSuggestedMembers:
+          type: number
+          description: the number of suggested members
+  - teamCreateDialog clicked (teamLinkSuccessFlag):
+      type: ui
+      description: fired when the team create dialog clicked team link success flag
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the id of the team
+        numberOfMembers:
+          type: number
+          description: the number of members
+  - teamCreateDialog succeeded:
+      type: track
+      description: fired when the team create dialog succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: The id of the team
+        numberOfMembers:
+          type: number
+          description: The number of members
+        defaultTeamType:
+          type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL']
+          required: false
+          description: The default team type
+        chosenTeamType:
+          type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL']
+          description: The chosen team type
+        teamTypeChoiceEnabled:
+          type: boolean
+          required: false
+          description: Whether the team type choice is enabled
+  - teamCreateDialog failed:
+      type: track
+      description: fired when the team create dialog failed
+      attributes:
+        <<: *PackageMetaDataContext
+        numberOfMembers:
+          type: number
+          description: the number of members
+        errorMessage:
+          type: string
+          description: the error message
+        errorStack:
+          type: string
+          required: false
+          description: the error stack
+        errorStatus:
+          type: number
+          description: the error status
+        traceId:
+          type: string
+          required: false
+          description: the trace id
+  - teamTypePicker clicked:
+      type: ui
+      description: fired when the team type picker is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        defaultType:
+          type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL']
+          required: false
+          description: the default type
+        chosenType:
+          type: ['OPEN', 'MEMBER_INVITE']
+          description: the chosen type
+  - teamCreateDialog closed:
+      type: ui
+      description: fired when the team create dialog is closed
+      attributes:
+        <<: *PackageMetaDataContext
+  - inviteCapabilitiesService failed:
+      type: operational
+      description: fired when the invite capabilities service failed
+      attributes:
+        <<: *PackageMetaDataContext
+        integration:
+          type: string
+          description: the integration source
+        products:
+          type: []
+          description: the products
+  - addToTeamService failed:
+      type: track
+      description: fired when the add to team service failed
+      attributes:
+        <<: *PackageMetaDataContext
+        integration:
+          type: string
+          description: the integration source
+        message:
+          type: string
+          required: false
+          description: the error message
+        errorsCount:
+          type: number
+          required: false
+          description: the number of errors
+        errors:
+          type: []
+          required: false
+          description: the errors
+  - invitedTeamMembers added:
+      type: track
+      description: fired when the invited team members are added
+      attributes:
+        <<: *PackageMetaDataContext
+        numberOfMembers:
+          type: number
+          description: the number of members
+        members:
+          type: []
+          description: the members
+        integration:
+          type: string
+          description: the integration source
+  - inviteToProductService failed:
+      type: track
+      description: fired when the invite to product service failed
+      attributes:
+        <<: *PackageMetaDataContext
+        integration:
+          type: string
+          description: the integration source
+        message:
+          type: string
+          required: false
+          description: the error message
+        errorsCount:
+          type: number
+          required: false
+          description: the number of errors
+        errors:
+          type: []
+          required: false
+          description: the errors
+        result:
+          type: []
+          required: false
+          description: the result
+  - containerPermissions succeeded:
+      type: track
+      description: fired when the container permissions are succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+        canCreateConfluenceContainer:
+          type: boolean
+          description: whether the confluence container can be created
+        canCreateJiraContainer:
+          type: boolean
+          description: whether the jira container can be created
+        canCreateLoomContainer:
+          type: boolean
+          description: whether the loom container can be created
+  - teamWorkedOn rendered:
+      type: ui
+      description: fired when the team worked on is rendered
+      attributes:
+        <<: *PackageMetaDataContext
+        state:
+          type: ['error', 'empty', 'data', 'unknown']
+          description: the state of the team worked on
+  - teamWorkedOn failed:
+      type: operational
+      description: fired when the team worked on failed
+      attributes:
+        <<: *PackageMetaDataContext
+        error:
+          type: string
+          required: false
+          description: the error
+        traceId:
+          type: string
+          required: false
+          description: the trace id
+        status:
+          type: number
+          required: false
+          description: the status
+        statusText:
+          type: string
+          required: false
+          description: the status text
+  - teamWorkedOn succeeded:
+      type: operational
+      description: fired when the team worked on failed
+      attributes:
+        <<: *PackageMetaDataContext
+        error:
+          type: string
+          required: false
+          description: the error
+        traceId:
+          type: string
+          required: false
+          description: the trace id
+        status:
+          type: number
+          required: false
+          description: the status
+        statusText:
+          type: string
+          required: false
+          description: the status text
+  - viewAllIssues clicked:
+      type: ui
+      description: fired when the view all issues is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        isOpenNewTab:
+          type: boolean
+          description: whether the view all issues is opened in a new tab
+        teamId:
+          type: string
+          description: the id of the team
+  - teamWorkedOnLink clicked:
+      type: ui
+      description: fired when the team worked on link is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        isOpenNewTab:
+          type: boolean
+          description: whether the team worked on link is opened in a new tab
+  - navigationMenuItem clicked (addPeopleNavigationMenuItem):
+      type: ui
+      description: fired when the additional menu link is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        product:
+          type: string
+          description: the product
+        integration:
+          type: string
+          description: the integration
+  - createNewTeamLink clicked:
+      type: ui
+      description: fired when the create new team link is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - viewAllPeopleDirectory clicked:
+      type: ui
+      description: fired when the view all people directory is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        isLeftClick:
+          type: boolean
+          description: the product
+  - peopleMenuLink clicked:
+      type: ui
+      description: fired when the people menu link is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        isLeftClick:
+          type: boolean
+          description: the product
+  - peopleMenu viewed (loadingIndicator):
+      type: ui
+      description: fired when the people menu is viewed and loading indicator is shown
+      attributes:
+        <<: *PackageMetaDataContext
+        duration:
+          type: number
+          description: the duration
+        startTime:
+          type: number
+          description: the start time
+  - teamMenuLink clicked:
+      type: ui
+      description: fired when the team menu link is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        isLeftClick:
+          type: boolean
+          description: the product
+  - peopleMenu viewed:
+      type: screen
+      description: fired when the people menu is viewed and no browse permission is shown
+      attributes:
+        <<: *PackageMetaDataContext
+        isCacheEmpty:
+          type: boolean
+          description: whether the cache is empty
+  - addPeopleNavigationItem rendered:
+      type: ui
+      description: fired when the people menu is succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+  - peopleMenu viewed (noBrowsePermission):
+      type: ui
+      description: fired when the people menu is viewed and no browse permission is shown
+      attributes:
+        <<: *PackageMetaDataContext
+  - peopleMenu succeeded:
+      type: track
+      description: fired when the people menu is succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+        usersCount:
+          type: number
+          description: the number of users
+        teamsCount:
+          type: number
+          description: the number of teams
+        duration:
+          type: number
+          description: the duration
+        startTime:
+          type: number
+          description: the start time
+  - hoverAndClickPeopleButton measured:
+      type: track
+      description: fired when the hover and click people button is measured
+      attributes:
+        <<: *PackageMetaDataContext
+        duration:
+          type: number
+          description: the duration
+        startTime:
+          type: number
+          description: the start time
+  - preFetchData triggered:
+      type: track
+      description: fired when the pre fetch data is triggered
+      attributes:
+        <<: *PackageMetaDataContext
+  - fetchingUsersTeamsData measured:
+      type: track
+      description: fired when the fetching users and teams data is measured
+      attributes:
+        <<: *PackageMetaDataContext
+        duration:
+          type: number
+          description: the duration
+        startTime:
+          type: number
+          description: the start time
+  - peopleMenuLink succeeded:
+      type: operational
+      description: fired when the people menu link is succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+  - peopleMenuLink failed:
+      type: operational
+      description: fired when the people menu link is failed
+      attributes:
+        <<: *PackageMetaDataContext
+        status:
+          type: number
+          required: false
+          description: the status
+        error:
+          type: string
+          description: the error
+  - teamMenuLink succeeded:
+      type: operational
+      description: fired when the people menu link is succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamMenuLink failed:
+      type: operational
+      description: fired when the people menu link is failed
+      attributes:
+        <<: *PackageMetaDataContext
+        status:
+          type: number
+          required: false
+          description: the status
+        error:
+          type: string
+          description: the error
+  - parentTeamLinker opened:
+      type: ui
+      description: fired when the parent team field is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - parentTeamLinker closed:
+      type: ui
+      description: fired when the parent team linker is closed
+      attributes:
+        <<: *PackageMetaDataContext
+        isCanceled:
+          type: boolean
+          description: whether the parent team linker is canceled
+        newParentTeamId:
+          type: string
+          description: the new parent team id, empty string if unset, or same as the old parent team id if canceled
+  - addParentTeam failed:
+      type: operational
+      description: fired when the add parent team operation fails
+      attributes:
+        <<: *PackageMetaDataContext
+        parentTeamId:
+          type: string
+          description: the parent team id
+        error:
+          type: string
+          description: the error message
+  - removeParentTeam failed:
+      type: operational
+      description: fired when the remove parent team operation fails
+      attributes:
+        <<: *PackageMetaDataContext
+        error:
+          type: string
+          description: the error message
+  - subTeamLinker opened:
+      type: ui
+      description: fired when the sub team linker is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+  - subTeamList updated:
+      type: ui
+      description: fired when the sub team linker is closed
+      attributes:
+        <<: *PackageMetaDataContext
+        subTeamId:
+          type: string
+          description: the sub team id, should always have value
+        action:
+          type: ['add', 'remove']
+          description: the action performed on the sub team list
+  - addSubTeam failed:
+      type: operational
+      description: fired when the add sub team operation fails
+      attributes:
+        <<: *PackageMetaDataContext
+        subTeamId:
+          type: string
+          description: the sub team id
+        error:
+          type: string
+          description: the error message
+  - removeSubTeam failed:
+      type: operational
+      description: fired when the remove sub team operation fails
+      attributes:
+        <<: *PackageMetaDataContext
+        subTeamId:
+          type: string
+          description: the sub team id
+        error:
+          type: string
+          description: the error message

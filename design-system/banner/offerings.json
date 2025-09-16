@@ -1,0 +1,38 @@
+[
+	{
+		"name": "Banner",
+		"package": "@atlaskit/banner",
+		"import": {
+			"name": "Banner",
+			"package": "@atlaskit/banner",
+			"type": "default"
+		},
+		"keywords": ["banner", "message", "notification", "alert", "prominent", "top", "screen"],
+		"categories": ["messaging"],
+		"shortDescription": "A banner displays a prominent message at the top of the screen to communicate important information to users.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Ensure banner content is announced by screen readers",
+			"Use appropriate color contrast for text readability",
+			"Provide clear, actionable messaging",
+			"Consider keyboard navigation for interactive banners"
+		],
+		"usageGuidelines": [
+			"Use for important messages that need immediate attention",
+			"Place at the top of the screen for maximum visibility",
+			"Keep messaging concise and actionable",
+			"Use appropriate appearance variants for different message types",
+			"Consider dismissibility for non-critical messages"
+		],
+		"contentGuidelines": [
+			"Write clear, concise messages",
+			"Use action-oriented language when appropriate",
+			"Ensure messages are relevant to the current context",
+			"Provide clear next steps when needed"
+		],
+		"generativeInstructions": "./docs/ai/banner-instructions.md",
+		"examples": {
+			"basic": "./examples/ai/banner.tsx"
+		}
+	}
+]

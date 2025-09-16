@@ -5,11 +5,11 @@ import uuid from 'uuid';
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { useSmartCardActions } from '../../../state/actions';
 import { getDefinitionId, getExtensionKey, getResourceType } from '../../../state/helpers';
+import { useScheduledRegister } from '../../../state/hooks/use-resolve-hyperlink/useScheduledRegister';
 import { useSmartCardState } from '../../../state/store';
 import * as measure from '../../../utils/performance';
 
-import { useScheduledRegister } from './hooks/useScheduledRegister';
-
+// Remove on navx-1834-refactor-resolved-hyperlink cleanup
 export const ResolveHyperlink = ({ href }: { href: string }) => {
 	const [id] = useState(() => uuid() satisfies string);
 	const state = useSmartCardState(href);

@@ -13,7 +13,7 @@ import { type TransitionStatus } from '../constants';
 
 const headerContainerStyles = css({
 	backgroundColor: token('color.background.neutral', N10),
-	borderBottom: `${token('space.025', '2px')} solid ${token('color.border', N30)}`,
+	borderBottom: `${token('border.width.selected')} solid ${token('color.border', N30)}`,
 	justifyContent: 'space-between',
 	position: 'relative',
 });

@@ -77,7 +77,7 @@ const wrapperStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"[data-mark-type='annotation']": {
 		backgroundColor: token('color.background.accent.yellow.subtler', Y75),
-		borderBottom: `2px solid ${token('color.border.accent.yellow', Y200)}`,
+		borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow', Y200)}`,
 	},
 });
 

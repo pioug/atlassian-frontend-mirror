@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 24.13.2
+
+### Patch Changes
+
+- [`717cc94987686`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/717cc94987686) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
 ## 24.13.1
 
 ### Patch Changes

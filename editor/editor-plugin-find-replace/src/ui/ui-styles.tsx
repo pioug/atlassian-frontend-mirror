@@ -20,7 +20,7 @@ export const ruleStyles: SerializedStyles = css({
 	backgroundColor: `${token('color.border', N30A)}`,
 	margin: `${token('space.050', '4px')} 0px`,
 	height: '1px',
-	borderRadius: '1px',
+	borderRadius: token('border.width'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

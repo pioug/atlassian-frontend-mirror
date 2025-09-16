@@ -160,7 +160,7 @@ export const SearchResults = ({
 					)}
 
 					{error
-						? activePlugin?.errorFallback?.(error, retry) ?? <LinkSearchError onRetry={retry} />
+						? (activePlugin?.errorFallback?.(error, retry) ?? <LinkSearchError onRetry={retry} />)
 						: null}
 				</Fragment>
 			)}

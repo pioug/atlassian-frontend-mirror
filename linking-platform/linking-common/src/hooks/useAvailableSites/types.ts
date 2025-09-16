@@ -8,26 +8,26 @@ export interface AvailableSite {
 }
 
 export interface AccessibleProduct {
-	products: Product[]
+	products: Product[];
 }
 
 export interface Product {
-	productDisplayName: string,
-	productId: AvailableSitesProductType,
-	workspaces: Workspace[]
+	productDisplayName: string;
+	productId: AvailableSitesProductType;
+	workspaces: Workspace[];
 }
 
 export interface Workspace {
-	cloudId: string
-	cloudUrl?: string
-	isPartOf?: string[]
-	orgId?: string
-	vortexMode: string
-	workspaceAri?: string
-	workspaceAvatarUrl: string
-	workspaceDisplayName: string
-	workspacePermissionIds?: string[]
-	workspaceUrl: string
+	cloudId: string;
+	cloudUrl?: string;
+	isPartOf?: string[];
+	orgId?: string;
+	vortexMode: string;
+	workspaceAri?: string;
+	workspaceAvatarUrl: string;
+	workspaceDisplayName: string;
+	workspacePermissionIds?: string[];
+	workspaceUrl: string;
 }
 
 export type ProductName = 'jira' | 'confluence';

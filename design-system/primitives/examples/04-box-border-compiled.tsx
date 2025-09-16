@@ -19,13 +19,14 @@ const borderColors = [
 ] as const;
 
 const borderStyles = ['none', 'solid'] as const;
-const borderWidths = ['border.width', 'border.width.outline', 'border.width.indicator'] as const;
+const borderWidths = ['border.width', 'border.width.selected', 'border.width.focused'] as const;
 const borderRadii = [
-	'border.radius.100',
-	'border.radius.200',
-	'border.radius.300',
-	'border.radius.400',
-	'border.radius.circle',
+	'radius.xsmall',
+	'radius.small',
+	'radius.medium',
+	'radius.large',
+	'radius.xlarge',
+	'radius.full',
 ] as const;
 
 const styles = cssMap({
@@ -50,16 +51,17 @@ const borderStyleMap = cssMap({
 
 const borderWidthMap = cssMap({
 	'border.width': { borderWidth: token('border.width') },
-	'border.width.outline': { borderWidth: token('border.width.outline') },
-	'border.width.indicator': { borderWidth: token('border.width.indicator') },
+	'border.width.selected': { borderWidth: token('border.width.selected') },
+	'border.width.focused': { borderWidth: token('border.width.focused') },
 });
 
 const borderRadiusMap = cssMap({
-	'border.radius.100': { borderRadius: token('border.radius.100') },
-	'border.radius.200': { borderRadius: token('border.radius.200') },
-	'border.radius.300': { borderRadius: token('border.radius.300') },
-	'border.radius.400': { borderRadius: token('border.radius.400') },
-	'border.radius.circle': { borderRadius: token('border.radius.circle') },
+	'radius.xsmall': { borderRadius: token('radius.xsmall') },
+	'radius.small': { borderRadius: token('radius.small') },
+	'radius.medium': { borderRadius: token('radius.medium') },
+	'radius.large': { borderRadius: token('radius.large') },
+	'radius.xlarge': { borderRadius: token('radius.xlarge') },
+	'radius.full': { borderRadius: token('radius.full') },
 });
 
 /**

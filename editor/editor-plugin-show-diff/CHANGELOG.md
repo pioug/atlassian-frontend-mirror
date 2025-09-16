@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 2.1.2
+
+### Patch Changes
+
+- [`7bd504ca6f5a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bd504ca6f5a1) -
+  Export PMDiffParams type for editor diff plugin for use
+
 ## 2.1.1
 
 ### Patch Changes

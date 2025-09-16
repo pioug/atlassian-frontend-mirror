@@ -121,7 +121,7 @@ export class MentionNodeView implements NodeView {
 		this.node = node;
 		this.domElement = dom instanceof HTMLElement ? dom : undefined;
 		this.mentionPrimitiveElement = this.domElement
-			? this.domElement.querySelector<HTMLElement>(`.${primitiveClassName}`) ?? undefined
+			? (this.domElement.querySelector<HTMLElement>(`.${primitiveClassName}`) ?? undefined)
 			: undefined;
 
 		const { mentionProvider } = api?.mention.sharedState.currentState() ?? {};

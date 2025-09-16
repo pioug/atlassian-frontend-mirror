@@ -5,7 +5,7 @@ order: 0
 ---
 
 import FlagGroup from '../../examples/constellation/flag-group';
-import FlagGroupInDrawer from '../../examples/constellation/flag-group-in-drawer';
+import FlagsInModalDialogExample from '../../examples/constellation/flag-group-in-modal-dialog';
 
 ## Default
 
@@ -15,7 +15,10 @@ Use `FlagGroup` to group a set of related flags, with entry and exit animation.
 
 ## Using in modal components
 
-By default, the flag group is rendered inside `React.Portal`. Use `shouldRenderToParent` prop to
-render the group in its direct parent instead of `React.Portal`.
+By default, the flag group is rendered inside a `React.Portal`. This makes it inaccessible to
+assistive technology users if there is a modal component open, or an element with a focus trap.
 
-<Example Component={FlagGroupInDrawer} packageName="@atlaskit/flag" />
+To make it accessible, use the `shouldRenderToParent` prop to render the group in its direct parent
+instead of `React.Portal`.
+
+<Example Component={FlagsInModalDialogExample} packageName="@atlaskit/flag" />

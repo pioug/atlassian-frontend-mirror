@@ -22,7 +22,7 @@ export const createPlugin = () => {
 					return {
 						browserState: browserState ?? pluginState?.browserState,
 						externalState:
-							externalState === null ? undefined : externalState ?? pluginState?.externalState,
+							externalState === null ? undefined : (externalState ?? pluginState?.externalState),
 					};
 				}
 				return pluginState;

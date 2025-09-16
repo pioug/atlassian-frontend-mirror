@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/primitives/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../tmp-editor-statsig/afm-townsquare/tsconfig.json"
 		},
 		{

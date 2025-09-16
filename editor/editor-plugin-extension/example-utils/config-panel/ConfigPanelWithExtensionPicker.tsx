@@ -45,7 +45,7 @@ const column = (width: number | string) =>
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		h3: {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			borderBottom: `1px solid ${colors.N50}`,
+			borderBottom: `${token('border.width')} solid ${colors.N50}`,
 			marginBottom: token('space.200', '16px'),
 		},
 	});

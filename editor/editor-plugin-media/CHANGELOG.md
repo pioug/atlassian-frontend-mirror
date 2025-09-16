@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-media
 
+## 7.2.3
+
+### Patch Changes
+
+- [`f789827e18f93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f789827e18f93) -
+  FD-92214 clean up fg platform_editor_multi_images_overridden_upload_fix
+- [`6fb79942fc3a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fb79942fc3a5) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
+## 7.2.2
+
+### Patch Changes
+
+- [`1c474ad18f3ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c474ad18f3ac) -
+  [ED-28566] Clean up platform_editor_controls_patch_15
+- Updated dependencies
+
 ## 7.2.1
 
 ### Patch Changes

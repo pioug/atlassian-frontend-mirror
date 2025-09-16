@@ -31,7 +31,7 @@ const buttonStyles = css`
 	margin: ${token('space.075', '6px')};
 	right: 0;
 	top: 0;
-	border: 2px solid ${token('color.border', '#fff')};
+	border: ${token('border.width.selected')} solid ${token('color.border', '#fff')};
 	border-radius: ${token('radius.small', '4px')};
 	background-color: ${token('elevation.surface.overlay')};
 	justify-content: center;

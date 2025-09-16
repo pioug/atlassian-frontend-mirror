@@ -1,5 +1,34 @@
 # @atlaskit/editor-common
 
+## 109.8.1
+
+### Patch Changes
+
+- [`6fb79942fc3a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fb79942fc3a5) -
+  Internal changes to how borders are applied.
+- [`95ca7b6f56516`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95ca7b6f56516) -
+  Migrating editor pkg i18n files to use i18n NPM package from Traduki
+- Updated dependencies
+
+## 109.8.0
+
+### Minor Changes
+
+- [`2ce1b7efe1d2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ce1b7efe1d2e) -
+  EDITOR-1640 Create Sync-Block data manager scaffolding
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.7.1
+
+### Patch Changes
+
+- [`10f7cde204c1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10f7cde204c1e) -
+  Increase heading 1 ranking in block menu and add date-local-id on bodiedExtension and blockCard in
+  renderer
+
 ## 109.7.0
 
 ### Minor Changes

@@ -1,0 +1,38 @@
+[
+	{
+		"name": "DropdownMenu",
+		"package": "@atlaskit/dropdown-menu",
+		"import": {
+			"name": "DropdownMenu",
+			"package": "@atlaskit/dropdown-menu",
+			"type": "default"
+		},
+		"keywords": ["dropdown", "menu", "actions", "options", "popup", "contextual"],
+		"categories": ["navigation", "interaction"],
+		"shortDescription": "A dropdown menu component for displaying contextual actions and options.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Provide clear labels for dropdown triggers",
+			"Ensure keyboard navigation with arrow keys",
+			"Use appropriate ARIA attributes",
+			"Provide clear menu item descriptions",
+			"Support escape key to close menu"
+		],
+		"usageGuidelines": [
+			"Use for contextual actions and options",
+			"Group related menu items together",
+			"Use clear, descriptive menu item labels",
+			"Consider menu positioning and overflow",
+			"Use appropriate trigger elements"
+		],
+		"contentGuidelines": [
+			"Use clear, action-oriented menu item labels",
+			"Keep menu item text concise",
+			"Group related actions logically",
+			"Use consistent terminology across menu items"
+		],
+		"examples": {
+			"basic": "./examples/ai/dropdown-menu.tsx"
+		}
+	}
+]

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ads-mcp",
-	"version": "0.6.0",
+	"version": "0.6.2",
 	"description": "The official Atlassian Design System MCP server to develop apps and user interfaces matching the Atlassian style.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -24,10 +24,6 @@
 		}
 	},
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./package.json": "./package.json"
-	},
 	"exports": {
 		".": {
 			"types": "./src/index.tsx",

@@ -134,11 +134,11 @@ export default function ProfilecardTriggerNext({
 	const showDelay =
 		trigger === 'click' || (isExternalControl && fg('fix_profilecard_trigger_isvisible'))
 			? 0
-			: customShowDelay ?? DELAY_MS_SHOW;
+			: (customShowDelay ?? DELAY_MS_SHOW);
 	const hideDelay =
 		trigger === 'click' || (isExternalControl && fg('fix_profilecard_trigger_isvisible'))
 			? 0
-			: customHideDelay ?? DELAY_MS_HIDE;
+			: (customHideDelay ?? DELAY_MS_HIDE);
 
 	const [isLoading, setIsLoading] = useState<boolean | undefined>(undefined);
 	const [hasError, setHasError] = useState<boolean>(false);

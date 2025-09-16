@@ -377,7 +377,7 @@ const quickInsertStyles = () =>
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.blocks-quick-insert-button:focus': {
-			outline: `2px solid ${token('color.border.focused', '#388BFF')}`,
+			outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.blocks-quick-insert-visible-container': {

@@ -1,4 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-common/sync-block';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
@@ -13,6 +14,7 @@ type SyncedBlockPluginState = {};
 export const createPlugin = (
 	config: SyncedBlockPluginOptions | undefined,
 	pmPluginFactoryParams: PMPluginFactoryParams,
+	_syncBlockStore: SyncBlockStoreManager,
 ) => {
 	return new SafePlugin<SyncedBlockPluginState>({
 		key: syncedBlockPluginKey,

@@ -1055,7 +1055,7 @@ export class DocumentService implements DocumentServiceInterface {
 		// ED-29051 - the `onEditorViewStateUpdated` can have a stale state in edge cases. We need
 		// to always ensure we're sending the latest state and unconfirmed steps so we use the state
 		// from editorView directly (via getState).
-		const newState = onlineStepMergingEnabled ? this.getState?.() ?? _newState : _newState;
+		const newState = onlineStepMergingEnabled ? (this.getState?.() ?? _newState) : _newState;
 
 		// Don't send any steps before we're ready.
 		if (offlineEditingEnabled || onlineStepMergingEnabled) {
@@ -1111,7 +1111,7 @@ export class DocumentService implements DocumentServiceInterface {
 
 		if (editorExperiment('platform_editor_offline_editing_web', true)) {
 			const containsOfflineSteps = unconfirmedStepsData?.origins.some((tr) => {
-				return tr instanceof Transaction ? tr.getMeta('isOffline') ?? false : false;
+				return tr instanceof Transaction ? (tr.getMeta('isOffline') ?? false) : false;
 			});
 
 			if (containsOfflineSteps && !this.timeoutExceeded) {

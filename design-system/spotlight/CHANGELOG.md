@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 0.3.2
+
+### Patch Changes
+
+- [`ec2250eef3ec9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec2250eef3ec9) -
+  Spotlight now accepts `top-center` and `bottom-center` placements to ensure SpotlightCard content
+  can be seen on small viewports.
+
 ## 0.3.1
 
 ### Patch Changes

@@ -51,7 +51,7 @@ const supportTextStyles = css({
 	padding: `${token('space.150', '12px')} ${token('space.500', '40px')}`,
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '20px',
-	borderTop: `1px solid ${token('color.border', N30)}`,
+	borderTop: `${token('border.width')} solid ${token('color.border', N30)}`,
 	margin: 0,
 });
 
@@ -82,7 +82,7 @@ const validationWrapperStyles = css({
 		'12px',
 	)} 0`,
 	margin: `0 ${token('space.150', '12px')} 0 ${token('space.500', '40px')}`,
-	borderTop: `1px solid ${token('color.border.danger', R400)}`,
+	borderTop: `${token('border.width')} solid ${token('color.border.danger', R400)}`,
 	alignItems: 'start',
 	flexDirection: 'column',
 });

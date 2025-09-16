@@ -35,7 +35,7 @@ type OptionType = {
 };
 
 const actionsWrapperStyles = css({
-	borderTop: `1px solid ${token('color.border', N40A)}`,
+	borderTop: `${token('border.width')} solid ${token('color.border', N40A)}`,
 	marginTop: token('space.200', '16px'),
 	paddingTop: token('space.200', '16px'),
 });

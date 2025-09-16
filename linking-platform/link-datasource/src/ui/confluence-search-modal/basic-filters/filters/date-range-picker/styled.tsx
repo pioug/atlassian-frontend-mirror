@@ -24,7 +24,7 @@ const customDropdownItemSelectedStyles = css({
 	paddingLeft: '15px',
 	color: token('color.text.selected', B400),
 	backgroundColor: token('color.background.accent.blue.subtlest', B50),
-	borderLeft: `2px solid ${token('color.text.selected', B400)}`,
+	borderLeft: `${token('border.width.selected')} solid ${token('color.text.selected', B400)}`,
 	'&:hover': {
 		backgroundColor: token('color.background.accent.blue.subtlest', B50),
 	},

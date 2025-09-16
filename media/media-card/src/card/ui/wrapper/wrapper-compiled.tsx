@@ -46,7 +46,7 @@ const wrapperStyles = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'button:focus + &': {
-		outline: `solid 2px ${token('color.border.focused', B100)}`,
+		outline: `solid ${token('border.width.focused')} ${token('color.border.focused', B100)}`,
 	},
 });
 

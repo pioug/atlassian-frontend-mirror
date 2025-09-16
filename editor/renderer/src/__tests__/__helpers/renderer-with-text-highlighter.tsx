@@ -14,6 +14,7 @@ import {
 	RendererAnnotationComponents,
 	useRendererAnnotationProviders,
 } from '@atlaskit/editor-test-helpers/annotation-example';
+import { token } from '@atlaskit/tokens';
 
 import { RendererWithAnalytics as Renderer } from '../../';
 import * as docWithMultipleMarksAndAnnotations from '../__fixtures__/annotation-over-marks.adf.json';
@@ -149,8 +150,12 @@ const doc = {
 };
 
 function TextHighliterComponent({ match, marks }: { marks: Set<string>; match: string }) {
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-	return <span style={{ color: 'red', border: '1px solid red' }}>{match}</span>;
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<span style={{ color: 'red', border: `${token('border.width', '1px')} solid red` }}>
+			{match}
+		</span>
+	);
 }
 
 function FilteredTextHighliterComponent({ match, marks }: { marks: Set<string>; match: string }) {
@@ -158,7 +163,9 @@ function FilteredTextHighliterComponent({ match, marks }: { marks: Set<string>; 
 		<Fragment>{match}</Fragment>
 	) : (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<span style={{ color: 'red', border: '1px solid red' }}>{match}</span>
+		<span style={{ color: 'red', border: `${token('border.width', '1px')} solid red` }}>
+			{match}
+		</span>
 	);
 }
 

@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/primitives/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../tmp-editor-statsig/afm-passionfruit/tsconfig.json"
 		},
 		{

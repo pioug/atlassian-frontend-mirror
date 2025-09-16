@@ -14,7 +14,7 @@ import {
 import { mapAccessibleProductsToAvailableSites, useAvailableSites, useAvailableSitesV2 } from '.';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { getOperationFailedAttributes } from './utils';
-import { ffTest } from "@atlassian/feature-flags-test-utils";
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { AvailableSitesProductType, type AccessibleProduct, type AvailableSite } from './types';
 
 describe('useAvailableSites', () => {
@@ -97,16 +97,16 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 1',
-							workspaceUrl: 'https://customsite-1.atlassian.net'
+							workspaceUrl: 'https://customsite-1.atlassian.net',
 						},
 						{
 							cloudId: '22222',
 							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 2',
-							workspaceUrl: 'https://customsite-2.atlassian.net'
-						}
-					]
+							workspaceUrl: 'https://customsite-2.atlassian.net',
+						},
+					],
 				},
 				{
 					productDisplayName: 'jira software',
@@ -117,16 +117,16 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 1',
-							workspaceUrl: 'https://customsite-1.atlassian.net'
+							workspaceUrl: 'https://customsite-1.atlassian.net',
 						},
 						{
 							cloudId: '33333',
 							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 3',
-							workspaceUrl: 'https://customsite-3.atlassian.net'
-						}
-					]
+							workspaceUrl: 'https://customsite-3.atlassian.net',
+						},
+					],
 				},
 				{
 					productDisplayName: 'JPD',
@@ -137,12 +137,12 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 2',
-							workspaceUrl: 'https://customsite-2.atlassian.net'
-						}
-					]
-				}
-			]
-		}
+							workspaceUrl: 'https://customsite-2.atlassian.net',
+						},
+					],
+				},
+			],
+		};
 		const availableSitesResponse: AvailableSite[] = [
 			{
 				avatarUrl: 'www.avatarurl.com',
@@ -150,15 +150,18 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 				displayName: 'custom site 1',
 				isVertigo: true,
 				products: [AvailableSitesProductType.CONFLUENCE, AvailableSitesProductType.JIRA_SOFTWARE],
-				url: 'https://customsite-1.atlassian.net'
+				url: 'https://customsite-1.atlassian.net',
 			},
 			{
 				avatarUrl: 'www.avatarurl.com',
 				cloudId: '22222',
 				displayName: 'custom site 2',
 				isVertigo: true,
-				products: [AvailableSitesProductType.CONFLUENCE, AvailableSitesProductType.JIRA_PRODUCT_DISCOVERY],
-				url: 'https://customsite-2.atlassian.net'
+				products: [
+					AvailableSitesProductType.CONFLUENCE,
+					AvailableSitesProductType.JIRA_PRODUCT_DISCOVERY,
+				],
+				url: 'https://customsite-2.atlassian.net',
 			},
 			{
 				avatarUrl: 'www.avatarurl.com',
@@ -166,13 +169,15 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 				displayName: 'custom site 3',
 				isVertigo: true,
 				products: [AvailableSitesProductType.JIRA_SOFTWARE],
-				url: 'https://customsite-3.atlassian.net'
-			}
-		]
+				url: 'https://customsite-3.atlassian.net',
+			},
+		];
 
-		expect(mapAccessibleProductsToAvailableSites(accessibleProductsResponse)).toEqual(availableSitesResponse)
-	})
-})
+		expect(mapAccessibleProductsToAvailableSites(accessibleProductsResponse)).toEqual(
+			availableSitesResponse,
+		);
+	});
+});
 
 describe('useAvailableSitesV2', () => {
 	ffTest.on('navx-1819-link-create-confluence-site-migration', '', () => {

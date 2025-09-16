@@ -135,7 +135,7 @@ export default (options: LayoutPluginOptions) =>
 
 			apply: (tr, pluginState, oldState, newState) => {
 				const isResizing = editorExperiment('single_column_layouts', true)
-					? tr.getMeta('is-resizer-resizing') ?? pluginKey.getState(oldState)?.isResizing
+					? (tr.getMeta('is-resizer-resizing') ?? pluginKey.getState(oldState)?.isResizing)
 					: false;
 				if (tr.docChanged || tr.selectionSet) {
 					const maybeLayoutSection = getMaybeLayoutSection(newState);

@@ -12,7 +12,7 @@ const createExample = (): React.ComponentType => {
 			<div
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					border: '1px solid red',
+					border: `${token('border.width', '1px')} solid red`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					width: `${LINK_PICKER_WIDTH_IN_PX}px`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

@@ -88,7 +88,7 @@ export type { MarkOptions, NodeOptions } from './copy-button';
 
 export type { ContextPanelHandler } from './context-panel';
 
-export type { EditorAppearance } from './editor-appearance';
+export type { EditorAppearance, EditorContentMode } from './editor-appearance';
 
 export type { ToolbarUiComponentFactoryParams, ToolbarUIComponentFactory } from './toolbar';
 

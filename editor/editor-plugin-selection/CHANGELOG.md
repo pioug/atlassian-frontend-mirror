@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-selection
 
+## 5.0.1
+
+### Patch Changes
+
+- [`c69b58dc48801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c69b58dc48801) -
+  Expose getSliceFromSelection
+
 ## 5.0.0
 
 ### Patch Changes

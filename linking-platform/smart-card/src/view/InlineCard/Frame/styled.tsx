@@ -108,7 +108,7 @@ const withoutBackgroundStyles = css({
 });
 const withBackgroundStyles = css({
 	backgroundColor: token('elevation.surface.raised', 'white'),
-	border: `1px solid ${token('color.border', N40)}`,
+	border: `${token('border.width')} solid ${token('color.border', N40)}`,
 	'&:hover': { textDecoration: 'none' },
 	'&:focus': { textDecoration: 'none' },
 	'&:active': { textDecoration: 'none' },
@@ -151,6 +151,6 @@ const selectedStyles = css({
 	},
 	'&:hover': {
 		textDecoration: 'none',
-		border: `1px solid ${token('color.border', N40)}`,
+		border: `${token('border.width')} solid ${token('color.border', N40)}`,
 	},
 });

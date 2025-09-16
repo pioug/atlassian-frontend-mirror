@@ -266,7 +266,7 @@ const ColorPickerButton = (props: Props) => {
 				alignSelf: 'center',
 				content: "''",
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				border: `1px solid ${DEFAULT_BORDER_COLOR}`,
+				border: `${token('border.width')} solid ${DEFAULT_BORDER_COLOR}`,
 				borderRadius: token('radius.small', '3px'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				backgroundColor: currentColor || 'transparent',
@@ -293,7 +293,7 @@ const ColorPickerButton = (props: Props) => {
 				alignSelf: 'center',
 				content: "''",
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				border: `1px solid ${DEFAULT_BORDER_COLOR}`,
+				border: `${token('border.width')} solid ${DEFAULT_BORDER_COLOR}`,
 				borderRadius: token('radius.small', '3px'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				backgroundColor: currentColor || 'transparent',

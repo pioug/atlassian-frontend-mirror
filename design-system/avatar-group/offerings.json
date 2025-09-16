@@ -1,0 +1,36 @@
+[
+	{
+		"name": "AvatarGroup",
+		"package": "@atlaskit/avatar-group",
+		"import": {
+			"name": "AvatarGroup",
+			"package": "@atlaskit/avatar-group",
+			"type": "default"
+		},
+		"keywords": ["avatar", "group", "multiple", "users", "team", "overlap"],
+		"categories": ["data-display"],
+		"shortDescription": "A component for displaying multiple avatars in a group with overlap and overflow handling.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Provide clear labels for avatar groups",
+			"Use appropriate overflow handling",
+			"Ensure keyboard navigation support",
+			"Provide clear user identification"
+		],
+		"usageGuidelines": [
+			"Use for displaying multiple users or team members",
+			"Consider overflow behavior for large groups",
+			"Use appropriate sizing for context",
+			"Provide clear user identification"
+		],
+		"contentGuidelines": [
+			"Use meaningful names for users",
+			"Consider group context and purpose",
+			"Provide clear overflow indicators",
+			"Use consistent naming patterns"
+		],
+		"examples": {
+			"basic": "./examples/ai/avatar-group.tsx"
+		}
+	}
+]

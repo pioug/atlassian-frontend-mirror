@@ -42,7 +42,7 @@ const frame = xcss({
 	maxWidth: '280px',
 	paddingInline: 'space.200',
 	paddingBlock: 'space.150',
-	border: `1px solid ${token('color.border')}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 	borderRadius: 'radius.small',
 	boxShadow: 'elevation.shadow.overlay',
 	justifyContent: 'space-between',
@@ -51,7 +51,7 @@ const frame = xcss({
 const editorWrapper = css({
 	padding: token('space.100', '8px'),
 	backgroundColor: 'white',
-	border: `1px solid ${token('color.border')}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 	borderRadius: token('radius.small'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror': {

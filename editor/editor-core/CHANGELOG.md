@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 213.2.3
+
+### Patch Changes
+
+- [`0fc247d192ca0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fc247d192ca0) -
+  ED-29276 [SoftServ] Word ‘Color' is shown in pinned toolbar and 'Colour’ in Primary (unpinned)
+  toolbar, same in tooltips
+- Updated dependencies
+
+## 213.2.2
+
+### Patch Changes
+
+- [`6fb79942fc3a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fb79942fc3a5) -
+  Internal changes to how borders are applied.
+- [`95ca7b6f56516`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95ca7b6f56516) -
+  Migrating editor pkg i18n files to use i18n NPM package from Traduki
+- Updated dependencies
+
+## 213.2.1
+
+### Patch Changes
+
+- [`1c474ad18f3ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c474ad18f3ac) -
+  [ED-28566] Clean up platform_editor_controls_patch_15
+- Updated dependencies
+
 ## 213.2.0
 
 ### Minor Changes

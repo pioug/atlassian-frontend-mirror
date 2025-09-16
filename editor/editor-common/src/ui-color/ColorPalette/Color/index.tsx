@@ -85,7 +85,7 @@ const Color = (props: Props) => {
 					className={`${isSelected ? 'selected' : ''}`}
 					style={{
 						backgroundColor: colorStyle || token('color.background.input', '#FFFFFF'),
-						border: `1px solid ${borderColor}`,
+						border: `${token('border.width')} solid ${borderColor}`,
 					}}
 					autoFocus={autoFocus}
 				>

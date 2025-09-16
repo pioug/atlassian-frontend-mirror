@@ -89,7 +89,7 @@ const emojiPicker = css({
 	flexDirection: 'column',
 	justifyContent: 'space-between',
 	backgroundColor: token('elevation.surface.overlay', 'white'),
-	border: `${token('color.border', N40)} 1px solid`,
+	border: `${token('color.border', N40)} ${token('border.width')} solid`,
 	borderRadius: token('radius.small', '3px'),
 	boxShadow: emojiPickerBoxShadow,
 	height: `${emojiPickerHeight}px`,

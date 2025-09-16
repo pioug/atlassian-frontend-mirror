@@ -100,7 +100,7 @@ const whatsNewTypeIconStyles = css({
 	position: 'relative',
 	height: token('space.200'),
 	width: token('space.200'),
-	'border-radius': '2px',
+	'border-radius': token('radius.xsmall'),
 	color: '#ffff',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'& > img': {

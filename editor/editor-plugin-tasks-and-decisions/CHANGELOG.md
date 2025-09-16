@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 8.4.4
+
+### Patch Changes
+
+- [`9662879e8506e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9662879e8506e) -
+  [ux] EDITOR-1354 Prevent remount of taskItemNodeView children when state is changed
+- Updated dependencies
+
 ## 8.4.3
 
 ### Patch Changes

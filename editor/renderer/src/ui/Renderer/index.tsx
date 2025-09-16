@@ -68,7 +68,7 @@ import { isInteractiveElement } from './click-to-edit';
 import { countNodes } from './count-nodes';
 import { TELEPOINTER_ID } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
-import type { RendererAppearance } from './types';
+import type { RendererAppearance, RendererContentMode } from './types';
 import { ValidationContext } from './ValidationContext';
 import { RendererStyleContainer } from './RendererStyleContainer';
 import { getBaseFontSize } from './get-base-font-size';
@@ -517,6 +517,7 @@ export const RendererFunctionalComponent = (
 								<RendererWrapper
 									allowAnnotations={props.allowAnnotations}
 									appearance={props.appearance}
+									contentMode={props.contentMode || 'standard'}
 									allowNestedHeaderLinks={isNestedHeaderLinksEnabled(props.allowHeadingAnchorLinks)}
 									allowColumnSorting={props.allowColumnSorting}
 									allowCopyToClipboard={props.allowCopyToClipboard}
@@ -573,6 +574,7 @@ export const RendererFunctionalComponent = (
 			<RendererWrapper
 				allowAnnotations={props.allowAnnotations}
 				appearance={props.appearance}
+				contentMode={props.contentMode || 'standard'}
 				allowCopyToClipboard={props.allowCopyToClipboard}
 				allowWrapCodeBlock={props.allowWrapCodeBlock}
 				allowPlaceholderText={props.allowPlaceholderText}
@@ -630,7 +632,7 @@ export function Renderer(props: RendererProps) {
 			isTopLevelRenderer={
 				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('issue_table_single_line_row_height_fast_follows')
-					? props.isTopLevelRenderer ?? isTopLevelRenderer
+					? (props.isTopLevelRenderer ?? isTopLevelRenderer)
 					: isTopLevelRenderer
 			}
 			skipValidation={skipValidation}
@@ -689,6 +691,7 @@ export type RendererWrapperProps = {
 	allowTableResizing?: boolean;
 	allowWrapCodeBlock?: boolean;
 	appearance: RendererAppearance;
+	contentMode?: RendererContentMode;
 	innerRef?: React.RefObject<HTMLDivElement>;
 	isInsideOfInlineExtension?: boolean;
 	isTopLevelRenderer?: boolean;
@@ -705,6 +708,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 		allowNestedHeaderLinks,
 		innerRef,
 		appearance,
+		contentMode,
 		children,
 		onClick,
 		onMouseDown,
@@ -848,7 +852,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 			data-appearance={appearance}
 			shouldCheckExistingValue={isInsideOfInlineExtension}
 		>
-			<BaseTheme baseFontSize={getBaseFontSize(appearance)}>
+			<BaseTheme baseFontSize={getBaseFontSize(appearance, contentMode)}>
 				<EditorMediaClientProvider ssr={ssr}>
 					{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
 					<RendererStyleContainer
@@ -856,6 +860,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 						onClick={onClick}
 						onMouseDown={onMouseDown}
 						appearance={appearance}
+						contentMode={contentMode}
 						allowNestedHeaderLinks={allowNestedHeaderLinks}
 						allowColumnSorting={!!allowColumnSorting}
 						useBlockRenderForCodeBlock={useBlockRenderForCodeBlock}

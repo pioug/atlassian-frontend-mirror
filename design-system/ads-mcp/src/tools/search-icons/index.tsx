@@ -39,8 +39,8 @@ const icons = Object.entries(coreIconMetadata)
 type Icon = (typeof icons)[number];
 
 export const listSearchIconsTool = {
-	name: 'search_icons',
-	description: `You SHOULD Search for Atlassian Design System icons based on multiple query strings (if there's multiple candidates of icon names, categorization or keywords, you SHOULD pass them in a single call). You SHOULD use default \`limit\` value of 1 first and only set a higher limit like 5 or 10 if you can't find the icon you need). Fallback to \`get_all_icons\` if nothing is found). This tool searches through component names, icon names, keywords, categorization, type and usage to find the most relevant design icons.
+	name: 'ads_search_icons',
+	description: `You SHOULD Search for Atlassian Design System icons based on multiple query strings (if there's multiple candidates of icon names, categorization or keywords, you SHOULD pass them in a single call). You SHOULD use default \`limit\` value of 1 first and only set a higher limit like 5 or 10 if you can't find the icon you need). Fallback to \`ads_get_all_icons\` if nothing is found). This tool searches through component names, icon names, keywords, categorization, type and usage to find the most relevant design icons.
 
 	The search will match against:
 	- Icon component names (e.g., "AddIcon", "DeleteIcon", "EditIcon")
@@ -62,7 +62,7 @@ export const listSearchIconsTool = {
 	<Button iconAfter={AddIcon}>Create</Button>
 	\`\`\`
 
-	You SHOULD check proper usage (props, example usage, etc.) of the icon component using \`search_components\` tool.
+	You SHOULD check proper usage (props, example usage, etc.) of the icon component using \`ads_search_components\` tool.
 	`,
 	annotations: {
 		title: 'Search ADS icons',
@@ -74,7 +74,9 @@ export const listSearchIconsTool = {
 	inputSchema: zodToJsonSchema(inputSchema),
 };
 
-export const searchIconsTool = async (params: z.infer<typeof inputSchema>): Promise<CallToolResult> => {
+export const searchIconsTool = async (
+	params: z.infer<typeof inputSchema>,
+): Promise<CallToolResult> => {
 	const { terms, limit = 1, exactName = false } = params;
 	const searchTerms = terms.filter(Boolean).map(cleanQuery);
 
@@ -175,7 +177,7 @@ export const searchIconsTool = async (params: z.infer<typeof inputSchema>): Prom
 
 	// Remove duplicates based on componentName
 	const uniqueResults = results.filter((result, index, arr) => {
-		return arr.findIndex(r => r.item.componentName === result.item.componentName) === index;
+		return arr.findIndex((r) => r.item.componentName === result.item.componentName) === index;
 	});
 
 	const matchedIcons = uniqueResults.map((result) => {

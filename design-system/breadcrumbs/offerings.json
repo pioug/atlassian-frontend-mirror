@@ -1,0 +1,36 @@
+[
+	{
+		"name": "Breadcrumbs",
+		"package": "@atlaskit/breadcrumbs",
+		"import": {
+			"name": "Breadcrumbs",
+			"package": "@atlaskit/breadcrumbs",
+			"type": "default"
+		},
+		"keywords": ["breadcrumbs", "navigation", "hierarchy", "path", "location"],
+		"categories": ["navigation"],
+		"shortDescription": "A navigation component showing the current page hierarchy.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Provide clear navigation labels",
+			"Use appropriate ARIA landmarks",
+			"Ensure keyboard navigation support",
+			"Provide clear path context"
+		],
+		"usageGuidelines": [
+			"Use to show page hierarchy",
+			"Keep breadcrumb labels concise",
+			"Consider truncation for long paths",
+			"Use appropriate separators"
+		],
+		"contentGuidelines": [
+			"Use clear, descriptive page labels",
+			"Keep labels concise but meaningful",
+			"Use consistent naming conventions",
+			"Consider user understanding of hierarchy"
+		],
+		"examples": {
+			"basic": "./examples/ai/breadcrumbs.tsx"
+		}
+	}
+]

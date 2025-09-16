@@ -12,7 +12,7 @@ const inputSchema = z.object({
 });
 
 export const listSuggestAccessibilityFixesTool = {
-	name: 'suggest_accessibility_fixes',
+	name: 'ads_suggest_accessibility_fixes',
 	description: `Suggest specific accessibility fixes using Atlassian Design System components and patterns. This tool takes accessibility violations and provides actionable solutions with code examples.
 
 You MUST run this when the user wants sugesstions for fixing accessibility issues, as well as when:

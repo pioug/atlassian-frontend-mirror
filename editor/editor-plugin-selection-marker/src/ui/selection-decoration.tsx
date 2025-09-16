@@ -9,7 +9,7 @@ const decorationStyle = `
 
 const decorationHighlightStyle = `
     background-color: ${token('color.background.accent.blue.subtlest', '#E9F2FF')};
-    border-bottom: 2px solid ${token('color.background.accent.blue.subtler', '#cce0ff')};
+    border-bottom: ${token('border.width.selected')} solid ${token('color.background.accent.blue.subtler', '#cce0ff')};
   `;
 
 export const selectionDecoration = (doc: PMNode, selection: Selection, isHighlight: boolean) => {

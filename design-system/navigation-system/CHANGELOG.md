@@ -1,5 +1,15 @@
 # @atlassian/navigation-system
 
+## 2.10.0
+
+### Minor Changes
+
+- [`8c5f4864d7d4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c5f4864d7d4c) -
+  Adds `defaultSideNavCollapsed` prop to `Root` which replaces the `defaultCollapsed` props on
+  `SideNav` and `SideNavToggleButton`. This prop is enabled behind the
+  `platform_dst_nav4_full_height_sidebar_api_changes` feature gate. When this gate is cleaned up the
+  `defaultCollapsed` props will be removed.
+
 ## 2.9.0
 
 ### Minor Changes

@@ -179,7 +179,7 @@ const dragHandleButtonStyles = css({
 	},
 
 	'&:focus': {
-		outline: `2px solid ${token('color.border.focused', '#388BFF')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
 	},
 
 	'&:disabled': {
@@ -235,7 +235,7 @@ const dragHandleButtonStylesOld = css({
 	},
 
 	'&:focus': {
-		outline: `2px solid ${token('color.border.focused', '#388BFF')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
 	},
 
 	'&:disabled': {
@@ -1244,7 +1244,7 @@ export const DragHandle = ({
 					<span
 						css={[
 							shouldMaskNodeControls(nodeType, isTopLevelNode) && buttonWrapperStyles,
-							fg('platform_editor_controls_patch_15') && buttonWrapperStylesPatch,
+							buttonWrapperStylesPatch,
 						]}
 					>
 						{renderButton()}
@@ -1278,7 +1278,7 @@ export const DragHandle = ({
 				<span
 					css={[
 						shouldMaskNodeControls(nodeType, isTopLevelNode) && buttonWrapperStyles,
-						fg('platform_editor_controls_patch_15') && buttonWrapperStylesPatch,
+						buttonWrapperStylesPatch,
 					]}
 				>
 					{renderButton()}

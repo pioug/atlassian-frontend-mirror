@@ -27,7 +27,7 @@ const SkeletonIcon = css({
 	display: 'inline-block',
 	borderRadius: token('space.025'),
 	backgroundColor: 'currentColor',
-	border: `${token('space.025', '2px')} solid transparent`,
+	border: `${token('border.width.selected')} solid transparent`,
 	opacity: 0.15,
 });
 

@@ -9,6 +9,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { Text } from '@atlaskit/primitives/compiled';
 import {
+	type Placement,
 	PopoverContent,
 	PopoverProvider,
 	PopoverTarget,
@@ -35,12 +36,14 @@ const styles = cssMap({
 	},
 });
 
-const cardPlacements = [
+const cardPlacements: Placement[] = [
 	'bottom-start',
+	'bottom-center',
 	'bottom-end',
 	'left-start',
 	'left-end',
 	'top-start',
+	'top-center',
 	'top-end',
 	'right-start',
 	'right-end',

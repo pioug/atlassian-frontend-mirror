@@ -45,7 +45,7 @@ const mainToolbar = () => {
 			alignItems: 'center',
 			boxShadow: 'none',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			borderBottom: `1px solid ${token('color.border')}`,
+			borderBottom: `${token('border.width')} solid ${token('color.border')}`,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			transition: `box-shadow 200ms ${akEditorSwoopCubicBezier}`,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

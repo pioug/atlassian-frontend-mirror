@@ -38,7 +38,7 @@ const viewAllStyles = xcss({
 	width: '100%',
 	height: '40px',
 
-	borderTop: `1px solid ${token('color.border')}`,
+	borderTop: `${token('border.width')} solid ${token('color.border')}`,
 });
 
 interface ListButtonItemBaseProps extends ButtonItemProps {

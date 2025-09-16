@@ -1,0 +1,36 @@
+[
+	{
+		"name": "InlineMessage",
+		"package": "@atlaskit/inline-message",
+		"import": {
+			"name": "InlineMessage",
+			"package": "@atlaskit/inline-message",
+			"type": "default"
+		},
+		"keywords": ["message", "inline", "feedback", "status", "alert"],
+		"categories": ["feedback"],
+		"shortDescription": "A component for displaying inline messages and feedback.",
+		"status": "general-availability",
+		"accessibilityGuidelines": [
+			"Ensure message content is announced by screen readers",
+			"Use appropriate message types and colors",
+			"Provide clear message context",
+			"Consider message timing and persistence"
+		],
+		"usageGuidelines": [
+			"Use for inline feedback and messages",
+			"Choose appropriate message types",
+			"Position messages near relevant content",
+			"Consider message timing and dismissal"
+		],
+		"contentGuidelines": [
+			"Use clear, concise message text",
+			"Provide specific, actionable feedback",
+			"Use appropriate tone for message type",
+			"Keep messages focused and relevant"
+		],
+		"examples": {
+			"basic": "./examples/ai/inline-message.tsx"
+		}
+	}
+]

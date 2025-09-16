@@ -24,7 +24,7 @@ const inputSchema = z.object({
 });
 
 export const listGetAccessibilityGuidelinesTool = {
-	name: 'get_accessibility_guidelines',
+	name: 'ads_get_accessibility_guidelines',
 	description: `Get accessibility guidelines and best practices from the Atlassian Design System. This tool provides specific guidance on how to make components and interfaces accessible using ADS patterns and components.
 
 You MUST run this when the user wants their code to be accessible, as well as when:

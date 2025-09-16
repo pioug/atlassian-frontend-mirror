@@ -26,7 +26,7 @@ const markStyles = css({
 	color: 'inherit',
 	backgroundColor: 'unset',
 	WebkitTapHighlightColor: 'transparent',
-	borderBottom: '2px solid transparent',
+	borderBottom: `${token('border.width.selected')} solid transparent`,
 	cursor: 'pointer',
 	padding: '1px 0 2px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors

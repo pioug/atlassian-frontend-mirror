@@ -5,9 +5,20 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { RegisterComponentsAction, ToolbarPluginOptions } from './types';
+
+export type EditorToolbarPluginState = {
+	selectedNode?: {
+		marks: string[];
+		node: PMNode;
+		nodeType: string;
+		pos: number;
+	};
+	shouldShowToolbar: boolean;
+};
 
 export type ToolbarPlugin = NextEditorPlugin<
 	'toolbar',
@@ -25,8 +36,6 @@ export type ToolbarPlugin = NextEditorPlugin<
 			OptionalPlugin<AnalyticsPlugin>,
 		];
 		pluginConfiguration?: ToolbarPluginOptions;
-		sharedState: {
-			shouldShowToolbar: boolean;
-		};
+		sharedState: EditorToolbarPluginState;
 	}
 >;

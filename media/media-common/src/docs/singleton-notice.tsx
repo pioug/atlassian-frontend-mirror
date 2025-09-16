@@ -34,12 +34,12 @@ export function createSingletonNotice(componentName: string) {
 				If you have any questions or need assistance in consuming this package correctly, please
 				reach out to the{' '}
 				{fg('dst-a11y__replace-anchor-with-link__media-exif') ? (
-					<Link href="https://atlassian.slack.com/archives/C020CGJDJ3A" target="_blank">
+					<Link href="https://atlassian.slack.com/archives/C05J5GNHPLN" target="_blank">
 						#help-media-platform
 					</Link>
 				) : (
 					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-					<a href="https://atlassian.slack.com/archives/C020CGJDJ3A" target="_blank">
+					<a href="https://atlassian.slack.com/archives/C05J5GNHPLN" target="_blank">
 						#help-media-platform
 					</a>
 				)}{' '}

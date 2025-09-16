@@ -805,14 +805,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-09-10
-	cc_improve_writing_on_paste_aa: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_improve_writing_on_paste_aa',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-08-18
 	platform_editor_locale_datepicker: createBooleanExperiment({
 		productKeys: {
@@ -880,6 +872,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-09-16
+	platform_editor_prevent_taskitem_remount: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_prevent_taskitem_remount',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-08-26
 	platform_editor_toolbar_aifc_patch_1: createBooleanExperiment({
 		productKeys: {
@@ -897,6 +897,15 @@ export const editorExperimentsConfig = {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
+	}),
+	// Added 2025-09-01
+	cc_editor_ai_content_mode: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'cc_editor_ai_content_mode',
+		},
+		param: 'variant',
+		values: ['control', 'test'],
+		defaultValue: 'control',
 	}),
 	// Added 2025-09-01
 	platform_editor_toolbar_aifc_patch_2: createBooleanExperiment({
@@ -993,6 +1002,14 @@ export const editorExperimentsConfig = {
 	platform_editor_toolbar_task_list_menu_item: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_toolbar_task_list_menu_item',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-15
+	platform_editor_toolbar_aifc_patch_5: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_aifc_patch_5',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

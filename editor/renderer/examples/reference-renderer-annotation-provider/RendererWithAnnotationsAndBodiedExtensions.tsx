@@ -43,7 +43,7 @@ const toolbarStyle = css({
 	paddingRight: token('space.050', '4px'),
 	paddingBottom: token('space.050', '4px'),
 	paddingLeft: token('space.050', '4px'),
-	borderBottom: `1px solid ${token('color.border')}`,
+	borderBottom: `${token('border.width')} solid ${token('color.border')}`,
 });
 
 const toolbarSection = css({
@@ -80,7 +80,7 @@ function BodiedExtensionRenderer({
 			isNestedRender={true}
 		>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop */}
-			<div style={{ border: '1px blue dashed', padding: '10px' }}>
+			<div style={{ border: `${token('border.width')} blue dashed`, padding: '10px' }}>
 				<ReactRenderer
 					adfStage="stage0"
 					document={document}

@@ -2,6 +2,7 @@ import React, { type ReactNode } from 'react';
 
 import { act, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { renderToString } from 'react-dom/server';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -738,6 +739,68 @@ describe('Side nav', () => {
 
 			// Should have been called only one more time - by the toggle button click
 			expect(setSideNavStateMock).toHaveBeenCalledTimes(2);
+		});
+	});
+
+	describe('SSR', () => {
+		function renderHtml(element: React.ReactNode) {
+			return render(<div dangerouslySetInnerHTML={{ __html: renderToString(element) }} />);
+		}
+
+		ffTest.on('platform_dst_nav4_full_height_sidebar_api_changes', 'future state', () => {
+			it('should use the root collapse state for the initial render', () => {
+				// Intentionally using opposite values on Root and SideNav
+				// to demonstrate that only the root value is used
+				const { unmount } = renderHtml(
+					<Root defaultSideNavCollapsed={true}>
+						<SideNav defaultCollapsed={false} testId="side-nav">
+							sidenav
+						</SideNav>
+					</Root>,
+				);
+
+				expect(screen.getByTestId('side-nav')).toHaveAttribute('data-visible', 'false');
+
+				unmount();
+
+				// Intentionally using opposite values on Root and SideNav
+				// to demonstrate that only the root value is used
+				renderHtml(
+					<Root defaultSideNavCollapsed={false}>
+						<SideNav defaultCollapsed={true} testId="side-nav">
+							sidenav
+						</SideNav>
+					</Root>,
+				);
+
+				expect(screen.getByTestId('side-nav')).not.toHaveAttribute('data-visible', 'false');
+			});
+
+			it('should use the root collapse state post-SSR', () => {
+				render(
+					<Root defaultSideNavCollapsed={true}>
+						<SideNav defaultCollapsed={false} testId="side-nav">
+							sidenav
+						</SideNav>
+					</Root>,
+				);
+
+				expect(screen.getByTestId('side-nav')).toHaveAttribute('data-visible', 'false');
+			});
+
+			it('should not sync state post-SSR', () => {
+				const setSideNavStateMock = jest.fn();
+
+				render(
+					<Root>
+						<SetSideNavVisibilityState.Provider value={setSideNavStateMock}>
+							<SideNav testId="side-nav">sidenav</SideNav>
+						</SetSideNavVisibilityState.Provider>
+					</Root>,
+				);
+
+				expect(setSideNavStateMock).not.toHaveBeenCalled();
+			});
 		});
 	});
 });

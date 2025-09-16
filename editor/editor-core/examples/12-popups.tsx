@@ -17,7 +17,7 @@ import { content } from '../example-helpers/styles';
 import { Editor } from '../src';
 
 const boundary = css({
-	border: `2px solid ${token('color.border')}`,
+	border: `${token('border.width.selected')} solid ${token('color.border')}`,
 	padding: `130px 60px 10px ${token('space.500', '40px')}`,
 });
 
@@ -147,7 +147,7 @@ class PortalInScrollContainerExample extends PureComponent<any, any> {
 					height: 200,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					position: 'relative',
-					border: `1px solid ${token('color.border')}`,
+					border: `${token('border.width')} solid ${token('color.border')}`,
 				}}
 				ref={this.handleBoundryRef}
 			>

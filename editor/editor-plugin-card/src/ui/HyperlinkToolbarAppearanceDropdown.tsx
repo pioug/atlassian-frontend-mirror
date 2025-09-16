@@ -17,7 +17,6 @@ import {
 	DropdownContainer as UiDropdown,
 } from '@atlaskit/editor-common/ui-menu';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
 
 import type { HyperlinkToolbarAppearanceProps } from './HyperlinkToolbarAppearance';
@@ -159,10 +158,7 @@ const CustomHyperlinkDropdown = (
 					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>
 			</UiDropdown>
-			{!(
-				areToolbarFlagsEnabled(Boolean(props.editorPluginApi?.toolbar)) &&
-				fg('platform_editor_controls_patch_15')
-			) && (
+			{!areToolbarFlagsEnabled(Boolean(props.editorPluginApi?.toolbar)) && (
 				<Separator
 					areAnyNewToolbarFlagsEnabled={areToolbarFlagsEnabled(
 						Boolean(props.editorPluginApi?.toolbar),

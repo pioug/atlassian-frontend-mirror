@@ -1,5 +1,31 @@
 # @atlaskit/renderer
 
+## 123.2.2
+
+### Patch Changes
+
+- [`6fb79942fc3a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fb79942fc3a5) -
+  Internal changes to how borders are applied.
+- [`95ca7b6f56516`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95ca7b6f56516) -
+  Migrating editor pkg i18n files to use i18n NPM package from Traduki
+- Updated dependencies
+
+## 123.2.1
+
+### Patch Changes
+
+- [`10f7cde204c1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10f7cde204c1e) -
+  Increase heading 1 ranking in block menu and add date-local-id on bodiedExtension and blockCard in
+  renderer
+- Updated dependencies
+
+## 123.2.0
+
+### Minor Changes
+
+- [`7d5ceec8d7064`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d5ceec8d7064) -
+  Removed feature gates for cleanup
+
 ## 123.1.1
 
 ### Patch Changes

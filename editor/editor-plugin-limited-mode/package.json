@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-limited-mode",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "LimitedMode plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,8 +32,11 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
-		"@babel/runtime": "root:*"
+		"@babel/runtime": "root:*",
+		"bind-event-listener": "root:*",
+		"react-intl-next": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",

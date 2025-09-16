@@ -154,7 +154,7 @@ const mentionNodeStyles = css({
 		fontWeight: token('font.weight.regular'),
 		wordBreak: 'break-word',
 		background: token('color.background.neutral'),
-		border: '1px solid transparent',
+		border: `${token('border.width')} solid transparent`,
 		color: token('color.text.subtle'),
 
 		'&:hover': {
@@ -168,7 +168,7 @@ const mentionNodeStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.editor-mention-primitive.mention-restricted': {
 		background: 'transparent',
-		border: `1px solid ${token('color.border.bold')}`,
+		border: `${token('border.width')} solid ${token('color.border.bold')}`,
 		color: token('color.text'),
 
 		'&:hover': {
@@ -182,7 +182,7 @@ const mentionNodeStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.editor-mention-primitive.mention-self': {
 		background: token('color.background.brand.bold'),
-		border: '1px solid transparent',
+		border: `${token('border.width')} solid transparent`,
 		color: token('color.text.inverse'),
 
 		'&:hover': {
@@ -321,7 +321,7 @@ const emojiStyles = css`
 
 	.ProseMirror .${akEditorSelectedNodeClassName} {
 		.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
-			border-radius: 2px;
+			border-radius: ${token('radius.xsmall')};
 			${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.BoxShadow])}
 		}
 	}
@@ -387,7 +387,7 @@ const firstBlockNodeStylesNew = css`
 const firstFloatingToolbarButtonStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'button.first-floating-toolbar-button:focus': {
-		outline: `2px solid ${token('color.border.focused', '#2684FF')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#2684FF')}`,
 	},
 });
 
@@ -489,7 +489,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 	}
 
 	.ProseMirror-selectednode:empty {
-		outline: 2px solid ${token('color.border.focused', '#8cf')};
+		outline: ${token('border.width.focused')} solid ${token('color.border.focused', '#8cf')};
 	}
 
 	.ProseMirror.ProseMirror-focused:has(.ProseMirror-mark-boundary-cursor) {

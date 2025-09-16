@@ -25,8 +25,8 @@ const inputSchema = z.object({
 type Component = (typeof components)[number];
 
 export const listSearchComponentsTool = {
-	name: 'search_components',
-	description: `You SHOULD use this to search for Atlassian Design System components based on multiple query strings (if there are multiple candidates of component names, descriptions, categories, or package names, you SHOULD pass them in a single call). You SHOULD use default \`limit\` value of 1 first and only set a higher limit like 5 or 10 if you can't find the component you need. Fallback to \`get_components\` if nothing is found. This tool searches through component names, descriptions, categories, and package names to find the most relevant design system components.
+	name: 'ads_search_components',
+	description: `You SHOULD use this to search for Atlassian Design System components based on multiple query strings (if there are multiple candidates of component names, descriptions, categories, or package names, you SHOULD pass them in a single call). You SHOULD use default \`limit\` value of 1 first and only set a higher limit like 5 or 10 if you can't find the component you need. Fallback to \`ads_get_components\` if nothing is found. This tool searches through component names, descriptions, categories, and package names to find the most relevant design system components.
 
 The search will match against:
 - Component names (e.g., "Button", "TextField", "Avatar")
@@ -64,7 +64,9 @@ const cleanComponentResult = (result: Component) => {
 	};
 };
 
-export const searchComponentsTool = async (params: z.infer<typeof inputSchema>): Promise<CallToolResult> => {
+export const searchComponentsTool = async (
+	params: z.infer<typeof inputSchema>,
+): Promise<CallToolResult> => {
 	const { terms, limit = 1, exactName = false } = params;
 	const searchTerms = terms.filter(Boolean).map(cleanQuery);
 
@@ -160,7 +162,7 @@ export const searchComponentsTool = async (params: z.infer<typeof inputSchema>):
 
 	// Remove duplicates based on component name
 	const uniqueResults = results.filter((result, index, arr) => {
-		return arr.findIndex(r => r.item.name === result.item.name) === index;
+		return arr.findIndex((r) => r.item.name === result.item.name) === index;
 	});
 
 	return {

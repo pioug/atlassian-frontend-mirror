@@ -1,5 +1,12 @@
 # @atlaskit/editor-json-transformer
 
+## 8.29.1
+
+### Patch Changes
+
+- [`6fb79942fc3a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fb79942fc3a5) -
+  Internal changes to how borders are applied.
+
 ## 8.29.0
 
 ### Minor Changes

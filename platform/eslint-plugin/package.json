@@ -29,16 +29,16 @@
 		"*.compiled.css"
 	],
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		".": "./src/index.tsx"
-	},
 	"exports": {
 		".": {
 			"types": "./src/index.tsx",
 			"publish": "./src/index.tsx",
 			"default": "./index.js"
 		},
-		"./package.json": "./package.json"
+		"./package.json": {
+			"publish": null,
+			"default": "./package.json"
+		}
 	},
 	"dependencies": {
 		"@atlaskit/eslint-utils": "workspace:^",

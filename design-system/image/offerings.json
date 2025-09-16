@@ -1,0 +1,36 @@
+[
+	{
+		"name": "Image",
+		"package": "@atlaskit/image",
+		"import": {
+			"name": "Image",
+			"package": "@atlaskit/image",
+			"type": "default"
+		},
+		"keywords": ["image", "picture", "photo", "visual", "media"],
+		"categories": ["data-display"],
+		"shortDescription": "A component for displaying images with theme support.",
+		"status": "open-beta",
+		"accessibilityGuidelines": [
+			"Always provide meaningful alt text",
+			"Ensure appropriate image sizing",
+			"Consider loading states and error handling",
+			"Use appropriate image formats"
+		],
+		"usageGuidelines": [
+			"Use for displaying images in content",
+			"Provide appropriate alt text",
+			"Consider responsive image sizing",
+			"Handle loading and error states"
+		],
+		"contentGuidelines": [
+			"Use clear, descriptive alt text",
+			"Choose appropriate image dimensions",
+			"Consider image quality and file size",
+			"Use meaningful image content"
+		],
+		"examples": {
+			"basic": "./examples/ai/image.tsx"
+		}
+	}
+]

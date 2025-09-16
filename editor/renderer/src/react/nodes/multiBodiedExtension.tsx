@@ -185,6 +185,7 @@ const MultiBodiedExtension = (props: Props) => {
 			data-multiBodiedExtension-container
 			data-active-child-index={activeChildIndex}
 			data-layout={layout}
+			data-local-id={localId}
 		>
 			<WidthConsumer>
 				{({ width }) => (

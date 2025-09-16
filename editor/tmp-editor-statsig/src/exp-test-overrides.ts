@@ -30,6 +30,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	cc_editor_interactions_trigger_traceufointeraction: 'control',
 	platform_editor_insertion: 'control',
 	editor_ai_inline_suggestion_date_v2: 'control',
+	cc_editor_ai_content_mode: 'control',
 	platform_editor_add_orange_highlight_color: 'control',
 	platform_editor_ai_iw_adf_streaming: 'control',
 	platform_editor_ai_non_iw_adf_streaming: 'control',
@@ -81,6 +82,5 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_toggle_expand_on_match_found: false,
 	platform_editor_reduce_noisy_steps_ncs: false,
 	cc_improve_writing_on_paste: false,
-	cc_improve_writing_on_paste_aa: false,
 	platform_editor_ai_aifc: false,
 };

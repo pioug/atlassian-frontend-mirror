@@ -136,7 +136,9 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 											editorRef,
 											editorAPI,
 										}) => (
-											<BaseThemeWrapper baseFontSize={getBaseFontSize(props.appearance)}>
+											<BaseThemeWrapper
+												baseFontSize={getBaseFontSize(props.appearance, props.contentMode)}
+											>
 												<AppearanceComponent
 													innerRef={editorRef}
 													editorAPI={editorAPI}

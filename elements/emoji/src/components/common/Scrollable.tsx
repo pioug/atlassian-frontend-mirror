@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 import { type MouseEventHandler, PureComponent, type ReactNode, type UIEvent } from 'react';
 
 const emojiScrollable = css({
-	border: `1px solid ${token('color.border', '#fff')}`,
+	border: `${token('border.width')} solid ${token('color.border', '#fff')}`,
 	borderRadius: token('radius.small', '3px'),
 	display: 'block',
 	margin: '0',

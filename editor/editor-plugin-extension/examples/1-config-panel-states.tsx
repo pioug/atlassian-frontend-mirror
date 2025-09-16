@@ -35,7 +35,7 @@ const contextPanelWrapperStyles = xcss({
 // Adding border as 2px instead of 1px, since Design tokens supports space sizes in 2 multiples only
 // Ref: https://atlassian.design/components/tokens/all-tokens
 const contextPanelStyles = css({
-	border: `${token('space.025', '2px')} solid ${N30}`,
+	border: `${token('border.width.selected')} solid ${N30}`,
 	width: '360px',
 	height: '450px',
 	padding: token('space.200', '16px'),

@@ -27,6 +27,7 @@ function camelToKebabCase(input: string): string {
 // All composable editor props that are valid
 const allComposableEditorProps: Complete<EditorNextProps> = {
 	appearance: undefined,
+	contentMode: undefined,
 	preset: undefined,
 	emojiProvider: undefined,
 	contentComponents: undefined,

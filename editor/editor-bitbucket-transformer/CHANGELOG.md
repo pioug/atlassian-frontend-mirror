@@ -1,5 +1,12 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 9.4.3
+
+### Patch Changes
+
+- [`6fb79942fc3a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fb79942fc3a5) -
+  Internal changes to how borders are applied.
+
 ## 9.4.2
 
 ### Patch Changes

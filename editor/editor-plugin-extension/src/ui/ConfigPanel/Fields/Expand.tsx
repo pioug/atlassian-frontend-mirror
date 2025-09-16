@@ -18,7 +18,7 @@ import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const expandContainerStyles = css({
-	borderBottom: `1px solid ${token('color.border', N40)}`,
+	borderBottom: `${token('border.width')} solid ${token('color.border', N40)}`,
 });
 
 const expandControlStyles = css({

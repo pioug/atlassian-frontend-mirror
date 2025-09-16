@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.24.0
+
+### Minor Changes
+
+- [`e24c73c66f022`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e24c73c66f022) -
+  [ux] ED-29268 [SoftServ] Toolbar doesn’t move with text when text alignment change
+
+## 12.23.0
+
+### Minor Changes
+
+- [`9662879e8506e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9662879e8506e) -
+  [ux] EDITOR-1354 Prevent remount of taskItemNodeView children when state is changed
+
 ## 12.22.0
 
 ### Minor Changes

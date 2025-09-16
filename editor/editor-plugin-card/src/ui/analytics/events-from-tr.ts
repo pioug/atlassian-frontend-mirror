@@ -387,7 +387,7 @@ export function eventsFromTransaction(
 			const previousDisplay =
 				'removed' in update
 					? appearanceForLink(update.removed.node)
-					: update.previous.display ?? 'unknown';
+					: (update.previous.display ?? 'unknown');
 
 			if (subject) {
 				events.push({

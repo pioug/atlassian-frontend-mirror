@@ -22,13 +22,13 @@ const basicGuidelineStyles = css({
 });
 
 const verticalStyles = css({
-	borderWidth: `0 0 0 1px`,
+	borderWidth: `0 0 0 ${token('border.width')}`,
 	width: '1px',
 	height: '100%',
 });
 
 const horizontalStyles = css({
-	borderWidth: `1px 0 0 0`,
+	borderWidth: `${token('border.width')} 0 0 0`,
 	width: '100%',
 	height: '1px',
 });

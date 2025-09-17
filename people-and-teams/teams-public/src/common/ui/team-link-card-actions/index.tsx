@@ -8,7 +8,9 @@ import { cssMap, cx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type ContainerTypes } from '../../types';
@@ -81,6 +83,7 @@ export const TeamLinkCardActions = ({
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
 	const { fireUIEvent } = usePeopleAndTeamAnalytics();
+	const { fireEvent } = useAnalyticsEventsNext();
 
 	// Show icons when:
 	// 1. Hovering over the card
@@ -92,26 +95,38 @@ export const TeamLinkCardActions = ({
 		e.preventDefault();
 		e.stopPropagation();
 		onDisconnectButtonClick();
-		fireUIEvent(createAnalyticsEvent, {
-			action: AnalyticsAction.CLICKED,
-			actionSubject: 'button',
-			actionSubjectId: 'containerUnlinkButton',
-			attributes: { containerSelected: { container: containerType, containerId } },
-		});
+		if (fg('ptc-enable-teams-public-analytics-refactor')) {
+			fireEvent('ui.button.clicked.containerUnlinkButton', {
+				containerSelected: { container: containerType, containerId },
+			});
+		} else {
+			fireUIEvent(createAnalyticsEvent, {
+				action: AnalyticsAction.CLICKED,
+				actionSubject: 'button',
+				actionSubjectId: 'containerUnlinkButton',
+				attributes: { containerSelected: { container: containerType, containerId } },
+			});
+		}
 	};
 
 	const handleEditLinkClick = (e: React.MouseEvent | React.KeyboardEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
 		onEditLinkClick?.();
-		fireUIEvent(createAnalyticsEvent, {
-			action: AnalyticsAction.CLICKED,
-			actionSubject: 'button',
-			actionSubjectId: 'containerEditLinkButton',
-			attributes: {
+		if (fg('ptc-enable-teams-public-analytics-refactor')) {
+			fireEvent('ui.button.clicked.containerEditLinkButton', {
 				containerSelected: { container: containerType, containerId },
-			},
-		});
+			});
+		} else {
+			fireUIEvent(createAnalyticsEvent, {
+				action: AnalyticsAction.CLICKED,
+				actionSubject: 'button',
+				actionSubjectId: 'containerEditLinkButton',
+				attributes: {
+					containerSelected: { container: containerType, containerId },
+				},
+			});
+		}
 	};
 
 	if (containerType === 'WebLink') {

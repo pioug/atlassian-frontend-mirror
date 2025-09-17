@@ -12,7 +12,7 @@ import { createPlugin } from './pm-plugins/main';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
 import { getToolbarConfig } from './ui/floating-toolbar';
 
-export const syncedBlockPlugin: SyncedBlockPlugin = ({ config }) => {
+export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 	const syncBlockStore = new SyncBlockStoreManager(config?.dataProvider);
 
 	return {
@@ -31,7 +31,8 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config }) => {
 			return [
 				{
 					name: 'syncedBlockPlugin',
-					plugin: (params: PMPluginFactoryParams) => createPlugin(config, params, syncBlockStore),
+					plugin: (params: PMPluginFactoryParams) =>
+						createPlugin(config, params, syncBlockStore, api),
 				},
 			];
 		},
@@ -50,7 +51,8 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config }) => {
 					},
 				},
 			],
-			floatingToolbar: getToolbarConfig(),
+			floatingToolbar: (state, intl, providerFactory) =>
+				getToolbarConfig(state, intl, config, providerFactory),
 		},
 	};
 };

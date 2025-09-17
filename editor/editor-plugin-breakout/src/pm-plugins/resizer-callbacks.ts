@@ -19,7 +19,7 @@ import type {
 	DragLocationHistory,
 	ElementDragType,
 } from '@atlaskit/pragmatic-drag-and-drop/types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
@@ -59,7 +59,9 @@ export function getProposedWidth({
 	const width = api?.width.sharedState?.currentState()?.width || 0;
 	const padding =
 		width <= akEditorFullPageNarrowBreakout &&
-		expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+			exposure: true,
+		})
 			? akEditorGutterPaddingReduced
 			: akEditorGutterPaddingDynamic();
 

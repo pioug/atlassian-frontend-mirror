@@ -12,7 +12,7 @@ export default evaluateInner`
   thead,
   tbody,
   tfoot {
-    border-bottom: 2px solid ${token('color.border', colors.N40)};
+    border-bottom: ${token('border.width.selected', '2px')} solid ${token('color.border', colors.N40)};
   }
 
   td,

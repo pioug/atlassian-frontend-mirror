@@ -80,6 +80,9 @@
 			"path": "../../../design-system/skeleton/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../teams-app-internal-analytics/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../teams-app-internal-product-permissions/afm-passionfruit/tsconfig.json"
 		},
 		{

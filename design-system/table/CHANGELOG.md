@@ -1,5 +1,13 @@
 # @atlaskit/table
 
+## 0.12.9
+
+### Patch Changes
+
+- [`248faa32d4835`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/248faa32d4835) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
 ## 0.12.8
 
 ### Patch Changes

@@ -29,8 +29,6 @@
 			"Use appropriate language and tone",
 			"Keep content concise but meaningful"
 		],
-		"examples": {
-			"basic": "./examples/ai/visually-hidden.tsx"
-		}
+		"examples": ["./examples/00-basic.tsx"]
 	}
 ]

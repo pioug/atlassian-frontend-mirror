@@ -179,17 +179,26 @@ const LayoutButtonWrapper = ({
 	);
 	const [breakoutNodePresent, setBreakoutNodePresent] = useState(false);
 	const [breakoutMode, setBreakoutMode] = useState<BreakoutMode | undefined>(
-		getBreakoutMode(editorView.state),
+		expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView
+			? undefined
+			: // Remove ! during platform_editor_hydratable_ui cleanup
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				getBreakoutMode(editorView!.state),
 	);
 
 	usePluginStateEffect(api, ['breakout'], ({ breakoutState }) => {
+		if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
+			return;
+		}
 		if (breakoutState?.breakoutNode && !breakoutNodePresent) {
 			setBreakoutNodePresent(true);
 		}
 		if (!breakoutState?.breakoutNode && breakoutNodePresent) {
 			setBreakoutNodePresent(false);
 		}
-		const nextBreakoutMode = getBreakoutMode(editorView.state);
+		// Remove ! during platform_editor_hydratable_ui cleanup
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		const nextBreakoutMode = getBreakoutMode(editorView!.state);
 		if (nextBreakoutMode !== breakoutMode) {
 			setBreakoutMode(nextBreakoutMode);
 		}

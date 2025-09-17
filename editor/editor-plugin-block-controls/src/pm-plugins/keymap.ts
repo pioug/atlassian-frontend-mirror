@@ -12,7 +12,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { DIRECTION } from '@atlaskit/editor-common/types';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { moveNodeViaShortcut } from '../editor-commands/move-node';
@@ -24,7 +23,7 @@ function keymapList(
 ) {
 	const keymapList = {};
 
-	if (api && fg('platform_editor_element_drag_and_drop_ed_23873')) {
+	if (api) {
 		bindKeymapWithCommand(
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

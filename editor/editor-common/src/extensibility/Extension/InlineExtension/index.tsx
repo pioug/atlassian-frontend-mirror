@@ -14,7 +14,7 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { useSharedPluginStateWithSelector } from '../../../hooks';
 import { createWidthContext, WidthContext } from '../../../ui';
@@ -64,7 +64,11 @@ const InlineExtension = (props: Props) => {
 	});
 
 	let rendererContainerWidth = 0;
-	if (expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)) {
+	if (
+		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+			exposure: true,
+		})
+	) {
 		if (width) {
 			const padding =
 				width > akEditorFullPageNarrowBreakout

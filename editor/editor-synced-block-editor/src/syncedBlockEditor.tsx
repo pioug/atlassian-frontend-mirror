@@ -10,9 +10,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import { useNestedEditorPreset } from './useNestedEditorPreset';
 
 export type SyncedBlockEditorProps = {
-	boundariesElement: HTMLElement;
 	defaultDocument: JSONDocNode;
-	mountPoint: HTMLElement;
 	onChange: (
 		editorView: EditorView,
 		meta: {
@@ -36,12 +34,14 @@ export type SyncedBlockEditorProps = {
 		editorView: EditorView;
 		eventDispatcher: EventDispatcher;
 	}) => void;
+	popupsBoundariesElement: HTMLElement;
+	popupsMountPoint: HTMLElement;
 };
 
 const SyncedBlockEditorComponent = ({
 	defaultDocument,
-	mountPoint,
-	boundariesElement,
+	popupsMountPoint,
+	popupsBoundariesElement,
 	onEditorReady,
 	onChange,
 }: SyncedBlockEditorProps & { editorActions: EditorActions }) => {
@@ -52,8 +52,8 @@ const SyncedBlockEditorComponent = ({
 			<ComposableEditor
 				appearance="chromeless"
 				preset={preset}
-				popupsBoundariesElement={boundariesElement || undefined}
-				popupsMountPoint={mountPoint || undefined}
+				popupsBoundariesElement={popupsBoundariesElement}
+				popupsMountPoint={popupsMountPoint}
 				defaultValue={defaultDocument}
 				skipValidation
 				onChange={onChange}
@@ -77,8 +77,8 @@ const SyncedBlockEditor = (props: SyncedBlockEditorProps) => {
 				render={(editorActions: EditorActions) => (
 					<SyncedBlockEditorComponent
 						defaultDocument={props.defaultDocument}
-						mountPoint={props.mountPoint}
-						boundariesElement={props.boundariesElement}
+						popupsMountPoint={props.popupsMountPoint}
+						popupsBoundariesElement={props.popupsBoundariesElement}
 						onEditorReady={props.onEditorReady}
 						onChange={props.onChange}
 						editorActions={editorActions}
@@ -93,8 +93,8 @@ export const getSyncedBlockEditor = (props: SyncedBlockEditorProps): React.JSX.E
 	return (
 		<SyncedBlockEditor
 			defaultDocument={props.defaultDocument}
-			mountPoint={props.mountPoint}
-			boundariesElement={props.boundariesElement}
+			popupsMountPoint={props.popupsMountPoint}
+			popupsBoundariesElement={props.popupsBoundariesElement}
 			onEditorReady={props.onEditorReady}
 			onChange={props.onChange}
 		/>

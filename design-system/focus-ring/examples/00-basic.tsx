@@ -49,7 +49,7 @@ export default () => {
 			<FocusRing isInset>
 				<input
 					style={{
-						border: `2px solid ${token('color.border')}`,
+						border: `${token('border.width.selected')} solid ${token('color.border')}`,
 					}}
 					data-testid="input"
 					css={baseStyles}

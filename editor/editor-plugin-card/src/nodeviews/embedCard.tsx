@@ -41,6 +41,7 @@ import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { cardPlugin } from '../index';
 import { registerCard, removeCard } from '../pm-plugins/actions';
@@ -559,7 +560,10 @@ export const EmbedOrBlockCardComponent = (props: ComponentProps<typeof EmbedCard
 };
 
 const WrappedEmbedCardWithCondition = componentWithCondition(
-	() => expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true),
+	() =>
+		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+			exposure: true,
+		}),
 	EmbedOrBlockCardComponent,
 	EmbedCardComponent,
 );

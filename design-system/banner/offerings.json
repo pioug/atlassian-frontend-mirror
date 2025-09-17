@@ -31,8 +31,6 @@
 			"Provide clear next steps when needed"
 		],
 		"generativeInstructions": "./docs/ai/banner-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/banner.tsx"
-		}
+		"examples": ["./examples/00-basic-usage.tsx"]
 	}
 ]

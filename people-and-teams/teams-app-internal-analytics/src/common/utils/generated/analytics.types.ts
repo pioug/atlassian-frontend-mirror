@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::e2b988fe2930f12f420d7e421a16585a>>
+ * @codegen <<SignedSource::b808110a0432340d1e515e2c27098bad>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -23,6 +23,16 @@ export type AutomationFiredAnalyticsExampleAttributesType = {
 export type AnalyticsExampleScreenViewedAttributesType = {
 	testAttribute: string;
 };
+export type AssignTeamToASiteMessageViewedAttributesType = {};
+export type AssignThisTeamToASiteClickedAttributesType = {};
+export type AssignTeamToASiteModalViewedAttributesType = {};
+export type AssignTeamToASiteSiteSelectedSelectedAttributesType = {
+	isSuggestedSite: boolean;
+};
+export type AssignTeamToASiteConfirmButtonClickedAttributesType = {
+	success: boolean;
+};
+export type AssignTeamToASiteCancelButtonClickedAttributesType = {};
 export type MemberPickerErrorAttributesType = {};
 export type RequestedContainersRequestedAttributesType = {
 	containers: Record<string, unknown>;
@@ -181,6 +191,58 @@ export type RemoveSubTeamFailedAttributesType = {
 	subTeamId: string;
 	error: string;
 };
+export type FetchTeamContainersSucceededAttributesType = {
+	teamId: string;
+};
+export type FetchTeamContainersFailedAttributesType = {
+	teamId: string;
+	error: Record<string, unknown>;
+};
+export type RefetchTeamContainersSucceededAttributesType = {
+	teamId: string;
+};
+export type RefetchTeamContainersFailedAttributesType = {
+	teamId: string;
+	error: Record<string, unknown>;
+};
+export type FetchNumberOfConnectedTeamsSucceededAttributesType = {
+	containerId: string;
+	numberOfTeams: number | null;
+};
+export type FetchNumberOfConnectedTeamsFailedAttributesType = {
+	containerId: string;
+	numberOfTeams: number | null;
+	error: Record<string, unknown>;
+};
+export type FetchConnectedTeamsSucceededAttributesType = {
+	containerId: string;
+	numberOfTeams: number | null;
+};
+export type FetchConnectedTeamsFailedAttributesType = {
+	containerId: string;
+	numberOfTeams: number | null;
+	error: Record<string, unknown>;
+};
+export type ContainerClickedTeamContainerAttributesType = {
+	containerSelected: Record<string, unknown>;
+};
+export type UnlinkContainerDialogOpenedAttributesType = {
+	teamId: string;
+};
+export type TeamContainerUnlinkedFailedAttributesType = {};
+export type TeamContainerUnlinkedSucceededAttributesType = {
+	teamId: string;
+	containerRemoved: Record<string, unknown>;
+};
+export type ButtonClickedContainerUnlinkButtonAttributesType = {
+	containerSelected: Record<string, unknown> | null;
+};
+export type ButtonClickedContainerEditLinkButtonAttributesType = {
+	containerSelected: Record<string, unknown>;
+};
+export type ButtonClickedContainerRemoveLinkButtonAttributesType = {
+	containerSelected: Record<string, unknown>;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -195,6 +257,24 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the teams-app-internal-analytics example is viewed */
 	'screen.analyticsExampleScreen.viewed': AnalyticsExampleScreenViewedAttributesType;
+	/**
+	 * fired when the assign team to a site section message is viewed on the team profile page */
+	'screen.assignTeamToASiteMessage.viewed': AssignTeamToASiteMessageViewedAttributesType;
+	/**
+	 * fired when the assign this team to a site action in the assign team to a site section message is clicked */
+	'ui.assignThisTeamToASite.clicked': AssignThisTeamToASiteClickedAttributesType;
+	/**
+	 * fired when the assign team to a site modal is viewed */
+	'screen.assignTeamToASiteModal.viewed': AssignTeamToASiteModalViewedAttributesType;
+	/**
+	 * fired when the site is selected in the assign team to a site modal */
+	'track.assignTeamToASiteSiteSelected.selected': AssignTeamToASiteSiteSelectedSelectedAttributesType;
+	/**
+	 * fired when the confirm button is clicked in the assign team to a site modal */
+	'ui.assignTeamToASiteConfirmButton.clicked': AssignTeamToASiteConfirmButtonClickedAttributesType;
+	/**
+	 * fired when the cancel button is clicked in the assign team to a site modal */
+	'ui.assignTeamToASiteCancelButton.clicked': AssignTeamToASiteCancelButtonClickedAttributesType;
 	/**
 	 * fired when the member picker error is triggered */
 	'track.memberPicker.error': MemberPickerErrorAttributesType;
@@ -330,6 +410,51 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the remove sub team operation fails */
 	'operational.removeSubTeam.failed': RemoveSubTeamFailedAttributesType;
+	/**
+	 * fired when the fetchTeamContainers succeeded */
+	'operational.fetchTeamContainers.succeeded': FetchTeamContainersSucceededAttributesType;
+	/**
+	 * fired when the fetchTeamContainers failed */
+	'operational.fetchTeamContainers.failed': FetchTeamContainersFailedAttributesType;
+	/**
+	 * fired when the fetchTeamContainers succeeded */
+	'operational.refetchTeamContainers.succeeded': RefetchTeamContainersSucceededAttributesType;
+	/**
+	 * fired when the fetchTeamContainers failed */
+	'operational.refetchTeamContainers.failed': RefetchTeamContainersFailedAttributesType;
+	/**
+	 * fired when the fetchNumberOfConnectedTeams succeeded */
+	'operational.fetchNumberOfConnectedTeams.succeeded': FetchNumberOfConnectedTeamsSucceededAttributesType;
+	/**
+	 * fired when the fetchNumberOfConnectedTeams failed */
+	'operational.fetchNumberOfConnectedTeams.failed': FetchNumberOfConnectedTeamsFailedAttributesType;
+	/**
+	 * fired when the fetchConnectedTeams succeeded */
+	'operational.fetchConnectedTeams.succeeded': FetchConnectedTeamsSucceededAttributesType;
+	/**
+	 * fired when the fetchConnectedTeams failed */
+	'operational.fetchConnectedTeams.failed': FetchConnectedTeamsFailedAttributesType;
+	/**
+	 * fired when the team container is clicked */
+	'ui.container.clicked.teamContainer': ContainerClickedTeamContainerAttributesType;
+	/**
+	 * fired when the unlink container dialog is opened */
+	'track.unlinkContainerDialog.opened': UnlinkContainerDialogOpenedAttributesType;
+	/**
+	 * fired when the team container unlink failed */
+	'track.teamContainerUnlinked.failed': TeamContainerUnlinkedFailedAttributesType;
+	/**
+	 * fired when the team container unlink succeeded */
+	'track.teamContainerUnlinked.succeeded': TeamContainerUnlinkedSucceededAttributesType;
+	/**
+	 * fired when the container unlink button is clicked */
+	'ui.button.clicked.containerUnlinkButton': ButtonClickedContainerUnlinkButtonAttributesType;
+	/**
+	 * fired when the container edit link button is clicked */
+	'ui.button.clicked.containerEditLinkButton': ButtonClickedContainerEditLinkButtonAttributesType;
+	/**
+	 * fired when the container remove link button is clicked */
+	'ui.button.clicked.containerRemoveLinkButton': ButtonClickedContainerRemoveLinkButtonAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

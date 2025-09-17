@@ -95,6 +95,26 @@ export default function () {
 
 				<Box xcss={styles.wrapper}>
 					<AgentProfileInfo
+						agentName="Test agent with long unbreakable description"
+						isStarred={true}
+						onStarToggle={() => {}}
+						creatorRender={
+							<AgentProfileCreator
+								creator={undefined}
+								isLoading={true}
+								onCreatorLinkClick={() => {
+									console.log('Creator link clicked');
+								}}
+							/>
+						}
+						starCountRender={<AgentStarCount starCount={undefined} isLoading={true} />}
+						agentDescription="https://hello.atlassian.net/wiki/spaces/~70121164347b28c684f438d9c2bdbb160b08b/pages/5749122820/My+Rovo+Agent+isn+t+doing+what+I+m+telling+it+to+do"
+						isHidden={false}
+					/>
+				</Box>
+
+				<Box xcss={styles.wrapper}>
+					<AgentProfileInfo
 						agentName="Agent without creator and description"
 						isStarred={false}
 						onStarToggle={() => {}}

@@ -1,5 +1,12 @@
 # @atlaskit/analytics-viewer
 
+## 0.9.3
+
+### Patch Changes
+
+- [`248faa32d4835`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/248faa32d4835) -
+  Internal changes to how borders are applied.
+
 ## 0.9.2
 
 ### Patch Changes

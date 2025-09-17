@@ -1,24 +1,20 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Text } from '@atlaskit/primitives';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import {
+	mockRunItLaterSynchronously,
+	renderWithAnalyticsListener as render,
+} from '@atlassian/ptc-test-utils';
 
 import { type ContainerTypes } from '../../../common/types';
-import { usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 
 import { TeamLinkCard } from './index';
-
-jest.mock('../../../common/utils/analytics', () => ({
-	...jest.requireActual('../../../common/utils/analytics'),
-	usePeopleAndTeamAnalytics: jest.fn(() => ({
-		fireUIEvent: jest.fn(),
-	})),
-}));
 
 jest.mock('../../../common/utils/get-container-properties', () => ({
 	getContainerProperties: jest.fn(() => ({
@@ -54,6 +50,44 @@ const defaultProps = {
 	onDisconnectButtonClick: jest.fn(),
 	onEditLinkClick: jest.fn(),
 };
+
+const containerUnlinkButtonEvent = {
+	action: 'clicked',
+	actionSubject: 'button',
+	actionSubjectId: 'containerUnlinkButton',
+	attributes: {
+		containerSelected: {
+			container: 'ConfluenceSpace',
+			containerId: 'test-id',
+		},
+	},
+};
+
+const containerClickedEvent = {
+	action: 'clicked',
+	actionSubject: 'container',
+	actionSubjectId: 'teamContainer',
+	attributes: {
+		containerSelected: {
+			container: 'WebLink',
+			containerId: 'test-id',
+			linkDomain: 'loom.com',
+		},
+	},
+};
+
+const teamContainerClickedEvent = {
+	action: 'clicked',
+	actionSubject: 'container',
+	actionSubjectId: 'teamContainer',
+	attributes: {
+		containerSelected: {
+			container: 'ConfluenceSpace',
+			containerId: 'test-id',
+		},
+	},
+};
+mockRunItLaterSynchronously();
 
 const renderWithIntl = (component: React.ReactElement) => {
 	return render(<IntlProvider locale="en">{component}</IntlProvider>);
@@ -234,78 +268,79 @@ describe('TeamLinkCard', () => {
 		expect(mockOnEditLinkClick).toHaveBeenCalledTimes(1);
 	});
 
-	it('should fire analytics event when disconnect button is clicked', async () => {
-		const mockFireEvent = jest.fn();
-		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({ fireUIEvent: mockFireEvent });
+	ffTest.off('ptc-enable-teams-public-analytics-refactor', 'Legacy analytics', () => {
+		it('should fire analytics event when disconnect button is clicked', async () => {
+			const { expectEventToBeFired } = renderWithIntl(<TeamLinkCard {...defaultProps} />);
 
-		renderWithIntl(<TeamLinkCard {...defaultProps} />);
+			const containerElement = screen.getByTestId('team-link-card-inner');
+			await userEvent.hover(containerElement);
+			const crossIconButton = screen.getByRole('button');
+			await userEvent.click(crossIconButton);
+			expectEventToBeFired('ui', containerUnlinkButtonEvent);
+		});
 
-		const containerElement = screen.getByTestId('team-link-card-inner');
-		await userEvent.hover(containerElement);
-		const crossIconButton = screen.getByRole('button');
-		await userEvent.click(crossIconButton);
-		expect(mockFireEvent).toHaveBeenCalledTimes(1);
-		expect(mockFireEvent).toHaveBeenCalledWith(expect.any(Function), {
-			action: 'clicked',
-			actionSubject: 'button',
-			actionSubjectId: 'containerUnlinkButton',
-			attributes: {
-				containerSelected: {
-					container: 'ConfluenceSpace',
-					containerId: 'test-id',
-				},
-			},
+		it('should fire analytics event with linkDomain when WebLink container link is clicked', async () => {
+			const { expectEventToBeFired } = renderWithIntl(
+				<TeamLinkCard
+					{...defaultProps}
+					containerType="WebLink"
+					link="https://www.loom.com/share/123"
+				/>,
+			);
+
+			const link = screen.getByRole('link');
+			await userEvent.click(link);
+
+			expectEventToBeFired('ui', containerClickedEvent);
+		});
+
+		it('should fire analytics event without linkDomain when non-WebLink container link is clicked', async () => {
+			const { expectEventToBeFired } = renderWithIntl(
+				<TeamLinkCard {...defaultProps} containerType="ConfluenceSpace" />,
+			);
+
+			const link = screen.getByRole('link');
+			await userEvent.click(link);
+
+			expectEventToBeFired('ui', teamContainerClickedEvent);
 		});
 	});
 
-	it('should fire analytics event with linkDomain when WebLink container link is clicked', async () => {
-		const mockFireEvent = jest.fn();
-		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({ fireUIEvent: mockFireEvent });
+	ffTest.on('ptc-enable-teams-public-analytics-refactor', 'New analytics', () => {
+		it('should fire analytics event when disconnect button is clicked', async () => {
+			const { expectEventToBeFired } = renderWithIntl(<TeamLinkCard {...defaultProps} />);
 
-		renderWithIntl(
-			<TeamLinkCard
-				{...defaultProps}
-				containerType="WebLink"
-				link="https://www.loom.com/share/123"
-			/>,
-		);
-
-		const link = screen.getByRole('link');
-		await userEvent.click(link);
-
-		expect(mockFireEvent).toHaveBeenCalledWith(expect.any(Function), {
-			action: 'clicked',
-			actionSubject: 'container',
-			actionSubjectId: 'teamContainer',
-			attributes: {
-				containerSelected: {
-					container: 'WebLink',
-					containerId: 'test-id',
-					linkDomain: 'loom.com',
-				},
-			},
+			const containerElement = screen.getByTestId('team-link-card-inner');
+			await userEvent.hover(containerElement);
+			const crossIconButton = screen.getByRole('button');
+			await userEvent.click(crossIconButton);
+			expectEventToBeFired('ui', containerUnlinkButtonEvent);
 		});
-	});
 
-	it('should fire analytics event without linkDomain when non-WebLink container link is clicked', async () => {
-		const mockFireEvent = jest.fn();
-		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({ fireUIEvent: mockFireEvent });
+		it('should fire analytics event with linkDomain when WebLink container link is clicked', async () => {
+			const { expectEventToBeFired } = renderWithIntl(
+				<TeamLinkCard
+					{...defaultProps}
+					containerType="WebLink"
+					link="https://www.loom.com/share/123"
+				/>,
+			);
 
-		renderWithIntl(<TeamLinkCard {...defaultProps} containerType="ConfluenceSpace" />);
+			const link = screen.getByRole('link');
+			await userEvent.click(link);
 
-		const link = screen.getByRole('link');
-		await userEvent.click(link);
+			expectEventToBeFired('ui', containerClickedEvent);
+		});
 
-		expect(mockFireEvent).toHaveBeenCalledWith(expect.any(Function), {
-			action: 'clicked',
-			actionSubject: 'container',
-			actionSubjectId: 'teamContainer',
-			attributes: {
-				containerSelected: {
-					container: 'ConfluenceSpace',
-					containerId: 'test-id',
-				},
-			},
+		it('should fire analytics event without linkDomain when non-WebLink container link is clicked', async () => {
+			const { expectEventToBeFired } = renderWithIntl(
+				<TeamLinkCard {...defaultProps} containerType="ConfluenceSpace" />,
+			);
+
+			const link = screen.getByRole('link');
+			await userEvent.click(link);
+
+			expectEventToBeFired('ui', teamContainerClickedEvent);
 		});
 	});
 

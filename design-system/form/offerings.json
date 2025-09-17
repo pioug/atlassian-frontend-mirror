@@ -33,8 +33,6 @@
 			"Always include a visible label (exception: search fields)",
 			"Match field length to intended content length"
 		],
-		"examples": {
-			"basic": "./examples/ai/form.tsx"
-		}
+		"examples": ["./examples/ai/form.tsx"]
 	}
 ]

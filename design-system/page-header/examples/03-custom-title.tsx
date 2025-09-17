@@ -24,7 +24,7 @@ const readViewStyles = css({
 const editViewStyles = css({
 	boxSizing: 'border-box',
 	width: '100%',
-	border: `2px solid ${token('color.border')}`,
+	border: `${token('border.width.selected')} solid ${token('color.border')}`,
 	borderRadius: token('radius.small', '3px'),
 	cursor: 'inherit',
 	font: token('font.heading.large'),
@@ -34,7 +34,7 @@ const editViewStyles = css({
 	paddingInlineEnd: token('space.075', '6px'),
 	paddingInlineStart: token('space.075', '6px'),
 	'&:focus': {
-		border: `2px solid ${token('color.border.focused')}`,
+		border: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 	},
 });
 

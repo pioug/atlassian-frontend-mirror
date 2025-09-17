@@ -29,9 +29,7 @@
 			"Maintain consistent link styling",
 			"Consider link context and destination"
 		],
-		"examples": {
-			"basic": "./examples/ai/anchor.tsx"
-		}
+		"examples": ["./examples/ai/anchor.tsx"]
 	},
 	{
 		"name": "Bleed",
@@ -56,9 +54,7 @@
 			"Maintain consistent bleeding patterns",
 			"Consider content hierarchy and visual flow"
 		],
-		"examples": {
-			"basic": "./examples/ai/bleed.tsx"
-		}
+		"examples": ["./examples/ai/bleed.tsx"]
 	},
 	{
 		"name": "Box",
@@ -83,9 +79,7 @@
 			"Maintain consistent spacing and layout patterns",
 			"Consider accessibility and semantic structure"
 		],
-		"examples": {
-			"basic": "./examples/ai/box.tsx"
-		}
+		"examples": ["./examples/ai/box.tsx"]
 	},
 	{
 		"name": "Flex",
@@ -110,9 +104,7 @@
 			"Maintain consistent flex patterns",
 			"Consider content alignment and distribution"
 		],
-		"examples": {
-			"basic": "./examples/ai/flex.tsx"
-		}
+		"examples": ["./examples/ai/flex.tsx"]
 	},
 	{
 		"name": "Focusable",
@@ -144,9 +136,7 @@
 			"Maintain consistent focus patterns",
 			"Consider keyboard navigation flow"
 		],
-		"examples": {
-			"basic": "./examples/ai/focusable.tsx"
-		}
+		"examples": ["./examples/ai/focusable.tsx"]
 	},
 	{
 		"name": "Grid",
@@ -171,9 +161,7 @@
 			"Maintain consistent grid patterns",
 			"Consider content alignment and distribution"
 		],
-		"examples": {
-			"basic": "./examples/ai/grid.tsx"
-		}
+		"examples": ["./examples/ai/grid.tsx"]
 	},
 	{
 		"name": "Inline",
@@ -198,9 +186,7 @@
 			"Maintain consistent spacing patterns",
 			"Consider content flow and readability"
 		],
-		"examples": {
-			"basic": "./examples/ai/inline.tsx"
-		}
+		"examples": ["./examples/ai/inline.tsx"]
 	},
 	{
 		"name": "MetricText",
@@ -225,9 +211,7 @@
 			"Maintain consistent typography patterns",
 			"Consider readability and hierarchy"
 		],
-		"examples": {
-			"basic": "./examples/ai/metric-text.tsx"
-		}
+		"examples": ["./examples/ai/metric-text.tsx"]
 	},
 	{
 		"name": "Pressable",
@@ -258,9 +242,7 @@
 			"Maintain consistent press patterns",
 			"Consider user interaction expectations"
 		],
-		"examples": {
-			"basic": "./examples/ai/pressable.tsx"
-		}
+		"examples": ["./examples/ai/pressable.tsx"]
 	},
 	{
 		"name": "Stack",
@@ -285,9 +267,7 @@
 			"Maintain consistent spacing patterns",
 			"Consider content hierarchy and flow"
 		],
-		"examples": {
-			"basic": "./examples/ai/stack.tsx"
-		}
+		"examples": ["./examples/ai/stack.tsx"]
 	},
 	{
 		"name": "Text",
@@ -313,8 +293,6 @@
 			"Consider readability and hierarchy"
 		],
 		"generativeInstructions": "./docs/ai/text-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/text.tsx"
-		}
+		"examples": ["./examples/ai/text.tsx"]
 	}
 ]

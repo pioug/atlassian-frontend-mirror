@@ -29,9 +29,7 @@
 			"Keep names concise but meaningful"
 		],
 		"generativeInstructions": "./docs/ai/avatar-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/avatar.tsx"
-		}
+		"examples": ["./examples/ai/avatar.tsx"]
 	},
 	{
 		"name": "AvatarItem",
@@ -63,9 +61,7 @@
 			"Use consistent formatting across similar items",
 			"Avoid redundant information between primary and secondary text"
 		],
-		"examples": {
-			"basic": "./examples/ai/avatar-item.tsx"
-		}
+		"examples": ["./examples/ai/avatar-item.tsx"]
 	},
 	{
 		"name": "Presence",
@@ -96,9 +92,7 @@
 			"Provide clear visual distinction between states",
 			"Avoid ambiguous or unclear presence indicators"
 		],
-		"examples": {
-			"basic": "./examples/ai/presence.tsx"
-		}
+		"examples": ["./examples/ai/presence.tsx"]
 	},
 	{
 		"name": "Status",
@@ -128,9 +122,7 @@
 			"Provide clear visual distinction between states",
 			"Avoid ambiguous or unclear status indicators"
 		],
-		"examples": {
-			"basic": "./examples/ai/status.tsx"
-		}
+		"examples": ["./examples/ai/status.tsx"]
 	},
 	{
 		"name": "Skeleton",
@@ -159,9 +151,7 @@
 			"Avoid overly detailed skeleton content",
 			"Ensure skeleton content is clearly distinguishable from real content"
 		],
-		"examples": {
-			"basic": "./examples/ai/skeleton.tsx"
-		}
+		"examples": ["./examples/ai/skeleton.tsx"]
 	},
 	{
 		"name": "AvatarContent",
@@ -186,8 +176,6 @@
 			"Maintain consistent visual hierarchy",
 			"Keep custom content simple and clear"
 		],
-		"examples": {
-			"basic": "./examples/ai/avatar-content.tsx"
-		}
+		"examples": ["./examples/ai/avatar-content.tsx"]
 	}
 ]

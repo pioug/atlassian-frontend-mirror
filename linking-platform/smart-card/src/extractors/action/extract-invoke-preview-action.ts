@@ -93,9 +93,18 @@ export const extractInvokePreviewAction = (
 			invokeAction: {
 				actionFn: async () => {
 					if (hasPreviewPanel) {
+						let resolvedUrl = url!;
+						if (expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')) {
+							const responseUrl =
+								response.data && 'url' in response.data
+									? (response.data as { url?: string }).url
+									: undefined;
+							resolvedUrl = responseUrl || url!;
+						}
+
 						openPreviewPanel!({
 							ari: ari!,
-							url: url!,
+							url: resolvedUrl,
 							name: name!,
 							iconUrl: undefined,
 						});

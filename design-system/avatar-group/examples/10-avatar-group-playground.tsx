@@ -24,8 +24,8 @@ const styles = cssMap({
 	base: {
 		color: N100,
 		fontSize: '0.9rem',
-		marginTop: token('space.050', '4px'),
-		marginBottom: token('space.200', '16px'),
+		marginBlockStart: token('space.050', '4px'),
+		marginBlockEnd: token('space.200', '16px'),
 	},
 	large: {
 		fontSize: '1.15em',
@@ -214,7 +214,7 @@ const AvatarGroupExample: FC = () => {
 				<span
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						borderLeft: '1px solid #ccc',
+						borderLeft: `${token('border.width')} solid #ccc`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						paddingLeft: '1em',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -305,7 +305,7 @@ const AvatarGroupExample: FC = () => {
 				<div
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						border: '1px solid black',
+						border: `${token('border.width')} solid black`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						height: '200px',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

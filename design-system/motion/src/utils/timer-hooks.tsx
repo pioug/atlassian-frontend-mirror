@@ -4,6 +4,9 @@ interface Opts {
 	cleanup: 'next-effect' | 'unmount';
 }
 
+// Handle both browser and Node.js environments
+type TimeoutId = number | NodeJS.Timeout;
+
 const getHookDeps = (opts: Opts) => {
 	switch (opts.cleanup) {
 		case 'next-effect':
@@ -45,7 +48,7 @@ export const useRequestAnimationFrame = (opts: Opts = { cleanup: 'unmount' }) =>
  * Will return set  timeout as a function which will clean itself up.
  */
 export const useSetTimeout = (opts: Opts = { cleanup: 'unmount' }) => {
-	const timeouts = useRef<number[]>([]);
+	const timeouts = useRef<TimeoutId[]>([]);
 
 	useEffect(() => {
 		return () => {

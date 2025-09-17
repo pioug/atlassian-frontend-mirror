@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import {
+import React, {
 	type FormEvent,
 	type MutableRefObject,
 	type ReactNode,
@@ -17,11 +17,13 @@ import { type FieldState } from 'final-form';
 
 import { css, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './field-id-context';
 import { FormContext, IsDisabledContext } from './form';
 import { Label } from './label';
+import { ErrorMessage, HelperMessage, MessageWrapper, ValidMessage } from './messages';
 import RequiredAsterisk from './required-asterisk';
 
 const fieldWrapperStyles = css({
@@ -74,17 +76,34 @@ export interface Meta {
 // `FieldComponentProps` from external module
 // `/opt/atlassian/pipelines/agent/build/jira/tsDist/@atlaskit__form/app/src/field`
 // but cannot be named.
-export interface FieldComponentProps<FieldValue, Element extends SupportedElements> {
+export type FieldComponentProps<FieldValue, Element extends SupportedElements> = {
 	/**
-	 * Content to render in the field. This is a function that is called with props for the field component and other information about the field.
+	 * Content to render in the field. This is a function that is called with props for the field component and other information about the field. This cannot be used at the same time as the `component` prop.
 	 */
-	children: (args: {
+	children?: (args: {
 		fieldProps: FieldProps<FieldValue, Element>;
 		error?: string;
 		// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 		valid: boolean;
 		meta: Meta;
 	}) => ReactNode;
+	/**
+	 * Content to render in the field. This will be rendered with the `*Message` props. This cannot be used at the same time as the `children` prop.
+	 */
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+	component?: (args: { fieldProps: FieldProps<FieldValue, Element> }) => ReactNode;
+	/**
+	 * Renders a `HelperMessage` with the provided content when using the `component` prop.
+	 */
+	helperMessage?: ReactNode;
+	/**
+	 * Renders an `ErrorMessage` with the provided content when using the `component` prop.
+	 */
+	errorMessage?: ReactNode;
+	/**
+	 * Renders a `ValidMessage` with the provided content when using the `component` prop.
+	 */
+	validMessage?: ReactNode;
 	/**
 	 * Sets the default value of the field. If a function is provided, it is called with the current default value of the field.
 	 */
@@ -129,7 +148,7 @@ export interface FieldComponentProps<FieldValue, Element extends SupportedElemen
 	 * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
 	 */
 	testId?: string;
-}
+};
 
 interface State<FieldValue, Element extends SupportedElements> {
 	fieldProps: {
@@ -180,6 +199,7 @@ export default function Field<
 	FieldValue = string,
 	Element extends SupportedElements = HTMLInputElement,
 >(props: FieldComponentProps<FieldValue, Element>) {
+	const { children = () => null, component } = props;
 	const { registerField, getCurrentValue } = useContext(FormContext);
 	const isDisabled = useContext(IsDisabledContext) || props.isDisabled || false;
 	const defaultValue = isFunction<FieldValue | undefined>(props.defaultValue)
@@ -415,12 +435,25 @@ export default function Field<
 				</Label>
 			)}
 			<FieldId.Provider value={fieldId}>
-				{props.children({
-					fieldProps: extendedFieldProps,
-					error: state.error,
-					valid: state.valid,
-					meta: state.meta,
-				})}
+				{component && fg('platform_design-system-team_field-upgrade') ? (
+					<React.Fragment>
+						{component && component({ fieldProps: extendedFieldProps })}
+						<MessageWrapper>
+							{props.helperMessage && <HelperMessage>{props.helperMessage}</HelperMessage>}
+							{state.error && <ErrorMessage>{props.errorMessage || state.error}</ErrorMessage>}
+							{state.meta.touched && state.valid && props.validMessage && (
+								<ValidMessage>{props.validMessage}</ValidMessage>
+							)}
+						</MessageWrapper>
+					</React.Fragment>
+				) : (
+					children({
+						fieldProps: extendedFieldProps,
+						error: state.error,
+						valid: state.valid,
+						meta: state.meta,
+					})
+				)}
 			</FieldId.Provider>
 		</div>
 	);

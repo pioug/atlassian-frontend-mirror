@@ -32,8 +32,6 @@
 			"Ensure tab content is relevant and complete"
 		],
 		"generativeInstructions": "./docs/ai/tabs-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/tabs.tsx"
-		}
+		"examples": ["./examples/ai/tabs.tsx"]
 	}
 ]

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Presence } from '@atlaskit/avatar';
+import { token } from '@atlaskit/tokens';
 
 const AvatarPresenceWidthExample = () => {
 	const [width, setWidth] = useState(60);
@@ -17,7 +18,7 @@ const AvatarPresenceWidthExample = () => {
 				value={width}
 			/>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={{ maxWidth: width, border: '1px dotted blue' }}>
+			<div style={{ maxWidth: width, border: `${token('border.width')} dotted blue` }}>
 				<Presence presence="busy" />
 			</div>
 		</div>

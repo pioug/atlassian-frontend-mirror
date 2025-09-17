@@ -29,8 +29,6 @@
 			"Consider image quality and file size",
 			"Use meaningful image content"
 		],
-		"examples": {
-			"basic": "./examples/ai/image.tsx"
-		}
+		"examples": ["./examples/ai/image.tsx"]
 	}
 ]

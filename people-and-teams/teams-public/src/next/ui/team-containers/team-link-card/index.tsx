@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerSubTypes, type ContainerTypes } from '../../../../common/types';
@@ -105,6 +107,7 @@ export const TeamLinkCard = ({
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [showKeyboardFocus, setShowKeyboardFocus] = useState(false);
 	const { fireUIEvent } = usePeopleAndTeamAnalytics();
+	const { fireEvent } = useAnalyticsEventsNext();
 
 	const handleMouseEnter = () => {
 		setHovered(true);
@@ -138,12 +141,17 @@ export const TeamLinkCard = ({
 			containerType === 'WebLink' && link
 				? { containerSelected: { ...baseAttributes, linkDomain: getDomainFromLinkUri(link) } }
 				: { containerSelected: baseAttributes };
-		fireUIEvent(createAnalyticsEvent, {
-			action: AnalyticsAction.CLICKED,
-			actionSubject: 'container',
-			actionSubjectId: 'teamContainer',
-			attributes,
-		});
+
+		if (fg('ptc-enable-teams-public-analytics-refactor')) {
+			fireEvent('ui.container.clicked.teamContainer', attributes);
+		} else {
+			fireUIEvent(createAnalyticsEvent, {
+				action: AnalyticsAction.CLICKED,
+				actionSubject: 'container',
+				actionSubjectId: 'teamContainer',
+				attributes,
+			});
+		}
 
 		if (openInNewTab) {
 			e.preventDefault();

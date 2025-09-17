@@ -27,8 +27,6 @@
 			"Consider visual hierarchy with overlays",
 			"Ensure appropriate contrast with content"
 		],
-		"examples": {
-			"basic": "./examples/ai/blanket.tsx"
-		}
+		"examples": ["./examples/ai/blanket.tsx"]
 	}
 ]

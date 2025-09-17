@@ -303,12 +303,12 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
 }
 
 .emotion-2:focus {
-  outline: 2px solid var(--ds-border-focused, #2684FF);
+  outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #2684FF);
   outline-offset: 2px;
 }
 
 .emotion-2:focus-visible {
-  outline: 2px solid var(--ds-border-focused, #2684FF);
+  outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #2684FF);
   outline-offset: 2px;
 }
 
@@ -318,7 +318,7 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
 
 @media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
   .emotion-2:focus-visible {
-    outline: 1px solid;
+    outline: var(--ds-border-width, 1px) solid;
   }
 }
 

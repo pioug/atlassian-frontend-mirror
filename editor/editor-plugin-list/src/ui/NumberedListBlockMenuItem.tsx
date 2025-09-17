@@ -17,6 +17,16 @@ type NumberedListBlockMenuItemProps = {
 const NumberedListBlockMenuItem = ({ api }: NumberedListBlockMenuItemProps) => {
 	const { formatMessage } = useIntl();
 	const orderedListActive = useSharedPluginStateSelector(api, 'list.orderedListActive');
+	const currentSelectedNodeName = useSharedPluginStateSelector(
+		api,
+		'blockMenu.currentSelectedNodeName',
+	);
+
+	// Check if a blockquote is currently selected
+	const isBlockquoteSelected = currentSelectedNodeName?.includes('blockquote');
+
+	// Only show as selected if ordered list is active AND we're not selecting a blockquote
+	const isSelected = orderedListActive && !isBlockquoteSelected;
 
 	const handleClick = () => {
 		if (!orderedListActive) {
@@ -27,7 +37,7 @@ const NumberedListBlockMenuItem = ({ api }: NumberedListBlockMenuItemProps) => {
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}
-			isSelected={orderedListActive}
+			isSelected={isSelected}
 			elemBefore={<ListNumberedIcon label="" />}
 		>
 			{formatMessage(listMessages.orderedList)}

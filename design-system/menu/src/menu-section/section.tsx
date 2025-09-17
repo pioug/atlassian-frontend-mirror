@@ -71,7 +71,7 @@ const styles = cssMap({
 		flexShrink: 0,
 	},
 	thinSeparator: {
-		borderBlockStart: `1px solid var(--ds-menu-seperator-color, ${token('color.border', 'rgba(9, 30, 66, 0.08)')})`,
+		borderBlockStart: `${token('border.width')} solid var(--ds-menu-seperator-color, ${token('color.border', 'rgba(9, 30, 66, 0.08)')})`,
 	},
 	noSeparator: {
 		// this is to ensure that adjacent sections without separators don't get additional margins.

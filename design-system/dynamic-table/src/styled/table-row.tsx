@@ -19,7 +19,7 @@ export type ITableRowProps = {
 const rowStyles = css({
 	backgroundColor: token('color.background.neutral.subtle', 'transparent'),
 	'&:focus-visible': {
-		outline: `2px solid ${token('color.border.focused', 'var(--local-dynamic-table-hover-bg)')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused', 'var(--local-dynamic-table-hover-bg)')}`,
 		outlineOffset: `-2px`,
 	},
 });

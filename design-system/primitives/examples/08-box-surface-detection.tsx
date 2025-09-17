@@ -15,7 +15,8 @@ const headerStyles = xcss({
 	insetBlockStart: 'space.0',
 	insetInlineEnd: 'space.0',
 	insetInlineStart: 'space.0',
-	borderBlockEnd: '1px solid',
+	borderBlockEndStyle: 'solid',
+	borderBlockEndWidth: 'border.width',
 	borderColor: 'color.border',
 	boxShadow: 'elevation.shadow.overflow',
 });

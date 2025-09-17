@@ -28,8 +28,6 @@
 			"Consider spinner placement and context",
 			"Provide loading feedback when appropriate"
 		],
-		"examples": {
-			"basic": "./examples/ai/spinner.tsx"
-		}
+		"examples": ["./examples/ai/spinner.tsx"]
 	}
 ]

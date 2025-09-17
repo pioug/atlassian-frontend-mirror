@@ -32,8 +32,6 @@
 			"Consider content length and formatting"
 		],
 		"generativeInstructions": "./docs/ai/textarea-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/textarea.tsx"
-		}
+		"examples": ["./examples/ai/textarea.tsx"]
 	}
 ]

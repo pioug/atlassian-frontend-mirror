@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 5.0.4
+
+### Patch Changes
+
+- [`984f973a1fb80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/984f973a1fb80) -
+  ED-29168: helpdialog hydration fix
+
 ## 5.0.3
 
 ### Patch Changes

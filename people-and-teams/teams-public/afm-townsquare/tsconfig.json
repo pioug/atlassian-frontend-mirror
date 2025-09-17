@@ -80,6 +80,9 @@
 			"path": "../../../design-system/skeleton/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../teams-app-internal-analytics/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../teams-app-internal-product-permissions/afm-townsquare/tsconfig.json"
 		},
 		{

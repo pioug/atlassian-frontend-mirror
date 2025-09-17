@@ -70,7 +70,7 @@ const styles = cssMap({
 		display: 'inline-block',
 		maxWidth: '100%',
 		'&:focus': {
-			outline: '1px solid',
+			outline: `${token('border.width')} solid`,
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&:hover [data-ds--inline-message--icon]': {

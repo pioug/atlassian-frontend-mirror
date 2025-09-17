@@ -12,6 +12,7 @@ import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector';
 
@@ -67,10 +68,12 @@ const DynamicStyleToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps
 		const toolbarWidth =
 			isFullPage(props.appearance) && props.twoLineEditorToolbar ? ToolbarSize.S : ToolbarSize.M;
 		const toolbarMinWidth = toolbarSizeToWidth(toolbarWidth, props.appearance);
-		const isPreviewPanelResponsivenessEnabled = expValEquals(
+		const isPreviewPanelResponsivenessEnabled = editorExperiment(
 			'platform_editor_preview_panel_responsiveness',
-			'isEnabled',
 			true,
+			{
+				exposure: true,
+			},
 		);
 		const minWidth = `min-width: ${props.hasMinWidth ? `${toolbarMinWidth}px` : isPreviewPanelResponsivenessEnabled ? 'fit-content' : '254px'}`;
 		return [toolbar, minWidth];
@@ -112,10 +115,12 @@ const StaticStyleToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps)
 				isFullPage(props.appearance) && props.twoLineEditorToolbar ? ToolbarSize.S : ToolbarSize.M;
 			return `${toolbarSizeToWidth(toolbarWidth, props.appearance)}px`;
 		} else {
-			const isPreviewPanelResponsivenessEnabled = expValEquals(
+			const isPreviewPanelResponsivenessEnabled = editorExperiment(
 				'platform_editor_preview_panel_responsiveness',
-				'isEnabled',
 				true,
+				{
+					exposure: true,
+				},
 			);
 			return isPreviewPanelResponsivenessEnabled ? 'fit-content' : '254px';
 		}

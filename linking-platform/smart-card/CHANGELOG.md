@@ -1,5 +1,40 @@
 # @atlaskit/smart-card
 
+## 42.0.2
+
+### Patch Changes
+
+- [`45c6f8d40f9ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45c6f8d40f9ac) -
+  Bump i18n pkg versions for atlaskit packages for including license field
+
+## 42.0.1
+
+### Patch Changes
+
+- [`2bcf051004790`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bcf051004790) -
+  Reverting "Update analytics fire for simplification of code and allow fire for blue hyperlinks"
+  change
+- Updated dependencies
+
+## 42.0.0
+
+### Major Changes
+
+- [`ad77adef566c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad77adef566c2) -
+  For short links on a confluence page, use resolved url for preview panels
+
+### Patch Changes
+
+- Updated dependencies
+
+## 41.0.6
+
+### Patch Changes
+
+- [`f339ddf502fde`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f339ddf502fde) -
+  Update analytics fire for simplification of code and allow fire for blue hyperlinks
+- Updated dependencies
+
 ## 41.0.5
 
 ### Patch Changes

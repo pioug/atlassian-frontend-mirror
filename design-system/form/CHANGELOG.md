@@ -1,5 +1,20 @@
 # @atlaskit/form
 
+## 12.7.0
+
+### Minor Changes
+
+- [`edef4ab21e5c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edef4ab21e5c5) -
+  We are testing a new streamlined implementation of the field component behind a feature flag. If
+  this fix is successful it will be available in a later release.
+
+## 12.6.2
+
+### Patch Changes
+
+- [`2f220beaedb7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f220beaedb7a) -
+  Remove unused dependency.
+
 ## 12.6.1
 
 ### Patch Changes

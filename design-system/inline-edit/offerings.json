@@ -29,8 +29,6 @@
 			"Use appropriate validation messages",
 			"Keep content concise but meaningful"
 		],
-		"examples": {
-			"basic": "./examples/ai/inline-edit.tsx"
-		}
+		"examples": ["./examples/ai/inline-edit.tsx"]
 	}
 ]

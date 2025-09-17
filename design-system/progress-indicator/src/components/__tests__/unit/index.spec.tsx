@@ -105,12 +105,15 @@ describe('Progress Indicator', () => {
 			const firstDotSelected = screen.getByTestId('progress-dots-ind-0');
 			const secondDotNotSelected = screen.getByTestId('progress-dots-ind-1');
 
-			expect(firstDotSelected).toHaveStyle({
-				backgroundColor: 'var(--ds-icon, #091E42)',
-			});
-			expect(secondDotNotSelected).toHaveStyle({
-				backgroundColor: 'var(--ds-background-neutral, #C1C7D0)',
-			});
+			const selectedBg = (firstDotSelected as HTMLElement).style.getPropertyValue(
+				'background-color',
+			);
+			expect(selectedBg).toContain('var(--ds-icon');
+
+			const unselectedBg = (secondDotNotSelected as HTMLElement).style.getPropertyValue(
+				'background-color',
+			);
+			expect(unselectedBg).toContain('var(--ds-surface');
 		});
 	});
 

@@ -135,7 +135,8 @@ const focusRingStyles = css({
 	},
 	'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
 		'&:focus-visible': {
-			outline: '1px solid',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			outline: `${borderWidthMap['border.width']} solid`,
 		},
 	},
 });

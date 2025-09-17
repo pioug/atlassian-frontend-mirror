@@ -27,6 +27,7 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
 import { getPluginState } from '../pm-plugins/plugin-factory';
@@ -235,7 +236,9 @@ const selector = (
 
 const getPadding = (containerWidth: number) => {
 	return containerWidth <= akEditorFullPageNarrowBreakout &&
-		expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+			exposure: true,
+		})
 		? akEditorGutterPaddingReduced
 		: akEditorGutterPaddingDynamic();
 };

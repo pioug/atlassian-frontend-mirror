@@ -70,7 +70,7 @@ const MainComponent = ({ isLoading }: { isLoading: boolean }) => {
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					width: '200px',
-					border: `1px solid ${token('color.border')}`,
+					border: `${token('border.width')} solid ${token('color.border')}`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					margin: '10px auto',
 					// TODO Delete this comment after verifying space token -> previous value `'4px'`
@@ -103,7 +103,7 @@ const MainComponent = ({ isLoading }: { isLoading: boolean }) => {
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					width: '200px',
-					border: `1px solid ${token('color.border')}`,
+					border: `${token('border.width')} solid ${token('color.border')}`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					margin: '10px auto',
 					// TODO Delete this comment after verifying space token -> previous value `'4px'`

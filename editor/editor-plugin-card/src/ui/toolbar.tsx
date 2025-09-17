@@ -65,7 +65,6 @@ import OpenIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import CogIcon from '@atlaskit/icon/core/migration/settings--editor-settings';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import type { CardAppearance } from '@atlaskit/smart-card';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { cardPlugin } from '../index';
@@ -245,7 +244,11 @@ export const floatingToolbar = (
 					// Ignored via go/ees005
 					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					const richMediaElement = element.querySelector(`.${richMediaClassName}`) as HTMLElement;
-					if (!expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)) {
+					if (
+						!editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+							exposure: true,
+						})
+					) {
 						return richMediaElement;
 					}
 					if (richMediaElement) {

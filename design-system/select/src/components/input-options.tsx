@@ -38,7 +38,7 @@ const optionStyles = cssMap({
 		backgroundColor: token('color.background.neutral.subtle.hovered'),
 		boxShadow: `inset 2px 0px 0px ${token('color.border.focused')}`,
 		'@media screen and (-ms-high-contrast: active)': {
-			borderInlineStart: '2px solid transparent',
+			borderInlineStart: `${token('border.width.selected')} solid transparent`,
 		},
 	},
 	disabled: {

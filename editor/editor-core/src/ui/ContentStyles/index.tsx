@@ -449,7 +449,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 		}
 	}
 
-	${expValEqualsNoExposure('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+	${editorExperiment('platform_editor_preview_panel_responsiveness', true)
 		? css`
 				/* container editor-area is defined in platform/packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts */
 				@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px) {

@@ -10,7 +10,7 @@ const PropertyViewerContainer = styled.span({
 	padding: `0 ${token('space.050', '4px')}`,
 	borderRadius: '5px',
 	boxShadow: '1px 1px 2px #888',
-	border: '1px solid #888',
+	border: `${token('border.width')} solid #888`,
 });
 
 type Props<T extends Record<string, unknown>> = {

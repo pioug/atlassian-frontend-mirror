@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "123.2.2",
+	"version": "123.3.3",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -256,22 +256,6 @@
 		"jfp-magma-ssr-iv-editor-links": {
 			"type": "boolean"
 		}
-	},
-	"af:exports": {
-		".": "./src/index.ts",
-		"./actions": "./src/actions.ts",
-		"./consts": "./src/consts.ts",
-		"./messages": "./src/messages.ts",
-		"./render-document": "./src/render-document.ts",
-		"./renderer-context": "./src/renderer-context.tsx",
-		"./serializer": "./src/serializer.ts",
-		"./text-serializer": "./src/text-serializer.ts",
-		"./use-feature-flags": "./src/use-feature-flags.ts",
-		"./utils": "./src/utils.ts",
-		"./experimental-sync-custom-nodes/cards": "./src/entry-points/experimental-sync-custom-nodes/cards.ts",
-		"./experimental-sync-custom-nodes/media": "./src/entry-points/experimental-sync-custom-nodes/media.ts",
-		"./experimental-sync-custom-nodes/small-nodes": "./src/entry-points/experimental-sync-custom-nodes/small-nodes.ts",
-		"./custom-nodes": "./src/custom-nodes.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",

@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 const styles = css({
 	width: '100%',
 	borderBlockEnd: 'none',
-	borderBlockStart: `1px solid ${token('color.border')}`,
+	borderBlockStart: `${token('border.width')} solid ${token('color.border')}`,
 	borderInline: 'none',
 });
 

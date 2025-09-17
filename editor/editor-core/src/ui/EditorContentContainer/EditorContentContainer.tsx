@@ -200,7 +200,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 		const isFullPage = appearance === 'full-page' || appearance === 'full-width';
 		const isComment = appearance === 'comment';
 
-		const style = expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+		const style = editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+			exposure: true,
+		})
 			? {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					'--ak-editor-base-font-size': `${editorFontSize({ theme })}px`,
@@ -227,7 +229,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							editorLargeGutterPuddingBaseStylesEditorControls
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							editorLargeGutterPuddingBaseStyles,
-					expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true) &&
+					editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+						exposure: true,
+					}) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						editorLargeGutterPuddingReducedBaseStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -380,11 +384,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 								smartCardStylesWithSearchMatch
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							smartCardStyles,
-					expValEqualsNoExposure(
-						'platform_editor_preview_panel_responsiveness',
-						'isEnabled',
-						true,
-					) &&
+					editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
 					(expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') ||
@@ -460,11 +460,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						fg('platform_editor_breakout_resizing_hello_release') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						pragmaticResizerStylesForTooltip,
-					expValEqualsNoExposure(
-						'platform_editor_preview_panel_responsiveness',
-						'isEnabled',
-						true,
-					) &&
+					editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
 						(editorExperiment('advanced_layouts', true) ||
 							expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

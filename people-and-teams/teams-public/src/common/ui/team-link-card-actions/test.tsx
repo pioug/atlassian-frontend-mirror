@@ -1,20 +1,20 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import {
+	mockRunItLaterSynchronously,
+	renderWithAnalyticsListener as render,
+} from '@atlassian/ptc-test-utils';
+
 import { type ContainerTypes } from '../../types';
-import { usePeopleAndTeamAnalytics } from '../../utils/analytics';
 
 import { TeamLinkCardActions } from './index';
 
-jest.mock('../../utils/analytics', () => ({
-	...jest.requireActual('../../utils/analytics'),
-	usePeopleAndTeamAnalytics: jest.fn(() => ({
-		fireUIEvent: jest.fn(),
-	})),
-}));
+mockRunItLaterSynchronously();
 
 const defaultProps = {
 	containerType: 'ConfluenceSpace' as ContainerTypes,
@@ -141,107 +141,143 @@ describe('TeamLinkCardActions', () => {
 	});
 
 	describe('Analytics', () => {
-		it('should fire analytics event when disconnect button is clicked', async () => {
-			const user = userEvent.setup();
-			const mockFireUIEvent = jest.fn();
-			(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({
-				fireUIEvent: mockFireUIEvent,
+		const containerUnlinkButtonEvent = {
+			action: 'clicked',
+			actionSubject: 'button',
+			actionSubjectId: 'containerUnlinkButton',
+			attributes: {
+				containerSelected: {
+					container: 'ConfluenceSpace',
+					containerId: 'test-id',
+				},
+			},
+		};
+		const containerEditLinkButtonEvent = {
+			action: 'clicked',
+			actionSubject: 'button',
+			actionSubjectId: 'containerEditLinkButton',
+			attributes: {
+				containerSelected: {
+					container: 'WebLink',
+					containerId: 'test-id',
+				},
+			},
+		};
+
+		const containerUnlinkButtonEventWebLink = {
+			...containerUnlinkButtonEvent,
+			attributes: {
+				containerSelected: {
+					container: 'WebLink',
+					containerId: 'test-id',
+				},
+			},
+		};
+
+		ffTest.off('ptc-enable-teams-public-analytics-refactor', 'false', () => {
+			it('should fire analytics event when disconnect button is clicked', async () => {
+				const { user, expectEventToBeFired } = renderWithIntl(
+					<TeamLinkCardActions {...defaultProps} />,
+				);
+
+				const disconnectButton = screen.getByRole('button', {
+					name: /disconnect the container Test Container/i,
+				});
+
+				await user.click(disconnectButton);
+				expectEventToBeFired('ui', containerUnlinkButtonEvent);
 			});
 
-			renderWithIntl(<TeamLinkCardActions {...defaultProps} />);
+			it('should fire analytics event when edit link button is clicked', async () => {
+				const webLinkProps = {
+					...defaultProps,
+					containerType: 'WebLink' as ContainerTypes,
+				};
 
-			const disconnectButton = screen.getByRole('button', {
-				name: /disconnect the container Test Container/i,
+				const { user, expectEventToBeFired } = renderWithIntl(
+					<TeamLinkCardActions {...webLinkProps} />,
+				);
+
+				const moreButton = screen.getByRole('button', { name: /more options for Test Container/i });
+				await user.click(moreButton);
+
+				const editButton = screen.getByText('Edit link');
+				await user.click(editButton);
+
+				expectEventToBeFired('ui', containerEditLinkButtonEvent);
 			});
 
-			await user.click(disconnectButton);
+			it('should fire analytics event when remove button is clicked from dropdown', async () => {
+				const webLinkProps = {
+					...defaultProps,
+					containerType: 'WebLink' as ContainerTypes,
+				};
 
-			expect(mockFireUIEvent).toHaveBeenCalledWith(
-				expect.anything(),
-				expect.objectContaining({
-					action: 'clicked',
-					actionSubject: 'button',
-					actionSubjectId: 'containerUnlinkButton',
-					attributes: {
-						containerSelected: {
-							container: 'ConfluenceSpace',
-							containerId: 'test-id',
-						},
-					},
-				}),
-			);
+				const { user, expectEventToBeFired } = renderWithIntl(
+					<TeamLinkCardActions {...webLinkProps} />,
+				);
+
+				const moreButton = screen.getByRole('button', { name: /more options for Test Container/i });
+				await user.click(moreButton);
+
+				const removeButton = screen.getByText('Remove');
+				await user.click(removeButton);
+
+				expectEventToBeFired('ui', containerUnlinkButtonEventWebLink);
+			});
 		});
 
-		it('should fire analytics event when edit link button is clicked', async () => {
-			const user = userEvent.setup();
-			const mockFireUIEvent = jest.fn();
-			(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({
-				fireUIEvent: mockFireUIEvent,
+		ffTest.on('ptc-enable-teams-public-analytics-refactor', 'true', () => {
+			it('should fire analytics event when disconnect button is clicked', async () => {
+				const { user, expectEventToBeFired } = renderWithIntl(
+					<TeamLinkCardActions {...defaultProps} />,
+				);
+
+				const disconnectButton = screen.getByRole('button', {
+					name: /disconnect the container Test Container/i,
+				});
+
+				await user.click(disconnectButton);
+				expectEventToBeFired('ui', containerUnlinkButtonEvent);
 			});
 
-			const webLinkProps = {
-				...defaultProps,
-				containerType: 'WebLink' as ContainerTypes,
-			};
+			it('should fire analytics event when edit link button is clicked', async () => {
+				const webLinkProps = {
+					...defaultProps,
+					containerType: 'WebLink' as ContainerTypes,
+				};
 
-			renderWithIntl(<TeamLinkCardActions {...webLinkProps} />);
+				const { user, expectEventToBeFired } = renderWithIntl(
+					<TeamLinkCardActions {...webLinkProps} />,
+				);
 
-			const moreButton = screen.getByRole('button', { name: /more options for Test Container/i });
-			await user.click(moreButton);
+				const moreButton = screen.getByRole('button', { name: /more options for Test Container/i });
+				await user.click(moreButton);
 
-			const editButton = screen.getByText('Edit link');
-			await user.click(editButton);
+				const editButton = screen.getByText('Edit link');
+				await user.click(editButton);
 
-			expect(mockFireUIEvent).toHaveBeenCalledWith(
-				expect.anything(),
-				expect.objectContaining({
-					action: 'clicked',
-					actionSubject: 'button',
-					actionSubjectId: 'containerEditLinkButton',
-					attributes: {
-						containerSelected: {
-							container: 'WebLink',
-							containerId: 'test-id',
-						},
-					},
-				}),
-			);
-		});
-
-		it('should fire analytics event when remove button is clicked from dropdown', async () => {
-			const user = userEvent.setup();
-			const mockFireUIEvent = jest.fn();
-			(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({
-				fireUIEvent: mockFireUIEvent,
+				expectEventToBeFired('ui', containerEditLinkButtonEvent);
 			});
 
-			const webLinkProps = {
-				...defaultProps,
-				containerType: 'WebLink' as ContainerTypes,
-			};
+			it('should fire analytics event when remove button is clicked from dropdown', async () => {
+				const webLinkProps = {
+					...defaultProps,
+					containerType: 'WebLink' as ContainerTypes,
+				};
 
-			renderWithIntl(<TeamLinkCardActions {...webLinkProps} />);
+				const { user, expectEventToBeFired } = renderWithIntl(
+					<TeamLinkCardActions {...webLinkProps} />,
+				);
 
-			const moreButton = screen.getByRole('button', { name: /more options for Test Container/i });
-			await user.click(moreButton);
+				const moreButton = screen.getByRole('button', { name: /more options for Test Container/i });
+				await user.click(moreButton);
 
-			const removeButton = screen.getByText('Remove');
-			await user.click(removeButton);
+				const removeButton = screen.getByText('Remove');
+				await user.click(removeButton);
 
-			expect(mockFireUIEvent).toHaveBeenCalledWith(
-				expect.anything(),
-				expect.objectContaining({
-					action: 'clicked',
-					actionSubject: 'button',
-					actionSubjectId: 'containerUnlinkButton',
-					attributes: {
-						containerSelected: {
-							container: 'WebLink',
-							containerId: 'test-id',
-						},
-					},
-				}),
-			);
+				expectEventToBeFired('ui', containerUnlinkButtonEventWebLink);
+			});
 		});
 	});
 });

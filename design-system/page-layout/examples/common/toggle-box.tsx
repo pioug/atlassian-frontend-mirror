@@ -19,7 +19,7 @@ const toggleBoxStyles = css({
 	position: 'fixed',
 	zIndex: 1,
 	backgroundColor: token('color.background.neutral.subtle'),
-	border: `1px solid ${token('color.border')}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 	borderRadius: token('radius.small', '3px'),
 	insetBlockEnd: '1rem',
 	insetInlineStart: '50%',

@@ -78,7 +78,7 @@ describe('ResolvedView', () => {
 			/>,
 		);
 		expect(await screen.findByText('some text content')).toHaveStyle(
-			`color: var(--ds-text-inverse, '#FFFFFF')`,
+			`color: var(--ds-text-inverse, #FFFFFF)`,
 		);
 	});
 
@@ -95,7 +95,7 @@ describe('ResolvedView', () => {
 			'var(--ds-background-information-bold,#0c66e4)',
 		);
 
-		expect(lozenge).toHaveStyle(`color: ${token('color.text.inverse', '#FFFFFF')}`);
+		expect(lozenge).toHaveStyle(`color: var(--ds-link,#0052cc)`);
 	});
 
 	it('should not render a lozenge when one is not provided', () => {

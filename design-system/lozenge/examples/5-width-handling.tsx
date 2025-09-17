@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 
 const fixedWidthStyles = xcss({
 	width: '400px',
-	border: `solid 1px ${token('color.border')}`,
+	border: `solid ${token('border.width')} ${token('color.border')}`,
 });
 
 const fixedContainerStyles = xcss({

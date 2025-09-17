@@ -69,7 +69,7 @@ type HeadCellProps = TruncateStyleProps &
 
 const headCellBaseStyles = css({
 	position: 'relative',
-	borderBlockEnd: `2px solid ${token('color.border', N40)}`,
+	borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border', N40)}`,
 	borderBlockStart: `none`,
 	color: token('color.text.subtle', `var(${CSS_VAR_TEXT_COLOR})`),
 	font: token('font.body.UNSAFE_small'),
@@ -78,14 +78,14 @@ const headCellBaseStyles = css({
 	textAlign: 'left',
 	verticalAlign: 'middle',
 	'&:focus-visible': {
-		outline: `solid 2px ${token('color.border.focused', B100)}`,
+		outline: `solid ${token('border.width.focused')} ${token('color.border.focused', B100)}`,
 	},
 });
 
 const headCellBaseStylesOld = css({
 	boxSizing: 'border-box',
 	position: 'relative',
-	borderBlockEnd: `2px solid ${token('color.border', N40)}`,
+	borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border', N40)}`,
 	borderBlockStart: 'none',
 	borderInlineEnd: 'none',
 	borderInlineStart: 'none',
@@ -96,7 +96,7 @@ const headCellBaseStylesOld = css({
 	textAlign: 'left',
 	verticalAlign: 'top',
 	'&:focus-visible': {
-		outline: `solid 2px ${token('color.border.focused', B100)}`,
+		outline: `solid ${token('border.width.focused')} ${token('color.border.focused', B100)}`,
 	},
 });
 

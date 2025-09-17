@@ -19,6 +19,16 @@ type BulletedListBlockMenuItemProps = {
 const BulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
 	const { formatMessage } = useIntl();
 	const bulletListActive = useSharedPluginStateSelector(api, 'list.bulletListActive');
+	const currentSelectedNodeName = useSharedPluginStateSelector(
+		api,
+		'blockMenu.currentSelectedNodeName',
+	);
+
+	// Check if a blockquote is currently selected
+	const isBlockquoteSelected = currentSelectedNodeName?.includes('blockquote');
+
+	// Only show as selected if bullet list is active AND we're not selecting a blockquote
+	const isSelected = bulletListActive && !isBlockquoteSelected;
 
 	const handleClick = () => {
 		if (!bulletListActive) {
@@ -29,7 +39,7 @@ const BulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}
-			isSelected={bulletListActive}
+			isSelected={isSelected}
 			elemBefore={<ListBulletedIcon label="" />}
 		>
 			{formatMessage(listMessages.bulletedList)}

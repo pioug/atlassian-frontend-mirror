@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 7.2.4
+
+### Patch Changes
+
+- [`6b6eca9cee16d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b6eca9cee16d) -
+  Switch to use editorExperiment to use productKey for responsive preview panel changes.
+- Updated dependencies
+
 ## 7.2.3
 
 ### Patch Changes

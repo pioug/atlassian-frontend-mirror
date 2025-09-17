@@ -33,9 +33,7 @@
 			"Make headings descriptive of the content that follows"
 		],
 		"generativeInstructions": "./docs/ai/heading-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/basic.tsx"
-		}
+		"examples": ["./examples/ai/basic.tsx"]
 	},
 	{
 		"name": "HeadingContextProvider",
@@ -58,8 +56,6 @@
 			"Use clear, descriptive heading text",
 			"Keep headings concise and meaningful"
 		],
-		"examples": {
-			"basic": "./examples/ai/heading-context-provider.tsx"
-		}
+		"examples": ["./examples/ai/heading-context-provider.tsx"]
 	}
 ]

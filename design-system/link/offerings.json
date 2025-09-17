@@ -29,8 +29,6 @@
 			"Consider link context and destination",
 			"Avoid generic text like 'click here'"
 		],
-		"examples": {
-			"basic": "./examples/ai/link.tsx"
-		}
+		"examples": ["./examples/ai/link.tsx"]
 	}
 ]

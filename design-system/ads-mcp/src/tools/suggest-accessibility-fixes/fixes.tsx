@@ -232,14 +232,15 @@ color: token('color.text.danger')`,
   Click me
 </button>`,
 				after: `import { Focusable } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 <Focusable
   as="button"
   onClick={handleClick}
   xcss={{
     ':focus-visible': {
-      outline: '2px solid token(color.border.focus)',
-      outlineOffset: '2px',
+      outline: \`$\{token('border.width.focused')} solid $\{token('color.border.focused')}\`,
+      outlineOffset: token('space.025'),
     },
   }}
 >

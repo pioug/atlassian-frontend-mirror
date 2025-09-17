@@ -23,8 +23,6 @@
 			"Consider icon sizing and placement",
 			"Maintain brand consistency"
 		],
-		"examples": {
-			"basic": "./examples/ai/atlassian-icon.tsx"
-		}
+		"examples": ["./examples/ai/atlassian-icon.tsx"]
 	}
 ]

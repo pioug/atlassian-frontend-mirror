@@ -18,7 +18,7 @@ import {
 	akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 const WIDTHS = {
 	MIN: akEditorDefaultLayoutWidth,
@@ -70,7 +70,9 @@ export const getGuidelines = memoizeOne(
 		const padding =
 			width &&
 			width <= akEditorFullPageNarrowBreakout &&
-			expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+			editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+				exposure: true,
+			})
 				? akEditorGutterPaddingReduced
 				: akEditorGutterPaddingDynamic();
 

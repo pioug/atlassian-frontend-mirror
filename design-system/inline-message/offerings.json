@@ -29,8 +29,6 @@
 			"Use appropriate tone for message type",
 			"Keep messages focused and relevant"
 		],
-		"examples": {
-			"basic": "./examples/ai/inline-message.tsx"
-		}
+		"examples": ["./examples/ai/inline-message.tsx"]
 	}
 ]

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-card
 
+## 10.1.6
+
+### Patch Changes
+
+- [`bb4166f191a3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb4166f191a3f) -
+  [ux] EDITOR-1520 - addToHistory false and not scrollIntoView for smart card to link tr
+- Updated dependencies
+
+## 10.1.5
+
+### Patch Changes
+
+- [`6b6eca9cee16d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b6eca9cee16d) -
+  Switch to use editorExperiment to use productKey for responsive preview panel changes.
+- Updated dependencies
+
+## 10.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.3
 
 ### Patch Changes

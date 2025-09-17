@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 6.3.4
+
+### Patch Changes
+
+- [`d278f35b3fb0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d278f35b3fb0f) -
+  Cleaned up platform_editor_element_drag_and_drop_ed_23873
+- Updated dependencies
+
+## 6.3.3
+
+### Patch Changes
+
+- [`6b6eca9cee16d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b6eca9cee16d) -
+  Switch to use editorExperiment to use productKey for responsive preview panel changes.
+- Updated dependencies
+
 ## 6.3.2
 
 ### Patch Changes

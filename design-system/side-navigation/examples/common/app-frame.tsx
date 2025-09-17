@@ -25,7 +25,7 @@ const baseHeight = css({
 });
 
 const baseBorder = css({
-	borderInlineEnd: `1px solid ${token('color.border')}`,
+	borderInlineEnd: `${token('border.width')} solid ${token('color.border')}`,
 });
 
 interface AppFrameProps {

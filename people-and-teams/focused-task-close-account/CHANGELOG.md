@@ -1,5 +1,12 @@
 # @atlaskit/focused-task-close-account
 
+## 3.2.8
+
+### Patch Changes
+
+- [`45c6f8d40f9ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45c6f8d40f9ac) -
+  Bump i18n pkg versions for atlaskit packages for including license field
+
 ## 3.2.7
 
 ### Patch Changes

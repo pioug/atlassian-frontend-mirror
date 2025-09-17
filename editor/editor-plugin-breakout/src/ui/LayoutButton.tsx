@@ -31,7 +31,8 @@ import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { BreakoutPlugin, BreakoutPluginState } from '../breakoutPluginType';
@@ -70,7 +71,7 @@ export interface Props {
 	api: ExtractInjectionAPI<BreakoutPlugin> | undefined;
 	boundariesElement?: HTMLElement;
 	breakoutMode: BreakoutMode | undefined;
-	editorView: EditorView;
+	editorView: EditorView | undefined;
 	handleClick?: Function;
 	isBreakoutNodePresent: boolean;
 	isLivePage?: boolean;
@@ -113,7 +114,12 @@ const LayoutButton = ({
 }: Props & WrappedComponentProps) => {
 	const handleClick = useCallback(
 		(breakoutMode: BreakoutMode) => {
-			const { state, dispatch } = editorView;
+			if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
+				return;
+			}
+			// Remove ! during platform_editor_hydratable_ui cleanup
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			const { state, dispatch } = editorView!;
 			const breakoutNode = getPluginState(state)?.breakoutNode;
 			if (['wide', 'full-width'].indexOf(breakoutMode) !== -1) {
 				setBreakoutMode(breakoutMode, isLivePage)(state, dispatch);
@@ -144,9 +150,13 @@ const LayoutButton = ({
 		[api?.analytics?.actions, editorView, isLivePage],
 	);
 
-	const { state } = editorView;
+	if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
+		return null;
+	}
 
-	if (!isBreakoutNodePresent || !isBreakoutMarkAllowed(state)) {
+	// Remove ! during platform_editor_hydratable_ui cleanup
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	if (!isBreakoutNodePresent || !isBreakoutMarkAllowed(editorView!.state)) {
 		return null;
 	}
 
@@ -156,13 +166,17 @@ const LayoutButton = ({
 	const nextBreakoutMode = getNextBreakoutMode(breakoutMode);
 	const belowOtherPopupsZIndex = layers.layer() - 1;
 
-	const pluginState = getPluginState(state);
+	// Remove ! during platform_editor_hydratable_ui cleanup
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	const pluginState = getPluginState(editorView!.state);
 
 	if (!pluginState) {
 		return null;
 	}
 
-	let element = getBreakoutNodeElement(pluginState, state.selection, editorView);
+	// Remove ! during platform_editor_hydratable_ui cleanup
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	let element = getBreakoutNodeElement(pluginState, editorView!.state.selection, editorView!);
 	if (!element) {
 		return null;
 	}
@@ -192,11 +206,8 @@ const LayoutButton = ({
 			<div
 				css={[
 					toolbarButtonWrapperStyles,
-					expValEqualsNoExposure(
-						'platform_editor_preview_panel_responsiveness',
-						'isEnabled',
-						true,
-					) && toolbarButtonNarrowScreenStyles,
+					editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
+						toolbarButtonNarrowScreenStyles,
 				]}
 			>
 				<ToolbarButton

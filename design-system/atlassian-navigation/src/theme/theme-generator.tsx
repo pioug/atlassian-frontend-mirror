@@ -1,3 +1,5 @@
+import { token } from '@atlaskit/tokens';
+
 import { DEFAULT_THEME_NAME, defaultThemeBrandRefresh } from './default-theme';
 import { generateTextColor, getBoxShadow, getContrastColor, hexToRGBA } from './theme-helpers';
 import { type ButtonCSSContext, type GenerateThemeArgs, type NavigationTheme } from './types';
@@ -91,7 +93,7 @@ export const generateTheme = (themeColors: GenerateThemeArgs): NavigationTheme =
 				iconColor: color,
 				textColor: color,
 				backgroundColor: highlightColor,
-				borderRight: `1px solid ${hexToRGBA(color, 0.5)}`,
+				borderRight: `${token('border.width')} solid ${hexToRGBA(color, 0.5)}`,
 			},
 			search: {
 				default: {

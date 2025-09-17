@@ -40,7 +40,6 @@ import {
 	isFullWidthAppearance,
 	isFullWidthOrFullPageAppearance,
 } from '../utils/appearance';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { TableStickyScrollbar } from './TableStickyScrollbar';
@@ -508,10 +507,12 @@ export class TableContainer extends React.Component<
 		// `renderWidth` cannot be depended on during SSR
 		const isRenderWidthValid = !!renderWidth && renderWidth > 0;
 
-		const fullPageRendererWidthCSS = expValEquals(
+		const fullPageRendererWidthCSS = editorExperiment(
 			'platform_editor_preview_panel_responsiveness',
-			'isEnabled',
 			true,
+			{
+				exposure: true,
+			},
 		)
 			? 'calc(100cqw - var(--ak-renderer--full-page-gutter) * 2)'
 			: `100cqw - ${FullPagePadding}px * 2`;

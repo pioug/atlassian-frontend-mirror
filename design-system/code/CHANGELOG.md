@@ -1,5 +1,12 @@
 # @atlaskit/code
 
+## 17.2.5
+
+### Patch Changes
+
+- [`248faa32d4835`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/248faa32d4835) -
+  Internal changes to how borders are applied.
+
 ## 17.2.4
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @atlaskit/link-picker
 
+## 3.10.6
+
+### Patch Changes
+
+- [`45c6f8d40f9ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45c6f8d40f9ac) -
+  Bump i18n pkg versions for atlaskit packages for including license field
+- Updated dependencies
+
+## 3.10.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.10.4
 
 ### Patch Changes

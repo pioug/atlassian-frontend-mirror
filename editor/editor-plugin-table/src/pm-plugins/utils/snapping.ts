@@ -8,7 +8,7 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 const numberOfLanesInDefaultLayoutWidth = 12;
 
@@ -34,7 +34,9 @@ export type GuidelineExcludeConfig = {
 
 const getPadding = (editorContainerWith: number) => {
 	return editorContainerWith <= akEditorFullPageNarrowBreakout &&
-		expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+			exposure: true,
+		})
 		? akEditorGutterPaddingReduced
 		: akEditorGutterPaddingDynamic();
 };

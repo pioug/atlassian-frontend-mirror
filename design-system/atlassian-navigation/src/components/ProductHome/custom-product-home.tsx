@@ -82,7 +82,7 @@ const productHomeButtonStyles = css({
 	'&:focus-visible': {
 		backgroundColor: `var(${VAR_PRODUCT_HOME_BACKGROUND_COLOR_FOCUS})`,
 		color: `var(${VAR_PRODUCT_HOME_COLOR_FOCUS})`,
-		outline: `2px solid ${token('color.border.focused', B200)}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused', B200)}`,
 	},
 
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766

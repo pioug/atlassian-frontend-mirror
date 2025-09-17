@@ -29,8 +29,6 @@
 			"Keep content focused and relevant",
 			"Use appropriate dialog sizing"
 		],
-		"examples": {
-			"basic": "./examples/ai/inline-dialog.tsx"
-		}
+		"examples": ["./examples/ai/inline-dialog.tsx"]
 	}
 ]

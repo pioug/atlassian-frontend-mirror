@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 14.2.5
+
+### Patch Changes
+
+- [`6b6eca9cee16d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b6eca9cee16d) -
+  Switch to use editorExperiment to use productKey for responsive preview panel changes.
+- [`07c4ed52fa008`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07c4ed52fa008) -
+  Hydration fixes for table plugin
+- Updated dependencies
+
 ## 14.2.4
 
 ### Patch Changes

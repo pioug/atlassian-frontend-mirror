@@ -30,8 +30,6 @@
 			"Clearly state potential consequences for warnings",
 			"Confirm outcome then get out of the way for success messages"
 		],
-		"examples": {
-			"basic": "./examples/ai/flag.tsx"
-		}
+		"examples": ["./examples/ai/flag.tsx"]
 	}
 ]

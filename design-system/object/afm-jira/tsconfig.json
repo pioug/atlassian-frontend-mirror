@@ -1,0 +1,44 @@
+{
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__object/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../css/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../icon-lab/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../tile/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-jira/tsconfig.json"
+		}
+	]
+}

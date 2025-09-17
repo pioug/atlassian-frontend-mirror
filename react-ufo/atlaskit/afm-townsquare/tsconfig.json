@@ -26,6 +26,9 @@
 			"path": "../../../helpers/browser-apis/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../../measurement/feature-gate-js-client/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../observability/interaction-context/afm-townsquare/tsconfig.json"
 		},
 		{

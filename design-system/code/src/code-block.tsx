@@ -30,7 +30,7 @@ const getCodeBlockStyles = cssMap({
 		// applied to the first one
 		'& code:last-of-type': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			paddingRight: `${token('space.100')} !important`,
+			paddingInlineEnd: `${token('space.100')} !important`,
 			flexBasis: 'auto',
 			flexGrow: 1, // Needed for the highlight line to extend full-width
 			wordBreak: 'break-word',
@@ -38,20 +38,20 @@ const getCodeBlockStyles = cssMap({
 
 		'& code:first-of-type': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			paddingRight: `0px !important`,
+			paddingInlineEnd: `0px !important`,
 		},
 		'[data-ds--code--row--highlight]:last-child': {
-			borderBottom: '1px dashed transparent',
+			borderBlockEnd: `${token('border.width')} dashed transparent`,
 		},
 		'[data-ds--code--row--highlight] + [data-ds--code--row]:not([data-ds--code--row--highlight]), [data-ds--code--row]:not([data-ds--code--row--highlight]) + [data-ds--code--row--highlight]':
 			{
-				borderTop: '1px dashed transparent',
+				borderBlockStart: `${token('border.width')} dashed transparent`,
 			},
 		// fill in space caused by parent border top
 		'& [data-ds--code--row--highlight] .linenumber::before': {
-			borderTop: `1px solid ${token('color.border.focused')}`,
-			left: '-4px',
-			top: '-1px',
+			borderBlockStart: `${token('border.width')} solid ${token('color.border.focused')}`,
+			insetInlineStart: '-4px',
+			insetBlockStart: '-1px',
 			width: '4px',
 			position: 'absolute',
 			content: '""',
@@ -60,8 +60,8 @@ const getCodeBlockStyles = cssMap({
 		'& [data-ds--code--row--highlight] .linenumber': {
 			position: 'relative',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			paddingLeft: `${token('space.050')} !important`,
-			borderLeft: `4px solid ${token('color.border.focused')}`,
+			paddingInlineStart: `${token('space.050')} !important`,
+			borderInlineStart: `4px solid ${token('color.border.focused')}`,
 		},
 		'& [data-ds--code--row--highlight]': {
 			backgroundColor: token('color.background.neutral'),
@@ -83,9 +83,9 @@ const getCodeBlockStyles = cssMap({
 		},
 		// these styles are for line highlighting
 		'& [data-ds--code--row]': {
-			marginRight: `-${token('space.100')}`,
+			marginInlineEnd: `-${token('space.100')}`,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			paddingRight: `${token('space.100')} !important`,
+			paddingInlineEnd: `${token('space.100')} !important`,
 		},
 		'& .linenumber': {
 			float: 'left',
@@ -100,8 +100,8 @@ const getCodeBlockStyles = cssMap({
 		// this is required to account for prismjs styles leaking into the codeblock
 		'code[class*="language-"], pre[class*="language-"], code': {
 			all: 'unset',
-			paddingTop: token('space.100'),
-			paddingBottom: token('space.100'),
+			paddingBlockStart: token('space.100'),
+			paddingBlockEnd: token('space.100'),
 			tabSize: 4,
 		},
 		display: 'flex',
@@ -122,10 +122,10 @@ const getCodeBlockStyles = cssMap({
 			display: 'block',
 			userSelect: 'none',
 			textAlign: 'right',
-			marginRight: token('space.100'),
-			paddingLeft: token('space.100'),
+			marginInlineEnd: token('space.100'),
+			paddingInlineStart: token('space.100'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			paddingRight: `${token('space.100')} !important`,
+			paddingInlineEnd: `${token('space.100')} !important`,
 			// needed to replicate existing design spec
 			boxSizing: 'border-box',
 			flexShrink: 0,
@@ -219,8 +219,8 @@ const getCodeBlockStyles = cssMap({
 			display: 'flex',
 		},
 		'code[class*="language-"], pre[class*="language-"], code': {
-			paddingRight: 0,
-			paddingLeft: 0,
+			paddingInlineEnd: 0,
+			paddingInlineStart: 0,
 		},
 	},
 	dontShowLineNumbers: {
@@ -228,8 +228,8 @@ const getCodeBlockStyles = cssMap({
 			display: 'block',
 		},
 		'code[class*="language-"], pre[class*="language-"], code': {
-			paddingRight: token('space.100'),
-			paddingLeft: token('space.100'),
+			paddingInlineEnd: token('space.100'),
+			paddingInlineStart: token('space.100'),
 		},
 	},
 	shouldWrapLongLines: {

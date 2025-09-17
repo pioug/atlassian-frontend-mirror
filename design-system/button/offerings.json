@@ -37,9 +37,11 @@
 			"Don't use punctuation in button labels"
 		],
 		"generativeInstructions": "./docs/ai/button-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/button.tsx"
-		}
+		"examples": [
+			"./examples/constellation/new-button/button/button-disabled.tsx",
+			"./examples/constellation/new-button/button/button-danger.tsx",
+			"./examples/constellation/new-button/button/button-with-icon-after.tsx"
+		]
 	},
 	{
 		"name": "IconButton",
@@ -69,9 +71,7 @@
 			"Avoid using icons without labels in critical actions"
 		],
 		"generativeInstructions": "./docs/ai/icon-button-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/icon-button.tsx"
-		}
+		"examples": ["./examples/ai/icon-button.tsx"]
 	},
 	{
 		"name": "SplitButton",
@@ -100,9 +100,7 @@
 			"Use consistent terminology across related actions"
 		],
 		"generativeInstructions": "./docs/ai/split-button-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/split-button.tsx"
-		}
+		"examples": ["./examples/ai/split-button.tsx"]
 	},
 	{
 		"name": "LinkButton",
@@ -132,9 +130,7 @@
 			"Avoid generic terms like 'Click here' or 'Learn more'"
 		],
 		"generativeInstructions": "./docs/ai/link-button-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/link-button.tsx"
-		}
+		"examples": ["./examples/ai/link-button.tsx"]
 	},
 	{
 		"name": "ButtonGroup",
@@ -163,9 +159,7 @@
 			"Keep labels concise but descriptive",
 			"Consider the order of actions within the group"
 		],
-		"examples": {
-			"basic": "./examples/ai/button-group.tsx"
-		}
+		"examples": ["./examples/ai/button-group.tsx"]
 	},
 	{
 		"name": "Button (Legacy)",
@@ -193,8 +187,6 @@
 			"Keep text concise (1-3 words ideal)",
 			"Avoid generic terms like 'Submit' or 'Click here'"
 		],
-		"examples": {
-			"basic": "./examples/ai/button-legacy.tsx"
-		}
+		"examples": ["./examples/99-button-old-button.tsx"]
 	}
 ]

@@ -32,8 +32,6 @@
 			"Use consistent tone and style"
 		],
 		"generativeInstructions": "./docs/ai/tooltip-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/tooltip.tsx"
-		}
+		"examples": ["./examples/default-tooltip.tsx"]
 	}
 ]

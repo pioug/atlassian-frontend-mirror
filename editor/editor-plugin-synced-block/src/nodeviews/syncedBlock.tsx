@@ -1,20 +1,21 @@
-/* eslint-disable @atlaskit/ui-styling-standard/enforce-style-prop */
-import React, { useMemo, useRef, useState } from 'react';
+import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import ReactNodeView from '@atlaskit/editor-common/react-node-view';
-import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import ReactNodeView, { type getPosHandler } from '@atlaskit/editor-common/react-node-view';
+import type { ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
+import type { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
+import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { SyncedBlockPluginOptions } from '../syncedBlockPluginType';
+import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
+import { SyncBlockEditorWrapper, SyncBlockEditorWrapperDataId } from '../ui/SyncBlockEditorWrapper';
+import { SyncBlockRendererWrapper } from '../ui/SyncBlockRendererWrapper';
 
-export type SyncBlockNodeViewProps = {
-	config: SyncedBlockPluginOptions | undefined;
-};
-
-export const defaultSyncBlockDocument: DocNode = {
+const defaultSyncBlockEditorDocument: DocNode = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -23,97 +24,118 @@ export const defaultSyncBlockDocument: DocNode = {
 			content: [
 				{
 					type: 'text',
-					text: 'This is a synced block. Edit the source to update the content.',
+					text: 'This is a source sync block. Edit me to update the content.',
 				},
 			],
 		},
 	],
 };
 
-const SyncBlockEditorWrapperDataId = 'sync-block-plugin-editor-wrapper';
-
-export const SyncBlockPluginComponent = ({
-	config,
-	dom,
-}: {
-	config: SyncedBlockPluginOptions | undefined;
-	dom: HTMLElement;
-}) => {
-	const innerEditorView = useRef<EditorView | null>(null);
-
-	/* Tmp solution to demonstrate the synced block renderer */
-	const [rendererDocument, setRendererDocument] = useState<DocNode>(defaultSyncBlockDocument);
-
-	const onChange = (
-		editorView: EditorView,
-		_meta: { isDirtyChange: boolean; source: 'local' | 'remote' },
-	): void => {
-		const content: DocNode['content'] = (editorView.state.doc.toJSON() as DocNode).content;
-		const rendererDocument: DocNode = {
-			version: 1,
-			type: 'doc',
-			content,
-		};
-		setRendererDocument(rendererDocument);
-	};
-
-	const onEditorReady = ({
-		editorView,
-	}: {
-		editorView: EditorView;
-		eventDispatcher: EventDispatcher;
-	}): void => {
-		innerEditorView.current = editorView || null;
-	};
-	const boundariesElement = useMemo(() => {
-		// eslint-disable-next-line @atlaskit/editor/no-as-casting
-		return dom.closest('.fabric-editor-popup-scroll-parent');
-	}, [dom]);
-
-	if (!boundariesElement || !(boundariesElement instanceof HTMLElement)) {
-		return null;
-	}
-
-	if (!config?.getSyncedBlockEditor || !config?.getSyncedBlockRenderer) {
-		return null;
-	}
-
-	return (
-		<div data-testid={SyncBlockEditorWrapperDataId}>
-			{config.getSyncedBlockEditor({
-				boundariesElement: boundariesElement,
-				defaultDocument: defaultSyncBlockDocument,
-				mountPoint: dom,
-				onChange: onChange,
-				onEditorReady: onEditorReady,
-			})}
-			<div
-				style={{
-					width: '100%',
-					height: '1px',
-					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-					backgroundColor: 'purple',
-				}}
-			/>
-			{/* Tmp solution to demonstrate the synced block renderer */}
-			{config.getSyncedBlockRenderer({
-				docNode: rendererDocument,
-			})}
-		</div>
-	);
+const defaultSyncBlockRendererDocument: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'text',
+					text: 'This is a reference sync block. Stay tuned for updates...',
+				},
+			],
+		},
+	],
 };
 
+export interface SyncBlockNodeViewProps extends ReactComponentProps {
+	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
+	eventDispatcher: EventDispatcher;
+	getPos: getPosHandler;
+	isNodeNested?: boolean;
+	node: PMNode;
+	options: SyncedBlockPluginOptions | undefined;
+	portalProviderAPI: PortalProviderAPI;
+	view: EditorView;
+}
 class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
+	private isSource: boolean;
+	private options: SyncedBlockPluginOptions | undefined;
+
+	constructor(props: SyncBlockNodeViewProps) {
+		super(
+			props.node,
+			props.view,
+			props.getPos,
+			props.portalProviderAPI,
+			props.eventDispatcher,
+			props,
+		);
+
+		const { resourceId, localId } = props.node.attrs;
+		// Temporary solution to identify the source
+		this.isSource = resourceId === localId;
+		this.options = props.options;
+	}
+
 	unsubscribe: (() => void) | undefined;
 
 	createDomRef(): HTMLElement {
 		const domRef = document.createElement('div');
-		domRef.setAttribute('style', 'border: purple solid 1px;');
 		return domRef;
 	}
 
+	private handleContentChanges(_updatedDoc: PMNode): void {
+		// write data
+	}
+
+	private setInnerEditorView(_editorView: EditorView): void {
+		// set inner editor view
+	}
+
+	private renderEditor() {
+		const popupsBoundariesElement = this.dom.closest('.fabric-editor-popup-scroll-parent');
+
+		if (!(popupsBoundariesElement instanceof HTMLElement)) {
+			return null;
+		}
+
+		if (!this.options?.getSyncedBlockEditor) {
+			return null;
+		}
+
+		return (
+			<SyncBlockEditorWrapper
+				popupsBoundariesElement={popupsBoundariesElement}
+				popupsMountPoint={this.dom}
+				defaultDocument={defaultSyncBlockEditorDocument}
+				handleContentChanges={this.handleContentChanges}
+				setInnerEditorView={this.setInnerEditorView}
+				getSyncedBlockEditor={this.options?.getSyncedBlockEditor}
+			/>
+		);
+	}
+
+	private renderRenderer() {
+		if (!this.options?.getSyncedBlockRenderer) {
+			return null;
+		}
+
+		// get document node from data provider
+		const docNode = defaultSyncBlockRendererDocument;
+
+		return (
+			<SyncBlockRendererWrapper
+				docNode={docNode}
+				getSyncedBlockRenderer={this.options?.getSyncedBlockRenderer}
+			/>
+		);
+	}
+
 	render() {
-		return <SyncBlockPluginComponent config={this.reactComponentProps.config} dom={this.dom} />;
+		if (this.isSource) {
+			return this.renderEditor();
+		}
+		return this.renderRenderer();
 	}
 
 	stopEvent(event: Event) {
@@ -121,35 +143,61 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		if (!target) {
 			return false;
 		}
-		return target.closest?.(`[data-testid="${SyncBlockEditorWrapperDataId}"]`) != null;
+
+		const isInNestedEditor =
+			target.closest?.(`[data-testid="${SyncBlockEditorWrapperDataId}"]`) != null;
+
+		if (isInNestedEditor) {
+			this.selectNode();
+			return true;
+		}
+		return false;
+	}
+
+	selectNode() {
+		this.selectSyncBlockNode(undefined);
 	}
 
 	destroy() {
 		this.unsubscribe?.();
 		super.destroy();
 	}
+
+	private selectSyncBlockNode(relativeSelectionPos: RelativeSelectionPos | undefined) {
+		const getPos = typeof this.getPos === 'function' ? this.getPos() : 0;
+		const selectionAPI = this.reactComponentProps.api?.selection?.actions;
+		if (!selectionAPI) {
+			return;
+		}
+
+		const tr = selectionAPI.selectNearNode({
+			selectionRelativeToNode: relativeSelectionPos,
+			selection: NodeSelection.create(this.view.state.doc, getPos ?? 0),
+		})(this.view.state);
+		if (tr) {
+			this.view.dispatch(tr);
+		}
+	}
 }
 
 export interface SyncBlockNodeViewProperties {
-	config: SyncedBlockPluginOptions | undefined;
+	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
+	options: SyncedBlockPluginOptions | undefined;
 	pmPluginFactoryParams: PMPluginFactoryParams;
 }
 
 export const syncBlockNodeView =
-	({ config, pmPluginFactoryParams }: SyncBlockNodeViewProperties) =>
+	({ options, pmPluginFactoryParams, api }: SyncBlockNodeViewProperties) =>
 	(node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 		const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
-		const reactComponentProps: SyncBlockNodeViewProps = {
-			config,
-		};
 
-		return new SyncBlock(
+		return new SyncBlock({
+			api,
+			options,
 			node,
 			view,
 			getPos,
 			portalProviderAPI,
 			eventDispatcher,
-			reactComponentProps,
-			undefined,
-		).init();
+		}).init();
 	};

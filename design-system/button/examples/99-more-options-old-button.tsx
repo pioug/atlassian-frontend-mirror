@@ -15,19 +15,20 @@ import Open from '@atlaskit/icon/glyph/editor/open';
 import Unlink from '@atlaskit/icon/glyph/editor/unlink';
 import Page from '@atlaskit/icon/glyph/page';
 import Question from '@atlaskit/icon/glyph/question';
+import { token } from '@atlaskit/tokens';
 
 const styles = {
 	sample: {
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'baseline',
-		borderBottom: '1px solid',
+		borderBottom: `${token('border.width')} solid`,
 		paddingBottom: '10px',
 		paddingTop: '10px',
 	},
 	customColor: {
 		backgroundColor: '#ffbbc7 !important',
-		border: '1px solid #c87a88',
+		border: `${token('border.width')} solid #c87a88`,
 		color: '#6B0014 !important',
 	},
 	truncated: {

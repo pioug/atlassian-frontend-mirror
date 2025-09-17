@@ -541,7 +541,7 @@ export const editorExperimentsConfig = {
 	// Added 2025-07-15
 	platform_editor_preview_panel_responsiveness: createBooleanExperiment({
 		productKeys: {
-			confluence: 'platform_editor_preview_panel_responsiveness',
+			confluence: 'confluence_preview_panels_exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -797,10 +797,10 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-08-06
-	cc_improve_writing_on_paste: createBooleanExperiment({
+	// Added 2025-09-16
+	cc_improve_writing_on_paste_v2: createBooleanExperiment({
 		productKeys: {
-			confluence: 'cc_improve_writing_on_paste',
+			confluence: 'cc_improve_writing_on_paste_v2',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

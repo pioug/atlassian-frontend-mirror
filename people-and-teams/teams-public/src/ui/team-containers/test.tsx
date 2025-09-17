@@ -1,12 +1,15 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import {
+	mockRunItLaterSynchronously,
+	renderWithAnalyticsListener as render,
+} from '@atlassian/ptc-test-utils';
 
-import { usePeopleAndTeamAnalytics } from '../../common/utils/analytics';
 import { messages } from '../../common/utils/get-container-properties';
 import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
 import { useTeamContainers } from '../../controllers/hooks/use-team-containers';
@@ -31,26 +34,15 @@ jest.mock('../../controllers/hooks/use-team-links-and-containers', () => ({
 	useTeamLinksAndContainers: jest.fn(),
 }));
 
-jest.mock('../../common/utils/analytics', () => ({
-	...jest.requireActual('../../common/utils/analytics'),
-	usePeopleAndTeamAnalytics: jest.fn(() => ({
-		fireTrackEvent: jest.fn(),
-		fireOperationalEvent: jest.fn(),
-		fireUIEvent: jest.fn(),
-	})),
-}));
-
 const mockFg = fg as jest.Mock;
 
 const renderWithIntl = (node: React.ReactNode) => {
 	return render(<IntlProvider locale="en">{node}</IntlProvider>);
 };
 
-const mockFireTrackEvent = jest.fn();
-const mockFireOperationalEvent = jest.fn();
-const mockFireUIEvent = jest.fn();
-
 const mockOnAddAContainerClick = jest.fn();
+
+mockRunItLaterSynchronously();
 
 describe('TeamContainers', () => {
 	const teamId = 'teamId';
@@ -67,6 +59,29 @@ describe('TeamContainers', () => {
 		name: 'Confluence Space Name',
 		icon: 'icon',
 		link: 'link',
+	};
+	const openUnlinkContainerDialogEvent = {
+		action: 'opened',
+		actionSubject: 'unlinkContainerDialog',
+		attributes: {
+			teamId: 'teamId',
+		},
+	};
+	const teamContainerUnlinkedSucceededEvent = {
+		action: 'succeeded',
+		actionSubject: 'teamContainerUnlinked',
+		attributes: {
+			containerRemoved: {
+				container: 'JiraProject',
+				containerId: 'id-1',
+			},
+			teamId: 'teamId',
+		},
+	};
+
+	const teamContainerUnlinkedFailedEvent = {
+		action: 'failed',
+		actionSubject: 'teamContainerUnlinked',
 	};
 
 	const renderTeamContainers = (
@@ -96,11 +111,6 @@ describe('TeamContainers', () => {
 		});
 		(useTeamContainers as jest.Mock).mockReturnValue({});
 
-		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({
-			fireTrackEvent: mockFireTrackEvent,
-			fireOperationalEvent: mockFireOperationalEvent,
-			fireUIEvent: mockFireUIEvent,
-		});
 		(useProductPermissions as jest.Mock).mockReturnValue({
 			loading: false,
 			data: {
@@ -351,59 +361,143 @@ describe('TeamContainers', () => {
 		expect(await screen.findByTestId('team-containers-disconnect-dialog')).toBeInTheDocument();
 	});
 
-	it('should open disconnect dialog when disconnect button is clicked', async () => {
-		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
-			teamLinks: [JiraProject],
+	// ffTest is not working in this test file due to the mocking of fg().
+	describe('analytics refactor off', () => {
+		beforeEach(() => {
+			mockFg.mockImplementation(() => {
+				return false;
+			});
 		});
-		renderTeamContainers(teamId);
+		it('should open disconnect dialog when disconnect button is clicked', async () => {
+			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+				teamLinks: [JiraProject],
+			});
+			const { expectEventToBeFired } = renderTeamContainers(teamId);
 
-		await userEvent.hover(screen.getByText(JiraProject.name));
-		const crossIconButton = screen.getByRole('button', {
-			name: `disconnect the container ${JiraProject.name}`,
+			await userEvent.hover(screen.getByText(JiraProject.name));
+			const crossIconButton = screen.getByRole('button', {
+				name: `disconnect the container ${JiraProject.name}`,
+			});
+			await userEvent.click(crossIconButton);
+			expect(await screen.findByTestId('team-containers-disconnect-dialog')).toBeInTheDocument();
+			expectEventToBeFired('track', openUnlinkContainerDialogEvent);
 		});
-		await userEvent.click(crossIconButton);
-		expect(await screen.findByTestId('team-containers-disconnect-dialog')).toBeInTheDocument();
-		expect(mockFireTrackEvent).toHaveBeenCalledTimes(1);
-		expect(mockFireTrackEvent).toHaveBeenCalledWith(expect.any(Function), {
-			action: 'opened',
-			actionSubject: 'unlinkContainerDialog',
-			attributes: {
-				teamId: 'teamId',
-			},
+
+		it('should close disconnect dialog and fire analytics event when confirmation dialog proceed', async () => {
+			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+				teamLinks: [JiraProject],
+				removeTeamLink: jest.fn(),
+			});
+			(useTeamContainers as jest.Mock).mockReturnValue({
+				unlinkError: null,
+			});
+
+			const { expectEventToBeFired } = renderTeamContainers(teamId);
+
+			await userEvent.hover(screen.getByText(JiraProject.name));
+			const crossIconButton = screen.getByRole('button', {
+				name: 'disconnect the container Jira Project Name',
+			});
+			await userEvent.click(crossIconButton);
+
+			const disconnectButton = screen.getByRole('button', { name: 'Remove' });
+			await userEvent.click(disconnectButton);
+
+			expectEventToBeFired('track', teamContainerUnlinkedSucceededEvent);
+		});
+
+		it('should fire failed analytics event when unlink fails', async () => {
+			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+				teamLinks: [JiraProject],
+				removeTeamLink: jest.fn(),
+			});
+			(useTeamContainers as jest.Mock).mockReturnValue({
+				unlinkError: 'error',
+			});
+
+			const { expectEventToBeFired } = renderTeamContainers(teamId);
+
+			await userEvent.hover(screen.getByText(JiraProject.name));
+			const crossIconButton = screen.getByRole('button', {
+				name: 'disconnect the container Jira Project Name',
+			});
+			await userEvent.click(crossIconButton);
+
+			const disconnectButton = screen.getByRole('button', { name: 'Remove' });
+			await userEvent.click(disconnectButton);
+
+			expectEventToBeFired('track', teamContainerUnlinkedFailedEvent);
 		});
 	});
 
-	it('should close disconnect dialog and fire analytics event when confirmation dialog proceed', async () => {
-		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
-			teamLinks: [JiraProject],
-			removeTeamLink: jest.fn(),
+	describe('analytics refactor on', () => {
+		beforeEach(() => {
+			mockFg.mockImplementation((flag) => {
+				if (flag === 'ptc-enable-teams-public-analytics-refactor') {
+					return true;
+				}
+				return false;
+			});
 		});
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			unlinkError: null,
+		it('should open disconnect dialog when disconnect button is clicked', async () => {
+			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+				teamLinks: [JiraProject],
+			});
+			const { expectEventToBeFired } = renderTeamContainers(teamId);
+
+			await userEvent.hover(screen.getByText(JiraProject.name));
+			const crossIconButton = screen.getByRole('button', {
+				name: `disconnect the container ${JiraProject.name}`,
+			});
+			await userEvent.click(crossIconButton);
+			expect(await screen.findByTestId('team-containers-disconnect-dialog')).toBeInTheDocument();
+			expectEventToBeFired('track', openUnlinkContainerDialogEvent);
 		});
 
-		renderTeamContainers(teamId);
+		it('should close disconnect dialog and fire analytics event when confirmation dialog proceed', async () => {
+			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+				teamLinks: [JiraProject],
+				removeTeamLink: jest.fn(),
+			});
+			(useTeamContainers as jest.Mock).mockReturnValue({
+				unlinkError: null,
+			});
 
-		await userEvent.hover(screen.getByText(JiraProject.name));
-		const crossIconButton = screen.getByRole('button', {
-			name: 'disconnect the container Jira Project Name',
+			const { expectEventToBeFired } = renderTeamContainers(teamId);
+
+			await userEvent.hover(screen.getByText(JiraProject.name));
+			const crossIconButton = screen.getByRole('button', {
+				name: 'disconnect the container Jira Project Name',
+			});
+			await userEvent.click(crossIconButton);
+
+			const disconnectButton = screen.getByRole('button', { name: 'Remove' });
+			await userEvent.click(disconnectButton);
+
+			expectEventToBeFired('track', teamContainerUnlinkedSucceededEvent);
 		});
-		await userEvent.click(crossIconButton);
 
-		const disconnectButton = screen.getByRole('button', { name: 'Remove' });
-		await userEvent.click(disconnectButton);
+		it('should fire failed analytics event when unlink fails', async () => {
+			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+				teamLinks: [JiraProject],
+				removeTeamLink: jest.fn(),
+			});
+			(useTeamContainers as jest.Mock).mockReturnValue({
+				unlinkError: 'error',
+			});
 
-		expect(mockFireTrackEvent).toHaveBeenCalledTimes(2);
-		expect(mockFireTrackEvent).toHaveBeenCalledWith(expect.any(Function), {
-			action: 'succeeded',
-			actionSubject: 'teamContainerUnlinked',
-			attributes: {
-				containerRemoved: {
-					container: 'JiraProject',
-					containerId: 'id-1',
-				},
-				teamId: 'teamId',
-			},
+			const { expectEventToBeFired } = renderTeamContainers(teamId);
+
+			await userEvent.hover(screen.getByText(JiraProject.name));
+			const crossIconButton = screen.getByRole('button', {
+				name: 'disconnect the container Jira Project Name',
+			});
+			await userEvent.click(crossIconButton);
+
+			const disconnectButton = screen.getByRole('button', { name: 'Remove' });
+			await userEvent.click(disconnectButton);
+
+			expectEventToBeFired('track', teamContainerUnlinkedFailedEvent);
 		});
 	});
 
@@ -469,11 +563,6 @@ describe('TeamLinks', () => {
 			unlinkError: null,
 		});
 
-		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({
-			fireTrackEvent: mockFireTrackEvent,
-			fireOperationalEvent: mockFireOperationalEvent,
-			fireUIEvent: mockFireUIEvent,
-		});
 		(useProductPermissions as jest.Mock).mockReturnValue({
 			loading: false,
 			data: {

@@ -29,8 +29,6 @@
 			"Provide appropriate actions when needed",
 			"Consider content hierarchy"
 		],
-		"examples": {
-			"basic": "./examples/ai/popup.tsx"
-		}
+		"examples": ["./examples/ai/popup.tsx"]
 	}
 ]

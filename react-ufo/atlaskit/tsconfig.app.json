@@ -35,6 +35,9 @@
 			"path": "../../helpers/browser-apis/tsconfig.app.json"
 		},
 		{
+			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
+		},
+		{
 			"path": "../../observability/interaction-context/tsconfig.app.json"
 		},
 		{

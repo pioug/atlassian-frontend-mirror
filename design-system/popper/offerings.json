@@ -28,8 +28,6 @@
 			"Use appropriate positioning strategies",
 			"Consider content visibility and readability"
 		],
-		"examples": {
-			"basic": "./examples/00-basic-positioning.tsx"
-		}
+		"examples": ["./examples/00-basic-positioning.tsx"]
 	}
 ]

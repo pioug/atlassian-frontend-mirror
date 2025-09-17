@@ -32,8 +32,6 @@
 			"Use consistent terminology across toggles"
 		],
 		"generativeInstructions": "./docs/ai/toggle-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/toggle.tsx"
-		}
+		"examples": ["./examples/ai/toggle.tsx"]
 	}
 ]

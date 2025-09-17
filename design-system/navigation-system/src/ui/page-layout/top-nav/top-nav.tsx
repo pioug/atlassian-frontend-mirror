@@ -45,7 +45,7 @@ const styles = cssMap({
 		alignItems: 'center',
 		backgroundColor: token('elevation.surface'),
 		boxSizing: 'border-box',
-		borderBlockEnd: `1px solid ${token('color.border')}`,
+		borderBlockEnd: `${token('border.width')} solid ${token('color.border')}`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		height: `var(${topNavMountedVar})`,
 		// This sets the sticky point to be just below banner. It's needed to ensure the stick
@@ -107,7 +107,7 @@ const backgroundStyles = cssMap({
 		height: '100%',
 		backgroundColor: token('elevation.surface'),
 		boxSizing: 'border-box',
-		borderBlockEnd: `1px solid ${token('color.border')}`,
+		borderBlockEnd: `${token('border.width')} solid ${token('color.border')}`,
 		// Stick point for sticky positioning, relevant on mobile or if the whole page scrolls for some reason
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		insetBlockStart: `var(${bannerMountedVar}, 0px)`,

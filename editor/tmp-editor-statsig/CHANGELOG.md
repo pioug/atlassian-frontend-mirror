@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.25.1
+
+### Patch Changes
+
+- [`6b6eca9cee16d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b6eca9cee16d) -
+  Switch from platform_editor_preview_panel_responsiveness to confluence_preview_panels_exp to roll
+  out to GA under Confluence experiment.
+- Updated dependencies
+
+## 12.25.0
+
+### Minor Changes
+
+- [`3463fb9dbb744`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3463fb9dbb744) -
+  [ux] Add experiment for new compact mode
+
 ## 12.24.0
 
 ### Minor Changes

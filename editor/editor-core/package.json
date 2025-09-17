@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "213.2.3",
+	"version": "213.4.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -203,10 +203,6 @@
 		"platform_editor_track_dangerous_append_plugins": {
 			"type": "boolean"
 		},
-		"platform_editor_element_drag_and_drop_ed_23873": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_disable_instrumented_plugin": {
 			"type": "boolean"
 		},
@@ -271,10 +267,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_use_shared_state_hook_fg": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_dnd_update_drag_start_target": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -519,6 +511,10 @@
 		},
 		"platform_editor_a11y_macro_sidebar_dialog": {
 			"type": "boolean"
+		},
+		"platform_editor_blocktaskitem_patch_2": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"stricter": {

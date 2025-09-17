@@ -31,8 +31,6 @@
 			"Use consistent formatting across similar badges"
 		],
 		"generativeInstructions": "./docs/ai/badge-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/badge.tsx"
-		}
+		"examples": ["./examples/ai/badge.tsx"]
 	}
 ]

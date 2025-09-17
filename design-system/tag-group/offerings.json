@@ -29,8 +29,6 @@
 			"Use meaningful tag categories",
 			"Consider tag hierarchy"
 		],
-		"examples": {
-			"basic": "./examples/ai/tag-group.tsx"
-		}
+		"examples": ["./examples/ai/tag-group.tsx"]
 	}
 ]

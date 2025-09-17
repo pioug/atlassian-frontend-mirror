@@ -79,7 +79,7 @@ const removeButtonStylesOld = cssMap({
 		// Once legacy theming is dropped, this can be changed to 'radius.small'
 		// NOTE: We are using `as var(--ds-…)` to hack this into our `@atlaskit/css` interface.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		borderRadius: 'var(--ds-br)' as 'var(--ds-border-radius)',
+		borderRadius: 'var(--ds-br)' as 'var(--ds-radius-small)',
 		// Once legacy theming is dropped, this can be changed to 'inherit'
 		// NOTE: We are using `as var(--ds-…)` to hack this into our `@atlaskit/css` interface.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

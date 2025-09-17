@@ -11,6 +11,7 @@ import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -125,6 +126,7 @@ export const TeamLinkCard = ({
 	const [showKeyboardFocus, setShowKeyboardFocus] = useState(false);
 	const { formatMessage } = useIntl();
 	const { fireUIEvent } = usePeopleAndTeamAnalytics();
+	const { fireEvent } = useAnalyticsEventsNext();
 
 	const handleMouseEnter = () => {
 		setHovered(true);
@@ -175,12 +177,17 @@ export const TeamLinkCard = ({
 			containerType === 'WebLink' && link
 				? { containerSelected: { ...baseAttributes, linkDomain: getDomainFromLinkUri(link) } }
 				: { containerSelected: baseAttributes };
-		fireUIEvent(createAnalyticsEvent, {
-			action: AnalyticsAction.CLICKED,
-			actionSubject: 'container',
-			actionSubjectId: 'teamContainer',
-			attributes,
-		});
+
+		if (fg('ptc-enable-teams-public-analytics-refactor')) {
+			fireEvent('ui.container.clicked.teamContainer', attributes);
+		} else {
+			fireUIEvent(createAnalyticsEvent, {
+				action: AnalyticsAction.CLICKED,
+				actionSubject: 'container',
+				actionSubjectId: 'teamContainer',
+				attributes,
+			});
+		}
 
 		if (openInNewTab) {
 			e.preventDefault();
@@ -288,14 +295,20 @@ export const TeamLinkCard = ({
 											e.preventDefault();
 											e.stopPropagation();
 											onDisconnectButtonClick();
-											fireUIEvent(createAnalyticsEvent, {
-												action: AnalyticsAction.CLICKED,
-												actionSubject: 'button',
-												actionSubjectId: 'containerUnlinkButton',
-												attributes: {
+											if (fg('ptc-enable-teams-public-analytics-refactor')) {
+												fireEvent('ui.button.clicked.containerUnlinkButton', {
 													containerSelected: { container: containerType, containerId },
-												},
-											});
+												});
+											} else {
+												fireUIEvent(createAnalyticsEvent, {
+													action: AnalyticsAction.CLICKED,
+													actionSubject: 'button',
+													actionSubjectId: 'containerUnlinkButton',
+													attributes: {
+														containerSelected: { container: containerType, containerId },
+													},
+												});
+											}
 										}}
 									/>
 								</Tooltip>
@@ -326,14 +339,20 @@ export const TeamLinkCard = ({
 												e.preventDefault();
 												e.stopPropagation();
 												onEditLinkClick?.();
-												fireUIEvent(createAnalyticsEvent, {
-													action: AnalyticsAction.CLICKED,
-													actionSubject: 'button',
-													actionSubjectId: 'containerEditLinkButton',
-													attributes: {
+												if (fg('ptc-enable-teams-public-analytics-refactor')) {
+													fireEvent('ui.button.clicked.containerEditLinkButton', {
 														containerSelected: { container: containerType, containerId },
-													},
-												});
+													});
+												} else {
+													fireUIEvent(createAnalyticsEvent, {
+														action: AnalyticsAction.CLICKED,
+														actionSubject: 'button',
+														actionSubjectId: 'containerEditLinkButton',
+														attributes: {
+															containerSelected: { container: containerType, containerId },
+														},
+													});
+												}
 											}}
 										>
 											{formatMessage(messages.editLink)}
@@ -343,14 +362,20 @@ export const TeamLinkCard = ({
 												e.preventDefault();
 												e.stopPropagation();
 												onDisconnectButtonClick();
-												fireUIEvent(createAnalyticsEvent, {
-													action: AnalyticsAction.CLICKED,
-													actionSubject: 'button',
-													actionSubjectId: 'containerUnlinkButton',
-													attributes: {
+												if (fg('ptc-enable-teams-public-analytics-refactor')) {
+													fireEvent('ui.button.clicked.containerUnlinkButton', {
 														containerSelected: { container: containerType, containerId },
-													},
-												});
+													});
+												} else {
+													fireUIEvent(createAnalyticsEvent, {
+														action: AnalyticsAction.CLICKED,
+														actionSubject: 'button',
+														actionSubjectId: 'containerUnlinkButton',
+														attributes: {
+															containerSelected: { container: containerType, containerId },
+														},
+													});
+												}
 											}}
 										>
 											{formatMessage(messages.removeLink)}

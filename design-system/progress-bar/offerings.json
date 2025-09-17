@@ -31,9 +31,7 @@
 			"Use consistent progress terminology"
 		],
 		"generativeInstructions": "./docs/ai/progress-bar-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/progress-bar.tsx"
-		}
+		"examples": ["./examples/ai/progress-bar.tsx"]
 	},
 	{
 		"name": "SuccessProgressBar",
@@ -58,9 +56,7 @@
 			"Indicate what was completed successfully",
 			"Provide next steps if applicable"
 		],
-		"examples": {
-			"basic": "./examples/ai/success-progress-bar.tsx"
-		}
+		"examples": ["./examples/ai/success-progress-bar.tsx"]
 	},
 	{
 		"name": "TransparentProgressBar",
@@ -85,8 +81,6 @@
 			"Use appropriate contrast for readability",
 			"Keep progress indication clear"
 		],
-		"examples": {
-			"basic": "./examples/ai/transparent-progress-bar.tsx"
-		}
+		"examples": ["./examples/ai/transparent-progress-bar.tsx"]
 	}
 ]

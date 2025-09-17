@@ -18,7 +18,8 @@ import ChevronDownIcon from '../utility/chevron-down';
 const styles = xcss({ padding: 'space.200' });
 
 const iconContainerStyles = xcss({
-	border: '1px dashed',
+	borderWidth: 'border.width',
+	borderStyle: 'dashed',
 	borderRadius: 'radius.small',
 	borderColor: 'color.border.accent.magenta',
 });

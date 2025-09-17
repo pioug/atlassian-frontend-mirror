@@ -24,7 +24,7 @@ const readViewStyles = css({
 const editViewStyles = css({
 	boxSizing: 'border-box',
 	width: '100%',
-	border: `2px solid ${token('color.border')}`,
+	border: `${token('border.width.selected')} solid ${token('color.border')}`,
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
 	cursor: 'inherit',
@@ -35,7 +35,7 @@ const editViewStyles = css({
 	paddingInlineEnd: token('space.075'),
 	paddingInlineStart: token('space.075'),
 	'&:focus': {
-		border: `2px solid ${token('color.border.focused')}`,
+		border: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 	},
 });
 

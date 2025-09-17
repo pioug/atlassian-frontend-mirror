@@ -29,6 +29,7 @@ import {
 	getConfig,
 	getExperimentalInteractionRate,
 	getExtraInteractionRate,
+	getFinishInteractionOnTransition,
 	getInteractionTimeout,
 	getPostInteractionRate,
 	getReactHydrationStats,
@@ -968,9 +969,23 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 }
 
 export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?: string) {
+	const activeInteraction = getActiveInteraction();
+	const finishInteractions = getFinishInteractionOnTransition();
 	interactions.forEach((interaction, interactionId) => {
-		const noMoreHolds = interaction.holdActive.size === 0;
-		if (!noMoreHolds) {
+		const isActiveInteraction = activeInteraction === interaction;
+		let hasFinished = interaction.holdActive.size === 0;
+
+		if (
+			isActiveInteraction &&
+			abortReason === 'transition' &&
+			interaction.type === 'press' &&
+			finishInteractions?.includes(interaction.ufoName) &&
+			fg('platform_ufo_enable_finish_interaction_transition')
+		) {
+			hasFinished = true;
+		}
+
+		if (!hasFinished) {
 			callCancelCallbacks(interaction);
 			interaction.abortReason = abortReason;
 			if (abortedByInteractionName != null) {

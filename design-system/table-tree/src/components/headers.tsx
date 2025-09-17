@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
 	display: 'flex',
-	borderBlockEnd: `solid 2px ${token('color.border', '#dfe1e6')}`,
+	borderBlockEnd: `solid ${token('border.width.selected')} ${token('color.border', '#dfe1e6')}`,
 });
 
 interface HeadersProps {

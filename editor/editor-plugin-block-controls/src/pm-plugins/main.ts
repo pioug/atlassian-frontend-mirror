@@ -24,7 +24,7 @@ import type {
 	ReadonlyTransaction,
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { NodeSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
@@ -1019,18 +1019,6 @@ export const createPlugin = (
 							}
 						}
 
-						// Command + Shift + ArrowUp to select was broken with the plugin enabled so this manually sets the selection
-						const { selection, doc, tr } = view.state;
-						const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
-
-						if (event.key === 'ArrowUp' && event.shiftKey && metaKey) {
-							if (selection instanceof TextSelection || selection instanceof NodeSelection) {
-								const newSelection = TextSelection.create(doc, selection.head, 1);
-								view.dispatch(tr.setSelection(newSelection));
-								return true;
-							}
-						}
-
 						if (
 							(event.key === 'Enter' || event.key === ' ') &&
 							event.target instanceof HTMLElement &&
@@ -1073,18 +1061,6 @@ export const createPlugin = (
 
 						return false;
 					} else {
-						// Command + Shift + ArrowUp to select was broken with the plugin enabled so this manually sets the selection
-						const { selection, doc, tr } = view.state;
-						const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
-
-						if (event.key === 'ArrowUp' && event.shiftKey && metaKey) {
-							if (selection instanceof TextSelection || selection instanceof NodeSelection) {
-								const newSelection = TextSelection.create(doc, selection.head, 1);
-								view.dispatch(tr.setSelection(newSelection));
-								return true;
-							}
-						}
-
 						if (event.shiftKey && event.ctrlKey) {
 							//prevent holding down key combo from firing repeatedly
 							if (!event.repeat && boundKeydownHandler(api, formatMessage)(view, event)) {

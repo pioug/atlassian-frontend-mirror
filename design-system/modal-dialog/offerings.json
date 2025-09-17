@@ -32,8 +32,6 @@
 			"Use sentence case for all text",
 			"Provide clear next steps"
 		],
-		"examples": {
-			"basic": "./examples/ai/modal-dialog.tsx"
-		}
+		"examples": ["./examples/constellation/modal-default.tsx"]
 	}
 ]

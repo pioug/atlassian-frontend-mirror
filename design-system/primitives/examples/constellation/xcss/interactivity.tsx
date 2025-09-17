@@ -19,7 +19,8 @@ const cardStyles = xcss({
 		backgroundColor: 'elevation.surface.hovered',
 	},
 	':focus-visible': {
-		outline: '2px solid',
+		outlineStyle: 'solid',
+		outlineWidth: 'border.width.focused',
 		outlineOffset: 'space.025',
 		outlineColor: 'color.border.focused',
 	},

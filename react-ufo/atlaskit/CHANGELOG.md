@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.7.5
+
+### Patch Changes
+
+- [`1a2a53c0d8141`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a2a53c0d8141) -
+  Ignore style mutations from adding drag and drop anchor names
+
+## 4.7.4
+
+### Patch Changes
+
+- [`5c0461336c286`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c0461336c286) -
+  Add config to set finish on transition
+
 ## 4.7.3
 
 ### Patch Changes

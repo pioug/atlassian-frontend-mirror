@@ -53,7 +53,6 @@ const SlideIn = ({
 	children,
 	enterFrom,
 	exitTo,
-	fade = 'none',
 	duration = 'medium',
 	isPaused,
 	onFinish,

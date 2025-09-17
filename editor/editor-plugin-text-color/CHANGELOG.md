@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-color
 
+## 5.4.2
+
+### Patch Changes
+
+- [`23b126bae703a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23b126bae703a) -
+  ED-29354 Text/highlight color toolbar item is not full disabled when cursor is in page title
+- Updated dependencies
+
 ## 5.4.1
 
 ### Patch Changes

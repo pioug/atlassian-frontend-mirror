@@ -29,8 +29,6 @@
 			"Use appropriate comment formatting",
 			"Consider comment context and purpose"
 		],
-		"examples": {
-			"basic": "./examples/ai/comment.tsx"
-		}
+		"examples": ["./examples/ai/comment.tsx"]
 	}
 ]

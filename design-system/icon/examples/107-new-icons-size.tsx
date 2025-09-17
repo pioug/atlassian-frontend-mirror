@@ -7,7 +7,8 @@ import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import AppIcon from '../core/app';
 
 const iconContainerStyles = xcss({
-	border: '1px dashed',
+	borderStyle: 'dashed',
+	borderWidth: 'border.width',
 	borderRadius: 'radius.small',
 	lineHeight: '0',
 	borderColor: 'color.border.accent.magenta',

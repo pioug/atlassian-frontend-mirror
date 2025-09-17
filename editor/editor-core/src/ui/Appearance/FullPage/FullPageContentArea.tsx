@@ -232,7 +232,11 @@ const contentAreaReducedHeaderSpace = css({
 });
 
 const editorContentGutterStyle = () => {
-	if (expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)) {
+	if (
+		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+			exposure: true,
+		})
+	) {
 		return css({
 			boxSizing: 'border-box',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -544,11 +548,9 @@ const Content = React.forwardRef<
 												fg('platform_editor_controls_increase_full_page_gutter') &&
 													editorExperiment('platform_editor_controls', 'variant1') &&
 													editorContentGutterStyleFG,
-												expValEquals(
-													'platform_editor_preview_panel_responsiveness',
-													'isEnabled',
-													true,
-												) && editorContentReducedGutterStyles,
+												editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+													exposure: true,
+												}) && editorContentReducedGutterStyles,
 											]
 										: [
 												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766

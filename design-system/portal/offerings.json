@@ -28,8 +28,6 @@
 			"Consider content context and purpose",
 			"Use appropriate portal placement"
 		],
-		"examples": {
-			"basic": "./examples/ai/portal.tsx"
-		}
+		"examples": ["./examples/ai/portal.tsx"]
 	}
 ]

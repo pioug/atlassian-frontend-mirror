@@ -42,9 +42,6 @@
 			"path": "../../primitives/afm-rovo-extension/tsconfig.json"
 		},
 		{
-			"path": "../../theme/afm-rovo-extension/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-rovo-extension/tsconfig.json"
 		}
 	]

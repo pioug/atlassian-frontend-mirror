@@ -29,8 +29,6 @@
 			"Show current value when helpful",
 			"Use consistent range terminology"
 		],
-		"examples": {
-			"basic": "./examples/ai/range.tsx"
-		}
+		"examples": ["./examples/ai/range.tsx"]
 	}
 ]

@@ -48,7 +48,7 @@ const SlotWrapper = ({
 		style={{
 			minHeight,
 			backgroundColor: backgroundColor,
-			outline: borderColor ? `2px dashed ${borderColor}` : 'none',
+			outline: borderColor ? `${token('border.width.focused')} dashed ${borderColor}` : 'none',
 			overflowX: hasHorizontalScrollbar ? 'auto' : 'hidden',
 		}}
 	>

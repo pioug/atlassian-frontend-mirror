@@ -81,6 +81,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	cc_editor_ufo_hold_table_till_resize_complete: false,
 	platform_editor_toggle_expand_on_match_found: false,
 	platform_editor_reduce_noisy_steps_ncs: false,
-	cc_improve_writing_on_paste: false,
+	cc_improve_writing_on_paste_v2: false,
 	platform_editor_ai_aifc: false,
 };

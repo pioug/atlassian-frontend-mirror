@@ -27,7 +27,7 @@ const containerStyles = css({
 	alignItems: 'center',
 	justifyContent: 'space-between',
 	flexShrink: 0,
-	borderBlockEnd: `1px solid ${token('color.border', N30)}`,
+	borderBlockEnd: `${token('border.width')} solid ${token('color.border', N30)}`,
 	paddingInlineEnd: token('space.150', '12px'),
 	paddingInlineStart: token('space.150', '12px'),
 });

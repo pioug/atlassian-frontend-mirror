@@ -569,7 +569,9 @@ export const GlobalStylesWrapper = ({
 					(expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
 						? extendedDragZoneNext
 						: extendedDragZone),
-				expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+				editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+					exposure: true,
+				})
 					? expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
 						? extendHoverZoneReducedNext
 						: extendHoverZoneReduced

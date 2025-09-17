@@ -31,8 +31,6 @@
 			"Group related actions logically",
 			"Use consistent terminology across menu items"
 		],
-		"examples": {
-			"basic": "./examples/ai/dropdown-menu.tsx"
-		}
+		"examples": ["./examples/ai/dropdown-menu.tsx"]
 	}
 ]

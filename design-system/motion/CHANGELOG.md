@@ -1,5 +1,12 @@
 # @atlaskit/motion
 
+## 5.3.5
+
+### Patch Changes
+
+- [`4e874b2f5938f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e874b2f5938f) -
+  fix typescript issues during local consumption for adminhub
+
 ## 5.3.4
 
 ### Patch Changes

@@ -22,7 +22,7 @@ const contentStyles = css({
 const headerStyles = css({
 	position: 'absolute',
 	backgroundColor: token('utility.elevation.surface.current'),
-	borderBlockEnd: `1px solid ${token('color.border')}`,
+	borderBlockEnd: `${token('border.width')} solid ${token('color.border')}`,
 	boxShadow: token('elevation.shadow.overflow'),
 	insetBlockStart: 0,
 	insetInlineEnd: 0,

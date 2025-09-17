@@ -28,9 +28,7 @@
 			"Use meaningful variable names in examples",
 			"Keep code snippets concise"
 		],
-		"examples": {
-			"basic": "./examples/ai/code.tsx"
-		}
+		"examples": ["./examples/ai/code.tsx"]
 	},
 	{
 		"name": "CodeBlock",
@@ -62,8 +60,6 @@
 			"Use meaningful variable names in examples",
 			"Keep code blocks focused and relevant"
 		],
-		"examples": {
-			"basic": "./examples/ai/code-block.tsx"
-		}
+		"examples": ["./examples/ai/code-block.tsx"]
 	}
 ]

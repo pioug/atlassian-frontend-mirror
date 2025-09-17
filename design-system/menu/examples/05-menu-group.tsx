@@ -36,7 +36,7 @@ export default () => {
 		>
 			<div
 				style={{
-					border: `1px solid ${token('color.border')}`,
+					border: `${token('border.width')} solid ${token('color.border')}`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					borderRadius: token('radius.small'),
 				}}
@@ -150,7 +150,7 @@ export default () => {
 			</div>
 			<div
 				style={{
-					border: `1px solid ${token('color.border')}`,
+					border: `${token('border.width')} solid ${token('color.border')}`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					height: 'max-content',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

@@ -31,9 +31,7 @@
 			"Provide appropriate close actions",
 			"Consider content hierarchy and grouping"
 		],
-		"examples": {
-			"basic": "./examples/ai/drawer.tsx"
-		}
+		"examples": ["./examples/ai/drawer.tsx"]
 	},
 	{
 		"name": "DrawerContent",
@@ -57,9 +55,7 @@
 			"Use appropriate spacing and layout",
 			"Consider content hierarchy"
 		],
-		"examples": {
-			"basic": "./examples/ai/drawer-content.tsx"
-		}
+		"examples": ["./examples/ai/drawer-content.tsx"]
 	},
 	{
 		"name": "DrawerSidebar",
@@ -83,9 +79,7 @@
 			"Organize content hierarchically",
 			"Keep sidebar content concise"
 		],
-		"examples": {
-			"basic": "./examples/ai/drawer-sidebar.tsx"
-		}
+		"examples": ["./examples/ai/drawer-sidebar.tsx"]
 	},
 	{
 		"name": "DrawerCloseButton",
@@ -109,8 +103,6 @@
 			"Ensure button is easily discoverable",
 			"Provide appropriate hover/focus states"
 		],
-		"examples": {
-			"basic": "./examples/ai/drawer-close-button.tsx"
-		}
+		"examples": ["./examples/ai/drawer-close-button.tsx"]
 	}
 ]

@@ -32,8 +32,6 @@
 			"Group related options together"
 		],
 		"generativeInstructions": "./docs/ai/checkbox-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/checkbox.tsx"
-		}
+		"examples": ["./examples/ai/checkbox.tsx"]
 	}
 ]

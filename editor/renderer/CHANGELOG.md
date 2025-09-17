@@ -1,5 +1,38 @@
 # @atlaskit/renderer
 
+## 123.3.3
+
+### Patch Changes
+
+- [`45c6f8d40f9ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45c6f8d40f9ac) -
+  Bump i18n pkg versions for atlaskit packages for including license field
+- Updated dependencies
+
+## 123.3.2
+
+### Patch Changes
+
+- [`6b6eca9cee16d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b6eca9cee16d) -
+  Switch to use editorExperiment to use productKey for responsive preview panel changes.
+- Updated dependencies
+
+## 123.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 123.3.0
+
+### Minor Changes
+
+- [`3463fb9dbb744`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3463fb9dbb744) -
+  [ux] Add experiment for new compact mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 123.2.2
 
 ### Patch Changes

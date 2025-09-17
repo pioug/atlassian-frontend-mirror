@@ -15,6 +15,7 @@ import type { AIDefinitionsEventPayload } from './ai-definitions-events';
 import type { AIEventPayload } from './ai-events';
 import type { AIInlineSuggestionPayload } from './ai-inline-suggestion-events';
 import type { AIProactiveEventPayload } from './ai-proactive-events';
+import type { AIStreamingEventPayload } from './ai-streaming';
 import type { AIUnifiedEventPayload } from './ai-unified-events';
 import type { AlignmentEventPayload } from './alignment-events';
 import type { AvatarEventPayload } from './avatar';
@@ -133,6 +134,7 @@ export type AnalyticsEventPayload<T = void> =
 	| AICommandPaletteEventPayload
 	| AIDefinitionsEventPayload
 	| AIEventPayload
+	| AIStreamingEventPayload
 	| AIProactiveEventPayload
 	| AIUnifiedEventPayload
 	| BreakoutEventPayload

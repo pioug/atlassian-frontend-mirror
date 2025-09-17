@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 21.3.1
+
+### Patch Changes
+
+- [`248faa32d4835`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/248faa32d4835) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
 ## 21.3.0
 
 ### Minor Changes

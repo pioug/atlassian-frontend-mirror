@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 
 const treeRowContainerStyles = css({
 	display: 'flex',
-	borderBlockEnd: `1px solid ${token('color.border', N30)}`,
+	borderBlockEnd: `${token('border.width')} solid ${token('color.border', N30)}`,
 });
 
 /**

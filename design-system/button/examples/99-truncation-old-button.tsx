@@ -8,12 +8,13 @@ import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button';
 import Expand from '@atlaskit/icon/glyph/arrow-down';
 import Question from '@atlaskit/icon/glyph/question';
+import { token } from '@atlaskit/tokens';
 
 const narrowWrapperStyles = css({
 	width: '190px',
 	margin: '10px',
 	padding: '10px',
-	border: '1px solid red',
+	border: `${token('border.width')} solid red`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
 		marginBlockEnd: '10px',

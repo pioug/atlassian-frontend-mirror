@@ -32,8 +32,6 @@
 			"Consider tag hierarchy and grouping"
 		],
 		"generativeInstructions": "./docs/ai/tag-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/tag.tsx"
-		}
+		"examples": ["./examples/ai/tag.tsx"]
 	}
 ]

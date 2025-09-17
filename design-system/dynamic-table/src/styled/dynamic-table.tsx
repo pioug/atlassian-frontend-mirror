@@ -29,7 +29,7 @@ const tableStyles = css({
 });
 
 const bodyBorder = css({
-	borderBlockEnd: `2px solid ${token('color.border', N40)}`,
+	borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border', N40)}`,
 });
 
 export const Table = forwardRef<HTMLTableElement, TableProps>(

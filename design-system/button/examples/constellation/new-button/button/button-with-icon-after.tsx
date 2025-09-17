@@ -1,14 +1,12 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import StarStarredIcon from '@atlaskit/icon/core/migration/star-starred--star-filled';
+import StarIcon from '@atlaskit/icon/core/star-starred';
 
-const ButtonIconAfterExample = () => {
+export default function ButtonIconAfterExample() {
 	return (
-		<Button iconAfter={StarStarredIcon} appearance="primary">
+		<Button iconAfter={StarIcon} appearance="primary">
 			Icon after
 		</Button>
 	);
-};
-
-export default ButtonIconAfterExample;
+}

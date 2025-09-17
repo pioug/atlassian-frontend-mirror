@@ -9,7 +9,6 @@ import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { FullPagePadding } from '../../ui/Renderer/style';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	createCompareNodes,
@@ -476,10 +475,12 @@ export class TableContainer extends React.Component<
 		const lineLengthFixedWidth = akEditorDefaultLayoutWidth;
 		let updatedLayout: TableLayout | 'custom';
 
-		const fullPageRendererWidthCSS = expValEquals(
+		const fullPageRendererWidthCSS = editorExperiment(
 			'platform_editor_preview_panel_responsiveness',
-			'isEnabled',
 			true,
+			{
+				exposure: true,
+			},
 		)
 			? 'calc(100cqw - var(--ak-renderer--full-page-gutter) * 2)'
 			: `100cqw - ${FullPagePadding}px * 2`;

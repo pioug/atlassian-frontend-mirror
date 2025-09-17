@@ -1,0 +1,44 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__object/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../css/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../icon-lab/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tile/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-townsquare/tsconfig.json"
+		}
+	]
+}

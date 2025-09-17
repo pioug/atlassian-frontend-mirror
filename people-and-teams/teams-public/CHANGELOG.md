@@ -1,5 +1,30 @@
 # @atlaskit/teams-public
 
+## 0.59.1
+
+### Patch Changes
+
+- [`45c6f8d40f9ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45c6f8d40f9ac) -
+  Bump i18n pkg versions for atlaskit packages for including license field
+
+## 0.59.0
+
+### Minor Changes
+
+- [`be81523ba6f9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be81523ba6f9f) -
+  Migrated @atlaskit/teams-public analytics to @atlaskit/teams-app-internal-analytics package
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.58.0
+
+### Minor Changes
+
+- [`a9907aa019b3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9907aa019b3d) -
+  Export i18n messages
+
 ## 0.57.3
 
 ### Patch Changes

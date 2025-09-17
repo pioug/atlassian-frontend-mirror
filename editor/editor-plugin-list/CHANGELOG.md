@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-list
 
+## 7.2.2
+
+### Patch Changes
+
+- [`b610a8281f843`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b610a8281f843) -
+  Fix double format options highlight for selection with blockQuotes
+- Updated dependencies
+
 ## 7.2.1
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import React, { type ReactNode, forwardRef, type Ref } from 'react';
+import React, { type ReactNode, forwardRef, type Ref, isValidElement, cloneElement } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
@@ -139,6 +139,22 @@ export const ToolbarDropdownItem = ({
 }: ToolbarDropdownItemProps) => {
 	const parentContext = useToolbarDropdownMenuNew();
 
+	const injectedElemAfter = (() => {
+		if (!isValidElement(elemAfter)) {
+			return elemAfter;
+		}
+
+		const elementProps = elemAfter.props as Record<string, unknown>;
+		if ('isDisabled' in elementProps) {
+			return elemAfter;
+		}
+
+		return cloneElement(elemAfter, {
+			...elementProps,
+			isDisabled,
+		} as typeof elemAfter.props);
+	})();
+
 	return (
 		<DropdownItem
 			onClick={
@@ -152,7 +168,11 @@ export const ToolbarDropdownItem = ({
 					: onClick
 			}
 			elemBefore={elemBefore}
-			elemAfter={elemAfter}
+			elemAfter={
+				expValEquals('platform_editor_toolbar_aifc_patch_5', 'isEnabled', true)
+					? injectedElemAfter
+					: elemAfter
+			}
 			isSelected={isSelected}
 			isDisabled={isDisabled}
 			aria-haspopup={hasNestedDropdownMenu}

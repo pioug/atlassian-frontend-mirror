@@ -29,9 +29,7 @@
 			"Use appropriate date formats",
 			"Keep labels concise but descriptive"
 		],
-		"examples": {
-			"basic": "./examples/ai/date-picker.tsx"
-		}
+		"examples": ["./examples/ai/date-picker.tsx"]
 	},
 	{
 		"name": "TimePicker",
@@ -63,9 +61,7 @@
 			"Use appropriate time formats",
 			"Keep labels concise but descriptive"
 		],
-		"examples": {
-			"basic": "./examples/ai/time-picker.tsx"
-		}
+		"examples": ["./examples/ai/time-picker.tsx"]
 	},
 	{
 		"name": "DateTimePicker",
@@ -97,8 +93,6 @@
 			"Use appropriate date/time formats",
 			"Keep labels concise but descriptive"
 		],
-		"examples": {
-			"basic": "./examples/ai/datetime-picker.tsx"
-		}
+		"examples": ["./examples/ai/datetime-picker.tsx"]
 	}
 ]

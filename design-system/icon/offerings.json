@@ -32,9 +32,7 @@
 			"Use appropriate icon labels and descriptions"
 		],
 		"generativeInstructions": "./docs/ai/icon-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/icon.tsx"
-		}
+		"examples": ["./examples/ai/icon.tsx"]
 	},
 	{
 		"name": "IconTile",
@@ -66,8 +64,6 @@
 			"Ensure visual consistency across tiles"
 		],
 		"generativeInstructions": "./docs/ai/icon-tile-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/icon-tile.tsx"
-		}
+		"examples": ["./examples/ai/icon-tile.tsx"]
 	}
 ]

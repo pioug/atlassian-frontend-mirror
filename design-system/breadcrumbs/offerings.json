@@ -29,8 +29,6 @@
 			"Use consistent naming conventions",
 			"Consider user understanding of hierarchy"
 		],
-		"examples": {
-			"basic": "./examples/ai/breadcrumbs.tsx"
-		}
+		"examples": ["./examples/ai/breadcrumbs.tsx"]
 	}
 ]

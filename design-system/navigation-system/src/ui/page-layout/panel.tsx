@@ -97,7 +97,7 @@ const styles = cssMap({
 			// Hiding the box shadow because we are adding a border
 			boxShadow: 'none',
 			// We only want the border to be visible when it is not an overlay
-			borderInlineStart: `1px solid ${token('color.border')}`,
+			borderInlineStart: `${token('border.width')} solid ${token('color.border')}`,
 		},
 	},
 	scrollContainer: {

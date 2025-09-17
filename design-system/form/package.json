@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "12.6.1",
+	"version": "12.7.0",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,7 +31,6 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
-		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"final-form": "root:*",
@@ -128,6 +127,9 @@
 			"type": "boolean"
 		},
 		"platform_design-system-team_form-upgrade": {
+			"type": "boolean"
+		},
+		"platform_design-system-team_field-upgrade": {
 			"type": "boolean"
 		},
 		"platform_design-system-team_checkbox-field-spread": {

@@ -63,7 +63,7 @@ export default () => (
 		style={{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			paddingBottom: token('space.100', '8px'),
-			border: `1px solid ${token('color.border')}`,
+			border: `${token('border.width')} solid ${token('color.border')}`,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			borderRadius: token('radius.small', '3px'),
 		}}

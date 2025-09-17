@@ -32,8 +32,6 @@
 			"Consider content length and formatting"
 		],
 		"generativeInstructions": "./docs/ai/textfield-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/textfield.tsx"
-		}
+		"examples": ["./examples/ai/textfield.tsx"]
 	}
 ]

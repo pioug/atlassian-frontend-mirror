@@ -83,14 +83,14 @@ const optionStyles = cssMap({
 			backgroundColor: 'transparent',
 		},
 		'@media screen and (-ms-high-contrast: active)': {
-			borderLeft: 'none',
+			borderInlineStart: 'none',
 		},
 	},
 	focused: {
 		backgroundColor: token('color.background.neutral.subtle.hovered'),
 		boxShadow: `inset 2px 0px 0px ${token('color.border.selected')}`,
 		'@media screen and (-ms-high-contrast: active)': {
-			borderLeft: '2px solid transparent',
+			borderInlineStart: `${token('border.width.selected')} solid transparent`,
 		},
 	},
 	selected: {
@@ -101,7 +101,7 @@ const optionStyles = cssMap({
 		backgroundColor: token('color.background.selected'),
 		boxShadow: `inset 2px 0px 0px ${token('color.border.selected')}`,
 		'@media screen and (-ms-high-contrast: active)': {
-			borderLeft: '2px solid transparent',
+			borderInlineStart: `${token('border.width.selected')} solid transparent`,
 		},
 	},
 	focusedSelected: {

@@ -32,6 +32,7 @@ import {
 	findParentNodeOfTypeClosestToPos,
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
@@ -46,6 +47,8 @@ import {
 	isActionOrDecisionItem,
 	isActionOrDecisionList,
 	isEmptyTaskDecision,
+	isInFirstTextblockOfBlockTaskItem,
+	isInLastTextblockOfBlockTaskItem,
 	isInsideDecision,
 	isInsideTask,
 	isInsideTaskOrDecisionItem,
@@ -601,7 +604,13 @@ const enter = (
 
 				const addItem = ({ tr, itemLocalId }: { itemLocalId?: string; tr: Transaction }) => {
 					// ED-8932: When cursor is at the beginning of a task item, instead of split, we insert above.
-					if ($from.pos === $to.pos && $from.parentOffset === 0) {
+					if (
+						$from.pos === $to.pos &&
+						$from.parentOffset === 0 &&
+						(fg('platform_editor_blocktaskitem_patch_2')
+							? !$from.parent.isTextblock || isInFirstTextblockOfBlockTaskItem(state)
+							: true)
+					) {
 						const newTask = nodeType.createAndFill({ localId: itemLocalId });
 						if (newTask) {
 							if (nodeType === blockTaskItem) {
@@ -634,7 +643,12 @@ const enter = (
 
 						// If the selection is a gap cursor at the end of the blockTaskItem,
 						// we should insert a new taskItem.
-						if ($from.parentOffset === $from.parent.nodeSize - 2) {
+						if (
+							(fg('platform_editor_blocktaskitem_patch_2')
+								? !$from.parent.isTextblock || isInLastTextblockOfBlockTaskItem(state)
+								: true) &&
+							$from.parentOffset === $from.parent.nodeSize - 2
+						) {
 							const newTaskItem = taskItem.createAndFill({
 								localId: itemLocalId,
 							});

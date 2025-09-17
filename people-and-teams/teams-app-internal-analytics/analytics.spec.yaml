@@ -76,6 +76,45 @@ events:
         testAttribute:
           type: string
           description: test attribute
+  - assignTeamToASiteMessage viewed:
+      type: screen
+      description:
+        fired when the assign team to a site section message is viewed on the team profile page
+      attributes:
+        <<: *PackageMetaDataContext
+  - assignThisTeamToASite clicked:
+      type: ui
+      description:
+        fired when the assign this team to a site action in the assign team to a site section
+        message is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - assignTeamToASiteModal viewed:
+      type: screen
+      description: fired when the assign team to a site modal is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+  - assignTeamToASiteSiteSelected selected:
+      type: track
+      description: fired when the site is selected in the assign team to a site modal
+      attributes:
+        <<: *PackageMetaDataContext
+        isSuggestedSite:
+          type: boolean
+          description: whether the site is the suggested site
+  - assignTeamToASiteConfirmButton clicked:
+      type: ui
+      description: fired when the confirm button is clicked in the assign team to a site modal
+      attributes:
+        <<: *PackageMetaDataContext
+        success:
+          type: boolean
+          description: whether the assign team to a site action was successful
+  - assignTeamToASiteCancelButton clicked:
+      type: ui
+      description: fired when the cancel button is clicked in the assign team to a site modal
+      attributes:
+        <<: *PackageMetaDataContext
   - memberPicker error:
       type: track
       description: fired when the member picker error is triggered
@@ -502,7 +541,9 @@ events:
           description: whether the parent team linker is canceled
         newParentTeamId:
           type: string
-          description: the new parent team id, empty string if unset, or same as the old parent team id if canceled
+          description:
+            the new parent team id, empty string if unset, or same as the old parent team id if
+            canceled
   - addParentTeam failed:
       type: operational
       description: fired when the add parent team operation fails
@@ -560,3 +601,152 @@ events:
         error:
           type: string
           description: the error message
+  - fetchTeamContainers succeeded:
+      type: operational
+      description: fired when the fetchTeamContainers succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the id of the team
+  - fetchTeamContainers failed:
+      type: operational
+      description: fired when the fetchTeamContainers failed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the team id
+        error:
+          type: object
+          description: the error
+  - refetchTeamContainers succeeded:
+      type: operational
+      description: fired when the fetchTeamContainers succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the team id
+  - refetchTeamContainers failed:
+      type: operational
+      description: fired when the fetchTeamContainers failed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the team id
+        error:
+          type: object
+          description: the error
+  - fetchNumberOfConnectedTeams succeeded:
+      type: operational
+      description: fired when the fetchNumberOfConnectedTeams succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+        containerId:
+          type: string
+          description: the container id
+        numberOfTeams:
+          type: number
+          required: false
+          description: the number of teams
+  - fetchNumberOfConnectedTeams failed:
+      type: operational
+      description: fired when the fetchNumberOfConnectedTeams failed
+      attributes:
+        <<: *PackageMetaDataContext
+        containerId:
+          type: string
+          description: the container id
+        numberOfTeams:
+          type: number
+          required: false
+          description: the number of teams
+        error:
+          type: object
+          description: the error
+  - fetchConnectedTeams succeeded:
+      type: operational
+      description: fired when the fetchConnectedTeams succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+        containerId:
+          type: string
+          description: the container id
+        numberOfTeams:
+          type: number
+          required: false
+          description: the number of teams
+  - fetchConnectedTeams failed:
+      type: operational
+      description: fired when the fetchConnectedTeams failed
+      attributes:
+        <<: *PackageMetaDataContext
+        containerId:
+          type: string
+          description: the container id
+        numberOfTeams:
+          type: number
+          required: false
+          description: the number of teams
+        error:
+          type: object
+          description: the error
+  - container clicked (teamContainer):
+      type: ui
+      description: fired when the team container is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        containerSelected:
+          type: object
+          description: the container that was selected
+  - unlinkContainerDialog opened:
+      type: track
+      description: fired when the unlink container dialog is opened
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the team id
+  - teamContainerUnlinked failed:
+      type: track
+      description: fired when the team container unlink failed
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamContainerUnlinked succeeded:
+      type: track
+      description: fired when the team container unlink succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the team id
+        containerRemoved:
+          type: object
+          description: the container that was removed
+  - button clicked (containerUnlinkButton):
+      type: ui
+      description: fired when the container unlink button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        containerSelected:
+          type: object
+          required: false
+          description: the container that was selected
+  - button clicked (containerEditLinkButton):
+      type: ui
+      description: fired when the container edit link button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        containerSelected:
+          type: object
+          description: the container that was selected
+  - button clicked (containerRemoveLinkButton):
+      type: ui
+      description: fired when the container remove link button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        containerSelected:
+          type: object
+          description: the container that was selected

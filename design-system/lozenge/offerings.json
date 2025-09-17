@@ -31,8 +31,6 @@
 			"Consider text length and readability"
 		],
 		"generativeInstructions": "./docs/ai/lozenge-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/lozenge.tsx"
-		}
+		"examples": ["./examples/ai/lozenge.tsx"]
 	}
 ]

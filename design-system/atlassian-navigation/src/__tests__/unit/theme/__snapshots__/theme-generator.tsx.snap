@@ -112,7 +112,7 @@ exports[`generateTheme atlassian theme should match theme object for "primaryBut
 exports[`generateTheme atlassian theme should match theme object for "productHome" 1`] = `
 {
   "backgroundColor": "var(--ds-text-brand, #0052CC)",
-  "borderRight": "1px solid var(--ds-border, rgba(107, 119, 140, 0.3))",
+  "borderRight": "var(--ds-border-width) solid var(--ds-border, rgba(107, 119, 140, 0.3))",
   "color": "var(--ds-text, #253858)",
   "iconColor": undefined,
   "textColor": undefined,
@@ -263,7 +263,7 @@ exports[`generateTheme custom black text theme should match theme object for "pr
 exports[`generateTheme custom black text theme should match theme object for "productHome" 1`] = `
 {
   "backgroundColor": "#E94E34",
-  "borderRight": "1px solid rgba(255, 255, 255, 0.5)",
+  "borderRight": "var(--ds-border-width) solid rgba(255, 255, 255, 0.5)",
   "color": "#ffffff",
   "iconColor": "#ffffff",
   "textColor": "#ffffff",
@@ -416,7 +416,7 @@ exports[`generateTheme custom white text theme should match theme object for "pr
 exports[`generateTheme custom white text theme should match theme object for "productHome" 1`] = `
 {
   "backgroundColor": "#333333",
-  "borderRight": "1px solid rgba(0, 0, 0, 0.5)",
+  "borderRight": "var(--ds-border-width) solid rgba(0, 0, 0, 0.5)",
   "color": "#000000",
   "iconColor": "#000000",
   "textColor": "#000000",

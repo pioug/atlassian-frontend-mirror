@@ -182,6 +182,7 @@ export enum ACTION {
 	BLOCKS_DRAG_INIT = 'blocksDragInit',
 	SINGLE_COL_LAYOUT_DETECTED = 'singleColumLayoutDetected',
 	VIEW_MORE = 'viewMore',
+	LOCAL_ID_NOT_FOUND = 'localIdNotFound',
 	/**
 	 * used in Editor AI inline suggestion for a track event when a suggestion is inserted
 	 * previously tracked events being used by Editor AI proactive suggestion
@@ -250,6 +251,7 @@ export enum ACTION_SUBJECT {
 	AI_INTERACTION = 'aiInteraction',
 	AI_RESULT = 'aiResult',
 	AI_FEEDBACK = 'aiFeedback',
+	AI_STREAMING = 'aiStreaming',
 	COLLAB = 'collab',
 	TOOLBAR_BUTTON = 'toolbarButton',
 	BUTTON = 'button',

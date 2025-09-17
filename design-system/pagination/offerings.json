@@ -29,8 +29,6 @@
 			"Use consistent pagination terminology",
 			"Consider page context information"
 		],
-		"examples": {
-			"basic": "./examples/ai/pagination.tsx"
-		}
+		"examples": ["./examples/ai/pagination.tsx"]
 	}
 ]

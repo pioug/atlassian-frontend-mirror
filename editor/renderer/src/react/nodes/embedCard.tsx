@@ -29,7 +29,7 @@ import {
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { CardErrorBoundary } from './fallback';
 
@@ -330,7 +330,10 @@ export const EmbedOrBlockCardInternal = ({
 };
 
 const EmbedCardWithCondition = componentWithCondition(
-	() => expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true),
+	() =>
+		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+			exposure: true,
+		}),
 	EmbedOrBlockCardInternal,
 	EmbedCardInternal,
 );

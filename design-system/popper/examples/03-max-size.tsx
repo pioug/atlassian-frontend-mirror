@@ -30,7 +30,7 @@ const popupStyles = cssMap({
 
 const contentStyles = cssMap({
 	root: {
-		border: `1px solid ${token('color.border.accent.blue')}`,
+		border: `${token('border.width')} solid ${token('color.border.accent.blue')}`,
 		paddingBlockEnd: token('space.100'),
 		paddingBlockStart: token('space.100'),
 		paddingInlineEnd: token('space.100'),

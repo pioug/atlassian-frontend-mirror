@@ -21,7 +21,7 @@ const topNavigationWrapperStyles = css({
 	boxSizing: 'border-box',
 	padding: '1rem',
 	backgroundColor: token('color.background.neutral.subtle'),
-	borderBlockEnd: `1px solid ${token('color.border')}`,
+	borderBlockEnd: `${token('border.width')} solid ${token('color.border')}`,
 });
 
 const leftSidebarWrapperStyles = css({

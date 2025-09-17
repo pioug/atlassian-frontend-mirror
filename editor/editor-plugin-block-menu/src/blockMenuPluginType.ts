@@ -27,6 +27,7 @@ export type BlockMenuPlugin = NextEditorPlugin<
 			OptionalPlugin<DecorationsPlugin>,
 		];
 		pluginConfiguration?: BlockMenuPluginOptions;
+		sharedState: BlockMenuSharedState;
 	}
 >;
 
@@ -42,6 +43,16 @@ export type BlockMenuPluginOptions = {
 	 */
 	getLinkPath?: () => string | null;
 };
+
+export type BlockMenuSharedState =
+	| {
+			/**
+			 * The name of the currently selected node type that triggered the block menu
+			 * This exposes the menuTriggerBy value from blockControls plugin
+			 */
+			currentSelectedNodeName: string | undefined;
+	  }
+	| undefined;
 
 type WithRank<T> = T & { rank: number };
 

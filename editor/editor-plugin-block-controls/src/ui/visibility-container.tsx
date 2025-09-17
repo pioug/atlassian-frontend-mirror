@@ -12,7 +12,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
@@ -62,7 +62,11 @@ export const VisibilityContainer = ({ api, children }: VisibilityContainerProps)
 
 	const shouldHide = isTypeAheadOpen || isEditing || isMouseOut;
 
-	if (expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)) {
+	if (
+		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+			exposure: true,
+		})
+	) {
 		return (
 			<div css={[baseStylesCSS, shouldHide ? hiddenStylesCSS : visibleStylesCSS]}>{children}</div>
 		);

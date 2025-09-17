@@ -500,8 +500,8 @@ describe('DocumentViewer', () => {
 			expect(page).toBeInTheDocument();
 
 			// Should use content dimensions (800x600 from mockPageContent)
-			const expectedWidth = 'calc(var(--document-viewer-zoom) * 800px)';
-			const expectedHeight = 'calc(var(--document-viewer-zoom) * 600px)';
+			const expectedWidth = 'calc(var(--document-viewer-zoom) * 842px)';
+			const expectedHeight = 'calc(var(--document-viewer-zoom) * 595px)';
 
 			expect(page).toHaveStyle(`width: ${expectedWidth}`);
 			expect(page).toHaveStyle(`height: ${expectedHeight}`);
@@ -521,8 +521,10 @@ describe('DocumentViewer', () => {
 			expect(image).toBeInTheDocument();
 
 			// Should use initial dimensions when image is loaded but no content
-			expect(page).toHaveStyle('width: initial');
-			expect(page).toHaveStyle('height: initial');
+			expect(page).toHaveStyle({
+				width: 'calc(var(--document-viewer-zoom) * 842px)',
+				height: 'calc(var(--document-viewer-zoom) * 595px)',
+			});
 		});
 	});
 

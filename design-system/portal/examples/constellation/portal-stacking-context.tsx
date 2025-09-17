@@ -24,7 +24,7 @@ const styles = cssMap({
 	},
 	figure: {
 		position: 'absolute',
-		border: `1px solid ${token('color.blanket')}`,
+		border: `${token('border.width')} solid ${token('color.blanket')}`,
 		filter: 'drop-shadow(-12px 12px 8px)',
 	},
 	topSquare: {

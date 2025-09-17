@@ -14,6 +14,7 @@ import {
 	ToolbarDropdownMenuProvider,
 	ToolbarTooltip,
 	getContrastingBackgroundColor,
+	useToolbarUI,
 } from '@atlaskit/editor-toolbar';
 import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -49,6 +50,10 @@ const getIconColor = (
 export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenuProps) => {
 	const isHighlightPluginExisted = !!api?.highlight;
 	const isTextColorDisabled = useSharedPluginStateSelector(api, 'textColor.disabled');
+	const { isDisabled: isToolbarDisabled } = useToolbarUI();
+	const isDisabled = expValEquals('platform_editor_toolbar_aifc_patch_5', 'isEnabled', true)
+		? Boolean(isToolbarDisabled || isTextColorDisabled)
+		: isTextColorDisabled;
 	const highlightColor = useSharedPluginStateSelector(api, 'highlight.activeColor');
 	const textColor = useSharedPluginStateSelector(api, 'textColor.color');
 	const { formatMessage } = useIntl();
@@ -73,12 +78,12 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 								iconColor={iconColor as IconColor}
 								shouldRecommendSmallIcon
 								size={'small'}
-								isDisabled={isTextColorDisabled}
+								isDisabled={isDisabled}
 								spacing={'compact'}
 							/>
 						</ToolbarColorSwatch>
 					}
-					isDisabled={isTextColorDisabled}
+					isDisabled={isDisabled}
 					testId="text-color-highlight-menu"
 					hasSectionMargin={false}
 				>
@@ -99,12 +104,12 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 						iconColor={iconColor as IconColor}
 						shouldRecommendSmallIcon
 						size={'small'}
-						isDisabled={isTextColorDisabled}
+						isDisabled={isDisabled}
 						spacing={'compact'}
 					/>
 				</ToolbarColorSwatch>
 			}
-			isDisabled={isTextColorDisabled}
+			isDisabled={isDisabled}
 			testId="text-color-highlight-menu"
 			hasSectionMargin={false}
 		>

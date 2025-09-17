@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-breakout
 
+## 5.2.2
+
+### Patch Changes
+
+- [`6b6eca9cee16d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b6eca9cee16d) -
+  Switch to use editorExperiment to use productKey for responsive preview panel changes.
+- Updated dependencies
+
+## 5.2.1
+
+### Patch Changes
+
+- [`8339b4553cc39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8339b4553cc39) -
+  Hydration fixes for breakout plugin
+- Updated dependencies
+
 ## 5.2.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @atlaskit/link-datasource
 
+## 4.23.5
+
+### Patch Changes
+
+- [`45c6f8d40f9ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45c6f8d40f9ac) -
+  Bump i18n pkg versions for atlaskit packages for including license field
+- Updated dependencies
+
+## 4.23.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.23.3
 
 ### Patch Changes

@@ -13,20 +13,20 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: {
-		paddingTop: token('space.400'),
-		paddingRight: token('space.400'),
-		paddingBottom: token('space.400'),
-		paddingLeft: token('space.400'),
+		paddingBlockStart: token('space.400'),
+		paddingInlineEnd: token('space.400'),
+		paddingBlockEnd: token('space.400'),
+		paddingInlineStart: token('space.400'),
 	},
 	background: {
 		position: 'fixed',
 		zIndex: '1',
-		paddingTop: token('space.300', '24px'),
-		paddingRight: token('space.300', '24px'),
-		paddingBottom: token('space.300', '24px'),
-		paddingLeft: token('space.300', '24px'),
+		paddingBlockStart: token('space.300', '24px'),
+		paddingInlineEnd: token('space.300', '24px'),
+		paddingBlockEnd: token('space.300', '24px'),
+		paddingInlineStart: token('space.300', '24px'),
 		backgroundColor: token('color.background.neutral'),
-		border: `1px solid ${token('color.background.accent.gray.subtle')}`,
+		border: `${token('border.width')} solid ${token('color.background.accent.gray.subtle')}`,
 	},
 });
 

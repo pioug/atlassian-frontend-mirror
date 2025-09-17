@@ -11,7 +11,6 @@ import {
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type GuidelineConfig } from '../guideline';
@@ -72,7 +71,9 @@ export function useBreakoutGuidelines(
 		const padding =
 			width &&
 			width <= akEditorFullPageNarrowBreakout &&
-			expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+			editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+				exposure: true,
+			})
 				? akEditorGutterPaddingReduced
 				: akEditorGutterPaddingDynamic();
 

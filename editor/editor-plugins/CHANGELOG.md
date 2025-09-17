@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugins
 
+## 10.5.5
+
+### Patch Changes
+
+- [`d278f35b3fb0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d278f35b3fb0f) -
+  Cleaned up platform_editor_element_drag_and_drop_ed_23873
+- Updated dependencies
+
+## 10.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.5.1
 
 ### Patch Changes

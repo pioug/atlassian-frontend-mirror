@@ -19,6 +19,7 @@ import {
 	getSelectionRect,
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getPluginState } from '../../pm-plugins/plugin-factory';
 import type { PluginConfig, PluginInjectionAPI } from '../../types';
@@ -38,7 +39,7 @@ interface Props {
 	api: PluginInjectionAPI | undefined | null;
 	boundariesElement?: HTMLElement;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
-	editorView: EditorView;
+	editorView: EditorView | undefined;
 	getEditorContainerWidth: GetEditorContainerWidth;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
 	isCellMenuOpenByKeyboard?: boolean;
@@ -64,13 +65,23 @@ const FloatingContextualMenu = ({
 	isCommentEditor,
 	api,
 }: Props) => {
-	// TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
-	const { targetCellPosition, isDragAndDropEnabled } = getPluginState(editorView.state);
-	if (!isOpen || !targetCellPosition || editorView.state.doc.nodeSize <= targetCellPosition) {
+	if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
 		return null;
 	}
 
-	const { selection } = editorView.state;
+	// TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
+	// Remove ! during platform_editor_hydratable_ui cleanup
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	const { targetCellPosition, isDragAndDropEnabled } = getPluginState(editorView!.state);
+	// Remove ! during platform_editor_hydratable_ui cleanup
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	if (!isOpen || !targetCellPosition || editorView!.state.doc.nodeSize <= targetCellPosition) {
+		return null;
+	}
+
+	// Remove ! during platform_editor_hydratable_ui cleanup
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	const { selection } = editorView!.state;
 	const selectionRect = isSelectionType(selection, 'cell')
 		? // Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -80,7 +91,9 @@ const FloatingContextualMenu = ({
 	if (!selectionRect) {
 		return null;
 	}
-	const domAtPos = editorView.domAtPos.bind(editorView);
+	// Remove ! during platform_editor_hydratable_ui cleanup
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	const domAtPos = editorView!.domAtPos.bind(editorView);
 	const targetCellRef = findDomRefAtPos(targetCellPosition, domAtPos);
 	if (!targetCellRef) {
 		return null;
@@ -111,7 +124,9 @@ const FloatingContextualMenu = ({
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={tablePopupStyles(isDragAndDropEnabled)}>
 				<ContextualMenu
-					editorView={editorView}
+					// Remove ! during platform_editor_hydratable_ui cleanup
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					editorView={editorView!}
 					offset={[contextualMenuTriggerSize / 2, -contextualMenuTriggerSize]}
 					isOpen={isOpen}
 					targetCellPosition={targetCellPosition}

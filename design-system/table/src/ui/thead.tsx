@@ -14,8 +14,8 @@ const baseStyles = css({
 	inset: 0,
 	backgroundColor: token('elevation.surface', 'white'),
 	border: 'none',
-	borderBlockEnd: `2px solid ${token('color.border', '#eee')}`,
-	borderBlockStart: '2px solid transparent',
+	borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border', '#eee')}`,
+	borderBlockStart: `${token('border.width.selected')} solid transparent`,
 });
 
 /**

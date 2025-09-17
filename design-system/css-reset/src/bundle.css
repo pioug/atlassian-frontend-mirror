@@ -325,7 +325,7 @@ cite {
 }
 
 abbr {
-	border-bottom: 1px var(--ds-border, #ccc) dotted;
+	border-bottom: var(--ds-border-width, 1px) var(--ds-border, #ccc) dotted;
 	cursor: help;
 }
 
@@ -346,7 +346,7 @@ table {
 thead,
 tbody,
 tfoot {
-	border-bottom: 2px solid var(--ds-border, #dfe1e6);
+	border-bottom: var(--ds-border-width-selected, 2px) solid var(--ds-border, #dfe1e6);
 }
 
 td,

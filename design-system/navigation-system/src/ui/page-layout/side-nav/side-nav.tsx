@@ -114,7 +114,7 @@ const styles = cssMap({
 		},
 	},
 	oldBorder: {
-		borderInlineEnd: `1px solid ${token('color.border')}`,
+		borderInlineEnd: `${token('border.width')} solid ${token('color.border')}`,
 	},
 	newBorder: {
 		// Not required, but declaring explicitly because we really don't want a border at small sizes
@@ -123,7 +123,7 @@ const styles = cssMap({
 		borderInlineEnd: 'none',
 		'@media (min-width: 64rem)': {
 			// We only want the border to be visible when it is not an overlay
-			borderInlineEnd: `1px solid ${token('color.border')}`,
+			borderInlineEnd: `${token('border.width')} solid ${token('color.border')}`,
 		},
 	},
 	newBorderFlyoutOpen: {

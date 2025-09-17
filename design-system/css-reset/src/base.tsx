@@ -225,7 +225,7 @@ export default evaluateInner`
   }
 
   abbr {
-    border-bottom: 1px ${token('color.border', '#ccc')} dotted;
+    border-bottom: ${token('border.width', '1px')} ${token('color.border', '#ccc')} dotted;
     cursor: help;
   }
 

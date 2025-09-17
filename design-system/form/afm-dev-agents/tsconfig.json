@@ -42,9 +42,6 @@
 			"path": "../../primitives/afm-dev-agents/tsconfig.json"
 		},
 		{
-			"path": "../../theme/afm-dev-agents/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-dev-agents/tsconfig.json"
 		}
 	]

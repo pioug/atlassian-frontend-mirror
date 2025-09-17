@@ -9,6 +9,7 @@ import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Grid, Inline, Stack } from '@atlaskit/primitives';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 import {
 	hasProductPermission,
 	useProductPermissions,
@@ -93,6 +94,7 @@ export const TeamContainers = ({
 	const [containers] = useCreateContainers();
 
 	const { fireTrackEvent } = usePeopleAndTeamAnalytics();
+	const { fireEvent } = useAnalyticsEventsNext();
 
 	const { data: productPermissions, loading: productPermissionIsLoading } = useProductPermissions({
 		userId,
@@ -228,13 +230,19 @@ export const TeamContainers = ({
 			setSelectedContainerDetails(containerDetails);
 			setIsDisconnectDialogOpen(true);
 
-			fireTrackEvent(createAnalyticsEvent, {
-				action: AnalyticsAction.OPENED,
-				actionSubject: 'unlinkContainerDialog',
-				attributes: { teamId },
-			});
+			if (fg('ptc-enable-teams-public-analytics-refactor')) {
+				fireEvent('track.unlinkContainerDialog.opened', {
+					teamId,
+				});
+			} else {
+				fireTrackEvent(createAnalyticsEvent, {
+					action: AnalyticsAction.OPENED,
+					actionSubject: 'unlinkContainerDialog',
+					attributes: { teamId },
+				});
+			}
 		},
-		[createAnalyticsEvent, fireTrackEvent, teamId],
+		[createAnalyticsEvent, fireTrackEvent, teamId, fireEvent],
 	);
 
 	const handleEditContainerClick = useCallback(
@@ -260,22 +268,36 @@ export const TeamContainers = ({
 
 			setIsDisconnectDialogOpen(false);
 			if (unlinkError) {
-				fireTrackEvent(createAnalyticsEvent, {
-					action: AnalyticsAction.FAILED,
-					actionSubject: 'teamContainerUnlinked',
-				});
+				if (fg('ptc-enable-teams-public-analytics-refactor')) {
+					fireEvent('track.teamContainerUnlinked.failed', {});
+				} else {
+					fireTrackEvent(createAnalyticsEvent, {
+						action: AnalyticsAction.FAILED,
+						actionSubject: 'teamContainerUnlinked',
+					});
+				}
 			} else {
-				fireTrackEvent(createAnalyticsEvent, {
-					action: AnalyticsAction.SUCCEEDED,
-					actionSubject: 'teamContainerUnlinked',
-					attributes: {
+				if (fg('ptc-enable-teams-public-analytics-refactor')) {
+					fireEvent('track.teamContainerUnlinked.succeeded', {
 						containerRemoved: {
 							containerId: removedContainer?.id,
 							container: removedContainer?.type,
 						},
 						teamId,
-					},
-				});
+					});
+				} else {
+					fireTrackEvent(createAnalyticsEvent, {
+						action: AnalyticsAction.SUCCEEDED,
+						actionSubject: 'teamContainerUnlinked',
+						attributes: {
+							containerRemoved: {
+								containerId: removedContainer?.id,
+								container: removedContainer?.type,
+							},
+							teamId,
+						},
+					});
+				}
 			}
 		},
 		[
@@ -286,6 +308,7 @@ export const TeamContainers = ({
 			removeTeamLink,
 			teamId,
 			unlinkError,
+			fireEvent,
 		],
 	);
 

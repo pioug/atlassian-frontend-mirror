@@ -113,7 +113,7 @@ const focusRingStylesOld = css({
 
 const focusRingStyles = css({
 	'&:focus-within': {
-		outline: `2px solid ${token('color.border.focused')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 		outlineOffset: token('space.025', '2px'),
 	},
 });

@@ -149,7 +149,9 @@ const getResizerMinWidth = (node: PMNode) => {
 
 const getPadding = (containerWidth: number) => {
 	return containerWidth <= akEditorFullPageNarrowBreakout &&
-		expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+			exposure: true,
+		})
 		? akEditorGutterPaddingReduced
 		: akEditorGutterPaddingDynamic();
 };

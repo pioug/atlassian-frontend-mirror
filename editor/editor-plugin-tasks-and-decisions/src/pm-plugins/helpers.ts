@@ -513,3 +513,26 @@ export function findFirstParentListNode($pos: ResolvedPos): {
 
 	return { node, pos: listNodePosition };
 }
+
+export const isInFirstTextblockOfBlockTaskItem = (state: EditorState): boolean => {
+	const { $from } = state.selection;
+	const { blockTaskItem } = state.schema.nodes;
+
+	return (
+		$from.parent.isTextblock &&
+		$from.node($from.depth - 1).type === blockTaskItem &&
+		$from.index($from.depth - 1) === 0
+	);
+};
+
+export const isInLastTextblockOfBlockTaskItem = (state: EditorState): boolean => {
+	const { $from } = state.selection;
+	const { blockTaskItem } = state.schema.nodes;
+
+	const parentNode = $from.node($from.depth - 1);
+	return (
+		$from.parent.isTextblock &&
+		parentNode.type === blockTaskItem &&
+		$from.index($from.depth - 1) === parentNode.childCount - 1
+	);
+};

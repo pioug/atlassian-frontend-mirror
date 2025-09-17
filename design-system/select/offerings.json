@@ -31,8 +31,8 @@
 			"Keep option text concise but meaningful",
 			"Group related options logically"
 		],
-		"examples": {
-			"basic": "./examples/ai/select.tsx"
-		}
+		"examples": [
+			"./examples/constellation/select-appearance-default.tsx"
+		]
 	}
 ]

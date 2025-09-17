@@ -31,8 +31,6 @@
 			"Use appropriate animation timing"
 		],
 		"generativeInstructions": "./docs/ai/skeleton-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/skeleton.tsx"
-		}
+		"examples": ["./examples/ai/skeleton.tsx"]
 	}
 ]

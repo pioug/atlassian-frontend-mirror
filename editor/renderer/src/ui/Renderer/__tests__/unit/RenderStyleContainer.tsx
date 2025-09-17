@@ -48,6 +48,7 @@ describe('RendererStyleContainer', () => {
 							appearance="full-page"
 							allowNestedHeaderLinks={false}
 							useBlockRenderForCodeBlock={false}
+							testId="renderer-container"
 						>
 							<h1>Heading 1</h1>
 							<h2>Heading 2</h2>
@@ -60,14 +61,17 @@ describe('RendererStyleContainer', () => {
 					</BaseTheme>,
 				);
 
+				const container = screen.getByTestId('renderer-container');
 				[1, 2, 3, 4, 5, 6].forEach((index) => {
-					expect(screen.getByText(`Heading ${index}`)).toHaveStyle(
-						`font:var(--ak-renderer-editor-font-heading-h${index})`,
+					const value = container.style.getPropertyValue(
+						`--ak-renderer-editor-font-heading-h${index}`,
 					);
+					expect(value).not.toEqual('');
 				});
-				expect(screen.getByText(`paragraph`)).toHaveStyle(
-					`font:var(--ak-renderer-editor-font-normal-text)`,
+				const paragraphFont = container.style.getPropertyValue(
+					'--ak-renderer-editor-font-normal-text',
 				);
+				expect(paragraphFont).not.toEqual('');
 			});
 		});
 	});

@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.9.3
+
+### Patch Changes
+
+- [`19b70bcbda751`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19b70bcbda751) -
+  [ux] ED-29181 Keyboard shortcuts should appear disabled in menu item
+- Updated dependencies
+
 ## 0.9.2
 
 ### Patch Changes

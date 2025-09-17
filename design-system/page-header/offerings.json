@@ -29,8 +29,6 @@
 			"Use action-oriented button text",
 			"Keep header content focused"
 		],
-		"examples": {
-			"basic": "./examples/ai/page-header.tsx"
-		}
+		"examples": ["./examples/ai/page-header.tsx"]
 	}
 ]

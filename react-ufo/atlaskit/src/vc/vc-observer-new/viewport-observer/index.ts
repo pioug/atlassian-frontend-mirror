@@ -1,6 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
+import isDnDStyleMutation from '../../vc-observer/observers/non-visual-styles/is-dnd-style-mutation';
 import isNonVisualStyleMutation from '../../vc-observer/observers/non-visual-styles/is-non-visual-style-mutation';
 import { RLLPlaceholderHandlers } from '../../vc-observer/observers/rll-placeholders';
 import { type VCObserverEntryType } from '../types';
@@ -308,6 +309,17 @@ export default class ViewportObserver {
 			if (isContainedWithinMediaWrapper(target)) {
 				return {
 					type: 'mutation:media',
+					mutationData: {
+						attributeName,
+						oldValue,
+						newValue,
+					},
+				};
+			}
+
+			if (isDnDStyleMutation({ target, attributeName, oldValue, newValue })) {
+				return {
+					type: 'mutation:attribute:non-visual-style',
 					mutationData: {
 						attributeName,
 						oldValue,

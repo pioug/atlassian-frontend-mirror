@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 3.2.0
+
+### Minor Changes
+
+- [`b610a8281f843`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b610a8281f843) -
+  Fix double format options highlight for selection with blockQuotes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.6
 
 ### Patch Changes

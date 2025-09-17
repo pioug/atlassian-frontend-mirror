@@ -12,7 +12,7 @@ import {
 	akEditorFullPageNarrowBreakout,
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorAppearance } from '../types';
 import { floatingLayouts, isRichMediaInsideOfBlockNode } from '../utils/rich-media-utils';
@@ -138,7 +138,9 @@ export const calcMediaSingleMaxWidth = (
 	const fullPagePadding =
 		editorAppearance === 'full-page' &&
 		containerWidth <= akEditorFullPageNarrowBreakout &&
-		expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+			exposure: true,
+		})
 			? akEditorGutterPaddingReduced
 			: akEditorGutterPaddingDynamic();
 
@@ -181,7 +183,7 @@ export function calculateOffsetLeft(
  * Returns the number rounded to the nearest interval.
  * @param {number} value    The number to round
  * @param {number} interval The numeric interval to round to, default to 0.5
- * @return {number} the rounded number
+ * @returns {number} the rounded number
  */
 export const roundToNearest = (
 	value: number,

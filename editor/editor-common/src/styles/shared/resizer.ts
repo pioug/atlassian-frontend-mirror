@@ -556,7 +556,7 @@ export const pragmaticResizerStyles = () => {
 
 export const pragmaticResizerStylesWithReducedEditorGutter = () => {
 	if (
-		expValEqualsNoExposure('platform_editor_preview_panel_responsiveness', 'isEnabled', true) &&
+		editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
 		(expValEqualsNoExposure('advanced_layouts', 'isEnabled', true) ||
 			expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true))
 	) {

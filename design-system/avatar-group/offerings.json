@@ -29,8 +29,6 @@
 			"Provide clear overflow indicators",
 			"Use consistent naming patterns"
 		],
-		"examples": {
-			"basic": "./examples/ai/avatar-group.tsx"
-		}
+		"examples": ["./examples/ai/avatar-group.tsx"]
 	}
 ]

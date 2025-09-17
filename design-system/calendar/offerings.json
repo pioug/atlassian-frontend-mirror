@@ -29,8 +29,6 @@
 			"Consider localization for date display",
 			"Use consistent date terminology"
 		],
-		"examples": {
-			"basic": "./examples/ai/calendar.tsx"
-		}
+		"examples": ["./examples/ai/calendar.tsx"]
 	}
 ]

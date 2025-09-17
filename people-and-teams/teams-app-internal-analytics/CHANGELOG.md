@@ -1,5 +1,16 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.4.0
+
+### Minor Changes
+
+- [`be81523ba6f9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be81523ba6f9f) -
+  Migrated @atlaskit/teams-public analytics to @atlaskit/teams-app-internal-analytics package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.0
 
 ### Minor Changes

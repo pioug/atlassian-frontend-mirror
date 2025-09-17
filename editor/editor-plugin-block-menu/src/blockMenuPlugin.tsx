@@ -36,6 +36,20 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 				return formatNode(targetType);
 			},
 		},
+		getSharedState(editorState) {
+			if (!editorState) {
+				return {
+					currentSelectedNodeName: undefined,
+				};
+			}
+
+			// Get the menuTriggerBy from blockControls plugin if available
+			const currentSelectedNodeName = api?.blockControls?.sharedState.currentState()?.menuTriggerBy;
+
+			return {
+				currentSelectedNodeName,
+			};
+		},
 		contentComponent({
 			editorView,
 			popupsMountPoint,

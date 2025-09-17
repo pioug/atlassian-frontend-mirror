@@ -30,8 +30,6 @@
 			"Avoid negative language",
 			"Use clear, descriptive headers"
 		],
-		"examples": {
-			"basic": "./examples/ai/empty-state.tsx"
-		}
+		"examples": ["./examples/ai/empty-state.tsx"]
 	}
 ]

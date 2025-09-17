@@ -6,6 +6,7 @@ import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	generateColgroup,
@@ -41,7 +42,11 @@ export const tableNodeSpecWithFixedToDOM = (
 		...tableNode,
 		toDOM: (node: PMNode): DOMOutputSpec => {
 			const gutterPadding = () => {
-				if (expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)) {
+				if (
+					editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+						exposure: true,
+					})
+				) {
 					return 'calc(var(--ak-editor--large-gutter-padding) * 2)';
 				} else {
 					return `${akEditorGutterPaddingDynamic() * 2}px`;

@@ -577,20 +577,19 @@ export const moveNode =
 					nodeType: handleNode.type.name,
 					destinationNodeDepth: $mappedTo?.depth,
 					destinationNodeType: $mappedTo?.parent.type.name,
-					...(fg('platform_editor_element_drag_and_drop_ed_23873') && { inputMethod }),
+					inputMethod,
 					...(isMultiSelect && { sourceNodeTypes, hasSelectedMultipleNodes }),
 				},
 			})(tr);
 		}
 
-		if (fg('platform_editor_element_drag_and_drop_ed_23873')) {
-			const movedMessage =
-				to > sliceFrom ? blockControlsMessages.movedDown : blockControlsMessages.movedup;
+		const movedMessage =
+			to > sliceFrom ? blockControlsMessages.movedDown : blockControlsMessages.movedup;
 
-			api?.accessibilityUtils?.actions.ariaNotify(
-				formatMessage ? formatMessage(movedMessage) : movedMessage.defaultMessage,
-				{ priority: 'important' },
-			);
-		}
+		api?.accessibilityUtils?.actions.ariaNotify(
+			formatMessage ? formatMessage(movedMessage) : movedMessage.defaultMessage,
+			{ priority: 'important' },
+		);
+
 		return tr;
 	};

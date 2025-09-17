@@ -312,7 +312,7 @@ const selectedStyles = css({
 // icon span receives dragStart event, instead of button, and since it is not registered as a draggable element
 // with pragmatic DnD and pragmatic DnD is not triggered
 const handleIconDragStart = (e: DragEvent<HTMLSpanElement>) => {
-	if (!browser.chrome || !fg('platform_editor_dnd_update_drag_start_target')) {
+	if (!browser.chrome) {
 		return;
 	}
 	// prevent dragStart handler triggered by icon
@@ -510,30 +510,28 @@ export const DragHandle = ({
 
 	const handleKeyDown = useCallback(
 		(e: KeyboardEvent<HTMLButtonElement>) => {
-			if (fg('platform_editor_element_drag_and_drop_ed_23873')) {
-				// allow user to use spacebar to select the node
-				if (!e.repeat && e.key === ' ') {
-					const startPos = getPos();
-					api?.core?.actions.execute(({ tr }) => {
-						if (startPos === undefined) {
-							return tr;
-						}
-
-						const node = tr.doc.nodeAt(startPos);
-						if (!node) {
-							return tr;
-						}
-						const $startPos = tr.doc.resolve(startPos + node.nodeSize);
-						const selection = new TextSelection($startPos);
-						tr.setSelection(selection);
-						!isMultiSelect && tr.setMeta(key, { pos: startPos });
+			// allow user to use spacebar to select the node
+			if (!e.repeat && e.key === ' ') {
+				const startPos = getPos();
+				api?.core?.actions.execute(({ tr }) => {
+					if (startPos === undefined) {
 						return tr;
-					});
-				} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {
-					// If not trying to press shortcut keys,
-					// return focus to editor to resume editing from caret position
-					view.focus();
-				}
+					}
+
+					const node = tr.doc.nodeAt(startPos);
+					if (!node) {
+						return tr;
+					}
+					const $startPos = tr.doc.resolve(startPos + node.nodeSize);
+					const selection = new TextSelection($startPos);
+					tr.setSelection(selection);
+					!isMultiSelect && tr.setMeta(key, { pos: startPos });
+					return tr;
+				});
+			} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {
+				// If not trying to press shortcut keys,
+				// return focus to editor to resume editing from caret position
+				view.focus();
 			}
 		},
 		[getPos, api?.core?.actions, isMultiSelect, view],
@@ -996,11 +994,7 @@ export const DragHandle = ({
 	}, [view, anchorName, nodeType, recalculatePosition]);
 
 	useEffect(() => {
-		if (
-			handleOptions?.isFocused &&
-			buttonRef.current &&
-			fg('platform_editor_element_drag_and_drop_ed_23873')
-		) {
+		if (handleOptions?.isFocused && buttonRef.current) {
 			const id = requestAnimationFrame(() => {
 				buttonRef.current?.focus();
 			});
@@ -1169,7 +1163,7 @@ export const DragHandle = ({
 					isLayoutColumn &&
 					layoutColumnDragHandleStyles,
 				dragHandleSelected && hasHadInteraction && selectedStyles,
-				expValEqualsNoExposure('platform_editor_preview_panel_responsiveness', 'isEnabled', true) &&
+				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
 					editorExperiment('platform_editor_controls', 'control') &&
 					dragHandleButtonSmallScreenStyles,
 			]}
@@ -1299,7 +1293,7 @@ export const DragHandle = ({
 		</Tooltip>
 	);
 
-	const isTooltip = !dragHandleDisabled && fg('platform_editor_element_drag_and_drop_ed_23873');
+	const isTooltip = !dragHandleDisabled;
 	const stickyRender = isTooltip ? stickyWithTooltip() : stickyWithoutTooltip();
 	const render = isTooltip ? buttonWithTooltip() : renderButton();
 

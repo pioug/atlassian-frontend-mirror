@@ -93,7 +93,9 @@ describe('@atlaskit/icon', () => {
 			it('is set to inherit the text color by default', () => {
 				render(<MyIcon label={testLabel} />);
 
-				expect(screen.getByRole('img')).toHaveStyle(`color: var(--icon-color)`);
+				const iconColor = screen.getByRole('img').style.getPropertyValue('--icon-primary-color');
+
+				expect(iconColor).toEqual('currentColor');
 			});
 		});
 

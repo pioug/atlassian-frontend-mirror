@@ -127,7 +127,7 @@ const basicStyles = css({
 			filter: 'grayscale(100%) invert(1)',
 		},
 		'&:focus-within': {
-			outline: '1px solid',
+			outline: `${token('border.width')} solid`,
 		},
 	},
 });

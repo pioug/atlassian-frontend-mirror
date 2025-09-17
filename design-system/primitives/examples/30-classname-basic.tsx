@@ -2,19 +2,20 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 const containerStyles = xcss({ display: 'flex', flexDirection: 'row' });
 
 const boxStyles = xcss({
 	backgroundColor: 'color.background.danger',
-	border: '2px solid rebeccapurple',
+	border: `${token('border.width.selected')} solid rebeccapurple`,
 	padding: 'space.200',
 	borderRadius: 'radius.xsmall',
 });
 
 const defaultStyles = xcss({
 	backgroundColor: 'color.background.success',
-	border: '2px solid green',
+	border: `${token('border.width.selected')} solid green`,
 	borderRadius: 'radius.xsmall',
 	opacity: 'opacity.disabled',
 });

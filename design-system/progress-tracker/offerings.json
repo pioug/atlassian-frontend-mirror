@@ -29,8 +29,6 @@
 			"Use appropriate progress terminology",
 			"Keep progress information concise"
 		],
-		"examples": {
-			"basic": "./examples/ai/progress-tracker.tsx"
-		}
+		"examples": ["./examples/ai/progress-tracker.tsx"]
 	}
 ]

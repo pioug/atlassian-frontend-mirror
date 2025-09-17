@@ -30,8 +30,6 @@
 			"Ensure messages are relevant to the current context",
 			"Provide clear next steps when needed"
 		],
-		"examples": {
-			"basic": "./examples/ai/section-message.tsx"
-		}
+		"examples": ["./examples/ai/section-message.tsx"]
 	}
 ]

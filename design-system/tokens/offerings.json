@@ -27,8 +27,6 @@
 			"./docs/ai/spacing-instructions.md",
 			"./docs/ai/border-radius-instructions.md"
 		],
-		"examples": {
-			"basic": "./examples/ai/prototyping-no-compiled.tsx"
-		}
+		"examples": ["./examples/ai/prototyping-no-compiled.tsx"]
 	}
 ]

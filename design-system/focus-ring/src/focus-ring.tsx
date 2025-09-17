@@ -14,7 +14,7 @@ import type { FocusRingProps } from './types';
 const BORDER_WIDTH = 2;
 
 const baseFocusOutsideStyles = css({
-	outline: `${BORDER_WIDTH}px solid ${token('color.border.focused', '#2684FF')}`,
+	outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#2684FF')}`,
 	outlineOffset: BORDER_WIDTH,
 });
 
@@ -39,7 +39,7 @@ const focusRingStyles = css({
 	},
 	'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
 		'&:focus-visible': {
-			outline: '1px solid',
+			outline: `${token('border.width')} solid`,
 		},
 	},
 });
@@ -57,7 +57,7 @@ const insetFocusRingStyles = css({
 	},
 	'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
 		'&:focus-visible': {
-			outline: '1px solid',
+			outline: `${token('border.width')} solid`,
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 			outlineOffset: '-1px',
 		},

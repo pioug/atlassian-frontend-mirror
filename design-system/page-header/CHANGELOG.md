@@ -1,5 +1,13 @@
 # @atlaskit/page-header
 
+## 12.1.6
+
+### Patch Changes
+
+- [`248faa32d4835`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/248faa32d4835) -
+  Internal changes to how borders are applied.
+- Updated dependencies
+
 ## 12.1.5
 
 ### Patch Changes

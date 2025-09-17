@@ -1,26 +1,24 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import {
+	mockRunItLaterSynchronously,
+	renderWithAnalyticsListener as render,
+} from '@atlassian/ptc-test-utils';
 
-import { usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
 import { LinkedContainerCard } from './index';
 
 jest.mock('../../../common/utils/get-container-properties', () => ({
 	getContainerProperties: jest.fn(),
-}));
-
-jest.mock('../../../common/utils/analytics', () => ({
-	...jest.requireActual('../../../common/utils/analytics'),
-	usePeopleAndTeamAnalytics: jest.fn(() => ({
-		fireUIEvent: jest.fn(),
-	})),
 }));
 
 jest.mock('react-intl-next', () => {
@@ -31,6 +29,23 @@ jest.mock('react-intl-next', () => {
 		})),
 	};
 });
+
+mockRunItLaterSynchronously();
+
+const containerUnlinkEvent = {
+	action: 'clicked',
+	actionSubject: 'button',
+	actionSubjectId: 'containerUnlinkButton',
+};
+
+const containerClickEvent = {
+	action: 'clicked',
+	actionSubject: 'container',
+	actionSubjectId: 'teamContainer',
+	attributes: {
+		containerSelected: { container: 'ConfluenceSpace', containerId: 'test-container-id' },
+	},
+};
 
 describe('LinkedContainerCard', () => {
 	const mockContainerProperties = {
@@ -139,31 +154,89 @@ describe('LinkedContainerCard', () => {
 		).not.toBeInTheDocument();
 	});
 
-	it('should fire an analytics event when the cross icon button is clicked', async () => {
-		const mockFireEvent = jest.fn();
-		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({ fireUIEvent: mockFireEvent });
+	ffTest.on('ptc-enable-teams-public-analytics-refactor', 'New analytics', () => {
+		it('should fire an analytics event when the cross icon button is clicked', async () => {
+			const { expectEventToBeFired } = render(
+				<Router>
+					<LinkedContainerCard
+						containerType={'ConfluenceSpace'}
+						title="Test Title"
+						containerIcon="test-icon-url"
+						link={testLink}
+						onDisconnectButtonClick={jest.fn()}
+					/>
+				</Router>,
+			);
 
-		render(
-			<Router>
-				<LinkedContainerCard
-					containerType={'ConfluenceSpace'}
-					title="Test Title"
-					containerIcon="test-icon-url"
-					link={testLink}
-					onDisconnectButtonClick={jest.fn()}
-				/>
-			</Router>,
-		);
+			const containerElement = screen.getByTestId('linked-container-card-inner');
+			await userEvent.hover(containerElement);
+			const crossIconButton = screen.getByRole('button');
+			await userEvent.click(crossIconButton);
+			expectEventToBeFired('ui', containerUnlinkEvent);
+		});
+	});
 
-		const containerElement = screen.getByTestId('linked-container-card-inner');
-		await userEvent.hover(containerElement);
-		const crossIconButton = screen.getByRole('button');
-		await userEvent.click(crossIconButton);
-		expect(mockFireEvent).toHaveBeenCalledTimes(1);
-		expect(mockFireEvent).toHaveBeenCalledWith(expect.any(Function), {
-			action: 'clicked',
-			actionSubject: 'button',
-			actionSubjectId: 'containerUnlinkButton',
+	ffTest.off('ptc-enable-teams-public-analytics-refactor', 'Legacy analytics', () => {
+		it('should fire an analytics event when the cross icon button is clicked', async () => {
+			const { expectEventToBeFired } = render(
+				<Router>
+					<LinkedContainerCard
+						containerType={'ConfluenceSpace'}
+						title="Test Title"
+						containerIcon="test-icon-url"
+						link={testLink}
+						onDisconnectButtonClick={jest.fn()}
+					/>
+				</Router>,
+			);
+
+			const containerElement = screen.getByTestId('linked-container-card-inner');
+			await userEvent.hover(containerElement);
+			const crossIconButton = screen.getByRole('button');
+			await userEvent.click(crossIconButton);
+			expectEventToBeFired('ui', containerUnlinkEvent);
+		});
+	});
+
+	ffTest.on('ptc-enable-teams-public-analytics-refactor', 'New analytics', () => {
+		it('should fire an analytics event when the container is clicked', async () => {
+			const { expectEventToBeFired } = render(
+				<Router>
+					<LinkedContainerCard
+						containerType={'ConfluenceSpace'}
+						title="Test Title"
+						containerIcon="test-icon-url"
+						link={testLink}
+						containerId="test-container-id"
+						onDisconnectButtonClick={jest.fn()}
+					/>
+				</Router>,
+			);
+
+			const containerLink = screen.getByRole('link');
+			await userEvent.click(containerLink);
+			expectEventToBeFired('ui', containerClickEvent);
+		});
+	});
+
+	ffTest.off('ptc-enable-teams-public-analytics-refactor', 'Legacy analytics', () => {
+		it('should fire an analytics event when the container is clicked', async () => {
+			const { expectEventToBeFired } = render(
+				<Router>
+					<LinkedContainerCard
+						containerType={'ConfluenceSpace'}
+						title="Test Title"
+						containerIcon="test-icon-url"
+						link={testLink}
+						containerId="test-container-id"
+						onDisconnectButtonClick={jest.fn()}
+					/>
+				</Router>,
+			);
+
+			const containerLink = screen.getByRole('link');
+			await userEvent.click(containerLink);
+			expectEventToBeFired('ui', containerClickEvent);
 		});
 	});
 

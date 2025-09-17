@@ -3,12 +3,11 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { SyncBlockDataProvider } from '@atlaskit/editor-common/sync-block';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 
 export type SyncedBlockEditorProps = {
-	boundariesElement: HTMLElement;
 	defaultDocument: JSONDocNode;
-	mountPoint: HTMLElement;
 	onChange: (
 		editorView: EditorView,
 		meta: {
@@ -32,6 +31,8 @@ export type SyncedBlockEditorProps = {
 		editorView: EditorView;
 		eventDispatcher: EventDispatcher;
 	}) => void;
+	popupsBoundariesElement: HTMLElement;
+	popupsMountPoint: HTMLElement;
 };
 
 export type SyncedBlockRendererProps = {
@@ -47,6 +48,7 @@ export type SyncedBlockPluginOptions = {
 export type SyncedBlockPlugin = NextEditorPlugin<
 	'syncedBlock',
 	{
+		dependencies: [SelectionPlugin];
 		pluginConfiguration: SyncedBlockPluginOptions | undefined;
 	}
 >;

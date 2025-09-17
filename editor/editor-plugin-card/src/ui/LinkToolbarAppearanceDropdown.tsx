@@ -18,7 +18,7 @@ import { isSupportedInParent } from '@atlaskit/editor-common/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { useSmartCardContext } from '@atlaskit/link-provider';
 import { ButtonItem, LinkItem, MenuGroup, Section } from '@atlaskit/menu';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
 
@@ -86,7 +86,9 @@ export const LinkAppearanceMenu = ({
 			tooltip: isEmbedCardLinkSupportedInParent
 				? undefined
 				: getUnavailableMessage(editorState, intl),
-			description: expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+			description: editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+				exposure: true,
+			})
 				? intl.formatMessage(messages.embedToBlockCardWarning)
 				: undefined,
 		};

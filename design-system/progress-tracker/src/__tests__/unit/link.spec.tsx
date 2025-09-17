@@ -29,7 +29,9 @@ describe('@atlaskit/progress-tracker/link', () => {
 	it('should render the component as per props', () => {
 		render(<ProgressTrackerLink {...item} />);
 		const element = screen.getByText(item.label);
-		expect(element).toHaveStyle(`color: ${token('color.text', colors.N800)}`);
+		expect(element).toHaveStyle(
+			`color: ${token('color.text', colors.N800).toLowerCase().replace(/\s+/g, '')}`,
+		);
 		expect(element).toHaveAttribute('href', item.href);
 	});
 

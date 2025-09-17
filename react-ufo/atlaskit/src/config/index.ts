@@ -87,6 +87,7 @@ export type Config = {
 	readonly minorInteractions?: string[];
 	readonly doNotAbortActivePressInteraction?: string[];
 	readonly doNotAbortActivePressInteractionOnTransition?: string[];
+	readonly finishInteractionOnTransition?: string[];
 	readonly awaitBM3TTI?: string[];
 	readonly ufoNameOverrides?: UFONameOverride;
 	readonly namePrefix?: string;
@@ -519,6 +520,20 @@ export function getDoNotAbortActivePressInteractionOnTransition(): string[] | un
 		const { doNotAbortActivePressInteractionOnTransition } = config;
 
 		return doNotAbortActivePressInteractionOnTransition;
+	} catch (e: any) {
+		return undefined;
+	}
+}
+
+// Contains the list of interactions that do not abort on transitions
+export function getFinishInteractionOnTransition(): string[] | undefined {
+	try {
+		if (!config) {
+			return undefined;
+		}
+		const { finishInteractionOnTransition } = config;
+
+		return finishInteractionOnTransition;
 	} catch (e: any) {
 		return undefined;
 	}

@@ -29,8 +29,6 @@
 			"Use consistent terminology",
 			"Keep menu structure simple"
 		],
-		"examples": {
-			"basic": "./examples/ai/menu.tsx"
-		}
+		"examples": ["./examples/ai/menu.tsx"]
 	}
 ]

@@ -36,6 +36,8 @@ const styles = cssMap({
 	description: {
 		marginTop: token('space.0'),
 		marginBottom: token('space.100'),
+		overflowWrap: 'anywhere',
+		wordBreak: 'break-word',
 	},
 
 	wrapper: {

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 8.4.5
+
+### Patch Changes
+
+- [`980edad1b9b85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/980edad1b9b85) -
+  EDITOR-1635 Ensure new taskItems are only added on enter key press of blockTaskitem if cursor is
+  at the start or end of the task item, not the start or the end of any of its child paragraphs.
+- Updated dependencies
+
 ## 8.4.4
 
 ### Patch Changes

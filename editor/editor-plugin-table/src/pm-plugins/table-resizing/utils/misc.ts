@@ -17,7 +17,7 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { TableOptions } from '../../../nodeviews/types';
 
@@ -40,7 +40,9 @@ export function getLayoutSize(
 		let padding: number = akEditorGutterPaddingDynamic();
 		if (
 			containerWidth <= akEditorFullPageNarrowBreakout &&
-			expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+			editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+				exposure: true,
+			})
 		) {
 			padding = akEditorGutterPaddingReduced;
 		}

@@ -4,6 +4,7 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
 import InlineDialog from '@atlaskit/inline-dialog';
+import { token } from '@atlaskit/tokens';
 
 interface State {
 	dialogOpen: boolean;
@@ -32,7 +33,7 @@ export default class InlineDialogParentClippingExample extends Component<{}, Sta
 				<div
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						border: '2px dashed grey',
+						border: `${token('border.width.selected')} dashed grey`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						boxSizing: 'border-box',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

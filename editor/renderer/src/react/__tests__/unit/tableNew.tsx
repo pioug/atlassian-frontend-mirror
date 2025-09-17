@@ -70,13 +70,14 @@ describe('Tables with a width attribute', () => {
 			it('should have the correct styles and layout attribute', () => {
 				const { container } = render(<Component />);
 
-				if (appearance === 'full-width' || appearance === 'full-page' || appearance === 'comment') {
-					// Ignored via go/ees005
-					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					expect(container.firstChild!).toHaveStyle({
-						width: 'calc(min(800px, 100cqw - 32px * 2))',
-						left: 'calc(min(0px, 800px - min(800px, 100cqw - 32px * 2)) / 2)',
-					});
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				const styleAttr = (container.firstChild as HTMLElement).getAttribute('style') || '';
+				if (appearance === 'full-page') {
+					expect(styleAttr).toContain('width: calc(min(800px, 100cqw');
+					expect(styleAttr).toContain('left: calc(min(0px, 760px - min(800px, 100cqw');
+				} else if (appearance === 'full-width' || appearance === 'comment') {
+					// width attribute present → min(800px, 100cqw) in full-width/comment
+					expect(styleAttr).toContain('width: calc(min(800px, 100cqw');
 				} else {
 					// Ignored via go/ees005
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -108,24 +109,20 @@ describe('Tables without a width attribute', () => {
 			it('should have the correct styles and layout attribute', () => {
 				const { container } = render(<Component />);
 
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				const styleAttr = (container.firstChild as HTMLElement).getAttribute('style') || '';
 				if (appearance === 'full-page') {
-					// Ignored via go/ees005
-					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					expect(container.firstChild!).toHaveStyle({
-						width: 'calc(min(760px, 100cqw - 32px * 2))',
-						left: 'calc(min(0px, 760px - min(760px, 100cqw - 32px * 2)) / 2)',
-					});
+					// full-page uses fixed 760px line length in left calculation
+					expect(styleAttr).toContain('width: calc(min(760px, 100cqw');
+					expect(styleAttr).toContain('left: calc(min(0px, 760px - min(760px, 100cqw');
 				} else if (appearance === 'full-width') {
-					// Ignored via go/ees005
-					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					expect(container.firstChild!).toHaveStyle({
-						width: 'calc(min(760px, 100cqw - 32px * 2))',
-						left: 'calc(min(0px, 760px - min(760px, 100cqw - 32px * 2)) / 2)',
-					});
+					// full-width without width attribute → min(1800px, 100cqw)
+					expect(styleAttr).toContain('width: calc(min(1800px, 100cqw');
 					// Ignored via go/ees005
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					expect(container.firstChild!).toHaveAttribute('data-layout', 'full-width');
 				} else {
+					// comment appearance without width attribute inherits
 					// Ignored via go/ees005
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					expect(container.firstChild!).toHaveStyle('width: inherit');

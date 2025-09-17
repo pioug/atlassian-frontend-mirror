@@ -1,5 +1,48 @@
 # @atlaskit/editor-core
 
+## 213.4.2
+
+### Patch Changes
+
+- [`d278f35b3fb0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d278f35b3fb0f) -
+  Cleaned up platform_editor_element_drag_and_drop_ed_23873
+- [`45c6f8d40f9ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45c6f8d40f9ac) -
+  Bump i18n pkg versions for atlaskit packages for including license field
+- [`980edad1b9b85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/980edad1b9b85) -
+  EDITOR-1635 Ensure new taskItems are only added on enter key press of blockTaskitem if cursor is
+  at the start or end of the task item, not the start or the end of any of its child paragraphs.
+- Updated dependencies
+
+## 213.4.1
+
+### Patch Changes
+
+- [`6b6eca9cee16d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b6eca9cee16d) -
+  Switch to use editorExperiment to use productKey for responsive preview panel changes.
+- Updated dependencies
+
+## 213.4.0
+
+### Minor Changes
+
+- [`cb7778d7ca5bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb7778d7ca5bb) -
+  introduce getBrowserInfo api from browser util, used in getUAPrefix
+
+### Patch Changes
+
+- Updated dependencies
+
+## 213.3.0
+
+### Minor Changes
+
+- [`3463fb9dbb744`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3463fb9dbb744) -
+  [ux] Add experiment for new compact mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 213.2.3
 
 ### Patch Changes

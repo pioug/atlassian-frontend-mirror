@@ -33,9 +33,7 @@
 			"Avoid overlapping or skipping numeric choices"
 		],
 		"generativeInstructions": "./docs/ai/radio-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/radio.tsx"
-		}
+		"examples": ["./examples/ai/radio.tsx"]
 	},
 	{
 		"name": "RadioGroup",
@@ -72,8 +70,6 @@
 			"Avoid overlapping or skipping numeric choices"
 		],
 		"generativeInstructions": "./docs/ai/radio-group-instructions.md",
-		"examples": {
-			"basic": "./examples/ai/radio-group.tsx"
-		}
+		"examples": ["./examples/ai/radio-group.tsx"]
 	}
 ]

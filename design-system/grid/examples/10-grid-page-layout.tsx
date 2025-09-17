@@ -50,13 +50,13 @@ export default () => {
 		<PageLayout>
 			<TopNavigation
 				testId="topNavigation"
-				id="product-navigation"
-				skipLinkTitle="Product Navigation"
+				id="app-navigation"
+				skipLinkTitle="App Navigation"
 				height={60}
 				isFixed={false}
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ padding: 20, border: '1px solid grey' }}>Product Navigation</div>
+				<div style={{ padding: 20, border: '1px solid grey' }}>App Navigation</div>
 			</TopNavigation>
 			<Content testId="content">
 				<LeftSidebarWithoutResize

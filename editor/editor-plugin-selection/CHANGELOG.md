@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection
 
+## 5.0.2
+
+### Patch Changes
+
+- [`86e3af7e468bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86e3af7e468bb) -
+  Add experiment to add additional context to selection fragment data.
+- Updated dependencies
+
 ## 5.0.1
 
 ### Patch Changes

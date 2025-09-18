@@ -2,7 +2,12 @@ import format from '@af/formatting/sync';
 import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens';
 import { legacyLightTokens as legacyTokens, light as tokens } from '@atlaskit/tokens/tokens-raw';
 
-import { capitalize, constructTokenFunctionCall, type ShadowDefinition } from './utils';
+import {
+	capitalize,
+	constructTokenFunctionCall,
+	generateTypeDefs,
+	type ShadowDefinition,
+} from './utils';
 
 type Token = {
 	token: string;
@@ -52,10 +57,17 @@ export const createElevationStylesFromTemplate = (property: keyof typeof tokenSt
 
 	const { filterFn, objectName } = tokenStyles[property];
 
+	const typeDefsTokens = activeTokens
+		.filter(filterFn)
+		// @ts-ignore
+		.map((t) => t.token.replaceAll('.[default]', ''));
+
 	return (
 		format(
 			`
-export const ${objectName}Map = {
+export const ${objectName}Map: {
+	${generateTypeDefs(typeDefsTokens)}
+} = {
   ${activeTokens
 		.filter(filterFn)
 		// @ts-ignore

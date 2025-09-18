@@ -41,6 +41,9 @@
 			"path": "../../editor-plugin-editor-viewmode/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-local-id/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-passionfruit/tsconfig.json"
 		},
 		{

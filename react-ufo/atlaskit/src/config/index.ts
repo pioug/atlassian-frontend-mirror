@@ -55,7 +55,7 @@ type Rates = {
 	readonly [key: string]: number;
 };
 
-export type TTVCRevision = 'fy25.01' | 'fy25.02' | 'fy25.03';
+export type TTVCRevision = 'fy25.01' | 'fy25.02' | 'fy25.03' | 'next';
 export const DEFAULT_TTVC_REVISION = 'fy25.03';
 
 export const UNKNOWN_INTERACTION_RATE = 1000;

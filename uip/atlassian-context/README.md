@@ -170,7 +170,6 @@ Returns true if the current perimeter is in FedRAMP-Moderate.
 Returns true if the current perimeter is in Isolated Cloud. 
 
 ### isolatedCloudDomain()
-_Disclaimer July 2025:_ SSR is currently NOT supported, though the team is currently working through an alternate implementation.
 Returns the current `ic_domain`. If the current perimeter is not an L2 IC (ex. the current fedramp-moderate or regular commercial), then undefined is returned.
 
 
@@ -180,8 +179,6 @@ Returns the current isolation context identifier (ex: `ic-123`). If the current 
 
 
 ### getDomainInContext(subdomain, environment)
-_Disclaimer July 2025:_ SSR is currently NOT supported, though the team is currently working through an alternate implementation.
-
 Returns the full domain (including support for Isolation Cloud) for a given Atlassian service or experience. 
 
 Important: Note that the library currently does NOT guarantee that the requested domain exists! It is assumed that when a user requests the full domain for a specific service, they already know the domain exists.
@@ -242,8 +239,6 @@ getDomainInContext('new-service') // returns "new-service.services.<icLabel>.<ba
 ```
 
 ### getUrlForDomainInContext(subdomain, environment)
-_Disclaimer July 2025:_ SSR is currently NOT supported, though the team is currently working through an alternate implementation.
-
 Returns the full url a given Atlassian service (including support for Isolation Cloud) by appending the current URL scheme to the result of `getDomainInContext(subdomain, environment)`.
 
 ```js

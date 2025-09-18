@@ -124,6 +124,9 @@
 			"path": "../linking-types/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/logo/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/lozenge/tsconfig.app.json"
 		},
 		{

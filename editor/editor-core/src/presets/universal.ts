@@ -43,12 +43,14 @@ import { rulePlugin } from '@atlaskit/editor-plugins/rule';
 import { saveOnEnterPlugin } from '@atlaskit/editor-plugins/save-on-enter';
 import { scrollIntoViewPlugin } from '@atlaskit/editor-plugins/scroll-into-view';
 import { statusPlugin } from '@atlaskit/editor-plugins/status';
+import { syncedBlockPlugin } from '@atlaskit/editor-plugins/synced-block';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
 import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-lists-indentation';
 import { ufoPlugin } from '@atlaskit/editor-plugins/ufo';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorProps } from '../types';
@@ -459,6 +461,10 @@ export default function createUniversalPresetInternal({
 				},
 			],
 			Boolean(props.allowStatus),
+		)
+		.maybeAdd(
+			[syncedBlockPlugin, props.syncBlock],
+			Boolean(props.syncBlock) && expValEquals('platform_synced_block', 'isEnabled', true),
 		)
 		.maybeAdd(indentationPlugin, Boolean(props.allowIndentation))
 		.maybeAdd(scrollIntoViewPlugin, Boolean(props.autoScrollIntoView !== false))

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "33.2.22",
+	"version": "33.2.23",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,6 +31,7 @@
 		"access": "public"
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-elements-reactions": "root:*",
 		"@atlaskit/analytics-gas-types": "workspace:^",
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",

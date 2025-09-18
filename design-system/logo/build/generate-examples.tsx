@@ -108,7 +108,7 @@ import { Code } from '@atlaskit/code';
 import SectionMessage from '@atlaskit/section-message';
 
 <SectionMessage appearance="discovery">
-	We are in the process of rolling out updated Logo designs to products behind a feature flag. <br/>
+	We are in the process of rolling out updated Logo designs to apps behind a feature flag. <br/>
 	To display the new designs early, set the <Code>shouldUseNewLogoDesign</Code> prop to <Code>true</Code>.
 </SectionMessage>
 
@@ -116,14 +116,14 @@ import SectionMessage from '@atlaskit/section-message';
 
 ### Icon
 
-An icon is an image or symbol that represents a brand or product. It generally does not contain the
-name of the brand or product.
+An icon is an image or symbol that represents a brand or app. It generally does not contain the
+name of the brand or app.
 
 <Example Component={LogoIcon} packageName="@atlaskit/logo" />
 
 ### Lockup
 
-A lockup is the combination of wordmark (the brand or product name) and its icon, generally referred
+A lockup is the combination of wordmark (the brand or app name) and its icon, generally referred
 altogether as a logo.
 
 <Example Component={LogoBrand} packageName="@atlaskit/logo" />
@@ -136,21 +136,21 @@ to incorrect color combinations. Moving forward, all usages of \`@atlaskit/logo\
 
 ### Brand
 
-Brand product logos are used in situations that demand a bold brand presence against a neutral
+Brand app logos are used in situations that demand a bold brand presence against a neutral
 background.
 
 <Example Component={LogoBrand} packageName="@atlaskit/logo" backgroundColor="white" />
 
 ### Neutral
 
-Neutral product logos can be used when the hierarchy calls for the logo to recede, but should always
+Neutral app logos can be used when the hierarchy calls for the logo to recede, but should always
 be evaluated for adequate contrast.
 
 <Example Component={LogoNeutral} packageName="@atlaskit/logo" backgroundColor="neutral" />
 
 ### Inverse
 
-Inverse product logos should be used to contrast against bold backgrounds.
+Inverse app logos should be used to contrast against bold backgrounds.
 
 <Example Component={LogoInverse} packageName="@atlaskit/logo" backgroundColor="blue" />
 

@@ -78,7 +78,7 @@ export interface Meta {
 // but cannot be named.
 export type FieldComponentProps<FieldValue, Element extends SupportedElements> = {
 	/**
-	 * Content to render in the field. This is a function that is called with props for the field component and other information about the field. This cannot be used at the same time as the `component` prop.
+	 * Content to render in the field. This is a function that is called with props for the field component and other information about the field. This cannot be used at the same time as the `component` prop, as the `children` prop will be ignored.
 	 */
 	children?: (args: {
 		fieldProps: FieldProps<FieldValue, Element>;
@@ -88,7 +88,7 @@ export type FieldComponentProps<FieldValue, Element extends SupportedElements> =
 		meta: Meta;
 	}) => ReactNode;
 	/**
-	 * Content to render in the field. This will be rendered with the `*Message` props. This cannot be used at the same time as the `children` prop.
+	 * Content to render in the field. This will be rendered with the `*Message` props. This cannot be used at the same time as the `children` prop, as the `children` prop will be ignored.
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	component?: (args: { fieldProps: FieldProps<FieldValue, Element> }) => ReactNode;

@@ -14,28 +14,28 @@ import { token } from '@atlaskit/tokens';
 import { Block, Centered } from '../utils';
 
 const MotionShrinkOutExample = () => {
-	const [actualProducts, setProducts] = useState(products);
+	const [actualApps, setApps] = useState(apps);
 
 	return (
 		<div>
 			<div css={containerStyles}>
-				<ButtonGroup label="Products options">
-					<Button onClick={() => setProducts(products)}>Reset</Button>
+				<ButtonGroup label="App options">
+					<Button onClick={() => setApps(apps)}>Reset</Button>
 				</ButtonGroup>
 			</div>
 
 			<Centered css={centeredStyles}>
 				<ExitingPersistence>
-					{actualProducts.map((product) => (
-						<ShrinkOut key={product}>
+					{actualApps.map((app) => (
+						<ShrinkOut key={app}>
 							{(props) => (
 								<Block ref={props.ref} appearance="small" css={blockStyles}>
 									<Button
 										onClick={() => {
-											setProducts((prods) => prods.filter((val) => val !== product));
+											setApps((prods) => prods.filter((val) => val !== app));
 										}}
 									>
-										{product}
+										{app}
 									</Button>
 								</Block>
 							)}
@@ -47,7 +47,7 @@ const MotionShrinkOutExample = () => {
 	);
 };
 
-const products = [
+const apps = [
 	'Confluence',
 	'Bitbucket',
 	'Jira Service Management',

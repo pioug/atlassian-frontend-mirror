@@ -8,4 +8,21 @@ type AILocalIdNotFoundErrorAEP = OperationalAEP<
 	{ docSize: number | undefined; localId: string }
 >;
 
-export type AIStreamingEventPayload = AILocalIdNotFoundErrorAEP;
+type AIStreamingUpdateStreamError = OperationalAEP<
+	ACTION.ERRORED,
+	ACTION_SUBJECT.AI_STREAMING,
+	ACTION_SUBJECT_ID.UPDATE_STREAM,
+	{ errorMessage?: string; errorStack: string }
+>;
+
+type AIStreamingDiscardStreamError = OperationalAEP<
+	ACTION.ERRORED,
+	ACTION_SUBJECT.AI_STREAMING,
+	ACTION_SUBJECT_ID.DISCARD_STREAM,
+	{ errorMessage?: string; errorStack: string }
+>;
+
+export type AIStreamingEventPayload =
+	| AILocalIdNotFoundErrorAEP
+	| AIStreamingUpdateStreamError
+	| AIStreamingDiscardStreamError;

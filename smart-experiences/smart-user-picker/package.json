@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-user-picker",
-	"version": "8.2.0",
+	"version": "8.2.1",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,6 +42,7 @@
 		}
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-smart-experiences-smart-user-picker": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",

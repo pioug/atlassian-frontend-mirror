@@ -32,6 +32,7 @@ import {
 	insertExpand,
 	insertExpandWithInputMethod,
 	toggleExpandWithMatch,
+	wrapSelectionAndSetExpandedState,
 } from './commands';
 import { expandKeymap } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
@@ -72,8 +73,8 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 			];
 		},
 		actions: {
-			insertExpand: insertExpand(api?.analytics?.actions),
-			insertExpandWithInputMethod: insertExpandWithInputMethod(api?.analytics?.actions),
+			insertExpand: insertExpand(api),
+			insertExpandWithInputMethod: insertExpandWithInputMethod(api),
 		},
 		commands: {
 			toggleExpandWithMatch: (selection) => toggleExpandWithMatch(selection),
@@ -117,16 +118,20 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 						priority: 600,
 						icon: () => <IconExpand />,
 						action(insert, state) {
-							const node = createExpandNode(state, undefined);
+							const node = createExpandNode(state, undefined, !!api?.localId);
 							if (!node) {
 								return false;
 							}
+
 							const tr = state.selection.empty
 								? insert(node)
-								: createWrapSelectionTransaction({
-										state,
-										type: node.type,
-									});
+								: fg('platform_editor_adf_with_localid')
+									? wrapSelectionAndSetExpandedState(state, node)
+									: createWrapSelectionTransaction({
+											state,
+											type: node.type,
+										});
+
 							api?.analytics?.actions.attachAnalyticsEvent({
 								action: ACTION.INSERTED,
 								actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -137,6 +142,7 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 								attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
 								eventType: EVENT_TYPE.TRACK,
 							})(tr);
+
 							return tr;
 						},
 					},

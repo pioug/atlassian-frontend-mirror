@@ -20,10 +20,10 @@ import GlobalStyleSimulator from './utils/global-style-simulator';
 
 const styles = cssMap({
 	root: {
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 	},
 });
 
@@ -33,7 +33,7 @@ export default function LinkButtonGlobalStylesExample() {
 			<GlobalStyleSimulator />
 			<Stack space="space.200" alignInline="start">
 				<Heading size="large">
-					Ensures link buttons defend against global anchor styles from products
+					Ensures link buttons defend against global anchor styles from apps
 				</Heading>
 
 				{linkButtonVariants.map(({ name, Component, appearances }) => (

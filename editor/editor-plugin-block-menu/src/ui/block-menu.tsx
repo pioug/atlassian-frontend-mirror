@@ -20,10 +20,12 @@ import {
 	ToolbarNestedDropdownMenu,
 } from '@atlaskit/editor-toolbar';
 import { Box } from '@atlaskit/primitives/compiled';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
+import { useBlockMenu } from './block-menu-provider';
 import { BlockMenuRenderer } from './block-menu-renderer';
 
 const styles = cssMap({
@@ -39,7 +41,7 @@ const DRAG_HANDLE_OFFSET_PADDING = 5;
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 
-type BlockMenuProps = {
+export type BlockMenuProps = {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
 	boundariesElement?: HTMLElement;
 	editorView: EditorView | undefined;
@@ -89,9 +91,27 @@ const BlockMenu = ({
 			isMenuOpen: states.blockControlsState?.isMenuOpen,
 			currentUserIntent: states.userIntentState?.currentUserIntent,
 		}));
+	const { onDropdownOpenChanged } = useBlockMenu();
+	const targetHandleRef = editorView?.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
 
-	const hasFocus = editorView?.hasFocus() ?? false;
+	const hasFocus = expValEqualsNoExposure(
+		'platform_editor_block_menu_keyboard_navigation',
+		'isEnabled',
+		true,
+	)
+		? ((editorView?.hasFocus() || document.activeElement === targetHandleRef) ?? false)
+		: (editorView?.hasFocus() ?? false);
+
 	const hasSelection = !!editorView && !editorView.state.selection.empty;
+	const emptyLineEnabled = expValEqualsNoExposure(
+		'platform_editor_block_menu_empty_line',
+		'isEnabled',
+		true,
+	);
+
+	// hasSelection true, always show block menu
+	// hasSelection false, only show block menu when empty line experiment is enabled
+	const shouldShowBlockMenuForEmptyLine = hasSelection || (emptyLineEnabled && !hasSelection);
 
 	useEffect(() => {
 		if (
@@ -99,7 +119,7 @@ const BlockMenu = ({
 			!menuTriggerBy ||
 			!isSelectedViaDragHandle ||
 			!hasFocus ||
-			!hasSelection ||
+			!shouldShowBlockMenuForEmptyLine ||
 			['resizing', 'dragging'].includes(currentUserIntent || '')
 		) {
 			return;
@@ -112,7 +132,7 @@ const BlockMenu = ({
 		menuTriggerBy,
 		isSelectedViaDragHandle,
 		hasFocus,
-		hasSelection,
+		shouldShowBlockMenuForEmptyLine,
 		currentUserIntent,
 	]);
 
@@ -123,7 +143,7 @@ const BlockMenu = ({
 	const closeMenu = () => {
 		api?.core.actions.execute(({ tr }) => {
 			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
-
+			onDropdownOpenChanged(false);
 			api?.userIntent?.commands.setCurrentUserIntent(
 				currentUserIntent === 'blockMenuOpen' ? 'default' : currentUserIntent || 'default',
 			)({ tr });
@@ -136,13 +156,12 @@ const BlockMenu = ({
 		!menuTriggerBy ||
 		!isSelectedViaDragHandle ||
 		!hasFocus ||
-		!hasSelection ||
+		!shouldShowBlockMenuForEmptyLine ||
 		['resizing', 'dragging'].includes(currentUserIntent || '')
 	) {
 		closeMenu();
 		return null;
 	}
-	const targetHandleRef = editorView?.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
 
 	if (targetHandleRef instanceof HTMLElement) {
 		return (

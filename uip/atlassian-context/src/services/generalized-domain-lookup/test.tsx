@@ -152,8 +152,13 @@ describe('getUrlForDomainInContext', () => {
 	});
 
 	describe('Test error handling', () => {
-		it('Returns undefined when domain cannot be determined', () => {
+		it('Returns undefined when perimeter does not exist', () => {
 			globalThis.document.cookie = 'Atl-Ctx-Perimeter=invalid-perimeter';
+			expect(getUrlForDomainInContext('invalid-domain', PRODUCTION)).toBeUndefined();
+		});
+
+		it('Returns undefined when domain cannot be determined', () => {
+			globalThis.document.cookie = 'Atl-Ctx-Perimeter=commercial';
 			expect(getUrlForDomainInContext('invalid-domain', PRODUCTION)).toBeUndefined();
 		});
 	});

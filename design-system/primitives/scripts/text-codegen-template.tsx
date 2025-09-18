@@ -1,7 +1,7 @@
 import format from '@af/formatting/sync';
 import { typographyAdg3 as tokens } from '@atlaskit/tokens/tokens-raw';
 
-import { capitalize, constructTokenFunctionCall } from './utils';
+import { capitalize, constructTokenFunctionCall, generateTypeDefs } from './utils';
 
 type Token = {
 	name: string;
@@ -67,10 +67,20 @@ export const createTextStylesFromTemplate = () => {
 		.map((textProperty) => {
 			const { filterFn, objectName } = textProperty;
 
+			const tokenNames = activeTokens
+				.filter(filterFn)
+				.map((t) => t.name.replace(/\.\[default\]/g, ''))
+				.sort((a, b) => (a < b ? -1 : 1));
+
 			return (
 				format(
 					`
-	export const ${objectName}Map = {
+	export const ${objectName}Map: {
+		${generateTypeDefs(
+			tokenNames,
+			tokenNames.map((token) => removeVerbosity(token)),
+		)}
+	} = {
 	${activeTokens
 		.filter(filterFn)
 		.map((t) => ({ ...t, name: t.name.replace(/\.\[default\]/g, '') }))

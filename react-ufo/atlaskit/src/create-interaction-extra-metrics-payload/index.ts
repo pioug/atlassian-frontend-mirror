@@ -82,7 +82,11 @@ async function createInteractionExtraLogPayload(
 	);
 	if (
 		!effectiveVCRevisionPayload?.clean ||
-		effectiveVCRevisionPayload?.['metric:vc90'] === undefined
+		effectiveVCRevisionPayload?.['metric:vc90'] === undefined ||
+		typeof effectiveVCRevisionPayload?.['metric:vc90'] !== 'number' ||
+		extraTTAI === undefined ||
+		typeof extraTTAI !== 'number' ||
+		interaction.errors.length > 0
 	) {
 		return null;
 	}

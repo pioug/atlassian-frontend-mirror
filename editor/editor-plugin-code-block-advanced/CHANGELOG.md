@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 5.2.2
+
+### Patch Changes
+
+- [`842f254deb366`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/842f254deb366) -
+  clean up platform_editor_code_syntax_highlight_actionscript
+- Updated dependencies
+
 ## 5.2.1
 
 ### Patch Changes

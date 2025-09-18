@@ -117,5 +117,7 @@ export class OperatorVisitor extends JastBuildingVisitor<Operator | void> {
 				return internalCreators.operator(value, text, position);
 			}
 		}
+
+		return undefined;
 	};
 }

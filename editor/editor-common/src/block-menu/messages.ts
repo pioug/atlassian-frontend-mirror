@@ -11,4 +11,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Delete',
 		description: 'Delete the selected block',
 	},
+	turnInto: {
+		id: 'fabric.editor.block.menu.turn.into',
+		defaultMessage: 'Turn into',
+		description: 'Turn the selected block into another type',
+	},
 });

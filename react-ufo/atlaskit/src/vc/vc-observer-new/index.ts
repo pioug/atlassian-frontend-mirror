@@ -8,6 +8,7 @@ import getElementName, { type SelectorConfig } from './get-element-name';
 import VCCalculator_FY25_03 from './metric-calculator/fy25_03';
 import getViewportHeight from './metric-calculator/utils/get-viewport-height';
 import getViewportWidth from './metric-calculator/utils/get-viewport-width';
+import VCNextCalculator from './metric-calculator/vcnext';
 import type { VCObserverGetVCResultParam, VCObserverLabelStacks, ViewportEntryData } from './types';
 import ViewportObserver from './viewport-observer';
 import WindowEventObserver from './window-event-observer';
@@ -246,8 +247,27 @@ export default class VCObserverNew {
 			isPostInteraction: this.isPostInteraction,
 			include3p,
 		});
+
 		if (fy25_03) {
 			results.push(fy25_03);
+		}
+
+		// TODO on cleanup: put behind `enabledVCRevisions` config
+		if (fg('platform_ufo_vcnext_v4_enabled')) {
+			const calculator_next = new VCNextCalculator();
+
+			const vcNext = await calculator_next.calculate({
+				orderedEntries,
+				startTime: start,
+				stopTime: stop,
+				interactionId,
+				isPostInteraction: this.isPostInteraction,
+				include3p,
+			});
+
+			if (vcNext) {
+				results.push(vcNext);
+			}
 		}
 
 		return results;

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 6.3.5
+
+### Patch Changes
+
+- [`d5e5b25fe885a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5e5b25fe885a) -
+  [ux] ED-29226 Open block menu when drag handle is focussed and space or enter key is pressed
+- Updated dependencies
+
 ## 6.3.4
 
 ### Patch Changes

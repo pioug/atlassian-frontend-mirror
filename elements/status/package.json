@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/status",
-	"version": "3.0.17",
+	"version": "3.0.18",
 	"description": "Fabric Status React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,6 +26,7 @@
 		"access": "public"
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-elements-status": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",

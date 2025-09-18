@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 9.7.0
+
+### Minor Changes
+
+- [`c5708bc569bf5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5708bc569bf5) -
+  NAVX-1818 migrating SLLV site selector to use /v2/accessible-products endpoint instead of
+  /available-sites
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.6.0
 
 ### Minor Changes

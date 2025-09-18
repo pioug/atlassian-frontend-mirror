@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 213.4.3
+
+### Patch Changes
+
+- [`4b7ecd9338f09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b7ecd9338f09) -
+  Add sync block plugin to universal preset
+- Updated dependencies
+
 ## 213.4.2
 
 ### Patch Changes

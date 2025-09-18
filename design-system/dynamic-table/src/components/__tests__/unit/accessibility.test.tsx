@@ -137,11 +137,11 @@ describe('Dynamic Table Accessibility', () => {
 							cells: [
 								{
 									key: 'link',
-									content: <Link href="https://atlassian.com">Link</Link>,
+									content: <Link href="https://atlassian.com">Link component</Link>,
 								},
 								{
 									key: 'button',
-									content: <Button>Button</Button>,
+									content: <Button>Button component</Button>,
 								},
 							],
 						},

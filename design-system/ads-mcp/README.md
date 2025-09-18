@@ -12,13 +12,13 @@ to help ensure your interfaces are accessible to all users.
 
 ### Design System Tools
 
-- `get_all_tokens` - Get all available design tokens for colors, spacing, typography, etc.
-- `search_tokens` - Search for specific design tokens by name, description, or example values
-- `get_components` - Get a list of all available components with basic information
-- `search_components` - Search for components by name, description, category, or package name
-- `get_all_icons` - Get all available icons from the design system
-- `search_icons` - Search for specific icons by name, keywords, or categorization
-- `plan` - Search for multiple design system resources (tokens, icons, components) in a single
+- `ads_get_all_tokens` - Get all available design tokens for colors, spacing, typography, etc.
+- `ads_search_tokens` - Search for specific design tokens by name, description, or example values
+- `ads_get_components` - Get a list of all available components with basic information
+- `ads_search_components` - Search for components by name, description, category, or package name
+- `ads_get_all_icons` - Get all available icons from the design system
+- `ads_search_icons` - Search for specific icons by name, keywords, or categorization
+- `ads_plan` - Search for multiple design system resources (tokens, icons, components) in a single
   efficient operation
 
 #### Design System Tools Usage
@@ -58,13 +58,13 @@ const allIcons = await get_all_icons();
 
 ### Accessibility Tools
 
-- `analyze_accessibility` - Analyze React component code for accessibility violations using axe-core
+- `ads_analyze_a11y` - Analyze React component code for accessibility violations using axe-core
   and provide ADS-specific suggestions
-- `analyze_localhost_accessibility` - Analyze whole web pages or specific elements (localhost or
+- `ads_analyze_localhost_a11y` - Analyze whole web pages or specific elements (localhost or
   deployed URLs) for accessibility violations
-- `get_accessibility_guidelines` - Get specific accessibility guidelines and best practices for
+- `ads_get_a11y_guidelines` - Get specific accessibility guidelines and best practices for
   different topics
-- `suggest_accessibility_fixes` - Get specific fix suggestions for accessibility violations with
+- `ads_suggest_a11y_fixes` - Get specific fix suggestions for accessibility violations with
   code examples
 
 ## Accessibility Features
@@ -84,19 +84,19 @@ The ADS MCP server includes comprehensive accessibility analysis and guidance:
 
 ```typescript
 // Analyze a component for accessibility issues using axe-core
-const analysis = await analyze_accessibility({
+const analysis = await analyze_a11y({
 	code: `<button onClick={handleClose}><CloseIcon /></button>`,
 	componentName: 'CloseButton',
 	includePatternAnalysis: true, // Also include pattern-based analysis
 });
 
 // Get specific accessibility guidelines
-const guidelines = await get_accessibility_guidelines({
+const guidelines = await get_a11y_guidelines({
 	topic: 'buttons',
 });
 
 // Get fix suggestions for a violation
-const fixes = await suggest_accessibility_fixes({
+const fixes = await suggest_a11y_fixes({
 	violation: 'Button missing accessible label',
 	code: `<button onClick={handleClose}><CloseIcon /></button>`,
 });

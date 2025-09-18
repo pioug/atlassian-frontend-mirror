@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 6.2.2
+
+### Patch Changes
+
+- [`e20238ac820ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e20238ac820ca) -
+  EDITOR-1711: Fix expand state not defaulting to true while inserting when using local ids.
+- Updated dependencies
+
 ## 6.2.1
 
 ### Patch Changes

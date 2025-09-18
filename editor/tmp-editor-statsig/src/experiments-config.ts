@@ -565,10 +565,28 @@ export const editorExperimentsConfig = {
 		values: ['control', 'test'],
 		defaultValue: 'control',
 	}),
+	// Added 2025-09-17
+	platform_hover_card_preview_panel_modal: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'platform_hover_card_preview_panel_modal',
+			jira: 'platform_hover_card_preview_panel_modal',
+		},
+		param: 'cohort',
+		values: ['control', 'test'],
+		defaultValue: 'control',
+	}),
 	// Added 2025--8-05
 	platform_editor_block_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_block_menu',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025--9-17
+	platform_editor_block_menu_empty_line: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_block_menu_empty_line',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -978,6 +996,14 @@ export const editorExperimentsConfig = {
 		productKeys: {
 			confluence: 'cc_editor_interactivity_monitoring',
 			jira: 'cc_editor_interactivity_monitoring',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-17
+	platform_editor_block_menu_keyboard_navigation: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_block_menu_keyboard_navigation',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -24,7 +24,7 @@ The generator:
 
 1. Uses the logo categories from `src/logo-config.ts`
 2. Generates logo examples in `examples/constellation/`
-3. Generates product logo documentation in `constellation/index/product-logos.mdx`
+3. Generates app logo documentation in `constellation/index/product-logos.mdx`
 
 ## Generated Examples
 

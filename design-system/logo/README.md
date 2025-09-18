@@ -1,7 +1,7 @@
 # Logo
 
-A logo is a visual representation of a brand or product. It can be a word or an image, or a
-combination of both.
+A logo is a visual representation of a brand or app. It can be a word or an image, or a combination
+of both.
 
 ## Installation
 

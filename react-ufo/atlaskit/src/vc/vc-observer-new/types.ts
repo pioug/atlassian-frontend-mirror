@@ -5,6 +5,7 @@ export type VCObserverEntryType =
 	| 'mutation:remount'
 	| 'mutation:element'
 	| 'mutation:element-replacement'
+	| 'mutation:display-contents-children-element'
 	| 'mutation:attribute:no-layout-shift'
 	| 'mutation:attribute:non-visual-style'
 	| 'mutation:attribute'

@@ -273,23 +273,41 @@ export default class ViewportObserver {
 				continue;
 			}
 
-			if (fg('platform_ufo_display_content_resolution_ttvc_v3')) {
-				// Check if the target has display:content css property, return array of valid targets
-				const validTargets = checkCssProperty(addedNode);
-				for (const validTarget of validTargets) {
+			if (fg('platform_ufo_vcnext_v4_enabled')) {
+				if (window?.getComputedStyle(addedNode)?.display === 'contents') {
+					for (const child of addedNode.children) {
+						if (child instanceof HTMLElement) {
+							this.intersectionObserver?.watchAndTag(
+								child,
+								'mutation:display-contents-children-element',
+							);
+						}
+					}
+				} else {
 					this.intersectionObserver?.watchAndTag(
-						validTarget,
+						addedNode,
 						createElementMutationsWatcher(removedNodeRects),
 					);
 				}
 			} else {
-				if (fg('platform_ufo_display_content_track_occurrence')) {
-					trackDisplayContentsOccurrence(addedNode);
+				if (fg('platform_ufo_display_content_resolution_ttvc_v3')) {
+					// Check if the target has display:content css property, return array of valid targets
+					const validTargets = checkCssProperty(addedNode);
+					for (const validTarget of validTargets) {
+						this.intersectionObserver?.watchAndTag(
+							validTarget,
+							createElementMutationsWatcher(removedNodeRects),
+						);
+					}
+				} else {
+					if (fg('platform_ufo_display_content_track_occurrence')) {
+						trackDisplayContentsOccurrence(addedNode);
+					}
+					this.intersectionObserver?.watchAndTag(
+						addedNode,
+						createElementMutationsWatcher(removedNodeRects),
+					);
 				}
-				this.intersectionObserver?.watchAndTag(
-					addedNode,
-					createElementMutationsWatcher(removedNodeRects),
-				);
 			}
 		}
 	};

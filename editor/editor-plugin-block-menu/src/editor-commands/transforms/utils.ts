@@ -1,4 +1,4 @@
-import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 
 import type { FormatNodeTargetType } from './types';
@@ -174,4 +174,23 @@ export const convertCodeBlockContentToParagraphs = (
 		paragraphNodes.push(paragraphNode);
 	});
 	return paragraphNodes;
+};
+
+const isBreakoutMarkSupported = (nodeType: NodeType) => {
+	return ['codeBlock', 'expand', 'layoutSection'].includes(nodeType.name);
+};
+
+export const getMarksWithBreakout = (
+	sourceNode: PMNode,
+	targetNodeType: NodeType,
+): readonly Mark[] => {
+	const allowedMarks = targetNodeType.allowedMarks(sourceNode.marks);
+	const sourceBreakoutMark = sourceNode.marks.find((mark) => mark.type.name === 'breakout');
+	if (sourceBreakoutMark && isBreakoutMarkSupported(targetNodeType)) {
+		// Check if breakout mark is already in allowedMarks to avoid duplicates
+		const hasBreakoutMark = allowedMarks.some((mark) => mark.type.name === 'breakout');
+		return hasBreakoutMark ? allowedMarks : [...allowedMarks, sourceBreakoutMark];
+	}
+
+	return allowedMarks;
 };

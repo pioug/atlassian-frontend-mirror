@@ -4,7 +4,7 @@ import Tag from '@atlaskit/tag';
 import TagGroup from '@atlaskit/tag-group';
 
 export default () => (
-	<TagGroup label="Atlassian products" alignment="end">
+	<TagGroup label="Atlassian apps" alignment="end">
 		<Tag text="Bitbucket" />
 		<Tag text="Compass" />
 		<Tag text="Confluence" />

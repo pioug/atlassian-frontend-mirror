@@ -1,7 +1,5 @@
 import React, { type ReactNode, useCallback } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import Field, { type FieldProps, type Meta } from './field';
 
 export interface CheckboxFieldProps extends FieldProps<string | undefined> {
@@ -62,7 +60,6 @@ const CheckboxField = ({
 	label,
 	name,
 	value,
-	...rest
 }: CheckboxProps) => {
 	// Maintains a memoised list of the default values
 	const defaultValue = useCallback(
@@ -73,8 +70,6 @@ const CheckboxField = ({
 
 	return value !== undefined ? (
 		<Field
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-			{...(fg('platform_design-system-team_checkbox-field-spread') ? {} : { ...rest })}
 			defaultValue={defaultValue}
 			isDisabled={isDisabled}
 			isRequired={isRequired}
@@ -101,8 +96,6 @@ const CheckboxField = ({
 		</Field>
 	) : (
 		<Field
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-			{...(fg('platform_design-system-team_checkbox-field-spread') ? {} : { ...rest })}
 			defaultValue={defaultIsChecked}
 			isDisabled={isDisabled}
 			isRequired={isRequired}

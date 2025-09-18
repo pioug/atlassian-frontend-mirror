@@ -13,7 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 import { Block, Centered } from './utils';
 
-const products = [
+const apps = [
 	'Confluence',
 	'Bitbucket',
 	'Jira Service Management',
@@ -23,21 +23,21 @@ const products = [
 ];
 
 export default () => {
-	const [actualProducts, setProducts] = useState(products);
+	const [actualApps, setApps] = useState(apps);
 
 	return (
 		<div>
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={{ textAlign: 'center' }}>
-				<ButtonGroup label="Products options">
-					<Button onClick={() => setProducts(products)}>Reset</Button>
+				<ButtonGroup label="App options">
+					<Button onClick={() => setApps(apps)}>Reset</Button>
 				</ButtonGroup>
 			</div>
 
 			<Centered css={{ height: '82px' }}>
 				<ExitingPersistence>
-					{actualProducts.map((product) => (
-						<ShrinkOut key={product}>
+					{actualApps.map((app) => (
+						<ShrinkOut key={app}>
 							{(props) => (
 								<Block
 									{...props}
@@ -50,10 +50,10 @@ export default () => {
 								>
 									<Button
 										onClick={() => {
-											setProducts((prods) => prods.filter((val) => val !== product));
+											setApps((prods) => prods.filter((val) => val !== app));
 										}}
 									>
-										{product}
+										{app}
 									</Button>
 								</Block>
 							)}

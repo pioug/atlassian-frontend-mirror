@@ -38,6 +38,9 @@
 			"path": "../../../observability/interaction-context/afm-adminhub/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-adminhub/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-adminhub/tsconfig.json"
 		},
 		{

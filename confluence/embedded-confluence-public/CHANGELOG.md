@@ -1,5 +1,13 @@
 # @atlaskit/embedded-confluence
 
+## 4.2.0
+
+### Minor Changes
+
+- [`2b704f21ad756`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b704f21ad756) -
+  Unify iframe-related props across components via PageCommonProps: iframeRef, onLoad, onMouseEnter,
+  onMouseLeave, sandbox. These are forwarded to the underlying iframe through Content.
+
 ## 4.1.0
 
 ### Minor Changes

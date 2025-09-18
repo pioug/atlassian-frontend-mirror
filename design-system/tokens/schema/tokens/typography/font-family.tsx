@@ -35,7 +35,7 @@ const font: AttributeSchema<FontFamilyTokenSchema<BaseToken>> = {
 					group: 'fontFamily',
 					state: 'active',
 					introduced: '1.14.0',
-					description: 'For our default product UI heading text.',
+					description: 'For our default UI heading text.',
 				},
 			},
 			body: {
@@ -43,7 +43,7 @@ const font: AttributeSchema<FontFamilyTokenSchema<BaseToken>> = {
 					group: 'fontFamily',
 					state: 'active',
 					introduced: '1.14.0',
-					description: 'For our default product UI body text.',
+					description: 'For our default UI body text.',
 				},
 			},
 		},

@@ -1,7 +1,7 @@
 import format from '@af/formatting/sync';
-import { shape as tokens } from '@atlaskit/tokens/tokens-raw';
+import { shape as shapeTokens } from '@atlaskit/tokens/tokens-raw';
 
-import { capitalize, constructTokenFunctionCall } from './utils';
+import { capitalize, constructTokenFunctionCall, generateTypeDefs } from './utils';
 
 type Token = {
 	token: string;
@@ -14,18 +14,19 @@ const tokenStyles = {
 		objectName: 'borderWidth',
 		filterPrefix: 'border.width',
 		cssProperty: 'borderWidth',
-		filterFn: <T extends Token>(t: T) => t.token.startsWith(tokenStyles.width.filterPrefix),
+		filterFn: <T extends Token>(t: T): boolean =>
+			t.token.startsWith(tokenStyles.width.filterPrefix),
 	},
 	radius: {
 		objectName: 'borderRadius',
 		filterPrefix: 'radius',
 		cssProperty: 'borderRadius',
-		filterFn: <T extends Token>(t: T) =>
+		filterFn: <T extends Token>(t: T): boolean =>
 			t.token.startsWith(tokenStyles.radius.filterPrefix) || t.token.startsWith('border.radius'),
 	},
 } as const;
 
-const activeTokens = tokens
+const activeTokens = shapeTokens
 	.filter((t) => t.attributes.state !== 'deleted')
 	.map(
 		(t): Token => ({
@@ -35,7 +36,7 @@ const activeTokens = tokens
 		}),
 	);
 
-export const createShapeStylesFromTemplate = (property: keyof typeof tokenStyles) => {
+export const createShapeStylesFromTemplate = (property: keyof typeof tokenStyles): string => {
 	if (!tokenStyles[property]) {
 		throw new Error(`[codegen] Unknown option found "${property}"`);
 	}
@@ -45,7 +46,9 @@ export const createShapeStylesFromTemplate = (property: keyof typeof tokenStyles
 	return (
 		format(
 			`
-export const ${objectName}Map = {
+export const ${objectName}Map: {
+			${generateTypeDefs(activeTokens.filter(filterFn).map((t) => t.token))}
+} = {
   ${activeTokens
 		.filter(filterFn)
 		.map((t) => {
@@ -54,7 +57,7 @@ export const ${objectName}Map = {
         '${t.token}': ${constructTokenFunctionCall(t.token, t.fallback)}`.trim();
 		})
 		.join(',\n\t')}
-} as const;`,
+}`,
 			'typescript',
 		) + `\nexport type ${capitalize(objectName)} = keyof typeof ${objectName}Map;\n`
 	);

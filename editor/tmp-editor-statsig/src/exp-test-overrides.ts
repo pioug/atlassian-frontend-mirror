@@ -35,6 +35,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_editor_ai_iw_adf_streaming: 'control',
 	platform_editor_ai_non_iw_adf_streaming: 'control',
 	platform_hover_card_preview_panel: 'control',
+	platform_hover_card_preview_panel_modal: 'control',
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {

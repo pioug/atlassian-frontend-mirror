@@ -1,3 +1,5 @@
+import uuid from 'uuid/v4';
+
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
@@ -14,30 +16,42 @@ import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
 import { findExpand } from '@atlaskit/editor-common/transforms';
 import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { InsertMethod } from '../types';
+import type { ExpandPlugin, InsertMethod } from '../types';
 import { isNestedInExpand } from '../utils';
 
 // Creates either an expand or a nestedExpand node based on the current selection
 export const createExpandNode = (
 	state: EditorState,
 	setExpandedState: boolean = true,
+	addLocalId?: boolean,
 ): PMNode | null => {
-	const { expand, nestedExpand } = state.schema.nodes;
+	const { expand, nestedExpand, paragraph } = state.schema.nodes;
 
 	const isSelectionInTable = !!findTable(state.selection);
 	const isSelectionInExpand = isNestedInExpand(state);
 
 	const expandType = isSelectionInTable || isSelectionInExpand ? nestedExpand : expand;
+	const expandNode = fg('platform_editor_adf_with_localid')
+		? expandType.createAndFill(
+				addLocalId
+					? {
+							localId: uuid(),
+						}
+					: {},
+				paragraph.createAndFill(addLocalId ? { localId: uuid() } : {}),
+			)
+		: expandType.createAndFill({});
 
-	const expandNode = expandType.createAndFill({});
 	if (setExpandedState) {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -46,12 +60,28 @@ export const createExpandNode = (
 	return expandNode;
 };
 
+/**
+ * When cleaning up platform_editor_adf_with_localid we can reuse this function
+ * in insertExpandWithInputMethod.
+ */
+export const wrapSelectionAndSetExpandedState = (state: EditorState, node: PMNode) => {
+	const tr = createWrapSelectionTransaction({
+		state,
+		type: node.type,
+		nodeAttributes: node.attrs,
+	});
+	const wrapperNode = findParentNodeOfType(node.type)(tr.selection);
+	if (wrapperNode) {
+		expandedState.set(wrapperNode.node, true);
+	}
+	return tr;
+};
+
 export const insertExpandWithInputMethod =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(api: ExtractInjectionAPI<ExpandPlugin> | undefined) =>
 	(inputMethod: InsertMethod): Command =>
 	(state, dispatch) => {
-		const expandNode = createExpandNode(state, false);
-
+		const expandNode = createExpandNode(state, false, !!api?.localId);
 		if (!expandNode) {
 			return false;
 		}
@@ -59,13 +89,14 @@ export const insertExpandWithInputMethod =
 		let tr;
 		if (state.selection.empty) {
 			tr = safeInsert(expandNode)(state.tr).scrollIntoView();
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			expandedState.set(expandNode!, true);
+			expandedState.set(expandNode, true);
 		} else {
 			tr = createWrapSelectionTransaction({
 				state,
 				type: expandNode.type,
+				...(fg('platform_editor_adf_with_localid') && {
+					nodeAttributes: expandNode.attrs,
+				}),
 			});
 			const wrapperNode = findParentNodeOfType(expandNode.type)(tr.selection);
 			if (wrapperNode) {
@@ -84,8 +115,8 @@ export const insertExpandWithInputMethod =
 			eventType: EVENT_TYPE.TRACK,
 		};
 
-		if (dispatch && expandNode) {
-			editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
+		if (dispatch) {
+			api?.analytics?.actions?.attachAnalyticsEvent(payload)(tr);
 			dispatch(tr);
 		}
 
@@ -93,12 +124,9 @@ export const insertExpandWithInputMethod =
 	};
 
 export const insertExpand =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+	(api: ExtractInjectionAPI<ExpandPlugin> | undefined): Command =>
 	(state, dispatch) => {
-		return insertExpandWithInputMethod(editorAnalyticsAPI)(INPUT_METHOD.INSERT_MENU)(
-			state,
-			dispatch,
-		);
+		return insertExpandWithInputMethod(api)(INPUT_METHOD.INSERT_MENU)(state, dispatch);
 	};
 
 export const deleteExpand =

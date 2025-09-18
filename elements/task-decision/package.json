@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/task-decision",
-	"version": "19.2.11",
+	"version": "19.2.12",
 	"description": "Tasks and decisions react components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,6 +40,7 @@
 		"access": "public"
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-elements-task-decision": "root:*",
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/icon": "workspace:^",

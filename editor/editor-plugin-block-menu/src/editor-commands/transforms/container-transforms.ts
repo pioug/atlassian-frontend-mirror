@@ -1,5 +1,5 @@
 import type { TransformContext } from '@atlaskit/editor-common/transforms';
-import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 
@@ -14,6 +14,7 @@ import {
 	getContentSupportChecker,
 	convertCodeBlockContentToParagraphs,
 	filterMarksForTargetNodeType,
+	getMarksWithBreakout,
 } from './utils';
 
 const convertInvalidNodeToValidNodeType = (
@@ -49,10 +50,11 @@ export const transformToContainer = ({
 	const schema = tr.doc.type.schema;
 	const content = selection.content().content;
 	let transformedContent = content;
-
+	let marks: readonly Mark[] = [];
 	if (sourceNode.type === schema.nodes.codeBlock) {
 		const paragraphNodes = convertCodeBlockContentToParagraphs(sourceNode, schema);
 		transformedContent = Fragment.fromArray(paragraphNodes);
+		marks = getMarksWithBreakout(sourceNode, targetNodeType);
 	}
 
 	if (targetNodeType === schema.nodes.blockquote) {
@@ -71,7 +73,7 @@ export const transformToContainer = ({
 		transformedContent = filterMarksForTargetNodeType(transformedContent, targetNodeType);
 	}
 
-	const newNode = targetNodeType.createAndFill(targetAttrs, transformedContent);
+	const newNode = targetNodeType.createAndFill(targetAttrs, transformedContent, marks);
 
 	if (!newNode) {
 		return null;
@@ -179,7 +181,8 @@ export const unwrapAndConvertToBlockType = (context: TransformContext) => {
 		const codeBlockContent = sourceChildren
 			.map((node) => node.content.textBetween(0, node.content.size, '\n'))
 			.join('\n');
-		transformedContent = [codeBlock.createChecked({}, schema.text(codeBlockContent))];
+		const marks = getMarksWithBreakout(sourceNode, targetNodeType);
+		transformedContent = [codeBlock.createChecked({}, schema.text(codeBlockContent), marks)];
 	}
 
 	const slice = new Slice(Fragment.fromArray(transformedContent), 0, 0);
@@ -288,6 +291,13 @@ export const transformBetweenContainerTypes = (context: TransformContext) => {
 			tr.doc.type.schema,
 		);
 
+		if (contentSplits.length === 0) {
+			const { schema } = tr.doc.type;
+			const marks = getMarksWithBreakout(sourceNode, targetNodeType);
+			const codeBlock = schema.nodes.codeBlock.create(targetAttrs, null, marks);
+			return tr.replaceWith(sourcePos, sourcePos + sourceNode.nodeSize, codeBlock);
+		}
+
 		return applySplitsToTransaction(tr, sourcePos, sourceNode.nodeSize, contentSplits);
 	}
 
@@ -353,7 +363,8 @@ const splitContentForCodeBlock = (
 	const flushCurrentCodeBlock = () => {
 		if (currentTextContent.length > 0) {
 			const codeText = currentTextContent.join('\n');
-			const codeBlockNode = targetNodeType.create(targetAttrs, schema.text(codeText));
+			const marks = getMarksWithBreakout(sourceNode, targetNodeType);
+			const codeBlockNode = targetNodeType.create(targetAttrs, schema.text(codeText), marks);
 			splits.push(codeBlockNode);
 			currentTextContent = [];
 		}
@@ -438,9 +449,11 @@ const splitContentAroundUnsupportedBlocks = (
 
 	const flushCurrentContainer = () => {
 		if (currentContainerContent.length > 0) {
+			const marks = getMarksWithBreakout(sourceNode, targetNodeType);
 			const containerNode = targetNodeType.create(
 				targetAttrs,
 				Fragment.fromArray(currentContainerContent),
+				marks,
 			);
 			splits.push(containerNode);
 			currentContainerContent = [];

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "6.16.10",
+	"version": "6.16.11",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,6 +37,7 @@
 		"access": "private"
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-elements-share": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",

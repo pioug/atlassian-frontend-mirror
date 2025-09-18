@@ -2,6 +2,7 @@ import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { nodeToJSON, type JSONNode } from '@atlaskit/editor-json-transformer';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionPlugin } from '../selectionPluginType';
 
@@ -30,8 +31,9 @@ export const getSliceFromSelection = (selection: Selection): Fragment => {
 			selection instanceof TextSelection && $from.parent.eq($to.parent)
 				? Math.max(0, $from.sharedDepth(to) - 1)
 				: $from.sharedDepth(to);
-		const start = $from.start(depth);
-		const node = $from.node(depth);
+		const finalDepth = fg('platform_editor_expand_selection_context') ? 0 : depth;
+		const start = $from.start(finalDepth);
+		const node = $from.node(finalDepth);
 		const content = node.content.cut($from.pos - start, $to.pos - start);
 		frag = frag.append(content);
 	}

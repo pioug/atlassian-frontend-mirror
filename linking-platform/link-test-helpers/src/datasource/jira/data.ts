@@ -736,6 +736,128 @@ export const mockSiteData = [
 	},
 ];
 
+export const mockProductsData = [
+	{
+		productId: 'jira-software.ondemand',
+		productDisplayName: 'Jira Software',
+		workspaces: [
+			{
+				cloudId: '67899',
+				workspaceUrl: 'https://hello.atlassian.net',
+				workspaceDisplayName: 'hello',
+			},
+			{
+				cloudId: '12345',
+				workspaceUrl: 'https://test1.atlassian.net',
+				workspaceDisplayName: 'test1',
+			},
+			{
+				cloudId: '45678',
+				workspaceUrl: 'https://test2.atlassian.net',
+				workspaceDisplayName: 'test2',
+			},
+		],
+	},
+	{
+		productId: 'jira-product-discovery',
+		productDisplayName: 'JPD',
+		workspaces: [
+			{
+				cloudId: '45678',
+				workspaceUrl: 'https://test2.atlassian.net',
+				workspaceDisplayName: 'test2',
+			},
+			{
+				cloudId: '78911',
+				workspaceUrl: 'https://test4.atlassian.net',
+				workspaceDisplayName: 'test4',
+			},
+			{
+				cloudId: '33333',
+				workspaceUrl: 'https://test7.atlassian.net',
+				workspaceDisplayName: 'testNetworkError',
+			},
+			{
+				cloudId: '44444',
+				workspaceUrl: 'https://test7.atlassian.net',
+				workspaceDisplayName: 'testNoAccess',
+			},
+			{
+				cloudId: '22222',
+				workspaceUrl: 'https://test6.atlassian.net',
+				workspaceDisplayName: 'testNoResults',
+			},
+			{
+				cloudId: '11111',
+				workspaceUrl: 'https://test5.atlassian.net',
+				workspaceDisplayName: 'testSingleIssue',
+			},
+		],
+	},
+	{
+		productId: 'jira-servicedesk.ondemand',
+		productDisplayName: 'Jira Service Desk',
+		workspaces: [
+			{
+				cloudId: '67899',
+				workspaceUrl: 'https://hello.atlassian.net',
+				workspaceDisplayName: 'hello',
+			},
+			{
+				cloudId: '44444',
+				workspaceUrl: 'https://test7.atlassian.net',
+				workspaceDisplayName: 'testNoAccess',
+			},
+			{
+				cloudId: '22222',
+				workspaceUrl: 'https://test6.atlassian.net',
+				workspaceDisplayName: 'testNoResults',
+			},
+			{
+				cloudId: '11111',
+				workspaceUrl: 'https://test5.atlassian.net',
+				workspaceDisplayName: 'testSingleIssue',
+			},
+			{
+				cloudId: '33333',
+				workspaceUrl: 'https://test7.atlassian.net',
+				workspaceDisplayName: 'testNetworkError',
+			},
+		],
+	},
+	{
+		productId: 'confluence.ondemand',
+		productDisplayName: 'Confluence',
+		workspaces: [
+			{
+				cloudId: '67899',
+				workspaceUrl: 'https://hello.atlassian.net',
+				workspaceDisplayName: 'hello',
+			},
+			{
+				cloudId: '44444',
+				workspaceUrl: 'https://test7.atlassian.net',
+				workspaceDisplayName: 'testNoAccess',
+			},
+			{
+				cloudId: '22222',
+				workspaceUrl: 'https://test6.atlassian.net',
+				workspaceDisplayName: 'testNoResults',
+			},
+			{
+				cloudId: '11111',
+				workspaceUrl: 'https://test5.atlassian.net',
+				workspaceDisplayName: 'testSingleIssue',
+			},
+			{
+				cloudId: '33333',
+				workspaceUrl: 'https://test7.atlassian.net',
+				workspaceDisplayName: 'testNetworkError',
+			},
+		],
+	},
+];
+
 export const mockSite: Site = {
 	cloudId: 'DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b',
 	displayName: 'forge-smart-link-battleground',

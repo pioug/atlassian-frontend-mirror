@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "42.0.2",
+	"version": "42.0.4",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,6 +36,7 @@
 		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
+		"@atlaskit/embedded-confluence": "workspace:^",
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/frontend-utilities": "workspace:^",

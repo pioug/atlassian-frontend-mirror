@@ -1,5 +1,14 @@
 # @atlaskit/user-picker
 
+## 11.6.7
+
+### Patch Changes
+
+- [`411addc8f1770`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/411addc8f1770) -
+  Migrate elements, search, smart-experiences, web-platform, forge, jql and bitbucket pkgs to use
+  i18n NPM pkgs from Traduki
+- Updated dependencies
+
 ## 11.6.6
 
 ### Patch Changes

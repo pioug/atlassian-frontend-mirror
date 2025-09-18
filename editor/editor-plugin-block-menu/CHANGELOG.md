@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 3.2.3
+
+### Patch Changes
+
+- [`d5e5b25fe885a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5e5b25fe885a) -
+  [ux] ED-29226 Open block menu when drag handle is focussed and space or enter key is pressed
+- Updated dependencies
+
+## 3.2.2
+
+### Patch Changes
+
+- [`0cde512c00691`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cde512c00691) -
+  [ux] When resized node it transformed to another resized node, the width should be preserved.
+- [`245e047a2f6e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/245e047a2f6e9) -
+  [ux] Change `Format` option text to `Turn into` in block menu
+- Updated dependencies
+
+## 3.2.1
+
+### Patch Changes
+
+- [`7958282e36bdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7958282e36bdf) -
+  [ux] ED-29222: Show block menu on empty line
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

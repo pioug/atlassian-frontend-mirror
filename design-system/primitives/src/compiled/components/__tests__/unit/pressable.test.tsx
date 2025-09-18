@@ -1,6 +1,7 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
+ * @jsxFrag
  */
 import { Fragment } from 'react';
 
@@ -11,6 +12,7 @@ import userEvent from '@testing-library/user-event';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Pressable from '../../pressable';
 
@@ -233,6 +235,17 @@ describe('Pressable', () => {
 				border: 'none',
 				appearance: 'none',
 				cursor: 'pointer',
+			});
+		});
+
+		ffTest.on('platform_dst_compiled_primitives_outline_reset', 'enabled', () => {
+			it('should override global outline styles', () => {
+				render(<Pressable>Pressable</Pressable>);
+
+				// The outline shorthand gets expanded by Compiled CSS, so we need to look for the expanded property
+				expect(screen.getByRole('button')).toHaveCompiledCss('outline-style', 'none', {
+					target: ':focus:not(:focus-visible)',
+				});
 			});
 		});
 	});

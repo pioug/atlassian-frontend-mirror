@@ -1,7 +1,12 @@
 import format from '@af/formatting/sync';
 import { legacyLightTokens as legacyTokens, light as tokens } from '@atlaskit/tokens/tokens-raw';
 
-import { capitalize, constructTokenFunctionCall, type ShadowDefinition } from './utils';
+import {
+	capitalize,
+	constructTokenFunctionCall,
+	generateTypeDefs,
+	type ShadowDefinition,
+} from './utils';
 
 type Token = {
 	token: string;
@@ -62,11 +67,17 @@ export const createColorStylesFromTemplate = (colorProperty: keyof typeof tokenS
 	}
 
 	const { filterFn, objectName } = tokenStyles[colorProperty];
+	const typeDefsTokens = activeTokens
+		.filter(filterFn)
+		// @ts-ignore
+		.map((t) => t.token.replaceAll('.[default]', ''));
 
 	return (
 		format(
 			`
-export const ${objectName}Map = {
+export const ${objectName}Map: {
+	${generateTypeDefs(typeDefsTokens)}
+} = {
   ${activeTokens
 		.filter(filterFn)
 		// @ts-ignore

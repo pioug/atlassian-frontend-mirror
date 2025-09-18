@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 42.0.4
+
+### Patch Changes
+
+- [`d2f3f4fa7f968`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2f3f4fa7f968) -
+  Revert of revert PR AI3W-1203, also add FF and tests
+- [`8fdc963ebe27a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fdc963ebe27a) -
+  Replace LP-CC-EMBED iframe with embedded confluence iframe
+- [`169f5e028cdb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/169f5e028cdb2) -
+  NAVX-1911 Adding example in smart-card docs for ui.removeBlockRestriction
+- Updated dependencies
+
+## 42.0.3
+
+### Patch Changes
+
+- [`0203ffb1d311e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0203ffb1d311e) -
+  Updated experiment config to split out embed preview action handling from core hover card behavior
+- Updated dependencies
+
 ## 42.0.2
 
 ### Patch Changes

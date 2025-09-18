@@ -1,6 +1,8 @@
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { DIRECTION } from '@atlaskit/editor-common/types';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
@@ -46,6 +48,21 @@ export const moveNodeWithBlockMenu = (
 
 			if (shouldMoveNode) {
 				moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.BLOCK_MENU)({ tr });
+				if (
+					tr.selection.empty &&
+					expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
+				) {
+					const nodeAtCurrentPos = tr.doc.nodeAt(currentNodePos);
+					const nodeAfter = tr.doc.nodeAt(moveToPos);
+					const isConsecutiveEmptyLineMove =
+						nodeAtCurrentPos?.content.size === 0 && nodeAfter?.content.size === 0;
+					const cursorPos =
+						direction === DIRECTION.UP ||
+						(direction === DIRECTION.DOWN && isConsecutiveEmptyLineMove)
+							? moveToPos
+							: moveToPos - 1;
+					tr.setSelection(TextSelection.create(tr.doc, cursorPos));
+				}
 				tr.scrollIntoView();
 			}
 		}

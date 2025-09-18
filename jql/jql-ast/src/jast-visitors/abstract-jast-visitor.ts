@@ -35,7 +35,7 @@ export abstract class AbstractJastVisitor<Result> implements JastVisitor<Result>
 	 * {@link #visitChildren} will return the result of the last child visited
 	 * (or return the initial value if the node has no children).
 	 *
-	 * @param aggregate The previous aggregate value. In the default
+	 * @param _aggregate The previous aggregate value. In the default
 	 * implementation, the aggregate value is initialized to
 	 * {@link #defaultResult}, which is passed as the `aggregate` argument
 	 * to this method after the first child node is visited.
@@ -44,7 +44,7 @@ export abstract class AbstractJastVisitor<Result> implements JastVisitor<Result>
 	 *
 	 * @returns The updated aggregate result.
 	 */
-	protected aggregateResult(aggregate: Result, nextResult: Result): Result {
+	protected aggregateResult(_aggregate: Result, nextResult: Result): Result {
 		return nextResult;
 	}
 	/**
@@ -60,16 +60,16 @@ export abstract class AbstractJastVisitor<Result> implements JastVisitor<Result>
 	 * child has the potential to determine the result of the visit operation as
 	 * a whole.
 	 *
-	 * @param node The {@link AstNode} whose children are currently being
+	 * @param _node The {@link AstNode} whose children are currently being
 	 * visited.
-	 * @param currentResult The current aggregate result of the children visited
+	 * @param _currentResult The current aggregate result of the children visited
 	 * to the current point.
 	 *
 	 * @returns `true` to continue visiting children. Otherwise return
 	 * `false` to stop visiting children and immediately return the
 	 * current aggregate result from {@link #visitChildren}.
 	 */
-	protected shouldVisitNextChild(node: AstNode, currentResult: Result) {
+	protected shouldVisitNextChild(_node: AstNode, _currentResult: Result) {
 		return true;
 	}
 

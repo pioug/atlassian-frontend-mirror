@@ -91,14 +91,17 @@ events:
 
   - textField updated (linkField):
       type: ui
-      description: fired when the user's focus moves away from the link input field after modifying its value
+      description:
+        fired when the user's focus moves away from the link input field after modifying its value
       attributes:
         <<: *PackageMetaDataContext
         <<: *LinkPickerAnalyticsContext
 
   - textField updated (displayTextField):
       type: ui
-      description: fired when the user's focus moves away from the display text input field after modifying its value
+      description:
+        fired when the user's focus moves away from the display text input field after modifying its
+        value
       attributes:
         <<: *PackageMetaDataContext
         <<: *LinkPickerAnalyticsContext
@@ -128,7 +131,9 @@ events:
 
   - searchResults shown (preQuerySearchResults):
       type: ui
-      description: Fires when a user opens the Link Picker and the initial set of search results is shown. (Maximum rate 1 event/400ms)
+      description:
+        Fires when a user opens the Link Picker and the initial set of search results is shown.
+        (Maximum rate 1 event/400ms)
       attributes:
         <<: *PackageMetaDataContext
         <<: *LinkPickerAnalyticsContext
@@ -138,7 +143,9 @@ events:
 
   - searchResults shown (postQuerySearchResults):
       type: ui
-      description: Fires when a user triggers a Search of objects within the Link Picker and results are shown. (Maximum rate 1 event/400ms)
+      description:
+        Fires when a user triggers a Search of objects within the Link Picker and results are shown.
+        (Maximum rate 1 event/400ms)
       attributes:
         <<: *PackageMetaDataContext
         <<: *LinkPickerAnalyticsContext
@@ -148,7 +155,8 @@ events:
 
   - resultsResolve failed:
       type: operational
-      description: fired when a link picker plugin throws an error when attempting to resolve results
+      description:
+        fired when a link picker plugin throws an error when attempting to resolve results
       attributes:
         <<: *PackageMetaDataContext
         <<: *LinkPickerAnalyticsContext

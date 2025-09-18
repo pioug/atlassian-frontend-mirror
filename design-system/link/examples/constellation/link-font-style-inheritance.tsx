@@ -6,7 +6,7 @@ import Link from '@atlaskit/link';
 export default function FontStyleInheritance() {
 	return (
 		<Heading size="xxlarge">
-			The <Link href="/components/link/code">link</Link> inherits font styles
+			The <Link href="/components/link/code">link component</Link> inherits font styles
 		</Heading>
 	);
 }

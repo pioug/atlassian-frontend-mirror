@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 8.4.6
+
+### Patch Changes
+
+- [`ee5833cf21736`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee5833cf21736) -
+  [ux] Fix bug with depth calculation used when splitting blockTaskItem nodes on enter key press.
+  This caused an error to be thrown to the browser console and the node to not be split.
+- Updated dependencies
+
 ## 8.4.5
 
 ### Patch Changes

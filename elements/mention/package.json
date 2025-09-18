@@ -19,6 +19,7 @@
 		"access": "public"
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-elements-mention": "root:*",
 		"@atlaskit/analytics-gas-types": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
@@ -119,5 +120,5 @@
 			]
 		}
 	},
-	"version": "24.2.16"
+	"version": "24.2.17"
 }

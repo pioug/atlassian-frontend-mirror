@@ -22,6 +22,7 @@ import { IFrame } from './IFrame';
 import { IframeDwellTracker } from './IframeDwellTracker';
 
 export interface FrameProps {
+	extensionKey?: string;
 	isTrusted?: boolean;
 	onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
 	onIframeFocus?: () => void;
@@ -60,7 +61,10 @@ const iframeStyles = css({
 });
 
 export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
-	({ url, isTrusted = false, testId, onIframeDwell, onIframeFocus, title }, iframeRef) => {
+	(
+		{ url, isTrusted = false, testId, onIframeDwell, onIframeFocus, title, extensionKey },
+		iframeRef,
+	) => {
 		di(IFrame);
 		const [isIframeLoaded, setIframeLoaded] = useState(false);
 		const [isMouseOver, setMouseOver] = useState(false);
@@ -147,6 +151,7 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
 					}}
 					sandbox={getIframeSandboxAttribute(isTrusted)}
 					title={title}
+					extensionKey={extensionKey}
 				/>
 			</React.Fragment>
 		);

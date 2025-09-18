@@ -1,5 +1,13 @@
 # @atlaskit/teams-avatar
 
+## 2.3.21
+
+### Patch Changes
+
+- [`0ffad2db5f466`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ffad2db5f466) -
+  Rename data-testId to data-testid to fix react error
+- Updated dependencies
+
 ## 2.3.20
 
 ### Patch Changes

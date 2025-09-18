@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "14.6.0",
+	"version": "14.6.1",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,6 +41,7 @@
 		"access": "public"
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-web-platform-feedback-collector": "root:*",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/flag": "workspace:^",

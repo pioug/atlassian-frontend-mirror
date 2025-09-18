@@ -1,7 +1,7 @@
 import format from '@af/formatting/sync';
 import { spacing as tokens } from '@atlaskit/tokens/tokens-raw';
 
-import { constructTokenFunctionCall } from './utils';
+import { constructTokenFunctionCall, generateTypeDefs } from './utils';
 
 const spacingTokenPrefix = 'space.';
 const negativeSuffix = '.negative';
@@ -23,15 +23,22 @@ const negativeSpaceTokens = tokens
 
 export const createSpacingStylesFromTemplate = () => {
 	const output = [
-		`export const positiveSpaceMap = {\n${positiveSpaceTokens
+		`export const positiveSpaceMap: {
+			${generateTypeDefs(positiveSpaceTokens.map((t) => t.name))}
+		} = {\n${positiveSpaceTokens
 			.map(({ name, fallback }) => `'${name}': ${constructTokenFunctionCall(name, fallback)},`)
 			.join('\n')}}`,
 		`export type Space = keyof typeof positiveSpaceMap;\n`,
-		`export const negativeSpaceMap = {\n${negativeSpaceTokens
+		`export const negativeSpaceMap: {
+			${generateTypeDefs(negativeSpaceTokens.map((t) => t.name))}
+		} = {\n${negativeSpaceTokens
 			.map(({ name, fallback }) => `'${name}': ${constructTokenFunctionCall(name, fallback)},`)
 			.join('\n')}}`,
 		`export type NegativeSpace = keyof typeof negativeSpaceMap;\n`,
-		`export const allSpaceMap = { ...positiveSpaceMap, ...negativeSpaceMap };\n`,
+		`export const allSpaceMap: {
+			${generateTypeDefs(positiveSpaceTokens.map((t) => t.name))}
+			${generateTypeDefs(negativeSpaceTokens.map((t) => t.name))}
+		} = { ...positiveSpaceMap, ...negativeSpaceMap };\n`,
 		`export type AllSpace = keyof typeof allSpaceMap;\n`,
 	].join('\n');
 

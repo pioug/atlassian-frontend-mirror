@@ -1,5 +1,23 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.27.0
+
+### Minor Changes
+
+- [`d5e5b25fe885a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5e5b25fe885a) -
+  [ux] ED-29226 Open block menu when drag handle is focussed and space or enter key is pressed
+
+## 12.26.0
+
+### Minor Changes
+
+- [`0203ffb1d311e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0203ffb1d311e) -
+  Updated experiment config to split out embed preview action handling from core hover card behavior
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.25.1
 
 ### Patch Changes

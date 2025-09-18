@@ -1,5 +1,12 @@
 # @atlaskit/css
 
+## 0.14.2
+
+### Patch Changes
+
+- [`d92f75f49b03f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d92f75f49b03f) -
+  added type definitions to return type of generated code
+
 ## 0.14.1
 
 ### Patch Changes

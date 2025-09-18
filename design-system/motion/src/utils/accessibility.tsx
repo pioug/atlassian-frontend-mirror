@@ -45,10 +45,16 @@ export const useIsReducedMotion = (): boolean => {
 	return prefersReducedMotion;
 };
 
+// Ticket for adding an ESLint rule to recommend that any `animation` or `transition` styles are
+// disabled based on the user's motion preference: https://product-fabric.atlassian.net/browse/DSP-23842
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 /**
  * Use for any CSS based motion (animation or transition).
  * Always put at the end of your declaration for correct use of the cascade.
  * Reduced motion preference is generally set through OS preferences/settings.
+ *
+ * @deprecated This is not fully compatible with Compiled CSS and will be removed in the future.
+ * You should hardcode the `prefers-reduced-motion` media query in your file instead.
  */
 export const reduceMotionAsPerUserPreference = {
 	'@media (prefers-reduced-motion: reduce)': {
@@ -59,6 +65,7 @@ export const reduceMotionAsPerUserPreference = {
 
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-4709 Internal documentation for deprecation (no external access)}
- * Use the sibling export `reduceMotionAsPerUserPreference` instead.
+ * This is not compatible with Compiled CSS and will be removed in the future.
+ * You should hardcode the `prefers-reduced-motion` media query in your file instead.
  */
 export const prefersReducedMotion = () => reduceMotionAsPerUserPreference;

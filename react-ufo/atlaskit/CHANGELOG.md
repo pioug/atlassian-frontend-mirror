@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.8.0
+
+### Minor Changes
+
+- [`fed39716487e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fed39716487e7) -
+  calculate VCNext (TTVC v4) metric behind FG
+
+## 4.7.6
+
+### Patch Changes
+
+- [`71df791f80bf5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71df791f80bf5) -
+  Remove TTVC debug data for post-interaction-log events
+
 ## 4.7.5
 
 ### Patch Changes

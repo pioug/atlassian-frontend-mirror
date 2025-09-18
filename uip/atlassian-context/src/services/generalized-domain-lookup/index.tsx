@@ -1,14 +1,12 @@
 import {
+	type CloudEnvironment,
 	COMMERCIAL,
 	type EnvironmentType,
-	ISOLATED_CLOUD_PERIMETERS,
 	type IsolatedCloudPerimeterType,
-	NON_ISOLATED_CLOUD_PERIMETERS,
 	type NonIsolatedCloudPerimeterType,
-	PRODUCTION,
 } from '../../common/constants';
 import { fullDomainOverride, globalDomains } from '../../common/constants/domains';
-import { type AtlCtxCookieValues, parseAtlCtxCookies } from '../atl-cookies-lookup';
+import { cloudEnvironment, isolatedCloudDomain } from '../perimeter';
 
 import {
 	AtlDomainMapping,
@@ -20,54 +18,34 @@ import {
 /**
  *
  * Gets the full domain for an Atlassian experience in the context of the current request.
- * Returns undefined only when a new perimeter has been created that is not yet supported by the atlassian-context library.
+ * Returns undefined only when a new perimeter has been created that is not yet supported by the atlassian-context library or when the ic domain cannot be retrieved.
  *
  * For Non Isolated Cloud, the domain will be determined by the perimeter and environment combination unless the subdomain belongs in the list of global domains or overrides.
  * For Isolated Cloud, the domain type defaults to the vanity name pattern.
- *
- * Warning: Currently unsupported in SSR for the time-being.
  *
  * @param subdomain - The Atlassian experience subdomain
  * @param envType - The environment to get the domain for ('dev', 'staging', or 'prod'). When in Isolated Cloud, the same value will be returned for all env types.
  * @returns The full domain associated with the subdomain for the given environment
  */
+
 export function getDomainInContext(
 	subdomain: string,
 	envType: EnvironmentType,
 ): string | undefined {
-	const atlCtxCookieValues: AtlCtxCookieValues | undefined = parseAtlCtxCookies();
-
-	// Form domain for non-isolated commercial
-	if (atlCtxCookieValues === undefined) {
-		return getDomainForNonIsolatedCloud(subdomain, COMMERCIAL, envType);
-	}
-
-	// Cookie values validity check
-	const isIsolatedCloudPerimeterType = ISOLATED_CLOUD_PERIMETERS.includes(
-		atlCtxCookieValues.perimeter as IsolatedCloudPerimeterType,
-	);
-	const isNonIsolatedCloudPerimeterType = NON_ISOLATED_CLOUD_PERIMETERS.includes(
-		atlCtxCookieValues.perimeter as NonIsolatedCloudPerimeterType,
-	);
-	if (!isIsolatedCloudPerimeterType && !isNonIsolatedCloudPerimeterType) {
-		console.warn(
-			`Atl Ctx cookies are passing in invalid perimeter ${atlCtxCookieValues.perimeter}`,
-		);
+	const currentCloudEnvironment: CloudEnvironment | undefined = cloudEnvironment();
+	if (currentCloudEnvironment === undefined) {
 		return undefined;
 	}
 
-	// Form domain for isolated-cloud
-	const isIsolatedCloud: boolean =
-		isIsolatedCloudPerimeterType && atlCtxCookieValues.icDomain !== undefined;
-
-	if (isIsolatedCloud) {
-		const perimeter = atlCtxCookieValues.perimeter as IsolatedCloudPerimeterType;
-		return getDomainForIsolatedCloud(subdomain, perimeter, atlCtxCookieValues);
+	if (currentCloudEnvironment.type === 'isolated-cloud') {
+		const domain = isolatedCloudDomain();
+		if (domain === undefined) {
+			return undefined;
+		}
+		return getDomainForIsolatedCloud(subdomain, COMMERCIAL, domain);
 	}
 
-	// Form domain for non-isolated, non-commercial perimeter (aka fedramp)
-	const perimeter = atlCtxCookieValues.perimeter as NonIsolatedCloudPerimeterType;
-	return getDomainForNonIsolatedCloud(subdomain, perimeter, envType);
+	return getDomainForNonIsolatedCloud(subdomain, currentCloudEnvironment.perimeter, envType);
 }
 
 /**
@@ -76,21 +54,16 @@ export function getDomainInContext(
  * Defaults to returning the vanity name pattern
  * @param subdomain - The Atlassian experience subdomain
  * @param perimeter - The Isolated Cloud perimeter to get the domain for
- * @param atlCtxCookieValues - The atl-ctx cookie to get the IC domain from
+ * @param isolatedCloudDomain - The IC domain (ex. "company.atlassian-isolated.net")
  * @returns The full domain associated with the subdomain in a specific IC
  */
+
 function getDomainForIsolatedCloud(
 	subdomain: string,
 	perimeter: IsolatedCloudPerimeterType,
-	atlCtxCookieValues: AtlCtxCookieValues,
+	isolatedCloudDomain: string,
 ) {
 	const domainMappings = isolatedCloudFunctions[perimeter];
-
-	const isolatedCloudDomain = atlCtxCookieValues.icDomain;
-	if (!isolatedCloudDomain) {
-		console.warn('No isolated cloud domain found in atl-ctx cookie values');
-		return undefined;
-	}
 
 	if (ReservedNameMapping[perimeter].includes(subdomain)) {
 		return domainMappings.isolatedCloudReservedNameDomain(subdomain, isolatedCloudDomain);
@@ -122,11 +95,9 @@ function getDomainForNonIsolatedCloud(
 	}
 
 	// Second, check if the subdomain is associated with a full domain override (ex. a domain that uses a different pattern in other perimeters/environments)
-	const override = fullDomainOverride[subdomain];
+	const override = fullDomainOverride[subdomain]?.[perimeter]?.[envType];
 	if (override) {
-		return (
-			override[perimeter]?.[envType] ?? override[COMMERCIAL][PRODUCTION] // Default to commercial production if no environment-specific override is found
-		);
+		return override;
 	}
 
 	// Use default domain ending for the given perimeter
@@ -139,7 +110,6 @@ function getDomainForNonIsolatedCloud(
  * Gets the full URL for an Atlassian experience in the context of the current request
  * Returns undefined only when a new perimeter has been created that is not yet supported by the atlassian-context library
  *
- * Warning: Currently unsupported in SSR for the time-being.
  * @param subdomain - The Atlassian experience subdomain
  * @param The environment to get the domain for ('dev', 'staging', or 'prod'). When in Isolated Cloud, the same value will be returned for all env types.
  * @returns The full URL for the given subdomain and environment

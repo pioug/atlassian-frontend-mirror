@@ -255,7 +255,7 @@ events:
               'onNextPage',
               'actionDiscovery',
               'actionExecution',
-              'fetchActionExecution'
+              'fetchActionExecution',
             ]
           required: false
           description: Codebase location of the error to help debugging the source

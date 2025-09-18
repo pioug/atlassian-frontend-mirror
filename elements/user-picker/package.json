@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "11.6.6",
+	"version": "11.6.7",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -52,6 +52,7 @@
 		"access": "public"
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-elements-user-picker": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/icon": "workspace:^",

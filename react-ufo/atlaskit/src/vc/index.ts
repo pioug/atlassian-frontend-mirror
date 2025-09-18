@@ -28,7 +28,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 			enablePageLayoutPlaceholder: opts.ssrEnablePageLayoutPlaceholder ?? false,
 		});
 
-		if (isVCRevisionEnabled('fy25.03')) {
+		if (isVCRevisionEnabled('fy25.03') || isVCRevisionEnabled('next')) {
 			this.newVCObserver = new VCObserverNew({
 				selectorConfig: opts.selectorConfig,
 				isPostInteraction: opts.isPostInteraction,

@@ -14,6 +14,7 @@ import {
 	defaultInitialVisibleColumnKeys as defaultInitialVisibleJiraColumnKeys,
 	mockAutoCompleteData,
 	mockJiraData,
+	mockProductsData,
 	mockSite,
 	mockSiteData,
 	mockSuggestionData,
@@ -28,6 +29,7 @@ export {
 	mockAutoCompleteData,
 	mockJiraData,
 	mockSiteData,
+	mockProductsData,
 	mockSite,
 	mockSuggestionData,
 	mockAssetsClientFetchRequests,
@@ -71,6 +73,18 @@ export type Site = {
 	url: string;
 };
 
+export type Product = {
+	productDisplayName: string;
+	productId: string;
+	workspaces: Workspace[];
+};
+
+export type Workspace = {
+	cloudId: string;
+	workspaceDisplayName: string;
+	workspaceUrl: string;
+};
+
 export interface FetchMockRequestDetails {
 	body: string;
 	credentials: string;
@@ -86,6 +100,7 @@ interface ResolveBatchRequest
 let numberOfLoads = 0;
 
 type MockOptions = {
+	accessibleProductsOverride?: Product[];
 	availableSitesOverride?: Site[];
 	datasourceId?: string;
 	delayedResponse?: boolean; // For playwright VR tests
@@ -106,6 +121,7 @@ export const mockDatasourceFetchRequests = ({
 	delayedResponse = true,
 	availableSitesOverride,
 	mockExecutionDelay = 600,
+	accessibleProductsOverride,
 	...rest
 }: MockOptions = {}) => {
 	const datasourceMatcher = '[^/]+';
@@ -220,6 +236,12 @@ export const mockDatasourceFetchRequests = ({
 	fetchMock.post(/api\/available-sites/, async () => {
 		return new Promise((resolve) => {
 			resolve({ sites: availableSitesOverride || mockSiteData });
+		});
+	});
+
+	fetchMock.post(/api\/v2\/accessible-products/, async () => {
+		return new Promise((resolve) => {
+			resolve({ products: accessibleProductsOverride || mockProductsData });
 		});
 	});
 

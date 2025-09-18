@@ -90,7 +90,7 @@ describe('openEmbedModal', () => {
 
 		expect(mockOpenEmbedModalInParent).toHaveBeenCalledWith(customProps);
 		expect(mockExpValEquals).toHaveBeenCalledWith(
-			'platform_hover_card_preview_panel',
+			'platform_hover_card_preview_panel_modal',
 			'cohort',
 			'test',
 		);

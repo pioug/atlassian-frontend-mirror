@@ -33,4 +33,5 @@ events:
         traceId:
           type: string
           required: false
-          description: The x-trace-id header associated with the network request if the failure is a Response
+          description:
+            The x-trace-id header associated with the network request if the failure is a Response

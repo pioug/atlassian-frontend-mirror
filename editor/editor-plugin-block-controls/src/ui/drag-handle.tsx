@@ -528,13 +528,51 @@ export const DragHandle = ({
 					!isMultiSelect && tr.setMeta(key, { pos: startPos });
 					return tr;
 				});
+			} else if (
+				(e.key === 'Enter' || e.key === ' ') &&
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
+			) {
+				if (document.activeElement !== buttonRef.current) {
+					return;
+				}
+
+				e.preventDefault();
+				e.stopPropagation();
+				setDragHandleSelected(!dragHandleSelected);
+
+				api?.core?.actions.execute(({ tr }) => {
+					const startPos = getPos();
+
+					if (startPos === undefined) {
+						return tr;
+					}
+
+					tr = selectNode(tr, startPos, nodeType);
+
+					api?.blockControls?.commands.toggleBlockMenu({ anchorName })({ tr });
+					api?.userIntent?.commands.setCurrentUserIntent('blockMenuOpen')({ tr });
+					api?.blockControls.commands.setSelectedViaDragHandle(true)({ tr });
+
+					return tr;
+				});
 			} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {
 				// If not trying to press shortcut keys,
 				// return focus to editor to resume editing from caret position
 				view.focus();
 			}
 		},
-		[getPos, api?.core?.actions, isMultiSelect, view],
+		[
+			getPos,
+			api?.core?.actions,
+			api?.blockControls.commands,
+			api?.userIntent?.commands,
+			isMultiSelect,
+			view,
+			anchorName,
+			dragHandleSelected,
+			nodeType,
+		],
 	);
 
 	useEffect(() => {

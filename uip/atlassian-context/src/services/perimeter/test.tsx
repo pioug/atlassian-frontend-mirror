@@ -1,4 +1,5 @@
 import {
+	cloudEnvironment,
 	isFedrampModerate,
 	isIsolatedCloud,
 	isolatedCloudDomain,
@@ -80,6 +81,43 @@ describe('Perimeter Methods for Browser', () => {
 
 		it('returns undefined for non-isolated cloud environments (commercial)', () => {
 			expect(isolationContextId()).toBeUndefined();
+		});
+	});
+
+	describe('Returns correct cloudEnvironment() values', () => {
+		it('returns isolated cloud environment from cookies', () => {
+			globalThis.document.cookie = 'Atl-Ctx-Perimeter=commercial';
+			globalThis.document.cookie =
+				'Atl-Ctx-Isolation-Context-Domain=simcity.atlassian-isolated.net';
+			expect(cloudEnvironment()).toEqual({
+				type: 'isolated-cloud',
+				perimeter: 'commercial',
+			});
+		});
+
+		it('returns FedRAMP Moderate environment from cookies', () => {
+			globalThis.document.cookie = 'Atl-Ctx-Perimeter=fedramp-moderate';
+			expect(cloudEnvironment()).toEqual({
+				type: 'non-isolated-cloud',
+				perimeter: 'fedramp-moderate',
+			});
+		});
+
+		it('returns commercial environment when no cookies are set', () => {
+			expect(cloudEnvironment()).toEqual({
+				type: 'non-isolated-cloud',
+				perimeter: 'commercial',
+			});
+		});
+
+		it('returns undefined when only perimeter cookie is set without IC domain (invalid state)', () => {
+			globalThis.document.cookie = 'Atl-Ctx-Perimeter=commercial';
+			expect(cloudEnvironment()).toBeUndefined();
+		});
+
+		it('returns undefined for unknown perimeter types', () => {
+			globalThis.document.cookie = 'Atl-Ctx-Perimeter=unknown-perimeter';
+			expect(cloudEnvironment()).toBeUndefined();
 		});
 	});
 });

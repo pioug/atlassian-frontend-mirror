@@ -9,8 +9,8 @@ const InlineMessageWarningExample = () => {
 				<strong>Adding new users</strong>
 			</p>
 			<p>
-				You are adding 5 new users to your selected product, if they don’t already have access to
-				this product your bill may increase.
+				You are adding 5 new users to your selected app, if they don’t already have access to this
+				app your bill may increase.
 			</p>
 		</InlineMessage>
 	);

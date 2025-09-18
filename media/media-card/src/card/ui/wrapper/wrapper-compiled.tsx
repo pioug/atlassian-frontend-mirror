@@ -19,34 +19,36 @@ import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 const LOCAL_WIDTH_VARIABLE = '--media-wrapper-width';
 const LOCAL_HEIGHT_VARIABLE = '--media-wrapper-height';
 
-const wrapperStyles = css({
-	boxSizing: 'border-box',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'*': {
+const wrapperStyles = cssMap({
+	default: {
 		boxSizing: 'border-box',
-	},
-	position: 'relative',
-	fontFamily: token('font.family.body'),
-	maxWidth: '100%',
-	maxHeight: '100%',
-	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('radius.small', '3px'),
-	width: `var(${LOCAL_WIDTH_VARIABLE})`,
-	height: `var(${LOCAL_HEIGHT_VARIABLE})`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'*': {
+			boxSizing: 'border-box',
+		},
+		position: 'relative',
+		fontFamily: token('font.family.body'),
+		maxWidth: '100%',
+		maxHeight: '100%',
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: token('radius.small', '3px'),
+		width: `var(${LOCAL_WIDTH_VARIABLE})`,
+		height: `var(${LOCAL_HEIGHT_VARIABLE})`,
 
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'&:hover .media-card-blanket': {
-		backgroundColor: token('color.blanket', N90A),
-	},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&:hover .media-card-blanket': {
+			backgroundColor: token('color.blanket', N90A),
+		},
 
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'&:hover .media-card-actions-bar, &:focus-within .media-card-actions-bar': {
-		opacity: 1,
-	},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&:hover .media-card-actions-bar, &:focus-within .media-card-actions-bar': {
+			opacity: 1,
+		},
 
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'button:focus + &': {
-		outline: `solid ${token('border.width.focused')} ${token('color.border.focused', B100)}`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'button:focus + &': {
+			outline: `solid ${token('border.width.focused')} ${token('color.border.focused', B100)}`,
+		},
 	},
 });
 
@@ -71,7 +73,10 @@ const shadowStyleMap = cssMap({
 		boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
 	},
 	selectedWithOverlay: {
-		boxShadow: `0 0 0 1px ${token('color.border.selected')}, ${token('elevation.shadow.raised', `0 1px 1px ${N60A}, 0 0 1px 0 ${N60A}`)}`,
+		boxShadow: `0 0 0 1px ${token('color.border.selected')}, ${token(
+			'elevation.shadow.raised',
+			`0 1px 1px ${N60A}, 0 0 1px 0 ${N60A}`,
+		)}`,
 	},
 });
 
@@ -174,7 +179,7 @@ export const Wrapper = (props: WrapperProps) => {
 				} as React.CSSProperties
 			}
 			css={[
-				wrapperStyles,
+				wrapperStyles.default,
 				displayBackground && backgroundStyle,
 				mediaCardCursor && cursorStyleMap[mediaCardCursor],
 				wrapperShadowKey && shadowStyleMap[wrapperShadowKey],

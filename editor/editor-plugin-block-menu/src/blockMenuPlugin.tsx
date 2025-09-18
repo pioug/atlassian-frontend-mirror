@@ -7,6 +7,7 @@ import type { FormatNodeTargetType } from './editor-commands/transforms/types';
 import { createPlugin } from './pm-plugins/main';
 import BlockMenu from './ui/block-menu';
 import { getBlockMenuComponents } from './ui/block-menu-components';
+import { BlockMenuProvider } from './ui/block-menu-provider';
 
 export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 	const registry = createBlockMenuRegistry();
@@ -57,13 +58,15 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 			popupsScrollableElement,
 		}) {
 			return (
-				<BlockMenu
-					editorView={editorView}
-					api={api}
-					mountTo={popupsMountPoint}
-					boundariesElement={popupsBoundariesElement}
-					scrollableElement={popupsScrollableElement}
-				/>
+				<BlockMenuProvider api={api}>
+					<BlockMenu
+						editorView={editorView}
+						api={api}
+						mountTo={popupsMountPoint}
+						boundariesElement={popupsBoundariesElement}
+						scrollableElement={popupsScrollableElement}
+					/>
+				</BlockMenuProvider>
 			);
 		},
 	};

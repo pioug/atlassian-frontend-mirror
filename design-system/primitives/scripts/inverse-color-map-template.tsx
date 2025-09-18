@@ -23,18 +23,19 @@ const activeTokens = tokens
 	.map((t) => ({ ...t, token: t.token.replaceAll('.[default]', '') }));
 
 export const createInverseColorMapTemplate = () => {
+	const propMap = activeTokens.map((t) => {
+		// handle the default case eg color.border or color.text
+		const propName = t.token;
+		return `'${propName}': '${
+			propName.includes('warning') ? 'color.text.warning.inverse' : 'color.text.inverse'
+		}'`;
+	});
 	return format(
 		`
-export const inverseColorMap = {
-  ${activeTokens
-		.map((t) => {
-			// handle the default case eg color.border or color.text
-			const propName = t.token;
-			return `'${propName}': '${
-				propName.includes('warning') ? 'color.text.warning.inverse' : 'color.text.inverse'
-			}'`;
-		})
-		.join(',\n\t')}
+export const inverseColorMap: {
+	${propMap.join(';\n\t')}
+} = {
+  ${propMap.join(',\n\t')}
 } as const;`,
 		'typescript',
 	);

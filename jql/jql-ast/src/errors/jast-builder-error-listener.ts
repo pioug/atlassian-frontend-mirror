@@ -6,7 +6,7 @@ import { JQLSyntaxError } from './jql-syntax-error';
 export class JastBuilderErrorListener implements ParserErrorListener {
 	errors: JQLParseError[] = [];
 	syntaxError = <T extends Token>(
-		recognizer: Recognizer<T, any>,
+		_recognizer: Recognizer<T, any>,
 		offendingSymbol: T | undefined,
 		line: number,
 		charPositionInLine: number,

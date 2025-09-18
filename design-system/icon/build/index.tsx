@@ -29,7 +29,7 @@ async function main() {
 
 	/**
 	 * The legacy icon build process. A past SVGO update disabled this process and slightly changed the SVG output.
-	 * Re-running this step re-generates all icons and triggers a large number of platform/product snapshot tests.
+	 * Re-running this step re-generates all icons and triggers a large number of platform/app snapshot tests.
 	 *
 	 * To avoid unnecessary churn, this step is switched off, and any updates to the old icon set can be done piecemeal.
 	 */

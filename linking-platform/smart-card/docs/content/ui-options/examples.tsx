@@ -127,4 +127,17 @@ ${(
 	/>
 )}
 
+### Remove Block Restriction
+
+Use \`removeBlockRestriction\` to remove the TitleBlock requirement and child component restrictions.
+When \`true\`, Card with any children will be rendered as flexible card.
+
+${(
+	<CustomExample
+		background={true}
+		Component={require('../../../examples/content/ui-options-remove-block-restriction').default}
+		source={require('!!raw-loader!../../../examples/content/ui-options-remove-block-restriction')}
+	/>
+)}
+
 `;

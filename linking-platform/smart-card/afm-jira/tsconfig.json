@@ -51,6 +51,9 @@
 			"path": "../../../design-system/dropdown-menu/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../confluence/embedded-confluence-public/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../measurement/feature-gate-js-client/afm-jira/tsconfig.json"
 		},
 		{

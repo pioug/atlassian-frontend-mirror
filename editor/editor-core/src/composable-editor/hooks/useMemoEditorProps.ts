@@ -110,6 +110,7 @@ export const useMemoEditorProps = (
 			__livePage: passedProps.__livePage,
 			AppearanceComponent: passedProps.AppearanceComponent,
 			skipValidation: passedProps.skipValidation,
+			syncBlock: passedProps.syncBlock,
 		};
 
 		const defaultProps: Partial<EditorNextProps> = {
@@ -219,6 +220,7 @@ export const useMemoEditorProps = (
 		passedProps.__livePage,
 		passedProps.AppearanceComponent,
 		passedProps.skipValidation,
+		passedProps.syncBlock,
 	]);
 
 	return memodProps;

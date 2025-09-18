@@ -62,7 +62,7 @@ const context = getContext({
 	latestCommit: '64862f5',
 });
 
-const flexibleCardContext = { data: context };
+const flexibleCardContext = { data: context, status: SmartLinkStatus.Resolved };
 
 const renderChildren = (children: React.ReactNode): React.ReactNode =>
 	React.Children.map(children, (child) => {

@@ -43,6 +43,8 @@ export const collapsedFieldType = (text: string): string | undefined => {
 	if (match) {
 		return `[${match[1]}]`;
 	}
+
+	return undefined;
 };
 
 /**

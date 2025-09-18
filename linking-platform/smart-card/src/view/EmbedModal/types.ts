@@ -17,6 +17,8 @@ export type EmbedModalContext = {
 };
 
 export type EmbedModalProps = {
+	/* The extension key */
+	extensionKey?: string;
 	/* A function to dispatch analytics event */
 	fireEvent?: FireEventFunction;
 	/* The name of the iframe, if you need that for an external reference */

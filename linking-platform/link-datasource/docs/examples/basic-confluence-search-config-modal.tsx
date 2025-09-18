@@ -6,6 +6,7 @@ import {
 	defaultInitialVisibleConfluenceColumnKeys,
 	mockBasicFilterAGGFetchRequests,
 	mockDatasourceFetchRequests,
+	mockProductsData,
 	mockSiteData,
 } from '@atlaskit/link-test-helpers/datasource';
 
@@ -20,6 +21,9 @@ mockDatasourceFetchRequests({
 	shouldMockORSBatch: true,
 	availableSitesOverride: mockSiteData.filter(
 		(site) => !['test1', 'test2', 'test4'].includes(site.displayName),
+	),
+	accessibleProductsOverride: mockProductsData.filter((product) =>
+		['confluence.ondemand'].includes(product.productId),
 	),
 });
 mockBasicFilterAGGFetchRequests();

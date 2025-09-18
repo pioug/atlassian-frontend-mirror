@@ -80,8 +80,8 @@ export const THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES: string[] = [
 ];
 
 export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
-	constructor() {
-		super(REVISION_NO);
+	constructor(revisionNo?: string) {
+		super(revisionNo ?? REVISION_NO);
 	}
 
 	protected isEntryIncluded(entry: VCObserverEntry, include3p?: boolean): boolean {

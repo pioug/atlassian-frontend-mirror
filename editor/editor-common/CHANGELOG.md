@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 109.11.1
+
+### Patch Changes
+
+- [`245e047a2f6e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/245e047a2f6e9) -
+  [ux] Change `Format` option text to `Turn into` in block menu
+- Updated dependencies
+
+## 109.11.0
+
+### Minor Changes
+
+- [`47a81641fa051`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47a81641fa051) -
+  [ux] support addToHistory false for replaceDocument
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.10.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.10.2
 
 ### Patch Changes

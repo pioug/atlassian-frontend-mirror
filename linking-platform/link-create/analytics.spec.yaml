@@ -44,7 +44,9 @@ events:
 
   - linkCreateExitWarningScreen viewed:
       type: screen
-      description: fired when the link create warning modal is shown to the users to warn them of losing their changes
+      description:
+        fired when the link create warning modal is shown to the users to warn them of losing their
+        changes
       attributes:
         <<: *PackageMetaDataContext
         <<: *LinkCreateAnalyticContext
@@ -121,7 +123,8 @@ events:
 
   - object createFailed (linkCreate):
       type: track
-      description: '[DEPRECATED] prefer `operation failed (linkCreate)` — fired when the object creation fails'
+      description:
+        '[DEPRECATED] prefer `operation failed (linkCreate)` — fired when the object creation fails'
       attributes:
         <<: *PackageMetaDataContext
         failureType:
@@ -156,7 +159,10 @@ events:
         traceId:
           type: string
           required: false
-          description: The x-trace-id header associated with the network request if the failure is a Response
+          description:
+            The x-trace-id header associated with the network request if the failure is a Response
         isSLOFailure:
           type: boolean
-          description: Whether the failure should be considered for affecting SLO (should we ignore the failure)
+          description:
+            Whether the failure should be considered for affecting SLO (should we ignore the
+            failure)

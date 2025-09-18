@@ -30,7 +30,7 @@ export async function openEmbedModal({
 	...props
 }: Partial<EmbedModalProps> = {}) {
 	// If the modal trigger is in an iframe and the user has preview panels enabled, send a message to open modal to the parent product
-	if (expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')) {
+	if (expValEquals('platform_hover_card_preview_panel_modal', 'cohort', 'test')) {
 		if (props.isInPreviewPanel) {
 			openEmbedModalInParent({
 				onClose,

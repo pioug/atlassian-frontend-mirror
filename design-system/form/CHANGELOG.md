@@ -1,5 +1,17 @@
 # @atlaskit/form
 
+## 13.0.0
+
+### Major Changes
+
+- [`2eb0f5a39acd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2eb0f5a39acd6) -
+  Spread props have been removed from the checkbox field and range field components to improve
+  maintenance and consistency of experience for makers.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.7.0
 
 ### Minor Changes

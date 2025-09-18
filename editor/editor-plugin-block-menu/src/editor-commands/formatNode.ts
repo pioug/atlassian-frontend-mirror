@@ -1,8 +1,59 @@
 import type { EditorCommand } from '@atlaskit/editor-common/types';
-import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { type Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import {
+	findParentNodeOfType,
+	findSelectedNodeOfType,
+	safeInsert as pmSafeInsert,
+} from '@atlaskit/editor-prosemirror/utils';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
+import { createDefaultLayoutSection } from './transforms/layout-transforms';
 import { transformNodeToTargetType } from './transforms/transformNodeToTargetType';
 import type { FormatNodeTargetType } from './transforms/types';
+
+/**
+ * Handles formatting when selection is empty by inserting a new target node
+ */
+const formatNodeWhenSelectionEmpty = (
+	tr: Transaction,
+	targetType: FormatNodeTargetType,
+	nodePos: number,
+	schema: Schema,
+) => {
+	const { nodes } = schema;
+	const { paragraph } = nodes;
+	// if not using the ' ' here, the safeInsert from editor-common will fail to insert the heading
+	// and the pmSafeInsert introduce an issue that after inserting heading, and click on the handle, selection will go to top of the doc
+	// as an workaround, use the spaceTextNode here
+	const spaceTextNode = schema.text(' ');
+	let targetNode;
+
+	if (targetType.startsWith('heading')) {
+		const levelString = targetType.slice(-1);
+		const level = parseInt(levelString, 10);
+		if (isNaN(level) || level < 1 || level > 6) {
+			return null;
+		}
+		targetNode = nodes.heading.createAndFill({ level }, spaceTextNode);
+	} else if (targetType === 'paragraph') {
+		targetNode = nodes.paragraph.createAndFill({}, spaceTextNode);
+	} else if (targetType === 'layoutSection') {
+		const contentAsParagraph = paragraph.createAndFill({}, spaceTextNode);
+		if (contentAsParagraph) {
+			targetNode = createDefaultLayoutSection(schema, contentAsParagraph);
+		}
+	} else {
+		const targetNodeType = nodes[targetType];
+		targetNode = targetNodeType.createAndFill();
+	}
+
+	if (!targetNode) {
+		return tr;
+	}
+	tr = pmSafeInsert(targetNode, nodePos)(tr) ?? tr;
+	return tr;
+};
 
 /**
  * Formats the current node or selection to the specified target type
@@ -11,11 +62,20 @@ import type { FormatNodeTargetType } from './transforms/types';
 export const formatNode = (targetType: FormatNodeTargetType): EditorCommand => {
 	return ({ tr }) => {
 		const { selection } = tr;
-		const { nodes } = tr.doc.type.schema;
+		const schema = tr.doc.type.schema;
+		const { nodes } = schema;
 
 		// Find the node to format from the current selection
 		let nodeToFormat;
 		let nodePos: number = selection.from;
+
+		// when selection is empty, we insert a empty target node
+		if (
+			selection.empty &&
+			expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
+		) {
+			return formatNodeWhenSelectionEmpty(tr, targetType, nodePos, schema);
+		}
 
 		// Try to find the current node from selection
 		const selectedNode = findSelectedNodeOfType([

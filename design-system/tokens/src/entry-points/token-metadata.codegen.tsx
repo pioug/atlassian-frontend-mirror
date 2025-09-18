@@ -3,7 +3,7 @@
  *
  * Metadata for generation of of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::8f8418aa1d6ba188bbe4113e52db79c6>>
+ * @codegen <<SignedSource::e7aee1e60142ef9336a2208ccfa3aa22>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -2628,7 +2628,7 @@ export const tokens: Token[] = [
 		name: 'font.heading.xxlarge',
 		path: ['font', 'heading', 'xxlarge'],
 		description:
-			'For overlapping brand with product promotions, such as marketplace content. Migrate instances of H900 to Heading XXL.',
+			'For overlapping brand with app promotions, such as marketplace content. Migrate instances of H900 to Heading XXL.',
 		exampleValue:
 			'normal 500 2.1875rem/2.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	},
@@ -2636,14 +2636,14 @@ export const tokens: Token[] = [
 		name: 'font.heading.xlarge',
 		path: ['font', 'heading', 'xlarge'],
 		description:
-			'For overlapping brand with product promotions, such as marketplace content. Migrate instances of H800 to Heading XL.',
+			'For overlapping brand with app promotions, such as marketplace content. Migrate instances of H800 to Heading XL.',
 		exampleValue:
 			'normal 600 1.8125rem/2rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	},
 	{
 		name: 'font.heading.large',
 		path: ['font', 'heading', 'large'],
-		description: 'Product page titles, such as forms. Migrate instances of H700 to Heading L.',
+		description: 'App page titles, such as forms. Migrate instances of H700 to Heading L.',
 		exampleValue:
 			'normal 500 1.5rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	},
@@ -2766,14 +2766,14 @@ export const tokens: Token[] = [
 	{
 		name: 'font.family.heading',
 		path: ['font', 'family', 'heading'],
-		description: 'For our default product UI heading text.',
+		description: 'For our default UI heading text.',
 		exampleValue:
 			'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	},
 	{
 		name: 'font.family.body',
 		path: ['font', 'family', 'body'],
-		description: 'For our default product UI body text.',
+		description: 'For our default UI body text.',
 		exampleValue:
 			'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	},

@@ -93,11 +93,57 @@ const newGetSelection = (tr: Transaction, start: number) => {
 	const isNodeSelection = node && NodeSelection.isSelectable(node);
 	const nodeSize = node ? node.nodeSize : 1;
 	const nodeName = node?.type.name;
+	const blockMenuEnabled = expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true);
+	const blockMenuEmptyLineEnabled = expValEqualsNoExposure(
+		'platform_editor_block_menu_empty_line',
+		'isEnabled',
+		true,
+	);
 
 	// this is a fix for empty paragraph selection - put first to avoid any extra work
-	if (nodeName === 'paragraph' && tr.selection.empty && node?.childCount === 0) {
+	if (
+		nodeName === 'paragraph' &&
+		tr.selection.empty &&
+		node?.childCount === 0 &&
+		!blockMenuEnabled
+	) {
 		return false;
 	}
+
+	const isParagraphHeadingEmpty =
+		['paragraph', 'heading'].includes(nodeName || '') &&
+		tr.selection.empty &&
+		node?.childCount === 0;
+	const isBlockQuoteEmpty = nodeName === 'blockquote' && node?.textContent === '';
+	const isListEmpty =
+		['orderedList', 'bulletList', 'taskList'].includes(nodeName || '') &&
+		tr.selection.empty &&
+		node?.textContent === '';
+
+	// if block menu and empty line format menu are enabled,
+	// we want to set the selection to avoid the selection goes to the top of the document
+	if (
+		(isParagraphHeadingEmpty || isBlockQuoteEmpty || isListEmpty) &&
+		blockMenuEnabled &&
+		blockMenuEmptyLineEnabled
+	) {
+		return TextSelection.create(tr.doc, start + 1, start + 1);
+	}
+
+	// if block menu and empty line format menu are enabled,
+	// we want to set the selection to avoid the selection goes to the top of the document
+	if (
+		['paragraph', 'heading', 'orderedList', 'bulletList', 'taskList', 'blockquote'].includes(
+			nodeName || '',
+		) &&
+		tr.selection.empty &&
+		node?.childCount === 0 &&
+		blockMenuEnabled &&
+		blockMenuEmptyLineEnabled
+	) {
+		return TextSelection.create(tr.doc, start + 1, start + 1);
+	}
+
 	const isBlockQuoteWithMediaOrExtension =
 		nodeName === 'blockquote' && isNodeWithMediaOrExtension(tr, start, nodeSize);
 

@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import React, { type MouseEvent, memo, forwardRef } from 'react';
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { B100 } from '@atlaskit/theme/colors';
 import type { EmojiDescription } from '../../types';
@@ -57,22 +57,24 @@ const emojiButton = css({
 	},
 });
 
-const emojiRadio = css({
-	opacity: 0,
-	position: 'absolute',
-	top: '-10px',
-	left: '-10px',
+const emojiRadio = cssMap({
+	default: {
+		opacity: 0,
+		position: 'absolute',
+		top: '-10px',
+		left: '-10px',
 
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'+span': {
-		borderRadius: token('radius.small', '3px'),
-	},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'+span': {
+			borderRadius: token('radius.small', '3px'),
+		},
 
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&:focus + span': {
-		boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
-		transitionDuration: '0s, 0.2s',
-		outline: 'none',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'&:focus + span': {
+			boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
+			transitionDuration: '0s, 0.2s',
+			outline: 'none',
+		},
 	},
 });
 
@@ -121,7 +123,7 @@ export const EmojiRadioButton = forwardRef<HTMLInputElement, Props>((props: Prop
 				data-testid={ariaLabelText}
 				type="radio"
 				name="skin-tone"
-				css={emojiRadio}
+				css={emojiRadio.default}
 				defaultChecked={defaultChecked}
 			/>
 			<Emoji

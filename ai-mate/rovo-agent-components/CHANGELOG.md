@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.4.0
+
+### Minor Changes
+
+- [`6540674a8d75e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6540674a8d75e) -
+  [ux] break lines for long descriptions in rovo agent profile
+
 ## 3.3.0
 
 ### Minor Changes

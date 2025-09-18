@@ -12,19 +12,19 @@ export abstract class JastBuildingVisitor<Result> implements JQLParserVisitor<Re
 		this.tokens = tokens;
 	}
 
-	visit(tree: ParseTree): Result {
+	visit(_tree: ParseTree): Result {
 		throw new Error('Unsupported operation visit(ParseTree)');
 	}
 
-	visitChildren(node: RuleNode): Result {
+	visitChildren(_node: RuleNode): Result {
 		throw new Error('Unsupported operation visitChildren(RuleNode)');
 	}
 
-	visitErrorNode(node: ErrorNode): Result {
+	visitErrorNode(_node: ErrorNode): Result {
 		throw new Error('Unsupported operation visitErrorNode(ErrorNode)');
 	}
 
-	visitTerminal(node: TerminalNode): Result {
+	visitTerminal(_node: TerminalNode): Result {
 		throw new Error('Unsupported operation visitTerminal(TerminalNode)');
 	}
 }

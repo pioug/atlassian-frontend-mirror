@@ -19,6 +19,7 @@ import {
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B400, N200, N30, N800 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -56,6 +57,18 @@ const itemIconSize = css({
 		width: token('space.400', '32px'),
 		height: token('space.400', '32px'),
 	},
+
+	// AI icons may contain div as container of the icon
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	div: {
+		width: token('space.400', '32px'),
+		height: token('space.400', '32px'),
+	},
+});
+
+const itemIconSizeUpdated = css({
+	width: token('space.400', '32px'),
+	height: token('space.400', '32px'),
 
 	// AI icons may contain div as container of the icon
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -276,7 +289,16 @@ export const TypeAheadListItem = React.memo(
 		const { icon, title, render: customRenderItem } = item;
 		const elementIcon = useMemo(() => {
 			return (
-				<div css={[itemIcon, moreElementsInQuickInsertViewEnabled && itemIconSize]}>
+				<div
+					css={[
+						itemIcon,
+						moreElementsInQuickInsertViewEnabled
+							? fg('platform_editor_ai_rovo_rebrand')
+								? itemIconSizeUpdated
+								: itemIconSize
+							: null,
+					]}
+				>
 					{icon ? icon() : <FallbackIcon label={title} />}
 				</div>
 			);
@@ -334,7 +356,7 @@ export const TypeAheadListItem = React.memo(
 					aria-label={title}
 					// TODO: ED-26959 - aria-description is in draft for ARIA 1.3.
 					// For now replace it with aria-describedby.
-					// eslint-disable-next-line jsx-a11y/aria-props
+					// eslint-disable-next-line @atlassian/a11y/aria-props -- TODO: Avoid using "aria-description" as aria attribute. See https://go/a11y-aria-props for more details.
 					aria-description={`${descriptionText} ${shortcutText}`}
 					aria-setsize={itemsLength}
 					aria-posinset={

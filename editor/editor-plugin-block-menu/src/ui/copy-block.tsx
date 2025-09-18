@@ -7,7 +7,7 @@ import { messages } from '@atlaskit/editor-common/block-menu';
 import { copyHTMLToClipboard } from '@atlaskit/editor-common/clipboard';
 import { toDOM, copyDomNode } from '@atlaskit/editor-common/copy-button';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { CellSelection } from '@atlaskit/editor-tables';
@@ -88,11 +88,13 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 				// When nodeType.inlineContent is true, it will be treated as an inline node in the copyDomNode function,
 				// but we want to treat it as a block node when copying, hence setting it to false here
 				if (selection.node.type.name === 'codeBlock') {
-					nodeType.inlineContent = false;
+					const codeBlockNodeType = { ...nodeType, inlineContent: false };
+					const domNode = toDOM(selection.node, schema);
+					copyDomNode(domNode, codeBlockNodeType as NodeType, selection);
+				} else {
+					const domNode = toDOM(selection.node, schema);
+					copyDomNode(domNode, nodeType, selection);
 				}
-
-				const domNode = toDOM(selection.node, schema);
-				copyDomNode(domNode, nodeType, selection);
 			}
 
 			// close the block menu after copying

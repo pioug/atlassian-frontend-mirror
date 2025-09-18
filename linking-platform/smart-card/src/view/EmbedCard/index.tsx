@@ -126,6 +126,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 							testId={testId}
 							CompetitorPrompt={CompetitorPrompt}
 							hideIconLoadingSkeleton={hideIconLoadingSkeleton}
+							extensionKey={extensionKey}
 						/>
 					);
 				} else {
@@ -190,6 +191,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 							inheritDimensions={inheritDimensions}
 							onClick={handleFrameClick}
 							ref={iframeRef}
+							extensionKey={extensionKey}
 						/>
 					);
 				}

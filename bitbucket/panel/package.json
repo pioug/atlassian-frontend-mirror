@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/panel",
-	"version": "0.11.18",
+	"version": "0.11.19",
 	"description": "A React component rendering a collapsible panel",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,6 +35,7 @@
 		}
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-bitbucket-panel": "root:*",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/link": "workspace:^",

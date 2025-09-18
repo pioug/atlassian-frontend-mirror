@@ -1,16 +1,17 @@
 import { DEFAULT_TWO_COLUMN_LAYOUT_COLUMN_WIDTH } from '@atlaskit/editor-common/styles';
 import type { TransformContext } from '@atlaskit/editor-common/transforms';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, type Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { convertUnwrappedLayoutContent, unwrapLayoutNodesToTextNodes } from './layout/utils';
+import { getMarksWithBreakout, isHeadingOrParagraphNode } from './utils';
 
-export const convertToLayout = (context: TransformContext) => {
-	const { tr, sourceNode, sourcePos } = context;
-	const { layoutSection, layoutColumn, paragraph } = tr.doc.type.schema.nodes || {};
-	const content: PMNode = sourceNode.mark(
-		sourceNode.marks.filter((mark) => mark.type.name !== 'breakout'),
-	);
+export const createDefaultLayoutSection = (
+	schema: Schema,
+	content: PMNode,
+	marks?: readonly Mark[],
+): PMNode => {
+	const { layoutSection, layoutColumn, paragraph } = schema.nodes;
 
 	const layoutContent = Fragment.fromArray([
 		layoutColumn.createChecked(
@@ -27,10 +28,30 @@ export const convertToLayout = (context: TransformContext) => {
 		),
 	]);
 
-	const layoutSectionNode = layoutSection.createChecked(undefined, layoutContent);
+	return layoutSection.createChecked(undefined, layoutContent, marks);
+};
 
-	// Replace the original node with the new layout node
-	tr.replaceRangeWith(sourcePos, sourcePos + sourceNode.nodeSize, layoutSectionNode);
+export const convertToLayout = (context: TransformContext) => {
+	const { tr, sourceNode, sourcePos } = context;
+	const content: PMNode = sourceNode.mark(
+		sourceNode.marks.filter((mark) => mark.type.name !== 'breakout'),
+	);
+
+	// Layout supports breakout mark that can have width attribute
+	// When other nodes with breakout (codeBlock and expand) are converted to a layout, the layout should get width of original node
+	const marks = getMarksWithBreakout(sourceNode, tr.doc.type.schema.nodes.layoutSection);
+	const layoutSectionNode = createDefaultLayoutSection(tr.doc.type.schema, content, marks);
+
+	if (isHeadingOrParagraphNode(sourceNode)) {
+		// -1 to fix when sourceNode is the last node in the document, unable to convert to layout
+		tr.replaceRangeWith(
+			sourcePos > 0 ? sourcePos - 1 : sourcePos,
+			sourcePos + sourceNode.nodeSize - 1,
+			layoutSectionNode,
+		);
+	} else {
+		tr.replaceRangeWith(sourcePos, sourcePos + sourceNode.nodeSize, layoutSectionNode);
+	}
 
 	return tr;
 };

@@ -6,6 +6,7 @@ import {
 	defaultInitialVisibleJiraColumnKeys,
 	mockBasicFilterAGGFetchRequests,
 	mockDatasourceFetchRequests,
+	mockProductsData,
 	mockSiteData,
 } from '@atlaskit/link-test-helpers/datasource';
 
@@ -21,6 +22,15 @@ mockDatasourceFetchRequests({
 			cloudId: index === 0 ? 'doc-cloudId' : site.cloudId,
 		}))
 		.filter((site) => !['test1', 'test2', 'test4'].includes(site.displayName)),
+	accessibleProductsOverride: mockProductsData
+		.filter((product) => ['jira-servicedesk.ondemand'].includes(product.productId))
+		.flatMap((product) => ({
+			...product,
+			workspaces: product.workspaces?.map((workspace, index) => ({
+				...workspace,
+				cloudId: index === 0 ? 'doc-cloudId' : workspace.cloudId,
+			})),
+		})),
 });
 mockBasicFilterAGGFetchRequests({ withJiraFilterHydration: false });
 

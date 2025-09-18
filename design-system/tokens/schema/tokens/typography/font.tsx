@@ -36,7 +36,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
 					state: 'active',
 					introduced: '1.14.0',
 					description:
-						'For overlapping brand with product promotions, such as marketplace content. Migrate instances of H900 to Heading XXL.',
+						'For overlapping brand with app promotions, such as marketplace content. Migrate instances of H900 to Heading XXL.',
 				},
 			},
 			xlarge: {
@@ -45,7 +45,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
 					state: 'active',
 					introduced: '1.14.0',
 					description:
-						'For overlapping brand with product promotions, such as marketplace content. Migrate instances of H800 to Heading XL.',
+						'For overlapping brand with app promotions, such as marketplace content. Migrate instances of H800 to Heading XL.',
 				},
 			},
 			large: {
@@ -53,8 +53,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
 					group: 'typography',
 					state: 'active',
 					introduced: '1.14.0',
-					description:
-						'Product page titles, such as forms. Migrate instances of H700 to Heading L.',
+					description: 'App page titles, such as forms. Migrate instances of H700 to Heading L.',
 				},
 			},
 			medium: {

@@ -102,7 +102,7 @@ export const corePlugin: CorePlugin = ({ config }) => {
 			},
 			replaceDocument: (
 				replaceValue: Node | Fragment | Array<Node> | Object | String,
-				options?: { scrollIntoView?: boolean; skipValidation?: boolean },
+				options?: { addToHistory?: boolean; scrollIntoView?: boolean; skipValidation?: boolean },
 			) => {
 				const editorView = config?.getEditorView();
 				if (!editorView || replaceValue === undefined || replaceValue === null) {
@@ -132,6 +132,11 @@ export const corePlugin: CorePlugin = ({ config }) => {
 
 				if (content) {
 					const tr = state.tr.replaceWith(0, state.doc.nodeSize - 2, content);
+
+					if (options?.addToHistory === false) {
+						tr.setMeta('addToHistory', false);
+					}
+
 					if (options?.scrollIntoView ?? true) {
 						editorView.dispatch(tr.scrollIntoView());
 					} else {

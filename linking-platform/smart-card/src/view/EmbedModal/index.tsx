@@ -38,6 +38,7 @@ const EmbedModal = ({
 	testId = 'smart-embed-preview-modal',
 	title,
 	invokeViewAction,
+	extensionKey,
 }: EmbedModalProps) => {
 	const defaultWidth = toWidth(size);
 	const [isOpen, setIsOpen] = useState(showModal);
@@ -120,6 +121,7 @@ const EmbedModal = ({
 							src={previewUrl}
 							testId={testId}
 							ariaLabel={title}
+							extensionKey={extensionKey}
 						/>
 					</ModalBody>
 				</ModalDialog>

@@ -8,13 +8,14 @@ import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartCardContext } from '../../../state';
-import { getServices } from '../../../state/helpers';
+import { getFirstPartyIdentifier, getServices, getThirdPartyARI } from '../../../state/helpers';
 import useResolveHyperlink from '../../../state/hooks/use-resolve-hyperlink';
 import useResolveHyperlinkValidator, {
 	isGoogleDomain,
 	isSharePointDomain,
 } from '../../../state/hooks/use-resolve-hyperlink/useResolveHyperlinkValidator';
 import withIntlProvider from '../../common/intl-provider';
+import { useFire3PWorkflowsClickEvent } from '../../SmartLinkEvents/useSmartLinkEvents';
 import Hyperlink from '../Hyperlink';
 import type { LinkUrlProps } from '../types';
 
@@ -38,14 +39,30 @@ const HyperlinkWithSmartLinkResolverInner = ({
 	const { actions, state } = useResolveHyperlink({ href: props.href || '' });
 
 	const services = getServices(state?.details);
+	const thirdPartyARI = getThirdPartyARI(state?.details);
+	const firstPartyIdentifier = getFirstPartyIdentifier();
+
+	const fire3PClickEvent = fg('platform_smartlink_3pclick_analytics')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI)
+		: undefined;
 
 	const onClick = useCallback(
 		(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-			// TODO: AI3W-1203: 3P link click analytics
-
+			// Only fire the event if the feature flag is on and other conditions are met
+			if (
+				state?.status === 'resolved' &&
+				e?.button === 0 &&
+				fire3PClickEvent &&
+				fg('platform_smartlink_3pclick_analytics')
+			) {
+				// 0 taken from button state representation -
+				// https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
+				fire3PClickEvent();
+			}
 			onClickCallback?.(e);
 		},
-		[onClickCallback],
+		[onClickCallback, fire3PClickEvent, state?.status],
 	);
 
 	// TODO: AI3W-1113: Show auth button

@@ -16,6 +16,7 @@ mockDatasourceFetchRequests({
 	type: 'confluence',
 	delayedResponse: false,
 	availableSitesOverride: [],
+	accessibleProductsOverride: [],
 	shouldMockORSBatch: true,
 });
 mockBasicFilterAGGFetchRequests();

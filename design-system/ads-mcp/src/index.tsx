@@ -5,15 +5,15 @@ import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprot
 
 import { instructions } from './instructions';
 import {
-	analyzeAccessibilityTool,
-	analyzeLocalhostAccessibilityTool,
-	listAnalyzeAccessibilityTool,
-	listAnalyzeLocalhostAccessibilityTool,
-} from './tools/analyze-accessibility';
+	analyzeA11yTool,
+	analyzeLocalhostA11yTool,
+	listAnalyzeA11yTool,
+	listAnalyzeLocalhostA11yTool,
+} from './tools/analyze-a11y';
 import {
-	getAccessibilityGuidelinesTool,
-	listGetAccessibilityGuidelinesTool,
-} from './tools/get-accessibility-guidelines';
+	getA11yGuidelinesTool,
+	listGetA11yGuidelinesTool,
+} from './tools/get-a11y-guidelines';
 import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
 import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
 import { getComponentsTool, listGetComponentsTool } from './tools/get-components';
@@ -22,9 +22,9 @@ import { listSearchComponentsTool, searchComponentsTool } from './tools/search-c
 import { listSearchIconsTool, searchIconsTool } from './tools/search-icons';
 import { listSearchTokensTool, searchTokensTool } from './tools/search-tokens';
 import {
-	listSuggestAccessibilityFixesTool,
-	suggestAccessibilityFixesTool,
-} from './tools/suggest-accessibility-fixes';
+	listSuggestA11yFixesTool,
+	suggestA11yFixesTool,
+} from './tools/suggest-a11y-fixes';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- this uses require because not all node versions this package supports use the same import assertions/attributes
 const pkgJson = require('@atlaskit/ads-mcp/package.json');
@@ -53,10 +53,10 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 			listSearchIconsTool,
 			listSearchTokensTool,
 			listPlanTool,
-			listAnalyzeAccessibilityTool,
-			listAnalyzeLocalhostAccessibilityTool,
-			listGetAccessibilityGuidelinesTool,
-			listSuggestAccessibilityFixesTool,
+			listAnalyzeA11yTool,
+			listAnalyzeLocalhostA11yTool,
+			listGetA11yGuidelinesTool,
+			listSuggestA11yFixesTool,
 		],
 	};
 });
@@ -69,10 +69,10 @@ const callTools: Record<string, (params: any) => Promise<any>> = {
 	ads_get_all_icons: getAllIconsTool,
 	ads_search_icons: searchIconsTool,
 	ads_plan: planTool,
-	ads_analyze_accessibility: analyzeAccessibilityTool,
-	ads_analyze_localhost_accessibility: analyzeLocalhostAccessibilityTool,
-	ads_get_accessibility_guidelines: getAccessibilityGuidelinesTool,
-	ads_suggest_accessibility_fixes: suggestAccessibilityFixesTool,
+	ads_analyze_a11y: analyzeA11yTool,
+	ads_analyze_localhost_a11y: analyzeLocalhostA11yTool,
+	ads_get_a11y_guidelines: getA11yGuidelinesTool,
+	ads_suggest_a11y_fixes: suggestA11yFixesTool,
 };
 
 // Handle tool execution

@@ -3,6 +3,7 @@ import type { ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { getNestedNodePosition } from '../../pm-plugins/utils/getNestedNodePosition';
 
@@ -16,6 +17,13 @@ export const getCurrentNodePosFromDragHandleSelection = ({
 	selection: Selection;
 }): number => {
 	let currentNodePos = -1;
+
+	if (
+		selection.empty &&
+		expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
+	) {
+		currentNodePos = selection.$from.pos;
+	}
 
 	if (isTableSelected(selection)) {
 		// We only move table node if it's fully selected
@@ -61,6 +69,19 @@ export const getPosWhenMoveNodeDown = ({
 	}
 
 	const nodeAfter = tr.doc.nodeAt(nodeAfterPos);
+
+	if (expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)) {
+		const nodeAtCurrentPos = tr.doc.nodeAt($currentNodePos.pos);
+		// if move empty line down to another empty line, move to the position of the next empty line
+		if (
+			nodeAtCurrentPos?.content.size === 0 &&
+			nodeAtCurrentPos.type.name !== 'extension' &&
+			nodeAfter?.content.size === 0 &&
+			nodeAfter.type.name !== 'extension'
+		) {
+			return nodeAfterPos;
+		}
+	}
 
 	// if not the last node, move to the end of the next node
 	return nodeAfter ? nodeAfterPos + nodeAfter.nodeSize : -1;

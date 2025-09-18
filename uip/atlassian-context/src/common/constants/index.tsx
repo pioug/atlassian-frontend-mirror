@@ -15,6 +15,16 @@ export type NonIsolatedCloudPerimeterType = (typeof NON_ISOLATED_CLOUD_PERIMETER
 
 export type GeneralizedPerimeterType = IsolatedCloudPerimeterType | NonIsolatedCloudPerimeterType;
 
+export type CloudEnvironment =
+	| {
+			type: 'isolated-cloud';
+			perimeter: IsolatedCloudPerimeterType;
+	  }
+	| {
+			type: 'non-isolated-cloud';
+			perimeter: NonIsolatedCloudPerimeterType;
+	  };
+
 export const ATL_CTX_PERIMETER = 'Atl-Ctx-Perimeter';
 export const ATL_CTX_ISOLATION_CONTEXT_DOMAIN = 'Atl-Ctx-Isolation-Context-Domain';
 export const ATL_CTX_ISOLATION_CONTEXT_ID = 'Atl-Ctx-Isolation-Context-Id';

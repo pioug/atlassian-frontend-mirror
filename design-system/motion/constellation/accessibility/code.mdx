@@ -46,22 +46,18 @@ const FancyChart = (props) => {
 
 ### Prefers reduced motion (CSS)
 
-Useful when performing motion with just CSS.
+You should disable your motion styles (`animation` or `transition`) for users who prefer reduced
+motion, by using the media query `@media (prefers-reduced-motion: reduce)` in your styles:
 
-```
-import { reduceMotionAsPerUserPreference } from '@atlaskit/motion';
+```tsx
+import { cssMap } from `@atlaskit/css`;
 
-// css prop
-<div
-  css={css({
-    animationName: 'slide-in',
-    ...reduceMotionAsPerUserPreference
-  })}
-/>
-
-// styled components
-styled.div({
-  animationName: 'slide-in',
-  ...reduceMotionAsPerUserPreference
-});
+const styles = cssMap({
+	root: {
+		transition: 'opacity 0.5s ease',
+		'@media (prefers-reduced-motion: reduce)': {
+			transition: "none",
+		}
+	}
+})
 ```

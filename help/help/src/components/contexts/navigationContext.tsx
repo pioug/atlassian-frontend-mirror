@@ -1,4 +1,11 @@
-import React, { useReducer, useEffect, useCallback, useMemo, type PropsWithChildren } from 'react';
+import React, {
+	useReducer,
+	useEffect,
+	useCallback,
+	useMemo,
+	useRef,
+	type PropsWithChildren,
+} from 'react';
 import isEqual from 'lodash/isEqual';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type Article, type ArticleItem } from '../../model/Article';
@@ -303,17 +310,25 @@ export const NavigationContextProvider = ({
 		return isOverlayVisible;
 	}, [currentHistory.length, isDefaultContentDefined, isOverlayVisible, currentView, isAiEnabled]);
 
+	// Use refs to store the latest function references without causing re-renders
+	const onGetHelpArticleRef = useRef(onGetHelpArticle);
+	const onGetWhatsNewArticleRef = useRef(onGetWhatsNewArticle);
+
+	// Update refs when functions change
+	onGetHelpArticleRef.current = onGetHelpArticle;
+	onGetWhatsNewArticleRef.current = onGetWhatsNewArticle;
+
 	const fetchArticleData = useCallback(
 		async (historyItem: HistoryItem) => {
 			try {
 				let article;
 				switch (historyItem.type) {
 					case ARTICLE_TYPE.HELP_ARTICLE:
-						if (!onGetHelpArticle) {
+						if (!onGetHelpArticleRef.current) {
 							throw new Error('onGetHelpArticle prop not defined');
 						}
 
-						article = await onGetHelpArticle({
+						article = await onGetHelpArticleRef.current({
 							id: historyItem.id,
 							type: historyItem.type,
 							contentAri: historyItem.contentAri,
@@ -321,7 +336,7 @@ export const NavigationContextProvider = ({
 						break;
 
 					case ARTICLE_TYPE.WHATS_NEW:
-						if (!onGetWhatsNewArticle) {
+						if (!onGetWhatsNewArticleRef.current) {
 							throw new Error('onGetWhatsNewArticle prop not defined');
 						}
 
@@ -329,7 +344,7 @@ export const NavigationContextProvider = ({
 							break;
 						}
 
-						article = await onGetWhatsNewArticle({
+						article = await onGetWhatsNewArticleRef.current({
 							id: historyItem.id,
 							type: historyItem.type,
 						});
@@ -349,7 +364,7 @@ export const NavigationContextProvider = ({
 				return { ...historyItem, state: REQUEST_STATE.error };
 			}
 		},
-		[onGetHelpArticle, onGetWhatsNewArticle],
+		[], // Empty dependency array since we use refs
 	);
 
 	const reloadArticle = useCallback(async (historyItem: HistoryItem) => {

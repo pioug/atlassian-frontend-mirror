@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 69.5.10
+
+### Patch Changes
+
+- [`411addc8f1770`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/411addc8f1770) -
+  Migrate elements, search, smart-experiences, web-platform, forge, jql and bitbucket pkgs to use
+  i18n NPM pkgs from Traduki
+- Updated dependencies
+
 ## 69.5.9
 
 ### Patch Changes

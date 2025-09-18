@@ -15,12 +15,24 @@ context:
 
   ResolvedAttributes: &ResolvedAttributes
     status:
-      type: ['pending', 'resolving', 'resolved', 'errored', 'fallback', 'unauthorized', 'forbidden', 'not_found']
+      type:
+        [
+          'pending',
+          'resolving',
+          'resolved',
+          'errored',
+          'fallback',
+          'unauthorized',
+          'forbidden',
+          'not_found',
+        ]
       description: The status of the link resolution at the time of the event.
       required: false
     statusDetails:
       type: string
-      description: Provides further information of the resolved status. May be different for different status values
+      description:
+        Provides further information of the resolved status. May be different for different status
+        values
       required: false
     displayCategory:
       type: ['smartLink', 'link']
@@ -71,10 +83,10 @@ context:
       description: |
         The `tenantId` of the linked resource if relevant.
     destinationActivationId:
-        type: string
-        required: false
-        description: |
-            The `activationId` of the linked resource if relevant.
+      type: string
+      required: false
+      description: |
+        The `activationId` of the linked resource if relevant.
     canBeDatasource:
       type: boolean
       required: false

@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-context
 
+## 0.6.0
+
+### Minor Changes
+
+- [`47ed1d1af01bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47ed1d1af01bf) -
+  Make getUrlForDomainInContext() and isolatedCloudDomain() ssr compatible
+
 ## 0.5.0
 
 ### Minor Changes

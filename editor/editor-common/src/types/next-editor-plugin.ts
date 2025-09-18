@@ -77,13 +77,14 @@ export type CorePlugin = NextEditorPlugin<
 			 *
 			 * @param replaceValue - The new content to replace the current content. It can be of any type.
 			 * @param options - Options
+			 * @param options.addToHistory (boolean) if the replacement should be added to history. True by default
 			 * @param options.scrollIntoView (boolean) if the view should also scroll on replace. True by default
 			 * @param options.skipValidation (boolean) if the validation should be skipped. False by default
 			 * @returns A boolean indicating whether the replacement was successful.
 			 */
 			replaceDocument: (
 				replaceValue: Node | Fragment | Array<Node> | Object | string,
-				options?: { scrollIntoView?: boolean; skipValidation?: boolean },
+				options?: { addToHistory?: boolean; scrollIntoView?: boolean; skipValidation?: boolean },
 			) => boolean;
 
 			/**

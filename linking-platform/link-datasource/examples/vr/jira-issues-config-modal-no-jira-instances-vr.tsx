@@ -12,6 +12,7 @@ import { JiraIssuesConfigModal } from '../../src/ui/jira-issues-modal/modal';
 mockDatasourceFetchRequests({
 	delayedResponse: false,
 	availableSitesOverride: [],
+	accessibleProductsOverride: [],
 });
 
 export const JiraIssuesConfigModalNoJiraInstancesState = () => (

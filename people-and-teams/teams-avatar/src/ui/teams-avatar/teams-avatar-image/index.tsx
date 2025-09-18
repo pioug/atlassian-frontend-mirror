@@ -203,7 +203,7 @@ export const TeamAvatarImage = ({ alt = '', src, size, testId, teamId }: AvatarI
 			<img
 				src={avatarSrc}
 				alt={alt}
-				data-testId={testId && `${testId}--image`}
+				data-testid={testId && `${testId}--image`}
 				css={[avatarImageStyles.image]}
 				onError={() => setHasImageErrored(true)}
 			/>

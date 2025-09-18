@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 5.2.3
+
+### Patch Changes
+
+- [`70e281e840914`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70e281e840914) -
+  [EDITOR-1714] Rovo logo typeahead is too big and not sized, fixed bug
+- Updated dependencies
+
 ## 5.2.2
 
 ### Patch Changes

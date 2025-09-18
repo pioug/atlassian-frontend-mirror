@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-hooks",
-	"version": "0.3.2",
+	"version": "0.3.3",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,6 +25,7 @@
 		"team": "Search Platform: Search Experience"
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-smart-experiences-smart-hooks": "root:*",
 		"@atlaskit/analytics-gas-types": "workspace:^",
 		"@atlaskit/analytics-listeners": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",

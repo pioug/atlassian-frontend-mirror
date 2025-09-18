@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 5.3.6
+
+### Patch Changes
+
+- [`5867b0fce9502`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5867b0fce9502) -
+  The exported constant `reduceMotionAsPerUserPreference` has been marked as deprecated and will be
+  removed in a future release. Going forward, you should hardcode this media query in your styles.
+
 ## 5.3.5
 
 ### Patch Changes

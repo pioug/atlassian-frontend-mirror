@@ -7,6 +7,7 @@ import {
 	defaultInitialVisibleJiraColumnKeys,
 	mockBasicFilterAGGFetchRequests,
 	mockDatasourceFetchRequests,
+	mockProductsData,
 	mockSiteData,
 } from '@atlaskit/link-test-helpers/datasource';
 
@@ -17,6 +18,7 @@ import { JiraIssuesConfigModal } from '../../src/ui/jira-issues-modal/modal';
 mockDatasourceFetchRequests({
 	delayedResponse: false,
 	availableSitesOverride: mockSiteData.slice(0, 3),
+	accessibleProductsOverride: mockProductsData.slice(0, 1),
 });
 mockBasicFilterAGGFetchRequests({ withJiraFilterHydration: false });
 

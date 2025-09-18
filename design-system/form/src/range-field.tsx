@@ -1,7 +1,5 @@
 import React, { type ReactNode } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import Field, { type FieldProps, type Meta } from './field';
 
 type RangeProps = Omit<FieldProps<number>, 'isInvalid' | 'isRequired'>;
@@ -41,18 +39,8 @@ export interface RangeFieldProps {
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#rangefield-reference)
  * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#rangefield-reference)
  */
-const RangeField = ({
-	children,
-	defaultValue,
-	id,
-	isDisabled,
-	label,
-	name,
-	...strippedProps
-}: RangeFieldProps) => (
+const RangeField = ({ children, defaultValue, id, isDisabled, label, name }: RangeFieldProps) => (
 	<Field<number>
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-		{...(fg('platform_design-system-team_range-field-spread') ? {} : strippedProps)}
 		defaultValue={defaultValue}
 		id={id}
 		isDisabled={isDisabled}

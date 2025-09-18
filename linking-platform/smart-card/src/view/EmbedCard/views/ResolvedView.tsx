@@ -16,6 +16,8 @@ export interface EmbedCardResolvedViewProps {
 	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
 	/** The context view model */
 	context?: ContextViewModel;
+	/** The extension key */
+	extensionKey?: string;
 	/** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
 	frameStyle?: FrameStyle;
 	/** For image icons in the title, whether to hide the loading skeleton while the image is loading. */
@@ -67,6 +69,7 @@ export const EmbedCardResolvedView = React.forwardRef<
 			type,
 			CompetitorPrompt,
 			hideIconLoadingSkeleton,
+			extensionKey,
 		},
 		embedIframeRef,
 	) => {
@@ -135,6 +138,7 @@ export const EmbedCardResolvedView = React.forwardRef<
 					onIframeDwell={onIframeDwell}
 					onIframeFocus={onIframeFocus}
 					title={text}
+					extensionKey={extensionKey}
 				/>
 			</ExpandedFrame>
 		);

@@ -18,17 +18,20 @@ import {
 	NESTED_FORMAT_MENU,
 } from '@atlaskit/editor-common/block-menu';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItemSection, ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
-import ChangesIcon from '@atlaskit/icon/core/changes';
-import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 
-import type { BlockMenuPlugin, BlockMenuPluginOptions } from '../blockMenuPluginType';
-import { type RegisterBlockMenuComponent } from '../blockMenuPluginType';
+import type {
+	BlockMenuPlugin,
+	BlockMenuPluginOptions,
+	RegisterBlockMenuComponent,
+} from '../blockMenuPluginType';
 
 import CopyBlockMenuItem from './copy-block';
 import { CopyLinkDropdownItem } from './copy-link';
 import { CopySection } from './copy-section';
 import { DeleteDropdownItem } from './delete-button';
+import { DeleteSection } from './delete-section';
+import { FormatMenuComponent } from './format-menu-nested';
 import { FormatMenuSection } from './format-menu-section';
 import { MoveDownDropdownItem } from './move-down';
 import { MoveUpDropdownItem } from './move-up';
@@ -73,16 +76,7 @@ const getFormatMenuComponents = (
 				rank: 100,
 			},
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
-				return (
-					<ToolbarNestedDropdownMenu
-						text="Format"
-						elemBefore={<ChangesIcon label="" />}
-						elemAfter={<ChevronRightIcon label={'example nested menu'} />}
-						enableMaxHeight={true}
-					>
-						{children}
-					</ToolbarNestedDropdownMenu>
-				);
+				return <FormatMenuComponent>{children}</FormatMenuComponent>;
 			},
 		},
 		{
@@ -160,7 +154,7 @@ export const getBlockMenuComponents = ({
 			key: DELETE_MENU_SECTION.key,
 			rank: BLOCK_MENU_SECTION_RANK[DELETE_MENU_SECTION.key],
 			component: ({ children }: { children: React.ReactNode }) => {
-				return <ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>;
+				return <DeleteSection api={api}>{children}</DeleteSection>;
 			},
 		},
 		...getMoveUpMoveDownMenuComponents(api),

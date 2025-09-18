@@ -36,6 +36,7 @@ import type { MediaPluginOptions, MediaState } from '@atlaskit/editor-plugins/me
 import type { MentionPluginConfig } from '@atlaskit/editor-plugins/mentions';
 import type { PanelPluginConfig } from '@atlaskit/editor-plugins/panel';
 import type { PlaceholderTextPluginOptions } from '@atlaskit/editor-plugins/placeholder-text';
+import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugins/synced-block';
 import type { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugins/table/types';
 import type { TextColorPluginConfig } from '@atlaskit/editor-plugins/text-color';
 import type { TextFormattingPluginOptions } from '@atlaskit/editor-plugins/text-formatting';
@@ -503,6 +504,8 @@ export interface EditorPluginFeatureProps {
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/** @deprecated Use linking.smartLinks prop instead. */
 	smartLinks?: CardOptions;
+
+	syncBlock?: SyncedBlockPluginOptions;
 
 	// Set to disable text formatting styles. If not specified, they will be all enabled by default. Code here refers to inline code.
 	// Smart text completion refers to the auto replacement of characters like arrows, quotes and correct casing of Atlassian product names.

@@ -33,6 +33,7 @@ import { BlockCard } from '../BlockCard';
 import { EmbedCard } from '../EmbedCard';
 import FlexibleCard from '../FlexibleCard';
 import { InlineCard } from '../InlineCard';
+import { useFire3PWorkflowsClickEvent } from '../SmartLinkEvents/useSmartLinkEvents';
 
 import { type CardWithUrlContentProps } from './types';
 
@@ -88,6 +89,11 @@ function Component({
 		platform,
 	});
 
+	const fire3PClickEvent = fg('platform_smartlink_3pclick_analytics')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI)
+		: undefined;
+
 	// Setup UI handlers.
 	const handleClickWrapper = useCallback(
 		(event: MouseEvent) => {
@@ -103,23 +109,10 @@ function Component({
 			if (fg('platform_smartlink_3pclick_analytics')) {
 				if (thirdPartyARI && thirdPartyARI.startsWith(thirdPartyARIPrefix)) {
 					const clickURL = getClickUrl(url, state.details);
-					if (clickURL === url) {
+					if (clickURL === url && fire3PClickEvent) {
 						// For questions or concerns about this event,
 						// please reach out to the 3P Workflows Team via Slack in #help-3p-connector-workflow
-						const smartlinkClickAnalyticsEvent = createAnalyticsEvent({
-							action: 'clicked',
-							actionSubject: 'smartLink',
-							actionSubjectId: 'smartlinkClickAnalyticsWorkflows',
-							eventType: 'ui',
-							attributes: {
-								eventName: 'smartLinkClickAnalyticsThirdPartyWorkflows',
-								firstPartyIdentifier: firstPartyIdentifier,
-							},
-							nonPrivacySafeAttributes: {
-								thirdPartyARI: thirdPartyARI,
-							},
-						});
-						smartlinkClickAnalyticsEvent.fire('media');
+						fire3PClickEvent();
 					}
 				}
 			}
@@ -188,11 +181,11 @@ function Component({
 			state.details,
 			ari,
 			name,
+			fire3PClickEvent,
 			isPreviewPanelAvailable,
 			openPreviewPanel,
 			createAnalyticsEvent,
 			thirdPartyARI,
-			firstPartyIdentifier,
 			disablePreviewPanel,
 		],
 	);

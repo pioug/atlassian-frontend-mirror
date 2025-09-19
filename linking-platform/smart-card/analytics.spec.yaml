@@ -558,6 +558,23 @@ events:
           required: false
           type: boolean
           description: Whether a modifier key was pressed when clicking the Smart Link.
+  - smartLink clicked (previewHoverCard):
+      type: ui
+      description: fires an event that represents when a user clicks on a Smart Link to open a preview panel.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
+        id:
+          required: true
+          type: string
+          description: The unique ID for this Smart Link.
+        display:
+          required: true
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          description: Whether the card was an Inline, Block, Embed or Flexible UI
+        previewType:
+          required: true
+          type: ['modal', 'panel']
+          description: What format the preview is in.
   - hoverCard viewed:
       type: ui
       description: fires an event that represents a hover preview being opened.

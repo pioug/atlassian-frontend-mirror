@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bb5588156f2bb893eb12f3022a6565e9>>
+ * @codegen <<SignedSource::a5eaead879860aa2b173c02245d9985c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -18,10 +18,13 @@ import IconObjectOld from '../../glyph-legacy/incident/24';
  * - [Code](https://atlassian.design/components/icon-object/code)
  * - [Usage](https://atlassian.design/components/icon-object/usage)
  */
-const Incident24Icon = ({
-	label,
-	testId,
-}: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => {
+const Incident24Icon: {
+	({
+		label,
+		testId,
+	}: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>): React.JSX.Element;
+	displayName: string;
+} = ({ label, testId }) => {
 	return (
 		<IconTile
 			icon={NewIcon}

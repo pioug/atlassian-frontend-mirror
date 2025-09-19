@@ -58,14 +58,14 @@ const allIcons = await get_all_icons();
 
 ### Accessibility Tools
 
-- `ads_analyze_a11y` - Analyze React component code for accessibility violations using axe-core
-  and provide ADS-specific suggestions
-- `ads_analyze_localhost_a11y` - Analyze whole web pages or specific elements (localhost or
-  deployed URLs) for accessibility violations
-- `ads_get_a11y_guidelines` - Get specific accessibility guidelines and best practices for
-  different topics
-- `ads_suggest_a11y_fixes` - Get specific fix suggestions for accessibility violations with
-  code examples
+- `ads_analyze_a11y` - Analyze React component code for accessibility violations using axe-core and
+  provide ADS-specific suggestions
+- `ads_analyze_localhost_a11y` - Analyze whole web pages or specific elements (localhost or deployed
+  URLs) for accessibility violations
+- `ads_get_a11y_guidelines` - Get specific accessibility guidelines and best practices for different
+  topics
+- `ads_suggest_a11y_fixes` - Get specific fix suggestions for accessibility violations with code
+  examples
 
 ## Accessibility Features
 

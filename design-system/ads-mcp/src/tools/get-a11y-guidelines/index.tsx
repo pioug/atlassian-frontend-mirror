@@ -446,10 +446,7 @@ useEffect(() => {
 	},
 };
 
-export const getA11yGuidelinesTool = async (params: {
-	topic?: string;
-	component?: string;
-}) => {
+export const getA11yGuidelinesTool = async (params: { topic?: string; component?: string }) => {
 	const { topic, component } = params;
 
 	if (topic && accessibilityGuidelines[topic as keyof typeof accessibilityGuidelines]) {

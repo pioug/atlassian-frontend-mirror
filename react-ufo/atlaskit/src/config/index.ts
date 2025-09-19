@@ -175,6 +175,14 @@ export type Config = {
 	 * Whether ttvc with 3p measurement is enabled and sent new event for experiences with sample rates
 	 */
 	readonly extraInteractionMetrics?: InteractionMetricsConfig;
+
+	/**
+	 * Option to enable an additional metric to track search page load times with SAIN ignored
+	 */
+	readonly extraSearchPageInteraction?: {
+		readonly enabled: boolean;
+		readonly searchPageMetricName: string;
+	};
 };
 
 export function setUFOConfig(newConfig: Config) {

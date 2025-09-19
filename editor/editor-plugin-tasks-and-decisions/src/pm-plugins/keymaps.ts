@@ -230,9 +230,47 @@ const backspaceFrom =
 			}
 
 			// If nested in a taskList, unindent
-			const parentDepth = isInBlockTaskItemParagraph ? $from.depth - 3 : $from.depth - 2;
+			const depthFromSelectionToBlockTaskItem = isInBlockTaskItemParagraph ? 2 : 1;
+			const depthFromSelectionToNestedTaskList = depthFromSelectionToBlockTaskItem + 1;
+			const parentDepth = $from.depth - depthFromSelectionToNestedTaskList;
+
 			if ($from.node(parentDepth).type === taskList) {
 				return getUnindentCommand(editorAnalyticsAPI)()(state, dispatch);
+			}
+
+			// If at the end of an item, unwrap contents into a paragraph
+			// we achieve this by slicing the content out, and replacing
+			if (actionDecisionFollowsOrNothing($from)) {
+				if (dispatch) {
+					// If we are in a blockTaskItem paragraph, we need to get the content of the whole blockTaskItem
+					// So we reduce the depth by 1 to get to the blockTaskItem node content
+					const taskContent = isInBlockTaskItemParagraph
+						? state.doc.slice($from.start($from.depth - 1), $from.end($from.depth - 1)).content
+						: state.doc.slice($from.start(), $from.end()).content;
+
+					let slice: Fragment | Node | Node[];
+
+					try {
+						slice = taskContent.size
+							? paragraph.createChecked(undefined, taskContent)
+							: paragraph.createChecked();
+						// might be end of document after
+						const tr = splitListItemWith(state.tr, slice, $from, true);
+						dispatch(tr);
+						return true;
+					} catch (error) {
+						// If there's an error creating a paragraph, check if we are in a blockTaskItem
+						// Block task item's can have non-text content that cannot be wrapped in a paragraph
+						// So if the selection is in a blockTaskItem, just pass the content as is
+						if (resultOfFindBlockTaskItem && resultOfFindBlockTaskItem.blockTaskItemNode) {
+							// Create an array from the fragment to pass into splitListItemWith, as the `content` property is readonly
+							slice = Array.from(taskContent.content);
+							const tr = splitListItemWith(state.tr, slice, $from, true);
+							dispatch(tr);
+							return true;
+						}
+					}
+				}
 			}
 		} else {
 			// previous was empty, just delete backwards
@@ -249,33 +287,33 @@ const backspaceFrom =
 			if ($from.node($from.depth - 2).type === taskList) {
 				return getUnindentCommand(editorAnalyticsAPI)()(state, dispatch);
 			}
-		}
 
-		// If at the end of an item, unwrap contents into a paragraph
-		// we achieve this by slicing the content out, and replacing
-		if (actionDecisionFollowsOrNothing($from)) {
-			if (dispatch) {
-				const taskContent = state.doc.slice($from.start(), $from.end()).content;
+			// If at the end of an item, unwrap contents into a paragraph
+			// we achieve this by slicing the content out, and replacing
+			if (actionDecisionFollowsOrNothing($from)) {
+				if (dispatch) {
+					const taskContent = state.doc.slice($from.start(), $from.end()).content;
 
-				let slice: Fragment | Node | Node[];
+					let slice: Fragment | Node | Node[];
 
-				try {
-					slice = taskContent.size
-						? paragraph.createChecked(undefined, taskContent)
-						: paragraph.createChecked();
-					// might be end of document after
-					const tr = splitListItemWith(state.tr, slice, $from, true);
-					dispatch(tr);
-					return true;
-				} catch (error) {
-					// If there's an error creating a paragraph, then just pass the content as is
-					// Block task item's can have non-text content that cannot be wrapped in a paragraph
-					if (blockTaskItem) {
-						// Create an array from the fragment to pass into splitListItemWith, as the `content` property is readonly
-						slice = Array.from(taskContent.content);
+					try {
+						slice = taskContent.size
+							? paragraph.createChecked(undefined, taskContent)
+							: paragraph.createChecked();
+						// might be end of document after
 						const tr = splitListItemWith(state.tr, slice, $from, true);
 						dispatch(tr);
 						return true;
+					} catch (error) {
+						// If there's an error creating a paragraph, then just pass the content as is
+						// Block task item's can have non-text content that cannot be wrapped in a paragraph
+						if (blockTaskItem) {
+							// Create an array from the fragment to pass into splitListItemWith, as the `content` property is readonly
+							slice = Array.from(taskContent.content);
+							const tr = splitListItemWith(state.tr, slice, $from, true);
+							dispatch(tr);
+							return true;
+						}
 					}
 				}
 			}
@@ -415,8 +453,8 @@ const splitListItemWith = (
 	let $oldAfter = origDoc.resolve($from.after());
 	let textSelectionModifier = 0;
 	let replaceFromModifier = 0;
-	let replaceToModifier = 0;
 	let deleteBlockModifier = 0;
+	let shouldSplitBlockTaskItem = true;
 	let isGapCursorSelection = false;
 
 	if (blockTaskItem) {
@@ -428,10 +466,10 @@ const splitListItemWith = (
 				// adjust some calculations
 				if (hasParagraph) {
 					baseDepth = $from.depth - 1;
-					$oldAfter = origDoc.resolve($from.after() + 1);
+					$oldAfter = origDoc.resolve($from.after(baseDepth));
 
 					// When we're removing the extra empty task item we need to reduce the range a bit
-					deleteBlockModifier = 2;
+					deleteBlockModifier = 1;
 				} else {
 					textSelectionModifier = 1;
 					isGapCursorSelection = true;
@@ -441,16 +479,15 @@ const splitListItemWith = (
 
 				const hasSiblingTaskList = $oldAfter.nodeAfter?.type === taskList;
 				if (hasSiblingTaskList) {
-					// Make sure we're wrapping around the whole list
-					replaceToModifier = hasParagraph ? 3 : 1;
+					// Don't use the split command if there is a sibling taskList
+					shouldSplitBlockTaskItem = false;
 				}
 
 				const posPreviousSibling = $from.start(hasParagraph ? $from.depth - 1 : $from.depth) - 1;
 				const $posPreviousSibling = tr.doc.resolve(posPreviousSibling);
 
 				const hasPreviousTaskItem = $posPreviousSibling.nodeBefore?.type === blockTaskItem;
-				if (!hasPreviousTaskItem && hasParagraph) {
-					// Go down one step to get to the doc node
+				if (hasPreviousTaskItem && hasParagraph) {
 					replaceFromModifier = 1;
 				}
 			}
@@ -461,7 +498,8 @@ const splitListItemWith = (
 	// we can only split if there was a list item before us
 	const container = $from.node(baseDepth - 2);
 	const posInList = $from.index(baseDepth - 1);
-	const shouldSplit = !(!isActionOrDecisionList(container) && posInList === 0);
+	const shouldSplit =
+		!(!isActionOrDecisionList(container) && posInList === 0) && shouldSplitBlockTaskItem;
 	const frag = Fragment.from(content);
 	const isNestedActionInsideLists =
 		frag.childCount === 1 && frag.firstChild?.type.name === 'listItem';
@@ -490,8 +528,8 @@ const splitListItemWith = (
 	const previousListItemPos = isNestedActionInsideLists ? $from.start(baseDepth - 2) : 0;
 
 	tr = tr.replace(
-		tr.mapping.map($from.start() - (2 + replaceFromModifier)),
-		tr.mapping.map($from.end() + (2 + replaceToModifier)),
+		tr.mapping.map($from.start(baseDepth) - 2 + replaceFromModifier),
+		tr.mapping.map($from.end(baseDepth) + 2),
 		frag.size ? new Slice(frag, 0, 0) : Slice.empty,
 	);
 

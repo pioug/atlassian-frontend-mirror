@@ -8,6 +8,7 @@ export type VCCalculatorParam = {
 	interactionId?: string;
 	isPostInteraction: boolean;
 	include3p?: boolean;
+	excludeSmartAnswersInSearch?: boolean;
 };
 
 export interface VCCalculator {

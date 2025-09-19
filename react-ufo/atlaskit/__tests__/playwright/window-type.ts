@@ -10,6 +10,7 @@ export type WindowWithReactUFOTestGlobals = typeof window & {
 	__websiteReactUfo: Array<ReactUFOPayload>;
 	__websiteReactUfoCriticalMetrics: Array<CriticalMetricsPayload>;
 	__websiteReactUfoExtraMetrics: Array<ReactUFOPayload>;
+	__websiteReactUfoExtraSearchPageInteraction: Array<ReactUFOPayload>;
 	// Best way to found out when a DOM was "rendered"
 	// We are adding a Mutation Observer inside the `./fixtures.ts`
 	// using the `page.addInitScript`.

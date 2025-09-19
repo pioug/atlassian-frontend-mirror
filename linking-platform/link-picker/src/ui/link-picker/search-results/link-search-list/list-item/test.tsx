@@ -223,4 +223,13 @@ describe('<LinkSearchListItem />', () => {
 		render(<LinkSearchListItem {...defaultProps} item={item} />);
 		expect(screen.getByTitle('Some Atlassian Page')).toBeDefined();
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<ul role="listbox" aria-label="test-list">
+				<LinkSearchListItem {...defaultProps} item={defaultItem} />
+			</ul>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

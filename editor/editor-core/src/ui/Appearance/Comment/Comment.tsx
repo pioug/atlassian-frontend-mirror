@@ -334,7 +334,9 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 										isScrollable={maxHeight ? true : undefined}
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 										className={classnames('ak-editor-content-area', {
-											'less-margin': width < akEditorMobileBreakoutPoint,
+											'less-margin':
+												width < akEditorMobileBreakoutPoint &&
+												!editorExperiment('platform_editor_ai_aifc', true),
 										})}
 										featureFlags={featureFlags}
 										viewMode={editorViewMode}

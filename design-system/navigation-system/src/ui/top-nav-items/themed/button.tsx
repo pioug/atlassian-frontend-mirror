@@ -7,6 +7,7 @@ import React, { forwardRef } from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import type { IconButtonProps } from '@atlaskit/button/new';
+import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import {
 	Anchor,
@@ -17,8 +18,6 @@ import {
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden';
-
-import { forwardRefWithGeneric } from '../../../components/forward-ref-with-generic';
 
 type ButtonAppearance = 'default' | 'primary' | 'subtle';
 

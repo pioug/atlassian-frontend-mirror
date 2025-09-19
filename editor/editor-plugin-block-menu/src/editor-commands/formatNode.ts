@@ -6,8 +6,10 @@ import {
 	findSelectedNodeOfType,
 	safeInsert as pmSafeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
+import { setSelectionAfterTransform } from './selection';
 import { createDefaultLayoutSection } from './transforms/layout-transforms';
 import { transformNodeToTargetType } from './transforms/transformNodeToTargetType';
 import type { FormatNodeTargetType } from './transforms/types';
@@ -139,7 +141,12 @@ export const formatNode = (targetType: FormatNodeTargetType): EditorCommand => {
 		}
 
 		try {
-			return transformNodeToTargetType(tr, nodeToFormat, nodePos, targetType);
+			const newTr = transformNodeToTargetType(tr, nodeToFormat, nodePos, targetType);
+
+			if (newTr && fg('platform_editor_block_menu_selection_fix')) {
+				return setSelectionAfterTransform(newTr, nodePos, targetType);
+			}
+			return newTr;
 		} catch {
 			return null;
 		}

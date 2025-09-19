@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-connectivity
 
+## 5.0.1
+
+### Patch Changes
+
+- [`ab0293065a3db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab0293065a3db) -
+  Bump @loomhq/record-sdk to ^4.2.3 and update imports
+
 ## 5.0.0
 
 ### Patch Changes

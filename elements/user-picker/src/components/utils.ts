@@ -126,7 +126,12 @@ export const callCallback = <U extends any[], R>(
 };
 
 export const getAvatarUrl = (optionData: OptionData) => {
-	if (isUser(optionData) || isTeam(optionData) || isCustom(optionData)) {
+	if (
+		isUser(optionData) ||
+		isTeam(optionData) ||
+		isCustom(optionData) ||
+		isExternalUser(optionData)
+	) {
 		return optionData.avatarUrl;
 	}
 	return undefined;

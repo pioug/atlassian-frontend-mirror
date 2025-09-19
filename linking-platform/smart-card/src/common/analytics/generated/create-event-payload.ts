@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::eb8cd1263459fb798341024dc0c461ea>>
+ * @codegen <<SignedSource::f914fb83fac56e7154ef460866628f7d>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 import type { AnalyticsEventAttributes, EventKey } from './analytics.types';

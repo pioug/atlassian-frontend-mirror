@@ -25,6 +25,8 @@ const withAnalyticsEvents =
 		>;
 
 		const WithAnalyticsEvents = forwardRef<any, WrappedProps>((props, ref) => {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore: to unblock React 18.2.0 -> 18.3.1 version bump in Jira
 			const { patchedEventProps } = usePatchedProps<WrappedProps>(createEventMap, props);
 			const { createAnalyticsEvent } = useAnalyticsEvents();
 

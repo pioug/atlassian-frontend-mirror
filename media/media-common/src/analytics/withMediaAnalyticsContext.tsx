@@ -49,6 +49,7 @@ export const withMediaAnalyticsContext =
 
 			return (
 				<AnalyticsContext data={contextData}>
+					{/* @ts-ignore: to unblock React 18.2.0 -> 18.3.1 version bump in Jira */}
 					<WrappedComponent {...props} ref={ref} />
 				</AnalyticsContext>
 			);

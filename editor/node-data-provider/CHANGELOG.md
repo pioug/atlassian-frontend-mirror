@@ -1,5 +1,13 @@
 # @atlaskit/node-data-provider
 
+## 6.3.1
+
+### Patch Changes
+
+- [`57fe2d0a5cd09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57fe2d0a5cd09) -
+  [https://product-fabric.atlassian.net/browse/ED-29399](ED-29399) - add early exit from
+  `prefetchNodeDataProvidersData` if timeout is 0
+
 ## 6.3.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/ds-lib
 
+## 5.1.0
+
+### Minor Changes
+
+- [`332393d8d236d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/332393d8d236d) -
+  Add `forwardRefWithGeneric` as a util to the `ds-lib` package so it is available for all of the
+  Design System.
+
 ## 5.0.1
 
 ### Patch Changes

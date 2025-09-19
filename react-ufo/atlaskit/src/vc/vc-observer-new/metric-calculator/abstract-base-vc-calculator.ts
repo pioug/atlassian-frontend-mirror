@@ -43,7 +43,11 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 	constructor(revisionNo: string) {
 		this.revisionNo = revisionNo;
 	}
-	protected abstract isEntryIncluded(entry: VCObserverEntry, include3p?: boolean): boolean;
+	protected abstract isEntryIncluded(
+		entry: VCObserverEntry,
+		include3p?: boolean,
+		excludeSmartAnswersInSearch?: boolean,
+	): boolean;
 
 	protected abstract getVCCleanStatus(filteredEntries: ReadonlyArray<VCObserverEntry>): {
 		isVCClean: boolean;
@@ -112,6 +116,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		dirtyReason?: VCAbortReason,
 		allEntries?: ReadonlyArray<VCObserverEntry>,
 		include3p?: boolean,
+		excludeSmartAnswersInSearch?: boolean,
 	): Promise<RevisionPayloadVCDetails> {
 		const percentiles = [25, 50, 75, 80, 85, 90, 95, 98, 99, 100];
 		const viewportEntries = this.filterViewportEntries(filteredEntries);
@@ -242,7 +247,10 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			const ignoredEntriesByTime = new Map<number, EnhancedViewportEntryData[]>();
 
 			for (const entry of allEntries) {
-				if ('rect' in entry.data && !this.isEntryIncluded(entry, include3p)) {
+				if (
+					'rect' in entry.data &&
+					!this.isEntryIncluded(entry, include3p, excludeSmartAnswersInSearch)
+				) {
 					const viewportData = entry.data as ViewportEntryData;
 					const timestamp = Math.round(entry.time);
 
@@ -359,9 +367,10 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		interactionId,
 		isPostInteraction,
 		include3p,
+		excludeSmartAnswersInSearch,
 	}: VCCalculatorParam): Promise<RevisionPayloadEntry | undefined> {
 		const filteredEntries = orderedEntries.filter((entry) => {
-			return this.isEntryIncluded(entry, include3p);
+			return this.isEntryIncluded(entry, include3p, excludeSmartAnswersInSearch);
 		});
 
 		let isVCClean: boolean;
@@ -390,6 +399,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			dirtyReason,
 			orderedEntries,
 			include3p,
+			excludeSmartAnswersInSearch,
 		);
 
 		const result: RevisionPayloadEntry = {

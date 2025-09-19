@@ -13,6 +13,7 @@ export type GetVCResultType = {
 	interactionId?: string;
 	includeSSRRatio?: boolean;
 	include3p?: boolean;
+	excludeSmartAnswersInSearch?: boolean;
 };
 
 export type SelectorConfig = {

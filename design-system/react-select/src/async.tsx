@@ -20,6 +20,8 @@ type AsyncSelect = <
 ) => ReactElement;
 
 const AsyncSelect = forwardRef(
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore: to unblock React 18.2.0 -> 18.3.1 version bump in Jira
 	<Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 		props: AsyncProps<Option, IsMulti, Group> & { isAsync: boolean },
 		ref:

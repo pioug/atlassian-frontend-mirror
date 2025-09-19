@@ -345,4 +345,146 @@ describe('extractInvokePreviewAction', () => {
 			}),
 		);
 	});
+
+	describe('Analytics tracking for preview actions', () => {
+		it('should fire analytics event when preview panel is used with correct conditions', async () => {
+			// Enable the experiment for this test
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(true);
+
+			const fireEvent = jest.fn();
+			const mockOpenPreviewPanel = jest.fn();
+			const mockIsPreviewPanelAvailable = jest.fn().mockReturnValue(true);
+
+			const action = extractInvokePreviewAction({
+				appearance: 'block',
+				fireEvent,
+				id: 'test-id',
+				origin: 'smartLinkPreviewHoverCard',
+				response: TEST_RESPONSE_WITH_PREVIEW_AND_ARI,
+				isPreviewPanelAvailable: mockIsPreviewPanelAvailable,
+				openPreviewPanel: mockOpenPreviewPanel,
+			});
+
+			await action?.invokeAction.actionFn();
+
+			expect(fireEvent).toHaveBeenCalledWith('ui.smartLink.clicked.previewHoverCard', {
+				id: 'test-id',
+				display: 'hoverCardPreview',
+				previewType: 'panel',
+			});
+		});
+
+		it('should fire analytics event when embed modal is used with correct conditions', async () => {
+			// Enable the experiment for this test
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(true);
+
+			const fireEvent = jest.fn();
+			jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
+
+			const action = extractInvokePreviewAction({
+				appearance: 'block',
+				fireEvent,
+				id: 'test-id',
+				origin: 'smartLinkPreviewHoverCard',
+				response: TEST_RESPONSE_WITH_PREVIEW,
+			});
+
+			await action?.invokeAction.actionFn();
+
+			expect(fireEvent).toHaveBeenCalledWith('ui.smartLink.clicked.previewHoverCard', {
+				id: 'test-id',
+				display: 'hoverCardPreview',
+				previewType: 'modal',
+			});
+		});
+
+		it('should not fire analytics event when experiment is disabled', async () => {
+			// Ensure experiment is disabled
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(false);
+
+			const fireEvent = jest.fn();
+			jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
+
+			const action = extractInvokePreviewAction({
+				appearance: 'block',
+				fireEvent,
+				id: 'test-id',
+				origin: 'smartLinkPreviewHoverCard',
+				response: TEST_RESPONSE_WITH_PREVIEW,
+			});
+
+			await action?.invokeAction.actionFn();
+
+			expect(fireEvent).not.toHaveBeenCalled();
+		});
+
+		it('should not fire analytics event when origin is not smartLinkPreviewHoverCard', async () => {
+			// Enable the experiment for this test
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(true);
+
+			const fireEvent = jest.fn();
+			jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
+
+			const action = extractInvokePreviewAction({
+				appearance: 'block',
+				fireEvent,
+				id: 'test-id',
+				origin: 'smartLinkCard',
+				response: TEST_RESPONSE_WITH_PREVIEW,
+			});
+
+			await action?.invokeAction.actionFn();
+
+			expect(fireEvent).not.toHaveBeenCalled();
+		});
+
+		it('should not fire analytics event when fireEvent is not provided', async () => {
+			// Enable the experiment for this test
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(true);
+
+			const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
+
+			const action = extractInvokePreviewAction({
+				appearance: 'block',
+				id: 'test-id',
+				origin: 'smartLinkPreviewHoverCard',
+				response: TEST_RESPONSE_WITH_PREVIEW,
+			});
+
+			await action?.invokeAction.actionFn();
+
+			// No fireEvent function provided, so no analytics should be fired
+			expect(openEmbedModal).toHaveBeenCalled();
+		});
+
+		it('should use empty string for id when id is not provided in analytics event', async () => {
+			// Enable the experiment for this test
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(true);
+
+			const fireEvent = jest.fn();
+			jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
+
+			const action = extractInvokePreviewAction({
+				appearance: 'block',
+				fireEvent,
+				origin: 'smartLinkPreviewHoverCard',
+				response: TEST_RESPONSE_WITH_PREVIEW,
+				// No id provided
+			});
+
+			await action?.invokeAction.actionFn();
+
+			expect(fireEvent).toHaveBeenCalledWith('ui.smartLink.clicked.previewHoverCard', {
+				id: '',
+				display: 'hoverCardPreview',
+				previewType: 'modal',
+			});
+		});
+	});
 });

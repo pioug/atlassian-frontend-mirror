@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::999d13388a49cd5d6f77a3a3a1c12e88>>
+ * @codegen <<SignedSource::2600885f9956927eff3f8ee977c18ec7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -18,10 +18,13 @@ import IconObjectOld from '../../glyph-legacy/epic/24';
  * - [Code](https://atlassian.design/components/icon-object/code)
  * - [Usage](https://atlassian.design/components/icon-object/usage)
  */
-const Epic24Icon = ({
-	label,
-	testId,
-}: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => {
+const Epic24Icon: {
+	({
+		label,
+		testId,
+	}: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>): React.JSX.Element;
+	displayName: string;
+} = ({ label, testId }) => {
 	return (
 		<IconTile
 			icon={NewIcon}

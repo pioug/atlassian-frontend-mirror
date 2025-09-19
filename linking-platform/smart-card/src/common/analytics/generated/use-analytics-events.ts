@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::1f3587129789e7883af37adad3817cd2>>
+ * @codegen <<SignedSource::676f76a2e45920437adc8c35a9af8b37>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 import { useCallback } from 'react';

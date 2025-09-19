@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocs` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::505188bcbfbd2bedd523b7a93366dd82>>
+ * @codegen <<SignedSource::5b9b70e1898d13b76e8faef592720556>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable import/no-extraneous-dependencies -- This import is within the same package, hence self-referential. */
@@ -3847,7 +3847,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 	},
 };
 
-const metaData = Object.fromEntries(
+const metaData: Record<string, Omit<Data, 'packageLoader'>> = Object.fromEntries(
 	Object.entries(metaDataWithPackageLoader).map(([key, { packageLoader, ...rest }]) => [key, rest]),
 );
 

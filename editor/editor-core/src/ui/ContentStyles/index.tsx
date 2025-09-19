@@ -77,11 +77,13 @@ import {
 	getSelectionStyles,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
+import { textHighlightPaddingStyles } from '../EditorContentContainer/styles/backgroundColorStyles';
 
 import { aiPanelStyles } from './ai-panels';
 import { codeBidiWarningStyles } from './code-bidi-warning';
@@ -514,6 +516,8 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${codeMarkSharedStyles()}
   ${textColorStyles}
   ${backgroundColorStyles()}
+  ${expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true) &&
+	textHighlightPaddingStyles}
   ${listsStyles}
   ${ruleStyles()}
   ${mediaStyles()}

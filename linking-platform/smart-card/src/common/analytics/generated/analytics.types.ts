@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::8ebf07690deae06cee97fcbba4bb8eb0>>
+ * @codegen <<SignedSource::932bd7921a1bd5e7a45d04e6fef57e12>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -224,6 +224,11 @@ export type HyperlinkUnresolvedAttributesType = {
 	error: Record<string, unknown> | null;
 	reason: string;
 };
+export type SmartLinkClickedPreviewHoverCardAttributesType = {
+	id: string;
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+	previewType: 'modal' | 'panel';
+};
 export type HoverCardViewedAttributesType = {
 	previewDisplay: 'card' | 'embed';
 	previewInvokeMethod: 'keyboard' | 'mouse_hover' | 'mouse_click' | null;
@@ -405,6 +410,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fires an event that represents when a user clicks on a Smart Link. */
 	'ui.smartLink.clicked.titleGoToLink': SmartLinkClickedTitleGoToLinkAttributesType;
+	/**
+	 * fires an event that represents when a user clicks on a Smart Link to open a preview panel. */
+	'ui.smartLink.clicked.previewHoverCard': SmartLinkClickedPreviewHoverCardAttributesType;
 	/**
 	 * fires an event that represents a hover preview being opened. */
 	'ui.hoverCard.viewed': HoverCardViewedAttributesType;

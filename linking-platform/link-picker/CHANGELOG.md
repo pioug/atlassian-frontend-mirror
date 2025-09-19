@@ -1,5 +1,12 @@
 # @atlaskit/link-picker
 
+## 3.11.2
+
+### Patch Changes
+
+- [`c36fc7846c4e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c36fc7846c4e6) -
+  NAVX-1921 adding missing a11y tests to unit tests
+
 ## 3.11.1
 
 ### Patch Changes

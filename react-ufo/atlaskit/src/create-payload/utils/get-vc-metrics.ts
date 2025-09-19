@@ -10,6 +10,7 @@ import getSSRDoneTimeValue from './get-ssr-done-time-value';
 async function getVCMetrics(
 	interaction: InteractionMetrics,
 	include3p: boolean = false,
+	excludeSmartAnswersInSearch: boolean = false,
 ): Promise<VCResult & { 'metric:vc90'?: number | null }> {
 	const config = getConfig();
 	if (!config?.vc?.enabled) {
@@ -60,6 +61,7 @@ async function getVCMetrics(
 		includeSSRRatio: config.vc?.includeSSRRatio,
 		...ssr,
 		include3p,
+		excludeSmartAnswersInSearch,
 	});
 
 	observer.stop(interaction.ufoName);

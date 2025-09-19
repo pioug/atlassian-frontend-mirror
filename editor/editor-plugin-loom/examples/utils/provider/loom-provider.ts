@@ -8,11 +8,16 @@ const createLoomClient = async (loomProviderConfig: LoomProviderConfig): GetClie
 	const { publicAppId } = loomProviderConfig;
 
 	// eslint-disable-next-line import/dynamic-import-chunkname
-	const { isSupported, setup } = await import(
+	const { setup } = await import(
 		/* webpackChunkName: "loadable-loomhq-record-sdk" */ '@loomhq/record-sdk'
 	);
 
-	const { supported } = await isSupported();
+	// eslint-disable-next-line import/dynamic-import-chunkname
+	const { isSupported } = await import(
+		/* webpackChunkName: "loadable-loomhq-record-sdk-is-supported" */ '@loomhq/record-sdk/is-supported'
+	);
+
+	const { supported } = isSupported();
 
 	if (!supported) {
 		return {

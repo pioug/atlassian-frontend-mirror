@@ -1,5 +1,4 @@
-// TODO: ED-26959 - removed to support TypeScript bundler mode
-// import type { SDKUnsupportedReasons } from '@loomhq/record-sdk';
+import type { SDKUnsupportedReasons } from '@loomhq/record-sdk';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
@@ -18,14 +17,6 @@ import type { LoomProviderOptions, PositionType, VideoMeta } from '../types';
 import { getQuickInsertItem } from '../ui/quickInsert';
 
 import { LoomPluginAction, loomPluginKey } from './main';
-
-// copied from @loomhq/record-sdk
-// TODO: ED-26959 - remove once @loomhq/record-sdk get updated to support "package exports"
-enum SDKUnsupportedReasons {
-	IncompatibleBrowser = 'incompatible-browser',
-	ThirdPartyCookiesDisabled = 'third-party-cookies-disabled',
-	NoMediaStreamsSupport = 'no-media-streams-support',
-}
 
 export const enableLoom =
 	({ loomButton }: { loomButton: HTMLButtonElement }): EditorCommand =>

@@ -7,6 +7,7 @@ import {
 	experimentalVC,
 	sinkExperimentalHandler,
 } from '../create-experimental-interaction-metrics-payload';
+import { sinkExtraSearchPageInteractionHandler } from '../create-extra-search-page-interaction-payload';
 import { setupHiddenTimingCapture } from '../hidden-timing';
 import {
 	interactionExtraMetrics,
@@ -162,6 +163,42 @@ function sinkInteractionExtraMetrics(
 	});
 }
 
+function sinkExtraSearchPageInteraction(
+	instance: GenericAnalyticWebClientInstance,
+	payloadPackage: {
+		createExtraSearchPageInteractionPayload: (
+			interactionId: string,
+			interaction: InteractionMetrics,
+		) => Promise<any>;
+	},
+) {
+	function sinkFn(interactionId: string, interaction: InteractionMetrics) {
+		function onIdle() {
+			payloadPackage
+				.createExtraSearchPageInteractionPayload(interactionId, interaction)
+				.then((payloads) => {
+					// NOTE: This API is used by the UFO DevTool Chrome Extension and Criterion
+					const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
+						.__ufo_devtool_onUfoPayload;
+					payloads?.forEach((payload: UFOPayload) => {
+						if (typeof devToolObserver === 'function') {
+							devToolObserver?.(payload);
+						}
+
+						instance.sendOperationalEvent(payload);
+					});
+				})
+				.catch((error) => {
+					throw error;
+				});
+		}
+
+		scheduleIdleCallback(onIdle);
+	}
+
+	sinkExtraSearchPageInteractionHandler(sinkFn);
+}
+
 export function init(
 	analyticsWebClientAsync:
 		| Promise<GenericAnalyticWebClientPromise>
@@ -244,6 +281,12 @@ export function init(
 							createInteractionExtraMetricsPayloadPackage.default,
 						);
 					}
+					if (
+						config?.extraSearchPageInteraction?.enabled &&
+						fg('react_ufo_unified_search_ignoring_sain_metric')
+					) {
+						sinkExtraSearchPageInteraction(instance, payloadPackage);
+					}
 				});
 			} else if ((awc as GenericAnalyticWebClientInstance).sendOperationalEvent) {
 				sinkInteraction(awc as GenericAnalyticWebClientInstance, payloadPackage);
@@ -264,6 +307,9 @@ export function init(
 						awc as GenericAnalyticWebClientInstance,
 						createInteractionExtraMetricsPayloadPackage.default,
 					);
+				}
+				if (config?.extraSearchPageInteraction?.enabled) {
+					sinkExtraSearchPageInteraction(awc as GenericAnalyticWebClientInstance, payloadPackage);
 				}
 			}
 		},

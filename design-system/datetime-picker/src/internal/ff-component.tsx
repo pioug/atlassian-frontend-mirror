@@ -56,6 +56,8 @@ export function componentWithCondition<A extends {}, B extends {}>(
 		ComponentRef<typeof ComponentTrue | typeof ComponentFalse>,
 		any
 	>((props, ref) =>
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore: to unblock React 18.2.0 -> 18.3.1 version bump in Jira
 		condition() ? <ComponentTrue {...props} ref={ref} /> : <ComponentFalse {...props} ref={ref} />,
 	);
 	if (ComponentTrue.name !== '') {

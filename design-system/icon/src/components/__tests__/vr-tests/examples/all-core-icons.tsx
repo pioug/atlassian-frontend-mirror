@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::9ab128de6f51c4b2f68c7bc4dadca128>>
+ * @codegen <<SignedSource::6efd8bdfe52de8b5c24086b263c3a072>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -385,6 +385,7 @@ import WorkItemIcon from '../../../../../core/work-item';
 import WorkItemsIcon from '../../../../../core/work-items';
 import ZoomInIcon from '../../../../../core/zoom-in';
 import ZoomOutIcon from '../../../../../core/zoom-out';
+// eslint-disable-next-line import/order
 import type { NewCoreIconProps } from '../../../../../src/types';
 
 const Icons = [
@@ -788,35 +789,35 @@ for (let i = 0; i < Icons.length; i += groupSize) {
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MediumIconGroup0 = allMediumExamples[0];
+export const MediumIconGroup0: () => React.JSX.Element = allMediumExamples[0];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MediumIconGroup1 = allMediumExamples[1];
+export const MediumIconGroup1: () => React.JSX.Element = allMediumExamples[1];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MediumIconGroup2 = allMediumExamples[2];
+export const MediumIconGroup2: () => React.JSX.Element = allMediumExamples[2];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MediumIconGroup3 = allMediumExamples[3];
+export const MediumIconGroup3: () => React.JSX.Element = allMediumExamples[3];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MediumIconGroup4 = allMediumExamples[4];
+export const MediumIconGroup4: () => React.JSX.Element = allMediumExamples[4];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MediumIconGroup5 = allMediumExamples[5];
+export const MediumIconGroup5: () => React.JSX.Element = allMediumExamples[5];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MediumIconGroup6 = allMediumExamples[6];
+export const MediumIconGroup6: () => React.JSX.Element = allMediumExamples[6];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MediumIconGroup7 = allMediumExamples[7];
+export const MediumIconGroup7: () => React.JSX.Element = allMediumExamples[7];
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SmallIconGroup0 = allSmallExamples[0];
+export const SmallIconGroup0: () => React.JSX.Element = allSmallExamples[0];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SmallIconGroup1 = allSmallExamples[1];
+export const SmallIconGroup1: () => React.JSX.Element = allSmallExamples[1];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SmallIconGroup2 = allSmallExamples[2];
+export const SmallIconGroup2: () => React.JSX.Element = allSmallExamples[2];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SmallIconGroup3 = allSmallExamples[3];
+export const SmallIconGroup3: () => React.JSX.Element = allSmallExamples[3];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SmallIconGroup4 = allSmallExamples[4];
+export const SmallIconGroup4: () => React.JSX.Element = allSmallExamples[4];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SmallIconGroup5 = allSmallExamples[5];
+export const SmallIconGroup5: () => React.JSX.Element = allSmallExamples[5];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SmallIconGroup6 = allSmallExamples[6];
+export const SmallIconGroup6: () => React.JSX.Element = allSmallExamples[6];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SmallIconGroup7 = allSmallExamples[7];
+export const SmallIconGroup7: () => React.JSX.Element = allSmallExamples[7];

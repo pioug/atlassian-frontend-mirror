@@ -86,6 +86,23 @@ export const extractInvokePreviewAction = (
 		return;
 	}
 
+	/* Analytics UI event for preview action created to support tracking of preview actions as the experiment rolls out */
+	const firePreviewActionUIEvent = ({ previewType }: { previewType: 'panel' | 'modal' }) => {
+		if (
+			!expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') ||
+			origin !== 'smartLinkPreviewHoverCard' ||
+			!fireEvent
+		) {
+			return;
+		}
+
+		fireEvent('ui.smartLink.clicked.previewHoverCard', {
+			id: id || '',
+			display: 'hoverCardPreview',
+			previewType,
+		});
+	};
+
 	const src = extractPreviewData(data, 'web')?.src;
 	if (src) {
 		const extensionKey = getExtensionKey(response);
@@ -108,6 +125,8 @@ export const extractInvokePreviewAction = (
 							name: name!,
 							iconUrl: undefined,
 						});
+						expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') &&
+							firePreviewActionUIEvent({ previewType: 'panel' });
 					} else {
 						await openEmbedModal({
 							fireEvent,
@@ -131,6 +150,8 @@ export const extractInvokePreviewAction = (
 								isInPreviewPanel,
 							}),
 						});
+						expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') &&
+							firePreviewActionUIEvent({ previewType: 'modal' });
 					}
 				},
 				actionSubjectId: 'invokePreviewScreen',

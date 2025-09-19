@@ -180,8 +180,7 @@ export const suggestA11yFixesTool = async (params: {
 							'https://atlassian.design/llms-a11y.txt - Complete ADS accessibility documentation',
 							'https://atlassian.design/foundations/accessibility - ADS accessibility foundation',
 						],
-						recommendation:
-							'Try the get_a11y_guidelines tool for component-specific guidance',
+						recommendation: 'Try the get_a11y_guidelines tool for component-specific guidance',
 					},
 					null,
 					2,

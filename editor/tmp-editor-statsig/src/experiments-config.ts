@@ -1040,4 +1040,12 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-09-15
+	platform_editor_text_highlight_padding: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_text_highlight_padding',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

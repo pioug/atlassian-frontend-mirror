@@ -1,5 +1,19 @@
 # @atlaskit/user-picker
 
+## 11.6.9
+
+### Patch Changes
+
+- [`944f9ffd5469c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/944f9ffd5469c) -
+  Remove @atlaskit/analytics-viewer
+
+## 11.6.8
+
+### Patch Changes
+
+- [`80ea8c58d8cd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80ea8c58d8cd0) -
+  Support avatar for external user
+
 ## 11.6.7
 
 ### Patch Changes

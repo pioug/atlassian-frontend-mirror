@@ -132,6 +132,18 @@ export async function prefetchNodeDataProvidersData({
 	timeout,
 	maxNodesToVisit = Infinity,
 }: Props): Promise<NodeDataProvidersSsrData> {
+	if (timeout <= 0) {
+		// If the global timeout is 0 or negative, skip fetching entirely.
+		return providers.reduce<NodeDataProvidersSsrData>((acc, { provider }) => {
+			acc[provider.name] = {
+				data: {},
+				success: false,
+				duration: 0,
+			};
+			return acc;
+		}, {});
+	}
+
 	const providersWithDefaults = providers.map(
 		({ provider, maxNodesToPrefetch = Infinity, timeout: providerTimeout = Infinity }) => ({
 			provider,
@@ -167,6 +179,16 @@ export async function prefetchNodeDataProvidersData({
 
 	const promises = nodesWithProviders.map<Promise<ProviderResult>>(
 		async ({ nodes, provider, timeout }) => {
+			if (timeout <= 0) {
+				return {
+					provider,
+					success: false,
+					duration: 0,
+					nodes,
+					data: [],
+				};
+			}
+
 			const start = performance.now();
 			function getDurationFromStart() {
 				return Math.min(performance.now() - start, timeout);

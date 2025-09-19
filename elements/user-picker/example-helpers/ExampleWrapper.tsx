@@ -1,4 +1,3 @@
-import { AnalyticsViewerContainer } from '@atlaskit/analytics-viewer';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { assignToMe, exampleOptions, filterUsers, unassigned } from '.';
@@ -15,7 +14,6 @@ type ChildrenProps = {
 } & Pick<UserPickerProps, 'onInputChange' | 'onSelection'>;
 
 export type Props = {
-	analytics?: boolean;
 	children: (props: ChildrenProps) => React.ReactNode;
 };
 
@@ -61,7 +59,7 @@ export class ExampleWrapper extends React.PureComponent<Props, { options: Option
 	};
 
 	render() {
-		const { children, analytics } = this.props;
+		const { children } = this.props;
 		const { options } = this.state;
 
 		const example = children({
@@ -72,9 +70,7 @@ export class ExampleWrapper extends React.PureComponent<Props, { options: Option
 		});
 		return (
 			<IntlProvider locale="en">
-				<div>
-					{analytics ? <AnalyticsViewerContainer>{example}</AnalyticsViewerContainer> : example}
-				</div>
+				<div>{example}</div>
 			</IntlProvider>
 		);
 	}

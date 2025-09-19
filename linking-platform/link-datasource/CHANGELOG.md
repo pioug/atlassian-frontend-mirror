@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 4.24.1
+
+### Patch Changes
+
+- [`d7522ef39f5e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7522ef39f5e2) -
+  NAVX-1885 Setting SLLV filter empty/error states to have heading h2 instead of h4 for a11y
+
 ## 4.24.0
 
 ### Minor Changes

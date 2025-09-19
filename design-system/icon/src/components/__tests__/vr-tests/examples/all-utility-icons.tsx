@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::0f66fff6f9000b4a15f40d2be8453b1e>>
+ * @codegen <<SignedSource::3e201aeba3595bd1ec7fe7f1c2dcffad>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -47,6 +47,7 @@ import StarStarredIcon from '../../../../../utility/star-starred';
 import StarUnstarredIcon from '../../../../../utility/star-unstarred';
 import SuccessIcon from '../../../../../utility/success';
 import WarningIcon from '../../../../../utility/warning';
+// eslint-disable-next-line import/order
 import type { NewCoreIconProps } from '../../../../../src/types';
 
 const Icons = [
@@ -112,4 +113,4 @@ for (let i = 0; i < Icons.length; i += groupSize) {
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MediumIconGroup0 = allMediumExamples[0];
+export const MediumIconGroup0: () => React.JSX.Element = allMediumExamples[0];

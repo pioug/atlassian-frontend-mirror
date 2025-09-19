@@ -52,7 +52,7 @@ const fetchProviderStates = async (
 	provider: InlineCommentAnnotationProvider,
 	annotationIds: string[],
 ): Promise<InlineCommentMap> => {
-	if ((!provider || !provider.getState) && fg('use_comments_data_annotation_updater')) {
+	if (!provider || !provider.getState) {
 		return {};
 	}
 	const data = await provider.getState(annotationIds);
@@ -73,13 +73,9 @@ const fetchState = async (
 	editorView: EditorView,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ) => {
-	if ((!annotationIds || !annotationIds.length) && !fg('use_comments_data_annotation_updater')) {
-		return;
-	}
-
 	const inlineCommentStates = await fetchProviderStates(provider, annotationIds);
 
-	if (Object.keys(inlineCommentStates).length === 0 && fg('use_comments_data_annotation_updater')) {
+	if (Object.keys(inlineCommentStates).length === 0) {
 		return;
 	}
 
@@ -218,29 +214,10 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 			const setVisibility = (isVisible: boolean) => onSetVisibility(editorView)(isVisible);
 
 			const setSelectedAnnotationFn = (annotationId?: string) => {
-				const pluginState = getPluginState(editorView.state);
-
-				if (fg('platform_editor_listen_for_focussed_query_param')) {
-					// When feature flag is true, only close if no annotationId
-					if (!annotationId) {
-						closeComponent()(editorView.state, editorView.dispatch);
-					} else {
-						setSelectedAnnotation(annotationId)(editorView.state, editorView.dispatch);
-					}
+				if (!annotationId) {
+					closeComponent()(editorView.state, editorView.dispatch);
 				} else {
-					// When feature flag is false, close if:
-					// 1. No annotationId OR
-					// 2. View is closed and annotation clicks are enabled
-					const shouldClose =
-						!annotationId ||
-						(pluginState?.isInlineCommentViewClosed &&
-							fg('platform_editor_listen_for_annotation_clicks'));
-
-					if (shouldClose) {
-						closeComponent()(editorView.state, editorView.dispatch);
-					} else {
-						setSelectedAnnotation(annotationId)(editorView.state, editorView.dispatch);
-					}
+					setSelectedAnnotation(annotationId)(editorView.state, editorView.dispatch);
 				}
 			};
 
@@ -309,10 +286,8 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 						// The selectComponentExperience is using a simplified object, which is why it's type asserted.
 						options.selectCommentExperience?.selectAnnotation.complete(selectedAnnotationId);
 
-						if (fg('cc_comments_track_view_inline_comment_action')) {
-							// ...and start a new UFO press trace since the selected comment is changing
-							options.viewInlineCommentTraceUFOPress?.();
-						}
+						// ...and start a new UFO press trace since the selected comment is changing
+						options.viewInlineCommentTraceUFOPress?.();
 					}
 
 					const { api } = options;

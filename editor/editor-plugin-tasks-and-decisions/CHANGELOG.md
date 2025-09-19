@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 8.4.8
+
+### Patch Changes
+
+- [`a625bf89074b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a625bf89074b2) -
+  clean up feature flag for task node view fix
+- Updated dependencies
+
+## 8.4.7
+
+### Patch Changes
+
+- [`99f97d44476b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99f97d44476b4) -
+  [EDITOR-1632] When backspacing multi-line blockTaskItems with a paragraph as the first line in the
+  blockTaskItem and extensions/ other content subsequent then make sure all the content in the
+  blockTaskItem is preserved when it's moved out of the blockTaskItem
+
 ## 8.4.6
 
 ### Patch Changes

@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 213.5.2
+
+### Patch Changes
+
+- [`6af30673f7cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6af30673f7cee) -
+  [ux] Adding padding to the left and right side of highlighted text
+- Updated dependencies
+
+## 213.5.1
+
+### Patch Changes
+
+- [`c451a0d8a0ef1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c451a0d8a0ef1) -
+  [EDITOR-1594] Inline streaming page comment padding issues
+- Updated dependencies
+
+## 213.5.0
+
+### Minor Changes
+
+- [`08569ab338048`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08569ab338048) -
+  Removed feature gates for cleanup
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 213.4.3
 
 ### Patch Changes

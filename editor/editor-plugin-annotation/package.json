@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-annotation",
-	"version": "5.3.2",
+	"version": "5.4.0",
 	"description": "Annotation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -103,19 +103,10 @@
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean"
 		},
-		"use_comments_data_annotation_updater": {
-			"type": "boolean"
-		},
 		"platform_editor_listen_for_annotation_clicks": {
 			"type": "boolean"
 		},
 		"platform_editor_annotation_selected_annotation": {
-			"type": "boolean"
-		},
-		"platform_editor_listen_for_focussed_query_param": {
-			"type": "boolean"
-		},
-		"cc_comments_track_view_inline_comment_action": {
 			"type": "boolean"
 		},
 		"confluence_frontend_preload_inline_comment_editor": {

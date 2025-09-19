@@ -180,9 +180,10 @@ function createPostInteractionLogPayload({
 		return null;
 	}
 
-	const maxEndTimeFromProfiler = reactProfilerTimings
-		? Math.max(...reactProfilerTimings.map((t) => t.commitTime))
-		: lastInteractionFinish.end;
+	const maxEndTimeFromProfiler =
+		reactProfilerTimings && reactProfilerTimings.length > 0
+			? Math.max(...reactProfilerTimings.map((t) => t.commitTime))
+			: lastInteractionFinish.end;
 
 	const revisedEndTime = Math.round(maxEndTimeFromProfiler);
 	const revisedTtai = Math.round(maxEndTimeFromProfiler - lastInteractionFinish.start);

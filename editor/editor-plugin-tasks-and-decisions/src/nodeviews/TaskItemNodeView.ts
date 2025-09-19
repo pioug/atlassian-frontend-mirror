@@ -8,7 +8,6 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { openRequestEditPopupAt } from '../pm-plugins/helpers';
@@ -32,7 +31,6 @@ export class TaskItemNodeView implements NodeView {
 	private getPos: getPosHandlerNode;
 	private api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
 	private readonly intl: IntlShape;
-	private objectId?: string;
 	private unbindInputDom: UnbindFn | undefined;
 	private emptyContent: boolean | undefined;
 	private input?: HTMLInputElement;
@@ -67,8 +65,6 @@ export class TaskItemNodeView implements NodeView {
 					listener: this.handleOnChange,
 				},
 			]);
-
-			this.objectId = this.getObjectAri();
 		}
 	}
 
@@ -110,21 +106,9 @@ export class TaskItemNodeView implements NodeView {
 			this.api?.taskDecision.sharedState.currentState();
 
 		// logic is inspired from packages/elements/task-decision/src/components/ResourcedTaskItem.tsx
-		if (fg('platform_editor_task_check_status_fix')) {
-			const objectAri = this.getObjectAri();
-			if (currentTaskDecisionState?.taskDecisionProvider && objectAri) {
-				currentTaskDecisionState?.taskDecisionProvider.toggleTask(
-					{ localId, objectAri },
-					nextState,
-				);
-			}
-		} else {
-			if (currentTaskDecisionState?.taskDecisionProvider && this.objectId) {
-				currentTaskDecisionState?.taskDecisionProvider.toggleTask(
-					{ localId, objectAri: this.objectId },
-					isDone ? 'DONE' : 'TODO',
-				);
-			}
+		const objectAri = this.getObjectAri();
+		if (currentTaskDecisionState?.taskDecisionProvider && objectAri) {
+			currentTaskDecisionState.taskDecisionProvider.toggleTask({ localId, objectAri }, nextState);
 		}
 
 		// SetAttrsStep should be used to prevent task updates from being dropped when mapping task ticks
@@ -172,11 +156,9 @@ export class TaskItemNodeView implements NodeView {
 			}
 		}
 
-		if (fg('platform_editor_task_check_status_fix')) {
-			// Only return false if this is a completely different task
-			if (this.node.attrs.localId !== node.attrs.localId) {
-				return false;
-			}
+		// Only return false if this is a completely different task
+		if (this.node.attrs.localId !== node.attrs.localId) {
+			return false;
 		}
 
 		if (expValEquals('platform_editor_prevent_taskitem_remount', 'isEnabled', true)) {
@@ -218,7 +200,6 @@ export class TaskItemNodeView implements NodeView {
 		}
 		this.contentDOM = undefined;
 		this.input = undefined;
-		this.objectId = undefined;
 		this.emptyContent = undefined;
 		this.api = undefined;
 	}

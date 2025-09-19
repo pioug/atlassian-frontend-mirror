@@ -132,10 +132,13 @@ import IconObjectOld from '../../glyph-legacy/${name}/${size}';
  * - [Code](https://atlassian.design/components/icon-object/code)
  * - [Usage](https://atlassian.design/components/icon-object/usage)
  */
-const ${componentName} = ({
+const ${componentName}: {
+    ({ label, testId, }: Omit<GlyphProps, "primaryColor" | "secondaryColor" | "size">): React.JSX.Element;
+    displayName: string;
+} = ({
 	label,
 	testId,
-}: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => {
+}) => {
 	return (
 		<IconTile
 			icon={NewIcon}

@@ -34,7 +34,7 @@ const CustomSelectMessage = ({ icon, message, description, testId }: CustomSelec
 			<Flex xcss={styles.boxStyles} alignItems="center" justifyContent="center">
 				{icon}
 			</Flex>
-			<Heading size="small">
+			<Heading size="small" as="h2">
 				<FormattedMessage {...message} />
 			</Heading>
 			{description && (

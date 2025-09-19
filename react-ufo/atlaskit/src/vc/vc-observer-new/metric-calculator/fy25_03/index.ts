@@ -8,6 +8,7 @@ import type {
 	WindowEventEntryData,
 } from '../../types';
 import AbstractVCCalculatorBase from '../abstract-base-vc-calculator';
+import { isEntrySmartAnswersInSearch } from '../utils/is-entry-smart-answers-in-search';
 import isViewportEntryData from '../utils/is-viewport-entry-data';
 
 const ABORTING_WINDOW_EVENT = ['wheel', 'scroll', 'keydown', 'resize'] as const;
@@ -84,13 +85,23 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 		super(revisionNo ?? REVISION_NO);
 	}
 
-	protected isEntryIncluded(entry: VCObserverEntry, include3p?: boolean): boolean {
+	protected isEntryIncluded(
+		entry: VCObserverEntry,
+		include3p?: boolean,
+		excludeSmartAnswersInSearch?: boolean,
+	): boolean {
 		if (!getConsideredEntryTypes(include3p).includes(entry.data.type)) {
 			return false;
 		}
+
+		if (excludeSmartAnswersInSearch && isEntrySmartAnswersInSearch(entry)) {
+			return false;
+		}
+
 		if (entry.data.type === 'mutation:attribute') {
 			const entryData = entry.data as ViewportEntryData;
 			const attributeName = entryData.attributeName;
+
 			if (
 				!attributeName ||
 				KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS.includes(attributeName)
@@ -126,6 +137,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 
 			return true;
 		}
+
 		if (isViewportEntryData(entry.data) && !entry.data.visible) {
 			return false;
 		}

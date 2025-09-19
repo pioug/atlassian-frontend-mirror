@@ -70,8 +70,8 @@ export default function ModalWithSpotlight() {
 	return (
 		<ModalTransition>
 			{isModalOpen && (
-				<ModalDialog onOpenComplete={handleModalOpenComplete}>
-					<ModalHeader>
+				<ModalDialog onOpenComplete={handleModalOpenComplete} onClose={close}>
+					<ModalHeader hasCloseButton>
 						<ModalTitle>Work Item Transition</ModalTitle>
 					</ModalHeader>
 					<ModalBody>This is Work Item Transition Modal Body.</ModalBody>

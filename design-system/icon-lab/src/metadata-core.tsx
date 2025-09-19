@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::5b69fe1c13c3b715214c07768484a6fc>>
+ * @codegen <<SignedSource::cdd8a37d1c952be466d6c9556bd0b0b7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -834,7 +834,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon-lab/core/cloud-offline',
 		type: 'core',
 		categorization: 'single-purpose',
-		usage: "Reserved for showing when a connection can't be established to the cloud.",
+		usage: "Reserved for showing when a connection can\'t be established to the cloud.",
 		team: 'Content Types',
 		status: 'published',
 	},
@@ -883,7 +883,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon-lab/core/colour-none',
 		type: 'core',
 		categorization: 'single-purpose',
-		usage: "Remove colours from Whiteboard's colour picker",
+		usage: "Remove colours from Whiteboard\'s colour picker",
 		team: 'Whiteboards',
 		status: 'published',
 	},
@@ -2351,7 +2351,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon-lab/core/notepad',
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: "Whiteboard component 'card'",
+		usage: "Whiteboard component \'card\'",
 		team: 'Confluence Whiteboards',
 		status: 'published',
 	},

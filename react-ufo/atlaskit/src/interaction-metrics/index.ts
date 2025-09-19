@@ -39,6 +39,7 @@ import {
 	getExperimentalVCMetrics,
 	onExperimentalInteractionComplete,
 } from '../create-experimental-interaction-metrics-payload';
+import { onSearchPageInteractionComplete } from '../create-extra-search-page-interaction-payload';
 import { sanitizeUfoName, stringifyLabelStackFully } from '../create-payload/common/utils';
 import { clearActiveTrace, type TraceIdContext } from '../experience-trace-id-context';
 import {
@@ -886,6 +887,14 @@ export function tryComplete(interactionId: string, endTime?: number) {
 					if (getConfig()?.extraInteractionMetrics?.enabled) {
 						interactionExtraMetrics.updateFinishedInteractionId(interactionId);
 					}
+
+					if (
+						getConfig()?.extraSearchPageInteraction?.enabled &&
+						interaction.ufoName === getConfig()?.extraSearchPageInteraction?.searchPageMetricName &&
+						fg('react_ufo_unified_search_ignoring_sain_metric')
+					) {
+						onSearchPageInteractionComplete(interactionId, interaction);
+					}
 					activeSubmitted = true;
 				}
 
@@ -907,6 +916,15 @@ export function tryComplete(interactionId: string, endTime?: number) {
 			if (noMoreActiveHolds) {
 				if (!activeSubmitted) {
 					finishInteraction(interactionId, interaction, endTime);
+
+					if (
+						getConfig()?.extraSearchPageInteraction?.enabled &&
+						interaction.ufoName === getConfig()?.extraSearchPageInteraction?.searchPageMetricName &&
+						fg('react_ufo_unified_search_ignoring_sain_metric')
+					) {
+						onSearchPageInteractionComplete(interactionId, interaction);
+					}
+
 					activeSubmitted = true;
 				}
 

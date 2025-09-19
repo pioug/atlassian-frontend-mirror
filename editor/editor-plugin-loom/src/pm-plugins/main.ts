@@ -1,5 +1,4 @@
-// TODO: ED-26959 - removed to support TypeScript bundler mode
-// import type { SDKUnsupportedReasons } from '@loomhq/record-sdk';
+import type { SDKUnsupportedReasons } from '@loomhq/record-sdk';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -9,14 +8,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { LoomPlugin } from '../loomPluginType';
 import type { LoomPluginOptions } from '../types';
-
-// copied from @loomhq/record-sdk
-// TODO: ED-26959 - remove once @loomhq/record-sdk get updated to support "package exports"
-enum SDKUnsupportedReasons {
-	IncompatibleBrowser = 'incompatible-browser',
-	ThirdPartyCookiesDisabled = 'third-party-cookies-disabled',
-	NoMediaStreamsSupport = 'no-media-streams-support',
-}
 
 import { setupLoom } from './commands';
 

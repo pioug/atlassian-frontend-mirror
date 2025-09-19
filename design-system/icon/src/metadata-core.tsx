@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::736757b9fbc08cfe04a0dfd387060116>>
+ * @codegen <<SignedSource::ee18f4e5865068325a476701d51323b5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -679,7 +679,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/core/cash',
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: "Known usages: 'Sales' work type.",
+		usage: "Known usages: \'Sales\' work type.",
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -1466,7 +1466,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/core/devices',
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: "Known usages: 'Asset' work type.",
+		usage: "Known usages: \'Asset\' work type.",
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -1572,7 +1572,7 @@ const metadata: Record<string, metadata> = {
 		oldName: ['editor/emoji', 'emoji/emoji', 'emoji', 'emoji/people'],
 		type: 'core',
 		categorization: 'single-purpose',
-		usage: "Single purpose - Reserved for Editor as a category for Emoji's.",
+		usage: "Single purpose - Reserved for Editor as a category for Emoji\'s.",
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -1880,7 +1880,7 @@ const metadata: Record<string, metadata> = {
 		type: 'core',
 		categorization: 'multi-purpose',
 		usage:
-			"Multi purpose - Known uses: document, file. Do not use to represent a page — use the dedicated 'Page' icon instead.",
+			"Multi purpose - Known uses: document, file. Do not use to represent a page — use the dedicated \'Page\' icon instead.",
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -1892,7 +1892,7 @@ const metadata: Record<string, metadata> = {
 		type: 'core',
 		categorization: 'multi-purpose',
 		usage:
-			"Multi purpose - Known uses: documents, files. Do not use to represent pages — use the dedicated 'Pages' icon instead.",
+			"Multi purpose - Known uses: documents, files. Do not use to represent pages — use the dedicated \'Pages\' icon instead.",
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -2195,7 +2195,7 @@ const metadata: Record<string, metadata> = {
 		oldName: ['tray'],
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: "Multi purpose - Known uses: 'Your work' in Confluence, inbox, mail.",
+		usage: "Multi purpose - Known uses: \'Your work\' in Confluence, inbox, mail.",
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -2218,7 +2218,7 @@ const metadata: Record<string, metadata> = {
 		replacement: { name: 'status-information', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
 		usage:
-			"Reserved for information statuses and messaging.  Filled status icons provide higher visual contrast to draw attention to important information. For information tooltips, use the unfilled 'information circle' icon.",
+			"Reserved for information statuses and messaging.  Filled status icons provide higher visual contrast to draw attention to important information. For information tooltips, use the unfilled \'information circle\' icon.",
 		team: 'Design System Team',
 		status: 'deprecated',
 	},
@@ -2480,7 +2480,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/core/list-checklist',
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: "Known usages: Checklist, 'Requirement' work type.",
+		usage: "Known usages: Checklist, \'Requirement\' work type.",
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -2755,7 +2755,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/core/minus-square',
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: "Known usages: 'Remove feature' work type.",
+		usage: "Known usages: \'Remove feature\' work type.",
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -2982,7 +2982,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/core/pen',
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: "Known usages: 'Design task' work type.",
+		usage: "Known usages: \'Design task\' work type.",
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -3120,7 +3120,7 @@ const metadata: Record<string, metadata> = {
 		oldName: ['issue-raise'],
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: "Known usages: 'New feature' work type.",
+		usage: "Known usages: \'New feature\' work type.",
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -3953,7 +3953,7 @@ const metadata: Record<string, metadata> = {
 		type: 'core',
 		categorization: 'single-purpose',
 		usage:
-			"Reserved for information statuses and messaging.  Filled status icons provide higher visual contrast to draw attention to important information. For information tooltips, use the unfilled 'information circle' icon.",
+			"Reserved for information statuses and messaging.  Filled status icons provide higher visual contrast to draw attention to important information. For information tooltips, use the unfilled \'information circle\' icon.",
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -4784,7 +4784,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/core/tools',
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: "Known usages: 'Service request' Jira work type.",
+		usage: "Known usages: \'Service request\' Jira work type.",
 		team: 'Design System Team',
 		status: 'published',
 	},

@@ -6,9 +6,9 @@ import { type Ref, useMemo, useRef } from 'react';
 
 import type { RouterLinkComponentProps } from '@atlaskit/app-provider';
 import { cssMap, jsx } from '@atlaskit/css';
+import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 
-import { forwardRefWithGeneric } from '../../components/forward-ref-with-generic';
 import { ListItem } from '../../components/list-item';
 
 import { MenuItemBase } from './menu-item';

@@ -9,6 +9,7 @@ import { cssMap, cx, jsx, keyframes } from '@compiled/react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AvatarContext, type AvatarContextProps } from '@atlaskit/avatar';
+import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Pressable, Text, type TextColor } from '@atlaskit/primitives/compiled';
@@ -18,8 +19,6 @@ import Tooltip, {
 	type TooltipPrimitiveProps,
 	type TooltipProps,
 } from '@atlaskit/tooltip';
-
-import { forwardRefWithGeneric } from '../../components/forward-ref-with-generic';
 
 import { expandableMenuItemIndentation } from './constants';
 import { useLevel } from './expandable-menu-item/expandable-menu-item-context';

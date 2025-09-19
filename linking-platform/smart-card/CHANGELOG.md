@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 42.1.0
+
+### Minor Changes
+
+- [`3f8d5676ea34c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f8d5676ea34c) -
+  Maintain parity between Page and smart-card by passing relevant refs/callbacks
+
+### Patch Changes
+
+- [`a4a837dc45834`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4a837dc45834) -
+  Adds an analytic event to the hover card preview action as part of the preview panel experiment
+
 ## 42.0.4
 
 ### Patch Changes

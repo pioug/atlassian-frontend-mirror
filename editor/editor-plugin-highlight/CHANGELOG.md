@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-highlight
 
+## 5.3.2
+
+### Patch Changes
+
+- [`6af30673f7cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6af30673f7cee) -
+  [ux] Adding padding to the left and right side of highlighted text
+- Updated dependencies
+
 ## 5.3.1
 
 ### Patch Changes

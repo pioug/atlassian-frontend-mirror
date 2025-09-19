@@ -93,6 +93,9 @@
 	"platform-feature-flags": {
 		"platform_editor_adf_with_localid": {
 			"type": "boolean"
+		},
+		"platform_editor_block_menu_selection_fix": {
+			"type": "boolean"
 		}
 	}
 }

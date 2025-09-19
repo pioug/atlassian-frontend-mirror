@@ -87,13 +87,8 @@ export function SmartCardProvider({
 	]);
 
 	const value = useMemo(
-		() =>
-			merge({}, parentContext || providerValue, {
-				isPreviewPanelAvailable,
-				openPreviewPanel,
-				isAdminHubAIEnabled,
-			}),
-		[parentContext, providerValue, isPreviewPanelAvailable, openPreviewPanel, isAdminHubAIEnabled],
+		() => merge({}, parentContext || providerValue, { isPreviewPanelAvailable, openPreviewPanel }),
+		[parentContext, providerValue, isPreviewPanelAvailable, openPreviewPanel],
 	);
 
 	return <SmartCardContext.Provider value={value}>{children}</SmartCardContext.Provider>;

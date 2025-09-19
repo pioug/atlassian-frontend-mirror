@@ -10,10 +10,7 @@ import {
 	listAnalyzeA11yTool,
 	listAnalyzeLocalhostA11yTool,
 } from './tools/analyze-a11y';
-import {
-	getA11yGuidelinesTool,
-	listGetA11yGuidelinesTool,
-} from './tools/get-a11y-guidelines';
+import { getA11yGuidelinesTool, listGetA11yGuidelinesTool } from './tools/get-a11y-guidelines';
 import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
 import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
 import { getComponentsTool, listGetComponentsTool } from './tools/get-components';
@@ -21,10 +18,7 @@ import { listPlanTool, planTool } from './tools/plan';
 import { listSearchComponentsTool, searchComponentsTool } from './tools/search-components';
 import { listSearchIconsTool, searchIconsTool } from './tools/search-icons';
 import { listSearchTokensTool, searchTokensTool } from './tools/search-tokens';
-import {
-	listSuggestA11yFixesTool,
-	suggestA11yFixesTool,
-} from './tools/suggest-a11y-fixes';
+import { listSuggestA11yFixesTool, suggestA11yFixesTool } from './tools/suggest-a11y-fixes';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- this uses require because not all node versions this package supports use the same import assertions/attributes
 const pkgJson = require('@atlaskit/ads-mcp/package.json');

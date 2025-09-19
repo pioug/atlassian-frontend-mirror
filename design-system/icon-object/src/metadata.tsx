@@ -3,9 +3,11 @@
  *
  * To change the format of this file, modify `createIconDocs` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::617f9e8cc692aa7de8e78ee992787e08>>
+ * @codegen <<SignedSource::08d4fd29a2b98c85502e2889d7fc1d98>>
  * @codegenCommand yarn build:icon-glyphs
  */
+/* eslint-disable import/no-extraneous-dependencies -- This import is within the same package, hence self-referential. */
+
 interface Data {
 	keywords: string[];
 	componentName: string;
@@ -416,7 +418,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 	},
 };
 
-const metaData = Object.fromEntries(
+const metaData: Record<string, Omit<Data, 'packageLoader'>> = Object.fromEntries(
 	Object.entries(metaDataWithPackageLoader).map(([key, { packageLoader, ...rest }]) => [key, rest]),
 );
 

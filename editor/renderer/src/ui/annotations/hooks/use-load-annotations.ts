@@ -3,7 +3,6 @@ import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import type { AnnotationState } from '@atlaskit/editor-common/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { ProvidersContext } from '../context';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
 import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
@@ -36,7 +35,7 @@ export const useLoadAnnotations = ({ adfDocument, isNestedRender, onLoadComplete
 		const annotations = actions.getAnnotationMarks();
 		// we don't want to request integrators for state with an empty list of ids.
 		if (!annotations.length) {
-			if (!isNestedRender && fg('use_comments_data_annotation_updater')) {
+			if (!isNestedRender) {
 				// inlineCommentGetState handles empty lists gracefully. It has a side-effect of clearing state, which is why this call is needed
 				inlineCommentGetState([], isNestedRender);
 			}

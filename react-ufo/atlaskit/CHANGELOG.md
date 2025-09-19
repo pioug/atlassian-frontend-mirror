@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.9.0
+
+### Minor Changes
+
+- [`c9fb4a692dc7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9fb4a692dc7d) -
+  Added opt-in functionality to fire an additional metric on Rovo search page loads. This additional
+  metric excludes smart answers related data."
+
 ## 4.8.0
 
 ### Minor Changes

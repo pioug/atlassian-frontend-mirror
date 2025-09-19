@@ -9,6 +9,7 @@ import {
 	TextSelection,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import {
@@ -352,13 +353,39 @@ export const isEmptySelectionAtStart = (state: EditorState): boolean => {
 	const { blockTaskItem } = state.schema.nodes;
 	const { empty, $from } = state.selection;
 
-	// If blockTaskItem is in the schema & the selection is empty
-	if (blockTaskItem && empty && $from.parent.type === blockTaskItem) {
-		const blockTaskItemDepth = $from.depth - 1;
-		const firstPosInBlockTaskItem = $from.start(blockTaskItemDepth) + 1;
+	// If blockTaskItem is in the schema,
+	// we need to check if the selection is inside a blockTaskItem
+	if (blockTaskItem && empty && fg('platform_editor_blocktaskitem_patch_2')) {
+		// If the parent is in a textblock,
+		// check if it's nested inside a blockTaskItem
+		if ($from.parent.isTextblock) {
+			const $posAtStartOfTextBlock = state.doc.resolve($from.start($from.depth - 1));
+			const parentOfTextBlock = $posAtStartOfTextBlock.parent;
 
-		// Is the selection at the first possible position inside the blockTaskItem
-		return $from.pos === firstPosInBlockTaskItem;
+			// If the parent of the textblock is a blockTaskItem,
+			// we need to if the textblock is the first node in the blockTaskItem
+			if (parentOfTextBlock.type === blockTaskItem) {
+				const firstChildOfBlockTaskItem = parentOfTextBlock.firstChild;
+				if (firstChildOfBlockTaskItem === $from.parent) {
+					// If the textblock is the first node in the blockTaskItem,
+					// check if the selection is at the start of the textblock
+					const firstTextPosInTextBlock = $from.start($from.depth);
+					return $from.pos === firstTextPosInTextBlock;
+				} else {
+					return false;
+				}
+			}
+		}
+		// Else, check if the parent is a blockTaskItem
+		else if ($from.parent.type === blockTaskItem) {
+			// Check if the selection is at the start of the blockTaskItem
+			const blockTaskItemDepth = $from.depth - 1;
+			const DISTANCE_FROM_PARENT_FOR_GAP_CURSOR = 1;
+			const firstPosInBlockTaskItem =
+				$from.start(blockTaskItemDepth) + DISTANCE_FROM_PARENT_FOR_GAP_CURSOR;
+
+			return $from.pos === firstPosInBlockTaskItem;
+		}
 	}
 
 	return empty && ($from.parentOffset === 0 || state.selection instanceof GapCursorSelection);

@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.6.4
+
+### Patch Changes
+
+- [`6660e1e7505e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6660e1e7505e4) -
+  Replace tool names containing "accessibility" with "a11y"
+
 ## 0.6.3
 
 ### Patch Changes

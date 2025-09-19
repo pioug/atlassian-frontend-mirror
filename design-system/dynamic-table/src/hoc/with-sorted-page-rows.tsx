@@ -171,6 +171,8 @@ export default function withSortedPageRows<
 	}
 
 	return React.forwardRef<RefType, InternalWithSortedPageRowsProps>((props, ref) => {
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore: to unblock React 18.2.0 -> 18.3.1 version bump in Jira
 		return <WithSortedPageRows {...props} forwardedRef={ref} />;
 	});
 }

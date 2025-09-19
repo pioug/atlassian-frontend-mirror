@@ -51,4 +51,5 @@ export type VCObserverGetVCResultParam = {
 	interactionId?: string;
 	ssr?: number;
 	include3p?: boolean;
+	excludeSmartAnswersInSearch?: boolean;
 };

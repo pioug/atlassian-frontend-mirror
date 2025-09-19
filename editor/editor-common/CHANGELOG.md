@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 109.11.2
+
+### Patch Changes
+
+- [`8314ea8e35421`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8314ea8e35421) -
+  [EDITOR-1632] Fix determining the start of a blockTaskItem
+
 ## 109.11.1
 
 ### Patch Changes

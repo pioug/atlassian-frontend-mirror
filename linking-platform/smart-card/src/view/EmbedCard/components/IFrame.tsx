@@ -35,6 +35,14 @@ export const IFrame = ({
 			hash={confluencePageData.hash}
 			mode={confluencePageData.mode}
 			locale={confluencePageData.locale}
+			iframeRef={childRef}
+			onLoad={props.onLoad}
+			onMouseEnter={props.onMouseEnter}
+			onMouseLeave={props.onMouseLeave}
+			sandbox={props.sandbox}
+			allowedFeatures={confluencePageData.allowedFeatures}
+			themeState={confluencePageData.themeStateObject}
+			userInfo={confluencePageData.userInfo}
 		/>
 	) : (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

@@ -197,11 +197,9 @@ const rangeA11yStyles = css({
 	},
 });
 
-/**
- * __Input__
- * Internal-only styled input component.
- */
-export const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) => {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore: to unblock React 18.2.0 -> 18.3.1 version bump in Jira
+const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) => {
 	const { valuePercent, style, ...strippedProps } = props;
 
 	const input = (
@@ -224,5 +222,13 @@ export const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElem
 		<div css={[trackStyles.root, strippedProps.disabled && trackStyles.disabled]}>{input}</div>
 	);
 });
+
+export {
+	/**
+	 * __Input__
+	 * Internal-only styled input component.
+	 */
+	Input,
+};
 
 Input.displayName = 'InputRange';

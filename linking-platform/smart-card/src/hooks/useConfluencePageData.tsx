@@ -82,13 +82,14 @@ export const useConfluencePageData = (url: string, extensionKey: string) => {
 			calculatedThemeStateObject = { colorMode: themeMode };
 		}
 
+		const calculatedUserInfo = userId && userIdType ? { userId, userIdType } : undefined;
+
 		return {
 			hostname,
 			spaceKey,
 			contentId,
 			parentProduct,
-			userId,
-			userIdType,
+			userInfo: calculatedUserInfo,
 			hash: hash || '',
 			enableInlineComments,
 			enablePageComments,

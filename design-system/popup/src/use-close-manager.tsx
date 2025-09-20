@@ -36,9 +36,10 @@ export const useCloseManager = ({
 
 		const closePopup = (event: Event | React.MouseEvent | React.KeyboardEvent) => {
 			if (onClose) {
-				let currentLevel = null;
+				let currentLevel: string | null = null;
 				if (event.target instanceof HTMLElement) {
-					currentLevel = event.target.closest(`[data-ds--level]`)?.getAttribute('data-ds--level');
+					currentLevel =
+						event.target.closest(`[data-ds--level]`)?.getAttribute('data-ds--level') ?? null;
 				}
 				currentLevel ? onClose(event, Number(currentLevel)) : onClose(event);
 			}

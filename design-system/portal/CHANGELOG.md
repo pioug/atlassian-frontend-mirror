@@ -1,5 +1,12 @@
 # @atlaskit/portal
 
+## 5.1.8
+
+### Patch Changes
+
+- [`042005250a589`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/042005250a589) -
+  Typescript fixes
+
 ## 5.1.7
 
 ### Patch Changes

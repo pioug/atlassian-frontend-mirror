@@ -238,8 +238,11 @@ function canMoveUp(state: EditorState): boolean {
 	}
 
 	if (
-		!expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true) &&
-		selection instanceof TextSelection
+		selection instanceof TextSelection &&
+		!(
+			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+			expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
+		)
 	) {
 		if (!selection.empty) {
 			return true;
@@ -260,8 +263,11 @@ function canMoveDown(state: EditorState): boolean {
 	}
 
 	if (
-		!expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true) &&
-		selection instanceof TextSelection
+		selection instanceof TextSelection &&
+		!(
+			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+			expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
+		)
 	) {
 		if (!selection.empty) {
 			return true;

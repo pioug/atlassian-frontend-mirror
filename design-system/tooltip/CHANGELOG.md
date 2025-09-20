@@ -1,5 +1,13 @@
 # @atlaskit/tooltip
 
+## 20.4.7
+
+### Patch Changes
+
+- [`042005250a589`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/042005250a589) -
+  Typescript fixes
+- Updated dependencies
+
 ## 20.4.6
 
 ### Patch Changes

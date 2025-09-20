@@ -1,5 +1,18 @@
 # @atlaskit/form
 
+## 14.0.0
+
+### Major Changes
+
+- [`a225bfa035441`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a225bfa035441) -
+  Adds simplified rendering pattern for the form component. When rendering with JSX as chilren and
+  not a function as children, the HTML `form` element will be implicitly rendered with props passed
+  down from the ADS form component.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.0
 
 ### Major Changes

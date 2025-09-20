@@ -50,6 +50,7 @@ export const moveNodeWithBlockMenu = (
 				moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.BLOCK_MENU)({ tr });
 				if (
 					tr.selection.empty &&
+					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
 					expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
 				) {
 					const nodeAtCurrentPos = tr.doc.nodeAt(currentNodePos);

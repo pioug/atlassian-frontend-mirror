@@ -462,8 +462,8 @@ function Tooltip({
 
 	// Don't set `data-testid` unless it's defined, as it's not in the interface.
 	if (testId) {
-		// @ts-expect-error - Adding `data-testid` to the TriggerProps interface breaks Buttons.
-		tooltipTriggerProps['data-testid'] = `${testId}--container`;
+		// Adding `data-testid` to the TriggerProps interface breaks Buttons, so we use type assertion
+		(tooltipTriggerProps as any)['data-testid'] = `${testId}--container`;
 	}
 
 	// This useEffect is purely for managing the aria attribute when using the

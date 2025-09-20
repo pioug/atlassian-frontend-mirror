@@ -1,3 +1,4 @@
+/* eslint-disable require-unicode-regexp */
 import {
 	MarkdownSerializer as PMMarkdownSerializer,
 	MarkdownSerializerState as PMMarkdownSerializerState,
@@ -5,7 +6,7 @@ import {
 	type MarkSerializerSpec,
 } from '@atlaskit/editor-prosemirror/markdown';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { escapeMarkdown, stringRepeat } from './util';
+import { escapeMarkdown, stringRepeat, escapeHtmlAttribute } from './util';
 import tableNodes from './tableSerializer';
 
 /**
@@ -15,8 +16,6 @@ import tableNodes from './tableSerializer';
  */
 export const generateOuterBacktickChain: (text: string, minLength?: number) => string = (() => {
 	function getMaxLength(text: string): number {
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
 		const matches = text.match(/`+/g);
 		if (matches) {
 			return matches.reduce((prev, val) => (val.length > prev.length ? val : prev), '').length;
@@ -32,6 +31,7 @@ export const generateOuterBacktickChain: (text: string, minLength?: number) => s
 
 export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	context = { insideTable: false };
+	captionForMedia = '';
 
 	nodes: NodeSerializerSpec;
 	marks: { [mark: string]: MarkSerializerSpec };
@@ -263,6 +263,33 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	}
 }
 
+/**
+ * Render caption content as markdown text by applying marks directly
+ * This avoids creating temporary serializer states
+ */
+function renderCaptionAsMarkdown(node: PMNode, state: MarkdownSerializerState): string {
+	let result = '';
+	node.descendants((child, pos) => {
+		if (child.type.name === 'text') {
+			let text = child.text || '';
+			// Apply marks using the existing mark serializers
+			child.marks.forEach((mark) => {
+				const markSerializer = state.marks[mark.type.name];
+				if (
+					markSerializer &&
+					typeof markSerializer.open === 'string' &&
+					typeof markSerializer.close === 'string'
+				) {
+					text = markSerializer.open + text + markSerializer.close;
+				}
+			});
+			result += text;
+		}
+		return false; // Don't recurse further
+	});
+	return result;
+}
+
 export class MarkdownSerializer extends PMMarkdownSerializer {
 	serialize(content: PMNode): string {
 		const state = new MarkdownSerializerState(this.nodes, this.marks);
@@ -355,30 +382,25 @@ const editorNodes = {
 		}
 	},
 	mediaSingle(state: MarkdownSerializerState, node: PMNode, parent: PMNode) {
-		let mediaNode: PMNode | null = null;
-		let captionNode: PMNode | null = null;
+		// First pass: collect caption if it exists (always enabled for now - can be made configurable later)
+		let captionText = '';
+		for (let i = 0; i < node.childCount; i++) {
+			const child = node.child(i);
+			if (child.type.name === 'caption') {
+				captionText = renderCaptionAsMarkdown(child, state);
+				break;
+			}
+		}
 
-		// Separate media and caption nodes
+		// Store caption for media serializer to use
+		state.captionForMedia = captionText ? escapeHtmlAttribute(captionText) : '';
+
+		// Second pass: render only media nodes (caption serializer will be a no-op)
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
 			if (child.type.name === 'media') {
-				mediaNode = child;
-			} else if (child.type.name === 'caption') {
-				captionNode = child;
+				state.render(child, node, i);
 			}
-		}
-
-		// Render media first
-		if (mediaNode) {
-			state.render(mediaNode, node, 0);
-		}
-
-		// Render caption if present
-		if (captionNode) {
-			if (!parent.type.name.startsWith('table')) {
-				state.write('\n');
-			}
-			state.render(captionNode, node, 1);
 		}
 
 		// Add newline after mediaSingle if not in table
@@ -395,8 +417,15 @@ const editorNodes = {
 			? ` data-layout='${parent.attrs.layout}'`
 			: '';
 
+		// Check if caption was set by the mediaSingle serializer
+		const captionText = state.captionForMedia || '';
+		const captionAttributeMarkdown = captionText ? ` data-caption='${captionText}'` : '';
+
 		const nodeAttributesMarkdown =
-			widthAttributeMarkdown + widthTypeAttributeMarkdown + layoutAttributeMarkdown;
+			widthAttributeMarkdown +
+			widthTypeAttributeMarkdown +
+			layoutAttributeMarkdown +
+			captionAttributeMarkdown;
 
 		if (nodeAttributesMarkdown) {
 			state.write(`![](${node.attrs.url}){:${nodeAttributesMarkdown} }`);
@@ -466,13 +495,11 @@ const editorNodes = {
 		state.write(`[${node.attrs.url}](${node.attrs.url}){: data-inline-card='' }`);
 	},
 	caption(state: MarkdownSerializerState, node: PMNode, parent: PMNode) {
-		// Render caption content as plain text (not italic)
-		// In table context, render inline without extra newlines
-		if (parent.type.name.startsWith('table')) {
-			state.renderInline(node);
+		if (parent.type.name === 'mediaSingle') {
+			// Caption is already handled by mediaSingle serializer - do nothing
 		} else {
+			// Normal caption rendering for other contexts
 			state.renderInline(node);
-			state.closeBlock(node);
 		}
 	},
 };

@@ -259,12 +259,10 @@ export default function Form<FormValues extends Record<string, any> = {}>(
 					: (children as () => ReactNode | void)();
 			return result === undefined ? null : result;
 		} else {
-			return fg('platform_design-system-team_form-upgrade') ? (
+			return (
 				<form {...formProps} {...userProvidedFormProps}>
 					{children}
 				</form>
-			) : (
-				children
 			);
 		}
 	})();

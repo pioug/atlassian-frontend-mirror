@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-panel
 
+## 7.2.2
+
+### Patch Changes
+
+- [`b878645133984`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b878645133984) -
+  [ux] Adds revised ranks to use in Turn into menu. It will group the headings together at the top
+  of the menu.
+- Updated dependencies
+
 ## 7.2.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-panel",
-	"version": "7.2.1",
+	"version": "7.2.2",
 	"description": "Panel plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -97,6 +97,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {
+			"type": "boolean"
+		},
+		"platform_editor_block_menu_format_rank_revised": {
 			"type": "boolean"
 		}
 	},

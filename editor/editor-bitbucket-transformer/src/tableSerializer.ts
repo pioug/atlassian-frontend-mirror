@@ -1,4 +1,4 @@
-import type { MarkdownSerializerState } from '@atlaskit/editor-prosemirror/markdown';
+import type { MarkdownSerializerState } from './serializer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 const isHeaderRow = (row: PMNode): boolean => row.child(0).type.name === 'tableHeader';
@@ -18,17 +18,21 @@ const renderNode = (state: MarkdownSerializerState, node: PMNode, index: number)
 		state.write(' ');
 	}
 	node.content.forEach((child: PMNode, i: number) => {
-		if (child.isTextblock || child.type.name === 'mediaSingle') {
+		if (child.isTextblock) {
 			if (i > 0) {
 				state.write(' ');
 			}
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(state as any).context.insideTable = true;
+			state.context.insideTable = true;
 			state.renderInline(child);
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(state as any).context.insideTable = false;
+			state.context.insideTable = false;
+		} else if (child.type.name === 'mediaSingle') {
+			if (i > 0) {
+				state.write(' ');
+			}
+			// Use the proper mediaSingle serializer instead of renderInline
+			state.context.insideTable = true;
+			state.render(child, node, i);
+			state.context.insideTable = false;
 		} else {
 			renderNode(state, child, i);
 		}

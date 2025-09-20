@@ -69,6 +69,8 @@ export const createAtlaskitPortal = (zIndex: number | string) => {
 		atlaskitportal.style.zIndex = `${zIndex}`;
 		return atlaskitportal;
 	}
+
+	return;
 };
 
 export const createPortalParent = () => {
@@ -84,4 +86,6 @@ export const createPortalParent = () => {
 		}
 		return parentElement;
 	}
+
+	return;
 };

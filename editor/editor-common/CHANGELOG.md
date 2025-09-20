@@ -1,5 +1,16 @@
 # @atlaskit/editor-common
 
+## 109.11.3
+
+### Patch Changes
+
+- [`b878645133984`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b878645133984) -
+  [ux] Adds revised ranks to use in Turn into menu. It will group the headings together at the top
+  of the menu.
+- [`b878645133984`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b878645133984) -
+  [ux] Updates priority of items in the Turn into menu of the block menu to group all headings at
+  the top.
+
 ## 109.11.2
 
 ### Patch Changes

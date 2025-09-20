@@ -1,3 +1,4 @@
+/* eslint-disable require-unicode-regexp */
 // File has been copied to packages/editor/editor-plugin-ai/src/provider/prosemirror-transformer/utils/utils.ts
 // If changes are made to this file, please make the same update in the linked file.
 
@@ -28,15 +29,63 @@ export function escapeMarkdown(str: string, startOfLine?: boolean, insideTable?:
 			// eslint-disable-next-line require-unicode-regexp
 			.replace(/^[#-&(-*]/, '\\$&') // Don't escape ' character
 			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
 			.replace(/^(\d+)\./, '$1\\.');
 	}
 	if (insideTable) {
 		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
 		strToEscape = strToEscape.replace(/[|]/g, '\\$&');
 	}
 	return strToEscape;
+}
+
+/**
+ * Safely escape text for HTML attribute values
+ * Extends the existing escapeHtmlEntities pattern to include single quotes and ampersands
+ */
+export function escapeHtmlAttribute(text: string): string {
+	// Based on the existing escapeHtmlEntities pattern from editor-test-helpers
+	// but extended for complete attribute escaping including quotes and ampersands
+	return text
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#39;');
+}
+
+/**
+ * Safely unescape HTML attribute values back to text
+ * Based on the existing unescapeHtmlEntities pattern but extended for all attribute entities
+ */
+export function unescapeHtmlAttribute(text: string): string {
+	// Must be done in reverse order to avoid double-unescaping
+	return text
+		.replace(/&gt;/g, '>')
+		.replace(/&lt;/g, '<')
+		.replace(/&quot;/g, '"')
+		.replace(/&#39;/g, "'")
+		.replace(/&amp;/g, '&'); // Must be last
+}
+
+// Pre-compiled regex patterns for performance - compiled once, used many times
+const MARKDOWN_PATTERNS = {
+	bold: /\*\*([^*]+)\*\*/g,
+	italic: /_([^_]+)_/g,
+	strikethrough: /~~([^~]+)~~/g,
+	code: /`([^`]+)`/g,
+} as const;
+
+/**
+ * Parse markdown formatting using pre-compiled regex patterns
+ * This is more efficient than creating regex patterns every time
+ * and safer than manual string replacement
+ */
+export function parseMarkdownFormatting(text: string): string {
+	return text
+		.replace(MARKDOWN_PATTERNS.bold, '<strong>$1</strong>')
+		.replace(MARKDOWN_PATTERNS.italic, '<em>$1</em>')
+		.replace(MARKDOWN_PATTERNS.strikethrough, '<s>$1</s>')
+		.replace(MARKDOWN_PATTERNS.code, '<code>$1</code>');
 }
 
 // Ignored via go/ees005
@@ -103,7 +152,7 @@ export function transformHtml(
 			suggestionDiv.setAttribute('data-local-id', index.toString());
 			// remove trailing newline from suggestion text
 			// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-			const suggestionText = div.textContent ? div.textContent.replace(/\n$/u, '') : '';
+			const suggestionText = div.textContent ? div.textContent.replace(/\n$/, '') : '';
 			suggestionDiv.setAttribute(
 				'data-parameters',
 				JSON.stringify({
@@ -297,6 +346,8 @@ export function transformHtml(
 				// Option 3: Check for data-caption attribute
 				if (!captionText && img.getAttribute('data-caption')) {
 					captionText = img.getAttribute('data-caption') || '';
+					// Properly unescape HTML entities that were escaped during serialization
+					captionText = unescapeHtmlAttribute(captionText);
 				}
 			}
 
@@ -349,7 +400,25 @@ export function transformHtml(
 			if (options.shouldParseCaptions && captionText.trim()) {
 				const caption = document.createElement('div');
 				caption.setAttribute('data-node-type', 'caption');
-				caption.textContent = captionText;
+
+				// Parse markdown formatting into HTML elements
+				// This converts common markdown patterns to their HTML equivalents
+				// which ProseMirror can then parse into the correct ADF nodes
+				let parsedContent = captionText;
+
+				// Escape HTML entities first to prevent XSS
+				parsedContent = parsedContent
+					.replace(/&/g, '&amp;')
+					.replace(/</g, '&lt;')
+					.replace(/>/g, '&gt;')
+					.replace(/"/g, '&quot;')
+					.replace(/'/g, '&#39;');
+
+				// Parse different marks that may exist in markdown using pre-compiled patterns
+				parsedContent = parseMarkdownFormatting(parsedContent);
+
+				caption.innerHTML = parsedContent;
+
 				mediaSingle.appendChild(caption);
 			}
 

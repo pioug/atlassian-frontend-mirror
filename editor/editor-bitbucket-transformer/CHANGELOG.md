@@ -1,5 +1,13 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 9.5.0
+
+### Minor Changes
+
+- [`98d104a751f58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98d104a751f58) -
+  Media captions will now be serialized as data attributes, rather than a paragraph node which was
+  not reversible.
+
 ## 9.4.3
 
 ### Patch Changes

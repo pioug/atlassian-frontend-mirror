@@ -1002,7 +1002,7 @@ describe('BitbucketTransformer: serializer', () => {
 	});
 
 	describe('media with captions', () => {
-		it('should serialize mediaSingle with simple caption', () => {
+		it('should serialize mediaSingle with simple caption as data attribute', () => {
 			expect(
 				markdownSerializer.serialize(
 					doc(
@@ -1013,11 +1013,11 @@ describe('BitbucketTransformer: serializer', () => {
 					)(defaultSchema),
 				),
 			).toEqual(
-				"![](http://path/to/image.jpg){: data-layout='center' }\nThis is a simple caption\n\n\n",
+				"![](http://path/to/image.jpg){: data-layout='center' data-caption='This is a simple caption' }\n",
 			);
 		});
 
-		it('should serialize mediaSingle with complex caption content', () => {
+		it('should serialize mediaSingle with complex caption content as data attribute', () => {
 			expect(
 				markdownSerializer.serialize(
 					doc(
@@ -1028,7 +1028,7 @@ describe('BitbucketTransformer: serializer', () => {
 					)(defaultSchema),
 				),
 			).toEqual(
-				"![](http://path/to/image.jpg){: data-layout='center' }\nCaption with **bold** and _italic_ text\n\n\n",
+				"![](http://path/to/image.jpg){: data-layout='center' data-caption='Caption with **bold** and _italic_ text' }\n",
 			);
 		});
 
@@ -1043,7 +1043,7 @@ describe('BitbucketTransformer: serializer', () => {
 					)(defaultSchema),
 				),
 			).toEqual(
-				"![](http://path/to/image.jpg){: data-width='50.5' data-width-type='percentage' data-layout='align-start' }\nImage with resizing and caption\n\n\n",
+				"![](http://path/to/image.jpg){: data-width='50.5' data-width-type='percentage' data-layout='align-start' data-caption='Image with resizing and caption' }\n",
 			);
 		});
 
@@ -1075,7 +1075,29 @@ describe('BitbucketTransformer: serializer', () => {
 					)(defaultSchema),
 				),
 			).toEqual(
-				"| Header |\n| --- |\n| ![](http://path/to/image.jpg){: data-layout='center' }Table caption\n\n |\n",
+				"| Header |\n| --- |\n| ![](http://path/to/image.jpg){: data-layout='center' data-caption='Table caption' } |\n",
+			);
+		});
+
+		it('should serialize table cell with text and mediaSingle with proper spacing', () => {
+			expect(
+				markdownSerializer.serialize(
+					table()(
+						tr(th({})(p('Header'))),
+						tr(
+							td({})(
+								p('Some text before image'),
+								mediaSingle()(
+									media({ url: 'http://path/to/image.jpg', type: 'external' })(),
+									caption('Image caption'),
+								),
+								p('Some text after image'),
+							),
+						),
+					)(defaultSchema),
+				),
+			).toEqual(
+				"| Header |\n| --- |\n| Some text before image ![](http://path/to/image.jpg){: data-layout='center' data-caption='Image caption' } Some text after image |\n",
 			);
 		});
 
@@ -1089,7 +1111,7 @@ describe('BitbucketTransformer: serializer', () => {
 						),
 					)(defaultSchema),
 				),
-			).toEqual("![](http://path/to/image.jpg){: data-layout='center' }\n\n\n");
+			).toEqual("![](http://path/to/image.jpg){: data-layout='center' }\n");
 		});
 
 		it('should serialize multiple mediaSingle with captions', () => {
@@ -1108,7 +1130,22 @@ describe('BitbucketTransformer: serializer', () => {
 					)(defaultSchema),
 				),
 			).toEqual(
-				"![](http://path/to/image1.jpg){: data-layout='center' }\nFirst image caption\n\n\nSome text between images\n\n![](http://path/to/image2.jpg){: data-layout='center' }\nSecond image caption\n\n\n",
+				"![](http://path/to/image1.jpg){: data-layout='center' data-caption='First image caption' }\nSome text between images\n\n![](http://path/to/image2.jpg){: data-layout='center' data-caption='Second image caption' }\n",
+			);
+		});
+
+		it('should escape single quotes in caption data attributes', () => {
+			expect(
+				markdownSerializer.serialize(
+					doc(
+						mediaSingle({ layout: 'center' })(
+							media({ url: 'http://path/to/image.jpg', type: 'external' })(),
+							caption("Caption with 'single quotes'"),
+						),
+					)(defaultSchema),
+				),
+			).toEqual(
+				"![](http://path/to/image.jpg){: data-layout='center' data-caption='Caption with &#39;single quotes&#39;' }\n",
 			);
 		});
 	});

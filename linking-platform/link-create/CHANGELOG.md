@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 4.4.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.8
 
 ### Patch Changes

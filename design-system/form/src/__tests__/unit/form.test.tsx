@@ -187,86 +187,39 @@ describe('Form', () => {
 	});
 
 	describe('formProps/non-functional `children`', () => {
-		describe('should render a `form` element if children is not a function', () => {
-			ffTest(
-				'platform_design-system-team_form-upgrade',
-				() => {
-					render(
-						<Form onSubmit={__noop} formProps={{ 'data-testid': testId }}>
-							<p>Test!</p>
-						</Form>,
-					);
-
-					expect(screen.getByTestId(testId).tagName).toBe('FORM');
-				},
-				() => {
-					render(
-						<Form onSubmit={__noop} formProps={{ 'data-testid': testId }}>
-							<p>Test!</p>
-						</Form>,
-					);
-
-					expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
-				},
+		it('should render a `form` element if children is not a function', () => {
+			render(
+				<Form onSubmit={__noop} formProps={{ 'data-testid': testId }}>
+					<p>Test!</p>
+				</Form>,
 			);
+
+			expect(screen.getByTestId(testId).tagName).toBe('FORM');
 		});
 
-		describe('should add `onSubmit` to internally rendered `form`', () => {
-			ffTest(
-				'platform_design-system-team_form-upgrade',
-				async () => {
-					const onSubmit = jest.fn();
+		it('should add `onSubmit` to internally rendered `form`', async () => {
+			const onSubmit = jest.fn();
 
-					render(
-						<Form onSubmit={onSubmit}>
-							<input type="submit" value="Submit" />
-						</Form>,
-					);
-
-					const submitButton = screen.getByRole('button');
-					expect(onSubmit).not.toHaveBeenCalled();
-					await user.click(submitButton);
-					expect(onSubmit).toHaveBeenCalled();
-				},
-				async () => {
-					const onSubmit = jest.fn();
-
-					render(
-						<Form onSubmit={onSubmit}>
-							<input type="submit" value="Submit" />
-						</Form>,
-					);
-
-					const submitButton = screen.getByRole('button');
-					expect(onSubmit).not.toHaveBeenCalled();
-					await user.click(submitButton);
-					expect(onSubmit).not.toHaveBeenCalled();
-				},
+			render(
+				<Form onSubmit={onSubmit}>
+					<input type="submit" value="Submit" />
+				</Form>,
 			);
+
+			const submitButton = screen.getByRole('button');
+			expect(onSubmit).not.toHaveBeenCalled();
+			await user.click(submitButton);
+			expect(onSubmit).toHaveBeenCalled();
 		});
 
-		describe('should spread formProps on internal HTML `form` element', () => {
-			ffTest(
-				'platform_design-system-team_form-upgrade',
-				() => {
-					render(
-						<Form onSubmit={__noop} formProps={{ noValidate: true, 'data-testid': testId }}>
-							<p>Test!</p>
-						</Form>,
-					);
-
-					expect(screen.getByTestId(testId)).toHaveAttribute('noValidate');
-				},
-				() => {
-					render(
-						<Form onSubmit={__noop} formProps={{ noValidate: true, 'data-testid': testId }}>
-							<p>Test!</p>
-						</Form>,
-					);
-
-					expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
-				},
+		it('should spread formProps on internal HTML `form` element', () => {
+			render(
+				<Form onSubmit={__noop} formProps={{ noValidate: true, 'data-testid': testId }}>
+					<p>Test!</p>
+				</Form>,
 			);
+
+			expect(screen.getByTestId(testId)).toHaveAttribute('noValidate');
 		});
 	});
 

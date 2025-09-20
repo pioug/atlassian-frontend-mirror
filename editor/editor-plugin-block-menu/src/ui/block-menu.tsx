@@ -103,15 +103,13 @@ const BlockMenu = ({
 		: (editorView?.hasFocus() ?? false);
 
 	const hasSelection = !!editorView && !editorView.state.selection.empty;
-	const emptyLineEnabled = expValEqualsNoExposure(
-		'platform_editor_block_menu_empty_line',
-		'isEnabled',
-		true,
-	);
 
 	// hasSelection true, always show block menu
 	// hasSelection false, only show block menu when empty line experiment is enabled
-	const shouldShowBlockMenuForEmptyLine = hasSelection || (emptyLineEnabled && !hasSelection);
+	const shouldShowBlockMenuForEmptyLine =
+		hasSelection ||
+		(!hasSelection &&
+			expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true));
 
 	useEffect(() => {
 		if (

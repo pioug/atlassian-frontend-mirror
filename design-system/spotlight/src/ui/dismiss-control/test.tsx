@@ -8,9 +8,12 @@ const testId = 'spotlight';
 
 describe('SpotlightDismissControl', () => {
 	it('captures and report a11y violations', async () => {
-		const { container } = render(<SpotlightDismissControl testId={testId} />);
+		const ref = React.createRef<HTMLButtonElement>();
+
+		const { container } = render(<SpotlightDismissControl ref={ref} testId={testId} />);
 
 		await expect(container).toBeAccessible();
+		await expect(ref.current).toHaveAttribute('aria-label', 'Dismiss');
 	});
 
 	it('finds Spotlight by its testid', async () => {

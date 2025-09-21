@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 109.11.4
+
+### Patch Changes
+
+- [`ef686b3cfdbff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef686b3cfdbff) -
+  ED-29222: Make empty line experiment dependent on block menu
+
 ## 109.11.3
 
 ### Patch Changes

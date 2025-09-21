@@ -42,6 +42,11 @@ export interface SpotlightPrimaryActionProps {
 	 * The action to take when the button is clicked.
 	 */
 	onClick?: PressableProps['onClick'];
+
+	/**
+	 * An accessible label to read out in the event that the displayed text does not provide anough context.
+	 */
+	'aria-label'?: string;
 }
 
 /**
@@ -52,9 +57,15 @@ export interface SpotlightPrimaryActionProps {
  *
  */
 export const SpotlightPrimaryAction = forwardRef<HTMLButtonElement, SpotlightPrimaryActionProps>(
-	({ onClick, children, testId }: SpotlightPrimaryActionProps, ref) => {
+	({ 'aria-label': ariaLabel, onClick, children, testId }: SpotlightPrimaryActionProps, ref) => {
 		return (
-			<Pressable ref={ref} testId={testId} xcss={styles.root} onClick={onClick}>
+			<Pressable
+				aria-label={ariaLabel}
+				ref={ref}
+				testId={testId}
+				xcss={styles.root}
+				onClick={onClick}
+			>
 				<Text as="span">{children}</Text>
 			</Pressable>
 		);

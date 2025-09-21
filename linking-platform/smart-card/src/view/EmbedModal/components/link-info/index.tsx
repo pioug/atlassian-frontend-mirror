@@ -182,6 +182,7 @@ const LinkInfo = ({
 				<Heading size="small" color="color.text" testId={`${testId}-title`}>
 					{title}
 				</Heading>
+				{/* eslint-disable-next-line @atlassian/a11y/no-aria-hidden-on-focusable -- TODO: Focusable elements should not have aria-hidden. See https://go/a11y-no-aria-hidden-on-focusable for more details. */}
 				<span tabIndex={0} role="button" aria-hidden={true} />
 			</div>
 			<div css={actionCss}>

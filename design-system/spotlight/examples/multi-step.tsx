@@ -81,7 +81,7 @@ export default () => {
 					<SpotlightFooter>
 						<SpotlightStepCount>2 of 3</SpotlightStepCount>
 						<SpotlightActions>
-							<SpotlightSecondaryAction>Prev</SpotlightSecondaryAction>
+							<SpotlightSecondaryAction>Back</SpotlightSecondaryAction>
 							<SpotlightPrimaryAction>Next</SpotlightPrimaryAction>
 						</SpotlightActions>
 					</SpotlightFooter>
@@ -103,7 +103,7 @@ export default () => {
 					<SpotlightFooter>
 						<SpotlightStepCount>2 of 3</SpotlightStepCount>
 						<SpotlightActions>
-							<SpotlightSecondaryAction>Prev</SpotlightSecondaryAction>
+							<SpotlightSecondaryAction>Back</SpotlightSecondaryAction>
 							<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
 						</SpotlightActions>
 					</SpotlightFooter>

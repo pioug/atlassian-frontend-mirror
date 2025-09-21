@@ -38,6 +38,12 @@ const visibilityStyles = cssMap({
 const offset: [number, number] = [0, 2];
 
 interface PopoverContentProps {
+	/**
+	 * A `testId` prop is provided for specified elements, which is a unique
+	 * string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests
+	 */
+	testId?: string;
 	placement: Placement;
 	isVisible?: boolean;
 	children: ReactNode;
@@ -70,8 +76,13 @@ const popperPlacementMap: Record<
  *
  * A `PopoverContent` is the element that is shown as a popover.
  */
-export const PopoverContent = ({ children, placement, isVisible = true }: PopoverContentProps) => {
-	const { setPlacement } = useContext(SpotlightContext);
+export const PopoverContent = ({
+	children,
+	placement,
+	isVisible = true,
+	testId,
+}: PopoverContentProps) => {
+	const { setPlacement, heading } = useContext(SpotlightContext);
 	const visibility = isVisible ? 'visible' : 'hidden';
 
 	useEffect(() => {
@@ -81,8 +92,15 @@ export const PopoverContent = ({ children, placement, isVisible = true }: Popove
 	return (
 		<Popper offset={offset} placement={popperPlacementMap[placement]}>
 			{({ ref, style }) => (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				<div ref={ref} style={style} css={[styles.root, visibilityStyles[visibility]]}>
+				<div
+					role="dialog"
+					data-testid={testId}
+					aria-labelledby={heading.id}
+					ref={ref}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					style={style}
+					css={[styles.root, visibilityStyles[visibility]]}
+				>
 					{children}
 				</div>
 			)}

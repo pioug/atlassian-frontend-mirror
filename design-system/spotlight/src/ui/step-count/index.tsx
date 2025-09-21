@@ -6,6 +6,7 @@ import { forwardRef, type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 const styles = cssMap({
 	root: {
@@ -38,7 +39,7 @@ export const SpotlightStepCount = forwardRef<HTMLSpanElement, SpotlightStepCount
 		return (
 			<Flex xcss={styles.root}>
 				<Text ref={ref} testId={testId}>
-					{children}
+					{children} <VisuallyHidden>steps</VisuallyHidden>
 				</Text>
 			</Flex>
 		);

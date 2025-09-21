@@ -2,10 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, type ReactNode } from 'react';
+import { forwardRef, type ReactNode, useContext } from 'react';
 
 import { jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
+
+import { SpotlightContext } from '../../controllers/context';
 
 export interface SpotlightHeadlineProps {
 	/**
@@ -29,8 +31,10 @@ export interface SpotlightHeadlineProps {
  */
 export const SpotlightHeadline = forwardRef<HTMLHeadingElement, SpotlightHeadlineProps>(
 	({ children, testId }: SpotlightHeadlineProps, ref) => {
+		const { heading } = useContext(SpotlightContext);
+
 		return (
-			<Heading ref={ref} testId={testId} size="xsmall">
+			<Heading id={heading.id} ref={ref} testId={testId} size="xsmall">
 				{children}
 			</Heading>
 		);

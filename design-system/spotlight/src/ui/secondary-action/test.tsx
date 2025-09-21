@@ -8,15 +8,19 @@ const testId = 'spotlight';
 
 describe('SpotlightSecondaryAction', () => {
 	it('captures and report a11y violations', async () => {
+		const ref = React.createRef<HTMLButtonElement>();
 		const { container } = render(
-			<SpotlightSecondaryAction testId={testId}>Prev</SpotlightSecondaryAction>,
+			<SpotlightSecondaryAction ref={ref} aria-label="Go to the previous step" testId={testId}>
+				Back
+			</SpotlightSecondaryAction>,
 		);
 
 		await expect(container).toBeAccessible();
+		await expect(ref.current).toHaveAttribute('aria-label', 'Go to the previous step');
 	});
 
 	it('finds Spotlight by its testid', async () => {
-		render(<SpotlightSecondaryAction testId={testId}>Prev</SpotlightSecondaryAction>);
+		render(<SpotlightSecondaryAction testId={testId}>Back</SpotlightSecondaryAction>);
 
 		expect(screen.getByTestId(testId)).toBeTruthy();
 	});

@@ -47,7 +47,13 @@ export interface SpotlightDismissControlProps {
 export const SpotlightDismissControl = forwardRef<HTMLButtonElement, SpotlightDismissControlProps>(
 	({ onClick, testId }: SpotlightDismissControlProps, ref) => {
 		return (
-			<Pressable xcss={styles.root} onClick={onClick} ref={ref} testId={testId}>
+			<Pressable
+				aria-label="Dismiss"
+				xcss={styles.root}
+				onClick={onClick}
+				ref={ref}
+				testId={testId}
+			>
 				<CrossIcon label="Close" />
 			</Pressable>
 		);

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 6.3.6
+
+### Patch Changes
+
+- [`ef686b3cfdbff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef686b3cfdbff) -
+  ED-29222: Make empty line experiment dependent on block menu
+- Updated dependencies
+
 ## 6.3.5
 
 ### Patch Changes

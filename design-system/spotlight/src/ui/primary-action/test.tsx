@@ -8,11 +8,15 @@ const testId = 'spotlight';
 
 describe('SpotlightPrimaryAction', () => {
 	it('captures and report a11y violations', async () => {
+		const ref = React.createRef<HTMLButtonElement>();
 		const { container } = render(
-			<SpotlightPrimaryAction testId={testId}>Done</SpotlightPrimaryAction>,
+			<SpotlightPrimaryAction ref={ref} aria-label="Go to the next step" testId={testId}>
+				Done
+			</SpotlightPrimaryAction>,
 		);
 
 		await expect(container).toBeAccessible();
+		await expect(ref.current).toHaveAttribute('aria-label', 'Go to the next step');
 	});
 
 	it('finds Spotlight by its testid', async () => {

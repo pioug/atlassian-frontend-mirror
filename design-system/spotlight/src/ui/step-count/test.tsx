@@ -21,8 +21,8 @@ describe('SpotlightStepCount', () => {
 
 	it('forwards ref correctly', () => {
 		const ref = React.createRef<HTMLDivElement>();
-		render(<SpotlightStepCount ref={ref}>Hello, world!</SpotlightStepCount>);
+		render(<SpotlightStepCount ref={ref}>1 of 3</SpotlightStepCount>);
 		expect(ref.current).toBeDefined();
-		expect(ref.current?.textContent).toEqual('Hello, world!');
+		expect(ref.current?.textContent).toEqual('1 of 3 steps');
 	});
 });

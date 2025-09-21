@@ -50,7 +50,7 @@ export default function Basic() {
 				</SpotlightBody>
 				<SpotlightFooter>
 					<SpotlightActions>
-						<SpotlightSecondaryAction>Prev</SpotlightSecondaryAction>
+						<SpotlightSecondaryAction>Back</SpotlightSecondaryAction>
 						<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
 					</SpotlightActions>
 				</SpotlightFooter>

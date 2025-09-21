@@ -114,7 +114,7 @@ export default () => {
 								<SpotlightStepCount>2 of 3</SpotlightStepCount>
 								<SpotlightActions>
 									<SpotlightSecondaryAction onClick={() => setCurrentStep('step-1')}>
-										Prev
+										Back
 									</SpotlightSecondaryAction>
 									<SpotlightPrimaryAction onClick={() => setCurrentStep('step-3')}>
 										Next
@@ -146,7 +146,7 @@ export default () => {
 								<SpotlightStepCount>3 of 3</SpotlightStepCount>
 								<SpotlightActions>
 									<SpotlightSecondaryAction onClick={() => setCurrentStep('step-2')}>
-										Prev
+										Back
 									</SpotlightSecondaryAction>
 									<SpotlightPrimaryAction onClick={() => setCurrentStep(undefined)}>
 										Done

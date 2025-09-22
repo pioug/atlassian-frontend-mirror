@@ -591,6 +591,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-09-16
+	platform_editor_emoji_otp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_emoji_otp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-23
 	platform_editor_renderer_breakout_fix: createBooleanExperiment({
 		productKeys: {
@@ -1020,6 +1028,14 @@ export const editorExperimentsConfig = {
 	platform_editor_layout_node_view_early_exit: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_layout_node_view_early_exit',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-16
+	platform_editor_nested_table_refresh_width_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_nested_table_refresh_width_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

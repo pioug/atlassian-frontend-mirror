@@ -118,7 +118,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.59.2",
+	"version": "0.59.3",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -130,9 +130,6 @@
 		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/teams-public/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-public/src/**\", \"!packages/people-and-teams/teams-public/src/**/**/types.ts\", \"!packages/people-and-teams/teams-public/src/ui/**/styled.tsx\"]')"
 	},
 	"platform-feature-flags": {
-		"loom_tab_in_container_linker_team_profile_page": {
-			"type": "boolean"
-		},
 		"enable_medium_size_icons_for_team_link_cards": {
 			"type": "boolean"
 		},

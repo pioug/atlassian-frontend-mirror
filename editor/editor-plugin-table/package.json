@@ -132,9 +132,6 @@
 		"platform_editor_nested_tables_view_mode_sort": {
 			"type": "boolean"
 		},
-		"disable-sticky-scrollbar-for-nested-tables": {
-			"type": "boolean"
-		},
 		"platform_editor_nested_tables_sticky_header_bug": {
 			"type": "boolean"
 		},

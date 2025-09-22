@@ -7,8 +7,11 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
+import { useToolbarUI } from '../hooks/ui-context';
+
 import type { ResponsiveContainerProps } from './ResponsiveContainer';
 import { ResponsiveContainer, ResponsiveWrapper } from './ResponsiveContainer';
+import { ToolbarKeyboardNavigationProvider } from './ToolbarKeyboardNavigationProvider';
 import { ACTION_SUBJECT, ViewEventEmitter, type ViewEventEmitterProps } from './ViewEventEmitter';
 
 const styles = cssMap({
@@ -57,6 +60,7 @@ type ToolbarProps = {
 	 * use case: query select the toolbar to position floating toolbar
 	 */
 	label: string;
+	testId?: string;
 } & ViewEventEmitterProps;
 
 /**
@@ -64,7 +68,7 @@ type ToolbarProps = {
  *
  * @note: Responsiveness support replies on container query with container editor-area and media query
  */
-export const Toolbar = ({ children, label, actionSubjectId }: ToolbarProps) => {
+export const Toolbar = ({ children, label, actionSubjectId, testId }: ToolbarProps) => {
 	const isResponsiveEnabled = expValEquals(
 		'platform_editor_aifc_selection_toolbar_responsive',
 		'isEnabled',
@@ -82,6 +86,7 @@ export const Toolbar = ({ children, label, actionSubjectId }: ToolbarProps) => {
 			)}
 			role="toolbar"
 			aria-label={label}
+			testId={testId}
 		>
 			{expValEquals('platform_editor_toolbar_aifc_toolbar_analytic', 'isEnabled', true) ? (
 				<ViewEventEmitter
@@ -93,10 +98,38 @@ export const Toolbar = ({ children, label, actionSubjectId }: ToolbarProps) => {
 		</Box>
 	);
 
+	let wrappedToolbar = toolbar;
+
+	const { keyboardNavigation } = useToolbarUI();
+	if (keyboardNavigation) {
+		const {
+			childComponentSelector,
+			dom,
+			handleEscape,
+			handleFocus,
+			isShortcutToFocusToolbar,
+			ariaControls,
+			ariaLabel,
+		} = keyboardNavigation;
+		wrappedToolbar = (
+			<ToolbarKeyboardNavigationProvider
+				childComponentSelector={childComponentSelector}
+				dom={dom}
+				isShortcutToFocusToolbar={isShortcutToFocusToolbar}
+				handleEscape={handleEscape}
+				handleFocus={handleFocus}
+				ariaControls={ariaControls}
+				ariaLabel={ariaLabel}
+			>
+				{toolbar}
+			</ToolbarKeyboardNavigationProvider>
+		);
+	}
+
 	if (isResponsiveEnabled) {
-		return <ResponsiveWrapper>{toolbar}</ResponsiveWrapper>;
+		return <ResponsiveWrapper>{wrappedToolbar}</ResponsiveWrapper>;
 	} else {
-		return toolbar;
+		return wrappedToolbar;
 	}
 };
 

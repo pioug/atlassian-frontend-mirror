@@ -27,6 +27,9 @@
 			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../tile/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-dev-agents/tsconfig.json"
 		}
 	]

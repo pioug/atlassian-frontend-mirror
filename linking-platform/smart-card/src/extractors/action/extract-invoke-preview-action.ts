@@ -143,6 +143,9 @@ export const extractInvokePreviewAction = (
 							src: extractSmartLinkEmbed(response)?.src,
 							title: extractSmartLinkTitle(response),
 							url,
+							isBlanketHidden: fg('linking_platform_hide_preview_action_blanket_prop')
+								? actionOptions?.previewAction?.hideBlanket
+								: undefined,
 							size: fg('platform_linking_enable_card_preview_action_size')
 								? actionOptions?.previewAction?.size
 								: undefined,

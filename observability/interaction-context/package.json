@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/interaction-context",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "Interaction context for handling tracing",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,6 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
+		"singleton": true,
 		"team": "UIP Frontend Observability",
 		"website": {
 			"name": "InteractionContext"

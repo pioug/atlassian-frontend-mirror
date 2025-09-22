@@ -27,6 +27,9 @@
 			"path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../editor/editor-plugin-emoji/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../emoji/afm-post-office/tsconfig.json"
 		},
 		{

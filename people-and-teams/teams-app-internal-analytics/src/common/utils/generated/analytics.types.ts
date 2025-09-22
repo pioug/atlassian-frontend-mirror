@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::b808110a0432340d1e515e2c27098bad>>
+ * @codegen <<SignedSource::28c908eb9e3683af4c16be073bb18c4c>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -243,6 +243,499 @@ export type ButtonClickedContainerEditLinkButtonAttributesType = {
 export type ButtonClickedContainerRemoveLinkButtonAttributesType = {
 	containerSelected: Record<string, unknown>;
 };
+export type LinkClickedTeamMemberAttributesType = {};
+export type TeamMemberClickedAttributesType = {};
+export type TeamAgentClickedAttributesType = {};
+export type ConnectedGroupClickedAttributesType = {};
+export type TeamSettingsDialogViewedAttributesType = {};
+export type DialogOpenedDeleteTeamAttributesType = {};
+export type AgentProfileViewedAttributesType = {};
+export type EditAgentClickedAttributesType = {};
+export type DuplicateAgentClickedAttributesType = {};
+export type CopyAgentClickedAttributesType = {};
+export type DeleteAgentClickedAttributesType = {};
+export type ChatWithAgentClickedAttributesType = {};
+export type StartConversationWithAgentClickedAttributesType = {};
+export type TeamMemberRemovedAttributesType = {
+	teamSize: number;
+	orgAdminTriggered: boolean;
+	memberOfTeam: boolean;
+};
+export type TeamInvitationAcceptedAttributesType = {
+	teamId: string;
+};
+export type TeamInvitationDeclinedAttributesType = {
+	teamId: string;
+};
+export type TeamProfileNameEditedAttributesType = {
+	teamId: string;
+	orgAdminTriggered: boolean;
+	memberOfTeam: boolean;
+};
+export type TeamProfileDescriptionEditedAttributesType = {
+	teamId: string;
+	orgAdminTriggered: boolean;
+	memberOfTeam: boolean;
+};
+export type TeamMembershipControlEditedAttributesType = {
+	teamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL';
+	currentTeamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL';
+	isTeamNameChanged: boolean;
+	avatarColour: string;
+};
+export type TeamJoinedAttributesType = {
+	actualTransition: 'join' | 'joinRequest';
+	teamId: string;
+};
+export type JoinRequestCreatedAttributesType = {
+	actualTransition: 'join' | 'joinRequest';
+	teamId: string;
+};
+export type TeamRemovedAttributesType = {
+	teamId: string;
+	orgAdminTriggered: boolean;
+	memberOfTeam: boolean;
+	teamSize: number;
+};
+export type TeamLinkCategoryOpenedAttributesType = {};
+export type TeamLinkCategoryClickedAttributesType = {
+	linkType: string;
+};
+export type DialogClosedTeamDeletionAttributesType = {};
+export type DialogOpenedTeamDeletionAttributesType = {};
+export type ConfirmationCheckedTeamDeletionAttributesType = {
+	checked: boolean;
+};
+export type TeamDeletionFailedAttributesType = {
+	teamId: string;
+	orgAdminTriggered: boolean;
+	memberOfTeam: boolean;
+	teamSize: number;
+};
+export type JoinRequestAcceptedAttributesType = {
+	teamId: string;
+	memberId: string;
+	orgAdminTriggered: boolean;
+	memberOfTeam: boolean;
+};
+export type JoinRequestClosedAttributesType = {
+	teamId: string;
+};
+export type JoinRequestDeclinedAttributesType = {
+	teamId: string;
+	memberId: string;
+	orgAdminTriggered: boolean;
+	memberOfTeam: boolean;
+};
+export type JoinRequestCancelFailedAttributesType = {
+	status: number;
+};
+export type TeamInvitationSentAttributesType = {
+	teamId: string;
+	numberOfMembers: number;
+};
+export type JoinRequestAcceptFailedAttributesType = {
+	status: number;
+	orgAdminTriggered: boolean;
+	memberOfTeam: boolean;
+};
+export type JoinRequestDeclineFailedAttributesType = {
+	status: number;
+	orgAdminTriggered: boolean;
+	memberOfTeam: boolean;
+};
+export type TeamInvitationSucceededAttributesType = {
+	orgAdminTriggered: boolean;
+	memberOfTeam: boolean;
+};
+export type TeamInvitationFailedAttributesType = {
+	orgAdminTriggered: boolean;
+	memberOfTeam: boolean;
+};
+export type TeamAboutTaskStartAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamAboutTaskSuccessAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamAboutTaskAbortAttributesType = {
+	abortReason: string;
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamAboutTaskFailAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamNameTaskStartAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamNameTaskSuccessAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamNameTaskAbortAttributesType = {
+	abortReason: string;
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamNameTaskFailAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamDescriptionTaskStartAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamDescriptionTaskSuccessAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamDescriptionTaskAbortAttributesType = {
+	abortReason: string;
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamDescriptionTaskFailAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamPermissionsTaskStartAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamPermissionsTaskSuccessAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamPermissionsTaskAbortAttributesType = {
+	abortReason: string;
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamPermissionsTaskFailAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type MembersTaskStartAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type MembersTaskSuccessAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type MembersTaskAbortAttributesType = {
+	abortReason: string;
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type MembersTaskFailAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type SubmitTaskStartAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type SubmitTaskSuccessAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type SubmitTaskAbortAttributesType = {
+	abortReason: string;
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type SubmitTaskFailAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type RemoveTeamMemberTaskStartAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type RemoveTeamMemberTaskSuccessAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type RemoveTeamMemberTaskAbortAttributesType = {
+	abortReason: string;
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type RemoveTeamMemberTaskFailAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type OpenDialogTaskStartAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type OpenDialogTaskSuccessAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type OpenDialogTaskAbortAttributesType = {
+	abortReason: string;
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type OpenDialogTaskFailAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type EditTeamNameOrDescriptionTaskStartAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type EditTeamNameOrDescriptionTaskSuccessAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type EditTeamNameOrDescriptionTaskAbortAttributesType = {
+	abortReason: string;
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type EditTeamNameOrDescriptionTaskFailAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type RecommendedProductsTaskSuccessAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type RecommendedProductsTaskFailAttributesType = {
+	sloSatisifed: boolean;
+	taskDuration: number;
+	latencySlo: number;
+	isStandalone: boolean;
+	hasBrowsUsersPermission: boolean;
+};
+export type TeamsPermissionsRequestFailedAttributesType = {
+	message: string;
+	status: string;
+	path: string;
+};
+export type TeamsPermissionsRequestSucceededAttributesType = {
+	canCreateTeams: boolean;
+	canViewTeams: boolean;
+	canAdminTeams: boolean;
+};
+export type TeamContainerLinkerOpenedAttributesType = {};
+export type TeamContainerLinkedFailedAttributesType = {};
+export type TeamContainerLinkedSuccessAttributesType = {};
+export type TeamContainerLinkedViewedAttributesType = {};
+export type TeamContainerLinkerViewedAttributesType = {
+	screen: string;
+};
+export type TeamContainerLinkerResultsViewedAttributesType = {
+	screen: string;
+};
+export type ConnectJiraProjectTabClickedAttributesType = {};
+export type ConnectLoomSpaceTabClickedAttributesType = {};
+export type ConnectConfluenceSpaceTabClickedAttributesType = {};
+export type TeamProfileCardViewedAttributesType = {
+	screen: string;
+};
+export type TeamButtonViewedAttributesType = {
+	teamsCount: number;
+	scope: string;
+	version: string;
+};
+export type TeamButtonClickedAttributesType = {
+	teamsCount: number;
+	scope: string;
+	version: string;
+};
+export type TeamProfileButtonClickedAttributesType = {};
+export type ProfileRadarButtonClickedAttributesType = {};
+export type AddTeamModalViewedAttributesType = {};
+export type AddTeamModalConfirmButtonClickedAttributesType = {};
+export type ManageTeamsModalViewedAttributesType = {};
+export type DisconnectTeamModalViewedAttributesType = {};
+export type RemoveTeamButtonClickedAttributesType = {
+	screen: string;
+};
+export type ManageTeamsButtonClickedAttributesType = {};
+export type TeamSelectorViewedAttributesType = {};
+export type ManageTeamsSaveButtonClickedAttributesType = {};
+export type TeamAgentAssociationSucceededAttributesType = {
+	orgAdminTriggered: boolean;
+	memberOfTeam: boolean;
+};
+export type TeamAgentAssociationFailedAttributesType = {
+	orgAdminTriggered: boolean;
+	memberOfTeam: boolean;
+};
+export type TeamAgentAssociationSucceddedAttributesType = {
+	numberOfAgents: number;
+	teamId: string;
+};
+export type TeamContainerCreatedAndLinkedSuccessAttributesType = {
+	teamId: string;
+	containerType: string;
+};
+export type TeamContainerCreatedAndLinkedFailedAttributesType = {
+	teamId: string;
+	containerType: string;
+	failureReason: string;
+};
+export type CreateJiraContainerViewedAttributesType = {
+	teamId: string;
+};
+export type CreateJiraContainerClickedAttributesType = {
+	teamId: string;
+};
+export type CreateConfluenceContainerViewedAttributesType = {
+	teamId: string;
+};
+export type CreateConfluenceContainerClickedAttributesType = {
+	teamId: string;
+};
+export type CreateLoomContainerViewedAttributesType = {
+	teamId: string;
+};
+export type CreateLoomContainerClickedAttributesType = {
+	teamId: string;
+};
+export type CreateWebLinkContainerViewedAttributesType = {
+	teamId: string;
+};
+export type CreateWebLinkContainerClickedAttributesType = {
+	teamId: string;
+};
+export type CreateContainerFooterViewedAttributesType = {
+	teamId: string;
+	canCreateConfluenceContainer: boolean;
+	canCreateJiraContainer: boolean;
+	canCreateLoomContainer: boolean;
+};
+export type ShowMoreTeamActivitiesClickedAttributesType = {};
+export type TeamActivityClickedAttributesType = {
+	provider: string;
+};
+export type TeamProfileActivityTabViewedAttributesType = {
+	teamId: string;
+};
+export type TeamProfileTabSelectedAttributesType = {
+	tabId: string;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -455,6 +948,308 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the container remove link button is clicked */
 	'ui.button.clicked.containerRemoveLinkButton': ButtonClickedContainerRemoveLinkButtonAttributesType;
+	/**
+	 * fired when the link picker is successfully submitted */
+	'ui.link.clicked.teamMember': LinkClickedTeamMemberAttributesType;
+	/**
+	 * fired when the link picker is successfully submitted */
+	'ui.teamMember.clicked': TeamMemberClickedAttributesType;
+	/**
+	 * fired when the link picker is successfully submitted */
+	'ui.teamAgent.clicked': TeamAgentClickedAttributesType;
+	/**
+	 * fired when connected group name is clicked */
+	'ui.connectedGroup.clicked': ConnectedGroupClickedAttributesType;
+	/**
+	 * teamSettingsDialog */
+	'screen.teamSettingsDialog.viewed': TeamSettingsDialogViewedAttributesType;
+	/**
+	 * fired when the delete team dialog is opened */
+	'ui.dialog.opened.deleteTeam': DialogOpenedDeleteTeamAttributesType;
+	/**
+	 * fired when agent profile viewed */
+	'screen.agentProfile.viewed': AgentProfileViewedAttributesType;
+	/**
+	 * fired when the edit agent menuItem is clicked */
+	'ui.editAgent.clicked': EditAgentClickedAttributesType;
+	/**
+	 * fired when the duplicate agent menuItem is clicked */
+	'ui.duplicateAgent.clicked': DuplicateAgentClickedAttributesType;
+	/**
+	 * fired when the copy agent menuItem is clicked */
+	'ui.copyAgent.clicked': CopyAgentClickedAttributesType;
+	/**
+	 * fired when the delete agent menuItem is clicked */
+	'ui.deleteAgent.clicked': DeleteAgentClickedAttributesType;
+	/**
+	 * fired when the chat button is clicked */
+	'ui.chatWithAgent.clicked': ChatWithAgentClickedAttributesType;
+	/**
+	 * fired when the agent conversation starter is clicked */
+	'ui.startConversationWithAgent.clicked': StartConversationWithAgentClickedAttributesType;
+	/**
+	 * teamMember removed */
+	'track.teamMember.removed': TeamMemberRemovedAttributesType;
+	/**
+	 * teamInvitation accepted */
+	'track.teamInvitation.accepted': TeamInvitationAcceptedAttributesType;
+	/**
+	 * teamInvitation declined */
+	'track.teamInvitation.declined': TeamInvitationDeclinedAttributesType;
+	/**
+	 * teamProfileName edited */
+	'track.teamProfileName.edited': TeamProfileNameEditedAttributesType;
+	/**
+	 * teamProfileDescription edited */
+	'track.teamProfileDescription.edited': TeamProfileDescriptionEditedAttributesType;
+	/**
+	 * teamMembershipControl edited */
+	'track.teamMembershipControl.edited': TeamMembershipControlEditedAttributesType;
+	/**
+	 * team joined */
+	'track.team.joined': TeamJoinedAttributesType;
+	/**
+	 * joinRequest created */
+	'track.joinRequest.created': JoinRequestCreatedAttributesType;
+	/**
+	 * team removed */
+	'track.team.removed': TeamRemovedAttributesType;
+	/**
+	 * fired when the team link is opened */
+	'ui.teamLinkCategory.opened': TeamLinkCategoryOpenedAttributesType;
+	/**
+	 * fired when the team link is clicked */
+	'ui.teamLinkCategory.clicked': TeamLinkCategoryClickedAttributesType;
+	/**
+	 * fired when the delete team dialog is closed */
+	'ui.dialog.closed.teamDeletion': DialogClosedTeamDeletionAttributesType;
+	/**
+	 * fired when the delete team dialog is opened */
+	'ui.dialog.opened.teamDeletion': DialogOpenedTeamDeletionAttributesType;
+	/**
+	 * fired when the delete team dialog is successfully submitted */
+	'ui.confirmation.checked.teamDeletion': ConfirmationCheckedTeamDeletionAttributesType;
+	/**
+	 * team removed */
+	'track.teamDeletion.failed': TeamDeletionFailedAttributesType;
+	/**
+	 * joinRequest accepted */
+	'track.joinRequest.accepted': JoinRequestAcceptedAttributesType;
+	/**
+	 * joinRequest closed */
+	'track.joinRequest.closed': JoinRequestClosedAttributesType;
+	/**
+	 * joinRequest declined */
+	'track.joinRequest.declined': JoinRequestDeclinedAttributesType;
+	/**
+	 * joinRequestCancel failed */
+	'operational.joinRequestCancel.failed': JoinRequestCancelFailedAttributesType;
+	/**
+	 * teamInvitation sent */
+	'track.teamInvitation.sent': TeamInvitationSentAttributesType;
+	/**
+	 * joinRequestAccept failed */
+	'operational.joinRequestAccept.failed': JoinRequestAcceptFailedAttributesType;
+	/**
+	 * joinRequestDecline failed */
+	'operational.joinRequestDecline.failed': JoinRequestDeclineFailedAttributesType;
+	/**
+	 * teamInvitation succeeded */
+	'operational.teamInvitation.succeeded': TeamInvitationSucceededAttributesType;
+	/**
+	 * teamInvitation failed */
+	'operational.teamInvitation.failed': TeamInvitationFailedAttributesType;
+	/** */
+	'operational.teamAbout.taskStart': TeamAboutTaskStartAttributesType;
+	/** */
+	'operational.teamAbout.taskSuccess': TeamAboutTaskSuccessAttributesType;
+	/** */
+	'operational.teamAbout.taskAbort': TeamAboutTaskAbortAttributesType;
+	/** */
+	'operational.teamAbout.taskFail': TeamAboutTaskFailAttributesType;
+	/** */
+	'operational.teamName.taskStart': TeamNameTaskStartAttributesType;
+	/** */
+	'operational.teamName.taskSuccess': TeamNameTaskSuccessAttributesType;
+	/** */
+	'operational.teamName.taskAbort': TeamNameTaskAbortAttributesType;
+	/** */
+	'operational.teamName.taskFail': TeamNameTaskFailAttributesType;
+	/** */
+	'operational.teamDescription.taskStart': TeamDescriptionTaskStartAttributesType;
+	/** */
+	'operational.teamDescription.taskSuccess': TeamDescriptionTaskSuccessAttributesType;
+	/** */
+	'operational.teamDescription.taskAbort': TeamDescriptionTaskAbortAttributesType;
+	/** */
+	'operational.teamDescription.taskFail': TeamDescriptionTaskFailAttributesType;
+	/** */
+	'operational.teamPermissions.taskStart': TeamPermissionsTaskStartAttributesType;
+	/** */
+	'operational.teamPermissions.taskSuccess': TeamPermissionsTaskSuccessAttributesType;
+	/** */
+	'operational.teamPermissions.taskAbort': TeamPermissionsTaskAbortAttributesType;
+	/** */
+	'operational.teamPermissions.taskFail': TeamPermissionsTaskFailAttributesType;
+	/** */
+	'operational.members.taskStart': MembersTaskStartAttributesType;
+	/** */
+	'operational.members.taskSuccess': MembersTaskSuccessAttributesType;
+	/** */
+	'operational.members.taskAbort': MembersTaskAbortAttributesType;
+	/** */
+	'operational.members.taskFail': MembersTaskFailAttributesType;
+	/** */
+	'operational.submit.taskStart': SubmitTaskStartAttributesType;
+	/** */
+	'operational.submit.taskSuccess': SubmitTaskSuccessAttributesType;
+	/** */
+	'operational.submit.taskAbort': SubmitTaskAbortAttributesType;
+	/** */
+	'operational.submit.taskFail': SubmitTaskFailAttributesType;
+	/** */
+	'operational.removeTeamMember.taskStart': RemoveTeamMemberTaskStartAttributesType;
+	/** */
+	'operational.removeTeamMember.taskSuccess': RemoveTeamMemberTaskSuccessAttributesType;
+	/** */
+	'operational.removeTeamMember.taskAbort': RemoveTeamMemberTaskAbortAttributesType;
+	/** */
+	'operational.removeTeamMember.taskFail': RemoveTeamMemberTaskFailAttributesType;
+	/** */
+	'operational.openDialog.taskStart': OpenDialogTaskStartAttributesType;
+	/** */
+	'operational.openDialog.taskSuccess': OpenDialogTaskSuccessAttributesType;
+	/** */
+	'operational.openDialog.taskAbort': OpenDialogTaskAbortAttributesType;
+	/** */
+	'operational.openDialog.taskFail': OpenDialogTaskFailAttributesType;
+	/** */
+	'operational.editTeamNameOrDescription.taskStart': EditTeamNameOrDescriptionTaskStartAttributesType;
+	/** */
+	'operational.editTeamNameOrDescription.taskSuccess': EditTeamNameOrDescriptionTaskSuccessAttributesType;
+	/** */
+	'operational.editTeamNameOrDescription.taskAbort': EditTeamNameOrDescriptionTaskAbortAttributesType;
+	/** */
+	'operational.editTeamNameOrDescription.taskFail': EditTeamNameOrDescriptionTaskFailAttributesType;
+	/** */
+	'operational.recommendedProducts.taskSuccess': RecommendedProductsTaskSuccessAttributesType;
+	/** */
+	'operational.recommendedProducts.taskFail': RecommendedProductsTaskFailAttributesType;
+	/** */
+	'operational.teamsPermissionsRequest.failed': TeamsPermissionsRequestFailedAttributesType;
+	/** */
+	'operational.teamsPermissionsRequest.succeeded': TeamsPermissionsRequestSucceededAttributesType;
+	/**
+	 * fired when the team container linker is opened */
+	'ui.teamContainerLinker.opened': TeamContainerLinkerOpenedAttributesType;
+	/** */
+	'track.teamContainerLinked.failed': TeamContainerLinkedFailedAttributesType;
+	/** */
+	'ui.teamContainerLinked.success': TeamContainerLinkedSuccessAttributesType;
+	/** */
+	'ui.teamContainerLinked.viewed': TeamContainerLinkedViewedAttributesType;
+	/** */
+	'ui.teamContainerLinker.viewed': TeamContainerLinkerViewedAttributesType;
+	/** */
+	'ui.teamContainerLinkerResults.viewed': TeamContainerLinkerResultsViewedAttributesType;
+	/** */
+	'ui.connectJiraProjectTab.clicked': ConnectJiraProjectTabClickedAttributesType;
+	/** */
+	'ui.connectLoomSpaceTab.clicked': ConnectLoomSpaceTabClickedAttributesType;
+	/** */
+	'ui.connectConfluenceSpaceTab.clicked': ConnectConfluenceSpaceTabClickedAttributesType;
+	/** */
+	'ui.teamProfileCard.viewed': TeamProfileCardViewedAttributesType;
+	/**
+	 * fired when the team button is viewed */
+	'ui.teamButton.viewed': TeamButtonViewedAttributesType;
+	/**
+	 * fired when the team button is clicked */
+	'ui.teamButton.clicked': TeamButtonClickedAttributesType;
+	/**
+	 * fired when the team profile button is clicked */
+	'ui.teamProfileButton.clicked': TeamProfileButtonClickedAttributesType;
+	/**
+	 * fired when the profile radar button is clicked */
+	'ui.profileRadarButton.clicked': ProfileRadarButtonClickedAttributesType;
+	/**
+	 * fired when the add team modal is viewed */
+	'screen.addTeamModal.viewed': AddTeamModalViewedAttributesType;
+	/**
+	 * fired when the add team modal confirm button is clicked */
+	'ui.addTeamModalConfirmButton.clicked': AddTeamModalConfirmButtonClickedAttributesType;
+	/**
+	 * fired when the manage teams modal is viewed */
+	'screen.manageTeamsModal.viewed': ManageTeamsModalViewedAttributesType;
+	/**
+	 * fired when the disconnect team confirmation modal is viewed */
+	'screen.disconnectTeamModal.viewed': DisconnectTeamModalViewedAttributesType;
+	/**
+	 * fired when the remove (unlink) team button is clicked */
+	'ui.removeTeamButton.clicked': RemoveTeamButtonClickedAttributesType;
+	/**
+	 * fired when the manage teams button is clicked */
+	'ui.manageTeamsButton.clicked': ManageTeamsButtonClickedAttributesType;
+	/**
+	 * fired when the team selector popup is viewed */
+	'screen.teamSelector.viewed': TeamSelectorViewedAttributesType;
+	/**
+	 * fired when the save button from the manage teams modal is clicked */
+	'ui.manageTeamsSaveButton.clicked': ManageTeamsSaveButtonClickedAttributesType;
+	/**
+	 * add agent to team succeeded */
+	'operational.teamAgentAssociation.succeeded': TeamAgentAssociationSucceededAttributesType;
+	/**
+	 * add agent to team failed */
+	'operational.teamAgentAssociation.failed': TeamAgentAssociationFailedAttributesType;
+	/**
+	 * add agent to team succeeded */
+	'track.teamAgentAssociation.succedded': TeamAgentAssociationSucceddedAttributesType;
+	/**
+	 * container is created and linked to a team */
+	'track.teamContainerCreatedAndLinked.success': TeamContainerCreatedAndLinkedSuccessAttributesType;
+	/**
+	 * container is created and linked to a team */
+	'track.teamContainerCreatedAndLinked.failed': TeamContainerCreatedAndLinkedFailedAttributesType;
+	/**
+	 * the "create jira project" button is viewed */
+	'ui.createJiraContainer.viewed': CreateJiraContainerViewedAttributesType;
+	/**
+	 * the "create jira space" button is clicked */
+	'ui.createJiraContainer.clicked': CreateJiraContainerClickedAttributesType;
+	/**
+	 * the "create confluence space" button is viewed */
+	'ui.createConfluenceContainer.viewed': CreateConfluenceContainerViewedAttributesType;
+	/**
+	 * the "create confluence space" button is clicked */
+	'ui.createConfluenceContainer.clicked': CreateConfluenceContainerClickedAttributesType;
+	/**
+	 * the "create loom space" button is viewed */
+	'ui.createLoomContainer.viewed': CreateLoomContainerViewedAttributesType;
+	/**
+	 * the "create loom space" button is clicked */
+	'ui.createLoomContainer.clicked': CreateLoomContainerClickedAttributesType;
+	/**
+	 * the "create web link" button is viewed */
+	'ui.createWebLinkContainer.viewed': CreateWebLinkContainerViewedAttributesType;
+	/**
+	 * the "create web link" button is clicked */
+	'ui.createWebLinkContainer.clicked': CreateWebLinkContainerClickedAttributesType;
+	/**
+	 * the create container component is viewed */
+	'ui.createContainerFooter.viewed': CreateContainerFooterViewedAttributesType;
+	/**
+	 * fired when the Show more button is clicked in the Team activities tab */
+	'ui.showMoreTeamActivities.clicked': ShowMoreTeamActivitiesClickedAttributesType;
+	/**
+	 * fired when the team activity is clicked in the Team activities tab */
+	'ui.teamActivity.clicked': TeamActivityClickedAttributesType;
+	/**
+	 * fired when the team profile activity tab is successfully viewed */
+	'screen.teamProfileActivityTab.viewed': TeamProfileActivityTabViewedAttributesType;
+	/**
+	 * fired when a tab profile tab is selected */
+	'track.teamProfileTab.selected': TeamProfileTabSelectedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

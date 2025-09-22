@@ -2,6 +2,8 @@ import React, { createContext, useContext } from 'react';
 
 import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
 
+import type { ToolbarKeyboardNavigationProviderConfig } from '../types';
+
 type AnalyticsEventPayload = {
 	action: string;
 	actionSubject?: string;
@@ -19,6 +21,10 @@ export type ToolbarUIContextType = {
 	 */
 	isDisabled?: boolean;
 
+	/**
+	 * Configuration for Keyboard Shortcuts/ Navigation
+	 */
+	keyboardNavigation?: ToolbarKeyboardNavigationProviderConfig;
 	/**
 	 * Callback for when the dropdown is open/closed. Receives an object with `isOpen` state.
 	 *
@@ -40,6 +46,7 @@ const ToolbarUIContext = createContext<ToolbarUIContextType>({
 	isDisabled: false,
 	popupsMountPoint: undefined,
 	fireAnalyticsEvent: undefined,
+	keyboardNavigation: undefined,
 });
 
 /**
@@ -68,6 +75,7 @@ export const ToolbarUIProvider = ({
 	popupsBoundariesElement,
 	popupsScrollableElement,
 	fireAnalyticsEvent,
+	keyboardNavigation,
 }: ToolbarUIProviderProps) => {
 	return (
 		<ToolbarUIContext.Provider
@@ -79,6 +87,7 @@ export const ToolbarUIProvider = ({
 				popupsBoundariesElement,
 				popupsScrollableElement,
 				fireAnalyticsEvent,
+				keyboardNavigation,
 			}}
 		>
 			{children}

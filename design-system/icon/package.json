@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "28.2.1",
+	"version": "28.3.0",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,7 +46,7 @@
 					"id": "icon-tile",
 					"status": {
 						"type": "open-alpha",
-						"description": "This is an experiment. We may make frequent breaking changes with limited notice."
+						"description": "This is an experiment. We are in the process of making breaking changes."
 					},
 					"sortKey": 2
 				},
@@ -96,6 +96,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/tile": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/register": "root:*",
 		"@babel/runtime": "root:*",
@@ -128,6 +129,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@babel/core": "root:*",
 		"@codeshift/utils": "root:*",
@@ -222,6 +224,12 @@
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons-facade-button-fix": {
+			"type": "boolean"
+		},
+		"platform_dst_new_icon_tile": {
+			"type": "boolean"
+		},
+		"platform_dst_icon_tile_circle_replacement": {
 			"type": "boolean"
 		}
 	}

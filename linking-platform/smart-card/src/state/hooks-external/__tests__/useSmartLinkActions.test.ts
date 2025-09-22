@@ -217,6 +217,39 @@ describe(useSmartLinkActions.name, () => {
 		]);
 	});
 
+	it('returns isBlanketHidden when actionOptions.previewAction.hideBlanket is provided', () => {
+		(useSmartLinkContext as jest.Mock).mockReturnValue({
+			isPreviewPanelAvailable: undefined,
+			openPreviewPanel: undefined,
+		});
+		mockWithActions();
+
+		const { result } = renderHook(() =>
+			useSmartLinkActions({
+				url,
+				appearance,
+				actionOptions: {
+					hide: false,
+					previewAction: {
+						size: EmbedModalSize.Small,
+						hideBlanket: true,
+					},
+				},
+			}),
+		);
+
+		expect(result.current).toEqual([
+			expect.objectContaining({
+				id: 'download-content',
+				invoke: expect.any(Function),
+			}),
+			expect.objectContaining({
+				id: 'preview-content',
+				invoke: expect.any(Function),
+			}),
+		]);
+	});
+
 	it('returns actions as expected when useSmartCardState changes', () => {
 		(useSmartLinkContext as jest.Mock).mockReturnValue({
 			isPreviewPanelAvailable: undefined,

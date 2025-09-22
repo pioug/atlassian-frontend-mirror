@@ -7,7 +7,7 @@ import { getCLS } from './index';
 const makeBuffer = (arr: Array<{ startTime: number; duration: number; value: number }>) => {
 	const buffer = new BufferWithMaxLength<LayoutShiftPerformanceEntry>();
 	arr.forEach((a) => {
-		buffer.push({ ...a, entryType: 'layout-shift', name: '', toJSON: () => a });
+		buffer.push({ ...a, entryType: 'layout-shift', name: '', toJSON: () => a, sources: [] });
 	});
 	return buffer;
 };

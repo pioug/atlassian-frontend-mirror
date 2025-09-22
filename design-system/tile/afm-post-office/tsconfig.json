@@ -23,12 +23,6 @@
 	],
 	"references": [
 		{
-			"path": "../../css/afm-post-office/tsconfig.json"
-		},
-		{
-			"path": "../../primitives/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-post-office/tsconfig.json"
 		}
 	]

@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+import { TeamsAppAnalyticsContext } from '@atlaskit/teams-app-internal-analytics';
+
 import { PeopleTeamsAnalyticsProvider } from '../index';
 
 type PeopleTeamsAnalyticsSubcontextState = {
@@ -10,7 +13,7 @@ type PeopleTeamsAnalyticsSubcontextState = {
  * @private
  * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
  */
-export function PeopleTeamsAnalyticsSubcontextProvider({
+function _PeopleTeamsAnalyticsSubcontextProvider({
 	children,
 	topLevelAttributes,
 }: PeopleTeamsAnalyticsSubcontextState & { children: React.ReactNode }) {
@@ -20,3 +23,25 @@ export function PeopleTeamsAnalyticsSubcontextProvider({
 		</PeopleTeamsAnalyticsProvider>
 	);
 }
+
+/**
+ *
+ * When this feature get is cleaned up, every instance of  `PeopleTeamsAnalyticsSubcontextProvider`
+ * should be replaced with `TeamsAppAnalyticsContext` from `@atlaskit/teams-app-internal-analytics`
+ */
+function _TeamsAppAnalyticsContext({
+	children,
+	topLevelAttributes,
+}: PeopleTeamsAnalyticsSubcontextState & { children: React.ReactNode }) {
+	return (
+		<TeamsAppAnalyticsContext data={topLevelAttributes}>
+			<>{children}</>
+		</TeamsAppAnalyticsContext>
+	);
+}
+
+export const PeopleTeamsAnalyticsSubcontextProvider = componentWithFG(
+	'ptc-enable-people-teams-ui-analytics-refactor',
+	_TeamsAppAnalyticsContext,
+	_PeopleTeamsAnalyticsSubcontextProvider,
+);

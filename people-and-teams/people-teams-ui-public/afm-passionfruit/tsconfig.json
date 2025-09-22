@@ -32,7 +32,13 @@
 			"path": "../../../design-system/legacy-custom-icons/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-internal-analytics/afm-passionfruit/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-passionfruit/tsconfig.json"

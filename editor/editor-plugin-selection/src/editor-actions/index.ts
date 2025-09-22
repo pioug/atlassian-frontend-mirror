@@ -1,10 +1,34 @@
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { nodeToJSON, type JSONNode } from '@atlaskit/editor-json-transformer';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionPlugin } from '../selectionPluginType';
+
+const selectionCoversAllListItems = ($from: ResolvedPos, $to: ResolvedPos) => {
+	// Block level lists
+	const listParents = ['bulletList', 'orderedList'];
+	if ($from.depth === 3 && $to.depth === 3) {
+		// Get grandparents (from)
+		const grandparentFrom = $from.node($from.depth - 1);
+		const greatGrandparentFrom = $from.node($from.depth - 2);
+		// Get grandparents (to)
+		const grandparentTo = $to.node($from.depth - 1);
+		const greatGrandparentTo = $to.node($from.depth - 2);
+		if (
+			greatGrandparentTo.eq(greatGrandparentFrom) &&
+			listParents.includes(greatGrandparentFrom.type.name) &&
+			// Selection covers entire list
+			greatGrandparentFrom.firstChild?.eq(grandparentFrom) &&
+			greatGrandparentFrom.lastChild?.eq(grandparentTo)
+		) {
+			return true;
+		}
+	}
+	return false;
+};
 
 /**
  * Get the slice of the document corresponding to the selection.
@@ -31,7 +55,13 @@ export const getSliceFromSelection = (selection: Selection): Fragment => {
 			selection instanceof TextSelection && $from.parent.eq($to.parent)
 				? Math.max(0, $from.sharedDepth(to) - 1)
 				: $from.sharedDepth(to);
-		const finalDepth = fg('platform_editor_expand_selection_context') ? 0 : depth;
+		let finalDepth = depth;
+		// For block-level lists (non-nested) specifically use the selection
+		if (fg('platform_editor_expand_selection_context')) {
+			if (selectionCoversAllListItems($from, $to)) {
+				finalDepth = 0;
+			}
+		}
 		const start = $from.start(finalDepth);
 		const node = $from.node(finalDepth);
 		const content = node.content.cut($from.pos - start, $to.pos - start);

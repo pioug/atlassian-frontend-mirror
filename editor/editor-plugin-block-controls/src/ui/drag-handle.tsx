@@ -498,7 +498,10 @@ export const DragHandle = ({
 	// as expected with a node selection. This workaround sets the selection to the node on mouseDown,
 	// but ensures the preview is generated correctly.
 	const handleMouseDown = useCallback(() => {
-		if (editorExperiment('advanced_layouts', true)) {
+		if (
+			editorExperiment('advanced_layouts', true) &&
+			!fg('platform_editor_draghandle_safari_scroll_fix')
+		) {
 			// prevent native drag and drop.
 			buttonRef.current?.focus();
 
@@ -1077,10 +1080,23 @@ export const DragHandle = ({
 		}
 	}, [api?.blockControls.sharedState, isMultiSelect, isShiftDown, isTopLevelNode, view]);
 
+	const dragHandleMessage =
+		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+		fg('platform_editor_block_menu_patch_1')
+			? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: <br /> })
+			: formatMessage(blockControlsMessages.dragToMove);
+
+	// Create a string version for aria-label
+	const dragHandleAriaLabel =
+		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+		fg('platform_editor_block_menu_patch_1')
+			? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: ' ' })
+			: formatMessage(blockControlsMessages.dragToMove);
+
 	let helpDescriptors = isTopLevelNode
 		? [
 				{
-					description: formatMessage(blockControlsMessages.dragToMove),
+					description: dragHandleMessage,
 				},
 				{
 					description: formatMessage(blockControlsMessages.moveUp),
@@ -1101,7 +1117,7 @@ export const DragHandle = ({
 			]
 		: [
 				{
-					description: formatMessage(blockControlsMessages.dragToMove),
+					description: dragHandleMessage,
 				},
 				{
 					description: formatMessage(blockControlsMessages.moveUp),
@@ -1165,7 +1181,7 @@ export const DragHandle = ({
 	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		helpDescriptors = [
 			{
-				description: formatMessage(blockControlsMessages.dragToMove),
+				description: dragHandleMessage,
 			},
 		];
 	}
@@ -1224,7 +1240,7 @@ export const DragHandle = ({
 			data-testid="block-ctrl-drag-handle"
 			aria-label={
 				expValEquals('platform_editor_drag_handle_aria_label', 'isEnabled', true)
-					? formatMessage(blockControlsMessages.dragToMove)
+					? dragHandleAriaLabel
 					: ''
 			}
 		>

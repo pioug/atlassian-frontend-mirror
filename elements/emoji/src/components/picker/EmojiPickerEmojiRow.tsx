@@ -25,7 +25,7 @@ const emojiItem = css({
 		paddingRight: token('space.100', '8px'),
 		paddingBottom: token('space.100', '8px'),
 		paddingLeft: token('space.100', '8px'),
-		borderRadius: '5px',
+		borderRadius: token('radius.medium'),
 		width: '24px',
 		height: '24px',
 	},

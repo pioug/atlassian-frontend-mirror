@@ -79,7 +79,7 @@ const detailsHeaderContainer = css({
 const detialsContentContainer = css({
 	padding: `11px ${token('space.150', '12px')} 11px ${token('space.150', '12px')}`,
 	border: `solid ${token('border.width')} rgb(235, 236, 240)`,
-	borderRadius: '0px 0px 4px 4px',
+	borderRadius: `0px 0px ${token('radius.small', '4px')} ${token('radius.small', '4px')}`,
 	borderTop: '0px',
 });
 

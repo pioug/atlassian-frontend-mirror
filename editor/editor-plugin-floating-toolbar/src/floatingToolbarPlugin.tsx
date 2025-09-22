@@ -43,6 +43,7 @@ import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state'
 import { AllSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -295,7 +296,12 @@ export function ContentComponent({
 		return null;
 	}
 
-	if (userIntentState?.currentUserIntent === 'dragging') {
+	if (
+		userIntentState?.currentUserIntent === 'dragging' ||
+		(userIntentState?.currentUserIntent === 'blockMenuOpen' &&
+			expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+			fg('platform_editor_block_menu_hide_floating_toolbar'))
+	) {
 		return null;
 	}
 

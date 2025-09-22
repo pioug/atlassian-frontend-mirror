@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 7.0.3
+
+### Patch Changes
+
+- [`2475c192d69b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2475c192d69b0) -
+  [ux] Hide floating toolbar when block menu is open
+- Updated dependencies
+
 ## 7.0.2
 
 ### Patch Changes

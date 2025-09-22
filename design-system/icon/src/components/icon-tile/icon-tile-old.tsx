@@ -6,17 +6,33 @@ import { type ComponentType } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { type IconTileProps } from '../types';
+import { type IconTileProps, type IconTileSize, type LegacyIconTileSize } from '../../types';
+import { type InternalIconPropsNew } from '../icon-new';
 
-import { type InternalIconPropsNew } from './icon-new';
+const sizeCrossCompatibleMap: Record<IconTileSize, LegacyIconTileSize | '20'> = {
+	// Size mapping from new t-shirt sizes to old pixel sizes
+	xsmall: '20',
+	small: '24',
+	medium: '32',
+	large: '40',
+	xlarge: '48',
+	'16': '16',
+	'24': '24',
+	'32': '32',
+	'40': '40',
+	'48': '48',
+};
 
 const sizeMap = cssMap({
 	'16': {
 		width: '16px',
 		height: '16px',
+	},
+	'20': {
+		width: '20px',
+		height: '20px',
 	},
 	'24': {
 		width: '24px',
@@ -138,38 +154,26 @@ const iconTileStyles = css({
 });
 
 /**
- * __IconTile__ -- ⚠️ Experimental ⚠️
+ * __IconTile__
  *
- * An icon tile is used to present an icon with a background color.
- * Icon tiles, unlike standard icons, can scale up and down to provide greater emphasis.
- *
- * This component is currently in an experimental state and is subject to change in minor or patch releases.
- *
+ * An icon with background shape, color, and size properties determined by Tile.
  */
 export default function IconTile(props: IconTileProps) {
-	const {
-		icon: Icon,
-		label,
-		appearance,
-		size = '24',
-		shape = 'square',
-		LEGACY_fallbackComponent,
-		testId,
-	} = props;
+	const { icon: Icon, label, appearance, size = '24', shape = 'square', testId } = props;
 
 	const ExpandedIcon = Icon as ComponentType<InternalIconPropsNew>;
 
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	if (LEGACY_fallbackComponent && !fg('platform-visual-refresh-icons')) {
-		return LEGACY_fallbackComponent;
-	} else {
-		return (
-			<span
-				data-testid={testId}
-				css={[iconTileStyles, appearanceMap[appearance], sizeMap[size], shapeMap[shape]]}
-			>
-				<ExpandedIcon color="currentColor" label={label} spacing="spacious" shouldScale={true} />
-			</span>
-		);
-	}
+	return (
+		<span
+			data-testid={testId}
+			css={[
+				iconTileStyles,
+				appearanceMap[appearance],
+				sizeMap[sizeCrossCompatibleMap[size]],
+				shapeMap[shape],
+			]}
+		>
+			<ExpandedIcon color="currentColor" label={label} spacing="spacious" shouldScale={true} />
+		</span>
+	);
 }

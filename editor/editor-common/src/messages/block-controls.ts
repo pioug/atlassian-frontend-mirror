@@ -6,6 +6,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Drag to move',
 		description: 'Use drag handle to move content',
 	},
+	dragToMoveClickToOpen: {
+		id: 'fabric.editor.blockControlDragHandleMoveOrOpen',
+		defaultMessage: 'Drag to move {br} Click to open menu',
+		description: 'Use drag handle to move content or click to open the menu',
+	},
 	dragToRearrange: {
 		id: 'fabric.editor.blockControlDragHandleRearrange',
 		defaultMessage: 'Drag to rearrange',

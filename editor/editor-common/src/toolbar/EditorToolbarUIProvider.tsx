@@ -8,7 +8,11 @@ import type { ExtractInjectionAPI, NextEditorPlugin } from '../types';
 
 type Props = Pick<
 	ToolbarUIContextType,
-	'popupsMountPoint' | 'popupsBoundariesElement' | 'popupsScrollableElement' | 'fireAnalyticsEvent'
+	| 'popupsMountPoint'
+	| 'popupsBoundariesElement'
+	| 'popupsScrollableElement'
+	| 'fireAnalyticsEvent'
+	| 'keyboardNavigation'
 > & {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	api: ExtractInjectionAPI<NextEditorPlugin<any, any>> | undefined;
@@ -23,6 +27,7 @@ export const EditorToolbarUIProvider = ({
 	popupsBoundariesElement,
 	popupsScrollableElement,
 	fireAnalyticsEvent,
+	keyboardNavigation,
 }: Props) => {
 	const onDropdownOpenChanged = useCallback(
 		({ isOpen }: OnOpenChangeArgs) => {
@@ -50,6 +55,7 @@ export const EditorToolbarUIProvider = ({
 			popupsBoundariesElement={popupsBoundariesElement}
 			popupsScrollableElement={popupsScrollableElement}
 			fireAnalyticsEvent={fireAnalyticsEvent}
+			keyboardNavigation={keyboardNavigation}
 		>
 			{children}
 		</ToolbarUIProvider>

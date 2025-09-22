@@ -50,6 +50,9 @@
 			"path": "../../../design-system/icon/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../node-data-provider/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
 		},
 		{

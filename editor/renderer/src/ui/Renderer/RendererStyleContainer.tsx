@@ -697,7 +697,7 @@ const ruleSharedStyles = css({
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		margin: `${akEditorLineHeight}em 0`,
 		height: '2px',
-		borderRadius: '1px',
+		borderRadius: token('radius.full'),
 	},
 });
 

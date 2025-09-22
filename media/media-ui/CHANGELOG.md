@@ -1,5 +1,20 @@
 # @atlaskit/media-ui
 
+## 28.7.5
+
+### Patch Changes
+
+- [`2e35d308c4205`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e35d308c4205) -
+  FG cleanup - platform_media_add_ufo_custom_data
+- Updated dependencies
+
+## 28.7.4
+
+### Patch Changes
+
+- [`407e1dc11eeed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/407e1dc11eeed) -
+  Minor changes to border radius values.
+
 ## 28.7.3
 
 ### Patch Changes

@@ -67,7 +67,7 @@ const expandedFrameSelectedStyles = css({
 });
 
 const expandedFrameNotSelectedStyles = css({
-	borderRadius: '1.5px',
+	borderRadius: token('radius.xsmall'),
 	borderColor: 'transparent',
 	borderStyle: 'solid',
 	borderWidth: token('border.width.selected'),
@@ -133,7 +133,7 @@ const compactFrameStyles = css({
 });
 
 const compactFrameNotSelectedStyles = css({
-	borderRadius: '1.5px',
+	borderRadius: token('radius.xsmall'),
 });
 
 export const CompactFrame = ({

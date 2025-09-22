@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../helpers/browser-apis/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-rovo-extension/tsconfig.json"
 		},
 		{

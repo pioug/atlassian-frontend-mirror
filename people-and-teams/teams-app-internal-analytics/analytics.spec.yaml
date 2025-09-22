@@ -42,6 +42,26 @@ shared:
       type: string
       required: false
       description: The trace id
+  ExperienceMetadata: &ExperienceMetadata
+    sloSatisifed:
+      type: boolean
+      description: whether the slo was satisfied
+    taskDuration:
+      type: number
+      description: duration of the task
+    latencySlo:
+      type: number
+      description: latency slo
+    isStandalone:
+      type: boolean
+      description: whether the component is standalone
+    hasBrowsUsersPermission:
+      type: boolean
+      description: whether the user has browse users permission
+  ExperienceAbortMetadata: &ExperienceAbortMetadata
+    abortReason:
+      type: string
+      description: reason for aborting the task
 
 events:
   - button clicked (analyticsExample):
@@ -750,3 +770,829 @@ events:
         containerSelected:
           type: object
           description: the container that was selected
+  - link clicked (teamMember):
+      type: ui
+      description: fired when the link picker is successfully submitted
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamMember clicked:
+      type: ui
+      description: fired when the link picker is successfully submitted
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamAgent clicked:
+      type: ui
+      description: fired when the link picker is successfully submitted
+      attributes:
+        <<: *PackageMetaDataContext
+  - connectedGroup clicked:
+      type: ui
+      description: fired when connected group name is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamSettingsDialog viewed:
+      type: screen
+      description: teamSettingsDialog
+      attributes:
+        <<: *PackageMetaDataContext
+  - dialog opened (deleteTeam):
+      type: ui
+      description: fired when the delete team dialog is opened
+      attributes:
+        <<: *PackageMetaDataContext
+  - agentProfile viewed:
+      type: screen
+      description: fired when agent profile viewed
+      attributes:
+        <<: *PackageMetaDataContext
+  - editAgent clicked:
+      type: ui
+      description: fired when the edit agent menuItem is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - duplicateAgent clicked:
+      type: ui
+      description: fired when the duplicate agent menuItem is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - copyAgent clicked:
+      type: ui
+      description: fired when the copy agent menuItem is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - deleteAgent clicked:
+      type: ui
+      description: fired when the delete agent menuItem is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - chatWithAgent clicked:
+      type: ui
+      description: fired when the chat button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - startConversationWithAgent clicked:
+      type: ui
+      description: fired when the agent conversation starter is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamMember removed:
+      type: track
+      description: teamMember removed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamSize:
+          type: number
+          description: number of team members
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+  - teamInvitation accepted:
+      type: track
+      description: teamInvitation accepted
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+  - teamInvitation declined:
+      type: track
+      description: teamInvitation declined
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+  - teamProfileName edited:
+      type: track
+      description: teamProfileName edited
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+  - teamProfileDescription edited:
+      type: track
+      description: teamProfileDescription edited
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+  - teamMembershipControl edited:
+      type: track
+      description: teamMembershipControl edited
+      attributes:
+        <<: *PackageMetaDataContext
+        teamType:
+          type:
+            - 'OPEN'
+            - 'MEMBER_INVITE'
+            - 'EXTERNAL'
+        currentTeamType:
+          type:
+            - 'OPEN'
+            - 'MEMBER_INVITE'
+            - 'EXTERNAL'
+        isTeamNameChanged:
+          type: boolean
+          description: whether team name is edited
+        avatarColour:
+          type: string
+          description: the avatar colour selected
+  - team joined:
+      type: track
+      description: team joined
+      attributes:
+        <<: *PackageMetaDataContext
+        actualTransition:
+          type:
+            - 'join'
+            - 'joinRequest'
+        teamId:
+          type: string
+          description: id of the selected team
+  - joinRequest created:
+      type: track
+      description: joinRequest created
+      attributes:
+        <<: *PackageMetaDataContext
+        actualTransition:
+          type:
+            - 'join'
+            - 'joinRequest'
+        teamId:
+          type: string
+          description: id of the selected team
+  - team removed:
+      type: track
+      description: team removed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+        teamSize:
+          type: number
+          description: number of team members
+  - teamLinkCategory opened:
+      type: ui
+      description: fired when the team link is opened
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamLinkCategory clicked:
+      type: ui
+      description: fired when the team link is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        linkType:
+          type: string
+          description: type of the link clicked (e.g. 'jira', 'confluence', etc.)
+  - dialog closed (teamDeletion):
+      type: ui
+      description: fired when the delete team dialog is closed
+      attributes:
+        <<: *PackageMetaDataContext
+  - dialog opened (teamDeletion):
+      type: ui
+      description: fired when the delete team dialog is opened
+      attributes:
+        <<: *PackageMetaDataContext
+  - confirmation checked (teamDeletion):
+      type: ui
+      description: fired when the delete team dialog is successfully submitted
+      attributes:
+        <<: *PackageMetaDataContext
+        checked:
+          type: boolean
+          description: whether the confirmation checkbox is checked
+  - teamDeletion failed:
+      type: track
+      description: team removed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+        teamSize:
+          type: number
+          description: number of team members
+  - joinRequest accepted:
+      type: track
+      description: joinRequest accepted
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+        memberId:
+          type: string
+          description: id of the accepted member
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+  - joinRequest closed:
+      type: track
+      description: joinRequest closed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+  - joinRequest declined:
+      type: track
+      description: joinRequest declined
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+        memberId:
+          type: string
+          description: id of the declined member
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+  - joinRequestCancel failed:
+      type: operational
+      description: joinRequestCancel failed
+      attributes:
+        <<: *PackageMetaDataContext
+        status:
+          type: number
+          description: status code of the failed request
+  - teamInvitation sent:
+      type: track
+      description: teamInvitation sent
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+        numberOfMembers:
+          type: number
+  - joinRequestAccept failed:
+      type: operational
+      description: joinRequestAccept failed
+      attributes:
+        <<: *PackageMetaDataContext
+        status:
+          type: number
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+  - joinRequestDecline failed:
+      type: operational
+      description: joinRequestDecline failed
+      attributes:
+        <<: *PackageMetaDataContext
+        status:
+          type: number
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+  - teamInvitation succeeded:
+      type: operational
+      description: teamInvitation succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+  - teamInvitation failed:
+      type: operational
+      description: teamInvitation failed
+      attributes:
+        <<: *PackageMetaDataContext
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+  - teamProfile_teamAbout taskStart:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_teamAbout taskSuccess:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_teamAbout taskAbort:
+      type: operational
+      attributes:
+        <<:
+          - *ExperienceAbortMetadata
+          - *ExperienceMetadata
+  - teamProfile_teamAbout taskFail:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_teamName taskStart:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_teamName taskSuccess:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_teamName taskAbort:
+      type: operational
+      attributes:
+        <<:
+          - *ExperienceAbortMetadata
+          - *ExperienceMetadata
+  - teamProfile_teamName taskFail:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_teamDescription taskStart:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_teamDescription taskSuccess:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_teamDescription taskAbort:
+      type: operational
+      attributes:
+        <<:
+          - *ExperienceAbortMetadata
+          - *ExperienceMetadata
+  - teamProfile_teamDescription taskFail:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_teamPermissions taskStart:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_teamPermissions taskSuccess:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_teamPermissions taskAbort:
+      type: operational
+      attributes:
+        <<:
+          - *ExperienceAbortMetadata
+          - *ExperienceMetadata
+  - teamProfile_teamPermissions taskFail:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_members taskStart:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_members taskSuccess:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_members taskAbort:
+      type: operational
+      attributes:
+        <<:
+          - *ExperienceAbortMetadata
+          - *ExperienceMetadata
+  - teamProfile_members taskFail:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - removeTeamMember_submit taskStart:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - removeTeamMember_submit taskSuccess:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - removeTeamMember_submit taskAbort:
+      type: operational
+      attributes:
+        <<:
+          - *ExperienceAbortMetadata
+          - *ExperienceMetadata
+  - removeTeamMember_submit taskFail:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - removeTeamMember taskStart:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - removeTeamMember taskSuccess:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - removeTeamMember taskAbort:
+      type: operational
+      attributes:
+        <<:
+          - *ExperienceAbortMetadata
+          - *ExperienceMetadata
+  - removeTeamMember taskFail:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - removeTeamMember_openDialog taskStart:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - removeTeamMember_openDialog taskSuccess:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - removeTeamMember_openDialog taskAbort:
+      type: operational
+      attributes:
+        <<:
+          - *ExperienceAbortMetadata
+          - *ExperienceMetadata
+  - removeTeamMember_openDialog taskFail:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - editTeamNameOrDescription taskStart:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - editTeamNameOrDescription taskSuccess:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - editTeamNameOrDescription taskAbort:
+      type: operational
+      attributes:
+        <<:
+          - *ExperienceAbortMetadata
+          - *ExperienceMetadata
+  - editTeamNameOrDescription taskFail:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_recommendedProducts taskSuccess:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamProfile_recommendedProducts taskFail:
+      type: operational
+      attributes:
+        <<: *ExperienceMetadata
+  - teamsPermissionsRequest failed:
+      type: operational
+      attributes:
+        message:
+          type: string
+          description: error message
+        status:
+          type: string
+          description: status code of the failed request
+        path:
+          type: string
+          description: path of the failed request
+  - teamsPermissionsRequest succeeded:
+      type: operational
+      attributes:
+        <<: *PackageMetaDataContext
+        canCreateTeams:
+          type: boolean
+          description: whether the user can create teams
+        canViewTeams:
+          type: boolean
+          description: whether the user can view teams
+        canAdminTeams:
+          type: boolean
+          description: whether the user can admin teams
+  - teamContainerLinker opened:
+      type: ui
+      description: fired when the team container linker is opened
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamContainerLinked failed:
+      type: track
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamContainerLinked success:
+      type: ui
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamContainerLinked viewed:
+      type: ui
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamContainerLinker viewed:
+      type: ui
+      attributes:
+        <<: *PackageMetaDataContext
+        screen:
+          type: string
+  - teamContainerLinkerResults viewed:
+      type: ui
+      attributes:
+        <<: *PackageMetaDataContext
+        screen:
+          type: string
+  - connectJiraProjectTab clicked:
+      type: ui
+      attributes:
+        <<: *PackageMetaDataContext
+  - connectLoomSpaceTab clicked:
+      type: ui
+      attributes:
+        <<: *PackageMetaDataContext
+  - connectConfluenceSpaceTab clicked:
+      type: ui
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamProfileCard viewed:
+      type: ui
+      attributes:
+        <<: *PackageMetaDataContext
+        screen:
+          type: string
+  - teamButton viewed:
+      type: ui
+      description: fired when the team button is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamsCount:
+          type: number
+        scope:
+          type: string
+        version:
+          type: string
+  - teamButton clicked:
+      type: ui
+      description: fired when the team button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        teamsCount:
+          type: number
+        scope:
+          type: string
+        version:
+          type: string
+  - teamProfileButton clicked:
+      type: ui
+      description: fired when the team profile button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - profileRadarButton clicked:
+      type: ui
+      description: fired when the profile radar button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - addTeamModal viewed:
+      type: screen
+      description: fired when the add team modal is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+  - addTeamModalConfirmButton clicked:
+      type: ui
+      description: fired when the add team modal confirm button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - manageTeamsModal viewed:
+      type: screen
+      description: fired when the manage teams modal is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+  - disconnectTeamModal viewed:
+      type: screen
+      description: fired when the disconnect team confirmation modal is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+  - removeTeamButton clicked:
+      type: ui
+      description: fired when the remove (unlink) team button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        screen:
+          type: string
+  - manageTeamsButton clicked:
+      type: ui
+      description: fired when the manage teams button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamSelector viewed:
+      type: screen
+      description: fired when the team selector popup is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+  - manageTeamsSaveButton clicked:
+      type: ui
+      description: fired when the save button from the manage teams modal is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamAgentAssociation succeeded:
+      type: operational
+      description: add agent to team succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+  - teamAgentAssociation failed:
+      type: operational
+      description: add agent to team failed
+      attributes:
+        <<: *PackageMetaDataContext
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+  - teamAgentAssociation succedded:
+      type: track
+      description: add agent to team succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+        numberOfAgents:
+          type: number
+          description: number of agents added to the team
+        teamId:
+          type: string
+          description: id of the selected team
+  - teamContainerCreatedAndLinked success:
+      type: track
+      description: container is created and linked to a team
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+        containerType:
+          type: string
+          description: the type of container created
+  - teamContainerCreatedAndLinked failed:
+      type: track
+      description: container is created and linked to a team
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+        containerType:
+          type: string
+          description: the type of container created
+        failureReason:
+          type: string
+          description: the reason for the failure
+  - createJiraContainer viewed:
+      type: ui
+      description: the "create jira project" button is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+  - createJiraContainer clicked:
+      type: ui
+      description: the "create jira space" button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+  - createConfluenceContainer viewed:
+      type: ui
+      description: the "create confluence space" button is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+  - createConfluenceContainer clicked:
+      type: ui
+      description: the "create confluence space" button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+  - createLoomContainer viewed:
+      type: ui
+      description: the "create loom space" button is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+  - createLoomContainer clicked:
+      type: ui
+      description: the "create loom space" button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+  - createWebLinkContainer viewed:
+      type: ui
+      description: the "create web link" button is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+  - createWebLinkContainer clicked:
+      type: ui
+      description: the "create web link" button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+  - createContainerFooter viewed:
+      type: ui
+      description: the create container component is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+        canCreateConfluenceContainer:
+          type: boolean
+          description: if the user has permission to create confluence space
+        canCreateJiraContainer:
+          type: boolean
+          description: if the user has permission to create jira space
+        canCreateLoomContainer:
+          type: boolean
+          description: if the user has permission to create loom space
+  - showMoreTeamActivities clicked:
+      type: ui
+      description: fired when the Show more button is clicked in the Team activities tab
+      attributes:
+        <<: *PackageMetaDataContext
+  - teamActivity clicked:
+      type: ui
+      description: fired when the team activity is clicked in the Team activities tab
+      attributes:
+        <<: *PackageMetaDataContext
+        provider:
+          type: string
+          description:
+            the product and type of the activity (e.g. 'jira issue', 'confluence page', etc.)
+  - teamProfileActivityTab viewed:
+      type: screen
+      description: fired when the team profile activity tab is successfully viewed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the selected team
+  - teamProfileTab selected:
+      type: track
+      description: fired when a tab profile tab is selected
+      attributes:
+        <<: *PackageMetaDataContext
+        tabId:
+          type: string
+          description: id of the selected tab

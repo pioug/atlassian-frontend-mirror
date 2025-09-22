@@ -23,10 +23,16 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/button/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-cc/tsconfig.json"

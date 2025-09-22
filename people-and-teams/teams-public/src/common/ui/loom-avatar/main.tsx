@@ -33,10 +33,12 @@ const largeBoxStyle = css({
 export function LoomSpaceAvatar({
 	spaceName = '',
 	size = 'small',
+	testId = '',
 }: {
 	spaceName: string;
 	size?: 'small' | 'large';
 	isDisabled?: boolean;
+	testId?: string;
 }): JSX.Element {
 	const avatarText = getAvatarText(spaceName);
 	const containerColor = pickContainerColor(spaceName);
@@ -49,6 +51,7 @@ export function LoomSpaceAvatar({
 				backgroundColor: containerColor,
 				color: textColor,
 			}}
+			data-testid={testId}
 		>
 			{avatarText}
 		</div>

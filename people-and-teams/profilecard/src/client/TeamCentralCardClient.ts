@@ -187,7 +187,7 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		return this.orgIdPromise;
 	}
 
-	private preloadWorkspaceExistsWithType(cloudId?: string) {
+	preloadWorkspaceExistsWithType(cloudId?: string) {
 		if (cloudId === undefined) {
 			return Promise.resolve(undefined);
 		}
@@ -237,7 +237,7 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		}
 	}
 
-	private preloadOrgId(gatewayGraphqlUrl: string, cloudId?: string, orgId?: string) {
+	preloadOrgId(gatewayGraphqlUrl: string, cloudId?: string, orgId?: string) {
 		if (cloudId === undefined) {
 			return Promise.resolve(null);
 		}

@@ -39,6 +39,7 @@ const EmbedModal = ({
 	title,
 	invokeViewAction,
 	extensionKey,
+	isBlanketHidden,
 }: EmbedModalProps) => {
 	const defaultWidth = toWidth(size);
 	const [isOpen, setIsOpen] = useState(showModal);
@@ -98,6 +99,7 @@ const EmbedModal = ({
 					testId={testId}
 					width={width}
 					label={title}
+					isBlanketHidden={isBlanketHidden}
 				>
 					<LinkInfo
 						icon={

@@ -1,12 +1,16 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
+import { useIntl, type IntlShape } from 'react-intl-next';
+
+import { getDocument } from '@atlaskit/browser-apis';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { fullPageMessages } from '@atlaskit/editor-common/messages';
 import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
+import { Popup, EDIT_AREA_ID } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import {
 	calculateToolbarPositionTrackHead,
@@ -19,6 +23,7 @@ import {
 	ToolbarSection,
 	ToolbarButtonGroup,
 	ToolbarDropdownItemSection,
+	type ToolbarKeyboardNavigationProviderConfig,
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
@@ -28,6 +33,7 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 
 import type { ToolbarPlugin } from '../../toolbarPluginType';
 import { SELECTION_TOOLBAR_LABEL } from '../consts';
+import { getFocusableElements, isShortcutToFocusToolbar } from '../utils/toolbar';
 
 const isToolbarComponent = (component: RegisterComponent): component is RegisterToolbar => {
 	return component.type === 'toolbar' && component.key === 'inline-text-toolbar';
@@ -107,8 +113,13 @@ export const SelectionToolbar = ({
 		selection,
 	} = usePluginState(api);
 
+	const intl = useIntl();
 	const components = api?.toolbar?.actions.getComponents();
 	const toolbar = components?.find((component) => isToolbarComponent(component));
+
+	const keyboardNavigation = useMemo(() => {
+		return getKeyboardNavigationConfig(editorView, intl, api);
+	}, [editorView, intl, api]);
 
 	const isOffline = connectivityStateMode === 'offline';
 	const isTextSelection =
@@ -192,6 +203,11 @@ export const SelectionToolbar = ({
 								}
 							: undefined
 					}
+					keyboardNavigation={
+						expValEquals('platform_editor_toolbar_aifc_patch_5', 'isEnabled', true)
+							? keyboardNavigation
+							: undefined
+					}
 				>
 					<ToolbarModelRenderer
 						toolbar={toolbar as RegisterToolbar}
@@ -240,4 +256,53 @@ const getDomRefFromSelection = (
 		// 	dispatchAnalyticsEvent(payload);
 		// }
 	}
+};
+
+const getKeyboardNavigationConfig = (
+	editorView: EditorView,
+	intl: IntlShape,
+	api?: ExtractInjectionAPI<ToolbarPlugin>,
+): ToolbarKeyboardNavigationProviderConfig | undefined => {
+	if (!(editorView.dom instanceof HTMLElement)) {
+		return;
+	}
+
+	const toolbarSelector = "[data-testid='editor-floating-toolbar']";
+
+	return {
+		childComponentSelector: toolbarSelector,
+		dom: editorView.dom,
+		isShortcutToFocusToolbar: isShortcutToFocusToolbar,
+		handleFocus: (event: KeyboardEvent) => {
+			const toolbar = getDocument()?.querySelector(toolbarSelector);
+			if (!(toolbar instanceof HTMLElement)) {
+				return;
+			}
+			const filteredFocusableElements = getFocusableElements(toolbar);
+			filteredFocusableElements[0]?.focus();
+
+			// the button element removes the focus ring so this class adds it back
+			if (filteredFocusableElements[0]?.tagName === 'BUTTON') {
+				filteredFocusableElements[0].classList.add('first-floating-toolbar-button');
+			}
+			filteredFocusableElements[0]?.scrollIntoView({
+				behavior: 'smooth',
+				block: 'center',
+				inline: 'nearest',
+			});
+			event.preventDefault();
+			event.stopPropagation();
+		},
+		handleEscape: (event: KeyboardEvent) => {
+			const isDropdownOpen = !!document.querySelector('[data-toolbar-component="menu-section"]');
+			if (isDropdownOpen) {
+				return;
+			}
+			api?.core.actions.focus();
+			event.preventDefault();
+			event.stopPropagation();
+		},
+		ariaControls: EDIT_AREA_ID,
+		ariaLabel: intl.formatMessage(fullPageMessages.toolbarLabel),
+	};
 };

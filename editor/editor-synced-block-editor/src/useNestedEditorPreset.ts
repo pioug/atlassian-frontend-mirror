@@ -53,6 +53,7 @@ import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { undoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
+import { userPreferencesPlugin } from '@atlaskit/editor-plugins/user-preferences';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 
 import { decoratePlugin } from './decorate-plugin';
@@ -117,6 +118,14 @@ export function useNestedEditorPreset(): {
 		.add([pastePlugin, { isFullPage }])
 		.add(clipboardPlugin)
 		.add(focusPlugin)
+		.add([
+			userPreferencesPlugin,
+			{
+				initialUserPreferences: {
+					toolbarDockingPosition: 'none',
+				},
+			},
+		])
 		.add(compositionPlugin)
 		.add([
 			contextIdentifierPlugin,

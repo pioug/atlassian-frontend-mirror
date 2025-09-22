@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../helpers/browser-apis/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-dev-agents/tsconfig.json"
 		},
 		{

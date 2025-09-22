@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.5.0
+
+### Minor Changes
+
+- [`cd39d47fe751f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd39d47fe751f) -
+  Add analytics events from people-teams-ui
+
 ## 1.4.0
 
 ### Minor Changes

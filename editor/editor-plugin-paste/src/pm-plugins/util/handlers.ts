@@ -32,7 +32,7 @@ import type { InsertMediaAsMediaSingle } from '@atlaskit/editor-plugin-media/typ
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import { Fragment, Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Mark, MarkType, Schema } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { AllSelection, NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
 	canInsert,
@@ -46,6 +46,7 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
 import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 // TODO: ED-20519 - Needs Macro extraction
 
@@ -539,6 +540,68 @@ export function handlePastePanelOrDecisionContentIntoList(
 	};
 }
 
+const innerTextRangeOfTextblock = (
+	doc: PMNode,
+	posOfBlock: number,
+): { from: number; to: number } | null => {
+	const block = doc.nodeAt(posOfBlock);
+	if (!block || !block.isTextblock) {
+		return null;
+	}
+
+	// raw content bounds
+	const contentStart = posOfBlock + 1; // +1 to move from node's start token to content start
+	const contentEnd = contentStart + block.content.size;
+
+	// clamp to doc coord space
+	const start = Math.max(0, Math.min(contentStart, doc.content.size));
+	const end = Math.max(0, Math.min(contentEnd, doc.content.size));
+	if (end <= start) {
+		return null;
+	}
+
+	// snap to nearest valid text positions
+	const startSel = TextSelection.findFrom(doc.resolve(start), 1, true);
+	const endSel = TextSelection.findFrom(doc.resolve(end), -1, true);
+	if (!startSel || !endSel) {
+		return null;
+	}
+
+	const from = startSel.$from.pos;
+	const to = endSel.$to.pos;
+	return to > from ? { from, to } : null;
+};
+
+function resolveSingleTextblockRangeIfAllSelected(
+	state: EditorState,
+): { from: number; to: number } | null {
+	const sel = state.selection;
+	if (!(sel instanceof AllSelection)) {
+		return null;
+	}
+
+	let count = 0;
+	let posOfBlock = -1;
+
+	state.doc.nodesBetween(sel.from, sel.to, (node: PMNode, pos) => {
+		if (!node.isTextblock) {
+			return true;
+		}
+		count++;
+		if (count > 1) {
+			return false;
+		}
+		posOfBlock = pos;
+		return true;
+	});
+
+	if (count !== 1) {
+		return null;
+	}
+
+	return innerTextRangeOfTextblock(state.doc, posOfBlock);
+}
+
 // If we paste a link onto some selected text, apply the link as a mark
 export function handlePasteLinkOnSelectedText(slice: Slice): Command {
 	return (state, dispatch) => {
@@ -573,14 +636,22 @@ export function handlePasteLinkOnSelectedText(slice: Slice): Command {
 			}
 		}
 
+		// derive a linkable range if possible for Select‑All over a single textblock
+		const selectAllRange = fg('platform_editor_link_paste_select_all')
+			? resolveSingleTextblockRangeIfAllSelected(state)
+			: null;
+
+		const rangeFrom = selectAllRange?.from ?? from;
+		const rangeTo = selectAllRange?.to ?? to;
+
 		// if we have a link, apply it to the selected text if we have any and it's allowed
 		if (
 			linkMark &&
-			selection instanceof TextSelection &&
+			(selection instanceof TextSelection || Boolean(selectAllRange)) &&
 			!selection.empty &&
-			canLinkBeCreatedInRange(from, to)(state)
+			canLinkBeCreatedInRange(rangeFrom, rangeTo)(state)
 		) {
-			tr.addMark(from, to, linkMark);
+			tr.addMark(rangeFrom, rangeTo, linkMark);
 			if (dispatch) {
 				dispatch(tr);
 			}

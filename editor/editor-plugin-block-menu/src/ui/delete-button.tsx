@@ -4,11 +4,13 @@ import { useIntl, injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
 
 import { messages } from '@atlaskit/editor-common/block-menu';
+import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import DeleteIcon from '@atlaskit/icon/core/delete';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/box';
 import Text from '@atlaskit/primitives/text';
 import { token } from '@atlaskit/tokens';
@@ -59,6 +61,10 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 		api?.core.actions.execute(api?.decorations?.commands?.removeDecoration?.());
 	};
 
+	const text = fg('platform_editor_block_menu_patch_1')
+		? formatMessage(blockMenuMessages.deleteBlock)
+		: formatMessage(messages.deleteBlock);
+
 	return (
 		<Box onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 			<ToolbarDropdownItem
@@ -66,7 +72,7 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 				onClick={onClick}
 			>
 				<Text as="span" color="color.text.danger">
-					{formatMessage(messages.deleteBlock)}
+					{text}
 				</Text>
 			</ToolbarDropdownItem>
 		</Box>

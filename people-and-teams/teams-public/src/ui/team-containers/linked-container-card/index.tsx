@@ -144,7 +144,7 @@ const LinkedCardWrapper = ({
 
 const getContainerIcon = (containerType: ContainerTypes, title: string, containerIcon?: string) => {
 	if (containerType === 'LoomSpace') {
-		return <LoomSpaceAvatar spaceName={title} size={'large'} />;
+		return <LoomSpaceAvatar spaceName={title} size={'large'} testId="linked-container-icon"/>;
 	}
 	return (
 		<Avatar appearance="square" size="medium" src={containerIcon} testId="linked-container-icon" />

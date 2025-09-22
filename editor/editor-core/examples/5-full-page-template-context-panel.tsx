@@ -69,7 +69,7 @@ const templateCard = css({
 	border: `${token('border.width')} solid ${token('color.border')}`,
 	padding: token('space.100', '8px'),
 	marginBottom: token('space.100', '8px'),
-	borderRadius: '5px',
+	borderRadius: token('radius.medium', '6px'),
 	'&:hover': {
 		background: token('color.background.accent.gray.subtler'),
 	},

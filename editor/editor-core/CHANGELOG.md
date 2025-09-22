@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 213.5.4
+
+### Patch Changes
+
+- [`407e1dc11eeed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/407e1dc11eeed) -
+  Minor changes to border radius values.
+- Updated dependencies
+
+## 213.5.3
+
+### Patch Changes
+
+- [`a77acd87fef67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a77acd87fef67) -
+  EDITOR-1391 add new analytics event which logs editor width and all table widths on the page once
+  after page is loaded in both editor and renderer. remove previous implementation in width plugin.
+- Updated dependencies
+
 ## 213.5.2
 
 ### Patch Changes

@@ -8,7 +8,7 @@ const PropertyViewerContainer = styled.span({
 	display: 'inline-block',
 	margin: token('space.025', '2px'),
 	padding: `0 ${token('space.050', '4px')}`,
-	borderRadius: '5px',
+	borderRadius: token('radius.medium'),
 	boxShadow: '1px 1px 2px #888',
 	border: `${token('border.width')} solid #888`,
 });

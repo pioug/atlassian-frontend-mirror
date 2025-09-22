@@ -45,9 +45,13 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 		return null;
 	}
 
+	const text = fg('platform_editor_block_menu_patch_1')
+		? formatMessage(messages.copyLinkToBlock)
+		: formatMessage(messages.copyLink);
+
 	return (
 		<ToolbarDropdownItem onClick={handleClick} elemBefore={<LinkIcon label="" />}>
-			{formatMessage(messages.copyLink)}
+			{text}
 		</ToolbarDropdownItem>
 	);
 };

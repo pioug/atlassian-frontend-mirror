@@ -96,6 +96,10 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		toggleBlockMenu:
 			(options?: { anchorName?: string; closeMenu?: boolean }) =>
 			({ tr }: { tr: Transaction }) => {
+				if (!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+					return tr;
+				}
+
 				const currMeta = tr.getMeta(key);
 				const currentUserIntent = api?.userIntent?.sharedState.currentState()?.currentUserIntent;
 				if (options?.closeMenu) {

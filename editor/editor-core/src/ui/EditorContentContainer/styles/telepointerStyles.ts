@@ -174,7 +174,7 @@ export const telepointerStyle: SerializedStyles = css({
 				font: token('font.body.small'),
 				paddingLeft: token('space.050'),
 				paddingRight: token('space.050'),
-				borderRadius: '0 2px 2px 0',
+				borderRadius: `0 ${token('radius.xsmall')} ${token('radius.xsmall')} 0`,
 			},
 			'.telepointer-initial': {
 				opacity: 1,

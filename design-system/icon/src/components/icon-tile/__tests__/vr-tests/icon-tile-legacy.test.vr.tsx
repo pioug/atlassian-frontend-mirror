@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import Example from '../../../../examples/vr/vr-icon-tile';
+import Example from '../../../../../examples/111-icon-tile-legacy';
 
 snapshot(Example, {
 	variants: [
@@ -11,4 +11,7 @@ snapshot(Example, {
 			},
 		},
 	],
+	featureFlags: {
+		platform_dst_new_icon_tile: [true, false],
+	},
 });

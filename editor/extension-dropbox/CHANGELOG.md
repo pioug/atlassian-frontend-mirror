@@ -1,5 +1,13 @@
 # @atlaskit/editor-extension-dropbox
 
+## 3.0.1
+
+### Patch Changes
+
+- [`407e1dc11eeed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/407e1dc11eeed) -
+  Minor changes to border radius values.
+- Updated dependencies
+
 ## 3.0.0
 
 ### Patch Changes

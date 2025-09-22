@@ -6,6 +6,7 @@ import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView, { type getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import type { ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
 import type { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
+import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -81,6 +82,7 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 
 	createDomRef(): HTMLElement {
 		const domRef = document.createElement('div');
+		domRef.classList.add(SyncBlockSharedCssClassName.prefix);
 		return domRef;
 	}
 
@@ -93,9 +95,11 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 	}
 
 	private renderEditor() {
-		const popupsBoundariesElement = this.dom.closest('.fabric-editor-popup-scroll-parent');
+		const fabricEditorPopupScrollParent = this.view.dom.closest(
+			'.fabric-editor-popup-scroll-parent',
+		);
 
-		if (!(popupsBoundariesElement instanceof HTMLElement)) {
+		if (!(fabricEditorPopupScrollParent instanceof HTMLElement)) {
 			return null;
 		}
 
@@ -105,8 +109,8 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 
 		return (
 			<SyncBlockEditorWrapper
-				popupsBoundariesElement={popupsBoundariesElement}
-				popupsMountPoint={this.dom}
+				popupsBoundariesElement={fabricEditorPopupScrollParent}
+				popupsMountPoint={fabricEditorPopupScrollParent}
 				defaultDocument={defaultSyncBlockEditorDocument}
 				handleContentChanges={this.handleContentChanges}
 				setInnerEditorView={this.setInnerEditorView}

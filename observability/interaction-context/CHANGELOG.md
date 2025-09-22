@@ -1,5 +1,12 @@
 # @atlaskit/interaction-context
 
+## 3.1.0
+
+### Minor Changes
+
+- [`012e311801a01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/012e311801a01) -
+  ensure singleton bundling of the package
+
 ## 3.0.0
 
 ### Major Changes

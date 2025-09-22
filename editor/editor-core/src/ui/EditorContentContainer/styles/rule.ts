@@ -11,7 +11,7 @@ export const ruleStyles: SerializedStyles = css({
 		border: 'none',
 		backgroundColor: token('color.border'),
 		height: '2px',
-		borderRadius: '1px',
+		borderRadius: '1px', // this should use token('radius.full') but cannot since the element has padding which increases its height beyond 2px
 		cursor: 'pointer',
 		padding: `${token('space.050', '4px')} 0`,
 		margin: `${token('space.300', '24px')} 0`,

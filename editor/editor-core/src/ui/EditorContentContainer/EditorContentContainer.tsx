@@ -152,6 +152,7 @@ import {
 	statusStylesMixin_without_fg_platform_component_visual_refresh,
 	statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match,
 } from './styles/statusStyles';
+import { syncBlockStyles } from './styles/syncBlockStyles';
 import {
 	tableCommentEditorStyles,
 	tableContainerStyles,
@@ -402,6 +403,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					resizerStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					layoutBaseStyles,
+					expValEqualsNoExposure('platform_synced_block', 'isEnabled', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						syncBlockStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('advanced_layouts', true) && layoutBaseStylesAdvanced,
 					editorExperiment('advanced_layouts', true)

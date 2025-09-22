@@ -1,5 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
+import { Checkbox } from '@atlaskit/checkbox';
+import { CheckboxField, Field } from '@atlaskit/form';
+import Select from '@atlaskit/select/Select';
 import { type CardProps } from '@atlaskit/smart-card';
 
 import { type CardActionOptions } from '../../../src/view/Card/types';
@@ -8,6 +11,7 @@ import { type TemplateDisplay } from '../types';
 
 import Fieldset from './fieldset';
 import CheckboxOption from './inputs/checkbox-option';
+import Label from './inputs/label';
 import SelectOption from './inputs/select-option';
 import TextOption from './inputs/text-option';
 
@@ -48,6 +52,120 @@ const CardBuilder = ({
 	const isInline = useMemo(() => display === 'inline', [display]);
 	const isEmbed = useMemo(() => display === 'embed', [display]);
 	const isFlexible = useMemo(() => display === 'flexible', [display]);
+
+	// Custom onChange handlers for actionOptions to properly merge previewAction properties
+	const handlePreviewSizeChange = useCallback(
+		(sizeOption: { label: string; value: CardActionOptions } | null) => {
+			const newSize = sizeOption?.value?.previewAction?.size;
+			const currentActionOptions = (template.actionOptions || {}) as CardActionOptions;
+			const currentPreviewAction = currentActionOptions?.previewAction || {};
+
+			if (newSize) {
+				onChange({
+					...template,
+					actionOptions: {
+						...currentActionOptions,
+						hide: false,
+						previewAction: {
+							...currentPreviewAction,
+							size: newSize,
+						},
+					},
+				});
+			} else {
+				// Remove size but keep other previewAction properties
+				const { size: removedSize, ...restPreviewAction } = currentPreviewAction;
+				const hasOtherPreviewProps = Object.keys(restPreviewAction).length > 0;
+
+				if (hasOtherPreviewProps) {
+					onChange({
+						...template,
+						actionOptions: {
+							...currentActionOptions,
+							hide: false,
+							previewAction: restPreviewAction,
+						},
+					});
+				} else {
+					// Remove entire previewAction if no other props exist
+					const { previewAction: removedPreviewAction, ...restActionOptions } =
+						currentActionOptions;
+					const hasOtherActionOptions = Object.keys(restActionOptions).length > 0;
+
+					if (hasOtherActionOptions) {
+						onChange({
+							...template,
+							actionOptions: {
+								...restActionOptions,
+								hide: false,
+							},
+						});
+					} else {
+						// Remove entire actionOptions if no other props exist
+						const { actionOptions: removedActionOptions, ...restTemplate } = template;
+						onChange(restTemplate);
+					}
+				}
+			}
+		},
+		[onChange, template],
+	);
+
+	const handleHideBlanketChange = useCallback(
+		(checked: boolean) => {
+			const currentActionOptions = (template.actionOptions || {}) as CardActionOptions;
+			const currentPreviewAction = currentActionOptions?.previewAction || {};
+
+			if (checked) {
+				onChange({
+					...template,
+					actionOptions: {
+						...currentActionOptions,
+						hide: false,
+						previewAction: {
+							...currentPreviewAction,
+							hideBlanket: true,
+						},
+					},
+				});
+			} else {
+				// Remove hideBlanket but keep other previewAction properties
+				const { hideBlanket: removedHideBlanket, ...restPreviewAction } = currentPreviewAction;
+				const hasOtherPreviewProps = Object.keys(restPreviewAction).length > 0;
+
+				if (hasOtherPreviewProps) {
+					onChange({
+						...template,
+						actionOptions: {
+							...currentActionOptions,
+							hide: false,
+							previewAction: restPreviewAction,
+						},
+					});
+				} else {
+					// Remove entire previewAction if no other props exist
+					const { previewAction: removedPreviewAction, ...restActionOptions } =
+						currentActionOptions;
+					const hasOtherActionOptions = Object.keys(restActionOptions).length > 0;
+
+					if (hasOtherActionOptions) {
+						onChange({
+							...template,
+							actionOptions: {
+								...restActionOptions,
+								hide: false,
+							},
+						});
+					} else {
+						// Remove entire actionOptions if no other props exist
+						const { actionOptions: removedActionOptions, ...restTemplate } = template;
+						onChange(restTemplate);
+					}
+				}
+			}
+		},
+		[onChange, template],
+	);
 
 	return (
 		<Fieldset legend="Smart Links Options" defaultOpen={false}>
@@ -105,15 +223,41 @@ const CardBuilder = ({
 				propName="placeholder"
 				template={template}
 			/>
-			<SelectOption
-				defaultValue={template.actionOptions?.previewAction?.size || ''}
-				label="Preview size (preview action)"
+			<Field<{ label: string; value: string }>
 				name="previewSize"
-				onChange={onChange}
-				propName="actionOptions"
-				options={previewSizeOptions}
-				template={template}
-			/>
+				label={<Label content="Preview size (preview action)" />}
+			>
+				{({ fieldProps: { id, ...rest } }) => (
+					<Select
+						{...rest}
+						onChange={(option: { label: string; value: string } | null) => {
+							const selectedOption = previewSizeOptions.find(
+								(opt) => opt.value.previewAction?.size === option?.value,
+							);
+							handlePreviewSizeChange(selectedOption || null);
+						}}
+						options={previewSizeOptions.map((opt) => ({
+							label: opt.label,
+							value: opt.value.previewAction?.size || '',
+						}))}
+						value={previewSizeOptions
+							.map((opt) => ({ label: opt.label, value: opt.value.previewAction?.size || '' }))
+							.find((opt) => opt.value === (template.actionOptions?.previewAction?.size || ''))}
+					/>
+				)}
+			</Field>
+			<CheckboxField name="hideBlanket">
+				{({ fieldProps }) => (
+					<Checkbox
+						{...fieldProps}
+						isChecked={template.actionOptions?.previewAction?.hideBlanket || false}
+						label={<Label content="Hide blanket (preview action)" />}
+						onChange={(e: React.SyntheticEvent<HTMLInputElement>) => {
+							handleHideBlanketChange(e.currentTarget.checked);
+						}}
+					/>
+				)}
+			</CheckboxField>
 		</Fieldset>
 	);
 };

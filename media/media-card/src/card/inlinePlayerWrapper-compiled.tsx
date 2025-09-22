@@ -8,7 +8,6 @@ import { getDimensionsWithDefault } from '../utils/lightCards/getDimensionsWithD
 import { type InlinePlayerWrapperProps } from './types';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const hideNativeBrowserTextSelectionStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -89,9 +88,7 @@ export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps) => {
 			ref={innerRef}
 			{...VcMediaWrapperProps}
 		>
-			{fg('platform_media_add_ufo_custom_data') ? (
-				<UFOCustomData data={{ hasMediaComponent: true }} />
-			) : null}
+			<UFOCustomData data={{ hasMediaComponent: true }} />
 			{props.children}
 		</div>
 	);

@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { DocumentViewer } from '../src/documentViewer';
 
 const style = css({
@@ -15,7 +17,7 @@ const style = css({
 	zIndex: '1000',
 	backgroundColor: 'white',
 	padding: '10px',
-	borderRadius: '5px',
+	borderRadius: token('radius.medium', '6px'),
 	boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
 });
 

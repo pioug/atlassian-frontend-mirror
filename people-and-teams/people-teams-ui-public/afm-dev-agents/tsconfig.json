@@ -32,7 +32,13 @@
 			"path": "../../../design-system/legacy-custom-icons/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-internal-analytics/afm-dev-agents/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-dev-agents/tsconfig.json"

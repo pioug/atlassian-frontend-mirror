@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "6.3.6",
+	"version": "6.3.8",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -165,7 +165,13 @@
 		"platform_editor_breakout_resizing_hello_release": {
 			"type": "boolean"
 		},
+		"platform_editor_block_menu_patch_1": {
+			"type": "boolean"
+		},
 		"platform_editor_breakout_resizing_widget_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_draghandle_safari_scroll_fix": {
 			"type": "boolean"
 		}
 	}

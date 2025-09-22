@@ -27,6 +27,8 @@ export type EmbedModalProps = {
 	invokeDownloadAction?: InvokeClientActionProps;
 	/* An open link action to invoke with useInvokeClientAction */
 	invokeViewAction?: InvokeClientActionProps;
+	/* Determines if the blanket behind the modal should be hidden when the preview action is clicked */
+	isBlanketHidden?: boolean;
 	/* Determines whether modal is being opened from within preview panel */
 	isInPreviewPanel?: boolean;
 	// /* It determines whether a link source supports different design theme modes */

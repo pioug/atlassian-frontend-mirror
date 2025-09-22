@@ -249,10 +249,7 @@ describe('getVCMetrics', () => {
 		expect(mockVCObserver.stop).toHaveBeenCalledWith('test');
 	});
 
-	// New test to ensure coverage for the platform_ufo_vc_enable_revisions_by_experience flag
-	it('should handle VC revisions by experience when the flag is enabled', async () => {
-		enabledFg.add('platform_ufo_vc_enable_revisions_by_experience');
-
+	it('should handle VC revisions by experience', async () => {
 		const mockGetMostRecentVCRevision = getMostRecentVCRevision as jest.MockedFunction<
 			typeof getMostRecentVCRevision
 		>;
@@ -365,7 +362,6 @@ describe('getVCMetrics', () => {
 	});
 
 	it('should use most recent VC revision from the experience key', async () => {
-		enabledFg.add('platform_ufo_vc_enable_revisions_by_experience');
 		const mockGetMostRecentVCRevision = getMostRecentVCRevision as jest.MockedFunction<
 			typeof getMostRecentVCRevision
 		>;

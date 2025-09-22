@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 2.1.3
+
+### Patch Changes
+
+- [`b8555904ec1cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8555904ec1cc) -
+  Add new util for comparing nodes ignoring attributes.
+- Updated dependencies
+
 ## 2.1.2
 
 ### Patch Changes

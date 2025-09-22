@@ -75,7 +75,7 @@ const timelineStyles = css({
 	transition: 'all 0.1s',
 	transitionDelay: '1s',
 	backgroundColor: '#596773',
-	borderRadius: '5px',
+	borderRadius: token('radius.full'),
 	position: 'relative',
 });
 

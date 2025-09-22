@@ -162,7 +162,7 @@ export const getAddContainerCards = ({
 					showNewDesign={showNewDesign}
 				/>
 			)}
-			{containers.Loom.canAdd && fg('loom_tab_in_container_linker_team_profile_page') && (
+			{containers.Loom.canAdd && (
 				<AddContainerCardComponent
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Loom')}
 					containerType="LoomSpace"

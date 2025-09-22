@@ -165,7 +165,10 @@ describe('actions', () => {
 					url,
 					appearance,
 					origin,
-					actionOptions: { hide: false, previewAction: { size: EmbedModalSize.Small } },
+					actionOptions: {
+						hide: false,
+						previewAction: { size: EmbedModalSize.Small, hideBlanket: true },
+					},
 				}),
 			{
 				wrapper: SmartCardProvider,
@@ -177,6 +180,7 @@ describe('actions', () => {
 		expect(openEmbedModal).toHaveBeenCalledWith(
 			expect.objectContaining({
 				size: EmbedModalSize.Small,
+				isBlanketHidden: true,
 				extensionKey: 'object-provider',
 				invokeDownloadAction: undefined,
 				invokeViewAction: expect.objectContaining({

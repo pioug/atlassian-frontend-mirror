@@ -1,5 +1,15 @@
 # @atlaskit/editor-toolbar
 
+## 0.9.4
+
+### Patch Changes
+
+- [`8adbc2f7e1db0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8adbc2f7e1db0) -
+  Updated the rovo logo to the latest iterations
+- [`bb498825fca37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb498825fca37) -
+  [ux] [ED-29266] add ToolbarKeyboardNavigationProvider to selection toolbar with Alt+F10 shortcut
+  to focus
+
 ## 0.9.3
 
 ### Patch Changes

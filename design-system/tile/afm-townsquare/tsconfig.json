@@ -23,12 +23,6 @@
 	],
 	"references": [
 		{
-			"path": "../../css/afm-townsquare/tsconfig.json"
-		},
-		{
-			"path": "../../primitives/afm-townsquare/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-townsquare/tsconfig.json"
 		}
 	]

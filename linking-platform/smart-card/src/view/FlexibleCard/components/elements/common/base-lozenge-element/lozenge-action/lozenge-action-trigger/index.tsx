@@ -67,7 +67,7 @@ const triggerButtonStyles = css({
 	"&:focus-visible, &:focus-within, &[aria-expanded='true']": {
 		outline: 'none',
 		boxShadow: `0 0 0 2px ${token('color.border.focused', '#388BFF')}`,
-		borderRadius: '5px',
+		borderRadius: token('radius.medium'),
 	},
 });
 

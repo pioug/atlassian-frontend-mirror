@@ -19,11 +19,11 @@ import VRTestWrapper from '../utils/vr-test-wrapper';
 const boxStyles = css({
 	color: token('color.text.inverse', '#FFFFFF'),
 	backgroundColor: token('color.icon.brand', '#0C66E4'),
-	borderRadius: '5px',
+	borderRadius: token('radius.medium', '6px'),
 });
 const linkIconStyles = css({
 	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
-	borderRadius: '15px',
+	borderRadius: token('radius.full', '15px'),
 });
 
 const context = getContext();

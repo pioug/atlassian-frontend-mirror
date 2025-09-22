@@ -39,6 +39,7 @@ import { hasParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/ut
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { tableNodeSpecWithFixedToDOM } from './nodeviews/toDOM';
@@ -69,6 +70,7 @@ import {
 	pluginKey as tableWidthPluginKey,
 } from './pm-plugins/table-width';
 import { createPlugin as createTableWidthInCommentFixPlugin } from './pm-plugins/table-width-in-comment-fix';
+import { getWidthInfoPayload } from './pm-plugins/utils/analytics';
 import { createTableWithWidth } from './pm-plugins/utils/create';
 import { createPlugin as createViewModeSortPlugin } from './pm-plugins/view-mode-sort';
 import type { TablePlugin, TablePluginOptions } from './tablePluginType';
@@ -77,6 +79,9 @@ import { ContentComponent } from './ui/ContentComponent';
 import { getToolbarConfig } from './ui/toolbar';
 
 const defaultGetEditorFeatureFlags = () => ({});
+
+// we want to calculate all the table widths (which causes reflows) after the editor has finished loading to mitigate performance impact
+const TABLE_WIDTH_INFO_TIMEOUT = 10000;
 
 /**
  * Table plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
@@ -553,13 +558,50 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 				},
 				{
 					name: 'tableGetEditorViewReferencePlugin',
-					plugin: () => {
+					plugin: ({ dispatchAnalyticsEvent }) => {
 						return new SafePlugin({
 							view: (editorView) => {
 								editorViewRef.current = editorView;
+
+								let setTimeoutID: ReturnType<typeof setTimeout>;
+								let rafID: number;
+								let ricID: number;
+
+								if (expValEquals('platform_editor_editor_width_analytics', 'isEnabled', true)) {
+									// send statistics about the widths of the tables on the page for alerting
+									// only send this event once, after the editorView is first initialised
+									setTimeoutID = setTimeout(() => {
+										const requestIdleCallbackFn = () => {
+											const editorWidth = api?.width.sharedState.currentState()?.width;
+
+											if (editorWidth && editorViewRef.current) {
+												dispatchAnalyticsEvent(
+													getWidthInfoPayload(editorViewRef.current, editorWidth),
+												);
+											}
+										};
+
+										if (window && typeof window.requestIdleCallback === 'function') {
+											ricID = window.requestIdleCallback(requestIdleCallbackFn);
+										} else if (window && typeof window.requestAnimationFrame === 'function') {
+											// requestIdleCallback is not supported in safari, fallback to requestAnimationFrame
+											rafID = window.requestAnimationFrame(requestIdleCallbackFn);
+										}
+									}, TABLE_WIDTH_INFO_TIMEOUT);
+								}
+
 								return {
 									destroy: () => {
 										editorViewRef.current = null;
+										if (setTimeoutID) {
+											clearTimeout(setTimeoutID);
+										}
+										if (rafID) {
+											window.cancelAnimationFrame(rafID);
+										}
+										if (ricID) {
+											window.cancelIdleCallback(ricID);
+										}
 									},
 								};
 							},

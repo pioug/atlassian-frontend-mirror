@@ -1,5 +1,12 @@
 # @atlaskit/analytics-viewer
 
+## 0.9.4
+
+### Patch Changes
+
+- [`407e1dc11eeed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/407e1dc11eeed) -
+  Minor changes to border radius values.
+
 ## 0.9.3
 
 ### Patch Changes

@@ -52,3 +52,8 @@ export type SyncedBlockPlugin = NextEditorPlugin<
 		pluginConfiguration: SyncedBlockPluginOptions | undefined;
 	}
 >;
+
+export type SyncBlockAttrs = {
+	localId: string;
+	resourceId: string;
+};

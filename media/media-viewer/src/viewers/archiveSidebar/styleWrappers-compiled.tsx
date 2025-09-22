@@ -120,7 +120,7 @@ const archiveViewerWrapperStyles = css({
 });
 
 const separatorStyles = css({
-	borderRadius: '1px',
+	borderRadius: token('radius.full'),
 	height: '2px',
 	marginTop: `${token('space.200', '19px')}`,
 	marginRight: '0',

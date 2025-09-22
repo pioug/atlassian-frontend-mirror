@@ -32,7 +32,13 @@
 			"path": "../../../design-system/legacy-custom-icons/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-internal-analytics/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"

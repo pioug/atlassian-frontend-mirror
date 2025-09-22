@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 5.5.9
+
+### Patch Changes
+
+- [`407e1dc11eeed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/407e1dc11eeed) -
+  Minor changes to border radius values.
+
 ## 5.5.8
 
 ### Patch Changes

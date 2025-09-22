@@ -42,6 +42,14 @@ export default function getMockProfileClient(BaseProfileClient: any, modifyRespo
 	}
 
 	class MockTeamCentralClient extends TeamCentralCardClient {
+		preloadOrgId() {
+			return Promise.resolve('mock-org-id');
+		}
+
+		preloadWorkspaceExistsWithType() {
+			return Promise.resolve('mock-workspace-exists-with-type');
+		}
+
 		createOrgContainsAnyWorkspacePromise(config: TeamCentralCardClientOptions): Promise<boolean> {
 			return Promise.resolve(true);
 		}

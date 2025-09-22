@@ -14,6 +14,7 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 
 import Heading from '@atlaskit/heading';
+import { token } from '@atlaskit/tokens';
 
 import { DROPBOX_IFRAME_NAME } from './constants';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -34,7 +35,7 @@ const ModalBody = React.forwardRef<HTMLDivElement, React.AllHTMLAttributes<HTMLD
 const iframeStyle = {
 	width: '100%',
 	height: '100%',
-	borderRadius: '0 0 3px 3px',
+	borderRadius: `0 0 ${token('radius.small', '3px')} ${token('radius.small', '3px')}`,
 };
 
 const bottomShadow = css({

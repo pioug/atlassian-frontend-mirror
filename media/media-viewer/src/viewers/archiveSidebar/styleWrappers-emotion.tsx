@@ -108,7 +108,7 @@ const archiveViewerWrapperStyles = css({
 });
 
 const separatorStyles = css({
-	borderRadius: '1px',
+	borderRadius: token('radius.full'),
 	height: '2px',
 	margin: `${token('space.200', '19px')} 0`,
 	backgroundColor: token('color.border', '#A6C5E229'),

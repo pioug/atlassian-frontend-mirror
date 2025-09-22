@@ -23,10 +23,16 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/button/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-jira/tsconfig.json"

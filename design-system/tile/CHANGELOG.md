@@ -1,5 +1,12 @@
 # @atlaskit/tile
 
+## 0.1.4
+
+### Patch Changes
+
+- [`99f4f441fac8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99f4f441fac8c) -
+  Removed unused dependencies.
+
 ## 0.1.3
 
 ### Patch Changes

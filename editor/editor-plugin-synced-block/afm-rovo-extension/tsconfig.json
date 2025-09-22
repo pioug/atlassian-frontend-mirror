@@ -23,10 +23,16 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/button/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-rovo-extension/tsconfig.json"

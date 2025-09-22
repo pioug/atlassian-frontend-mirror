@@ -28,6 +28,7 @@ export enum ACTION {
 	UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED = 'unsupportedContentLevelsTrackingSucceeded',
 	UNSUPPORTED_CONTENT_LEVELS_TRACKING_ERRORED = 'unsupportedContentLevelsTrackingErrored',
 	MEDIA_LINK_TRANSFORMED = 'mediaLinkTransformed',
+	TABLE_WIDTH_INFO = 'tableWidthInfo',
 }
 
 export enum ACTION_SUBJECT {

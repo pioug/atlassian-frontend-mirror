@@ -19,6 +19,10 @@ export const moveNodeWithBlockMenu = (
 	direction: DIRECTION.UP | DIRECTION.DOWN,
 ): EditorCommand => {
 	return ({ tr }) => {
+		if (!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+			return tr;
+		}
+
 		// Nodes like lists nest within themselves, we need to find the top most position
 		const currentNodePos = getCurrentNodePosFromDragHandleSelection({
 			selection: tr.selection,

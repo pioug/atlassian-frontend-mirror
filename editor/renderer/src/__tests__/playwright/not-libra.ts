@@ -81,7 +81,7 @@ class CodeBlockModel {
 	}
 }
 
-interface RendererPageInterface {
+export interface RendererPageInterface {
 	annotation: AnnotationModel;
 	codeBlock: CodeBlockModel;
 	getAnalyticsEvents: () => Promise<GasPurePayload[]>;

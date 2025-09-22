@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "4.9.0",
+	"version": "4.10.0",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,6 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
+		"singleton": true,
 		"team": "UIP Frontend Observability"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
@@ -205,6 +206,9 @@
 			"type": "boolean"
 		},
 		"platform_ufo_enable_late_mutation_label_stacks": {
+			"type": "boolean"
+		},
+		"platform_ufo_filter_cls_logs_same_rects_positions": {
 			"type": "boolean"
 		},
 		"platform_editor_exclude_dnd_anchor_name_from_ttvc": {

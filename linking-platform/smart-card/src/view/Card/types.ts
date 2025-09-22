@@ -39,6 +39,10 @@ export type CardActionOptions = CardActionVisibilityOptions & {
 	 */
 	previewAction?: {
 		/**
+		 * Determines if the blanket behind the modal should be hidden when the preview action is clicked.
+		 */
+		hideBlanket?: boolean;
+		/**
 		 * Determines the size of the preview modal when the preview action is clicked.
 		 */
 		size?: EmbedModalSize;

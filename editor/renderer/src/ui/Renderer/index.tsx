@@ -76,9 +76,14 @@ import { removeEmptySpaceAroundContent } from './rendererHelper';
 import { useMemoFromPropsDerivative } from './useMemoFromPropsDerivative';
 import { PortalContext } from './PortalContext';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { getWidthInfoPayload } from './analytics-utils';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
+
+// we want to calculate all the table widths (which causes reflows) after the renderer has finished loading to mitigate performance impact
+const TABLE_WIDTH_INFO_TIMEOUT = 10000;
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -405,6 +410,9 @@ export const RendererFunctionalComponent = (
 
 	useEffect(() => {
 		let rafID: number;
+		let widthAnalyticsSetTimeoutID: ReturnType<typeof setTimeout>;
+		let widthAnalyticsRicID: number;
+		let widthAnalyticsRafID: number;
 
 		const handleAnalytics = () => {
 			fireAnalyticsEvent({
@@ -456,6 +464,27 @@ export const RendererFunctionalComponent = (
 				});
 				anchorLinkAnalytics();
 			});
+
+			if (expValEquals('platform_editor_editor_width_analytics', 'isEnabled', true)) {
+				// send statistics about the widths of the tables on the page for alerting
+				widthAnalyticsSetTimeoutID = setTimeout(() => {
+					const requestIdleCallbackFn = () => {
+						const renderer =
+							props.innerRef?.current?.querySelector<HTMLElement>('.ak-renderer-document');
+
+						if (renderer) {
+							fireAnalyticsEvent(getWidthInfoPayload(renderer));
+						}
+					};
+
+					if (window && typeof window.requestIdleCallback === 'function') {
+						widthAnalyticsRicID = window.requestIdleCallback(requestIdleCallbackFn);
+					} else if (window && typeof window.requestAnimationFrame === 'function') {
+						// requestIdleCallback is not supported in safari, fallback to requestAnimationFrame
+						widthAnalyticsRafID = window.requestAnimationFrame(requestIdleCallbackFn);
+					}
+				}, TABLE_WIDTH_INFO_TIMEOUT);
+			}
 		};
 
 		handleAnalytics();
@@ -463,6 +492,15 @@ export const RendererFunctionalComponent = (
 		return () => {
 			if (rafID) {
 				window.cancelAnimationFrame(rafID);
+			}
+			if (widthAnalyticsSetTimeoutID) {
+				window.clearTimeout(widthAnalyticsSetTimeoutID);
+			}
+			if (widthAnalyticsRafID) {
+				window.cancelAnimationFrame(widthAnalyticsRafID);
+			}
+			if (widthAnalyticsRicID) {
+				window.cancelIdleCallback(widthAnalyticsRicID);
 			}
 
 			// if this is the ProviderFactory which was created in constructor

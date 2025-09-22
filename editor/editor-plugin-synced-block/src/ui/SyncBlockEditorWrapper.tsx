@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -26,8 +27,11 @@ const SyncBlockEditorWrapperComponent = ({
 	handleContentChanges,
 }: Props) => {
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/ensure-design-token-usage
-		<div data-testid={SyncBlockEditorWrapperDataId} style={{ border: 'purple solid 1px' }}>
+		<div
+			data-testid={SyncBlockEditorWrapperDataId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={SyncBlockSharedCssClassName.editor}
+		>
 			{getSyncedBlockEditor({
 				popupsBoundariesElement,
 				defaultDocument,

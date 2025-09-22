@@ -129,6 +129,7 @@ export const TeamLinkCard = ({
 	const { fireEvent } = useAnalyticsEventsNext();
 
 	const handleMouseEnter = () => {
+		if (isReadOnly) {return;}
 		setHovered(true);
 		if (containerType !== 'WebLink') {
 			setShowCloseIcon(true);
@@ -136,6 +137,7 @@ export const TeamLinkCard = ({
 	};
 
 	const handleFocus = () => {
+		if (isReadOnly) {return;}
 		setFocused(true);
 		if (containerType !== 'WebLink') {
 			setShowCloseIcon(true);

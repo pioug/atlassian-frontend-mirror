@@ -1,5 +1,17 @@
 # @atlaskit/util-data-test
 
+## 18.3.0
+
+### Minor Changes
+
+- [`e49f1d35e507a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e49f1d35e507a) -
+  [https://product-fabric.atlassian.net/browse/ED-29349](ED-29349) - add one tick provider (SSR)
+  support for emojis in editor and live pages
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.2.0
 
 ### Minor Changes

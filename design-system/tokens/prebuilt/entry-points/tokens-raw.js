@@ -49,13 +49,19 @@ Object.defineProperty(exports, "spacing", {
 Object.defineProperty(exports, "typography", {
   enumerable: true,
   get: function get() {
-    return _atlassianTypographyModernized.default;
+    return _atlassianTypography.default;
   }
 });
 Object.defineProperty(exports, "typographyAdg3", {
   enumerable: true,
   get: function get() {
     return _atlassianTypographyAdg.default;
+  }
+});
+Object.defineProperty(exports, "typographyModernized", {
+  enumerable: true,
+  get: function get() {
+    return _atlassianTypographyModernized.default;
   }
 });
 Object.defineProperty(exports, "typographyRefreshed", {
@@ -70,7 +76,8 @@ var _atlassianLegacyLight = _interopRequireDefault(require("../artifacts/tokens-
 var _atlassianDark = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-dark"));
 var _atlassianDarkBrandRefresh = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-dark-brand-refresh"));
 var _atlassianSpacing = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-spacing"));
+var _atlassianTypography = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-typography"));
+var _atlassianTypographyAdg = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-typography-adg3"));
 var _atlassianTypographyModernized = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-typography-modernized"));
 var _atlassianTypographyRefreshed = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-typography-refreshed"));
-var _atlassianTypographyAdg = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-typography-adg3"));
 var _atlassianShape = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-shape"));

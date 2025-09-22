@@ -12,7 +12,7 @@ export const UserContainer = styled.span<{ error: boolean; selected: boolean }>(
 		display: 'inline-flex',
 		alignItems: 'baseline',
 		paddingLeft: `${token('space.025', '2px')}`,
-		borderRadius: '10px',
+		borderRadius: token('radius.xlarge'),
 		cursor: 'pointer',
 		userSelect: 'none',
 	},

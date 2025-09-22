@@ -1,7 +1,7 @@
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { ChangeSet, simplifyChanges } from 'prosemirror-changeset';
 
-import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
+import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
@@ -39,7 +39,7 @@ export const calculateDiffDecorations = ({
 	}
 	// Rather than using .eq() we use a custom function that only checks for structural
 	// changes and ignores differences in attributes which don't affect decoration positions
-	if (!areNodesEqual(steppedDoc, tr.doc)) {
+	if (!areNodesEqualIgnoreAttrs(steppedDoc, tr.doc)) {
 		return DecorationSet.empty;
 	}
 	const changes = simplifyChanges(changeset.changes, tr.doc);
@@ -66,39 +66,3 @@ export const calculateDiffDecorations = ({
 
 	return DecorationSet.empty.add(tr.doc, decorations);
 };
-
-/**
- * Compares two ProseMirror documents for equality, ignoring attributes
- * which don't affect the document structure.
- *
- * This is almost a copy of the .eq() PM function - tweaked to ignore attrs
- *
- * @param doc1 PMNode
- * @param doc2 PMNode
- * @returns boolean
- */
-export function areNodesEqual(node1: PMNode, node2: PMNode): boolean {
-	if (node1.isText) {
-		return node1.eq(node2);
-	}
-	return (
-		node1 === node2 ||
-		(node1.hasMarkup(node2.type, node1.attrs, node2.marks) &&
-			areFragmentsEqual(node1.content, node2.content))
-	);
-}
-
-function areFragmentsEqual(frag1: Fragment, frag2: Fragment): boolean {
-	if (frag1.content.length !== frag2.content.length) {
-		return false;
-	}
-	let childrenEqual = true;
-	frag1.content.forEach((child, i) => {
-		const otherChild = frag2.child(i);
-		if (child === otherChild || (otherChild && areNodesEqual(child, otherChild))) {
-			return;
-		}
-		childrenEqual = false;
-	});
-	return childrenEqual;
-}

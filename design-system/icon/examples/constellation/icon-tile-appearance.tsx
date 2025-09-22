@@ -1,35 +1,34 @@
 import React from 'react';
 
-import { IconTile } from '@atlaskit/icon';
-import AddIcon from '@atlaskit/icon/core/add';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline, Stack } from '@atlaskit/primitives';
+import { IconTile, type IconTileProps } from '@atlaskit/icon';
+import GlobeIcon from '@atlaskit/icon/core/globe';
+import { Inline, Stack } from '@atlaskit/primitives/compiled';
 
-const appearances = [
-	'blue',
-	'green',
-	'lime',
-	'magenta',
-	'orange',
-	'purple',
-	'red',
-	'teal',
-	'yellow',
+const appearances: IconTileProps['appearance'][] = [
 	'gray',
-] as const;
+	'red',
+	'orange',
+	'yellow',
+	'lime',
+	'green',
+	'teal',
+	'blue',
+	'purple',
+	'magenta',
+];
 
-const boldAppearances = [
-	'blueBold',
-	'greenBold',
-	'limeBold',
-	'magentaBold',
-	'orangeBold',
-	'purpleBold',
-	'redBold',
-	'tealBold',
-	'yellowBold',
+const boldAppearances: IconTileProps['appearance'][] = [
 	'grayBold',
-] as const;
+	'redBold',
+	'orangeBold',
+	'yellowBold',
+	'limeBold',
+	'greenBold',
+	'tealBold',
+	'blueBold',
+	'purpleBold',
+	'magentaBold',
+];
 
 const IconSizeExample = () => {
 	return (
@@ -39,11 +38,11 @@ const IconSizeExample = () => {
 					{appearance.map((appearance) => (
 						<IconTile
 							key={appearance}
-							icon={AddIcon}
+							icon={GlobeIcon}
 							label=""
 							appearance={appearance}
 							shape="square"
-							size="24"
+							size="medium"
 						/>
 					))}
 				</Inline>

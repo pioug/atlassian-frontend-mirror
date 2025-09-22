@@ -346,14 +346,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				passive: true,
 			});
 
-			if (fg('disable-sticky-scrollbar-for-nested-tables')) {
-				if (this.table && !this.isNestedInTable) {
-					this.stickyScrollbar = new TableStickyScrollbar(this.wrapper, this.props.view);
-				}
-			} else {
-				if (this.table) {
-					this.stickyScrollbar = new TableStickyScrollbar(this.wrapper, this.props.view);
-				}
+			if (this.table && !this.isNestedInTable) {
+				this.stickyScrollbar = new TableStickyScrollbar(this.wrapper, this.props.view);
 			}
 
 			if (isDragAndDropEnabled) {
@@ -1053,15 +1047,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					className={ClassName.TABLE_STICKY_SENTINEL_TOP}
 					data-testid="sticky-sentinel-top"
 				/>
-				{fg('disable-sticky-scrollbar-for-nested-tables') ? (
-					!this.isNestedInTable && (
-						<div
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP}
-							data-testid="sticky-scrollbar-sentinel-top"
-						/>
-					)
-				) : (
+				{!this.isNestedInTable && (
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP}
@@ -1123,44 +1109,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				>
 					{allowControls && colControls}
 				</div>
-				{fg('disable-sticky-scrollbar-for-nested-tables') ? (
-					!this.isNestedInTable ? (
-						<div
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={ClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
-							data-vc-nvs="true"
-							style={{
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								display: 'none',
-								// prevent unwanted scroll during table resize without removing scrollbar container from the dom
-								width: isResizing ? token('space.0', '0px') : '100%',
-							}}
-						>
-							<div
-								style={{
-									width: tableRef?.clientWidth,
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									height: '100%',
-								}}
-								data-vc-nvs="true"
-							></div>
-						</div>
-					) : (
-						<div
-							style={{
-								width: tableRef?.clientWidth,
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								height: '100%',
-							}}
-							data-vc-nvs="true"
-						></div>
-					)
-				) : (
+				{!this.isNestedInTable ? (
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={ClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
+						data-vc-nvs="true"
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
@@ -1169,7 +1122,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 							// prevent unwanted scroll during table resize without removing scrollbar container from the dom
 							width: isResizing ? token('space.0', '0px') : '100%',
 						}}
-						data-vc-nvs="true"
 					>
 						<div
 							style={{
@@ -1180,6 +1132,15 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 							data-vc-nvs="true"
 						></div>
 					</div>
+				) : (
+					<div
+						style={{
+							width: tableRef?.clientWidth,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							height: '100%',
+						}}
+						data-vc-nvs="true"
+					></div>
 				)}
 				<div
 					contentEditable={false}
@@ -1218,15 +1179,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					className={ClassName.TABLE_STICKY_SENTINEL_BOTTOM}
 					data-testid="sticky-sentinel-bottom"
 				/>
-				{fg('disable-sticky-scrollbar-for-nested-tables') ? (
-					!this.isNestedInTable && (
-						<div
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM}
-							data-testid="sticky-scrollbar-sentinel-bottom"
-						/>
-					)
-				) : (
+				{!this.isNestedInTable && (
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM}

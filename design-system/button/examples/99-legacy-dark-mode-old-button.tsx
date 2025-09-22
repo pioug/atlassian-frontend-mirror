@@ -52,7 +52,7 @@ function ThemeModeSwitcher({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					border: `${token('border.width.selected')} solid ${colors.N800}`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					borderRadius: '5px',
+					borderRadius: token('radius.medium'),
 				}}
 			>
 				<GlobalTheme.Provider value={getMode}>

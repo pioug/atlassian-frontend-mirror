@@ -27,7 +27,7 @@ const positionStyles = css({
 	width: '280px',
 	height: '60px',
 	backgroundColor: token('color.background.neutral'),
-	borderRadius: '5px',
+	borderRadius: token('radius.medium', '6px'),
 	paddingBlockEnd: token('space.100', '8px'),
 	paddingBlockStart: token('space.100', '8px'),
 	paddingInlineEnd: token('space.100', '8px'),

@@ -65,7 +65,7 @@ export interface ContainerIconProps {
 	iconHasLoaded?: boolean;
 }
 
-const IconSkeleton = ({ size, testId }: IconSkeletonProps) => {
+const IconSkeleton = ({ size }: IconSkeletonProps) => {
 	return (
 		<Box
 			xcss={size === 'medium' ? styles.skeletonMedium : styles.skeletonSmall}
@@ -85,7 +85,7 @@ export const ContainerIcon = ({
 	const isMedium = size === 'medium';
 
 	if (containerType === 'LoomSpace') {
-		return <LoomSpaceAvatar spaceName={title} size={isMedium ? 'large' : size} />;
+		return <LoomSpaceAvatar spaceName={title} size={isMedium ? 'large' : size} testId={`linked-container-${containerType}-icon`}/>;
 	}
 
 	if (containerType === 'WebLink') {

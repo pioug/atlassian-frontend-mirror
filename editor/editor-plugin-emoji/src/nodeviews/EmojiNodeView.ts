@@ -19,14 +19,17 @@ import type {
 	EmojiProvider,
 	EmojiRepresentation,
 } from '@atlaskit/emoji/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EmojiPlugin } from '../emojiPluginType';
+import type { EmojiNodeDataProvider } from '../pm-plugins/providers/EmojiNodeDataProvider';
 
 import { emojiToDom } from './emojiNodeSpec';
 
 interface Params {
 	api: ExtractInjectionAPI<EmojiPlugin> | undefined;
+	emojiNodeDataProvider?: EmojiNodeDataProvider;
 	intl: IntlShape;
 }
 
@@ -72,65 +75,109 @@ export class EmojiNodeView implements NodeView {
 	 * @param extraProps - An object containing additional parameters.
 	 * @param extraProps.intl - The internationalization object for formatting messages.
 	 * @param extraProps.api - The editor API for accessing shared state and connectivity features.
+	 * @param extraProps.emojiNodeDataProvider - (Optional) A provider for fetching emoji data.
 	 *
 	 * @example
-	 * const emojiNodeView = new EmojiNodeView(node, { intl, api });
+	 * const emojiNodeView = new EmojiNodeView(node, { intl, api, emojiNodeDataProvider });
 	 */
-	constructor(node: PMNode, { intl, api }: Params) {
+	constructor(node: PMNode, { intl, api, emojiNodeDataProvider }: Params) {
 		this.node = node;
 		this.intl = intl;
 		const { dom } = DOMSerializer.renderSpec(document, emojiToDom(this.node));
 		this.dom = dom;
-		this.domElement = dom instanceof HTMLElement ? dom : undefined;
+		this.domElement =
+			(expValEquals('platform_editor_emoji_otp', 'isEnabled', true) && this.isHTMLElement(dom)) ||
+			(!expValEquals('platform_editor_emoji_otp', 'isEnabled', true) && dom instanceof HTMLElement)
+				? dom
+				: undefined;
 
-		if (isSSR()) {
-			// The provider doesn't work in SSR, and we don't want to render fallback in SSR,
-			// that's why we don't need to continue node rendering.
-			// In SSR we want to show a placeholder, that `emojiToDom()` returns.
-			return;
-		}
+		if (expValEquals('platform_editor_emoji_otp', 'isEnabled', true) && emojiNodeDataProvider) {
+			emojiNodeDataProvider.getData(node, (payload) => {
+				if (payload.error) {
+					EmojiNodeView.logError(payload.error);
+					this.renderFallback();
+					return;
+				}
 
-		// We use the `emojiProvider` from the shared state
-		// because it supports the `emojiProvider` prop in the `ComposableEditor` options
-		// as well as the `emojiProvider` in the `EmojiPlugin` options.
-		const sharedState = api?.emoji?.sharedState;
-		if (!sharedState) {
-			return;
-		}
+				const emojiDescription = payload.data;
 
-		let emojiProvider: EmojiProvider | undefined = sharedState.currentState()?.emojiProvider;
-		if (emojiProvider) {
-			void this.updateDom(emojiProvider);
-		}
+				if (!emojiDescription) {
+					EmojiNodeView.logError(new Error('Emoji description is not loaded'));
+					this.renderFallback();
+					return;
+				}
 
-		const unsubscribe = sharedState.onChange(({ nextSharedState }) => {
-			if (emojiProvider === nextSharedState?.emojiProvider) {
-				// Do not update if the provider is the same
+				const emojiRepresentation = emojiDescription?.representation;
+				if (!EmojiNodeView.isEmojiRepresentationSupported(emojiRepresentation)) {
+					EmojiNodeView.logError(new Error('Emoji representation is not supported'));
+
+					this.renderFallback();
+
+					return;
+				}
+
+				this.renderEmoji(emojiDescription, emojiRepresentation);
+			});
+		} else {
+			if (isSSR()) {
+				// The provider doesn't work in SSR, and we don't want to render fallback in SSR,
+				// that's why we don't need to continue node rendering.
+				// In SSR we want to show a placeholder, that `emojiToDom()` returns.
 				return;
 			}
 
-			emojiProvider = nextSharedState?.emojiProvider;
-			void this.updateDom(emojiProvider);
-		});
+			// We use the `emojiProvider` from the shared state
+			// because it supports the `emojiProvider` prop in the `ComposableEditor` options
+			// as well as the `emojiProvider` in the `EmojiPlugin` options.
+			const sharedState = api?.emoji?.sharedState;
+			if (!sharedState) {
+				return;
+			}
 
-		// Refresh emojis if we go back online
-		const subscribeToConnection = api?.connectivity?.sharedState.onChange(
-			({ prevSharedState, nextSharedState }) => {
-				if (
-					prevSharedState?.mode === 'offline' &&
-					nextSharedState?.mode === 'online' &&
-					this.renderingFallback &&
-					editorExperiment('platform_editor_offline_editing_web', true)
-				) {
-					this.updateDom(sharedState.currentState()?.emojiProvider);
+			let emojiProvider: EmojiProvider | undefined = sharedState.currentState()?.emojiProvider;
+			if (emojiProvider) {
+				void this.updateDom(emojiProvider);
+			}
+
+			const unsubscribe = sharedState.onChange(({ nextSharedState }) => {
+				if (emojiProvider === nextSharedState?.emojiProvider) {
+					// Do not update if the provider is the same
+					return;
 				}
-			},
-		);
 
-		this.destroy = () => {
-			unsubscribe();
-			subscribeToConnection?.();
-		};
+				emojiProvider = nextSharedState?.emojiProvider;
+				void this.updateDom(emojiProvider);
+			});
+
+			// Refresh emojis if we go back online
+			const subscribeToConnection = api?.connectivity?.sharedState.onChange(
+				({ prevSharedState, nextSharedState }) => {
+					if (
+						prevSharedState?.mode === 'offline' &&
+						nextSharedState?.mode === 'online' &&
+						this.renderingFallback &&
+						editorExperiment('platform_editor_offline_editing_web', true)
+					) {
+						this.updateDom(sharedState.currentState()?.emojiProvider);
+					}
+				},
+			);
+
+			this.destroy = () => {
+				unsubscribe();
+				subscribeToConnection?.();
+			};
+		}
+	}
+
+	/** Type guard to check if a Node is an HTMLElement in a safe way. */
+	private isHTMLElement(element: Node | null): element is HTMLElement {
+		if (element === null) {
+			return false;
+		}
+
+		// In SSR `HTMLElement` is not defined, so we need to use duck typing here
+		return 'innerHTML' in element && 'style' in element && 'classList' in element;
 	}
 
 	private async updateDom(emojiProvider: EmojiProvider | undefined) {

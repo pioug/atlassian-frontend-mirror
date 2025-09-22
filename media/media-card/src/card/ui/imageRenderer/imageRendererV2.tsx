@@ -77,9 +77,7 @@ export const ImageRenderer = ({
 
 	return cardPreview ? (
 		<ImageRendererWrapper>
-			{fg('platform_media_add_ufo_custom_data') ? (
-				<UFOCustomData data={{ hasMediaComponent: true }} />
-			) : null}
+			<UFOCustomData data={{ hasMediaComponent: true }} />
 			<img
 				ref={imgRef}
 				data-testid={testId}

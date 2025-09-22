@@ -1,10 +1,8 @@
 import React, { useCallback } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import Avatar from '@atlaskit/avatar';
 import { cssMap } from '@atlaskit/css';
 import { LinkItem } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import {
 	ContainerIcon,
@@ -38,7 +36,6 @@ export const TeamConnections = ({
 	containerIcon,
 	link,
 }: LinkedContainerCardProps) => {
-	const isContainerIconEnabled = fg('loom_tab_in_container_linker_team_profile_page');
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
 		iconSize: 'medium',
@@ -57,22 +54,13 @@ export const TeamConnections = ({
 	return (
 		<LinkItem href={link} onClick={onClick} target="_blank">
 			<Inline space="space.100" xcss={styles.containerWrapperStyles}>
-				{isContainerIconEnabled ? (
-					<ContainerIcon
-						containerType={containerType}
-						title={title}
-						containerIcon={containerIcon}
-						size="small"
-					/>
-				) : (
-					<Box
-						as="img"
-						src={containerIcon}
-						alt=""
-						testId="linked-container-icon"
-						xcss={styles.containerIconStyles}
-					/>
-				)}
+				<ContainerIcon
+					containerType={containerType}
+					title={title}
+					containerIcon={containerIcon}
+					size="small"
+				/>
+
 				<Stack>
 					<Text maxLines={1} color="color.text">
 						{title}
@@ -104,7 +92,6 @@ export const NewTeamConnections = ({
 	containerIcon,
 	link,
 }: LinkedContainerCardProps) => {
-	const isContainerIconEnabled = fg('loom_tab_in_container_linker_team_profile_page');
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
 		iconSize: 'medium',
@@ -136,21 +123,12 @@ export const NewTeamConnections = ({
 				</Inline>
 			}
 			iconBefore={
-				isContainerIconEnabled ? (
-					<ContainerIcon
-						containerType={containerType}
-						title={title}
-						containerIcon={containerIcon}
-						size="small"
-					/>
-				) : (
-					<Avatar
-						size="small"
-						appearance="square"
-						src={containerIcon}
-						testId="linked-container-icon"
-					/>
-				)
+				<ContainerIcon
+					containerType={containerType}
+					title={title}
+					containerIcon={containerIcon}
+					size="small"
+				/>
 			}
 			iconAfter={
 				<Box

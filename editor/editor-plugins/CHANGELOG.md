@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugins
 
+## 10.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.6.0
+
+### Minor Changes
+
+- [`e49f1d35e507a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e49f1d35e507a) -
+  [https://product-fabric.atlassian.net/browse/ED-29349](ED-29349) - add one tick provider (SSR)
+  support for emojis in editor and live pages
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.5.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.5.15
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 42.2.0
+
+### Minor Changes
+
+- [`bdcb27019145f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdcb27019145f) -
+  This adds a new prop to the `actionOptions` which allows a user of smart actions to determine
+  whether the blanket should be hidden when the preview action modal is opened. It can be done by
+  defining the following: e.g.
+  ```
+  <Card appearance="block"
+  	actionOptions={
+  	{ previewAction: { size: "large", hideBlanket: true } }} />
+  ```
+
+### Patch Changes
+
+- [`407e1dc11eeed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/407e1dc11eeed) -
+  Minor changes to border radius values.
+- Updated dependencies
+
 ## 42.1.1
 
 ### Patch Changes

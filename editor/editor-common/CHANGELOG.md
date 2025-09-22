@@ -1,5 +1,50 @@
 # @atlaskit/editor-common
 
+## 109.14.0
+
+### Minor Changes
+
+- [`b8555904ec1cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8555904ec1cc) -
+  Add new util for comparing nodes ignoring attributes.
+
+### Patch Changes
+
+- [`f7bc2f60e0fc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7bc2f60e0fc6) -
+  [ux] Updates copy text for drag handle, copy block, copy link and updates order of items in Turn
+  into menu.
+
+## 109.13.0
+
+### Minor Changes
+
+- [`23e11d126d7c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23e11d126d7c9) -
+  EDITOR-1312: Add new AIFC error messages.
+
+### Patch Changes
+
+- [`6d186dc817ef9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d186dc817ef9) -
+  [ux] ED-26884 fix bug where resize columns for nested table results in a scrollbar
+- [`407e1dc11eeed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/407e1dc11eeed) -
+  Minor changes to border radius values.
+- Updated dependencies
+
+## 109.12.0
+
+### Minor Changes
+
+- [`889f0cb60f68d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/889f0cb60f68d) -
+  EDITOR-1561 implement confirmation before deleting a source sync block
+
+### Patch Changes
+
+- [`a77acd87fef67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a77acd87fef67) -
+  EDITOR-1391 add new analytics event which logs editor width and all table widths on the page once
+  after page is loaded in both editor and renderer. remove previous implementation in width plugin.
+- [`bb498825fca37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb498825fca37) -
+  [ux] [ED-29266] add ToolbarKeyboardNavigationProvider to selection toolbar with Alt+F10 shortcut
+  to focus
+- Updated dependencies
+
 ## 109.11.4
 
 ### Patch Changes

@@ -4,6 +4,7 @@ import type {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	OperationalAEP,
+	TABLE_ACTION,
 } from '@atlaskit/editor-common/analytics';
 
 import type { AEP } from './enums';
@@ -179,6 +180,22 @@ type TableSortColumnAEP = AEP<
 	EVENT_TYPE.TRACK
 >;
 
+type TableWidthInfoAEP = AEP<
+	TABLE_ACTION.TABLE_WIDTH_INFO,
+	ACTION_SUBJECT.TABLE,
+	undefined,
+	{
+		editorWidth: number;
+		mode: MODE.RENDERER;
+		tableWidthInfo: Array<{
+			hasScrollbar: boolean;
+			isNestedTable: boolean;
+			tableWidth: number;
+		}>;
+	},
+	EVENT_TYPE.OPERATIONAL
+>;
+
 type VisitLinkAEP = AEP<
 	ACTION.VISITED,
 	ACTION_SUBJECT.LINK,
@@ -285,6 +302,7 @@ export type AnalyticsEventPayload<T = void> =
 	| AnchorLinkAEP
 	| TableSortColumnNotAllowedAEP
 	| TableSortColumnAEP
+	| TableWidthInfoAEP
 	| VisitLinkAEP
 	| VisitMediaLinkAEP
 	| ExpandAEP

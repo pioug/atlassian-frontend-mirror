@@ -7,6 +7,7 @@ import { token } from '@atlaskit/tokens';
 
 import { ProfileCard } from '../src';
 import { profiles } from '../src/mocks';
+import { avatarImages } from '../src/mocks/profile-data';
 import { reportingLinesData } from '../src/mocks/reporting-lines-data';
 import { type ProfilecardProps, type ReportingLinesUser } from '../src/types';
 
@@ -27,7 +28,7 @@ export const Section = styled.div({
 });
 
 const fakeProfileData = {
-	avatarUrl: profiles[4].User.avatarUrl,
+	avatarUrl: avatarImages[4],
 	fullName: profiles[4].User.fullName,
 	nickname: profiles[4].User.nickname,
 	email: profiles[4].User.email,
@@ -105,43 +106,54 @@ const actions = [
 
 const clientFetchProfile = () => null;
 
+/**
+ * We snapshot all these.
+ */
+export const LoadingState = () => <ProfileCard isLoading />;
+export const ErrorState = () => <ProfileCard hasError clientFetchProfile={clientFetchProfile} />;
+export const ErrorStateNotFound = () => (
+	<ProfileCard
+		hasError
+		errorType={{ reason: 'NotFound' }}
+		clientFetchProfile={clientFetchProfile}
+	/>
+);
+export const BestCaseProfile = () => <ProfileCard {...bestCaseProfile} />;
+export const WorstCaseProfile = () => <ProfileCard {...worstCaseProfile} />;
+export const BotCaseProfile = () => <ProfileCard {...botCaseProfile} />;
+export const AlternateActions = () => <ProfileCard {...fakeData({ actions })} />;
+
 export default function Example() {
 	return (
 		<ExampleWrapper>
 			<MainStage>
 				<Section>
 					<h4>Loading State</h4>
-					<ProfileCard isLoading />
+					<LoadingState />
 				</Section>
 				<Section>
 					<h4>Error State</h4>
-					<ProfileCard hasError clientFetchProfile={clientFetchProfile} />
+					<ErrorState />
 				</Section>
 				<Section>
 					<h4>Error State (Not Found Error)</h4>
-					<ProfileCard
-						hasError
-						errorType={{
-							reason: 'NotFound',
-						}}
-						clientFetchProfile={clientFetchProfile}
-					/>
+					<ErrorStateNotFound />
 				</Section>
 				<Section>
 					<h4>Worst case</h4>
-					<ProfileCard {...worstCaseProfile} />
+					<WorstCaseProfile />
 				</Section>
 				<Section>
 					<h4>Best case</h4>
-					<ProfileCard {...bestCaseProfile} />
+					<BestCaseProfile />
 				</Section>
 				<Section>
 					<h4>Bot case</h4>
-					<ProfileCard {...botCaseProfile} />
+					<BotCaseProfile />
 				</Section>
 				<Section>
 					<h4>Alternate actions</h4>
-					<ProfileCard {...fakeData({ actions })} />
+					<AlternateActions />
 				</Section>
 			</MainStage>
 		</ExampleWrapper>

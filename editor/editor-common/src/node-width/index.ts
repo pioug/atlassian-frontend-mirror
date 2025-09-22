@@ -4,10 +4,14 @@ import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/u
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
+	akEditorGutterPadding,
+	akEditorGutterPaddingDynamic,
 	akEditorWideLayoutWidth,
 	akLayoutGutterOffset,
 	gridMediumMaxWidth,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { BODIED_EXT_PADDING } from '../styles/shared/extension';
 import { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN } from '../styles/shared/layout';
@@ -16,6 +20,8 @@ import type { EditorContainerWidth } from '../types/editor-container-width';
 import { absoluteBreakoutWidth } from '../utils/breakout';
 
 const GRID_SIZE = 8;
+const NESTED_DND_GUTTER_OFFSET = 8;
+const NESTED_DND_MARGIN_OFFSET = 12;
 
 export const layoutToWidth = {
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
@@ -51,7 +57,13 @@ export const getParentNodeWidth = (
 	if (breakoutMark && breakoutMark.attrs.mode) {
 		layout = breakoutMark.attrs.mode;
 	}
-	let parentWidth = calcBreakoutNodeWidth(layout, containerWidth, isFullWidthModeEnabled);
+	const breakoutWidth = breakoutMark ? breakoutMark.attrs.width : undefined;
+	let parentWidth = calcBreakoutNodeWidth(
+		layout,
+		containerWidth,
+		isFullWidthModeEnabled,
+		breakoutWidth,
+	);
 
 	// Please, do not copy or use this kind of code below
 	// @ts-ignore
@@ -66,7 +78,10 @@ export const getParentNodeWidth = (
 
 	switch (node.type) {
 		case schema.nodes.layoutSection:
-			parentWidth += akLayoutGutterOffset * 2; // extra width that gets added to layout
+			// the extra width of the layout does not add to the width of the area the table can be inside
+			if (!expValEquals('platform_editor_nested_table_refresh_width_fix', 'isEnabled', true)) {
+				parentWidth += akLayoutGutterOffset * 2; // extra width that gets added to layout
+			}
 
 			// Calculate width of parent layout column when
 			// Parallel layout with viewport greater than 1024px
@@ -76,7 +91,12 @@ export const getParentNodeWidth = (
 				(contextPanelPluginKey.getState(state)?.contents.length > 0 &&
 					contextPanelPluginKey.getState(state)?.contents[0] !== undefined)
 			) {
-				parentWidth -= (LAYOUT_SECTION_MARGIN + 2) * (node.childCount - 1); // margin between sections
+				// margin between sections
+				parentWidth -=
+					expValEquals('platform_editor_nested_table_refresh_width_fix', 'isEnabled', true) &&
+					fg('platform_editor_nested_dnd_styles_changes')
+						? (LAYOUT_SECTION_MARGIN + NESTED_DND_MARGIN_OFFSET + 2) * (node.childCount - 1)
+						: (LAYOUT_SECTION_MARGIN + 2) * (node.childCount - 1);
 				const $pos = state.doc.resolve(pos);
 				const column = findParentNodeOfTypeClosestToPos($pos, [state.schema.nodes.layoutColumn]);
 				if (column && column.node && !isNaN(column.node.attrs.width)) {
@@ -86,7 +106,12 @@ export const getParentNodeWidth = (
 			}
 
 			// account for the padding of the parent node
-			parentWidth -= LAYOUT_COLUMN_PADDING * 2;
+			parentWidth -=
+				expValEquals('platform_editor_nested_table_refresh_width_fix', 'isEnabled', true) &&
+				fg('platform_editor_nested_dnd_styles_changes')
+					? (LAYOUT_COLUMN_PADDING + NESTED_DND_GUTTER_OFFSET) * 2
+					: LAYOUT_COLUMN_PADDING * 2;
+
 			break;
 
 		case schema.nodes.bodiedExtension:
@@ -147,7 +172,21 @@ const calcBreakoutNodeWidth = (
 	layout: 'full-width' | 'wide' | string,
 	containerWidth: EditorContainerWidth,
 	isFullWidthModeEnabled?: boolean,
+	breakoutWidth?: number,
 ) => {
+	if (
+		breakoutWidth &&
+		expValEquals('platform_editor_nested_table_refresh_width_fix', 'isEnabled', true)
+	) {
+		return isFullWidthModeEnabled
+			? Math.min(containerWidth.lineLength as number, breakoutWidth)
+			: // container width minus breakout padding
+				// --ak-editor--breakout-full-page-guttering-padding = (--ak-editor--large-gutter-padding * 2) + --ak-editor--default-gutter-padding
+				Math.min(
+					containerWidth.width - (akEditorGutterPaddingDynamic() * 2 + akEditorGutterPadding),
+					breakoutWidth,
+				);
+	}
 	return isFullWidthModeEnabled
 		? Math.min(containerWidth.lineLength as number, akEditorFullWidthLayoutWidth)
 		: absoluteBreakoutWidth(layout, containerWidth.width);

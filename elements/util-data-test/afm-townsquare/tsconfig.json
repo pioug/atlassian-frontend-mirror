@@ -27,6 +27,9 @@
 			"path": "../../../analytics/analytics-next/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../../editor/editor-plugin-emoji/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../emoji/afm-townsquare/tsconfig.json"
 		},
 		{

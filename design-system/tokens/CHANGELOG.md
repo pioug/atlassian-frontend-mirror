@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 6.3.2
+
+### Patch Changes
+
+- [`de24410d10d9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de24410d10d9d) -
+  Raw typography tokens export fix.
+
 ## 6.3.1
 
 ### Patch Changes

@@ -1,6 +1,5 @@
 import React, { type Ref, forwardRef, useCallback, useRef, useState } from 'react';
 import { type CSSProperties } from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 
@@ -431,9 +430,7 @@ export const MediaImage = forwardRef(
 		}
 		return (
 			<>
-				{fg('platform_media_add_ufo_custom_data') ? (
-					<UFOCustomData data={{ hasMediaComponent: true }} />
-				) : null}
+				<UFOCustomData data={{ hasMediaComponent: true }} />
 				<ImageComponent
 					loading={loading}
 					data-testid="media-image"

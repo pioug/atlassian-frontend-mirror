@@ -1,11 +1,36 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { PerformanceEntryBuffer } from '../utils/buffer';
 
 import type { LayoutShiftPerformanceEntry } from './types';
 
+function isSameRects(rect1: DOMRectReadOnly, rect2: DOMRectReadOnly) {
+	return (
+		rect1.x === rect2.x &&
+		rect1.y === rect2.y &&
+		rect1.width === rect2.width &&
+		rect1.height === rect2.height &&
+		rect1.top === rect2.top &&
+		rect1.right === rect2.right &&
+		rect1.bottom === rect2.bottom &&
+		rect1.left === rect2.left
+	);
+}
+
 export function getCLS(start: number, stop: number, buffer: PerformanceEntryBuffer) {
-	const layoutShifts = buffer
-		.getAll()
-		.filter((entry) => entry.startTime >= start && entry.startTime <= stop);
+	const layoutShifts = buffer.getAll().filter((_entry) => {
+		const entry = _entry as LayoutShiftPerformanceEntry;
+		const isWithinObservationWindow = entry.startTime >= start && entry.startTime <= stop;
+
+		if (fg('platform_ufo_filter_cls_logs_same_rects_positions')) {
+			const allSourcesHaveSameRects = entry?.sources?.every(({ previousRect, currentRect }) =>
+				isSameRects(previousRect, currentRect),
+			);
+			return isWithinObservationWindow && !allSourcesHaveSameRects;
+		}
+
+		return isWithinObservationWindow;
+	});
 
 	const sessionWindows: Array<{ startTime: number; endTime: number; score: number }> = [];
 	let currentWindow: any = null;

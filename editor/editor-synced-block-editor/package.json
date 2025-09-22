@@ -8,7 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "Editor: Lego",
+		"team": "Editor: Jenga",
 		"releaseModel": "continuous",
 		"singleton": true
 	},
@@ -35,7 +35,9 @@
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-plugins": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
-		"@babel/runtime": "root:*"
+		"@atlaskit/tokens": "workspace:^",
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",

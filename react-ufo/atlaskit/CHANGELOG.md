@@ -1,5 +1,23 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.10.0
+
+### Minor Changes
+
+- [`012e311801a01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/012e311801a01) -
+  ensure singleton bundling of the package
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.9.1
+
+### Patch Changes
+
+- [`70c6ad9a84f0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70c6ad9a84f0a) -
+  filter out layout shifts where every source is the same rectangle
+
 ## 4.9.0
 
 ### Minor Changes

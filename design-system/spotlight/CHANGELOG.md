@@ -1,5 +1,16 @@
 # @atlaskit/spotlight
 
+## 0.3.3
+
+### Patch Changes
+
+- [`bd8e43d78afb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd8e43d78afb8) - -
+  Add `role="dialog"` to PopoverContent. `aria-labelledby` is internally managed by
+  `SpotlightContext`.
+  - Add `aria-label='Dismiss'` to `SpotlightDismissControl`.
+  - Add `aria-label'` prop to `SpotlightPrimaryAction`.
+  - Add `aria-label'` prop to `SpotlightSecondaryAction`.
+
 ## 0.3.2
 
 ### Patch Changes

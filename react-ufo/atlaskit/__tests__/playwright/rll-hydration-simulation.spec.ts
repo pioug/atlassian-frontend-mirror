@@ -6,7 +6,6 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: RLL hydration simulation', () => {
 	test.use({
 		examplePage: 'rll-simulation',
-		featureFlags: ['platform_ufo_rll_placeholder_ignore'],
 	});
 
 	test(`VC90 should match when the [content-div] is first visible`, async ({

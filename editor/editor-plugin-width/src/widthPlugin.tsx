@@ -26,8 +26,7 @@ export const widthPlugin: WidthPlugin = () => {
 		pmPlugins: () => [
 			{
 				name: 'width',
-				plugin: ({ dispatch, dispatchAnalyticsEvent }) =>
-					createPlugin(dispatch, dispatchAnalyticsEvent),
+				plugin: ({ dispatch }) => createPlugin(dispatch),
 			},
 		],
 

@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 79.5.12
+
+### Patch Changes
+
+- [`2e35d308c4205`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e35d308c4205) -
+  FG cleanup - platform_media_add_ufo_custom_data
+- Updated dependencies
+
 ## 79.5.11
 
 ### Patch Changes

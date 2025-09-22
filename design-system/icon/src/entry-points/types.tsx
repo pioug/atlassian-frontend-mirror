@@ -11,4 +11,5 @@ export type {
 	NewCoreIconProps,
 	IconMigrationMap,
 	IconSpacing,
+	IconTileProps,
 } from '../types';

@@ -51,6 +51,13 @@ export const getPosWhenMoveNodeUp = (
 			? $currentNodePos.node($currentNodePos.depth)
 			: $currentNodePos.nodeBefore;
 
+	if (
+		nodeBefore?.type.name === 'layoutColumn' &&
+		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+	) {
+		return -1;
+	}
+
 	return nodeBefore ? currentNodePos - nodeBefore.nodeSize : -1;
 };
 
@@ -70,7 +77,6 @@ export const getPosWhenMoveNodeDown = ({
 	}
 
 	const nodeAfter = tr.doc.nodeAt(nodeAfterPos);
-
 	if (
 		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
 		expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)

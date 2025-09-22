@@ -23,12 +23,6 @@
 	],
 	"references": [
 		{
-			"path": "../../css/afm-dev-agents/tsconfig.json"
-		},
-		{
-			"path": "../../primitives/afm-dev-agents/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-dev-agents/tsconfig.json"
 		}
 	]

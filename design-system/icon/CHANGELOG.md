@@ -1,5 +1,25 @@
 # @atlaskit/icon
 
+## 28.3.0
+
+### Minor Changes
+
+- [`99f4f441fac8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99f4f441fac8c) -
+  We are testing new design language visual changes to Icon Tile behind a feature flag. If this
+  change is successful it will be available in a later release.
+
+  Additionally, backwards-compatible API changes were required to support this:
+
+  - Deprecation of pixel number `size` in favor of new t-shirt sizes
+  - Deprecation of `size` "16"
+  - Deprecation of `shape`
+  - Added `UNSAFE_circleReplacementComponent` prop temporarily to assist `shape` migrations
+  - Deprecation of `LEGACY_fallbackComponent`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.2.1
 
 ### Patch Changes

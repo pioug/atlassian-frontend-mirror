@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "213.5.2",
+	"version": "213.5.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -298,10 +298,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_querySelector_fix_table_renderer": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"disable-sticky-scrollbar-for-nested-tables": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

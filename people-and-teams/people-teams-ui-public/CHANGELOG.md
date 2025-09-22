@@ -1,5 +1,16 @@
 # @atlaskit/people-teams-ui-public
 
+## 3.3.0
+
+### Minor Changes
+
+- [`970533780b37d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/970533780b37d) -
+  Migrate analytics context to use TeamsAppAnalyticsContext
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

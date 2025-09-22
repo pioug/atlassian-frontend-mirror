@@ -5,7 +5,7 @@ import { IconTile } from '@atlaskit/icon';
 import AddIcon from '../../core/add';
 import AddIconOld from '../../glyph/add';
 
-const IconSizeExample = () => {
+const IconTileLegacyFallbackExample = () => {
 	return (
 		<IconTile
 			icon={AddIcon}
@@ -18,4 +18,4 @@ const IconSizeExample = () => {
 	);
 };
 
-export default IconSizeExample;
+export default IconTileLegacyFallbackExample;

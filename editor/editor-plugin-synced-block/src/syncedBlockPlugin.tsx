@@ -10,6 +10,7 @@ import SmartLinkIcon from '@atlaskit/icon/core/smart-link';
 import { createSyncedBlock } from './pm-plugins/actions';
 import { createPlugin } from './pm-plugins/main';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
+import { ContentComponent } from './ui/ContentComponent';
 import { getToolbarConfig } from './ui/floating-toolbar';
 
 export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
@@ -53,6 +54,10 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 			],
 			floatingToolbar: (state, intl, providerFactory) =>
 				getToolbarConfig(state, intl, config, providerFactory),
+		},
+
+		contentComponent: () => {
+			return <ContentComponent syncBlockStoreManager={syncBlockStore} />;
 		},
 	};
 };

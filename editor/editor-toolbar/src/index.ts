@@ -6,6 +6,7 @@ export { ToolbarDropdownMenu } from './ui/ToolbarDropdownMenu';
 export { ToolbarDropdownItem } from './ui/ToolbarDropdownItem';
 export { ToolbarDropdownItemSection } from './ui/ToolbarDropdownItemSection';
 export { ToolbarNestedDropdownMenu } from './ui/ToolbarNestedDropdownMenu';
+export { ToolbarKeyboardNavigationProvider } from './ui/ToolbarKeyboardNavigationProvider';
 export { ToolbarKeyboardShortcutHint } from './ui/ToolbarKeyboardShortcutHint';
 export { ToolbarSection } from './ui/ToolbarSection';
 export { ToolbarTooltip } from './ui/ToolbarTooltip';
@@ -78,6 +79,6 @@ export { PlusIcon } from './ui/icons/PlusIcon';
 export { default as ColorPalette } from './ui/ColorPalette';
 export { getContrastingBackgroundColor } from './ui/ColorPalette/utils';
 
-export type { IconComponent } from './types';
+export type { IconComponent, ToolbarKeyboardNavigationProviderConfig } from './types';
 
 export { useToolbarUI, ToolbarUIProvider, type ToolbarUIContextType } from './hooks/ui-context';

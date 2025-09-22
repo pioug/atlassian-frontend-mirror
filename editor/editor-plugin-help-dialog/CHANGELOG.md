@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 5.0.5
+
+### Patch Changes
+
+- [`f1c0df3d21494`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1c0df3d21494) -
+  ENGHEALTH-29983 fix help dialog footer a11y color contrast
+- Updated dependencies
+
 ## 5.0.4
 
 ### Patch Changes

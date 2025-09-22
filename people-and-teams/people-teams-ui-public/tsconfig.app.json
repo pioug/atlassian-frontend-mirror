@@ -41,6 +41,12 @@
 			"path": "../../design-system/legacy-custom-icons/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-react/tsconfig.app.json"
+		},
+		{
+			"path": "../teams-app-internal-analytics/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{

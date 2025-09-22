@@ -50,6 +50,9 @@
 			"path": "../../../design-system/icon/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../node-data-provider/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
 		},
 		{

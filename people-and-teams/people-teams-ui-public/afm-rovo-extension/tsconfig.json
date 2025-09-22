@@ -32,7 +32,13 @@
 			"path": "../../../design-system/legacy-custom-icons/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-internal-analytics/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-rovo-extension/tsconfig.json"

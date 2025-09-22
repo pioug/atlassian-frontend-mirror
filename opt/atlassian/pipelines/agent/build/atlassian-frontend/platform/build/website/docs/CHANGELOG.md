@@ -1,5 +1,12 @@
 # @atlaskit/docs
 
+## 11.1.1
+
+### Patch Changes
+
+- [`407e1dc11eeed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/407e1dc11eeed) -
+  Minor changes to border radius values.
+
 ## 11.1.0
 
 ### Minor Changes

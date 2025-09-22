@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../helpers/browser-apis/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-passionfruit/tsconfig.json"
 		},
 		{

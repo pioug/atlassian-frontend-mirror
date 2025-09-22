@@ -614,6 +614,7 @@ function createEmojiPlugin(
 					return new EmojiNodeView(node, {
 						intl: pmPluginFactoryParams.getIntl(),
 						api,
+						emojiNodeDataProvider: options?.emojiNodeDataProvider,
 					});
 				},
 			},

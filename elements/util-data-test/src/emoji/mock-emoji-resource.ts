@@ -35,6 +35,10 @@ export class MockEmojiResource
 		return emoji;
 	}
 
+	getEmojiProvider() {
+		return Promise.resolve(this.emojiRepository);
+	}
+
 	async fetchEmojiProvider(force?: boolean): Promise<EmojiRepository | undefined> {
 		return Promise.resolve(this.emojiRepository);
 	}

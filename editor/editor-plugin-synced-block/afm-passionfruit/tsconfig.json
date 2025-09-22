@@ -23,10 +23,16 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/button/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-passionfruit/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-passionfruit/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-passionfruit/tsconfig.json"

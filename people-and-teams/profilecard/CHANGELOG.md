@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 24.13.7
+
+### Patch Changes
+
+- [`f6b139b8c3922`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6b139b8c3922) -
+  Clean up loom_tab_in_container_linker_team_profile_page
+- Updated dependencies
+
 ## 24.13.6
 
 ### Patch Changes

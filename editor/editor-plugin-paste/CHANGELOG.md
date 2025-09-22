@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-paste
 
+## 6.3.0
+
+### Minor Changes
+
+- [`26c7c41aa7f61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26c7c41aa7f61) -
+  [ux] DTR-3123: Apply link on Select-All when doc has single textblock (behind fg
+  platform_editor_link_paste_select_all)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

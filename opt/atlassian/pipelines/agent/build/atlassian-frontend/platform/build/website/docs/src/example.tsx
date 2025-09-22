@@ -16,7 +16,7 @@ import { Pressable, Text } from '@atlaskit/primitives/compiled';
 const wrapperStyles = cssMap({
 	root: {
 		backgroundColor: token('color.background.neutral'),
-		borderRadius: '5px',
+		borderRadius: token('radius.medium'),
 		boxSizing: 'border-box',
 		color: token('color.text.subtle'),
 		marginBlockStart: token('space.250'),

@@ -1,13 +1,13 @@
 import { type ReportingLinesUser, type TeamCentralReportingLinesData } from '../types';
 
-import profiles from './profile-data';
+import profiles, { avatarImages } from './profile-data';
 
 const mappedProfileToReportingLines: ReportingLinesUser[] = profiles.map((profile, index) => ({
 	accountIdentifier: '123456:12345-67890-' + index,
 	identifierType: 'ATLASSIAN_ID',
 	pii: {
 		name: profile.User.fullName,
-		picture: profile.User.avatarUrl,
+		picture: index < avatarImages.length ? avatarImages[index] : avatarImages[0],
 	},
 }));
 

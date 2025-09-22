@@ -17,7 +17,7 @@ describe('TeamConnections', () => {
 			</IntlProvider>,
 		);
 
-		const containerIcon = screen.getByTestId('linked-container-icon');
+		const containerIcon = screen.getByTestId('linked-container-ConfluenceSpace-icon');
 		expect(containerIcon).toBeInTheDocument();
 	});
 
@@ -119,7 +119,7 @@ describe('NewTeamConnections', () => {
 	it('should display the container icon', () => {
 		renderComponent();
 
-		const containerIcon = screen.getByTestId('linked-container-icon');
+		const containerIcon = screen.getByTestId('linked-container-ConfluenceSpace-icon');
 		expect(containerIcon).toBeInTheDocument();
 	});
 

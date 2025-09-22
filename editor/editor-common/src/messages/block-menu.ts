@@ -6,6 +6,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Copy block',
 		description: 'Copy the selected block to the clipboard',
 	},
+	copyContent: {
+		id: 'fabric.editor.block.menu.copy.content',
+		defaultMessage: 'Copy content',
+		description: 'Copy the selected content to the clipboard',
+	},
 	moveUpBlock: {
 		id: 'fabric.editor.block.menu.move.up',
 		defaultMessage: 'Move up',
@@ -19,6 +24,11 @@ export const messages = defineMessages({
 	copyLink: {
 		id: 'fabric.editor.block.menu.copy.link',
 		defaultMessage: 'Copy link',
+		description: 'Copy link to the selected block',
+	},
+	copyLinkToBlock: {
+		id: 'fabric.editor.block.menu.copy.link.to.block',
+		defaultMessage: 'Copy link to block',
 		description: 'Copy link to the selected block',
 	},
 	paragraph: {
@@ -35,5 +45,15 @@ export const messages = defineMessages({
 		id: 'fabric.editor.block.menu.layout',
 		defaultMessage: 'Layout',
 		description: 'Convert to a layout node',
+	},
+	deleteBlock: {
+		id: 'fabric.editor.block.menu.delete.block',
+		defaultMessage: 'Delete',
+		description: 'Delete the selected block',
+	},
+	turnInto: {
+		id: 'fabric.editor.block.menu.turn.into',
+		defaultMessage: 'Turn into',
+		description: 'Turn the selected block into another type',
 	},
 });

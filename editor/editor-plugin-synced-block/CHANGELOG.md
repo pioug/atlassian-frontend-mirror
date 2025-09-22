@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 2.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.0
+
+### Minor Changes
+
+- [`889f0cb60f68d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/889f0cb60f68d) -
+  EDITOR-1561 implement confirmation before deleting a source sync block
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

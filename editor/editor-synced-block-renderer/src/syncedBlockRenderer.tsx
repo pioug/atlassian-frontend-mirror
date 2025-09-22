@@ -12,7 +12,7 @@ const SyncedBlockRenderer = ({ docNode }: SyncedBlockRendererProps) => {
 	return (
 		<RendererActionsContext>
 			<div data-testid="sync-block-renderer-wrapper">
-				<ReactRenderer appearance="comment" adfStage="stage0" document={docNode} />
+				<ReactRenderer appearance="full-width" adfStage="stage0" document={docNode} />
 			</div>
 		</RendererActionsContext>
 	);

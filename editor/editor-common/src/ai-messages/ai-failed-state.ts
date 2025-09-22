@@ -9,13 +9,7 @@ export const aiFailedStateMessages = defineMessages({
 		description:
 			'Message to indicate to user their prompt or content (this can be a range of content, such as a selection or document -- we used content to keep it vague -- as this will change without user knowing) has been detected as violating Atlassians acceptable use policy.  Note the markdown link -- this is expected to remain as markdown as this string is converted to html.',
 	},
-	cmdPaletteAupViolationMessage: {
-		id: 'fabric.editor.ai.experience.cmdPaletteAupViolationMessage',
-		defaultMessage:
-			"We couldn’t complete that request because it doesn't comply with our <link>Acceptable Use Policy</link>.",
-		description:
-			'Message to indicate to user their prompt or content (this can be a range of content, such as a selection or document -- we used content to keep it vague -- as this will change without user knowing) has been detected as violating Atlassians acceptable use policy.  Note the markdown link -- this is expected to remain as markdown as this string is converted to html.',
-	},
+
 	documentInsertError: {
 		id: 'fabric.editor.ai.experience-application.documentInsertError',
 		defaultMessage: `We're having trouble inserting the response. Close the dialog and try again.`,
@@ -39,11 +33,7 @@ export const aiFailedStateMessages = defineMessages({
 		defaultMessage: `We couldn’t get a response, please try again.`,
 		description: `We couldn't get a response due to an api error (ie. the backend responded with an error, or got a timeout)`,
 	},
-	cmdPaletteApiError: {
-		id: 'fabric.editor.ai.experience.cmdPaletteApiError',
-		defaultMessage: `An error occurred while generating your response.`,
-		description: `We couldn't get a response due to an api error (ie. the backend responded with an error, or got a timeout)`,
-	},
+
 	elevateDisabledGenerateError: {
 		id: 'fabric.editor.ai.experience.elevateDisabledGenetateError',
 		defaultMessage: `Free generate is disabled in Elevate at this time.`,
@@ -68,5 +58,57 @@ export const aiFailedStateMessages = defineMessages({
 		id: 'fabric.editor.ai.experience.adfStreamingError',
 		defaultMessage: `Our apologies, we couldn't get a response.`,
 		description: `This error message is displayed when error(s) are encountered during processing of LLM response in ADF format.`,
+	},
+	aifcAupViolationMessage: {
+		id: 'fabric.editor.ai.experience.aifcAupViolationMessage',
+		defaultMessage: 'Content does not comply with our <link>Acceptable Use Policy</link>.',
+		description:
+			'Error message to indicate to user their prompt or content (this can be a range of content, such as a selection or document -- we used content to keep it vague -- as this will change without user knowing) has been detected as violating Atlassians acceptable use policy.',
+	},
+	aifcApiError: {
+		id: 'fabric.editor.ai.experience.aifcApiError',
+		defaultMessage: 'An unknown error occurred.',
+		description: 'Message for users when a non-retryable API error occurs.',
+	},
+	aifcApiErrorRetry: {
+		id: 'fabric.editor.ai.experience.aifcApiErrorRetry',
+		defaultMessage: 'An unknown error occurred. Please reload and try again.',
+		description: 'Message for users when an API error occurs',
+	},
+	aifcTokenLimitExceeded: {
+		id: 'fabric.editor.ai.experience.aifcTokenLimitExceeded',
+		defaultMessage: 'There’s too much content to process. Select less content and try again.',
+		description:
+			'Message to users that displays when their request has exceeded the maximum input or output limit.',
+	},
+	aifcInputTooShortError: {
+		id: 'fabric.editor.ai.experience.aifcInputTooShortError',
+		defaultMessage:
+			'More content needed to complete your request. Please select more content and try again.',
+		description: 'Error message when the input was too short to process.',
+	},
+	aifcHipaaContentError: {
+		id: 'fabric.editor.ai.experience.aifcHipaaContentError',
+		defaultMessage:
+			'Your content contains links to HIPAA restricted content. Remove links and try again.',
+		description: 'Error message when HIPAA links have been detected.',
+	},
+	aifcRateLimitEnforced: {
+		id: 'fabric.editor.ai.experience.aifcRateLimitEnforced',
+		defaultMessage:
+			'You’ve reached the <link>maximum number of requests</link>. Try again in 5 minutes.',
+		description: 'Message to users that rate limiting has been enforced.',
+	},
+	aifcInternalServerError: {
+		id: 'fabric.editor.ai.experience.aifcInternalServerError',
+		defaultMessage:
+			'Our apologies, we couldn’t get a response. Try again in 5 minutes or <link>check Rovo status</link>.',
+		description: 'Error message when a Rovo internal server occurs.',
+	},
+	aifcAdfStreamingError: {
+		id: 'fabric.editor.ai.experience.aifcAdfStreamingError',
+		defaultMessage: 'Our apologies, we couldn’t get a response.',
+		description:
+			'This error message is displayed when error(s) are encountered during processing of LLM response in ADF format.',
 	},
 });

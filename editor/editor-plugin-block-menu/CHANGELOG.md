@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 3.2.6
+
+### Patch Changes
+
+- [`3c44ed6acd860`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c44ed6acd860) -
+  Enable `Turn into` in block menu on all nested node under a feature gate
+- Updated dependencies
+
+## 3.2.5
+
+### Patch Changes
+
+- [`f7bc2f60e0fc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7bc2f60e0fc6) -
+  [ux] Updates copy text for drag handle, copy block, copy link and updates order of items in Turn
+  into menu.
+- Updated dependencies
+
 ## 3.2.4
 
 ### Patch Changes

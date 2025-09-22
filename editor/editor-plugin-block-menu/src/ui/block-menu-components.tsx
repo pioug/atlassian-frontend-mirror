@@ -76,7 +76,7 @@ const getFormatMenuComponents = (
 				rank: 100,
 			},
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
-				return <FormatMenuComponent>{children}</FormatMenuComponent>;
+				return <FormatMenuComponent api={api}>{children}</FormatMenuComponent>;
 			},
 		},
 		{

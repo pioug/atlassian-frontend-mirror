@@ -10,6 +10,7 @@ import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-commo
 import type { HigherOrderCommand } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
 
@@ -235,4 +236,65 @@ export const useMeasureFramerate = (config: UseMeasureFramerateConfig = {}) => {
 	};
 
 	return { startMeasure, endMeasure, countFrames };
+};
+
+const tableContainerNodes = new Set([
+	'layoutSection',
+	'layoutColumn',
+	'expand',
+	'nestedExpand',
+	'extension',
+	'bodiedExtension',
+	'multiBodiedExtension',
+	'extensionFrame',
+	'table',
+	'tableCell',
+	'tableHeader',
+	'tableRow',
+]);
+
+export const getWidthInfoPayload = (
+	editorView: EditorView,
+	editorWidth: number,
+): TableEventPayload => {
+	const tablesInfo: Array<{
+		hasScrollbar: boolean;
+		isNestedTable: boolean;
+		tableWidth: number;
+	}> = [];
+
+	editorView.state.doc.nodesBetween(0, editorView.state.doc.content.size, (node, pos, parent) => {
+		if (!tableContainerNodes.has(node.type.name)) {
+			return false;
+		}
+
+		if (node.type.name === 'table') {
+			const domAtPos = editorView.domAtPos(pos + 1);
+			const table = domAtPos.node?.parentElement;
+
+			const isNestedTable =
+				parent?.type.name === 'tableCell' || parent?.type.name === 'tableHeader';
+
+			if (table instanceof HTMLTableElement) {
+				tablesInfo.push({
+					tableWidth: table.scrollWidth,
+					isNestedTable: isNestedTable,
+					hasScrollbar: table.parentElement
+						? table?.parentElement.clientWidth < table.scrollWidth
+						: false,
+				});
+			}
+		}
+	});
+
+	return {
+		action: TABLE_ACTION.TABLE_WIDTH_INFO,
+		actionSubject: ACTION_SUBJECT.TABLE,
+		attributes: {
+			editorWidth: editorWidth,
+			tableWidthInfo: tablesInfo,
+			mode: 'editor',
+		},
+		eventType: EVENT_TYPE.OPERATIONAL,
+	};
 };

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 2.1.5
+
+### Patch Changes
+
+- [`bb498825fca37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb498825fca37) -
+  [ux] [ED-29266] add ToolbarKeyboardNavigationProvider to selection toolbar with Alt+F10 shortcut
+  to focus
+- Updated dependencies
+
 ## 2.1.4
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 6.3.8
+
+### Patch Changes
+
+- [`f7bc2f60e0fc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7bc2f60e0fc6) -
+  [ux] Updates copy text for drag handle, copy block, copy link and updates order of items in Turn
+  into menu.
+- [`a6522c44ddfbb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6522c44ddfbb) -
+  [ux] ED-29408 Fix move up option being enabled for first node in layoutColumn
+- Updated dependencies
+
+## 6.3.7
+
+### Patch Changes
+
+- [`15efb9ffafdd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15efb9ffafdd5) -
+  [ux] Fix for scroll to top that happened when drag handle is clicked at the bottom of a long page
+  in Safari.
+- Updated dependencies
+
 ## 6.3.6
 
 ### Patch Changes

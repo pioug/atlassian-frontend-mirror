@@ -1,5 +1,7 @@
 import React from 'react';
 
+import fetchMock from 'fetch-mock';
+
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 
@@ -21,39 +23,49 @@ const Section = ({ children }: { children: React.ReactNode }) => {
 
 const mockClient = getMockProfileClient(10, 0, {}, { cloudId: 'test-cloud-id' });
 
-export default function Example() {
-	const agent: RovoAgentProfileCardInfo = {
-		id: '965df475-d134-43ac-8ec4-f4aafd0025c6',
-		name: "Arezoo' agent ",
-		description:
-			'Get help writing a user manual page that you can use to share your preferred ways of working with your team. This fun and friendly Agent can show you how.',
-		system_prompt_template: '',
-		visibility: 'PUBLIC',
+fetchMock.mock('end:/assist/api/rovo/v2/permissions/agents/965df475-d134-43ac-8ec4-f4aafd0025c6', {
+	status: 200,
+	body: JSON.stringify({
+		permissions: {
+			AGENT_CREATE: {
+				permitted: true,
+			},
+			AGENT_UPDATE: {
+				permitted: true,
+			},
+			AGENT_DEACTIVATE: {
+				permitted: true,
+			},
+		},
+	}),
+});
 
-		user_defined_conversation_starters: [
-			'Help me make my first User Manual.',
-			'Help with my goals',
-		],
-		named_id: '965df475-d134-43ac-8ec4-f4aafd0025c6',
-		creator: 'ari:cloud:identity::user/62321fb55b6d710070a1ce85',
-		creator_type: 'CUSTOMER',
-		favourite: true,
-		is_default: false,
-		deactivated: false,
-		identity_account_id: 'ari:cloud:identity::user/712020:b719aaa1-2485-4dad-93d3-abc3c93862c6',
-		creatorInfo: undefined,
-		actor_type: 'AGENT',
-		favourite_count: 0,
-	};
+const agent: RovoAgentProfileCardInfo = {
+	id: '965df475-d134-43ac-8ec4-f4aafd0025c6',
+	name: "Arezoo' agent ",
+	description:
+		'Get help writing a user manual page that you can use to share your preferred ways of working with your team. This fun and friendly Agent can show you how.',
+	system_prompt_template: '',
+	visibility: 'PUBLIC',
+
+	user_defined_conversation_starters: ['Help me make my first User Manual.', 'Help with my goals'],
+	named_id: '965df475-d134-43ac-8ec4-f4aafd0025c6',
+	creator: 'ari:cloud:identity::user/62321fb55b6d710070a1ce85',
+	creator_type: 'CUSTOMER',
+	favourite: true,
+	is_default: false,
+	deactivated: false,
+	identity_account_id: 'ari:cloud:identity::user/712020:b719aaa1-2485-4dad-93d3-abc3c93862c6',
+	creatorInfo: undefined,
+	actor_type: 'AGENT',
+	favourite_count: 0,
+};
+export default function Example() {
 	return (
 		<ExampleWrapper>
 			<div>
 				<Section>
-					<AgentProfileCard
-						agent={agent}
-						cloudId="38ef3107-2a4f-4922-9bc6-40beb439aace"
-						resourceClient={mockClient}
-					/>
+					<AgentProfileCardExample />
 				</Section>
 				<Section>
 					<Text>Agent profile card loading state</Text>
@@ -63,9 +75,7 @@ export default function Example() {
 					<span>
 						<ProfileCardTrigger
 							trigger={'hover'}
-							renderProfileCard={() => (
-								<AgentProfileCard agent={agent} resourceClient={mockClient} />
-							)}
+							renderProfileCard={() => <AgentProfileCardExample />}
 							profileCardType={'agent'}
 						>
 							<Text as="strong">hover over me</Text>
@@ -77,9 +87,7 @@ export default function Example() {
 					<span>
 						<ProfileCardTrigger
 							trigger={'click'}
-							renderProfileCard={() => (
-								<AgentProfileCard agent={agent} resourceClient={mockClient} />
-							)}
+							renderProfileCard={() => <AgentProfileCardExample />}
 							profileCardType={'agent'}
 						>
 							<Text as="strong">Click me</Text>
@@ -90,3 +98,7 @@ export default function Example() {
 		</ExampleWrapper>
 	);
 }
+
+export const AgentProfileCardExample = () => (
+	<AgentProfileCard agent={agent} resourceClient={mockClient} />
+);

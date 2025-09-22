@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/util-data-test",
-	"version": "18.2.0",
+	"version": "18.3.0",
 	"description": "Shared test and story data",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,6 +27,7 @@
 		"./get-test-site-emojis": "./src/emoji-test/get-test-site-emojis.ts",
 		"./get-test-site-service-emojis": "./src/emoji-test/get-test-site-service-emojis.ts",
 		"./get-test-emoji-resource": "./src/emoji-test/get-test-emoji-resource.ts",
+		"./get-test-emoji-node-data-provider": "./src/emoji-test/get-test-emoji-node-data-provider.ts",
 		"./get-test-emoji-resource-from-repository": "./src/emoji-test/get-test-emoji-resource-from-repository.ts",
 		"./get-test-emoji-resource-non-uploading": "./src/emoji-test/get-test-emoji-resource-non-uploading.ts",
 		"./get-test-emoji-repository": "./src/emoji-test/get-test-emoji-repository.ts",
@@ -67,6 +68,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/editor-plugin-emoji": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/mention": "workspace:^",

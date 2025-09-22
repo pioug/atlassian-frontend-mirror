@@ -1,5 +1,7 @@
 import { defineMessages } from 'react-intl-next';
 
+// Do not add messages to this file
+// Add them here platform/packages/editor/editor-common/src/messages/block-menu.ts instead
 export const messages = defineMessages({
 	copyBlock: {
 		id: 'fabric.editor.block.menu.copy.block',

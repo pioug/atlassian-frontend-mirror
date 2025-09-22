@@ -1,13 +1,53 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
+
+import { css, jsx } from '@compiled/react';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { WithEditorActions, type EditorActions } from '@atlaskit/editor-core';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { token } from '@atlaskit/tokens';
 
 import { useNestedEditorPreset } from './useNestedEditorPreset';
+
+const reduceNestedEditorPadding = css({
+	// Reduce the padding between the Sync Block editor and the content
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'& .appearance-full-page': {
+		paddingTop: 0,
+		paddingRight: token('space.400'),
+		paddingBottom: 0,
+		paddingLeft: token('space.400'),
+	},
+});
+
+const updateEditorScrollParentOverflow = css({
+	// Update the scroll parent of the nested editor so we don't have a scrollbar for the Sync Block editor
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'& .fabric-editor-popup-scroll-parent': {
+		overflowY: 'auto',
+	},
+});
+
+const reduceEditorWhitespace = css({
+	// Reduce the padding around the Sync Block editor to ensure it appears inline with the content
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'& .ak-editor-content-area-region': {
+		paddingTop: 0,
+		paddingBottom: 0,
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& .ProseMirror > p:last-child': {
+			marginBottom: 0,
+		},
+	},
+});
 
 export type SyncedBlockEditorProps = {
 	defaultDocument: JSONDocNode;
@@ -48,9 +88,12 @@ const SyncedBlockEditorComponent = ({
 	const { preset, fullPageEditorFeatureFlags } = useNestedEditorPreset();
 
 	return (
-		<div data-testid="sync-block-editor-wrapper">
+		<div
+			data-testid="sync-block-editor-wrapper"
+			css={[updateEditorScrollParentOverflow, reduceNestedEditorPadding, reduceEditorWhitespace]}
+		>
 			<ComposableEditor
-				appearance="chromeless"
+				appearance="full-width"
 				preset={preset}
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsMountPoint={popupsMountPoint}

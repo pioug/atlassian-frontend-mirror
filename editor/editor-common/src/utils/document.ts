@@ -1,6 +1,6 @@
 import clamp from 'lodash/clamp';
 
-import type { Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { Node, ResolvedPos, Fragment } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,
 	ReadonlyTransaction,
@@ -199,3 +199,39 @@ export const isReplaceDocOperation = (
 		return hasStepReplacingEntireDocument;
 	});
 };
+
+/**
+ * Compares two ProseMirror documents for equality, ignoring attributes
+ * which don't affect the document structure.
+ *
+ * This is almost a copy of the .eq() PM function - tweaked to ignore attrs
+ *
+ * @param doc1 PMNode
+ * @param doc2 PMNode
+ * @returns boolean
+ */
+export function areNodesEqualIgnoreAttrs(node1: Node, node2: Node): boolean {
+	if (node1.isText) {
+		return node1.eq(node2);
+	}
+	return (
+		node1 === node2 ||
+		(node1.hasMarkup(node2.type, node1.attrs, node2.marks) &&
+			areFragmentsEqual(node1.content, node2.content))
+	);
+}
+
+function areFragmentsEqual(frag1: Fragment, frag2: Fragment): boolean {
+	if (frag1.content.length !== frag2.content.length) {
+		return false;
+	}
+	let childrenEqual = true;
+	frag1.content.forEach((child, i) => {
+		const otherChild = frag2.child(i);
+		if (child === otherChild || (otherChild && areNodesEqualIgnoreAttrs(child, otherChild))) {
+			return;
+		}
+		childrenEqual = false;
+	});
+	return childrenEqual;
+}

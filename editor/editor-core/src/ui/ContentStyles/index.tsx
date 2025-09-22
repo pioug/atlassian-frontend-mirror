@@ -146,7 +146,7 @@ const mentionNodeStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.editor-mention-primitive': {
 		display: 'inline',
-		borderRadius: '20px',
+		borderRadius: token('radius.full'),
 		cursor: 'pointer',
 		padding: '0 0.3em 2px 0.23em',
 		// To match `packages/elements/mention/src/components/Mention/PrimitiveMention.tsx` implementation

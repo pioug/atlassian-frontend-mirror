@@ -6,6 +6,7 @@ export const FEATURE_API_IMPORT_SOURCES = new Set([
 	'@atlassian/jira-feature-gating',
 	'@atlassian/jira-feature-experiments',
 	'@atlaskit/platform-feature-flags',
+	'@atlassian/repo-feature-flags-statsig',
 ]);
 
 export const FEATURE_MOCKS_IMPORT_SOURCES = new Set([

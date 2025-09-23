@@ -151,7 +151,12 @@ const AgentProfileCard = ({
 	if (hasError || !agent) {
 		return (
 			<AgentProfileCardWrapper>
-				<ErrorMessage errorType={errorType} fireAnalytics={fireAnalytics} />
+				<ErrorMessage
+					errorType={errorType}
+					fireAnalytics={fireAnalytics}
+					// TODO: Add fireAnalyticsNext
+					fireAnalyticsNext={() => {}}
+				/>
 			</AgentProfileCardWrapper>
 		);
 	}

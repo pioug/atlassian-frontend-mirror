@@ -85,7 +85,13 @@ export const ContainerIcon = ({
 	const isMedium = size === 'medium';
 
 	if (containerType === 'LoomSpace') {
-		return <LoomSpaceAvatar spaceName={title} size={isMedium ? 'large' : size} testId={`linked-container-${containerType}-icon`}/>;
+		return (
+			<LoomSpaceAvatar
+				spaceName={title}
+				size={isMedium ? 'large' : size}
+				testId={`linked-container-${containerType}-icon`}
+			/>
+		);
 	}
 
 	if (containerType === 'WebLink') {

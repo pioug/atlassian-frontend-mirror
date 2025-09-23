@@ -6,6 +6,10 @@ import { IntlProvider } from 'react-intl-next';
 
 import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import {
+	mockRunItLaterSynchronously,
+	renderWithAnalyticsListener,
+} from '@atlassian/ptc-test-utils';
 
 import ProfileClient from '../../../client/ProfileCardClient';
 import { getMockProfileClient } from '../../../mocks';
@@ -16,22 +20,21 @@ import ProfilecardTrigger from '../ProfileCardTrigger';
 
 const mockClient = getMockProfileClient(ProfileClient, 0);
 
-jest.mock('@atlaskit/analytics-next', () => ({
-	useAnalyticsEvents: jest.fn(() => ({
-		createAnalyticsEvent: jest.fn(() => ({ fire: jest.fn() })),
-	})),
-}));
-
 jest.mock('@atlaskit/give-kudos', () => ({
 	...jest.requireActual('@atlaskit/give-kudos'),
 	GiveKudosLauncherLazy: jest.fn(),
 }));
 
-jest.mock('../../../util/analytics');
-
 jest.mock('../lazyProfileCard', () => ({
 	ProfileCardLazy: jest.fn(),
 }));
+
+jest.mock('../../../util/performance', () => {
+	return {
+		...jest.requireActual('../../../util/performance'),
+		getPageTime: jest.fn().mockReturnValue(1000),
+	};
+});
 
 const mockGiveKudosLauncherLazy = GiveKudosLauncherLazy as unknown as jest.Mock;
 const mockProfileCardLazy = ProfileCardLazy as unknown as jest.Mock;
@@ -384,5 +387,94 @@ describe('Profile card trigger', () => {
 		expect(profileTriggerButton).toHaveAttribute('aria-hidden', 'true');
 		expect(profileTriggerButton).not.toHaveAttribute('aria-label');
 		expect(profileTriggerButton).not.toHaveAttribute('aria-labelledby');
+	});
+
+	describe('analytics', () => {
+		const hoverProfileCardEvent = {
+			action: 'triggered',
+			actionSubject: 'profilecard',
+			attributes: {
+				method: 'hover',
+				firedAt: 1000,
+				packageName: process.env._PACKAGE_NAME_,
+				packageVersion: process.env._PACKAGE_VERSION_,
+			},
+		};
+		const clickProfileCardEvent = {
+			action: 'triggered',
+			actionSubject: 'profilecard',
+			attributes: {
+				method: 'click',
+				firedAt: 1000,
+				packageName: process.env._PACKAGE_NAME_,
+				packageVersion: process.env._PACKAGE_VERSION_,
+			},
+		};
+
+		beforeEach(() => {
+			mockRunItLaterSynchronously();
+		});
+
+		const renderProfileCardTrigger = (props: Partial<ProfileCardTriggerProps>) => {
+			return renderWithAnalyticsListener(
+				<IntlProvider locale="en">
+					<ProfilecardTrigger {...mockDefaultProps} {...props}>
+						<div>{mockTriggerText}</div>
+					</ProfilecardTrigger>
+				</IntlProvider>,
+			);
+		};
+
+		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+			it('should fire analytics hover profile card event', async () => {
+				const { user, expectEventToBeFired } = renderProfileCardTrigger({
+					testId: 'profile-card-testid',
+				});
+				await user.hover(screen.getByTestId('profile-card-testid'));
+				expectEventToBeFired('ui', hoverProfileCardEvent);
+			});
+			it('should fire analytics click profile card event', async () => {
+				const { user, expectEventToBeFired } = renderProfileCardTrigger({
+					testId: 'profile-card-testid',
+					trigger: 'click',
+				});
+				await user.click(screen.getByTestId('profile-card-testid'));
+				expectEventToBeFired('ui', clickProfileCardEvent);
+			});
+			it('should fire analytics keyboard profile card event on Enter key', async () => {
+				const { user, expectEventToBeFired } = renderProfileCardTrigger({
+					testId: 'profile-card-testid',
+				});
+				await user.click(screen.getByTestId('profile-card-testid'));
+				await user.keyboard('{Enter}');
+				expectEventToBeFired('ui', clickProfileCardEvent);
+			});
+		});
+
+		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+			it('should fire analytics hover profile card event', async () => {
+				const { user, expectEventToBeFired } = renderProfileCardTrigger({
+					testId: 'profile-card-testid',
+				});
+				await user.hover(screen.getByTestId('profile-card-testid'));
+				expectEventToBeFired('ui', hoverProfileCardEvent);
+			});
+			it('should fire analytics click profile card event', async () => {
+				const { user, expectEventToBeFired } = renderProfileCardTrigger({
+					testId: 'profile-card-testid',
+					trigger: 'click',
+				});
+				await user.click(screen.getByTestId('profile-card-testid'));
+				expectEventToBeFired('ui', clickProfileCardEvent);
+			});
+			it('should fire analytics keyboard profile card event on Enter key', async () => {
+				const { user, expectEventToBeFired } = renderProfileCardTrigger({
+					testId: 'profile-card-testid',
+				});
+				await user.click(screen.getByTestId('profile-card-testid'));
+				await user.keyboard('{Enter}');
+				expectEventToBeFired('ui', clickProfileCardEvent);
+			});
+		});
 	});
 });

@@ -6,7 +6,12 @@ import { type AnalyticsEventPayload, withAnalyticsEvents } from '@atlaskit/analy
 import Avatar from '@atlaskit/avatar';
 import { LinkButton } from '@atlaskit/button/new';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import Spinner from '@atlaskit/spinner';
+import {
+	type AnalyticsEventAttributes,
+	useAnalyticsEvents,
+} from '@atlaskit/teams-app-internal-analytics';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -29,7 +34,12 @@ import {
 	type ProfileCardAction,
 	type ProfilecardProps,
 } from '../../types';
-import { actionClicked, fireEvent, profileCardRendered } from '../../util/analytics';
+import {
+	actionClicked,
+	fireEvent,
+	PACKAGE_META_DATA,
+	profileCardRendered,
+} from '../../util/analytics';
 import { isBasicClick } from '../../util/click';
 import { getPageTime } from '../../util/performance';
 import { ErrorMessage } from '../Error';
@@ -89,6 +99,7 @@ export const ProfilecardInternal = (props: ProfilecardProps & AnalyticsProps) =>
 	const [openTime] = useState<number>(getPageTime());
 
 	const { createAnalyticsEvent } = props;
+	const { fireEvent: fireEventNext } = useAnalyticsEvents();
 
 	const fireAnalytics = useCallback(
 		(payload: AnalyticsEventPayload) => {
@@ -106,6 +117,18 @@ export const ProfilecardInternal = (props: ProfilecardProps & AnalyticsProps) =>
 			fireAnalytics(event);
 		},
 		[fireAnalytics, openTime],
+	);
+
+	const fireAnalyticsWithDurationNext = useCallback(
+		<K extends keyof AnalyticsEventAttributes>(
+			eventKey: K,
+			generator: (duration: number) => AnalyticsEventAttributes[K],
+		) => {
+			const duration = getPageTime() - openTime;
+			const attributes = generator(duration);
+			fireEventNext(eventKey, attributes);
+		},
+		[openTime, fireEventNext],
 	);
 
 	const { kudosAction } = useKudos(
@@ -131,14 +154,23 @@ export const ProfilecardInternal = (props: ProfilecardProps & AnalyticsProps) =>
 
 	useEffect(() => {
 		if (canRender) {
-			fireAnalyticsWithDuration((duration) =>
-				profileCardRendered('user', 'content', {
+			if (fg('ptc-enable-profile-card-analytics-refactor')) {
+				fireAnalyticsWithDurationNext('ui.profilecard.rendered.content', (duration) => ({
 					duration,
 					numActions: realActions.length,
-				}),
-			);
+					firedAt: Math.round(getPageTime()),
+					...PACKAGE_META_DATA,
+				}));
+			} else {
+				fireAnalyticsWithDuration((duration) =>
+					profileCardRendered('user', 'content', {
+						duration,
+						numActions: realActions.length,
+					}),
+				);
+			}
 		}
-	}, [canRender, fireAnalyticsWithDuration, realActions]);
+	}, [canRender, fireAnalyticsWithDuration, fireAnalyticsWithDurationNext, realActions]);
 
 	if (hasError) {
 		return (
@@ -147,6 +179,7 @@ export const ProfilecardInternal = (props: ProfilecardProps & AnalyticsProps) =>
 					reload={props.clientFetchProfile}
 					errorType={props.errorType || null}
 					fireAnalytics={fireAnalytics}
+					fireAnalyticsNext={fireEventNext}
 				/>
 			</Wrapper>
 		);
@@ -155,7 +188,10 @@ export const ProfilecardInternal = (props: ProfilecardProps & AnalyticsProps) =>
 	if (isLoading) {
 		return (
 			<Wrapper>
-				<LoadingView fireAnalyticsWithDuration={fireAnalyticsWithDuration} />
+				<LoadingView
+					fireAnalyticsWithDuration={fireAnalyticsWithDuration}
+					fireAnalyticsWithDurationNext={fireAnalyticsWithDurationNext}
+				/>
 			</Wrapper>
 		);
 	}
@@ -181,6 +217,7 @@ export const ProfilecardInternal = (props: ProfilecardProps & AnalyticsProps) =>
 						{...props}
 						status={status}
 						fireAnalyticsWithDuration={fireAnalyticsWithDuration}
+						fireAnalyticsWithDurationNext={fireAnalyticsWithDurationNext}
 					/>
 					{realActions && (
 						<>
@@ -193,6 +230,7 @@ export const ProfilecardInternal = (props: ProfilecardProps & AnalyticsProps) =>
 								actions={realActions}
 								fireAnalyticsWithDuration={fireAnalyticsWithDuration}
 								isTriggeredUsingKeyboard={props.isTriggeredUsingKeyboard}
+								fireAnalyticsWithDurationNext={fireAnalyticsWithDurationNext}
 							/>
 						</>
 					)}
@@ -211,6 +249,7 @@ interface ActionsProps extends AnalyticsWithDurationProps {
 const Actions = ({
 	actions,
 	fireAnalyticsWithDuration,
+	fireAnalyticsWithDurationNext,
 	isTriggeredUsingKeyboard,
 	fullName,
 }: ActionsProps) => {
@@ -221,22 +260,35 @@ const Actions = ({
 			event: React.MouseEvent | React.KeyboardEvent,
 			index: number,
 		) => {
-			fireAnalyticsWithDuration((duration) =>
-				actionClicked('user', {
+			if (fg('ptc-enable-profile-card-analytics-refactor')) {
+				fireAnalyticsWithDurationNext('ui.profilecard.clicked.action', (duration) => ({
+					method: 'click',
+					firedAt: Math.round(getPageTime()),
 					duration,
 					hasHref: !!action.link,
 					hasOnClick: !!action.callback,
 					index,
 					actionId: action.id || 'no-id-specified',
-				}),
-			);
+					...PACKAGE_META_DATA,
+				}));
+			} else {
+				fireAnalyticsWithDuration((duration) =>
+					actionClicked('user', {
+						duration,
+						hasHref: !!action.link,
+						hasOnClick: !!action.callback,
+						index,
+						actionId: action.id || 'no-id-specified',
+					}),
+				);
+			}
 
 			if (action.callback && isBasicClick(event)) {
 				event.preventDefault();
 				action.callback(event, ...args);
 			}
 		},
-		[fireAnalyticsWithDuration],
+		[fireAnalyticsWithDuration, fireAnalyticsWithDurationNext],
 	);
 
 	if (!actions || actions.length === 0) {
@@ -294,6 +346,7 @@ const Actions = ({
 				<OverflowProfileCardButtons
 					actions={overflowActions}
 					fireAnalyticsWithDuration={fireAnalyticsWithDuration}
+					fireAnalyticsWithDurationNext={fireAnalyticsWithDurationNext}
 					onItemClick={(action, args, event, index) =>
 						onActionClick(action, args, event, index + ACTION_OVERFLOW_THRESHOLD)
 					}
@@ -306,10 +359,21 @@ const Actions = ({
 	);
 };
 
-const LoadingView = ({ fireAnalyticsWithDuration }: AnalyticsWithDurationProps) => {
+export const LoadingView = ({
+	fireAnalyticsWithDuration,
+	fireAnalyticsWithDurationNext,
+}: AnalyticsWithDurationProps) => {
 	useEffect(() => {
-		fireAnalyticsWithDuration((duration) => profileCardRendered('user', 'spinner', { duration }));
-	}, [fireAnalyticsWithDuration]);
+		if (fg('ptc-enable-profile-card-analytics-refactor')) {
+			fireAnalyticsWithDurationNext('ui.profilecard.rendered.spinner', (duration) => ({
+				firedAt: Math.round(getPageTime()),
+				duration,
+				...PACKAGE_META_DATA,
+			}));
+		} else {
+			fireAnalyticsWithDuration((duration) => profileCardRendered('user', 'spinner', { duration }));
+		}
+	}, [fireAnalyticsWithDuration, fireAnalyticsWithDurationNext]);
 
 	return (
 		<SpinnerContainer testId="profilecard-spinner-container">
@@ -318,4 +382,8 @@ const LoadingView = ({ fireAnalyticsWithDuration }: AnalyticsWithDurationProps) 
 	);
 };
 
-export default withAnalyticsEvents()(ProfilecardInternal);
+export default componentWithFG(
+	'ptc-enable-profile-card-analytics-refactor',
+	ProfilecardInternal,
+	withAnalyticsEvents()(ProfilecardInternal),
+);

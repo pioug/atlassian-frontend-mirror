@@ -15,9 +15,9 @@ export interface TooltipPrimitiveProps {
 	children: ReactNode;
 	testId?: string;
 	placement: PositionType;
-	ref: React.Ref<any>;
-	onMouseOver?: (e: React.MouseEvent<HTMLElement>) => void;
-	onMouseOut?: (e: React.MouseEvent<HTMLElement>) => void;
+	ref?: React.Ref<HTMLDivElement>;
+	onMouseOver?: (e: React.MouseEvent<HTMLDivElement>) => void;
+	onMouseOut?: (e: React.MouseEvent<HTMLDivElement>) => void;
 	id?: string;
 }
 

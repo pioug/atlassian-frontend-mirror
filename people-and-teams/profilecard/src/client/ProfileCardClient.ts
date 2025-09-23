@@ -1,5 +1,6 @@
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { getATLContextUrl, isFedRamp } from '@atlaskit/atlassian-context';
+import type { FireEventType } from '@atlaskit/teams-app-internal-analytics';
 
 import {
 	type AgentIdType,
@@ -50,8 +51,9 @@ class ProfileCardClient implements ProfileClient {
 		cloudId: string,
 		userId: string,
 		analytics?: (event: AnalyticsEventPayload) => void,
+		analyticsNext?: FireEventType,
 	): Promise<any> {
-		return this.userClient.getProfile(cloudId, userId, analytics);
+		return this.userClient.getProfile(cloudId, userId, analytics, analyticsNext);
 	}
 
 	getTeamProfile(

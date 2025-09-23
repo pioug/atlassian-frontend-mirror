@@ -49,7 +49,7 @@ var getThemeValues = function getThemeValues(theme) {
       value = rawToken.value;
     } else if (typeof rawToken.value === 'number') {
       value = rawToken.value.toString();
-    } else {
+    } else if (Array.isArray(rawToken.value)) {
       // If it's a box shadow, it'll be an array of values that needs to be
       // formatted to look like '0px 0px 8px #091e4229, 0px 0px 1px #091e421F'
       value = rawToken.value.reduce(function (prev, curr, index) {
@@ -73,6 +73,9 @@ var getThemeValues = function getThemeValues(theme) {
         }
         return prev + value;
       }, '');
+    } else {
+      // ignore when value is `fontweight` etc. - this is apparently not handled here.
+      return formatted;
     }
     return _objectSpread(_objectSpread({}, formatted), {}, (0, _defineProperty2.default)({}, rawToken.cleanName, value));
   }, {});

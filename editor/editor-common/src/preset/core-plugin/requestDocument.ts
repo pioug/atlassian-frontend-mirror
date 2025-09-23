@@ -2,6 +2,7 @@ import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE, type FireAnalyticsCallback } from '../../analytics';
 import type {
@@ -25,10 +26,20 @@ export function createThrottleSchedule<
 >(callback: typeof returnDocumentRequest<GenericTransformer>) {
 	let frameId: number | undefined;
 	let lastArgs: Parameters<typeof returnDocumentRequest<GenericTransformer>> | undefined;
+	const delayedCallbacks: Parameters<typeof returnDocumentRequest<GenericTransformer>>[] = [];
 
 	const wrapperFn = (...args: Parameters<typeof returnDocumentRequest<GenericTransformer>>) => {
+		const lastArgsBefore = lastArgs;
 		lastArgs = args;
 		if (frameId) {
+			if (fg('aifc_create_enabled')) {
+				if (lastArgsBefore) {
+					const [_v, _c, _t, _f, alwaysFire] = lastArgsBefore;
+					if (alwaysFire) {
+						delayedCallbacks.push(lastArgsBefore);
+					}
+				}
+			}
 			return;
 		}
 
@@ -39,6 +50,11 @@ export function createThrottleSchedule<
 			() => {
 				frameId = undefined;
 				if (lastArgs) {
+					if (fg('aifc_create_enabled')) {
+						delayedCallbacks.forEach((savedArgs) => {
+							callback(...savedArgs);
+						});
+					}
 					callback(...lastArgs);
 				}
 			},
@@ -57,6 +73,7 @@ export function returnDocumentRequest<GenericTransformer extends Transformer<any
 		: InferTransformerResultCallback<GenericTransformer>,
 	transformer?: GenericTransformer,
 	fireAnalyticsEvent?: FireAnalyticsCallback,
+	alwaysFire?: boolean,
 ) {
 	const { doc, schema } = editorView?.state ?? {};
 	if (!doc || !schema) {

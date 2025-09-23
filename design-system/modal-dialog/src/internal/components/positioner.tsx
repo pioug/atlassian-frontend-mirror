@@ -8,7 +8,6 @@ import { css, cssMap, jsx } from '@compiled/react';
 
 import { easeInOut } from '@atlaskit/motion/curves';
 import { durations } from '@atlaskit/motion/durations';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -70,8 +69,8 @@ const scrollStyles = cssMap({
 			maxWidth: 'calc(100vw - 120px)',
 			maxHeight: 'calc(100vh - 120px + 1px)',
 			position: 'absolute',
-			// TODO: When tidying 'platform_dst_modal_dialog_AFBH_1489', add `!important` here:
-			insetBlockStart: '60px',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Implemented for AFBH-1489 as DC is blocked in implementing Compiled; this is not a workaround, but it will last a bit longer.
+			insetBlockStart: '60px !important',
 			insetInlineEnd: 0,
 			insetInlineStart: 0,
 			marginInlineEnd: 'auto',
@@ -82,17 +81,6 @@ const scrollStyles = cssMap({
 	// Full screen modals only support body scrolling.
 	// We don't need any extra scroll styles for full screen modals.
 	fullScreen: {},
-});
-
-/**
- * TODO: when tidying this feature gate, add `!important` to `scrollStyles.body`
- */
-const importantBodyFeatureGateStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	'@media (min-width: 30rem)': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored for AFBH-1489
-		insetBlockStart: '60px !important',
-	},
 });
 
 interface PositionerProps {
@@ -145,9 +133,6 @@ const Positioner = (props: PositionerProps) => {
 				/* We only want to apply transform on modals shifting to the back of the stack. */
 				stackIndex > 0 ? stackStyles.stackTransform : stackStyles.stackIdle,
 				scrollStyles[scrollBehavior],
-				scrollBehavior === 'body' &&
-					fg('platform_dst_modal_dialog_AFBH_1489') &&
-					importantBodyFeatureGateStyles,
 			]}
 			data-testid={testId && `${testId}--positioner`}
 		>

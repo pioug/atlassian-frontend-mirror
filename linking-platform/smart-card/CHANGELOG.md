@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 42.2.1
+
+### Patch Changes
+
+- [`65dbc6709a95d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65dbc6709a95d) -
+  Added a feature flag that makes the inline smart card's Lozenge not cause the smart card to expand
+  with 1px
+- Updated dependencies
+
 ## 42.2.0
 
 ### Minor Changes

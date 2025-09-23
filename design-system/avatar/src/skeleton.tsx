@@ -6,6 +6,7 @@ import { type CSSProperties, type FC } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type AppearanceType, type SizeType } from './types';
@@ -40,6 +41,9 @@ const styles = cssMap({
 		borderColor: 'transparent',
 		borderRadius: token('radius.full', '50%'),
 		opacity: '0.15',
+	},
+	square: {
+		borderRadius: token('radius.tile'),
 	},
 	strongOpacity: {
 		opacity: '0.3',
@@ -107,7 +111,10 @@ const Skeleton: FC<SkeletonProps> = ({ size, appearance, color, weight }: Skelet
 		css={[
 			styles.root,
 			sizeStyles[size ?? 'medium'],
-			appearance === 'square' && borderRadiusMap[size ?? 'medium'],
+			appearance === 'square' &&
+				!fg('platform_dst_avatar_tile') &&
+				borderRadiusMap[size ?? 'medium'],
+			appearance === 'square' && fg('platform_dst_avatar_tile') && styles.square,
 			weight === 'strong' && styles.strongOpacity,
 		]}
 		style={{ [bgColorCssVar]: color ?? 'currentColor' } as CSSProperties}

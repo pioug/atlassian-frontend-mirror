@@ -70,11 +70,11 @@ export default InteractionSurface;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a54b247f1230147faee26c36789b9f6d>>
+ * @codegen <<SignedSource::453eef65c0cbbdc7c9d2b70817a1c852>>
  * @codegenId interactions
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["background"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d227fb20aa75533eb903b15ddcb61e67>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::2271390eb3f104f20bb791b00250b316>>
  */
 const backgroundActiveColorMap = {
 	'accent.lime.subtlest': css({

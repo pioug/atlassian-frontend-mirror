@@ -1,9 +1,48 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6daadbbdeae45dc5d3ae1237dc483b07>>
+ * @codegen <<SignedSource::2d82706aaef27f4b665743cafd879972>>
  * @codegenCommand yarn build tokens
  */
-const tokens = [
+
+type TokenValue =
+	| string;
+
+type TokenValueOriginal =
+	| string
+	| {
+		fontWeight: string;
+		fontSize: string;
+		lineHeight: string;
+		fontFamily: string;
+		fontStyle: string;
+		letterSpacing: string;
+	};
+
+type TokenAttributes = {
+	group: string;
+	state: string;
+	introduced: string;
+	description: string;
+	suggest?: string[];
+	deprecated?: string;
+};
+
+
+type Token = {
+	value: TokenValue;
+	filePath: string;
+	isSource: boolean;
+	attributes: TokenAttributes;
+	original: {
+		value: TokenValueOriginal;
+		attributes: TokenAttributes;
+	};
+	name: string;
+	path: string[];
+	cleanName: string;
+};
+
+const tokens: Token[] = [
   {
     "attributes": {
       "group": "typography",

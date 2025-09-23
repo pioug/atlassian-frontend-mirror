@@ -66,6 +66,9 @@ const styles = cssMap({
 			borderRadius: token('radius.full', '50%'),
 		},
 	},
+	square: {
+		borderRadius: token('radius.tile'),
+	},
 	positionRelative: {
 		position: 'relative',
 	},
@@ -211,7 +214,8 @@ export const AvatarContent = forwardRef<HTMLElement, AvatarContentProps>(({ chil
 			css={[
 				unboundStyles.root,
 				styles.root,
-				borderRadiusMap[size],
+				!fg('platform_dst_avatar_tile') && borderRadiusMap[size],
+				appearance === 'square' && fg('platform_dst_avatar_tile') && styles.square,
 				appearance === 'circle' && styles.circle,
 				widthHeightMap[size],
 				stackIndex !== undefined && styles.positionRelative,

@@ -44,4 +44,9 @@ test.describe('Editor Metrics - TTVC: React remounting', () => {
 			);
 		});
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		await expect(page.getByTestId('inside-content')).toBeVisible();
+		await expect(page).toBeAccessible();
+	});
 });

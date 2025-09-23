@@ -742,5 +742,66 @@ import { Form } from '@atlaskit/form';
 				},
 			],
 		},
+		// Doesn't matter if no atlaskit modal or if close button present outside of header; if ModalHeader is missing prop, throw
+		{
+			code: `
+import React from 'react';
+import {
+	ModalHeader,
+	CloseButton,
+} from '@atlaskit/modal-dialog';
+import { JiraModal as Modal } from '@atlassian/jira-modal/src/ui/jira-modal.tsx';
+
+<Modal
+	messageId="servicedesk-project-builder.ui.complete-modal.modal"
+	messageType="transactional"
+	onClose={onCloseModal}
+	testId="servicedesk-project-builder.ui.complete-modal.modal"
+>
+	<Box xcss={closeButtonWrapperStyles}>
+		<CloseButton onClick={onCloseModal} />
+	</Box>
+	<ModalHeader>
+		<Flex justifyContent="center" xcss={fullWidthStyles}>
+			<ModalTitle>{formatMessage(messages.successModalHeader)}</ModalTitle>
+		</Flex>
+	</ModalHeader>
+</Modal>
+`,
+			errors: [
+				{
+					messageId: 'modalHeaderMissingHasCloseButtonProp',
+					suggestions: [
+						{
+							desc: addHasCloseButtonProp,
+							output: `
+import React from 'react';
+import {
+	ModalHeader,
+	CloseButton,
+} from '@atlaskit/modal-dialog';
+import { JiraModal as Modal } from '@atlassian/jira-modal/src/ui/jira-modal.tsx';
+
+<Modal
+	messageId="servicedesk-project-builder.ui.complete-modal.modal"
+	messageType="transactional"
+	onClose={onCloseModal}
+	testId="servicedesk-project-builder.ui.complete-modal.modal"
+>
+	<Box xcss={closeButtonWrapperStyles}>
+		<CloseButton onClick={onCloseModal} />
+	</Box>
+	<ModalHeader hasCloseButton>
+		<Flex justifyContent="center" xcss={fullWidthStyles}>
+			<ModalTitle>{formatMessage(messages.successModalHeader)}</ModalTitle>
+		</Flex>
+	</ModalHeader>
+</Modal>
+`,
+						},
+					],
+				},
+			],
+		},
 	],
 });

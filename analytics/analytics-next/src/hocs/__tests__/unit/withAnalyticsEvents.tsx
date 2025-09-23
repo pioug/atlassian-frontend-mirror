@@ -34,7 +34,7 @@ const FakeContextProvider = ({
 
 describe('withAnalyticsEvents', () => {
 	it('should forward the ref to the wrapped component', () => {
-		const ButtonToBeWrapped = forwardRef<HTMLButtonElement, {}>((_props, ref) => {
+		const ButtonToBeWrapped = forwardRef<HTMLButtonElement>((_props, ref) => {
 			return <button ref={ref}>Button</button>;
 		});
 

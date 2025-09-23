@@ -136,6 +136,7 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 					}}
 					errorType={error || null}
 					fireAnalytics={() => {}}
+					fireAnalyticsNext={() => {}}
 				/>
 			</AgentProfileCardWrapper>
 		);

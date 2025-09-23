@@ -7,7 +7,6 @@ import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
 import Select, { type ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Form, { ErrorMessage, Field, HelperMessage, ValidMessage } from '../../index';
 
@@ -1123,162 +1122,85 @@ describe('Field', () => {
 	});
 
 	describe('Shrink-wrapped', () => {
-		describe('should render component in component prop if no children provided', () => {
-			ffTest(
-				'platform_design-system-team_field-upgrade',
-				() => {
-					render(
-						<Field
-							name="Name"
-							component={({ fieldProps }) => <TextField {...fieldProps} testId={testId} />}
-						/>,
-					);
-
-					expect(screen.getByTestId(testId)).toBeInTheDocument();
-				},
-				() => {
-					render(
-						<Field
-							name="Name"
-							component={({ fieldProps }) => <TextField {...fieldProps} testId={testId} />}
-						/>,
-					);
-
-					expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
-				},
+		it('should render component in component prop if no children provided', () => {
+			render(
+				<Field
+					name="Name"
+					component={({ fieldProps }) => <TextField {...fieldProps} testId={testId} />}
+				/>,
 			);
+
+			expect(screen.getByTestId(testId)).toBeInTheDocument();
 		});
 
-		describe('should show a helper message if provided', () => {
-			ffTest(
-				'platform_design-system-team_field-upgrade',
-				() => {
-					const helper = 'Helper';
+		it('should show a helper message if provided', () => {
+			const helper = 'Helper';
 
-					render(
-						<Form onSubmit={__noop}>
-							<Field
-								name="Name"
-								component={({ fieldProps }) => <TextField {...fieldProps} />}
-								helperMessage={helper}
-							/>
-						</Form>,
-					);
-
-					expect(screen.getByText(helper)).toBeInTheDocument();
-				},
-				() => {
-					const helper = 'Helper';
-
-					render(
-						<Form onSubmit={__noop}>
-							<Field
-								name="Name"
-								component={({ fieldProps }) => <TextField {...fieldProps} />}
-								helperMessage={helper}
-							/>
-						</Form>,
-					);
-
-					expect(screen.queryByText(helper)).not.toBeInTheDocument();
-				},
+			render(
+				<Form onSubmit={__noop}>
+					<Field
+						name="Name"
+						component={({ fieldProps }) => <TextField {...fieldProps} />}
+						helperMessage={helper}
+					/>
+				</Form>,
 			);
+
+			expect(screen.getByText(helper)).toBeInTheDocument();
 		});
 
-		describe('should show a valid message when valid', () => {
-			ffTest(
-				'platform_design-system-team_field-upgrade',
-				async () => {
-					const valid = 'valid';
-					const text = 'abc';
+		it('should show a valid message when valid', async () => {
+			const valid = 'valid';
+			const text = 'abc';
 
-					render(
-						<Form onSubmit={__noop}>
-							<Field
-								name="Name"
-								component={({ fieldProps }) => <TextField {...fieldProps} testId={testId} />}
-								validate={() => undefined}
-								validMessage={valid}
-							/>
-						</Form>,
-					);
-
-					expect(screen.queryByText(valid)).not.toBeInTheDocument();
-
-					const input = screen.getByTestId(testId);
-					fireEvent.focus(input);
-					await user.type(input, text);
-					fireEvent.blur(input);
-
-					expect(input).toHaveValue(text);
-
-					expect(screen.getByText(valid)).toBeInTheDocument();
-				},
-				async () => {
-					const valid = 'valid';
-
-					render(
-						<Form onSubmit={__noop}>
-							<Field
-								name="Name"
-								component={({ fieldProps }) => <TextField {...fieldProps} testId={testId} />}
-								validate={() => undefined}
-								validMessage={valid}
-							/>
-						</Form>,
-					);
-
-					expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
-				},
+			render(
+				<Form onSubmit={__noop}>
+					<Field
+						name="Name"
+						component={({ fieldProps }) => <TextField {...fieldProps} testId={testId} />}
+						validate={() => undefined}
+						validMessage={valid}
+					/>
+				</Form>,
 			);
+
+			expect(screen.queryByText(valid)).not.toBeInTheDocument();
+
+			const input = screen.getByTestId(testId);
+			fireEvent.focus(input);
+			await user.type(input, text);
+			fireEvent.blur(input);
+
+			expect(input).toHaveValue(text);
+
+			expect(screen.getByText(valid)).toBeInTheDocument();
 		});
 
-		describe('should show an error message when there is an error', () => {
-			ffTest(
-				'platform_design-system-team_field-upgrade',
-				async () => {
-					const error = 'error';
-					const text = 'abc';
+		it('should show an error message when there is an error', async () => {
+			const error = 'error';
+			const text = 'abc';
 
-					render(
-						<Form onSubmit={__noop}>
-							<Field
-								name="Name"
-								component={({ fieldProps }) => <TextField {...fieldProps} testId={testId} />}
-								validate={() => 'ERROR'}
-								errorMessage={error}
-							/>
-						</Form>,
-					);
-
-					expect(screen.queryByText(error)).not.toBeInTheDocument();
-
-					const input = screen.getByTestId(testId);
-					fireEvent.focus(input);
-					await user.type(input, text);
-					fireEvent.blur(input);
-
-					expect(input).toHaveValue(text);
-
-					expect(screen.getByText(error)).toBeInTheDocument();
-				},
-				async () => {
-					const error = 'error';
-
-					render(
-						<Form onSubmit={__noop}>
-							<Field
-								name="Name"
-								component={({ fieldProps }) => <TextField {...fieldProps} testId={testId} />}
-								validate={() => 'ERROR'}
-								errorMessage={error}
-							/>
-						</Form>,
-					);
-
-					expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
-				},
+			render(
+				<Form onSubmit={__noop}>
+					<Field
+						name="Name"
+						component={({ fieldProps }) => <TextField {...fieldProps} testId={testId} />}
+						validate={() => 'ERROR'}
+						errorMessage={error}
+					/>
+				</Form>,
 			);
+
+			expect(screen.queryByText(error)).not.toBeInTheDocument();
+
+			const input = screen.getByTestId(testId);
+			fireEvent.focus(input);
+			await user.type(input, text);
+			fireEvent.blur(input);
+
+			expect(input).toHaveValue(text);
+
+			expect(screen.getByText(error)).toBeInTheDocument();
 		});
 	});
 });

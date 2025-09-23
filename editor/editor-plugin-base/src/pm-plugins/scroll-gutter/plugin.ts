@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { scrollGutterPluginKey } from './plugin-key';
 
@@ -11,14 +11,12 @@ const GUTTER_SELECTOR_NAME = 'editor-scroll-gutter';
  * Create a gutter element that can be added or removed from the DOM.
  */
 function createGutter(gutterSize: number, parent: HTMLElement | null) {
-	if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)) {
-		const gutterInDom = document.getElementById(GUTTER_SELECTOR_NAME);
-
-		if (gutterInDom) {
-			// already in SSR output.
-			return () => {
-				parent?.removeChild(gutterInDom);
-			};
+	if (expVal('platform_editor_hydratable_ui', 'isEnabled', false)) {
+		const gutterRef = document.getElementById(GUTTER_SELECTOR_NAME);
+		if (gutterRef) {
+			gutterRef.style.paddingBottom = `${gutterSize}px`;
+			gutterRef.style.display = 'block';
+			return () => parent?.removeChild(gutterRef);
 		}
 	}
 

@@ -1,28 +1,20 @@
 import React from 'react';
 
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
+
 import ProfileClient from '../../client/ProfileCardClient';
-import { ProfileCardResourcedInternal as ProfileCardResourced } from '../../components/User/ProfileCardResourced';
+import ProfileCardResourced from '../../components/User/ProfileCardResourced';
 import { profileCardRendered } from '../../util/analytics';
+
+import { flexiTime } from './helper/_mock-analytics';
 
 const clientUrl = 'https://foo/';
 const client = new ProfileClient({
 	url: clientUrl,
-});
-
-const flexiTime = (event: Record<string, any>) => ({
-	...event,
-	attributes: {
-		...event.attributes,
-		firedAt: expect.anything(),
-	},
-});
-
-const mockAnalytics = jest.fn();
-mockAnalytics.mockReturnValue({
-	fire: () => null,
 });
 
 // Mock for runItLater
@@ -32,7 +24,6 @@ const defaultProps: React.ComponentProps<typeof ProfileCardResourced> = {
 	cloudId: 'test-cloud-id',
 	userId: 'test-user-id',
 	resourceClient: client,
-	createAnalyticsEvent: mockAnalytics,
 };
 
 const waitForPromises = () => new Promise((resolve) => setTimeout(resolve));
@@ -60,6 +51,7 @@ describe('Fetching data', () => {
 			defaultProps.cloudId,
 			defaultProps.userId,
 			expect.any(Function),
+			expect.any(Function),
 		);
 		expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith(defaultProps.userId);
 	});
@@ -73,6 +65,7 @@ describe('Fetching data', () => {
 		expect(defaultProps.resourceClient.getProfile).toHaveBeenCalledWith(
 			defaultProps.cloudId,
 			'new-test-user-id',
+			expect.any(Function),
 			expect.any(Function),
 		);
 		expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith('new-test-user-id');
@@ -91,6 +84,7 @@ describe('Fetching data', () => {
 		expect(newClient.getProfile).toHaveBeenCalledWith(
 			defaultProps.cloudId,
 			'test-user-id',
+			expect.any(Function),
 			expect.any(Function),
 		);
 		expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith('test-user-id');
@@ -111,23 +105,49 @@ describe('ProfileCardResourced', () => {
 			});
 		});
 
-		it('should trigger analytics', async () => {
-			const expectedErrorEvent = flexiTime(
-				profileCardRendered('user', 'error', {
-					hasRetry: true,
-					errorType: 'default',
-				}),
-			);
-			mockAnalytics.mockClear();
+		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+			it('should trigger analytics', async () => {
+				const expectedErrorEvent = flexiTime(
+					profileCardRendered('user', 'error', {
+						hasRetry: true,
+						errorType: 'default',
+					}),
+				);
 
-			jest.spyOn(client, 'getProfile').mockRejectedValueOnce({
-				message: 'test-error',
-				reason: 'default',
+				jest.spyOn(client, 'getProfile').mockRejectedValue({
+					message: 'test-error',
+					reason: 'default',
+				});
+				const { expectEventToBeFired } = renderComponent();
+
+				const { eventType, ...event } = expectedErrorEvent;
+
+				await waitFor(() => {
+					expectEventToBeFired(eventType, event);
+				});
 			});
-			renderComponent();
+		});
 
-			await waitFor(() => {
-				expect(mockAnalytics).toHaveBeenCalledWith(expectedErrorEvent);
+		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+			it('should trigger analytics', async () => {
+				const expectedErrorEvent = flexiTime(
+					profileCardRendered('user', 'error', {
+						hasRetry: true,
+						errorType: 'default',
+					}),
+				);
+
+				jest.spyOn(client, 'getProfile').mockRejectedValue({
+					message: 'test-error',
+					reason: 'default',
+				});
+				const { expectEventToBeFired } = renderComponent();
+
+				const { eventType, ...event } = expectedErrorEvent;
+
+				await waitFor(() => {
+					expectEventToBeFired(eventType, event);
+				});
 			});
 		});
 	});

@@ -7,6 +7,7 @@ import ReportingLinesDetails from '../ReportingLinesDetails';
 
 describe('ReportingLinesDetails', () => {
 	const mockFireAnalyticsWithDuration = jest.fn();
+	const mockFireAnalyticsWithDurationNext = jest.fn();
 
 	const createReports = (count: number) => {
 		return Array.from({ length: count }, (_, i) => ({
@@ -23,6 +24,7 @@ describe('ReportingLinesDetails', () => {
 			<IntlProvider locale="en">
 				<ReportingLinesDetails
 					fireAnalyticsWithDuration={mockFireAnalyticsWithDuration}
+					fireAnalyticsWithDurationNext={mockFireAnalyticsWithDurationNext}
 					reportingLines={{ reports }}
 				/>
 			</IntlProvider>,
@@ -43,6 +45,7 @@ describe('ReportingLinesDetails', () => {
 			<IntlProvider locale="en">
 				<ReportingLinesDetails
 					fireAnalyticsWithDuration={mockFireAnalyticsWithDuration}
+					fireAnalyticsWithDurationNext={mockFireAnalyticsWithDurationNext}
 					reportingLines={{ reports }}
 				/>
 			</IntlProvider>,
@@ -58,6 +61,7 @@ describe('ReportingLinesDetails', () => {
 			<IntlProvider locale="en">
 				<ReportingLinesDetails
 					fireAnalyticsWithDuration={mockFireAnalyticsWithDuration}
+					fireAnalyticsWithDurationNext={mockFireAnalyticsWithDurationNext}
 					reportingLines={{ reports }}
 				/>
 			</IntlProvider>,

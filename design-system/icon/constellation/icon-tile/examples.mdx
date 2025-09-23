@@ -13,7 +13,6 @@ import IconTileAppearance from '../../examples/constellation/icon-tile-appearanc
 Icon tile places an icon on background tile of a specified size, shape and color. It allows icons to
 be prominently highlighted in a layout, such as next to a heading.
 
-
 ## Size
 
 Unlike standard icons, icons inside Icon Tiles can scale up and down for use in different layouts.
@@ -22,10 +21,17 @@ Unlike standard icons, icons inside Icon Tiles can scale up and down for use in 
 	<p>Changes are coming coming to Icon Tile sizing:</p>
 	<ul>
 		<li>Pixel number values are being replaced by t-shirt sizes.</li>
-		<li>Size <inlineCode>"16"</inlineCode> is deprecated and should be replaced with an alternative, such as direct <a href="/components/icon/examples">Icons</a> without a tile or enlarging to the next available size <inlineCode>"xsmall"</inlineCode>.</li>
-		<li>The default size will change from <inlineCode>"24"</inlineCode> to <inlineCode>"medium"</inlineCode> (32px).</li>
-  </ul>
-  <p>These changes will occur in upcoming releases, and both APIs will be supported until then.</p>
+		<li>
+			Size <inlineCode>"16"</inlineCode> is deprecated and should be replaced with an alternative,
+			such as direct <a href="/components/icon/examples">Icons</a> without a tile or enlarging to
+			the next available size <inlineCode>"xsmall"</inlineCode>.
+		</li>
+		<li>
+			The default size will change from <inlineCode>"24"</inlineCode> to{' '}
+			<inlineCode>"medium"</inlineCode> (32px).
+		</li>
+	</ul>
+	<p>These changes will occur in upcoming releases, and both APIs will be supported until then.</p>
 </SectionMessage>
 
 All available sizes:
@@ -46,8 +52,8 @@ All available sizes:
 
 ## Appearance
 
-Appearance options exist for each hue of available accent token, including bold
-variants that provide more contrast.
+Appearance options exist for each hue of available accent token, including bold variants that
+provide more contrast.
 
 <Example
 	Component={IconTileAppearance}
@@ -62,9 +68,16 @@ Icon Tile is available in two shapes: `square` and `circle`.
 
 <SectionMessage title="Deprecated" appearance="warning">
 	<p>
-		The <inlineCode>shape</inlineCode> prop is deprecated and will be removed in a future version, meaning all Icon tiles will only be available in a square shape rather than a circle. Consider migrating to alternatives such as a square tile, an <a href="/components/button/icon-button/examples">Icon Button</a> for interactive elements, or rebuilding the component custom using ADS primitives.
+		The <inlineCode>shape</inlineCode> prop is deprecated and will be removed in a future version,
+		meaning all Icon tiles will only be available in a square shape rather than a circle. Consider
+		migrating to alternatives such as a square tile, an{' '}
+		<a href="/components/button/icon-button/examples">Icon Button</a> for interactive elements, or
+		rebuilding the component custom using ADS primitives.
 	</p>
-	<p>Since the circle shape is deprecated, Icon Tiles with this shape will not be affected by the feature flag that updates tile to the new design language.</p>
+	<p>
+		Since the circle shape is deprecated, Icon Tiles with this shape will not be affected by the
+		feature flag that updates tile to the new design language.
+	</p>
 </SectionMessage>
 
 <Example

@@ -123,6 +123,50 @@ const getSecondMatch = (regexp: RegExp, ua: string) => {
 	return (match && match.length > 0 && match[2]) || '';
 };
 
+// Helper functions to safely access browser properties
+const getSafeUserAgent = (): string | undefined => {
+	if (typeof window === 'undefined') {
+		return undefined;
+	}
+
+	// Check for SSR user agent first
+	if (process.env.REACT_SSR) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const ssrUserAgent = (window as any).__SSR_USER_AGENT__;
+		if (ssrUserAgent) {
+			return ssrUserAgent;
+		}
+	}
+
+	// Fallback to navigator.userAgent with proper null checking
+	return window.navigator?.userAgent;
+};
+
+const getSafePlatform = (): string | undefined => {
+	if (typeof window === 'undefined') {
+		return undefined;
+	}
+
+	return window.navigator?.platform;
+};
+
+const hasIntersectionObserver = (): boolean => {
+	return (
+		typeof window !== 'undefined' &&
+		'IntersectionObserver' in window &&
+		'IntersectionObserverEntry' in window &&
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		'intersectionRatio' in (window as any).IntersectionObserverEntry.prototype
+	);
+};
+
+const hasResizeObserver = (): boolean => {
+	return (
+		typeof window !== 'undefined' && 'ResizeObserver' in window && 'ResizeObserverEntry' in window
+	);
+};
+
 // New API to get the browser info on demand
 export const getBrowserInfo = memorizeOne(() => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -144,10 +188,9 @@ export const getBrowserInfo = memorizeOne(() => {
 		supportsResizeObserver: false,
 	};
 
-	const userAgent = process.env.REACT_SSR
-		? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(window as any).__SSR_USER_AGENT__
-		: navigator.userAgent;
+	const userAgent = getSafeUserAgent();
+	const platform = getSafePlatform();
+
 	if (userAgent) {
 		// inspired from https://github.com/bowser-js/bowser/blob/master/src/parser-browsers.js
 		// Ignored via go/ees005
@@ -158,9 +201,11 @@ export const getBrowserInfo = memorizeOne(() => {
 		// eslint-disable-next-line require-unicode-regexp
 		const internetExplorer = /msie|trident/i.test(userAgent);
 
+		// Ideally we should use userAgent instead of platform, but we have lots of keymap tests failure when we change it
+		// So leave it as is for now.
 		// Ignored via go/ees005
 		// eslint-disable-next-line require-unicode-regexp
-		result.mac = /macintosh/i.test(userAgent);
+		result.mac = platform && /Mac/.test(platform);
 
 		// Previously relied on navigator.userAgentData?.platform and userAgent, now used only userAgent
 		result.windows =
@@ -218,18 +263,8 @@ export const getBrowserInfo = memorizeOne(() => {
 		// eslint-disable-next-line require-unicode-regexp
 		result.webkit = /(apple)?webkit/i.test(userAgent);
 
-		result.supportsIntersectionObserver =
-			typeof window !== 'undefined' &&
-			'IntersectionObserver' in window &&
-			'IntersectionObserverEntry' in window &&
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			'intersectionRatio' in (window as any).IntersectionObserverEntry.prototype;
-
-		result.supportsResizeObserver =
-			typeof window !== 'undefined' &&
-			'ResizeObserver' in window &&
-			'ResizeObserverEntry' in window;
+		result.supportsIntersectionObserver = hasIntersectionObserver();
+		result.supportsResizeObserver = hasResizeObserver();
 	}
 	return result;
 });

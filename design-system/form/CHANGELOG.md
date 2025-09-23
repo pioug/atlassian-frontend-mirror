@@ -1,5 +1,15 @@
 # @atlaskit/form
 
+## 14.1.0
+
+### Minor Changes
+
+- [`ba5410321550c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba5410321550c) -
+  Add new streamlined field implementation through the usage of the `component` prop and it's
+  associated `*Message` props. This accounts for the majority of field implementations in products
+  and will increase velocity in releasing accessibility improvements to all insteances using this
+  implementation.
+
 ## 14.0.0
 
 ### Major Changes

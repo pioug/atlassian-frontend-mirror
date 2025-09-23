@@ -4,10 +4,15 @@
  * Auto-generated list of token pairings that may need to have sufficient contrast.
  * Not currently used by tests, but is used by the custom theme contrast checker example
  *
- * @codegen <<SignedSource::910f70438e695b9115622b2cd52a4aea>>
+ * @codegen <<SignedSource::0eb97f6b58ef4db8602f525bf6140cc0>>
  * @codegenCommand yarn build tokens
  */
-export const generatedPairs = [
+export const generatedPairs: {
+	foreground: string;
+	background: string;
+	desiredContrast: number;
+	layeredTokens?: string[];
+}[] = [
 	{
 		foreground: 'color.text',
 		background: 'color.background.accent.lime.subtlest',

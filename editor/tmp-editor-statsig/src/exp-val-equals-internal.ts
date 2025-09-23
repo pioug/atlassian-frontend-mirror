@@ -44,9 +44,7 @@ export function expValEqualsInternal<ExperimentName extends keyof EditorExperime
 		experimentName,
 		experimentParam,
 		experimentDefaultValue,
-		{
-			fireExperimentExposure: experimentExposure,
-		},
+		{ fireExperimentExposure: experimentExposure },
 	);
 
 	if (

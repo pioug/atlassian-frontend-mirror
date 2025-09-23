@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 6.3.9
+
+### Patch Changes
+
+- [`f74cedd969dd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f74cedd969dd0) -
+  FD-97663 clean up fg platform_editor_table_drag_handle_shift_fix
+- Updated dependencies
+
 ## 6.3.8
 
 ### Patch Changes

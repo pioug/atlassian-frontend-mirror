@@ -58,6 +58,7 @@ const SectionContentOne = () => {
 			css={niceBorderStyle}
 			value={content} // ...force the input's value to match the state variable...
 			onChange={onChange} // ... and update the state variable on any edits!
+			aria-label={'type-me-textarea'}
 		/>
 	);
 };

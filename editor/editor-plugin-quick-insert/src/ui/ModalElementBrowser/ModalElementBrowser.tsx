@@ -16,6 +16,7 @@ import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 import Modal, { ModalTransition, useModal } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -93,6 +94,7 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 		[onInsertItem, selectedItem, helpUrl, intl],
 	);
 
+	// remove when cleaning up platform_editor_modal_element_browser_a11y
 	// Since Modal uses stackIndex it's shouldCloseOnEscapePress prop doesn't work.
 	const onKeyDown = useCallback(
 		(e: React.KeyboardEvent) => {
@@ -121,7 +123,27 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 		[props.intl, props.getItems, onSelectItem, onInsertItem, props.emptyStateHandler],
 	);
 
-	return (
+	return fg('platform_editor_modal_element_browser_a11y') ? (
+		<div data-editor-popup={true}>
+			<ModalTransition>
+				{props.isOpen && (
+					<Modal
+						testId="element-browser-modal-dialog"
+						stackIndex={0}
+						key="element-browser-modal"
+						onClose={props.onClose}
+						onCloseComplete={props.onCloseComplete}
+						height="664px"
+						width="x-large"
+						shouldReturnFocus={props.shouldReturnFocus}
+					>
+						<RenderBody />
+						<RenderFooter />
+					</Modal>
+				)}
+			</ModalTransition>
+		</div>
+	) : (
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<div data-editor-popup={true} onClick={onModalClick} onKeyDown={onKeyDown}>
 			<ModalTransition>
@@ -151,6 +173,7 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 
 ModalElementBrowser.displayName = 'ModalElementBrowser';
 
+// remove when cleaning up platform_editor_modal_element_browser_a11y
 // Prevent ModalElementBrowser click propagation through to the editor.
 const onModalClick = (e: React.MouseEvent) => e.stopPropagation();
 

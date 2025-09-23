@@ -126,30 +126,23 @@ export const handleMouseOver = (
 
 		if (editorExperiment('advanced_layouts', true)) {
 			// We want to exclude handles from showing for direct descendant of table nodes (i.e. nodes in cells)
-			if (fg('platform_editor_table_drag_handle_shift_fix')) {
-				if (parentElement && parentElementType === 'table') {
-					rootElement = parentElement;
-				} else if (parentElement && parentElementType === 'tableRow') {
-					const grandparentElement = parentElement?.parentElement?.closest(
-						`[${getAnchorAttrName()}]`,
-					);
-					const grandparentElementType = expValEquals(
-						'platform_editor_native_anchor_support',
-						'isEnabled',
-						true,
-					)
-						? getTypeNameFromDom(grandparentElement)
-						: grandparentElement?.getAttribute('data-drag-handler-node-type');
-
-					if (grandparentElement && grandparentElementType === 'table') {
-						rootElement = grandparentElement;
-					}
-				}
-			} else if (
-				parentElement &&
-				(parentElementType === 'table' || parentElementType === 'tableRow')
-			) {
+			if (parentElement && parentElementType === 'table') {
 				rootElement = parentElement;
+			} else if (parentElement && parentElementType === 'tableRow') {
+				const grandparentElement = parentElement?.parentElement?.closest(
+					`[${getAnchorAttrName()}]`,
+				);
+				const grandparentElementType = expValEquals(
+					'platform_editor_native_anchor_support',
+					'isEnabled',
+					true,
+				)
+					? getTypeNameFromDom(grandparentElement)
+					: grandparentElement?.getAttribute('data-drag-handler-node-type');
+
+				if (grandparentElement && grandparentElementType === 'table') {
+					rootElement = grandparentElement;
+				}
 			}
 		} else {
 			// We want to exclude handles from showing for direct descendant of table nodes (i.e. nodes in cells)

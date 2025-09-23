@@ -1,5 +1,16 @@
 # @atlaskit/teams-public
 
+## 0.60.0
+
+### Minor Changes
+
+- [`a0ddad21c9698`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0ddad21c9698) -
+  Export i18n from teams-public, kudos-list, team-profile
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.59.3
 
 ### Patch Changes

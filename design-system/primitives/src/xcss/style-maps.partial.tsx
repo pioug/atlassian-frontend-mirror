@@ -29,10 +29,10 @@ export type Dimension = keyof typeof dimensionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f62f00a8bb1e658389b8878b668fcfd1>>
+ * @codegen <<SignedSource::513f6a7e264ea3f9fe56eda322a28f64>>
  * @codegenId spacing
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::55622b91aca9b3afac4bce440f222b71>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::07b9c29f8d9f95e43d59a7b7ad4ce7a2>>
  */
 export const positiveSpaceMap: {
 	'space.0': 'var(--ds-space-0)';
@@ -124,10 +124,10 @@ export type AllSpace = keyof typeof allSpaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4965497f0b36c04fd6da39c956d1afd9>>
+ * @codegen <<SignedSource::1c92990a9f8f6ea7c2266ff81a97ee55>>
  * @codegenId inverse-colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d227fb20aa75533eb903b15ddcb61e67>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::2271390eb3f104f20bb791b00250b316>>
  */
 export const inverseColorMap: {
 	'color.background.neutral.bold': 'color.text.inverse';
@@ -193,11 +193,11 @@ export const inverseColorMap: {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6aacaedfda6806fa55bfa683125d8717>>
+ * @codegen <<SignedSource::cb5e26bf46386ea628fc6bd6d213201e>>
  * @codegenId elevation
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["opacity", "shadow", "surface"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d227fb20aa75533eb903b15ddcb61e67>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::2271390eb3f104f20bb791b00250b316>>
  */
 export const opacityMap: {
 	'opacity.disabled': 'var(--ds-opacity-disabled)';
@@ -266,11 +266,11 @@ export type SurfaceColor = keyof typeof surfaceColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::be24024fbe022ef5c1df8228e137d9be>>
+ * @codegen <<SignedSource::60e520432f6fbc9ef443877d79df9307>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "text", "fill"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d227fb20aa75533eb903b15ddcb61e67>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::2271390eb3f104f20bb791b00250b316>>
  */
 export const borderColorMap: {
 	'color.border': 'var(--ds-border)';
@@ -1256,11 +1256,11 @@ export type Layer = keyof typeof layerMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dea9cf58b8eaaad9590d4ca8b842832b>>
+ * @codegen <<SignedSource::40c35869c30222d21da9e9024ecf3fe4>>
  * @codegenId border
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["width", "radius"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::4713f1e2c0d199b832b10fd3c9dd214b>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::d47449bd9713a33fe95c6a84d3134308>>
  */
 export const borderWidthMap: {
 	'border.width': 'var(--ds-border-width)';

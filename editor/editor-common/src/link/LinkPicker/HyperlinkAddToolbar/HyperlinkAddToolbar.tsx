@@ -38,7 +38,8 @@ import {
 import type { QuickSearchResult, SearchProvider } from '../../../provider-factory';
 import type { Command, LinkInputType } from '../../../types';
 import { Announcer, PanelTextInput } from '../../../ui';
-import { browser, normalizeUrl } from '../../../utils';
+import { normalizeUrl } from '../../../utils';
+import { browser as browserLegacy, getBrowserInfo } from '../../../utils/browser';
 import LinkSearchList, { LinkSearchListNext } from '../../LinkSearch/LinkSearchList';
 import { container, containerWithProvider, inputWrapper } from '../../LinkSearch/ToolbarComponents';
 import { transformTimeStamp } from '../../LinkSearch/transformTimeStamp';
@@ -595,6 +596,9 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		const ariaActiveDescendant = selectedIndex > -1 ? `link-search-list-item-${selectedIndex}` : '';
 		const linkSearchInputId = 'search-recent-links-field-id';
 		const displayTextInputId = 'display-text-filed-id';
+		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+			? getBrowserInfo()
+			: browserLegacy;
 		// Added workaround with a screen reader Announcer specifically for VoiceOver + Safari
 		// as the Aria design pattern for combobox does not work in this case
 		// for details: https://a11y-internal.atlassian.net/browse/AK-740

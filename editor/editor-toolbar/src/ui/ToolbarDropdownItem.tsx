@@ -182,8 +182,7 @@ export const ToolbarDropdownItem = ({
 			href={href}
 			target={target}
 			rel={rel}
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore: to unblock React 18.2.0 -> 18.3.1 version bump in Jira
+			// @ts-ignore -- This `CustomDropdownMenuItemButton` has type conflicts with the `DropdownItem` component in a way that cannot be reconciled (ignored as it fails types in Jira and should in Platform)
 			component={
 				href && expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true)
 					? undefined

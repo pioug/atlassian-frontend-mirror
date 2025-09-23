@@ -117,6 +117,11 @@ test.describe('Editor Metrics - Latency: mouse events', () => {
 			});
 		});
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		await expect(page.getByTestId('click-me-button')).toBeVisible();
+		await expect(page).toBeAccessible();
+	});
 });
 
 test.describe('Editor Metrics - Latency: keyboard events', () => {
@@ -160,5 +165,10 @@ test.describe('Editor Metrics - Latency: keyboard events', () => {
 			// @ts-expect-error
 			expect(inputEvents[0].data?.eventName).toEqual('input');
 		});
+	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		await expect(page.getByTestId('type-me-textarea')).toBeVisible();
+		await expect(page).toBeAccessible();
 	});
 });

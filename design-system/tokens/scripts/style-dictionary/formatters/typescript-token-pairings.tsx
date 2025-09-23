@@ -346,7 +346,12 @@ export const typescriptTokenPairingsFormatter: Format['formatter'] = ({ dictiona
 
 	// Generate list of pairs
 	return format(
-		`export const generatedPairs = ${JSON.stringify(recommendedPairs)};
+		`export const generatedPairs: {
+		foreground: string;
+		background: string;
+		desiredContrast: number;
+		layeredTokens?: string[];
+	}[] = ${JSON.stringify(recommendedPairs)};
 export default generatedPairs`,
 		'typescript',
 	);

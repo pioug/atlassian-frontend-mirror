@@ -1,9 +1,63 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::733444f60885d3da7ce8a7af7e46129a>>
+ * @codegen <<SignedSource::b10cb2c641a28d967973840725505a5d>>
  * @codegenCommand yarn build tokens
  */
-const tokens = [
+
+type TokenValue =
+	| string
+	| number
+	| {
+		radius: number;
+		offset: {
+			x: number;
+			y: number;
+		};
+		color: string;
+		opacity: number;
+		spread?: number;
+		inset?: boolean;
+	}[];
+
+type TokenValueOriginal =
+	| string
+	| {
+		radius: number;
+		offset: {
+			x: number;
+			y: number;
+		};
+		color: string;
+		opacity: number;
+		spread?: number;
+		inset?: boolean;
+	}[];
+
+type TokenAttributes = {
+	group: string;
+	state: string;
+	introduced: string;
+	description: string;
+	suggest?: string[];
+	deprecated?: string;
+};
+
+
+type Token = {
+	value: TokenValue;
+	filePath: string;
+	isSource: boolean;
+	attributes: TokenAttributes;
+	original: {
+		value: TokenValueOriginal;
+		attributes: TokenAttributes;
+	};
+	name: string;
+	path: string[];
+	cleanName: string;
+};
+
+const tokens: Token[] = [
   {
     "value": "#DEE4EA",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",

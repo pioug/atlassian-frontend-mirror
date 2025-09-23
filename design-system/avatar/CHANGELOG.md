@@ -1,5 +1,18 @@
 # @atlaskit/avatar
 
+## 25.2.0
+
+### Minor Changes
+
+- [`955c510552199`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/955c510552199) -
+  We are testing a visual change behind a feature flag. Square avatar border radius will be updated
+  to be consistent with the new ADS Tile System. If this change is successful it will be available
+  in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.1.20
 
 ### Patch Changes

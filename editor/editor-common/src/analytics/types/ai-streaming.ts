@@ -12,7 +12,13 @@ type AIStreamingUpdateStreamError = OperationalAEP<
 	ACTION.ERRORED,
 	ACTION_SUBJECT.AI_STREAMING,
 	ACTION_SUBJECT_ID.UPDATE_STREAM,
-	{ errorMessage?: string; errorStack: string }
+	{
+		docSize: number;
+		errorMessage?: string;
+		errorStack: string;
+		fragmentSize: number;
+		isFinalStream: boolean;
+	}
 >;
 
 type AIStreamingDiscardStreamError = OperationalAEP<

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-base
 
+## 6.2.1
+
+### Patch Changes
+
+- [`fba5acd7818c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fba5acd7818c3) -
+  ED-29392: fix scroll gutter hydration issue
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 5.0.2
+
+### Patch Changes
+
+- [`820a427f6f09e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/820a427f6f09e) -
+  ENGHEALTH-28871 fix modal element browser accessibility focus violations
+- Updated dependencies
+
 ## 5.0.1
 
 ### Patch Changes

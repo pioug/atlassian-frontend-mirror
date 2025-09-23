@@ -1,5 +1,14 @@
 # @atlaskit/dropdown-menu
 
+## 16.3.12
+
+### Patch Changes
+
+- [`6d3595e270d09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d3595e270d09) -
+  Minor fixes to Tooltip's component prop and DropdownMenu types to be more compatible with React
+  18.3.1
+- Updated dependencies
+
 ## 16.3.11
 
 ### Patch Changes

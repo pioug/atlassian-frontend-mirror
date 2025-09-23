@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 3.2.7
+
+### Patch Changes
+
+- [`0ef848d2118aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ef848d2118aa) -
+  Grey out `Turn Into` option on block menu where it is not supported
+- Updated dependencies
+
 ## 3.2.6
 
 ### Patch Changes

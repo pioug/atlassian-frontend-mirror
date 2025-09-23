@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 6.3.3
+
+### Patch Changes
+
+- [`c72a8190e4e4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c72a8190e4e4f) -
+  add types to generated code for tokens
+
 ## 6.3.2
 
 ### Patch Changes

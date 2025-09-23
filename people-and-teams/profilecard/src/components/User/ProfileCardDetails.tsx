@@ -284,6 +284,7 @@ export const ProfileCardDetails = (props: ProfilecardProps & AnalyticsWithDurati
 				reportingLinesProfileUrl={props.reportingLinesProfileUrl}
 				onReportingLinesClick={props.onReportingLinesClick}
 				fireAnalyticsWithDuration={props.fireAnalyticsWithDuration}
+				fireAnalyticsWithDurationNext={props.fireAnalyticsWithDurationNext}
 			/>
 		</DetailsGroup>
 	);

@@ -61,9 +61,7 @@ describe('DropdownMenu Item', () => {
 				const text = 'Menu';
 				const role = 'banner';
 
-				const Header = forwardRef<HTMLElement, any>((props, ref) => (
-					<header {...props} ref={ref} />
-				));
+				const Header = forwardRef<HTMLElement>((props, ref) => <header {...props} ref={ref} />);
 
 				render(<DropdownItem component={Header}>{text}</DropdownItem>);
 

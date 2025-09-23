@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::28c908eb9e3683af4c16be073bb18c4c>>
+ * @codegen <<SignedSource::2d0914551b7a5bd52432cf172a7e879e>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -736,6 +736,250 @@ export type TeamProfileActivityTabViewedAttributesType = {
 export type TeamProfileTabSelectedAttributesType = {
 	tabId: string;
 };
+export type TeamConnectionItemClickedTeamProfileCardAttributesType = {
+	container: 'ConfluenceSpace' | 'JiraProject' | 'LoomSpace' | 'WebLink';
+};
+export type ButtonClickedViewTeamProfileButtonAttributesType = {};
+export type ProfilecardTriggeredAttributesType = {
+	firedAt: number;
+	method: 'hover' | 'click';
+};
+export type RovoAgentProfilecardTriggeredAttributesType = {
+	firedAt: number;
+	method: 'hover' | 'click';
+};
+export type TeamProfileCardTriggeredAttributesType = {
+	firedAt: number;
+	method: 'hover' | 'click';
+	teamId: string;
+};
+export type UserTriggeredAttributesType = {
+	firedAt: number;
+	method: 'hover' | 'click';
+};
+export type ProfilecardRenderedSpinnerAttributesType = {
+	firedAt: number;
+};
+export type TeamProfileCardRenderedSpinnerAttributesType = {
+	firedAt: number;
+};
+export type RovoAgentProfilecardRenderedSpinnerAttributesType = {
+	firedAt: number;
+};
+export type UserRenderedSpinnerAttributesType = {
+	firedAt: number;
+};
+export type ProfilecardRenderedErrorAttributesType = {
+	firedAt: number;
+	hasRetry: boolean;
+	errorType: 'default' | 'NotFound';
+};
+export type TeamProfileCardRenderedErrorAttributesType = {
+	firedAt: number;
+	duration: number;
+};
+export type ProfilecardClickedActionAttributesType = {
+	firedAt: number;
+	duration: number;
+	hasHref: boolean;
+	hasOnClick: boolean;
+	index: number;
+	actionId: string;
+};
+export type ProfilecardClickedReportingLinesAttributesType = {
+	firedAt: number;
+	duration: number;
+	userType: 'manager' | 'direct-report';
+};
+export type ProfilecardRenderedContentAttributesType = {
+	firedAt: number;
+	duration: number;
+	numActions: number;
+};
+export type RovoAgentProfilecardRenderedContentAttributesType = {
+	firedAt: number;
+};
+export type TeamProfileCardRenderedContentAttributesType = {
+	firedAt: number;
+	duration: number;
+	numActions: number;
+	memberCount: number | null;
+	includingYou: boolean | null;
+	descriptionLength: number;
+	titleLength: number;
+};
+export type ButtonClickedDeleteAgentButtonAttributesType = {
+	agentId: string;
+	source: string;
+};
+export type ButtonClickedEditAgentButtonAttributesType = {
+	agentId: string;
+	source: string;
+};
+export type ButtonClickedCopyAgentLinkButtonAttributesType = {
+	agentId: string;
+	source: string;
+};
+export type ButtonClickedDuplicateAgentButtonAttributesType = {
+	agentId: string;
+	source: string;
+};
+export type ButtonClickedViewAgentFullProfileButtonAttributesType = {
+	agentId: string;
+	source: string;
+};
+export type TeamProfileCardRenderedErrorBoundaryAttributesType = {
+	firedAt: number;
+	duration: number;
+};
+export type TeamProfileCardClickedErrorRetryAttributesType = {
+	firedAt: number;
+	duration: number;
+};
+export type ProfilecardSucceededRequestAttributesType = {
+	firedAt: number;
+	duration: number;
+};
+export type ProfilecardTriggeredRequestAttributesType = {
+	firedAt: number;
+};
+export type ProfilecardFailedRequestAttributesType = {
+	firedAt: number;
+	duration: number;
+	errorMessage: string;
+	errorStatusCode: number | null;
+	traceId: string | null;
+	errorCategory: string | null;
+	errorType: string | null;
+	errorPath: string | null;
+	errorNumber: number | null;
+	isSLOFailure: boolean;
+};
+export type TeamProfileCardSucceededRequestAttributesType = {
+	firedAt: number;
+	duration: number;
+	gateway: boolean;
+};
+export type TeamProfileCardTriggeredRequestAttributesType = {
+	firedAt: number;
+};
+export type TeamProfileCardFailedRequestAttributesType = {
+	firedAt: number;
+	duration: number;
+	errorMessage: string;
+	errorStatusCode: number | null;
+	traceId: string | null;
+	errorCategory: string | null;
+	errorType: string | null;
+	errorPath: string | null;
+	errorNumber: number | null;
+	isSLOFailure: boolean;
+	gateway: boolean;
+};
+export type RovoAgentProfilecardSucceededRequestAttributesType = {
+	firedAt: number;
+	duration: number;
+	gateway: boolean;
+};
+export type RovoAgentProfilecardTriggeredRequestAttributesType = {
+	firedAt: number;
+};
+export type RovoAgentProfilecardFailedRequestAttributesType = {
+	firedAt: number;
+	duration: number;
+	errorMessage: string;
+	errorStatusCode: number | null;
+	traceId: string | null;
+	errorCategory: string | null;
+	errorType: string | null;
+	errorPath: string | null;
+	errorNumber: number | null;
+	isSLOFailure: boolean;
+	gateway: boolean;
+};
+export type RovoAgentProfilecardSucceededDeleteAgentAttributesType = {
+	firedAt: number;
+	duration: number;
+	gateway: boolean;
+};
+export type RovoAgentProfilecardFailedDeleteAgentAttributesType = {
+	firedAt: number;
+	duration: number;
+	errorMessage: string;
+	errorStatusCode: number | null;
+	traceId: string | null;
+	errorCategory: string | null;
+	errorType: string | null;
+	errorPath: string | null;
+	errorNumber: number | null;
+	isSLOFailure: boolean;
+	gateway: boolean;
+};
+export type RovoAgentProfilecardSucceededFavouriteAttributesType = {
+	firedAt: number;
+	duration: number;
+	gateway: boolean;
+};
+export type RovoAgentProfilecardTriggeredFavouriteAttributesType = {
+	firedAt: number;
+};
+export type RovoAgentProfilecardFailedFavouriteAttributesType = {
+	firedAt: number;
+	duration: number;
+	errorMessage: string;
+	errorStatusCode: number | null;
+	traceId: string | null;
+	errorCategory: string | null;
+	errorType: string | null;
+	errorPath: string | null;
+	errorNumber: number | null;
+	isSLOFailure: boolean;
+	gateway: boolean;
+};
+export type RovoAgentProfilecardSucceededUnfavouriteAttributesType = {
+	firedAt: number;
+	duration: number;
+	gateway: boolean;
+};
+export type RovoAgentProfilecardTriggeredUnfavouriteAttributesType = {
+	firedAt: number;
+};
+export type RovoAgentProfilecardFailedUnfavouriteAttributesType = {
+	firedAt: number;
+	duration: number;
+	errorMessage: string;
+	errorStatusCode: number | null;
+	traceId: string | null;
+	errorCategory: string | null;
+	errorType: string | null;
+	errorPath: string | null;
+	errorNumber: number | null;
+	isSLOFailure: boolean;
+	gateway: boolean;
+};
+export type RovoAgentProfilecardSucceededGetAgentPermissionsAttributesType = {
+	firedAt: number;
+	duration: number;
+	gateway: boolean;
+};
+export type RovoAgentProfilecardFailedGetAgentPermissionsAttributesType = {
+	firedAt: number;
+	duration: number;
+	errorMessage: string;
+	errorStatusCode: number | null;
+	traceId: string | null;
+	errorCategory: string | null;
+	errorType: string | null;
+	errorPath: string | null;
+	errorNumber: number | null;
+	isSLOFailure: boolean;
+	gateway: boolean;
+};
+export type ProfilecardClickedMoreActionsAttributesType = {
+	firedAt: number;
+	duration: number;
+	numActions: number;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -1250,6 +1494,138 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when a tab profile tab is selected */
 	'track.teamProfileTab.selected': TeamProfileTabSelectedAttributesType;
+	/**
+	 * fired when the team connection item is clicked */
+	'ui.teamConnectionItem.clicked.teamProfileCard': TeamConnectionItemClickedTeamProfileCardAttributesType;
+	/**
+	 * fired when the view team profile button is clicked */
+	'ui.button.clicked.viewTeamProfileButton': ButtonClickedViewTeamProfileButtonAttributesType;
+	/**
+	 * fired when the profilecard is triggered */
+	'ui.profilecard.triggered': ProfilecardTriggeredAttributesType;
+	/**
+	 * fired when the rovo agent profilecard is triggered */
+	'ui.rovoAgentProfilecard.triggered': RovoAgentProfilecardTriggeredAttributesType;
+	/**
+	 * fired when the team profilecard is triggered */
+	'ui.teamProfileCard.triggered': TeamProfileCardTriggeredAttributesType;
+	/**
+	 * fired when an unknown profilecard is triggered */
+	'ui.user.triggered': UserTriggeredAttributesType;
+	/**
+	 * fired when the profilecard is rendered and is loading */
+	'ui.profilecard.rendered.spinner': ProfilecardRenderedSpinnerAttributesType;
+	/**
+	 * fired when the team profilecard is rendered and is loading */
+	'ui.teamProfileCard.rendered.spinner': TeamProfileCardRenderedSpinnerAttributesType;
+	/**
+	 * fired when the rovo agent profilecard is rendered and is loading */
+	'ui.rovoAgentProfilecard.rendered.spinner': RovoAgentProfilecardRenderedSpinnerAttributesType;
+	/**
+	 * fired when an unknown profilecard is rendered and is loading */
+	'ui.user.rendered.spinner': UserRenderedSpinnerAttributesType;
+	/**
+	 * fired when the profilecard is rendered and is error */
+	'ui.profilecard.rendered.error': ProfilecardRenderedErrorAttributesType;
+	/**
+	 * fired when the team profilecard is rendered and is error */
+	'ui.teamProfileCard.rendered.error': TeamProfileCardRenderedErrorAttributesType;
+	/**
+	 * fired when the profilecard is clicked */
+	'ui.profilecard.clicked.action': ProfilecardClickedActionAttributesType;
+	/**
+	 * fired when the profilecard is clicked */
+	'ui.profilecard.clicked.reportingLines': ProfilecardClickedReportingLinesAttributesType;
+	/**
+	 * fired when the profilecard is rendered and has content */
+	'ui.profilecard.rendered.content': ProfilecardRenderedContentAttributesType;
+	/**
+	 * fired when the profilecard is rendered and has content */
+	'ui.rovoAgentProfilecard.rendered.content': RovoAgentProfilecardRenderedContentAttributesType;
+	/**
+	 * fired when the team profilecard is rendered and has content */
+	'ui.teamProfileCard.rendered.content': TeamProfileCardRenderedContentAttributesType;
+	/**
+	 * fired when the delete agent button is clicked */
+	'ui.button.clicked.deleteAgentButton': ButtonClickedDeleteAgentButtonAttributesType;
+	/**
+	 * fired when the edit agent button is clicked */
+	'ui.button.clicked.editAgentButton': ButtonClickedEditAgentButtonAttributesType;
+	/**
+	 * fired when the copy agent link button is clicked */
+	'ui.button.clicked.copyAgentLinkButton': ButtonClickedCopyAgentLinkButtonAttributesType;
+	/**
+	 * fired when the duplicate agent button is clicked */
+	'ui.button.clicked.duplicateAgentButton': ButtonClickedDuplicateAgentButtonAttributesType;
+	/**
+	 * fired when the edit agent button is clicked */
+	'ui.button.clicked.viewAgentFullProfileButton': ButtonClickedViewAgentFullProfileButtonAttributesType;
+	/**
+	 * fired when the team profilecard is rendered and is error boundary */
+	'ui.teamProfileCard.rendered.errorBoundary': TeamProfileCardRenderedErrorBoundaryAttributesType;
+	/**
+	 * fired when the team profilecard is rendered and is error boundary */
+	'ui.teamProfileCard.clicked.errorRetry': TeamProfileCardClickedErrorRetryAttributesType;
+	/**
+	 * fired when the profilecard request is succeeded */
+	'operational.profilecard.succeeded.request': ProfilecardSucceededRequestAttributesType;
+	/**
+	 * fired when the profilecard request is triggered */
+	'operational.profilecard.triggered.request': ProfilecardTriggeredRequestAttributesType;
+	/**
+	 * fired when the profilecard request is failed */
+	'operational.profilecard.failed.request': ProfilecardFailedRequestAttributesType;
+	/**
+	 * fired when the team profilecard request is succeeded */
+	'operational.teamProfileCard.succeeded.request': TeamProfileCardSucceededRequestAttributesType;
+	/**
+	 * fired when the team profilecard request is triggered */
+	'operational.teamProfileCard.triggered.request': TeamProfileCardTriggeredRequestAttributesType;
+	/**
+	 * fired when the team profilecard request is failed */
+	'operational.teamProfileCard.failed.request': TeamProfileCardFailedRequestAttributesType;
+	/**
+	 * fired when the rovo agent profilecard request is succeeded */
+	'operational.rovoAgentProfilecard.succeeded.request': RovoAgentProfilecardSucceededRequestAttributesType;
+	/**
+	 * fired when the rovo agent profilecard request is triggered */
+	'operational.rovoAgentProfilecard.triggered.request': RovoAgentProfilecardTriggeredRequestAttributesType;
+	/**
+	 * fired when the rovo agent profilecard request is failed */
+	'operational.rovoAgentProfilecard.failed.request': RovoAgentProfilecardFailedRequestAttributesType;
+	/**
+	 * fired when the rovo agent profilecard deleteAgent is succeeded */
+	'operational.rovoAgentProfilecard.succeeded.deleteAgent': RovoAgentProfilecardSucceededDeleteAgentAttributesType;
+	/**
+	 * fired when the rovo agent profilecard deleteAgent is failed */
+	'operational.rovoAgentProfilecard.failed.deleteAgent': RovoAgentProfilecardFailedDeleteAgentAttributesType;
+	/**
+	 * fired when the rovo agent profilecard favourite is succeeded */
+	'operational.rovoAgentProfilecard.succeeded.favourite': RovoAgentProfilecardSucceededFavouriteAttributesType;
+	/**
+	 * fired when the rovo agent profilecard favourite is triggered */
+	'operational.rovoAgentProfilecard.triggered.favourite': RovoAgentProfilecardTriggeredFavouriteAttributesType;
+	/**
+	 * fired when the rovo agent profilecard favourite is failed */
+	'operational.rovoAgentProfilecard.failed.favourite': RovoAgentProfilecardFailedFavouriteAttributesType;
+	/**
+	 * fired when the rovo agent profilecard unfavourite is succeeded */
+	'operational.rovoAgentProfilecard.succeeded.unfavourite': RovoAgentProfilecardSucceededUnfavouriteAttributesType;
+	/**
+	 * fired when the rovo agent profilecard unfavourite is triggered */
+	'operational.rovoAgentProfilecard.triggered.unfavourite': RovoAgentProfilecardTriggeredUnfavouriteAttributesType;
+	/**
+	 * fired when the rovo agent profilecard unfavourite is failed */
+	'operational.rovoAgentProfilecard.failed.unfavourite': RovoAgentProfilecardFailedUnfavouriteAttributesType;
+	/**
+	 * fired when the rovo agent profilecard getAgentPermissions is succeeded */
+	'operational.rovoAgentProfilecard.succeeded.getAgentPermissions': RovoAgentProfilecardSucceededGetAgentPermissionsAttributesType;
+	/**
+	 * fired when the rovo agent profilecard getAgentPermissions is failed */
+	'operational.rovoAgentProfilecard.failed.getAgentPermissions': RovoAgentProfilecardFailedGetAgentPermissionsAttributesType;
+	/**
+	 * fired when the more actions is clicked */
+	'ui.profilecard.clicked.moreActions': ProfilecardClickedMoreActionsAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

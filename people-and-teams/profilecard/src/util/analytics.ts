@@ -9,6 +9,11 @@ import { getPageTime } from './performance';
 /** Below lines are copied from teams common analytics */
 const ANALYTICS_CHANNEL = 'peopleTeams';
 
+export const PACKAGE_META_DATA = {
+	packageName: process.env._PACKAGE_NAME_,
+	packageVersion: process.env._PACKAGE_VERSION_,
+};
+
 const runItLater = (cb: (arg: any) => void) => {
 	const requestIdleCallback = (window as any).requestIdleCallback;
 	if (typeof requestIdleCallback === 'function') {
@@ -80,7 +85,7 @@ const createEvent = (
 	},
 });
 
-const getActionSubject = (type: string) => {
+export const getActionSubject = (type: string) => {
 	switch (type) {
 		case 'user':
 			return USER_SUBJECT;

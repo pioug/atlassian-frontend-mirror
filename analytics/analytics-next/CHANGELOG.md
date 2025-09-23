@@ -1,5 +1,12 @@
 # @atlaskit/analytics-next
 
+## 11.1.2
+
+### Patch Changes
+
+- [`604dd578f00d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/604dd578f00d9) -
+  Types the withAnalyticsEvents WrappedComponent as allowing a forwardRefExoticComponent
+
 ## 11.1.1
 
 ### Patch Changes

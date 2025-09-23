@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.2.24
+
+### Patch Changes
+
+- [`a4f8c466df2bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4f8c466df2bd) -
+  Use sync store if it is available.
+- Updated dependencies
+
 ## 33.2.23
 
 ### Patch Changes

@@ -5,6 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { Pressable } from '@atlaskit/primitives/compiled';
@@ -22,7 +23,8 @@ import {
 	type ProfilecardProps,
 	type ReportingLinesUser,
 } from '../../types';
-import { reportingLinesClicked } from '../../util/analytics';
+import { PACKAGE_META_DATA, reportingLinesClicked } from '../../util/analytics';
+import { getPageTime } from '../../util/performance';
 
 export type ReportingLinesDetailsProps = Pick<
 	ProfilecardProps,
@@ -63,6 +65,7 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 	const { formatMessage } = useIntl();
 	const {
 		fireAnalyticsWithDuration,
+		fireAnalyticsWithDurationNext,
 		reportingLines = {},
 		reportingLinesProfileUrl,
 		onReportingLinesClick,
@@ -78,13 +81,21 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 	) =>
 		onReportingLinesClick
 			? () => {
-					fireAnalyticsWithDuration((duration) =>
-						reportingLinesClicked({
+					if (fg('ptc-enable-profile-card-analytics-refactor')) {
+						fireAnalyticsWithDurationNext('ui.profilecard.clicked.reportingLines', (duration) => ({
 							duration,
 							userType,
-						}),
-					);
-
+							firedAt: Math.round(getPageTime()),
+							...PACKAGE_META_DATA,
+						}));
+					} else {
+						fireAnalyticsWithDuration((duration) =>
+							reportingLinesClicked({
+								duration,
+								userType,
+							}),
+						);
+					}
 					onReportingLinesClick(user);
 				}
 			: undefined;
@@ -98,13 +109,22 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 		if (onReportingLinesClick) {
 			shouldPreventDefault = onReportingLinesClick(user) === false;
 		}
-		fireAnalyticsWithDuration((duration) =>
-			reportingLinesClicked({
+
+		if (fg('ptc-enable-profile-card-analytics-refactor')) {
+			fireAnalyticsWithDurationNext('ui.profilecard.clicked.reportingLines', (duration) => ({
 				duration,
 				userType,
-			}),
-		);
-
+				firedAt: Math.round(getPageTime()),
+				...PACKAGE_META_DATA,
+			}));
+		} else {
+			fireAnalyticsWithDuration((duration) =>
+				reportingLinesClicked({
+					duration,
+					userType,
+				}),
+			);
+		}
 		if (shouldPreventDefault) {
 			return;
 		}

@@ -7,6 +7,8 @@ snapshot(BasicAvatar, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'platform-visual-refresh-icons': true,
+		platform_dst_avatar_tile: [true, false],
 	},
 	variants: [
 		{

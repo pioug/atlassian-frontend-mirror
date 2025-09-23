@@ -9,6 +9,11 @@ test.describe('Editor Metrics - TTVC: basic operations', () => {
 		await expect(page.getByText('My content go here')).toBeVisible();
 	});
 
+	test('should capture and report a11y violations', async ({ page }) => {
+		await expect(page.getByText('My content go here')).toBeVisible();
+		await expect(page).toBeAccessible();
+	});
+
 	test('it should record the must-have timeline events', async ({
 		page,
 		getTimelineEvents,

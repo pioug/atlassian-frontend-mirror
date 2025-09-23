@@ -1,5 +1,13 @@
 # @atlaskit/ds-explorations
 
+## 5.0.6
+
+### Patch Changes
+
+- [`c72a8190e4e4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c72a8190e4e4f) -
+  add types to generated code for tokens
+- Updated dependencies
+
 ## 5.0.5
 
 ### Patch Changes

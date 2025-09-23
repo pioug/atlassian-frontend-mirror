@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 2.2.2
+
+### Patch Changes
+
+- [`bd24a3afbfb65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd24a3afbfb65) -
+  Updated look and feel of the Synced Block Editor
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

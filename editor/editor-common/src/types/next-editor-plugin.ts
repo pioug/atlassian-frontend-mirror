@@ -95,13 +95,16 @@ export type CorePlugin = NextEditorPlugin<
 			 * A transformer can be created using `createTransformer`.
 			 *
 			 * @param onReceive Callback to handle the document. Document type based on the transformer.
-			 * @param options Pass a transformer for the document to be transformed into a different format.
+			 * @param options Options for document request
+			 * @param options.transformer Pass a transformer for the document to be transformed into a different format.
+			 * @param options.alwaysFire If true, always return a value in `onReceive` handler rather than skipping throttled calls
 			 */
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
 			requestDocument<GenericTransformer extends Transformer<any> = Transformer<JSONDocNode>>(
 				onReceive: (document: TransformerResult<GenericTransformer> | undefined) => void,
 				options?: {
+					alwaysFire?: boolean;
 					transformer?: GenericTransformer;
 				},
 			): void;

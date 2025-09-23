@@ -17,7 +17,6 @@ import { type FieldState } from 'final-form';
 
 import { css, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './field-id-context';
@@ -435,9 +434,9 @@ export default function Field<
 				</Label>
 			)}
 			<FieldId.Provider value={fieldId}>
-				{component && fg('platform_design-system-team_field-upgrade') ? (
+				{component ? (
 					<React.Fragment>
-						{component && component({ fieldProps: extendedFieldProps })}
+						{component({ fieldProps: extendedFieldProps })}
 						<MessageWrapper>
 							{props.helperMessage && <HelperMessage>{props.helperMessage}</HelperMessage>}
 							{state.error && <ErrorMessage>{props.errorMessage || state.error}</ErrorMessage>}

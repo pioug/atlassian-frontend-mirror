@@ -5,6 +5,16 @@ import { Box, xcss } from '@atlaskit/primitives';
 
 const styles = xcss({ width: '360px' });
 
-export const ProfileCardWrapper = ({ children }: { children: React.ReactNode }) => {
-	return <Box xcss={styles}>{children}</Box>;
+export const ProfileCardWrapper = ({
+	children,
+	testId,
+}: {
+	children: React.ReactNode;
+	testId?: string;
+}) => {
+	return (
+		<Box xcss={styles} testId={testId}>
+			{children}
+		</Box>
+	);
 };

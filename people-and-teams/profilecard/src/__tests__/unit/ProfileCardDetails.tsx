@@ -25,6 +25,7 @@ const defaultProps: Props = {
 	status: 'active',
 	nickname: 'jscrazy',
 	companyName: 'Atlassian',
+	fireAnalyticsWithDurationNext: jest.fn(),
 };
 
 const renderComponent = (props: Partial<Props> = {}) =>

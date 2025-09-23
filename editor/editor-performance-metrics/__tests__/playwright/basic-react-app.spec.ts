@@ -74,4 +74,14 @@ test.describe('TTVC: basic react', () => {
 			});
 		});
 	}
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		const mainDiv = page.locator('[data-testid="main"]');
+		const sections = page.locator('[data-testid="main"] > div');
+
+		await expect(mainDiv).toBeVisible();
+		await expect(sections.nth(9)).toBeVisible();
+
+		await expect(page).toBeAccessible();
+	});
 });

@@ -181,9 +181,6 @@
 		"platform_ufo_exclude_3p_elements_from_ttvc": {
 			"type": "boolean"
 		},
-		"platform_ufo_add_type_for_3p_segments": {
-			"type": "boolean"
-		},
 		"platform_ufo_segment_critical_metrics": {
 			"type": "boolean"
 		},

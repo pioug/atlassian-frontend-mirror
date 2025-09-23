@@ -35,4 +35,9 @@ test.describe('Editor Metrics - TTVC: heatmap', () => {
 		expect(previousEntries[previousEntries.length - 1].source).toEqual('layout-shift');
 		expect(previousEntries[previousEntries.length - 1].time).toBeLessThanOrEqual(firstTickAt);
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		await expect(page.getByTestId('content-attr-to-change')).toBeVisible();
+		await expect(page).toBeAccessible();
+	});
 });

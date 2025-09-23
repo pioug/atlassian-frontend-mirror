@@ -81,6 +81,9 @@
 			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/popup/afm-cc/tsconfig.json"
 		},
 		{
@@ -97,6 +100,9 @@
 		},
 		{
 			"path": "../../teams-app-config/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-internal-analytics/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../teams-avatar/afm-cc/tsconfig.json"

@@ -28,11 +28,6 @@
 			"name": "Icon File Type"
 		}
 	},
-	"af:exports": {
-		"./metadata": "./src/entry-points/metadata.ts",
-		"./glyph": "./glyph",
-		".": "./src/index.ts"
-	},
 	"exports": {
 		"./metadata": "./src/entry-points/metadata.ts",
 		"./glyph/*": {

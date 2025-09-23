@@ -81,6 +81,9 @@
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/popup/afm-jira/tsconfig.json"
 		},
 		{
@@ -97,6 +100,9 @@
 		},
 		{
 			"path": "../../teams-app-config/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-internal-analytics/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../teams-avatar/afm-jira/tsconfig.json"

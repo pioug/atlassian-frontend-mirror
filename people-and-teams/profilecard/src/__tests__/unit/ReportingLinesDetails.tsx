@@ -40,6 +40,7 @@ describe('ReportingLinesDetails', () => {
 		},
 		reportingLinesProfileUrl: 'profile-url',
 		fireAnalyticsWithDuration: () => {},
+		fireAnalyticsWithDurationNext: () => {},
 	};
 
 	const renderComponent = (props = {}) =>

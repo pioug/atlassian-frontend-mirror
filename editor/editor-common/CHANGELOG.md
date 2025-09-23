@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 109.15.1
+
+### Patch Changes
+
+- [`b1acfd162fa8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1acfd162fa8a) -
+  use latest browser util for editor-common
+- [`096440b378eeb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/096440b378eeb) -
+  [ux] EDITOR-1786 - fix update stream errors
+- Updated dependencies
+
+## 109.15.0
+
+### Minor Changes
+
+- [`129b19e875447`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/129b19e875447) -
+  Adds new "alwaysFire" parameter for requestDocument to guarrantee the callback will be called
+  eventually.
+
+## 109.14.1
+
+### Patch Changes
+
+- [`bd24a3afbfb65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd24a3afbfb65) -
+  Updated look and feel of the Synced Block Editor
+
 ## 109.14.0
 
 ### Minor Changes

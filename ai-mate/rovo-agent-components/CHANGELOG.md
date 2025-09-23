@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 3.5.0
+
+### Minor Changes
+
+- [`078ca0c85f404`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/078ca0c85f404) -
+  Migrate ai-mate, cmdb, commerce, discovery, policy-platform, studio-foundations pkgs to use i18n
+  NPM pkgs from Traduki
+
 ## 3.4.0
 
 ### Minor Changes

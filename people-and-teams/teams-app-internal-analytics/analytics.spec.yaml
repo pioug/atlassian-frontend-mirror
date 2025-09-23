@@ -62,6 +62,57 @@ shared:
     abortReason:
       type: string
       description: reason for aborting the task
+  ProfileCardAttributes: &ProfileCardAttributes
+    firedAt:
+      type: number
+      description: the time the event was fired
+    packageName:
+      type: string
+      description: name of the package the event was fired from
+    packageVersion:
+      type: string
+      description: version of the package the event was fired from
+  AgentProfileCardActionsAttributes: &AgentProfileCardActionsAttributes
+    agentId:
+      type: string
+      description: the id of the agent
+    source:
+      type: string
+      description: the source
+  ProfileCardRequestErrorAttributes: &ProfileCardRequestErrorAttributes
+    duration:
+      type: number
+      description: Duration of the request in milliseconds
+    errorMessage:
+      type: string
+      description: Error message returned from the request
+    errorStatusCode:
+      type: number
+      required: false
+      description: HTTP status code or error status
+    traceId:
+      type: string
+      required: false
+      description: Trace identifier for the request
+    errorCategory:
+      type: string
+      required: false
+      description: Category of the error (e.g., network, server, client)
+    errorType:
+      type: string
+      required: false
+      description: Specific type of error encountered
+    errorPath:
+      type: string
+      required: false
+      description: API path or endpoint where the error occurred
+    errorNumber:
+      type: number
+      required: false
+      description: Numeric error code, if applicable
+    isSLOFailure:
+      type: boolean
+      description: Indicates if the error resulted in an SLO (Service Level Objective) failure
 
 events:
   - button clicked (analyticsExample):
@@ -1596,3 +1647,372 @@ events:
         tabId:
           type: string
           description: id of the selected tab
+  - teamConnectionItem clicked (teamProfileCard):
+      type: ui
+      description: fired when the team connection item is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        container:
+          type: ['ConfluenceSpace', 'JiraProject', 'LoomSpace', 'WebLink']
+          description: the container
+  - button clicked (viewTeamProfileButton):
+      type: ui
+      description: fired when the view team profile button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+  - profilecard triggered:
+      type: ui
+      description: fired when the profilecard is triggered
+      attributes:
+        <<: [*PackageMetaDataContext, *ProfileCardAttributes]
+        method:
+          type: ['hover', 'click']
+          description: the method of the profilecard
+  - rovoAgentProfilecard triggered:
+      type: ui
+      description: fired when the rovo agent profilecard is triggered
+      attributes:
+        <<: [*PackageMetaDataContext, *ProfileCardAttributes]
+        method:
+          type: ['hover', 'click']
+          description: the method of the profilecard
+  - teamProfileCard triggered:
+      type: ui
+      description: fired when the team profilecard is triggered
+      attributes:
+        <<: [*PackageMetaDataContext, *ProfileCardAttributes]
+        method:
+          type: ['hover', 'click']
+          description: the method of the profilecard
+        teamId:
+          type: string
+          description: the id of the team
+  - user triggered:
+      type: ui
+      description: fired when an unknown profilecard is triggered
+      attributes:
+        <<: [*PackageMetaDataContext, *ProfileCardAttributes]
+        method:
+          type: ['hover', 'click']
+          description: the method of the profilecard
+  - profilecard rendered (spinner):
+      type: ui
+      description: fired when the profilecard is rendered and is loading
+      attributes:
+        <<: *ProfileCardAttributes
+  - teamProfileCard rendered (spinner):
+      type: ui
+      description: fired when the team profilecard is rendered and is loading
+      attributes:
+        <<: *ProfileCardAttributes
+  - rovoAgentProfilecard rendered (spinner):
+      type: ui
+      description: fired when the rovo agent profilecard is rendered and is loading
+      attributes:
+        <<: *ProfileCardAttributes
+  - user rendered (spinner):
+      type: ui
+      description: fired when an unknown profilecard is rendered and is loading
+      attributes:
+        <<: *ProfileCardAttributes
+  - profilecard rendered (error):
+      type: ui
+      description: fired when the profilecard is rendered and is error
+      attributes:
+        <<: *ProfileCardAttributes
+        hasRetry:
+          type: boolean
+          description: whether the profilecard has retry
+        errorType:
+          type: ['default', 'NotFound']
+          description: the error type
+  - teamProfileCard rendered (error):
+      type: ui
+      description: fired when the team profilecard is rendered and is error
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+  - profilecard clicked (action):
+      type: ui
+      description: fired when the profilecard is clicked
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        hasHref:
+          type: boolean
+          description: whether the profilecard has href
+        hasOnClick:
+          type: boolean
+          description: whether the profilecard has onClick
+        index:
+          type: number
+          description: the index
+        actionId:
+          type: string
+          description: the action id
+  - profilecard clicked (reportingLines):
+      type: ui
+      description: fired when the profilecard is clicked
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        userType:
+          type: ['manager', 'direct-report']
+          description: the user type
+  - profilecard rendered (content):
+      type: ui
+      description: fired when the profilecard is rendered and has content
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        numActions:
+          type: number
+          description: the number of actions
+  - rovoAgentProfilecard rendered (content):
+      type: ui
+      description: fired when the profilecard is rendered and has content
+      attributes:
+        <<: *ProfileCardAttributes
+  - teamProfileCard rendered (content):
+      type: ui
+      description: fired when the team profilecard is rendered and has content
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        numActions:
+          type: number
+          description: the number of actions
+        memberCount:
+          type: number
+          required: false
+          description: the number of members
+        includingYou:
+          type: boolean
+          required: false
+          description: whether the team includes the current user
+        descriptionLength:
+          type: number
+          description: the length of the team description
+        titleLength:
+          type: number
+          description: the length of the team title
+  - button clicked (deleteAgentButton):
+      type: ui
+      description: fired when the delete agent button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        agentId:
+          type: string
+          description: the id of the agent
+        source:
+          type: string
+          description: the source
+  - button clicked (editAgentButton):
+      type: ui
+      description: fired when the edit agent button is clicked
+      attributes:
+        <<: [*PackageMetaDataContext, *AgentProfileCardActionsAttributes]
+  - button clicked (copyAgentLinkButton):
+      type: ui
+      description: fired when the copy agent link button is clicked
+      attributes:
+        <<: [*PackageMetaDataContext, *AgentProfileCardActionsAttributes]
+  - button clicked (duplicateAgentButton):
+      type: ui
+      description: fired when the duplicate agent button is clicked
+      attributes:
+        <<: [*PackageMetaDataContext, *AgentProfileCardActionsAttributes]
+  - button clicked (viewAgentFullProfileButton):
+      type: ui
+      description: fired when the edit agent button is clicked
+      attributes:
+        <<: [*PackageMetaDataContext, *AgentProfileCardActionsAttributes]
+  - teamProfileCard rendered (errorBoundary):
+      type: ui
+      description: fired when the team profilecard is rendered and is error boundary
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+  - teamProfileCard clicked (errorRetry):
+      type: ui
+      description: fired when the team profilecard is rendered and is error boundary
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+  - profilecard succeeded (request):
+      type: operational
+      description: fired when the profilecard request is succeeded
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+  - profilecard triggered (request):
+      type: operational
+      description: fired when the profilecard request is triggered
+      attributes:
+        <<: *ProfileCardAttributes
+  - profilecard failed (request):
+      type: operational
+      description: fired when the profilecard request is failed
+      attributes:
+        <<: [*ProfileCardAttributes, *ProfileCardRequestErrorAttributes]
+  - teamProfileCard succeeded (request):
+      type: operational
+      description: fired when the team profilecard request is succeeded
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        gateway:
+          type: boolean
+          description: whether the request is a gateway request
+  - teamProfileCard triggered (request):
+      type: operational
+      description: fired when the team profilecard request is triggered
+      attributes:
+        <<: *ProfileCardAttributes
+  - teamProfileCard failed (request):
+      type: operational
+      description: fired when the team profilecard request is failed
+      attributes:
+        <<: [*ProfileCardAttributes, *ProfileCardRequestErrorAttributes]
+        gateway:
+          type: boolean
+          description: whether the request is a gateway request
+  - rovoAgentProfilecard succeeded (request):
+      type: operational
+      description: fired when the rovo agent profilecard request is succeeded
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        gateway:
+          type: boolean
+          description: whether the request is a gateway request
+  - rovoAgentProfilecard triggered (request):
+      type: operational
+      description: fired when the rovo agent profilecard request is triggered
+      attributes:
+        <<: *ProfileCardAttributes
+  - rovoAgentProfilecard failed (request):
+      type: operational
+      description: fired when the rovo agent profilecard request is failed
+      attributes:
+        <<: [*ProfileCardAttributes, *ProfileCardRequestErrorAttributes]
+        gateway:
+          type: boolean
+          description: whether the request is a gateway request
+  - rovoAgentProfilecard succeeded (deleteAgent):
+      type: operational
+      description: fired when the rovo agent profilecard deleteAgent is succeeded
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        gateway:
+          type: boolean
+          description: whether the request is a gateway request
+  - rovoAgentProfilecard failed (deleteAgent):
+      type: operational
+      description: fired when the rovo agent profilecard deleteAgent is failed
+      attributes:
+        <<: [*ProfileCardAttributes, *ProfileCardRequestErrorAttributes]
+        gateway:
+          type: boolean
+          description: whether the request is a gateway request
+  - rovoAgentProfilecard succeeded (favourite):
+      type: operational
+      description: fired when the rovo agent profilecard favourite is succeeded
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        gateway:
+          type: boolean
+          description: whether the request is a gateway request
+  - rovoAgentProfilecard triggered (favourite):
+      type: operational
+      description: fired when the rovo agent profilecard favourite is triggered
+      attributes:
+        <<: *ProfileCardAttributes
+  - rovoAgentProfilecard failed (favourite):
+      type: operational
+      description: fired when the rovo agent profilecard favourite is failed
+      attributes:
+        <<: [*ProfileCardAttributes, *ProfileCardRequestErrorAttributes]
+        gateway:
+          type: boolean
+          description: whether the request is a gateway request
+  - rovoAgentProfilecard succeeded (unfavourite):
+      type: operational
+      description: fired when the rovo agent profilecard unfavourite is succeeded
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        gateway:
+          type: boolean
+          description: whether the request is a gateway request
+  - rovoAgentProfilecard triggered (unfavourite):
+      type: operational
+      description: fired when the rovo agent profilecard unfavourite is triggered
+      attributes:
+        <<: *ProfileCardAttributes
+  - rovoAgentProfilecard failed (unfavourite):
+      type: operational
+      description: fired when the rovo agent profilecard unfavourite is failed
+      attributes:
+        <<: [*ProfileCardAttributes, *ProfileCardRequestErrorAttributes]
+        gateway:
+          type: boolean
+          description: whether the request is a gateway request
+  - rovoAgentProfilecard succeeded (getAgentPermissions):
+      type: operational
+      description: fired when the rovo agent profilecard getAgentPermissions is succeeded
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        gateway:
+          type: boolean
+          description: whether the request is a gateway request
+  - rovoAgentProfilecard failed (getAgentPermissions):
+      type: operational
+      description: fired when the rovo agent profilecard getAgentPermissions is failed
+      attributes:
+        <<: [*ProfileCardAttributes, *ProfileCardRequestErrorAttributes]
+        gateway:
+          type: boolean
+          description: whether the request is a gateway request
+  - profilecard clicked (moreActions):
+      type: ui
+      description: fired when the more actions is clicked
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        numActions:
+          type: number
+          description: the number of actions

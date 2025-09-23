@@ -1,5 +1,12 @@
 # @atlaskit/embedded-confluence
 
+## 4.3.0
+
+### Minor Changes
+
+- [`81fd63b7a2c5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81fd63b7a2c5e) -
+  Add uniqueKey as a EP query param
+
 ## 4.2.0
 
 ### Minor Changes

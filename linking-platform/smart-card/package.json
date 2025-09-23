@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "42.2.0",
+	"version": "42.2.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -248,6 +248,9 @@
 			"type": "boolean"
 		},
 		"navx-1895-a11y-close-button-in-preview-modal": {
+			"type": "boolean"
+		},
+		"jfp-magma-platform-lozenge-jump-fix": {
 			"type": "boolean"
 		}
 	},

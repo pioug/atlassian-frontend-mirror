@@ -4,6 +4,11 @@ import { type IntlShape } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type ConversationStarter } from '@atlaskit/rovo-agent-components';
+import type {
+	AnalyticsEventAttributes,
+	FireEventType,
+	useAnalyticsEvents,
+} from '@atlaskit/teams-app-internal-analytics';
 
 import { type TeamCentralScopes } from './client/ProfileCardClient';
 import type RovoAgentCardClient from './client/RovoAgentCardClient';
@@ -477,15 +482,27 @@ export interface ProfilecardProps {
 }
 
 export type AnalyticsFromDuration = (duration: number) => AnalyticsEventPayload;
+export type AnalyticsFromDurationNext = <K extends keyof AnalyticsEventAttributes>(
+	eventKey: K,
+	duration: number,
+) => {
+	attributes: AnalyticsEventAttributes[K];
+};
 
 export type AnalyticsFunction = (generator: AnalyticsFromDuration) => void;
+export type AnalyticsFunctionNext = <K extends keyof AnalyticsEventAttributes>(
+	eventKey: K,
+	generator: (duration: number) => AnalyticsEventAttributes[K],
+) => void;
 
 export interface AnalyticsProps {
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	fireEvent?: ReturnType<typeof useAnalyticsEvents>['fireEvent'];
 }
 
 export interface AnalyticsWithDurationProps {
 	fireAnalyticsWithDuration: AnalyticsFunction;
+	fireAnalyticsWithDurationNext: AnalyticsFunctionNext;
 }
 
 export interface TeamProfilecardProps extends TeamProfilecardCoreProps {
@@ -537,11 +554,13 @@ export interface ProfileClient {
 		cloudId: string,
 		userId: string,
 		analytics?: (event: AnalyticsEventPayload) => void,
+		analyticsNext?: FireEventType,
 	) => Promise<ProfileCardClientData>;
 	getTeamProfile: (
 		teamId: string,
 		orgId?: string,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,
+		fireAnalyticsNext?: FireEventType,
 	) => Promise<Team>;
 	getReportingLines: (userId: string) => Promise<TeamCentralReportingLinesData>;
 	shouldShowGiveKudos: () => Promise<boolean>;
@@ -549,19 +568,23 @@ export interface ProfileClient {
 	getRovoAgentProfile: (
 		id: AgentIdType,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,
+		fireAnalyticsNext?: FireEventType,
 	) => Promise<RovoAgent>;
 	getRovoAgentPermissions: (
 		id: string,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,
+		fireAnalyticsNext?: FireEventType,
 	) => Promise<AgentPermissions>;
 	deleteAgent: (
 		id: string,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,
+		fireAnalyticsNext?: FireEventType,
 	) => Promise<void>;
 	setFavouriteAgent: (
 		id: string,
 		isFavourite: boolean,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,
+		fireAnalyticsNext?: FireEventType,
 	) => Promise<void>;
 }
 

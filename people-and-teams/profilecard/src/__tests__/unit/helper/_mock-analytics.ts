@@ -1,3 +1,5 @@
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+
 export const createAnalyticsEvent = jest.fn((body) => {
 	// Mocking an implementation of this so tests will run successfully
 	const event = {
@@ -10,7 +12,7 @@ export const createAnalyticsEvent = jest.fn((body) => {
 	return event as any;
 });
 
-export function flexiTime(event: Record<string, any>) {
+export function flexiTime(event: AnalyticsEventPayload): AnalyticsEventPayload {
 	return {
 		...event,
 		attributes: {

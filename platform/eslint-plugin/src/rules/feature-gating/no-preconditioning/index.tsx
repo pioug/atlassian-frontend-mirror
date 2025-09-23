@@ -16,6 +16,10 @@ const getGateType = (node: Rule.Node, context: Rule.RuleContext): string => {
 		);
 	}
 
+	if (type === 'AwaitExpression') {
+		return getGateType((node as Node<'AwaitExpression'>).argument as Rule.Node, context);
+	}
+
 	if (node.type === 'CallExpression') {
 		const { callee } = node;
 

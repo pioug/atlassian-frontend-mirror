@@ -80,6 +80,9 @@
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-react/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/popup/tsconfig.app.json"
 		},
 		{
@@ -96,6 +99,9 @@
 		},
 		{
 			"path": "../teams-app-config/tsconfig.app.json"
+		},
+		{
+			"path": "../teams-app-internal-analytics/tsconfig.app.json"
 		},
 		{
 			"path": "../teams-avatar/tsconfig.app.json"

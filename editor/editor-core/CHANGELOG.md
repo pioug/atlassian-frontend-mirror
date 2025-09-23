@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 213.5.6
+
+### Patch Changes
+
+- [`fba5acd7818c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fba5acd7818c3) -
+  ED-29392: fix scroll gutter hydration issue
+- Updated dependencies
+
+## 213.5.5
+
+### Patch Changes
+
+- [`bd24a3afbfb65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd24a3afbfb65) -
+  Updated look and feel of the Synced Block Editor
+- Updated dependencies
+
 ## 213.5.4
 
 ### Patch Changes

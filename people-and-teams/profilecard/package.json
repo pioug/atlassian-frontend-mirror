@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.13.7",
+	"version": "24.14.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -74,12 +74,14 @@
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/people-teams-ui-public": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/rovo-agent-components": "workspace:^",
 		"@atlaskit/rovo-triggers": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/teams-app-config": "workspace:^",
+		"@atlaskit/teams-app-internal-analytics": "workspace:^",
 		"@atlaskit/teams-avatar": "workspace:^",
 		"@atlaskit/teams-public": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
@@ -173,6 +175,9 @@
 			"type": "boolean"
 		},
 		"enable_absolute_positioning_profile_card": {
+			"type": "boolean"
+		},
+		"ptc-enable-profile-card-analytics-refactor": {
 			"type": "boolean"
 		}
 	},

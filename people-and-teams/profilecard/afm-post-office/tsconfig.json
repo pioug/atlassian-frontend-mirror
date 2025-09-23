@@ -81,6 +81,9 @@
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/popup/afm-post-office/tsconfig.json"
 		},
 		{
@@ -97,6 +100,9 @@
 		},
 		{
 			"path": "../../teams-app-config/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-internal-analytics/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../teams-avatar/afm-post-office/tsconfig.json"

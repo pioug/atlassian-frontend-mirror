@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0f7faf50570284c11dff5f282b4fa4fe>>
+ * @codegen <<SignedSource::7d6d41baa7103c9ee49c1e976d66bf14>>
  * @codegenCommand yarn build tokens
  */
+
 var tokens = [{
   "value": "#091E42",
   "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",

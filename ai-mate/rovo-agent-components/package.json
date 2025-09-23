@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "3.4.0",
+	"version": "3.5.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,6 +35,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/afm-i18n-platform-ai-mate-rovo-agent-components": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/button": "workspace:^",

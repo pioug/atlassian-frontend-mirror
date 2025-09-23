@@ -17,7 +17,11 @@ export interface WithAnalyticsEventsProps {
 const withAnalyticsEvents =
 	(createEventMap: CreateEventMap = {}) =>
 	<Props, Component>(
-		WrappedComponent: React.ComponentType<WithAnalyticsEventsProps & Props> & Component,
+		WrappedComponent: (
+			| React.ComponentType<WithAnalyticsEventsProps & Props>
+			| React.ForwardRefExoticComponent<Omit<WithAnalyticsEventsProps, 'ref'> & Props>
+		) &
+			Component,
 	) => {
 		type WrappedProps = JSX.LibraryManagedAttributes<
 			Component,

@@ -43,7 +43,7 @@ export interface TooltipProps {
 	component?:
 		| ComponentType<TooltipPrimitiveProps>
 		| React.ForwardRefExoticComponent<
-				React.PropsWithoutRef<TooltipPrimitiveProps> & React.RefAttributes<HTMLElement>
+				React.PropsWithoutRef<TooltipPrimitiveProps> & React.RefAttributes<HTMLDivElement>
 		  >;
 
 	/**

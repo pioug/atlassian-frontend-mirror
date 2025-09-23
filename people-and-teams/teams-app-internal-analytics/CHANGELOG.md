@@ -1,5 +1,16 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.6.0
+
+### Minor Changes
+
+- [`a5484f724ef0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5484f724ef0b) -
+  Migrated user profile card analytics to @atlaskit/teams-app-internal-analytics
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.0
 
 ### Minor Changes

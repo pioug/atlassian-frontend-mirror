@@ -81,6 +81,9 @@
 			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/popup/afm-rovo-extension/tsconfig.json"
 		},
 		{
@@ -97,6 +100,9 @@
 		},
 		{
 			"path": "../../teams-app-config/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-internal-analytics/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../teams-avatar/afm-rovo-extension/tsconfig.json"

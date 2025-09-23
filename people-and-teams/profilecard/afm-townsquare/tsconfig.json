@@ -81,6 +81,9 @@
 			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/popup/afm-townsquare/tsconfig.json"
 		},
 		{
@@ -97,6 +100,9 @@
 		},
 		{
 			"path": "../../teams-app-config/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-internal-analytics/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../teams-avatar/afm-townsquare/tsconfig.json"

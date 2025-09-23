@@ -38,6 +38,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 import type EditorActions from '../../../actions';
@@ -287,6 +288,11 @@ const tableFullPageEditorStylesNew = css({
 		marginRight: '-1px',
 		width: '100%',
 	},
+});
+
+const scrollGutter = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	display: 'none',
 });
 
 const editorContentAreaContainerNestedDndStyle = css({
@@ -587,6 +593,9 @@ const Content = React.forwardRef<
 								{!!props.customContentComponents && 'after' in props.customContentComponents
 									? contentComponentClickWrapper(props.customContentComponents.after)
 									: null}
+								{expVal('platform_editor_hydratable_ui', 'isEnabled', false) && (
+									<div id="editor-scroll-gutter" css={scrollGutter} data-vc="scroll-gutter"></div>
+								)}
 							</div>
 						</div>
 					</ClickAreaBlock>

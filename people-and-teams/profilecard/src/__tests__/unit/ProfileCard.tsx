@@ -1,14 +1,18 @@
 import React from 'react';
 
-import { act, fireEvent, render, within } from '@testing-library/react';
+import { act, fireEvent, within } from '@testing-library/react';
 import { mount } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
-import { ProfilecardInternal as ProfileCard } from '../../components/User/ProfileCard';
+import ProfileCard from '../../components/User/ProfileCard';
 import { ActionButtonGroup } from '../../styled/Card';
 import { moreActionsClicked, profileCardRendered } from '../../util/analytics';
+
+import { flexiTime } from './helper/_mock-analytics';
 
 jest.mock('react-intl-next', () => {
 	const reactIntl = jest.requireActual('react-intl-next');
@@ -27,35 +31,14 @@ jest.mock('@atlaskit/platform-feature-flags', () => ({
 // Mock for runItLater
 (window as any).requestIdleCallback = (callback: () => void) => callback();
 
-const mockAnalytics = jest.fn();
-mockAnalytics.mockImplementation(() => {
-	return {
-		fire: () => null,
-	};
-});
-
-const flexiTime = (event: Record<string, any>, hasDuration?: boolean) => ({
-	...event,
-	attributes: {
-		...event.attributes,
-		firedAt: expect.anything(),
-		duration: hasDuration ? expect.anything() : undefined,
-	},
-});
-
 const defaultProps: Parameters<typeof ProfileCard>[0] = {
 	fullName: 'full name test',
 	status: 'active',
 	nickname: 'jscrazy',
 	companyName: 'Atlassian',
-	createAnalyticsEvent: mockAnalytics,
 };
 
 const renderComponent = (props = {}) => render(<ProfileCard {...defaultProps} {...props} />);
-
-beforeEach(() => {
-	mockAnalytics.mockClear();
-});
 
 describe('ProfileCard', () => {
 	it('should be possible to create a component', () => {
@@ -85,11 +68,25 @@ describe('ProfileCard', () => {
 			expect(getByTestId('profilecard-spinner-container')).toBeDefined();
 		});
 
-		it('should send analytics for loading', () => {
-			renderComponent({ isLoading: true });
-			expect(mockAnalytics).toHaveBeenCalledWith(
-				flexiTime(profileCardRendered('user', 'spinner'), true),
-			);
+		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+			it('should send analytics for loading', () => {
+				const { expectEventToBeFired } = renderComponent({ isLoading: true });
+				const expectedErrorEvent = flexiTime(
+					profileCardRendered('user', 'spinner', { duration: expect.anything() }),
+				);
+				const { eventType, ...event } = expectedErrorEvent;
+				expectEventToBeFired(eventType, event);
+			});
+		});
+		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+			it('should send analytics for loading', () => {
+				const { expectEventToBeFired } = renderComponent({ isLoading: true });
+				const expectedErrorEvent = flexiTime(
+					profileCardRendered('user', 'spinner', { duration: expect.anything() }),
+				);
+				const { eventType, ...event } = expectedErrorEvent;
+				expectEventToBeFired(eventType, event);
+			});
 		});
 	});
 
@@ -115,26 +112,61 @@ describe('ProfileCard', () => {
 			expect(queryByText('Try again')).toBeNull();
 		});
 
-		it.each([
-			[true, 'default'],
-			[true, 'NotFound'],
-			[true, ''],
-			[false, 'default'],
-			[false, 'NotFound'],
-			[false, ''],
-		])('should send failure analytics with hasRetry=%j and errorType=%s', (hasRetry, errorType) => {
-			renderComponent({
-				hasError: true,
-				clientFetchProfile: hasRetry ? () => null : undefined,
-				errorType: errorType ? { reason: errorType } : undefined,
-			});
-			expect(mockAnalytics).toHaveBeenCalledWith(
-				flexiTime(
-					profileCardRendered('user', 'error', {
-						hasRetry,
-						errorType: (errorType || 'default') as 'default' | 'NotFound',
-					}),
-				),
+		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+			it.each([
+				[true, 'default'],
+				[true, 'NotFound'],
+				[true, ''],
+				[false, 'default'],
+				[false, 'NotFound'],
+				[false, ''],
+			])(
+				'should send failure analytics with hasRetry=%j and errorType=%s',
+				(hasRetry, errorType) => {
+					const { expectEventToBeFired } = renderComponent({
+						hasError: true,
+						clientFetchProfile: hasRetry ? () => null : undefined,
+						errorType: errorType ? { reason: errorType } : undefined,
+					});
+					const expectedErrorEvent = flexiTime(
+						profileCardRendered('user', 'error', {
+							hasRetry,
+							errorType: (errorType || 'default') as 'default' | 'NotFound',
+						}),
+					);
+
+					const { eventType, ...event } = expectedErrorEvent;
+					expectEventToBeFired(eventType, event);
+				},
+			);
+		});
+
+		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+			it.each([
+				[true, 'default'],
+				[true, 'NotFound'],
+				[true, ''],
+				[false, 'default'],
+				[false, 'NotFound'],
+				[false, ''],
+			])(
+				'should send failure analytics with hasRetry=%j and errorType=%s',
+				(hasRetry, errorType) => {
+					const { expectEventToBeFired } = renderComponent({
+						hasError: true,
+						clientFetchProfile: hasRetry ? () => null : undefined,
+						errorType: errorType ? { reason: errorType } : undefined,
+					});
+					const expectedErrorEvent = flexiTime(
+						profileCardRendered('user', 'error', {
+							hasRetry,
+							errorType: (errorType || 'default') as 'default' | 'NotFound',
+						}),
+					);
+
+					const { eventType, ...event } = expectedErrorEvent;
+					expectEventToBeFired(eventType, event);
+				},
 			);
 		});
 	});
@@ -178,30 +210,60 @@ describe('ProfileCard', () => {
 			expect(getByTestId('profilecard-actions-overflow')).not.toBeNull();
 		});
 
-		it('should send analytics events when clicking on meatballs overflow menu', () => {
-			const { getByTestId } = renderComponent({
-				actions,
-			});
+		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+			it('should send analytics events when clicking on meatballs overflow menu', () => {
+				const { getByTestId, expectEventToBeFired } = renderComponent({
+					actions,
+				});
 
-			expect(getByTestId('profilecard-actions')).not.toBeNull();
-			expect(getByTestId('profilecard-actions-overflow')).not.toBeNull();
+				expect(getByTestId('profilecard-actions')).not.toBeNull();
+				expect(getByTestId('profilecard-actions-overflow')).not.toBeNull();
 
-			act(() => {
-				const dropdownWrapper = getByTestId('profilecard-actions-overflow');
-				const moreButton = within(dropdownWrapper).getByRole('button');
-				fireEvent.click(moreButton);
-				jest.runAllTimers();
-			});
+				act(() => {
+					const dropdownWrapper = getByTestId('profilecard-actions-overflow');
+					const moreButton = within(dropdownWrapper).getByRole('button');
+					fireEvent.click(moreButton);
+					jest.runAllTimers();
+				});
 
-			expect(mockAnalytics).toHaveBeenCalledWith(
-				flexiTime(
+				const expectedErrorEvent = flexiTime(
 					moreActionsClicked('user', {
 						duration: expect.anything(),
 						numActions: 3,
 					}),
-					true,
-				),
-			);
+				);
+
+				const { eventType, ...event } = expectedErrorEvent;
+				expectEventToBeFired(eventType, event);
+			});
+		});
+
+		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+			it('should send analytics events when clicking on meatballs overflow menu', () => {
+				const { getByTestId, expectEventToBeFired } = renderComponent({
+					actions,
+				});
+
+				expect(getByTestId('profilecard-actions')).not.toBeNull();
+				expect(getByTestId('profilecard-actions-overflow')).not.toBeNull();
+
+				act(() => {
+					const dropdownWrapper = getByTestId('profilecard-actions-overflow');
+					const moreButton = within(dropdownWrapper).getByRole('button');
+					fireEvent.click(moreButton);
+					jest.runAllTimers();
+				});
+
+				const expectedErrorEvent = flexiTime(
+					moreActionsClicked('user', {
+						duration: expect.anything(),
+						numActions: 3,
+					}),
+				);
+
+				const { eventType, ...event } = expectedErrorEvent;
+				expectEventToBeFired(eventType, event);
+			});
 		});
 
 		it('should not render any action buttons if actions property is not set', () => {

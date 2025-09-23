@@ -8,12 +8,13 @@ import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 import { base, keyName } from 'w3c-keyname';
 
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { editorCommandToPMCommand } from '../preset/editor-commands';
 import type { Command } from '../types/command';
 import type { EditorCommand } from '../types/editor-command';
-import { browser } from '../utils';
+import { browser as browserLegacy, getBrowserInfo } from '../utils/browser';
 
 export const addAltText = makeKeyMapWithCommon('Add Alt Text', 'Mod-Alt-y');
 export const navToEditorToolbar = makeKeyMapWithCommon('Navigate to editor toolbar', 'Alt-F9');
@@ -177,6 +178,9 @@ const tooltipShortcutStyle = css({
 
 export function formatShortcut(keymap: Keymap): string | undefined {
 	let shortcut: string;
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
 	if (browser.mac) {
 		// for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
 		shortcut = keymap.mac
@@ -284,6 +288,9 @@ export function findShortcutByDescription(description: string): string | undefin
 }
 
 export function findShortcutByKeymap(keymap: Keymap): string | undefined {
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
 	if (browser.mac) {
 		return keymap.mac;
 	}
@@ -293,6 +300,9 @@ export function findShortcutByKeymap(keymap: Keymap): string | undefined {
 
 export function getAriaKeyshortcuts(keymap: Keymap | string | undefined): string | undefined {
 	let keyShortcuts;
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
 	if (typeof keymap === 'string') {
 		keyShortcuts = keymap;
 	} else if (typeof keymap === 'object') {
@@ -447,6 +457,9 @@ export function bindKeymapWithEditorCommand(
 
 export function findKeyMapForBrowser(keyMap: Keymap): string | undefined {
 	if (keyMap) {
+		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+			? getBrowserInfo()
+			: browserLegacy;
 		if (browser.mac) {
 			return keyMap.mac;
 		}

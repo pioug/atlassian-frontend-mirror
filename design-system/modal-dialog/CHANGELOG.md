@@ -1,5 +1,17 @@
 # @atlaskit/modal-dialog
 
+## 14.4.0
+
+### Minor Changes
+
+- [`76a0ea5849a69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76a0ea5849a69) -
+  Increases the specificity on the top inset positioning the Modal Dialog to be !important to reduce
+  the impact of Compiled consumption issues in DC and Ecosystem.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.3.13
 
 ### Patch Changes

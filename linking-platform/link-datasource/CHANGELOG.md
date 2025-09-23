@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.24.3
+
+### Patch Changes
+
+- [`ebdf115a0cdfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebdf115a0cdfa) -
+  [ux] NAVX-1845 Focus set onto the first interactive element of the modal dialog
+- Updated dependencies
+
 ## 4.24.2
 
 ### Patch Changes

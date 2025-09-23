@@ -36,4 +36,8 @@ test.describe('Editor TTAI', () => {
 		await expect(resolvedSmartLinkDescription).toBeVisible();
 		expect(idleAt).toBeGreaterThan(lastTimeCheckedForSmartlink);
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		await expect(page).toBeAccessible();
+	});
 });

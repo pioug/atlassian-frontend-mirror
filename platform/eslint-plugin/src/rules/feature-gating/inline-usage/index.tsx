@@ -1,8 +1,16 @@
 import type { Rule } from 'eslint';
 import { isAPIimport, type Node } from '../utils';
 
-const FUNCTION_NAMES = new Set(['ff', 'fg', 'expVal', 'expValEquals', 'UNSAFE_noExposureExp']);
+const FUNCTION_NAMES = new Set([
+	'checkGate',
+	'ff',
+	'fg',
+	'expVal',
+	'expValEquals',
+	'UNSAFE_noExposureExp',
+]);
 const STATSIG_ONLY_FUNCTION_NAMES = new Set([
+	'checkGate',
 	'fg',
 	'expVal',
 	'expValEquals',
@@ -65,6 +73,16 @@ const validateBinaryExpression = (
 	}
 };
 
+const validateAwaitExpression = (
+	node: Node<'AwaitExpression'> & Rule.NodeParentExtension,
+	context: Rule.RuleContext,
+) => {
+	if (node.argument.type === 'CallExpression') {
+		return validateCallExpression(node.argument as Node<'CallExpression'>, context);
+	}
+	return false;
+};
+
 const validateReturnExpression = ({ body }: Node<'BlockStatement'>, context: Rule.RuleContext) => {
 	if (body.length !== 1) {
 		return;
@@ -77,6 +95,8 @@ const validateReturnExpression = ({ body }: Node<'BlockStatement'>, context: Rul
 
 		if (argument && argument.type === 'CallExpression') {
 			validateCallExpression(argument as Node<'CallExpression'>, context);
+		} else if (argument && argument.type === 'AwaitExpression') {
+			validateAwaitExpression(argument as Node<'AwaitExpression'>, context);
 		} else if (argument && argument.type === 'BinaryExpression') {
 			validateBinaryExpression(argument as Node<'BinaryExpression'>, context);
 		}
@@ -84,12 +104,19 @@ const validateReturnExpression = ({ body }: Node<'BlockStatement'>, context: Rul
 };
 
 const validateFunctionBody = (
-	body: Node<'BinaryExpression'> | Node<'CallExpression'> | Node<'BlockStatement'>,
+	body:
+		| Node<'BinaryExpression'>
+		| Node<'CallExpression'>
+		| Node<'AwaitExpression'>
+		| Node<'BlockStatement'>,
 	context: Rule.RuleContext,
 ) => {
 	switch (body.type) {
 		case 'CallExpression':
 			validateCallExpression(body, context);
+			break;
+		case 'AwaitExpression':
+			validateAwaitExpression(body, context);
 			break;
 		case 'BinaryExpression':
 			validateBinaryExpression(body, context);

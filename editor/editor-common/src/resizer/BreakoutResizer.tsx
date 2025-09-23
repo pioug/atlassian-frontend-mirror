@@ -12,6 +12,7 @@ import {
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorAnalyticsAPI } from '../analytics';
@@ -20,18 +21,14 @@ import { type BreakoutEventPayload } from '../analytics/types/breakout-events';
 import { type GuidelineConfig } from '../guideline';
 import { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN } from '../styles';
 import { type EditorContainerWidth, type getPosHandlerNode } from '../types';
-import { browser } from '../utils/browser';
+import { browser as browserLegacy, getBrowserInfo } from '../utils/browser';
 
 import Resizer from './Resizer';
 import { ResizerBreakoutModeLabel } from './ResizerBreakoutModeLabel';
 import { type HandleResize, type HandleResizeStart } from './types';
 import { SNAP_GAP, useBreakoutGuidelines } from './useBreakoutGuidelines';
 
-type ResizingState = {
-	isResizing: boolean;
-	maxWidth?: number;
-	minWidth?: number;
-};
+type ResizingState = { isResizing: boolean; maxWidth?: number; minWidth?: number };
 
 const breakoutSupportedNodes = ['layoutSection', 'expand', 'codeBlock'];
 
@@ -41,14 +38,7 @@ const getHandleStyle = (node: BreakoutSupportedNodes, hidden: boolean) => {
 	const layoutMarginOffset = 12;
 
 	if (hidden) {
-		return {
-			left: {
-				display: 'none',
-			},
-			right: {
-				display: 'none',
-			},
-		};
+		return { left: { display: 'none' }, right: { display: 'none' } };
 	}
 
 	switch (node) {
@@ -97,16 +87,10 @@ export const ignoreResizerMutations = (
 	}
 };
 
-const resizingStyles = {
-	left: '50%',
-	transform: 'translateX(-50%)',
-	display: 'grid',
-};
+const resizingStyles = { left: '50%', transform: 'translateX(-50%)', display: 'grid' };
 
 // Apply grid to stop drag handles rendering inside .resizer-item affecting its height
-const defaultStyles = {
-	display: 'grid',
-};
+const defaultStyles = { display: 'grid' };
 
 type ResizerNextHandler = React.ElementRef<typeof Resizer>;
 
@@ -180,6 +164,10 @@ const BreakoutResizer = ({
 		dynamicFullWidthGuidelineOffset,
 	);
 
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
+
 	useEffect(() => {
 		if (displayGuidelines) {
 			displayGuidelines(guidelines || []);
@@ -217,9 +205,7 @@ const BreakoutResizer = ({
 		) {
 			const padding =
 				widthState.width <= akEditorFullPageNarrowBreakout &&
-				editorExperiment('platform_editor_preview_panel_responsiveness', true, {
-					exposure: true,
-				})
+				editorExperiment('platform_editor_preview_panel_responsiveness', true, { exposure: true })
 					? akEditorGutterPaddingReduced
 					: akEditorGutterPaddingDynamic();
 
@@ -323,7 +309,6 @@ const BreakoutResizer = ({
 	const resizeHandleKeyDownHandler = useCallback(
 		(event: KeyboardEvent): void => {
 			const isBracketKey = event.code === 'BracketRight' || event.code === 'BracketLeft';
-
 			const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
 
 			if (event.altKey || metaKey || event.shiftKey) {
@@ -341,7 +326,7 @@ const BreakoutResizer = ({
 				handleEscape();
 			}
 		},
-		[handleEscape, handleLayoutSizeChangeOnKeypress],
+		[handleEscape, handleLayoutSizeChangeOnKeypress, browser],
 	);
 
 	const resizeHandleKeyUpHandler = useCallback(
@@ -383,7 +368,7 @@ const BreakoutResizer = ({
 				});
 			}
 		},
-		[resizerRef],
+		[resizerRef, browser],
 	);
 
 	useLayoutEffect(() => {
@@ -428,10 +413,7 @@ const BreakoutResizer = ({
 	return (
 		<Resizer
 			ref={resizerRef}
-			enable={{
-				left: true,
-				right: true,
-			}}
+			enable={{ left: true, right: true }}
 			snap={snaps || undefined}
 			snapGap={SNAP_GAP}
 			handleStyles={getHandleStyle(nodeType, hidden)}

@@ -155,10 +155,16 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				onReceive: GenericTransformer extends undefined
 					? DefaultTransformerResultCallback
 					: InferTransformerResultCallback<GenericTransformer>,
-				options?: { transformer?: GenericTransformer },
+				options?: { alwaysFire?: boolean; transformer?: GenericTransformer },
 			) {
 				const view = config?.getEditorView() ?? null;
-				scheduleDocumentRequest(view, onReceive, options?.transformer, config?.fireAnalyticsEvent);
+				scheduleDocumentRequest(
+					view,
+					onReceive,
+					options?.transformer,
+					config?.fireAnalyticsEvent,
+					options?.alwaysFire,
+				);
 			},
 
 			createTransformer<Format>(

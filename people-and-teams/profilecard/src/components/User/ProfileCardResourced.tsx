@@ -2,6 +2,8 @@ import React, { Suspense } from 'react';
 
 import { type AnalyticsEventPayload, withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+import { type FireEventType, useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 
 import filterActions from '../../internal/filterActions';
 import { CardWrapper } from '../../styled/UserTrigger';
@@ -52,6 +54,16 @@ class ProfileCardResourced extends React.PureComponent<
 		}
 	};
 
+	fireAnalyticsNext: FireEventType = (eventKey, ...attributes) => {
+		// Don't fire analytics if the component is unmounted
+		if (!this._isMounted) {
+			return;
+		}
+
+		if (this.props.fireEvent) {
+			this.props.fireEvent(eventKey, ...attributes);
+		}
+	};
 	componentDidMount() {
 		this._isMounted = true;
 		this.clientFetchProfile();
@@ -95,7 +107,12 @@ class ProfileCardResourced extends React.PureComponent<
 			},
 			() => {
 				const requests = Promise.all([
-					this.props.resourceClient.getProfile(cloudId, userId, this.fireAnalytics),
+					this.props.resourceClient.getProfile(
+						cloudId,
+						userId,
+						this.fireAnalytics,
+						this.fireAnalyticsNext,
+					),
 					this.props.resourceClient.getReportingLines(userId),
 					this.props.resourceClient.shouldShowGiveKudos(),
 					this.props.resourceClient.getTeamCentralBaseUrl({
@@ -173,7 +190,10 @@ class ProfileCardResourced extends React.PureComponent<
 		if (isFetchingOrNotStartToFetchYet) {
 			return (
 				<CardWrapper>
-					<UserLoadingState fireAnalytics={this.fireAnalytics} />
+					<UserLoadingState
+						fireAnalytics={this.fireAnalytics}
+						fireAnalyticsNext={this.fireAnalyticsNext}
+					/>
 				</CardWrapper>
 			);
 		} else if (hasError) {
@@ -183,6 +203,7 @@ class ProfileCardResourced extends React.PureComponent<
 						errorType={error}
 						reload={this.clientFetchProfile}
 						fireAnalytics={this.fireAnalytics}
+						fireAnalyticsNext={this.fireAnalyticsNext}
 					/>
 				</CardWrapper>
 			);
@@ -231,4 +252,13 @@ class ProfileCardResourced extends React.PureComponent<
 
 export const ProfileCardResourcedInternal = ProfileCardResourced;
 
-export default withAnalyticsEvents()(ProfileCardResourced);
+const ProfileCardResourcedWithAnalytics = (props: ProfileCardResourcedProps) => {
+	const { fireEvent } = useAnalyticsEvents();
+	return <ProfileCardResourced fireEvent={fireEvent} {...props} />;
+};
+
+export default componentWithFG(
+	'ptc-enable-profile-card-analytics-refactor',
+	ProfileCardResourcedWithAnalytics,
+	withAnalyticsEvents()(ProfileCardResourced),
+);

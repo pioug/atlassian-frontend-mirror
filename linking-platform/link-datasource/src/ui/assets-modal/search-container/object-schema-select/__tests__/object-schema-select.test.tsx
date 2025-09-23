@@ -27,12 +27,8 @@ const onSubmitMock = jest.fn();
 
 const formWrapper: RenderOptions<{}>['wrapper'] = ({ children }) => (
 	<IntlProvider locale="en">
-		<Form onSubmit={onSubmitMock}>
-			{({ formProps }) => (
-				<form data-testid="object-schema-select-form" {...formProps}>
-					{children}
-				</form>
-			)}
+		<Form onSubmit={onSubmitMock} testId="object-schema-select-form">
+			{({ formProps }) => <form {...formProps}>{children}</form>}
 		</Form>
 	</IntlProvider>
 );

@@ -17,8 +17,16 @@ interface TokenMeta {
 				offset: { x: number; y: number };
 				color: string;
 				opacity: number;
-		  }[];
-	cleanName: string;
+		  }[]
+		| {
+				fontWeight: string;
+				fontSize: string;
+				lineHeight: string;
+				fontFamily: string;
+				fontStyle: string;
+				letterSpacing: string;
+		  };
+	cleanName?: string;
 }
 
 const isExempted = (tokenName: string, exemptions: string[] = []): boolean => {
@@ -41,7 +49,7 @@ const getThemeValues = (theme: TokenMeta[]): { [x: string]: string } => {
 			value = rawToken.value;
 		} else if (typeof rawToken.value === 'number') {
 			value = rawToken.value.toString();
-		} else {
+		} else if (Array.isArray(rawToken.value)) {
 			// If it's a box shadow, it'll be an array of values that needs to be
 			// formatted to look like '0px 0px 8px #091e4229, 0px 0px 1px #091e421F'
 			value = rawToken.value.reduce((prev, curr, index) => {
@@ -69,9 +77,12 @@ const getThemeValues = (theme: TokenMeta[]): { [x: string]: string } => {
 
 				return prev + value;
 			}, '');
+		} else {
+			// ignore when value is `fontweight` etc. - this is apparently not handled here.
+			return formatted;
 		}
 
-		return { ...formatted, [rawToken.cleanName]: value };
+		return { ...formatted, [rawToken.cleanName!]: value };
 	}, {});
 };
 

@@ -21,4 +21,9 @@ test.describe('TTAI: timers', () => {
 			await expect(divWithTTAI).toBeVisible();
 		});
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		await expect(page.locator('[data-is-ttai-ready="true"]')).toBeVisible();
+		await expect(page).toBeAccessible();
+	});
 });

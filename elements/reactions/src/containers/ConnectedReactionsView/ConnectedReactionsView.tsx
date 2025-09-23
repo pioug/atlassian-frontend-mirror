@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { type WithSamplingUFOExperience } from '@atlaskit/emoji';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
@@ -13,8 +13,10 @@ import {
 	type State,
 	type StorePropInput,
 	type OnChangeCallback,
+	type Store,
 } from '../../types';
 import { type ReactionUpdateSuccess } from '../../types/reaction';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface ConnectedReactionsViewProps
 	extends Pick<
@@ -193,7 +195,50 @@ export const ConnectedReactionsView = (
 		[ari, containerAri, onReactionSuccess],
 	);
 
+	const resolveStore = useCallback(
+		(store: Store) => {
+			if (!fg('jfp-magma-ssr-issue-view-comment-reactions')) {
+				return;
+			}
+			if (store.setCreateAnalyticsEvent && createAnalyticsEvent) {
+				store.setCreateAnalyticsEvent(createAnalyticsEvent);
+			}
+
+			const state = mapStateToProps(store.getState());
+			const dispatch = mapDispatchToProps(store);
+			setStateData(state);
+			setDispatchData(dispatch);
+		},
+		[createAnalyticsEvent, mapDispatchToProps, mapStateToProps],
+	);
+
+	useMemo(() => {
+		if (!fg('jfp-magma-ssr-issue-view-comment-reactions')) {
+			return;
+		}
+		if (!('then' in store)) {
+			// Store is not a Promise
+			resolveStore(store);
+		}
+	}, [, store, resolveStore]);
+
 	useEffect(() => {
+		if (!fg('jfp-magma-ssr-issue-view-comment-reactions')) {
+			return;
+		}
+		(async () => {
+			if ('then' in store) {
+				// Store is a Promise
+				const _store = await Promise.resolve(store);
+				resolveStore(_store);
+			}
+		})();
+	}, [store, resolveStore]);
+
+	useEffect(() => {
+		if (fg('jfp-magma-ssr-issue-view-comment-reactions')) {
+			return;
+		}
 		(async () => {
 			const _store = await Promise.resolve(store);
 			if (_store.setCreateAnalyticsEvent && createAnalyticsEvent) {

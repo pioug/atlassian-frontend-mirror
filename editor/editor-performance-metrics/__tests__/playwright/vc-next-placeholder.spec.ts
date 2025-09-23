@@ -49,4 +49,9 @@ test.describe('Editor Metrics - TTVC: Placeholder', () => {
 			);
 		});
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		await expect(page.getByTestId('section-to-replace')).toBeVisible();
+		await expect(page).toBeAccessible();
+	});
 });

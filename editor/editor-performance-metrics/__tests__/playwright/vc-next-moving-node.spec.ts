@@ -51,4 +51,9 @@ test.describe('Editor Metrics - TTVC: Moving node', () => {
 			);
 		});
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		await expect(page.getByTestId('content-to-mutate')).toBeVisible();
+		await expect(page).toBeAccessible();
+	});
 });

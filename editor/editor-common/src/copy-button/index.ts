@@ -7,9 +7,10 @@ import {
 	findParentNodeOfType,
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { copyHTMLToClipboard, copyHTMLToClipboardPolyfill } from '../clipboard';
-import { browser } from '../utils';
+import { browser as browserLegacy, getBrowserInfo } from '../utils/browser';
 
 export function getSelectedNodeOrNodeParentByNodeType({
 	nodeType,
@@ -34,6 +35,9 @@ export const copyDomNode = (domNode: Node, nodeType: NodeType, selection: Select
 		const div = document.createElement('div');
 		div.appendChild(domNode);
 		const schema = selection.$from.doc.type.schema;
+		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+			? getBrowserInfo()
+			: browserLegacy;
 
 		// if copying inline content
 		if (nodeType.inlineContent) {

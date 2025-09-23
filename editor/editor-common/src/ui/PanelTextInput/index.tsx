@@ -8,7 +8,9 @@ import { PureComponent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { browser } from '../../utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import { browser as browserLegacy, getBrowserInfo } from '../../utils/browser';
 
 import { panelTextInput, panelTextInputWithCustomWidth } from './styles';
 
@@ -184,6 +186,9 @@ export default class PanelTextInput extends PureComponent<Props, State> {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private isUndoEvent(event: KeyboardEvent<any>) {
+		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+			? getBrowserInfo()
+			: browserLegacy;
 		return (
 			event.keyCode === KeyZCode &&
 			// cmd + z for mac
@@ -196,6 +201,9 @@ export default class PanelTextInput extends PureComponent<Props, State> {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private isRedoEvent(event: KeyboardEvent<any>) {
+		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+			? getBrowserInfo()
+			: browserLegacy;
 		return (
 			// ctrl + y for non-mac
 			(!browser.mac && event.ctrlKey && event.keyCode === KeyYCode) ||

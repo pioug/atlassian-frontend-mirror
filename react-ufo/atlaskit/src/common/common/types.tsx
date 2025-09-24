@@ -63,6 +63,7 @@ export interface InteractionError {
 	errorMessage: string;
 	errorStack?: string;
 	forcedError?: boolean;
+	errorHash?: string;
 }
 
 interface FlushInfo {
@@ -98,13 +99,13 @@ export interface SegmentInfo {
 
 export interface CustomData {
 	[key: string]:
-		| null
-		| string
-		| number
-		| boolean
-		| undefined
-		| CustomData
-		| Record<string, CustomData>;
+	| null
+	| string
+	| number
+	| boolean
+	| undefined
+	| CustomData
+	| Record<string, CustomData>;
 }
 
 export type CustomTiming = Record<string, { startTime: number; endTime: number }>;
@@ -228,8 +229,8 @@ export interface LazyLoadProfilerContext {
 
 export interface EnhancedUFOInteractionContextType
 	extends UFOInteractionContextType,
-		RelayMetricsRecorder,
-		LazyLoadProfilerContext {
+	RelayMetricsRecorder,
+	LazyLoadProfilerContext {
 	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 	_internalHold(labelStack: LabelStack, name: string, experimental?: boolean): void | (() => void);
 

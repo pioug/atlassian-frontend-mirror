@@ -5,8 +5,9 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
-import { APIError, type APIErrorKind } from '@atlaskit/linking-common';
+import { ACTION_RESOLVING, APIError, type APIErrorKind } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { mocks } from '../../../utils/mocks';
 import { type CardState } from '../../types';
@@ -51,12 +52,40 @@ describe('Smart Card: Actions', () => {
 	describe('register()', () => {
 		it('dispatches pending action if card not in store', async () => {
 			mockFetchData(Promise.resolve(mocks.success));
+
 			const { result } = renderHook(() => {
 				return useSmartCardActions(id, url);
 			});
 			await result.current.register();
 
 			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+			expect(mockContext.store.dispatch).toHaveBeenCalledWith({
+				payload: undefined,
+				type: ACTION_RESOLVING,
+				url: 'https://some/url',
+			});
+		});
+
+		ffTest.on('platform_initial_data_for_smart_cards', '', () => {
+			it('will not set pending state when placeholder data is provided', async () => {
+				mockFetchData(Promise.resolve(mocks.success));
+
+				const { result } = renderHook(() => {
+					return useSmartCardActions(id, url, {
+						status: 'resolved',
+						metadataStatus: undefined,
+						details: mocks.success,
+					});
+				});
+				await result.current.register();
+
+				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+				expect(mockContext.store.dispatch).not.toHaveBeenCalledWith(
+					expect.objectContaining({
+						type: ACTION_RESOLVING,
+					}),
+				);
+			});
 		});
 	});
 

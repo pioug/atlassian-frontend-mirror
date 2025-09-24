@@ -62,9 +62,6 @@ jest.mock('@atlaskit/ufo', () => {
 jest.mock('@atlaskit/select', () => ({
 	__esModule: true,
 	...jest.requireActual<Object>('@atlaskit/select'),
-	CreatableSelect: () => {
-		throw new Error('Error from inside CreatableSelect');
-	},
 }));
 
 jest.mock('../../../components/MessagesIntlProvider', () => ({
@@ -460,6 +457,7 @@ describe('SmartUserPicker', () => {
 				includeNonLicensedUsers: false,
 				maxNumberOfResults: 100,
 				query: '',
+				customQuery: '',
 				searchQueryFilter: undefined,
 			};
 
@@ -1350,6 +1348,138 @@ describe('SmartUserPicker', () => {
 					}),
 					'fabric-elements',
 				);
+			});
+		});
+	});
+
+	describe('email search functionality', () => {
+		const mockEmailSearchResponse: User[] = [{
+			id: 'email-user-1',
+			name: 'John Doe',
+			publicName: 'John Doe',
+			avatarUrl: 'http://avatars.atlassian.com/email-user-1',
+			email: 'john.doe@example.com',
+			type: 'user',
+		}];
+
+		it('should not allow email search or selection', async () => {
+			// both enableEmailSearch & allowEmail are false [default]
+			(getUserRecommendations as jest.Mock).mockResolvedValue([]);
+
+			renderSmartUserPicker({ enableEmailSearch: false, allowEmail: false });
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'john.doe@example.com');
+
+			await waitFor(() => {
+				expect(getUserRecommendations).toHaveBeenCalledWith(
+					expect.objectContaining({
+						query: 'john.doe@example.com',
+						customQuery: '',
+					}),
+					expect.any(Object),
+				);
+				// We expect nothing to come up to be selectable
+				expect(screen.queryByText('John Doe')).not.toBeInTheDocument();
+				expect(screen.queryByText('Select an email address')).not.toBeInTheDocument();
+			});
+		});
+
+		it('should allow email selection, but not search', async () => {
+			// enableEmailSearch is false, but allowEmail is true
+			(getUserRecommendations as jest.Mock).mockResolvedValue([]);
+
+			renderSmartUserPicker({ enableEmailSearch: false, allowEmail: true });
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'john.doe@example.com');
+
+			await waitFor(() => {
+				expect(getUserRecommendations).toHaveBeenCalledWith(
+					expect.objectContaining({
+						query: 'john.doe@example.com',
+						customQuery: '',
+					}),
+					expect.any(Object),
+				);
+				// We expect email selection entry, but not the user entry
+				expect(screen.queryByText('John Doe')).not.toBeInTheDocument();
+				expect(screen.queryByText('Select an email address')).toBeInTheDocument();
+			});
+		});
+
+		it('should allow email search, but not selection', async () => {
+			// enableEmailSearch is true, but allowEmail is false
+			(getUserRecommendations as jest.Mock).mockResolvedValue(mockEmailSearchResponse);
+
+			renderSmartUserPicker({ enableEmailSearch: true, allowEmail: false });
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'john.doe@example.com');
+
+			await waitFor(() => {
+				expect(getUserRecommendations).toHaveBeenCalledWith(
+					expect.objectContaining({
+						query: '', // Empty query for email searches
+						customQuery: '(email:"john.doe@example.com")',
+						includeGroups: false, // Disabled for email searches
+						includeTeams: false, // Disabled for email searches
+					}),
+					expect.any(Object),
+				);
+				// We expect the user entry, but not the email selection entry
+				expect(screen.queryByText('John Doe')).toBeInTheDocument();
+				expect(screen.queryByText('Select an email address')).not.toBeInTheDocument();
+			});
+		});
+
+		it('should allow both email search & selection - both user & email entry selectable', async () => {
+			// both enableEmailSearch & allowEmail are true, along with allowEmailSelectionWhenEmailMatched
+			(getUserRecommendations as jest.Mock).mockResolvedValue(mockEmailSearchResponse);
+
+			renderSmartUserPicker({ enableEmailSearch: true, allowEmail: true });
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'john.doe@example.com');
+
+			await waitFor(() => {
+				expect(getUserRecommendations).toHaveBeenCalledWith(
+					expect.objectContaining({
+						query: '', // Empty query for email searches
+						customQuery: '(email:"john.doe@example.com")',
+						includeGroups: false, // Disabled for email searches
+						includeTeams: false, // Disabled for email searches
+					}),
+					expect.any(Object),
+				);
+				// We expect both the user entry and email selection entry
+				expect(screen.queryByText('John Doe')).toBeInTheDocument();
+				expect(screen.queryByText('Select an email address')).toBeInTheDocument();
+			});
+		});
+
+		it('should allow both email search & selection - only user entry selectable on match', async () => {
+			// both enableEmailSearch & allowEmail are true, but allowEmailSelectionWhenEmailMatched is false
+			(getUserRecommendations as jest.Mock).mockResolvedValue(mockEmailSearchResponse);
+
+			renderSmartUserPicker({ enableEmailSearch: true, allowEmail: true, allowEmailSelectionWhenEmailMatched: false });
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'john.doe@example.com');
+
+			await waitFor(() => {
+				expect(getUserRecommendations).toHaveBeenCalledWith(
+					expect.objectContaining({
+						query: '', // Empty query for email searches
+						customQuery: '(email:"john.doe@example.com")',
+						includeGroups: false, // Disabled for email searches
+						includeTeams: false, // Disabled for email searches
+					}),
+					expect.any(Object),
+				);
+				// We expect the user entry only, since email entry should be removed
+				expect(screen.queryByText('John Doe')).toBeInTheDocument();
+				expect(screen.queryByText('Select an email address')).not.toBeInTheDocument();
 			});
 		});
 	});

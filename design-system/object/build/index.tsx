@@ -31,7 +31,7 @@ type Mapping = Record<
 	}
 >;
 
-const OBJECT_MAP: Mapping = {
+export const OBJECT_MAP: Mapping = {
 	'new-feature': { icon: 'add', color: 'green', packageName: 'icon' },
 	'page-live-doc': { icon: 'page-live-doc', color: 'magenta', packageName: 'icon-lab' },
 	'pull-request': { icon: 'pull-request', color: 'green', packageName: 'icon' },
@@ -124,7 +124,7 @@ export default function ${componentName}ObjectTile({ label = ${JSON.stringify(de
 };
 
 const componentsDir = path.resolve(root!, 'src', 'components', 'object', 'components');
-const allObjectsFile = path.resolve(root!, 'src', 'components', 'object', 'all-objects.tsx');
+const allObjectsFile = path.resolve(root!, 'examples-utils', 'all-objects.tsx');
 
 const objectTileComponentsDir = path.resolve(
 	root!,
@@ -133,13 +133,9 @@ const objectTileComponentsDir = path.resolve(
 	'object-tile',
 	'components',
 );
-const allObjectTilesFile = path.resolve(
-	root!,
-	'src',
-	'components',
-	'object-tile',
-	'all-object-tiles.tsx',
-);
+const allObjectTilesFile = path.resolve(root!, 'examples-utils', 'all-object-tiles.tsx');
+
+const packageJsonFile = path.resolve(root!, 'package.json');
 
 async function run() {
 	// Generate Object components
@@ -162,7 +158,10 @@ async function run() {
 
 	const allObjectsImports = Object.keys(OBJECT_MAP)
 		.sort() // Sort the kebab-case names first
-		.map((name) => `import ${toPascalCase(name)}Object from './components/${name}';`)
+		.map(
+			(name) =>
+				`import ${toPascalCase(name)}Object from '../src/components/object/components/${name}';`,
+		)
 		.join('\n');
 
 	const allObjectsSource = `${allObjectsImports}\n\nexport const allObjects = [${importNames.join(', ')}];\n`;
@@ -195,7 +194,10 @@ async function run() {
 
 	const allObjectTilesImports = Object.keys(OBJECT_MAP)
 		.sort() // Sort the kebab-case names first
-		.map((name) => `import ${toPascalCase(name)}ObjectTile from './components/${name}';`)
+		.map(
+			(name) =>
+				`import ${toPascalCase(name)}ObjectTile from '../src/components/object-tile/components/${name}';`,
+		)
 		.join('\n');
 
 	const allObjectTilesSource = `${allObjectTilesImports}\n\nexport const allObjectTiles = [${objectTileImportNames.join(', ')}];\n`;
@@ -207,6 +209,44 @@ async function run() {
 
 	// eslint-disable-next-line no-console
 	console.log('Object Tile components generated');
+
+	/**
+	 * Update package.json exports due to root wildcard exports not being supported.
+	 *
+	 * Unfortunately codegen cannot be used for JSON files, so it's updated directly
+	 * and validated using a unit test.
+	 */
+	const packageJsonContent = await fs.readFile(packageJsonFile, 'utf-8');
+	const packageJson = JSON.parse(packageJsonContent);
+
+	// Generate individual exports for each object component
+	const objectExports: Record<string, string> = {};
+	Object.keys(OBJECT_MAP)
+		.sort()
+		.forEach((name) => {
+			objectExports[`./${name}`] = `./src/components/object/components/${name}.tsx`;
+		});
+
+	// Generate individual exports for each object tile component
+	const objectTileExports: Record<string, string> = {};
+	Object.keys(OBJECT_MAP)
+		.sort()
+		.forEach((name) => {
+			objectTileExports[`./tile/${name}`] = `./src/components/object-tile/components/${name}.tsx`;
+		});
+
+	// Update the exports section
+	packageJson.exports = {
+		...objectExports,
+		...objectTileExports,
+	};
+
+	// Write the updated package.json with proper formatting
+	const updatedPackageJson = JSON.stringify(packageJson, null, '\t') + '\n';
+	await fs.outputFile(packageJsonFile, updatedPackageJson);
+
+	// eslint-disable-next-line no-console
+	console.log('Package.json exports updated');
 }
 
 run();

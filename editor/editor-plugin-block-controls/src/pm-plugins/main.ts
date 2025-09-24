@@ -429,14 +429,10 @@ export const apply = (
 	}
 
 	const maybeNodeCountChanged = !isAllText && numReplaceSteps > 0;
-	let latestActiveNode;
-	if (fg('platform_editor_remove_drag_handle_fix')) {
-		latestActiveNode = meta?.activeNode;
-		if (!latestActiveNode && (!isActiveNodeDeleted || isReplacedWithSameSize)) {
-			latestActiveNode = activeNode;
-		}
-	} else {
-		latestActiveNode = meta?.activeNode ?? activeNode;
+	let latestActiveNode = meta?.activeNode;
+
+	if (!latestActiveNode && (!isActiveNodeDeleted || isReplacedWithSameSize)) {
+		latestActiveNode = activeNode;
 	}
 
 	// Re-create node decorations
@@ -549,18 +545,10 @@ export const apply = (
 		latestActiveNode &&
 		(rootActiveNodeChanged || isActiveNodeModified || editorSizeChanged || handleNeedsRedraw);
 
-	let shouldRemoveHandle = false;
-
-	if (fg('platform_editor_remove_drag_handle_fix')) {
-		// If the active node is missing, we need to remove the handle
-		shouldRemoveHandle = latestActiveNode
-			? isResizerResizing || (isActiveNodeDeleted && !isReplacedWithSameSize) || meta?.nodeMoved
-			: true;
-	} else {
-		// Remove handle dec when explicitly hidden, a node is resizing, activeNode pos was deleted, or DnD moved a node
-		shouldRemoveHandle =
-			latestActiveNode && (isResizerResizing || isActiveNodeDeleted || meta?.nodeMoved);
-	}
+	// If the active node is missing, we need to remove the handle
+	let shouldRemoveHandle = latestActiveNode
+		? isResizerResizing || (isActiveNodeDeleted && !isReplacedWithSameSize) || meta?.nodeMoved
+		: true;
 
 	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		// Remove handle dec when editor is blurred

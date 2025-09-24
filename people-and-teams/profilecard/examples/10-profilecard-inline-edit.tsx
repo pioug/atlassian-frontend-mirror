@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-
+import { cssMap } from '@atlaskit/css';
 import InlineEdit from '@atlaskit/inline-edit';
+import { Box } from '@atlaskit/primitives/compiled';
 import Select, { type ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
@@ -16,20 +15,32 @@ import { type Team } from '../src/types';
 import { Radios, TeamCustomizer } from './helper/customization';
 import ExampleWrapper from './helper/example-wrapper';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const EditViewContainer = styled.div({
-	zIndex: 300,
-	position: 'relative',
+const styles = cssMap({
+	container: {
+		borderColor: token('color.border'),
+		borderRadius: token('radius.small', '3px'),
+		marginTop: token('space.100', '8px'),
+		marginRight: token('space.100', '8px'),
+		marginBottom: token('space.100', '8px'),
+		marginLeft: token('space.100', '8px'),
+		paddingTop: token('space.100', '8px'),
+		paddingRight: token('space.100', '8px'),
+		paddingBottom: token('space.100', '8px'),
+		paddingLeft: token('space.100', '8px'),
+	},
+	editViewContainer: {
+		zIndex: 300,
+		position: 'relative',
+	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Container = styled.div({
-	border: `${token('border.width')} solid ${token('color.border', '#ccc')}`,
-	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('radius.small', '3px'),
-	margin: token('space.100', '8px'),
-	padding: token('space.100', '8px'),
-});
+const EditViewContainer = ({ children }: { children: React.ReactNode }) => {
+	return <Box xcss={styles.editViewContainer}>{children}</Box>;
+};
+
+const Container = ({ children }: { children: React.ReactNode }) => {
+	return <Box xcss={styles.container}>{children}</Box>;
+};
 
 const teams: Record<string, { displayName: string; largeHeaderImageUrl: string }> = {
 	'Air-Guitar': {
@@ -56,7 +67,7 @@ const baseTeam: { team: Team } = {
 const actions = [
 	{
 		label: 'Secondary',
-		callback: () => {},
+		callback: () => { },
 		link: 'about:blank',
 	},
 	{

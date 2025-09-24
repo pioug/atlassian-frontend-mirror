@@ -26,16 +26,13 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { type ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import { type ViewMode } from '@atlaskit/editor-plugins/editor-viewmode';
-import { tableFullPageEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
-	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
@@ -51,7 +48,7 @@ import { ContextPanel } from '../../ContextPanel';
 import EditorContentContainer from '../../EditorContentContainer/EditorContentContainer';
 import PluginSlot from '../../PluginSlot';
 
-import { contentArea, contentAreaWrapper, sidebarArea } from './StyledComponents';
+import { contentAreaWrapper, sidebarArea } from './StyledComponents';
 import type { ScrollContainerRefs } from './types';
 
 const akEditorFullWidthLayoutWidth = 1800;
@@ -62,123 +59,6 @@ const SWOOP_ANIMATION = `0.5s ${akEditorSwoopCubicBezier}`;
 const AK_NESTED_DND_GUTTER_OFFSET = 8;
 
 const getTotalPadding = () => akEditorGutterPaddingDynamic() * 2;
-
-// old styles - to be deleted when cleaning up experiment `platform_editor_core_static_emotion_non_central`
-const editorContentAreaStyle = ({
-	layoutMaxWidth,
-	fullWidthMode,
-	isEditorToolbarHidden,
-}: {
-	fullWidthMode: boolean;
-	isEditorToolbarHidden?: boolean;
-	layoutMaxWidth: number;
-}) => [
-	editorContentArea,
-	editorContentAreaProsemirrorStyle,
-	fullWidthNonChromelessBreakoutBlockTableStyle,
-	!fullWidthMode && editorContentAreaWithLayoutWith(layoutMaxWidth),
-	// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
-	expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-	fg('platform_editor_breakout_resizing_width_changes')
-		? editorContentAreaContainerStyleExcludeCodeBlock()
-		: editorContentAreaContainerStyle(),
-	...(fg('platform_editor_controls_no_toolbar_space')
-		? []
-		: [
-				editorExperiment('platform_editor_controls', 'variant1') &&
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-					contentAreaReducedHeaderSpace,
-				isEditorToolbarHidden &&
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-					contentAreaReservedPrimaryToolbarSpace,
-			]),
-];
-
-const editorContentAreaWithLayoutWith = (layoutMaxWidth: number) =>
-	css({
-		// this restricts max width
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		maxWidth: `${layoutMaxWidth + getTotalPadding()}px`,
-	});
-
-/* Prevent horizontal scroll on page in full width mode */
-const editorContentAreaContainerStyleExcludeCodeBlock = () =>
-	css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.fabric-editor--full-width-mode': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'.extension-container, .multiBodiedExtension--container': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				maxWidth: `calc(100% - ${tableMarginFullWidthMode * 2}px)`,
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'.extension-container.inline': {
-				maxWidth: '100%',
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'td .extension-container.inline': {
-				maxWidth: 'inherit',
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'[data-layout-section]': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				maxWidth: `calc(100% + ${(akLayoutGutterOffset + (fg('platform_editor_nested_dnd_styles_changes') ? AK_NESTED_DND_GUTTER_OFFSET : 0)) * 2}px)`,
-			},
-		},
-	});
-
-/* Prevent horizontal scroll on page in full width mode */
-const editorContentAreaContainerStyle = () =>
-	css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.fabric-editor--full-width-mode': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'.code-block, .extension-container, .multiBodiedExtension--container': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				maxWidth: `calc(100% - ${tableMarginFullWidthMode * 2}px)`,
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'.extension-container.inline': {
-				maxWidth: '100%',
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'td .extension-container.inline': {
-				maxWidth: 'inherit',
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'[data-layout-section]': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				maxWidth: `calc(100% + ${(akLayoutGutterOffset + (fg('platform_editor_nested_dnd_styles_changes') ? AK_NESTED_DND_GUTTER_OFFSET : 0)) * 2}px)`,
-			},
-		},
-	});
-
-const editorContentArea = css(
-	{
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: '24px',
-		paddingTop: token('space.600', '48px'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'.ak-editor-content-area-no-toolbar &': {
-			// When the toolbar is hidden, we don't want content to jump up
-			// the extra 1px is to account for the border on the toolbar
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,  @atlaskit/ui-styling-standard/no-unsafe-values
-			paddingTop: `calc(${token('space.600', '48px')} + ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT()} + 1px)`,
-		},
-		paddingBottom: token('space.600', '48px'),
-		height: 'calc( 100% - 105px )',
-		width: '100%',
-		margin: 'auto',
-		flexDirection: 'column',
-		flexGrow: 1,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		maxWidth: `${akEditorFullWidthLayoutWidth + getTotalPadding()}px`,
-		transition: `max-width ${SWOOP_ANIMATION}`,
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	tableFullPageEditorStyles,
-);
 
 const editorContentAreaProsemirrorStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -231,32 +111,6 @@ const contentAreaReservedPrimaryToolbarSpace = css({
 const contentAreaReducedHeaderSpace = css({
 	paddingTop: token('space.400', '32px'),
 });
-
-const editorContentGutterStyle = () => {
-	if (
-		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
-			exposure: true,
-		})
-	) {
-		return css({
-			boxSizing: 'border-box',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			padding: `0 ${akEditorGutterPaddingDynamic()}px`,
-
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				padding: `0 ${akEditorGutterPaddingReduced}px`,
-			},
-		});
-	} else {
-		return css({
-			boxSizing: 'border-box',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			padding: `0 ${akEditorGutterPaddingDynamic()}px`,
-		});
-	}
-};
 
 // new styles
 const editorContentAreaNew = css({
@@ -462,16 +316,7 @@ const Content = React.forwardRef<
 
 	return (
 		<div
-			css={
-				expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true)
-					? [contentAreaNew, props.isEditorToolbarHidden && contentAreaHeightNoToolbar]
-					: [
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							contentArea,
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							props.isEditorToolbarHidden && contentAreaHeightNoToolbar,
-						]
-			}
+			css={[contentAreaNew, props.isEditorToolbarHidden && contentAreaHeightNoToolbar]}
 			data-testid={CONTENT_AREA_TEST_ID}
 			ref={containerRef}
 		>
@@ -494,40 +339,26 @@ const Content = React.forwardRef<
 				>
 					<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 						<div
-							css={
-								expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true)
-									? [
-											editorContentAreaNew,
-											editorContentAreaProsemirrorStyle,
-											tableFullPageEditorStylesNew,
-											fullWidthNonChromelessBreakoutBlockTableStyle,
-											// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
-											expValEqualsNoExposure(
-												'platform_editor_breakout_resizing',
-												'isEnabled',
-												true,
-											) && fg('platform_editor_breakout_resizing_width_changes')
-												? editorContentAreaContainerStyleExcludeCodeBlockNew
-												: editorContentAreaContainerStyleNew,
-											fg('platform_editor_nested_dnd_styles_changes') &&
-												editorContentAreaContainerNestedDndStyle,
-											!fg('platform_editor_controls_no_toolbar_space') &&
-												editorExperiment('platform_editor_controls', 'variant1') &&
-												contentAreaReducedHeaderSpace,
-											!fg('platform_editor_controls_no_toolbar_space') &&
-												props.isEditorToolbarHidden &&
-												editorExperiment('platform_editor_controls', 'variant1') &&
-												contentAreaReservedPrimaryToolbarSpace,
-										]
-									: [
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-											...editorContentAreaStyle({
-												fullWidthMode,
-												layoutMaxWidth: theme.layoutMaxWidth,
-												isEditorToolbarHidden: props.isEditorToolbarHidden,
-											}),
-										]
-							}
+							css={[
+								editorContentAreaNew,
+								editorContentAreaProsemirrorStyle,
+								tableFullPageEditorStylesNew,
+								fullWidthNonChromelessBreakoutBlockTableStyle,
+								// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
+								expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
+								fg('platform_editor_breakout_resizing_width_changes')
+									? editorContentAreaContainerStyleExcludeCodeBlockNew
+									: editorContentAreaContainerStyleNew,
+								fg('platform_editor_nested_dnd_styles_changes') &&
+									editorContentAreaContainerNestedDndStyle,
+								!fg('platform_editor_controls_no_toolbar_space') &&
+									editorExperiment('platform_editor_controls', 'variant1') &&
+									contentAreaReducedHeaderSpace,
+								!fg('platform_editor_controls_no_toolbar_space') &&
+									props.isEditorToolbarHidden &&
+									editorExperiment('platform_editor_controls', 'variant1') &&
+									contentAreaReservedPrimaryToolbarSpace,
+							]}
 							style={
 								{
 									'--ak-editor-content-area-max-width': !fullWidthMode
@@ -546,23 +377,16 @@ const Content = React.forwardRef<
 							ref={contentAreaRef}
 						>
 							<div
-								css={
-									expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true)
-										? [
-												editorContentGutterStyles,
-												// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-												fg('platform_editor_controls_increase_full_page_gutter') &&
-													editorExperiment('platform_editor_controls', 'variant1') &&
-													editorContentGutterStyleFG,
-												editorExperiment('platform_editor_preview_panel_responsiveness', true, {
-													exposure: true,
-												}) && editorContentReducedGutterStyles,
-											]
-										: [
-												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-												editorContentGutterStyle(),
-											]
-								}
+								css={[
+									editorContentGutterStyles,
+									// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+									fg('platform_editor_controls_increase_full_page_gutter') &&
+										editorExperiment('platform_editor_controls', 'variant1') &&
+										editorContentGutterStyleFG,
+									editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+										exposure: true,
+									}) && editorContentReducedGutterStyles,
+								]}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={classnames('ak-editor-content-area', 'appearance-full-page', {
 									'fabric-editor--full-width-mode': fullWidthMode,

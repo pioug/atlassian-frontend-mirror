@@ -241,7 +241,7 @@ export const mockDatasourceFetchRequests = ({
 
 	fetchMock.post(/api\/v2\/accessible-products/, async () => {
 		return new Promise((resolve) => {
-			resolve({ products: accessibleProductsOverride || mockProductsData });
+			resolve({ data: { products: accessibleProductsOverride || mockProductsData } });
 		});
 	});
 

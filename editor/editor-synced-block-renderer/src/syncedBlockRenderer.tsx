@@ -5,19 +5,21 @@ import { ReactRenderer } from '@atlaskit/renderer';
 import { RendererActionsContext } from '@atlaskit/renderer/actions';
 
 export type SyncedBlockRendererProps = {
-	docNode: DocNode;
+	useFetchDocNode: () => DocNode;
 };
 
-const SyncedBlockRenderer = ({ docNode }: SyncedBlockRendererProps) => {
+const SyncedBlockRenderer = ({ useFetchDocNode }: SyncedBlockRendererProps) => {
+	const latestDocNode = useFetchDocNode();
+
 	return (
 		<RendererActionsContext>
 			<div data-testid="sync-block-renderer-wrapper">
-				<ReactRenderer appearance="full-width" adfStage="stage0" document={docNode} />
+				<ReactRenderer appearance="full-width" adfStage="stage0" document={latestDocNode} />
 			</div>
 		</RendererActionsContext>
 	);
 };
 
 export const getSyncedBlockRenderer = (props: SyncedBlockRendererProps): React.JSX.Element => {
-	return <SyncedBlockRenderer docNode={props.docNode} />;
+	return <SyncedBlockRenderer useFetchDocNode={props.useFetchDocNode} />;
 };

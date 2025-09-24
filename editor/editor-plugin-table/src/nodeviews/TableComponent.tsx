@@ -35,7 +35,6 @@ import { token } from '@atlaskit/tokens';
 
 import { autoSizeTable, clearHoverSelection } from '../pm-plugins/commands';
 import { autoScrollerFactory } from '../pm-plugins/drag-and-drop/utils/autoscrollers';
-import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as stickyHeadersPluginKey } from '../pm-plugins/sticky-headers/plugin-key';
 import type { RowStickyState, StickyPluginState } from '../pm-plugins/sticky-headers/types';
 import { findStickyHeaderForTable } from '../pm-plugins/sticky-headers/util';
@@ -122,7 +121,6 @@ interface ComponentProps {
 	isDragAndDropEnabled?: boolean;
 	isHeaderColumnEnabled: boolean;
 	isHeaderRowEnabled: boolean;
-	// marking props as optional to ensure backward compatibility when platform_editor_table_use_shared_state_hook_fg disabled
 	isInDanger?: boolean;
 	isMediaFullscreen?: boolean;
 	isResizing?: boolean;
@@ -673,15 +671,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			isTableScalingEnabled, // we could use options.isTableScalingEnabled here
 			getPos,
 			getEditorFeatureFlags,
+			isInDanger,
 		} = this.props;
-		let { isInDanger } = this.props;
 
 		const table = findTable(view.state.selection);
-
-		if (!fg('platform_editor_table_use_shared_state_hook_fg')) {
-			const pluginState = getPluginState(view.state);
-			isInDanger = pluginState.isInDanger;
-		}
 
 		let shouldScale = false;
 		let shouldHandleColgroupUpdates = false;
@@ -717,8 +710,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			this.handleColgroupUpdates();
 		}
 
-		if (isInDanger && !table) {
-			clearHoverSelection()(view.state, view.dispatch);
+		// table is always defined so this never runs
+		if (!expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)) {
+			if (isInDanger && !table) {
+				clearHoverSelection()(view.state, view.dispatch);
+			}
 		}
 
 		if (
@@ -730,7 +726,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 
 		if (this.wrapper?.parentElement && this.table && !this.overflowShadowsObserver) {
-			if (this.props.isDragAndDropEnabled) {
+			// isDragAndDropEnabled will be false when the editorViewMode is 'live' and so the fix below is never triggered
+			// but the shadow observer must run async so its initial state is correct.
+			// note: when cleaning up platform_editor_table_drag_handle_hover entirely remove this nested if check incl. this.props.isDragAndDropEnabled
+			if (
+				this.props.isDragAndDropEnabled ||
+				expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)
+			) {
 				// requestAnimationFrame is used here to fix a race condition issue
 				// that happens when a table is nested in expand and expand's width is
 				// changed via breakout button
@@ -897,21 +899,15 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			allowTableResizing,
 			allowTableAlignment,
 			selection,
+			isInDanger,
+			hoveredRows,
+			hoveredCell,
+			isTableHovered,
+			isWholeTableInDanger,
 		} = this.props;
-
-		let { isInDanger, hoveredRows, hoveredCell, isTableHovered, isWholeTableInDanger } = this.props;
 
 		const { showBeforeShadow, showAfterShadow } = this.state;
 		const node = getNode();
-
-		if (!fg('platform_editor_table_use_shared_state_hook_fg')) {
-			const pluginState = getPluginState(view.state);
-			isInDanger = pluginState.isInDanger;
-			hoveredRows = pluginState.hoveredRows;
-			hoveredCell = pluginState.hoveredCell;
-			isTableHovered = pluginState.isTableHovered;
-			isWholeTableInDanger = pluginState.isWholeTableInDanger;
-		}
 
 		const tableRef = this.table || undefined;
 		const headerRow = tableRef

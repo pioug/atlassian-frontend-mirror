@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 213.6.0
+
+### Minor Changes
+
+- [`9af8b5101d35f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9af8b5101d35f) -
+  [https://product-fabric.atlassian.net/browse/ED-29411](ED-29411) - clean up
+  platform_editor_memoized_node_check experiment
+- [`687c1b8fa7801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/687c1b8fa7801) -
+  EDITOR-1566 bump adf-schema + update validator
+
+### Patch Changes
+
+- [`2c4405f422ac7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c4405f422ac7) -
+  clean up feature flag for static emotion
+- [`a11b4fec9c5d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a11b4fec9c5d4) -
+  [FD-90806] Clean up platform_editor_remove_drag_handle_fix
+- Updated dependencies
+
 ## 213.5.6
 
 ### Patch Changes

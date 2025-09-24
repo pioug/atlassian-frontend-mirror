@@ -16,15 +16,10 @@ import type { TablePlugin } from '../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../types';
 import type { CellHoverMeta } from '../../types';
 
-import { CornerControls } from './CornerControls/ClassicCornerControls';
-import {
-	DragCornerControls,
-	DragCornerControlsWithSelection,
-} from './CornerControls/DragCornerControls';
+import { DragCornerControlsWithSelection } from './CornerControls/DragCornerControls';
 import { FloatingControlsWithSelection } from './FloatingControlsWithSelection';
 import NumberColumn from './NumberColumn';
-import { RowControls } from './RowControls/ClassicControls';
-import { DragControls, DragControlsWithSelection } from './RowControls/DragControls';
+import { DragControlsWithSelection } from './RowControls/DragControls';
 
 interface TableFloatingControlsProps {
 	editorView: EditorView;
@@ -166,67 +161,35 @@ export const TableFloatingControls = ({
 					<>
 						{isDragAndDropEnabled ? (
 							<>
-								{fg('platform_editor_table_use_shared_state_hook_fg') ? (
-									<>
-										{shouldShowCornerControls && (
-											<DragCornerControlsWithSelection
-												editorView={editorView}
-												tableRef={tableRef}
-												isInDanger={isInDanger}
-												isResizing={isResizing}
-												api={api}
-											/>
-										)}
-										<DragControlsWithSelection
-											tableRef={tableRef}
-											tableNode={tableNode}
-											hoveredCell={hoveredCell}
-											isTableHovered={isTableHovered}
-											editorView={editorView}
-											tableActive={tableActive}
-											isInDanger={isInDanger}
-											isResizing={isResizing}
-											// Ignored via go/ees005
-											// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-											tableWidth={tableWrapperWidth!}
-											hoverRows={_hoverRows}
-											selectRow={_selectRow}
-											selectRows={_selectRows}
-											updateCellHoverLocation={updateCellHoverLocation}
-											api={api}
-										/>
-									</>
-								) : (
-									<>
-										{shouldShowCornerControls && (
-											<DragCornerControls
-												editorView={editorView}
-												tableRef={tableRef}
-												isInDanger={isInDanger}
-												isResizing={isResizing}
-											/>
-										)}
-										<DragControls
-											tableRef={tableRef}
-											tableNode={tableNode}
-											hoveredCell={hoveredCell}
-											isTableHovered={isTableHovered}
-											editorView={editorView}
-											tableActive={tableActive}
-											isInDanger={isInDanger}
-											isResizing={isResizing}
-											// Ignored via go/ees005
-											// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-											tableWidth={tableWrapperWidth!}
-											hoverRows={_hoverRows}
-											selectRow={_selectRow}
-											selectRows={_selectRows}
-											updateCellHoverLocation={updateCellHoverLocation}
-										/>
-									</>
+								{shouldShowCornerControls && (
+									<DragCornerControlsWithSelection
+										editorView={editorView}
+										tableRef={tableRef}
+										isInDanger={isInDanger}
+										isResizing={isResizing}
+										api={api}
+									/>
 								)}
+								<DragControlsWithSelection
+									tableRef={tableRef}
+									tableNode={tableNode}
+									hoveredCell={hoveredCell}
+									isTableHovered={isTableHovered}
+									editorView={editorView}
+									tableActive={tableActive}
+									isInDanger={isInDanger}
+									isResizing={isResizing}
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+									tableWidth={tableWrapperWidth!}
+									hoverRows={_hoverRows}
+									selectRow={_selectRow}
+									selectRows={_selectRows}
+									updateCellHoverLocation={updateCellHoverLocation}
+									api={api}
+								/>
 							</>
-						) : fg('platform_editor_table_use_shared_state_hook_fg') ? (
+						) : (
 							<FloatingControlsWithSelection
 								editorView={editorView}
 								tableRef={tableRef}
@@ -241,29 +204,6 @@ export const TableFloatingControls = ({
 								selectRow={_selectRow}
 								api={api}
 							/>
-						) : (
-							<>
-								<CornerControls
-									editorView={editorView}
-									tableRef={tableRef}
-									isInDanger={isInDanger}
-									isResizing={isResizing}
-									isHeaderRowEnabled={isHeaderRowEnabled}
-									isHeaderColumnEnabled={isHeaderColumnEnabled}
-									hoveredRows={hoveredRows}
-									stickyTop={tableActive ? stickyTop : undefined}
-								/>
-								<RowControls
-									editorView={editorView}
-									tableRef={tableRef}
-									hoverRows={_hoverRows}
-									hoveredRows={hoveredRows}
-									isInDanger={isInDanger}
-									isResizing={isResizing}
-									selectRow={_selectRow}
-									stickyTop={tableActive ? stickyTop : undefined}
-								/>
-							</>
 						)}
 					</>
 				)}

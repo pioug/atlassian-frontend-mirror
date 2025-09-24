@@ -7,11 +7,6 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
-import { mainToolbarFirstChildStyle, mainToolbarSecondChildStyle } from './MainToolbar';
-
 interface ChildWrapperProps {
 	'aria-label'?: string;
 	children: React.ReactNode;
@@ -59,7 +54,7 @@ const secondChildStaticTwoLine = css({
 });
 
 // ---------------- First child wrapper ----------------
-const FirstChildWrapperStatic = ({
+export const MainToolbarForFirstChildWrapper = ({
 	twoLineEditorToolbar,
 	children,
 	role,
@@ -76,32 +71,8 @@ const FirstChildWrapperStatic = ({
 	</div>
 );
 
-const FirstChildWrapperDynamic = ({
-	twoLineEditorToolbar,
-	children,
-	role,
-	'aria-label': ariaLabel,
-	'data-testid': testId,
-}: ChildWrapperProps) => (
-	<div
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage
-		css={mainToolbarFirstChildStyle(twoLineEditorToolbar)}
-		role={role}
-		aria-label={ariaLabel}
-		data-testid={testId}
-	>
-		{children}
-	</div>
-);
-
-export const MainToolbarForFirstChildWrapper = componentWithCondition(
-	() => expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true),
-	FirstChildWrapperStatic,
-	FirstChildWrapperDynamic,
-);
-
 // ---------------- Second child wrapper ----------------
-const SecondChildWrapperStatic = ({
+export const MainToolbarForSecondChildWrapper = ({
 	twoLineEditorToolbar,
 	children,
 	role,
@@ -116,28 +87,4 @@ const SecondChildWrapperStatic = ({
 	>
 		{children}
 	</div>
-);
-
-const SecondChildWrapperDynamic = ({
-	twoLineEditorToolbar,
-	children,
-	role,
-	'aria-label': ariaLabel,
-	'data-testid': testId,
-}: ChildWrapperProps) => (
-	<div
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage
-		css={mainToolbarSecondChildStyle(twoLineEditorToolbar)}
-		role={role}
-		aria-label={ariaLabel}
-		data-testid={testId}
-	>
-		{children}
-	</div>
-);
-
-export const MainToolbarForSecondChildWrapper = componentWithCondition(
-	() => expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true),
-	SecondChildWrapperStatic,
-	SecondChildWrapperDynamic,
 );

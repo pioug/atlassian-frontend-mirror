@@ -452,7 +452,7 @@ export const test = base.extend<{
 					{
 						message: `React UFO extra search page metric payload never received.`,
 						intervals: [500],
-						timeout: 100000,
+						timeout: 10000,
 					},
 				)
 				.not.toBeNull();

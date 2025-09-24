@@ -13,16 +13,6 @@ fields:
   tier: 2
 labels:
   - atlassian-platform
-customFields:
-  - name: Dev Owner
-    type: user
-    value: null
-  - name: Product
-    type: text
-    value: null
-  - name: Test
-    type: text
-    value: null
 links:
   - name: ''
     type: REPOSITORY

@@ -6,13 +6,13 @@ import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block'
 import type { SyncedBlockRendererProps } from '../syncedBlockPluginType';
 
 type Props = {
-	docNode: DocNode;
 	getSyncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
+	useFetchDocNode: () => DocNode;
 };
 
 const SyncBlockRendererWrapperDataId = 'sync-block-plugin-renderer-wrapper';
 
-const SyncBlockRendererWrapperComponent = ({ getSyncedBlockRenderer, docNode }: Props) => {
+const SyncBlockRendererWrapperComponent = ({ getSyncedBlockRenderer, useFetchDocNode }: Props) => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/ensure-design-token-usage
 		<div
@@ -21,7 +21,7 @@ const SyncBlockRendererWrapperComponent = ({ getSyncedBlockRenderer, docNode }: 
 			className={SyncBlockSharedCssClassName.renderer}
 		>
 			{getSyncedBlockRenderer({
-				docNode,
+				useFetchDocNode
 			})}
 		</div>
 	);

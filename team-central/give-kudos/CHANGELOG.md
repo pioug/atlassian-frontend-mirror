@@ -1,5 +1,12 @@
 # @atlassian/give-kudos
 
+## 4.4.0
+
+### Minor Changes
+
+- [`717fa73957ecf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/717fa73957ecf) -
+  Migrate ai, jira, notifications, proforma and team-central pkgs to use i18n NPM packages
+
 ## 4.3.12
 
 ### Patch Changes

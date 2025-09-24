@@ -1,8 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5fbd59fcd3fd6cb0602821de4a0a32aa>>
+ * @codegen <<SignedSource::4693db80b637ac078521dd6e0591f75b>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
+import type { Rule } from 'eslint';
+
 import consistentCssPropUsage from './consistent-css-prop-usage';
 import enforceInlineStylesInSelect from './enforce-inline-styles-in-select';
 import ensureDesignTokenUsage from './ensure-design-token-usage';
@@ -71,7 +73,7 @@ import useTokensSpace from './use-tokens-space';
 import useTokensTypography from './use-tokens-typography';
 import useVisuallyHidden from './use-visually-hidden';
 
-export const rules = {
+export const rules: Record<string, Rule.RuleModule> = {
 	'consistent-css-prop-usage': consistentCssPropUsage,
 	'enforce-inline-styles-in-select': enforceInlineStylesInSelect,
 	'ensure-design-token-usage': ensureDesignTokenUsage,

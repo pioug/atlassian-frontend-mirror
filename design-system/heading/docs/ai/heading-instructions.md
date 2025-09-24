@@ -21,5 +21,5 @@ An example diff of a migration from Tailwind generated code to ADS generated cod
 +<Heading size="xxlarge">Title</Heading>
 
 -<h2 className="text-2xl font-medium">Subtitle</h2>
-+<Heading size="large">Subtitle</Heading>
++<Heading size="large" as="h2">Subtitle</Heading>
 ```

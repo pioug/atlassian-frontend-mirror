@@ -1,7 +1,10 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored - Test file
-import styled from '@emotion/styled';
+import { cssMap, jsx } from '@compiled/react';
 
 import TeamProfilecardTrigger from '../../components/Team';
 import { staticTeamData } from '../../mocks/team-data';
@@ -77,11 +80,14 @@ export const TeamProfileCardWithTriggerTest = () => {
 };
 
 // As part of HOT-109153, we saw the profilecard inheriting styles from its parents
-/* eslint-disable @atlaskit/ui-styling-standard/no-styled -- Intentional for test */
-/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors -- Intentional for test */
-const Wrapper = styled.div({
-	a: {
-		color: 'green',
+/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
+const styles = cssMap({ wrapper: {
+		'a': {
+			color: 'green',
+		},
+		fontSize: '30px',
 	},
-	fontSize: '30px',
 });
+const Wrapper = ({ children }: { children: React.ReactNode }) => {
+	return <div css={styles.wrapper}>{children}</div>
+};

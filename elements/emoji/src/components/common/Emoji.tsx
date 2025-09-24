@@ -5,6 +5,7 @@
 import React, {
 	useEffect,
 	useCallback,
+	useMemo,
 	type FocusEvent,
 	type MouseEvent,
 	type SyntheticEvent,
@@ -58,6 +59,8 @@ import {
 	DeletableEmojiTooltipContentForScreenReader,
 } from './DeletableEmojiTooltipContent';
 import { isSSR } from '../../util/is-ssr';
+
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const emojiSpriteContainer = css({
 	display: 'inline-block',
@@ -276,7 +279,7 @@ const handleDelete = (props: Props, event: SyntheticEvent) => {
 	}
 };
 
-const handleImageError = (props: Props, event: SyntheticEvent<HTMLImageElement>) => {
+const handleImageError = (props: Pick<Props, 'emoji' | 'onLoadError'>, event: SyntheticEvent<HTMLImageElement>) => {
 	const { emoji, onLoadError } = props;
 
 	// Hide error state (but keep space for it)
@@ -331,7 +334,7 @@ export const SpriteEmoji = (props: Props) => {
 };
 
 // Keep as pure functional component, see renderAsSprite.
-export const ImageEmoji = (props: Props) => {
+export const ImageEmoji = ((props: Props) => {
 	const {
 		emoji,
 		fitToHeight,
@@ -348,7 +351,7 @@ export const ImageEmoji = (props: Props) => {
 		triggerOnce: true,
 	});
 
-	const ufoExp = sampledUfoRenderedEmoji(emoji);
+	const ufoExp = useMemo(() => sampledUfoRenderedEmoji(emoji), [emoji]);
 
 	const classes = `${emojiMainStyle} ${emojiNodeStyles} ${
 		selected ? commonSelectedStyles : ''
@@ -382,12 +385,24 @@ export const ImageEmoji = (props: Props) => {
 			height: fitToHeight,
 		};
 	}
-	const onError = useCallback(
+
+	const onErrorV1 = useCallback(
 		(event: SyntheticEvent<HTMLImageElement>) => {
 			handleImageError(props, event);
 		},
 		[props],
 	);
+	const onErrorV2 = useCallback(
+		(event: SyntheticEvent<HTMLImageElement>) => {
+			handleImageError({ emoji: props.emoji, onLoadError: props.onLoadError }, event);
+		},
+		[props.emoji, props.onLoadError],
+	);
+	const onError = expValEquals(
+				'cc_complexit_fe_emoji_stability',
+				'isEnabled',
+				true,
+		) ? onErrorV2 : onErrorV1;
 
 	const onLoad = useCallback(() => {
 		const mountedMark = ufoExp.metrics.marks.find(
@@ -489,7 +504,7 @@ export const ImageEmoji = (props: Props) => {
 			{emojiNode}
 		</EmojiNodeWrapper>
 	);
-};
+});
 
 interface EmojiNodeWrapperProps extends Props {
 	type: 'sprite' | 'image';

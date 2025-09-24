@@ -1,8 +1,5 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-
 import { cssMap, cx } from '@atlaskit/css';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -12,6 +9,8 @@ import teamData from '../src/mocks/team-data';
 import type { TeamProfilecardProps } from '../src/types';
 
 import ExampleWrapper from './helper/example-wrapper';
+import { MainStage } from './helper/main-stage';
+
 
 const css = cssMap({
 	wrapper: {
@@ -21,10 +20,6 @@ const css = cssMap({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const MainStage = styled.div({
-	margin: token('space.200', '16px'),
-});
 
 const actions = [
 	{

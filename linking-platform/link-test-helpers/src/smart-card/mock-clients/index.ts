@@ -73,6 +73,23 @@ export const mocks = {
 			iconUrl: image2,
 		},
 	} as SmartLinkResponse,
+	simpleProjectPlaceholderData: {
+		data: {
+			'@context': AtlasProject.data['@context'],
+			'@type': AtlasProject.data['@type'],
+			url: AtlasProject.data.url,
+			icon: AtlasProject.data.icon,
+			name: 'Fancy project with placeholder data for SSR',
+			'atlassian:state': AtlasProject.data['atlassian:state'],
+		},
+		meta: {
+			auth: [],
+			definitionId: 'watermelon-object-provider',
+			visibility: 'restricted',
+			access: 'granted',
+			key: 'watermelon-object-provider',
+		},
+	} as SmartLinkResponse,
 	notFound: {
 		meta: {
 			visibility: 'not_found',
@@ -262,6 +279,13 @@ export class ResolvingClient extends MockCardClient {
 		return new Promise(() => {
 			// resolve() never get called to keep status as resolving forever
 		});
+	}
+}
+
+export class ResolvedClientWithDelay extends MockCardClient {
+	fetchData(url: string): Promise<JsonLd.Response> {
+		const response = { ...AtlasProject };
+		return new Promise(resolve => setTimeout(() => resolve(response as JsonLd.Response), 2000))
 	}
 }
 

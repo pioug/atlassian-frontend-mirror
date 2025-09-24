@@ -11,6 +11,7 @@ import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/edito
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { createSyncBlockNode, useFetchDocNode, type SyncBlockNode } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { SyncBlockEditorWrapper, SyncBlockEditorWrapperDataId } from '../ui/SyncBlockEditorWrapper';
@@ -61,6 +62,7 @@ export interface SyncBlockNodeViewProps extends ReactComponentProps {
 class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 	private isSource: boolean;
 	private options: SyncedBlockPluginOptions | undefined;
+	private fetchIntervalId: number | undefined;
 
 	constructor(props: SyncBlockNodeViewProps) {
 		super(
@@ -71,7 +73,6 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 			props.eventDispatcher,
 			props,
 		);
-
 		const { resourceId, localId } = props.node.attrs;
 		// Temporary solution to identify the source
 		this.isSource = resourceId === localId;
@@ -86,12 +87,26 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		return domRef;
 	}
 
-	private handleContentChanges(_updatedDoc: PMNode): void {
+	private handleContentChanges(updatedDoc: PMNode): void {
+		if (!this.isSource) {
+			return;
+		}
 		// write data
+		const node = createSyncBlockNode(this.node, false);
+		this.options?.syncedBlockProvider?.writeNodesData([node], [{ content: updatedDoc.toJSON() }]);
 	}
 
-	private setInnerEditorView(_editorView: EditorView): void {
+	private setInnerEditorView(editorView: EditorView): void {
 		// set inner editor view
+		const nodes: SyncBlockNode[] = [createSyncBlockNode(this.node, false)];
+
+		this.options?.syncedBlockProvider?.fetchNodesData(nodes).then((data) => {
+			const tr = editorView.state.tr;
+			if (data && data[0]?.content) {
+				const newNode = editorView.state.schema.nodeFromJSON(data[0].content);
+				editorView.dispatch(tr.replaceWith(0, editorView.state.doc.nodeSize - 2, newNode));
+			}
+		});
 	}
 
 	private renderEditor() {
@@ -112,8 +127,8 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 				popupsBoundariesElement={fabricEditorPopupScrollParent}
 				popupsMountPoint={fabricEditorPopupScrollParent}
 				defaultDocument={defaultSyncBlockEditorDocument}
-				handleContentChanges={this.handleContentChanges}
-				setInnerEditorView={this.setInnerEditorView}
+				handleContentChanges={(updatedDoc: PMNode) => this.handleContentChanges(updatedDoc)}
+				setInnerEditorView={(editorView: EditorView) => this.setInnerEditorView(editorView)}
 				getSyncedBlockEditor={this.options?.getSyncedBlockEditor}
 			/>
 		);
@@ -125,11 +140,11 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		}
 
 		// get document node from data provider
-		const docNode = defaultSyncBlockRendererDocument;
+		
 
 		return (
 			<SyncBlockRendererWrapper
-				docNode={docNode}
+				useFetchDocNode={() => useFetchDocNode(this.view, this.node, defaultSyncBlockRendererDocument, this.options?.syncedBlockProvider)}
 				getSyncedBlockRenderer={this.options?.getSyncedBlockRenderer}
 			/>
 		);
@@ -163,6 +178,9 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 	}
 
 	destroy() {
+		if (this.fetchIntervalId) {
+			window.clearInterval(this.fetchIntervalId);
+		}
 		this.unsubscribe?.();
 		super.destroy();
 	}

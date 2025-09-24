@@ -24,7 +24,6 @@ import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -72,28 +71,6 @@ const secondaryToolbarStyles = css({
 	display: 'flex',
 	padding: `${token('space.150', '12px')} ${token('space.025', '2px')}`,
 });
-
-const mainToolbarCustomComponentsSlotStyle = (isTwoLineEditorToolbar = false) =>
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
-	css`
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		flex-grow: 1;
-		padding-right: ${token('space.250', '20px')};
-		> div {
-			display: flex;
-			flex-shrink: 0;
-		}
-		${isTwoLineEditorToolbar &&
-		`
-    @media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px) {
-      {
-        padding-right: 0;
-      }
-    }
-  `}
-	`;
 
 const mainToolbarCustomComponentsSlotStyleNew = css({
 	display: 'flex',
@@ -225,15 +202,10 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 
 	const customToolbarSlot = (
 		<div
-			css={
-				expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true)
-					? [
-							mainToolbarCustomComponentsSlotStyleNew,
-							isTwoLineToolbarEnabled && mainToolbarCustomComponentsSlotStyleTwoLineToolbarNew,
-						]
-					: /* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
-						mainToolbarCustomComponentsSlotStyle(isTwoLineToolbarEnabled)
-			}
+			css={[
+				mainToolbarCustomComponentsSlotStyleNew,
+				isTwoLineToolbarEnabled && mainToolbarCustomComponentsSlotStyleTwoLineToolbarNew,
+			]}
 		>
 			{customPrimaryToolbarComponents as React.ReactNode}
 		</div>

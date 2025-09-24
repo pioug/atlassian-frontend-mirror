@@ -26,6 +26,7 @@ export interface RecommendationRequest {
 	context: Context;
 	maxNumberOfResults: number;
 	query?: string;
+	customQuery?: string;
 	searchQueryFilter?: string;
 	includeUsers?: boolean;
 	includeGroups?: boolean;
@@ -80,10 +81,19 @@ export enum EntityType {
 	GROUP = 'GROUP',
 }
 
+export enum UserEntityType {
+	DEFAULT = 'DEFAULT',
+	APP = 'APP',
+	CUSTOMER = 'CUSTOMER',
+	SYSTEM = 'SYSTEM',
+}
+
 export interface RecommendationItem {
 	id: string;
 	name?: string;
+	email?: string;
 	entityType: EntityType;
+	userType?: UserEntityType;
 	avatarUrl: string;
 	description?: string;
 	teamAri?: string;
@@ -174,6 +184,13 @@ export interface SmartProps {
 	 */
 	overrideByline?: OverrideByline;
 	/**
+	 * When enabled, displays email addresses for users in the byline of each option, if available.
+	 * Note - overrideByline will take precedent over displayEmailInByline.
+	 * Note - only certain user types will have their email displayed.
+	 * @default false
+	 */
+	displayEmailInByline?: boolean;
+	/**
 	 * Prefetch the list of suggested assignees before the user picker is focused.
 	 * WARNING: please consider carefully before deciding to prefetch your suggestions
 	 * as this will increase the load on the recommendations services (has caused HOTs).
@@ -197,6 +214,19 @@ export interface SmartProps {
 	 * If you are still waiting for CPUS, you can use the `people` productKey in the interim.
 	 */
 	productKey: string;
+	/**
+	 * When enabled, allows searching for users by email address.
+	 * Email searches will use customQuery instead of queryString and will set includeGroups and includeTeams to false.
+	 * @default false
+	 */
+	enableEmailSearch?: boolean;
+	/**
+	 * When both allowEmail and enableEmailSearch are true, this controls whether both email entry
+	 * and matched user entries can be selected simultaneously.
+	 * If false, only allows email selection when no users are found.
+	 * @default true
+	 */
+	allowEmailSelectionWhenEmailMatched?: boolean;
 	/**
 	 * Filter to be applied to the eventual query to CPUS for user suggestions.
 	 * Example:`account_status:"active" AND (NOT email_domain:"connect.atlassian.com")`

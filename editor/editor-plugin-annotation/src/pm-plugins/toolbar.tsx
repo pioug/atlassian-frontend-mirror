@@ -227,9 +227,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 									attributes: {
 										pageClass: 'editor',
 										commentType: 'inline',
-										...(fg('cc_comments_create_inline_experience_entry_point')
-											? { entryPoint: 'highlightActions' }
-											: {}),
+										entryPoint: 'highlightActions',
 									},
 								});
 								createCommentExperience?.initExperience.start();
@@ -267,9 +265,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 						attributes: {
 							pageClass: 'editor',
 							commentType: 'inline',
-							...(fg('cc_comments_create_inline_experience_entry_point')
-								? { entryPoint: 'highlightActions' }
-								: {}),
+							entryPoint: 'highlightActions',
 						},
 					});
 					createCommentExperience?.initExperience.start();

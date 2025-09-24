@@ -1,5 +1,24 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.30.0
+
+### Minor Changes
+
+- [`c7f63d8f3fd7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7f63d8f3fd7b) -
+  [ED-29266] add platform_editor_toolbar_aifc_renderer_selection experiment
+- [`9af8b5101d35f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9af8b5101d35f) -
+  [https://product-fabric.atlassian.net/browse/ED-29411](ED-29411) - clean up
+  platform_editor_memoized_node_check experiment
+- [`f3461c712ac67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3461c712ac67) -
+  Remove platform_editor_table_use_shared_state_hook_fg FG, add
+  platform_editor_table_drag_handle_hover experiments
+
+### Patch Changes
+
+- [`2c4405f422ac7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c4405f422ac7) -
+  clean up feature flag for static emotion
+- Updated dependencies
+
 ## 12.29.0
 
 ### Minor Changes

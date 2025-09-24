@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.3.4
+
+### Patch Changes
+
+- [`cc92031710191`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc92031710191) -
+  `SpotlightDismissControl` now applies `autofocus` when it is mounted.
+
 ## 0.3.3
 
 ### Patch Changes

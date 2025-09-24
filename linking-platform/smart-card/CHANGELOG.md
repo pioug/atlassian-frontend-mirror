@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 42.2.2
+
+### Patch Changes
+
+- [`28644626ba801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28644626ba801) -
+  Start implementation of future `placeholderData` prop to `CardSSR` - which will be used to supply
+  data exclusively for initial render. The regular request to ORS is still performed and its data
+  will be used once available.
+- Updated dependencies
+
 ## 42.2.1
 
 ### Patch Changes

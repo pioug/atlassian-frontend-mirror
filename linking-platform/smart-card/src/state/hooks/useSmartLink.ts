@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+import type { CardState } from '@atlaskit/linking-common';
 
 import { useSmartCardActions as useSmartLinkActions } from '../actions';
 import { useSmartLinkConfig } from '../config';
 import { useSmartLinkRenderers } from '../renderers';
 import { useSmartCardState as useSmartLinkState } from '../store';
 
-export function useSmartLink(id: string, url: string) {
-	const state = useSmartLinkState(url);
+export function useSmartLink(id: string, url: string, placeholderData?: CardState) {
+	const state = useSmartLinkState(url, placeholderData);
 	const { store, isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
-	const actions = useSmartLinkActions(id, url);
+	const actions = useSmartLinkActions(id, url, placeholderData);
 	const config = useSmartLinkConfig();
 	const renderers = useSmartLinkRenderers();
 

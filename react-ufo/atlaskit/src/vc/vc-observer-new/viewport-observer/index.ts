@@ -12,6 +12,7 @@ import createPerformanceObserver from './performance-observer';
 import { type MutationData } from './types';
 import checkCssProperty from './utils/check-display-content';
 import checkWithinComponent, { cleanupCaches } from './utils/check-within-component';
+import { getMutatedElements } from './utils/get-mutated-elements';
 import isInVCIgnoreIfNoLayoutShiftMarker from './utils/is-in-vc-ignore-if-no-layout-shift-marker';
 import trackDisplayContentsOccurrence from './utils/track-display-content-occurrence';
 
@@ -274,20 +275,18 @@ export default class ViewportObserver {
 			}
 
 			if (fg('platform_ufo_vcnext_v4_enabled')) {
-				if (window?.getComputedStyle(addedNode)?.display === 'contents') {
-					for (const child of addedNode.children) {
-						if (child instanceof HTMLElement) {
-							this.intersectionObserver?.watchAndTag(
-								child,
-								'mutation:display-contents-children-element',
-							);
-						}
+				for (const { isDisplayContentsElementChildren, element } of getMutatedElements(addedNode)) {
+					if (isDisplayContentsElementChildren) {
+						this.intersectionObserver?.watchAndTag(
+							element,
+							'mutation:display-contents-children-element',
+						);
+					} else {
+						this.intersectionObserver?.watchAndTag(
+							element,
+							createElementMutationsWatcher(removedNodeRects),
+						);
 					}
-				} else {
-					this.intersectionObserver?.watchAndTag(
-						addedNode,
-						createElementMutationsWatcher(removedNodeRects),
-					);
 				}
 			} else {
 				if (fg('platform_ufo_display_content_resolution_ttvc_v3')) {
@@ -390,7 +389,6 @@ export default class ViewportObserver {
 				},
 			};
 		});
-		// }
 	};
 
 	private handleLayoutShift = ({

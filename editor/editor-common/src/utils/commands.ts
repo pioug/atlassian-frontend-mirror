@@ -385,11 +385,20 @@ export const isEmptySelectionAtStart = (state: EditorState): boolean => {
 		// Else, check if the parent is a blockTaskItem
 		else if ($from.parent.type === blockTaskItem) {
 			// Check if the selection is at the start of the blockTaskItem
-			const blockTaskItemDepth = $from.depth - 1;
-			const DISTANCE_FROM_PARENT_FOR_GAP_CURSOR = 1;
-			const firstPosInBlockTaskItem =
-				$from.start(blockTaskItemDepth) + DISTANCE_FROM_PARENT_FOR_GAP_CURSOR;
+			let firstPosInBlockTaskItem = 0;
+			if (fg('platform_editor_blocktaskitem_patch_2')) {
+				const blockTaskItemDepth = $from.depth;
 
+				// When cleaning up platform_editor_blocktaskitem_patch_2, set firstPosInBlockTaskItem as const
+				firstPosInBlockTaskItem = $from.start(blockTaskItemDepth);
+			} else {
+				const blockTaskItemDepth = $from.depth - 1;
+				const DISTANCE_FROM_PARENT_FOR_GAP_CURSOR = 1;
+				firstPosInBlockTaskItem =
+					$from.start(blockTaskItemDepth) + DISTANCE_FROM_PARENT_FOR_GAP_CURSOR;
+			}
+
+			// Is the selection at the first possible position inside the blockTaskItem
 			return $from.pos === firstPosInBlockTaskItem;
 		}
 	}

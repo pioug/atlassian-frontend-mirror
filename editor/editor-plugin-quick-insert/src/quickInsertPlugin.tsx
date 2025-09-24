@@ -2,6 +2,7 @@ import React from 'react';
 
 import { type IntlShape, useIntl } from 'react-intl-next';
 
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type {
@@ -23,6 +24,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createInsertItem, openElementBrowserModal } from './pm-plugins/commands';
@@ -104,7 +106,10 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		},
 
 		contentComponent({ editorView }) {
-			if (!editorView) {
+			if (
+				!editorView ||
+				(expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && isSSR())
+			) {
 				return null;
 			}
 

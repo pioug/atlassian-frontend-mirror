@@ -6,6 +6,7 @@ import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { Pressable } from '@atlaskit/primitives/compiled';
@@ -25,6 +26,8 @@ import {
 } from '../../types';
 import { PACKAGE_META_DATA, reportingLinesClicked } from '../../util/analytics';
 import { getPageTime } from '../../util/performance';
+
+import { default as ReportingLinesDetailsCompiled } from './ReportingLinesDetailsCompiled';
 
 export type ReportingLinesDetailsProps = Pick<
 	ProfilecardProps,
@@ -194,4 +197,9 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 	);
 };
 
-export default ReportingLinesDetails;
+const ReportingLinesDetailsExport = componentWithFG(
+	'profilecard_primitives_compiled',
+	ReportingLinesDetailsCompiled,
+	ReportingLinesDetails,
+)
+export default ReportingLinesDetailsExport;

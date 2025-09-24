@@ -5,7 +5,6 @@ import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
@@ -132,7 +131,7 @@ const TableFloatingColumnControls = ({
 				isNumberColumnEnabled={isNumberColumnEnabled}
 				isDragging={isDragging}
 				getScrollOffset={getScrollOffset}
-				api={fg('platform_editor_table_use_shared_state_hook_fg') ? api : undefined}
+				api={api}
 			/>
 			{isDragging && (
 				<ColumnDropTargets

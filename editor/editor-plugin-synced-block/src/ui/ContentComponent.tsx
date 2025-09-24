@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-common/sync-block';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,

@@ -5,9 +5,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Text } from '@atlaskit/primitives';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import relativeDate from '../../internal/relative-date';
@@ -30,16 +28,6 @@ import { IconLabel } from '../Icon';
 import ReportingLinesDetails from './ReportingLinesDetails';
 
 const styles = cssMap({
-	detailedListWrapper: {
-		marginTop: token('space.0'),
-		marginRight: token('space.0'),
-		marginBottom: token('space.0'),
-		marginLeft: token('space.0'),
-		paddingTop: token('space.0'),
-		paddingRight: token('space.0'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.0'),
-	},
 	detailedListWrapperNext: {
 		marginTop: token('space.400'),
 		marginRight: token('space.0'),

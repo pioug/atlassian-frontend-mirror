@@ -12,14 +12,9 @@ import {
 	akEditorSwoopCubicBezier,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
-import {
-	mainToolbarStyle as mainToolbarStyleDynamic,
-	MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT,
-} from './MainToolbar';
+import { MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT } from './MainToolbar';
 
 // Base styles that don't depend on feature flags
 const baseToolbarStyles = css({
@@ -72,7 +67,7 @@ const mainToolbarTwoLineStyle = css({
 	},
 });
 
-const MainToolbarWrapperNext = ({
+export const MainToolbarWrapper = ({
 	showKeyline,
 	twoLineEditorToolbar,
 	children,
@@ -93,38 +88,3 @@ const MainToolbarWrapperNext = ({
 		</div>
 	);
 };
-
-/**
- * Original version of the toolbar wrapper using dynamic styles
- */
-const MainToolbarWrapperOld = ({
-	showKeyline,
-	twoLineEditorToolbar,
-	children,
-	'data-testid': testId,
-}: MainToolbarWrapperProps) => {
-	return (
-		<div
-			css={
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-				mainToolbarStyleDynamic(showKeyline, twoLineEditorToolbar)
-			}
-			data-testid={testId}
-		>
-			{children}
-		</div>
-	);
-};
-
-/**
- * Wrapper component for the main toolbar that handles feature flag based styling
- * @example
- * <MainToolbarWrapper showKeyline={true} twoLineEditorToolbar={false}>
- *   <ToolbarContent />
- * </MainToolbarWrapper>
- */
-export const MainToolbarWrapper = componentWithCondition(
-	() => expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true),
-	MainToolbarWrapperNext,
-	MainToolbarWrapperOld,
-);

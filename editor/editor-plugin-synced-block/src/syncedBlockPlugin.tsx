@@ -2,9 +2,9 @@ import React from 'react';
 
 import { syncBlock } from '@atlaskit/adf-schema';
 import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
-import { SyncBlockStoreManager } from '@atlaskit/editor-common/sync-block';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/dist/types/state';
+import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import SmartLinkIcon from '@atlaskit/icon/core/smart-link';
 
 import { createSyncedBlock } from './pm-plugins/actions';

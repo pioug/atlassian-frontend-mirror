@@ -1,11 +1,11 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a739ba6d63b1aa39d462906ee1876ce6>>
+ * @codegen <<SignedSource::daf4a5893d65c7a1592f8bc6e51920c6>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
 
-export default {
+const rules: ESLint.ConfigData = {
 	plugins: ['@atlaskit/design-system'],
 	rules: {
 		'@atlaskit/design-system/consistent-css-prop-usage': 'error',
@@ -79,3 +79,5 @@ export default {
 		'@atlaskit/design-system/use-visually-hidden': 'error',
 	},
 } satisfies ESLint.ConfigData;
+
+export default rules;

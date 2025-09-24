@@ -9,9 +9,45 @@ import {
 	WorstCaseProfile,
 } from '../../examples/03-profilecard-overview';
 
-snapshot(ErrorState);
-snapshot(ErrorStateNotFound);
-snapshot(BestCaseProfile);
-snapshot(WorstCaseProfile);
-snapshot(BotCaseProfile);
-snapshot(AlternateActions);
+snapshot(ErrorState, {
+    hooks: {
+        flags: {
+            profilecard_primitives_compiled: true,
+        }
+    }
+});
+snapshot(ErrorStateNotFound, {
+    hooks: {
+        flags: {
+            profilecard_primitives_compiled: true,
+        }
+    }
+});
+snapshot(BestCaseProfile, {
+    hooks: {
+        flags: {
+            profilecard_primitives_compiled: true,
+        }
+    }
+});
+snapshot(WorstCaseProfile, {
+    hooks: {
+        flags: {
+            profilecard_primitives_compiled: true,
+        }
+    }
+});
+snapshot(BotCaseProfile, {
+    hooks: {
+        flags: {
+            profilecard_primitives_compiled: true,
+        }
+    }
+});
+snapshot(AlternateActions, {
+    hooks: {
+        flags: {
+            profilecard_primitives_compiled: true,
+        }
+    }
+});

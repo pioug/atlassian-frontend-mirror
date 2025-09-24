@@ -1,0 +1,91 @@
+import { useEffect, useState } from 'react';
+
+import type { DocNode } from '@atlaskit/adf-schema';
+import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import { createSyncBlockNode } from '../utils/utils';
+
+import {
+	SyncBlockDataProvider,
+	type ADFFetchProvider,
+	type ADFWriteProvider,
+	type SyncBlockData,
+	type SyncBlockNode,
+} from './types';
+
+export class SyncBlockProvider extends SyncBlockDataProvider {
+	name = 'syncBlockProvider';
+	private fetchProvider: ADFFetchProvider;
+	private writeProvider: ADFWriteProvider;
+	private sourceId: string;
+
+	constructor(fetchProvider: ADFFetchProvider, writeProvider: ADFWriteProvider, sourceId: string) {
+		super();
+		this.fetchProvider = fetchProvider;
+		this.writeProvider = writeProvider;
+		this.sourceId = sourceId;
+	}
+	isNodeSupported = (node: JSONNode): node is SyncBlockNode => node.type === 'syncBlock';
+	nodeDataKey = (node: SyncBlockNode) => node.attrs.localId;
+	fetchNodesData = (nodes: SyncBlockNode[]): Promise<SyncBlockData[]> => {
+		return Promise.all(
+			nodes.map((node) => {
+				return this.fetchProvider.fetchData(node.attrs.resourceId);
+			}),
+		);
+	};
+
+	/**
+	 *
+	 * @param nodes
+	 * @param data
+	 *
+	 * @returns the resource ids of the nodes that were written
+	 */
+	writeNodesData = (
+		nodes: SyncBlockNode[],
+		data: SyncBlockData[],
+	): Promise<Array<string | undefined>> => {
+		const resourceIds: Promise<string>[] = [];
+		nodes.forEach((node, index) => {
+			if (!data[index].content) {
+				resourceIds.push(Promise.reject('No Synced Blockcontent to write'));
+				return;
+			}
+			const resourceId = this.writeProvider.writeData(
+				this.sourceId,
+				node.attrs.localId,
+				data[index].content,
+				node.attrs.resourceId,
+			);
+			resourceIds.push(resourceId);
+		});
+		return Promise.all(resourceIds);
+	};
+}
+
+export const useFetchDocNode = (editorView: EditorView, node: PMNode, defaultDocNode: DocNode, provider?: SyncBlockProvider): DocNode => {
+	const [docNode, setDocNode] = useState<DocNode>(defaultDocNode);
+	useEffect(() => {
+		if (!provider) {
+			return;
+		}
+		const interval = window.setInterval(() => {
+			const nodes: SyncBlockNode[] = [createSyncBlockNode(node, false)];
+
+			provider?.fetchNodesData(nodes).then((data) => {
+				if (data && data[0]?.content) {
+					const newNode = editorView.state.schema.nodeFromJSON(data[0].content);
+					setDocNode({ ...newNode.toJSON(), version: 1 });
+				}
+			});
+		}, 1000);
+
+		return () => {
+			window.clearInterval(interval);
+		};
+	}, [editorView, node, provider]);
+	return docNode;
+};

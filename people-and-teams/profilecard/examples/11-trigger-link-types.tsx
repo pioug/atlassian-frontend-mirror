@@ -1,8 +1,7 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 import { G400, G75, R75, Y75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -14,32 +13,55 @@ import { type Team } from '../src/types';
 
 import ExampleWrapper from './helper/example-wrapper';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Table = styled.table({
-	border: `${token('border.width', '1px')} solid black`,
-	borderCollapse: 'collapse',
+const styles = cssMap({
+	table: {
+		borderWidth: token('border.width', '1px'),
+		borderStyle: 'solid',
+		borderColor: token('color.border', 'black'),
+		borderCollapse: 'collapse',
+	},
+	head: {
+		borderWidth: token('border.width', '1px'),
+		borderStyle: 'solid',
+		borderColor: token('color.border', 'black'),
+	},
+	cell: {
+		borderWidth: token('border.width', '1px'),
+		borderStyle: 'solid',
+		borderColor: token('color.border', 'black'),
+	},
+
+	text: {
+		fontWeight: 'initial',
+	},
+	triggerText: {
+		borderRadius: token('radius.small', '3px'),
+		paddingTop: token('space.050', '4px'),
+		paddingRight: token('space.050', '4px'),
+		paddingBottom: token('space.050', '4px'),
+		paddingLeft: token('space.050', '4px'),
+	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Head = styled.th({
-	border: `${token('border.width', '1px')} solid black`,
-});
+const Table = ({ children }: { children: React.ReactNode }) => {
+	return <Box xcss={styles.table}>{children}</Box>;
+};
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Cell = styled.td({
-	border: `${token('border.width', '1px')} solid black`,
-});
+const Head = ({ children }: { children: React.ReactNode }) => {
+	return <Box xcss={styles.head}>{children}</Box>;
+};
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Text = styled.p({
-	fontWeight: 'initial',
-});
+const Cell = ({ children }: { children: React.ReactNode }) => {
+	return <Box xcss={styles.cell}>{children}</Box>;
+};
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const TriggerText = styled.span({
-	borderRadius: token('radius.small', '3px'),
-	padding: token('space.050', '4px'),
-});
+const Text = ({ children }: { children: React.ReactNode }) => {
+	return <Box xcss={styles.text}>{children}</Box>;
+};
+
+const TriggerText = ({ children }: { children: React.ReactNode }) => {
+	return <Box xcss={styles.triggerText}>{children}</Box>;
+};
 
 const team = teamData({});
 
@@ -78,14 +100,7 @@ function Trigger(props: TriggerKind) {
 			triggerLinkType={props.triggerLinkType}
 			// actions={actions.slice(0, props.numActions)}
 		>
-			<TriggerText
-				style={{
-					backgroundColor: props.color,
-					color: props.whiteText ? 'white' : 'black',
-				}}
-			>
-				trigger
-			</TriggerText>
+			<TriggerText>trigger</TriggerText>
 		</TeamProfilecardTrigger>
 	);
 }

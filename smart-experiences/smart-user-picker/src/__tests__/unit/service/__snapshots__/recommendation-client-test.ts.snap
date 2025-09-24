@@ -60,6 +60,7 @@ exports[`default-value-hydration-client should translate given context to correc
     "title": "Development Manager",
     "tooltip": "John Smith",
     "type": "user",
+    "userType": "DEFAULT",
   },
   {
     "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net",
@@ -72,6 +73,7 @@ exports[`default-value-hydration-client should translate given context to correc
     "title": "Development Manager",
     "tooltip": "John Doe",
     "type": "user",
+    "userType": "DEFAULT",
   },
 ]
 `;

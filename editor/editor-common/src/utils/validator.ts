@@ -3,6 +3,7 @@ import { inlineNodes, isSafeUrl, PanelType, generateUuid as uuid } from '@atlask
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { Mark as PMMark, Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export const ADFStages = {
 	FINAL: 'final',
@@ -869,6 +870,17 @@ export const getValidNode = (
 			case 'expand':
 			case 'nestedExpand': {
 				return { type, attrs, content, marks };
+			}
+			case 'syncBlock': {
+				if (adfStage === 'stage0' && expValEquals('platform_synced_block', 'isEnabled', true)) {
+					return {
+						type,
+						attrs,
+						marks,
+					};
+				} else {
+					return getValidUnknownNode(node);
+				}
 			}
 		}
 	}

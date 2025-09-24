@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-annotation
 
+## 5.6.0
+
+### Minor Changes
+
+- [`687c1b8fa7801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/687c1b8fa7801) -
+  EDITOR-1566 bump adf-schema + update validator
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.5.0
+
+### Minor Changes
+
+- [`1f2b3dfa14308`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f2b3dfa14308) -
+  Clean up fg cc_comments_create_inline_experience_entry_point as true so that create comment
+  experience tracking logs always include the entryPoint
+
 ## 5.4.0
 
 ### Minor Changes

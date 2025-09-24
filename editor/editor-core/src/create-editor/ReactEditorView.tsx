@@ -928,6 +928,12 @@ export function ReactEditorView(props: EditorViewProps) {
 						aria-describedby={assistiveDescribedBy}
 						data-editor-id={editorId.current}
 						data-vc-ignore-if-no-layout-shift={true}
+						// eslint-disable-next-line react/no-danger -- needed for SSR and hydration so react keeps the HTML untouched
+						dangerouslySetInnerHTML={
+							expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+								? { __html: '' }
+								: undefined
+						}
 					/>
 				</>
 			);

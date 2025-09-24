@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "7.2.6",
+	"version": "7.3.0",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -141,9 +141,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_media_block_default": {
-			"type": "boolean"
-		},
-		"platform_editor_fix_edit_caption_on_edge": {
 			"type": "boolean"
 		},
 		"platform_editor_safari_media_clipboard_fix": {

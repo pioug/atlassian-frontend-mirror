@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.21.1
+
+### Patch Changes
+
+- [`f49681ffca5bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f49681ffca5bc) -
+  Fixed an issue with the `ensure-design-token-usage` rule, where it was identifying non-issues with
+  the `@atlaskit/tile` `backgroundColor` prop.
+
 ## 13.21.0
 
 ### Minor Changes

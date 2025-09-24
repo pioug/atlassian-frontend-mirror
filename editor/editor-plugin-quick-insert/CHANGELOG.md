@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 5.0.3
+
+### Patch Changes
+
+- [`ed4268ebeec91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed4268ebeec91) -
+  Hydration fixes for quick insert plugin
+- Updated dependencies
+
 ## 5.0.2
 
 ### Patch Changes

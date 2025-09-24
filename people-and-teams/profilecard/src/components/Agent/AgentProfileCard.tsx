@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 import {
@@ -20,6 +21,7 @@ import { LoadingState } from '../common/LoadingState';
 import { ErrorMessage } from '../Error';
 
 import { AgentActions } from './Actions';
+import { default as AgentProfileCardCompiled } from './AgentProfileCardCompiled';
 import { AgentProfileCardWrapper } from './AgentProfileCardWrapper';
 import { ConversationStarters } from './ConversationStarters';
 import { useAgentUrlActions } from './hooks/useAgentActions';
@@ -100,7 +102,7 @@ const AgentProfileCard = ({
 					setStarCount((starCount || 0) + 1);
 				}
 				setIsStarred(!isStarred);
-			} catch (error) {}
+			} catch (error) { }
 		}
 	}, [agent?.id, fireAnalytics, isStarred, resourceClient, starCount]);
 
@@ -155,6 +157,7 @@ const AgentProfileCard = ({
 					errorType={errorType}
 					fireAnalytics={fireAnalytics}
 					// TODO: Add fireAnalyticsNext
+					// NOTE: Add it to AgentProfileCardCompiled
 					fireAnalyticsNext={() => {}}
 				/>
 			</AgentProfileCardWrapper>
@@ -196,7 +199,7 @@ const AgentProfileCard = ({
 										profileLink: agent.creatorInfo?.profileLink || '',
 									}}
 									isLoading={false}
-									onCreatorLinkClick={() => {}}
+									onCreatorLinkClick={() => { }}
 								/>
 							)
 						}
@@ -233,4 +236,11 @@ const AgentProfileCard = ({
 	);
 };
 
-export default AgentProfileCard;
+
+
+const AgentProfileCardExport = componentWithFG(
+	'profilecard_primitives_compiled',
+	AgentProfileCardCompiled,
+	AgentProfileCard,
+)
+export default AgentProfileCardExport;

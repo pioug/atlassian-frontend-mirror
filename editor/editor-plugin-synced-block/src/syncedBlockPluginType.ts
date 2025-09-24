@@ -1,10 +1,10 @@
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { SyncBlockDataProvider } from '@atlaskit/editor-common/sync-block';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
+import type { SyncBlockDataProvider, SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
 
 export type SyncedBlockEditorProps = {
 	defaultDocument: JSONDocNode;
@@ -36,13 +36,14 @@ export type SyncedBlockEditorProps = {
 };
 
 export type SyncedBlockRendererProps = {
-	docNode: DocNode;
+	useFetchDocNode: () => DocNode;
 };
 
 export type SyncedBlockPluginOptions = {
 	dataProvider?: SyncBlockDataProvider;
 	getSyncedBlockEditor?: (props: SyncedBlockEditorProps) => React.JSX.Element;
 	getSyncedBlockRenderer?: (props: SyncedBlockRendererProps) => React.JSX.Element;
+    syncedBlockProvider?: SyncedBlockProvider;
 };
 
 export type SyncedBlockPlugin = NextEditorPlugin<

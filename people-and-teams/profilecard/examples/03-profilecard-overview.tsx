@@ -1,8 +1,7 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { ProfileCard } from '../src';
@@ -12,20 +11,20 @@ import { reportingLinesData } from '../src/mocks/reporting-lines-data';
 import { type ProfilecardProps, type ReportingLinesUser } from '../src/types';
 
 import ExampleWrapper from './helper/example-wrapper';
+import { MainStage } from './helper/main-stage';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const MainStage = styled.div({
-	margin: token('space.200', '16px'),
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const Section = styled.div({
-	margin: `${token('space.200', '16px')} 0`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	h4: {
-		margin: `${token('space.100', '8px')} 0`,
+const styles = cssMap({
+	section: {
+		marginTop: token('space.200', '16px'),
+		marginRight: 0,
+		marginBottom: token('space.200', '16px'),
+		marginLeft: 0,
 	},
 });
+
+const Section = ({ children }: { children: React.ReactNode }) => {
+	return <Box xcss={styles.section}>{children}</Box>;
+};
 
 const fakeProfileData = {
 	avatarUrl: avatarImages[4],

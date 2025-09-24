@@ -16,17 +16,6 @@ const styles = cssMap({
 	},
 });
 
-const visibilityStyles = cssMap({
-	visible: {
-		pointerEvents: 'auto',
-		visibility: 'visible',
-	},
-	hidden: {
-		pointerEvents: 'none',
-		visibility: 'hidden',
-	},
-});
-
 /**
  * The `transform: rotate(45deg);` styles used to rotate the `Caret` component result in the corners of
  * the caret extending beyond the bounding box (by roughly 2px). So, apply an offset to ensure
@@ -83,7 +72,6 @@ export const PopoverContent = ({
 	testId,
 }: PopoverContentProps) => {
 	const { setPlacement, heading } = useContext(SpotlightContext);
-	const visibility = isVisible ? 'visible' : 'hidden';
 
 	useEffect(() => {
 		setPlacement(placement);
@@ -91,19 +79,25 @@ export const PopoverContent = ({
 
 	return (
 		<Popper offset={offset} placement={popperPlacementMap[placement]}>
-			{({ ref, style }) => (
-				<div
-					role="dialog"
-					data-testid={testId}
-					aria-labelledby={heading.id}
-					ref={ref}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					style={style}
-					css={[styles.root, visibilityStyles[visibility]]}
-				>
-					{children}
-				</div>
-			)}
+			{({ ref, style }) => {
+				if (!isVisible) {
+					return
+				}
+
+				return (
+					<div
+						role="dialog"
+						data-testid={testId}
+						aria-labelledby={heading.id}
+						ref={ref}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+						style={style}
+						css={styles.root}
+					>
+						{children}
+					</div>
+				)
+			}}
 		</Popper>
 	);
 };

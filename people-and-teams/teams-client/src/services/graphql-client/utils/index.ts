@@ -50,7 +50,7 @@ export async function makeGraphQLRequestWithoutRetries<Data, Variables>(
 			} else if (errorPolicy === 'all') {
 				// Set timeout will postpone error throwing and de-touch it to another event loop,
 				// so we can return data along with throwing error
-				return new Promise((resolve, reject) => {
+				return new Promise((_resolve, reject) => {
 					setTimeout(() => {
 						reject(GraphQLError.from(errors));
 					}, 0);

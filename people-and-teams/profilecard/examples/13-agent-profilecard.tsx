@@ -2,8 +2,9 @@ import React from 'react';
 
 import fetchMock from 'fetch-mock';
 
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import AgentProfileCard from '../src/components/Agent/AgentProfileCard';
 import ProfileCardTrigger from '../src/components/common/ProfileCardTrigger';
@@ -12,10 +13,11 @@ import { type RovoAgentProfileCardInfo } from '../src/types';
 import ExampleWrapper from './helper/example-wrapper';
 import { getMockProfileClient } from './helper/util';
 
-const styles = xcss({ marginBlock: 'space.200' });
+const styles = cssMap({ wrapper: { marginBlock: token('space.200') } });
+
 const Section = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<Box padding="space.200" xcss={styles}>
+		<Box padding="space.200" xcss={styles.wrapper}>
 			<Inline space="space.100">{children}</Inline>
 		</Box>
 	);

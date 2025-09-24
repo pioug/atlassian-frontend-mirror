@@ -30,16 +30,21 @@
 		"./__mocks__/**/*",
 		"**/mock.*",
 		"**/codemods/**/*.ts",
-		"**/codemods/**/*.tsx"
+		"**/codemods/**/*.tsx",
+		"examples-utils/*.ts",
+		"examples-utils/*.tsx",
+		"examples-utils/**/*.ts",
+		"examples-utils/**/*.tsx",
+		"build/*.ts",
+		"build/*.tsx",
+		"build/**/*.ts",
+		"build/**/*.tsx"
 	],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__object/app"
 	},
 	"references": [
-		{
-			"path": "../../../build/formatting/tsconfig.app.json"
-		},
 		{
 			"path": "../icon/tsconfig.app.json"
 		},
@@ -51,9 +56,6 @@
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"
-		},
-		{
-			"path": "../codegen/tsconfig.app.json"
 		}
 	],
 	"files": []

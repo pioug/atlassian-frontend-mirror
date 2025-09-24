@@ -5,8 +5,7 @@ import Button from '@atlaskit/button/new';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import IconError from '@atlaskit/icon/glyph/cross-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics';
 
 import { ErrorTitle, ErrorWrapper } from '../../styled/Error';

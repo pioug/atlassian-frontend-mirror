@@ -1,7 +1,6 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 import {
 	AgentConversationStarters,
 	type AgentConversationStartersProps,

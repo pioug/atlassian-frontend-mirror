@@ -2,81 +2,12 @@
 import { css, type SerializedStyles } from '@emotion/react';
 
 import {
-	akEditorFloatingDialogZIndex,
 	akEditorMobileMaxWidth,
-	akEditorSwoopCubicBezier,
 	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 export const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 868;
-
-// box-shadow is overriden by the mainToolbar
-const mainToolbarWithKeyline = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	boxShadow: `${token('elevation.shadow.overflow')}`,
-});
-
-const mainToolbarTwoLineStyle = () => {
-	const editorToolbarHeight = FULL_PAGE_EDITOR_TOOLBAR_HEIGHT();
-	return css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		[`@media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px)`]: {
-			flexWrap: 'wrap',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			height: `calc(${editorToolbarHeight} * 2)`,
-		},
-	});
-};
-
-const flexibleIconSize = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'& span svg': {
-		maxWidth: '100%',
-	},
-});
-
-const mainToolbar = () => {
-	const editorToolbarHeight = FULL_PAGE_EDITOR_TOOLBAR_HEIGHT();
-	return css(
-		{
-			position: 'relative',
-			alignItems: 'center',
-			boxShadow: 'none',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			borderBottom: `${token('border.width')} solid ${token('color.border')}`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			transition: `box-shadow 200ms ${akEditorSwoopCubicBezier}`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			zIndex: akEditorFloatingDialogZIndex,
-			display: 'flex',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			height: editorToolbarHeight,
-			flexShrink: 0,
-			backgroundColor: token('elevation.surface', 'white'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'& object': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-				height: '0 !important',
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			[`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
-				display: 'grid',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				height: `calc(${editorToolbarHeight} * 2)`,
-			},
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/ui-styling-standard/no-unsafe-values
-		fg('platform-visual-refresh-icons') && flexibleIconSize,
-	);
-};
-
-export const mainToolbarStyle = (showKeyline: boolean, twoLineEditorToolbar: boolean) => [
-	mainToolbar,
-	showKeyline && mainToolbarWithKeyline,
-	twoLineEditorToolbar && mainToolbarTwoLineStyle,
-];
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const mainToolbarIconBeforeStyle: SerializedStyles = css({

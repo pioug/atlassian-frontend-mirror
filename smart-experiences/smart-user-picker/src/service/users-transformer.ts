@@ -13,6 +13,7 @@ import {
 } from '@atlaskit/user-picker';
 import { type IntlShape } from 'react-intl-next';
 import { messages } from '../i18n';
+import type { UserEntityType } from '../types';
 import { EntityType } from '../types';
 
 interface ServerItem {
@@ -29,6 +30,7 @@ interface ServerItem {
 interface ServerUser extends ServerItem {
 	name: string;
 	entityType: EntityType.USER;
+	userType?: UserEntityType;
 	avatarUrl: string;
 	email?: string;
 	attributes?: Record<string, string>;
@@ -94,6 +96,7 @@ const transformUser = (
 		return {
 			id: user.id,
 			type: user.nonLicensedUser ? ExternalUserType : UserType,
+			userType: user.userType,
 			avatarUrl: user.avatarUrl,
 			name: user.name,
 			email: user.email,

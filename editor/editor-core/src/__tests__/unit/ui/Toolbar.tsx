@@ -76,68 +76,64 @@ describe('Toolbar', () => {
 	});
 
 	eeTest
-		.describe('platform_editor_core_static_emotion_non_central', 'static_emotion_non_central')
+		.describe('platform_editor_preview_panel_responsiveness', 'preview_panel_responsiveness')
 		.each(() => {
-			eeTest
-				.describe('platform_editor_preview_panel_responsiveness', 'preview_panel_responsiveness')
-				.each(() => {
-					it('should re-render with different toolbar size when toolbar width changes', async () => {
-						setElementWidth(501);
+			it('should re-render with different toolbar size when toolbar width changes', async () => {
+				setElementWidth(501);
 
-						const toolbarItem = getMockedToolbarItem();
-						const toolbar = mount(
-							<ToolbarWithSizeDetector
-								items={[toolbarItem]}
-								editorView={{} as any}
-								eventDispatcher={{} as any}
-								providerFactory={{} as any}
-								appearance="full-page"
-								disabled={false}
-								containerElement={null}
-							/>,
-						);
+				const toolbarItem = getMockedToolbarItem();
+				const toolbar = mount(
+					<ToolbarWithSizeDetector
+						items={[toolbarItem]}
+						editorView={{} as any}
+						eventDispatcher={{} as any}
+						providerFactory={{} as any}
+						appearance="full-page"
+						disabled={false}
+						containerElement={null}
+					/>,
+				);
 
-						let toolbarElement = toolbar.getDOMNode() as Element | Array<Element | null>;
-						// getDOMNode seems to sometimes return an array instead of an element
-						// To fix that, we handle the array case by pulling out the first element value
-						if (Array.isArray(toolbarElement)) {
-							for (const el of toolbarElement) {
-								if (el && el instanceof Element) {
-									toolbarElement = el;
-									break;
-								}
-							}
-							if (!(toolbarElement instanceof Element)) {
-								throw new Error('Toolbar returned an empty/nullish array from getDOMNode');
-							}
+				let toolbarElement = toolbar.getDOMNode() as Element | Array<Element | null>;
+				// getDOMNode seems to sometimes return an array instead of an element
+				// To fix that, we handle the array case by pulling out the first element value
+				if (Array.isArray(toolbarElement)) {
+					for (const el of toolbarElement) {
+						if (el && el instanceof Element) {
+							toolbarElement = el;
+							break;
 						}
+					}
+					if (!(toolbarElement instanceof Element)) {
+						throw new Error('Toolbar returned an empty/nullish array from getDOMNode');
+					}
+				}
 
-						expect(toolbarItem).toHaveBeenCalledWith(
-							expect.objectContaining({
-								toolbarSize: ToolbarSize.M,
-							}),
-						);
+				expect(toolbarItem).toHaveBeenCalledWith(
+					expect.objectContaining({
+						toolbarSize: ToolbarSize.M,
+					}),
+				);
 
-						act(() => setWidth(1000));
+				act(() => setWidth(1000));
 
-						expect(toolbarItem).toHaveBeenCalledWith(
-							expect.objectContaining({
-								toolbarSize: ToolbarSize.XXL,
-							}),
-						);
+				expect(toolbarItem).toHaveBeenCalledWith(
+					expect.objectContaining({
+						toolbarSize: ToolbarSize.XXL,
+					}),
+				);
 
-						act(() => setWidth(100));
+				act(() => setWidth(100));
 
-						expect(toolbarItem).toHaveBeenCalledWith(
-							expect.objectContaining({
-								toolbarSize: ToolbarSize.XXXS,
-							}),
-						);
+				expect(toolbarItem).toHaveBeenCalledWith(
+					expect.objectContaining({
+						toolbarSize: ToolbarSize.XXXS,
+					}),
+				);
 
-						expect(toolbarItem).toBeCalled();
-						toolbar.unmount();
-					});
-				});
+				expect(toolbarItem).toBeCalled();
+				toolbar.unmount();
+			});
 		});
 });
 

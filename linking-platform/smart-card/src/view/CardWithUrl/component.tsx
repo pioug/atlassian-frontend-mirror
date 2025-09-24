@@ -1,6 +1,7 @@
 import React, { type MouseEvent, useCallback, useEffect, useMemo } from 'react';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
+import type { CardState } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -39,6 +40,9 @@ import { type CardWithUrlContentProps } from './types';
 
 const thirdPartyARIPrefix = 'ari:third-party';
 
+const isValidPlaceholderData = (placeholderData: CardState['details']) =>
+	placeholderData?.data && 'url' in placeholderData.data && 'name' in placeholderData.data;
+
 function Component({
 	id,
 	url,
@@ -66,13 +70,48 @@ function Component({
 	CompetitorPrompt,
 	hideIconLoadingSkeleton,
 	disablePreviewPanel,
-}: CardWithUrlContentProps) {
+	placeholderData,
+}: CardWithUrlContentProps & {
+	/**
+	 * @experimental
+	 * This is a new prop that is not part of the public API - DO NOT USE.
+	 * If provided, the card will display using the respective object for the first render (particularly useful for SSR),
+	 * while still resolving `url` in the background.
+	 * Placeholder data should be considered a transient state - in the sense that it will not persisted to the main store -
+	 * and it will be replaced by the actual data when the given `url` is resolved.
+	 */
+	placeholderData?: CardState['details'];
+}) {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 	const { fireEvent } = useAnalyticsEvents();
 
+	let isFlexibleUi = useMemo(() => isFlexibleUiCard(children, ui), [children, ui]);
+
+	const structuredPlaceholderData: CardState | undefined = fg(
+		'platform_initial_data_for_smart_cards',
+	)
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useMemo(() => {
+				// execute some basic validation logic to ensure we should consider using placeholder data
+				if (appearance === 'inline' && !isFlexibleUi && isValidPlaceholderData(placeholderData)) {
+					const data: CardState = {
+						status: 'resolved',
+						metadataStatus: undefined,
+						details: placeholderData,
+					};
+
+					return data;
+				}
+			}, [appearance, isFlexibleUi, placeholderData])
+		: undefined;
+
 	// Get state, actions for this card.
 	const { state, actions, config, renderers, error, isPreviewPanelAvailable, openPreviewPanel } =
-		useSmartLink(id, url);
+		useSmartLink(
+			id,
+			url,
+			fg('platform_initial_data_for_smart_cards') ? structuredPlaceholderData : undefined,
+		);
 	const ari = getObjectAri(state.details);
 	const name = getObjectName(state.details);
 	const definitionId = getDefinitionId(state.details);
@@ -81,8 +120,6 @@ function Component({
 	const services = getServices(state.details);
 	const thirdPartyARI = getThirdPartyARI(state.details);
 	const firstPartyIdentifier = getFirstPartyIdentifier();
-
-	let isFlexibleUi = useMemo(() => isFlexibleUiCard(children, ui), [children, ui]);
 
 	const actionOptions = combineActionOptions({
 		actionOptions: actionOptionsProp,

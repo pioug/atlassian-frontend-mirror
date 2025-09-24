@@ -1,17 +1,17 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import React from 'react';
 
-import { N50A, N60A } from '@atlaskit/theme/colors';
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-const themedBoxShadow = token(
-	'elevation.shadow.overlay',
-	`0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
-);
+export const CardWrapper = ({ children }: { children: React.ReactNode }) => {
+	return <Box xcss={styles.cardWrapper}>{children}</Box>;
+};
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const CardWrapper = styled.div({
-	display: 'inline-block',
-	borderRadius: token('radius.small', '3px'),
-	boxShadow: themedBoxShadow,
+const styles = cssMap({
+	cardWrapper: {
+		display: 'inline-block',
+		borderRadius: token('radius.small', '3px'),
+		boxShadow: token('elevation.shadow.overlay'),
+	},
 });

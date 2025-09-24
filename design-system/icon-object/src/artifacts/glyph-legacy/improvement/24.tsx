@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d105306415d0bd07548b1bf26e70ff2a>>
+ * @codegen <<SignedSource::72e25a9c5ac32725f5a1071253d49d31>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -8,7 +8,10 @@ import React from 'react';
 import { Icon } from '@atlaskit/icon/base';
 import type { GlyphProps } from '@atlaskit/icon/types';
 
-const Improvement24Icon = (props: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => (
+const Improvement24Icon: {
+	(props: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>): React.JSX.Element;
+	displayName: string;
+} = (props: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => (
 	<Icon
 		dangerouslySetGlyph={`<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path fill="#36b37e" fill-rule="evenodd" d="m13 7.422 3.284 3.285a1 1 0 1 0 1.414-1.414l-4.998-5a1 1 0 0 0-1.414 0l-4.998 5a1 1 0 1 0 1.414 1.414L11 7.407V19a1 1 0 0 0 2 0zM3 0h18a3 3 0 0 1 3 3v18a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3V3a3 3 0 0 1 3-3"/></svg>`}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

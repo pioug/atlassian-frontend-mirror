@@ -14,7 +14,15 @@
 		"**/stories/*.ts",
 		"**/stories/*.tsx",
 		"**/stories/**/*.ts",
-		"**/stories/**/*.tsx"
+		"**/stories/**/*.tsx",
+		"examples-utils/*.ts",
+		"examples-utils/*.tsx",
+		"examples-utils/**/*.ts",
+		"examples-utils/**/*.tsx",
+		"build/*.ts",
+		"build/*.tsx",
+		"build/**/*.ts",
+		"build/**/*.tsx"
 	],
 	"compilerOptions": {}
 }

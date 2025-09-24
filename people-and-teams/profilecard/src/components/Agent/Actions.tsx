@@ -5,6 +5,7 @@ import { defineMessages, useIntl } from 'react-intl-next';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { AgentDropdownMenu, ChatPillIcon } from '@atlaskit/rovo-agent-components';
@@ -12,6 +13,7 @@ import { AgentDropdownMenu, ChatPillIcon } from '@atlaskit/rovo-agent-components
 import { type ProfileClient, type RovoAgentProfileCardInfo } from '../../types';
 import { fireEvent } from '../../util/analytics';
 
+import { AgentActions as AgentActionsCompiled } from './ActionsCompiled';
 import { AgentDeleteConfirmationModal } from './AgentDeleteConfirmationModal';
 
 type AgentActionsProps = {
@@ -58,7 +60,7 @@ const actionsWrapperStyles = xcss({
 	color: 'color.text',
 });
 
-export const AgentActions = ({
+const _AgentActions = ({
 	onEditAgent,
 	onDeleteAgent,
 	onDuplicateAgent,
@@ -158,3 +160,9 @@ const messages = defineMessages({
 		description: 'Text for the "chat to agent" action to chat to the agent',
 	},
 });
+
+export const AgentActions = componentWithFG(
+	'profilecard_primitives_compiled',
+	AgentActionsCompiled,
+	_AgentActions,
+)

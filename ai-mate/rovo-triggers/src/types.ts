@@ -19,6 +19,7 @@ export type MessageSendPayload = PayloadCore<
 	'message-send',
 	{
 		prompt: string;
+		productKey?: string;
 	}
 >;
 

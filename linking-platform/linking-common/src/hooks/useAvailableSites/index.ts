@@ -122,14 +122,14 @@ export const useAvailableSitesV2 = ({ gatewayBaseUrl }: { gatewayBaseUrl?: strin
 		const fetchSites = async () => {
 			try {
 				if (fg('navx-1819-link-create-confluence-site-migration')) {
-					const { data } = await getAccessibleProducts({
+					const response = await getAccessibleProducts({
 						products: defaultProducts,
 						gatewayBaseUrl,
 					});
 
 					if (isMounted()) {
 						setState({
-							data: mapAccessibleProductsToAvailableSites(data),
+							data: mapAccessibleProductsToAvailableSites(response.data),
 							loading: false,
 							error: undefined,
 						});

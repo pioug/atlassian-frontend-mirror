@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 11.7.0
+
+### Minor Changes
+
+- [`be2f98085fa9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be2f98085fa9f) -
+  [ux] Introduce additional email props to smart user picker (displayEmailInByline,
+  enableEmailSearch, allowEmailSelectionWhenEmailMatched) and one type adjustment to user picker
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.6.9
 
 ### Patch Changes

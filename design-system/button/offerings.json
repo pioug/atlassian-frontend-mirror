@@ -20,11 +20,7 @@
 			"Limit to one primary button per section",
 			"Use subtle buttons for secondary actions",
 			"Use danger buttons sparingly for destructive actions",
-			"Group related buttons together with ButtonGroup",
-			"Use action verbs that describe the interaction",
-			"Keep text concise (1-3 words ideal)",
-			"Use buttons for actions, links for navigation",
-			"Only include one primary call to action (CTA) per area"
+			"Group related buttons together with ButtonGroup"
 		],
 		"contentGuidelines": [
 			"Use action verbs that describe the interaction",

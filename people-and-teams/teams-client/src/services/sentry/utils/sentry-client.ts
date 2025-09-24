@@ -52,6 +52,7 @@ async function requireSentryLib(): Promise<SentryClient | undefined> {
 	} catch (error) {
 		// eslint-disable-next-line no-console
 		console.warn('Ignoring rejected promise when loading sentry resource.', error);
+		return undefined;
 	}
 }
 

@@ -1,5 +1,13 @@
 # @atlaskit/link-test-helpers
 
+## 8.4.1
+
+### Patch Changes
+
+- [`e6be88cf8f62d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6be88cf8f62d) -
+  NAVX-1819 fixing site selector return types to match prod and updating mocks
+- Updated dependencies
+
 ## 8.4.0
 
 ### Minor Changes

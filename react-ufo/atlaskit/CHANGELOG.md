@@ -1,5 +1,15 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.10.1
+
+### Patch Changes
+
+- [`092ad737a2396`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/092ad737a2396) -
+  handle nested display contents elements in TTVC v4
+- [`63743e34fad29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63743e34fad29) -
+  Add an optional arg to func addError and addErrorToAll so that to error hash can be included in
+  UFO messages
+
 ## 4.10.0
 
 ### Minor Changes

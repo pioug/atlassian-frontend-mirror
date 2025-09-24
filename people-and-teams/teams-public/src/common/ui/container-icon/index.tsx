@@ -22,7 +22,7 @@ const styles = cssMap({
 		backgroundColor: token('elevation.surface.sunken'),
 	},
 	globeIconWrapperSmall: {
-		width: '24px',
+		minWidth: '24px',
 		height: '24px',
 		display: 'flex',
 		alignItems: 'center',

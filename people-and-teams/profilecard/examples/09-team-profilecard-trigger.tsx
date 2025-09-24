@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import ProfileCardClient from '../src/client/ProfileCardClient';
@@ -11,8 +10,11 @@ import TeamProfilecardTrigger from '../src/components/Team';
 import teamData from '../src/mocks/team-data';
 import { type Team } from '../src/types';
 
+import { BlankSpace } from './helper/blank-space';
 import { Radios, TeamCustomizer } from './helper/customization';
 import ExampleWrapper from './helper/example-wrapper';
+import { MainStage } from './helper/main-stage';
+import { Section } from './helper/section';
 import { getMockTeamClient } from './helper/util';
 
 const clientArgs = {
@@ -55,37 +57,25 @@ const profileClient = new ProfileCardClient(clientArgs, {
 	teamClient: mockTeamClient,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const MainStage = styled.div({
-	margin: token('space.200', '16px'),
-});
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const Section = styled.div({
-	margin: `${token('space.200', '16px')} 0`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	h4: {
-		margin: `${token('space.100', '8px')} 0`,
+
+const styles = cssMap({
+	container: {
+		borderRadius: token('radius.small', '3px'),
+		marginTop: token('space.100', '8px'),
+		marginRight: token('space.100', '8px'),
+		marginBottom: token('space.100', '8px'),
+		marginLeft: token('space.100', '8px'),
+		paddingTop: token('space.100', '8px'),
+		paddingRight: token('space.100', '8px'),
+		paddingBottom: token('space.100', '8px'),
+		paddingLeft: token('space.100', '8px'),
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const BlankSpace = styled.div({
-	height: '800px',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Container = styled.div({
-	border: `${token('border.width')} solid ${token('color.border', '#ccc')}`,
-	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-	borderRadius: token('radius.small', '3px'),
-	margin: token('space.100', '8px'),
-	padding: token('space.100', '8px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	strong: {
-		color: token('color.text', 'black'),
-	},
-});
+const Container = ({ children }: { children: React.ReactNode }) => {
+	return <Box xcss={styles.container}>{children}</Box>;
+};
 
 const defaultProps = {
 	teamId: '4ecf4119-dcc4-43a0-a60b-94ed7b7446b0',
@@ -95,7 +85,7 @@ const defaultProps = {
 		{
 			id: 'secondary',
 			label: 'Secondary',
-			callback: () => {},
+			callback: () => { },
 			link: 'about:blank',
 		},
 		{

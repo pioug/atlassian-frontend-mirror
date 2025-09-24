@@ -20,13 +20,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	platform_editor_memoized_node_check: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_memoized_node_check',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	platform_editor_media_card_vc_wrapper_attribute: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_media_card_vc_wrapper_attribute',
@@ -72,6 +65,14 @@ export const editorExperimentsConfig = {
 		productKeys: {
 			confluence: 'confluence_editor_experiment_test_new_package',
 			jira: 'jira_editor_experiment_test_new_package',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	platform_editor_table_drag_handle_hover: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_drag_handle_hover',
+			jira: 'platform_editor_table_drag_handle_hover',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -330,14 +331,6 @@ export const editorExperimentsConfig = {
 	platform_editor_stop_width_reflows: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_stop_width_reflows',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-06-11
-	platform_editor_core_static_emotion_non_central: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_core_static_emotion_non_central',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1056,10 +1049,26 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-09-18
+	platform_editor_toolbar_aifc_renderer_selection: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_aifc_renderer_selection',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-09-15
 	platform_editor_text_highlight_padding: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_text_highlight_padding',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-17
+	cc_complexit_fe_emoji_stability: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_complexit_fe_emoji_stability',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

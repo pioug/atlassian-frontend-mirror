@@ -10,60 +10,11 @@ import { css, jsx } from '@emotion/react';
 
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
 const akEditorMenuZIndex = 500;
 const akEditorToolbarKeylineHeight = 2;
-
-const mainToolbarWrapperStyle = (
-	isTwoLineEditorToolbar = false,
-	isToolbarAifcEnabled = false,
-	/* eslint-disable @atlaskit/platform/ensure-feature-flag-registration */
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
-) => css`
-	position: relative;
-	align-items: center;
-	padding: ${token('space.100', '8px')} ${token('space.100', '8px')} 0;
-	display: flex;
-	height: auto;
-	background-color: ${token('elevation.surface', 'white')};
-	box-shadow: none;
-	${isToolbarAifcEnabled ? '' : `padding-left: ${token('space.250', '20px')};`}
-
-	& > div {
-		> :first-child:not(style),
-		> style:first-child + * {
-			margin-left: 0;
-		}
-		${isTwoLineEditorToolbar &&
-		`
-        @media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px) {
-          flex-direction: column-reverse;
-          align-items: end;
-          display: flex;
-          justify-content: flex-end;
-        }
-
-        /* make this more explicit for a toolbar */
-        > *:nth-child(1) {
-          @media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px) {
-            > div:nth-child(2) {
-              justify-content: flex-end;
-              display: flex;
-            }
-          }
-        }
-    `}
-	}
-
-	.block-type-btn {
-		padding-left: 0;
-	}
-
-	${fg('platform-visual-refresh-icons') && 'span svg { max-width: 100%; }'}
-`;
 
 const mainToolbarWrapperStyleNew = css({
 	position: 'relative',
@@ -123,23 +74,6 @@ const mainToolbarWrapperStylesVisualRefresh = css({
 	'span svg': { maxWidth: '100%' },
 });
 
-/* eslint-enable @atlaskit/platform/ensure-feature-flag-registration */
-
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-const stickyToolbarWrapperStyle = css`
-	/* stylelint-disable declaration-block-no-duplicate-properties */
-	position: relative;
-	position: sticky;
-	/* stylelint-enable declaration-block-no-duplicate-properties */
-	padding-bottom: ${token('space.100', '8px')};
-	z-index: ${akEditorMenuZIndex};
-	transition: box-shadow ease-in-out 0.2s;
-	&.show-keyline {
-		box-shadow: 0 ${akEditorToolbarKeylineHeight}px 0 0
-			${token('color.background.accent.gray.subtlest', '#F1F2F4')};
-	}
-`;
-
 const stickyToolbarWrapperStyleNew = css({
 	position: 'sticky',
 	paddingBottom: token('space.100', '8px'),
@@ -176,25 +110,13 @@ const StickyToolbar = (props: StickyToolbarProps) => {
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/prefer-primitives
 		<div
-			css={
-				expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true)
-					? [
-							mainToolbarWrapperStyleNew,
-							props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
-							fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
-							stickyToolbarWrapperStyleNew,
-							props.isNewToolbarEnabled && mainToolbarWithoutLeftPadding,
-						]
-					: [
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							mainToolbarWrapperStyle(
-								props.twoLineEditorToolbar,
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								props.isNewToolbarEnabled,
-							),
-							stickyToolbarWrapperStyle,
-						]
-			}
+			css={[
+				mainToolbarWrapperStyleNew,
+				props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
+				fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
+				stickyToolbarWrapperStyleNew,
+				props.isNewToolbarEnabled && mainToolbarWithoutLeftPadding,
+			]}
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 			style={{ top: `${top}px` }}
 			data-testid="ak-editor-main-toolbar"
@@ -215,21 +137,12 @@ type FixedToolbarProps = {
 const FixedToolbar = (props: FixedToolbarProps) => (
 	// eslint-disable-next-line @atlaskit/design-system/prefer-primitives
 	<div
-		css={
-			expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true)
-				? [
-						mainToolbarWrapperStyleNew,
-						props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
-						fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
-						props.isNewToolbarEnabled && mainToolbarWithoutLeftPadding,
-					]
-				: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					mainToolbarWrapperStyle(
-						props.twoLineEditorToolbar,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						props.isNewToolbarEnabled,
-					)
-		}
+		css={[
+			mainToolbarWrapperStyleNew,
+			props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
+			fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
+			props.isNewToolbarEnabled && mainToolbarWithoutLeftPadding,
+		]}
 		data-testid="ak-editor-main-toolbar"
 	>
 		{props.children}

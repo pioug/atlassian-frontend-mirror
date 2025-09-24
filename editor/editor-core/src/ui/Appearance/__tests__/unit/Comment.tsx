@@ -13,7 +13,6 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { sleep } from '@atlaskit/editor-test-helpers/sleep';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
@@ -313,70 +312,56 @@ describe('comment editor', () => {
 	});
 
 	describe('sticky toolbar styles', () => {
-		eeTest
-			.describe(
-				'platform_editor_core_static_emotion_non_central',
-				'static emotion non central styles',
-			)
-			.each(() => {
-				ffTest.on('platform-visual-refresh-icons', 'visual refresh icons on', () => {
-					it('should render sticky toolbar with correct styles', () => {
-						const fullPage = mountWithIntl(
-							<Comment
-								editorAPI={undefined}
-								onSave={true as any}
-								providerFactory={{} as any}
-								editorDOMElement={<div />}
-								featureFlags={{}}
-								// this would enable two line toolbar
-								customPrimaryToolbarComponents={<div>custom primary toolbar</div>}
-								useStickyToolbar
-							/>,
-						);
-						const stickyToolbar = fullPage.find('div[data-testid="ak-editor-main-toolbar"]');
-						expect(stickyToolbar.exists()).toBe(true);
-						expect(stickyToolbar).toHaveStyleRule('z-index', '500');
-						expect(stickyToolbar).toHaveStyleRule('position', 'sticky');
-						const emotionStyles = Array.from(document.querySelectorAll('style[data-emotion]'))
-							.map((el) => el.textContent)
-							.filter((style) => style?.includes('-StickyToolbar'))
-							.join('\n');
-						expect(emotionStyles).toMatchSnapshot();
-					});
-				});
+		ffTest.on('platform-visual-refresh-icons', 'visual refresh icons on', () => {
+			it('should render sticky toolbar with correct styles', () => {
+				const fullPage = mountWithIntl(
+					<Comment
+						editorAPI={undefined}
+						onSave={true as any}
+						providerFactory={{} as any}
+						editorDOMElement={<div />}
+						featureFlags={{}}
+						// this would enable two line toolbar
+						customPrimaryToolbarComponents={<div>custom primary toolbar</div>}
+						useStickyToolbar
+					/>,
+				);
+				const stickyToolbar = fullPage.find('div[data-testid="ak-editor-main-toolbar"]');
+				expect(stickyToolbar.exists()).toBe(true);
+				expect(stickyToolbar).toHaveStyleRule('z-index', '500');
+				expect(stickyToolbar).toHaveStyleRule('position', 'sticky');
+				const emotionStyles = Array.from(document.querySelectorAll('style[data-emotion]'))
+					.map((el) => el.textContent)
+					.filter((style) => style?.includes('-StickyToolbar'))
+					.join('\n');
+				expect(emotionStyles).toMatchSnapshot();
 			});
+		});
 	});
 
 	describe('fixed toolbar styles', () => {
-		eeTest
-			.describe(
-				'platform_editor_core_static_emotion_non_central',
-				'static emotion non central styles',
-			)
-			.each(() => {
-				ffTest.on('platform-visual-refresh-icons', 'visual refresh icons', () => {
-					it('should render sticky toolbar with correct styles', () => {
-						const fullPage = mountWithIntl(
-							<Comment
-								editorAPI={undefined}
-								onSave={true as any}
-								providerFactory={{} as any}
-								editorDOMElement={<div />}
-								featureFlags={{}}
-								// this would enable two line toolbar
-								customPrimaryToolbarComponents={<div>custom primary toolbar</div>}
-							/>,
-						);
-						const fixedToolbar = fullPage.find('div[data-testid="ak-editor-main-toolbar"]');
-						expect(fixedToolbar.exists()).toBe(true);
-						expect(fixedToolbar).toHaveStyleRule('position', 'relative');
-						const emotionStyles = Array.from(document.querySelectorAll('style[data-emotion]'))
-							.map((el) => el.textContent)
-							.filter((style) => style?.includes('-FixedToolbar'))
-							.join('\n');
-						expect(emotionStyles).toMatchSnapshot();
-					});
-				});
+		ffTest.on('platform-visual-refresh-icons', 'visual refresh icons', () => {
+			it('should render sticky toolbar with correct styles', () => {
+				const fullPage = mountWithIntl(
+					<Comment
+						editorAPI={undefined}
+						onSave={true as any}
+						providerFactory={{} as any}
+						editorDOMElement={<div />}
+						featureFlags={{}}
+						// this would enable two line toolbar
+						customPrimaryToolbarComponents={<div>custom primary toolbar</div>}
+					/>,
+				);
+				const fixedToolbar = fullPage.find('div[data-testid="ak-editor-main-toolbar"]');
+				expect(fixedToolbar.exists()).toBe(true);
+				expect(fixedToolbar).toHaveStyleRule('position', 'relative');
+				const emotionStyles = Array.from(document.querySelectorAll('style[data-emotion]'))
+					.map((el) => el.textContent)
+					.filter((style) => style?.includes('-FixedToolbar'))
+					.join('\n');
+				expect(emotionStyles).toMatchSnapshot();
 			});
+		});
 	});
 });

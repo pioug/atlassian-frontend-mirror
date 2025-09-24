@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { EmojiProvider } from '../api/EmojiResource';
 import { EmojiContextProvider } from './EmojiContextProvider';
+
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export interface EmojiCommonProviderProps {
 	/**
@@ -18,18 +20,35 @@ export interface EmojiCommonProviderProps {
  * <EmojiCommonProvider emojiProvider={emojiResource} />
  */
 export const EmojiCommonProvider = (props: React.PropsWithChildren<EmojiCommonProviderProps>) => {
-	if (props.emojiProvider) {
+	const emojiContextValue = useMemo(() =>
+		props.emojiProvider ?
+		({
+			emoji: {
+				emojiProvider: props.emojiProvider,
+			},
+		}) : undefined, [props.emojiProvider]);
+
+	if (!!emojiContextValue && expValEquals(
+			'cc_complexit_fe_emoji_stability',
+			'isEnabled',
+			true,
+	)) {
 		return (
-			<EmojiContextProvider
-				emojiContextValue={{
-					emoji: {
-						emojiProvider: props.emojiProvider,
-					},
-				}}
-			>
+			<EmojiContextProvider emojiContextValue={emojiContextValue}>
 				{props.children}
 			</EmojiContextProvider>
 		);
+	} else if (props.emojiProvider) {
+		return (
+			<EmojiContextProvider emojiContextValue={{
+				emoji: {
+					emojiProvider: props.emojiProvider,
+				},
+			}}>
+				{props.children}
+			</EmojiContextProvider>
+		);
+	} else {
+		return <>{props.children}</>;
 	}
-	return <>{props.children}</>;
 };

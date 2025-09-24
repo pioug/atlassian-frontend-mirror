@@ -595,6 +595,7 @@ export function addError(
 	errorMessage: string,
 	errorStack?: string,
 	forcedError?: boolean,
+	errorHash?: string,
 ) {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
@@ -605,6 +606,7 @@ export function addError(
 			errorMessage,
 			errorStack,
 			forcedError,
+			errorHash,
 		});
 	}
 }
@@ -615,6 +617,7 @@ export function addErrorToAll(
 	errorType: string,
 	errorMessage: string,
 	errorStack?: string,
+	errorHash?: string,
 ) {
 	interactions.forEach((interaction) => {
 		interaction.errors.push({
@@ -623,6 +626,7 @@ export function addErrorToAll(
 			errorType,
 			errorMessage,
 			errorStack,
+			errorHash,
 		});
 	});
 }

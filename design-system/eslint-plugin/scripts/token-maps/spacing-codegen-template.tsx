@@ -19,18 +19,34 @@ const negativeSpaceTokens = tokens
 		fallback: t.value,
 	}));
 
-export const createSpacingStylesFromTemplate = () => {
+export const createSpacingStylesFromTemplate = (): string => {
+	const typeAndValuePositive = positiveSpaceTokens
+			.map(({ name, fallback }) => `'${fallback}': '${name}',`)
+			.join('\t\n');
+	const typePositiveUnionKeys = positiveSpaceTokens
+		.map(({ fallback }) => `'${fallback}'`)
+		.join(' | ');
+
+	const typeAndValueNegative = negativeSpaceTokens
+			.map(({ name, fallback }) => `'${fallback}': '${name}',`)
+			.join('\t\n');
+	const typeNegativeUnionKeys = negativeSpaceTokens
+		.map(({ fallback }) => `'${fallback}'`)
+		.join(' | ');
+
 	const output = [
-		`export const positiveSpaceMap = {\n${positiveSpaceTokens
-			.map(({ name, fallback }) => `'${fallback}': '${name}',`)
-			.join('\t\n')}}`,
-		`export type Space = keyof typeof positiveSpaceMap;\n`,
-		`export const negativeSpaceMap = {\n${negativeSpaceTokens
-			.map(({ name, fallback }) => `'${fallback}': '${name}',`)
-			.join('\t\n')}}`,
-		`export type NegativeSpace = keyof typeof negativeSpaceMap;\n`,
-		`export const allSpaceMap = { ...positiveSpaceMap, ...negativeSpaceMap };\n`,
-		`export type AllSpace = keyof typeof allSpaceMap;\n`,
+		`export const positiveSpaceMap: {
+			${typeAndValuePositive}
+		} = {\n${typeAndValuePositive}}`,
+		`export type Space = ${typePositiveUnionKeys};\n`,
+		`export const negativeSpaceMap: {
+			${typeAndValueNegative}
+		} = {\n${typeAndValueNegative}}`,
+		`export type NegativeSpace = ${typeNegativeUnionKeys};\n`,
+		`export const allSpaceMap: {
+			${[typeAndValuePositive, typeAndValueNegative].join('\t\n')}
+		} = { ...positiveSpaceMap, ...negativeSpaceMap };\n`,
+		`export type AllSpace = ${[typePositiveUnionKeys, typeNegativeUnionKeys].join(' | ')};\n`,
 	].join('\t\n');
 
 	return format(output, 'typescript');

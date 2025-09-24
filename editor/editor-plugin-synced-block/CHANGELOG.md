@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 2.3.0
+
+### Minor Changes
+
+- [`687c1b8fa7801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/687c1b8fa7801) -
+  EDITOR-1566 bump adf-schema + update validator
+- [`578ac13fd9edd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/578ac13fd9edd) -
+  Add Sync Block provider as new package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.2
 
 ### Patch Changes

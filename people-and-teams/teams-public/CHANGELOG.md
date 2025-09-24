@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.60.1
+
+### Patch Changes
+
+- [`4d5bc9551475a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d5bc9551475a) -
+  Added changes for updating relay store for member count updates
+
 ## 0.60.0
 
 ### Minor Changes

@@ -11,42 +11,44 @@ import { SpotlightContext } from '../../../controllers/context';
 
 const styles = cssMap({
 	root: {
-		position: 'relative',
-		zIndex: 700,
-		width: '15px',
-		height: '15px',
-		transform: 'rotate(45deg)',
 		backgroundColor: token('color.background.neutral.bold'),
+		borderEndStartRadius: '1px',
+		clipPath: 'polygon(0 0,100% 100%,0 100%)',
+		height: '15px',
+		position: 'relative',
+		width: '15px',
+		zIndex: 700,
+
 	},
 	'top-start': {
-		borderEndEndRadius: '1px',
+		transform: 'rotate(315deg)',
 	},
 	'top-center': {
-		borderEndEndRadius: '1px',
+		transform: 'rotate(315deg)',
 	},
 	'top-end': {
-		borderEndEndRadius: '1px',
+		transform: 'rotate(315deg)',
 	},
 	'bottom-start': {
-		borderStartStartRadius: '1px',
+		transform: 'rotate(135deg)',
 	},
 	'bottom-center': {
-		borderStartStartRadius: '1px',
+		transform: 'rotate(135deg)',
 	},
 	'bottom-end': {
-		borderStartStartRadius: '1px',
+		transform: 'rotate(135deg)',
 	},
 	'right-start': {
-		borderEndStartRadius: '1px',
+		transform: 'rotate(45deg)',
 	},
 	'right-end': {
-		borderEndStartRadius: '1px',
+		transform: 'rotate(45deg)',
 	},
 	'left-start': {
-		borderStartEndRadius: '1px',
+		transform: 'rotate(225deg)',
 	},
 	'left-end': {
-		borderStartEndRadius: '1px',
+		transform: 'rotate(225deg)',
 	},
 });
 

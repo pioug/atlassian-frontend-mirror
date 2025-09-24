@@ -14,6 +14,7 @@ export {
 	mocks,
 	// Client classes
 	ResolvedClient,
+	ResolvedClientWithDelay,
 	ResolvingClient,
 	ErroredClient,
 	ForbiddenClient,

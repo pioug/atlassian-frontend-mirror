@@ -1,6 +1,5 @@
 import React from 'react';
 
-import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
@@ -12,15 +11,9 @@ import type {
 	getPosHandler,
 	getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
-import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
-import type { LimitedModePluginState } from '@atlaskit/editor-plugin-limited-mode';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
-import {
-	type EditorState,
-	type PluginKey,
-	type SelectionBookmark,
-} from '@atlaskit/editor-prosemirror/state';
+import { type EditorState, type SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
@@ -28,15 +21,11 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-config';
-import { pluginKey as tableDragAndDropPluginKey } from '../pm-plugins/drag-and-drop/plugin-key';
 import { getPluginState } from '../pm-plugins/plugin-factory';
-import { pluginKey } from '../pm-plugins/plugin-key';
-import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing/plugin-key';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
 import { isTableNested } from '../pm-plugins/utils/nodes';
 import type { PluginInjectionAPI } from '../types';
 
-import TableComponent from './TableComponent';
 import { TableComponentWithSharedState } from './TableComponentWithSharedState';
 import { tableNodeSpecWithFixedToDOM } from './toDOM';
 import type { Props } from './types';
@@ -277,127 +266,21 @@ export default class TableView extends ReactNodeView<Props> {
 	};
 
 	render(props: Props, forwardRef: ForwardRef) {
-		if (fg('platform_editor_table_use_shared_state_hook_fg')) {
-			return (
-				<TableComponentWithSharedState
-					forwardRef={forwardRef}
-					getNode={this.getNode}
-					view={props.view}
-					options={props.options}
-					eventDispatcher={props.eventDispatcher}
-					api={props.pluginInjectionApi}
-					allowColumnResizing={props.allowColumnResizing}
-					allowTableAlignment={props.allowTableAlignment}
-					allowTableResizing={props.allowTableResizing}
-					allowControls={props.allowControls}
-					getPos={props.getPos}
-					getEditorFeatureFlags={props.getEditorFeatureFlags}
-					dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-				/>
-			);
-		}
-		// Please, do not copy or use this kind of code below
-		// @ts-ignore
-		const fakePluginKey = {
-			key: 'widthPlugin$',
-			getState: (state: EditorState) => {
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				return (state as any)['widthPlugin$'];
-			},
-		} as PluginKey;
-
-		// Please, do not copy or use this kind of code below
-		// @ts-ignore
-		const fakeMediaPluginKey = {
-			key: 'mediaPlugin$',
-			getState: (state: EditorState) => {
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				return (state as any)['mediaPlugin$'];
-			},
-		} as PluginKey;
-
 		return (
-			<WithPluginState
-				plugins={{
-					pluginState: pluginKey,
-					tableResizingPluginState: tableResizingPluginKey,
-					tableWidthPluginState: tableWidthPluginKey,
-					widthPlugin: fakePluginKey,
-					mediaState: fakeMediaPluginKey,
-					tableDragAndDropState: tableDragAndDropPluginKey,
-
-					limitedModePlugin: props.pluginInjectionApi?.limitedMode?.sharedState.currentState()
-						?.limitedModePluginKey as PluginKey<LimitedModePluginState>,
-				}}
-				editorView={props.view}
-				render={(pluginStates) => {
-					const { tableResizingPluginState, tableWidthPluginState, pluginState, mediaState } =
-						pluginStates;
-					const containerWidth = props.getEditorContainerWidth();
-
-					const isTableResizing = tableWidthPluginState?.resizing;
-					const isResizing = Boolean(tableResizingPluginState?.dragging || isTableResizing);
-
-					/**
-					 *  ED-19810
-					 *  There is a getPos issue coming from this code. We need to apply this workaround for now and apply a patch
-					 *  directly to confluence since this bug is now in production.
-					 */
-					let tablePos: number | undefined;
-					try {
-						tablePos = props.getPos ? props.getPos() : undefined;
-					} catch (e) {
-						tablePos = undefined;
-					}
-
-					// Ignored via go/ees005
-					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					const tableActive = tablePos === pluginState!.tablePos && !isTableResizing;
-
-					return (
-						<TableComponent
-							view={props.view}
-							allowColumnResizing={props.allowColumnResizing}
-							eventDispatcher={props.eventDispatcher}
-							getPos={props.getPos}
-							isMediaFullscreen={mediaState?.isFullscreen}
-							options={props.options}
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							allowControls={pluginState!.pluginConfig.allowControls!}
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							isHeaderRowEnabled={pluginState!.isHeaderRowEnabled}
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							isHeaderColumnEnabled={pluginState!.isHeaderColumnEnabled}
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							isDragAndDropEnabled={pluginState!.isDragAndDropEnabled}
-							isTableScalingEnabled={props.options?.isTableScalingEnabled} // this.options?.isTableScalingEnabled same as TableOptions.isTableScalingEnabled same as pluginState.isTableScalingEnabled
-							allowTableAlignment={props.allowTableAlignment}
-							allowTableResizing={props.allowTableResizing}
-							tableActive={tableActive}
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							ordering={pluginState!.ordering as TableColumnOrdering}
-							isResizing={isResizing}
-							getNode={this.getNode}
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							containerWidth={containerWidth!}
-							contentDOM={forwardRef}
-							getEditorFeatureFlags={props.getEditorFeatureFlags}
-							dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-							pluginInjectionApi={props.pluginInjectionApi}
-							limitedMode={pluginStates.limitedModePlugin?.documentSizeBreachesThreshold ?? false}
-						/>
-					);
-				}}
+			<TableComponentWithSharedState
+				forwardRef={forwardRef}
+				getNode={this.getNode}
+				view={props.view}
+				options={props.options}
+				eventDispatcher={props.eventDispatcher}
+				api={props.pluginInjectionApi}
+				allowColumnResizing={props.allowColumnResizing}
+				allowTableAlignment={props.allowTableAlignment}
+				allowTableResizing={props.allowTableResizing}
+				allowControls={props.allowControls}
+				getPos={props.getPos}
+				getEditorFeatureFlags={props.getEditorFeatureFlags}
+				dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
 			/>
 		);
 	}

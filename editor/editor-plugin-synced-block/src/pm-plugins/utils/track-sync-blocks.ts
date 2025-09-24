@@ -1,6 +1,6 @@
-import type { SyncBlockStoreManager } from '@atlaskit/editor-common/sync-block';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncBlockAttrs } from '../../syncedBlockPluginType';
 

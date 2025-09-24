@@ -10,17 +10,19 @@ import {
 	ForbiddenWithSiteForbiddenClient,
 	ForbiddenWithSitePendingRequestClient,
 	ForbiddenWithSiteRequestAccessClient,
+	mocks,
 	NotFoundClient,
 	NotFoundWithNoIconClient,
 	NotFoundWithSiteAccessExistsClient,
 	ResolvedClient,
+	ResolvedClientWithDelay,
 	ResolvingClient,
 	UnAuthClient,
 	UnAuthClientWithNoAuthFlow,
 	UnAuthClientWithNoIcon,
 } from '@atlaskit/link-test-helpers';
 import type { Card } from '@atlaskit/smart-card';
-import type { CardSSR } from '@atlaskit/smart-card/ssr';
+import { CardSSR } from '@atlaskit/smart-card/ssr';
 
 import type CardView from '../utils/card-view';
 
@@ -102,6 +104,25 @@ const CardViewExample = ({
 			title="[Unauthorized] Default Icon"
 		/>
 		<CardViewSection {...props} client={new ErroredClient()} title="[Error]" />
+		<hr role="presentation" />
+		<CardViewSection
+			{...props}
+			client={new ResolvingClient()}
+			title="[Resolving] with placeholder data"
+			description='This will always be "resolving" but it should display data as `placeholderData` prop is provided'
+			// ANIP-288: placeholderData is not part of the public API for CardProps YET
+			{...({ placeholderData: mocks.simpleProjectPlaceholderData })}
+			CardComponent={CardSSR}
+		/>
+		<CardViewSection
+			{...props}
+			client={new ResolvedClientWithDelay()}
+			title="[ResolveWithDelay] with placeholder data"
+			description='This will display `placeholderData` but will switch to "resolved" data after an initial delay'
+			// ANIP-288: placeholderData is not part of the public API for CardProps YET
+			{...({ placeholderData: mocks.simpleProjectPlaceholderData })}
+			CardComponent={CardSSR}
+		/>
 	</React.Fragment>
 );
 

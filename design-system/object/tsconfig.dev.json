@@ -29,9 +29,17 @@
 		"**/stories/*.ts",
 		"**/stories/*.tsx",
 		"**/stories/**/*.ts",
-		"**/stories/**/*.tsx"
+		"**/stories/**/*.tsx",
+		"examples-utils/*.ts",
+		"examples-utils/*.tsx",
+		"examples-utils/**/*.ts",
+		"examples-utils/**/*.tsx",
+		"build/*.ts",
+		"build/*.tsx",
+		"build/**/*.ts",
+		"build/**/*.tsx"
 	],
-	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"exclude": ["./dist/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__object/dev"
@@ -42,6 +50,9 @@
 		},
 		{
 			"path": "../accessibility-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/formatting/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
@@ -69,6 +80,9 @@
 		},
 		{
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+		},
+		{
+			"path": "../codegen/tsconfig.app.json"
 		}
 	]
 }

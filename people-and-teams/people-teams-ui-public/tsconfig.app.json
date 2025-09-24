@@ -38,9 +38,6 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/legacy-custom-icons/tsconfig.app.json"
-		},
-		{
 			"path": "../../platform/feature-flags-react/tsconfig.app.json"
 		},
 		{

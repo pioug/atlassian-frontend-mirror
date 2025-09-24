@@ -8,7 +8,7 @@ import Heading from '@atlaskit/heading';
 import { Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { allObjectTiles } from '../src/components/object-tile/all-object-tiles';
+import { allObjectTiles } from '../examples-utils/all-object-tiles';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import type { ObjectTileSize } from '../src/components/object-tile/types';
 

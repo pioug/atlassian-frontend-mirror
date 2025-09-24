@@ -9,7 +9,6 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { token } from '@atlaskit/tokens';
 
@@ -24,7 +23,7 @@ import { TableCssClassName as ClassName } from '../../../types';
 import type { CellHoverMeta, DraggableSourceData, HandleTypes } from '../../../types';
 import { dropTargetExtendedWidth } from '../../consts';
 import type { DragHandleAppearance } from '../../DragHandle';
-import { DragHandle, DragHandleWithSharedState } from '../../DragHandle';
+import { DragHandle } from '../../DragHandle';
 import RowDropTarget from '../RowDropTarget';
 
 type DragControlsProps = {
@@ -215,42 +214,22 @@ export const DragControls = ({
 				}}
 				data-testid={`table-floating-row-${isHover ? rowIndex : selectedRowIndexes[0]}-drag-handle`}
 			>
-				{fg('platform_editor_table_use_shared_state_hook_fg') ? (
-					<DragHandleWithSharedState
-						isDragMenuTarget={!isHover}
-						direction="row"
-						tableLocalId={currentNodeLocalId}
-						indexes={indexes}
-						forceDefaultHandle={!isHover}
-						previewWidth={tableWidth}
-						previewHeight={previewHeight}
-						appearance={appearance}
-						hoveredCell={hoveredCell}
-						onClick={handleClick}
-						onMouseOver={handleMouseOver}
-						onMouseOut={handleMouseOut}
-						toggleDragMenu={toggleDragMenuHandler}
-						editorView={editorView}
-						api={api}
-					/>
-				) : (
-					<DragHandle
-						isDragMenuTarget={!isHover}
-						direction="row"
-						tableLocalId={currentNodeLocalId}
-						indexes={indexes}
-						forceDefaultHandle={!isHover}
-						previewWidth={tableWidth}
-						previewHeight={previewHeight}
-						appearance={appearance}
-						hoveredCell={hoveredCell}
-						onClick={handleClick}
-						onMouseOver={handleMouseOver}
-						onMouseOut={handleMouseOut}
-						toggleDragMenu={toggleDragMenuHandler}
-						editorView={editorView}
-					/>
-				)}
+				<DragHandle
+					isDragMenuTarget={!isHover}
+					direction="row"
+					tableLocalId={currentNodeLocalId}
+					indexes={indexes}
+					forceDefaultHandle={!isHover}
+					previewWidth={tableWidth}
+					previewHeight={previewHeight}
+					appearance={appearance}
+					hoveredCell={hoveredCell}
+					onClick={handleClick}
+					onMouseOver={handleMouseOver}
+					onMouseOut={handleMouseOut}
+					toggleDragMenu={toggleDragMenuHandler}
+					editorView={editorView}
+				/>
 			</div>
 		);
 	};

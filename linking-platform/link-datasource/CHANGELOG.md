@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 4.25.0
+
+### Minor Changes
+
+- [`687c1b8fa7801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/687c1b8fa7801) -
+  EDITOR-1566 bump adf-schema + update validator
+
+### Patch Changes
+
+- [`e6be88cf8f62d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6be88cf8f62d) -
+  NAVX-1819 fixing site selector return types to match prod and updating mocks
+- Updated dependencies
+
 ## 4.24.3
 
 ### Patch Changes

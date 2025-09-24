@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
 import sample from 'lodash/sample';
-
-import { token } from '@atlaskit/tokens';
 
 import TeamProfileCard from '../src/components/Team/TeamProfileCard';
 import teamData from '../src/mocks/team-data';
@@ -12,12 +8,8 @@ import { type TeamProfileCardErrorType } from '../src/types';
 
 import { Radios, TeamCustomizer } from './helper/customization';
 import ExampleWrapper from './helper/example-wrapper';
+import { MainStage } from './helper/main-stage';
 import { CardWrapper } from './helper/wrapper';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const MainStage = styled.div({
-	margin: token('space.200', '16px'),
-});
 
 const props = {
 	team: teamData({}),

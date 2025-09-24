@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -14,8 +14,6 @@ const styles = cssMap({
 		paddingLeft: token('space.300', '24px'),
 	},
 	errorTitle: {
-		font: token('font.body'),
-		color: token('color.text'),
 		marginTop: token('space.100', '8px'),
 	},
 	teamErrorText: {
@@ -29,7 +27,7 @@ export const ErrorWrapper = (props: { children: React.ReactNode; testId?: string
 );
 
 export const ErrorTitle = (props: { children: React.ReactNode }) => (
-	<Box xcss={cx(styles.errorTitle)}>{props.children}</Box>
+	<Box xcss={styles.errorTitle}><Text color='color.text'>{props.children}</Text></Box>
 );
 
 export const TeamErrorText = (props: { children: React.ReactNode }) => (

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
 // @ts-ignore
 import uid from 'uid';
 
+import { cssMap } from '@atlaskit/css';
+import { Box, type BoxProps } from '@atlaskit/primitives/compiled';
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -13,27 +13,40 @@ import { profiles } from '../../src/mocks';
 import { reportingLinesData } from '../../src/mocks/reporting-lines-data';
 import { type LozengeProps, type StatusModifiedDateType, type StatusType } from '../../src/types';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const StoryWrapper = styled.div({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+const styles = cssMap({
 	label: {
 		color: token('color.text', N800),
 		marginRight: token('space.100', '8px'),
-		WebkitUserSelect: 'none',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	ul: {
+	list: {
 		margin: 0,
 		padding: 0,
 		listStyle: 'none',
-		float: 'left',
+	},
+	profileCardWrapper: {
+		height: '400px',
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const ProfileCardWrapper = styled.div({
-	height: '400px',
-});
+const List = ({ children }: { children: React.ReactNode }) => {
+	return (
+		<Box xcss={styles.list} as="ul">
+			{children}
+		</Box>
+	);
+};
+
+const Label = ({ children }: { children: React.ReactNode } & BoxProps<'label'>) => {
+	return (
+		<Box xcss={styles.label} as="label">
+			{children}
+		</Box>
+	);
+};
+
+const ProfileCardWrapper = ({ children }: { children: React.ReactNode }) => {
+	return <Box xcss={styles.profileCardWrapper}>{children}</Box>;
+};
 
 const handleActionClick = (title: string) => () => {
 	console.log(`${title} button clicked`);
@@ -143,7 +156,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 	createCheckboxBooleanAttribute(attribute: keyof State) {
 		const id = `label-${uid()}`;
 		return (
-			<label htmlFor={id}>
+			<Label htmlFor={id}>
 				{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 				<input
 					checked={Boolean(this.state[attribute])}
@@ -155,7 +168,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 					type="checkbox"
 				/>
 				{attribute}
-			</label>
+			</Label>
 		);
 	}
 
@@ -163,7 +176,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 		const id = `label-${uid()}`;
 
 		return (
-			<label htmlFor={id}>
+			<Label htmlFor={id}>
 				{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 				<input
 					checked={this.state.status === attribute}
@@ -172,7 +185,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 					type="radio"
 				/>
 				{attribute}
-			</label>
+			</Label>
 		);
 	}
 
@@ -180,7 +193,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 		const id = `label-${uid()}`;
 
 		return (
-			<label htmlFor={id}>
+			<Label htmlFor={id}>
 				{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 				<input
 					checked={this.state.statusModifiedDateFieldName === attribute}
@@ -234,7 +247,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 					type="radio"
 				/>
 				{attribute}
-			</label>
+			</Label>
 		);
 	}
 
@@ -268,7 +281,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 
 		/* eslint-disable max-len */
 		return (
-			<StoryWrapper>
+			<Box>
 				<ProfileCardWrapper>
 					<ProfileCard
 						isLoading={this.state.hasLoadingState}
@@ -331,7 +344,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 						overflow: 'auto',
 					}}
 				>
-					<ul>
+					<List>
 						<li>{this.createCheckboxBooleanAttribute('hasAvatar')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasAltActions')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasNoActions')}</li>
@@ -339,9 +352,9 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 						<li>{this.createCheckboxBooleanAttribute('hasLocation')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasCompanyName')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasTime')}</li>
-					</ul>
+					</List>
 
-					<ul>
+					<List>
 						<li>{this.createCheckboxBooleanAttribute('hasLongName')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasLongRole')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasWeekday')}</li>
@@ -349,20 +362,20 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 						<li>{this.createCheckboxBooleanAttribute('hasDirectReports')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasReportingLineProfileUrl')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasReportingLineClickHandler')}</li>
-					</ul>
+					</List>
 
-					<ul>
+					<List>
 						<li>{this.createCheckboxBooleanAttribute('hasLoadingState')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasErrorState')}</li>
 						<li>{this.createCheckboxBooleanAttribute('isBot')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasDarkTheme')}</li>
-					</ul>
+					</List>
 
-					<ul>
+					<List>
 						<li>{this.createCheckboxBooleanAttribute('showCustomLozenge1')}</li>
 						<li>{this.createCheckboxBooleanAttribute('showCustomLozenge2')}</li>
 						<li>{this.createCheckboxBooleanAttribute('showCustomLozenge3')}</li>
-					</ul>
+					</List>
 				</div>
 
 				<div
@@ -375,13 +388,13 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 						overflow: 'auto',
 					}}
 				>
-					<ul>
+					<List>
 						<li>{this.createRadioStatusAttribute('active')}</li>
 						<li>{this.createRadioStatusAttribute('inactive')}</li>
 						<li>{this.createRadioStatusAttribute('closed')}</li>
-					</ul>
+					</List>
 
-					<ul>
+					<List>
 						<li>
 							<strong>These are applied when `status` is `inactive` or `closed`</strong>
 						</li>
@@ -394,9 +407,9 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 						<li>{this.createRadioStatusModifiedDate('moreThanAYear')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasDisabledAccountMessage')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasDisabledAccountLozenge')}</li>
-					</ul>
+					</List>
 				</div>
-			</StoryWrapper>
+			</Box>
 		);
 	}
 }

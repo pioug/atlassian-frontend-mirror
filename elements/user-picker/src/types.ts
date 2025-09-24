@@ -309,6 +309,7 @@ export interface User extends OptionData {
 	publicName?: string;
 	title?: string;
 	type?: 'user' | 'external_user';
+	userType?: 'DEFAULT' | 'APP' | 'CUSTOMER' | 'SYSTEM';
 }
 
 export type LozengeColor = 'default' | 'success' | 'removed' | 'inprogress' | 'new' | 'moved';

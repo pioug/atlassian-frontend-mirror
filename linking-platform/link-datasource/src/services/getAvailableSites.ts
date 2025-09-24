@@ -62,7 +62,7 @@ export const getAccessibleProducts = async (product: 'jira' | 'confluence'): Pro
 
 	if (response.ok) {
 		const res = await response.json();
-		return mapAccessibleProductsToAvailableSites(res);
+		return mapAccessibleProductsToAvailableSites(res.data);
 	}
 
 	throw new Error((await response.text()) || 'Something went wrong');

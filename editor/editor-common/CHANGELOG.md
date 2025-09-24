@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 109.16.0
+
+### Minor Changes
+
+- [`687c1b8fa7801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/687c1b8fa7801) -
+  EDITOR-1566 bump adf-schema + update validator
+- [`578ac13fd9edd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/578ac13fd9edd) -
+  Add Sync Block provider as new package
+
+### Patch Changes
+
+- [`f43856916489c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f43856916489c) -
+  [EDITOR-1748] Properly calculate if selection is at the start of a blockTaskItem with an extension
+  instead of a paragraph
+- Updated dependencies
+
 ## 109.15.1
 
 ### Patch Changes

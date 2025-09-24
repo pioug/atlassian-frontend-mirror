@@ -23,7 +23,7 @@ export class ReplinesClient extends RestClient {
 				...response,
 				userHireDate: new Date(response.userHireDate),
 			}))
-			.catch((error) => {
+			.catch((_error) => {
 				throw new Error('Failed to fetch user tenure');
 			});
 	}

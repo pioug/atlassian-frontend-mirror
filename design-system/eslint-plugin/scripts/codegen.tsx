@@ -96,20 +96,24 @@ async function generatePresetConfig(name: 'all' | 'recommended', rules: FoundRul
 	const legacyCode = outdent`
 	import type { ESLint } from 'eslint';
 
-    export default {
+    const rules: ESLint.ConfigData = {
       plugins: [ '${pluginName}' ],
       rules: ${JSON.stringify(ruleConfig, null, 2)}
     } satisfies ESLint.ConfigData;
+
+	export default rules;
   `;
 
 	const flatCode = outdent`
 	import type { Linter } from 'eslint';
 
-	export default {
+	const rules: Linter.FlatConfig = {
 		// NOTE: The reference to this plugin is inserted dynamically while creating the plugin in \`index.codegen.tsx\`
 		plugins: {},
 		rules: ${JSON.stringify(ruleConfig, null, 2)}
 	} satisfies Linter.FlatConfig;
+
+	export default rules;
 	`;
 
 	await writeFile(join(presetsDir, `${name}.codegen.tsx`), format(legacyCode, 'typescript'));
@@ -139,11 +143,13 @@ async function writeFile(filepath: string, code: string) {
  */
 async function generateRuleIndex(rules: FoundRule[]) {
 	const code = outdent`
+	import type { Rule } from 'eslint';
+
     ${rules
 			.map((rule) => `import ${camelCase(rule.moduleName)} from './${rule.moduleName}'`)
 			.join('\n')}
 
-    export const rules = {
+    export const rules: Record<string, Rule.RuleModule> = {
     ${rules.map((rule) => `'${rule.ruleName}': ${camelCase(rule.moduleName)}`).join(',')}
     }
   `;
@@ -173,12 +179,15 @@ async function generatePluginIndex() {
 
 		const { version, name }: { name: string; version: string; } = pkgJson;
 
-		const meta = {
+		const meta: {
+			name: string;
+			version: string;
+		} = {
 			name,
 			version,
 		};
 
-		export const plugin = {
+		export const plugin: ESLint.Plugin = {
 			meta,
 			rules,
 			configs: {

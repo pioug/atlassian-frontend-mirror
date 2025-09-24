@@ -38,7 +38,7 @@ const getUserRecommendations = (
 					?.isEntitledConfluenceExternalCollaborator && {
 					productAccessPermissionIds: ['write', 'external-collaborator-write'],
 				}),
-				customQuery: '',
+				customQuery: request.customQuery || '',
 				customerDirectoryId: '',
 				filter: request.searchQueryFilter || '',
 				minimumAccessLevel: 'APPLICATION',

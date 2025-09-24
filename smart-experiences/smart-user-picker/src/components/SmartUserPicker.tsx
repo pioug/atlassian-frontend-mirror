@@ -5,7 +5,7 @@ import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import memoizeOne from 'memoize-one';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { type CustomData, type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
-import UserPicker, { type OptionData, isExternalUser, isTeam, isUser } from '@atlaskit/user-picker';
+import UserPicker, { type OptionData, isExternalUser, isTeam, isUser, isValidEmail } from '@atlaskit/user-picker';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -20,7 +20,7 @@ import {
 	type SmartEventCreator,
 } from '../analytics';
 import MessagesIntlProvider from './MessagesIntlProvider';
-import { type SmartProps, type Props, type State, type FilterOptions } from '../types';
+import {type SmartProps, type Props, type State, type FilterOptions, UserEntityType} from '../types';
 import { getUserRecommendations, hydrateDefaultValues } from '../service';
 import { smartUserPickerOptionsShownUfoExperience } from '../ufoExperiences';
 import { type SUPError } from '../service/recommendation-client';
@@ -69,6 +69,10 @@ const getUsersForAnalytics = (users: OptionData[]) =>
 
 const checkIf500Event = (statusCode: number) => 500 <= statusCode && statusCode < 600;
 
+const isEmailQuery = (query: string): boolean => {
+	return isValidEmail(query.trim()) === 'VALID';
+};
+
 export class SmartUserPickerWithoutAnalytics extends React.Component<
 	Props & WrappedComponentProps,
 	State
@@ -82,6 +86,9 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		bootstrapOptions: [],
 	};
 
+	// Track if the last search was an email search that found matches
+	private lastEmailSearchFoundMatches = false;
+
 	optionsShownUfoExperienceInstance: UFOExperience;
 
 	static defaultProps = {
@@ -90,10 +97,13 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		includeGroups: false,
 		includeTeams: false,
 		includeNonLicensedUsers: false,
+		displayEmailInByline: false,
 		prefetch: false,
 		principalId: 'Context',
 		debounceTime: DEFAULT_DEBOUNCE_TIME_MS,
 		userResolvers: [],
+		enableEmailSearch: false,
+		allowEmailSelectionWhenEmailMatched: true,
 	};
 
 	constructor(props: Props & WrappedComponentProps) {
@@ -203,6 +213,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			onEmpty,
 			onError,
 			overrideByline,
+			displayEmailInByline,
 			orgId,
 			principalId,
 			productAttributes,
@@ -211,10 +222,15 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			siteId,
 			transformOptions,
 			userResolvers,
+			enableEmailSearch,
 		} = this.props;
 
 		const maxNumberOfResults = maxOptions || 100;
 		const startTime = window.performance.now();
+
+		// Check if this is an email search
+		const isEmail = enableEmailSearch && isEmailQuery(query);
+
 		const recommendationsRequest = {
 			baseUrl,
 			context: {
@@ -230,12 +246,22 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 				productAttributes,
 			},
 			includeUsers,
-			includeGroups,
-			includeTeams,
+			// For email searches, disable groups and teams
+			includeGroups: isEmail ? false : includeGroups,
+			includeTeams: isEmail ? false : includeTeams,
 			includeNonLicensedUsers,
 			maxNumberOfResults,
-			query,
-			searchQueryFilter,
+			// For email searches, leverage customQuery instead of queryString
+			query: isEmail ? '' : query,
+			customQuery: isEmail ? `(email:"${query.trim()}")` : '',
+			/*
+				For email-based searches, we have decided to filter out apps.
+				Also - because the other 2 filters ((NOT not_mentionable:true) AND (account_status:active)) are included
+				when filter is empty, they have been added here to maintain consistency.
+
+				Further ref: https://developer.atlassian.com/platform/user-recommendations/guides/frequently-asked-questions/#filter-behavior
+			 */
+			searchQueryFilter: isEmail && !searchQueryFilter ? '(NOT not_mentionable:true) AND (account_status:active) AND (NOT account_type:app)' : searchQueryFilter,
 		};
 		try {
 			const { query } = this.state;
@@ -272,6 +298,26 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 						option.byline = overrideByline(option);
 					}
 				}
+			}
+
+			if (displayEmailInByline) {
+				for (let option of recommendedUsers) {
+					if (isUser(option) || isExternalUser(option)) {
+						if (option.userType === UserEntityType.DEFAULT || option.userType === UserEntityType.CUSTOMER) {
+							// Respect existing byline if present
+							if (option.email && !option.byline) {
+								option.byline = option.email;
+							}
+						}
+					}
+				}
+			}
+
+			// Track if email search found matches for conditional allowEmail logic
+			if (isEmail) {
+				this.lastEmailSearchFoundMatches = recommendedUsers.length > 0;
+			} else {
+				this.lastEmailSearchFoundMatches = false;
 			}
 
 			const elapsedTimeMilli = window.performance.now() - startTime;
@@ -392,7 +438,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 	};
 
 	onFocus = (sessionId?: string) => {
-		const state: Partial<State> = { query: '', closed: false };
+		const state: Partial<State> = { closed: false };
 		this.startOptionsShownUfoExperience();
 		if (this.state.users.length === 0) {
 			state.sessionId = sessionId;
@@ -425,10 +471,27 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 	};
 
 	render() {
+		const {
+			allowEmail,
+			enableEmailSearch,
+			allowEmailSelectionWhenEmailMatched,
+			...restProps
+		} = this.props;
+
+		// Determine whether to allow email selection based on allowEmailSelectionWhenEmailMatched, if needed
+		let shouldAllowEmail = allowEmail;
+
+		if (allowEmail && enableEmailSearch && !allowEmailSelectionWhenEmailMatched) {
+			// Only allow email selection if we're in an email search that found no matches
+			const isCurrentQueryEmail = isEmailQuery(this.state.query);
+			shouldAllowEmail = !isCurrentQueryEmail || !this.lastEmailSearchFoundMatches;
+		}
+
 		return (
 			<MessagesIntlProvider>
 				<UserPicker
-					{...this.props}
+					{...restProps}
+					allowEmail={shouldAllowEmail}
 					onInputChange={this.onInputChange}
 					onBlur={this.onBlur}
 					onFocus={this.onFocus}

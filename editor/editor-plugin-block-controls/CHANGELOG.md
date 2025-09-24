@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 6.4.0
+
+### Minor Changes
+
+- [`687c1b8fa7801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/687c1b8fa7801) -
+  EDITOR-1566 bump adf-schema + update validator
+
+### Patch Changes
+
+- [`a11b4fec9c5d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a11b4fec9c5d4) -
+  [FD-90806] Clean up platform_editor_remove_drag_handle_fix
+- Updated dependencies
+
 ## 6.3.9
 
 ### Patch Changes

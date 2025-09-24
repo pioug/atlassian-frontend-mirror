@@ -6,9 +6,11 @@ import {
 	ACTION_RESOLVING,
 	ACTION_UPDATE_METADATA_STATUS,
 	cardAction,
+	type CardState,
 	type MetadataStatus,
 } from '@atlaskit/linking-common';
 import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
@@ -19,7 +21,7 @@ import { getByDefinitionId, getDefinitionId, getExtensionKey, getServices } from
 import useInvokeClientAction from '../hooks/use-invoke-client-action';
 import useResolve from '../hooks/use-resolve';
 
-export const useSmartCardActions = (id: string, url: string) => {
+export const useSmartCardActions = (id: string, url: string, placeholderData?: CardState) => {
 	const resolveUrl = useResolve();
 	const invokeClientAction = useInvokeClientAction({});
 	const { fireEvent } = useAnalyticsEvents();
@@ -28,11 +30,12 @@ export const useSmartCardActions = (id: string, url: string) => {
 	const { getState, dispatch } = store;
 
 	const getSmartLinkState = useCallback(() => {
-		const { details, status, metadataStatus } = getState()[url] ?? {
+		const placeholderObject = fg('platform_initial_data_for_smart_cards') ? placeholderData : undefined;
+		const { details, status, metadataStatus } = getState()[url] ?? placeholderObject ?? {
 			status: SmartLinkStatus.Pending,
 		};
 		return { details, status, metadataStatus };
-	}, [getState, url]);
+	}, [getState, url, placeholderData]);
 
 	const setMetadataStatus = useCallback(
 		(metadataStatus: MetadataStatus) => {

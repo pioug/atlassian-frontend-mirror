@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-
-import { token } from '@atlaskit/tokens';
-
 // Simulating import from '@atlaskit/profilecard/user'
 import ProfileCardTrigger from '../src/components/User';
 
+import { BlankSpace } from './helper/blank-space';
 import ExampleWrapper from './helper/example-wrapper';
+import { MainStage } from './helper/main-stage';
+import { Section } from './helper/section';
 import { getMockProfileClient } from './helper/util';
 
 const mockClient = getMockProfileClient(10, 0);
@@ -20,25 +18,6 @@ const mockClientForClosedAccountAndCustomMessage = getMockProfileClient(10, 0, {
 	disabledAccountMessage:
 		'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.',
 	hasDisabledAccountLozenge: false,
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const MainStage = styled.div({
-	margin: token('space.200', '16px'),
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const Section = styled.div({
-	margin: `${token('space.200', '16px')} 0`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	h4: {
-		margin: `${token('space.100', '8px')} 0`,
-	},
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const BlankSpace = styled.div({
-	height: '800px',
 });
 
 const defaultProps = {

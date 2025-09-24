@@ -5,7 +5,6 @@ import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import type { AnnotationProviders, AnnotationState } from '@atlaskit/editor-common/types';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
 import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { mount, type ReactWrapper, shallow, type ShallowWrapper } from 'enzyme';
 
 import {
@@ -218,11 +217,9 @@ describe('Renderer', () => {
 	describe('Serializer', () => {
 		const mockCustomSerializerText = 'Custom Serializer';
 		const mockCustomSerializeFragment = jest.fn(() => <div>{mockCustomSerializerText}</div>);
-		const customCreateSerializer = () => {
-			return {
-				serializeFragment: mockCustomSerializeFragment,
-			};
-		};
+		const customCreateSerializer = () => ({
+			serializeFragment: mockCustomSerializeFragment,
+		});
 
 		const expectSerializer = ({ custom, wrapper }: { custom: boolean; wrapper: ReactWrapper }) => {
 			const wrapperDivs = wrapper.find('div');
@@ -239,13 +236,9 @@ describe('Renderer', () => {
 
 		afterEach(() => {
 			mockCustomSerializeFragment.mockClear();
-			(fg as jest.Mock).mockReset();
 		});
 
-		it('should use default Serializer when createSerializer is not defined and FF is enabled', () => {
-			(fg as jest.Mock).mockImplementation(
-				(gateName) => gateName === 'cc_complexit_fe_progressive_adf_rendering',
-			);
+		it('should use default Serializer when createSerializer is not defined', () => {
 			const wrapper = mount(
 				<IntlProvider locale="en">
 					<RendererDefaultComponent document={adf} />
@@ -255,27 +248,13 @@ describe('Renderer', () => {
 			wrapper.unmount();
 		});
 
-		it('should use custom Serializer when createSerializer is defined and FF is enabled', () => {
-			(fg as jest.Mock).mockImplementation(
-				(gateName) => gateName === 'cc_complexit_fe_progressive_adf_rendering',
-			);
+		it('should use custom Serializer when createSerializer is defined', () => {
 			const wrapper = mount(
 				<IntlProvider locale="en">
 					<RendererDefaultComponent document={adf} createSerializer={customCreateSerializer} />
 				</IntlProvider>,
 			);
 			expectSerializer({ wrapper, custom: true });
-			wrapper.unmount();
-		});
-
-		it('should use default Serializer when FF is disabled', () => {
-			(fg as jest.Mock).mockImplementation(() => false);
-			const wrapper = mount(
-				<IntlProvider locale="en">
-					<RendererDefaultComponent document={adf} createSerializer={customCreateSerializer} />
-				</IntlProvider>,
-			);
-			expectSerializer({ wrapper, custom: false });
 			wrapper.unmount();
 		});
 	});

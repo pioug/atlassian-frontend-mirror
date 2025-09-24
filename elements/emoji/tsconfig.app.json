@@ -68,6 +68,9 @@
 			"path": "../../design-system/theme/tsconfig.app.json"
 		},
 		{
+			"path": "../../editor/tmp-editor-statsig/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{

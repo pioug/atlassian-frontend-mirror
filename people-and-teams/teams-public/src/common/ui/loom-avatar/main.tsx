@@ -19,8 +19,12 @@ const boxStyle = css({
 });
 
 const smallBoxStyle = css({
-	height: '24px',
-	width: '24px',
+	height: '22px',
+	minWidth: '22px',
+	marginTop: token('space.025', '2px'),
+	marginRight: token('space.025', '2px'),
+	marginBottom: token('space.025', '2px'),
+	marginLeft: token('space.025', '2px'),
 	font: token('font.heading.xsmall'),
 });
 

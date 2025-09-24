@@ -1,5 +1,12 @@
 # @atlaskit/object
 
+## 0.2.1
+
+### Patch Changes
+
+- [`7cb0fde4106a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cb0fde4106a7) -
+  Fixed an issue with exports.
+
 ## 0.2.0
 
 ### Minor Changes

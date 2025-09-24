@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 14.3.0
+
+### Minor Changes
+
+- [`f3461c712ac67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3461c712ac67) -
+  Remove platform_editor_table_use_shared_state_hook_fg FG, add
+  platform_editor_table_drag_handle_hover experiments
+- [`687c1b8fa7801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/687c1b8fa7801) -
+  EDITOR-1566 bump adf-schema + update validator
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.7
 
 ### Patch Changes

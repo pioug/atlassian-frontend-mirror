@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 123.5.0
+
+### Minor Changes
+
+- [`687c1b8fa7801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/687c1b8fa7801) -
+  EDITOR-1566 bump adf-schema + update validator
+
+### Patch Changes
+
+- Updated dependencies
+
+## 123.4.3
+
+### Patch Changes
+
+- [`4b9fdb2b3b95f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b9fdb2b3b95f) -
+  Replace feature gate with correct feature gate name
+- [`027304205f6ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/027304205f6ce) -
+  Clean up gate cc_complexit_fe_progressive_adf_rendering
+
 ## 123.4.2
 
 ### Patch Changes

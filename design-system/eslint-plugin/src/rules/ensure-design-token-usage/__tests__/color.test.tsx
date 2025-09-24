@@ -366,6 +366,21 @@ const colorTests: Tests = {
 		},
 		{
 			code: `
+          import Tile from '@atlaskit/tile';
+          <>
+            <Tile label="" backgroundColor="white" />
+            <Tile label="" backgroundColor="black" />
+            <Tile label="" size="xxsmall" backgroundColor="color.background.accent.blue.bolder" />
+            <Tile label="" size="xsmall" backgroundColor="color.background.accent.blue.bolder" />
+            <Tile label="" size="small" backgroundColor="color.background.accent.purple.subtle" />
+            <Tile label="" size="medium" backgroundColor="color.background.danger.bold" />
+            <Tile label="" size="large" backgroundColor="color.background.discovery.bold" />
+            <Tile label="" size="xlarge" backgroundColor="color.background.accent.teal.subtler" />
+          </>
+        `,
+		},
+		{
+			code: `
           import Box from '@atlaskit/primitives/box';
           <Box backgroundColor="color.background.accent.yellow.subtle"></Box>
         `,

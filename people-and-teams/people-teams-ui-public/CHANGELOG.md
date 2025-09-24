@@ -1,5 +1,12 @@
 # @atlaskit/people-teams-ui-public
 
+## 3.4.0
+
+### Minor Changes
+
+- [`0812dfac99bc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0812dfac99bc2) -
+  [ux] NO ISSUE - Make whole user-card clickable and clean up legacy icon
+
 ## 3.3.0
 
 ### Minor Changes

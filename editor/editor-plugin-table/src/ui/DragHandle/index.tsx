@@ -95,6 +95,7 @@ const DragHandleComponent = ({
 		hoveredRows = hoveredRowsState;
 	}
 	const { isDragMenuOpen = false } = getDnDPluginState(state);
+	const [isHovered, setIsHovered] = useState(false);
 
 	const isRow = direction === 'row';
 	const isColumn = direction === 'column';
@@ -162,7 +163,9 @@ const DragHandleComponent = ({
 
 	const handleIconProps = {
 		forceDefaultHandle,
-		isHandleHovered: isColumnHandleHovered || isRowHandleHovered,
+		isHandleHovered: expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)
+			? isHovered
+			: isColumnHandleHovered || isRowHandleHovered,
 		hasMergedCells,
 	};
 
@@ -270,9 +273,19 @@ const DragHandleComponent = ({
 				aria-expanded={isDragMenuOpen && isDragMenuTarget ? 'true' : 'false'}
 				aria-haspopup="menu"
 				// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-				onMouseOver={onMouseOver}
+				onMouseOver={(e) => {
+					if (expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)) {
+						setIsHovered(true);
+					}
+					onMouseOver && onMouseOver(e);
+				}}
 				// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-				onMouseOut={onMouseOut}
+				onMouseOut={(e) => {
+					if (expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)) {
+						setIsHovered(false);
+					}
+					onMouseOut && onMouseOut(e);
+				}}
 				onMouseUp={(e) => {
 					// return focus to editor so copying table selections whilst still works, i cannot call e.preventDefault in a mousemove event as this stops dragstart events from firing
 					// -> this is bad for a11y but is the current standard new copy/paste keyboard shortcuts should be introduced instead
@@ -364,6 +377,4 @@ const DragHandleComponentWithSharedState = ({
 	);
 };
 
-export const DragHandle = injectIntl(DragHandleComponent);
-
-export const DragHandleWithSharedState = injectIntl(DragHandleComponentWithSharedState);
+export const DragHandle = injectIntl(DragHandleComponentWithSharedState);

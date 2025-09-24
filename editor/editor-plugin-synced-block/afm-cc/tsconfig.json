@@ -29,6 +29,9 @@
 			"path": "../../editor-plugin-selection/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-synced-block-provider/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
 		},
 		{

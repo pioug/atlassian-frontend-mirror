@@ -49,7 +49,7 @@ describe('getRendererRangeAncestorNodeNames', () => {
 		],
 	])(`%s`, (_, actions, pos) => {
 		ffTest(
-			'cc_comments_create_inline_experience_entry_point',
+			'cc_comments_log_draft_annotation_ancestor_nodes',
 			() => {
 				expect(getRendererRangeAncestorNodeNames({ actions, pos })).toEqual(undefined);
 			},

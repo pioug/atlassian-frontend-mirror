@@ -1,5 +1,15 @@
 # @atlaskit/profilecard
 
+## 24.14.1
+
+### Patch Changes
+
+- [`ffd8cae818b90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffd8cae818b90) -
+  Always fill header images in team card
+- [`0168357a3987b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0168357a3987b) -
+  Migrate primitives to compiled
+- Updated dependencies
+
 ## 24.14.0
 
 ### Minor Changes

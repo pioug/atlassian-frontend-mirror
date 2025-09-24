@@ -10,7 +10,6 @@ import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { AnnotationPlugin } from '../../annotationPluginType';
@@ -141,9 +140,7 @@ export const startCommentExperience = ({
 						attributes: {
 							pageClass: 'editor',
 							commentType: 'inline',
-							...(fg('cc_comments_create_inline_experience_entry_point')
-								? { entryPoint: 'highlightActions' }
-								: {}),
+							entryPoint: 'highlightActions',
 						},
 					});
 					annotationProviders.createCommentExperience?.initExperience.start();
@@ -171,9 +168,7 @@ export const startCommentExperience = ({
 			attributes: {
 				pageClass: 'editor',
 				commentType: 'inline',
-				...(fg('cc_comments_create_inline_experience_entry_point')
-					? { entryPoint: 'highlightActions' }
-					: {}),
+				entryPoint: 'highlightActions',
 			},
 		});
 		annotationProviders?.createCommentExperience?.initExperience.start();

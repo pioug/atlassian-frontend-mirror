@@ -81,7 +81,7 @@ export const isDecendantOfSvgElement = (node: Rule.Node): boolean => {
 };
 
 export const isDecendantOfPrimitive = (node: Rule.Node, context: Rule.RuleContext): boolean => {
-	const primitivesToCheck = ['Box', 'Text'];
+	const primitivesToCheck = ['Box', 'Text', 'Tile'];
 
 	if (isNodeOfType(node, 'JSXElement')) {
 		// @ts-ignore
@@ -91,6 +91,7 @@ export const isDecendantOfPrimitive = (node: Rule.Node, context: Rule.RuleContex
 				'@atlaskit/primitives/box',
 				'@atlaskit/primitives/text',
 				'@atlaskit/primitives/compiled',
+				'@atlaskit/tile',
 			]);
 
 			if (importDeclaration.length) {

@@ -293,8 +293,8 @@ const menuStyles = cssMap({
 		width: '100%',
 		zIndex: 1,
 		borderRadius: token('radius.small'),
-		marginBottom: token('space.100'),
-		marginTop: token('space.100'),
+		marginBlockEnd: token('space.100'),
+		marginBlockStart: token('space.100'),
 		backgroundColor: token('elevation.surface.overlay', 'white'),
 		boxShadow: token(
 			'elevation.shadow.overlay',
@@ -302,10 +302,10 @@ const menuStyles = cssMap({
 		),
 	},
 	bottom: {
-		top: '100%',
+		insetBlockStart: '100%',
 	},
 	top: {
-		bottom: '100%',
+		insetBlockEnd: '100%',
 	},
 });
 
@@ -521,7 +521,7 @@ export const NoOptionsMessage = <Option, IsMulti extends boolean, Group extends 
 			className={cx(className as any, xcss, '-NoOptionsMessage')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
-			// eslint-disable-next-line jsx-a11y/role-has-required-aria-props
+			// eslint-disable-next-line @atlassian/a11y/role-has-required-aria-props
 			role="option"
 			{...innerProps}
 		>
@@ -553,7 +553,7 @@ export const LoadingMessage = <Option, IsMulti extends boolean, Group extends Gr
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			{...innerProps}
-			// eslint-disable-next-line jsx-a11y/role-has-required-aria-props
+			// eslint-disable-next-line @atlassian/a11y/role-has-required-aria-props
 			role="option"
 		>
 			<Text color="color.text.subtle">{children}</Text>
@@ -592,11 +592,11 @@ const menuPortalStyles = cssMap({
 	root: {
 		zIndex: 1,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-		left: 'var(--menu-left)',
+		insetInlineStart: 'var(--menu-left)',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		position: 'var(--menu-position)' as MenuPosition,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-		top: 'var(--menu-top)',
+		insetBlockStart: 'var(--menu-top)',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 		width: 'var(--menu-width)',
 	},

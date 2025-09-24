@@ -1,7 +1,8 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
 import { lazySyncBlockView } from '../nodeviews/lazySyncedBlock';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
@@ -25,7 +26,11 @@ export const createPlugin = (
 			init() {
 				return {};
 			},
-			apply: (_tr, currentPluginState) => {
+			apply: (tr, currentPluginState) => {
+				const meta = tr.getMeta(syncedBlockPluginKey);
+				if (meta) {
+					return meta;
+				}
 				return currentPluginState;
 			},
 		},
@@ -34,8 +39,9 @@ export const createPlugin = (
 				syncBlock: lazySyncBlockView({ options, pmPluginFactoryParams, api }),
 			},
 		},
-		view: (editorView) => {
+		view: (editorView: EditorView) => {
 			syncBlockStore.setEditorView(editorView);
+
 			return {
 				destroy() {
 					syncBlockStore.setEditorView(undefined);

@@ -38,7 +38,7 @@ export function getRendererRangeAncestorNodeNames({
 	 */
 	pos?: { from: number; to: number } | false;
 }) {
-	if (!fg('cc_comments_create_inline_experience_entry_point')) {
+	if (!fg('cc_comments_log_draft_annotation_ancestor_nodes')) {
 		return undefined;
 	}
 

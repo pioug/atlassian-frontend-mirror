@@ -20,17 +20,7 @@ describe('Toolbar wrapper components', () => {
 				</MainToolbarWrapper>,
 			);
 
-		afterEach(() => {
-			// reset overrides
-			setupEditorExperiments('test', {});
-		});
-
-		it.each([false, true])('should match snapshot when static emotion = %p', (staticEmotion) => {
-			setupEditorExperiments('test', {
-				// toggle experiment variant
-				platform_editor_core_static_emotion_non_central: staticEmotion,
-			});
-
+		it('should match snapshot without two-line toolbar', () => {
 			const { container } = renderWrapper();
 			expect(container).toMatchSnapshot();
 		});

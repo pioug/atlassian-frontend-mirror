@@ -1,10 +1,10 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 
-const styles = xcss({ width: '360px' });
+const styles = cssMap({ wrapper: { width: '360px' } });
 
 export const AgentProfileCardWrapper = ({ children }: { children: React.ReactNode }) => {
-	return <Box xcss={styles}>{children}</Box>;
+	return <Box xcss={styles.wrapper}>{children}</Box>;
 };

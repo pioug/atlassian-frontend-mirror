@@ -1,25 +1,25 @@
 import React, { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-
+import { cssMap } from '@atlaskit/css';
 import Flag, { FlagGroup, type FlagProps } from '@atlaskit/flag';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import ProfileCardResourced from '../src';
 import ProfileCardTrigger from '../src/components/User';
 
 import ExampleWrapper from './helper/example-wrapper';
+import { MainStage } from './helper/main-stage';
 import { getMockProfileClient } from './helper/util';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const Wrap = styled.div({
-	marginBottom: token('space.250', '20px'),
-});
+export const Wrap = ({ children }: { children: React.ReactNode }) => {
+	return <Box xcss={styles.wrap}>{children}</Box>;
+};
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const MainStage = styled.div({
-	margin: token('space.200', '16px'),
+const styles = cssMap({
+	wrap: {
+		marginBottom: token('space.250', '20px'),
+	},
 });
 
 export default function Example() {

@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 3.11.0
+
+### Minor Changes
+
+- [`50df18bcd01bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50df18bcd01bb) -
+  add ability to set productKey when sending message via pubsub
+- [`687c1b8fa7801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/687c1b8fa7801) -
+  EDITOR-1566 bump adf-schema + update validator
+
 ## 3.10.0
 
 ### Minor Changes

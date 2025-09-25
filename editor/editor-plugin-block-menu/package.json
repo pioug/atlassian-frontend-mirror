@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-menu",
-	"version": "3.2.7",
+	"version": "4.0.1",
 	"description": "BlockMenu plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,6 +33,7 @@
 	"dependencies": {
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
+		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-block-controls": "workspace:^",
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
@@ -104,6 +105,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_block_menu_for_disabled_nodes": {
+			"type": "boolean"
+		},
+		"platform_editor_block_menu_patch_2": {
 			"type": "boolean"
 		}
 	}

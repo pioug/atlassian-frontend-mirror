@@ -42,11 +42,13 @@ export enum ACTION_SUBJECT {
 	LINK = 'link',
 	ANNOTATION = 'annotation',
 	MEDIA = 'media',
+	SMART_LINK = 'smartLink',
 }
 
 export enum ACTION_SUBJECT_ID {
 	HEADING_ANCHOR_LINK = 'headingAnchorLink',
 	LINK = 'link',
+	HOVER_LABEL = 'hoverLabel',
 	INLINE_COMMENT = 'inlineComment',
 	CODEBLOCK_COPY = 'codeBlockCopy',
 	CODEBLOCK_WRAP = 'codeBlockWrap',

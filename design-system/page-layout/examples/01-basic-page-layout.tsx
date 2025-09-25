@@ -32,13 +32,13 @@ const BasicGrid = () => {
 			{
 				<TopNavigation
 					testId="topNavigation"
-					id="product-navigation"
-					skipLinkTitle="Product Navigation"
+					id="app-navigation"
+					skipLinkTitle="App Navigation"
 					height={60}
 					isFixed={false}
 				>
 					<SlotWrapper borderColor={token('color.border.accent.blue')}>
-						<SlotLabel>Product Navigation</SlotLabel>
+						<SlotLabel>App Navigation</SlotLabel>
 					</SlotWrapper>
 				</TopNavigation>
 			}

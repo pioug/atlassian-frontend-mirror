@@ -339,7 +339,8 @@ export const RendererFunctionalComponent = (
 	);
 
 	const serializer = useMemoFromPropsDerivative(
-		(serializerProps) => (props.createSerializer?.(serializerProps) ?? (new ReactSerializer(serializerProps))),
+		(serializerProps) =>
+			props.createSerializer?.(serializerProps) ?? new ReactSerializer(serializerProps),
 		deriveSerializerProps,
 		props,
 	);
@@ -658,12 +659,7 @@ export function Renderer(props: RendererProps) {
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 			startPos={startPos}
-			isTopLevelRenderer={
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-				fg('issue_table_single_line_row_height_fast_follows')
-					? (props.isTopLevelRenderer ?? isTopLevelRenderer)
-					: isTopLevelRenderer
-			}
+			isTopLevelRenderer={props.isTopLevelRenderer ?? isTopLevelRenderer}
 			skipValidation={skipValidation}
 			validationOverrides={validationOverrides}
 		/>

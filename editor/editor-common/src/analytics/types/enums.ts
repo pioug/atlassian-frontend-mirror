@@ -231,6 +231,7 @@ export enum INPUT_METHOD {
 	META_CLICK = 'metaClick',
 	INLINE_SUGGESTION_FLOATING_TB = 'inlineSuggestionFloatingToolbar',
 	BLOCK_MENU = 'blockMenu',
+	SMART_LINK = 'smartLink',
 }
 
 export enum INSERT_MEDIA_VIA {
@@ -326,6 +327,8 @@ export enum ACTION_SUBJECT {
 	OFFLINE_EDITING = 'offlineEditing',
 	TOOLBAR_DROPDOWN_MENU = 'toolbarDropdownMenu',
 	TOOLBAR_DROPDOWN_MENU_ITEM = 'toolbarDropdownMenuItem',
+	BLOCK_MENU = 'blockMenu',
+	BLOCK_MENU_ITEM = 'blockMenuItem',
 }
 
 export enum ACTION_SUBJECT_ID {
@@ -362,6 +365,12 @@ export enum ACTION_SUBJECT_ID {
 	CODEBLOCK_WRAP = 'codeBlockWrap',
 	COPY_BUTTON = 'copyButton',
 	COPY_LINK_TO_ANCHOR = 'copyLinkToAnchor',
+	COPY_BLOCK = 'copyBlock',
+	COPY_LINK_TO_BLOCK = 'copyLinkToBlock',
+	DELETE_BLOCK = 'deleteBlock',
+	MOVE_UP_BLOCK = 'moveUpBlock',
+	MOVE_DOWN_BLOCK = 'moveDownBlock',
+	FORMAT_MENU = 'formatMenu',
 	CREATE_INLINE_COMMENT_FROM_HIGHLIGHT_ACTIONS_MENU = 'createInlineCommentFromHighlightActionsMenu',
 	DATE = 'date',
 	DATE_DAY = 'day',
@@ -403,6 +412,7 @@ export enum ACTION_SUBJECT_ID {
 	FRAGMENT_MARK = 'fragmentMark',
 	GOTO_SMART_LINK_SETTINGS = 'goToSmartLinkSettings',
 	HELP_QUICK_INSERT = 'helpQuickInsert',
+	HOVER_LABEL = 'hoverLabel',
 	HYPERLINK = 'hyperlink',
 	INLINE_COMMENT = 'inlineComment',
 	LAYOUT = 'layout',
@@ -476,6 +486,7 @@ export enum ACTION_SUBJECT_ID {
 	TYPEAHEAD_LINK = 'linkTypeAhead',
 	TYPEAHEAD_MENTION = 'mentionTypeAhead',
 	TYPEAHEAD_QUICK_INSERT = 'quickInsertTypeAhead',
+	TOOLBAR_PREVIEW = 'previewFromToolbar',
 	UNKNOWN_NODE = 'unknownNode',
 	UNLINK = 'unlink',
 	HEADING_ANCHOR_LINK = 'headingAnchorLink',

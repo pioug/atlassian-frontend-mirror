@@ -1,5 +1,61 @@
 # @atlaskit/editor-common
 
+## 110.2.0
+
+### Minor Changes
+
+- [`cf5a3d397221d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf5a3d397221d) -
+  EDITOR-1803 Show error screen with relevant message when selection has no textual content for non
+  freegen prompts.
+
+### Patch Changes
+
+- [`49444f7239178`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49444f7239178) -
+  Added analytics events to preview panel hover overlays and toolbar button
+- Updated dependencies
+
+## 110.1.0
+
+### Minor Changes
+
+- [`435cefe119e44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/435cefe119e44) -
+  [ux] [ED-29385] render Ask Rovo and Define buttons in live-view toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.0.0
+
+### Major Changes
+
+- [`dd82243801213`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd82243801213) -
+  Delete WithPluginState
+
+### Minor Changes
+
+- [`133f7636e3a6c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/133f7636e3a6c) -
+  [ux] EDITOR-1750 Refactoring and improving delete key behaviours for block task item
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.16.2
+
+### Patch Changes
+
+- [`fb6997c75469f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb6997c75469f) -
+  [ux] ED-29319 [CR-6a] Update full page toolbar responstiveness
+- Updated dependencies
+
+## 109.16.1
+
+### Patch Changes
+
+- [`3e49f15a87d52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e49f15a87d52) -
+  Add analytics events for block menu discovery
+
 ## 109.16.0
 
 ### Minor Changes

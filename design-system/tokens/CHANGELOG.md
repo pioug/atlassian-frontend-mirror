@@ -1,5 +1,20 @@
 # @atlaskit/tokens
 
+## 6.4.0
+
+### Minor Changes
+
+- [`25ac893657f27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25ac893657f27) -
+  Extending `setGlobalTheme` to accept a function as an argument to update theme properties without
+  reinitializing defaults. For example this can be used when switching color mode:
+
+  ```
+  setGlobalTheme((themeState) => ({
+   ...themeState,
+   colorMode: themeState.colorMode === 'light' ? 'dark' : 'light',
+  }));
+  ```
+
 ## 6.3.3
 
 ### Patch Changes

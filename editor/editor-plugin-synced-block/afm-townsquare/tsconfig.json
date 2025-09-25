@@ -26,7 +26,16 @@
 			"path": "../../../design-system/button/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-decorations/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-floating-toolbar/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../editor-synced-block-provider/afm-townsquare/tsconfig.json"

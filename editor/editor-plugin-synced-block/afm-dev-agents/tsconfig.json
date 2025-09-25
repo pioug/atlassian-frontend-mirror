@@ -26,7 +26,16 @@
 			"path": "../../../design-system/button/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-decorations/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-floating-toolbar/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-dev-agents/tsconfig.json"
 		},
 		{
 			"path": "../../editor-synced-block-provider/afm-dev-agents/tsconfig.json"

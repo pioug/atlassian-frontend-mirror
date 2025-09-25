@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5da7d3b7a8bbf2ef910a4a9f048950fe>>
+ * @codegen <<SignedSource::f68843e11d5396eca0c9bb7f6b79f954>>
  * @codegenCommand yarn build-glyphs
  */
 import React from 'react';
@@ -16,7 +16,7 @@ export default function CalendarObjectTile({
 	size,
 	testId,
 	isBold,
-}: ObjectTileProps) {
+}: ObjectTileProps): React.JSX.Element {
 	return (
 		<ObjectTileBase
 			label={label}

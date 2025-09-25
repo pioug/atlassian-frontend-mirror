@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9c597341a531e9c902eab31cb273de4f>>
+ * @codegen <<SignedSource::b59d4caf81c32d029adf911a314af4f7>>
  * @codegenCommand yarn build-glyphs
  */
 import React from 'react';
@@ -16,7 +16,7 @@ export default function ProblemObjectTile({
 	size,
 	testId,
 	isBold,
-}: ObjectTileProps) {
+}: ObjectTileProps): React.JSX.Element {
 	return (
 		<ObjectTileBase
 			label={label}

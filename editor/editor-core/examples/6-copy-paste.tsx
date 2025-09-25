@@ -634,7 +634,7 @@ const ExampleExternalClipboard = () => {
 					</Button>
 					{pastedImgSrc && (
 						<p>
-							{/* eslint-disable-next-line jsx-a11y/alt-text */}
+							{/* eslint-disable-next-line @atlassian/a11y/alt-text */}
 							<img
 								src={pastedImgSrc}
 								width={Math.round(pastedImgWidth / pastedImgScaleFactor)}

@@ -102,7 +102,7 @@ const AgentProfileCard = ({
 					setStarCount((starCount || 0) + 1);
 				}
 				setIsStarred(!isStarred);
-			} catch (error) { }
+			} catch (error) {}
 		}
 	}, [agent?.id, fireAnalytics, isStarred, resourceClient, starCount]);
 
@@ -199,7 +199,7 @@ const AgentProfileCard = ({
 										profileLink: agent.creatorInfo?.profileLink || '',
 									}}
 									isLoading={false}
-									onCreatorLinkClick={() => { }}
+									onCreatorLinkClick={() => {}}
 								/>
 							)
 						}
@@ -236,11 +236,9 @@ const AgentProfileCard = ({
 	);
 };
 
-
-
 const AgentProfileCardExport = componentWithFG(
 	'profilecard_primitives_compiled',
 	AgentProfileCardCompiled,
 	AgentProfileCard,
-)
+);
 export default AgentProfileCardExport;

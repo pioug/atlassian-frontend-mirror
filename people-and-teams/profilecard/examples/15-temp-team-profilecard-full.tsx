@@ -11,7 +11,6 @@ import type { TeamProfilecardProps } from '../src/types';
 import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';
 
-
 const css = cssMap({
 	wrapper: {
 		boxShadow: token('elevation.shadow.raised'),
@@ -19,7 +18,6 @@ const css = cssMap({
 		width: '320px',
 	},
 });
-
 
 const actions = [
 	{

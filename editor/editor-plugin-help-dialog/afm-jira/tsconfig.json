@@ -56,6 +56,9 @@
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-jira/tsconfig.json"
 		}
 	]

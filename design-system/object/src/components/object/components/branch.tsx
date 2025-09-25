@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e275dc6592ecf442a7c426a09d935f5b>>
+ * @codegen <<SignedSource::6d51578aa68f6f1f67b6c4a1d4bb0368>>
  * @codegenCommand yarn build-glyphs
  */
 import React from 'react';
@@ -11,7 +11,11 @@ import { token } from '@atlaskit/tokens';
 import ObjectBase from '../object-base';
 import type { ObjectProps } from '../types';
 
-export default function BranchObject({ label = 'Branch', size, testId }: ObjectProps) {
+export default function BranchObject({
+	label = 'Branch',
+	size,
+	testId,
+}: ObjectProps): React.JSX.Element {
 	return (
 		<ObjectBase
 			label={label}

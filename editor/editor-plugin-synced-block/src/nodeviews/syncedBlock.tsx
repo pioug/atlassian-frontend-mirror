@@ -11,7 +11,11 @@ import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/edito
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { createSyncBlockNode, useFetchDocNode, type SyncBlockNode } from '@atlaskit/editor-synced-block-provider';
+import {
+	createSyncBlockNode,
+	useFetchDocNode,
+	type SyncBlockNode,
+} from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { SyncBlockEditorWrapper, SyncBlockEditorWrapperDataId } from '../ui/SyncBlockEditorWrapper';
@@ -140,11 +144,17 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		}
 
 		// get document node from data provider
-		
 
 		return (
 			<SyncBlockRendererWrapper
-				useFetchDocNode={() => useFetchDocNode(this.view, this.node, defaultSyncBlockRendererDocument, this.options?.syncedBlockProvider)}
+				useFetchDocNode={() =>
+					useFetchDocNode(
+						this.view,
+						this.node,
+						defaultSyncBlockRendererDocument,
+						this.options?.syncedBlockProvider,
+					)
+				}
 				getSyncedBlockRenderer={this.options?.getSyncedBlockRenderer}
 			/>
 		);

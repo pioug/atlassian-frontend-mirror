@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 6.0.1
+
+### Patch Changes
+
+- [`3313b6542c788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3313b6542c788) -
+  [ux] [ENGHEALTH-30483] use `hasCloseButton` or CloseButton for ModalHeader
+- Updated dependencies
+
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.5
 
 ### Patch Changes

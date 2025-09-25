@@ -5,7 +5,13 @@ import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import memoizeOne from 'memoize-one';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { type CustomData, type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
-import UserPicker, { type OptionData, isExternalUser, isTeam, isUser, isValidEmail } from '@atlaskit/user-picker';
+import UserPicker, {
+	type OptionData,
+	isExternalUser,
+	isTeam,
+	isUser,
+	isValidEmail,
+} from '@atlaskit/user-picker';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -20,7 +26,13 @@ import {
 	type SmartEventCreator,
 } from '../analytics';
 import MessagesIntlProvider from './MessagesIntlProvider';
-import {type SmartProps, type Props, type State, type FilterOptions, UserEntityType} from '../types';
+import {
+	type SmartProps,
+	type Props,
+	type State,
+	type FilterOptions,
+	UserEntityType,
+} from '../types';
 import { getUserRecommendations, hydrateDefaultValues } from '../service';
 import { smartUserPickerOptionsShownUfoExperience } from '../ufoExperiences';
 import { type SUPError } from '../service/recommendation-client';
@@ -261,7 +273,10 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
 				Further ref: https://developer.atlassian.com/platform/user-recommendations/guides/frequently-asked-questions/#filter-behavior
 			 */
-			searchQueryFilter: isEmail && !searchQueryFilter ? '(NOT not_mentionable:true) AND (account_status:active) AND (NOT account_type:app)' : searchQueryFilter,
+			searchQueryFilter:
+				isEmail && !searchQueryFilter
+					? '(NOT not_mentionable:true) AND (account_status:active) AND (NOT account_type:app)'
+					: searchQueryFilter,
 		};
 		try {
 			const { query } = this.state;
@@ -303,7 +318,10 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			if (displayEmailInByline) {
 				for (let option of recommendedUsers) {
 					if (isUser(option) || isExternalUser(option)) {
-						if (option.userType === UserEntityType.DEFAULT || option.userType === UserEntityType.CUSTOMER) {
+						if (
+							option.userType === UserEntityType.DEFAULT ||
+							option.userType === UserEntityType.CUSTOMER
+						) {
 							// Respect existing byline if present
 							if (option.email && !option.byline) {
 								option.byline = option.email;
@@ -471,12 +489,8 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 	};
 
 	render() {
-		const {
-			allowEmail,
-			enableEmailSearch,
-			allowEmailSelectionWhenEmailMatched,
-			...restProps
-		} = this.props;
+		const { allowEmail, enableEmailSearch, allowEmailSelectionWhenEmailMatched, ...restProps } =
+			this.props;
 
 		// Determine whether to allow email selection based on allowEmailSelectionWhenEmailMatched, if needed
 		let shouldAllowEmail = allowEmail;

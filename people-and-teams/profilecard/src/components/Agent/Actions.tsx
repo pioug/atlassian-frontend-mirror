@@ -165,4 +165,4 @@ export const AgentActions = componentWithFG(
 	'profilecard_primitives_compiled',
 	AgentActionsCompiled,
 	_AgentActions,
-)
+);

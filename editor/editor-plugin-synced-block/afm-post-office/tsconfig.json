@@ -26,7 +26,16 @@
 			"path": "../../../design-system/button/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-decorations/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-floating-toolbar/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../editor-synced-block-provider/afm-post-office/tsconfig.json"

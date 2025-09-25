@@ -20,6 +20,9 @@ import {
 import createDecorator from 'final-form-focus';
 import set from 'lodash/set';
 
+import type { StrictXCSSProp, XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
+import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type OnSubmitHandler } from './types';
@@ -64,7 +67,7 @@ export const FormContext = createContext<{
 export const IsDisabledContext = createContext(false);
 
 interface FormChildrenProps {
-	ref: React.RefObject<HTMLFormElement>;
+	ref: React.RefObject<HTMLFormElement> | ((value: HTMLFormElement | null) => void);
 	onSubmit: (event?: React.FormEvent<HTMLFormElement> | React.SyntheticEvent<HTMLElement>) => void;
 	onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
 }
@@ -82,12 +85,24 @@ type FormChildrenArgs<FormValues> = {
 };
 
 type ExcludeReservedFormProps = {
+	autocomplete?: never;
+	id?: never;
+	label?: never;
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+	labelId?: never;
 	onKeyDown?: never;
 	onSubmit?: never;
+	name?: never;
+	noValidate?: never;
 	ref?: never;
+	xcss?: never;
 };
 
 export interface FormProps<FormValues> {
+	/**
+	 * Indicates whether the value of the form's controls can be automatically completed by the browser. It is `on` by default.
+	 */
+	autocomplete?: 'off' | 'on';
 	/**
 	 *  The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.
 	 *  You can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).
@@ -102,23 +117,64 @@ export interface FormProps<FormValues> {
 		[x: string]: any;
 	} & ExcludeReservedFormProps;
 	/**
-	 *   Event handler called when the form is submitted. Fields must be free of validation errors.
+	 * `id` attribute applied to the `form` element.
+	 */
+	id?: string;
+	/**
+	 * Accessible name to be applied to the form element. Maps to the `aria-label` attribute.
+	 */
+	label?: string;
+	/**
+	 * ID of the element that has the accessible name to be applied to the form element. Maps to the `aria-labelledby` attribute.
+	 */
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+	labelId?: string;
+	/**
+	 * Event handler called when the form is submitted. Fields must be free of validation errors.
 	 */
 	onSubmit: OnSubmitHandler<FormValues>;
 	/**
-	 *   Sets the form and its fields as disabled. Users cannot edit or focus on the fields.
+	 * Sets the form and its fields as disabled. Users cannot edit or focus on the fields.
 	 */
 	isDisabled?: boolean;
+	/**
+	 * `name` attribute applied to the `form` element.
+	 */
+	name?: string;
+	/**
+	 * Indicates if the inputs within the form will bypass HTML5 constraint
+	 * validation when submitted. This is not recommended to be used because it
+	 * can cause experiences to be inaccessible. It is `false` by default but will
+	 * be set to `true` in the future to increase accessibility, so it is **not recommended**.
+	 */
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
+	noValidate?: boolean;
 	/**
 	 * A test identifier for the form element. This will be applied as `data-testid` attribute.
 	 */
 	testId?: string;
+	/**
+	 * Apply a subset of permitted styles powered by Atlassian Design System design tokens.
+	 */
+	xcss?: StrictXCSSProp<XCSSAllProperties, XCSSAllPseudos>;
 }
 
-export default function Form<FormValues extends Record<string, any> = {}>(
+const FormBase = <FormValues extends Record<string, any> = {}>(
 	props: FormProps<FormValues>,
-) {
-	const { formProps: userProvidedFormProps, onSubmit, testId } = props;
+	ref: React.Ref<HTMLFormElement>,
+) => {
+	const {
+		autocomplete,
+		formProps: userProvidedFormProps,
+		id,
+		label,
+		labelId,
+		name,
+		noValidate,
+		onSubmit,
+		testId,
+		xcss,
+	} = props;
 
 	const formRef = useRef<HTMLFormElement | null>(null);
 	const onSubmitRef = useRef(onSubmit);
@@ -231,13 +287,30 @@ export default function Form<FormValues extends Record<string, any> = {}>(
 		return { registerField, getCurrentValue, subscribe: form.subscribe };
 	}, [registerField, getCurrentValue, form.subscribe]);
 
+	const conditionalFormProps: Record<string, any> = {
+		autocomplete,
+		className: xcss,
+		id,
+		'aria-label': label,
+		'aria-labelledby': labelId,
+		name,
+		noValidate,
+		'data-testid': testId,
+	};
+
 	// Abstracting so we can use the same for both rendering patterns
-	const formProps = {
+	const formProps: FormChildrenProps & Record<string, any> = {
 		onKeyDown: handleKeyDown,
 		onSubmit: handleSubmit,
-		ref: formRef,
-		...(testId && { 'data-testid': testId }),
+		ref: ref ? mergeRefs([ref, formRef]) : formRef,
 	};
+
+	// We don't want to add undefined values to the component
+	Object.keys(conditionalFormProps).forEach((attr) => {
+		if (conditionalFormProps[attr] !== undefined) {
+			formProps[attr] = conditionalFormProps[attr];
+		}
+	});
 
 	const childrenContent = (() => {
 		if (typeof children === 'function') {
@@ -272,4 +345,17 @@ export default function Form<FormValues extends Record<string, any> = {}>(
 			<IsDisabledContext.Provider value={isDisabled}>{childrenContent}</IsDisabledContext.Provider>
 		</FormContext.Provider>
 	);
-}
+};
+
+/**
+ * __Form__
+ *
+ * A form allows users to input information.
+ *
+ * - [Examples](https://atlassian.design/components/form/examples)
+ * - [Code](https://atlassian.design/components/form/code)
+ * - [Usage](https://atlassian.design/components/form/usage)
+ */
+const Form = forwardRefWithGeneric(FormBase);
+
+export default Form;

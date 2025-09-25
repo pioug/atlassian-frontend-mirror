@@ -3,14 +3,15 @@
  *
  * Extract component prop types from UIKit 2 components - ButtonProps
  *
- * @codegen <<SignedSource::8d3c96f4416729b792a7d3460ae23a27>>
+ * @codegen <<SignedSource::28ff60d0f3d4c1058baf352cebe4fc57>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/index.partial.tsx <<SignedSource::f9a16b36e0a307a53ee30a009373ab49>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/index.tsx <<SignedSource::52b83f8562f7d67ebc840be38101d0a4>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import type { ButtonProps as PlatformButtonProps } from '@atlaskit/button/new';
 
+// TODO: File had to be manually updated as code gen is not correctly creating the Icon type
 export type Icon =
 	| 'activity'
 	| 'add'
@@ -369,6 +370,7 @@ export type Icon =
 	| 'watch-filled'
 	| 'world'
 	| 'world-small';
+
 type IconType = Icon;
 
 

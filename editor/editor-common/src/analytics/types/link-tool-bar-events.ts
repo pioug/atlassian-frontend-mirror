@@ -156,6 +156,18 @@ export type UnlinkToolbarAEP = UIAEP<
 	undefined
 >;
 
+export type PreviewItemClickedAEP = UIAEP<
+	ACTION.CLICKED,
+	ACTION_SUBJECT.SMART_LINK,
+	ACTION_SUBJECT_ID.HOVER_LABEL | ACTION_SUBJECT_ID.TOOLBAR_PREVIEW,
+	{
+		destinationProduct?: string | null;
+		destinationSubproduct?: string | null;
+		previewType: 'panel' | 'modal';
+	},
+	undefined
+>;
+
 export type CreateLinkInlineDialogEventPayload =
 	| QuickSearchPerfAEP
 	| RecentActivitiesPerfAEP

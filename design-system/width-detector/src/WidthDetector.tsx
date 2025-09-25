@@ -133,7 +133,7 @@ export default class WidthDetector extends React.Component<WidthDetectorProps, S
 		const sizerEl = (
 			<>
 				{/* we're using aria-hidden here */}
-				{/* eslint-disable-next-line jsx-a11y/alt-text */}
+				{/* eslint-disable-next-line @atlassian/a11y/alt-text */}
 				<object
 					type="text/html"
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

@@ -162,4 +162,13 @@ export interface TooltipProps {
 	 * Use this to define the strategy of popper.
 	 */
 	strategy?: 'absolute' | 'fixed' | undefined;
+
+	/**
+	 * Display a keyboard shortcut in the tooltip.
+	 *
+	 * Keys will be displayed as individual keyboard key segments after the tooltip content.
+	 *
+	 * This prop requires the `platform-dst-tooltip-shortcuts` feature flag to be enabled.
+	 */
+	shortcut?: string[];
 }

@@ -84,6 +84,7 @@ export const hoverDecoration =
 
 export type DecorationState = {
 	decoration?: Decoration | DecorationSet;
+	hasDangerDecorations?: boolean;
 };
 
 type HoverDecorationHandler = typeof hoverDecoration;
@@ -119,9 +120,18 @@ export default () => {
 					case ACTIONS.DECORATION_ADD:
 						return {
 							decoration: meta.data,
+							hasDangerDecorations:
+								expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+								expValEqualsNoExposure(
+									'platform_editor_block_menu_keyboard_navigation',
+									'isEnabled',
+									true,
+								)
+									? meta.hasDangerDecorations
+									: undefined,
 						};
 					case ACTIONS.DECORATION_REMOVE:
-						return { decoration: undefined };
+						return { decoration: undefined, hasDangerDecorations: undefined };
 					default:
 						return pluginState;
 				}

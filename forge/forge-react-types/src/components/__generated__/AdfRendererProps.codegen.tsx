@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - AdfRendererProps
  *
- * @codegen <<SignedSource::126b3ad6e0833d5ef9d0270f34b9deb1>>
+ * @codegen <<SignedSource::757ab113edda1f83f41c49739c285bdc>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/adfrenderer/index.tsx <<SignedSource::812969188e3d278549014394c969938c>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/adfrenderer/index.tsx <<SignedSource::f0a45b8f69a7412792758f6a0f31f69d>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -19,6 +19,9 @@ export type AdfRendererProps = {
 	 */
 	document: DocNode;
 
+	// documentWithoutMedia is only used internally on the Forge side, this is not part of the public API
+	documentWithoutMedia?: DocNode;
+
 	/**
 	 * A function to determine behaviour for handling unsupported nodes:
 	 * - Return a new Node to replace the unsupported one
@@ -28,9 +31,6 @@ export type AdfRendererProps = {
 	 * @type [Visitor](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/master/editor/adf-utils/src/types/index.ts)
 	 */
 	replaceUnsupportedNode?: Function;
-
-	// documentWithoutMedia is only used internally on the Forge side, this is not part of the public API
-	documentWithoutMedia?: DocNode;
 };
 
 /**

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -34,6 +35,7 @@ export const HoverCardComponent = ({
 	role,
 	label,
 	titleId,
+	onVisibilityChange,
 }: HoverCardComponentProps) => {
 	const fadeInDelay = hoverPreviewOptions?.fadeInDelay ?? FADE_IN_DELAY;
 	const [isOpen, setIsOpen] = React.useState(false);
@@ -46,6 +48,19 @@ export const HoverCardComponent = ({
 
 	const renderers = useSmartLinkRenderers();
 	const linkState = useLinkState(url);
+
+	const handleSetIsOpen = fg('hover-card-on-visibility-change-callback')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useCallback(
+				(isOpen: boolean) => {
+					setIsOpen(isOpen);
+					if (fg('hover-card-on-visibility-change-callback')) {
+						onVisibilityChange?.(isOpen);
+					}
+				},
+				[onVisibilityChange],
+			)
+		: undefined;
 
 	const { loadMetadata } = useSmartCardActions(id, url);
 
@@ -72,8 +87,12 @@ export const HoverCardComponent = ({
 	);
 
 	const hideCard = useCallback(() => {
-		setIsOpen(false);
-	}, []);
+		if (handleSetIsOpen && fg('hover-card-on-visibility-change-callback')) {
+			handleSetIsOpen(false);
+		} else {
+			setIsOpen(false);
+		}
+	}, [handleSetIsOpen]);
 
 	const initHideCard = useCallback(() => {
 		if (fadeInTimeoutId.current) {
@@ -149,15 +168,23 @@ export const HoverCardComponent = ({
 			if (!isOpen && !fadeInTimeoutId.current) {
 				// setting a timeout to show a Hover Card after delay runs out
 				if (noFadeDelay) {
-					setIsOpen(true);
+					if (handleSetIsOpen && fg('hover-card-on-visibility-change-callback')) {
+						handleSetIsOpen(true);
+					} else {
+						setIsOpen(true);
+					}
 				} else {
 					fadeInTimeoutId.current = setTimeout(() => {
-						setIsOpen(true);
+						if (handleSetIsOpen && fg('hover-card-on-visibility-change-callback')) {
+							handleSetIsOpen(true);
+						} else {
+							setIsOpen(true);
+						}
 					}, fadeInDelay);
 				}
 			}
 		},
-		[initResolve, isOpen, setMousePosition, noFadeDelay, fadeInDelay],
+		[initResolve, isOpen, setMousePosition, noFadeDelay, fadeInDelay, handleSetIsOpen],
 	);
 
 	const onActionClick = useCallback(

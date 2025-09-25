@@ -13,17 +13,17 @@ const legionResponse = {
 	headerImageId: null,
 	id: 'ari:cloud:teams::team/58538da6-333b-4e28-8f15-8aadc3961b62',
 	largeAvatarImageUrl:
-		'https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/3.svg',
+		'https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/3.svg',
 	largeHeaderImageUrl:
-		'https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/gradients/3.svg',
+		'https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/gradients/3.svg',
 	membershipSettings: 'MEMBER_INVITE',
 	organizationId: '3f97e0d7-a8ca-4263-91bf-3015999c8e64',
 	permission: 'FULL_WRITE',
 	restriction: 'NO_RESTRICTION',
 	smallAvatarImageUrl:
-		'https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/3.svg',
+		'https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/3.svg',
 	smallHeaderImageUrl:
-		'https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/gradients/3.svg',
+		'https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/gradients/3.svg',
 };
 
 const SITE_ID = 'siteId';

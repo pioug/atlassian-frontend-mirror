@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - PopupProps
  *
- * @codegen <<SignedSource::1406c01bd678b4f8525d6b2e48bf6021>>
+ * @codegen <<SignedSource::8763a054e66a7a157d421e05062d175f>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/popup/index.tsx <<SignedSource::ff9b9f72bb5b2721d62300345e310108>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/popup/index.tsx <<SignedSource::e9d4bff7da064f1461f189540b88554c>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

@@ -7,6 +7,7 @@ import {
 } from '../common/common/types';
 import type { VCResult } from '../common/vc/types';
 import { getConfig } from '../config';
+import { getPageVisibilityState } from '../hidden-timing';
 import type { LabelStack } from '../interaction-context';
 import { VCObserverWrapper } from '../vc';
 import type { VCObserverInterface, VCObserverOptions } from '../vc/types';
@@ -117,6 +118,13 @@ export default class PostInteractionLog {
 			return;
 		}
 
+		const pageVisibilityState = getPageVisibilityState(
+			this.lastInteractionFinish.start,
+			this.lastInteractionFinish.end,
+		);
+
+		const isPageVisible = pageVisibilityState === 'visible';
+
 		const config = getConfig();
 		const postInteractionFinishVCResult = await this.vcObserver?.getVCResult({
 			start: this.lastInteractionFinish.start,
@@ -129,6 +137,9 @@ export default class PostInteractionLog {
 			includeSSRInV3: config?.vc?.includeSSRInV3,
 			includeSSRRatio: config?.vc?.includeSSRRatio,
 			...this.vcObserverSSRConfig,
+			interactionType: this.lastInteractionFinish.type,
+			isPageVisible,
+			interactionAbortReason: this.lastInteractionFinish.abortReason,
 		});
 
 		this.vcObserver?.stop();

@@ -401,6 +401,282 @@ const formElement = (
 		'should convert from function with single prop on form',
 	);
 
+	describe('Migrate existing props', () => {
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
+  import React from 'react';
+  import Form from '@atlaskit/form';
+
+  const FormComponent1 = () => (
+    <Form onSubmit={() => {}}>
+      {({ formProps }) => (
+        <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate>
+          <input />
+        </form>
+      )}
+    </Form>
+  );
+
+  const FormComponent2 = () => (
+    <>
+      <Form onSubmit={() => {}}>
+        {({ formProps }) => (
+          <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate>
+            <input />
+          </form>
+        )}
+      </Form>
+    </>
+  );
+
+  class FormComponent3 extends React.Component {
+    render() {
+      return (
+        <Form onSubmit={() => {}}>
+          {({ formProps }) => (
+            <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate>
+              <input />
+            </form>
+          )}
+        </Form>
+      );
+    }
+  }
+
+  const formElement = (
+    <Form onSubmit={() => {}}>
+      {({ formProps }) => (
+        <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate>
+          <input />
+        </form>
+      )}
+    </Form>
+  );
+        `,
+			`
+  import React from 'react';
+  import Form from '@atlaskit/form';
+
+  const FormComponent1 = () => (
+    <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form>
+  );
+
+  const FormComponent2 = () => (
+    <>
+      <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form>
+    </>
+  );
+
+  class FormComponent3 extends React.Component {
+    render() {
+      return (<Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form>);
+    }
+  }
+
+  const formElement = (
+    <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form>
+  );
+`,
+			'should migrate existing props on `form` into their respective props on `Form`',
+		);
+
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
+  import React from 'react';
+  import Form from '@atlaskit/form';
+
+  const FormComponent1 = () => (
+    <Form onSubmit={() => {}}>
+      {({ formProps }) => (
+        <form {...formProps} aria-label="foo" aria-labelledby="bar">
+          <input />
+        </form>
+      )}
+    </Form>
+  );
+
+  const FormComponent2 = () => (
+    <>
+      <Form onSubmit={() => {}}>
+        {({ formProps }) => (
+          <form {...formProps} aria-label="foo" aria-labelledby="bar">
+            <input />
+          </form>
+        )}
+      </Form>
+    </>
+  );
+
+  class FormComponent3 extends React.Component {
+    render() {
+      return (
+        <Form onSubmit={() => {}}>
+          {({ formProps }) => (
+            <form {...formProps} aria-label="foo" aria-labelledby="bar">
+              <input />
+            </form>
+          )}
+        </Form>
+      );
+    }
+  }
+
+  const formElement = (
+    <Form onSubmit={() => {}}>
+      {({ formProps }) => (
+        <form {...formProps} aria-label="foo" aria-labelledby="bar">
+          <input />
+        </form>
+      )}
+    </Form>
+  );
+        `,
+			`
+  import React from 'react';
+  import Form from '@atlaskit/form';
+
+  const FormComponent1 = () => (
+    <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form>
+  );
+
+  const FormComponent2 = () => (
+    <>
+      <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form>
+    </>
+  );
+
+  class FormComponent3 extends React.Component {
+    render() {
+      return (<Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form>);
+    }
+  }
+
+  const formElement = (
+    <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form>
+  );
+        `,
+			'should migrate existing props on `form` into different names',
+		);
+
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
+  import React from 'react';
+  import Form from '@atlaskit/form';
+
+  const FormComponent1 = () => (
+    <Form onSubmit={() => {}}>
+      {({ formProps }) => (
+        <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate quu="qux">
+          <input />
+        </form>
+      )}
+    </Form>
+  );
+
+  const FormComponent2 = () => (
+    <>
+      <Form onSubmit={() => {}}>
+        {({ formProps }) => (
+          <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate quu="qux">
+            <input />
+          </form>
+        )}
+      </Form>
+    </>
+  );
+
+  class FormComponent3 extends React.Component {
+    render() {
+      return (
+        <Form onSubmit={() => {}}>
+          {({ formProps }) => (
+            <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate quu="qux">
+              <input />
+            </form>
+          )}
+        </Form>
+      );
+    }
+  }
+
+  const formElement = (
+    <Form onSubmit={() => {}}>
+      {({ formProps }) => (
+        <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate quu="qux">
+          <input />
+        </form>
+      )}
+    </Form>
+  );
+        `,
+			`
+  import React from 'react';
+  import Form from '@atlaskit/form';
+
+  const FormComponent1 = () => (
+    <Form
+      onSubmit={() => {}}
+      formProps={{
+        quu: "qux"
+      }}
+      autocomplete="off"
+      id="foo"
+      name="bar"
+      noValidate><input /></Form>
+  );
+
+  const FormComponent2 = () => (
+    <>
+      <Form
+        onSubmit={() => {}}
+        formProps={{
+          quu: "qux"
+        }}
+        autocomplete="off"
+        id="foo"
+        name="bar"
+        noValidate><input /></Form>
+    </>
+  );
+
+  class FormComponent3 extends React.Component {
+    render() {
+      return (
+        <Form
+          onSubmit={() => {}}
+          formProps={{
+            quu: "qux"
+          }}
+          autocomplete="off"
+          id="foo"
+          name="bar"
+          noValidate><input /></Form>
+      );
+    }
+  }
+
+  const formElement = (
+    <Form
+      onSubmit={() => {}}
+      formProps={{
+        quu: "qux"
+      }}
+      autocomplete="off"
+      id="foo"
+      name="bar"
+      noValidate><input /></Form>
+  );
+        `,
+			'should migrate existing props on `form` into their respective props on `Form` and also use `formProps` if needed',
+		);
+	});
+
 	defineInlineTest(
 		{ default: transformer, parser: 'tsx' },
 		{},

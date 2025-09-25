@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::22b0f03727afe0eb4bd6c84b8db8d139>>
+ * @codegen <<SignedSource::b4648df99867255b9e8ae22693a4d25a>>
  * @codegenCommand yarn build-glyphs
  */
 import React from 'react';
@@ -11,7 +11,12 @@ import { token } from '@atlaskit/tokens';
 import ObjectTileBase from '../object-tile-base';
 import type { ObjectTileProps } from '../types';
 
-export default function EpicObjectTile({ label = 'Epic', size, testId, isBold }: ObjectTileProps) {
+export default function EpicObjectTile({
+	label = 'Epic',
+	size,
+	testId,
+	isBold,
+}: ObjectTileProps): React.JSX.Element {
 	return (
 		<ObjectTileBase
 			label={label}

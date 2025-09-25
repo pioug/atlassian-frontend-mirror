@@ -54,7 +54,7 @@ export const mockUserSearchData = [
 	{
 		id: '12312594',
 		avatarUrl:
-			'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/teams/avatars/0.svg',
+			'https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/0.svg',
 		name: 'The Cool Cats',
 		userType: 'TEAM',
 		context: {
@@ -67,7 +67,7 @@ export const mockUserSearchData = [
 	{
 		id: '12312597',
 		avatarUrl:
-			'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/teams/avatars/3.svg',
+			'https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/3.svg',
 		name: 'The whole company',
 		userType: 'TEAM',
 		context: {

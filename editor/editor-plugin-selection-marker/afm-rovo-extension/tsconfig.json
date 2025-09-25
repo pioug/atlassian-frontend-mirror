@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-plugin-decorations/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-editor-disabled/afm-rovo-extension/tsconfig.json"
 		},
 		{

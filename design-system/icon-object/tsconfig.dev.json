@@ -40,6 +40,9 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
+		{
 			"path": "../button/tsconfig.app.json"
 		},
 		{

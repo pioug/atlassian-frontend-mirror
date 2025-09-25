@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eabe6fffcc54955926bd4c8aeb572a99>>
+ * @codegen <<SignedSource::ce7a14286959c742e345710a87afb558>>
  * @codegenCommand yarn build-glyphs
  */
 import React from 'react';
@@ -16,7 +16,7 @@ export default function CommitObjectTile({
 	size,
 	testId,
 	isBold,
-}: ObjectTileProps) {
+}: ObjectTileProps): React.JSX.Element {
 	return (
 		<ObjectTileBase
 			label={label}

@@ -18,7 +18,6 @@ const styles = cssMap({
 		position: 'relative',
 		width: '15px',
 		zIndex: 700,
-
 	},
 	'top-start': {
 		transform: 'rotate(315deg)',

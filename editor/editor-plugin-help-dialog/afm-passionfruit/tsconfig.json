@@ -56,6 +56,9 @@
 			"path": "../../../design-system/tokens/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/tooltip/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-passionfruit/tsconfig.json"
 		}
 	]

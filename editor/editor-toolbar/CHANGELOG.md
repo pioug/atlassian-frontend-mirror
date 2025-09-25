@@ -1,5 +1,16 @@
 # @atlaskit/editor-toolbar
 
+## 0.10.0
+
+### Minor Changes
+
+- [`f4c0936dc05fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4c0936dc05fe) -
+  ED-29391 Add keyboard support for block menu
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.9.4
 
 ### Patch Changes

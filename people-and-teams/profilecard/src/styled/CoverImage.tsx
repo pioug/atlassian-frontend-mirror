@@ -41,7 +41,13 @@ export const CoverImage = ({ src, alt = '' }: CoverImageProps) => {
 
 	return (
 		<Box ref={containerRef} xcss={styles.container} backgroundColor="color.background.neutral">
-			<Box as="img" ref={imgRef} src={src} alt={alt} xcss={fg('cover-header-image-team-profilecard') ? styles.imageNext : styles.image} />
+			<Box
+				as="img"
+				ref={imgRef}
+				src={src}
+				alt={alt}
+				xcss={fg('cover-header-image-team-profilecard') ? styles.imageNext : styles.image}
+			/>
 		</Box>
 	);
 };

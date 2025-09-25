@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-unsupported-content
 
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.0
 
 ### Minor Changes

@@ -18,6 +18,7 @@ import AIMateAnalyticsListener from './aiMate/AIMateAnalyticsListener';
 import AVPAnalyticsListener from './avp/AVPAnalyticsListener';
 import GrowthAnalyticsListener from './growth/GrowthAnalyticsListener';
 import OmniChannelAnalyticsListener from './omni-channel/OmniChannelAnalyticsListener';
+import TownsquareHomeAnalyticsListener from './townsquareHome/TownsquareHomeAnalyticsListener';
 
 export type Props = {
 	/** Children! */
@@ -45,6 +46,7 @@ const listenerMap = {
 	[FabricChannel.avp]: AVPAnalyticsListener,
 	[FabricChannel.growth]: GrowthAnalyticsListener,
 	[FabricChannel.omniChannel]: OmniChannelAnalyticsListener,
+	[FabricChannel.townsquareHome]: TownsquareHomeAnalyticsListener,
 };
 
 class FabricAnalyticsListeners extends React.Component<Props> {

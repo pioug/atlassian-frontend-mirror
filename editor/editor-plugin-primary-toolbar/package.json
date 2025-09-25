@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-primary-toolbar",
-	"version": "6.0.0",
+	"version": "7.0.0",
 	"description": "Primary toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

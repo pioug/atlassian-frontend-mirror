@@ -21,6 +21,6 @@ export const data: {
 	{
 		title: 'Be the change you seek',
 		description:
-			'All Atlassians should have the courage and resourcefulness to spark change - to make better our products, our people, our place. Continuous improvement is a shared responsibility. Action is an independent one.',
+			'All Atlassians should have the courage and resourcefulness to spark change - to make better our apps, our people, our place. Continuous improvement is a shared responsibility. Action is an independent one.',
 	},
 ];

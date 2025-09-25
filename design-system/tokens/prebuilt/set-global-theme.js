@@ -7,8 +7,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
+var _getGlobalTheme = _interopRequireDefault(require("./get-global-theme"));
 var _themeConfig = require("./theme-config");
 var _colorUtils = require("./utils/color-utils");
 var _configurePage = _interopRequireDefault(require("./utils/configure-page"));
@@ -19,6 +21,8 @@ function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0, _defineProperty2.default)(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 /**
  * Sets the theme globally at runtime. This updates the `data-theme` and `data-color-mode` attributes on your page's <html> tag.
  *
@@ -42,7 +46,9 @@ function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r
  */
 var setGlobalTheme = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
-    var _ref2,
+    var nextThemeState,
+      themeLoader,
+      _ref2,
       _ref2$colorMode,
       colorMode,
       _ref2$contrastMode,
@@ -59,7 +65,6 @@ var setGlobalTheme = /*#__PURE__*/function () {
       typography,
       _ref2$UNSAFE_themeOpt,
       UNSAFE_themeOptions,
-      themeLoader,
       themeState,
       themePreferences,
       loadingStrategy,
@@ -75,9 +80,11 @@ var setGlobalTheme = /*#__PURE__*/function () {
     return _regenerator.default.wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
-          _ref2 = _args3.length > 0 && _args3[0] !== undefined ? _args3[0] : {}, _ref2$colorMode = _ref2.colorMode, colorMode = _ref2$colorMode === void 0 ? _themeConfig.themeStateDefaults['colorMode'] : _ref2$colorMode, _ref2$contrastMode = _ref2.contrastMode, contrastMode = _ref2$contrastMode === void 0 ? _themeConfig.themeStateDefaults['contrastMode'] : _ref2$contrastMode, _ref2$dark = _ref2.dark, dark = _ref2$dark === void 0 ? _themeConfig.themeStateDefaults['dark'] : _ref2$dark, _ref2$light = _ref2.light, light = _ref2$light === void 0 ? _themeConfig.themeStateDefaults['light'] : _ref2$light, _ref2$shape = _ref2.shape, shape = _ref2$shape === void 0 ? _themeConfig.themeStateDefaults['shape'] : _ref2$shape, _ref2$spacing = _ref2.spacing, spacing = _ref2$spacing === void 0 ? _themeConfig.themeStateDefaults['spacing'] : _ref2$spacing, _ref2$typography = _ref2.typography, typography = _ref2$typography === void 0 ? _themeConfig.themeStateDefaults['typography']() : _ref2$typography, _ref2$UNSAFE_themeOpt = _ref2.UNSAFE_themeOptions, UNSAFE_themeOptions = _ref2$UNSAFE_themeOpt === void 0 ? _themeConfig.themeStateDefaults['UNSAFE_themeOptions'] : _ref2$UNSAFE_themeOpt;
+          nextThemeState = _args3.length > 0 && _args3[0] !== undefined ? _args3[0] : {};
           themeLoader = _args3.length > 1 ? _args3[1] : undefined;
-          // CLEANUP: Remove. This blocks application of increased contrast themes
+          _ref2 = typeof nextThemeState === 'function' ? nextThemeState(_objectSpread(_objectSpread({}, _themeConfig.themeStateDefaults), {}, {
+            typography: _themeConfig.themeStateDefaults['typography']()
+          }, (0, _getGlobalTheme.default)())) : nextThemeState, _ref2$colorMode = _ref2.colorMode, colorMode = _ref2$colorMode === void 0 ? _themeConfig.themeStateDefaults['colorMode'] : _ref2$colorMode, _ref2$contrastMode = _ref2.contrastMode, contrastMode = _ref2$contrastMode === void 0 ? _themeConfig.themeStateDefaults['contrastMode'] : _ref2$contrastMode, _ref2$dark = _ref2.dark, dark = _ref2$dark === void 0 ? _themeConfig.themeStateDefaults['dark'] : _ref2$dark, _ref2$light = _ref2.light, light = _ref2$light === void 0 ? _themeConfig.themeStateDefaults['light'] : _ref2$light, _ref2$shape = _ref2.shape, shape = _ref2$shape === void 0 ? _themeConfig.themeStateDefaults['shape'] : _ref2$shape, _ref2$spacing = _ref2.spacing, spacing = _ref2$spacing === void 0 ? _themeConfig.themeStateDefaults['spacing'] : _ref2$spacing, _ref2$typography = _ref2.typography, typography = _ref2$typography === void 0 ? _themeConfig.themeStateDefaults['typography']() : _ref2$typography, _ref2$UNSAFE_themeOpt = _ref2.UNSAFE_themeOptions, UNSAFE_themeOptions = _ref2$UNSAFE_themeOpt === void 0 ? _themeConfig.themeStateDefaults['UNSAFE_themeOptions'] : _ref2$UNSAFE_themeOpt; // CLEANUP: Remove. This blocks application of increased contrast themes
           // without the feature flag enabled.
           if (!(0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
             if (light === 'light-increased-contrast') {
@@ -150,44 +157,44 @@ var setGlobalTheme = /*#__PURE__*/function () {
               }))());
             }
           }
-          _context3.next = 10;
+          _context3.next = 11;
           return Promise.all(loadingTasks);
-        case 10:
+        case 11:
           // Load override themes after standard themes
           themeOverridePreferences = (0, _getThemePreferences.getThemeOverridePreferences)(themeState);
           _iterator = _createForOfIteratorHelper(themeOverridePreferences);
-          _context3.prev = 12;
+          _context3.prev = 13;
           _iterator.s();
-        case 14:
+        case 15:
           if ((_step = _iterator.n()).done) {
-            _context3.next = 20;
+            _context3.next = 21;
             break;
           }
           themeId = _step.value;
-          _context3.next = 18;
+          _context3.next = 19;
           return loadingStrategy(themeId);
-        case 18:
-          _context3.next = 14;
+        case 19:
+          _context3.next = 15;
           break;
-        case 20:
-          _context3.next = 25;
+        case 21:
+          _context3.next = 26;
           break;
-        case 22:
-          _context3.prev = 22;
-          _context3.t0 = _context3["catch"](12);
+        case 23:
+          _context3.prev = 23;
+          _context3.t0 = _context3["catch"](13);
           _iterator.e(_context3.t0);
-        case 25:
-          _context3.prev = 25;
+        case 26:
+          _context3.prev = 26;
           _iterator.f();
-          return _context3.finish(25);
-        case 28:
+          return _context3.finish(26);
+        case 29:
           autoUnbind = (0, _configurePage.default)(themeState);
           return _context3.abrupt("return", autoUnbind);
-        case 30:
+        case 31:
         case "end":
           return _context3.stop();
       }
-    }, _callee3, null, [[12, 22, 25, 28]]);
+    }, _callee3, null, [[13, 23, 26, 29]]);
   }));
   return function setGlobalTheme() {
     return _ref.apply(this, arguments);

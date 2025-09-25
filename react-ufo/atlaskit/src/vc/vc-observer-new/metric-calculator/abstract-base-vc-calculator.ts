@@ -1,5 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import type { AbortReasonType, InteractionType } from '../../../common/common/types';
 import type {
 	RevisionPayloadEntry,
 	RevisionPayloadVCDetails,
@@ -8,9 +9,6 @@ import type {
 	VCLabelStacks,
 	VCRatioType,
 } from '../../../common/vc/types';
-import getPageVisibilityUpToTTAI from '../../../create-payload/utils/get-page-visibility-up-to-ttai';
-import { getInteractionId } from '../../../interaction-id-context';
-import { interactions } from '../../../interaction-metrics/common/constants';
 import type { VCRevisionDebugDetails } from '../../vc-observer/getVCRevisionDebugDetails';
 import type { VCObserverEntry, ViewportEntryData } from '../types';
 import { cssIssueOccurrence } from '../viewport-observer/utils/track-display-content-occurrence';
@@ -112,11 +110,14 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		stopTime: number,
 		isPostInteraction: boolean,
 		isVCClean: boolean,
+		interactionType: InteractionType,
+		isPageVisible: boolean,
 		interactionId?: string,
 		dirtyReason?: VCAbortReason,
 		allEntries?: ReadonlyArray<VCObserverEntry>,
 		include3p?: boolean,
 		excludeSmartAnswersInSearch?: boolean,
+		interactionAbortReason?: AbortReasonType,
 	): Promise<RevisionPayloadVCDetails> {
 		const percentiles = [25, 50, 75, 80, 85, 90, 95, 98, 99, 100];
 		const viewportEntries = this.filterViewportEntries(filteredEntries);
@@ -290,23 +291,15 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		let v3RevisionDebugDetails: VCRevisionDebugDetails | null = null;
 		if (shouldCalculateDebugDetails) {
 			if (fg('platform_ufo_unify_abort_status_in_ttvc_debug_data')) {
-				// NOTE: using this instead of directly calling `getActiveInteraction()` to get around circular dependencies
-				const activeInteractionId = getInteractionId();
-				const activeInteraction = interactions.get(activeInteractionId.current ?? '');
-
-				const pageVisibilityUpToTTAI = activeInteraction
-					? getPageVisibilityUpToTTAI(activeInteraction)
-					: null;
-				const isBackgrounded = pageVisibilityUpToTTAI !== 'visible';
-
 				v3RevisionDebugDetails = {
 					revision: this.revisionNo,
-					isClean: isVCClean && !activeInteraction?.abortReason && !isBackgrounded,
-					abortReason: isBackgrounded
+					isClean: isVCClean && !interactionAbortReason && isPageVisible,
+					abortReason: !isPageVisible
 						? 'browser_backgrounded'
-						: (dirtyReason ?? activeInteraction?.abortReason),
+						: (dirtyReason ?? interactionAbortReason),
 					vcLogs: enhancedVcLogs,
 					interactionId,
+					interactionType,
 				};
 			} else {
 				v3RevisionDebugDetails = {
@@ -368,6 +361,9 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		isPostInteraction,
 		include3p,
 		excludeSmartAnswersInSearch,
+		interactionType,
+		isPageVisible,
+		interactionAbortReason,
 	}: VCCalculatorParam): Promise<RevisionPayloadEntry | undefined> {
 		const filteredEntries = orderedEntries.filter((entry) => {
 			return this.isEntryIncluded(entry, include3p, excludeSmartAnswersInSearch);
@@ -395,11 +391,14 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			stopTime,
 			isPostInteraction,
 			isVCClean,
+			interactionType,
+			isPageVisible,
 			interactionId,
 			dirtyReason,
 			orderedEntries,
 			include3p,
 			excludeSmartAnswersInSearch,
+			interactionAbortReason,
 		);
 
 		const result: RevisionPayloadEntry = {

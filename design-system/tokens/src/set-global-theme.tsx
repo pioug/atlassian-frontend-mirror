@@ -2,6 +2,7 @@ import { type UnbindFn } from 'bind-event-listener';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import getGlobalTheme from './get-global-theme';
 import { type ThemeIdsWithOverrides, type ThemeState, themeStateDefaults } from './theme-config';
 import { isValidBrandHex } from './utils/color-utils';
 import configurePage from './utils/configure-page';
@@ -31,7 +32,10 @@ import { loadAndAppendThemeCss } from './utils/theme-loading';
  * ```
  */
 const setGlobalTheme = async (
-	{
+	nextThemeState: Partial<ThemeState> | ((themeState: ThemeState) => ThemeState) = {},
+	themeLoader?: (id: ThemeIdsWithOverrides) => void | Promise<void>,
+): Promise<UnbindFn> => {
+	let {
 		colorMode = themeStateDefaults['colorMode'],
 		contrastMode = themeStateDefaults['contrastMode'],
 		dark = themeStateDefaults['dark'],
@@ -40,9 +44,14 @@ const setGlobalTheme = async (
 		spacing = themeStateDefaults['spacing'],
 		typography = themeStateDefaults['typography'](),
 		UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
-	}: Partial<ThemeState> = {},
-	themeLoader?: (id: ThemeIdsWithOverrides) => void | Promise<void>,
-): Promise<UnbindFn> => {
+	} = typeof nextThemeState === 'function'
+		? nextThemeState({
+				...themeStateDefaults,
+				typography: themeStateDefaults['typography'](),
+				...getGlobalTheme(),
+			})
+		: nextThemeState;
+
 	// CLEANUP: Remove. This blocks application of increased contrast themes
 	// without the feature flag enabled.
 	if (!fg('platform_increased-contrast-themes')) {

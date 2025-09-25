@@ -23,7 +23,6 @@ const Wrap = ({ children }: { children: React.ReactNode }) => {
 	return <Box xcss={styles.wrap}>{children}</Box>;
 };
 
-
 export default function Example() {
 	const [flags, setFlags] = useState<Array<FlagProps>>([]);
 

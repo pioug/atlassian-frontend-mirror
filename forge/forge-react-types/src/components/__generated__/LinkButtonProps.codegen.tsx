@@ -3,14 +3,14 @@
  *
  * Extract component prop types from UIKit 2 components - LinkButtonProps
  *
- * @codegen <<SignedSource::5954a642054228f3f1ffb106dca3072f>>
+ * @codegen <<SignedSource::65d972f12bee563f4cc6b347e042dc57>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/link-button.partial.tsx <<SignedSource::e74ee4aaf752a6e85a57950dce7a3683>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/link-button.tsx <<SignedSource::260bb0ac991e48b6e7f0da4b938d73c7>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import type { LinkButtonProps as PlatformLinkButtonProps } from '@atlaskit/button/new';
 import React from 'react';
+import type { LinkButtonProps as PlatformLinkButtonProps } from '@atlaskit/button/new';
 
 export type LinkButtonProps = Pick<
 	PlatformLinkButtonProps,
@@ -25,9 +25,9 @@ export type LinkButtonProps = Pick<
 	| 'testId'
 	| 'shouldFitContainer'
 > & {
+	appearance?: PlatformLinkButtonProps['appearance'] | 'link' | 'subtle-link';
 	href?: string;
 	ref?: React.Ref<HTMLAnchorElement>;
-	appearance?: PlatformLinkButtonProps['appearance'] | 'link' | 'subtle-link';
 	spacing?: PlatformLinkButtonProps['spacing'] | 'none';
 };
 

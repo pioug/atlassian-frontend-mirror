@@ -28,7 +28,7 @@ const avatar = xcss({
 });
 const Author = () => (
 	<Box xcss={user}>
-		{/* eslint-disable-next-line jsx-a11y/alt-text */}
+		{/* eslint-disable-next-line @atlassian/a11y/alt-text */}
 		<Box as="img" xcss={avatar} src="https://i.imgur.com/zJi8dw9.jpg"></Box>
 		<Box as="span">Philip J. Fry</Box>
 	</Box>

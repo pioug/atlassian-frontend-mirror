@@ -2,11 +2,11 @@ import React, { type ReactNode } from 'react';
 
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
-import { cssMap } from '@atlaskit/css';
+import { cssMap, cx } from '@atlaskit/css';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import LinkIcon from '@atlaskit/icon/core/link';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import Image from '@atlaskit/image';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -34,6 +34,12 @@ const styles = cssMap({
 	avatarWrapper: {
 		width: '24px',
 		height: '24px',
+	},
+	avatarMargin: {
+		marginTop: token('space.025', '2px'),
+		marginRight: token('space.025', '2px'),
+		marginBottom: token('space.025', '2px'),
+		marginLeft: token('space.025', '2px'),
 	},
 	mediumIconWrapper: {
 		width: '16px',
@@ -166,12 +172,16 @@ const getJiraContainerProperties = ({
 	containerTypeProperties,
 	iconSize = 'small',
 }: GetJiraContainerPropertiesParams): ContainerProperties => {
-	const newTeamProfilePage = fg('enable_new_team_profile');
+	const newTeamProfilePage = FeatureGates.getExperimentValue(
+		'new_team_profile',
+		'isEnabled',
+		false,
+	);
 	const { subType, name } = containerTypeProperties || {};
 	const baseProperties = {
 		description: <FormattedMessage {...messages.jiraProjectDescription} />,
 		icon: newTeamProfilePage ? (
-			<Flex xcss={styles.avatarWrapper}>
+			<Flex xcss={cx(styles.avatarWrapper, styles.avatarMargin)}>
 				<Image src={getJiraIcon(subType)} alt="" testId="jira-project-container-icon" />
 			</Flex>
 		) : (
@@ -209,7 +219,11 @@ const getWebLinkContainerProperties = ({
 	isEmptyContainer,
 	isDisplayedOnProfileCard,
 }: GetWebLinkContainerPropertiesParams) => {
-	const newTeamProfilePage = fg('enable_new_team_profile');
+	const newTeamProfilePage = FeatureGates.getExperimentValue(
+		'new_team_profile',
+		'isEnabled',
+		false,
+	);
 	return {
 		description: isEmptyContainer ? (
 			<Text size="medium" weight="medium">
@@ -219,7 +233,10 @@ const getWebLinkContainerProperties = ({
 			<FormattedMessage {...messages.linkContainerDescription} />
 		),
 		icon: isEmptyContainer ? (
-			<Box xcss={styles.linkAvatarWrapper} testId="team-link-card-globe-icon">
+			<Box
+				xcss={cx(styles.linkAvatarWrapper, newTeamProfilePage && styles.avatarMargin)}
+				testId="team-link-card-globe-icon"
+			>
 				<LinkIcon label="" size="medium" />
 			</Box>
 		) : isDisplayedOnProfileCard ? (
@@ -252,13 +269,17 @@ export const getContainerProperties = ({
 	isEmptyContainer,
 	isDisplayedOnProfileCard,
 }: GetContainerPropertiesParams): ContainerProperties => {
-	const newTeamProfilePage = fg('enable_new_team_profile');
+	const newTeamProfilePage = FeatureGates.getExperimentValue(
+		'new_team_profile',
+		'isEnabled',
+		false,
+	);
 	switch (containerType) {
 		case 'ConfluenceSpace':
 			return {
 				description: <FormattedMessage {...messages.confluenceContainerDescription} />,
 				icon: newTeamProfilePage ? (
-					<Flex xcss={styles.avatarWrapper}>
+					<Flex xcss={cx(styles.avatarWrapper, styles.avatarMargin)}>
 						<Image src={ConfluenceIcon} alt="" testId="confluence-space-container-icon" />
 					</Flex>
 				) : (
@@ -277,7 +298,7 @@ export const getContainerProperties = ({
 			return {
 				description: <FormattedMessage {...messages.loomSpaceDescription} />,
 				icon: newTeamProfilePage ? (
-					<Flex xcss={styles.avatarWrapper}>
+					<Flex xcss={cx(styles.avatarWrapper, styles.avatarMargin)}>
 						<Image src={LoomIcon} alt="" testId="loom-space-container-icon" />
 					</Flex>
 				) : (

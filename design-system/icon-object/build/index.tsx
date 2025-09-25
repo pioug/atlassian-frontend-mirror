@@ -4,11 +4,10 @@ import fs from 'fs-extra';
 import pkgDir from 'pkg-dir';
 
 import format from '@af/formatting/sync';
-import { build, createIconDocs, tidy } from '@af/icon-build-process';
-import type { IconBuildConfig } from '@af/icon-build-process';
+import { build, createIconDocs, type IconBuildConfig, tidy } from '@af/icon-build-process';
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { getIconObjectJSX, iconObjectMapping } from './utils';
+import { createAllIconsFile, getIconObjectJSX, iconObjectMapping } from './utils';
 
 const root = pkgDir.sync();
 
@@ -75,3 +74,11 @@ Object.entries(iconObjectMapping).forEach(([name, iconObject]) => {
 		);
 	});
 });
+
+// Generate all-icons.tsx file
+const iconNames = Object.keys(iconObjectMapping);
+const allIconsContent = createAllIconsFile(iconNames);
+fs.writeFileSync(
+	path.resolve(root!, 'src', 'all-icons.tsx'),
+	createSignedArtifact(format(allIconsContent, 'tsx'), 'yarn build:icon-glyphs'),
+);

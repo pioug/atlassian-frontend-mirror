@@ -51,7 +51,7 @@ export const TeamContainers = ({
 	teamId,
 	onAddAContainerClick,
 	onEditContainerClick,
-	onRequestedContainerTimeout = () => { },
+	onRequestedContainerTimeout = () => {},
 	components,
 	userId,
 	cloudId,
@@ -141,16 +141,11 @@ export const TeamContainers = ({
 
 	useEffect(() => {
 		if (isDisplayedOnProfileCard && filterContainerId) {
-			setFilteredTeamLinks(
-				teamLinks.filter(
-					(container) =>
-						container.id !== filterContainerId && !requestedContainers.includes(container.type),
-				),
-			);
+			setFilteredTeamLinks(teamLinks.filter((container) => container.id !== filterContainerId));
 		} else {
 			setFilteredTeamLinks(teamLinks);
 		}
-	}, [teamLinks, isDisplayedOnProfileCard, filterContainerId, requestedContainers]);
+	}, [teamLinks, isDisplayedOnProfileCard, filterContainerId]);
 
 	useEffect(() => {
 		const containersToCheck = filteredTeamLinks;
@@ -165,14 +160,8 @@ export const TeamContainers = ({
 			const containerExists = (type: ContainerTypes) =>
 				containersToCheck.some((container) => container.type === type);
 
-			const containerRequested = (type: ContainerTypes) => requestedContainers.includes(type);
-
-			const showContainer = (
-				containerExists: boolean,
-				isRequesting: boolean,
-				product: 'confluence' | 'jira' | 'loom',
-			) => {
-				if (containerExists || isRequesting) {
+			const showContainer = (containerExists: boolean, product: 'confluence' | 'jira' | 'loom') => {
+				if (containerExists) {
 					return false;
 				}
 
@@ -188,17 +177,9 @@ export const TeamContainers = ({
 			};
 
 			setCanAddContainer({
-				Jira: showContainer(
-					containerExists('JiraProject'),
-					containerRequested('JiraProject'),
-					'jira',
-				),
-				Confluence: showContainer(
-					containerExists('ConfluenceSpace'),
-					containerRequested('ConfluenceSpace'),
-					'confluence',
-				),
-				Loom: showContainer(containerExists('LoomSpace'), containerRequested('LoomSpace'), 'loom'),
+				Jira: showContainer(containerExists('JiraProject'), 'jira'),
+				Confluence: showContainer(containerExists('ConfluenceSpace'), 'confluence'),
+				Loom: showContainer(containerExists('LoomSpace'), 'loom'),
 				WebLink: !containerExists('WebLink'),
 			});
 		}
@@ -208,7 +189,6 @@ export const TeamContainers = ({
 		productPermissionsOld,
 		filteredTeamLinks,
 		maxNumberOfContainersToShow,
-		requestedContainers,
 		isReadOnly,
 	]);
 	useEffect(() => {

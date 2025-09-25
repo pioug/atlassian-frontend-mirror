@@ -6,7 +6,7 @@ import { FormattedMessage, IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import Form, { type FormProps, HelperMessage } from '@atlaskit/form';
+import Form, { HelperMessage } from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
 import { MenuGroup } from '@atlaskit/menu';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -62,7 +62,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = component.find<FormProps<{}>>(Form);
+			const akForm = component.find(Form);
 			expect(akForm).toHaveLength(1);
 			expect(akForm.prop('onSubmit')).toBe(onSubmit);
 
@@ -112,7 +112,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			const footer = form.find('[data-testid="form-footer"]');
 			expect(footer.find(Button).prop('isLoading')).toBeTruthy();
@@ -133,7 +133,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			const footer = form.find('[data-testid="form-footer"]');
 			expect(footer.find(Tooltip)).toHaveLength(0);
@@ -156,7 +156,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			const userPickerField = form.find(UserPickerField);
 			expect(userPickerField.prop('isLoading')).toBeTruthy();
@@ -179,7 +179,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			const footer = form.find('[data-testid="form-footer"]');
 			const button = footer.find(Button);
@@ -216,7 +216,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			const footer = form.find('[data-testid="form-footer"]');
 			const button = footer.find(Button);
@@ -295,7 +295,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			expect(form.contains('Some message')).toBeTruthy();
 		});
@@ -322,7 +322,7 @@ describe('ShareForm', () => {
 			/>,
 		);
 		const formProps = {};
-		const akForm = component.find<FormProps<{}>>(Form);
+		const akForm = component.find(Form);
 		const form = renderProp(akForm, 'children', { formProps }).dive().dive();
 
 		expect(form.find(UserPickerField).prop('defaultValue')).toBe(defaultValue.users);
@@ -341,7 +341,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			const footer = form.find('[data-testid="form-footer"]');
 			const button = footer.find(Button);
@@ -364,7 +364,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			const footer = form.find('[data-testid="form-footer"]');
 			const button = footer.find(Button);
@@ -385,7 +385,7 @@ describe('ShareForm', () => {
 					product="confluence"
 				/>,
 			);
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 
 			const footer = form.find('[data-testid="form-footer"]');
@@ -408,7 +408,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			const shareHeader = form.find(ShareHeader);
 			expect(shareHeader).toHaveLength(0);
@@ -433,7 +433,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tabs);
 
 			const tabs = form.find(Tabs);
@@ -457,7 +457,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tabs);
 
 			const tabs = form.find(Tabs);
@@ -475,7 +475,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			const footer = form.find('[data-testid="form-footer"]');
 			const button = footer.find(Button);
@@ -505,7 +505,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const box = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Box);
 
 			expect(box).toHaveLength(1);
@@ -528,7 +528,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tabs);
 
 			const tabs = form.find(Tabs);
@@ -554,7 +554,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tabs);
 
 			const tabList = tabs.find(TabList);
@@ -615,7 +615,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
 			expect(tabs).toHaveLength(3); // Default tab + Slack tab + Custom tab
 			expect(tabs.at(2).prop('children')).toBe('Custom Tab');
@@ -631,7 +631,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
 			expect(tabs).toHaveLength(0);
 		});
@@ -646,7 +646,7 @@ describe('ShareForm', () => {
 				/>,
 			);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
+			const akForm = wrapper.find(Form);
 			const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
 			expect(tabs).toHaveLength(2); // Default tab + Custom tab
 			expect(tabs.at(1).prop('children')).toBe('Custom Tab');
@@ -671,7 +671,7 @@ describe('helperMessage prop', () => {
 				helperMessage={helperMessage}
 			/>,
 		);
-		const akForm = shareForm.find<FormProps<{}>>(Form);
+		const akForm = shareForm.find(Form);
 		const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 		const userPickerField = form.find(UserPickerField);
 
@@ -699,7 +699,7 @@ describe('orgId prop', () => {
 				enableSmartUserPicker
 			/>,
 		);
-		const akForm = shareForm.find<FormProps<{}>>(Form);
+		const akForm = shareForm.find(Form);
 		const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 		const userPickerField = form.find(UserPickerField);
 

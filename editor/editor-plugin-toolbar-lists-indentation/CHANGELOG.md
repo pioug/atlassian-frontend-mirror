@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 7.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.4
+
+### Patch Changes
+
+- [`fb6997c75469f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb6997c75469f) -
+  [ux] ED-29319 [CR-6a] Update full page toolbar responstiveness
+- Updated dependencies
+
 ## 6.1.3
 
 ### Patch Changes

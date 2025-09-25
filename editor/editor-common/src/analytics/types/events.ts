@@ -19,6 +19,7 @@ import type { AIStreamingEventPayload } from './ai-streaming';
 import type { AIUnifiedEventPayload } from './ai-unified-events';
 import type { AlignmentEventPayload } from './alignment-events';
 import type { AvatarEventPayload } from './avatar';
+import type { BlockMenuEventPayload } from './block-menu-events';
 import type { BreakoutEventPayload } from './breakout-events';
 import type { TextColorEventPayload } from './color-events';
 import type { ConfigPanelEventPayload } from './config-panel-events';
@@ -48,6 +49,7 @@ import type { VisitedLinkAEP } from './link-events';
 import type {
 	CreateLinkInlineDialogEventPayload,
 	EditLinkToolbarAEP,
+	PreviewItemClickedAEP,
 	OpenSettingsToolbarAEP,
 	UnlinkToolbarAEP,
 } from './link-tool-bar-events';
@@ -113,6 +115,7 @@ export type AnalyticsEventPayload<T = void> =
 	| TypeAheadPayload
 	| UnlinkToolbarAEP
 	| EditLinkToolbarAEP
+	| PreviewItemClickedAEP
 	| OpenSettingsToolbarAEP
 	| CustomPanelEventPayload
 	| FeatureExposureAEP
@@ -137,6 +140,7 @@ export type AnalyticsEventPayload<T = void> =
 	| AIProactiveEventPayload
 	| AIUnifiedEventPayload
 	| BreakoutEventPayload
+	| BlockMenuEventPayload
 	| ActiveSessionEventPayload
 	| AIInlineSuggestionPayload
 	| SelectionExtensionEventPayload

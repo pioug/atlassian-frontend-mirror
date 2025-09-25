@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-ncs-step-metrics",
-	"version": "4.0.0",
+	"version": "5.0.0",
 	"description": "NcsStepMetrics plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

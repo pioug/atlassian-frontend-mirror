@@ -134,6 +134,12 @@ export class DummyOmniChannelComponent extends React.Component<Props> {
 	}
 }
 
+export class DummyTownsquareHomeComponent extends React.Component<Props> {
+	render() {
+		return <CustomButton text={FabricChannel.townsquareHome} onClick={this.props.onClick} />;
+	}
+}
+
 class MyButton extends React.Component<Props> {
 	static displayName = 'MyButton';
 	render() {
@@ -162,6 +168,7 @@ const componentChannels = {
 	[FabricChannel.avp]: DummyAVPComponent,
 	[FabricChannel.growth]: DummyGrowthComponent,
 	[FabricChannel.omniChannel]: DummyOmniChannelComponent,
+	[FabricChannel.townsquareHome]: DummyTownsquareHomeComponent,
 };
 
 export const createComponentWithAnalytics = (channel: FabricChannel) =>

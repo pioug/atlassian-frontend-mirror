@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ComponentType, type FormEvent, useEffect, useState } from 'react';
+import { type ComponentType, type FormEvent, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
@@ -10,40 +10,52 @@ import metadata from '@atlaskit/icon-object/metadata';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
+import { allIcons } from '../src/all-icons';
+
 import IconExplorerCell from './utils/icon-explorer-cell';
 
-const allIcons = Promise.all(
-	Object.keys(metadata).map(async (name) => {
-		const icon = await import(`../src/artifacts/glyph/${name}.tsx`);
-		return { name, icon: icon.default };
-	}),
-).then((newData) =>
-	newData
-		.map((icon) => ({
-			[icon.name]: { ...metadata[icon.name], component: icon.icon },
-		}))
-		.reduce((acc, b) => ({ ...acc, ...b })),
+// Create the icons map by combining metadata with imported components
+const allIconsData: { [key: string]: Icon } = Object.keys(metadata).reduce(
+	(acc, iconKey) => {
+		// Find the matching component from allIcons array
+		const iconComponent = allIcons.find((icon) => {
+			// Match by component displayName
+			const expectedName = metadata[iconKey].componentName;
+			return icon.displayName === expectedName;
+		});
+
+		if (iconComponent) {
+			acc[iconKey] = {
+				...metadata[iconKey],
+				component: iconComponent,
+			};
+		}
+
+		return acc;
+	},
+	{} as { [key: string]: Icon },
 );
 
 const styles = cssMap({
 	iconGridWrapper: {
-		paddingTop: token('space.150'),
-		paddingRight: token('space.050'),
-		paddingLeft: token('space.050'),
+		paddingBlockStart: token('space.150'),
+		paddingInlineEnd: token('space.050'),
+		paddingInlineStart: token('space.050'),
 	},
 	iconExplorerGrid: {
 		display: 'flex',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		justifyContent: 'flex-start',
-		marginTop: token('space.150'),
+		marginBlockStart: token('space.150'),
 	},
 	noIcons: {
-		marginTop: token('space.150'),
-		paddingTop: token('space.150'),
-		paddingRight: token('space.150'),
-		paddingBottom: token('space.150'),
-		paddingLeft: token('space.150'),
+		marginBlockStart: token('space.150'),
+		paddingBlockStart: token('space.150'),
+		paddingInlineEnd: token('space.150'),
+		paddingBlockEnd: token('space.150'),
+		paddingInlineStart: token('space.150'),
 	},
 });
 
@@ -68,11 +80,6 @@ const filterIcons = (icons: Record<string, Icon>, query: string) => {
 function IconAllExample() {
 	const [query, setQuery] = useState('');
 	const [showIcons, setShowIcons] = useState(true);
-	const [allIconsState, setAllIconsState] = useState<{ [key: string]: Icon }>();
-
-	useEffect(() => {
-		allIcons.then((iconsMap) => setAllIconsState(iconsMap));
-	}, []);
 
 	const updateQuery = (query: string) => {
 		setQuery(query);
@@ -82,10 +89,7 @@ function IconAllExample() {
 	const toggleShowIcons = () => setShowIcons((prev) => !prev);
 
 	const renderIcons = () => {
-		if (!allIconsState) {
-			return <div>Loading Icons...</div>;
-		}
-		const icons: Icon[] = filterIcons(allIconsState, query);
+		const icons: Icon[] = filterIcons(allIconsData, query);
 
 		return icons.length ? (
 			<div css={styles.iconExplorerGrid}>

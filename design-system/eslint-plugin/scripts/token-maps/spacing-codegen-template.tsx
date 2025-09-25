@@ -21,15 +21,15 @@ const negativeSpaceTokens = tokens
 
 export const createSpacingStylesFromTemplate = (): string => {
 	const typeAndValuePositive = positiveSpaceTokens
-			.map(({ name, fallback }) => `'${fallback}': '${name}',`)
-			.join('\t\n');
+		.map(({ name, fallback }) => `'${fallback}': '${name}',`)
+		.join('\t\n');
 	const typePositiveUnionKeys = positiveSpaceTokens
 		.map(({ fallback }) => `'${fallback}'`)
 		.join(' | ');
 
 	const typeAndValueNegative = negativeSpaceTokens
-			.map(({ name, fallback }) => `'${fallback}': '${name}',`)
-			.join('\t\n');
+		.map(({ name, fallback }) => `'${fallback}': '${name}',`)
+		.join('\t\n');
 	const typeNegativeUnionKeys = negativeSpaceTokens
 		.map(({ fallback }) => `'${fallback}'`)
 		.join(' | ');

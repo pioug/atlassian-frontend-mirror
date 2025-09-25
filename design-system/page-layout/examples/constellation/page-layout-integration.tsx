@@ -109,12 +109,7 @@ export const DefaultCreate = () => (
 );
 
 const ProductHomeExample = () => (
-	<ProductHome
-		onClick={console.log}
-		icon={ConfluenceIcon}
-		logo={ConfluenceLogo}
-		siteTitle="Product"
-	/>
+	<ProductHome onClick={console.log} icon={ConfluenceIcon} logo={ConfluenceLogo} siteTitle="App" />
 );
 
 export const HelpPopup = () => {

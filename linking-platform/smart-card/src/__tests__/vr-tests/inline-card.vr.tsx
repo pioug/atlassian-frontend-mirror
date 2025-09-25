@@ -337,6 +337,6 @@ snapshot(VRInlineProfileCard, {
 snapshot(VRInlineCardPlaceholderData, {
 	description: `inline card with placeholder data for SSR`,
 	featureFlags: {
-		'platform_initial_data_for_smart_cards': [true, false],
+		platform_initial_data_for_smart_cards: [true, false],
 	},
 });

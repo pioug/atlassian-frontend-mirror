@@ -1,4 +1,5 @@
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
@@ -30,6 +31,7 @@ export type SelectionMarkerPlugin = NextEditorPlugin<
 			OptionalPlugin<TypeAheadPlugin>,
 			OptionalPlugin<EditorDisabledPlugin>,
 			OptionalPlugin<ToolbarPlugin>,
+			OptionalPlugin<DecorationsPlugin>,
 		];
 		pluginConfiguration?: SelectionMarkerPluginOptions;
 		sharedState: { isForcedHidden: boolean; isMarkerActive: boolean } | undefined;

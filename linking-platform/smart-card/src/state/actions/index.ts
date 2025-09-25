@@ -30,10 +30,13 @@ export const useSmartCardActions = (id: string, url: string, placeholderData?: C
 	const { getState, dispatch } = store;
 
 	const getSmartLinkState = useCallback(() => {
-		const placeholderObject = fg('platform_initial_data_for_smart_cards') ? placeholderData : undefined;
-		const { details, status, metadataStatus } = getState()[url] ?? placeholderObject ?? {
-			status: SmartLinkStatus.Pending,
-		};
+		const placeholderObject = fg('platform_initial_data_for_smart_cards')
+			? placeholderData
+			: undefined;
+		const { details, status, metadataStatus } = getState()[url] ??
+			placeholderObject ?? {
+				status: SmartLinkStatus.Pending,
+			};
 		return { details, status, metadataStatus };
 	}, [getState, url, placeholderData]);
 

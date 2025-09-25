@@ -24,6 +24,9 @@
 			"path": "../../../design-system/dropdown-menu/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-block-controls/afm-cc/tsconfig.json"
 		},
 		{

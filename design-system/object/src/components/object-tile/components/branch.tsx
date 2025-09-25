@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8490609520f1254c5fa6f8b9f4798964>>
+ * @codegen <<SignedSource::ba2400aa1a21e98b14b3159dd611e30a>>
  * @codegenCommand yarn build-glyphs
  */
 import React from 'react';
@@ -16,7 +16,7 @@ export default function BranchObjectTile({
 	size,
 	testId,
 	isBold,
-}: ObjectTileProps) {
+}: ObjectTileProps): React.JSX.Element {
 	return (
 		<ObjectTileBase
 			label={label}

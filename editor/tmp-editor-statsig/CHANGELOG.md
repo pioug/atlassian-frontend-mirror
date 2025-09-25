@@ -1,5 +1,23 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.32.0
+
+### Minor Changes
+
+- [`3313b6542c788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3313b6542c788) -
+  [ux] [ENGHEALTH-30483] use `hasCloseButton` or CloseButton for ModalHeader
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.31.0
+
+### Minor Changes
+
+- [`fb6997c75469f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb6997c75469f) -
+  [ux] ED-29319 [CR-6a] Update full page toolbar responstiveness
+
 ## 12.30.0
 
 ### Minor Changes

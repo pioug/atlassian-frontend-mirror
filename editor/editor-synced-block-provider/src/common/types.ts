@@ -28,5 +28,8 @@ export interface ADFWriteProvider {
 	) => Promise<string>;
 }
 export abstract class SyncBlockDataProvider extends NodeDataProvider<SyncBlockNode, SyncBlockData> {
-    abstract writeNodesData: (nodes: SyncBlockNode[], data: SyncBlockData[]) => Promise<Array<string | undefined>>;
+	abstract writeNodesData: (
+		nodes: SyncBlockNode[],
+		data: SyncBlockData[],
+	) => Promise<Array<string | undefined>>;
 }

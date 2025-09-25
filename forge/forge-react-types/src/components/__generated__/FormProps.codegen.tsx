@@ -3,15 +3,16 @@
  *
  * Extract component prop types from UIKit 2 components - FormProps
  *
- * @codegen <<SignedSource::72d05fe1799ae83e2fbc1e01f76009ce>>
+ * @codegen <<SignedSource::ca42eb4d628a4c566926524729cd5949>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/index.tsx <<SignedSource::b6dd991b4a5e73adbac9321d53cd909e>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/index.tsx <<SignedSource::227c9ed7a33e4ff2efd0c372e35c04c3>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import type { ReactNode } from 'react';
 
 export type FormProps = {
+	children: ReactNode;
 	/**
 	 * Event handler called when the form is submitted. Fields must be free of validation errors.
 	 *
@@ -22,7 +23,6 @@ export type FormProps = {
 	 * If you use `() => Promise<void>|void` for this module, it will default to true.
 	 */
 	onSubmit: () => Promise<void | boolean> | void;
-	children: ReactNode;
 };
 
 /**

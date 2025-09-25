@@ -1,11 +1,13 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4595bc1a07f9da4186e2df84cea56831>>
+ * @codegen <<SignedSource::a031ffa483e224bf49a4e9eec39acb69>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
+import type { Linter } from 'eslint';
+
 import * as atlaskitDesignSystemPlugin from '@atlaskit/eslint-plugin-design-system';
 
-export default {
+const config: Linter.FlatConfig = {
 	plugins: {
 		// NOTE: The reference to this plugin is inserted dynamically while creating the plugin in `index.codegen.tsx`
 		'@atlaskit/design-system': atlaskitDesignSystemPlugin,
@@ -58,4 +60,6 @@ export default {
 			},
 		],
 	},
-} as const;
+};
+
+export default config;

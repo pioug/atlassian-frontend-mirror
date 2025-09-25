@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - FormFooterProps
  *
- * @codegen <<SignedSource::bd453251ee9501e44dfdef3abb96f526>>
+ * @codegen <<SignedSource::4c90207f54696475cd9bfae6d8cfb8a9>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-footer.partial.tsx <<SignedSource::0b729df36afbc86cc134984bb4c16b3e>>
  */
@@ -12,13 +12,13 @@
 import React from 'react';
 import { FormFooter as PlatformFormFooter } from '@atlaskit/form';
 
-type _PlatformFormFooterProps = React.ComponentProps<typeof PlatformFormFooter>;
 export type PlatformFormFooterProps = Omit<_PlatformFormFooterProps, 'align'> & {
 /**
  * Sets the alignment of the footer contents. This is often a button. Defaults to `end`.
  */
 	align?: _PlatformFormFooterProps['align'];
 }
+type _PlatformFormFooterProps = React.ComponentProps<typeof PlatformFormFooter>;
 
 export type FormFooterProps = Pick<
   PlatformFormFooterProps,

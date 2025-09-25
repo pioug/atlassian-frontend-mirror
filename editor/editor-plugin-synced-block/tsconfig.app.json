@@ -44,7 +44,16 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-decorations/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-floating-toolbar/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-selection/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-shared-styles/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-synced-block-provider/tsconfig.app.json"

@@ -1,3 +1,4 @@
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -70,7 +71,11 @@ export const getPermissionMap = (
 	isOrgAdmin: boolean,
 	source?: ExternalReferenceSource,
 ): PermissionMap => {
-	const newTeamProfileEnabled = fg('enable_new_team_profile');
+	const newTeamProfileEnabled = FeatureGates.getExperimentValue(
+		'new_team_profile',
+		'isEnabled',
+		false,
+	);
 	if (settings === 'OPEN') {
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember),

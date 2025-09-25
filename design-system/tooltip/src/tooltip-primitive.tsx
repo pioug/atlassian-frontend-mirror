@@ -6,6 +6,9 @@ import { type CSSProperties, forwardRef, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { TooltipShortcut } from './tooltip-shortcut';
 import { type PositionType } from './types';
 
 export interface TooltipPrimitiveProps {
@@ -19,6 +22,7 @@ export interface TooltipPrimitiveProps {
 	onMouseOver?: (e: React.MouseEvent<HTMLDivElement>) => void;
 	onMouseOut?: (e: React.MouseEvent<HTMLDivElement>) => void;
 	id?: string;
+	shortcut?: string[];
 }
 
 const primitiveStyles = css({
@@ -30,7 +34,7 @@ const primitiveStyles = css({
  */
 const TooltipPrimitive = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
 	function TooltipPrimitive(
-		{ style, className, children, placement, testId, onMouseOut, onMouseOver, id },
+		{ style, className, children, placement, testId, onMouseOut, onMouseOver, id, shortcut },
 		ref,
 	) {
 		return (
@@ -57,6 +61,9 @@ const TooltipPrimitive = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
 					id={id}
 				>
 					{children}
+					{shortcut && fg('platform-dst-tooltip-shortcuts') && (
+						<TooltipShortcut shortcut={shortcut} />
+					)}
 				</div>
 			</div>
 		);

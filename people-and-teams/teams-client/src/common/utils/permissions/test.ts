@@ -1,3 +1,4 @@
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type TeamMembership } from '../../../types/membership';
@@ -14,6 +15,16 @@ jest.mock('../team', () => ({
 }));
 
 jest.mock('@atlaskit/platform-feature-flags');
+
+jest.mock('@atlaskit/feature-gate-js-client', () => ({
+	...jest.requireActual('@atlaskit/feature-gate-js-client'),
+	initialize: jest.fn(),
+	initializeCalled: jest.fn(),
+	initializeFromValues: jest.fn(),
+	getExperimentValue: jest.fn(),
+	checkGate: jest.fn(),
+	initializeCompleted: () => true,
+}));
 
 const nonPermissions: (TeamPermission | undefined)[] = ['FULL_READ', 'NONE', undefined];
 
@@ -198,6 +209,9 @@ describe('In SCIM-synced teams', () => {
 	beforeEach(() => {
 		(fg as jest.Mock).mockImplementation(
 			(flagName) => flagName !== 'enable_edit_team_name_external_type_teams',
+		);
+		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+			exp === 'new_team_profile' ? true : false,
 		);
 	});
 	describe('When the user is a member', () => {

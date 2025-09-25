@@ -7,9 +7,20 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getContainerProperties, messages } from '../get-container-properties';
+
+jest.mock('@atlaskit/feature-gate-js-client', () => ({
+	...jest.requireActual('@atlaskit/feature-gate-js-client'),
+	initialize: jest.fn(),
+	initializeCalled: jest.fn(),
+	initializeFromValues: jest.fn(),
+	getExperimentValue: jest.fn(),
+	checkGate: jest.fn(),
+	initializeCompleted: () => true,
+}));
 
 const renderWithIntl = (node: React.ReactNode) => {
 	return render(<IntlProvider locale="en">{node}</IntlProvider>);
@@ -93,7 +104,10 @@ describe('getContainerProperties', () => {
 		expect(screen.queryByTestId('team-link-card-external-link-icon')).not.toBeInTheDocument();
 	});
 
-	it('should use new title for confluence when enable_new_team_profile is on', () => {
+	it('should use new title for confluence when new team profile is on', () => {
+		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+			exp === 'new_team_profile' ? true : false,
+		);
 		(fg as jest.Mock).mockReturnValue(true);
 		const properties = getContainerProperties({
 			containerType: 'ConfluenceSpace',
@@ -104,6 +118,7 @@ describe('getContainerProperties', () => {
 
 	it('should return correct titles for loom container type when flag off and on', () => {
 		// Off by default from beforeEach
+		(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(false);
 		let properties = getContainerProperties({
 			containerType: 'LoomSpace',
 		});
@@ -111,7 +126,9 @@ describe('getContainerProperties', () => {
 		expect(screen.getByText(messages.addLoomContainerTitle.defaultMessage)).toBeInTheDocument();
 
 		// Turn flag on
-		(fg as jest.Mock).mockReturnValue(true);
+		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+			exp === 'new_team_profile' ? true : false,
+		);
 		properties = getContainerProperties({
 			containerType: 'LoomSpace',
 		});
@@ -119,8 +136,10 @@ describe('getContainerProperties', () => {
 		expect(screen.getByText(messages.addLoomSpace.defaultMessage)).toBeInTheDocument();
 	});
 
-	it('should use new title for jira when enable_new_team_profile is on', () => {
-		(fg as jest.Mock).mockReturnValue(true);
+	it('should use new title for jira when new team profile is on', () => {
+		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+			exp === 'new_team_profile' ? true : false,
+		);
 		const properties = getContainerProperties({
 			containerType: 'JiraProject',
 		});
@@ -130,13 +149,15 @@ describe('getContainerProperties', () => {
 
 	it('should set weblink title to null when flag is off and to Add Web Link when flag is on', () => {
 		// Off
+		(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(false);
 		let properties = getContainerProperties({
 			containerType: 'WebLink',
 		});
 		expect(properties.title).toBeNull();
 
-		// On
-		(fg as jest.Mock).mockReturnValue(true);
+		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+			exp === 'new_team_profile' ? true : false,
+		);
 		properties = getContainerProperties({
 			containerType: 'WebLink',
 		});

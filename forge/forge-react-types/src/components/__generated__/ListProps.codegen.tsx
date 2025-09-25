@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ListProps
  *
- * @codegen <<SignedSource::d77d7e870d29834b0636dd18611690de>>
+ * @codegen <<SignedSource::f941ffed450aa45c5d58966679182193>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/list/list.tsx <<SignedSource::447b2a8735f97d1d9b091a97a64a7c89>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/list/list.tsx <<SignedSource::05949d787a1dce05d30cd93eed298093>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -13,15 +13,15 @@ import React from 'react';
 
 export interface ListProps {
 	/**
+	 * The items to render inside a `List` group.
+	 */
+	children: React.ReactNode;
+	/**
 	 * The `ordered` type should be used when representing an ordered list of items.
 	 * The `unordered` type should be used when representing an unordered list of items.
 	 * The type is set to `unordered` by default.
 	 */
 	type: 'ordered' | 'unordered';
-	/**
-	 * The items to render inside a `List` group.
-	 */
-	children: React.ReactNode;
 }
 
 /**

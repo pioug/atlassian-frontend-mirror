@@ -25,7 +25,7 @@ export default function Example() {
 						{
 							label: 'View profile',
 							id: 'view-profile',
-							callback: () => { },
+							callback: () => {},
 						},
 					]}
 					reportingLinesProfileUrl="/"

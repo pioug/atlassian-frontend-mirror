@@ -728,6 +728,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-09-19
+	platform_editor_toolbar_aifc_responsiveness_update: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_aifc_responsiveness_update',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-30
 	platform_editor_pasting_nested_table_fix: createBooleanExperiment({
 		productKeys: {
@@ -1021,6 +1029,14 @@ export const editorExperimentsConfig = {
 	platform_editor_layout_node_view_early_exit: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_layout_node_view_early_exit',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-24
+	platform_editor_update_modal_close_button: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_update_modal_close_button',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -3,6 +3,13 @@ import React from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl, useIntl } from 'react-intl-next';
 
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/editor-common/block-menu';
 import { copyHTMLToClipboard } from '@atlaskit/editor-common/clipboard';
 import { toDOM, copyDomNode } from '@atlaskit/editor-common/copy-button';
@@ -19,6 +26,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
+import { useBlockMenu } from './block-menu-provider';
+
 interface CopyBlockMenuItemProps {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
 }
@@ -29,10 +38,19 @@ const toDOMFromFragment = (fragment: Fragment, schema: Schema): Node => {
 
 const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentProps) => {
 	const { formatMessage } = useIntl();
+	const { fireAnalyticsEvent } = useBlockMenu();
 
 	const copyHandler = (
 		event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>,
 	) => {
+		fireAnalyticsEvent?.({
+			action: ACTION.CLICKED,
+			actionSubject: ACTION_SUBJECT.BLOCK_MENU_ITEM,
+			actionSubjectId: ACTION_SUBJECT_ID.COPY_BLOCK,
+			eventType: EVENT_TYPE.UI,
+			attributes: { inputMethod: INPUT_METHOD.MOUSE },
+		});
+
 		// prevent click event from bubbling up to the ancestor elements
 		event.stopPropagation();
 		// get the current selection
@@ -56,12 +74,17 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 					fragment = layoutContent?.content || Fragment.empty;
 				}
 
-				// if text is inside of an expand, the selection contains an expand for some reason
-				// the expandNode always and only have one child, no matter how much contents are inside the expand,
+				// if text is inside of an expand or extension, the selection contains an expand or extension for some reason
+				// the expandNode or extensionNode always and only have one child, no matter how much contents are inside the expand or extension,
 				// and the one child is the line that is being selected, so we can use the .firstChild again
-				if (fragment?.firstChild && fragment.firstChild.type.name === 'expand') {
-					const expandNode = fragment.firstChild;
-					const actualNodeToCopy = expandNode.firstChild;
+				if (
+					fragment?.firstChild &&
+					(fragment.firstChild.type.name === 'expand' ||
+						(fragment.firstChild.type.name === 'bodiedExtension' &&
+							fg('platform_editor_block_menu_patch_2')))
+				) {
+					const expandOrExtensionNode = fragment.firstChild;
+					const actualNodeToCopy = expandOrExtensionNode.firstChild;
 					fragment = Fragment.from(actualNodeToCopy) || Fragment.empty;
 				}
 
@@ -110,7 +133,7 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 		: formatMessage(messages.copyBlock);
 
 	return (
-		<ToolbarDropdownItem elemBefore={<CopyIcon label="" />} onClick={(e) => copyHandler(e)}>
+		<ToolbarDropdownItem elemBefore={<CopyIcon label="" />} onClick={copyHandler}>
 			{text}
 		</ToolbarDropdownItem>
 	);

@@ -118,6 +118,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'vc:state': true,
@@ -337,6 +339,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 9,
@@ -613,6 +617,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 9,
@@ -852,6 +858,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 8,
@@ -1093,6 +1101,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 9,
@@ -1295,6 +1305,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 5,
@@ -1476,6 +1488,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(resultTransition).toEqual({
 				'ufo:next:speedIndex': 10,
@@ -1660,6 +1674,8 @@ describe('vc-observer', () => {
 				ssr: 3,
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 7,
@@ -1863,6 +1879,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 5,
@@ -1987,6 +2005,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 9,
@@ -2155,6 +2175,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 9,
@@ -2286,6 +2308,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 8,
@@ -2421,6 +2445,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 9,
@@ -2514,6 +2540,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 5,
@@ -2599,6 +2627,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(resultTransition).toEqual({
 				'ufo:next:speedIndex': 10,
@@ -2687,6 +2717,8 @@ describe('vc-observer', () => {
 				ssr: 3,
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 7,
@@ -2776,6 +2808,8 @@ describe('vc-observer', () => {
 				ssr: 3,
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 10,
@@ -2861,6 +2895,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			expect(result).toEqual({
@@ -2896,6 +2932,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			expect(result).toEqual({
@@ -2931,6 +2969,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			expect(result).toEqual({
@@ -2972,6 +3012,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			}),
 		).toEqual({
 			'vc:rev': [
@@ -3047,6 +3089,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			const speedIndex = result['ufo:speedIndex'];
 
@@ -3096,6 +3140,8 @@ describe('vc-observer', () => {
 					prefix: '',
 					isEventAborted: false,
 					experienceKey: 'test',
+					interactionType: 'page_load',
+					isPageVisible: true,
 				});
 
 				expect(onVCRevisionReady).toHaveBeenCalledTimes(2);
@@ -3121,6 +3167,8 @@ describe('vc-observer', () => {
 					prefix: '',
 					isEventAborted: false,
 					experienceKey: 'test',
+					interactionType: 'page_load',
+					isPageVisible: true,
 				});
 
 				expect(onVCRevisionReady).toHaveBeenCalledTimes(1);
@@ -3142,6 +3190,8 @@ describe('vc-observer', () => {
 					prefix: '',
 					isEventAborted: false,
 					experienceKey: 'test',
+					interactionType: 'page_load',
+					isPageVisible: true,
 				});
 
 				expect(onUfoVcDebugDataReady).toHaveBeenCalledTimes(2);
@@ -3168,6 +3218,8 @@ describe('vc-observer', () => {
 					prefix: '',
 					isEventAborted: false,
 					experienceKey: 'test',
+					interactionType: 'page_load',
+					isPageVisible: true,
 				});
 
 				expect(onUfoVcDebugDataReady).toHaveBeenCalledTimes(1);
@@ -3194,6 +3246,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			expect(onVCRevisionReady).not.toHaveBeenCalled();
@@ -3214,6 +3268,8 @@ describe('vc-observer', () => {
 				prefix: '',
 				isEventAborted: false,
 				experienceKey: 'test',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			expect(onVCRevisionReady).not.toHaveBeenCalled();

@@ -156,6 +156,17 @@ type CodeBlockWrapAEP = ButtonAEP<ACTION_SUBJECT_ID.CODEBLOCK_WRAP, { wrapped: b
 
 type HeadingAnchorLinkButtonAEP = ButtonAEP<ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK, undefined>;
 
+type HoverLabelAEP = UIAEP<
+	ACTION.CLICKED,
+	ACTION_SUBJECT.SMART_LINK,
+	ACTION_SUBJECT_ID.HOVER_LABEL,
+	{
+		destinationProduct: string | null;
+		destinationSubproduct: string | null;
+		previewType: 'panel' | 'modal';
+	}
+>;
+
 type TableSortColumnNotAllowedAEP = AEP<
 	ACTION.SORT_COLUMN_NOT_ALLOWED,
 	ACTION_SUBJECT.TABLE,
@@ -299,6 +310,7 @@ export type AnalyticsEventPayload<T = void> =
 	| CodeBlockCopyAEP
 	| CodeBlockWrapAEP
 	| HeadingAnchorLinkButtonAEP
+	| HoverLabelAEP
 	| AnchorLinkAEP
 	| TableSortColumnNotAllowedAEP
 	| TableSortColumnAEP

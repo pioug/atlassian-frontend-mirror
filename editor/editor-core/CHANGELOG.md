@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 214.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 214.0.0
+
+### Patch Changes
+
+- [`dd82243801213`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd82243801213) -
+  Delete WithPluginState
+- Updated dependencies
+
+## 213.6.1
+
+### Patch Changes
+
+- [`0baf501ee24bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0baf501ee24bc) -
+  Add dangerouslySetInnerHTML to ReactEditorView when platform_editor_hydratable_ui is enabled
+- Updated dependencies
+
 ## 213.6.0
 
 ### Minor Changes

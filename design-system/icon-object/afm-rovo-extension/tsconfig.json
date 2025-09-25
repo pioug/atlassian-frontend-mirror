@@ -28,6 +28,12 @@
 		},
 		{
 			"path": "../../icon-lab/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../object/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
 		}
 	]
 }

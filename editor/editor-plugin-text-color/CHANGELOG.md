@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-text-color
 
+## 6.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.5.0
 
 ### Minor Changes

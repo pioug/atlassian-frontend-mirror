@@ -22,6 +22,11 @@ export { RECENT_WORK_CONTEXT, RecentWorkAnalyticsContext } from './RecentWorkAna
 export { ATLAS_CONTEXT, AtlasAnalyticsContext } from './AtlasAnalyticsContext';
 
 export {
+	TOWNSQUARE_HOME_CONTEXT,
+	TownsquareHomeAnalyticsContext,
+} from './TownsquareHomeAnalyticsContext';
+
+export {
 	LINKING_PLATFORM_CONTEXT,
 	LinkingPlatformAnalyticsContext,
 } from './LinkingPlatformAnalyticsContext';

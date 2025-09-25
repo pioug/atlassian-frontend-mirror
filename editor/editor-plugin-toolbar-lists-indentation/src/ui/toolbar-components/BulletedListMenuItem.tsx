@@ -20,13 +20,14 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 
-type BulletedListMenuItemType = {
+type BulletedListType = {
 	api?: ExtractInjectionAPI<ToolbarListsIndentationPlugin>;
 	parents: ToolbarComponentTypes;
 };
 
-export const BulletedListMenuItem = ({ api, parents }: BulletedListMenuItemType) => {
+export const useBulletedListInfo = ({ api, parents }: BulletedListType) => {
 	const { formatMessage } = useIntl();
+	const bulletMessage = formatMessage(listMessages.bulletedList);
 	const isTaskListItemEnabled = expValEquals(
 		'platform_editor_toolbar_task_list_menu_item',
 		'isEnabled',
@@ -49,21 +50,35 @@ export const BulletedListMenuItem = ({ api, parents }: BulletedListMenuItemType)
 				: api?.list.commands.toggleBulletList(getInputMethodFromParentKeys(parents)),
 		);
 	};
-
+	const isDisabled = isTaskListItemEnabled
+		? bulletListDisabled && !taskListActive
+		: bulletListDisabled;
 	const shortcut = formatShortcut(toggleBulletListKeymap);
+
+	return {
+		bulletMessage,
+		onClick,
+		isDisabled,
+		isSelected: bulletListActive,
+		shortcut,
+	};
+};
+export const BulletedListMenuItem = ({ api, parents }: BulletedListType) => {
+	const { bulletMessage, onClick, isDisabled, isSelected, shortcut } = useBulletedListInfo({
+		api,
+		parents,
+	});
 
 	return (
 		<ToolbarDropdownItem
 			elemBefore={<ListBulletedIcon size="small" label="" />}
 			elemAfter={shortcut ? <ToolbarKeyboardShortcutHint shortcut={shortcut} /> : undefined}
-			isSelected={bulletListActive}
-			isDisabled={
-				isTaskListItemEnabled ? bulletListDisabled && !taskListActive : bulletListDisabled
-			}
+			isSelected={isSelected}
+			isDisabled={isDisabled}
 			onClick={onClick}
 			ariaKeyshortcuts={shortcut}
 		>
-			{formatMessage(listMessages.bulletedList)}
+			{bulletMessage}
 		</ToolbarDropdownItem>
 	);
 };

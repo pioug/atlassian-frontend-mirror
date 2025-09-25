@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.1.0
+
+### Minor Changes
+
+- [`f4c0936dc05fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4c0936dc05fe) -
+  ED-29391 Add keyboard support for block menu
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.0
 
 ### Minor Changes

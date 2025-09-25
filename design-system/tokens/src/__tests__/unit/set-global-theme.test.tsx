@@ -287,6 +287,35 @@ describe('setGlobalTheme style loading', () => {
 		expect(dataThemes.sort()).toEqual(['dark', 'spacing', 'typography']);
 	});
 
+	it('Should not unset initialised themes when updating theme settings', async () => {
+		await setGlobalTheme({ light: 'legacy-light', dark: 'legacy-dark' });
+
+		const htmlElement = document.getElementsByTagName('html')[0];
+		expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+		expect(htmlElement).toHaveAttribute(
+			THEME_DATA_ATTRIBUTE,
+			'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
+		);
+
+		// Updating theme color mode using the function argument to only update color mode
+		await setGlobalTheme((prev) => ({ ...prev, colorMode: 'dark' }));
+
+		expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'dark');
+		expect(htmlElement).toHaveAttribute(
+			THEME_DATA_ATTRIBUTE,
+			'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
+		);
+
+		// Updating theme color mode using the object argument overrides non-defined theme settings to defaults
+		await setGlobalTheme({ colorMode: 'light' });
+
+		expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+		expect(htmlElement).toHaveAttribute(
+			THEME_DATA_ATTRIBUTE,
+			'dark:dark light:light spacing:spacing typography:typography',
+		);
+	});
+
 	it('should load a minimal set of themes when auto switching is disabled', async () => {
 		await setGlobalTheme({
 			colorMode: 'light',

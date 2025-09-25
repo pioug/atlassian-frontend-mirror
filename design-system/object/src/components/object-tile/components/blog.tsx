@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ed137347af138f8bf5eba5e0d72ca8db>>
+ * @codegen <<SignedSource::db70e40168178b4ae8431bb0df789052>>
  * @codegenCommand yarn build-glyphs
  */
 import React from 'react';
@@ -11,7 +11,12 @@ import { token } from '@atlaskit/tokens';
 import ObjectTileBase from '../object-tile-base';
 import type { ObjectTileProps } from '../types';
 
-export default function BlogObjectTile({ label = 'Blog', size, testId, isBold }: ObjectTileProps) {
+export default function BlogObjectTile({
+	label = 'Blog',
+	size,
+	testId,
+	isBold,
+}: ObjectTileProps): React.JSX.Element {
 	return (
 		<ObjectTileBase
 			label={label}

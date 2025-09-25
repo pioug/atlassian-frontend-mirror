@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - PressableProps
  *
- * @codegen <<SignedSource::5372ef8608441a2d8f71e99a6fd0a36e>>
+ * @codegen <<SignedSource::e2a66a4b4895b62cc4fce2fea034ad4b>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/pressable/__generated__/index.partial.tsx <<SignedSource::b297593f4c38160fa0272fb43fcaa19c>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/pressable/index.tsx <<SignedSource::d647047e3db08689d4030f643748e661>>
  */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
@@ -191,63 +191,63 @@ type XCSSProp = ReturnType<typeof xcssValidator>;
 type PlatformPressableProps = React.ComponentProps<typeof PlatformPressable>;
 
 export type PressableProps = Pick<PlatformPressableProps, 'children' | 'ref' | 'testId'> & {
-  /**
-   * Token representing background color with a built-in fallback value.
-   */
-  backgroundColor?: PlatformPressableProps['backgroundColor'],
-  /**
-   * Whether the button is disabled.
-   */
-  isDisabled?: PlatformPressableProps['isDisabled'],
-  /**
-   * Handler called on click.
-   */
-  onClick?: () => void,
-  /**
-   * Tokens representing CSS shorthand for `paddingBlock` and `paddingInline` together.
-   *
-   * @see paddingBlock
-   * @see paddingInline
-   */
-  padding?: PlatformPressableProps['padding'],
-  /**
-   * Tokens representing CSS shorthand `paddingBlock`.
-   *
-   * @see paddingBlockStart
-   * @see paddingBlockEnd
-   */
-  paddingBlock?: PlatformPressableProps['paddingBlock'],
-  /**
-   * Tokens representing CSS `paddingBlockEnd`.
-   */
-  paddingBlockEnd?: PlatformPressableProps['paddingBlockEnd'],
-  /**
-   * Tokens representing CSS `paddingBlockStart`.
-   */
-  paddingBlockStart?: PlatformPressableProps['paddingBlockStart'],
-  /**
-   * Tokens representing CSS shorthand `paddingInline`.
-   *
-   * @see paddingInlineStart
-   * @see paddingInlineEnd
-   */
-  paddingInline?: PlatformPressableProps['paddingInline'],
-  /**
-   * Tokens representing CSS `paddingInlineEnd`.
-   */
-  paddingInlineEnd?: PlatformPressableProps['paddingInlineEnd'],
-  /**
-   * Tokens representing CSS `paddingInlineStart`.
-   */
-  paddingInlineStart?: PlatformPressableProps['paddingInlineStart'],
-  /**
-   * Apply a subset of permitted styles, powered by Atlassian Design System tokens.
-   * For a list of supported style properties on this component, see [here](https://developer.atlassian.com/platform/forge/ui-kit/components/xcss).
-   *
-   * @type XCSSProp
-   */
-  xcss?: XCSSProp;
-}
+	/**
+	 * Token representing background color with a built-in fallback value.
+	 */
+	backgroundColor?: PlatformPressableProps['backgroundColor'];
+	/**
+	 * Whether the button is disabled.
+	 */
+	isDisabled?: PlatformPressableProps['isDisabled'];
+	/**
+	 * Handler called on click.
+	 */
+	onClick?: () => void;
+	/**
+	 * Tokens representing CSS shorthand for `paddingBlock` and `paddingInline` together.
+	 *
+	 * @see paddingBlock
+	 * @see paddingInline
+	 */
+	padding?: PlatformPressableProps['padding'];
+	/**
+	 * Tokens representing CSS shorthand `paddingBlock`.
+	 *
+	 * @see paddingBlockStart
+	 * @see paddingBlockEnd
+	 */
+	paddingBlock?: PlatformPressableProps['paddingBlock'];
+	/**
+	 * Tokens representing CSS `paddingBlockEnd`.
+	 */
+	paddingBlockEnd?: PlatformPressableProps['paddingBlockEnd'];
+	/**
+	 * Tokens representing CSS `paddingBlockStart`.
+	 */
+	paddingBlockStart?: PlatformPressableProps['paddingBlockStart'];
+	/**
+	 * Tokens representing CSS shorthand `paddingInline`.
+	 *
+	 * @see paddingInlineStart
+	 * @see paddingInlineEnd
+	 */
+	paddingInline?: PlatformPressableProps['paddingInline'];
+	/**
+	 * Tokens representing CSS `paddingInlineEnd`.
+	 */
+	paddingInlineEnd?: PlatformPressableProps['paddingInlineEnd'];
+	/**
+	 * Tokens representing CSS `paddingInlineStart`.
+	 */
+	paddingInlineStart?: PlatformPressableProps['paddingInlineStart'];
+	/**
+	 * Apply a subset of permitted styles, powered by Atlassian Design System tokens.
+	 * For a list of supported style properties on this component, see [here](https://developer.atlassian.com/platform/forge/ui-kit/components/xcss).
+	 *
+	 * @type XCSSProp
+	 */
+	xcss?: XCSSProp;
+};
 
 /**
  * A pressable is a primitive for building custom buttons.

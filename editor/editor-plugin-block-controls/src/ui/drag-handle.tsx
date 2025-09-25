@@ -439,10 +439,18 @@ export const DragHandle = ({
 				if (!isMultiSelect || tr.selection.empty || !e.shiftKey) {
 					tr = selectNode(tr, startPos, nodeType);
 					if (BLOCK_MENU_ENABLED && editorExperiment('platform_editor_controls', 'variant1')) {
-						api?.blockControls?.commands.toggleBlockMenu({ anchorName })({ tr });
+						api?.blockControls?.commands.toggleBlockMenu({
+							anchorName,
+						})({
+							tr,
+						});
 						e.stopPropagation();
 					} else if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
-						api?.blockControls?.commands.toggleBlockMenu({ anchorName })({ tr });
+						api?.blockControls?.commands.toggleBlockMenu({
+							anchorName,
+						})({
+							tr,
+						});
 						e.stopPropagation();
 					}
 				} else if (
@@ -553,10 +561,12 @@ export const DragHandle = ({
 
 					tr = selectNode(tr, startPos, nodeType);
 
-					api?.blockControls?.commands.toggleBlockMenu({ anchorName })({ tr });
+					api?.blockControls?.commands.toggleBlockMenu({ anchorName })({
+						tr,
+					});
 					api?.userIntent?.commands.setCurrentUserIntent('blockMenuOpen')({ tr });
-					api?.blockControls.commands.setSelectedViaDragHandle(true)({ tr });
 
+					api?.blockControls?.commands.setSelectedViaDragHandle(true)({ tr });
 					return tr;
 				});
 			} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {

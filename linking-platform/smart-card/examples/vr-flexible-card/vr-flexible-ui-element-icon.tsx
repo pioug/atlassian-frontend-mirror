@@ -59,7 +59,7 @@ export default () => {
 						<LinkIcon key={idx} render={() => <div css={boxStyles}>LP</div>} size={size} />
 					))}
 					{Object.values(SmartLinkSize).map((size, idx) => (
-						// eslint-disable-next-line jsx-a11y/alt-text
+						// eslint-disable-next-line @atlassian/a11y/alt-text
 						<LinkIcon key={idx} render={() => <img src={smallImage} alt="" />} size={size} />
 					))}
 				</HorizontalWrapper>

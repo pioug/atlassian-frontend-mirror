@@ -56,6 +56,9 @@
 			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/tooltip/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-townsquare/tsconfig.json"
 		}
 	]

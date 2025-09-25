@@ -5,6 +5,7 @@ import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import { cleanQuery } from '../../helpers';
 import { components } from '../get-components/components';
+import { type Component } from '../get-components/types';
 
 const inputSchema = z.object({
 	terms: z
@@ -21,8 +22,6 @@ const inputSchema = z.object({
 		.default(false)
 		.describe('Whether to search for exact match only for the component name'),
 });
-
-type Component = (typeof components)[number];
 
 export const listSearchComponentsTool = {
 	name: 'ads_search_components',
@@ -58,8 +57,8 @@ import CopyIcon from '@atlaskit/icon/core/copy';
 const cleanComponentResult = (result: Component) => {
 	return {
 		name: result.name,
-		packageName: result.packageName,
-		example: result.example,
+		package: result.package,
+		examples: result.examples,
 		props: result.props,
 	};
 };
@@ -110,7 +109,7 @@ export const searchComponentsTool = async (
 				weight: 3,
 			},
 			{
-				name: 'packageName',
+				name: 'package',
 				weight: 3,
 			},
 			{
@@ -122,7 +121,7 @@ export const searchComponentsTool = async (
 				weight: 2,
 			},
 			{
-				name: 'example',
+				name: 'examples',
 				weight: 1,
 			},
 		],

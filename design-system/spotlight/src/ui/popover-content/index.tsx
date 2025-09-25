@@ -81,7 +81,7 @@ export const PopoverContent = ({
 		<Popper offset={offset} placement={popperPlacementMap[placement]}>
 			{({ ref, style }) => {
 				if (!isVisible) {
-					return
+					return;
 				}
 
 				return (
@@ -96,7 +96,7 @@ export const PopoverContent = ({
 					>
 						{children}
 					</div>
-				)
+				);
 			}}
 		</Popper>
 	);

@@ -66,7 +66,12 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	};
 }
 
-export const useFetchDocNode = (editorView: EditorView, node: PMNode, defaultDocNode: DocNode, provider?: SyncBlockProvider): DocNode => {
+export const useFetchDocNode = (
+	editorView: EditorView,
+	node: PMNode,
+	defaultDocNode: DocNode,
+	provider?: SyncBlockProvider,
+): DocNode => {
 	const [docNode, setDocNode] = useState<DocNode>(defaultDocNode);
 	useEffect(() => {
 		if (!provider) {

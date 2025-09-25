@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 4.0.1
+
+### Patch Changes
+
+- [`f4c0936dc05fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4c0936dc05fe) -
+  ED-29391 Add keyboard support for block menu
+- Updated dependencies
+
+## 4.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.9
+
+### Patch Changes
+
+- [`3a405e30c22dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a405e30c22dc) -
+  ED-29384: Fixed copy texts in extension, pasted the extension
+- Updated dependencies
+
+## 3.2.8
+
+### Patch Changes
+
+- [`3e49f15a87d52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e49f15a87d52) -
+  Add analytics events for block menu discovery
+- Updated dependencies
+
 ## 3.2.7
 
 ### Patch Changes

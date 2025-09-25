@@ -1,5 +1,16 @@
 # @atlaskit/analytics-listeners
 
+## 9.1.0
+
+### Minor Changes
+
+- [`1ebd81a691a2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ebd81a691a2a) -
+  Added townsquareHome FabricChannel
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.3
 
 ### Patch Changes

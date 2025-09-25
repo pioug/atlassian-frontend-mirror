@@ -36,7 +36,8 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
-		"@compiled/react": "root:*"
+		"@compiled/react": "root:*",
+		"uuid": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -84,7 +85,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

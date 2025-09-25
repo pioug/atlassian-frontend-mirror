@@ -407,7 +407,9 @@ describe('search recommendations with Confluence guests', () => {
 
 			await getUserRecommendations(requestWithCustomQuery, intl);
 
-			expect(fetchMock.lastCall()?.[1]?.body).toContain('"customQuery":"(email:\\"test@example.com\\")"');
+			expect(fetchMock.lastCall()?.[1]?.body).toContain(
+				'"customQuery":"(email:\\"test@example.com\\")"',
+			);
 			expect(fetchMock.lastCall()?.[1]?.body).toContain('"queryString":""');
 		});
 

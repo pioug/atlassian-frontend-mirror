@@ -111,4 +111,10 @@ export const aiFailedStateMessages = defineMessages({
 		description:
 			'This error message is displayed when error(s) are encountered during processing of LLM response in ADF format.',
 	},
+	noTextualContentError: {
+		id: 'fabric.editor.ai.experience.noTextualContentError',
+		defaultMessage:
+			'More content needed to complete your request. Please select more content and try again.',
+		description: 'Error message when the input has no textual content.',
+	},
 });

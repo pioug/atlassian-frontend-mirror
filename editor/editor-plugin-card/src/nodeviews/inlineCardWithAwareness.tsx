@@ -1,6 +1,12 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 
 import {
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+	ACTION,
+	ACTION_SUBJECT,
+} from '@atlaskit/editor-common/analytics';
+import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -209,6 +215,28 @@ export const InlineCardWithAwareness = memo(
 				const openPreviewPanel = cardContext?.value?.openPreviewPanel;
 				const isPreviewPanelAvailable = Boolean(openPreviewPanel && isPanelAvailable);
 
+				const firePreviewPanelClickEvent = ({
+					previewType,
+				}: {
+					previewType: 'panel' | 'modal';
+				}) => {
+					const store = cardContext?.value?.store;
+					const urlState = store?.getState()[url || ''];
+					if (pluginInjectionApi?.analytics?.actions) {
+						pluginInjectionApi?.analytics?.actions?.fireAnalyticsEvent({
+							action: ACTION.CLICKED,
+							actionSubject: ACTION_SUBJECT.SMART_LINK,
+							actionSubjectId: ACTION_SUBJECT_ID.HOVER_LABEL,
+							eventType: EVENT_TYPE.UI,
+							attributes: {
+								previewType,
+								destinationProduct: urlState?.details?.meta?.product ?? null,
+								destinationSubproduct: urlState?.details?.meta?.subproduct ?? null,
+							},
+						});
+					}
+				};
+
 				const innerCardWithPanelButtonOverlay = (
 					<PreviewInvoker url={url} appearance="inline">
 						{({ canPreview, invokePreview }) => {
@@ -240,9 +268,11 @@ export const InlineCardWithAwareness = memo(
 													name: name || '',
 													iconUrl,
 												});
+												firePreviewPanelClickEvent({ previewType: 'panel' });
 											} else if (isPreviewModalAvailable) {
 												event.preventDefault();
 												invokePreview?.();
+												firePreviewPanelClickEvent({ previewType: 'modal' });
 											}
 										}}
 									>

@@ -5,6 +5,11 @@ import { render, screen } from '@testing-library/react';
 import { AgentMenuItemSkeleton } from './index';
 
 describe('AgentMenuItemSkeleton', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<AgentMenuItemSkeleton index={0} />);
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders all skeleton elements with correct test IDs', () => {
 		render(<AgentMenuItemSkeleton index={0} />);
 

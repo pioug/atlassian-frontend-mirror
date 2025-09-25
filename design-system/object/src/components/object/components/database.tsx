@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::609600010fab81c677a0911a2ca468c8>>
+ * @codegen <<SignedSource::599e4be29a2a39bcbf5cf9b372d0e03e>>
  * @codegenCommand yarn build-glyphs
  */
 import React from 'react';
@@ -11,7 +11,11 @@ import { token } from '@atlaskit/tokens';
 import ObjectBase from '../object-base';
 import type { ObjectProps } from '../types';
 
-export default function DatabaseObject({ label = 'Database', size, testId }: ObjectProps) {
+export default function DatabaseObject({
+	label = 'Database',
+	size,
+	testId,
+}: ObjectProps): React.JSX.Element {
 	return (
 		<ObjectBase
 			label={label}

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fc3b89075fa82725eb4c0ecc4e869643>>
+ * @codegen <<SignedSource::a634b13ea98c89a9c27945d37a8a7571>>
  * @codegenCommand yarn build-glyphs
  */
 import React from 'react';
@@ -11,7 +11,11 @@ import { token } from '@atlaskit/tokens';
 import ObjectBase from '../object-base';
 import type { ObjectProps } from '../types';
 
-export default function WhiteboardObject({ label = 'Whiteboard', size, testId }: ObjectProps) {
+export default function WhiteboardObject({
+	label = 'Whiteboard',
+	size,
+	testId,
+}: ObjectProps): React.JSX.Element {
 	return (
 		<ObjectBase
 			label={label}

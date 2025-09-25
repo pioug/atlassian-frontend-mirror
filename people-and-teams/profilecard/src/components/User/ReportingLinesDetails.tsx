@@ -201,5 +201,5 @@ const ReportingLinesDetailsExport = componentWithFG(
 	'profilecard_primitives_compiled',
 	ReportingLinesDetailsCompiled,
 	ReportingLinesDetails,
-)
+);
 export default ReportingLinesDetailsExport;

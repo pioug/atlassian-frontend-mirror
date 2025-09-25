@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 8.3.1
+
+### Patch Changes
+
+- [`56ac0cf74b37d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56ac0cf74b37d) -
+  Migrated teams assets to new service
+
 ## 8.3.0
 
 ### Minor Changes

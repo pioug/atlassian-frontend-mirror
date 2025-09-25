@@ -79,6 +79,7 @@ function Tooltip({
 	strategy = 'fixed',
 	ignoreTooltipPointerEvents = false,
 	isScreenReaderAnnouncementDisabled = false,
+	shortcut,
 }: TooltipProps) {
 	const tooltipPosition = position === 'mouse' ? mousePosition : position;
 	const onShowHandler = usePlatformLeafSyntheticEventHandler({
@@ -580,6 +581,7 @@ function Tooltip({
 													}
 													onMouseOut={onMouseOut}
 													onMouseOver={onMouseOverTooltip}
+													shortcut={shortcut}
 												>
 													{typeof content === 'function' ? content({ update }) : content}
 												</Container>

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 6.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.1
+
+### Patch Changes
+
+- [`fb6997c75469f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb6997c75469f) -
+  [ux] ED-29319 [CR-6a] Update full page toolbar responstiveness
+- Updated dependencies
+
 ## 5.3.0
 
 ### Minor Changes

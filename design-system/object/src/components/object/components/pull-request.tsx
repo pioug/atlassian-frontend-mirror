@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7b8c091277ea9dfac64fe850d2bc0b6b>>
+ * @codegen <<SignedSource::d4a46dfaccc0758bf1b71ccf340efb6a>>
  * @codegenCommand yarn build-glyphs
  */
 import React from 'react';
@@ -11,7 +11,11 @@ import { token } from '@atlaskit/tokens';
 import ObjectBase from '../object-base';
 import type { ObjectProps } from '../types';
 
-export default function PullRequestObject({ label = 'Pull Request', size, testId }: ObjectProps) {
+export default function PullRequestObject({
+	label = 'Pull Request',
+	size,
+	testId,
+}: ObjectProps): React.JSX.Element {
 	return (
 		<ObjectBase
 			label={label}

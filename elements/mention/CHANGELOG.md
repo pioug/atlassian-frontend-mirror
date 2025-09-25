@@ -1,5 +1,12 @@
 # @atlaskit/mention
 
+## 24.2.18
+
+### Patch Changes
+
+- [`56ac0cf74b37d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56ac0cf74b37d) -
+  Migrated teams assets to new service
+
 ## 24.2.17
 
 ### Patch Changes

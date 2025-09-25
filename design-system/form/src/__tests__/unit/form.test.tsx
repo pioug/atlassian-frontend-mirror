@@ -16,6 +16,21 @@ const testId = 'test';
 describe('Form', () => {
 	const user = userEvent.setup();
 
+	it('should add fall-through props to form and not overwrite existing ones', () => {
+		// This prop is just one example of many, but demonstrates the purpose
+		const id = 'id';
+		const notId = 'notId';
+		render(
+			<Form onSubmit={__noop} id={id}>
+				{({ formProps }) => <form id={notId} data-testid={testId} {...formProps}></form>}
+			</Form>,
+		);
+
+		const form = screen.getByTestId(testId);
+		expect(form).not.toHaveAttribute('id', notId);
+		expect(form).toHaveAttribute('id', id);
+	});
+
 	it('should call `onSubmit` when submitted using mouse', async () => {
 		const handleSubmit = jest.fn();
 		render(
@@ -213,13 +228,28 @@ describe('Form', () => {
 		});
 
 		it('should spread formProps on internal HTML `form` element', () => {
+			const key = 'foo';
+			const attr = { [key]: 'bar' };
 			render(
-				<Form onSubmit={__noop} formProps={{ noValidate: true, 'data-testid': testId }}>
+				<Form onSubmit={__noop} formProps={{ [key]: attr[key], 'data-testid': testId }}>
 					<p>Test!</p>
 				</Form>,
 			);
 
-			expect(screen.getByTestId(testId)).toHaveAttribute('noValidate');
+			expect(screen.getByTestId(testId)).toHaveAttribute(key, attr[key]);
+		});
+
+		it('should add ref to underlying form element if passed in', () => {
+			const ref = jest.fn();
+			expect(ref).not.toHaveBeenCalled();
+
+			render(
+				<Form onSubmit={__noop} ref={ref}>
+					<p>Test!</p>
+				</Form>,
+			);
+
+			expect(ref).toHaveBeenCalled();
 		});
 	});
 

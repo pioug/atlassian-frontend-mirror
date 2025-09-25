@@ -24,6 +24,9 @@
 			"path": "../../../design-system/dropdown-menu/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-analytics/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-block-controls/afm-townsquare/tsconfig.json"
 		},
 		{

@@ -407,7 +407,41 @@ export const isEmptySelectionAtStart = (state: EditorState): boolean => {
 };
 
 export const isEmptySelectionAtEnd = (state: EditorState): boolean => {
+	const { blockTaskItem } = state.schema.nodes;
 	const { empty, $from } = state.selection;
+
+	// If blockTaskItem is in the schema,
+	// we need to check if the selection is inside a blockTaskItem
+	if (blockTaskItem && empty && fg('platform_editor_blocktaskitem_patch_3')) {
+		// If the parent is in a textblock,
+		// check if it's nested inside a blockTaskItem
+		if ($from.parent.isTextblock) {
+			const $posAtEndOfTextBlock = state.doc.resolve($from.end($from.depth - 1));
+			const parentOfTextBlock = $posAtEndOfTextBlock.parent;
+
+			// If the parent of the textblock is a blockTaskItem,
+			// we need to know if the textblock is the last node in the blockTaskItem
+			if (parentOfTextBlock.type === blockTaskItem) {
+				const lastChildOfBlockTaskItem = parentOfTextBlock.lastChild;
+				if (lastChildOfBlockTaskItem === $from.parent) {
+					// If the textblock is the last node in the blockTaskItem,
+					// check if the selection is at the end of the textblock
+					const lastTextPosInTextBlock = $from.end($from.depth);
+					return $from.pos === lastTextPosInTextBlock;
+				} else {
+					return false;
+				}
+			}
+		}
+		// Else, check if the parent is a blockTaskItem
+		else if ($from.parent.type === blockTaskItem) {
+			// Check if the selection is at the end of the blockTaskItem
+			const lastPosInBlockTaskItem = $from.end();
+
+			return $from.pos === lastPosInBlockTaskItem;
+		}
+	}
+
 	return empty && ($from.end() === $from.pos || state.selection instanceof GapCursorSelection);
 };
 

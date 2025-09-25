@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::c3ad3413cf478b4f6da470a99c029688>>
+ * @codegen <<SignedSource::59d9053f6fa2fe522770b1b720b745a7>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/__generated__/index.partial.tsx <<SignedSource::cd2255d6156809f22f110b9eb0936c9d>>
  */
@@ -12,10 +12,10 @@
 import React from 'react';
 import { Box as PlatformBox } from '@atlaskit/primitives';
 
-import type { CSSProperties } from '@emotion/serialize';
 import type * as CSS from 'csstype';
 import type { MediaQuery } from '@atlaskit/primitives';
 import { tokensMap } from '@atlaskit/primitives';
+type CSSProperties = CSS.PropertiesFallback<number | string>;
 type TokensMap = typeof tokensMap;
 type TokensMapPropKey = keyof TokensMap;
 type TokenizedProps = {

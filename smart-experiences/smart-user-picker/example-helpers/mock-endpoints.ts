@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import fetchMock from 'fetch-mock/cjs/client';
 import { mentions as mentionsData } from '@atlaskit/util-data-test/mention-story-data';
-import {EntityType, type RecommendationResponse, UserEntityType} from '../src/types';
+import { EntityType, type RecommendationResponse, UserEntityType } from '../src/types';
 import { type ApiClientResponse } from '../src/service/users-client';
 import { type LegionResponse } from '../src/service/teams-client';
 import { users } from './users';
@@ -24,7 +24,7 @@ const mockEndpoints = (failRecommendations: boolean) => {
 					nickname,
 					nonLicensedUser,
 					email: mentionName ? `${mentionName}@example.com` : undefined,
-					userType: UserEntityType.DEFAULT
+					userType: UserEntityType.DEFAULT,
 				}),
 			),
 			errors: [],

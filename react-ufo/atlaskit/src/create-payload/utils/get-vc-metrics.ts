@@ -25,10 +25,10 @@ async function getVCMetrics(
 	}
 	const interactionStatus = getInteractionStatus(interaction);
 	const pageVisibilityUpToTTAI = getPageVisibilityUpToTTAI(interaction);
+	const isPageVisible = pageVisibilityUpToTTAI === 'visible';
 
 	const shouldReportVCMetrics =
-		interactionStatus.originalInteractionStatus === 'SUCCEEDED' &&
-		pageVisibilityUpToTTAI === 'visible';
+		interactionStatus.originalInteractionStatus === 'SUCCEEDED' && isPageVisible;
 
 	// Use per-interaction VC observer if available, otherwise fall back to global
 	const observer = interaction.vcObserver;
@@ -62,6 +62,8 @@ async function getVCMetrics(
 		...ssr,
 		include3p,
 		excludeSmartAnswersInSearch,
+		interactionType: interaction.type,
+		isPageVisible,
 	});
 
 	observer.stop(interaction.ufoName);

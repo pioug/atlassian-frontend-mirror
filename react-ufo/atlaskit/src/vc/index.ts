@@ -123,6 +123,9 @@ export class VCObserverWrapper implements VCObserverInterface {
 					ssr: param.includeSSRInV3 ? param.ssr : undefined,
 					include3p,
 					excludeSmartAnswersInSearch,
+					interactionType: param.interactionType,
+					isPageVisible: param.isPageVisible,
+					interactionAbortReason: param.interactionAbortReason,
 				})
 			: [];
 

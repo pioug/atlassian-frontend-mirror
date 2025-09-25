@@ -72,6 +72,7 @@ export const experimentalVC = new ExperimentalVCMetrics();
 export async function getExperimentalVCMetrics(interaction: InteractionMetrics) {
 	// Use per-interaction VC observer if available, otherwise fall back to global experimentalVC
 	const vcObserver = interaction.experimentalVCObserver || experimentalVC.vcObserver;
+	const pageVisibilityUpToTTAI = getPageVisibilityState(interaction.start, interaction.end);
 
 	if (vcObserver) {
 		const prefix = 'ufo-experimental';
@@ -85,6 +86,9 @@ export async function getExperimentalVCMetrics(interaction: InteractionMetrics) 
 			vc: interaction.vc,
 			experienceKey: interaction.ufoName,
 			interactionId: interaction.id,
+			interactionType: interaction.type,
+			isPageVisible: pageVisibilityUpToTTAI === 'visible',
+			interactionAbortReason: interaction.abortReason,
 		});
 
 		const VC = result?.['metrics:vc'] as {
@@ -94,8 +98,6 @@ export async function getExperimentalVCMetrics(interaction: InteractionMetrics) 
 		if (!VC || !result?.[`${prefix}:vc:clean`]) {
 			return result;
 		}
-
-		const pageVisibilityUpToTTAI = getPageVisibilityState(interaction.start, interaction.end);
 
 		if (interaction.abortReason || pageVisibilityUpToTTAI !== 'visible') {
 			return result;

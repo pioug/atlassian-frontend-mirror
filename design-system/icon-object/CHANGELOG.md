@@ -1,5 +1,15 @@
 # @atlaskit/icon-object
 
+## 7.2.3
+
+### Patch Changes
+
+- [`5aee08c7c27e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5aee08c7c27e4) -
+  We are testing a change behind a feature flag. All exports of `@atlaskit/icon-object` will be
+  swapped to display equivalents from the new replacement package, `@atlaskit/object`. `16px` icon
+  objects will be replaced with unbounded objects, and `24px` icon objects will be replaced with
+  object tiles. If this change is successful it will be available in a later release.
+
 ## 7.2.2
 
 ### Patch Changes

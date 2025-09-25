@@ -56,6 +56,9 @@
 			"path": "../../../design-system/tokens/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/tooltip/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-dev-agents/tsconfig.json"
 		}
 	]

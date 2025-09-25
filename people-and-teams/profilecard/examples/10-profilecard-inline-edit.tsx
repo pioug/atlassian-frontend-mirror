@@ -67,7 +67,7 @@ const baseTeam: { team: Team } = {
 const actions = [
 	{
 		label: 'Secondary',
-		callback: () => { },
+		callback: () => {},
 		link: 'about:blank',
 	},
 	{

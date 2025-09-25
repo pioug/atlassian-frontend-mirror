@@ -1,49 +1,98 @@
-import uuid from 'uuid';
-
-import { toDOM, copyDomNode } from '@atlaskit/editor-common/copy-button';
-import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import {
-	NodeSelection,
-	type EditorState,
-	type Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { Command, CommandDispatch, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import {
+	createSyncBlockPMNode,
+	generateSyncBlockSourceUrl,
+} from '@atlaskit/editor-synced-block-provider';
+
+import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
+
+import { findSyncBlock } from './utils/utils';
 
 export const createSyncedBlock = (state: EditorState): Transaction => {
-	const id = uuid();
-	const tr = state.tr;
-	// const { breakout } = state.schema.marks;
-	const node = state.schema.nodes.syncBlock.createChecked(
-		{
-			resourceId: id,
-			localId: id,
+	const {
+		tr,
+		schema: {
+			nodes: { syncBlock },
 		},
-		null,
-		// [breakout.create({ mode: 'wide' })],
-	) as PMNode;
+	} = state;
+	const node = createSyncBlockPMNode(syncBlock);
 	safeInsert(node)(tr);
 	return tr;
 };
 
-export const copySyncedBlockReferenceToClipboard: Command = (
-	state: EditorState,
-	_dispatch?: CommandDispatch,
-	_view?: EditorView,
-) => {
-	const { schema, selection } = state;
-
-	if (selection instanceof NodeSelection) {
-		const nodeType = selection.node.type;
-		const domNode = toDOM(selection.node, schema);
-		// clear local-id
-		if (domNode instanceof HTMLElement) {
-			domNode.setAttribute('data-local-id', '');
+export const copySyncedBlockReferenceToClipboard =
+	(api?: ExtractInjectionAPI<SyncedBlockPlugin>): Command =>
+	(state: EditorState, dispatch?: CommandDispatch, _view?: EditorView) => {
+		if (!api?.floatingToolbar || !dispatch) {
+			return false;
 		}
-		copyDomNode(domNode, nodeType, selection);
-		return true;
-	}
 
-	return false;
-};
+		const {
+			schema: {
+				nodes: { syncBlock },
+			},
+			tr,
+		} = state;
+		const newTr = api.floatingToolbar.commands.copyNode(
+			syncBlock,
+			INPUT_METHOD.FLOATING_TB,
+		)({ tr });
+
+		if (!newTr) {
+			return false;
+		}
+
+		dispatch(newTr);
+		return true;
+	};
+
+export const editSyncedBlockSource =
+	(_api?: ExtractInjectionAPI<SyncedBlockPlugin>): Command =>
+	(state: EditorState, _dispatch?: CommandDispatch, _view?: EditorView) => {
+		const syncBlock = findSyncBlock(state);
+		if (!syncBlock) {
+			return false;
+		}
+
+		const url = generateSyncBlockSourceUrl(syncBlock.node);
+		if (!url) {
+			return false;
+		}
+
+		window.open(url, '_blank');
+		return true;
+	};
+
+export const removeSyncedBlock =
+	(api?: ExtractInjectionAPI<SyncedBlockPlugin>): Command =>
+	(state: EditorState, dispatch?: CommandDispatch, _view?: EditorView) => {
+		const {
+			selection: {
+				$from: { pos: from },
+				$to: { pos: to },
+			},
+			tr,
+		} = state;
+
+		const syncBlock = findSyncBlock(state);
+		if (!syncBlock) {
+			return false;
+		}
+
+		if (!dispatch) {
+			return false;
+		}
+
+		const newTr = tr.deleteRange(from, to);
+		if (!newTr) {
+			return false;
+		}
+
+		dispatch(newTr);
+		api?.core.actions.focus();
+		return true;
+	};

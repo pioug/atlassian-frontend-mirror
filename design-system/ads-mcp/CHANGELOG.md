@@ -1,5 +1,13 @@
 # @atlaskit/ads-mcp
 
+## 0.6.5
+
+### Patch Changes
+
+- [`e3fc2f35e8191`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3fc2f35e8191) - -
+  Implemented a codegen that generates TypeScript code for the components list, which will be used
+  by @atlaskit/ads-mcp.
+
 ## 0.6.4
 
 ### Patch Changes

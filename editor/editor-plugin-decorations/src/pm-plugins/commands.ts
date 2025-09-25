@@ -5,6 +5,7 @@ import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection, findTable, TableMap } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import type { HoverDecorationCommand } from '../decorationsPluginType';
@@ -102,6 +103,11 @@ export const hoverDecorationCommand: HoverDecorationCommand =
 		tr.setMeta(decorationStateKey, {
 			action: add ? ACTIONS.DECORATION_ADD : ACTIONS.DECORATION_REMOVE,
 			data: decoration,
+			hasDangerDecorations:
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
+					? className === 'danger'
+					: undefined,
 		}).setMeta('addToHistory', false);
 
 		return tr;

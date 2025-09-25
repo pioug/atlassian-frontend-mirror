@@ -97,6 +97,8 @@ describe('AbstractVCCalculatorBase WithDebugInfo', () => {
 			stopTime: 1000,
 			interactionId: 'test-interaction-id',
 			isPostInteraction: false,
+			interactionType: 'page_load',
+			isPageVisible: true,
 		});
 
 		expect(result).toEqual({
@@ -143,6 +145,8 @@ describe('AbstractVCCalculatorBase WithDebugInfo', () => {
 			stopTime: 1000,
 			interactionId: 'test-interaction-id',
 			isPostInteraction: false,
+			interactionType: 'page_load',
+			isPageVisible: true,
 		});
 
 		expect(result).toEqual({

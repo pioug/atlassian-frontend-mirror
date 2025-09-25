@@ -102,8 +102,14 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 		(
 			isFieldInvalid: boolean,
 			onSubmit: (e?: React.FormEvent<HTMLFormElement>) => void,
-			formRef: React.RefObject<HTMLFormElement>,
+			formRef: React.RefObject<HTMLFormElement> | ((value: HTMLFormElement | null) => void),
 		) => {
+			// Ignore if the provided ref is a function. This is used to make the
+			// typechecking accurate. Inline edit only uses one type of ref, so this
+			// will never trigger.
+			if (typeof formRef === 'function') {
+				return;
+			}
 			if (!isFieldInvalid && !wasFocusReceivedSinceLastBlurRef.current && formRef.current) {
 				doNotFocusOnEditButton();
 				if (formRef.current.checkValidity()) {
@@ -132,7 +138,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 		(
 			isFieldInvalid: boolean,
 			onSubmit: (e?: React.FormEvent<HTMLFormElement>) => void,
-			formRef: React.RefObject<HTMLFormElement>,
+			formRef: React.RefObject<HTMLFormElement> | ((value: HTMLFormElement | null) => void),
 		) => {
 			if (!keepEditViewOpenOnBlur) {
 				wasFocusReceivedSinceLastBlurRef.current = false;

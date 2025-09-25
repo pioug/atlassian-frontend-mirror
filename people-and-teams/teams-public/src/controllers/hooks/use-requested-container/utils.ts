@@ -1,6 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { useInterval } from '@atlaskit/frontend-utilities';
 import { ContainerType } from '@atlaskit/teams-client/types';
 
@@ -27,6 +26,7 @@ function containersEqual<T>(arr1: T[], arr2: T[]) {
 function getRequestedContainersFromUrl() {
 	const searchParams = new URLSearchParams(window.location.search);
 	const values = searchParams.get(SEARCH_PARAM_NAME)?.split(',').filter(Boolean) || [];
+
 	const containers = values
 		.filter((value): value is ContainerType =>
 			Object.values(ContainerType).includes(value as ContainerType),
@@ -36,7 +36,7 @@ function getRequestedContainersFromUrl() {
 	if (containers.length === 0) {
 		return [];
 	}
-	return userCanAccessFeature() ? containers : [];
+	return containers || [];
 }
 
 function removeRequestedContainersFromUrl() {
@@ -60,18 +60,6 @@ function convertContainerToType(container: ContainerTypes) {
 		default:
 			return null;
 	}
-}
-
-function userCanAccessFeature() {
-	if (FeatureGates.initializeCalled()) {
-		const value: string = FeatureGates.getExperimentValue(
-			'teams_app_auto_container_creation',
-			'cohort',
-			'control',
-		);
-		return value === 'universal_create' || value === 'profile_page';
-	}
-	return false;
 }
 
 let POLLING_INTERVAL = 1000;
@@ -178,7 +166,6 @@ export {
 	getRequestedContainersFromUrl,
 	containerDisplayName,
 	CONTAINER_MAP,
-	userCanAccessFeature,
 	convertContainerToType,
 	removeRequestedContainersFromUrl,
 };

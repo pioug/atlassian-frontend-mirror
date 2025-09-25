@@ -6,7 +6,7 @@ const inMemStore = new Map<string, ADFEntity>();
 export const inMemoryFetchProvider: ADFFetchProvider = {
 	fetchData: (resourceId: string) => {
 		return Promise.resolve({
-			content: inMemStore.get(resourceId)
+			content: inMemStore.get(resourceId),
 		});
 	},
 };

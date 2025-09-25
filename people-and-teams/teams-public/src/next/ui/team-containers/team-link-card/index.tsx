@@ -161,7 +161,7 @@ export const TeamLinkCard = ({
 
 	return (
 		<Box
-			backgroundColor={hovered ? 'elevation.surface.hovered' : 'elevation.surface.raised'}
+			backgroundColor={hovered ? 'elevation.surface.hovered' : 'elevation.surface'}
 			xcss={styles.container}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}

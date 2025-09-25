@@ -2,18 +2,29 @@ import React from 'react';
 
 import { type IntlShape } from 'react-intl-next';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	type EditorAnalyticsAPI,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { linkMessages } from '@atlaskit/editor-common/messages';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { Inline, Box, Flex } from '@atlaskit/primitives/compiled';
 import { getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
 
+import { getResolvedAttributesFromStore } from '../../pm-plugins/utils';
+import { appearanceForLink } from '../analytics/utils';
+
 type OpenPreviewPanelToolbarButtonProps = {
 	areAnyNewToolbarFlagsEnabled: boolean;
 	editorAnalyticsApi?: EditorAnalyticsAPI;
+	editorView?: EditorView;
 	intl: IntlShape;
 	node: PMNode;
 };
@@ -22,9 +33,12 @@ export const OpenPreviewPanelToolbarButton = ({
 	node,
 	intl,
 	areAnyNewToolbarFlagsEnabled,
+	editorAnalyticsApi,
+	editorView,
 }: OpenPreviewPanelToolbarButtonProps) => {
 	const { store, isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
 	const url = node.attrs.url;
+	const display = appearanceForLink(node);
 	const cardState = store?.getState()[url];
 
 	if (cardState) {
@@ -42,6 +56,16 @@ export const OpenPreviewPanelToolbarButton = ({
 					iconUrl,
 				});
 			}
+			editorAnalyticsApi?.fireAnalyticsEvent({
+				action: ACTION.CLICKED,
+				actionSubject: ACTION_SUBJECT.SMART_LINK,
+				actionSubjectId: ACTION_SUBJECT_ID.TOOLBAR_PREVIEW,
+				attributes: {
+					previewType: 'panel',
+					...getResolvedAttributesFromStore(url, display, store),
+				},
+				eventType: EVENT_TYPE.UI,
+			});
 		};
 
 		const title = intl.formatMessage(linkMessages.openPreviewPanel);

@@ -21,6 +21,11 @@ export const ROVO_GROUP = {
 	type: 'group',
 } as const;
 
+export const ROVO_GROUP_VIEW = {
+	key: 'rovo-group-view',
+	type: 'group',
+} as const;
+
 export const IMPROVE_WRITING_GROUP = {
 	key: 'improve-writing-group',
 	type: 'group',
@@ -119,6 +124,11 @@ export const TEXT_SECTION = {
 	type: 'section',
 } as const;
 
+export const TEXT_SECTION_PRIMARY_TOOLBAR = {
+	key: 'text-section-primary-toolbar',
+	type: 'section',
+} as const;
+
 /*
  * Text section collapsed
  * - Used to control responsive menu
@@ -204,8 +214,43 @@ export const TEXT_FORMATTING_GROUP = {
 	type: 'group',
 } as const;
 
+export const TEXT_FORMATTING_GROUP_COLLAPSED = {
+	key: 'text-formatting-group-collapsed',
+	type: 'group',
+} as const;
+
+export const TEXT_FORMATTING_GROUP_INLINE = {
+	key: 'text-formatting-group-inline',
+	type: 'group',
+} as const;
+
+export const BOLD_BUTTON_GROUP = {
+	key: 'bold-button-group',
+	type: 'group',
+} as const;
+
+export const UNDERLINE_BUTTON_GROUP = {
+	key: 'underline-button-group',
+	type: 'group',
+} as const;
+
 export const TEXT_FORMATTING_HERO_BUTTON = {
 	key: 'text-formatting-hero-button',
+	type: 'button',
+} as const;
+
+export const TEXT_FORMATTING_HERO_BUTTON_COLLAPSED = {
+	key: 'text-formatting-hero-button-collapsed',
+	type: 'button',
+} as const;
+
+export const BOLD_BUTTON = {
+	key: 'bold-button',
+	type: 'button',
+} as const;
+
+export const UNDERLINE_BUTTON = {
+	key: 'underline-button',
 	type: 'button',
 } as const;
 
@@ -338,6 +383,31 @@ export const ALIGN_RIGHT_MENU_ITEM = {
 export const LISTS_INDENTATION_GROUP = {
 	key: 'lists-indentation-group',
 	type: 'group',
+} as const;
+
+export const LISTS_INDENTATION_GROUP_COLLAPSED = {
+	key: 'lists-indentation-group-collapsed',
+	type: 'group',
+} as const;
+
+export const LISTS_INDENTATION_GROUP_INLINE = {
+	key: 'lists-indentation-group-inline',
+	type: 'group',
+} as const;
+
+export const BULLETED_LIST_BUTTON_GROUP = {
+	key: 'bullet-list-button-group',
+	type: 'group',
+} as const;
+
+export const BULLETED_LIST_BUTTON = {
+	key: 'bullet-list-button',
+	type: 'button',
+} as const;
+
+export const LISTS_INDENTATION_HERO_BUTTON_COLLAPSED = {
+	key: 'lists-indentation-hero-button-collapsed',
+	type: 'button',
 } as const;
 
 export const LISTS_INDENTATION_HERO_BUTTON = {

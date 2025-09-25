@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4237dfe7f252617cf198a8966f8c446f>>
+ * @codegen <<SignedSource::09a30624998c51b2f1acc8f71033796d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -8,6 +8,8 @@ import React from 'react';
 import { IconTile } from '@atlaskit/icon';
 import NewIcon from '@atlaskit/icon/core/subtasks';
 import type { GlyphProps } from '@atlaskit/icon/types';
+import NewObjectComponent from '@atlaskit/object/tile/subtask';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import IconObjectOld from '../../glyph-legacy/subtask/24';
 
@@ -25,6 +27,12 @@ const Subtask24Icon: {
 	}: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>): React.JSX.Element;
 	displayName: string;
 } = ({ label, testId }) => {
+	// Feature flag to migrate to new object package
+	if (fg('platform_dst_icon_object_to_object')) {
+		// Map props based on size: 16px -> object (medium), 24px -> tile (small)
+		return <NewObjectComponent label={label} testId={testId} size="small" />;
+	}
+
 	return (
 		<IconTile
 			icon={NewIcon}

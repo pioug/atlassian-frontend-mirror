@@ -1,8 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::71ba23a2a1467988c4fae8c2756447f9>>
+ * @codegen <<SignedSource::34a66bfc786bfa49ea7d4ad66ffe81f7>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
+import type { Rule } from 'eslint';
+
 import atlaskitTheme from './atlaskit-theme';
 import convertPropsSyntax from './convert-props-syntax';
 import enforceStyleProp from './enforce-style-prop';
@@ -21,7 +23,7 @@ import noUnsafeSelectors from './no-unsafe-selectors';
 import noUnsafeValues from './no-unsafe-values';
 import useCompiled from './use-compiled';
 
-export const rules = {
+export const rules: Record<string, Rule.RuleModule> = {
 	'atlaskit-theme': atlaskitTheme,
 	'convert-props-syntax': convertPropsSyntax,
 	'enforce-style-prop': enforceStyleProp,

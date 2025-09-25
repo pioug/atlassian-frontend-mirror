@@ -34,7 +34,7 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 		},
 		commands: {
 			formatNode: (targetType: FormatNodeTargetType) => {
-				return formatNode(targetType);
+				return formatNode(api)(targetType);
 			},
 		},
 		getSharedState(editorState) {

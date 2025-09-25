@@ -21,7 +21,7 @@ const SyncBlockRendererWrapperComponent = ({ getSyncedBlockRenderer, useFetchDoc
 			className={SyncBlockSharedCssClassName.renderer}
 		>
 			{getSyncedBlockRenderer({
-				useFetchDocNode
+				useFetchDocNode,
 			})}
 		</div>
 	);

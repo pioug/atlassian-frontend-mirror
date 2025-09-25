@@ -26,7 +26,16 @@
 			"path": "../../../design-system/button/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-decorations/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-floating-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../editor-synced-block-provider/afm-rovo-extension/tsconfig.json"

@@ -17,6 +17,7 @@ import {
 	PIN_SECTION,
 	TEXT_COLLAPSED_GROUP,
 	TEXT_SECTION,
+	TEXT_SECTION_PRIMARY_TOOLBAR,
 	TEXT_SECTION_COLLAPSED,
 	TEXT_COLLAPSED_MENU,
 	TOOLBAR_RANK,
@@ -24,7 +25,7 @@ import {
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { PrimaryToolbar as PrimaryToolbarBase, Show, Toolbar } from '@atlaskit/editor-toolbar';
-import { type RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { type RegisterComponent, type ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarPlugin } from '../toolbarPluginType';
@@ -72,18 +73,26 @@ export const getToolbarComponents = (
 		{
 			type: TEXT_SECTION.type,
 			key: TEXT_SECTION.key,
-			parents: [
-				{
-					type: 'toolbar',
-					key: TOOLBARS.INLINE_TEXT_TOOLBAR,
-					rank: TOOLBAR_RANK[TEXT_SECTION.key],
-				},
-				{
-					type: 'toolbar',
-					key: TOOLBARS.PRIMARY_TOOLBAR,
-					rank: TOOLBAR_RANK[TEXT_SECTION.key],
-				},
-			],
+			parents: expValEquals('platform_editor_toolbar_aifc_responsiveness_update', 'isEnabled', true)
+				? [
+						{
+							type: 'toolbar',
+							key: TOOLBARS.INLINE_TEXT_TOOLBAR,
+							rank: TOOLBAR_RANK[TEXT_SECTION.key],
+						},
+					]
+				: [
+						{
+							type: 'toolbar',
+							key: TOOLBARS.INLINE_TEXT_TOOLBAR,
+							rank: TOOLBAR_RANK[TEXT_SECTION.key],
+						},
+						{
+							type: 'toolbar',
+							key: TOOLBARS.PRIMARY_TOOLBAR,
+							rank: TOOLBAR_RANK[TEXT_SECTION.key],
+						},
+					],
 			component: ({ children, parents }) => {
 				if (expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)) {
 					return (
@@ -112,6 +121,54 @@ export const getToolbarComponents = (
 				);
 			},
 		},
+		...(expValEquals('platform_editor_toolbar_aifc_responsiveness_update', 'isEnabled', true)
+			? [
+					{
+						type: TEXT_SECTION_PRIMARY_TOOLBAR.type,
+						key: TEXT_SECTION_PRIMARY_TOOLBAR.key,
+						parents: [
+							{
+								type: 'toolbar' as const,
+								key: TOOLBARS.PRIMARY_TOOLBAR,
+								rank: TOOLBAR_RANK[TEXT_SECTION.key],
+							},
+						],
+						component: ({
+							children,
+							parents,
+						}: {
+							children: React.ReactNode;
+							parents: ToolbarComponentTypes;
+						}) => {
+							if (expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)) {
+								return (
+									<Show above="md">
+										<Section
+											parents={parents}
+											api={api}
+											disableSelectionToolbar={disableSelectionToolbar}
+											testId="text-section"
+										>
+											{children}
+										</Section>
+									</Show>
+								);
+							}
+
+							return (
+								<Section
+									parents={parents}
+									api={api}
+									disableSelectionToolbar={disableSelectionToolbar}
+									testId="text-section"
+								>
+									{children}
+								</Section>
+							);
+						},
+					},
+				]
+			: []),
 		...(expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
 			? ([
 					{

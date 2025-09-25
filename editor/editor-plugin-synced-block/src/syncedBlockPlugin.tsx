@@ -53,7 +53,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				},
 			],
 			floatingToolbar: (state, intl, providerFactory) =>
-				getToolbarConfig(state, intl, config, providerFactory),
+				getToolbarConfig(state, intl, config, providerFactory, api),
 		},
 
 		contentComponent: () => {

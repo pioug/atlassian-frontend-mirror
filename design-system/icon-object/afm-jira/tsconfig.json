@@ -28,6 +28,12 @@
 		},
 		{
 			"path": "../../icon-lab/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../object/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		}
 	]
 }

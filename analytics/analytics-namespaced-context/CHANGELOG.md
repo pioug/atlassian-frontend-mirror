@@ -1,5 +1,12 @@
 # @atlaskit/analytics-namespaced-context
 
+## 7.1.0
+
+### Minor Changes
+
+- [`1ebd81a691a2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ebd81a691a2a) -
+  Added townsquareHome FabricChannel
+
 ## 7.0.2
 
 ### Patch Changes

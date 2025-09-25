@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 42.3.0
+
+### Minor Changes
+
+- [`06a30f07d9ad4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06a30f07d9ad4) -
+  Add onVisibilityChange to hover card.
+
 ## 42.2.2
 
 ### Patch Changes

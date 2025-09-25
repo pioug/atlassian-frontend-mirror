@@ -1,6 +1,6 @@
 # Side Navigation
 
-A side navigation experience used in Atlassian products.
+A side navigation experience used in Atlassian apps.
 
 ## Installation
 

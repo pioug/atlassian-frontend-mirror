@@ -285,7 +285,7 @@ export class ResolvingClient extends MockCardClient {
 export class ResolvedClientWithDelay extends MockCardClient {
 	fetchData(url: string): Promise<JsonLd.Response> {
 		const response = { ...AtlasProject };
-		return new Promise(resolve => setTimeout(() => resolve(response as JsonLd.Response), 2000))
+		return new Promise((resolve) => setTimeout(() => resolve(response as JsonLd.Response), 2000));
 	}
 }
 

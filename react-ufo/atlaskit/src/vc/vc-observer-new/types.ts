@@ -1,3 +1,5 @@
+import type { AbortReasonType, InteractionType } from '../../common/common/types';
+
 import type { ObservedWindowEvent } from './window-event-observer';
 
 export type VCObserverEntryType =
@@ -52,4 +54,7 @@ export type VCObserverGetVCResultParam = {
 	ssr?: number;
 	include3p?: boolean;
 	excludeSmartAnswersInSearch?: boolean;
+	interactionType: InteractionType;
+	isPageVisible: boolean;
+	interactionAbortReason?: AbortReasonType;
 };

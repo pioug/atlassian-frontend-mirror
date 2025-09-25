@@ -2,13 +2,6 @@ import { emptyInputSchema } from '../../schema';
 
 import { components } from './components';
 
-const componentsList = components.map((c) => ({
-	name: c.name,
-	description: c.description,
-	releasePhase: c.releasePhase,
-	category: c.category,
-}));
-
 export const listGetComponentsTool = {
 	name: 'ads_get_components',
 	description: `You MUST use this to fetch all Atlassian Design System components and parse their names, descriptions, and understand how they might be used (provided in JSON format) before working with components.
@@ -27,7 +20,7 @@ For a full example, guidelines, list of props, and more information, you should 
 };
 
 export const getComponentsTool = async () => ({
-	content: componentsList.map((component) => ({
+	content: components.map((component) => ({
 		// NOTE: Ideally one day the MCP would support structured content…
 		// eg. `type: 'object', data: component`
 		type: 'text',

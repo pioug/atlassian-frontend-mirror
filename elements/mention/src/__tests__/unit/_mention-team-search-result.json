@@ -17,10 +17,10 @@
         "name": "Tung Thanh Dang"
       }
     ],
-    "largeHeaderImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/0.svg",
-    "smallHeaderImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/0.svg",
-    "largeAvatarImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/0.svg",
-    "smallAvatarImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/0.svg"
+    "largeHeaderImageUrl": "https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/0.svg",
+    "smallHeaderImageUrl": "https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/0.svg",
+    "largeAvatarImageUrl": "https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/0.svg",
+    "smallAvatarImageUrl": "https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/0.svg"
   },
   {
     "id": "c368d8ec-bd71-4599-acfd-c9a4f20f04ba",
@@ -32,10 +32,10 @@
         "name": "Ishan Somasiri"
       }
     ],
-    "largeHeaderImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/1.svg",
-    "smallHeaderImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/1.svg",
-    "largeAvatarImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/1.svg",
-    "smallAvatarImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/1.svg"
+    "largeHeaderImageUrl": "https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/1.svg",
+    "smallHeaderImageUrl": "https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/1.svg",
+    "largeAvatarImageUrl": "https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/1.svg",
+    "smallAvatarImageUrl": "https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/1.svg"
   },
   {
     "id": "ef06a9c3-9a4b-4385-8adb-70947fe94961",
@@ -55,9 +55,9 @@
         "name": "Ran Ding"
       }
     ],
-    "largeHeaderImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/2.svg",
-    "smallHeaderImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/2.svg",
-    "largeAvatarImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/2.svg",
-    "smallAvatarImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/2.svg"
+    "largeHeaderImageUrl": "https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/2.svg",
+    "smallHeaderImageUrl": "https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/2.svg",
+    "largeAvatarImageUrl": "https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/2.svg",
+    "smallAvatarImageUrl": "https://teams-directory-frontend.prod-east.frontend.public.atl-paas.net/assets/teams/avatars/2.svg"
   }
 ]

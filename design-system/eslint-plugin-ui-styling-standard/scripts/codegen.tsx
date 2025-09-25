@@ -125,29 +125,41 @@ async function generatePresetConfig(name: 'all' | 'recommended', rules: FoundRul
 
 	const legacyCode = format(
 		`
-		export default ${JSON.stringify(
+import type { ESLint } from "eslint";
+
+const config: ESLint.ConfigData = ${JSON.stringify(
 			{
 				plugins: [pluginName, ...Array.from(externalPlugins.map((p) => p.name))],
 				rules: ruleConfig,
 			},
 			null,
 			2,
-		)} as const;`,
+		)};
+
+export default config;`,
 		'typescript',
 	);
 
 	const flatCode = format(
 		`
 
-		${externalPlugins.map((plugin) => `import * as ${plugin.identifier} from '${plugin.specifier}';`).join('\n')}
+		${externalPlugins
+			.map(
+				(plugin) => `import type { Linter } from 'eslint';
 
-		export default {
+import * as ${plugin.identifier} from '${plugin.specifier}';`,
+			)
+			.join('\n')}
+
+const config: Linter.FlatConfig = {
 		plugins: {
 				// NOTE: The reference to this plugin is inserted dynamically while creating the plugin in \`index.codegen.tsx\`
 				${externalPlugins.map((plugin) => `'${plugin.name}': ${plugin.identifier}`).join(',\n')}
 		},
 		rules: ${JSON.stringify(ruleConfig, null, 2)},
-		} as const;`,
+		};
+
+export default config;`,
 		'typescript',
 	);
 
@@ -180,11 +192,13 @@ async function generateRuleIndex(rules: FoundRule[]) {
 	const internalRules = rules.filter(ruleIsInternal);
 
 	const code = outdent`
+import type { Rule } from 'eslint';
+
     ${internalRules
 			.map((rule) => `import ${camelCase(rule.pathSafeName)} from './${rule.pathSafeName}'`)
 			.join('\n')}
 
-    export const rules = {
+    export const rules: Record<string, Rule.RuleModule> = {
     ${internalRules.map((rule) => `'${rule.ruleName}': ${camelCase(rule.pathSafeName)}`).join(',')}
     }
   `;
@@ -198,6 +212,8 @@ async function generateRuleIndex(rules: FoundRule[]) {
 async function generatePluginIndex() {
 	const code = format(
 		`
+import type { ESLint } from 'eslint';
+
 	${generatedConfigs
 		.flatMap((config) => [
 			`import ${config.name}Flat from '${config.flatPath}';`,
@@ -212,7 +228,7 @@ async function generatePluginIndex() {
 
 		const { version, name }: { name: string; version: string; } = pkgJson;
 
-		export const plugin = {
+		export const plugin: ESLint.Plugin = {
 			meta: {
 				name,
 				version,

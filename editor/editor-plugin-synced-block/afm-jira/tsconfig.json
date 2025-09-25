@@ -26,7 +26,16 @@
 			"path": "../../../design-system/button/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-decorations/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-floating-toolbar/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-synced-block-provider/afm-jira/tsconfig.json"

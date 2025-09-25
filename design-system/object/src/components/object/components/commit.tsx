@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1094e41e421a85511852be4fae5fa7f6>>
+ * @codegen <<SignedSource::5dc8472ed4701f1e18b170a37220fe41>>
  * @codegenCommand yarn build-glyphs
  */
 import React from 'react';
@@ -11,7 +11,11 @@ import { token } from '@atlaskit/tokens';
 import ObjectBase from '../object-base';
 import type { ObjectProps } from '../types';
 
-export default function CommitObject({ label = 'Commit', size, testId }: ObjectProps) {
+export default function CommitObject({
+	label = 'Commit',
+	size,
+	testId,
+}: ObjectProps): React.JSX.Element {
 	return (
 		<ObjectBase
 			label={label}

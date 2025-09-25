@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 0.60.2
+
+### Patch Changes
+
+- [`5a90d813d811b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a90d813d811b) -
+  Update onCreateTeam to pass requested teams
+- [`5a90d813d811b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a90d813d811b) -
+  Tweak requested containers logic to work with changes to UC experiment
+
 ## 0.60.1
 
 ### Patch Changes

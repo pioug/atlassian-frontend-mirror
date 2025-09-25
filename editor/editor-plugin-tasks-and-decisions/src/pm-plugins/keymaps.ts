@@ -300,6 +300,7 @@ const backspaceFrom =
 						slice = taskContent.size
 							? paragraph.createChecked(undefined, taskContent)
 							: paragraph.createChecked();
+
 						// might be end of document after
 						const tr = splitListItemWith(state.tr, slice, $from, true);
 						dispatch(tr);
@@ -340,52 +341,176 @@ const unindentTaskOrUnwrapTaskDecisionFollowing: Command = (state, dispatch) => 
 	const {
 		selection: { $from },
 		schema: {
-			nodes: { taskList, doc, paragraph },
+			nodes: { taskList, doc, paragraph, blockTaskItem, taskItem },
 		},
 		tr,
 	} = state;
 
-	// only run if cursor is at the end of the node
-	if (!isEmptySelectionAtEnd(state) || !dispatch) {
-		return false;
-	}
+	if (fg('platform_editor_blocktaskitem_patch_3')) {
+		// only run if cursor is at the end of the node
+		if (!isEmptySelectionAtEnd(state) || !dispatch) {
+			return false;
+		}
 
-	// look for the node after this current one
-	const $next = walkOut($from);
+		// look for the node after this current one
+		const $next = walkOut($from);
 
-	// this is a top-level node it wont have $next.before()
-	if (!$next.parent || $next.parent.type === doc) {
-		return false;
-	}
+		// this is a top-level node it wont have $next.before()
+		if (!$next.parent || $next.parent.type === doc) {
+			return false;
+		}
 
-	// if nested, just unindent
-	if (
-		$next.node($next.depth - 2).type === taskList ||
-		// this is for the case when we are on a non-nested item and next one is nested
-		($next.node($next.depth - 1).type === taskList && $next.parent.type === taskList)
-	) {
-		liftBlock(tr, $next, $next);
-		dispatch(tr);
+		// get resolved position of parent
+		const $parentPos = $from.doc.resolve($from.start($from.depth - 1));
 
-		return true;
-	}
+		const currentNode = $from.node();
+		const parentNode = $parentPos.node();
 
-	// if next node is of same type, remove the node wrapping and create paragraph
-	if (
-		!isTable($next.nodeAfter) &&
-		isActionOrDecisionItem($from.parent) &&
-		actionDecisionFollowsOrNothing($from) &&
-		// only forward delete if the node is same type
-		$next.node().type.name === $from.node().type.name
-	) {
-		const taskContent = state.doc.slice($next.start(), $next.end()).content;
+		// if current position isn't an action or decision item, return false
+		if (!isActionOrDecisionItem(currentNode) && !isActionOrDecisionItem(parentNode)) {
+			return false;
+		}
 
-		// might be end of document after
-		const slice = taskContent.size ? paragraph.createChecked(undefined, taskContent) : [];
+		const resultOfCurrentFindBlockTaskItem = findBlockTaskItem($next);
 
-		dispatch(splitListItemWith(tr, slice, $next, false));
+		let isCurrentEmptyBlockTaskItem = false;
 
-		return true;
+		if (resultOfCurrentFindBlockTaskItem) {
+			const { blockTaskItemNode } = resultOfCurrentFindBlockTaskItem;
+
+			isCurrentEmptyBlockTaskItem =
+				blockTaskItem &&
+				blockTaskItemNode &&
+				blockTaskItemNode.childCount === 1 &&
+				blockTaskItemNode.firstChild?.type === paragraph &&
+				blockTaskItemNode.firstChild.childCount === 0;
+		}
+
+		const isEmptyActionOrDecisionItem =
+			currentNode && isActionOrDecisionItem(currentNode) && currentNode.childCount === 0;
+
+		// If empty item, use default handler
+		if (isEmptyActionOrDecisionItem || isCurrentEmptyBlockTaskItem) {
+			return false;
+		}
+
+		// Check if next node is a blockTaskItem paragraph
+		const resultOfNextFindBlockTaskItem = findBlockTaskItem($next);
+		const isNextInBlockTaskItemParagraph =
+			resultOfNextFindBlockTaskItem && resultOfNextFindBlockTaskItem?.hasParagraph;
+
+		// if nested, just unindent
+		if (
+			$next.node($next.depth - 2).type === taskList ||
+			// this is for the case when we are on a non-nested item and next one is nested
+			($next.node($next.depth - 1).type === taskList && $next.parent.type === taskList)
+		) {
+			liftBlock(tr, $next, $next);
+			dispatch(tr);
+
+			return true;
+		}
+
+		const isNextCompatibleWithBlockTaskItem =
+			blockTaskItem &&
+			(($next?.node()?.type === taskItem && $from?.node()?.type === blockTaskItem) ||
+				($next?.node()?.type === blockTaskItem && $from?.node()?.type === taskItem) ||
+				([taskItem, blockTaskItem].includes($next?.node()?.type) &&
+					resultOfCurrentFindBlockTaskItem &&
+					resultOfCurrentFindBlockTaskItem.blockTaskItemNode));
+
+		// if next node is of same type or compatible type, remove the node wrapping and create paragraph
+		if (
+			(!isTable($next.nodeAfter) && isActionOrDecisionItem($from.parent)) ||
+			(resultOfCurrentFindBlockTaskItem &&
+				resultOfCurrentFindBlockTaskItem.blockTaskItemNode &&
+				actionDecisionFollowsOrNothing($from) &&
+				// only forward delete if the node is same type or compatible
+				($next.node().type.name === $from.node().type.name || isNextCompatibleWithBlockTaskItem))
+		) {
+			if (dispatch) {
+				// If next node is in a blockTaskItem paragraph, we need to get the content of the whole blockTaskItem
+				// So we reduce the depth by 1 to get to the blockTaskItem node content
+				const taskContent = isNextInBlockTaskItemParagraph
+					? state.doc.slice($next.start($next.depth - 1), $next.end($next.depth - 1)).content
+					: state.doc.slice($next.start(), $next.end()).content;
+
+				let slice: Fragment | Node | Node[];
+
+				try {
+					slice = taskContent.size
+						? paragraph.createChecked(undefined, taskContent)
+						: paragraph.createChecked();
+
+					// might be end of document after
+					const tr = splitListItemWith(state.tr, slice, $next, false);
+					dispatch(tr);
+					return true;
+				} catch (error) {
+					// If there's an error creating a paragraph, check if we are in a blockTaskItem
+					// Block task item's can have non-text content that cannot be wrapped in a paragraph
+					// So if the selection is in a blockTaskItem, just pass the content as is
+					if (resultOfNextFindBlockTaskItem && resultOfNextFindBlockTaskItem.blockTaskItemNode) {
+						// Create an array from the fragment to pass into splitListItemWith, as the `content` property is readonly
+						slice = Array.from(taskContent.content);
+
+						let $splitPos = $next;
+
+						if ($next.node().firstChild?.isTextblock) {
+							// set $next to the resolved position of inside the textblock
+							$splitPos = $next.doc.resolve($next.pos + 1);
+						}
+
+						const tr = splitListItemWith(state.tr, slice, $splitPos, false);
+						dispatch(tr);
+						return true;
+					}
+				}
+			}
+		}
+	} else {
+		// only run if cursor is at the end of the node
+		if (!isEmptySelectionAtEnd(state) || !dispatch) {
+			return false;
+		}
+
+		// look for the node after this current one
+		const $next = walkOut($from);
+
+		// this is a top-level node it wont have $next.before()
+		if (!$next.parent || $next.parent.type === doc) {
+			return false;
+		}
+
+		// if nested, just unindent
+		if (
+			$next.node($next.depth - 2).type === taskList ||
+			// this is for the case when we are on a non-nested item and next one is nested
+			($next.node($next.depth - 1).type === taskList && $next.parent.type === taskList)
+		) {
+			liftBlock(tr, $next, $next);
+			dispatch(tr);
+
+			return true;
+		}
+
+		// if next node is of same type, remove the node wrapping and create paragraph
+		if (
+			!isTable($next.nodeAfter) &&
+			isActionOrDecisionItem($from.parent) &&
+			actionDecisionFollowsOrNothing($from) &&
+			// only forward delete if the node is same type
+			$next.node().type.name === $from.node().type.name
+		) {
+			const taskContent = state.doc.slice($next.start(), $next.end()).content;
+
+			// might be end of document after
+			const slice = taskContent.size ? paragraph.createChecked(undefined, taskContent) : [];
+
+			dispatch(splitListItemWith(tr, slice, $next, false));
+
+			return true;
+		}
 	}
 
 	return false;
@@ -457,10 +582,12 @@ const splitListItemWith = (
 	let shouldSplitBlockTaskItem = true;
 	let isGapCursorSelection = false;
 
+	let hasBlockTaskItem = false;
 	if (blockTaskItem) {
 		const result = findBlockTaskItem($from);
 		if (result) {
 			const { blockTaskItemNode, hasParagraph } = result;
+			hasBlockTaskItem = fg('platform_editor_blocktaskitem_patch_3') && !!blockTaskItemNode;
 			if (blockTaskItemNode) {
 				// If the case there is a paragraph in the block task item we need to
 				// adjust some calculations
@@ -511,12 +638,17 @@ const splitListItemWith = (
 	if (shouldSplit && !isNestedActionInsideLists) {
 		// this only splits a node to delete it, so we probably don't need a random uuid
 		// but generate one anyway for correctness
-		tr = tr.split($from.pos, 1, [
-			{
-				type: $from.parent.type,
-				attrs: { localId: uuid.generate() },
-			},
-		]);
+		tr = tr.split(
+			$from.pos,
+			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+			fg('platform_editor_blocktaskitem_patch_3') && hasBlockTaskItem ? 0 : 1,
+			[
+				{
+					type: $from.parent.type,
+					attrs: { localId: uuid.generate() },
+				},
+			],
+		);
 	}
 
 	/*

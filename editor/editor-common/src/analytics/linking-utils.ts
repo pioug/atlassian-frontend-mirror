@@ -24,7 +24,8 @@ export type LinkType =
 	| ACTION_SUBJECT_ID.CARD_INLINE
 	| ACTION_SUBJECT_ID.CARD_BLOCK
 	| ACTION_SUBJECT_ID.EMBEDS
-	| ACTION_SUBJECT_ID.HYPERLINK;
+	| ACTION_SUBJECT_ID.HYPERLINK
+	| ACTION_SUBJECT_ID.HOVER_LABEL;
 
 const mapLinkTypeToCardAppearance = (type: LinkType): CardAppearance | 'url' => {
 	switch (type) {

@@ -117,11 +117,17 @@ export const getIconObjectJSX = (
 		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 		.join('')}${size}Icon`;
 
+	// Determine the new component import path based on size
+	const newComponentPath =
+		size === '16' ? `@atlaskit/object/${name}` : `@atlaskit/object/tile/${name}`;
+
 	return `import React from 'react';
 
 import { IconTile } from '@atlaskit/icon';
 import NewIcon from '@atlaskit/${packageName}/core/${icon}';
 import type { GlyphProps } from '@atlaskit/icon/types';
+import NewObjectComponent from '${newComponentPath}';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import IconObjectOld from '../../glyph-legacy/${name}/${size}';
 
@@ -139,6 +145,12 @@ const ${componentName}: {
 	label,
 	testId,
 }) => {
+	// Feature flag to migrate to new object package
+	if (fg('platform_dst_icon_object_to_object')) {
+		// Map props based on size: 16px -> object (medium), 24px -> tile (small)
+		return ${size === '16' ? '<NewObjectComponent label={label} testId={testId} size="medium" />' : '<NewObjectComponent label={label} testId={testId} size="small" />'}
+	}
+
 	return (
 		<IconTile
 			icon={NewIcon}
@@ -154,5 +166,47 @@ const ${componentName}: {
 ${componentName}.displayName = '${componentName}';
 
 export default ${componentName};
+`;
+};
+
+export const createAllIconsFile = (iconNames: string[]) => {
+	// Generate all import statements and sort them alphabetically by full path
+	const allImports = iconNames
+		.flatMap((name) => [
+			{
+				path: `./artifacts/glyph/${name}/16`,
+				statement: `import ${name
+					.split('-')
+					.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+					.join('')}16Icon from './artifacts/glyph/${name}/16';`,
+				componentName: `${name
+					.split('-')
+					.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+					.join('')}16Icon`,
+			},
+			{
+				path: `./artifacts/glyph/${name}/24`,
+				statement: `import ${name
+					.split('-')
+					.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+					.join('')}24Icon from './artifacts/glyph/${name}/24';`,
+				componentName: `${name
+					.split('-')
+					.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+					.join('')}24Icon`,
+			},
+		])
+		.sort((a, b) => a.path.localeCompare(b.path));
+
+	const imports = allImports.map((item) => item.statement).join('\n');
+
+	// Generate export array with all icons in the same order as imports
+	const iconExports = allImports.map((item) => item.componentName).join(',\n\t');
+
+	return `${imports}
+
+export const allIcons = [
+	${iconExports},
+];
 `;
 };

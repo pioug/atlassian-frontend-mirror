@@ -13,6 +13,8 @@ import {
 	TEXT_COLLAPSED_MENU_RANK,
 	TEXT_COLLAPSED_MENU,
 	CLEAR_COLOR_MENU_ITEM,
+	TEXT_SECTION_PRIMARY_TOOLBAR_RANK,
+	TEXT_SECTION_PRIMARY_TOOLBAR,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
@@ -31,12 +33,24 @@ export const getToolbarComponents = (
 	return [
 		{
 			...TEXT_COLOR_HIGHLIGHT_GROUP,
-			parents: [
-				{
-					...TEXT_SECTION,
-					rank: TEXT_SECTION_RANK[TEXT_COLOR_HIGHLIGHT_GROUP.key],
-				},
-			],
+			parents: expValEquals('platform_editor_toolbar_aifc_responsiveness_update', 'isEnabled', true)
+				? [
+						{
+							...TEXT_SECTION,
+							rank: TEXT_SECTION_RANK[TEXT_COLOR_HIGHLIGHT_GROUP.key],
+						},
+						{
+							type: TEXT_SECTION_PRIMARY_TOOLBAR.type,
+							key: TEXT_SECTION_PRIMARY_TOOLBAR.key,
+							rank: TEXT_SECTION_PRIMARY_TOOLBAR_RANK[TEXT_COLOR_HIGHLIGHT_GROUP.key],
+						},
+					]
+				: [
+						{
+							...TEXT_SECTION,
+							rank: TEXT_SECTION_RANK[TEXT_COLOR_HIGHLIGHT_GROUP.key],
+						},
+					],
 		},
 		{
 			...TEXT_COLOR_HIGHLIGHT_MENU,

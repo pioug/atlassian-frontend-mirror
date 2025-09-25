@@ -1,5 +1,12 @@
 # @atlaskit/form
 
+## 14.2.0
+
+### Minor Changes
+
+- [`10985771cb1e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10985771cb1e5) -
+  Add props to form component for more transparent prop application to underlying HTML form element.
+
 ## 14.1.0
 
 ### Minor Changes

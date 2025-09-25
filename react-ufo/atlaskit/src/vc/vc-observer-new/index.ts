@@ -227,7 +227,16 @@ export default class VCObserverNew {
 	}
 
 	async getVCResult(param: VCObserverGetVCResultParam) {
-		const { start, stop, interactionId, include3p, excludeSmartAnswersInSearch } = param;
+		const {
+			start,
+			stop,
+			interactionId,
+			interactionType,
+			interactionAbortReason,
+			isPageVisible,
+			include3p,
+			excludeSmartAnswersInSearch,
+		} = param;
 		const results: RevisionPayloadEntry[] = [];
 
 		this.addStartEntry(start);
@@ -244,9 +253,12 @@ export default class VCObserverNew {
 			startTime: start,
 			stopTime: stop,
 			interactionId,
+			interactionType,
 			isPostInteraction: this.isPostInteraction,
 			include3p,
 			excludeSmartAnswersInSearch,
+			isPageVisible,
+			interactionAbortReason,
 		});
 
 		if (fy25_03) {
@@ -262,8 +274,11 @@ export default class VCObserverNew {
 				startTime: start,
 				stopTime: stop,
 				interactionId,
+				interactionType,
 				isPostInteraction: this.isPostInteraction,
 				include3p,
+				isPageVisible,
+				interactionAbortReason,
 			});
 
 			if (vcNext) {

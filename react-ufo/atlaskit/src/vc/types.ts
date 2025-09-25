@@ -1,4 +1,5 @@
 import type { VCRawDataType, VCResult } from '../common/vc/types';
+import type { AbortReasonType, InteractionType } from '../interaction-metrics';
 
 export type GetVCResultType = {
 	start: number;
@@ -14,6 +15,9 @@ export type GetVCResultType = {
 	includeSSRRatio?: boolean;
 	include3p?: boolean;
 	excludeSmartAnswersInSearch?: boolean;
+	interactionType: InteractionType;
+	isPageVisible: boolean;
+	interactionAbortReason?: AbortReasonType;
 };
 
 export type SelectorConfig = {

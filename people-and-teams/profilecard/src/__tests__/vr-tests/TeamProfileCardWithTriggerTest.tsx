@@ -81,13 +81,14 @@ export const TeamProfileCardWithTriggerTest = () => {
 
 // As part of HOT-109153, we saw the profilecard inheriting styles from its parents
 /* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
-const styles = cssMap({ wrapper: {
-		'a': {
+const styles = cssMap({
+	wrapper: {
+		a: {
 			color: 'green',
 		},
 		fontSize: '30px',
 	},
 });
 const Wrapper = ({ children }: { children: React.ReactNode }) => {
-	return <div css={styles.wrapper}>{children}</div>
+	return <div css={styles.wrapper}>{children}</div>;
 };

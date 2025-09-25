@@ -1,8 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0b2a9d2f41301e40371dbce6d69039df>>
+ * @codegen <<SignedSource::9a5afa7c84703fa489efcfc3dd8929af>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
+import type { ESLint } from 'eslint';
+
 import allFlat from './presets/all-flat.codegen';
 import all from './presets/all.codegen';
 import recommendedFlat from './presets/recommended-flat.codegen';
@@ -15,7 +17,7 @@ const pkgJson = require('@atlaskit/eslint-plugin-ui-styling-standard/package.jso
 
 const { version, name }: { name: string; version: string } = pkgJson;
 
-export const plugin = {
+export const plugin: ESLint.Plugin = {
 	meta: {
 		name,
 		version,

@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - SectionMessageProps
  *
- * @codegen <<SignedSource::725983e3bb955783124380fc689f56de>>
+ * @codegen <<SignedSource::08d9aec7dc84ab09fe105054828cea70>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/sectionmessage/__generated__/index.partial.tsx <<SignedSource::164319f578b12a9ab6d85a5bd3e4cc8a>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/sectionmessage/index.tsx <<SignedSource::a94e5a0d754b50192e4aeddb4c0d8500>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -15,8 +15,8 @@ import PlatformSectionMessage from '@atlaskit/section-message';
 type PlatformSectionMessageProps = React.ComponentProps<typeof PlatformSectionMessage>;
 
 export type SectionMessageProps = Pick<
-  PlatformSectionMessageProps,
-  'children' | 'appearance' | 'title' | 'actions' | 'testId'
+	PlatformSectionMessageProps,
+	'children' | 'appearance' | 'title' | 'actions' | 'testId'
 >;
 
 /**

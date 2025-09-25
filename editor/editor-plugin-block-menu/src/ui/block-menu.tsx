@@ -1,9 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { cssMap, cx } from '@atlaskit/css';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { DRAG_HANDLE_SELECTOR, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -91,8 +97,9 @@ const BlockMenu = ({
 			isMenuOpen: states.blockControlsState?.isMenuOpen,
 			currentUserIntent: states.userIntentState?.currentUserIntent,
 		}));
-	const { onDropdownOpenChanged } = useBlockMenu();
+	const { onDropdownOpenChanged, fireAnalyticsEvent } = useBlockMenu();
 	const targetHandleRef = editorView?.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
+	const prevIsMenuOpenRef = useRef(false);
 
 	const hasFocus = expValEqualsNoExposure(
 		'platform_editor_block_menu_keyboard_navigation',
@@ -103,7 +110,6 @@ const BlockMenu = ({
 		: (editorView?.hasFocus() ?? false);
 
 	const hasSelection = !!editorView && !editorView.state.selection.empty;
-
 	// hasSelection true, always show block menu
 	// hasSelection false, only show block menu when empty line experiment is enabled
 	const shouldShowBlockMenuForEmptyLine =
@@ -111,11 +117,13 @@ const BlockMenu = ({
 		(!hasSelection &&
 			expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true));
 
+	const selectedByShortcutORDragHandle = isSelectedViaDragHandle;
+
 	useEffect(() => {
 		if (
 			!isMenuOpen ||
 			!menuTriggerBy ||
-			!isSelectedViaDragHandle ||
+			!selectedByShortcutORDragHandle ||
 			!hasFocus ||
 			!shouldShowBlockMenuForEmptyLine ||
 			['resizing', 'dragging'].includes(currentUserIntent || '')
@@ -123,15 +131,31 @@ const BlockMenu = ({
 			return;
 		}
 
+		// Fire analytics event when block menu opens (only on first transition from closed to open)
+		if (!prevIsMenuOpenRef.current && isMenuOpen) {
+			fireAnalyticsEvent?.({
+				action: ACTION.OPENED,
+				actionSubject: ACTION_SUBJECT.BLOCK_MENU,
+				eventType: EVENT_TYPE.UI,
+				attributes: {
+					inputMethod: INPUT_METHOD.MOUSE,
+				},
+			});
+		}
+
+		// Update the previous state
+		prevIsMenuOpenRef.current = isMenuOpen;
+
 		api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('blockMenuOpen'));
 	}, [
 		api,
 		isMenuOpen,
 		menuTriggerBy,
-		isSelectedViaDragHandle,
+		selectedByShortcutORDragHandle,
 		hasFocus,
 		shouldShowBlockMenuForEmptyLine,
 		currentUserIntent,
+		fireAnalyticsEvent,
 	]);
 
 	if (!isMenuOpen) {
@@ -152,7 +176,7 @@ const BlockMenu = ({
 
 	if (
 		!menuTriggerBy ||
-		!isSelectedViaDragHandle ||
+		!selectedByShortcutORDragHandle ||
 		!hasFocus ||
 		!shouldShowBlockMenuForEmptyLine ||
 		['resizing', 'dragging'].includes(currentUserIntent || '')
@@ -177,6 +201,7 @@ const BlockMenu = ({
 				forcePlacement={true}
 				preventOverflow={true} // disables forced horizontal placement when forcePlacement is on, so fitWidth controls flipping
 				stick={true}
+				focusTrap
 				offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, 0]}
 			>
 				<BlockMenuContent api={api} />

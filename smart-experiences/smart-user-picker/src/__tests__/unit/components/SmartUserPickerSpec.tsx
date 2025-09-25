@@ -1353,14 +1353,16 @@ describe('SmartUserPicker', () => {
 	});
 
 	describe('email search functionality', () => {
-		const mockEmailSearchResponse: User[] = [{
-			id: 'email-user-1',
-			name: 'John Doe',
-			publicName: 'John Doe',
-			avatarUrl: 'http://avatars.atlassian.com/email-user-1',
-			email: 'john.doe@example.com',
-			type: 'user',
-		}];
+		const mockEmailSearchResponse: User[] = [
+			{
+				id: 'email-user-1',
+				name: 'John Doe',
+				publicName: 'John Doe',
+				avatarUrl: 'http://avatars.atlassian.com/email-user-1',
+				email: 'john.doe@example.com',
+				type: 'user',
+			},
+		];
 
 		it('should not allow email search or selection', async () => {
 			// both enableEmailSearch & allowEmail are false [default]
@@ -1462,7 +1464,11 @@ describe('SmartUserPicker', () => {
 			// both enableEmailSearch & allowEmail are true, but allowEmailSelectionWhenEmailMatched is false
 			(getUserRecommendations as jest.Mock).mockResolvedValue(mockEmailSearchResponse);
 
-			renderSmartUserPicker({ enableEmailSearch: true, allowEmail: true, allowEmailSelectionWhenEmailMatched: false });
+			renderSmartUserPicker({
+				enableEmailSearch: true,
+				allowEmail: true,
+				allowEmailSelectionWhenEmailMatched: false,
+			});
 
 			const input = screen.getByRole('combobox');
 			await userEvent.type(input, 'john.doe@example.com');

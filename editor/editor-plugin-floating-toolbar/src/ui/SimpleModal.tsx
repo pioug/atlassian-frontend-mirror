@@ -7,6 +7,7 @@ import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { Text } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 export const SimpleModal = (props: ConfirmationDialogProps & WrappedComponentProps) => {
 	const {
 		onConfirm,
@@ -23,7 +24,13 @@ export const SimpleModal = (props: ConfirmationDialogProps & WrappedComponentPro
 
 	return (
 		<Modal onClose={onClose} testId={testId}>
-			<ModalHeader>
+			<ModalHeader
+				hasCloseButton={expValEquals(
+					'platform_editor_update_modal_close_button',
+					'isEnabled',
+					true,
+				)}
+			>
 				<ModalTitle appearance="warning">{heading}</ModalTitle>
 			</ModalHeader>
 

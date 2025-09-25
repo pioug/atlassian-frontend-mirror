@@ -161,7 +161,7 @@ export const mockedAccessibleProductsResult = {
 						workspaceAvatarUrl: icon.triangle.base64,
 						vortexMode: 'ENABLED',
 					},
-				]
+				],
 			},
 			{
 				productId: 'jira-software.ondemand',
@@ -172,7 +172,7 @@ export const mockedAccessibleProductsResult = {
 						workspaceUrl: 'https://customdomains.jira-dev.com',
 						workspaceDisplayName: 'customdomains',
 						workspaceAvatarUrl: icon.star.base64,
-						vortexMode: 'ENABLED'
+						vortexMode: 'ENABLED',
 					},
 					{
 						cloudId: '0706eddc-00d7-4e1c-9268-ee3c1d2408cc',
@@ -307,7 +307,7 @@ export const mockedAccessibleProductsResult = {
 						workspaceAvatarUrl: icon.triangle.base64,
 						vortexMode: 'ENABLED',
 					},
-				]
+				],
 			},
 			{
 				productId: 'jira-servicedesk.ondemand',
@@ -362,7 +362,7 @@ export const mockedAccessibleProductsResult = {
 						workspaceAvatarUrl: icon.site.base64,
 						vortexMode: 'ENABLED',
 					},
-				]
+				],
 			},
 			{
 				productId: 'jira-core.ondemand',
@@ -410,7 +410,7 @@ export const mockedAccessibleProductsResult = {
 						workspaceAvatarUrl: icon.koala.base64,
 						vortexMode: 'ENABLED',
 					},
-				]
+				],
 			},
 			{
 				productId: 'jira-product-discovery',
@@ -423,10 +423,10 @@ export const mockedAccessibleProductsResult = {
 						workspaceAvatarUrl: icon.triangle.base64,
 						vortexMode: 'ENABLED',
 					},
-				]
-			}
-		]
-	}
+				],
+			},
+		],
+	},
 };
 
 /**

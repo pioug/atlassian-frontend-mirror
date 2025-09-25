@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.3
 
 ### Patch Changes

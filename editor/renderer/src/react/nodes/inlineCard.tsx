@@ -17,6 +17,12 @@ import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 
 import { CardErrorBoundary } from './fallback';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
@@ -30,11 +36,13 @@ import {
 } from '../../ui/annotations/element/useInlineAnnotationProps';
 import { usePortal } from '../../ui/Renderer/PortalContext';
 import type { RendererAppearance } from '../../ui/Renderer/types';
+import type { AnalyticsEventPayload } from '../../analytics/events';
 
 type HoverLinkOverlayProps = React.ComponentProps<typeof HoverLinkOverlay>;
 export interface InlineCardProps extends MarkDataAttributes {
 	data?: object;
 	eventHandlers?: EventHandlers;
+	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 	marks?: Mark[];
 	portal?: HTMLElement;
 	rendererAppearance?: RendererAppearance;
@@ -52,6 +60,7 @@ const HoverLinkOverlayWithCondition = componentWithCondition(
 );
 
 type OverlayWithCardContextProps = HoverLinkOverlayProps & {
+	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 	isResolvedViewRendered?: boolean;
 	rendererAppearance?: RendererAppearance;
 	url: string;
@@ -61,6 +70,7 @@ const OverlayWithCardContext = ({
 	rendererAppearance,
 	isResolvedViewRendered,
 	url,
+	fireAnalyticsEvent,
 	children,
 }: OverlayWithCardContextProps) => {
 	const cardContext = useSmartCardContext();
@@ -71,6 +81,25 @@ const OverlayWithCardContext = ({
 		() => actions.find((action) => action.id === 'preview-content'),
 		[actions],
 	);
+
+	const fireHoverLabelAEP = (previewType: 'panel' | 'modal') => {
+		if (fireAnalyticsEvent) {
+			const store = cardContext?.value?.store;
+			const urlState = store?.getState()[url || ''];
+
+			fireAnalyticsEvent({
+				action: ACTION.CLICKED,
+				actionSubject: ACTION_SUBJECT.SMART_LINK,
+				actionSubjectId: ACTION_SUBJECT_ID.HOVER_LABEL,
+				eventType: EVENT_TYPE.UI,
+				attributes: {
+					previewType,
+					destinationProduct: urlState?.details?.meta?.product ?? null,
+					destinationSubproduct: urlState?.details?.meta?.subproduct ?? null,
+				},
+			});
+		}
+	};
 
 	const cardState = cardContext?.value?.store?.getState()[url || ''];
 	const ari = getObjectAri(cardState?.details);
@@ -117,11 +146,15 @@ const OverlayWithCardContext = ({
 						name: name || '',
 						iconUrl,
 					});
+					editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true }) &&
+						fireHoverLabelAEP('panel');
 				} else if (isPreviewModalAvailable) {
 					event.preventDefault();
 					if (preview) {
 						preview.invoke();
 					}
+					editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true }) &&
+						fireHoverLabelAEP('modal');
 				}
 			}}
 		>
@@ -131,7 +164,7 @@ const OverlayWithCardContext = ({
 };
 
 const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
-	const { url, data, eventHandlers, smartLinks, rendererAppearance } = props;
+	const { url, data, eventHandlers, fireAnalyticsEvent, smartLinks, rendererAppearance } = props;
 	const portal = usePortal(props);
 	const cardContext = useSmartCardContext();
 	const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
@@ -234,6 +267,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 							url={url || ''}
 							rendererAppearance={rendererAppearance}
 							isResolvedViewRendered={isResolvedViewRendered}
+							fireAnalyticsEvent={fireAnalyticsEvent}
 						>
 							<CardSSR
 								appearance="inline"
@@ -266,6 +300,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 					url={url || ''}
 					rendererAppearance={rendererAppearance}
 					isResolvedViewRendered={isResolvedViewRendered}
+					fireAnalyticsEvent={fireAnalyticsEvent}
 				>
 					<CardSSR
 						appearance="inline"
@@ -312,6 +347,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 						url={url || ''}
 						rendererAppearance={rendererAppearance}
 						isResolvedViewRendered={isResolvedViewRendered}
+						fireAnalyticsEvent={fireAnalyticsEvent}
 					>
 						<Card
 							appearance="inline"

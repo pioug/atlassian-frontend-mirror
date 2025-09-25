@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-plugin-decorations/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-editor-disabled/afm-dev-agents/tsconfig.json"
 		},
 		{

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::74f132abaf76953fbf3e2319158f23b5>>
+ * @codegen <<SignedSource::1762227872fc802083832d134d823fde>>
  * @codegenCommand yarn build-glyphs
  */
 import React from 'react';
@@ -11,7 +11,11 @@ import { token } from '@atlaskit/tokens';
 import ObjectBase from '../object-base';
 import type { ObjectProps } from '../types';
 
-export default function NewFeatureObject({ label = 'New Feature', size, testId }: ObjectProps) {
+export default function NewFeatureObject({
+	label = 'New Feature',
+	size,
+	testId,
+}: ObjectProps): React.JSX.Element {
 	return (
 		<ObjectBase
 			label={label}

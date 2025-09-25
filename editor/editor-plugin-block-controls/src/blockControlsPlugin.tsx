@@ -119,13 +119,21 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 					return tr;
 				}
 
-				let toggleMenuMeta: { anchorName?: string; moveDown?: boolean; moveUp?: boolean } = {
+				let toggleMenuMeta: {
+					anchorName?: string;
+					moveDown?: boolean;
+					moveUp?: boolean;
+				} = {
 					anchorName: options?.anchorName,
 				};
 				const menuTriggerBy = api?.blockControls?.sharedState.currentState()?.menuTriggerBy;
 				if (options?.anchorName) {
 					const { moveUp, moveDown } = canMoveNodeUpOrDown(tr);
-					toggleMenuMeta = { ...toggleMenuMeta, moveUp, moveDown };
+					toggleMenuMeta = {
+						...toggleMenuMeta,
+						moveUp,
+						moveDown,
+					};
 				}
 				tr.setMeta(key, {
 					...currMeta,

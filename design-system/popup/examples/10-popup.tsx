@@ -98,7 +98,7 @@ const PopupPlacementExample = () => {
 					{' '}
 					don’t use scrolling popups
 				</Link>{' '}
-				in products.
+				in apps.
 			</Banner>
 			<div css={spacerStyles}>
 				<Popup

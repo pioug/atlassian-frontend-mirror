@@ -1,7 +1,7 @@
 import '@atlaskit/link-test-helpers/jest';
 import React, { useState } from 'react';
 
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
@@ -12,6 +12,7 @@ import {
 	type HoverCardProps,
 	HoverCard as StandaloneHoverCard,
 } from '@atlaskit/smart-card/hover-card';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import * as useSmartCardActions from '../../../state/actions';
 import { fakeFactory } from '../../../utils/mocks';
@@ -168,6 +169,54 @@ describe('standalone hover card', () => {
 		expect(hoverCard).toHaveAttribute('aria-label', 'test-label');
 		expect(hoverCard).toHaveAttribute('aria-labelledby', 'test-titleId');
 	});
+
+	ffTest.on(
+		'hover-card-on-visibility-change-callback',
+		'when enable visibility change callback feature',
+		() => {
+			it('should call onVisibilityChange when the hover card is visible or hidden', async () => {
+				const onVisibilityChange = jest.fn();
+				await standaloneSetUp(undefined, {
+					onVisibilityChange,
+					noFadeDelay: true,
+				});
+				const triggerWrapper = await screen.findByTestId('hover-card-trigger-wrapper');
+
+				// Test showing the hover card
+				fireEvent.mouseOver(triggerWrapper);
+				expect(onVisibilityChange).toHaveBeenCalledWith(true);
+
+				// Test hiding the hover card
+				fireEvent.mouseLeave(triggerWrapper);
+				expect(onVisibilityChange).toHaveBeenCalledWith(false);
+
+				expect(onVisibilityChange).toHaveBeenCalledTimes(2);
+			});
+		},
+	);
+
+	ffTest.off(
+		'hover-card-on-visibility-change-callback',
+		'when disable visibility change callback feature',
+		() => {
+			it('should call onVisibilityChange when the hover card is visible or hidden', async () => {
+				const onVisibilityChange = jest.fn();
+				await standaloneSetUp(undefined, {
+					onVisibilityChange,
+					noFadeDelay: true,
+				});
+				const triggerWrapper = await screen.findByTestId('hover-card-trigger-wrapper');
+
+				// Test showing the hover card
+				fireEvent.mouseOver(triggerWrapper);
+
+				// Test hiding the hover card
+				fireEvent.mouseLeave(triggerWrapper);
+
+				expect(onVisibilityChange).toHaveBeenCalledTimes(0);
+			});
+		},
+	);
 
 	it('should render a correct view of a hover card over a div', async () => {
 		await standaloneSetUp();

@@ -111,7 +111,7 @@ const CardViewExample = ({
 			title="[Resolving] with placeholder data"
 			description='This will always be "resolving" but it should display data as `placeholderData` prop is provided'
 			// ANIP-288: placeholderData is not part of the public API for CardProps YET
-			{...({ placeholderData: mocks.simpleProjectPlaceholderData })}
+			{...{ placeholderData: mocks.simpleProjectPlaceholderData }}
 			CardComponent={CardSSR}
 		/>
 		<CardViewSection
@@ -120,7 +120,7 @@ const CardViewExample = ({
 			title="[ResolveWithDelay] with placeholder data"
 			description='This will display `placeholderData` but will switch to "resolved" data after an initial delay'
 			// ANIP-288: placeholderData is not part of the public API for CardProps YET
-			{...({ placeholderData: mocks.simpleProjectPlaceholderData })}
+			{...{ placeholderData: mocks.simpleProjectPlaceholderData }}
 			CardComponent={CardSSR}
 		/>
 	</React.Fragment>

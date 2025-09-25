@@ -1,5 +1,28 @@
 # @atlaskit/renderer
 
+## 124.0.1
+
+### Patch Changes
+
+- [`49444f7239178`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49444f7239178) -
+  Added analytics events to preview panel hover overlays and toolbar button
+- Updated dependencies
+
+## 124.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 123.5.1
+
+### Patch Changes
+
+- [`d424b3dec1a77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d424b3dec1a77) -
+  Cleans up feature gate to allow the isTopLevelRenderer prop to be passed from the ReactRenderer
+  component to the underlying renderer component
+- Updated dependencies
+
 ## 123.5.0
 
 ### Minor Changes

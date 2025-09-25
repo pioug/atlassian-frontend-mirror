@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-plugin-decorations/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-editor-disabled/afm-cc/tsconfig.json"
 		},
 		{

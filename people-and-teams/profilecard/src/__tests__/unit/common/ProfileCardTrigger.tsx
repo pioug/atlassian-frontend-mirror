@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { fireEvent, screen,waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { Text } from '@atlaskit/primitives/compiled';
@@ -11,7 +11,6 @@ import {
 	mockRunItLaterSynchronously,
 	renderWithAnalyticsListener,
 } from '@atlassian/ptc-test-utils';
-
 
 import ProfileCardTrigger from '../../../components/common/ProfileCardTrigger';
 

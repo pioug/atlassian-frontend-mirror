@@ -102,6 +102,6 @@ type PastedImageProps = {
 };
 
 export const PastedImage = ({ src, style, title }: PastedImageProps) => {
-	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, jsx-a11y/alt-text -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlassian/a11y/alt-text -- Ignored via go/DSP-18766
 	return <img src={src} title={title} css={pastedImageStyles(style)} />;
 };

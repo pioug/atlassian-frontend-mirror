@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - TimePickerProps
  *
- * @codegen <<SignedSource::8bad83ca67ad4480f1f89ff352a7a18d>>
+ * @codegen <<SignedSource::8400073ffade72c2330b63473b461c81>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/timepicker/__generated__/index.partial.tsx <<SignedSource::8f1c6ab03a29e7279ed2d3e82b086ab0>>
  */
@@ -12,17 +12,17 @@
 import type { DateTimePickerSelectProps } from '@atlaskit/datetime-picker';
 
 export interface FieldProps {
-	id: string;
-	isRequired: boolean;
-	isDisabled: boolean;
-	isInvalid: boolean;
-	onChange: (event: unknown) => void;
-	onBlur: (event: unknown) => void;
-	onFocus: (event: unknown) => void;
-	value: any;
 	'aria-invalid': 'true' | 'false';
 	'aria-labelledby': string;
+	id: string;
+	isDisabled: boolean;
+	isInvalid: boolean;
+	isRequired: boolean;
 	name: string;
+	onBlur: (event: unknown) => void;
+	onChange: (event: unknown) => void;
+	onFocus: (event: unknown) => void;
+	value: any;
 }
 
 type Appearance = 'default' | 'subtle' | 'none';

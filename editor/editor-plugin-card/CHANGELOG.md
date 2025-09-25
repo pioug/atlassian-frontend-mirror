@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 11.0.1
+
+### Patch Changes
+
+- [`49444f7239178`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49444f7239178) -
+  Added analytics events to preview panel hover overlays and toolbar button
+- Updated dependencies
+
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.0
 
 ### Minor Changes

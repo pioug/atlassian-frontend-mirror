@@ -78,7 +78,10 @@ export type BlockControlsSharedState =
 	| {
 			activeDropTargetNode?: ActiveDropTargetNode;
 			activeNode?: ActiveNode;
-			blockMenuOptions?: { canMoveDown?: boolean; canMoveUp?: boolean };
+			blockMenuOptions?: {
+				canMoveDown?: boolean;
+				canMoveUp?: boolean;
+			};
 			isDragging: boolean;
 			isEditing?: boolean;
 			isMenuOpen: boolean;

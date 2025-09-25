@@ -106,6 +106,9 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform-dst-tooltip-shortcuts": {
+			"type": "boolean"
+		},
 		"should-render-to-parent-should-be-true-design-syst": {
 			"type": "boolean"
 		}

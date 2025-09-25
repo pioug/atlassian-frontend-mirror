@@ -19,7 +19,7 @@ const styles = cssMap({
 		paddingBottom: token('space.150'),
 		paddingLeft: token('space.075'),
 		borderRadius: token('radius.small', '8px'),
-		backgroundColor: token('elevation.surface.raised'),
+		backgroundColor: token('elevation.surface'),
 		'&:hover': {
 			cursor: 'pointer',
 			backgroundColor: token('elevation.surface.hovered'),

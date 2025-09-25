@@ -56,8 +56,6 @@ const styles = cssMap({
 	},
 });
 
-
-
 export const AgentActions = ({
 	onEditAgent,
 	onDeleteAgent,
@@ -114,11 +112,17 @@ export const AgentActions = ({
 						}}
 					>
 						<Box xcss={styles.chatToAgentButtonWrapper}>
-							<Inline space="space.050" xcss={styles.chatPillButtonInlineStyles} alignBlock='center'>
+							<Inline
+								space="space.050"
+								xcss={styles.chatPillButtonInlineStyles}
+								alignBlock="center"
+							>
 								<Box xcss={styles.chatPillIconWrapper}>
 									<ChatPillIcon />
 								</Box>
-								<Box xcss={styles.chatPillTextStyles}>{formatMessage(messages.actionChatToAgent)}</Box>
+								<Box xcss={styles.chatPillTextStyles}>
+									{formatMessage(messages.actionChatToAgent)}
+								</Box>
 							</Inline>
 						</Box>
 					</Button>

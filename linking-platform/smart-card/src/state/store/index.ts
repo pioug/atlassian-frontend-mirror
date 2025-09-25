@@ -21,7 +21,9 @@ export function useSmartCardState(url: string, placeholderData?: CardState): Car
 	);
 
 	if (fg('platform_initial_data_for_smart_cards')) {
-		return cardState?.status !== 'resolved' && placeholderData ? placeholderData : cardState ?? PENDING_STATE;
+		return cardState?.status !== 'resolved' && placeholderData
+			? placeholderData
+			: (cardState ?? PENDING_STATE);
 	}
 	return cardState ?? PENDING_STATE;
 }

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-metrics
 
+## 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.0
 
 ### Minor Changes

@@ -52,7 +52,10 @@ const ExampleWithEmailSearch = () => {
 				</div>
 
 				<div>
-					<h3>enableEmailSearch is enabled, allowEmail is enabled, allowEmailSelectionWhenEmailMatched is disabled</h3>
+					<h3>
+						enableEmailSearch is enabled, allowEmail is enabled, allowEmailSelectionWhenEmailMatched
+						is disabled
+					</h3>
 					<p>Allows searching by & selection of emails, email selection disabled on email match</p>
 					<SmartUserPicker
 						{...baseProps}
@@ -64,7 +67,6 @@ const ExampleWithEmailSearch = () => {
 					/>
 				</div>
 			</div>
-
 		</IntlProvider>
 	);
 };

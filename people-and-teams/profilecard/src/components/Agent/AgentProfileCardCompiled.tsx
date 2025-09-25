@@ -40,7 +40,6 @@ const styles = cssMap({
 	},
 });
 
-
 const AgentProfileCard = ({
 	agent,
 	isLoading,
@@ -102,7 +101,7 @@ const AgentProfileCard = ({
 					setStarCount((starCount || 0) + 1);
 				}
 				setIsStarred(!isStarred);
-			} catch (error) { }
+			} catch (error) {}
 		}
 	}, [agent?.id, fireAnalytics, isStarred, resourceClient, starCount]);
 
@@ -153,7 +152,11 @@ const AgentProfileCard = ({
 	if (hasError || !agent) {
 		return (
 			<AgentProfileCardWrapper>
-				<ErrorMessage fireAnalyticsNext={() => {}} errorType={errorType} fireAnalytics={fireAnalytics} />
+				<ErrorMessage
+					fireAnalyticsNext={() => {}}
+					errorType={errorType}
+					fireAnalytics={fireAnalytics}
+				/>
 			</AgentProfileCardWrapper>
 		);
 	}
@@ -193,7 +196,7 @@ const AgentProfileCard = ({
 										profileLink: agent.creatorInfo?.profileLink || '',
 									}}
 									isLoading={false}
-									onCreatorLinkClick={() => { }}
+									onCreatorLinkClick={() => {}}
 								/>
 							)
 						}

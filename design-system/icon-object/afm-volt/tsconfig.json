@@ -28,6 +28,12 @@
 		},
 		{
 			"path": "../../icon-lab/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../object/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
 		}
 	]
 }

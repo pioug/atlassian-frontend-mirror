@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-plugin-decorations/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-editor-disabled/afm-passionfruit/tsconfig.json"
 		},
 		{

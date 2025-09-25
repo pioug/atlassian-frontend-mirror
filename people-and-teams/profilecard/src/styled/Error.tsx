@@ -27,7 +27,9 @@ export const ErrorWrapper = (props: { children: React.ReactNode; testId?: string
 );
 
 export const ErrorTitle = (props: { children: React.ReactNode }) => (
-	<Box xcss={styles.errorTitle}><Text color='color.text'>{props.children}</Text></Box>
+	<Box xcss={styles.errorTitle}>
+		<Text color="color.text">{props.children}</Text>
+	</Box>
 );
 
 export const TeamErrorText = (props: { children: React.ReactNode }) => (

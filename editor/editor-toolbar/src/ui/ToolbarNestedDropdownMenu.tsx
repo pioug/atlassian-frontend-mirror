@@ -21,6 +21,7 @@ const styles = cssMap({
 
 type ToolbarNestedDropdownMenuProps = {
 	children?: ReactNode;
+	dropdownTestId?: string;
 	elemAfter: ReactNode;
 	elemBefore: ReactNode;
 	/**
@@ -40,12 +41,14 @@ export const ToolbarNestedDropdownMenu = ({
 	children,
 	isDisabled,
 	testId,
+	dropdownTestId,
 	enableMaxHeight = false,
 	onClick,
 }: ToolbarNestedDropdownMenuProps) => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
 			placement="right-start"
+			testId={dropdownTestId}
 			trigger={(triggerProps) => (
 				<ToolbarDropdownItem
 					elemBefore={elemBefore}

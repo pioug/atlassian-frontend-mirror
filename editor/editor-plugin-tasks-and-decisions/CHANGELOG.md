@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 9.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.0
+
+### Patch Changes
+
+- [`133f7636e3a6c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/133f7636e3a6c) -
+  [ux] EDITOR-1750 Refactoring and improving delete key behaviours for block task item
+- Updated dependencies
+
 ## 8.5.0
 
 ### Minor Changes

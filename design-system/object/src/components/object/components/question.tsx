@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5617ab087c206d6d693b854a6d3604aa>>
+ * @codegen <<SignedSource::2f9952b2c673a9067b6b4a0ab78aa7db>>
  * @codegenCommand yarn build-glyphs
  */
 import React from 'react';
@@ -11,7 +11,11 @@ import { token } from '@atlaskit/tokens';
 import ObjectBase from '../object-base';
 import type { ObjectProps } from '../types';
 
-export default function QuestionObject({ label = 'Question', size, testId }: ObjectProps) {
+export default function QuestionObject({
+	label = 'Question',
+	size,
+	testId,
+}: ObjectProps): React.JSX.Element {
 	return (
 		<ObjectBase
 			label={label}

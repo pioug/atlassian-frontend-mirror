@@ -1,5 +1,11 @@
 # @atlaskit/editor-synced-block-editor
 
+## 2.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.1
 
 ### Patch Changes

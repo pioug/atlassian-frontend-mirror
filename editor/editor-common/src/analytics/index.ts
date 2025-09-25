@@ -228,4 +228,5 @@ export {
 	type NcsSessionStepMetrics,
 } from './types/ncs-session-step-events';
 
+export type { BlockMenuEventPayload } from './types/block-menu-events';
 export type { BreakoutEventPayload, BreakoutSupportedNodes } from './types/breakout-events';

@@ -76,7 +76,7 @@ import { token } from '@atlaskit/tokens';
 import ObjectBase from '../object-base';
 import type { ObjectProps } from '../types';
 
-export default function ${componentName}Object({ label = ${JSON.stringify(defaultLabel)}, size, testId }: ObjectProps) {
+export default function ${componentName}Object({ label = ${JSON.stringify(defaultLabel)}, size, testId }: ObjectProps): React.JSX.Element {
 	return (
 		<ObjectBase
 			label={label}
@@ -107,7 +107,7 @@ import { token } from '@atlaskit/tokens';
 import ObjectTileBase from '../object-tile-base';
 import type { ObjectTileProps } from '../types';
 
-export default function ${componentName}ObjectTile({ label = ${JSON.stringify(defaultLabel)}, size, testId, isBold }: ObjectTileProps) {
+export default function ${componentName}ObjectTile({ label = ${JSON.stringify(defaultLabel)}, size, testId, isBold }: ObjectTileProps): React.JSX.Element {
 	return (
 		<ObjectTileBase
 			label={label}
@@ -147,7 +147,13 @@ async function run() {
 		Object.entries(OBJECT_MAP).map(async ([name, meta]) => {
 			const outFile = path.resolve(componentsDir, `${name}.tsx`);
 			const src = getComponentSource(name, meta.icon, meta.color, meta.packageName);
-			await fs.outputFile(outFile, createSignedArtifact(format(src, 'tsx'), 'yarn build-glyphs'));
+			try {
+				const formattedSrc = format(src, 'tsx');
+				await fs.outputFile(outFile, createSignedArtifact(formattedSrc, 'yarn build-glyphs'));
+			} catch (e) {
+				// eslint-disable-next-line no-console
+				console.error(`Error formatting ${name} component:`, e);
+			}
 		}),
 	);
 

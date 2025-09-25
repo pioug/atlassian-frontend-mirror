@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 8.0.1
+
+### Patch Changes
+
+- [`3313b6542c788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3313b6542c788) -
+  [ux] [ENGHEALTH-30483] use `hasCloseButton` or CloseButton for ModalHeader
+- Updated dependencies
+
+## 8.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.3
 
 ### Patch Changes

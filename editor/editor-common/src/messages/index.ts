@@ -43,6 +43,7 @@ export { selectionExtensionMessages } from './selection-extension';
 export { selectionToolbarMessages } from './selection-toolbar';
 export { contextPanelMessages } from './context-panel';
 export { trackChangesMessages } from './track-changes';
+export { syncBlockMessages } from './syncBlock';
 
 export default defineMessages({
 	layoutFixedWidth: {

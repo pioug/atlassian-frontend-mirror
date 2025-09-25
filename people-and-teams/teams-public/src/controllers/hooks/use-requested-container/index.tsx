@@ -2,12 +2,15 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { defineMessages, useIntl } from 'react-intl-next';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { type FlagProps } from '@atlaskit/flag';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { HttpError, teamsClient } from '@atlaskit/teams-client';
 import { type ApiTeamContainerCreationPayload } from '@atlaskit/teams-client/types';
 
+import { type ContainerTypes } from '../../../common/types';
+import { usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { useTeamContainers } from '../use-team-containers';
 
 import {
@@ -18,7 +21,6 @@ import {
 	POLLING_INTERVAL,
 	removeRequestedContainersFromUrl,
 	useAsyncPolling,
-	userCanAccessFeature,
 } from './utils';
 
 type OnRequestedContainerTimeout = (
@@ -51,10 +53,11 @@ function useRequestedContainers({
 	const [isTryingAgain, setIsTryingAgain] = useState(false);
 	const tryAgainCountRef = useRef(0);
 	const [refetchErrorCount, setRefetchErrorCount] = useState(0);
+	const { fireTrackEvent } = usePeopleAndTeamAnalytics();
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 
-	const [requestedContainers, setRequestedContainers] = useState(() =>
-		getRequestedContainersFromUrl(),
-	);
+	const [requestedContainers, setRequestedContainers] = useState<ContainerTypes[]>([]);
+	const requestedContainersRef = useRef<ContainerTypes[]>([]);
 
 	const checkContainers = useCallback(async () => {
 		try {
@@ -70,16 +73,21 @@ function useRequestedContainers({
 				return;
 			}
 
-			const flagId = `requested-container-timeout-${requestedContainers.join('-')}-${tryAgainCountRef.current}`;
+			const reqContainers = requestedContainersRef.current;
+
+			const flagId = `requested-container-timeout-${reqContainers.join('-')}-${tryAgainCountRef.current}`;
+
 			const createTryAgainFlag = ({ onAction }: { onAction: (flagId: string) => void }) => ({
 				id: flagId,
 				title:
-					requestedContainers.length === 1
+					reqContainers.length === 1
 						? formatMessage(messages.timeoutTitle, {
-								container: containerDisplayName(requestedContainers[0]),
+								container: containerDisplayName(reqContainers[0]),
 							})
 						: formatMessage(messages.timeoutTitleMultiple),
 				description: formatMessage(messages.timeoutDescription),
+				appearance: 'error' as const,
+				type: 'error',
 				actions: [
 					{
 						content: formatMessage(messages.timeoutAction),
@@ -94,6 +102,8 @@ function useRequestedContainers({
 				id: flagId,
 				title: formatMessage(messages.noConnectionTitle),
 				description: formatMessage(messages.noConnectionDescription),
+				appearance: 'error' as const,
+				type: 'error',
 				actions: [
 					{
 						content: (
@@ -114,17 +124,22 @@ function useRequestedContainers({
 				setIsTryingAgain(true);
 				tryAgainCountRef.current = tryAgainCountRef.current + 1;
 
-				//todo: add analytics event here
-
-				const containers = requestedContainers
+				const containers = reqContainers
 					.map((container) => {
 						return { type: convertContainerToType(container), containerSiteId: cloudId };
 					})
 					.filter(({ type }) => Boolean(type)) as ApiTeamContainerCreationPayload['containers'];
 
+				fireTrackEvent(createAnalyticsEvent, {
+					action: 'tryAgain',
+					actionSubject: 'requestedContainers',
+					// @ts-ignore
+					attributes: { containers: reqContainers, teamId },
+				});
+
 				try {
 					const response = await teamsClient.createTeamContainers({ teamId, containers });
-					const containersNotCreated = requestedContainers.filter(
+					const containersNotCreated = reqContainers.filter(
 						(containerType) =>
 							!response.containersCreated?.some(
 								(container) => container.containerType === convertContainerToType(containerType),
@@ -143,7 +158,7 @@ function useRequestedContainers({
 					if (error instanceof HttpError) {
 						if (error.status === 500) {
 							//only allow for 2 retries
-							if (tryAgainCountRef.current < 2) {
+							if (tryAgainCountRef.current <= 2) {
 								return setTimeout(() => {
 									//bug: this can cause two flags to be shown
 									tryAgainAction();
@@ -157,6 +172,18 @@ function useRequestedContainers({
 					setIsTryingAgain(false);
 				}
 			};
+
+			fireTrackEvent(createAnalyticsEvent, {
+				action: 'failed',
+				actionSubject: 'requestedContainers',
+				attributes: {
+					// @ts-ignore
+					containers: reqContainers,
+					teamId,
+					tryAgainCount: tryAgainCountRef.current,
+				},
+			});
+
 			removeRequestedContainersFromUrl();
 			onRequestedContainerTimeout(
 				tryAgainCountRef.current === 0 ? createTryAgainFlag : createContactSupportFlag,
@@ -167,8 +194,9 @@ function useRequestedContainers({
 			formatMessage,
 			onRequestedContainerTimeout,
 			refetchTeamContainers,
-			requestedContainers,
 			teamId,
+			createAnalyticsEvent,
+			fireTrackEvent,
 		],
 	);
 
@@ -177,14 +205,31 @@ function useRequestedContainers({
 	});
 
 	useEffect(() => {
-		if (!userCanAccessFeature()) {
-			return;
+		const containers = getRequestedContainersFromUrl();
+		if (containers.length > 0 && isPolling === false) {
+			setRequestedContainers(containers);
+			startPolling();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
+	useEffect(() => {
+		requestedContainersRef.current = requestedContainers;
+	}, [requestedContainers]);
+
+	useEffect(() => {
 		//stop gap to prevent sending too many failed errors
 		if (refetchErrorCount > 3) {
 			stopPolling();
-			//todo: add analytics event here
+			fireTrackEvent(createAnalyticsEvent, {
+				action: 'failed',
+				actionSubject: 'requestedContainers',
+				attributes: {
+					// @ts-ignore
+					containers: requestedContainers,
+					teamId,
+				},
+			});
 			return;
 		}
 
@@ -199,19 +244,17 @@ function useRequestedContainers({
 			stopPolling();
 			return;
 		}
-
-		if (!isPolling && containerCount > 0) {
-			setIsTryingAgain(false);
-			startPolling();
-		}
 	}, [
 		isPolling,
 		refetchErrorCount,
-		requestedContainers.length,
+		requestedContainers,
 		hasTimedOut,
 		startPolling,
 		stopPolling,
 		isTryingAgain,
+		teamId,
+		createAnalyticsEvent,
+		fireTrackEvent,
 	]);
 
 	useEffect(() => {
@@ -223,7 +266,7 @@ function useRequestedContainers({
 		if (!containersEqual(containersNotFound, requestedContainers)) {
 			setRequestedContainers(containersNotFound);
 		}
-	}, [requestedContainers, checkContainers, teamContainers]);
+	}, [requestedContainers, checkContainers, teamContainers, isPolling]);
 
 	const containersLoading = useMemo(
 		() => ((hasTimedOut && !isTryingAgain) || refetchErrorCount > 3 ? [] : requestedContainers),

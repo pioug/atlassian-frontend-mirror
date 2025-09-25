@@ -1,5 +1,12 @@
 # @atlaskit/smart-hooks
 
+## 0.3.4
+
+### Patch Changes
+
+- [`56ac0cf74b37d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56ac0cf74b37d) -
+  Migrated teams assets to new service
+
 ## 0.3.3
 
 ### Patch Changes

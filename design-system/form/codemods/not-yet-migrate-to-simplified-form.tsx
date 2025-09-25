@@ -2,6 +2,7 @@ import {
 	type API,
 	type FileInfo,
 	type JSCodeshift,
+	type JSXAttribute,
 	type JSXElement,
 	type Options,
 } from 'jscodeshift';
@@ -16,6 +17,14 @@ import {
 } from './utils/helpers';
 
 const importPath = '@atlaskit/form';
+const EXISTING_FORM_ATTRIBUTES: Record<string, any> = {
+	autocomplete: 'autocomplete',
+	id: 'id',
+	'aria-label': 'label',
+	'aria-labelledby': 'labelId',
+	name: 'name',
+	noValidate: 'noValidate',
+};
 
 const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 	const importDeclarationCollection = getImportDeclarationCollection(j, collection, importPath);
@@ -98,6 +107,8 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 		// We are required to do it this way instead of a map to make the types work correctly.
 		// We also have to use `any` here and below because typing in this SUCKS.
 		const nonFormPropsAttributes: any[] = [];
+		// These are the attributes that exist on `Form` that can migrate directly over.
+		const existingFormPropsAttributes: JSXAttribute[] = [];
 		htmlForm?.openingElement?.attributes?.forEach((attr) => {
 			if (otherSpreadPropsSeen) {
 				return;
@@ -112,11 +123,18 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 				}
 			}
 
-			if (attr.name.type !== 'JSXIdentifier') {
+			const attrName = attr.name;
+
+			if (attrName.type !== 'JSXIdentifier') {
 				return;
 			}
 
 			if (attr.value === undefined) {
+				return;
+			}
+
+			if (Object.keys(EXISTING_FORM_ATTRIBUTES).includes(attrName.name)) {
+				existingFormPropsAttributes.push(attr);
 				return;
 			}
 
@@ -129,7 +147,7 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 				value = attr.value as any;
 			}
 
-			nonFormPropsAttributes.push(j.property('init', attr.name, value));
+			nonFormPropsAttributes.push(j.property('init', attrName, value));
 		});
 
 		// We don't know how to handle other spread props in the formProps object, so ignore it
@@ -145,6 +163,16 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 			);
 			addJSXAttributeToJSXElement(j, jsxElementPath, formPropsAttr, 1);
 		}
+		existingFormPropsAttributes.forEach((attr) => {
+			// add existing props to new `Form`
+			const fromName = attr.name.name;
+			if (typeof fromName !== 'string') {
+				return;
+			}
+			const toName = EXISTING_FORM_ATTRIBUTES[fromName];
+			attr.name.name = toName;
+			addJSXAttributeToJSXElement(j, jsxElementPath, attr, 1);
+		});
 
 		// replace functional child with inner (all children of HTML `form`)
 		const htmlFormChildren = htmlForm.children?.filter((child) => child.type !== 'JSXText');

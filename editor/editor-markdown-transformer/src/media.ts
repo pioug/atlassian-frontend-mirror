@@ -116,7 +116,7 @@ function createRule() {
 
 					let inlineContentStack = token.content;
 
-					matchAll.forEach((match, j) => {
+					matchAll.forEach((match) => {
 						const [matchString, alt, url] = match;
 						const start = inlineContentStack.indexOf(matchString);
 						const contentBefore = inlineContentStack.substr(0, start);

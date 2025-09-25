@@ -279,7 +279,10 @@ const handleDelete = (props: Props, event: SyntheticEvent) => {
 	}
 };
 
-const handleImageError = (props: Pick<Props, 'emoji' | 'onLoadError'>, event: SyntheticEvent<HTMLImageElement>) => {
+const handleImageError = (
+	props: Pick<Props, 'emoji' | 'onLoadError'>,
+	event: SyntheticEvent<HTMLImageElement>,
+) => {
 	const { emoji, onLoadError } = props;
 
 	// Hide error state (but keep space for it)
@@ -334,7 +337,7 @@ export const SpriteEmoji = (props: Props) => {
 };
 
 // Keep as pure functional component, see renderAsSprite.
-export const ImageEmoji = ((props: Props) => {
+export const ImageEmoji = (props: Props) => {
 	const {
 		emoji,
 		fitToHeight,
@@ -398,11 +401,9 @@ export const ImageEmoji = ((props: Props) => {
 		},
 		[props.emoji, props.onLoadError],
 	);
-	const onError = expValEquals(
-				'cc_complexit_fe_emoji_stability',
-				'isEnabled',
-				true,
-		) ? onErrorV2 : onErrorV1;
+	const onError = expValEquals('cc_complexit_fe_emoji_stability', 'isEnabled', true)
+		? onErrorV2
+		: onErrorV1;
 
 	const onLoad = useCallback(() => {
 		const mountedMark = ufoExp.metrics.marks.find(
@@ -504,7 +505,7 @@ export const ImageEmoji = ((props: Props) => {
 			{emojiNode}
 		</EmojiNodeWrapper>
 	);
-});
+};
 
 interface EmojiNodeWrapperProps extends Props {
 	type: 'sprite' | 'image';

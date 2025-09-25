@@ -4,6 +4,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { createPlugin, dispatchShouldHideDecorations, key } from './pm-plugins/main';
 import type { ReleaseHiddenDecoration, SelectionMarkerPlugin } from './selectionMarkerPluginType';
@@ -76,16 +77,28 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 				editorHasNotBeenFocused.current = true;
 			}, [editorView]);
 
-			const { hasFocus, isOpen, editorDisabled, showToolbar } = useSharedPluginStateWithSelector(
-				api,
-				['focus', 'typeAhead', 'editorDisabled', 'toolbar'],
-				(states) => ({
-					hasFocus: states.focusState?.hasFocus,
-					isOpen: states.typeAheadState?.isOpen,
-					editorDisabled: states.editorDisabledState?.editorDisabled,
-					showToolbar: states.toolbarState?.shouldShowToolbar,
-				}),
-			);
+			const { hasFocus, isOpen, editorDisabled, showToolbar, hasDangerDecorations } =
+				useSharedPluginStateWithSelector(
+					api,
+					['focus', 'typeAhead', 'editorDisabled', 'toolbar', 'decorations'],
+					(states) => {
+						return {
+							hasFocus: states.focusState?.hasFocus,
+							isOpen: states.typeAheadState?.isOpen,
+							editorDisabled: states.editorDisabledState?.editorDisabled,
+							showToolbar: states.toolbarState?.shouldShowToolbar,
+							hasDangerDecorations:
+								expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+								expValEqualsNoExposure(
+									'platform_editor_block_menu_keyboard_navigation',
+									'isEnabled',
+									true,
+								)
+									? states.decorationsState?.hasDangerDecorations
+									: undefined,
+						};
+					},
+				);
 			const isForcedHidden = useSharedPluginStateSelector(api, 'selectionMarker.isForcedHidden');
 			useEffect(() => {
 				// On editor init we should use this latch to keep the marker hidden until
@@ -103,6 +116,7 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 				 * - Typeahead Open: To ensure it doesn't show when we're typing in the typeahead
 				 * - Disabled: So that it behaves similar to the renderer in live pages/disabled
 				 * - Via the API: If another plugin has requested it to be hidden (force hidden).
+				 * - If danger styles is shown in decorationsPlugin, then we don't need to show the selection marker
 				 */
 				const shouldHide =
 					(config?.hideCursorOnInit && editorHasNotBeenFocused.current) ||
@@ -112,10 +126,25 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 					(editorDisabled ?? false) ||
 					(expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true) &&
 						(showToolbar ?? false)) ||
-					expValEquals('platform_editor_ai_aifc', 'isEnabled', true);
+					expValEquals('platform_editor_ai_aifc', 'isEnabled', true) ||
+					(!!hasDangerDecorations &&
+						expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+						expValEqualsNoExposure(
+							'platform_editor_block_menu_keyboard_navigation',
+							'isEnabled',
+							true,
+						));
 
 				requestAnimationFrame(() => dispatchShouldHideDecorations(editorView, shouldHide));
-			}, [editorView, hasFocus, isOpen, isForcedHidden, editorDisabled, showToolbar]);
+			}, [
+				editorView,
+				hasFocus,
+				isOpen,
+				isForcedHidden,
+				editorDisabled,
+				showToolbar,
+				hasDangerDecorations,
+			]);
 		},
 
 		contentComponent() {

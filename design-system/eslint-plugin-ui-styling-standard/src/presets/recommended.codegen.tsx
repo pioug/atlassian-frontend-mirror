@@ -1,9 +1,11 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::884e28457d7860b1abca070fca8ab853>>
+ * @codegen <<SignedSource::778759f32da9fc9b6d182dba1b796640>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
-export default {
+import type { ESLint } from 'eslint';
+
+const config: ESLint.ConfigData = {
 	plugins: ['@atlaskit/ui-styling-standard', '@atlaskit/design-system'],
 	rules: {
 		'@atlaskit/ui-styling-standard/atlaskit-theme': 'error',
@@ -53,4 +55,6 @@ export default {
 			},
 		],
 	},
-} as const;
+};
+
+export default config;

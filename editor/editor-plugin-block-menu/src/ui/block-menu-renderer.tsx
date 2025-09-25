@@ -1,5 +1,10 @@
 import React, { Fragment } from 'react';
 
+import {
+	ArrowKeyNavigationProvider,
+	ArrowKeyNavigationType,
+} from '@atlaskit/editor-common/ui-menu';
+
 import type {
 	RegisterBlockMenuComponent,
 	BlockMenuNestedComponent,
@@ -88,53 +93,55 @@ export const BlockMenuRenderer = ({ components, fallbacks }: BlockMenuProps) => 
 	const nestedMenus = components.filter(isNestedMenu);
 
 	return (
-		<Fragment>
-			{menuSections.map((section) => {
-				// Get all items for the current section, including nested menus, and sort them by rank
-				const currentSectionItemsSorted = getSortedChildren(
-					[...menuItems, ...nestedMenus],
-					section.key,
-				);
+		<ArrowKeyNavigationProvider type={ArrowKeyNavigationType.MENU}>
+			<Fragment>
+				{menuSections.map((section) => {
+					// Get all items for the current section, including nested menus, and sort them by rank
+					const currentSectionItemsSorted = getSortedChildren(
+						[...menuItems, ...nestedMenus],
+						section.key,
+					);
 
-				if (currentSectionItemsSorted.length === 0) {
-					return null;
-				}
+					if (currentSectionItemsSorted.length === 0) {
+						return null;
+					}
 
-				// iterate over the current section items, if it is nested menu, get their children, sort them
-				// if they are menu items, just render as they are sorted above
-				const getChildrenWithNestedItems = (
-					items: (RegisterBlockMenuItem | RegisterBlockMenuNested)[],
-				) => {
-					return items.map((item) => {
-						if (isNestedMenu(item)) {
-							const sortedNestedSections = getSortedNestedSections(components, item.key);
-							return sortedNestedSections.map((section) => {
-								const sortedNestedMenuItems = getSortedChildren(menuItems, section.key);
-								const NestedMenuComponent = item.component || fallbacks.nestedMenu || NoOp;
-								const NestedSection = section.component || fallbacks.section || NoOp;
-								return (
-									<NestedMenuComponent key={item.key}>
-										<NestedSection key={section.key}>
-											{sortedNestedMenuItems.map((nestedItem) => {
-												const NestedMenuItemComponent =
-													nestedItem.component || fallbacks.item || NoOp;
-												return <NestedMenuItemComponent key={nestedItem.key} />;
-											})}
-										</NestedSection>
-									</NestedMenuComponent>
-								);
-							});
-						} else {
-							const ItemComponent = item.component || fallbacks.item || NoOp;
-							return <ItemComponent key={item.key} />;
-						}
-					});
-				};
+					// iterate over the current section items, if it is nested menu, get their children, sort them
+					// if they are menu items, just render as they are sorted above
+					const getChildrenWithNestedItems = (
+						items: (RegisterBlockMenuItem | RegisterBlockMenuNested)[],
+					) => {
+						return items.map((item) => {
+							if (isNestedMenu(item)) {
+								const sortedNestedSections = getSortedNestedSections(components, item.key);
+								return sortedNestedSections.map((section) => {
+									const sortedNestedMenuItems = getSortedChildren(menuItems, section.key);
+									const NestedMenuComponent = item.component || fallbacks.nestedMenu || NoOp;
+									const NestedSection = section.component || fallbacks.section || NoOp;
+									return (
+										<NestedMenuComponent key={item.key}>
+											<NestedSection key={section.key}>
+												{sortedNestedMenuItems.map((nestedItem) => {
+													const NestedMenuItemComponent =
+														nestedItem.component || fallbacks.item || NoOp;
+													return <NestedMenuItemComponent key={nestedItem.key} />;
+												})}
+											</NestedSection>
+										</NestedMenuComponent>
+									);
+								});
+							} else {
+								const ItemComponent = item.component || fallbacks.item || NoOp;
+								return <ItemComponent key={item.key} />;
+							}
+						});
+					};
 
-				const children = getChildrenWithNestedItems(currentSectionItemsSorted);
-				const SectionComponent = section.component || fallbacks.section || NoOp;
-				return <SectionComponent key={section.key}>{children}</SectionComponent>;
-			})}
-		</Fragment>
+					const children = getChildrenWithNestedItems(currentSectionItemsSorted);
+					const SectionComponent = section.component || fallbacks.section || NoOp;
+					return <SectionComponent key={section.key}>{children}</SectionComponent>;
+				})}
+			</Fragment>
+		</ArrowKeyNavigationProvider>
 	);
 };

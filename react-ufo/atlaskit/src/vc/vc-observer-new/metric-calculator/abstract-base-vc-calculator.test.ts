@@ -73,6 +73,8 @@ describe('AbstractVCCalculatorBase V1', () => {
 			stopTime: 1000,
 			interactionId: 'test-interaction-id',
 			isPostInteraction: false,
+			interactionType: 'page_load',
+			isPageVisible: true,
 		});
 
 		expect(result).toEqual({
@@ -136,6 +138,8 @@ describe('AbstractVCCalculatorBase V1', () => {
 			stopTime: 1000,
 			interactionId: 'test-interaction-id',
 			isPostInteraction: false,
+			interactionType: 'page_load',
+			isPageVisible: true,
 		});
 
 		expect(result).toEqual({
@@ -203,6 +207,8 @@ describe('AbstractVCCalculatorBase V1', () => {
 			stopTime: 1000,
 			interactionId: 'test-interaction-id',
 			isPostInteraction: false,
+			interactionType: 'page_load',
+			isPageVisible: true,
 		});
 
 		// Verify that calculateTTVCPercentilesWithDebugInfo was called with only the filtered entries
@@ -253,6 +259,8 @@ describe('AbstractVCCalculatorBase V1', () => {
 			stopTime: 1000,
 			orderedEntries: mockEntries,
 			isPostInteraction: false,
+			interactionType: 'page_load',
+			isPageVisible: true,
 		});
 
 		expect(result).toBeDefined();
@@ -336,6 +344,8 @@ describe('AbstractVCCalculatorBase V1', () => {
 				stopTime: 1000,
 				interactionId: 'test-interaction-id',
 				isPostInteraction: false,
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			// Verify that devtools callbacks were not called (since they don't exist)
@@ -388,6 +398,8 @@ describe('AbstractVCCalculatorBase V1', () => {
 				stopTime: 1000,
 				interactionId: 'test-interaction-id',
 				isPostInteraction: false,
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			// Verify that devtools callback was called with debug details
@@ -432,6 +444,8 @@ describe('AbstractVCCalculatorBase V1', () => {
 				stopTime: 1000,
 				interactionId: 'test-interaction-id',
 				isPostInteraction: false,
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			// Verify that debug data callback was called
@@ -467,6 +481,8 @@ describe('AbstractVCCalculatorBase V1', () => {
 				stopTime: 1000,
 				interactionId: 'test-interaction-id',
 				isPostInteraction: true, // Post-interaction should skip debug details
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			// Verify that devtools callback was not called for post-interaction

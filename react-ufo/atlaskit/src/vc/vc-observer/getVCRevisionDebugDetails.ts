@@ -1,3 +1,4 @@
+import type { InteractionType } from '../../common/common/types';
 import type {
 	ComponentsLogType,
 	VCAbortReason,
@@ -28,6 +29,7 @@ export interface VCRevisionDebugDetails {
 	abortTimestamp?: number;
 	vcLogs: VCLogEntry[];
 	interactionId?: string;
+	interactionType?: InteractionType;
 }
 
 export function getVCRevisionDebugDetails({

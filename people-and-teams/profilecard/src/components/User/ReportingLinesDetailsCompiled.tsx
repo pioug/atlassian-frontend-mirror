@@ -121,7 +121,9 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 		<>
 			{manager && (
 				<ReportingLinesSection>
-					<Box xcss={cx(styles.reportingLinesHeadingDefaultStyles, styles.reportingLinesHeadingStyles)}>
+					<Box
+						xcss={cx(styles.reportingLinesHeadingDefaultStyles, styles.reportingLinesHeadingStyles)}
+					>
 						<FormattedMessage {...messages.managerSectionHeading} />
 					</Box>
 					<OffsetWrapper>

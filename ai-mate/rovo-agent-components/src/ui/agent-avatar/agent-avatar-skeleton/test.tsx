@@ -5,6 +5,11 @@ import { render, screen } from '@testing-library/react';
 import { AgentAvatarSkeleton } from './index';
 
 describe('AgentAvatarSkeleton', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<AgentAvatarSkeleton size="small" testId="avatar-skeleton" />);
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render with basic props', () => {
 		render(<AgentAvatarSkeleton size="small" testId="avatar-skeleton" />);
 

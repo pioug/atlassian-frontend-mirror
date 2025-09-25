@@ -117,32 +117,6 @@ test('checks containers from the URL params and waits until they are available',
 	expect(searchParams.delete).toHaveBeenCalledWith('requestedContainers');
 });
 
-describe('experiment cohort checks', () => {
-	beforeEach(() => {
-		setUpTeamContainers();
-		const requestedContainers = [ContainerType.CONFLUENCE_SPACE];
-		urlSearchParams(`?requestedContainers=${requestedContainers.join(',')}`);
-	});
-
-	test('control - no access', () => {
-		(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue('control');
-		const { result } = renderHook();
-		expect(result.current.requestedContainers).toEqual([]);
-	});
-
-	test('profile_page - can access', () => {
-		(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue('profile_page');
-		const { result } = renderHook();
-		expect(result.current.requestedContainers).toEqual(['ConfluenceSpace']);
-	});
-
-	test('universal_create - can access', () => {
-		(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue('universal_create');
-		const { result } = renderHook();
-		expect(result.current.requestedContainers).toEqual(['ConfluenceSpace']);
-	});
-});
-
 test('removes invalid container types for the search params', () => {
 	urlSearchParams('?requestedContainers=jira,loom,jira');
 	const { result } = renderHook();

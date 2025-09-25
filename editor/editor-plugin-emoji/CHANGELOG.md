@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-emoji
 
+## 7.0.0
+
+### Minor Changes
+
+- [`36b63f147e5a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36b63f147e5a7) -
+  [https://product-fabric.atlassian.net/browse/ED-29410](ED-29410) - skip emoji rerenderign if
+  `EmojiNodeDataProvider.getData` returns the same value
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.0
 
 ### Minor Changes

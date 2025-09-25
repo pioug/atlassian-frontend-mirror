@@ -54,6 +54,11 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	label?: string;
 
 	/**
+	 * Callback function that is called when the hover card is visible or hidden.
+	 */
+	onVisibilityChange?: (isVisible: boolean) => void;
+
+	/**
 	 * Use this to set the accessibility role for the hover card.
 	 * Should be used along with `label` or `titleId` for supported roles.
 	 */

@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.11.0
+
+### Minor Changes
+
+- [`53cdd8bde9bff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53cdd8bde9bff) -
+  add optional errorStatusCode param to ufo's addError() and addErrorToAll() api
+
+## 4.10.2
+
+### Patch Changes
+
+- [`4b8df6fc79b12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b8df6fc79b12) -
+  Add interactionType to VC debugData
+- [`4b8df6fc79b12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b8df6fc79b12) -
+  bugfixes on VC debug data
+
 ## 4.10.1
 
 ### Patch Changes

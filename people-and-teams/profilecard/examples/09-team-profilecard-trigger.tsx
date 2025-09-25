@@ -57,8 +57,6 @@ const profileClient = new ProfileCardClient(clientArgs, {
 	teamClient: mockTeamClient,
 });
 
-
-
 const styles = cssMap({
 	container: {
 		borderRadius: token('radius.small', '3px'),
@@ -85,7 +83,7 @@ const defaultProps = {
 		{
 			id: 'secondary',
 			label: 'Secondary',
-			callback: () => { },
+			callback: () => {},
 			link: 'about:blank',
 		},
 		{

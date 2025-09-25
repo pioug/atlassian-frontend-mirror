@@ -65,7 +65,7 @@ The `themeState` object includes the following properties:
 <TokenPropsTable
 	propName={'themeState'}
 	description={
-		'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'
+		'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value. To update properties, pass a function that returns the new theme state.'
 	}
 	typing={`{
   colorMode?: ColorMode<"light", "dark", "auto">,
@@ -74,7 +74,7 @@ The `themeState` object includes the following properties:
   spacing?: ThemeIds,
   typography?: ThemeIds,
   UNSAFE_themeOptions?: CustomThemeSchema // { brandColor: HexColor }
-}`}
+} | ((themeState: ThemeState) => ThemeState)`}
 	defaultValue={
 		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
 	}
@@ -109,6 +109,35 @@ const App = () => {
 	});
 
 	return <div style={{ backgroundColor: token('elevation.surface') }}>...</div>;
+};
+```
+
+#### Example usage to update properties
+
+```tsx
+import { Button } from '@atlaskit/button';
+import { token, setGlobalTheme } from '@atlaskit/tokens';
+
+const App = () => {
+	setGlobalTheme({
+		light: 'light',
+		dark: 'dark',
+		colorMode: 'auto',
+	});
+
+	const switchColorMode = () => {
+		setGlobalTheme((themeState) => ({
+			...themeState,
+			colorMode: themeState.colorMode === 'light' ? 'dark' : 'light',
+		}));
+	};
+
+	return (
+		<div style={{ backgroundColor: token('elevation.surface') }}>
+			<Button onClick={switchColorMode}>Switch color mode</Button>
+			...
+		</div>
+	);
 };
 ```
 

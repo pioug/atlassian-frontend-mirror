@@ -1,3 +1,4 @@
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	FloatingToolbarConfig,
 	NextEditorPlugin,
@@ -15,7 +16,7 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
-import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 export type ConfigWithNodeInfo = {
@@ -57,6 +58,12 @@ export type FloatingToolbarPlugin = NextEditorPlugin<
 	'floatingToolbar',
 	{
 		actions: { forceFocusSelector: ForceFocusSelector };
+		commands: {
+			copyNode: (
+				nodeType: NodeType | NodeType[],
+				inputMethod?: INPUT_METHOD,
+			) => ({ tr }: { tr: Transaction }) => Transaction;
+		};
 		dependencies: FloatingToolbarPluginDependencies;
 		sharedState:
 			| {

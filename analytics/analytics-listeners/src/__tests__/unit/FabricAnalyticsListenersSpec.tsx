@@ -21,6 +21,9 @@ const DummyAIMateCompWithAnalytics = createComponentWithAnalytics(FabricChannel.
 const DummyAVPCompWithAnalytics = createComponentWithAnalytics(FabricChannel.avp);
 const AtlaskitIncorrectEventType = IncorrectEventType(FabricChannel.atlaskit);
 const DummyOmniChannelCompWithAnalytics = createComponentWithAnalytics(FabricChannel.omniChannel);
+const DummyTownsquareHomeCompWithAnalytics = createComponentWithAnalytics(
+	FabricChannel.townsquareHome,
+);
 
 describe('<FabricAnalyticsListeners />', () => {
 	let analyticsWebClientMock: AnalyticsWebClient;
@@ -663,6 +666,42 @@ describe('<FabricAnalyticsListeners />', () => {
 			);
 
 			const dummyComponent = screen.getByRole('button', { name: 'omniChannel' });
+			expect(dummyComponent).toBeInTheDocument();
+
+			await fireEvent.click(dummyComponent);
+
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+		});
+	});
+
+	describe('<TownsquareHomeAnalyticsListener />', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
+			const compOnClick = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={analyticsWebClientMock}>
+					<DummyTownsquareHomeCompWithAnalytics onClick={compOnClick} />
+				</FabricAnalyticsListeners>,
+			);
+
+			const dummyComponent = screen.getByRole('button', { name: 'townsquareHome' });
+			expect(dummyComponent).toBeInTheDocument();
+
+			await fireEvent.click(dummyComponent);
+
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+		});
+
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
+
+			const compOnClick = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
+					<DummyTownsquareHomeCompWithAnalytics onClick={compOnClick} />
+				</FabricAnalyticsListeners>,
+			);
+
+			const dummyComponent = screen.getByRole('button', { name: 'townsquareHome' });
 			expect(dummyComponent).toBeInTheDocument();
 
 			await fireEvent.click(dummyComponent);

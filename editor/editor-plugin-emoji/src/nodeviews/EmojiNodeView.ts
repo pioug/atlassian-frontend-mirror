@@ -1,3 +1,4 @@
+import isEqual from 'lodash/isEqual';
 import type { IntlShape } from 'react-intl-next';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
@@ -18,6 +19,7 @@ import type {
 	SpriteRepresentation,
 	EmojiProvider,
 	EmojiRepresentation,
+	OptionalEmojiDescriptionWithVariations,
 } from '@atlaskit/emoji/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -85,13 +87,15 @@ export class EmojiNodeView implements NodeView {
 		this.intl = intl;
 		const { dom } = DOMSerializer.renderSpec(document, emojiToDom(this.node));
 		this.dom = dom;
-		this.domElement =
-			(expValEquals('platform_editor_emoji_otp', 'isEnabled', true) && this.isHTMLElement(dom)) ||
-			(!expValEquals('platform_editor_emoji_otp', 'isEnabled', true) && dom instanceof HTMLElement)
-				? dom
-				: undefined;
+		if (expValEquals('platform_editor_emoji_otp', 'isEnabled', true)) {
+			this.domElement = this.isHTMLElement(dom) ? dom : undefined;
+		} else {
+			this.domElement = dom instanceof HTMLElement ? dom : undefined;
+		}
 
 		if (expValEquals('platform_editor_emoji_otp', 'isEnabled', true) && emojiNodeDataProvider) {
+			let previousEmojiDescription: OptionalEmojiDescriptionWithVariations | undefined;
+
 			emojiNodeDataProvider.getData(node, (payload) => {
 				if (payload.error) {
 					EmojiNodeView.logError(payload.error);
@@ -115,6 +119,12 @@ export class EmojiNodeView implements NodeView {
 
 					return;
 				}
+
+				if (isEqual(previousEmojiDescription, emojiDescription)) {
+					// Do not re-render if the emoji description is the same as before
+					return;
+				}
+				previousEmojiDescription = emojiDescription;
 
 				this.renderEmoji(emojiDescription, emojiRepresentation);
 			});

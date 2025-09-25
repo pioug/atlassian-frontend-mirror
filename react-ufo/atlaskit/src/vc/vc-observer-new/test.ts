@@ -255,6 +255,8 @@ describe('VCObserverNew', () => {
 				start: 0,
 				stop: 1000,
 				interactionId: 'test-interaction-id',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			expect(mockEntriesTimeline.getOrderedEntries).toHaveBeenCalledWith({
@@ -267,6 +269,11 @@ describe('VCObserverNew', () => {
 				stopTime: 1000,
 				interactionId: 'test-interaction-id',
 				isPostInteraction: false,
+				excludeSmartAnswersInSearch: undefined,
+				include3p: undefined,
+				interactionAbortReason: undefined,
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 			expect(result).toEqual([mockResult]);
 		});
@@ -279,6 +286,8 @@ describe('VCObserverNew', () => {
 				start: 0,
 				stop: 1000,
 				interactionId: 'test-interaction-id',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			expect(result).toEqual([]);
@@ -355,6 +364,8 @@ describe('VCObserverNew', () => {
 				start: startTime,
 				stop: stopTime,
 				interactionId: 'test-interaction-id',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			// Verify START entry was added to the timeline
@@ -398,6 +409,8 @@ describe('VCObserverNew', () => {
 				start: startTime,
 				stop: stopTime,
 				interactionId: 'test-interaction-id',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			// Get the call arguments
@@ -450,6 +463,8 @@ describe('VCObserverNew', () => {
 				start: startTime,
 				stop: stopTime,
 				interactionId: 'test-interaction-id',
+				interactionType: 'page_load',
+				isPageVisible: true,
 			});
 
 			// Verify that push was called before getOrderedEntries

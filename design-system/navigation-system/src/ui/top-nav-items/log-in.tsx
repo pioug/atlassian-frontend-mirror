@@ -39,7 +39,9 @@ interface LogInProps extends Pick<AnchorProps, 'href'> {
  *
  * The Log in button for the top navigation.
  */
-export const LogIn = forwardRef<HTMLAnchorElement, LogInProps>(
+export const LogIn: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<LogInProps> & React.RefAttributes<HTMLAnchorElement>
+> = forwardRef<HTMLAnchorElement, LogInProps>(
 	({ onClick, onMouseEnter, testId, interactionName, href, label }, ref) => (
 		/**
 		 * This component doesn't use `EndItem` internally because it renders a

@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 14.4.1
+
+### Patch Changes
+
+- [`39e543109ec09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39e543109ec09) -
+  add type info to forwardRef components
+- Updated dependencies
+
 ## 14.4.0
 
 ### Minor Changes

@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
@@ -14,9 +15,11 @@ import {
 	AgentStarCount,
 	type ConversationStarter,
 } from '@atlaskit/rovo-agent-components';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 
 import { type AgentProfileCardProps } from '../../types';
-import { fireEvent, profileCardRendered } from '../../util/analytics';
+import { fireEvent, PACKAGE_META_DATA, profileCardRendered } from '../../util/analytics';
+import { getPageTime } from '../../util/performance';
 import { LoadingState } from '../common/LoadingState';
 import { ErrorMessage } from '../Error';
 
@@ -68,6 +71,7 @@ const AgentProfileCard = ({
 	const [isStarred, setIsStarred] = useState(false);
 	const [starCount, setStarCount] = useState<number | undefined>();
 	const { formatMessage } = useIntl();
+	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
 
 	const userDefinedConversationStarters: ConversationStarter[] | undefined =
 		agent?.user_defined_conversation_starters?.map((starter) => {
@@ -95,7 +99,7 @@ const AgentProfileCard = ({
 	const handleSetFavourite = useCallback(async () => {
 		if (agent?.id) {
 			try {
-				await resourceClient.setFavouriteAgent(agent.id, !isStarred, fireAnalytics);
+				await resourceClient.setFavouriteAgent(agent.id, !isStarred, fireAnalytics, fireEventNext);
 				if (isStarred) {
 					setStarCount(starCount ? starCount - 1 : 0);
 				} else {
@@ -104,7 +108,7 @@ const AgentProfileCard = ({
 				setIsStarred(!isStarred);
 			} catch (error) {}
 		}
-	}, [agent?.id, fireAnalytics, isStarred, resourceClient, starCount]);
+	}, [agent?.id, fireAnalytics, fireEventNext, isStarred, resourceClient, starCount]);
 
 	const handleOnDelete = useCallback(async () => {
 		if (agent && onDeleteAgent) {
@@ -112,7 +116,7 @@ const AgentProfileCard = ({
 			const { restore } = onDeleteAgent(agent.id);
 
 			try {
-				await resourceClient.deleteAgent(agent.id, fireAnalytics);
+				await resourceClient.deleteAgent(agent.id, fireAnalytics, fireEventNext);
 
 				addFlag?.({
 					title: formatMessage(messages.agentDeletedSuccessFlagTitle),
@@ -134,18 +138,29 @@ const AgentProfileCard = ({
 				});
 			}
 		}
-	}, [addFlag, agent, formatMessage, onDeleteAgent, resourceClient, fireAnalytics]);
+	}, [addFlag, agent, formatMessage, onDeleteAgent, resourceClient, fireAnalytics, fireEventNext]);
 
 	useEffect(() => {
 		if (!isLoading && agent) {
-			fireAnalytics(profileCardRendered('agent', 'content'));
+			if (fg('ptc-enable-profile-card-analytics-refactor')) {
+				fireEventNext(`ui.rovoAgentProfilecard.rendered.content`, {
+					...PACKAGE_META_DATA,
+					firedAt: Math.round(getPageTime()),
+				});
+			} else {
+				fireAnalytics(profileCardRendered('agent', 'content'));
+			}
 		}
-	}, [agent, fireAnalytics, isLoading]);
+	}, [agent, fireAnalytics, fireEventNext, isLoading]);
 
 	if (isLoading) {
 		return (
 			<AgentProfileCardWrapper>
-				<LoadingState profileType="agent" fireAnalytics={fireAnalytics} />
+				<LoadingState
+					profileType="agent"
+					fireAnalytics={fireAnalytics}
+					fireAnalyticsNext={fireEventNext}
+				/>
 			</AgentProfileCardWrapper>
 		);
 	}
@@ -156,9 +171,7 @@ const AgentProfileCard = ({
 				<ErrorMessage
 					errorType={errorType}
 					fireAnalytics={fireAnalytics}
-					// TODO: Add fireAnalyticsNext
-					// NOTE: Add it to AgentProfileCardCompiled
-					fireAnalyticsNext={() => {}}
+					fireAnalyticsNext={fireEventNext}
 				/>
 			</AgentProfileCardWrapper>
 		);

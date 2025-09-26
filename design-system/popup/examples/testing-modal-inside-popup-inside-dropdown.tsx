@@ -19,7 +19,9 @@ const wrapperStyles = cssMap({
 	},
 });
 
-const ModalDialogComponent = forwardRef<any, any>(({}, ref) => {
+const ModalDialogComponent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<any> & React.RefAttributes<any>
+> = forwardRef<any, any>(({}, ref) => {
 	const [showModal, setShowModal] = useState(false);
 
 	return (

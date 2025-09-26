@@ -1,9 +1,11 @@
+import uuid from 'uuid';
+
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { SyncBlockDataProvider } from './types';
+import type { SyncBlockAttrs, SyncBlockDataProvider, SyncBlockNode } from './types';
 
 // Do this typedef to make it clear that
 // this is a local identifier for a resource for local use
@@ -21,11 +23,6 @@ export interface SyncBlock {
 	sourceLocalId: string;
 }
 
-type SyncBlockAttrs = {
-	localId: string;
-	resourceId: ResourceId;
-};
-
 type ConfirmationCallback = () => Promise<boolean>;
 
 // A store manager responsible for the lifecycle and state management of sync blocks in an editor instance.
@@ -35,13 +32,11 @@ type ConfirmationCallback = () => Promise<boolean>;
 // Ensures consistency between local and remote state, and can be used in both editor and renderer contexts.
 export class SyncBlockStoreManager {
 	private syncBlocks: Map<ResourceId, SyncBlock>;
-	private dataProvider?: SyncBlockDataProvider;
 	private confirmationCallback?: ConfirmationCallback;
 	private editorView?: EditorView;
 
-	constructor(dataProvider?: SyncBlockDataProvider) {
+	constructor(_dataProvider?: SyncBlockDataProvider) {
 		this.syncBlocks = new Map();
-		this.dataProvider = dataProvider;
 	}
 
 	public setEditorView(editorView: EditorView | undefined) {
@@ -49,7 +44,7 @@ export class SyncBlockStoreManager {
 	}
 
 	public isSourceBlock(node: PMNode): boolean {
-		if (!this.dataProvider || node.type.name !== 'syncBlock') {
+		if (node.type.name !== 'syncBlock') {
 			return false;
 		}
 
@@ -70,6 +65,27 @@ export class SyncBlockStoreManager {
 
 	public requireConfirmationBeforeDelete(): boolean {
 		return !!this.confirmationCallback;
+	}
+
+	public createSyncBlockNode(): SyncBlockNode {
+		// TODO: EDITOR-1644 - properly implement creation of the synced block
+		// below is a temporary implementation for the creation of the synced block
+		// the resource id needs to have pageId and content property key in it
+
+		const blockInstanceId = uuid();
+		const localId = uuid();
+		const syncBlockNode: SyncBlockNode = {
+			attrs: {
+				resourceId: `ari:cloud:confluence:fake_cloud_id:page/fake_page_id/${blockInstanceId}`,
+				localId,
+			},
+			type: 'syncBlock',
+		};
+		this.syncBlocks.set(syncBlockNode.attrs.resourceId, {
+			resourceId: syncBlockNode.attrs.resourceId,
+			sourceLocalId: syncBlockNode.attrs.localId,
+		});
+		return syncBlockNode;
 	}
 
 	public async deleteSyncBlocksWithConfirmation(tr: Transaction, syncBlockIds: SyncBlockAttrs[]) {

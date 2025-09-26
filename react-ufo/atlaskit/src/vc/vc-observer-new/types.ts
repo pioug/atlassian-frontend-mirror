@@ -16,6 +16,7 @@ export type VCObserverEntryType =
 	| 'mutation:third-party-element'
 	| 'mutation:ssr-placeholder'
 	| 'layout-shift'
+	| 'layout-shift:same-rect'
 	| 'window:event'
 	| 'ssr-hydration'
 	| 'unknown';

@@ -18,7 +18,7 @@ export const scrollbarStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:hover::-webkit-scrollbar-thumb': {
 		backgroundColor: token('color.background.neutral.bold'),
-		borderRadius: 8,
+		borderRadius: token('radius.large'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&::-webkit-scrollbar-thumb:hover': {

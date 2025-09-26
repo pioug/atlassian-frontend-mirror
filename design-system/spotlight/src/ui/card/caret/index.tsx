@@ -65,7 +65,9 @@ export interface CaretProps {
  * A `Caret` is a purely visual pointer displayed on the edge of a spotlight, which points to the target element.
  *
  */
-export const Caret = forwardRef<HTMLDivElement, CaretProps>(({ testId }: CaretProps, ref) => {
+export const Caret: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<CaretProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, CaretProps>(({ testId }: CaretProps, ref) => {
 	const { placement } = useContext(SpotlightContext);
 
 	return <div data-testid={testId} ref={ref} css={[styles.root, styles[placement]]}></div>;

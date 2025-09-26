@@ -24,10 +24,10 @@ describe('<Content />', () => {
 		});
 
 		it('should set the data-color attribute', () => {
-			render(<Content color="blueLight" href="/somewhere" text="text" />);
+			render(<Content color="green" href="/somewhere" text="text" />);
 			const content = screen.getByText('text');
 
-			expect(content.dataset).toHaveProperty('color', 'blueLight');
+			expect(content.dataset).toHaveProperty('color', 'green');
 		});
 
 		it('should use the given linkComponent', () => {

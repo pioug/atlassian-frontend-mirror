@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.60.3
+
+### Patch Changes
+
+- [`d1484e86561c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1484e86561c7) -
+  [ux] Made the border around the Team Container Card Avatar to be transparent such that on hover no
+  white border appears
+
 ## 0.60.2
 
 ### Patch Changes

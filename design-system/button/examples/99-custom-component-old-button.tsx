@@ -11,7 +11,9 @@ import Button from '@atlaskit/button';
 import Switcher from '@atlaskit/icon/glyph/app-switcher';
 import { token } from '@atlaskit/tokens';
 
-const Component = React.forwardRef((props, ref: React.Ref<HTMLElement>) => (
+const Component: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<any> & React.RefAttributes<HTMLElement>
+> = React.forwardRef((props, ref: React.Ref<HTMLElement>) => (
 	<header
 		{...props}
 		ref={ref}

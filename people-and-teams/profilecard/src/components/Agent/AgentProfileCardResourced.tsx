@@ -3,6 +3,7 @@ import React, { Suspense, useCallback, useEffect, useMemo, useState } from 'reac
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 
 import {
 	type AgentActionsType,
@@ -34,6 +35,7 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 	const [error, setError] = useState();
 
 	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
 	const fireAnalytics = useCallback(
 		(payload: AnalyticsEventPayload) => {
 			if (createAnalyticsEvent) {
@@ -80,6 +82,7 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 							creatorUserId,
 							props.cloudId,
 							fireAnalytics,
+							fireEventNext,
 						);
 
 						return {
@@ -98,7 +101,7 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 					return undefined;
 			}
 		},
-		[creatorUserId, fireAnalytics, props.cloudId, props.resourceClient, profileHref],
+		[creatorUserId, fireAnalytics, fireEventNext, props.cloudId, props.resourceClient, profileHref],
 	);
 
 	const fetchData = useCallback(async () => {
@@ -107,6 +110,7 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 			const profileData = await props.resourceClient.getRovoAgentProfile(
 				{ type: 'identity', value: props.accountId },
 				fireAnalytics,
+				fireEventNext,
 			);
 			const agentCreatorInfo = await getCreator(
 				profileData?.creator_type,
@@ -121,7 +125,7 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 		} finally {
 			setIsLoading(false);
 		}
-	}, [fireAnalytics, getCreator, props.accountId, props.resourceClient]);
+	}, [fireAnalytics, fireEventNext, getCreator, props.accountId, props.resourceClient]);
 
 	useEffect(() => {
 		fetchData();
@@ -136,7 +140,7 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 					}}
 					errorType={error || null}
 					fireAnalytics={() => {}}
-					fireAnalyticsNext={() => {}}
+					fireAnalyticsNext={fireEventNext}
 				/>
 			</AgentProfileCardWrapper>
 		);

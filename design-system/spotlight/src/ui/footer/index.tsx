@@ -36,7 +36,9 @@ export interface SpotlightFooterProps {
  * `SpotlightFooter` is intended to display the `SpotlightActions` and `SpotLightStepCount` components.
  *
  */
-export const SpotlightFooter = forwardRef<HTMLDivElement, SpotlightFooterProps>(
+export const SpotlightFooter: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SpotlightFooterProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, SpotlightFooterProps>(
 	({ children, testId }: SpotlightFooterProps, ref) => {
 		return (
 			<Flex

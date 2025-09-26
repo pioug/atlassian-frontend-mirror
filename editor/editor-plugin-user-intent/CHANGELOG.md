@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-user-intent
 
+## 4.0.1
+
+### Patch Changes
+
+- [`2e7d46c6f07a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e7d46c6f07a7) -
+  [EDITOR-1517] Drag handles flicker during inline streaming
+- Updated dependencies
+
 ## 4.0.0
 
 ### Patch Changes

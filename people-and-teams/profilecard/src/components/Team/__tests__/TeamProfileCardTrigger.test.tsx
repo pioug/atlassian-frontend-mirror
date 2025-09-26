@@ -14,19 +14,10 @@ import TeamProfilecardTrigger from '../TeamProfileCardTrigger';
 
 const mockClient = getMockProfileClient(ProfileClient, 0);
 
-jest.mock('@atlaskit/analytics-next', () => ({
-	...jest.requireActual<any>('@atlaskit/analytics-next'),
-	useAnalyticsEvents: jest.fn(() => ({
-		createAnalyticsEvent: jest.fn(() => ({ fire: jest.fn() })),
-	})),
-}));
-
 jest.mock('@atlaskit/give-kudos', () => ({
 	...jest.requireActual('@atlaskit/give-kudos'),
 	GiveKudosLauncherLazy: jest.fn(),
 }));
-
-jest.mock('../../../util/analytics');
 
 jest.mock('../lazyTeamProfileCard', () => ({
 	TeamProfileCardLazy: jest.fn(),

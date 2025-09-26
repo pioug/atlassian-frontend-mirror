@@ -100,7 +100,9 @@ interface StyledTitleWrapperProps {
  * A styled title wrapper is a wrapper around the title that controls its the styles exclusively.
  *
  */
-export const StyledTitleWrapper = React.forwardRef<HTMLHeadingElement, StyledTitleWrapperProps>(
+export const StyledTitleWrapper: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<StyledTitleWrapperProps> & React.RefAttributes<HTMLHeadingElement>
+> = React.forwardRef<HTMLHeadingElement, StyledTitleWrapperProps>(
 	({ children, id, truncateTitle, testId }, ref) => {
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/use-heading

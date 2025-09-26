@@ -25,19 +25,19 @@ const contentStyles = css({
 	height: 250,
 });
 
-const CustomPopupContainer = forwardRef<HTMLDivElement, PopupComponentProps>(
-	({ children, ...props }, ref) => (
-		<div
-			css={containerStyles}
-			{...props}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			className={props.className}
-			ref={ref}
-		>
-			{children}
-		</div>
-	),
-);
+const CustomPopupContainer: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<PopupComponentProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, PopupComponentProps>(({ children, ...props }, ref) => (
+	<div
+		css={containerStyles}
+		{...props}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+		className={props.className}
+		ref={ref}
+	>
+		{children}
+	</div>
+));
 
 export default () => {
 	const [isOpen, setIsOpen] = useState(false);

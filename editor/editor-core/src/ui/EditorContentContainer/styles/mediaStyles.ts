@@ -303,7 +303,7 @@ export const mediaStyles: SerializedStyles = css({
 		display: 'flex',
 		width: 3,
 		height: 64,
-		borderRadius: 6,
+		borderRadius: token('radius.medium'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values

@@ -4,6 +4,7 @@ import {
 	ACTION_SUBJECT,
 	SELECTION_POSITION,
 	SELECTION_TYPE,
+	type BaseEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -70,11 +71,11 @@ function findInsertedLocation(oldSelection: Selection, newSelection: Selection):
 	return parentNodePos.node().type.name;
 }
 
-export function getStateContext(
+export function getStateContext<Payload extends BaseEventPayload = AnalyticsEventPayload>(
 	selection: Selection,
-	payload: AnalyticsEventPayload,
+	payload: Payload,
 	tr?: Transaction,
-): AnalyticsEventPayload {
+): Payload {
 	if (!payload.attributes) {
 		return payload;
 	}

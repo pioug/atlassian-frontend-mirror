@@ -93,7 +93,7 @@ function Component({
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
 			useMemo(() => {
 				// execute some basic validation logic to ensure we should consider using placeholder data
-				if (appearance === 'inline' && !isFlexibleUi && isValidPlaceholderData(placeholderData)) {
+				if (appearance === 'inline' && isValidPlaceholderData(placeholderData)) {
 					const data: CardState = {
 						status: 'resolved',
 						metadataStatus: undefined,
@@ -102,7 +102,7 @@ function Component({
 
 					return data;
 				}
-			}, [appearance, isFlexibleUi, placeholderData])
+			}, [appearance, placeholderData])
 		: undefined;
 
 	// Get state, actions for this card.

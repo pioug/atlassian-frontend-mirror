@@ -32,7 +32,9 @@ type CreateButtonProps = {
  *
  * The create button for the top navigation.
  */
-export const CreateButton = forwardRef(
+export const CreateButton: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<CreateButtonProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef(
 	(
 		{ children, onClick, testId, interactionName }: CreateButtonProps,
 		ref: React.ForwardedRef<HTMLButtonElement>,

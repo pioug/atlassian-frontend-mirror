@@ -2,99 +2,88 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Component, type SyntheticEvent } from 'react';
+import { type SyntheticEvent, useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import Drawer, { DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 
-interface State {
-	isDrawerOpen: boolean;
-	isNestedDrawerOpen: boolean;
-}
-
 const spacingStyles = css({
 	padding: '2rem',
 });
-export default class DrawersExample extends Component<{}, State> {
-	state = {
-		isDrawerOpen: false,
-		isNestedDrawerOpen: false,
-	};
 
-	openDrawer = () =>
-		this.setState({
-			isDrawerOpen: true,
-			isNestedDrawerOpen: false,
-		});
+export default function DrawersExample() {
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+	const [isNestedDrawerOpen, setIsNestedDrawerOpen] = useState(false);
 
-	openNestedDrawer = () =>
-		this.setState({
-			isNestedDrawerOpen: true,
-		});
+	const openDrawer = useCallback(() => {
+		setIsDrawerOpen(true);
+		setIsNestedDrawerOpen(false);
+	}, []);
 
-	onClose = (...args: [SyntheticEvent, any]) => {
+	const openNestedDrawer = useCallback(() => {
+		setIsNestedDrawerOpen(true);
+	}, []);
+
+	const onClose = useCallback((...args: [SyntheticEvent, any]) => {
 		console.log('onClose', args);
-		this.setState({
-			isDrawerOpen: false,
-			isNestedDrawerOpen: false,
-		});
-	};
+		setIsDrawerOpen(false);
+		setIsNestedDrawerOpen(false);
+	}, []);
 
-	onNestedClose = (...args: [SyntheticEvent, any]) => {
+	const onNestedClose = useCallback((...args: [SyntheticEvent, any]) => {
 		console.log('onClose Nested', args);
-		this.setState({
-			isNestedDrawerOpen: false,
-		});
-	};
+		setIsNestedDrawerOpen(false);
+	}, []);
 
-	onCloseComplete = (args: any) => console.log('onCloseComplete', args);
+	const onCloseComplete = useCallback((args: any) => console.log('onCloseComplete', args), []);
 
-	onNestedCloseComplete = (args: any) => console.log('onNestedCloseComplete', args);
+	const onNestedCloseComplete = useCallback(
+		(args: any) => console.log('onNestedCloseComplete', args),
+		[],
+	);
 
-	render() {
-		return (
-			<div css={spacingStyles}>
-				<Drawer
-					onClose={this.onClose}
-					onCloseComplete={this.onCloseComplete}
-					isOpen={this.state.isDrawerOpen}
-					width="narrow"
-					label="Drawer with nested drawer"
-				>
-					<DrawerSidebar>
-						<DrawerCloseButton />
-					</DrawerSidebar>
-					<DrawerContent>
-						<code>Drawer contents</code>
-						<div css={spacingStyles}>
-							<Button id="open-drawer" type="button" onClick={this.openNestedDrawer}>
-								Open Nested drawer
-							</Button>
-						</div>
-						<div css={spacingStyles}>
-							<Drawer
-								onClose={this.onNestedClose}
-								onCloseComplete={this.onNestedCloseComplete}
-								isOpen={this.state.isNestedDrawerOpen}
-								width="extended"
-								label="Nested drawer"
-							>
-								<DrawerSidebar>
-									<DrawerCloseButton />
-								</DrawerSidebar>
-								<DrawerContent>
-									<code>Nested Drawer Content</code>
-								</DrawerContent>
-							</Drawer>
-						</div>
-					</DrawerContent>
-				</Drawer>
-				<Button id="open-drawer" type="button" onClick={this.openDrawer}>
-					Open drawer
-				</Button>
-			</div>
-		);
-	}
+	return (
+		<div css={spacingStyles}>
+			<Drawer
+				onClose={onClose}
+				onCloseComplete={onCloseComplete}
+				isOpen={isDrawerOpen}
+				width="narrow"
+				label="Drawer with nested drawer"
+			>
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>
+					<code>Drawer contents</code>
+					<div css={spacingStyles}>
+						<Button id="open-drawer" type="button" onClick={openNestedDrawer}>
+							Open Nested drawer
+						</Button>
+					</div>
+					<div css={spacingStyles}>
+						<Drawer
+							onClose={onNestedClose}
+							onCloseComplete={onNestedCloseComplete}
+							isOpen={isNestedDrawerOpen}
+							width="extended"
+							label="Nested drawer"
+						>
+							<DrawerSidebar>
+								<DrawerCloseButton />
+							</DrawerSidebar>
+							<DrawerContent>
+								<code>Nested Drawer Content</code>
+							</DrawerContent>
+						</Drawer>
+					</div>
+				</DrawerContent>
+			</Drawer>
+			<Button id="open-drawer" type="button" onClick={openDrawer}>
+				Open drawer
+			</Button>
+		</div>
+	);
 }

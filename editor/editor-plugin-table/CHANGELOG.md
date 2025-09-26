@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 15.0.1
+
+### Patch Changes
+
+- [`199b1024b2b0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/199b1024b2b0e) -
+  Remove hover decoration on table unmount, to fix issues of delete decorations persisting
+- [`99d1f21e15dcc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99d1f21e15dcc) -
+  clean up platform_editor_nodevisibility_resize_sync
+- Updated dependencies
+
 ## 15.0.0
 
 ### Patch Changes

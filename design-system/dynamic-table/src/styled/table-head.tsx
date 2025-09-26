@@ -199,7 +199,9 @@ const descendingStyles = css({
 	},
 });
 
-export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
+export const HeadCell: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<HeadCellProps> & React.RefAttributes<HTMLTableCellElement>
+> = forwardRef<HTMLTableCellElement, HeadCellProps>(
 	(
 		{
 			width,

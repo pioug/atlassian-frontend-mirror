@@ -1,5 +1,20 @@
 # @atlaskit/spotlight
 
+## 0.4.0
+
+### Minor Changes
+
+- [`07392017dde4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07392017dde4f) -
+  Remove `width: fit-content` styling from `PopoverTarget`.
+
+## 0.3.5
+
+### Patch Changes
+
+- [`39e543109ec09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39e543109ec09) -
+  add type info to forwardRef components
+- Updated dependencies
+
 ## 0.3.4
 
 ### Patch Changes

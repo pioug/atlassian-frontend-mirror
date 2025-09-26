@@ -311,3 +311,11 @@ export const IconLoom = Loadable({
 		) as Promise<React.ComponentType<React.PropsWithChildren<IconProps>>>,
 	loading: () => null,
 });
+
+export const IconSyncBlock = Loadable({
+	loader: () =>
+		import(/* webpackChunkName: "@atlaskit-internal_editor-icon-sync-block" */ './syncBlock').then(
+			(module) => module.default,
+		) as Promise<React.ComponentType<React.PropsWithChildren<IconProps>>>,
+	loading: () => null,
+});

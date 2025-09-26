@@ -16,7 +16,9 @@ interface ProfileProps extends Omit<EndItemProps, 'icon'> {
  *
  * The Profile button for the top navigation.
  */
-export const Profile = forwardRef<HTMLButtonElement, ProfileProps>(({ src, ...props }, ref) => {
+export const Profile: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ProfileProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, ProfileProps>(({ src, ...props }, ref) => {
 	const ProfileAvatar = useCallback(
 		() => <Avatar appearance="circle" src={src} size="small" />,
 		[src],

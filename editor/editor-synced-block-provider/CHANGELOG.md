@@ -1,5 +1,19 @@
 # @atlaskit/editor-synced-block-provider
 
+## 0.1.3
+
+### Patch Changes
+
+- [`dd19fd49edc58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd19fd49edc58) -
+  Added sync block quick insert
+
+## 0.1.2
+
+### Patch Changes
+
+- [`6e2b6f72d4bc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e2b6f72d4bc2) -
+  Added floating toolbar for sync block
+
 ## 0.1.1
 
 ### Patch Changes

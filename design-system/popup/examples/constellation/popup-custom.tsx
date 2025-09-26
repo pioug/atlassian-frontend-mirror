@@ -22,7 +22,9 @@ const containerStyles = css({
 	paddingInlineStart: token('space.200'),
 });
 
-const CustomPopupContainer = forwardRef<HTMLDivElement, PopupComponentProps>(
+const CustomPopupContainer: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<PopupComponentProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, PopupComponentProps>(
 	({ children, 'data-testid': testId, xcss: _xcss, ...props }, ref) => (
 		<div
 			css={containerStyles}

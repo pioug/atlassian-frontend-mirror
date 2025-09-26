@@ -26,7 +26,7 @@ describe('Tag Type', () => {
 
 			expect(tag).toBeInTheDocument();
 			expect(tag).toHaveTextContent(TEST_TEXT);
-			expect(tag).toHaveStyle('--ds-cb: var(--ds-background-accent-teal-subtle, #00C7E6)');
+			expect(tag).toHaveStyle('border-color: #6cc3e0');
 			const linkElement = tag?.childNodes[1] as HTMLElement;
 			expect(linkElement.nodeName).toEqual('A');
 			expect(linkElement).toHaveAttribute('href', TEST_URL);
@@ -41,7 +41,7 @@ describe('Tag Type', () => {
 
 			expect(tag).toBeInTheDocument();
 			expect(tag).toHaveTextContent(TEST_TEXT);
-			expect(tag).toHaveStyle('--ds-cb: var(--ds-background-neutral, #F4F5F7)');
+			expect(tag).toHaveStyle('border-color: #b7b9be;');
 
 			const linkElement = tag?.childNodes[1] as HTMLElement;
 			expect(linkElement.nodeName).toEqual('SPAN');

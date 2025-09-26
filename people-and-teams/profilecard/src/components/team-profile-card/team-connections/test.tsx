@@ -1,7 +1,15 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
+
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import {
+	mockRunItLaterSynchronously,
+	renderWithAnalyticsListener as render,
+} from '@atlassian/ptc-test-utils';
+
+mockRunItLaterSynchronously();
 
 import { NewTeamConnections, TeamConnections } from './main';
 
@@ -166,5 +174,37 @@ describe('NewTeamConnections', () => {
 
 		const containerTypeIcon = screen.getByTestId('jira-project-container-icon');
 		expect(containerTypeIcon).toBeInTheDocument();
+	});
+
+	describe('Analytics', () => {
+		const event = {
+			action: 'clicked',
+			actionSubject: 'teamConnectionItem',
+			actionSubjectId: 'teamProfileCard',
+			attributes: {
+				container: 'ConfluenceSpace',
+			},
+		};
+		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+			it('should fire the correct analytics event', async () => {
+				const { user, expectEventToBeFired } = renderComponent();
+
+				const teamConnectionItem = screen.getByTestId('team-connection-item');
+				expect(teamConnectionItem).toBeInTheDocument();
+				await user.click(teamConnectionItem);
+				expectEventToBeFired('ui', event);
+			});
+		});
+
+		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+			it('should fire the correct analytics event', async () => {
+				const { user, expectEventToBeFired } = renderComponent();
+
+				const teamConnectionItem = screen.getByTestId('team-connection-item');
+				expect(teamConnectionItem).toBeInTheDocument();
+				await user.click(teamConnectionItem);
+				expectEventToBeFired('ui', event);
+			});
+		});
 	});
 });

@@ -1,5 +1,13 @@
 # @atlaskit/textarea
 
+## 8.0.10
+
+### Patch Changes
+
+- [`39e543109ec09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39e543109ec09) -
+  add type info to forwardRef components
+- Updated dependencies
+
 ## 8.0.9
 
 ### Patch Changes

@@ -205,10 +205,10 @@ export type ExpandableMenuItemTriggerProps = MenuItemCommonProps &
  *
  * The trigger component for an `ExpandableMenuItem`. Interacting with it will expand or collapse the expandable.
  */
-export const ExpandableMenuItemTrigger = forwardRef<
-	HTMLButtonElement | HTMLAnchorElement,
-	ExpandableMenuItemTriggerProps
->(
+export const ExpandableMenuItemTrigger: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ExpandableMenuItemTriggerProps> &
+		React.RefAttributes<HTMLButtonElement | HTMLAnchorElement>
+> = forwardRef<HTMLButtonElement | HTMLAnchorElement, ExpandableMenuItemTriggerProps>(
 	(
 		{
 			actions,

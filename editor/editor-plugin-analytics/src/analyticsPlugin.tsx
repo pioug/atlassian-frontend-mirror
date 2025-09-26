@@ -6,6 +6,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import type {
 	AnalyticsEventPayload,
 	FireAnalyticsEventOptions,
+	BaseEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -102,7 +103,7 @@ function createPlugin(options: AnalyticsPluginOptions, featureFlags: FeatureFlag
  */
 const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
-	const analyticsEventPropQueue: Set<{ channel?: string; payload: AnalyticsEventPayload }> =
+	const analyticsEventPropQueue: Set<{ channel?: string; payload: BaseEventPayload }> =
 		new Set();
 
 	return {
@@ -144,11 +145,11 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 
 					return true;
 				},
-			fireAnalyticsEvent: (
-				payload: AnalyticsEventPayload,
+			fireAnalyticsEvent<Payload extends BaseEventPayload = AnalyticsEventPayload>(
+				payload: Payload,
 				channel: string = editorAnalyticsChannel,
 				options?: FireAnalyticsEventOptions,
-			) => {
+			) {
 				const { createAnalyticsEvent } = api?.analytics?.sharedState.currentState() ?? {};
 
 				if (options?.context) {
@@ -160,7 +161,12 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 					return;
 				}
 
-				fireAnalyticsEvent(createAnalyticsEvent, options)({ payload, channel });
+				// This cast is needed to satisfy TS when using custom payloads which is only allowed by
+				// the fireAnalyticsEvent function in EditorAnalyticsAPI for now.
+				// createAnalyticsEvent actually fires our standard AnalyticsEventPayload type which is less strict
+				// so this is safe.
+				const firedPayload = payload as AnalyticsEventPayload;
+				fireAnalyticsEvent(createAnalyticsEvent, options)({ payload: firedPayload, channel });
 			},
 		},
 

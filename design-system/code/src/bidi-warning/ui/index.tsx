@@ -46,7 +46,9 @@ export default function BidiWarning({
 	);
 }
 
-const CustomizedTagWithRef = React.forwardRef<any, React.PropsWithChildren<{}>>((props, ref) => {
+const CustomizedTagWithRef: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<React.PropsWithChildren<{}>> & React.RefAttributes<any>
+> = React.forwardRef<any, React.PropsWithChildren<{}>>((props, ref) => {
 	const { children, ...rest } = props;
 	return (
 		<span {...rest} ref={ref}>

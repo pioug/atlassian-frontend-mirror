@@ -75,7 +75,9 @@ const styles = cssMap({
  *
  * A button that represents a single step in a breadcrumbs component.
  */
-const Step = forwardRef<HTMLSpanElement, StepProps>(
+const Step: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<StepProps> & React.RefAttributes<HTMLSpanElement>
+> = forwardRef<HTMLSpanElement, StepProps>(
 	(
 		{
 			analyticsContext,

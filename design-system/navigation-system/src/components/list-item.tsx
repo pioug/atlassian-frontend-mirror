@@ -36,4 +36,6 @@ function _ListItem({ children, testId, xcss }: ListItemProps, ref: Ref<HTMLDivEl
  *
  * A [list item](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li) with visual styles removed.
  */
-export const ListItem = forwardRef<HTMLDivElement, ListItemProps>(_ListItem);
+export const ListItem: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ListItemProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, ListItemProps>(_ListItem);

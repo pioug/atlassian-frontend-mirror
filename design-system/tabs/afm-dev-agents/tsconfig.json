@@ -24,9 +24,6 @@
 			"path": "../../focus-ring/afm-dev-agents/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
-		},
-		{
 			"path": "../../primitives/afm-dev-agents/tsconfig.json"
 		},
 		{

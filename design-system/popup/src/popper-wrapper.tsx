@@ -77,7 +77,9 @@ const focusRingStyles = cssMap({
 	},
 });
 
-const DefaultPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>((props, ref) => {
+const DefaultPopupComponent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<PopupComponentProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, PopupComponentProps>((props, ref) => {
 	const {
 		shouldRenderToParent,
 		shouldFitContainer,

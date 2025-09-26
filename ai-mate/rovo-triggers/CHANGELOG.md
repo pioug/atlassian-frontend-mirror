@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 3.12.0
+
+### Minor Changes
+
+- [`e874c628413f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e874c628413f8) -
+  Adding initial support for passing minion config when sending a message
+
 ## 3.11.0
 
 ### Minor Changes

@@ -28,16 +28,24 @@ import {
 	WrappedButton,
 } from '../../styled/TeamCard';
 import { CardContent, CardHeader, CardWrapper } from '../../styled/TeamTrigger';
-import type { AnalyticsFunction, ProfileCardAction, Team, TeamProfilecardProps } from '../../types';
+import type {
+	AnalyticsFunction,
+	AnalyticsFunctionNext,
+	ProfileCardAction,
+	Team,
+	TeamProfilecardProps,
+} from '../../types';
 import {
 	actionClicked,
 	errorRetryClicked,
 	moreActionsClicked,
 	moreMembersClicked,
+	PACKAGE_META_DATA,
 	profileCardRendered,
 	teamAvatarClicked,
 } from '../../util/analytics';
 import { isBasicClick } from '../../util/click';
+import { getPageTime } from '../../util/performance';
 import { ErrorIllustration } from '../Error';
 
 import TeamForbiddenErrorState from './TeamForbiddenErrorState';
@@ -45,6 +53,7 @@ import TeamLoadingState from './TeamLoadingState';
 
 interface TeamMembers {
 	analytics: AnalyticsFunction;
+	analyticsNext: AnalyticsFunctionNext;
 	members?: Team['members'];
 	includingYou?: boolean;
 }
@@ -60,18 +69,30 @@ function onMemberClick(
 	callback: TeamMembersProps['onUserClick'],
 	userId: string,
 	analytics: AnalyticsFunction,
+	analyticsNext: AnalyticsFunctionNext,
 	index: number,
 	hasHref: boolean,
 ) {
 	return (event: React.MouseEvent<Element>) => {
-		analytics((duration) =>
-			teamAvatarClicked({
+		if (fg('ptc-enable-profile-card-analytics-refactor')) {
+			analyticsNext('ui.teamProfileCard.clicked.avatar', (duration) => ({
 				duration,
 				hasHref,
 				hasOnClick: !!callback,
 				index,
-			}),
-		);
+				firedAt: Math.round(getPageTime()),
+				...PACKAGE_META_DATA,
+			}));
+		} else {
+			analytics((duration) =>
+				teamAvatarClicked({
+					duration,
+					hasHref,
+					hasOnClick: !!callback,
+					index,
+				}),
+			);
+		}
 
 		if (callback) {
 			callback(userId, event);
@@ -85,6 +106,7 @@ const TeamMembers = ({
 	members,
 	onUserClick,
 	includingYou,
+	analyticsNext,
 	isTriggeredByKeyboard,
 }: TeamMembersProps) => {
 	const { formatMessage } = useIntl();
@@ -113,16 +135,25 @@ const TeamMembers = ({
 		const { current: isOpen } = isMoreMembersOpen;
 
 		if (!isOpen) {
-			analytics((duration) =>
-				moreMembersClicked({
+			if (fg('ptc-enable-profile-card-analytics-refactor')) {
+				analyticsNext('ui.teamProfileCard.clicked.moreMembers', (duration) => ({
 					duration,
 					memberCount: count,
-				}),
-			);
+					firedAt: Math.round(getPageTime()),
+					...PACKAGE_META_DATA,
+				}));
+			} else {
+				analytics((duration) =>
+					moreMembersClicked({
+						duration,
+						memberCount: count,
+					}),
+				);
+			}
 		}
 
 		isMoreMembersOpen.current = !isOpen;
-	}, [analytics, count]);
+	}, [analytics, count, analyticsNext]);
 
 	const showMoreButtonProps: AvatarGroupProps['showMoreButtonProps'] = {
 		onClick: onMoreClick,
@@ -148,6 +179,7 @@ const TeamMembers = ({
 									onUserClick,
 									member.id,
 									analytics,
+									analyticsNext,
 									index,
 									!!generateUserLink,
 								);
@@ -181,17 +213,34 @@ const TeamMembers = ({
 	);
 };
 
-function onActionClick(action: ProfileCardAction, analytics: AnalyticsFunction, index: number) {
+function onActionClick(
+	action: ProfileCardAction,
+	analytics: AnalyticsFunction,
+	analyticsNext: AnalyticsFunctionNext,
+	index: number,
+) {
 	return (event: React.MouseEvent | React.KeyboardEvent, ...args: any) => {
-		analytics((duration) =>
-			actionClicked('team', {
+		if (fg('ptc-enable-profile-card-analytics-refactor')) {
+			analyticsNext('ui.teamProfileCard.clicked.action', (duration) => ({
 				duration,
 				hasHref: !!action.link,
 				hasOnClick: !!action.callback,
 				index,
 				actionId: action.id || '',
-			}),
-		);
+				firedAt: Math.round(getPageTime()),
+				...PACKAGE_META_DATA,
+			}));
+		} else {
+			analytics((duration) =>
+				actionClicked('team', {
+					duration,
+					hasHref: !!action.link,
+					hasOnClick: !!action.callback,
+					index,
+					actionId: action.id || '',
+				}),
+			);
+		}
 
 		if (action.callback && isBasicClick(event)) {
 			event.preventDefault();
@@ -203,10 +252,12 @@ function onActionClick(action: ProfileCardAction, analytics: AnalyticsFunction, 
 const ActionButton = ({
 	action,
 	analytics,
+	analyticsNext,
 	index,
 }: {
 	action: ProfileCardAction;
 	analytics: AnalyticsFunction;
+	analyticsNext: AnalyticsFunctionNext;
 	index: number;
 }) => {
 	const isGiveKudosActionButton = action.id === GIVE_KUDOS_ACTION_ID;
@@ -214,7 +265,7 @@ const ActionButton = ({
 	const actionButton = (
 		<LinkButton
 			key={action.id || index}
-			onClick={onActionClick(action, analytics, index)}
+			onClick={onActionClick(action, analytics, analyticsNext, index)}
 			href={action.link || ''}
 			target={action.target}
 			shouldFitContainer
@@ -238,9 +289,10 @@ const ActionButton = ({
 interface ActionProps {
 	actions: ProfileCardAction[];
 	analytics: AnalyticsFunction;
+	analyticsNext: AnalyticsFunctionNext;
 }
 
-const ExtraActions = ({ actions, analytics }: ActionProps) => {
+const ExtraActions = ({ actions, analytics, analyticsNext }: ActionProps) => {
 	const [isOpen, setOpen] = useState(false);
 
 	const count = actions.length;
@@ -249,17 +301,26 @@ const ExtraActions = ({ actions, analytics }: ActionProps) => {
 		(shouldBeOpen: boolean) => {
 			if (shouldBeOpen) {
 				// Only fire this event when OPENING the dropdown
-				analytics((duration) =>
-					moreActionsClicked('team', {
+				if (fg('ptc-enable-profile-card-analytics-refactor')) {
+					analyticsNext('ui.teamProfileCard.clicked.moreActions', (duration) => ({
 						duration,
 						numActions: count + 2,
-					}),
-				);
+						firedAt: Math.round(getPageTime()),
+						...PACKAGE_META_DATA,
+					}));
+				} else {
+					analytics((duration) =>
+						moreActionsClicked('team', {
+							duration,
+							numActions: count + 2,
+						}),
+					);
+				}
 			}
 
 			setOpen(shouldBeOpen);
 		},
-		[analytics, count],
+		[analytics, count, analyticsNext],
 	);
 
 	if (!count) {
@@ -276,7 +337,7 @@ const ExtraActions = ({ actions, analytics }: ActionProps) => {
 					<MenuGroup>
 						{actions.map((action, index) => (
 							<LinkItem
-								onClick={onActionClick(action, analytics, index + 2)}
+								onClick={onActionClick(action, analytics, analyticsNext, index + 2)}
 								key={action.id || index}
 								href={action.link}
 							>
@@ -304,7 +365,7 @@ const ExtraActions = ({ actions, analytics }: ActionProps) => {
 	);
 };
 
-const ButtonSection = ({ actions, analytics }: ActionProps) => {
+const ButtonSection = ({ actions, analytics, analyticsNext }: ActionProps) => {
 	if (!actions) {
 		return null;
 	}
@@ -315,9 +376,17 @@ const ButtonSection = ({ actions, analytics }: ActionProps) => {
 	return (
 		<ActionButtons>
 			{initialActions.map((action, index) => (
-				<ActionButton action={action} analytics={analytics} index={index} key={index} />
+				<ActionButton
+					action={action}
+					analytics={analytics}
+					analyticsNext={analyticsNext}
+					index={index}
+					key={index}
+				/>
 			))}
-			{extraActions && <ExtraActions actions={extraActions} analytics={analytics} />}
+			{extraActions && (
+				<ExtraActions actions={extraActions} analytics={analytics} analyticsNext={analyticsNext} />
+			)}
 		</ActionButtons>
 	);
 };
@@ -325,6 +394,7 @@ const ButtonSection = ({ actions, analytics }: ActionProps) => {
 const TeamProfilecardContent = ({
 	actions,
 	analytics,
+	analyticsNext,
 	team,
 	viewingUserId,
 	generateUserLink,
@@ -346,16 +416,30 @@ const TeamProfilecardContent = ({
 	const includingYou = team.members && team.members.some((member) => member.id === viewingUserId);
 
 	useEffect(() => {
-		analytics((duration) =>
-			profileCardRendered('team', 'content', {
+		if (fg('ptc-enable-profile-card-analytics-refactor')) {
+			analyticsNext('ui.teamProfileCard.rendered.content', (duration) => ({
 				duration,
 				numActions: allActions.length,
-				memberCount: team.members?.length,
-				includingYou,
+				memberCount: team.members?.length ?? null,
+				includingYou: includingYou ?? null,
 				descriptionLength: team.description.length,
 				titleLength: team.displayName.length,
-			}),
-		);
+				firedAt: Math.round(getPageTime()),
+				...PACKAGE_META_DATA,
+			}));
+		} else {
+			analytics((duration) =>
+				profileCardRendered('team', 'content', {
+					duration,
+					numActions: allActions.length,
+					memberCount: team.members?.length,
+					includingYou,
+					descriptionLength: team.description.length,
+					titleLength: team.displayName.length,
+				}),
+			);
+		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [analytics]);
 
@@ -374,6 +458,7 @@ const TeamProfilecardContent = ({
 				</Tooltip>
 				<TeamMembers
 					analytics={analytics}
+					analyticsNext={analyticsNext}
 					members={team.members}
 					generateUserLink={generateUserLink}
 					includingYou={includingYou}
@@ -385,7 +470,7 @@ const TeamProfilecardContent = ({
 						<Description>{team.description}</Description>
 					</DescriptionWrapper>
 				)}
-				<ButtonSection actions={allActions} analytics={analytics} />
+				<ButtonSection actions={allActions} analytics={analytics} analyticsNext={analyticsNext} />
 			</CardContent>
 		</CardWrapper>
 	);
@@ -393,35 +478,54 @@ const TeamProfilecardContent = ({
 
 const ErrorMessage = ({
 	analytics,
+	analyticsNext,
 	clientFetchProfile,
 	isLoading,
 }: {
 	clientFetchProfile?: () => void;
 	isLoading?: boolean;
 	analytics: AnalyticsFunction;
+	analyticsNext: AnalyticsFunctionNext;
 }) => {
 	const hasRetry = !!clientFetchProfile;
 
 	useEffect(() => {
-		analytics((duration) =>
-			profileCardRendered('team', 'error', {
+		if (fg('ptc-enable-profile-card-analytics-refactor')) {
+			analyticsNext('ui.teamProfileCard.rendered.error', (duration) => ({
 				duration,
 				hasRetry,
-			}),
-		);
-	}, [analytics, hasRetry]);
+				firedAt: Math.round(getPageTime()),
+				...PACKAGE_META_DATA,
+			}));
+		} else {
+			analytics((duration) =>
+				profileCardRendered('team', 'error', {
+					duration,
+					hasRetry,
+				}),
+			);
+		}
+	}, [analytics, analyticsNext, hasRetry]);
 
 	const retry = useCallback(() => {
-		analytics((duration) =>
-			errorRetryClicked({
+		if (fg('ptc-enable-profile-card-analytics-refactor')) {
+			analyticsNext('ui.teamProfileCard.clicked.errorRetry', (duration) => ({
 				duration,
-			}),
-		);
+				firedAt: Math.round(getPageTime()),
+				...PACKAGE_META_DATA,
+			}));
+		} else {
+			analytics((duration) =>
+				errorRetryClicked({
+					duration,
+				}),
+			);
+		}
 
 		if (clientFetchProfile) {
 			clientFetchProfile();
 		}
-	}, [analytics, clientFetchProfile]);
+	}, [analytics, analyticsNext, clientFetchProfile]);
 
 	return (
 		<ErrorWrapper testId="team-profilecard-error">
@@ -451,16 +555,18 @@ const ErrorMessage = ({
 };
 
 const TeamProfileCard = (props: TeamProfilecardProps) => {
-	const { analytics, clientFetchProfile, hasError, isLoading, team, errorType } = props;
+	const { analytics, analyticsNext, clientFetchProfile, hasError, isLoading, team, errorType } =
+		props;
 
 	if (hasError) {
 		if (errorType?.reason === 'TEAMS_FORBIDDEN') {
-			return <TeamForbiddenErrorState analytics={analytics} />;
+			return <TeamForbiddenErrorState analytics={analytics} analyticsNext={analyticsNext} />;
 		} else {
 			return (
 				<CardWrapper testId="team-profilecard">
 					<ErrorMessage
 						analytics={analytics}
+						analyticsNext={analyticsNext}
 						clientFetchProfile={clientFetchProfile}
 						isLoading={isLoading}
 					/>
@@ -470,7 +576,7 @@ const TeamProfileCard = (props: TeamProfilecardProps) => {
 	}
 
 	if (isLoading) {
-		return <TeamLoadingState analytics={analytics} />;
+		return <TeamLoadingState analytics={analytics} analyticsNext={analyticsNext} />;
 	}
 
 	if (team) {

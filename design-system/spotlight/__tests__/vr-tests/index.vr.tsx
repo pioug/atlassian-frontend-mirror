@@ -3,6 +3,7 @@ import { snapshot } from '@af/visual-regression';
 
 import AllPlacements from '../../examples/all-placements';
 import Basic from '../../examples/basic';
+import FullWidthTarget from '../../examples/full-width-target';
 import MultiStep from '../../examples/multi-step';
 import OverlayingUI from '../../examples/overlaying-ui';
 import NoMedia from '../../examples/without-image';
@@ -70,6 +71,20 @@ snapshot(AllPlacements, {
 });
 
 snapshot(OverlayingUI, {
+	featureFlags: {
+		'platform-component-visual-refresh': true,
+	},
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+
+snapshot(FullWidthTarget, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},

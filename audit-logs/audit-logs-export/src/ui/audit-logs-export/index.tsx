@@ -134,7 +134,7 @@ export const AuditLogExportButton = ({
 			<ModalTransition>
 				{isModalOpen && (
 					<ModalDialog width="medium" onClose={onClose}>
-						<ModalHeader>
+						<ModalHeader hasCloseButton>
 							<ModalTitle>{formatMessage(defaultMessages.modalTitle)}</ModalTitle>
 						</ModalHeader>
 						<ModalBody>

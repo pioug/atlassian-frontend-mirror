@@ -1,5 +1,22 @@
 # @atlaskit/icon-lab
 
+## 5.8.0
+
+### Minor Changes
+
+- [`d7d90d3926711`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7d90d3926711) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `merge-queue`
+  - `missed-call`
+  - `text-density-compress`
+  - `text-density-expand`
+  - `views`
+
 ## 5.7.1
 
 ### Patch Changes

@@ -48,7 +48,9 @@ const breadcrumbStyles = css({
 	paddingInlineStart: token('space.0', '0px'),
 });
 
-const InnerBreadcrumbs = forwardRef((props: BreadcrumbsProps, ref: React.Ref<any>) => {
+const InnerBreadcrumbs: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<BreadcrumbsProps> & React.RefAttributes<any>
+> = forwardRef((props: BreadcrumbsProps, ref: React.Ref<any>) => {
 	const {
 		defaultExpanded = false,
 		isExpanded,

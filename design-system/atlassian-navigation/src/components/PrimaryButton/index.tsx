@@ -57,7 +57,9 @@ const buttonHighlightedStyles = css({
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#dropdown-menu)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const PrimaryButton = forwardRef<HTMLElement, PrimaryButtonProps>(
+export const PrimaryButton: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<PrimaryButtonProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, PrimaryButtonProps>(
 	(props: PrimaryButtonProps, ref: Ref<HTMLElement>) => {
 		const {
 			children,

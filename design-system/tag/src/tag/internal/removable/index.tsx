@@ -10,14 +10,8 @@ import { useCallbackWithAnalytics, type WithAnalyticsEventsProps } from '@atlask
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import {
-	removalActiveBackgroundColors,
-	removalHoverBackgroundColors,
-	removalTextColors,
-} from '../../../styles';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import Content from '../shared/content';
@@ -77,7 +71,9 @@ const removingStyles = css({
 	},
 });
 
-const RemovableTagComponent = forwardRef<any, RemovableTagProps>(
+const RemovableTagComponent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<RemovableTagProps> & React.RefAttributes<any>
+> = forwardRef<any, RemovableTagProps>(
 	(
 		{
 			appearance,
@@ -165,23 +161,17 @@ const RemovableTagComponent = forwardRef<any, RemovableTagProps>(
 		);
 
 		const hoverCloseButtonColors = {
-			backgroundColor: fg('platform-component-visual-refresh')
-				? token('color.background.neutral.subtle')
-				: undefined,
+			backgroundColor: token('color.background.neutral.subtle'),
 			// Tag background color on hover
-			[backgroundHoverCssVar]: fg('platform-component-visual-refresh')
-				? undefined
-				: removalHoverBackgroundColors,
+			[backgroundHoverCssVar]: undefined,
 			// Tag background color on press
-			[backgroundActiveCssVar]: fg('platform-component-visual-refresh')
-				? undefined
-				: removalActiveBackgroundColors,
+			[backgroundActiveCssVar]: undefined,
 			// The tag text on hover of remove button
-			[textDefaultCssVar]: fg('platform-component-visual-refresh') ? undefined : removalTextColors,
+			[textDefaultCssVar]: undefined,
 			// 'elemBefore' text on press of remove button
-			[textActiveCssVar]: fg('platform-component-visual-refresh') ? undefined : removalTextColors,
+			[textActiveCssVar]: undefined,
 			// The tag link text on hover of remove button
-			[textLinkCssVar]: fg('platform-component-visual-refresh') ? undefined : removalTextColors,
+			[textLinkCssVar]: undefined,
 		};
 
 		return (

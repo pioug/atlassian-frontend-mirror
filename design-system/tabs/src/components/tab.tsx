@@ -14,7 +14,9 @@ import { type TabAttributesType, type TabProps } from '../types';
  * - [Code](https://atlassian.design/components/tabs/code)
  * - [Usage](https://atlassian.design/components/tabs/usage)
  */
-const Tab = forwardRef<HTMLDivElement, TabProps>(function Tab({ children, testId }: TabProps, ref) {
+const Tab: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<TabProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, TabProps>(function Tab({ children, testId }: TabProps, ref) {
 	const {
 		onClick,
 		id,

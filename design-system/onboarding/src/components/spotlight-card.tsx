@@ -79,75 +79,75 @@ const containerShadowStyles = cssMap({
  * - [Code](https://atlassian.design/components/onboarding/spotlight-card/code)
  * - [Usage](https://atlassian.design/components/onboarding/spotlight-card/usage)
  */
-const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
-	(props: SpotlightCardProps, ref) => {
-		const {
-			actions = [],
-			actionsBeforeElement,
-			children,
-			components = {},
-			heading,
-			headingLevel = 4,
-			headingAfterElement,
-			image,
-			innerRef,
-			isFlat,
-			testId,
-			width = 400,
-			headingId,
-		} = props;
-		const { Header = DefaultHeader, Footer = DefaultFooter } = components;
-		const { currentLevel } = useLayering();
+const SpotlightCard: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SpotlightCardProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, SpotlightCardProps>((props: SpotlightCardProps, ref) => {
+	const {
+		actions = [],
+		actionsBeforeElement,
+		children,
+		components = {},
+		heading,
+		headingLevel = 4,
+		headingAfterElement,
+		image,
+		innerRef,
+		isFlat,
+		testId,
+		width = 400,
+		headingId,
+	} = props;
+	const { Header = DefaultHeader, Footer = DefaultFooter } = components;
+	const { currentLevel } = useLayering();
 
-		return (
-			<ButtonTheme.Provider value={spotlightButtonTheme}>
-				<Box
-					backgroundColor="color.background.discovery.bold"
-					xcss={cx(containerStyles.root, !isFlat && containerShadowStyles.root)}
-					style={{ width }}
-					ref={ref || innerRef}
-					testId={testId}
-					data-ds--level={currentLevel}
-					// temporarily use this data attribute to prevent clicking outside won't close spotlight correctly issue
-					data-ds--close--type="single"
-				>
-					{typeof image === 'string' ? <img css={imageStyles} src={image} alt="" /> : image}
-					<div css={bodyStyles}>
-						{heading || headingAfterElement ? (
-							<Header>
-								<Heading
-									id={headingId}
-									size="medium"
-									as={`h${headingLevel}`}
-									color="color.text.inverse"
-								>
-									{heading}
-								</Heading>
-								{headingAfterElement}
-							</Header>
-						) : null}
-						<Text>{children}</Text>
-						{actions.length > 0 || actionsBeforeElement ? (
-							<Footer>
-								{/* Always need an element so space-between alignment works */}
-								{actionsBeforeElement || <span />}
-								<DialogActionItemContainer>
-									{actions.map(({ text, key, ...rest }, idx) => {
-										return (
-											<DialogActionItem key={key || (typeof text === 'string' ? text : `${idx}`)}>
-												<Button {...rest}>{text}</Button>
-											</DialogActionItem>
-										);
-									})}
-								</DialogActionItemContainer>
-							</Footer>
-						) : null}
-					</div>
-				</Box>
-			</ButtonTheme.Provider>
-		);
-	},
-);
+	return (
+		<ButtonTheme.Provider value={spotlightButtonTheme}>
+			<Box
+				backgroundColor="color.background.discovery.bold"
+				xcss={cx(containerStyles.root, !isFlat && containerShadowStyles.root)}
+				style={{ width }}
+				ref={ref || innerRef}
+				testId={testId}
+				data-ds--level={currentLevel}
+				// temporarily use this data attribute to prevent clicking outside won't close spotlight correctly issue
+				data-ds--close--type="single"
+			>
+				{typeof image === 'string' ? <img css={imageStyles} src={image} alt="" /> : image}
+				<div css={bodyStyles}>
+					{heading || headingAfterElement ? (
+						<Header>
+							<Heading
+								id={headingId}
+								size="medium"
+								as={`h${headingLevel}`}
+								color="color.text.inverse"
+							>
+								{heading}
+							</Heading>
+							{headingAfterElement}
+						</Header>
+					) : null}
+					<Text>{children}</Text>
+					{actions.length > 0 || actionsBeforeElement ? (
+						<Footer>
+							{/* Always need an element so space-between alignment works */}
+							{actionsBeforeElement || <span />}
+							<DialogActionItemContainer>
+								{actions.map(({ text, key, ...rest }, idx) => {
+									return (
+										<DialogActionItem key={key || (typeof text === 'string' ? text : `${idx}`)}>
+											<Button {...rest}>{text}</Button>
+										</DialogActionItem>
+									);
+								})}
+							</DialogActionItemContainer>
+						</Footer>
+					) : null}
+				</div>
+			</Box>
+		</ButtonTheme.Provider>
+	);
+});
 
 SpotlightCard.displayName = 'SpotlightCard';
 

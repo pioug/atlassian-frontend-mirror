@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-analytics
 
+## 6.1.0
+
+### Minor Changes
+
+- [`e3780960bb0ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3780960bb0ae) - ##
+  What Update `EditorAnalyticsAPI` to allow for `fireAnalyticsEvent` to use a custom payload if an
+  explicit type parameter is used. This is mostly used by the analytics plugin
+
+  ```ts
+  // Example
+  api?.analytics.actions.fireAnalyticsEvent<CustomPayload, 'customEventType'>({ ... });
+  ```
+
+  ## Why
+
+  The current Payload structure is not extensible. There are times we don't want to update the base
+  analytics types (and increase bundle size) and scope them only to a specific package. This
+  provides an escape hatch but still enforces some level of type safety (currently there are some
+  examples of using `ts-expect-error` to side step this).
+
+  ## How to upgrade
+
+  In most scenarios this should not cause any breaking change but can be breaking if you are side
+  stepping type safety here with `ts-expect-error`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

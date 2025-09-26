@@ -2200,8 +2200,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				appearance === 'full-width' &&
 					!isTableResizingEnabled(appearance) &&
 					rendererFullWidthStylesForTableResizing,
-				editorExperiment('platform_editor_ai_aifc', false) && telepointerStyles,
-				editorExperiment('platform_editor_ai_aifc', true) && rovoTelepointerStyles,
+				!fg('aifc_create_enabled') && telepointerStyles,
+				fg('aifc_create_enabled') && rovoTelepointerStyles,
 				whitespaceSharedStyles,
 				blockquoteSharedStyles,
 				fg('platform_editor_typography_ugc')

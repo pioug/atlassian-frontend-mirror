@@ -600,7 +600,9 @@ const selectedStyles = cssMap({
  *
  * @private
  */
-const ButtonBase = React.forwardRef(
+const ButtonBase: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ButtonBaseProps<HTMLButtonElement>> & React.RefAttributes<HTMLButtonElement>
+> = React.forwardRef(
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore: to unblock React 18.2.0 -> 18.3.1 version bump in Jira
 	(

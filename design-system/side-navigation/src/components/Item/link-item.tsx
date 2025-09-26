@@ -66,28 +66,28 @@ const styles = cssMap({
  * - [Examples](https://atlassian.design/components/side-navigation/examples#link-item)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const LinkItem = forwardRef<HTMLElement, LinkItemProps>(
-	({ href, children, className, ...rest }, ref) => {
-		const { shouldRender } = useShouldNestedElementRender();
-		if (!shouldRender) {
-			return null;
-		}
+const LinkItem: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<LinkItemProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, LinkItemProps>(({ href, children, className, ...rest }, ref) => {
+	const { shouldRender } = useShouldNestedElementRender();
+	if (!shouldRender) {
+		return null;
+	}
 
-		// Anchor content will be handled by LinkItem
-		return (
-			<Link
-				ref={ref}
-				href={href}
-				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-				css={[styles.root, rest.isSelected && styles.selectedStyles]}
-				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
-				className={className}
-				{...rest}
-			>
-				{children}
-			</Link>
-		);
-	},
-);
+	// Anchor content will be handled by LinkItem
+	return (
+		<Link
+			ref={ref}
+			href={href}
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
+			css={[styles.root, rest.isSelected && styles.selectedStyles]}
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
+			{...rest}
+		>
+			{children}
+		</Link>
+	);
+});
 
 export default LinkItem;

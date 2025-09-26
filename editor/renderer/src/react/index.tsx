@@ -1,62 +1,61 @@
-import React from 'react';
 import type { ComponentType } from 'react';
+import React from 'react';
 
+import { type GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
 import type { Fragment, Mark, Node } from '@atlaskit/editor-prosemirror/model';
 import { MarkType } from '@atlaskit/editor-prosemirror/model';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { type GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import type { AnalyticsEventPayload } from '../analytics/events';
 import type { Serializer } from '../serializer';
 import type {
-	RendererAppearance,
-	StickyHeaderConfig,
 	HeadingAnchorLinksProps,
 	NodeComponentsProps,
+	RendererAppearance,
+	StickyHeaderConfig,
 } from '../ui/Renderer/types';
-import { isNestedHeaderLinksEnabled } from './utils/links';
-import type { AnalyticsEventPayload } from '../analytics/events';
 import type { TextWrapper } from './nodes';
 import {
 	Doc,
 	DocWithSelectAllTrap,
-	mergeTextNodes,
-	isTextWrapper,
 	isTextNode,
+	isTextWrapper,
+	mergeTextNodes,
 	toReact,
 } from './nodes';
 import TextWrapperComponent from './nodes/text-wrapper';
+import { isNestedHeaderLinksEnabled } from './utils/links';
 
-import { toReact as markToReact, isAnnotationMark } from './marks';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { getMarksByOrder, isSameMark } from '@atlaskit/editor-common/validator';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { getColumnWidths } from '@atlaskit/editor-common/utils';
-import { getText } from '../utils';
+import { getMarksByOrder, isSameMark } from '@atlaskit/editor-common/validator';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
+import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { fg } from '@atlaskit/platform-feature-flags';
-import type {
-	RendererContext,
-	NodeMeta,
-	MarkMeta,
-	AnnotationMarkMeta,
-	TextHighlighter,
-	ExtensionViewportSize,
-} from './types';
+import type { MediaOptions } from '../types/mediaOptions';
+import type { SmartLinksOptions } from '../types/smartLinksOptions';
+import { getText } from '../utils';
+import { isAnnotationMark, toReact as markToReact } from './marks';
+import { isCodeMark } from './marks/code';
 import {
 	insideBlockNode,
 	insideBreakoutLayout,
 	insideMultiBodiedExtension,
 	insideTable,
 } from './renderer-node';
-import type { MediaOptions } from '../types/mediaOptions';
-import type { SmartLinksOptions } from '../types/smartLinksOptions';
-import { isCodeMark } from './marks/code';
-import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
-import { segmentText } from './utils/segment-text';
+import type {
+	AnnotationMarkMeta,
+	ExtensionViewportSize,
+	MarkMeta,
+	NodeMeta,
+	RendererContext,
+	TextHighlighter,
+} from './types';
 import { renderTextSegments } from './utils/render-text-segments';
-
+import { segmentText } from './utils/segment-text';
 export interface ReactSerializerInit {
 	allowAltTextOnImages?: boolean;
 	allowAnnotations?: boolean;

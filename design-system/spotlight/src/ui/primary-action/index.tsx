@@ -56,7 +56,9 @@ export interface SpotlightPrimaryActionProps {
  * for single step spotlights, or to show the next step on multi step spotlight tours.
  *
  */
-export const SpotlightPrimaryAction = forwardRef<HTMLButtonElement, SpotlightPrimaryActionProps>(
+export const SpotlightPrimaryAction: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SpotlightPrimaryActionProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, SpotlightPrimaryActionProps>(
 	({ 'aria-label': ariaLabel, onClick, children, testId }: SpotlightPrimaryActionProps, ref) => {
 		return (
 			<Pressable

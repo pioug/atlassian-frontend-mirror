@@ -1,7 +1,7 @@
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
-import { type ErrorAttributes } from '../client/types';
+import { type DEPRECATED_ErrorAttributes, type ErrorAttributes } from '../client/types';
 import { type ProfileType } from '../types';
 
 import { getPageTime } from './performance';
@@ -29,7 +29,8 @@ const runItLater = (cb: (arg: any) => void) => {
 
 type GenericAttributes =
 	| Record<string, string | number | boolean | undefined | string[]>
-	| ErrorAttributes;
+	| ErrorAttributes
+	| DEPRECATED_ErrorAttributes;
 
 interface AnalyticsEvent {
 	action?: string;
@@ -98,6 +99,10 @@ export const getActionSubject = (type: string) => {
 	}
 };
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const cardTriggered = (type: ProfileType, method: 'hover' | 'click', teamId?: string) => {
 	return createEvent('ui', 'triggered', getActionSubject(type), undefined, {
 		method,
@@ -105,16 +110,28 @@ export const cardTriggered = (type: ProfileType, method: 'hover' | 'click', team
 	});
 };
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const teamRequestAnalytics = (
 	action: 'triggered' | 'succeeded' | 'failed',
 	attributes?: { duration: number } & GenericAttributes,
 ) => createEvent('operational', action, TEAM_SUBJECT, 'request', attributes);
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const userRequestAnalytics = (
 	action: 'triggered' | 'succeeded' | 'failed',
 	attributes?: { duration: number } & GenericAttributes,
 ) => createEvent('operational', action, USER_SUBJECT, 'request', attributes);
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const profileCardRendered = (
 	type: ProfileType,
 	actionSubjectId: 'spinner' | 'content' | 'error' | 'errorBoundary',
@@ -130,6 +147,10 @@ export const profileCardRendered = (
 	},
 ) => createEvent('ui', 'rendered', getActionSubject(type), actionSubjectId, attributes);
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const actionClicked = (
 	type: ProfileType,
 	attributes: {
@@ -141,11 +162,19 @@ export const actionClicked = (
 	},
 ) => createEvent('ui', 'clicked', getActionSubject(type), 'action', attributes);
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const reportingLinesClicked = (attributes: {
 	userType: 'manager' | 'direct-report';
 	duration: number;
 }) => createEvent('ui', 'clicked', USER_SUBJECT, 'reportingLines', attributes);
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const moreActionsClicked = (
 	type: ProfileType,
 	attributes: {
@@ -154,6 +183,10 @@ export const moreActionsClicked = (
 	},
 ) => createEvent('ui', 'clicked', getActionSubject(type), 'moreActions', attributes);
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const teamAvatarClicked = (attributes: {
 	duration: number;
 	hasHref: boolean;
@@ -161,12 +194,24 @@ export const teamAvatarClicked = (attributes: {
 	index: number;
 }) => createEvent('ui', 'clicked', TEAM_SUBJECT, 'avatar', attributes);
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const moreMembersClicked = (attributes: { duration: number; memberCount: number }) =>
 	createEvent('ui', 'clicked', TEAM_SUBJECT, 'moreMembers', attributes);
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const errorRetryClicked = (attributes: { duration: number }) =>
 	createEvent('ui', 'clicked', TEAM_SUBJECT, 'errorRetry', attributes);
 
+/**
+ * @private
+ * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
+ */
 export const agentRequestAnalytics = (
 	action: 'triggered' | 'succeeded' | 'failed',
 	actionSubjectId?: string,

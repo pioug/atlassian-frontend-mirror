@@ -33,7 +33,7 @@ exports[`Chromeless editor platform_fix_extra_space_last_line_comment_editor is 
 
 .emotion-0:hover::-webkit-scrollbar-thumb {
   background-color: var(--ds-background-neutral-bold, #44546F);
-  border-radius: 8px;
+  border-radius: var(--ds-radius-large, 8px);
 }
 
 .emotion-0::-webkit-scrollbar-thumb:hover {

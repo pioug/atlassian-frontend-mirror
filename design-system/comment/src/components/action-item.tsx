@@ -33,7 +33,9 @@ export interface CommentActionItemProps extends WithAnalyticsEventsProps {
 	onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-const ActionItem = forwardRef<HTMLSpanElement, CommentActionItemProps>(
+const ActionItem: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<CommentActionItemProps> & React.RefAttributes<HTMLSpanElement>
+> = forwardRef<HTMLSpanElement, CommentActionItemProps>(
 	({ children, onClick: providedOnClick, onFocus, onMouseOver, isDisabled }, ref) => {
 		const onClick = usePlatformLeafEventHandler<React.MouseEvent<HTMLAnchorElement, MouseEvent>>({
 			fn: (event, analyticsEvent) => providedOnClick && providedOnClick(event, analyticsEvent),

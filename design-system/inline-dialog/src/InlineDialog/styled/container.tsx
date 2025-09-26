@@ -53,7 +53,9 @@ interface ContainerProps {
  * Note that the styles here are merged with the style prop that comes from the popper.js library.
  *
  */
-export const Container = forwardRef<HTMLDivElement, ContainerProps>(
+export const Container: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ContainerProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, ContainerProps>(
 	({ children, onBlur, onClick, onFocus, style, testId }, ref) => {
 		return (
 			// Unfortunately, these are used for apps to pass through. Inline Dialog is being deprecated anyway

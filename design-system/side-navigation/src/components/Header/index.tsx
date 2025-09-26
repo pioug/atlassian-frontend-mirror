@@ -118,7 +118,9 @@ export type HeaderProps = {
  * - [Examples](https://atlassian.design/components/side-navigation/examples#header-and-footer)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const Header = forwardRef<HTMLElement, HeaderProps>((props: HeaderProps, ref) => {
+const Header: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<HeaderProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, HeaderProps>((props: HeaderProps, ref) => {
 	return (
 		<CustomItem
 			{...props}

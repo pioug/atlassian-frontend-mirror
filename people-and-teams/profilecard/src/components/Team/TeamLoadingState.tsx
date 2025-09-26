@@ -1,17 +1,27 @@
 import React, { useEffect } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 
 import { CardContent, CardHeader, CardWrapper, LoadingWrapper } from '../../styled/TeamTrigger';
-import { type AnalyticsFunction } from '../../types';
-import { profileCardRendered } from '../../util/analytics';
+import { type AnalyticsFunction, type AnalyticsFunctionNext } from '../../types';
+import { PACKAGE_META_DATA, profileCardRendered } from '../../util/analytics';
+import { getPageTime } from '../../util/performance';
 
-export default (props: { analytics: AnalyticsFunction }) => {
-	const { analytics } = props;
+export default (props: { analytics: AnalyticsFunction; analyticsNext: AnalyticsFunctionNext }) => {
+	const { analytics, analyticsNext } = props;
 
 	useEffect(() => {
-		analytics((duration) => profileCardRendered('team', 'spinner', { duration }));
-	}, [analytics]);
+		if (fg('ptc-enable-profile-card-analytics-refactor')) {
+			analyticsNext('ui.teamProfileCard.rendered.spinner', (duration) => ({
+				duration,
+				firedAt: Math.round(getPageTime()),
+				...PACKAGE_META_DATA,
+			}));
+		} else {
+			analytics((duration) => profileCardRendered('team', 'spinner', { duration }));
+		}
+	}, [analytics, analyticsNext]);
 
 	return (
 		<CardWrapper testId="team-profilecard">

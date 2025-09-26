@@ -35,7 +35,9 @@ const analyticsAttributes = {
 	packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
-const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(
+const InnerCalendar: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<CalendarProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(
 	{
 		day,
 		defaultDay = 0,

@@ -43,7 +43,9 @@ const rowHighlightedBackgroundStyles = css({
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const TableBodyRow = forwardRef<HTMLTableRowElement, ITableRowProps>(
+export const TableBodyRow: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ITableRowProps> & React.RefAttributes<HTMLTableRowElement>
+> = forwardRef<HTMLTableRowElement, ITableRowProps>(
 	({ isHighlighted, children, style, testId, className, ...rest }, ref) => {
 		return (
 			<tr

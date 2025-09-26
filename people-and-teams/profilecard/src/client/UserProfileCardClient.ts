@@ -16,7 +16,7 @@ import { localTime } from '../util/date';
 import { getPageTime } from '../util/performance';
 
 import CachingClient from './CachingClient';
-import { getErrorAttributes } from './errorUtils';
+import { DEPRECATED_getErrorAttributes, getErrorAttributes } from './errorUtils';
 import { AGGQuery } from './graphqlUtils';
 
 /**
@@ -231,16 +231,9 @@ export default class UserProfileCardClient extends CachingClient<any> {
 				.catch((error: any) => {
 					if (fg('ptc-enable-profile-card-analytics-refactor')) {
 						if (analyticsNext) {
-							const errorAttributes = getErrorAttributes(error);
 							analyticsNext('operational.profilecard.failed.request', {
 								duration: getPageTime() - startTime,
-								...errorAttributes,
-								traceId: errorAttributes.traceId || null,
-								errorCategory: errorAttributes.errorCategory || null,
-								errorType: errorAttributes.errorType || null,
-								errorPath: errorAttributes.errorPath || null,
-								errorNumber: errorAttributes.errorNumber || null,
-								errorStatusCode: errorAttributes.errorStatusCode || null,
+								...getErrorAttributes(error),
 								firedAt: Math.round(getPageTime()),
 								...PACKAGE_META_DATA,
 							});
@@ -250,7 +243,7 @@ export default class UserProfileCardClient extends CachingClient<any> {
 							analytics(
 								userRequestAnalytics('failed', {
 									duration: getPageTime() - startTime,
-									...getErrorAttributes(error),
+									...DEPRECATED_getErrorAttributes(error),
 								}),
 							);
 						}

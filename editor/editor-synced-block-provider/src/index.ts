@@ -13,8 +13,5 @@ export type {
 	SyncBlockNode,
 } from './common/types';
 export { inMemoryFetchProvider, inMemoryWriteProvider } from './providers/inMemory';
-export {
-	createSyncBlockNode,
-	createSyncBlockPMNode,
-	generateSyncBlockSourceUrl,
-} from './utils/utils';
+export { convertSyncBlockPMNodeToSyncBlockData, generateSyncBlockSourceUrl } from './utils/utils';
+export { getDefaultSyncBlockSchema } from './common/schema';

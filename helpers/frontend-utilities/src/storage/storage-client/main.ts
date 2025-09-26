@@ -10,6 +10,7 @@ type StoredItem = {
 };
 
 export type GetStoredItemOptions = {
+	clearExpiredItem?: boolean;
 	useExpiredItem?: boolean;
 };
 
@@ -55,7 +56,8 @@ export default class StorageClient {
 
 	getItem = (
 		key: string,
-		{ useExpiredItem }: GetStoredItemOptions = {
+		{ clearExpiredItem, useExpiredItem }: GetStoredItemOptions = {
+			clearExpiredItem: false,
 			useExpiredItem: false,
 		},
 	) => {
@@ -64,6 +66,9 @@ export default class StorageClient {
 			try {
 				const parsedItem: StoredItem = JSON.parse(item);
 				if (parsedItem.expires && new Date(parsedItem.expires) < new Date()) {
+					if (clearExpiredItem) {
+						this.removeItem(key);
+					}
 					if (!useExpiredItem) {
 						return undefined;
 					}

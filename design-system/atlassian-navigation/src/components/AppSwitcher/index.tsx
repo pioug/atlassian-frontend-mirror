@@ -17,7 +17,9 @@ import { type AppSwitcherProps } from './types';
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#app-switcher)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const AppSwitcher = forwardRef((props: AppSwitcherProps, ref: Ref<any>) => {
+export const AppSwitcher: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<AppSwitcherProps> & React.RefAttributes<any>
+> = forwardRef((props: AppSwitcherProps, ref: Ref<any>) => {
 	const {
 		component,
 		href,
@@ -71,7 +73,9 @@ export const AppSwitcher = forwardRef((props: AppSwitcherProps, ref: Ref<any>) =
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const AppSwitcherNav4 = forwardRef((props: AppSwitcherProps, ref: Ref<any>) => {
+export const AppSwitcherNav4: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<AppSwitcherProps> & React.RefAttributes<any>
+> = forwardRef((props: AppSwitcherProps, ref: Ref<any>) => {
 	const {
 		component,
 		href,

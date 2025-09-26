@@ -1424,8 +1424,42 @@ export function handleRichText(
 	};
 }
 
+function isUrlString(text: string): Boolean {
+	try {
+		new URL(text);
+
+		return true;
+	} catch {
+		return false;
+	}
+}
+
+function isLinkOrUrlString(slice: Slice, schema: Schema): Boolean {
+	if (slice.content.childCount !== 1 || !isParagraph(slice.content.child(0), schema)) {
+		return false;
+	}
+
+	const paragraph = slice.content.child(0);
+
+	if (paragraph.content.childCount !== 1 || !isText(paragraph.content.child(0), schema)) {
+		return false;
+	}
+
+	const { marks, text = '' } = paragraph.content.child(0);
+
+	const hasLinkMark = marks.some((mark) => isLinkMark(mark, schema));
+
+	return hasLinkMark || isUrlString(text);
+}
+
 export function handlePasteIntoCaption(slice: Slice): Command {
 	return (state, dispatch) => {
+		if (fg('platform_editor_fix_captions_on_copy')) {
+			if (isLinkOrUrlString(slice, state.schema)) {
+				return false;
+			}
+		}
+
 		const { caption } = state.schema.nodes;
 		const tr = state.tr;
 		if (hasParentNodeOfType(caption)(state.selection)) {

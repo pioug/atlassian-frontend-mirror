@@ -64,7 +64,9 @@ const styles = cssMap({
  * - [Examples](https://atlassian.design/components/side-navigation/examples#button-item)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const ButtonItem = forwardRef<HTMLElement, ButtonItemProps>(({ className, ...props }, ref) => {
+const ButtonItem: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ButtonItemProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, ButtonItemProps>(({ className, ...props }, ref) => {
 	const { shouldRender } = useShouldNestedElementRender();
 	if (!shouldRender) {
 		return null;

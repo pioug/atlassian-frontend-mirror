@@ -59,7 +59,9 @@ type CustomTitleProps = {
  * A custom site title to be displayed in the top navigation, to the right of the logo.
  * It is hidden on smaller viewports.
  */
-export const CustomTitle = forwardRef(function CustomTitle(
+export const CustomTitle: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<CustomTitleProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef(function CustomTitle(
 	{ children, testId }: CustomTitleProps,
 	ref: React.ForwardedRef<HTMLDivElement>,
 ) {

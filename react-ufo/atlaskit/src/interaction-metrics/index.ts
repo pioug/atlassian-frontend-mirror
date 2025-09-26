@@ -409,6 +409,12 @@ export function addHold(
 ) {
 	const interaction = interactions.get(interactionId);
 	const id = createUUID();
+
+	if (!interaction && fg('platform_ufo_enable_late_holds_post_interaction')) {
+		// add hold timestamp to post interaction log if interaction is complete
+		postInteractionLog.addHoldInfo(labelStack, name, performance.now());
+	}
+
 	if (interaction != null) {
 		const start = performance.now();
 		const holdActive = { labelStack, name, start };

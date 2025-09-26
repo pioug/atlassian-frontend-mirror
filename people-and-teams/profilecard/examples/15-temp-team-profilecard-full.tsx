@@ -49,6 +49,10 @@ function analytics(gen: (duration: number) => Record<string, any>) {
 	);
 }
 
+function analyticsNext(eventKey: string, gen: (duration: number) => Record<string, any>) {
+	const payload = gen(1000);
+	console.log(eventKey, payload.attributes);
+}
 const teams = [
 	teamData({
 		members: 12,
@@ -63,6 +67,7 @@ const teams = [
 
 const defaultProps = {
 	analytics,
+	analyticsNext,
 	generateUserLink: () => 'about:blank',
 	onUserClick: (userId: string) => {
 		console.log(`User with id: (${userId}) has been clicked.`);

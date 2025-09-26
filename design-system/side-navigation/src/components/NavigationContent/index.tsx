@@ -124,7 +124,10 @@ const containerCSS = cssMap({
  * - [Examples](https://atlassian.design/components/side-navigation/examples#content)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const NavigationContent = forwardRef<
+const NavigationContent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<NavigationContentProps & HTMLAttributes<HTMLElement>> &
+		React.RefAttributes<HTMLElement>
+> = forwardRef<
 	HTMLElement,
 	// We place HTMLAttributes here so ERT doesn't blow up.
 	NavigationContentProps & HTMLAttributes<HTMLElement>

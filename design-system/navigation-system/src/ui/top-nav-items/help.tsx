@@ -32,7 +32,9 @@ interface HelpProps
  *
  * The trigger button for the help menu in the top navigation bar.
  */
-export const Help = forwardRef<HTMLButtonElement, HelpProps>(function Help(
+export const Help: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<HelpProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, HelpProps>(function Help(
 	{ label, onClick, onMouseEnter, isSelected, testId, interactionName, isListItem, badge },
 	ref,
 ) {

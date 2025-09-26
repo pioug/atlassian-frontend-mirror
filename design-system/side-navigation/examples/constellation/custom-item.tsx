@@ -5,7 +5,9 @@ import { CustomItem, type CustomItemComponentProps, Section } from '@atlaskit/si
 
 type CustomProps = CustomItemComponentProps & { href: string };
 
-const CustomLink = forwardRef<HTMLAnchorElement, CustomProps>((props: CustomProps, ref) => {
+const CustomLink: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<CustomProps> & React.RefAttributes<HTMLAnchorElement>
+> = forwardRef<HTMLAnchorElement, CustomProps>((props: CustomProps, ref) => {
 	const { children, ...rest } = props;
 	return (
 		<>

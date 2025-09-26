@@ -41,6 +41,13 @@ const styles = cssMap({
 			boxSizing: 'border-box',
 		},
 	},
+	jiraProductLogoUpdate: {
+		'@media (min-width: 64rem)': {
+			// Jira product logo update, added 30px for CSM logo as the size is larger than the default
+			// https://jplat.atlassian.net/browse/BLU-8440
+			minWidth: '330px',
+		},
+	},
 	fullHeightSidebar: {
 		// Start padding is not applied to the top nav itself, to avoid misalignment with the side nav
 		paddingInlineStart: token('space.150'),
@@ -138,6 +145,7 @@ export function TopNavStart({
 				styles.root,
 				fg('navx-full-height-sidebar') && styles.fullHeightSidebar,
 				isExpandedOnDesktop && fg('navx-full-height-sidebar') && styles.fullHeightSidebarExpanded,
+				fg('team25-eu-jira-logo-updates-csm-jsm') && styles.jiraProductLogoUpdate,
 			]}
 			ref={fg('platform_fix_component_state_update_for_suspense') ? elementRef : ref}
 			data-testid={testId}

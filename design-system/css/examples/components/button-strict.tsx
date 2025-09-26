@@ -35,6 +35,7 @@ export function Button({
 }) {
 	return (
 		<button
+			type="button"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={{ fontWeight: token('font.weight.medium') }}
 			css={buttonStyles.container}

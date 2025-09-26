@@ -18,7 +18,9 @@ const HELP_NOTIFICATION_BADGE_ID = 'atlassian-navigation-help-notification-count
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#help)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const Help = forwardRef((props: HelpProps, ref: Ref<any>) => {
+export const Help: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<HelpProps> & React.RefAttributes<any>
+> = forwardRef((props: HelpProps, ref: Ref<any>) => {
 	const {
 		badge,
 		component,

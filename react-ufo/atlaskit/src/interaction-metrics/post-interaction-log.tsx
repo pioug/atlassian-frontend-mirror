@@ -1,6 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
+	type HoldActive,
 	type LastInteractionFinishInfo,
 	type PostInteractionLogOutput,
 	type ReactProfilerTiming,
@@ -29,6 +30,8 @@ export default class PostInteractionLog {
 	 * Store the scheduled sink timeout Id so that it can be cancelled when needed
 	 */
 	sinkTimeoutId: number | null = null;
+
+	holdInfo: HoldActive[] = [];
 
 	/**
 	 * independent VC observer, that observes until `custom.post-interaction-logs` event is sent
@@ -88,6 +91,7 @@ export default class PostInteractionLog {
 	reset() {
 		this.lastInteractionFinish = null;
 		this.reactProfilerTimings = [];
+		this.holdInfo = [];
 
 		if (this.sinkTimeoutId != null) {
 			clearTimeout(this.sinkTimeoutId);
@@ -149,6 +153,7 @@ export default class PostInteractionLog {
 			reactProfilerTimings: this.reactProfilerTimings,
 			postInteractionFinishVCResult,
 			lastInteractionFinishVCResult: this.lastInteractionFinishVCResult,
+			postInteractionHoldInfo: this.holdInfo,
 		});
 
 		this.reset();
@@ -216,5 +221,9 @@ export default class PostInteractionLog {
 				labelStack,
 			});
 		}
+	}
+
+	addHoldInfo(labelStack: LabelStack, name: string, start: number) {
+		this.holdInfo.push({ name, labelStack, start });
 	}
 }

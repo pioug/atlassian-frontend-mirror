@@ -3,6 +3,7 @@ import React, { forwardRef, Suspense, useCallback } from 'react';
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 
 import {
 	type AgentProfileCardTriggerProps,
@@ -20,6 +21,8 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 		const { resourceClient, agentId: userId, cloudId } = props;
 
 		const { createAnalyticsEvent } = useAnalyticsEvents();
+		const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
+
 		const fireAnalytics = useCallback(
 			(payload: AnalyticsEventPayload) => {
 				if (createAnalyticsEvent) {
@@ -61,6 +64,7 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 							cloudId,
 							userId,
 							fireAnalytics,
+							fireEventNext,
 						);
 
 						return {
@@ -84,6 +88,7 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 			const agentInfo = await resourceClient.getRovoAgentProfile(
 				{ type: 'agent', value: userId },
 				fireAnalytics,
+				fireEventNext,
 			);
 			const agentCreatorInfo = await getCreator(
 				agentInfo.creator_type,
@@ -126,6 +131,7 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 				renderProfileCard={renderProfileCard}
 				fetchProfile={fetchAgentProfile}
 				fireAnalytics={fireAnalytics}
+				fireAnalyticsNext={fireEventNext}
 				profileCardType="agent"
 			/>
 		);

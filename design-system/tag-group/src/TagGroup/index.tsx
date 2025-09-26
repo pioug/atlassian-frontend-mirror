@@ -47,24 +47,24 @@ const justifyEndStyles = css({ justifyContent: 'flex-end' });
  * - [Code](https://atlassian.design/components/tag-group/code)
  * - [Usage](https://atlassian.design/components/tag-group/usage)
  */
-const TagGroup = forwardRef<any, TagGroupProps>(
-	({ alignment = 'start', titleId, label, children }, ref) => {
-		return (
-			<div
-				role="group"
-				ref={ref}
-				aria-label={label}
-				aria-labelledby={titleId}
-				css={[
-					baseStyles,
-					alignment === 'start' && justifyStartStyles,
-					alignment === 'end' && justifyEndStyles,
-				]}
-			>
-				{children}
-			</div>
-		);
-	},
-);
+const TagGroup: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<TagGroupProps> & React.RefAttributes<any>
+> = forwardRef<any, TagGroupProps>(({ alignment = 'start', titleId, label, children }, ref) => {
+	return (
+		<div
+			role="group"
+			ref={ref}
+			aria-label={label}
+			aria-labelledby={titleId}
+			css={[
+				baseStyles,
+				alignment === 'start' && justifyStartStyles,
+				alignment === 'end' && justifyEndStyles,
+			]}
+		>
+			{children}
+		</div>
+	);
+});
 
 export default TagGroup;

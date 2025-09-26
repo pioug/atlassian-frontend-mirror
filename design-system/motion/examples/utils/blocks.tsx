@@ -60,7 +60,9 @@ const sizeLarge = css({
 	height: '300px',
 });
 
-export const Block = forwardRef<HTMLDivElement, BlockProps>(
+export const Block: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<BlockProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, BlockProps>(
 	({ onClick, appearance = 'medium', ...props }: BlockProps, ref) => (
 		<div
 			ref={ref}
@@ -90,20 +92,20 @@ const movesRight = keyframes({
 	},
 });
 
-export const MovesRightBlock = forwardRef<HTMLDivElement, AnimatedBlockProps>(
-	(props: AnimatedBlockProps, ref) => (
-		<Block
-			ref={ref}
-			css={{
-				animationName: `${movesRight}`,
-				animationDuration: `${props.duration}ms`,
-				animationTimingFunction: props.curve,
-				animationIterationCount: 'infinite',
-			}}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			className={props.className}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			style={props.style}
-		/>
-	),
-);
+export const MovesRightBlock: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<AnimatedBlockProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, AnimatedBlockProps>((props: AnimatedBlockProps, ref) => (
+	<Block
+		ref={ref}
+		css={{
+			animationName: `${movesRight}`,
+			animationDuration: `${props.duration}ms`,
+			animationTimingFunction: props.curve,
+			animationIterationCount: 'infinite',
+		}}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+		className={props.className}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+		style={props.style}
+	/>
+));

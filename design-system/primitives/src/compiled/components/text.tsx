@@ -217,7 +217,9 @@ export const inverseColorMap = {
  *
  * @internal
  */
-const Text = forwardRef(
+const Text: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<TextProps<ElementType>> & React.RefAttributes<any>
+> = forwardRef(
 	<T extends ElementType = 'span'>(
 		{
 			as: Component = 'span',

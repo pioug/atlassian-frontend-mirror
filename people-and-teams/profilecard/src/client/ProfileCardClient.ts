@@ -60,8 +60,9 @@ class ProfileCardClient implements ProfileClient {
 		teamId: string,
 		orgId?: string,
 		analytics?: (event: AnalyticsEventPayload) => void,
+		analyticsNext?: FireEventType,
 	) {
-		return this.teamClient.getProfile(teamId, orgId, analytics);
+		return this.teamClient.getProfile(teamId, orgId, analytics, analyticsNext);
 	}
 
 	getReportingLines(userId: string): Promise<TeamCentralReportingLinesData> {
@@ -105,27 +106,37 @@ class ProfileCardClient implements ProfileClient {
 		return this.tcClient.checkWorkspaceExists();
 	}
 
-	getRovoAgentProfile(id: AgentIdType, analytics?: (event: AnalyticsEventPayload) => void) {
-		return this.rovoAgentClient?.getProfile(id, analytics);
+	getRovoAgentProfile(
+		id: AgentIdType,
+		analytics?: (event: AnalyticsEventPayload) => void,
+		analyticsNext?: FireEventType,
+	) {
+		return this.rovoAgentClient?.getProfile(id, analytics, analyticsNext);
 	}
 
 	getRovoAgentPermissions(
 		id: string,
 		fireAnalytics?: ((event: AnalyticsEventPayload) => void) | undefined,
+		analyticsNext?: FireEventType,
 	) {
-		return this.rovoAgentClient?.getPermissions(id, fireAnalytics);
+		return this.rovoAgentClient?.getPermissions(id, fireAnalytics, analyticsNext);
 	}
 
-	deleteAgent(id: string, analytics?: (event: AnalyticsEventPayload) => void) {
-		return this.rovoAgentClient?.deleteAgent(id, analytics);
+	deleteAgent(
+		id: string,
+		analytics?: (event: AnalyticsEventPayload) => void,
+		analyticsNext?: FireEventType,
+	) {
+		return this.rovoAgentClient?.deleteAgent(id, analytics, analyticsNext);
 	}
 
 	setFavouriteAgent(
 		id: string,
 		isFavourite: boolean,
 		analytics?: (event: AnalyticsEventPayload) => void,
+		analyticsNext?: FireEventType,
 	) {
-		return this.rovoAgentClient?.setFavouriteAgent(id, isFavourite, analytics);
+		return this.rovoAgentClient?.setFavouriteAgent(id, isFavourite, analytics, analyticsNext);
 	}
 }
 

@@ -61,7 +61,9 @@ const analyticsAttributes = {
  * - [Code](https://atlassian.design/components/datetime-picker/time-picker/code)
  * - [Usage](https://atlassian.design/components/datetime-picker/time-picker/usage)
  */
-const TimePicker = forwardRef(
+const TimePicker: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<TimePickerBaseProps> & React.RefAttributes<unknown>
+> = forwardRef(
 	(
 		{
 			'aria-describedby': ariaDescribedBy,

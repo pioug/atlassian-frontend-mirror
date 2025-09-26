@@ -28,7 +28,9 @@ const noop = __noop;
  *
  * A button that represents a single step in a breadcrumbs component.
  */
-const StepOld = React.forwardRef<HTMLButtonElement, BreadcrumbsButtonProps>(
+const StepOld: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<BreadcrumbsButtonProps> & React.RefAttributes<HTMLButtonElement>
+> = React.forwardRef<HTMLButtonElement, BreadcrumbsButtonProps>(
 	(
 		{
 			analyticsContext,

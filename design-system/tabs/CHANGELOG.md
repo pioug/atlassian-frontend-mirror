@@ -1,5 +1,21 @@
 # @atlaskit/tabs
 
+## 18.2.0
+
+### Minor Changes
+
+- [`2d90078a9d301`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d90078a9d301) -
+  [ux] Updates tabs styles to reflect our new visual design language. These changes were previously
+  behind a feature flag and are now fully rolled out.
+
+## 18.1.12
+
+### Patch Changes
+
+- [`39e543109ec09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39e543109ec09) -
+  add type info to forwardRef components
+- Updated dependencies
+
 ## 18.1.11
 
 ### Patch Changes

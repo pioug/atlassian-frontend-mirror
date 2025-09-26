@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 42.3.2
+
+### Patch Changes
+
+- [`17a96e7d76434`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17a96e7d76434) -
+  Internal change to unreleased feature behind `placeholderData` prop.
+
+## 42.3.1
+
+### Patch Changes
+
+- [`f3494b0a49dbc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3494b0a49dbc) -
+  Internal changes to use new shape tokens. No visual changes.
+- Updated dependencies
+
 ## 42.3.0
 
 ### Minor Changes

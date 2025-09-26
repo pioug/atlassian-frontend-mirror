@@ -442,7 +442,7 @@ export const changeSelectedCardToLinkFallback =
 		}
 
 		if (dispatch) {
-			if (editorExperiment('platform_editor_ai_aifc', true)) {
+			if (fg('aifc_create_enabled')) {
 				dispatch(tr.setMeta('addToHistory', false));
 			} else {
 				dispatch(tr.scrollIntoView());

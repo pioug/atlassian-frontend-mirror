@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 7.0.1
+
+### Patch Changes
+
+- [`264716e45b5c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/264716e45b5c4) -
+  within the editor: ensures links pasted into image captions do not replace the selected text
+  content
+- Updated dependencies
+
 ## 7.0.0
 
 ### Patch Changes

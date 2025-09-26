@@ -14,7 +14,9 @@ import { type SettingsProps } from './types';
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#settings)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const Settings = forwardRef((props: SettingsProps, ref: React.Ref<any>) => {
+export const Settings: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SettingsProps> & React.RefAttributes<any>
+> = forwardRef((props: SettingsProps, ref: React.Ref<any>) => {
 	const {
 		component,
 		href,

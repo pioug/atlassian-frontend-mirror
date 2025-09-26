@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "15.0.0",
+	"version": "15.0.1",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -157,9 +157,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_fw_numcol_overflow_fix": {
-			"type": "boolean"
-		},
-		"platform_editor_nodevisibility_resize_sync": {
 			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {

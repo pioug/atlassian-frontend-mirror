@@ -9,6 +9,17 @@ export type FireAnalyticsEventOptions = {
 	immediate?: boolean;
 };
 
+// A base type for analytics event payloads
+export type BaseEventPayload = {
+	action: string;
+	actionSubject: string;
+	actionSubjectId?: string | null;
+	// Attributes can be any key-value pairs
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	attributes?: { [key: string]: any };
+	eventType: string;
+}
+
 export type EditorAnalyticsAPI = {
 	/**
 	 * attachAnalyticsEvent is used to attach an analytics payloads to a transaction
@@ -30,10 +41,20 @@ export type EditorAnalyticsAPI = {
 	 * @param {object} [options] - optional options object
 	 * @param {boolean} [options.immediate] - if true, fire the event immediately
 	 * @param {object} [options.context] - optional context object will include the selection data.
+	 * 
+	 * @example
+	 * You can also pass custom events using a special type signature:
+	 * ```ts
+	 * editorAnalyticsAPI.fireAnalyticsEvent<CustomEventType, 'customEventType'>(...);
+	 * ```
 	 */
-	fireAnalyticsEvent: (
+	fireAnalyticsEvent: (<Payload extends BaseEventPayload, CustomEventType extends 'customEventType' | false = false>(
+		payload: CustomEventType extends 'customEventType' ? Payload : never,
+		channel?: string,
+		options?: FireAnalyticsEventOptions,
+	) => void | undefined) & ((
 		payload: AnalyticsEventPayload,
 		channel?: string,
 		options?: FireAnalyticsEventOptions,
-	) => void | undefined;
+	) => void | undefined);
 };

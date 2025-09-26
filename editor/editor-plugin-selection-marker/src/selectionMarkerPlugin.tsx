@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -126,7 +127,7 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 					(editorDisabled ?? false) ||
 					(expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true) &&
 						(showToolbar ?? false)) ||
-					expValEquals('platform_editor_ai_aifc', 'isEnabled', true) ||
+					fg('aifc_create_enabled') ||
 					(!!hasDangerDecorations &&
 						expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
 						expValEqualsNoExposure(

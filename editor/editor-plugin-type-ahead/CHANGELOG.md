@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.1.0
+
+### Minor Changes
+
+- [`da1a70c14ac8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da1a70c14ac8b) -
+  [https://product-fabric.atlassian.net/browse/ED-27391](ED-27391) - clean up
+  platform_editor_typeahead_dynamic_height_fix FG
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

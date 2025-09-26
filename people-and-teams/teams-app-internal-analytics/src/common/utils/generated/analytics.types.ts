@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::2d0914551b7a5bd52432cf172a7e879e>>
+ * @codegen <<SignedSource::6024fcc7ef1f42316e17d04ed01ef565>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -980,6 +980,31 @@ export type ProfilecardClickedMoreActionsAttributesType = {
 	duration: number;
 	numActions: number;
 };
+export type TeamProfileCardClickedMoreActionsAttributesType = {
+	firedAt: number;
+	duration: number;
+	numActions: number;
+};
+export type TeamProfileCardClickedAvatarAttributesType = {
+	firedAt: number;
+	duration: number;
+	hasHref: boolean;
+	hasOnClick: boolean;
+	index: number;
+};
+export type TeamProfileCardClickedActionAttributesType = {
+	firedAt: number;
+	duration: number;
+	hasHref: boolean;
+	hasOnClick: boolean;
+	index: number;
+	actionId: string;
+};
+export type TeamProfileCardClickedMoreMembersAttributesType = {
+	firedAt: number;
+	duration: number;
+	memberCount: number;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -1626,6 +1651,18 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the more actions is clicked */
 	'ui.profilecard.clicked.moreActions': ProfilecardClickedMoreActionsAttributesType;
+	/**
+	 * fired when the more actions is clicked */
+	'ui.teamProfileCard.clicked.moreActions': TeamProfileCardClickedMoreActionsAttributesType;
+	/**
+	 * fired when the avatar is clicked */
+	'ui.teamProfileCard.clicked.avatar': TeamProfileCardClickedAvatarAttributesType;
+	/**
+	 * fired when the action is clicked */
+	'ui.teamProfileCard.clicked.action': TeamProfileCardClickedActionAttributesType;
+	/**
+	 * fired when the more members is clicked */
+	'ui.teamProfileCard.clicked.moreMembers': TeamProfileCardClickedMoreMembersAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

@@ -1,5 +1,13 @@
 # @atlaskit/tag
 
+## 14.1.9
+
+### Patch Changes
+
+- [`39e543109ec09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39e543109ec09) -
+  add type info to forwardRef components
+- Updated dependencies
+
 ## 14.1.8
 
 ### Patch Changes

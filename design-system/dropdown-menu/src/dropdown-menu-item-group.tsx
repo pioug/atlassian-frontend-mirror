@@ -11,7 +11,9 @@ import GroupTitle from './internal/components/group-title';
  * A wrapping element for dropdown menu items.
  *
  */
-const DropdownMenuItemGroup = forwardRef<HTMLElement, SectionProps>(
+const DropdownMenuItemGroup: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SectionProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, SectionProps>(
 	(
 		{ children, id, isList, isScrollable, title, testId, hasSeparator, ...rest }: SectionProps,
 		ref,

@@ -186,7 +186,7 @@ export const panelStyles: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const panelStylesMixin_fg_platform_editor_add_border_for_nested_panel: SerializedStyles =
+export const nestedPanelBorderStylesMixin: SerializedStyles =
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ProseMirror': {

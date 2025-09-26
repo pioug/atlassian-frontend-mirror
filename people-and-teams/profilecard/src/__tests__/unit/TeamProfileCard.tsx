@@ -3,7 +3,11 @@ import React from 'react';
 import { act, createEvent, fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import TeamProfileCard from '../../components/Team/TeamProfileCard';
+import { type AnalyticsFunctionNext } from '../../types';
 import {
 	actionClicked,
 	errorRetryClicked,
@@ -14,14 +18,18 @@ import {
 } from '../../util/analytics';
 
 const analyticsListener = jest.fn();
+const analyticsListenerNext = jest.fn();
 
 const analytics = (fn: (duration: number) => Record<string, any>) =>
 	analyticsListener(fn(SAMPLE_DURATION));
+const analyticsNext: AnalyticsFunctionNext = (eventKey, fn) =>
+	analyticsListenerNext(eventKey, fn(SAMPLE_DURATION));
 
 const SAMPLE_DURATION = 3.14159265;
 
 const defaultProps = {
 	analytics,
+	analyticsNext,
 	viewProfileLink: 'http://example.com/team/123',
 };
 
@@ -38,7 +46,7 @@ function randInt(min: number, max: number) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function flexiTime(event: Record<string, any>) {
+function flexiTime(event: Record<string, any>): AnalyticsEventPayload {
 	return {
 		...event,
 		attributes: {
@@ -62,108 +70,187 @@ const generateMembers = (n: number) => {
 };
 
 describe('TeamProfileCard', () => {
+	const spinnerLoadingEvent = flexiTime(
+		profileCardRendered('team', 'spinner', { duration: SAMPLE_DURATION }),
+	);
+	const errorEvent = flexiTime(profileCardRendered('team', 'error', { duration: SAMPLE_DURATION }));
+	const errorEventWithRetry = flexiTime(
+		profileCardRendered('team', 'error', { duration: SAMPLE_DURATION, hasRetry: true }),
+	);
+
+	const errorRetryEvent = flexiTime(errorRetryClicked({ duration: SAMPLE_DURATION }));
+	const contentEvent = flexiTime(
+		profileCardRendered('team', 'content', {
+			duration: SAMPLE_DURATION,
+			numActions: 1,
+			memberCount: 0,
+			includingYou: false,
+			descriptionLength: 6,
+			titleLength: 9,
+		}),
+	);
+
 	beforeEach(() => {
 		analyticsListener.mockReset();
+		analyticsListenerNext.mockReset();
 	});
 
-	it('should render spinner when isLoading is true', () => {
-		const { getByTestId } = renderWithIntl(<TeamProfileCard isLoading {...defaultProps} />);
+	ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+		it('should render spinner when isLoading is true', () => {
+			const { getByTestId } = renderWithIntl(<TeamProfileCard isLoading {...defaultProps} />);
 
-		const spinner = getByTestId('team-profilecard-spinner');
+			const spinner = getByTestId('team-profilecard-spinner');
 
-		expect(spinner).toBeDefined();
-		expect(analyticsListener).toHaveBeenCalledWith(
-			flexiTime(profileCardRendered('team', 'spinner', { duration: SAMPLE_DURATION })),
-		);
-	});
-
-	describe('Error state', () => {
-		it('should render error content when hasError is true', () => {
-			const { getByTestId } = renderWithIntl(
-				<TeamProfileCard hasError {...defaultProps} clientFetchProfile={() => null} />,
-			);
-
-			const errorView = getByTestId('team-profilecard-error');
-
-			expect(errorView).toBeDefined();
-			expect(analyticsListener).toHaveBeenCalledWith(
-				flexiTime(
-					profileCardRendered('team', 'error', {
-						duration: SAMPLE_DURATION,
-						hasRetry: true,
-					}),
-				),
-			);
+			expect(spinner).toBeDefined();
+			expect(analyticsListener).toHaveBeenCalledWith(spinnerLoadingEvent);
 		});
+		describe('Error state', () => {
+			it('should render error content when hasError is true', () => {
+				const { getByTestId } = renderWithIntl(
+					<TeamProfileCard hasError {...defaultProps} clientFetchProfile={() => null} />,
+				);
 
-		it('should call clientFetchProfile when re-fetch button is clicked', () => {
-			const clientFetchProfile = jest.fn();
-			const { getByTestId } = renderWithIntl(
-				<TeamProfileCard hasError {...defaultProps} clientFetchProfile={clientFetchProfile} />,
-			);
+				const errorView = getByTestId('team-profilecard-error');
 
-			act(() => {
-				fireEvent.click(getByTestId('client-fetch-profile-button'));
+				expect(errorView).toBeDefined();
+				expect(analyticsListener).toHaveBeenCalledWith(errorEventWithRetry);
 			});
 
-			expect(clientFetchProfile).toHaveBeenCalledTimes(1);
-			expect(analyticsListener).toHaveBeenCalledWith(
-				flexiTime(errorRetryClicked({ duration: SAMPLE_DURATION })),
-			);
+			it('should call clientFetchProfile when re-fetch button is clicked', () => {
+				const clientFetchProfile = jest.fn();
+				const { getByTestId } = renderWithIntl(
+					<TeamProfileCard hasError {...defaultProps} clientFetchProfile={clientFetchProfile} />,
+				);
+
+				act(() => {
+					fireEvent.click(getByTestId('client-fetch-profile-button'));
+				});
+
+				expect(clientFetchProfile).toHaveBeenCalledTimes(1);
+				expect(analyticsListener).toHaveBeenCalledWith(errorRetryEvent);
+			});
+
+			it('should render TeamsForbiddenErrorState when errorType is TEAMS_FORBIDDEN', () => {
+				const { getByTestId } = renderWithIntl(
+					<TeamProfileCard
+						hasError
+						errorType={{ reason: 'TEAMS_FORBIDDEN' }}
+						{...defaultProps}
+						clientFetchProfile={() => null}
+					/>,
+				);
+
+				const teamsForbiddenErrorState = getByTestId('team-profilecard-forbidden-error-state');
+
+				expect(teamsForbiddenErrorState).toBeDefined();
+				expect(analyticsListener).toHaveBeenCalledWith(errorEvent);
+			});
 		});
 
-		it('should render TeamsForbiddenErrorState when errorType is TEAMS_FORBIDDEN', () => {
-			const { getByTestId } = renderWithIntl(
+		it('should send content analytics when rendering successfully', () => {
+			const onClick = jest.fn();
+			renderWithIntl(
 				<TeamProfileCard
-					hasError
-					errorType={{ reason: 'TEAMS_FORBIDDEN' }}
 					{...defaultProps}
-					clientFetchProfile={() => null}
+					team={{
+						id: '123',
+						displayName: 'Team name',
+						description: 'A team',
+						members: [],
+					}}
+					viewProfileOnClick={onClick}
 				/>,
 			);
 
-			const teamsForbiddenErrorState = getByTestId('team-profilecard-forbidden-error-state');
-
-			expect(teamsForbiddenErrorState).toBeDefined();
-			expect(analyticsListener).toHaveBeenCalledWith(
-				flexiTime(
-					profileCardRendered('team', 'error', {
-						duration: SAMPLE_DURATION,
-					}),
-				),
-			);
+			expect(analyticsListener).toHaveBeenCalledWith(contentEvent);
 		});
 	});
 
-	it('should send content analytics when rendering successfully', () => {
-		const onClick = jest.fn();
-		renderWithIntl(
-			<TeamProfileCard
-				{...defaultProps}
-				team={{
-					id: '123',
-					displayName: 'Team name',
-					description: 'A team',
-					members: [],
-				}}
-				viewProfileOnClick={onClick}
-			/>,
-		);
+	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+		it('should render spinner when isLoading is true', () => {
+			const { getByTestId } = renderWithIntl(<TeamProfileCard isLoading {...defaultProps} />);
 
-		expect(analyticsListener).toHaveBeenCalledWith(
-			flexiTime(
-				profileCardRendered('team', 'content', {
-					duration: SAMPLE_DURATION,
-					numActions: 1,
-					memberCount: 0,
-					includingYou: false,
-					descriptionLength: 6,
-					titleLength: 9,
-				}),
-			),
-		);
+			const spinner = getByTestId('team-profilecard-spinner');
+
+			expect(spinner).toBeDefined();
+			expect(analyticsListenerNext).toHaveBeenCalledWith(
+				`ui.${spinnerLoadingEvent.actionSubject}.${spinnerLoadingEvent.action}.${spinnerLoadingEvent.actionSubjectId}`,
+				spinnerLoadingEvent.attributes,
+			);
+		});
+		describe('Error state', () => {
+			it('should render error content when hasError is true', () => {
+				const { getByTestId } = renderWithIntl(
+					<TeamProfileCard hasError {...defaultProps} clientFetchProfile={() => null} />,
+				);
+
+				const errorView = getByTestId('team-profilecard-error');
+
+				expect(errorView).toBeDefined();
+				expect(analyticsListenerNext).toHaveBeenCalledWith(
+					`ui.${errorEventWithRetry.actionSubject}.${errorEventWithRetry.action}.${errorEventWithRetry.actionSubjectId}`,
+					errorEventWithRetry.attributes,
+				);
+			});
+
+			it('should call clientFetchProfile when re-fetch button is clicked', () => {
+				const clientFetchProfile = jest.fn();
+				const { getByTestId } = renderWithIntl(
+					<TeamProfileCard hasError {...defaultProps} clientFetchProfile={clientFetchProfile} />,
+				);
+
+				act(() => {
+					fireEvent.click(getByTestId('client-fetch-profile-button'));
+				});
+
+				expect(clientFetchProfile).toHaveBeenCalledTimes(1);
+				expect(analyticsListenerNext).toHaveBeenCalledWith(
+					`ui.${errorRetryEvent.actionSubject}.${errorRetryEvent.action}.${errorRetryEvent.actionSubjectId}`,
+					errorRetryEvent.attributes,
+				);
+			});
+
+			it('should render TeamsForbiddenErrorState when errorType is TEAMS_FORBIDDEN', () => {
+				const { getByTestId } = renderWithIntl(
+					<TeamProfileCard
+						hasError
+						errorType={{ reason: 'TEAMS_FORBIDDEN' }}
+						{...defaultProps}
+						clientFetchProfile={() => null}
+					/>,
+				);
+
+				const teamsForbiddenErrorState = getByTestId('team-profilecard-forbidden-error-state');
+
+				expect(teamsForbiddenErrorState).toBeDefined();
+				expect(analyticsListenerNext).toHaveBeenCalledWith(
+					`ui.${errorEvent.actionSubject}.${errorEvent.action}.${errorEvent.actionSubjectId}`,
+					errorEvent.attributes,
+				);
+			});
+		});
+
+		it('should send content analytics when rendering successfully', () => {
+			const onClick = jest.fn();
+			renderWithIntl(
+				<TeamProfileCard
+					{...defaultProps}
+					team={{
+						id: '123',
+						displayName: 'Team name',
+						description: 'A team',
+						members: [],
+					}}
+					viewProfileOnClick={onClick}
+				/>,
+			);
+
+			expect(analyticsListenerNext).toHaveBeenCalledWith(
+				`ui.${contentEvent.actionSubject}.${contentEvent.action}.${contentEvent.actionSubjectId}`,
+				contentEvent.attributes,
+			);
+		});
 	});
-
 	describe('Action buttons', () => {
 		describe('Click behaviour (cmd+click, ctrl+click, etc)', () => {
 			const setupClickTest = () => {
@@ -260,38 +347,67 @@ describe('TeamProfileCard', () => {
 		});
 
 		describe('View profile button', () => {
-			it('should call viewProfileOnClick on click if provided', () => {
-				const onClick = jest.fn();
-				const { getByText } = renderWithIntl(
-					<TeamProfileCard
-						{...defaultProps}
-						team={{
-							id: '123',
-							displayName: 'Team name',
-							description: 'A team',
-						}}
-						viewProfileOnClick={onClick}
-					/>,
-				);
+			const viewProfileEvent = flexiTime(
+				actionClicked('team', {
+					duration: SAMPLE_DURATION,
+					hasHref: true,
+					hasOnClick: true,
+					index: 0,
+					actionId: 'view-profile',
+				}),
+			);
+			ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+				it('should call viewProfileOnClick on click if provided', () => {
+					const onClick = jest.fn();
+					const { getByText } = renderWithIntl(
+						<TeamProfileCard
+							{...defaultProps}
+							team={{
+								id: '123',
+								displayName: 'Team name',
+								description: 'A team',
+							}}
+							viewProfileOnClick={onClick}
+						/>,
+					);
 
-				const button = getByText('View profile');
+					const button = getByText('View profile');
 
-				act(() => {
-					fireEvent.click(button);
+					act(() => {
+						fireEvent.click(button);
+					});
+
+					expect(onClick).toHaveBeenCalledTimes(1);
+					expect(analyticsListener).toHaveBeenCalledWith(viewProfileEvent);
 				});
+			});
+			ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+				it('should call viewProfileOnClick on click if provided', () => {
+					const onClick = jest.fn();
+					const { getByText } = renderWithIntl(
+						<TeamProfileCard
+							{...defaultProps}
+							team={{
+								id: '123',
+								displayName: 'Team name',
+								description: 'A team',
+							}}
+							viewProfileOnClick={onClick}
+						/>,
+					);
 
-				expect(onClick).toHaveBeenCalledTimes(1);
-				expect(analyticsListener).toHaveBeenCalledWith(
-					flexiTime(
-						actionClicked('team', {
-							duration: SAMPLE_DURATION,
-							hasHref: true,
-							hasOnClick: true,
-							index: 0,
-							actionId: 'view-profile',
-						}),
-					),
-				);
+					const button = getByText('View profile');
+
+					act(() => {
+						fireEvent.click(button);
+					});
+
+					expect(onClick).toHaveBeenCalledTimes(1);
+					expect(analyticsListenerNext).toHaveBeenCalledWith(
+						`ui.${viewProfileEvent.actionSubject}.${viewProfileEvent.action}.${viewProfileEvent.actionSubjectId}`,
+						viewProfileEvent.attributes,
+					);
+				});
 			});
 
 			it('should have appropriate href', () => {
@@ -356,64 +472,158 @@ describe('TeamProfileCard', () => {
 			expect(callback).toHaveBeenCalledTimes(1);
 		});
 
-		it('should open dropdown when more button clicked', () => {
-			const firstCallback = jest.fn();
-			const secondCallback = jest.fn();
-			const { getByTestId, getByText, queryByText } = renderWithIntl(
-				<TeamProfileCard
-					{...defaultProps}
-					team={{
-						id: '123',
-						displayName: 'Team name',
-						description: 'A team',
-					}}
-					actions={[
-						{
-							label: 'First extra',
-							id: 'first-extra',
-							callback: firstCallback,
-						},
-						{
-							label: 'Second extra',
-							id: 'second-extra',
-							callback: secondCallback,
-						},
-					]}
-				/>,
-			);
+		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+			it('should open dropdown when more button clicked', () => {
+				const firstCallback = jest.fn();
+				const secondCallback = jest.fn();
+				const { getByTestId, getByText, queryByText } = renderWithIntl(
+					<TeamProfileCard
+						{...defaultProps}
+						team={{
+							id: '123',
+							displayName: 'Team name',
+							description: 'A team',
+						}}
+						actions={[
+							{
+								label: 'First extra',
+								id: 'first-extra',
+								callback: firstCallback,
+							},
+							{
+								label: 'Second extra',
+								id: 'second-extra',
+								callback: secondCallback,
+							},
+						]}
+					/>,
+				);
 
-			const moreButton = getByTestId('more-actions-button');
+				const moreButton = getByTestId('more-actions-button');
 
-			expect(getByText('View profile')).toBeDefined();
-			expect(moreButton).toBeDefined();
+				expect(getByText('View profile')).toBeDefined();
+				expect(moreButton).toBeDefined();
 
-			expect(getByText('First extra')).toBeDefined();
+				expect(getByText('First extra')).toBeDefined();
 
-			expect(queryByText('Second extra')).toBe(null);
+				expect(queryByText('Second extra')).toBe(null);
 
-			act(() => {
-				fireEvent.click(moreButton);
+				act(() => {
+					fireEvent.click(moreButton);
+				});
+
+				expect(analyticsListener).toHaveBeenCalledWith(
+					flexiTime(
+						moreActionsClicked('team', {
+							duration: SAMPLE_DURATION,
+							numActions: 3,
+						}),
+					),
+				);
+
+				expect(getByText('First extra')).toBeDefined();
+
+				expect(getByText('Second extra')).toBeDefined();
+
+				act(() => {
+					fireEvent.click(getByText('Second extra'));
+				});
+
+				expect(analyticsListener).toHaveBeenCalledWith(
+					flexiTime(
+						actionClicked('team', {
+							duration: SAMPLE_DURATION,
+							hasHref: false,
+							hasOnClick: true,
+							index: 2,
+							actionId: 'second-extra',
+						}),
+					),
+				);
+
+				expect(firstCallback).toHaveBeenCalledTimes(0);
+				expect(secondCallback).toHaveBeenCalledTimes(1);
+
+				act(() => {
+					fireEvent.click(getByText('First extra'));
+				});
+
+				expect(analyticsListener).toHaveBeenCalledWith(
+					flexiTime(
+						actionClicked('team', {
+							duration: SAMPLE_DURATION,
+							hasHref: false,
+							hasOnClick: true,
+							index: 1,
+							actionId: 'first-extra',
+						}),
+					),
+				);
+
+				expect(firstCallback).toHaveBeenCalledTimes(1);
+				expect(secondCallback).toHaveBeenCalledTimes(1);
 			});
+		});
+		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+			it('should open dropdown when more button clicked', () => {
+				const firstCallback = jest.fn();
+				const secondCallback = jest.fn();
+				const { getByTestId, getByText, queryByText } = renderWithIntl(
+					<TeamProfileCard
+						{...defaultProps}
+						team={{
+							id: '123',
+							displayName: 'Team name',
+							description: 'A team',
+						}}
+						actions={[
+							{
+								label: 'First extra',
+								id: 'first-extra',
+								callback: firstCallback,
+							},
+							{
+								label: 'Second extra',
+								id: 'second-extra',
+								callback: secondCallback,
+							},
+						]}
+					/>,
+				);
 
-			expect(analyticsListener).toHaveBeenCalledWith(
-				flexiTime(
+				const moreButton = getByTestId('more-actions-button');
+
+				expect(getByText('View profile')).toBeDefined();
+				expect(moreButton).toBeDefined();
+
+				expect(getByText('First extra')).toBeDefined();
+
+				expect(queryByText('Second extra')).toBe(null);
+
+				act(() => {
+					fireEvent.click(moreButton);
+				});
+
+				const moreActionsEvent = flexiTime(
 					moreActionsClicked('team', {
 						duration: SAMPLE_DURATION,
 						numActions: 3,
 					}),
-				),
-			);
+				);
+				expect(analyticsListenerNext).toHaveBeenCalledWith(
+					`ui.${moreActionsEvent.actionSubject}.${moreActionsEvent.action}.${moreActionsEvent.actionSubjectId}`,
+					moreActionsEvent.attributes,
+				);
 
-			expect(getByText('First extra')).toBeDefined();
+				expect(getByText('First extra')).toBeDefined();
 
-			expect(getByText('Second extra')).toBeDefined();
+				expect(getByText('Second extra')).toBeDefined();
 
-			act(() => {
-				fireEvent.click(getByText('Second extra'));
-			});
+				act(() => {
+					fireEvent.click(getByText('Second extra'));
+				});
 
-			expect(analyticsListener).toHaveBeenCalledWith(
-				flexiTime(
+				const actionEvent = flexiTime(
 					actionClicked('team', {
 						duration: SAMPLE_DURATION,
 						hasHref: false,
@@ -421,18 +631,20 @@ describe('TeamProfileCard', () => {
 						index: 2,
 						actionId: 'second-extra',
 					}),
-				),
-			);
+				);
+				expect(analyticsListenerNext).toHaveBeenCalledWith(
+					`ui.${actionEvent.actionSubject}.${actionEvent.action}.${actionEvent.actionSubjectId}`,
+					actionEvent.attributes,
+				);
 
-			expect(firstCallback).toHaveBeenCalledTimes(0);
-			expect(secondCallback).toHaveBeenCalledTimes(1);
+				expect(firstCallback).toHaveBeenCalledTimes(0);
+				expect(secondCallback).toHaveBeenCalledTimes(1);
 
-			act(() => {
-				fireEvent.click(getByText('First extra'));
-			});
+				act(() => {
+					fireEvent.click(getByText('First extra'));
+				});
 
-			expect(analyticsListener).toHaveBeenCalledWith(
-				flexiTime(
+				const actionEventIndex1 = flexiTime(
 					actionClicked('team', {
 						duration: SAMPLE_DURATION,
 						hasHref: false,
@@ -440,11 +652,16 @@ describe('TeamProfileCard', () => {
 						index: 1,
 						actionId: 'first-extra',
 					}),
-				),
-			);
+				);
 
-			expect(firstCallback).toHaveBeenCalledTimes(1);
-			expect(secondCallback).toHaveBeenCalledTimes(1);
+				expect(analyticsListenerNext).toHaveBeenCalledWith(
+					`ui.${actionEventIndex1.actionSubject}.${actionEventIndex1.action}.${actionEventIndex1.actionSubjectId}`,
+					actionEventIndex1.attributes,
+				);
+
+				expect(firstCallback).toHaveBeenCalledTimes(1);
+				expect(secondCallback).toHaveBeenCalledTimes(1);
+			});
 		});
 	});
 
@@ -560,50 +777,98 @@ describe('TeamProfileCard', () => {
 			expect(getByText('50+ members, including you', { exact: false })).toBeDefined();
 		});
 
-		it('should be able to expand to find a list of all members', () => {
-			const NUM_MEMBERS = 11;
-			const members = generateMembers(NUM_MEMBERS - 1).concat({
-				id: 'abcd',
-				fullName: 'Simple name',
-				avatarUrl: '',
+		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+			it('should be able to expand to find a list of all members', () => {
+				const NUM_MEMBERS = 11;
+				const members = generateMembers(NUM_MEMBERS - 1).concat({
+					id: 'abcd',
+					fullName: 'Simple name',
+					avatarUrl: '',
+				});
+
+				const { getByText, queryByText } = renderWithIntl(
+					<TeamProfileCard
+						{...defaultProps}
+						team={{
+							id: '123',
+							displayName: 'Team name',
+							description: 'A team',
+							members,
+						}}
+					/>,
+				);
+
+				expect(queryByText('Simple name')).toBe(null);
+
+				expect(getByText('+3')).toBeDefined();
+
+				act(() => {
+					fireEvent.click(getByText('+3'));
+				});
+
+				expect(getByText('Simple name')).toBeDefined();
+
+				expect(analyticsListener).toHaveBeenCalledWith(
+					flexiTime(
+						moreMembersClicked({
+							duration: SAMPLE_DURATION,
+							memberCount: NUM_MEMBERS,
+						}),
+					),
+				);
 			});
+		});
 
-			const { getByText, queryByText } = renderWithIntl(
-				<TeamProfileCard
-					{...defaultProps}
-					team={{
-						id: '123',
-						displayName: 'Team name',
-						description: 'A team',
-						members,
-					}}
-				/>,
-			);
+		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+			it('should be able to expand to find a list of all members', () => {
+				const NUM_MEMBERS = 11;
+				const members = generateMembers(NUM_MEMBERS - 1).concat({
+					id: 'abcd',
+					fullName: 'Simple name',
+					avatarUrl: '',
+				});
 
-			expect(queryByText('Simple name')).toBe(null);
+				const { getByText, queryByText } = renderWithIntl(
+					<TeamProfileCard
+						{...defaultProps}
+						team={{
+							id: '123',
+							displayName: 'Team name',
+							description: 'A team',
+							members,
+						}}
+					/>,
+				);
 
-			expect(getByText('+3')).toBeDefined();
+				expect(queryByText('Simple name')).toBe(null);
 
-			act(() => {
-				fireEvent.click(getByText('+3'));
-			});
+				expect(getByText('+3')).toBeDefined();
 
-			expect(getByText('Simple name')).toBeDefined();
+				act(() => {
+					fireEvent.click(getByText('+3'));
+				});
 
-			expect(analyticsListener).toHaveBeenCalledWith(
-				flexiTime(
+				expect(getByText('Simple name')).toBeDefined();
+
+				const moreMembersEvent = flexiTime(
 					moreMembersClicked({
 						duration: SAMPLE_DURATION,
 						memberCount: NUM_MEMBERS,
 					}),
-				),
-			);
+				);
+
+				expect(analyticsListenerNext).toHaveBeenCalledWith(
+					`ui.${moreMembersEvent.actionSubject}.${moreMembersEvent.action}.${moreMembersEvent.actionSubjectId}`,
+					moreMembersEvent.attributes,
+				);
+			});
 		});
 	});
 
 	describe('Avatar group', () => {
 		beforeEach(() => {
 			analyticsListener.mockReset();
+			analyticsListenerNext.mockReset();
 		});
 
 		it('should show expected href on avatars', () => {
@@ -632,150 +897,308 @@ describe('TeamProfileCard', () => {
 			);
 		});
 
-		it('should fire analytics on avatar click', () => {
-			const members = generateMembers(3);
+		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+			it('should fire analytics on avatar click', () => {
+				const members = generateMembers(3);
 
-			const { getByRole } = renderWithIntl(
-				<TeamProfileCard
-					{...defaultProps}
-					team={{
-						id: '123',
-						displayName: 'Team name',
-						description: 'A team',
-						members,
-					}}
-				/>,
-			);
+				const { getByRole } = renderWithIntl(
+					<TeamProfileCard
+						{...defaultProps}
+						team={{
+							id: '123',
+							displayName: 'Team name',
+							description: 'A team',
+							members,
+						}}
+					/>,
+				);
 
-			act(() => {
-				fireEvent.click(getByRole('button', { name: members[0].fullName }));
+				act(() => {
+					fireEvent.click(getByRole('button', { name: members[0].fullName }));
+				});
+
+				expect(analyticsListener).toHaveBeenCalledWith(
+					flexiTime(
+						teamAvatarClicked({
+							duration: SAMPLE_DURATION,
+							hasOnClick: false,
+							hasHref: false,
+							index: 0,
+						}),
+					),
+				);
 			});
 
-			expect(analyticsListener).toHaveBeenCalledWith(
-				flexiTime(
+			it('should fire analytics on avatar click when href is provided', () => {
+				const members = generateMembers(3);
+
+				const generateUserLink = (userId: string) => `https://example.com/user/${userId}`;
+
+				const { getByRole } = renderWithIntl(
+					<TeamProfileCard
+						{...defaultProps}
+						team={{
+							id: '123',
+							displayName: 'Team name',
+							description: 'A team',
+							members,
+						}}
+						generateUserLink={generateUserLink}
+					/>,
+				);
+
+				act(() => {
+					fireEvent.click(getByRole('link', { name: members[0].fullName }));
+				});
+
+				expect(analyticsListener).toHaveBeenCalledWith(
+					flexiTime(
+						teamAvatarClicked({
+							duration: SAMPLE_DURATION,
+							hasOnClick: false,
+							hasHref: true,
+							index: 0,
+						}),
+					),
+				);
+			});
+
+			it('should fire analytics on avatar click when onClick is provided and call onClick', () => {
+				const members = generateMembers(3);
+
+				const onUserClick = jest.fn();
+
+				const { getByRole } = renderWithIntl(
+					<TeamProfileCard
+						{...defaultProps}
+						team={{
+							id: '123',
+							displayName: 'Team name',
+							description: 'A team',
+							members,
+						}}
+						onUserClick={onUserClick}
+					/>,
+				);
+
+				act(() => {
+					fireEvent.click(getByRole('button', { name: members[0].fullName }));
+				});
+
+				expect(analyticsListener).toHaveBeenCalledWith(
+					flexiTime(
+						teamAvatarClicked({
+							duration: SAMPLE_DURATION,
+							hasOnClick: true,
+							hasHref: false,
+							index: 0,
+						}),
+					),
+				);
+
+				expect(onUserClick).toHaveBeenCalledWith(members[0].id, expect.anything());
+			});
+
+			it('should fire analytics on avatar click when onClick and link are provided and call onClick', () => {
+				const members = generateMembers(3);
+
+				const onUserClick = jest.fn();
+
+				const generateUserLink = (userId: string) => `https://example.com/user/${userId}`;
+
+				const { getByRole } = renderWithIntl(
+					<TeamProfileCard
+						{...defaultProps}
+						team={{
+							id: '123',
+							displayName: 'Team name',
+							description: 'A team',
+							members,
+						}}
+						onUserClick={onUserClick}
+						generateUserLink={generateUserLink}
+					/>,
+				);
+
+				const avatarLink = getByRole('link', { name: members[0].fullName });
+
+				act(() => {
+					fireEvent.click(avatarLink);
+				});
+
+				expect(analyticsListener).toHaveBeenCalledWith(
+					flexiTime(
+						teamAvatarClicked({
+							duration: SAMPLE_DURATION,
+							hasOnClick: true,
+							hasHref: true,
+							index: 0,
+						}),
+					),
+				);
+
+				expect(onUserClick).toHaveBeenCalledWith(members[0].id, expect.anything());
+
+				const expectedLink = generateUserLink(members[0].id);
+
+				expect(avatarLink).toHaveAttribute('href', expectedLink);
+			});
+		});
+
+		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+			it('should fire analytics on avatar click', () => {
+				const members = generateMembers(3);
+
+				const { getByRole } = renderWithIntl(
+					<TeamProfileCard
+						{...defaultProps}
+						team={{
+							id: '123',
+							displayName: 'Team name',
+							description: 'A team',
+							members,
+						}}
+					/>,
+				);
+
+				act(() => {
+					fireEvent.click(getByRole('button', { name: members[0].fullName }));
+				});
+
+				const teamAvatarEvent = flexiTime(
 					teamAvatarClicked({
 						duration: SAMPLE_DURATION,
 						hasOnClick: false,
 						hasHref: false,
 						index: 0,
 					}),
-				),
-			);
-		});
-
-		it('should fire analytics on avatar click when href is provided', () => {
-			const members = generateMembers(3);
-
-			const generateUserLink = (userId: string) => `https://example.com/user/${userId}`;
-
-			const { getByRole } = renderWithIntl(
-				<TeamProfileCard
-					{...defaultProps}
-					team={{
-						id: '123',
-						displayName: 'Team name',
-						description: 'A team',
-						members,
-					}}
-					generateUserLink={generateUserLink}
-				/>,
-			);
-
-			act(() => {
-				fireEvent.click(getByRole('link', { name: members[0].fullName }));
+				);
+				expect(analyticsListenerNext).toHaveBeenCalledWith(
+					`ui.${teamAvatarEvent.actionSubject}.${teamAvatarEvent.action}.${teamAvatarEvent.actionSubjectId}`,
+					teamAvatarEvent.attributes,
+				);
 			});
 
-			expect(analyticsListener).toHaveBeenCalledWith(
-				flexiTime(
+			it('should fire analytics on avatar click when href is provided', () => {
+				const members = generateMembers(3);
+
+				const generateUserLink = (userId: string) => `https://example.com/user/${userId}`;
+
+				const { getByRole } = renderWithIntl(
+					<TeamProfileCard
+						{...defaultProps}
+						team={{
+							id: '123',
+							displayName: 'Team name',
+							description: 'A team',
+							members,
+						}}
+						generateUserLink={generateUserLink}
+					/>,
+				);
+
+				act(() => {
+					fireEvent.click(getByRole('link', { name: members[0].fullName }));
+				});
+
+				const teamAvatarEvent = flexiTime(
 					teamAvatarClicked({
 						duration: SAMPLE_DURATION,
 						hasOnClick: false,
 						hasHref: true,
 						index: 0,
 					}),
-				),
-			);
-		});
-
-		it('should fire analytics on avatar click when onClick is provided and call onClick', () => {
-			const members = generateMembers(3);
-
-			const onUserClick = jest.fn();
-
-			const { getByRole } = renderWithIntl(
-				<TeamProfileCard
-					{...defaultProps}
-					team={{
-						id: '123',
-						displayName: 'Team name',
-						description: 'A team',
-						members,
-					}}
-					onUserClick={onUserClick}
-				/>,
-			);
-
-			act(() => {
-				fireEvent.click(getByRole('button', { name: members[0].fullName }));
+				);
+				expect(analyticsListenerNext).toHaveBeenCalledWith(
+					`ui.${teamAvatarEvent.actionSubject}.${teamAvatarEvent.action}.${teamAvatarEvent.actionSubjectId}`,
+					teamAvatarEvent.attributes,
+				);
 			});
 
-			expect(analyticsListener).toHaveBeenCalledWith(
-				flexiTime(
+			it('should fire analytics on avatar click when onClick is provided and call onClick', () => {
+				const members = generateMembers(3);
+
+				const onUserClick = jest.fn();
+
+				const { getByRole } = renderWithIntl(
+					<TeamProfileCard
+						{...defaultProps}
+						team={{
+							id: '123',
+							displayName: 'Team name',
+							description: 'A team',
+							members,
+						}}
+						onUserClick={onUserClick}
+					/>,
+				);
+
+				act(() => {
+					fireEvent.click(getByRole('button', { name: members[0].fullName }));
+				});
+
+				const teamAvatarEvent = flexiTime(
 					teamAvatarClicked({
 						duration: SAMPLE_DURATION,
 						hasOnClick: true,
 						hasHref: false,
 						index: 0,
 					}),
-				),
-			);
+				);
+				expect(analyticsListenerNext).toHaveBeenCalledWith(
+					`ui.${teamAvatarEvent.actionSubject}.${teamAvatarEvent.action}.${teamAvatarEvent.actionSubjectId}`,
+					teamAvatarEvent.attributes,
+				);
 
-			expect(onUserClick).toHaveBeenCalledWith(members[0].id, expect.anything());
-		});
-
-		it('should fire analytics on avatar click when onClick and link are provided and call onClick', () => {
-			const members = generateMembers(3);
-
-			const onUserClick = jest.fn();
-
-			const generateUserLink = (userId: string) => `https://example.com/user/${userId}`;
-
-			const { getByRole } = renderWithIntl(
-				<TeamProfileCard
-					{...defaultProps}
-					team={{
-						id: '123',
-						displayName: 'Team name',
-						description: 'A team',
-						members,
-					}}
-					onUserClick={onUserClick}
-					generateUserLink={generateUserLink}
-				/>,
-			);
-
-			const avatarLink = getByRole('link', { name: members[0].fullName });
-
-			act(() => {
-				fireEvent.click(avatarLink);
+				expect(onUserClick).toHaveBeenCalledWith(members[0].id, expect.anything());
 			});
 
-			expect(analyticsListener).toHaveBeenCalledWith(
-				flexiTime(
+			it('should fire analytics on avatar click when onClick and link are provided and call onClick', () => {
+				const members = generateMembers(3);
+
+				const onUserClick = jest.fn();
+
+				const generateUserLink = (userId: string) => `https://example.com/user/${userId}`;
+
+				const { getByRole } = renderWithIntl(
+					<TeamProfileCard
+						{...defaultProps}
+						team={{
+							id: '123',
+							displayName: 'Team name',
+							description: 'A team',
+							members,
+						}}
+						onUserClick={onUserClick}
+						generateUserLink={generateUserLink}
+					/>,
+				);
+
+				const avatarLink = getByRole('link', { name: members[0].fullName });
+
+				act(() => {
+					fireEvent.click(avatarLink);
+				});
+
+				const teamAvatarEvent = flexiTime(
 					teamAvatarClicked({
 						duration: SAMPLE_DURATION,
 						hasOnClick: true,
 						hasHref: true,
 						index: 0,
 					}),
-				),
-			);
+				);
+				expect(analyticsListenerNext).toHaveBeenCalledWith(
+					`ui.${teamAvatarEvent.actionSubject}.${teamAvatarEvent.action}.${teamAvatarEvent.actionSubjectId}`,
+					teamAvatarEvent.attributes,
+				);
 
-			expect(onUserClick).toHaveBeenCalledWith(members[0].id, expect.anything());
+				expect(onUserClick).toHaveBeenCalledWith(members[0].id, expect.anything());
 
-			const expectedLink = generateUserLink(members[0].id);
+				const expectedLink = generateUserLink(members[0].id);
 
-			expect(avatarLink).toHaveAttribute('href', expectedLink);
+				expect(avatarLink).toHaveAttribute('href', expectedLink);
+			});
 		});
 	});
 });

@@ -70,7 +70,9 @@ const tooltipStyles = cssMap({
 	},
 });
 
-const MenuItemTooltip = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(function MenuItemTooltip(
+const MenuItemTooltip: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<TooltipPrimitiveProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(function MenuItemTooltip(
 	{ children, className, ...rest },
 	ref,
 ) {

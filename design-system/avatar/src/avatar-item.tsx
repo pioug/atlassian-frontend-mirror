@@ -145,7 +145,9 @@ export interface AvatarItemProps {
  * - [Examples](https://atlassian.design/components/avatar/avatar-item/examples)
  * - [Code](https://atlassian.design/components/avatar/avatar-item/code)
  */
-const AvatarItem = forwardRef<HTMLElement, AvatarItemProps>(
+const AvatarItem: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<AvatarItemProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, AvatarItemProps>(
 	(
 		{
 			avatar,

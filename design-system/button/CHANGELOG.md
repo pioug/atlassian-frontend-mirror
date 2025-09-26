@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 23.4.10
+
+### Patch Changes
+
+- [`39e543109ec09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39e543109ec09) -
+  add type info to forwardRef components
+- Updated dependencies
+
 ## 23.4.9
 
 ### Patch Changes

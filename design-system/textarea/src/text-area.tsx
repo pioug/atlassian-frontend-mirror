@@ -278,7 +278,9 @@ const setSmartHeight = (el: HTMLTextAreaElement) => {
 	el.style.height = `${borderBoxHeight}px`;
 };
 
-const InnerTextArea = forwardRef((props: TextAreaProps, ref) => {
+const InnerTextArea: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<TextAreaProps> & React.RefAttributes<HTMLElement>
+> = forwardRef((props: TextAreaProps, ref) => {
 	const ourRef = useRef<HTMLTextAreaElement | null>(null);
 
 	const {

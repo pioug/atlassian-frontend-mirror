@@ -33,6 +33,7 @@ export {
 	IconThreeColumnLayout,
 	IconFourColumnLayout,
 	IconFiveColumnLayout,
+	IconSyncBlock,
 } from './assets';
 
 export { default as IconCustomPanel } from './assets/custom-panel';

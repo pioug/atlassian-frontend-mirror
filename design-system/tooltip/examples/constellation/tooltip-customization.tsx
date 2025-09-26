@@ -24,7 +24,9 @@ const styles = cssMap({
 	},
 });
 
-const CustomTooltip = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(function CustomTooltip(
+const CustomTooltip: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<TooltipPrimitiveProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(function CustomTooltip(
 	{ children, className, ...rest },
 	ref,
 ) {

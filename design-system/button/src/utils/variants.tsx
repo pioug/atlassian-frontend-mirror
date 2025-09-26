@@ -56,7 +56,10 @@ export type Variant =
 	| LinkIconButtonVariant;
 
 // Add required default props to variants
-const LinkButtonRender = forwardRef(
+const LinkButtonRender: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<Omit<LinkButtonProps, 'href'> & { href?: LinkButtonProps['href'] }> &
+		React.RefAttributes<HTMLAnchorElement>
+> = forwardRef(
 	(
 		{
 			href = 'home',
@@ -73,7 +76,15 @@ const LinkButtonRender = forwardRef(
 	),
 );
 
-const IconButtonRender = forwardRef(
+const IconButtonRender: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<
+		Omit<IconButtonProps, 'icon' | 'label'> & {
+			icon?: IconButtonProps['icon'];
+			label?: IconButtonProps['label'];
+		}
+	> &
+		React.RefAttributes<HTMLButtonElement>
+> = forwardRef(
 	(
 		{
 			icon = StarFilledIcon,
@@ -87,7 +98,16 @@ const IconButtonRender = forwardRef(
 	) => <IconButton ref={ref} icon={icon} label={label} {...rest} />,
 );
 
-const LinkIconButtonRender = forwardRef(
+const LinkIconButtonRender: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<
+		Omit<LinkIconButtonProps, 'href' | 'icon' | 'label'> & {
+			href?: LinkIconButtonProps['href'];
+			icon?: LinkIconButtonProps['icon'];
+			label?: LinkIconButtonProps['label'];
+		}
+	> &
+		React.RefAttributes<HTMLAnchorElement>
+> = forwardRef(
 	(
 		{
 			href = 'home',

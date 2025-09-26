@@ -16,7 +16,9 @@ export interface AvatarGroupItemProps {
 	testId?: string;
 }
 
-const AvatarGroupItem = forwardRef<HTMLElement, AvatarGroupItemProps>((props, ref) => {
+const AvatarGroupItem: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<AvatarGroupItemProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, AvatarGroupItemProps>((props, ref) => {
 	const { avatar, index, onAvatarClick, testId } = props;
 	const {
 		analyticsContext,

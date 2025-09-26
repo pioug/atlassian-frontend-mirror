@@ -83,7 +83,9 @@ type DateTimePickerContainerProps = {
 /**
  * This is the container for the datetime picker component.
  */
-export const DateTimePickerContainer = forwardRef<HTMLDivElement, DateTimePickerContainerProps>(
+export const DateTimePickerContainer: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<DateTimePickerContainerProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, DateTimePickerContainerProps>(
 	({ children, isDisabled, isFocused, appearance, isInvalid, innerProps, testId }, ref) => {
 		const notFocusedOrIsDisabled = !(isFocused || isDisabled);
 

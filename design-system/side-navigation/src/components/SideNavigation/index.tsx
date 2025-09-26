@@ -66,31 +66,31 @@ const sideNavStyles = css({
  * - [Code](https://atlassian.design/components/side-navigation/code)
  * - [Usage](https://atlassian.design/components/side-navigation/usage)
  */
-const SideNavigation = forwardRef<HTMLElement, SideNavigationProps>(
-	(props: SideNavigationProps, ref) => {
-		const { children, testId, label, isServer = false, isSSRPlaceholderEnabled = false } = props;
-		return (
-			<nav
-				ref={ref}
-				data-testid={testId}
-				aria-label={label}
-				css={sideNavStyles}
-				data-vc={`side-navigation${isServer ? '-ssr' : ''}`}
-				{...(isServer &&
-					isSSRPlaceholderEnabled && {
-						'data-ssr-placeholder': 'side-navigation-placeholder',
-					})}
-				{...(!isServer &&
-					isSSRPlaceholderEnabled && {
-						'data-ssr-placeholder-replace': 'side-navigation-placeholder',
-					})}
-			>
-				<SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="notch">
-					{children}
-				</SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
-			</nav>
-		);
-	},
-);
+const SideNavigation: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SideNavigationProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, SideNavigationProps>((props: SideNavigationProps, ref) => {
+	const { children, testId, label, isServer = false, isSSRPlaceholderEnabled = false } = props;
+	return (
+		<nav
+			ref={ref}
+			data-testid={testId}
+			aria-label={label}
+			css={sideNavStyles}
+			data-vc={`side-navigation${isServer ? '-ssr' : ''}`}
+			{...(isServer &&
+				isSSRPlaceholderEnabled && {
+					'data-ssr-placeholder': 'side-navigation-placeholder',
+				})}
+			{...(!isServer &&
+				isSSRPlaceholderEnabled && {
+					'data-ssr-placeholder-replace': 'side-navigation-placeholder',
+				})}
+		>
+			<SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="notch">
+				{children}
+			</SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
+		</nav>
+	);
+});
 
 export default SideNavigation;

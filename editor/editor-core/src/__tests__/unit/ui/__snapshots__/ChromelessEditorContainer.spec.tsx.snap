@@ -33,7 +33,7 @@ exports[`ChromelessEditorContainer should have correct styles for new container 
 
 .emotion-0:hover::-webkit-scrollbar-thumb {
   background-color: var(--ds-background-neutral-bold, #44546F);
-  border-radius: 8px;
+  border-radius: var(--ds-radius-large, 8px);
 }
 
 .emotion-0::-webkit-scrollbar-thumb:hover {
@@ -87,7 +87,7 @@ exports[`ChromelessEditorContainer should have correct styles for new container 
 
 .emotion-0:hover::-webkit-scrollbar-thumb {
   background-color: var(--ds-background-neutral-bold, #44546F);
-  border-radius: 8px;
+  border-radius: var(--ds-radius-large, 8px);
 }
 
 .emotion-0::-webkit-scrollbar-thumb:hover {

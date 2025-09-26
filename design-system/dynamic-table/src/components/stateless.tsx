@@ -270,7 +270,9 @@ const RankableTableBody = lazy(
 	() => import(/* webpackChunkName: '@atlaskit-internal_dynamic-table' */ './rankable/body'),
 );
 
-const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(function TableBody(
+const TableBody: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<TableBodyProps> & React.RefAttributes<HTMLTableSectionElement>
+> = forwardRef<HTMLTableSectionElement, TableBodyProps>(function TableBody(
 	{ isRankable = false, isRanking, onRankStart, onRankEnd, isRankingDisabled, ...bodyProps },
 	ref,
 ) {

@@ -20,7 +20,6 @@ import { type ExtractInjectionAPI, type TypeAheadItem } from '@atlaskit/editor-c
 import { AssistiveText } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -357,67 +356,35 @@ const TypeAheadListComponent = React.memo(
 			const currentItem = items[index];
 			return (
 				<CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
-					{fg('platform_editor_typeahead_dynamic_height_fix') ? (
-						({ measure, registerChild }) => (
-							<ListRow
-								registerChild={registerChild}
-								measure={measure}
-								index={index}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-								style={style}
-								isVisible={isVisible}
-								isScrolling={isScrolling}
-								onMouseMove={(e) => onMouseMove(e, index)}
-							>
-								<TypeAheadListItem
-									key={items[index].title}
-									item={currentItem}
-									firstOnlineSupportedIndex={firstOnlineSupportedRow}
-									itemsLength={itemsLength}
-									itemIndex={index}
-									selectedIndex={selectedIndex}
-									onItemClick={(mode: SelectItemMode, index: number) => {
-										actions.onItemClick(mode, index, INPUT_METHOD.MOUSE);
-									}}
-									ariaLabel={
-										getTypeAheadListAriaLabels(triggerHandler?.trigger, intl, currentItem)
-											.listItemAriaLabel
-									}
-									moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
-									api={api}
-								/>
-							</ListRow>
-						)
-					) : (
-						<div
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					{({ measure, registerChild }) => (
+						<ListRow
+							registerChild={registerChild}
+							measure={measure}
+							index={index}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 							style={style}
-							data-index={index}
+							isVisible={isVisible}
+							isScrolling={isScrolling}
+							onMouseMove={(e) => onMouseMove(e, index)}
 						>
-							{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-							<div
-								data-testid={`list-item-height-observed-${index}`}
-								onMouseMove={(e) => onMouseMove(e, index)}
-							>
-								<TypeAheadListItem
-									key={items[index].title}
-									item={currentItem}
-									firstOnlineSupportedIndex={firstOnlineSupportedRow}
-									itemsLength={itemsLength}
-									itemIndex={index}
-									selectedIndex={selectedIndex}
-									onItemClick={(mode: SelectItemMode, index: number) => {
-										actions.onItemClick(mode, index, INPUT_METHOD.MOUSE);
-									}}
-									ariaLabel={
-										getTypeAheadListAriaLabels(triggerHandler?.trigger, intl, currentItem)
-											.listItemAriaLabel
-									}
-									moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
-									api={api}
-								/>
-							</div>
-						</div>
+							<TypeAheadListItem
+								key={items[index].title}
+								item={currentItem}
+								firstOnlineSupportedIndex={firstOnlineSupportedRow}
+								itemsLength={itemsLength}
+								itemIndex={index}
+								selectedIndex={selectedIndex}
+								onItemClick={(mode: SelectItemMode, index: number) => {
+									actions.onItemClick(mode, index, INPUT_METHOD.MOUSE);
+								}}
+								ariaLabel={
+									getTypeAheadListAriaLabels(triggerHandler?.trigger, intl, currentItem)
+										.listItemAriaLabel
+								}
+								moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
+								api={api}
+							/>
+						</ListRow>
 					)}
 				</CellMeasurer>
 			);

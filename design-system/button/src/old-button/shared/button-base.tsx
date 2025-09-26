@@ -77,7 +77,9 @@ const getChildren = (children: ReactNode, childrenStyles: SerializedStyles[]) =>
 	return children ? <span css={childrenStyles}>{children}</span> : null;
 };
 
-const ButtonBase = React.forwardRef<HTMLElement, ButtonBaseProps>(function ButtonBase(
+const ButtonBase: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ButtonBaseProps> & React.RefAttributes<HTMLElement>
+> = React.forwardRef<HTMLElement, ButtonBaseProps>(function ButtonBase(
 	props: ButtonBaseProps,
 	ref: React.Ref<HTMLElement>,
 ) {

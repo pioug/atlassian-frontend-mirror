@@ -56,15 +56,18 @@ export interface LintRuleMeta extends Omit<Rule.RuleMetaData, 'docs'> {
  * there is a docs link to our ESLint plugin documentation page,
  * as well as improving type support.
  */
-export const getCreateLintRule = (getRuleUrl: (ruleName: string) => string) => (rule: LintRule) => {
-	(rule.meta.docs as Record<string, unknown>).url = getRuleUrl(rule.meta.name);
+export const getCreateLintRule: (
+	getRuleUrl: (ruleName: string) => string,
+) => (rule: LintRule) => Rule.RuleModule =
+	(getRuleUrl: (ruleName: string) => string) => (rule: LintRule) => {
+		(rule.meta.docs as Record<string, unknown>).url = getRuleUrl(rule.meta.name);
 
-	return rule as Rule.RuleModule;
-};
+		return rule as Rule.RuleModule;
+	};
 
 /**
  * If it's a nested rule, ensure the url is clean and safe for urls, file paths, etc.
  */
-export function getPathSafeName(ruleName: string) {
+export function getPathSafeName(ruleName: string): string {
 	return ruleName.replace('/', '-');
 }

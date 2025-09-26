@@ -22,9 +22,6 @@ snapshot(Default, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 snapshot(Controlled, {
 	variants: [
@@ -39,9 +36,6 @@ snapshot(Controlled, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 snapshot(CustomTabComponents, {
 	variants: [
@@ -56,9 +50,6 @@ snapshot(CustomTabComponents, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 snapshot(WithMany, {
 	variants: [
@@ -73,9 +64,6 @@ snapshot(WithMany, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 snapshot(WithFlexContent, {
 	variants: [
@@ -90,9 +78,6 @@ snapshot(WithFlexContent, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 snapshot(NoSpaceForTabs, {
 	variants: [
@@ -107,9 +92,6 @@ snapshot(NoSpaceForTabs, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 snapshot(Overflow, {
 	variants: [
@@ -124,9 +106,6 @@ snapshot(Overflow, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 snapshot(Testing, {
 	variants: [
@@ -141,7 +120,4 @@ snapshot(Testing, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });

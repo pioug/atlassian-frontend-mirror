@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 52.4.24
+
+### Patch Changes
+
+- [`f3494b0a49dbc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3494b0a49dbc) -
+  Internal changes to use new shape tokens. No visual changes.
+- Updated dependencies
+
 ## 52.4.23
 
 ### Patch Changes

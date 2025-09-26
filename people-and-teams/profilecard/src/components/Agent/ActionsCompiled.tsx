@@ -8,6 +8,7 @@ import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { AgentDropdownMenu, ChatPillIcon } from '@atlaskit/rovo-agent-components';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 import { token } from '@atlaskit/tokens';
 
 import { type ProfileClient, type RovoAgentProfileCardInfo } from '../../types';
@@ -68,6 +69,7 @@ export const AgentActions = ({
 }: AgentActionsProps) => {
 	const { formatMessage } = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
 
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const isForgeAgent = agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY';
@@ -87,18 +89,25 @@ export const AgentActions = ({
 	}, [agent.id, resourceClient]);
 
 	const handleDeleteAgent = useCallback(() => {
-		fireEvent(createAnalyticsEvent, {
-			action: 'clicked',
-			actionSubject: 'button',
-			actionSubjectId: 'deleteAgentButton',
-			attributes: {
+		if (fg('ptc-enable-profile-card-analytics-refactor')) {
+			fireEventNext('ui.button.clicked.deleteAgentButton', {
 				agentId: agent.id,
 				source: 'agentProfileCard',
-			},
-		});
+			});
+		} else {
+			fireEvent(createAnalyticsEvent, {
+				action: 'clicked',
+				actionSubject: 'button',
+				actionSubjectId: 'deleteAgentButton',
+				attributes: {
+					agentId: agent.id,
+					source: 'agentProfileCard',
+				},
+			});
+		}
 
 		setIsDeleteModalOpen(true);
-	}, [agent.id, createAnalyticsEvent]);
+	}, [agent.id, createAnalyticsEvent, fireEventNext]);
 
 	return (
 		<>

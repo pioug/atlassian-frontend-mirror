@@ -3,6 +3,8 @@
  * @jsx jsx
  */
 
+import { useEffect, useRef, useState } from 'react';
+
 import { jsx } from '@compiled/react';
 
 import Avatar from '@atlaskit/avatar';
@@ -27,9 +29,15 @@ import LockUnlockedIcon from '@atlaskit/icon/core/lock-unlocked';
 import PremiumIcon from '@atlaskit/icon/core/premium';
 import ProjectIcon from '@atlaskit/icon/core/project';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import Image from '@atlaskit/image';
 import { ConfluenceIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
-import { MenuList } from '@atlaskit/navigation-system';
+import {
+	ExpandableMenuItem,
+	ExpandableMenuItemContent,
+	ExpandableMenuItemTrigger,
+	MenuList,
+} from '@atlaskit/navigation-system';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Panel } from '@atlaskit/navigation-system/layout/panel';
@@ -69,6 +77,7 @@ import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import Tag from '@atlaskit/tag/simple-tag';
 import { token } from '@atlaskit/tokens';
 
+import dstLogo from './images/dst.png';
 import { WithResponsiveViewport } from './utils/example-utils';
 import { MockSearch } from './utils/mock-search';
 
@@ -139,7 +148,76 @@ const contentStyles = cssMap({
 	},
 });
 
+const spaceNavigationStyles = cssMap({
+	root: {
+		marginBlockStart: token('space.150'),
+	},
+	header: {
+		paddingBlock: token('space.150'),
+		paddingInline: token('space.150'),
+		position: 'sticky',
+		insetBlockStart: 0,
+		backgroundColor: token('elevation.surface'),
+		marginInline: token('space.negative.150'),
+		zIndex: 1,
+		borderBlockStart: `${token('border.width')} solid ${token('color.border')}`,
+	},
+	headerScrolled: {
+		borderBlockStart: 'none',
+		borderBlockEnd: `${token('border.width')} solid ${token('color.border')}`,
+	},
+});
+
+function SpaceNavigationHeader({
+	sideNavContentRef,
+}: {
+	sideNavContentRef: React.RefObject<HTMLDivElement>;
+}) {
+	const headerRef = useRef<HTMLDivElement>(null);
+
+	const [isScrolled, setIsScrolled] = useState(false);
+
+	useEffect(() => {
+		const header = headerRef.current;
+		const scrollContainer = sideNavContentRef.current;
+		if (!header || !scrollContainer) {
+			return;
+		}
+
+		const options: IntersectionObserverInit = {
+			root: scrollContainer,
+			rootMargin: '-1px 0px 0px 0px',
+			threshold: [0, 1],
+		};
+
+		const observer = new IntersectionObserver((entries) => {
+			for (const entry of entries) {
+				setIsScrolled(entry.intersectionRatio < 1);
+			}
+		}, options);
+
+		observer.observe(header);
+
+		return () => {
+			observer.disconnect();
+		};
+	}, [sideNavContentRef]);
+
+	return (
+		<div
+			ref={headerRef}
+			css={[spaceNavigationStyles.header, isScrolled && spaceNavigationStyles.headerScrolled]}
+		>
+			<ButtonMenuItem elemBefore={<Image src={dstLogo} width="24" height="24" alt="" />}>
+				Design System
+			</ButtonMenuItem>
+		</div>
+	);
+}
+
 export default function ConfluenceMockExample() {
+	const sideNavContentRef = useRef<HTMLDivElement>(null);
+
 	return (
 		<WithResponsiveViewport>
 			<Root testId="root">
@@ -187,7 +265,7 @@ export default function ConfluenceMockExample() {
 					</TopNavEnd>
 				</TopNav>
 				<SideNav>
-					<SideNavContent>
+					<SideNavContent ref={sideNavContentRef} testId="side-nav-content">
 						<MenuList>
 							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
 								Your work
@@ -213,6 +291,19 @@ export default function ConfluenceMockExample() {
 								</FlyoutMenuItemContent>
 							</FlyoutMenuItem>
 						</MenuList>
+						<div css={spaceNavigationStyles.root}>
+							<SpaceNavigationHeader sideNavContentRef={sideNavContentRef} />
+							<ExpandableMenuItem isDefaultExpanded>
+								<ExpandableMenuItemTrigger>Content</ExpandableMenuItemTrigger>
+								<ExpandableMenuItemContent>
+									{Array.from({ length: 20 }, (_, index) => (
+										<LinkMenuItem href="#" key={index}>
+											Item {index + 1}
+										</LinkMenuItem>
+									))}
+								</ExpandableMenuItemContent>
+							</ExpandableMenuItem>
+						</div>
 					</SideNavContent>
 					<PanelSplitter label="Resize side nav" testId="side-nav-panel-splitter" />
 				</SideNav>

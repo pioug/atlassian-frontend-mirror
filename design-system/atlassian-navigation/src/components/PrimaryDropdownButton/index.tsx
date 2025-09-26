@@ -23,7 +23,9 @@ import { type PrimaryDropdownButtonProps } from './types';
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#button)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const PrimaryDropdownButton = forwardRef<HTMLElement, PrimaryDropdownButtonProps>(
+export const PrimaryDropdownButton: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<PrimaryDropdownButtonProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, PrimaryDropdownButtonProps>(
 	(props: PrimaryDropdownButtonProps, ref: Ref<HTMLElement>) => {
 		const { component, isHighlighted, isLoading, onClick, testId, theme, tooltip, ...rest } = props;
 		return (

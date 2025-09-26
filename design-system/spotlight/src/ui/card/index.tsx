@@ -104,7 +104,9 @@ export interface SpotlightCardProps {
  * The base UI card that wraps composable spotlight components.
  *
  */
-export const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
+export const SpotlightCard: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SpotlightCardProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, SpotlightCardProps>(
 	({ children, testId }: SpotlightCardProps, ref) => {
 		const { placement } = useContext(SpotlightContext);
 

@@ -4,65 +4,46 @@
  */
 import React from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { AppearanceType, TagColor } from '../../../index';
-import {
-	backgroundColors,
-	borderColors,
-	focusRingColors,
-	linkActiveBackgroundColors,
-	linkHoverBackgroundColors,
-	removeButtonColors,
-	removeButtonHoverColors,
-	textActiveColors,
-	textColors,
-	textHoverColors,
-} from '../../../styles';
 
-const borderColorCssVar = '--ds-bc';
-const focusRingCssVar = '--ds-cfr';
-const textLinkCssVar = '--ds-ctl';
-const textDefaultCssVar = '--ds-ct';
-const textHoverCssVar = '--ds-cth';
-const textActiveCssVar = '--ds-ctp';
-const backgroundDefaultCssVar = '--ds-cb';
-const backgroundHoverCssVar = '--ds-cbh';
-const backgroundActiveCssVar = '--ds-cba';
-const removeButtonDefaultCssVar = '--ds-rb';
-const removeButtonHoverCssVar = '--ds-rbh';
-const borderRadiusCssVar = '--ds-br';
+// Border colors - Hardcoded for Visual Refresh - to be removed with labelling system work
+const borderColors = cssMap({
+	standard: { borderColor: '#B7B9BE' },
+	blue: { borderColor: '#669DF1' },
+	red: { borderColor: '#F87168' },
+	yellow: { borderColor: '#DDB30E' },
+	green: { borderColor: '#4BCE97' },
+	teal: { borderColor: '#6CC3E0' },
+	purple: { borderColor: '#C97CF4' },
+	lime: { borderColor: '#94C748' },
+	magenta: { borderColor: '#E774BB' },
+	orange: { borderColor: '#FCA700' },
+	grey: { borderColor: '#B7B9BE' },
+	standardLink: { borderColor: '#B7B9BE' },
+	blueLight: { borderColor: '#669DF1' },
+	redLight: { borderColor: '#F87168' },
+	yellowLight: { borderColor: '#DDB30E' },
+	greenLight: { borderColor: '#4BCE97' },
+	tealLight: { borderColor: '#6CC3E0' },
+	purpleLight: { borderColor: '#C97CF4' },
+	limeLight: { borderColor: '#94C748' },
+	magentaLight: { borderColor: '#E774BB' },
+	orangeLight: { borderColor: '#FCA700' },
+	greyLight: { borderColor: '#B7B9BE' },
+});
 
 type BaseProps = React.AllHTMLAttributes<HTMLElement> & {
 	before?: JSX.Element;
 	contentElement: JSX.Element;
 	after?: JSX.Element;
 	testId?: string;
-	/**
-	 * To be removed with platform-component-visual-refresh (BLU-2992)
-	 */
 	appearance?: AppearanceType;
 	color?: TagColor;
 };
-
-// To be removed with platform-component-visual-refresh (BLU-2992)
-const baseStylesOld = css({
-	display: 'inline-flex',
-	minWidth: 0,
-	height: token('space.250'),
-	position: 'relative',
-	backgroundColor: `var(${backgroundDefaultCssVar})`,
-	borderRadius: `var(${borderRadiusCssVar})`,
-	color: `var(${textDefaultCssVar})`,
-	cursor: 'default',
-	marginBlock: token('space.050'),
-	marginInline: token('space.050'),
-	paddingBlock: token('space.0', '0px'),
-	paddingInline: token('space.0', '0px'),
-});
 
 const baseStyles = css({
 	display: 'inline-flex',
@@ -71,27 +52,16 @@ const baseStyles = css({
 	height: token('space.250'),
 	position: 'relative',
 	alignItems: 'center',
-	gap: token('space.050', '4px'),
+	gap: token('space.050'),
 	backgroundColor: token('color.background.neutral.subtle'),
-	borderColor: `var(${borderColorCssVar})`,
-	borderRadius: token('radius.small', '3px'),
+	borderRadius: token('radius.small'),
 	borderStyle: 'solid',
-	borderWidth: token('border.width', '1px'),
+	borderWidth: token('border.width'),
 	color: token('color.text'),
 	cursor: 'default',
 	marginBlock: token('space.050'),
 	marginInline: token('space.050'),
-	paddingInline: token('space.050', '4px'),
-});
-
-// To be removed with platform-component-visual-refresh (BLU-2992)
-const interactiveStylesOld = css({
-	'&:hover': {
-		backgroundColor: `var(${backgroundHoverCssVar})`,
-	},
-	'&:active': {
-		backgroundColor: `var(${backgroundActiveCssVar})`,
-	},
+	paddingInline: token('space.050'),
 });
 
 const interactiveStyles = css({
@@ -103,29 +73,16 @@ const interactiveStyles = css({
 	},
 });
 
-// To be removed with platform-component-visual-refresh (BLU-2992)
-const focusRingStylesOld = css({
-	'&:focus-within': {
-		boxShadow: `0 0 0 2px var(${focusRingCssVar})`,
-		outline: 'none',
-	},
-});
-
 const focusRingStyles = css({
 	'&:focus-within': {
 		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
-		outlineOffset: token('space.025', '2px'),
+		outlineOffset: token('space.025'),
 	},
 });
 
-// To be removed with platform-component-visual-refresh (BLU-2992)
-const nonStandardLinkStyles = css({
-	'&:active': {
-		color: `var(${textActiveCssVar})`,
-	},
-});
-
-const BaseTag = React.forwardRef<HTMLDivElement, BaseProps>(function BaseTag(
+const BaseTag: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<BaseProps> & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef<HTMLDivElement, BaseProps>(function BaseTag(
 	{
 		before,
 		contentElement,
@@ -143,58 +100,19 @@ const BaseTag = React.forwardRef<HTMLDivElement, BaseProps>(function BaseTag(
 	const isLink = Boolean(href);
 	const isRemovable = Boolean(after);
 	const isInteractive = isLink || isRemovable;
-	const isStandardLink = isLink && color === 'standard';
-
-	// Change link text color if  the tag is standard color
-	const textLinkColors = isStandardLink ? textColors['standardLink'] : textColors[color];
-
-	const backgroundHoverColors =
-		isRemovable && !isLink ? backgroundColors[color] : linkHoverBackgroundColors[color];
-
-	const backgroundActiveColors =
-		isRemovable && !isLink ? backgroundColors[color] : linkActiveBackgroundColors[color];
 
 	return (
 		<span
 			{...other}
 			ref={ref}
 			css={[
-				fg('platform-component-visual-refresh') ? baseStyles : baseStylesOld,
-				isInteractive
-					? fg('platform-component-visual-refresh')
-						? focusRingStyles
-						: focusRingStylesOld
-					: undefined,
-				isLink && fg('platform-component-visual-refresh') && interactiveStyles,
-				!fg('platform-component-visual-refresh') &&
-					isLink &&
-					!isStandardLink &&
-					nonStandardLinkStyles,
-				!fg('platform-component-visual-refresh') && isInteractive && interactiveStylesOld,
+				baseStyles,
+				isInteractive ? focusRingStyles : undefined,
+				isLink && interactiveStyles,
+				borderColors[color],
 			]}
 			style={
 				{
-					// NOTE: The vast majority of these styles have zero purpose to be runtime computed
-					// This can all be migrated to statically distributed atomic CSS with Compiled in the future
-					// The main reason for not touching this is there is to avoid excessive changes in the same PR on non-visual-refresh code
-
-					/* eslint-disable @atlaskit/ui-styling-standard/enforce-style-prop */
-					/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
-					[borderColorCssVar]: borderColors[color],
-					[textDefaultCssVar]: textColors[color],
-					[textHoverCssVar]: textHoverColors[color],
-					[textActiveCssVar]: textActiveColors[color],
-					[textLinkCssVar]: textLinkColors,
-					[backgroundDefaultCssVar]: backgroundColors[color],
-					[backgroundHoverCssVar]: backgroundHoverColors,
-					[backgroundActiveCssVar]: backgroundActiveColors,
-					[focusRingCssVar]: focusRingColors,
-					[removeButtonDefaultCssVar]: removeButtonColors[color],
-					[removeButtonHoverCssVar]: removeButtonHoverColors[color],
-					[borderRadiusCssVar]: appearance === 'rounded' ? '10px' : '3px',
-					/* eslint-enable @atlaskit/ui-styling-standard/enforce-style-prop */
-					/* eslint-enable @atlaskit/ui-styling-standard/no-imported-style-values */
-
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					...style,
 				} as React.CSSProperties

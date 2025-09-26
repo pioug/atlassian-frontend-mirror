@@ -97,7 +97,9 @@ export interface BannerProps {
  * - [Code](https://atlassian.design/components/banner/code)
  * - [Usage](https://atlassian.design/components/banner/usage)
  */
-const Banner = forwardRef<HTMLDivElement, BannerProps>(
+const Banner: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<BannerProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, BannerProps>(
 	({ appearance = 'warning', children, icon, testId }, ref) => {
 		const appearanceType = appearance in backgroundColors ? appearance : 'warning';
 

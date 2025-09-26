@@ -53,7 +53,9 @@ export interface SpotlightDismissControlProps {
  * SpotlightDismissControl allows the user to close the `Spotlight`.
  *
  */
-export const SpotlightDismissControl = forwardRef<HTMLButtonElement, SpotlightDismissControlProps>(
+export const SpotlightDismissControl: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SpotlightDismissControlProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, SpotlightDismissControlProps>(
 	({ autoFocus = true, onClick, testId }: SpotlightDismissControlProps, ref) => {
 		return (
 			<Pressable

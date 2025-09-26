@@ -3,7 +3,9 @@ import React, { useCallback } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
 import { LinkItem } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 import {
 	ContainerIcon,
 	getContainerProperties,
@@ -42,14 +44,22 @@ export const TeamConnections = ({
 		isDisplayedOnProfileCard: true,
 	});
 	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
+
 	const onClick = useCallback(() => {
-		fireEvent(createAnalyticsEvent, {
-			action: 'clicked',
-			actionSubject: 'teamConnectionItem',
-			actionSubjectId: 'teamProfileCard',
-			attributes: { container: containerType },
-		});
-	}, [containerType, createAnalyticsEvent]);
+		if (fg('ptc-enable-profile-card-analytics-refactor')) {
+			fireEventNext('ui.teamConnectionItem.clicked.teamProfileCard', {
+				container: containerType,
+			});
+		} else {
+			fireEvent(createAnalyticsEvent, {
+				action: 'clicked',
+				actionSubject: 'teamConnectionItem',
+				actionSubjectId: 'teamProfileCard',
+				attributes: { container: containerType },
+			});
+		}
+	}, [containerType, createAnalyticsEvent, fireEventNext]);
 
 	return (
 		<LinkItem href={link} onClick={onClick} target="_blank">
@@ -98,14 +108,22 @@ export const NewTeamConnections = ({
 		isDisplayedOnProfileCard: true,
 	});
 	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
+
 	const onClick = useCallback(() => {
-		fireEvent(createAnalyticsEvent, {
-			action: 'clicked',
-			actionSubject: 'teamConnectionItem',
-			actionSubjectId: 'teamProfileCard',
-			attributes: { container: containerType },
-		});
-	}, [containerType, createAnalyticsEvent]);
+		if (fg('ptc-enable-profile-card-analytics-refactor')) {
+			fireEventNext('ui.teamConnectionItem.clicked.teamProfileCard', {
+				container: containerType,
+			});
+		} else {
+			fireEvent(createAnalyticsEvent, {
+				action: 'clicked',
+				actionSubject: 'teamConnectionItem',
+				actionSubjectId: 'teamProfileCard',
+				attributes: { container: containerType },
+			});
+		}
+	}, [containerType, createAnalyticsEvent, fireEventNext]);
 
 	return (
 		<LinkItem
@@ -139,6 +157,7 @@ export const NewTeamConnections = ({
 					{icon}
 				</Box>
 			}
+			testId="team-connection-item"
 		>
 			<Text maxLines={1} color="color.text">
 				{title}

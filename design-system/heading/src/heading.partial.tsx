@@ -4,7 +4,7 @@
  */
 import { forwardRef, type ReactNode, type Ref } from 'react';
 
-import { cssMap as unboundedCssMap } from '@compiled/react';
+import { type CompiledStyles, cssMap as unboundedCssMap } from '@compiled/react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -82,11 +82,33 @@ const headingColorStylesMap = cssMap({
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c47bed69b7a147a63fdb8c394e98514a>>
+ * @codegen <<SignedSource::406afb01e5634a0b459f50de660d8c2e>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/heading codegen
  */
-const headingSizeStylesMap = cssMap({
+const headingSizeStylesMap: {
+	readonly xxlarge: CompiledStyles<{
+		font: 'var(--ds-font-heading-xxlarge)';
+	}>;
+	readonly xlarge: CompiledStyles<{
+		font: 'var(--ds-font-heading-xlarge)';
+	}>;
+	readonly large: CompiledStyles<{
+		font: 'var(--ds-font-heading-large)';
+	}>;
+	readonly medium: CompiledStyles<{
+		font: 'var(--ds-font-heading-medium)';
+	}>;
+	readonly small: CompiledStyles<{
+		font: 'var(--ds-font-heading-small)';
+	}>;
+	readonly xsmall: CompiledStyles<{
+		font: 'var(--ds-font-heading-xsmall)';
+	}>;
+	readonly xxsmall: CompiledStyles<{
+		font: 'var(--ds-font-heading-xxsmall)';
+	}>;
+} = cssMap({
 	xxlarge: { font: token('font.heading.xxlarge') },
 	xlarge: { font: token('font.heading.xlarge') },
 	large: { font: token('font.heading.large') },
@@ -127,7 +149,9 @@ const useColor = (colorProp?: HeadingColor): HeadingColor => {
  * <Heading size="xxlarge">Page title</Heading>
  * ```
  */
-const Heading = forwardRef((props: HeadingProps, ref: Ref<HTMLHeadingElement>) => {
+const Heading: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<HeadingProps> & React.RefAttributes<HTMLHeadingElement>
+> = forwardRef((props: HeadingProps, ref: Ref<HTMLHeadingElement>) => {
 	const { children, size, id, testId, as, color: colorProp } = props;
 
 	if (

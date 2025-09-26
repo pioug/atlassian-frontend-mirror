@@ -518,6 +518,8 @@ export interface TeamProfilecardProps extends TeamProfilecardCoreProps {
 	clientFetchProfile?: () => void;
 	/** Details relevant to passing around analytics. */
 	analytics: AnalyticsFunction;
+	/** Details relevant to passing around analytics with @atlaskit/teams-app-internal-analytics. */
+	analyticsNext: AnalyticsFunctionNext;
 	/** Set auto focus for actionable items */
 	isTriggeredByKeyboard?: boolean;
 }

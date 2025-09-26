@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 8.1.0
+
+### Minor Changes
+
+- [`6e2b6f72d4bc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e2b6f72d4bc2) -
+  Added floating toolbar for sync block
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

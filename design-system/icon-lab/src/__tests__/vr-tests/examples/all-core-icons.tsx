@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::62dea55437692b02f7068ef27634dd67>>
+ * @codegen <<SignedSource::759394ac243378e76f387bf8e1c38b31>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -139,11 +139,13 @@ import LayoutThreeColumnsSidebarsLeftIcon from '../../../../core/layout-three-co
 import LayoutThreeColumnsSidebarsRightIcon from '../../../../core/layout-three-columns-sidebars-right';
 import LinkRestrictedAccessIcon from '../../../../core/link-restricted-access';
 import LozengeIcon from '../../../../core/lozenge';
+import MergeQueueIcon from '../../../../core/merge-queue';
 import MicrophoneStrikethroughIcon from '../../../../core/microphone-strikethrough';
 import MilestoneCompleteIcon from '../../../../core/milestone-complete';
 import MilestoneIncompleteIcon from '../../../../core/milestone-incomplete';
 import MilestoneMultipleIcon from '../../../../core/milestone-multiple';
 import MilestoneOverdueIcon from '../../../../core/milestone-overdue';
+import MissedCallIcon from '../../../../core/missed-call';
 import NodeParallelBottomLeftIcon from '../../../../core/node-parallel-bottom-left';
 import NodeParallelBottomRightIcon from '../../../../core/node-parallel-bottom-right';
 import NodeParallelTopLeftIcon from '../../../../core/node-parallel-top-left';
@@ -224,6 +226,8 @@ import TextBoldStrikethroughIcon from '../../../../core/text-bold-strikethrough'
 import TextBoldUnderlineIcon from '../../../../core/text-bold-underline';
 import TextBoldUnderlineStrikethroughIcon from '../../../../core/text-bold-underline-strikethrough';
 import TextConclusionAddIcon from '../../../../core/text-conclusion-add';
+import TextDensityCompressIcon from '../../../../core/text-density-compress';
+import TextDensityExpandIcon from '../../../../core/text-density-expand';
 import TextHeadingFiveIcon from '../../../../core/text-heading-five';
 import TextHeadingFourIcon from '../../../../core/text-heading-four';
 import TextHeadingOneIcon from '../../../../core/text-heading-one';
@@ -268,6 +272,7 @@ import VideoWatchLaterSavedIcon from '../../../../core/video-watch-later-saved';
 import ViewTypeBoardHomeIcon from '../../../../core/view-type-board-home';
 import ViewTypeCardHomeIcon from '../../../../core/view-type-card-home';
 import ViewTypeTableHomeIcon from '../../../../core/view-type-table-home';
+import ViewsIcon from '../../../../core/views';
 import VulnerabilityIcon from '../../../../core/vulnerability';
 import WalletIcon from '../../../../core/wallet';
 import WarningOutlineIcon from '../../../../core/warning-outline';
@@ -539,6 +544,11 @@ const Icons = [
 	ArrowCurvedUpLeftIcon,
 	ArrowCurvedUpRightIcon,
 	GroupIcon,
+	MergeQueueIcon,
+	MissedCallIcon,
+	TextDensityCompressIcon,
+	TextDensityExpandIcon,
+	ViewsIcon,
 ];
 
 const groupSize = 50;

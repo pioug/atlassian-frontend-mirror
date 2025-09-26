@@ -85,6 +85,9 @@
 			"path": "../icon-lab/tsconfig.app.json"
 		},
 		{
+			"path": "../image/tsconfig.app.json"
+		},
+		{
 			"path": "../layering/tsconfig.app.json"
 		},
 		{

@@ -58,48 +58,6 @@ const removeButtonStyles = cssMap({
 	},
 });
 
-// To be removed with platform-component-visual-refresh (BLU-2992)
-const removeButtonStylesOld = cssMap({
-	root: {
-		display: 'flex',
-		height: '16px',
-		marginInlineStart: token('space.0'),
-		marginInlineEnd: token('space.0'),
-		marginBlockStart: token('space.0'),
-		marginBlockEnd: token('space.0'),
-		paddingInline: token('space.0'),
-		paddingBlock: token('space.0'),
-		position: 'absolute',
-		alignItems: 'center',
-		justifyContent: 'center',
-		alignSelf: 'center',
-		appearance: 'none',
-		backgroundColor: token('color.background.neutral.subtle'),
-		border: 'none',
-		// Once legacy theming is dropped, this can be changed to 'radius.small'
-		// NOTE: We are using `as var(--ds-…)` to hack this into our `@atlaskit/css` interface.
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		borderRadius: 'var(--ds-br)' as 'var(--ds-radius-small)',
-		// Once legacy theming is dropped, this can be changed to 'inherit'
-		// NOTE: We are using `as var(--ds-…)` to hack this into our `@atlaskit/css` interface.
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		color: 'var(--ds-rb)' as 'var(--ds-text)',
-		cursor: 'pointer',
-		pointerEvents: 'auto',
-
-		'&:focus-visible': {
-			outlineOffset: token('space.0'),
-		},
-
-		'&:hover': {
-			// Once legacy theming is dropped, this can be changed to 'color.text.default'
-			// NOTE: We are using `as var(--ds-…)` to hack this into our `@atlaskit/css` interface.
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			color: 'var(--ds-rbh)' as 'var(--ds-text)',
-		},
-	},
-});
-
 const removeButtonStylesOldIcon = cssMap({
 	root: {
 		insetInlineEnd: token('space.0'),
@@ -124,9 +82,7 @@ const RemoveButton = ({
 	return (
 		<Pressable
 			xcss={cx(
-				// TODO: When cleaning up all these feature gates, they should just be converged into a single `styles` object.
-				fg('platform-component-visual-refresh') && removeButtonStyles.root,
-				!fg('platform-component-visual-refresh') && removeButtonStylesOld.root,
+				removeButtonStyles.root,
 				removeButtonStylesOldIcon.root,
 				fg('platform-visual-refresh-icons') && removeButtonStylesNewIcon.root,
 			)}

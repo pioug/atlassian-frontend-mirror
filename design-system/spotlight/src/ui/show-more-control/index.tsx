@@ -44,13 +44,14 @@ export interface SpotlightShowMoreControlProps {
  * SpotlightShowMoreControl allows the user to close the `Spotlight`.
  *
  */
-export const SpotlightShowMoreControl = forwardRef<
-	HTMLButtonElement,
-	SpotlightShowMoreControlProps
->(({ onClick, testId }: SpotlightShowMoreControlProps, ref) => {
-	return (
-		<Pressable xcss={styles.root} onClick={onClick} ref={ref} testId={testId}>
-			<ShowMoreHorizontalIcon label="Show more" />
-		</Pressable>
-	);
-});
+export const SpotlightShowMoreControl: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SpotlightShowMoreControlProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, SpotlightShowMoreControlProps>(
+	({ onClick, testId }: SpotlightShowMoreControlProps, ref) => {
+		return (
+			<Pressable xcss={styles.root} onClick={onClick} ref={ref} testId={testId}>
+				<ShowMoreHorizontalIcon label="Show more" />
+			</Pressable>
+		);
+	},
+);

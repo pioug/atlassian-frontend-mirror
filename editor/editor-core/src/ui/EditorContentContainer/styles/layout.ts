@@ -282,13 +282,13 @@ export const layoutSelectedStylesAdvanced: SerializedStyles = css({
 			'&.selected.danger [data-layout-section]': {
 				backgroundColor: token('color.background.danger'),
 				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
-				borderRadius: 4,
+				borderRadius: token('radius.small'),
 			},
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 			[`&.${akEditorSelectedNodeClassName}:not(.danger) [data-layout-section]`]: {
 				boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
-				borderRadius: 4,
+				borderRadius: token('radius.small'),
 				backgroundColor: token('color.background.selected'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 				'[data-layout-column]': [
@@ -456,8 +456,8 @@ export const layoutBaseStyles: SerializedStyles = css({
 				minWidth: 0,
 				/* disable 4 borders when in view mode and advanced layouts is on */
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				border: `1px solid ${token('color.border')}`,
-				borderRadius: 4,
+				border: `${token('border.width')} solid ${token('color.border')}`,
+				borderRadius: token('radius.small'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				padding: token('space.150'),
 				boxSizing: 'border-box',

@@ -22,7 +22,7 @@ export const backgroundColorStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.fabric-background-color-mark': {
 		backgroundColor: 'var(--custom-palette-color, inherit)',
-		borderRadius: 2,
+		borderRadius: token('radius.xsmall'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		paddingTop: 1,
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space

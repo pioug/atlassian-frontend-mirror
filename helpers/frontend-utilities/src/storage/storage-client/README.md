@@ -3,6 +3,7 @@
 > Storage layer with inbuilt expiry control, exception capturing and mocking
 
 ### Team
+
 **Activity Platform / Recent Work**
 
 **Slack**: #rw-team
@@ -13,8 +14,8 @@
 
 ### StorageClient
 
-A lightweight wrapper around `localStorage / sessionStorage` that will mock the engine if unavailable, with the ability
-to provide an exception handler as expiry times for individual items.
+A lightweight wrapper around `localStorage / sessionStorage` that will mock the engine if
+unavailable, with the ability to provide an exception handler as expiry times for individual items.
 
 #### Usage
 
@@ -25,5 +26,5 @@ storageClient.setItemWithExpiry('key', { test: true });
 storageClient.setItemWithExpiry('expires-key', { test: true }, 1000);
 
 storageClient.getItem('key');
-storageClient.getItem('expires-key', { useExpiredItem: true });
+storageClient.getItem('expires-key', { clearExpiredItem: false, useExpiredItem: false });
 ```

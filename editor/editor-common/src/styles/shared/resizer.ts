@@ -246,7 +246,7 @@ export const pragmaticResizerStylesForTooltip = () => {
 
 				cursor: 'col-resize',
 
-				borderRadius: 4,
+				borderRadius: token('radius.small'),
 				zIndex: 2,
 
 				// Tootip element
@@ -376,7 +376,7 @@ export const pragmaticResizerStyles = () => {
 
 				cursor: 'col-resize',
 
-				borderRadius: 4,
+				borderRadius: token('radius.small'),
 				transition: 'background-color 0.2s, visibility 0.2s, opacity 0.2s',
 				zIndex: 2,
 
@@ -414,7 +414,7 @@ export const pragmaticResizerStyles = () => {
 				// copied from resizeStyles.clamped
 				height: 'clamp(27px, calc(100% - 32px), 96px)',
 				background: token('color.border'),
-				borderRadius: 6,
+				borderRadius: token('radius.medium'),
 
 				// sticky styles
 				position: 'sticky',
@@ -506,7 +506,7 @@ export const pragmaticResizerStyles = () => {
 
 			cursor: 'col-resize',
 
-			borderRadius: 4,
+			borderRadius: token('radius.small'),
 			transition: 'background-color 0.2s, visibility 0.2s, opacity 0.2s',
 			zIndex: 2,
 
@@ -544,7 +544,7 @@ export const pragmaticResizerStyles = () => {
 			// copied from resizeStyles.clamped
 			height: 'clamp(27px, calc(100% - 32px), 96px)',
 			background: token('color.border'),
-			borderRadius: 6,
+			borderRadius: token('radius.medium'),
 
 			// sticky styles
 			position: 'sticky',

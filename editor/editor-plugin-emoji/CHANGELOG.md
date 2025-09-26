@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-emoji
 
+## 7.1.0
+
+### Minor Changes
+
+- [`f3b7f40b214f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3b7f40b214f3) -
+  [https://product-fabric.atlassian.net/browse/ED-29414](ED-29414) - add optimistic emoji SSR
+  loading supporting
+
 ## 7.0.0
 
 ### Minor Changes

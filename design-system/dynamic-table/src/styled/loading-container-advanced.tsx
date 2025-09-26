@@ -16,7 +16,9 @@ const containerStyles = css({
 
 type ContainerProps = HTMLProps<HTMLDivElement> & { testId?: string };
 
-export const Container = forwardRef<HTMLDivElement, ContainerProps>((props, ref) => {
+export const Container: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ContainerProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, ContainerProps>((props, ref) => {
 	const { children, testId, ...rest } = props;
 	return (
 		<div css={containerStyles} {...rest} data-testid={testId} ref={ref}>
@@ -50,10 +52,10 @@ const spinnerContainerStyles = css({
 	insetBlockStart: 0,
 });
 
-export const SpinnerContainer = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
-	({ children }, ref) => (
-		<div css={spinnerContainerStyles} ref={ref}>
-			{children}
-		</div>
-	),
-);
+export const SpinnerContainer: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<HTMLProps<HTMLDivElement>> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(({ children }, ref) => (
+	<div css={spinnerContainerStyles} ref={ref}>
+		{children}
+	</div>
+));

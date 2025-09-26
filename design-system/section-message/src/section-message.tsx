@@ -67,7 +67,9 @@ const appearanceStyles = cssMap({
  * - [Code](https://atlassian.design/components/section-message/code)
  * - [Usage](https://atlassian.design/components/section-message/usage)
  */
-const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function SectionMessage(
+const SectionMessage: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SectionMessageProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, SectionMessageProps>(function SectionMessage(
 	{ children, appearance = 'information', actions, title, icon, isDismissible, onDismiss, testId },
 	ref,
 ) {

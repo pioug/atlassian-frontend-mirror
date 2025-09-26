@@ -15,7 +15,7 @@ import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ReadOnlyParticipants } from '../../types';
 import { Participants } from '../participants';
@@ -231,7 +231,7 @@ export class PluginState {
 				this.onError(err as Error);
 			}
 
-			if (!editorExperiment('platform_editor_ai_aifc', true)) {
+			if (!fg('aifc_create_enabled')) {
 				// Remove any selection decoration within the change range,
 				// takes care of the issue when after pasting we end up with a dead selection
 				tr.steps.filter(isReplaceStep).forEach((s: Step) => {

@@ -80,7 +80,9 @@ const noop = __noop;
  * - [Code](https://atlassian.design/components/range/code)
  * - [Usage](https://atlassian.design/components/range/usage)
  */
-const Range = forwardRef(function Range(props: RangeProps, ref: React.Ref<HTMLInputElement>) {
+const Range: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<RangeProps> & React.RefAttributes<HTMLInputElement>
+> = forwardRef(function Range(props: RangeProps, ref: React.Ref<HTMLInputElement>) {
 	const {
 		isDisabled = false,
 		defaultValue = 50,

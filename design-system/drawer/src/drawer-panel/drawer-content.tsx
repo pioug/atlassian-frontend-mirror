@@ -24,7 +24,9 @@ const styles = cssMap({
 	},
 });
 
-const DrawerContentBase = forwardRef<HTMLDivElement, DrawerContentProps>(
+const DrawerContentBase: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<DrawerContentProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, DrawerContentProps>(
 	({ children, scrollContentLabel = 'Scrollable content', xcss }, scrollableRef) => {
 		const [showContentFocus, setContentFocus] = useState(false);
 		const ref = useRef<HTMLDivElement>(null);

@@ -3,13 +3,13 @@ import React, { forwardRef, useCallback, useRef } from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 
-const CustomComponent = forwardRef<HTMLButtonElement, React.PropsWithChildren<{}>>(
-	({ children, ...props }, ref) => (
-		<button {...props} type="button" role="menuitem" ref={ref}>
-			{children}
-		</button>
-	),
-);
+const CustomComponent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<React.PropsWithChildren<{}>> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, React.PropsWithChildren<{}>>(({ children, ...props }, ref) => (
+	<button {...props} type="button" role="menuitem" ref={ref}>
+		{children}
+	</button>
+));
 
 export default () => {
 	const triggerRef = useRef<HTMLButtonElement>(null);

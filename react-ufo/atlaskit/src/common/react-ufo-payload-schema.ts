@@ -257,6 +257,7 @@ export type PostInteractionLogPayload = {
 				vcClean: boolean;
 				lateMutations: LateMutation[];
 				reactProfilerTimings: ReactProfilerTiming[];
+				postInteractionHoldInfo?: HoldActive[];
 			};
 		};
 	};

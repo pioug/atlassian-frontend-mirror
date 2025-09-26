@@ -146,7 +146,9 @@ export interface AvatarPropTypes {
  * - [Code](https://atlassian.design/components/avatar/code)
  * - [Usage](https://atlassian.design/components/avatar/usage)
  */
-const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
+const Avatar: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<AvatarPropTypes> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, AvatarPropTypes>(
 	(
 		{
 			analyticsContext,

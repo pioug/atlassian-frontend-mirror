@@ -299,4 +299,5 @@ export type PostInteractionLogOutput = {
 	reactProfilerTimings?: ReactProfilerTiming[];
 	postInteractionFinishVCResult?: VCResult;
 	lastInteractionFinishVCResult?: VCResult;
+	postInteractionHoldInfo?: HoldActive[];
 };

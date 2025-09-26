@@ -146,84 +146,44 @@ const _validation = (
 };
 
 const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
-	let result: boolean = false;
-
-	if (fg('cc_complexit_fe_memovalidation_redundant_calls_2')) {
-		type ValidationArgsType = [
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			doc: any,
-			schema: Schema,
-			stage: ADFStage,
-			useSpecValidator: boolean,
-			DispatchAnalyticsEvent?: DispatchAnalyticsEvent | undefined,
-			skipValidation?: boolean | undefined,
-			validationOverrides?: { allowNestedTables?: boolean },
-		];
-
-		const [
-			newDoc,
-			newSchema,
-			newADFStage,
-			newUseSpecValidator,
-			,
-			// ignoring dispatchAnalyticsEvent
-			newSkipValidation,
-			newValidationOverrides,
-		]: ValidationArgsType = newArgs;
-
+	type ValidationArgsType = [
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const [
-			oldDoc,
-			oldSchema,
-			oldADFStage,
-			oldUseSpecValidator,
-			,
-			// ignoring dispatchAnalyticsEvent
-			oldSkipValidation,
-			oldValidationOverrides,
-		]: ValidationArgsType = lastArgs;
+		doc: any,
+		schema: Schema,
+		stage: ADFStage,
+		useSpecValidator: boolean,
+		DispatchAnalyticsEvent?: DispatchAnalyticsEvent | undefined,
+		skipValidation?: boolean | undefined,
+		validationOverrides?: { allowNestedTables?: boolean },
+	];
 
-		result =
-			areDocsEqual(newDoc, oldDoc) &&
-			newSchema === oldSchema &&
-			newADFStage === oldADFStage &&
-			newUseSpecValidator === oldUseSpecValidator &&
-			newSkipValidation === oldSkipValidation &&
-			newValidationOverrides === oldValidationOverrides;
-	} else {
-		// This path has a bug and it will wrongfully assign dispatchAnalyticsEvent to skipValidation/oldSkipValidation
-		// instead of ignoring it as it does not skip it when unpacking the array.
-		// This results the function returning false when it should return true
-		// and causing extra re-renders. see https://hello.jira.atlassian.cloud/browse/COMPLEXIT-161.
+	const [
+		newDoc,
+		newSchema,
+		newADFStage,
+		newUseSpecValidator,
+		/* ignoring dispatchAnalyticsEvent */,
+		newSkipValidation,
+		newValidationOverrides,
+	]: ValidationArgsType = newArgs;
+	const [
+		oldDoc,
+		oldSchema,
+		oldADFStage,
+		oldUseSpecValidator,
+		/* ignoring dispatchAnalyticsEvent */,
+		oldSkipValidation,
+		oldValidationOverrides,
+	]: ValidationArgsType = lastArgs;
 
-		const [
-			newDoc,
-			newSchema,
-			newADFStage,
-			newUseSpecValidator,
-			,
-			skipValidation,
-			newValidationOverrides,
-		] = newArgs;
-		const [
-			oldDoc,
-			oldSchema,
-			oldADFStage,
-			oldUseSpecValidator,
-			,
-			oldSkipValidation,
-			oldValidationOverrides,
-		] = lastArgs;
-		result =
-			areDocsEqual(newDoc, oldDoc) &&
-			newSchema === oldSchema &&
-			newADFStage === oldADFStage &&
-			newUseSpecValidator === oldUseSpecValidator &&
-			skipValidation === oldSkipValidation &&
-			newValidationOverrides === oldValidationOverrides;
-	}
-
-	return result;
+	return (
+		areDocsEqual(newDoc, oldDoc) &&
+		newSchema === oldSchema &&
+		newADFStage === oldADFStage &&
+		newUseSpecValidator === oldUseSpecValidator &&
+		newSkipValidation === oldSkipValidation &&
+		newValidationOverrides === oldValidationOverrides
+	);
 });
 
 // Ignored via go/ees005

@@ -12,7 +12,9 @@ import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import LinkItem from '@atlaskit/menu/link-item';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 import TeamAvatar from '@atlaskit/teams-avatar';
 import { type TeamContainer, TeamContainers, useTeamContainers } from '@atlaskit/teams-public';
 import { token } from '@atlaskit/tokens';
@@ -162,6 +164,7 @@ export const TeamProfileCard = ({
 }: TeamProfileCardProps) => {
 	const { teamContainers, loading } = useTeamContainers(teamId);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
 	// Ensure that the current container is not the only connection for this team before showing the "Where we work" section
 	const hasOtherTeamConnections = useMemo(
 		() =>
@@ -174,18 +177,23 @@ export const TeamProfileCard = ({
 	const isNewLayout = Boolean(props.isKudosEnabled || props.otherActions);
 
 	const onClick = useCallback(() => {
-		if (createAnalyticsEvent) {
-			fireEvent(createAnalyticsEvent, {
-				action: 'clicked',
-				actionSubject: 'button',
-				actionSubjectId: 'viewTeamProfileButton',
-				attributes: {},
-			});
+		if (fg('ptc-enable-profile-card-analytics-refactor')) {
+			fireEventNext('ui.button.clicked.viewTeamProfileButton', {});
+		} else {
+			if (createAnalyticsEvent) {
+				fireEvent(createAnalyticsEvent, {
+					action: 'clicked',
+					actionSubject: 'button',
+					actionSubjectId: 'viewTeamProfileButton',
+					attributes: {},
+				});
+			}
 		}
+
 		if (!isNewLayout) {
 			window.open(teamProfileUrl, '_blank');
 		}
-	}, [createAnalyticsEvent, teamProfileUrl, isNewLayout]);
+	}, [createAnalyticsEvent, teamProfileUrl, isNewLayout, fireEventNext]);
 
 	if (isNewLayout) {
 		return (
@@ -266,6 +274,7 @@ export const TeamProfileCard = ({
 										xcss={styles.teamAppTileStyles}
 									/>
 								}
+								testId="team-profile-card-profile-link-item"
 							>
 								<Text maxLines={1} color="color.text">
 									{displayName}

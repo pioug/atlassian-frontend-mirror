@@ -49,7 +49,7 @@ const webkitStyles = css({
 		backgroundRepeat: 'no-repeat',
 		backgroundSize: 'var(--track-fg-width) 100%',
 		border: 0,
-		borderRadius: 2,
+		borderRadius: token('radius.xsmall'),
 		cursor: 'pointer',
 		transition: 'background-color 0.2s ease-in-out',
 	},
@@ -92,7 +92,7 @@ const firefoxStyles = css({
 		height: trackHeight,
 		backgroundColor: 'var(--track-fg)',
 		border: 0,
-		borderRadius: 2,
+		borderRadius: token('radius.xsmall'),
 		cursor: 'pointer',
 		transition: 'background-color 0.2s ease-in-out',
 	},
@@ -102,7 +102,7 @@ const firefoxStyles = css({
 		height: 4,
 		backgroundColor: 'var(--track-bg)',
 		border: 0,
-		borderRadius: 2,
+		borderRadius: token('radius.xsmall'),
 		cursor: 'pointer',
 		transition: 'background-color 0.2s ease-in-out',
 	},
@@ -183,13 +183,15 @@ const rangeA11yStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&::-webkit-slider-runnable-track': {
 		height: trackHeight,
-		borderRadius: 3,
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: token('radius.small', '3px'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&::-moz-range-progress': {
 		height: trackHeight,
-		borderRadius: 3,
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: token('radius.small', '3px'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:hover:not(:disabled)': {
@@ -197,9 +199,11 @@ const rangeA11yStyles = css({
 	},
 });
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore: to unblock React 18.2.0 -> 18.3.1 version bump in Jira
-const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) => {
+const Input: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<InputProps> & React.RefAttributes<HTMLInputElement>
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore: to unblock React 18.2.0 -> 18.3.1 version bump in Jira
+> = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) => {
 	const { valuePercent, style, ...strippedProps } = props;
 
 	const input = (

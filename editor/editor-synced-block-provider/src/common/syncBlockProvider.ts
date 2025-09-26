@@ -5,7 +5,7 @@ import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { createSyncBlockNode } from '../utils/utils';
+import { convertSyncBlockPMNodeToSyncBlockData } from '../utils/utils';
 
 import {
 	SyncBlockDataProvider,
@@ -78,7 +78,7 @@ export const useFetchDocNode = (
 			return;
 		}
 		const interval = window.setInterval(() => {
-			const nodes: SyncBlockNode[] = [createSyncBlockNode(node, false)];
+			const nodes: SyncBlockNode[] = [convertSyncBlockPMNodeToSyncBlockData(node, false)];
 
 			provider?.fetchNodesData(nodes).then((data) => {
 				if (data && data[0]?.content) {

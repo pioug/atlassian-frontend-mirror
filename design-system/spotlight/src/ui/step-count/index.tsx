@@ -34,7 +34,9 @@ export interface SpotlightStepCountProps {
  * `SpotlightStepCount` groups `SpotlightAction` components.
  *
  */
-export const SpotlightStepCount = forwardRef<HTMLSpanElement, SpotlightStepCountProps>(
+export const SpotlightStepCount: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SpotlightStepCountProps> & React.RefAttributes<HTMLSpanElement>
+> = forwardRef<HTMLSpanElement, SpotlightStepCountProps>(
 	({ children, testId }: SpotlightStepCountProps, ref) => {
 		return (
 			<Flex xcss={styles.root}>

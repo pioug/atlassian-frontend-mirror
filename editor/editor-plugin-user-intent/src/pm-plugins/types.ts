@@ -11,4 +11,5 @@ export type UserIntent =
 	| 'blockMenuOpen'
 	| 'resizing'
 	| 'popupOpen'
-	| 'commenting';
+	| 'commenting'
+	| 'aiStreaming';

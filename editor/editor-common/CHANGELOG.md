@@ -1,5 +1,71 @@
 # @atlaskit/editor-common
 
+## 110.3.2
+
+### Patch Changes
+
+- [`76ffc91d514f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76ffc91d514f3) -
+  Changed packages over to using the generic AIFC FG rather then an experiment
+
+## 110.3.1
+
+### Patch Changes
+
+- [`dd19fd49edc58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd19fd49edc58) -
+  Added sync block quick insert
+- Updated dependencies
+
+## 110.3.0
+
+### Minor Changes
+
+- [`e3780960bb0ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3780960bb0ae) - ##
+  What Update `EditorAnalyticsAPI` to allow for `fireAnalyticsEvent` to use a custom payload if an
+  explicit type parameter is used. This is mostly used by the analytics plugin
+
+  ```ts
+  // Example
+  api?.analytics.actions.fireAnalyticsEvent<CustomPayload, 'customEventType'>({ ... });
+  ```
+
+  ## Why
+
+  The current Payload structure is not extensible. There are times we don't want to update the base
+  analytics types (and increase bundle size) and scope them only to a specific package. This
+  provides an escape hatch but still enforces some level of type safety (currently there are some
+  examples of using `ts-expect-error` to side step this).
+
+  ## How to upgrade
+
+  In most scenarios this should not cause any breaking change but can be breaking if you are side
+  stepping type safety here with `ts-expect-error`.
+
+## 110.2.3
+
+### Patch Changes
+
+- [`f3494b0a49dbc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3494b0a49dbc) -
+  Internal changes to use new shape tokens. No visual changes.
+- Updated dependencies
+
+## 110.2.2
+
+### Patch Changes
+
+- [`5a35ce1c7b07a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a35ce1c7b07a) -
+  Clean up nested border style fg
+
+## 110.2.1
+
+### Patch Changes
+
+- [`9cf29da7572b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cf29da7572b3) -
+  [ux] Fires Element converted event when Turn into menu is used to transform a node from one node
+  type to another.
+- [`6e2b6f72d4bc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e2b6f72d4bc2) -
+  Added floating toolbar for sync block
+- Updated dependencies
+
 ## 110.2.0
 
 ### Minor Changes

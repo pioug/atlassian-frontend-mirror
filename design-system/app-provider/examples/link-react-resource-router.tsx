@@ -14,7 +14,10 @@ import { Box } from '@atlaskit/primitives';
 
 type LinkConfig = Pick<LinkProps, 'to' | 'href' | 'replace'>;
 
-const MyRouterLinkComponent = forwardRef(
+const MyRouterLinkComponent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<RouterLinkComponentProps<LinkConfig>> &
+		React.RefAttributes<HTMLAnchorElement>
+> = forwardRef(
 	(
 		{ href, children, ...rest }: RouterLinkComponentProps<LinkConfig>,
 		ref: Ref<HTMLAnchorElement>,

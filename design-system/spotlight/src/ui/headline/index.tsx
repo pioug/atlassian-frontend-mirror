@@ -29,7 +29,9 @@ export interface SpotlightHeadlineProps {
  * `SpotlightHeadline` is required in a `Spotlight`. The content should be brief and direct to quickly hook the user on the intent.
  *
  */
-export const SpotlightHeadline = forwardRef<HTMLHeadingElement, SpotlightHeadlineProps>(
+export const SpotlightHeadline: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SpotlightHeadlineProps> & React.RefAttributes<HTMLHeadingElement>
+> = forwardRef<HTMLHeadingElement, SpotlightHeadlineProps>(
 	({ children, testId }: SpotlightHeadlineProps, ref) => {
 		const { heading } = useContext(SpotlightContext);
 

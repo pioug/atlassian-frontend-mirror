@@ -22,7 +22,9 @@ export type LoadingButtonProps = Omit<BaseProps, 'overlay'> & LoadingButtonOwnPr
  *
  * - [Examples](https://atlassian.design/components/button/examples#loading-button)
  */
-const LoadingButton = React.forwardRef(function LoadingButton(
+const LoadingButton: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<LoadingButtonProps> & React.RefAttributes<HTMLElement>
+> = React.forwardRef(function LoadingButton(
 	{ appearance, isDisabled, isSelected, isLoading = false, spacing, ...rest }: LoadingButtonProps,
 	ref: React.Ref<HTMLElement>,
 ) {

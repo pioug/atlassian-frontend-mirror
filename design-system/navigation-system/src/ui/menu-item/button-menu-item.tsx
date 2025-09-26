@@ -36,7 +36,9 @@ export type ButtonMenuItemProps = MenuItemLinkOrButtonCommonProps & {
  *
  * A menu item button. It should be used within a `ul`, as it renders a list item.
  */
-export const ButtonMenuItem = forwardRef<HTMLButtonElement, ButtonMenuItemProps>(
+export const ButtonMenuItem: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ButtonMenuItemProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, ButtonMenuItemProps>(
 	(
 		{
 			testId,

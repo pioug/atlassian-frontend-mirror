@@ -50,13 +50,13 @@ const styles = {
 	},
 };
 
-const CustomComponent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<{}>>(
-	(props, ref) => (
-		<div {...props} ref={ref}>
-			{props.children}
-		</div>
-	),
-);
+const CustomComponent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<React.PropsWithChildren<{}>> & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef<HTMLDivElement, React.PropsWithChildren<{}>>((props, ref) => (
+	<div {...props} ref={ref}>
+		{props.children}
+	</div>
+));
 
 const BuildStory = (props: ButtonProps) => {
 	const { appearance } = props;

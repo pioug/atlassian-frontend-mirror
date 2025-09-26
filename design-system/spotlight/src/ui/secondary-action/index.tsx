@@ -53,19 +53,20 @@ export interface SpotlightSecondaryActionProps {
  * It is intended to be used to go back to the previous step in multi step spotlight tours, or other similar actions.
  *
  */
-export const SpotlightSecondaryAction = forwardRef<
-	HTMLButtonElement,
-	SpotlightSecondaryActionProps
->(({ 'aria-label': ariaLabel, onClick, children, testId }: SpotlightSecondaryActionProps, ref) => {
-	return (
-		<Pressable
-			aria-label={ariaLabel}
-			ref={ref}
-			testId={testId}
-			xcss={styles.root}
-			onClick={onClick}
-		>
-			<Text as="span">{children}</Text>
-		</Pressable>
-	);
-});
+export const SpotlightSecondaryAction: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SpotlightSecondaryActionProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, SpotlightSecondaryActionProps>(
+	({ 'aria-label': ariaLabel, onClick, children, testId }: SpotlightSecondaryActionProps, ref) => {
+		return (
+			<Pressable
+				aria-label={ariaLabel}
+				ref={ref}
+				testId={testId}
+				xcss={styles.root}
+				onClick={onClick}
+			>
+				<Text as="span">{children}</Text>
+			</Pressable>
+		);
+	},
+);

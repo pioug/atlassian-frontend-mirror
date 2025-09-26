@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 16.3.13
+
+### Patch Changes
+
+- [`39e543109ec09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39e543109ec09) -
+  add type info to forwardRef components
+- Updated dependencies
+
 ## 16.3.12
 
 ### Patch Changes

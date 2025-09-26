@@ -18,7 +18,9 @@ const NOTIFICATIONS_BADGE_ID = 'atlassian-navigation-notification-count';
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#notifications)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const Notifications = forwardRef((props: NotificationsProps, ref: Ref<any>) => {
+export const Notifications: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<NotificationsProps> & React.RefAttributes<any>
+> = forwardRef((props: NotificationsProps, ref: Ref<any>) => {
 	const {
 		badge,
 		component,

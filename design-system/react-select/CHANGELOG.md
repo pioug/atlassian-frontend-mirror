@@ -1,5 +1,16 @@
 # @atlaskit/react-select
 
+## 3.7.0
+
+### Minor Changes
+
+- [`b19759f83390f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b19759f83390f) -
+  [ux] Updates react-select styles to reflect our new visual design language. These changes were
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.6.1
 
 ### Patch Changes

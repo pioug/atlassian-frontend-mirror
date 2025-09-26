@@ -11,7 +11,8 @@ export const panelTextInput: SerializedStyles = css({
 	'input&': {
 		background: 'transparent',
 		border: `1px solid ${token('color.border.input')}`,
-		borderRadius: 3,
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: token('radius.small', '3px'),
 		boxSizing: 'content-box',
 		color: token('color.text'),
 		flexGrow: 1,

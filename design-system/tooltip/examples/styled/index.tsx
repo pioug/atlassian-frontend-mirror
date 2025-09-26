@@ -48,7 +48,9 @@ const targetStyles = css({
 	userSelect: 'none',
 });
 
-export const Target = forwardRef<HTMLButtonElement, TargetProps>((props, ref) => {
+export const Target: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<TargetProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, TargetProps>((props, ref) => {
 	const { style = {}, color, ...restProps } = props;
 
 	return (
@@ -89,7 +91,9 @@ const bigTargetStyles = css({
 	userSelect: 'none',
 });
 
-export const BigTarget = forwardRef<HTMLButtonElement, TargetProps>((props, ref) => {
+export const BigTarget: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<TargetProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, TargetProps>((props, ref) => {
 	const { style = {}, color, ...restProps } = props;
 
 	return (

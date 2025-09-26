@@ -32,7 +32,10 @@ const HomePage = () => {
 /**
  * Configures a router link for the app provider.
  */
-const MyRouterLinkComponent = forwardRef(
+const MyRouterLinkComponent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<RouterLinkComponentProps<ReactResourceRouterLinkConfig>> &
+		React.RefAttributes<HTMLAnchorElement>
+> = forwardRef(
 	(
 		{ href, children, ...rest }: RouterLinkComponentProps<ReactResourceRouterLinkConfig>,
 		ref: Ref<HTMLAnchorElement>,

@@ -142,6 +142,7 @@ function createPostInteractionLogPayload({
 	reactProfilerTimings,
 	lastInteractionFinishVCResult,
 	postInteractionFinishVCResult,
+	postInteractionHoldInfo
 }: PostInteractionLogOutput) {
 	const config = getConfig();
 
@@ -277,6 +278,12 @@ function createPostInteractionLogPayload({
 					vcClean: postInteractionFinishVCClean,
 					lateMutations,
 					reactProfilerTimings: transformReactProfilerTimings(reactProfilerTimings),
+					...(fg('platform_ufo_enable_late_holds_post_interaction') ? {
+						postInteractionHoldInfo: postInteractionHoldInfo?.map((hold) => ({
+							...hold,
+							labelStack: hold.labelStack.map((label) => label.name).join('/'),
+						}))
+					} : {}),
 				},
 			},
 		},

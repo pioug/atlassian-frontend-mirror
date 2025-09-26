@@ -9,6 +9,7 @@ import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { AgentDropdownMenu, ChatPillIcon } from '@atlaskit/rovo-agent-components';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 
 import { type ProfileClient, type RovoAgentProfileCardInfo } from '../../types';
 import { fireEvent } from '../../util/analytics';
@@ -72,6 +73,7 @@ const _AgentActions = ({
 }: AgentActionsProps) => {
 	const { formatMessage } = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
 
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const isForgeAgent = agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY';
@@ -91,18 +93,25 @@ const _AgentActions = ({
 	}, [agent.id, resourceClient]);
 
 	const handleDeleteAgent = useCallback(() => {
-		fireEvent(createAnalyticsEvent, {
-			action: 'clicked',
-			actionSubject: 'button',
-			actionSubjectId: 'deleteAgentButton',
-			attributes: {
+		if (fg('ptc-enable-profile-card-analytics-refactor')) {
+			fireEventNext('ui.button.clicked.deleteAgentButton', {
 				agentId: agent.id,
 				source: 'agentProfileCard',
-			},
-		});
+			});
+		} else {
+			fireEvent(createAnalyticsEvent, {
+				action: 'clicked',
+				actionSubject: 'button',
+				actionSubjectId: 'deleteAgentButton',
+				attributes: {
+					agentId: agent.id,
+					source: 'agentProfileCard',
+				},
+			});
+		}
 
 		setIsDeleteModalOpen(true);
-	}, [agent.id, createAnalyticsEvent]);
+	}, [agent.id, createAnalyticsEvent, fireEventNext]);
 
 	return (
 		<>
@@ -138,6 +147,7 @@ const _AgentActions = ({
 					onViewAgentFullProfileClick={onViewFullProfileClick}
 					doesAgentHaveIdentityAccountId={!!agent.identity_account_id}
 					shouldTriggerStopPropagation
+					dropdownMenuTestId="agent-dropdown-menu"
 				/>
 			</Inline>
 			<AgentDeleteConfirmationModal

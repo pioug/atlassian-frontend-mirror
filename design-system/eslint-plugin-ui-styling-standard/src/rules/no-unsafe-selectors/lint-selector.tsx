@@ -1,8 +1,8 @@
 import type { Rule } from 'eslint';
 import type * as ESTree from 'eslint-codemod-utils';
+import { isNesting, type Selector } from 'postcss-selector-parser';
 
 import { allowedPseudos, legacyPseudoElements } from './constants';
-import { type Selector, isNesting } from 'postcss-selector-parser';
 import { getRangeFromNode, getSourceLocationFromRange } from './source-position-utils';
 
 type CheckArgs = {

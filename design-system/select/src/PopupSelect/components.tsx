@@ -42,22 +42,22 @@ const menuDialogStyles = css({
  * __Menu dialog__
  * Wrapper for PopupSelect component.
  */
-export const MenuDialog = forwardRef<HTMLDivElement, MenuDialogProps>(
-	({ children, id, style, testId }, ref) => {
-		return (
-			<div
-				ref={ref}
-				css={menuDialogStyles}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={style}
-				id={id}
-				data-testid={testId && `${testId}--menu`}
-			>
-				{children}
-			</div>
-		);
-	},
-);
+export const MenuDialog: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<MenuDialogProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, MenuDialogProps>(({ children, id, style, testId }, ref) => {
+	return (
+		<div
+			ref={ref}
+			css={menuDialogStyles}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={style}
+			id={id}
+			data-testid={testId && `${testId}--menu`}
+		>
+			{children}
+		</div>
+	);
+});
 
 // ==============================
 // Custom Components

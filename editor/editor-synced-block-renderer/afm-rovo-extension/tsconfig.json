@@ -1,0 +1,35 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__editor-synced-block-renderer/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../editor-synced-block-provider/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../renderer/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

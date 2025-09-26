@@ -271,36 +271,36 @@ interface ThemedPressableProps extends ThemedPrimitiveProps, ActionVariantCommon
  *
  * See `ThemedAnchor` for more context.
  */
-const ThemedPressable = forwardRef<HTMLButtonElement, ThemedPressableProps>(
-	function ThemedPressable(
-		{ appearance = 'default', shape = 'default', isSelected, isDisabled, ...props },
-		ref,
-	) {
-		const hasBorder = appearance === 'default' || isSelected;
-		return (
-			<Pressable
-				{...getPrimitiveSpreadProps(props)}
-				ref={ref}
-				type="button"
-				/**
-				 * We are using some style values that are outside of the strict
-				 * `@atlaskit/css` types.
-				 */
-				// @ts-expect-error
-				// eslint-disable-next-line @compiled/no-suppress-xcss
-				xcss={cx(
-					styles.root,
-					shapeStyles[shape],
-					hasBorder && styles.border,
-					appearanceStyles[appearance],
-					isSelected && styles.selected,
-					isDisabled && styles.disabled,
-				)}
-				isDisabled={isDisabled}
-			/>
-		);
-	},
-);
+const ThemedPressable: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ThemedPressableProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, ThemedPressableProps>(function ThemedPressable(
+	{ appearance = 'default', shape = 'default', isSelected, isDisabled, ...props },
+	ref,
+) {
+	const hasBorder = appearance === 'default' || isSelected;
+	return (
+		<Pressable
+			{...getPrimitiveSpreadProps(props)}
+			ref={ref}
+			type="button"
+			/**
+			 * We are using some style values that are outside of the strict
+			 * `@atlaskit/css` types.
+			 */
+			// @ts-expect-error
+			// eslint-disable-next-line @compiled/no-suppress-xcss
+			xcss={cx(
+				styles.root,
+				shapeStyles[shape],
+				hasBorder && styles.border,
+				appearanceStyles[appearance],
+				isSelected && styles.selected,
+				isDisabled && styles.disabled,
+			)}
+			isDisabled={isDisabled}
+		/>
+	);
+});
 
 interface ThemedAnchorProps<RouterLinkConfig extends Record<string, any> = never>
 	extends ThemedPrimitiveProps,
@@ -382,7 +382,9 @@ export interface ThemedButtonProps extends ActionVariantCommonProps, TextButtonC
  *
  * A themed button for the top bar.
  */
-export const ThemedButton = forwardRef<HTMLButtonElement, ThemedButtonProps>(function ThemedButton(
+export const ThemedButton: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ThemedButtonProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, ThemedButtonProps>(function ThemedButton(
 	{ iconBefore: IconBefore, children, ...props },
 	ref,
 ) {
@@ -454,58 +456,61 @@ export interface ThemedIconButtonProps extends ActionVariantCommonProps, IconBut
  *
  * A themed icon button for the top bar.
  */
-export const ThemedIconButton = forwardRef<HTMLButtonElement, ThemedIconButtonProps>(
-	function ThemedIconButton({ icon: Icon, label, tooltip, ...props }, ref) {
-		return (
-			<Tooltip {...tooltip} content={tooltip?.content ?? label}>
-				{(triggerProps) => (
-					/**
-					 * The `aria-describedby` from `triggerProps` is intentionally not passed down,
-					 * because it would cause double announcements with the `VisuallyHidden` label.
-					 *
-					 * The `@atlaskit/button` IconButton uses the same approach.
-					 */
-					<ThemedPressable
-						{...props}
-						shape="square"
-						ref={mergeRefs([ref, triggerProps.ref])}
-						onClick={(event, analyticsEvent) => {
-							props.onClick?.(event, analyticsEvent);
-							triggerProps?.onClick?.(event);
-						}}
-						onMouseOver={(e) => {
-							triggerProps.onMouseOver?.(e);
-							props.onMouseOver?.(e);
-						}}
-						onMouseOut={(e) => {
-							triggerProps.onMouseOut?.(e);
-							props.onMouseOut?.(e);
-						}}
-						onMouseMove={(e) => {
-							triggerProps.onMouseMove?.(e);
-							props.onMouseMove?.(e);
-						}}
-						onMouseDown={(e) => {
-							triggerProps.onMouseDown?.(e);
-							props.onMouseDown?.(e);
-						}}
-						onFocus={(e) => {
-							triggerProps.onFocus?.(e);
-							props.onFocus?.(e);
-						}}
-						onBlur={(e) => {
-							triggerProps.onBlur?.(e);
-							props.onBlur?.(e);
-						}}
-					>
-						<Icon label="" color="currentColor" />
-						<VisuallyHidden>{label}</VisuallyHidden>
-					</ThemedPressable>
-				)}
-			</Tooltip>
-		);
-	},
-);
+export const ThemedIconButton: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ThemedIconButtonProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, ThemedIconButtonProps>(function ThemedIconButton(
+	{ icon: Icon, label, tooltip, ...props },
+	ref,
+) {
+	return (
+		<Tooltip {...tooltip} content={tooltip?.content ?? label}>
+			{(triggerProps) => (
+				/**
+				 * The `aria-describedby` from `triggerProps` is intentionally not passed down,
+				 * because it would cause double announcements with the `VisuallyHidden` label.
+				 *
+				 * The `@atlaskit/button` IconButton uses the same approach.
+				 */
+				<ThemedPressable
+					{...props}
+					shape="square"
+					ref={mergeRefs([ref, triggerProps.ref])}
+					onClick={(event, analyticsEvent) => {
+						props.onClick?.(event, analyticsEvent);
+						triggerProps?.onClick?.(event);
+					}}
+					onMouseOver={(e) => {
+						triggerProps.onMouseOver?.(e);
+						props.onMouseOver?.(e);
+					}}
+					onMouseOut={(e) => {
+						triggerProps.onMouseOut?.(e);
+						props.onMouseOut?.(e);
+					}}
+					onMouseMove={(e) => {
+						triggerProps.onMouseMove?.(e);
+						props.onMouseMove?.(e);
+					}}
+					onMouseDown={(e) => {
+						triggerProps.onMouseDown?.(e);
+						props.onMouseDown?.(e);
+					}}
+					onFocus={(e) => {
+						triggerProps.onFocus?.(e);
+						props.onFocus?.(e);
+					}}
+					onBlur={(e) => {
+						triggerProps.onBlur?.(e);
+						props.onBlur?.(e);
+					}}
+				>
+					<Icon label="" color="currentColor" />
+					<VisuallyHidden>{label}</VisuallyHidden>
+				</ThemedPressable>
+			)}
+		</Tooltip>
+	);
+});
 
 export interface ThemedLinkIconButtonProps<RouterLinkConfig extends Record<string, any> = never>
 	extends LinkVariantCommonProps<RouterLinkConfig>,

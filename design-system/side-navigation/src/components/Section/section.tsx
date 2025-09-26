@@ -45,7 +45,9 @@ export interface SectionProps {
  * - [Examples](https://atlassian.design/components/side-navigation/examples#section)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const Section = forwardRef<HTMLElement, SectionProps>((props, ref) => {
+const Section: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SectionProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, SectionProps>((props, ref) => {
 	const { shouldRender } = useShouldNestedElementRender();
 	if (!shouldRender) {
 		return props.children as JSX.Element;

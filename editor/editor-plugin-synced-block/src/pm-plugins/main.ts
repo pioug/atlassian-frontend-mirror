@@ -36,7 +36,7 @@ export const createPlugin = (
 		},
 		props: {
 			nodeViews: {
-				syncBlock: lazySyncBlockView({ options, pmPluginFactoryParams, api }),
+				syncBlock: lazySyncBlockView({ options, pmPluginFactoryParams, api, syncBlockStore }),
 			},
 		},
 		view: (editorView: EditorView) => {

@@ -13,44 +13,11 @@ import { type MutationData } from './types';
 import checkCssProperty from './utils/check-display-content';
 import checkWithinComponent, { cleanupCaches } from './utils/check-within-component';
 import { getMutatedElements } from './utils/get-mutated-elements';
+import { isElementVisible } from './utils/is-element-visible';
 import isInVCIgnoreIfNoLayoutShiftMarker from './utils/is-in-vc-ignore-if-no-layout-shift-marker';
+import { isSameRectDimensions } from './utils/is-same-rect-dimensions';
+import { isSameRectSize } from './utils/is-same-rect-size';
 import trackDisplayContentsOccurrence from './utils/track-display-content-occurrence';
-
-function isElementVisible(element: Element) {
-	if (!(element instanceof HTMLElement)) {
-		return true;
-	}
-
-	try {
-		const visible = element.checkVisibility({
-			// @ts-ignore - visibilityProperty may not exist in all TS environments
-			visibilityProperty: true,
-			contentVisibilityAuto: true,
-			opacityProperty: true,
-		});
-
-		return visible;
-	} catch (e) {
-		// there is no support for checkVisibility
-		return true;
-	}
-}
-
-function sameRectSize(a: DOMRect | null | undefined, b: DOMRect | null | undefined) {
-	if (!a || !b) {
-		return false;
-	}
-
-	return a.width === b.width && a.height === b.height;
-}
-
-function sameRectDimensions(a: DOMRect | null | undefined, b: DOMRect | null | undefined) {
-	if (!a || !b) {
-		return false;
-	}
-
-	return a.width === b.width && a.height === b.height && a.x === b.x && a.y === b.y;
-}
 
 export type ViewPortObserverConstructorArgs = {
 	onChange(onChangeArgs: {
@@ -80,7 +47,7 @@ const createElementMutationsWatcher =
 			return 'mutation:rll-placeholder';
 		}
 
-		const wasDeleted = removedNodeRects.some((nr) => sameRectDimensions(nr, rect));
+		const wasDeleted = removedNodeRects.some((nr) => isSameRectDimensions(nr, rect));
 
 		if (wasDeleted && isInIgnoreLsMarker) {
 			return 'mutation:element-replacement';
@@ -369,7 +336,7 @@ export default class ViewportObserver {
 			}
 
 			const lastElementRect = this.mapVisibleNodeRects.get(target);
-			if (lastElementRect && sameRectSize(rect, lastElementRect)) {
+			if (lastElementRect && isSameRectSize(rect, lastElementRect)) {
 				return {
 					type: 'mutation:attribute:no-layout-shift',
 					mutationData: {
@@ -406,14 +373,29 @@ export default class ViewportObserver {
 			const target = changedRect.node;
 
 			if (target) {
-				this.onChange({
-					time,
-					elementRef: new WeakRef(target),
-					visible: true,
-					rect: changedRect.rect,
-					previousRect: changedRect.previousRect,
-					type: 'layout-shift',
-				});
+				if (fg('platform_ufo_vc_next_filter_ls_entries_same_rect')) {
+					const isSameCurrentAndPreviousRects = isSameRectDimensions(
+						changedRect.rect,
+						changedRect.previousRect,
+					);
+					this.onChange({
+						time,
+						elementRef: new WeakRef(target),
+						visible: true,
+						rect: changedRect.rect,
+						previousRect: changedRect.previousRect,
+						type: isSameCurrentAndPreviousRects ? 'layout-shift:same-rect' : 'layout-shift',
+					});
+				} else {
+					this.onChange({
+						time,
+						elementRef: new WeakRef(target),
+						visible: true,
+						rect: changedRect.rect,
+						previousRect: changedRect.previousRect,
+						type: 'layout-shift',
+					});
+				}
 			}
 		}
 	};

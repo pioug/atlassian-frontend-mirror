@@ -34,7 +34,9 @@ export interface SpotlightControlsProps {
  *
  * `SpotlightControls` groups spotlight control components.
  */
-export const SpotlightControls = forwardRef<HTMLDivElement, SpotlightControlsProps>(
+export const SpotlightControls: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SpotlightControlsProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, SpotlightControlsProps>(
 	({ testId, children }: SpotlightControlsProps, ref) => {
 		return (
 			<div data-testid={testId} ref={ref} css={styles.root} role="group">

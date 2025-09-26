@@ -79,7 +79,9 @@ export interface EndItemProps
  *
  * For common actions, like `Notifications`, `Help`, `Profile`, `Settings`, use the provided components as appropriate.
  */
-export const EndItem = forwardRef<HTMLButtonElement, EndItemProps>(
+export const EndItem: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<EndItemProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, EndItemProps>(
 	(
 		{
 			label,

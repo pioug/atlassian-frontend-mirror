@@ -333,7 +333,8 @@ const customAudioPlayerWrapperStyles = css({
 const audioPlayerStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	backgroundColor: '#22272B',
-	borderRadius: 3,
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('radius.small', '3px'),
 	alignItems: 'center',
 	justifyContent: 'center',
 	width: '400px',

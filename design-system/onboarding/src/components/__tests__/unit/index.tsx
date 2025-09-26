@@ -57,7 +57,9 @@ const getMockDimensions = (props: ElementStubProps) => (ref: HTMLElement | null)
 	});
 };
 
-const ElementStub = forwardRef((props: ElementStubProps, ref: React.Ref<HTMLDivElement>) => {
+const ElementStub: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ElementStubProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef((props: ElementStubProps, ref: React.Ref<HTMLDivElement>) => {
 	return (
 		<div
 			data-testid={props.testId}

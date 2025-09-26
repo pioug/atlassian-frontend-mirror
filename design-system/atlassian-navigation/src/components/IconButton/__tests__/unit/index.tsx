@@ -32,7 +32,9 @@ describe('<IconButton />', () => {
 	});
 
 	it('can be used with custom components', () => {
-		const MyComponent = React.forwardRef(({ href, children, ...rest }: any, ref) => (
+		const MyComponent: React.ForwardRefExoticComponent<
+			React.PropsWithoutRef<any> & React.RefAttributes<HTMLElement>
+		> = React.forwardRef(({ href, children, ...rest }: any, ref) => (
 			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 			<a href={href} ref={ref} {...rest} data-testid="custom">
 				{children}

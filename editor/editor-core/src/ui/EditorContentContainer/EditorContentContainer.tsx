@@ -107,7 +107,7 @@ import {
 import {
 	panelStyles,
 	panelStylesMixin,
-	panelStylesMixin_fg_platform_editor_add_border_for_nested_panel,
+	nestedPanelBorderStylesMixin,
 	panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
 	panelViewStyles,
 } from './styles/panelStyles';
@@ -307,9 +307,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					gapCursorStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					panelStyles,
-					fg('platform_editor_add_border_for_nested_panel') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						panelStylesMixin_fg_platform_editor_add_border_for_nested_panel,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					nestedPanelBorderStylesMixin,
 					fg('platform_editor_nested_dnd_styles_changes') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes,

@@ -1,6 +1,6 @@
 import { AGGError, AGGErrors, DirectoryGraphQLError, DirectoryGraphQLErrors } from '../util/errors';
 
-import { type ErrorAttributes } from './types';
+import { type DEPRECATED_ErrorAttributes, type ErrorAttributes } from './types';
 
 const IGNORED_ERROR_REASONS_DIRECTORY = [
 	// Error categories from pf-directory
@@ -32,14 +32,14 @@ function isIgnoredError(error?: DirectoryGraphQLError | AGGError): boolean {
 	return false;
 }
 
-export const getErrorAttributes = (
+export const DEPRECATED_getErrorAttributes = (
 	error?: DirectoryGraphQLErrors | Error | unknown | DirectoryGraphQLError | AGGError | AGGErrors,
-): ErrorAttributes => {
+): DEPRECATED_ErrorAttributes => {
 	if (error instanceof DirectoryGraphQLErrors) {
 		return {
 			errorMessage: error.message,
 			errorCount: error.errors.length,
-			errorDetails: error.errors.map(getErrorAttributes),
+			errorDetails: error.errors.map(DEPRECATED_getErrorAttributes),
 			isSLOFailure: !error.errors.every(isIgnoredError),
 			traceId: error.traceId,
 		};
@@ -56,7 +56,7 @@ export const getErrorAttributes = (
 		return {
 			errorMessage: error.message,
 			errorCount: error.errors.length,
-			errorDetails: error.errors.map(getErrorAttributes),
+			errorDetails: error.errors.map(DEPRECATED_getErrorAttributes),
 			isSLOFailure: !error.errors.every(isIgnoredError),
 			traceId: error.traceId,
 		};
@@ -74,7 +74,7 @@ export const getErrorAttributes = (
 			if (error.hasOwnProperty('cause')) {
 				const causeError = (error as any).cause;
 				if (causeError instanceof DirectoryGraphQLErrors || causeError instanceof AGGErrors) {
-					return getErrorAttributes(causeError);
+					return DEPRECATED_getErrorAttributes(causeError);
 				}
 			}
 			return {
@@ -90,6 +90,87 @@ export const getErrorAttributes = (
 
 	// Unknown
 	return {
+		errorMessage: 'Unknown error',
+		isSLOFailure: true,
+	};
+};
+
+export const getErrorAttributes = (
+	error?: DirectoryGraphQLErrors | Error | unknown | DirectoryGraphQLError | AGGError | AGGErrors,
+): ErrorAttributes => {
+	const defaultErrorAttributes: Omit<ErrorAttributes, 'errorMessage' | 'isSLOFailure'> = {
+		errorCount: null,
+		errorDetails: null,
+		errorCategory: null,
+		errorType: null,
+		errorPath: null,
+		errorNumber: null,
+		errorStatusCode: null,
+		traceId: null,
+	};
+
+	if (error instanceof DirectoryGraphQLErrors) {
+		return {
+			...defaultErrorAttributes,
+			errorMessage: error.message,
+			errorCount: error.errors.length,
+			errorDetails: error.errors.map(getErrorAttributes),
+			isSLOFailure: !error.errors.every(isIgnoredError),
+			traceId: error.traceId ?? null,
+		};
+	} else if (error instanceof DirectoryGraphQLError) {
+		return {
+			...defaultErrorAttributes,
+			errorMessage: error.message,
+			errorCategory: error.category,
+			errorType: error.type,
+			errorPath: error.path,
+			errorNumber: error.errorNumber ?? null,
+			isSLOFailure: !isIgnoredError(error),
+		};
+	} else if (error instanceof AGGErrors) {
+		return {
+			...defaultErrorAttributes,
+			errorMessage: error.message,
+			errorCount: error.errors.length,
+			errorDetails: error.errors.map(getErrorAttributes),
+			isSLOFailure: !error.errors.every(isIgnoredError),
+			traceId: error.traceId ?? null,
+		};
+	} else if (error instanceof AGGError) {
+		return {
+			...defaultErrorAttributes,
+			errorMessage: error.message,
+			errorType: error.errorType ?? null,
+			errorStatusCode: error.statusCode ?? null,
+			isSLOFailure: !isIgnoredError(error),
+			errorCategory: error.classification ?? null,
+		};
+	} else if (error instanceof Error) {
+		// Jira custom profile card client error, they wrap the error & put the underlying error in the cause property
+		if (error.message.startsWith('Unable to fetch user:')) {
+			if (error.hasOwnProperty('cause')) {
+				const causeError = (error as any).cause;
+				if (causeError instanceof DirectoryGraphQLErrors || causeError instanceof AGGErrors) {
+					return getErrorAttributes(causeError);
+				}
+			}
+			return {
+				...defaultErrorAttributes,
+				errorMessage: error.message,
+				isSLOFailure: false,
+			};
+		}
+		return {
+			...defaultErrorAttributes,
+			errorMessage: error.message,
+			isSLOFailure: true,
+		};
+	}
+
+	// Unknown
+	return {
+		...defaultErrorAttributes,
 		errorMessage: 'Unknown error',
 		isSLOFailure: true,
 	};

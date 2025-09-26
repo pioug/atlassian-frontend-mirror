@@ -273,9 +273,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				element: this.table,
 				onFirstVisible: () => {
 					this.initialiseEventListenersAfterMount();
-					// force width calculcation - missed resize event under firefox when
+					// force width calculation - missed resize event under firefox when
 					// table is nested within bodied extension
-					if (this.wrapper && fg('platform_editor_nodevisibility_resize_sync')) {
+					if (this.wrapper) {
 						this.wrapperWidth = this.wrapper?.clientWidth;
 					}
 				},
@@ -390,8 +390,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	}
 
 	componentWillUnmount() {
-		const { allowColumnResizing, allowTableResizing, eventDispatcher, isDragAndDropEnabled } =
-			this.props;
+		const {
+			allowColumnResizing,
+			allowTableResizing,
+			eventDispatcher,
+			isDragAndDropEnabled,
+			view,
+			isInDanger,
+		} = this.props;
 		if (this.wrapper && !isIE11) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -421,6 +427,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			this.handleWindowResizeDebounced.cancel();
 		}
 		this.handleWindowResizeNewDebounced.cancel();
+
+		if (expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)) {
+			if (isInDanger) {
+				clearHoverSelection()(view.state, view.dispatch);
+			}
+		}
 
 		if (!allowTableResizing && allowColumnResizing) {
 			// Ignored via go/ees005

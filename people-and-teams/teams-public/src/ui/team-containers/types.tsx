@@ -84,6 +84,10 @@ export interface TeamContainerProps {
 	 * Component to render in the grid before any results
 	 **/
 	elemBeforeCards?: ComponentType<{}>;
+	/**
+	 * Whether to hide the subtext icon
+	 */
+	hideSubTextIcon?: boolean;
 }
 
 export interface TeamContainersEmptyStateProps {

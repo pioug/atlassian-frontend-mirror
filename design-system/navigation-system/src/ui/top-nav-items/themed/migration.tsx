@@ -26,7 +26,10 @@ type IconButtonMigrationProps = {
 
 // Explicitly typed to use only the themed button API,
 // which is a subset of the normal button API
-const IconButton = forwardRef<HTMLButtonElement, ThemedIconButtonProps & IconButtonMigrationProps>(
+const IconButton: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ThemedIconButtonProps & IconButtonMigrationProps> &
+		React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, ThemedIconButtonProps & IconButtonMigrationProps>(
 	(props, ref) => {
 		const hasCustomTheme = useHasCustomTheme();
 		const Component = hasCustomTheme ? ThemedIconButton : AkIconButton;
@@ -37,22 +40,13 @@ const IconButton = forwardRef<HTMLButtonElement, ThemedIconButtonProps & IconBut
 
 // Explicitly typed to use only the themed button API,
 // which is a subset of the normal button API
-const LinkIconButton = forwardRef<
-	HTMLAnchorElement,
-	ThemedLinkIconButtonProps & IconButtonMigrationProps
->((props, ref) => {
-	const hasCustomTheme = useHasCustomTheme();
-	const Component = hasCustomTheme ? ThemedLinkIconButton : AkLinkIconButton;
-
-	return <Component ref={ref} {...props} />;
-});
-
-// Explicitly typed to use only the themed button API,
-// which is a subset of the normal button API
-const Button = forwardRef<HTMLButtonElement, ThemedButtonProps & IconButtonMigrationProps>(
+const LinkIconButton: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ThemedLinkIconButtonProps & IconButtonMigrationProps> &
+		React.RefAttributes<HTMLAnchorElement>
+> = forwardRef<HTMLAnchorElement, ThemedLinkIconButtonProps & IconButtonMigrationProps>(
 	(props, ref) => {
 		const hasCustomTheme = useHasCustomTheme();
-		const Component = hasCustomTheme ? ThemedButton : AkButton;
+		const Component = hasCustomTheme ? ThemedLinkIconButton : AkLinkIconButton;
 
 		return <Component ref={ref} {...props} />;
 	},
@@ -60,7 +54,21 @@ const Button = forwardRef<HTMLButtonElement, ThemedButtonProps & IconButtonMigra
 
 // Explicitly typed to use only the themed button API,
 // which is a subset of the normal button API
-const LinkButton = forwardRef<HTMLAnchorElement, ThemedLinkButtonProps>((props, ref) => {
+const Button: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ThemedButtonProps & IconButtonMigrationProps> &
+		React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, ThemedButtonProps & IconButtonMigrationProps>((props, ref) => {
+	const hasCustomTheme = useHasCustomTheme();
+	const Component = hasCustomTheme ? ThemedButton : AkButton;
+
+	return <Component ref={ref} {...props} />;
+});
+
+// Explicitly typed to use only the themed button API,
+// which is a subset of the normal button API
+const LinkButton: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ThemedLinkButtonProps> & React.RefAttributes<HTMLAnchorElement>
+> = forwardRef<HTMLAnchorElement, ThemedLinkButtonProps>((props, ref) => {
 	const hasCustomTheme = useHasCustomTheme();
 	const Component = hasCustomTheme ? ThemedLinkButton : AkLinkButton;
 

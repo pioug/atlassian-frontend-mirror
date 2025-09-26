@@ -44,6 +44,10 @@ function analytics(gen: (duration: number) => Record<string, any>) {
 		payload.attributes,
 	);
 }
+function analyticsNext(eventKey: string, gen: (duration: number) => Record<string, any>) {
+	const payload = gen(1000);
+	console.log(eventKey, payload.attributes);
+}
 
 const actionCounts = [0, 1, 2, 3, 4];
 
@@ -80,6 +84,7 @@ export default function Example() {
 					<CardWrapper>
 						<TeamProfileCard
 							analytics={analytics}
+							analyticsNext={analyticsNext}
 							generateUserLink={() => 'about:blank'}
 							onUserClick={(userId: string) => {
 								console.log(`User with id: (${userId}) has been clicked.`);

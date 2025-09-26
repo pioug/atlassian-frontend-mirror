@@ -25,7 +25,10 @@ type MyRouterLinkConfig = {
 	customProp?: string;
 };
 
-const MyRouterLinkComponent = forwardRef(
+const MyRouterLinkComponent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<RouterLinkComponentProps<MyRouterLinkConfig>> &
+		React.RefAttributes<HTMLAnchorElement>
+> = forwardRef(
 	(
 		{ href, children, ...rest }: RouterLinkComponentProps<MyRouterLinkConfig>,
 		ref: Ref<HTMLAnchorElement>,

@@ -215,7 +215,7 @@ const PanelStyled = ({
 				!hasIcon && panelHasNoIconStyles,
 				props['data-panel-type'] === PanelType.CUSTOM && backgroundColor && panelCustomBackground,
 				fg('platform_editor_nested_dnd_styles_changes') && panelNestedIconStyles,
-				fg('platform_editor_add_border_for_nested_panel') && nestedPanelStyles,
+				nestedPanelStyles,
 			]}
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading

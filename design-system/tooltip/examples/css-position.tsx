@@ -41,7 +41,9 @@ interface Pos {
 	top?: number;
 }
 
-const Position = forwardRef<HTMLDivElement, Pos>(({ children, pos, pinned, top = 0 }, ref) => {
+const Position: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<Pos> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, Pos>(({ children, pos, pinned, top = 0 }, ref) => {
 	const dynamicStyles: CSSProperties = {
 		position: `${pos}`,
 		top: `${top}px`,

@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 4.0.3
+
+### Patch Changes
+
+- [`c158b1ba4f0fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c158b1ba4f0fd) -
+  ED-29388: fix converting empty list
+- Updated dependencies
+
+## 4.0.2
+
+### Patch Changes
+
+- [`9cf29da7572b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cf29da7572b3) -
+  [ux] Fires Element converted event when Turn into menu is used to transform a node from one node
+  type to another.
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes

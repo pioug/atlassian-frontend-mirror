@@ -59,7 +59,9 @@ export type FlyoutMenuItemProps = {
  * </FlyoutMenuItem>
  * ```
  */
-export const FlyoutMenuItem = forwardRef<HTMLDivElement, FlyoutMenuItemProps>(
+export const FlyoutMenuItem: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<FlyoutMenuItemProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, FlyoutMenuItemProps>(
 	(
 		{ children, id, isOpen: isOpenControlled, isDefaultOpen = false, onOpenChange },
 		forwardedRef,

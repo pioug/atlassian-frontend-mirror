@@ -51,9 +51,6 @@
 			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags-react/afm-dev-agents/tsconfig.json"
-		},
-		{
 			"path": "../../popup/afm-dev-agents/tsconfig.json"
 		},
 		{

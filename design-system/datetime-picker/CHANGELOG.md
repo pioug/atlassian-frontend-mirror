@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 17.0.17
+
+### Patch Changes
+
+- [`39e543109ec09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39e543109ec09) -
+  add type info to forwardRef components
+- Updated dependencies
+
 ## 17.0.16
 
 ### Patch Changes

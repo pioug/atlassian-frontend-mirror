@@ -1,5 +1,20 @@
 # @atlaskit/calendar
 
+## 17.1.20
+
+### Patch Changes
+
+- [`39e543109ec09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39e543109ec09) -
+  add type info to forwardRef components
+- Updated dependencies
+
+## 17.1.19
+
+### Patch Changes
+
+- [`f3494b0a49dbc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3494b0a49dbc) -
+  Internal changes to use new shape tokens. No visual changes.
+
 ## 17.1.18
 
 ### Patch Changes

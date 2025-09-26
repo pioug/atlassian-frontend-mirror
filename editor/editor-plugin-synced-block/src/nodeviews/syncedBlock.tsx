@@ -11,8 +11,9 @@ import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/edito
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import {
-	createSyncBlockNode,
+	convertSyncBlockPMNodeToSyncBlockData,
 	useFetchDocNode,
 	type SyncBlockNode,
 } from '@atlaskit/editor-synced-block-provider';
@@ -61,12 +62,13 @@ export interface SyncBlockNodeViewProps extends ReactComponentProps {
 	node: PMNode;
 	options: SyncedBlockPluginOptions | undefined;
 	portalProviderAPI: PortalProviderAPI;
+	syncBlockStore: SyncBlockStoreManager;
 	view: EditorView;
 }
 class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
-	private isSource: boolean;
 	private options: SyncedBlockPluginOptions | undefined;
 	private fetchIntervalId: number | undefined;
+	private syncBlockStore: SyncBlockStoreManager;
 
 	constructor(props: SyncBlockNodeViewProps) {
 		super(
@@ -77,10 +79,8 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 			props.eventDispatcher,
 			props,
 		);
-		const { resourceId, localId } = props.node.attrs;
-		// Temporary solution to identify the source
-		this.isSource = resourceId === localId;
 		this.options = props.options;
+		this.syncBlockStore = props.syncBlockStore;
 	}
 
 	unsubscribe: (() => void) | undefined;
@@ -91,18 +91,22 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		return domRef;
 	}
 
+	private isSource(): boolean {
+		return this.syncBlockStore.isSourceBlock(this.node);
+	}
+
 	private handleContentChanges(updatedDoc: PMNode): void {
 		if (!this.isSource) {
 			return;
 		}
 		// write data
-		const node = createSyncBlockNode(this.node, false);
+		const node = convertSyncBlockPMNodeToSyncBlockData(this.node, false);
 		this.options?.syncedBlockProvider?.writeNodesData([node], [{ content: updatedDoc.toJSON() }]);
 	}
 
 	private setInnerEditorView(editorView: EditorView): void {
 		// set inner editor view
-		const nodes: SyncBlockNode[] = [createSyncBlockNode(this.node, false)];
+		const nodes: SyncBlockNode[] = [convertSyncBlockPMNodeToSyncBlockData(this.node, false)];
 
 		this.options?.syncedBlockProvider?.fetchNodesData(nodes).then((data) => {
 			const tr = editorView.state.tr;
@@ -161,7 +165,7 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 	}
 
 	render() {
-		if (this.isSource) {
+		if (this.isSource()) {
 			return this.renderEditor();
 		}
 		return this.renderRenderer();
@@ -216,10 +220,11 @@ export interface SyncBlockNodeViewProperties {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 	options: SyncedBlockPluginOptions | undefined;
 	pmPluginFactoryParams: PMPluginFactoryParams;
+	syncBlockStore: SyncBlockStoreManager;
 }
 
 export const syncBlockNodeView =
-	({ options, pmPluginFactoryParams, api }: SyncBlockNodeViewProperties) =>
+	({ options, pmPluginFactoryParams, api, syncBlockStore }: SyncBlockNodeViewProperties) =>
 	(node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 		const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
 
@@ -231,5 +236,6 @@ export const syncBlockNodeView =
 			getPos,
 			portalProviderAPI,
 			eventDispatcher,
+			syncBlockStore,
 		}).init();
 	};

@@ -166,7 +166,9 @@ const newRadioStyles = css({
 	},
 });
 
-const InnerRadio = forwardRef(function Radio(props: RadioProps, ref: Ref<HTMLInputElement>) {
+const InnerRadio: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<RadioProps> & React.RefAttributes<HTMLInputElement>
+> = forwardRef(function Radio(props: RadioProps, ref: Ref<HTMLInputElement>) {
 	const {
 		ariaLabel,
 		'aria-labelledby': ariaLabelledBy,

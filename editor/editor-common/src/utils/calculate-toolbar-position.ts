@@ -1,7 +1,7 @@
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PopupPosition as Position } from '../ui';
 
@@ -119,7 +119,7 @@ export const calculateToolbarPositionTrackHead =
 			!!moreRovoOptionsButton.offsetParent;
 
 		let range: Range | null = null;
-		if (editorExperiment('platform_editor_ai_aifc', true) && isMoreRovoOptionsButtonVisible) {
+		if (isMoreRovoOptionsButtonVisible && fg('aifc_create_enabled')) {
 			if (selection && selection.getRangeAt && selection.rangeCount > 0) {
 				const maybeRange = selection.getRangeAt(0);
 				if (maybeRange instanceof Range) {

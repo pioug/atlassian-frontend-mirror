@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 6.1.0
+
+### Minor Changes
+
+- [`fa2e8ad38d6f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa2e8ad38d6f7) -
+  [ux] Show hovered prompt in placeholder text input
+
 ## 6.0.0
 
 ### Patch Changes

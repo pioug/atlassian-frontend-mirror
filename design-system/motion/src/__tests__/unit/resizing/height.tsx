@@ -13,29 +13,29 @@ jest.mock('../../../utils/accessibility');
 replaceRaf();
 const raf = window.requestAnimationFrame as any;
 
-const Container = forwardRef<HTMLElement, { id: string; height: number }>(
-	({ id, height, ...props }, ref) => {
-		const getBoundingClientRect = () => ({ height });
+const Container: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<{ id: string; height: number }> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, { id: string; height: number }>(({ id, height, ...props }, ref) => {
+	const getBoundingClientRect = () => ({ height });
 
-		return (
-			<div
-				ref={(element) => {
-					const newRef: HTMLDivElement | null = element
-						? Object.assign(element, { getBoundingClientRect })
-						: null;
+	return (
+		<div
+			ref={(element) => {
+				const newRef: HTMLDivElement | null = element
+					? Object.assign(element, { getBoundingClientRect })
+					: null;
 
-					if (typeof ref === 'function') {
-						ref(newRef);
-					} else {
-						Object.assign(ref || {}, { current: newRef });
-					}
-				}}
-				{...props}
-				data-testid={id}
-			/>
-		);
-	},
-);
+				if (typeof ref === 'function') {
+					ref(newRef);
+				} else {
+					Object.assign(ref || {}, { current: newRef });
+				}
+			}}
+			{...props}
+			data-testid={id}
+		/>
+	);
+});
 
 const TestComponent = (props: { height: number }) => (
 	<Container {...useResizingHeight()} height={props.height} id="element" />

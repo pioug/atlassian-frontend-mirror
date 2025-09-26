@@ -51,7 +51,7 @@ export const TeamContainers = ({
 	teamId,
 	onAddAContainerClick,
 	onEditContainerClick,
-	onRequestedContainerTimeout = () => {},
+	onRequestedContainerTimeout = () => { },
 	components,
 	userId,
 	cloudId,
@@ -61,6 +61,7 @@ export const TeamContainers = ({
 	onError,
 	maxNumberOfContainersToShow = MAX_NUMBER_OF_CONTAINERS_TO_SHOW,
 	elemBeforeCards,
+	hideSubTextIcon,
 }: TeamContainerProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { unlinkError } = useTeamContainers(teamId);
@@ -386,6 +387,7 @@ export const TeamContainers = ({
 										iconsLoading={iconsLoading}
 										iconHasLoaded={iconHasLoaded}
 										isReadOnly={isReadOnly}
+										hideSubTextIcon={hideSubTextIcon}
 										onDisconnectButtonClick={() =>
 											handleOpenDisconnectDialog({
 												containerId: container.id,
@@ -419,6 +421,7 @@ export const TeamContainers = ({
 											iconsLoading={iconsLoading}
 											iconHasLoaded={iconHasLoaded}
 											isReadOnly={isReadOnly}
+											hideSubTextIcon={hideSubTextIcon}
 											onDisconnectButtonClick={() =>
 												handleOpenDisconnectDialog({
 													containerId: container.id,

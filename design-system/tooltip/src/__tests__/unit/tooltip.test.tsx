@@ -580,14 +580,14 @@ describe('Tooltip', () => {
 	});
 
 	it('should render whatever is passed to component prop', () => {
-		const CustomTooltip = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
-			({ style, testId }, ref) => (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				<strong ref={ref} style={style} data-testid={testId}>
-					Im a custom tooltip
-				</strong>
-			),
-		);
+		const CustomTooltip: React.ForwardRefExoticComponent<
+			React.PropsWithoutRef<TooltipPrimitiveProps> & React.RefAttributes<HTMLDivElement>
+		> = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(({ style, testId }, ref) => (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			<strong ref={ref} style={style} data-testid={testId}>
+				Im a custom tooltip
+			</strong>
+		));
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" component={CustomTooltip}>
 				<button data-testid="trigger" type="button">

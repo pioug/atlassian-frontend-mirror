@@ -13,7 +13,7 @@ import {
 	RemoveMarkStep,
 	RemoveNodeMarkStep,
 } from '@atlaskit/editor-prosemirror/transform';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type EditorViewModeEffectsPlugin } from './editorViewmodeEffectsPluginType';
 import { ViewModeNodeStep, ViewModeStep } from './pm-plugins/viewModeStep';
@@ -42,7 +42,7 @@ const createFilterStepsPlugin =
 				if (viewModeSteps.length === 0 || !api) {
 					// Editor should not allow local edits in view mode (except for comments) which are handled
 					// via ViewModeSteps. If we have no ViewModeSteps, we should block the transaction.
-					if (editorExperiment('platform_editor_ai_aifc', true)) {
+					if (fg('aifc_create_enabled')) {
 						if (
 							tr.docChanged &&
 							// Check if the transaction contains any steps that modify the document (view mode steps do not)

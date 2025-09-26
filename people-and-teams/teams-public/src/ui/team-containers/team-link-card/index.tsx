@@ -96,6 +96,7 @@ export interface TeamLinkCardProps {
 	iconHasLoaded?: boolean;
 	openInNewTab?: boolean;
 	isReadOnly?: boolean;
+	hideSubTextIcon?: boolean;
 }
 
 export const TeamLinkCard = ({
@@ -111,6 +112,7 @@ export const TeamLinkCard = ({
 	iconHasLoaded,
 	openInNewTab,
 	isReadOnly,
+	hideSubTextIcon
 }: TeamLinkCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { description, icon, containerTypeText } = getContainerProperties({
@@ -234,7 +236,7 @@ export const TeamLinkCard = ({
 									{title}
 								</Text>
 								<Flex gap="space.050" alignItems="center">
-									{icon}
+									{!hideSubTextIcon ? icon : null}
 									<Inline space="space.050">
 										<Text size="small" color="color.text.subtle">
 											{description}
@@ -276,7 +278,7 @@ export const TeamLinkCard = ({
 										{title}
 									</Text>
 									<Flex gap="space.050" alignItems="center">
-										{icon}
+										{!hideSubTextIcon ? icon : null}
 										<Inline space="space.050">
 											<Text size="small" color="color.text.subtle">
 												{description}

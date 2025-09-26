@@ -18,7 +18,9 @@ export type { ButtonItemProps as GoBackItemProps } from '@atlaskit/menu';
  * - [Examples](https://atlassian.design/components/side-navigation/examples#go-back-item)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
+const GoBackItem: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ButtonItemProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, ButtonItemProps>(
 	(
 		{
 			className,

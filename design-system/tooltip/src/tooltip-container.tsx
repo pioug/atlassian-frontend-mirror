@@ -46,46 +46,46 @@ const styles = cssMap({
  * Used as the default tooltip container component for the exported `Tooltip` component.
  * Adds some styles to the tooltip primitive.
  */
-const TooltipContainer = forwardRef<HTMLDivElement, TooltipContainerProps>(
-	function TooltipContainer(
-		{
-			style,
-			className,
-			children,
-			truncate,
-			placement,
-			testId,
-			onMouseOut,
-			onMouseOver,
-			id,
-			shortcut,
-		},
-		ref,
-	) {
-		return (
-			<TooltipPrimitive
-				ref={ref}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={style}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={className}
-				placement={placement}
-				testId={testId}
-				id={id}
-				onMouseOut={onMouseOut}
-				onMouseOver={onMouseOver}
-				shortcut={shortcut}
-				css={[
-					styles.base,
-					fg('platform-dst-tooltip-shortcuts') && styles.baseRefreshedPadding,
-					truncate && styles.truncate,
-				]}
-			>
-				{children}
-			</TooltipPrimitive>
-		);
+const TooltipContainer: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<TooltipContainerProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, TooltipContainerProps>(function TooltipContainer(
+	{
+		style,
+		className,
+		children,
+		truncate,
+		placement,
+		testId,
+		onMouseOut,
+		onMouseOver,
+		id,
+		shortcut,
 	},
-);
+	ref,
+) {
+	return (
+		<TooltipPrimitive
+			ref={ref}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={style}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={className}
+			placement={placement}
+			testId={testId}
+			id={id}
+			onMouseOut={onMouseOut}
+			onMouseOver={onMouseOver}
+			shortcut={shortcut}
+			css={[
+				styles.base,
+				fg('platform-dst-tooltip-shortcuts') && styles.baseRefreshedPadding,
+				truncate && styles.truncate,
+			]}
+		>
+			{children}
+		</TooltipPrimitive>
+	);
+});
 
 TooltipContainer.displayName = 'TooltipContainer';
 

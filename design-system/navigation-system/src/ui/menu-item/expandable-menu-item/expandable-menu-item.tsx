@@ -83,7 +83,9 @@ const relativeStyles = cssMap({
  * </ExpandableMenuItem>
  * ```
  */
-export const ExpandableMenuItem = forwardRef<HTMLDivElement, ExpandableMenuItemProps>(
+export const ExpandableMenuItem: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ExpandableMenuItemProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, ExpandableMenuItemProps>(
 	(
 		{
 			isExpanded: isExpandedControlled,

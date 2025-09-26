@@ -24,9 +24,6 @@
 			"path": "../../focus-ring/afm-townsquare/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
-		},
-		{
 			"path": "../../primitives/afm-townsquare/tsconfig.json"
 		},
 		{

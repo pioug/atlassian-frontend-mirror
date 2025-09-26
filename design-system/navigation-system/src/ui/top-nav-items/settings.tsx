@@ -11,6 +11,8 @@ interface SettingsProps extends Omit<EndItemProps, 'icon'> {}
  *
  * The Settings button for the top navigation.
  */
-export const Settings = forwardRef<HTMLButtonElement, SettingsProps>((props, ref) => (
+export const Settings: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SettingsProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, SettingsProps>((props, ref) => (
 	<EndItem {...props} ref={ref} icon={SettingsIcon} />
 ));

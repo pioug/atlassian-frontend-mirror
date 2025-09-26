@@ -71,7 +71,9 @@ describe(`Buttons should not throw away events due to re-renders when using vari
 	});
 
 	it(`forwardRef`, async () => {
-		const ForwardRefIcon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => (
+		const ForwardRefIcon: React.ForwardRefExoticComponent<
+			React.PropsWithoutRef<IconProps> & React.RefAttributes<HTMLSpanElement>
+		> = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => (
 			<ShowMoreHorizontalIcon
 				{...props}
 				// @ts-ignore

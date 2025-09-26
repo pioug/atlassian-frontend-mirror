@@ -59,14 +59,15 @@ const bodyStyles: React.CSSProperties = {
 	overflowX: 'hidden',
 };
 
-const CustomBody = React.forwardRef<HTMLDivElement, React.AllHTMLAttributes<HTMLDivElement>>(
-	(props, ref) => (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<Box ref={ref} style={bodyStyles}>
-			{props.children}
-		</Box>
-	),
-);
+const CustomBody: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<React.AllHTMLAttributes<HTMLDivElement>> &
+		React.RefAttributes<HTMLDivElement>
+> = React.forwardRef<HTMLDivElement, React.AllHTMLAttributes<HTMLDivElement>>((props, ref) => (
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+	<Box ref={ref} style={bodyStyles}>
+		{props.children}
+	</Box>
+));
 
 const CustomFooter = () => {
 	const { onClose } = useModal();

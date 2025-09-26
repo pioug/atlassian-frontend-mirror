@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 214.0.4
+
+### Patch Changes
+
+- [`76ffc91d514f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76ffc91d514f3) -
+  Changed packages over to using the generic AIFC FG rather then an experiment
+- Updated dependencies
+
+## 214.0.3
+
+### Patch Changes
+
+- [`f3494b0a49dbc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3494b0a49dbc) -
+  Internal changes to use new shape tokens. No visual changes.
+- Updated dependencies
+
+## 214.0.2
+
+### Patch Changes
+
+- [`5a35ce1c7b07a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a35ce1c7b07a) -
+  Clean up nested border style fg
+- Updated dependencies
+
 ## 214.0.1
 
 ### Patch Changes

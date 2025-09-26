@@ -8,7 +8,10 @@ interface BoundingBox {
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const ComponentStub = React.forwardRef(
+export const ComponentStub: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<{ testId: string; box: Partial<BoundingBox> }> &
+		React.RefAttributes<HTMLElement>
+> = React.forwardRef(
 	(
 		{
 			testId,

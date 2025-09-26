@@ -11,7 +11,9 @@ import Before from '../shared/before';
 import Content from '../shared/content';
 import { type SimpleTagProps } from '../shared/types';
 
-const SimpleTagComponent = forwardRef(
+const SimpleTagComponent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SimpleTagProps> & React.RefAttributes<any>
+> = forwardRef(
 	(
 		{
 			appearance,

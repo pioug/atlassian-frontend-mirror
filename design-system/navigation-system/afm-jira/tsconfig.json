@@ -51,9 +51,6 @@
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags-react/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../popup/afm-jira/tsconfig.json"
 		},
 		{

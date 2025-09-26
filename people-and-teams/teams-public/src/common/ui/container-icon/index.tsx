@@ -111,6 +111,7 @@ export const ContainerIcon = ({
 	return (
 		<Avatar
 			appearance="square"
+			borderColor="transparent"
 			size={size}
 			src={containerIcon}
 			testId={`linked-container-${containerType}-icon`}

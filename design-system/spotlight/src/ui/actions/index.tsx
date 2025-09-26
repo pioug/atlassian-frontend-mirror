@@ -33,7 +33,9 @@ export interface SpotlightActionsProps {
  * `SpotlightActions` groups `SpotlightAction` components.
  *
  */
-export const SpotlightActions = forwardRef<HTMLDivElement, SpotlightActionsProps>(
+export const SpotlightActions: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SpotlightActionsProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, SpotlightActionsProps>(
 	({ children, testId }: SpotlightActionsProps, ref) => {
 		return (
 			<Flex

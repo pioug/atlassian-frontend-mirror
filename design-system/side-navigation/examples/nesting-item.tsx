@@ -30,7 +30,10 @@ const styles = cssMap({
 	},
 });
 
-const CustomNestingItem = forwardRef(
+const CustomNestingItem: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<CustomItemComponentProps & { href: string }> &
+		React.RefAttributes<HTMLAnchorElement>
+> = forwardRef(
 	(
 		{ children, href, ...props }: CustomItemComponentProps & { href: string },
 		ref: React.Ref<HTMLAnchorElement>,

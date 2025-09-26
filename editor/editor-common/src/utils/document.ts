@@ -8,7 +8,7 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { isEmptyParagraph } from './editor-core-utils';
 
@@ -31,7 +31,7 @@ export const getStepRange = (
 			// See ticket https://hello.jira.atlassian.cloud/browse/EDITOR-1223 and
 			// PR https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/208332/overview
 			// to see why use clamp here
-			if (editorExperiment('platform_editor_ai_aifc', true)) {
+			if (fg('aifc_create_enabled')) {
 				const docSize = transaction.doc.content.size;
 				from = clamp(from, 0, docSize);
 				to = clamp(to, 0, docSize);

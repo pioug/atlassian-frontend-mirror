@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider, type MessageDescriptor } from 'react-intl-next';
 
 import { useTeamContainers } from '@atlaskit/teams-public';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import {
+	mockRunItLaterSynchronously,
+	renderWithAnalyticsListener as render,
+} from '@atlassian/ptc-test-utils';
 
 import { TeamProfileCard, type TeamProfileCardProps } from './main';
 import { mockProfileData } from './mocks';
@@ -39,6 +44,15 @@ const ConfluenceSpace = {
 
 const mockUserId = 'mockUser1';
 const mockCloudId = 'mocktenant1';
+
+const profileLinkClickEvent = {
+	action: 'clicked',
+	actionSubject: 'button',
+	actionSubjectId: 'viewTeamProfileButton',
+	attributes: {},
+};
+
+mockRunItLaterSynchronously();
 
 describe('TeamProfileCard', () => {
 	let originalWindowOpen: typeof window.open;
@@ -174,6 +188,41 @@ describe('TeamProfileCard', () => {
 				'_blank',
 			);
 		});
+
+		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+			it('should fire analytics on profile link item click', async () => {
+				const { expectEventToBeFired } = render(
+					<IntlProvider locale="en">
+						<TeamProfileCard
+							cloudId={mockCloudId}
+							userId={mockUserId}
+							containerId={'1234'}
+							{...mockProfileData}
+						/>
+					</IntlProvider>,
+				);
+
+				await userEvent.click(screen.getByTestId('view-profile-button'));
+				expectEventToBeFired('ui', profileLinkClickEvent);
+			});
+		});
+		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+			it('should fire analytics on profile link item click', async () => {
+				const { expectEventToBeFired } = render(
+					<IntlProvider locale="en">
+						<TeamProfileCard
+							cloudId={mockCloudId}
+							userId={mockUserId}
+							containerId={'1234'}
+							{...mockProfileData}
+						/>
+					</IntlProvider>,
+				);
+
+				await userEvent.click(screen.getByTestId('view-profile-button'));
+				expectEventToBeFired('ui', profileLinkClickEvent);
+			});
+		});
 	});
 
 	describe('new layout', () => {
@@ -263,6 +312,25 @@ describe('TeamProfileCard', () => {
 			expect(action1).toBeInTheDocument();
 			const action2 = screen.getByRole('button', { name: 'Action 2' });
 			expect(action2).toBeInTheDocument();
+		});
+
+		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+			it('should fire analytics on profile link item click', async () => {
+				const { expectEventToBeFired } = renderComponent();
+
+				await userEvent.click(screen.getByTestId('team-profile-card-profile-link-item'));
+
+				expectEventToBeFired('ui', profileLinkClickEvent);
+			});
+		});
+		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+			it('should fire analytics on profile link item click', async () => {
+				const { expectEventToBeFired } = renderComponent();
+
+				await userEvent.click(screen.getByTestId('team-profile-card-profile-link-item'));
+
+				expectEventToBeFired('ui', profileLinkClickEvent);
+			});
 		});
 	});
 });

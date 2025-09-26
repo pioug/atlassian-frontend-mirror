@@ -51,9 +51,6 @@
 			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags-react/afm-passionfruit/tsconfig.json"
-		},
-		{
 			"path": "../../popup/afm-passionfruit/tsconfig.json"
 		},
 		{

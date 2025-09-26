@@ -188,7 +188,9 @@ export interface MoreIndicatorProps {
 
 const MAX_DISPLAY_COUNT = 99;
 
-const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
+const MoreIndicator: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<MoreIndicatorProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
 	(
 		{
 			appearance = 'circle',

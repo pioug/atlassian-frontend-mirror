@@ -6,6 +6,7 @@ import type {
 	Transaction,
 	SelectionBookmark,
 } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getSendableSelection } from '../actions';
@@ -72,7 +73,7 @@ export const sendTransaction =
 		const participantsChanged =
 			prevActiveParticipants && !prevActiveParticipants.eq(activeParticipants);
 
-		if (editorExperiment('platform_editor_ai_aifc', true)) {
+		if (fg('aifc_create_enabled')) {
 			if (!sessionId || viewMode !== 'edit') {
 				return;
 			}

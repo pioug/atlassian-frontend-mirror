@@ -1,11 +1,9 @@
-import uuid from 'uuid';
-
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import type { Node as PMNode, NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { SyncBlockNode } from '../common/types';
 
-export const createSyncBlockNode = (
+export const convertSyncBlockPMNodeToSyncBlockData = (
 	node: PMNode,
 	includeContent: boolean = false,
 ): SyncBlockNode => {
@@ -19,21 +17,6 @@ export const createSyncBlockNode = (
 		},
 		content: includeContent ? node.content.content.map(toJSON) : undefined,
 	};
-};
-
-export const createSyncBlockPMNode = (nodeType: NodeType): PMNode => {
-	// TODO: EDITOR-1644 - properly implement creation of the synced block
-	// below is a temporary implementation for the creation of the synced block
-	// the resource id needs to have pageId and content property key in it
-	const id = uuid();
-	const node = nodeType.createChecked(
-		{
-			resourceId: id,
-			localId: id,
-		},
-		null,
-	) as PMNode;
-	return node;
 };
 
 export const generateSyncBlockSourceUrl = (node: PMNode): string => {

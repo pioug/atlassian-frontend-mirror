@@ -154,6 +154,16 @@ export const messages = defineMessages({
 		defaultMessage: 'Add a note with an emoji and colored background',
 		description: 'Visually distinguishes your panel by adding a emoji icon and background color ',
 	},
+	syncedBlock: {
+		id: 'fabric.editor.syncedBlock',
+		defaultMessage: 'Synced block',
+		description: 'Inserts a synced block that auto-updates content across Atlassian apps',
+	},
+	syncedBlockDescription: {
+		id: 'fabric.editor.syncedBlock.description',
+		defaultMessage: 'Auto-update content across Atlassian apps',
+		description: 'Description of the synced block that auto-updates content across Atlassian apps',
+	},
 	panel: {
 		id: 'fabric.editor.panel',
 		defaultMessage: 'Panel',

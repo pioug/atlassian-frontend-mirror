@@ -185,7 +185,9 @@ type AvatarContentProps = {
  * - [Code](https://atlassian.design/components/avatar/code)
  * - [Usage](https://atlassian.design/components/avatar/usage)
  */
-export const AvatarContent = forwardRef<HTMLElement, AvatarContentProps>(({ children }, ref) => {
+export const AvatarContent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<AvatarContentProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, AvatarContentProps>(({ children }, ref) => {
 	useEnsureIsInsideAvatar();
 	const {
 		as: Container,

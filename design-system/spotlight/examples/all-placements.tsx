@@ -38,6 +38,7 @@ const styles = cssMap({
 		gap: token('space.1000'),
 	},
 	target: {
+		width: '100%',
 		paddingBlockStart: token('space.200'),
 		paddingInlineEnd: token('space.200'),
 		paddingBlockEnd: token('space.200'),

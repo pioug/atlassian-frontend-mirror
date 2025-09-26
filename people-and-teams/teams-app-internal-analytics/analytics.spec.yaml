@@ -2016,3 +2016,62 @@ events:
         numActions:
           type: number
           description: the number of actions
+  - teamProfileCard clicked (moreActions):
+      type: ui
+      description: fired when the more actions is clicked
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        numActions:
+          type: number
+          description: the number of actions
+  - teamProfileCard clicked (avatar):
+      type: ui
+      description: fired when the avatar is clicked
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        hasHref:
+          type: boolean
+          description: whether the avatar has href
+        hasOnClick:
+          type: boolean
+          description: whether the avatar has onClick
+        index:
+          type: number
+          description: the index
+  - teamProfileCard clicked (action):
+      type: ui
+      description: fired when the action is clicked
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        hasHref:
+          type: boolean
+          description: whether the action has href
+        hasOnClick:
+          type: boolean
+          description: whether the action has onClick
+        index:
+          type: number
+          description: the index
+        actionId:
+          type: string
+          description: the action id
+  - teamProfileCard clicked (moreMembers):
+      type: ui
+      description: fired when the more members is clicked
+      attributes:
+        <<: *ProfileCardAttributes
+        duration:
+          type: number
+          description: the duration
+        memberCount:
+          type: number
+          description: the number of members

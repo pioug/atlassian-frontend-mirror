@@ -63,7 +63,9 @@ const customNestingItemStyles = css({
 	},
 });
 
-const CustomComponent = forwardRef((props: CustomItemComponentProps, ref) => {
+const CustomComponent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<CustomItemComponentProps> & React.RefAttributes<HTMLElement>
+> = forwardRef((props: CustomItemComponentProps, ref) => {
 	const { children, ...rest } = props;
 	return (
 		<button type="button" ref={ref} css={btnStyles} {...rest}>

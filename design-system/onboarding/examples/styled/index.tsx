@@ -59,10 +59,10 @@ const highlightStyles = css({
 	},
 });
 
-export const Highlight = forwardRef<
-	HTMLElement,
-	React.HTMLAttributes<HTMLElement> & HighlightProps
->((props, ref) => (
+export const Highlight: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<React.HTMLAttributes<HTMLElement> & HighlightProps> &
+		React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement> & HighlightProps>((props, ref) => (
 	<div
 		{...props}
 		css={highlightStyles}

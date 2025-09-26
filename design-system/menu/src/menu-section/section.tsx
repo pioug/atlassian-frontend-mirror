@@ -93,7 +93,9 @@ const styles = cssMap({
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/section)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
  */
-const Section = forwardRef<HTMLElement, SectionProps>(
+const Section: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SectionProps> & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, SectionProps>(
 	(
 		{
 			children,

@@ -5,7 +5,9 @@ import { render, screen } from '@testing-library/react';
 import Button from '../../../old-button/button';
 
 it('should render a custom component if provided', () => {
-	const Custom = React.forwardRef<HTMLDivElement, React.PropsWithChildren<{}>>(function Custom(
+	const Custom: React.ForwardRefExoticComponent<
+		React.PropsWithoutRef<React.PropsWithChildren<{}>> & React.RefAttributes<HTMLDivElement>
+	> = React.forwardRef<HTMLDivElement, React.PropsWithChildren<{}>>(function Custom(
 		{ children, ...rest },
 		ref,
 	) {
@@ -31,7 +33,9 @@ it('should support having a custom component with extra strange props', () => {
 	type LinkProps = React.AllHTMLAttributes<HTMLElement> & {
 		to: string;
 	};
-	const Link = React.forwardRef(function Link(
+	const Link: React.ForwardRefExoticComponent<
+		React.PropsWithoutRef<LinkProps> & React.RefAttributes<HTMLElement>
+	> = React.forwardRef(function Link(
 		{ children, to, ...rest }: LinkProps,
 		ref: React.Ref<HTMLElement>,
 	) {

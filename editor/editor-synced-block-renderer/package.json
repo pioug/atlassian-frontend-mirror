@@ -32,6 +32,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-synced-block-provider": "workspace:^",
 		"@atlaskit/renderer": "workspace:^",
 		"@babel/runtime": "root:*"
 	},

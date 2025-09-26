@@ -74,7 +74,9 @@ const textAlignMap = {
  *
  * @internal
  */
-const MetricText = forwardRef(
+const MetricText: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<MetricTextProps<ElementType>> & React.RefAttributes<any>
+> = forwardRef(
 	<T extends ElementType = 'span'>(
 		{ as: Component = 'span', align, testId, id, size, children }: MetricTextProps<T>,
 		ref: Ref<any>,

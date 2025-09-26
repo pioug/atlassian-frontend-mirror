@@ -62,7 +62,9 @@ export type FlyoutMenuItemContentProps = {
  *
  * The content that appears when the flyout menu is open.
  */
-export const FlyoutMenuItemContent = forwardRef<HTMLDivElement, FlyoutMenuItemContentProps>(
+export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<FlyoutMenuItemContentProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, FlyoutMenuItemContentProps>(
 	({ children, containerTestId, onClose, autoFocus }, forwardedRef) => {
 		const setIsOpen = useContext(SetIsOpenContext);
 
@@ -126,7 +128,10 @@ function createResizeObserver(update: ResizeObserverCallback) {
  * 3. Popup exposes the `update` function so consumers can already do this themselves if necessary
  * 4. Flyout menus are a lot more restricted to other popups, it might not make sense more generally
  */
-const UpdatePopperOnContentResize = forwardRef(
+const UpdatePopperOnContentResize: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<{ update: () => void; children: React.ReactNode }> &
+		React.RefAttributes<HTMLDivElement>
+> = forwardRef(
 	(
 		{ update, children }: { update: () => void; children: React.ReactNode },
 		forwardedRef: React.ForwardedRef<HTMLDivElement>,

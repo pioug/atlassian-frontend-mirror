@@ -1,5 +1,25 @@
 # @atlaskit/tooltip
 
+## 20.5.1
+
+### Patch Changes
+
+- [`39e543109ec09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39e543109ec09) -
+  add type info to forwardRef components
+- Updated dependencies
+
+## 20.5.0
+
+### Minor Changes
+
+- [`4afb88f83d688`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4afb88f83d688) -
+  Tooltip now includes support for displaying keyboard shortcuts via the `shortcut` prop. This prop
+  is currently behind the `platform-dst-tooltip-shortcuts` feature flag. Example usage:
+
+  ```tsx
+  <Tooltip content="Collapse sidebar" shortcut={['Ctrl', '[']}>
+  ```
+
 ## 20.4.8
 
 ### Patch Changes

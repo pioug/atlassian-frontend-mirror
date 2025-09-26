@@ -69,7 +69,8 @@ const dateCellStyles = css({
 	flexGrow: 1,
 	backgroundColor: 'transparent',
 	borderColor: 'transparent',
-	borderRadius: 3,
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('radius.small', '3px'),
 	borderStyle: 'solid',
 	borderWidth: token('border.width.selected'),
 	color: token('color.text', N900),

@@ -35,7 +35,9 @@ type BlanketProps = {
  *
  * @internal
  */
-const Blanket = forwardRef(
+const Blanket: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<BlanketProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef(
 	(
 		{ isTinted, onBlanketClicked, style, className }: BlanketProps,
 		ref: React.ForwardedRef<HTMLDivElement>,

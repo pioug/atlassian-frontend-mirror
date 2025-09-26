@@ -127,15 +127,15 @@ export function createPlaceholderDecoration(
 		placeholderNodeWithText = placeholderNode;
 	}
 
-	if (placeholderPrompts) {
+	if (placeholderText) {
+		placeholderNodeWithText.textContent = placeholderText || ' ';
+	} else if (placeholderPrompts) {
 		cycleThroughPlaceholderPrompts(
 			placeholderPrompts,
 			activeTypewriterTimeouts,
 			placeholderNodeWithText,
 			initialDelayWhenUserTypedAndDeleted,
 		);
-	} else {
-		placeholderNodeWithText.textContent = placeholderText || ' ';
 	}
 
 	// ME-2289 Tapping on backspace in empty editor hides and displays the keyboard
@@ -474,7 +474,7 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 					return null;
 				},
 			setAnimatingPlaceholderPrompts:
-				(placeholderPrompts: string[]) =>
+				(placeholderPrompts: string[] | null) =>
 				({ tr }) => {
 					return tr.setMeta(pluginKey, { placeholderPrompts: placeholderPrompts });
 				},

@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { syncBlock } from '@atlaskit/adf-schema';
+import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
+import { IconSyncBlock } from '@atlaskit/editor-common/quick-insert';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/dist/types/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import SmartLinkIcon from '@atlaskit/icon/core/smart-link';
 
 import { createSyncedBlock } from './pm-plugins/actions';
 import { createPlugin } from './pm-plugins/main';
@@ -38,22 +39,32 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 			];
 		},
 		pluginsOptions: {
-			quickInsert: () => [
+			quickInsert: ({ formatMessage }) => [
 				{
 					id: 'syncBlock',
-					title: 'Synced Block',
-					description: 'Create a synced block',
+					title: formatMessage(blockTypeMessages.syncedBlock),
+					description: formatMessage(blockTypeMessages.syncedBlockDescription),
 					priority: 800,
-					keywords: ['synced', 'block', 'synced-block', 'sync', 'sync-block'],
+					keywords: [
+						'synced',
+						'block',
+						'synced-block',
+						'sync',
+						'sync-block',
+						'auto',
+						'update',
+						'excerpt',
+						'connect',
+					],
 					keyshortcut: '',
-					icon: () => <SmartLinkIcon label="Synced Block" />,
-					action: (_insert: QuickInsertActionInsert, state: EditorState) => {
-						return createSyncedBlock(state);
+					icon: () => <IconSyncBlock label={formatMessage(blockTypeMessages.syncedBlock)} />,
+					action: (insert: QuickInsertActionInsert, state: EditorState) => {
+						return createSyncedBlock(insert, state, syncBlockStore);
 					},
 				},
 			],
 			floatingToolbar: (state, intl, providerFactory) =>
-				getToolbarConfig(state, intl, config, providerFactory, api),
+				getToolbarConfig(state, intl, config, providerFactory, api, syncBlockStore),
 		},
 
 		contentComponent: () => {

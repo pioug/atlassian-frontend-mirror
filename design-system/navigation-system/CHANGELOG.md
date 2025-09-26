@@ -1,5 +1,41 @@
 # @atlassian/navigation-system
 
+## 2.12.0
+
+### Minor Changes
+
+- [`d19446c7cb076`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d19446c7cb076) -
+  FG cleanup jfp-magma-hydration-harmonise-applogo-classname
+
+## 2.11.1
+
+### Patch Changes
+
+- [`39e543109ec09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39e543109ec09) -
+  add type info to forwardRef components
+- Updated dependencies
+
+## 2.11.0
+
+### Minor Changes
+
+- [`825c15fd948fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/825c15fd948fa) -
+  Adds a top border to the side nav content when scrolled, behind the `navx-full-height-sidebar`
+  feature gate.
+- [`d8b6ae4334ce7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8b6ae4334ce7) -
+  [ux] The minimum width of the `TopNavStart` and `TopNavEnd` slots has been increased to `330px`
+  from `300px`. This change is behind a feature flag.
+
+  This is to accommodate larger logos without causing layout shifts in the top nav, when the logo
+  changes in a SPA transition.
+
+- [`799d003290f7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/799d003290f7b) -
+  The chevron icon in `FlyoutMenuItemTrigger` now uses `currentColor` when the
+  `platform_dst_flyout_menu_item_chevron_color` feature flag is enabled.
+
+  It was previously using the `color.icon` color token. It will now inherit the same color that the
+  menu item label uses.
+
 ## 2.10.2
 
 ### Patch Changes

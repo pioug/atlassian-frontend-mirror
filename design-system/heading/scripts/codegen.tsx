@@ -2,6 +2,7 @@ import { writeFileSync } from 'fs';
 import { join } from 'path';
 
 import format from '@af/formatting/sync';
+import tokenNames from '@atlaskit/tokens/token-names';
 // eslint-disable-next-line import/order
 import { createPartialSignedArtifact } from '@atlassian/codegen';
 
@@ -21,10 +22,21 @@ const removeVerbosity = (name: string): string => {
 };
 
 export const createTypographyStylesFromTemplate = () => {
+
+	const tokenTypes = headingTokens
+		.map((token) => {
+			return `
+	readonly ${removeVerbosity(token.name)}: CompiledStyles<{
+		font: "var(${tokenNames[token.name as keyof typeof tokenNames]})";
+	}>;`.trim();
+		}).join('\n\t');
+
 	return (
 		format(
 			`
-const headingSizeStylesMap = cssMap({
+const headingSizeStylesMap: {
+	${tokenTypes}
+} = cssMap({
   ${headingTokens
 		.map((token) => {
 			return `

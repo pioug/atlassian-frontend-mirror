@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 11.0.2
+
+### Patch Changes
+
+- [`76ffc91d514f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76ffc91d514f3) -
+  Changed packages over to using the generic AIFC FG rather then an experiment
+- Updated dependencies
+
 ## 11.0.1
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @af/frontend-utilities
 
+## 3.2.0
+
+### Minor Changes
+
+- [`7a6dfec8019ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a6dfec8019ab) -
+  Added the ability to clear the cache
+
 ## 3.1.3
 
 ### Patch Changes

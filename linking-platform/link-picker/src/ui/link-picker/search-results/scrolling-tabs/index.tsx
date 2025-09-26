@@ -49,7 +49,7 @@ const scrollingContainerStyles = css({
 	},
 	'&::before': {
 		content: '""',
-		borderRadius: 2,
+		borderRadius: token('radius.xsmall'),
 		bottom: 0,
 		margin: 0,
 		position: 'absolute',

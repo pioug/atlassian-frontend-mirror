@@ -139,6 +139,9 @@
 		"platform_ufo_vcnext_v4_enabled": {
 			"type": "boolean"
 		},
+		"platform_ufo_vc_next_filter_ls_entries_same_rect": {
+			"type": "boolean"
+		},
 		"platform_ufo_enable_minor_interactions": {
 			"type": "boolean"
 		},
@@ -197,6 +200,9 @@
 			"type": "boolean"
 		},
 		"platform_ufo_exclude_3p_extensions_from_ttvc": {
+			"type": "boolean"
+		},
+		"platform_ufo_enable_late_holds_post_interaction": {
 			"type": "boolean"
 		},
 		"platform_ufo_display_content_track_occurrence": {

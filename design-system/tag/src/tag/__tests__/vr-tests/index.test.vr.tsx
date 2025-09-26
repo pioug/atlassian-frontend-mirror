@@ -28,17 +28,11 @@ const themeVariants: SnapshotTestOptions<any>['variants'] = [
 // Basic tag
 snapshot(Basic, {
 	variants: themeVariants,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 
 // Color variations
 snapshot(Colors, {
 	variants: themeVariants,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 
 // Element before states
@@ -58,9 +52,6 @@ snapshot(ElementBeforeStates, {
 		},
 	],
 	variants: themeVariants,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 
 // Linked tag states
@@ -80,9 +71,6 @@ snapshot(LinkedTagStates, {
 		},
 	],
 	variants: themeVariants,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 
 // Non-interactive states
@@ -102,9 +90,6 @@ snapshot(NonInteractiveStates, {
 		},
 	],
 	variants: themeVariants,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 
 // Non-interactive colors
@@ -124,9 +109,6 @@ snapshot(ColorsNonInteractive, {
 		},
 	],
 	variants: themeVariants,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 
 // Removable tag states
@@ -146,9 +128,6 @@ snapshot(RemovableTagStates, {
 		},
 	],
 	variants: themeVariants,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 
 // Removable avatar
@@ -168,15 +147,9 @@ snapshot(RemovableAvatar, {
 		},
 	],
 	variants: themeVariants,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 
 // Text max length comprehensive
 snapshot(TextMaxLengthComprehensive, {
 	variants: themeVariants,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });

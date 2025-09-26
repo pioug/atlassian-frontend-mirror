@@ -48,7 +48,9 @@ const toggleButtonTooltipOptions: IconButtonProps['tooltip'] = {
  *
  * The trigger button for the app switcher. Allows users to switch between Atlassian products.
  */
-export const AppSwitcher = forwardRef<HTMLButtonElement, AppSwitcherProps>(
+export const AppSwitcher: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<AppSwitcherProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, AppSwitcherProps>(
 	(
 		{
 			label,

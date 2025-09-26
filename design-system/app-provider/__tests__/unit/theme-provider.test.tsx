@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import * as tokens from '@atlaskit/tokens';
 
 // Mock must be imported before ThemeProvider
-import { setMatchMediaPrefersDark } from '../mocks/matchMedia.mock';
+import { setMatchMediaPrefersDark } from '../mocks/match-media.mock';
 // eslint-disable-next-line import/order
 import ThemeProvider, {
 	type Theme,

@@ -56,6 +56,13 @@ const containerStyles = cssMap({
 			justifySelf: 'end',
 		},
 	},
+	jiraProductLogoUpdate: {
+		'@media (min-width: 64rem)': {
+			// Jira product logo update, added 30px for CSM logo as the size is larger than the default
+			// https://jplat.atlassian.net/browse/BLU-8440
+			minWidth: '330px',
+		},
+	},
 	fullHeightSidebar: {
 		// Pointer events are disabled on the top nav
 		// So we need to restore them for the slot
@@ -135,6 +142,7 @@ export function TopNavEnd({
 			css={[
 				containerStyles.root,
 				fg('navx-full-height-sidebar') && containerStyles.fullHeightSidebar,
+				fg('team25-eu-jira-logo-updates-csm-jsm') && containerStyles.jiraProductLogoUpdate,
 			]}
 		>
 			{isMobile ? (

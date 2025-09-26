@@ -35,6 +35,18 @@
 	},
 	"references": [
 		{
+			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-json-transformer/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-synced-block-provider/tsconfig.app.json"
+		},
+		{
+			"path": "../node-data-provider/tsconfig.app.json"
+		},
+		{
 			"path": "../renderer/tsconfig.app.json"
 		}
 	]

@@ -5,8 +5,8 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type Schema } from '@atlaskit/editor-prosemirror/model';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { type Schema, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
 	findParentNodeOfType,
 	findSelectedNodeOfType,
@@ -21,6 +21,7 @@ import { setSelectionAfterTransform } from './selection';
 import { createDefaultLayoutSection } from './transforms/layout-transforms';
 import { transformNodeToTargetType } from './transforms/transformNodeToTargetType';
 import type { FormatNodeTargetType } from './transforms/types';
+import { isListNodeType } from './transforms/utils';
 
 /**
  * Handles formatting when selection is empty by inserting a new target node
@@ -66,6 +67,50 @@ const formatNodeWhenSelectionEmpty = (
 };
 
 /**
+ * Handles formatting when an empty list is selected
+ * Converting an empty list to a target node, will remove the list and replace with an empty target node
+ */
+export const formatNodeSelectEmptyList = (
+	tr: Transaction,
+	targetType: FormatNodeTargetType,
+	listNode: { node: PMNode; pos: number },
+	schema: Schema,
+) => {
+	const { nodes } = schema;
+	let headingLevel = 1;
+	let finalTargetType: string = targetType;
+
+	if (targetType.startsWith('heading')) {
+		const levelString = targetType.slice(-1);
+		const level = parseInt(levelString, 10);
+		if (!isNaN(level) && level >= 1 && level <= 6) {
+			headingLevel = level;
+			finalTargetType = 'heading';
+		}
+	}
+
+	let replaceNode: PMNode | null = null;
+
+	if (finalTargetType === 'layoutSection') {
+		const emptyPara = nodes.paragraph.createAndFill();
+		if (emptyPara) {
+			replaceNode = createDefaultLayoutSection(schema, emptyPara);
+		}
+	} else if (finalTargetType === 'heading') {
+		replaceNode = nodes.heading.createAndFill({ level: headingLevel });
+	} else {
+		replaceNode = nodes[finalTargetType].createAndFill();
+	}
+
+	if (replaceNode) {
+		tr.replaceWith(listNode.pos, listNode.pos + listNode.node.nodeSize, replaceNode);
+		tr.setSelection(new TextSelection(tr.doc.resolve(listNode.pos)));
+	}
+
+	return tr;
+};
+
+/**
  * Formats the current node or selection to the specified target type
  * @param api - The editor API injection that provides access to analytics and other plugin actions
  * @param targetType - The target node type to convert to
@@ -87,7 +132,23 @@ export const formatNode =
 				selection.empty &&
 				expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
 			) {
-				return formatNodeWhenSelectionEmpty(tr, targetType, nodePos, schema);
+				const listNodes: { node: PMNode; pos: number }[] = [];
+				// need to find if there is any list node in the current selection
+				// As when select a empty list, selection is empty, but we want to convert the list instead of inserting a target node
+				// findSelectedNodeOfType does not work when selection is empty, so we use nodesBetween
+				tr.doc.nodesBetween(selection.from, selection.to, (node, pos) => {
+					if (isListNodeType(node.type)) {
+						listNodes.push({ node, pos });
+					}
+				});
+				//	get the first list node as when click on drag handle if there are list node
+				//  can only select one list at a time, so we just need to find the first one
+				if (listNodes.length > 0 && fg('platform_editor_block_menu_patch_2')) {
+					const firstChild = listNodes[0];
+					return formatNodeSelectEmptyList(tr, targetType, firstChild, schema);
+				} else {
+					return formatNodeWhenSelectionEmpty(tr, targetType, nodePos, schema);
+				}
 			}
 
 			// Try to find the current node from selection

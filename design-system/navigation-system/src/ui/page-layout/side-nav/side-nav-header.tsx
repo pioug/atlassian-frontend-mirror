@@ -13,7 +13,7 @@ const styles = cssMap({
 	root: {
 		paddingInline: token('space.150'),
 		paddingBlockStart: token('space.150'),
-		paddingBlockEnd: token('space.050'),
+		paddingBlockEnd: token('space.050')
 	},
 });
 
@@ -28,5 +28,9 @@ export const SideNavHeader = ({
 	 */
 	children: ReactNode;
 }) => {
-	return <div css={styles.root}>{children}</div>;
+	return (
+		<div css={styles.root}>
+			{children}
+		</div>
+	);
 };

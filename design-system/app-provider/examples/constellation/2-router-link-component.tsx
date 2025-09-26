@@ -6,7 +6,10 @@ import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provid
 
 type ReactResourceRouterLinkConfig = Pick<LinkProps, 'to' | 'href' | 'replace'>;
 
-const MyRouterLinkComponent = forwardRef(
+const MyRouterLinkComponent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<RouterLinkComponentProps<ReactResourceRouterLinkConfig>> &
+		React.RefAttributes<HTMLAnchorElement>
+> = forwardRef(
 	(
 		{ href, children, ...rest }: RouterLinkComponentProps<ReactResourceRouterLinkConfig>,
 		ref: Ref<HTMLAnchorElement>,

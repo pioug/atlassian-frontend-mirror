@@ -24,7 +24,10 @@ type AtlaskitSelectProps<Option extends unknown, IsMulti extends boolean> =
 	| CreatableSelectProps<Option, IsMulti>;
 
 export default function createSelect(WrappedComponent: ComponentType<any>) {
-	const AtlaskitSelect = forwardRef(function AtlaskitSelect<
+	const AtlaskitSelect: React.ForwardRefExoticComponent<
+		React.PropsWithoutRef<AtlaskitSelectProps<any, boolean>> &
+			React.RefAttributes<AtlaskitSelectRefType>
+	> = forwardRef(function AtlaskitSelect<
 		Option extends unknown = OptionType,
 		IsMulti extends boolean = false,
 	>(props: AtlaskitSelectProps<Option, IsMulti>, forwardedRef: Ref<AtlaskitSelectRefType>) {

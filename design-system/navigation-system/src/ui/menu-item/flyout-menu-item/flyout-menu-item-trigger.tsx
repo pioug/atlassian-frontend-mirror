@@ -8,6 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { PopupTrigger } from '@atlaskit/popup/experimental';
 import { token } from '@atlaskit/tokens';
 
@@ -71,7 +72,9 @@ export type FlyoutMenuItemTriggerProps = MenuItemCommonProps & {
  *
  * The button that toggles the flyout menu.
  */
-export const FlyoutMenuItemTrigger = forwardRef<HTMLButtonElement, FlyoutMenuItemTriggerProps>(
+export const FlyoutMenuItemTrigger: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<FlyoutMenuItemTriggerProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, FlyoutMenuItemTriggerProps>(
 	(
 		{
 			children,
@@ -102,7 +105,15 @@ export const FlyoutMenuItemTrigger = forwardRef<HTMLButtonElement, FlyoutMenuIte
 					elemBefore={elemBefore}
 					elemAfter={
 						<div css={elemAfterStyles.root}>
-							<ChevronRightIcon label="" color={token('color.icon')} size="small" />
+							<ChevronRightIcon
+								label=""
+								color={
+									fg('platform_dst_flyout_menu_item_chevron_color')
+										? 'currentColor'
+										: token('color.icon')
+								}
+								size="small"
+							/>
 						</div>
 					}
 					onClick={onClick}

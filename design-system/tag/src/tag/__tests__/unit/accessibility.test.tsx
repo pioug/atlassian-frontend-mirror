@@ -15,11 +15,6 @@ describe('Tag component accessibility', () => {
 			await axe(container);
 		});
 
-		it('should not fail an aXe audit when rounded', async () => {
-			const { container } = render(<Tag text="Testing" appearance="rounded" />);
-			await axe(container);
-		});
-
 		it('should not fail an aXe audit when containing an href', async () => {
 			const { container } = render(<Tag text="Testing" href="/test" />);
 			await axe(container);
@@ -37,13 +32,6 @@ describe('Tag component accessibility', () => {
 	describe('Removable Tag', () => {
 		it('should not fail an aXe audit', async () => {
 			const { container } = render(<RemovableTag text="Testing" removeButtonLabel="Remove" />);
-			await axe(container);
-		});
-
-		it('should not fail an aXe audit when rounded', async () => {
-			const { container } = render(
-				<RemovableTag text="Testing" removeButtonLabel="Remove" appearance="rounded" />,
-			);
 			await axe(container);
 		});
 

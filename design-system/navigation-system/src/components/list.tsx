@@ -41,4 +41,6 @@ function _List({ children, testId, xcss }: ListProps, forwardedRef: Ref<HTMLDivE
  *
  * This is the internal primitive used by other external components in the navigation system.
  */
-export const List = forwardRef<HTMLDivElement, ListProps>(_List);
+export const List: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ListProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, ListProps>(_List);

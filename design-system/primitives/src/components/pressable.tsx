@@ -162,7 +162,9 @@ const disabledStyles = css({
  * - [Code](https://atlassian.design/components/primitives/pressable/code)
  * - [Usage](https://atlassian.design/components/primitives/pressable/usage)
  */
-const Pressable = forwardRef(
+const Pressable: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<PressableProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef(
 	(
 		{
 			children,

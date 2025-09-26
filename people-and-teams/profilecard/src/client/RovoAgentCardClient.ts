@@ -1,12 +1,13 @@
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { type FireEventType } from '@atlaskit/teams-app-internal-analytics';
 
 import type { AgentIdType, AgentPermissions, ProfileClientOptions, RovoAgent } from '../types';
-import { agentRequestAnalytics } from '../util/analytics';
+import { agentRequestAnalytics, PACKAGE_META_DATA } from '../util/analytics';
 import { getPageTime } from '../util/performance';
 
 import CachingClient from './CachingClient';
-import { getErrorAttributes } from './errorUtils';
+import { DEPRECATED_getErrorAttributes, getErrorAttributes } from './errorUtils';
 
 const createHeaders = (product: string, cloudId?: string, isBodyJson?: boolean): Headers => {
 	const headers = new Headers({
@@ -62,6 +63,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 	getProfile(
 		id: AgentIdType,
 		analytics?: (event: AnalyticsEventPayload) => void,
+		analyticsNext?: FireEventType,
 	): Promise<RovoAgent> {
 		if (!id.value) {
 			return Promise.reject(new Error('Id is missing'));
@@ -80,8 +82,17 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 		return new Promise((resolve, reject) => {
 			const startTime = getPageTime();
 
-			if (analytics) {
-				analytics(agentRequestAnalytics('triggered'));
+			if (fg('ptc-enable-profile-card-analytics-refactor')) {
+				if (analyticsNext) {
+					analyticsNext('operational.rovoAgentProfilecard.triggered.request', {
+						firedAt: Math.round(getPageTime()),
+						...PACKAGE_META_DATA,
+					});
+				}
+			} else {
+				if (analytics) {
+					analytics(agentRequestAnalytics('triggered'));
+				}
 			}
 
 			this.makeRequest(id, this.options.cloudId || '')
@@ -89,32 +100,59 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 					if (this.cache) {
 						this.setCachedProfile(id.value, data);
 					}
-					if (analytics) {
-						analytics(
-							agentRequestAnalytics('succeeded', 'request', {
+					if (fg('ptc-enable-profile-card-analytics-refactor')) {
+						if (analyticsNext) {
+							analyticsNext('operational.rovoAgentProfilecard.succeeded.request', {
 								duration: getPageTime() - startTime,
 								gateway: true,
-							}),
-						);
+								firedAt: Math.round(getPageTime()),
+								...PACKAGE_META_DATA,
+							});
+						}
+					} else {
+						if (analytics) {
+							analytics(
+								agentRequestAnalytics('succeeded', 'request', {
+									duration: getPageTime() - startTime,
+									gateway: true,
+								}),
+							);
+						}
 					}
 					resolve(data);
 				})
 				.catch((error: unknown) => {
-					if (analytics) {
-						analytics(
-							agentRequestAnalytics('failed', 'request', {
+					if (fg('ptc-enable-profile-card-analytics-refactor')) {
+						if (analyticsNext) {
+							analyticsNext('operational.rovoAgentProfilecard.failed.request', {
 								duration: getPageTime() - startTime,
 								...getErrorAttributes(error),
 								gateway: true,
-							}),
-						);
+								firedAt: Math.round(getPageTime()),
+								...PACKAGE_META_DATA,
+							});
+						}
+					} else {
+						if (analytics) {
+							analytics(
+								agentRequestAnalytics('failed', 'request', {
+									duration: getPageTime() - startTime,
+									...DEPRECATED_getErrorAttributes(error),
+									gateway: true,
+								}),
+							);
+						}
 					}
 					reject(error);
 				});
 		});
 	}
 
-	deleteAgent(agentId: string, analytics?: (event: AnalyticsEventPayload) => void): Promise<void> {
+	deleteAgent(
+		agentId: string,
+		analytics?: (event: AnalyticsEventPayload) => void,
+		analyticsNext?: FireEventType,
+	): Promise<void> {
 		if (!this.options.cloudId) {
 			return Promise.reject(new Error('cloudId is missing'));
 		}
@@ -123,8 +161,17 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 			const startTime = getPageTime();
 			const product = this.options.productIdentifier || 'rovo';
 
-			if (analytics) {
-				analytics(agentRequestAnalytics('triggered'));
+			if (fg('ptc-enable-profile-card-analytics-refactor')) {
+				if (analyticsNext) {
+					analyticsNext('operational.rovoAgentProfilecard.triggered.request', {
+						firedAt: Math.round(getPageTime()),
+						...PACKAGE_META_DATA,
+					});
+				}
+			} else {
+				if (analytics) {
+					analytics(agentRequestAnalytics('triggered'));
+				}
 			}
 
 			const headers = createHeaders(product, this.options.cloudId);
@@ -138,25 +185,48 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 				}),
 			)
 				.then(() => {
-					if (analytics) {
-						analytics(
-							agentRequestAnalytics('succeeded', 'deleteAgent', {
+					if (fg('ptc-enable-profile-card-analytics-refactor')) {
+						if (analyticsNext) {
+							analyticsNext('operational.rovoAgentProfilecard.succeeded.deleteAgent', {
 								duration: getPageTime() - startTime,
 								gateway: true,
-							}),
-						);
+								firedAt: Math.round(getPageTime()),
+								...PACKAGE_META_DATA,
+							});
+						}
+					} else {
+						if (analytics) {
+							analytics(
+								agentRequestAnalytics('succeeded', 'deleteAgent', {
+									duration: getPageTime() - startTime,
+									gateway: true,
+								}),
+							);
+						}
 					}
 					resolve();
 				})
 				.catch((error: unknown) => {
-					if (analytics) {
-						analytics(
-							agentRequestAnalytics('failed', 'deleteAgent', {
+					if (fg('ptc-enable-profile-card-analytics-refactor')) {
+						if (analyticsNext) {
+							analyticsNext('operational.rovoAgentProfilecard.failed.deleteAgent', {
 								duration: getPageTime() - startTime,
 								...getErrorAttributes(error),
 								gateway: true,
-							}),
-						);
+								firedAt: Math.round(getPageTime()),
+								...PACKAGE_META_DATA,
+							});
+						}
+					} else {
+						if (analytics) {
+							analytics(
+								agentRequestAnalytics('failed', 'deleteAgent', {
+									duration: getPageTime() - startTime,
+									...DEPRECATED_getErrorAttributes(error),
+									gateway: true,
+								}),
+							);
+						}
 					}
 					reject(error);
 				});
@@ -167,6 +237,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 		agentId: string,
 		isFavourite: boolean,
 		analytics?: (event: AnalyticsEventPayload) => void,
+		analyticsNext?: FireEventType,
 	): Promise<void> {
 		if (!this.options.cloudId) {
 			return Promise.reject(new Error('cloudId is missing'));
@@ -179,8 +250,17 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 			const actionSubjectId = isFavourite ? 'favourite' : 'unfavourite';
 			const requestMethod = isFavourite ? 'POST' : 'DELETE';
 
-			if (analytics) {
-				analytics(agentRequestAnalytics('triggered', 'actionSubjectId'));
+			if (fg('ptc-enable-profile-card-analytics-refactor')) {
+				if (analyticsNext) {
+					analyticsNext(`operational.rovoAgentProfilecard.triggered.${actionSubjectId}`, {
+						firedAt: Math.round(getPageTime()),
+						...PACKAGE_META_DATA,
+					});
+				}
+			} else {
+				if (analytics) {
+					analytics(agentRequestAnalytics('triggered', 'actionSubjectId'));
+				}
 			}
 
 			const headers = createHeaders(product, this.options.cloudId);
@@ -194,25 +274,48 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 				}),
 			)
 				.then(() => {
-					if (analytics) {
-						analytics(
-							agentRequestAnalytics('succeeded', actionSubjectId, {
+					if (fg('ptc-enable-profile-card-analytics-refactor')) {
+						if (analyticsNext) {
+							analyticsNext(`operational.rovoAgentProfilecard.succeeded.${actionSubjectId}`, {
 								duration: getPageTime() - startTime,
 								gateway: true,
-							}),
-						);
+								firedAt: Math.round(getPageTime()),
+								...PACKAGE_META_DATA,
+							});
+						}
+					} else {
+						if (analytics) {
+							analytics(
+								agentRequestAnalytics('succeeded', actionSubjectId, {
+									duration: getPageTime() - startTime,
+									gateway: true,
+								}),
+							);
+						}
 					}
 					resolve();
 				})
 				.catch((error: unknown) => {
-					if (analytics) {
-						analytics(
-							agentRequestAnalytics('failed', actionSubjectId, {
+					if (fg('ptc-enable-profile-card-analytics-refactor')) {
+						if (analyticsNext) {
+							analyticsNext(`operational.rovoAgentProfilecard.failed.${actionSubjectId}`, {
 								duration: getPageTime() - startTime,
 								...getErrorAttributes(error),
 								gateway: true,
-							}),
-						);
+								firedAt: Math.round(getPageTime()),
+								...PACKAGE_META_DATA,
+							});
+						}
+					} else {
+						if (analytics) {
+							analytics(
+								agentRequestAnalytics('failed', actionSubjectId, {
+									duration: getPageTime() - startTime,
+									...DEPRECATED_getErrorAttributes(error),
+									gateway: true,
+								}),
+							);
+						}
 					}
 					reject(error);
 				});
@@ -222,6 +325,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 	getPermissions(
 		id: string,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,
+		fireAnalyticsNext?: FireEventType,
 	): Promise<AgentPermissions> {
 		if (!this.options.cloudId) {
 			return Promise.reject(new Error('cloudId is missing'));
@@ -231,8 +335,17 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 			const startTime = getPageTime();
 			const product = this.options.productIdentifier || 'rovo';
 
-			if (fireAnalytics) {
-				fireAnalytics(agentRequestAnalytics('triggered'));
+			if (fg('ptc-enable-profile-card-analytics-refactor')) {
+				if (fireAnalyticsNext) {
+					fireAnalyticsNext('operational.rovoAgentProfilecard.triggered.request', {
+						firedAt: Math.round(getPageTime()),
+						...PACKAGE_META_DATA,
+					});
+				}
+			} else {
+				if (fireAnalytics) {
+					fireAnalytics(agentRequestAnalytics('triggered'));
+				}
 			}
 
 			const headers = createHeaders(product, this.options.cloudId, true);
@@ -256,25 +369,48 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 			)
 				.then((response) => response.json())
 				.then((data: AgentPermissions) => {
-					if (fireAnalytics) {
-						fireAnalytics(
-							agentRequestAnalytics('succeeded', 'getAgentPermissions', {
+					if (fg('ptc-enable-profile-card-analytics-refactor')) {
+						if (fireAnalyticsNext) {
+							fireAnalyticsNext('operational.rovoAgentProfilecard.succeeded.getAgentPermissions', {
 								duration: getPageTime() - startTime,
 								gateway: true,
-							}),
-						);
+								firedAt: Math.round(getPageTime()),
+								...PACKAGE_META_DATA,
+							});
+						}
+					} else {
+						if (fireAnalytics) {
+							fireAnalytics(
+								agentRequestAnalytics('succeeded', 'getAgentPermissions', {
+									duration: getPageTime() - startTime,
+									gateway: true,
+								}),
+							);
+						}
 					}
 					resolve(data);
 				})
 				.catch((error: unknown) => {
-					if (fireAnalytics) {
-						fireAnalytics(
-							agentRequestAnalytics('failed', 'getAgentPermissions', {
+					if (fg('ptc-enable-profile-card-analytics-refactor')) {
+						if (fireAnalyticsNext) {
+							fireAnalyticsNext('operational.rovoAgentProfilecard.failed.getAgentPermissions', {
 								duration: getPageTime() - startTime,
 								...getErrorAttributes(error),
 								gateway: true,
-							}),
-						);
+								firedAt: Math.round(getPageTime()),
+								...PACKAGE_META_DATA,
+							});
+						}
+					} else {
+						if (fireAnalytics) {
+							fireAnalytics(
+								agentRequestAnalytics('failed', 'getAgentPermissions', {
+									duration: getPageTime() - startTime,
+									...DEPRECATED_getErrorAttributes(error),
+									gateway: true,
+								}),
+							);
+						}
 					}
 					reject(error);
 				});

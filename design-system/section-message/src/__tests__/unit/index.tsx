@@ -24,7 +24,9 @@ const appearances: [Appearance, ({}) => JSX.Element][] = [
 	['discovery', (props: {}) => <QuestionCircleIcon {...props} label="discovery" />],
 ];
 
-const CustomLinkComponent = React.forwardRef((props = {}, ref: React.Ref<HTMLButtonElement>) => (
+const CustomLinkComponent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<any> & React.RefAttributes<HTMLButtonElement>
+> = React.forwardRef((props = {}, ref: React.Ref<HTMLButtonElement>) => (
 	// eslint-disable-next-line react/button-has-type
 	<button {...props} ref={ref}>
 		hello world

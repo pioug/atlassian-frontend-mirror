@@ -80,7 +80,9 @@ const alignMapStyles = {
  *
  * Basic cell element.
  */
-export const BaseCell = forwardRef<HTMLTableCellElement, InternalBaseCellProps>(
+export const BaseCell: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<InternalBaseCellProps> & React.RefAttributes<HTMLTableCellElement>
+> = forwardRef<HTMLTableCellElement, InternalBaseCellProps>(
 	(
 		{
 			testId,

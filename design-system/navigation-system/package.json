@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "2.10.2",
+	"version": "2.12.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -116,7 +116,6 @@
 		"@atlaskit/layering": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "workspace:^",
@@ -128,6 +127,7 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"bind-event-listener": "root:*",
+		"raf-schd": "root:*",
 		"tiny-invariant": "root:*"
 	},
 	"peerDependencies": {
@@ -187,9 +187,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"jfp-magma-hydration-harmonise-applogo-classname": {
-			"type": "boolean"
-		},
 		"platform-component-visual-refresh": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -224,6 +221,9 @@
 		"navx-full-height-sidebar": {
 			"type": "boolean"
 		},
+		"team25-eu-jira-logo-updates-csm-jsm": {
+			"type": "boolean"
+		},
 		"platform_dst_nav4_full_height_sidebar_api_changes": {
 			"type": "boolean"
 		},
@@ -231,6 +231,9 @@
 			"type": "boolean"
 		},
 		"platform_dst_nav4_side_nav_click_outside_fix": {
+			"type": "boolean"
+		},
+		"platform_dst_flyout_menu_item_chevron_color": {
 			"type": "boolean"
 		}
 	},

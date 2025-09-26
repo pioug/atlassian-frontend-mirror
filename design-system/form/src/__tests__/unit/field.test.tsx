@@ -17,20 +17,10 @@ type FieldStateProps<T> = {
 	children: (value: T, setValue: (value: T) => void) => ReactNode;
 };
 
-type State<T> = {
-	currentState: T;
-};
+export function WithState<T>({ defaultState, children }: FieldStateProps<T>) {
+	const [currentState, setCurrentState] = React.useState<T>(defaultState);
 
-export class WithState<T> extends React.Component<FieldStateProps<T>, State<T>> {
-	state = {
-		currentState: this.props.defaultState,
-	};
-
-	render() {
-		return this.props.children(this.state.currentState, (state) =>
-			this.setState({ currentState: state }),
-		);
-	}
+	return children(currentState, setCurrentState);
 }
 
 describe('Field', () => {

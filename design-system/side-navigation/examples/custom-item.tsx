@@ -7,7 +7,9 @@ import { CustomItem, type CustomItemComponentProps } from '@atlaskit/side-naviga
 
 type CustomProps = CustomItemComponentProps & { href: string };
 
-const CustomLink = forwardRef<HTMLAnchorElement, CustomProps>((props: CustomProps, ref) => {
+const CustomLink: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<CustomProps> & React.RefAttributes<HTMLAnchorElement>
+> = forwardRef<HTMLAnchorElement, CustomProps>((props: CustomProps, ref) => {
 	const { children, href, ...rest } = props;
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor

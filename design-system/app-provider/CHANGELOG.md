@@ -1,5 +1,12 @@
 # @atlaskit/app-provider
 
+## 3.2.2
+
+### Patch Changes
+
+- [`39e543109ec09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39e543109ec09) -
+  add type info to forwardRef components
+
 ## 3.2.1
 
 ### Patch Changes

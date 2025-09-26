@@ -185,6 +185,7 @@ describe('UserProfileCardClient', () => {
 					`${triggeredEvent.eventType}.${triggeredEvent.actionSubject}.${triggeredEvent.action}.${triggeredEvent.actionSubjectId}`,
 					triggeredEvent.attributes,
 				);
+
 				expect(mockAnalyticsNext).toHaveBeenCalledWith(
 					`${failedEvent.eventType}.${failedEvent.actionSubject}.${failedEvent.action}.${failedEvent.actionSubjectId}`,
 					{
@@ -194,6 +195,19 @@ describe('UserProfileCardClient', () => {
 						errorType: null,
 						errorPath: null,
 						errorCategory: null,
+						errorDetails: [
+							{
+								...failedEvent.attributes.errorDetails[0],
+								errorNumber: null,
+								errorStatusCode: null,
+								errorType: null,
+								errorPath: null,
+								errorCategory: null,
+								errorCount: null,
+								traceId: null,
+								errorDetails: null,
+							},
+						],
 					},
 				);
 			});

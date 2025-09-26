@@ -35,7 +35,9 @@ export interface SpotlightMediaProps {
  * `SpotlightMedia` is optional in a `Spotlight`.
  *
  */
-export const SpotlightMedia = forwardRef<HTMLDivElement, SpotlightMediaProps>(
+export const SpotlightMedia: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SpotlightMediaProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, SpotlightMediaProps>(
 	({ children, testId }: SpotlightMediaProps, ref) => {
 		return (
 			<Box ref={ref} xcss={styles.root} testId={testId}>

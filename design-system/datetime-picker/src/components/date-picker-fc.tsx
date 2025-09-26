@@ -107,7 +107,9 @@ const analyticsAttributes = {
  * - [Code](https://atlassian.design/components/datetime-picker/date-picker/code)
  * - [Usage](https://atlassian.design/components/datetime-picker/date-picker/usage)
  */
-const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
+const DatePicker: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<DatePickerProps> & React.RefAttributes<HTMLElement>
+> = forwardRef((props: DatePickerProps, forwardedRef) => {
 	const containerRef: React.MutableRefObject<HTMLElement | null> = useRef<HTMLElement>(null);
 	const calendarRef: React.RefObject<HTMLDivElement | null> = useRef<HTMLDivElement>(null);
 	const calendarButtonRef: React.RefObject<HTMLButtonElement> = useRef<HTMLButtonElement>(null);

@@ -8,40 +8,13 @@ import { cssMap, cx, jsx } from '@compiled/react';
 
 import type { LogoProps } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-import {
-	Anchor as AnchorLegacy,
-	Inline as InlineLegacy,
-	Text as TextLegacy,
-	// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-} from '@atlaskit/primitives';
-import {
-	Anchor as AnchorCompiled,
-	Inline as InlineCompiled,
-	Text as TextCompiled,
-} from '@atlaskit/primitives/compiled';
+import { Anchor, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useHasCustomTheme } from '../themed/has-custom-theme-context';
 
 import { LogoRenderer } from './logo-renderer';
-
-const Anchor = componentWithFG(
-	'jfp-magma-hydration-harmonise-applogo-classname',
-	AnchorCompiled,
-	AnchorLegacy,
-);
-const Inline = componentWithFG(
-	'jfp-magma-hydration-harmonise-applogo-classname',
-	InlineCompiled,
-	InlineLegacy,
-);
-const Text = componentWithFG(
-	'jfp-magma-hydration-harmonise-applogo-classname',
-	TextCompiled,
-	TextLegacy,
-);
 
 const anchorStyles = cssMap({
 	root: {

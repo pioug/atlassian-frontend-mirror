@@ -85,7 +85,9 @@ export const timePickerDefaultAriaLabel = 'Time';
  * - [Code](https://atlassian.design/components/datetime-picker/code)
  * - [Usage](https://atlassian.design/components/datetime-picker/usage)
  */
-const DateTimePicker = forwardRef(
+const DateTimePicker: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<DateTimePickerBaseProps> & React.RefAttributes<HTMLElement>
+> = forwardRef(
 	(
 		{
 			'aria-describedby': ariaDescribedBy,

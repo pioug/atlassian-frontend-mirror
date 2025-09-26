@@ -218,7 +218,8 @@ const containerStyles = css({
 	wordWrap: 'break-word',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/design-system/no-nested-styles
 	'&&': {
-		borderRadius: 3,
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: token('radius.small', '3px'),
 	},
 });
 
@@ -338,7 +339,9 @@ const inputStyle = css({
  * - [Code](https://atlassian.design/components/textfield/code)
  * - [Usage](https://atlassian.design/components/textfield/usage)
  */
-const Textfield = forwardRef((props: TextfieldProps, ref) => {
+const Textfield: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<TextfieldProps> & React.RefAttributes<unknown>
+> = forwardRef((props: TextfieldProps, ref) => {
 	const {
 		appearance = 'standard',
 		className,
@@ -454,7 +457,6 @@ const Textfield = forwardRef((props: TextfieldProps, ref) => {
 			className={className}
 		>
 			{elemBeforeInput}
-
 			{/* eslint-disable-next-line @atlaskit/design-system/no-html-text-input */}
 			<input
 				{...spreadProps}

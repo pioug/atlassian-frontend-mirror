@@ -20,7 +20,7 @@ const borderContainerStyles = css({
 });
 
 const borderContentStyles = css({
-	borderRadius: 8,
+	borderRadius: token('radius.large'),
 	flexGrow: 1,
 	zIndex: 1, // needs to be more than the svg container at least
 });

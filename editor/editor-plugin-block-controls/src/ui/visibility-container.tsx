@@ -60,7 +60,10 @@ export const VisibilityContainer = ({ api, children }: VisibilityContainerProps)
 	const isEditing = useSharedPluginStateSelector(api, 'blockControls.isEditing');
 	const isMouseOut = useSharedPluginStateSelector(api, 'blockControls.isMouseOut');
 
-	const shouldHide = isTypeAheadOpen || isEditing || isMouseOut;
+	// when ai streaming, hide the block controls
+	const userIntent = useSharedPluginStateSelector(api, 'userIntent.currentUserIntent');
+
+	const shouldHide = isTypeAheadOpen || isEditing || isMouseOut || userIntent === 'aiStreaming';
 
 	if (
 		editorExperiment('platform_editor_preview_panel_responsiveness', true, {

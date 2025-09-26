@@ -55,6 +55,7 @@ export type ChatNewPayload = PayloadCore<
 		prompt?: string | DocNode;
 		contentContext?: 'staging-area' | 'global';
 		sourceId?: string;
+		minionAlias?: string;
 	} & Partial<TargetAgentParam>
 >;
 

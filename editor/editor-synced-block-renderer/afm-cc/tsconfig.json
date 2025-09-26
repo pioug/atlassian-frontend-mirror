@@ -19,6 +19,9 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-synced-block-provider/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../renderer/afm-cc/tsconfig.json"
 		},
 		{

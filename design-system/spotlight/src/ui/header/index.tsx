@@ -36,7 +36,9 @@ export interface SpotlightHeaderProps {
  * intended to show the `SpotlightHeadline` component, as well as `SpotLightControls`.
  *
  */
-export const SpotlightHeader = forwardRef<HTMLDivElement, SpotlightHeaderProps>(
+export const SpotlightHeader: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<SpotlightHeaderProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, SpotlightHeaderProps>(
 	({ children, testId }: SpotlightHeaderProps, ref) => {
 		return (
 			<Flex

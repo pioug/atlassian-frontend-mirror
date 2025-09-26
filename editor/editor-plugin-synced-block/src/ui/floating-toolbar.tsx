@@ -15,6 +15,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles/consts';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
@@ -33,6 +34,7 @@ export const getToolbarConfig = (
 	_options: SyncedBlockPluginOptions = {},
 	_providerFactory: ProviderFactory,
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
+	syncBlockStore: SyncBlockStoreManager,
 ): FloatingToolbarConfig | undefined => {
 	const syncBlockObject = findSyncBlock(state);
 	if (!syncBlockObject) {
@@ -62,7 +64,7 @@ export const getToolbarConfig = (
 	};
 	items.push(copyButton);
 
-	if (syncBlockObject.node.attrs.resourceId !== syncBlockObject.node.attrs.localId) {
+	if (!syncBlockStore.isSourceBlock(syncBlockObject.node)) {
 		const editSourceButton: FloatingToolbarItem<Command> = {
 			id: 'editor.syncedBlock.editSource',
 			type: 'button',

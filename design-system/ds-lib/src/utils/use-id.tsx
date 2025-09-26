@@ -66,29 +66,29 @@ export interface IdProviderProps {
  * @private
  * @deprecated This import shouldn't be used, suggested to use `React.useId()` directly. It is kept for class component compatibility.
  */
-export const IdProvider = forwardRef<string, IdProviderProps>(
-	({ children, postfix = '', prefix = '' }, ref) => {
-		const id = `${prefix}${useId()}${postfix}`;
+export const IdProvider: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<IdProviderProps> & React.RefAttributes<string>
+> = forwardRef<string, IdProviderProps>(({ children, postfix = '', prefix = '' }, ref) => {
+	const id = `${prefix}${useId()}${postfix}`;
 
-		useEffect(() => {
-			if (!ref) {
-				return;
-			}
-			switch (typeof ref) {
-				case 'function':
-					ref(id);
-					break;
-				case 'object':
-					ref.current = id;
-					break;
-				default:
-					throw new Error(`Unreachable case for unsupported type of ref "${typeof ref}"`);
-			}
-		}, [id, ref]);
+	useEffect(() => {
+		if (!ref) {
+			return;
+		}
+		switch (typeof ref) {
+			case 'function':
+				ref(id);
+				break;
+			case 'object':
+				ref.current = id;
+				break;
+			default:
+				throw new Error(`Unreachable case for unsupported type of ref "${typeof ref}"`);
+		}
+	}, [id, ref]);
 
-		return <>{typeof children === 'function' ? children({ id }) : children}</>;
-	},
-);
+	return <>{typeof children === 'function' ? children({ id }) : children}</>;
+});
 
 /**
  * Returns an id generator

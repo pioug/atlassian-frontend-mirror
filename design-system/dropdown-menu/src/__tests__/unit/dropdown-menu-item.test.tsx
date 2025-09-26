@@ -12,7 +12,10 @@ type MyRouterLinkConfig = {
 	customProp?: string;
 };
 
-const MyRouterLinkComponent = forwardRef(
+const MyRouterLinkComponent: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<RouterLinkComponentProps<MyRouterLinkConfig>> &
+		React.RefAttributes<HTMLAnchorElement>
+> = forwardRef(
 	(
 		{ href, children, ...rest }: RouterLinkComponentProps<MyRouterLinkConfig>,
 		ref: Ref<HTMLAnchorElement>,
@@ -61,7 +64,8 @@ describe('DropdownMenu Item', () => {
 				const text = 'Menu';
 				const role = 'banner';
 
-				const Header = forwardRef<HTMLElement>((props, ref) => <header {...props} ref={ref} />);
+				const Header: React.ForwardRefExoticComponent<React.RefAttributes<HTMLElement>> =
+					forwardRef<HTMLElement>((props, ref) => <header {...props} ref={ref} />);
 
 				render(<DropdownItem component={Header}>{text}</DropdownItem>);
 

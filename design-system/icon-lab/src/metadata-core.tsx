@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::cdd8a37d1c952be466d6c9556bd0b0b7>>
+ * @codegen <<SignedSource::cfedb994d703e977904755bb59c54cc8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -2144,6 +2144,26 @@ const metadata: Record<string, metadata> = {
 		team: 'Editor',
 		status: 'published',
 	},
+	'merge-queue': {
+		keywords: [
+			'merge-queue',
+			'mergequeue',
+			'icon',
+			'icon-lab',
+			'bitbucket',
+			'repository',
+			'merge queue',
+			'git',
+			'version control',
+		],
+		componentName: 'MergeQueueIcon',
+		package: '@atlaskit/icon-lab/core/merge-queue',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing merge queue functionality.',
+		team: 'Bitbucket DC',
+		status: 'published',
+	},
 	'microphone-strikethrough': {
 		keywords: [
 			'microphone-strikethrough',
@@ -2239,6 +2259,23 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing an overdue milestone.',
 		team: 'Jira Align',
+		status: 'published',
+	},
+	'missed-call': {
+		keywords: [
+			'missed-call',
+			'missedcall',
+			'icon',
+			'icon-lab',
+			'missed phone call',
+			'rejected call',
+		],
+		componentName: 'MissedCallIcon',
+		package: '@atlaskit/icon-lab/core/missed-call',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing missed calls and missed call settings.',
+		team: 'IT Operations (ITSM)',
 		status: 'published',
 	},
 	'node-parallel-bottom-left': {
@@ -3508,6 +3545,40 @@ const metadata: Record<string, metadata> = {
 		team: 'Editor AI',
 		status: 'published',
 	},
+	'text-density-compress': {
+		keywords: [
+			'text-density-compress',
+			'textdensitycompress',
+			'icon',
+			'icon-lab',
+			'text density',
+			'compact density',
+		],
+		componentName: 'TextDensityCompressIcon',
+		package: '@atlaskit/icon-lab/core/text-density-compress',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for increasing the density of text by reducing font size and/or line height.',
+		team: 'Confluence',
+		status: 'published',
+	},
+	'text-density-expand': {
+		keywords: [
+			'text-density-expand',
+			'textdensityexpand',
+			'icon',
+			'icon-lab',
+			'text density',
+			'default density',
+		],
+		componentName: 'TextDensityExpandIcon',
+		package: '@atlaskit/icon-lab/core/text-density-expand',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for reducing the density of text by increasing font size and/or line height.',
+		team: 'Confluence',
+		status: 'published',
+	},
 	'text-heading-five': {
 		keywords: [
 			'text-heading-five',
@@ -4288,6 +4359,16 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Home view for database table layout',
 		team: 'Databases',
+		status: 'published',
+	},
+	views: {
+		keywords: ['views', 'icon', 'icon-lab', 'saved views', 'view types'],
+		componentName: 'ViewsIcon',
+		package: '@atlaskit/icon-lab/core/views',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing saved views.',
+		team: 'Platforms Apps',
 		status: 'published',
 	},
 	vulnerability: {

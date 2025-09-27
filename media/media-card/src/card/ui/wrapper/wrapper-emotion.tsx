@@ -50,6 +50,7 @@ export const Wrapper = (props: WrapperProps) => {
 			})}
 			ref={innerRef}
 			onClick={onClick}
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseEnter={onMouseEnter}
 			{...VcMediaWrapperProps}
 		>

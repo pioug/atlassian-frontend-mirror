@@ -28,7 +28,7 @@ export function MenuListExample() {
 	return (
 		// Disabling this rule as this is a storybook, and the code is designed to swallow anchor-clicks
 		// to avoid leaving storybook.
-		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
+		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events, @atlassian/a11y/no-noninteractive-element-interactions
 		<nav css={styles.root} onClick={(evt) => evt.preventDefault()}>
 			<SideNavContent>
 				<ButtonMenuItem>Text only</ButtonMenuItem>

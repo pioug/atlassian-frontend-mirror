@@ -167,6 +167,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 			<div
 				data-testid="table-cell-contextual-menu"
+				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseLeave={this.closeSubmenu}
 				ref={this.dropdownMenuRef}
 			>

@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.4.1
+
+### Patch Changes
+
+- [`499c871b73060`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/499c871b73060) -
+  Exports the PopoverContentProps
+
 ## 0.4.0
 
 ### Minor Changes

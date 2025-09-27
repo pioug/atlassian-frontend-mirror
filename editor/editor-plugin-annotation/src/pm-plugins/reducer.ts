@@ -13,9 +13,15 @@ export default (
 	action: InlineCommentAction,
 ): InlineCommentPluginState => {
 	switch (action.type) {
+		case ACTIONS.SET_INLINE_COMMENTS_FETCHED:
+			return {
+				...pluginState,
+				annotationsLoaded: true,
+			};
 		case ACTIONS.UPDATE_INLINE_COMMENT_STATE:
 			return {
 				...pluginState,
+				annotationsLoaded: true,
 				annotations: { ...pluginState.annotations, ...action.data },
 			};
 		case ACTIONS.INLINE_COMMENT_UPDATE_MOUSE_STATE:

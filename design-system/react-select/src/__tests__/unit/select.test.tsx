@@ -3054,7 +3054,7 @@ describe('escape keydown event propagation', () => {
 
 	it('should not be prevented if "shouldPreventEscapePropagation" is false', async () => {
 		render(
-			// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
 			<dialog onKeyDown={handleKeyDownMock}>
 				<Select {...mockedProps} />
 			</dialog>,
@@ -3069,7 +3069,7 @@ describe('escape keydown event propagation', () => {
 
 	it('should be prevented if "shouldPreventEscapePropagation" is true', async () => {
 		render(
-			// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
 			<dialog onKeyDown={handleKeyDownMock}>
 				<Select {...mockedProps} shouldPreventEscapePropagation />
 			</dialog>,

@@ -78,6 +78,7 @@ const HoverCardControl = ({
 			hoverPreviewOptions={hoverPreviewOptions}
 		>
 			<span
+				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseLeave={onMouseLeave}
 				onMouseMove={onMouseMove}
 				data-testid={`${testId}-hover-card-wrapper`}

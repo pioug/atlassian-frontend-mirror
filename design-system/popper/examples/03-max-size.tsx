@@ -79,7 +79,7 @@ function MaxSizeExample({ children, placement }: { children: ReactNode; placemen
 						css={popupStyles.root}
 						data-testid={`placement--${placement}`}
 						// Making the scrollable region focusable
-						// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+						// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex, @atlassian/a11y/no-noninteractive-tabindex
 						tabIndex={0}
 					>
 						<div css={popupStyles.content}>{children}</div>

@@ -281,7 +281,9 @@ const MultiBodiedExtensionWithWidth = ({
 				data-layout={node.attrs.layout}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={mbeWrapperStyles}
+				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseEnter={() => handleMouseEvent(true)}
+				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseLeave={() => handleMouseEvent(false)}
 			>
 				<div

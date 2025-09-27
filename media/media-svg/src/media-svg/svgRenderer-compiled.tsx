@@ -53,7 +53,7 @@ export const SvgRenderer = forwardRef<HTMLImageElement, SvgRendererProps>(
 	) => {
 		const { width, height } = dimensions || style || {};
 		return (
-			// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+			// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, @atlassian/a11y/no-noninteractive-element-interactions
 			<img
 				data-testid={testId}
 				data-fileid={id}

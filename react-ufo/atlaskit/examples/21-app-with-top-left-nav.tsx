@@ -155,13 +155,16 @@ const LeftNavigation = ({ onMenuItemClick }: { onMenuItemClick: (title: string) 
 						css={menuItemStyle}
 						onClick={() => handleItemClick(item)}
 						onKeyDown={(event) => handleItemKeyDown(event, item)}
+						// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 						onMouseEnter={(e) => {
 							e.currentTarget.style.textDecoration = 'underline';
 						}}
+						// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 						onMouseLeave={(e) => {
 							e.currentTarget.style.textDecoration = 'none';
 						}}
 						data-testid={`left-nav-item-${item}`}
+						// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-to-interactive-role
 						role="button"
 						tabIndex={0}
 					>

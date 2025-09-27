@@ -46,6 +46,7 @@ export default () => {
 					<div css={styles}>
 						<div
 							data-testid="hover-test-can-open-left"
+							// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 							onMouseEnter={() => setCanOpen(true)}
 							role="button"
 							tabIndex={0}
@@ -54,6 +55,7 @@ export default () => {
 						</div>
 						<div
 							data-testid="hover-test-cannot-open"
+							// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 							onMouseEnter={() => setCanOpen(false)}
 							role="button"
 							tabIndex={0}
@@ -62,6 +64,7 @@ export default () => {
 						</div>
 						<div
 							data-testid="hover-test-can-open-right"
+							// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 							onMouseEnter={() => setCanOpen(true)}
 							role="button"
 							tabIndex={0}

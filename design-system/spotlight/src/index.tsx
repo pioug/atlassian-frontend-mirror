@@ -18,6 +18,6 @@ export {
 } from './ui/show-more-control';
 export { SpotlightMedia, type SpotlightMediaProps } from './ui/media';
 export { PopoverProvider } from './ui/popover-provider';
-export { PopoverContent } from './ui/popover-content';
+export { PopoverContent, type PopoverContentProps } from './ui/popover-content';
 export { PopoverTarget } from './ui/popover-target';
 export { type Placement } from './types';

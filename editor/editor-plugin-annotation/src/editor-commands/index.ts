@@ -72,6 +72,9 @@ export const clearDirtyMark = (): Command =>
 		type: ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK,
 	});
 
+export const setInlineCommentsFetched = (): Command =>
+	createCommand({ type: ACTIONS.SET_INLINE_COMMENTS_FETCHED });
+
 export const flushPendingSelections =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(canSetAsSelectedAnnotations: boolean, errorReason?: string): Command => {

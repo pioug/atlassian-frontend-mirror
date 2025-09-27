@@ -162,8 +162,8 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 		newSchema,
 		newADFStage,
 		newUseSpecValidator,
-		/* ignoring dispatchAnalyticsEvent */,
-		newSkipValidation,
+		,
+		/* ignoring dispatchAnalyticsEvent */ newSkipValidation,
 		newValidationOverrides,
 	]: ValidationArgsType = newArgs;
 	const [
@@ -171,8 +171,8 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 		oldSchema,
 		oldADFStage,
 		oldUseSpecValidator,
-		/* ignoring dispatchAnalyticsEvent */,
-		oldSkipValidation,
+		,
+		/* ignoring dispatchAnalyticsEvent */ oldSkipValidation,
 		oldValidationOverrides,
 	]: ValidationArgsType = lastArgs;
 

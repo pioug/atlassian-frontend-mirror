@@ -141,6 +141,7 @@ function ProfileCardTriggerInner<T>(
 				// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 				<div
 					onMouseEnter={onMouseEnter}
+					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 					onMouseLeave={hideProfilecard}
 					onFocus={showProfilecard}
 					data-testid="profile-card--trigger-content"

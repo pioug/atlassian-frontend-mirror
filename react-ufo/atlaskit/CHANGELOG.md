@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.11.2
+
+### Patch Changes
+
+- [`2237400c3b932`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2237400c3b932) -
+  FG cleanup - platform_ufo_unify_abort_status_in_ttvc_debug_data
+
+## 4.11.1
+
+### Patch Changes
+
+- [`89aa5e2bb9363`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89aa5e2bb9363) -
+  Mark layout-shift entries with same-rect in VC observer
+
 ## 4.11.0
 
 ### Minor Changes

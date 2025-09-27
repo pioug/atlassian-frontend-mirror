@@ -272,6 +272,7 @@ export const ReactionsDialogHeader = ({
 									className="reaction-elements"
 									key={reaction.emojiId}
 									data-testid={emojiId?.id}
+									// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 									onMouseEnter={() => {
 										handleMouseEnter(reaction);
 									}}

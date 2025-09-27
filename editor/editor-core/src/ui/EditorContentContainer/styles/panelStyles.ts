@@ -186,20 +186,19 @@ export const panelStyles: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const nestedPanelBorderStylesMixin: SerializedStyles =
-	css({
+export const nestedPanelBorderStylesMixin: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ProseMirror': {
+		'.ak-editor-panel': {
+			// Support nested panel
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.ak-editor-panel': {
-				// Support nested panel
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'.ak-editor-panel__content .ak-editor-panel': {
-					border: `1px solid ${token('color.border')}`,
-				},
+			'.ak-editor-panel__content .ak-editor-panel': {
+				border: `1px solid ${token('color.border')}`,
 			},
 		},
-	});
+	},
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles = css({

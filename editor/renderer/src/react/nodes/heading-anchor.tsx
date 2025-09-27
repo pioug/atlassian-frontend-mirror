@@ -100,6 +100,7 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 			<button
 				data-testid="anchor-button"
 				css={copyAnchorButtonStyles}
+				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseLeave={this.resetMessage}
 				onClick={this.copyToClipboard}
 				aria-hidden={hideFromScreenReader}

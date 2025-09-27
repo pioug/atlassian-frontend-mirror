@@ -158,8 +158,9 @@ const LeftSidebarOuterComponent = (
 					id={id}
 					// We are adding additional functionality for hover, so this should
 					// not have associated key events.
-					// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+					// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, @atlassian/a11y/mouse-events-have-key-events
 					onMouseOver={onMouseOver}
+					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 					onMouseLeave={onMouseLeave}
 					onClick={onClick}
 					ref={ref}

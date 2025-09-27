@@ -22,14 +22,14 @@ const removeVerbosity = (name: string): string => {
 };
 
 export const createTypographyStylesFromTemplate = () => {
-
 	const tokenTypes = headingTokens
 		.map((token) => {
 			return `
 	readonly ${removeVerbosity(token.name)}: CompiledStyles<{
 		font: "var(${tokenNames[token.name as keyof typeof tokenNames]})";
 	}>;`.trim();
-		}).join('\n\t');
+		})
+		.join('\n\t');
 
 	return (
 		format(

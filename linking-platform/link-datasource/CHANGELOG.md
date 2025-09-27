@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 4.25.1
+
+### Patch Changes
+
+- [`6953cf61660b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6953cf61660b3) -
+  Fix assets modal tableBordersStyles backgroundImage
+
 ## 4.25.0
 
 ### Minor Changes

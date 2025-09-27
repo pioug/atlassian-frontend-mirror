@@ -24,6 +24,7 @@ import {
 	updateMouseState,
 	setPendingSelectedAnnotation,
 	setInlineCommentDraftState,
+	setInlineCommentsFetched,
 } from '../editor-commands';
 import { resetUserIntent, setUserIntent } from '../editor-commands/utils';
 import { getAnnotationViewClassname, getBlockAnnotationViewClassname } from '../nodeviews';
@@ -76,6 +77,12 @@ const fetchState = async (
 	const inlineCommentStates = await fetchProviderStates(provider, annotationIds);
 
 	if (Object.keys(inlineCommentStates).length === 0) {
+		const { annotationsLoaded } = getPluginState(editorView.state) || {};
+
+		if (!annotationsLoaded && fg('confluence_frontend_new_dangling_comments_ux')) {
+			setInlineCommentsFetched()(editorView.state, editorView.dispatch);
+		}
+
 		return;
 	}
 
@@ -93,6 +100,7 @@ const initialState = (
 	isAnnotationManagerEnabled: boolean = false,
 ): InlineCommentPluginState => {
 	return {
+		annotationsLoaded: false,
 		annotations: {},
 		selectedAnnotations: [],
 		hoveredAnnotations: [],

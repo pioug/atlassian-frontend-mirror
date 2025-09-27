@@ -667,7 +667,7 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 					css={[memoizedStyle, styles]}
 					data-editor-scroll-container="true"
 					data-testid="editor-content-container"
-					// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- Adding tabIndex here because this is a scrollable container and it needs to be focusable so keyboard users can scroll it.
+					// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex, @atlassian/a11y/no-noninteractive-tabindex -- Adding tabIndex here because this is a scrollable container and it needs to be focusable so keyboard users can scroll it.
 					tabIndex={0}
 					role="region"
 				>

@@ -403,6 +403,7 @@ const ImageBorder = ({
 			>
 				{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 				<div
+					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 					onMouseLeave={() => {
 						setIsColorSubmenuOpen(false);
 						setIsSizeSubmenuOpen(false);

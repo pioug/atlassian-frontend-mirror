@@ -18,7 +18,7 @@ export type BaseEventPayload = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attributes?: { [key: string]: any };
 	eventType: string;
-}
+};
 
 export type EditorAnalyticsAPI = {
 	/**
@@ -41,20 +41,24 @@ export type EditorAnalyticsAPI = {
 	 * @param {object} [options] - optional options object
 	 * @param {boolean} [options.immediate] - if true, fire the event immediately
 	 * @param {object} [options.context] - optional context object will include the selection data.
-	 * 
+	 *
 	 * @example
 	 * You can also pass custom events using a special type signature:
 	 * ```ts
 	 * editorAnalyticsAPI.fireAnalyticsEvent<CustomEventType, 'customEventType'>(...);
 	 * ```
 	 */
-	fireAnalyticsEvent: (<Payload extends BaseEventPayload, CustomEventType extends 'customEventType' | false = false>(
+	fireAnalyticsEvent: (<
+		Payload extends BaseEventPayload,
+		CustomEventType extends 'customEventType' | false = false,
+	>(
 		payload: CustomEventType extends 'customEventType' ? Payload : never,
 		channel?: string,
 		options?: FireAnalyticsEventOptions,
-	) => void | undefined) & ((
-		payload: AnalyticsEventPayload,
-		channel?: string,
-		options?: FireAnalyticsEventOptions,
-	) => void | undefined);
+	) => void | undefined) &
+		((
+			payload: AnalyticsEventPayload,
+			channel?: string,
+			options?: FireAnalyticsEventOptions,
+		) => void | undefined);
 };

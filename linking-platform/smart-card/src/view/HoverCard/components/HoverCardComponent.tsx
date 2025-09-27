@@ -251,8 +251,9 @@ export const HoverCardComponent = ({
 				{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/interactive-supports-focus, @atlaskit/design-system/no-html-button, @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 				<span
 					{...triggerProps}
-					// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+					// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, @atlassian/a11y/mouse-events-have-key-events
 					onMouseOver={initShowCard}
+					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 					onMouseLeave={initHideCard}
 					onMouseMove={setMousePosition}
 					onClick={onChildClick}

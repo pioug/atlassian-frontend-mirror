@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 124.1.0
+
+### Minor Changes
+
+- [`6fabf6d555515`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fabf6d555515) -
+  EDITOR-1566 add renderer sync-block node support
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 124.0.4
 
 ### Patch Changes

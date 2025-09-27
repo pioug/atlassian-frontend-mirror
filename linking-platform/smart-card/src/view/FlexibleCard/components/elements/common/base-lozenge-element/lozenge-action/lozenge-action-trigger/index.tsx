@@ -166,7 +166,9 @@ const LozengeActionTrigger = ({
 			css={triggerButtonStyles}
 			data-action-open={isOpen}
 			data-testid={`${testId}--trigger`}
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseEnter={onMouseEnter}
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseLeave={onMouseLeave}
 			onMouseDown={onMouseOrKeyDown}
 			onMouseUp={onMouseOrKeyUp}

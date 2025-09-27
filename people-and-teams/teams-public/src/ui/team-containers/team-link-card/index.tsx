@@ -112,7 +112,7 @@ export const TeamLinkCard = ({
 	iconHasLoaded,
 	openInNewTab,
 	isReadOnly,
-	hideSubTextIcon
+	hideSubTextIcon,
 }: TeamLinkCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { description, icon, containerTypeText } = getContainerProperties({

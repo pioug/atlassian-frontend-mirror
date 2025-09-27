@@ -101,7 +101,9 @@ class StatusInternal extends PureComponent<Props, any> {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="status-lozenge-span"
 				onClick={onClick}
+				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseEnter={this.handleMouseEnter}
+				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseLeave={this.handleMouseLeave}
 				data-node-type="status"
 				data-color={color}

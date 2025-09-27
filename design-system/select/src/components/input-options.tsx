@@ -158,6 +158,7 @@ const ControlOption = <Option, IsMulti extends boolean = false>(
 			ref={innerRef}
 			onMouseDown={onMouseDown}
 			onMouseUp={onMouseUp}
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseLeave={onMouseUp}
 			{...innerProps}
 		>

@@ -190,10 +190,11 @@ export const ExtensionLabel = ({
 			className={containerClassNames}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={customContainerStyles}
-			// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+			// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, @atlassian/a11y/mouse-events-have-key-events
 			onMouseOver={() => {
 				setIsNodeHovered?.(true);
 			}}
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseLeave={() => {
 				setIsNodeHovered?.(false);
 			}}

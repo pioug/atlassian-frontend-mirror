@@ -514,7 +514,7 @@ function DesktopBrowser({
 							description="Sidebar heading"
 						/>
 					</div>
-					{/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role */}
+					{/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role, @atlassian/a11y/no-noninteractive-element-to-interactive-role */}
 					<nav role="tablist" aria-labelledby="sidebar-heading" css={categoryListWrapper}>
 						<CategoryList
 							categories={categories}

@@ -103,8 +103,7 @@ function createPlugin(options: AnalyticsPluginOptions, featureFlags: FeatureFlag
  */
 const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
-	const analyticsEventPropQueue: Set<{ channel?: string; payload: BaseEventPayload }> =
-		new Set();
+	const analyticsEventPropQueue: Set<{ channel?: string; payload: BaseEventPayload }> = new Set();
 
 	return {
 		name: 'analytics',

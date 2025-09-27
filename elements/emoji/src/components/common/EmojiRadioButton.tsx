@@ -110,7 +110,7 @@ export const EmojiRadioButton = forwardRef<HTMLInputElement, Props>((props: Prop
 	const { emoji, selectOnHover, ariaLabelText, defaultChecked } = props;
 
 	return (
-		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, @atlassian/a11y/no-noninteractive-element-interactions
 		<label
 			css={emojiButton}
 			onMouseDown={(event) => handleMouseDown(props, event)}

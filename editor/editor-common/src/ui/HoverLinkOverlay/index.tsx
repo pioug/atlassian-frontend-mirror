@@ -221,7 +221,9 @@ const HoverLinkOverlay = ({
 			ref={containerRef}
 			css={containerStyles}
 			onDoubleClick={handleDoubleClick}
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseEnter={() => handleOverlayChange(true)}
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseLeave={() => handleOverlayChange(false)}
 		>
 			{children}

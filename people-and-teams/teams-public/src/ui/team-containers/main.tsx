@@ -51,7 +51,7 @@ export const TeamContainers = ({
 	teamId,
 	onAddAContainerClick,
 	onEditContainerClick,
-	onRequestedContainerTimeout = () => { },
+	onRequestedContainerTimeout = () => {},
 	components,
 	userId,
 	cloudId,

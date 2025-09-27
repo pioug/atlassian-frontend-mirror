@@ -272,14 +272,14 @@ const DragHandleComponent = ({
 				aria-label={formatMessage(isRow ? messages.rowDragHandle : messages.columnDragHandle)}
 				aria-expanded={isDragMenuOpen && isDragMenuTarget ? 'true' : 'false'}
 				aria-haspopup="menu"
-				// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+				// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, @atlassian/a11y/mouse-events-have-key-events
 				onMouseOver={(e) => {
 					if (expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)) {
 						setIsHovered(true);
 					}
 					onMouseOver && onMouseOver(e);
 				}}
-				// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+				// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, @atlassian/a11y/mouse-events-have-key-events
 				onMouseOut={(e) => {
 					if (expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)) {
 						setIsHovered(false);

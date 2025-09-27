@@ -290,26 +290,16 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		// Only create debug details if callbacks exist
 		let v3RevisionDebugDetails: VCRevisionDebugDetails | null = null;
 		if (shouldCalculateDebugDetails) {
-			if (fg('platform_ufo_unify_abort_status_in_ttvc_debug_data')) {
-				v3RevisionDebugDetails = {
-					revision: this.revisionNo,
-					isClean: isVCClean && !interactionAbortReason && isPageVisible,
-					abortReason: !isPageVisible
-						? 'browser_backgrounded'
-						: (dirtyReason ?? interactionAbortReason),
-					vcLogs: enhancedVcLogs,
-					interactionId,
-					interactionType,
-				};
-			} else {
-				v3RevisionDebugDetails = {
-					revision: this.revisionNo,
-					isClean: isVCClean,
-					abortReason: dirtyReason,
-					vcLogs: enhancedVcLogs,
-					interactionId,
-				};
-			}
+			v3RevisionDebugDetails = {
+				revision: this.revisionNo,
+				isClean: isVCClean && !interactionAbortReason && isPageVisible,
+				abortReason: !isPageVisible
+					? 'browser_backgrounded'
+					: (dirtyReason ?? interactionAbortReason),
+				vcLogs: enhancedVcLogs,
+				interactionId,
+				interactionType,
+			};
 		}
 
 		// Handle devtool callback

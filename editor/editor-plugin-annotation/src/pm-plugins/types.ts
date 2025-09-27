@@ -25,6 +25,7 @@ export enum ACTIONS {
 	SET_HOVERED_ANNOTATION,
 	FLUSH_PENDING_SELECTIONS,
 	SET_PENDING_SELECTIONS,
+	SET_INLINE_COMMENTS_FETCHED,
 }
 
 export interface InlineCommentPluginOptions {
@@ -102,9 +103,13 @@ export type InlineCommentAction =
 				selectedAnnotations: AnnotationInfo[];
 			};
 			type: ACTIONS.SET_PENDING_SELECTIONS;
+	  }
+	| {
+			type: ACTIONS.SET_INLINE_COMMENTS_FETCHED;
 	  };
 
 export type InlineCommentPluginState = {
+	annotationsLoaded: boolean;
 	/**
 	 * The resolved state of the annotations.
 	 *

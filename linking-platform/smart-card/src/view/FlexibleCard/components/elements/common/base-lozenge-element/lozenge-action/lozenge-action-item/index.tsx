@@ -25,6 +25,7 @@ const LozengeActionItem = ({ appearance, id, onClick, testId, text }: LozengeAct
 	}, []);
 
 	return (
+		// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 		<span onMouseEnter={handleMouseEnter} role="presentation">
 			<DropdownItem onClick={handleClick} testId={testId}>
 				<Lozenge

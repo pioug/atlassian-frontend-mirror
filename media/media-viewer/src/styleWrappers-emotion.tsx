@@ -688,7 +688,7 @@ export const Img = ({
 		}
 	}, [canDrag, isDragging]);
 	return (
-		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, @atlassian/a11y/no-noninteractive-element-interactions
 		<img
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}

@@ -176,6 +176,7 @@ const LinkSearchListItemNext = (
 			onKeyDown={handleKeyDown}
 			onMouseMove={handleMouseMove}
 			onMouseEnter={handleMouseEnter}
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseLeave={handleMouseLeave}
 			onClick={handleSelect}
 		>
@@ -287,7 +288,7 @@ class LinkSearchListItem extends React.PureComponent<Props & WrappedComponentPro
 	render() {
 		const { item, selected, id, role } = this.props;
 		return (
-			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions, @atlassian/a11y/no-noninteractive-element-interactions
 			<li
 				css={[container, selected && containerSelected]}
 				role={role}
@@ -295,7 +296,9 @@ class LinkSearchListItem extends React.PureComponent<Props & WrappedComponentPro
 				aria-selected={selected}
 				data-testid="link-search-list-item"
 				onMouseMove={this.handleMouseMove}
+				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseEnter={this.handleMouseEnter}
+				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseLeave={this.handleMouseLeave}
 				onClick={this.handleSelect}
 			>

@@ -647,7 +647,7 @@ const EmojiPickerComponent = ({
 	const showPreview = selectedEmoji && !uploading;
 
 	return (
-		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, @atlassian/a11y/no-noninteractive-element-interactions
 		<div
 			css={[
 				emojiPicker,

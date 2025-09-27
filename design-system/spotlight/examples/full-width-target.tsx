@@ -1,4 +1,3 @@
-
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -6,7 +5,7 @@
 
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Text } from '@atlaskit/primitives/compiled'
+import { Text } from '@atlaskit/primitives/compiled';
 import {
 	PopoverContent,
 	PopoverProvider,
@@ -28,7 +27,7 @@ const styles = cssMap({
 		width: '100vw',
 		height: '100vh',
 		display: 'flex',
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
 	content: {
 		width: '270px',
@@ -36,20 +35,22 @@ const styles = cssMap({
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'center',
-		gap: token('space.400')
+		gap: token('space.400'),
 	},
-})
+});
 
 export default function Example() {
-
 	return (
-
 		<div css={styles.root}>
 			<div css={styles.content}>
-				<Button shouldFitContainer appearance="primary">No Popover</Button>
+				<Button shouldFitContainer appearance="primary">
+					No Popover
+				</Button>
 				<PopoverProvider>
 					<PopoverTarget>
-						<Button shouldFitContainer appearance="primary">Popover</Button>
+						<Button shouldFitContainer appearance="primary">
+							Popover
+						</Button>
 					</PopoverTarget>
 					<PopoverContent placement="right-end" isVisible={true}>
 						<SpotlightCard testId="spotlight">
@@ -64,9 +65,7 @@ export default function Example() {
 							</SpotlightBody>
 							<SpotlightFooter>
 								<SpotlightActions>
-									<SpotlightPrimaryAction >
-										Done
-									</SpotlightPrimaryAction>
+									<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
 								</SpotlightActions>
 							</SpotlightFooter>
 						</SpotlightCard>

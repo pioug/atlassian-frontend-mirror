@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-annotation
 
+## 6.1.0
+
+### Minor Changes
+
+- [`daf58795e19b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daf58795e19b8) -
+  Add a new property (annotationsLoaded: boolean) to the Editor Plugin Annotation state. This
+  property is used to indicate whether inline comments have been fetched.
+
 ## 6.0.1
 
 ### Patch Changes

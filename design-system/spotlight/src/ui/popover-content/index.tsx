@@ -26,7 +26,7 @@ const styles = cssMap({
  */
 const offset: [number, number] = [0, 2];
 
-interface PopoverContentProps {
+export interface PopoverContentProps {
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
 	 * string that appears as a data attribute `data-testid` in the rendered code,

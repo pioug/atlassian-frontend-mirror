@@ -137,6 +137,7 @@ const InviteItem = ({
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[mentionItemStyle, selected && mentionItemSelectedStyle]}
 			onMouseDown={onSelected}
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseEnter={onItemMouseEnter}
 			data-id={INVITE_ITEM_DESCRIPTION.id}
 		>

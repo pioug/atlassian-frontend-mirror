@@ -212,7 +212,7 @@ const TableWrapper = ({ children, wrapperRef, onScroll, stickyHeaders }: TableWr
 			ref={wrapperRef}
 			onScroll={stickyHeaders ? onScroll : undefined}
 			// Adding tabIndex here because this is a scrollable container and it needs to be focusable so keyboard users can scroll it.
-			// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+			// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex, @atlassian/a11y/no-noninteractive-tabindex
 			tabIndex={0}
 			role="region"
 			aria-label={formatMessage(tableMessages.tableScrollRegion)}

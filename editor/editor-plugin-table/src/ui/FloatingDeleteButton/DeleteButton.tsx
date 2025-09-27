@@ -28,7 +28,9 @@ const DeleteButton = ({
 		className={ClassName.CONTROLS_DELETE_BUTTON_WRAP}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		style={style}
+		// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 		onMouseEnter={onMouseEnter}
+		// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 		onMouseLeave={onMouseLeave}
 	>
 		<button

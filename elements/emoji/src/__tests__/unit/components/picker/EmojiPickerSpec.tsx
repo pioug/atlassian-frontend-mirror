@@ -967,6 +967,7 @@ describe('<EmojiPicker />', () => {
 
 				return (
 					<div onKeyDown={handleParentKeyDown} data-testid="parent">
+						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex */}
 						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>
 							Mock Emoji Picker
 						</div>
@@ -1017,6 +1018,7 @@ describe('<EmojiPicker />', () => {
 
 				return (
 					<div onKeyDown={handleParentKeyDown} data-testid="parent">
+						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex */}
 						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>
 							Mock Emoji Picker
 						</div>
@@ -1066,6 +1068,7 @@ describe('<EmojiPicker />', () => {
 
 				return (
 					<div onKeyDown={handleParentKeyDown} data-testid="parent">
+						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex */}
 						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>
 							Mock Emoji Picker
 						</div>

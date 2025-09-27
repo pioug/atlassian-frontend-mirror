@@ -37,6 +37,7 @@ const Button = memo(
 	({ onClick, onMouseOver }: { onClick: () => void; onMouseOver: () => void }) => {
 		const renderCounter = useRenderCounter();
 		return (
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			<button data-render-count={renderCounter} onClick={onClick} onMouseOver={onMouseOver}>
 				Button
 			</button>

@@ -1,7 +1,7 @@
 import { type InteractionMetrics } from '../../common';
 import type { RevisionPayload, VCResult } from '../../common/vc/types';
 import { getConfig, getMostRecentVCRevision } from '../../config';
-import { postInteractionLog } from '../../interaction-metrics';
+import { interactionExtraMetrics, postInteractionLog } from '../../interaction-metrics';
 
 import getInteractionStatus from './get-interaction-status';
 import getPageVisibilityUpToTTAI from './get-page-visibility-up-to-ttai';
@@ -71,6 +71,7 @@ async function getVCMetrics(
 	if (!include3p) {
 		// For Post Interaction, last interaction should be without 3p
 		postInteractionLog.setLastInteractionFinishVCResult(result);
+		interactionExtraMetrics.setLastInteractionFinishVCResult(result);
 	}
 
 	const mostRecentVCRevision = getMostRecentVCRevision(interaction.ufoName);

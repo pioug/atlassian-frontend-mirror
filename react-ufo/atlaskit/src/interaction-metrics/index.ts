@@ -773,7 +773,7 @@ function finishInteraction(
 	PreviousInteractionLog.isAborted = data.abortReason != null;
 	if (data.ufoName) {
 		if (fg('platform_ufo_enable_ttai_with_3p')) {
-			if (interactionExtraMetrics.finishedInteractionId !== id) {
+			if (interactionExtraMetrics.finishedInteraction?.id !== id) {
 				// If this same interaction was not already handled, handle it
 				handleInteraction(id, data);
 			}
@@ -877,7 +877,7 @@ export function tryComplete(interactionId: string, endTime?: number) {
 			}
 
 			if (fg('platform_ufo_enable_ttai_with_3p')) {
-				if (interactionExtraMetrics.finishedInteractionId !== interactionId) {
+				if (interactionExtraMetrics.finishedInteraction?.id !== interactionId) {
 					// If interactionExtraMetrics is not waiting for measuring this interaction
 					if (getConfig()?.experimentalInteractionMetrics?.enabled) {
 						remove(interactionId);
@@ -894,12 +894,12 @@ export function tryComplete(interactionId: string, endTime?: number) {
 		if (fg('platform_ufo_enable_ttai_with_3p')) {
 			const noMoreActive3pHolds =
 				interaction.hold3pActive?.size === 0 || interaction.hold3pActive === undefined;
-			if (noMoreActiveHolds && interactionExtraMetrics.finishedInteractionId !== interactionId) {
+			if (noMoreActiveHolds && interactionExtraMetrics.finishedInteraction?.id !== interactionId) {
 				// If it's not waiting for extra metrics to complete, finish the interaction as normal
 				if (!activeSubmitted) {
 					finishInteraction(interactionId, interaction, endTime);
 					if (getConfig()?.extraInteractionMetrics?.enabled) {
-						interactionExtraMetrics.updateFinishedInteractionId(interactionId);
+						interactionExtraMetrics.updateFinishedInteraction(interaction);
 					}
 
 					if (

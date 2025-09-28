@@ -2,7 +2,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import coinflip from '../coinflip';
 import type { InteractionMetrics } from '../common';
-import type { RevisionPayload } from '../common/vc/types';
+import type { RevisionPayload, VCResult } from '../common/vc/types';
 import { DEFAULT_TTVC_REVISION, getConfig, getExtraInteractionRate } from '../config';
 import {
 	buildSegmentTree,
@@ -29,6 +29,8 @@ import { interactionSpans as atlaskitInteractionSpans } from '../interaction-met
 async function createInteractionExtraLogPayload(
 	interactionId: string,
 	interaction: InteractionMetrics,
+	lastInteractionFinish: InteractionMetrics | null,
+	lastInteractionFinishVCResult?: VCResult,
 ) {
 	const config = getConfig();
 	if (!config) {
@@ -47,6 +49,7 @@ async function createInteractionExtraLogPayload(
 		isPreviousInteractionAborted,
 		abortedByInteractionName,
 		knownSegments,
+		minorInteractions,
 	} = interaction;
 
 	const sanitisedUfoName = sanitizeUfoName(ufoName);
@@ -57,7 +60,8 @@ async function createInteractionExtraLogPayload(
 
 	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);
 	const isPageLoad = type === 'page_load' || type === 'transition';
-	if (!isPageLoad) {
+	if (!isPageLoad || (minorInteractions !== undefined && minorInteractions.length > 0)) {
+		// Not send if aborted by minor interaction for now
 		// Only create payload for page load
 		return null;
 	}
@@ -89,6 +93,51 @@ async function createInteractionExtraLogPayload(
 		interaction.errors.length > 0
 	) {
 		return null;
+	}
+
+	// Get normal TTAI & VC90 for last finished interaction (without 3p)
+	if (
+		!lastInteractionFinish ||
+		lastInteractionFinish?.abortReason ||
+		lastInteractionFinish?.errors?.length
+	) {
+		return null;
+	}
+
+	const normalTTAI = getTTAI(lastInteractionFinish) ?? undefined;
+	const lastInteractionFinishStart =
+		typeof lastInteractionFinish.start === 'number'
+			? Math.round(lastInteractionFinish.start)
+			: undefined;
+	const lastInteractionFinishEnd =
+		typeof lastInteractionFinish.end === 'number'
+			? Math.round(lastInteractionFinish.end)
+			: undefined;
+
+	let lastInteractionFinishVC90: number | null = null;
+	let lastInteractionFinishVCClean: boolean = false;
+
+	if (lastInteractionFinishVCResult) {
+		const lastInteractionFinishVCRev = lastInteractionFinishVCResult[
+			'ufo:vc:rev'
+		] as RevisionPayload;
+		const lastInteractionFinishRevision = lastInteractionFinishVCRev?.find(
+			({ revision }) => revision === DEFAULT_TTVC_REVISION,
+		);
+		if (lastInteractionFinishRevision?.clean) {
+			lastInteractionFinishVCClean = true;
+			lastInteractionFinishVC90 = lastInteractionFinishRevision['metric:vc90'];
+		} else {
+			return null;
+		}
+	} else if (
+		normalTTAI !== undefined &&
+		typeof normalTTAI === 'number' &&
+		normalTTAI === extraTTAI
+	) {
+		// Because TTAI is equal between with and without 3p, we can assume VC90 is also equal
+		lastInteractionFinishVC90 = effectiveVCRevisionPayload?.['metric:vc90'];
+		lastInteractionFinishVCClean = effectiveVCRevisionPayload?.clean;
 	}
 
 	// Helper function to check if labelStack contains third-party type
@@ -202,6 +251,13 @@ async function createInteractionExtraLogPayload(
 					...getDetailedInteractionMetrics(),
 				},
 				'vc:effective:revision': DEFAULT_TTVC_REVISION,
+				lastInteractionFinish: {
+					start: lastInteractionFinishStart,
+					end: lastInteractionFinishEnd,
+					ttai: normalTTAI,
+					vc90: lastInteractionFinishVC90,
+					vcClean: lastInteractionFinishVCClean,
+				},
 			},
 		},
 	};

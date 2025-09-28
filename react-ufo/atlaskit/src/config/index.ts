@@ -157,6 +157,10 @@ export type Config = {
 		readonly rates?: Rates;
 		readonly kind?: Record<InteractionType, number>;
 	};
+	/**
+	 * @private
+	 * @deprecated - to be removed on next major version
+	 */
 	readonly enableSegmentHighlighting?: boolean;
 	readonly enableAdditionalPerformanceMarks?: boolean;
 	/**

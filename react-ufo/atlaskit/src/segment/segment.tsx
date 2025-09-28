@@ -1,9 +1,7 @@
 import React, {
-	lazy,
 	Profiler,
 	type ProfilerOnRenderCallback,
 	type ReactNode,
-	Suspense,
 	useCallback,
 	useContext,
 	useEffect,
@@ -67,13 +65,6 @@ export type Props = {
 
 let tryCompleteHandle: number | undefined;
 
-const AsyncSegmentHighlight = lazy(() =>
-	import(
-		/* webpackChunkName: "@atlaskit-internal_ufo-segment-highlight" */ './segment-highlight'
-	).then((module) => ({ default: module.SegmentHighlight })),
-);
-
-// KARL TODO: finish self profiling
 /** A portion of the page we apply measurement to */
 export default function UFOSegment({
 	name: segmentName,
@@ -403,17 +394,10 @@ export default function UFOSegment({
 
 	const reactProfilerId = useMemo(() => labelStack.map((l) => l.name).join('/'), [labelStack]);
 
-	const enableSegmentHighlighting = getConfig()?.enableSegmentHighlighting;
-
 	return (
 		<UFOInteractionContext.Provider value={interactionContext}>
 			<Profiler id={reactProfilerId} onRender={onRender}>
 				{children}
-				{enableSegmentHighlighting && (
-					<Suspense fallback={null}>
-						<AsyncSegmentHighlight segmentName={segmentName} />
-					</Suspense>
-				)}
 			</Profiler>
 		</UFOInteractionContext.Provider>
 	);

@@ -2,6 +2,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { startLighthouseObserver } from '../additional-payload';
 import { type PostInteractionLogOutput } from '../common';
+import { type VCResult } from '../common/vc/types';
 import { type Config, setUFOConfig } from '../config';
 import {
 	experimentalVC,
@@ -141,26 +142,43 @@ function sinkPostInteractionLog(
 
 function sinkInteractionExtraMetrics(
 	instance: GenericAnalyticWebClientInstance,
-	createInteractionExtraLogPayload: (interactionId: string, interaction: InteractionMetrics) => any,
+	createInteractionExtraLogPayload: (
+		interactionId: string,
+		interaction: InteractionMetrics,
+		lastInteractionFinish: InteractionMetrics | null,
+		lastInteractionFinishVCResult?: VCResult,
+	) => any,
 ) {
-	interactionExtraMetrics.sinkHandler((interactionId: string, interaction: InteractionMetrics) => {
-		scheduleIdleCallback(async () => {
-			const payload = await createInteractionExtraLogPayload(interactionId, interaction);
-			if (payload) {
-				// NOTE: This API is used by the UFO DevTool Chrome Extension and also by Criterion
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-				if (fg('enable_ufo_devtools_api_for_extra_events')) {
-					const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
-						.__ufo_devtool_onUfoPayload;
+	interactionExtraMetrics.sinkHandler(
+		(
+			interactionId: string,
+			interaction: InteractionMetrics,
+			lastInteractionFinish: InteractionMetrics | null,
+			lastInteractionFinishVCResult?: VCResult,
+		) => {
+			scheduleIdleCallback(async () => {
+				const payload = await createInteractionExtraLogPayload(
+					interactionId,
+					interaction,
+					lastInteractionFinish,
+					lastInteractionFinishVCResult,
+				);
+				if (payload) {
+					// NOTE: This API is used by the UFO DevTool Chrome Extension and also by Criterion
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+					if (fg('enable_ufo_devtools_api_for_extra_events')) {
+						const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
+							.__ufo_devtool_onUfoPayload;
 
-					if (typeof devToolObserver === 'function') {
-						devToolObserver?.(payload);
+						if (typeof devToolObserver === 'function') {
+							devToolObserver?.(payload);
+						}
 					}
+					instance.sendOperationalEvent(payload);
 				}
-				instance.sendOperationalEvent(payload);
-			}
-		});
-	});
+			});
+		},
+	);
 }
 
 function sinkExtraSearchPageInteraction(

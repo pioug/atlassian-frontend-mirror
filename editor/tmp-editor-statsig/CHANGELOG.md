@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 12.33.0
+
+### Minor Changes
+
+- [`20c74a7647d3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20c74a7647d3e) -
+  [ux] ED-29274 Add missing tooltip for toolbar buttons
+
 ## 12.32.0
 
 ### Minor Changes

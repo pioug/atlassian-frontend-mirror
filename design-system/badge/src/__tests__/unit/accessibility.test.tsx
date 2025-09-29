@@ -3,11 +3,10 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Badge from '../../../src';
 
-ffTest.both('platform-component-visual-refresh', 'badge accessibility', () => {
+describe('badge accessibility', () => {
 	describe('basic tests', () => {
 		it('Basic badge should not fail basic aXe audit', async () => {
 			const { container } = render(<Badge>{123}</Badge>);

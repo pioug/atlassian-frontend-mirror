@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/temp-nav-app-icons",
-	"version": "0.10.3",
+	"version": "0.12.0",
 	"description": "A temporary package to house app and brand icon tiles. This package is a stop gap until these use cases are properly incorporated into the design system.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -60,6 +60,8 @@
 		"./opsgenie": "./src/entry-points/opsgenie.tsx",
 		"./projects": "./src/entry-points/projects.tsx",
 		"./rovo": "./src/entry-points/rovo.tsx",
+		"./rovo-dev": "./src/entry-points/rovo-dev.tsx",
+		"./rovo-dev-agent": "./src/entry-points/rovo-dev-agent.tsx",
 		"./search": "./src/entry-points/search.tsx",
 		"./statuspage": "./src/entry-points/statuspage.tsx",
 		"./studio": "./src/entry-points/studio.tsx",
@@ -76,6 +78,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
@@ -132,6 +135,11 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"assets-platform-branding": {
+			"type": "boolean"
 		}
 	}
 }

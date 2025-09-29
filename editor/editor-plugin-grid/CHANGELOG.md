@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-grid
 
+## 6.0.1
+
+### Patch Changes
+
+- [`49d845e4c0ec3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49d845e4c0ec3) -
+  ED-29167: fix grid hydration
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

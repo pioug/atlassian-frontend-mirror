@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d6714cd348d1c10436a8ee86a23e84c3>>
+ * @codegen <<SignedSource::50fb3acb377ef40a114ee9bc7d853a13>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 export const adminIcon =
@@ -65,6 +65,10 @@ export const opsgenieIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23ffc716' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M12.696 19.45c-.49.361-.749.336-1.24-.026-2.375-1.704-4.57-3.641-6.042-5.655-.155-.207-.078-.49.155-.62l2.685-1.678q.35-.233.62.077c1.033 1.188 2.04 2.35 3.202 3.176 1.162-.826 2.17-1.988 3.202-3.176q.272-.31.62-.078l2.686 1.679c.232.13.31.413.155.62-1.472 2.014-3.667 3.95-6.043 5.68m-.62-7.411c2.118 0 3.874-1.73 3.874-3.848s-1.756-3.9-3.874-3.9c-2.117 0-3.873 1.757-3.873 3.9s1.704 3.848 3.873 3.848'/> </svg> ";
 export const projectsIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23dddee1' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' fill-rule='evenodd' d='m5.106 14.44 1.856-1.856-1.856-1.856L6.653 9.18h3.712l2.784-2.784h4.332v4.33l-2.785 2.785v3.712L13.15 18.77l-1.857-1.856-1.856 1.856-1.7-1.7 2.784-2.784-.928-.928-2.784 2.784zm10.209-4.331a1.094 1.094 0 1 1-1.547-1.546 1.094 1.094 0 0 1 1.547 1.546' clip-rule='evenodd'/> </svg> ";
+export const rovoDevAgentIcon =
+	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%2394c748' d='M10.7.368a2.75 2.75 0 0 1 2.748 0l8.016 4.626a2.75 2.75 0 0 1 1.375 2.38v9.252c0 .982-.524 1.889-1.375 2.38l-8.016 4.626a2.75 2.75 0 0 1-2.749 0l-8.016-4.626a2.75 2.75 0 0 1-1.374-2.38V7.374c0-.982.524-1.889 1.374-2.38z'/> <path fill='%23101214' fill-rule='evenodd' d='M10.181 6.096 6.777 8.06a1.53 1.53 0 0 0-.768 1.327v5.229c0 .547.294 1.054.768 1.327l.807.466 3.722 2.149a1.54 1.54 0 0 0 1.508.014l.027-.018a1.54 1.54 0 0 0 .766-1.323v-2.026l-1.97-1.137-.568-.327a2 2 0 0 1-1.006-1.74V6.775a2 2 0 0 1 .118-.678' clip-rule='evenodd'/> <path fill='%23101214' fill-rule='evenodd' d='M12.842 5.441a1.54 1.54 0 0 0-1.508-.014l-.028.019a1.54 1.54 0 0 0-.765 1.323v2.025l1.91 1.102.628.362a2 2 0 0 1 1.006 1.74v5.228a2 2 0 0 1-.118.678l3.404-1.965c.476-.273.767-.778.767-1.327V9.383c0-.546-.293-1.054-.767-1.327l-.868-.501z' clip-rule='evenodd'/> </svg> ";
+export const rovoDevIcon =
+	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%2394c748' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M11.26 4.71a1.7 1.7 0 0 1 1.666.017l5.006 2.89c.524.302.848.863.848 1.467v5.78a1.69 1.69 0 0 1-.848 1.467l-3.763 2.172.024-.07c.07-.216.107-.445.107-.679v-5.78c0-.794-.423-1.526-1.112-1.922l-2.805-1.62V6.195q.001-.267.08-.512c.126-.395.396-.737.765-.95l.002-.001z'/> <path fill='%23101214' d='M9.986 5.45 6.223 7.623a1.69 1.69 0 0 0-.848 1.466v5.78c0 .605.324 1.166.848 1.468l5.006 2.89a1.7 1.7 0 0 0 1.666.016l.03-.02c.37-.214.64-.556.768-.95q.078-.247.079-.513v-2.24l-2.805-1.618a2.22 2.22 0 0 1-1.112-1.922V6.2a2.2 2.2 0 0 1 .13-.75'/> </svg> ";
 export const rovoIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%231868db' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23fff' d='M11.057 5.257a1.57 1.57 0 0 1 1.539.015l4.621 2.668c.484.279.783.797.783 1.354v5.336a1.56 1.56 0 0 1-.782 1.355l-3.474 2.005a2 2 0 0 0 .12-.691v-5.337c0-.733-.39-1.409-1.026-1.774l-2.59-1.495V6.626q.001-.246.074-.473c.117-.364.366-.68.707-.877z'/> <path fill='%23fff' d='M9.881 5.94 6.408 7.945A1.56 1.56 0 0 0 5.625 9.3v5.337c0 .557.3 1.075.783 1.354l4.621 2.668c.475.274 1.06.279 1.539.015l.027-.019a1.57 1.57 0 0 0 .781-1.35v-2.067l-2.589-1.495a2.05 2.05 0 0 1-1.026-1.775V6.631a2 2 0 0 1 .12-.691'/> </svg> ";
 export const searchIcon =
@@ -112,6 +116,8 @@ const rawIcons = {
 	moreAtlassianApps: moreAtlassianAppsIcon,
 	opsgenie: opsgenieIcon,
 	projects: projectsIcon,
+	rovoDevAgent: rovoDevAgentIcon,
+	rovoDev: rovoDevIcon,
 	rovo: rovoIcon,
 	search: searchIcon,
 	statuspage: statuspageIcon,

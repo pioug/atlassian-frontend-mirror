@@ -29,6 +29,9 @@
 			"path": "../../editor-shared-styles/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../tmp-editor-statsig/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-townsquare/tsconfig.json"
 		}
 	]

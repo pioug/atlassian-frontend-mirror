@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a562da6e2d6de65d14161bdba944aa84>>
+ * @codegen <<SignedSource::fb5b21ce58d51466c87f7f4823d31e3e>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -78,6 +78,8 @@ import { MoreAtlassianAppsIcon } from '@atlaskit/temp-nav-app-icons/more-atlassi
 import { OpsgenieIcon, OpsgenieLogo, OpsgenieLogoCS } from '@atlaskit/temp-nav-app-icons/opsgenie';
 import { ProjectsIcon, ProjectsLogo, ProjectsLogoCS } from '@atlaskit/temp-nav-app-icons/projects';
 import { RovoIcon, RovoLogo, RovoLogoCS } from '@atlaskit/temp-nav-app-icons/rovo';
+import { RovoDevIcon, RovoDevLogoCS } from '@atlaskit/temp-nav-app-icons/rovo-dev';
+import { RovoDevAgentIcon, RovoDevAgentLogoCS } from '@atlaskit/temp-nav-app-icons/rovo-dev-agent';
 import { SearchIcon, SearchLogo, SearchLogoCS } from '@atlaskit/temp-nav-app-icons/search';
 import {
 	StatuspageIcon,
@@ -380,6 +382,26 @@ export const rows: Array<{
 		Icon32: (props) => <ProjectsIcon {...props} size="32" />,
 		Logo: (props) => <ProjectsLogo {...props} />,
 		LogoCS: (props) => <ProjectsLogoCS {...props} />,
+	},
+	{
+		name: 'Rovo Dev Agent',
+		Icon12: (props) => <RovoDevAgentIcon {...props} size="12" />,
+		Icon16: (props) => <RovoDevAgentIcon {...props} size="16" />,
+		Icon20: (props) => <RovoDevAgentIcon {...props} size="20" />,
+		Icon24: (props) => <RovoDevAgentIcon {...props} size="24" />,
+		Icon32: (props) => <RovoDevAgentIcon {...props} size="32" />,
+		Logo: null,
+		LogoCS: (props) => <RovoDevAgentLogoCS {...props} />,
+	},
+	{
+		name: 'Rovo Dev',
+		Icon12: (props) => <RovoDevIcon {...props} size="12" />,
+		Icon16: (props) => <RovoDevIcon {...props} size="16" />,
+		Icon20: (props) => <RovoDevIcon {...props} size="20" />,
+		Icon24: (props) => <RovoDevIcon {...props} size="24" />,
+		Icon32: (props) => <RovoDevIcon {...props} size="32" />,
+		Logo: null,
+		LogoCS: (props) => <RovoDevLogoCS {...props} />,
 	},
 	{
 		name: 'Rovo',

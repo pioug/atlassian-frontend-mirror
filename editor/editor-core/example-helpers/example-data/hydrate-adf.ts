@@ -468,5 +468,12 @@ export const hydrateAdf = {
 				},
 			],
 		},
+		{
+			type: 'embedCard',
+			attrs: {
+				url: 'https://www.loom.com/share/f884ee7e062843a3bb7acb8ad6cd9234',
+				layout: 'align-end',
+			},
+		},
 	],
 };

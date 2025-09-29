@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 6.0.3
+
+### Patch Changes
+
+- [`2f81c0f3bf21d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f81c0f3bf21d) -
+  [ux] ED-29318 [CR-6b] Add new toolbar icons to comment editor
+- Updated dependencies
+
+## 6.0.2
+
+### Patch Changes
+
+- [`20c74a7647d3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20c74a7647d3e) -
+  [ux] ED-29274 Add missing tooltip for toolbar buttons
+- Updated dependencies
+
 ## 6.0.1
 
 ### Patch Changes

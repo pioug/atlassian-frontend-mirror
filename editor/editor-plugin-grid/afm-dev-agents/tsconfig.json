@@ -29,6 +29,9 @@
 			"path": "../../editor-shared-styles/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../tmp-editor-statsig/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-dev-agents/tsconfig.json"
 		}
 	]

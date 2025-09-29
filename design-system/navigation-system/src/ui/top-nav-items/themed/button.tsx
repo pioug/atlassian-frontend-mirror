@@ -306,18 +306,7 @@ interface ThemedAnchorProps<RouterLinkConfig extends Record<string, any> = never
 	extends ThemedPrimitiveProps,
 		LinkVariantCommonProps<RouterLinkConfig> {}
 
-/**
- * Intentionally an almost-duplicate of `ThemedPressable` - make sure to update both.
- *
- * More 'clever' solutions were tried but I couldn't get them working in an acceptable state.
- *
- * Polymorphism had many typing issues and required sacrificing type safety.
- *
- * Render props had problems passing down styles through `xcss` to the `children` function.
- */
-const ThemedAnchor = forwardRefWithGeneric(function ThemedAnchor<
-	RouterLinkConfig extends Record<string, any> = never,
->(
+function ThemedAnchorFn<RouterLinkConfig extends Record<string, any> = never>(
 	{
 		appearance = 'default',
 		shape = 'default',
@@ -349,7 +338,19 @@ const ThemedAnchor = forwardRefWithGeneric(function ThemedAnchor<
 			)}
 		/>
 	);
-});
+}
+/**
+ * Intentionally an almost-duplicate of `ThemedPressable` - make sure to update both.
+ *
+ * More 'clever' solutions were tried but I couldn't get them working in an acceptable state.
+ *
+ * Polymorphism had many typing issues and required sacrificing type safety.
+ *
+ * Render props had problems passing down styles through `xcss` to the `children` function.
+ */
+const ThemedAnchor: <RouterLinkConfig extends Record<string, any> = never>(
+	props: ThemedAnchorProps<RouterLinkConfig> & React.RefAttributes<HTMLAnchorElement>,
+) => React.ReactElement | null = forwardRefWithGeneric(ThemedAnchorFn);
 
 const textButtonStyles = cssMap({
 	iconBefore: {
@@ -404,14 +405,7 @@ export interface ThemedLinkButtonProps<RouterLinkConfig extends Record<string, a
 	extends LinkVariantCommonProps<RouterLinkConfig>,
 		TextButtonCommonProps {}
 
-/**
- * __Themed link button__
- *
- * A themed link button for the top bar.
- */
-export const ThemedLinkButton = forwardRefWithGeneric(function ThemedLinkButton<
-	RouterLinkConfig extends Record<string, any> = never,
->(
+function ThemedLinkButtonFn<RouterLinkConfig extends Record<string, any> = never>(
 	{ iconBefore: IconBefore, children, ...props }: ThemedLinkButtonProps<RouterLinkConfig>,
 	ref: React.Ref<HTMLAnchorElement>,
 ) {
@@ -425,7 +419,15 @@ export const ThemedLinkButton = forwardRefWithGeneric(function ThemedLinkButton<
 			<span css={textButtonStyles.text}>{children}</span>
 		</ThemedAnchor>
 	);
-});
+}
+/**
+ * __Themed link button__
+ *
+ * A themed link button for the top bar.
+ */
+export const ThemedLinkButton: <RouterLinkConfig extends Record<string, any> = never>(
+	props: ThemedLinkButtonProps<RouterLinkConfig> & React.RefAttributes<HTMLAnchorElement>,
+) => React.ReactElement | null = forwardRefWithGeneric(ThemedLinkButtonFn);
 
 /**
  * Props shared by `ThemedIconButtonProps` and `ThemedLinkIconButton`
@@ -518,14 +520,7 @@ export interface ThemedLinkIconButtonProps<RouterLinkConfig extends Record<strin
 	href: string | RouterLinkConfig;
 }
 
-/**
- * __Themed link icon button__
- *
- * A themed link icon button for the top bar.
- */
-export const ThemedLinkIconButton = forwardRefWithGeneric(function ThemedLinkIconButton<
-	RouterLinkConfig extends Record<string, any> = never,
->(
+function ThemedLinkIconButtonFn<RouterLinkConfig extends Record<string, any> = never>(
 	{ icon: Icon, label, tooltip, ...props }: ThemedLinkIconButtonProps<RouterLinkConfig>,
 	ref: React.Ref<HTMLAnchorElement>,
 ) {
@@ -577,4 +572,13 @@ export const ThemedLinkIconButton = forwardRefWithGeneric(function ThemedLinkIco
 			)}
 		</Tooltip>
 	);
-});
+}
+
+/**
+ * __Themed link icon button__
+ *
+ * A themed link icon button for the top bar.
+ */
+export const ThemedLinkIconButton: <RouterLinkConfig extends Record<string, any> = never>(
+	props: ThemedLinkIconButtonProps<RouterLinkConfig> & React.RefAttributes<HTMLAnchorElement>,
+) => React.ReactElement | null = forwardRefWithGeneric(ThemedLinkIconButtonFn);

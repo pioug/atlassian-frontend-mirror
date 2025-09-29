@@ -459,6 +459,16 @@ export const INSERT_BLOCK_SECTION = {
 	type: 'section',
 } as const;
 
+export const CODE_BLOCK_GROUP = {
+	key: 'code-block-group',
+	type: 'group',
+} as const;
+
+export const CODE_BLOCK_BUTTON = {
+	key: 'code-block-button',
+	type: 'button',
+} as const;
+
 export const TASK_LIST_GROUP = {
 	key: 'task-list-group',
 	type: 'group',

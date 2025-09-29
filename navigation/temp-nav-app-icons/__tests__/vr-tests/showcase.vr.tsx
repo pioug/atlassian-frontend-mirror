@@ -22,6 +22,9 @@ snapshot(ShowcaseExample, {
 			},
 		},
 	],
+	featureFlags: {
+		'assets-platform-branding': true,
+	},
 });
 
 snapshot(ShowcaseLegacyExample, {
@@ -33,4 +36,7 @@ snapshot(ShowcaseLegacyExample, {
 			},
 		},
 	],
+	featureFlags: {
+		'assets-platform-branding': true,
+	},
 });

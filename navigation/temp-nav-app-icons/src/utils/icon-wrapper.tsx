@@ -5,6 +5,7 @@
 
 import { cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import type { IconSize } from './types';
@@ -12,6 +13,9 @@ import type { IconSize } from './types';
 const styles = cssMap({
 	root: {
 		display: 'inline-block',
+	},
+	TEMP_assets: {
+		'--tile-color': '#DDDEE1',
 	},
 });
 
@@ -151,6 +155,7 @@ type IconWrapperProps = {
 	appearance?: 'brand' | 'legacy' | 'neutral' | 'inverse';
 	customThemeSvg?: string;
 	iconColor?: string;
+	isAssets?: boolean;
 	isDataCenter?: boolean;
 	label: string;
 	size?: IconSize;
@@ -167,6 +172,7 @@ export function IconWrapper({
 	appearance = 'brand',
 	iconColor: customIconColor,
 	isDataCenter = false,
+	isAssets = false,
 }: IconWrapperProps) {
 	const testId = userDefinedTestId && `${userDefinedTestId}--wrapper`;
 
@@ -187,6 +193,7 @@ export function IconWrapper({
 					: colorMode === 'dark'
 						? cloudDarkAppearanceMap[appearance]
 						: cloudLightAppearanceMap[appearance],
+				isAssets && appearance === 'brand' && fg('assets-platform-branding') && styles.TEMP_assets,
 			]}
 			data-testid={testId}
 			style={

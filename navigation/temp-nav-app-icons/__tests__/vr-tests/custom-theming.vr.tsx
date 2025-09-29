@@ -11,4 +11,7 @@ snapshot(CustomThemeExample, {
 			},
 		},
 	],
+	featureFlags: {
+		'assets-platform-branding': true,
+	},
 });

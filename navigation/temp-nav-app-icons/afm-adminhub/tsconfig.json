@@ -26,6 +26,9 @@
 			"path": "../../../design-system/css/afm-adminhub/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-adminhub/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-adminhub/tsconfig.json"
 		}
 	]

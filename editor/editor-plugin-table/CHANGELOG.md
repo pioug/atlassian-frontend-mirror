@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 15.0.2
+
+### Patch Changes
+
+- [`d9c862034d9c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9c862034d9c9) -
+  [ux] EDITOR-1681 fix pasting tables background colors in dark mode
+- Updated dependencies
+
 ## 15.0.1
 
 ### Patch Changes

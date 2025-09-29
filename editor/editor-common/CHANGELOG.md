@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 110.4.2
+
+### Patch Changes
+
+- [`2f81c0f3bf21d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f81c0f3bf21d) -
+  [ux] ED-29318 [CR-6b] Add new toolbar icons to comment editor
+
+## 110.4.1
+
+### Patch Changes
+
+- [`51d46145cda56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51d46145cda56) -
+  Adds additional attributes to Element Converted event and fires the event for the empty line
+  transforms
+
+## 110.4.0
+
+### Minor Changes
+
+- [`0778701e62192`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0778701e62192) -
+  [ux] ED-29424 Focus first menu item when block menu is opened and remove decorations when delete
+  button unmounts
+
 ## 110.3.2
 
 ### Patch Changes

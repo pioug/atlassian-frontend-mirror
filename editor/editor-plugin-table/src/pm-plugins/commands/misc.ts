@@ -55,6 +55,9 @@ import {
 } from '../utils/nodes';
 import { updatePluginStateDecorations } from '../utils/update-plugin-state-decorations';
 
+const DARK_MODE_CELL_COLOR = '#1f1f21';
+const DARK_MODE_HEADER_COLOR = '#303134';
+
 export const setEditorFocus = (editorHasFocus: boolean) =>
 	createCommand({
 		type: 'SET_EDITOR_FOCUS',
@@ -173,6 +176,31 @@ export const transformSliceRemoveCellBackgroundColor = (slice: Slice, schema: Sc
 		if (maybeCell.type === tableCell || maybeCell.type === tableHeader) {
 			const cellAttrs: CellAttributes = { ...maybeCell.attrs };
 			cellAttrs.background = undefined;
+			return maybeCell.type.createChecked(cellAttrs, maybeCell.content, maybeCell.marks);
+		}
+		return maybeCell;
+	});
+};
+
+export const transformSliceToFixDarkModeDefaultBackgroundColor = (
+	slice: Slice,
+	schema: Schema,
+): Slice => {
+	// the background attr in adf should always store the light mode value of the background color
+	// and tables which have been created without a background color set will have background as undefined
+	// in the undefined case, when pasting from renderer, we get a background color which is the dark mode color
+	// we need to convert it back to undefined, otherwise it will be interpreted as a light mode value and be inverted
+	const { tableCell, tableHeader } = schema.nodes;
+	return mapSlice(slice, (maybeCell) => {
+		if (maybeCell.type === tableCell || maybeCell.type === tableHeader) {
+			const cellAttrs: CellAttributes = { ...maybeCell.attrs };
+
+			if (
+				(maybeCell.type === tableCell && cellAttrs.background === DARK_MODE_CELL_COLOR) ||
+				(maybeCell.type === tableHeader && cellAttrs.background === DARK_MODE_HEADER_COLOR)
+			) {
+				cellAttrs.background = undefined;
+			}
 			return maybeCell.type.createChecked(cellAttrs, maybeCell.content, maybeCell.marks);
 		}
 		return maybeCell;

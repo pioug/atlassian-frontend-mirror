@@ -45,7 +45,11 @@ type GetCurrentValue = <FormValues>(name: string) => FormValues[keyof FormValues
  *
  * A form context creates a context for the field values and allows them to be accessed by the children.
  */
-export const FormContext = createContext<{
+export const FormContext: React.Context<{
+	registerField: RegisterField;
+	getCurrentValue: GetCurrentValue;
+	subscribe: FormApi['subscribe'];
+}> = createContext<{
 	registerField: RegisterField;
 	getCurrentValue: GetCurrentValue;
 	subscribe: FormApi['subscribe'];
@@ -64,7 +68,7 @@ export const FormContext = createContext<{
  *
  * An is disabled context creates the context for when a value is disabled.
  */
-export const IsDisabledContext = createContext(false);
+export const IsDisabledContext: React.Context<boolean> = createContext(false);
 
 interface FormChildrenProps {
 	ref: React.RefObject<HTMLFormElement> | ((value: HTMLFormElement | null) => void);
@@ -159,7 +163,7 @@ export interface FormProps<FormValues> {
 	xcss?: StrictXCSSProp<XCSSAllProperties, XCSSAllPseudos>;
 }
 
-const FormBase = <FormValues extends Record<string, any> = {}>(
+const FormBase = <FormValues extends Record<string, any>>(
 	props: FormProps<FormValues>,
 	ref: React.Ref<HTMLFormElement>,
 ) => {
@@ -356,6 +360,8 @@ const FormBase = <FormValues extends Record<string, any> = {}>(
  * - [Code](https://atlassian.design/components/form/code)
  * - [Usage](https://atlassian.design/components/form/usage)
  */
-const Form = forwardRefWithGeneric(FormBase);
+const Form: <FormValues extends Record<string, any>>(
+	props: FormProps<FormValues> & React.RefAttributes<HTMLFormElement>,
+) => React.ReactElement | null = forwardRefWithGeneric(FormBase);
 
 export default Form;

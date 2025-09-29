@@ -753,6 +753,15 @@ export const apply = (
 						meta?.toggleMenu?.moveDown !== undefined
 							? meta?.toggleMenu?.moveDown
 							: blockMenuOptions?.canMoveDown,
+					openedViaKeyboard: expValEqualsNoExposure(
+						'platform_editor_block_menu_keyboard_navigation',
+						'isEnabled',
+						true,
+					)
+						? meta?.toggleMenu?.openedViaKeyboard !== undefined
+							? meta?.toggleMenu?.openedViaKeyboard
+							: blockMenuOptions?.openedViaKeyboard
+						: undefined,
 				}
 			: undefined,
 		editorHeight: meta?.editorHeight ?? editorHeight,

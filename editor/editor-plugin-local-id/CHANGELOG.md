@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-local-id
 
+## 4.1.0
+
+### Minor Changes
+
+- [`1b290cb1f993b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b290cb1f993b) -
+  Adds actions to get and replace nodes by their localId
+
+  ```ts
+  // Replace a local id with a ProseMirror node
+  api?.localId.actions.replaceNode({ localId: 'example-id', value: node });
+
+  // Get a prosemirror node based on its local id
+  api?.localId.actions.getNode({ localId: 'example-id' });
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.0
 
 ### Patch Changes

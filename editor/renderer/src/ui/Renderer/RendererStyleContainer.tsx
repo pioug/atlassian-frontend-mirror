@@ -73,6 +73,7 @@ import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
 import { LightWeightCodeBlockCssClassName } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
 import { editorUGCToken } from '@atlaskit/editor-common/ugc-tokens';
 import { getBaseFontSize } from './get-base-font-size';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const wrappedMediaBreakoutPoint = 410;
 const TELEPOINTER_ID = 'ai-streaming-telepointer';
@@ -1003,6 +1004,20 @@ const backgroundColorStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.fabric-background-color-mark .ak-editor-annotation': {
 		backgroundColor: 'unset',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const textHighlightPaddingStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.fabric-background-color-mark:has(.background-color-padding-left)': {
+		paddingLeft: token('space.025', '2px'),
+		marginLeft: token('space.negative.025', '-2px'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.fabric-background-color-mark:has(.background-color-padding-right)': {
+		paddingRight: token('space.025', '2px'),
+		marginRight: token('space.negative.025', '-2px'),
 	},
 });
 
@@ -2223,6 +2238,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				dateSharedStyle,
 				textColorStyles,
 				backgroundColorStyles,
+				expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					textHighlightPaddingStyles,
 				tasksAndDecisionsStyles,
 				smartCardStyles,
 				smartCardStylesAvatarFix,

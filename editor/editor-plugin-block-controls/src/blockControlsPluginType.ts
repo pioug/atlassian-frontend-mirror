@@ -48,7 +48,7 @@ export type MultiSelectDnD = {
 export interface PluginState {
 	activeDropTargetNode?: ActiveDropTargetNode;
 	activeNode?: ActiveNode;
-	blockMenuOptions?: { canMoveDown?: boolean; canMoveUp?: boolean };
+	blockMenuOptions?: { canMoveDown?: boolean; canMoveUp?: boolean; openedViaKeyboard?: boolean };
 	decorations: DecorationSet;
 	editorHeight: number;
 	editorWidthLeft: number;
@@ -81,6 +81,7 @@ export type BlockControlsSharedState =
 			blockMenuOptions?: {
 				canMoveDown?: boolean;
 				canMoveUp?: boolean;
+				openedViaKeyboard?: boolean;
 			};
 			isDragging: boolean;
 			isEditing?: boolean;
@@ -154,7 +155,11 @@ export type BlockControlsPlugin = NextEditorPlugin<
 				rootAnchorName?: string,
 				rootNodeType?: string,
 			) => EditorCommand;
-			toggleBlockMenu: (options?: { anchorName?: string; closeMenu?: boolean }) => EditorCommand;
+			toggleBlockMenu: (options?: {
+				anchorName?: string;
+				closeMenu?: boolean;
+				openedViaKeyboard?: boolean;
+			}) => EditorCommand;
 		};
 		dependencies: BlockControlsPluginDependencies;
 		sharedState: BlockControlsSharedState;

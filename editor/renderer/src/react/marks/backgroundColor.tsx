@@ -5,6 +5,7 @@ import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette'
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import type { MarkProps } from '../types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export default function BackgroundColor(props: MarkProps<TextColorAttributes>) {
 	const { colorMode } = useThemeObserver();
@@ -47,6 +48,29 @@ export default function BackgroundColor(props: MarkProps<TextColorAttributes>) {
 		[paletteColorValue],
 	);
 
+	if (
+		props.isStandalone &&
+		expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true)
+	) {
+		return (
+			<span
+				data-block-mark={props.dataAttributes['data-block-mark']}
+				data-renderer-mark={props.dataAttributes['data-renderer-mark']}
+				data-background-custom-color={props.color}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="fabric-background-color-mark"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={style}
+			>
+				<span
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className="background-color-padding-left background-color-padding-right"
+				>
+					{props.children}
+				</span>
+			</span>
+		);
+	}
 	return (
 		<span
 			// Ignored via go/ees005

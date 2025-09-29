@@ -1,3 +1,4 @@
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -18,6 +19,9 @@ export type FormatNodeTargetType =
 	| 'orderedList'
 	| 'taskList';
 
-// TransformContext moved to @atlaskit/editor-common/transforms
+export type FormatNodeAnalyticsAttrs = {
+	inputMethod: INPUT_METHOD.MOUSE | INPUT_METHOD.KEYBOARD;
+	triggeredFrom: INPUT_METHOD.BLOCK_MENU;
+};
 
 export type TransformFunction = (context: TransformContext) => Transaction | null;

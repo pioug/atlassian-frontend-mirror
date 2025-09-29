@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/badge",
-	"version": "18.1.6",
+	"version": "18.2.0",
 	"description": "A badge is a visual indicator for numeric values such as tallies and scores.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -86,9 +86,6 @@
 	},
 	"homepage": "https://atlassian.design/components/badge/",
 	"platform-feature-flags": {
-		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
 		"platform_ken_2029_negative_numbers_badge": {
 			"type": "boolean"
 		}

@@ -1,5 +1,22 @@
 # @atlaskit/logo
 
+## 19.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.8.0
+
+### Minor Changes
+
+- [`24c86074987da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24c86074987da) -
+  Added `rovo-dev` and `rovo-dev-agent` logos
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.7.3
 
 ### Patch Changes

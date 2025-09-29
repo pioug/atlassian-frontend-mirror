@@ -76,7 +76,7 @@ export const tempSizeWrapper = (
 type LogoDocsSchema = {
 	name: string;
 	type: 'legacy' | 'migration' | 'new';
-	category: 'program' | 'app';
+	category: 'program' | 'app' | 'agent';
 	skipExample?: boolean;
 	deprecated?: boolean;
 };
@@ -105,6 +105,8 @@ export const logoDocsSchema: LogoDocsSchema[] = [
 	// Dev collection
 	{ name: 'bitbucket', type: 'migration', category: 'app' },
 	{ name: 'compass', type: 'migration', category: 'app' },
+	{ name: 'rovo-dev', type: 'new', category: 'app' },
+	{ name: 'rovo-dev-agent', type: 'new', category: 'agent' },
 	// Customer collection
 	{ name: 'jira-service-management', type: 'migration', category: 'app' },
 	{ name: 'assets', type: 'new', category: 'app' },
@@ -163,6 +165,10 @@ export const PROGRAM_LOGO_DOCS_ORDER = logoDocsSchema
 export const APP_LOGO_DOCS_ORDER = logoDocsSchema
 	.filter((logo) => logo.category === 'app' && !logo.skipExample)
 	.map((logo) => logo.name);
+export const AGENT_LOGO_DOCS_ORDER =
+	logoDocsSchema
+		.filter((logo) => logo.category === 'agent' && !logo.skipExample)
+		.map((logo) => logo.name) || [];
 
 export const LEGACY_ONLY_LOGOS = logoDocsSchema.filter((logo) => logo.type === 'legacy');
 export const SHARED_LOGOS = logoDocsSchema.filter((logo) => logo.type === 'migration');

@@ -2,6 +2,7 @@ import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import type { Mark, Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getInlineNodeTextContent } from './inline-node-transforms';
 import type { TransformFunction } from './types';
@@ -204,10 +205,14 @@ export const unwrapAndConvertToList = ({
 	const { listItem, paragraph, taskList, taskItem, heading } = schema.nodes;
 
 	const isTargetTaskList = targetNodeType === taskList;
-	const createListItemFromInline = (content: PMNode | Fragment) => {
-		return isTargetTaskList
-			? taskItem.create(null, content)
-			: listItem.create(null, paragraph.create(null, content));
+	const createListItemFromInline = (content?: PMNode | Fragment) => {
+		if (!content && fg('platform_editor_block_menu_patch_2')) {
+			return isTargetTaskList ? taskItem.create() : listItem.create(null, paragraph.create());
+		} else {
+			return isTargetTaskList
+				? taskItem.create(null, content)
+				: listItem.create(null, paragraph.create(null, content));
+		}
 	};
 
 	const getInlineContent = (textblock: PMNode): PMNode[] => {
@@ -244,6 +249,15 @@ export const unwrapAndConvertToList = ({
 
 	if (sourceNode.type.name === 'codeBlock') {
 		const codeText = sourceNode.textContent;
+		// check if code block only contains newline characters
+		// eslint-disable-next-line require-unicode-regexp
+		const isOnlyNewLines = (codeText: string) => codeText.replace(/\n/g, '').trim() === '';
+
+		if ((!codeText || isOnlyNewLines(codeText)) && fg('platform_editor_block_menu_patch_2')) {
+			// Empty code block - create an empty list item
+			currentListItems.push(createListItemFromInline());
+		}
+
 		if (codeText) {
 			const lines = codeText.split('\n');
 			// Remove empty lines

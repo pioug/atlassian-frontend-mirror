@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.11.3
+
+### Patch Changes
+
+- [`be9b699c35606`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be9b699c35606) -
+  deprecate UFO segment highlighting
+
 ## 4.11.2
 
 ### Patch Changes

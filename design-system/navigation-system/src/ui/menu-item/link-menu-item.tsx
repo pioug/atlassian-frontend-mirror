@@ -116,4 +116,6 @@ const LinkMenuItemNoRef = <RouterLinkConfig extends Record<string, any> = never>
  *
  * A menu item link. It should be used within a `ul`.
  */
-export const LinkMenuItem = forwardRefWithGeneric(LinkMenuItemNoRef);
+export const LinkMenuItem: <RouterLinkConfig extends Record<string, any> = never>(
+	props: LinkMenuItemProps<RouterLinkConfig> & React.RefAttributes<HTMLAnchorElement>,
+) => React.ReactElement | null = forwardRefWithGeneric(LinkMenuItemNoRef);

@@ -8,4 +8,5 @@ export type {
 	InsertBlockPluginOptions,
 	InsertBlockPluginDependencies,
 	InsertBlockPluginState,
+	ToolbarInsertBlockButtonsConfig,
 } from './types';

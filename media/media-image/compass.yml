@@ -27,7 +27,7 @@ links:
     url: 'https://atlassian.slack.com/archives/C05J5GNHPLN'
   - name: ''
     type: ON_CALL
-    url: 'https://hello.jira.atlassian.cloud/jira/ops/teams/og-be5b1a51-de22-4e74-9f81-727cf8b8a0cb/on-call'
+    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/b62291ff-4029-4f26-b7fc-d75d46d7aebc'
   - name: ''
     type: PROJECT
     url: 'https://product-fabric.atlassian.net/jira/software/c/projects/BMPT/boards/5090'

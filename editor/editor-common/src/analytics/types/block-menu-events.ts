@@ -26,9 +26,11 @@ export type BlockMenuItemClickedAEP = UIAEP<
 >;
 
 interface ElementConvertedAttr {
+	conversionSource?: string; // will be used to define if the original node had content, expample value: 'emptyLine'
 	from: string;
+	inputMethod: INPUT_METHOD.MOUSE | INPUT_METHOD.KEYBOARD; // input method type (keyboard or mouse)
 	to: string;
-	inputMethod: INPUT_METHOD.BLOCK_MENU;
+	triggeredFrom: INPUT_METHOD.BLOCK_MENU; // UI component from which the action was triggered (block menu or toolbar)
 }
 
 type ElementConvertedAEP = TrackAEP<

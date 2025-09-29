@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2b2c2f81dcecc713953841df3ebcde68>>
+ * @codegen <<SignedSource::3390d5b54ec0c2b63c1f8c2619efd4a2>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -31,6 +31,13 @@ export function AssetsLogoCS({
 	testId,
 }: AppLogoProps) {
 	return (
-		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
+		<LogoWrapper
+			svg={svg}
+			label={label}
+			isAssets={true}
+			appearance={appearance}
+			size={size}
+			testId={testId}
+		/>
 	);
 }

@@ -109,6 +109,14 @@ import {
 	RovoLogoCS as NewRovoLogo,
 } from '@atlaskit/temp-nav-app-icons/rovo';
 import {
+	RovoDevIcon as NewRovoDevIcon,
+	RovoDevLogoCS as NewRovoDevLogo,
+} from '@atlaskit/temp-nav-app-icons/rovo-dev';
+import {
+	RovoDevAgentIcon as NewRovoDevAgentIcon,
+	RovoDevAgentLogoCS as NewRovoDevAgentLogo,
+} from '@atlaskit/temp-nav-app-icons/rovo-dev-agent';
+import {
 	SearchIcon as NewSearchIcon,
 	SearchLogoCS as NewSearchLogo,
 } from '@atlaskit/temp-nav-app-icons/search';
@@ -390,6 +398,46 @@ export const ProjectsIcon = tempSizeWrapper(NewProjectsIcon);
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const ProjectsLogo = tempSizeWrapper(NewProjectsLogo);
+/**
+ * __Rovo Dev icon__
+ *
+ * The Rovo Dev icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const RovoDevIcon = tempSizeWrapper(NewRovoDevIcon);
+/**
+ * __Rovo Dev logo__
+ *
+ * The Rovo Dev logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const RovoDevLogo = tempSizeWrapper(NewRovoDevLogo);
+/**
+ * __Rovo Dev Agent icon__
+ *
+ * The Rovo Dev Agent icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const RovoDevAgentIcon = tempSizeWrapper(NewRovoDevAgentIcon);
+/**
+ * __Rovo Dev Agent logo__
+ *
+ * The Rovo Dev Agent logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const RovoDevAgentLogo = tempSizeWrapper(NewRovoDevAgentLogo);
 /**
  * __Search icon__
  *

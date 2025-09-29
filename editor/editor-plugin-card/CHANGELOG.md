@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 11.1.0
+
+### Minor Changes
+
+- [`1288c1bfb6ef4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1288c1bfb6ef4) -
+  [https://product-fabric.atlassian.net/browse/ED-29443](ED-29443) - render SmartCard instead of
+  CardSSR if no smart card SSR data available
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.2
 
 ### Patch Changes

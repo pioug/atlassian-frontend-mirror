@@ -441,6 +441,13 @@ export const DragHandle = ({
 					if (BLOCK_MENU_ENABLED && editorExperiment('platform_editor_controls', 'variant1')) {
 						api?.blockControls?.commands.toggleBlockMenu({
 							anchorName,
+							openedViaKeyboard: expValEqualsNoExposure(
+								'platform_editor_block_menu_keyboard_navigation',
+								'isEnabled',
+								true,
+							)
+								? false
+								: undefined,
 						})({
 							tr,
 						});
@@ -448,6 +455,13 @@ export const DragHandle = ({
 					} else if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
 						api?.blockControls?.commands.toggleBlockMenu({
 							anchorName,
+							openedViaKeyboard: expValEqualsNoExposure(
+								'platform_editor_block_menu_keyboard_navigation',
+								'isEnabled',
+								true,
+							)
+								? false
+								: undefined,
 						})({
 							tr,
 						});
@@ -539,34 +553,39 @@ export const DragHandle = ({
 					!isMultiSelect && tr.setMeta(key, { pos: startPos });
 					return tr;
 				});
-			} else if (
-				(e.key === 'Enter' || e.key === ' ') &&
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
-			) {
+			} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {
+				// If not trying to press shortcut keys,
+				// return focus to editor to resume editing from caret position
+				view.focus();
+			}
+		},
+		[getPos, api?.core?.actions, isMultiSelect, view],
+	);
+
+	const handleKeyDownNew = useCallback(
+		(e: KeyboardEvent<HTMLButtonElement>) => {
+			// allow user to use spacebar to select the node
+			if (e.key === 'Enter' || (!e.repeat && e.key === ' ')) {
 				if (document.activeElement !== buttonRef.current) {
 					return;
 				}
 
 				e.preventDefault();
 				e.stopPropagation();
-				setDragHandleSelected(!dragHandleSelected);
 
+				const startPos = getPos();
 				api?.core?.actions.execute(({ tr }) => {
-					const startPos = getPos();
-
 					if (startPos === undefined) {
 						return tr;
 					}
 
 					tr = selectNode(tr, startPos, nodeType);
+					!isMultiSelect && tr.setMeta(key, { pos: startPos });
 
-					api?.blockControls?.commands.toggleBlockMenu({ anchorName })({
+					api?.blockControls?.commands.toggleBlockMenu({ anchorName, openedViaKeyboard: true })({
 						tr,
 					});
 					api?.userIntent?.commands.setCurrentUserIntent('blockMenuOpen')({ tr });
-
-					api?.blockControls?.commands.setSelectedViaDragHandle(true)({ tr });
 					return tr;
 				});
 			} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {
@@ -578,13 +597,12 @@ export const DragHandle = ({
 		[
 			getPos,
 			api?.core?.actions,
-			api?.blockControls.commands,
+			api?.blockControls?.commands,
 			api?.userIntent?.commands,
-			isMultiSelect,
-			view,
-			anchorName,
-			dragHandleSelected,
 			nodeType,
+			isMultiSelect,
+			anchorName,
+			view,
 		],
 	);
 
@@ -1242,7 +1260,12 @@ export const DragHandle = ({
 			}
 			onClick={handleOnClick}
 			onMouseDown={handleMouseDown}
-			onKeyDown={handleKeyDown}
+			onKeyDown={
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
+					? handleKeyDownNew
+					: handleKeyDown
+			}
 			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 			onDrop={handleOnDrop}
 			disabled={dragHandleDisabled}

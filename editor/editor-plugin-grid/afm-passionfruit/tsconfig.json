@@ -29,6 +29,9 @@
 			"path": "../../editor-shared-styles/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../tmp-editor-statsig/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-passionfruit/tsconfig.json"
 		}
 	]

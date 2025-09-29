@@ -1,12 +1,13 @@
 import React from 'react';
 
-import type { FocusTrap } from 'focus-trap';
+import type { FocusTrap, Options as FocusTrapOptions } from 'focus-trap';
 import createFocusTrap from 'focus-trap';
 import rafSchedule from 'raf-schd';
 import { createPortal, flushSync } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { Position } from './utils';
 import {
@@ -29,7 +30,7 @@ export interface Props {
 	fitHeight?: number;
 	fitWidth?: number;
 	/** Enable focus trap to contain the user's focus within the popup */
-	focusTrap?: boolean;
+	focusTrap?: boolean | FocusTrapOptions;
 	forcePlacement?: boolean;
 	mountTo?: HTMLElement;
 	// horizontal offset, vertical offset
@@ -255,7 +256,7 @@ export default class Popup extends React.Component<Props, State> {
 			return;
 		}
 
-		const trapConfig = {
+		const defaultTrapConfig = {
 			clickOutsideDeactivates: true,
 			escapeDeactivates: true,
 			initialFocus: popup,
@@ -263,7 +264,18 @@ export default class Popup extends React.Component<Props, State> {
 			returnFocusOnDeactivate: false,
 		};
 
-		this.focusTrap = createFocusTrap(popup, trapConfig);
+		const trapConfig =
+			typeof this.props.focusTrap === 'boolean'
+				? defaultTrapConfig
+				: { ...defaultTrapConfig, ...this.props.focusTrap };
+
+		this.focusTrap = createFocusTrap(
+			popup,
+			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
+				? trapConfig
+				: defaultTrapConfig,
+		);
 		this.focusTrap.activate();
 	});
 

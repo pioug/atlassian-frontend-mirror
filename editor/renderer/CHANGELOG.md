@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 124.1.1
+
+### Patch Changes
+
+- [`bf06894c2fcd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf06894c2fcd4) -
+  [ux] in renderer, add text highlight padding
+- Updated dependencies
+
 ## 124.1.0
 
 ### Minor Changes

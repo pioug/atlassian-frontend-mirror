@@ -86,6 +86,16 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 			textFormatting: { responsiveToolbarMenu: true },
 			...editorProps,
 		},
+		initialPluginConfiguration: {
+			insertBlockPlugin: {
+				toolbarButtons: {
+					insert: { enabled: true },
+					media: { enabled: true },
+					emoji: { enabled: true },
+					codeBlock: { enabled: true },
+				},
+			},
+		},
 	});
 	const { preset, editorApi } = usePreset(
 		() => universalPreset.add(highlightPlugin),

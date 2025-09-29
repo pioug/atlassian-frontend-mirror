@@ -31,7 +31,10 @@ import {
 } from './Toolbar/components/Component';
 import { textFormattingGroupForInlineToolbar } from './Toolbar/components/TextFormattingGroupForInlineToolbar';
 import { textFormattingGroupForPrimaryToolbar } from './Toolbar/components/TextFormattingGroups';
-import { textFormattingMenuGroup } from './Toolbar/components/TextFormattingMenuGroup';
+import {
+	textFormattingMenuGroup,
+	getFormatMenuItems,
+} from './Toolbar/components/TextFormattingMenuGroup';
 import { underlineButtonGroup } from './Toolbar/components/UnderlineButtonGroup';
 import { formatOptions } from './Toolbar/components/utils';
 import { FormatOptions } from './Toolbar/types';
@@ -115,6 +118,7 @@ export const getToolbarComponents = (
 						? MenuSection
 						: undefined,
 				},
+				...getFormatMenuItems(api),
 				{
 					type: CLEAR_FORMARTTING_MENU_SECTION.type,
 					key: CLEAR_FORMARTTING_MENU_SECTION.key,

@@ -1,5 +1,12 @@
 # @atlaskit/radio
 
+## 8.3.7
+
+### Patch Changes
+
+- [`a2571df0ccae5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2571df0ccae5) -
+  add explicit types to radio component
+
 ## 8.3.6
 
 ### Patch Changes

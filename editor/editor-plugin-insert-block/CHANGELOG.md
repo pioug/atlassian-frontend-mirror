@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 7.0.2
+
+### Patch Changes
+
+- [`2f81c0f3bf21d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f81c0f3bf21d) -
+  [ux] ED-29318 [CR-6b] Add new toolbar icons to comment editor
+- Updated dependencies
+
 ## 7.0.1
 
 ### Patch Changes

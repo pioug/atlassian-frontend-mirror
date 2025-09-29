@@ -10,7 +10,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Badge from '../../index';
 
-ffTest.both('platform-component-visual-refresh', 'badge component', () => {
+describe('badge component', () => {
 	const testId = 'test';
 
 	ffTest.off('platform_ken_2029_negative_numbers_badge', 'negative numbers not allowed', () => {

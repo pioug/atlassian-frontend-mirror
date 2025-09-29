@@ -106,9 +106,6 @@
 		},
 		"platform_editor_controls_fix_view_more_in_comment": {
 			"type": "boolean"
-		},
-		"platform_editor_modal_element_browser_a11y": {
-			"type": "boolean"
 		}
 	}
 }

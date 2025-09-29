@@ -1089,4 +1089,12 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-09-26
+	platform_editor_toolbar_aifc_patch_6: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_aifc_patch_6',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

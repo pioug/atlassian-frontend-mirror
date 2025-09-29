@@ -1,5 +1,19 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.12.0
+
+### Minor Changes
+
+- [`814e4b2897176`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/814e4b2897176) -
+  Added assets platform icon color change to `@atlaskit/temp-nav-app-icons`
+
+## 0.11.0
+
+### Minor Changes
+
+- [`24c86074987da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24c86074987da) -
+  Added `rovo-dev` and `rovo-dev-agent` logos to support `@atlaskit/logo`
+
 ## 0.10.3
 
 ### Patch Changes

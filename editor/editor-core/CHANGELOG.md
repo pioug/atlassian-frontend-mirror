@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 214.0.6
+
+### Patch Changes
+
+- [`2f81c0f3bf21d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f81c0f3bf21d) -
+  [ux] ED-29318 [CR-6b] Add new toolbar icons to comment editor
+- Updated dependencies
+
+## 214.0.5
+
+### Patch Changes
+
+- [`49d845e4c0ec3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49d845e4c0ec3) -
+  ED-29167: fix grid hydration
+- Updated dependencies
+
 ## 214.0.4
 
 ### Patch Changes

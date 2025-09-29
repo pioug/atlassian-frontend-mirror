@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -16,7 +16,6 @@ import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 import Modal, { ModalTransition, useModal } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -66,7 +65,7 @@ const modalFooterStyles = css({
 
 const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 	const [selectedItem, setSelectedItem] = useState<QuickInsertItem>();
-	const { helpUrl, intl, onClose, onInsertItem: onInsertItemFn } = props;
+	const { helpUrl, intl, onInsertItem: onInsertItemFn } = props;
 
 	const onSelectItem = useCallback(
 		(item: QuickInsertItem) => {
@@ -94,17 +93,6 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 		[onInsertItem, selectedItem, helpUrl, intl],
 	);
 
-	// remove when cleaning up platform_editor_modal_element_browser_a11y
-	// Since Modal uses stackIndex it's shouldCloseOnEscapePress prop doesn't work.
-	const onKeyDown = useCallback(
-		(e: React.KeyboardEvent) => {
-			if (e.key === 'Escape') {
-				onClose();
-			}
-		},
-		[onClose],
-	);
-
 	const RenderBody = useCallback(
 		() => (
 			<div css={wrapperStyles}>
@@ -123,7 +111,7 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 		[props.intl, props.getItems, onSelectItem, onInsertItem, props.emptyStateHandler],
 	);
 
-	return fg('platform_editor_modal_element_browser_a11y') ? (
+	return (
 		<div data-editor-popup={true}>
 			<ModalTransition>
 				{props.isOpen && (
@@ -143,39 +131,10 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 				)}
 			</ModalTransition>
 		</div>
-	) : (
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
-		<div data-editor-popup={true} onClick={onModalClick} onKeyDown={onKeyDown}>
-			<ModalTransition>
-				{props.isOpen && (
-					<Modal
-						testId="element-browser-modal-dialog"
-						stackIndex={0}
-						key="element-browser-modal"
-						onClose={props.onClose}
-						onCloseComplete={props.onCloseComplete}
-						height="664px"
-						width="x-large"
-						autoFocus={false}
-						shouldReturnFocus={props.shouldReturnFocus}
-						// defaults to true and doesn't work along with stackIndex=1.
-						// packages/design-system/modal-dialog/src/components/Content.tsx Line 287
-						shouldCloseOnEscapePress={false}
-					>
-						<RenderBody />
-						<RenderFooter />
-					</Modal>
-				)}
-			</ModalTransition>
-		</div>
 	);
 };
 
 ModalElementBrowser.displayName = 'ModalElementBrowser';
-
-// remove when cleaning up platform_editor_modal_element_browser_a11y
-// Prevent ModalElementBrowser click propagation through to the editor.
-const onModalClick = (e: React.MouseEvent) => e.stopPropagation();
 
 const Footer = ({
 	onInsert,

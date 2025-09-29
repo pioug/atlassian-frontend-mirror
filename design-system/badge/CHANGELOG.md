@@ -1,5 +1,13 @@
 # @atlaskit/badge
 
+## 18.2.0
+
+### Minor Changes
+
+- [`2f3c3d27e42b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f3c3d27e42b2) -
+  [ux] Updates badge styles to reflect our new visual design language. These changes were previously
+  behind a feature flag and are now fully rolled out.
+
 ## 18.1.6
 
 ### Patch Changes

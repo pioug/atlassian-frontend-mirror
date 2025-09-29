@@ -131,7 +131,7 @@ export class RankableBody extends React.Component<RankableBodyProps, {}> {
 									row={row}
 									isRankingDisabled={isRankingDisabled}
 									isHighlighted={
-										!!highlightedRowIndex &&
+										highlightedRowIndex !== undefined &&
 										(typeof highlightedRowIndex === 'number'
 											? highlightedRowIndex === rowIndex
 											: highlightedRowIndex.indexOf(rowIndex) > -1)

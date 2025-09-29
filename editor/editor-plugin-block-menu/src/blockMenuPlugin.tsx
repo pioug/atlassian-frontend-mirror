@@ -3,7 +3,10 @@ import React from 'react';
 import type { BlockMenuPlugin, RegisterBlockMenuComponent } from './blockMenuPluginType';
 import { createBlockMenuRegistry } from './editor-actions';
 import { formatNode } from './editor-commands/formatNode';
-import type { FormatNodeTargetType } from './editor-commands/transforms/types';
+import type {
+	FormatNodeTargetType,
+	FormatNodeAnalyticsAttrs,
+} from './editor-commands/transforms/types';
 import { createPlugin } from './pm-plugins/main';
 import BlockMenu from './ui/block-menu';
 import { getBlockMenuComponents } from './ui/block-menu-components';
@@ -33,8 +36,8 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 			},
 		},
 		commands: {
-			formatNode: (targetType: FormatNodeTargetType) => {
-				return formatNode(api)(targetType);
+			formatNode: (targetType: FormatNodeTargetType, analyticsAttrs?: FormatNodeAnalyticsAttrs) => {
+				return formatNode(api)(targetType, analyticsAttrs);
 			},
 		},
 		getSharedState(editorState) {

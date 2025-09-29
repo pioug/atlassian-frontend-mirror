@@ -1,7 +1,7 @@
 import type { Locator, Page } from '@playwright/test';
 import { snapshotInformational } from '@af/visual-regression';
 
-import { BackgroundColorYellow } from './highlight.fixture';
+import { BackgroundColorYellow, HighlightPadding } from './highlight.fixture';
 
 snapshotInformational(BackgroundColorYellow, {
 	description: 'should overlap highlight with selection',
@@ -32,3 +32,11 @@ async function partialSelectTextOnRenderer(locator: Locator) {
 		selection?.addRange(range);
 	});
 }
+
+snapshotInformational(HighlightPadding, {
+	description:
+		'should add padding around standalone highlight while should not add padding for non-standalone highlight',
+	featureFlags: {
+		platform_editor_text_highlight_padding: true,
+	},
+});

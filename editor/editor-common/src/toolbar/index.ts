@@ -63,6 +63,7 @@ export {
 	OVERFLOW_GROUP_PRIMARY_TOOLBAR_RANK,
 	OVERFLOW_MENU_PRIMARY_TOOLBAR_RANK,
 	DEFINE_GROUP_RANK,
+	CODE_BLOCK_GROUP_RANK,
 } from './rank';
 
 export {
@@ -195,6 +196,8 @@ export {
 	DEFINE_BUTTON,
 	AI_VIEW_SECTION,
 	ROVO_GROUP_VIEW,
+	CODE_BLOCK_GROUP,
+	CODE_BLOCK_BUTTON,
 } from './keys';
 
 export { useEditorToolbar, EditorToolbarProvider, type EditorToolbarContextType } from './context';

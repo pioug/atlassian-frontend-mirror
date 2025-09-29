@@ -928,4 +928,6 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
  * It contains a type argument `<T>`, to specify the type of the interactive element (`button` or `a`).
  * This can be inferred from the type of the `onClick` prop.
  */
-export const MenuItemBase = forwardRefWithGeneric(MenuItemBaseNoRef);
+export const MenuItemBase: <T extends HTMLAnchorElement | HTMLButtonElement>(
+	props: MenuItemBaseProps<T> & React.RefAttributes<T>,
+) => React.ReactElement | null = forwardRefWithGeneric(MenuItemBaseNoRef);

@@ -172,6 +172,7 @@ export function ${componentName}({
 			${customThemeSvg && type === 'logo' ? 'textColor={textColor}' : ''}
 			label={label}
 			${dataCenterApps.includes(name) ? 'isDataCenter={true}' : ''}
+			${name === 'assets' ? 'isAssets={true}' : ''}
 			appearance={appearance}
 			size={size}
 			testId={testId}

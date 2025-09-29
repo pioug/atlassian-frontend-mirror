@@ -62,6 +62,7 @@ import { stopKeyboardColumnResizing } from './commands/column-resize';
 import {
 	removeResizeHandleDecorations,
 	transformSliceRemoveCellBackgroundColor,
+	transformSliceToFixDarkModeDefaultBackgroundColor,
 	transformSliceToAddTableHeaders,
 	transformSliceToRemoveColumnsWidths,
 } from './commands/misc';
@@ -350,6 +351,8 @@ export const createPlugin = (
 				// from the paste slice
 				if (!pluginConfig.allowBackgroundColor) {
 					slice = transformSliceRemoveCellBackgroundColor(slice, schema);
+				} else if (fg('platform_editor_table_paste_in_dark_mode')) {
+					slice = transformSliceToFixDarkModeDefaultBackgroundColor(slice, schema);
 				}
 
 				slice = transformSliceToRemoveOpenNestedExpand(slice, schema);

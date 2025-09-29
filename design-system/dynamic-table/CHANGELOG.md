@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 18.2.18
+
+### Patch Changes
+
+- [`f218cd4f78537`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f218cd4f78537) -
+  Fix for rankable tables when highlighting row at index 0 with a single numeric value using the
+  `highlightedRowIndex` prop.
+
 ## 18.2.17
 
 ### Patch Changes

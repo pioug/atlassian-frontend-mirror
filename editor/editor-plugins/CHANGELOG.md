@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugins
 
+## 10.6.24
+
+### Patch Changes
+
+- [`2f81c0f3bf21d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f81c0f3bf21d) -
+  [ux] ED-29318 [CR-6b] Add new toolbar icons to comment editor
+- Updated dependencies
+
+## 10.6.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.6.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.6.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.6.20
 
 ### Patch Changes

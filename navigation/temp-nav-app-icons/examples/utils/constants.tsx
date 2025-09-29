@@ -17,6 +17,8 @@ export const appOrder = [
 	'Talent',
 	'Bitbucket',
 	'Compass',
+	'Rovo Dev',
+	'Rovo Dev Agent',
 	'Statuspage',
 	'Jira Service Management',
 	'Assets',

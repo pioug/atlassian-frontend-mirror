@@ -90,13 +90,19 @@ const BlockMenu = ({
 	boundariesElement,
 	scrollableElement,
 }: BlockMenuProps & WrappedComponentProps) => {
-	const { menuTriggerBy, isSelectedViaDragHandle, isMenuOpen, currentUserIntent } =
-		useSharedPluginStateWithSelector(api, ['blockControls', 'userIntent'], (states) => ({
-			menuTriggerBy: states.blockControlsState?.menuTriggerBy,
-			isSelectedViaDragHandle: states.blockControlsState?.isSelectedViaDragHandle,
-			isMenuOpen: states.blockControlsState?.isMenuOpen,
-			currentUserIntent: states.userIntentState?.currentUserIntent,
-		}));
+	const {
+		menuTriggerBy,
+		isSelectedViaDragHandle,
+		isMenuOpen,
+		currentUserIntent,
+		openedViaKeyboard,
+	} = useSharedPluginStateWithSelector(api, ['blockControls', 'userIntent'], (states) => ({
+		menuTriggerBy: states.blockControlsState?.menuTriggerBy,
+		isSelectedViaDragHandle: states.blockControlsState?.isSelectedViaDragHandle,
+		isMenuOpen: states.blockControlsState?.isMenuOpen,
+		currentUserIntent: states.userIntentState?.currentUserIntent,
+		openedViaKeyboard: states.blockControlsState?.blockMenuOptions?.openedViaKeyboard,
+	}));
 	const { onDropdownOpenChanged, fireAnalyticsEvent } = useBlockMenu();
 	const targetHandleRef = editorView?.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
 	const prevIsMenuOpenRef = useRef(false);
@@ -117,7 +123,10 @@ const BlockMenu = ({
 		(!hasSelection &&
 			expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true));
 
-	const selectedByShortcutORDragHandle = isSelectedViaDragHandle;
+	const selectedByShortcutORDragHandle =
+		isSelectedViaDragHandle ||
+		(openedViaKeyboard &&
+			expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true));
 
 	useEffect(() => {
 		if (
@@ -201,7 +210,17 @@ const BlockMenu = ({
 				forcePlacement={true}
 				preventOverflow={true} // disables forced horizontal placement when forcePlacement is on, so fitWidth controls flipping
 				stick={true}
-				focusTrap
+				focusTrap={
+					expValEqualsNoExposure(
+						'platform_editor_block_menu_keyboard_navigation',
+						'isEnabled',
+						true,
+					)
+						? openedViaKeyboard
+							? { initialFocus: undefined }
+							: true
+						: undefined
+				}
 				offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, 0]}
 			>
 				<BlockMenuContent api={api} />

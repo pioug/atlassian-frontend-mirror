@@ -444,7 +444,9 @@ export class EmbedCardComponent extends React.PureComponent<
 		};
 
 		const smartCard =
-			isPageSSRed && expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) ? (
+			expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
+			this.state.isSSRDataAvailable &&
+			isPageSSRed ? (
 				<CardSSR
 					key={url}
 					url={url}
@@ -459,10 +461,7 @@ export class EmbedCardComponent extends React.PureComponent<
 					embedIframeRef={this.embedIframeRef}
 					actionOptions={actionOptions}
 					CompetitorPrompt={CompetitorPrompt}
-					hideIconLoadingSkeleton={
-						expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
-						this.state.isSSRDataAvailable
-					}
+					hideIconLoadingSkeleton={true}
 				/>
 			) : (
 				<SmartCard

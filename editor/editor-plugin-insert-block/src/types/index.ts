@@ -57,6 +57,21 @@ export type InsertBlockPluginDependencies = [
 	OptionalPlugin<ToolbarPlugin>,
 ];
 
+export interface ToolbarGroupConfig {
+	enabled?: boolean;
+}
+
+export interface ToolbarInsertBlockButtonsConfig {
+	codeBlock?: ToolbarGroupConfig;
+	emoji?: ToolbarGroupConfig;
+	insert?: ToolbarGroupConfig;
+	layout?: ToolbarGroupConfig;
+	media?: ToolbarGroupConfig;
+	mention?: ToolbarGroupConfig;
+	table?: ToolbarGroupConfig;
+	taskList?: ToolbarGroupConfig;
+}
+
 export interface InsertBlockPluginOptions {
 	allowExpand?: boolean;
 	allowTables?: boolean;
@@ -73,11 +88,21 @@ export interface InsertBlockPluginOptions {
 	showElementBrowserLink?: boolean;
 	tableSelectorSupported?: boolean;
 	/**
+	 * Configure which toolbar buttons should be visible
+	 * @default undefined - shows all available buttons (current behaviour)
+	 *
+	 * Only applies when platform_editor_toolbar_aifc is enabled
+	 */
+	toolbarButtons?: ToolbarInsertBlockButtonsConfig;
+	/**
 	 * To hide the individual insert block buttons in the toolbar
 	 * and only show the plus button
 	 * @default undefined Shows the insert block buttons and the plus button
 	 *
 	 * Only applies when platform_editor_toolbar_aifc is enabled
+	 *
+	 * @warning Use {@link toolbarButtons} instead to configure the insert block toolbar buttons
+	 * @see https://product-fabric.atlassian.net/browse/ED-29426
 	 */
 	toolbarShowPlusInsertOnly?: boolean;
 }

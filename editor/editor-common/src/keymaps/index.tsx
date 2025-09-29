@@ -158,6 +158,8 @@ export const showElementDragHandle = makeKeyMapWithCommon(
 	'Ctrl-Shift-h',
 );
 
+export const toggleCodeBlock = makeKeyMapWithCommon('Toggle Code Block', '```');
+
 export const continueInRovoChat = makeKeyMapWithCommon('Continue in Rovo chat', 'Alt-Enter');
 
 const arrowKeysMap: Record<string, string> = {

@@ -4,6 +4,7 @@ import React from 'react';
 import { withTheme } from '@emotion/react';
 import classnames from 'classnames';
 
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
@@ -17,6 +18,7 @@ import {
 	akEditorFullPageMaxWidth,
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { GridPlugin } from './gridPluginType';
 import type { CreateDisplayGrid, GridPluginOptions, GridPluginState, Highlights } from './types';
@@ -275,6 +277,9 @@ export const gridPlugin: GridPlugin = ({ config: options, api }) => {
 
 		contentComponent: ({ editorView }) => {
 			if (!editorView) {
+				return null;
+			}
+			if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && isSSR()) {
 				return null;
 			}
 			return <ContentComponent editorView={editorView} options={options} api={api} />;

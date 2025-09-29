@@ -4,11 +4,17 @@ import fs from 'fs-extra';
 
 import format from '@af/formatting/sync';
 
-import { APP_LOGO_DOCS_ORDER, PROGRAM_LOGO_DOCS_ORDER, SHARED_LOGOS } from '../src/logo-config';
+import {
+	AGENT_LOGO_DOCS_ORDER,
+	APP_LOGO_DOCS_ORDER,
+	PROGRAM_LOGO_DOCS_ORDER,
+	SHARED_LOGOS,
+} from '../src/logo-config';
 
 const RELATIVE_GENERATED_EXAMPLES_DIR = '../examples/constellation/generated';
 const GENERATED_EXAMPLES_DIR = path.join(__dirname, RELATIVE_GENERATED_EXAMPLES_DIR);
 const DOCS_DIR = path.join(__dirname, '../constellation/index');
+const LOGOS_ORDER = [...PROGRAM_LOGO_DOCS_ORDER, ...APP_LOGO_DOCS_ORDER, ...AGENT_LOGO_DOCS_ORDER];
 
 const logoSpecialDescriptions: Record<string, string> = {
 	loom: '`Loom` can be displayed in either blue, or Loom Blurple.',
@@ -65,7 +71,7 @@ const generateLogoExamples = () => {
 	}
 
 	// Generate examples for all logos
-	[...PROGRAM_LOGO_DOCS_ORDER, ...APP_LOGO_DOCS_ORDER].forEach((name) => {
+	LOGOS_ORDER.forEach((name) => {
 		if (MANUAL_EXAMPLES.includes(name)) {
 			return;
 		}
@@ -96,13 +102,11 @@ import LogoBrand from '../../examples/constellation/logo-brand';
 import LogoInverse from '../../examples/constellation/logo-inverse';
 import LogoNeutral from '../../examples/constellation/logo-neutral';
 import LogoDefault from '../../examples/constellation/logo-default';
-${[...PROGRAM_LOGO_DOCS_ORDER, ...APP_LOGO_DOCS_ORDER]
-	.map((logo) => {
-		const fileName = logo.toLowerCase().replace(/[^a-z0-9]/g, '-');
-		const componentName = processLogoName(logo);
-		return `import Logo${componentName} from '../${RELATIVE_GENERATED_EXAMPLES_DIR}/logo-${fileName}';`;
-	})
-	.join('\n')}
+${LOGOS_ORDER.map((logo) => {
+	const fileName = logo.toLowerCase().replace(/[^a-z0-9]/g, '-');
+	const componentName = processLogoName(logo);
+	return `import Logo${componentName} from '../${RELATIVE_GENERATED_EXAMPLES_DIR}/logo-${fileName}';`;
+}).join('\n')}
 
 import { Code } from '@atlaskit/code';
 import SectionMessage from '@atlaskit/section-message';

@@ -5,6 +5,7 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
 import { cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { type LogoSize } from './types';
@@ -17,6 +18,9 @@ const styles = cssMap({
 		// This ensures the parent `span` is the exact same size as its child SVG.
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 0,
+	},
+	TEMP_assets: {
+		'--tile-color': '#DDDEE1',
 	},
 });
 
@@ -183,6 +187,7 @@ type LogoWrapperProps = {
 	appearance: 'brand' | 'neutral' | 'inverse' | 'legacy';
 	customThemeSvg?: string;
 	iconColor?: string;
+	isAssets?: boolean;
 	isDataCenter?: boolean;
 	label: string;
 	size?: LogoSize;
@@ -201,6 +206,7 @@ export function LogoWrapper({
 	iconColor: customIconColor,
 	textColor: customTextColor,
 	isDataCenter = false,
+	isAssets = false,
 }: LogoWrapperProps) {
 	const { colorMode } = useThemeObserver();
 	const testId = userDefinedTestId && `${userDefinedTestId}--wrapper`;
@@ -224,6 +230,7 @@ export function LogoWrapper({
 					: colorMode === 'dark'
 						? cloudDarkAppearanceMap[appearance]
 						: cloudLightAppearanceMap[appearance],
+				isAssets && appearance === 'brand' && fg('assets-platform-branding') && styles.TEMP_assets,
 			]}
 			style={
 				{

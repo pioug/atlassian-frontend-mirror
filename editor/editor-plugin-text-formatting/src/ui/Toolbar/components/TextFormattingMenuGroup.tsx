@@ -26,7 +26,7 @@ import type { FormatOptions } from '../types';
 import { ClearFormatMenuItem, MoreFormattingMenu, MenuSection, FormatMenuItem } from './Component';
 import { formatOptions } from './utils';
 
-const getFormatMenuItems = (
+export const getFormatMenuItems = (
 	api?: ExtractInjectionAPI<TextFormattingPlugin>,
 ): RegisterComponent[] => {
 	return Object.entries(formatOptions()).map(

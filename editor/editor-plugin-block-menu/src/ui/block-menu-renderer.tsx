@@ -4,6 +4,7 @@ import {
 	ArrowKeyNavigationProvider,
 	ArrowKeyNavigationType,
 } from '@atlaskit/editor-common/ui-menu';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type {
 	RegisterBlockMenuComponent,
@@ -91,9 +92,8 @@ export const BlockMenuRenderer = ({ components, fallbacks }: BlockMenuProps) => 
 	const menuSections = getSortedNonNestedSections(components);
 	const menuItems = components.filter(isMenuItem);
 	const nestedMenus = components.filter(isNestedMenu);
-
-	return (
-		<ArrowKeyNavigationProvider type={ArrowKeyNavigationType.MENU}>
+	const renderMenu = () => {
+		return (
 			<Fragment>
 				{menuSections.map((section) => {
 					// Get all items for the current section, including nested menus, and sort them by rank
@@ -142,6 +142,18 @@ export const BlockMenuRenderer = ({ components, fallbacks }: BlockMenuProps) => 
 					return <SectionComponent key={section.key}>{children}</SectionComponent>;
 				})}
 			</Fragment>
+		);
+	};
+
+	return expValEqualsNoExposure(
+		'platform_editor_block_menu_keyboard_navigation',
+		'isEnabled',
+		true,
+	) ? (
+		<ArrowKeyNavigationProvider type={ArrowKeyNavigationType.MENU}>
+			{renderMenu()}
 		</ArrowKeyNavigationProvider>
+	) : (
+		renderMenu()
 	);
 };

@@ -142,7 +142,9 @@ export class BlockCardComponent extends React.PureComponent<
 		const { url, data } = node.attrs;
 
 		const cardInner =
-			isPageSSRed && expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) ? (
+			expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
+			this.state.isSSRDataAvailable &&
+			isPageSSRed ? (
 				<>
 					<CardSSR
 						key={url}
@@ -155,10 +157,7 @@ export class BlockCardComponent extends React.PureComponent<
 						platform={'web'}
 						actionOptions={actionOptions}
 						CompetitorPrompt={CompetitorPrompt}
-						hideIconLoadingSkeleton={
-							expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
-							this.state.isSSRDataAvailable
-						}
+						hideIconLoadingSkeleton={true}
 					/>
 					{this.gapCursorSpan()}
 				</>

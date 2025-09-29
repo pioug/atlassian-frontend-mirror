@@ -13,6 +13,7 @@ import {
 	safeInsert as pmSafeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
@@ -20,7 +21,7 @@ import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { setSelectionAfterTransform } from './selection';
 import { createDefaultLayoutSection } from './transforms/layout-transforms';
 import { transformNodeToTargetType } from './transforms/transformNodeToTargetType';
-import type { FormatNodeTargetType } from './transforms/types';
+import type { FormatNodeAnalyticsAttrs, FormatNodeTargetType } from './transforms/types';
 import { isListNodeType } from './transforms/utils';
 
 /**
@@ -114,10 +115,11 @@ export const formatNodeSelectEmptyList = (
  * Formats the current node or selection to the specified target type
  * @param api - The editor API injection that provides access to analytics and other plugin actions
  * @param targetType - The target node type to convert to
+ * @param analyticsAttrs - Attributes required for formatNode analytics like: inputMethod and triggeredFrom
  */
 export const formatNode =
 	(api?: ExtractInjectionAPI<BlockMenuPlugin>) =>
-	(targetType: FormatNodeTargetType): EditorCommand => {
+	(targetType: FormatNodeTargetType, analyticsAttrs?: FormatNodeAnalyticsAttrs): EditorCommand => {
 		return ({ tr }) => {
 			const { selection } = tr;
 			const schema = tr.doc.type.schema;
@@ -145,9 +147,69 @@ export const formatNode =
 				//  can only select one list at a time, so we just need to find the first one
 				if (listNodes.length > 0 && fg('platform_editor_block_menu_patch_2')) {
 					const firstChild = listNodes[0];
-					return formatNodeSelectEmptyList(tr, targetType, firstChild, schema);
+					const newTr = formatNodeSelectEmptyList(tr, targetType, firstChild, schema);
+					if (newTr) {
+						const sourceTypeName = firstChild.node.type.name;
+						api?.analytics?.actions?.attachAnalyticsEvent({
+							action: ACTION.CONVERTED,
+							actionSubject: ACTION_SUBJECT.ELEMENT,
+							eventType: EVENT_TYPE.TRACK,
+							attributes: {
+								from: sourceTypeName,
+								to: targetType,
+								inputMethod: analyticsAttrs?.inputMethod || INPUT_METHOD.MOUSE,
+								triggeredFrom: analyticsAttrs?.triggeredFrom || INPUT_METHOD.BLOCK_MENU,
+								conversionSource: 'emptyList',
+							},
+						})(newTr);
+					}
+					return newTr;
 				} else {
-					return formatNodeWhenSelectionEmpty(tr, targetType, nodePos, schema);
+					const newTr = formatNodeWhenSelectionEmpty(tr, targetType, nodePos, schema);
+
+					const allowedNodes = [nodes.blockquote, nodes.panel, nodes.codeBlock];
+					if (expValEquals('platform_editor_block_menu_layout_format', 'isEnabled', true)) {
+						allowedNodes.push(nodes.layoutSection);
+					}
+
+					if (expValEquals('platform_editor_block_menu_expand_format', 'isEnabled', true)) {
+						allowedNodes.push(nodes.expand);
+					}
+
+					let sourceTypeName = 'paragraph';
+					let conversionSource;
+					const containerNode = findParentNodeOfType(allowedNodes)(selection);
+					const paragraphOrHeading = findParentNodeOfType([nodes.heading, nodes.paragraph])(
+						selection,
+					);
+					if (containerNode) {
+						// At the moment this branch is executed for converstions from an empty blockquote
+						sourceTypeName = containerNode.node.type.name;
+						conversionSource = undefined; // could be 'emptyNode' or something else
+					} else if (paragraphOrHeading) {
+						sourceTypeName = paragraphOrHeading.node.type.name;
+						if (sourceTypeName === 'heading') {
+							sourceTypeName = `heading${paragraphOrHeading.node.attrs.level}`;
+						}
+						conversionSource = 'emptyLine';
+					}
+
+					if (newTr) {
+						api?.analytics?.actions?.attachAnalyticsEvent({
+							action: ACTION.CONVERTED,
+							actionSubject: ACTION_SUBJECT.ELEMENT,
+							eventType: EVENT_TYPE.TRACK,
+							attributes: {
+								from: sourceTypeName,
+								to: targetType,
+								inputMethod: analyticsAttrs?.inputMethod || INPUT_METHOD.MOUSE,
+								triggeredFrom: analyticsAttrs?.triggeredFrom || INPUT_METHOD.BLOCK_MENU,
+								conversionSource,
+							},
+						})(newTr);
+					}
+
+					return newTr;
 				}
 			}
 
@@ -228,7 +290,8 @@ export const formatNode =
 						attributes: {
 							from: sourceTypeName,
 							to: targetType,
-							inputMethod: INPUT_METHOD.BLOCK_MENU,
+							inputMethod: analyticsAttrs?.inputMethod || INPUT_METHOD.MOUSE,
+							triggeredFrom: analyticsAttrs?.triggeredFrom || INPUT_METHOD.BLOCK_MENU,
 						},
 					})(newTr);
 				}

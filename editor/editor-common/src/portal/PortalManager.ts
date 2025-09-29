@@ -68,6 +68,18 @@ export class PortalManager {
 	private scaleCapacityThreshold: number;
 	private throttledBucketUpdaters: Map<number, ReturnType<typeof throttle>>;
 	private throttleDelay: number;
+	/**
+	 * Controls whether to use throttled updates or immediate synchronous updates.
+	 * During initial load, we use synchronous updates to avoid delays and ensure immediate responsiveness.
+	 * After the initial load period (one RAF cycle), we switch to throttled updates for better performance.
+	 */
+	private shouldUseThrottledUpdates: boolean = false;
+
+	/**
+	 * RequestAnimationFrame callback ID used to transition from synchronous to throttled update mode.
+	 * This ensures we switch to throttled mode after the initial render cycle completes.
+	 */
+	private throttleActivationRAFId: number | undefined;
 
 	constructor(
 		initialBuckets = DEFAULT_INITIAL_BUCKETS,
@@ -158,7 +170,19 @@ export class PortalManager {
 	}
 
 	updateBuckets(id: number, immediate = false) {
-		if (immediate || !expValEquals('platform_editor_debounce_portal_provider', 'isEnabled', true)) {
+		if (
+			!this.throttleActivationRAFId &&
+			expValEquals('platform_editor_debounce_portal_provider', 'isEnabled', true)
+		) {
+			this.throttleActivationRAFId = requestAnimationFrame(() => {
+				this.shouldUseThrottledUpdates = true;
+			});
+		}
+		if (
+			immediate ||
+			!this.shouldUseThrottledUpdates ||
+			!expValEquals('platform_editor_debounce_portal_provider', 'isEnabled', true)
+		) {
 			// Cancel any pending throttled update and update immediately
 			if (this.throttledBucketUpdaters.has(id)) {
 				this.throttledBucketUpdaters.get(id)?.cancel();

@@ -78,6 +78,10 @@ import {
 	OpsgenieLogo,
 	ProjectsIcon,
 	ProjectsLogo,
+	RovoDevAgentIcon,
+	RovoDevAgentLogo,
+	RovoDevIcon,
+	RovoDevLogo,
 	RovoIcon,
 	RovoLogo,
 	SearchIcon,
@@ -125,6 +129,12 @@ const logoMap: {
 	},
 	{ name: 'bitbucket', logo: BitbucketLogo, icon: BitbucketIcon },
 	{ name: 'compass', logo: CompassLogo, icon: CompassIcon },
+	{ name: 'rovo-dev', logo: RovoDevLogo, icon: RovoDevIcon },
+	{
+		name: 'rovo-dev-agent',
+		logo: RovoDevAgentLogo,
+		icon: RovoDevAgentIcon,
+	},
 	{
 		name: 'jira-service-management',
 		logo: JiraServiceManagementLogo,

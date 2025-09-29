@@ -26,6 +26,9 @@
 			"path": "../../../design-system/css/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-passionfruit/tsconfig.json"
 		}
 	]

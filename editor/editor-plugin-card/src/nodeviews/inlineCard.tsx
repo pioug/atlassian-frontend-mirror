@@ -168,7 +168,15 @@ export const InlineCard = memo(
 				: propsOnClick;
 
 		const card = useMemo(() => {
-			if (isPageSSRed && url) {
+			if (
+				// The `isSSRDataAvailable` check is only required when the OTP experiment is on,
+				// because inline smart card SSR is already implemented without OTP.
+				(expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
+					? isSSRDataAvailable
+					: true) &&
+				isPageSSRed &&
+				url
+			) {
 				return (
 					<CardSSR
 						key={url}
@@ -184,6 +192,8 @@ export const InlineCard = memo(
 						showHoverPreview={showHoverPreview}
 						hoverPreviewOptions={hoverPreviewOptions}
 						disablePreviewPanel={disablePreviewPanel}
+						// Durin `platform_editor_smart_card_otp` cleaning up, replace this with `true`.
+						// Ths `isSSRDataAvailable` should be checked in the `if` condition above.
 						hideIconLoadingSkeleton={
 							expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
 							isSSRDataAvailable

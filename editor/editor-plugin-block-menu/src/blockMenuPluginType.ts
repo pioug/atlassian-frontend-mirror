@@ -9,7 +9,10 @@ import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 
-import type { FormatNodeTargetType } from './editor-commands/transforms/types';
+import type {
+	FormatNodeTargetType,
+	FormatNodeAnalyticsAttrs,
+} from './editor-commands/transforms/types';
 
 export type BlockMenuPlugin = NextEditorPlugin<
 	'blockMenu',
@@ -19,7 +22,10 @@ export type BlockMenuPlugin = NextEditorPlugin<
 			registerBlockMenuComponents: (blockMenuComponents: Array<RegisterBlockMenuComponent>) => void;
 		};
 		commands: {
-			formatNode: (targetType: FormatNodeTargetType) => EditorCommand;
+			formatNode: (
+				targetType: FormatNodeTargetType,
+				analyticsAttrs?: FormatNodeAnalyticsAttrs,
+			) => EditorCommand;
 		};
 		dependencies: [
 			OptionalPlugin<BlockControlsPlugin>,

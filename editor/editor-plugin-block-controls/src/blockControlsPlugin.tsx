@@ -94,7 +94,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				return tr;
 			},
 		toggleBlockMenu:
-			(options?: { anchorName?: string; closeMenu?: boolean }) =>
+			(options?: { anchorName?: string; closeMenu?: boolean; openedViaKeyboard?: boolean }) =>
 			({ tr }: { tr: Transaction }) => {
 				if (!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
 					return tr;
@@ -123,6 +123,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 					anchorName?: string;
 					moveDown?: boolean;
 					moveUp?: boolean;
+					openedViaKeyboard?: boolean;
 				} = {
 					anchorName: options?.anchorName,
 				};
@@ -133,6 +134,13 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 						...toggleMenuMeta,
 						moveUp,
 						moveDown,
+						openedViaKeyboard: expValEqualsNoExposure(
+							'platform_editor_block_menu_keyboard_navigation',
+							'isEnabled',
+							true,
+						)
+							? options?.openedViaKeyboard
+							: undefined,
 					};
 				}
 				tr.setMeta(key, {

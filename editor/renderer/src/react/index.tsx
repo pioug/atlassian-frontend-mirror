@@ -56,6 +56,7 @@ import type {
 } from './types';
 import { renderTextSegments } from './utils/render-text-segments';
 import { segmentText } from './utils/segment-text';
+import { getStandaloneBackgroundColorMarks } from './utils/getStandaloneBackgroundColorMarks';
 export interface ReactSerializerInit {
 	allowAltTextOnImages?: boolean;
 	allowAnnotations?: boolean;
@@ -204,6 +205,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private allowTableResizing?: boolean;
 	private isPresentational?: boolean;
 	private disableTableOverflowShadow?: boolean;
+	private standaloneBackgroundColorMarks: Mark[] = [];
 
 	constructor(init: ReactSerializerInit) {
 		if (editorExperiment('comment_on_bodied_extensions', true)) {
@@ -425,6 +427,10 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		const currentPath = (parentInfo && parentInfo.path) || [];
 		const nodePosition = (parentInfo && parentInfo.pos) || 1;
 
+		if (expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true)) {
+			this.standaloneBackgroundColorMarks.push(...getStandaloneBackgroundColorMarks(content));
+		}
+
 		return ReactSerializer.buildMarkStructure(content).map((mark, index) => {
 			return this.serializeMark({
 				mark,
@@ -458,9 +464,15 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const content = ((mark as any).content || []).map(serializeContent);
 			const markKey = `${mark.type.name}-component__${this.startPos}__${parentMark.path.length}`;
+			const isStandalone =
+				expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true) &&
+				this.standaloneBackgroundColorMarks.some((m) => mark.eq(m));
 			return this.renderMark(
 				markToReact(mark),
-				this.getMarkProps(mark, parentMark.path),
+				{
+					...this.getMarkProps(mark, parentMark.path),
+					isStandalone,
+				},
 				markKey,
 				content,
 			);

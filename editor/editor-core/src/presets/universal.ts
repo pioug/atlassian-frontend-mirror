@@ -1,6 +1,7 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
 import { shouldForceTracking } from '@atlaskit/editor-common/utils';
+import type { ToolbarInsertBlockButtonsConfig } from '@atlaskit/editor-plugin-insert-block';
 import { accessibilityUtilsPlugin } from '@atlaskit/editor-plugins/accessibility-utils';
 import { alignmentPlugin } from '@atlaskit/editor-plugins/alignment';
 import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
@@ -84,6 +85,7 @@ export type InitialPluginConfiguration = {
 		__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'];
 	};
 	insertBlockPlugin?: {
+		toolbarButtons?: ToolbarInsertBlockButtonsConfig;
 		toolbarShowPlusInsertOnly?: boolean;
 	};
 	mentionsPlugin?: {

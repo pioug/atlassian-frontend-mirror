@@ -4,7 +4,7 @@
  */
 /// <reference types="node" />
 // for typing `process`
-import { forwardRef, memo, type Ref } from 'react';
+import { forwardRef, memo, type MemoExoticComponent, type Ref } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -241,7 +241,11 @@ const InnerRadio: React.ForwardRefExoticComponent<
  * - [Code](https://atlassian.design/components/radio/code)
  * - [Usage](https://atlassian.design/components/radio/usage)
  */
-const Radio = memo(
+const Radio: MemoExoticComponent<
+	React.ForwardRefExoticComponent<
+		React.PropsWithoutRef<RadioProps> & React.RefAttributes<HTMLInputElement>
+	>
+> = memo(
 	forwardRef(function Radio(props: RadioProps, ref: Ref<HTMLInputElement>) {
 		return <InnerRadio {...props} ref={ref} />;
 	}),

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
@@ -32,13 +33,21 @@ const ParagraphBlockMenuItem = ({ api }: ParagraphBlockMenuItemProps) => {
 		!bulletListActive &&
 		!orderedListActive;
 
-	const handleClick = () => {
+	const handleClick = (event: React.MouseEvent | React.KeyboardEvent) => {
 		if (!selection) {
 			return;
 		}
 
 		if (!isParagraph) {
-			api?.core.actions.execute(api?.blockMenu?.commands.formatNode(`paragraph`));
+			const inputMethod =
+				event.nativeEvent instanceof KeyboardEvent || event.nativeEvent.detail === 0
+					? INPUT_METHOD.KEYBOARD
+					: INPUT_METHOD.MOUSE;
+			const triggeredFrom = INPUT_METHOD.BLOCK_MENU;
+
+			api?.core.actions.execute(
+				api?.blockMenu?.commands.formatNode(`paragraph`, { inputMethod, triggeredFrom }),
+			);
 		}
 	};
 

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block
 
+## 8.0.2
+
+### Patch Changes
+
+- [`51d46145cda56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51d46145cda56) -
+  Adds additional attributes to Element Converted event and fires the event for the empty line
+  transforms
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

@@ -1,11 +1,17 @@
-import { getCreateLintRule, getPathSafeName } from '@atlaskit/eslint-utils/create-rule';
+import type { Rule } from 'eslint';
+
+import {
+	getCreateLintRule,
+	getPathSafeName,
+	type LintRule,
+} from '@atlaskit/eslint-utils/create-rule';
 
 /**
  * Tiny wrapped over the ESLint rule module type that ensures
  * there is a docs link to our ESLint plugin documentation page,
  * as well as improving type support.
  */
-export const createLintRule = getCreateLintRule(getRuleUrl);
+export const createLintRule: (rule: LintRule) => Rule.RuleModule = getCreateLintRule(getRuleUrl);
 
 export function getRuleUrl(ruleName: string) {
 	const name = getPathSafeName(ruleName);

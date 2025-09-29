@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { useIntl, injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
@@ -76,9 +76,27 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 		});
 	}, [api, nodeTypes]);
 
-	const onRemoveHoverDecoration = () => {
+	const onRemoveHoverDecoration = useCallback(() => {
 		api?.core.actions.execute(api?.decorations?.commands?.removeDecoration?.());
-	};
+	}, [api]);
+
+	useEffect(() => {
+		if (
+			!expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
+		) {
+			return;
+		}
+
+		return () => {
+			if (
+				!expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
+			) {
+				return;
+			}
+			// clean up hover decoration when unmounting
+			onRemoveHoverDecoration();
+		};
+	}, [onRemoveHoverDecoration]);
 
 	const text = fg('platform_editor_block_menu_patch_1')
 		? formatMessage(blockMenuMessages.deleteBlock)

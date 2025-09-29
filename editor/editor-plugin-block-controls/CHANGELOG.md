@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.2.0
+
+### Minor Changes
+
+- [`0778701e62192`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0778701e62192) -
+  [ux] ED-29424 Focus first menu item when block menu is opened and remove decorations when delete
+  button unmounts
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.1
 
 ### Patch Changes

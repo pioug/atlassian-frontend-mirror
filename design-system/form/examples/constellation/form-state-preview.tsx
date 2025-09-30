@@ -4,7 +4,7 @@
  */
 
 import Banner from '@atlaskit/banner';
-import { css, jsx } from '@atlaskit/css';
+import { cssMap, jsx } from '@atlaskit/css';
 import Form, { Field, useFormState } from '@atlaskit/form';
 import Select, { type ValueType as Value } from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
@@ -15,12 +15,15 @@ interface Option {
 	value: 'warning' | 'error' | 'announcement';
 }
 
-const formContainerStyles = css({
-	maxWidth: '400px',
-	margin: '0 auto',
+const styles = cssMap({
+	formContainer: {
+		maxWidth: '400px',
+		margin: '0 auto',
+	},
+	preview: {
+		marginBlockStart: token('space.200'),
+	},
 });
-
-const previewStyles = css({ marginBlockStart: token('space.200') });
 
 type BannerForm = {
 	appearance: Option;
@@ -35,8 +38,7 @@ const FormPreview = () => {
 	});
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/use-primitives
-		<div css={previewStyles}>
+		<div css={styles.preview}>
 			<Banner appearance={formState?.values.appearance.value}>{formState?.values.content}</Banner>
 			<pre>{JSON.stringify(formState, null, 2)}</pre>;
 		</div>
@@ -52,7 +54,7 @@ export default function StateSubscriptionExample() {
 		>
 			{({ formProps }) => (
 				<form {...formProps}>
-					<div css={formContainerStyles}>
+					<div css={styles.formContainer}>
 						<Field<string, HTMLTextAreaElement>
 							name="content"
 							defaultValue=" "

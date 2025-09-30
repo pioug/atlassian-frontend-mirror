@@ -41,6 +41,7 @@ interface State {
  * }
  * ```
  */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class DynamicTable extends React.Component<StatefulProps, State> {
 	static defaultProps = {
 		defaultPage: 1,

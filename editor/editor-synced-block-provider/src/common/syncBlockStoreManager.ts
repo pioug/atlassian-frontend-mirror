@@ -34,9 +34,11 @@ export class SyncBlockStoreManager {
 	private syncBlocks: Map<ResourceId, SyncBlock>;
 	private confirmationCallback?: ConfirmationCallback;
 	private editorView?: EditorView;
+	private dataProvider?: SyncBlockDataProvider;
 
-	constructor(_dataProvider?: SyncBlockDataProvider) {
+	constructor(dataProvider?: SyncBlockDataProvider) {
 		this.syncBlocks = new Map();
+		this.dataProvider = dataProvider;
 	}
 
 	public setEditorView(editorView: EditorView | undefined) {
@@ -49,10 +51,7 @@ export class SyncBlockStoreManager {
 		}
 
 		const { resourceId, localId } = node.attrs;
-
-		return (
-			this.syncBlocks.has(resourceId) && this.syncBlocks.get(resourceId)?.sourceLocalId === localId
-		);
+		return (resourceId as ResourceId).includes(localId as string);
 	}
 
 	public registerConfirmationCallback(callback: ConfirmationCallback) {
@@ -71,12 +70,14 @@ export class SyncBlockStoreManager {
 		// TODO: EDITOR-1644 - properly implement creation of the synced block
 		// below is a temporary implementation for the creation of the synced block
 		// the resource id needs to have pageId and content property key in it
+		// Note: If the data provider is not set, the resource id will be the local id
 
-		const blockInstanceId = uuid();
 		const localId = uuid();
+		const sourceId = this.dataProvider?.getSourceId();
+		const resourceId = sourceId ? `${sourceId}/${localId}` : localId;
 		const syncBlockNode: SyncBlockNode = {
 			attrs: {
-				resourceId: `ari:cloud:confluence:fake_cloud_id:page/fake_page_id/${blockInstanceId}`,
+				resourceId,
 				localId,
 			},
 			type: 'syncBlock',

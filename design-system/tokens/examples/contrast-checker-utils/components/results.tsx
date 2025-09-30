@@ -174,7 +174,7 @@ export function getCustomTheme(
 	customTheme: Theme,
 	customBaseTokens: typeof baseTokens,
 	baseThemeType: ColorMode,
-) {
+): typeof rawTokensLight {
 	const baseRawTokens = fg('platform-component-visual-refresh')
 		? baseThemeType === 'light'
 			? rawTokensBrandRefreshLight

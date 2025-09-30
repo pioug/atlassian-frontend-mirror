@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
@@ -63,6 +63,7 @@ export const SideNavToggleButton = ({
 	testId,
 	interactionName,
 	onClick,
+	shortcut,
 }: {
 	/**
 	 * @deprecated
@@ -104,6 +105,12 @@ export const SideNavToggleButton = ({
 		analyticsEvent: UIAnalyticsEvent,
 		attributes?: SideNavVisibilityChangeAnalyticsAttributes,
 	) => void;
+	/**
+	 * Display a keyboard shortcut in the tooltip.
+	 * Only used if the `platform-dst-tooltip-shortcuts` feature flag is enabled.
+	 * Note this does not handle the keyboard shortcut functionality, it only displays the shortcut in the tooltip.
+	 */
+	shortcut?: string[];
 }) => {
 	const {
 		isExpandedOnDesktop: isSideNavExpandedOnDesktop,
@@ -176,6 +183,17 @@ export const SideNavToggleButton = ({
 		</span>
 	);
 
+	const tooltipProps = useMemo(() => {
+		if (fg('platform-dst-tooltip-shortcuts')) {
+			return {
+				...toggleButtonTooltipOptions,
+				shortcut,
+			};
+		}
+
+		return toggleButtonTooltipOptions;
+	}, [shortcut]);
+
 	const iconButton = (
 		<IconButton
 			appearance="subtle"
@@ -186,7 +204,7 @@ export const SideNavToggleButton = ({
 			isTooltipDisabled={false}
 			interactionName={interactionName}
 			ref={fg('platform_fix_component_state_update_for_suspense') ? elementRef : ref}
-			tooltip={toggleButtonTooltipOptions}
+			tooltip={tooltipProps}
 		/>
 	);
 

@@ -3,6 +3,8 @@ import { snapshot } from '@af/visual-regression';
 import {
 	PanelSplitterPositionEnd,
 	PanelSplitterPositionStart,
+	PanelSplitterWithTooltip,
+	PanelSplitterWithTooltipAndShortcut,
 } from '../../../../../examples/panel-splitter';
 
 snapshot(PanelSplitterPositionStart, {
@@ -66,6 +68,36 @@ snapshot(PanelSplitterPositionEnd, {
 				options: {
 					name: 'Resize panel',
 				},
+			},
+		},
+	],
+});
+
+snapshot(PanelSplitterWithTooltip, {
+	description: 'Panel splitter with tooltip content - hovered',
+	featureFlags: {
+		'platform-dst-tooltip-shortcuts': true,
+	},
+	states: [
+		{
+			state: 'hovered',
+			selector: {
+				byTestId: 'panel-splitter',
+			},
+		},
+	],
+});
+
+snapshot(PanelSplitterWithTooltipAndShortcut, {
+	description: 'Panel splitter with both tooltip content and shortcut - hovered',
+	featureFlags: {
+		'platform-dst-tooltip-shortcuts': true,
+	},
+	states: [
+		{
+			state: 'hovered',
+			selector: {
+				byTestId: 'panel-splitter',
 			},
 		},
 	],

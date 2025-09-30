@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-config
 
+## 1.12.0
+
+### Minor Changes
+
+- [`dfcaf9892e7ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dfcaf9892e7ff) -
+  Change people directory path
+
 ## 1.11.6
 
 ### Patch Changes

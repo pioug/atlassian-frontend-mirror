@@ -21,7 +21,11 @@ export type IconButtonProps = CommonIconButtonProps & CommonButtonVariantProps;
  * - [Code](https://atlassian.design/components/button/icon-button/code)
  * - [Usage](https://atlassian.design/components/button/icon-button/usage)
  */
-const IconButton = React.memo(
+const IconButton: React.MemoExoticComponent<
+	React.ForwardRefExoticComponent<
+		React.PropsWithoutRef<IconButtonProps> & React.RefAttributes<HTMLButtonElement>
+	>
+> = React.memo(
 	React.forwardRef(function Button(
 		{
 			// Prevent duplicate labels being added.
@@ -115,6 +119,7 @@ const IconButton = React.memo(
 				hideTooltipOnClick={tooltip?.hideTooltipOnClick}
 				hideTooltipOnMouseDown={tooltip?.hideTooltipOnMouseDown}
 				ignoreTooltipPointerEvents={tooltip?.ignoreTooltipPointerEvents}
+				shortcut={tooltip?.shortcut}
 			>
 				{(triggerProps) => (
 					<ButtonBase

@@ -1,8 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d47d4173f63cb55846315f268772af3c>>
+ * @codegen <<SignedSource::80d970238bae380ca0f003b9b81f6955>>
  * @codegenCommand yarn build-glyphs
  */
+import type { ObjectTileProps } from '@atlaskit/object';
+
 import BlogObjectTile from '../src/components/object-tile/components/blog';
 import BranchObjectTile from '../src/components/object-tile/components/branch';
 import BugObjectTile from '../src/components/object-tile/components/bug';
@@ -27,7 +29,12 @@ import SubtaskObjectTile from '../src/components/object-tile/components/subtask'
 import TaskObjectTile from '../src/components/object-tile/components/task';
 import WhiteboardObjectTile from '../src/components/object-tile/components/whiteboard';
 
-export const allObjectTiles = [
+export const allObjectTiles: (({
+	label,
+	size,
+	testId,
+	isBold,
+}: ObjectTileProps) => React.JSX.Element)[] = [
 	BlogObjectTile,
 	BranchObjectTile,
 	BugObjectTile,

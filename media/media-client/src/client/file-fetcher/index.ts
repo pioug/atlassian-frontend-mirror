@@ -852,8 +852,16 @@ export class FileFetcherImpl implements FileFetcher {
 		) {
 			throw new Error('File is not a video');
 		}
+		if (fileState.mediaMetadata?.duration) {
+			return fileState.mediaMetadata.duration;
+		}
 
-		const artifactUrlString = await this.getArtifactURL(fileState.artifacts, 'video.mp4');
+		// If the duration is not present, we need to fetch it from the artifact
+		const artifactUrlString = await this.getArtifactURL(
+			fileState.artifacts,
+			'video.mp4',
+			collectionName,
+		);
 		const artifactUrl = new URL(artifactUrlString);
 
 		const artifactPath = `${artifactUrl.pathname}${artifactUrl.search}`;

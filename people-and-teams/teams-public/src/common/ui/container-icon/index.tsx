@@ -1,8 +1,11 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
+import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import GlobeIcon from '@atlaskit/icon/core/globe';
+import LinkIcon from '@atlaskit/icon/core/link';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -83,6 +86,16 @@ export const ContainerIcon = ({
 	iconHasLoaded = true,
 }: ContainerIconProps) => {
 	const isMedium = size === 'medium';
+	const isTeamLensInHomeEnabled = FeatureGates.getExperimentValue(
+		'team_lens_in_atlassian_home',
+		'cohort',
+		'control',
+	);
+	const isNewTeamProfilePageEnabled = FeatureGates.getExperimentValue(
+		'new_team_profile',
+		'isEnabled',
+		false,
+	);
 
 	if (containerType === 'LoomSpace') {
 		return (
@@ -95,6 +108,19 @@ export const ContainerIcon = ({
 	}
 
 	if (containerType === 'WebLink') {
+		if (isTeamLensInHomeEnabled || isNewTeamProfilePageEnabled) {
+			return (
+				<IconButton
+					label=""
+					spacing="default"
+					appearance="default"
+					aria-hidden="true" // Keeping this to be double sure icon isn't going to be focused
+					tabIndex={-1} // This is to prevent the icon from being focused
+					testId="linked-container-WebLink-new-icon"
+					icon={() => <LinkIcon label="" size={isMedium ? 'medium' : 'small'} />}
+				/>
+			);
+		}
 		if (iconsLoading || !iconHasLoaded) {
 			return <IconSkeleton size={size} />;
 		}

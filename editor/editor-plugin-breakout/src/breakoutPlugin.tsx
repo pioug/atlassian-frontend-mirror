@@ -265,10 +265,7 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 			};
 		}
 
-		if (
-			expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
-			fg('platform_editor_breakout_resizing_hello_release')
-		) {
+		if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
 			const resizingPluginState = resizingPluginKey.getState(editorState);
 
 			if (!resizingPluginState) {
@@ -302,10 +299,7 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 			return null;
 		}
 
-		if (
-			expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
-			fg('platform_editor_breakout_resizing_hello_release')
-		) {
+		if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
 			return (
 				<GuidelineLabel
 					api={api}

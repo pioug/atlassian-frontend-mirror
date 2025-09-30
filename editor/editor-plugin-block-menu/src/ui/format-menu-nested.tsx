@@ -5,9 +5,9 @@ import { useIntl } from 'react-intl-next';
 import {
 	ACTION,
 	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
+	type BlockMenuEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/editor-common/block-menu';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
@@ -19,7 +19,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
-import { useBlockMenu } from './block-menu-provider';
+import { BLOCK_MENU_ITEM_NAME } from './consts';
 import { checkIsFormatMenuHidden } from './utils/checkIsFormatMenuHidden';
 
 export const FormatMenuComponent = ({
@@ -30,7 +30,6 @@ export const FormatMenuComponent = ({
 	children: React.ReactNode;
 }) => {
 	const { formatMessage } = useIntl();
-	const { fireAnalyticsEvent } = useBlockMenu();
 
 	const text = fg('platform_editor_block_menu_patch_1')
 		? formatMessage(blockMenuMessages.turnInto)
@@ -43,14 +42,20 @@ export const FormatMenuComponent = ({
 	}, [api]);
 
 	const handleClick = useCallback(() => {
-		fireAnalyticsEvent?.({
-			action: ACTION.CLICKED,
-			actionSubject: ACTION_SUBJECT.BLOCK_MENU_ITEM,
-			actionSubjectId: ACTION_SUBJECT_ID.FORMAT_MENU,
-			eventType: EVENT_TYPE.UI,
-			attributes: { inputMethod: INPUT_METHOD.MOUSE },
+		api?.core.actions.execute(({ tr }) => {
+			const payload: BlockMenuEventPayload = {
+				action: ACTION.CLICKED,
+				actionSubject: ACTION_SUBJECT.BLOCK_MENU_ITEM,
+				attributes: {
+					inputMethod: INPUT_METHOD.MOUSE,
+					menuItemName: BLOCK_MENU_ITEM_NAME.FORMAT_MENU,
+				},
+				eventType: EVENT_TYPE.UI,
+			};
+			api?.analytics?.actions?.attachAnalyticsEvent(payload)(tr);
+			return tr;
 		});
-	}, [fireAnalyticsEvent]);
+	}, [api]);
 
 	return (
 		<ToolbarNestedDropdownMenu

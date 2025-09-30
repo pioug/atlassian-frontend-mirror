@@ -35,4 +35,5 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<SyncBlockNo
 		nodes: SyncBlockNode[],
 		data: SyncBlockData[],
 	) => Promise<Array<string | undefined>>;
+	abstract getSourceId: () => string;
 }

@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../helpers/browser-apis/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../button/afm-townsquare/tsconfig.json"
 		},
 		{

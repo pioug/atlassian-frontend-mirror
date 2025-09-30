@@ -75,7 +75,11 @@ export function getDefaultPresetOptionsFromEditorProps(
 		quickInsert: {
 			enableElementBrowser: props.elementBrowser && props.elementBrowser.showModal,
 			elementBrowserHelpUrl: props.elementBrowser && props.elementBrowser.helpUrl,
-			disableDefaultItems: false,
+			disableDefaultItems:
+				(props.quickInsert &&
+					typeof props.quickInsert !== 'boolean' &&
+					props.quickInsert.disableDefaultItems) ||
+				false,
 			headless: false,
 			emptyStateHandler: props.elementBrowser && props.elementBrowser.emptyStateHandler,
 			prioritySortingFn:

@@ -27,9 +27,10 @@ import {
 	BitbucketDataCenterLogoCS as NewBitbucketDataCenterLogo,
 } from '@atlaskit/temp-nav-app-icons/bitbucket-data-center';
 import {
-	ChatIcon as NewChatIcon,
-	ChatLogoCS as NewChatLogo,
+	ChatIcon as OldChatIcon,
+	ChatLogoCS as OldChatLogo,
 } from '@atlaskit/temp-nav-app-icons/chat';
+import { ChatNewIcon, ChatNewLogoCS } from '@atlaskit/temp-nav-app-icons/chat-new';
 import {
 	CompassIcon as NewCompassIcon,
 	CompassLogoCS as NewCompassLogo,
@@ -117,17 +118,19 @@ import {
 	RovoDevAgentLogoCS as NewRovoDevAgentLogo,
 } from '@atlaskit/temp-nav-app-icons/rovo-dev-agent';
 import {
-	SearchIcon as NewSearchIcon,
-	SearchLogoCS as NewSearchLogo,
+	SearchIcon as OldSearchIcon,
+	SearchLogoCS as OldSearchLogo,
 } from '@atlaskit/temp-nav-app-icons/search';
+import { SearchNewIcon, SearchNewLogoCS } from '@atlaskit/temp-nav-app-icons/search-new';
 import {
 	StatuspageIcon as NewStatuspageIcon,
 	StatuspageLogoCS as NewStatuspageLogo,
 } from '@atlaskit/temp-nav-app-icons/statuspage';
 import {
-	StudioIcon as NewStudioIcon,
-	StudioLogoCS as NewStudioLogo,
+	StudioIcon as OldStudioIcon,
+	StudioLogoCS as OldStudioLogo,
 } from '@atlaskit/temp-nav-app-icons/studio';
+import { StudioNewIcon, StudioNewLogoCS } from '@atlaskit/temp-nav-app-icons/studio-new';
 import {
 	TalentIcon as NewTalentIcon,
 	TalentLogoCS as NewTalentLogo,
@@ -213,6 +216,7 @@ export { JiraSoftwareIcon, JiraSoftwareLogo } from './legacy-logos/jira-software
 import {
 	createFeatureFlaggedComponent,
 	createFeatureFlaggedServiceCollectionComponent,
+	teamEUFlaggedIcon,
 	tempSizeWrapper,
 } from './logo-config';
 
@@ -287,7 +291,7 @@ export const AssetsLogo = tempSizeWrapper(NewAssetsLogo);
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const ChatIcon = tempSizeWrapper(NewChatIcon);
+export const ChatIcon = teamEUFlaggedIcon(OldChatIcon, ChatNewIcon);
 /**
  * __Chat logo__
  *
@@ -297,7 +301,7 @@ export const ChatIcon = tempSizeWrapper(NewChatIcon);
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const ChatLogo = tempSizeWrapper(NewChatLogo);
+export const ChatLogo = teamEUFlaggedIcon(OldChatLogo, ChatNewLogoCS);
 /**
  * __Customer Service Management icon__
  *
@@ -447,7 +451,7 @@ export const RovoDevAgentLogo = tempSizeWrapper(NewRovoDevAgentLogo);
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const SearchIcon = tempSizeWrapper(NewSearchIcon);
+export const SearchIcon = teamEUFlaggedIcon(OldSearchIcon, SearchNewIcon);
 /**
  * __Search logo__
  *
@@ -457,7 +461,7 @@ export const SearchIcon = tempSizeWrapper(NewSearchIcon);
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const SearchLogo = tempSizeWrapper(NewSearchLogo);
+export const SearchLogo = teamEUFlaggedIcon(OldSearchLogo, SearchNewLogoCS);
 /**
  * __Studio icon__
  *
@@ -467,7 +471,7 @@ export const SearchLogo = tempSizeWrapper(NewSearchLogo);
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const StudioIcon = tempSizeWrapper(NewStudioIcon);
+export const StudioIcon = teamEUFlaggedIcon(OldStudioIcon, StudioNewIcon);
 /**
  * __Studio logo__
  *
@@ -477,7 +481,7 @@ export const StudioIcon = tempSizeWrapper(NewStudioIcon);
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const StudioLogo = tempSizeWrapper(NewStudioLogo);
+export const StudioLogo = teamEUFlaggedIcon(OldStudioLogo, StudioNewLogoCS);
 /**
  * __Talent icon__
  *

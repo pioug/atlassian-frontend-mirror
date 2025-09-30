@@ -24,6 +24,7 @@ interface RankableTableRowProps extends WithDimensionsProps {
 	testId?: string;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class RankableTableRow extends React.Component<RankableTableRowProps> {
 	innerRef = (innerRefFn: Function) => (ref: HTMLTableRowElement) => {
 		innerRefFn(ref);

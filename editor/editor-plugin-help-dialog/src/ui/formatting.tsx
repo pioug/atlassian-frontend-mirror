@@ -799,8 +799,7 @@ export const getSupportedFormatting = (
 		...(imageEnabled ? [imageAutoFormat] : []),
 		...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
 		...focusTableResizeHandleFormatting(intl),
-		...(editorExperiment('platform_editor_breakout_resizing', true) &&
-		fg('platform_editor_breakout_resizing_hello_release')
+		...(editorExperiment('platform_editor_breakout_resizing', true)
 			? newResizeInformationFormatting(intl)
 			: resizeInformationFormatting(intl)),
 		...openCellOptionsFormattingtoFormat(intl),

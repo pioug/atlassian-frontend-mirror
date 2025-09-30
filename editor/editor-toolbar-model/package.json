@@ -25,6 +25,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -74,6 +75,11 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_toolbar_aifc_renderer_rewrite": {
+			"type": "boolean"
 		}
 	},
 	"name": "@atlaskit/editor-toolbar-model",

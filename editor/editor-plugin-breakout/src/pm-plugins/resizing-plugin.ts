@@ -69,7 +69,7 @@ const addBreakoutToResizableNode = ({
 				breakout.create({ width: width }),
 			]);
 
-			if (isExpand && fg('platform_editor_breakout_resizing_hello_release')) {
+			if (isExpand) {
 				updateExpandedStateNew({ tr: updatedTr, node, pos, isLivePage: true });
 			}
 
@@ -90,7 +90,7 @@ const addBreakoutToResizableNode = ({
 				breakout.create({ width: newWidth, mode: mode }),
 			]);
 
-			if (isExpand && fg('platform_editor_breakout_resizing_hello_release')) {
+			if (isExpand) {
 				updateExpandedStateNew({ tr: updatedTr, node, pos, isLivePage: true });
 			}
 
@@ -182,7 +182,7 @@ export const createResizingPlugin = (
 ) => {
 	return new SafePlugin({
 		key: resizingPluginKey,
-		state: fg('platform_editor_breakout_resizing_hello_release') ? pluginState : undefined,
+		state: pluginState,
 		props: {
 			markViews: {
 				breakout: (mark: Mark, view: EditorView) => {
@@ -202,10 +202,7 @@ export const createResizingPlugin = (
 				}
 			} else {
 				// if editor is in live-view mode don't send transactions
-				if (
-					api?.editorViewMode?.sharedState.currentState()?.mode !== 'edit' &&
-					fg('platform_editor_breakout_resizing_hello_release')
-				) {
+				if (api?.editorViewMode?.sharedState.currentState()?.mode !== 'edit') {
 					return;
 				}
 			}

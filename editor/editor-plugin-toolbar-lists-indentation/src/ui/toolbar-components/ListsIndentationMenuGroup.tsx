@@ -19,7 +19,7 @@ import {
 	TEXT_COLLAPSED_MENU_RANK,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import type { RegisterComponent, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
@@ -114,20 +114,30 @@ export const getListsIndentationMenu = (
 			],
 			component: ({ parents }) => <NumberedListMenuItem api={api} parents={parents} />,
 		},
-		{
-			type: TASK_LIST_MENU_ITEM.type,
-			key: TASK_LIST_MENU_ITEM.key,
-			parents: [
-				{
-					type: LISTS_INDENTATION_MENU_SECTION.type,
-					key: LISTS_INDENTATION_MENU_SECTION.key,
-					rank: LISTS_INDENTATION_MENU_SECTION_RANK[TASK_LIST_MENU_ITEM.key],
-				},
-			],
-			component: expValEquals('platform_editor_toolbar_task_list_menu_item', 'isEnabled', true)
-				? ({ parents }) => <TaskListMenuItem api={api} parents={parents} />
-				: undefined,
-		},
+		...(!expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
+			? [
+					{
+						type: TASK_LIST_MENU_ITEM.type,
+						key: TASK_LIST_MENU_ITEM.key,
+						parents: [
+							{
+								type: LISTS_INDENTATION_MENU_SECTION.type,
+								key: LISTS_INDENTATION_MENU_SECTION.key,
+								rank: LISTS_INDENTATION_MENU_SECTION_RANK[TASK_LIST_MENU_ITEM.key],
+							},
+						],
+						component: expValEquals(
+							'platform_editor_toolbar_task_list_menu_item',
+							'isEnabled',
+							true,
+						)
+							? ({ parents }: { parents: ToolbarComponentTypes }) => (
+									<TaskListMenuItem api={api} parents={parents} />
+								)
+							: undefined,
+					},
+				]
+			: []),
 		{
 			type: OUTDENT_MENU_ITEM.type,
 			key: OUTDENT_MENU_ITEM.key,

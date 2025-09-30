@@ -31,8 +31,7 @@ const createUser = async (data: { username: string; email: string }) => {
 	return errors;
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default () => {
+const FormSubmissionValidationExample = () => {
 	const handleSubmit = (data: { username: string; email: string }) => {
 		return createUser(data);
 	};
@@ -80,3 +79,5 @@ export default () => {
 		</Flex>
 	);
 };
+
+export default FormSubmissionValidationExample;

@@ -157,7 +157,7 @@ describe('<LinkItem />', () => {
 			const onMouseDown = jest.fn();
 			render(
 				// TODO: Ensure LinkItems are not used as buttons (DSP-11468)
-				// eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/no-static-element-interactions
+				// eslint-disable-next-line @atlassian/a11y/anchor-is-valid, jsx-a11y/no-static-element-interactions
 				<LinkItem onMouseDown={onMouseDown} testId="target">
 					Hello world
 				</LinkItem>,
@@ -316,7 +316,7 @@ describe('<LinkItem />', () => {
 				render(
 					// Disabling this rule because we want to test the behaviour of this component
 					// when the href is an empty string.
-					// eslint-disable-next-line jsx-a11y/anchor-is-valid
+					// eslint-disable-next-line @atlassian/a11y/anchor-is-valid
 					<LinkItem href="" testId="link-item">
 						Link item
 					</LinkItem>,
@@ -329,7 +329,7 @@ describe('<LinkItem />', () => {
 				render(
 					// Disabling this rule because we want to test the behaviour of this component
 					// when the href is undefined.
-					// eslint-disable-next-line jsx-a11y/anchor-is-valid
+					// eslint-disable-next-line @atlassian/a11y/anchor-is-valid
 					<LinkItem href={undefined} testId="link-item">
 						Link item
 					</LinkItem>,
@@ -451,7 +451,7 @@ describe('<LinkItem />', () => {
 					<AppProvider>
 						{/* Disabling this rule because we want to test the behaviour of this component */}
 						{/* when the href is an empty string. */}
-						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 						<LinkItem href="" testId="link-item">
 							Link item
 						</LinkItem>
@@ -466,7 +466,7 @@ describe('<LinkItem />', () => {
 					<AppProvider>
 						{/* Disabling this rule because we want to test the behaviour of this component */}
 						{/* when the href is undefined. */}
-						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 						<LinkItem href={undefined} testId="link-item">
 							Link item
 						</LinkItem>
@@ -591,7 +591,7 @@ describe('<LinkItem />', () => {
 					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
 						{/* Disabling this rule because we want to test the behaviour of this component */}
 						{/* when the href is an empty string. */}
-						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 						<LinkItem href="" testId="link-item">
 							Link item
 						</LinkItem>
@@ -606,7 +606,7 @@ describe('<LinkItem />', () => {
 					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
 						{/* Disabling this rule because we want to test the behaviour of this component */}
 						{/* when the href is undefined. */}
-						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 						<LinkItem href={undefined} testId="link-item">
 							Link item
 						</LinkItem>

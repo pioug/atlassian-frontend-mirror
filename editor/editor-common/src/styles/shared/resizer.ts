@@ -5,7 +5,6 @@ import {
 	akEditorDeleteIconColor,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -231,10 +230,7 @@ export const resizerStyles: SerializedStyles = css`
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const pragmaticResizerStylesForTooltip = () => {
-	if (
-		expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-		fg('platform_editor_breakout_resizing_hello_release')
-	) {
+	if (expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)) {
 		return css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'.pm-breakout-resize-handle-rail-wrapper': {
@@ -268,8 +264,7 @@ export const pragmaticResizerStylesForTooltip = () => {
 export const pragmaticStylesLayoutFirstNodeResizeHandleFix = () => {
 	if (
 		editorExperiment('advanced_layouts', true) &&
-		expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-		fg('platform_editor_breakout_resizing_hello_release')
+		expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
 	) {
 		return css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -292,138 +287,6 @@ export const pragmaticResizerStyles = () => {
 		return;
 	}
 
-	// styles needed to be duplicated
-	if (fg('platform_editor_breakout_resizing_hello_release')) {
-		return css({
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.fabric-editor-breakout-mark': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&:has([data-prosemirror-node-name="codeBlock"])': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'> .pm-breakout-resize-handle-container--left': {
-						left: '-5px',
-					},
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'> .pm-breakout-resize-handle-container--right': {
-						right: '-5px',
-					},
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'> .pm-breakout-resize-handle-container': {
-						height: 'calc(100% - 12px)',
-					},
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&:has([data-prosemirror-node-name="expand"]), &:has([data-prosemirror-node-name="layoutSection"])':
-					{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-						'> .pm-breakout-resize-handle-container--left': {
-							left: '-25px',
-						},
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-						'> .pm-breakout-resize-handle-container--right': {
-							right: '-25px',
-						},
-					},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&:has([data-prosemirror-node-name="expand"])': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'> .pm-breakout-resize-handle-container': {
-						height: 'calc(100% - 4px)',
-					},
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&:has([data-prosemirror-node-name="layoutSection"])': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'> .pm-breakout-resize-handle-container': {
-						height: 'calc(100% - 8px)',
-					},
-				},
-
-				// the first node in the document always has margin-top = 0
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&:has(.first-node-in-document)': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'> .pm-breakout-resize-handle-container': {
-						height: '100%',
-					},
-				},
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.pm-breakout-resize-handle-container': {
-				position: 'relative',
-				alignSelf: 'end',
-				gridRow: 1,
-				gridColumn: 1,
-				height: '100%',
-				width: 7,
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.pm-breakout-resize-handle-container--left': {
-				justifySelf: 'start',
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.pm-breakout-resize-handle-container--right': {
-				justifySelf: 'end',
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.pm-breakout-resize-handle-rail': {
-				position: 'relative',
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'center',
-
-				height: '100%',
-
-				cursor: 'col-resize',
-
-				borderRadius: token('radius.small'),
-				transition: 'background-color 0.2s, visibility 0.2s, opacity 0.2s',
-				zIndex: 2,
-
-				opacity: 0,
-
-				'&:hover': {
-					background: token('color.background.selected'),
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'.pm-breakout-resize-handle-thumb': {
-						background: token('color.border.focused'),
-					},
-				},
-			},
-			// same as 'hover' styles above
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.pm-breakout-resize-handle-container--active': {
-				background: token('color.background.selected'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'.pm-breakout-resize-handle-thumb': {
-					background: token('color.border.focused'),
-				},
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.pm-breakout-resize-handle-hit-box': {
-				position: 'absolute',
-				top: 0,
-				bottom: 0,
-				left: -20,
-				right: -20,
-				zIndex: 0,
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.pm-breakout-resize-handle-thumb': {
-				minWidth: resizerHandleThumbWidth,
-				// copied from resizeStyles.clamped
-				height: 'clamp(27px, calc(100% - 32px), 96px)',
-				background: token('color.border'),
-				borderRadius: token('radius.medium'),
-
-				// sticky styles
-				position: 'sticky',
-				top: token('space.150', '12px'),
-				bottom: token('space.150', '12px'),
-			},
-		});
-	}
-
 	return css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.fabric-editor-breakout-mark': {
@@ -431,11 +294,11 @@ export const pragmaticResizerStyles = () => {
 			'&:has([data-prosemirror-node-name="codeBlock"])': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 				'> .pm-breakout-resize-handle-container--left': {
-					left: '-12px',
+					left: '-5px',
 				},
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 				'> .pm-breakout-resize-handle-container--right': {
-					right: '-12px',
+					right: '-5px',
 				},
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 				'> .pm-breakout-resize-handle-container': {
@@ -447,11 +310,11 @@ export const pragmaticResizerStyles = () => {
 				{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 					'> .pm-breakout-resize-handle-container--left': {
-						left: '-32px',
+						left: '-25px',
 					},
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 					'> .pm-breakout-resize-handle-container--right': {
-						right: '-32px',
+						right: '-25px',
 					},
 				},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors

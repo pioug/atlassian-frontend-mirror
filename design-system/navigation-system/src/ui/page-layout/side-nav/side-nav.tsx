@@ -103,6 +103,10 @@ const styles = cssMap({
 		// Unfortunately this is the best of bad solutions.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		zIndex: localSlotLayers.sideNav,
+		// Not required, but declaring explicitly because we really don't want a border at small sizes
+		// Previously we had a transparent border to maintain width, but this unintentionally acted as padding
+		borderInlineStart: 'none',
+		borderInlineEnd: 'none',
 		'@media (min-width: 48rem)': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 			width: `var(${panelSplitterResizingVar}, var(${sideNavVar}))`,
@@ -111,25 +115,8 @@ const styles = cssMap({
 			backgroundColor: token('elevation.surface'),
 			boxShadow: 'initial',
 			gridArea: 'side-nav',
-		},
-	},
-	oldBorder: {
-		borderInlineEnd: `${token('border.width')} solid ${token('color.border')}`,
-	},
-	newBorder: {
-		// Not required, but declaring explicitly because we really don't want a border at small sizes
-		// Previously we had a transparent border to maintain width, but this unintentionally acted as padding
-		borderInlineStart: 'none',
-		borderInlineEnd: 'none',
-		'@media (min-width: 64rem)': {
 			// We only want the border to be visible when it is not an overlay
 			borderInlineEnd: `${token('border.width')} solid ${token('color.border')}`,
-		},
-	},
-	newBorderFlyoutOpen: {
-		'@media (min-width: 64rem)': {
-			// Hide the border for the flyout, because it has a shadow
-			borderInlineEnd: 'none',
 		},
 	},
 	flyoutOpen: {
@@ -138,6 +125,8 @@ const styles = cssMap({
 			backgroundColor: token('elevation.surface.overlay'),
 			boxShadow: token('elevation.shadow.overlay'),
 			gridArea: 'main',
+			// Hide the border for the flyout, because it has a shadow
+			borderInlineEnd: 'none',
 		},
 		/**
 		 * Disabling animations for Firefox, as it doesn't support animating the `display` property:
@@ -853,7 +842,6 @@ function SideNavInternal({
 			ref={mergedRef}
 			css={[
 				styles.root,
-				fg('platform_design_system_nav4_sidenav_border') ? styles.newBorder : styles.oldBorder,
 				// We are explicitly using the `isExpandedOnDesktop` and `isExpandedOnMobile` values here to ensure we are displaying the
 				// correct state during SSR render, as the context value would not have been set yet. These values are derived from the
 				// component props (defaultCollapsed) if context hasn't been set yet.
@@ -864,9 +852,6 @@ function SideNavInternal({
 					!isFlyoutVisible &&
 					styles.hiddenMobileAndDesktop,
 				sideNavState?.flyout === 'open' && styles.flyoutOpen,
-				sideNavState?.flyout === 'open' &&
-					fg('platform_design_system_nav4_sidenav_border') &&
-					styles.newBorderFlyoutOpen,
 				sideNavState?.flyout === 'triggered-animate-close' && styles.flyoutAnimateClosed,
 				// Flyout is not using full height styles
 				isFlyoutClosed && fg('navx-full-height-sidebar') && styles.fullHeightSidebar,

@@ -85,7 +85,7 @@ const ProgressTracker = ({
 	render = {
 		link: ({ item }: LinkComponentProps) => (
 			// Anchor content is coming from another location
-			// eslint-disable-next-line jsx-a11y/anchor-has-content
+			// eslint-disable-next-line @atlassian/a11y/anchor-has-content
 			<Link {...item} />
 		),
 	},

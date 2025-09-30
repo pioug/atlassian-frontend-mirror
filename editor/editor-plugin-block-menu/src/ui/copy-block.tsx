@@ -6,9 +6,9 @@ import { injectIntl, useIntl } from 'react-intl-next';
 import {
 	ACTION,
 	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
+	type BlockMenuEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/editor-common/block-menu';
 import { copyHTMLToClipboard } from '@atlaskit/editor-common/clipboard';
@@ -26,7 +26,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
-import { useBlockMenu } from './block-menu-provider';
+import { BLOCK_MENU_ITEM_NAME } from './consts';
 
 interface CopyBlockMenuItemProps {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
@@ -38,17 +38,22 @@ const toDOMFromFragment = (fragment: Fragment, schema: Schema): Node => {
 
 const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentProps) => {
 	const { formatMessage } = useIntl();
-	const { fireAnalyticsEvent } = useBlockMenu();
 
 	const copyHandler = (
 		event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>,
 	) => {
-		fireAnalyticsEvent?.({
-			action: ACTION.CLICKED,
-			actionSubject: ACTION_SUBJECT.BLOCK_MENU_ITEM,
-			actionSubjectId: ACTION_SUBJECT_ID.COPY_BLOCK,
-			eventType: EVENT_TYPE.UI,
-			attributes: { inputMethod: INPUT_METHOD.MOUSE },
+		api?.core.actions.execute(({ tr }) => {
+			const payload: BlockMenuEventPayload = {
+				action: ACTION.CLICKED,
+				actionSubject: ACTION_SUBJECT.BLOCK_MENU_ITEM,
+				attributes: {
+					inputMethod: INPUT_METHOD.MOUSE,
+					menuItemName: BLOCK_MENU_ITEM_NAME.COPY_CONTENT,
+				},
+				eventType: EVENT_TYPE.UI,
+			};
+			api?.analytics?.actions?.attachAnalyticsEvent(payload)(tr);
+			return tr;
 		});
 
 		// prevent click event from bubbling up to the ancestor elements

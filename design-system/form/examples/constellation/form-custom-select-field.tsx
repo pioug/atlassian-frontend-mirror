@@ -1,6 +1,13 @@
-import React, { Fragment } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Fragment } from 'react';
+
+import { css } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+import { jsx } from '@atlaskit/css';
 import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
 import Select, {
@@ -71,22 +78,20 @@ const flavorValidation = (data: Category, errors?: Record<string, string>) => {
 	return errors;
 };
 
+const colorBoxStyles = css({
+	display: 'inline-block',
+	width: '10px',
+	height: '10px',
+	marginBlockEnd: token('space.050'),
+	marginInlineEnd: token('space.100'),
+	verticalAlign: 'middle',
+});
+
 const ColorBox = ({ color }: { color: string }) => (
 	<span
+		css={colorBoxStyles}
 		style={{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			width: '10px',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			height: '10px',
 			backgroundColor: color,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			display: 'inline-block',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			marginRight: token('space.100'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			marginBottom: token('space.050'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			verticalAlign: 'middle',
 		}}
 	/>
 );

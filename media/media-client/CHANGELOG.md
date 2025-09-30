@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 35.3.6
+
+### Patch Changes
+
+- [`36e7fbbaff0f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36e7fbbaff0f8) -
+  Fixed path based routes for binary URL
+
 ## 35.3.5
 
 ### Patch Changes

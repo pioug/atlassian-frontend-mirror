@@ -24,6 +24,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { taskItemNodeSpec, blockTaskItemNodeSpec } from './nodeviews/taskItemNodeSpec';
 import { decisionItemSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/decisionItem';
@@ -50,6 +51,7 @@ import type { TasksAndDecisionsPlugin } from './tasksAndDecisionsPluginType';
 import type { TaskDecisionListType } from './types';
 import { RequestToEditPopup } from './ui/Task/RequestToEditPopup';
 import { TaskListBlockMenuItem } from './ui/TaskListBlockMenuItem/TaskListBlockMenuItem';
+import { getTasksAndDecisionsToolbarComponents } from './ui/toolbar-components';
 import ToolbarDecision from './ui/ToolbarDecision';
 import ToolbarTask from './ui/ToolbarTask';
 
@@ -148,6 +150,20 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 	const getIdentifierProvider = () =>
 		api?.contextIdentifier?.sharedState.currentState()?.contextIdentifierProvider;
 	let previousTaskAndDecisionProvider: TaskDecisionProvider | undefined;
+
+	const isToolbarAIFCEnabled =
+		Boolean(api?.toolbar) &&
+		editorExperiment('platform_editor_toolbar_aifc', true, {
+			exposure: true,
+		});
+
+	if (
+		isToolbarAIFCEnabled &&
+		expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
+		expValEquals('platform_editor_toolbar_task_list_menu_item', 'isEnabled', true)
+	) {
+		api?.toolbar?.actions.registerComponents(getTasksAndDecisionsToolbarComponents({ api }));
+	}
 
 	if (taskDecisionProvider) {
 		taskDecisionProvider.then((provider) => {

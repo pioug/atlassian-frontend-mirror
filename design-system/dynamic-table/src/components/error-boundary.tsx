@@ -9,6 +9,7 @@ type ErrorBoundaryState = {
 	hasError: boolean;
 };
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
 	constructor(props: ErrorBoundaryProps) {
 		super(props);

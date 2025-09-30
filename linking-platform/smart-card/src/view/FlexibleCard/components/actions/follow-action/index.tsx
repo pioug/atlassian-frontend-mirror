@@ -49,13 +49,7 @@ const FollowAction = (props: FollowActionProps) => {
 
 	const message = value ? messages.follow : messages.unfollow;
 
-	const projectMessage = value
-		? FeatureGates.getExperimentValue('project-terminology-refresh', 'isEnabled', false)
-			? messages.follow_projectGalaxia
-			: messages.follow_project
-		: FeatureGates.getExperimentValue('project-terminology-refresh', 'isEnabled', false)
-			? messages.unfollow_projectGalaxia
-			: messages.unfollow_project;
+	const projectMessage = value ? messages.follow_project : messages.unfollow_project;
 	const goalMessage = value ? messages.follow_goal : messages.unfollow_goal;
 
 	const stackMessage = isProject ? projectMessage : goalMessage;

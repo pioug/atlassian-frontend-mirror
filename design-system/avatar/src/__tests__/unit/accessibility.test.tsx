@@ -4,12 +4,11 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 import __noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { Block } from '../../../examples-util/helpers';
 import Avatar, { AvatarItem } from '../../index';
 
-ffTest.both('platform-component-visual-refresh', 'Avatar accessibility', () => {
+describe('Avatar accessibility', () => {
 	it('Basic Avatar examples (circle, square, disabled, with presence, with status) should not fail aXe audit', async () => {
 		const { container } = render(
 			<div>

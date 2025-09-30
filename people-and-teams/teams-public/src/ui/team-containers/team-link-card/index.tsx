@@ -4,8 +4,9 @@ import { defineMessages, useIntl } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { IconButton } from '@atlaskit/button/new';
-import { cssMap } from '@atlaskit/css';
+import { cssMap, cx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Link from '@atlaskit/link';
@@ -30,10 +31,14 @@ const styles = cssMap({
 		borderRadius: token('radius.small', '8px'),
 		borderColor: token('color.border.accent.gray'),
 		paddingTop: token('space.150'),
-		paddingRight: token('space.150'),
+		paddingRight: token('space.200'),
 		paddingBottom: token('space.150'),
-		paddingLeft: token('space.150'),
+		paddingLeft: token('space.200'),
 		color: token('color.text'),
+		backgroundColor: token('elevation.surface.raised'),
+		'&:hover': {
+			backgroundColor: token('elevation.surface.hovered'),
+		},
 	},
 	card: {
 		alignItems: 'center',
@@ -55,6 +60,13 @@ const styles = cssMap({
 		},
 		'&:visited': {
 			color: token('color.text'),
+		},
+	},
+	anchorNoUnderline: {
+		textDecoration: 'none',
+		'&:hover': {
+			color: token('color.text'),
+			textDecoration: 'none',
 		},
 	},
 	iconWrapper: {
@@ -129,6 +141,11 @@ export const TeamLinkCard = ({
 	const { formatMessage } = useIntl();
 	const { fireUIEvent } = usePeopleAndTeamAnalytics();
 	const { fireEvent } = useAnalyticsEventsNext();
+	const isTeamLensInHomeEnabled = FeatureGates.getExperimentValue(
+		'team_lens_in_atlassian_home',
+		'cohort',
+		'control',
+	);
 
 	const handleMouseEnter = () => {
 		if (isReadOnly) {
@@ -205,7 +222,6 @@ export const TeamLinkCard = ({
 
 	return (
 		<Box
-			backgroundColor={hovered ? 'color.background.input.hovered' : 'color.background.input'}
 			xcss={styles.container}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
@@ -214,7 +230,7 @@ export const TeamLinkCard = ({
 			onKeyDown={handleKeyDown}
 			testId="team-link-card-inner"
 		>
-			<Inline space="space.100" xcss={styles.card}>
+			<Inline space="space.150" xcss={styles.card}>
 				<ContainerIcon
 					containerType={containerType}
 					title={title}
@@ -226,7 +242,7 @@ export const TeamLinkCard = ({
 				{fg('fix_team_link_card_a11y') ? (
 					<>
 						<Anchor
-							xcss={styles.anchor}
+							xcss={cx(styles.anchor, isTeamLensInHomeEnabled && styles.anchorNoUnderline)}
 							href={link || '#'}
 							onClick={handleLinkClick}
 							testId="team-link-card-linkable-content"

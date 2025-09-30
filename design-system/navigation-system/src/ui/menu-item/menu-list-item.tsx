@@ -9,4 +9,4 @@ import { ListItem } from '../../components/list-item';
  *
  * A [list item](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li) with visual styles removed.
  */
-export const MenuListItem = ListItem;
+export const MenuListItem: typeof ListItem = ListItem;

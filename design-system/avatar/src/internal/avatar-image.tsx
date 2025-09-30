@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import PersonIcon from '@atlaskit/icon/core/migration/person';
 import ReleaseIcon from '@atlaskit/icon/core/migration/release--ship';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type AppearanceType, type SizeType } from '../types';
@@ -33,11 +32,6 @@ const styles = cssMap({
 		display: 'flex',
 		width: '100%',
 		height: '100%',
-	},
-	iconBg: {
-		backgroundColor: token('color.icon.subtle', '#8993A4'),
-	},
-	iconBGVisualRefresh: {
 		backgroundColor: token('color.background.accent.gray.subtler'),
 	},
 	circle: {
@@ -53,10 +47,10 @@ const borderRadiusMap = cssMap({
 		borderRadius: token('radius.xsmall'),
 	},
 	medium: {
-		borderRadius: token('radius.small', '3px'),
+		borderRadius: token('radius.small'),
 	},
 	large: {
-		borderRadius: token('radius.small', '3px'),
+		borderRadius: token('radius.small'),
 	},
 	xlarge: {
 		borderRadius: token('radius.medium'),
@@ -133,21 +127,11 @@ const AvatarImage: FC<AvatarImageProps> = ({
 
 	if (!src || hasImageErrored) {
 		return (
-			<span
-				css={[
-					styles.icon,
-					fg('platform-component-visual-refresh') ? styles.iconBGVisualRefresh : styles.iconBg,
-					nestedSvgStylesMap[size],
-				]}
-			>
+			<span css={[styles.icon, nestedSvgStylesMap[size]]}>
 				{appearance === 'circle' ? (
 					<PersonIcon
 						label={alt}
-						color={
-							fg('platform-component-visual-refresh')
-								? token('color.icon.subtle')
-								: token('color.icon.inverse')
-						}
+						color={token('color.icon.subtle')}
 						testId={testId && `${testId}--person`}
 						spacing="spacious"
 						LEGACY_secondaryColor={token('color.icon.subtle')}
@@ -155,11 +139,7 @@ const AvatarImage: FC<AvatarImageProps> = ({
 				) : (
 					<ReleaseIcon
 						label={alt}
-						color={
-							fg('platform-component-visual-refresh')
-								? token('color.icon.subtle')
-								: token('color.icon.inverse')
-						}
+						color={token('color.icon.subtle')}
 						testId={testId && `${testId}--ship`}
 						spacing="spacious"
 						LEGACY_secondaryColor={token('color.icon.subtle')}

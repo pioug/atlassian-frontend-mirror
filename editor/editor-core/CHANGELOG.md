@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 214.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 214.0.8
+
+### Patch Changes
+
+- [`d24d26320c940`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d24d26320c940) -
+  FD-100510 clean up fg platform_editor_breakout_resizing_hello_release
+- Updated dependencies
+
+## 214.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 214.0.6
 
 ### Patch Changes

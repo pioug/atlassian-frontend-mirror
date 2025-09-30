@@ -1,3 +1,5 @@
+import type { Rule } from 'eslint';
+
 import ruleMeta from '../ensure-design-token-usage/rule-meta';
 import { createLintRule } from '../utils/create-rule';
 
@@ -8,7 +10,7 @@ const rule = createLintRule({
 		deprecated: true,
 		replacedBy: ['@atlaskit/design-system/use-tokens-space'],
 		docs: {
-			...ruleMeta.docs,
+			...(ruleMeta.docs as Rule.RuleMetaData['docs']),
 			description: 'Enforces usage of pre-release design tokens rather than hard-coded values.',
 			recommended: false,
 			severity: 'warn',

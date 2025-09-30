@@ -1,8 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2d01460c6d535d4e5d6190791a9f4d06>>
+ * @codegen <<SignedSource::0d9c63b6c3bffa21616e752147d5284a>>
  * @codegenCommand yarn build-glyphs
  */
+import type { ObjectProps } from '@atlaskit/object';
+
 import BlogObject from '../src/components/object/components/blog';
 import BranchObject from '../src/components/object/components/branch';
 import BugObject from '../src/components/object/components/bug';
@@ -27,7 +29,7 @@ import SubtaskObject from '../src/components/object/components/subtask';
 import TaskObject from '../src/components/object/components/task';
 import WhiteboardObject from '../src/components/object/components/whiteboard';
 
-export const allObjects = [
+export const allObjects: (({ label, size, testId }: ObjectProps) => React.JSX.Element)[] = [
 	BlogObject,
 	BranchObject,
 	BugObject,

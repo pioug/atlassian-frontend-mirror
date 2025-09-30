@@ -22,7 +22,7 @@ import { setSelectionAfterTransform } from './selection';
 import { createDefaultLayoutSection } from './transforms/layout-transforms';
 import { transformNodeToTargetType } from './transforms/transformNodeToTargetType';
 import type { FormatNodeAnalyticsAttrs, FormatNodeTargetType } from './transforms/types';
-import { isListNodeType } from './transforms/utils';
+import { isListNodeType, getConversionType } from './transforms/utils';
 
 /**
  * Handles formatting when selection is empty by inserting a new target node
@@ -157,6 +157,7 @@ export const formatNode =
 							attributes: {
 								from: sourceTypeName,
 								to: targetType,
+								eventCategory: getConversionType(sourceTypeName, targetType),
 								inputMethod: analyticsAttrs?.inputMethod || INPUT_METHOD.MOUSE,
 								triggeredFrom: analyticsAttrs?.triggeredFrom || INPUT_METHOD.BLOCK_MENU,
 								conversionSource: 'emptyList',
@@ -202,6 +203,7 @@ export const formatNode =
 							attributes: {
 								from: sourceTypeName,
 								to: targetType,
+								eventCategory: getConversionType(sourceTypeName, targetType),
 								inputMethod: analyticsAttrs?.inputMethod || INPUT_METHOD.MOUSE,
 								triggeredFrom: analyticsAttrs?.triggeredFrom || INPUT_METHOD.BLOCK_MENU,
 								conversionSource,
@@ -290,6 +292,7 @@ export const formatNode =
 						attributes: {
 							from: sourceTypeName,
 							to: targetType,
+							eventCategory: getConversionType(sourceTypeName, targetType),
 							inputMethod: analyticsAttrs?.inputMethod || INPUT_METHOD.MOUSE,
 							triggeredFrom: analyticsAttrs?.triggeredFrom || INPUT_METHOD.BLOCK_MENU,
 						},

@@ -131,7 +131,7 @@ export const ClearFormatMenuItem = ({
 
 	return (
 		<ToolbarDropdownItem
-			elemBefore={<ClearFormattingIcon label="" />}
+			elemBefore={<ClearFormattingIcon label="" size="small" />}
 			elemAfter={shortcutContent && <ToolbarKeyboardShortcutHint shortcut={shortcutContent} />}
 			isDisabled={!isFormattingPresent}
 			onClick={onClick}

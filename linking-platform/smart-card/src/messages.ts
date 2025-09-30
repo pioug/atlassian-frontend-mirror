@@ -59,7 +59,6 @@ export type MessageKey =
 	| 'follow_project_description'
 	| 'follow_project_descriptionGalaxia'
 	| 'follow_project'
-	| 'follow_projectGalaxia'
 	| 'follow_goal'
 	| 'follow_goal_description'
 	| 'follow_project_error'
@@ -129,9 +128,7 @@ export type MessageKey =
 	| 'unfollow'
 	| 'unfollow_project_description'
 	| 'unfollow_project_descriptionGalaxia'
-	| 'unfollow_projectGalaxia'
 	| 'unfollow_project'
-	| 'unfollow_projectGalaxia'
 	| 'unfollow_project_error'
 	| 'unfollow_project_errorGalaxia'
 	| 'unfollow_goal'
@@ -1019,11 +1016,6 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Follow to get notifications on this space',
 		description: 'Description on what Follow does',
 	},
-	follow_projectGalaxia: {
-		id: 'fabric.linking.follow_project-galaxia',
-		defaultMessage: 'Follow space',
-		description: 'Click to follow a project.',
-	},
 	follow_project_errorGalaxia: {
 		id: 'fabric.linking.follow_project_error-galaxia',
 		defaultMessage:
@@ -1034,11 +1026,6 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.unfollow_project_description-galaxia',
 		defaultMessage: 'Unfollow to stop receiving space notifications',
 		description: 'Description on what Unfollow does',
-	},
-	unfollow_projectGalaxia: {
-		id: 'fabric.linking.unfollow_project-galaxia',
-		defaultMessage: 'Unfollow space',
-		description: 'Click to unfollow a project.',
 	},
 	unfollow_project_errorGalaxia: {
 		id: 'fabric.linking.unfollow_project_error-galaxia',

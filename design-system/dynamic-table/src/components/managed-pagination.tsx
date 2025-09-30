@@ -15,6 +15,7 @@ interface ManagedPaginationProps {
 	isDisabled?: boolean;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class ManagedPagination extends React.Component<ManagedPaginationProps> {
 	onChange = (_event: any, newValue: any, analyticsEvent?: UIAnalyticsEvent) => {
 		this.props.onChange(newValue, analyticsEvent);

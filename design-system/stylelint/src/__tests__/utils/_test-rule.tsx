@@ -1,5 +1,5 @@
-import { getTestRule } from 'jest-preset-stylelint';
+import { getTestRule, type testRule as styleLintTestRule } from 'jest-preset-stylelint';
 
-const testRule = getTestRule();
+const testRule: typeof styleLintTestRule = getTestRule();
 
 export default testRule;

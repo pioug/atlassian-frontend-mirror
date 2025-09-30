@@ -9,6 +9,8 @@ import React, {
 	useState,
 } from 'react';
 
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import type { DebouncedFuncLeading } from 'lodash';
 import throttle from 'lodash/throttle';
 
 import noop from '@atlaskit/ds-lib/noop';
@@ -41,8 +43,8 @@ interface OverflowContext {
 	closeOverflowMenu: () => void;
 }
 
-const OverflowContext = createContext({
-	isVisible: true,
+const OverflowContext: React.Context<OverflowContext> = createContext({
+	isVisible: true as boolean,
 	openOverflowMenu: noop,
 	closeOverflowMenu: noop,
 });
@@ -53,7 +55,7 @@ export const OverflowProvider = ({
 	isVisible,
 	openOverflowMenu,
 	closeOverflowMenu,
-}: OverflowProviderProps) => {
+}: OverflowProviderProps): React.JSX.Element => {
 	const { Provider } = OverflowContext;
 	const value = useMemo(
 		() => ({ isVisible, openOverflowMenu, closeOverflowMenu }),
@@ -70,9 +72,15 @@ export const OverflowProvider = ({
  *
  * - [Example](https://atlassian.design/components/atlassian-navigation/examples#responsive)
  */
-export const useOverflowStatus = () => useContext(OverflowContext);
+export const useOverflowStatus = (): OverflowContext => useContext(OverflowContext);
 
-export const useOverflowController = (nodes: ReactNode | ReactNode[]) => {
+export const useOverflowController = (
+	nodes: ReactNode | ReactNode[],
+): {
+	visibleItems: ReactNode[];
+	overflowItems: ReactNode[];
+	updateWidth: DebouncedFuncLeading<React.Dispatch<React.SetStateAction<number>>>;
+} => {
 	const items = React.Children.toArray(nodes);
 	const [width, setWidth] = useState(9999);
 	const [itemsLimit, setItemsLimit] = useState(items.length);
@@ -160,4 +168,4 @@ export const useOverflowController = (nodes: ReactNode | ReactNode[]) => {
 
 // Used to extract props for useOverflowStatus();
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (props: OverflowContext) => {};
+export default (props: OverflowContext): void => {};

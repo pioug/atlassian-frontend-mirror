@@ -335,6 +335,14 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		);
 	}
 
+	private getToolbarButtonTestId = (btn: BlockMenuItem): string => {
+		const buttonTestIds: Record<string, string> = {
+			media: 'media-attachment-toolbar-button',
+		};
+
+		return buttonTestIds[btn.value.name] || String(btn.content);
+	};
+
 	private handleToolbarRef =
 		(buttonName: string) =>
 		(ref: ToolbarButtonRef): void => {
@@ -473,7 +481,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 					return (
 						<ToolbarButton
 							item={btn}
-							testId={String(btn.content)}
+							testId={this.getToolbarButtonTestId(btn)}
 							ref={this.handleToolbarRef(btn.value.name)}
 							key={btn.value.name}
 							spacing={isReducedSpacing ? 'none' : 'default'}

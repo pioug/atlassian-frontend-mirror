@@ -284,10 +284,7 @@ export class ExpandNodeView implements NodeView {
 			return;
 		}
 
-		if (
-			expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
-			fg('platform_editor_breakout_resizing_hello_release')
-		) {
+		if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
 			if (
 				(event.ctrlKey || event.metaKey) &&
 				event.altKey &&

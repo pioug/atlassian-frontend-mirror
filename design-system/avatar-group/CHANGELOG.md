@@ -1,5 +1,17 @@
 # @atlaskit/avatar-group
 
+## 12.3.0
+
+### Minor Changes
+
+- [`e314c4cb133f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e314c4cb133f7) -
+  [ux] Updates avatar and avatar group styles to reflect our new visual design language. These
+  changes were previously behind a feature flag and are now fully rolled out.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.10
 
 ### Patch Changes

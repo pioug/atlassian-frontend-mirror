@@ -60,7 +60,7 @@ export class EventViewer extends React.PureComponent<Event, { showMore: boolean 
 						/>
 					))}
 				<span>
-					{/* eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlaskit/design-system/no-html-anchor */}
+					{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlaskit/design-system/no-html-anchor */}
 					<a onClick={this.handleMoreClick}>{this.state.showMore ? 'less' : 'more'}...</a>
 				</span>
 			</EventViewerWrapper>

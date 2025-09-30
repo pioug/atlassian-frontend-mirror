@@ -7,7 +7,6 @@ import { type CSSProperties, forwardRef, useCallback } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { type AppearanceType, type AvatarClickEventHandler } from '@atlaskit/avatar';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type AvatarGroupSize } from './types';
@@ -194,10 +193,7 @@ const MoreIndicator: React.ForwardRefExoticComponent<
 	(
 		{
 			appearance = 'circle',
-			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-			borderColor = fg('platform-component-visual-refresh')
-				? token('elevation.surface')
-				: token('color.border.inverse'),
+			borderColor = token('elevation.surface'),
 			size = 'medium',
 			count = 0,
 			testId,

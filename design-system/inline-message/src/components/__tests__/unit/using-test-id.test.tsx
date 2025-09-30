@@ -9,7 +9,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import InlineMessage from '../../../index';
 
 const LinkComponent = (props: any) =>
-	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, jsx-a11y/anchor-has-content, @repo/internal/react/no-unsafe-spread-props
+	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlassian/a11y/anchor-has-content, @repo/internal/react/no-unsafe-spread-props
 	fg('dst-a11y__replace-anchor-with-link__design-system-') ? <Link {...props} /> : <a {...props} />;
 
 const MessageContent = (

@@ -1,7 +1,6 @@
 import { transferCodeBlockWrappedValue } from '@atlaskit/editor-common/code-block';
 import type { BreakoutMode, Command } from '@atlaskit/editor-common/types';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { updateExpandedStateNew } from '../pm-plugins/utils/single-player-expand';
 
@@ -31,16 +30,10 @@ export function setBreakoutWidth(
 			}
 		}
 
-		if (fg('platform_editor_breakout_resizing_hello_release')) {
-			tr.setMeta('scrollIntoView', false);
-		}
+		tr.setMeta('scrollIntoView', false);
 
 		// keep current selection, necessary to not remove NodeSelection for keyboard resizing
-		if (
-			state.selection instanceof NodeSelection &&
-			state.selection.node.eq(node) &&
-			fg('platform_editor_breakout_resizing_hello_release')
-		) {
+		if (state.selection instanceof NodeSelection && state.selection.node.eq(node)) {
 			tr.setSelection(NodeSelection.create(tr.doc, pos));
 		}
 

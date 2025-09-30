@@ -170,7 +170,12 @@ async function run() {
 		)
 		.join('\n');
 
-	const allObjectsSource = `${allObjectsImports}\n\nexport const allObjects = [${importNames.join(', ')}];\n`;
+	const allObjectsSource = `import type { ObjectProps } from '@atlaskit/object';
+${allObjectsImports}
+
+export const allObjects: (({ label, size, testId }: ObjectProps) => React.JSX.Element)[] = [
+${importNames.join(', ')}
+];\n`;
 
 	await fs.outputFile(
 		allObjectsFile,
@@ -206,7 +211,13 @@ async function run() {
 		)
 		.join('\n');
 
-	const allObjectTilesSource = `${allObjectTilesImports}\n\nexport const allObjectTiles = [${objectTileImportNames.join(', ')}];\n`;
+	const allObjectTilesSource = `
+import type { ObjectTileProps } from '@atlaskit/object';
+${allObjectTilesImports}
+
+export const allObjectTiles: (({ label, size, testId, isBold, }: ObjectTileProps) => React.JSX.Element)[] = [
+${objectTileImportNames.join(', ')}
+];\n`;
 
 	await fs.outputFile(
 		allObjectTilesFile,

@@ -6,9 +6,9 @@ import { useIntl, injectIntl } from 'react-intl-next';
 import {
 	ACTION,
 	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
+	type BlockMenuEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import { blockMenuMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -18,7 +18,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin, BlockMenuPluginOptions } from '../blockMenuPluginType';
 
-import { useBlockMenu } from './block-menu-provider';
+import { BLOCK_MENU_ITEM_NAME } from './consts';
 import { copyLink } from './utils/copyLink';
 import { isNestedNode } from './utils/isNestedNode';
 
@@ -29,24 +29,26 @@ type Props = {
 
 const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentProps) => {
 	const { formatMessage } = useIntl();
-	const { fireAnalyticsEvent } = useBlockMenu();
 
 	const handleClick = useCallback(() => {
-		fireAnalyticsEvent?.({
-			action: ACTION.CLICKED,
-			actionSubject: ACTION_SUBJECT.BLOCK_MENU_ITEM,
-			actionSubjectId: ACTION_SUBJECT_ID.COPY_LINK_TO_BLOCK,
-			eventType: EVENT_TYPE.UI,
-			attributes: { inputMethod: INPUT_METHOD.MOUSE },
-		});
-
 		api?.core.actions.execute(({ tr }) => {
+			const payload: BlockMenuEventPayload = {
+				action: ACTION.CLICKED,
+				actionSubject: ACTION_SUBJECT.BLOCK_MENU_ITEM,
+				attributes: {
+					inputMethod: INPUT_METHOD.MOUSE,
+					menuItemName: BLOCK_MENU_ITEM_NAME.COPY_LINK_TO_BLOCK,
+				},
+				eventType: EVENT_TYPE.UI,
+			};
+			api?.analytics?.actions?.attachAnalyticsEvent(payload)(tr);
+
 			api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
 			return tr;
 		});
 		api?.core.actions.focus();
 		return copyLink(config?.getLinkPath, config?.blockQueryParam, api);
-	}, [config?.getLinkPath, config?.blockQueryParam, api, fireAnalyticsEvent]);
+	}, [config?.getLinkPath, config?.blockQueryParam, api]);
 
 	const checkIsNestedNode = useCallback(() => {
 		const selection = api?.selection?.sharedState?.currentState()?.selection;

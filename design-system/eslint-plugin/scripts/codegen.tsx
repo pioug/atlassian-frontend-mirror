@@ -206,7 +206,8 @@ async function generatePluginIndex() {
 					.join(',')}
 			}
 		} satisfies ESLint.Plugin;
-		const configs = plugin.configs;
+
+		const configs: ESLint.Plugin['configs'] = plugin.configs;
 
 		export { configs, meta, rules };
 		export default plugin;

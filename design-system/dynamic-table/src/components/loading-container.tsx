@@ -15,6 +15,7 @@ interface LoadingContainerProps {
 	loadingLabel?: string;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class LoadingContainer extends React.Component<LoadingContainerProps> {
 	static defaultProps = {
 		isLoading: true,

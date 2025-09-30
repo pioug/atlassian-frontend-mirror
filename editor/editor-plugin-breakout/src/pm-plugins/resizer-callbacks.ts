@@ -70,13 +70,11 @@ export function getProposedWidth({
 	// the node width may be greater than the container width so we resize using the smaller value
 	const proposedWidth = Math.min(initialWidth, containerWidth) + diffX;
 
-	if (fg('platform_editor_breakout_resizing_hello_release')) {
-		const snapPoints = [WIDTHS.MIN, WIDTHS.WIDE, Math.min(containerWidth, WIDTHS.MAX)];
+	const snapPoints = [WIDTHS.MIN, WIDTHS.WIDE, Math.min(containerWidth, WIDTHS.MAX)];
 
-		for (const snapPoint of snapPoints) {
-			if (snapPoint - SNAP_GAP < proposedWidth && snapPoint + SNAP_GAP > proposedWidth) {
-				return snapPoint;
-			}
+	for (const snapPoint of snapPoints) {
+		if (snapPoint - SNAP_GAP < proposedWidth && snapPoint + SNAP_GAP > proposedWidth) {
+			return snapPoint;
 		}
 	}
 
@@ -110,9 +108,7 @@ export function createResizerCallbacks({
 
 	return {
 		onDragStart: () => {
-			if (fg('platform_editor_breakout_resizing_hello_release')) {
-				startMeasure();
-			}
+			startMeasure();
 
 			const pos = view.posAtDOM(dom, 0);
 			node = view.state.doc.nodeAt(pos);
@@ -120,53 +116,49 @@ export function createResizerCallbacks({
 			api?.core.actions.execute(({ tr }) => {
 				api.userIntent?.commands.setCurrentUserIntent('dragging')({ tr });
 				tr.setMeta('is-resizer-resizing', true);
-				if (fg('platform_editor_breakout_resizing_hello_release')) {
-					tr.setMeta(resizingPluginKey, {
-						type: 'UPDATE_BREAKOUT_NODE',
-						data: {
-							node,
-							pos,
-							start: pos,
-							depth: 0,
-						},
-					});
-				}
+				tr.setMeta(resizingPluginKey, {
+					type: 'UPDATE_BREAKOUT_NODE',
+					data: {
+						node,
+						pos,
+						start: pos,
+						depth: 0,
+					},
+				});
+
 				return tr;
 			});
 		},
 		onDrag: ({ location, source }) => {
-			if (fg('platform_editor_breakout_resizing_hello_release')) {
-				countFrames();
-			}
+			countFrames();
+
 			const initialWidth = mark.attrs.width;
 			const newWidth = getProposedWidth({ initialWidth, location, api, source });
 
 			guidelines = getGuidelines(true, newWidth, getEditorWidth, node?.type);
 			api?.guideline?.actions?.displayGuideline(view)({ guidelines });
 
-			if (fg('platform_editor_breakout_resizing_hello_release')) {
-				const activeGuideline = guidelines.find(
-					(guideline) => guideline.active && !guideline.key.startsWith('grid'),
-				);
+			const activeGuideline = guidelines.find(
+				(guideline) => guideline.active && !guideline.key.startsWith('grid'),
+			);
 
-				if (activeGuideline) {
-					api?.core.actions.execute(({ tr }) => {
-						tr.setMeta(resizingPluginKey, {
-							type: 'UPDATE_ACTIVE_GUIDELINE_KEY',
-							data: { activeGuidelineKey: activeGuideline.key },
-						});
-						return tr;
+			if (activeGuideline) {
+				api?.core.actions.execute(({ tr }) => {
+					tr.setMeta(resizingPluginKey, {
+						type: 'UPDATE_ACTIVE_GUIDELINE_KEY',
+						data: { activeGuidelineKey: activeGuideline.key },
 					});
-				}
+					return tr;
+				});
+			}
 
-				if (!activeGuideline && api?.breakout.sharedState.currentState()?.activeGuidelineKey) {
-					api?.core.actions.execute(({ tr }) => {
-						tr.setMeta(resizingPluginKey, {
-							type: 'CLEAR_ACTIVE_GUIDELINE_KEY',
-						});
-						return tr;
+			if (!activeGuideline && api?.breakout.sharedState.currentState()?.activeGuidelineKey) {
+				api?.core.actions.execute(({ tr }) => {
+					tr.setMeta(resizingPluginKey, {
+						type: 'CLEAR_ACTIVE_GUIDELINE_KEY',
 					});
-				}
+					return tr;
+				});
 			}
 
 			if (fg('platform_editor_breakout_resizing_width_changes')) {
@@ -179,14 +171,12 @@ export function createResizerCallbacks({
 		onDrop({ location, source }) {
 			let payloads: BreakoutEventPayload[] = [];
 
-			if (fg('platform_editor_breakout_resizing_hello_release')) {
-				const frameRateSamples = endMeasure();
-				payloads = generateResizeFrameRatePayloads({
-					docSize: view.state.doc.nodeSize,
-					frameRateSamples: reduceResizeFrameRateSamples(frameRateSamples),
-					originalNode: node as PMNode,
-				});
-			}
+			const frameRateSamples = endMeasure();
+			payloads = generateResizeFrameRatePayloads({
+				docSize: view.state.doc.nodeSize,
+				frameRateSamples: reduceResizeFrameRateSamples(frameRateSamples),
+				originalNode: node as PMNode,
+			});
 
 			const isResizedToFullWidth = !!guidelines.find(
 				(guideline) => guideline.key.startsWith('full_width') && guideline.active,
@@ -202,10 +192,8 @@ export function createResizerCallbacks({
 				? WIDTHS.MAX
 				: getProposedWidth({ initialWidth, location, api, source });
 
-			let isEditMode;
-			if (fg('platform_editor_breakout_resizing_hello_release')) {
-				isEditMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'edit';
-			}
+			const isEditMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'edit';
+
 			setBreakoutWidth(newWidth, mode, pos, isEditMode)(view.state, view.dispatch);
 
 			if (fg('platform_editor_breakout_resizing_width_changes')) {
@@ -214,7 +202,7 @@ export function createResizerCallbacks({
 				contentDOM.style.removeProperty(LOCAL_RESIZE_PROPERTY);
 			}
 
-			if (node && fg('platform_editor_breakout_resizing_hello_release')) {
+			if (node) {
 				const resizedPayload = generateResizedEventPayload({
 					node,
 					prevWidth: initialWidth,
@@ -230,10 +218,7 @@ export function createResizerCallbacks({
 				});
 
 				tr.setMeta('is-resizer-resizing', false).setMeta('scrollIntoView', false);
-
-				if (fg('platform_editor_breakout_resizing_hello_release')) {
-					tr.setMeta(resizingPluginKey, { type: 'RESET_STATE' });
-				}
+				tr.setMeta(resizingPluginKey, { type: 'RESET_STATE' });
 
 				return tr;
 			});

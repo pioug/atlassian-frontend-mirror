@@ -1,5 +1,20 @@
 # @atlaskit/button
 
+## 23.5.0
+
+### Minor Changes
+
+- [`3ea3fab89f015`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ea3fab89f015) -
+  `IconButton` now passes through the `tooltip.shortcut` prop to the Tooltip component.
+
+## 23.4.11
+
+### Patch Changes
+
+- [`437668dfbdec9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/437668dfbdec9) -
+  Add explicit types to a number of DST components
+- Updated dependencies
+
 ## 23.4.10
 
 ### Patch Changes

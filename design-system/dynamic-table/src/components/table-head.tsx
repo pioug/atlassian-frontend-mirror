@@ -22,6 +22,7 @@ interface TableHeadProps {
 	testId?: string;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class TableHead extends React.Component<TableHeadProps, { activeSortButtonId: string | null }> {
 	constructor(props: TableHeadProps) {
 		super(props);
@@ -89,6 +90,7 @@ class TableHead extends React.Component<TableHeadProps, { activeSortButtonId: st
 							}
 						};
 
+						// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 						return fg('platform-component-visual-refresh') ? (
 							<HeadCellComponent
 								colSpan={colSpan}

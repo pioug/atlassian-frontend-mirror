@@ -27,6 +27,7 @@ import { blockDraggingToIFrames } from '@atlaskit/pragmatic-drag-and-drop/elemen
 import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import { token } from '@atlaskit/tokens';
+import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
@@ -148,6 +149,21 @@ export type PanelSplitterProps = {
 	 * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
 	 */
 	testId?: string;
+
+	/**
+	 * Displays a tooltip with the provided content.
+	 * The `tooltipContent` will not be announced by screen readers because it pertains to the draggable element, which lacks keyboard functionality.
+	 * Use the `label` prop to provide accessible information about the panel splitter.
+	 * Only used if the `platform-dst-tooltip-shortcuts` feature flag is enabled.
+	 */
+	tooltipContent?: TooltipProps['content'];
+
+	/**
+	 * The keyboard shortcut to display in the tooltip.
+	 * Only used if the `platform-dst-tooltip-shortcuts` feature flag is enabled.
+	 * Note this does not handle the keyboard shortcut functionality, it only displays the shortcut in the tooltip.
+	 */
+	shortcut?: TooltipProps['shortcut'];
 };
 
 type PanelSplitterDragData = {
@@ -163,6 +179,31 @@ const panelSplitterDragDataSymbol = Symbol('panel-splitter-drag-data');
 function signPanelSplitterDragData(data: PanelSplitterDragData) {
 	return { ...data, [panelSplitterDragDataSymbol]: true };
 }
+
+type MaybeTooltipProps = Pick<PanelSplitterProps, 'tooltipContent' | 'shortcut'> & {
+	children: ReactNode;
+};
+
+/**
+ * A wrapper component that renders a tooltip if the tooltipContent or shortcut is provided.
+ */
+const MaybeTooltip = ({ tooltipContent, shortcut, children }: MaybeTooltipProps) => {
+	if ((tooltipContent || shortcut) && fg('platform-dst-tooltip-shortcuts')) {
+		return (
+			<Tooltip
+				content={tooltipContent}
+				shortcut={shortcut}
+				position="mouse"
+				mousePosition="right"
+				isScreenReaderAnnouncementDisabled
+			>
+				{children}
+			</Tooltip>
+		);
+	}
+
+	return children;
+};
 
 export function isPanelSplitterDragData(
 	data: Record<string | symbol, unknown>,
@@ -188,6 +229,8 @@ const PortaledPanelSplitter = ({
 	portal,
 	resizingCssVar,
 	position,
+	tooltipContent,
+	shortcut,
 }: PanelSplitterProps & { panel: HTMLElement; portal: HTMLElement } & Pick<
 		PanelSplitterContextType,
 		| 'panelId'
@@ -413,35 +456,37 @@ const PortaledPanelSplitter = ({
 			]}
 			data-testid={testId ? `${testId}-container` : undefined}
 		>
-			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions --
-			We intentionally do not add keyboard event listeners to this element, as keyboard accessibility
-			is provided via a dedicated keyboard shortcut elsewhere in the application. */}
-			<div
-				ref={splitterRef}
-				css={[
-					grabAreaStyles.root,
-					fg('navx-full-height-sidebar') && grabAreaStyles.fullHeightSidebar,
-				]}
-				data-testid={testId}
-				onDoubleClick={onDoubleClick}
-			>
-				<VisuallyHidden>
-					<input
-						type="range"
-						value={rangeInputValue}
-						step={20}
-						min={rangeInputBounds.min}
-						max={rangeInputBounds.max}
-						aria-valuetext={ariaValueText}
-						aria-labelledby={labelId}
-						onChange={handleSliderInputChange}
-						onFocus={handleSliderFocus}
-						onBlur={handleSliderBlur}
-					/>
-					<span id={labelId}>{label}</span>
-				</VisuallyHidden>
-				<span css={lineStyles.root} />
-			</div>
+			<MaybeTooltip tooltipContent={tooltipContent} shortcut={shortcut}>
+				{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions --
+				We intentionally do not add keyboard event listeners to this element, as keyboard accessibility
+				is provided via a dedicated keyboard shortcut elsewhere in the application. */}
+				<div
+					ref={splitterRef}
+					css={[
+						grabAreaStyles.root,
+						fg('navx-full-height-sidebar') && grabAreaStyles.fullHeightSidebar,
+					]}
+					data-testid={testId}
+					onDoubleClick={onDoubleClick}
+				>
+					<VisuallyHidden>
+						<input
+							type="range"
+							value={rangeInputValue}
+							step={20}
+							min={rangeInputBounds.min}
+							max={rangeInputBounds.max}
+							aria-valuetext={ariaValueText}
+							aria-labelledby={labelId}
+							onChange={handleSliderInputChange}
+							onFocus={handleSliderFocus}
+							onBlur={handleSliderBlur}
+						/>
+						<span id={labelId}>{label}</span>
+					</VisuallyHidden>
+					<span css={lineStyles.root} />
+				</div>
+			</MaybeTooltip>
 		</div>,
 		portal,
 	);
@@ -467,6 +512,8 @@ export const PanelSplitter = ({
 	onResizeStart,
 	onResizeEnd,
 	testId,
+	tooltipContent,
+	shortcut,
 }: PanelSplitterProps): ReactNode => {
 	const [panel, setPanel] = useState<HTMLElement | null>(null);
 	const [portal, setPortal] = useState<HTMLElement | null>(null);
@@ -582,6 +629,8 @@ export const PanelSplitter = ({
 			getResizeBounds={getResizeBounds}
 			resizingCssVar={resizingCssVar}
 			position={position}
+			tooltipContent={tooltipContent}
+			shortcut={shortcut}
 		/>
 	);
 };

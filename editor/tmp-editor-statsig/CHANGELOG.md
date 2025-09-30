@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.0.0
+
+### Major Changes
+
+- [`bd8df9c39d428`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd8df9c39d428) -
+  Removed refs to old experiment platform_editor_ai_aifc
+
 ## 12.33.0
 
 ### Minor Changes

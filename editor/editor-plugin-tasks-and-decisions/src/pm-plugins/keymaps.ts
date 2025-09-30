@@ -11,7 +11,10 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import { toggleTaskItemCheckbox } from '@atlaskit/editor-common/keymaps';
+import {
+	toggleTaskItemCheckbox,
+	toggleTaskList as toggleTaskListKeymap,
+} from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -57,6 +60,7 @@ import {
 	walkOut,
 } from './helpers';
 import { insertTaskDecisionWithAnalytics } from './insert-commands';
+import { toggleTaskList } from './toggle-tasklist-commands';
 import { findBlockTaskItem, normalizeTaskItemsSelection } from './utils';
 
 type IndentationInputMethod =
@@ -918,6 +922,26 @@ export function keymapPlugin(
 			}
 		: {};
 
+	const toggleTaskListShortcut = (state: EditorState, dispatch?: (tr: Transaction) => void) => {
+		if (!expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)) {
+			return false;
+		}
+
+		if (!state.schema.nodes.taskItem) {
+			return false;
+		}
+
+		if (dispatch) {
+			const command = toggleTaskList();
+			const tr = command({ tr: state.tr });
+			if (tr) {
+				dispatch(tr);
+				return true;
+			}
+		}
+		return false;
+	};
+
 	const keymaps = {
 		Backspace: backspace(api?.analytics?.actions),
 		Delete: deleteForwards,
@@ -927,6 +951,9 @@ export function keymapPlugin(
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		[toggleTaskItemCheckbox.common!]: cmdOptEnter,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		[toggleTaskListKeymap.common!]: toggleTaskListShortcut,
 
 		...(allowNestedTasks ? indentHandlers : defaultHandlers),
 	};

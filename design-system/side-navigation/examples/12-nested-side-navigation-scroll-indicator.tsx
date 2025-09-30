@@ -124,7 +124,7 @@ const BasicExample = () => {
 							<Fragment />
 						</NestingItem>
 						<ButtonItem iconBefore={<WorkIcon label="" />}>Your work</ButtonItem>
-						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 						<LinkItem href="#" iconBefore={<CustomerIcon label="" />}>
 							Your customers
 						</LinkItem>

@@ -91,7 +91,7 @@ export class ResizingMarkView implements NodeView {
 					contentDOM.style.width = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--full-width-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
 				}
 			}
-		} else if (fg('platform_editor_breakout_resizing_hello_release')) {
+		} else {
 			if (mark.attrs.width) {
 				contentDOM.style.width = `min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding)))`;
 			} else {
@@ -102,71 +102,32 @@ export class ResizingMarkView implements NodeView {
 					contentDOM.style.width = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--full-width-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
 				}
 			}
-		} else {
-			if (mark.attrs.width) {
-				contentDOM.style.minWidth = `min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding)))`;
-			} else {
-				if (mark.attrs.mode === 'wide') {
-					contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--breakout-wide-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
-				}
-				if (mark.attrs.mode === 'full-width') {
-					contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--full-width-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
-				}
-			}
 		}
 
 		dom.appendChild(contentDOM);
 
-		if (fg('platform_editor_breakout_resizing_hello_release')) {
-			this.dom = dom;
-			this.contentDOM = contentDOM;
-			this.view = view;
-			this.mark = mark;
-			this.intl = getIntl();
-			this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
+		this.dom = dom;
+		this.contentDOM = contentDOM;
+		this.view = view;
+		this.mark = mark;
+		this.intl = getIntl();
+		this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
 
-			const isLiveViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
-			if (!isLiveViewMode) {
-				this.setupResizerCallbacks(dom, contentDOM, view, mark, api);
+		const isLiveViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+		if (!isLiveViewMode) {
+			this.setupResizerCallbacks(dom, contentDOM, view, mark, api);
+		}
+
+		this.unsubscribeToViewModeChange = api?.editorViewMode?.sharedState.onChange((sharedState) => {
+			if (sharedState.nextSharedState?.mode !== sharedState.prevSharedState?.mode) {
+				if (sharedState.nextSharedState?.mode === 'view' && this.isResizingInitialised) {
+					this.destroyFn?.(true);
+					this.isResizingInitialised = false;
+				} else if (sharedState.nextSharedState?.mode === 'edit' && !this.isResizingInitialised) {
+					this.setupResizerCallbacks(dom, contentDOM, view, mark, api);
+				}
 			}
-		} else {
-			const callbacks = createResizerCallbacks({ dom, contentDOM, view, mark, api });
-			this.intl = getIntl();
-			this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
-			const { leftHandle, rightHandle, destroy } = createPragmaticResizer({
-				target: contentDOM,
-				...callbacks,
-				intl: this.intl,
-				nodeViewPortalProviderAPI: this.nodeViewPortalProviderAPI,
-			});
-
-			dom.prepend(leftHandle);
-			dom.appendChild(rightHandle);
-
-			this.dom = dom;
-			this.contentDOM = contentDOM;
-			this.view = view;
-			this.mark = mark;
-			this.destroyFn = destroy;
-		}
-
-		if (fg('platform_editor_breakout_resizing_hello_release')) {
-			this.unsubscribeToViewModeChange = api?.editorViewMode?.sharedState.onChange(
-				(sharedState) => {
-					if (sharedState.nextSharedState?.mode !== sharedState.prevSharedState?.mode) {
-						if (sharedState.nextSharedState?.mode === 'view' && this.isResizingInitialised) {
-							this.destroyFn?.(true);
-							this.isResizingInitialised = false;
-						} else if (
-							sharedState.nextSharedState?.mode === 'edit' &&
-							!this.isResizingInitialised
-						) {
-							this.setupResizerCallbacks(dom, contentDOM, view, mark, api);
-						}
-					}
-				},
-			);
-		}
+		});
 	}
 
 	setupResizerCallbacks(
@@ -196,8 +157,6 @@ export class ResizingMarkView implements NodeView {
 
 	destroy() {
 		this.destroyFn?.();
-		if (fg('platform_editor_breakout_resizing_hello_release')) {
-			this.unsubscribeToViewModeChange?.();
-		}
+		this.unsubscribeToViewModeChange?.();
 	}
 }

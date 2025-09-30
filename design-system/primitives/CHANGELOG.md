@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 14.15.4
+
+### Patch Changes
+
+- [`437668dfbdec9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/437668dfbdec9) -
+  Add explicit types to a number of DST components
+- Updated dependencies
+
 ## 14.15.3
 
 ### Patch Changes

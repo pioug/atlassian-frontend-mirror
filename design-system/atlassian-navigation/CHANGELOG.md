@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 5.3.20
+
+### Patch Changes
+
+- [`437668dfbdec9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/437668dfbdec9) -
+  Add explicit types to a number of DST components
+- Updated dependencies
+
 ## 5.3.19
 
 ### Patch Changes

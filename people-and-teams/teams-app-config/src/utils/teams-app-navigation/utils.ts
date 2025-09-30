@@ -1,6 +1,7 @@
 import type React from 'react';
 
 import { getATLContextUrl, isFedRamp } from '@atlaskit/atlassian-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {
 	NavigationAction,
@@ -130,6 +131,9 @@ export function getPathAndQuery(action: NavigationAction): PathAndQuery {
 		case 'TEAMS_DIRECTORY':
 			return { path: '', query: new URLSearchParams({ screen: 'SEARCH_TEAMS' }) };
 		case 'PEOPLE_DIRECTORY':
+			if (fg('enable_teams_app_breadcrumb_respect_directories')) {
+				return { path: '', query: new URLSearchParams({ screen: 'SEARCH_PEOPLE' }) };
+			}
 			return { path: `search/people`, query: new URLSearchParams(action.payload.query) };
 		case 'USER_WORK':
 			return { path: `${stripAriFromId(action.payload.userId)}/work` };

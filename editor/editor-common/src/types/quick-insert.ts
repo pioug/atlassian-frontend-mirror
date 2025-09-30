@@ -8,6 +8,7 @@ import type { EmptyStateHandler } from './empty-state-handler';
 export type QuickInsertOptions =
 	| boolean
 	| {
+			disableDefaultItems?: boolean;
 			onInsert?: (item: QuickInsertItem) => void;
 			prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction | undefined;
 			provider?: Promise<QuickInsertProvider>;

@@ -140,7 +140,72 @@ export type BorderColor = keyof typeof borderColorMap;
 `;
 
 exports[`@atlaskit/design-system-explorations border styles are generated correctly 2`] = `
-"const backgroundActiveColorMap = {
+"type InteractionBackgroundColor =
+	| 'accent.lime.subtlest'
+	| 'accent.lime.subtler'
+	| 'accent.lime.subtle'
+	| 'accent.lime.bolder'
+	| 'accent.red.subtlest'
+	| 'accent.red.subtler'
+	| 'accent.red.subtle'
+	| 'accent.red.bolder'
+	| 'accent.orange.subtlest'
+	| 'accent.orange.subtler'
+	| 'accent.orange.subtle'
+	| 'accent.orange.bolder'
+	| 'accent.yellow.subtlest'
+	| 'accent.yellow.subtler'
+	| 'accent.yellow.subtle'
+	| 'accent.yellow.bolder'
+	| 'accent.green.subtlest'
+	| 'accent.green.subtler'
+	| 'accent.green.subtle'
+	| 'accent.green.bolder'
+	| 'accent.teal.subtlest'
+	| 'accent.teal.subtler'
+	| 'accent.teal.subtle'
+	| 'accent.teal.bolder'
+	| 'accent.blue.subtlest'
+	| 'accent.blue.subtler'
+	| 'accent.blue.subtle'
+	| 'accent.blue.bolder'
+	| 'accent.purple.subtlest'
+	| 'accent.purple.subtler'
+	| 'accent.purple.subtle'
+	| 'accent.purple.bolder'
+	| 'accent.magenta.subtlest'
+	| 'accent.magenta.subtler'
+	| 'accent.magenta.subtle'
+	| 'accent.magenta.bolder'
+	| 'accent.gray.subtlest'
+	| 'accent.gray.subtler'
+	| 'accent.gray.subtle'
+	| 'accent.gray.bolder'
+	| 'input'
+	| 'inverse.subtle'
+	| 'neutral'
+	| 'neutral.subtle'
+	| 'neutral.bold'
+	| 'selected'
+	| 'selected.bold'
+	| 'brand.subtlest'
+	| 'brand.bold'
+	| 'brand.boldest'
+	| 'danger'
+	| 'danger.bold'
+	| 'warning'
+	| 'warning.bold'
+	| 'success'
+	| 'success.bold'
+	| 'discovery'
+	| 'discovery.bold'
+	| 'information'
+	| 'information.bold'
+	| 'elevation.surface'
+	| 'elevation.surface.overlay'
+	| 'elevation.surface.raised';
+
+const backgroundActiveColorMap: Record<InteractionBackgroundColor, SerializedStyles> = {
 	'accent.lime.subtlest': css({
 		'&:active': { backgroundColor: token('color.background.accent.lime.subtlest.pressed') },
 	}),
@@ -332,7 +397,7 @@ exports[`@atlaskit/design-system-explorations border styles are generated correc
 	}),
 };
 
-const backgroundHoverColorMap = {
+const backgroundHoverColorMap: Record<InteractionBackgroundColor, SerializedStyles> = {
 	'accent.lime.subtlest': css({
 		'&:hover': { backgroundColor: token('color.background.accent.lime.subtlest.hovered') },
 	}),
@@ -523,8 +588,6 @@ const backgroundHoverColorMap = {
 		'&:hover': { backgroundColor: token('elevation.surface.raised.hovered') },
 	}),
 };
-
-type InteractionBackgroundColor = keyof typeof backgroundHoverColorMap;
 "
 `;
 

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ReactNode, useContext, useEffect } from 'react';
+import { type ReactNode, useContext, useEffect, useRef } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Popper, type Placement as PopperPlacement } from '@atlaskit/popper';
@@ -21,7 +21,7 @@ const styles = cssMap({
  * the caret extending beyond the bounding box (by roughly 2px). So, apply an offset to ensure
  * the caret points to the very edge of the target element.
  *
- * Note: `@atlaskit/popper` maps the offset to to the placement, so we only need to define `[0, 2]` and
+ * Note: `@atlaskit/popper` maps the offset to the placement, so we only need to define `[0, 2]` and
  * the offset will get correctly rotated depending on the placement.
  */
 const offset: [number, number] = [0, 2];
@@ -71,18 +71,27 @@ export const PopoverContent = ({
 	isVisible = true,
 	testId,
 }: PopoverContentProps) => {
-	const { setPlacement, heading } = useContext(SpotlightContext);
+	const updateRef = useRef<() => Promise<any>>(() => new Promise(() => undefined));
+	const { heading, popoverContent, setPlacement } = useContext(SpotlightContext);
 
 	useEffect(() => {
 		setPlacement(placement);
 	}, [placement, setPlacement]);
 
+	useEffect(() => {
+		if (updateRef.current) {
+			popoverContent.setUpdate(() => updateRef.current);
+		}
+	}, [popoverContent]);
+
 	return (
 		<Popper offset={offset} placement={popperPlacementMap[placement]}>
-			{({ ref, style }) => {
+			{({ ref, style, update }) => {
 				if (!isVisible) {
 					return;
 				}
+
+				updateRef.current = update;
 
 				return (
 					<div

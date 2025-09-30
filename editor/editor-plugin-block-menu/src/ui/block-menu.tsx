@@ -103,7 +103,7 @@ const BlockMenu = ({
 		currentUserIntent: states.userIntentState?.currentUserIntent,
 		openedViaKeyboard: states.blockControlsState?.blockMenuOptions?.openedViaKeyboard,
 	}));
-	const { onDropdownOpenChanged, fireAnalyticsEvent } = useBlockMenu();
+	const { onDropdownOpenChanged } = useBlockMenu();
 	const targetHandleRef = editorView?.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
 	const prevIsMenuOpenRef = useRef(false);
 
@@ -142,7 +142,7 @@ const BlockMenu = ({
 
 		// Fire analytics event when block menu opens (only on first transition from closed to open)
 		if (!prevIsMenuOpenRef.current && isMenuOpen) {
-			fireAnalyticsEvent?.({
+			api?.analytics?.actions.fireAnalyticsEvent({
 				action: ACTION.OPENED,
 				actionSubject: ACTION_SUBJECT.BLOCK_MENU,
 				eventType: EVENT_TYPE.UI,
@@ -164,7 +164,6 @@ const BlockMenu = ({
 		hasFocus,
 		shouldShowBlockMenuForEmptyLine,
 		currentUserIntent,
-		fireAnalyticsEvent,
 	]);
 
 	if (!isMenuOpen) {

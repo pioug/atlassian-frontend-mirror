@@ -661,15 +661,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	//Added 2025-08-13
-	platform_editor_ai_aifc: createBooleanExperiment({
-		productKeys: {
-			jira: 'platform_editor_ai_aifc_jira',
-			confluence: 'platform_editor_ai_aifc_confluence',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-09-29
 	platform_editor_toolbar_aifc_selection_extension: createBooleanExperiment({
 		productKeys: {

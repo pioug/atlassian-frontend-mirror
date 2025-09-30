@@ -30,6 +30,7 @@ export {
 	moreAtlassianAppsIcon,
 	opsgenieIcon,
 	projectsIcon,
+	rovoDevAgentIcon,
 	rovoIcon,
 	searchIcon,
 	statuspageIcon,

@@ -31,6 +31,8 @@ export const SideNavPanelSplitter = ({
 	onResizeEnd,
 	testId,
 	shouldCollapseOnDoubleClick = true,
+	tooltipContent,
+	shortcut,
 }: SideNavPanelSplitterProps): ReactNode => {
 	const context = useContext(PanelSplitterContext);
 	invariant(
@@ -46,6 +48,8 @@ export const SideNavPanelSplitter = ({
 				onResizeStart={onResizeStart}
 				onResizeEnd={onResizeEnd}
 				testId={testId}
+				tooltipContent={tooltipContent}
+				shortcut={shortcut}
 			/>
 		</OnDoubleClickContext.Provider>
 	);

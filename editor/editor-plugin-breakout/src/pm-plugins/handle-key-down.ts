@@ -8,7 +8,6 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
@@ -46,40 +45,37 @@ const getAncestorResizableNode = (
 export const handleKeyDown =
 	(api: ExtractInjectionAPI<BreakoutPlugin> | undefined) =>
 	(view: EditorView, event: KeyboardEvent) => {
-		if (fg('platform_editor_breakout_resizing_hello_release')) {
-			const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
-			const isBracketKey = event.code === 'BracketRight' || event.code === 'BracketLeft';
-			if (metaKey && event.altKey && isBracketKey) {
-				const { expand, codeBlock, layoutSection } = view.state.schema.nodes;
-				const breakoutResizableNodes = new Set([expand, codeBlock, layoutSection]);
+		const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
+		const isBracketKey = event.code === 'BracketRight' || event.code === 'BracketLeft';
+		if (metaKey && event.altKey && isBracketKey) {
+			const { expand, codeBlock, layoutSection } = view.state.schema.nodes;
+			const breakoutResizableNodes = new Set([expand, codeBlock, layoutSection]);
 
-				const result = getAncestorResizableNode(view, breakoutResizableNodes);
-				if (result) {
-					const { node, pos } = result;
+			const result = getAncestorResizableNode(view, breakoutResizableNodes);
+			if (result) {
+				const { node, pos } = result;
 
-					const breakoutMark = node?.marks.find((mark) => mark.type.name === 'breakout');
-					if (breakoutMark) {
-						const step =
-							event.code === 'BracketRight' ? KEYBOARD_RESIZE_STEP : -KEYBOARD_RESIZE_STEP;
+				const breakoutMark = node?.marks.find((mark) => mark.type.name === 'breakout');
+				if (breakoutMark) {
+					const step = event.code === 'BracketRight' ? KEYBOARD_RESIZE_STEP : -KEYBOARD_RESIZE_STEP;
 
-						const newWidth = breakoutMark.attrs.width + step;
-						if (newWidth < akEditorFullWidthLayoutWidth && newWidth > akEditorDefaultLayoutWidth) {
-							const isEditMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'edit';
+					const newWidth = breakoutMark.attrs.width + step;
+					if (newWidth < akEditorFullWidthLayoutWidth && newWidth > akEditorDefaultLayoutWidth) {
+						const isEditMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'edit';
 
-							setBreakoutWidth(
-								breakoutMark.attrs.width + step,
-								breakoutMark.attrs.mode,
-								pos,
-								isEditMode,
-							)(view.state, view.dispatch);
-							view.focus();
-						}
-
-						return true;
+						setBreakoutWidth(
+							breakoutMark.attrs.width + step,
+							breakoutMark.attrs.mode,
+							pos,
+							isEditMode,
+						)(view.state, view.dispatch);
+						view.focus();
 					}
+
+					return true;
 				}
 			}
-
-			return false;
 		}
+
+		return false;
 	};

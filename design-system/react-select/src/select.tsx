@@ -34,6 +34,7 @@ import {
 } from './styles';
 import {
 	type ActionMeta,
+	type CommonProps,
 	type FocusDirection,
 	type GetOptionLabel,
 	type GetOptionValue,
@@ -514,7 +515,16 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	shouldKeepInputOnSelect?: boolean;
 }
 
-export const defaultProps = {
+export const defaultProps: Omit<
+	SelectProps<unknown, false, GroupBase<unknown>>,
+	| 'inputValue'
+	| 'onChange'
+	| 'onInputChange'
+	| 'onMenuOpen'
+	| 'onMenuClose'
+	| 'value'
+	| 'appearance'
+> = {
 	backspaceRemovesValue: true,
 	blurInputOnSelect: isTouchCapable(),
 	captureMenuScroll: !isTouchCapable(),
@@ -820,7 +830,7 @@ export default class Select<
 	IsMulti extends boolean = false,
 	Group extends GroupBase<Option> = GroupBase<Option>,
 > extends Component<SelectProps<Option, IsMulti, Group>, State<Option, IsMulti, Group>> {
-	static defaultProps = defaultProps;
+	static defaultProps: typeof defaultProps = defaultProps;
 	state: State<Option, IsMulti, Group> = {
 		ariaSelection: null,
 		focusedOption: null,
@@ -895,7 +905,21 @@ export default class Select<
 	static getDerivedStateFromProps(
 		props: SelectProps<unknown, boolean, GroupBase<unknown>>,
 		state: State<unknown, boolean, GroupBase<unknown>>,
-	) {
+	):
+		| {
+				prevProps: SelectProps<unknown, boolean, GroupBase<unknown>>;
+				ariaSelection: AriaSelection<unknown, boolean> | null;
+				prevWasFocused: boolean;
+				inputIsHidden: boolean;
+				inputIsHiddenAfterUpdate: undefined;
+		  }
+		| {
+				prevProps: SelectProps<unknown, boolean, GroupBase<unknown>>;
+				ariaSelection: AriaSelection<unknown, boolean> | null;
+				prevWasFocused: boolean;
+				inputIsHidden?: undefined;
+				inputIsHiddenAfterUpdate?: undefined;
+		  } {
 		const {
 			prevProps,
 			clearFocusValueOnUpdate,
@@ -976,7 +1000,7 @@ export default class Select<
 			prevWasFocused: hasKeptFocus,
 		};
 	}
-	componentDidMount() {
+	componentDidMount(): void {
 		this.startListeningComposition();
 		this.startListeningToTouch();
 
@@ -1000,7 +1024,7 @@ export default class Select<
 			scrollIntoView(this.menuListRef, this.focusedOptionRef);
 		}
 	}
-	componentDidUpdate(prevProps: SelectProps<Option, IsMulti, Group>) {
+	componentDidUpdate(prevProps: SelectProps<Option, IsMulti, Group>): void {
 		const { isDisabled, menuIsOpen } = this.props;
 		const { isFocused } = this.state;
 
@@ -1032,7 +1056,7 @@ export default class Select<
 			this.scrollToFocusedOptionOnUpdate = false;
 		}
 	}
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.stopListeningComposition();
 		this.stopListeningToTouch();
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -1043,10 +1067,10 @@ export default class Select<
 	// Consumer Handlers
 	// ==============================
 
-	onMenuOpen() {
+	onMenuOpen(): void {
 		this.props.onMenuOpen();
 	}
-	onMenuClose() {
+	onMenuClose(): void {
 		this.onInputChange('', {
 			action: 'menu-close',
 			prevInputValue: this.props.inputValue,
@@ -1054,7 +1078,7 @@ export default class Select<
 
 		this.props.onMenuClose();
 	}
-	onInputChange(newValue: string, actionMeta: InputActionMeta) {
+	onInputChange(newValue: string, actionMeta: InputActionMeta): void {
 		this.props.onInputChange(newValue, actionMeta);
 	}
 
@@ -1062,13 +1086,13 @@ export default class Select<
 	// Methods
 	// ==============================
 
-	focusInput() {
+	focusInput(): void {
 		if (!this.inputRef) {
 			return;
 		}
 		this.inputRef.focus();
 	}
-	blurInput() {
+	blurInput(): void {
 		if (!this.inputRef) {
 			return;
 		}
@@ -1076,10 +1100,10 @@ export default class Select<
 	}
 
 	// aliased for consumers
-	focus = this.focusInput;
-	blur = this.blurInput;
+	focus: () => void = this.focusInput;
+	blur: () => void = this.blurInput;
 
-	openMenu(focusOption: 'first' | 'last') {
+	openMenu(focusOption: 'first' | 'last'): void {
 		const { selectValue, isFocused } = this.state;
 		const focusableOptions = this.buildFocusableOptions();
 		let openAtIndex = focusOption === 'first' ? 0 : focusableOptions.length - 1;
@@ -1111,7 +1135,7 @@ export default class Select<
 			this.updateInputLabel(this.calculateInputLabel(focusedOption, openAtIndex));
 	}
 
-	updateInputLabel(inputLabel?: string) {
+	updateInputLabel(inputLabel?: string): void {
 		if (inputLabel) {
 			this.inputRef?.setAttribute('aria-label', inputLabel);
 			setTimeout(() => {
@@ -1125,7 +1149,7 @@ export default class Select<
 		}
 	}
 
-	calculateInputLabel(focusedOption: Option, optionIndex: number) {
+	calculateInputLabel(focusedOption: Option, optionIndex: number): string {
 		const { options } = this.props;
 
 		const isOptionsGrouped = options?.every(
@@ -1158,7 +1182,7 @@ export default class Select<
 		return inputLabel;
 	}
 
-	focusValue(direction: 'previous' | 'next') {
+	focusValue(direction: 'previous' | 'next'): void {
 		const { selectValue, focusedValue } = this.state;
 
 		// Only multiselects support value focusing
@@ -1208,7 +1232,7 @@ export default class Select<
 		});
 	}
 
-	focusOption(direction: FocusDirection = 'first') {
+	focusOption(direction: FocusDirection = 'first'): void {
 		const { pageSize } = this.props;
 		const { focusedOption } = this.state;
 		const options = this.getFocusableOptions();
@@ -1247,7 +1271,7 @@ export default class Select<
 			focusedOptionId: this.getFocusedOptionId(options[nextFocus]),
 		});
 	}
-	onChange = (newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => {
+	onChange = (newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>): void => {
 		const { onChange, name } = this.props;
 		actionMeta.name = name;
 
@@ -1258,7 +1282,7 @@ export default class Select<
 		newValue: OnChangeValue<Option, IsMulti>,
 		action: SetValueAction,
 		option?: Option,
-	) => {
+	): void => {
 		const { closeMenuOnSelect, isMulti, inputValue, shouldKeepInputOnSelect } = this.props;
 		// for multiple selection options, do not clear the search input value
 		if (isMulti && shouldKeepInputOnSelect && fg('platform_do_not_clear_input_for_multiselect')) {
@@ -1276,7 +1300,7 @@ export default class Select<
 		this.setState({ clearFocusValueOnUpdate: true });
 		this.onChange(newValue, { action, option });
 	};
-	selectOption = (newValue: Option) => {
+	selectOption = (newValue: Option): void => {
 		const { blurInputOnSelect, isMulti, name } = this.props;
 		const { selectValue } = this.state;
 		const deselected = isMulti && this.isOptionSelected(newValue, selectValue);
@@ -1309,7 +1333,7 @@ export default class Select<
 			this.blurInput();
 		}
 	};
-	removeValue = (removedValue: Option) => {
+	removeValue = (removedValue: Option): void => {
 		const { isMulti } = this.props;
 		const { selectValue } = this.state;
 		const candidate = this.getOptionValue(removedValue);
@@ -1319,14 +1343,14 @@ export default class Select<
 		this.onChange(newValue, { action: 'remove-value', removedValue });
 		this.focusInput();
 	};
-	clearValue = () => {
+	clearValue = (): void => {
 		const { selectValue } = this.state;
 		this.onChange(valueTernary(this.props.isMulti, [], null), {
 			action: 'clear',
 			removedValues: selectValue,
 		});
 	};
-	popValue = () => {
+	popValue = (): void => {
 		const { isMulti } = this.props;
 		const { selectValue } = this.state;
 		const lastSelectedValue = selectValue[selectValue.length - 1];
@@ -1342,22 +1366,22 @@ export default class Select<
 	// ==============================
 	// Getters
 	// ==============================
-	getFocusedOptionId = (focusedOption: Option) => {
+	getFocusedOptionId = (focusedOption: Option): string | null => {
 		return getFocusedOptionId(this.state.focusableOptionsWithIds, focusedOption);
 	};
 
-	getFocusableOptionsWithIds = () => {
+	getFocusableOptionsWithIds = (): FocusableOptionWithId<Option>[] => {
 		return buildFocusableOptionsWithIds(
 			buildCategorizedOptions(this.props, this.state.selectValue),
 			this.getElementId('option'),
 		);
 	};
 
-	getValue = () => this.state.selectValue;
+	getValue = (): Options<Option> => this.state.selectValue;
 
-	cx = (...args: any) => classNames(this.props.classNamePrefix, ...args);
+	cx = (...args: any): string => classNames(this.props.classNamePrefix, ...args);
 
-	getCommonProps() {
+	getCommonProps(): CommonProps<Option, IsMulti, Group> {
 		const { clearValue, cx, getStyles, getClassNames, getValue, selectOption, setValue, props } =
 			this;
 		const { isMulti, isRtl, options } = props;
@@ -1388,7 +1412,7 @@ export default class Select<
 	getStyles = <Key extends keyof StylesProps<Option, IsMulti, Group>>(
 		key: Key,
 		props: StylesProps<Option, IsMulti, Group>[Key],
-	) => {
+	): any => {
 		const base = defaultStyles[key](props as any);
 		base.boxSizing = 'border-box';
 		const custom = this.props.styles[key];
@@ -1401,7 +1425,7 @@ export default class Select<
 	getClassNames = <Key extends keyof StylesProps<Option, IsMulti, Group>>(
 		key: Key,
 		props: StylesProps<Option, IsMulti, Group>[Key],
-	) => this.props.classNames[key]?.(props as any);
+	): string | undefined => this.props.classNames[key]?.(props as any);
 	getElementId = (
 		element:
 			| 'group'
@@ -1417,29 +1441,31 @@ export default class Select<
 		return `${this.state.instancePrefix}-${element}`;
 	};
 
-	getComponents = () => {
+	getComponents = (): ReturnType<typeof defaultComponents> => {
 		return defaultComponents(this.props);
 	};
 
-	buildCategorizedOptions = () => buildCategorizedOptions(this.props, this.state.selectValue);
-	getCategorizedOptions = () => (this.props.menuIsOpen ? this.buildCategorizedOptions() : []);
-	buildFocusableOptions = () =>
+	buildCategorizedOptions = (): CategorizedGroupOrOption<Option, Group>[] =>
+		buildCategorizedOptions(this.props, this.state.selectValue);
+	getCategorizedOptions = (): CategorizedGroupOrOption<Option, Group>[] =>
+		this.props.menuIsOpen ? this.buildCategorizedOptions() : [];
+	buildFocusableOptions = (): Option[] =>
 		buildFocusableOptionsFromCategorizedOptions(this.buildCategorizedOptions());
-	getFocusableOptions = () => (this.props.menuIsOpen ? this.buildFocusableOptions() : []);
+	getFocusableOptions = (): Option[] => (this.props.menuIsOpen ? this.buildFocusableOptions() : []);
 
 	// ==============================
 	// Helpers
 	// ==============================
 
-	ariaOnChange = (value: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => {
+	ariaOnChange = (value: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>): void => {
 		this.setState({ ariaSelection: { value, ...actionMeta } });
 	};
 
-	hasValue() {
+	hasValue(): boolean {
 		const { selectValue } = this.state;
 		return selectValue.length > 0;
 	}
-	hasOptions() {
+	hasOptions(): boolean {
 		return !!this.getFocusableOptions().length;
 	}
 	isClearable(): boolean {
@@ -1459,7 +1485,7 @@ export default class Select<
 	isOptionSelected(option: Option, selectValue: Options<Option>): boolean {
 		return isOptionSelected(this.props, option, selectValue);
 	}
-	filterOption(option: FilterOptionOption<Option>, inputValue: string) {
+	filterOption(option: FilterOptionOption<Option>, inputValue: string): boolean {
 		return filterOption(this.props, option, inputValue);
 	}
 	formatOptionLabel(data: Option, context: FormatOptionLabelContext): ReactNode {
@@ -1475,10 +1501,12 @@ export default class Select<
 			return this.getOptionLabel(data);
 		}
 	}
-	formatGroupLabel(data: Group) {
+	formatGroupLabel(data: Group): React.ReactNode {
 		return this.props.formatGroupLabel(data);
 	}
-	calculateDescription() {
+	calculateDescription(): {
+		'aria-describedby': string;
+	} {
 		const descriptionProp = this.props['aria-describedby'] || this.props.descriptionId;
 		const { isMulti } = this.props;
 		const hasValue = this.state.selectValue.length > 0;
@@ -1528,7 +1556,7 @@ export default class Select<
 	};
 	onControlMouseDown = (
 		event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
-	) => {
+	): void => {
 		// Event captured by dropdown indicator
 		if (event.defaultPrevented) {
 			// react-dnd will fire preventDefault in mouseDown, which make select is not clickable.
@@ -1564,7 +1592,7 @@ export default class Select<
 	};
 	onDropdownIndicatorMouseDown = (
 		event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
-	) => {
+	): void => {
 		// ignore mouse events that weren't triggered by the primary button
 		if (
 			event &&
@@ -1588,7 +1616,7 @@ export default class Select<
 	};
 	onClearIndicatorMouseDown = (
 		event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
-	) => {
+	): void => {
 		// ignore mouse events that weren't triggered by the primary button
 		if (
 			event &&
@@ -1606,7 +1634,7 @@ export default class Select<
 			setTimeout(() => this.focusInput());
 		}
 	};
-	onScroll = (event: Event) => {
+	onScroll = (event: Event): void => {
 		if (typeof this.props.closeMenuOnScroll === 'boolean') {
 			if (event.target instanceof HTMLElement && isDocumentElement(event.target)) {
 				this.props.onMenuClose();
@@ -1622,7 +1650,7 @@ export default class Select<
 	// Composition Handlers
 	// ==============================
 
-	startListeningComposition() {
+	startListeningComposition(): void {
 		if (document && document.addEventListener) {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.addEventListener('compositionstart', this.onCompositionStart, false);
@@ -1630,7 +1658,7 @@ export default class Select<
 			document.addEventListener('compositionend', this.onCompositionEnd, false);
 		}
 	}
-	stopListeningComposition() {
+	stopListeningComposition(): void {
 		if (document && document.removeEventListener) {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('compositionstart', this.onCompositionStart);
@@ -1638,10 +1666,10 @@ export default class Select<
 			document.removeEventListener('compositionend', this.onCompositionEnd);
 		}
 	}
-	onCompositionStart = () => {
+	onCompositionStart = (): void => {
 		this.isComposing = true;
 	};
-	onCompositionEnd = () => {
+	onCompositionEnd = (): void => {
 		this.isComposing = false;
 	};
 
@@ -1649,7 +1677,7 @@ export default class Select<
 	// Touch Handlers
 	// ==============================
 
-	startListeningToTouch() {
+	startListeningToTouch(): void {
 		if (document && document.addEventListener) {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.addEventListener('touchstart', this.onTouchStart, false);
@@ -1659,7 +1687,7 @@ export default class Select<
 			document.addEventListener('touchend', this.onTouchEnd, false);
 		}
 	}
-	stopListeningToTouch() {
+	stopListeningToTouch(): void {
 		if (document && document.removeEventListener) {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('touchstart', this.onTouchStart);
@@ -1669,7 +1697,7 @@ export default class Select<
 			document.removeEventListener('touchend', this.onTouchEnd);
 		}
 	}
-	onTouchStart = ({ touches }: TouchEvent) => {
+	onTouchStart = ({ touches }: TouchEvent): void => {
 		const touch = touches && touches.item(0);
 		if (!touch) {
 			return;
@@ -1679,7 +1707,7 @@ export default class Select<
 		this.initialTouchY = touch.clientY;
 		this.userIsDragging = false;
 	};
-	onTouchMove = ({ touches }: TouchEvent) => {
+	onTouchMove = ({ touches }: TouchEvent): void => {
 		const touch = touches && touches.item(0);
 		if (!touch) {
 			return;
@@ -1691,7 +1719,7 @@ export default class Select<
 
 		this.userIsDragging = deltaX > moveThreshold || deltaY > moveThreshold;
 	};
-	onTouchEnd = (event: TouchEvent) => {
+	onTouchEnd = (event: TouchEvent): void => {
 		if (this.userIsDragging) {
 			return;
 		}
@@ -1781,7 +1809,7 @@ export default class Select<
 			isFocused: false,
 		});
 	};
-	onOptionHover = (focusedOption: Option) => {
+	onOptionHover = (focusedOption: Option): void => {
 		if (this.blockOptionHover || this.state.focusedOption === focusedOption) {
 			return;
 		}
@@ -1792,7 +1820,7 @@ export default class Select<
 			focusedOptionId: focusedOptionIndex > -1 ? this.getFocusedOptionId(focusedOption) : null,
 		});
 	};
-	shouldHideSelectedOptions = () => {
+	shouldHideSelectedOptions = (): boolean => {
 		return shouldHideSelectedOptions(this.props);
 	};
 
@@ -1986,7 +2014,7 @@ export default class Select<
 	// ==============================
 	// Renderers
 	// ==============================
-	renderInput() {
+	renderInput(): React.JSX.Element {
 		const {
 			form,
 			inputId,
@@ -2080,7 +2108,7 @@ export default class Select<
 			/>
 		);
 	}
-	renderPlaceholderOrValue() {
+	renderPlaceholderOrValue(): React.JSX.Element | React.JSX.Element[] | null {
 		const {
 			MultiValue,
 			MultiValueContainer,
@@ -2171,7 +2199,7 @@ export default class Select<
 			</SingleValue>
 		);
 	}
-	renderClearIndicator() {
+	renderClearIndicator(): React.JSX.Element | null {
 		const { ClearIndicator } = this.getComponents();
 		const { commonProps } = this;
 		const { clearControlLabel, isDisabled, isLoading, spacing, testId } = this.props;
@@ -2200,7 +2228,7 @@ export default class Select<
 			/>
 		);
 	}
-	renderLoadingIndicator() {
+	renderLoadingIndicator(): React.JSX.Element | null {
 		const { LoadingIndicator } = this.getComponents();
 		const { commonProps } = this;
 		const { isDisabled, isLoading, spacing, testId } = this.props;
@@ -2224,7 +2252,7 @@ export default class Select<
 		);
 	}
 
-	renderDropdownIndicator() {
+	renderDropdownIndicator(): React.JSX.Element | null {
 		const { DropdownIndicator } = this.getComponents();
 		if (!DropdownIndicator) {
 			return null;
@@ -2253,7 +2281,7 @@ export default class Select<
 			/>
 		);
 	}
-	renderMenu() {
+	renderMenu(): React.JSX.Element | null {
 		const {
 			Group,
 			GroupHeading,
@@ -2482,7 +2510,7 @@ export default class Select<
 			menuElement
 		);
 	}
-	renderFormField() {
+	renderFormField(): React.JSX.Element | undefined {
 		const { delimiter, isDisabled, isMulti, required, name } = this.props;
 		const { selectValue } = this.state;
 
@@ -2516,7 +2544,7 @@ export default class Select<
 		}
 	}
 
-	renderLiveRegion() {
+	renderLiveRegion(): React.JSX.Element {
 		const { commonProps } = this;
 		const { ariaSelection, isFocused, selectValue } = this.state;
 
@@ -2534,7 +2562,7 @@ export default class Select<
 		);
 	}
 
-	renderMultiselectMessage() {
+	renderMultiselectMessage(): React.JSX.Element {
 		// In the future, when we actually support touch devices, we'll need to update this to not be keyboard specific.
 		// Also, since this is rendered onscreen, it should be transtlated automatically.
 		const msg = `, multiple selections available, ${this.state.selectValue.length ? 'Use left or right arrow keys to navigate selected items' : ''}`;
@@ -2547,11 +2575,11 @@ export default class Select<
 		);
 	}
 
-	handleOpenLayerObserverCloseSignal = () => {
+	handleOpenLayerObserverCloseSignal = (): void => {
 		this.onMenuClose();
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { Control, IndicatorsContainer, SelectContainer, ValueContainer } = this.getComponents();
 
 		const {

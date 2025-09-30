@@ -79,6 +79,7 @@ const allComposableEditorProps: Complete<EditorNextProps> = {
 	inputSamplingLimit: undefined,
 	performanceTracking: undefined,
 	skipValidation: undefined,
+	syncedBlockProvider: undefined,
 };
 
 const pluginNameExceptions = {

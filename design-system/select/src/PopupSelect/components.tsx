@@ -69,7 +69,7 @@ const dropdownStyles = css({
 	textAlign: 'center',
 });
 
-const DropdownIndicator = () => (
+const DropdownIndicator = (): JSX.Element => (
 	<div css={dropdownStyles}>
 		<SearchIcon color="currentColor" label="" />
 	</div>
@@ -100,19 +100,27 @@ export const DummyControl: FC<ControlProps<OptionType, boolean>> = (props) => (
 );
 
 // NOTE `props` intentionally omitted from `Fragment`
-const Menu = ({ children, innerProps }: MenuProps<OptionType, boolean>) => (
+const Menu = ({ children, innerProps }: MenuProps<OptionType, boolean>): JSX.Element => (
 	<div {...innerProps}>{children}</div>
 );
 
 // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-const ClearIndicator = (props: ClearIndicatorProps) => <components.ClearIndicator {...props} />;
+const ClearIndicator = (props: ClearIndicatorProps): JSX.Element => (
+	<components.ClearIndicator {...props} />
+);
 
-const MultiValueRemove = (props: MultiValueRemoveProps) => (
+const MultiValueRemove = (props: MultiValueRemoveProps): JSX.Element => (
 	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	<components.MultiValueRemove {...props} />
 );
 
-export const defaultComponents = {
+export const defaultComponents: {
+	Control: FC<ControlProps<OptionType, boolean>>;
+	DropdownIndicator: () => JSX.Element;
+	Menu: ({ children, innerProps }: MenuProps<OptionType, boolean>) => JSX.Element;
+	ClearIndicator: (props: ClearIndicatorProps) => JSX.Element;
+	MultiValueRemove: (props: MultiValueRemoveProps) => JSX.Element;
+} = {
 	Control,
 	DropdownIndicator,
 	Menu,

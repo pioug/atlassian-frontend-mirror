@@ -184,6 +184,89 @@ export const PanelSplitterPositionEnd = () => {
 	);
 };
 
+export const PanelSplitterWithTooltip = () => {
+	const panelSplitterParentRef = useRef<HTMLDivElement | null>(null);
+	const [width, setWidth] = useState(300);
+
+	const getResizeBounds = useCallback((): ResizeBounds => {
+		return { min: '100px', max: '600px' };
+	}, []);
+
+	return (
+		<OpenLayerObserver>
+			<div
+				ref={panelSplitterParentRef}
+				css={[styles.root, styles.positionStart]}
+				style={
+					{
+						[widthVar]: `${width}px`,
+					} as CSSProperties
+				}
+			>
+				Resize me! With tooltip content
+				<br />
+				Position: start
+				<PanelSplitterProvider
+					panelRef={panelSplitterParentRef}
+					panelWidth={width}
+					onCompleteResize={setWidth}
+					getResizeBounds={getResizeBounds}
+					resizingCssVar={resizingCssVar}
+					position="start"
+				>
+					<PanelSplitter
+						label="Resize panel"
+						testId="panel-splitter"
+						tooltipContent="Drag to resize"
+					/>
+				</PanelSplitterProvider>
+			</div>
+		</OpenLayerObserver>
+	);
+};
+
+export const PanelSplitterWithTooltipAndShortcut = () => {
+	const panelSplitterParentRef = useRef<HTMLDivElement | null>(null);
+	const [width, setWidth] = useState(300);
+
+	const getResizeBounds = useCallback((): ResizeBounds => {
+		return { min: '100px', max: '600px' };
+	}, []);
+
+	return (
+		<OpenLayerObserver>
+			<div
+				ref={panelSplitterParentRef}
+				css={[styles.root, styles.positionStart]}
+				style={
+					{
+						[widthVar]: `${width}px`,
+					} as CSSProperties
+				}
+			>
+				Resize me! With shortcut
+				<br />
+				Position: start
+				<PanelSplitterProvider
+					panelRef={panelSplitterParentRef}
+					panelWidth={width}
+					onCompleteResize={setWidth}
+					getResizeBounds={getResizeBounds}
+					resizingCssVar={resizingCssVar}
+					position="start"
+				>
+					<PanelSplitter
+						label="Resize panel"
+						testId="panel-splitter"
+						tooltipContent="Collapse sidebar"
+						shortcut={['Ctrl', '[']}
+					/>
+				</PanelSplitterProvider>
+			</div>
+		</OpenLayerObserver>
+	);
+};
+
 const Example = () => (
 	<div>
 		<PanelSplitterWithPixelBounds />

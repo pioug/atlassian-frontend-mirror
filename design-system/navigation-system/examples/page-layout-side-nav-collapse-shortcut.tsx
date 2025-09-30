@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { bind } from 'bind-event-listener';
 
 import { Main } from '@atlaskit/navigation-system/layout/main';
+import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
@@ -16,7 +17,7 @@ const ToggleSideNavKeyboardShortcut = () => {
 
 	useEffect(() => {
 		const toggle = (event: KeyboardEvent) => {
-			if (event.key === '[') {
+			if (event.ctrlKey && event.key === '[') {
 				toggleSideNav();
 			}
 		};
@@ -34,11 +35,22 @@ const SideNavWithCollapseShortcut = () => (
 	<Root>
 		<TopNav>
 			<TopNavStart>
-				<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				<SideNavToggleButton
+					collapseLabel="Collapse sidebar"
+					expandLabel="Expand sidebar"
+					shortcut={['Ctrl', '[']}
+				/>
 				top nav
 			</TopNavStart>
 		</TopNav>
-		<SideNav>side nav</SideNav>
+		<SideNav>
+			side nav
+			<PanelSplitter
+				label="Resize side nav"
+				tooltipContent="Collapse sidebar"
+				shortcut={['Ctrl', '[']}
+			/>
+		</SideNav>
 		<ToggleSideNavKeyboardShortcut />
 		<Main>main content</Main>
 	</Root>

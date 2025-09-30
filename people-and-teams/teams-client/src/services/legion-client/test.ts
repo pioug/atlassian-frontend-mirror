@@ -19,6 +19,7 @@ import {
 	type LegionTeamCreateResponseV4,
 	type LegionTeamGetResponseV4,
 	type LegionTeamSearchResponseV4,
+	type OrgAlignmentStatus,
 } from './types';
 
 import {
@@ -1057,4 +1058,28 @@ describe('legion-client', () => {
 			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/test-team-id/agents`, { agents });
 		});
 	});
+
+	describe('orgFullAlignmentStatus', () => {
+		it('should return correct status', async () => {
+			const mockResponse: OrgAlignmentStatus = {
+				orgId,
+				scopeAligned: true,
+			};
+			mockGetResource.mockReturnValue(Promise.resolve(mockResponse));
+
+			const response = await legionClient.checkOrgFullAlignmentStatus(orgId);
+
+			expect(mockGetResource).toHaveBeenCalledWith(`${v4UrlPath}/migrations/scope/${orgId}/fully-aligned`);
+			expect(response).toEqual(mockResponse);
+		});
+		it('should handle API errors gracefully', async () => {
+			const errorResponse = new Error('Failed to get org full alignment status');
+			mockGetResource.mockRejectedValue(errorResponse);
+
+			await expect(legionClient.checkOrgFullAlignmentStatus(orgId)).rejects.toThrow(
+				'Failed to get org full alignment status',
+			);
+			expect(mockGetResource).toHaveBeenCalledWith(`${v4UrlPath}/migrations/scope/${orgId}/fully-aligned`);
+		});
+	})
 });

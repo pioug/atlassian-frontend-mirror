@@ -42,6 +42,7 @@ import {
 	type LegionTeamCreateResponseV4,
 	type LegionTeamGetResponseV4,
 	type LegionTeamSearchResponseV4,
+	type OrgAlignmentStatus,
 } from './types';
 
 export interface PaginationResult<T> {
@@ -212,6 +213,8 @@ export interface LegionClient {
 	): Promise<UnassignedTeamsResponse>;
 
 	getTeamSiteAssignmentOrgDetails(): Promise<TeamSiteAssignmentOrgDetailsResponse>;
+
+	checkOrgFullAlignmentStatus(orgId: string): Promise<OrgAlignmentStatus>;
 }
 
 const v3UrlPath = `/v3/teams`;
@@ -934,6 +937,16 @@ export class LegionClient extends RestClient implements LegionClient {
 			linkId: legionLinkResponseV4.linkId,
 			teamId: legionLinkResponseV4.teamId,
 		} as TeamLink;
+	}
+
+	checkOrgFullAlignmentStatus(orgId: string): Promise<OrgAlignmentStatus> {
+		try {
+			return this.getResource<OrgAlignmentStatus>(`${v4UrlPath}/migrations/scope/${orgId}/fully-aligned`);
+		} catch (e) {
+			this.logException(e, 'checkOrgFullAlignmentStatus');
+			throw e;
+		}
+
 	}
 }
 

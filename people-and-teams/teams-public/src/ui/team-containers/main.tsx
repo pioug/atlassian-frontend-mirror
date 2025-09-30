@@ -438,7 +438,7 @@ export const TeamContainers = ({
 				})()}
 				{filteredTeamLinks.length > maxNumberOfContainersToShow && (
 					<Inline>
-						<Button spacing="compact" onClick={handleShowMore}>
+						<Button appearance="subtle" spacing="compact" onClick={handleShowMore}>
 							{showMore ? (
 								<FormattedMessage {...messages.showLess} />
 							) : (

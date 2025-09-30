@@ -203,9 +203,14 @@ export const createAllIconsFile = (iconNames: string[]) => {
 	// Generate export array with all icons in the same order as imports
 	const iconExports = allImports.map((item) => item.componentName).join(',\n\t');
 
-	return `${imports}
+	return `import type { GlyphProps } from '@atlaskit/icon/types';
 
-export const allIcons = [
+${imports}
+
+export const allIcons: {
+    ({ label, testId, }: Omit<GlyphProps, "primaryColor" | "secondaryColor" | "size">): React.JSX.Element;
+    displayName: string;
+}[] = [
 	${iconExports},
 ];
 `;

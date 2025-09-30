@@ -975,6 +975,12 @@ export class TeamsClient {
 			this._replinesClient.getUserTenure(...args),
 		);
 	}
+
+	async checkOrgFullAlignmentStatus(
+		...args: Parameters<typeof defaultLegionClient.checkOrgFullAlignmentStatus>
+	): Promise<AwaitedReturn<typeof defaultLegionClient.checkOrgFullAlignmentStatus>> {
+			return this._legionClient.checkOrgFullAlignmentStatus(...args);
+	}
 }
 
 export const teamsClient = new TeamsClient();

@@ -39,9 +39,6 @@ snapshot(AvatarGroupSizeExample, {
 });
 
 snapshot(AvatarGroupPlayground, {
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 	variants: [
 		{
 			name: 'light mode',

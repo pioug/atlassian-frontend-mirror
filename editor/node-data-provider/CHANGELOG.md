@@ -1,5 +1,17 @@
 # @atlaskit/node-data-provider
 
+## 7.1.0
+
+### Minor Changes
+
+- [`be97f10bf8de4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be97f10bf8de4) -
+  [https://product-fabric.atlassian.net/browse/ED-29464](ED-29464) - change findNodesToPrefetch
+  algorithm to DFS
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.0
 
 ### Patch Changes

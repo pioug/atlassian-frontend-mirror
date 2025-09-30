@@ -73,6 +73,18 @@ export const tempSizeWrapper = (
 	};
 };
 
+export const teamEUFlaggedIcon = (
+	LegacyComponent: React.ComponentType<TempIconProps> | React.ComponentType<TempLogoProps>,
+	NewComponent: React.ComponentType<TempIconProps> | React.ComponentType<TempLogoProps>,
+) => {
+	return (props: LogoProps) => {
+		const Logo = fg('platform-logo-rebrand-team-eu')
+			? tempSizeWrapper(NewComponent)
+			: tempSizeWrapper(LegacyComponent);
+		return <Logo {...props} />;
+	};
+};
+
 type LogoDocsSchema = {
 	name: string;
 	type: 'legacy' | 'migration' | 'new';

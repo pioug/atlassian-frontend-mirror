@@ -2,12 +2,24 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import FeatureGate from '@atlaskit/feature-gate-js-client';
+
 import type { ContainerTypes } from '../../types';
 
 import { ContainerIcon } from './index';
 
 jest.mock('../loom-avatar', () => ({
 	LoomSpaceAvatar: () => <div data-testid="loom-space-avatar">Loom Space Avatar</div>,
+}));
+
+jest.mock('@atlaskit/feature-gate-js-client', () => ({
+	...jest.requireActual('@atlaskit/feature-gate-js-client'),
+	initialize: jest.fn(),
+	initializeCalled: jest.fn(),
+	initializeFromValues: jest.fn(),
+	getExperimentValue: jest.fn(),
+	checkGate: jest.fn(),
+	initializeCompleted: () => true,
 }));
 
 describe('ContainerIcon', () => {
@@ -82,6 +94,9 @@ describe('ContainerIcon', () => {
 	});
 
 	it('should render IconSkeleton when iconsLoading is true (loading state)', () => {
+		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+			exp === 'new_team_profile' || exp === 'team_lens_in_atlassian_home' ? false : true,
+		);
 		render(
 			<ContainerIcon
 				{...defaultProps}
@@ -95,7 +110,27 @@ describe('ContainerIcon', () => {
 		expect(screen.getByTestId('container-icon-skeleton')).toBeVisible();
 	});
 
+	it('should render different icon for link when experiment is enabled', () => {
+		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+			exp === 'new_team_profile' || exp === 'team_lens_in_atlassian_home' ? true : false,
+		);
+		render(
+			<ContainerIcon
+				{...defaultProps}
+				containerType="WebLink"
+				title="Web Link"
+				iconsLoading={true}
+				iconHasLoaded={false}
+			/>,
+		);
+
+		expect(screen.getByTestId('linked-container-WebLink-new-icon')).toBeVisible();
+	});
+
 	it('should render LinkIcon when icons have loaded and no containerIcon for WebLink', () => {
+		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+			exp === 'new_team_profile' || exp === 'team_lens_in_atlassian_home' ? false : true,
+		);
 		render(
 			<ContainerIcon
 				{...defaultProps}
@@ -110,7 +145,28 @@ describe('ContainerIcon', () => {
 		expect(screen.queryByTestId('container-icon-skeleton')).not.toBeInTheDocument();
 	});
 
+	it('should rendernew LinkIcon when icons have loaded and no containerIcon for WebLink when experiment is enabled', () => {
+		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+			exp === 'new_team_profile' || exp === 'team_lens_in_atlassian_home' ? true : false,
+		);
+		render(
+			<ContainerIcon
+				{...defaultProps}
+				containerType="WebLink"
+				title="Web Link"
+				iconsLoading={false}
+				iconHasLoaded={true}
+			/>,
+		);
+
+		expect(screen.getByTestId('linked-container-WebLink-new-icon')).toBeVisible();
+		expect(screen.queryByTestId('container-icon-skeleton')).not.toBeInTheDocument();
+	});
+
 	it('should render containerIcon when icons have loaded and containerIcon is provided for WebLink', () => {
+		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+			exp === 'new_team_profile' || exp === 'team_lens_in_atlassian_home' ? false : true,
+		);
 		render(
 			<ContainerIcon
 				{...defaultProps}

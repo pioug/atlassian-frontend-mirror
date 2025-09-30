@@ -18,7 +18,11 @@ export type ButtonProps = CommonDefaultButtonProps & CommonButtonVariantProps;
  * - [Code](https://atlassian.design/components/button/code)
  * - [Usage](https://atlassian.design/components/button/usage)
  */
-const Button = React.memo(
+const Button: React.MemoExoticComponent<
+	React.ForwardRefExoticComponent<
+		React.PropsWithoutRef<ButtonProps> & React.RefAttributes<HTMLButtonElement>
+	>
+> = React.memo(
 	React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 		{
 			analyticsContext,

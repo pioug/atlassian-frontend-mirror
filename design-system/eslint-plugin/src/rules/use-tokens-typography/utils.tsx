@@ -115,7 +115,11 @@ export function findTypographyTokenForValues(fontSize: string, lineHeight?: stri
 	return matchingTokens;
 }
 
-export const fontWeightTokens = typographyTokens
+export const fontWeightTokens: {
+	tokenName: string;
+	tokenValue: string;
+	values: {};
+}[] = typographyTokens
 	.filter((token) => token.attributes.group === 'fontWeight')
 	.map((token) => {
 		return {
@@ -153,7 +157,7 @@ export type FontWeightMap = {
 
 export const defaultFontWeight = fontWeightMap.regular;
 
-export const fontFamilyTokens = typographyTokens.filter(
+export const fontFamilyTokens: typeof typographyTokens = typographyTokens.filter(
 	(token) => token.attributes.group === 'fontFamily',
 );
 

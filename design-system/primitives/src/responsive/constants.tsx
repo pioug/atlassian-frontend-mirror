@@ -10,7 +10,50 @@ import type { Breakpoint } from './types';
  *
  * @experimental Unsafe for direct consumption outside of the design system itself; please use our `media` export instead for media queries.
  */
-export const UNSAFE_BREAKPOINTS_CONFIG = {
+export const UNSAFE_BREAKPOINTS_CONFIG: {
+	// mobile
+	readonly xxs: {
+		readonly gridItemGutter: 'var(--ds-space-200)';
+		readonly gridMargin: 'var(--ds-space-200)';
+		readonly min: '0rem';
+		readonly max: '29.99rem';
+	};
+	// phablet
+	readonly xs: {
+		readonly gridItemGutter: 'var(--ds-space-200)';
+		readonly gridMargin: 'var(--ds-space-200)';
+		readonly min: '30rem';
+		readonly max: '47.99rem';
+	};
+	// tablet
+	readonly sm: {
+		readonly gridItemGutter: 'var(--ds-space-200)';
+		readonly gridMargin: 'var(--ds-space-300)';
+		readonly min: '48rem';
+		readonly max: '63.99rem';
+	};
+	// laptop desktop
+	readonly md: {
+		readonly gridItemGutter: 'var(--ds-space-300)';
+		readonly gridMargin: 'var(--ds-space-400)';
+		readonly min: '64rem';
+		readonly max: '89.99rem';
+	};
+	// monitor
+	readonly lg: {
+		readonly gridItemGutter: 'var(--ds-space-400)';
+		readonly gridMargin: 'var(--ds-space-400)';
+		readonly min: '90rem';
+		readonly max: '110.49rem';
+	};
+	// large high res
+	readonly xl: {
+		readonly gridItemGutter: 'var(--ds-space-400)';
+		readonly gridMargin: 'var(--ds-space-500)';
+		readonly min: '110.5rem';
+		readonly max: null;
+	};
+} = {
 	// mobile
 	xxs: {
 		gridItemGutter: token('space.200', '16px'),
@@ -72,4 +115,4 @@ export const UNSAFE_BREAKPOINTS_ORDERED_LIST = Object.keys(
  * 1. It is the default value for shorthands, eg. `<GridItem span={6} />` maps to `{ [SMALLEST_BREAKPOINT]: props.span }`
  * 2. It's omitted in `media.below` as there's nothing below `0px`.
  */
-export const SMALLEST_BREAKPOINT = UNSAFE_BREAKPOINTS_ORDERED_LIST[0];
+export const SMALLEST_BREAKPOINT: 'xxs' = UNSAFE_BREAKPOINTS_ORDERED_LIST[0];

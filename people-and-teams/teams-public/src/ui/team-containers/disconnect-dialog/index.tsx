@@ -89,7 +89,7 @@ export const DisconnectDialog = ({
 			testId="team-containers-disconnect-dialog"
 			shouldScrollInViewport
 		>
-			<ModalHeader>
+			<ModalHeader hasCloseButton>
 				<ModalTitle appearance="warning">
 					<FormattedMessage {...messages.disconnectDialogTitle} />
 				</ModalTitle>

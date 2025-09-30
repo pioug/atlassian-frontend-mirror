@@ -12,6 +12,9 @@ const utilityIcons = ['more-atlassian-apps', 'custom-link'];
 
 const labelMap: { [index: string]: string } = {
 	'Loom Internal': 'Loom',
+	'Chat New': 'Chat',
+	'Search New': 'Search',
+	'Studio New': 'Studio',
 };
 
 /**

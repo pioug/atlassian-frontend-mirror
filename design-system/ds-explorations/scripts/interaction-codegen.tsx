@@ -50,10 +50,20 @@ export const createInteractionStylesFromTemplate = (colorProperty: keyof typeof 
 
 	const { prefix, cssProperty, filterFn } = colors[colorProperty];
 
-	return (
-		format(
-			`
-const ${colorProperty}ActiveColorMap = {
+	return format(
+		`
+type Interaction${capitalize(colorProperty)}Color = ${hoveredTokens
+			.filter(filterFn)
+			// @ts-ignore
+			.map((t) => ({ ...t, token: t.token.replaceAll('.[default]', '') }))
+			.map((t) => {
+				// handle the default case eg color.border or color.text
+				const propName = t.token.replace(prefix, '').replace('.hovered', '');
+				return `'${propName}'`;
+			})
+			.join('|')};
+
+const ${colorProperty}ActiveColorMap: Record<Interaction${capitalize(colorProperty)}Color, SerializedStyles> = {
   ${pressedTokens
 		.filter(filterFn)
 		// @ts-ignore
@@ -66,7 +76,7 @@ const ${colorProperty}ActiveColorMap = {
 		.join(',\n\t')}
 };
 
-const ${colorProperty}HoverColorMap = {
+const ${colorProperty}HoverColorMap: Record<Interaction${capitalize(colorProperty)}Color, SerializedStyles> = {
   ${hoveredTokens
 		.filter(filterFn)
 		// @ts-ignore
@@ -78,10 +88,6 @@ const ${colorProperty}HoverColorMap = {
 		})
 		.join(',\n\t')}
 };`,
-			'typescript',
-		) +
-		`\ntype Interaction${capitalize(
-			colorProperty,
-		)}Color = keyof typeof ${colorProperty}HoverColorMap;\n`
+		'typescript',
 	);
 };

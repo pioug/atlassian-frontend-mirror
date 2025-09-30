@@ -123,8 +123,19 @@ function applyBreakoutAfterSSR(
 					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					const node = maybeNode as HTMLElement;
 					const mode = node.dataset.mode || node.dataset.layout || '';
+					const nodeType = node.dataset.nodeType;
+					const widthType = node.dataset.widthType;
+					const isMediaSingleWithPixelWidth = nodeType === 'mediaSingle' && widthType === 'pixel';
 
-					if (!mode || !WIDE_LAYOUT_MODES.includes(mode)) {
+					if (
+						!mode ||
+						!WIDE_LAYOUT_MODES.includes(mode) ||
+						// skip apply width styling to mediaSingle node with pixel width to avoid image size changing
+						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+						(isMediaSingleWithPixelWidth &&
+							fg('platform_editor_fix_image_size_diff_during_ssr') &&
+							fg('platform_editor_fix_media_in_renderer'))
+					) {
 						return;
 					}
 

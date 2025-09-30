@@ -42,6 +42,7 @@ import type { TextColorPluginConfig } from '@atlaskit/editor-plugins/text-color'
 import type { TextFormattingPluginOptions } from '@atlaskit/editor-plugins/text-formatting';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision';
 
@@ -354,6 +355,8 @@ export interface EditorProviderProps {
 	presenceProvider?: Promise<any>;
 
 	searchProvider?: Promise<SearchProvider>;
+
+	syncedBlockProvider?: SyncedBlockProvider;
 
 	taskDecisionProvider?: Promise<TaskDecisionProvider>;
 }

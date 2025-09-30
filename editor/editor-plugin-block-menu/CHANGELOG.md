@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 4.0.9
+
+### Patch Changes
+
+- [`bbb9bb5594379`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbb9bb5594379) -
+  Add eventCategory attribute in the payload of `elementConverted` event from Block menu
+- Updated dependencies
+
+## 4.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.7
+
+### Patch Changes
+
+- [`eb4899e5362e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb4899e5362e5) -
+  Update BlockMenuItemClicked event payload
+- Updated dependencies
+
+## 4.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.5
 
 ### Patch Changes

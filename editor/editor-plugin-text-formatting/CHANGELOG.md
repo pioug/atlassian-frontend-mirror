@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 6.0.5
+
+### Patch Changes
+
+- [`2ca00c96d410c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ca00c96d410c) -
+  update icons used for subscript and superscript
+- Updated dependencies
+
+## 6.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.3
 
 ### Patch Changes

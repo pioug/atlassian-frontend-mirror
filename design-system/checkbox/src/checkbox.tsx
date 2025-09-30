@@ -5,8 +5,11 @@
 import {
 	type ChangeEvent,
 	forwardRef,
+	type ForwardRefExoticComponent,
 	memo,
+	type MemoExoticComponent,
 	type Ref,
+	type RefAttributes,
 	useCallback,
 	useEffect,
 	useRef,
@@ -172,7 +175,9 @@ const checkboxStyles = cssMap({
  * - [Code](https://atlassian.design/components/checkbox/code)
  * - [Usage](https://atlassian.design/components/checkbox/usage)
  */
-const Checkbox = memo(
+const Checkbox: MemoExoticComponent<
+	ForwardRefExoticComponent<React.PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>
+> = memo(
 	forwardRef(function Checkbox(
 		{
 			isChecked: isCheckedProp,

@@ -256,10 +256,7 @@ const removeBreakoutMarks = (tr: Transaction, $from: ResolvedPos, to: number) =>
 	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
 		tr.doc.nodesBetween($from.pos, to, (node, pos, parent) => {
 			// should never remove breakout from previous layoutSection
-			if (
-				expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
-				fg('platform_editor_breakout_resizing_hello_release')
-			) {
+			if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
 				if (node.type.name === 'layoutSection') {
 					return false;
 				}
@@ -365,10 +362,7 @@ export const moveToLayout =
 		// if not found, get from source node,
 		let breakoutMode;
 		let breakoutWidth;
-		if (
-			expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
-			fg('platform_editor_breakout_resizing_hello_release')
-		) {
+		if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
 			({ breakoutMode, breakoutWidth } =
 				getBreakoutModeAndWidth(toNode, breakout) ||
 				getBreakoutModeAndWidth(sourceContent, breakout) ||
@@ -485,10 +479,7 @@ export const moveToLayout =
 
 				tr.delete(mappedTo, mappedTo + toNodeWithoutBreakout.nodeSize).insert(mappedTo, newLayout);
 
-				if (
-					expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
-					fg('platform_editor_breakout_resizing_hello_release')
-				) {
+				if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
 					breakoutMode &&
 						tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [
 							breakout.create({ mode: breakoutMode, width: breakoutWidth }),

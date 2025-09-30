@@ -1,5 +1,24 @@
 # @atlaskit/teams-public
 
+## 0.61.0
+
+### Minor Changes
+
+- [`2c8944fdcb401`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c8944fdcb401) -
+  [ux] ENGHEALTH-40632 Add hasCloseButton to ModalHeader
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.60.4
+
+### Patch Changes
+
+- [`555d065e979ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/555d065e979ff) -
+  Linker a11y fixes- navigating via arrow keys in list, team card minor padding and ux fixes
+- Updated dependencies
+
 ## 0.60.3
 
 ### Patch Changes

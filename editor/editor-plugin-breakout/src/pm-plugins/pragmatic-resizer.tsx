@@ -104,31 +104,25 @@ export const createPragmaticResizer = ({
 
 		rail.appendChild(thumb);
 
-		if (fg('platform_editor_breakout_resizing_hello_release')) {
-			const tooltipContainer = document.createElement('div');
-			tooltipContainer.classList.add('pm-breakout-resize-handle-rail-wrapper');
-			handle.appendChild(tooltipContainer);
-			handle.appendChild(handleHitBox);
+		const tooltipContainer = document.createElement('div');
+		tooltipContainer.classList.add('pm-breakout-resize-handle-rail-wrapper');
+		handle.appendChild(tooltipContainer);
+		handle.appendChild(handleHitBox);
 
-			const key = uuid();
+		const key = uuid();
 
-			nodeViewPortalProviderAPI.render(
-				() => <RailWithTooltip rail={rail} target={target} intl={intl} />,
-				tooltipContainer,
-				key,
-			);
+		nodeViewPortalProviderAPI.render(
+			() => <RailWithTooltip rail={rail} target={target} intl={intl} />,
+			tooltipContainer,
+			key,
+		);
 
-			return {
-				handle,
-				rail,
-				handleHitBox,
-				destroyTooltip: () => nodeViewPortalProviderAPI.remove(key),
-			};
-		} else {
-			handle.appendChild(rail);
-			handle.appendChild(handleHitBox);
-			return { handle, rail, handleHitBox, destroyTooltip: () => {} };
-		}
+		return {
+			handle,
+			rail,
+			handleHitBox,
+			destroyTooltip: () => nodeViewPortalProviderAPI.remove(key),
+		};
 	};
 
 	const rightHandle = createHandle('right');
@@ -193,9 +187,8 @@ export const createPragmaticResizer = ({
 	const destroyFns = [
 		registerHandle(rightHandle.handle, 'right'),
 		registerHandle(leftHandle.handle, 'left'),
-		...(fg('platform_editor_breakout_resizing_hello_release')
-			? [rightHandle.destroyTooltip, leftHandle.destroyTooltip]
-			: []),
+		rightHandle.destroyTooltip,
+		leftHandle.destroyTooltip,
 	];
 
 	return {
@@ -205,7 +198,7 @@ export const createPragmaticResizer = ({
 			destroyFns.forEach((destroyFn) => destroyFn());
 			unbindFns.forEach((unbindFn) => unbindFn());
 
-			if (isChangeToViewMode && fg('platform_editor_breakout_resizing_hello_release')) {
+			if (isChangeToViewMode) {
 				rightHandle.handle.parentElement?.removeChild(rightHandle.handle);
 				leftHandle.handle.parentElement?.removeChild(leftHandle.handle);
 			}

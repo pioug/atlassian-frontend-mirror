@@ -36,7 +36,7 @@ export function usePlugins(
 	state: LinkPickerState | null,
 	activeTab: number,
 	plugins?: LinkPickerPlugin[],
-	googleDriveTabExperimentEnabled: boolean = false,
+	thirdPartyTabExperimentEnabled: boolean = false,
 ): LinkPickerPluginsService {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const [retries, setRetries] = useState(0);
@@ -116,12 +116,12 @@ export function usePlugins(
 
 	const { items, isLoading, error } = pluginState;
 
-	// This is needed for the Google Drive tab experiment to show a persistent banner across tabs. Will be removed once the experiment is over regardless of outcome.
+	// This is needed for the 3P tab experiments to show a persistent banner across tabs. Will be removed once the experiment is over regardless of outcome.
 	const pluginBanner = useMemo(() => {
-		return googleDriveTabExperimentEnabled
+		return thirdPartyTabExperimentEnabled
 			? plugins?.find((plugin) => plugin.banner)?.banner
 			: undefined;
-	}, [plugins, googleDriveTabExperimentEnabled]);
+	}, [plugins, thirdPartyTabExperimentEnabled]);
 
 	return {
 		tabs,

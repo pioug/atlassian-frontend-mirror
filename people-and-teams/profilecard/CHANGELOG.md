@@ -1,5 +1,16 @@
 # @atlaskit/profilecard
 
+## 24.16.0
+
+### Minor Changes
+
+- [`2c8944fdcb401`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c8944fdcb401) -
+  [ux] ENGHEALTH-40632 Add hasCloseButton to ModalHeader
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.15.0
 
 ### Minor Changes

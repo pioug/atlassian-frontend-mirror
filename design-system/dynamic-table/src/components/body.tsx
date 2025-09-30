@@ -17,6 +17,7 @@ interface BodyProps extends WithSortedPageRowsProps {
 	testId?: string;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class BodyComponent extends React.Component<BodyProps, {}> {
 	render() {
 		const { pageRows, head, isFixedSize, highlightedRowIndex, testId, forwardedRef } = this.props;

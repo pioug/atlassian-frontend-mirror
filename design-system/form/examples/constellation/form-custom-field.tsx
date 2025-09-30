@@ -1,9 +1,10 @@
-/* eslint-disable @atlaskit/ui-styling-standard/enforce-style-prop */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import React from 'react';
+
+import { css } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { jsx } from '@atlaskit/css';
@@ -20,17 +21,21 @@ interface ColorButtonsProps {
 	changeHandler: Function;
 }
 
+const baseStyles = css({
+	display: 'inline-block',
+	width: '40px',
+	height: '40px',
+	margin: '0px 5px',
+	color: 'transparent',
+	overflow: 'hidden',
+});
+
 const ColorButton = ({ backgroundColor, changeHandler }: ColorButtonProps) => (
 	<button
 		type="submit"
+		css={baseStyles}
 		style={{
 			backgroundColor,
-			margin: '0px 5px',
-			color: 'transparent',
-			display: 'inline-block',
-			height: '40px',
-			width: '40px',
-			overflow: 'hidden',
 		}}
 		onClick={(e) => {
 			e.preventDefault();
@@ -54,6 +59,8 @@ const ColorButtons = ({ colors, changeHandler }: ColorButtonsProps) => (
 	</React.Fragment>
 );
 
+const paragraphStyles = css({ margin: '10px 0' });
+
 const FormCustomFieldExample = () => {
 	return (
 		<Flex direction="column">
@@ -63,7 +70,7 @@ const FormCustomFieldExample = () => {
 						<Field name="favorite-color" defaultValue="" label="Favorite color">
 							{({ fieldProps }) => (
 								<Box data-name={fieldProps.id} data-value={fieldProps.value}>
-									<p style={{ margin: '10px 0' }}>
+									<p css={paragraphStyles}>
 										Selected color:{' '}
 										{fieldProps.value ? (
 											<span style={{ color: fieldProps.value }}>{fieldProps.value}</span>

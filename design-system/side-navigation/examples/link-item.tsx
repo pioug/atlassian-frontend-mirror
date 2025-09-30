@@ -9,7 +9,7 @@ import { LinkItem } from '@atlaskit/side-navigation';
 const Example = () => (
 	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 	<Box onClick={(e: MouseEvent) => e.preventDefault()}>
-		{/* eslint-disable jsx-a11y/anchor-is-valid */}
+		{/* eslint-disable @atlassian/a11y/anchor-is-valid */}
 		<LinkItem href="#">My articles</LinkItem>
 		<LinkItem href="#" isDisabled>
 			My articles
@@ -41,7 +41,7 @@ const Example = () => (
 		>
 			My articles
 		</LinkItem>
-		{/* eslint-enable jsx-a11y/anchor-is-valid */}
+		{/* eslint-enable @atlassian/a11y/anchor-is-valid */}
 	</Box>
 );
 

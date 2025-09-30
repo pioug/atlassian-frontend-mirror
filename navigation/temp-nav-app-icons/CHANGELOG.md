@@ -1,5 +1,13 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.13.0
+
+### Minor Changes
+
+- [`5f025f8437a46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f025f8437a46) -
+  Internal changes to support updates to `chat`, `search` and `studio` logos. These changes are
+  being tested behind a feature flag, and will be available in a future release.
+
 ## 0.12.0
 
 ### Minor Changes

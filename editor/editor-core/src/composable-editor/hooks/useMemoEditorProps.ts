@@ -111,6 +111,7 @@ export const useMemoEditorProps = (
 			AppearanceComponent: passedProps.AppearanceComponent,
 			skipValidation: passedProps.skipValidation,
 			syncBlock: passedProps.syncBlock,
+			syncedBlockProvider: passedProps.syncedBlockProvider,
 		};
 
 		const defaultProps: Partial<EditorNextProps> = {
@@ -221,6 +222,7 @@ export const useMemoEditorProps = (
 		passedProps.AppearanceComponent,
 		passedProps.skipValidation,
 		passedProps.syncBlock,
+		passedProps.syncedBlockProvider,
 	]);
 
 	return memodProps;

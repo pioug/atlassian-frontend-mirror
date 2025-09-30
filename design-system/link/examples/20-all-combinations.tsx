@@ -28,7 +28,7 @@ export default function AllCombinationsExample() {
 							}
 						>
 							{/* Anchor content will come from the variations file */}
-							{/*eslint-disable-next-line jsx-a11y/anchor-has-content */}
+							{/*eslint-disable-next-line @atlassian/a11y/anchor-has-content */}
 							<Link {...props} />
 						</Box>
 					</td>

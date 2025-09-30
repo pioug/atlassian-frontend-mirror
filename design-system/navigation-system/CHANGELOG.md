@@ -1,5 +1,36 @@
 # @atlassian/navigation-system
 
+## 2.14.0
+
+### Minor Changes
+
+- [`3ea3fab89f015`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ea3fab89f015) -
+  `SideNavToggleButton` now supports displaying keyboard shortcuts in its tooltip through the
+  `shortcut` prop.
+
+  `PanelSplitter` can now display a tooltip with an optional keyboard shortcut on hover or focus. A
+  tooltip will be rendered when either the `tooltipContent` or `shortcut` prop is set.
+
+  These new props are currently behind the `platform-dst-tooltip-shortcuts` feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.13.0
+
+### Minor Changes
+
+- [`9d65ef412f30c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d65ef412f30c) -
+  Cleans up the `platform_design_system_nav4_sidenav_border` feature gate. The side nav border is
+  now only applied when it does not have a shadow.
+
+### Patch Changes
+
+- [`437668dfbdec9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/437668dfbdec9) -
+  Add explicit types to a number of DST components
+- Updated dependencies
+
 ## 2.12.0
 
 ### Minor Changes

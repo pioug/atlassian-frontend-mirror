@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::50fb3acb377ef40a114ee9bc7d853a13>>
+ * @codegen <<SignedSource::80a82e7608fdacc2df1a61e3c103f816>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 export const adminIcon =
@@ -17,6 +17,8 @@ export const bitbucketDataCenterIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23fff' d='M6 .5h12A5.5 5.5 0 0 1 23.5 6v12a5.5 5.5 0 0 1-5.5 5.5H6A5.5 5.5 0 0 1 .5 18V6A5.5 5.5 0 0 1 6 .5'/> <path stroke='%23dddee1' d='M6 .5h12A5.5 5.5 0 0 1 23.5 6v12a5.5 5.5 0 0 1-5.5 5.5H6A5.5 5.5 0 0 1 .5 18V6A5.5 5.5 0 0 1 6 .5Z'/> <path fill='%231868db' d='m17.843 11.763-.986 6.024c-.065.365-.322.58-.686.58H7.81c-.365 0-.622-.215-.686-.58L5.387 7.047c-.064-.364.129-.6.472-.6h12.262c.343 0 .536.236.472.6l-.472 2.83c-.064.407-.3.579-.686.579h-7.374c-.107 0-.172.064-.15.193l.579 3.558c.021.086.085.15.171.15h2.658c.086 0 .15-.064.172-.15l.407-2.572c.043-.322.257-.45.558-.45h2.894c.428 0 .557.214.493.578'/> </svg> ";
 export const bitbucketIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%2394c748' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='m17.898 11.353-.994 6.064c-.065.367-.324.583-.691.583H7.787c-.367 0-.627-.216-.691-.583L5.346 6.604C5.28 6.237 5.476 6 5.82 6h12.358c.346 0 .54.237.475.604l-.475 2.85c-.065.41-.303.582-.691.582h-7.432c-.109 0-.173.065-.152.194l.584 3.583c.021.086.086.151.172.151h2.68c.086 0 .15-.065.172-.151l.41-2.59c.044-.324.26-.453.563-.453H17.4c.432 0 .562.216.497.582'/> </svg> ";
+export const chatNewIcon =
+	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23dddee1' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' fill-rule='evenodd' d='M18.563 16.688h-8.438L5.438 19.5V5.438h13.125zm-6.83-9.375-.255.647c-.362.92-.543 1.38-.878 1.727-.334.346-.787.543-1.694.938l-.388.17v.535l.388.17c.907.394 1.36.592 1.694.938.335.346.516.807.878 1.727l.255.648h.535l.255-.648c.362-.92.543-1.38.877-1.727.335-.346.788-.544 1.694-.939l.388-.169v-.535l-.388-.17c-.906-.395-1.36-.592-1.694-.938-.334-.347-.515-.807-.877-1.727l-.255-.647z' clip-rule='evenodd'/> </svg> ";
 export const chatIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23dddee1' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' fill-rule='evenodd' d='M10.125 16.5h8.125V6H5.75v13zM12 12.125a.875.875 0 1 0 0-1.75.875.875 0 0 0 0 1.75m4-.875a.875.875 0 1 1-1.75 0 .875.875 0 0 1 1.75 0m-7.125.875a.875.875 0 1 0 0-1.75.875.875 0 0 0 0 1.75' clip-rule='evenodd'/> </svg> ";
 export const companyHubIcon =
@@ -71,10 +73,14 @@ export const rovoDevIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%2394c748' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M11.26 4.71a1.7 1.7 0 0 1 1.666.017l5.006 2.89c.524.302.848.863.848 1.467v5.78a1.69 1.69 0 0 1-.848 1.467l-3.763 2.172.024-.07c.07-.216.107-.445.107-.679v-5.78c0-.794-.423-1.526-1.112-1.922l-2.805-1.62V6.195q.001-.267.08-.512c.126-.395.396-.737.765-.95l.002-.001z'/> <path fill='%23101214' d='M9.986 5.45 6.223 7.623a1.69 1.69 0 0 0-.848 1.466v5.78c0 .605.324 1.166.848 1.468l5.006 2.89a1.7 1.7 0 0 0 1.666.016l.03-.02c.37-.214.64-.556.768-.95q.078-.247.079-.513v-2.24l-2.805-1.618a2.22 2.22 0 0 1-1.112-1.922V6.2a2.2 2.2 0 0 1 .13-.75'/> </svg> ";
 export const rovoIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%231868db' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23fff' d='M11.057 5.257a1.57 1.57 0 0 1 1.539.015l4.621 2.668c.484.279.783.797.783 1.354v5.336a1.56 1.56 0 0 1-.782 1.355l-3.474 2.005a2 2 0 0 0 .12-.691v-5.337c0-.733-.39-1.409-1.026-1.774l-2.59-1.495V6.626q.001-.246.074-.473c.117-.364.366-.68.707-.877z'/> <path fill='%23fff' d='M9.881 5.94 6.408 7.945A1.56 1.56 0 0 0 5.625 9.3v5.337c0 .557.3 1.075.783 1.354l4.621 2.668c.475.274 1.06.279 1.539.015l.027-.019a1.57 1.57 0 0 0 .781-1.35v-2.067l-2.589-1.495a2.05 2.05 0 0 1-1.026-1.775V6.631a2 2 0 0 1 .12-.691'/> </svg> ";
+export const searchNewIcon =
+	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23dddee1' d='M0 6.625a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' fill-rule='evenodd' d='M10.76 17.176a5.791 5.791 0 1 1 5.038-2.935l3.403 3.403-2.205 2.204-3.409-3.408a5.77 5.77 0 0 1-2.827.736m-.274-9.37-.242.615c-.344.874-.516 1.312-.833 1.64-.318.33-.749.518-1.61.893l-.37.16v.51l.37.16c.861.376 1.292.563 1.61.893.317.329.49.766.833 1.64l.242.616h.51l.242-.616c.344-.874.516-1.311.834-1.64.317-.33.748-.517 1.61-.893l.368-.16v-.51l-.369-.16c-.861-.375-1.292-.563-1.61-.892-.317-.33-.489-.766-.833-1.64l-.242-.616z' clip-rule='evenodd'/> </svg> ";
 export const searchIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23dddee1' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' fill-rule='evenodd' d='M5 10.688a5.69 5.69 0 0 0 5.697 5.687c1.01 0 1.958-.262 2.78-.723L16.832 19 19 16.834l-3.347-3.341c.471-.828.74-1.785.74-2.806A5.69 5.69 0 0 0 10.697 5 5.69 5.69 0 0 0 5 10.688m2.191 0c0 1.932 1.57 3.5 3.506 3.5a3.503 3.503 0 0 0 3.505-3.5c0-1.933-1.57-3.5-3.505-3.5a3.503 3.503 0 0 0-3.506 3.5' clip-rule='evenodd'/> </svg> ";
 export const statuspageIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23ffc716' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M12 9.796c-1.924 0-3.796.832-5.324 2.118q-.238.227-.475.227c-.132 0-.263-.076-.369-.202L3.908 9.771c-.105-.126-.158-.252-.158-.353 0-.151.08-.277.237-.429C6.307 7.023 9.127 5.914 12 5.914s5.693 1.109 8.013 3.075c.158.152.237.278.237.429 0 .1-.053.227-.158.353l-1.924 2.168c-.106.126-.238.202-.37.202q-.236 0-.474-.227c-1.529-1.286-3.4-2.118-5.324-2.118m0 8.118c-2.135 0-3.875-1.664-3.875-3.68 0-2.018 1.74-3.682 3.875-3.682s3.875 1.64 3.875 3.681-1.74 3.68-3.875 3.68'/> </svg> ";
+export const studioNewIcon =
+	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23dddee1' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' fill-rule='evenodd' d='M10.594 18.563v-7.97h7.969v7.97zm3.808-6.488-.163.429c-.235.615-.352.922-.572 1.155s-.52.368-1.12.638l-.222.1v.357l.222.099c.6.27.9.405 1.12.638s.337.54.572 1.156l.163.428h.347l.163-.429c.235-.615.352-.922.572-1.155s.52-.368 1.12-.638l.221-.1v-.357l-.22-.1c-.601-.269-.901-.404-1.121-.637s-.337-.54-.572-1.155l-.164-.429z' clip-rule='evenodd'/> <path fill='%23101214' d='M14.813 7.195 10.125 4.5 5.438 7.195v5.39l3.75 2.157V9.187h5.625z'/> </svg> ";
 export const studioIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23dddee1' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M10.7 11.222V19h7.8v-7.778z'/> <path fill='%23101214' d='M14.6 7.609 10.05 5 5.5 7.609v5.217l3.64 2.087V9.667h5.46z'/> </svg> ";
 export const talentIcon =
@@ -92,6 +98,7 @@ const rawIcons = {
 	bamboo: bambooIcon,
 	bitbucketDataCenter: bitbucketDataCenterIcon,
 	bitbucket: bitbucketIcon,
+	chatNew: chatNewIcon,
 	chat: chatIcon,
 	companyHub: companyHubIcon,
 	compass: compassIcon,
@@ -119,8 +126,10 @@ const rawIcons = {
 	rovoDevAgent: rovoDevAgentIcon,
 	rovoDev: rovoDevIcon,
 	rovo: rovoIcon,
+	searchNew: searchNewIcon,
 	search: searchIcon,
 	statuspage: statuspageIcon,
+	studioNew: studioNewIcon,
 	studio: studioIcon,
 	talent: talentIcon,
 	teams: teamsIcon,

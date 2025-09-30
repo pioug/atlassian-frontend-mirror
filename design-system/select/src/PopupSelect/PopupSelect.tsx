@@ -248,10 +248,17 @@ export default class PopupSelect<
 		}),
 	};
 
-	isOpenControlled = this.props.isOpen !== undefined;
-	defaultOpenState = this.isOpenControlled ? this.props.isOpen : this.props.defaultIsOpen;
+	isOpenControlled: boolean = this.props.isOpen !== undefined;
+	defaultOpenState: boolean | undefined = this.isOpenControlled
+		? this.props.isOpen
+		: this.props.defaultIsOpen;
 
-	state = {
+	state: {
+		focusLockEnabled: boolean;
+		isOpen: boolean;
+		mergedComponents: typeof defaultComponents;
+		mergedPopperProps: PopperPropsNoChildren<defaultModifiers | string>;
+	} = {
 		focusLockEnabled: false,
 		isOpen: this.defaultOpenState ?? false,
 		mergedComponents: defaultComponents,
@@ -260,7 +267,7 @@ export default class PopupSelect<
 			: defaultPopperProps) as PopperPropsNoChildren<defaultModifiers | string>,
 	};
 
-	static defaultProps = {
+	static defaultProps: PopupSelectProps = {
 		closeMenuOnSelect: true,
 		shouldCloseMenuOnTab: true,
 		components: {},
@@ -274,7 +281,10 @@ export default class PopupSelect<
 		options: [],
 	};
 
-	static getDerivedStateFromProps(props: PopupSelectProps<OptionType>, state: State) {
+	static getDerivedStateFromProps(
+		props: PopupSelectProps<OptionType>,
+		state: State,
+	): Partial<State<string>> | null {
 		const newState: Partial<State> = {};
 
 		// Merge consumer and default popper props
@@ -301,7 +311,7 @@ export default class PopupSelect<
 		return null;
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		if (typeof window === 'undefined') {
 			return;
 		}
@@ -312,7 +322,7 @@ export default class PopupSelect<
 		});
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		if (typeof window === 'undefined') {
 			return;
 		}
@@ -322,7 +332,7 @@ export default class PopupSelect<
 		this.unbindWindowKeydown = null;
 	}
 
-	componentDidUpdate(prevProps: PopupSelectProps<Option, IsMulti, Modifiers>) {
+	componentDidUpdate(prevProps: PopupSelectProps<Option, IsMulti, Modifiers>): void {
 		const { isOpen } = this.props;
 
 		if (prevProps.isOpen !== isOpen) {
@@ -337,7 +347,7 @@ export default class PopupSelect<
 	// Event Handlers
 	// ==============================
 
-	handleTargetKeyDown = (event: React.KeyboardEvent) => {
+	handleTargetKeyDown = (event: React.KeyboardEvent): void => {
 		switch (event.key) {
 			case 'ArrowDown':
 				this.open();
@@ -346,7 +356,7 @@ export default class PopupSelect<
 		}
 	};
 
-	handleKeyDown = (event: KeyboardEvent) => {
+	handleKeyDown = (event: KeyboardEvent): void => {
 		//We shouldn't close PopupSelect on tab event if there are custom interactive element.
 		const tabEvent = (event.key === 'Tab' && event.shiftKey) || event.key === 'Tab';
 		if (this.props.shouldCloseMenuOnTab && tabEvent) {
@@ -366,7 +376,7 @@ export default class PopupSelect<
 		}
 	};
 
-	handleClick = ({ target }: MouseEvent) => {
+	handleClick = ({ target }: MouseEvent): void => {
 		const { isOpen } = this.state;
 		// appease flow
 		if (!(target instanceof Element)) {
@@ -387,7 +397,10 @@ export default class PopupSelect<
 		}
 	};
 
-	handleSelectChange = (value: ValueType<Option, IsMulti>, actionMeta: ActionMeta<Option>) => {
+	handleSelectChange = (
+		value: ValueType<Option, IsMulti>,
+		actionMeta: ActionMeta<Option>,
+	): void => {
 		const { closeMenuOnSelect, onChange } = this.props;
 		if (closeMenuOnSelect && actionMeta.action !== 'clear') {
 			this.close();
@@ -397,7 +410,7 @@ export default class PopupSelect<
 		}
 	};
 
-	handleFirstPopperUpdate = () => {
+	handleFirstPopperUpdate = (): void => {
 		// When the popup opens it's focused into. Since the popup is inside a portal, it's position is
 		// initially set to 0,0 - this causes the window scroll position to jump to the top. To prevent
 		// this we defer enabling the focus-lock until after Popper has positioned the popup the first time.
@@ -412,7 +425,7 @@ export default class PopupSelect<
 	 *
 	 * @param options.controlOverride  - Force the popup to open when it's open state is being controlled
 	 */
-	open = (options?: { controlOverride?: boolean }) => {
+	open = (options?: { controlOverride?: boolean }): void => {
 		const { onOpen, onMenuOpen } = this.props;
 
 		if (!options?.controlOverride && this.isOpenControlled) {
@@ -449,7 +462,7 @@ export default class PopupSelect<
 	 *
 	 * @param options.controlOverride  - Force the popup to close when it's open state is being controlled
 	 */
-	close = (options?: { controlOverride?: boolean }) => {
+	close = (options?: { controlOverride?: boolean }): void => {
 		//@ts-ignore react-select unsupported props
 		const { onClose, onMenuClose } = this.props;
 
@@ -483,30 +496,34 @@ export default class PopupSelect<
 	// Refs
 	// ==============================
 
-	resolveTargetRef = (popperRef: React.Ref<HTMLElement>) => (ref: HTMLElement) => {
-		// avoid thrashing fn calls
-		if (!this.targetRef && popperRef && ref) {
-			this.targetRef = ref;
+	resolveTargetRef =
+		(popperRef: React.Ref<HTMLElement>) =>
+		(ref: HTMLElement): void => {
+			// avoid thrashing fn calls
+			if (!this.targetRef && popperRef && ref) {
+				this.targetRef = ref;
+
+				if (typeof popperRef === 'function') {
+					popperRef(ref);
+				} else {
+					(popperRef as React.MutableRefObject<HTMLElement>).current = ref;
+				}
+			}
+		};
+
+	resolveMenuRef =
+		(popperRef: React.Ref<HTMLElement>) =>
+		(ref: HTMLDivElement): void => {
+			this.menuRef = ref;
 
 			if (typeof popperRef === 'function') {
 				popperRef(ref);
 			} else {
 				(popperRef as React.MutableRefObject<HTMLElement>).current = ref;
 			}
-		}
-	};
+		};
 
-	resolveMenuRef = (popperRef: React.Ref<HTMLElement>) => (ref: HTMLDivElement) => {
-		this.menuRef = ref;
-
-		if (typeof popperRef === 'function') {
-			popperRef(ref);
-		} else {
-			(popperRef as React.MutableRefObject<HTMLElement>).current = ref;
-		}
-	};
-
-	getSelectRef = (ref: AtlaskitSelectRefType) => {
+	getSelectRef = (ref: AtlaskitSelectRefType): void => {
 		this.selectRef = ref;
 	};
 
@@ -515,7 +532,7 @@ export default class PopupSelect<
 
 	// account for groups when counting options
 	// this may need to be recursive, right now it just counts one level
-	getItemCount = () => {
+	getItemCount = (): number => {
 		const { options } = this.props;
 		let count = 0;
 
@@ -530,7 +547,7 @@ export default class PopupSelect<
 		return count;
 	};
 
-	getMaxHeight = () => {
+	getMaxHeight = (): number | undefined => {
 		const { maxMenuHeight } = this.props;
 
 		if (!this.selectRef) {
@@ -548,7 +565,7 @@ export default class PopupSelect<
 	};
 
 	// if the threshold is exceeded, AND isSearchable is true, then display the search control
-	showSearchControl = () => {
+	showSearchControl = (): boolean | undefined => {
 		const { searchThreshold, isSearchable } = this.props;
 		return isSearchable && this.getItemCount() > searchThreshold!;
 	};
@@ -556,7 +573,7 @@ export default class PopupSelect<
 	// Renderers
 	// ==============================
 
-	renderSelect = (id: string) => {
+	renderSelect = (id: string): React.JSX.Element | null => {
 		const {
 			footer,
 			label,
@@ -642,11 +659,11 @@ export default class PopupSelect<
 			: createPortal(popper, portalDestination);
 	};
 
-	handleOpenLayerObserverCloseSignal = () => {
+	handleOpenLayerObserverCloseSignal = (): void => {
 		this.close();
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { target } = this.props;
 		const { isOpen } = this.state;
 

@@ -107,6 +107,7 @@ export default function withSortedPageRows<
 		forwardedRef?: React.Ref<RefType>;
 	};
 
+	// eslint-disable-next-line @repo/internal/react/no-class-components
 	class WithSortedPageRows extends React.Component<
 		InternalWithSortedPageRowsProps,
 		{ pageRows: Array<RowType> }

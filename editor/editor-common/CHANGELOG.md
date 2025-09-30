@@ -1,5 +1,44 @@
 # @atlaskit/editor-common
 
+## 110.4.7
+
+### Patch Changes
+
+- [`ca42d0b688ad9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca42d0b688ad9) -
+  [ED-29292] Fix wrapped media in table not wrapping in renderer
+- Updated dependencies
+
+## 110.4.6
+
+### Patch Changes
+
+- [`bbb9bb5594379`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbb9bb5594379) -
+  Add eventCategory attribute in the payload of `elementConverted` event from Block menu
+
+## 110.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.4.4
+
+### Patch Changes
+
+- [`d24d26320c940`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d24d26320c940) -
+  FD-100510 clean up fg platform_editor_breakout_resizing_hello_release
+- [`eb4899e5362e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb4899e5362e5) -
+  Update BlockMenuItemClicked event payload
+- [`f2edf4a20927d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2edf4a20927d) -
+  ED-29303 Move TaskListMenuItem component to taskAndDecision plugin
+- Updated dependencies
+
+## 110.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.4.2
 
 ### Patch Changes

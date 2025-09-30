@@ -6,9 +6,9 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import {
 	ACTION,
 	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
+	type BlockMenuEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/editor-common/block-menu';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
@@ -25,7 +25,7 @@ import { token } from '@atlaskit/tokens';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
-import { useBlockMenu } from './block-menu-provider';
+import { BLOCK_MENU_ITEM_NAME } from './consts';
 
 type Props = {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
@@ -33,18 +33,20 @@ type Props = {
 
 const DeleteDropdownItemContent = ({ api }: Props) => {
 	const { formatMessage } = useIntl();
-	const { fireAnalyticsEvent } = useBlockMenu();
 	const nodeTypes = Object.values(api?.core.sharedState.currentState()?.schema?.nodes || {});
 	const onClick = () => {
-		fireAnalyticsEvent?.({
-			action: ACTION.CLICKED,
-			actionSubject: ACTION_SUBJECT.BLOCK_MENU_ITEM,
-			actionSubjectId: ACTION_SUBJECT_ID.DELETE_BLOCK,
-			eventType: EVENT_TYPE.UI,
-			attributes: { inputMethod: INPUT_METHOD.MOUSE },
-		});
-
 		api?.core.actions.execute(({ tr }) => {
+			const payload: BlockMenuEventPayload = {
+				action: ACTION.CLICKED,
+				actionSubject: ACTION_SUBJECT.BLOCK_MENU_ITEM,
+				attributes: {
+					inputMethod: INPUT_METHOD.MOUSE,
+					menuItemName: BLOCK_MENU_ITEM_NAME.DELETE,
+				},
+				eventType: EVENT_TYPE.UI,
+			};
+			api?.analytics?.actions?.attachAnalyticsEvent(payload)(tr);
+
 			const selection = tr.selection;
 			let from = selection.$from.pos;
 			let to = selection.$to.pos;

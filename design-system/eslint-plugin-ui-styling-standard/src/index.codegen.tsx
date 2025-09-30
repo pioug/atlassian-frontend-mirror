@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9a5afa7c84703fa489efcfc3dd8929af>>
+ * @codegen <<SignedSource::93c84481278f52fc66ecbba80094e6e5>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import type { ESLint } from 'eslint';
@@ -51,6 +51,7 @@ export const plugin: ESLint.Plugin = {
 } as const;
 
 export { rules } from './rules/index.codegen';
-export const { configs, meta } = plugin;
+export const configs: ESLint.Plugin['configs'] = plugin.configs;
+export const meta: ESLint.Plugin['meta'] = plugin.meta;
 
 export default plugin;

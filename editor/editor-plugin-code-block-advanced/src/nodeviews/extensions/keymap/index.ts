@@ -9,7 +9,6 @@ import { exitCode, selectAll } from '@atlaskit/editor-prosemirror/commands';
 import { undo, redo } from '@atlaskit/editor-prosemirror/history';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { backspaceKeymap } from './backspace';
@@ -170,10 +169,7 @@ const codeBlockKeymap = ({
 			mac: 'Cmd-Alt-]',
 			run: () => {
 				// Pass synthetic event to prosemirror
-				if (
-					expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
-					fg('platform_editor_breakout_resizing_hello_release')
-				) {
+				if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
 					view.dispatchEvent(
 						new KeyboardEvent('keydown', {
 							key: ']',
@@ -193,10 +189,7 @@ const codeBlockKeymap = ({
 			mac: 'Cmd-Alt-[',
 			run: () => {
 				// Pass synthetic event to prosemirror
-				if (
-					expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
-					fg('platform_editor_breakout_resizing_hello_release')
-				) {
+				if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
 					view.dispatchEvent(
 						new KeyboardEvent('keydown', {
 							key: ']',

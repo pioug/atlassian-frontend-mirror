@@ -1,8 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e52e869e99d130089c6a34654ae4e062>>
+ * @codegen <<SignedSource::e0abf3368ad5be663b0ed03636d95962>>
  * @codegenCommand yarn build:icon-glyphs
  */
+import type { GlyphProps } from '@atlaskit/icon/types';
+
 import Blog16Icon from './artifacts/glyph/blog/16';
 import Blog24Icon from './artifacts/glyph/blog/24';
 import Branch16Icon from './artifacts/glyph/branch/16';
@@ -44,7 +46,13 @@ import Subtask24Icon from './artifacts/glyph/subtask/24';
 import Task16Icon from './artifacts/glyph/task/16';
 import Task24Icon from './artifacts/glyph/task/24';
 
-export const allIcons = [
+export const allIcons: {
+	({
+		label,
+		testId,
+	}: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>): React.JSX.Element;
+	displayName: string;
+}[] = [
 	Blog16Icon,
 	Blog24Icon,
 	Branch16Icon,

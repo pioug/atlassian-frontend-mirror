@@ -101,14 +101,14 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		}
 		// write data
 		const node = convertSyncBlockPMNodeToSyncBlockData(this.node, false);
-		this.options?.syncedBlockProvider?.writeNodesData([node], [{ content: updatedDoc.toJSON() }]);
+		this.options?.dataProvider?.writeNodesData([node], [{ content: updatedDoc.toJSON() }]);
 	}
 
 	private setInnerEditorView(editorView: EditorView): void {
 		// set inner editor view
 		const nodes: SyncBlockNode[] = [convertSyncBlockPMNodeToSyncBlockData(this.node, false)];
 
-		this.options?.syncedBlockProvider?.fetchNodesData(nodes).then((data) => {
+		this.options?.dataProvider?.fetchNodesData(nodes).then((data) => {
 			const tr = editorView.state.tr;
 			if (data && data[0]?.content) {
 				const newNode = editorView.state.schema.nodeFromJSON(data[0].content);
@@ -156,7 +156,7 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 						this.view,
 						this.node,
 						defaultSyncBlockRendererDocument,
-						this.options?.syncedBlockProvider,
+						this.options?.dataProvider,
 					)
 				}
 				getSyncedBlockRenderer={this.options?.getSyncedBlockRenderer}

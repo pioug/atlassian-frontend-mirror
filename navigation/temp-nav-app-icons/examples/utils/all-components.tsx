@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fb5b21ce58d51466c87f7f4823d31e3e>>
+ * @codegen <<SignedSource::3404583f381cb4fe458aa3d91e4ef911>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,6 +24,7 @@ import {
 	BitbucketDataCenterLogoCS,
 } from '@atlaskit/temp-nav-app-icons/bitbucket-data-center';
 import { ChatIcon, ChatLogo, ChatLogoCS } from '@atlaskit/temp-nav-app-icons/chat';
+import { ChatNewIcon, ChatNewLogo, ChatNewLogoCS } from '@atlaskit/temp-nav-app-icons/chat-new';
 import { CompanyHubIcon, CompanyHubLogo } from '@atlaskit/temp-nav-app-icons/company-hub';
 import { CompassIcon, CompassLogo, CompassLogoCS } from '@atlaskit/temp-nav-app-icons/compass';
 import {
@@ -82,11 +83,21 @@ import { RovoDevIcon, RovoDevLogoCS } from '@atlaskit/temp-nav-app-icons/rovo-de
 import { RovoDevAgentIcon, RovoDevAgentLogoCS } from '@atlaskit/temp-nav-app-icons/rovo-dev-agent';
 import { SearchIcon, SearchLogo, SearchLogoCS } from '@atlaskit/temp-nav-app-icons/search';
 import {
+	SearchNewIcon,
+	SearchNewLogo,
+	SearchNewLogoCS,
+} from '@atlaskit/temp-nav-app-icons/search-new';
+import {
 	StatuspageIcon,
 	StatuspageLogo,
 	StatuspageLogoCS,
 } from '@atlaskit/temp-nav-app-icons/statuspage';
 import { StudioIcon, StudioLogo, StudioLogoCS } from '@atlaskit/temp-nav-app-icons/studio';
+import {
+	StudioNewIcon,
+	StudioNewLogo,
+	StudioNewLogoCS,
+} from '@atlaskit/temp-nav-app-icons/studio-new';
 import { TalentIcon, TalentLogo, TalentLogoCS } from '@atlaskit/temp-nav-app-icons/talent';
 import { TeamsIcon, TeamsLogo, TeamsLogoCS } from '@atlaskit/temp-nav-app-icons/teams';
 import { TrelloIcon, TrelloLogo, TrelloLogoCS } from '@atlaskit/temp-nav-app-icons/trello';
@@ -172,6 +183,16 @@ export const rows: Array<{
 		Icon32: (props) => <BitbucketIcon {...props} size="32" />,
 		Logo: (props) => <BitbucketLogo {...props} />,
 		LogoCS: (props) => <BitbucketLogoCS {...props} />,
+	},
+	{
+		name: 'Chat New',
+		Icon12: (props) => <ChatNewIcon {...props} size="12" />,
+		Icon16: (props) => <ChatNewIcon {...props} size="16" />,
+		Icon20: (props) => <ChatNewIcon {...props} size="20" />,
+		Icon24: (props) => <ChatNewIcon {...props} size="24" />,
+		Icon32: (props) => <ChatNewIcon {...props} size="32" />,
+		Logo: (props) => <ChatNewLogo {...props} />,
+		LogoCS: (props) => <ChatNewLogoCS {...props} />,
 	},
 	{
 		name: 'Chat',
@@ -414,6 +435,16 @@ export const rows: Array<{
 		LogoCS: (props) => <RovoLogoCS {...props} />,
 	},
 	{
+		name: 'Search New',
+		Icon12: (props) => <SearchNewIcon {...props} size="12" />,
+		Icon16: (props) => <SearchNewIcon {...props} size="16" />,
+		Icon20: (props) => <SearchNewIcon {...props} size="20" />,
+		Icon24: (props) => <SearchNewIcon {...props} size="24" />,
+		Icon32: (props) => <SearchNewIcon {...props} size="32" />,
+		Logo: (props) => <SearchNewLogo {...props} />,
+		LogoCS: (props) => <SearchNewLogoCS {...props} />,
+	},
+	{
 		name: 'Search',
 		Icon12: (props) => <SearchIcon {...props} size="12" />,
 		Icon16: (props) => <SearchIcon {...props} size="16" />,
@@ -432,6 +463,16 @@ export const rows: Array<{
 		Icon32: (props) => <StatuspageIcon {...props} size="32" />,
 		Logo: (props) => <StatuspageLogo {...props} />,
 		LogoCS: (props) => <StatuspageLogoCS {...props} />,
+	},
+	{
+		name: 'Studio New',
+		Icon12: (props) => <StudioNewIcon {...props} size="12" />,
+		Icon16: (props) => <StudioNewIcon {...props} size="16" />,
+		Icon20: (props) => <StudioNewIcon {...props} size="20" />,
+		Icon24: (props) => <StudioNewIcon {...props} size="24" />,
+		Icon32: (props) => <StudioNewIcon {...props} size="32" />,
+		Logo: (props) => <StudioNewLogo {...props} />,
+		LogoCS: (props) => <StudioNewLogoCS {...props} />,
 	},
 	{
 		name: 'Studio',

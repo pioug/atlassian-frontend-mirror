@@ -1,5 +1,18 @@
 # @atlaskit/editor-toolbar
 
+## 0.11.0
+
+### Minor Changes
+
+- [`2ca00c96d410c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ca00c96d410c) -
+  update icons used for subscript and superscript
+
+## 0.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.10.0
 
 ### Minor Changes

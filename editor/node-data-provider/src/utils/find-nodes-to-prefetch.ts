@@ -11,6 +11,7 @@ interface ProviderWithNodes {
 
 /**
  * Finds nodes in the document that are supported by the given providers, up to a maximum number of nodes.
+ * Uses iterative Depth-First Search (DFS) to traverse the document.
  *
  * @param doc The document to search for nodes.
  * @param providers An array of providers with their maximum nodes to prefetch.
@@ -49,19 +50,23 @@ export function findNodesToPrefetch(
 			foundNodes: 0, // Counter for nodes found for each provider.
 		}));
 
-	// Queue for the breadth-first search (BFS), starting with the root document node.
+	// Stack for the depth-first search (DFS), starting with the root document node.
 	const nodesToVisit: JSONNode[] = [doc];
-	let currentIndex = 0;
+
 	// The loop continues as long as there are nodes to visit, providers to look for,
 	// and the visited nodes limit has not been reached.
 	while (
-		currentIndex < nodesToVisit.length &&
+		nodesToVisit.length > 0 &&
 		providersToLookup.length > 0 &&
 		totalVisitedNodesCount < maxNodesToVisit
 	) {
 		totalVisitedNodesCount += 1;
-		const currentNode = nodesToVisit[currentIndex];
-		currentIndex++;
+		// Pop from the end to maintain DFS order (LIFO - Last In, First Out)
+		const currentNode = nodesToVisit.pop();
+		if (!currentNode) {
+			// This should never happen because of the loop condition, but we check to satisfy TypeScript.
+			continue;
+		}
 
 		// Using a reverse loop to avoid issues with array mutation (when removing elements).
 		for (let i = providersToLookup.length - 1; i >= 0; i--) {
@@ -81,11 +86,17 @@ export function findNodesToPrefetch(
 			}
 		}
 
-		// If the current node has children, add them to the queue to be visited.
+		// If the current node has children, add them to the stack in reverse order
+		// to maintain left-to-right traversal when popping from the stack,
+		// because it's LIFO.
 		if (currentNode.content) {
-			nodesToVisit.push(
-				...currentNode.content.filter((node): node is JSONNode => node !== undefined),
-			);
+			// Push children in reverse order to maintain correct DFS traversal order
+			for (let i = currentNode.content.length - 1; i >= 0; i--) {
+				const node = currentNode.content[i];
+				if (node) {
+					nodesToVisit.push(node);
+				}
+			}
 		}
 	}
 

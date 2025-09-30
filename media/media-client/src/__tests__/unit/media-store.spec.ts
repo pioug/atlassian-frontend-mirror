@@ -1823,6 +1823,56 @@ describe('MediaStore', () => {
 				);
 			});
 
+			describe('path-based URL transformation', () => {
+				const collection = 'some-collection-name';
+				const fileId = '1234';
+				const pathBasedUrl =
+					'https://current.atlassian.net/media-api/file/1234/binary?client=some-client-id&collection=some-collection-name&dl=true&max-age=2592000&token=some-token';
+				const originalUrl = `${baseUrl}/file/1234/binary?client=some-client-id&collection=${collection}&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+
+				ffTest(
+					'platform_media_path_based_route',
+					async () => {
+						// Mock mapToPathBasedUrl to return a transformed URL
+						mapToPathBasedUrlMock.mockReturnValue(pathBasedUrl);
+
+						const url = await mediaStore.getFileBinaryURL(fileId, collection);
+
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
+
+						// Verify mapToPathBasedUrl was called with the original URL
+						expect(mapToPathBasedUrlMock).toHaveBeenCalledWith(originalUrl);
+						expect(mapToPathBasedUrlMock).toHaveBeenCalledTimes(1);
+
+						// Should return the path-based URL
+						expect(url).toEqual(pathBasedUrl);
+					},
+					async () => {
+						const url = await mediaStore.getFileBinaryURL(fileId, collection);
+
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
+
+						// mapToPathBasedUrl should NOT be called when feature flag is off
+						expect(mapToPathBasedUrlMock).not.toHaveBeenCalled();
+
+						// Should return the original URL (existing behavior)
+						expect(url).toEqual(originalUrl);
+					},
+				);
+			});
+
 			it('should call resolveAuth with authProvider and given collection name', async () => {
 				await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
 				expect(resolveAuth).toHaveBeenCalledWith(

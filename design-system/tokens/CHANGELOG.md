@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 6.4.1
+
+### Patch Changes
+
+- [`437668dfbdec9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/437668dfbdec9) -
+  Add explicit types to a number of DST components
+
 ## 6.4.0
 
 ### Minor Changes

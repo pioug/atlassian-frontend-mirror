@@ -14,7 +14,7 @@ export default function Example() {
 			<MainStage>
 				<Section>
 					<h4>Profilecard triggered by hover</h4>
-					{/* eslint-disable-next-line jsx-a11y/anchor-is-valid, @atlaskit/design-system/no-html-anchor */}
+					{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid, @atlaskit/design-system/no-html-anchor */}
 					<a href="#">An interactive link to test hover</a>
 					<InteractiveTrigger resourceClient={mockClient} />
 				</Section>

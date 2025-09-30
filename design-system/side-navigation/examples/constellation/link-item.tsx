@@ -7,11 +7,11 @@ const ButtonItemExample = () => {
 	return (
 		<div>
 			<Section>
-				{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+				{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 				<LinkItem href="#">My articles</LinkItem>
 			</Section>
 			<Section>
-				{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+				{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 				<LinkItem
 					href="#"
 					description="All published articles"

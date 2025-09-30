@@ -17,7 +17,6 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 const WIDTHS = {
@@ -65,7 +64,7 @@ export const getGuidelines = memoizeOne(
 					break;
 			}
 		}
-		const { width, lineLength } = getEditorWidth() || {};
+		const { width } = getEditorWidth() || {};
 
 		const padding =
 			width &&
@@ -80,31 +79,16 @@ export const getGuidelines = memoizeOne(
 			? Math.min(WIDTHS.MAX, width - 2 * padding - akEditorGutterPadding)
 			: undefined;
 
-		if (fg('platform_editor_breakout_resizing_hello_release')) {
-			guidelines.push({
-				key: GUIDELINE_KEYS.lineLengthLeft,
-				position: { x: -roundToNearest(WIDTHS.MIN / 2 + innerPaddingOffset) },
-				active: newWidth === WIDTHS.MIN,
-			});
-			guidelines.push({
-				key: GUIDELINE_KEYS.lineLengthRight,
-				position: { x: roundToNearest(WIDTHS.MIN / 2 + innerPaddingOffset) },
-				active: newWidth === WIDTHS.MIN,
-			});
-		} else {
-			if (lineLength) {
-				guidelines.push({
-					key: GUIDELINE_KEYS.lineLengthLeft,
-					position: { x: -roundToNearest(lineLength / 2 + innerPaddingOffset) },
-					active: newWidth === lineLength,
-				});
-				guidelines.push({
-					key: GUIDELINE_KEYS.lineLengthRight,
-					position: { x: roundToNearest(lineLength / 2 + innerPaddingOffset) },
-					active: newWidth === lineLength,
-				});
-			}
-		}
+		guidelines.push({
+			key: GUIDELINE_KEYS.lineLengthLeft,
+			position: { x: -roundToNearest(WIDTHS.MIN / 2 + innerPaddingOffset) },
+			active: newWidth === WIDTHS.MIN,
+		});
+		guidelines.push({
+			key: GUIDELINE_KEYS.lineLengthRight,
+			position: { x: roundToNearest(WIDTHS.MIN / 2 + innerPaddingOffset) },
+			active: newWidth === WIDTHS.MIN,
+		});
 
 		guidelines.push({
 			key: GUIDELINE_KEYS.wideLeft,

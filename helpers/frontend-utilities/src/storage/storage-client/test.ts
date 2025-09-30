@@ -215,9 +215,9 @@ describe('storage-client', () => {
 				handlers: { captureException: captureExceptionHandler },
 			}).getItem(KEY);
 
-			expect(localStorage.removeItem).toBeCalledTimes(0);
-			expect(localStorage.getItem).toBeCalledTimes(1);
-			expect(localStorage.getItem).toBeCalledWith(`${CLIENT_KEY}_${KEY}`);
+			expect(localStorage.removeItem).toHaveBeenCalledTimes(0);
+			expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+			expect(localStorage.getItem).toHaveBeenCalledWith(`${CLIENT_KEY}_${KEY}`);
 			expect(response).toEqual(VALUE);
 		});
 
@@ -230,9 +230,9 @@ describe('storage-client', () => {
 				handlers: { captureException: captureExceptionHandler },
 			}).getItem(KEY);
 
-			expect(localStorage.removeItem).toBeCalledTimes(0);
-			expect(localStorage.getItem).toBeCalledTimes(1);
-			expect(localStorage.getItem).toBeCalledWith(`${CLIENT_KEY}_${KEY}`);
+			expect(localStorage.removeItem).toHaveBeenCalledTimes(0);
+			expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+			expect(localStorage.getItem).toHaveBeenCalledWith(`${CLIENT_KEY}_${KEY}`);
 			expect(response).toEqual(undefined);
 		});
 
@@ -245,9 +245,9 @@ describe('storage-client', () => {
 				handlers: { captureException: captureExceptionHandler },
 			}).getItem(KEY, { useExpiredItem: true });
 
-			expect(localStorage.removeItem).toBeCalledTimes(0);
-			expect(localStorage.getItem).toBeCalledTimes(1);
-			expect(localStorage.getItem).toBeCalledWith(`${CLIENT_KEY}_${KEY}`);
+			expect(localStorage.removeItem).toHaveBeenCalledTimes(0);
+			expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+			expect(localStorage.getItem).toHaveBeenCalledWith(`${CLIENT_KEY}_${KEY}`);
 			expect(response).toEqual(VALUE);
 		});
 
@@ -271,6 +271,68 @@ describe('storage-client', () => {
 
 			const result = client.getItem(KEY);
 			expect(result).toBeUndefined();
+		});
+
+		it('should call removeItem when clearExpiredItem is true and item is expired', () => {
+			(localStorage.getItem as jest.Mock).mockReturnValueOnce(
+				'{"value":{"type":"test"},"expires":1502841500000}',
+			);
+
+			const response = new StorageClient(CLIENT_KEY, {
+				handlers: { captureException: captureExceptionHandler },
+			}).getItem(KEY, { clearExpiredItem: true });
+
+			expect(localStorage.removeItem).toHaveBeenCalledTimes(1);
+			expect(localStorage.removeItem).toHaveBeenCalledWith(`${CLIENT_KEY}_${KEY}`);
+			expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+			expect(localStorage.getItem).toHaveBeenCalledWith(`${CLIENT_KEY}_${KEY}`);
+			expect(response).toEqual(undefined);
+		});
+
+		it('should not call removeItem when clearExpiredItem is false and item is expired', () => {
+			(localStorage.getItem as jest.Mock).mockReturnValueOnce(
+				'{"value":{"type":"test"},"expires":1502841500000}',
+			);
+
+			const response = new StorageClient(CLIENT_KEY, {
+				handlers: { captureException: captureExceptionHandler },
+			}).getItem(KEY, { clearExpiredItem: false });
+
+			expect(localStorage.removeItem).toHaveBeenCalledTimes(0);
+			expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+			expect(localStorage.getItem).toHaveBeenCalledWith(`${CLIENT_KEY}_${KEY}`);
+			expect(response).toEqual(undefined);
+		});
+
+		it('should call removeItem and return expired value when clearExpiredItem is true and useExpiredItem is true', () => {
+			(localStorage.getItem as jest.Mock).mockReturnValueOnce(
+				'{"value":{"type":"test"},"expires":1502841500000}',
+			);
+
+			const response = new StorageClient(CLIENT_KEY, {
+				handlers: { captureException: captureExceptionHandler },
+			}).getItem(KEY, { clearExpiredItem: true, useExpiredItem: true });
+
+			expect(localStorage.removeItem).toHaveBeenCalledTimes(1);
+			expect(localStorage.removeItem).toHaveBeenCalledWith(`${CLIENT_KEY}_${KEY}`);
+			expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+			expect(localStorage.getItem).toHaveBeenCalledWith(`${CLIENT_KEY}_${KEY}`);
+			expect(response).toEqual(VALUE);
+		});
+
+		it('should not call removeItem when item is not expired regardless of clearExpiredItem setting', () => {
+			(localStorage.getItem as jest.Mock).mockReturnValueOnce(
+				'{"value":{"type":"test"},"expires":1502845200000}',
+			);
+
+			const response = new StorageClient(CLIENT_KEY, {
+				handlers: { captureException: captureExceptionHandler },
+			}).getItem(KEY, { clearExpiredItem: true });
+
+			expect(localStorage.removeItem).toHaveBeenCalledTimes(0);
+			expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+			expect(localStorage.getItem).toHaveBeenCalledWith(`${CLIENT_KEY}_${KEY}`);
+			expect(response).toEqual(VALUE);
 		});
 	});
 

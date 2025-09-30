@@ -102,7 +102,7 @@ const BasicExample = () => {
 							</Section>
 						</NestingItem>
 						<ButtonItem iconBefore={<FolderClosedIcon label="" />}>Your work</ButtonItem>
-						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 						<LinkItem href="#" iconBefore={<PersonIcon label="" />}>
 							Your customers
 						</LinkItem>

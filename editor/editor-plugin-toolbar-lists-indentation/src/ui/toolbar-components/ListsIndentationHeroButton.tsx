@@ -7,6 +7,7 @@ import {
 	toggleBulletList as toggleBulletListKeymap,
 	toggleOrderedList as toggleOrderedListKeymap,
 	toggleTaskItemCheckbox as toggleTaskItemCheckboxKeymap,
+	toggleTaskList as toggleTaskListKeymap,
 	formatShortcut,
 	ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
@@ -59,9 +60,12 @@ function useListsIndentationHeroButtonInfo({
 			: orderedListActive
 				? 'orderedList'
 				: defaultListType;
+	const taskListKeymap = expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
+		? toggleTaskListKeymap
+		: toggleTaskItemCheckboxKeymap;
 	const getKeymap =
 		getListType === 'taskList'
-			? toggleTaskItemCheckboxKeymap
+			? taskListKeymap
 			: getListType === 'orderedList'
 				? toggleOrderedListKeymap
 				: toggleBulletListKeymap;
@@ -171,9 +175,13 @@ export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHer
 			taskListActive: states.taskDecisionState?.isInsideTask,
 		}));
 
+	const taskListKeymap = expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
+		? toggleTaskListKeymap
+		: toggleTaskItemCheckboxKeymap;
+
 	const shortcut =
 		isTaskListItemEnabled && taskListActive
-			? formatShortcut(toggleTaskItemCheckboxKeymap)
+			? formatShortcut(taskListKeymap)
 			: orderedListActive
 				? formatShortcut(toggleOrderedListKeymap)
 				: formatShortcut(toggleBulletListKeymap);

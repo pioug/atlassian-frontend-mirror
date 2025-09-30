@@ -5,7 +5,7 @@
 import { Fragment, type ReactNode, useContext } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -70,13 +70,78 @@ export default InteractionSurface;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::453eef65c0cbbdc7c9d2b70817a1c852>>
+ * @codegen <<SignedSource::9270ce27eb45821e281f5499e575ce4f>>
  * @codegenId interactions
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["background"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::2271390eb3f104f20bb791b00250b316>>
  */
-const backgroundActiveColorMap = {
+type InteractionBackgroundColor =
+	| 'accent.lime.subtlest'
+	| 'accent.lime.subtler'
+	| 'accent.lime.subtle'
+	| 'accent.lime.bolder'
+	| 'accent.red.subtlest'
+	| 'accent.red.subtler'
+	| 'accent.red.subtle'
+	| 'accent.red.bolder'
+	| 'accent.orange.subtlest'
+	| 'accent.orange.subtler'
+	| 'accent.orange.subtle'
+	| 'accent.orange.bolder'
+	| 'accent.yellow.subtlest'
+	| 'accent.yellow.subtler'
+	| 'accent.yellow.subtle'
+	| 'accent.yellow.bolder'
+	| 'accent.green.subtlest'
+	| 'accent.green.subtler'
+	| 'accent.green.subtle'
+	| 'accent.green.bolder'
+	| 'accent.teal.subtlest'
+	| 'accent.teal.subtler'
+	| 'accent.teal.subtle'
+	| 'accent.teal.bolder'
+	| 'accent.blue.subtlest'
+	| 'accent.blue.subtler'
+	| 'accent.blue.subtle'
+	| 'accent.blue.bolder'
+	| 'accent.purple.subtlest'
+	| 'accent.purple.subtler'
+	| 'accent.purple.subtle'
+	| 'accent.purple.bolder'
+	| 'accent.magenta.subtlest'
+	| 'accent.magenta.subtler'
+	| 'accent.magenta.subtle'
+	| 'accent.magenta.bolder'
+	| 'accent.gray.subtlest'
+	| 'accent.gray.subtler'
+	| 'accent.gray.subtle'
+	| 'accent.gray.bolder'
+	| 'input'
+	| 'inverse.subtle'
+	| 'neutral'
+	| 'neutral.subtle'
+	| 'neutral.bold'
+	| 'selected'
+	| 'selected.bold'
+	| 'brand.subtlest'
+	| 'brand.bold'
+	| 'brand.boldest'
+	| 'danger'
+	| 'danger.bold'
+	| 'warning'
+	| 'warning.bold'
+	| 'success'
+	| 'success.bold'
+	| 'discovery'
+	| 'discovery.bold'
+	| 'information'
+	| 'information.bold'
+	| 'elevation.surface'
+	| 'elevation.surface.overlay'
+	| 'elevation.surface.raised';
+
+const backgroundActiveColorMap: Record<InteractionBackgroundColor, SerializedStyles> = {
 	'accent.lime.subtlest': css({
 		'&:active': { backgroundColor: token('color.background.accent.lime.subtlest.pressed') },
 	}),
@@ -268,7 +333,7 @@ const backgroundActiveColorMap = {
 	}),
 };
 
-const backgroundHoverColorMap = {
+const backgroundHoverColorMap: Record<InteractionBackgroundColor, SerializedStyles> = {
 	'accent.lime.subtlest': css({
 		'&:hover': { backgroundColor: token('color.background.accent.lime.subtlest.hovered') },
 	}),
@@ -459,8 +524,6 @@ const backgroundHoverColorMap = {
 		'&:hover': { backgroundColor: token('elevation.surface.raised.hovered') },
 	}),
 };
-
-type InteractionBackgroundColor = keyof typeof backgroundHoverColorMap;
 
 /**
  * @codegenEnd

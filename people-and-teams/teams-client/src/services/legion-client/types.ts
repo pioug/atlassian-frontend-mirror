@@ -138,3 +138,8 @@ export interface LegionLinkResponseV4 {
 	linkId: string;
 	teamId?: string;
 }
+
+export interface OrgAlignmentStatus {
+	orgId: string;
+	scopeAligned: boolean;
+}

@@ -18,6 +18,7 @@ interface LoadingContainerAdvancedProps {
 	loadingLabel?: string;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class LoadingContainerAdvanced extends React.Component<
 	LoadingContainerAdvancedProps,
 	{}

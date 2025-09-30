@@ -31,7 +31,7 @@ const BasicExample = () => {
 					<Section>
 						<HeadingItem>This is a simple flat sidebar</HeadingItem>
 						<ButtonItem iconBefore={<ButtonIcon label="" />}>It can contain buttons</ButtonItem>
-						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 						<LinkItem href="#" iconBefore={<LinkIcon label="" />}>
 							Or anchor links
 						</LinkItem>

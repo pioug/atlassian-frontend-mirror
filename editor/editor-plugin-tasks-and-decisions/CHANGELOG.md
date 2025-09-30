@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 9.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.4
+
+### Patch Changes
+
+- [`f2edf4a20927d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2edf4a20927d) -
+  ED-29303 Move TaskListMenuItem component to taskAndDecision plugin
+- Updated dependencies
+
+## 9.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.2
 
 ### Patch Changes

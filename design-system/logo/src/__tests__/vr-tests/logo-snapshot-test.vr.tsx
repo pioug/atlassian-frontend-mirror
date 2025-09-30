@@ -29,6 +29,14 @@ snapshot(Basic, {
 		'platform-logo-rebrand-servco': [false, true],
 	},
 });
+
+const FlaggedPlatformLogos = Basic;
+snapshot(FlaggedPlatformLogos, {
+	featureFlags: {
+		'platform-logo-rebrand-team-eu': [true],
+	},
+});
+
 snapshot(Appearance, {
 	featureFlags: {
 		'platform-logo-rebrand': [false, true],

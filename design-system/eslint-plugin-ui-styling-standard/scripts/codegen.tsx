@@ -255,7 +255,8 @@ import type { ESLint } from 'eslint';
 		} as const;
 
 		export { rules } from './rules/index.codegen';
-		export const { configs, meta } = plugin;
+		export const configs: ESLint.Plugin['configs'] = plugin.configs;
+		export const meta: ESLint.Plugin['meta'] = plugin.meta;
 
 		export default plugin;
 

@@ -339,10 +339,16 @@ export function reset() {
 	fireEvent.pointerMove(window);
 }
 
-export const firePointer = (() => {
-	type TTarget = Element | Window | Document;
-	function makeDispatch(eventName: string) {
-		return function dispatch(target: TTarget, input: Partial<Input> = {}) {
+type TTarget = Element | Window | Document;
+type DispatchFn = (target: TTarget, input?: Partial<Input>) => void;
+export const firePointer: {
+	down: DispatchFn;
+	up: DispatchFn;
+	move: DispatchFn;
+	cancel: DispatchFn;
+} = (() => {
+	function makeDispatch(eventName: string): DispatchFn {
+		return function dispatch(target, input = {}) {
 			const inputWithDefaults = {
 				...getDefaultInput(),
 				...input,

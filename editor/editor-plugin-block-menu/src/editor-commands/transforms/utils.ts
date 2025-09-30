@@ -194,3 +194,46 @@ export const getMarksWithBreakout = (
 
 	return allowedMarks;
 };
+
+/**
+ * Determines the conversion type based on source and target node types
+ * This is for analytics use - these types match existing analytics events for consistency
+ */
+export const getConversionType = (
+	from: string,
+	to: string,
+): 'blockNodeInserted' | 'listInserted' | 'listConverted' | 'textFormatted' | undefined => {
+	// Block node insertion: block-like elements inserted from empty line or wrapping text/list
+	const blockNodes = ['panel', 'expand', 'codeBlock', 'layoutSection', 'taskList'];
+	const textNodes = ['paragraph', 'blockquote'];
+	const headingNodes = ['heading1', 'heading2', 'heading3', 'heading4', 'heading5', 'heading6'];
+	const listNodes = ['bulletList', 'orderedList'];
+
+	// Check if converting to block nodes from text/heading/list nodes
+	if (
+		blockNodes.includes(to) &&
+		(textNodes.includes(from) || headingNodes.includes(from) || listNodes.includes(from))
+	) {
+		return 'blockNodeInserted';
+	}
+
+	// Check if converting from paragraph/blockquote to list
+	if (listNodes.includes(to) && textNodes.includes(from)) {
+		return 'listInserted';
+	}
+
+	// Check if converting from list to paragraph/heading/blockquote or between list types
+	if (listNodes.includes(from) && (listNodes.includes(to) || textNodes.includes(to))) {
+		return 'listConverted';
+	}
+
+	// Text formatting: conversions among paragraph/headings/blockquote
+	if (
+		(textNodes.includes(from) || headingNodes.includes(from)) &&
+		(textNodes.includes(to) || headingNodes.includes(to))
+	) {
+		return 'textFormatted';
+	}
+	// For other conversions, we do not have a matching event category
+	return undefined;
+};

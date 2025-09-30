@@ -193,10 +193,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 		as: Container,
 		appearance,
 		avatarImage,
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-		borderColor = fg('platform-component-visual-refresh')
-			? token('elevation.surface')
-			: token('elevation.surface.overlay', '#FFFFFF'),
+		borderColor = token('elevation.surface'),
 		href,
 		isDisabled,
 		label,

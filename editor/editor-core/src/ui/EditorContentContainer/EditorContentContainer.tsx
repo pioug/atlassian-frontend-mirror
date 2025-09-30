@@ -459,11 +459,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						: undefined,
 					editorExperiment('advanced_layouts', true) &&
 						expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-						fg('platform_editor_breakout_resizing_hello_release') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						pragmaticStylesLayoutFirstNodeResizeHandleFix,
 					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-						fg('platform_editor_breakout_resizing_hello_release') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						pragmaticResizerStylesForTooltip,
 					editorExperiment('platform_editor_preview_panel_responsiveness', true) &&

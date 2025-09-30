@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
@@ -64,33 +64,52 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		});
 		return Promise.all(resourceIds);
 	};
+
+	getSourceId = () => {
+		return this.sourceId;
+	};
 }
 
 export const useFetchDocNode = (
 	editorView: EditorView,
 	node: PMNode,
 	defaultDocNode: DocNode,
-	provider?: SyncBlockProvider,
+	provider?: SyncBlockDataProvider,
 ): DocNode => {
 	const [docNode, setDocNode] = useState<DocNode>(defaultDocNode);
+
+	const fetchNode = (editorView: EditorView, node: PMNode, provider: SyncBlockDataProvider) => {
+		const nodes: SyncBlockNode[] = [convertSyncBlockPMNodeToSyncBlockData(node, false)];
+		provider?.fetchNodesData(nodes).then((data) => {
+			if (data && data[0]?.content) {
+				const newNode = editorView.state.schema.nodeFromJSON(data[0].content);
+				setDocNode({ ...newNode.toJSON(), version: 1 });
+			}
+		});
+	};
+
 	useEffect(() => {
 		if (!provider) {
 			return;
 		}
+		fetchNode(editorView, node, provider);
 		const interval = window.setInterval(() => {
-			const nodes: SyncBlockNode[] = [convertSyncBlockPMNodeToSyncBlockData(node, false)];
-
-			provider?.fetchNodesData(nodes).then((data) => {
-				if (data && data[0]?.content) {
-					const newNode = editorView.state.schema.nodeFromJSON(data[0].content);
-					setDocNode({ ...newNode.toJSON(), version: 1 });
-				}
-			});
-		}, 1000);
+			fetchNode(editorView, node, provider);
+		}, 3000);
 
 		return () => {
 			window.clearInterval(interval);
 		};
 	}, [editorView, node, provider]);
 	return docNode;
+};
+
+export const useMemoizedSyncedBlockProvider = (
+	fetchProvider: ADFFetchProvider,
+	writeProvider: ADFWriteProvider,
+	sourceId: string,
+) => {
+	return useMemo(() => {
+		return new SyncBlockProvider(fetchProvider, writeProvider, sourceId);
+	}, [fetchProvider, writeProvider, sourceId]);
 };

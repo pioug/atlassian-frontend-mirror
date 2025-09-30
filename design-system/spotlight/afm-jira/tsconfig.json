@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../helpers/browser-apis/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../button/afm-jira/tsconfig.json"
 		},
 		{

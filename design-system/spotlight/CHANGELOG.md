@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 0.5.0
+
+### Minor Changes
+
+- [`72526321aecd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72526321aecd0) -
+  Create UNSAFE_UpdateOnChange component to test strategies for recalculating PopoverContent
+  position when the DOM changes.
+
 ## 0.4.1
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/logo
 
+## 19.8.2
+
+### Patch Changes
+
+- [`5f025f8437a46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f025f8437a46) -
+  Internal changes to support updates to `chat`, `search` and `studio` logos. These changes are
+  being tested behind a feature flag, and will be available in a future release.
+- Updated dependencies
+
 ## 19.8.1
 
 ### Patch Changes

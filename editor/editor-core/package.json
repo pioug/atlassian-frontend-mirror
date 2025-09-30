@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "214.0.6",
+	"version": "214.0.9",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -425,9 +425,6 @@
 			"type": "boolean"
 		},
 		"platform-dst-jira-web-fonts": {
-			"type": "boolean"
-		},
-		"platform_editor_breakout_resizing_hello_release": {
 			"type": "boolean"
 		},
 		"atlas_editor_typography_refreshed": {

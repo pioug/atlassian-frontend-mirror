@@ -9,6 +9,7 @@ import withDimensions, {
 import { inlineStylesIfRanking } from '../../internal/helpers';
 import HeadCell, { type TableHeadCellProps } from '../table-head-cell-old';
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class RankableTableHeadCellComponentOld extends React.Component<
 	WithDimensionsProps & TableHeadCellProps,
 	{}

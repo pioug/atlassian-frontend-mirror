@@ -32,7 +32,7 @@ export default function VisitedExample() {
 								}
 							>
 								{/* Anchor content will come from the variations file */}
-								{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+								{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 								<Link {...props} href="" testId={name}>
 									I have been visited
 								</Link>

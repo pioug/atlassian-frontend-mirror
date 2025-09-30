@@ -1,5 +1,13 @@
 # @atlaskit/checkbox
 
+## 17.1.16
+
+### Patch Changes
+
+- [`437668dfbdec9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/437668dfbdec9) -
+  Add explicit types to a number of DST components
+- Updated dependencies
+
 ## 17.1.15
 
 ### Patch Changes

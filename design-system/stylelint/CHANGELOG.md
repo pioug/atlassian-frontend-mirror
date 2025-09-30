@@ -1,5 +1,13 @@
 # @atlaskit/stylelint-design-system
 
+## 4.1.2
+
+### Patch Changes
+
+- [`437668dfbdec9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/437668dfbdec9) -
+  Add explicit types to a number of DST components
+- Updated dependencies
+
 ## 4.1.1
 
 ### Patch Changes

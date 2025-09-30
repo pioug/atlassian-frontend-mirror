@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 124.1.3
+
+### Patch Changes
+
+- [`ca42d0b688ad9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca42d0b688ad9) -
+  [ED-29292] Fix wrapped media in table not wrapping in renderer
+- Updated dependencies
+
+## 124.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 124.1.1
 
 ### Patch Changes

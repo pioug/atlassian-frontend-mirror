@@ -41,7 +41,7 @@ export const AgentDeleteConfirmationModal = ({
 		<ModalTransition>
 			{isOpen && (
 				<Modal width="small">
-					<ModalHeader>
+					<ModalHeader hasCloseButton>
 						<ModalTitle>{formatMessage(messages.title, { agentName })}</ModalTitle>
 					</ModalHeader>
 					<ModalBody>

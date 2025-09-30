@@ -111,6 +111,7 @@ export const alignCenter = makeKeyMapWithCommon('Align Center', 'Mod-Alt-e');
 export const alignRight = makeKeyMapWithCommon('Align Right', 'Mod-Alt-t');
 
 export const toggleTaskItemCheckbox = makeKeyMapWithCommon('Toggles task item', 'Mod-Alt-Enter');
+export const toggleTaskList = makeKeyMapWithCommon('Toggle task list', 'Mod-Shift-6');
 export const selectRow = makeKeyMapArrayWithCommon('Select row', [
 	'Mod-Alt-Shift-ArrowLeft',
 	'Mod-Alt-Shift-ArrowRight',

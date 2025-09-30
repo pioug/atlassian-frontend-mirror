@@ -49,7 +49,6 @@ snapshotInformational(CompanyHubMockExample, {
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
 	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -72,7 +71,6 @@ snapshotInformational(CompanyHubMockExample, {
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
 	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -95,7 +93,6 @@ snapshotInformational(CompositionVR, {
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
 	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -118,7 +115,6 @@ snapshotInformational(CompositionVR, {
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
 	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -145,7 +141,6 @@ snapshotInformational(CompositionVR, {
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
 	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -182,7 +177,6 @@ snapshotInformational(CompositionExample, {
 	drawsOutsideBounds: true,
 	variants: [variants.mobile],
 	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -203,7 +197,6 @@ snapshotInformational(CompositionVR, {
 	drawsOutsideBounds: true,
 	variants: [variants.mobile],
 	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -232,7 +225,6 @@ snapshotInformational(TopNavigationThemingWithPickerExample, {
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
 	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
 		'navx-full-height-sidebar': true,
 	},
 });
@@ -245,7 +237,6 @@ snapshotInformational(NavigationShellExample, {
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
 	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
 		'navx-full-height-sidebar': true,
 	},
 });
@@ -258,7 +249,6 @@ snapshotInformational(NavigationShellWithToggleButtonSpotlight, {
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
 	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
 		'navx-full-height-sidebar': true,
 	},
 });
@@ -271,9 +261,6 @@ snapshotInformational(NavigationShellExample, {
 	description: 'sideNavToggleButton slot with flag disabled',
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
-	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
-	},
 });
 
 /**

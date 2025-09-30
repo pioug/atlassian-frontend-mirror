@@ -91,7 +91,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-config",
-	"version": "1.11.6",
+	"version": "1.12.0",
 	"description": "Teams App related config",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -100,6 +100,9 @@
 	},
 	"platform-feature-flags": {
 		"should-redirect-directory-to-teams-app": {
+			"type": "boolean"
+		},
+		"enable_teams_app_breadcrumb_respect_directories": {
 			"type": "boolean"
 		}
 	}

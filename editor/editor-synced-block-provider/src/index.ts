@@ -3,6 +3,7 @@
 export {
 	SyncBlockProvider as SyncedBlockProvider,
 	useFetchDocNode,
+	useMemoizedSyncedBlockProvider,
 } from './common/syncBlockProvider';
 export { SyncBlockStoreManager } from './common/syncBlockStoreManager';
 export type {
@@ -13,5 +14,10 @@ export type {
 	SyncBlockNode,
 } from './common/types';
 export { inMemoryFetchProvider, inMemoryWriteProvider } from './providers/inMemory';
-export { convertSyncBlockPMNodeToSyncBlockData, generateSyncBlockSourceUrl } from './utils/utils';
 export { getDefaultSyncBlockSchema } from './common/schema';
+export {
+	createContentAPIProvidersWithDefaultKey,
+	useMemoizedContentAPIProviders,
+} from './providers/confluenceContentAPI';
+export { getConfluencePageAri } from './utils/ari';
+export { convertSyncBlockPMNodeToSyncBlockData, generateSyncBlockSourceUrl } from './utils/utils';

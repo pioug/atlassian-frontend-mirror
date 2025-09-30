@@ -50,7 +50,7 @@ const LazySettingsSectionItems = makeLazy(() => {
 const LazyRootItems = makeLazy(() => {
 	return (
 		<Section title="My project">
-			{/* eslint-disable jsx-a11y/anchor-is-valid */}
+			{/* eslint-disable @atlassian/a11y/anchor-is-valid */}
 			<LinkItem href="#" iconBefore={<RoadmapIcon label="" />}>
 				Roadmap
 			</LinkItem>
@@ -63,7 +63,7 @@ const LazyRootItems = makeLazy(() => {
 			<LinkItem href="#" iconBefore={<GraphLineIcon label="" />}>
 				Reports
 			</LinkItem>
-			{/* eslint-enable jsx-a11y/anchor-is-valid */}
+			{/* eslint-enable @atlassian/a11y/anchor-is-valid */}
 			<SettingsSection />
 		</Section>
 	);

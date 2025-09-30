@@ -60,6 +60,7 @@ const computeRankDestination = (
 	return undefined;
 };
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class RankableBody extends React.Component<RankableBodyProps, {}> {
 	onBeforeDragStart = (dragStart: DragStart) => {
 		const {

@@ -1740,6 +1740,39 @@ describe('FileFetcher', () => {
 				'some-id': 4,
 			});
 		});
+
+		it('should return cached duration when mediaMetadata.duration is available', async () => {
+			const videoStateWithDuration = {
+				...processedVideoState,
+				mediaMetadata: {
+					duration: 120, // 2 minutes duration
+				},
+			};
+
+			const fileStateStore = createMediaStore({
+				files: { 'some-id': videoStateWithDuration },
+			});
+
+			const mediaApi = createMockMediaStore(jest.fn());
+			const getArtifactURLSpy = jest.fn();
+			const requestSpy = jest.fn();
+
+			mediaApi.getArtifactURL = getArtifactURLSpy;
+			mediaApi.request = requestSpy;
+
+			const fileFetcher = new FileFetcherImpl(mediaApi, fileStateStore);
+
+			const durations = await fileFetcher.getVideoDurations([{ id: 'some-id' }]);
+
+			// Should return the cached duration from mediaMetadata
+			expect(durations).toEqual({
+				'some-id': 120,
+			});
+
+			// Should not make any API calls since duration is cached
+			expect(getArtifactURLSpy).not.toHaveBeenCalled();
+			expect(requestSpy).not.toHaveBeenCalled();
+		});
 	});
 
 	describe('FileFetcherError', () => {

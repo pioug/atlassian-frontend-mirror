@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 3.12.0
+
+### Minor Changes
+
+- [`123919fe0f440`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/123919fe0f440) -
+  [ux] Added support for a OneDrive tab with the same functionality as the Google Drive tab in link
+  picker
+
 ## 3.11.4
 
 ### Patch Changes

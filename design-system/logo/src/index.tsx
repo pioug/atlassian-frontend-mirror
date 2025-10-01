@@ -118,6 +118,10 @@ import {
 	RovoDevAgentLogoCS as NewRovoDevAgentLogo,
 } from '@atlaskit/temp-nav-app-icons/rovo-dev-agent';
 import {
+	RovoHexIcon as NewRovoHexIcon,
+	RovoHexLogoCS as NewRovoHexLogo,
+} from '@atlaskit/temp-nav-app-icons/rovo-hex';
+import {
 	SearchIcon as OldSearchIcon,
 	SearchLogoCS as OldSearchLogo,
 } from '@atlaskit/temp-nav-app-icons/search';
@@ -215,6 +219,7 @@ export { AtlassianIcon, AtlassianLogo } from './legacy-logos/atlassian';
 export { JiraSoftwareIcon, JiraSoftwareLogo } from './legacy-logos/jira-software';
 import {
 	createFeatureFlaggedComponent,
+	createFeatureFlaggedRovoComponent,
 	createFeatureFlaggedServiceCollectionComponent,
 	teamEUFlaggedIcon,
 	tempSizeWrapper,
@@ -1056,11 +1061,26 @@ export const TrelloLogo = createFeatureFlaggedComponent(LegacyTrelloLogo, NewTre
  *
  * The Rovo icon without an accompanying wordmark.
  *
+ * By default, with no feature flags turned on, this will display a flat hex design.
+ *
+ * A colorful hex logo will render if:
+ * 	- the feature flag `platform-logo-rebrand-rovo-hex` is set to true
+ *  - the prop `shouldUseHexLogo` is set to true
+ *
+ * Finally, for backwards compatibility, if the prop `shouldUseNewLogoDesign` is set to true, or the following feature flags are set,
+ * a tile will be rendered:
+ * - `platform-logo-rebrand-servco`
+ * - `platform-logo-rebrand`
+ *
  * - [Examples](https://atlassian.design/components/logo/examples)
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const RovoIcon = createFeatureFlaggedServiceCollectionComponent(LegacyRovoIcon, NewRovoIcon);
+export const RovoIcon = createFeatureFlaggedRovoComponent(
+	LegacyRovoIcon,
+	NewRovoIcon,
+	NewRovoHexIcon,
+);
 /**
  * __Rovo logo__
  *
@@ -1070,7 +1090,11 @@ export const RovoIcon = createFeatureFlaggedServiceCollectionComponent(LegacyRov
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const RovoLogo = createFeatureFlaggedServiceCollectionComponent(LegacyRovoLogo, NewRovoLogo);
+export const RovoLogo = createFeatureFlaggedRovoComponent(
+	LegacyRovoLogo,
+	NewRovoLogo,
+	NewRovoHexLogo,
+);
 
 /**
  * __Guard icon__

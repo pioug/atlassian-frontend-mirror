@@ -615,7 +615,6 @@ const generateToolbarItems =
 						},
 					]
 				: [
-						...openPreviewPanelItems,
 						...editButtonItems,
 						...([
 							...getUnlinkButtonGroup(
@@ -628,6 +627,7 @@ const generateToolbarItems =
 							),
 							{ type: 'separator', fullHeight: true },
 						] as FloatingToolbarItem<Command>[]),
+						...openPreviewPanelItems,
 						{
 							id: 'editor.link.openLink',
 							type: 'button',

@@ -1,5 +1,20 @@
 # @atlassian/navigation-system
 
+## 2.14.2
+
+### Patch Changes
+
+- [`c2a513589de1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2a513589de1c) -
+  Pass isTooltipDisabled as prop when render IconButton
+- Updated dependencies
+
+## 2.14.1
+
+### Patch Changes
+
+- [`2ee88aea34e7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ee88aea34e7c) -
+  Internal refactor of logo components
+
 ## 2.14.0
 
 ### Minor Changes

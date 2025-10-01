@@ -13,6 +13,7 @@ import {
 	legacyOnlyLogosAndIcons,
 	migrationLogosAndIcons,
 	newOnlyLogosAndIcons,
+	rovoHexLogosAndIcons,
 } from './utils/list';
 
 const pageStyles = css({
@@ -28,10 +29,12 @@ const LogoTable = ({
 	title,
 	logos,
 	showFeatureFlaggedLogos,
+	showRovoHexLogos,
 }: {
 	title: string;
 	logos: typeof migrationLogosAndIcons;
 	showFeatureFlaggedLogos?: boolean;
+	showRovoHexLogos?: boolean;
 }) => (
 	<div css={pageStyles}>
 		<Heading size="medium">{title}</Heading>
@@ -53,6 +56,12 @@ const LogoTable = ({
 							(new design)
 						</th>
 					)}
+					{showRovoHexLogos && (
+						<th>
+							Logo <br />
+							(rovo hex)
+						</th>
+					)}
 				</tr>
 			</thead>
 			<tbody>
@@ -70,12 +79,22 @@ const LogoTable = ({
 									<Logo testId={`${kebabName}-logo`} shouldUseNewLogoDesign />
 								</td>
 							)}
+							{showRovoHexLogos && (
+								<td>
+									<Logo testId={`${kebabName}-logo`} shouldUseHexLogo />
+								</td>
+							)}
 							<td>
 								<Icon size="medium" testId={`${kebabName}-icon`} />
 							</td>
 							{showFeatureFlaggedLogos && (
 								<td>
 									<Icon size="medium" testId={`${kebabName}-icon`} shouldUseNewLogoDesign />
+								</td>
+							)}
+							{showRovoHexLogos && (
+								<td>
+									<Icon size="medium" testId={`${kebabName}-icon`} shouldUseHexLogo />
 								</td>
 							)}
 						</tr>
@@ -96,6 +115,12 @@ export default () => {
 				showFeatureFlaggedLogos
 			/>
 			<LogoTable title="App Logos (new designs only)" logos={newOnlyLogosAndIcons} />
+			<LogoTable
+				title="App Logos (rovo hex designs)"
+				logos={rovoHexLogosAndIcons}
+				showFeatureFlaggedLogos
+				showRovoHexLogos
+			/>
 			<LogoTable title="Deprecated Logos" logos={deprecatedLogos} />
 		</div>
 	);

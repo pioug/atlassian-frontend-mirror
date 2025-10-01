@@ -9,7 +9,12 @@ import { type HoverPreviewOptions } from '../HoverCard/types';
 import { type InlinePreloaderStyle, type OnErrorCallback } from '../types';
 
 export type { CardAppearance, CardPlatform };
-export type CardInnerAppearance = CardAppearance | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+export type CardInnerAppearance =
+	| CardAppearance
+	| 'embedPreview'
+	| 'flexible'
+	| 'hoverCardPreview'
+	| 'hyperlink';
 
 export type EmbedIframeUrlType = 'href' | 'interactiveHref';
 

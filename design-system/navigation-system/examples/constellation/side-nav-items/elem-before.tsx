@@ -2,6 +2,7 @@ import React from 'react';
 
 import ClockIcon from '@atlaskit/icon/core/clock';
 import HomeIcon from '@atlaskit/icon/core/home';
+import { JiraIcon } from '@atlaskit/logo';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
 import { ContainerAvatar } from '@atlaskit/navigation-system/side-nav-items/container-avatar';
 import {
@@ -18,7 +19,6 @@ import {
 } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
 import { Inline } from '@atlaskit/primitives/compiled';
-import { JiraIcon } from '@atlaskit/temp-nav-app-icons/jira';
 
 import MoneyIcon from '../../images/money.svg';
 
@@ -41,7 +41,10 @@ export function ElemBeforeExample() {
 						<LinkMenuItem href={exampleHref} elemBefore={<ContainerAvatar src={MoneyIcon} />}>
 							Link menu item (ContainerAvatar)
 						</LinkMenuItem>
-						<LinkMenuItem href={exampleHref} elemBefore={<JiraIcon label="" />}>
+						<LinkMenuItem
+							href={exampleHref}
+							elemBefore={<JiraIcon label="" shouldUseNewLogoDesign size="xsmall" />}
+						>
 							Link menu item (app tile)
 						</LinkMenuItem>
 						<LinkMenuItem href={exampleHref}>Link menu item (spacer)</LinkMenuItem>

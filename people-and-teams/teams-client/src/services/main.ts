@@ -979,7 +979,7 @@ export class TeamsClient {
 	async checkOrgFullAlignmentStatus(
 		...args: Parameters<typeof defaultLegionClient.checkOrgFullAlignmentStatus>
 	): Promise<AwaitedReturn<typeof defaultLegionClient.checkOrgFullAlignmentStatus>> {
-			return this._legionClient.checkOrgFullAlignmentStatus(...args);
+		return this._legionClient.checkOrgFullAlignmentStatus(...args);
 	}
 }
 

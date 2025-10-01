@@ -26,6 +26,7 @@ type AgentActionsProps = {
 	onChatClick: (event: React.MouseEvent) => void;
 	onViewFullProfileClick: () => void;
 	resourceClient: ProfileClient;
+	hideMoreActions?: boolean;
 };
 
 const chatToAgentButtonContainer = xcss({
@@ -70,6 +71,7 @@ const _AgentActions = ({
 	onViewFullProfileClick,
 	agent,
 	resourceClient,
+	hideMoreActions,
 }: AgentActionsProps) => {
 	const { formatMessage } = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -135,20 +137,22 @@ const _AgentActions = ({
 					</Button>
 				</Box>
 
-				<AgentDropdownMenu
-					agentId={agent.id}
-					onDeleteAgent={handleDeleteAgent}
-					onEditAgent={onEditAgent}
-					onDuplicateAgent={onDuplicateAgent}
-					onCopyAgent={onCopyAgent}
-					isForgeAgent={isForgeAgent}
-					loadAgentPermissions={loadAgentPermissions}
-					loadPermissionsOnMount
-					onViewAgentFullProfileClick={onViewFullProfileClick}
-					doesAgentHaveIdentityAccountId={!!agent.identity_account_id}
-					shouldTriggerStopPropagation
-					dropdownMenuTestId="agent-dropdown-menu"
-				/>
+				{!hideMoreActions && (
+					<AgentDropdownMenu
+						agentId={agent.id}
+						onDeleteAgent={handleDeleteAgent}
+						onEditAgent={onEditAgent}
+						onDuplicateAgent={onDuplicateAgent}
+						onCopyAgent={onCopyAgent}
+						isForgeAgent={isForgeAgent}
+						loadAgentPermissions={loadAgentPermissions}
+						loadPermissionsOnMount
+						onViewAgentFullProfileClick={onViewFullProfileClick}
+						doesAgentHaveIdentityAccountId={!!agent.identity_account_id}
+						shouldTriggerStopPropagation
+						dropdownMenuTestId="agent-dropdown-menu"
+					/>
+				)}
 			</Inline>
 			<AgentDeleteConfirmationModal
 				isOpen={isDeleteModalOpen}

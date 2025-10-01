@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::737475caba8467007ea15db78e7ae272>>
+ * @codegen <<SignedSource::7a9f810f128e99cac1df713352cf8287>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -30,7 +30,7 @@ export function CrowdIcon({ size, appearance = 'brand', label = 'Crowd', testId 
 		<IconWrapper
 			svg={svg}
 			label={label}
-			isDataCenter={true}
+			type="data-center"
 			appearance={appearance}
 			size={size}
 			testId={testId}

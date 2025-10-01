@@ -5,9 +5,10 @@ import {
 	type XCSSAllProperties,
 	type XCSSAllPseudos,
 } from '@compiled/react';
-export { jsx } from '@compiled/react';
 
 import { type DesignTokenStyles } from '@atlaskit/tokens/css-type-schema';
+
+export { jsx } from '@compiled/react';
 
 type MediaQuery =
 	// "media.above" breakpoints
@@ -32,9 +33,15 @@ type MediaQuery =
 	| '(prefers-reduced-motion: reduce)'
 	| 'screen and (forced-colors: active), screen and (-ms-high-contrast: active)';
 
-const { XCSSProp, css, cssMap, cx } = createStrictAPI<DesignTokenStyles, { media: MediaQuery }>();
+const strictApi: ReturnType<typeof createStrictAPI<DesignTokenStyles, { media: MediaQuery }>> =
+	createStrictAPI<DesignTokenStyles, { media: MediaQuery }>();
 
-export { css, cssMap, cx };
+export const css: typeof strictApi.css = strictApi.css;
+export const cssMap: typeof strictApi.cssMap = strictApi.cssMap;
+strictApi.cssMap;
+export const cx: typeof strictApi.cx = strictApi.cx;
+const XCSSProp: typeof strictApi.XCSSProp = strictApi.XCSSProp;
+
 export type { XCSSAllProperties, XCSSAllPseudos };
 
 // This is to mitigate local TS error TS2315: Type 'StrictXCSSProp' is not generic.

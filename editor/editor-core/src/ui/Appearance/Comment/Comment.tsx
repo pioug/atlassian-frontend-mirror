@@ -24,6 +24,7 @@ import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -213,6 +214,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 
 	const isToolbarAIFCEnabled =
 		Boolean(editorAPI?.toolbar) && editorExperiment('platform_editor_toolbar_aifc', true);
+	const patch6Enabled = expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true);
 
 	return (
 		<WithFlash animate={maxContentSizeReached}>
@@ -241,12 +243,9 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 									editorAPI={editorAPI}
 									editorView={editorView}
 									editorAppearance={appearance}
+									disabled={patch6Enabled ? !!disabled : undefined}
 								/>
-								{editorExperiment('platform_editor_toolbar_aifc_patch_2', true)
-									? customPrimaryToolbarComponents
-										? customToolbarSlot
-										: null
-									: customToolbarSlot}
+								{customPrimaryToolbarComponents ? customToolbarSlot : null}
 							</React.Fragment>
 						) : (
 							<ToolbarArrowKeyNavigationProvider

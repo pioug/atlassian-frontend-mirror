@@ -10,6 +10,7 @@ export type VCCalculatorParam = {
 	isPostInteraction: boolean;
 	include3p?: boolean;
 	excludeSmartAnswersInSearch?: boolean;
+	includeSSRRatio?: boolean;
 	interactionType: InteractionType;
 	isPageVisible: boolean;
 	interactionAbortReason?: AbortReasonType;

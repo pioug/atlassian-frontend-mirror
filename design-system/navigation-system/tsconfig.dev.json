@@ -151,9 +151,6 @@
 			"path": "../tag/tsconfig.app.json"
 		},
 		{
-			"path": "../../navigation/temp-nav-app-icons/tsconfig.app.json"
-		},
-		{
 			"path": "../textfield/tsconfig.app.json"
 		},
 		{

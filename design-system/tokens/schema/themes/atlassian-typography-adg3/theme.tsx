@@ -1,5 +1,5 @@
 import type { TypographyTokenSchema, UtilTokenSchema, ValueSchema } from '../../../src/types';
-import { type BaseToken } from '../../palettes/palette';
+import { type BaseToken, type PaletteValues } from '../../palettes/palette';
 import type {
 	FontFamilyBaseToken,
 	FontSizeBaseToken,
@@ -188,7 +188,17 @@ const typography: ValueSchema<
 	},
 };
 
-const theme = {
+const theme: ValueSchema<
+	TypographyTokenSchema<{
+		fontWeight: FontWeightBaseToken;
+		fontFamily: FontFamilyBaseToken;
+		fontSize: FontSizeBaseToken;
+		lineHeight: LineHeightBaseToken;
+		letterSpacing: LetterSpacingBaseToken;
+	}>
+> & {
+	utility: ValueSchema<UtilTokenSchema<PaletteValues>>;
+} = {
 	font: typography.font,
 	utility,
 };

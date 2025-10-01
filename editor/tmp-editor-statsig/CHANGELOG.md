@@ -1,5 +1,33 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.2.0
+
+### Minor Changes
+
+- [`dbff10f5a27ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbff10f5a27ee) -
+  [ux] [ED-29347] Refactors extension hover styles to pure CSS
+- [`2e913b897ced3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e913b897ced3) -
+  [https://product-fabric.atlassian.net/browse/ED-29463](ED-29463) - clean up
+  platform_editor_media_card_vc_wrapper_attribute Statsig experiment
+- [`a3254a75cdfb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3254a75cdfb7) -
+  [ED-29448] clean up experiment platform_editor_toolbar_aifc_patch_2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.0
+
+### Minor Changes
+
+- [`4ad69354a021d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ad69354a021d) -
+  Remove references to platform_editor_toolbar_aifc_patch_1 experiment, remove
+  useToolbarDropdownMenuOld export from @atlaskit/editor-toolbar package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.0
 
 ### Major Changes

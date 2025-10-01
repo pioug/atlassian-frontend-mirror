@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media
 
+## 8.1.0
+
+### Minor Changes
+
+- [`2e913b897ced3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e913b897ced3) -
+  [https://product-fabric.atlassian.net/browse/ED-29463](ED-29463) - clean up
+  platform_editor_media_card_vc_wrapper_attribute Statsig experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

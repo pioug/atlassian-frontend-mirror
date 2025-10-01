@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3404583f381cb4fe458aa3d91e4ef911>>
+ * @codegen <<SignedSource::4852a196ef3d26a76edf63ac3dc5ed3c>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -81,6 +81,7 @@ import { ProjectsIcon, ProjectsLogo, ProjectsLogoCS } from '@atlaskit/temp-nav-a
 import { RovoIcon, RovoLogo, RovoLogoCS } from '@atlaskit/temp-nav-app-icons/rovo';
 import { RovoDevIcon, RovoDevLogoCS } from '@atlaskit/temp-nav-app-icons/rovo-dev';
 import { RovoDevAgentIcon, RovoDevAgentLogoCS } from '@atlaskit/temp-nav-app-icons/rovo-dev-agent';
+import { RovoHexIcon, RovoHexLogoCS } from '@atlaskit/temp-nav-app-icons/rovo-hex';
 import { SearchIcon, SearchLogo, SearchLogoCS } from '@atlaskit/temp-nav-app-icons/search';
 import {
 	SearchNewIcon,
@@ -423,6 +424,16 @@ export const rows: Array<{
 		Icon32: (props) => <RovoDevIcon {...props} size="32" />,
 		Logo: null,
 		LogoCS: (props) => <RovoDevLogoCS {...props} />,
+	},
+	{
+		name: 'Rovo Hex',
+		Icon12: (props) => <RovoHexIcon {...props} size="12" />,
+		Icon16: (props) => <RovoHexIcon {...props} size="16" />,
+		Icon20: (props) => <RovoHexIcon {...props} size="20" />,
+		Icon24: (props) => <RovoHexIcon {...props} size="24" />,
+		Icon32: (props) => <RovoHexIcon {...props} size="32" />,
+		Logo: null,
+		LogoCS: (props) => <RovoHexLogoCS {...props} />,
 	},
 	{
 		name: 'Rovo',

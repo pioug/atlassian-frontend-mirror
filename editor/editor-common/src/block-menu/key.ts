@@ -70,6 +70,10 @@ export const NESTED_FORMAT_MENU_SECTION = {
 	key: 'nested-menu-format-section-primary',
 };
 
+export const ADD_BLOCKS_MENU_SECTION = {
+	key: 'block-menu-section-synced-block',
+};
+
 export const COPY_MENU_SECTION = {
 	key: 'block-menu-section-copy',
 };
@@ -84,6 +88,10 @@ export const MOVE_UP_DOWN_MENU_SECTION = {
 
 export const FORMAT_MENU_ITEM = {
 	key: 'nested-menu-format-section-primary',
+};
+
+export const CREATE_SYNCED_BLOCK_MENU_ITEM = {
+	key: 'block-menu-create-synced-block',
 };
 
 export const COPY_BLOCK_MENU_ITEM = {

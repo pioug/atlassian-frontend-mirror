@@ -11,6 +11,21 @@ export const mapLanguageToCodeMirror = (language: LanguageAliasValue) => {
 		return undefined;
 	}
 	switch (language) {
+		case 'markdown':
+			return LanguageDescription.of({
+				name: 'Markdown',
+				extensions: ['md', 'markdown', 'mkd'],
+				load() {
+					return import(
+						/* webpackChunkName: "@atlaskit-internal_@atlaskit/editor-plugin-code-block-advanced-lang-markdown" */
+						'@codemirror/lang-markdown'
+					).then((m) =>
+						m.markdown({
+							codeLanguages: languages,
+						}),
+					);
+				},
+			});
 		case 'coldfusion':
 			return languages.find((l) => {
 				return l.name.toLowerCase() === 'xml';

@@ -42,6 +42,7 @@ export type TextField = {
 	h: number;
 	f: number;
 	text: string;
+	multiline: boolean;
 };
 
 export type ComboBoxField = {

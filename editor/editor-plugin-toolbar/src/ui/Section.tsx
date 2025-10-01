@@ -4,7 +4,7 @@ import { TOOLBARS, useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI, UserPreferences } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
-import { ToolbarSection } from '@atlaskit/editor-toolbar';
+import { ToolbarSection, SeparatorPosition } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentType, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -98,11 +98,16 @@ export const Section = ({
 	}
 
 	const isFullPage = editorAppearance === 'full-page';
+	const hasSeparator = showSeparatorInFullPagePrimaryToolbar && isFullPage;
 
 	return (
 		<ToolbarSection
 			testId={testId}
-			hasSeparator={showSeparatorInFullPagePrimaryToolbar && isFullPage}
+			hasSeparator={
+				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) && hasSeparator
+					? SeparatorPosition.START
+					: hasSeparator
+			}
 		>
 			{children}
 		</ToolbarSection>

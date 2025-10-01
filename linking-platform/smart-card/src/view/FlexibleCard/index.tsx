@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
 
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+import type { CardState } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { InternalActionName, SmartLinkStatus } from '../../constants';
@@ -12,6 +14,8 @@ import Container from './components/container';
 import { type FlexibleCardProps } from './types';
 import { getContextByStatus } from './utils';
 
+const PENDING_LINK_STATUSES = [SmartLinkStatus.Pending, SmartLinkStatus.Resolving];
+
 /**
  * This represents a Flexible Card: a link represented by a card with metadata.
  * This is the container in which all Flexible UI Blocks and Elements exist.
@@ -21,6 +25,7 @@ import { getContextByStatus } from './utils';
 const FlexibleCard = ({
 	appearance = 'flexible',
 	cardState,
+	placeholderData,
 	children,
 	id,
 	onAuthorize,
@@ -35,7 +40,18 @@ const FlexibleCard = ({
 	testId,
 	ui,
 	url,
-}: FlexibleCardProps) => {
+}: FlexibleCardProps & {
+	/**
+	 * @experimental
+	 * This is a new prop that is not part of the public API - DO NOT USE.
+	 * If provided, the card will display using the respective object for the first render (particularly useful for SSR),
+	 * while still resolving `url` in the background.
+	 * Placeholder data should be considered a transient state - in the sense that it will not persisted to the main store -
+	 * and it will be replaced by the actual data when the given `url` is resolved.
+	 * ANIP-288: Expose this prop to the public API
+	 */
+	placeholderData?: CardState;
+}) => {
 	const aiSummaryConfig = useAISummaryConfig();
 	const resolve = useResolve();
 	const { isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
@@ -45,13 +61,20 @@ const FlexibleCard = ({
 	const { status: cardType, details } = cardState;
 	const status = cardType as SmartLinkStatus;
 
+	const shouldUsePlaceholderData =
+		PENDING_LINK_STATUSES.includes(status) &&
+		placeholderData &&
+		fg('platform_initial_data_for_smart_cards');
+	// if we have placeholder data it means we can internally use it
+	// as resolved data until the actual data comes back as one of the final statuses
+	const contextStatus = shouldUsePlaceholderData ? SmartLinkStatus.Resolved : status;
 	const context = useMemo(
 		() =>
 			getContextByStatus({
 				aiSummaryConfig,
 				appearance,
 				fireEvent,
-				response: details,
+				response: shouldUsePlaceholderData ? placeholderData.details : details,
 				id,
 				onAuthorize,
 				onClick,
@@ -59,7 +82,7 @@ const FlexibleCard = ({
 				renderers,
 				resolve,
 				actionOptions,
-				status,
+				status: shouldUsePlaceholderData ? contextStatus : status,
 				url,
 				isPreviewPanelAvailable,
 				openPreviewPanel,
@@ -68,6 +91,8 @@ const FlexibleCard = ({
 			aiSummaryConfig,
 			appearance,
 			fireEvent,
+			shouldUsePlaceholderData,
+			placeholderData?.details,
 			details,
 			id,
 			onAuthorize,
@@ -76,13 +101,21 @@ const FlexibleCard = ({
 			renderers,
 			resolve,
 			actionOptions,
+			contextStatus,
 			status,
 			url,
 			isPreviewPanelAvailable,
 			openPreviewPanel,
 		],
 	);
-	const flexibleCardContext = useMemo(() => ({ data: context, status, ui }), [context, status, ui]);
+	const flexibleCardContext = useMemo(
+		() => ({
+			data: context,
+			status: fg('platform_initial_data_for_smart_cards') ? contextStatus : status,
+			ui,
+		}),
+		[context, contextStatus, status, ui],
+	);
 
 	const { linkTitle } = context || {};
 	const title = linkTitle?.text;

@@ -43,7 +43,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_preview_panel_responsiveness: false,
 	platform_editor_renderer_breakout_fix: false,
 	platform_editor_toolbar_aifc: false,
-	platform_editor_media_card_vc_wrapper_attribute: false,
 	platform_editor_block_control_optimise_render: false,
 	'test-new-experiments-package': false,
 	support_table_in_comment: false,

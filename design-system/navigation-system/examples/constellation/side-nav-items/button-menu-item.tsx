@@ -4,6 +4,7 @@ import { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { JiraIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -13,7 +14,6 @@ import {
 import { ContainerAvatar } from '@atlaskit/navigation-system/side-nav-items/container-avatar';
 import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
 import { Inline } from '@atlaskit/primitives/compiled';
-import { JiraIcon } from '@atlaskit/temp-nav-app-icons/jira';
 
 import MoneyIcon from '../../images/money.svg';
 
@@ -55,7 +55,7 @@ export function ButtonMenuItemExample() {
 						<ButtonMenuItem elemBefore={<ContainerAvatar src={MoneyIcon} />}>
 							Button menu item (ContainerAvatar)
 						</ButtonMenuItem>
-						<ButtonMenuItem elemBefore={<JiraIcon label="" />}>
+						<ButtonMenuItem elemBefore={<JiraIcon label="" shouldUseNewLogoDesign size="xsmall" />}>
 							Button menu item (app tile)
 						</ButtonMenuItem>
 						<ButtonMenuItem>Button menu item (spacer)</ButtonMenuItem>

@@ -23,7 +23,6 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { isNodeSelectedOrInRange } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
@@ -145,9 +144,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		if (this.reactComponentProps.mediaOptions?.allowPixelResizing) {
 			domRef.classList.add('media-extended-resize-experience');
 		}
-		if (expValEquals('platform_editor_media_card_vc_wrapper_attribute', 'isEnabled', true)) {
-			domRef.setAttribute('data-media-vc-wrapper', 'true');
-		}
+		domRef.setAttribute('data-media-vc-wrapper', 'true');
 
 		return domRef;
 	}

@@ -8,7 +8,10 @@ import { Fragment, Suspense, useEffect, useLayoutEffect, useState } from 'react'
 
 import { css, jsx } from '@compiled/react';
 
-import { getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
+import {
+	getActiveInteraction,
+	updatePageLoadInteractionName,
+} from '@atlaskit/react-ufo/interaction-metrics';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import UFOSegment from '@atlaskit/react-ufo/segment';
 
@@ -117,6 +120,14 @@ function FallbackComponent() {
 
 // SSR Fallback component
 function SSRFallback() {
+	useEffect(() => {
+		setTimeout(() => {
+			requestAnimationFrame(() => {
+				performance.mark('SSR-DONE');
+			});
+		}, 2);
+	}, []);
+
 	useLayoutEffect(() => {
 		// Populate window.__SSR_PLACEHOLDERS_DIMENSIONS__ with current placeholder dimensions
 		const ssrPlaceholders = document.querySelectorAll('[data-ssr-placeholder]');
@@ -176,6 +187,7 @@ export default function Example() {
 
 	useEffect(() => {
 		// Reset the loading state when component mounts
+		updatePageLoadInteractionName('test-SSR-UFO');
 		isDataLoaded = false;
 		loadingPromise = null;
 

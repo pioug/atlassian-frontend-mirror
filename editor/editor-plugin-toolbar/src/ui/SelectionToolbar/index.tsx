@@ -24,6 +24,7 @@ import {
 	ToolbarButtonGroup,
 	ToolbarDropdownItemSection,
 	type ToolbarKeyboardNavigationProviderConfig,
+	useToolbarUI,
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
@@ -121,14 +122,15 @@ export const SelectionToolbar = ({
 		return getKeyboardNavigationConfig(editorView, intl, api);
 	}, [editorView, intl, api]);
 
+	const { isDisabled } = useToolbarUI();
+
+	const patch6Enabled = expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true);
 	const isOffline = connectivityStateMode === 'offline';
 	const isTextSelection =
 		!editorView.state.selection.empty && editorView.state.selection instanceof TextSelection;
 
 	const isAllSelection =
-		!editorView.state.selection.empty &&
-		editorView.state.selection instanceof AllSelection &&
-		expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true);
+		!editorView.state.selection.empty && editorView.state.selection instanceof AllSelection;
 
 	const isCellSelection =
 		!editorView.state.selection.empty && '$anchorCell' in editorView.state.selection;
@@ -168,9 +170,7 @@ export const SelectionToolbar = ({
 		!shouldShowToolbar ||
 		(currentUserIntent === 'blockMenuOpen' &&
 			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) ||
-		(currentUserIntent &&
-			currentUserIntent !== 'default' &&
-			expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true)) ||
+		(currentUserIntent && currentUserIntent !== 'default') ||
 		isSSR()
 	) {
 		return null;
@@ -194,7 +194,7 @@ export const SelectionToolbar = ({
 			>
 				<EditorToolbarUIProvider
 					api={api}
-					isDisabled={isOffline}
+					isDisabled={patch6Enabled ? isDisabled : isOffline}
 					// supress type checks for now
 					fireAnalyticsEvent={
 						expValEquals('platform_editor_toolbar_aifc_toolbar_analytic', 'isEnabled', true)

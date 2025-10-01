@@ -68,7 +68,7 @@ describe('ErrorMessage', () => {
 		jest.clearAllMocks();
 	});
 
-	const renderAgentActions = () => {
+	const renderAgentActions = (hideMoreActions?: boolean) => {
 		return renderWithAnalyticsListener(
 			<IntlProvider locale="en">
 				<AgentActions
@@ -80,6 +80,7 @@ describe('ErrorMessage', () => {
 					onChatClick={jest.fn()}
 					onViewFullProfileClick={jest.fn()}
 					resourceClient={mockClient as any}
+					hideMoreActions={hideMoreActions}
 				/>
 			</IntlProvider>,
 		);
@@ -100,6 +101,28 @@ describe('ErrorMessage', () => {
 			await user.click(screen.getByTestId('agent-dropdown-menu--trigger'));
 			await user.click(screen.getByText('Delete Agent'));
 			expectEventToBeFired('ui', event);
+		});
+	});
+
+	describe('hideMoreActions', () => {
+		it('should render dropdown menu when hideMoreActions is false', () => {
+			renderAgentActions(false);
+			expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
+		});
+
+		it('should render dropdown menu when hideMoreActions is undefined', () => {
+			renderAgentActions();
+			expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
+		});
+
+		it('should not render dropdown menu when hideMoreActions is true', () => {
+			renderAgentActions(true);
+			expect(screen.queryByTestId('agent-dropdown-menu--trigger')).not.toBeInTheDocument();
+		});
+
+		it('should still render chat button when hideMoreActions is true', () => {
+			renderAgentActions(true);
+			expect(screen.getByRole('button', { name: /chat to agent/i })).toBeInTheDocument();
 		});
 	});
 });

@@ -22,7 +22,6 @@ import InlineCardForbiddenTruncate from '../../../examples/vr-inline-card/vr-inl
 import InlineCardIcons from '../../../examples/vr-inline-card/vr-inline-card-icons';
 import InlineCardNotFound from '../../../examples/vr-inline-card/vr-inline-card-not-found';
 import InlineCardNotFoundTruncate from '../../../examples/vr-inline-card/vr-inline-card-not-found-truncate';
-import VRInlineCardPlaceholderData from '../../../examples/vr-inline-card/vr-inline-card-placeholder-data';
 import InlineCardSelected from '../../../examples/vr-inline-card/vr-inline-card-selected';
 import InlineCardTextWrap from '../../../examples/vr-inline-card/vr-inline-card-text-wrap';
 import InlineCardUnauthorised from '../../../examples/vr-inline-card/vr-inline-card-unauthorised';
@@ -332,11 +331,4 @@ snapshot(VRInlineProfileCard, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
-});
-
-snapshot(VRInlineCardPlaceholderData, {
-	description: `inline card with placeholder data for SSR`,
-	featureFlags: {
-		platform_initial_data_for_smart_cards: [true, false],
-	},
 });

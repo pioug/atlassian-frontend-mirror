@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2149e3bf372f0515252a5e78dec7c590>>
+ * @codegen <<SignedSource::6f21b3355de894ea90060cabff83bbdc>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -34,7 +34,7 @@ export function JiraDataCenterLogoCS({
 		<LogoWrapper
 			svg={svg}
 			label={label}
-			isDataCenter={true}
+			type="data-center"
 			appearance={appearance}
 			size={size}
 			testId={testId}

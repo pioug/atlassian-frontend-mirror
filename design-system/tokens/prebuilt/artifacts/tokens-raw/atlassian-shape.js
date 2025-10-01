@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f3ee3158256a13e7401785620da6d439>>
+ * @codegen <<SignedSource::ed8b341bea9e633d9bf846cc430b9b60>>
  * @codegenCommand yarn build tokens
  */
 
@@ -350,7 +350,7 @@ var tokens = [{
     "state": "active",
     "suggest": ["1px"],
     "introduced": "1.5.2",
-    "description": "The default border width. Used for all borders."
+    "description": "The default width for all standard component borders and dividers."
   },
   "value": "1px",
   "filePath": "schema/themes/atlassian-shape/shape.tsx",
@@ -361,7 +361,7 @@ var tokens = [{
       "state": "active",
       "suggest": ["1px"],
       "introduced": "1.5.2",
-      "description": "The default border width. Used for all borders."
+      "description": "The default width for all standard component borders and dividers."
     },
     "value": "BorderWidth1"
   },
@@ -446,7 +446,7 @@ var tokens = [{
     "state": "active",
     "suggest": ["2px"],
     "introduced": "6.1.0",
-    "description": "Use for selected states."
+    "description": "The width used to indicate a selected element, such as an active tab or a chosen item."
   },
   "value": "2px",
   "filePath": "schema/themes/atlassian-shape/shape.tsx",
@@ -457,7 +457,7 @@ var tokens = [{
       "state": "active",
       "suggest": ["2px"],
       "introduced": "6.1.0",
-      "description": "Use for selected states."
+      "description": "The width used to indicate a selected element, such as an active tab or a chosen item."
     },
     "value": "BorderWidth2"
   },
@@ -470,7 +470,7 @@ var tokens = [{
     "state": "active",
     "suggest": ["2px"],
     "introduced": "6.1.0",
-    "description": "Use for focused states."
+    "description": "The width used for the focus ring on interactive elements."
   },
   "value": "2px",
   "filePath": "schema/themes/atlassian-shape/shape.tsx",
@@ -481,7 +481,7 @@ var tokens = [{
       "state": "active",
       "suggest": ["2px"],
       "introduced": "6.1.0",
-      "description": "Use for focused states."
+      "description": "The width used for the focus ring on interactive elements."
     },
     "value": "BorderWidth2"
   },

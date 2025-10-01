@@ -941,12 +941,13 @@ export class LegionClient extends RestClient implements LegionClient {
 
 	checkOrgFullAlignmentStatus(orgId: string): Promise<OrgAlignmentStatus> {
 		try {
-			return this.getResource<OrgAlignmentStatus>(`${v4UrlPath}/migrations/scope/${orgId}/fully-aligned`);
+			return this.getResource<OrgAlignmentStatus>(
+				`${v4UrlPath}/migrations/scope/${orgId}/fully-aligned`,
+			);
 		} catch (e) {
 			this.logException(e, 'checkOrgFullAlignmentStatus');
 			throw e;
 		}
-
 	}
 }
 

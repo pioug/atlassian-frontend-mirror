@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
+import type { SeparatorPosition } from '@atlaskit/editor-toolbar';
 import { ToolbarSection } from '@atlaskit/editor-toolbar';
 
 export const OverflowSection = ({
@@ -9,7 +10,7 @@ export const OverflowSection = ({
 	testId,
 }: {
 	children: React.ReactNode;
-	hasSeparator?: boolean;
+	hasSeparator?: boolean | SeparatorPosition;
 	testId?: string;
 }) => {
 	const { editorAppearance } = useEditorToolbar();

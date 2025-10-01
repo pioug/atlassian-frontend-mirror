@@ -15,6 +15,7 @@ import {
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { stateKey } from './plugin-key';
@@ -250,17 +251,32 @@ export const subtreeHeight = ($from: ResolvedPos, $to: ResolvedPos, types: NodeT
 };
 
 /**
- * Returns `true` if the taskItem or decisionItem has no text.
+ * Determines if the current selection is inside an empty taskItem, decisionItem, or blockTaskItem.
+ *
+ * @param state - The current EditorState.
+ * @returns `true` if the taskItem, decisionItem, or blockTaskItem is empty; otherwise, `false`.
  */
 export const isEmptyTaskDecision = (state: EditorState) => {
 	const { selection, schema } = state;
+	const { paragraph, blockTaskItem, decisionItem, taskItem } = schema.nodes;
 	const { $from } = selection;
 	const node = $from.node($from.depth);
-	return (
-		node &&
-		(node.type === schema.nodes.taskItem || node.type === schema.nodes.decisionItem) &&
-		node.content.size === 0
-	);
+
+	const isEmptyTaskOrDecisionItem =
+		node && (node.type === taskItem || node.type === decisionItem) && node.content.size === 0;
+
+	// Block task items must contain a single empty paragraph to be considered empty
+	const isInEmptyBlockTaskItem =
+		// If in an empty paragraph that's not at the doc level
+		node.content.size === 0 &&
+		node.type === paragraph &&
+		$from.depth > 0 &&
+		// and it's parent is a blockTaskItem with only this paragraph inside it
+		$from.node($from.depth - 1).type === blockTaskItem &&
+		$from.node($from.depth - 1).childCount === 1 &&
+		fg('platform_editor_blocktaskitem_patch_3');
+
+	return isEmptyTaskOrDecisionItem || isInEmptyBlockTaskItem;
 };
 
 /**

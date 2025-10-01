@@ -1,5 +1,24 @@
 # @atlaskit/profilecard
 
+## 24.17.0
+
+### Minor Changes
+
+- [`1d4e57d1d41ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d4e57d1d41ef) -
+  [ux] add prop to hideAgentMoreActions for ProfileCard and AgentProfileCard
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.16.1
+
+### Patch Changes
+
+- [`935419dbf39da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/935419dbf39da) -
+  Fixed typecheck errors in examples
+- Updated dependencies
+
 ## 24.16.0
 
 ### Minor Changes

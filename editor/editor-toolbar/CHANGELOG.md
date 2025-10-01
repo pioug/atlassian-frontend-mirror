@@ -1,5 +1,41 @@
 # @atlaskit/editor-toolbar
 
+## 0.13.0
+
+### Minor Changes
+
+- [`351022ab9c347`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/351022ab9c347) -
+  [ux] [ED-29060] add toolbar separators after the AI sections in the inline toolbars behind
+  platform_editor_toolbar_aifc_patch_6
+
+### Patch Changes
+
+- [`7011f9be6a430`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7011f9be6a430) -
+  [ux] EDITOR-1653 add create synced block item to the block menu
+- [`84e969325af68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84e969325af68) -
+  ED-29469 Comment editor in live-doc squishes before going to next breakpoint
+- Updated dependencies
+
+## 0.12.1
+
+### Patch Changes
+
+- [`a3254a75cdfb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3254a75cdfb7) -
+  [ED-29448] clean up experiment platform_editor_toolbar_aifc_patch_2
+- Updated dependencies
+
+## 0.12.0
+
+### Minor Changes
+
+- [`4ad69354a021d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ad69354a021d) -
+  Remove references to platform_editor_toolbar_aifc_patch_1 experiment, remove
+  useToolbarDropdownMenuOld export from @atlaskit/editor-toolbar package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.11.0
 
 ### Minor Changes

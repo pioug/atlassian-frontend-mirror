@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## 214.1.3
+
+### Patch Changes
+
+- [`6331abb3b4a0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6331abb3b4a0e) -
+  ED-29470 Fix toolbar disabled state for offline mode
+- Updated dependencies
+
+## 214.1.2
+
+### Patch Changes
+
+- [`a3254a75cdfb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3254a75cdfb7) -
+  [ED-29448] clean up experiment platform_editor_toolbar_aifc_patch_2
+- Updated dependencies
+
+## 214.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 214.1.0
+
+### Minor Changes
+
+- [`9e7a5a0bb1869`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e7a5a0bb1869) -
+  Add content api sync block provider
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 214.0.9
 
 ### Patch Changes

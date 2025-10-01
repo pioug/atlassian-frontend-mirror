@@ -47,7 +47,99 @@ type StrictTokensMap = {
 		| typeof fontMap
 		| typeof fontWeightMap;
 };
-export const tokensMap = {
+
+export const tokensMap: {
+	readonly backgroundColor: typeof backgroundColorMap;
+	readonly blockSize: typeof dimensionMap;
+	readonly borderBlockColor: typeof borderColorMap;
+	readonly borderBlockEndColor: typeof borderColorMap;
+	readonly borderBlockEndWidth: typeof borderWidthMap;
+	readonly borderBlockStartColor: typeof borderColorMap;
+	readonly borderBlockStartWidth: typeof borderWidthMap;
+	readonly borderBlockWidth: typeof borderWidthMap;
+	readonly borderBottomColor: typeof borderColorMap;
+	readonly borderBottomLeftRadius: typeof borderRadiusMap;
+	readonly borderBottomRightRadius: typeof borderRadiusMap;
+	readonly borderBottomWidth: typeof borderWidthMap;
+	readonly borderColor: typeof borderColorMap;
+	readonly borderEndEndRadius: typeof borderRadiusMap;
+	readonly borderEndStartRadius: typeof borderRadiusMap;
+	readonly borderInlineColor: typeof borderColorMap;
+	readonly borderInlineEndColor: typeof borderColorMap;
+	readonly borderInlineEndWidth: typeof borderWidthMap;
+	readonly borderInlineStartColor: typeof borderColorMap;
+	readonly borderInlineStartWidth: typeof borderWidthMap;
+	readonly borderInlineWidth: typeof borderWidthMap;
+	readonly borderLeftColor: typeof borderColorMap;
+	readonly borderLeftWidth: typeof borderWidthMap;
+	readonly borderRadius: typeof borderRadiusMap;
+	readonly borderRightColor: typeof borderColorMap;
+	readonly borderRightWidth: typeof borderWidthMap;
+	readonly borderStartEndRadius: typeof borderRadiusMap;
+	readonly borderStartStartRadius: typeof borderRadiusMap;
+	readonly borderTopColor: typeof borderColorMap;
+	readonly borderTopLeftRadius: typeof borderRadiusMap;
+	readonly borderTopRightRadius: typeof borderRadiusMap;
+	readonly borderTopWidth: typeof borderWidthMap;
+	readonly borderWidth: typeof borderWidthMap;
+	readonly bottom: typeof allSpaceMap;
+	readonly boxShadow: typeof shadowMap;
+	readonly color: typeof textColorMap;
+	readonly columnGap: typeof positiveSpaceMap;
+	readonly font: typeof fontMap;
+	readonly fontFamily: typeof fontFamilyMap;
+	readonly fontWeight: typeof fontWeightMap;
+	readonly gap: typeof positiveSpaceMap;
+	readonly height: typeof dimensionMap;
+	readonly inlineSize: typeof dimensionMap;
+	readonly inset: typeof allSpaceMap;
+	readonly insetBlock: typeof allSpaceMap;
+	readonly insetBlockEnd: typeof allSpaceMap;
+	readonly insetBlockStart: typeof allSpaceMap;
+	readonly insetInline: typeof allSpaceMap;
+	readonly insetInlineEnd: typeof allSpaceMap;
+	readonly insetInlineStart: typeof allSpaceMap;
+	readonly left: typeof allSpaceMap;
+	readonly margin: typeof allSpaceMap;
+	readonly marginBlock: typeof allSpaceMap;
+	readonly marginBlockEnd: typeof allSpaceMap;
+	readonly marginBlockStart: typeof allSpaceMap;
+	readonly marginBottom: typeof allSpaceMap;
+	readonly marginInline: typeof allSpaceMap;
+	readonly marginInlineEnd: typeof allSpaceMap;
+	readonly marginInlineStart: typeof allSpaceMap;
+	readonly marginLeft: typeof allSpaceMap;
+	readonly marginRight: typeof allSpaceMap;
+	readonly marginTop: typeof allSpaceMap;
+	readonly maxBlockSize: typeof dimensionMap;
+	readonly maxHeight: typeof dimensionMap;
+	readonly maxInlineSize: typeof dimensionMap;
+	readonly maxWidth: typeof dimensionMap;
+	readonly minBlockSize: typeof dimensionMap;
+	readonly minHeight: typeof dimensionMap;
+	readonly minInlineSize: typeof dimensionMap;
+	readonly minWidth: typeof dimensionMap;
+	readonly opacity: typeof opacityMap;
+	readonly outlineColor: typeof borderColorMap;
+	readonly outlineOffset: typeof allSpaceMap;
+	readonly outlineWidth: typeof borderWidthMap;
+	readonly padding: typeof positiveSpaceMap;
+	readonly paddingBlock: typeof positiveSpaceMap;
+	readonly paddingBlockEnd: typeof positiveSpaceMap;
+	readonly paddingBlockStart: typeof positiveSpaceMap;
+	readonly paddingBottom: typeof positiveSpaceMap;
+	readonly paddingInline: typeof positiveSpaceMap;
+	readonly paddingInlineEnd: typeof positiveSpaceMap;
+	readonly paddingInlineStart: typeof positiveSpaceMap;
+	readonly paddingLeft: typeof positiveSpaceMap;
+	readonly paddingRight: typeof positiveSpaceMap;
+	readonly paddingTop: typeof positiveSpaceMap;
+	readonly right: typeof allSpaceMap;
+	readonly rowGap: typeof positiveSpaceMap;
+	readonly top: typeof allSpaceMap;
+	readonly width: typeof dimensionMap;
+	readonly zIndex: typeof layerMap;
+} = {
 	backgroundColor: backgroundColorMap,
 	blockSize: dimensionMap,
 	borderBlockColor: borderColorMap,
@@ -143,7 +235,7 @@ export const tokensMap = {
 type StyleMapKey = keyof typeof tokensMap;
 type TokensMapKey = keyof (typeof tokensMap)[StyleMapKey];
 
-const uniqueSymbol = Symbol('UNSAFE_INTERNAL_styles');
+const uniqueSymbol: unique symbol = Symbol('UNSAFE_INTERNAL_styles');
 
 const isSafeEnvToThrow = () =>
 	typeof process === 'object' &&
@@ -314,6 +406,9 @@ export type XCSS = ReturnType<typeof xcss>;
  * })
  * ```
  */
-export function xcss(style: SafeCSSObject) {
+export function xcss(style: SafeCSSObject): {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	readonly [uniqueSymbol]: SerializedStyles;
+} {
 	return baseXcss(style);
 }

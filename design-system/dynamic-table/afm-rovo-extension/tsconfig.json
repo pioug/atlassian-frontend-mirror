@@ -39,9 +39,6 @@
 			"path": "../../pagination/afm-rovo-extension/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
-		},
-		{
 			"path": "../../../pragmatic-drag-and-drop/react-beautiful-dnd-migration/afm-rovo-extension/tsconfig.json"
 		},
 		{

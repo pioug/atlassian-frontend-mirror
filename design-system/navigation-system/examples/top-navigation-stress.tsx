@@ -12,6 +12,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import Heading from '@atlaskit/heading';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import PremiumIcon from '@atlaskit/icon/core/premium';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import { TopNavButton } from '@atlaskit/navigation-system/experimental/top-nav-button';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -33,7 +34,6 @@ import {
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Stack } from '@atlaskit/primitives/compiled';
-import { ConfluenceIcon } from '@atlaskit/temp-nav-app-icons/confluence';
 import { EditionAwarenessButton } from '@atlassian/growth-pattern-library-edition-awareness-button';
 
 import placeholder200x20 from './images/200x20.png';

@@ -54,6 +54,7 @@ const AgentProfileCard = ({
 	resourceClient,
 	addFlag,
 	onDeleteAgent,
+	hideMoreActions,
 }: AgentProfileCardProps) => {
 	const {
 		onEditAgent,
@@ -255,6 +256,7 @@ const AgentProfileCard = ({
 					}
 					resourceClient={resourceClient}
 					onViewFullProfileClick={() => onViewFullProfile(agent.id)}
+					hideMoreActions={hideMoreActions}
 				/>
 			</Box>
 		</AgentProfileCardWrapper>

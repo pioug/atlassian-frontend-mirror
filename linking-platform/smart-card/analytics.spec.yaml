@@ -165,7 +165,7 @@ attributes:
       description: The definitionId of the Smart Link resolver invoked.
     display:
       required: false
-      type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+      type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview', 'hyperlink']
       description: Whether the card was an Inline, Block, Embed or Flexible UI.
     resourceType:
       required: false
@@ -313,7 +313,7 @@ events:
           description: The unique ID for this Smart Link
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview', 'hyperlink']
           description: Whether the card was an Inline, Block, Embed or Flexible UI
         definitionId:
           required: false
@@ -337,7 +337,7 @@ events:
           description: The unique ID for this Smart Link.
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview', 'hyperlink']
           description: Whether the card was an Inline, Block, Embed or Flexible UI.
         definitionId:
           required: false
@@ -480,7 +480,7 @@ events:
         <<: [*PackageMetaDataContext, *CommonContext]
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview', 'hyperlink']
           description: Whether the card was an Inline, Block, Embed or Flexible UI.
         definitionId:
           required: false
@@ -516,6 +516,62 @@ events:
           required: false
           type: string
           description: Failure reason
+  - hyperlink resolved:
+      type: operational
+      description: Fires an event when a hyperlink is successfully resolved.
+      attributes:
+        packageName:
+          type: string
+          description: name of the package the event was fired from
+        packageVersion:
+          type: string
+          description: version of the package the event was fired from
+        extensionKey:
+          type: string
+          required: false
+          description: The provider identifier of the resolver that was used to resolve the link
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+        resourceType:
+          required: false
+          type: string
+          description: Type of resource the link is pointing to
+        duration:
+          required: false
+          type: number
+          description: Total time the hyperlink resolution took to complete
+  - hyperlink unresolved:
+      type: operational
+      description: Fires an event when a hyperlink fails to resolve.
+      attributes:
+        packageName:
+          type: string
+          description: name of the package the event was fired from
+        packageVersion:
+          type: string
+          description: version of the package the event was fired from
+        extensionKey:
+          type: string
+          required: false
+          description: The provider identifier of the resolver that was used to resolve the link
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+        resourceType:
+          required: false
+          type: string
+          description: Type of resource the link is pointing to
+        reason:
+          required: false
+          type: string
+          description: The status/reason why the hyperlink failed to resolve
+        error:
+          required: false
+          type: object
+          description: Error object providing more details about the failure
   - smartLink clicked:
       type: ui
       description: fires an event that represents when a user clicks on a Smart Link.
@@ -623,7 +679,7 @@ events:
         <<: [*PackageMetaDataContext, *CommonContext]
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview', 'hyperlink']
           description: Whether the card was an Inline, Block, Embed or Flexible UI.
         definitionId:
           required: false
@@ -638,7 +694,7 @@ events:
         <<: [*PackageMetaDataContext, *CommonContext]
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview', 'hyperlink']
           description: Whether the card was an Inline, Block, Embed or Flexible UI.
         definitionId:
           required: false
@@ -653,7 +709,7 @@ events:
         <<: [*PackageMetaDataContext, *CommonContext]
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview', 'hyperlink']
           description: Whether the card was an Inline, Block, Embed or Flexible UI.
         definitionId:
           required: false

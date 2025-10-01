@@ -1,5 +1,12 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.14.0
+
+### Minor Changes
+
+- [`6bbf9c58510f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bbf9c58510f8) -
+  Internal update to support feature flagging updated logo design
+
 ## 0.13.0
 
 ### Minor Changes

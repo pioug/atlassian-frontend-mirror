@@ -63,7 +63,7 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 		? highlightColor
 		: getContrastingBackgroundColor(iconColor);
 
-	return expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true) ? (
+	return (
 		<ToolbarTooltip
 			content={formatMessage(
 				isHighlightPluginExisted ? messages.textColorHighlightTooltip : messages.textColorTooltip,
@@ -95,29 +95,5 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 				</ToolbarDropdownMenu>
 			</ToolbarDropdownMenuProvider>
 		</ToolbarTooltip>
-	) : (
-		<ToolbarDropdownMenu
-			iconBefore={
-				<ToolbarColorSwatch highlightColor={highlightColorIcon}>
-					<TextColorIcon
-						label={formatMessage(messages.textColorTooltip)}
-						iconColor={iconColor as IconColor}
-						shouldRecommendSmallIcon
-						size={'small'}
-						isDisabled={isDisabled}
-						spacing={'compact'}
-					/>
-				</ToolbarColorSwatch>
-			}
-			isDisabled={isDisabled}
-			testId="text-color-highlight-menu"
-			hasSectionMargin={false}
-		>
-			{expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true) ? (
-				children
-			) : (
-				<Box xcss={styles.menu}>{children}</Box>
-			)}
-		</ToolbarDropdownMenu>
 	);
 };

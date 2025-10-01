@@ -36,6 +36,15 @@ const styles = cssMap({
 		backgroundColor: token('elevation.surface'),
 		minHeight: '32px',
 	},
+	toolbarSeparator: {
+		/* separators in the inline toolbar should be the same height as the toolbar */
+		// @ts-expect-error - container queries are not typed in cssMap
+		'&[data-toolbar-type="inline"]': {
+			'[data-toolbar-component="separator"]': {
+				height: '36px',
+			},
+		},
+	},
 	hiddenSelectors: {
 		/**
 		 * This is not great - but there is no way to know using React if a specific toolbar component returns null. The current CSS still adds
@@ -46,6 +55,14 @@ const styles = cssMap({
 			display: 'none',
 		},
 		'[class*="show-above-"]:not(:has([data-toolbar-component="section"] [data-toolbar-component="button"], [data-toolbar-component="button-group"] [data-toolbar-component="button"])), [class*="show-below-"]:not(:has([data-toolbar-component="section"] [data-toolbar-component="button"], [data-toolbar-component="button-group"] [data-toolbar-component="button"]))':
+			{
+				display: 'none',
+			},
+	},
+	hiddenSelectorsPatch: {
+		/* separators should be hidden from the ToolbarSection if there is no subsequent ToolbarSection */
+		// @ts-expect-error - container queries are not typed in cssMap
+		'[data-toolbar-component="section"]:not(:has(~ [data-toolbar-component="section"])) [data-toolbar-component="separator"]':
 			{
 				display: 'none',
 			},
@@ -83,10 +100,19 @@ export const Toolbar = ({ children, label, actionSubjectId, testId }: ToolbarPro
 				isResponsiveEnabled && styles.toolbarResponsive,
 				expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true) &&
 					styles.hiddenSelectors,
+				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
+					styles.toolbarSeparator,
+				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
+					styles.hiddenSelectorsPatch,
 			)}
 			role="toolbar"
 			aria-label={label}
 			testId={testId}
+			data-toolbar-type={
+				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
+					? 'inline'
+					: undefined
+			}
 		>
 			{expValEquals('platform_editor_toolbar_aifc_toolbar_analytic', 'isEnabled', true) ? (
 				<ViewEventEmitter
@@ -146,6 +172,11 @@ export const PrimaryToolbar = ({ children, label, reducedBreakpoints }: PrimaryT
 					xcss={cx(styles.toolbarBase, styles.primaryToolbar, styles.hiddenSelectors)}
 					role="toolbar"
 					aria-label={label}
+					data-toolbar-type={
+						expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
+							? 'primary'
+							: undefined
+					}
 				>
 					{children}
 				</Box>
@@ -154,7 +185,16 @@ export const PrimaryToolbar = ({ children, label, reducedBreakpoints }: PrimaryT
 	}
 
 	return (
-		<Box xcss={cx(styles.toolbarBase, styles.primaryToolbar)} role="toolbar" aria-label={label}>
+		<Box
+			xcss={cx(styles.toolbarBase, styles.primaryToolbar)}
+			role="toolbar"
+			aria-label={label}
+			data-toolbar-type={
+				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
+					? 'primary'
+					: undefined
+			}
+		>
 			{children}
 		</Box>
 	);

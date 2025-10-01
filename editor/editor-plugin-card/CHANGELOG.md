@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 11.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.0
+
+### Minor Changes
+
+- [`3dfc071fcc15b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dfc071fcc15b) -
+  [ux] Repositions the preview panel button inside the floating toolbar so that it is next to the
+  open in new tab button
+
 ## 11.1.1
 
 ### Patch Changes

@@ -25,6 +25,11 @@ interface HelpProps
 	 * You are recommended to use the Badge component from `@atlaskit/badge`.
 	 */
 	badge?: ComponentType;
+	/**
+	 * Experimental, do not use. May be removed at any time.
+	 * Whether the tooltip should be disabled.
+	 */
+	UNSAFE_isTooltipDisabled?: boolean;
 }
 
 /**
@@ -35,7 +40,17 @@ interface HelpProps
 export const Help: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<HelpProps> & React.RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, HelpProps>(function Help(
-	{ label, onClick, onMouseEnter, isSelected, testId, interactionName, isListItem, badge },
+	{
+		label,
+		onClick,
+		onMouseEnter,
+		isSelected,
+		testId,
+		interactionName,
+		isListItem,
+		badge,
+		UNSAFE_isTooltipDisabled,
+	},
 	ref,
 ) {
 	const sharedProps = {
@@ -47,6 +62,7 @@ export const Help: React.ForwardRefExoticComponent<
 		testId,
 		interactionName,
 		ref,
+		UNSAFE_isTooltipDisabled,
 	};
 
 	if (!badge) {

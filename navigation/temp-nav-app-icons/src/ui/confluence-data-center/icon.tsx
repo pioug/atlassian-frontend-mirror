@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5a14a00c887df7cd127b285246b99735>>
+ * @codegen <<SignedSource::7a3eb1bd4d06b652a2e9fc5af8f3dad8>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -35,7 +35,7 @@ export function ConfluenceDataCenterIcon({
 		<IconWrapper
 			svg={svg}
 			label={label}
-			isDataCenter={true}
+			type="data-center"
 			appearance={appearance}
 			size={size}
 			testId={testId}

@@ -6,7 +6,6 @@ import { forwardRef, type HTMLAttributes } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { B100, N20, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type ITableRowProps, TableBodyRow } from '../table-row';
@@ -23,23 +22,21 @@ const rankingStyles = css({
 });
 
 const rankingItemStyles = css({
-	backgroundColor: token('elevation.surface.overlay', N20),
-	borderRadius: token('radius.xsmall', '2px'),
-	boxShadow: token('elevation.shadow.overlay', `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`),
+	backgroundColor: token('elevation.surface.overlay'),
+	borderRadius: token('radius.xsmall'),
+	boxShadow: token('elevation.shadow.overlay'),
 });
 
 const draggableStyles = css({
-	outlineWidth: token('border.width', '2px'),
+	outlineWidth: token('border.width'),
 	'&:focus-visible': {
-		outlineColor: token('color.border.focused', B100),
+		outlineColor: token('color.border.focused'),
 		outlineStyle: 'solid',
 	},
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const RankableTableBodyRow: React.ForwardRefExoticComponent<
-	React.PropsWithoutRef<RankableTableBodyRowProps> & React.RefAttributes<HTMLTableRowElement>
-> = forwardRef<HTMLTableRowElement, RankableTableBodyRowProps>(
+export const RankableTableBodyRow = forwardRef<HTMLTableRowElement, RankableTableBodyRowProps>(
 	({ isRanking, isRankingItem, testId, ...props }, ref) => {
 		return (
 			<TableBodyRow

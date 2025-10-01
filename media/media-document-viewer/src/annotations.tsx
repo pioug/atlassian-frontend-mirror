@@ -15,18 +15,42 @@ import { type ComboBoxField, type PageAnnotations, type TextField } from './type
 const formInputBaseStyles = css({
 	appearance: 'none',
 	border: 'none',
+	resize: 'none',
 	padding: 0,
 });
 
 const textInputStyles = css({
 	position: 'absolute',
 	height: '100%',
+	boxSizing: 'border-box',
 	width: '100%',
 });
 
 const foreignObjectProps = {
 	xmlns: 'http://www.w3.org/1999/xhtml',
 };
+
+type TextInputProps = {
+	style: React.CSSProperties;
+	value: string;
+	as: 'input' | 'textarea';
+};
+
+const TextInput = ({ as: Component, value }: TextInputProps) => (
+	<Component
+		{...foreignObjectProps}
+		css={[formInputBaseStyles, textInputStyles]}
+		onKeyUp={(e: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+			// stop propagation of the arrow key events because they can be used to navigate viewports
+			if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+				e.stopPropagation();
+			}
+		}}
+		value={value}
+		type="text"
+		readOnly
+	/>
+);
 
 export const TextInputFormField = ({
 	field,
@@ -35,6 +59,12 @@ export const TextInputFormField = ({
 	field: TextField;
 	dataTestId?: string;
 }) => {
+	const style: React.CSSProperties = {
+		['fontSize']: `${field.f}px`,
+		width: '100%',
+		boxSizing: 'border-box',
+	};
+
 	return (
 		<foreignObject
 			x={field.x}
@@ -43,20 +73,7 @@ export const TextInputFormField = ({
 			height={field.h}
 			data-testid={dataTestId}
 		>
-			<input
-				{...foreignObjectProps}
-				css={[formInputBaseStyles, textInputStyles]}
-				style={{ ['fontSize']: `${field.f}px` }}
-				type="text"
-				value={field.text}
-				readOnly
-				onKeyUp={(e) => {
-					// stop propagation of the arrow key events because they can be used to navigate viewports
-					if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-						e.stopPropagation();
-					}
-				}}
-			/>
+			<TextInput style={style} as={field.multiline ? 'textarea' : 'input'} value={field.text} />
 		</foreignObject>
 	);
 };

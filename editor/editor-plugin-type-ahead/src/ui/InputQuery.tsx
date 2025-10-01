@@ -296,6 +296,7 @@ export const InputQuery = React.memo(
 			],
 		);
 
+		// Remove when cleaning up platform_editor_a11y_remove_input_query_on_click
 		const onClick = useCallback(
 			(event: React.MouseEvent) => {
 				event.stopPropagation();
@@ -575,14 +576,10 @@ export const InputQuery = React.memo(
 		const assistiveHintID = TYPE_AHEAD_DECORATION_ELEMENT_ID + '__assistiveHint';
 		const intl = useIntl();
 
-		/**
-	  When we migrated to emotion from styled component, we started getting this error.
-	  jsx-a11y/interactive-supports-focus
-	  Task added in https://product-fabric.atlassian.net/wiki/spaces/E/pages/3182068181/Potential+improvements#Moderate-changes.
-	 */
 		return (
 			<Fragment>
 				{triggerQueryPrefix}
+				{/* When cleaning up platform_editor_a11y_remove_input_query_on_click remove the eslint disable */}
 				{/* eslint-disable-next-line jsx-a11y/interactive-supports-focus, @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 				<span
 					css={[
@@ -593,7 +590,8 @@ export const InputQuery = React.memo(
 					contentEditable={true}
 					ref={ref}
 					onKeyUp={onKeyUp}
-					onClick={onClick}
+					onClick={fg('platform_editor_a11y_remove_input_query_on_click') ? undefined : onClick}
+					tabIndex={fg('platform_editor_a11y_remove_input_query_on_click') ? -1 : undefined}
 					onInput={isSearchPlaceholderEnabled ? onInput : undefined}
 					role="combobox"
 					aria-controls={TYPE_AHEAD_DECORATION_ELEMENT_ID}

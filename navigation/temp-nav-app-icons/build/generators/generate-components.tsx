@@ -15,6 +15,7 @@ const labelMap: { [index: string]: string } = {
 	'Chat New': 'Chat',
 	'Search New': 'Search',
 	'Studio New': 'Studio',
+	'Rovo Hex': 'Rovo',
 };
 
 /**
@@ -174,8 +175,9 @@ export function ${componentName}({
 			${customThemeSvg ? 'iconColor={iconColor}' : ''}
 			${customThemeSvg && type === 'logo' ? 'textColor={textColor}' : ''}
 			label={label}
-			${dataCenterApps.includes(name) ? 'isDataCenter={true}' : ''}
 			${name === 'assets' ? 'isAssets={true}' : ''}
+			${dataCenterApps.includes(name) ? 'type="data-center"' : ''}
+			${name === 'rovo-hex' ? 'type="rovo"' : ''}
 			appearance={appearance}
 			size={size}
 			testId={testId}

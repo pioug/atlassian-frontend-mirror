@@ -73,6 +73,7 @@ export interface Props {
 
 type GroupedItems = (Item | Item[])[];
 
+// eslint-disable-next-line jsdoc/require-jsdoc
 export function groupItems(items: Item[], areAnyNewToolbarFlagsEnabled: boolean): GroupedItems {
 	const groupItems = items.reduce(
 		(

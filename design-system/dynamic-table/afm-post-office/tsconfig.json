@@ -39,9 +39,6 @@
 			"path": "../../pagination/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../../pragmatic-drag-and-drop/react-beautiful-dnd-migration/afm-post-office/tsconfig.json"
 		},
 		{

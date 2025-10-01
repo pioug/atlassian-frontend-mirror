@@ -79,7 +79,30 @@ export type SelectComponentsConfig<
 	Group extends GroupBase<Option>,
 > = Partial<SelectComponents<Option, IsMulti, Group>>;
 
-export const components = {
+export const components: {
+	ClearIndicator: typeof ClearIndicator;
+	Control: typeof Control;
+	DropdownIndicator: typeof DropdownIndicator;
+	Group: typeof Group;
+	GroupHeading: typeof GroupHeading;
+	IndicatorsContainer: typeof IndicatorsContainer;
+	Input: typeof Input;
+	LoadingIndicator: typeof LoadingIndicator;
+	Menu: typeof Menu;
+	MenuList: typeof MenuList;
+	MenuPortal: typeof MenuPortal;
+	LoadingMessage: typeof LoadingMessage;
+	NoOptionsMessage: typeof NoOptionsMessage;
+	MultiValue: typeof MultiValue;
+	MultiValueContainer: typeof MultiValueContainer;
+	MultiValueLabel: typeof MultiValueLabel;
+	MultiValueRemove: typeof MultiValueRemove;
+	Option: typeof Option;
+	Placeholder: typeof Placeholder;
+	SelectContainer: typeof SelectContainer;
+	SingleValue: typeof SingleValue;
+	ValueContainer: typeof ValueContainer;
+} = {
 	ClearIndicator: ClearIndicator,
 	Control: Control,
 	DropdownIndicator: DropdownIndicator,

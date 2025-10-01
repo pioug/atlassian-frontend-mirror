@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::759394ac243378e76f387bf8e1c38b31>>
+ * @codegen <<SignedSource::e3f90cac6cfd5399826b796d4a729cdd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -45,10 +45,13 @@ import ArrowCurvedUpRightIcon from '../../../../core/arrow-curved-up-right';
 import ArrowsDiagonalUpRightDownLeftIcon from '../../../../core/arrows-diagonal-up-right-down-left';
 import AssetsDataManagerIcon from '../../../../core/assets-data-manager';
 import AssetsGraphIcon from '../../../../core/assets-graph';
+import AssetsObjectIcon from '../../../../core/assets-object';
+import AssetsObjectTypeIcon from '../../../../core/assets-object-type';
 import AssetsSchemaIcon from '../../../../core/assets-schema';
 import AtomIcon from '../../../../core/atom';
 import AudioWaveformIcon from '../../../../core/audio-waveform';
 import BeachUmbrellaIcon from '../../../../core/beach-umbrella';
+import BlastRadiusIcon from '../../../../core/blast-radius';
 import BluetoothIcon from '../../../../core/bluetooth';
 import BlurIcon from '../../../../core/blur';
 import BookOpenIcon from '../../../../core/book-open';
@@ -58,6 +61,9 @@ import CalculateIcon from '../../../../core/calculate';
 import ChartAreaIcon from '../../../../core/chart-area';
 import ChartBarLineIcon from '../../../../core/chart-bar-line';
 import ChartBoxPlotIcon from '../../../../core/chart-box-plot';
+import ChartBulletIcon from '../../../../core/chart-bullet';
+import ChartExtrapolateIcon from '../../../../core/chart-extrapolate';
+import ChartFunnelIcon from '../../../../core/chart-funnel';
 import ChartScatterPlotIcon from '../../../../core/chart-scatter-plot';
 import CloudOfflineIcon from '../../../../core/cloud-offline';
 import CloudSavedIcon from '../../../../core/cloud-saved';
@@ -69,6 +75,15 @@ import ContinueWhenIcon from '../../../../core/continue-when';
 import CrossOctagonIcon from '../../../../core/cross-octagon';
 import CursorIcon from '../../../../core/cursor';
 import CursorStrikethroughIcon from '../../../../core/cursor-strikethrough';
+import DataBucketIcon from '../../../../core/data-bucket';
+import DataFormulaIcon from '../../../../core/data-formula';
+import DataFunctionIcon from '../../../../core/data-function';
+import DataPivotIcon from '../../../../core/data-pivot';
+import DataTransposeIcon from '../../../../core/data-transpose';
+import DataUnpivotIcon from '../../../../core/data-unpivot';
+import DataVisualizationHeatmapIcon from '../../../../core/data-visualization-heatmap';
+import DataVisualizationMetricIcon from '../../../../core/data-visualization-metric';
+import DataZeroFillIcon from '../../../../core/data-zero-fill';
 import DatabaseStorageIcon from '../../../../core/database-storage';
 import DatabaseStorageCacheIcon from '../../../../core/database-storage-cache';
 import DiagramSymbolActionIcon from '../../../../core/diagram-symbol-action';
@@ -133,6 +148,7 @@ import JiraIcon from '../../../../core/jira';
 import JiraAddIcon from '../../../../core/jira-add';
 import JiraUploadIcon from '../../../../core/jira-upload';
 import KanbanIcon from '../../../../core/kanban';
+import KeyIcon from '../../../../core/key';
 import LayoutFiveColumnsIcon from '../../../../core/layout-five-columns';
 import LayoutFourColumnsIcon from '../../../../core/layout-four-columns';
 import LayoutThreeColumnsSidebarsLeftIcon from '../../../../core/layout-three-columns-sidebars-left';
@@ -163,6 +179,7 @@ import PersonVoiceoverIcon from '../../../../core/person-voiceover';
 import PinStrikethroughIcon from '../../../../core/pin-strikethrough';
 import PlusCircleIcon from '../../../../core/plus-circle';
 import PowerIcon from '../../../../core/power';
+import PowerCableIcon from '../../../../core/power-cable';
 import QrCodeIcon from '../../../../core/qr-code';
 import QueuePopInIcon from '../../../../core/queue-pop-in';
 import QueuePopOutIcon from '../../../../core/queue-pop-out';
@@ -210,11 +227,13 @@ import SwapIcon from '../../../../core/swap';
 import SwitchCaseIcon from '../../../../core/switch-case';
 import SyncIcon from '../../../../core/sync';
 import TabIcon from '../../../../core/tab';
+import TableRowLimitIcon from '../../../../core/table-row-limit';
 import TakeoutContainerIcon from '../../../../core/takeout-container';
 import TalentIcon from '../../../../core/talent';
 import TeamworkGraphIcon from '../../../../core/teamwork-graph';
 import TelescopeIcon from '../../../../core/telescope';
 import TemplateIcon from '../../../../core/template';
+import TemplateSyncIcon from '../../../../core/template-sync';
 import TerminalIcon from '../../../../core/terminal';
 import TextAdjustLengthIcon from '../../../../core/text-adjust-length';
 import TextAudioTranscriptIcon from '../../../../core/text-audio-transcript';
@@ -226,6 +245,7 @@ import TextBoldStrikethroughIcon from '../../../../core/text-bold-strikethrough'
 import TextBoldUnderlineIcon from '../../../../core/text-bold-underline';
 import TextBoldUnderlineStrikethroughIcon from '../../../../core/text-bold-underline-strikethrough';
 import TextConclusionAddIcon from '../../../../core/text-conclusion-add';
+import TextCursorIcon from '../../../../core/text-cursor';
 import TextDensityCompressIcon from '../../../../core/text-density-compress';
 import TextDensityExpandIcon from '../../../../core/text-density-expand';
 import TextHeadingFiveIcon from '../../../../core/text-heading-five';
@@ -280,6 +300,7 @@ import WebhookIcon from '../../../../core/webhook';
 import WelcomeFeedIcon from '../../../../core/welcome-feed';
 import WorkItemAddIcon from '../../../../core/work-item-add';
 import WorkflowControlsIcon from '../../../../core/workflow-controls';
+import WorldIcon from '../../../../core/world';
 import WrenchIcon from '../../../../core/wrench';
 
 // eslint-disable-next-line import/order
@@ -549,6 +570,27 @@ const Icons = [
 	TextDensityCompressIcon,
 	TextDensityExpandIcon,
 	ViewsIcon,
+	AssetsObjectIcon,
+	AssetsObjectTypeIcon,
+	BlastRadiusIcon,
+	ChartBulletIcon,
+	ChartExtrapolateIcon,
+	ChartFunnelIcon,
+	DataBucketIcon,
+	DataFormulaIcon,
+	DataFunctionIcon,
+	DataPivotIcon,
+	DataTransposeIcon,
+	DataUnpivotIcon,
+	DataVisualizationHeatmapIcon,
+	DataVisualizationMetricIcon,
+	DataZeroFillIcon,
+	KeyIcon,
+	PowerCableIcon,
+	TableRowLimitIcon,
+	TemplateSyncIcon,
+	TextCursorIcon,
+	WorldIcon,
 ];
 
 const groupSize = 50;

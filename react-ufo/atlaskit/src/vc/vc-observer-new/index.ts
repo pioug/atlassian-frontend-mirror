@@ -235,6 +235,7 @@ export default class VCObserverNew {
 			interactionAbortReason,
 			isPageVisible,
 			include3p,
+			includeSSRRatio,
 			excludeSmartAnswersInSearch,
 		} = param;
 		const results: RevisionPayloadEntry[] = [];
@@ -257,6 +258,7 @@ export default class VCObserverNew {
 			isPostInteraction: this.isPostInteraction,
 			include3p,
 			excludeSmartAnswersInSearch,
+			includeSSRRatio,
 			isPageVisible,
 			interactionAbortReason,
 		});
@@ -277,6 +279,7 @@ export default class VCObserverNew {
 				interactionType,
 				isPostInteraction: this.isPostInteraction,
 				include3p,
+				includeSSRRatio,
 				isPageVisible,
 				interactionAbortReason,
 			});

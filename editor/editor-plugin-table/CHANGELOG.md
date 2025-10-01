@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 15.0.5
+
+### Patch Changes
+
+- [`a3254a75cdfb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3254a75cdfb7) -
+  [ED-29448] clean up experiment platform_editor_toolbar_aifc_patch_2
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- [`5292689cffab1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5292689cffab1) -
+  fix/ignore minor eslint issues ahead of bug fix for confirming the removal of tables
+- Updated dependencies
+
 ## 15.0.3
 
 ### Patch Changes

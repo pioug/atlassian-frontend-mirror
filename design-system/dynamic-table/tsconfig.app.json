@@ -46,9 +46,6 @@
 			"path": "../pagination/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../../pragmatic-drag-and-drop/react-beautiful-dnd-migration/tsconfig.app.json"
 		},
 		{
@@ -56,9 +53,6 @@
 		},
 		{
 			"path": "../spinner/tsconfig.app.json"
-		},
-		{
-			"path": "../theme/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 8.2.1
+
+### Patch Changes
+
+- [`5292689cffab1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5292689cffab1) -
+  fix/ignore minor eslint issues ahead of bug fix for confirming the removal of tables
+- Updated dependencies
+
+## 8.2.0
+
+### Minor Changes
+
+- [`4ad69354a021d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ad69354a021d) -
+  Remove references to platform_editor_toolbar_aifc_patch_1 experiment, remove
+  useToolbarDropdownMenuOld export from @atlaskit/editor-toolbar package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.1
 
 ### Patch Changes

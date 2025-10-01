@@ -103,8 +103,8 @@ import { logoDocsSchema } from '../../src/logo-config';
 
 const logoMap: {
 	name: (typeof logoDocsSchema)[number]['name'];
-	logo: ComponentType<LogoProps>;
-	icon: ComponentType<LogoProps>;
+	logo: ComponentType<LogoProps & { shouldUseHexLogo?: boolean }>;
+	icon: ComponentType<LogoProps & { shouldUseHexLogo?: boolean }>;
 }[] = [
 	// Program logos
 	{ name: 'atlassian', logo: AtlassianLogo, icon: AtlassianIcon },
@@ -199,7 +199,7 @@ const getLogoSchema = (name: string) =>
 /**
  * Filters logos by type and excludes deprecated ones
  */
-const filterByType = (type: 'legacy' | 'migration' | 'new') =>
+const filterByType = (type: 'legacy' | 'migration' | 'new' | 'rovo-hex') =>
 	logoMap.filter(({ name }) => {
 		const logo = getLogoSchema(name);
 		return logo?.type === type && !logo?.deprecated;
@@ -208,6 +208,7 @@ const filterByType = (type: 'legacy' | 'migration' | 'new') =>
 export const legacyOnlyLogosAndIcons = filterByType('legacy');
 export const migrationLogosAndIcons = filterByType('migration');
 export const newOnlyLogosAndIcons = filterByType('new');
+export const rovoHexLogosAndIcons = filterByType('rovo-hex');
 
 export const deprecatedLogos = logoMap.filter(({ name }) => {
 	const logo = getLogoSchema(name);

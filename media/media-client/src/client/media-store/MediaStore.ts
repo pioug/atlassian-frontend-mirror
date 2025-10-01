@@ -385,7 +385,12 @@ export class MediaStore implements MediaApi {
 			auth,
 		};
 
-		return createUrl(mapToMediaCdnUrl(artifactUrl, auth.token), options);
+		const url = createUrl(mapToMediaCdnUrl(artifactUrl, auth.token), options);
+		if (fg('platform_media_path_based_route')) {
+			return mapToPathBasedUrl(url);
+		}
+
+		return url;
 	}
 
 	getArtifactBinary: MediaApi['getArtifactBinary'] = async (

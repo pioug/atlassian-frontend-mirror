@@ -5,7 +5,6 @@ import { render, screen } from '@testing-library/react';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import AKLink from '@atlaskit/link';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import LinkUrl from '../index';
 import * as UseLinkWarningModalExports from '../LinkWarningModal/hooks/use-link-warning-modal';
@@ -136,18 +135,16 @@ describe('LinkUrl', () => {
 		});
 	};
 
-	ffTest.both('navx-1834-refactor-resolved-hyperlink', 'with fg', () => {
+	runTest();
+
+	describe('with platform_editor_resolve_hyperlinks_killswitch on', () => {
+		beforeEach(() => {
+			checkGateMock.mockReturnValue(true);
+		});
 		runTest();
 
-		describe('with platform_editor_resolve_hyperlinks_killswitch on', () => {
-			beforeEach(() => {
-				checkGateMock.mockReturnValue(true);
-			});
-			runTest();
-
-			describe('with SmartLinkProvider', () => {
-				runTest(wrapper);
-			});
+		describe('with SmartLinkProvider', () => {
+			runTest(wrapper);
 		});
 	});
 });

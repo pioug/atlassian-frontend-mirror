@@ -94,6 +94,7 @@ describe('DocumentViewer', () => {
 		h: 20,
 		f: 12,
 		text: 'Form field text',
+		multiline: false,
 	};
 
 	const mockComboBoxField: ComboBoxField = {

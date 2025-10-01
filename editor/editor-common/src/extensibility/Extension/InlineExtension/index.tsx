@@ -5,7 +5,7 @@
 import React, { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
@@ -14,7 +14,9 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { token } from '@atlaskit/tokens';
 
 import { useSharedPluginStateWithSelector } from '../../../hooks';
 import { createWidthContext, WidthContext } from '../../../ui';
@@ -22,7 +24,7 @@ import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags }
 import ExtensionLozenge from '../Lozenge';
 import { overlay } from '../styles';
 
-import { inlineWrapperStyles, wrapperStyle } from './styles';
+import { wrapperStyle } from './styles';
 
 export interface Props {
 	children?: React.ReactNode;
@@ -34,6 +36,24 @@ export interface Props {
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	setIsNodeHovered?: (isHovered: boolean) => void;
 }
+
+const inlineWrapperStyles = css({
+	maxWidth: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'tr &': {
+		maxWidth: 'inherit',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.rich-media-item': {
+		maxWidth: '100%',
+	},
+});
+
+const hoverStyles = css({
+	'&:hover': {
+		boxShadow: `0 0 0 1px ${token('color.border.input')}`,
+	},
+});
 
 const InlineExtension = (props: Props) => {
 	const {
@@ -60,7 +80,13 @@ const InlineExtension = (props: Props) => {
 		'with-overlay': !showMacroInteractionDesignUpdates,
 		'with-children': hasChildren,
 		'with-danger-overlay': showMacroInteractionDesignUpdates,
-		'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
+		'with-hover-border': expValEquals(
+			'cc_editor_ttvc_release_bundle_one',
+			'extensionHoverRefactor',
+			true,
+		)
+			? false
+			: showMacroInteractionDesignUpdates && isNodeHovered,
 	});
 
 	let rendererContainerWidth = 0;
@@ -102,8 +128,15 @@ const InlineExtension = (props: Props) => {
 			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 			<div
 				data-testid="inline-extension-wrapper"
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={[wrapperStyle, inlineWrapperStyles]}
+				css={[
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					wrapperStyle,
+					inlineWrapperStyles,
+					showMacroInteractionDesignUpdates &&
+						!isLivePageViewMode &&
+						expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true) &&
+						hoverStyles,
+				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={classNames}
 				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events

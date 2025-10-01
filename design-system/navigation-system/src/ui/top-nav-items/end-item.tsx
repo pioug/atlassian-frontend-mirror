@@ -42,6 +42,11 @@ export interface EndItemProps
 	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
 	 */
 	interactionName?: string;
+	/**
+	 * Experimental, do not use. May be removed at any time.
+	 * Whether the tooltip should be disabled.
+	 */
+	UNSAFE_isTooltipDisabled?: boolean;
 
 	/**
 	 * Can be used to disable the default `listitem` role.
@@ -91,6 +96,7 @@ export const EndItem: React.ForwardRefExoticComponent<
 			isSelected,
 			testId,
 			interactionName,
+			UNSAFE_isTooltipDisabled = false,
 			'aria-controls': ariaControls,
 			'aria-expanded': ariaExpanded,
 			'aria-haspopup': ariaHasPopup,
@@ -109,7 +115,7 @@ export const EndItem: React.ForwardRefExoticComponent<
 					onMouseEnter={onMouseEnter}
 					appearance="subtle"
 					isSelected={isSelected}
-					isTooltipDisabled={false}
+					isTooltipDisabled={UNSAFE_isTooltipDisabled}
 					testId={testId}
 					interactionName={interactionName}
 					aria-controls={ariaControls}

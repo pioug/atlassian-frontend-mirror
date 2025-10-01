@@ -7,9 +7,6 @@ import EmptyView from '../../../../examples/6-empty-view-with-body';
 import Basic from '../../../../examples/99-testing';
 
 snapshot(Basic, {
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 	variants: [
 		{ name: 'desktop chrome', device: Device.DESKTOP_CHROME },
 		{

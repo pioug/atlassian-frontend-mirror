@@ -62,6 +62,7 @@ export const SideNavToggleButton = ({
 	collapseLabel,
 	testId,
 	interactionName,
+	UNSAFE_isTooltipDisabled = false,
 	onClick,
 	shortcut,
 }: {
@@ -97,6 +98,11 @@ export const SideNavToggleButton = ({
 	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
 	 */
 	interactionName?: string;
+	/**
+	 * Experimental, do not use. May be removed at any time.
+	 * Whether the tooltip should be disabled.
+	 */
+	UNSAFE_isTooltipDisabled?: boolean;
 	/**
 	 * The callback function that is called when the toggle button is clicked.
 	 */
@@ -201,7 +207,7 @@ export const SideNavToggleButton = ({
 			icon={icon}
 			onClick={handleClick}
 			testId={testId}
-			isTooltipDisabled={false}
+			isTooltipDisabled={UNSAFE_isTooltipDisabled}
 			interactionName={interactionName}
 			ref={fg('platform_fix_component_state_update_for_suspense') ? elementRef : ref}
 			tooltip={tooltipProps}

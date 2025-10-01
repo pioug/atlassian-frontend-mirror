@@ -217,7 +217,7 @@ const BlockMenu = ({
 					)
 						? openedViaKeyboard
 							? { initialFocus: undefined }
-							: true
+							: { initialFocus: targetHandleRef }
 						: undefined
 				}
 				offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, 0]}

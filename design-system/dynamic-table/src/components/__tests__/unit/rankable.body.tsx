@@ -8,10 +8,10 @@ import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 
 import { RankableBody } from '../../rankable/body';
 
-import { head, rowsWithKeys } from './_data';
+import { headMock1, rowsWithKeys } from './_data';
 
 const createProps = () => ({
-	head,
+	head: headMock1,
 	isFixedSize: false,
 	onRankStart: jest.fn(),
 	onRankEnd: jest.fn(),

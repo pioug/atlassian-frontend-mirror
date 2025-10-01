@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 6.2.0
+
+### Minor Changes
+
+- [`4ad69354a021d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ad69354a021d) -
+  Remove references to platform_editor_toolbar_aifc_patch_1 experiment, remove
+  useToolbarDropdownMenuOld export from @atlaskit/editor-toolbar package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.2
 
 ### Patch Changes

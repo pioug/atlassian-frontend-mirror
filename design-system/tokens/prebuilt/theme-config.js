@@ -248,8 +248,6 @@ var themeConfig = {
 
 /**
  * themeStateDefaults: the default values for ThemeState used by theming utilities
- * Can't evaluate feature flags at the module level as they will always resolve to false
- * when server side rendered or when flags are loaded async.
  */
 var themeStateDefaults = exports.themeStateDefaults = {
   colorMode: 'auto',

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+	ADD_BLOCKS_MENU_SECTION,
 	MOVE_UP_MENU_ITEM,
 	MOVE_UP_DOWN_MENU_SECTION,
 	MOVE_DOWN_MENU_ITEM,
@@ -19,6 +20,7 @@ import {
 } from '@atlaskit/editor-common/block-menu';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type {
 	BlockMenuPlugin,
@@ -26,6 +28,7 @@ import type {
 	RegisterBlockMenuComponent,
 } from '../blockMenuPluginType';
 
+import { AddBlocksSection } from './add-blocks-section';
 import CopyBlockMenuItem from './copy-block';
 import { CopyLinkDropdownItem } from './copy-link';
 import { CopySection } from './copy-section';
@@ -111,6 +114,18 @@ export const getBlockMenuComponents = ({
 }): RegisterBlockMenuComponent[] => {
 	return [
 		...getFormatMenuComponents(api),
+		...(expValEquals('platform_synced_block', 'isEnabled', true)
+			? [
+					{
+						type: 'block-menu-section' as const,
+						key: ADD_BLOCKS_MENU_SECTION.key,
+						rank: BLOCK_MENU_SECTION_RANK[ADD_BLOCKS_MENU_SECTION.key],
+						component: ({ children }: { children: React.ReactNode }) => (
+							<AddBlocksSection api={api}> {children} </AddBlocksSection>
+						),
+					},
+				]
+			: []),
 		{
 			type: 'block-menu-section',
 			key: COPY_MENU_SECTION.key,

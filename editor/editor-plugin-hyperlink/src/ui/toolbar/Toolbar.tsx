@@ -53,7 +53,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink';
 import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -428,8 +427,7 @@ export const getToolbarConfig =
 											}}
 										/>
 									);
-									return editorExperiment('platform_editor_toolbar_aifc', true) &&
-										expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true) ? (
+									return editorExperiment('platform_editor_toolbar_aifc', true) ? (
 										<UserIntentPopupWrapper api={pluginInjectionApi}>
 											{Toolbar}
 										</UserIntentPopupWrapper>

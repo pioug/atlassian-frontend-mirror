@@ -29,6 +29,7 @@ import FlexibleUiElementUserAttributes from '../../../examples/vr-flexible-card/
 import FlexibleUiHoverCard from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card';
 import FlexibleUiHoverCardNoPreviewButton from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card-no-preview-button';
 import FlexibleUiOptions from '../../../examples/vr-flexible-card/vr-flexible-ui-options';
+import FlexibleUiPlaceholderData from '../../../examples/vr-flexible-card/vr-flexible-ui-placeholder-data';
 
 // Variants
 snapshot(FlexibleUiOptions, {
@@ -335,6 +336,12 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 	},
 });
 
+snapshot(FlexibleUiPlaceholderData, {
+	description: `flexible-ui: with placeholder data for SSR`,
+	featureFlags: {
+		platform_initial_data_for_smart_cards: [true, false],
+	},
+});
 // Error states
 snapshot(FlexibleUiBlockCardErroredStates, {
 	featureFlags: {

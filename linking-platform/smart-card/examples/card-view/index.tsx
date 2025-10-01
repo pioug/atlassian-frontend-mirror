@@ -21,7 +21,7 @@ import {
 	UnAuthClientWithNoAuthFlow,
 	UnAuthClientWithNoIcon,
 } from '@atlaskit/link-test-helpers';
-import type { Card } from '@atlaskit/smart-card';
+import { type Card, ElementName, SmartLinkSize, TitleBlock } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
 import type CardView from '../utils/card-view';
@@ -104,7 +104,25 @@ const CardViewExample = ({
 			title="[Unauthorized] Default Icon"
 		/>
 		<CardViewSection {...props} client={new ErroredClient()} title="[Error]" />
-		<hr role="presentation" />
+	</React.Fragment>
+);
+
+export const FlexibleCardViewExample = ({
+	url,
+	...props
+}: Omit<React.ComponentProps<typeof CardView>, 'client'> & {
+	CardComponent?: typeof Card | typeof CardSSR;
+	fontSize?: React.CSSProperties['fontSize'];
+}) => (
+	<React.Fragment>
+		<p>
+			<em>
+				Examples below showcase the <code>`placeholderData`</code> prop - only available to smart
+				cards using flexible UI.
+			</em>
+			<br />
+			Requires the <code>`platform_initial_data_for_smart_cards`</code> feature flag to be enabled.
+		</p>
 		<CardViewSection
 			{...props}
 			client={new ResolvingClient()}
@@ -112,8 +130,19 @@ const CardViewExample = ({
 			description='This will always be "resolving" but it should display data as `placeholderData` prop is provided'
 			// ANIP-288: placeholderData is not part of the public API for CardProps YET
 			{...{ placeholderData: mocks.simpleProjectPlaceholderData }}
+			ui={{ removeBlockRestriction: true, size: SmartLinkSize.Medium }}
 			CardComponent={CardSSR}
-		/>
+		>
+			<TitleBlock
+				hideTitleTooltip
+				maxLines={1}
+				metadata={[
+					{
+						name: ElementName.State,
+					},
+				]}
+			/>
+		</CardViewSection>
 		<CardViewSection
 			{...props}
 			client={new ResolvedClientWithDelay()}
@@ -121,8 +150,19 @@ const CardViewExample = ({
 			description='This will display `placeholderData` but will switch to "resolved" data after an initial delay'
 			// ANIP-288: placeholderData is not part of the public API for CardProps YET
 			{...{ placeholderData: mocks.simpleProjectPlaceholderData }}
+			ui={{ removeBlockRestriction: true, size: SmartLinkSize.Medium }}
 			CardComponent={CardSSR}
-		/>
+		>
+			<TitleBlock
+				hideTitleTooltip
+				maxLines={1}
+				metadata={[
+					{
+						name: ElementName.State,
+					},
+				]}
+			/>
+		</CardViewSection>
 	</React.Fragment>
 );
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import AKBadge from '@atlaskit/badge';
+import { FocusIcon } from '@atlaskit/logo';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -20,7 +21,6 @@ import {
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { FocusIcon } from '@atlaskit/temp-nav-app-icons/focus';
 
 import { WithResponsiveViewport } from './utils/example-utils';
 

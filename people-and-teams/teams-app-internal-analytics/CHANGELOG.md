@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.8.0
+
+### Minor Changes
+
+- [`935419dbf39da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/935419dbf39da) -
+  Migrated projects-and-goals-list analytics to teams-app-internal-analytics
+
 ## 1.7.0
 
 ### Minor Changes

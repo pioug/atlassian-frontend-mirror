@@ -100,12 +100,6 @@
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flag-storybook-utils/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
-		},
-		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"
 		}
 	]

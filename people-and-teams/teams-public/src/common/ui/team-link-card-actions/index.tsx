@@ -30,10 +30,10 @@ const styles = cssMap({
 		marginLeft: 'auto',
 	},
 	iconHidden: {
-		opacity: 0,
+		display: 'none',
 	},
 	iconVisible: {
-		opacity: 1,
+		display: 'flex',
 	},
 });
 

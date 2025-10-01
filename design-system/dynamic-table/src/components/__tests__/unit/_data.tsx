@@ -11,8 +11,7 @@ export const secondSortKey = 'last_name';
 export const thirdSortKey = 'party';
 export const fourthSortKey = 'star';
 
-// Presidents data
-export const head: HeadType = {
+export const headMock1: HeadType = {
 	cells: [
 		{
 			key: sortKey,
@@ -37,7 +36,7 @@ export const head: HeadType = {
 	],
 };
 
-export const visuallyRefreshedHead: HeadType = {
+export const headMock2: HeadType = {
 	cells: [
 		{
 			key: sortKey,

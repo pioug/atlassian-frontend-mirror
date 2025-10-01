@@ -4,18 +4,21 @@ import { syncBlock } from '@atlaskit/adf-schema';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
 import { IconSyncBlock } from '@atlaskit/editor-common/quick-insert';
-import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
-import type { EditorState } from '@atlaskit/editor-prosemirror/dist/types/state';
+import type { EditorCommand, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
 import { createSyncedBlock } from './pm-plugins/actions';
 import { createPlugin } from './pm-plugins/main';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
+import { getBlockMenuComponents } from './ui/block-menu-components';
 import { ContentComponent } from './ui/ContentComponent';
 import { getToolbarConfig } from './ui/floating-toolbar';
 
 export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 	const syncBlockStore = new SyncBlockStoreManager(config?.dataProvider);
+
+	api?.blockMenu?.actions.registerBlockMenuComponents(getBlockMenuComponents(api));
 
 	return {
 		name: 'syncedBlock',
@@ -38,6 +41,14 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				},
 			];
 		},
+
+		commands: {
+			insertSyncedBlock:
+				(): EditorCommand =>
+				({ tr }) =>
+					createSyncedBlock(tr, syncBlockStore) || null,
+		},
+
 		pluginsOptions: {
 			quickInsert: ({ formatMessage }) => [
 				{
@@ -59,7 +70,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 					keyshortcut: '',
 					icon: () => <IconSyncBlock label={formatMessage(blockTypeMessages.syncedBlock)} />,
 					action: (insert: QuickInsertActionInsert, state: EditorState) => {
-						return createSyncedBlock(insert, state, syncBlockStore);
+						return createSyncedBlock(state.tr, syncBlockStore, insert);
 					},
 				},
 			],

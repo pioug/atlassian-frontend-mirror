@@ -12,6 +12,7 @@ export const appOrder = [
 	'Loom',
 	'Loom Internal',
 	'Rovo',
+	'Rovo Hex',
 	'Focus',
 	'Align',
 	'Talent',

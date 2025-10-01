@@ -7,6 +7,8 @@ import generatedPairs from '../../../src/artifacts/generated-pairs';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { getContrastRatio, hexToRgbA } from '../../../src/utils/color-utils';
 
+type GeneratedPair = typeof generatedPairs;
+
 const groupedTokens: { [key: string]: typeof rawTokensDark } = {};
 ['text', 'link', 'icon', 'border', 'background', 'surface', 'chart'].forEach((type) => {
 	groupedTokens[type] = rawTokensDark.filter(
@@ -97,13 +99,31 @@ function RGBAToString(rgba: RGBA): string {
 	return `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`;
 }
 
+type ContrastResults = {
+	generatedPairs: GeneratedPair;
+	fullResults: Record<
+		string,
+		{
+			theme: string;
+			pairing: string;
+			foreground: string;
+			middleLayer?: string;
+			background: string;
+			meetsRequiredContrast: string;
+			isInteraction: boolean;
+			contrast: number;
+			isTextContrast: string;
+			isGraphicContrast: string;
+		}
+	>;
+};
+
 export default function checkThemePairContrasts(
 	rawTokenSet: typeof rawTokensDark,
 	theme: string,
 	checkAll = false,
 	isAAA = false,
-) {
-	9;
+): ContrastResults {
 	const fullResults: {
 		[index: string]: {
 			theme: string;
@@ -209,7 +229,17 @@ export default function checkThemePairContrasts(
 	};
 }
 
-export const lightResults = checkThemePairContrasts(rawTokensLight, 'light');
-export const lightResultsAAA = checkThemePairContrasts(rawTokensLight, 'light', false, true);
-export const darkResults = checkThemePairContrasts(rawTokensDark, 'dark');
-export const darkResultsAAA = checkThemePairContrasts(rawTokensLight, 'light', false, true);
+export const lightResults: ContrastResults = checkThemePairContrasts(rawTokensLight, 'light');
+export const lightResultsAAA: ContrastResults = checkThemePairContrasts(
+	rawTokensLight,
+	'light',
+	false,
+	true,
+);
+export const darkResults: ContrastResults = checkThemePairContrasts(rawTokensDark, 'dark');
+export const darkResultsAAA: ContrastResults = checkThemePairContrasts(
+	rawTokensLight,
+	'light',
+	false,
+	true,
+);

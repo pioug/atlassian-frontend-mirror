@@ -9,7 +9,7 @@ import Spinner from '@atlaskit/spinner';
 import DynamicTable, { DynamicTableStateless } from '../../../index';
 import { type RowCellType, type RowType } from '../../../types';
 
-import { head, rows, rowsWithKeys, secondSortKey } from './_data';
+import { headMock1, rows, rowsWithKeys, secondSortKey } from './_data';
 import { headNumeric, rowsNumeric } from './_data-numeric';
 
 jest.mock('@atlaskit/spinner', () => {
@@ -25,7 +25,7 @@ describe('@atlaskit/dynamic-table', () => {
 	const testId = 'dynamic--table--test--id';
 	describe('stateless', () => {
 		it('should render TableHead when items length is 0 and not render EmptyViewContainer if emptyView prop is omitted', () => {
-			render(<DynamicTableStateless head={head} testId={testId} />);
+			render(<DynamicTableStateless head={headMock1} testId={testId} />);
 
 			const header = screen.getByTestId(`${testId}--head`);
 			const emptyView = screen.queryByTestId(`${testId}--empty-view-container`);
@@ -36,7 +36,7 @@ describe('@atlaskit/dynamic-table', () => {
 			expect(body).not.toBeInTheDocument();
 		});
 		it('should not render any text in the table when rows prop is an empty array', () => {
-			render(<DynamicTableStateless rows={[]} head={head} testId={testId} />);
+			render(<DynamicTableStateless rows={[]} head={headMock1} testId={testId} />);
 
 			const header = screen.getByTestId(`${testId}--head`);
 			const table = screen.getByRole('table');
@@ -49,7 +49,7 @@ describe('@atlaskit/dynamic-table', () => {
 		it('should render TableHead when items length is 0 and render EmptyViewContainer if emptyView prop is provided', () => {
 			render(
 				<DynamicTableStateless
-					head={head}
+					head={headMock1}
 					emptyView={<h2>No items present in table</h2>}
 					testId={testId}
 				/>,
@@ -78,7 +78,7 @@ describe('@atlaskit/dynamic-table', () => {
 		it('should render head, emptyView and caption if provided', () => {
 			render(
 				<DynamicTableStateless
-					head={head}
+					head={headMock1}
 					emptyView={<h2>No items present in table</h2>}
 					caption={<h2>This is a table caption</h2>}
 					testId={testId}
@@ -103,7 +103,7 @@ describe('@atlaskit/dynamic-table', () => {
 				<DynamicTableStateless
 					rowsPerPage={2}
 					page={2}
-					head={head}
+					head={headMock1}
 					rows={rowsWithKeys}
 					isRankable
 					testId={testId}
@@ -133,7 +133,13 @@ describe('@atlaskit/dynamic-table', () => {
 
 		it('should display paginated data', () => {
 			render(
-				<DynamicTableStateless rowsPerPage={2} page={2} head={head} rows={rows} testId={testId} />,
+				<DynamicTableStateless
+					rowsPerPage={2}
+					page={2}
+					head={headMock1}
+					rows={rows}
+					testId={testId}
+				/>,
 			);
 
 			const bodyRows = screen.getByTestId(`${testId}--body`);
@@ -149,7 +155,7 @@ describe('@atlaskit/dynamic-table', () => {
 
 		describe('Sorted Data', () => {
 			const checkSortedData = (isRankable: boolean) => {
-				const headCells = head.cells.map((cell) => ({
+				const headCells = headMock1.cells.map((cell) => ({
 					...cell,
 					isSortable: true,
 				}));
@@ -196,7 +202,7 @@ describe('@atlaskit/dynamic-table', () => {
 				const newHead = {
 					onClick: theadOnClick,
 					onKeyDown: theadOnKeyDown,
-					cells: head.cells.map((cell) => ({
+					cells: headMock1.cells.map((cell) => ({
 						...cell,
 						onClick: sortButtonOnClick,
 						onKeyDown: sortButtonOnKeyDown,
@@ -313,7 +319,7 @@ describe('@atlaskit/dynamic-table', () => {
 				<DynamicTableStateless
 					rowsPerPage={2}
 					page={2}
-					head={head}
+					head={headMock1}
 					rows={rows}
 					onSetPage={onSetPage}
 					onSort={onSort}
@@ -381,7 +387,13 @@ describe('@atlaskit/dynamic-table', () => {
 	describe('stateful', () => {
 		it('should display paginated data after navigating to a different page', () => {
 			render(
-				<DynamicTable rowsPerPage={2} defaultPage={2} head={head} rows={rows} testId={testId} />,
+				<DynamicTable
+					rowsPerPage={2}
+					defaultPage={2}
+					head={headMock1}
+					rows={rows}
+					testId={testId}
+				/>,
 			);
 			const paginationFirstButton = screen.getByTestId(`${testId}--pagination--page-0`);
 			fireEvent.click(paginationFirstButton);
@@ -396,7 +408,7 @@ describe('@atlaskit/dynamic-table', () => {
 		});
 
 		it('should sort data', () => {
-			render(<DynamicTable head={head} rows={rows} testId={testId} />);
+			render(<DynamicTable head={headMock1} rows={rows} testId={testId} />);
 			const sortButton = screen.getAllByRole('button')[0];
 			fireEvent.click(sortButton);
 
@@ -444,7 +456,7 @@ describe('@atlaskit/dynamic-table', () => {
 		});
 
 		it('should preserve sorting, even after updating table dynamically', () => {
-			const { rerender } = render(<DynamicTable head={head} rows={rows} testId={testId} />);
+			const { rerender } = render(<DynamicTable head={headMock1} rows={rows} testId={testId} />);
 
 			const sortButton = screen.getAllByRole('button')[0];
 			fireEvent.click(sortButton);
@@ -467,7 +479,7 @@ describe('@atlaskit/dynamic-table', () => {
 			};
 
 			const newRows = [...rows, newData];
-			rerender(<DynamicTable head={head} rows={newRows} testId={testId} />);
+			rerender(<DynamicTable head={headMock1} rows={newRows} testId={testId} />);
 
 			const updatedFirstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
 			const updatedLastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
@@ -479,7 +491,7 @@ describe('@atlaskit/dynamic-table', () => {
 		});
 
 		it('should use new sortKey and sortOrder passed as prop for sorting the table', () => {
-			const { rerender } = render(<DynamicTable head={head} rows={rows} testId={testId} />);
+			const { rerender } = render(<DynamicTable head={headMock1} rows={rows} testId={testId} />);
 
 			const thList = screen.getAllByTestId(`${testId}--head--cell`);
 			fireEvent.click(thList[0]);
@@ -491,7 +503,7 @@ describe('@atlaskit/dynamic-table', () => {
 
 			rerender(
 				<DynamicTable
-					head={head}
+					head={headMock1}
 					rows={rows}
 					sortOrder="DESC"
 					sortKey={secondSortKey}
@@ -510,7 +522,13 @@ describe('@atlaskit/dynamic-table', () => {
 
 		it('should preserve page after applying sorting and updating table dynamically', () => {
 			const { rerender } = render(
-				<DynamicTable head={head} rows={rows} rowsPerPage={2} defaultPage={2} testId={testId} />,
+				<DynamicTable
+					head={headMock1}
+					rows={rows}
+					rowsPerPage={2}
+					defaultPage={2}
+					testId={testId}
+				/>,
 			);
 
 			const thList = screen.getAllByTestId(`${testId}--head--cell`);
@@ -533,7 +551,13 @@ describe('@atlaskit/dynamic-table', () => {
 			const newRows = [...rows, newData];
 
 			rerender(
-				<DynamicTable head={head} rows={newRows} rowsPerPage={2} defaultPage={2} testId={testId} />,
+				<DynamicTable
+					head={headMock1}
+					rows={newRows}
+					rowsPerPage={2}
+					defaultPage={2}
+					testId={testId}
+				/>,
 			);
 
 			const updatedCurrentPage2 = screen.getByTestId(`${testId}--pagination--current-page-1`);

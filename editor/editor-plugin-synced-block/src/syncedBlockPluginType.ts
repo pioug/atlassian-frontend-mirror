@@ -1,7 +1,12 @@
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+	EditorCommand,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
@@ -50,7 +55,15 @@ export type SyncedBlockPluginOptions = {
 export type SyncedBlockPlugin = NextEditorPlugin<
 	'syncedBlock',
 	{
-		dependencies: [SelectionPlugin, FloatingToolbarPlugin, DecorationsPlugin];
+		commands: {
+			insertSyncedBlock: () => EditorCommand;
+		};
+		dependencies: [
+			SelectionPlugin,
+			FloatingToolbarPlugin,
+			DecorationsPlugin,
+			OptionalPlugin<BlockMenuPlugin>,
+		];
 		pluginConfiguration: SyncedBlockPluginOptions | undefined;
 	}
 >;

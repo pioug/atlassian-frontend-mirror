@@ -55,6 +55,7 @@ export type VCObserverGetVCResultParam = {
 	ssr?: number;
 	include3p?: boolean;
 	excludeSmartAnswersInSearch?: boolean;
+	includeSSRRatio?: boolean;
 	interactionType: InteractionType;
 	isPageVisible: boolean;
 	interactionAbortReason?: AbortReasonType;

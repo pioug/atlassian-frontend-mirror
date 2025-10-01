@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.7.0
+
+### Minor Changes
+
+- [`ef771fd2f0150`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef771fd2f0150) -
+  [ux] add RovoDev avatar into getAvatarRender based on agentNameId for TeamEU25
+
 ## 3.6.0
 
 ### Minor Changes

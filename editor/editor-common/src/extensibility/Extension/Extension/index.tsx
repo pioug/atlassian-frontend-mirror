@@ -6,13 +6,14 @@ import type { CSSProperties } from 'react';
 import React, { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { token } from '@atlaskit/tokens';
 
 import type { ExtensionProvider, ReferenceEntity } from '../../../extensions';
 import { useSharedPluginStateWithSelector } from '../../../hooks';
@@ -58,6 +59,12 @@ export interface Props {
 	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
 	view: EditorView;
 }
+
+const hoverStyles = css({
+	'&:hover': {
+		boxShadow: `0 0 0 1px ${token('color.border.input')}`,
+	},
+});
 
 type WidthStateProps = { widthState: EditorContainerWidth };
 interface ExtensionWithPluginStateProps extends Props, OverflowShadowProps, WidthStateProps {}
@@ -138,7 +145,13 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 			show1PBodiedExtensionBorder,
 		'with-margin-styles':
 			showMacroInteractionDesignUpdates && !isNodeNested && !showBodiedExtensionRendererView,
-		'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
+		'with-hover-border': expValEquals(
+			'cc_editor_ttvc_release_bundle_one',
+			'extensionHoverRefactor',
+			true,
+		)
+			? false
+			: showMacroInteractionDesignUpdates && isNodeHovered,
 		'with-danger-overlay': showMacroInteractionDesignUpdates,
 		'without-frame': removeBorder,
 		'legacy-content': showLegacyContentHeader,
@@ -242,10 +255,14 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 				data-layout={node.attrs.layout}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={classNames}
-				css={
+				css={[
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					wrapperStyleInheritedCursor
-				}
+					wrapperStyleInheritedCursor,
+					showMacroInteractionDesignUpdates &&
+						!isLivePageViewMode &&
+						expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true) &&
+						hoverStyles,
+				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={customContainerStyles}
 				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events

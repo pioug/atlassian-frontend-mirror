@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::6024fcc7ef1f42316e17d04ed01ef565>>
+ * @codegen <<SignedSource::8b0c2c2e9bf4e074a8dace8dc1cd3f5c>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1005,6 +1005,24 @@ export type TeamProfileCardClickedMoreMembersAttributesType = {
 	duration: number;
 	memberCount: number;
 };
+export type ProfileProjectsAndGoalsTabClickedAttributesType = {
+	tabName: string;
+};
+export type ProfileProjectsAndGoalsViewedAttributesType = {
+	isEmpty: boolean;
+	hasGoals: boolean;
+	hasProjects: boolean;
+	product: string;
+	workspaceUuid: string | null;
+};
+export type ProfileProjectsLinkClickedAttributesType = {
+	entryIndex: number;
+};
+export type ProfileGoalsLinkClickedAttributesType = {
+	entryIndex: number;
+};
+export type ButtonClickedFollowTeamProjectsGoalsButtonAttributesType = undefined;
+export type ButtonClickedUnfollowTeamProjectsGoalsButtonAttributesType = undefined;
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -1663,6 +1681,24 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the more members is clicked */
 	'ui.teamProfileCard.clicked.moreMembers': TeamProfileCardClickedMoreMembersAttributesType;
+	/**
+	 * fired when the profile projects and goals tab is clicked */
+	'ui.ProfileProjectsAndGoalsTab.clicked': ProfileProjectsAndGoalsTabClickedAttributesType;
+	/**
+	 * fired when the profile projects and goals is viewed */
+	'ui.ProfileProjectsAndGoals.viewed': ProfileProjectsAndGoalsViewedAttributesType;
+	/**
+	 * fired when the profile projects link is clicked */
+	'ui.ProfileProjectsLink.clicked': ProfileProjectsLinkClickedAttributesType;
+	/**
+	 * fired when the profile goals link is clicked */
+	'ui.ProfileGoalsLink.clicked': ProfileGoalsLinkClickedAttributesType;
+	/**
+	 * fired when the follow team projects and goals button is clicked */
+	'ui.button.clicked.followTeamProjectsGoalsButton': ButtonClickedFollowTeamProjectsGoalsButtonAttributesType;
+	/**
+	 * fired when the unfollow team projects and goals button is clicked */
+	'ui.button.clicked.unfollowTeamProjectsGoalsButton': ButtonClickedUnfollowTeamProjectsGoalsButtonAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

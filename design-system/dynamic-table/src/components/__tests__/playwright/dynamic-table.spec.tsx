@@ -4,7 +4,7 @@ const table = `[data-testid$='table']`;
 const tableHead = `[data-testid$='head']`;
 const tableHeadCell = `[data-testid$='head--cell']`;
 const tableHeadName = `${tableHeadCell}:nth-child(1)`;
-const tableHeadNameSortButton = `${tableHeadName} > button`;
+const tableHeadNameSortButton = `${tableHeadName} > div > div > button`;
 const tableHeadParty = `${tableHeadCell}:nth-child(2)`;
 const tableHeadTerm = `${tableHeadCell}:nth-child(3)`;
 const tableHeadComment = `${tableHeadCell}:nth-child(4)`;

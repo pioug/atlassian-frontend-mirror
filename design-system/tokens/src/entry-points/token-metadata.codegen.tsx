@@ -3,7 +3,7 @@
  *
  * Metadata for generation of of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::e7aee1e60142ef9336a2208ccfa3aa22>>
+ * @codegen <<SignedSource::1e5ee1932049c613950d3e1b7e5d6d3c>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -2884,7 +2884,7 @@ export const tokens: Token[] = [
 	{
 		name: 'border.width',
 		path: ['border', 'width', '[default]'],
-		description: 'The default border width. Used for all borders.',
+		description: 'The default width for all standard component borders and dividers.',
 		exampleValue: '0.0625rem',
 	},
 	{
@@ -2908,13 +2908,14 @@ export const tokens: Token[] = [
 	{
 		name: 'border.width.selected',
 		path: ['border', 'width', 'selected'],
-		description: 'Use for selected states.',
+		description:
+			'The width used to indicate a selected element, such as an active tab or a chosen item.',
 		exampleValue: '0.125rem',
 	},
 	{
 		name: 'border.width.focused',
 		path: ['border', 'width', 'focused'],
-		description: 'Use for focused states.',
+		description: 'The width used for the focus ring on interactive elements.',
 		exampleValue: '0.125rem',
 	},
 ];

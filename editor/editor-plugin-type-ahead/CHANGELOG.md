@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.2.0
+
+### Minor Changes
+
+- [`97586ad447624`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97586ad447624) -
+  [ux] Add a feature gate to remove the onClick handler from type-ahead InpuQuery to fix the a11y
+  violation
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.1
 
 ### Patch Changes

@@ -32,6 +32,7 @@ const largeBoxStyle = css({
 	height: '32px',
 	width: '32px',
 	font: token('font.heading.medium'),
+	paddingInline: token('space.025', '2px'),
 });
 
 export function LoomSpaceAvatar({

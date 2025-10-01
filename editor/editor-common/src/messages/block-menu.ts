@@ -56,4 +56,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Turn into',
 		description: 'Turn the selected block into another type',
 	},
+	createSyncedBlock: {
+		id: 'fabric.editor.block.menu.create.synced.block',
+		defaultMessage: 'Create synced block',
+		description: 'Create a synced block at this empty line',
+	},
 });

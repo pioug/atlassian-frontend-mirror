@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 18.3.0
+
+### Minor Changes
+
+- [`dfb254c12bb7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dfb254c12bb7b) -
+  [ux] Updates dynamic-table styles to reflect our new visual design language. These changes were
+  previously behind a feature flag and are now fully rolled out.
+
 ## 18.2.18
 
 ### Patch Changes

@@ -1,13 +1,13 @@
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { insertSelectedItem } from '@atlaskit/editor-common/insert';
 import type {
 	Command,
 	CommandDispatch,
 	ExtractInjectionAPI,
 	TypeAheadInsert,
 } from '@atlaskit/editor-common/types';
-import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { generateSyncBlockSourceUrl } from '@atlaskit/editor-synced-block-provider';
@@ -17,40 +17,34 @@ import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 import { findSyncBlock } from './utils/utils';
 
 export const createSyncedBlock = (
-	typeAheadInsert: TypeAheadInsert,
-	state: EditorState,
+	tr: Transaction,
 	syncBlockStore: SyncBlockStoreManager,
+	typeAheadInsert?: TypeAheadInsert,
 ): false | Transaction => {
 	const {
 		schema: {
 			nodes: { syncBlock },
 		},
-	} = state;
-	let tr: Transaction;
+	} = tr.doc.type;
 
 	const syncBlockNode = syncBlockStore.createSyncBlockNode();
 
 	// If the selection is empty, we want to insert the panel on a new line
-	if (state.selection.empty) {
+	if (tr.selection.empty) {
 		const node = syncBlock.createAndFill({ ...syncBlockNode.attrs });
 
 		if (!node) {
 			return false;
 		}
 
-		if (typeAheadInsert !== undefined) {
-			// If the type-ahead insert is provided, we should use that to insert the node
+		if (typeAheadInsert) {
 			tr = typeAheadInsert(node);
 		} else {
-			// Otherwise we can use insertSelectedItem to insert the node
-			tr = insertSelectedItem(node)(state, state.tr, state.selection.head)?.scrollIntoView();
+			tr = tr.replaceSelectionWith(node).scrollIntoView();
 		}
 	} else {
-		tr = createWrapSelectionTransaction({
-			state,
-			type: syncBlock,
-			nodeAttributes: { ...syncBlockNode.attrs },
-		});
+		// TODO: EDITOR-1653 - put selection inside the sync block if possible
+		safeInsert(syncBlock.createAndFill(syncBlockNode.attrs) as PMNode)(tr)?.scrollIntoView();
 	}
 
 	return tr;

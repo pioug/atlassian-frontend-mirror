@@ -106,7 +106,10 @@ export const ToolbarNext = ({
 }: NewToolbarProps) => {
 	const { connectivityStateMode, editorViewMode, editorToolbarDockingPreference } =
 		usePluginState(editorAPI);
+	// remove offline check when patch6Enabled is cleaned up
 	const isOffline = connectivityStateMode === 'offline';
+
+	const patch6Enabled = expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true);
 
 	return (
 		<EditorToolbarProvider
@@ -121,7 +124,7 @@ export const ToolbarNext = ({
 		>
 			<EditorToolbarUIProvider
 				api={editorAPI}
-				isDisabled={isOffline || isDisabled}
+				isDisabled={patch6Enabled ? isDisabled : isOffline || isDisabled}
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}

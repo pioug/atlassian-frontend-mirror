@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 import { useToolbarUI } from '../hooks/ui-context';
 
 import { ToolbarButton } from './ToolbarButton';
-import { ToolbarDropdownMenuProvider, useToolbarDropdownMenu } from './ToolbarDropdownMenuContext';
+import { useToolbarDropdownMenu } from './ToolbarDropdownMenuContext';
 
 const styles = cssMap({
 	sectionMargin: {
@@ -120,48 +120,25 @@ export const ToolbarDropdownMenu = ({
 	enableMaxHeight = false,
 	onClick,
 }: ToolbarDropdownMenuProps) => {
-	if (expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true)) {
-		return (
-			<ToolbarDropdownMenuContent
-				iconBefore={iconBefore}
-				isDisabled={isDisabled}
-				testId={testId}
-				label={label}
-				onClick={onClick}
+	return (
+		<ToolbarDropdownMenuContent
+			iconBefore={iconBefore}
+			isDisabled={isDisabled}
+			testId={testId}
+			label={label}
+			onClick={onClick}
+		>
+			<Box
+				xcss={cx(
+					hasSectionMargin && styles.sectionMargin,
+					enableMaxHeight && styles.scrollContainer,
+					expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true) &&
+						styles.firstSectionSeparator,
+				)}
+				data-toolbar-component="menu"
 			>
-				<Box
-					xcss={cx(
-						hasSectionMargin && styles.sectionMargin,
-						enableMaxHeight && styles.scrollContainer,
-						expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true) &&
-							styles.firstSectionSeparator,
-					)}
-					data-toolbar-component="menu"
-				>
-					{children}
-				</Box>
-			</ToolbarDropdownMenuContent>
-		);
-	} else {
-		return (
-			<ToolbarDropdownMenuProvider>
-				<ToolbarDropdownMenuContent
-					iconBefore={iconBefore}
-					isDisabled={isDisabled}
-					testId={testId}
-					label={label}
-				>
-					<div
-						css={[
-							hasSectionMargin && styles.sectionMargin,
-							expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true) &&
-								styles.firstSectionSeparator,
-						]}
-					>
-						{children}
-					</div>
-				</ToolbarDropdownMenuContent>
-			</ToolbarDropdownMenuProvider>
-		);
-	}
+				{children}
+			</Box>
+		</ToolbarDropdownMenuContent>
+	);
 };

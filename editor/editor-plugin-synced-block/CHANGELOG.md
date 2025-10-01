@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 3.1.1
+
+### Patch Changes
+
+- [`7011f9be6a430`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7011f9be6a430) -
+  [ux] EDITOR-1653 add create synced block item to the block menu
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [`9e7a5a0bb1869`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e7a5a0bb1869) -
+  Add content api sync block provider
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.6
 
 ### Patch Changes

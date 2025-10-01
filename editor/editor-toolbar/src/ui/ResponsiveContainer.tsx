@@ -5,7 +5,7 @@ import React, { type ReactNode } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const styles = cssMap({
 	responsiveContainer: {
@@ -95,38 +95,17 @@ const styles = cssMap({
 			},
 		},
 	},
-	responsiveRulesReducedOld: {
+	// combine with responsiveRulesReduced when patch_6 is cleaned up
+	responsiveRulesReducedOverridden: {
 		// @ts-expect-error - container queries are not typed in cssMap
-		'@container toolbar-container (max-width: 210px)': {
-			'.show-above-sm': {
-				display: 'none',
-			},
-			'.show-below-sm': {
-				display: 'block',
-			},
-		},
-		'@container toolbar-container (max-width: 350px)': {
-			'.show-above-md': {
-				display: 'none',
-			},
-			'.show-below-md': {
-				display: 'block',
-			},
-		},
-		'@container toolbar-container (max-width: 500px)': {
-			'.show-above-lg': {
-				display: 'none',
-			},
-			'.show-below-lg': {
-				display: 'block',
-			},
-		},
-		'@container toolbar-container (max-width: 1024px)': {
-			'.show-above-xl': {
-				display: 'none',
-			},
-			'.show-below-xl': {
-				display: 'block',
+		'&&&': {
+			'@container toolbar-container (max-width: 648px)': {
+				'.show-above-lg': {
+					display: 'none',
+				},
+				'.show-below-lg': {
+					display: 'block',
+				},
 			},
 		},
 	},
@@ -252,12 +231,10 @@ export const ResponsiveContainer = ({ children, reducedBreakpoints }: Responsive
 		<Box
 			xcss={cx(
 				styles.responsiveContainer,
-
-				reducedBreakpoints
-					? editorExperiment('platform_editor_toolbar_aifc_patch_2', true)
-						? styles.responsiveRulesReduced
-						: styles.responsiveRulesReducedOld
-					: styles.responsiveRules,
+				reducedBreakpoints ? styles.responsiveRulesReduced : styles.responsiveRules,
+				reducedBreakpoints &&
+					expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
+					styles.responsiveRulesReducedOverridden,
 			)}
 		>
 			{children}

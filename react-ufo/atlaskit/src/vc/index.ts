@@ -108,7 +108,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 	}
 
 	async getVCResult(param: GetVCResultType): Promise<VCResult> {
-		const { experienceKey, include3p, excludeSmartAnswersInSearch } = param;
+		const { experienceKey, include3p, excludeSmartAnswersInSearch, includeSSRRatio } = param;
 
 		const v1v2Result =
 			isVCRevisionEnabled('fy25.01', experienceKey) || isVCRevisionEnabled('fy25.02', experienceKey)
@@ -123,6 +123,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 					ssr: param.includeSSRInV3 ? param.ssr : undefined,
 					include3p,
 					excludeSmartAnswersInSearch,
+					includeSSRRatio,
 					interactionType: param.interactionType,
 					isPageVisible: param.isPageVisible,
 					interactionAbortReason: param.interactionAbortReason,
@@ -133,7 +134,10 @@ export class VCObserverWrapper implements VCObserverInterface {
 			return v1v2Result ?? {};
 		}
 
+		const ssrRatio = v3Result[0].ssrRatio;
+
 		return {
+			...(includeSSRRatio && ssrRatio !== undefined ? { 'ufo:vc:ssrRatio': ssrRatio } : {}),
 			...v1v2Result,
 			'ufo:vc:rev': [
 				...((v1v2Result?.['ufo:vc:rev'] as RevisionPayload | undefined) ?? []),

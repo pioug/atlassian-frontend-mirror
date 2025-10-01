@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -37,14 +38,25 @@ describe('ProfileCardTrigger', () => {
 		actor_type: 'AGENT',
 		favourite_count: 0,
 	};
-	const mockClient = getMockProfileClient(ProfileClient, 0);
+	const mockClient = {
+		...getMockProfileClient(ProfileClient, 0),
+		getRovoAgentPermissions: jest.fn().mockResolvedValue({
+			permissions: {
+				AGENT_CREATE: { permitted: true },
+				AGENT_UPDATE: { permitted: true },
+				AGENT_DEACTIVATE: { permitted: true },
+			},
+		}),
+	};
 
 	const renderWithIntl = ({
 		isLoading = false,
 		hasError = false,
+		hideMoreActions = false,
 	}: {
 		isLoading?: boolean;
 		hasError?: boolean;
+		hideMoreActions?: boolean;
 	}) => {
 		return renderWithAnalyticsListener(
 			<IntlProvider locale="en">
@@ -53,6 +65,7 @@ describe('ProfileCardTrigger', () => {
 					resourceClient={mockClient}
 					isLoading={isLoading}
 					hasError={hasError}
+					hideMoreActions={hideMoreActions}
 				/>
 			</IntlProvider>,
 		);
@@ -106,6 +119,26 @@ describe('ProfileCardTrigger', () => {
 				expectEventToBeFired('ui', errorProfileCardEvent);
 				expectEventToBeFired('ui', profileCardEvent);
 			});
+		});
+	});
+
+	describe('hideMoreActions', () => {
+		it('should pass hideMoreActions prop to AgentActions component when true', () => {
+			renderWithIntl({ hideMoreActions: true });
+			// When hideMoreActions is true, the dropdown menu should not be present
+			expect(screen.queryByTestId('agent-dropdown-menu--trigger')).not.toBeInTheDocument();
+		});
+
+		it('should pass hideMoreActions prop to AgentActions component when false', () => {
+			renderWithIntl({ hideMoreActions: false });
+			// When hideMoreActions is false, the dropdown menu should be present
+			expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
+		});
+
+		it('should render dropdown menu by default when hideMoreActions is not provided', () => {
+			renderWithIntl({});
+			// When hideMoreActions is not provided, the dropdown menu should be present
+			expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
 		});
 	});
 });

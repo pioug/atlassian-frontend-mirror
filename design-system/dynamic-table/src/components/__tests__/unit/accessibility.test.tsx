@@ -11,13 +11,13 @@ import { type StatelessProps } from '../../../types';
 import LoadingContainer from '../../loading-container';
 import { RankableTableCell } from '../../rankable/table-cell';
 
-import { cellWithKey as cell, head, rows, rowsWithKeys, sortKey } from './_data';
+import { cellWithKey as cell, headMock1, rows, rowsWithKeys, sortKey } from './_data';
 
 describe('Dynamic Table Accessibility', () => {
 	describe('Stateful table', () => {
 		it('default stateful should pass basic aXe audit', async () => {
 			const { container } = render(
-				<DynamicTable rowsPerPage={2} defaultPage={2} head={head} rows={rows} />,
+				<DynamicTable rowsPerPage={2} defaultPage={2} head={headMock1} rows={rows} />,
 			);
 
 			await axe(container);
@@ -25,7 +25,7 @@ describe('Dynamic Table Accessibility', () => {
 
 		it('stateful with pagination should pass basic aXe audit', async () => {
 			const { container } = render(
-				<DynamicTable rowsPerPage={2} defaultPage={2} head={head} rows={rows} />,
+				<DynamicTable rowsPerPage={2} defaultPage={2} head={headMock1} rows={rows} />,
 			);
 
 			await axe(container);
@@ -34,7 +34,7 @@ describe('Dynamic Table Accessibility', () => {
 
 	describe('Stateless table', () => {
 		const createStatelessProps: () => StatelessProps = () => ({
-			head,
+			head: headMock1,
 			rows: rowsWithKeys,
 			sortKey,
 			sortOrder: 'ASC',
@@ -84,7 +84,7 @@ describe('Dynamic Table Accessibility', () => {
 	describe('With Rankable Table Cell', () => {
 		const createRankableProps = () => ({
 			cell,
-			head: head.cells[0],
+			head: headMock1.cells[0],
 			isRanking: false,
 			innerRef: jest.fn(),
 			refWidth: -1,

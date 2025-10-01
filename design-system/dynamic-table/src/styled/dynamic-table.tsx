@@ -7,7 +7,6 @@ import { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { B100, B50, B75, N10, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type TableProps = HTMLProps<HTMLTableElement> & {
@@ -29,12 +28,10 @@ const tableStyles = css({
 });
 
 const bodyBorder = css({
-	borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border', N40)}`,
+	borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border')}`,
 });
 
-export const Table: React.ForwardRefExoticComponent<
-	React.PropsWithoutRef<TableProps> & React.RefAttributes<HTMLTableElement>
-> = forwardRef<HTMLTableElement, TableProps>(
+export const Table = forwardRef<HTMLTableElement, TableProps>(
 	({ isFixedSize, hasDataRow, children, testId, isLoading, ...rest }, ref) => {
 		return (
 			<table
@@ -43,16 +40,15 @@ export const Table: React.ForwardRefExoticComponent<
 				style={
 					{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						'--local-dynamic-table-hover-bg': token('color.background.neutral.subtle.hovered', N10),
+						'--local-dynamic-table-hover-bg': token('color.background.neutral.subtle.hovered'),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						'--local-dynamic-table-highlighted-bg': token('color.background.selected', B50),
+						'--local-dynamic-table-highlighted-bg': token('color.background.selected'),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						'--local-dynamic-table-hover-highlighted-bg': token(
 							'color.background.selected.hovered',
-							B75,
 						),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						'--local-dynamic-table-row-focus-outline': token('color.border.focused', B100),
+						'--local-dynamic-table-row-focus-outline': token('color.border.focused'),
 					} as React.CSSProperties
 				}
 				css={[tableStyles, isFixedSize && fixedSizeTableStyles, hasDataRow && bodyBorder]}

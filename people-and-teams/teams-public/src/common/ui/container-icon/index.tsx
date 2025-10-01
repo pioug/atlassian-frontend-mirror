@@ -107,7 +107,8 @@ export const ContainerIcon = ({
 		);
 	}
 
-	if (containerType === 'WebLink') {
+	// This is a fallback icon for WebLink if the containerIcon is not present
+	if (containerType === 'WebLink' && !containerIcon) {
 		if (isTeamLensInHomeEnabled || isNewTeamProfilePageEnabled) {
 			return (
 				<IconButton
@@ -125,13 +126,11 @@ export const ContainerIcon = ({
 			return <IconSkeleton size={size} />;
 		}
 
-		if (!containerIcon) {
-			return (
-				<Box xcss={isMedium ? styles.globeIconWrapperMedium : styles.globeIconWrapperSmall}>
-					<GlobeIcon label="" testId="linked-container-WebLink-icon" />
-				</Box>
-			);
-		}
+		return (
+			<Box xcss={isMedium ? styles.globeIconWrapperMedium : styles.globeIconWrapperSmall}>
+				<GlobeIcon label="" testId="linked-container-WebLink-icon" />
+			</Box>
+		);
 	}
 
 	return (

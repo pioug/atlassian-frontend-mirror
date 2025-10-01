@@ -27,6 +27,8 @@ export type AgentProfileCardResourcedProps = {
 	children?: React.ReactNode;
 	addFlag?: (flag: Flag) => void;
 	onDeleteAgent?: (agentId: string) => { restore: () => void };
+	/** Hide the Agent more actions dropdown when true */
+	hideMoreActions?: boolean;
 } & AgentActionsType;
 
 export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps) => {
@@ -158,6 +160,7 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 				resourceClient={props.resourceClient}
 				cloudId={props.cloudId}
 				onDeleteAgent={props.onDeleteAgent}
+				hideMoreActions={props.hideMoreActions}
 			/>
 		</Suspense>
 	);

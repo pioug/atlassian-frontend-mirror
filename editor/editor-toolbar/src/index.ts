@@ -8,7 +8,7 @@ export { ToolbarDropdownItemSection } from './ui/ToolbarDropdownItemSection';
 export { ToolbarNestedDropdownMenu } from './ui/ToolbarNestedDropdownMenu';
 export { ToolbarKeyboardNavigationProvider } from './ui/ToolbarKeyboardNavigationProvider';
 export { ToolbarKeyboardShortcutHint } from './ui/ToolbarKeyboardShortcutHint';
-export { ToolbarSection } from './ui/ToolbarSection';
+export { ToolbarSection, SeparatorPosition } from './ui/ToolbarSection';
 export { ToolbarTooltip } from './ui/ToolbarTooltip';
 export { ToolbarColorSwatch } from './ui/ToolbarColorSwatch';
 export {
@@ -75,6 +75,7 @@ export { RedoIcon } from './ui/icons/RedoIcon';
 export { HistoryIcon } from './ui/icons/HistoryIcon';
 export { LoomIcon } from './ui/icons/LoomIcon';
 export { PlusIcon } from './ui/icons/PlusIcon';
+export { SyncBlocksIcon } from './ui/icons/SyncBlocksIcon';
 
 export { default as ColorPalette } from './ui/ColorPalette';
 export { getContrastingBackgroundColor } from './ui/ColorPalette/utils';

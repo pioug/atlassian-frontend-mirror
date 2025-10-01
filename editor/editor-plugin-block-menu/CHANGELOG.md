@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 4.0.11
+
+### Patch Changes
+
+- [`7011f9be6a430`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7011f9be6a430) -
+  [ux] EDITOR-1653 add create synced block item to the block menu
+- Updated dependencies
+
+## 4.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.9
 
 ### Patch Changes

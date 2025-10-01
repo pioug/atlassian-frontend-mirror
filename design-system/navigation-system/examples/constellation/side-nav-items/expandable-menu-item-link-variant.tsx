@@ -12,6 +12,7 @@ import ChartBarIcon from '@atlaskit/icon/core/chart-bar';
 import HomeIcon from '@atlaskit/icon/core/home';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { JiraIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
 import { ContainerAvatar } from '@atlaskit/navigation-system/side-nav-items/container-avatar';
@@ -27,7 +28,6 @@ import {
 	MenuSectionHeading,
 } from '@atlaskit/navigation-system/side-nav-items/menu-section';
 import { Inline } from '@atlaskit/primitives/compiled';
-import { JiraIcon } from '@atlaskit/temp-nav-app-icons/jira';
 
 import MoneyIcon from '../../images/money.svg';
 
@@ -108,7 +108,10 @@ export function ExpandableMenuItemLinkVariantExample() {
 							</ExpandableMenuItem>
 
 							<ExpandableMenuItem>
-								<ExpandableMenuItemTrigger href={exampleHref} elemBefore={<JiraIcon label="" />}>
+								<ExpandableMenuItemTrigger
+									href={exampleHref}
+									elemBefore={<JiraIcon label="" shouldUseNewLogoDesign size="xsmall" />}
+								>
 									Exp link menu item (app tile)
 								</ExpandableMenuItemTrigger>
 								<PlaceholderExpandableContent />

@@ -180,6 +180,60 @@ const dataCenterDarkAppearanceMap = cssMap({
 	},
 });
 
+const rovoDarkAppearanceMap = cssMap({
+	brand: {
+		'--rovo-blue-color': '#357DE8',
+		'--rovo-yellow-color': '#FCA700',
+		'--rovo-purple-color': '#BF63F3',
+		'--rovo-green-color': '#82B536',
+	},
+	neutral: {
+		'--rovo-blue-color': '#A9ABAF',
+		'--rovo-yellow-color': '#A9ABAF',
+		'--rovo-purple-color': '#A9ABAF',
+		'--rovo-green-color': '#A9ABAF',
+	},
+	inverse: {
+		'--rovo-blue-color': '#101214',
+		'--rovo-yellow-color': '#101214',
+		'--rovo-purple-color': '#101214',
+		'--rovo-green-color': '#101214',
+	},
+	legacy: {
+		'--rovo-blue-color': '#1868DB',
+		'--rovo-yellow-color': '#1868DB',
+		'--rovo-purple-color': '#1868DB',
+		'--rovo-green-color': '#1868DB',
+	},
+});
+
+const rovoLightAppearanceMap = cssMap({
+	brand: {
+		'--rovo-blue-color': 'initial',
+		'--rovo-yellow-color': 'initial',
+		'--rovo-purple-color': 'initial',
+		'--rovo-green-color': 'initial',
+	},
+	neutral: {
+		'--rovo-blue-color': '#505258',
+		'--rovo-yellow-color': '#505258',
+		'--rovo-purple-color': '#505258',
+		'--rovo-green-color': '#505258',
+	},
+	inverse: {
+		'--rovo-blue-color': '#ffffff',
+		'--rovo-yellow-color': '#ffffff',
+		'--rovo-purple-color': '#ffffff',
+		'--rovo-green-color': '#ffffff',
+	},
+	legacy: {
+		'--rovo-blue-color': '#1868DB',
+		'--rovo-yellow-color': '#1868DB',
+		'--rovo-purple-color': '#1868DB',
+		'--rovo-green-color': '#1868DB',
+	},
+});
+
 /* eslint-enable @atlaskit/ui-styling-standard/no-imported-style-values */
 /* eslint-enable @atlaskit/ui-styling-standard/no-unsafe-values */
 
@@ -188,12 +242,12 @@ type LogoWrapperProps = {
 	customThemeSvg?: string;
 	iconColor?: string;
 	isAssets?: boolean;
-	isDataCenter?: boolean;
 	label: string;
 	size?: LogoSize;
 	svg: string;
 	testId?: string;
 	textColor?: string;
+	type?: 'tile' | 'rovo' | 'data-center';
 };
 
 export function LogoWrapper({
@@ -205,8 +259,8 @@ export function LogoWrapper({
 	testId: userDefinedTestId,
 	iconColor: customIconColor,
 	textColor: customTextColor,
-	isDataCenter = false,
 	isAssets = false,
+	type = 'tile',
 }: LogoWrapperProps) {
 	const { colorMode } = useThemeObserver();
 	const testId = userDefinedTestId && `${userDefinedTestId}--wrapper`;
@@ -220,13 +274,20 @@ export function LogoWrapper({
 				// Setting the color so that the SVG can inherit the correct text color using "currentColor"
 				logoTextColorMap[colorMode ?? 'light'],
 				sizeMap[size],
+				// Text colors
 				colorMode === 'dark'
 					? textDarkAppearanceMap[appearance]
 					: textLightAppearanceMap[appearance],
-				isDataCenter
+				// Icon colors
+				type === 'data-center'
 					? colorMode === 'dark'
 						? dataCenterDarkAppearanceMap[appearance]
 						: dataCenterLightAppearanceMap[appearance]
+					: undefined,
+				type === 'rovo'
+					? colorMode === 'dark'
+						? rovoDarkAppearanceMap[appearance]
+						: rovoLightAppearanceMap[appearance]
 					: colorMode === 'dark'
 						? cloudDarkAppearanceMap[appearance]
 						: cloudLightAppearanceMap[appearance],

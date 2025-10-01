@@ -2,6 +2,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AbortReasonType, InteractionType } from '../../../common/common/types';
 import type {
+	CalculateTTVCResult,
 	RevisionPayloadEntry,
 	RevisionPayloadVCDetails,
 	VCAbortReason,
@@ -11,7 +12,6 @@ import type {
 } from '../../../common/vc/types';
 import type { VCRevisionDebugDetails } from '../../vc-observer/getVCRevisionDebugDetails';
 import type { VCObserverEntry, ViewportEntryData } from '../types';
-import { cssIssueOccurrence } from '../viewport-observer/utils/track-display-content-occurrence';
 
 import { calculateTTVCPercentilesWithDebugInfo } from './percentile-calc';
 import type { VCCalculator, VCCalculatorParam } from './types';
@@ -118,7 +118,8 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		include3p?: boolean,
 		excludeSmartAnswersInSearch?: boolean,
 		interactionAbortReason?: AbortReasonType,
-	): Promise<RevisionPayloadVCDetails> {
+		includeSSRRatio?: boolean,
+	): Promise<CalculateTTVCResult> {
 		const percentiles = [25, 50, 75, 80, 85, 90, 95, 98, 99, 100];
 		const viewportEntries = this.filterViewportEntries(filteredEntries);
 		const vcLogs = await calculateTTVCPercentilesWithDebugInfo({
@@ -135,9 +136,20 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		let percentileIndex = 0;
 		const entryDataBuffer = new Set<ViewportEntryData>();
 
+		let ssrRatio = -1;
+
 		if (vcLogs) {
 			for (const entry of vcLogs) {
 				const { time, viewportPercentage, entries } = entry;
+
+				if (
+					includeSSRRatio &&
+					ssrRatio === -1 &&
+					entries.some((e) => e.elementName === 'SSR') &&
+					fg('platform_report_ssr_ratio_in_v3')
+				) {
+					ssrRatio = viewportPercentage / 100;
+				}
 
 				// Only process entries if we haven't reached all percentiles
 				if (percentileIndex >= percentiles.length) {
@@ -340,7 +352,10 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			}
 		}
 
-		return vcDetails;
+		return {
+			vcDetails,
+			ssrRatio,
+		};
 	}
 
 	async calculate({
@@ -351,6 +366,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		isPostInteraction,
 		include3p,
 		excludeSmartAnswersInSearch,
+		includeSSRRatio,
 		interactionType,
 		isPageVisible,
 		interactionAbortReason,
@@ -375,7 +391,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			};
 		}
 
-		const vcDetails = await this.calculateWithDebugInfo(
+		const { vcDetails, ssrRatio } = await this.calculateWithDebugInfo(
 			filteredEntries,
 			startTime,
 			stopTime,
@@ -389,6 +405,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			include3p,
 			excludeSmartAnswersInSearch,
 			interactionAbortReason,
+			includeSSRRatio,
 		);
 
 		const result: RevisionPayloadEntry = {
@@ -400,12 +417,12 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 
 		result.ratios = this.calculateRatios(filteredEntries);
 
-		if (isPostInteraction) {
-			result.labelStacks = this.getLabelStacks(filteredEntries);
+		if (ssrRatio !== -1) {
+			result.ssrRatio = ssrRatio;
 		}
 
-		if (fg('platform_ufo_display_content_track_occurrence')) {
-			result.displayContentsOccurrence = cssIssueOccurrence;
+		if (isPostInteraction) {
+			result.labelStacks = this.getLabelStacks(filteredEntries);
 		}
 
 		return result;

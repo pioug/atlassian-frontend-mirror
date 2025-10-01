@@ -1,4 +1,6 @@
 // @ts-nocheck
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import PostMessage from '../common/postmessage';
 import Util from '../common/util';
 
@@ -103,16 +105,35 @@ class AP extends PostMessage {
 		}
 	}
 
+	_isEmbeddedConfluenceUsage() {
+		try {
+			const uniqueKey = new URL(window.location.href).searchParams.get('uniqueKey');
+			return (
+				uniqueKey !== null &&
+				uniqueKey.includes('embedded-confluence-iframe') &&
+				fg('platform_deprecate_lp_cc_embed')
+			);
+		} catch (e) {
+			return false;
+		}
+	}
+
 	_verifyHostFrameOffset() {
 		// Asynchronously verify the host frame option with this._top
 		var callback = (e) => {
 			if (e.source === this._top && e.data && typeof e.data.hostFrameOffset === 'number') {
 				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				window.removeEventListener('message', callback);
-
 				if (this._getHostFrame(e.data.hostFrameOffset) !== this._topHost) {
-					Util.error('hostFrameOffset tampering detected, setting host frame to top window');
-					this._topHost = this._top;
+					const isEmbeddedConfluence = this._isEmbeddedConfluenceUsage();
+					if (isEmbeddedConfluence) {
+						Util.log(
+							'hostFrameOffset tampering detected in embedded-confluence context, but preserving current host frame',
+						);
+					} else {
+						Util.error('hostFrameOffset tampering detected, setting host frame to top window');
+						this._topHost = this._top;
+					}
 				}
 			}
 		};

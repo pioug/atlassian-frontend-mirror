@@ -20,13 +20,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	platform_editor_media_card_vc_wrapper_attribute: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_media_card_vc_wrapper_attribute',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-07-24
 	editor_prevent_numbered_column_too_big_jira_1: createBooleanExperiment({
 		productKeys: {
@@ -898,15 +891,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-08-26
-	platform_editor_toolbar_aifc_patch_1: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_aifc_patch_1',
-			jira: 'platform_editor_toolbar_aifc_patch_1',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-09-08
 	platform_editor_table_container_width_fix: createBooleanExperiment({
 		productKeys: {
@@ -924,15 +908,6 @@ export const editorExperimentsConfig = {
 		param: 'variant',
 		values: ['control', 'test'],
 		defaultValue: 'control',
-	}),
-	// Added 2025-09-01
-	platform_editor_toolbar_aifc_patch_2: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_aifc_patch_2',
-			jira: 'platform_editor_toolbar_aifc_patch_2',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
 	}),
 	// Added 2025-09-08
 	platform_editor_editor_width_analytics: createBooleanExperiment({
@@ -1076,6 +1051,14 @@ export const editorExperimentsConfig = {
 	cc_complexit_fe_emoji_stability: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_complexit_fe_emoji_stability',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-23
+	cc_editor_ttvc_release_bundle_one: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_editor_ttvc_release_bundle_one',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

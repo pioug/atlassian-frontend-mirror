@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e235764598011d7e6fcb75b2257be900>>
+ * @codegen <<SignedSource::79d2912bbab3648aade2cc916ffcb52b>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -30,7 +30,7 @@ export function BambooIcon({ size, appearance = 'brand', label = 'Bamboo', testI
 		<IconWrapper
 			svg={svg}
 			label={label}
-			isDataCenter={true}
+			type="data-center"
 			appearance={appearance}
 			size={size}
 			testId={testId}

@@ -1,5 +1,44 @@
 # @atlaskit/editor-common
 
+## 110.4.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.4.11
+
+### Patch Changes
+
+- [`7011f9be6a430`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7011f9be6a430) -
+  [ux] EDITOR-1653 add create synced block item to the block menu
+- Updated dependencies
+
+## 110.4.10
+
+### Patch Changes
+
+- [`dbff10f5a27ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbff10f5a27ee) -
+  [ux] [ED-29347] Refactors extension hover styles to pure CSS
+- [`a3254a75cdfb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3254a75cdfb7) -
+  [ED-29448] clean up old unused exports
+- Updated dependencies
+
+## 110.4.9
+
+### Patch Changes
+
+- [`fa28c66755038`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa28c66755038) -
+  [EDITOR-1791] On small viewports, when hero action is removed it should move into the drop down
+  menu
+- Updated dependencies
+
+## 110.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.4.7
 
 ### Patch Changes

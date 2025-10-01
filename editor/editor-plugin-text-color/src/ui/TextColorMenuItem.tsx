@@ -12,7 +12,7 @@ import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
 import { ColorPalette, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import Heading from '@atlaskit/heading';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -88,12 +88,7 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps) {
 
 	return (
 		<Stack xcss={styles.container} testId="text-color-menu-item">
-			{expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true) ? (
-				<Heading size="xxsmall">{formatMessage(messages.textColorTooltip)}</Heading>
-			) : (
-				<Text weight="bold">{formatMessage(messages.textColorTooltip)}</Text>
-			)}
-
+			<Heading size="xxsmall">{formatMessage(messages.textColorTooltip)}</Heading>
 			<ColorPalette
 				onClick={(color) => {
 					handleTextColorChange(color);

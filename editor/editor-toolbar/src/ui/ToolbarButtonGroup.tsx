@@ -7,7 +7,6 @@ import { Children, Fragment, type ReactNode } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { Box } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -58,13 +57,7 @@ export const ToolbarButtonGroup = ({ children }: ToolbarButtonGroupProps) => {
 	const LastChild = items.at(-1);
 	const middleChildren = items.slice(1, -1);
 
-	const isToolbarPatch2Enabled = expValEquals(
-		'platform_editor_toolbar_aifc_patch_2',
-		'isEnabled',
-		true,
-	);
-
-	return isToolbarPatch2Enabled ? (
+	return (
 		<Box xcss={styles.container} data-toolbar-component="button-group">
 			{items.length <= 1 ? (
 				children
@@ -73,18 +66,6 @@ export const ToolbarButtonGroup = ({ children }: ToolbarButtonGroupProps) => {
 					<div css={styles.firstChildNew}>{FirstChild}</div>
 					{middleChildren}
 					<div css={styles.lastChildNew}>{LastChild}</div>
-				</Fragment>
-			)}
-		</Box>
-	) : (
-		<Box xcss={styles.container} data-toolbar-component="button-group">
-			{items.length <= 1 ? (
-				children
-			) : (
-				<Fragment>
-					<div css={styles.firstChild}>{FirstChild}</div>
-					{middleChildren}
-					<div css={styles.lastChild}>{LastChild}</div>
 				</Fragment>
 			)}
 		</Box>

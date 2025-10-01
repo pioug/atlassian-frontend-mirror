@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import sample from 'lodash/sample';
 
+import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics';
+
 import TeamProfileCard from '../src/components/Team/TeamProfileCard';
 import teamData from '../src/mocks/team-data';
 import { type TeamProfileCardErrorType } from '../src/types';
@@ -44,9 +46,12 @@ function analytics(gen: (duration: number) => Record<string, any>) {
 		payload.attributes,
 	);
 }
-function analyticsNext(eventKey: string, gen: (duration: number) => Record<string, any>) {
+function analyticsNext<K extends keyof AnalyticsEventAttributes>(
+	eventKey: K,
+	gen: (duration: number) => AnalyticsEventAttributes[K],
+) {
 	const payload = gen(1000);
-	console.log(eventKey, payload.attributes);
+	console.log(eventKey, payload);
 }
 
 const actionCounts = [0, 1, 2, 3, 4];

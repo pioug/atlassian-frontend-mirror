@@ -430,8 +430,7 @@ export const TableResizer = ({
 
 		if (
 			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) ||
-			(editorExperiment('platform_editor_toolbar_aifc', true) &&
-				expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true))
+			editorExperiment('platform_editor_toolbar_aifc', true)
 		) {
 			pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('resizing')({ tr });
 		}
@@ -614,8 +613,7 @@ export const TableResizer = ({
 			tr.setMeta('is-resizer-resizing', false);
 			if (
 				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) ||
-				(editorExperiment('platform_editor_toolbar_aifc', true) &&
-					expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true))
+				editorExperiment('platform_editor_toolbar_aifc', true)
 			) {
 				pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 			}

@@ -1,5 +1,26 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.11.6
+
+### Patch Changes
+
+- [`b629e44ac5c35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b629e44ac5c35) -
+  Do not send prior fg for press interactions
+
+## 4.11.5
+
+### Patch Changes
+
+- [`c7f300b3eed72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7f300b3eed72) -
+  FG cleanup of display contents tracking flags
+
+## 4.11.4
+
+### Patch Changes
+
+- [`0e311a2eaf943`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e311a2eaf943) -
+  Fixed reporting ssrRatio in v3
+
 ## 4.11.3
 
 ### Patch Changes

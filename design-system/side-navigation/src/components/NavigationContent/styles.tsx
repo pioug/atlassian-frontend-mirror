@@ -32,7 +32,39 @@ interface StyleOpts {
  * They are "conditionally" shown from the users perspective using the inner container CSS
  * which has other pseudo elements which "mask" the "real" scroll indicators.
  */
-export const outerContainerCSS = (opts: StyleOpts & { scrollbarWidth: number }) =>
+export const outerContainerCSS = (
+	opts: StyleOpts & { scrollbarWidth: number },
+): {
+	// Flex is needed to ensure the overflow indicators are positioned correctly.
+	readonly display: 'flex';
+	readonly height: '100%';
+	readonly overflow: 'hidden';
+	readonly position: 'relative';
+	readonly '&::before': {
+		readonly content: "''";
+		readonly display: 'block';
+		readonly left: 'var(--ds-space-100)';
+		readonly right: number;
+		readonly height: 2;
+		readonly borderRadius: 'var(--ds-radius-xsmall)';
+		readonly backgroundColor: 'var(--ds-menu-seperator-color, var(--ds-border))';
+		readonly position: 'absolute';
+		readonly zIndex: 1;
+	};
+	readonly '&::after': {
+		readonly content: "''";
+		readonly position: 'absolute';
+		readonly display: 'block';
+		readonly borderRadius: 'var(--ds-radius-xsmall)';
+		readonly flexShrink: 0;
+		readonly height: 2;
+		readonly left: 'var(--ds-space-100)';
+		readonly right: number;
+		readonly bottom: 0;
+		readonly zIndex: 1;
+		readonly backgroundColor: 'var(--ds-menu-seperator-color, var(--ds-border))';
+	};
+} =>
 	({
 		// Flex is needed to ensure the overflow indicators are positioned correctly.
 		display: 'flex',
@@ -72,7 +104,43 @@ export const outerContainerCSS = (opts: StyleOpts & { scrollbarWidth: number }) 
  * Essentially they cover (mask) the "real" scroll indicators when the user is scrolled
  * to the top or bottom of the container.
  */
-export const innerContainerCSS = (opts: StyleOpts) =>
+export const innerContainerCSS = (
+	opts: StyleOpts,
+): {
+	// This after pseudo element abuses being a flex child and pushes itself down to the
+	// very bottom of the container - doing so ends up "masking" the actual scroll indicator.
+	readonly '&::after': {
+		readonly borderRadius: 'var(--ds-radius-xsmall)';
+		readonly content: "''";
+		readonly display: 'block';
+		readonly flexShrink: 0;
+		readonly height: 2;
+		// This is used to "push" the element to the bottom of the flex container.
+		readonly marginTop: 'auto';
+		readonly position: 'relative';
+		readonly zIndex: 2;
+		readonly backgroundColor: 'var(--ds-menu-scroll-indicator-color, var(--ds-surface))';
+	};
+	readonly '&::before'?:
+		| {
+				readonly borderRadius: 'var(--ds-radius-xsmall)';
+				readonly content: "''";
+				readonly left: 0;
+				readonly right: 0;
+				readonly height: 2;
+				readonly backgroundColor: 'var(--ds-menu-scroll-indicator-color, var(--ds-surface))';
+				readonly position: 'absolute';
+				readonly display: 'block';
+				readonly zIndex: 2;
+		  }
+		| undefined;
+	readonly display: 'flex';
+	readonly overflow: 'auto';
+	readonly width: '100%';
+	readonly position: 'relative';
+	readonly boxSizing: 'border-box';
+	readonly flexDirection: 'column';
+} =>
 	({
 		display: 'flex',
 		overflow: 'auto',
@@ -114,7 +182,26 @@ export const innerContainerCSS = (opts: StyleOpts) =>
 		},
 	}) as const;
 
-export const containerCSS = (opts: StyleOpts) =>
+export const containerCSS = (
+	opts: StyleOpts,
+): {
+	// When the scroll indicator is always shown we need to add some padding
+	// so the spacing between matches what it would be if the indicator was a "block" element.
+	// We use margin here so any child absolutely positioned elements are positioned correctly.
+	readonly marginTop: 0 | 2;
+	readonly marginLeft: 'var(--ds-space-100)';
+	readonly marginRight: 'var(--ds-space-100)';
+	// Enables child absolutely positioned elements to be positioned relative to this element.
+	readonly position: 'relative';
+	readonly '& [data-ds--menu--heading-item]': {
+		readonly marginBottom: 'var(--ds-space-075)';
+		readonly marginTop: 'var(--ds-space-200)';
+	};
+	readonly '& [data-ds--menu--skeleton-heading-item]': {
+		readonly marginTop: number;
+		readonly marginBottom: number;
+	};
+} =>
 	({
 		// When the scroll indicator is always shown we need to add some padding
 		// so the spacing between matches what it would be if the indicator was a "block" element.

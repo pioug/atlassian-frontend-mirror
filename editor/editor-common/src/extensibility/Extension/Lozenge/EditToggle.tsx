@@ -13,6 +13,7 @@ import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import EditIcon from '@atlaskit/icon/core/edit';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Flex, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const buttonContainerStyles = css({
@@ -113,9 +114,12 @@ export const EditToggle = ({
 		<div
 			data-testid="extension-edit-toggle-container"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			css={
-				isNodeHovered ? [buttonContainerStyles, showButtonContainerStyle] : buttonContainerStyles
-			}
+			css={[
+				buttonContainerStyles,
+				expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
+					? null
+					: isNodeHovered && showButtonContainerStyle,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={customContainerStyles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

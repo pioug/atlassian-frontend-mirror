@@ -79,6 +79,7 @@ function Component({
 	 * while still resolving `url` in the background.
 	 * Placeholder data should be considered a transient state - in the sense that it will not persisted to the main store -
 	 * and it will be replaced by the actual data when the given `url` is resolved.
+	 * ANIP-288: Expose this prop to the public API
 	 */
 	placeholderData?: CardState['details'];
 }) {
@@ -87,31 +88,9 @@ function Component({
 
 	let isFlexibleUi = useMemo(() => isFlexibleUiCard(children, ui), [children, ui]);
 
-	const structuredPlaceholderData: CardState | undefined = fg(
-		'platform_initial_data_for_smart_cards',
-	)
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useMemo(() => {
-				// execute some basic validation logic to ensure we should consider using placeholder data
-				if (appearance === 'inline' && isValidPlaceholderData(placeholderData)) {
-					const data: CardState = {
-						status: 'resolved',
-						metadataStatus: undefined,
-						details: placeholderData,
-					};
-
-					return data;
-				}
-			}, [appearance, placeholderData])
-		: undefined;
-
 	// Get state, actions for this card.
 	const { state, actions, config, renderers, error, isPreviewPanelAvailable, openPreviewPanel } =
-		useSmartLink(
-			id,
-			url,
-			fg('platform_initial_data_for_smart_cards') ? structuredPlaceholderData : undefined,
-		);
+		useSmartLink(id, url);
 	const ari = getObjectAri(state.details);
 	const name = getObjectName(state.details);
 	const definitionId = getDefinitionId(state.details);
@@ -319,6 +298,24 @@ function Component({
 		});
 	}, [id, appearance, definitionId, isFlexibleUi, fireEvent]);
 
+	const structuredPlaceholderData: CardState | undefined = fg(
+		'platform_initial_data_for_smart_cards',
+	)
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useMemo(() => {
+				// execute some basic validation logic to ensure we should consider using placeholder data
+				if (isFlexibleUi && isValidPlaceholderData(placeholderData)) {
+					const data: CardState = {
+						status: 'resolved',
+						metadataStatus: undefined,
+						details: placeholderData,
+					};
+
+					return data;
+				}
+			}, [isFlexibleUi, placeholderData])
+		: undefined;
+
 	if (isFlexibleUi) {
 		let cardState = state;
 		if (error) {
@@ -333,6 +330,9 @@ function Component({
 			<FlexibleCard
 				id={id}
 				cardState={cardState}
+				placeholderData={
+					fg('platform_initial_data_for_smart_cards') ? structuredPlaceholderData : undefined
+				}
 				onAuthorize={(services.length && handleAuthorize) || undefined}
 				onClick={handleClickWrapper}
 				origin="smartLinkCard"

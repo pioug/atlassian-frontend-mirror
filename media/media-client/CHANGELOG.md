@@ -1,5 +1,19 @@
 # @atlaskit/media-client
 
+## 35.5.0
+
+### Minor Changes
+
+- [`3d3db676b30c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d3db676b30c1) -
+  Add support for path based routing for artifact urls
+
+## 35.4.0
+
+### Minor Changes
+
+- [`a3ad3feab3758`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3ad3feab3758) -
+  Updated types to add mulitline text support for document endpoints
+
 ## 35.3.6
 
 ### Patch Changes

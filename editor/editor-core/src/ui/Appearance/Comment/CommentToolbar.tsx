@@ -15,6 +15,7 @@ import { ToolbarNext } from '../../Toolbar/Toolbar';
 type ToolbarEditorPlugins = [OptionalPlugin<ToolbarPlugin>];
 
 type CommentToolbarProps = {
+	disabled?: boolean;
 	editorAPI?: PublicPluginAPI<ToolbarEditorPlugins>;
 	editorAppearance: EditorAppearance;
 	editorView?: EditorView;
@@ -27,6 +28,7 @@ export const CommentToolbar = ({
 	editorAPI,
 	editorView,
 	editorAppearance,
+	disabled,
 }: CommentToolbarProps) => {
 	const components = editorAPI?.toolbar?.actions.getComponents();
 	const toolbar = components?.find((component) => component.key === TOOLBARS.PRIMARY_TOOLBAR);
@@ -42,6 +44,7 @@ export const CommentToolbar = ({
 			editorView={editorView}
 			editorAPI={editorAPI}
 			editorAppearance={editorAppearance}
+			isDisabled={disabled}
 		/>
 	);
 };

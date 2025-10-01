@@ -4,6 +4,7 @@ import Button, { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { JiraIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
 import { ContainerAvatar } from '@atlaskit/navigation-system/side-nav-items/container-avatar';
@@ -13,7 +14,6 @@ import {
 } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
 import { Inline } from '@atlaskit/primitives/compiled';
-import { JiraIcon } from '@atlaskit/temp-nav-app-icons/jira';
 
 import MoneyIcon from '../../images/money.svg';
 
@@ -63,7 +63,10 @@ export function LinkMenuItemExample() {
 							>
 								Link menu item (ContainerAvatar)
 							</LinkMenuItem>
-							<LinkMenuItem href={linkMenuItemHref} elemBefore={<JiraIcon label="" />}>
+							<LinkMenuItem
+								href={linkMenuItemHref}
+								elemBefore={<JiraIcon label="" shouldUseNewLogoDesign size="xsmall" />}
+							>
 								Link menu item (app tile)
 							</LinkMenuItem>
 							<LinkMenuItem href={linkMenuItemHref}>Link menu item (spacer)</LinkMenuItem>

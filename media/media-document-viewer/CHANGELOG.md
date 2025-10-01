@@ -1,5 +1,12 @@
 # @atlaskit/media-document-viewer
 
+## 0.4.0
+
+### Minor Changes
+
+- [`a3ad3feab3758`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3ad3feab3758) -
+  Add support for mulitline form fields for PDF forms
+
 ## 0.3.8
 
 ### Patch Changes

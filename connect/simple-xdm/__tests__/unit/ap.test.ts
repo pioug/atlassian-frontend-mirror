@@ -1,6 +1,12 @@
 // @ts-nocheck
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import Utils from '../../src/common/util';
 import AP from '../../src/plugin/ap';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
 
 describe('AP', function () {
 	let instance = new AP();
@@ -264,6 +270,159 @@ describe('AP', function () {
 			instance.register(registration_one);
 			instance.register(registration_two);
 			expect(instance._eventHandlers).toEqual({ ...registration_one, ...registration_two });
+		});
+	});
+
+	describe('AP._isEmbeddedConfluenceUsage', function () {
+		it('returns true if the uniqueKey contains embedded-confluence-iframe', function () {
+			(fg as jest.Mock).mockReturnValue(true);
+			Object.defineProperty(window, 'location', {
+				value: {
+					href: 'https://localhost:3000/?uniqueKey=embedded-confluence-iframe',
+				},
+			});
+			expect(instance._isEmbeddedConfluenceUsage()).toBe(true);
+		});
+
+		it('returns false if the uniqueKey query param is missing', function () {
+			Object.defineProperty(window, 'location', {
+				value: {
+					href: 'https://localhost:3000/?test',
+				},
+			});
+			expect(instance._isEmbeddedConfluenceUsage()).toBe(false);
+		});
+	});
+
+	describe('AP._verifyHostFrameOffset', function () {
+		beforeEach(function () {
+			const mockGrandparent = { postMessage: jest.fn() };
+			const mockParent = { parent: mockGrandparent };
+			Object.defineProperty(window, 'parent', { value: mockParent });
+			Object.defineProperty(window, 'top', { value: mockGrandparent });
+
+			instance._topHost = mockParent; // One level up
+			instance._top = mockGrandparent; // Two levels up
+			instance._hostOrigin = 'https://example.com';
+		});
+
+		it('sets the hostFrameOffset to the top window if the hostFrameOffset is incorrect', function () {
+			instance._verifyHostFrameOffset();
+
+			window.dispatchEvent(
+				new MessageEvent('message', {
+					source: instance._top,
+					data: {
+						hostFrameOffset: 3, // incorrect offset (we're only 2 levels deep)
+						type: 'unload',
+					},
+				}),
+			);
+
+			expect(instance._topHost).toEqual(instance._top);
+			expect(instance._top.postMessage).toHaveBeenCalledWith(
+				{
+					type: 'get_host_offset',
+				},
+				instance._hostOrigin,
+			);
+		});
+
+		it('preserves the hostFrameOffset when offset is correct', function () {
+			const originalTopHost = instance._topHost;
+
+			instance._verifyHostFrameOffset();
+
+			window.dispatchEvent(
+				new MessageEvent('message', {
+					source: instance._top,
+					data: {
+						hostFrameOffset: 1, // correct offset (parent is 1 level up)
+					},
+				}),
+			);
+
+			expect(instance._topHost).toBe(originalTopHost);
+			expect(instance._top.postMessage).toHaveBeenCalledWith(
+				{
+					type: 'get_host_offset',
+				},
+				instance._hostOrigin,
+			);
+		});
+
+		it('ignores messages not from top window', function () {
+			const originalTopHost = instance._topHost;
+
+			instance._verifyHostFrameOffset();
+
+			window.dispatchEvent(
+				new MessageEvent('message', {
+					source: window,
+					data: {
+						hostFrameOffset: 3,
+					},
+				}),
+			);
+
+			expect(instance._topHost).toBe(originalTopHost);
+			expect(instance._top.postMessage).toHaveBeenCalledWith(
+				{
+					type: 'get_host_offset',
+				},
+				instance._hostOrigin,
+			);
+		});
+
+		it('ignores messages without hostFrameOffset', function () {
+			const originalTopHost = instance._topHost;
+
+			instance._verifyHostFrameOffset();
+
+			window.dispatchEvent(
+				new MessageEvent('message', {
+					source: instance._top,
+					data: {
+						someOtherData: true,
+					},
+				}),
+			);
+
+			expect(instance._topHost).toBe(originalTopHost);
+			expect(instance._top.postMessage).toHaveBeenCalledWith(
+				{
+					type: 'get_host_offset',
+				},
+				instance._hostOrigin,
+			);
+		});
+
+		it('does not set the hostFrameOffset to the top window if the hostFrameOffset is incorrect and there is embedded-confluence context', function () {
+			(fg as jest.Mock).mockReturnValue(true);
+			Object.defineProperty(window, 'location', {
+				value: {
+					href: 'https://localhost:3000/?uniqueKey=embedded-confluence-iframe',
+				},
+			});
+			instance._verifyHostFrameOffset();
+
+			window.dispatchEvent(
+				new MessageEvent('message', {
+					source: instance._top,
+					data: {
+						hostFrameOffset: 3, // incorrect offset (we're only 2 levels deep)
+						type: 'unload',
+					},
+				}),
+			);
+
+			expect(instance._topHost).not.toEqual(instance._top);
+			expect(instance._top.postMessage).toHaveBeenCalledWith(
+				{
+					type: 'get_host_offset',
+				},
+				instance._hostOrigin,
+			);
 		});
 	});
 });

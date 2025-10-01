@@ -35,6 +35,11 @@ interface AppSwitcherProps
 	 * Indicates that the button is selected.
 	 */
 	isSelected?: boolean;
+	/**
+	 * Experimental, do not use. May be removed at any time.
+	 * Whether the tooltip should be disabled.
+	 */
+	UNSAFE_isTooltipDisabled?: boolean;
 }
 
 const toggleButtonTooltipOptions: IconButtonProps['tooltip'] = {
@@ -58,6 +63,7 @@ export const AppSwitcher: React.ForwardRefExoticComponent<
 			onMouseEnter,
 			interactionName,
 			isSelected,
+			UNSAFE_isTooltipDisabled = false,
 			'aria-controls': ariaControls,
 			'aria-expanded': ariaExpanded,
 			'aria-haspopup': ariaHasPopup,
@@ -75,7 +81,7 @@ export const AppSwitcher: React.ForwardRefExoticComponent<
 			onClick={onClick}
 			onMouseEnter={onMouseEnter}
 			interactionName={interactionName}
-			isTooltipDisabled={false}
+			isTooltipDisabled={UNSAFE_isTooltipDisabled}
 			tooltip={toggleButtonTooltipOptions}
 			isSelected={isSelected}
 		/>

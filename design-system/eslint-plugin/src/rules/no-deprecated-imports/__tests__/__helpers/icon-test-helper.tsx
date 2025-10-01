@@ -1,7 +1,17 @@
 /**
  * ------------------- Deprecated Icon tests -------------------
  */
-export const invalidDeprecatedIconTests = [
+export const invalidDeprecatedIconTests: {
+	name: string;
+	code: string;
+	output?: string;
+	errors: {
+		messageId: string;
+	}[];
+	options: {
+		deprecatedConfig: Record<string, { message: string; unfixable?: boolean }>;
+	}[];
+}[] = [
 	{
 		name: 'Deprecated core icon from @atlaskit/icon with replacement',
 		code: `import ActivityIcon from '@atlaskit/icon/core/activity';

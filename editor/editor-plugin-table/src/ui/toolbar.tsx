@@ -939,6 +939,7 @@ const getColorPicker = (
 	const defaultPalette = cellBackgroundColorPalette.find(
 		(item) => item.value === currentBackground,
 	) || {
+		// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 		label: 'Custom',
 		value: currentBackground,
 		border: DEFAULT_BORDER_COLOR,

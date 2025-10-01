@@ -39,9 +39,6 @@
 			"path": "../../pagination/afm-townsquare/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
-		},
-		{
 			"path": "../../../pragmatic-drag-and-drop/react-beautiful-dnd-migration/afm-townsquare/tsconfig.json"
 		},
 		{

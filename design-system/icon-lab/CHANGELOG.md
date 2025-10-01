@@ -1,5 +1,50 @@
 # @atlaskit/icon-lab
 
+## 5.9.0
+
+### Minor Changes
+
+- [`0a012007605a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a012007605a2) -
+  This release adds and updates icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `assets-object-type`
+  - `assets-object`
+  - `blast-radius`
+  - `chart-bullet`
+  - `chart-extrapolate`
+  - `chart-funnel`
+  - `data-bucket`
+  - `data-formula`
+  - `data-function`
+  - `data-pivot`
+  - `data-transpose`
+  - `data-unpivot`
+  - `data-visualization-heatmap`
+  - `data-visualization-metric`
+  - `data-zero-fill`
+  - `key`
+  - `power-cable`
+  - `table-row-limit`
+  - `template-sync`
+  - `text-cursor`
+  - `world`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `ai-generative-text`
+  - `assets-schema`
+  - `template`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.8.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::80a82e7608fdacc2df1a61e3c103f816>>
+ * @codegen <<SignedSource::8913f14c8bc20014465de553bca49a9f>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 export const adminIcon =
@@ -71,6 +71,8 @@ export const rovoDevAgentIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%2394c748' d='M10.7.368a2.75 2.75 0 0 1 2.748 0l8.016 4.626a2.75 2.75 0 0 1 1.375 2.38v9.252c0 .982-.524 1.889-1.375 2.38l-8.016 4.626a2.75 2.75 0 0 1-2.749 0l-8.016-4.626a2.75 2.75 0 0 1-1.374-2.38V7.374c0-.982.524-1.889 1.374-2.38z'/> <path fill='%23101214' fill-rule='evenodd' d='M10.181 6.096 6.777 8.06a1.53 1.53 0 0 0-.768 1.327v5.229c0 .547.294 1.054.768 1.327l.807.466 3.722 2.149a1.54 1.54 0 0 0 1.508.014l.027-.018a1.54 1.54 0 0 0 .766-1.323v-2.026l-1.97-1.137-.568-.327a2 2 0 0 1-1.006-1.74V6.775a2 2 0 0 1 .118-.678' clip-rule='evenodd'/> <path fill='%23101214' fill-rule='evenodd' d='M12.842 5.441a1.54 1.54 0 0 0-1.508-.014l-.028.019a1.54 1.54 0 0 0-.765 1.323v2.025l1.91 1.102.628.362a2 2 0 0 1 1.006 1.74v5.228a2 2 0 0 1-.118.678l3.404-1.965c.476-.273.767-.778.767-1.327V9.383c0-.546-.293-1.054-.767-1.327l-.868-.501z' clip-rule='evenodd'/> </svg> ";
 export const rovoDevIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%2394c748' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M11.26 4.71a1.7 1.7 0 0 1 1.666.017l5.006 2.89c.524.302.848.863.848 1.467v5.78a1.69 1.69 0 0 1-.848 1.467l-3.763 2.172.024-.07c.07-.216.107-.445.107-.679v-5.78c0-.794-.423-1.526-1.112-1.922l-2.805-1.62V6.195q.001-.267.08-.512c.126-.395.396-.737.765-.95l.002-.001z'/> <path fill='%23101214' d='M9.986 5.45 6.223 7.623a1.69 1.69 0 0 0-.848 1.466v5.78c0 .605.324 1.166.848 1.468l5.006 2.89a1.7 1.7 0 0 0 1.666.016l.03-.02c.37-.214.64-.556.768-.95q.078-.247.079-.513v-2.24l-2.805-1.618a2.22 2.22 0 0 1-1.112-1.922V6.2a2.2 2.2 0 0 1 .13-.75'/> </svg> ";
+export const rovoHexIcon =
+	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%231868db' fill-rule='evenodd' d='m13.227 16.789-7.154 4.169-3.403-1.96a2.72 2.72 0 0 1-1.362-2.355V7.366c0-.973.518-1.87 1.361-2.354l6.044-3.487-.038.114a3.6 3.6 0 0 0-.172 1.088v9.278c0 1.274.68 2.45 1.786 3.085z' clip-rule='evenodd'/> <path fill='%236a9a23' fill-rule='evenodd' d='m11.296 15.671-7.193 4.153 6.607 3.812a2.73 2.73 0 0 0 2.676.026l.048-.033a2.73 2.73 0 0 0 1.232-1.525 2.7 2.7 0 0 0 .127-.822v-3.594z' clip-rule='evenodd'/> <path fill='%23af59e1' fill-rule='evenodd' d='m21.477 5.003-4.404-2.539-5.904 4.89 2.69 1.556a3.56 3.56 0 0 1 1.785 3.086v9.277a3.6 3.6 0 0 1-.21 1.202l6.044-3.486a2.71 2.71 0 0 0 1.362-2.355V7.357c0-.97-.521-1.87-1.363-2.354' clip-rule='evenodd'/> <path fill='%23fca700' fill-rule='evenodd' d='M12.74 8.266 9.353 6.312V2.718c0-.283.044-.56.127-.821A2.73 2.73 0 0 1 10.71.372V.37a.4.4 0 0 0 .048-.033 2.73 2.73 0 0 1 2.676.026l6.499 3.75z' clip-rule='evenodd'/> </svg> ";
 export const rovoIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%231868db' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23fff' d='M11.057 5.257a1.57 1.57 0 0 1 1.539.015l4.621 2.668c.484.279.783.797.783 1.354v5.336a1.56 1.56 0 0 1-.782 1.355l-3.474 2.005a2 2 0 0 0 .12-.691v-5.337c0-.733-.39-1.409-1.026-1.774l-2.59-1.495V6.626q.001-.246.074-.473c.117-.364.366-.68.707-.877z'/> <path fill='%23fff' d='M9.881 5.94 6.408 7.945A1.56 1.56 0 0 0 5.625 9.3v5.337c0 .557.3 1.075.783 1.354l4.621 2.668c.475.274 1.06.279 1.539.015l.027-.019a1.57 1.57 0 0 0 .781-1.35v-2.067l-2.589-1.495a2.05 2.05 0 0 1-1.026-1.775V6.631a2 2 0 0 1 .12-.691'/> </svg> ";
 export const searchNewIcon =
@@ -125,6 +127,7 @@ const rawIcons = {
 	projects: projectsIcon,
 	rovoDevAgent: rovoDevAgentIcon,
 	rovoDev: rovoDevIcon,
+	rovoHex: rovoHexIcon,
 	rovo: rovoIcon,
 	searchNew: searchNewIcon,
 	search: searchIcon,

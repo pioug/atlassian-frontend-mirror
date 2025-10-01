@@ -3,7 +3,6 @@ import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema/
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { N20, N50 } from '@atlaskit/theme/colors';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -281,6 +280,7 @@ export const getToDom =
 			{
 				class: 'mediaSingleView-content-wrap',
 				layout,
+				'data-media-vc-wrapper': 'true',
 				style: convertToInlineCss({
 					'--ak-editor-media-single--proportion': proportionCalc,
 					'--ak-editor-media-card-display': 'block',
@@ -293,9 +293,6 @@ export const getToDom =
 					marginLeft: isMediaWrapped ? (layout === 'wrap-left' ? 'auto' : HALF_GUTTER_SIZE) : 0,
 					width: contentWrapperWidth,
 				}),
-				...(expValEquals('platform_editor_media_card_vc_wrapper_attribute', 'isEnabled', true)
-					? { 'data-media-vc-wrapper': 'true' }
-					: {}),
 			},
 			content,
 		];

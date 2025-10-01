@@ -10,14 +10,12 @@ import { createIntersectionObserver, type VCIntersectionObserver } from './inter
 import createMutationObserver from './mutation-observer';
 import createPerformanceObserver from './performance-observer';
 import { type MutationData } from './types';
-import checkCssProperty from './utils/check-display-content';
 import checkWithinComponent, { cleanupCaches } from './utils/check-within-component';
 import { getMutatedElements } from './utils/get-mutated-elements';
 import { isElementVisible } from './utils/is-element-visible';
 import isInVCIgnoreIfNoLayoutShiftMarker from './utils/is-in-vc-ignore-if-no-layout-shift-marker';
 import { isSameRectDimensions } from './utils/is-same-rect-dimensions';
 import { isSameRectSize } from './utils/is-same-rect-size';
-import trackDisplayContentsOccurrence from './utils/track-display-content-occurrence';
 
 export type ViewPortObserverConstructorArgs = {
 	onChange(onChangeArgs: {
@@ -256,24 +254,10 @@ export default class ViewportObserver {
 					}
 				}
 			} else {
-				if (fg('platform_ufo_display_content_resolution_ttvc_v3')) {
-					// Check if the target has display:content css property, return array of valid targets
-					const validTargets = checkCssProperty(addedNode);
-					for (const validTarget of validTargets) {
-						this.intersectionObserver?.watchAndTag(
-							validTarget,
-							createElementMutationsWatcher(removedNodeRects),
-						);
-					}
-				} else {
-					if (fg('platform_ufo_display_content_track_occurrence')) {
-						trackDisplayContentsOccurrence(addedNode);
-					}
-					this.intersectionObserver?.watchAndTag(
-						addedNode,
-						createElementMutationsWatcher(removedNodeRects),
-					);
-				}
+				this.intersectionObserver?.watchAndTag(
+					addedNode,
+					createElementMutationsWatcher(removedNodeRects),
+				);
 			}
 		}
 	};

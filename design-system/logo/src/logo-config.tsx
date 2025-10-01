@@ -60,6 +60,40 @@ export const createFeatureFlaggedServiceCollectionComponent = (
 	};
 };
 
+export const createFeatureFlaggedRovoComponent = (
+	LegacyComponent: React.ComponentType<LogoProps>,
+	NewComponent: React.ComponentType<TempLogoProps> | React.ComponentType<TempIconProps>,
+	NewHexComponent: React.ComponentType<TempLogoProps> | React.ComponentType<TempIconProps>,
+) => {
+	const RovoHexWrapped = tempSizeWrapper(NewHexComponent);
+	const RovoServiceCollectionWrapped = createFeatureFlaggedServiceCollectionComponent(
+		LegacyComponent,
+		NewComponent,
+	);
+
+	return ({
+		shouldUseHexLogo,
+		...props
+	}: LogoProps & {
+		/**
+		 * When the feature flag `platform-logo-rebrand-rovo-hex` is set to false, this flag changes the rovo logo to a tile.
+		 * After the hex design is rolled out, this prop will do nothing - it is maintained for now to enable backwards compatibility and safe roll-out
+		 */
+		shouldUseNewLogoDesign?: boolean;
+		/**
+		 * Forces the new rovo hex logo to be used.
+		 */
+		shouldUseHexLogo?: boolean;
+	}) => {
+		// Return hex logo if feature flag enabled. Otherwise revert to old set of components
+		if (fg('platform-logo-rebrand-rovo-hex') || shouldUseHexLogo) {
+			return <RovoHexWrapped {...props} />;
+		} else {
+			return <RovoServiceCollectionWrapped {...props} />;
+		}
+	};
+};
+
 /**
  * Creates a wrapper around the new logo or icon component to ensure it receives the correct default (medium) size prop.
  *
@@ -87,7 +121,7 @@ export const teamEUFlaggedIcon = (
 
 type LogoDocsSchema = {
 	name: string;
-	type: 'legacy' | 'migration' | 'new';
+	type: 'legacy' | 'migration' | 'new' | 'rovo-hex';
 	category: 'program' | 'app' | 'agent';
 	skipExample?: boolean;
 	deprecated?: boolean;
@@ -107,7 +141,7 @@ export const logoDocsSchema: LogoDocsSchema[] = [
 	{ name: 'loom', type: 'migration', category: 'app' },
 	{ name: 'loom-blurple', type: 'new', category: 'app', skipExample: true },
 	{ name: 'loom-attribution', type: 'migration', category: 'app' },
-	{ name: 'rovo', type: 'migration', category: 'app' },
+	{ name: 'rovo', type: 'rovo-hex', category: 'app' },
 	// Strategy collection
 	{ name: 'align', type: 'new', category: 'app' },
 	{ name: 'focus', type: 'migration', category: 'app' },

@@ -1,5 +1,12 @@
 # @atlaskit/simple-xdm
 
+## 1.1.0
+
+### Minor Changes
+
+- [`4258f0e10a669`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4258f0e10a669) -
+  preserve host frame offset in the embedded confluence context
+
 ## 1.0.5
 
 ### Patch Changes

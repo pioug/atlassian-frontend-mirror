@@ -6,7 +6,7 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import DynamicTable from '../../stateless';
 
-import { head, rows } from './_data';
+import { headMock1, rows } from './_data';
 
 describe('DynamicTable', () => {
 	it('should fire an analytics event onSort', () => {
@@ -14,7 +14,7 @@ describe('DynamicTable', () => {
 
 		render(
 			<AnalyticsListener channel="atlaskit" onEvent={onEvent}>
-				<DynamicTable head={head} rows={rows} />,
+				<DynamicTable head={headMock1} rows={rows} />,
 			</AnalyticsListener>,
 		);
 
@@ -24,24 +24,24 @@ describe('DynamicTable', () => {
 
 		const expected = new UIAnalyticsEvent({
 			payload: {
-				action: 'sorted',
-				actionSubject: 'dynamicTable',
+				action: 'clicked',
+				actionSubject: 'button',
 				attributes: {
-					componentName: 'dynamicTable',
+					componentName: 'Pressable',
 					packageName: process.env._PACKAGE_NAME_,
 					packageVersion: process.env._PACKAGE_VERSION_,
 				},
 			},
 			context: [
 				{
-					componentName: 'dynamicTable',
+					componentName: 'Pressable',
 					packageName: process.env._PACKAGE_NAME_,
 					packageVersion: process.env._PACKAGE_VERSION_,
 				},
 			],
 		});
 
-		expect(onEvent).toHaveBeenCalledTimes(1);
+		expect(onEvent).toHaveBeenCalledTimes(2);
 		expect(onEvent.mock.calls[0][0].payload).toEqual(expected.payload);
 		expect(onEvent.mock.calls[0][0].context).toEqual(expected.context);
 	});
@@ -49,7 +49,7 @@ describe('DynamicTable', () => {
 	it('should export analytics event to onRankEnd handler', () => {
 		const onSort = jest.fn();
 
-		render(<DynamicTable head={head} rows={rows} onSort={onSort} />);
+		render(<DynamicTable head={headMock1} rows={rows} onSort={onSort} />);
 
 		const column: HTMLElement = screen.getByText('First name');
 

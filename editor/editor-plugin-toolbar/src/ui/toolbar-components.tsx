@@ -67,7 +67,9 @@ export const getToolbarComponents = (
 			component: expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
 				? PrimaryToolbar
 				: ({ children }) => (
-						<PrimaryToolbarBase label="Primary Toolbar">{children}</PrimaryToolbarBase>
+						<PrimaryToolbarBase label="Primary Toolbar" testId="primary-toolbar">
+							{children}
+						</PrimaryToolbarBase>
 					),
 		},
 		{

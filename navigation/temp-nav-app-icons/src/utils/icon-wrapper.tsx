@@ -113,6 +113,60 @@ const dataCenterDarkAppearanceMap = cssMap({
 	},
 });
 
+const rovoDarkAppearanceMap = cssMap({
+	brand: {
+		'--rovo-blue-color': 'initial',
+		'--rovo-yellow-color': 'initial',
+		'--rovo-purple-color': 'initial',
+		'--rovo-green-color': 'initial',
+	},
+	neutral: {
+		'--rovo-blue-color': '#A9ABAF',
+		'--rovo-yellow-color': '#A9ABAF',
+		'--rovo-purple-color': '#A9ABAF',
+		'--rovo-green-color': '#A9ABAF',
+	},
+	inverse: {
+		'--rovo-blue-color': '#101214',
+		'--rovo-yellow-color': '#101214',
+		'--rovo-purple-color': '#101214',
+		'--rovo-green-color': '#101214',
+	},
+	legacy: {
+		'--rovo-blue-color': '#1868DB',
+		'--rovo-yellow-color': '#1868DB',
+		'--rovo-purple-color': '#1868DB',
+		'--rovo-green-color': '#1868DB',
+	},
+});
+
+const rovoLightAppearanceMap = cssMap({
+	brand: {
+		'--rovo-blue-color': 'initial',
+		'--rovo-yellow-color': 'initial',
+		'--rovo-purple-color': 'initial',
+		'--rovo-green-color': 'initial',
+	},
+	neutral: {
+		'--rovo-blue-color': '#505258',
+		'--rovo-yellow-color': '#505258',
+		'--rovo-purple-color': '#505258',
+		'--rovo-green-color': '#505258',
+	},
+	inverse: {
+		'--rovo-blue-color': '#ffffff',
+		'--rovo-yellow-color': '#ffffff',
+		'--rovo-purple-color': '#ffffff',
+		'--rovo-green-color': '#ffffff',
+	},
+	legacy: {
+		'--rovo-blue-color': '#1868DB',
+		'--rovo-yellow-color': '#1868DB',
+		'--rovo-purple-color': '#1868DB',
+		'--rovo-green-color': '#1868DB',
+	},
+});
+
 /* eslint-enable @atlaskit/ui-styling-standard/no-imported-style-values */
 /* eslint-enable @atlaskit/ui-styling-standard/no-unsafe-values */
 const sizeMap = cssMap({
@@ -156,11 +210,11 @@ type IconWrapperProps = {
 	customThemeSvg?: string;
 	iconColor?: string;
 	isAssets?: boolean;
-	isDataCenter?: boolean;
 	label: string;
 	size?: IconSize;
 	svg: string;
 	testId?: string;
+	type?: 'tile' | 'rovo' | 'data-center';
 };
 
 export function IconWrapper({
@@ -171,8 +225,8 @@ export function IconWrapper({
 	testId: userDefinedTestId,
 	appearance = 'brand',
 	iconColor: customIconColor,
-	isDataCenter = false,
 	isAssets = false,
+	type = 'tile',
 }: IconWrapperProps) {
 	const testId = userDefinedTestId && `${userDefinedTestId}--wrapper`;
 
@@ -186,10 +240,15 @@ export function IconWrapper({
 			css={[
 				styles.root,
 				sizeMap[size],
-				isDataCenter
+				type === 'data-center'
 					? colorMode === 'dark'
 						? dataCenterDarkAppearanceMap[appearance]
 						: dataCenterLightAppearanceMap[appearance]
+					: undefined,
+				type === 'rovo'
+					? colorMode === 'dark'
+						? rovoDarkAppearanceMap[appearance]
+						: rovoLightAppearanceMap[appearance]
 					: colorMode === 'dark'
 						? cloudDarkAppearanceMap[appearance]
 						: cloudLightAppearanceMap[appearance],

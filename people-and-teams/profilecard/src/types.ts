@@ -211,6 +211,7 @@ export interface ProfileCardTriggerProps {
 	ssrPlaceholderId?: string;
 	showDelay?: number;
 	hideDelay?: number;
+	hideAgentMoreActions?: boolean;
 }
 
 export interface ProfileCardTriggerState {
@@ -395,6 +396,8 @@ export type AgentProfileCardProps = {
 	errorType?: ProfileCardErrorType;
 	addFlag?: (flag: Flag) => void;
 	onDeleteAgent?: (agentId: string) => { restore: () => void };
+	/** Hide the Agent more actions dropdown when true */
+	hideMoreActions?: boolean;
 } & AgentActionsType;
 
 export type StatusType = 'active' | 'inactive' | 'closed';

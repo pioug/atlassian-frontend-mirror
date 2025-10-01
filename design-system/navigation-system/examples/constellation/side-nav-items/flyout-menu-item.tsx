@@ -7,6 +7,7 @@ import BoardIcon from '@atlaskit/icon/core/board';
 import ClockIcon from '@atlaskit/icon/core/clock';
 import FilterIcon from '@atlaskit/icon/core/filter';
 import SearchIcon from '@atlaskit/icon/core/search';
+import { JiraIcon } from '@atlaskit/logo';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
 import { ContainerAvatar } from '@atlaskit/navigation-system/side-nav-items/container-avatar';
 import {
@@ -23,7 +24,6 @@ import {
 	MenuSectionHeading,
 } from '@atlaskit/navigation-system/side-nav-items/menu-section';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
-import { JiraIcon } from '@atlaskit/temp-nav-app-icons/jira';
 import Textfield from '@atlaskit/textfield';
 
 import CDProjectIcon from '../../images/cd.svg';
@@ -124,7 +124,9 @@ export const FlyoutMenuItemExample = () => (
 				</FlyoutMenuItem>
 
 				<FlyoutMenuItem>
-					<FlyoutMenuItemTrigger elemBefore={<JiraIcon label="" />}>
+					<FlyoutMenuItemTrigger
+						elemBefore={<JiraIcon label="" shouldUseNewLogoDesign size="xsmall" />}
+					>
 						Flyout menu item (app tile)
 					</FlyoutMenuItemTrigger>
 					<MyFlyoutMenuItemContent />

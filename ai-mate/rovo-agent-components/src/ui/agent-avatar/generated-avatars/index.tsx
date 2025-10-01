@@ -6,6 +6,7 @@ import React, { lazy, Suspense } from 'react';
 
 import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
 import { cssMap, cx, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
 const styles = cssMap({
@@ -123,6 +124,9 @@ const ResearchScoutAvatar = lazy(
 		import(
 			/* webpackChunkName: "@atlaskit-rovo-avatar-ResearchScoutAvatar"*/ './assets/research-scout'
 		),
+);
+const RovoDevAvatar = lazy(
+	() => import(/* webpackChunkName: "@atlaskit-rovo-avatar-RovoDevAvatar"*/ './assets/rovo-dev'),
 );
 const SocialMediaScribeAvatar = lazy(
 	() =>
@@ -374,12 +378,22 @@ export const getNumberIdForAvatar = ({
 	return null;
 };
 
+const ROVO_DEV_AGENT_ID = '027f0676-e8e9-4939-8962-3850987d78bb';
 const getAvatarRender = ({
 	agentNamedId,
 	agentId,
 	agentIdentityAccountId,
 	size,
 }: GeneratedAvatarProps) => {
+	//@TODO CRCS-3129: Remove Rovo Dev hardcoded icon after TeamEU demos
+	// Handle Rovo Dev agent avatar for TeamEU Demo
+	if (agentId === ROVO_DEV_AGENT_ID && fg('jira_ai_force_rovo_dev_avatar')) {
+		return {
+			render: <RovoDevAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />,
+			color: greenColor,
+		};
+	}
+
 	if (typeof agentNamedId === 'string' && outOfTheBoxAgentAvatar[agentNamedId]) {
 		const ootbAvatarResult = outOfTheBoxAgentAvatar[agentNamedId];
 

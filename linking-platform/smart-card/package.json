@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "42.3.3",
+	"version": "43.0.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -230,9 +230,6 @@
 			"type": "boolean"
 		},
 		"platform_deprecate_lp_cc_embed": {
-			"type": "boolean"
-		},
-		"navx-1834-refactor-resolved-hyperlink": {
 			"type": "boolean"
 		},
 		"platform_linking_plain_hyperlink_connect_button": {

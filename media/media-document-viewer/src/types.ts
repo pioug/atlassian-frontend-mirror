@@ -50,6 +50,7 @@ export type TextField = {
 	w: number;
 	h: number;
 	f: number;
+	multiline: boolean;
 	text: string;
 };
 

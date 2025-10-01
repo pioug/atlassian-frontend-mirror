@@ -2075,3 +2075,50 @@ events:
         memberCount:
           type: number
           description: the number of members
+  - ProfileProjectsAndGoalsTab clicked:
+      type: ui
+      description: fired when the profile projects and goals tab is clicked
+      attributes:
+        tabName:
+          type: string
+          description: the name of the tab
+  - ProfileProjectsAndGoals viewed:
+      type: ui
+      description: fired when the profile projects and goals is viewed
+      attributes:
+        isEmpty:
+          type: boolean
+          description: whether the profile projects and goals is empty
+        hasGoals:
+          type: boolean
+          description: whether the profile projects and goals has goals
+        hasProjects:
+          type: boolean
+          description: whether the profile projects and goals has projects
+        product:
+          type: string
+          description: the product
+        workspaceUuid:
+          type: string
+          required: false
+          description: the workspace uuid
+  - ProfileProjectsLink clicked:
+      type: ui
+      description: fired when the profile projects link is clicked
+      attributes:
+        entryIndex:
+          type: number
+          description: the index
+  - ProfileGoalsLink clicked:
+      type: ui
+      description: fired when the profile goals link is clicked
+      attributes:
+        entryIndex:
+          type: number
+          description: the index
+  - button clicked (followTeamProjectsGoalsButton):
+      type: ui
+      description: fired when the follow team projects and goals button is clicked
+  - button clicked (unfollowTeamProjectsGoalsButton):
+      type: ui
+      description: fired when the unfollow team projects and goals button is clicked

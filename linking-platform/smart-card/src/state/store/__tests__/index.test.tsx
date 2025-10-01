@@ -4,9 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 
 import { CardClient, SmartCardContext, useSmartLinkContext } from '@atlaskit/link-provider';
-import { mocks } from '@atlaskit/link-test-helpers';
 import { ACTION_RESOLVED, cardAction } from '@atlaskit/linking-common';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { type ProviderProps, SmartCardProvider } from '../../../state';
 import { type CardState, type CardStore } from '../../types';
@@ -82,98 +80,6 @@ describe('useSmartCardState()', () => {
 			wrapper,
 		}).result;
 		expect(current).toEqual(initialState['some.url']);
-	});
-
-	ffTest.on('platform_initial_data_for_smart_cards', '', () => {
-		it('correctly returns placeholder data when provided and card state is absent', () => {
-			const wrapper = generateWrapper();
-
-			const { current } = renderHook(
-				() =>
-					useSmartCardState(mockUrl, {
-						status: 'resolved',
-						metadataStatus: undefined,
-						details: mocks.simpleProjectPlaceholderData,
-					}),
-				{
-					wrapper,
-				},
-			).result;
-
-			expect(current).toEqual(
-				expect.objectContaining({
-					status: 'resolved',
-					details: mocks.simpleProjectPlaceholderData,
-				}),
-			);
-		});
-
-		it('correctly returns placeholder data when card state is not resolved', () => {
-			const initialState: CardStore = {
-				'some.url': {
-					status: 'pending',
-					details: {
-						meta: {
-							auth: [],
-							visibility: 'restricted',
-							access: 'granted',
-							definitionId: 'd1',
-						},
-						data: undefined,
-					},
-				},
-			};
-
-			const wrapper = generateWrapper({ storeOptions: { initialState } });
-			const { current } = renderHook(
-				() =>
-					useSmartCardState(mockUrl, {
-						status: 'resolved',
-						metadataStatus: undefined,
-						details: mocks.simpleProjectPlaceholderData,
-					}),
-				{
-					wrapper,
-				},
-			).result;
-			expect(current).toEqual(
-				expect.objectContaining({
-					status: 'resolved',
-					details: mocks.simpleProjectPlaceholderData,
-				}),
-			);
-		});
-
-		it('correctly ignores placeholder data when card state is resolved', () => {
-			const initialState: CardStore = {
-				'some.url': {
-					status: 'resolved',
-					details: {
-						meta: {
-							auth: [],
-							visibility: 'restricted',
-							access: 'granted',
-							definitionId: 'd1',
-						},
-						data: undefined,
-					},
-				},
-			};
-
-			const wrapper = generateWrapper({ storeOptions: { initialState } });
-			const { current } = renderHook(
-				() =>
-					useSmartCardState(mockUrl, {
-						status: 'resolved',
-						metadataStatus: undefined,
-						details: mocks.simpleProjectPlaceholderData,
-					}),
-				{
-					wrapper,
-				},
-			).result;
-			expect(current).toEqual(initialState['some.url']);
-		});
 	});
 
 	// This test is a courtesy of Michael Schmidt

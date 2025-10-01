@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-text-color
 
+## 6.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.1
+
+### Patch Changes
+
+- [`a3254a75cdfb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3254a75cdfb7) -
+  [ED-29448] clean up experiment platform_editor_toolbar_aifc_patch_2
+- Updated dependencies
+
+## 6.1.0
+
+### Minor Changes
+
+- [`4ad69354a021d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ad69354a021d) -
+  Remove references to platform_editor_toolbar_aifc_patch_1 experiment, remove
+  useToolbarDropdownMenuOld export from @atlaskit/editor-toolbar package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.3
 
 ### Patch Changes

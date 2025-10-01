@@ -26,6 +26,11 @@ export const ROVO_GROUP_VIEW = {
 	type: 'group',
 } as const;
 
+export const ROVO_GROUP_DISPLAY_SMALL = {
+	key: 'rovo-group-display-small',
+	type: 'group',
+} as const;
+
 export const IMPROVE_WRITING_GROUP = {
 	key: 'improve-writing-group',
 	type: 'group',
@@ -46,9 +51,24 @@ export const ROVO_MENU = {
 	type: 'menu',
 } as const;
 
+export const ROVO_MENU_DISPLAY_SMALL = {
+	key: 'rovo-menu-display-small',
+	type: 'menu',
+} as const;
+
 export const ROVO_PROMPT_MENU_SECTION = {
 	key: 'rovo-prompt-menu-section',
 	type: 'menu-section',
+} as const;
+
+export const ROVO_PROMPT_MENU_SECTION_DISPLAY_SMALL = {
+	key: 'rovo-prompt-menu-section-display-small',
+	type: 'menu-section',
+} as const;
+
+export const IMPROVE_WRITING_MENU_ITEM = {
+	key: 'improve-writing-menu-item',
+	type: 'menu-item',
 } as const;
 
 export const MAKE_SHORTER_MENU_ITEM = {

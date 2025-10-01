@@ -434,6 +434,11 @@ export const SUPPORTED_LANGUAGES = [
 		alias: ['abap'],
 		value: 'abap',
 	},
+	{
+		name: 'Markdown',
+		alias: ['markdown'],
+		value: 'markdown',
+	},
 ] as const;
 
 export { CODE_BLOCK_SELECTOR } from './internal/theme/constants';

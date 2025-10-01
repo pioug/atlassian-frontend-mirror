@@ -76,6 +76,4 @@ export type TextProps = Omit<OriginalTextProps, 'as'> & { as?: OriginalTextProps
  */
 export type TText<T> = (props: TextProps) => T;
 
-export type { CommentEditorProps, TCommentEditor } from './CommentEditorProps.codegen';
-export type { ChromelessEditorProps, TChromelessEditor } from './ChromelessEditorProps.codegen';
 export type { PressableProps, TPressable } from './PressableProps.codegen';

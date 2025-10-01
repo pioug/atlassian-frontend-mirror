@@ -8,6 +8,7 @@ import { cssMap, cx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import CrossIcon from '@atlaskit/icon/core/cross';
+import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -69,6 +70,11 @@ const styles = cssMap({
 			textDecoration: 'none',
 		},
 	},
+	anchorWithExternalLinkIcon: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+	},
 	iconWrapper: {
 		width: '32px',
 		height: '32px',
@@ -89,6 +95,12 @@ const styles = cssMap({
 	},
 	linkableContent: {
 		flex: '1',
+	},
+	externalLinkIconWrapper: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'flex-end',
+		marginLeft: token('space.100'),
 	},
 });
 
@@ -146,6 +158,12 @@ export const TeamLinkCard = ({
 		'cohort',
 		'control',
 	);
+	const isNewTeamProfilePageEnabled = FeatureGates.getExperimentValue(
+		'new_team_profile',
+		'isEnabled',
+		false,
+	);
+	const isOpenWebLinkInNewTabEnabled = containerType === 'WebLink' && (isNewTeamProfilePageEnabled || isTeamLensInHomeEnabled);
 
 	const handleMouseEnter = () => {
 		if (isReadOnly) {
@@ -214,7 +232,7 @@ export const TeamLinkCard = ({
 			});
 		}
 
-		if (openInNewTab) {
+		if (openInNewTab || isOpenWebLinkInNewTabEnabled) {
 			e.preventDefault();
 			window.open(link || '#', '_blank', 'noopener, noreferrer');
 		}
@@ -242,10 +260,13 @@ export const TeamLinkCard = ({
 				{fg('fix_team_link_card_a11y') ? (
 					<>
 						<Anchor
-							xcss={cx(styles.anchor, isTeamLensInHomeEnabled && styles.anchorNoUnderline)}
+							xcss={cx(styles.anchor,
+								isTeamLensInHomeEnabled && styles.anchorNoUnderline,
+								isOpenWebLinkInNewTabEnabled && styles.anchorWithExternalLinkIcon)}
 							href={link || '#'}
 							onClick={handleLinkClick}
 							testId="team-link-card-linkable-content"
+							target={isOpenWebLinkInNewTabEnabled ? "_blank" : "_self"}
 						>
 							<Stack space="space.025">
 								<Text maxLines={1} weight="medium" color="color.text">
@@ -263,6 +284,13 @@ export const TeamLinkCard = ({
 									</Inline>
 								</Flex>
 							</Stack>
+							{
+								isOpenWebLinkInNewTabEnabled && (
+									<Box xcss={styles.externalLinkIconWrapper}>
+										<LinkExternalIcon label={formatMessage(messages.linkExternalIconLabel)} aria-hidden="true" size="small" />
+									</Box>
+								)
+							}
 						</Anchor>
 						{!isReadOnly && (
 							<TeamLinkCardActions
@@ -430,5 +458,10 @@ const messages = defineMessages({
 		id: 'ptc-directory.team-containers.remove-link',
 		defaultMessage: 'Remove',
 		description: 'Remove link option in dropdown',
+	},
+	linkExternalIconLabel: {
+		id: 'ptc-directory.team-containers.link-external-icon-label',
+		defaultMessage: 'Open link in new tab',
+		description: 'Open link in new tab',
 	},
 });

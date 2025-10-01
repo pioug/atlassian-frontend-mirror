@@ -145,16 +145,21 @@ export type RevisionPayloadVCDetails = Record<
 	}
 >;
 
+export type CalculateTTVCResult = {
+	vcDetails: RevisionPayloadVCDetails;
+	ssrRatio: number;
+};
+
 export type RevisionPayloadEntry = {
 	'metric:vc90': number | null;
 	revision: string;
 	clean: boolean;
 	vcDetails?: RevisionPayloadVCDetails;
 	ratios?: VCRatioType;
+	ssrRatio?: number;
 	labelStacks?: VCLabelStacks;
 	abortReason?: VCAbortReason | null;
 	abortTimestamp?: number;
-	displayContentsOccurrence?: number;
 };
 
 export type RevisionPayload = RevisionPayloadEntry[];

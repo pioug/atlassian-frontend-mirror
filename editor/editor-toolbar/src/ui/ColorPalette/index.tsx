@@ -3,9 +3,7 @@ import React, { useMemo, useCallback, useRef, useEffect } from 'react';
 import chromatism from 'chromatism';
 import { useIntl } from 'react-intl-next';
 
-import { cssMap } from '@atlaskit/css';
-import { Box, Grid, Inline } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { Grid, Inline } from '@atlaskit/primitives/compiled';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { Color } from './Color';
@@ -17,12 +15,6 @@ import {
 	getSelectedRowAndColumnFromPalette,
 	getTokenCSSVariableValue,
 } from './utils';
-
-const styles = cssMap({
-	paletteWrapper: {
-		display: 'flex',
-	},
-});
 
 /**
  * For a given color pick the color from a list of colors with
@@ -111,10 +103,6 @@ const ColorPalette = ({
 
 	// Initialize focus position and handle autofocus
 	useEffect(() => {
-		if (!expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true)) {
-			return;
-		}
-
 		if (selectedRowIndex >= 0 && selectedColumnIndex >= 0) {
 			currentFocusRef.current = { row: selectedRowIndex, col: selectedColumnIndex };
 		} else {
@@ -236,7 +224,7 @@ const ColorPalette = ({
 		[colorsPerRow, focusColorAt, onClick, onKeyDown],
 	);
 
-	return expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true) ? (
+	return (
 		<Grid gap="space.050" ref={paletteRef} role="group">
 			{colorsPerRow.map((row, rowIndex) => (
 				<Inline rowSpace="space.050" key={`row-first-color-${row[0].value}`} role="radiogroup">
@@ -286,47 +274,6 @@ const ColorPalette = ({
 				</Inline>
 			))}
 		</Grid>
-	) : (
-		<>
-			{colorsPerRow.map((row) => (
-				<Box xcss={styles.paletteWrapper} key={`row-first-color-${row[0].value}`} role="radiogroup">
-					{row.map(({ value, label, border, message, decorator }) => {
-						let tooltipMessage = message;
-
-						// Override with theme-specific tooltip messages if provided
-						if (paletteColorTooltipMessages) {
-							if (tokenTheme === 'dark') {
-								tooltipMessage = getColorMessage(
-									paletteColorTooltipMessages.dark,
-									value.toUpperCase(),
-								);
-							}
-							if (tokenTheme === 'light') {
-								tooltipMessage = getColorMessage(
-									paletteColorTooltipMessages.light,
-									value.toUpperCase(),
-								);
-							}
-						}
-
-						return (
-							<Color
-								key={value}
-								value={value}
-								borderColor={border}
-								label={tooltipMessage ? formatMessage(tooltipMessage) : label}
-								onClick={onClick}
-								onKeyDown={onKeyDown}
-								isSelected={value === selectedColor}
-								checkMarkColor={getCheckMarkColor(value, useIconToken)}
-								hexToPaletteColor={hexToPaletteColor}
-								decorator={decorator}
-							/>
-						);
-					})}
-				</Box>
-			))}
-		</>
 	);
 };
 

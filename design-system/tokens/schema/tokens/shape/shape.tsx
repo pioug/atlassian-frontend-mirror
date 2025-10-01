@@ -37,7 +37,7 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 					state: 'active',
 					suggest: ['1px'],
 					introduced: '1.5.2',
-					description: 'The default border width. Used for all borders.',
+					description: 'The default width for all standard component borders and dividers.',
 				},
 			},
 			selected: {
@@ -46,7 +46,8 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 					state: 'active',
 					suggest: ['2px'],
 					introduced: '6.1.0',
-					description: 'Use for selected states.',
+					description:
+						'The width used to indicate a selected element, such as an active tab or a chosen item.',
 				},
 			},
 			focused: {
@@ -55,7 +56,7 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 					state: 'active',
 					suggest: ['2px'],
 					introduced: '6.1.0',
-					description: 'Use for focused states.',
+					description: 'The width used for the focus ring on interactive elements.',
 				},
 			},
 		},

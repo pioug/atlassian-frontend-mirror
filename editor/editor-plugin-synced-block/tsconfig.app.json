@@ -44,6 +44,9 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-block-menu/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-decorations/tsconfig.app.json"
 		},
 		{
@@ -57,6 +60,9 @@
 		},
 		{
 			"path": "../editor-synced-block-provider/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-toolbar/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"

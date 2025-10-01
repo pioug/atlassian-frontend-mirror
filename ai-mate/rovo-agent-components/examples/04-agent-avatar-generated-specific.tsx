@@ -17,6 +17,8 @@ export default function () {
 						{ agentId: 'random-123-541-12321', agentNamedId: 'decision_director_agent' },
 						{ agentId: 'random-123-541-12321', agentNamedId: 'user_manual_writer_agent' },
 						{ agentId: 'random-123-541-12321', agentNamedId: 'product_requirements_expert_agent' },
+						// @TODO CRCS-3129: Remove Rovo Dev hardcoded icon after TeamEU demos
+						{ agentId: '027f0676-e8e9-4939-8962-3850987d78bb', agentNamedId: 'rovo_dev_agent' },
 					].map(({ agentId, agentNamedId }, i) => {
 						return (
 							<Box>

@@ -119,11 +119,15 @@ export type ClassNamesConfig<
 
 // Merge Utility
 // Allows consumers to extend a base Select with additional styles
-
 export function mergeStyles<Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	source: StylesConfig<Option, IsMulti, Group>,
 	target: StylesConfig<Option, IsMulti, Group> = {},
-) {
+): {
+	[K in keyof StylesProps<Option, IsMulti, Group>]?: (
+		base: CSSObjectWithLabel,
+		props: StylesProps<Option, IsMulti, Group>[K],
+	) => CSSObjectWithLabel;
+} {
 	// initialize with source styles
 	const styles = { ...source };
 

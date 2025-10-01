@@ -1069,7 +1069,9 @@ describe('legion-client', () => {
 
 			const response = await legionClient.checkOrgFullAlignmentStatus(orgId);
 
-			expect(mockGetResource).toHaveBeenCalledWith(`${v4UrlPath}/migrations/scope/${orgId}/fully-aligned`);
+			expect(mockGetResource).toHaveBeenCalledWith(
+				`${v4UrlPath}/migrations/scope/${orgId}/fully-aligned`,
+			);
 			expect(response).toEqual(mockResponse);
 		});
 		it('should handle API errors gracefully', async () => {
@@ -1079,7 +1081,9 @@ describe('legion-client', () => {
 			await expect(legionClient.checkOrgFullAlignmentStatus(orgId)).rejects.toThrow(
 				'Failed to get org full alignment status',
 			);
-			expect(mockGetResource).toHaveBeenCalledWith(`${v4UrlPath}/migrations/scope/${orgId}/fully-aligned`);
+			expect(mockGetResource).toHaveBeenCalledWith(
+				`${v4UrlPath}/migrations/scope/${orgId}/fully-aligned`,
+			);
 		});
-	})
+	});
 });

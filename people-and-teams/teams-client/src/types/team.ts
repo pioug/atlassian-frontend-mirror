@@ -146,6 +146,7 @@ export interface OrgScope {
 }
 
 export interface TeamEnabledSitesResponse {
+	cutoffDate: string;
 	suggestedSite: {
 		id: string;
 		name: string;

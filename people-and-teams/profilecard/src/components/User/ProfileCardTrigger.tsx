@@ -58,6 +58,7 @@ function ProfileCardContent({
 	errorType,
 	agentActions,
 	addFlag,
+	hideAgentMoreActions,
 }: {
 	profilecardProps: ProfilecardProps;
 	userId: string;
@@ -72,6 +73,7 @@ function ProfileCardContent({
 	errorType?: ProfileCardErrorType;
 	agentActions?: AgentActionsType;
 	addFlag?: (flag: Flag) => void;
+	hideAgentMoreActions?: boolean;
 }) {
 	if (isAgent) {
 		return (
@@ -83,6 +85,7 @@ function ProfileCardContent({
 				onChatClick={agentActions?.onChatClick}
 				onConversationStartersClick={agentActions?.onConversationStartersClick}
 				addFlag={addFlag}
+				hideMoreActions={fg('jira_ai_profilecard_hide_agent_actions') && !!hideAgentMoreActions}
 			/>
 		);
 	} else {
@@ -120,6 +123,7 @@ export default function ProfilecardTriggerNext({
 	viewingUserId,
 	product,
 	agentActions,
+	hideAgentMoreActions,
 	ariaHideProfileTrigger = false,
 	isVisible: propsIsVisible,
 	ssrPlaceholderId,
@@ -490,6 +494,7 @@ export default function ProfilecardTriggerNext({
 											hasError={hasError}
 											agentActions={agentActions}
 											addFlag={addFlag}
+											hideAgentMoreActions={hideAgentMoreActions}
 										/>
 									)
 								)}
@@ -593,6 +598,7 @@ export default function ProfilecardTriggerNext({
 									hasError={hasError}
 									agentActions={agentActions}
 									addFlag={addFlag}
+									hideAgentMoreActions={hideAgentMoreActions}
 								/>
 							)
 						)}

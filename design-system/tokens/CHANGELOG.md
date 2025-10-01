@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 6.4.2
+
+### Patch Changes
+
+- [`9d6e4b66e81f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d6e4b66e81f9) -
+  Updated border width token descriptions.
+
 ## 6.4.1
 
 ### Patch Changes

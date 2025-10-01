@@ -1,5 +1,13 @@
 # @atlaskit/logo
 
+## 19.8.3
+
+### Patch Changes
+
+- [`6bbf9c58510f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bbf9c58510f8) -
+  Internal update to support feature flagging updated logo design
+- Updated dependencies
+
 ## 19.8.2
 
 ### Patch Changes

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics';
 import { token } from '@atlaskit/tokens';
 
 import TeamProfileCard from '../src/components/Team/TeamProfileCard';
@@ -49,9 +50,12 @@ function analytics(gen: (duration: number) => Record<string, any>) {
 	);
 }
 
-function analyticsNext(eventKey: string, gen: (duration: number) => Record<string, any>) {
+function analyticsNext<K extends keyof AnalyticsEventAttributes>(
+	eventKey: K,
+	gen: (duration: number) => AnalyticsEventAttributes[K],
+) {
 	const payload = gen(1000);
-	console.log(eventKey, payload.attributes);
+	console.log(eventKey, payload);
 }
 const teams = [
 	teamData({

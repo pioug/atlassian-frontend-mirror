@@ -25,6 +25,7 @@ type AgentActionsProps = {
 	onChatClick: (event: React.MouseEvent) => void;
 	onViewFullProfileClick: () => void;
 	resourceClient: ProfileClient;
+	hideMoreActions?: boolean;
 };
 
 const styles = cssMap({
@@ -66,6 +67,7 @@ export const AgentActions = ({
 	onViewFullProfileClick,
 	agent,
 	resourceClient,
+	hideMoreActions,
 }: AgentActionsProps) => {
 	const { formatMessage } = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -137,19 +139,21 @@ export const AgentActions = ({
 					</Button>
 				</Box>
 
-				<AgentDropdownMenu
-					agentId={agent.id}
-					onDeleteAgent={handleDeleteAgent}
-					onEditAgent={onEditAgent}
-					onDuplicateAgent={onDuplicateAgent}
-					onCopyAgent={onCopyAgent}
-					isForgeAgent={isForgeAgent}
-					loadAgentPermissions={loadAgentPermissions}
-					loadPermissionsOnMount
-					onViewAgentFullProfileClick={onViewFullProfileClick}
-					doesAgentHaveIdentityAccountId={!!agent.identity_account_id}
-					shouldTriggerStopPropagation
-				/>
+				{!hideMoreActions && (
+					<AgentDropdownMenu
+						agentId={agent.id}
+						onDeleteAgent={handleDeleteAgent}
+						onEditAgent={onEditAgent}
+						onDuplicateAgent={onDuplicateAgent}
+						onCopyAgent={onCopyAgent}
+						isForgeAgent={isForgeAgent}
+						loadAgentPermissions={loadAgentPermissions}
+						loadPermissionsOnMount
+						onViewAgentFullProfileClick={onViewFullProfileClick}
+						doesAgentHaveIdentityAccountId={!!agent.identity_account_id}
+						shouldTriggerStopPropagation
+					/>
+				)}
 			</Inline>
 			<AgentDeleteConfirmationModal
 				isOpen={isDeleteModalOpen}

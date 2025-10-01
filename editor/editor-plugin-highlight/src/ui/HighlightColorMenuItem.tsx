@@ -19,7 +19,7 @@ import {
 } from '@atlaskit/editor-common/ui-color';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import { ColorPalette, TextColorIcon, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
+import { ColorPalette, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import Heading from '@atlaskit/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
@@ -100,21 +100,13 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 			.filter((color) => color.value !== REMOVE_HIGHLIGHT_COLOR)
 			.map((color) => ({
 				...color,
-				decorator: expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true) ? (
-					<TextColorIconDecorator label={color.label} isSelected={isSelected(color)} />
-				) : (
-					<TextColorIcon label={color.label} size="small" spacing="spacious" />
-				),
+				decorator: <TextColorIconDecorator label={color.label} isSelected={isSelected(color)} />,
 			}));
 	}, [activeColor]);
 
 	return (
 		<Stack xcss={styles.container} testId="highlight-color-menu-item">
-			{expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true) ? (
-				<Heading size="xxsmall">{formatMessage(messages.highlight)}</Heading>
-			) : (
-				<Text weight="bold">{formatMessage(messages.highlight)}</Text>
-			)}
+			<Heading size="xxsmall">{formatMessage(messages.highlight)}</Heading>
 			<ColorPalette
 				onClick={(color) => {
 					handleHighlightColorChange(color);
@@ -133,11 +125,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 						appearance="subtle"
 						onClick={() => handleHighlightColorChange(REMOVE_HIGHLIGHT_COLOR)}
 					>
-						{expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true) ? (
-							<Text weight="medium">Remove highlight</Text>
-						) : (
-							'Remove highlight'
-						)}
+						<Text weight="medium">Remove highlight</Text>
 					</Button>
 				</div>
 			)}

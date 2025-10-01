@@ -61,8 +61,6 @@ export type {
 	ValidMessageProps,
 	PopupProps,
 	InlineEditProps,
-	ChromelessEditorProps,
-	CommentEditorProps,
 	PressableProps,
 	TBadge,
 	TBox,
@@ -126,8 +124,6 @@ export type {
 	TPopup,
 	TAdfRenderer,
 	TText,
-	TChromelessEditor,
-	TCommentEditor,
 	TPressable,
 } from './components/__generated__';
 
@@ -147,5 +143,12 @@ export type {
 	TDonutChart,
 	TPieChart,
 } from './components/charts';
+
+export type {
+	ChromelessEditorProps,
+	CommentEditorProps,
+	TChromelessEditor,
+	TCommentEditor,
+} from './components/editor';
 
 export type { ChartColorTokens } from './types';

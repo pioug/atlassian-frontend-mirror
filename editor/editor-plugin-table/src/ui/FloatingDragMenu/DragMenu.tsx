@@ -665,8 +665,7 @@ const DragMenu = React.memo(
 			/>
 		);
 
-		return editorExperiment('platform_editor_toolbar_aifc', true) &&
-			expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true) ? (
+		return editorExperiment('platform_editor_toolbar_aifc', true) ? (
 			<UserIntentPopupWrapper api={api}>{Menu}</UserIntentPopupWrapper>
 		) : (
 			Menu

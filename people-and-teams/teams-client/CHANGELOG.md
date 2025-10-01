@@ -1,5 +1,19 @@
 # @atlaskit/teams-client
 
+## 4.17.0
+
+### Minor Changes
+
+- [`072ec290dfbf2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/072ec290dfbf2) -
+  Added cutoff date in TeamEnabledSitesResponse
+
+## 4.16.0
+
+### Minor Changes
+
+- [`41573b4757009`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41573b4757009) -
+  Added new API "checkOrgFullAlignmentStatus" to check the full scope alignment status of an org
+
 ## 4.15.1
 
 ### Patch Changes

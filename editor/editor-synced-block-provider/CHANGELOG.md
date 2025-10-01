@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 0.3.0
+
+### Minor Changes
+
+- [`9e7a5a0bb1869`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e7a5a0bb1869) -
+  Add content api sync block provider
+
 ## 0.2.0
 
 ### Minor Changes

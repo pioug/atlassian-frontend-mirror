@@ -14,6 +14,7 @@ export type {
 	AssignedTeamsResponse,
 	UnassignedTeam,
 	UnassignedTeamsResponse,
+	TeamEnabledSitesResponse,
 	AlignmentPermission,
 	TeamSiteAssignmentOrgDetailsResponse,
 } from './team';

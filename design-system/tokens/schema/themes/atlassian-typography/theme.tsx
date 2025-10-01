@@ -178,7 +178,15 @@ const typography: ValueSchema<
 	},
 };
 
-const theme = {
+const theme: ValueSchema<
+	TypographyTokenSchema<{
+		fontWeight: FontWeightBaseToken;
+		fontFamily: FontFamilyBaseToken;
+		fontSize: FontSizeBaseToken;
+		lineHeight: LineHeightBaseToken;
+		letterSpacing: LetterSpacingBaseToken;
+	}>
+> = {
 	font: typography.font,
 };
 

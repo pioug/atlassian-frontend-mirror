@@ -720,15 +720,24 @@ const splitListItem = (state: EditorState, dispatch?: (tr: Transaction) => void)
 		tr,
 		selection: { $from },
 	} = state;
-	const {
-		schema: {
-			nodes: { paragraph },
-		},
-	} = state;
-	const { listItem } = state.schema.nodes;
+	const { listItem, blockTaskItem, taskItem, paragraph } = state.schema.nodes;
 
 	if (actionDecisionFollowsOrNothing($from)) {
 		if (dispatch) {
+			if (fg('platform_editor_blocktaskitem_patch_3')) {
+				// If previous node is a blockTaskItem we just want to delete the existing node and replace it with a paragraph
+				const nodeBefore = state.doc.resolve($from.pos - 1).nodeBefore;
+				if (blockTaskItem && nodeBefore?.type === blockTaskItem) {
+					if ($from.parent.type === taskItem) {
+						const nodeSize = $from.parent.nodeSize;
+						tr.delete($from.pos - Math.floor(nodeSize / 2), $from.pos + Math.ceil(nodeSize / 2));
+						tr.insert($from.pos, paragraph.createChecked());
+						dispatch(tr);
+						return true;
+					}
+				}
+			}
+
 			if (hasParentNodeOfType(listItem)(tr.selection)) {
 				// if we're inside a list item, then we pass in a fragment containing a new list item not a paragraph
 				dispatch(splitListItemWith(tr, creatParentListItemFragement(state), $from, true));

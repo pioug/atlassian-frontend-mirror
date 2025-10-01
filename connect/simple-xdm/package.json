@@ -43,6 +43,7 @@
 		"lint:fix": "yarn eslint:fix && yarn format:prettier"
 	},
 	"dependencies": {
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
@@ -88,10 +89,15 @@
 		}
 	},
 	"name": "@atlaskit/simple-xdm",
-	"version": "1.0.5",
+	"version": "1.1.0",
 	"description": "A simple library that allows to expose host API to an embedded iframe through the `postMessage` protocol.",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
+	},
+	"platform-feature-flags": {
+		"platform_deprecate_lp_cc_embed": {
+			"type": "boolean"
+		}
 	}
 }

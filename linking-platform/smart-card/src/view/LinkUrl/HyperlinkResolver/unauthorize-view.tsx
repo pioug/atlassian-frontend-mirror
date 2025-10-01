@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
@@ -12,29 +12,28 @@ import type { LinkUrlProps } from '../types';
 type HyperlinkUnauthorizedViewProps = LinkUrlProps & {
 	onAuthorize?: () => void;
 	provider?: LinkProvider;
+	showConnectBtn?: boolean;
 };
 const HyperlinkUnauthorizedView = ({
 	onAuthorize,
 	provider,
+	showConnectBtn,
 	...props
 }: HyperlinkUnauthorizedViewProps) => {
-	const actionButton = useMemo(
-		() =>
-			onAuthorize ? (
-				<ActionButton onClick={onAuthorize} testId="button-connect-account">
-					<FormattedMessage
-						{...messages.connect_link_account_card_name}
-						values={{ context: provider?.text }}
-					/>
-				</ActionButton>
-			) : null,
-		[onAuthorize, provider?.text],
-	);
-
 	return (
 		<>
 			<Hyperlink {...props} />
-			{actionButton}
+			{showConnectBtn && (
+				<>
+					{' '}
+					<ActionButton onClick={onAuthorize} testId="button-connect-account">
+						<FormattedMessage
+							{...messages.connect_link_account_card_name}
+							values={{ context: provider?.text }}
+						/>
+					</ActionButton>
+				</>
+			)}
 		</>
 	);
 };

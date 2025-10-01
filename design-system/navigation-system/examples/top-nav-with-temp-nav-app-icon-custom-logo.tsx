@@ -1,6 +1,7 @@
 import React from 'react';
 
 import AKBadge from '@atlaskit/badge';
+import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -20,7 +21,6 @@ import {
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { FocusIcon, FocusLogo } from '@atlaskit/temp-nav-app-icons/focus';
 
 import { WithResponsiveViewport } from './utils/example-utils';
 
@@ -40,8 +40,8 @@ export default function TopNavWithTempNavAppIcon() {
 						<AppSwitcher label="App switcher" />
 						<CustomLogo
 							href="http://www.atlassian.design"
-							icon={FocusIcon}
-							logo={FocusLogo}
+							icon={AtlassianIcon}
+							logo={AtlassianLogo}
 							label="Home page"
 						/>
 					</TopNavStart>

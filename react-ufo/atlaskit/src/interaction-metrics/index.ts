@@ -51,7 +51,6 @@ import type { LabelStack, SegmentLabel } from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
 import { newVCObserver } from '../vc';
 import { type VCObserverInterface } from '../vc/types';
-import { resetCssIssueOccurrence } from '../vc/vc-observer-new/viewport-observer/utils/track-display-content-occurrence';
 
 import { interactions } from './common/constants';
 import InteractionExtraMetrics from './interaction-extra-metrics';
@@ -1056,7 +1055,6 @@ export function addNewInteraction(
 	routeName?: string | null,
 	trace: TraceIdContext | null = null,
 ) {
-	resetCssIssueOccurrence();
 	interactionExtraMetrics.reset();
 	postInteractionLog.reset();
 	let vcObserver: VCObserverInterface | undefined;
@@ -1100,7 +1098,10 @@ export function addNewInteraction(
 		vcObserver = newVCObserver(vcOptions);
 	}
 
-	// Create per-interaction VC observer when feature flag is enabled
+	const priorAccessedFg =
+		type === 'press' && fg('platform_ufo_drop_prior_fg_interactions')
+			? {}
+			: Object.fromEntries(allFeatureFlagsAccessed);
 
 	const metrics: InteractionMetrics = {
 		id: interactionId,
@@ -1134,7 +1135,7 @@ export function addNewInteraction(
 		routeName: routeName ?? ufoName,
 		featureFlags: addFeatureFlagsToInteraction
 			? {
-					prior: Object.fromEntries(allFeatureFlagsAccessed),
+					prior: priorAccessedFg,
 					during: {},
 				}
 			: undefined,

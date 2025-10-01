@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 3.1.0
+
+### Minor Changes
+
+- [`351022ab9c347`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/351022ab9c347) -
+  [ux] [ED-29060] add toolbar separators after the AI sections in the inline toolbars behind
+  platform_editor_toolbar_aifc_patch_6
+
+### Patch Changes
+
+- [`6331abb3b4a0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6331abb3b4a0e) -
+  ED-29470 Fix toolbar disabled state for offline mode
+- Updated dependencies
+
+## 3.0.5
+
+### Patch Changes
+
+- [`a3254a75cdfb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3254a75cdfb7) -
+  [ED-29448] clean up experiment platform_editor_toolbar_aifc_patch_2
+- Updated dependencies
+
+## 3.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.3
 
 ### Patch Changes

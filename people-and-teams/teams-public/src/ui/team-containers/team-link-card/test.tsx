@@ -123,18 +123,16 @@ describe('TeamLinkCard', () => {
 			renderWithIntl(<TeamLinkCard {...defaultProps} />);
 
 			const container = screen.getByTestId('team-link-card-inner');
-
+			await userEvent.hover(container);
 			const disconnectButton = screen.getByRole('button', {
 				name: /disconnect the container Test Container/i,
 			});
-			const buttonWrapper = disconnectButton.parentElement?.parentElement;
-			expect(buttonWrapper).toHaveStyle({ opacity: '0' });
-
-			await userEvent.hover(container);
-			expect(buttonWrapper).toHaveStyle({ opacity: '1' });
+			expect(disconnectButton).toBeInTheDocument();
 
 			await userEvent.unhover(container);
-			expect(buttonWrapper).toHaveStyle({ opacity: '0' });
+			expect(screen.queryByRole('button', {
+				name: /disconnect the container Test Container/i,
+			})).not.toBeInTheDocument();
 		});
 
 		it('should show/hide more options button based on hover and dropdown state for WebLink containers', async () => {
@@ -146,25 +144,25 @@ describe('TeamLinkCard', () => {
 			renderWithIntl(<TeamLinkCard {...webLinkProps} />);
 
 			const container = screen.getByTestId('team-link-card-inner');
+			await userEvent.hover(container);
 			const moreOptionsButton = screen.getByRole('button', {
 				name: /more options for Test Container/i,
 			});
-			const buttonWrapper = moreOptionsButton.parentElement;
-
-			expect(buttonWrapper).toHaveStyle({ opacity: '0' });
-
-			await userEvent.hover(container);
-			expect(buttonWrapper).toHaveStyle({ opacity: '1' });
+			expect(moreOptionsButton).toBeInTheDocument();
 
 			await userEvent.unhover(container);
-			expect(buttonWrapper).toHaveStyle({ opacity: '0' });
+			expect(screen.queryByRole('button', {
+				name: /more options for Test Container/i,
+			})).not.toBeInTheDocument();
 
 			await userEvent.hover(container);
 			await userEvent.click(moreOptionsButton);
 
 			// Unhover should keep button visible when dropdown is open
 			await userEvent.unhover(container);
-			expect(buttonWrapper).toHaveStyle({ opacity: '1' });
+			expect(screen.queryByRole('button', {
+				name: /more options for Test Container/i,
+			})).toBeInTheDocument();
 		});
 	});
 
@@ -215,6 +213,8 @@ describe('TeamLinkCard', () => {
 
 			await userEvent.click(moreOptionsButton);
 
+			// Wait for dropdown to open and then unhover
+			await screen.findByText('Edit link');
 			await userEvent.unhover(container);
 			expect(
 				screen.getByRole('button', { name: /more options for Test Container/i }),

@@ -1,5 +1,31 @@
 # @atlaskit/smart-card
 
+## 43.0.0
+
+### Major Changes
+
+- [`ec9cef4db241c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec9cef4db241c) -
+  [ux] Show connect button for unauthorized blue hyperlinks, following the same auth flow as Smart
+  Links
+
+## 42.3.5
+
+### Patch Changes
+
+- [`0f97c81f07f53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f97c81f07f53) -
+  Internal logic change for `placeholderData` (unreleased prop) so it's used exclusively for
+  rendering purposes.
+- [`2d0bdb4a28fef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d0bdb4a28fef) -
+  Feature gate cleanup: navx-1834-refactor-resolved-hyperlink
+- Updated dependencies
+
+## 42.3.4
+
+### Patch Changes
+
+- [`be5ef92ed4c0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be5ef92ed4c0d) -
+  [ux] Updated Follow space to Follow Project
+
 ## 42.3.3
 
 ### Patch Changes

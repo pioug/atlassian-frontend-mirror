@@ -246,6 +246,23 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 	};
 };
 
+/**
+ * React component that renders the floating toolbar UI for the editor.
+ *
+ * This component manages the display of floating toolbars based on the current editor state,
+ * selection, and configuration. It handles visibility conditions, positioning, toolbar items
+ * consolidation, and confirmation dialogs.
+ *
+ * @param props - Component properties
+ * @param props.pluginInjectionApi - Plugin injection API for accessing other plugin states
+ * @param props.editorView - ProseMirror EditorView instance
+ * @param props.popupsMountPoint - DOM element where popups should be mounted
+ * @param props.popupsBoundariesElement - Element that defines popup boundaries
+ * @param props.popupsScrollableElement - Scrollable container element for popups
+ * @param props.providerFactory - Factory for creating various providers
+ * @param props.dispatchAnalyticsEvent - Function to dispatch analytics events
+ * @returns JSX element representing the floating toolbar or null if not visible
+ */
 export function ContentComponent({
 	pluginInjectionApi,
 	editorView,
@@ -320,12 +337,7 @@ export function ContentComponent({
 		const selection = editorView.state.selection as Selection;
 		const isCellSelection = '$anchorCell' in selection && !selection.empty;
 		const isTextSelected = selection instanceof TextSelection && !selection.empty;
-		if (
-			(isTextSelected &&
-				(!expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true) ||
-					config.className !== 'hyperlink-floating-toolbar')) ||
-			isCellSelection
-		) {
+		if ((isTextSelected && config.className !== 'hyperlink-floating-toolbar') || isCellSelection) {
 			return null;
 		}
 	}
@@ -572,6 +584,19 @@ function sanitizeFloatingToolbarConfig(config: FloatingToolbarConfig): FloatingT
 	return config;
 }
 
+/**
+ * Creates a floating toolbar plugin for the ProseMirror editor.
+ *
+ * This factory function creates a SafePlugin that manages floating toolbars in the editor.
+ * It processes an array of floating toolbar handlers and determines which toolbar configuration
+ * should be active based on the current editor state and selection.
+ *
+ * @param options - Configuration object for the floating toolbar plugin
+ * @param options.floatingToolbarHandlers - Array of handlers that return toolbar configurations
+ * @param options.getIntl - Function that returns the IntlShape instance for internationalization
+ * @param options.providerFactory - Factory for creating various providers used by the editor
+ * @returns A SafePlugin instance that manages floating toolbar state and behavior
+ */
 export function floatingToolbarPluginFactory(options: {
 	floatingToolbarHandlers: Array<FloatingToolbarHandler>;
 	getIntl: () => IntlShape;

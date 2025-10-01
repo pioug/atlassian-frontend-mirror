@@ -8,7 +8,6 @@ import {
 	NodeSelection,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
@@ -323,10 +322,7 @@ export const setInlineCommentDraftState =
 			isOpeningMediaCommentFromToolbar,
 		);
 
-		if (
-			editorExperiment('platform_editor_toolbar_aifc', true) &&
-			expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true)
-		) {
+		if (editorExperiment('platform_editor_toolbar_aifc', true)) {
 			return (state, dispatch) => {
 				const tr = transform.handleDraftState(editorAnalyticsAPI)(drafting, inputMethod)(
 					state.tr,
@@ -379,10 +375,7 @@ export const addInlineComment =
 			},
 		});
 
-		if (
-			editorExperiment('platform_editor_toolbar_aifc', true) &&
-			expValEquals('platform_editor_toolbar_aifc_patch_2', 'isEnabled', true)
-		) {
+		if (editorExperiment('platform_editor_toolbar_aifc', true)) {
 			return (state, dispatch) => {
 				const tr = transform.addInlineComment(editorAnalyticsAPI, editorAPI)(
 					id,

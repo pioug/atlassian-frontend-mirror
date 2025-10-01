@@ -12,6 +12,7 @@ import { FormattedMessage, defineMessages } from 'react-intl-next';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -25,6 +26,14 @@ const containerStyles = css({
 	'&.bodied': {
 		marginTop: token('space.300', '24px'),
 	},
+});
+
+const showLabelStyles = css({
+	opacity: 1,
+});
+
+const hideLabelStyles = css({
+	opacity: 0,
 });
 
 const labelStyles = css({
@@ -98,6 +107,10 @@ const iconStyles = css({
 	},
 });
 
+const bodiedMacroIconStyles = css({
+	display: 'none',
+});
+
 const i18n = defineMessages({
 	configure: {
 		id: 'editor-common-extensibility.macro.button.configure',
@@ -151,7 +164,13 @@ export const ExtensionLabel = ({
 	pluginInjectionApi,
 }: ExtensionLabelProps) => {
 	const isInlineExtension = extensionName === 'inlineExtension';
-	const showDefaultBodiedStyles = isBodiedMacro && !isNodeHovered;
+	const showDefaultBodiedStyles = expValEquals(
+		'cc_editor_ttvc_release_bundle_one',
+		'isEnabled',
+		true,
+	)
+		? isBodiedMacro
+		: isBodiedMacro && !isNodeHovered;
 	const shouldShowBodiedMacroLabel = getShouldShowBodiedMacroLabel(
 		isBodiedMacro,
 		isNodeHovered,
@@ -170,7 +189,9 @@ export const ExtensionLabel = ({
 		bodied: isBodiedMacro,
 		'bodied-border': showDefaultBodiedStyles,
 		'bodied-background': showDefaultBodiedStyles,
-		'show-label': shouldShowBodiedMacroLabel,
+		'show-label': expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
+			? false
+			: shouldShowBodiedMacroLabel,
 		'with-bodied-macro-live-page-styles': isBodiedMacro && showLivePagesBodiedMacrosRendererView,
 		'always-hide-label': isBodiedMacro && showBodiedExtensionRendererView, // Need this separate class since we don't ever want to show the label during view mode
 		'remove-left-margin': !isBodiedMacro && !isInlineExtension && !isNodeNested,
@@ -178,7 +199,14 @@ export const ExtensionLabel = ({
 	});
 
 	const iconClassNames = classnames({
-		'hide-icon': isBodiedMacro && !isNodeHovered,
+		'hide-icon': expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
+			? false
+			: isBodiedMacro && !isNodeHovered,
+		'extension-icon': expValEquals(
+			'cc_editor_ttvc_release_bundle_one',
+			'extensionHoverRefactor',
+			true,
+		),
 	});
 
 	return (
@@ -218,13 +246,34 @@ export const ExtensionLabel = ({
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...tooltipProps}
-						css={labelStyles}
+						css={[
+							labelStyles,
+							...(expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
+								? [
+										!showLivePagesBodiedMacrosRendererView && showLabelStyles,
+										(!isBodiedMacro || showUpdatedLivePages1PBodiedExtensionUI) && hideLabelStyles,
+									]
+								: []),
+						]}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={labelClassNames}
 					>
 						{text}
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-						<span css={iconStyles} className={iconClassNames} data-testid="config-icon">
+						<span
+							css={[
+								iconStyles,
+								isBodiedMacro &&
+									expValEquals(
+										'cc_editor_ttvc_release_bundle_one',
+										'extensionHoverRefactor',
+										true,
+									) &&
+									bodiedMacroIconStyles,
+							]}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={iconClassNames}
+							data-testid="config-icon"
+						>
 							<CustomizeIcon label="" />
 						</span>
 					</span>

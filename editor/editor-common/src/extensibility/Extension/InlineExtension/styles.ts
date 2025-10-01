@@ -29,16 +29,3 @@ export const wrapperStyle: SerializedStyles = css(wrapperDefault, {
 		boxShadow: `0 0 0 1px ${token('color.border.input')}`,
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const inlineWrapperStyles: SerializedStyles = css({
-	maxWidth: '100%',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'tr &': {
-		maxWidth: 'inherit',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.rich-media-item': {
-		maxWidth: '100%',
-	},
-});

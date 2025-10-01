@@ -13,6 +13,8 @@ import classnames from 'classnames';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorFileIcon from '@atlaskit/icon/core/migration/file--editor-file';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { token } from '@atlaskit/tokens';
 
 import type { EventDispatcher } from '../../event-dispatcher';
 import type { MultiBodiedExtensionActions } from '../../extensions';
@@ -51,6 +53,12 @@ const getContainerCssExtendedStyles = (
 const imageStyles = css({
 	maxHeight: '24px',
 	maxWidth: '24px',
+});
+
+const hoverStyles = css({
+	'&:hover': {
+		boxShadow: `0 0 0 1px ${token('color.border.input')}`,
+	},
 });
 
 export type TryExtensionHandlerType = (
@@ -231,7 +239,13 @@ const MultiBodiedExtensionWithWidth = ({
 			'with-danger-overlay': showMacroInteractionDesignUpdates,
 			'with-padding-background-styles': showMacroInteractionDesignUpdates,
 			'with-margin-styles': showMacroInteractionDesignUpdates && !isNodeNested,
-			'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
+			'with-hover-border': expValEquals(
+				'cc_editor_ttvc_release_bundle_one',
+				'extensionHoverRefactor',
+				true,
+			)
+				? false
+				: showMacroInteractionDesignUpdates && isNodeHovered,
 		},
 	);
 
@@ -275,8 +289,14 @@ const MultiBodiedExtensionWithWidth = ({
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={wrapperClassNames}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={mbeExtensionWrapperCSSStyles}
+				css={[
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					mbeExtensionWrapperCSSStyles,
+					showMacroInteractionDesignUpdates &&
+						!isLivePageViewMode &&
+						expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true) &&
+						hoverStyles,
+				]}
 				data-testid="multiBodiedExtension--wrapper"
 				data-layout={node.attrs.layout}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

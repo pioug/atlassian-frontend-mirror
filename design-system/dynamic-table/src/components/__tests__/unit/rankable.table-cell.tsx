@@ -4,12 +4,12 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import { RankableTableCell } from '../../rankable/table-cell';
 
-import { cellWithKey as cell, head } from './_data';
+import { cellWithKey as cell, headMock1 } from './_data';
 
 const testId = 'dynamic--table--test--id';
 const createProps = () => ({
 	cell,
-	head: head.cells[0],
+	head: headMock1.cells[0],
 	isRanking: false,
 	innerRef: jest.fn(),
 	refWidth: -1,

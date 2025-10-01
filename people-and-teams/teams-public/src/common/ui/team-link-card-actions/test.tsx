@@ -49,12 +49,8 @@ describe('TeamLinkCardActions', () => {
 
 		it('should hide cross icon when not hovered and dropdown is closed', () => {
 			renderWithIntl(<TeamLinkCardActions {...defaultProps} hovered={false} />);
-
-			const button = screen.getByRole('button', {
-				name: /disconnect the container Test Container/i,
-			});
-			const boxWrapper = button.parentElement?.parentElement;
-			expect(boxWrapper).toHaveStyle({ opacity: '0' });
+			const button = screen.queryByText('disconnect the container Test Container', { selector: 'button' });
+			expect(button).not.toBeInTheDocument();
 		});
 
 		it('should call onDisconnectButtonClick when cross icon is clicked', async () => {
@@ -86,10 +82,8 @@ describe('TeamLinkCardActions', () => {
 
 		it('should hide show more icon when not hovered and dropdown is closed', () => {
 			renderWithIntl(<TeamLinkCardActions {...webLinkProps} hovered={false} />);
-
-			const button = screen.getByRole('button', { name: /more options for Test Container/i });
-			const boxWrapper = button.parentElement;
-			expect(boxWrapper).toHaveStyle({ opacity: '0' });
+			const button = screen.queryByText('more options for Test Container', { selector: 'button' });
+			expect(button).not.toBeInTheDocument();
 		});
 
 		it('should show dropdown menu when show more icon is clicked', async () => {
@@ -136,7 +130,7 @@ describe('TeamLinkCardActions', () => {
 
 			const button = screen.getByRole('button', { name: /more options for Test Container/i });
 			const boxWrapper = button.parentElement;
-			expect(boxWrapper).toHaveStyle({ opacity: '1' });
+			expect(boxWrapper).toHaveStyle({ display: 'flex' });
 		});
 	});
 

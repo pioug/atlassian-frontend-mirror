@@ -1,5 +1,19 @@
 # @atlaskit/editor-toolbar
 
+## 0.14.1
+
+### Patch Changes
+
+- [`d5cf7cd71a821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5cf7cd71a821) -
+  ED-29124: Fixed format neste menu on top of top toolbar
+
+## 0.14.0
+
+### Minor Changes
+
+- [`872bd8d576773`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/872bd8d576773) -
+  [ux] ED-29272 Add missing tooltip and shortcut for TextColorDropdownMenu
+
 ## 0.13.0
 
 ### Minor Changes

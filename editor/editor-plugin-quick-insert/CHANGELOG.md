@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 6.0.2
+
+### Patch Changes
+
+- [`a369fcd2d81f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a369fcd2d81f3) -
+  [ux] [ENGHEALTH-30483] Add close button to element browser modal header section
+- Updated dependencies
+
 ## 6.0.1
 
 ### Patch Changes

@@ -134,8 +134,24 @@ export const SideNavToggleButton = ({
 	const ref = useContext(SideNavToggleButtonAttachRef);
 	const elementRef = useRef(null);
 
+	/**
+	 * Attempts to address HOT-121458 by ensuring that the toggle button element
+	 * in context is always up to date.
+	 *
+	 * My theory is that something to do with SSR, hydration and suspense was causing the
+	 * underlying HTML element to change but without causing the toggle button to remount.
+	 *
+	 * This meant the effect calling `ref()` did not re-run, and the value in context became stale.
+	 */
+	const [element, setElement] = useState<HTMLButtonElement | null>(null);
 	useEffect(() => {
-		if (fg('platform_fix_component_state_update_for_suspense')) {
+		if (fg('platform_dst_nav4_side_nav_toggle_ref_fix')) {
+			ref(element);
+		}
+	}, [element, ref]);
+
+	useEffect(() => {
+		if (!fg('platform_dst_nav4_side_nav_toggle_ref_fix')) {
 			ref(elementRef.current);
 		}
 	}, [elementRef, ref]);
@@ -209,7 +225,7 @@ export const SideNavToggleButton = ({
 			testId={testId}
 			isTooltipDisabled={UNSAFE_isTooltipDisabled}
 			interactionName={interactionName}
-			ref={fg('platform_fix_component_state_update_for_suspense') ? elementRef : ref}
+			ref={fg('platform_dst_nav4_side_nav_toggle_ref_fix') ? setElement : elementRef}
 			tooltip={tooltipProps}
 		/>
 	);

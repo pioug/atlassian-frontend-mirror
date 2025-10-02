@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-selection
 
+## 6.1.0
+
+### Minor Changes
+
+- [`a3fe38f9b65b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3fe38f9b65b1) -
+  [ux] [EDITOR-1686] hidden cursor while ai is streaming text
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.2
+
+### Patch Changes
+
+- [`e6583756ddc82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6583756ddc82) -
+  Selection context includes nested lists if all child nodes are selected
+
 ## 6.0.1
 
 ### Patch Changes

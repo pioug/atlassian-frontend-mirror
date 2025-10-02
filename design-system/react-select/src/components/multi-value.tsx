@@ -9,7 +9,6 @@ import { css, cssMap, cx, jsx, type XCSSProp } from '@compiled/react';
 import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import LegacySelectClearIcon from '@atlaskit/icon/glyph/select-clear';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type SelectProps } from '../select';
@@ -48,8 +47,11 @@ const multiValueStyles = cssMap({
 		marginInlineEnd: token('space.025'),
 		marginBlockEnd: token('space.025'),
 		marginInlineStart: token('space.025'),
-		borderRadius: token('radius.xsmall', '2px'),
-		backgroundColor: token('color.background.neutral'),
+		borderColor: '#B7B9BE',
+		borderRadius: token('radius.small'),
+		borderStyle: 'solid',
+		borderWidth: token('border.width'),
+		backgroundColor: token('color.background.input'),
 		maxWidth: '100%',
 		'@media screen and (-ms-high-contrast: active)': {
 			border: 'none',
@@ -73,13 +75,6 @@ const multiValueStyles = cssMap({
 			borderStyle: 'solid',
 		},
 	},
-	refresh: {
-		backgroundColor: token('color.background.input'),
-		borderColor: '#B7B9BE',
-		borderRadius: token('radius.small'),
-		borderStyle: 'solid',
-		borderWidth: token('border.width'),
-	},
 });
 
 export const multiValueCSS = () => ({});
@@ -91,11 +86,9 @@ const multiValueLabelStyles = cssMap({
 		overflow: 'hidden',
 		whiteSpace: 'nowrap',
 		borderRadius: token('radius.xsmall', '2px'),
-		font: token('font.body.UNSAFE_small'),
-		paddingBlockStart: token('space.025', '2px'),
+		font: token('font.body'),
 		paddingInlineEnd: token('space.025', '2px'),
-		paddingBlockEnd: token('space.025', '2px'),
-		paddingInlineStart: token('space.075', '6px'),
+		paddingInlineStart: token('space.050'),
 		color: 'inherit',
 	},
 	disabled: {
@@ -103,12 +96,6 @@ const multiValueLabelStyles = cssMap({
 	},
 	ellipsis: {
 		textOverflow: 'ellipsis',
-	},
-	refresh: {
-		font: token('font.body'),
-		paddingBlockStart: 0,
-		paddingBlockEnd: 0,
-		paddingInlineStart: token('space.050'),
 	},
 });
 
@@ -121,45 +108,33 @@ const multiValueRemoveStyles = cssMap({
 	},
 	root: {
 		alignItems: 'center',
-		display: 'flex',
-		fill: token('color.text', '#000'),
-		paddingInlineStart: token('space.025', '2px'),
-		paddingInlineEnd: token('space.025', '2px'),
-		borderRadius: `0px ${token('radius.xsmall')} ${token('radius.xsmall')} 0px`,
-
-		// DSP-6470 we should style like Tag once we have the :has selector
-		'&:hover': {
-			backgroundColor: token('color.background.danger.hovered'),
-			fill: token('color.text.danger', '#000'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.danger.pressed'),
-			fill: token('color.text.danger', '#000'),
-		},
-	},
-	refresh: {
-		backgroundColor: token('color.background.neutral.subtle'),
-		border: 'none',
-		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',
 		appearance: 'none',
-		borderRadius: token('radius.small'),
+		backgroundColor: token('color.background.neutral.subtle'),
 		color: token('color.text'),
+		display: 'flex',
+		fill: token('color.text', '#000'),
 		paddingBlockStart: token('space.025'),
 		paddingInlineEnd: token('space.025'),
 		paddingBlockEnd: token('space.025'),
 		paddingInlineStart: token('space.025'),
 		marginInlineEnd: token('space.025'),
-		'&:focus-visible': {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			outlineOffset: -2,
-		},
+		border: 'none',
+		borderRadius: token('radius.small'),
+
+		// DSP-6470 we should style like Tag once we have the :has selector
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.subtle.hovered'),
+			fill: token('color.text.danger', '#000'),
 		},
 		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
+			fill: token('color.text.danger', '#000'),
+		},
+		'&:focus-visible': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			outlineOffset: -2,
 		},
 	},
 });
@@ -200,7 +175,6 @@ export const MultiValueContainer = <
 				multiValueStyles.root,
 				isDisabled && multiValueStyles.disabled,
 				isFocused && multiValueStyles.focused,
-				fg('platform-component-visual-refresh') && multiValueStyles.refresh,
 			]}
 			{...innerProps}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
@@ -226,7 +200,6 @@ export const MultiValueLabel = <Option, IsMulti extends boolean, Group extends G
 				multiValueLabelStyles.root,
 				isDisabled && multiValueLabelStyles.disabled,
 				hasEllipsis && multiValueLabelStyles.ellipsis,
-				fg('platform-component-visual-refresh') && multiValueLabelStyles.refresh,
 			]}
 			{...innerProps}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
@@ -270,11 +243,7 @@ export function MultiValueRemove<Option, IsMulti extends boolean, Group extends 
 	return (
 		// The Remove button is intentionally excluded from the tab order, please avoid assigning a non-negative tabIndex to it. Context: https://hello.atlassian.net/wiki/spaces/A11YKB/pages/3031993460/Clear+Options+on+an+Input+Field
 		<div
-			css={[
-				multiValueRemoveStyles.root,
-				isFocused && multiValueRemoveStyles.focused,
-				fg('platform-component-visual-refresh') && multiValueRemoveStyles.refresh,
-			]}
+			css={[multiValueRemoveStyles.root, isFocused && multiValueRemoveStyles.focused]}
 			{...innerProps}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(className as any, xcss, '-MultiValueRemove')}

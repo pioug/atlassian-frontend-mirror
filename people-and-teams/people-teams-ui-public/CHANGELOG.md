@@ -1,5 +1,13 @@
 # @atlaskit/people-teams-ui-public
 
+## 3.4.1
+
+### Patch Changes
+
+- [`143f58c914711`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/143f58c914711) -
+  Improved type safety for source in teams analytics context
+- Updated dependencies
+
 ## 3.4.0
 
 ### Minor Changes

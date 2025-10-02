@@ -15,20 +15,36 @@ export const useToolbarDropdownMenu = () => {
 
 interface ToolbarDropdownMenuProviderProps {
 	children: React.ReactNode;
+	isOpen?: boolean;
+	setIsOpen?: (isOpen: boolean) => void;
 }
 
-export const ToolbarDropdownMenuProvider = ({ children }: ToolbarDropdownMenuProviderProps) => {
-	const [isOpen, setIsOpen] = useState(false);
+export const ToolbarDropdownMenuProvider = ({
+	children,
+	isOpen,
+	setIsOpen,
+}: ToolbarDropdownMenuProviderProps) => {
+	const [isOpenInternal, setIsOpenInternal] = useState(false);
 
-	const openMenu = () => setIsOpen(true);
+	const openMenu = () => {
+		if (setIsOpen !== undefined) {
+			setIsOpen(true);
+		} else {
+			setIsOpenInternal(true);
+		}
+	};
 	const closeMenu = () => {
-		setIsOpen(false);
+		if (setIsOpen !== undefined) {
+			setIsOpen(false);
+		} else {
+			setIsOpenInternal(false);
+		}
 	};
 
 	const contextValue: ToolbarDropdownMenuContextValue = {
 		openMenu,
 		closeMenu,
-		isOpen,
+		isOpen: isOpen !== undefined ? isOpen : isOpenInternal,
 	};
 
 	return (

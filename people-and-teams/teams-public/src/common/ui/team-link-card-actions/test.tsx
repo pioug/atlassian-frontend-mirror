@@ -49,7 +49,9 @@ describe('TeamLinkCardActions', () => {
 
 		it('should hide cross icon when not hovered and dropdown is closed', () => {
 			renderWithIntl(<TeamLinkCardActions {...defaultProps} hovered={false} />);
-			const button = screen.queryByText('disconnect the container Test Container', { selector: 'button' });
+			const button = screen.queryByText('disconnect the container Test Container', {
+				selector: 'button',
+			});
 			expect(button).not.toBeInTheDocument();
 		});
 

@@ -130,9 +130,11 @@ describe('TeamLinkCard', () => {
 			expect(disconnectButton).toBeInTheDocument();
 
 			await userEvent.unhover(container);
-			expect(screen.queryByRole('button', {
-				name: /disconnect the container Test Container/i,
-			})).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole('button', {
+					name: /disconnect the container Test Container/i,
+				}),
+			).not.toBeInTheDocument();
 		});
 
 		it('should show/hide more options button based on hover and dropdown state for WebLink containers', async () => {
@@ -151,18 +153,22 @@ describe('TeamLinkCard', () => {
 			expect(moreOptionsButton).toBeInTheDocument();
 
 			await userEvent.unhover(container);
-			expect(screen.queryByRole('button', {
-				name: /more options for Test Container/i,
-			})).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole('button', {
+					name: /more options for Test Container/i,
+				}),
+			).not.toBeInTheDocument();
 
 			await userEvent.hover(container);
 			await userEvent.click(moreOptionsButton);
 
 			// Unhover should keep button visible when dropdown is open
 			await userEvent.unhover(container);
-			expect(screen.queryByRole('button', {
-				name: /more options for Test Container/i,
-			})).toBeInTheDocument();
+			expect(
+				screen.queryByRole('button', {
+					name: /more options for Test Container/i,
+				}),
+			).toBeInTheDocument();
 		});
 	});
 

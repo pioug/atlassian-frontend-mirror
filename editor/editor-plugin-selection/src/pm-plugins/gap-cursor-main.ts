@@ -15,6 +15,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
+import { selectionPluginKey } from '../types';
+
 import { gapCursorPluginKey } from './gap-cursor-plugin-key';
 import { deleteNode } from './gap-cursor/actions';
 import { Direction } from './gap-cursor/direction';
@@ -27,9 +29,11 @@ const plugin = new SafePlugin({
 		init: () => ({
 			selectionIsGapCursor: false,
 			displayGapCursor: true,
+			hideCursor: false,
 		}),
 		apply: (tr, pluginState, _oldState, newState) => {
 			const meta = tr.getMeta(gapCursorPluginKey);
+			const selectionMeta = tr.getMeta(selectionPluginKey);
 			const selectionIsGapCursor = newState.selection instanceof GapCursorSelection;
 
 			return {
@@ -38,6 +42,8 @@ const plugin = new SafePlugin({
 				displayGapCursor: selectionIsGapCursor
 					? (meta?.displayGapCursor ?? pluginState.displayGapCursor)
 					: true,
+				// track hideCursor state from selection plugin
+				hideCursor: selectionMeta?.hideCursor ?? pluginState.hideCursor,
 			};
 		},
 	},
@@ -79,8 +85,8 @@ const plugin = new SafePlugin({
 	props: {
 		decorations: (editorState: EditorState) => {
 			const { doc, selection } = editorState;
-			const { displayGapCursor } = gapCursorPluginKey.getState(editorState);
-			if (selection instanceof GapCursorSelection && displayGapCursor) {
+			const { displayGapCursor, hideCursor } = gapCursorPluginKey.getState(editorState);
+			if (selection instanceof GapCursorSelection && displayGapCursor && !hideCursor) {
 				const { $from, side } = selection;
 
 				// render decoration DOM node always to the left of the target node even if selection points to the right

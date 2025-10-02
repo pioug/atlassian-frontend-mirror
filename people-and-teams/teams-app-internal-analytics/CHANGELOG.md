@@ -1,5 +1,26 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.11.0
+
+### Minor Changes
+
+- [`f6d9289607739`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6d9289607739) -
+  Migrated reporting-lines analytics to teams-app-internal-analytics
+
+## 1.10.0
+
+### Minor Changes
+
+- [`143f58c914711`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/143f58c914711) -
+  Migated kudos list analytics to teams-app-internal-analytics
+
+## 1.9.0
+
+### Minor Changes
+
+- [`ce32ce836a0fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce32ce836a0fa) -
+  Migrate error boundary analytics from team-profile to teams-app-internal-analytics
+
 ## 1.8.0
 
 ### Minor Changes

@@ -2122,3 +2122,109 @@ events:
   - button clicked (unfollowTeamProjectsGoalsButton):
       type: ui
       description: fired when the unfollow team projects and goals button is clicked
+  - errorBoundary triggered:
+      type: operational
+      description: fired when an error boundary is triggered
+      attributes:
+        product:
+          type: string
+          description: the name of the product
+        boundary:
+          type: string
+          description: the name of the error boundary
+        error:
+          type: string
+          description: the error message
+  - ProfileKudos viewed:
+      type: ui
+      description: fired when the profile kudos is viewed
+      attributes:
+        isEmpty:
+          type: boolean
+          description: whether the profile kudos is empty
+  - ProfileKudosTab clicked:
+      type: ui
+      description: fired when the profile kudos tab is clicked
+      attributes:
+        tabName:
+          type: ['given', 'received']
+          description: the name of the tab
+  - ProfileKudos clicked:
+      type: ui
+      description: fired when a kudos item is clicked
+      attributes:
+        kudosId:
+          type: string
+          description: the id of the kudos
+        tabName:
+          type: ['given', 'received']
+          description: the name of the tab
+  - ReportingLinesChart collapsed:
+      type: ui
+      description: fired when the reporting lines chart is collapsed
+      attributes:
+        product:
+          type: string
+          description: the product
+        workspaceUuid:
+          type: string
+          required: false
+          description: the workspace uuid
+  - ReportingLinesChart expanded:
+      type: ui
+      description: fired when the reporting lines chart is expanded
+      attributes:
+        product:
+          type: string
+          description: the product
+        workspaceUuid:
+          type: string
+          required: false
+          description: the workspace uuid
+  - ReportingLinesChart viewed:
+      type: ui
+      description: fired when the reporting lines chart is viewed
+      attributes:
+        product:
+          type: string
+          description: the product
+        workspaceUuid:
+          type: string
+          required: false
+          description: the workspace uuid
+  - ui viewed:
+      type: ui
+      description: fired when the reporting lines chart is viewed - used for Atlas MAU
+      attributes:
+        product:
+          type: string
+          description: the product
+        workspaceUuid:
+          type: string
+          description: the workspace uuid
+          required: false
+  - ReportingLinesUserCard clicked:
+      type: ui
+      description: fired when the reporting lines user card is clicked
+      attributes:
+        product:
+          type: string
+          description: the product
+        workspaceUuid:
+          type: string
+          description: the workspace uuid
+          required: false
+  - ReportingLinesEmptyState viewed:
+      type: ui
+      description: fired when the reporting lines empty state is viewed
+      attributes:
+        product:
+          type: string
+          description: the product
+        workspaceUuid:
+          type: string
+          description: the workspace uuid
+          required: false
+        isAdmin:
+          type: boolean
+          description: whether the user is a site admin

@@ -9,6 +9,7 @@ import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-ap
 
 import { fireEvent } from '../../../util/analytics';
 import { encodeParamsToUrl } from '../../../util/url';
+import { getAtlassianStudioAgentDuplicateUrl, getAtlassianStudioAgentEditUrl } from '../utils';
 
 export const firstCharUpper = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 const ROVO_PARAM_PREFIX = 'rovoChat';
@@ -33,12 +34,9 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 
 	const onEditAgent = useCallback(
 		(agentId: string) => {
-			const url = `${getATLContextUrl('home')}/chat/agents/${agentId}/edit`;
-			const urlWithParams = encodeParamsToUrl(url, {
-				cloudId,
-				...createRovoParams({ cloudId }),
-			});
-			window.open(urlWithParams, '_blank', 'noopener, noreferrer');
+			const url = getAtlassianStudioAgentEditUrl(cloudId, agentId);
+
+			window.open(url, '_blank', 'noopener, noreferrer');
 
 			if (fg('ptc-enable-profile-card-analytics-refactor')) {
 				fireEventNext('ui.button.clicked.editAgentButton', {
@@ -58,7 +56,11 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 	);
 
 	const onCopyAgent = (agentId: string) => {
-		navigator.clipboard.writeText(`${window.location.origin}/people/agent/${agentId}`);
+		const url = `${window.location.origin}/people/agent/${agentId}`;
+		const urlWithParams = encodeParamsToUrl(url, {
+			cloudId,
+		});
+		navigator.clipboard.writeText(urlWithParams);
 
 		if (fg('ptc-enable-profile-card-analytics-refactor')) {
 			fireEventNext('ui.button.clicked.copyAgentLinkButton', {
@@ -77,13 +79,8 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 
 	const onDuplicateAgent = useCallback(
 		(agentId: string) => {
-			const baseUrl = `${getATLContextUrl('home')}/chat/agents/new`;
-			const urlWithParams = encodeParamsToUrl(baseUrl, {
-				cloudId,
-				...createRovoParams({ cloudId, agentId, pathway: 'agents-create' }),
-			});
-
-			window.open(urlWithParams, '_blank', 'noopener, noreferrer');
+			const url = getAtlassianStudioAgentDuplicateUrl(cloudId, agentId);
+			window.open(url, '_blank', 'noopener, noreferrer');
 
 			if (fg('ptc-enable-profile-card-analytics-refactor')) {
 				fireEventNext('ui.button.clicked.duplicateAgentButton', {

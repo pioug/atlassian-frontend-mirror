@@ -2,6 +2,7 @@ export type FloatingToolbarPluginAction =
 	| {
 			data: {
 				buttonIndex: number;
+				optionIndex?: number;
 			};
 			type: 'SHOW_CONFIRM_DIALOG';
 	  }

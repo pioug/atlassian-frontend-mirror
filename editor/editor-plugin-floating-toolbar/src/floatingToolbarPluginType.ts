@@ -31,6 +31,7 @@ export type FloatingToolbarPluginState = {
 
 export type FloatingToolbarPluginData = {
 	confirmDialogForItem?: number;
+	confirmDialogForItemOption?: number;
 };
 
 export type ForceFocusSelector = (selector: string | null) => (tr: Transaction) => Transaction;

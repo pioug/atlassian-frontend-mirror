@@ -2,6 +2,7 @@ import type React from 'react';
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
  * a custom hook that handles keyboard navigation for Arrow keys based on a
@@ -240,6 +241,15 @@ const moveReducer = (state: ReducerState, action: ReducerAction): ReducerState =
 	};
 };
 
+const initialStateWithFocusOnSearchDisabled: ReducerState = {
+	focusOnSearch: false,
+	focusOnViewMore: false,
+	focusOnEmptyStateButton: false,
+	selectedItemIndex: 0,
+	focusedItemIndex: undefined,
+	listSize: 0,
+};
+
 const initialState: ReducerState = {
 	focusOnSearch: true,
 	focusOnViewMore: false,
@@ -320,10 +330,13 @@ function useSelectAndFocusOnArrowNavigation(
 	canFocusViewMore: boolean,
 	itemIsDisabled: (index: number) => boolean,
 	isFocusSearch?: boolean,
+	autoFocusSearch?: boolean,
 ): useSelectAndFocusReturnType {
 	const [state, dispatch] = useReducer(
 		reducer,
-		initialState,
+		expValEquals('platform_editor_update_modal_close_button', 'isEnabled', true) && autoFocusSearch
+			? initialState
+			: initialStateWithFocusOnSearchDisabled,
 		getInitialState(listSize, canFocusViewMore),
 	);
 
@@ -346,14 +359,20 @@ function useSelectAndFocusOnArrowNavigation(
 	// calls if items size changed
 	const reset = useCallback(
 		(listSize: number) => {
+			const defaultState =
+				expValEquals('platform_editor_update_modal_close_button', 'isEnabled', true) &&
+				autoFocusSearch
+					? initialState
+					: initialStateWithFocusOnSearchDisabled;
+
 			let payload = {
-				...initialState,
+				...defaultState,
 				listSize,
 			};
 			// A11Y: if categories exist ,on the initial render search element should receive focus.
 			// After user pick some category the category should stay focused.
 			payload = Object.assign(payload, {
-				focusOnSearch: isFocusSearch ?? initialState.focusOnSearch,
+				focusOnSearch: isFocusSearch ?? defaultState.focusOnSearch,
 			});
 
 			dispatch({
@@ -361,7 +380,7 @@ function useSelectAndFocusOnArrowNavigation(
 				payload,
 			});
 		},
-		[isFocusSearch],
+		[isFocusSearch, autoFocusSearch],
 	);
 
 	const removeFocusFromSearchAndSetOnItem = useCallback(

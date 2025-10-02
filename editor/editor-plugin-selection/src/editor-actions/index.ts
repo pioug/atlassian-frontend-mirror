@@ -7,10 +7,12 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionPlugin } from '../selectionPluginType';
 
+const listDepth = 3;
+
 const selectionCoversAllListItems = ($from: ResolvedPos, $to: ResolvedPos) => {
 	// Block level lists
 	const listParents = ['bulletList', 'orderedList'];
-	if ($from.depth === 3 && $to.depth === 3) {
+	if ($from.depth >= listDepth && $to.depth >= listDepth && $from.depth === $to.depth) {
 		// Get grandparents (from)
 		const grandparentFrom = $from.node($from.depth - 1);
 		const greatGrandparentFrom = $from.node($from.depth - 2);
@@ -59,7 +61,7 @@ export const getSliceFromSelection = (selection: Selection): Fragment => {
 		// For block-level lists (non-nested) specifically use the selection
 		if (fg('platform_editor_expand_selection_context')) {
 			if (selectionCoversAllListItems($from, $to)) {
-				finalDepth = 0;
+				finalDepth = $from.depth - listDepth;
 			}
 		}
 		const start = $from.start(finalDepth);

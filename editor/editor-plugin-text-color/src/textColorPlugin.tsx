@@ -7,10 +7,13 @@ import {
 	type ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changeColor as changeColorCommand } from './editor-commands/change-color';
+import { setPalette } from './editor-commands/palette';
 import { changeColor } from './pm-plugins/commands/change-color';
+import { keymapPlugin } from './pm-plugins/keymap';
 import type { TextColorPluginConfig } from './pm-plugins/main';
 import { createPlugin, pluginKey as textColorPluginKey } from './pm-plugins/main';
 import type { TextColorPlugin } from './textColorPluginType';
@@ -80,12 +83,24 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 		},
 
 		pmPlugins() {
-			return [
-				{
-					name: 'textColor',
-					plugin: ({ dispatch }) => createPlugin(dispatch, pluginConfig(textColorConfig)),
-				},
-			];
+			return editorExperiment('platform_editor_toolbar_aifc', true) &&
+				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
+				? [
+						{
+							name: 'textColor',
+							plugin: ({ dispatch }) => createPlugin(dispatch, pluginConfig(textColorConfig)),
+						},
+						{
+							name: 'textColorKeymap',
+							plugin: () => keymapPlugin({ api }),
+						},
+					]
+				: [
+						{
+							name: 'textColor',
+							plugin: ({ dispatch }) => createPlugin(dispatch, pluginConfig(textColorConfig)),
+						},
+					];
 		},
 
 		getSharedState(editorState) {
@@ -104,6 +119,9 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 		commands: {
 			changeColor: (color: string, inputMethod?: TextColorInputMethod) => {
 				return changeColorCommand(color, api, inputMethod);
+			},
+			setPalette: (isPaletteOpen: boolean) => {
+				return setPalette(isPaletteOpen);
 			},
 		},
 

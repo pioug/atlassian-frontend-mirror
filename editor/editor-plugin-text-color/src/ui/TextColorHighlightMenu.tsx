@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
 import { cssMap } from '@atlaskit/css';
+import { toggleHighlightPalette, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { textColorMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
@@ -58,6 +59,19 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 	const textColor = useSharedPluginStateSelector(api, 'textColor.color');
 	const { formatMessage } = useIntl();
 	const defaultColor = useSharedPluginStateSelector(api, 'textColor.defaultColor');
+	const isPaletteOpen = useSharedPluginStateSelector(api, 'textColor.isPaletteOpen');
+
+	const setIsPaletteOpen = useCallback(
+		(isOpen: boolean) => {
+			if (api?.textColor?.commands?.setPalette) {
+				api.core.actions.execute(({ tr }) => {
+					api.textColor.commands.setPalette(isOpen)({ tr });
+					return tr;
+				});
+			}
+		},
+		[api?.textColor?.commands, api?.core.actions],
+	);
 	const iconColor = getIconColor(textColor, defaultColor, highlightColor);
 	const highlightColorIcon = highlightColor
 		? highlightColor
@@ -65,11 +79,29 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 
 	return (
 		<ToolbarTooltip
-			content={formatMessage(
-				isHighlightPluginExisted ? messages.textColorHighlightTooltip : messages.textColorTooltip,
-			)}
+			content={
+				<ToolTipContent
+					description={formatMessage(
+						isHighlightPluginExisted
+							? messages.textColorHighlightTooltip
+							: messages.textColorTooltip,
+					)}
+					keymap={toggleHighlightPalette}
+				/>
+			}
 		>
-			<ToolbarDropdownMenuProvider>
+			<ToolbarDropdownMenuProvider
+				isOpen={
+					expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
+						? isPaletteOpen
+						: undefined
+				}
+				setIsOpen={
+					expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
+						? setIsPaletteOpen
+						: undefined
+				}
+			>
 				<ToolbarDropdownMenu
 					iconBefore={
 						<ToolbarColorSwatch highlightColor={highlightColorIcon}>

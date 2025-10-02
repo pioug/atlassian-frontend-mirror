@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 4.0.15
+
+### Patch Changes
+
+- [`d5cf7cd71a821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5cf7cd71a821) -
+  ED-29124: Fixed format neste menu on top of top toolbar
+- Updated dependencies
+
+## 4.0.14
+
+### Patch Changes
+
+- [`4141e6d6c0258`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4141e6d6c0258) -
+  [ux] ED-29125 Add danger styles for media group, tables with numbered columns and nested panels
+- [`b775e7e1ebae1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b775e7e1ebae1) -
+  Fix incorrect selection after copy content via block menu
+- Updated dependencies
+
+## 4.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.12
+
+### Patch Changes
+
+- [`1f3aae72424a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f3aae72424a3) -
+  ED-29742 Set focus at drag handle when drag handle is clicked and don't refocus on editor to fix
+  arrow key setting new selection instead of keyboard nav
+
 ## 4.0.11
 
 ### Patch Changes

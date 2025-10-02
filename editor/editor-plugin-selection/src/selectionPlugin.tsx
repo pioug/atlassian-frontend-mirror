@@ -41,12 +41,23 @@ const setManualSelection =
 		});
 	};
 
+const hideCursor =
+	(hide: boolean): EditorCommand =>
+	({ tr }) => {
+		const currMeta = tr.getMeta(selectionPluginKey);
+		return tr.setMeta(selectionPluginKey, {
+			...currMeta,
+			hideCursor: hide,
+		});
+	};
+
 export const selectionPlugin: SelectionPlugin = ({ api, config: options }) => ({
 	name: 'selection',
 
 	commands: {
 		displayGapCursor,
 		clearManualSelection,
+		hideCursor,
 		setManualSelection,
 	},
 

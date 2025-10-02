@@ -34,6 +34,7 @@ import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -276,6 +277,29 @@ const ToolbarItems = React.memo(
 				}
 
 				case 'overflow-dropdown':
+					let options;
+
+					if (fg('platform_editor_fix_confirm_table_removal')) {
+						// if an option has a confirmDialog, we need to replace its onClick handler
+						// to set the state to show the confirm dialog
+
+						// crudely done here to avoid greater coupling with DropdownMenuItem from `floating-toolbar`
+						// which would need knowledge of indexes, showConfirmDialog etc.
+						options = item.options.map((option, optionIndex) => {
+							if (!('type' in option) && option.confirmDialog) {
+								const onClick = option.confirmDialog
+									? showConfirmDialog(idx, optionIndex)
+									: option.onClick;
+
+								return { ...option, onClick };
+							}
+
+							return option;
+						});
+					} else {
+						options = item.options;
+					}
+
 					return (
 						<Dropdown
 							alignX={areAnyNewToolbarFlagsEnabled ? 'right' : undefined}
@@ -283,7 +307,7 @@ const ToolbarItems = React.memo(
 							title={intl.formatMessage(commonMessages.viewMore)}
 							icon={<ShowMoreHorizontalIcon label="" spacing="spacious" />}
 							dispatchCommand={dispatchCommand}
-							options={item.options}
+							options={options}
 							disabled={item.disabled}
 							tooltip={item.tooltip}
 							hideExpandIcon

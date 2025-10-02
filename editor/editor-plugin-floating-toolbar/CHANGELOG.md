@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 8.2.2
+
+### Patch Changes
+
+- [`94b21013815ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94b21013815ad) -
+  [ux] ensure confirmation is required when removing a table with an associated chart (fixes bug
+  when platform_editor_controls is set to variant1)
+- Updated dependencies
+
 ## 8.2.1
 
 ### Patch Changes

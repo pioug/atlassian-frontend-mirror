@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useCallback } from 'react';
 import { bind } from 'bind-event-listener';
 import { useIntl } from 'react-intl-next';
 
+import { limitedModeMessages } from '@atlaskit/editor-common/messages';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Anchor } from '@atlaskit/primitives/compiled';
@@ -10,7 +11,6 @@ import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { LimitedModePlugin } from './limitedModePluginType';
 import { createPlugin, limitedModePluginKey } from './pm-plugins/main';
-import messages from './pm-plugins/messages';
 
 export const limitedModePlugin: LimitedModePlugin = ({ config: options = {}, api }) => {
 	return {
@@ -54,16 +54,16 @@ export const limitedModePlugin: LimitedModePlugin = ({ config: options = {}, api
 
 					if (isLimitedModeEnabled && hasEditorBeenFocusedRef.current && !hasShownFlagRef.current) {
 						void options.showFlag?.({
-							title: formatMessage(messages.limitedModeTitle),
+							title: formatMessage(limitedModeMessages.limitedModeTitle),
 							description: learnMoreLink
-								? formatMessage(messages.limitedModeDescriptionWithLink, {
+								? formatMessage(limitedModeMessages.limitedModeDescriptionWithLink, {
 										learnMoreLink: (chunks: React.ReactNode[]) => (
 											<Anchor target="_blank" href={learnMoreLink}>
 												{chunks}
 											</Anchor>
 										),
 									})
-								: formatMessage(messages.limitedModeDescriptionWithoutLink),
+								: formatMessage(limitedModeMessages.limitedModeDescriptionWithoutLink),
 							close: 'auto',
 						});
 						hasShownFlagRef.current = true;

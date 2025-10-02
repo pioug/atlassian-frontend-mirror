@@ -9,6 +9,11 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import {
+	getAriaKeyshortcuts,
+	insertElements,
+	ToolTipContent,
+} from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type {
@@ -22,6 +27,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import { ToolbarButton, ToolbarTooltip, AddIcon, useToolbarUI } from '@atlaskit/editor-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 import InsertMenu, { DEFAULT_HEIGHT } from '../ElementBrowser/InsertMenu';
@@ -265,10 +271,21 @@ export const InsertButton = ({
 					popupsScrollableElement={popupsScrollableElement}
 				/>
 			)}
-			<ToolbarTooltip content={formatMessage(messages.insertMenu)}>
+			<ToolbarTooltip
+				content={
+					expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) ? (
+						<ToolTipContent
+							description={formatMessage(messages.insertMenu)}
+							keymap={insertElements}
+						/>
+					) : (
+						formatMessage(messages.insertMenu)
+					)
+				}
+			>
 				<ToolbarButton
 					iconBefore={<AddIcon size="small" label={formatMessage(messages.insertMenu)} />}
-					ariaKeyshortcuts="/"
+					ariaKeyshortcuts={getAriaKeyshortcuts(insertElements)}
 					ref={insertButtonRef}
 					onClick={onClick}
 					isSelected={insertMenuOpen}

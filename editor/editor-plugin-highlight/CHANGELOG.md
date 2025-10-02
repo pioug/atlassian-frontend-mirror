@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-highlight
 
+## 6.2.0
+
+### Minor Changes
+
+- [`872bd8d576773`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/872bd8d576773) -
+  [ux] ED-29272 Add missing tooltip and shortcut for TextColorDropdownMenu
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.2
 
 ### Patch Changes

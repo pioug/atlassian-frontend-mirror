@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 24.18.0
+
+### Minor Changes
+
+- [`f152f8d34a641`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f152f8d34a641) -
+  Update agent profile card leagcy urls
+
 ## 24.17.0
 
 ### Minor Changes

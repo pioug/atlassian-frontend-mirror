@@ -2,6 +2,7 @@ import React from 'react';
 
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
 
+import { AnalyticsEventSource } from '../src/common/utils/constants';
 import { TeamsAppAnalyticsContext } from '../src/ui/analytics-context';
 
 import { ButtonWithAnalytics } from './helpers/button-with-analytics';
@@ -13,10 +14,16 @@ export default function Basic() {
 	return (
 		<FabricAnalyticsListeners client={analyticsClient}>
 			<TeamsAppAnalyticsContext
-				data={{ attributes: { consumer: 'embed' }, source: 'analytics-example' }}
+				data={{
+					attributes: { consumer: 'embed' },
+					source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+				}}
 			>
 				<TeamsAppAnalyticsContext
-					data={{ attributes: { teamId: 'team-id' }, source: 'analytics-example-inner' }}
+					data={{
+						attributes: { teamId: 'team-id' },
+						source: AnalyticsEventSource.USER_PROFILE_SCREEN,
+					}}
 				>
 					<>
 						<ButtonWithAnalytics eventType="ui" />

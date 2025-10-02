@@ -26,6 +26,7 @@ import {
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N40A, R500 } from '@atlaskit/theme/colors';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -1023,6 +1024,21 @@ export const baseTableStyles = (props: {
 			z-index: ${akEditorUnitZIndex};
 		}
 	}
+
+	${expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+		? `.tableView-content-wrap.danger {
+		:not(.${ClassName.IS_RESIZING}) .${ClassName.WITH_CONTROLS} {
+			.${ClassName.NUMBERED_COLUMN_BUTTON} {
+				background-color: ${tableToolbarDeleteColor};
+				border: 1px solid ${tableBorderDeleteColor};
+				border-left: 0;
+				color: ${token('color.text.danger', R500)};
+				position: relative;
+				z-index: ${akEditorUnitZIndex};
+			}
+		}
+	}`
+		: ''}
 
 	/* Table */
 	.${ClassName.TABLE_NODE_WRAPPER} > table {

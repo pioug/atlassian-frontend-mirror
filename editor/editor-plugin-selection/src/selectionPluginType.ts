@@ -15,6 +15,7 @@ export type SelectionPlugin = NextEditorPlugin<
 		commands: {
 			clearManualSelection: () => EditorCommand;
 			displayGapCursor: (toggle: boolean) => EditorCommand;
+			hideCursor: (hide: boolean) => EditorCommand;
 			setManualSelection: (anchor: number, head: number) => EditorCommand;
 		};
 		dependencies: [OptionalPlugin<InteractionPlugin>];

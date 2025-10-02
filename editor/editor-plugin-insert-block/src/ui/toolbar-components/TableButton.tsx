@@ -9,11 +9,12 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { formatShortcut, toggleTable } from '@atlaskit/editor-common/keymaps';
+import { ToolTipContent, getAriaKeyshortcuts, toggleTable } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarButton, ToolbarTooltip, TableIcon } from '@atlaskit/editor-toolbar';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 
@@ -46,11 +47,19 @@ export const TableButton = ({ api }: TableButtonProps) => {
 	};
 
 	return (
-		<ToolbarTooltip content={formatMessage(messages.table)}>
+		<ToolbarTooltip
+			content={
+				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) ? (
+					<ToolTipContent description={formatMessage(messages.table)} keymap={toggleTable} />
+				) : (
+					formatMessage(messages.table)
+				)
+			}
+		>
 			<ToolbarButton
 				iconBefore={<TableIcon label={formatMessage(messages.table)} size="small" />}
 				onClick={onClick}
-				ariaKeyshortcuts={formatShortcut(toggleTable)}
+				ariaKeyshortcuts={getAriaKeyshortcuts(toggleTable)}
 			/>
 		</ToolbarTooltip>
 	);

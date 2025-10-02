@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { ToolTipContent, insertEmoji } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { ToolbarButton, ToolbarTooltip, EmojiIcon } from '@atlaskit/editor-toolbar';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -64,7 +65,15 @@ export const EmojiButton = ({
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}
 			/>
-			<ToolbarTooltip content={formatMessage(messages.emoji)}>
+			<ToolbarTooltip
+				content={
+					expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) ? (
+						<ToolTipContent description={formatMessage(messages.emoji)} keymap={insertEmoji} />
+					) : (
+						formatMessage(messages.emoji)
+					)
+				}
+			>
 				<ToolbarButton
 					iconBefore={<EmojiIcon label={formatMessage(messages.emoji)} size="small" />}
 					ariaKeyshortcuts="Shift+;"

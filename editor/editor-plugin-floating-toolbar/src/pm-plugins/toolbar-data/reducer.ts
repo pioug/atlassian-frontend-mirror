@@ -11,6 +11,7 @@ export const reducer = (
 			return {
 				...pluginState,
 				confirmDialogForItem: action.data.buttonIndex,
+				confirmDialogForItemOption: action.data.optionIndex,
 			};
 
 		case 'HIDE_CONFIRM_DIALOG':

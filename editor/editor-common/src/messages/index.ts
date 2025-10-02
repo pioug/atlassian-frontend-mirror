@@ -44,6 +44,7 @@ export { selectionToolbarMessages } from './selection-toolbar';
 export { contextPanelMessages } from './context-panel';
 export { trackChangesMessages } from './track-changes';
 export { syncBlockMessages } from './syncBlock';
+export { limitedModeMessages } from './limited-mode';
 
 export default defineMessages({
 	layoutFixedWidth: {

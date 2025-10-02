@@ -11,4 +11,8 @@ export const cursorStyles: SerializedStyles = css({
 	'.ProseMirror:not(.ProseMirror-focused) .ProseMirror-mark-boundary-cursor': {
 		display: 'none',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.ProseMirror:has(.ProseMirror-hide-cursor)': {
+		caretColor: 'transparent',
+	},
 });

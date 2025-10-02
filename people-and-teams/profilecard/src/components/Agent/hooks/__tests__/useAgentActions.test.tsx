@@ -157,15 +157,8 @@ describe('useAgentUrlActions', () => {
 				const agentId = 'test-agent-id';
 				onEditAgent(agentId);
 
-				expect(encodeParamsToUrlMock).toHaveBeenCalledWith(
-					'http://home.atlassian.com/chat/agents/test-agent-id/edit',
-					{
-						cloudId: 'cloudId',
-						rovoChatCloudId: 'cloudId',
-					},
-				);
 				expect(windowOpenSpy).toHaveBeenCalledWith(
-					'http://home.atlassian.com/chat/agents/test-agent-id/edit?encoded=params',
+					'https://atlassian-studio.stg-east.frontend.public.atl-paas.net/s/cloudId/agents/enrich/rovo/agents/test-agent-id?redirect=%2F%3AagentId%2Foverview',
 					'_blank',
 					'noopener, noreferrer',
 				);
@@ -184,17 +177,8 @@ describe('useAgentUrlActions', () => {
 				const agentId = 'test-agent-id';
 				onDuplicateAgent(agentId);
 
-				expect(encodeParamsToUrlMock).toHaveBeenCalledWith(
-					'http://home.atlassian.com/chat/agents/new',
-					{
-						cloudId: 'cloudId',
-						rovoChatCloudId: 'cloudId',
-						rovoChatAgentId: 'test-agent-id',
-						rovoChatPathway: 'agents-create',
-					},
-				);
 				expect(windowOpenSpy).toHaveBeenCalledWith(
-					'http://home.atlassian.com/chat/agents/new?encoded=params',
+					'https://atlassian-studio.stg-east.frontend.public.atl-paas.net/s/cloudId/agents/enrich/rovo/agents/test-agent-id?redirect=%2Fcreate',
 					'_blank',
 					'noopener, noreferrer',
 				);
@@ -214,7 +198,7 @@ describe('useAgentUrlActions', () => {
 				onCopyAgent(agentId);
 
 				expect(writeTextSpy).toHaveBeenCalledWith(
-					`${window.location.origin}/people/agent/test-agent-id`,
+					`${window.location.origin}/people/agent/test-agent-id?encoded=params`,
 				);
 				expect(fireEventMock).toHaveBeenCalledWith(
 					createAnalyticsEventMock,
@@ -256,15 +240,8 @@ describe('useAgentUrlActions', () => {
 				const agentId = 'test-agent-id';
 				onEditAgent(agentId);
 
-				expect(encodeParamsToUrlMock).toHaveBeenCalledWith(
-					'http://home.atlassian.com/chat/agents/test-agent-id/edit',
-					{
-						cloudId: 'cloudId',
-						rovoChatCloudId: 'cloudId',
-					},
-				);
 				expect(windowOpenSpy).toHaveBeenCalledWith(
-					'http://home.atlassian.com/chat/agents/test-agent-id/edit?encoded=params',
+					'https://atlassian-studio.stg-east.frontend.public.atl-paas.net/s/cloudId/agents/enrich/rovo/agents/test-agent-id?redirect=%2F%3AagentId%2Foverview',
 					'_blank',
 					'noopener, noreferrer',
 				);
@@ -283,17 +260,8 @@ describe('useAgentUrlActions', () => {
 				const agentId = 'test-agent-id';
 				onDuplicateAgent(agentId);
 
-				expect(encodeParamsToUrlMock).toHaveBeenCalledWith(
-					'http://home.atlassian.com/chat/agents/new',
-					{
-						cloudId: 'cloudId',
-						rovoChatCloudId: 'cloudId',
-						rovoChatAgentId: 'test-agent-id',
-						rovoChatPathway: 'agents-create',
-					},
-				);
 				expect(windowOpenSpy).toHaveBeenCalledWith(
-					'http://home.atlassian.com/chat/agents/new?encoded=params',
+					'https://atlassian-studio.stg-east.frontend.public.atl-paas.net/s/cloudId/agents/enrich/rovo/agents/test-agent-id?redirect=%2Fcreate',
 					'_blank',
 					'noopener, noreferrer',
 				);
@@ -313,7 +281,7 @@ describe('useAgentUrlActions', () => {
 				onCopyAgent(agentId);
 
 				expect(writeTextSpy).toHaveBeenCalledWith(
-					`${window.location.origin}/people/agent/test-agent-id`,
+					`${window.location.origin}/people/agent/test-agent-id?encoded=params`,
 				);
 				expect(mockFireEvent).toHaveBeenCalledWith(
 					`ui.${copyAgentAnalyticsEvent.actionSubject}.${copyAgentAnalyticsEvent.action}.${copyAgentAnalyticsEvent.actionSubjectId}`,

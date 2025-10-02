@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 214.1.6
+
+### Patch Changes
+
+- [`4141e6d6c0258`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4141e6d6c0258) -
+  [ux] ED-29125 Add danger styles for media group, tables with numbered columns and nested panels
+- Updated dependencies
+
+## 214.1.5
+
+### Patch Changes
+
+- [`a3fe38f9b65b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3fe38f9b65b1) -
+  [ux] [EDITOR-1686] hidden cursor while ai is streaming text
+- Updated dependencies
+
+## 214.1.4
+
+### Patch Changes
+
+- [`1de31390178ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1de31390178ab) -
+  [ux] [ED-29189] fix padding css for comment toolbar
+- Updated dependencies
+
 ## 214.1.3
 
 ### Patch Changes

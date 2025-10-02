@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 2.15.0
+
+### Minor Changes
+
+- [`71f5e9dd549f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71f5e9dd549f3) -
+  Adds a fix for the flyout breaking due to stale element references behind the
+  `platform_dst_nav4_side_nav_toggle_ref_fix` feature gate.
+
 ## 2.14.2
 
 ### Patch Changes

@@ -1,12 +1,15 @@
 import React from 'react';
 
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-import { TeamsAppAnalyticsContext } from '@atlaskit/teams-app-internal-analytics';
+import {
+	type AnalyticsEventSource,
+	TeamsAppAnalyticsContext,
+} from '@atlaskit/teams-app-internal-analytics';
 
 import { PeopleTeamsAnalyticsProvider } from '../index';
 
 type PeopleTeamsAnalyticsSubcontextState = {
-	topLevelAttributes?: { source?: string; attributes?: Record<string, any> };
+	topLevelAttributes?: { source?: AnalyticsEventSource; attributes?: Record<string, any> };
 };
 
 /**

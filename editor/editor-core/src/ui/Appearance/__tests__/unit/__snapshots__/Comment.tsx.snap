@@ -17,14 +17,14 @@ exports[`comment editor fixed toolbar styles platform-visual-refresh-icons is on
 `;
 
 exports[`comment editor sticky toolbar styles platform-visual-refresh-icons is on visual refresh icons on should render sticky toolbar with correct styles 1`] = `
-".css-qv9fzm-StickyToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);position:-webkit-sticky;position:sticky;padding-bottom:var(--ds-space-100, 8px);z-index:500;-webkit-transition:box-shadow ease-in-out 0.2s;transition:box-shadow ease-in-out 0.2s;}
-.css-qv9fzm-StickyToolbar >div{}
-.css-qv9fzm-StickyToolbar >div >div:first-of-type:not(style),.css-qv9fzm-StickyToolbar >div >style:first-of-type+*{margin-left:0;}
-.css-qv9fzm-StickyToolbar .block-type-btn{padding-left:0;}
-.css-qv9fzm-StickyToolbar>div{}
-@media (max-width: 490px){.css-qv9fzm-StickyToolbar>div{-webkit-flex-direction:column-reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse;-webkit-align-items:end;-webkit-box-align:end;-ms-flex-align:end;align-items:end;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;}}
-.css-qv9fzm-StickyToolbar>div >div:first-of-type{}
-@media (max-width: 490px){.css-qv9fzm-StickyToolbar>div >div:first-of-type >div:nth-of-type(2){-webkit-box-pack:end;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}}
-.css-qv9fzm-StickyToolbar span svg{max-width:100%;}
-.css-qv9fzm-StickyToolbar.show-keyline{box-shadow:0 2px 0 0 var(--ds-background-accent-gray-subtlest, #F1F2F4);}"
+".css-18vq3ss-StickyToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);position:-webkit-sticky;position:sticky;padding-bottom:var(--ds-space-100, 8px);z-index:500;-webkit-transition:box-shadow ease-in-out 0.2s;transition:box-shadow ease-in-out 0.2s;}
+.css-18vq3ss-StickyToolbar >div{}
+.css-18vq3ss-StickyToolbar >div >div:first-of-type:not(style),.css-18vq3ss-StickyToolbar >div >style:first-of-type+*{margin-left:0;}
+.css-18vq3ss-StickyToolbar .block-type-btn{padding-left:0;}
+.css-18vq3ss-StickyToolbar>div{}
+@media (max-width: 490px){.css-18vq3ss-StickyToolbar>div{-webkit-flex-direction:column-reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse;-webkit-align-items:end;-webkit-box-align:end;-ms-flex-align:end;align-items:end;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;}}
+.css-18vq3ss-StickyToolbar>div >div:first-of-type{}
+@media (max-width: 490px){.css-18vq3ss-StickyToolbar>div >div:first-of-type >div:nth-of-type(2){-webkit-box-pack:end;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}}
+.css-18vq3ss-StickyToolbar span svg{max-width:100%;}
+.css-18vq3ss-StickyToolbar.show-keyline{box-shadow:0 2px 0 0 var(--ds-background-accent-gray-subtlest, #F1F2F4);}"
 `;

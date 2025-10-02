@@ -28,18 +28,29 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { selectionPluginKey } from '../types';
 
+import { createHideCursorDecoration } from './cursor/ui/hide-cursor-decoration';
+
 export const getDecorations = (
 	tr: Transaction | ReadonlyTransaction,
 	manualSelection?: { anchor: number; head: number },
+	hideCursor?: boolean,
 ): DecorationSet => {
 	let selection = tr.selection;
+	const decorations: Decoration[] = [];
+
+	if (hideCursor && fg('platform_editor_ai_aifc_patch_beta')) {
+		decorations.push(createHideCursorDecoration());
+	}
+
 	if (selection instanceof NodeSelection) {
-		return DecorationSet.create(tr.doc, [
+		decorations.push(
 			Decoration.node(selection.from, selection.to, {
 				class: akEditorSelectedNodeClassName,
 			}),
-		]);
+		);
+		return DecorationSet.create(tr.doc, decorations);
 	}
+
 	if (selection instanceof TextSelection || selection instanceof AllSelection) {
 		if (
 			manualSelection &&
@@ -50,14 +61,18 @@ export const getDecorations = (
 		) {
 			selection = TextSelection.create(tr.doc, manualSelection.anchor, manualSelection.head);
 		}
-		const decorations = getNodesToDecorateFromSelection(selection, tr.doc).map(({ node, pos }) => {
-			return Decoration.node(pos, pos + node.nodeSize, {
-				class: akEditorSelectedNodeClassName,
-			});
-		});
+		const selectionDecorations = getNodesToDecorateFromSelection(selection, tr.doc).map(
+			({ node, pos }) => {
+				return Decoration.node(pos, pos + node.nodeSize, {
+					class: akEditorSelectedNodeClassName,
+				});
+			},
+		);
+		decorations.push(...selectionDecorations);
 		return DecorationSet.create(tr.doc, decorations);
 	}
-	return DecorationSet.empty;
+
+	return decorations.length > 0 ? DecorationSet.create(tr.doc, decorations) : DecorationSet.empty;
 };
 
 const topLevelBlockNodesThatHaveSelectionStyles = [

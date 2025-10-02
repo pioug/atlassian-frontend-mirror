@@ -33,6 +33,7 @@ export type TextColorPlugin = NextEditorPlugin<
 		};
 		commands: {
 			changeColor: (color: string, inputMethod?: TextColorInputMethod) => EditorCommand;
+			setPalette: (isPaletteOpen: boolean) => EditorCommand;
 		};
 		dependencies: Dependencies;
 		pluginConfiguration: TextColorPluginOptions | undefined;

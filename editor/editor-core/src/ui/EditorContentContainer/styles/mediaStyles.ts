@@ -434,9 +434,17 @@ export const mediaStyles: SerializedStyles = css({
 export const mediaDangerStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		[`.mediaInlineView-content-wrap.${akEditorSelectedNodeClassName}.danger .${INLINE_IMAGE_WRAPPER_CLASS_NAME}`]:
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-nested-selectors
+		[`.mediaInlineView-content-wrap.${akEditorSelectedNodeClassName}.danger`]: {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[` .${INLINE_IMAGE_WRAPPER_CLASS_NAME}`]: [dangerBorderStyles],
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			'>span> span[role="button"]': [dangerBorderStyles],
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+		[`.mediaGroupView-content-wrap.danger #newFileExperienceWrapper`]:
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
 			[dangerBorderStyles],
 	},
 });

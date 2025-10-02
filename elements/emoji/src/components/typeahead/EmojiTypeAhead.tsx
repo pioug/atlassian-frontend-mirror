@@ -32,6 +32,7 @@ export default class EmojiTypeahead extends LoadingEmojiComponent<Props, Loading
 	// state initialised with static component to prevent
 	// rerender when the module has already been loaded
 	static AsyncLoadedComponent?: ComponentClass<ComponentProps>;
+	private typeAheadRef = React.createRef<EmojiTypeAheadComponent>();
 	state = {
 		asyncLoadedComponent: EmojiTypeahead.AsyncLoadedComponent,
 	};
@@ -41,26 +42,26 @@ export default class EmojiTypeahead extends LoadingEmojiComponent<Props, Loading
 	}
 
 	selectNext = () => {
-		if (this.refs.typeAhead) {
-			(this.refs.typeAhead as EmojiTypeAheadComponent).selectNext();
+		if (this.typeAheadRef.current) {
+			this.typeAheadRef.current.selectNext();
 		}
 	};
 
 	selectPrevious = () => {
-		if (this.refs.typeAhead) {
-			(this.refs.typeAhead as EmojiTypeAheadComponent).selectPrevious();
+		if (this.typeAheadRef.current) {
+			this.typeAheadRef.current.selectPrevious();
 		}
 	};
 
 	chooseCurrentSelection = () => {
-		if (this.refs.typeAhead) {
-			(this.refs.typeAhead as EmojiTypeAheadComponent).chooseCurrentSelection();
+		if (this.typeAheadRef.current) {
+			this.typeAheadRef.current.chooseCurrentSelection();
 		}
 	};
 
 	count = (): number => {
-		if (this.refs.typeAhead) {
-			return (this.refs.typeAhead as EmojiTypeAheadComponent).count();
+		if (this.typeAheadRef.current) {
+			return this.typeAheadRef.current.count();
 		}
 		return 0;
 	};
@@ -79,7 +80,11 @@ export default class EmojiTypeahead extends LoadingEmojiComponent<Props, Loading
 		const { emojiProvider, target, position, zIndex, offsetX, offsetY, ...otherProps } = this.props;
 
 		const typeAhead = (
-			<TypeAheadComponent {...otherProps} emojiProvider={loadedEmojiProvider} ref="typeAhead" />
+			<TypeAheadComponent
+				{...otherProps}
+				emojiProvider={loadedEmojiProvider}
+				ref={this.typeAheadRef}
+			/>
 		);
 
 		if (position) {

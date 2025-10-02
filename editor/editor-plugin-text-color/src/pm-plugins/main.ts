@@ -14,6 +14,7 @@ export type TextColorPluginState = {
 	color: string | null;
 	defaultColor: string;
 	disabled?: boolean;
+	isPaletteOpen?: boolean;
 	palette: Array<PaletteColor>;
 };
 
@@ -46,6 +47,7 @@ function createInitialPluginState(
 		disabled: getDisabledState(editorState),
 		palette,
 		defaultColor: defaultColor.color,
+		isPaletteOpen: false,
 	};
 
 	return state;
@@ -55,6 +57,7 @@ export enum ACTIONS {
 	RESET_COLOR,
 	SET_COLOR,
 	DISABLE,
+	SET_PALETTE,
 }
 
 export const pluginKey = new PluginKey<TextColorPluginState>('textColorPlugin');
@@ -76,11 +79,20 @@ export function createPlugin(dispatch: Dispatch, pluginConfig?: TextColorPluginC
 						break;
 
 					case ACTIONS.SET_COLOR:
-						nextState = { ...pluginState, color: meta.color, disabled: false };
+						nextState = {
+							...pluginState,
+							color: meta.color,
+							disabled: false,
+							isPaletteOpen: false,
+						};
 						break;
 
 					case ACTIONS.DISABLE:
 						nextState = { ...pluginState, disabled: true };
+						break;
+
+					case ACTIONS.SET_PALETTE:
+						nextState = { ...pluginState, isPaletteOpen: meta.isPaletteOpen };
 						break;
 
 					default:
@@ -93,7 +105,8 @@ export function createPlugin(dispatch: Dispatch, pluginConfig?: TextColorPluginC
 
 				if (
 					(pluginState && pluginState.color !== nextState.color) ||
-					(pluginState && pluginState.disabled !== nextState.disabled)
+					(pluginState && pluginState.disabled !== nextState.disabled) ||
+					(pluginState && pluginState.isPaletteOpen !== nextState.isPaletteOpen)
 				) {
 					dispatch(pluginKey, nextState);
 					return nextState;

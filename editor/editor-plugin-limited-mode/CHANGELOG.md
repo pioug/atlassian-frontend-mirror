@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-limited-mode
 
+## 3.0.2
+
+### Patch Changes
+
+- [`c59b674ee234d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c59b674ee234d) -
+  NOISSUE - Update limited mode messages and move to editor-common so they can be picked up for
+  translation.
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

@@ -66,6 +66,7 @@ export const FormatMenuComponent = ({
 			isDisabled={isDisabled}
 			onClick={handleClick}
 			dropdownTestId="editor-nested-turn-into-menu"
+			shouldFitContainer={fg('platform_editor_block_menu_shouldfitcontainer') ? true : undefined}
 		>
 			{children}
 		</ToolbarNestedDropdownMenu>

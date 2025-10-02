@@ -1,5 +1,12 @@
 # @atlaskit/code
 
+## 17.2.7
+
+### Patch Changes
+
+- [`ea4cb74c395ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea4cb74c395ce) -
+  [ux] Adds markdown language support to code blocks
+
 ## 17.2.6
 
 ### Patch Changes

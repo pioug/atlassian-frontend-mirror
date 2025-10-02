@@ -110,6 +110,7 @@ import {
 	nestedPanelBorderStylesMixin,
 	panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
 	panelViewStyles,
+	nestedPanelDangerStyles,
 } from './styles/panelStyles';
 import { paragraphStylesOld, paragraphStylesUGCRefreshed } from './styles/paragraphStyles';
 import {
@@ -554,6 +555,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						dangerRuleStyles,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						mediaDangerStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						nestedPanelDangerStyles,
 					],
 				]}
 				data-editor-scroll-container={isScrollable ? 'true' : undefined}

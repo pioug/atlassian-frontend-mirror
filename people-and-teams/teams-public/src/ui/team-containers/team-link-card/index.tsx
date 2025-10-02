@@ -163,7 +163,8 @@ export const TeamLinkCard = ({
 		'isEnabled',
 		false,
 	);
-	const isOpenWebLinkInNewTabEnabled = containerType === 'WebLink' && (isNewTeamProfilePageEnabled || isTeamLensInHomeEnabled);
+	const isOpenWebLinkInNewTabEnabled =
+		containerType === 'WebLink' && (isNewTeamProfilePageEnabled || isTeamLensInHomeEnabled);
 
 	const handleMouseEnter = () => {
 		if (isReadOnly) {
@@ -260,13 +261,15 @@ export const TeamLinkCard = ({
 				{fg('fix_team_link_card_a11y') ? (
 					<>
 						<Anchor
-							xcss={cx(styles.anchor,
+							xcss={cx(
+								styles.anchor,
 								isTeamLensInHomeEnabled && styles.anchorNoUnderline,
-								isOpenWebLinkInNewTabEnabled && styles.anchorWithExternalLinkIcon)}
+								isOpenWebLinkInNewTabEnabled && styles.anchorWithExternalLinkIcon,
+							)}
 							href={link || '#'}
 							onClick={handleLinkClick}
 							testId="team-link-card-linkable-content"
-							target={isOpenWebLinkInNewTabEnabled ? "_blank" : "_self"}
+							target={isOpenWebLinkInNewTabEnabled ? '_blank' : '_self'}
 						>
 							<Stack space="space.025">
 								<Text maxLines={1} weight="medium" color="color.text">
@@ -284,13 +287,15 @@ export const TeamLinkCard = ({
 									</Inline>
 								</Flex>
 							</Stack>
-							{
-								isOpenWebLinkInNewTabEnabled && (
-									<Box xcss={styles.externalLinkIconWrapper}>
-										<LinkExternalIcon label={formatMessage(messages.linkExternalIconLabel)} aria-hidden="true" size="small" />
-									</Box>
-								)
-							}
+							{isOpenWebLinkInNewTabEnabled && (
+								<Box xcss={styles.externalLinkIconWrapper}>
+									<LinkExternalIcon
+										label={formatMessage(messages.linkExternalIconLabel)}
+										aria-hidden="true"
+										size="small"
+									/>
+								</Box>
+							)}
 						</Anchor>
 						{!isReadOnly && (
 							<TeamLinkCardActions

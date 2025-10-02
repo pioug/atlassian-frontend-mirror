@@ -9,6 +9,10 @@ import StatelessElementBrowser from './components/StatelessElementBrowser';
 import type { Category, Modes } from './types';
 
 export interface Props {
+	/**
+	 * If search field should be focused on the initial load
+	 */
+	autoFocusSearch?: boolean;
 	cache?: CellMeasurerCache;
 	categories?: Category[];
 	defaultCategory?: string;
@@ -130,6 +134,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 			viewMoreItem,
 			onViewMore,
 			cache,
+			autoFocusSearch,
 		} = this.props;
 		const { categories, searchTerm, selectedCategory, items } = this.state;
 		return (
@@ -149,6 +154,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 				viewMoreItem={viewMoreItem}
 				cache={cache}
 				onViewMore={onViewMore}
+				autoFocusSearch={autoFocusSearch}
 			/>
 		);
 	}

@@ -67,6 +67,7 @@ export interface RenderOptionsPropsT<T extends Object> {
 }
 
 export interface DropdownOptionT<T extends Object> {
+	confirmDialog?: ConfirmDialogOptions | (() => ConfirmDialogOptions);
 	description?: string;
 	disabled?: boolean;
 	domItemOptions?: { type: typeOption };

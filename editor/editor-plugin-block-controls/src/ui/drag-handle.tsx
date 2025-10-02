@@ -31,7 +31,7 @@ import { tableControlsSpacing, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -65,7 +65,11 @@ import {
 	shouldBeSticky,
 	shouldMaskNodeControls,
 } from '../pm-plugins/utils/drag-handle-positions';
-import { isHandleCorrelatedToSelection, selectNode } from '../pm-plugins/utils/getSelection';
+import {
+	isHandleCorrelatedToSelection,
+	isNodeWithCodeBlock,
+	selectNode,
+} from '../pm-plugins/utils/getSelection';
 import {
 	alignAnchorHeadInDirectionOfPos,
 	expandSelectionHeadToNodeAtPos,
@@ -429,7 +433,6 @@ export const DragHandle = ({
 			}
 			api?.core?.actions.execute(({ tr }) => {
 				const startPos = getPos();
-
 				if (startPos === undefined) {
 					return tr;
 				}
@@ -437,7 +440,21 @@ export const DragHandle = ({
 				const $anchor =
 					mSelect?.anchor !== undefined ? tr.doc.resolve(mSelect?.anchor) : tr.selection.$anchor;
 				if (!isMultiSelect || tr.selection.empty || !e.shiftKey) {
-					tr = selectNode(tr, startPos, nodeType);
+					if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+						const node = tr.doc.nodeAt(startPos);
+						const nodeSize = node ? node.nodeSize : 1;
+						// It this will be required in other places, where selectNode is used, we should
+						// move it inside of the newGetSelection in the selectNode
+						if (nodeType === 'blockquote' && isNodeWithCodeBlock(tr, startPos, nodeSize)) {
+							const selection = new NodeSelection(tr.doc.resolve(startPos));
+							tr.setSelection(selection);
+						} else {
+							tr = selectNode(tr, startPos, nodeType);
+						}
+					} else {
+						tr = selectNode(tr, startPos, nodeType);
+					}
+
 					if (BLOCK_MENU_ENABLED && editorExperiment('platform_editor_controls', 'variant1')) {
 						api?.blockControls?.commands.toggleBlockMenu({
 							anchorName,
@@ -495,7 +512,6 @@ export const DragHandle = ({
 						nodeType: maybeNode?.type.name || '',
 					},
 				})(tr);
-
 				return tr;
 			});
 

@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::8b0c2c2e9bf4e074a8dace8dc1cd3f5c>>
+ * @codegen <<SignedSource::bd923ef6bb9d9faf786d7dccc06f07bc>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1023,6 +1023,46 @@ export type ProfileGoalsLinkClickedAttributesType = {
 };
 export type ButtonClickedFollowTeamProjectsGoalsButtonAttributesType = undefined;
 export type ButtonClickedUnfollowTeamProjectsGoalsButtonAttributesType = undefined;
+export type ErrorBoundaryTriggeredAttributesType = {
+	product: string;
+	boundary: string;
+	error: string;
+};
+export type ProfileKudosViewedAttributesType = {
+	isEmpty: boolean;
+};
+export type ProfileKudosTabClickedAttributesType = {
+	tabName: 'given' | 'received';
+};
+export type ProfileKudosClickedAttributesType = {
+	kudosId: string;
+	tabName: 'given' | 'received';
+};
+export type ReportingLinesChartCollapsedAttributesType = {
+	product: string;
+	workspaceUuid: string | null;
+};
+export type ReportingLinesChartExpandedAttributesType = {
+	product: string;
+	workspaceUuid: string | null;
+};
+export type ReportingLinesChartViewedAttributesType = {
+	product: string;
+	workspaceUuid: string | null;
+};
+export type UiViewedAttributesType = {
+	product: string;
+	workspaceUuid: string | null;
+};
+export type ReportingLinesUserCardClickedAttributesType = {
+	product: string;
+	workspaceUuid: string | null;
+};
+export type ReportingLinesEmptyStateViewedAttributesType = {
+	product: string;
+	workspaceUuid: string | null;
+	isAdmin: boolean;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -1699,6 +1739,36 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the unfollow team projects and goals button is clicked */
 	'ui.button.clicked.unfollowTeamProjectsGoalsButton': ButtonClickedUnfollowTeamProjectsGoalsButtonAttributesType;
+	/**
+	 * fired when an error boundary is triggered */
+	'operational.errorBoundary.triggered': ErrorBoundaryTriggeredAttributesType;
+	/**
+	 * fired when the profile kudos is viewed */
+	'ui.ProfileKudos.viewed': ProfileKudosViewedAttributesType;
+	/**
+	 * fired when the profile kudos tab is clicked */
+	'ui.ProfileKudosTab.clicked': ProfileKudosTabClickedAttributesType;
+	/**
+	 * fired when a kudos item is clicked */
+	'ui.ProfileKudos.clicked': ProfileKudosClickedAttributesType;
+	/**
+	 * fired when the reporting lines chart is collapsed */
+	'ui.ReportingLinesChart.collapsed': ReportingLinesChartCollapsedAttributesType;
+	/**
+	 * fired when the reporting lines chart is expanded */
+	'ui.ReportingLinesChart.expanded': ReportingLinesChartExpandedAttributesType;
+	/**
+	 * fired when the reporting lines chart is viewed */
+	'ui.ReportingLinesChart.viewed': ReportingLinesChartViewedAttributesType;
+	/**
+	 * fired when the reporting lines chart is viewed - used for Atlas MAU */
+	'ui.ui.viewed': UiViewedAttributesType;
+	/**
+	 * fired when the reporting lines user card is clicked */
+	'ui.ReportingLinesUserCard.clicked': ReportingLinesUserCardClickedAttributesType;
+	/**
+	 * fired when the reporting lines empty state is viewed */
+	'ui.ReportingLinesEmptyState.viewed': ReportingLinesEmptyStateViewedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

@@ -1,5 +1,19 @@
 # @atlaskit/embedded-confluence
 
+## 4.3.2
+
+### Patch Changes
+
+- [`a3ee8c8ad06ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3ee8c8ad06ab) -
+  bump embedded confluence packages to legacy simple-xdm's most recent version
+
+## 4.3.1
+
+### Patch Changes
+
+- [`ee1f8688d5d08`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee1f8688d5d08) -
+  bump embedded confluence to consume recent changes to simple-xdm
+
 ## 4.3.0
 
 ### Minor Changes

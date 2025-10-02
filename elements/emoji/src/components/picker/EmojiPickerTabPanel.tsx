@@ -31,6 +31,7 @@ interface EmojiPickerTabPanelProps extends WrappedComponentProps {
 class EmojiPickerTabPanelInternal extends PureComponent<
 	PropsWithChildren<EmojiPickerTabPanelProps>
 > {
+	private rootRef = React.createRef<HTMLDivElement>();
 	render() {
 		const {
 			intl: { formatMessage },
@@ -39,7 +40,7 @@ class EmojiPickerTabPanelInternal extends PureComponent<
 		} = this.props;
 		return (
 			<div
-				ref="root"
+				ref={this.rootRef}
 				css={emojiPickerList}
 				data-testid={RENDER_EMOJI_PICKER_LIST_TESTID}
 				id={RENDER_EMOJI_PICKER_LIST_TESTID}

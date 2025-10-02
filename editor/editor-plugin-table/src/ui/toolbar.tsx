@@ -769,6 +769,9 @@ export const getToolbarConfig =
 											onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
 											icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
 											...hoverTableProps(true),
+											confirmDialog: fg('platform_editor_fix_confirm_table_removal')
+												? confirmDialog
+												: undefined,
 										},
 									],
 								},

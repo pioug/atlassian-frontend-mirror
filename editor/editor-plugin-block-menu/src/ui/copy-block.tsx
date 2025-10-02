@@ -26,6 +26,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
+import { useBlockMenu } from './block-menu-provider';
 import { BLOCK_MENU_ITEM_NAME } from './consts';
 
 interface CopyBlockMenuItemProps {
@@ -38,7 +39,7 @@ const toDOMFromFragment = (fragment: Fragment, schema: Schema): Node => {
 
 const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentProps) => {
 	const { formatMessage } = useIntl();
-
+	const { onDropdownOpenChanged } = useBlockMenu();
 	const copyHandler = (
 		event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>,
 	) => {
@@ -129,7 +130,8 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 
 			// close the block menu after copying
 			api?.core.actions.execute(api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true }));
-			api?.core.actions.focus();
+
+			onDropdownOpenChanged(false);
 		}
 	};
 

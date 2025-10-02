@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 6.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.8
+
+### Patch Changes
+
+- [`ea4cb74c395ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea4cb74c395ce) -
+  [ux] Adds markdown language support to code blocks
+- Updated dependencies
+
 ## 6.0.7
 
 ### Patch Changes

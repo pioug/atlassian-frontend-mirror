@@ -3,10 +3,10 @@
 
 import { defineMessages } from 'react-intl-next';
 
-export default defineMessages({
+export const limitedModeMessages = defineMessages({
 	limitedModeTitle: {
 		id: 'fabric.editor.limitedModeTitle',
-		defaultMessage: 'Speed Improvements',
+		defaultMessage: 'Speed improvements',
 		description:
 			'Title for flag shown when some functionality is disabled in a page in order to improve the pages speed.',
 	},

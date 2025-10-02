@@ -18,6 +18,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin, BlockMenuPluginOptions } from '../blockMenuPluginType';
 
+import { useBlockMenu } from './block-menu-provider';
 import { BLOCK_MENU_ITEM_NAME } from './consts';
 import { copyLink } from './utils/copyLink';
 import { isNestedNode } from './utils/isNestedNode';
@@ -29,6 +30,7 @@ type Props = {
 
 const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentProps) => {
 	const { formatMessage } = useIntl();
+	const { onDropdownOpenChanged } = useBlockMenu();
 
 	const handleClick = useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {
@@ -46,9 +48,9 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 			api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
 			return tr;
 		});
-		api?.core.actions.focus();
+		onDropdownOpenChanged(false);
 		return copyLink(config?.getLinkPath, config?.blockQueryParam, api);
-	}, [config?.getLinkPath, config?.blockQueryParam, api]);
+	}, [config?.getLinkPath, config?.blockQueryParam, api, onDropdownOpenChanged]);
 
 	const checkIsNestedNode = useCallback(() => {
 		const selection = api?.selection?.sharedState?.currentState()?.selection;

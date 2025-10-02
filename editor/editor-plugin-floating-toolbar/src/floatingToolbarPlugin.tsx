@@ -455,12 +455,32 @@ export function ContentComponent({
 		fn && fn(editorView.state, editorView.dispatch, editorView);
 
 	// Confirm dialog
-	const { confirmDialogForItem } = floatingToolbarData || {};
-	const confirmButtonItem = confirmDialogForItem
-		? // Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			(toolbarItems![confirmDialogForItem] as FloatingToolbarButton<Function>)
-		: undefined;
+	let confirmButtonItem;
+
+	if (fg('platform_editor_fix_confirm_table_removal')) {
+		const { confirmDialogForItem, confirmDialogForItemOption } = floatingToolbarData || {};
+		const matchingItem = confirmDialogForItem ? toolbarItems?.[confirmDialogForItem] : undefined;
+
+		if (matchingItem?.type === 'button') {
+			confirmButtonItem = matchingItem;
+		}
+
+		if (matchingItem?.type === 'overflow-dropdown' && confirmDialogForItemOption !== undefined) {
+			const matchingItemOption = matchingItem.options[confirmDialogForItemOption];
+
+			// OverflowDropdownOption is the only member of the union that does not have a 'type' property
+			if (!('type' in matchingItemOption)) {
+				confirmButtonItem = matchingItemOption;
+			}
+		}
+	} else {
+		const { confirmDialogForItem } = floatingToolbarData || {};
+		confirmButtonItem = confirmDialogForItem
+			? // Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				(toolbarItems![confirmDialogForItem] as FloatingToolbarButton<Function>)
+			: undefined;
+	}
 
 	const scrollable = config.scrollable;
 

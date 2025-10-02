@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 7.0.7
+
+### Patch Changes
+
+- [`872bd8d576773`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/872bd8d576773) -
+  [ux] ED-29272 Add missing tooltip and shortcut for TextColorDropdownMenu
+- Updated dependencies
+
 ## 7.0.6
 
 ### Patch Changes

@@ -6,6 +6,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -31,6 +32,8 @@ export const createPlugin = (
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
 	options: SelectionPluginOptions = {},
 ) => {
+	let cursorHidden = false;
+
 	return new SafePlugin({
 		key: selectionPluginKey,
 		state: createPluginState(dispatch, getInitialState),
@@ -38,24 +41,47 @@ export const createPlugin = (
 			const { tr } = newEditorState;
 
 			let manualSelection: { anchor: number; head: number } | undefined;
-			if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
-				// Start at most recent transaction, look for manualSelection meta
+			let hideCursorChanged = false;
+
+			const needsHideCursor = fg('platform_editor_ai_aifc_patch_beta');
+			const needsManualSelection = editorExperiment(
+				'platform_editor_element_drag_and_drop_multiselect',
+				true,
+			);
+
+			if (needsHideCursor || needsManualSelection) {
 				for (let i = transactions.length - 1; i >= 0; i--) {
-					manualSelection = transactions[i].getMeta(selectionPluginKey)?.manualSelection;
-					if (manualSelection) {
-						break;
+					const meta = transactions[i].getMeta(selectionPluginKey);
+
+					if (needsHideCursor && meta?.hideCursor !== undefined) {
+						const newHideCursorValue = meta.hideCursor;
+						if (cursorHidden !== newHideCursorValue) {
+							cursorHidden = newHideCursorValue;
+							hideCursorChanged = true;
+						}
+					}
+
+					if (needsManualSelection && meta?.manualSelection && !manualSelection) {
+						manualSelection = meta.manualSelection;
+						if (!needsHideCursor) {
+							break;
+						}
 					}
 				}
 			}
 
-			if (!shouldRecalcDecorations({ oldEditorState, newEditorState }) && !manualSelection) {
+			if (
+				!shouldRecalcDecorations({ oldEditorState, newEditorState }) &&
+				!manualSelection &&
+				!hideCursorChanged
+			) {
 				return;
 			}
 
 			tr.setMeta(selectionPluginKey, {
 				type: SelectionActionTypes.SET_DECORATIONS,
 				selection: tr.selection,
-				decorationSet: getDecorations(tr, manualSelection),
+				decorationSet: getDecorations(tr, manualSelection, cursorHidden),
 			});
 
 			return tr;

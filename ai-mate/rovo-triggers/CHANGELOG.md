@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 3.13.0
+
+### Minor Changes
+
+- [`f2efb53c01833`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2efb53c01833) -
+  [ux] Adding isViewMode property to send to chat if the user is in view mode
+
 ## 3.12.0
 
 ### Minor Changes

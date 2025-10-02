@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.61.1
+
+### Patch Changes
+
+- [`c6111bb01cdec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6111bb01cdec) -
+  [ux] Added design change for 3p links
+
 ## 0.61.0
 
 ### Minor Changes

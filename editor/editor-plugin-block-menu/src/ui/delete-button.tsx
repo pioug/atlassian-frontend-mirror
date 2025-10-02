@@ -74,12 +74,16 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 				nodeType: nodeTypes,
 				add: true,
 			})({ tr });
+
 			return tr;
 		});
 	}, [api, nodeTypes]);
 
 	const onRemoveHoverDecoration = useCallback(() => {
-		api?.core.actions.execute(api?.decorations?.commands?.removeDecoration?.());
+		api?.core.actions.execute(({ tr }) => {
+			api?.decorations?.commands?.removeDecoration?.()({ tr });
+			return tr;
+		});
 	}, [api]);
 
 	useEffect(() => {

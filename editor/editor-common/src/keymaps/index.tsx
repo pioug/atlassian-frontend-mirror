@@ -160,6 +160,10 @@ export const showElementDragHandle = makeKeyMapWithCommon(
 );
 
 export const toggleCodeBlock = makeKeyMapWithCommon('Toggle Code Block', '```');
+export const insertEmoji = makeKeyMapWithCommon('Insert Emoji', ':');
+export const insertMention = makeKeyMapWithCommon('Insert Mention', '@');
+export const insertTaskList = makeKeyMapWithCommon('Insert Action Item', '[]');
+export const insertElements = makeKeyMapWithCommon('Insert Elements', '/');
 
 export const continueInRovoChat = makeKeyMapWithCommon('Continue in Rovo chat', 'Alt-Enter');
 

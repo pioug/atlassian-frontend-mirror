@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-decorations
 
+## 6.1.2
+
+### Patch Changes
+
+- [`4141e6d6c0258`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4141e6d6c0258) -
+  [ux] ED-29125 Add danger styles for media group, tables with numbered columns and nested panels
+- Updated dependencies
+
 ## 6.1.1
 
 ### Patch Changes

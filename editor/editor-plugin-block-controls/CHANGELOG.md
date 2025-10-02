@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.2.3
+
+### Patch Changes
+
+- [`c02f3cc8759b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c02f3cc8759b5) -
+  [ux] Updates handleOnClick of a drag handle. When blockquote has a codeblock inside, we set
+  NodeSelection instead of range selection when blockquote's drag handle is clicked.
+
 ## 7.2.2
 
 ### Patch Changes

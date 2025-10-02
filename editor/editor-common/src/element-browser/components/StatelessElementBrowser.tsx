@@ -40,6 +40,10 @@ import ElementList from './ElementList/ElementList';
 import ElementSearch from './ElementSearch';
 
 export type StatelessElementBrowserProps = {
+	/**
+	 * If search field should be focused on the initial load
+	 */
+	autoFocusSearch?: boolean;
 	cache?: CellMeasurerCache;
 	categories?: Category[];
 	emptyStateHandler?: EmptyStateHandler;
@@ -177,6 +181,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 		searchTerm,
 		showCategories,
 		cache,
+		autoFocusSearch = true,
 	} = props;
 	const { containerWidth, ContainerWidthMonitor } = useContainerWidth();
 	const categoryBeenChosen = useRef(false);
@@ -187,15 +192,24 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 		return category.name === selectedCategory;
 	});
 
+	const [canFocusSearch, setCanFocusSearch] = useState(autoFocusSearch);
+
 	if (showCategories) {
 		const isEmptySearchTerm = !searchTerm || searchTerm?.length === 0;
 		if (!isEmptySearchTerm) {
 			// clear the flag if the search happens after a user has chosen the category
 			categoryBeenChosen.current = false;
 		}
-		// A11Y: if categories exists, on the initial render search element should receive focus.
-		// After user pick some category the category should stay focused.
-		isFocusSearch = !categoryBeenChosen.current || !isEmptySearchTerm;
+
+		if (expValEquals('platform_editor_update_modal_close_button', 'isEnabled', true)) {
+			// A11Y: if categories exists and search can be focused, on the initial render it should receive focus.
+			// After user pick some category the category should stay focused.
+			isFocusSearch = canFocusSearch && (!categoryBeenChosen.current || !isEmptySearchTerm);
+		} else {
+			// A11Y: if categories exists, on the initial render search element should receive focus.
+			// After user pick some category the category should stay focused.
+			isFocusSearch = !categoryBeenChosen.current || !isEmptySearchTerm;
+		}
 	}
 
 	const itemIsDisabled = useCallback(
@@ -222,6 +236,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 		fg('platform_editor_refactor_view_more') ? !!onViewMore : !!viewMoreItem,
 		itemIsDisabled,
 		isFocusSearch,
+		autoFocusSearch,
 	);
 
 	useEffect(() => {
@@ -293,8 +308,26 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 		[categoryBeenChosen, onSelectCategory],
 	);
 
+	const handleKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+		if (e.key === 'Tab') {
+			// only Tab key can change focus from close button (if present)
+			setCanFocusSearch(true);
+		}
+	};
+
+	const handleClick = () => {
+		setCanFocusSearch(true);
+	};
+
 	return (
-		<div css={wrapper} data-testid="element-browser" id={ELEMENT_BROWSER_ID}>
+		/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable */
+		<div
+			css={wrapper}
+			data-testid="element-browser"
+			id={ELEMENT_BROWSER_ID}
+			onKeyUp={canFocusSearch ? undefined : handleKeyPress}
+			onClick={canFocusSearch ? undefined : handleClick}
+		>
 			<ContainerWidthMonitor />
 			{containerWidth < DEVICE_BREAKPOINT_NUMBERS.medium ? (
 				<MobileBrowser

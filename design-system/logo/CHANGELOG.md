@@ -1,5 +1,12 @@
 # @atlaskit/logo
 
+## 19.9.0
+
+### Minor Changes
+
+- [`2b99763b3879d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b99763b3879d) -
+  Minor bump to force all consumers to update to receive patch bumps 19.8.1 -> 19.8.3
+
 ## 19.8.3
 
 ### Patch Changes

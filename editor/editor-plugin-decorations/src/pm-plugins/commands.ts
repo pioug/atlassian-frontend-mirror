@@ -38,7 +38,11 @@ export const hoverDecorationCommand: HoverDecorationCommand =
 		// be added, e.g. if a decision item is selected inside a layout and the
 		// user hovers over the layout's delete button.
 		const foundParentNode = findParentNodeOfType(nodeType)(tr.selection);
-		if (from === undefined && foundParentNode) {
+		// Override from and parentNode values if foundParentNode is a mediaGroup
+		if (
+			foundParentNode &&
+			(from === undefined || foundParentNode.node.type.name === 'mediaGroup')
+		) {
 			from = foundParentNode.pos;
 			parentNode = foundParentNode.node;
 		}
@@ -75,10 +79,20 @@ export const hoverDecorationCommand: HoverDecorationCommand =
 				return tr;
 			}
 			const map = TableMap.get(table.node);
+
 			const rect = getSelectionRect(tr.selection);
 			if (!map || !rect) {
 				return tr;
 			}
+			const tableNodeDec = Decoration.node(
+				table.pos,
+				table.pos + table.node.nodeSize,
+				{
+					class: className,
+				},
+				{ key: 'decorationNode' },
+			);
+
 			const updatedCells = map.cellsInRect(rect).map((x) => x + table.start);
 			const tableCellDecorations = updatedCells
 				.map((pos) => {
@@ -97,7 +111,7 @@ export const hoverDecorationCommand: HoverDecorationCommand =
 				})
 				.filter((decoration) => !!decoration);
 
-			decoration = DecorationSet.create(tr.doc, tableCellDecorations);
+			decoration = DecorationSet.create(tr.doc, [tableNodeDec, ...tableCellDecorations]);
 		}
 
 		tr.setMeta(decorationStateKey, {

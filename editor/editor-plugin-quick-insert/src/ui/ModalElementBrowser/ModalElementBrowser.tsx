@@ -15,8 +15,9 @@ import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
-import Modal, { ModalTransition, useModal } from '@atlaskit/modal-dialog';
+import Modal, { CloseButton, ModalTransition, useModal } from '@atlaskit/modal-dialog';
 import { N0 } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { getCategories } from './categories';
@@ -63,9 +64,21 @@ const modalFooterStyles = css({
 	justifyContent: 'space-between',
 });
 
+const modalCloseButtonStyles = css({
+	display: 'flex',
+	justifyContent: 'flex-end',
+	paddingBlockStart: token('space.200'),
+	paddingInline: token('space.200'),
+});
+
 const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 	const [selectedItem, setSelectedItem] = useState<QuickInsertItem>();
 	const { helpUrl, intl, onInsertItem: onInsertItemFn } = props;
+	const isUpdateModalCloseButtonEnabled = expValEquals(
+		'platform_editor_update_modal_close_button',
+		'isEnabled',
+		true,
+	);
 
 	const onSelectItem = useCallback(
 		(item: QuickInsertItem) => {
@@ -105,10 +118,18 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 					onSelectItem={onSelectItem}
 					onInsertItem={onInsertItem}
 					emptyStateHandler={props.emptyStateHandler}
+					autoFocusSearch={!isUpdateModalCloseButtonEnabled}
 				/>
 			</div>
 		),
-		[props.intl, props.getItems, onSelectItem, onInsertItem, props.emptyStateHandler],
+		[
+			props.intl,
+			props.getItems,
+			onSelectItem,
+			onInsertItem,
+			props.emptyStateHandler,
+			isUpdateModalCloseButtonEnabled,
+		],
 	);
 
 	return (
@@ -125,6 +146,11 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 						width="x-large"
 						shouldReturnFocus={props.shouldReturnFocus}
 					>
+						{isUpdateModalCloseButtonEnabled && (
+							<div css={modalCloseButtonStyles}>
+								<CloseButton onClick={props.onClose} />
+							</div>
+						)}
 						<RenderBody />
 						<RenderFooter />
 					</Modal>

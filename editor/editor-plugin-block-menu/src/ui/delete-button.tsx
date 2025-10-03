@@ -7,7 +7,6 @@ import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
-	INPUT_METHOD,
 	type BlockMenuEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/editor-common/block-menu';
@@ -34,13 +33,12 @@ type Props = {
 const DeleteDropdownItemContent = ({ api }: Props) => {
 	const { formatMessage } = useIntl();
 	const nodeTypes = Object.values(api?.core.sharedState.currentState()?.schema?.nodes || {});
-	const onClick = () => {
+	const onClick = (e: React.MouseEvent | React.KeyboardEvent) => {
 		api?.core.actions.execute(({ tr }) => {
 			const payload: BlockMenuEventPayload = {
 				action: ACTION.CLICKED,
 				actionSubject: ACTION_SUBJECT.BLOCK_MENU_ITEM,
 				attributes: {
-					inputMethod: INPUT_METHOD.MOUSE,
 					menuItemName: BLOCK_MENU_ITEM_NAME.DELETE,
 				},
 				eventType: EVENT_TYPE.UI,

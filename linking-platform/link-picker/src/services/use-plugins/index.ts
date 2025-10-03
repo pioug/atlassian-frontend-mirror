@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { convertToError } from '@atlaskit/frontend-utilities/convert-to-error';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useLinkPickerAnalytics } from '../../common/analytics';
 import { ANALYTICS_CHANNEL, RECENT_SEARCH_LIST_SIZE } from '../../common/constants';
@@ -37,6 +38,7 @@ export function usePlugins(
 	activeTab: number,
 	plugins?: LinkPickerPlugin[],
 	thirdPartyTabExperimentEnabled: boolean = false,
+	recentSearchListSize?: number,
 ): LinkPickerPluginsService {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const [retries, setRetries] = useState(0);
@@ -73,9 +75,16 @@ export function usePlugins(
 				while (isLoading) {
 					const { value, done } = await next();
 					isLoading = !done;
+
 					dispatch({
 						type: 'SUCCESS',
-						payload: { items: limit(value.data), isLoading: !done },
+						payload: {
+							items: limit(
+								value.data,
+								fg('aifc_create_enabled') ? recentSearchListSize : undefined,
+							),
+							isLoading: !done,
+						},
 					});
 				}
 			} catch (error: unknown) {
@@ -96,7 +105,7 @@ export function usePlugins(
 		updateResults();
 
 		return cancel;
-	}, [activePlugin, state, retries, createAnalyticsEvent, dispatch]);
+	}, [activePlugin, state, retries, createAnalyticsEvent, dispatch, recentSearchListSize]);
 
 	const tabs = useMemo(() => {
 		if (!plugins || plugins.length <= 1) {
@@ -137,6 +146,6 @@ export function usePlugins(
 	};
 }
 
-function limit<T>(items: Array<T>) {
-	return items.slice(0, RECENT_SEARCH_LIST_SIZE);
+function limit<T>(items: Array<T>, recentSearchListSize: number = RECENT_SEARCH_LIST_SIZE) {
+	return items.slice(0, recentSearchListSize);
 }

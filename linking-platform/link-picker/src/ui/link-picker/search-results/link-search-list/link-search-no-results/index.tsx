@@ -2,6 +2,8 @@ import React from 'react';
 
 import { defineMessages, useIntl } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { EmptyState } from '../../../../../common/ui/empty-state';
 
 import { NoResultsSVG } from './no-results-svg';
@@ -23,7 +25,7 @@ export const testIds = {
 	emptyResultPage: 'link-search-no-results',
 };
 
-export const NoResults = () => {
+export const NoResults = ({ shouldRenderImage = true }: { shouldRenderImage?: boolean }) => {
 	const intl = useIntl();
 
 	return (
@@ -31,7 +33,9 @@ export const NoResults = () => {
 			testId={testIds.emptyResultPage}
 			header={intl.formatMessage(messages.noResults)}
 			description={intl.formatMessage(messages.noResultsDescription)}
-			renderImage={() => <NoResultsSVG />}
+			renderImage={
+				!shouldRenderImage && fg('aifc_create_enabled') ? undefined : () => <NoResultsSVG />
+			}
 		/>
 	);
 };

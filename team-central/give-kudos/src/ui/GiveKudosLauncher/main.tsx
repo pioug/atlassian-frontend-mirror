@@ -318,7 +318,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						appearance="subtle"
 					/>
 				</div>
-				{/* eslint-disable-next-line jsx-a11y/iframe-has-title */}
+				{/* eslint-disable-next-line @atlassian/a11y/iframe-has-title */}
 				<iframe
 					src={giveKudosUrl}
 					ref={iframeEl}

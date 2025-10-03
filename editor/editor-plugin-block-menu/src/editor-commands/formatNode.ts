@@ -158,8 +158,8 @@ export const formatNode =
 								from: sourceTypeName,
 								to: targetType,
 								eventCategory: getConversionType(sourceTypeName, targetType),
-								inputMethod: analyticsAttrs?.inputMethod || INPUT_METHOD.MOUSE,
-								triggeredFrom: analyticsAttrs?.triggeredFrom || INPUT_METHOD.BLOCK_MENU,
+								triggeredFrom: analyticsAttrs?.triggeredFrom || INPUT_METHOD.MOUSE,
+								inputMethod: analyticsAttrs?.inputMethod || INPUT_METHOD.BLOCK_MENU,
 								conversionSource: 'emptyList',
 							},
 						})(newTr);
@@ -204,8 +204,8 @@ export const formatNode =
 								from: sourceTypeName,
 								to: targetType,
 								eventCategory: getConversionType(sourceTypeName, targetType),
-								inputMethod: analyticsAttrs?.inputMethod || INPUT_METHOD.MOUSE,
-								triggeredFrom: analyticsAttrs?.triggeredFrom || INPUT_METHOD.BLOCK_MENU,
+								triggeredFrom: analyticsAttrs?.triggeredFrom || INPUT_METHOD.MOUSE,
+								inputMethod: analyticsAttrs?.inputMethod || INPUT_METHOD.BLOCK_MENU,
 								conversionSource,
 							},
 						})(newTr);
@@ -293,8 +293,8 @@ export const formatNode =
 							from: sourceTypeName,
 							to: targetType,
 							eventCategory: getConversionType(sourceTypeName, targetType),
-							inputMethod: analyticsAttrs?.inputMethod || INPUT_METHOD.MOUSE,
-							triggeredFrom: analyticsAttrs?.triggeredFrom || INPUT_METHOD.BLOCK_MENU,
+							triggeredFrom: analyticsAttrs?.triggeredFrom || INPUT_METHOD.MOUSE,
+							inputMethod: analyticsAttrs?.inputMethod || INPUT_METHOD.BLOCK_MENU,
 						},
 					})(newTr);
 				}

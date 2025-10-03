@@ -1,5 +1,22 @@
 # @atlaskit/link-picker
 
+## 3.14.0
+
+### Minor Changes
+
+- [`d21c47b4f935f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d21c47b4f935f) -
+  [ux] New prop submitOnInputChange for link picker that removes the submit button and adds a submit
+  on input change
+
+## 3.13.0
+
+### Minor Changes
+
+- [`be449d28b1149`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be449d28b1149) -
+  [ux] Adding optional props recentSearchListSize, and shouldRenderNoResultsImage for Link Picker to
+  allow for showing insert button on smaller screens. Additionally updating the hideLinkDisplayText
+  prop to be passed as a part of a new linkPickerOptions object instead of as a standalone variable.
+
 ## 3.12.1
 
 ### Patch Changes

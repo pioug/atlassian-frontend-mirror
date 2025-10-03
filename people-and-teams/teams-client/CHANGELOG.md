@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.18.0
+
+### Minor Changes
+
+- [`c6370cfc98b38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6370cfc98b38) -
+  Added API to get teams to be cloned to JSM sites
+
 ## 4.17.0
 
 ### Minor Changes

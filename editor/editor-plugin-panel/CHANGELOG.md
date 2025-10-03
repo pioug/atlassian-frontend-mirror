@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-panel
 
+## 8.0.9
+
+### Patch Changes
+
+- [`f71099b9904fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f71099b9904fc) -
+  EDITOR-1987: Patch the panel node spec to be definingAsContext so that panels aren't removed when
+  content is replaced.
+- Updated dependencies
+
+## 8.0.8
+
+### Patch Changes
+
+- [`26917199e153a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26917199e153a) -
+  ED-29473 Add inputMethod attribute for block menu opened and switch inputMethod and triggeredFrom
+  attributes for element converted event
+- Updated dependencies
+
 ## 8.0.7
 
 ### Patch Changes

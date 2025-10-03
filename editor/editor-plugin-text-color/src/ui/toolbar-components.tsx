@@ -33,24 +33,17 @@ export const getToolbarComponents = (
 	return [
 		{
 			...TEXT_COLOR_HIGHLIGHT_GROUP,
-			parents: expValEquals('platform_editor_toolbar_aifc_responsiveness_update', 'isEnabled', true)
-				? [
-						{
-							...TEXT_SECTION,
-							rank: TEXT_SECTION_RANK[TEXT_COLOR_HIGHLIGHT_GROUP.key],
-						},
-						{
-							type: TEXT_SECTION_PRIMARY_TOOLBAR.type,
-							key: TEXT_SECTION_PRIMARY_TOOLBAR.key,
-							rank: TEXT_SECTION_PRIMARY_TOOLBAR_RANK[TEXT_COLOR_HIGHLIGHT_GROUP.key],
-						},
-					]
-				: [
-						{
-							...TEXT_SECTION,
-							rank: TEXT_SECTION_RANK[TEXT_COLOR_HIGHLIGHT_GROUP.key],
-						},
-					],
+			parents: [
+				{
+					...TEXT_SECTION,
+					rank: TEXT_SECTION_RANK[TEXT_COLOR_HIGHLIGHT_GROUP.key],
+				},
+				{
+					type: TEXT_SECTION_PRIMARY_TOOLBAR.type,
+					key: TEXT_SECTION_PRIMARY_TOOLBAR.key,
+					rank: TEXT_SECTION_PRIMARY_TOOLBAR_RANK[TEXT_COLOR_HIGHLIGHT_GROUP.key],
+				},
+			],
 		},
 		{
 			...TEXT_COLOR_HIGHLIGHT_MENU,

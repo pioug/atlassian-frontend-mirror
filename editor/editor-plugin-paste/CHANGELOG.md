@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 7.0.3
+
+### Patch Changes
+
+- [`2a6da53855a0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a6da53855a0e) -
+  [ux] While copy/pasting as plain text, allow code fence to have up to three spaces.
+- Updated dependencies
+
 ## 7.0.2
 
 ### Patch Changes

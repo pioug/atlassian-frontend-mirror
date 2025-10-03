@@ -149,6 +149,7 @@ const ProgressIndicatorDots = () => {
 						</Stack>
 					</SpreadInlineLayout>
 					<SpreadInlineLayout>
+						{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control -- See https://go/a11y-label-has-associated-control for more details */}
 						<Box as="label" htmlFor="input">
 							<Inline space="space.100" alignBlock="center">
 								<input

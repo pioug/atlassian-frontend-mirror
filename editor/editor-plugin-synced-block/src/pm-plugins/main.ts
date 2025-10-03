@@ -76,5 +76,14 @@ export const createPlugin = (
 
 			return true;
 		},
+		appendTransaction: (trs, oldState, newState) => {
+			trs
+				.filter((tr) => tr.docChanged)
+				.forEach((tr) => {
+					syncBlockStore?.rebaseTransaction(tr, newState);
+				});
+
+			return null;
+		},
 	});
 };

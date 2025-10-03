@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 4.0.19
+
+### Patch Changes
+
+- [`e3ca1a4b9b932`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3ca1a4b9b932) -
+  [ux] ED-29489 Remove focus ring when drag handle is clicked and fix menu closing on menu open
+- Updated dependencies
+
+## 4.0.18
+
+### Patch Changes
+
+- [`64b94b53839de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64b94b53839de) -
+  Fix the outdated Turn into disabled state in block menu
+- Updated dependencies
+
+## 4.0.17
+
+### Patch Changes
+
+- [`dc211dc1927b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc211dc1927b5) -
+  [ux] ED-29232: Fixed issues with block menu for file
+- Updated dependencies
+
+## 4.0.16
+
+### Patch Changes
+
+- [`26917199e153a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26917199e153a) -
+  ED-29473 Add inputMethod attribute for block menu opened and switch inputMethod and triggeredFrom
+  attributes for element converted event
+- Updated dependencies
+
 ## 4.0.15
 
 ### Patch Changes

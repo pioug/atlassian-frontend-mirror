@@ -195,7 +195,7 @@ const PDFRendererBase = ({
 			<PDFRendererWrapper>
 				<PDFWrapper data-testid="media-viewer-pdf-content" ref={savePdfElement}>
 					{
-						// eslint-disable-next-line @atlaskit/design-system/prefer-primitives, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
+						// eslint-disable-next-line @atlaskit/design-system/prefer-primitives, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/click-events-have-key-events
 						<div
 							// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={pdfViewerClassName}

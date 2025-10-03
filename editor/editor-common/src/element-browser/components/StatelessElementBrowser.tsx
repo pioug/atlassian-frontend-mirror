@@ -201,7 +201,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 			categoryBeenChosen.current = false;
 		}
 
-		if (expValEquals('platform_editor_update_modal_close_button', 'isEnabled', true)) {
+		if (fg('platform_editor_update_modal_close_button')) {
 			// A11Y: if categories exists and search can be focused, on the initial render it should receive focus.
 			// After user pick some category the category should stay focused.
 			isFocusSearch = canFocusSearch && (!categoryBeenChosen.current || !isEmptySearchTerm);

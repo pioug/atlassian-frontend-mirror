@@ -1,5 +1,20 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.13.0
+
+### Minor Changes
+
+- [`c201870e2170e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c201870e2170e) -
+  Migrated feedback trigger, profile header and page load ptc common analytics to teams app internal
+  analytics
+
+## 1.12.0
+
+### Minor Changes
+
+- [`c18d37500ac2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c18d37500ac2b) -
+  Migrated standalone-directory analytics to teams-app-internal-analytics
+
 ## 1.11.0
 
 ### Minor Changes

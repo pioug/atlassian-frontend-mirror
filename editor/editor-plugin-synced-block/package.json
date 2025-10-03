@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-synced-block",
-	"version": "3.1.2",
+	"version": "3.2.1",
 	"description": "SyncedBlock plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,6 +33,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/button": "workspace:*",
+		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-plugin-block-menu": "workspace:^",
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
 		"@atlaskit/editor-plugin-floating-toolbar": "workspace:^",

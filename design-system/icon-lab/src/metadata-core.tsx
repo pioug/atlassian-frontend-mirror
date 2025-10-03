@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::e31ec5110d73ffb95ab5d95b127fdc71>>
+ * @codegen <<SignedSource::c9162adee99a4c616f51ac1bfb9ca964>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -549,6 +549,48 @@ const metadata: Record<string, metadata> = {
 		team: 'Design System Team',
 		status: 'published',
 	},
+	'arrow-end': {
+		keywords: [
+			'arrow-end',
+			'arrowend',
+			'icon',
+			'icon-lab',
+			'move to end',
+			'move to back',
+			'move to last position',
+			'move to far right',
+		],
+		componentName: 'ArrowEndIcon',
+		package: '@atlaskit/icon-lab/core/arrow-end',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage:
+			'Used for moving an object to the back or ending of a container, moving a column to last position',
+		team: 'Strategy Collection',
+		status: 'published',
+		slackChannel: '#sc-design',
+	},
+	'arrow-start': {
+		keywords: [
+			'arrow-start',
+			'arrowstart',
+			'icon',
+			'icon-lab',
+			'move to front',
+			'move to start',
+			'move to far left',
+			'move to first position',
+		],
+		componentName: 'ArrowStartIcon',
+		package: '@atlaskit/icon-lab/core/arrow-start',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage:
+			'Used for moving an object to the front or beginning of a container, moving a column to first position',
+		team: 'Strategy Collection',
+		status: 'published',
+		slackChannel: '#sc-design',
+	},
 	'arrows-diagonal-up-right-down-left': {
 		keywords: [
 			'arrows-diagonal-up-right-down-left',
@@ -1069,6 +1111,26 @@ const metadata: Record<string, metadata> = {
 		usage: 'Hide collaborator cursors in the Whiteboard',
 		team: 'Whiteboards',
 		status: 'published',
+	},
+	'dash-double': {
+		keywords: [
+			'dash-double',
+			'dashdouble',
+			'icon',
+			'icon-lab',
+			'double dash',
+			'no change',
+			'unchanged value',
+			'same value',
+		],
+		componentName: 'DashDoubleIcon',
+		package: '@atlaskit/icon-lab/core/dash-double',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: representing no change or keeping a value as-is.',
+		team: 'Strategy Collection',
+		status: 'published',
+		slackChannel: '#sc-design',
 	},
 	'data-bucket': {
 		keywords: ['data-bucket', 'databucket', 'icon', 'icon-lab', 'data bucketing', 'segmentation'],
@@ -1744,6 +1806,16 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for terminator (start or end point) diagram symbol.',
 		team: 'Whiteboards',
+		status: 'published',
+	},
+	directory: {
+		keywords: ['directory', 'icon', 'icon-lab', 'directory', 'address book'],
+		componentName: 'DirectoryIcon',
+		package: '@atlaskit/icon-lab/core/directory',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for directory experiences.',
+		team: 'Admin Hub',
 		status: 'published',
 	},
 	'distribute-spacing-horizontal': {
@@ -3163,6 +3235,37 @@ const metadata: Record<string, metadata> = {
 		type: 'core',
 		categorization: 'multi-purpose',
 		team: 'Design System Team',
+		status: 'published',
+	},
+	skill: {
+		keywords: ['skill', 'icon', 'icon-lab', 'skill', 'skills', 'agent', 'agentic', 'tools', 'tool'],
+		componentName: 'SkillIcon',
+		package: '@atlaskit/icon-lab/core/skill',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for skill functionality. Skills are a combination of tools and a prompt to allow an agent to perform a multistep process.',
+		team: 'Studio',
+		status: 'published',
+	},
+	skip: {
+		keywords: ['skip', 'icon', 'icon-lab', 'skip', 'miss'],
+		componentName: 'SkipIcon',
+		package: '@atlaskit/icon-lab/core/skip',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for skipping steps.',
+		team: 'Automation',
+		status: 'published',
+	},
+	'skip-unskip': {
+		keywords: ['skip-unskip', 'skipunskip', 'icon', 'icon-lab', 'unskip', 'reinstate step'],
+		componentName: 'SkipUnskipIcon',
+		package: '@atlaskit/icon-lab/core/skip-unskip',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for reinstating a previously skipped step.',
+		team: 'Automation',
 		status: 'published',
 	},
 	'sort-options': {

@@ -15,7 +15,9 @@
 			"Ensure flag content is announced by screen readers",
 			"Use appropriate timing for auto-dismiss",
 			"Provide clear action options",
-			"Consider screen reader announcement conflicts"
+			"Consider screen reader announcement conflicts",
+			"Use an h2 heading level for the title",
+			"Use the `headingLevel` prop to maintain proper heading hierarchy"
 		],
 		"usageGuidelines": [
 			"Use for confirmations and alerts needing minimal interaction",

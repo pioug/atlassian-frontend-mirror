@@ -49,6 +49,14 @@ export interface ResolveResult {
 export interface LinkPickerUiOptions {
 	/** Maximum number of lines to display for the item name */
 	listItemNameMaxLines?: number;
+	/** Showing dynamic list size based on window height */
+	recentSearchListSize?: number;
+	/** Adaptive height */
+	adaptiveHeight?: boolean;
+	/** Hide display text */
+	hideDisplayText?: boolean;
+	/** Controls showing the image in the no results state */
+	shouldRenderNoResultsImage?: boolean;
 }
 
 export interface LinkPickerPlugin {
@@ -177,6 +185,12 @@ export interface LinkPickerProps {
 	previewableLinksOnly?: boolean;
 	/**This prop passes one additional error that is secondary to component errors */
 	additionalError?: React.ReactNode;
+	/**This prop disables submit button and handles submit on input change */
+	submitOnInputChange?: boolean;
+	/** Showing dynamic list size based on window height */
+	recentSearchListSize?: number;
+	/** Controls showing the image in the no results state */
+	shouldRenderNoResultsImage?: boolean;
 }
 
 type CustomLinkPickerMessages = {

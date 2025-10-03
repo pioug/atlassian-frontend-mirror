@@ -1,5 +1,12 @@
 # @atlaskit/avatar
 
+## 25.3.1
+
+### Patch Changes
+
+- [`42beb385671cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42beb385671cf) -
+  [ux] Add a new prop to set the container element for avatar content"
+
 ## 25.3.0
 
 ### Minor Changes

@@ -15,20 +15,21 @@ export type SyncBlockNode = {
 
 export type SyncBlockData = {
 	content: ADFEntity | undefined;
-	resourceId?: string;
+	createdAt?: string;
+	createdBy?: string;
+	isSynced?: boolean;
+	localId: string;
+	resourceId: string;
+	sourceDocumentAri?: string;
+	status?: 'deleted' | 'active';
+	updatedAt?: string;
 };
 
 export interface ADFFetchProvider {
 	fetchData: (resourceId: string) => Promise<SyncBlockData>;
 }
-
 export interface ADFWriteProvider {
-	writeData: (
-		sourceId: string,
-		localId: string,
-		data: ADFEntity,
-		resourceId?: string,
-	) => Promise<string>;
+	writeData: (data: SyncBlockData) => Promise<string>;
 }
 export abstract class SyncBlockDataProvider extends NodeDataProvider<SyncBlockNode, SyncBlockData> {
 	abstract writeNodesData: (

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-alignment
 
+## 7.0.7
+
+### Patch Changes
+
+- [`482bcdc75598e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/482bcdc75598e) -
+  ED-29462 Clean up platform_editor_toolbar_aifc_responsiveness_update
+- Updated dependencies
+
 ## 7.0.6
 
 ### Patch Changes

@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next/src/types';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { ELEMENT_BROWSER_ID } from '../../element-browser';
 import { fullPageMessages } from '../../messages';
@@ -95,25 +94,6 @@ export const ToolbarArrowKeyNavigationProvider = ({
 		selectedItemIndex.current = index;
 	}, []);
 
-	const handleArrowRight = (): void => {
-		const filteredFocusableElements = getFilteredFocusableElements(wrapperRef?.current);
-
-		incrementIndex(filteredFocusableElements);
-		filteredFocusableElements[selectedItemIndex.current]?.focus();
-	};
-
-	const handleArrowLeft = (): void => {
-		const filteredFocusableElements = getFilteredFocusableElements(wrapperRef?.current);
-
-		decrementIndex(filteredFocusableElements);
-		filteredFocusableElements[selectedItemIndex.current]?.focus();
-	};
-
-	const handleTab = (): void => {
-		const filteredFocusableElements = getFilteredFocusableElements(wrapperRef?.current);
-		filteredFocusableElements[selectedItemIndex.current]?.focus();
-	};
-
 	const handleArrowRightMemoized = useCallback((): void => {
 		const filteredFocusableElements = getFilteredFocusableElements(wrapperRef?.current);
 
@@ -152,13 +132,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
 		element.focus();
 	};
 
-	const submenuKeydownHandleContextRaw = {
-		handleArrowLeft,
-		handleArrowRight,
-		handleTab,
-	};
-
-	const submenuKeydownHandleContextMemoized = useMemo(
+	const submenuKeydownHandleContext = useMemo(
 		() => ({
 			handleArrowLeft: handleArrowLeftMemoized,
 			handleArrowRight: handleArrowRightMemoized,
@@ -166,13 +140,6 @@ export const ToolbarArrowKeyNavigationProvider = ({
 		}),
 		[handleArrowLeftMemoized, handleArrowRightMemoized, handleTabMemoized],
 	);
-
-	const submenuKeydownHandleContext = editorExperiment(
-		'platform_editor_toolbar_rerender_optimization_exp',
-		true,
-	)
-		? submenuKeydownHandleContextMemoized
-		: submenuKeydownHandleContextRaw;
 
 	useLayoutEffect(() => {
 		if (!wrapperRef.current || disableArrowKeyNavigation) {

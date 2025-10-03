@@ -140,7 +140,7 @@ export const ArrowLeftWrapper = ({
 }: {
 	children: ReactNode;
 } & OnClick) => (
-	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/ui-styling-standard/no-classname-prop,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/ui-styling-standard/no-classname-prop, jsx-a11y/no-static-element-interactions, @atlassian/a11y/click-events-have-key-events -- Ignored via go/DSP-18766
 	<div css={arrowLeftWrapperStyles} className="arrow" onClick={onClick}>
 		{children}
 	</div>
@@ -156,7 +156,7 @@ export const ArrowRightWrapper = ({
 }: {
 	children: ReactNode;
 } & OnClick) => (
-	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/ui-styling-standard/no-classname-prop,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/ui-styling-standard/no-classname-prop, jsx-a11y/no-static-element-interactions, @atlassian/a11y/click-events-have-key-events -- Ignored via go/DSP-18766
 	<div css={arrowRightWrapperStyles} className="arrow" onClick={onClick}>
 		{children}
 	</div>

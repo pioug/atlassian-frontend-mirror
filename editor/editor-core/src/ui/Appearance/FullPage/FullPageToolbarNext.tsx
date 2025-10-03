@@ -15,7 +15,6 @@ import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-me
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import type { PrimaryToolbarComponents } from '../../../types';
@@ -147,28 +146,12 @@ export const FullPageToolbarNext = ({
 	const hasToolbarPortal = ToolbarPortal !== React.Fragment;
 	const mountPoint = hasToolbarPortal ? undefined : popupsMountPoint;
 
-	const isShortcutToFocusToolbarRaw = (event: KeyboardEvent) => {
+	const isShortcutToFocusToolbar = useCallback((event: KeyboardEvent) => {
 		//Alt + F9 to reach first element in this main toolbar
 		return event.altKey && event.key === 'F9';
-	};
-	const isShortcutToFocusToolbarMemoized = useCallback(isShortcutToFocusToolbarRaw, []);
-	const isShortcutToFocusToolbar = expValEqualsNoExposure(
-		'platform_editor_toolbar_rerender_optimization_exp',
-		'isEnabled',
-		true,
-	)
-		? isShortcutToFocusToolbarMemoized
-		: isShortcutToFocusToolbarRaw;
+	}, []);
 
-	const handleEscapeRaw = (event: KeyboardEvent) => {
-		if (!editorView?.hasFocus()) {
-			editorView?.focus();
-		}
-		event.preventDefault();
-		event.stopPropagation();
-	};
-
-	const handleEscapeMemoized = useCallback(
+	const handleEscape = useCallback(
 		(event: KeyboardEvent) => {
 			if (!editorView?.hasFocus()) {
 				editorView?.focus();
@@ -178,14 +161,6 @@ export const FullPageToolbarNext = ({
 		},
 		[editorView],
 	);
-
-	const handleEscape = expValEqualsNoExposure(
-		'platform_editor_toolbar_rerender_optimization_exp',
-		'isEnabled',
-		true,
-	)
-		? handleEscapeMemoized
-		: handleEscapeRaw;
 
 	return (
 		<ContextPanelConsumer>

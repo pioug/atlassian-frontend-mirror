@@ -15,6 +15,7 @@ import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provid
 import {
 	convertSyncBlockPMNodeToSyncBlockData,
 	useFetchDocNode,
+	useHandleContentChanges,
 	type SyncBlockNode,
 } from '@atlaskit/editor-synced-block-provider';
 
@@ -95,15 +96,6 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		return this.syncBlockStore.isSourceBlock(this.node);
 	}
 
-	private handleContentChanges(updatedDoc: PMNode): void {
-		if (!this.isSource) {
-			return;
-		}
-		// write data
-		const node = convertSyncBlockPMNodeToSyncBlockData(this.node, false);
-		this.options?.dataProvider?.writeNodesData([node], [{ content: updatedDoc.toJSON() }]);
-	}
-
 	private setInnerEditorView(editorView: EditorView): void {
 		// set inner editor view
 		const nodes: SyncBlockNode[] = [convertSyncBlockPMNodeToSyncBlockData(this.node, false)];
@@ -135,7 +127,14 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 				popupsBoundariesElement={fabricEditorPopupScrollParent}
 				popupsMountPoint={fabricEditorPopupScrollParent}
 				defaultDocument={defaultSyncBlockEditorDocument}
-				handleContentChanges={(updatedDoc: PMNode) => this.handleContentChanges(updatedDoc)}
+				useHandleContentChanges={(updatedDoc: PMNode) =>
+					useHandleContentChanges(
+						updatedDoc,
+						this.isSource(),
+						this.node,
+						this.options?.dataProvider,
+					)
+				}
 				setInnerEditorView={(editorView: EditorView) => this.setInnerEditorView(editorView)}
 				getSyncedBlockEditor={this.options?.getSyncedBlockEditor}
 			/>

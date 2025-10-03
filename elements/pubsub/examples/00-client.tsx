@@ -161,7 +161,7 @@ class PubSubEventComponent extends Component<{}, State> {
 			<div>
 				<h2>Config</h2>
 
-				{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+				{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control */}
 				<label>Service</label>
 				<Textfield
 					id="serviceUrl"
@@ -169,7 +169,7 @@ class PubSubEventComponent extends Component<{}, State> {
 					onChange={this.onUrlChange}
 					value={this.state.fpsUrl}
 				/>
-				{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+				{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control */}
 				<label>Protocols</label>
 				<div>
 					<ButtonGroup>
@@ -183,13 +183,13 @@ class PubSubEventComponent extends Component<{}, State> {
 					</ButtonGroup>
 					{this.usesProtocol('APS') && (
 						<div>
-							{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+							{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control */}
 							<label>APS URL</label>
 							<Textfield id="apsURL" label="APS URL" value={this.state.apsUrl} />
 						</div>
 					)}
 				</div>
-				{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+				{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control */}
 				<label>Channel</label>
 				<Textfield
 					id="channel"
@@ -203,7 +203,7 @@ class PubSubEventComponent extends Component<{}, State> {
 					<Lozenge appearance="success">{this.state.status}</Lozenge>
 				</ButtonGroup>
 				<div>
-					{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+					{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control */}
 					<label>Event type</label>
 					<Textfield
 						id="eventType"

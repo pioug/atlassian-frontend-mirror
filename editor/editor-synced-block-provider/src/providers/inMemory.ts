@@ -1,21 +1,21 @@
-import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import type { ADFFetchProvider, ADFWriteProvider, SyncBlockData } from '../common/types';
 
-import type { ADFFetchProvider, ADFWriteProvider } from '../common/types';
-
-const inMemStore = new Map<string, ADFEntity>();
+const inMemStore = new Map<string, SyncBlockData>();
 export const inMemoryFetchProvider: ADFFetchProvider = {
 	fetchData: (resourceId: string) => {
-		return Promise.resolve({
-			content: inMemStore.get(resourceId),
-		});
+		const data = inMemStore.get(resourceId);
+		if (!data) {
+			return Promise.reject(new Error('Data not found'));
+		}
+		return Promise.resolve(data);
 	},
 };
 
 export const inMemoryWriteProvider: ADFWriteProvider = {
-	writeData: (_sourceId: string, _localId: string, data: ADFEntity, resourceId?: string) => {
-		if (resourceId) {
-			inMemStore.set(resourceId, data);
-			return Promise.resolve(resourceId);
+	writeData: (data: SyncBlockData) => {
+		if (data.resourceId) {
+			inMemStore.set(data.resourceId, data);
+			return Promise.resolve(data.resourceId);
 		} else {
 			const uuid = crypto.randomUUID();
 			inMemStore.set(uuid, data);

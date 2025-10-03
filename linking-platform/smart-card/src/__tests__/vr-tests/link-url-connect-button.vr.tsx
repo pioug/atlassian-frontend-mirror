@@ -19,7 +19,6 @@ snapshot(LinkUrlConnectButtonResolved, {
 	featureFlags: {
 		platform_linking_plain_hyperlink_connect_button: true,
 		platform_editor_resolve_hyperlinks_killswitch: [true, false],
-		'navx-1834-refactor-resolved-hyperlink': true,
 	},
 	waitForReactLazy: true,
 	waitForNetworkIdle: true,

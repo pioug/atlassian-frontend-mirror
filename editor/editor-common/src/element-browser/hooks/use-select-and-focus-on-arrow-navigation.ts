@@ -2,8 +2,6 @@ import type React from 'react';
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 /**
  * a custom hook that handles keyboard navigation for Arrow keys based on a
  * given listSize, and a step (for up and down arrows).
@@ -241,15 +239,6 @@ const moveReducer = (state: ReducerState, action: ReducerAction): ReducerState =
 	};
 };
 
-const initialStateWithFocusOnSearchDisabled: ReducerState = {
-	focusOnSearch: false,
-	focusOnViewMore: false,
-	focusOnEmptyStateButton: false,
-	selectedItemIndex: 0,
-	focusedItemIndex: undefined,
-	listSize: 0,
-};
-
 const initialState: ReducerState = {
 	focusOnSearch: true,
 	focusOnViewMore: false,
@@ -257,6 +246,11 @@ const initialState: ReducerState = {
 	selectedItemIndex: 0,
 	focusedItemIndex: undefined,
 	listSize: 0,
+};
+
+const initialStateWithFocusOnSearchDisabled: ReducerState = {
+	...initialState,
+	focusOnSearch: false,
 };
 
 const getInitialState =
@@ -334,7 +328,7 @@ function useSelectAndFocusOnArrowNavigation(
 ): useSelectAndFocusReturnType {
 	const [state, dispatch] = useReducer(
 		reducer,
-		expValEquals('platform_editor_update_modal_close_button', 'isEnabled', true) && autoFocusSearch
+		autoFocusSearch && fg('platform_editor_update_modal_close_button')
 			? initialState
 			: initialStateWithFocusOnSearchDisabled,
 		getInitialState(listSize, canFocusViewMore),
@@ -360,8 +354,7 @@ function useSelectAndFocusOnArrowNavigation(
 	const reset = useCallback(
 		(listSize: number) => {
 			const defaultState =
-				expValEquals('platform_editor_update_modal_close_button', 'isEnabled', true) &&
-				autoFocusSearch
+				autoFocusSearch && fg('platform_editor_update_modal_close_button')
 					? initialState
 					: initialStateWithFocusOnSearchDisabled;
 

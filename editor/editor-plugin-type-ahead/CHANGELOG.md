@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.3.0
+
+### Minor Changes
+
+- [`2cfe444a49320`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2cfe444a49320) -
+  [https://product-fabric.atlassian.net/browse/ED-29474](ED-29474) - bump react-virtualized version
+  to 9.22.6
+
 ## 6.2.0
 
 ### Minor Changes

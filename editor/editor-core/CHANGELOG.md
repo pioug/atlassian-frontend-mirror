@@ -1,5 +1,41 @@
 # @atlaskit/editor-core
 
+## 214.2.2
+
+### Patch Changes
+
+- [`124f42c79b002`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/124f42c79b002) -
+  Clean up feature gate cc_complexit_fe_improve_node_validation
+- Updated dependencies
+
+## 214.2.1
+
+### Patch Changes
+
+- [`ff53e1bfc6c25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff53e1bfc6c25) -
+  [ED-29482] clean up references to platform_editor_toolbar_rerender_optimization_exp
+- Updated dependencies
+
+## 214.2.0
+
+### Minor Changes
+
+- [`4954474ad8383`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4954474ad8383) -
+  [EDITOR-1992] Make extension styles take the feature gate and set the font size for links inside
+  them to resolve table of contents not being the correct size
+
+### Patch Changes
+
+- Updated dependencies
+
+## 214.1.7
+
+### Patch Changes
+
+- [`bcc75f68099a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcc75f68099a1) -
+  upgrade browser util in editor-core
+- Updated dependencies
+
 ## 214.1.6
 
 ### Patch Changes

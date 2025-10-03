@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::e3f90cac6cfd5399826b796d4a729cdd>>
+ * @codegen <<SignedSource::0ad9be423b66770d6b2f3bd7e02ceef0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -42,6 +42,8 @@ import ArrowCurvedRightDownIcon from '../../../../core/arrow-curved-right-down';
 import ArrowCurvedRightUpIcon from '../../../../core/arrow-curved-right-up';
 import ArrowCurvedUpLeftIcon from '../../../../core/arrow-curved-up-left';
 import ArrowCurvedUpRightIcon from '../../../../core/arrow-curved-up-right';
+import ArrowEndIcon from '../../../../core/arrow-end';
+import ArrowStartIcon from '../../../../core/arrow-start';
 import ArrowsDiagonalUpRightDownLeftIcon from '../../../../core/arrows-diagonal-up-right-down-left';
 import AssetsDataManagerIcon from '../../../../core/assets-data-manager';
 import AssetsGraphIcon from '../../../../core/assets-graph';
@@ -75,6 +77,7 @@ import ContinueWhenIcon from '../../../../core/continue-when';
 import CrossOctagonIcon from '../../../../core/cross-octagon';
 import CursorIcon from '../../../../core/cursor';
 import CursorStrikethroughIcon from '../../../../core/cursor-strikethrough';
+import DashDoubleIcon from '../../../../core/dash-double';
 import DataBucketIcon from '../../../../core/data-bucket';
 import DataFormulaIcon from '../../../../core/data-formula';
 import DataFunctionIcon from '../../../../core/data-function';
@@ -114,6 +117,7 @@ import DiagramSymbolSortIcon from '../../../../core/diagram-symbol-sort';
 import DiagramSymbolStoredDataIcon from '../../../../core/diagram-symbol-stored-data';
 import DiagramSymbolSummingJunctionIcon from '../../../../core/diagram-symbol-summing-junction';
 import DiagramSymbolTerminatorIcon from '../../../../core/diagram-symbol-terminator';
+import DirectoryIcon from '../../../../core/directory';
 import DistributeSpacingHorizontalIcon from '../../../../core/distribute-spacing-horizontal';
 import DistributeSpacingVerticalIcon from '../../../../core/distribute-spacing-vertical';
 import DividerElementIcon from '../../../../core/divider-element';
@@ -205,6 +209,9 @@ import ShapeTriangleIcon from '../../../../core/shape-triangle';
 import ShapeTriangleInvertedIcon from '../../../../core/shape-triangle-inverted';
 import SignatureIcon from '../../../../core/signature';
 import SignpostIcon from '../../../../core/signpost';
+import SkillIcon from '../../../../core/skill';
+import SkipIcon from '../../../../core/skip';
+import SkipUnskipIcon from '../../../../core/skip-unskip';
 import SortOptionsIcon from '../../../../core/sort-options';
 import SpacesIcon from '../../../../core/spaces';
 import SpeedometerLeftIcon from '../../../../core/speedometer-left';
@@ -591,6 +598,13 @@ const Icons = [
 	TemplateSyncIcon,
 	TextCursorIcon,
 	WorldIcon,
+	ArrowEndIcon,
+	ArrowStartIcon,
+	DashDoubleIcon,
+	DirectoryIcon,
+	SkillIcon,
+	SkipIcon,
+	SkipUnskipIcon,
 ];
 
 const groupSize = 50;

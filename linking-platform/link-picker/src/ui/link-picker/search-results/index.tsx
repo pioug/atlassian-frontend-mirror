@@ -64,6 +64,7 @@ export type SearchResultsProps = {
 	error?: unknown;
 	adaptiveHeight: boolean;
 	retry: () => void;
+	shouldRenderNoResultsImage?: boolean;
 };
 
 export const SearchResults = ({
@@ -86,6 +87,7 @@ export const SearchResults = ({
 	handleKeyDown,
 	adaptiveHeight,
 	retry,
+	shouldRenderNoResultsImage,
 }: SearchResultsProps): JSX.Element => {
 	const isActivePlugin = !!activePlugin;
 	// Experiment with new 3P tabs in link picker. For more info, please see: go/link-picker-3p-drive-one-pager.
@@ -166,6 +168,7 @@ export const SearchResults = ({
 							activePlugin={activePlugin}
 							adaptiveHeight={adaptiveHeight}
 							tabPanelId={`${testIds.tabList}-${activeTab}-tab`}
+							shouldRenderNoResultsImage={shouldRenderNoResultsImage}
 						/>
 					)}
 

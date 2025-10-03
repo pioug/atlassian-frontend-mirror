@@ -3,18 +3,24 @@
  * @jsx jsx
  */
 
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
+import { bind } from 'bind-event-listener';
 
 import Badge from '@atlaskit/badge';
 import AKBanner from '@atlaskit/banner';
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import { FlagsProvider, useFlags } from '@atlaskit/flag';
 import Heading from '@atlaskit/heading';
+import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import AppsIcon from '@atlaskit/icon/core/apps';
+import BoardIcon from '@atlaskit/icon/core/board';
+import ClockIcon from '@atlaskit/icon/core/clock';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import ProjectIcon from '@atlaskit/icon/core/project';
+import StatusInformationIcon from '@atlaskit/icon/core/status-information';
 import { ConfluenceIcon } from '@atlaskit/logo';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
@@ -25,7 +31,10 @@ import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
 	SideNavContent,
+	SideNavFooter,
+	SideNavHeader,
 	SideNavToggleButton,
+	useToggleSideNav,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
@@ -33,8 +42,20 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
+import { ButtonMenuItem } from '@atlaskit/navigation-system/side-nav-items/button-menu-item';
+import {
+	ExpandableMenuItem,
+	ExpandableMenuItemContent,
+	ExpandableMenuItemTrigger,
+} from '@atlaskit/navigation-system/side-nav-items/expandable-menu-item';
+import {
+	FlyoutMenuItem,
+	FlyoutMenuItemContent,
+	FlyoutMenuItemTrigger,
+} from '@atlaskit/navigation-system/side-nav-items/flyout-menu-item';
 import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
+import { Divider } from '@atlaskit/navigation-system/side-nav-items/menu-section';
 import {
 	AppLogo,
 	AppSwitcher,
@@ -48,9 +69,9 @@ import {
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
+import { CardGrid } from './utils/card-grid';
 import { WithResponsiveViewport } from './utils/example-utils';
 import { LongPlaceholderContent } from './utils/long-placeholder-content';
-
 const bannerStyles = cssMap({
 	root: {
 		backgroundColor: token('elevation.surface.sunken'),
@@ -87,6 +108,26 @@ const headingStyles = cssMap({
 	},
 });
 
+// Placed in a component so it can access the side nav state context
+const ToggleSideNavKeyboardShortcut = () => {
+	const toggleSideNav = useToggleSideNav();
+
+	useEffect(() => {
+		const toggle = (event: KeyboardEvent) => {
+			if (event.key === '[') {
+				toggleSideNav();
+			}
+		};
+
+		return bind(document, {
+			type: 'keydown',
+			listener: toggle,
+		});
+	}, [toggleSideNav]);
+
+	return null;
+};
+
 // Example slot widths
 const defaultSlotWidths = {
 	sideNav: 350,
@@ -94,7 +135,7 @@ const defaultSlotWidths = {
 	aside: 400,
 };
 
-export function InteractiveLayoutExample() {
+function Example() {
 	const [isBannerVisible, setIsBannerVisible] = useState(false);
 	const [isAsideVisible, setIsAsideVisible] = useState(false);
 	const [isPanelVisible, setIsPanelVisible] = useState(false);
@@ -114,170 +155,233 @@ export function InteractiveLayoutExample() {
 	const [isPanelLongPlaceholderContentVisible, setIsPanelLongPlaceholderContentVisible] =
 		useState(false);
 
+	const [isCardGridVisible, setIsCardGridVisible] = useState(false);
+
+	const { showFlag } = useFlags();
+	const flagCount = useRef(1);
+
+	const addFlag = useCallback(() => {
+		const id = flagCount.current++;
+		showFlag({
+			description: 'Added from the context.',
+			icon: <StatusInformationIcon label="" color={token('color.icon.information')} />,
+			id: id,
+			title: `${id}: Whoa a new flag!`,
+		});
+	}, [showFlag]);
+
 	return (
-		<WithResponsiveViewport>
-			<Root>
-				{isBannerVisible && (
-					<Banner
-						xcss={bannerStyles.root}
-						// Setting slot height to match the height of the Atlaskit Banner component.
-						height={48}
-					>
-						<AKBanner appearance="announcement">Great news! A new navigation system.</AKBanner>
-					</Banner>
-				)}
+		<Root defaultSideNavCollapsed={isSideNavDefaultCollapsed}>
+			<ToggleSideNavKeyboardShortcut />
 
-				<TopNav>
-					<TopNavStart>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
-						<AppLogo href="" icon={ConfluenceIcon} label="Home page" name="Confluence" />
-						<AppSwitcher label="Switch apps" />
-					</TopNavStart>
-
-					<TopNavMiddle>
-						<Search label="Search" />
-						<CreateButton>Create</CreateButton>
-					</TopNavMiddle>
-
-					<TopNavEnd>
-						<Help label="Help" />
-						<Notifications
-							label="Notifications"
-							badge={() => (
-								<Badge max={9} appearance="important">
-									{99999}
-								</Badge>
-							)}
-						/>
-						<Settings label="Settings" />
-						<DropdownMenu
-							shouldRenderToParent
-							trigger={({ triggerRef: ref, ...props }) => (
-								<Profile ref={ref} label="Profile" {...props} />
-							)}
-						>
-							<DropdownItemGroup>
-								<DropdownItem>Account</DropdownItem>
-							</DropdownItemGroup>
-						</DropdownMenu>
-					</TopNavEnd>
-				</TopNav>
-
-				<SideNav
-					defaultCollapsed={isSideNavDefaultCollapsed}
-					onExpand={() => setIsSideNavDefaultCollapsed(false)}
-					onCollapse={() => setIsSideNavDefaultCollapsed(true)}
-					defaultWidth={persistedSideNavWidth}
+			{isBannerVisible && (
+				<Banner
+					xcss={bannerStyles.root}
+					// Setting slot height to match the height of the Atlaskit Banner component.
+					height={48}
 				>
-					<SideNavContent>
-						<MenuList>
-							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
-								Your work
-							</LinkMenuItem>
-							<LinkMenuItem href="#" elemBefore={<AppsIcon label="" color="currentColor" />}>
-								Apps
-							</LinkMenuItem>
-							<LinkMenuItem href="#" elemBefore={<ProjectIcon label="" color="currentColor" />}>
-								Projects
-							</LinkMenuItem>
-						</MenuList>
-					</SideNavContent>
-					<PanelSplitter
-						label="Resize side nav"
-						onResizeEnd={({ finalWidth }) => setPersistedSideNavWidth(finalWidth)}
+					<AKBanner appearance="announcement">Great news! A new navigation system.</AKBanner>
+				</Banner>
+			)}
+
+			<TopNav>
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					}
+				>
+					<AppSwitcher label="Switch apps" />
+					<AppLogo href="" icon={ConfluenceIcon} label="Home page" name="Confluence" />
+				</TopNavStart>
+
+				<TopNavMiddle>
+					<Search label="Search" />
+					<CreateButton>Create</CreateButton>
+				</TopNavMiddle>
+
+				<TopNavEnd>
+					<Help label="Help" />
+					<Notifications
+						label="Notifications"
+						badge={() => (
+							<Badge max={9} appearance="important">
+								{99999}
+							</Badge>
+						)}
 					/>
-				</SideNav>
+					<Settings label="Settings" />
+					<DropdownMenu
+						shouldRenderToParent
+						trigger={({ triggerRef: ref, ...props }) => (
+							<Profile ref={ref} label="Profile" {...props} />
+						)}
+					>
+						<DropdownItemGroup>
+							<DropdownItem>Account</DropdownItem>
+						</DropdownItemGroup>
+					</DropdownMenu>
+				</TopNavEnd>
+			</TopNav>
 
-				<Main id="main-container">
-					<Stack space="space.100" xcss={headingStyles.root}>
-						<Heading size="large">Interactive layout example</Heading>
-						<Text>Resize your browser to see how it responds to different screen sizes.</Text>
+			<SideNav
+				defaultCollapsed={isSideNavDefaultCollapsed}
+				onExpand={() => setIsSideNavDefaultCollapsed(false)}
+				onCollapse={() => setIsSideNavDefaultCollapsed(true)}
+				defaultWidth={persistedSideNavWidth}
+			>
+				<SideNavHeader>
+					<Heading size="medium">Sidebar header</Heading>
+				</SideNavHeader>
+				<SideNavContent>
+					<MenuList>
+						<LinkMenuItem href="#" elemBefore={<InboxIcon label="" />}>
+							Your work
+						</LinkMenuItem>
+						<LinkMenuItem href="#" elemBefore={<AppsIcon label="" />}>
+							Apps
+						</LinkMenuItem>
+						<LinkMenuItem href="#" elemBefore={<ProjectIcon label="" />}>
+							Projects
+						</LinkMenuItem>
 
-						<Text>
-							Play around with these toggles to see how the layout areas respond with different
-							combinations:
-						</Text>
-						<Inline space="space.100" shouldWrap>
+						<FlyoutMenuItem>
+							<FlyoutMenuItemTrigger elemBefore={<ClockIcon label="" />}>
+								Recent
+							</FlyoutMenuItemTrigger>
+							<FlyoutMenuItemContent>
+								<ButtonMenuItem elemBefore={<BoardIcon label="" />}>YNG board</ButtonMenuItem>
+								<Divider />
+								<ButtonMenuItem elemBefore={<AlignTextLeftIcon label="" />}>
+									View all starred items
+								</ButtonMenuItem>
+							</FlyoutMenuItemContent>
+						</FlyoutMenuItem>
+
+						<ExpandableMenuItem>
+							<ExpandableMenuItemTrigger>
+								Expandable menu item with long content
+							</ExpandableMenuItemTrigger>
+							<ExpandableMenuItemContent>
+								{Array.from({ length: 100 }, (_, i) => (
+									<LinkMenuItem key={i} href="#" elemBefore={<InboxIcon label="" />}>
+										Item {i + 1}
+									</LinkMenuItem>
+								))}
+							</ExpandableMenuItemContent>
+						</ExpandableMenuItem>
+					</MenuList>
+				</SideNavContent>
+				<SideNavFooter>
+					<Text>Sidebar footer</Text>
+				</SideNavFooter>
+				<PanelSplitter
+					label="Resize side nav"
+					onResizeEnd={({ finalWidth }) => setPersistedSideNavWidth(finalWidth)}
+				/>
+			</SideNav>
+
+			<Main id="main-container">
+				<Stack space="space.100" xcss={headingStyles.root}>
+					<Heading size="large">Interactive layout example</Heading>
+					<Text>Resize your browser to see how it responds to different screen sizes.</Text>
+
+					<Text>
+						Play around with these toggles to see how the layout areas respond with different
+						combinations:
+					</Text>
+					<Inline space="space.100" shouldWrap>
+						<Button
+							isSelected={isBannerVisible}
+							onClick={() => setIsBannerVisible((prev) => !prev)}
+						>
+							Toggle banner
+						</Button>
+						<Button isSelected={isAsideVisible} onClick={() => setIsAsideVisible((prev) => !prev)}>
+							Toggle aside
+						</Button>
+						<Button isSelected={isPanelVisible} onClick={() => setIsPanelVisible((prev) => !prev)}>
+							Toggle panel
+						</Button>
+						<Button
+							isSelected={isMainLongPlaceholderContentVisible}
+							onClick={() => setIsMainLongPlaceholderContentVisible((current) => !current)}
+						>
+							Toggle long content
+						</Button>
+						<Button
+							isSelected={isCardGridVisible}
+							onClick={() => setIsCardGridVisible((current) => !current)}
+						>
+							Toggle card grid
+						</Button>
+						<Button onClick={addFlag}>Add flag</Button>
+					</Inline>
+					{isMainLongPlaceholderContentVisible && <LongPlaceholderContent />}
+					{isCardGridVisible && <CardGrid />}
+				</Stack>
+			</Main>
+
+			{isAsideVisible && (
+				<Aside xcss={asideStyles.root} defaultWidth={persistedAsideWidth}>
+					<Stack space="space.100" xcss={asideStyles.content}>
+						<Heading size="medium">Aside layout area</Heading>
+						<Text>This element is rendered in the aside layout area.</Text>
+						<Text>Aside moves below the main layout area on small viewports.</Text>
+
+						{/* Wrapping div added to prevent Button from taking full width */}
+						<div>
 							<Button
-								isSelected={isBannerVisible}
-								onClick={() => setIsBannerVisible((prev) => !prev)}
-							>
-								Toggle banner
-							</Button>
-							<Button
-								isSelected={isAsideVisible}
-								onClick={() => setIsAsideVisible((prev) => !prev)}
-							>
-								Toggle aside
-							</Button>
-							<Button
-								isSelected={isPanelVisible}
-								onClick={() => setIsPanelVisible((prev) => !prev)}
-							>
-								Toggle panel
-							</Button>
-							<Button
-								isSelected={isMainLongPlaceholderContentVisible}
-								onClick={() => setIsMainLongPlaceholderContentVisible((current) => !current)}
+								isSelected={isAsideLongPlaceholderContentVisible}
+								onClick={() => setIsAsideLongPlaceholderContentVisible((current) => !current)}
 							>
 								Toggle long content
 							</Button>
-						</Inline>
-						{isMainLongPlaceholderContentVisible && <LongPlaceholderContent />}
+						</div>
+						{isAsideLongPlaceholderContentVisible && <LongPlaceholderContent />}
 					</Stack>
-				</Main>
+					<PanelSplitter
+						label="Resize aside"
+						onResizeEnd={({ finalWidth }) => setPersistedAsideWidth(finalWidth)}
+					/>
+				</Aside>
+			)}
 
-				{isAsideVisible && (
-					<Aside xcss={asideStyles.root} defaultWidth={persistedAsideWidth}>
-						<Stack space="space.100" xcss={asideStyles.content}>
-							<Heading size="medium">Aside layout area</Heading>
-							<Text>This element is rendered in the aside layout area.</Text>
-							<Text>Aside moves below the main layout area on small viewports.</Text>
+			{isPanelVisible && (
+				<Panel defaultWidth={persistedPanelWidth}>
+					<Stack space="space.100" xcss={panelStyles.content}>
+						<Heading size="medium">Panel layout area</Heading>
+						<Text>This element is rendered in the panel layout area.</Text>
+						<Text>Panel becomes an overlay on small-medium viewports.</Text>
 
-							{/* Wrapping div added to prevent Button from taking full width */}
-							<div>
-								<Button
-									isSelected={isAsideLongPlaceholderContentVisible}
-									onClick={() => setIsAsideLongPlaceholderContentVisible((current) => !current)}
-								>
-									Toggle long content
-								</Button>
-							</div>
-							{isAsideLongPlaceholderContentVisible && <LongPlaceholderContent />}
-						</Stack>
-						<PanelSplitter
-							label="Resize aside"
-							onResizeEnd={({ finalWidth }) => setPersistedAsideWidth(finalWidth)}
-						/>
-					</Aside>
-				)}
+						{/* Wrapping div added to prevent Button from taking full width */}
+						<div>
+							<Button
+								isSelected={isPanelLongPlaceholderContentVisible}
+								onClick={() => setIsPanelLongPlaceholderContentVisible((current) => !current)}
+							>
+								Toggle long content
+							</Button>
+						</div>
 
-				{isPanelVisible && (
-					<Panel defaultWidth={persistedPanelWidth}>
-						<Stack space="space.100" xcss={panelStyles.content}>
-							<Heading size="medium">Panel layout area</Heading>
-							<Text>This element is rendered in the panel layout area.</Text>
-							<Text>Panel becomes an overlay on small-medium viewports.</Text>
+						{isPanelLongPlaceholderContentVisible && <LongPlaceholderContent />}
+					</Stack>
+					<PanelSplitter
+						label="Resize panel"
+						onResizeEnd={({ finalWidth }) => setPersistedPanelWidth(finalWidth)}
+					/>
+				</Panel>
+			)}
+		</Root>
+	);
+}
 
-							{/* Wrapping div added to prevent Button from taking full width */}
-							<div>
-								<Button
-									isSelected={isPanelLongPlaceholderContentVisible}
-									onClick={() => setIsPanelLongPlaceholderContentVisible((current) => !current)}
-								>
-									Toggle long content
-								</Button>
-							</div>
-
-							{isPanelLongPlaceholderContentVisible && <LongPlaceholderContent />}
-						</Stack>
-						<PanelSplitter
-							label="Resize panel"
-							onResizeEnd={({ finalWidth }) => setPersistedPanelWidth(finalWidth)}
-						/>
-					</Panel>
-				)}
-			</Root>
+// Wrapping in another component so we can access the flags context in the example
+export function InteractiveLayoutExample() {
+	return (
+		<WithResponsiveViewport>
+			<FlagsProvider>
+				<Example />
+			</FlagsProvider>
 		</WithResponsiveViewport>
 	);
 }

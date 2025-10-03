@@ -1,7 +1,7 @@
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import type { ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { type Selection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -30,6 +30,15 @@ export const getCurrentNodePosFromDragHandleSelection = ({
 		// We only move table node if it's fully selected
 		// to avoid shortcut collision with table drag and drop
 		currentNodePos = findTable(selection)?.pos ?? currentNodePos;
+	} else if (
+		selection instanceof NodeSelection &&
+		selection.node.type === schema.nodes.media &&
+		selection.node.attrs.type === 'file' &&
+		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+	) {
+		// When a file is selected, it is actually wrapped in a media group
+		// return the position of the media group , as the group is the node that we want to move up or down
+		currentNodePos = selection.$from.pos - 1;
 	} else if (!(selection instanceof GapCursorSelection)) {
 		// 2. caret cursor is inside the node
 		// 3. the start of the selection is inside the node

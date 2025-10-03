@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 6.0.3
+
+### Patch Changes
+
+- [`663926469ec70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/663926469ec70) -
+  Switch to use fg() to check feature gate platform_editor_update_modal_close_button
+- Updated dependencies
+
 ## 6.0.2
 
 ### Patch Changes

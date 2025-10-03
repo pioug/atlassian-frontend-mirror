@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 7.0.9
+
+### Patch Changes
+
+- [`482bcdc75598e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/482bcdc75598e) -
+  ED-29462 Clean up platform_editor_toolbar_aifc_responsiveness_update
+- Updated dependencies
+
 ## 7.0.8
 
 ### Patch Changes

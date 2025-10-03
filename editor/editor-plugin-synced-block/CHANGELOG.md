@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.0
+
+### Minor Changes
+
+- [`acb8231bc9e0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acb8231bc9e0c) -
+  EDITOR-1779 - "rebase" the transaction to reflect the latest document state
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.2
 
 ### Patch Changes

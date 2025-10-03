@@ -20,6 +20,16 @@ export const isNestedNode = (selection: Selection | undefined, menuTriggerBy: st
 	const { $from } = selection;
 	const depth = $from.depth;
 
+	// When a file is in card view, selection.$from has a depth of 1, but it is not a nested node, should return false
+	if (
+		$from.depth === 1 &&
+		selection instanceof NodeSelection &&
+		selection.node.type.name === 'media' &&
+		selection.node.attrs.type === 'file'
+	) {
+		return false;
+	}
+
 	if ($from.depth > 0 && selection instanceof NodeSelection) {
 		return true;
 	}

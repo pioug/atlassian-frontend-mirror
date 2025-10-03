@@ -73,6 +73,9 @@
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
+			"path": "../flag/tsconfig.app.json"
+		},
+		{
 			"path": "../form/tsconfig.app.json"
 		},
 		{

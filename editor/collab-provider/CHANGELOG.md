@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 14.0.2
+
+### Patch Changes
+
+- [`34c085d24f484`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34c085d24f484) -
+  Add new offline metadata to steps if they contain steps that were created while offline.
+- Updated dependencies
+
 ## 14.0.1
 
 ### Patch Changes

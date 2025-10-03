@@ -12,7 +12,7 @@ import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/core/migration/cross';
 import { CloseButton, type OnCloseHandler } from '@atlaskit/modal-dialog';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -44,7 +44,7 @@ const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeade
 				/>
 			</Heading>
 
-			{onClose && expValEquals('platform_editor_update_modal_close_button', 'isEnabled', true) ? (
+			{onClose && fg('platform_editor_update_modal_close_button') ? (
 				<div css={toolbarFocusStyles}>
 					<Tooltip content={formatMessage(messages.closeHelpDialog)} position="top">
 						<CloseButton onClick={onClose} label={formatMessage(messages.closeHelpDialog)} />

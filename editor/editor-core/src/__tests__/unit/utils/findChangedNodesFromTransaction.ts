@@ -13,7 +13,6 @@ import {
 	tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { Schema } from '@atlaskit/editor-test-helpers/schema';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { findChangedNodesFromTransaction } from '../../../utils/findChangedNodesFromTransaction';
 
@@ -32,72 +31,39 @@ const editor = (doc: (schema: Schema<any, any>) => RefsNode) =>
 	});
 
 describe('findChangedNodesFromTransaction', () => {
-	ffTest(
-		'cc_complexit_fe_improve_node_validation',
-		() => {
-			const { editorView } = editor(doc(p('')));
+	it('should only find top level nodes which changed in the transaction for replace', () => {
+		const { editorView } = editor(doc(p('')));
 
-			const { state } = editorView;
-			const transaction = state.tr.replaceWith(
-				0,
-				state.doc.content.size,
-				doc(
-					p('Hello'),
-					expand()(
-						p('World!'),
-						table({ localId: 'test-inner' })(
-							tr(tdEmpty, tdEmpty, tdEmpty),
-							tr(tdEmpty, tdEmpty, tdEmpty),
-							tr(tdEmpty, tdEmpty, tdEmpty),
-						),
-					),
-					table({ localId: 'test-outer' })(
+		const { state } = editorView;
+		const transaction = state.tr.replaceWith(
+			0,
+			state.doc.content.size,
+			doc(
+				p('Hello'),
+				expand()(
+					p('World!'),
+					table({ localId: 'test-inner' })(
 						tr(tdEmpty, tdEmpty, tdEmpty),
 						tr(tdEmpty, tdEmpty, tdEmpty),
-						tr(tdEmpty, tdEmpty, td()(p('test'))),
-					),
-				)(state.schema),
-			);
-
-			const nodes = findChangedNodesFromTransaction(transaction);
-
-			expect(nodes).toHaveLength(1);
-			expect(nodes[0].type).toEqual(state.schema.nodes.tableCell);
-		},
-		() => {
-			const { editorView } = editor(doc(p('')));
-
-			const { state } = editorView;
-			const transaction = state.tr.replaceWith(
-				0,
-				state.doc.content.size,
-				doc(
-					p('Hello'),
-					expand()(
-						p('World!'),
-						table({ localId: 'test-inner' })(
-							tr(tdEmpty, tdEmpty, tdEmpty),
-							tr(tdEmpty, tdEmpty, tdEmpty),
-							tr(tdEmpty, tdEmpty, tdEmpty),
-						),
-					),
-					table({ localId: 'test-outer' })(
 						tr(tdEmpty, tdEmpty, tdEmpty),
-						tr(tdEmpty, tdEmpty, tdEmpty),
-						tr(tdEmpty, tdEmpty, td()(p('test'))),
 					),
-				)(state.schema),
-			);
+				),
+				table({ localId: 'test-outer' })(
+					tr(tdEmpty, tdEmpty, tdEmpty),
+					tr(tdEmpty, tdEmpty, tdEmpty),
+					tr(tdEmpty, tdEmpty, td()(p('test'))),
+				),
+			)(state.schema),
+		);
 
-			const nodes = findChangedNodesFromTransaction(transaction);
+		const nodes = findChangedNodesFromTransaction(transaction);
 
-			expect(nodes).toHaveLength(3);
-			expect(nodes[0].type).toEqual(state.schema.nodes.paragraph);
-			expect(nodes[1].type).toEqual(state.schema.nodes.expand);
-			expect(nodes[2].type).toEqual(state.schema.nodes.table);
-			expect(nodes[2].attrs.localId).toEqual('test-outer');
-		},
-	);
+		expect(nodes).toHaveLength(3);
+		expect(nodes[0].type).toEqual(state.schema.nodes.paragraph);
+		expect(nodes[1].type).toEqual(state.schema.nodes.expand);
+		expect(nodes[2].type).toEqual(state.schema.nodes.table);
+		expect(nodes[2].attrs.localId).toEqual('test-outer');
+	});
 
 	it('should only find the top level nodes of inserted content from the transaction', () => {
 		const { editorView } = editor(

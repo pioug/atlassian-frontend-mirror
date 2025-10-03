@@ -128,19 +128,7 @@ const styles = cssMap({
 			// Hide the border for the flyout, because it has a shadow
 			borderInlineEnd: 'none',
 		},
-		/**
-		 * Disabling animations for Firefox, as it doesn't support animating the `display` property:
-		 * https://caniuse.com/mdn-css_properties_display_is_transitionable
-		 *
-		 * Additionally, it doesn't support the `@starting-style` rule:
-		 * https://bugzilla.mozilla.org/show_bug.cgi?id=1892191
-		 *
-		 * We are using `@supports` to target browsers that are not Firefox:
-		 * https://www.bram.us/2021/06/23/css-at-supports-rules-to-target-only-firefox-safari-chromium/#not-firefox
-		 *
-		 * Unfortunately we cannot use `@supports` to target the support of `transition-behavior: allow-discrete` specifically
-		 * for the `display` property. And `@supports at-rule(@starting-style)` is also not ready for browser use yet.
-		 */
+		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `styles.animationBaseStyles` for more details.
 		'@supports not (-moz-appearance: none)': {
 			// Disabling animations if user has opted for reduced motion
 			'@media (prefers-reduced-motion: no-preference)': {
@@ -166,13 +154,65 @@ const styles = cssMap({
 			// These styles are in a media query to override the `styles.root` media query styles
 			gridArea: 'main',
 		},
-		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `styles.flyoutOpen` for more details.
+		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `styles.animationBaseStyles` for more details.
 		'@supports not (-moz-appearance: none)': {
 			// Disabling animations if user has opted for reduced motion
 			'@media (prefers-reduced-motion: no-preference)': {
 				transitionProperty: 'transform, display',
 				transitionDuration: '0.2s',
 				transitionBehavior: 'allow-discrete',
+				transform: 'translateX(-100%)',
+			},
+		},
+	},
+	flyoutBaseStylesFullHeightSidebar: {
+		// These styles are shared between the open and close animations for flyout
+		'@media (min-width: 64rem)': {
+			// These styles are in a media query to override the `styles.root` media query styles
+			backgroundColor: token('elevation.surface.overlay'),
+			boxShadow: token('elevation.shadow.overlay'),
+			gridArea: 'main',
+			// Hide the border for the flyout, because it has a shadow
+			borderInlineEnd: 'none',
+		},
+		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `styles.animationBaseStyles` for more details.
+		'@supports not (-moz-appearance: none)': {
+			'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
+				transitionProperty: 'transform, display',
+				transitionBehavior: 'allow-discrete',
+			},
+		},
+	},
+	flyoutOpenFullHeightSidebar: {
+		'@supports not (-moz-appearance: none)': {
+			'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
+				transitionDuration: '0.3s',
+				transitionTimingFunction: 'cubic-bezier(0.6, 0, 0, 1)',
+				// We need to override the mobile collapse `transform` style
+				transform: 'initial',
+
+				/**
+				 * Because we're transitioning from display: none, we need to define the
+				 * starting values for when the element is first displayed, so the
+				 * transition animation knows where to start from.
+				 */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'@starting-style': {
+					transform: 'translateX(-100%)',
+				},
+			},
+		},
+	},
+	flyoutAnimateClosedFullHeightSidebar: {
+		'@media (min-width: 64rem)': {
+			display: 'none',
+		},
+		'@supports not (-moz-appearance: none)': {
+			// Desktop media query is used here to prevent overriding mobile sidebar styles, if the flyout
+			// was just closed, and then the user resized to mobile viewport with the mobile sidebar expanded.
+			'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
+				transitionDuration: '0.2s',
+				transitionTimingFunction: 'cubic-bezier(0, 0.4, 0, 1)',
 				transform: 'translateX(-100%)',
 			},
 		},
@@ -196,6 +236,88 @@ const styles = cssMap({
 	hiddenDesktopOnly: {
 		'@media (min-width: 64rem)': {
 			display: 'none',
+		},
+	},
+	animationBaseStyles: {
+		/**
+		 * Disabling animations for Firefox, as it doesn't support animating the `display` property:
+		 * https://caniuse.com/mdn-css_properties_display_is_transitionable
+		 *
+		 * Additionally, it doesn't support the `@starting-style` rule:
+		 * https://bugzilla.mozilla.org/show_bug.cgi?id=1892191
+		 *
+		 * We are using `@supports` to target browsers that are not Firefox:
+		 * https://www.bram.us/2021/06/23/css-at-supports-rules-to-target-only-firefox-safari-chromium/#not-firefox
+		 *
+		 * Unfortunately we cannot use `@supports` to target the support of `transition-behavior: allow-discrete` specifically
+		 * for the `display` property. And `@supports at-rule(@starting-style)` is also not ready for browser use yet.
+		 */
+		'@supports not (-moz-appearance: none)': {
+			// Disabling animations if user has opted for reduced motion
+			'@media (prefers-reduced-motion: no-preference)': {
+				transitionProperty: 'transform, display',
+				transitionBehavior: 'allow-discrete',
+				transitionDuration: '0.3s',
+			},
+		},
+	},
+	expandAnimationMobile: {
+		// These styles are not limited to "mobile" viewports, as they are not scoped to any media queries.
+		// Desktop styles will need to override these if required.
+		'@supports not (-moz-appearance: none)': {
+			'@media (prefers-reduced-motion: no-preference)': {
+				transitionTimingFunction: 'cubic-bezier(0.6, 0, 0, 1)',
+
+				/**
+				 * Because we're transitioning from display: none, we need to define the
+				 * starting values for when the element is first displayed, so the
+				 * transition animation knows where to start from.
+				 */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'@starting-style': {
+					transform: 'translateX(-100%)',
+				},
+			},
+		},
+	},
+	collapseAnimationMobile: {
+		// These styles are not limited to "mobile" viewports, as they are not scoped to any media queries.
+		// Desktop styles will need to override these if required.
+		'@supports not (-moz-appearance: none)': {
+			'@media (prefers-reduced-motion: no-preference)': {
+				gridArea: 'main',
+				transitionTimingFunction: 'cubic-bezier(0, 0.4, 0, 1)',
+				transform: 'translateX(-100%)',
+			},
+		},
+	},
+	expandAnimationDesktop: {
+		'@supports not (-moz-appearance: none)': {
+			'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
+				// We need to override the mobile styles for desktop
+				gridArea: 'side-nav',
+				transitionTimingFunction: 'cubic-bezier(0.6, 0, 0, 1)',
+				transform: 'initial',
+
+				/**
+				 * Because we're transitioning from display: none, we need to define the
+				 * starting values for when the element is first displayed, so the
+				 * transition animation knows where to start from.
+				 */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'@starting-style': {
+					transform: 'translateX(-100%)',
+				},
+			},
+		},
+	},
+	collapseAnimationDesktop: {
+		'@supports not (-moz-appearance: none)': {
+			'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
+				gridArea: 'main',
+				transitionTimingFunction: 'cubic-bezier(0, 0.4, 0, 1)',
+				transform: 'translateX(-100%)',
+			},
 		},
 	},
 	fullHeightSidebar: {
@@ -827,6 +949,20 @@ function SideNavInternal({
 
 	const isFlyoutClosed = sideNavState?.flyout === 'closed' || sideNavState?.flyout === undefined;
 
+	// Used to prevent sidebar expand animations from running on the initial render.
+	// Otherwise, the `@starting-style` rule will cause the sidebar to slide in initially.
+	const isFirstRenderRef = useRef(true);
+
+	useEffect(() => {
+		if (!fg('navx-full-height-sidebar')) {
+			return;
+		}
+
+		if (isFirstRenderRef.current) {
+			isFirstRenderRef.current = false;
+		}
+	}, []);
+
 	return (
 		<nav
 			id={id}
@@ -851,8 +987,48 @@ function SideNavInternal({
 					!isExpandedOnMobile &&
 					!isFlyoutVisible &&
 					styles.hiddenMobileAndDesktop,
-				sideNavState?.flyout === 'open' && styles.flyoutOpen,
-				sideNavState?.flyout === 'triggered-animate-close' && styles.flyoutAnimateClosed,
+
+				// Expand/collapse animation styles
+				// We do not apply the animation styles on the initial render, as the `@starting-style` rule will cause the sidebar to
+				// slide in initially.
+				!isFirstRenderRef.current && fg('navx-full-height-sidebar') && styles.animationBaseStyles,
+				// We need to separately apply the styles for the expand or collapse animations for both mobile and desktop
+				// based on their relevant expansion state.
+				isExpandedOnMobile &&
+					!isFirstRenderRef.current &&
+					fg('navx-full-height-sidebar') &&
+					styles.expandAnimationMobile,
+				!isExpandedOnMobile &&
+					!isFirstRenderRef.current &&
+					fg('navx-full-height-sidebar') &&
+					styles.collapseAnimationMobile,
+				isExpandedOnDesktop &&
+					!isFirstRenderRef.current &&
+					fg('navx-full-height-sidebar') &&
+					styles.expandAnimationDesktop,
+				!isExpandedOnDesktop &&
+					!isFirstRenderRef.current &&
+					fg('navx-full-height-sidebar') &&
+					styles.collapseAnimationDesktop,
+
+				// Flyout styles
+				sideNavState?.flyout === 'open' && !fg('navx-full-height-sidebar') && styles.flyoutOpen,
+				sideNavState?.flyout === 'triggered-animate-close' &&
+					!fg('navx-full-height-sidebar') &&
+					styles.flyoutAnimateClosed,
+
+				(sideNavState?.flyout === 'open' || sideNavState?.flyout === 'triggered-animate-close') &&
+					fg('navx-full-height-sidebar') &&
+					styles.flyoutBaseStylesFullHeightSidebar,
+				sideNavState?.flyout === 'triggered-animate-close' &&
+					fg('navx-full-height-sidebar') &&
+					styles.flyoutAnimateClosedFullHeightSidebar,
+				sideNavState?.flyout === 'open' &&
+					fg('navx-full-height-sidebar') &&
+					styles.flyoutOpenFullHeightSidebar,
+				sideNavState?.flyout === 'triggered-animate-close' &&
+					fg('navx-full-height-sidebar') &&
+					styles.flyoutAnimateClosedFullHeightSidebar,
 				// Flyout is not using full height styles
 				isFlyoutClosed && fg('navx-full-height-sidebar') && styles.fullHeightSidebar,
 			]}

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 6.0.10
+
+### Patch Changes
+
+- [`ff53e1bfc6c25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff53e1bfc6c25) -
+  [ED-29482] clean up references to platform_editor_toolbar_rerender_optimization_exp
+- Updated dependencies
+
+## 6.0.9
+
+### Patch Changes
+
+- [`482bcdc75598e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/482bcdc75598e) -
+  ED-29462 Clean up platform_editor_toolbar_aifc_responsiveness_update
+- Updated dependencies
+
 ## 6.0.8
 
 ### Patch Changes

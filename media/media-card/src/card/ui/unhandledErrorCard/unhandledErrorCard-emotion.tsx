@@ -82,7 +82,7 @@ export class UnhandledErrorCard extends Component<UnhandledErrorCardProps, {}> {
 			getConvertedDimension(dimensions ?? defaultImageCardDimensions),
 		);
 		return (
-			// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/design-system/consistent-css-prop-usage, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/design-system/consistent-css-prop-usage, jsx-a11y/no-static-element-interactions, @atlassian/a11y/click-events-have-key-events -- Ignored via go/DSP-18766
 			<div css={wrapperStyles(dimensions)} onClick={onClick}>
 				<WarningIcon
 					label="Error"

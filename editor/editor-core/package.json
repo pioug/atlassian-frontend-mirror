@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "214.1.6",
+	"version": "214.2.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -150,9 +150,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"cc_complexit_fe_improve_node_validation": {
-			"type": "boolean"
-		},
 		"cc_editor_abort_ufo_load_on_editor_scroll": {
 			"type": "boolean"
 		},

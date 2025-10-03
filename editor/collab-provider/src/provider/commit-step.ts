@@ -15,6 +15,7 @@ import type AnalyticsHelper from '../analytics/analytics-helper';
 import type { InternalError } from '../errors/internal-errors';
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const logger = createLogger('commit-step', 'black');
 export const RESET_READYTOCOMMIT_INTERVAL_MS = 5000;
@@ -56,6 +57,7 @@ export class CommitStepService {
 		collabMode,
 		reason,
 		lockSteps,
+		stepOrigins,
 	}: {
 		__livePage: boolean;
 		clientId: number | string;
@@ -64,6 +66,7 @@ export class CommitStepService {
 		lockSteps: (stepOrigins?: readonly Transaction[]) => void;
 		onStepsAdded: (data: StepsPayload) => void;
 		reason?: GetResolvedEditorStateReason;
+		stepOrigins: readonly Transaction[];
 		steps: readonly ProseMirrorStep[];
 		userId: string;
 		version: number;
@@ -124,6 +127,10 @@ export class CommitStepService {
 				step.metadata = { ...step.metadata, unconfirmedStepAfterRecovery: true };
 				return step;
 			});
+		}
+
+		if (expValEquals('platform_editor_offline_editing_web', 'isEnabled', true)) {
+			stepsWithClientAndUserId = this.addOfflineMetadata(stepsWithClientAndUserId, stepOrigins);
 		}
 
 		const start = new Date().getTime();
@@ -205,6 +212,26 @@ export class CommitStepService {
 			return true;
 		}
 		return false;
+	}
+
+	private addOfflineMetadata(
+		stepsWithClientAndUserId: StepJson[],
+		origins: readonly Transaction[],
+	): StepJson[] {
+		if (origins.some((s) => s.getMeta('isOffline') === true || s.getMeta('wasOffline') === true)) {
+			return stepsWithClientAndUserId.map((step: StepJson, idx) => {
+				const origin = origins[idx];
+				if (!origin) {
+					return step;
+				}
+				const createdOffline = origin.getMeta('isOffline') || origin.getMeta('wasOffline');
+				if (createdOffline === true) {
+					step.metadata = { ...step.metadata, createdOffline };
+				}
+				return step;
+			});
+		}
+		return stepsWithClientAndUserId;
 	}
 
 	private sendSuccessAnalytics(latency: number, stepsWithClientAndUserId: StepJson[]) {

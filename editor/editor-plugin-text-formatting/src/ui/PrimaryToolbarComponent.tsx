@@ -56,33 +56,33 @@ const selector = (
 	};
 };
 
-export const PrimaryToolbarComponent = ({
-	api,
-	popupsMountPoint,
-	popupsScrollableElement,
-	toolbarSize,
-	editorView,
-	disabled,
-	isReducedSpacing,
-	shouldUseResponsiveToolbar,
-}: PrimaryToolbarComponentProps) => {
-	const textFormattingState = useSharedPluginStateWithSelector(api, ['textFormatting'], selector);
+export const PrimaryToolbarComponent = React.memo(
+	({
+		api,
+		popupsMountPoint,
+		popupsScrollableElement,
+		toolbarSize,
+		editorView,
+		disabled,
+		isReducedSpacing,
+		shouldUseResponsiveToolbar,
+	}: PrimaryToolbarComponentProps) => {
+		const textFormattingState = useSharedPluginStateWithSelector(api, ['textFormatting'], selector);
 
-	return (
-		<Toolbar
-			textFormattingState={textFormattingState}
-			popupsMountPoint={popupsMountPoint}
-			popupsScrollableElement={popupsScrollableElement}
-			toolbarSize={toolbarSize}
-			isReducedSpacing={isReducedSpacing}
-			editorView={editorView}
-			isToolbarDisabled={disabled}
-			shouldUseResponsiveToolbar={shouldUseResponsiveToolbar}
-			editorAnalyticsAPI={api?.analytics?.actions}
-			api={api}
-			toolbarType={ToolbarType.PRIMARY}
-		/>
-	);
-};
-
-export const PrimaryToolbarComponentMemoized = React.memo(PrimaryToolbarComponent);
+		return (
+			<Toolbar
+				textFormattingState={textFormattingState}
+				popupsMountPoint={popupsMountPoint}
+				popupsScrollableElement={popupsScrollableElement}
+				toolbarSize={toolbarSize}
+				isReducedSpacing={isReducedSpacing}
+				editorView={editorView}
+				isToolbarDisabled={disabled}
+				shouldUseResponsiveToolbar={shouldUseResponsiveToolbar}
+				editorAnalyticsAPI={api?.analytics?.actions}
+				api={api}
+				toolbarType={ToolbarType.PRIMARY}
+			/>
+		);
+	},
+);

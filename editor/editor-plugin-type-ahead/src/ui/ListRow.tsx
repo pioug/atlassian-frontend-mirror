@@ -1,4 +1,10 @@
-import React, { type ReactNode, useEffect, useRef, type MouseEventHandler } from 'react';
+import React, {
+	type ReactNode,
+	useEffect,
+	useRef,
+	forwardRef,
+	type MouseEventHandler,
+} from 'react';
 
 import { type ListRowProps } from 'react-virtualized';
 
@@ -6,7 +12,6 @@ type Props = {
 	children: ReactNode;
 	measure: () => void;
 	onMouseMove: MouseEventHandler<HTMLDivElement>;
-	registerChild?: (element?: Element) => void;
 } & Pick<ListRowProps, 'index' | 'style' | 'isScrolling' | 'isVisible'>;
 
 /**
@@ -22,45 +27,35 @@ type Props = {
  * @param root0.onMouseMove
  * @example
  */
-export function ListRow({
-	children,
-	registerChild,
-	measure,
-	index,
-	style,
-	isVisible,
-	isScrolling,
-	onMouseMove,
-}: Props) {
-	const childElementRef = useRef<HTMLDivElement | null>(null);
+// The `CellMeasurer` component from react-virtualized expects that his children is a `forwardRef` component.
+export const ListRow = forwardRef<HTMLDivElement, Props>(
+	({ children, measure, index, style, isVisible, isScrolling, onMouseMove }, ref) => {
+		const childElementRef = useRef<HTMLDivElement | null>(null);
 
-	const setListElementRef = (element: HTMLDivElement | null) => {
-		registerChild?.(element ?? undefined);
-	};
+		useEffect(() => {
+			// Do not measure if the row is not visible or is scrolling for performance reasons.
+			if (!childElementRef.current || !isVisible || isScrolling) {
+				return;
+			}
 
-	useEffect(() => {
-		// Do not measure if the row is not visible or is scrolling for performance reasons.
-		if (!childElementRef.current || !isVisible || isScrolling) {
-			return;
-		}
+			const observer = new ResizeObserver(() => measure());
+			observer.observe(childElementRef.current);
 
-		const observer = new ResizeObserver(() => measure());
-		observer.observe(childElementRef.current);
+			return () => observer.disconnect();
+		}, [isScrolling, isVisible, measure]);
 
-		return () => observer.disconnect();
-	}, [isScrolling, isVisible, measure]);
-
-	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-		<div ref={setListElementRef} style={style} data-index={index}>
-			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-			<div
-				ref={childElementRef}
-				data-testid={`list-item-height-observed-${index}`}
-				onMouseMove={onMouseMove}
-			>
-				{children}
+		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			<div ref={ref} style={style} data-index={index}>
+				{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+				<div
+					ref={childElementRef}
+					data-testid={`list-item-height-observed-${index}`}
+					onMouseMove={onMouseMove}
+				>
+					{children}
+				</div>
 			</div>
-		</div>
-	);
-}
+		);
+	},
+);

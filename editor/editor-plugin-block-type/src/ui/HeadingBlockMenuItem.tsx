@@ -62,11 +62,11 @@ const HeadingBlockMenuItem = ({ level, api }: HeadingBlockMenuItemProps) => {
 		}
 
 		if (!isSelected) {
-			const inputMethod =
+			const triggeredFrom =
 				event.nativeEvent instanceof KeyboardEvent || event.nativeEvent.detail === 0
 					? INPUT_METHOD.KEYBOARD
 					: INPUT_METHOD.MOUSE;
-			const triggeredFrom = INPUT_METHOD.BLOCK_MENU;
+			const inputMethod = INPUT_METHOD.BLOCK_MENU;
 
 			api?.core.actions.execute(
 				api?.blockMenu?.commands.formatNode(`heading${level}`, { inputMethod, triggeredFrom }),

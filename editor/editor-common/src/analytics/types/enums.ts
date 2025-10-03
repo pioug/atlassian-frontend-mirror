@@ -334,6 +334,8 @@ export enum ACTION_SUBJECT {
 export enum ACTION_SUBJECT_ID {
 	ACTION = 'action',
 	ACTIVITY = 'activity',
+	AI_CHANGES_ACCEPT_BUTTON = 'aiChangesAcceptButton',
+	AI_CHANGES_REJECT_BUTTON = 'aiChangesRejectButton',
 	AI_DEFINITIONS_DEFINE_BUTTON = 'aiDefinitionsDefineButton',
 	AI_DEFINITIONS_AUTO_HIGHLIGHT = 'aiDefinitionsAutoHighlight',
 	AI_INLINE_SUGGESTION = 'aiInlineSuggestion',

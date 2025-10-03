@@ -1,5 +1,38 @@
 # @atlaskit/icon-lab
 
+## 5.10.0
+
+### Minor Changes
+
+- [`ad4aa556627d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad4aa556627d5) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `arrow-end`
+  - `arrow-start`
+  - `dash-double`
+  - `directory`
+  - `skill`
+  - `skip-unskip`
+  - `skip`
+
+- [`ad4aa556627d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad4aa556627d5) -
+  This release updates icons in `@atlaskit/icon-lab`.
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `assets-data-manager`
+  - `assets-graph`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.9.0
 
 ### Minor Changes

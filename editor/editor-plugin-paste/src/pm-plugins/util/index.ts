@@ -120,32 +120,70 @@ export function escapeLinks(text: string) {
  * const output = escapeBackslashAndLinksExceptCodeBlock(input); // 'This is a link: <https://example.com> and a backslash: \\\\\n```\ncode block https://example.com not escaped\ncode block \\ not escaped\n```'
  */
 export function escapeBackslashAndLinksExceptCodeBlock(textInput: string): string {
-	const codeToken = '```';
-	let isInsideCodeBlock = false;
-	const lines = textInput.split('\n');
-	// In the splitted array, we traverse through every line and check if it will be parsed as a codeblock.
-	return lines
-		.map((line) => {
-			if (line === codeToken) {
-				// Toggle code block state
-				isInsideCodeBlock = !isInsideCodeBlock;
+	if (fg('platform_editor_paste_code_fence_spaces')) {
+		// ref: https://spec.commonmark.org/0.31.2/#fenced-code-blocks
+		// Allows up to 3 leading spaces before ``` and optional trailing characters
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
+		const openingCodeFenceRegex = /^( {0,3})```.*$/;
+		// Allows up to 3 leading spaces before ``` and optional trailing spaces or tabs
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
+		const closingCodeFenceRegex = /^( {0,3})```[ \t]*$/;
+		let isInsideCodeBlock = false;
+		const lines = textInput.split('\n');
+		// In the splitted array, we traverse through every line and check if it will be parsed as a codeblock.
+		return lines
+			.map((line) => {
+				if (!isInsideCodeBlock && openingCodeFenceRegex.test(line)) {
+					isInsideCodeBlock = true;
+					return line;
+				}
+				if (isInsideCodeBlock && closingCodeFenceRegex.test(line)) {
+					isInsideCodeBlock = false;
+					return line;
+				}
+
+				// not code fence, don't escape anything inside code block
+				if (isInsideCodeBlock) {
+					return line;
+				} else {
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-unicode-regexp
+					let escaped = line.replace(/\\/g, '\\\\');
+					escaped = escapeLinks(escaped);
+					return escaped;
+				}
+			})
+			.join('\n');
+	} else {
+		const codeToken = '```';
+		let isInsideCodeBlock = false;
+		const lines = textInput.split('\n');
+		// In the splitted array, we traverse through every line and check if it will be parsed as a codeblock.
+		return lines
+			.map((line) => {
+				if (line === codeToken) {
+					// Toggle code block state
+					isInsideCodeBlock = !isInsideCodeBlock;
+					return line;
+				} else if (line.startsWith(codeToken) && !isInsideCodeBlock) {
+					// if there is some text after the ``` mark , it gets counted as language attribute only at the start of codeblock
+					isInsideCodeBlock = true;
+					return line;
+				}
+				if (!isInsideCodeBlock) {
+					// Only escape outside code blocks
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-unicode-regexp
+					let escaped = line.replace(/\\/g, '\\\\');
+					escaped = escapeLinks(escaped);
+					return escaped;
+				}
 				return line;
-			} else if (line.startsWith(codeToken) && !isInsideCodeBlock) {
-				// if there is some text after the ``` mark , it gets counted as language attribute only at the start of codeblock
-				isInsideCodeBlock = true;
-				return line;
-			}
-			if (!isInsideCodeBlock) {
-				// Only escape outside code blocks
-				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				let escaped = line.replace(/\\/g, '\\\\');
-				escaped = escapeLinks(escaped);
-				return escaped;
-			}
-			return line;
-		})
-		.join('\n');
+			})
+			.join('\n');
+	}
 }
 
 export function hasOnlyNodesOfType(...nodeTypes: NodeType[]): (slice: Slice) => boolean {

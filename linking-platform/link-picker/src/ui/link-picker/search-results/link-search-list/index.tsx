@@ -112,6 +112,7 @@ export interface LinkSearchListProps
 	activePlugin?: LinkPickerPlugin;
 	/** Because we don't use the DST TabPanels component, tabPanelId is needed to set the correct aria-controls for a11y. */
 	tabPanelId?: string;
+	shouldRenderNoResultsImage?: boolean;
 }
 
 export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
@@ -134,6 +135,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 			adaptiveHeight,
 			className,
 			tabPanelId,
+			shouldRenderNoResultsImage,
 			...restProps
 		},
 		ref,
@@ -204,7 +206,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 
 			return (
 				<div id={tabPanelId}>
-					<NoResults />
+					<NoResults shouldRenderImage={shouldRenderNoResultsImage} />
 				</div>
 			);
 		}

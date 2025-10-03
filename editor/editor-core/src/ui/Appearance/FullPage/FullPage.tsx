@@ -7,7 +7,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
@@ -39,6 +39,10 @@ const useShowKeyline = (contentAreaRef: React.MutableRefObject<ScrollContainerRe
 		if (!contentAreaRef.current?.contentArea) {
 			return;
 		}
+
+		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+			? getBrowserInfo()
+			: browserLegacy;
 
 		const intersection = new IntersectionObserver(
 			([entry]) => {

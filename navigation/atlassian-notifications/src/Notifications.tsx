@@ -44,7 +44,7 @@ export const Notifications = (props: NotificationsProps) => {
 	};
 
 	return (
-		// eslint-disable-next-line jsx-a11y/iframe-has-title
+		// eslint-disable-next-line @atlassian/a11y/iframe-has-title
 		<iframe
 			{...iframeProps}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

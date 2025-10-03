@@ -81,7 +81,7 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 				// Using a capture event listener so that we are more resilient against
 				// code that stops events. We _really_ want to close the flyout whenever
 				// user user clicks outside the flyout content
-				shouldUseCaptureOnOutsideClick={fg('platform_dst_nav4_flyout_use_capture_outside')}
+				shouldUseCaptureOnOutsideClick
 				shouldFitViewport
 				testId={containerTestId}
 				xcss={flyoutMenuItemContentStyles.root}

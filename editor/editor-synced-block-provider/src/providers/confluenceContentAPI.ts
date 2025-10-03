@@ -51,36 +51,29 @@ class ConfluenceADFFetchProvider implements ADFFetchProvider {
 	constructor(private config: ContentAPIConfig) {}
 
 	async fetchData(resourceId: string): Promise<SyncBlockData> {
-		try {
-			const pageId = getPageIdFromAri(resourceId);
-			const localId = getLocalIdFromAri(resourceId);
-			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
-			const options = {
-				pageId,
-				key,
-				cloudId: this.config.cloudId,
-			};
-			const contentProperty = await getContentProperty(options);
-			const value = contentProperty.data.confluence.page.properties?.[0]?.value;
+		const pageId = getPageIdFromAri(resourceId);
+		const localId = getLocalIdFromAri(resourceId);
+		const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
+		const options = {
+			pageId,
+			key,
+			cloudId: this.config.cloudId,
+		};
+		const contentProperty = await getContentProperty(options);
+		const value = contentProperty.data.confluence.page.properties?.[0]?.value;
 
-			if (!value) {
-				throw new Error('Content property value does not exist');
-			}
-
-			// Parse the synced block content from the property value
-			const syncedBlockData = parseSyncedBlockContentPropertyValue(value);
-
-			return {
-				content: syncedBlockData.content,
-			};
-		} catch (error) {
-			// eslint-disable-next-line no-console
-			console.error('Failed to fetch synced block data:', error);
-
-			return {
-				content: undefined,
-			};
+		if (!value) {
+			throw new Error('Content property value does not exist');
 		}
+
+		// Parse the synced block content from the property value
+		const syncedBlockData = parseSyncedBlockContentPropertyValue(value);
+
+		return {
+			content: syncedBlockData.content,
+			resourceId,
+			localId,
+		};
 	}
 }
 
@@ -105,43 +98,32 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 		}
 	};
 
-	async writeData(
-		sourceId: string,
-		localId: string,
-		data: ADFEntity,
-		resourceId?: string,
-	): Promise<string> {
-		try {
-			const pageId = getPageIdFromAri(sourceId);
-			const syncedBlockValue = JSON.stringify({ content: data });
+	async writeData(data: SyncBlockData): Promise<string> {
+		const pageId = getPageIdFromAri(data.resourceId);
+		const syncedBlockValue = JSON.stringify({ content: data.content });
 
-			if (resourceId) {
-				// Update existing content property
-				const localId = getLocalIdFromAri(resourceId);
-				const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
-				const contentProperty = await updateContentProperty({
-					pageId,
-					key,
-					value: syncedBlockValue,
-					cloudId: this.config.cloudId,
-				});
+		if (data.resourceId) {
+			// Update existing content property
+			const localId = getLocalIdFromAri(data.resourceId);
+			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
+			const contentProperty = await updateContentProperty({
+				pageId,
+				key,
+				value: syncedBlockValue,
+				cloudId: this.config.cloudId,
+			});
 
-				if (contentProperty.data.confluence.updateValuePageProperty.pageProperty?.key === key) {
-					return key;
-				} else if (contentProperty.data.confluence.updateValuePageProperty.pageProperty === null) {
-					return this.createNewContentProperty(pageId, key, syncedBlockValue);
-				} else {
-					throw new Error('Failed to update content property');
-				}
-			} else {
-				// Create new content property
-				const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
+			if (contentProperty.data.confluence.updateValuePageProperty.pageProperty?.key === key) {
+				return key;
+			} else if (contentProperty.data.confluence.updateValuePageProperty.pageProperty === null) {
 				return this.createNewContentProperty(pageId, key, syncedBlockValue);
+			} else {
+				throw new Error('Failed to update content property');
 			}
-		} catch (error) {
-			// eslint-disable-next-line no-console
-			console.error('Failed to write synced block data:', error);
-			return Promise.reject(error);
+		} else {
+			// Create new content property
+			const key = getContentPropertyKey(this.config.contentPropertyKey, data.localId);
+			return this.createNewContentProperty(pageId, key, syncedBlockValue);
 		}
 	}
 }

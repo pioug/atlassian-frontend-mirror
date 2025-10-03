@@ -1,5 +1,5 @@
 import { Slice } from '@atlaskit/editor-prosemirror/model';
-import type { Transaction, EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Transaction, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { CommitStepService, RESET_READYTOCOMMIT_INTERVAL_MS } from '../commit-step';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -81,12 +81,14 @@ const createTestHelpers = (
 			hasRecovered?: boolean;
 			isPublish?: boolean;
 			lockSteps?: (stepOrigins?: readonly Transaction[]) => void;
+			stepOrigins?: readonly Transaction[];
 		} = {
 			__livePage: false,
 			hasRecovered: false,
 			collabMode: 'collab',
 			isPublish: false,
 			lockSteps: jest.fn(),
+			stepOrigins: [],
 		},
 	) => {
 		commitStepService.commitStepQueue({
@@ -100,6 +102,7 @@ const createTestHelpers = (
 			collabMode: options.collabMode ?? 'collab',
 			reason: options.isPublish ? 'publish' : undefined,
 			lockSteps: options.lockSteps || jest.fn(),
+			stepOrigins: options.stepOrigins ?? [],
 		});
 	};
 
@@ -198,6 +201,66 @@ describe('commitStepQueue', () => {
 			},
 			expect.any(Function),
 		);
+	});
+
+	eeTest.describe('platform_editor_offline_editing_web', '').variant(true, () => {
+		it('Tags steps that are marked as offline before broadcast', () => {
+			const fakeStep = new SetAttrsStep(1, { __expanded: true, title: 'any' });
+
+			const stepOrigin = new Transaction({} as any);
+			stepOrigin.setMeta('isOffline', true);
+			presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+				stepOrigins: [stepOrigin],
+			});
+
+			expect(broadcastSpy).toBeCalledTimes(1);
+			expect(broadcastSpy).toBeCalledWith(
+				'steps:commit',
+				{
+					steps: [
+						{
+							...fakeStep.toJSON(),
+							clientId: 'client1',
+							userId: 'user1',
+							metadata: { createdOffline: true },
+						},
+					],
+					version: 1,
+					userId: 'user1',
+					collabMode: 'collab',
+				},
+				expect.any(Function),
+			);
+		});
+
+		it('Tags steps that were offline before broadcast', () => {
+			const fakeStep = new SetAttrsStep(1, { __expanded: true, title: 'any' });
+
+			const stepOrigin = new Transaction({} as any);
+			stepOrigin.setMeta('wasOffline', true);
+			presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+				stepOrigins: [stepOrigin],
+			});
+
+			expect(broadcastSpy).toBeCalledTimes(1);
+			expect(broadcastSpy).toBeCalledWith(
+				'steps:commit',
+				{
+					steps: [
+						{
+							...fakeStep.toJSON(),
+							clientId: 'client1',
+							userId: 'user1',
+							metadata: { createdOffline: true },
+						},
+					],
+					version: 1,
+					userId: 'user1',
+					collabMode: 'collab',
+				},
+				expect.any(Function),
+			);
+		});
 	});
 
 	it('Send error analytics events with correct Error when broadcast throws', () => {

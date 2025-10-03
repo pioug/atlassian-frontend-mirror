@@ -23,6 +23,7 @@ import {
 	type TeamEnabledSitesResponse,
 	type TeamSiteAssignmentOrgDetailsResponse,
 	type TeamsPermissionFromApi,
+	type TeamsToBeClonedToJsmSitesResponse,
 	type UnassignedTeamsResponse,
 } from '../../types/team';
 import {
@@ -745,6 +746,18 @@ export class LegionClient extends RestClient implements LegionClient {
 			},
 		);
 		return assignTeamsToSitesResponse;
+	}
+
+	async getTeamsToBeClonedToJsmSites(
+		teamsToSiteScope: { teamId: string; siteId: string }[],
+	): Promise<TeamsToBeClonedToJsmSitesResponse> {
+		return this.postResource<TeamsToBeClonedToJsmSitesResponse>(
+			`${v4UrlPath}/migrations/scope/review`,
+			{
+				orgId: this.getContext().orgId,
+				teamsToSiteScope,
+			},
+		);
 	}
 
 	async setTeamSiteAssignmentPermission(

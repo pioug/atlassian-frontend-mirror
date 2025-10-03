@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer, type JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -10,10 +10,10 @@ import type { SyncedBlockEditorProps } from '../syncedBlockPluginType';
 type Props = {
 	defaultDocument: JSONDocNode;
 	getSyncedBlockEditor: (props: SyncedBlockEditorProps) => React.JSX.Element;
-	handleContentChanges: (updatedDoc: PMNode) => void;
 	popupsBoundariesElement: HTMLElement;
 	popupsMountPoint: HTMLElement;
 	setInnerEditorView: (editorView: EditorView) => void;
+	useHandleContentChanges: (updatedDoc: PMNode) => void;
 };
 
 export const SyncBlockEditorWrapperDataId = 'sync-block-plugin-editor-wrapper';
@@ -24,8 +24,13 @@ const SyncBlockEditorWrapperComponent = ({
 	popupsBoundariesElement,
 	popupsMountPoint,
 	setInnerEditorView,
-	handleContentChanges,
+	useHandleContentChanges,
 }: Props) => {
+	const [updatedDoc, setUpdatedDoc] = useState<PMNode>(
+		new JSONTransformer().parse(defaultDocument),
+	);
+
+	useHandleContentChanges(updatedDoc);
 	return (
 		<div
 			data-testid={SyncBlockEditorWrapperDataId}
@@ -36,7 +41,7 @@ const SyncBlockEditorWrapperComponent = ({
 				popupsBoundariesElement,
 				defaultDocument,
 				popupsMountPoint,
-				onChange: (value) => handleContentChanges(value.state.doc),
+				onChange: (value) => setUpdatedDoc(value.state.doc),
 				onEditorReady: (value) => setInnerEditorView(value.editorView),
 			})}
 		</div>

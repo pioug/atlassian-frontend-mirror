@@ -26,6 +26,9 @@
 			"path": "../../../design-system/button/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-json-transformer/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-block-menu/afm-cc/tsconfig.json"
 		},
 		{

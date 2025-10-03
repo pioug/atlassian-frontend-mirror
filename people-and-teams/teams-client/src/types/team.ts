@@ -166,6 +166,15 @@ export interface AssignTeamsToSitesResponse {
 	}[];
 }
 
+export interface TeamsToBeClonedToJsmSitesResponse {
+	teamsToBeClonedToJsmSites: {
+		teamId: string;
+		cloneToSites: {
+			siteId: string;
+		}[];
+	}[];
+}
+
 export interface AssignedTeam {
 	id: string;
 	displayName: string;

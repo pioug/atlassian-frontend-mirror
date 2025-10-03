@@ -129,7 +129,7 @@ const targetOverlayStyles = css({
  * @internal
  */
 export const TargetOverlay = ({ onClick, ...props }: HTMLAttributes<HTMLDivElement>) => (
-	// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
+	// eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/click-events-have-key-events
 	<div
 		onClick={onClick}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

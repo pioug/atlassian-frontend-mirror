@@ -230,3 +230,22 @@ export const CustomEmptyStateWithAdaptiveHeightExample = createExample({
 		},
 	],
 });
+
+export const VrWithoutEmptyResultsIllustrationExample = createExample({
+	shouldRenderNoResultsImage: false,
+	adaptiveHeight: true,
+	plugins: [
+		{
+			resolve: () =>
+				Promise.resolve({
+					data: [],
+				}),
+		},
+	],
+});
+
+export const VrWithLimitedRecentSearchesExample = createExample({
+	adaptiveHeight: true,
+	recentSearchListSize: 3,
+	plugins,
+});

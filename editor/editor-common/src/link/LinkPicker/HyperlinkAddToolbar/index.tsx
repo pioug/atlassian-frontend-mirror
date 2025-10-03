@@ -32,7 +32,9 @@ export interface HyperlinkAddToolbarProps
 		analytic?: UIAnalyticsEvent | null | undefined,
 	) => void;
 	providerFactory: ProviderFactory;
+	recentSearchListSize?: number;
 	searchSessionId?: string;
+	shouldRenderNoResultsImage?: boolean;
 	timesViewed?: number;
 	view: EditorView;
 }

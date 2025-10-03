@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 8.2.3
+
+### Patch Changes
+
+- [`ff53e1bfc6c25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff53e1bfc6c25) -
+  [ED-29482] clean up references to platform_editor_toolbar_rerender_optimization_exp
+- [`663926469ec70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/663926469ec70) -
+  Switch to use fg() to check feature gate platform_editor_update_modal_close_button
+- Updated dependencies
+
 ## 8.2.2
 
 ### Patch Changes

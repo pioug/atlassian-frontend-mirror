@@ -54,12 +54,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 				resourceIds.push(Promise.reject('No Synced Blockcontent to write'));
 				return;
 			}
-			const resourceId = this.writeProvider.writeData(
-				this.sourceId,
-				node.attrs.localId,
-				data[index].content,
-				node.attrs.resourceId,
-			);
+			const resourceId = this.writeProvider.writeData(data[index]);
 			resourceIds.push(resourceId);
 		});
 		return Promise.all(resourceIds);
@@ -112,4 +107,27 @@ export const useMemoizedSyncedBlockProvider = (
 	return useMemo(() => {
 		return new SyncBlockProvider(fetchProvider, writeProvider, sourceId);
 	}, [fetchProvider, writeProvider, sourceId]);
+};
+
+export const useHandleContentChanges = (
+	updatedDoc: PMNode,
+	isSource: boolean,
+	node: PMNode,
+	provider?: SyncBlockDataProvider,
+): void => {
+	useEffect(() => {
+		if (!isSource) {
+			return;
+		}
+		if (!provider) {
+			return;
+		}
+		const syncBlockNode = convertSyncBlockPMNodeToSyncBlockData(node, false);
+		const data: SyncBlockData = {
+			content: updatedDoc.toJSON(),
+			resourceId: node.attrs.resourceId,
+			localId: node.attrs.localId,
+		};
+		provider?.writeNodesData([syncBlockNode], [data]);
+	}, [isSource, node, provider, updatedDoc]);
 };

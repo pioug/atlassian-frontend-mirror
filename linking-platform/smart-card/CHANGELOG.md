@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 43.0.1
+
+### Patch Changes
+
+- [`27d1948b0874f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27d1948b0874f) -
+  [ux] @atlaskit/smart-card: Added experiment variation coloring for the inline smartlink connect
+  button. @atlaskit/tmp-editor-statsig: Added experiment gate to test config and overrides setup
+- Updated dependencies
+
 ## 43.0.0
 
 ### Major Changes

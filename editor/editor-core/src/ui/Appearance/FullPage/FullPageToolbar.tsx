@@ -165,27 +165,12 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 		}
 	});
 
-	const isShortcutToFocusToolbarRaw = (event: KeyboardEvent) => {
+	const isShortcutToFocusToolbar = useCallback((event: KeyboardEvent) => {
 		//Alt + F9 to reach first element in this main toolbar
 		return event.altKey && (event.key === 'F9' || event.keyCode === 120);
-	};
-	const isShortcutToFocusToolbarMemoized = useCallback(isShortcutToFocusToolbarRaw, []);
-	const isShortcutToFocusToolbar = editorExperiment(
-		'platform_editor_toolbar_rerender_optimization_exp',
-		true,
-	)
-		? isShortcutToFocusToolbarMemoized
-		: isShortcutToFocusToolbarRaw;
+	}, []);
 
-	const handleEscapeRaw = (event: KeyboardEvent) => {
-		if (!props.editorView?.hasFocus()) {
-			props.editorView?.focus();
-		}
-		event.preventDefault();
-		event.stopPropagation();
-	};
-
-	const handleEscapeMemoized = useCallback(
+	const handleEscape = useCallback(
 		(event: KeyboardEvent) => {
 			if (!props.editorView?.hasFocus()) {
 				props.editorView?.focus();
@@ -195,10 +180,6 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 		},
 		[props.editorView],
 	);
-
-	const handleEscape = editorExperiment('platform_editor_toolbar_rerender_optimization_exp', true)
-		? handleEscapeMemoized
-		: handleEscapeRaw;
 
 	return (
 		<ContextPanelConsumer>

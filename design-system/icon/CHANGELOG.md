@@ -1,5 +1,18 @@
 # @atlaskit/icon
 
+## 28.5.0
+
+### Minor Changes
+
+- [`ad4aa556627d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad4aa556627d5) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `chart-pie`
+
 ## 28.4.0
 
 ### Minor Changes

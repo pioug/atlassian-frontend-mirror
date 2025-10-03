@@ -20,8 +20,8 @@ export type FormatNodeTargetType =
 	| 'taskList';
 
 export type FormatNodeAnalyticsAttrs = {
-	inputMethod: INPUT_METHOD.MOUSE | INPUT_METHOD.KEYBOARD;
-	triggeredFrom: INPUT_METHOD.BLOCK_MENU;
+	inputMethod: INPUT_METHOD.BLOCK_MENU;
+	triggeredFrom: INPUT_METHOD.MOUSE | INPUT_METHOD.KEYBOARD;
 };
 
 export type TransformFunction = (context: TransformContext) => Transaction | null;

@@ -55,12 +55,22 @@ export type BlockMenuProps = {
 	scrollableElement?: HTMLElement;
 };
 
-const BlockMenuContent = ({ api }: { api: ExtractInjectionAPI<BlockMenuPlugin> | undefined }) => {
-	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
+const BlockMenuContent = ({
+	api,
+	setRef,
+}: {
+	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
+	setRef?: (el: HTMLElement | null) => void;
+}) => {
 	const blockMenuComponents = api?.blockMenu?.actions.getBlockMenuComponents();
+	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
+	const ref = (el: HTMLElement | null) => {
+		setOutsideClickTargetRef(el);
+		setRef?.(el);
+	};
 
 	return (
-		<Box testId="editor-block-menu" ref={setOutsideClickTargetRef} xcss={cx(styles.base)}>
+		<Box testId="editor-block-menu" ref={ref} xcss={cx(styles.base)}>
 			<BlockMenuRenderer
 				components={blockMenuComponents || []}
 				fallbacks={{
@@ -106,13 +116,19 @@ const BlockMenu = ({
 	const { onDropdownOpenChanged } = useBlockMenu();
 	const targetHandleRef = editorView?.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
 	const prevIsMenuOpenRef = useRef(false);
+	const popupRef = useRef<HTMLElement | undefined>(undefined);
 
 	const hasFocus = expValEqualsNoExposure(
 		'platform_editor_block_menu_keyboard_navigation',
 		'isEnabled',
 		true,
 	)
-		? ((editorView?.hasFocus() || document.activeElement === targetHandleRef) ?? false)
+		? ((editorView?.hasFocus() ||
+				document.activeElement === targetHandleRef ||
+				(popupRef.current &&
+					(popupRef.current.contains(document.activeElement) ||
+						popupRef.current === document.activeElement))) ??
+			false)
 		: (editorView?.hasFocus() ?? false);
 
 	const hasSelection = !!editorView && !editorView.state.selection.empty;
@@ -123,7 +139,7 @@ const BlockMenu = ({
 		(!hasSelection &&
 			expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true));
 
-	const selectedByShortcutORDragHandle =
+	const selectedByShortcutOrDragHandle =
 		isSelectedViaDragHandle ||
 		(openedViaKeyboard &&
 			expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true));
@@ -132,7 +148,7 @@ const BlockMenu = ({
 		if (
 			!isMenuOpen ||
 			!menuTriggerBy ||
-			!selectedByShortcutORDragHandle ||
+			!selectedByShortcutOrDragHandle ||
 			!hasFocus ||
 			!shouldShowBlockMenuForEmptyLine ||
 			['resizing', 'dragging'].includes(currentUserIntent || '')
@@ -147,7 +163,7 @@ const BlockMenu = ({
 				actionSubject: ACTION_SUBJECT.BLOCK_MENU,
 				eventType: EVENT_TYPE.UI,
 				attributes: {
-					inputMethod: INPUT_METHOD.MOUSE,
+					inputMethod: openedViaKeyboard ? INPUT_METHOD.KEYBOARD : INPUT_METHOD.MOUSE,
 				},
 			});
 		}
@@ -160,10 +176,11 @@ const BlockMenu = ({
 		api,
 		isMenuOpen,
 		menuTriggerBy,
-		selectedByShortcutORDragHandle,
+		selectedByShortcutOrDragHandle,
 		hasFocus,
 		shouldShowBlockMenuForEmptyLine,
 		currentUserIntent,
+		openedViaKeyboard,
 	]);
 
 	if (!isMenuOpen) {
@@ -184,7 +201,7 @@ const BlockMenu = ({
 
 	if (
 		!menuTriggerBy ||
-		!selectedByShortcutORDragHandle ||
+		!selectedByShortcutOrDragHandle ||
 		!hasFocus ||
 		!shouldShowBlockMenuForEmptyLine ||
 		['resizing', 'dragging'].includes(currentUserIntent || '')
@@ -192,6 +209,12 @@ const BlockMenu = ({
 		closeMenu();
 		return null;
 	}
+
+	const setRef = (el: HTMLElement | null) => {
+		if (el) {
+			popupRef.current = el;
+		}
+	};
 
 	if (targetHandleRef instanceof HTMLElement) {
 		return (
@@ -215,14 +238,23 @@ const BlockMenu = ({
 						'isEnabled',
 						true,
 					)
-						? openedViaKeyboard
-							? { initialFocus: undefined }
-							: { initialFocus: targetHandleRef }
+						? { initialFocus: openedViaKeyboard ? undefined : targetHandleRef }
 						: undefined
 				}
 				offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, 0]}
 			>
-				<BlockMenuContent api={api} />
+				<BlockMenuContent
+					api={api}
+					setRef={
+						expValEqualsNoExposure(
+							'platform_editor_block_menu_keyboard_navigation',
+							'isEnabled',
+							true,
+						)
+							? setRef
+							: undefined
+					}
+				/>
 			</PopupWithListeners>
 		);
 	} else {

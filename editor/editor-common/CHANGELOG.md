@@ -1,5 +1,55 @@
 # @atlaskit/editor-common
 
+## 110.8.0
+
+### Minor Changes
+
+- [`34c085d24f484`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34c085d24f484) -
+  Add new offline metadata to steps if they contain steps that were created while offline.
+
+## 110.7.2
+
+### Patch Changes
+
+- [`ff53e1bfc6c25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff53e1bfc6c25) -
+  [ED-29482] clean up references to platform_editor_toolbar_rerender_optimization_exp
+- [`663926469ec70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/663926469ec70) -
+  Switch to use fg() to check feature gate platform_editor_update_modal_close_button
+- Updated dependencies
+
+## 110.7.1
+
+### Patch Changes
+
+- [`e9b5c112e0316`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9b5c112e0316) -
+  EDITOR-2252 - Accept reject button analytics
+- Updated dependencies
+
+## 110.7.0
+
+### Minor Changes
+
+- [`26917199e153a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26917199e153a) -
+  ED-29473 Add inputMethod attribute for block menu opened and switch inputMethod and triggeredFrom
+  attributes for element converted event
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.6.0
+
+### Minor Changes
+
+- [`be449d28b1149`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be449d28b1149) -
+  [ux] Adding optional props recentSearchListSize, and shouldRenderNoResultsImage for Link Picker to
+  allow for showing insert button on smaller screens. Additionally updating the hideLinkDisplayText
+  prop to be passed as a part of a new linkPickerOptions object instead of as a standalone variable.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.5.0
 
 ### Minor Changes

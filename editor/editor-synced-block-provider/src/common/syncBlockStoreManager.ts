@@ -2,9 +2,10 @@ import uuid from 'uuid';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { rebaseTransaction } from './rebase-transaction';
 import type { SyncBlockAttrs, SyncBlockDataProvider, SyncBlockNode } from './types';
 
 // Do this typedef to make it clear that
@@ -35,6 +36,7 @@ export class SyncBlockStoreManager {
 	private confirmationCallback?: ConfirmationCallback;
 	private editorView?: EditorView;
 	private dataProvider?: SyncBlockDataProvider;
+	private confirmationTransaction?: Transaction;
 
 	constructor(dataProvider?: SyncBlockDataProvider) {
 		this.syncBlocks = new Map();
@@ -67,11 +69,6 @@ export class SyncBlockStoreManager {
 	}
 
 	public createSyncBlockNode(): SyncBlockNode {
-		// TODO: EDITOR-1644 - properly implement creation of the synced block
-		// below is a temporary implementation for the creation of the synced block
-		// the resource id needs to have pageId and content property key in it
-		// Note: If the data provider is not set, the resource id will be the local id
-
 		const localId = uuid();
 		const sourceId = this.dataProvider?.getSourceId();
 		const resourceId = sourceId ? `${sourceId}/${localId}` : localId;
@@ -91,13 +88,28 @@ export class SyncBlockStoreManager {
 
 	public async deleteSyncBlocksWithConfirmation(tr: Transaction, syncBlockIds: SyncBlockAttrs[]) {
 		if (this.confirmationCallback) {
+			this.confirmationTransaction = tr;
 			const confirmed = await this.confirmationCallback();
 			if (confirmed) {
-				// TODO: EDITOR-1779 - "rebase" the transaction to reflect the latest document state
-				this.editorView?.dispatch(tr.setMeta('isConfirmedSyncBlockDeletion', true));
+				this.editorView?.dispatch(
+					this.confirmationTransaction.setMeta('isConfirmedSyncBlockDeletion', true),
+				);
 				// Need to update the BE on deletion
 				syncBlockIds.forEach(({ resourceId }) => this.syncBlocks.delete(resourceId));
 			}
+			this.confirmationTransaction = undefined;
 		}
+	}
+
+	public rebaseTransaction(incomingTr: Transaction, state: EditorState) {
+		if (!this.confirmationTransaction) {
+			return;
+		}
+
+		this.confirmationTransaction = rebaseTransaction(
+			this.confirmationTransaction,
+			incomingTr,
+			state,
+		);
 	}
 }

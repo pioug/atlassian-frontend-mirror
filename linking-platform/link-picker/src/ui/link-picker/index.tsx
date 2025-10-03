@@ -50,6 +50,7 @@ import { usePlugins } from '../../services/use-plugins';
 import { useSearchQuery } from '../../services/use-search-query';
 
 import { Announcer } from './announcer';
+import AutoSubmitOnChange from './autoSubmitOnChange';
 import { FormFooter, testIds as formFooterTestIds } from './form-footer';
 import { LinkPickerSubmitButton } from './form-footer/link-picker-submit-button';
 import { formMessages, linkMessages, linkTextMessages, searchMessages } from './messages';
@@ -161,6 +162,9 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			inputRef,
 			previewableLinksOnly = false,
 			additionalError,
+			submitOnInputChange = false,
+			recentSearchListSize,
+			shouldRenderNoResultsImage,
 		}: LinkPickerProps) => {
 			const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -208,13 +212,22 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 				retry,
 				pluginAction,
 				pluginBanner,
-			} = usePlugins(queryState, activeTab, plugins, thirdPartyTabExperimentEnabled);
+			} = usePlugins(
+				queryState,
+				activeTab,
+				plugins,
+				thirdPartyTabExperimentEnabled,
+				recentSearchListSize,
+			);
 
 			const isEditing = !!initUrl;
 			const selectedItem: LinkSearchListItemData | undefined = items?.[selectedIndex];
 			const isSelectedItem = selectedItem?.url === url;
 			const previewableOnly =
 				fg('platform-linking-link-picker-previewable-only') && previewableLinksOnly;
+
+			const flaggedSubmitOnInputChange =
+				fg('platform-linking-link-picker-previewable-only') && submitOnInputChange;
 
 			const { trackAttribute, getAttributes } = useLinkPickerAnalytics();
 
@@ -335,6 +348,13 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 				},
 				[handleInsert, trackAttribute, items, activePlugin, isSubmitting],
 			);
+
+			const handleClearInvalidUrl = fg('platform-linking-link-picker-previewable-only')
+				? // eslint-disable-next-line react-hooks/rules-of-hooks
+					useCallback(() => {
+						dispatch({ invalidUrl: false });
+					}, [dispatch])
+				: () => {};
 
 			const handleSubmit = useCallback(
 				async (event?: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -530,6 +550,16 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 					onSubmitCapture={handleSubmit}
 				>
 					<TrackMount />
+					{flaggedSubmitOnInputChange && (
+						<AutoSubmitOnChange
+							url={url}
+							isSubmitting={isSubmitting}
+							isSelectedItem={isSelectedItem}
+							onSubmit={handleSubmit}
+							onClearInvalidUrl={handleClearInvalidUrl}
+						/>
+					)}
+
 					{isActivePlugin && (
 						<Fragment>
 							{screenReaderText && (
@@ -643,6 +673,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 							handleSearchListOnChange={handleSearchListOnChange}
 							adaptiveHeight={adaptiveHeight}
 							retry={retry}
+							shouldRenderNoResultsImage={shouldRenderNoResultsImage}
 						/>
 					)}
 					<FormFooter
@@ -659,7 +690,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						css={(!queryState || !plugins?.length) && formFooterMargin}
 						customSubmitButtonLabel={customSubmitButtonLabel}
 						submitMessageId={submitMessageId}
-						hideSubmitButton={moveSubmitButton}
+						hideSubmitButton={moveSubmitButton || flaggedSubmitOnInputChange}
 					/>
 				</form>
 			);

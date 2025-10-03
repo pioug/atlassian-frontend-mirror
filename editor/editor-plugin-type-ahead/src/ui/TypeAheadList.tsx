@@ -356,9 +356,8 @@ const TypeAheadListComponent = React.memo(
 			const currentItem = items[index];
 			return (
 				<CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
-					{({ measure, registerChild }) => (
+					{({ measure }) => (
 						<ListRow
-							registerChild={registerChild}
 							measure={measure}
 							index={index}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

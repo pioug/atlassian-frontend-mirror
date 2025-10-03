@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.2.5
+
+### Patch Changes
+
+- [`e3ca1a4b9b932`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3ca1a4b9b932) -
+  [ux] ED-29489 Remove focus ring when drag handle is clicked and fix menu closing on menu open
+- Updated dependencies
+
+## 7.2.4
+
+### Patch Changes
+
+- [`dc211dc1927b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc211dc1927b5) -
+  [ux] ED-29232: Fixed issues with block menu for file
+- Updated dependencies
+
 ## 7.2.3
 
 ### Patch Changes

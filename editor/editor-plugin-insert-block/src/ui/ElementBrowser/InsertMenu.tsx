@@ -262,11 +262,7 @@ const InsertMenu = ({
 					// On page resize we want the InlineElementBrowser to show updated tools/overflow items
 					key={quickInsertDropdownItems.length}
 					viewMoreItem={viewMoreItem}
-					onViewMore={
-						showElementBrowserLink || !fg('platform_editor_refactor_view_more_fix')
-							? onViewMore
-							: undefined
-					}
+					onViewMore={showElementBrowserLink ? onViewMore : undefined}
 					cache={cache}
 				/>
 			</ElementBrowserWrapper>

@@ -59,7 +59,7 @@ export const Container: React.ForwardRefExoticComponent<
 	({ children, onBlur, onClick, onFocus, style, testId }, ref) => {
 		return (
 			// Unfortunately, these are used for apps to pass through. Inline Dialog is being deprecated anyway
-			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
+			// eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/click-events-have-key-events
 			<div
 				css={containerStyles}
 				data-testid={testId}

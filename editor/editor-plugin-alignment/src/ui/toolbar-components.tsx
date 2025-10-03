@@ -61,26 +61,18 @@ export const getToolbarComponents = (
 		{
 			type: ALIGNMENT_GROUP.type,
 			key: ALIGNMENT_GROUP.key,
-			parents: expValEquals('platform_editor_toolbar_aifc_responsiveness_update', 'isEnabled', true)
-				? [
-						{
-							type: TEXT_SECTION.type,
-							key: TEXT_SECTION.key,
-							rank: TEXT_SECTION_RANK[ALIGNMENT_GROUP.key],
-						},
-						{
-							type: TEXT_SECTION_PRIMARY_TOOLBAR.type,
-							key: TEXT_SECTION_PRIMARY_TOOLBAR.key,
-							rank: TEXT_SECTION_PRIMARY_TOOLBAR_RANK[ALIGNMENT_GROUP.key],
-						},
-					]
-				: [
-						{
-							type: TEXT_SECTION.type,
-							key: TEXT_SECTION.key,
-							rank: TEXT_SECTION_RANK[ALIGNMENT_GROUP.key],
-						},
-					],
+			parents: [
+				{
+					type: TEXT_SECTION.type,
+					key: TEXT_SECTION.key,
+					rank: TEXT_SECTION_RANK[ALIGNMENT_GROUP.key],
+				},
+				{
+					type: TEXT_SECTION_PRIMARY_TOOLBAR.type,
+					key: TEXT_SECTION_PRIMARY_TOOLBAR.key,
+					rank: TEXT_SECTION_PRIMARY_TOOLBAR_RANK[ALIGNMENT_GROUP.key],
+				},
+			],
 		},
 		{
 			type: ALIGNMENT_MENU.type,

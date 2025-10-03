@@ -99,7 +99,7 @@ const Modal = ({
 					<AKModalBody>
 						<ModalBody>
 							{TEST_ONLY_src ? (
-								// eslint-disable-next-line jsx-a11y/iframe-has-title
+								// eslint-disable-next-line @atlassian/a11y/iframe-has-title
 								<iframe
 									css={iframeStyle}
 									name={DROPBOX_IFRAME_NAME}
@@ -107,7 +107,7 @@ const Modal = ({
 									src={TEST_ONLY_src}
 								/>
 							) : (
-								// eslint-disable-next-line jsx-a11y/iframe-has-title
+								// eslint-disable-next-line @atlassian/a11y/iframe-has-title
 								<iframe css={iframeStyle} name={DROPBOX_IFRAME_NAME} frameBorder={0} />
 							)}
 						</ModalBody>

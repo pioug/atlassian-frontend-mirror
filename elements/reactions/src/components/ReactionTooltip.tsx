@@ -119,7 +119,7 @@ export const ReactionTooltip = ({
 					})}
 					{/* If count of reactions higher then given threshold then render custom message */}
 
-					{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions, @atlassian/a11y/no-noninteractive-element-interactions */}
+					{/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, @atlassian/a11y/no-noninteractive-element-interactions, @atlassian/a11y/click-events-have-key-events */}
 					<li
 						css={[footerStyle, allowUserDialog && underlineStyle]}
 						onMouseDown={handleClick}

@@ -9,7 +9,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, useTheme } from '@emotion/react';
 
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
 import { akEditorGutterPaddingDynamic, editorFontSize } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -60,7 +60,7 @@ import {
 	expandStylesMixin_fg_platform_visual_refresh_icons,
 	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
 } from './styles/expandStyles';
-import { extensionStyles } from './styles/extensionStyles';
+import { getExtensionStyles } from './styles/extensionStyles';
 import { findReplaceStyles, findReplaceStylesNew } from './styles/findReplaceStyles';
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
 import { firstFloatingToolbarButtonStyles } from './styles/floatingToolbarStyles';
@@ -216,6 +216,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
 				};
 
+		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+			? getBrowserInfo()
+			: browserLegacy;
+
 		return (
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -326,7 +330,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					dateStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					extensionStyles,
+					getExtensionStyles(),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					expandStyles,
 					fg('platform_editor_nested_dnd_styles_changes')

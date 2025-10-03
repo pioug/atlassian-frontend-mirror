@@ -16,8 +16,8 @@ import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 import Modal, { CloseButton, ModalTransition, useModal } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0 } from '@atlaskit/theme/colors';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { getCategories } from './categories';
@@ -74,11 +74,7 @@ const modalCloseButtonStyles = css({
 const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 	const [selectedItem, setSelectedItem] = useState<QuickInsertItem>();
 	const { helpUrl, intl, onInsertItem: onInsertItemFn } = props;
-	const isUpdateModalCloseButtonEnabled = expValEquals(
-		'platform_editor_update_modal_close_button',
-		'isEnabled',
-		true,
-	);
+	const isUpdateModalCloseButtonEnabled = fg('platform_editor_update_modal_close_button');
 
 	const onSelectItem = useCallback(
 		(item: QuickInsertItem) => {

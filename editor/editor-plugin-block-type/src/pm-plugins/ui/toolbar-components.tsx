@@ -31,26 +31,18 @@ export const getToolbarComponents = (
 		{
 			type: TEXT_STYLES_GROUP.type,
 			key: TEXT_STYLES_GROUP.key,
-			parents: expValEquals('platform_editor_toolbar_aifc_responsiveness_update', 'isEnabled', true)
-				? [
-						{
-							type: TEXT_SECTION.type,
-							key: TEXT_SECTION.key,
-							rank: TEXT_SECTION_RANK[TEXT_STYLES_GROUP.key],
-						},
-						{
-							type: TEXT_SECTION_PRIMARY_TOOLBAR.type,
-							key: TEXT_SECTION_PRIMARY_TOOLBAR.key,
-							rank: TEXT_SECTION_PRIMARY_TOOLBAR_RANK[TEXT_STYLES_GROUP.key],
-						},
-					]
-				: [
-						{
-							type: TEXT_SECTION.type,
-							key: TEXT_SECTION.key,
-							rank: TEXT_SECTION_RANK[TEXT_STYLES_GROUP.key],
-						},
-					],
+			parents: [
+				{
+					type: TEXT_SECTION.type,
+					key: TEXT_SECTION.key,
+					rank: TEXT_SECTION_RANK[TEXT_STYLES_GROUP.key],
+				},
+				{
+					type: TEXT_SECTION_PRIMARY_TOOLBAR.type,
+					key: TEXT_SECTION_PRIMARY_TOOLBAR.key,
+					rank: TEXT_SECTION_PRIMARY_TOOLBAR_RANK[TEXT_STYLES_GROUP.key],
+				},
+			],
 		},
 		{
 			type: TEXT_STYLES_MENU.type,

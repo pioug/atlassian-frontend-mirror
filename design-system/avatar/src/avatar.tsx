@@ -128,6 +128,15 @@ export interface AvatarPropTypes {
 	 */
 	as?: keyof JSX.IntrinsicElements | React.ComponentType<React.AllHTMLAttributes<HTMLElement>>;
 	/**
+	 * Replace the wrapper of the content element. This accepts the name of a html tag which will
+	 * be used to wrap the content element.
+	 */
+	contentAs?: 'a' | 'button' | 'span';
+	/**
+	 * Set the role of the container element
+	 */
+	containerRole?: 'presentation' | 'img';
+	/**
 	 * whether disable aria-labelledby for avatar img
 	 */
 	isDecorative?: boolean;
@@ -168,6 +177,8 @@ const Avatar: React.ForwardRefExoticComponent<
 			target,
 			testId,
 			as: AvatarContainer = 'div',
+			contentAs,
+			containerRole,
 			isDecorative = false,
 			imgLoading,
 		},
@@ -243,19 +254,20 @@ const Avatar: React.ForwardRefExoticComponent<
 
 		const isInteractive = onClick || href || isDisabled;
 		const containerShouldBeImage = Boolean(!isInteractive && defaultLabel);
+		const avatarContainerRole = containerRole || (containerShouldBeImage ? 'img' : undefined);
 
 		return (
 			<EnsureIsInsideAvatarContext.Provider value={true}>
 				<AvatarContainer
 					data-testid={testId}
-					role={containerShouldBeImage ? 'img' : undefined}
+					role={avatarContainerRole}
 					aria-labelledby={containerShouldBeImage && !isDecorative ? labelId : undefined}
 					css={containerStyles}
 					style={{ zIndex: stackIndex }}
 				>
 					<AvatarContentContext.Provider
 						value={{
-							as: getCustomElement(isDisabled, href, onClick),
+							as: contentAs || getCustomElement(isDisabled, href, onClick),
 							appearance,
 							borderColor,
 							href,

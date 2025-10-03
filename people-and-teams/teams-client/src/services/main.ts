@@ -678,6 +678,17 @@ export class TeamsClient {
 	}
 
 	/**
+	 * Get teams to be cloned to JSM sites
+	 */
+	async getTeamsToBeClonedToJsmSites(
+		...args: Parameters<typeof defaultLegionClient.getTeamsToBeClonedToJsmSites>
+	): Promise<AwaitedReturn<typeof defaultLegionClient.getTeamsToBeClonedToJsmSites>> {
+		return this.measurePerformance('getTeamsToBeClonedToJsmSites', () =>
+			this._legionClient.getTeamsToBeClonedToJsmSites(...args),
+		);
+	}
+
+	/**
 	 * Is the current user a site admin
 	 */
 	getIsSiteAdmin(

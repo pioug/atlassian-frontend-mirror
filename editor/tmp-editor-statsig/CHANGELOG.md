@@ -1,5 +1,29 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.5.0
+
+### Minor Changes
+
+- [`ff53e1bfc6c25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff53e1bfc6c25) -
+  [ED-29482] clean up references to platform_editor_toolbar_rerender_optimization_exp
+- [`663926469ec70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/663926469ec70) -
+  Remove experiment platform_editor_update_modal_close_button
+
+## 13.4.0
+
+### Minor Changes
+
+- [`482bcdc75598e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/482bcdc75598e) -
+  ED-29462 Clean up platform_editor_toolbar_aifc_responsiveness_update
+
+## 13.3.0
+
+### Minor Changes
+
+- [`27d1948b0874f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27d1948b0874f) -
+  [ux] @atlaskit/smart-card: Added experiment variation coloring for the inline smartlink connect
+  button. @atlaskit/tmp-editor-statsig: Added experiment gate to test config and overrides setup
+
 ## 13.2.0
 
 ### Minor Changes

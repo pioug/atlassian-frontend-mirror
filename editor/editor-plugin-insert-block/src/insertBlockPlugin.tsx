@@ -27,7 +27,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { InsertBlockPlugin } from './insertBlockPluginType';
 import { toggleInsertBlockPmKey, toggleInsertBlockPmPlugin } from './pm-plugins/toggleInsertBlock';
 import type { InsertBlockOptions } from './types';
-import { getToolbarComponentsWithConfig } from './ui/toolbar-components';
+import { getToolbarComponents } from './ui/toolbar-components';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
@@ -193,20 +193,13 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		editorExperiment('platform_editor_toolbar_aifc', true, { exposure: true })
 	) {
 		api?.toolbar?.actions.registerComponents(
-			getToolbarComponentsWithConfig({
+			getToolbarComponents({
 				api,
-				tableSelectorSupported: options.tableSelectorSupported,
-				toolbarShowPlusInsertOnly: options.toolbarShowPlusInsertOnly,
-				showElementBrowserLink: options.showElementBrowserLink,
 				onInsertBlockType: handleInsertBlockType(
 					api?.codeBlock?.actions.insertCodeBlock,
 					api?.panel?.actions.insertPanel,
 					api?.blockType?.actions.insertBlockQuote,
 				),
-				nativeStatusSupported: options.nativeStatusSupported,
-				horizontalRuleEnabled: options.horizontalRuleEnabled,
-				expandEnabled: options.allowExpand,
-				insertMenuItems: options.insertMenuItems,
 				options,
 			}),
 		);

@@ -7,7 +7,6 @@ import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
-	INPUT_METHOD,
 	type BlockMenuEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import { blockMenuMessages as messages } from '@atlaskit/editor-common/messages';
@@ -38,7 +37,6 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 				action: ACTION.CLICKED,
 				actionSubject: ACTION_SUBJECT.BLOCK_MENU_ITEM,
 				attributes: {
-					inputMethod: INPUT_METHOD.MOUSE,
 					menuItemName: BLOCK_MENU_ITEM_NAME.COPY_LINK_TO_BLOCK,
 				},
 				eventType: EVENT_TYPE.UI,

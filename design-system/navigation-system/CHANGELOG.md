@@ -1,5 +1,38 @@
 # @atlassian/navigation-system
 
+## 2.17.0
+
+### Minor Changes
+
+- [`dc96cee1f923a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc96cee1f923a) -
+  Minor improvements to the side nav peek (flyout) animations. These changes are behind the
+  `navx-full-height-sidebar` feature flag.
+
+  - The timing functions for the peek and hide animations have been slightly tweaked to align with
+    the new full height sidebar animations
+  - The peek animation duration has been increased to 300ms from 200ms to align with the new full
+    height sidebar animations
+  - During the collapse animation, the flyout will now maintain its background color and box-shadow.
+    They were previously unset as soon as the animation started.
+
+- [`dc96cee1f923a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc96cee1f923a) -
+  [ux] The sidebar will now animate when expanding and collapsing on supported browsers. Currently
+  Firefox is not supported. This change is behind the feature gate `navx-full-height-sidebar`.
+
+  The sidebar previously only animated when peeking (flyout mode). This change makes it animate on
+  regualar toggles as well. The `Main` layout area will still instantly "snap" into its new position
+  without any animations.
+
+## 2.16.0
+
+### Minor Changes
+
+- [`d219613fe59b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d219613fe59b7) -
+  When a `FlyoutMenuItemContent` is open, clicking outside the content will close the flyout. We
+  have improved this functionality to make it more resilient to application code that stops events.
+
+  This change was previously behind a feature flag, which has now been removed.
+
 ## 2.15.0
 
 ### Minor Changes

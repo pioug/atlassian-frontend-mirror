@@ -384,14 +384,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-05-28
-	platform_editor_toolbar_rerender_optimization_exp: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_rerender_optimization_exp',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-06-05
 	platform_editor_block_controls_perf_optimization: createBooleanExperiment({
 		productKeys: {
@@ -712,14 +704,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-09-19
-	platform_editor_toolbar_aifc_responsiveness_update: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_aifc_responsiveness_update',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-07-30
 	platform_editor_pasting_nested_table_fix: createBooleanExperiment({
 		productKeys: {
@@ -999,14 +983,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-09-24
-	platform_editor_update_modal_close_button: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_update_modal_close_button',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-09-16
 	platform_editor_nested_table_refresh_width_fix: createBooleanExperiment({
 		productKeys: {
@@ -1070,5 +1046,15 @@ export const editorExperimentsConfig = {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
+	}),
+	// Added 2025-10-01
+	platform_inline_smartcard_connect_button_exp: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'platform_inline_smartcard_connect_button_exp',
+			jira: 'platform_inline_smartcard_connect_button_exp',
+		},
+		param: 'cohort',
+		values: ['control', 'test1', 'test2'],
+		defaultValue: 'control',
 	}),
 } satisfies Record<string, ExperimentConfigValue>;

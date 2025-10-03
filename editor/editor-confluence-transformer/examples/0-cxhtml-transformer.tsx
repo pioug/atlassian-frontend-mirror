@@ -258,7 +258,7 @@ export default class ExampleWrapper extends Component<ExampleWrapperProps, Examp
 					<legend>
 						CXHTML output ({/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 						<input type="checkbox" checked={this.state.prettify} onChange={this.togglePrettify} />
-						{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/ui-styling-standard/enforce-style-prop, jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- Ignored via go/DSP-18766 */}
+						{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, jsx-a11y/no-static-element-interactions, @atlassian/a11y/click-events-have-key-events, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 						<span onClick={this.togglePrettify} style={{ cursor: 'pointer' }}>
 							{' '}
 							prettify

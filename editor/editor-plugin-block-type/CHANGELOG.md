@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-type
 
+## 9.0.8
+
+### Patch Changes
+
+- [`482bcdc75598e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/482bcdc75598e) -
+  ED-29462 Clean up platform_editor_toolbar_aifc_responsiveness_update
+- [`26917199e153a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26917199e153a) -
+  ED-29473 Add inputMethod attribute for block menu opened and switch inputMethod and triggeredFrom
+  attributes for element converted event
+- Updated dependencies
+
 ## 9.0.7
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "3.12.1",
+	"version": "3.14.0",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -50,6 +50,9 @@
 			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-linking-pla": {
+			"type": "boolean"
+		},
+		"aifc_create_enabled": {
 			"type": "boolean"
 		}
 	},

@@ -1,8 +1,6 @@
 import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
-import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * Finds all top level nodes affected by the transaction
@@ -17,18 +15,10 @@ export const findChangedNodesFromTransaction = (tr: Transaction): PMNode[] => {
 		to: number;
 	})[];
 	steps.forEach((step) => {
-		step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
+		step.getMap().forEach((_oldStart, _oldEnd, newStart, newEnd) => {
 			tr.doc.nodesBetween(newStart, Math.min(newEnd, tr.doc.content.size), (node) => {
-				let nodeToCheck: PMNode = node;
-				if (fg('cc_complexit_fe_improve_node_validation')) {
-					const { schema } = tr.selection.$from.doc.type;
-					const parentNode = findParentNode((node) => node.type !== schema.nodes.paragraph)(
-						tr.selection,
-					);
-					nodeToCheck = parentNode ? parentNode.node : node;
-				}
-				if (!nodes.find((n) => n === nodeToCheck)) {
-					nodes.push(nodeToCheck);
+				if (!nodes.find((n) => n === node)) {
+					nodes.push(node);
 				}
 				return false;
 			});

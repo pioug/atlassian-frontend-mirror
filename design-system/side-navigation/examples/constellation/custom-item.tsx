@@ -11,7 +11,7 @@ const CustomLink: React.ForwardRefExoticComponent<
 	const { children, ...rest } = props;
 	return (
 		<>
-			{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlaskit/design-system/no-html-anchor */}
+			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlaskit/design-system/no-html-anchor, @atlassian/a11y/click-events-have-key-events */}
 			<a ref={ref} {...rest} onClick={(e) => e.preventDefault()}>
 				{children}
 			</a>

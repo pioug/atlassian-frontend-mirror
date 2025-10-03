@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 7.0.8
+
+### Patch Changes
+
+- [`e38eb931c4472`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e38eb931c4472) -
+  [FD-101539] clean up platform_editor_refactor_view_more_fix
+- [`482bcdc75598e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/482bcdc75598e) -
+  ED-29462 Clean up platform_editor_toolbar_aifc_responsiveness_update
+- Updated dependencies
+
 ## 7.0.7
 
 ### Patch Changes

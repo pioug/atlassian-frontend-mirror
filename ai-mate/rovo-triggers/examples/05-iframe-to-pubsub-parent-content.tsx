@@ -28,12 +28,12 @@ export default () => {
 				))}
 			</ol>
 			<h2>Multiple iframe of the sibling example below:</h2>
-			{/* eslint-disable-next-line jsx-a11y/iframe-has-title */}
+			{/* eslint-disable-next-line @atlassian/a11y/iframe-has-title */}
 			<iframe
 				data-testid="test-embed-frame-1"
 				src={siblingExampleUrl + `&frameId=${embedOneFrameId}`}
 			/>
-			{/* eslint-disable-next-line jsx-a11y/iframe-has-title */}
+			{/* eslint-disable-next-line @atlassian/a11y/iframe-has-title */}
 			<iframe
 				data-testid="test-embed-frame-2"
 				src={siblingExampleUrl + `&frameId=${embedTwoFrameId}`}

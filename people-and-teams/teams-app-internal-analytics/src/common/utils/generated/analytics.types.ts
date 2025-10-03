@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::bd923ef6bb9d9faf786d7dccc06f07bc>>
+ * @codegen <<SignedSource::0d7940fbc9a2038bb629f21e1f22705f>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1063,6 +1063,43 @@ export type ReportingLinesEmptyStateViewedAttributesType = {
 	workspaceUuid: string | null;
 	isAdmin: boolean;
 };
+export type ButtonClickedAddPeopleButtonAttributesType = {
+	isPrimary: boolean;
+};
+export type UserMenuItemClickedLinkProfileAttributesType = undefined;
+export type UserMenuItemClickedLinkManageAccountAttributesType = undefined;
+export type UserMenuItemClickedLinkLogoutAttributesType = undefined;
+export type UserMenuOpenedAttributesType = undefined;
+export type HeaderImageStartedUserHeaderImageAttributesType = {
+	actionType: 'removeHeaderImage' | 'uploadHeaderImage';
+};
+export type HeaderImageFailedUserHeaderImageAttributesType = {
+	actionType: 'removeHeaderImage' | 'uploadHeaderImage';
+};
+export type HeaderImageSucceededUserHeaderImageAttributesType = {
+	actionType: 'removeHeaderImage' | 'uploadHeaderImage';
+};
+export type HeaderImageStartedTeamHeaderImageAttributesType = {
+	actionType: 'removeHeaderImage' | 'uploadHeaderImage';
+	memberOfTeam: boolean;
+	orgAdminTriggered: boolean;
+	isVerified: boolean | null;
+};
+export type HeaderImageFailedTeamHeaderImageAttributesType = {
+	actionType: 'removeHeaderImage' | 'uploadHeaderImage';
+	memberOfTeam: boolean;
+	orgAdminTriggered: boolean;
+	isVerified: boolean | null;
+};
+export type HeaderImageSucceededTeamHeaderImageAttributesType = {
+	actionType: 'removeHeaderImage' | 'uploadHeaderImage';
+	memberOfTeam: boolean;
+	orgAdminTriggered: boolean;
+	isVerified: boolean | null;
+};
+export type ButtonClickedProfileHeaderMediaPickerUploadAttributesType = undefined;
+export type ButtonClickedProfileHeaderRemoveAttributesType = undefined;
+export type SendFeedbackClickedAttributesType = undefined;
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -1769,6 +1806,48 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the reporting lines empty state is viewed */
 	'ui.ReportingLinesEmptyState.viewed': ReportingLinesEmptyStateViewedAttributesType;
+	/**
+	 * fired when the add people button is clicked */
+	'ui.button.clicked.addPeopleButton': ButtonClickedAddPeopleButtonAttributesType;
+	/**
+	 * fired when the link profile button is clicked */
+	'ui.userMenuItem.clicked.linkProfile': UserMenuItemClickedLinkProfileAttributesType;
+	/**
+	 * fired when the link manage account button is clicked */
+	'ui.userMenuItem.clicked.linkManageAccount': UserMenuItemClickedLinkManageAccountAttributesType;
+	/**
+	 * fired when the link logout button is clicked */
+	'ui.userMenuItem.clicked.linkLogout': UserMenuItemClickedLinkLogoutAttributesType;
+	/**
+	 * fired when the user menu is opened */
+	'track.userMenu.opened': UserMenuOpenedAttributesType;
+	/**
+	 * fired when the header image action is triggered */
+	'operational.headerImage.started.userHeaderImage': HeaderImageStartedUserHeaderImageAttributesType;
+	/**
+	 * fired when the header image action is failed */
+	'operational.headerImage.failed.userHeaderImage': HeaderImageFailedUserHeaderImageAttributesType;
+	/**
+	 * fired when the header image action is succeeded */
+	'operational.headerImage.succeeded.userHeaderImage': HeaderImageSucceededUserHeaderImageAttributesType;
+	/**
+	 * fired when the header image action is triggered */
+	'operational.headerImage.started.teamHeaderImage': HeaderImageStartedTeamHeaderImageAttributesType;
+	/**
+	 * fired when the header image action is failed */
+	'operational.headerImage.failed.teamHeaderImage': HeaderImageFailedTeamHeaderImageAttributesType;
+	/**
+	 * fired when the header image action is succeeded */
+	'operational.headerImage.succeeded.teamHeaderImage': HeaderImageSucceededTeamHeaderImageAttributesType;
+	/**
+	 * fired when the media picker upload button is clicked */
+	'ui.button.clicked.profileHeaderMediaPickerUpload': ButtonClickedProfileHeaderMediaPickerUploadAttributesType;
+	/**
+	 * fired when the remove header image button is clicked */
+	'ui.button.clicked.profileHeaderRemove': ButtonClickedProfileHeaderRemoveAttributesType;
+	/**
+	 * fired when the send feedback button is clicked */
+	'ui.sendFeedback.clicked': SendFeedbackClickedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

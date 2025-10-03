@@ -170,7 +170,7 @@ export const ArchiveSidebarFolderWrapper = ({ children }: Children) => {
 
 export const ArchiveDownloadButtonWrapper = ({ children, onClick }: Children & OnClick) => {
 	return (
-		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/click-events-have-key-events
 		<div
 			css={archiveDownloadButtonWrapperStyles}
 			onClick={onClick}

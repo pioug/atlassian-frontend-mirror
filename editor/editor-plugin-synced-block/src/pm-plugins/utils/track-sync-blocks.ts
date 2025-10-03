@@ -16,42 +16,48 @@ export const trackSyncBlocks = (
 	const sourceSyncBlockRemoved: syncBlockMap = {};
 	const sourceSyncBlockAdded: syncBlockMap = {};
 
-	tr.steps.map((step) => {
-		if (step instanceof ReplaceStep || step instanceof ReplaceAroundStep) {
-			const { from, to } = step;
-			// replaced a range, check for deleted syncBlock
-			if (from !== to) {
-				state.doc.nodesBetween(step.from, step.to, (node) => {
-					if (storeManager.isSourceBlock(node)) {
-						if (sourceSyncBlockAdded[node.attrs.localId]) {
-							// If a source block added and then removed in the same transaction,
-							// we treat it as no-op.
-							delete sourceSyncBlockAdded[node.attrs.localId];
-						} else {
-							sourceSyncBlockRemoved[node.attrs.localId] = node.attrs as SyncBlockAttrs;
-						}
-					}
-					// we don't need to go deeper
-					return false;
-				});
-			}
+	// and cast to specific step types
+	const replaceSteps = tr.steps.filter(
+		(step) => step instanceof ReplaceStep || step instanceof ReplaceAroundStep,
+	) as (ReplaceStep | ReplaceAroundStep)[];
 
-			// replaced content, check for inserted syncBlock
-			if (step.slice.content.size > 0) {
-				step.slice.content.nodesBetween(0, step.slice.content.size, (node) => {
-					if (storeManager.isSourceBlock(node)) {
-						if (sourceSyncBlockRemoved[node.attrs.localId]) {
-							// If a source block is removed and added back in the same transaction,
-							// we treat it as no-op.
-							delete sourceSyncBlockRemoved[node.attrs.localId];
-						} else {
-							sourceSyncBlockAdded[node.attrs.localId] = node.attrs as SyncBlockAttrs;
-						}
+	const hasMultipleReplaceSteps = replaceSteps.length > 1;
+
+	replaceSteps.forEach((step) => {
+		const { from, to } = step;
+		// replaced a range, check for deleted syncBlock
+		if (from !== to) {
+			state.doc.nodesBetween(step.from, step.to, (node) => {
+				if (storeManager.isSourceBlock(node)) {
+					if (sourceSyncBlockAdded[node.attrs.localId]) {
+						// If a source block added and then removed in the same transaction,
+						// we treat it as no-op.
+						delete sourceSyncBlockAdded[node.attrs.localId];
+					} else {
+						sourceSyncBlockRemoved[node.attrs.localId] = node.attrs as SyncBlockAttrs;
 					}
-					// we don't need to go deeper
-					return false;
-				});
-			}
+				}
+				// we don't need to go deeper
+				return false;
+			});
+		}
+
+		// replaced content, check for inserted syncBlock
+		// if only one replace step, we have already checked the entire replaced range above
+		if (step.slice.content.size > 0 && hasMultipleReplaceSteps) {
+			step.slice.content.nodesBetween(0, step.slice.content.size, (node) => {
+				if (storeManager.isSourceBlock(node)) {
+					if (sourceSyncBlockRemoved[node.attrs.localId]) {
+						// If a source block is removed and added back in the same transaction,
+						// we treat it as no-op.
+						delete sourceSyncBlockRemoved[node.attrs.localId];
+					} else {
+						sourceSyncBlockAdded[node.attrs.localId] = node.attrs as SyncBlockAttrs;
+					}
+				}
+				// we don't need to go deeper
+				return false;
+			});
 		}
 	});
 

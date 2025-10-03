@@ -1,5 +1,5 @@
 import { type ACTION, type ACTION_SUBJECT, type ACTION_SUBJECT_ID } from './enums';
-import type { OperationalAEP } from './utils';
+import type { OperationalAEP, UIAEP } from './utils';
 
 type AILocalIdNotFoundErrorAEP = OperationalAEP<
 	ACTION.LOCAL_ID_NOT_FOUND,
@@ -28,7 +28,35 @@ type AIStreamingDiscardStreamError = OperationalAEP<
 	{ errorMessage?: string; errorStack: string }
 >;
 
+type AIChangesAcceptButtonClickedAEP = UIAEP<
+	ACTION.CLICKED,
+	ACTION_SUBJECT.BUTTON,
+	ACTION_SUBJECT_ID.AI_CHANGES_ACCEPT_BUTTON,
+	{
+		appearance: string | undefined;
+		configItemTitle: string | undefined;
+		lastTriggeredFrom: string | undefined;
+		product: string | undefined;
+	},
+	undefined
+>;
+
+type AIChangesRejectButtonClickedAEP = UIAEP<
+	ACTION.CLICKED,
+	ACTION_SUBJECT.BUTTON,
+	ACTION_SUBJECT_ID.AI_CHANGES_REJECT_BUTTON,
+	{
+		appearance: string | undefined;
+		configItemTitle: string | undefined;
+		lastTriggeredFrom: string | undefined;
+		product: string | undefined;
+	},
+	undefined
+>;
+
 export type AIStreamingEventPayload =
 	| AILocalIdNotFoundErrorAEP
 	| AIStreamingUpdateStreamError
-	| AIStreamingDiscardStreamError;
+	| AIStreamingDiscardStreamError
+	| AIChangesAcceptButtonClickedAEP
+	| AIChangesRejectButtonClickedAEP;

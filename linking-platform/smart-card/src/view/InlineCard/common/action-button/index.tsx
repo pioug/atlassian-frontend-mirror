@@ -6,6 +6,7 @@ import { type ComponentPropsWithRef, forwardRef } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Pressable } from '@atlaskit/primitives/compiled';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -43,13 +44,63 @@ const styles = cssMap({
 	},
 });
 
-type ActionButtonProps = ComponentPropsWithRef<typeof Pressable>;
+const experimentEnabledStyles = cssMap({
+	control: {
+		color: token('color.text'),
+		cursor: 'pointer',
+		backgroundColor: token('color.background.neutral'),
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.pressed'),
+		},
+	},
+	test1: {
+		color: token('color.text.inverse'),
+		cursor: 'pointer',
+		backgroundColor: token('color.background.selected.bold'),
+		'&:hover': {
+			backgroundColor: token('color.background.selected.bold.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.selected.bold.pressed'),
+		},
+		borderTopRightRadius: token('radius.xsmall'),
+		borderBottomRightRadius: token('radius.xsmall'),
+	},
+	test2: {
+		color: token('color.text.inverse'),
+		cursor: 'pointer',
+		backgroundColor: token('color.background.accent.gray.bolder'),
+		'&:hover': {
+			backgroundColor: token('color.background.accent.gray.bolder.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.accent.gray.bolder.pressed'),
+		},
+		borderTopRightRadius: token('radius.xsmall'),
+		borderBottomRightRadius: token('radius.xsmall'),
+	},
+});
+
+type ActionButtonProps = ComponentPropsWithRef<typeof Pressable> & {
+	viewType?: 'default' | 'unauthorised';
+};
 
 /**
  * Action button has to be a span for the overflow to work correctly
  */
 export const ActionButton = forwardRef(
-	({ children, isDisabled, ...props }: ActionButtonProps, ref: ActionButtonProps['ref']) => {
+	(
+		{ children, isDisabled, viewType = 'default', ...props }: ActionButtonProps,
+		ref: ActionButtonProps['ref'],
+	) => {
+		const experimentValue =
+			viewType === 'unauthorised'
+				? expVal('platform_inline_smartcard_connect_button_exp', 'cohort', 'control')
+				: 'control';
+
 		return (
 			<Pressable
 				{...props}
@@ -61,7 +112,14 @@ export const ActionButton = forwardRef(
 				xcss={styles.button}
 			>
 				<span
-					css={[styles.innerContainer, isDisabled ? styles.disabled : styles.enabled]}
+					css={[
+						styles.innerContainer,
+						isDisabled
+							? styles.disabled
+							: experimentValue !== 'control'
+								? experimentEnabledStyles[experimentValue]
+								: styles.enabled,
+					]}
 					tabIndex={isDisabled ? undefined : 0}
 				>
 					{children}

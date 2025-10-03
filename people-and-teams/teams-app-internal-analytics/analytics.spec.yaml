@@ -2228,3 +2228,103 @@ events:
         isAdmin:
           type: boolean
           description: whether the user is a site admin
+  - button clicked (addPeopleButton):
+      type: ui
+      description: fired when the add people button is clicked
+      attributes:
+        isPrimary:
+          type: boolean
+          description: whether the button is primary
+  - userMenuItem clicked (linkProfile):
+      type: ui
+      description: fired when the link profile button is clicked
+  - userMenuItem clicked (linkManageAccount):
+      type: ui
+      description: fired when the link manage account button is clicked
+  - userMenuItem clicked (linkLogout):
+      type: ui
+      description: fired when the link logout button is clicked
+  - userMenu opened:
+      type: track
+      description: fired when the user menu is opened
+  - headerImage started (userHeaderImage):
+      type: operational
+      description: fired when the header image action is triggered
+      attributes:
+        actionType:
+          type: ['removeHeaderImage', 'uploadHeaderImage']
+          description: the type of the action
+  - headerImage failed (userHeaderImage):
+      type: operational
+      description: fired when the header image action is failed
+      attributes:
+        actionType:
+          type: ['removeHeaderImage', 'uploadHeaderImage']
+          description: the type of the action
+  - headerImage succeeded (userHeaderImage):
+      type: operational
+      description: fired when the header image action is succeeded
+      attributes:
+        actionType:
+          type: ['removeHeaderImage', 'uploadHeaderImage']
+          description: the type of the action
+  - headerImage started (teamHeaderImage):
+      type: operational
+      description: fired when the header image action is triggered
+      attributes:
+        actionType:
+          type: ['removeHeaderImage', 'uploadHeaderImage']
+          description: the type of the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+        orgAdminTriggered:
+          type: boolean
+          description: whether the user is an org admin
+        isVerified:
+          type: boolean
+          description: whether the user is verified
+          required: false
+  - headerImage failed (teamHeaderImage):
+      type: operational
+      description: fired when the header image action is failed
+      attributes:
+        actionType:
+          type: ['removeHeaderImage', 'uploadHeaderImage']
+          description: the type of the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+        orgAdminTriggered:
+          type: boolean
+          description: whether the user is an org admin
+        isVerified:
+          type: boolean
+          description: whether the user is verified
+          required: false
+  - headerImage succeeded (teamHeaderImage):
+      type: operational
+      description: fired when the header image action is succeeded
+      attributes:
+        actionType:
+          type: ['removeHeaderImage', 'uploadHeaderImage']
+          description: the type of the action
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+        orgAdminTriggered:
+          type: boolean
+          description: whether the user is an org admin
+        isVerified:
+          type: boolean
+          description: whether the user is verified
+          required: false
+  - button clicked (profileHeaderMediaPickerUpload):
+      type: ui
+      description: fired when the media picker upload button is clicked
+  - button clicked (profileHeaderRemove):
+      type: ui
+      description: fired when the remove header image button is clicked
+  - sendFeedback clicked:
+      type: ui
+      description: fired when the send feedback button is clicked

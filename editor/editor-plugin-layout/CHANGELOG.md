@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 6.0.8
+
+### Patch Changes
+
+- [`26917199e153a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26917199e153a) -
+  ED-29473 Add inputMethod attribute for block menu opened and switch inputMethod and triggeredFrom
+  attributes for element converted event
+- Updated dependencies
+
 ## 6.0.7
 
 ### Patch Changes

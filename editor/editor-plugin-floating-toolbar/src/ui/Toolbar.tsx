@@ -36,7 +36,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { FloatingToolbarPlugin } from '../floatingToolbarPluginType';
@@ -801,10 +800,6 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 		// Select has left padding of 4px to the border, everything else 8px
 		const firstElementIsSelect = items[0].type === 'select';
 		const hasSelect = items.find((item) => item.type === 'select' && item.selectType === 'list');
-		const isShortcutToFocusToolbar = (event: KeyboardEvent) => {
-			//Alt + F10 to reach first element in this floating toolbar
-			return event.altKey && (event.key === 'F10' || event.keyCode === 121);
-		};
 
 		return (
 			<React.Fragment>
@@ -813,11 +808,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 					handleEscape={this.handleEscape}
 					disableArrowKeyNavigation={!this.shouldHandleArrowKeys()}
 					childComponentSelector={"[data-testid='editor-floating-toolbar']"}
-					isShortcutToFocusToolbar={
-						editorExperiment('platform_editor_toolbar_rerender_optimization_exp', true)
-							? this.isShortcutToFocusToolbar
-							: isShortcutToFocusToolbar
-					}
+					isShortcutToFocusToolbar={this.isShortcutToFocusToolbar}
 					intl={intl}
 				>
 					<div

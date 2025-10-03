@@ -31,10 +31,7 @@ import { pluginKey as textFormattingPluginKey } from './pm-plugins/plugin-key';
 import textFormattingSmartInputRulePlugin from './pm-plugins/smart-input-rule';
 import type { TextFormattingPlugin } from './textFormattingPluginType';
 import { FloatingToolbarTextFormalWithIntl as FloatingToolbarComponent } from './ui/FloatingToolbarComponent';
-import {
-	PrimaryToolbarComponent,
-	PrimaryToolbarComponentMemoized,
-} from './ui/PrimaryToolbarComponent';
+import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 import { getToolbarComponents } from './ui/toolbar-components';
 
 /**
@@ -55,25 +52,6 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 	}) => {
 		if (!editorView) {
 			return null;
-		}
-
-		if (
-			editorExperiment('platform_editor_toolbar_rerender_optimization_exp', true, {
-				exposure: true,
-			})
-		) {
-			return (
-				<PrimaryToolbarComponentMemoized
-					api={api}
-					popupsMountPoint={popupsMountPoint}
-					popupsScrollableElement={popupsScrollableElement}
-					toolbarSize={toolbarSize}
-					isReducedSpacing={isToolbarReducedSpacing}
-					editorView={editorView}
-					disabled={disabled}
-					shouldUseResponsiveToolbar={Boolean(options?.responsiveToolbarMenu)}
-				/>
-			);
 		}
 
 		return (

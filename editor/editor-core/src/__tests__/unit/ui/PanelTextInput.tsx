@@ -4,7 +4,7 @@ import type { RenderResult } from '@testing-library/react';
 import { fireEvent, render } from '@testing-library/react';
 
 import { PanelTextInput } from '@atlaskit/editor-common/ui';
-import { browser } from '@atlaskit/editor-common/utils';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 const noop = () => {};
 
@@ -101,82 +101,100 @@ describe('@atlaskit/editor-core/ui/PanelTextInput', () => {
 	});
 
 	describe('given', () => {
-		let onUndoSpy: jest.Mock, onRedoSpy: jest.Mock;
-		beforeEach(() => {
-			onUndoSpy = jest.fn();
-			onRedoSpy = jest.fn();
-			panel = render(<PanelTextInput onUndo={onUndoSpy} onRedo={onRedoSpy} />);
-		});
+		eeTest
+			.describe('platform_editor_hydratable_ui', 'new browser util enabled')
+			.variant(true, () => {
+				let onUndoSpy: jest.Mock, onRedoSpy: jest.Mock;
+				let getBrowserInfoSpy: jest.SpyInstance;
 
-		describe('on win platform', () => {
-			it('on ctrl+z calls onUndo handler', () => {
-				const input = panel.getByRole('textbox');
-
-				fireEvent.keyDown(input, {
-					key: 'z',
-					code: 'z',
-					keyCode: 90,
-					ctrlKey: true,
+				beforeEach(() => {
+					onUndoSpy = jest.fn();
+					onRedoSpy = jest.fn();
+					getBrowserInfoSpy = jest.spyOn(
+						require('@atlaskit/editor-common/browser'),
+						'getBrowserInfo',
+					);
+					panel = render(<PanelTextInput onUndo={onUndoSpy} onRedo={onRedoSpy} />);
 				});
-				expect(onUndoSpy).toHaveBeenCalled();
-			});
 
-			it('on ctrl+y calls onRedo handler', () => {
-				const input = panel.getByRole('textbox');
-
-				fireEvent.keyDown(input, {
-					key: 'y',
-					code: 'y',
-					keyCode: 89,
-					ctrlKey: true,
+				afterEach(() => {
+					getBrowserInfoSpy.mockRestore();
 				});
-				expect(onRedoSpy).toHaveBeenCalled();
-			});
-		});
 
-		describe('on mac platform', () => {
-			beforeEach(() => {
-				browser.mac = true;
-			});
+				describe('on win platform', () => {
+					beforeEach(() => {
+						getBrowserInfoSpy.mockReturnValue({ mac: false });
+					});
 
-			it('on cmd+z calls onUndo handler', () => {
-				const input = panel.getByRole('textbox');
+					it('on ctrl+z calls onUndo handler', () => {
+						const input = panel.getByRole('textbox');
 
-				fireEvent.keyDown(input, {
-					key: 'z',
-					code: 'z',
-					keyCode: 90,
-					metaKey: true,
+						fireEvent.keyDown(input, {
+							key: 'z',
+							code: 'z',
+							keyCode: 90,
+							ctrlKey: true,
+						});
+						expect(onUndoSpy).toHaveBeenCalled();
+					});
+
+					it('on ctrl+y calls onRedo handler', () => {
+						const input = panel.getByRole('textbox');
+
+						fireEvent.keyDown(input, {
+							key: 'y',
+							code: 'y',
+							keyCode: 89,
+							ctrlKey: true,
+						});
+						expect(onRedoSpy).toHaveBeenCalled();
+					});
 				});
-				expect(onUndoSpy).toHaveBeenCalled();
-			});
 
-			it('on cmd+shift+z calls onRedo handler', () => {
-				const input = panel.getByRole('textbox');
+				describe('on mac platform', () => {
+					beforeEach(() => {
+						getBrowserInfoSpy.mockReturnValue({ mac: true });
+					});
 
-				fireEvent.keyDown(input, {
-					key: 'z',
-					code: 'z',
-					keyCode: 90,
-					metaKey: true,
-					shiftKey: true,
+					it('on cmd+z calls onUndo handler', () => {
+						const input = panel.getByRole('textbox');
+
+						fireEvent.keyDown(input, {
+							key: 'z',
+							code: 'z',
+							keyCode: 90,
+							metaKey: true,
+						});
+						expect(onUndoSpy).toHaveBeenCalled();
+					});
+
+					it('on cmd+shift+z calls onRedo handler', () => {
+						const input = panel.getByRole('textbox');
+
+						fireEvent.keyDown(input, {
+							key: 'z',
+							code: 'z',
+							keyCode: 90,
+							metaKey: true,
+							shiftKey: true,
+						});
+						expect(onRedoSpy).toHaveBeenCalled();
+					});
+
+					it('should not undo if cmd+z is pressed with shift', () => {
+						const input = panel.getByRole('textbox');
+
+						fireEvent.keyDown(input, {
+							key: 'z',
+							code: 'z',
+							keyCode: 90,
+							metaKey: true,
+							shiftKey: true,
+						});
+						expect(onUndoSpy).not.toHaveBeenCalled();
+					});
 				});
-				expect(onRedoSpy).toHaveBeenCalled();
 			});
-
-			it('should not undo if cmd+z is pressed with shift', () => {
-				const input = panel.getByRole('textbox');
-
-				fireEvent.keyDown(input, {
-					key: 'z',
-					code: 'z',
-					keyCode: 90,
-					metaKey: true,
-					shiftKey: true,
-				});
-				expect(onUndoSpy).not.toHaveBeenCalled();
-			});
-		});
 	});
 
 	it('should focus input if autoFocus prop set to true', () => {

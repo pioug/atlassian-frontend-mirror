@@ -1,9 +1,11 @@
 /* eslint-disable */
 import React from 'react';
+import { act } from '@testing-library/react-hooks';
+
 import * as jestExtendedMatchers from 'jest-extended';
 
 import '@atlaskit/link-test-helpers/jest';
-import { screen, waitForElementToBeRemoved } from '@testing-library/dom';
+import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/dom';
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
@@ -91,6 +93,7 @@ describe('LinkPicker analytics', () => {
 		plugins,
 		previewableLinksOnly = false,
 		additionalError,
+		submitOnInputChange = false,
 	}: Partial<LinkPickerProps> = {}) => {
 		const spy = jest.fn();
 		const onSubmit = jest.fn();
@@ -102,6 +105,7 @@ describe('LinkPicker analytics', () => {
 			onSubmit,
 			previewableLinksOnly,
 			additionalError,
+			submitOnInputChange,
 		}: LinkPickerTestProps) => (
 			<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={spy}>
 				<LinkPicker
@@ -112,12 +116,21 @@ describe('LinkPicker analytics', () => {
 					onContentResize={jest.fn()}
 					previewableLinksOnly={previewableLinksOnly}
 					additionalError={additionalError}
+					submitOnInputChange={submitOnInputChange}
 				/>
 			</AnalyticsListener>
 		);
 
 		const wrappedLinkPicker = render(
-			linkPickerDom({ url, plugins, spy, onSubmit, previewableLinksOnly, additionalError }),
+			linkPickerDom({
+				url,
+				plugins,
+				spy,
+				onSubmit,
+				previewableLinksOnly,
+				additionalError,
+				submitOnInputChange,
+			}),
 		);
 
 		const rerenderLinkPicker = ({
@@ -1217,6 +1230,117 @@ describe('LinkPicker analytics', () => {
 			await user.click(insertButton);
 			expect(screen.getByText("Embed view isn't supported for this link.")).toBeInTheDocument();
 			expect(screen.queryByText('Form is invalid')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('submit on input change', () => {
+		beforeEach(() => {
+			const fg = require('@atlaskit/platform-feature-flags').fg;
+			fg.mockReturnValue(true);
+		});
+		it('debounce rapid typing and only submiting the final valid URL', async () => {
+			// Temporarily restore the real useDebounce for this test
+			const originalUseDebounce = jest.requireActual('use-debounce').useDebounce;
+			const useDebounceModule = require('use-debounce');
+			useDebounceModule.useDebounce = originalUseDebounce;
+			jest.useFakeTimers();
+			const { urlField, onSubmit } = setupLinkPicker({
+				submitOnInputChange: true,
+			});
+
+			const field = await urlField();
+
+			// Simulate rapid typing by firing multiple change events
+			fireEvent.change(field, { target: { value: 'https://www.atl' } });
+			fireEvent.change(field, { target: { value: 'https://www.atlas' } });
+			fireEvent.change(field, { target: { value: 'https://www.atlassian' } });
+			fireEvent.change(field, { target: { value: 'https://www.atlassian.com' } });
+			// Should not have submitted yet
+			expect(onSubmit).not.toHaveBeenCalled();
+			// Advance past the debounce period (300ms)
+			act(() => {
+				jest.advanceTimersByTime(350);
+			});
+			await waitFor(() => {
+				expect(onSubmit).toHaveBeenCalledTimes(1);
+			});
+
+			expect(onSubmit).toHaveBeenCalledWith(
+				expect.objectContaining({
+					url: 'https://www.atlassian.com',
+				}),
+				expect.any(Object),
+			);
+			// Restore the mock and timers
+			useDebounceModule.useDebounce = <T extends unknown>(val: T) => [val];
+			jest.useRealTimers();
+		});
+
+		it('should not auto-submit when submitOnInputChange is false', async () => {
+			const { urlField, onSubmit } = setupLinkPicker({
+				submitOnInputChange: false,
+			});
+			await user.type(await urlField(), 'https://www.atlassian.com');
+			expect(onSubmit).not.toHaveBeenCalled();
+		});
+
+		it('should not auto-submit invalid URLs', async () => {
+			const { urlField, onSubmit } = setupLinkPicker({
+				submitOnInputChange: true,
+			});
+			await user.type(await urlField(), 'invalid-url');
+			expect(onSubmit).not.toHaveBeenCalled();
+		});
+
+		it('should not auto-submit empty URLs', async () => {
+			const { urlField, onSubmit } = setupLinkPicker({
+				submitOnInputChange: true,
+			});
+			await user.type(await urlField(), '   ');
+			expect(onSubmit).not.toHaveBeenCalled();
+		});
+
+		it('should clear invalid URL state when URL is cleared and submitOnInputChange is true', async () => {
+			const { urlField } = setupLinkPicker({
+				submitOnInputChange: true,
+				previewableLinksOnly: true,
+			});
+			shouldReturnEmptyResponse = true;
+
+			// Type invalid URL to trigger invalid state
+			await user.type(await urlField(), 'https://www.atlassian.com');
+			await new Promise((resolve) => setTimeout(resolve, 500));
+			expect(screen.getByText("Embed view isn't supported for this link.")).toBeInTheDocument();
+
+			// Clear the URL
+			await user.clear(await urlField());
+
+			// Should not show invalid error after clearing
+			expect(
+				screen.queryByText("Embed view isn't supported for this link."),
+			).not.toBeInTheDocument();
+		});
+
+		it('should not clear invalid URL state when URL is cleared and submitOnInputChange is false', async () => {
+			const { urlField } = setupLinkPicker({
+				submitOnInputChange: false,
+				previewableLinksOnly: true,
+			});
+			shouldReturnEmptyResponse = true;
+
+			await user.type(await urlField(), 'https://www.atlassian.com');
+
+			const insertButton = screen.getByTestId('link-picker-insert-button');
+			await user.click(insertButton);
+
+			await new Promise((resolve) => setTimeout(resolve, 500));
+			expect(screen.getByText("Embed view isn't supported for this link.")).toBeInTheDocument();
+
+			// Clear the URL
+			await user.clear(await urlField());
+
+			// Should still show invalid error after clearing since submitOnInputChange is false
+			expect(screen.getByText("Embed view isn't supported for this link.")).toBeInTheDocument();
 		});
 	});
 

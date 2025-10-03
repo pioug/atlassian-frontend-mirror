@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
@@ -6,7 +6,6 @@ import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
-	INPUT_METHOD,
 	type BlockMenuEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/editor-common/block-menu';
@@ -35,11 +34,9 @@ export const FormatMenuComponent = ({
 		? formatMessage(blockMenuMessages.turnInto)
 		: formatMessage(messages.turnInto);
 
-	const isDisabled = useMemo(() => {
-		return fg('platform_editor_block_menu_for_disabled_nodes')
-			? checkIsFormatMenuHidden(api)
-			: false;
-	}, [api]);
+	const isDisabled = fg('platform_editor_block_menu_for_disabled_nodes')
+		? checkIsFormatMenuHidden(api)
+		: false;
 
 	const handleClick = useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {
@@ -47,7 +44,6 @@ export const FormatMenuComponent = ({
 				action: ACTION.CLICKED,
 				actionSubject: ACTION_SUBJECT.BLOCK_MENU_ITEM,
 				attributes: {
-					inputMethod: INPUT_METHOD.MOUSE,
 					menuItemName: BLOCK_MENU_ITEM_NAME.FORMAT_MENU,
 				},
 				eventType: EVENT_TYPE.UI,

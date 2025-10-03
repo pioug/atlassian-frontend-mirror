@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 0.4.0
+
+### Minor Changes
+
+- [`acb8231bc9e0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acb8231bc9e0c) -
+  EDITOR-1779 - "rebase" the transaction to reflect the latest document state
+
 ## 0.3.0
 
 ### Minor Changes

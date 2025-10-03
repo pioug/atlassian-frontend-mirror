@@ -68,6 +68,17 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => {
 
 		nodes() {
 			if (fg('platform_editor_adf_with_localid')) {
+				if (fg('platform_editor_ai_aifc_patch_beta')) {
+					return [
+						{
+							name: 'panel',
+							node: {
+								...extendedPanelWithLocalId(!!options.allowCustomPanel),
+								definingAsContext: true,
+							},
+						},
+					];
+				}
 				return [{ name: 'panel', node: extendedPanelWithLocalId(!!options.allowCustomPanel) }];
 			}
 			return [{ name: 'panel', node: extendedPanel(!!options.allowCustomPanel) }];

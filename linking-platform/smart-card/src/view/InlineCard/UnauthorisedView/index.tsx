@@ -84,7 +84,11 @@ export const InlineCardUnauthorizedView = ({
 
 	const renderActionButton = React.useCallback(() => {
 		return (
-			<ActionButton onClick={handleConnectAccount} testId="button-connect-account">
+			<ActionButton
+				onClick={handleConnectAccount}
+				viewType={'unauthorised'}
+				testId="button-connect-account"
+			>
 				<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
 			</ActionButton>
 		);

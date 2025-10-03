@@ -357,6 +357,7 @@ type SliceJson = {
 
 export interface StepMetadata {
 	metadata?: {
+		createdOffline?: boolean;
 		prevStepId?: string;
 		rebased?: boolean;
 		reqId?: string;

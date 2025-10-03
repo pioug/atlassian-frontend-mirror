@@ -5,7 +5,6 @@ import userEvent from '@testing-library/user-event';
 import { bind } from 'bind-event-listener';
 
 import HomeIcon from '@atlaskit/icon/core/home';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ButtonMenuItem } from '../../button-menu-item';
 import { FlyoutMenuItem } from '../../flyout-menu-item/flyout-menu-item';
@@ -139,7 +138,7 @@ describe('FlyoutMenuItem', () => {
 		});
 	});
 
-	ffTest.on('platform_dst_nav4_flyout_use_capture_outside', 'Click outside of flyout', () => {
+	describe('Click outside of flyout', () => {
 		test('bubble phase event listener stops event', async () => {
 			const cleanup = bind(window, {
 				type: 'click',

@@ -182,10 +182,6 @@ const dragHandleButtonStyles = css({
 		backgroundColor: token('color.background.neutral.subtle.pressed', '#091E4224'),
 	},
 
-	'&:focus': {
-		outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
-	},
-
 	'&:disabled': {
 		color: token('color.icon.disabled', '#8993A4'),
 		backgroundColor: 'transparent',
@@ -250,6 +246,22 @@ const dragHandleButtonStylesOld = css({
 	'&:hover:disabled': {
 		backgroundColor: token('color.background.disabled', 'transparent'),
 	},
+});
+
+const focusedStylesOld = css({
+	'&:focus': {
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
+	},
+});
+
+const focusedStyles = css({
+	'&:focus-visible': {
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
+	},
+});
+
+const keyboardFocusedDragHandleStyles = css({
+	outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
 });
 
 const dragHandleContainerStyles = xcss({
@@ -390,6 +402,7 @@ export const DragHandle = ({
 	const [blockCardWidth, setBlockCardWidth] = useState(768);
 	const [recalculatePosition, setRecalculatePosition] = useState<boolean>(false);
 	const [positionStylesOld, setPositionStylesOld] = useState<CSSProperties>({ display: 'none' });
+	const [isFocused, setIsFocused] = useState(Boolean(handleOptions?.isFocused));
 	const { macroInteractionUpdates } = useSharedPluginStateWithSelector(
 		api,
 		['featureFlags'],
@@ -1264,6 +1277,18 @@ export const DragHandle = ({
 				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
 					editorExperiment('platform_editor_controls', 'control') &&
 					dragHandleButtonSmallScreenStyles,
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+					expValEqualsNoExposure(
+						'platform_editor_block_menu_keyboard_navigation',
+						'isEnabled',
+						true,
+					) &&
+					isFocused &&
+					keyboardFocusedDragHandleStyles,
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
+					? focusedStyles
+					: focusedStylesOld,
 			]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -1291,6 +1316,12 @@ export const DragHandle = ({
 				expValEquals('platform_editor_drag_handle_aria_label', 'isEnabled', true)
 					? dragHandleAriaLabel
 					: ''
+			}
+			onBlur={
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
+					? () => setIsFocused(false)
+					: undefined
 			}
 		>
 			<Box

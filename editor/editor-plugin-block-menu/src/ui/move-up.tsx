@@ -7,7 +7,6 @@ import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
-	INPUT_METHOD,
 	type BlockMenuEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -43,7 +42,6 @@ const MoveUpDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {
 				action: ACTION.CLICKED,
 				actionSubject: ACTION_SUBJECT.BLOCK_MENU_ITEM,
 				attributes: {
-					inputMethod: INPUT_METHOD.MOUSE,
 					menuItemName: BLOCK_MENU_ITEM_NAME.MOVE_UP,
 				},
 				eventType: EVENT_TYPE.UI,

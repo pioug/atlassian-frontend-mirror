@@ -1162,6 +1162,7 @@ export class DocumentService implements DocumentServiceInterface {
 			collabMode: this.participantsService.getCollabMode(),
 			reason,
 			lockSteps: this.lockSteps,
+			stepOrigins: unconfirmedStepsData.origins,
 		});
 	}
 }

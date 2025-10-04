@@ -1,5 +1,12 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.5.7
+
+### Patch Changes
+
+- [`f17b28c0604e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f17b28c0604e2) -
+  Added waitUntilInitializeCompleted to FeatureGates client
+
 ## 5.5.6
 
 ### Patch Changes

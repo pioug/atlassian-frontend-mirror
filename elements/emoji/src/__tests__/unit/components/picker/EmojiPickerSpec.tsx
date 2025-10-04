@@ -966,8 +966,9 @@ describe('<EmojiPicker />', () => {
 				};
 
 				return (
+					// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 					<div onKeyDown={handleParentKeyDown} data-testid="parent">
-						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex */}
+						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex, @atlassian/a11y/no-static-element-interactions */}
 						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>
 							Mock Emoji Picker
 						</div>
@@ -1017,8 +1018,9 @@ describe('<EmojiPicker />', () => {
 				};
 
 				return (
+					// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 					<div onKeyDown={handleParentKeyDown} data-testid="parent">
-						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex */}
+						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex, @atlassian/a11y/no-static-element-interactions */}
 						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>
 							Mock Emoji Picker
 						</div>
@@ -1067,8 +1069,9 @@ describe('<EmojiPicker />', () => {
 				};
 
 				return (
+					// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 					<div onKeyDown={handleParentKeyDown} data-testid="parent">
-						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex */}
+						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex, @atlassian/a11y/no-static-element-interactions */}
 						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>
 							Mock Emoji Picker
 						</div>

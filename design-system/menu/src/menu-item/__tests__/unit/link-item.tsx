@@ -157,7 +157,7 @@ describe('<LinkItem />', () => {
 			const onMouseDown = jest.fn();
 			render(
 				// TODO: Ensure LinkItems are not used as buttons (DSP-11468)
-				// eslint-disable-next-line @atlassian/a11y/anchor-is-valid, jsx-a11y/no-static-element-interactions
+				// eslint-disable-next-line @atlassian/a11y/anchor-is-valid, @atlassian/a11y/no-static-element-interactions
 				<LinkItem onMouseDown={onMouseDown} testId="target">
 					Hello world
 				</LinkItem>,

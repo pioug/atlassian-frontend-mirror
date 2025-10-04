@@ -37,7 +37,7 @@ class DummyComponent extends React.Component<Props> {
 	render() {
 		const { onClick, text } = this.props;
 		return (
-			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events
+			// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 			<div
 				id="dummy"
 				onClick={onClick}

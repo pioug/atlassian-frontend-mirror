@@ -250,7 +250,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 		const { isNew, focusStatusInput } = this.props;
 		const { color, text } = this.state;
 		return (
-			// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+			// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 			<div
 				css={pickerContainerStyles}
 				tabIndex={-1}

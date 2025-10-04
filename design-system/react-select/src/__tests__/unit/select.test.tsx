@@ -1295,7 +1295,7 @@ cases<ClickingEnterOpts>(
 	async ({ props, expectedValue }) => {
 		let event!: KeyboardEvent<HTMLDivElement>;
 		render(
-			// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+			// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 			<div
 				onKeyDown={(_event) => {
 					event = _event;

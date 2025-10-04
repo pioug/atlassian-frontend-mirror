@@ -142,7 +142,7 @@ export function SkipLinksContainer({
 
 	return (
 		// Capturing bubbled events, element itself is not interactive
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<div
 			onKeyDown={closeOnEscape}
 			css={[styles.root]}

@@ -26,6 +26,9 @@
 			"path": "../../../design-system/button/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-json-transformer/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-block-menu/afm-townsquare/tsconfig.json"
 		},
 		{

@@ -662,7 +662,7 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 
 		// for performance purposes, we may want to have a loadable content i.e. ShareForm
 		return (
-			// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+			// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 			<div
 				css={shareButtonWrapperStyles}
 				tabIndex={tabIndex}

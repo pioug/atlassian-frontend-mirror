@@ -73,7 +73,7 @@ export const Menu = ({ selectProps, innerProps }: MenuProps<any>) => {
 					// `react-select` that will stop the calendar select event from
 					// firing. This is passed in via the `innerProps`. Therefore, we must
 					// pass it in *after* the `innerProps` spread.
-					// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+					// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 					<div css={menuStyles} {...innerProps} onMouseDown={onMenuMouseDown}>
 						<Wrapper>
 							<Calendar

@@ -267,7 +267,7 @@ const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
 			}) => {
 				return (
 					<CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
-						{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+						{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions */}
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							style={style}

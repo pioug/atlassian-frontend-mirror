@@ -138,7 +138,7 @@ export const TableFloatingControls = ({
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		<div className={wrapperClassName}>
-			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+			{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions */}
 			<div onMouseDown={(e) => !isDragAndDropEnabled && e.preventDefault()}>
 				{isNumberColumnEnabled ? (
 					<NumberColumn

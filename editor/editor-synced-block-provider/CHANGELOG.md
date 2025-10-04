@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 0.5.0
+
+### Minor Changes
+
+- [`3ebbf8e97e2d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ebbf8e97e2d9) -
+  Simplify provider API
+
 ## 0.4.0
 
 ### Minor Changes

@@ -2187,7 +2187,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 	);
 
 	return (
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/click-events-have-key-events
+		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 		<div
 			ref={innerRef}
 			onClick={onClick}

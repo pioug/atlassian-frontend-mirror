@@ -383,6 +383,18 @@ export class Client {
 		return this.initCompleted;
 	}
 
+	async waitUntilInitializeCompleted(): Promise<void> {
+		if (!this.initPromise) {
+			throw new Error('The client must be initialized before you can wait until initialized.');
+		}
+
+		if (this.initCompleted) {
+			return;
+		}
+
+		await this.initPromise;
+	}
+
 	/**
 	 * Returns the value for a feature gate. Returns false if there are errors.
 	 * @param {string} gateName - The name of the feature gate.

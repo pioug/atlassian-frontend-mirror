@@ -146,7 +146,7 @@ const ControlOption = <Option, IsMulti extends boolean = false>(
 	return (
 		// These need to remain this way because `react-select` passes props with
 		// styles inside, and that must be done dynamically.
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<div
 			css={[
 				optionStyles.default,

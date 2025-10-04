@@ -69,7 +69,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 
 	Wrapper = ({ children }: { children: React.ReactElement }) => {
 		return this.onValueContainerClick ? (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, jsx-a11y/no-static-element-interactions -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlassian/a11y/no-static-element-interactions -- Ignored via go/DSP-18766
 			<div css={wrapperStyle} onMouseDown={this.onValueContainerClick}>
 				{children}
 			</div>

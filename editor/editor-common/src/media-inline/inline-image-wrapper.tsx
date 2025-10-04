@@ -64,7 +64,7 @@ export const InlineImageWrapper = ({
 		: {};
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/prefer-primitives, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/click-events-have-key-events
+		// eslint-disable-next-line @atlaskit/design-system/prefer-primitives, @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 		<span
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={{ ...borderStyleVars, ...aspectStyleVars }}

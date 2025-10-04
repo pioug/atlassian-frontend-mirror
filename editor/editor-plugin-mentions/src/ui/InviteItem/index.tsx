@@ -132,7 +132,7 @@ const InviteItem = ({
 	}, [onMount]);
 
 	return (
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<div
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[mentionItemStyle, selected && mentionItemSelectedStyle]}

@@ -131,6 +131,7 @@ class FeatureGates {
 
 	static initializeCalled = this.client.initializeCalled.bind(this.client);
 	static initializeCompleted = this.client.initializeCompleted.bind(this.client);
+	static waitUntilInitializeCompleted = this.client.waitUntilInitializeCompleted.bind(this.client);
 	static initialize = this.client.initialize.bind(this.client);
 	static initializeWithProvider = this.client.initializeWithProvider.bind(this.client);
 	static initializeFromValues = this.client.initializeFromValues.bind(this.client);

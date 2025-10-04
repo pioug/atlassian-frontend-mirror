@@ -421,7 +421,7 @@ function MobileBrowser({
 		setFocusOnSearch: () => void;
 	}) {
 	return (
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<div
 			css={mobileElementBrowserContainer}
 			onKeyDown={onKeyDown}
@@ -562,7 +562,7 @@ function DesktopBrowser({
 					</nav>
 				</div>
 			)}
-			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+			{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions */}
 			<div css={mainContent} onKeyDown={onKeyDown} data-testid="main-content">
 				{showSearch && (
 					// eslint-disable-next-line

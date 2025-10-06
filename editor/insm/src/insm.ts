@@ -4,6 +4,7 @@ import { INSMSession } from './insm-session';
 import type { ExperienceProperties, INSMOptions } from './types';
 import { AnimationFPSIM } from './period-measurers/afps';
 import { INPTracker } from './inp-measurers/inp';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export class INSM {
 	analyticsWebClient?: AnalyticsWebClient;
@@ -48,12 +49,15 @@ export class INSM {
 	 * Starts a heavy task in the currently running session.
 	 *
 	 * This also pauses measurement.
+	 *
+	 * For PageLoads using the key 'PageLoad' will mean the heavy task duration
+	 * is added to the insm session event as pageLoadTime.
 	 */
 	startHeavyTask(heavyTaskName: string) {
 		this.runningHeavyTasks.add(heavyTaskName);
 		this.runningSession?.periodTracking?.startHeavyTask(heavyTaskName);
 		this.runningSession?.periodTracking.pause(heavyTaskName);
-		this.session?.longAnimationFrameMeasurer.pause();
+		this.runningSession?.longAnimationFrameMeasurer.pause();
 	}
 
 	/**
@@ -64,7 +68,13 @@ export class INSM {
 		this.runningSession?.periodTracking.resume(heavyTaskName);
 
 		if (this.runningHeavyTasks.size === 0) {
-			this.session?.longAnimationFrameMeasurer.resume();
+			this.runningSession?.longAnimationFrameMeasurer.resume();
+		}
+
+		if (expValEquals('cc_editor_insm_outlier_events', 'cohort', 'test')) {
+			if (heavyTaskName === 'PageLoad') {
+				this.runningSession?.completePageLoad();
+			}
 		}
 	}
 
@@ -72,15 +82,19 @@ export class INSM {
 	 * Call this when starting a new experience.  This is expected to be wired to the product
 	 * routing solution.
 	 *
-	 * It's expected this call will be paired with a `insm.session.startHeavyTask('page-load')` and subsequent `insm.session.endHeavyTask('page-load')`
-	 * so that performance degradations linked to the page initialisation are excluded from the active interactivity monitoring.
+	 * It's expected this call will be paired with a `insm.session.startHeavyTask('PageLoad')` and
+	 * subsequent `insm.session.endHeavyTask('PageLoad')` so that performance degradations linked
+	 * to the page initialisation are excluded from the active interactivity monitoring.
+	 *
+	 * Using the key 'PageLoad' is special and will result in the heavy task duration being added to the
+	 * insm session event as pageLoadTime.
 	 *
 	 *
 	 * ```ts
 	 * insm.start('edit-page', { initial: true, contentId: '9001' })
-	 * insm.session.startHeavyTask(''page-load')
+	 * insm.session.startHeavyTask('PageLoad')
 	 * // ... heavy initialisation work
-	 * insm.session.endHeavyTask(''page-load')
+	 * insm.session.endHeavyTask('PageLoad')
 	 * ```
 	 */
 	start(experienceKey: string, experienceProperties: ExperienceProperties) {

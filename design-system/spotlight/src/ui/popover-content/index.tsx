@@ -5,10 +5,13 @@
 import { type ReactNode, useContext, useEffect, useRef } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { Popper, type Placement as PopperPlacement } from '@atlaskit/popper';
 
 import { SpotlightContext } from '../../controllers/context';
 import type { Placement } from '../../types';
+import { useFocusWithin } from '../../utils/use-focus-within';
+import { useOnEscape } from '../../utils/use-on-escape';
 
 const styles = cssMap({
 	root: {
@@ -35,6 +38,7 @@ export interface PopoverContentProps {
 	testId?: string;
 	placement: Placement;
 	isVisible?: boolean;
+	dismiss: (event: KeyboardEvent) => void;
 	children: ReactNode;
 }
 
@@ -69,14 +73,21 @@ export const PopoverContent = ({
 	children,
 	placement,
 	isVisible = true,
+	dismiss,
 	testId,
 }: PopoverContentProps) => {
 	const updateRef = useRef<() => Promise<any>>(() => new Promise(() => undefined));
-	const { heading, popoverContent, setPlacement } = useContext(SpotlightContext);
+	const ref = useRef<HTMLDivElement>();
+	const { heading, popoverContent, card } = useContext(SpotlightContext);
+	const focusWithin = useFocusWithin(popoverContent.ref);
 
 	useEffect(() => {
-		setPlacement(placement);
-	}, [placement, setPlacement]);
+		popoverContent.setRef(ref);
+	}, [ref, popoverContent]);
+
+	useEffect(() => {
+		card.setPlacement(placement);
+	}, [placement, card]);
 
 	useEffect(() => {
 		if (updateRef.current) {
@@ -84,9 +95,17 @@ export const PopoverContent = ({
 		}
 	}, [popoverContent]);
 
+	useOnEscape((event: KeyboardEvent) => {
+		if (!focusWithin) {
+			return;
+		}
+
+		dismiss(event);
+	});
+
 	return (
 		<Popper offset={offset} placement={popperPlacementMap[placement]}>
-			{({ ref, style, update }) => {
+			{({ ref: localRef, style, update }) => {
 				if (!isVisible) {
 					return;
 				}
@@ -98,7 +117,7 @@ export const PopoverContent = ({
 						role="dialog"
 						data-testid={testId}
 						aria-labelledby={heading.id}
-						ref={ref}
+						ref={mergeRefs([ref, localRef])}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 						style={style}
 						css={styles.root}

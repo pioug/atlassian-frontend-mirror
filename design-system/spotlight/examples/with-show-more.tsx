@@ -57,6 +57,7 @@ const styles = cssMap({
 
 export default () => {
 	const [isVisible, setIsVisible] = useState<boolean>(true);
+	const dismiss = () => setIsVisible(false);
 
 	return (
 		<div css={styles.root}>
@@ -67,12 +68,12 @@ export default () => {
 							<Text>Target element</Text>
 						</Box>
 					</PopoverTarget>
-					<PopoverContent placement="bottom-end" isVisible={isVisible}>
+					<PopoverContent dismiss={dismiss} placement="bottom-end" isVisible={isVisible}>
 						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>
 								<SpotlightControls>
-									<SpotlightDismissControl onClick={() => setIsVisible(false)} />
+									<SpotlightDismissControl onClick={dismiss} />
 									<DropdownMenu<HTMLButtonElement>
 										trigger={({ triggerRef, onClick }) => (
 											<SpotlightShowMoreControl ref={triggerRef} onClick={onClick} />
@@ -91,9 +92,7 @@ export default () => {
 							</SpotlightBody>
 							<SpotlightFooter>
 								<SpotlightActions>
-									<SpotlightPrimaryAction onClick={() => setIsVisible(false)}>
-										Done
-									</SpotlightPrimaryAction>
+									<SpotlightPrimaryAction onClick={dismiss}>Done</SpotlightPrimaryAction>
 								</SpotlightActions>
 							</SpotlightFooter>
 						</SpotlightCard>

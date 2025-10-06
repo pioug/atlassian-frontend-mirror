@@ -60,6 +60,7 @@ export default () => {
 	const [currentStep, setCurrentStep] = useState<'step-1' | 'step-2' | 'step-3' | undefined>(
 		'step-1',
 	);
+	const dismiss = () => setCurrentStep(undefined);
 
 	return (
 		<div css={styles.root}>
@@ -70,12 +71,16 @@ export default () => {
 							<Text>Target 1</Text>
 						</Box>
 					</PopoverTarget>
-					<PopoverContent placement="right-end" isVisible={currentStep === 'step-1'}>
+					<PopoverContent
+						dismiss={dismiss}
+						placement="right-end"
+						isVisible={currentStep === 'step-1'}
+					>
 						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>
 								<SpotlightControls>
-									<SpotlightDismissControl onClick={() => setCurrentStep(undefined)} />
+									<SpotlightDismissControl onClick={dismiss} />
 								</SpotlightControls>
 							</SpotlightHeader>
 							<SpotlightBody>
@@ -99,12 +104,16 @@ export default () => {
 							<Text>Target 2</Text>
 						</Box>
 					</PopoverTarget>
-					<PopoverContent placement="left-end" isVisible={currentStep === 'step-2'}>
+					<PopoverContent
+						dismiss={dismiss}
+						placement="left-end"
+						isVisible={currentStep === 'step-2'}
+					>
 						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>
 								<SpotlightControls>
-									<SpotlightDismissControl onClick={() => setCurrentStep(undefined)} />
+									<SpotlightDismissControl onClick={dismiss} />
 								</SpotlightControls>
 							</SpotlightHeader>
 							<SpotlightBody>
@@ -131,12 +140,16 @@ export default () => {
 							<Text>Target 3</Text>
 						</Box>
 					</PopoverTarget>
-					<PopoverContent placement="right-end" isVisible={currentStep === 'step-3'}>
+					<PopoverContent
+						dismiss={dismiss}
+						placement="right-end"
+						isVisible={currentStep === 'step-3'}
+					>
 						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>
 								<SpotlightControls>
-									<SpotlightDismissControl onClick={() => setCurrentStep(undefined)} />
+									<SpotlightDismissControl onClick={dismiss} />
 								</SpotlightControls>
 							</SpotlightHeader>
 							<SpotlightBody>
@@ -148,9 +161,7 @@ export default () => {
 									<SpotlightSecondaryAction onClick={() => setCurrentStep('step-2')}>
 										Back
 									</SpotlightSecondaryAction>
-									<SpotlightPrimaryAction onClick={() => setCurrentStep(undefined)}>
-										Done
-									</SpotlightPrimaryAction>
+									<SpotlightPrimaryAction onClick={dismiss}>Done</SpotlightPrimaryAction>
 								</SpotlightActions>
 							</SpotlightFooter>
 						</SpotlightCard>

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/spotlight",
-	"version": "0.5.0",
+	"version": "0.5.1",
 	"description": "A spotlight introduces users to various points of interest across Atlassian through focused messages or multi-step tours.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,6 +32,7 @@
 		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/image": "workspace:^",
@@ -40,7 +41,8 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "root:*",
-		"@compiled/react": "root:*"
+		"@compiled/react": "root:*",
+		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"

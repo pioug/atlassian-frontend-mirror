@@ -1,5 +1,12 @@
 # @atlaskit/tile
 
+## 0.2.0
+
+### Minor Changes
+
+- [`f20393c20ed30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f20393c20ed30) -
+  Added new Tile Skeleton to act as a placeholder while content loads.
+
 ## 0.1.4
 
 ### Patch Changes

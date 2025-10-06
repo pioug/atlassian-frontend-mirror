@@ -12,11 +12,14 @@ import { LongAnimationFrameMeasurer } from './session-measurers/LongAnimationFra
  * Only intended for internal use.
  *
  * Exported for consumers who may require the type.
+ *
+ * Note: Events are not reliably fired from mobile browsers (ie. when a browser is closed when not in use)
  */
 export class INSMSession {
 	private experienceKey: string;
 	private experienceProperties: ExperienceProperties;
 	private startedAt = performance.now();
+	private pageLoadTime: number | null = null;
 	insm: INSM;
 	private running = true;
 	private addedProperties: AddedProperties[] = [];
@@ -37,10 +40,14 @@ export class INSMSession {
 			insmSession: this,
 			reportingThreshold: 500,
 		});
+	}
 
-		/**
-		 * Note: Events are not reliably fired from mobile browsers (ie. when a browser is closed when not in use)
-		 */
+	/**
+	 * Completes the page load timing. This is called automatically when ending a heavy task
+	 * with the key 'PageLoad'.
+	 */
+	completePageLoad() {
+		this.pageLoadTime = performance.now() - this.startedAt;
 	}
 
 	updateExperienceKey(experienceKey: string) {
@@ -167,15 +174,20 @@ export class INSMSession {
 				contentId: this.experienceProperties.contentId,
 				timing: {
 					startedAt: this.startedAt,
+					// Note: this will not match up with the periods sum of durations, as it includes
+					// time paused when heavy tasks were running, and/or the page is in the background.
 					duration,
 				},
 				periods: periodResults,
 				endDetails: endDetails,
-				longAnimationFrames: this.longAnimationFrameMeasurer.current,
+				...(expValEquals('cc_editor_insm_outlier_events', 'cohort', 'test')
+					? {
+							longScripts: this.longAnimationFrameMeasurer.current,
+							pageLoadTime: this.pageLoadTime,
+							deviceDetails: getDeviceDetails(),
+						}
+					: {}),
 			},
-			deviceDetails: expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)
-				? getDeviceDetails()
-				: undefined,
 			highPriority: true,
 			tags: ['editor'],
 			source: 'unknown',

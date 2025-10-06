@@ -32,6 +32,9 @@
 			"path": "../../css/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../ds-lib/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../heading/afm-townsquare/tsconfig.json"
 		},
 		{

@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../skeleton/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-dev-agents/tsconfig.json"
 		}
 	]

@@ -29,6 +29,7 @@ import ExampleImage from '../assets/295x135.png';
 
 const styles = cssMap({
 	root: {
+		display: 'flex',
 		paddingBlockStart: token('space.400'),
 		paddingInlineEnd: token('space.400'),
 		paddingBlockEnd: token('space.400'),
@@ -39,6 +40,7 @@ const styles = cssMap({
 
 const Example = () => {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
+	const dismiss = () => setIsVisible(false);
 
 	return (
 		<div css={styles.root}>
@@ -46,12 +48,12 @@ const Example = () => {
 				<PopoverTarget>
 					<Button onClick={() => setIsVisible(true)}>Show Spotlight</Button>
 				</PopoverTarget>
-				<PopoverContent isVisible={isVisible} placement="right-end">
+				<PopoverContent dismiss={dismiss} isVisible={isVisible} placement="right-end">
 					<SpotlightCard testId="spotlight">
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
 							<SpotlightControls>
-								<SpotlightDismissControl onClick={() => setIsVisible(false)} />
+								<SpotlightDismissControl onClick={dismiss} />
 							</SpotlightControls>
 						</SpotlightHeader>
 						<SpotlightMedia>
@@ -62,9 +64,7 @@ const Example = () => {
 						</SpotlightBody>
 						<SpotlightFooter>
 							<SpotlightActions>
-								<SpotlightPrimaryAction onClick={() => setIsVisible(false)}>
-									Done
-								</SpotlightPrimaryAction>
+								<SpotlightPrimaryAction onClick={dismiss}>Done</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
 					</SpotlightCard>

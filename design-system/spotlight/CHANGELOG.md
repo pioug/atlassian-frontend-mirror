@@ -1,5 +1,15 @@
 # @atlaskit/spotlight
 
+## 0.5.1
+
+### Patch Changes
+
+- [`4f9f525caaa13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f9f525caaa13) -
+  Implement 'dismiss on escape key press' functionality. Escape will cause the current spotlight to
+  call the `dismiss` function passed to `PopoverContent`. Implementation of the `dismiss` function
+  is up to the consumer of the package.
+- Updated dependencies
+
 ## 0.5.0
 
 ### Minor Changes

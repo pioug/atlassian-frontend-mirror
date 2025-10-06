@@ -12,6 +12,29 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  * existing experiments.
  */
 export const editorExperimentsConfig = {
+	// new format to avoid collisions with other users when updating the file
+
+	// Editor Platform experiments
+	// lwoollard experiments
+	// Added 03-09-2025
+	cc_editor_interactivity_monitoring: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_editor_interactivity_monitoring',
+			jira: 'cc_editor_interactivity_monitoring',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-09-30
+	cc_editor_insm_outlier_events: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'cc_editor_insm_outlier_events',
+		},
+		param: 'cohort',
+		values: ['control', 'test'],
+		defaultValue: 'control',
+	}),
+
 	// Added 2025-05-27
 	platform_editor_reduce_noisy_steps_ncs: createBooleanExperiment({
 		productKeys: {
@@ -946,15 +969,6 @@ export const editorExperimentsConfig = {
 	platform_editor_aifc_selection_toolbar_responsive: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_aifc_selection_toolbar_responsive',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 03-09-2025
-	cc_editor_interactivity_monitoring: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_editor_interactivity_monitoring',
-			jira: 'cc_editor_interactivity_monitoring',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

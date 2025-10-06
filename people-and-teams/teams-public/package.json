@@ -118,7 +118,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.61.1",
+	"version": "0.62.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -143,9 +143,6 @@
 			"type": "boolean"
 		},
 		"teams_containers_cypher_query_v2_migration": {
-			"type": "boolean"
-		},
-		"enable-team-profile-refactor": {
 			"type": "boolean"
 		},
 		"migrate-product-permissions": {

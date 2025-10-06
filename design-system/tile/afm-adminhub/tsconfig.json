@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../skeleton/afm-adminhub/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-adminhub/tsconfig.json"
 		}
 	]

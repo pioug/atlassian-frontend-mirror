@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../skeleton/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-rovo-extension/tsconfig.json"
 		}
 	]

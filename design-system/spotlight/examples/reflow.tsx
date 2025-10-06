@@ -50,6 +50,9 @@ const styles = cssMap({
 });
 
 export default () => {
+	const [isVisible, setIsVisible] = useState(true);
+	const dismiss = () => setIsVisible(false);
+
 	return (
 		<div css={styles.root}>
 			<div id="reflow-test-1">
@@ -67,7 +70,7 @@ export default () => {
 							<Text>Target element</Text>
 						</Box>
 					</PopoverTarget>
-					<PopoverContent placement="right-end" isVisible={true}>
+					<PopoverContent dismiss={dismiss} placement="right-end" isVisible={isVisible}>
 						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>

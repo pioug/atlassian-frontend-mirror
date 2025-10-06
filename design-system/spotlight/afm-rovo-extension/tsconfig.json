@@ -32,6 +32,9 @@
 			"path": "../../css/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../ds-lib/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../heading/afm-rovo-extension/tsconfig.json"
 		},
 		{

@@ -1,5 +1,16 @@
 # @atlaskit/teams-public
 
+## 0.62.0
+
+### Minor Changes
+
+- [`a21bb03b244b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a21bb03b244b9) -
+  Cleaned up team profile package enablement feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.61.1
 
 ### Patch Changes

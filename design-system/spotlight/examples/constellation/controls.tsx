@@ -24,6 +24,7 @@ import {
 
 const Example = () => {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
+	const dismiss = () => setIsVisible(false);
 
 	return (
 		<div>
@@ -31,12 +32,12 @@ const Example = () => {
 				<PopoverTarget>
 					<Button onClick={() => setIsVisible(true)}>Show Spotlight</Button>
 				</PopoverTarget>
-				<PopoverContent placement="bottom-end" isVisible={isVisible}>
+				<PopoverContent dismiss={dismiss} placement="bottom-end" isVisible={isVisible}>
 					<SpotlightCard testId="spotlight">
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
 							<SpotlightControls>
-								<SpotlightDismissControl onClick={() => setIsVisible(false)} />
+								<SpotlightDismissControl onClick={dismiss} />
 							</SpotlightControls>
 						</SpotlightHeader>
 						<SpotlightBody>
@@ -44,9 +45,7 @@ const Example = () => {
 						</SpotlightBody>
 						<SpotlightFooter>
 							<SpotlightActions>
-								<SpotlightPrimaryAction onClick={() => setIsVisible(false)}>
-									Done
-								</SpotlightPrimaryAction>
+								<SpotlightPrimaryAction onClick={dismiss}>Done</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
 					</SpotlightCard>

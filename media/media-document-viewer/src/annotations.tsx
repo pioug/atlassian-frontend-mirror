@@ -36,10 +36,11 @@ type TextInputProps = {
 	as: 'input' | 'textarea';
 };
 
-const TextInput = ({ as: Component, value }: TextInputProps) => (
+const TextInput = ({ as: Component, value, style }: TextInputProps) => (
 	<Component
 		{...foreignObjectProps}
 		css={[formInputBaseStyles, textInputStyles]}
+		style={style}
 		onKeyUp={(e: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
 			// stop propagation of the arrow key events because they can be used to navigate viewports
 			if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
@@ -59,11 +60,7 @@ export const TextInputFormField = ({
 	field: TextField;
 	dataTestId?: string;
 }) => {
-	const style: React.CSSProperties = {
-		['fontSize']: `${field.f}px`,
-		width: '100%',
-		boxSizing: 'border-box',
-	};
+	const style: React.CSSProperties = { ['fontSize']: `${field.f}px` };
 
 	return (
 		<foreignObject

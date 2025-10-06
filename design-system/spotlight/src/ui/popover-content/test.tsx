@@ -25,7 +25,11 @@ describe('PopoverContent', () => {
 		const { container } = render(
 			<PopoverProvider>
 				<PopoverTarget>Target</PopoverTarget>
-				<PopoverContent testId="spotlight-popover-content" placement="bottom-center">
+				<PopoverContent
+					dismiss={() => undefined}
+					testId="spotlight-popover-content"
+					placement="bottom-center"
+				>
 					<SpotlightCard>
 						<SpotlightHeader>
 							<SpotlightHeadline testId="spotlight-heading">Headline</SpotlightHeadline>

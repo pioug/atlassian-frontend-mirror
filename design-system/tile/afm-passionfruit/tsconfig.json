@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../skeleton/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-passionfruit/tsconfig.json"
 		}
 	]

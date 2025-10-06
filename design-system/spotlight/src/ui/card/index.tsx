@@ -108,14 +108,14 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<SpotlightCardProps> & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, SpotlightCardProps>(
 	({ children, testId }: SpotlightCardProps, ref) => {
-		const { placement } = useContext(SpotlightContext);
+		const { card } = useContext(SpotlightContext);
 
 		return (
 			<div css={styles.root} data-testid={testId} ref={ref}>
 				<Caret />
 				<Box
 					backgroundColor="color.background.neutral.bold"
-					xcss={cx(styles.card, placementStyles[placement])}
+					xcss={cx(styles.card, placementStyles[card.placement])}
 				>
 					{children}
 				</Box>

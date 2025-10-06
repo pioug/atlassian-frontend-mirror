@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ReactNode } from 'react';
+import { type ReactNode, useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';
@@ -101,26 +101,31 @@ export default () => {
 	);
 };
 
-const Spotlight = ({ placement, children }: { placement: Placement; children: ReactNode }) => (
-	<PopoverProvider>
-		<PopoverTarget>{children}</PopoverTarget>
-		<PopoverContent placement={placement}>
-			<SpotlightCard testId="spotlight">
-				<SpotlightHeader>
-					<SpotlightHeadline>Headline</SpotlightHeadline>
-					<SpotlightControls>
-						<SpotlightDismissControl />
-					</SpotlightControls>
-				</SpotlightHeader>
-				<SpotlightBody>
-					<Text>Brief and direct textual content to elaborate on the intent.</Text>
-				</SpotlightBody>
-				<SpotlightFooter>
-					<SpotlightActions>
-						<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
-					</SpotlightActions>
-				</SpotlightFooter>
-			</SpotlightCard>
-		</PopoverContent>
-	</PopoverProvider>
-);
+const Spotlight = ({ placement, children }: { placement: Placement; children: ReactNode }) => {
+	const [isVisible, setIsVisible] = useState(true);
+	const dismiss = () => setIsVisible(false);
+
+	return (
+		<PopoverProvider>
+			<PopoverTarget>{children}</PopoverTarget>
+			<PopoverContent dismiss={dismiss} isVisible={isVisible} placement={placement}>
+				<SpotlightCard testId="spotlight">
+					<SpotlightHeader>
+						<SpotlightHeadline>Headline</SpotlightHeadline>
+						<SpotlightControls>
+							<SpotlightDismissControl />
+						</SpotlightControls>
+					</SpotlightHeader>
+					<SpotlightBody>
+						<Text>Brief and direct textual content to elaborate on the intent.</Text>
+					</SpotlightBody>
+					<SpotlightFooter>
+						<SpotlightActions>
+							<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
+						</SpotlightActions>
+					</SpotlightFooter>
+				</SpotlightCard>
+			</PopoverContent>
+		</PopoverProvider>
+	);
+};

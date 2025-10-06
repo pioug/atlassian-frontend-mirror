@@ -38,6 +38,9 @@ insm.session.startHeavyTask('paste-handler');
 insm.session.endHeavyTask('paste-handler');
 ```
 
+Note: For tracking page initialisation - if you use the special `PageLoad` key, the duration will be
+tracked on the resulting session event.
+
 ### Adding additional information to the session
 
 Additional session information can be added through the `addProperties` api.

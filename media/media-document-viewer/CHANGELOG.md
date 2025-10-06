@@ -1,5 +1,12 @@
 # @atlaskit/media-document-viewer
 
+## 0.4.1
+
+### Patch Changes
+
+- [`5837970f7f5af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5837970f7f5af) -
+  Fixed fontsize annotations for Media Document Viewer
+
 ## 0.4.0
 
 ### Minor Changes

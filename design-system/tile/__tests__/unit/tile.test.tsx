@@ -74,6 +74,17 @@ describe('Tile', () => {
 		expect(style.backgroundColor).toBe('rgb(255, 255, 255)');
 	});
 
+	it('applies transparent background color', () => {
+		render(
+			<Tile label="Label" backgroundColor="transparent" testId="tile-bg">
+				<div />
+			</Tile>,
+		);
+		const el = screen.getByTestId('tile-bg');
+		const style = getComputedStyle(el);
+		expect(style.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+	});
+
 	it('shows border styles when hasBorder is true', () => {
 		render(
 			<Tile label="Label" hasBorder testId="tile-border">

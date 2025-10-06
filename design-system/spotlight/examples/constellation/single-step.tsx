@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { jsx } from '@atlaskit/css';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Flex, Text } from '@atlaskit/primitives/compiled';
 import {
 	PopoverContent,
 	PopoverProvider,
@@ -24,19 +24,20 @@ import {
 
 export default () => {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
+	const dismiss = () => setIsVisible(false);
 
 	return (
-		<div>
+		<Flex>
 			<PopoverProvider>
 				<PopoverTarget>
 					<Button onClick={() => setIsVisible(true)}>Show Spotlight</Button>
 				</PopoverTarget>
-				<PopoverContent placement="right-end" isVisible={isVisible}>
+				<PopoverContent dismiss={dismiss} placement="right-end" isVisible={isVisible}>
 					<SpotlightCard testId="spotlight">
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
 							<SpotlightControls>
-								<SpotlightDismissControl onClick={() => setIsVisible(false)} />
+								<SpotlightDismissControl onClick={dismiss} />
 							</SpotlightControls>
 						</SpotlightHeader>
 						<SpotlightBody>
@@ -44,14 +45,12 @@ export default () => {
 						</SpotlightBody>
 						<SpotlightFooter>
 							<SpotlightActions>
-								<SpotlightPrimaryAction onClick={() => setIsVisible(false)}>
-									Done
-								</SpotlightPrimaryAction>
+								<SpotlightPrimaryAction onClick={dismiss}>Done</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
 					</SpotlightCard>
 				</PopoverContent>
 			</PopoverProvider>
-		</div>
+		</Flex>
 	);
 };

@@ -52,6 +52,7 @@ const cardPlacements: Placement[] = [
 const Example = () => {
 	const [placement, setPlacement] = useState<(typeof cardPlacements)[number]>('top-end');
 	const [isVisible, setIsVisible] = useState<boolean>(false);
+	const dismiss = () => setIsVisible(false);
 
 	return (
 		<div css={styles.root}>
@@ -59,12 +60,12 @@ const Example = () => {
 				<PopoverTarget>
 					<Button onClick={() => setIsVisible(true)}>Show Spotlight</Button>
 				</PopoverTarget>
-				<PopoverContent isVisible={isVisible} placement={placement}>
+				<PopoverContent dismiss={dismiss} isVisible={isVisible} placement={placement}>
 					<SpotlightCard testId="spotlight">
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
 							<SpotlightControls>
-								<SpotlightDismissControl onClick={() => setIsVisible(false)} />
+								<SpotlightDismissControl onClick={dismiss} />
 							</SpotlightControls>
 						</SpotlightHeader>
 						<SpotlightBody>
@@ -72,9 +73,7 @@ const Example = () => {
 						</SpotlightBody>
 						<SpotlightFooter>
 							<SpotlightActions>
-								<SpotlightPrimaryAction onClick={() => setIsVisible(false)}>
-									Done
-								</SpotlightPrimaryAction>
+								<SpotlightPrimaryAction onClick={dismiss}>Done</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
 					</SpotlightCard>

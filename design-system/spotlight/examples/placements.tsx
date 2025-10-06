@@ -72,6 +72,8 @@ const cardPlacements = [
 
 export default () => {
 	const [placement, setPlacement] = useState<(typeof cardPlacements)[number]>('bottom-start');
+	const [isVisible, setIsVisible] = useState(true);
+	const dismiss = () => setIsVisible(false);
 
 	return (
 		<div css={styles.root}>
@@ -82,7 +84,7 @@ export default () => {
 							<Text>Target element</Text>
 						</Box>
 					</PopoverTarget>
-					<PopoverContent placement={placement}>
+					<PopoverContent dismiss={dismiss} placement={placement} isVisible={isVisible}>
 						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>

@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../skeleton/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-jira/tsconfig.json"
 		}
 	]

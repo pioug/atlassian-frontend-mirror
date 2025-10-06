@@ -3,6 +3,8 @@
  * @jsx jsx
  */
 
+import { useState } from 'react';
+
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import { Text } from '@atlaskit/primitives/compiled';
@@ -40,6 +42,9 @@ const styles = cssMap({
 });
 
 export default function Example() {
+	const [isVisible, setIsVisible] = useState(true);
+	const dismiss = () => setIsVisible(false);
+
 	return (
 		<div css={styles.root}>
 			<div css={styles.content}>
@@ -52,7 +57,7 @@ export default function Example() {
 							Popover
 						</Button>
 					</PopoverTarget>
-					<PopoverContent placement="right-end" isVisible={true}>
+					<PopoverContent dismiss={dismiss} placement="right-end" isVisible={isVisible}>
 						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>

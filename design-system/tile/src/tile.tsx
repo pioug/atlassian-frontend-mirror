@@ -99,6 +99,7 @@ const insetSizeMap = cssMap({
 const backgroundColorMap = cssMap({
 	white: { backgroundColor: '#FFF' },
 	black: { backgroundColor: '#000' },
+	transparent: { backgroundColor: 'transparent' },
 	'color.background.accent.lime.subtlest': {
 		backgroundColor: token('color.background.accent.lime.subtlest'),
 	},
@@ -267,6 +268,7 @@ export default function Tile(props: TileProps) {
 				backgroundColorMap[backgroundColor || 'color.background.neutral'],
 				hasBorder && styles.border,
 			]}
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 			aria-label={label !== '' ? label : undefined}
 			role={label !== '' ? 'img' : undefined}
 		>

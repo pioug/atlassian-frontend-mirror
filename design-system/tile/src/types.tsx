@@ -57,6 +57,7 @@ export type TileBackgroundColor =
 	| 'color.background.discovery.bold'
 	| 'color.background.information'
 	| 'color.background.information.bold'
+	| 'transparent'
 	| 'white'
 	| 'black';
 
@@ -106,6 +107,28 @@ export type TileProps = {
 	 */
 	children?: React.ReactNode;
 
+	/**
+	 * A `testId` prop is provided for specified elements, which is a unique
+	 * string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests.
+	 */
+	testId?: string;
+};
+
+export type SkeletonProps = {
+	/**
+	 * Overrides the default color of skeleton, and overrides the default shimmering start color if ShimmeringEndColor also provided.
+	 */
+	color?: string;
+	/**
+	 * Overrides the default shimmering ending color of skeleton.
+	 */
+	shimmeringEndColor?: string;
+	/**
+	 * Enables the shimmering animation.
+	 */
+	isShimmering?: boolean;
+	size?: TileProps['size'];
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
 	 * string that appears as a data attribute `data-testid` in the rendered code,

@@ -142,7 +142,7 @@
 		}
 	},
 	"name": "@atlaskit/object",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "An object represents an Atlassian-specific content type.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

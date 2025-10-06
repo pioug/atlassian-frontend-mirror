@@ -28,9 +28,11 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./skeleton": "./src/entry-point/skeleton.tsx"
 	},
 	"dependencies": {
+		"@atlaskit/skeleton": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
@@ -85,7 +87,7 @@
 		}
 	},
 	"name": "@atlaskit/tile",
-	"version": "0.1.4",
+	"version": "0.2.0",
 	"description": "A tile is a rounded square that takes an asset (Image, Icon, Logo) and represents a noun.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -68,7 +68,7 @@ export interface CaretProps {
 export const Caret: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<CaretProps> & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, CaretProps>(({ testId }: CaretProps, ref) => {
-	const { placement } = useContext(SpotlightContext);
+	const { card } = useContext(SpotlightContext);
 
-	return <div data-testid={testId} ref={ref} css={[styles.root, styles[placement]]}></div>;
+	return <div data-testid={testId} ref={ref} css={[styles.root, styles[card.placement]]}></div>;
 });

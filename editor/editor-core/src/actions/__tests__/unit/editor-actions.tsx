@@ -25,7 +25,6 @@ import {
 	tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Editor from '../../../editor';
 import { EditorActions } from '../../../index';
@@ -58,19 +57,17 @@ describe('Editor Actions', () => {
 			expect(scrollIntoViewSpy).toHaveBeenCalled();
 		});
 
-		ffTest.on('platform_editor_reduce_scroll_jump_on_editor_start', '', () => {
-			it('does not scroll into view when scroll into view is disabled', () => {
-				const { editorView, eventDispatcher } = createEditorFactory()({
-					doc: doc(p('Hello World!')),
-				});
-
-				const editorActions = EditorActions.from(editorView, eventDispatcher);
-
-				const scrollIntoViewSpy = jest.spyOn(Transaction.prototype, 'scrollIntoView');
-
-				editorActions.focus({ scrollIntoView: false });
-				expect(scrollIntoViewSpy).not.toHaveBeenCalled();
+		it('does not scroll into view when scroll into view is disabled', () => {
+			const { editorView, eventDispatcher } = createEditorFactory()({
+				doc: doc(p('Hello World!')),
 			});
+
+			const editorActions = EditorActions.from(editorView, eventDispatcher);
+
+			const scrollIntoViewSpy = jest.spyOn(Transaction.prototype, 'scrollIntoView');
+
+			editorActions.focus({ scrollIntoView: false });
+			expect(scrollIntoViewSpy).not.toHaveBeenCalled();
 		});
 	});
 

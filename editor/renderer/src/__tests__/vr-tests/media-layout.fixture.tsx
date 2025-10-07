@@ -6,6 +6,7 @@ import wrappedMediaTextLayoutAdf from '../__fixtures__/wrapped-media-text-layout
 import { mediaResizeLayout } from '../__fixtures__/media-resize-layout.adf';
 import complexMediaLayout from '../__fixtures__/renderer-media.adf.json';
 import wrappedMediaTextLeftAdf from '../__fixtures__/wrapped-media-text-left.adf.json';
+import multipleWrappedMediaInLayout from '../__fixtures__/multiple-wrapped-media-in-layout.adf.json';
 
 export const MediaWrappedLayoutSplit = () => {
 	return <MediaBaseRenderer adf={wrappedMediaTextLayoutSplitAdf} />;
@@ -32,4 +33,8 @@ export const MediaWrappedLayoutShiftUp = () => {
 			<div>some element outside renderer</div>
 		</div>
 	);
+};
+
+export const MultipleWrappedMediaInLayout = () => {
+	return <MediaBaseRenderer adf={multipleWrappedMediaInLayout} />;
 };

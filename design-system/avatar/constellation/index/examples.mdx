@@ -2,24 +2,25 @@
 order: 0
 ---
 
+import AvatarApproved from '../../examples/constellation/avatar-status-approved';
+import AvatarBusy from '../../examples/constellation/avatar-presence-busy';
+import AvatarCircle from '../../examples/constellation/avatar-circle';
+import AvatarDeclined from '../../examples/constellation/avatar-status-declined';
+import AvatarDecorative from '../../examples/constellation/avatar-decorative';
 import AvatarDefault from '../../examples/constellation/avatar-default';
 import AvatarDisabled from '../../examples/constellation/avatar-disabled';
-import AvatarCircle from '../../examples/constellation/avatar-circle';
-import AvatarSquare from '../../examples/constellation/avatar-square';
-import AvatarTooltip from '../../examples/constellation/avatar-tooltip';
-import AvatarSmall from '../../examples/constellation/avatar-small';
-import AvatarXSmall from '../../examples/constellation/avatar-x-small';
-import AvatarMedium from '../../examples/constellation/avatar-medium';
-import AvatarLarge from '../../examples/constellation/avatar-large';
-import AvatarXLarge from '../../examples/constellation/avatar-x-large';
-import AvatarXXLarge from '../../examples/constellation/avatar-x-x-large';
-import AvatarBusy from '../../examples/constellation/avatar-presence-busy';
 import AvatarFocus from '../../examples/constellation/avatar-presence-focus';
+import AvatarLarge from '../../examples/constellation/avatar-large';
+import AvatarLocked from '../../examples/constellation/avatar-status-locked';
+import AvatarMedium from '../../examples/constellation/avatar-medium';
 import AvatarOffline from '../../examples/constellation/avatar-presence-offline';
 import AvatarOnline from '../../examples/constellation/avatar-presence-online';
-import AvatarApproved from '../../examples/constellation/avatar-status-approved';
-import AvatarDeclined from '../../examples/constellation/avatar-status-declined';
-import AvatarLocked from '../../examples/constellation/avatar-status-locked';
+import AvatarSmall from '../../examples/constellation/avatar-small';
+import AvatarSquare from '../../examples/constellation/avatar-square';
+import AvatarTooltip from '../../examples/constellation/avatar-tooltip';
+import AvatarXLarge from '../../examples/constellation/avatar-x-large';
+import AvatarXSmall from '../../examples/constellation/avatar-x-small';
+import AvatarXXLarge from '../../examples/constellation/avatar-x-x-large';
 
 ## Default
 
@@ -31,6 +32,16 @@ like in this example, it will be hidden for assistive technologies as it does no
 meaningful information.
 
 <Example Component={AvatarDefault} packageName="@atlaskit/avatar" />
+
+## Accessibility
+
+If an image is decorative – i.e. it doesn’t add any information to a page or the information in the
+image is already on the page as text – remove the `name` prop or provide an empty string so it’s
+ignored by assistive technology.
+
+This reduces noise for people using assistive technology.
+
+<Example Component={AvatarDecorative} packageName="@atlaskit/avatar" />
 
 ## Appearance
 

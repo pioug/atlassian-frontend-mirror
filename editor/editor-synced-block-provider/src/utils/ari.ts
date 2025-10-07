@@ -35,3 +35,7 @@ export const getContentPropertyIdFromAri = (ari: string) => {
 	}
 	throw new Error(`Invalid content property ARI: ${ari}`);
 };
+
+export const resourceIdFromSourceAndLocalId = (sourceId: string, localId: string): string => {
+	return sourceId + '/' + localId;
+};

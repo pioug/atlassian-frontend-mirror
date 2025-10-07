@@ -47,6 +47,9 @@
 			"path": "../../editor-synced-block-provider/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-tables/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-toolbar/afm-post-office/tsconfig.json"
 		},
 		{

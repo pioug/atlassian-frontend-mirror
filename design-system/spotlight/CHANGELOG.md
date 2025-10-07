@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.6.0
+
+### Minor Changes
+
+- [`c43cbdde6f08c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c43cbdde6f08c) -
+  `PopoverContent` `dismiss` prop is now required.
+
 ## 0.5.1
 
 ### Patch Changes

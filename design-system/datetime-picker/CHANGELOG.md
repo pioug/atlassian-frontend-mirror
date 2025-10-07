@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 17.1.0
+
+### Minor Changes
+
+- [`cca11d70019df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cca11d70019df) -
+  This fixes a bug with announcing the label for users of assistive technology behind a feature
+  flag. If successful, it will roll out in a future release.
+
 ## 17.0.18
 
 ### Patch Changes

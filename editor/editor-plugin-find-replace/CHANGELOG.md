@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 6.0.2
+
+### Patch Changes
+
+- [`be54c7e850cd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be54c7e850cd3) -
+  remove unused deprecated styles used to be consumed in editor content styles
+- Updated dependencies
+
 ## 6.0.1
 
 ### Patch Changes

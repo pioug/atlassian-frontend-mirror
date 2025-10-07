@@ -96,6 +96,9 @@ const CustomDropdownMenuItemButton = forwardRef<
 			aria-pressed={ariaPressed}
 			aria-disabled={ariaDisabled}
 			aria-keyshortcuts={ariaKeyshortcuts}
+			data-toolbar-component={
+				expValEquals('platform_synced_block', 'isEnabled', true) ? 'menu-item' : undefined
+			}
 			ref={ref}
 		>
 			{children}

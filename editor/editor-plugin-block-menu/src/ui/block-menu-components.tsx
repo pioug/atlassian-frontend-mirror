@@ -28,7 +28,6 @@ import type {
 	RegisterBlockMenuComponent,
 } from '../blockMenuPluginType';
 
-import { AddBlocksSection } from './add-blocks-section';
 import CopyBlockMenuItem from './copy-block';
 import { CopyLinkDropdownItem } from './copy-link';
 import { CopySection } from './copy-section';
@@ -121,7 +120,9 @@ export const getBlockMenuComponents = ({
 						key: ADD_BLOCKS_MENU_SECTION.key,
 						rank: BLOCK_MENU_SECTION_RANK[ADD_BLOCKS_MENU_SECTION.key],
 						component: ({ children }: { children: React.ReactNode }) => (
-							<AddBlocksSection api={api}> {children} </AddBlocksSection>
+							<ToolbarDropdownItemSection hasSeparator={true}>
+								{children}
+							</ToolbarDropdownItemSection>
 						),
 					},
 				]

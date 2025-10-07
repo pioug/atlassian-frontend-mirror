@@ -31,6 +31,8 @@ export const useMessages = (
 				current = false;
 			};
 		}
+
+		return undefined;
 	}, [loaderFn, locale, localeState]);
 
 	return localeState.messages;

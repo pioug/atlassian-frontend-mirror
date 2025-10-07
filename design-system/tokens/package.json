@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tokens",
-	"version": "6.4.2",
+	"version": "6.4.3",
 	"description": "Design tokens are the single source of truth to name and store design decisions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
 		"prebuilt": "yes | cp -R $(npx repo-root)/packages/design-system/tokens/dist/cjs/* $(npx repo-root)/packages/design-system/tokens/prebuilt/",
 		"ak-postbuild": "yarn prebuilt && (cd $(npx repo-root) && yarn build --includeDependencies @atlassian/codegen -d cjs,esm,es2019) && yarn workspace @atlaskit/tokens codegen-tokens && yarn workspace @atlaskit/tokens check-clean-git",
 		"check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are out of date, run yarn build tokens' && false)",
-		"codegen-tokens": "run-ts ./scripts/style-dictionary/build.tsx && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/heading && yarn codegen"
+		"codegen-tokens": "run-ts ./scripts/style-dictionary/build.tsx && run-ts ./scripts/style-dictionary/build-plugin-token-map.tsx && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/heading && yarn codegen"
 	},
 	"dependencies": {
 		"@atlaskit/ds-lib": "workspace:^",
@@ -71,6 +71,7 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/repo-feature-flags-statsig": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
 		"@babel/core": "root:*",
 		"@compiled/react": "root:*",
@@ -81,6 +82,7 @@
 		"echarts": "root:*",
 		"echarts-for-react": "root:*",
 		"jscodeshift": "root:*",
+		"json5": "root:*",
 		"lodash": "root:*",
 		"postcss": "root:*",
 		"postcss-less": "root:*",

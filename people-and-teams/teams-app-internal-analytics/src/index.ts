@@ -4,4 +4,4 @@ export { default as createEventPayload } from './common/utils/generated/create-e
 
 export type { AnalyticsEventAttributes } from './common/utils/generated/analytics.types';
 export type { FireEventType } from './common/utils/types';
-export { AnalyticsEventSource } from './common/utils/constants';
+export type { AnalyticsEventSource } from './common/utils/types';

@@ -43,6 +43,9 @@
 			"path": "../codegen/tsconfig.app.json"
 		},
 		{
+			"path": "../../../prebuilt-tools/repo-feature-flags-statsig/tsconfig.app.json"
+		},
+		{
 			"path": "../../monorepo-tooling/ts-loader/tsconfig.app.json"
 		}
 	],

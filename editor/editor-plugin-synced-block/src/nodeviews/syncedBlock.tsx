@@ -98,6 +98,7 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 
 	private setInnerEditorView(editorView: EditorView): void {
 		// set inner editor view
+		this.syncBlockStore.setSyncBlockNestedEditorView(editorView);
 		const nodes: SyncBlockNode[] = [convertSyncBlockPMNodeToSyncBlockData(this.node, false)];
 
 		this.options?.dataProvider?.fetchNodesData(nodes).then((data) => {
@@ -194,6 +195,7 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		if (this.fetchIntervalId) {
 			window.clearInterval(this.fetchIntervalId);
 		}
+		this.syncBlockStore.setSyncBlockNestedEditorView(undefined);
 		this.unsubscribe?.();
 		super.destroy();
 	}

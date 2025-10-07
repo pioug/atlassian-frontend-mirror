@@ -18,7 +18,6 @@ import {
 	trackExampleEvent,
 	uiExampleEvent,
 } from '../examples/helpers/utils';
-import { AnalyticsEventSource } from '../src';
 import {
 	defaultAnalyticsContextData as defaultPeopleAndTeamsContextBaseAttributes,
 	TeamsAppAnalyticsContext,
@@ -99,7 +98,7 @@ describe('teams-app-internal-analytics', () => {
 				const { user, expectEventToBeFired } = renderWithAnalyticsListener(
 					<TeamsAppAnalyticsContext
 						data={{
-							source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+							source: 'teamProfileScreen',
 							attributes: { consumer: 'embed' },
 						}}
 					>
@@ -114,10 +113,10 @@ describe('teams-app-internal-analytics', () => {
 					attributes: {
 						...defaultPeopleAndTeamsContextBaseAttributes,
 						...uiExampleEvent.attributes,
-						sourceHierarchy: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+						sourceHierarchy: 'teamProfileScreen',
 						consumer: 'embed',
 					},
-					source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+					source: 'teamProfileScreen',
 				});
 			});
 
@@ -125,13 +124,13 @@ describe('teams-app-internal-analytics', () => {
 				const { user, expectEventToBeFired } = renderWithAnalyticsListener(
 					<TeamsAppAnalyticsContext
 						data={{
-							source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+							source: 'teamProfileScreen',
 							attributes: { consumer: 'embed' },
 						}}
 					>
 						<TeamsAppAnalyticsContext
 							data={{
-								source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+								source: 'teamProfileScreen',
 								attributes: { consumer: 'preview-panel' },
 							}}
 						>
@@ -147,10 +146,10 @@ describe('teams-app-internal-analytics', () => {
 					attributes: {
 						...defaultPeopleAndTeamsContextBaseAttributes,
 						...uiExampleEvent.attributes,
-						sourceHierarchy: `${AnalyticsEventSource.TEAM_PROFILE_SCREEN}.${AnalyticsEventSource.TEAM_PROFILE_SCREEN}`,
+						sourceHierarchy: `${'teamProfileScreen'}.${'teamProfileScreen'}`,
 						consumer: 'preview-panel',
 					},
-					source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+					source: 'teamProfileScreen',
 				});
 			});
 
@@ -158,13 +157,13 @@ describe('teams-app-internal-analytics', () => {
 				const { user, expectEventToBeFired } = renderWithAnalyticsListener(
 					<TeamsAppAnalyticsContext
 						data={{
-							source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+							source: 'teamProfileScreen',
 							attributes: { consumer: 'embed' },
 						}}
 					>
 						<TeamsAppAnalyticsContext
 							data={{
-								source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+								source: 'teamProfileScreen',
 								attributes: { consumer: 'preview-panel', testAttribute: 'will-not-be-prioritised' },
 							}}
 						>
@@ -180,11 +179,11 @@ describe('teams-app-internal-analytics', () => {
 					attributes: {
 						...defaultPeopleAndTeamsContextBaseAttributes,
 						...uiExampleEvent.attributes,
-						sourceHierarchy: `${AnalyticsEventSource.TEAM_PROFILE_SCREEN}.${AnalyticsEventSource.TEAM_PROFILE_SCREEN}`,
+						sourceHierarchy: `${'teamProfileScreen'}.${'teamProfileScreen'}`,
 						consumer: 'preview-panel',
 						testAttribute: 'testValue',
 					},
-					source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+					source: 'teamProfileScreen',
 				});
 			});
 		});
@@ -192,10 +191,10 @@ describe('teams-app-internal-analytics', () => {
 		describe('Generic AnalyticsContext Provided', () => {
 			it('should not append AnalyticsContext attributes to peopleTeams events', async () => {
 				const { user, expectEventToBeFired } = renderWithAnalyticsListener(
-					<TeamsAppAnalyticsContext data={{ source: AnalyticsEventSource.TEAM_PROFILE_SCREEN }}>
+					<TeamsAppAnalyticsContext data={{ source: 'teamProfileScreen' }}>
 						<AnalyticsContext
 							data={{
-								source: AnalyticsEventSource.USER_PROFILE_SCREEN,
+								source: 'userProfileScreen',
 								attributes: { consumer: 'irrelevant', genericAttribute: 'irrelevant' },
 							}}
 						>
@@ -211,18 +210,18 @@ describe('teams-app-internal-analytics', () => {
 					attributes: {
 						...defaultPeopleAndTeamsContextBaseAttributes,
 						...uiExampleEvent.attributes,
-						sourceHierarchy: `${AnalyticsEventSource.TEAM_PROFILE_SCREEN}.${AnalyticsEventSource.USER_PROFILE_SCREEN}`,
+						sourceHierarchy: 'teamProfileScreen.userProfileScreen',
 					},
-					source: AnalyticsEventSource.USER_PROFILE_SCREEN,
+					source: 'userProfileScreen',
 				});
 			});
 
 			it('should override peopleTeams source when a lower level AnalyticsContext is provided', async () => {
 				const { user, expectEventToBeFired } = renderWithAnalyticsListener(
-					<TeamsAppAnalyticsContext data={{ source: AnalyticsEventSource.TEAM_PROFILE_SCREEN }}>
+					<TeamsAppAnalyticsContext data={{ source: 'teamProfileScreen' }}>
 						<AnalyticsContext
 							data={{
-								source: AnalyticsEventSource.USER_PROFILE_SCREEN,
+								source: 'userProfileScreen',
 								attributes: { consumer: 'irrelevant', genericAttribute: 'irrelevant' },
 							}}
 						>
@@ -238,9 +237,9 @@ describe('teams-app-internal-analytics', () => {
 					attributes: {
 						...defaultPeopleAndTeamsContextBaseAttributes,
 						...uiExampleEvent.attributes,
-						sourceHierarchy: `${AnalyticsEventSource.TEAM_PROFILE_SCREEN}.${AnalyticsEventSource.USER_PROFILE_SCREEN}`,
+						sourceHierarchy: 'teamProfileScreen.userProfileScreen',
 					},
-					source: AnalyticsEventSource.USER_PROFILE_SCREEN,
+					source: 'userProfileScreen',
 				});
 			});
 		});
@@ -250,13 +249,13 @@ describe('teams-app-internal-analytics', () => {
 				const { user, expectEventToBeFired } = renderWithAnalyticsListener(
 					<TeamsAppAnalyticsContext
 						data={{
-							source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+							source: 'teamProfileScreen',
 							attributes: { consumer: 'embed' },
 						}}
 					>
 						<TeamsAppAnalyticsContext
 							data={{
-								source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+								source: 'teamProfileScreen',
 								attributes: { consumer: 'preview-panel', testAttribute: 'will-not-be-prioritised' },
 							}}
 						>
@@ -272,24 +271,24 @@ describe('teams-app-internal-analytics', () => {
 					attributes: {
 						...defaultPeopleAndTeamsContextBaseAttributes,
 						...uiExampleEvent.attributes,
-						sourceHierarchy: `${AnalyticsEventSource.TEAM_PROFILE_SCREEN}.${AnalyticsEventSource.TEAM_PROFILE_SCREEN}`,
+						sourceHierarchy: 'teamProfileScreen.teamProfileScreen',
 						consumer: 'preview-panel',
 						testAttribute: 'testValue',
 					},
-					source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+					source: 'teamProfileScreen',
 				});
 			});
 			it('should fire track events with the correct payload', async () => {
 				const { user, expectEventToBeFired } = renderWithAnalyticsListener(
 					<TeamsAppAnalyticsContext
 						data={{
-							source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+							source: 'teamProfileScreen',
 							attributes: { consumer: 'embed' },
 						}}
 					>
 						<TeamsAppAnalyticsContext
 							data={{
-								source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+								source: 'teamProfileScreen',
 								attributes: { consumer: 'preview-panel', testAttribute: 'will-not-be-prioritised' },
 							}}
 						>
@@ -305,24 +304,24 @@ describe('teams-app-internal-analytics', () => {
 					attributes: {
 						...defaultPeopleAndTeamsContextBaseAttributes,
 						...trackExampleEvent.attributes,
-						sourceHierarchy: `${AnalyticsEventSource.TEAM_PROFILE_SCREEN}.${AnalyticsEventSource.TEAM_PROFILE_SCREEN}`,
+						sourceHierarchy: 'teamProfileScreen.teamProfileScreen',
 						consumer: 'preview-panel',
 						testAttribute: 'testValue',
 					},
-					source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+					source: 'teamProfileScreen',
 				});
 			});
 			it('should fire screen events with the correct payload', async () => {
 				const { user, expectEventToBeFired } = renderWithAnalyticsListener(
 					<TeamsAppAnalyticsContext
 						data={{
-							source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+							source: 'teamProfileScreen',
 							attributes: { consumer: 'embed' },
 						}}
 					>
 						<TeamsAppAnalyticsContext
 							data={{
-								source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+								source: 'teamProfileScreen',
 								attributes: { consumer: 'preview-panel', testAttribute: 'will-not-be-prioritised' },
 							}}
 						>
@@ -338,7 +337,7 @@ describe('teams-app-internal-analytics', () => {
 					attributes: {
 						...defaultPeopleAndTeamsContextBaseAttributes,
 						...screenExampleEvent.attributes,
-						sourceHierarchy: `${AnalyticsEventSource.TEAM_PROFILE_SCREEN}.${AnalyticsEventSource.TEAM_PROFILE_SCREEN}`,
+						sourceHierarchy: 'teamProfileScreen.teamProfileScreen',
 						consumer: 'preview-panel',
 						testAttribute: 'testValue',
 					},
@@ -349,13 +348,13 @@ describe('teams-app-internal-analytics', () => {
 				const { user, expectEventToBeFired } = renderWithAnalyticsListener(
 					<TeamsAppAnalyticsContext
 						data={{
-							source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+							source: 'teamProfileScreen',
 							attributes: { consumer: 'embed' },
 						}}
 					>
 						<TeamsAppAnalyticsContext
 							data={{
-								source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+								source: 'teamProfileScreen',
 								attributes: { consumer: 'preview-panel', testAttribute: 'will-not-be-prioritised' },
 							}}
 						>
@@ -371,11 +370,11 @@ describe('teams-app-internal-analytics', () => {
 					attributes: {
 						...defaultPeopleAndTeamsContextBaseAttributes,
 						...operationalExampleEvent.attributes,
-						sourceHierarchy: `${AnalyticsEventSource.TEAM_PROFILE_SCREEN}.${AnalyticsEventSource.TEAM_PROFILE_SCREEN}`,
+						sourceHierarchy: 'teamProfileScreen.teamProfileScreen',
 						consumer: 'preview-panel',
 						testAttribute: 'testValue',
 					},
-					source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+					source: 'teamProfileScreen',
 				});
 			});
 		});

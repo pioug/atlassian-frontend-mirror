@@ -45,6 +45,7 @@ export const createPlugin = (
 			return {
 				destroy() {
 					syncBlockStore.setEditorView(undefined);
+					syncBlockStore.setSyncBlockNestedEditorView(undefined);
 				},
 			};
 		},

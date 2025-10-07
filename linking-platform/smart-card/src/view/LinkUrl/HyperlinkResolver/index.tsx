@@ -3,6 +3,7 @@ import React, { type ComponentType, useCallback } from 'react';
 import { withErrorBoundary as withReactErrorBoundary } from 'react-error-boundary';
 import { injectIntl } from 'react-intl-next';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -35,6 +36,14 @@ const HyperlinkWithSmartLinkResolverInner = ({
 	const thirdPartyARI = getThirdPartyARI(state?.details);
 	const firstPartyIdentifier = getFirstPartyIdentifier();
 
+	const isConnectButtonExperimentEnabled =
+		FeatureGates.getExperimentValue(
+			'platform_linking_bluelink_connect_CONFLUENCE',
+			'isEnabled',
+			false,
+		) ||
+		FeatureGates.getExperimentValue('platform_linking_bluelink_connect_JIRA', 'isEnabled', false);
+
 	const fire3PClickEvent = fg('platform_smartlink_3pclick_analytics')
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
 			useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI)
@@ -58,12 +67,12 @@ const HyperlinkWithSmartLinkResolverInner = ({
 		[onClickCallback, fire3PClickEvent, state?.status],
 	);
 
-	const onAuthorize = fg('platform_linking_plain_hyperlink_connect_button')
+	const onAuthorize = isConnectButtonExperimentEnabled
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
 			useCallback(() => actions.authorize('hyperlink'), [actions])
 		: undefined;
 
-	if (fg('platform_linking_plain_hyperlink_connect_button')) {
+	if (isConnectButtonExperimentEnabled) {
 		switch (state?.status) {
 			case 'unauthorized':
 				const provider = extractSmartLinkProvider(state?.details);

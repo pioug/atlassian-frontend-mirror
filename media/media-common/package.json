@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-common",
-	"version": "12.3.0",
+	"version": "12.3.1",
 	"description": "Includes common utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

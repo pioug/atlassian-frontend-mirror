@@ -1,0 +1,118 @@
+{
+	"version": 1,
+	"type": "doc",
+	"content": [
+		{
+			"type": "layoutSection",
+			"content": [
+				{
+					"type": "layoutColumn",
+					"attrs": {
+						"width": 50
+					},
+					"content": [
+						{
+							"type": "mediaSingle",
+							"attrs": {
+								"localId": "1ccbf4e7-121a-4fd6-b1e2-331e6870b5b6",
+								"width": 60,
+								"layout": "wrap-left",
+								"widthType": "pixel"
+							},
+							"content": [
+								{
+									"type": "media",
+									"attrs": {
+										"type": "file",
+										"id": "f9d0cf77-9b10-4252-8bf0-ff9028e2683b",
+										"alt": "01g2az1rv63y112am2g3.webp",
+										"collection": "MediaServicesSample",
+										"height": 510,
+										"width": 170
+									}
+								}
+							]
+						},
+						{
+							"type": "mediaSingle",
+							"attrs": {
+								"width": 60,
+								"layout": "wrap-left",
+								"widthType": "pixel"
+							},
+							"content": [
+								{
+									"type": "media",
+									"attrs": {
+										"type": "file",
+										"localId": "bc5d4721-f0ca-47cf-8fea-5fec2d357bd0",
+										"id": "f9d0cf77-9b10-4252-8bf0-ff9028e2683b",
+										"alt": "01g2az1rv63y112am2g3.webp",
+										"collection": "MediaServicesSample",
+										"height": 510,
+										"width": 170
+									}
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Multiple wrapped media should have margin top 0 and no gap between them"
+								}
+							]
+						},
+						{
+							"type": "mediaSingle",
+							"attrs": {
+								"width": 60,
+								"layout": "wrap-left",
+								"widthType": "pixel"
+							},
+							"content": [
+								{
+									"type": "media",
+									"attrs": {
+										"type": "file",
+										"id": "f9d0cf77-9b10-4252-8bf0-ff9028e2683b",
+										"alt": "01g2az1rv63y112am2g3.webp",
+										"collection": "MediaServicesSample",
+										"height": 510,
+										"width": 170
+									}
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Single wrapped media should have usual margin top 12 px and margin right 12 px"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"content": []
+						}
+					]
+				},
+				{
+					"type": "layoutColumn",
+					"attrs": {
+						"width": 50
+					},
+					"content": [
+						{
+							"type": "paragraph",
+							"content": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

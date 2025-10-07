@@ -3,8 +3,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { HyperlinkWithSmartLinkResolver } from '../index';
 
@@ -38,6 +38,7 @@ describe('HyperlinkWithSmartLinkResolver - Connect Button Logic', () => {
 		'../../../../state/hooks/use-resolve-hyperlink',
 	).default;
 	const { getServices } = jest.requireMock('../../../../state/helpers');
+	const getExperimentValueMock = FeatureGates.getExperimentValue as jest.Mock;
 
 	const defaultProps: any = {
 		href: 'https://company.sharepoint.com/document.docx',
@@ -81,10 +82,24 @@ describe('HyperlinkWithSmartLinkResolver - Connect Button Logic', () => {
 			state: mockState,
 		});
 		getServices.mockReturnValue([]);
+		// Reset FeatureGates mock to return false by default
+		getExperimentValueMock.mockReturnValue(false);
 	});
 
-	// Using ffTest.on() to test when the feature flag is enabled
-	ffTest.on('platform_linking_plain_hyperlink_connect_button', 'Connect Button Logic', () => {
+	// Tests when the experiment is enabled (simulating the feature flag being on)
+	describe('Connect Button Logic - when experiments are enabled', () => {
+		beforeEach(() => {
+			// Enable the experiments for these tests
+			getExperimentValueMock.mockImplementation((experimentName: string) => {
+				if (
+					experimentName === 'platform_linking_bluelink_connect_CONFLUENCE' ||
+					experimentName === 'platform_linking_bluelink_connect_JIRA'
+				) {
+					return true;
+				}
+				return false;
+			});
+		});
 		describe('when state is unauthorized', () => {
 			beforeEach(() => {
 				useResolveHyperlink.mockReturnValue({
@@ -258,7 +273,12 @@ describe('HyperlinkWithSmartLinkResolver - Connect Button Logic', () => {
 		});
 	});
 
-	ffTest.off('platform_linking_plain_hyperlink_connect_button', 'Feature flag disabled', () => {
+	describe('Experiments disabled - Feature flag disabled', () => {
+		beforeEach(() => {
+			// Ensure experiments are disabled for these tests
+			getExperimentValueMock.mockReturnValue(false);
+		});
+
 		it('should always render regular Hyperlink regardless of state', () => {
 			useResolveHyperlink.mockReturnValue({
 				actions: mockActions,
@@ -292,48 +312,44 @@ describe('HyperlinkWithSmartLinkResolver - Connect Button Logic', () => {
 		});
 	});
 
-	ffTest.both(
-		'platform_linking_plain_hyperlink_connect_button',
-		'onClick callback behavior',
-		() => {
-			it('should call provided onClick callback when hyperlink is clicked', async () => {
-				const userEvent = user.setup();
-				const mockOnClick = jest.fn();
-				useResolveHyperlink.mockReturnValue({
-					actions: mockActions,
-					state: { ...mockState, status: 'resolved' },
-				});
+	describe('onClick callback behavior - both states', () => {
+		it('should call provided onClick callback when hyperlink is clicked', async () => {
+			const userEvent = user.setup();
+			const mockOnClick = jest.fn();
+			useResolveHyperlink.mockReturnValue({
+				actions: mockActions,
+				state: { ...mockState, status: 'resolved' },
+			});
 
+			render(
+				<SmartCardProvider client={new CardClient()}>
+					<HyperlinkWithSmartLinkResolver {...defaultProps} onClick={mockOnClick} />
+				</SmartCardProvider>,
+			);
+
+			const hyperlink = screen.getByRole('link');
+			await userEvent.click(hyperlink);
+
+			expect(mockOnClick).toHaveBeenCalled();
+		});
+
+		it('should work without onClick callback', async () => {
+			const userEvent = user.setup();
+			useResolveHyperlink.mockReturnValue({
+				actions: mockActions,
+				state: { ...mockState, status: 'resolved' },
+			});
+
+			expect(() => {
 				render(
 					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...defaultProps} onClick={mockOnClick} />
+						<HyperlinkWithSmartLinkResolver {...defaultProps} />
 					</SmartCardProvider>,
 				);
+			}).not.toThrow();
 
-				const hyperlink = screen.getByRole('link');
-				await userEvent.click(hyperlink);
-
-				expect(mockOnClick).toHaveBeenCalled();
-			});
-
-			it('should work without onClick callback', async () => {
-				const userEvent = user.setup();
-				useResolveHyperlink.mockReturnValue({
-					actions: mockActions,
-					state: { ...mockState, status: 'resolved' },
-				});
-
-				expect(() => {
-					render(
-						<SmartCardProvider client={new CardClient()}>
-							<HyperlinkWithSmartLinkResolver {...defaultProps} />
-						</SmartCardProvider>,
-					);
-				}).not.toThrow();
-
-				const hyperlink = screen.getByRole('link');
-				expect(async () => await userEvent.click(hyperlink)).not.toThrow();
-			});
-		},
-	);
+			const hyperlink = screen.getByRole('link');
+			expect(async () => await userEvent.click(hyperlink)).not.toThrow();
+		});
+	});
 });

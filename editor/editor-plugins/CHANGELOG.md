@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugins
 
+## 11.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.0
+
+### Major Changes
+
+- [`be54c7e850cd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be54c7e850cd3) -
+  remove unused deprecated styles used to be consumed in editor content styles
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.6.52
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.6.51
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.6.50
 
 ### Patch Changes

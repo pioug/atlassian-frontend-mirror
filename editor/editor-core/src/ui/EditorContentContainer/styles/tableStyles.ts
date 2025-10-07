@@ -39,7 +39,6 @@ export const tableContainerStyles: SerializedStyles = css({
 	'.ProseMirror .pm-table-wrapper': {
 		maxWidth: '100%',
 		overflowX: 'auto',
-		overflowY: 'visible',
 		// Ensure the wrapper doesn't grow beyond its container
 		width: '100%',
 		boxSizing: 'border-box',
@@ -53,5 +52,14 @@ export const tableContainerStyles: SerializedStyles = css({
 		tableLayout: 'fixed',
 		// Ensure tables can be scrolled horizontally if needed
 		minWidth: 'auto',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const tableContainerOverflowY: SerializedStyles = css({
+	/* Fix for HOT-119925: Ensure table containers have proper width constraints and overflow handling */
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror .pm-table-wrapper': {
+		overflowY: 'visible',
 	},
 });

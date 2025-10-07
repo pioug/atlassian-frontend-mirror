@@ -33,6 +33,8 @@ The avatar component is made of three parts: Body, status, and presence.
 ## Accessibility
 
 - Use the `name` prop to include alternative text for screen readers.
+- For decorative images, remove the `name` prop or leave it empty so it will be ignored by assistive
+  technologies.
 - Don't use a [tooltip with an avatar](examples#displaying-a-tooltip) when it's non-interactive or
   disabled. The tooltip won't work for keyboard users and screen readers.
 

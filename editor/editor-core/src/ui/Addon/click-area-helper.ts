@@ -3,7 +3,6 @@ import { addParagraphAtEnd } from '@atlaskit/editor-common/commands';
 import { setSelectionTopLevelBlocks } from '@atlaskit/editor-common/selection';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ignoreAttribute } from './ClickAreaBlock/contentComponentWrapper';
@@ -89,10 +88,7 @@ const clickAreaClickHandler = (view: EditorView, event: React.MouseEvent<HTMLEle
 		closestElement(selection?.anchorNode as HTMLElement, '[data-editor-popup]');
 
 	// For clicks directly on the content component -- they should not be ignored
-	const isContentComponent = fg('platform_editor_keep_focus_on_content_comp_clicks')
-		? target?.parentElement?.closest(`[${ignoreAttribute}]`)
-		: !!closestElement(target, `[${ignoreAttribute}]`) ||
-			target?.getAttribute(ignoreAttribute) === 'true';
+	const isContentComponent = target?.parentElement?.closest(`[${ignoreAttribute}]`);
 
 	// This is a super workaround to find when events are coming from Confluence InlineComment modal
 	// We don't own those components, so we can't change them

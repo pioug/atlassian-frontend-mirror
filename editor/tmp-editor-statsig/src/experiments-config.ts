@@ -275,15 +275,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-04-01
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_vanilla_dom/setup
-	platform_editor_vanilla_dom: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_vanilla_dom',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-03-28
 	platform_editor_ai_proactive_ai_nudge_parameters: createMultivariateExperiment({
 		productKeys: {
@@ -379,14 +370,6 @@ export const editorExperimentsConfig = {
 	'jira-work-sync-desc-comment-summary': createBooleanExperiment({
 		productKeys: {
 			jira: 'jira-work-sync-desc-comment-summary',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-05-21
-	platform_editor_nodevisibility: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_nodevisibility',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -499,15 +482,6 @@ export const editorExperimentsConfig = {
 		values: ['control', 'test_blank', 'test_diagram'],
 		defaultValue: 'control',
 	}),
-	// added out of order to avoid known conflict that will occur otherwise
-	// Added 2025-07-11
-	cc_editor_ufo_hold_table_till_resize_complete: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_editor_ufo_hold_table_till_resize_complete',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-06-26
 	platform_editor_feedback_mandatory_rating: createBooleanExperiment({
 		productKeys: {
@@ -615,15 +589,6 @@ export const editorExperimentsConfig = {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
-	}),
-	// Added 2025-07-011
-	cc_editor_interactions_trigger_traceufointeraction: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'cc_editor_interactions_trigger_traceufointeraction',
-		},
-		param: 'cohort',
-		values: ['control', 'all_events', 'only_mousedown_event'],
-		defaultValue: 'control',
 	}),
 	// Added 2025-07-14
 	platform_editor_add_orange_highlight_color: createMultivariateExperiment({
@@ -894,15 +859,6 @@ export const editorExperimentsConfig = {
 	platform_editor_prevent_taskitem_remount: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_prevent_taskitem_remount',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-09-08
-	platform_editor_table_container_width_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_table_container_width_fix',
-			jira: 'platform_editor_table_container_width_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

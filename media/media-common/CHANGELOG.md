@@ -1,5 +1,12 @@
 # @atlaskit/media-common
 
+## 12.3.1
+
+### Patch Changes
+
+- [`df75f0a17ca69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df75f0a17ca69) -
+  Integrate web-search-ai endpoint to web search toggle
+
 ## 12.3.0
 
 ### Minor Changes

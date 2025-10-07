@@ -46,7 +46,11 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 			insertSyncedBlock:
 				(): EditorCommand =>
 				({ tr }) =>
-					createSyncedBlock(tr, syncBlockStore) || null,
+					createSyncedBlock({
+						tr,
+						syncBlockStore,
+						dataProvider: config?.dataProvider,
+					}) || null,
 		},
 
 		pluginsOptions: {
@@ -70,7 +74,12 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 					keyshortcut: '',
 					icon: () => <IconSyncBlock label={formatMessage(blockTypeMessages.syncedBlock)} />,
 					action: (insert: QuickInsertActionInsert, state: EditorState) => {
-						return createSyncedBlock(state.tr, syncBlockStore, insert);
+						return createSyncedBlock({
+							tr: state.tr,
+							syncBlockStore,
+							dataProvider: config?.dataProvider,
+							typeAheadInsert: insert,
+						});
 					},
 				},
 			],

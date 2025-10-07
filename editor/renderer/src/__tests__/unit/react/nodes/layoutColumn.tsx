@@ -1,15 +1,15 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import LayoutColumn from '../../../../react/nodes/layoutColumn';
 
 describe('Renderer - React/Nodes/LayoutColumn', () => {
-	const layoutColumn = shallow(
-		<LayoutColumn>
-			<p>test</p>
-		</LayoutColumn>,
-	);
-
 	it('should wrap content with div-tag', () => {
-		expect(layoutColumn.is('div')).toEqual(true);
+		const { container } = render(
+			<LayoutColumn>
+				<p>test</p>
+			</LayoutColumn>,
+		);
+
+		expect(container.firstChild).toBeInstanceOf(HTMLDivElement);
 	});
 });

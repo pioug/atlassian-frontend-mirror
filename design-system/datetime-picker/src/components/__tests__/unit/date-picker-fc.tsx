@@ -5,6 +5,8 @@ import userEvent from '@testing-library/user-event';
 import { format, parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { convertTokens } from '../../../internal/parse-tokens';
 import { type DatePickerBaseProps } from '../../../types';
 import DatePicker from '../../date-picker-fc';
@@ -830,6 +832,26 @@ describe('DatePicker', () => {
 
 			const input = getInput();
 			expect(input).toHaveAttribute('aria-describedby', expect.stringContaining(describedBy));
+		});
+
+		describe('should add date to accessible description when `aria-describedby` is not provided', () => {
+			ffTest(
+				'platform-dtp_a11y_fix-dsp-23950',
+				() => {
+					const defaultValue = '1969-04-20';
+					render(createDatePicker({ defaultValue }));
+
+					const input = getInput();
+					expect(input).toHaveAccessibleDescription(expect.stringContaining('1969'));
+				},
+				() => {
+					const defaultValue = '1969-04-20';
+					render(createDatePicker({ defaultValue }));
+
+					const input = getInput();
+					expect(input).not.toHaveAccessibleDescription(expect.stringContaining('1969'));
+				},
+			);
 		});
 	});
 

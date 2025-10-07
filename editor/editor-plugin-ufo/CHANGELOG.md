@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-ufo
 
+## 6.0.2
+
+### Patch Changes
+
+- [`0c76d70d520fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c76d70d520fa) -
+  [ux] Cleanup cc_editor_interactions_trigger_traceufointeraction
+- Updated dependencies
+
 ## 6.0.1
 
 ### Patch Changes

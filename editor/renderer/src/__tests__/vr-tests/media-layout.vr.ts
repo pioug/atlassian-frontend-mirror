@@ -5,6 +5,7 @@ import {
 	MediaWrappedComplexLayout,
 	MediaWrappedComplexResizeLayout,
 	MediaWrappedLayoutShiftUp,
+	MultipleWrappedMediaInLayout,
 } from './media-layout.fixture';
 
 snapshot(MediaWrappedLayout, {
@@ -63,4 +64,8 @@ snapshot(MediaWrappedComplexResizeLayout, {
 			},
 		},
 	],
+});
+
+snapshot(MultipleWrappedMediaInLayout, {
+	description: 'should render multiple and single wrapped media with correct margin',
 });

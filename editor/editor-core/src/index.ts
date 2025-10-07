@@ -40,15 +40,5 @@ export { createFeatureFlagsFromProps } from './utils/feature-flags-from-props';
 export type { Command, EditorProps, EditorInstance, CommandDispatch } from './types';
 export { default as EditorActions } from './actions';
 
-export {
-	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
-	/**
-	 * @deprecated
-	 * DO NOT USE THIS WILL BE REMOVED SOON.
-	 * use this instead: packages/editor/editor-core/src/ui/EditorContentContainer.tsx
-	 */
-	createEditorContentStyle,
-} from './ui/ContentStyles';
-
 export { getDefaultPresetOptionsFromEditorProps } from './create-editor/create-plugins-list';
 export { ReactEditorView } from './create-editor/ReactEditorView';

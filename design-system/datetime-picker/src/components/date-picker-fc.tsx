@@ -479,7 +479,9 @@ const DatePicker: React.ForwardRefExoticComponent<
 	const dropDownIcon =
 		appearance === 'subtle' || hideIcon || showClearIndicator ? null : clearIndicator;
 
-	const SingleValue = makeSingleValue({ lang: propLocale });
+	const valueId = useId();
+
+	const SingleValue = makeSingleValue({ id: valueId, lang: propLocale });
 
 	const selectComponents = {
 		...selectProps.components,
@@ -583,7 +585,13 @@ const DatePicker: React.ForwardRefExoticComponent<
 			/>
 			<Select
 				appearance={appearance}
-				aria-describedby={ariaDescribedBy}
+				aria-describedby={
+					fg('platform-dtp_a11y_fix-dsp-23950')
+						? ariaDescribedBy
+							? `${ariaDescribedBy} ${valueId}`
+							: valueId
+						: ariaDescribedBy
+				}
 				label={label || undefined}
 				// eslint-disable-next-line jsx-a11y/no-autofocus
 				autoFocus={autoFocus}
@@ -603,8 +611,8 @@ const DatePicker: React.ForwardRefExoticComponent<
 					placeholder: placeholder,
 					l10n: l10n,
 				})}
-				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 				// @ts-ignore -- Type 'OptionType' is not assignable to type '{ label: string; value: string; }'
+				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 				styles={mergedStyles}
 				value={initialValue}
 				{...selectProps}

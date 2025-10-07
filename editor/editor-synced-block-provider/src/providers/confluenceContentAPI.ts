@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import type { ADFFetchProvider, ADFWriteProvider, SyncBlockData } from '../common/types';
-import { getLocalIdFromAri, getPageIdFromAri } from '../utils/ari';
+import { getLocalIdFromAri, getPageIdFromAri, resourceIdFromSourceAndLocalId } from '../utils/ari';
 import {
 	getContentProperty,
 	createContentProperty,
@@ -100,6 +100,14 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 
 	async writeData(data: SyncBlockData): Promise<string> {
 		const pageId = getPageIdFromAri(data.resourceId);
+
+		if (
+			data.sourceDocumentAri &&
+			data.resourceId !== resourceIdFromSourceAndLocalId(data.sourceDocumentAri, data.localId)
+		) {
+			return Promise.reject('Resource ARI differs from source document ARI');
+		}
+
 		const syncedBlockValue = JSON.stringify({ content: data.content });
 
 		if (data.resourceId) {

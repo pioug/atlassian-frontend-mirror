@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 3.3.3
+
+### Patch Changes
+
+- [`e053b5e610ac2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e053b5e610ac2) -
+  [ux] EDITOR-1652 add convert to sync block to block menu
+- Updated dependencies
+
+## 3.3.2
+
+### Patch Changes
+
+- [`1256b3dd0431e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1256b3dd0431e) -
+  Fix isSource check in provider
+- Updated dependencies
+
 ## 3.3.1
 
 ### Patch Changes

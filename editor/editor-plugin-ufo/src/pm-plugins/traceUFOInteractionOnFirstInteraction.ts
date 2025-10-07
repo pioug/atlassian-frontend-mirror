@@ -3,7 +3,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import traceUFOInteraction from '@atlaskit/react-ufo/trace-interaction';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export const traceUFOInteractionOnFirstInteraction = () => {
 	let aborted = false;
@@ -27,28 +26,17 @@ export const traceUFOInteractionOnFirstInteraction = () => {
 		props: {
 			handleDOMEvents: {
 				mouseover: (_view: EditorView, event: Event) => {
-					if (
-						expValEquals(
-							'cc_editor_interactions_trigger_traceufointeraction',
-							'cohort',
-							'only_mousedown_event',
-						)
-					) {
-						return;
-					}
-
+					// This Plugin is not currently used as it leads to too high a level of abortions (due to the current TTAI timing being long, and users starting click before TTAI completes).
+					// This can be reconsidered if we meaningfully reduce our TTAI (ie. <7 seconds)
+					// If we did want to re-enable it, we would want to rollout with the ability to gate to specific events like below:
+					// if (expValEquals('cc_editor_interactions_trigger_traceufointeraction', 'cohort', 'only_mousedown_event')) { return }
 					abortIfNotAborted(event);
 				},
 				mouseenter: (_view: EditorView, event: Event) => {
-					if (
-						expValEquals(
-							'cc_editor_interactions_trigger_traceufointeraction',
-							'cohort',
-							'only_mousedown_event',
-						)
-					) {
-						return;
-					}
+					// This Plugin is not currently used as it leads to too high a level of abortions (due to the current TTAI timing being long, and users starting click before TTAI completes).
+					// This can be reconsidered if we meaningfully reduce our TTAI (ie. <7 seconds)
+					// If we did want to re-enable it, we would want to rollout with the ability to gate to specific events like below:
+					// if (expValEquals('cc_editor_interactions_trigger_traceufointeraction', 'cohort', 'only_mousedown_event')) { return }
 
 					abortIfNotAborted(event);
 				},

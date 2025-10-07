@@ -17,7 +17,6 @@ snapshot(LinkUrlConnectButtonDirectUnauthorized, {
 snapshot(LinkUrlConnectButtonResolved, {
 	description: 'LinkUrl resolved state with feature flag enabled (should show no connect button)',
 	featureFlags: {
-		platform_linking_plain_hyperlink_connect_button: true,
 		platform_editor_resolve_hyperlinks_killswitch: [true, false],
 	},
 	waitForReactLazy: true,

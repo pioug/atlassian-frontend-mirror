@@ -106,7 +106,7 @@ function main() {
 
 	const outDir = path.resolve(
 		packageRoot,
-		'../../crates/swc-design-system-tokens/transform/src/generated',
+		'../../crates/swc-plugin-atlaskit-tokens/transform/src/generated',
 	);
 	fs.mkdirSync(outDir, { recursive: true });
 	const content = `${header}\n${body}`;

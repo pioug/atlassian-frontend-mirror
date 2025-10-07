@@ -46,7 +46,6 @@ const hasAfterStyles = css({
 });
 
 const Content = ({
-	elemBefore = null,
 	isRemovable = true,
 	text = '',
 	color = 'standard',

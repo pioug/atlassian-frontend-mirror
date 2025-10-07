@@ -70,8 +70,6 @@ export {
 	expandLayoutWrapperStyle,
 	ExpandLayoutWrapperWithRef,
 } from './Expand';
-export { sharedExpandStyles } from './Expand/sharedStyles';
-export type { StyleProps as ExpandStyleProps } from './Expand/sharedStyles';
 
 export { ErrorMessage, HelperMessage, ValidMessage } from './Messages';
 export {

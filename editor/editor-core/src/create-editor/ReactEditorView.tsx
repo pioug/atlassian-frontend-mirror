@@ -272,10 +272,7 @@ export function ReactEditorView(props: EditorViewProps) {
 			if (options.doc) {
 				// if the collabEdit API is set, skip this validation due to potential pm validation errors
 				// from docs that end up with invalid marks after processing (See #hot-111702 for more details)
-				if (
-					(api?.collabEdit !== undefined && fg('editor_load_conf_collab_docs_without_checks')) ||
-					options.props.editorProps.skipValidation
-				) {
+				if (api?.collabEdit !== undefined || options.props.editorProps.skipValidation) {
 					doc = processRawValueWithoutValidation(schema, options.doc, dispatchAnalyticsEvent);
 				} else {
 					doc = processRawValue(
@@ -642,9 +639,7 @@ export function ReactEditorView(props: EditorViewProps) {
 	}
 
 	const originalScrollToRestore = React.useRef(
-		!isNestedEditor.current &&
-			isFullPage(props.editorProps.appearance) &&
-			fg('platform_editor_reduce_scroll_jump_on_editor_start')
+		!isNestedEditor.current && isFullPage(props.editorProps.appearance)
 			? document.querySelector('[data-editor-scroll-container]')?.scrollTop
 			: undefined,
 	);
@@ -654,7 +649,6 @@ export function ReactEditorView(props: EditorViewProps) {
 		// moving it to the end of the expression negates the point of the feature gate
 		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 		isFullPage(props.editorProps.appearance) &&
-		fg('platform_editor_reduce_scroll_jump_on_editor_start') &&
 		originalScrollToRestore.current &&
 		originalScrollToRestore.current !== 0;
 
@@ -664,32 +658,22 @@ export function ReactEditorView(props: EditorViewProps) {
 			editorView?.props.editable?.(editorView.state) &&
 			fg('platform_editor_react_18_autofocus_fix')
 		) {
-			if (fg('platform_editor_reduce_scroll_jump_on_editor_start')) {
-				if (!mitigateScrollJump) {
-					const liveDocWithContent =
-						(__livePage ||
-							expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
-						!isEmptyDocument(editorView.state.doc);
-					if (!liveDocWithContent) {
-						focusTimeoutId.current = handleEditorFocus(editorView);
-					}
-
-					if (
-						expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true) &&
-						fg('cc_editor_focus_before_editor_on_load')
-					) {
-						if (!disabled && shouldFocus && !isEmptyDocument(editorView.state.doc)) {
-							focusEditorElement(editorId.current);
-						}
-					}
-				}
-			} else {
+			if (!mitigateScrollJump) {
 				const liveDocWithContent =
 					(__livePage ||
 						expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
 					!isEmptyDocument(editorView.state.doc);
 				if (!liveDocWithContent) {
 					focusTimeoutId.current = handleEditorFocus(editorView);
+				}
+
+				if (
+					expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true) &&
+					fg('cc_editor_focus_before_editor_on_load')
+				) {
+					if (!disabled && shouldFocus && !isEmptyDocument(editorView.state.doc)) {
+						focusEditorElement(editorId.current);
+					}
 				}
 			}
 		}
@@ -766,15 +750,13 @@ export function ReactEditorView(props: EditorViewProps) {
 
 				const view = createEditorView(node);
 
-				if (fg('platform_editor_reduce_scroll_jump_on_editor_start')) {
-					if (mitigateScrollJump) {
-						const scrollElement = document.querySelector('[data-editor-scroll-container]');
+				if (mitigateScrollJump) {
+					const scrollElement = document.querySelector('[data-editor-scroll-container]');
 
-						scrollElement?.scrollTo({
-							top: originalScrollToRestore.current,
-							behavior: 'instant',
-						});
-					}
+					scrollElement?.scrollTo({
+						top: originalScrollToRestore.current,
+						behavior: 'instant',
+					});
 				}
 
 				onEditorCreated({
@@ -803,45 +785,12 @@ export function ReactEditorView(props: EditorViewProps) {
 					});
 				} else {
 					if (shouldFocus && view.props.editable && view.props.editable(view.state)) {
-						if (fg('platform_editor_reduce_scroll_jump_on_editor_start')) {
-							if (!mitigateScrollJump) {
-								const isLivePageWithContent =
-									(__livePage ||
-										expValEquals(
-											'platform_editor_no_cursor_on_edit_page_init',
-											'isEnabled',
-											true,
-										)) &&
-									!isEmptyDocument(view.state.doc);
-
-								if (
-									!isLivePageWithContent &&
-									shouldFocus &&
-									view.props.editable &&
-									view.props.editable(view.state)
-								) {
-									focusTimeoutId.current = handleEditorFocus(view);
-								}
-
-								if (
-									expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true) &&
-									fg('cc_editor_focus_before_editor_on_load')
-								) {
-									if (
-										shouldFocus &&
-										view.props.editable &&
-										view.props.editable(view.state) &&
-										!isEmptyDocument(view.state.doc)
-									) {
-										focusEditorElement(editorId.current);
-									}
-								}
-							}
-						} else {
+						if (!mitigateScrollJump) {
 							const isLivePageWithContent =
 								(__livePage ||
 									expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
 								!isEmptyDocument(view.state.doc);
+
 							if (
 								!isLivePageWithContent &&
 								shouldFocus &&
@@ -849,6 +798,20 @@ export function ReactEditorView(props: EditorViewProps) {
 								view.props.editable(view.state)
 							) {
 								focusTimeoutId.current = handleEditorFocus(view);
+							}
+
+							if (
+								expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true) &&
+								fg('cc_editor_focus_before_editor_on_load')
+							) {
+								if (
+									shouldFocus &&
+									view.props.editable &&
+									view.props.editable(view.state) &&
+									!isEmptyDocument(view.state.doc)
+								) {
+									focusEditorElement(editorId.current);
+								}
 							}
 						}
 					}

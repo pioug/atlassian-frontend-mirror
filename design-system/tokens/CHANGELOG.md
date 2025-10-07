@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 6.4.3
+
+### Patch Changes
+
+- [`b662d123e3b3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b662d123e3b3b) -
+  Support external token data for SWC transforms
+
 ## 6.4.2
 
 ### Patch Changes

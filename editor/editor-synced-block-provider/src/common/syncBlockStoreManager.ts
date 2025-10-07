@@ -5,6 +5,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { resourceIdFromSourceAndLocalId } from '../utils/ari';
+
 import { rebaseTransaction } from './rebase-transaction';
 import type { SyncBlockAttrs, SyncBlockDataProvider, SyncBlockNode } from './types';
 
@@ -37,6 +39,7 @@ export class SyncBlockStoreManager {
 	private editorView?: EditorView;
 	private dataProvider?: SyncBlockDataProvider;
 	private confirmationTransaction?: Transaction;
+	private syncBlockNestedEditorView?: EditorView;
 
 	constructor(dataProvider?: SyncBlockDataProvider) {
 		this.syncBlocks = new Map();
@@ -47,13 +50,32 @@ export class SyncBlockStoreManager {
 		this.editorView = editorView;
 	}
 
+	public setSyncBlockNestedEditorView(editorView: EditorView | undefined) {
+		this.syncBlockNestedEditorView = editorView;
+	}
+
+	public getSyncBlockNestedEditorView(): EditorView | undefined {
+		return this.syncBlockNestedEditorView;
+	}
+
 	public isSourceBlock(node: PMNode): boolean {
 		if (node.type.name !== 'syncBlock') {
 			return false;
 		}
 
 		const { resourceId, localId } = node.attrs;
-		return (resourceId as ResourceId).includes(localId as string);
+		const sourceId = this.dataProvider?.getSourceId();
+
+		if (!sourceId) {
+			return false;
+		}
+
+		return (
+			typeof resourceId === 'string' &&
+			typeof sourceId === 'string' &&
+			typeof localId === 'string' &&
+			resourceId === resourceIdFromSourceAndLocalId(sourceId, localId)
+		);
 	}
 
 	public registerConfirmationCallback(callback: ConfirmationCallback) {
@@ -71,7 +93,7 @@ export class SyncBlockStoreManager {
 	public createSyncBlockNode(): SyncBlockNode {
 		const localId = uuid();
 		const sourceId = this.dataProvider?.getSourceId();
-		const resourceId = sourceId ? `${sourceId}/${localId}` : localId;
+		const resourceId = sourceId ? resourceIdFromSourceAndLocalId(sourceId, localId) : localId;
 		const syncBlockNode: SyncBlockNode = {
 			attrs: {
 				resourceId,

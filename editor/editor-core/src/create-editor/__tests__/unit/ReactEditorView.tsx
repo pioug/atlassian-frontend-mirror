@@ -98,7 +98,6 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 // eslint-disable-next-line import/no-named-as-default
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import type { MentionProvider } from '@atlaskit/mention/resource';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
@@ -266,7 +265,7 @@ describe('@atlaskit/editor-core', () => {
 		);
 	});
 
-	ffTest.on('platform_editor_reduce_scroll_jump_on_editor_start', '', () => {
+	describe('scrolling', () => {
 		afterEach(() => {
 			const querySelectorSpy = jest.spyOn(document, 'querySelector');
 			querySelectorSpy.mockRestore();
@@ -822,154 +821,72 @@ describe('@atlaskit/editor-core', () => {
 		});
 	});
 
-	ffTest.on(
-		'editor_load_conf_collab_docs_without_checks',
-		'calling processRawValue in createEditorState',
-		() => {
-			it('When setup without the collab plugin -- should call processRawValue', () => {
-				// call feature gate to avoid the ffTest failing
-				fg('editor_load_conf_collab_docs_without_checks');
-				const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
-				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
-				const { editorView } = createEditorFactory()({
-					editorProps: {
-						defaultValue: mockDocument,
-					},
-				});
-
-				expect(processRawValueSpy).toHaveBeenCalledTimes(1);
-
-				expect(editorView.state.doc.toJSON()).toEqual({
-					...mockDocument,
-					version: undefined,
-				});
+	describe('calling processRawValue in createEditorState', () => {
+		it('When setup without the collab plugin -- should call processRawValue', () => {
+			const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
+			const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
+			const { editorView } = createEditorFactory()({
+				editorProps: {
+					defaultValue: mockDocument,
+				},
 			});
 
-			it('When setup with the collab plugin -- should not call processRawValue', () => {
-				const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
-				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
-				const processRawValueWithoutValidationSpy = jest.spyOn(
-					ProcessRawValueModule,
-					'processRawValueWithoutValidation',
-				);
+			expect(processRawValueSpy).toHaveBeenCalledTimes(1);
 
-				const { editorView } = createEditorFactory()({
-					editorProps: {
-						defaultValue: mockDocument,
-						collabEdit: {},
-					},
-				});
+			expect(editorView.state.doc.toJSON()).toEqual({
+				...mockDocument,
+				version: undefined,
+			});
+		});
 
-				expect(processRawValueSpy).not.toHaveBeenCalled();
-				expect(processRawValueWithoutValidationSpy).toHaveBeenCalledTimes(1);
+		it('When setup with the collab plugin -- should not call processRawValue', () => {
+			const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
+			const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
+			const processRawValueWithoutValidationSpy = jest.spyOn(
+				ProcessRawValueModule,
+				'processRawValueWithoutValidation',
+			);
 
-				expect(editorView.state.doc.toJSON()).toEqual({
-					...mockDocument,
-					version: undefined,
-				});
+			const { editorView } = createEditorFactory()({
+				editorProps: {
+					defaultValue: mockDocument,
+					collabEdit: {},
+				},
 			});
 
-			it('When setup with the collab plugin -- with string document', () => {
-				const mockDocument =
-					'{"type":"doc","content":[{"type":"blockquote","content":[{"type":"codeBlock","attrs":{"language":null,"uniqueId":null}}]}]}';
-				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
-				const processRawValueWithoutValidationSpy = jest.spyOn(
-					ProcessRawValueModule,
-					'processRawValueWithoutValidation',
-				);
+			expect(processRawValueSpy).not.toHaveBeenCalled();
+			expect(processRawValueWithoutValidationSpy).toHaveBeenCalledTimes(1);
 
-				const { editorView } = createEditorFactory()({
-					editorProps: {
-						defaultValue: mockDocument,
-						collabEdit: {},
-					},
-				});
-
-				expect(processRawValueSpy).not.toHaveBeenCalled();
-				expect(processRawValueWithoutValidationSpy).toHaveBeenCalledTimes(1);
-
-				expect(editorView.state.doc.toJSON()).toEqual(
-					doc(blockquote(code_block()()))(defaultSchema).toJSON(),
-				);
+			expect(editorView.state.doc.toJSON()).toEqual({
+				...mockDocument,
+				version: undefined,
 			});
-		},
-	);
+		});
 
-	ffTest.off(
-		'editor_load_conf_collab_docs_without_checks',
-		'calling processRawValue in createEditorState',
-		() => {
-			// Ignored via go/ees005
-			// eslint-disable-next-line jest/no-identical-title
-			it('When setup without the collab plugin -- should call processRawValue', () => {
-				// call feature gate to avoid the ffTest failing
-				fg('editor_load_conf_collab_docs_without_checks');
-				const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
-				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
+		it('When setup with the collab plugin -- with string document', () => {
+			const mockDocument =
+				'{"type":"doc","content":[{"type":"blockquote","content":[{"type":"codeBlock","attrs":{"language":null,"uniqueId":null}}]}]}';
+			const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
+			const processRawValueWithoutValidationSpy = jest.spyOn(
+				ProcessRawValueModule,
+				'processRawValueWithoutValidation',
+			);
 
-				const { editorView } = createEditorFactory()({
-					editorProps: {
-						defaultValue: mockDocument,
-					},
-				});
-
-				expect(processRawValueSpy).toHaveBeenCalledTimes(1);
-
-				expect(editorView.state.doc.toJSON()).toEqual({
-					...mockDocument,
-					version: undefined,
-				});
+			const { editorView } = createEditorFactory()({
+				editorProps: {
+					defaultValue: mockDocument,
+					collabEdit: {},
+				},
 			});
 
-			it('When setup with the collab plugin -- should call processRawValue', () => {
-				const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
-				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
-				const processRawValueWithoutValidationSpy = jest.spyOn(
-					ProcessRawValueModule,
-					'processRawValueWithoutValidation',
-				);
+			expect(processRawValueSpy).not.toHaveBeenCalled();
+			expect(processRawValueWithoutValidationSpy).toHaveBeenCalledTimes(1);
 
-				const { editorView } = createEditorFactory()({
-					editorProps: {
-						defaultValue: mockDocument,
-						collabEdit: {},
-					},
-				});
-
-				expect(processRawValueSpy).toHaveBeenCalledTimes(1);
-				expect(processRawValueWithoutValidationSpy).not.toHaveBeenCalled();
-
-				expect(editorView.state.doc.toJSON()).toEqual({
-					...mockDocument,
-					version: undefined,
-				});
-			});
-
-			it('When setup with the collab plugin --- with string document', () => {
-				const mockDocument =
-					'{"type":"doc","content":[{"type":"blockquote","content":[{"type":"codeBlock","attrs":{"language":null,"uniqueId":null}}]}]}';
-				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
-				const processRawValueWithoutValidationSpy = jest.spyOn(
-					ProcessRawValueModule,
-					'processRawValueWithoutValidation',
-				);
-
-				const { editorView } = createEditorFactory()({
-					editorProps: {
-						defaultValue: mockDocument,
-						collabEdit: {},
-					},
-				});
-
-				expect(processRawValueSpy).toHaveBeenCalledTimes(1);
-				expect(processRawValueWithoutValidationSpy).not.toHaveBeenCalled();
-
-				expect(editorView.state.doc.toJSON()).toEqual(
-					doc(blockquote(code_block()()))(defaultSchema).toJSON(),
-				);
-			});
-		},
-	);
+			expect(editorView.state.doc.toJSON()).toEqual(
+				doc(blockquote(code_block()()))(defaultSchema).toJSON(),
+			);
+		});
+	});
 
 	describe('data-vc-ignore-if-no-layout-shift', () => {
 		it('should add data-vc-ignore-if-no-layout-shift attribute when feature flag is enabled', () => {

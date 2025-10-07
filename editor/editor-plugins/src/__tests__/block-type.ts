@@ -17,12 +17,4 @@ describe('block-type wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
-
-	it('check ./block-type/styles exports all the same variables as the original', () => {
-		const original = require('@atlaskit/editor-plugin-block-type/styles');
-		const wrapper = require('../block-type/ui/styles');
-		const originalKeys = Object.keys(original).sort();
-		const wrapperKeys = Object.keys(wrapper).sort();
-		expect(originalKeys).toEqual(wrapperKeys);
-	});
 });

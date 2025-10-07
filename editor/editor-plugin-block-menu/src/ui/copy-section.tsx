@@ -29,7 +29,13 @@ export const CopySection = ({
 	}
 
 	return (
-		<ToolbarDropdownItemSection hasSeparator={!isFormatMenuHidden()}>
+		<ToolbarDropdownItemSection
+			hasSeparator={
+				expValEqualsNoExposure('platform_synced_block', 'isEnabled', true)
+					? true
+					: !isFormatMenuHidden()
+			}
+		>
 			{children}
 		</ToolbarDropdownItemSection>
 	);

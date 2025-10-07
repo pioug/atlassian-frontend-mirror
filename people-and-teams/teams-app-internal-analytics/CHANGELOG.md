@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.14.0
+
+### Minor Changes
+
+- [`ab5ef8d6bd584`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab5ef8d6bd584) -
+  Migrated teams app analytics context source type from enum to string template literal
+
 ## 1.13.0
 
 ### Minor Changes

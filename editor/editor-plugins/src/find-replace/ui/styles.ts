@@ -9,6 +9,4 @@ export {
 	selectedBlockSearchMatchClass,
 	darkModeSearchMatchClass,
 	searchMatchExpandTitleClass,
-	findReplaceStyles,
-	findReplaceStylesNew,
 } from '@atlaskit/editor-plugin-find-replace/styles';

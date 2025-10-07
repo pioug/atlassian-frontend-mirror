@@ -1,8 +1,6 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 
-export { textColorStyles } from './shared/text-color';
-export { backgroundColorStyles } from './shared/background-color';
 export {
 	tableSharedStyle,
 	tableMarginTop,
@@ -20,17 +18,7 @@ export {
 	tablePadding,
 } from './shared/table';
 
-export {
-	AnnotationSharedClassNames,
-	BlockAnnotationSharedClassNames,
-	AnnotationSharedCSSByState,
-	annotationSharedStyles,
-} from './shared/annotation';
-export {
-	columnLayoutSharedStyle,
-	columnLayoutResponsiveSharedStyle,
-	columnLayoutResponsiveRendererStyles,
-} from './shared/column-layout';
+export { AnnotationSharedClassNames, BlockAnnotationSharedClassNames } from './shared/annotation';
 export {
 	mediaSingleSharedStyle,
 	mediaSingleSharedStyleNew,
@@ -38,36 +26,16 @@ export {
 } from './shared/media-single';
 export { blockquoteSharedStyles } from './shared/blockquote';
 export { headingsSharedStyles } from './shared/headings';
-export { ruleSharedStyles } from './shared/rule';
-export { whitespaceSharedStyles } from './shared/whitespace';
-export { paragraphSharedStyles } from './shared/paragraph';
-export { linkSharedStyle } from './shared/link';
-export {
-	listsSharedStyles,
-	listItemCounterPadding,
-	getOrderedListInlineStyles,
-} from './shared/lists';
-export { indentationSharedStyles } from './shared/indentation';
-export { blockMarksSharedStyles } from './shared/block-marks';
-export { codeMarkSharedStyles } from './shared/code-mark';
-export { shadowSharedStyle } from './shared/shadow';
-export { dateSharedStyle, DateSharedCssClassName } from './shared/date';
-export { tasksAndDecisionsStyles, TaskDecisionSharedCssClassName } from './shared/task-decision';
+export { listItemCounterPadding, getOrderedListInlineStyles } from './shared/lists';
+export { DateSharedCssClassName } from './shared/date';
+export { TaskDecisionSharedCssClassName } from './shared/task-decision';
 
 export { StatusSharedCssClassName } from './shared/status';
-export {
-	getSmartCardSharedStyles,
-	smartCardSharedStyles,
-	SmartCardSharedCssClassName,
-} from './shared/smart-card';
+export { SmartCardSharedCssClassName } from './shared/smart-card';
 
 export { DropdownMenuSharedCssClassName } from './shared/dropdown-menu';
 
-export {
-	CodeBlockSharedCssClassName,
-	codeBlockSharedStyles,
-	codeBlockInListSafariFix,
-} from './shared/code-block';
+export { CodeBlockSharedCssClassName } from './shared/code-block';
 export {
 	LAYOUT_SECTION_MARGIN,
 	LAYOUT_COLUMN_PADDING,
@@ -80,18 +48,12 @@ export {
 	resizerHandleTrackClassName,
 	resizerHandleThumbClassName,
 	resizerHandleThumbWidth,
-	pragmaticResizerStyles,
-	pragmaticStylesLayoutFirstNodeResizeHandleFix,
-	pragmaticResizerStylesForTooltip,
-	pragmaticResizerStylesWithReducedEditorGutter,
 } from './shared/resizer';
-export { gridStyles, GRID_GUTTER } from './shared/grid';
+export { GRID_GUTTER } from './shared/grid';
 export {
-	smartCardStyles,
 	FLOATING_TOOLBAR_LINKPICKER_CLASSNAME,
 	DATASOURCE_INNER_CONTAINER_CLASSNAME,
 } from './shared/smartCard';
-export { embedCardStyles, embedSpacingStyles } from './shared/embedCard';
 export {
 	buttonGroupStyle,
 	buttonGroupStyleBeforeVisualRefresh,
@@ -102,14 +64,14 @@ export {
 	triggerWrapperStylesWithPadding,
 } from './shared/plugins';
 
-export { UnsupportedSharedCssClassName, unsupportedStyles } from './shared/unsupported-content';
+export { UnsupportedSharedCssClassName } from './shared/unsupported-content';
 
 export {
 	expandIconWrapperStyle,
 	expandClassNames,
 	expandIconContainerStyle,
 } from './shared/expand';
-export { sharedExpandStyles, EXPAND_CONTAINER_PADDING } from '../ui/Expand/sharedStyles';
+export { EXPAND_CONTAINER_PADDING } from '../ui/Expand/sharedStyles';
 export { ClassNames as MediaSharedClassNames } from './shared/media';
 
 export { BreakoutCssClassName } from './shared/breakout';

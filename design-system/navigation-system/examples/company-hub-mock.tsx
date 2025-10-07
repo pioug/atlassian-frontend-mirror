@@ -52,7 +52,7 @@ const panelStyles = cssMap({
 		borderBlockEndWidth: token('border.width'),
 		alignItems: 'center',
 		position: 'sticky',
-		top: token('space.0'),
+		insetBlockStart: token('space.0'),
 		zIndex: 1,
 		overflow: 'hidden',
 		height: '57px',
@@ -81,7 +81,7 @@ const contentStyles = cssMap({
 	},
 	logo: {
 		position: 'absolute',
-		bottom: 0,
+		insetBlockEnd: 0,
 	},
 	body: {
 		paddingInline: token('space.500'),
@@ -110,7 +110,7 @@ export function CompanyHubMockExample({ defaultPanelWidth = 440 }: { defaultPane
 
 	return (
 		<WithResponsiveViewport>
-			<Root testId="root">
+			<Root testId="root" defaultSideNavCollapsed>
 				<TopNav>
 					<TopNavStart>
 						<AppSwitcher label="Switch apps" />

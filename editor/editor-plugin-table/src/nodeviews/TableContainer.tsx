@@ -398,9 +398,7 @@ const ResizableTableContainerLegacy = React.memo(
 				: Math.min(tableWidth, responsiveContainerWidth);
 
 		// Ensure minimum width for usability while respecting container constraints
-		const width = expValEquals('platform_editor_table_container_width_fix', 'isEnabled', true)
-			? Math.max(calculatedWidth, Math.min(responsiveContainerWidth * 0.5, 300))
-			: calculatedWidth;
+		const width = Math.max(calculatedWidth, Math.min(responsiveContainerWidth * 0.5, 300));
 
 		if (!isResizing) {
 			tableWidthRef.current = width;
@@ -649,9 +647,7 @@ const ResizableTableContainerNext = React.memo(
 					: Math.min(tableWidth, responsiveContainerWidth);
 
 			// Ensure minimum width for usability while respecting container constraints
-			const width = expValEquals('platform_editor_table_container_width_fix', 'isEnabled', true)
-				? Math.max(calculatedWidth, Math.min(responsiveContainerWidth * 0.5, 300))
-				: calculatedWidth;
+			const width = Math.max(calculatedWidth, Math.min(responsiveContainerWidth * 0.5, 300));
 
 			const maxResizerWidth = isCommentEditor
 				? responsiveContainerWidth

@@ -5,8 +5,6 @@ import { render } from '@testing-library/react';
 import { PEOPLE_TEAMS_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
-import { AnalyticsEventSource } from '../../common/utils/constants';
-
 import { defaultAnalyticsContextData, TeamsAppAnalyticsContext } from './index';
 
 jest.mock('@atlaskit/analytics-next', () => ({
@@ -39,12 +37,12 @@ describe('PeopleTeamsAnalyticsContext', () => {
 
 	it('calls AnalyticsContext with data when provided', () => {
 		const customData = {
-			source: AnalyticsEventSource.USER_PROFILE_SCREEN,
+			source: 'userProfileScreen',
 			attributes: {
 				testAttribute: 'testValue',
 				component: 'test-component',
 			},
-		};
+		} as const;
 
 		render(
 			<TeamsAppAnalyticsContext data={customData}>
@@ -56,7 +54,7 @@ describe('PeopleTeamsAnalyticsContext', () => {
 			expect.objectContaining({
 				data: {
 					[PEOPLE_TEAMS_CONTEXT]: {
-						source: AnalyticsEventSource.USER_PROFILE_SCREEN,
+						source: 'userProfileScreen',
 						...defaultAnalyticsContextData,
 						attributes: {
 							testAttribute: 'testValue',

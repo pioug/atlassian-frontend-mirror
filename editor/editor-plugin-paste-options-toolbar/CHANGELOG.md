@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 7.0.0
+
+### Major Changes
+
+- [`be54c7e850cd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be54c7e850cd3) -
+  remove unused deprecated styles used to be consumed in editor content styles
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

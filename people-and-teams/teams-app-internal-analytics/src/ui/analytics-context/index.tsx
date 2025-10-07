@@ -2,8 +2,8 @@ import React, { type ReactNode, useMemo } from 'react';
 
 import { PeopleTeamsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 
-import type { AnalyticsEventSource } from '../../common/utils/constants';
 import type { PackageMetaDataType } from '../../common/utils/generated/analytics.types';
+import type { AnalyticsEventSource } from '../../common/utils/types';
 
 export const defaultAnalyticsContextData: PackageMetaDataType = {
 	packageName: process.env._PACKAGE_NAME_ as string,

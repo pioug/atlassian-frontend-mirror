@@ -1251,6 +1251,14 @@ const alignedHeadingAnchorStyle = css({
 	},
 });
 
+const firstWrappedMediaStyles = css({
+	// Remove gap between first wrapped mediaSingle and its fellow wrapped mediaSingle
+	[`.${richMediaClassName}[class*="image-wrap-"]:has(+ .${richMediaClassName}[class*="image-wrap-"])`]:
+		{
+			marginRight: 0,
+			marginLeft: 0,
+		},
+});
 // Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
 // eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO: emotion refactor - there's a mediaSingleSharedNewStyle, but not originally used in the renderer.
@@ -2258,6 +2266,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				baseOtherStyles,
 				allowNestedHeaderLinks && alignedHeadingAnchorStyle,
 				mediaSingleSharedStyle,
+				// merge firstWrappedMediaStyles with mediaSingleSharedStyle when clean up platform_editor_fix_media_in_renderer
+				fg('platform_editor_fix_media_in_renderer') && firstWrappedMediaStyles,
 				tableSharedStyle,
 				tableRendererHeaderStylesForTableCellOnly,
 				fg('platform_editor_bordered_panel_nested_in_table') && tableRendererNestedPanelStyles,

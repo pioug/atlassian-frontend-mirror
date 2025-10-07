@@ -6,6 +6,7 @@ import {
 	type UrlType,
 } from '@atlaskit/adf-schema';
 import { type Mark, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SortOrder } from '../types';
 
@@ -301,6 +302,15 @@ function compareMetaFromNode(metaNodeA: NodeMeta | null, metaNodeB: NodeMeta | n
 
 	if (metaNodeA === null || metaNodeB === null) {
 		return metaNodeB === null ? -1 : 1;
+	}
+
+	if (fg('platform_editor_fix_mixed_types_column_sort')) {
+		if (
+			(metaNodeA.type === ContentType.TEXT && metaNodeB.type === ContentType.NUMBER) ||
+			(metaNodeA.type === ContentType.NUMBER && metaNodeB.type === ContentType.TEXT)
+		) {
+			return compareValue(String(metaNodeA.value), String(metaNodeB.value));
+		}
 	}
 
 	if (metaNodeA.type !== metaNodeB.type) {

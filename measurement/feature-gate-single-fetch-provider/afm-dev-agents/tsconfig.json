@@ -1,0 +1,32 @@
+{
+	"extends": "../../../../tsconfig.entry-points.dev-agents.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../dev-agents/tsDist/@atlaskit__feature-gate-single-fetch-provider/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../feature-gate-fetcher/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../feature-gate-js-client/afm-dev-agents/tsconfig.json"
+		}
+	]
+}

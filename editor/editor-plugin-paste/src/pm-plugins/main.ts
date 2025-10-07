@@ -1,3 +1,4 @@
+import type { IntlShape } from 'react-intl-next';
 import uuid from 'uuid';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
@@ -23,6 +24,7 @@ import {
 	transformSliceToJoinAdjacentCodeBlocks,
 	transformSliceToRemoveLegacyContentMacro,
 	transformSliceToRemoveMacroId,
+	transformToNewReferenceSyncBlock,
 } from '@atlaskit/editor-common/transforms';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import {
@@ -72,7 +74,10 @@ import {
 	handleSelectedTableWithAnalytics,
 	sendPasteAnalyticsEvent,
 } from './analytics';
-import { clipboardTextSerializer } from './clipboard-text-serializer';
+import {
+	createClipboardTextSerializer,
+	clipboardTextSerializer,
+} from './clipboard-text-serializer';
 import { createPluginState, pluginKey as stateKey } from './plugin-factory';
 import {
 	escapeBackslashAndLinksExceptCodeBlock,
@@ -138,6 +143,7 @@ export function createPlugin(
 	dispatch: Dispatch,
 	featureFlags: FeatureFlags,
 	pluginInjectionApi: ExtractInjectionAPI<PastePlugin> | undefined,
+	getIntl: () => IntlShape,
 	cardOptions?: CardOptions,
 	sanitizePrivateContent?: boolean,
 	providerFactory?: ProviderFactory,
@@ -189,7 +195,9 @@ export function createPlugin(
 		}),
 		props: {
 			// For serialising to plain text
-			clipboardTextSerializer,
+			clipboardTextSerializer: fg('platform_editor_date_to_text')
+				? createClipboardTextSerializer(getIntl())
+				: clipboardTextSerializer,
 			handleDOMEvents: {
 				// note
 				paste: (view, event) => {
@@ -825,6 +833,10 @@ export function createPlugin(
 				}
 
 				slice = transformSliceToRemoveMacroId(slice, schema);
+
+				if (expValEquals('platform_synced_block', 'isEnabled', true)) {
+					slice = transformToNewReferenceSyncBlock(slice, schema);
+				}
 
 				return slice;
 			},

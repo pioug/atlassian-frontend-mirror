@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 43.0.2
+
+### Patch Changes
+
+- [`3cc3605ad3cca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3cc3605ad3cca) -
+  Replace feature flag with experiment gate for plain hyperlink auth flow
+
 ## 43.0.1
 
 ### Patch Changes

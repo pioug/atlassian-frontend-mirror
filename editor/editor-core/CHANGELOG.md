@@ -1,5 +1,43 @@
 # @atlaskit/editor-core
 
+## 215.0.0
+
+### Major Changes
+
+- [`be54c7e850cd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be54c7e850cd3) -
+  remove deprecated legacy content styles for editor
+
+### Patch Changes
+
+- [`925eb6478e9a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/925eb6478e9a5) -
+  Remove overflowY on tables to prevent Y axis scroll bar showing on Windows.
+- [`30bb04cd8a8e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30bb04cd8a8e9) -
+  [ux] [ED-29292] Fix 2 issues with wrapped images in editor and renderer
+
+  1. There is a gap between the first and the second wrapped images
+  2. For wrapped images in layout, if image is the first node, it not horizontally aligned with the
+     following wrapped images
+
+- Updated dependencies
+
+## 214.2.4
+
+### Patch Changes
+
+- [`8807cdcfe7132`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8807cdcfe7132) -
+  Cleanup platform_editor_keep_focus_on_content_comp_clicks
+- Updated dependencies
+
+## 214.2.3
+
+### Patch Changes
+
+- [`bcadfe969f22d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcadfe969f22d) -
+  Cleanup editor_load_conf_collab_docs_without_checks
+- [`3b6549e4af2db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b6549e4af2db) -
+  Cleanup platform_editor_reduce_scroll_jump_on_editor_start
+- Updated dependencies
+
 ## 214.2.2
 
 ### Patch Changes

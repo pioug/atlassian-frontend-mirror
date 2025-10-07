@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 124.1.5
+
+### Patch Changes
+
+- [`be54c7e850cd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be54c7e850cd3) -
+  remove unused deprecated styles used to be consumed in editor content styles
+- [`30bb04cd8a8e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30bb04cd8a8e9) -
+  [ux] [ED-29292] Fix 2 issues with wrapped images in editor and renderer
+
+  1. There is a gap between the first and the second wrapped images
+  2. For wrapped images in layout, if image is the first node, it not horizontally aligned with the
+     following wrapped images
+
+- Updated dependencies
+
 ## 124.1.4
 
 ### Patch Changes

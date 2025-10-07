@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "9.0.8",
+	"version": "10.0.0",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -30,8 +30,7 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./consts": "./src/ui/consts.ts",
-		"./styles": "./src/ui/styles.ts"
+		"./consts": "./src/ui/consts.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "root:*",

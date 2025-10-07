@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-paste
 
+## 7.2.0
+
+### Minor Changes
+
+- [`801013048753f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/801013048753f) -
+  [https://product-fabric.atlassian.net/browse/ED-20833](ED-20833) - added serialization of the date
+  into text when copying in the editor
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.0
+
+### Minor Changes
+
+- [`2d1c925457b44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d1c925457b44) -
+  EDITOR-1915 generate a new localId on paste syncblock(s)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.3
 
 ### Patch Changes

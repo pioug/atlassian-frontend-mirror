@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-annotation
 
+## 6.1.7
+
+### Patch Changes
+
+- [`d334d3aa69554`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d334d3aa69554) -
+  Fix comment sidebar re-opening
+
 ## 6.1.6
 
 ### Patch Changes

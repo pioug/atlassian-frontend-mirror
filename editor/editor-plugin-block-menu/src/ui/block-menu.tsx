@@ -40,6 +40,24 @@ const styles = cssMap({
 		boxShadow: token('elevation.shadow.overlay'),
 		borderRadius: token('radius.small'),
 	},
+	emptyMenuSectionStyles: {
+		/*
+		 * This is not great - but there is no way to know using React if a specific component returns null.
+		 * This style hides a menu-section if there are no menu items inside of it
+		 */
+		// @ts-expect-error - nested selectors are not typed in cssMap
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-toolbar-component="menu-section"]:not(:has([data-toolbar-component="menu-item"]))': {
+			display: 'none',
+		},
+		/*
+		 * Hides the separator for any section that doesn't have any non-empty sections before it
+		 */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-toolbar-component="menu-section"]:not(:has([data-toolbar-component="menu-item"]) ~ *)': {
+			borderBlockStart: 'none',
+		},
+	},
 });
 
 const DEFAULT_MENU_WIDTH = 230;
@@ -70,7 +88,15 @@ const BlockMenuContent = ({
 	};
 
 	return (
-		<Box testId="editor-block-menu" ref={ref} xcss={cx(styles.base)}>
+		<Box
+			testId="editor-block-menu"
+			ref={ref}
+			xcss={cx(
+				styles.base,
+				expValEqualsNoExposure('platform_synced_block', 'isEnabled', true) &&
+					styles.emptyMenuSectionStyles,
+			)}
+		>
 			<BlockMenuRenderer
 				components={blockMenuComponents || []}
 				fallbacks={{

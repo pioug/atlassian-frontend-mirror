@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { forwardRef, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
@@ -14,7 +14,13 @@ import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-sta
 import { SideNavToggleButtonSlotProvider } from '../side-nav/toggle-button-provider';
 import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
 
-const styles = cssMap({
+/**
+ * Styles for the TopNavStart element.
+ *
+ * When `navx-full-height-sidebar` is enabled this is the styling for the inner element,
+ * which re-enables pointer events.
+ */
+const innerStyles = cssMap({
 	root: {
 		// Taking up the full height of top bar to allow for monitoring mouse events, for improving the side nav flyout experience
 		height: '100%',
@@ -49,21 +55,43 @@ const styles = cssMap({
 		},
 	},
 	fullHeightSidebar: {
-		// Start padding is not applied to the top nav itself, to avoid misalignment with the side nav
-		paddingInlineStart: token('space.150'),
 		// Pointer events are disabled on the top nav
 		// So we need to restore them for the slot
 		pointerEvents: 'auto',
 	},
 	fullHeightSidebarExpanded: {
 		'@media (min-width: 64rem)': {
-			// When the full height sidebar is visible, the regular 300px min width should not be applied
+			// When the full height sidebar is visible, the regular min width should not be applied
 			// Otherwise the slot covers the side nav panel splitter
 			minWidth: 'unset',
 			width: '100%',
-			// Using width to provide the end padding
-			// To avoid this element covering the resize grab area
-			maxWidth: `calc(100% - ${token('space.200')})`,
+		},
+	},
+});
+
+/**
+ * Styles for the outer element, that does not have re-enabled pointer events and spans the entire
+ * width of the TopNavStart area.
+ *
+ * This wrapper element is only rendered when `navx-full-height-sidebar` is enabled.
+ */
+const wrapperStyles = cssMap({
+	root: {
+		boxSizing: 'border-box',
+	},
+	fullHeightSidebar: {
+		// Start padding is not applied to the top nav itself, to avoid misalignment with the side nav
+		paddingInlineStart: token('space.150'),
+	},
+	fullHeightSidebarCollapsed: {
+		'@media (min-width: 64rem)': {
+			minWidth: '330px',
+		},
+	},
+	fullHeightSidebarExpanded: {
+		'@media (min-width: 64rem)': {
+			width: `var(--n_sNvlw, 100%)`,
+			paddingInlineEnd: token('space.200'),
 		},
 	},
 });
@@ -76,16 +104,7 @@ const styles = cssMap({
  */
 const sideNavToggleButtonKey = 'side-nav-toggle-button';
 
-/**
- * __TopNavStart__
- *
- * Wrapper for the top navigation actions on the inline-start (left) side of the top navigation.
- */
-export function TopNavStart({
-	children,
-	testId,
-	sideNavToggleButton,
-}: {
+type TopNavStartProps = {
 	/**
 	 * The content of the layout area.
 	 *
@@ -107,7 +126,65 @@ export function TopNavStart({
 	 * Consumers that do not need a toggle button can explicitly pass `null`.
 	 */
 	sideNavToggleButton?: React.ReactNode;
-}) {
+};
+
+const TopNavStartInnerOld = forwardRef(function TopNavStartInner(
+	{ children, testId }: Pick<TopNavStartProps, 'children' | 'testId'>,
+	ref: React.ForwardedRef<HTMLDivElement>,
+) {
+	return (
+		<div
+			ref={ref}
+			data-testid={testId}
+			css={[
+				innerStyles.root,
+				fg('team25-eu-jira-logo-updates-csm-jsm') && innerStyles.jiraProductLogoUpdate,
+			]}
+		>
+			{children}
+		</div>
+	);
+});
+
+const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
+	{ children, testId }: Pick<TopNavStartProps, 'children' | 'testId'>,
+	ref: React.ForwardedRef<HTMLDivElement>,
+) {
+	// This needs the real `defaultCollapsed` state or will not SSR properly
+	// TODO: lift `defaultCollapsed` state to `Root` (DSP-23683)
+	// then context value will be correct in SSR / from initial render
+	const { isExpandedOnDesktop } = useSideNavVisibility({ defaultCollapsed: true });
+
+	return (
+		<div
+			ref={ref}
+			data-testid={testId}
+			css={[
+				wrapperStyles.root,
+				wrapperStyles.fullHeightSidebar,
+				isExpandedOnDesktop && wrapperStyles.fullHeightSidebarExpanded,
+			]}
+		>
+			<div
+				css={[
+					innerStyles.root,
+					innerStyles.fullHeightSidebar,
+					isExpandedOnDesktop && innerStyles.fullHeightSidebarExpanded,
+					fg('team25-eu-jira-logo-updates-csm-jsm') && innerStyles.jiraProductLogoUpdate,
+				]}
+			>
+				{children}
+			</div>
+		</div>
+	);
+});
+
+/**
+ * __TopNavStart__
+ *
+ * Wrapper for the top navigation actions on the inline-start (left) side of the top navigation.
+ */
+export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavStartProps) {
 	const ref = useContext(TopNavStartAttachRef);
 	const elementRef = useRef(null);
 
@@ -139,16 +216,14 @@ export function TopNavStart({
 		setIsDesktop(event.matches);
 	});
 
+	const TopNavStartInner = fg('navx-full-height-sidebar')
+		? TopNavStartInnerFHS
+		: TopNavStartInnerOld;
+
 	return (
-		<div
-			css={[
-				styles.root,
-				fg('navx-full-height-sidebar') && styles.fullHeightSidebar,
-				isExpandedOnDesktop && fg('navx-full-height-sidebar') && styles.fullHeightSidebarExpanded,
-				fg('team25-eu-jira-logo-updates-csm-jsm') && styles.jiraProductLogoUpdate,
-			]}
+		<TopNavStartInner
 			ref={fg('platform_fix_component_state_update_for_suspense') ? elementRef : ref}
-			data-testid={testId}
+			testId={testId}
 		>
 			{/* If FHS is not enabled, the toggle button is always at the start */}
 			{!fg('navx-full-height-sidebar') && (
@@ -179,6 +254,6 @@ export function TopNavStart({
 						{sideNavToggleButton}
 					</SideNavToggleButtonSlotProvider>
 				)}
-		</div>
+		</TopNavStartInner>
 	);
 }

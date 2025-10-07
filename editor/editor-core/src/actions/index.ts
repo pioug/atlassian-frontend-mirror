@@ -21,7 +21,6 @@ import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state'
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getEditorValueWithMedia } from '../utils/action';
 import deprecationWarnings from '../utils/deprecation-warnings';
@@ -52,7 +51,7 @@ const fakePluginKey = {
  * If you were using editorActions.getNodeByLocalId(localId) replace with:
 	 	const { editorApi, preset } = usePreset(...);
 		const extensionAPI = editorAPI?.extension?.actions?.api();
-		// Use nodeWithPos as desired 
+		// Use nodeWithPos as desired
 		const nodeWithPos = extensionAPI.getNodeWithPosByLocalId(localId);
 		const node = nodeWithPos.node;
 		const nodePos = nodeWithPos.pos;
@@ -139,11 +138,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 			return false;
 		}
 		this.editorView.focus();
-		if (fg('platform_editor_reduce_scroll_jump_on_editor_start')) {
-			if (scrollIntoView ?? true) {
-				this.editorView.dispatch(this.editorView.state.tr.scrollIntoView());
-			}
-		} else {
+		if (scrollIntoView ?? true) {
 			this.editorView.dispatch(this.editorView.state.tr.scrollIntoView());
 		}
 
@@ -223,7 +218,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated - please use `getNodeWithPosByLocalId` found in the core plugin actions instead
-	 * @example 
+	 * @example
 	  	const { editorApi, preset } = usePreset(...);
 		const extensionAPI = editorAPI?.extension?.actions?.api();
 		// Use nodeWithPos as desired

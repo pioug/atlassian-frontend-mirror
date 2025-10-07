@@ -6,6 +6,7 @@ import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { SyncBlocksIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
+import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
 export const CreateSyncedBlockDropdownItem = ({
@@ -16,7 +17,8 @@ export const CreateSyncedBlockDropdownItem = ({
 	const { formatMessage } = useIntl();
 
 	const selection = api?.selection?.sharedState?.currentState()?.selection;
-	if (!selection?.empty) {
+	const canCreateSyncBlock = selection && canBeConvertedToSyncBlock(selection);
+	if (!canCreateSyncBlock) {
 		return null;
 	}
 
@@ -26,7 +28,9 @@ export const CreateSyncedBlockDropdownItem = ({
 
 	return (
 		<ToolbarDropdownItem elemBefore={<SyncBlocksIcon label="" />} onClick={onClick}>
-			{formatMessage(blockMenuMessages.createSyncedBlock)}
+			{selection?.empty
+				? formatMessage(blockMenuMessages.createSyncedBlock)
+				: formatMessage(blockMenuMessages.convertToSyncedBlock)}
 		</ToolbarDropdownItem>
 	);
 };

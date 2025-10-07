@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "214.2.2",
+	"version": "215.0.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -156,9 +156,6 @@
 		"confluence_floating_toolbar_animation": {
 			"type": "boolean"
 		},
-		"platform_editor_reduce_scroll_jump_on_editor_start": {
-			"type": "boolean"
-		},
 		"annotations_defensive_node_name_calculations": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -206,9 +203,6 @@
 		"platform_editor_table_initial_load_fix": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"editor_load_conf_collab_docs_without_checks": {
-			"type": "boolean"
 		},
 		"platform_editor_toolbar_responsive_fixes": {
 			"type": "boolean"
@@ -263,13 +257,12 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_live_page_prevent_table_recreation": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_safari_media_clipboard_fix": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_fix_media_in_renderer": {
+			"type": "boolean"
 		},
 		"platform_editor_react_18_autofocus_fix": {
 			"type": "boolean"
@@ -326,9 +319,6 @@
 		"platform_editor_tables_numbered_column_correction": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_keep_focus_on_content_comp_clicks": {
-			"type": "boolean"
 		},
 		"platform_editor_cmd_y_mac_redo_shortcut": {
 			"type": "boolean",
@@ -488,6 +478,9 @@
 		},
 		"platform_editor_text_highlight_padding": {
 			"type": "boolean"
+		},
+		"platform_editor_table_container_y_overflow_fix": {
+			"type": "boolean"
 		}
 	},
 	"stricter": {
@@ -498,7 +491,6 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./composable-editor": "./src/composable-editor.ts",
-		"./create-editor-content-style": "./src/ui/ContentStyles/index.tsx",
 		"./editor-context": "./src/editor-context.ts",
 		"./editor": "./src/editor.tsx",
 		"./i18n": "./src/i18n/index.ts",

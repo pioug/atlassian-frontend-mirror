@@ -44,9 +44,11 @@ const defaultAppLogo = (
 export default function NavigationShellExample({
 	sideNavToggleButton = defaultSideNavToggleButton,
 	appLogo = defaultAppLogo,
+	defaultSideNavWidth,
 }: {
 	sideNavToggleButton?: React.ReactNode;
 	appLogo?: React.ReactNode;
+	defaultSideNavWidth?: number;
 }) {
 	return (
 		<WithResponsiveViewport>
@@ -66,11 +68,15 @@ export default function NavigationShellExample({
 						<Profile label="Profile" />
 					</TopNavEnd>
 				</TopNav>
-				<SideNav>{null}</SideNav>
+				<SideNav defaultWidth={defaultSideNavWidth}>{null}</SideNav>
 				<Main>{null}</Main>
 			</Root>
 		</WithResponsiveViewport>
 	);
+}
+
+export function NavigationShellWithWideSideNav() {
+	return <NavigationShellExample defaultSideNavWidth={800} />;
 }
 
 export function NavigationShellWithToggleButtonSpotlight() {

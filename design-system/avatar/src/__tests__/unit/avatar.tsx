@@ -15,36 +15,37 @@ import Avatar, { AvatarContent, AvatarContext, type SizeType } from '../../index
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
+const testId = 'testId';
 
 describe('Avatar', () => {
 	it('should render a span when neither onClick or href are supplied', () => {
-		render(<Avatar testId={'avatar'} />);
+		render(<Avatar testId={testId} />);
 
-		expect(screen.getByTestId('avatar--inner').tagName).toEqual('SPAN');
+		expect(screen.getByTestId(`${testId}--inner`).tagName).toEqual('SPAN');
 	});
 
 	it('should render a button when onClick is supplied', () => {
 		render(
 			<Avatar
 				name="Alexander Nevermind"
-				testId={'avatar'}
+				testId={testId}
 				onClick={(event, analyticsEvent) => null}
 			/>,
 		);
 
-		expect(screen.getByTestId('avatar--inner').tagName).toEqual('BUTTON');
+		expect(screen.getByTestId(`${testId}--inner`).tagName).toEqual('BUTTON');
 	});
 
 	it('should render a disabled button when using onClick', () => {
 		render(
 			<Avatar
-				testId={'avatar'}
+				testId={testId}
 				isDisabled
 				name="Alexander Nevermind"
 				onClick={(event, analyticsEvent) => null}
 			/>,
 		);
-		const element = screen.getByTestId('avatar--inner');
+		const element = screen.getByTestId(`${testId}--inner`);
 
 		expect(element.tagName).toEqual('BUTTON');
 		expect(element).toBeDisabled();
@@ -53,13 +54,13 @@ describe('Avatar', () => {
 	it('should render a disabled button when using href', () => {
 		render(
 			<Avatar
-				testId={'avatar'}
+				testId={testId}
 				isDisabled
 				href={'https://atlaskit.atlassian.com/'}
 				name="Alexander Nevermind"
 			/>,
 		);
-		const element = screen.getByTestId('avatar--inner');
+		const element = screen.getByTestId(`${testId}--inner`);
 
 		expect(element.tagName).toEqual('BUTTON');
 		expect(element).toBeDisabled();
@@ -69,23 +70,23 @@ describe('Avatar', () => {
 		render(
 			<Avatar
 				name="Alexander Nevermind"
-				testId={'avatar'}
+				testId={testId}
 				href={'https://atlaskit.atlassian.com/'}
 			/>,
 		);
-		expect(screen.getByTestId('avatar--inner').tagName).toEqual('A');
+		expect(screen.getByTestId(`${testId}--inner`).tagName).toEqual('A');
 	});
 
 	it('should render an anchor with appropriate rel attribute if target blank is supplied', () => {
 		render(
 			<Avatar
-				testId={'avatar'}
+				testId={testId}
 				href={'https://atlaskit.atlassian.com/'}
 				name="Alexander Nevermind"
 				target="_blank"
 			/>,
 		);
-		const element = screen.getByTestId('avatar--inner');
+		const element = screen.getByTestId(`${testId}--inner`);
 
 		expect(element.tagName).toEqual('A');
 		expect(element).toHaveAttribute('rel', 'noopener noreferrer');
@@ -95,11 +96,11 @@ describe('Avatar', () => {
 		render(
 			<Avatar
 				name="Alexander Nevermind"
-				testId={'avatar'}
+				testId={testId}
 				href={'https://atlaskit.atlassian.com/'}
 			/>,
 		);
-		const element = screen.getByTestId('avatar--inner');
+		const element = screen.getByTestId(`${testId}--inner`);
 
 		expect(element.tagName).toEqual('A');
 		expect(element).not.toHaveAttribute('rel');
@@ -112,14 +113,14 @@ describe('Avatar', () => {
 		render(
 			<AnalyticsListener channel="atlaskit" onEvent={onEvent}>
 				<Avatar
-					testId={'avatar'}
+					testId={testId}
 					name="Alexander Nevermind"
 					onClick={(_, analyticsEvent) => analyticsEvent && analyticsEvent.fire()}
 				/>
 				,
 			</AnalyticsListener>,
 		);
-		const element = screen.getByTestId('avatar--inner');
+		const element = screen.getByTestId(`${testId}--inner`);
 
 		await user.click(element);
 
@@ -145,14 +146,14 @@ describe('Avatar', () => {
 
 		render(
 			<Avatar
-				testId={'avatar'}
+				testId={testId}
 				href={'https://atlaskit.atlassian.com/'}
 				name="Alexander Nevermind"
 				onClick={(event) => onClick(event)}
 			/>,
 		);
 
-		const element = screen.getByTestId('avatar--inner');
+		const element = screen.getByTestId(`${testId}--inner`);
 		await user.click(element);
 
 		expect(onClick).toHaveBeenCalled();
@@ -165,14 +166,14 @@ describe('Avatar', () => {
 		render(
 			<AnalyticsListener channel="atlaskit" onEvent={onEvent}>
 				<Avatar
-					testId={'avatar'}
+					testId={testId}
 					name="Alexander Nevermind"
 					onClick={(_, analyticsEvent) => analyticsEvent && analyticsEvent.fire()}
 					analyticsContext={extraContext}
 				/>
 			</AnalyticsListener>,
 		);
-		const avatar: HTMLElement = screen.getByTestId('avatar--inner');
+		const avatar: HTMLElement = screen.getByTestId(`${testId}--inner`);
 
 		await user.click(avatar);
 
@@ -206,13 +207,13 @@ describe('Avatar', () => {
 		render(
 			<AnalyticsListener channel="atlaskit" onEvent={onEvent}>
 				<Avatar
-					testId={'avatar'}
+					testId={testId}
 					name="Alexander Nevermind"
 					onClick={(_, analyticsEvent) => analyticsEvent && analyticsEvent.fire()}
 				/>
 			</AnalyticsListener>,
 		);
-		const avatar: HTMLElement = screen.getByTestId('avatar--inner');
+		const avatar: HTMLElement = screen.getByTestId(`${testId}--inner`);
 
 		await user.click(avatar);
 
@@ -238,7 +239,7 @@ describe('Avatar', () => {
 				<AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
 					<AnalyticsListener onEvent={onPublicEvent}>
 						<Avatar
-							testId={'avatar'}
+							testId={testId}
 							name="Alexander Nevermind"
 							onClick={(_, analyticsEvent) => analyticsEvent && analyticsEvent.fire()}
 						/>
@@ -247,7 +248,7 @@ describe('Avatar', () => {
 			);
 		}
 		render(<WithBoth />);
-		const avatar: HTMLElement = screen.getByTestId('avatar--inner');
+		const avatar: HTMLElement = screen.getByTestId(`${testId}--inner`);
 
 		await user.click(avatar);
 
@@ -270,9 +271,9 @@ describe('Avatar', () => {
 		const user = userEvent.setup();
 		const error = jest.spyOn(console, 'error');
 		const onClick = jest.fn();
-		render(<Avatar name="Alexander Nevermind" testId="avatar" onClick={onClick} />);
+		render(<Avatar name="Alexander Nevermind" testId={testId} onClick={onClick} />);
 
-		const avatar: HTMLElement = screen.getByTestId('avatar--inner');
+		const avatar: HTMLElement = screen.getByTestId(`${testId}--inner`);
 		await user.click(avatar);
 
 		expect(error).not.toHaveBeenCalled();
@@ -283,8 +284,8 @@ describe('Avatar', () => {
 		const user = userEvent.setup();
 		const onClick = jest.fn();
 
-		render(<Avatar name="Alexander Nevermind" testId={'avatar'} onClick={onClick} isDisabled />);
-		const element = screen.getByTestId('avatar--inner');
+		render(<Avatar name="Alexander Nevermind" testId={testId} onClick={onClick} isDisabled />);
+		const element = screen.getByTestId(`${testId}--inner`);
 
 		await user.click(element);
 
@@ -374,6 +375,29 @@ describe('Avatar', () => {
 		imageRoleTestCases,
 	);
 
+	it('should render a decorative image if `name` is not provided', () => {
+		const imageSrc = 'data:image/png;base64,';
+
+		render(<Avatar src={imageSrc} testId={testId} />);
+
+		expect(screen.queryAllByRole('img')).toHaveLength(0);
+		const image = screen.getByTestId(testId);
+		expect(image).not.toHaveAccessibleName();
+	});
+
+	it('should render an image role if `name` is not provided but `status` or `presence` is provided', () => {
+		const imageSrc = 'data:image/png;base64,';
+
+		[{ presence: 'approved' }, { status: 'online' }].forEach((props) => {
+			const { unmount } = render(<Avatar src={imageSrc} testId={testId} {...props} />);
+
+			expect(screen.queryAllByRole('img')).toHaveLength(1);
+			const image = screen.getByTestId(testId);
+			expect(image).toHaveAccessibleName();
+			unmount();
+		});
+	});
+
 	cases(
 		'should render an image role when an image and a name is provided on interactive avatars',
 		({ src, _name, presence }: { src: boolean; _name: boolean; presence: boolean }) => {
@@ -396,102 +420,100 @@ describe('Avatar', () => {
 	);
 
 	it('should not show a presence indicator not provided', () => {
-		render(<Avatar testId={'avatar'} />);
+		render(<Avatar testId={testId} />);
 
-		expect(screen.queryByTestId('avatar--presence')).not.toBeInTheDocument();
+		expect(screen.queryByTestId(`${testId}--presence`)).not.toBeInTheDocument();
 	});
 
 	it('should show a presence indicator if provided', () => {
-		render(<Avatar testId={'avatar'} presence="busy" />);
+		render(<Avatar testId={testId} presence="busy" />);
 
-		expect(screen.getByTestId('avatar--presence')).toBeInTheDocument();
+		expect(screen.getByTestId(`${testId}--presence`)).toBeInTheDocument();
 	});
 
 	it('should remove presence from the accessibility tree', () => {
-		render(<Avatar testId={'avatar'} presence="offline" />);
+		render(<Avatar testId={testId} presence="offline" />);
 
-		expect(screen.queryByTestId('avatar--presence')).toHaveAttribute('aria-hidden', 'true');
+		expect(screen.queryByTestId(`${testId}--presence`)).toHaveAttribute('aria-hidden', 'true');
 	});
 
 	it('should show a custom presence indicator if provided', () => {
 		const MyComponent: FC = () => <div data-testid="custom-presence">yo</div>;
 
-		render(<Avatar testId={'avatar'} presence={<MyComponent />} />);
+		render(<Avatar testId={testId} presence={<MyComponent />} />);
 		const element = screen.getByTestId('custom-presence');
 
 		expect(element.tagName).toEqual('DIV');
 	});
 
 	it('should not show a status indicator if not provided', () => {
-		render(<Avatar testId={'avatar'} />);
+		render(<Avatar testId={testId} />);
 
-		expect(screen.queryByTestId('avatar--status')).not.toBeInTheDocument();
+		expect(screen.queryByTestId(`${testId}--status`)).not.toBeInTheDocument();
 	});
 
 	it('should show a status indicator if provided', () => {
-		render(<Avatar testId={'avatar'} status="approved" />);
+		render(<Avatar testId={testId} status="approved" />);
 
-		expect(screen.getByTestId('avatar--status')).toBeInTheDocument();
+		expect(screen.getByTestId(`${testId}--status`)).toBeInTheDocument();
 	});
 
 	it('should remove status from the accessibility tree', () => {
-		render(<Avatar testId={'avatar'} status="declined" />);
+		render(<Avatar testId={testId} status="declined" />);
 
-		expect(screen.queryByTestId('avatar--status')).toHaveAttribute('aria-hidden', 'true');
+		expect(screen.queryByTestId(`${testId}--status`)).toHaveAttribute('aria-hidden', 'true');
 	});
 
 	it('should show a custom status indicator if provided', () => {
 		const MyComponent: FC = () => <div data-testid="custom-status">yo</div>;
 
-		render(<Avatar testId={'avatar'} status={<MyComponent />} />);
+		render(<Avatar testId={testId} status={<MyComponent />} />);
 		const element = screen.getByTestId('custom-status');
 
 		expect(element.tagName).toEqual('DIV');
 	});
 
 	it('should show only a status indicator if both presence and status are provided', () => {
-		render(<Avatar testId={'avatar'} presence="busy" status="declined" />);
+		render(<Avatar testId={testId} presence="busy" status="declined" />);
 
-		expect(screen.getByTestId('avatar--status')).toBeInTheDocument();
-		expect(screen.queryByTestId('avatar--presence')).not.toBeInTheDocument();
+		expect(screen.getByTestId(`${testId}--status`)).toBeInTheDocument();
+		expect(screen.queryByTestId(`${testId}--presence`)).not.toBeInTheDocument();
 	});
 
 	it('should NOT output an aria-label on SPAN tag', () => {
-		render(<Avatar testId={'avatar'} label="Test avatar" />);
-		const element = screen.getByTestId('avatar--inner');
+		render(<Avatar testId={testId} label="Test avatar" />);
+		const element = screen.getByTestId(`${testId}--inner`);
 
 		expect(element.tagName).toEqual('SPAN');
 		expect(element).not.toHaveAttribute('aria-label');
 	});
 
 	it('should output an aria-label on A tag', () => {
-		render(
-			<Avatar testId={'avatar'} href={'https://atlaskit.atlassian.com/'} label="Test avatar" />,
-		);
-		const element = screen.getByTestId('avatar--inner');
+		render(<Avatar testId={testId} href={'https://atlaskit.atlassian.com/'} label="Test avatar" />);
+		const element = screen.getByTestId(`${testId}--inner`);
 
 		expect(element.tagName).toEqual('A');
 		expect(element).toHaveAttribute('aria-label', 'Test avatar');
 	});
 
 	it('should output an aria-label on BUTTON tag', () => {
-		render(<Avatar testId={'avatar'} onClick={__noop} label="Test avatar" />);
-		const element = screen.getByTestId('avatar--inner');
+		render(<Avatar testId={testId} onClick={__noop} label="Test avatar" />);
+		const element = screen.getByTestId(`${testId}--inner`);
 
 		expect(element.tagName).toEqual('BUTTON');
 		expect(element).toHaveAttribute('aria-label', 'Test avatar');
 	});
 
 	it('should render a wrapping div element by default', () => {
-		render(<Avatar name="Alexander Nevermind" testId={'avatar'} onClick={__noop} />);
-		const avatar = screen.getByTestId('avatar');
+		render(<Avatar name="Alexander Nevermind" testId={testId} onClick={__noop} />);
+		const avatar = screen.getByTestId(testId);
 
 		expect(avatar.tagName).toEqual('DIV');
 	});
 
 	it('should render a wrapping span element if supplied by the as prop', () => {
-		render(<Avatar testId={'avatar'} as="span" />);
-		const avatar = screen.getByTestId('avatar');
+		render(<Avatar testId={testId} as="span" />);
+		const avatar = screen.getByTestId(testId);
 
 		expect(avatar.tagName).toEqual('SPAN');
 	});
@@ -565,11 +587,11 @@ describe('Avatar', () => {
 
 		it('should render the default avatar when composed with AvatarContent and AvatarContent does not have children', () => {
 			render(
-				<Avatar testId="avatar">
+				<Avatar testId={testId}>
 					<AvatarContent />
 				</Avatar>,
 			);
-			expect(screen.getByTestId('avatar')).toBeVisible();
+			expect(screen.getByTestId(testId)).toBeVisible();
 		});
 
 		it('should prefer the ref from AvatarContent over the ref from Avatar', () => {
@@ -618,7 +640,7 @@ describe('Avatar', () => {
 			render(
 				<AnalyticsListener channel="atlaskit" onEvent={onEvent}>
 					<Avatar
-						testId={'avatar'}
+						testId={testId}
 						onClick={(_, analyticsEvent) => analyticsEvent && analyticsEvent.fire()}
 					>
 						<AvatarContent>Custom</AvatarContent>
@@ -626,7 +648,7 @@ describe('Avatar', () => {
 				</AnalyticsListener>,
 			);
 
-			const element = screen.getByTestId('avatar--inner');
+			const element = screen.getByTestId(`${testId}--inner`);
 
 			await user.click(element);
 
@@ -647,20 +669,15 @@ describe('Avatar', () => {
 		});
 	});
 	it('should render avatar with aria-labelledby when isDecorative is false', () => {
-		render(<Avatar name="Alexander Nevermind" testId={'avatar'} presence="presence" />);
-		const avatar = screen.getByTestId('avatar');
+		render(<Avatar name="Alexander Nevermind" testId={testId} presence="presence" />);
+		const avatar = screen.getByTestId(testId);
 		expect(avatar).toHaveAttribute('aria-labelledby');
 	});
 	it('should render avatar without aria-labelledby when isDecorative is true', () => {
 		render(
-			<Avatar
-				name="Alexander Nevermind"
-				testId={'avatar'}
-				presence="presence"
-				isDecorative={true}
-			/>,
+			<Avatar name="Alexander Nevermind" testId={testId} presence="presence" isDecorative={true} />,
 		);
-		const avatar = screen.getByTestId('avatar');
+		const avatar = screen.getByTestId(testId);
 		expect(avatar).not.toHaveAttribute('aria-labelledby');
 	});
 });

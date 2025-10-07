@@ -1,15 +1,12 @@
 import React from 'react';
 
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-import {
-	type AnalyticsEventSource,
-	TeamsAppAnalyticsContext,
-} from '@atlaskit/teams-app-internal-analytics';
+import { TeamsAppAnalyticsContext } from '@atlaskit/teams-app-internal-analytics';
 
 import { PeopleTeamsAnalyticsProvider } from '../index';
 
 type PeopleTeamsAnalyticsSubcontextState = {
-	topLevelAttributes?: { source?: AnalyticsEventSource; attributes?: Record<string, any> };
+	topLevelAttributes?: { source?: string; attributes?: Record<string, any> };
 };
 
 /**
@@ -37,6 +34,7 @@ function _TeamsAppAnalyticsContext({
 	topLevelAttributes,
 }: PeopleTeamsAnalyticsSubcontextState & { children: React.ReactNode }) {
 	return (
+		// @ts-ignore - source as a string is not a valid type for TeamsAppAnalyticsContext
 		<TeamsAppAnalyticsContext data={topLevelAttributes}>
 			<>{children}</>
 		</TeamsAppAnalyticsContext>

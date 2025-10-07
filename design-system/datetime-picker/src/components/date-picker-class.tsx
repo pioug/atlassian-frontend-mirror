@@ -484,8 +484,6 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		const dropDownIcon =
 			appearance === 'subtle' || hideIcon || showClearIndicator ? null : clearIndicator;
 
-		const SingleValue = makeSingleValue({ lang: this.props.locale });
-
 		const selectComponents = {
 			DropdownIndicator: shouldShowCalendarButton ? EmptyComponent : dropDownIcon,
 			// Only use this new container component if the calendar button is shown.
@@ -498,7 +496,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					}
 				: {}),
 			Menu,
-			SingleValue,
+			// SingleValue is defined in the render because of UI generator limitations
 			...(!showClearIndicator && { ClearIndicator: EmptyComponent }),
 			...selectProps.components,
 		};
@@ -576,64 +574,136 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			>
 				{/* Because this is ia hidden input field, it does not need to be Textfield component. */}
 				<input name={name} type="hidden" value={value} data-testid={testId && `${testId}--input`} />
-				<Select
-					appearance={this.props.appearance}
-					aria-describedby={ariaDescribedBy}
-					label={label || undefined}
-					// eslint-disable-next-line jsx-a11y/no-autofocus
-					autoFocus={autoFocus}
-					clearControlLabel={clearControlLabel}
-					closeMenuOnSelect
-					enableAnimation={false}
-					inputId={id}
-					inputValue={actualSelectInputValue}
-					isDisabled={isDisabled}
-					isRequired={isRequired}
-					menuIsOpen={menuIsOpen}
-					onBlur={this.onSelectBlur}
-					onChange={this.onSelectChange}
-					onFocus={this.onSelectFocus}
-					onInputChange={this.handleSelectInputChange}
-					placeholder={getPlaceholder({
-						placeholder: this.props.placeholder,
-						l10n: this.state.l10n,
-					})}
-					// @ts-ignore -- Argument of type 'StylesConfig<OptionType, false, GroupBase<OptionType>>' is not assignable to parameter of type 'StylesConfig<OptionType, boolean, GroupBase<OptionType>>'
-					styles={mergedStyles}
-					value={initialValue}
-					{...selectProps}
-					// For some reason, this and the below `styles` type error _only_ show
-					// up when you alter some of the properties in the `selectComponents`
-					// object. These errors are still present, and I suspect have always
-					// been present, without changing the unrelated code. Ignoring as the
-					// component still works as expected despite this error. And also
-					// because the select refresh team may solve it later.
-					components={selectComponents}
-					// These are below the spread because I don't know what is in
-					// selectProps or not and what wil be overwritten
-					isClearable
-					isInvalid={isInvalid}
-					spacing={spacing}
-					testId={testId}
-					// These aren't part of `Select`'s API, but we're using them here.
-					// @ts-ignore --  Property 'calendarContainerRef' does not exist on type 'IntrinsicAttributes & LibraryManagedAttributes<(<Option extends unknown = OptionType, IsMulti extends boolean = false>(props: AtlaskitSelectProps<Option, IsMulti> & { ...; }) => Element), AtlaskitSelectProps<...> & { ...; }>'.
-					calendarContainerRef={calendarProps.calendarContainerRef}
-					calendarDisabled={calendarProps.calendarDisabled}
-					calendarDisabledDateFilter={calendarProps.calendarDisabledDateFilter}
-					calendarLocale={calendarProps.calendarLocale}
-					calendarMaxDate={calendarProps.calendarMaxDate}
-					calendarMinDate={calendarProps.calendarMinDate}
-					calendarRef={calendarProps.calendarRef}
-					calendarValue={calendarProps.calendarValue}
-					calendarView={calendarProps.calendarView}
-					calendarWeekStartDay={calendarProps.calendarWeekStartDay}
-					nextMonthLabel={nextMonthLabel}
-					onCalendarChange={calendarProps.onCalendarChange}
-					onCalendarSelect={calendarProps.onCalendarSelect}
-					previousMonthLabel={previousMonthLabel}
-					shouldSetFocusOnCurrentDay={calendarProps.shouldSetFocusOnCurrentDay}
-					menuInnerWrapper={calendarProps.menuInnerWrapper}
-				/>
+				{fg('platform-dtp_a11y_fix-dsp-23950') ? (
+					<IdProvider>
+						{({ id: valueId }) => (
+							<Select
+								appearance={this.props.appearance}
+								aria-describedby={ariaDescribedBy ? `${ariaDescribedBy} ${valueId}` : valueId}
+								label={label || undefined}
+								// eslint-disable-next-line jsx-a11y/no-autofocus
+								autoFocus={autoFocus}
+								clearControlLabel={clearControlLabel}
+								closeMenuOnSelect
+								enableAnimation={false}
+								inputId={id}
+								inputValue={actualSelectInputValue}
+								isDisabled={isDisabled}
+								isRequired={isRequired}
+								menuIsOpen={menuIsOpen}
+								onBlur={this.onSelectBlur}
+								onChange={this.onSelectChange}
+								onFocus={this.onSelectFocus}
+								onInputChange={this.handleSelectInputChange}
+								placeholder={getPlaceholder({
+									placeholder: this.props.placeholder,
+									l10n: this.state.l10n,
+								})}
+								// @ts-ignore -- Argument of type 'StylesConfig<OptionType, false, GroupBase<OptionType>>' is not assignable to parameter of type 'StylesConfig<OptionType, boolean, GroupBase<OptionType>>'
+								styles={mergedStyles}
+								value={initialValue}
+								{...selectProps}
+								// For some reason, this and the below `styles` type error _only_ show
+								// up when you alter some of the properties in the `selectComponents`
+								// object. These errors are still present, and I suspect have always
+								// been present, without changing the unrelated code. Ignoring as the
+								// component still works as expected despite this error. And also
+								// because the select refresh team may solve it later.
+								components={{
+									...selectComponents,
+									SingleValue: makeSingleValue({ id: valueId, lang: this.props.locale }),
+								}}
+								// These are below the spread because I don't know what is in
+								// selectProps or not and what wil be overwritten
+								isClearable
+								isInvalid={isInvalid}
+								spacing={spacing}
+								testId={testId}
+								// These aren't part of `Select`'s API, but we're using them here.
+								// @ts-ignore --  Property 'calendarContainerRef' does not exist on type 'IntrinsicAttributes & LibraryManagedAttributes<(<Option extends unknown = OptionType, IsMulti extends boolean = false>(props: AtlaskitSelectProps<Option, IsMulti> & { ...; }) => Element), AtlaskitSelectProps<...> & { ...; }>'.
+								calendarContainerRef={calendarProps.calendarContainerRef}
+								calendarDisabled={calendarProps.calendarDisabled}
+								calendarDisabledDateFilter={calendarProps.calendarDisabledDateFilter}
+								calendarLocale={calendarProps.calendarLocale}
+								calendarMaxDate={calendarProps.calendarMaxDate}
+								calendarMinDate={calendarProps.calendarMinDate}
+								calendarRef={calendarProps.calendarRef}
+								calendarValue={calendarProps.calendarValue}
+								calendarView={calendarProps.calendarView}
+								calendarWeekStartDay={calendarProps.calendarWeekStartDay}
+								nextMonthLabel={nextMonthLabel}
+								onCalendarChange={calendarProps.onCalendarChange}
+								onCalendarSelect={calendarProps.onCalendarSelect}
+								previousMonthLabel={previousMonthLabel}
+								shouldSetFocusOnCurrentDay={calendarProps.shouldSetFocusOnCurrentDay}
+								menuInnerWrapper={calendarProps.menuInnerWrapper}
+							/>
+						)}
+					</IdProvider>
+				) : (
+					<Select
+						appearance={this.props.appearance}
+						aria-describedby={ariaDescribedBy}
+						label={label || undefined}
+						// eslint-disable-next-line jsx-a11y/no-autofocus
+						autoFocus={autoFocus}
+						clearControlLabel={clearControlLabel}
+						closeMenuOnSelect
+						enableAnimation={false}
+						inputId={id}
+						inputValue={actualSelectInputValue}
+						isDisabled={isDisabled}
+						isRequired={isRequired}
+						menuIsOpen={menuIsOpen}
+						onBlur={this.onSelectBlur}
+						onChange={this.onSelectChange}
+						onFocus={this.onSelectFocus}
+						onInputChange={this.handleSelectInputChange}
+						placeholder={getPlaceholder({
+							placeholder: this.props.placeholder,
+							l10n: this.state.l10n,
+						})}
+						// @ts-ignore -- Argument of type 'StylesConfig<OptionType, false, GroupBase<OptionType>>' is not assignable to parameter of type 'StylesConfig<OptionType, boolean, GroupBase<OptionType>>'
+						styles={mergedStyles}
+						value={initialValue}
+						{...selectProps}
+						// For some reason, this and the below `styles` type error _only_ show
+						// up when you alter some of the properties in the `selectComponents`
+						// object. These errors are still present, and I suspect have always
+						// been present, without changing the unrelated code. Ignoring as the
+						// component still works as expected despite this error. And also
+						// because the select refresh team may solve it later.
+						components={{
+							...selectComponents,
+							SingleValue: makeSingleValue({ lang: this.props.locale }),
+						}}
+						// These are below the spread because I don't know what is in
+						// selectProps or not and what wil be overwritten
+						isClearable
+						isInvalid={isInvalid}
+						spacing={spacing}
+						testId={testId}
+						// These aren't part of `Select`'s API, but we're using them here.
+						// @ts-ignore --  Property 'calendarContainerRef' does not exist on type 'IntrinsicAttributes & LibraryManagedAttributes<(<Option extends unknown = OptionType, IsMulti extends boolean = false>(props: AtlaskitSelectProps<Option, IsMulti> & { ...; }) => Element), AtlaskitSelectProps<...> & { ...; }>'.
+						calendarContainerRef={calendarProps.calendarContainerRef}
+						calendarDisabled={calendarProps.calendarDisabled}
+						calendarDisabledDateFilter={calendarProps.calendarDisabledDateFilter}
+						calendarLocale={calendarProps.calendarLocale}
+						calendarMaxDate={calendarProps.calendarMaxDate}
+						calendarMinDate={calendarProps.calendarMinDate}
+						calendarRef={calendarProps.calendarRef}
+						calendarValue={calendarProps.calendarValue}
+						calendarView={calendarProps.calendarView}
+						calendarWeekStartDay={calendarProps.calendarWeekStartDay}
+						nextMonthLabel={nextMonthLabel}
+						onCalendarChange={calendarProps.onCalendarChange}
+						onCalendarSelect={calendarProps.onCalendarSelect}
+						previousMonthLabel={previousMonthLabel}
+						shouldSetFocusOnCurrentDay={calendarProps.shouldSetFocusOnCurrentDay}
+						menuInnerWrapper={calendarProps.menuInnerWrapper}
+					/>
+				)}
+
 				{shouldShowCalendarButton && !isDisabled ? (
 					<IdProvider prefix="open-calendar-label--">
 						{({ id: openCalendarLabelId }) => (

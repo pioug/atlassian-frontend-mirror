@@ -41,4 +41,5 @@ export {
 	getSupportedListTypesSet,
 	convertBlockToInlineContent,
 } from './list-utils';
+export { transformToNewReferenceSyncBlock } from './sync-block';
 export type { TransformContext, TransformFunction } from './list-types';

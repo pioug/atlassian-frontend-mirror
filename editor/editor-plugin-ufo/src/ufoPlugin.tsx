@@ -1,6 +1,3 @@
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
-import { traceUFOInteractionOnFirstInteraction } from './pm-plugins/traceUFOInteractionOnFirstInteraction';
 import type { UfoPlugin } from './ufoPluginType';
 
 export const ufoPlugin: UfoPlugin = () => ({
@@ -14,15 +11,15 @@ export const ufoPlugin: UfoPlugin = () => ({
 			return [];
 		}
 
-		if (expValEquals('cc_editor_interactions_trigger_traceufointeraction', 'cohort', 'control')) {
-			return [];
-		}
+		// This Plugin is not currently used as it leads to too high a level of abortions (due to the current TTAI timing being long, and users starting click before TTAI completes).
+		// This can be reconsidered if we meaningfully reduce our TTAI (ie. <7 seconds)
+		return [];
 
-		return [
-			{
-				name: 'traceUFOInteractionOnFirstInteraction',
-				plugin: traceUFOInteractionOnFirstInteraction,
-			},
-		];
+		// return [
+		// 	{
+		// 		name: 'traceUFOInteractionOnFirstInteraction',
+		// 		plugin: traceUFOInteractionOnFirstInteraction,
+		// 	},
+		// ];
 	},
 });

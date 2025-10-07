@@ -18,6 +18,7 @@ import JiraMockExample from '../../../../../examples/jira-mock';
 import JiraSettingMockExample from '../../../../../examples/jira-settings-mock';
 import NavigationShellExample, {
 	NavigationShellWithToggleButtonSpotlight,
+	NavigationShellWithWideSideNav,
 } from '../../../../../examples/navigation-shell';
 import TopNavigationThemingWithPickerExample from '../../../../../examples/top-navigation-theming-with-picker';
 
@@ -31,6 +32,11 @@ const variants = {
 		device: Device.MOBILE_CHROME,
 		environment: { colorScheme: 'light' },
 		name: 'mobile',
+	},
+	desktopXL: {
+		device: Device.DESKTOP_CHROME_1920_1080,
+		environment: { colorScheme: 'light' },
+		name: 'desktop XL',
 	},
 };
 
@@ -272,7 +278,6 @@ snapshotInformational(JiraMockExample, {
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
 	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -291,7 +296,6 @@ snapshotInformational(JiraSettingMockExample, {
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
 	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
@@ -310,12 +314,36 @@ snapshotInformational(ConfluenceMockExample, {
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
 	featureFlags: {
-		platform_design_system_nav4_sidenav_border: true,
 		'navx-full-height-sidebar': true,
 	},
 	async prepare(page) {
 		await page
 			.getByTestId('side-nav-content')
 			.evaluate((el: HTMLElement) => (el.scrollTop = el.offsetHeight));
+	},
+});
+
+/**
+ * Checks that the search is centred on large desktop screens
+ */
+snapshotInformational(NavigationShellExample, {
+	description: 'extra large desktop',
+	drawsOutsideBounds: true,
+	variants: [variants.desktopXL],
+	featureFlags: {
+		'navx-full-height-sidebar': true,
+	},
+});
+
+/**
+ * Checks that the search is still pushed by the side nav on large screens,
+ * and doesn't overlap.
+ */
+snapshotInformational(NavigationShellWithWideSideNav, {
+	description: 'extra large desktop with wide sidebar',
+	drawsOutsideBounds: true,
+	variants: [variants.desktopXL],
+	featureFlags: {
+		'navx-full-height-sidebar': true,
 	},
 });

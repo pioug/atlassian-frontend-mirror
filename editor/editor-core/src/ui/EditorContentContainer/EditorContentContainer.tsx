@@ -10,6 +10,7 @@ import React from 'react';
 import { jsx, useTheme } from '@emotion/react';
 
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { richMediaClassName } from '@atlaskit/editor-common/styles';
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
 import { akEditorGutterPaddingDynamic, editorFontSize } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -156,6 +157,7 @@ import {
 import { syncBlockStyles } from './styles/syncBlockStyles';
 import {
 	tableCommentEditorStyles,
+	tableContainerOverflowY,
 	tableContainerStyles,
 	tableLayoutFixes,
 } from './styles/tableStyles';
@@ -184,6 +186,41 @@ export type EditorContentContainerProps = {
 	featureFlags?: FeatureFlags;
 	isScrollable?: boolean;
 	viewMode?: 'view' | 'edit';
+};
+
+const alignMultipleWrappedImageInLayoutStyles = {
+	'.ProseMirror [data-layout-section] [data-layout-column] > div': {
+		// apply marginTop to wrapped mediaSingle that has preceding wrapped mediaSingle (even when there's gap cursor in between them)
+		// Given the first wrapped mediaSingle in layout has 0 marginTop, this is needed to make sure fellow wrapped mediaSingle align with it horizontally
+		'.mediaSingleView-content-wrap[layout^=wrap] + .mediaSingleView-content-wrap[layout^=wrap], .mediaSingleView-content-wrap[layout^=wrap] + .ProseMirror-gapcursor + .mediaSingleView-content-wrap[layout^=wrap]':
+			{
+				'.rich-media-item': {
+					marginTop: 0,
+				},
+			},
+
+		// Due to the above rule, wrapped mediaSingle (not the first node in layout) that are followed by wrapped mediaSingle should also have 0 marginTop
+		// so it's aligned with the following wrapped mediaSingle
+		'.mediaSingleView-content-wrap[layout^=wrap]:has( + .mediaSingleView-content-wrap[layout^=wrap])':
+			{
+				'.rich-media-item': {
+					marginTop: 0,
+				},
+			},
+	},
+};
+
+const firstWrappedMediaStyles = {
+	'.ProseMirror': {
+		// Remove gap between first wrapped mediaSingle and its fellow wrapped mediaSingle
+		"& [layout^='wrap-']:has(+ [layout^='wrap-']), & [layout^='wrap-']:has(+ .ProseMirror-gapcursor + [layout^='wrap-'])":
+			{
+				[`& .${richMediaClassName}`]: {
+					marginLeft: 0,
+					marginRight: 0,
+				},
+			},
+	},
 };
 
 /**
@@ -303,6 +340,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					ruleStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mediaStyles,
+					// merge firstWrappedMediaStyles with mediaStyles when clean up platform_editor_fix_media_in_renderer
+					fg('platform_editor_fix_media_in_renderer') && firstWrappedMediaStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					telepointerStyle,
 					/* This needs to be after telepointer styles as some overlapping rules have equal specificity, and so the order is significant */
@@ -407,6 +446,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					resizerStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					layoutBaseStyles,
+					// merge alignMultipleWrappedImageInLayoutStyles with layoutBaseStyles when clean up platform_editor_fix_media_in_renderer
+					fg('platform_editor_fix_media_in_renderer') && alignMultipleWrappedImageInLayoutStyles,
 					expValEqualsNoExposure('platform_synced_block', 'isEnabled', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						syncBlockStyles,
@@ -532,9 +573,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					mediaAlignmentStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					tableLayoutFixes,
-					expValEquals('platform_editor_table_container_width_fix', 'isEnabled', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						tableContainerStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					tableContainerStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					!fg('platform_editor_table_container_y_overflow_fix') && tableContainerOverflowY,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					hyperLinkFloatingToolbarStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

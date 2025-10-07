@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 15.0.8
+
+### Patch Changes
+
+- [`925eb6478e9a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/925eb6478e9a5) -
+  Remove overflowY on tables to prevent Y axis scroll bar showing on Windows.
+- Updated dependencies
+
+## 15.0.7
+
+### Patch Changes
+
+- [`02d5fa5dcc791`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02d5fa5dcc791) -
+  Cleanup cc_editor_ufo_hold_table_till_resize_complete
+- Updated dependencies
+
 ## 15.0.6
 
 ### Patch Changes

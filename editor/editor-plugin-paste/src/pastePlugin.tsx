@@ -14,13 +14,14 @@ export const pastePlugin: PastePlugin = ({ config, api }) => {
 			return [
 				{
 					name: 'paste',
-					plugin: ({ schema, providerFactory, dispatchAnalyticsEvent, dispatch }) =>
+					plugin: ({ schema, providerFactory, dispatchAnalyticsEvent, dispatch, getIntl }) =>
 						createPlugin(
 							schema,
 							dispatchAnalyticsEvent,
 							dispatch,
 							featureFlags,
 							api,
+							getIntl,
 							cardOptions,
 							sanitizePrivateContent,
 							providerFactory,

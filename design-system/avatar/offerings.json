@@ -19,7 +19,10 @@
 			"Use status indicators for approval/permission states",
 			"Provide fallback initials when images fail to load",
 			"Use avatars to represent users, teams, projects, or any other entity that needs visual identification",
-			"Always provide meaningful names for accessibility"
+			"Always provide meaningful names for accessibility",
+			"Use the `name` prop to include alternative text for screen readers",
+			"For decorative images, remove the `name` prop or leave it empty so it will be ignored by assistive technologies",
+			"Don't use a tooltip with an avatar when it's non-interactive or disabled. The tooltip won't work for keyboard users and screen readers"
 		],
 		"contentGuidelines": [
 			"Use full names when possible for better recognition",

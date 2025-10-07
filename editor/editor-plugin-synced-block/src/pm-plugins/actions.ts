@@ -9,42 +9,69 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import type {
+	SyncBlockDataProvider,
+	SyncBlockStoreManager,
+} from '@atlaskit/editor-synced-block-provider';
 import { generateSyncBlockSourceUrl } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
-import { findSyncBlock } from './utils/utils';
+import { canBeConvertedToSyncBlock, findSyncBlock } from './utils/utils';
 
-export const createSyncedBlock = (
-	tr: Transaction,
-	syncBlockStore: SyncBlockStoreManager,
-	typeAheadInsert?: TypeAheadInsert,
-): false | Transaction => {
+type createSyncedBlockProps = {
+	dataProvider?: SyncBlockDataProvider;
+	syncBlockStore: SyncBlockStoreManager;
+	tr: Transaction;
+	typeAheadInsert?: TypeAheadInsert;
+};
+
+export const createSyncedBlock = ({
+	tr,
+	syncBlockStore,
+	typeAheadInsert,
+}: createSyncedBlockProps): false | Transaction => {
 	const {
 		schema: {
-			nodes: { syncBlock },
+			nodes: { syncBlock, doc },
 		},
 	} = tr.doc.type;
 
 	const syncBlockNode = syncBlockStore.createSyncBlockNode();
+	const node = syncBlock.createAndFill({ ...syncBlockNode.attrs });
 
-	// If the selection is empty, we want to insert the panel on a new line
+	if (!node) {
+		return false;
+	}
+
+	// If the selection is empty, we want to insert the sync block on a new line
 	if (tr.selection.empty) {
-		const node = syncBlock.createAndFill({ ...syncBlockNode.attrs });
-
-		if (!node) {
-			return false;
-		}
-
 		if (typeAheadInsert) {
 			tr = typeAheadInsert(node);
 		} else {
 			tr = tr.replaceSelectionWith(node).scrollIntoView();
 		}
 	} else {
-		// TODO: EDITOR-1653 - put selection inside the sync block if possible
-		safeInsert(syncBlock.createAndFill(syncBlockNode.attrs) as PMNode)(tr)?.scrollIntoView();
+		const conversionInfo = canBeConvertedToSyncBlock(tr.selection);
+		if (conversionInfo) {
+			tr.replaceWith(conversionInfo.from, conversionInfo.to, node).scrollIntoView();
+			const innerNodeJson = doc.create({}, conversionInfo.contentToInclude).toJSON();
+
+			// TMP solution to wait for the nested editor view to be set
+			// this will be removed once we have a proper architecture settled
+			setTimeout(() => {
+				const editorView = syncBlockStore.getSyncBlockNestedEditorView();
+				if (editorView) {
+					const innerTr = editorView.state.tr;
+					const innerNode = editorView.state.schema.nodeFromJSON(innerNodeJson);
+
+					editorView.dispatch(innerTr.replaceWith(0, editorView.state.doc.nodeSize - 2, innerNode));
+				}
+			}, 1000);
+		} else {
+			// still insert an empty sync block if conversion is not possible
+			safeInsert(syncBlock.createAndFill(syncBlockNode.attrs) as PMNode)(tr)?.scrollIntoView();
+		}
 	}
 
 	return tr;

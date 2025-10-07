@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 2.18.0
+
+### Minor Changes
+
+- [`35dbcb50e7873`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35dbcb50e7873) -
+  Changes TopNavMiddle items (search + create) to now be centred on large desktop screens, when the
+  `navx-full-height-sidear` feature gate is enabled.
+
 ## 2.17.0
 
 ### Minor Changes

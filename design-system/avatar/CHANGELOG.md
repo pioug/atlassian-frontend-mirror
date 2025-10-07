@@ -1,5 +1,12 @@
 # @atlaskit/avatar
 
+## 25.3.2
+
+### Patch Changes
+
+- [`2e422847ee061`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e422847ee061) -
+  [ux] Revert PR (Add a new prop to set the container element for avatar content)
+
 ## 25.3.1
 
 ### Patch Changes

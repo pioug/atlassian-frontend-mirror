@@ -1,5 +1,40 @@
 # @atlaskit/editor-common
 
+## 110.9.2
+
+### Patch Changes
+
+- [`e053b5e610ac2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e053b5e610ac2) -
+  [ux] EDITOR-1652 add convert to sync block to block menu
+
+## 110.9.1
+
+### Patch Changes
+
+- [`be54c7e850cd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be54c7e850cd3) -
+  remove unused deprecated styles used to be consumed in editor content styles
+- [`30bb04cd8a8e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30bb04cd8a8e9) -
+  [ux] [ED-29292] Fix 2 issues with wrapped images in editor and renderer
+
+  1. There is a gap between the first and the second wrapped images
+  2. For wrapped images in layout, if image is the first node, it not horizontally aligned with the
+     following wrapped images
+
+- Updated dependencies
+
+## 110.9.0
+
+### Minor Changes
+
+- [`2d1c925457b44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d1c925457b44) -
+  EDITOR-1915 generate a new localId on paste syncblock(s)
+
+### Patch Changes
+
+- [`f9785f7b14616`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9785f7b14616) -
+  [ux] ED-29440 ensure that columns with mixed text and number content as sorted as if all are text
+- Updated dependencies
+
 ## 110.8.0
 
 ### Minor Changes

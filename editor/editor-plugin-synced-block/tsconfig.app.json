@@ -62,6 +62,9 @@
 			"path": "../editor-synced-block-provider/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-tables/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-toolbar/tsconfig.app.json"
 		},
 		{

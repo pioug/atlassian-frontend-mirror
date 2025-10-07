@@ -87,9 +87,14 @@ const styles = cssMap({
 	},
 	fullHeightSidebarExpanded: {
 		'@media (min-width: 64rem)': {
-			// Use the live side nav width for the first column (`TopNavStart`) width
-			// Fall back to 1fr when there's no side nav mounted
-			gridTemplateColumns: 'var(--n_sNvlw, 1fr) minmax(min-content, max-content) 1fr',
+			// When the side bar is expanded, the width of the first column is entirely determined by the width of
+			// TopNavStart instead of a grid constraint.
+			// This simplifies where the width is set, and gives us the ability to animate the grid column width in the future.
+			gridTemplateColumns: '0fr minmax(min-content, max-content) 1fr',
+		},
+		'@media (min-width: 110.5rem)': {
+			// On very large screens we instead center the search bar to avoid lopsidedness
+			gridTemplateColumns: '1fr minmax(min-content, max-content) 1fr',
 		},
 	},
 });

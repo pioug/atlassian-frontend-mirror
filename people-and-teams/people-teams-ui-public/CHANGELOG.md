@@ -1,5 +1,16 @@
 # @atlaskit/people-teams-ui-public
 
+## 3.5.0
+
+### Minor Changes
+
+- [`ab5ef8d6bd584`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab5ef8d6bd584) -
+  Migrated teams app analytics context source type from enum to string template literal
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.1
 
 ### Patch Changes

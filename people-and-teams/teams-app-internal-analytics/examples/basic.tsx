@@ -2,7 +2,6 @@ import React from 'react';
 
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
 
-import { AnalyticsEventSource } from '../src/common/utils/constants';
 import { TeamsAppAnalyticsContext } from '../src/ui/analytics-context';
 
 import { ButtonWithAnalytics } from './helpers/button-with-analytics';
@@ -16,13 +15,13 @@ export default function Basic() {
 			<TeamsAppAnalyticsContext
 				data={{
 					attributes: { consumer: 'embed' },
-					source: AnalyticsEventSource.TEAM_PROFILE_SCREEN,
+					source: 'teamProfileScreen',
 				}}
 			>
 				<TeamsAppAnalyticsContext
 					data={{
 						attributes: { teamId: 'team-id' },
-						source: AnalyticsEventSource.USER_PROFILE_SCREEN,
+						source: 'userProfileScreen',
 					}}
 				>
 					<>

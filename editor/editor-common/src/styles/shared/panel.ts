@@ -1,17 +1,5 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
-
 import { PanelType } from '@atlaskit/adf-schema';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import {
-	akEditorTableCellMinWidth,
-	blockNodesVerticalMargin,
-} from '@atlaskit/editor-shared-styles';
-import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
-import { emojiImage, emojiSprite } from '@atlaskit/emoji';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { token } from '@atlaskit/tokens';
 
 const lightPanelColors = {
 	info: '#DEEBFF',
@@ -99,20 +87,6 @@ export const darkPanelColors = {
 	TextColor: '#D9DDE3',
 };
 
-const lightIconColor = {
-	info: token('color.icon.information'),
-	note: token('color.icon.discovery'),
-	tip: token('color.icon.success'),
-	success: token('color.icon.success'),
-	warning: token('color.icon.warning'),
-	error: token('color.icon.danger'),
-};
-
-// New custom icons are a little smaller than predefined icons.
-// To fix alignment issues with custom icons, vertical alignment is updated.
-const panelEmojiSpriteVerticalAlignment = -(8 * 3 - akEditorCustomIconSize) / 2;
-const panelEmojiImageVerticalAlignment = panelEmojiSpriteVerticalAlignment - 1;
-
 export function getPanelDarkModeCSS(colorName: string, colorValue: string): string {
 	return `
   &[data-panel-color="${colorName}"] {
@@ -154,14 +128,6 @@ export const PanelSharedSelectors = {
 	copyButton: `button[aria-label="Copy"]`,
 };
 
-const getIconStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => {
-	return `
-		.${PanelSharedCssClassName.icon}[data-panel-type='${panelType}'] {
-			color: ${lightIconColor[panelType]};
-		}
-	`;
-};
-
 // Provides the color without tokens, used when converting to a custom panel
 export const getPanelTypeBackgroundNoTokens = (
 	panelType: Exclude<PanelType, PanelType.CUSTOM>,
@@ -169,118 +135,3 @@ export const getPanelTypeBackgroundNoTokens = (
 
 export const getPanelTypeBackground = (panelType: Exclude<PanelType, PanelType.CUSTOM>): string =>
 	hexToEditorBackgroundPaletteColor(lightPanelColors[panelType]) || 'none';
-
-const mainDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => {
-	return `
-    background-color: ${getPanelTypeBackground(panelType)};
-    color: inherit;
-  `;
-};
-
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Safe to autofix with a tiny tweak to `mainDynamicStyles` being an object, but holding off…
-export const panelSharedStylesWithoutPrefix = () => css`
-	border-radius: ${token('radius.small', '3px')};
-	margin: ${blockNodesVerticalMargin} 0 0;
-	padding-top: ${token('space.100', '8px')};
-	padding-right: ${token('space.200', '16px')};
-	padding-bottom: ${token('space.100', '8px')};
-	padding-left: ${token('space.100', '8px')};
-	min-width: ${akEditorTableCellMinWidth}px;
-	display: flex;
-	position: relative;
-	align-items: normal;
-	word-break: break-word;
-
-	${mainDynamicStyles(PanelType.INFO)}
-
-	.${PanelSharedCssClassName.icon} {
-		flex-shrink: 0;
-		height: ${token('space.300', '24px')};
-		width: ${token('space.300', '24px')};
-		box-sizing: content-box;
-		padding-right: ${token('space.100', '8px')};
-		text-align: center;
-		user-select: none;
-		-moz-user-select: none;
-		-webkit-user-select: none;
-		-ms-user-select: none;
-		margin-top: 0.1em;
-
-		> span {
-			vertical-align: middle;
-			display: inline-flex;
-		}
-
-		.${emojiSprite} {
-			vertical-align: ${panelEmojiSpriteVerticalAlignment}px;
-		}
-
-		.${emojiImage} {
-			vertical-align: ${panelEmojiImageVerticalAlignment}px;
-
-			/* Vertical align only works for inline-block elements in Firefox */
-			@-moz-document url-prefix() {
-				img {
-					display: inline-block;
-				}
-			}
-		}
-	}
-
-	.ak-editor-panel__content {
-		margin: ${token('space.025', '2px')} 0 ${token('space.025', '2px')};
-		flex: 1 0 0;
-		/*
-      https://ishadeed.com/article/min-max-css/#setting-min-width-to-zero-with-flexbox
-      The default value for min-width is auto, which is computed to zero. When an element is a flex item, the value of min-width doesn’t compute to zero. The minimum size of a flex item is equal to the size of its contents.
-    */
-		min-width: 0;
-	}
-
-	/* support nested panel */
-	.${PanelSharedCssClassName.content} .${prefix} {
-		border: 1px solid ${token('color.border', '#091E42')};
-	}
-
-	&[data-panel-type='${PanelType.INFO}'] {
-		${getIconStyles(PanelType.INFO)}
-	}
-
-	&[data-panel-type='${PanelType.NOTE}'] {
-		${mainDynamicStyles(PanelType.NOTE)}
-		${getIconStyles(PanelType.NOTE)}
-	}
-
-	&[data-panel-type='${PanelType.TIP}'] {
-		${mainDynamicStyles(PanelType.TIP)}
-		${getIconStyles(PanelType.TIP)}
-	}
-
-	&[data-panel-type='${PanelType.WARNING}'] {
-		${mainDynamicStyles(PanelType.WARNING)}
-		${getIconStyles(PanelType.WARNING)}
-	}
-
-	&[data-panel-type='${PanelType.ERROR}'] {
-		${mainDynamicStyles(PanelType.ERROR)}
-		${getIconStyles(PanelType.ERROR)}
-	}
-
-	&[data-panel-type='${PanelType.SUCCESS}'] {
-		${mainDynamicStyles(PanelType.SUCCESS)}
-		${getIconStyles(PanelType.SUCCESS)}
-	}
-
-	${fg('platform_editor_nested_dnd_styles_changes')
-		? `&.${PanelSharedCssClassName.noIcon} {
-			padding-right: ${token('space.150', '12px')};
-			padding-left: ${token('space.150', '12px')};
-		}`
-		: ''}
-`;
-
-export const panelSharedStyles = () =>
-	css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		[`.${PanelSharedCssClassName.prefix}`]: panelSharedStylesWithoutPrefix(),
-	});

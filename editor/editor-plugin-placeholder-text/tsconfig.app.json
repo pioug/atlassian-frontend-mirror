@@ -41,9 +41,6 @@
 			"path": "../editor-plugin-type-ahead/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-shared-styles/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{

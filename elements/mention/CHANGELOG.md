@@ -1,5 +1,13 @@
 # @atlaskit/mention
 
+## 24.3.0
+
+### Minor Changes
+
+- [`af63bbf99740e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af63bbf99740e) -
+  Migrate deprecated react-dom APIs to React 19 compatible: findDOMNode and unmountComponentAtNode
+  behind FG(mentions-migrate-react-dom)
+
 ## 24.2.18
 
 ### Patch Changes

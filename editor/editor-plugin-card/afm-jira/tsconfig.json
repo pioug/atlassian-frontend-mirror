@@ -89,6 +89,9 @@
 			"path": "../../../linking-platform/link-datasource/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../linking-platform/link-extractors/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/linking-common/afm-jira/tsconfig.json"
 		},
 		{

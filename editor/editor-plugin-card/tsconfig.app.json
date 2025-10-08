@@ -104,6 +104,9 @@
 			"path": "../../linking-platform/link-datasource/tsconfig.app.json"
 		},
 		{
+			"path": "../../linking-platform/link-extractors/tsconfig.app.json"
+		},
+		{
 			"path": "../../linking-platform/link-provider/tsconfig.app.json"
 		},
 		{

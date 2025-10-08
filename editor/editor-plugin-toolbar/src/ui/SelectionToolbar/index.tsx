@@ -110,7 +110,7 @@ export const SelectionToolbar = ({
 		currentUserIntent,
 		shouldShowToolbar,
 		editorViewMode,
-		// @ts-expect-error
+		// @ts-ignore
 		selection,
 	} = usePluginState(api);
 

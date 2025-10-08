@@ -72,6 +72,9 @@
 			"path": "../../../linking-platform/link-datasource/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../../linking-platform/link-extractors/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../media/media-card/afm-rovo-extension/tsconfig.json"
 		},
 		{

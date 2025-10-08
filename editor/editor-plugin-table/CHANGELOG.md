@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 15.0.9
+
+### Patch Changes
+
+- [`8f55eb73e7b77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f55eb73e7b77) -
+  Cleanup platform_editor_live_page_prevent_table_recreation
+
 ## 15.0.8
 
 ### Patch Changes

@@ -24,8 +24,6 @@ import { SelectionInlineCommentMounter } from '../../mounter';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-// eslint-disable-next-line @atlaskit/platform/no-alias
-import * as platformFeatureFlags from '@atlaskit/platform-feature-flags';
 
 jest.mock('../../../draft/dom');
 
@@ -335,35 +333,9 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 					expect(screen.getByTestId(inlineNodeTypesTestId)).not.toHaveTextContent('text');
 				},
 			);
-
-			ffTest(
-				'annotations_defensive_node_name_calculations',
-				() => {
-					// required as a nested function relies on editor_inline_comments_on_inline_nodes
-					jest
-						.spyOn(platformFeatureFlags, 'fg')
-						.mockImplementation((flag) =>
-							[
-								'editor_inline_comments_on_inline_nodes',
-								'annotations_defensive_node_name_calculations',
-							].includes(flag),
-						);
-					renderMounter({ actionsDoc });
-
-					expect(screen.getByTestId(inlineNodeTypesTestId)).toHaveTextContent('["status","text"]');
-				},
-				() => {
-					renderMounter({ actionsDoc });
-
-					expect(screen.getByTestId(inlineNodeTypesTestId)).not.toHaveTextContent('text');
-				},
-			);
 		});
 
 		it('should provide empty inlineNodeTypes if the isValidAnnotationRange returns false', () => {
-			jest
-				.spyOn(platformFeatureFlags, 'fg')
-				.mockImplementation((flag) => flag === 'editor_inline_comments_on_inline_nodes');
 			const actionsDoc = PMNode.fromJSON(defaultSchema, doc(p('start', status(), 'end')));
 
 			renderMounter({ actionsDoc, hasValidAnnotationRange: false });

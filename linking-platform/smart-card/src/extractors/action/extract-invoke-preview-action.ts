@@ -35,6 +35,7 @@ export type ExtractInvokePreviewActionParam = ExtractClientActionsParam & {
 		ari: string;
 		iconUrl: string | undefined;
 		name: string;
+		panelData: { embedUrl?: string };
 		url: string;
 	}) => void;
 	origin?: AnalyticsOrigin;
@@ -124,6 +125,11 @@ export const extractInvokePreviewAction = (
 							url: resolvedUrl,
 							name: name!,
 							iconUrl: undefined,
+							panelData: {
+								embedUrl: expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')
+									? extractSmartLinkEmbed(response)?.src
+									: undefined,
+							},
 						});
 						expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') &&
 							firePreviewActionUIEvent({ previewType: 'panel' });

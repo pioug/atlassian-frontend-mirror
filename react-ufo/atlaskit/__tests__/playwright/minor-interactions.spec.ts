@@ -3,7 +3,6 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: minor interactions', () => {
 	test.use({
 		examplePage: 'basic-with-3-sections-button-minor-interactions-override',
-		featureFlags: ['platform_ufo_enable_minor_interactions'],
 	});
 
 	test('interactionMetrics.minorInteractions should be `test-new-interaction` when the user clicks a button', async ({

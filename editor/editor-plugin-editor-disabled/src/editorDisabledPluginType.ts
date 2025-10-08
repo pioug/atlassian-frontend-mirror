@@ -1,6 +1,6 @@
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorCommand, NextEditorPlugin } from '@atlaskit/editor-common/types';
 
-export type EditorDisabledPluginState = { editorDisabled: boolean };
+export type EditorDisabledPluginState = { disabledByPlugin: boolean; editorDisabled: boolean };
 
 export interface EditorDisabledPluginOptions {
 	initialDisabledState?: boolean;
@@ -9,7 +9,10 @@ export interface EditorDisabledPluginOptions {
 export type EditorDisabledPlugin = NextEditorPlugin<
 	'editorDisabled',
 	{
+		commands: {
+			toggleDisabled: (disabled: boolean) => EditorCommand;
+		};
 		pluginConfiguration: EditorDisabledPluginOptions | undefined;
-		sharedState: EditorDisabledPluginState;
+		sharedState: Pick<EditorDisabledPluginState, 'editorDisabled'>;
 	}
 >;

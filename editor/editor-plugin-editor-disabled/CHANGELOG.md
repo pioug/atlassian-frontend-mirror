@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-editor-disabled
 
+## 6.1.0
+
+### Minor Changes
+
+- [`237dbc5b33f36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/237dbc5b33f36) -
+  EDITOR-1919 - add toggleDisabled command to editor-plugin-editor-disabled
+
 ## 6.0.0
 
 ### Patch Changes

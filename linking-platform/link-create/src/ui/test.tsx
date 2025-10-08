@@ -10,7 +10,6 @@ import { flushPromises } from '@atlaskit/link-test-helpers';
 import { captureException } from '@atlaskit/linking-common/sentry';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import type { LinkCreatePlugin, LinkCreateProps, LinkCreateWithModalProps } from '../common/types';
@@ -498,34 +497,32 @@ describe('Confirm dismiss dialog', () => {
 			);
 		};
 
-		ffTest.on('layering-tree-graph', 'layering tree graph is enabled', () => {
-			it('should not close popup when pressing escape in modal after dismissing exit warning', async () => {
-				renderWithWrapper(<PopupWithCreate />);
+		it('should not close popup when pressing escape in modal after dismissing exit warning', async () => {
+			renderWithWrapper(<PopupWithCreate />);
 
-				// dirty form
-				await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
-				await userEvent.keyboard('Hello');
-				// try exit the form by pressing escape
-				await userEvent.keyboard('{Escape}');
+			// dirty form
+			await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
+			await userEvent.keyboard('Hello');
+			// try exit the form by pressing escape
+			await userEvent.keyboard('{Escape}');
 
-				// should see exit warning
-				expect(await screen.findByTestId(dismissDialogTestId)).toBeInTheDocument();
+			// should see exit warning
+			expect(await screen.findByTestId(dismissDialogTestId)).toBeInTheDocument();
 
-				// close exit warning
-				await userEvent.click(await screen.findByRole('button', { name: 'Go back' }));
-				await waitForElementToBeRemoved(screen.queryByTestId(dismissDialogTestId));
+			// close exit warning
+			await userEvent.click(await screen.findByRole('button', { name: 'Go back' }));
+			await waitForElementToBeRemoved(screen.queryByTestId(dismissDialogTestId));
 
-				// refocus on the text field
-				await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
-				await userEvent.keyboard(' world');
-				// try exit again
-				await userEvent.keyboard('{Escape}');
+			// refocus on the text field
+			await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
+			await userEvent.keyboard(' world');
+			// try exit again
+			await userEvent.keyboard('{Escape}');
 
-				// should see exit warning
-				expect(await screen.findByTestId(dismissDialogTestId)).toBeInTheDocument();
-				// popup should still be open
-				expect(await screen.findByTestId('popup')).toBeInTheDocument();
-			});
+			// should see exit warning
+			expect(await screen.findByTestId(dismissDialogTestId)).toBeInTheDocument();
+			// popup should still be open
+			expect(await screen.findByTestId('popup')).toBeInTheDocument();
 		});
 	});
 

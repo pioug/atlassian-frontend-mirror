@@ -72,6 +72,9 @@
 			"path": "../../../linking-platform/link-datasource/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../../linking-platform/link-extractors/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../media/media-card/afm-townsquare/tsconfig.json"
 		},
 		{

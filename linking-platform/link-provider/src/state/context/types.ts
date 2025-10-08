@@ -26,6 +26,7 @@ export interface CardContext {
 		ari: string;
 		iconUrl: string | undefined;
 		name: string;
+		panelData: { embedUrl?: string };
 		url: string;
 	}) => void;
 	prefetchStore: Record<string, boolean>;

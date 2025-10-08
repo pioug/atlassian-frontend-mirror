@@ -36,6 +36,10 @@ jest.mock('../../../utils/should-data-export', () => ({
 }));
 const getIsDataExportEnabledMock = getIsDataExportEnabled as jest.Mock;
 
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn(),
+}));
+
 describe('smart-card: card states, block', () => {
 	const mockOnError = jest.fn();
 	const mockOnResolve = jest.fn();
@@ -56,6 +60,8 @@ describe('smart-card: card states, block', () => {
 			shouldControlDataExport: false,
 		});
 		getIsDataExportEnabledMock.mockReturnValue(false);
+		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+		expValEquals.mockReturnValue(false);
 	});
 
 	afterEach(() => {
@@ -108,48 +114,70 @@ describe('smart-card: card states, block', () => {
 			);
 		});
 
-		it('delegates the click to the preview panel handler if the object type is supported as a preview panel', async () => {
-			const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
-			const openPreviewPanel = jest.fn();
+		it.each([true, false])(
+			'delegates the click to the preview panel handler if the object type is supported as a preview panel and exp is %s',
+			async (exp) => {
+				const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
+				const openPreviewPanel = jest.fn();
+				if (exp) {
+					const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+					expValEquals.mockReturnValue(true);
+				}
 
-			render(
-				<FabricAnalyticsListeners client={mockAnalyticsClient}>
-					<IntlProvider locale="en">
-						<Provider
-							client={mockClient}
-							isPreviewPanelAvailable={isPreviewPanelAvailable}
-							openPreviewPanel={openPreviewPanel}
-						>
-							<Card appearance="block" url={mockUrl} id="some-id" />
-						</Provider>
-					</IntlProvider>
-				</FabricAnalyticsListeners>,
-			);
-			await screen.findByText('I love cheese');
-			await screen.findByText('Here is your serving of cheese: 🧀');
+				render(
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
+						<IntlProvider locale="en">
+							<Provider
+								client={mockClient}
+								isPreviewPanelAvailable={isPreviewPanelAvailable}
+								openPreviewPanel={openPreviewPanel}
+							>
+								<Card appearance="block" url={mockUrl} id="some-id" />
+							</Provider>
+						</IntlProvider>
+					</FabricAnalyticsListeners>,
+				);
+				await screen.findByText('I love cheese');
+				await screen.findByText('Here is your serving of cheese: 🧀');
 
-			const link = screen.getByRole('link');
-			await userEvent.click(link);
+				const link = screen.getByRole('link');
+				await userEvent.click(link);
 
-			expect(isPreviewPanelAvailable).toHaveBeenCalledWith({
-				ari: 'ari:cloud:example:1234',
-			});
-			expect(openPreviewPanel).toHaveBeenCalledWith({
-				ari: 'ari:cloud:example:1234',
-				url: mockUrl,
-				name: 'I love cheese',
-				iconUrl: 'https://www.ilovecheese.com/icon.png',
-			});
-			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					action: 'clicked',
-					actionSubject: 'link',
-					attributes: expect.objectContaining({
-						clickOutcome: 'previewPanel',
+				expect(isPreviewPanelAvailable).toHaveBeenCalledWith({
+					ari: 'ari:cloud:example:1234',
+				});
+				if (!exp) {
+					expect(openPreviewPanel).toHaveBeenCalledWith({
+						ari: 'ari:cloud:example:1234',
+						url: mockUrl,
+						name: 'I love cheese',
+						iconUrl: 'https://www.ilovecheese.com/icon.png',
+						panelData: {
+							embedUrl: undefined,
+						},
+					});
+				} else {
+					expect(openPreviewPanel).toHaveBeenCalledWith({
+						ari: 'ari:cloud:example:1234',
+						url: mockUrl,
+						name: 'I love cheese',
+						iconUrl: 'https://www.ilovecheese.com/icon.png',
+						panelData: {
+							embedUrl: 'https://www.ilovecheese.com',
+						},
+					});
+				}
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'clicked',
+						actionSubject: 'link',
+						attributes: expect.objectContaining({
+							clickOutcome: 'previewPanel',
+						}),
 					}),
-				}),
-			);
-		});
+				);
+			},
+		);
 
 		eeTest.describe('platform_editor_preview_panel_linking_exp', 'is enabled').variant(true, () => {
 			it('does not delegate the click to the preview panel handler if disablePreviewPanel set', async () => {
@@ -225,6 +253,9 @@ describe('smart-card: card states, block', () => {
 						url: mockUrl,
 						name: 'I love cheese',
 						iconUrl: 'https://www.ilovecheese.com/icon.png',
+						panelData: {
+							embedUrl: undefined,
+						},
 					});
 					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 						expect.objectContaining({

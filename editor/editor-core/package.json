@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.0.0",
+	"version": "215.0.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -150,15 +150,8 @@
 		}
 	},
 	"platform-feature-flags": {
-		"cc_editor_abort_ufo_load_on_editor_scroll": {
-			"type": "boolean"
-		},
 		"confluence_floating_toolbar_animation": {
 			"type": "boolean"
-		},
-		"annotations_defensive_node_name_calculations": {
-			"type": "boolean",
-			"referenceOnly": "true"
 		},
 		"linking_platform_datasource_assets_objects": {
 			"type": "boolean",
@@ -377,10 +370,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"editor_a11y_aria_announcement_for_copied_status": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_renderer_triple_click_selects_paragraph": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -477,6 +466,9 @@
 			"referenceOnly": true
 		},
 		"platform_editor_text_highlight_padding": {
+			"type": "boolean"
+		},
+		"platform_editor_toolbar_aifc_patch_7": {
 			"type": "boolean"
 		},
 		"platform_editor_table_container_y_overflow_fix": {

@@ -7,6 +7,7 @@ export interface Position {
 
 export interface CalculatePositionParams {
 	allowOutOfBounds?: boolean;
+	boundariesElement?: HTMLElement;
 	offset: number[];
 	placement: [string, string];
 	popup?: HTMLElement;
@@ -250,16 +251,18 @@ const calculateVerticalStickBottom = ({
 	popup,
 	offset,
 	position,
+	boundariesElement,
 }: {
+	boundariesElement?: HTMLElement;
 	offset: Array<number>;
 	popup: HTMLElement;
-	position: Position;
 
+	position: Position;
 	target: HTMLElement;
 	targetHeight: number;
 	targetTop: number;
 }): Position => {
-	const scrollParent = findOverflowScrollParent(target);
+	const scrollParent = findOverflowScrollParent(target) || boundariesElement;
 	const newPos = { ...position };
 
 	if (scrollParent) {
@@ -290,19 +293,21 @@ const calculateVerticalStickTop = ({
 	offset,
 	position,
 	placement,
+	boundariesElement,
 }: {
+	boundariesElement?: HTMLElement;
 	offset: Array<number>;
 	placement: string;
 	popup: HTMLElement;
 	popupOffsetParent: HTMLElement;
-	popupOffsetParentHeight: number;
 
+	popupOffsetParentHeight: number;
 	position: Position;
 	target: HTMLElement;
 	targetHeight: number;
 	targetTop: number;
 }): Position => {
-	const scrollParent = findOverflowScrollParent(target);
+	const scrollParent = findOverflowScrollParent(target) || boundariesElement;
 	const newPos = { ...position };
 
 	if (scrollParent) {
@@ -407,6 +412,7 @@ export function calculatePosition({
 	stick,
 	allowOutOfBounds = false,
 	rect,
+	boundariesElement,
 }: CalculatePositionParams): Position {
 	let position: Position = {};
 
@@ -471,6 +477,7 @@ export function calculatePosition({
 			offset,
 			position,
 			placement: verticalPlacement,
+			boundariesElement,
 		});
 	}
 
@@ -482,6 +489,7 @@ export function calculatePosition({
 			popup,
 			offset,
 			position,
+			boundariesElement,
 		});
 	}
 

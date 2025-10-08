@@ -297,6 +297,9 @@
 		"platform_editor_renderer_table_header_styles": {
 			"type": "boolean"
 		},
+		"platform_editor_link_popup_position_fix_aifc": {
+			"type": "boolean"
+		},
 		"platform_editor_elements_dnd_multi_select_patch_1": {
 			"type": "boolean"
 		},

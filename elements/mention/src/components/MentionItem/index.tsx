@@ -52,6 +52,7 @@ function renderTime(time?: string) {
 }
 
 export interface Props {
+	forwardedRef?: React.Ref<HTMLDivElement>;
 	mention: MentionDescription;
 	onMouseEnter?: OnMentionEvent;
 	// TODO: Remove onMouseMove -> https://product-fabric.atlassian.net/browse/FS-3897
@@ -82,7 +83,7 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 	};
 
 	render() {
-		const { mention, selected } = this.props;
+		const { mention, selected, forwardedRef } = this.props;
 		const {
 			id,
 			highlight,
@@ -116,6 +117,7 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 					data-mention-id={id}
 					data-mention-name={mentionName}
 					data-selected={selected}
+					ref={forwardedRef}
 				>
 					<RowStyle>
 						<AvatarStyle restricted={restricted}>
@@ -155,3 +157,9 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 		);
 	}
 }
+
+export const MentionItemWithRef = React.forwardRef<HTMLDivElement, Omit<Props, 'forwardedRef'>>(
+	(props, ref) => {
+		return <MentionItem {...props} forwardedRef={ref} />;
+	},
+);

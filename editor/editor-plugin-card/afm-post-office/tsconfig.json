@@ -89,6 +89,9 @@
 			"path": "../../../linking-platform/link-datasource/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../linking-platform/link-extractors/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/linking-common/afm-post-office/tsconfig.json"
 		},
 		{

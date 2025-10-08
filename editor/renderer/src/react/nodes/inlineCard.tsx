@@ -37,6 +37,7 @@ import {
 import { usePortal } from '../../ui/Renderer/PortalContext';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import type { AnalyticsEventPayload } from '../../analytics/events';
+import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
 
 type HoverLinkOverlayProps = React.ComponentProps<typeof HoverLinkOverlay>;
 export interface InlineCardProps extends MarkDataAttributes {
@@ -145,6 +146,11 @@ const OverlayWithCardContext = ({
 						ari: ari || '',
 						name: name || '',
 						iconUrl,
+						panelData: {
+							embedUrl: expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')
+								? extractSmartLinkEmbed(cardState?.details)?.src
+								: undefined,
+						},
 					});
 					editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true }) &&
 						fireHoverLabelAEP('panel');

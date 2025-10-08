@@ -72,6 +72,9 @@
 			"path": "../../../linking-platform/link-datasource/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../../linking-platform/link-extractors/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../media/media-card/afm-passionfruit/tsconfig.json"
 		},
 		{

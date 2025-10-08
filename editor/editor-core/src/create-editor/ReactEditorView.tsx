@@ -684,64 +684,60 @@ export function ReactEditorView(props: EditorViewProps) {
 
 	React.useEffect(() => {
 		return () => {
-			if (fg('cc_editor_abort_ufo_load_on_editor_scroll')) {
-				if (scrollElement.current) {
-					// eslint-disable-next-line react-hooks/exhaustive-deps
-					for (const possibleListener of possibleListeners.current) {
-						// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-						scrollElement.current?.removeEventListener(...possibleListener);
-					}
+			if (scrollElement.current) {
+				// eslint-disable-next-line react-hooks/exhaustive-deps
+				for (const possibleListener of possibleListeners.current) {
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+					scrollElement.current?.removeEventListener(...possibleListener);
 				}
-				scrollElement.current = null;
 			}
+			scrollElement.current = null;
 		};
 	}, []);
 
 	const handleEditorViewRef = useCallback(
 		(node: HTMLDivElement) => {
-			if (fg('cc_editor_abort_ufo_load_on_editor_scroll')) {
-				if (node) {
-					scrollElement.current = document.querySelector('[data-editor-scroll-container]');
+			if (node) {
+				scrollElement.current = document.querySelector('[data-editor-scroll-container]');
 
-					const cleanupListeners = () => {
-						// eslint-disable-next-line react-hooks/exhaustive-deps
-						for (const possibleListener of possibleListeners.current) {
-							// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-							scrollElement.current?.removeEventListener(...possibleListener);
-						}
-					};
-
-					if (scrollElement.current) {
-						const wheelAbortHandler = () => {
-							const activeInteraction = getActiveInteraction();
-
-							if (
-								activeInteraction &&
-								['edit-page', 'live-edit'].includes(activeInteraction.ufoName)
-							) {
-								abortAll('new_interaction', `wheel-on-editor-element`);
-							}
-							cleanupListeners();
-						};
+				const cleanupListeners = () => {
+					// eslint-disable-next-line react-hooks/exhaustive-deps
+					for (const possibleListener of possibleListeners.current) {
 						// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-						scrollElement.current.addEventListener('wheel', wheelAbortHandler);
-						possibleListeners.current.push(['wheel', wheelAbortHandler]);
-
-						const scrollAbortHandler = () => {
-							const activeInteraction = getActiveInteraction();
-
-							if (
-								activeInteraction &&
-								['edit-page', 'live-edit'].includes(activeInteraction.ufoName)
-							) {
-								abortAll('new_interaction', `scroll-on-editor-element`);
-							}
-							cleanupListeners();
-						};
-						// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-						scrollElement.current.addEventListener('scroll', scrollAbortHandler);
-						possibleListeners.current.push(['scroll', scrollAbortHandler]);
+						scrollElement.current?.removeEventListener(...possibleListener);
 					}
+				};
+
+				if (scrollElement.current) {
+					const wheelAbortHandler = () => {
+						const activeInteraction = getActiveInteraction();
+
+						if (
+							activeInteraction &&
+							['edit-page', 'live-edit'].includes(activeInteraction.ufoName)
+						) {
+							abortAll('new_interaction', `wheel-on-editor-element`);
+						}
+						cleanupListeners();
+					};
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+					scrollElement.current.addEventListener('wheel', wheelAbortHandler);
+					possibleListeners.current.push(['wheel', wheelAbortHandler]);
+
+					const scrollAbortHandler = () => {
+						const activeInteraction = getActiveInteraction();
+
+						if (
+							activeInteraction &&
+							['edit-page', 'live-edit'].includes(activeInteraction.ufoName)
+						) {
+							abortAll('new_interaction', `scroll-on-editor-element`);
+						}
+						cleanupListeners();
+					};
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+					scrollElement.current.addEventListener('scroll', scrollAbortHandler);
+					possibleListeners.current.push(['scroll', scrollAbortHandler]);
 				}
 			}
 

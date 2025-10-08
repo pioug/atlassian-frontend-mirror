@@ -72,6 +72,9 @@
 			"path": "../../../linking-platform/link-datasource/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../../linking-platform/link-extractors/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../media/media-card/afm-dev-agents/tsconfig.json"
 		},
 		{

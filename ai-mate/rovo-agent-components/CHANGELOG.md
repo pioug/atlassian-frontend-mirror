@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.8.0
+
+### Minor Changes
+
+- [`187d94d40d355`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/187d94d40d355) -
+  Update ai-mate i18n pkg versions for PLSD-373
+
 ## 3.7.0
 
 ### Minor Changes

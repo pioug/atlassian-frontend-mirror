@@ -1,8 +1,9 @@
 import React from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type MentionDescription, type OnMentionEvent } from '../../types';
 import debug from '../../util/logger';
 import { actualMouseMove, mouseLocation, type Position } from '../../util/mouse';
-import MentionItem from '../MentionItem';
+import MentionItem, { MentionItemWithRef } from '../MentionItem';
 import MentionListError from '../MentionListError';
 import MessagesIntlProvider from '../MessagesIntlProvider';
 import Scrollable from '../Scrollable';
@@ -55,11 +56,22 @@ export default class MentionList extends React.PureComponent<Props, State> {
 	private lastMousePosition: Position | undefined;
 	private scrollable?: Scrollable | null;
 	private items!: Items;
+	private itemsRefs: Map<string, React.RefObject<HTMLDivElement>>;
 
 	constructor(props: Props) {
 		super(props);
-
+		this.itemsRefs = new Map<string, React.RefObject<HTMLDivElement>>();
 		this.setDefaultSelectionState();
+	}
+
+	createItemRef(key: string) {
+		const itemRef = React.createRef<HTMLDivElement>();
+		this.itemsRefs.set(key, itemRef);
+		return itemRef;
+	}
+
+	getItemRef(key: string): React.RefObject<HTMLDivElement> | undefined {
+		return this.itemsRefs.get(key);
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -150,9 +162,16 @@ export default class MentionList extends React.PureComponent<Props, State> {
 
 	// Internal
 	private revealItem(key: string): void {
-		const item = this.items[key];
-		if (item && this.scrollable) {
-			this.scrollable.reveal(item);
+		if (fg('mentions-migrate-react-dom')) {
+			const itemRef = this.getItemRef(key);
+			if (itemRef && this.scrollable) {
+				itemRef && this.scrollable.revealRef(itemRef);
+			}
+		} else {
+			const item = this.items[key];
+			if (item && this.scrollable) {
+				this.scrollable.reveal(item);
+			}
 		}
 	}
 
@@ -195,26 +214,44 @@ export default class MentionList extends React.PureComponent<Props, State> {
 					{this.props.initialHighlightElement}
 					{mentions.map((mention, idx) => {
 						const key = mention.id;
-						const item = (
-							<MentionItem
-								mention={mention}
-								selected={this.isSelectedMention(mention, idx)}
-								key={key}
-								onMouseMove={this.selectIndexOnHover}
-								/* Cannot use onclick, as onblur will close the element, and prevent
-								 * onClick from firing.
-								 */
-								onSelection={this.itemSelected}
-								ref={(ref) => {
-									if (ref) {
-										this.items[key] = ref;
-									} else {
-										delete this.items[key];
-									}
-								}}
-							/>
-						);
-						return item;
+						const ref = this.createItemRef(key);
+						if (fg('mentions-migrate-react-dom')) {
+							const item = (
+								<MentionItemWithRef
+									mention={mention}
+									selected={this.isSelectedMention(mention, idx)}
+									key={key}
+									onMouseMove={this.selectIndexOnHover}
+									/* Cannot use onclick, as onblur will close the element, and prevent
+									 * onClick from firing.
+									 */
+									onSelection={this.itemSelected}
+									ref={ref}
+								/>
+							);
+							return item;
+						} else {
+							const item = (
+								<MentionItem
+									mention={mention}
+									selected={this.isSelectedMention(mention, idx)}
+									key={key}
+									onMouseMove={this.selectIndexOnHover}
+									/* Cannot use onclick, as onblur will close the element, and prevent
+									 * onClick from firing.
+									 */
+									onSelection={this.itemSelected}
+									ref={(ref: MentionItem) => {
+										if (ref) {
+											this.items[key] = ref;
+										} else {
+											delete this.items[key];
+										}
+									}}
+								/>
+							);
+							return item;
+						}
 					})}
 				</div>
 			);

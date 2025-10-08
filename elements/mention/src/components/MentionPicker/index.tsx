@@ -1,9 +1,11 @@
+import React from 'react';
+import { IntlProvider, type IntlShape, injectIntl } from 'react-intl-next';
+
 import { Text } from '@atlaskit/primitives/compiled';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import React from 'react';
-import { IntlProvider, type IntlShape, injectIntl } from 'react-intl-next';
+
 import {
 	type ErrorCallback,
 	type InfoCallback,
@@ -264,7 +266,7 @@ export class MentionPicker extends React.PureComponent<
 						offsetY={offsetY}
 					>
 						{/* Popup can be portalled outside of an intl context so providing
-            an intl provider here */}
+						an intl provider here*/}
 						<IntlProvider locale={intl?.locale || 'en'}>
 							<div>
 								{resourceMentionList}

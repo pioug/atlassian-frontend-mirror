@@ -59,6 +59,7 @@ const extractAction = (
 		ari: string;
 		iconUrl: string | undefined;
 		name: string;
+		panelData: { embedUrl?: string };
 		url: string;
 	}) => void,
 ): LinkLozengeInvokeActions | undefined => {
@@ -129,6 +130,7 @@ const extractState = (
 		ari: string;
 		iconUrl: string | undefined;
 		name: string;
+		panelData: { embedUrl?: string };
 		url: string;
 	}) => void,
 ): LinkLozenge | undefined => {

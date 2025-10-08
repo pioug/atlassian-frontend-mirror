@@ -11,6 +11,7 @@ import { Popper, type Placement as PopperPlacement } from '@atlaskit/popper';
 import { SpotlightContext } from '../../controllers/context';
 import type { Placement } from '../../types';
 import { useFocusWithin } from '../../utils/use-focus-within';
+import { useOnClickOutside } from '../../utils/use-on-click-outside';
 import { useOnEscape } from '../../utils/use-on-escape';
 
 const styles = cssMap({
@@ -38,7 +39,7 @@ export interface PopoverContentProps {
 	testId?: string;
 	placement: Placement;
 	isVisible?: boolean;
-	dismiss: (event: KeyboardEvent) => void;
+	dismiss: (event: KeyboardEvent | MouseEvent) => void;
 	children: ReactNode;
 }
 
@@ -100,6 +101,10 @@ export const PopoverContent = ({
 			return;
 		}
 
+		dismiss(event);
+	});
+
+	useOnClickOutside((event: MouseEvent) => {
 		dismiss(event);
 	});
 

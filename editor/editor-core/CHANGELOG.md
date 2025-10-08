@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 215.0.2
+
+### Patch Changes
+
+- [`f6863b5290fe8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6863b5290fe8) -
+  [REMOVE FF] editor_a11y_aria_announcement_for_copied_status
+- Updated dependencies
+
+## 215.0.1
+
+### Patch Changes
+
+- [`8d49afb504f95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d49afb504f95) -
+  Cleanup cc_editor_abort_ufo_load_on_editor_scroll
+- [`8cfc5fed7dc74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cfc5fed7dc74) -
+  Cleanup annotations_defensive_node_name_calculations
+
 ## 215.0.0
 
 ### Major Changes

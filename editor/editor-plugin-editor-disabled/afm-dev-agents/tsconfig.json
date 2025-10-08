@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-dev-agents/tsconfig.json"
 		}
 	]

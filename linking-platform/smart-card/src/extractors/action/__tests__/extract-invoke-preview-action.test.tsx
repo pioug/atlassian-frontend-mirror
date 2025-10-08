@@ -229,6 +229,7 @@ describe('extractInvokePreviewAction', () => {
 			url: TEST_URL,
 			name: 'my name',
 			iconUrl: undefined,
+			panelData: { embedUrl: 'https://my.url.com' },
 		});
 	});
 

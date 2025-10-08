@@ -89,6 +89,9 @@
 			"path": "../../../linking-platform/link-datasource/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../../linking-platform/link-extractors/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/linking-common/afm-townsquare/tsconfig.json"
 		},
 		{

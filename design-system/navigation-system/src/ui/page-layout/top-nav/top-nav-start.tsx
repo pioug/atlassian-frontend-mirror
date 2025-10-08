@@ -188,10 +188,10 @@ export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavSta
 	const ref = useContext(TopNavStartAttachRef);
 	const elementRef = useRef(null);
 
+	// FIXME: unsafe pattern with Suspense, should use callback ref / store in state
+	// Should handle the underlying HTMLElement changing without a remount
 	useEffect(() => {
-		if (fg('platform_fix_component_state_update_for_suspense')) {
-			ref(elementRef.current);
-		}
+		ref(elementRef.current);
 	}, [elementRef, ref]);
 
 	// This needs the real `defaultCollapsed` state or will not SSR properly
@@ -221,10 +221,7 @@ export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavSta
 		: TopNavStartInnerOld;
 
 	return (
-		<TopNavStartInner
-			ref={fg('platform_fix_component_state_update_for_suspense') ? elementRef : ref}
-			testId={testId}
-		>
+		<TopNavStartInner ref={elementRef} testId={testId}>
 			{/* If FHS is not enabled, the toggle button is always at the start */}
 			{!fg('navx-full-height-sidebar') && (
 				<SideNavToggleButtonSlotProvider key={sideNavToggleButtonKey}>

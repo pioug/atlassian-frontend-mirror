@@ -2,7 +2,6 @@ import React, { useLayoutEffect, useRef } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import { Layering } from '@atlaskit/layering';
 import { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -80,13 +79,11 @@ const LinkCreateWithModal = ({
 								</ErrorBoundary>
 							</Box>
 						</ModalBody>
-						{fg('layering-tree-graph') && (
-							<ConfirmDismissDialog
-								active={showExitWarning}
-								onClose={handleCloseExitWarning}
-								onCancel={onCancel}
-							/>
-						)}
+						<ConfirmDismissDialog
+							active={showExitWarning}
+							onClose={handleCloseExitWarning}
+							onCancel={onCancel}
+						/>
 					</Modal>
 				)}
 			</ModalTransition>
@@ -97,15 +94,6 @@ const LinkCreateWithModal = ({
 					editViewPayload={editViewPayload}
 					activePlugin={activePlugin}
 				/>
-			)}
-			{!fg('layering-tree-graph') && (
-				<Layering isDisabled={false}>
-					<ConfirmDismissDialog
-						active={showExitWarning}
-						onClose={handleCloseExitWarning}
-						onCancel={onCancel}
-					/>
-				</Layering>
 			)}
 		</LinkCreateCallbackProvider>
 	);

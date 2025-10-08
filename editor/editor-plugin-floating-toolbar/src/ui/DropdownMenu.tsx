@@ -87,6 +87,7 @@ const Dropdown = memo((props: Props & WrappedComponentProps) => {
 		return (
 			<div css={menuContainerStyles} role="menu">
 				{items
+					// @ts-ignore
 					.filter((item) => item && (!('hidden' in item) || !item.hidden))
 					.map((item, idx) => {
 						if (!('type' in item)) {

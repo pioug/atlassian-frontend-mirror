@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.6.1
+
+### Patch Changes
+
+- [`598872f9c6e06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/598872f9c6e06) -
+  Spotlight now dismisses on user click-outside.
+
 ## 0.6.0
 
 ### Minor Changes

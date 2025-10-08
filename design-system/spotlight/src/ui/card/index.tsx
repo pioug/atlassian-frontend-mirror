@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, type ReactNode, useContext } from 'react';
+import { forwardRef, type ReactNode, useContext, useEffect, useRef } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -109,11 +109,17 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 > = forwardRef<HTMLDivElement, SpotlightCardProps>(
 	({ children, testId }: SpotlightCardProps, ref) => {
 		const { card } = useContext(SpotlightContext);
+		const cardRef = useRef<HTMLDivElement>(null);
+
+		useEffect(() => {
+			card.setRef(cardRef);
+		}, [card]);
 
 		return (
 			<div css={styles.root} data-testid={testId} ref={ref}>
 				<Caret />
 				<Box
+					ref={cardRef}
 					backgroundColor="color.background.neutral.bold"
 					xcss={cx(styles.card, placementStyles[card.placement])}
 				>

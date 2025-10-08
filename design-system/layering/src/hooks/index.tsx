@@ -1,16 +1,8 @@
-import { type MutableRefObject, useCallback, useContext, useEffect, useRef } from 'react';
+import { useCallback, useContext, useEffect, useRef } from 'react';
 
 import { bindAll } from 'bind-event-listener';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import { type LayerNode } from '../classes/layer-node';
-import {
-	LevelContext,
-	LevelNodeContext,
-	RootNodeContext,
-	TopLevelContext,
-} from '../components/layering-context';
+import { LevelContext, LevelNodeContext, RootNodeContext } from '../components/layering-context';
 
 const ESCAPE = 'Escape';
 
@@ -81,42 +73,22 @@ export function useCloseOnEscapePress({ onClose, isDisabled }: UseCloseOnEscapeP
 export function useLayering() {
 	const currentLevel = useContext(LevelContext);
 
-	// Remove TopLevelContext on FG cleanup layering-tree-graph
-	const { topLevelRef, layerList } = useContext(TopLevelContext);
-
-	let layerNode: MutableRefObject<LayerNode | null> | undefined;
-	let rootNode: MutableRefObject<LayerNode | null> | undefined;
-	if (fg('layering-tree-graph')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		layerNode = useContext(LevelNodeContext);
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		rootNode = useContext(RootNodeContext);
-	}
+	const layerNode = useContext(LevelNodeContext);
+	const rootNode = useContext(RootNodeContext);
 
 	const isLayerDisabled: () => boolean = useCallback(() => {
-		if (fg('layering-tree-graph')) {
-			// This is an impossible case, added for type safety
-			if (!layerNode?.current || !rootNode?.current) {
-				return false;
-			}
-
-			return layerNode.current.getLevel() < rootNode.current.getHeight();
+		// This is an impossible case, added for type safety
+		if (!layerNode?.current || !rootNode?.current) {
+			return false;
 		}
 
-		return (layerList?.current?.length ?? 0) !== currentLevel;
-	}, [currentLevel, layerList, layerNode, rootNode]);
+		return layerNode.current.getLevel() < rootNode.current.getHeight();
+	}, [layerNode, rootNode]);
 
 	const getTopLevel = useCallback(
 		() => (rootNode?.current ? rootNode.current.getHeight() : null),
 		[rootNode],
 	);
 
-	return fg('layering-tree-graph')
-		? { currentLevel, isLayerDisabled, getTopLevel }
-		: {
-				currentLevel,
-				topLevelRef,
-				isLayerDisabled,
-				layerList,
-			};
+	return { currentLevel, isLayerDisabled, getTopLevel };
 }

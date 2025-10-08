@@ -13,7 +13,9 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { HoverLinkOverlay } from '@atlaskit/editor-common/ui';
 import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
 import { getObjectAri, getObjectName, getObjectIconUrl } from '@atlaskit/smart-card';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type cardPlugin } from '../cardPlugin';
@@ -267,6 +269,15 @@ export const InlineCardWithAwareness = memo(
 													ari: ari || '',
 													name: name || '',
 													iconUrl,
+													panelData: {
+														embedUrl: expValEquals(
+															'platform_hover_card_preview_panel',
+															'cohort',
+															'test',
+														)
+															? extractSmartLinkEmbed(cardState?.details)?.src
+															: undefined,
+													},
 												});
 												firePreviewPanelClickEvent({ previewType: 'panel' });
 											} else if (isPreviewModalAvailable) {

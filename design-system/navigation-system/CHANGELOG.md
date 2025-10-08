@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 2.19.0
+
+### Minor Changes
+
+- [`c506727d66d32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c506727d66d32) -
+  Cleans up the `platform_fix_component_state_update_for_suspense` feature gate. There is now
+  improved ref handling for Suspense.
+
 ## 2.18.0
 
 ### Minor Changes

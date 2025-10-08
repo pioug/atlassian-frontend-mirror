@@ -4,7 +4,7 @@ import {
 	BOLD_BUTTON_GROUP,
 	BOLD_BUTTON,
 	TEXT_SECTION_PRIMARY_TOOLBAR,
-	TEXT_FORMAT_GROUP_RANK,
+	TEXT_SECTION_PRIMARY_TOOLBAR_RANK,
 	useEditorToolbar,
 } from '@atlaskit/editor-common/toolbar';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -38,7 +38,7 @@ export const boldButtonGroup = (
 			{
 				type: TEXT_SECTION_PRIMARY_TOOLBAR.type,
 				key: TEXT_SECTION_PRIMARY_TOOLBAR.key,
-				rank: TEXT_FORMAT_GROUP_RANK[BOLD_BUTTON_GROUP.key],
+				rank: TEXT_SECTION_PRIMARY_TOOLBAR_RANK[BOLD_BUTTON_GROUP.key],
 			},
 		],
 		component: ({ children }) => {

@@ -26,6 +26,7 @@ export type ExtractActionsParam = {
 		ari: string;
 		iconUrl: string | undefined;
 		name: string;
+		panelData: { embedUrl?: string };
 		url: string;
 	}) => void;
 	origin?: AnalyticsOrigin;

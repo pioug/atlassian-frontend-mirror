@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-copy-button",
-	"version": "6.0.1",
+	"version": "6.0.2",
 	"description": "editor-plugin-copy-button for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -82,11 +82,6 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"editor_a11y_aria_announcement_for_copied_status": {
-			"type": "boolean"
 		}
 	}
 }

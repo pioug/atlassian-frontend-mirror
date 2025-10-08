@@ -1,5 +1,12 @@
 # @atlaskit/layering
 
+## 3.1.0
+
+### Minor Changes
+
+- [`2c8e6f2ebadef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c8e6f2ebadef) -
+  Removes FG that migrates layering component to use tree structure
+
 ## 3.0.3
 
 ### Patch Changes

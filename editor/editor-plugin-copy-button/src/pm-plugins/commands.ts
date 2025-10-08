@@ -16,7 +16,6 @@ import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations
 import type { MarkType, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { CopyButtonPlugin } from '../copyButtonPluginType';
@@ -196,7 +195,7 @@ export const createToolbarCopyCommandForNode =
 		 *
 		 * see thread https://atlassian.slack.com/archives/C02CDUS3SUS/p1744256326459569
 		 */
-		if (onClickMessage && fg('editor_a11y_aria_announcement_for_copied_status')) {
+		if (onClickMessage) {
 			api?.accessibilityUtils?.actions.ariaNotify(onClickMessage, { priority: 'important' });
 		}
 

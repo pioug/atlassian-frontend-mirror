@@ -14,9 +14,11 @@ import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
+import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { Inline, Box, Flex } from '@atlaskit/primitives/compiled';
 import { getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getResolvedAttributesFromStore } from '../../pm-plugins/utils';
 import { appearanceForLink } from '../analytics/utils';
@@ -54,6 +56,11 @@ export const OpenPreviewPanelToolbarButton = ({
 					ari,
 					name: name || '',
 					iconUrl,
+					panelData: {
+						embedUrl: expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')
+							? extractSmartLinkEmbed(cardState?.details)?.src
+							: undefined,
+					},
 				});
 			}
 			editorAnalyticsApi?.fireAnalyticsEvent({

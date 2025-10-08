@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 124.1.7
+
+### Patch Changes
+
+- [`8cfc5fed7dc74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cfc5fed7dc74) -
+  Cleanup annotations_defensive_node_name_calculations
+
+## 124.1.6
+
+### Patch Changes
+
+- [`6b08c3a8cde08`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b08c3a8cde08) -
+  Construct confluence url from smart card embed preview href when smart card url is short
+  confluence url, in the form "{host}/wiki/x/{hash}"
+- Updated dependencies
+
 ## 124.1.5
 
 ### Patch Changes

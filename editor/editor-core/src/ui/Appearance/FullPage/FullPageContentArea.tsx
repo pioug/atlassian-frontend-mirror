@@ -362,7 +362,8 @@ const Content = React.forwardRef<
 							style={
 								{
 									'--ak-editor-content-area-max-width': !fullWidthMode
-										? `${theme.layoutMaxWidth + getTotalPadding()}px`
+										? // @ts-ignore
+											`${theme.layoutMaxWidth + getTotalPadding()}px`
 										: `${akEditorFullWidthLayoutWidth + getTotalPadding()}px`,
 								} as React.CSSProperties
 							}

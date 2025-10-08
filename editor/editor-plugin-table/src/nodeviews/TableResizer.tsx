@@ -31,7 +31,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { insm } from '@atlaskit/insm';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -844,13 +843,7 @@ export const TableResizer = ({
 		<>
 			<ResizerNext
 				ref={resizerRef}
-				enable={
-					fg('platform_editor_live_page_prevent_table_recreation')
-						? disabled
-							? {}
-							: handles
-						: handles
-				}
+				enable={disabled ? {} : handles}
 				width={width}
 				handleAlignmentMethod="sticky"
 				handleSize={handleSize}

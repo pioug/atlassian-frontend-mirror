@@ -93,6 +93,9 @@
 	"platform-feature-flags": {
 		"team-avatar-in-mention-picker": {
 			"type": "boolean"
+		},
+		"mentions-migrate-react-dom": {
+			"type": "boolean"
 		}
 	},
 	"publishConfig": {
@@ -120,5 +123,5 @@
 			]
 		}
 	},
-	"version": "24.2.18"
+	"version": "24.3.0"
 }

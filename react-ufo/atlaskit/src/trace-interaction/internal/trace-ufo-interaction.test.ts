@@ -10,7 +10,11 @@ jest.mock('../../route-name-context');
 jest.mock('../../experience-trace-id-context');
 
 import coinflip from '../../coinflip';
-import { getDoNotAbortActivePressInteraction, getInteractionRate } from '../../config';
+import {
+	getDoNotAbortActivePressInteraction,
+	getInteractionRate,
+	getMinorInteractions,
+} from '../../config';
 import { getActiveTrace, setInteractionActiveTrace } from '../../experience-trace-id-context';
 import { DefaultInteractionID } from '../../interaction-id-context';
 import { abortAll, addNewInteraction, getActiveInteraction } from '../../interaction-metrics';
@@ -24,6 +28,9 @@ const mockGetDoNotAbortActivePressInteraction =
 	getDoNotAbortActivePressInteraction as jest.MockedFunction<
 		typeof getDoNotAbortActivePressInteraction
 	>;
+const mockGetMinorInteractions = getMinorInteractions as jest.MockedFunction<
+	typeof getMinorInteractions
+>;
 const mockGetActiveInteraction = getActiveInteraction as jest.MockedFunction<
 	typeof getActiveInteraction
 >;
@@ -48,6 +55,7 @@ describe('internal traceUFOInteraction', () => {
 		// Set up default mock implementations
 		mockGetInteractionRate.mockReturnValue(1);
 		mockGetDoNotAbortActivePressInteraction.mockReturnValue(undefined);
+		mockGetMinorInteractions.mockReturnValue(undefined);
 		mockGetActiveInteraction.mockReturnValue(undefined);
 		mockGetActiveTrace.mockReturnValue(mockTraceContext);
 		mockCreateUUID.mockReturnValue('test-uuid-123');
@@ -114,12 +122,17 @@ describe('internal traceUFOInteraction', () => {
 				id: 'active-id',
 				ufoName: 'unknown',
 				type: 'press',
+				minorInteractions: [],
 			} as any);
 			mockCoinflip.mockReturnValue(true);
 
 			traceUFOInteraction('test-interaction', 'press');
 
-			expect(mockCoinflip).toHaveBeenCalled();
+			expect(mockCoinflip).not.toHaveBeenCalled();
+			expect(mockGetActiveInteraction).toHaveBeenCalled();
+			const activeInteraction = mockGetActiveInteraction.mock.results[0].value;
+			expect(activeInteraction.minorInteractions).toHaveLength(1);
+			expect(activeInteraction.minorInteractions[0].name).toBe('test-interaction');
 		});
 
 		it('should not return early when interaction is in doNotAbortActivePressInteraction list but active interaction is not press type', () => {
@@ -128,12 +141,17 @@ describe('internal traceUFOInteraction', () => {
 				id: 'active-id',
 				ufoName: 'test-interaction',
 				type: 'hover',
+				minorInteractions: [],
 			} as any);
 			mockCoinflip.mockReturnValue(true);
 
 			traceUFOInteraction('test-interaction', 'press');
 
-			expect(mockCoinflip).toHaveBeenCalled();
+			expect(mockCoinflip).not.toHaveBeenCalled();
+			expect(mockGetActiveInteraction).toHaveBeenCalled();
+			const activeInteraction = mockGetActiveInteraction.mock.results[0].value;
+			expect(activeInteraction.minorInteractions).toHaveLength(1);
+			expect(activeInteraction.minorInteractions[0].name).toBe('test-interaction');
 		});
 
 		it('should continue when interaction is NOT in doNotAbortActivePressInteraction list', () => {
@@ -157,7 +175,8 @@ describe('internal traceUFOInteraction', () => {
 
 			traceUFOInteraction('test-interaction', 'press');
 
-			expect(mockCoinflip).toHaveBeenCalled();
+			expect(mockCoinflip).not.toHaveBeenCalled();
+			expect(mockGetActiveInteraction).toHaveBeenCalled();
 		});
 	});
 
@@ -214,14 +233,19 @@ describe('internal traceUFOInteraction', () => {
 				id: 'active-id',
 				ufoName: 'some-interaction',
 				type: 'hover',
+				minorInteractions: [],
 			} as any);
 			mockCoinflip.mockReturnValue(true);
 
 			traceUFOInteraction('test-interaction', 'press');
 
 			expect(mockAbortAll).not.toHaveBeenCalled();
-			expect(mockCoinflip).toHaveBeenCalled();
-			expect(mockAddNewInteraction).toHaveBeenCalled();
+			expect(mockCoinflip).not.toHaveBeenCalled();
+			expect(mockAddNewInteraction).not.toHaveBeenCalled();
+			expect(mockGetActiveInteraction).toHaveBeenCalled();
+			const activeInteraction = mockGetActiveInteraction.mock.results[0].value;
+			expect(activeInteraction.minorInteractions).toHaveLength(1);
+			expect(activeInteraction.minorInteractions[0].name).toBe('test-interaction');
 		});
 
 		it('should abort interactions when interaction is NOT in doNotAbortActivePressInteraction list and coinflip fails', () => {

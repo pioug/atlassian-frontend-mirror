@@ -1,8 +1,10 @@
 import React, { type MouseEvent, useCallback, useEffect, useMemo } from 'react';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
+import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
 import type { CardState } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
@@ -155,6 +157,11 @@ function Component({
 					ari,
 					name,
 					iconUrl: getObjectIconUrl(state.details),
+					panelData: {
+						embedUrl: expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')
+							? extractSmartLinkEmbed(state.details)?.src
+							: undefined,
+					},
 				});
 
 				fireLinkClickedEvent(createAnalyticsEvent)(event, {

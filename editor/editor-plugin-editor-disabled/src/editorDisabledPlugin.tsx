@@ -3,16 +3,14 @@ import rafSchedule from 'raf-schd';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { pluginFactory } from '@atlaskit/editor-common/utils';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey, type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorDisabledPlugin, EditorDisabledPluginState } from './editorDisabledPluginType';
+import { ACTION, reducer } from './pm-plugins/reducer';
 
-const pluginKey = new PluginKey<EditorDisabledPluginState>('editorDisabledPlugin');
-
-function reducer(_pluginState: EditorDisabledPluginState, meta: EditorDisabledPluginState) {
-	return meta;
-}
+export const pluginKey = new PluginKey<EditorDisabledPluginState>('editorDisabledPlugin');
 
 const { getPluginState } = pluginFactory(pluginKey, reducer);
 
@@ -27,9 +25,10 @@ function createPlugin(
 ): SafePlugin | undefined {
 	const scheduleEditorDisabledUpdate = rafSchedule((view: EditorView) => {
 		if (getPluginState(view.state).editorDisabled !== !view.editable) {
-			const disabledMeta = {
+			const disabledMeta: EditorDisabledPluginState = {
 				editorDisabled: !view.editable,
-			} as EditorDisabledPluginState;
+				disabledByPlugin: getPluginState(view.state).disabledByPlugin,
+			};
 
 			const tr = view.state.tr
 				.setMeta(pluginKey, disabledMeta)
@@ -42,20 +41,37 @@ function createPlugin(
 	return new SafePlugin({
 		key: pluginKey,
 		state: {
-			init: () => {
+			init: (): EditorDisabledPluginState => {
 				return {
 					editorDisabled: options?.initialDisabledState ?? false,
-				} as EditorDisabledPluginState;
+					disabledByPlugin: false,
+				};
 			},
 			apply: (tr, pluginState) => {
 				const meta = tr.getMeta(pluginKey);
 				if (meta) {
+					if (fg('platform_editor_ai_aifc_patch_beta')) {
+						if ('action' in meta) {
+							return reducer(pluginState, meta);
+						}
+					}
 					return pluginState.editorDisabled !== meta.editorDisabled
 						? { ...pluginState, ...meta }
 						: pluginState;
 				}
 				return pluginState;
 			},
+		},
+		props: {
+			// If we set to undefined it respects the previous value.
+			// Prosemirror doesn't have this typed correctly for this type of behaviour
+			// @ts-expect-error
+			editable: fg('platform_editor_ai_aifc_patch_beta')
+				? (state: EditorState) => {
+						const { disabledByPlugin } = pluginKey.getState(state) ?? { disabledByPlugin: false };
+						return disabledByPlugin ? false : undefined;
+					}
+				: undefined,
 		},
 		view: (view) => {
 			// schedule on mount
@@ -106,6 +122,12 @@ export const editorDisabledPlugin: EditorDisabledPlugin = ({ config: options = {
 			};
 		}
 
+		if (fg('platform_editor_ai_aifc_patch_beta')) {
+			return {
+				editorDisabled: pluginState.disabledByPlugin || pluginState.editorDisabled,
+			};
+		}
+
 		return pluginState;
 	},
 
@@ -115,4 +137,17 @@ export const editorDisabledPlugin: EditorDisabledPlugin = ({ config: options = {
 			plugin: ({ dispatch }) => createPlugin(dispatch, options),
 		},
 	],
+
+	commands: {
+		toggleDisabled:
+			(disabled: boolean) =>
+			({ tr }: { tr: Transaction }) => {
+				return fg('platform_editor_ai_aifc_patch_beta')
+					? tr.setMeta(pluginKey, {
+							action: ACTION.TOGGLE_DISABLED,
+							disabled,
+						})
+					: null;
+			},
+	},
 });

@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 4.0.3
+
+### Patch Changes
+
+- [`6b08c3a8cde08`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b08c3a8cde08) -
+  Construct confluence url from smart card embed preview href when smart card url is short
+  confluence url, in the form "{host}/wiki/x/{hash}"
+
 ## 4.0.2
 
 ### Patch Changes

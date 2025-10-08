@@ -211,6 +211,7 @@ export type ExtractFlexibleUiDataContextParams = Pick<
 		ari: string;
 		iconUrl: string | undefined;
 		name: string;
+		panelData: { embedUrl?: string };
 		url: string;
 	}) => void;
 	resolve?: ResolveFunction;

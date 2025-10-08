@@ -1,5 +1,16 @@
 # @atlaskit/link-create
 
+## 4.5.0
+
+### Minor Changes
+
+- [`2c8e6f2ebadef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c8e6f2ebadef) -
+  Removes FG that migrates layering component to use tree structure
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.9
 
 ### Patch Changes

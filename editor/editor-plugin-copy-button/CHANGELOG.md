@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-copy-button
 
+## 6.0.2
+
+### Patch Changes
+
+- [`f6863b5290fe8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6863b5290fe8) -
+  [REMOVE FF] editor_a11y_aria_announcement_for_copied_status
+
 ## 6.0.1
 
 ### Patch Changes

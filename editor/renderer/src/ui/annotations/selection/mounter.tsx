@@ -70,29 +70,14 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 	const { annotationManager, dispatch } = useAnnotationManagerDispatch();
 
 	const inlineNodeTypes = useMemo(() => {
-		if (fg('annotations_defensive_node_name_calculations')) {
-			if (!actions.isRangeAnnotatable(range)) {
-				return undefined;
-			}
-
-			return getRendererRangeInlineNodeNames({
-				pos: documentPosition,
-				actions,
-			});
-		} else {
-			if (!fg('editor_inline_comments_on_inline_nodes')) {
-				return undefined;
-			}
-
-			if (actions.isValidAnnotationRange(range)) {
-				return getRendererRangeInlineNodeNames({
-					pos: documentPosition,
-					actions,
-				});
-			} else {
-				return undefined;
-			}
+		if (!actions.isRangeAnnotatable(range)) {
+			return undefined;
 		}
+
+		return getRendererRangeInlineNodeNames({
+			pos: documentPosition,
+			actions,
+		});
 	}, [documentPosition, actions, range]);
 
 	const onCreateCallback = useCallback(

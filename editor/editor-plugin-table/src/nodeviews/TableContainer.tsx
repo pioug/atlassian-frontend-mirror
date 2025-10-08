@@ -452,36 +452,13 @@ const ResizableTableContainerLegacy = React.memo(
 					className={ClassName.TABLE_RESIZER_CONTAINER}
 					ref={containerRef}
 				>
-					{fg('platform_editor_live_page_prevent_table_recreation') ? null : isLivePageViewMode ? (
-						<InnerContainer
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={className}
-							node={node}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							style={{ width: 'inherit' }}
-						>
+					{/* eslint-disable-next-line react/jsx-props-no-spreading -- Ignored via go/ees005 */}
+					<TableResizer {...tableResizerProps} disabled={isLivePageViewMode}>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
+						<InnerContainer className={className} node={node}>
 							{children}
 						</InnerContainer>
-					) : (
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						<TableResizer {...tableResizerProps}>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-							<InnerContainer className={className} node={node}>
-								{children}
-							</InnerContainer>
-						</TableResizer>
-					)}
-					{fg('platform_editor_live_page_prevent_table_recreation') ? (
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						<TableResizer {...tableResizerProps} disabled={isLivePageViewMode}>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-							<InnerContainer className={className} node={node}>
-								{children}
-							</InnerContainer>
-						</TableResizer>
-					) : null}
+					</TableResizer>
 				</div>
 			</AlignmentTableContainerWrapper>
 		);
@@ -746,36 +723,13 @@ const ResizableTableContainerNext = React.memo(
 					className={ClassName.TABLE_RESIZER_CONTAINER}
 					ref={containerRef}
 				>
-					{fg('platform_editor_live_page_prevent_table_recreation') ? null : isLivePageViewMode ? (
-						<InnerContainer
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={className}
-							node={node}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							style={{ width: 'inherit' }}
-						>
+					{/* eslint-disable-next-line react/jsx-props-no-spreading -- Ignored via go/ees005 */}
+					<TableResizer {...tableResizerProps} disabled={isLivePageViewMode}>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
+						<InnerContainer className={className} node={node}>
 							{children}
 						</InnerContainer>
-					) : (
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						<TableResizer {...tableResizerProps}>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-							<InnerContainer className={className} node={node}>
-								{children}
-							</InnerContainer>
-						</TableResizer>
-					)}
-					{fg('platform_editor_live_page_prevent_table_recreation') ? (
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						<TableResizer {...tableResizerProps} disabled={isLivePageViewMode}>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-							<InnerContainer className={className} node={node}>
-								{children}
-							</InnerContainer>
-						</TableResizer>
-					) : null}
+					</TableResizer>
 				</div>
 			</AlignmentTableContainerWrapper>
 		);

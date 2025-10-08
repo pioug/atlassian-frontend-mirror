@@ -62,9 +62,6 @@
 			"path": "../../helpers/intl-messages-provider/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/layering/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/link/tsconfig.app.json"
 		},
 		{

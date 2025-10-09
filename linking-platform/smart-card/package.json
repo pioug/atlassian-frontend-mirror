@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.1.0",
+	"version": "43.1.3",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -236,9 +236,6 @@
 			"type": "boolean"
 		},
 		"navx-1706-smart-link-layered-link-a11y-update": {
-			"type": "boolean"
-		},
-		"navx-1842-hiding-unnecessary-image-descriptions": {
 			"type": "boolean"
 		},
 		"hover-card-on-visibility-change-callback": {

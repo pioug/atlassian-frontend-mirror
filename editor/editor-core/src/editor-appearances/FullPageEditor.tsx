@@ -18,6 +18,7 @@ export type FullPageEditorProps = Pick<
 	| 'annotationProviders'
 	| 'collabEditProvider'
 	| 'collabEdit'
+	| 'contentMode'
 	| 'taskDecisionProvider'
 	| 'extensionProviders'
 	| 'shouldFocus'

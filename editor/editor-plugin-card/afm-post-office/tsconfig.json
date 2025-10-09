@@ -110,6 +110,9 @@
 			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/smart-card/afm-post-office/tsconfig.json"
 		},
 		{

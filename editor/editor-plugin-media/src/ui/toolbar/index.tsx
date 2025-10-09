@@ -1104,7 +1104,11 @@ export const floatingToolbar = (
 				},
 				{
 					title: intl?.formatMessage(commonMessages.delete),
-					onClick: removeWithAnalytics(pluginInjectionApi?.analytics?.actions, selectedNodeType),
+					onClick:
+						parentMediaGroupNode?.node.type === mediaGroup &&
+						fg('platform_editor_fix_media_card_removal')
+							? handleRemoveMediaGroupWithAnalytics(pluginInjectionApi?.analytics?.actions)
+							: removeWithAnalytics(pluginInjectionApi?.analytics?.actions, selectedNodeType),
 					icon: <DeleteIcon label="" />,
 					...hoverDecorationProps(nodeType),
 				},

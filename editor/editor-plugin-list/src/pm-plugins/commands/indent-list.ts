@@ -14,7 +14,7 @@ import {
 import { PassiveTransaction } from '@atlaskit/editor-common/preset';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import { isBulletList } from '@atlaskit/editor-common/utils';
-import { closeHistory } from '@atlaskit/editor-prosemirror/history';
+import { closeHistory } from '@atlaskit/prosemirror-history';
 
 import { MAX_NESTED_LIST_INDENTATION } from '../../types';
 import { indentListItemsSelected as indentListAction } from '../actions/indent-list-items-selected';

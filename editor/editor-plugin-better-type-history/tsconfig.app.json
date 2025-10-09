@@ -33,6 +33,9 @@
 	"references": [
 		{
 			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../prosemirror-history/tsconfig.app.json"
 		}
 	]
 }

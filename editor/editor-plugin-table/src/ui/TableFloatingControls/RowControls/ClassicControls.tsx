@@ -104,9 +104,9 @@ class RowControlsComponent extends Component<Props & WrappedComponentProps> {
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 									className={`${ClassName.ROW_CONTROLS_BUTTON} ${ClassName.CONTROLS_BUTTON}`}
 									onClick={(event) => this.props.selectRow(startIndex, event.shiftKey)}
-									// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, @atlassian/a11y/mouse-events-have-key-events
+									// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 									onMouseOver={() => this.props.hoverRows([startIndex])}
-									// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, @atlassian/a11y/mouse-events-have-key-events
+									// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 									onMouseOut={this.clearHoverSelection}
 									data-start-index={startIndex}
 									data-end-index={endIndex}

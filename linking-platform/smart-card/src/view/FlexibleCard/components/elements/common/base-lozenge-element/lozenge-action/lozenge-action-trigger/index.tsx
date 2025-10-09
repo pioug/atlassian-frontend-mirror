@@ -137,11 +137,7 @@ const LozengeActionTrigger = ({
 								LEGACY_size="medium"
 								LEGACY_margin="-4px -8px -4px -7px"
 								size="small"
-								{...(fg('navx-1842-hiding-unnecessary-image-descriptions')
-									? {
-											'aria-hidden': true,
-										}
-									: {})}
+								aria-hidden={true}
 							/>
 						</Box>
 					</span>

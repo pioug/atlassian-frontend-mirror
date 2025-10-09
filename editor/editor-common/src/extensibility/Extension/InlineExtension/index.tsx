@@ -125,7 +125,7 @@ const InlineExtension = (props: Props) => {
 					pluginInjectionApi={pluginInjectionApi}
 				/>
 			)}
-			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+			{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions*/}
 			<div
 				data-testid="inline-extension-wrapper"
 				css={[

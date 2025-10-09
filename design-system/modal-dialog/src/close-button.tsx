@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type FocusEventHandler } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
 import CrossIcon from '@atlaskit/icon/core/migration/cross';
@@ -10,6 +10,10 @@ type CloseButtonProps = {
 	 * The accessible name to give to the close button.
 	 */
 	label?: string;
+	/**
+	 * The `onBlur` handler for the close button.
+	 */
+	onBlur?: FocusEventHandler<HTMLButtonElement>;
 	/**
 	 * The same close handler you give to the top-level modal component.
 	 */
@@ -32,12 +36,13 @@ type CloseButtonProps = {
  * using a `Flex` primitive as the custom header's container with a flex
  * direction of `row-reverse`.
  */
-export const CloseButton = ({ label, onClick, testId }: CloseButtonProps) => (
+export const CloseButton = ({ label, onBlur, onClick, testId }: CloseButtonProps) => (
 	<IconButton
 		testId={testId && `${testId}--close-button`}
 		appearance="subtle"
 		icon={CrossIcon}
 		label={label || 'Close Modal'}
+		onBlur={onBlur}
 		onClick={onClick}
 	/>
 );

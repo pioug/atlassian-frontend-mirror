@@ -83,7 +83,6 @@ export const interactionExtraMetrics = new InteractionExtraMetrics();
 const interactionQueue: { id: string; data: InteractionMetrics }[] = [];
 const segmentCache = new Map<string, SegmentInfo>();
 export const segmentUnmountCache = new Map<string, number>(); // Temporarily store segment unmount counts
-const CLEANUP_TIMEOUT = 60 * 1000;
 
 interface SegmentObserver {
 	onAdd: (segment: SegmentInfo) => void;
@@ -1060,9 +1059,7 @@ export function addNewInteraction(
 	let vcObserver: VCObserverInterface | undefined;
 	let previousTime = startTime;
 
-	let timeoutTime = fg('platform_ufo_enable_timeout_config')
-		? getInteractionTimeout(ufoName)
-		: CLEANUP_TIMEOUT;
+	let timeoutTime = getInteractionTimeout(ufoName);
 	const timerID: ReturnType<typeof setTimeout> | undefined = setTimeout(() => {
 		abort(interactionId, 'timeout');
 	}, timeoutTime);

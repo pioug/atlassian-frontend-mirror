@@ -41,6 +41,9 @@
 			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../input-rules/afm-dev-agents/tsconfig.json"
 		},
 		{

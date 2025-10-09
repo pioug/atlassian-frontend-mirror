@@ -76,10 +76,10 @@ export const NativeMediaViewer = ({ id, mediaClient }: NativeMediaViewerProps) =
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlassian/a11y/alt-text -- Ignored via go/DSP-18766
 			return <img style={{ width: '100%' }} src={url} />;
 		case 'video':
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, jsx-a11y/media-has-caption -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlassian/a11y/media-has-caption -- Ignored via go/DSP-18766
 			return <video style={{ width: '100%' }} src={url} />;
 		case 'audio':
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, jsx-a11y/media-has-caption -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlassian/a11y/media-has-caption -- Ignored via go/DSP-18766
 			return <audio style={{ width: '100%' }} src={url} />;
 		case 'doc':
 			return (

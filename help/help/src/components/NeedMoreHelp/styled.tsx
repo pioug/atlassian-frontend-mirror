@@ -58,7 +58,7 @@ export const HelpAskAI = ({
 	children: React.ReactNode;
 	onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }) => (
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text, jsx-a11y/no-noninteractive-element-interactions, @atlassian/a11y/no-noninteractive-element-interactions, @atlassian/a11y/click-events-have-key-events
+	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text, @atlassian/a11y/no-noninteractive-element-interactions, @atlassian/a11y/click-events-have-key-events
 	<p css={helpAskAIStyles} onClick={onClick}>
 		{children}
 	</p>

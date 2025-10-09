@@ -92,6 +92,17 @@ export const messages = defineMessages({
 		defaultMessage: 'Display code with syntax highlighting',
 		description: 'Insert a snippet/segment of code (code block)',
 	},
+
+	plainTextCodeblock: {
+		id: 'fabric.editor.plainTextCodeblock',
+		defaultMessage: 'Plain text',
+		description: 'Insert a snippet/segment of code block as plain text',
+	},
+	plainTextCodeblockDescription: {
+		id: 'fabric.editor.plainTextCodeblock.description',
+		defaultMessage: 'Insert code block for plain text',
+		description: 'Insert a snippet/segment of code block as plain text',
+	},
 	infoPanel: {
 		id: 'fabric.editor.infoPanel',
 		defaultMessage: 'Info panel',

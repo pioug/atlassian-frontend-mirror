@@ -7,12 +7,12 @@ import { keyName as keyNameNormalized } from 'w3c-keyname';
 
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { redo, undo } from '@atlaskit/prosemirror-history';
 import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

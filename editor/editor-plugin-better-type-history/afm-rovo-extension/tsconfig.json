@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../prosemirror-history/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-rovo-extension/tsconfig.json"
 		}
 	]

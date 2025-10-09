@@ -1,5 +1,5 @@
 /* eslint-disable @atlaskit/design-system/no-html-button */
-/* eslint-disable jsx-a11y/mouse-events-have-key-events */
+/* eslint-disable @atlassian/a11y/mouse-events-have-key-events*/
 /**
  * @jsxRuntime classic
  * @jsx jsx

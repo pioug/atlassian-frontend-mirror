@@ -261,7 +261,7 @@ export const ReactionsDialogHeader = ({
 							const emojiId = { id: reaction.emojiId, shortName: '' };
 
 							return (
-								// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+								// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 								<div
 									css={[
 										customTabWrapper.base,

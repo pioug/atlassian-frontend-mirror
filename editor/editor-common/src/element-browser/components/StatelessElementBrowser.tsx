@@ -320,7 +320,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 	};
 
 	return (
-		/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable */
+		/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable*/
 		<div
 			css={wrapper}
 			data-testid="element-browser"
@@ -547,7 +547,7 @@ function DesktopBrowser({
 							description="Sidebar heading"
 						/>
 					</div>
-					{/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role, @atlassian/a11y/no-noninteractive-element-to-interactive-role */}
+					{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-to-interactive-role*/}
 					<nav role="tablist" aria-labelledby="sidebar-heading" css={categoryListWrapper}>
 						<CategoryList
 							categories={categories}
@@ -562,7 +562,7 @@ function DesktopBrowser({
 					</nav>
 				</div>
 			)}
-			{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions */}
+			{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions*/}
 			<div css={mainContent} onKeyDown={onKeyDown} data-testid="main-content">
 				{showSearch && (
 					// eslint-disable-next-line

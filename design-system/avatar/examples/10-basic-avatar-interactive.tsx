@@ -57,11 +57,66 @@ export default () => (
 				size="medium"
 				status="locked"
 			/>
-			<Avatar borderColor="red" onClick={() => {}} appearance="square" name="small" size="small" />
 			<Avatar
 				borderColor="red"
 				onClick={() => {}}
 				appearance="square"
+				name="small"
+				size="small"
+				status="approved"
+			/>
+			<Avatar
+				borderColor="red"
+				onClick={() => {}}
+				appearance="square"
+				name="xsmall"
+				size="xsmall"
+			/>
+		</Block>
+		<Block heading="Hexagon">
+			<Avatar
+				borderColor="red"
+				onClick={() => {}}
+				appearance="hexagon"
+				name="xxlarge"
+				size="xxlarge"
+			/>
+			<Avatar
+				borderColor="red"
+				onClick={() => {}}
+				appearance="hexagon"
+				name="xlarge"
+				size="xlarge"
+				status="approved"
+			/>
+			<Avatar
+				borderColor="red"
+				onClick={() => {}}
+				appearance="hexagon"
+				name="large"
+				size="large"
+				status="declined"
+			/>
+			<Avatar
+				borderColor="red"
+				onClick={() => {}}
+				appearance="hexagon"
+				name="medium"
+				size="medium"
+				status="locked"
+			/>
+			<Avatar
+				borderColor="red"
+				onClick={() => {}}
+				appearance="hexagon"
+				name="small"
+				size="small"
+				status="approved"
+			/>
+			<Avatar
+				borderColor="red"
+				onClick={() => {}}
+				appearance="hexagon"
 				name="xsmall"
 				size="xsmall"
 			/>

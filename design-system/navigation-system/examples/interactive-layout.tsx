@@ -187,7 +187,11 @@ function Example() {
 			<TopNav>
 				<TopNavStart
 					sideNavToggleButton={
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						<SideNavToggleButton
+							collapseLabel="Collapse sidebar"
+							expandLabel="Expand sidebar"
+							shortcut={['[']}
+						/>
 					}
 				>
 					<AppSwitcher label="Switch apps" />

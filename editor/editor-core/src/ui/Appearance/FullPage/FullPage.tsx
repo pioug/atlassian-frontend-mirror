@@ -274,6 +274,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 					isEditorToolbarHidden={isEditorToolbarHidden}
 					viewMode={state.editorViewMode}
 					hasHadInteraction={hasHadInteraction}
+					contentMode={props.contentMode}
 				/>
 			</div>
 		</ContextPanelWidthProvider>

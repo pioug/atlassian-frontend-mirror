@@ -5,11 +5,11 @@ import type {
 	TypeAheadInsert,
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
-import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { closeHistory } from '@atlaskit/prosemirror-history';
 
 import { ACTIONS } from '../actions';
 import { pluginKey } from '../key';

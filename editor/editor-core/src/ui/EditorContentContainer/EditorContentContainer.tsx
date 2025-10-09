@@ -11,7 +11,11 @@ import { jsx, useTheme } from '@emotion/react';
 
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { richMediaClassName } from '@atlaskit/editor-common/styles';
-import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
+import type {
+	EditorAppearance,
+	EditorContentMode,
+	FeatureFlags,
+} from '@atlaskit/editor-common/types';
 import { akEditorGutterPaddingDynamic, editorFontSize } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -183,6 +187,7 @@ export type EditorContentContainerProps = {
 	appearance?: EditorAppearance;
 	children?: React.ReactNode;
 	className?: string;
+	contentMode?: EditorContentMode;
 	featureFlags?: FeatureFlags;
 	isScrollable?: boolean;
 	viewMode?: 'view' | 'edit';
@@ -609,7 +614,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 				data-testid="editor-content-container"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={style as React.CSSProperties}
-				// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- Adding tabIndex here because this is a scrollable container and it needs to be focusable so keyboard users can scroll it.
+				// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex -- Adding tabIndex here because this is a scrollable container and it needs to be focusable so keyboard users can scroll it.
 				tabIndex={isScrollable ? 0 : undefined}
 				role={isScrollable ? 'region' : undefined}
 			>

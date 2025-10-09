@@ -69,22 +69,14 @@ const getHandleStyle = (node: BreakoutSupportedNodes, hidden: boolean) => {
 export const ignoreResizerMutations = (
 	mutation: MutationRecord | { target: Node; type: 'selection' },
 ) => {
-	if (fg('platform_editor_breakoutresizer_remove_assertion')) {
-		if (mutation.target instanceof Element) {
-			return (
-				mutation.target.classList.contains('resizer-item') ||
-				(mutation.type === 'attributes' && mutation.attributeName === 'style')
-			);
-		}
-
-		return mutation.type === 'attributes' && mutation.attributeName === 'style';
-	} else {
+	if (mutation.target instanceof Element) {
 		return (
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
-			(mutation.target as HTMLElement).classList.contains('resizer-item') ||
+			mutation.target.classList.contains('resizer-item') ||
 			(mutation.type === 'attributes' && mutation.attributeName === 'style')
 		);
 	}
+
+	return mutation.type === 'attributes' && mutation.attributeName === 'style';
 };
 
 const resizingStyles = { left: '50%', transform: 'translateX(-50%)', display: 'grid' };

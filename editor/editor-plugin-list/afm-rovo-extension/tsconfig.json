@@ -41,6 +41,9 @@
 			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../input-rules/afm-rovo-extension/tsconfig.json"
 		},
 		{

@@ -224,7 +224,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 							key="edit-view" // used for reset to default value
 						>
 							{({ fieldProps, error }) => (
-								// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+								// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 								<div
 									css={fieldStyles}
 									onBlur={(e) => {

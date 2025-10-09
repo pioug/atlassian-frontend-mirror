@@ -33,6 +33,14 @@ export default () => (
 			<Skeleton appearance="square" size="small" />
 			<Skeleton appearance="square" size="xsmall" />
 		</Block>
+		<Block heading="Hexagon" testId="example-block">
+			<Skeleton appearance="hexagon" size="xxlarge" />
+			<Skeleton appearance="hexagon" size="xlarge" />
+			<Skeleton appearance="hexagon" size="large" />
+			<Skeleton appearance="hexagon" size="medium" />
+			<Skeleton appearance="hexagon" size="small" />
+			<Skeleton appearance="hexagon" size="xsmall" />
+		</Block>
 		<Block heading="Coloured via inheritance" testId="example-block">
 			<Inline space="space.150" xcss={styles.textColor} alignBlock="end">
 				<Skeleton size="xxlarge" />

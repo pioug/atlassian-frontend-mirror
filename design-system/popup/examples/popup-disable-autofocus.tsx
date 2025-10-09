@@ -63,7 +63,7 @@ export default () => {
 					</Button>
 				)}
 				placement="bottom"
-				// eslint-disable-next-line jsx-a11y/no-autofocus
+				// eslint-disable-next-line @atlassian/a11y/no-autofocus
 				autoFocus={false}
 			/>
 			<input data-testid="focused-input" placeholder="This should keep focus" />

@@ -135,7 +135,7 @@ describe('<CustomItem />', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 		render(
-			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, jsx-a11y/no-static-element-interactions
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, @atlassian/a11y/no-static-element-interactions
 			<div onDragStart={dragStartEvent}>
 				<CustomItem component={Component} testId="target">
 					Hello world
@@ -154,7 +154,7 @@ describe('<CustomItem />', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 		render(
-			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, jsx-a11y/no-static-element-interactions
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, @atlassian/a11y/no-static-element-interactions
 			<div onDragStart={dragStartEvent}>
 				<CustomItem component={Component} testId="target" UNSAFE_isDraggable>
 					Hello world

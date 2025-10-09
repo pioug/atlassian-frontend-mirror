@@ -15,9 +15,11 @@ import {
 	FORMAT_NESTED_MENU_RANK_REVISED,
 } from '@atlaskit/editor-common/block-menu';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { IconCode } from '@atlaskit/editor-common/quick-insert';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { CodeBlockPlugin } from './codeBlockPluginType';
@@ -125,28 +127,45 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 		},
 
 		pluginsOptions: {
-			quickInsert: ({ formatMessage }) => [
-				{
-					id: 'codeblock',
-					title: formatMessage(blockTypeMessages.codeblock),
-					description: formatMessage(blockTypeMessages.codeblockDescription),
-					keywords: ['code block'],
-					priority: 700,
-					keyshortcut: '```',
-					icon: () => <IconCode />,
-					action(_insert, state) {
-						const tr = createInsertCodeBlockTransaction({ state });
-						api?.analytics?.actions.attachAnalyticsEvent({
-							action: ACTION.INSERTED,
-							actionSubject: ACTION_SUBJECT.DOCUMENT,
-							actionSubjectId: ACTION_SUBJECT_ID.CODE_BLOCK,
-							attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
-							eventType: EVENT_TYPE.TRACK,
-						})(tr);
-						return tr;
+			quickInsert: ({ formatMessage }) => {
+				const quickInsertItems: QuickInsertItem[] = [
+					{
+						id: 'codeblock',
+						title: formatMessage(blockTypeMessages.codeblock),
+						description: formatMessage(blockTypeMessages.codeblockDescription),
+						keywords: ['code block'],
+						priority: 700,
+						keyshortcut: '```',
+						icon: () => <IconCode />,
+						action(_insert, state) {
+							const tr = createInsertCodeBlockTransaction({ state });
+							api?.analytics?.actions.attachAnalyticsEvent({
+								action: ACTION.INSERTED,
+								actionSubject: ACTION_SUBJECT.DOCUMENT,
+								actionSubjectId: ACTION_SUBJECT_ID.CODE_BLOCK,
+								attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+								eventType: EVENT_TYPE.TRACK,
+							})(tr);
+							return tr;
+						},
 					},
-				},
-			],
+				];
+				if (expValEquals('platform_editor_plain_text_support', 'isEnabled', true)) {
+					quickInsertItems.push({
+						id: 'plainText',
+						title: formatMessage(blockTypeMessages.plainTextCodeblock),
+						description: formatMessage(blockTypeMessages.plainTextCodeblockDescription),
+						keywords: ['plain text'],
+						icon: () => <IconCode />,
+						action(_insert, state) {
+							const tr = createInsertCodeBlockTransaction({ state });
+							return tr;
+						},
+					});
+				}
+
+				return quickInsertItems;
+			},
 			floatingToolbar: getToolbarConfig(
 				options?.allowCopyToClipboard,
 				api,

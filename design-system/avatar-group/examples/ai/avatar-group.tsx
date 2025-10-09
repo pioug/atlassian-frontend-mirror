@@ -9,8 +9,8 @@ export default [
 		onAvatarClick={console.log}
 		data={[
 			{ key: 'uid1', name: 'Bob Smith' },
-			{ key: 'uid2', name: 'Alice Johnson' },
-			{ key: 'uid3', name: 'Eve Brown' },
+			{ key: 'uid2', name: 'Design System Team', appearance: 'square' },
+			{ key: 'uid3', name: 'Review Agent', appearance: 'hexagon' },
 			{ key: 'uid4', name: 'Carol Davis' },
 		]}
 		maxCount={3}

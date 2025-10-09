@@ -46,6 +46,9 @@
 		},
 		{
 			"path": "../editor-test-helpers/tsconfig.app.json"
+		},
+		{
+			"path": "../prosemirror-history/tsconfig.app.json"
 		}
 	]
 }

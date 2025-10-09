@@ -4,27 +4,24 @@ import AvatarGroup from '@atlaskit/avatar-group';
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 
-import { getFreeToUseAvatarImage, RANDOM_USERS } from '../../examples-util/data';
+import { appearances, getFreeToUseAvatarImage, RANDOM_USERS } from '../../examples-util/data';
 
 const styles = cssMap({
-	container: {
-		maxWidth: '200px',
-	},
+	container: { maxWidth: '200px' },
 });
 
-const AvatarGroupGridExample = () => {
-	const data = RANDOM_USERS.map((d, i) => ({
-		key: d.email,
-		name: d.name,
-		href: '#',
-		src: getFreeToUseAvatarImage(i),
-	}));
+const data = RANDOM_USERS.map((d, i) => ({
+	key: d.email,
+	name: d.name,
+	href: '#',
+	src: getFreeToUseAvatarImage(i),
+	appearance: appearances[i % appearances.length],
+}));
 
-	return (
-		<Box xcss={styles.container}>
-			<AvatarGroup appearance="grid" data={data} />
-		</Box>
-	);
-};
+const AvatarGroupGridExample = () => (
+	<Box xcss={styles.container}>
+		<AvatarGroup appearance="grid" data={data} />
+	</Box>
+);
 
 export default AvatarGroupGridExample;

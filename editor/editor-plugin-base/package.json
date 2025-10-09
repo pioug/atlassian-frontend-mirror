@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-base",
-	"version": "7.0.1",
+	"version": "7.1.0",
 	"description": "Base plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,6 +35,7 @@
 		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/prosemirror-history": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"
 	},

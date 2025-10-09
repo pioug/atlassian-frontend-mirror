@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block
 
+## 8.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.9
+
+### Patch Changes
+
+- [`a4db0a2351f7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4db0a2351f7d) -
+  [ux] ED-29502 Add plain text quick insert option to codeBlockPlugin
+- Updated dependencies
+
 ## 8.0.8
 
 ### Patch Changes

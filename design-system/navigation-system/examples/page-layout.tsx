@@ -511,7 +511,7 @@ export const SideNavOverflowingChildren = () => (
 					 * Realistic usage would have real focusable content, such as in the composition examples.
 					 * Taking a shortcut here because these examples are for VRs and not meant to be realistic content.
 					 */
-					// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex, @atlassian/a11y/no-noninteractive-tabindex
+					// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
 					tabIndex={0}
 				>
 					side nav

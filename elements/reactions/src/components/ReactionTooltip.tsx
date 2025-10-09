@@ -110,7 +110,7 @@ export const ReactionTooltip = ({
 
 	const content =
 		!users || users.length === 0 || !isEnabled ? null : (
-			// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex, @atlassian/a11y/no-noninteractive-tabindex
+			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
 			<div css={tooltipStyle} tabIndex={0}>
 				<ul>
 					{emojiName ? <li css={emojiNameStyle}>{emojiName}</li> : null}
@@ -119,7 +119,7 @@ export const ReactionTooltip = ({
 					})}
 					{/* If count of reactions higher then given threshold then render custom message */}
 
-					{/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, @atlassian/a11y/no-noninteractive-element-interactions, @atlassian/a11y/click-events-have-key-events */}
+					{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions, @atlassian/a11y/click-events-have-key-events*/}
 					<li
 						css={[footerStyle, allowUserDialog && underlineStyle]}
 						onMouseDown={handleClick}

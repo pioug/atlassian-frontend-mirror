@@ -3,8 +3,8 @@ import { keymap } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactory } from '@atlaskit/editor-common/types';
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
-import { history } from '@atlaskit/editor-prosemirror/history';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { history } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 

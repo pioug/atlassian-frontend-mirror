@@ -24,8 +24,8 @@ import {
 	insertNewLineWithAnalytics,
 } from '@atlaskit/editor-common/utils';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
-import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { redo, undo } from '@atlaskit/prosemirror-history';
 
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace

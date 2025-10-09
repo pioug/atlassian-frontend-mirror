@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 215.0.4
+
+### Patch Changes
+
+- [`9c55684b00aa0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c55684b00aa0) -
+  [EDITOR-1992] Update extension styles to include font size adjustments in all content in
+  extensions and set the style based on the contentMode prop as well as the fg
+- Updated dependencies
+
+## 215.0.3
+
+### Patch Changes
+
+- [`6ab3011f7db68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ab3011f7db68) -
+  [ux] Fixed a bug where the ChromelessEditor's clickable area would not expand when its minHeight
+  was greater than its content. This is behind a feature gate,
+  platform_expand_editor_click_area_with_minheight .
+- Updated dependencies
+
 ## 215.0.2
 
 ### Patch Changes

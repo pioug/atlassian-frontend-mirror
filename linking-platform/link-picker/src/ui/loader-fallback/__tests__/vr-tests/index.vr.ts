@@ -11,10 +11,30 @@ import {
 } from '../../examples';
 
 snapshot(LazyLoadingWithDisplayTextExample);
-snapshot(LazyLoadingWithDisplayTextWithOnePluginExample);
-snapshot(LazyLoadingWithDisplayTextWithPluginsExample);
+snapshot(LazyLoadingWithDisplayTextWithOnePluginExample, {
+	featureFlags: {
+		aifc_create_enabled: true,
+		'platform-linking-link-picker-previewable-only': true,
+	},
+});
+snapshot(LazyLoadingWithDisplayTextWithPluginsExample, {
+	featureFlags: {
+		aifc_create_enabled: true,
+		'platform-linking-link-picker-previewable-only': true,
+	},
+});
 
 snapshot(LazyLoadingWithoutDisplayTextExample);
-snapshot(LazyLoadingWithoutDisplayTextWithOnePluginExample);
-snapshot(LazyLoadingWithoutDisplayTextWithPluginsExample);
+snapshot(LazyLoadingWithoutDisplayTextWithOnePluginExample, {
+	featureFlags: {
+		aifc_create_enabled: true,
+		'platform-linking-link-picker-previewable-only': true,
+	},
+});
+snapshot(LazyLoadingWithoutDisplayTextWithPluginsExample, {
+	featureFlags: {
+		aifc_create_enabled: true,
+		'platform-linking-link-picker-previewable-only': true,
+	},
+});
 snapshot(LazyLoadingEditModeWithDisplayTextWithPluginsExample);

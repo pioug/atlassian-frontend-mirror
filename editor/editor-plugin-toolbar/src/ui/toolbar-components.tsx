@@ -166,11 +166,7 @@ export const getToolbarComponents = (
 								rank: TOOLBAR_RANK[TEXT_SECTION_COLLAPSED.key],
 							},
 
-							expValEquals(
-								'platform_editor_aifc_selection_toolbar_responsive',
-								'isEnabled',
-								true,
-							) && {
+							expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true) && {
 								type: 'toolbar',
 								key: TOOLBARS.INLINE_TEXT_TOOLBAR,
 								rank: TOOLBAR_RANK[TEXT_SECTION_COLLAPSED.key],

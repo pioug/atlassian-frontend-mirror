@@ -37,7 +37,7 @@ jest.mock('../../../state/helpers', () => ({
 }));
 
 const spyOnAtlaskitLink = jest.mocked(AKLink);
-const useExperimentGateMock = jest.spyOn(FeatureGates, 'getExperimentValue');
+const getExperimentValueMock = jest.spyOn(FeatureGates, 'getExperimentValue');
 const checkGateMock = jest.spyOn(FeatureGates, 'checkGate');
 const useSmartCardActionsMock = jest.spyOn(UseSmartCardActionsExports, 'useSmartCardActions');
 const useAnalyticsEventsMock = jest.spyOn(UseAnalyticsEventsExports, 'useAnalyticsEvents');
@@ -59,6 +59,7 @@ describe('LinkUrl', () => {
 		spyOnAtlaskitLink.mockClear();
 		jest.clearAllMocks();
 		checkGateMock.mockReturnValue(true);
+		getExperimentValueMock.mockReturnValue(false);
 	});
 
 	describe('resolve hyperlink', () => {
@@ -77,20 +78,6 @@ describe('LinkUrl', () => {
 		});
 
 		it('should attempt to resolve a sharepoint hyperlink if there is a SmartCardProvider context', () => {
-			// sharepoint enabled, google disabled
-			useExperimentGateMock.mockImplementation((experimentName) => {
-				if (
-					experimentName === 'platform_editor_resolve_hyperlinks_confluence' ||
-					experimentName === 'platform_editor_resolve_hyperlinks_jira'
-				) {
-					return true;
-				}
-				if (experimentName === 'platform_editor_resolve_google_hyperlinks') {
-					return false;
-				}
-				return false;
-			});
-
 			useSmartCardActionsMock.mockReturnValue({
 				register: jest.fn(),
 			} as unknown as ReturnType<typeof UseSmartCardActionsExports.useSmartCardActions>);
@@ -114,65 +101,20 @@ describe('LinkUrl', () => {
 			expect(useScheduledRegisterMock).toHaveBeenCalled();
 		});
 
-		it('should not attempt to resolve a hyperlink if the domain is not sharepoint/onedrive related when only SharePoint gates are enabled', () => {
-			// sharepoint enabled, google disabled
-			useExperimentGateMock.mockImplementation((experimentName) => {
-				if (
-					experimentName === 'platform_editor_resolve_hyperlinks_confluence' ||
-					experimentName === 'platform_editor_resolve_hyperlinks_jira'
-				) {
-					return true;
-				}
-				if (experimentName === 'platform_editor_resolve_google_hyperlinks') {
-					return false;
-				}
-				return false;
-			});
-
+		it('should not attempt to resolve a hyperlink if the domain is not sharepoint/onedrive or google related', () => {
 			useSmartCardActionsMock.mockReturnValue({
 				register: jest.fn(),
 			} as unknown as ReturnType<typeof UseSmartCardActionsExports.useSmartCardActions>);
 
 			render(
 				<SmartCardProvider client={new CardClient()}>
-					<TestComponent enableResolve={true} href="https://docs.google.com/document/1" />
+					<TestComponent enableResolve={true} href="https://github.com/document/1" />
 				</SmartCardProvider>,
 			);
 			expect(useSmartCardActionsMock).not.toHaveBeenCalled();
 		});
 
-		it('should not attempt to resolve a sharepoint hyperlink when experiment gate is disabled', () => {
-			useExperimentGateMock.mockReturnValue(false);
-			useSmartCardActionsMock.mockReturnValue({
-				register: jest.fn(),
-			} as unknown as ReturnType<typeof UseSmartCardActionsExports.useSmartCardActions>);
-
-			render(
-				<SmartCardProvider client={new CardClient()}>
-					<TestComponent
-						enableResolve={true}
-						href="https://atlassianmpsa-my.sharepoint.com/personal/test"
-					/>
-				</SmartCardProvider>,
-			);
-			expect(useSmartCardActionsMock).not.toHaveBeenCalled();
-		});
-
-		it('should attempt to resolve a google hyperlink if there is a SmartCardProvider context and feature gate is enabled', () => {
-			// sharepoint disabled, google enabled
-			useExperimentGateMock.mockImplementation((experimentName) => {
-				if (experimentName === 'platform_editor_resolve_google_hyperlinks') {
-					return true;
-				}
-				if (
-					experimentName === 'platform_editor_resolve_hyperlinks_confluence' ||
-					experimentName === 'platform_editor_resolve_hyperlinks_jira'
-				) {
-					return false;
-				}
-				return false;
-			});
-
+		it('should attempt to resolve a google hyperlink if there is a SmartCardProvider context', () => {
 			useSmartCardActionsMock.mockReturnValue({
 				register: jest.fn(),
 			} as unknown as ReturnType<typeof UseSmartCardActionsExports.useSmartCardActions>);
@@ -194,59 +136,7 @@ describe('LinkUrl', () => {
 			expect(useScheduledRegisterMock).toHaveBeenCalledTimes(2);
 		});
 
-		it('should not attempt to resolve a google hyperlink when experiment gate is disabled', () => {
-			useExperimentGateMock.mockReturnValue(false);
-			useSmartCardActionsMock.mockReturnValue({
-				register: jest.fn(),
-			} as unknown as ReturnType<typeof UseSmartCardActionsExports.useSmartCardActions>);
-
-			render(
-				<SmartCardProvider client={new CardClient()}>
-					<TestComponent enableResolve={true} href="https://docs.google.com/document/d/123/edit" />
-				</SmartCardProvider>,
-			);
-			expect(useSmartCardActionsMock).not.toHaveBeenCalled();
-		});
-
-		it('should not attempt to resolve a hyperlink if the domain is not google related when only Google gate is enabled', () => {
-			// sharepoint disabled, google enabled
-			useExperimentGateMock.mockImplementation((experimentName) => {
-				if (experimentName === 'platform_editor_resolve_google_hyperlinks') {
-					return true;
-				}
-				if (
-					experimentName === 'platform_editor_resolve_hyperlinks_confluence' ||
-					experimentName === 'platform_editor_resolve_hyperlinks_jira'
-				) {
-					return false;
-				}
-				return false;
-			});
-
-			useSmartCardActionsMock.mockReturnValue({
-				register: jest.fn(),
-			} as unknown as ReturnType<typeof UseSmartCardActionsExports.useSmartCardActions>);
-
-			render(
-				<SmartCardProvider client={new CardClient()}>
-					<TestComponent enableResolve={true} href="https://sharepoint.com/document/1" />
-				</SmartCardProvider>,
-			);
-			expect(useSmartCardActionsMock).not.toHaveBeenCalled();
-		});
-
-		it('should handle both sharepoint and google feature gates being enabled', () => {
-			useExperimentGateMock.mockImplementation((experimentName) => {
-				if (
-					experimentName === 'platform_editor_resolve_google_hyperlinks' ||
-					experimentName === 'platform_editor_resolve_hyperlinks_confluence' ||
-					experimentName === 'platform_editor_resolve_hyperlinks_jira'
-				) {
-					return true;
-				}
-				return false;
-			});
-
+		it('should handle both sharepoint and google links', () => {
 			useSmartCardActionsMock.mockReturnValue({
 				register: jest.fn(),
 			} as unknown as ReturnType<typeof UseSmartCardActionsExports.useSmartCardActions>);
@@ -290,7 +180,6 @@ describe('LinkUrl', () => {
 			});
 
 			it('should fire operational.hyperlink.resolved analytics event when hyperlink resolves successfully', async () => {
-				useExperimentGateMock.mockReturnValue(true);
 				getExtensionKeyMock.mockReturnValue('onedrive-object-provider');
 
 				useSmartCardActionsMock.mockReturnValue({
@@ -328,7 +217,6 @@ describe('LinkUrl', () => {
 			});
 
 			it('should fire operational.hyperlink.unresolved analytics event when hyperlink fails to resolve', async () => {
-				useExperimentGateMock.mockReturnValue(true);
 				getExtensionKeyMock.mockReturnValue(undefined);
 
 				const mockRegister = jest.fn();
@@ -375,8 +263,6 @@ describe('LinkUrl', () => {
 			});
 
 			it('should not fire analytics event for ResolveUnsupportedError', async () => {
-				useExperimentGateMock.mockReturnValue(true);
-
 				useSmartCardActionsMock.mockReturnValue({
 					register: mockRegister,
 				} as unknown as ReturnType<typeof UseSmartCardActionsExports.useSmartCardActions>);
@@ -412,8 +298,6 @@ describe('LinkUrl', () => {
 			});
 
 			it('should not fire analytics event for UnsupportedError', async () => {
-				useExperimentGateMock.mockReturnValue(true);
-
 				useSmartCardActionsMock.mockReturnValue({
 					register: mockRegister,
 				} as unknown as ReturnType<typeof UseSmartCardActionsExports.useSmartCardActions>);

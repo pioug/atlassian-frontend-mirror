@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
-import { cssMap } from '@atlaskit/css';
+import { cssMap, cx } from '@atlaskit/css';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import GlobeIcon from '@atlaskit/icon/core/globe';
 import LinkIcon from '@atlaskit/icon/core/link';
@@ -38,6 +38,12 @@ const styles = cssMap({
 		outlineColor: token('color.border'),
 		outlineStyle: 'solid',
 		backgroundColor: token('elevation.surface.sunken'),
+	},
+	linkIconWrapperSmall: {
+		marginTop: token('space.025', '2px'),
+	marginRight: token('space.025', '2px'),
+	marginBottom: token('space.025', '2px'),
+	marginLeft: token('space.025', '2px'),
 	},
 	skeletonMedium: {
 		backgroundColor: token('color.skeleton'),
@@ -111,15 +117,17 @@ export const ContainerIcon = ({
 	if (containerType === 'WebLink' && !containerIcon) {
 		if (isTeamLensInHomeEnabled || isNewTeamProfilePageEnabled) {
 			return (
-				<IconButton
-					label=""
-					spacing="default"
-					appearance="default"
-					aria-hidden="true" // Keeping this to be double sure icon isn't going to be focused
-					tabIndex={-1} // This is to prevent the icon from being focused
-					testId="linked-container-WebLink-new-icon"
-					icon={() => <LinkIcon label="" size={isMedium ? 'medium' : 'small'} />}
-				/>
+				<Box xcss={cx(!isMedium && styles.linkIconWrapperSmall)}>
+					<IconButton
+						label=""
+						spacing={isMedium ? 'default' : 'compact'}
+						appearance="default"
+						aria-hidden="true" // Keeping this to be double sure icon isn't going to be focused
+						tabIndex={-1} // This is to prevent the icon from being focused
+						testId="linked-container-WebLink-new-icon"
+						icon={() => <LinkIcon label="" size={isMedium ? 'medium' : 'small'} />}
+					/>
+				</Box>
 			);
 		}
 		if (iconsLoading || !iconHasLoaded) {

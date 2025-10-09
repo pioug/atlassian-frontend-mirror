@@ -1,5 +1,12 @@
 # @atlaskit/modal-dialog
 
+## 14.5.0
+
+### Minor Changes
+
+- [`bab28f9576a96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bab28f9576a96) -
+  Add `onBlur` handler to the close button export.
+
 ## 14.4.2
 
 ### Patch Changes

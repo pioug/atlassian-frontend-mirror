@@ -921,14 +921,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-09-05
-	platform_editor_aifc_selection_toolbar_responsive: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_aifc_selection_toolbar_responsive',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-09-17
 	platform_editor_block_menu_keyboard_navigation: createBooleanExperiment({
 		productKeys: {
@@ -1005,6 +997,15 @@ export const editorExperimentsConfig = {
 	cc_editor_ttvc_release_bundle_one: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_ttvc_release_bundle_one',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-10-07
+	platform_editor_plain_text_support: createBooleanExperiment({
+		productKeys: {
+			jira: 'platform_editor_plain_text_support',
+			confluence: 'platform_editor_plain_text_support',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

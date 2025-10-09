@@ -601,7 +601,7 @@ export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 							}
 						}}
 						css={popupWrapperStyle}
-						// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex, @atlassian/a11y/no-noninteractive-tabindex
+						// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
 						tabIndex={0}
 					>
 						<RepositionOnUpdate update={update} settings={settings}>

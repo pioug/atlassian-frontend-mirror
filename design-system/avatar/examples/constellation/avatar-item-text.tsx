@@ -5,9 +5,9 @@ import Avatar, { AvatarItem } from '@atlaskit/avatar';
 const AvatarItemTextExample = () => {
 	return (
 		<AvatarItem
-			avatar={<Avatar name="Atlassian CEO" presence="online" />}
-			primaryText="Atlassian CEO"
-			secondaryText="CEO@atlassian.com"
+			avatar={<Avatar name="Rovo" appearance="hexagon" presence="online" />}
+			primaryText="Rovo Agent"
+			secondaryText="rovo@atlassian.com"
 		/>
 	);
 };

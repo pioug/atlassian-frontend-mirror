@@ -1,5 +1,20 @@
 # @atlaskit/link-picker
 
+## 3.16.0
+
+### Minor Changes
+
+- [`c3387bfdeaf1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3387bfdeaf1d) -
+  [ux] Copy change for link picker plugins header "Recently Viewed" changed to "Recently viewed"
+
+## 3.15.0
+
+### Minor Changes
+
+- [`df69392511ed8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df69392511ed8) -
+  [ux] Renamed Google Drive tab to GDrive for link picker experiment and also removed scrolling tab
+  list as that is no longer needed for the experiment
+
 ## 3.14.0
 
 ### Minor Changes

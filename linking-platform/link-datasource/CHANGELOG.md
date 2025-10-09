@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.25.3
+
+### Patch Changes
+
+- [`861f5f62c7aaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/861f5f62c7aaa) -
+  NAVX-1902 cleaning up navx-1241-sllv-text-gets-cut-off-when-text-spacing-styles-are-applied
+- Updated dependencies
+
 ## 4.25.2
 
 ### Patch Changes

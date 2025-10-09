@@ -1,5 +1,14 @@
 # @atlaskit/avatar-group
 
+## 12.3.1
+
+### Patch Changes
+
+- [`a37090c1d91de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a37090c1d91de) -
+  Updates the documentation to show how to use AvatarGroup with non-circular Avatars. Be aware the
+  "more" indicator does not take multiple appearances.
+- Updated dependencies
+
 ## 12.3.0
 
 ### Minor Changes

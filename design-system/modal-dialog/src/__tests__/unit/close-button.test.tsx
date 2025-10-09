@@ -7,6 +7,8 @@ import noop from '@atlaskit/ds-lib/noop';
 
 import { CloseButton } from '../../close-button';
 
+const user = userEvent.setup();
+
 describe('Close button', () => {
 	const label = 'label';
 	const testId = 'testId';
@@ -42,6 +44,18 @@ describe('Close button', () => {
 		render(<CloseButton label={label} onClick={noop} testId={testId} />);
 
 		const closeButton = screen.getByTestId(`${testId}--close-button`);
+
+		expect(closeButton).toHaveAccessibleName(label);
+	});
+
+	it('should run onBlur if provided', async () => {
+		const onBlur = jest.fn();
+
+		render(<CloseButton label={label} onBlur={onBlur} onClick={noop} testId={testId} />);
+
+		const closeButton = screen.getByTestId(`${testId}--close-button`);
+
+		await user.click(closeButton);
 
 		expect(closeButton).toHaveAccessibleName(label);
 	});

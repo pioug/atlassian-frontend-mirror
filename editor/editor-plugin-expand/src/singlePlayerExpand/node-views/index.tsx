@@ -18,12 +18,12 @@ import type {
 	getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
 import { closestElement, isEmptyNode } from '@atlaskit/editor-common/utils';
-import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { redo, undo } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ExpandPlugin } from '../../types';

@@ -68,6 +68,9 @@
 			"path": "../../../design-system/primitives/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../../editor/prosemirror-history/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/spinner/afm-passionfruit/tsconfig.json"
 		},
 		{

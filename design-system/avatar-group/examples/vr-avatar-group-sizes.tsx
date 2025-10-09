@@ -1,19 +1,17 @@
 import React from 'react';
 
-import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
 
-import { RANDOM_USERS } from '../examples-util/data';
+import { appearances, RANDOM_USERS } from '../examples-util/data';
 import { ExampleGroup } from '../examples-util/helpers';
 
-export default () => {
-	const data = RANDOM_USERS.map((d) => ({
-		key: d.email,
-		name: d.name,
-		appearance: 'circle' as AppearanceType,
-		size: 'medium' as SizeType,
-	}));
+const data = RANDOM_USERS.map((d, i) => ({
+	key: d.email,
+	name: d.name,
+	appearance: appearances[i % appearances.length],
+}));
 
+export default () => {
 	return (
 		<>
 			{(['small', 'medium', 'large', 'xlarge'] as const).map((size) => (

@@ -547,7 +547,7 @@ type VideoProps = {
 };
 
 export const Video = ({ autoPlay, controls, src }: VideoProps) => (
-	// eslint-disable-next-line jsx-a11y/media-has-caption
+	// eslint-disable-next-line @atlassian/a11y/media-has-caption
 	<video css={videoStyles} autoPlay={autoPlay} controls={controls} src={src} />
 );
 
@@ -691,7 +691,7 @@ export const Img = ({
 		}
 	}, [canDrag, isDragging]);
 	return (
-		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, @atlassian/a11y/no-noninteractive-element-interactions
+		// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
 		<img
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
@@ -772,7 +772,7 @@ type AudioProps = {
 
 export const Audio = forwardRef<HTMLAudioElement, AudioProps>(
 	({ autoPlay, controls, src, preload }, ref) => (
-		// eslint-disable-next-line jsx-a11y/media-has-caption
+		// eslint-disable-next-line @atlassian/a11y/media-has-caption
 		<audio
 			css={audioStyles}
 			ref={ref}

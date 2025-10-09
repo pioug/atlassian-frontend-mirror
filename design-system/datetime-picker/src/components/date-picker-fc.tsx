@@ -593,7 +593,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 						: ariaDescribedBy
 				}
 				label={label || undefined}
-				// eslint-disable-next-line jsx-a11y/no-autofocus
+				// eslint-disable-next-line @atlassian/a11y/no-autofocus
 				autoFocus={autoFocus}
 				clearControlLabel={clearControlLabel}
 				closeMenuOnSelect

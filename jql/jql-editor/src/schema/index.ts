@@ -4,7 +4,6 @@ import mapValues from 'lodash/mapValues';
 import { type IntlShape } from 'react-intl-next';
 
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
-import { history, redo, undo } from '@atlaskit/editor-prosemirror/history';
 import { keydownHandler, keymap } from '@atlaskit/editor-prosemirror/keymap';
 import {
 	DOMParser,
@@ -14,6 +13,7 @@ import {
 } from '@atlaskit/editor-prosemirror/model';
 import { EditorState, Plugin, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { history, redo, undo } from '@atlaskit/prosemirror-history';
 
 import {
 	autocompletePlugin,

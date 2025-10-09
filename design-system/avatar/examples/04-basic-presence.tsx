@@ -37,5 +37,13 @@ export default () => (
 			<Avatar appearance="square" name="small" size="small" presence="offline" />
 			<Avatar appearance="square" name="xsmall" size="xsmall" />
 		</Block>
+		<Block heading="Hexagon">
+			<Avatar appearance="hexagon" name="xxlarge" size="xxlarge" />
+			<Avatar appearance="hexagon" name="xlarge" size="xlarge" presence="online" />
+			<Avatar appearance="hexagon" name="large" size="large" presence="busy" />
+			<Avatar appearance="hexagon" name="medium" size="medium" presence="focus" />
+			<Avatar appearance="hexagon" name="small" size="small" presence="offline" />
+			<Avatar appearance="hexagon" name="xsmall" size="xsmall" />
+		</Block>
 	</Stack>
 );

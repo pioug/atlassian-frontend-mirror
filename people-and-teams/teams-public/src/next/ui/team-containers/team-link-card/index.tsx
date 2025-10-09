@@ -186,7 +186,7 @@ export const TeamLinkCard = ({
 					testId="team-link-card-linkable-content"
 				>
 					<Stack space="space.025">
-						<Text maxLines={1} weight="medium" color="color.text">
+						<Text maxLines={1} color="color.text">
 							{title}
 						</Text>
 						<Flex gap="space.050" alignItems="center">

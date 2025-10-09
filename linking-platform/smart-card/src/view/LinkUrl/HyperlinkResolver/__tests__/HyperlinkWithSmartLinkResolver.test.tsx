@@ -92,14 +92,17 @@ describe('HyperlinkWithSmartLinkResolver - Connect Button Logic', () => {
 			// Enable the experiments for these tests
 			getExperimentValueMock.mockImplementation((experimentName: string) => {
 				if (
-					experimentName === 'platform_linking_bluelink_connect_CONFLUENCE' ||
-					experimentName === 'platform_linking_bluelink_connect_JIRA'
+					experimentName === 'platform_linking_bluelink_connect_confluence' ||
+					experimentName === 'platform_linking_bluelink_connect_jira'
 				) {
 					return true;
+				} else if (experimentName === 'platform_inline_smartcard_connect_button_exp') {
+					return 'control';
 				}
 				return false;
 			});
 		});
+
 		describe('when state is unauthorized', () => {
 			beforeEach(() => {
 				useResolveHyperlink.mockReturnValue({

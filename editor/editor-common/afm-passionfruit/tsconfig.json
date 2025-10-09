@@ -144,6 +144,9 @@
 			"path": "../../../people-and-teams/profilecard/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../react-ufo/atlaskit/afm-passionfruit/tsconfig.json"
 		},
 		{

@@ -50,6 +50,9 @@
 			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../tmp-editor-statsig/afm-townsquare/tsconfig.json"
 		},
 		{

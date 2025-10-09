@@ -1,4 +1,5 @@
 import { uuid } from '@atlaskit/adf-schema';
+import { BatchAttrsStep } from '@atlaskit/adf-schema/steps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { stepHasSlice } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -29,6 +30,7 @@ export const createPlugin = () => {
 			requestIdleCallbackWithFallback(() => {
 				const tr = editorView.state.tr;
 				let localIdWasAdded = false;
+				const nodesToUpdate = new Map<number, string>(); // position -> localId
 
 				const { text, hardBreak, mediaGroup } = editorView.state.schema.nodes;
 				// Media group is ignored for now
@@ -43,14 +45,22 @@ export const createPlugin = () => {
 						!node.attrs.localId &&
 						!!node.type.spec.attrs?.localId
 					) {
-						localIdWasAdded = true;
-						addLocalIdToNode(pos, tr);
+						if (fg('platform_editor_localid_improvements')) {
+							nodesToUpdate.set(pos, uuid.generate());
+						} else {
+							localIdWasAdded = true;
+							addLocalIdToNode(pos, tr);
+						}
 					}
 					return true; // Continue traversing
 				});
 
-				// Only dispatch the transaction if we actually added local IDs
-				if (localIdWasAdded) {
+				if (fg('platform_editor_localid_improvements')) {
+					if (nodesToUpdate.size > 0) {
+						batchAddLocalIdToNodes(nodesToUpdate, tr);
+						editorView.dispatch(tr);
+					}
+				} else if (localIdWasAdded) {
 					tr.setMeta('addToHistory', false);
 					editorView.dispatch(tr);
 				}
@@ -74,6 +84,7 @@ export const createPlugin = () => {
 			const addedNodes = new Set<PMNode>();
 			const addedNodePos = new Map<PMNode, number>();
 			const localIds = new Set<string>();
+			const nodesToUpdate = new Map<number, string>(); // position -> localId
 
 			// Process only the nodes added in the transactions
 			transactions.forEach((transaction) => {
@@ -115,7 +126,12 @@ export const createPlugin = () => {
 								addedNodePos.set(node, pos);
 							} else {
 								if (!node?.attrs.localId) {
-									addLocalIdToNode(pos, tr);
+									if (fg('platform_editor_localid_improvements')) {
+										nodesToUpdate.set(pos, uuid.generate());
+									} else {
+										// Legacy behavior - individual steps
+										addLocalIdToNode(pos, tr);
+									}
 								}
 							}
 
@@ -139,11 +155,22 @@ export const createPlugin = () => {
 					if (!node.attrs.localId || localIds.has(node.attrs.localId)) {
 						const pos = addedNodePos.get(node);
 						if (pos !== undefined) {
-							addLocalIdToNode(pos, tr);
+							if (fg('platform_editor_localid_improvements')) {
+								nodesToUpdate.set(pos, uuid.generate());
+							} else {
+								addLocalIdToNode(pos, tr);
+							}
 							modified = true;
 						}
 					}
 				}
+			}
+
+			// Apply local ID updates based on the improvements feature flag:
+			// - When enabled: Batch all updates into a single BatchAttrsStep
+			// - When disabled: Individual steps were already applied above during node processing
+			if (modified && nodesToUpdate.size > 0 && fg('platform_editor_localid_improvements')) {
+				batchAddLocalIdToNodes(nodesToUpdate, tr);
 			}
 
 			return modified ? tr : undefined;
@@ -160,5 +187,27 @@ export const createPlugin = () => {
  */
 export const addLocalIdToNode = (pos: number, tr: Transaction) => {
 	tr.setNodeAttribute(pos, 'localId', uuid.generate());
+	tr.setMeta('addToHistory', false);
+};
+
+/**
+ * Batch adds local IDs to nodes using a BatchAttrsStep
+ * @param nodesToUpdate Map of position -> localId for nodes that need updates
+ * @param tr
+ */
+export const batchAddLocalIdToNodes = (nodesToUpdate: Map<number, string>, tr: Transaction) => {
+	const batchData = Array.from(nodesToUpdate.entries()).map(([pos, localId]) => {
+		const node = tr.doc.nodeAt(pos);
+		if (!node) {
+			throw new Error(`Node does not exist at position ${pos}`);
+		}
+		return {
+			position: pos,
+			attrs: { localId },
+			nodeType: node.type.name,
+		};
+	});
+
+	tr.step(new BatchAttrsStep(batchData));
 	tr.setMeta('addToHistory', false);
 };

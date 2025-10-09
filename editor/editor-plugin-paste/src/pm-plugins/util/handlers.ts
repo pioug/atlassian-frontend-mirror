@@ -29,7 +29,6 @@ import {
 import type { RunMacroAutoConvert } from '@atlaskit/editor-plugin-extension';
 import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
 import type { InsertMediaAsMediaSingle } from '@atlaskit/editor-plugin-media/types';
-import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import { Fragment, Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Mark, MarkType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { AllSelection, NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -47,6 +46,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
 import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { closeHistory } from '@atlaskit/prosemirror-history';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 // TODO: ED-20519 - Needs Macro extraction
 

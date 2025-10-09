@@ -14,8 +14,8 @@ import { getCommonListAnalyticsAttributes } from '@atlaskit/editor-common/lists'
 import { PassiveTransaction } from '@atlaskit/editor-common/preset';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import { isBulletList } from '@atlaskit/editor-common/utils';
-import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { closeHistory } from '@atlaskit/prosemirror-history';
 
 import { outdentListItemsSelected as outdentListAction } from '../actions/outdent-list-items-selected';
 import { getRestartListsAttributes } from '../utils/analytics';

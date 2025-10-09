@@ -26,6 +26,9 @@
 			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-dev-agents/tsconfig.json"
 		}
 	]

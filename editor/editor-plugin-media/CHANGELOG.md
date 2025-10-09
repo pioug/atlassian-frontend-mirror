@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 8.1.1
+
+### Patch Changes
+
+- [`bb3c94399895a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb3c94399895a) -
+  [CONFCLOUD-82847] Fixes a bug where users cannot delete the last media card in a filmstrip using
+  the delete button in the floating toolbar
+
 ## 8.1.0
 
 ### Minor Changes

@@ -239,25 +239,18 @@ export default class ViewportObserver {
 				continue;
 			}
 
-			if (fg('platform_ufo_vcnext_v4_enabled')) {
-				for (const { isDisplayContentsElementChildren, element } of getMutatedElements(addedNode)) {
-					if (isDisplayContentsElementChildren) {
-						this.intersectionObserver?.watchAndTag(
-							element,
-							'mutation:display-contents-children-element',
-						);
-					} else {
-						this.intersectionObserver?.watchAndTag(
-							element,
-							createElementMutationsWatcher(removedNodeRects),
-						);
-					}
+			for (const { isDisplayContentsElementChildren, element } of getMutatedElements(addedNode)) {
+				if (isDisplayContentsElementChildren) {
+					this.intersectionObserver?.watchAndTag(
+						element,
+						'mutation:display-contents-children-element',
+					);
+				} else {
+					this.intersectionObserver?.watchAndTag(
+						element,
+						createElementMutationsWatcher(removedNodeRects),
+					);
 				}
-			} else {
-				this.intersectionObserver?.watchAndTag(
-					addedNode,
-					createElementMutationsWatcher(removedNodeRects),
-				);
 			}
 		}
 	};

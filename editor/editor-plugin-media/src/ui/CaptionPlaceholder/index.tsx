@@ -53,7 +53,7 @@ export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, CaptionPlace
 		// This issue is a temporary fix for users being able to edit captions on edge browsers. This will be removed
 		// replaced with CaptionPlaceholderButton in the near future and this code can be removed.
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text, @atlassian/a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text, @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions
 			<span
 				ref={ref}
 				css={placeholder}

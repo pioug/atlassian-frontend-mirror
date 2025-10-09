@@ -3,8 +3,8 @@ import React from 'react';
 import { ACTION } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPlugin, ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
-import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { redo, undo } from '@atlaskit/prosemirror-history';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { attachInputMetaWithAnalytics } from './pm-plugins/attach-input-meta';

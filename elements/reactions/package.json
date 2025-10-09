@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "33.2.24",
+	"version": "33.2.25",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -139,6 +139,9 @@
 			"type": "boolean"
 		},
 		"jfp-magma-ssr-issue-view-comment-reactions": {
+			"type": "boolean"
+		},
+		"platform-a11y-remove-autofocus-prop": {
 			"type": "boolean"
 		}
 	},

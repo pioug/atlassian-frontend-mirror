@@ -1,26 +1,25 @@
 import React from 'react';
 
-import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
 import { cssMap, cx } from '@atlaskit/css';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { RANDOM_USERS } from '../examples-util/data';
+import { appearances, RANDOM_USERS } from '../examples-util/data';
 import { ExampleGroup } from '../examples-util/helpers';
 
 const styles = cssMap({
 	indicator: {
 		minWidth: '24px',
 		height: '24px',
-		marginTop: token('space.025'),
-		marginRight: token('space.025'),
-		marginBottom: token('space.025'),
-		marginLeft: token('space.025'),
-		paddingTop: token('space.050'),
-		paddingRight: token('space.050'),
-		paddingBottom: token('space.050'),
-		paddingLeft: token('space.050'),
+		marginBlockStart: token('space.025'),
+		marginInlineEnd: token('space.025'),
+		marginBlockEnd: token('space.025'),
+		marginInlineStart: token('space.025'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineEnd: token('space.050'),
+		paddingBlockEnd: token('space.050'),
+		paddingInlineStart: token('space.050'),
 		backgroundColor: token('color.background.accent.gray.subtler'),
 		borderRadius: token('radius.full', '24px'),
 		color: token('color.text.subtle'),
@@ -45,14 +44,13 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
-	const data = RANDOM_USERS.map((d) => ({
-		key: d.email,
-		name: d.name,
-		appearance: 'circle' as AppearanceType,
-		size: 'small' as SizeType,
-	}));
+const data = RANDOM_USERS.map((d, i) => ({
+	key: d.email,
+	name: d.name,
+	appearance: appearances[i % appearances.length],
+}));
 
+export default () => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ maxWidth: 270 }}>

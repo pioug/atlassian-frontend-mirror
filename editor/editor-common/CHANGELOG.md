@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 110.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.10.1
+
+### Patch Changes
+
+- [`a4db0a2351f7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4db0a2351f7d) -
+  [ux] ED-29502 Add plain text quick insert option to codeBlockPlugin
+- [`c74a1bd9f8e48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c74a1bd9f8e48) -
+  EDITOR-1818: extend undo analytics to describe attribute changes. This is to help us investigate
+  undos that have no visible effects
+- Updated dependencies
+
+## 110.10.0
+
+### Minor Changes
+
+- [`0ac75e0d28c72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ac75e0d28c72) -
+  Migrate @atlaskit/editor-prosemirror/history to @atlaskit/prosemirror-history package
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.9.3
+
+### Patch Changes
+
+- [`2d1801fdf502c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d1801fdf502c) -
+  [ux] AIFC-896 fix linker picker position
+- Updated dependencies
+
 ## 110.9.2
 
 ### Patch Changes

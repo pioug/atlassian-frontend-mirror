@@ -1,20 +1,19 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 
-import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { RANDOM_USERS } from '../examples-util/data';
+import { appearances, RANDOM_USERS } from '../examples-util/data';
 
 const styles = cssMap({
 	container: {
-		marginTop: token('space.100', '8px'),
-		marginRight: token('space.100', '8px'),
-		marginBottom: token('space.100', '8px'),
-		marginLeft: token('space.100', '8px'),
+		marginBlockStart: token('space.100', '8px'),
+		marginInlineEnd: token('space.100', '8px'),
+		marginBlockEnd: token('space.100', '8px'),
+		marginInlineStart: token('space.100', '8px'),
 		textAlign: 'center',
 	},
 });
@@ -28,8 +27,7 @@ export default () => {
 		key: d.email,
 		name: d.name,
 		href: `/users/${i}`,
-		appearance: 'circle' as AppearanceType,
-		size: 'medium' as SizeType,
+		appearance: appearances[i % appearances.length],
 	}));
 
 	useEffect(() => {

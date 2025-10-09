@@ -188,7 +188,7 @@ export default ({ cols = 7, onClick, selectedColor, className, onHover }: ColorP
       When we migrated to emotion from styled component, we started getting this error.
       Task added in https://product-fabric.atlassian.net/wiki/spaces/E/pages/3182068181/Potential+improvements#Moderate-changes.
      */
-		// eslint-disable-next-line jsx-a11y/interactive-supports-focus, jsx-a11y/no-noninteractive-element-interactions, @atlassian/a11y/no-noninteractive-element-interactions
+		// eslint-disable-next-line @atlassian/a11y/interactive-supports-focus, @atlassian/a11y/no-noninteractive-element-interactions
 		<ul
 			css={colorPaletteWrapperStyles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

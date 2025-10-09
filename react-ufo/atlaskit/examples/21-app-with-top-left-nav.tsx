@@ -4,7 +4,7 @@
  * @jsxFrag React.Fragment
  */
 /* eslint-disable @atlaskit/design-system/no-html-button */
-/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
+/* eslint-disable @atlassian/a11y/no-noninteractive-element-to-interactive-role*/
 import React, { useEffect, useState } from 'react';
 
 import { css, jsx, keyframes } from '@compiled/react';

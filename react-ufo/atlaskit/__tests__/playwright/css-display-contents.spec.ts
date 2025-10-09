@@ -6,7 +6,6 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: css display:contents (TTVC v4)', () => {
 	test.use({
 		examplePage: 'css-display-contents',
-		featureFlags: ['platform_ufo_vcnext_v4_enabled'],
 	});
 
 	for (const viewport of viewports) {

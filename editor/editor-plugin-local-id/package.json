@@ -83,6 +83,9 @@
 	"platform-feature-flags": {
 		"platform_editor_use_localid_dedupe": {
 			"type": "boolean"
+		},
+		"platform_editor_localid_improvements": {
+			"type": "boolean"
 		}
 	}
 }

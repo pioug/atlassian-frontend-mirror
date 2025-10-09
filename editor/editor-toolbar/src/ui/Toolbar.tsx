@@ -87,7 +87,7 @@ type ToolbarProps = {
  */
 export const Toolbar = ({ children, label, actionSubjectId, testId }: ToolbarProps) => {
 	const isResponsiveEnabled = expValEquals(
-		'platform_editor_aifc_selection_toolbar_responsive',
+		'platform_editor_toolbar_aifc_responsive',
 		'isEnabled',
 		true,
 	);
@@ -98,8 +98,7 @@ export const Toolbar = ({ children, label, actionSubjectId, testId }: ToolbarPro
 				styles.toolbarBase,
 				styles.toolbar,
 				isResponsiveEnabled && styles.toolbarResponsive,
-				expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true) &&
-					styles.hiddenSelectors,
+				isResponsiveEnabled && styles.hiddenSelectors,
 				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
 					styles.toolbarSeparator,
 				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
@@ -154,9 +153,9 @@ export const Toolbar = ({ children, label, actionSubjectId, testId }: ToolbarPro
 
 	if (isResponsiveEnabled) {
 		return <ResponsiveWrapper>{wrappedToolbar}</ResponsiveWrapper>;
-	} else {
-		return wrappedToolbar;
 	}
+
+	return wrappedToolbar;
 };
 
 type PrimaryToolbarProps = ToolbarProps & ResponsiveContainerProps;

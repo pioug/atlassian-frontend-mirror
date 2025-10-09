@@ -1,38 +1,63 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, jsx } from '@compiled/react';
 
-import Avatar, { AvatarItem, type PresenceType, type StatusType } from '@atlaskit/avatar';
+import Avatar, {
+	type AppearanceType,
+	AvatarItem,
+	type PresenceType,
+	type StatusType,
+} from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
 
 import { RANDOM_USERS } from '../examples-util/data';
 
 const presenceOptions: PresenceType[] = ['online', 'busy', 'focus', 'offline'];
 const statusOptions: StatusType[] = ['approved', 'declined', 'locked'];
+const appearanceOptions: AppearanceType[] = ['circle', 'square', 'hexagon'];
 
-const presenceOptionsLength = presenceOptions.length;
-const statusOptionsLength = statusOptions.length;
+const styles = cssMap({
+	container: { display: 'flex' },
+	column: {
+		maxWidth: 270,
+		paddingBlockStart: token('space.250'),
+		paddingInlineEnd: token('space.250'),
+		paddingBlockEnd: token('space.250'),
+		paddingInlineStart: token('space.250'),
+	},
+});
 
 export default () => {
-	const data = RANDOM_USERS.slice(0, presenceOptionsLength + statusOptionsLength).map((user, i) => {
-		const presence = presenceOptions[i % presenceOptionsLength];
-		const status = i > statusOptionsLength ? statusOptions[i % statusOptionsLength] : undefined;
-		return {
-			...user,
-			presence,
-			status,
-			label: `${user.name} ${user.email} (${status || presence})`,
-		};
-	});
+	const data = RANDOM_USERS.slice(0, presenceOptions.length + statusOptions.length).map(
+		(user, i) => {
+			const presence = presenceOptions[i % presenceOptions.length];
+			const status = i > statusOptions.length ? statusOptions[i % statusOptions.length] : undefined;
+			return {
+				...user,
+				presence,
+				status,
+				label: `${user.name} ${user.email} (${status || presence})`,
+			};
+		},
+	);
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div id="avatar-item-examples" style={{ display: 'flex' }}>
+		<div id="avatar-item-examples" css={styles.container}>
 			<div>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ maxWidth: 270, padding: token('space.250', '20px') }}>
+				<div css={styles.column}>
 					<h1>onClick</h1>
 					{data.map((user, index) => (
 						<AvatarItem
-							avatar={<Avatar name={user.name} presence={user.presence} status={user.status} />}
+							avatar={
+								<Avatar
+									name={user.name}
+									presence={user.presence}
+									status={user.status}
+									appearance={appearanceOptions[index % appearanceOptions.length]}
+								/>
+							}
 							key={user.email}
 							onClick={console.log}
 							primaryText={user.name}
@@ -42,12 +67,19 @@ export default () => {
 						/>
 					))}
 				</div>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ maxWidth: 270, padding: token('space.250', '20px') }}>
+
+				<div css={styles.column}>
 					<h1>href</h1>
 					{data.map((user, index) => (
 						<AvatarItem
-							avatar={<Avatar name={user.name} presence={user.presence} status={user.status} />}
+							avatar={
+								<Avatar
+									name={user.name}
+									presence={user.presence}
+									appearance={appearanceOptions[index % appearanceOptions.length]}
+									status={user.status}
+								/>
+							}
 							key={user.email}
 							href="#"
 							primaryText={user.name}
@@ -59,12 +91,18 @@ export default () => {
 				</div>
 			</div>
 			<div>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ maxWidth: 270, padding: token('space.250', '20px') }}>
+				<div css={styles.column}>
 					<h1>non-interactive</h1>
 					{data.map((user, index) => (
 						<AvatarItem
-							avatar={<Avatar name={user.name} presence={user.presence} status={user.status} />}
+							avatar={
+								<Avatar
+									name={user.name}
+									presence={user.presence}
+									status={user.status}
+									appearance={appearanceOptions[index % appearanceOptions.length]}
+								/>
+							}
 							key={user.email}
 							primaryText={user.name}
 							secondaryText={user.email}
@@ -73,12 +111,19 @@ export default () => {
 						/>
 					))}
 				</div>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ maxWidth: 270, padding: token('space.250', '20px') }}>
+
+				<div css={styles.column}>
 					<h1>disabled</h1>
 					{data.map((user, index) => (
 						<AvatarItem
-							avatar={<Avatar name={user.name} presence={user.presence} status={user.status} />}
+							avatar={
+								<Avatar
+									name={user.name}
+									presence={user.presence}
+									appearance={appearanceOptions[index % appearanceOptions.length]}
+									status={user.status}
+								/>
+							}
 							key={user.email}
 							primaryText={user.name}
 							secondaryText={user.email}

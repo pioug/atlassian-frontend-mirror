@@ -120,45 +120,26 @@ const styles = cssMap({
 });
 
 const iconSizeMap = cssMap({
-	small: {
-		height: '12px',
-		width: '12px',
-	},
-	medium: {
-		height: '14px',
-		width: '14px',
-	},
-	large: {
-		height: '15px',
-		width: '15px',
-	},
-	xlarge: {
-		height: '18px',
-		width: '18px',
-	},
+	small: { height: '12px', width: '12px' },
+	medium: { height: '14px', width: '14px' },
+	large: { height: '15px', width: '15px' },
+	xlarge: { height: '18px', width: '18px' },
 });
 
-const iconOffsetMap = unboundCssMap({
-	square: {
-		bottom: '-4px',
-		right: '-4px',
-	},
-	small: {
-		bottom: '0px',
-		right: '0px',
-	},
-	medium: {
-		bottom: '0px',
-		right: '0px',
-	},
-	large: {
-		bottom: '1px',
-		right: '1px',
-	},
-	xlarge: {
-		bottom: '7px',
-		right: '7px',
-	},
+const circleIconOffsetMap = unboundCssMap({
+	small: { bottom: 0, right: 0 },
+	medium: { bottom: 0, right: 0 },
+	large: { bottom: '1px', right: '1px' },
+	xlarge: { bottom: '7px', right: '7px' },
+});
+const squareIconOffsetMap = unboundCssMap({
+	root: { bottom: '-4px', right: '-4px' },
+});
+const hexagonIconOffsetMap = unboundCssMap({
+	small: { bottom: '-1px', right: '-1px' },
+	medium: { bottom: '-1px', right: '-1px' },
+	large: { bottom: '4px', right: '-4px' },
+	xlarge: { bottom: '17px', right: '-5px' },
 });
 
 /**
@@ -181,8 +162,9 @@ export const PresenceWrapper: FC<PresenceWrapperProps> = ({
 			css={[
 				styles.root,
 				iconSizeMap[size],
-				iconOffsetMap[size],
-				appearance === 'square' && iconOffsetMap['square'],
+				circleIconOffsetMap[size],
+				appearance === 'square' && squareIconOffsetMap.root,
+				appearance === 'hexagon' && hexagonIconOffsetMap[size],
 			]}
 		>
 			<AvatarPresence borderColor={borderColor} presence={!children ? presence : undefined}>

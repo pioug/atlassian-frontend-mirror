@@ -210,7 +210,7 @@ export const ExtensionLabel = ({
 	});
 
 	return (
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable
+		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			css={containerStyles}
@@ -218,7 +218,7 @@ export const ExtensionLabel = ({
 			className={containerClassNames}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={customContainerStyles}
-			// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, @atlassian/a11y/mouse-events-have-key-events
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseOver={() => {
 				setIsNodeHovered?.(true);
 			}}

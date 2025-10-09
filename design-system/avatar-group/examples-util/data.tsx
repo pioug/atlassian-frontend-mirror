@@ -24,3 +24,5 @@ export const RANDOM_USERS = [
 // See https://randomuser.me/copyright — all images were supplied by people who gave their consent for them to be used on live websites (not just mockups)
 export const getFreeToUseAvatarImage = (number: number) =>
 	`https://randomuser.me/api/portraits/${number % 2 === 0 ? 'men' : 'women'}/${number}.jpg`;
+
+export const appearances = ['circle', 'square', 'hexagon'] as const;

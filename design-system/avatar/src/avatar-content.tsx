@@ -87,6 +87,58 @@ const unboundStyles = unboundCssMap({
 		backgroundColor: `var(${bgColorCssVar})`,
 		boxShadow: `var(${boxShadowCssVar})`,
 	},
+	hexagonFocusContainer: {
+		backgroundColor: 'transparent',
+		// NOTE: The left/right sides of this are intentionally inset by 7% on each side to be more visually appealing…
+		clipPath: `polygon(45% 1.33975%, 46.5798% 0.60307%, 48.26352% 0.15192%, 50% 0%, 51.73648% 0.15192%, 53.4202% 0.60307%, 55% 1.33975%, 92.64102% 21.33975%, 94.06889% 22.33956%, 95.30146% 23.57212%, 96.30127% 25%, 97.03794% 26.5798%, 97.48909% 28.26352%, 97.64102% 30%, 97.64102% 70%, 97.48909% 71.73648%, 97.03794% 73.4202%, 96.30127% 75%, 95.30146% 76.42788%, 94.06889% 77.66044%, 92.64102% 78.66025%, 55% 98.66025%, 53.4202% 99.39693%, 51.73648% 99.84808%, 50% 100%, 48.26352% 99.84808%, 46.5798% 99.39693%, 45% 98.66025%, 7.35898% 78.66025%, 5.93111% 77.66044%, 4.69854% 76.42788%, 3.69873% 75%, 2.96206% 73.4202%, 2.51091% 71.73648%, 2.35898% 70%, 2.35898% 30%, 2.51091% 28.26352%, 2.96206% 26.5798%, 3.69873% 25%, 4.69854% 23.57212%, 5.93111% 22.33956%, 7.35898% 21.33975%)`,
+
+		// NOTE: The `clip-path` changes padding in an unexpected way, so `1.22` is a magic number
+		// to increase the padding on this outer layer, but keep `padding-inline` unchanged.
+		// The goal here is emulating a 2px "outline"
+		paddingBlock: `calc(${token('border.width.selected')} * 1.22)`,
+		paddingInline: token('border.width.selected'),
+		// NOTE: `marginInline` is set in `marginInlineMap[size]`
+		marginBlock: `calc(${token('border.width.selected')} * 1.22 * -1)`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- We have to hack the focus together with this hexagon `clip-path`
+		'&:has(:focus-visible)': {
+			backgroundColor: token('color.border.focused'),
+		},
+	},
+	hexagonBorderContainer: {
+		backgroundColor: `var(${bgColorCssVar})`,
+		clipPath: 'inherit',
+		// NOTE: The `clip-path` and `background` overflows padding in an unexpected way, so
+		// `0.5` and `0.4` are relatively magic numbers, but the ratio between block and inline is consistenty.
+		// The goal here is emulating a 2px "border"
+		paddingBlock: `calc(${token('border.width.selected')} * 0.5)`,
+		paddingInline: `calc(${token('border.width.selected')} * 0.4)`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- We have to hack the focus together with this hexagon `clip-path`
+		'&:has(:focus-visible)': {
+			// NOTE: For `circle` and `square` this is different. This would be border:none` and
+			// `outline:2px white` so `borer:none` or `box-shadow:none` would fall through to the background.
+			// But we can't do that here and `background:transparent` would show the `hexagonFocusContainer` color instead
+			// The goal here is emulating a `border:none` and showing `outline:2px white` with `outline-offset:2px`
+			// as seen in `circle` and `square` appearances.
+			backgroundColor: token('elevation.surface'),
+		},
+	},
+	hexagon: {
+		clipPath: 'inherit',
+		// Drop some styles that don't work with `clip-path`…
+		// Eg. we have to set outline and box shadows via wrappers due to `clip-path` complexities…
+		boxShadow: 'unset',
+		borderRadius: 0,
+		'&::after': { borderRadius: 0 },
+		'&:focus-visible': {
+			boxShadow: 'unset',
+			outlineWidth: 0,
+		},
+		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
+			'&:focus-visible': {
+				outlineWidth: 0,
+			},
+		},
+	},
 	interactive: {
 		cursor: 'pointer',
 		'&:hover::after': {
@@ -106,68 +158,49 @@ const unboundStyles = unboundCssMap({
 });
 
 const widthHeightMap = cssMap({
-	xsmall: {
-		width: '16px',
-		height: '16px',
-	},
-	small: {
-		width: '24px',
-		height: '24px',
-	},
-	medium: {
-		width: '32px',
-		height: '32px',
-	},
-	large: {
-		width: '40px',
-		height: '40px',
-	},
-	xlarge: {
-		width: '96px',
-		height: '96px',
-	},
-	xxlarge: {
-		width: '128px',
-		height: '128px',
-	},
+	xsmall: { width: '16px', height: '16px' },
+	small: { width: '24px', height: '24px' },
+	medium: { width: '32px', height: '32px' },
+	large: { width: '40px', height: '40px' },
+	xlarge: { width: '96px', height: '96px' },
+	xxlarge: { width: '128px', height: '128px' },
+});
+
+const marginAdjustmentMap = unboundCssMap({
+	// NOTE: These are relatively magical, manual adjustments to adjust for the imperfection of this hexagon.
+	// The hexagon is a 9:10 ratio so we use negative margin to align it in AvatarGroup and other places.
+	xsmall: { marginInline: `calc(${token('border.width.selected')} * -1 - 1px)` },
+	small: { marginInline: `calc(${token('border.width.selected')} * -1 - 1px)` },
+	medium: { marginInline: `calc(${token('border.width.selected')} * -1 - 2px)` },
+	large: { marginInline: `calc(${token('border.width.selected')} * -1 - 2px)` },
+	xlarge: { marginInline: `calc(${token('border.width.selected')} * -1 - 4px)` },
+	xxlarge: { marginInline: `calc(${token('border.width.selected')} * -1 - 8px)` },
 });
 
 const borderRadiusMap = unboundCssMap({
 	xsmall: {
 		borderRadius: token('radius.xsmall'),
-		'&::after': {
-			borderRadius: token('radius.xsmall'),
-		},
+		'&::after': { borderRadius: token('radius.xsmall') },
 	},
 	small: {
 		borderRadius: token('radius.xsmall'),
-		'&::after': {
-			borderRadius: token('radius.xsmall'),
-		},
+		'&::after': { borderRadius: token('radius.xsmall') },
 	},
 	medium: {
-		borderRadius: token('radius.small', '3px'),
-		'&::after': {
-			borderRadius: token('radius.small', '3px'),
-		},
+		borderRadius: token('radius.small'),
+		'&::after': { borderRadius: token('radius.small') },
 	},
 	large: {
-		borderRadius: token('radius.small', '3px'),
-		'&::after': {
-			borderRadius: token('radius.small', '3px'),
-		},
+		borderRadius: token('radius.small'),
+		'&::after': { borderRadius: token('radius.small') },
 	},
 	xlarge: {
 		borderRadius: token('radius.medium'),
-		'&::after': {
-			borderRadius: token('radius.medium'),
-		},
+		'&::after': { borderRadius: token('radius.medium') },
 	},
 	xxlarge: {
 		borderRadius: token('radius.xlarge'),
-		'&::after': {
-			borderRadius: token('radius.xlarge'),
-		},
+		'&::after': { borderRadius: token('radius.xlarge') },
 	},
 });
 
@@ -208,7 +241,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 
 	const isInteractive = Boolean(onClick || href || isDisabled);
 
-	return (
+	const renderedContent = (
 		<Container
 			css={[
 				unboundStyles.root,
@@ -216,6 +249,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				!fg('platform_dst_avatar_tile') && borderRadiusMap[size],
 				appearance === 'square' && fg('platform_dst_avatar_tile') && styles.square,
 				appearance === 'circle' && styles.circle,
+				appearance === 'hexagon' && unboundStyles.hexagon,
 				widthHeightMap[size],
 				stackIndex !== undefined && styles.positionRelative,
 				isInteractive && !isDisabled && unboundStyles.interactive,
@@ -244,5 +278,31 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 		>
 			{children || avatarImage}
 		</Container>
+	);
+
+	if (appearance !== 'hexagon') {
+		return renderedContent;
+	}
+
+	// For a Hexagon Avatar in order to have hexagonal "border" and "outline", we have to
+	// layer multiple elements and use their background colors to create the different layers.
+	return (
+		<div
+			// NOTE: This is effectively the "outline" of the hexagon.
+			css={[unboundStyles.hexagonFocusContainer, marginAdjustmentMap[size]]}
+			style={
+				{
+					[bgColorCssVar]: borderColor,
+					[boxShadowCssVar]: `0 0 0 2px ${borderColor}`,
+				} as CSSProperties
+			}
+		>
+			<div
+				// NOTE: This is effectively the "border" of the hexagon.
+				css={unboundStyles.hexagonBorderContainer}
+			>
+				{renderedContent}
+			</div>
+		</div>
 	);
 });

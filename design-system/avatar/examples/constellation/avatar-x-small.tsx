@@ -13,6 +13,7 @@ const AvatarXSmallExample = () => {
 				name="Scott Farquhar"
 			/>
 			<Avatar size="xsmall" appearance="square" src={ExampleImg} name="Nucleus" />
+			<Avatar size="xsmall" appearance="hexagon" src={ExampleImg} name="Nucleus" />
 		</div>
 	);
 };

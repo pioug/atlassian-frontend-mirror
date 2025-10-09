@@ -6,9 +6,9 @@ import { browser } from '@atlaskit/editor-common/browser';
 import { type RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { exitCode, selectAll } from '@atlaskit/editor-prosemirror/commands';
-import { undo, redo } from '@atlaskit/editor-prosemirror/history';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { undo, redo } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { backspaceKeymap } from './backspace';

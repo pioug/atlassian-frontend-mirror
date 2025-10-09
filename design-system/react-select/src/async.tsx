@@ -36,7 +36,7 @@ const AsyncSelect = forwardRef(
 		// when isAsync is falsy or isAsyncEnabledInBaseSelect is true, we use async props, otherwise we use base props
 		let selectAsyncProps = !props.isAsync || isAsyncEnabledInBaseSelect ? stateManagedProps : props;
 
-		const selectProps = useStateManager(selectAsyncProps);
+		const selectProps = useStateManager<Option, IsMulti, Group, {}>(selectAsyncProps);
 
 		return <Select ref={ref} {...selectProps} />;
 	},

@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-undo-redo
 
+## 6.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.1
+
+### Patch Changes
+
+- [`c74a1bd9f8e48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c74a1bd9f8e48) -
+  EDITOR-1818: extend undo analytics to describe attribute changes. This is to help us investigate
+  undos that have no visible effects
+- Updated dependencies
+
+## 6.1.0
+
+### Minor Changes
+
+- [`0ac75e0d28c72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ac75e0d28c72) -
+  Migrate @atlaskit/editor-prosemirror/history to @atlaskit/prosemirror-history package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.7
 
 ### Patch Changes

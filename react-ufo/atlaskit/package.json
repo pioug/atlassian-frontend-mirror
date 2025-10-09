@@ -136,9 +136,6 @@
 		"platform_ufo_canvas_heatmap_full_precision": {
 			"type": "boolean"
 		},
-		"platform_ufo_vcnext_v4_enabled": {
-			"type": "boolean"
-		},
 		"platform_ufo_vc_next_filter_ls_entries_same_rect": {
 			"type": "boolean"
 		},
@@ -158,9 +155,6 @@
 			"type": "boolean"
 		},
 		"platform_ufo_assets_check_for_nan": {
-			"type": "boolean"
-		},
-		"platform_ufo_enable_timeout_config": {
 			"type": "boolean"
 		},
 		"platform_ufo_fix_post_interaction_check_vc_debug": {

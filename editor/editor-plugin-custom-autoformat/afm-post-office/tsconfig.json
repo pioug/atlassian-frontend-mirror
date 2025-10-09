@@ -26,6 +26,9 @@
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		}
 	]

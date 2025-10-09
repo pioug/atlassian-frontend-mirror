@@ -1,5 +1,24 @@
 # @atlassian/navigation-system
 
+## 2.20.0
+
+### Minor Changes
+
+- [`bfed073f1849d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfed073f1849d) -
+  Animations have been added to the `TopNavStart` component, as part of the full height sidebar
+  animations. The reorder of `TopNavStart`'s children elements (toggle button, app switcher, app
+  logo) when the side nav is toggled (on desktop) will have slide animations.
+
+  These changes are behind the feature gate `navx-full-height-sidebar`.
+
+## 2.19.1
+
+### Patch Changes
+
+- [`8622b99ec3d36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8622b99ec3d36) -
+  Internal refactors to the full height sidebar animations to workaround some Compiled style
+  ordering issues. These changes are behind the feature gate `navx-full-height-sidear`.
+
 ## 2.19.0
 
 ### Minor Changes

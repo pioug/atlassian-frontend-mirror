@@ -457,7 +457,7 @@ const PortaledPanelSplitter = ({
 			data-testid={testId ? `${testId}-container` : undefined}
 		>
 			<MaybeTooltip tooltipContent={tooltipContent} shortcut={shortcut}>
-				{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions --
+				{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions --
 				We intentionally do not add keyboard event listeners to this element, as keyboard accessibility
 				is provided via a dedicated keyboard shortcut elsewhere in the application. */}
 				<div

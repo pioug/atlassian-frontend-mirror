@@ -134,7 +134,7 @@ Use "defaultValue" or "value" happy days :-).
 		>
 			{!firstSelectionMade && (
 				<Fragment>
-					{/* eslint-disable-next-line, jsx-a11y/label-has-for */}
+					{/* eslint-disable-next-line @atlassian/a11y/label-has-for*/}
 					<label htmlFor={`${groupName}--empty`}>Star Rating</label>
 					<VisuallyHidden testId={`input-container${actualValue === undefined ? '-checked' : ''}`}>
 						{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}

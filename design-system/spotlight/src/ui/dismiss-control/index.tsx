@@ -59,7 +59,7 @@ export const SpotlightDismissControl: React.ForwardRefExoticComponent<
 	({ autoFocus = true, onClick, testId }: SpotlightDismissControlProps, ref) => {
 		return (
 			<Pressable
-				// eslint-disable-next-line jsx-a11y/no-autofocus -- VERIFIED: autoFocus moving to first focusable element on non-modal modal dialog.
+				// eslint-disable-next-line @atlassian/a11y/no-autofocus -- VERIFIED: autoFocus moving to first focusable element on non-modal modal dialog.
 				autoFocus={autoFocus}
 				onClick={onClick}
 				ref={ref}

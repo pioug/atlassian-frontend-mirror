@@ -385,7 +385,7 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 
 		if (sourceType === 'video') {
 			return children(
-				// eslint-disable-next-line jsx-a11y/media-has-caption
+				// eslint-disable-next-line @atlassian/a11y/media-has-caption
 				<video data-testid="media-video-element" ref={this.videoRef} poster={poster} {...props}>
 					{textTracks && (
 						<TextTracks
@@ -401,7 +401,7 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 				this.videoRef,
 			);
 		} else {
-			// eslint-disable-next-line jsx-a11y/media-has-caption
+			// eslint-disable-next-line @atlassian/a11y/media-has-caption
 			return children(<audio ref={this.audioRef} {...props} />, videoState, actions, this.audioRef);
 		}
 	}

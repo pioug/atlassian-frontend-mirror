@@ -1,7 +1,7 @@
-import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { canJoin, findWrapping } from '@atlaskit/editor-prosemirror/transform';
+import { closeHistory } from '@atlaskit/prosemirror-history';
 
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '../analytics';
 import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '../analytics';

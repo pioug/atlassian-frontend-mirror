@@ -268,25 +268,23 @@ export default class VCObserverNew {
 		}
 
 		// TODO on cleanup: put behind `enabledVCRevisions` config
-		if (fg('platform_ufo_vcnext_v4_enabled')) {
-			const calculator_next = new VCNextCalculator();
+		const calculator_next = new VCNextCalculator();
 
-			const vcNext = await calculator_next.calculate({
-				orderedEntries,
-				startTime: start,
-				stopTime: stop,
-				interactionId,
-				interactionType,
-				isPostInteraction: this.isPostInteraction,
-				include3p,
-				includeSSRRatio,
-				isPageVisible,
-				interactionAbortReason,
-			});
+		const vcNext = await calculator_next.calculate({
+			orderedEntries,
+			startTime: start,
+			stopTime: stop,
+			interactionId,
+			interactionType,
+			isPostInteraction: this.isPostInteraction,
+			include3p,
+			includeSSRRatio,
+			isPageVisible,
+			interactionAbortReason,
+		});
 
-			if (vcNext) {
-				results.push(vcNext);
-			}
+		if (vcNext) {
+			results.push(vcNext);
 		}
 
 		return results;

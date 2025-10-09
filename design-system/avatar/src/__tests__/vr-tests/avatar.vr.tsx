@@ -1,7 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
 import BasicAvatar from '../../../examples/01-basic-avatar';
-import InteractiveAvatar from '../../../examples/09-basic-avatar-interactive';
+import InteractiveAvatar from '../../../examples/10-basic-avatar-interactive';
 
 snapshot(BasicAvatar, {
 	drawsOutsideBounds: true,

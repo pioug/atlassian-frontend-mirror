@@ -1,20 +1,19 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 
-import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { getFreeToUseAvatarImage, RANDOM_USERS } from '../../examples-util/data';
+import { appearances, getFreeToUseAvatarImage, RANDOM_USERS } from '../../examples-util/data';
 
 const styles = cssMap({
 	container: {
-		marginTop: token('space.100'),
-		marginRight: token('space.100'),
-		marginBottom: token('space.100'),
-		marginLeft: token('space.100'),
+		marginBlockStart: token('space.100'),
+		marginInlineEnd: token('space.100'),
+		marginBlockEnd: token('space.100'),
+		marginInlineStart: token('space.100'),
 		textAlign: 'center',
 	},
 });
@@ -28,8 +27,7 @@ const AvatarGroupOverridesExample = () => {
 		key: d.email,
 		name: d.name,
 		href: '#',
-		appearance: 'circle' as AppearanceType,
-		size: 'medium' as SizeType,
+		appearance: appearances[i % appearances.length],
 		src: getFreeToUseAvatarImage(i),
 	}));
 

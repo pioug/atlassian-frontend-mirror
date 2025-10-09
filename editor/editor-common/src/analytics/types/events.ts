@@ -187,6 +187,8 @@ type UndoRedoAEP = TrackAEP<
 	ACTION_SUBJECT.EDITOR,
 	undefined,
 	{
+		affectedNodes?: { attributes: string[]; type: string }[];
+		hasChanged?: boolean;
 		inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR | INPUT_METHOD.EXTERNAL;
 	},
 	undefined

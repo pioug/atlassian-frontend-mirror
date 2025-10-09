@@ -268,7 +268,7 @@ export const EmojiActions = (props: EmojiActionsProps) => {
 	}
 
 	return (
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlassian/a11y/mouse-events-have-key-events
+		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/mouse-events-have-key-events
 		<div data-testid={emojiActionsTestId} css={previewFooter} onMouseLeave={onMouseLeaveHandler}>
 			<div css={emojiActionsWrapper}>
 				<EmojiPickerListSearch

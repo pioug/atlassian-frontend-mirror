@@ -144,6 +144,9 @@
 			"path": "../../../people-and-teams/profilecard/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../react-ufo/atlaskit/afm-post-office/tsconfig.json"
 		},
 		{

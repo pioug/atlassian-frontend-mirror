@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.2.25
+
+### Patch Changes
+
+- [`f25be90385fda`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f25be90385fda) -
+  [ux] Removing autofocus prop from reactions dialog for a11y compliance
+- Updated dependencies
+
 ## 33.2.24
 
 ### Patch Changes

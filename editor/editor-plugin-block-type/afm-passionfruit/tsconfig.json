@@ -74,6 +74,9 @@
 			"path": "../../../design-system/primitives/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../input-rules/afm-passionfruit/tsconfig.json"
 		},
 		{

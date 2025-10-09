@@ -110,6 +110,9 @@
 			"path": "../../../design-system/primitives/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/smart-card/afm-townsquare/tsconfig.json"
 		},
 		{

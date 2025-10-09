@@ -116,6 +116,18 @@ export default () => (
 					/>
 				))}
 			</Grid>
+
+			<Grid testId="grid-basic" gap="space.0" xcss={styles.grid}>
+				{exampleColors.map((color: string, index: number) => (
+					<ColorColumn
+						key={index}
+						borderColor={color}
+						src={avatarUrl}
+						appearance="hexagon"
+						status={statuses[index]}
+					/>
+				))}
+			</Grid>
 		</Grid>
 	</Stack>
 );

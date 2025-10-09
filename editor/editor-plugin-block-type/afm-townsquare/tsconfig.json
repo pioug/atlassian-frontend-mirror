@@ -74,6 +74,9 @@
 			"path": "../../../design-system/primitives/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../input-rules/afm-townsquare/tsconfig.json"
 		},
 		{

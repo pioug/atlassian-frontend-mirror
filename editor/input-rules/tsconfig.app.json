@@ -30,5 +30,9 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__prosemirror-input-rules/app"
 	},
-	"references": []
+	"references": [
+		{
+			"path": "../prosemirror-history/tsconfig.app.json"
+		}
+	]
 }

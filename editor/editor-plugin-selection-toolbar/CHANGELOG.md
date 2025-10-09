@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 7.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.8
+
+### Patch Changes
+
+- [`c04bcabb31f7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c04bcabb31f7c) -
+  [ux] ED-29513 Force showing pinning toolbar for LCM using user preferences plugin
+- Updated dependencies
+
 ## 7.0.7
 
 ### Patch Changes

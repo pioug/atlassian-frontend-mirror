@@ -1,5 +1,12 @@
 # @atlaskit/react-select
 
+## 3.8.1
+
+### Patch Changes
+
+- [`7368596d0c740`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7368596d0c740) -
+  Typescript updates
+
 ## 3.8.0
 
 ### Minor Changes

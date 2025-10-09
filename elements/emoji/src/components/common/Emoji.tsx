@@ -61,6 +61,7 @@ import {
 import { isSSR } from '../../util/is-ssr';
 
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const emojiSpriteContainer = css({
 	display: 'inline-block',
@@ -381,10 +382,13 @@ export const ImageEmoji = (props: Props) => {
 
 	let sizing = {};
 	if (fitToHeight && width && height) {
+		const sizingWidth =
+			autoWidth && (!isSSR() || fg('platform_emoji_ssr_width_auto_allowed'))
+				? 'auto'
+				: (fitToHeight / height) * width;
 		// Presize image, to prevent reflow due to size changes after loading
 		sizing = {
-			// Size of <img> needs to be deterministic when rendered on server-side. Auto will cause width to be 0 before image is loaded.
-			width: autoWidth && !isSSR() ? 'auto' : (fitToHeight / height) * width,
+			width: sizingWidth,
 			height: fitToHeight,
 		};
 	}

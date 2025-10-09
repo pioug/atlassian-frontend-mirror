@@ -30,13 +30,13 @@ export default () => (
 		<Avatar
 			name="xxlarge"
 			size="xxlarge"
-			appearance="square"
+			appearance="circle"
 			status={<div css={styles.presence}>1</div>}
 		/>
 		<Avatar
 			name="xlarge"
 			size="xlarge"
-			appearance="square"
+			appearance="circle"
 			status={<div css={styles.presence}>1</div>}
 		/>
 		<Avatar
@@ -54,13 +54,13 @@ export default () => (
 		<Avatar
 			name="small"
 			size="small"
-			appearance="square"
+			appearance="hexagon"
 			status={<div css={styles.presence}>1</div>}
 		/>
 		<Avatar
 			name="xsmall"
 			size="xsmall"
-			appearance="square"
+			appearance="hexagon"
 			status={<div css={styles.presence}>1</div>}
 		/>
 	</Block>

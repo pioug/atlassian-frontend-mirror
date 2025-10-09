@@ -183,7 +183,7 @@ export const ArchiveDownloadButtonWrapper = ({ children, onClick }: Children & O
 
 export const DisabledArchiveDownloadButtonWrapper = ({ children }: Children) => {
 	return (
-		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions
 		<div
 			css={disabledArchiveDownloadButtonWrapperStyles}
 			data-testid="media-disabledArchiveDownloadButton"

@@ -18,6 +18,7 @@ import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
 	EditorAppearance,
+	EditorContentMode,
 	FeatureFlags,
 	OptionalPlugin,
 	PublicPluginAPI,
@@ -249,6 +250,7 @@ const contentAreaHeightNoToolbar = css({
 interface FullPageEditorContentAreaProps {
 	appearance: EditorAppearance | undefined;
 	contentComponents: UIComponentFactory[] | undefined;
+	contentMode: EditorContentMode | undefined;
 	contextPanel: ReactComponents | undefined;
 	customContentComponents: ContentComponents | undefined;
 	disabled: boolean | undefined;
@@ -336,6 +338,7 @@ const Content = React.forwardRef<
 					viewMode={props?.viewMode}
 					isScrollable
 					appearance={props.appearance}
+					contentMode={props.contentMode}
 				>
 					<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 						<div

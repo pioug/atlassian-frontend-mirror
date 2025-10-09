@@ -50,12 +50,14 @@ export default () => (
 			<Text as="p">Using a custom svg as the presence</Text>
 			<WithAllAvatarSizes presence={<Tick />} />
 			<WithAllAvatarSizes appearance="square" presence={<Tick />} />
+			<WithAllAvatarSizes appearance="hexagon" presence={<Tick />} />
 		</Stack>
 		<Stack space="space.050">
 			<Heading size="small">Your own component</Heading>
 			<Text as="p">This example shows using a styled div as a presence.</Text>
 			<WithAllAvatarSizes presence={<div css={styles.presence}>1</div>} />
 			<WithAllAvatarSizes appearance="square" presence={<div css={styles.presence}>1</div>} />
+			<WithAllAvatarSizes appearance="hexagon" presence={<div css={styles.presence}>1</div>} />
 		</Stack>
 	</Stack>
 );

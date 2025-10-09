@@ -78,6 +78,9 @@
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../../editor/prosemirror-history/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/spinner/tsconfig.app.json"
 		},
 		{

@@ -1,7 +1,7 @@
-import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, SafePluginSpec } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { closeHistory } from '@atlaskit/prosemirror-history';
 
 import { isGapCursorSelection } from './editor-common';
 import type { InputRuleWrapper } from './editor-common';

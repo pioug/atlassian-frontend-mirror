@@ -160,6 +160,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 													popupsBoundariesElement={props.popupsBoundariesElement}
 													popupsScrollableElement={props.popupsScrollableElement}
 													contentComponents={config.contentComponents}
+													contentMode={props.contentMode}
 													primaryToolbarComponents={config.primaryToolbarComponents}
 													primaryToolbarIconBefore={props.primaryToolbarIconBefore}
 													secondaryToolbarComponents={config.secondaryToolbarComponents}

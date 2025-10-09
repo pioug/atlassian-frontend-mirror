@@ -1,22 +1,20 @@
 import React from 'react';
 
-import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
 import Modal, { ModalBody, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 
-import { RANDOM_USERS } from '../examples-util/data';
+import { appearances, RANDOM_USERS } from '../examples-util/data';
 import ExampleImage from '../examples-util/nucleus.png';
 
-export default () => {
-	const data = RANDOM_USERS.slice(0, 8).map((d) => ({
-		key: d.email,
-		name: d.name,
-		href: '#',
-		appearance: 'circle' as AppearanceType,
-		size: 'medium' as SizeType,
-		src: ExampleImage,
-	}));
+const data = RANDOM_USERS.slice(0, 8).map((d, i) => ({
+	key: d.email,
+	name: d.name,
+	href: '#',
+	src: ExampleImage,
+	appearance: appearances[i % appearances.length],
+}));
 
+export default () => {
 	return (
 		<div>
 			<Modal>

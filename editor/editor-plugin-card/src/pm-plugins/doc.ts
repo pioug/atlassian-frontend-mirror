@@ -29,7 +29,6 @@ import {
 	nodesBetweenChanged,
 	processRawValue,
 } from '@atlaskit/editor-common/utils';
-import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { Mark, Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -41,6 +40,7 @@ import type {
 	InlineCardAdf,
 } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { closeHistory } from '@atlaskit/prosemirror-history';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CardPluginState, Request } from '../types';

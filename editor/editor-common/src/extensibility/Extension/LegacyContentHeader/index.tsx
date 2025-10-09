@@ -97,7 +97,7 @@ export const LegacyContentHeader = ({
 
 	return (
 		<Fragment>
-			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+			{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions*/}
 			<div
 				data-testid="editor-extension-legacy-content-header"
 				css={[lcmHeaderStyles]}

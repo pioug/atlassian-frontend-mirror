@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "110.9.2",
+	"version": "110.10.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -173,6 +173,7 @@
 		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/profilecard": "workspace:^",
+		"@atlaskit/prosemirror-history": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/smart-card": "workspace:^",
@@ -285,9 +286,6 @@
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},
-		"platform_editor_breakoutresizer_remove_assertion": {
-			"type": "boolean"
-		},
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
@@ -376,12 +374,6 @@
 			"type": "boolean"
 		},
 		"p2m-drop-down-motion": {
-			"type": "boolean"
-		},
-		"platform_editor_resolve_hyperlinks_CONFLUENCE": {
-			"type": "boolean"
-		},
-		"platform_editor_resolve_hyperlinks_JIRA": {
 			"type": "boolean"
 		},
 		"platform_editor_resolve_hyperlinks_killswitch": {

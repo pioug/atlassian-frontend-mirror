@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../prosemirror-history/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-passionfruit/tsconfig.json"
 		}
 	]

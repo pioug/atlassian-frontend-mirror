@@ -1,5 +1,15 @@
 # @atlaskit/avatar
 
+## 25.4.0
+
+### Minor Changes
+
+- [`a37090c1d91de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a37090c1d91de) -
+  Adds a new hexagon appearance (`<Avatar appearance="hexagon">`) as well as a
+  `<Skeleton appearance="hexagon">` and internal Image default loader for this. The intent with this
+  appearance is documented as displaying AI agents: `circle` for users, `square` for app entities
+  (teams, projects, spaces), and`hexagon` for agent entities.
+
 ## 25.3.2
 
 ### Patch Changes

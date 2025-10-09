@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
 
-import { RANDOM_USERS } from '../examples-util/data';
+import { appearances, RANDOM_USERS } from '../examples-util/data';
 import { ExampleGroup } from '../examples-util/helpers';
 
 const makeColor = (num: number) => {
@@ -14,22 +13,18 @@ const makeColor = (num: number) => {
 	return hex;
 };
 
+const dataNoBorderColor = RANDOM_USERS.map((d, i) => ({
+	key: d.email,
+	name: d.name,
+	appearance: appearances[i % appearances.length],
+}));
+
+const dataWithBorderColor = dataNoBorderColor.map((d, i) => ({
+	...d,
+	borderColor: makeColor(i),
+}));
+
 export default () => {
-	const dataNoBorderColor = RANDOM_USERS.map((d) => ({
-		key: d.email,
-		name: d.name,
-		appearance: 'circle' as AppearanceType,
-		size: 'medium' as SizeType,
-	}));
-
-	const dataWithBorderColor = RANDOM_USERS.map((d, i) => ({
-		key: d.email,
-		name: d.name,
-		appearance: 'circle' as AppearanceType,
-		borderColor: makeColor(i),
-		size: 'medium' as SizeType,
-	}));
-
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ maxWidth: 270 }}>

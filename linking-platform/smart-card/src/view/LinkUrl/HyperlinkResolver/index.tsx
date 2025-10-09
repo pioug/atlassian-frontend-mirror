@@ -36,14 +36,6 @@ const HyperlinkWithSmartLinkResolverInner = ({
 	const thirdPartyARI = getThirdPartyARI(state?.details);
 	const firstPartyIdentifier = getFirstPartyIdentifier();
 
-	const isConnectButtonExperimentEnabled =
-		FeatureGates.getExperimentValue(
-			'platform_linking_bluelink_connect_CONFLUENCE',
-			'isEnabled',
-			false,
-		) ||
-		FeatureGates.getExperimentValue('platform_linking_bluelink_connect_JIRA', 'isEnabled', false);
-
 	const fire3PClickEvent = fg('platform_smartlink_3pclick_analytics')
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
 			useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI)
@@ -67,27 +59,27 @@ const HyperlinkWithSmartLinkResolverInner = ({
 		[onClickCallback, fire3PClickEvent, state?.status],
 	);
 
-	const onAuthorize = isConnectButtonExperimentEnabled
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useCallback(() => actions.authorize('hyperlink'), [actions])
-		: undefined;
+	const onAuthorize = useCallback(() => actions.authorize('hyperlink'), [actions]);
 
-	if (isConnectButtonExperimentEnabled) {
-		switch (state?.status) {
-			case 'unauthorized':
-				const provider = extractSmartLinkProvider(state?.details);
-				return (
-					<HyperlinkUnauthorizedView
-						{...props}
-						onAuthorize={services?.length ? onAuthorize : undefined}
-						onClick={onClick}
-						showConnectBtn={services?.length > 0}
-						provider={provider}
-					/>
-				);
-			default:
-				return <Hyperlink {...props} onClick={onClick} />;
-		}
+	if (
+		state?.status === 'unauthorized' &&
+		(FeatureGates.getExperimentValue(
+			'platform_linking_bluelink_connect_confluence',
+			'isEnabled',
+			false,
+		) ||
+			FeatureGates.getExperimentValue('platform_linking_bluelink_connect_jira', 'isEnabled', false))
+	) {
+		const provider = extractSmartLinkProvider(state?.details);
+		return (
+			<HyperlinkUnauthorizedView
+				{...props}
+				onAuthorize={services?.length ? onAuthorize : undefined}
+				onClick={onClick}
+				showConnectBtn={services?.length > 0}
+				provider={provider}
+			/>
+		);
 	}
 
 	return <Hyperlink {...props} onClick={onClick} />;

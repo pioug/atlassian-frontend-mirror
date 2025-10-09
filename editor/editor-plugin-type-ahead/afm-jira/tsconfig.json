@@ -59,6 +59,9 @@
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../input-rules/afm-jira/tsconfig.json"
 		},
 		{

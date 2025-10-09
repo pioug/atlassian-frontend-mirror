@@ -135,6 +135,20 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				);
 			},
 			forceToolbarDockingWithoutAnalytics: (toolbarDocking: ToolbarDocking) => {
+				if (fg('platform_editor_use_preferences_plugin')) {
+					if (fg('platform_editor_lcm_toolbar_docking_fix')) {
+						// to avoid nested gate. Will remove when cleaning up platform_editor_lcm_toolbar_docking_fix
+						return (
+							api?.core.actions.execute(
+								api?.userPreferences?.actions.updateUserPreference(
+									'toolbarDockingPosition',
+									toolbarDocking,
+								),
+							) ?? false
+						);
+					}
+				}
+
 				return (
 					api?.core.actions.execute(
 						forceToolbarDockingWithoutAnalytics({

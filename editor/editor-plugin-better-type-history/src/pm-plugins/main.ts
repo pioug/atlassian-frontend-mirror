@@ -1,12 +1,12 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { extractSliceFromStep } from '@atlaskit/editor-common/utils';
-import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { closeHistory } from '@atlaskit/prosemirror-history';
 
 import { pluginKey } from './plugin-key';
 

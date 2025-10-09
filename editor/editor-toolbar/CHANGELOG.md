@@ -1,5 +1,16 @@
 # @atlaskit/editor-toolbar
 
+## 0.15.0
+
+### Minor Changes
+
+- [`3e586d8ee0ce4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e586d8ee0ce4) -
+  Remove platform_editor_aifc_selection_toolbar_responsive exp and gate new logic in aiPlugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.14.1
 
 ### Patch Changes

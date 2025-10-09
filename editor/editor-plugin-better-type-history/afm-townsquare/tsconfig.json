@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../prosemirror-history/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-townsquare/tsconfig.json"
 		}
 	]

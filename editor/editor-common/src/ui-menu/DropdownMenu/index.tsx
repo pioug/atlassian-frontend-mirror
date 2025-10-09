@@ -380,7 +380,7 @@ export function DropdownMenuItem({
 	// especially when we pass any interactive element as a item.content
 	const tabIndex = item.wrapperTabIndex === null ? undefined : item.wrapperTabIndex || -1;
 	const dropListItem = (
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<div
 			css={() => buttonStyles(item.isActive, submenuActive)}
 			role={

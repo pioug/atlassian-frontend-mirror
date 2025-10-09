@@ -2,12 +2,11 @@ import React, { type FC, useState } from 'react';
 
 import shuffle from 'lodash/shuffle';
 
-import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 
-import { RANDOM_USERS } from '../examples-util/data';
+import { appearances, RANDOM_USERS } from '../examples-util/data';
 
 type State = {
 	avatarCount: number;
@@ -29,12 +28,11 @@ function getStatus() {
 	}
 }
 
-const data = RANDOM_USERS.map((user) => ({
+const data = RANDOM_USERS.map((user, i) => ({
 	...user,
-	appearance: 'circle' as AppearanceType,
-	size: 'medium' as SizeType,
 	status: getStatus(),
 	href: '#',
+	appearance: appearances[i % appearances.length],
 	src: `https://ui-avatars.com/api/?size=48&background=0D8ABC&color=fff&name=${encodeURI(
 		user.name,
 	)}`,

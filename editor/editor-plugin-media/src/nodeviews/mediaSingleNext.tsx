@@ -600,7 +600,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 	}, [widthType, mediaSingleWidthAttribute]);
 
 	const MediaChildren = (
-		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, @atlassian/a11y/no-noninteractive-element-interactions, @atlassian/a11y/click-events-have-key-events
+		// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions, @atlassian/a11y/click-events-have-key-events
 		<figure
 			ref={mediaSingleWrapperRef}
 			css={figureWrapperStyles}

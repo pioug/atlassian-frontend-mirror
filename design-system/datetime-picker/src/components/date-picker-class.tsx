@@ -581,7 +581,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 								appearance={this.props.appearance}
 								aria-describedby={ariaDescribedBy ? `${ariaDescribedBy} ${valueId}` : valueId}
 								label={label || undefined}
-								// eslint-disable-next-line jsx-a11y/no-autofocus
+								// eslint-disable-next-line @atlassian/a11y/no-autofocus
 								autoFocus={autoFocus}
 								clearControlLabel={clearControlLabel}
 								closeMenuOnSelect
@@ -645,7 +645,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 						appearance={this.props.appearance}
 						aria-describedby={ariaDescribedBy}
 						label={label || undefined}
-						// eslint-disable-next-line jsx-a11y/no-autofocus
+						// eslint-disable-next-line @atlassian/a11y/no-autofocus
 						autoFocus={autoFocus}
 						clearControlLabel={clearControlLabel}
 						closeMenuOnSelect

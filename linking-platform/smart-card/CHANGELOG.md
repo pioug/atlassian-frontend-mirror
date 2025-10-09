@@ -1,5 +1,29 @@
 # @atlaskit/smart-card
 
+## 43.1.3
+
+### Patch Changes
+
+- [`2c3e300807c81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c3e300807c81) -
+  NAVX-1902 cleaning up `navx-1842-sl-unnecessary-textual-description-for-decorative-images`
+
+## 43.1.2
+
+### Patch Changes
+
+- [`52a78935ac6ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52a78935ac6ef) -
+  Adjust experiment exposure logic for platform*linking_bluelink_connect*{product} logic so that the
+  experiment related logic only happens behind the gate.
+- Updated dependencies
+
+## 43.1.1
+
+### Patch Changes
+
+- [`9fa4acd606891`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fa4acd606891) -
+  Remove experiment gate for sharepoint and google hyperlink resolve
+- Updated dependencies
+
 ## 43.1.0
 
 ### Minor Changes

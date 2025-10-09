@@ -136,13 +136,7 @@ describe('interaction-metrics timeout behavior', () => {
 		});
 	});
 
-	describe('config set interaction metrics (with feature flag)', () => {
-		beforeEach(() => {
-			// Enable the feature flag for simplified behavior tests
-			mockFg.mockImplementation((flagName: string) => {
-				return flagName === 'platform_ufo_enable_timeout_config';
-			});
-		});
+	describe('config set interaction metrics', () => {
 
 		it('should create interaction with 60s timeout by default when no config is set', () => {
 			const interactionId = 'test-interaction-1';

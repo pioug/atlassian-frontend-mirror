@@ -13,6 +13,7 @@ const AvatarMediumExample = () => {
 				name="Scott Farquhar"
 			/>
 			<Avatar size="medium" appearance="square" src={ExampleImg} name="Nucleus" />
+			<Avatar size="medium" appearance="hexagon" src={ExampleImg} name="Nucleus" />
 		</div>
 	);
 };

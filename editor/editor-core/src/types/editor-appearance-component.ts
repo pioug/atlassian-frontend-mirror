@@ -11,6 +11,7 @@ import type {
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
 	EditorAppearance,
+	EditorContentMode,
 	FeatureFlags,
 	NextEditorPlugin,
 	PublicPluginAPI,
@@ -35,6 +36,7 @@ export interface EditorAppearanceComponentProps<Plugins extends NextEditorPlugin
 	appearance?: EditorAppearance;
 	collabEdit?: CollabEditOptions;
 	contentComponents?: UIComponentFactory[];
+	contentMode?: EditorContentMode;
 	contextPanel?: ReactComponents;
 	customContentComponents?: ContentComponents;
 

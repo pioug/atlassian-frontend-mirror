@@ -186,7 +186,7 @@ describe('<LinkItem />', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 		render(
-			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, jsx-a11y/no-static-element-interactions
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, @atlassian/a11y/no-static-element-interactions
 			<div onDragStart={dragStartEvent}>
 				<LinkItem href="http://www.atlassian.com" testId="target">
 					Atlassian
@@ -207,7 +207,7 @@ describe('<LinkItem />', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 		render(
-			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, jsx-a11y/no-static-element-interactions
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, @atlassian/a11y/no-static-element-interactions
 			<div onDragStart={dragStartEvent}>
 				<LinkItem href="http://www.atlassian.com" testId="target" UNSAFE_isDraggable>
 					Atlassian
@@ -451,7 +451,7 @@ describe('<LinkItem />', () => {
 					<AppProvider>
 						{/* Disabling this rule because we want to test the behaviour of this component */}
 						{/* when the href is an empty string. */}
-						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
+						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid*/}
 						<LinkItem href="" testId="link-item">
 							Link item
 						</LinkItem>
@@ -466,7 +466,7 @@ describe('<LinkItem />', () => {
 					<AppProvider>
 						{/* Disabling this rule because we want to test the behaviour of this component */}
 						{/* when the href is undefined. */}
-						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
+						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid*/}
 						<LinkItem href={undefined} testId="link-item">
 							Link item
 						</LinkItem>
@@ -591,7 +591,7 @@ describe('<LinkItem />', () => {
 					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
 						{/* Disabling this rule because we want to test the behaviour of this component */}
 						{/* when the href is an empty string. */}
-						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
+						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid*/}
 						<LinkItem href="" testId="link-item">
 							Link item
 						</LinkItem>
@@ -606,7 +606,7 @@ describe('<LinkItem />', () => {
 					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
 						{/* Disabling this rule because we want to test the behaviour of this component */}
 						{/* when the href is undefined. */}
-						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
+						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid*/}
 						<LinkItem href={undefined} testId="link-item">
 							Link item
 						</LinkItem>

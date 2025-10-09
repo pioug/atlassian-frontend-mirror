@@ -110,6 +110,9 @@
 			"path": "../../../design-system/primitives/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/smart-card/afm-passionfruit/tsconfig.json"
 		},
 		{

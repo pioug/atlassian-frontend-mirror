@@ -7,6 +7,7 @@ import { forwardRef, Fragment, type KeyboardEvent, useCallback, useRef } from 'r
 import { css, cssMap, jsx } from '@compiled/react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -68,6 +69,11 @@ export const messages = defineMessages({
 	titleRecentlyViewed: {
 		id: 'fabric.linkPicker.listTitle.recentlyViewed',
 		defaultMessage: 'Recently Viewed',
+		description: 'Describes type of items shown in the list for screen-reader users',
+	},
+	titleRecentlyViewedFormatted: {
+		id: 'fabric.linkPicker.listTitle.recentlyViewedFormatted',
+		defaultMessage: 'Recently viewed',
 		description: 'Describes type of items shown in the list for screen-reader users',
 	},
 	titleResults: {
@@ -143,7 +149,11 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 		let itemsContent;
 		let loadingContent;
 
-		const linkListTitle = hasSearchTerm ? messages.titleResults : messages.titleRecentlyViewed;
+		const recentlyViewedMessage = fg('platform-linking-link-picker-previewable-only')
+			? messages.titleRecentlyViewedFormatted
+			: messages.titleRecentlyViewed;
+
+		const linkListTitle = hasSearchTerm ? messages.titleResults : recentlyViewedMessage;
 
 		useTrackResultsShown(isLoading, items, hasSearchTerm);
 

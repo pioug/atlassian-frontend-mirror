@@ -54,7 +54,7 @@ const DragCornerControlsComponent = ({
 			aria-label={formatMessage(messages.cornerControl)}
 			type="button"
 			onClick={handleOnClick}
-			// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, @atlassian/a11y/mouse-events-have-key-events
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseOut={handleMouseOut}
 			contentEditable={false}
 		>
@@ -109,7 +109,7 @@ const DragCornerControlsComponentWithSelection = ({
 			aria-label={formatMessage(messages.cornerControl)}
 			type="button"
 			onClick={handleOnClick}
-			// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, @atlassian/a11y/mouse-events-have-key-events
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseOut={handleMouseOut}
 			contentEditable={false}
 		>

@@ -68,6 +68,9 @@
 			"path": "../../../design-system/primitives/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../../editor/prosemirror-history/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/spinner/afm-townsquare/tsconfig.json"
 		},
 		{

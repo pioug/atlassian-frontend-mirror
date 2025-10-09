@@ -7,7 +7,6 @@ import { Fragment, type KeyboardEvent } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
@@ -90,27 +89,6 @@ export const SearchResults = ({
 	shouldRenderNoResultsImage,
 }: SearchResultsProps): JSX.Element => {
 	const isActivePlugin = !!activePlugin;
-	// Experiment with new 3P tabs in link picker. For more info, please see: go/link-picker-3p-drive-one-pager.
-	const linkPicker3pDriveExperimentCohort = FeatureGates.initializeCalled()
-		? FeatureGates.getExperimentValue<'control' | 'show_google_drive_tab'>(
-				'link_picker_3p_drive_experiment',
-				'cohort',
-				'control',
-			)
-		: 'control';
-	const googleDriveTabExperimentEnabled =
-		linkPicker3pDriveExperimentCohort === 'show_google_drive_tab';
-	const linkPicker3pOneDriveExperimentCohort = FeatureGates.initializeCalled()
-		? FeatureGates.getExperimentValue<'control' | 'show_onedrive_tab'>(
-				'link_picker_3p_onedrive_experiment',
-				'cohort',
-				'control',
-			)
-		: 'control';
-	const oneDriveTabExperimentEnabled = linkPicker3pOneDriveExperimentCohort === 'show_onedrive_tab';
-	const thirdPartyTabExperimentEnabled =
-		googleDriveTabExperimentEnabled || oneDriveTabExperimentEnabled;
-	const showScrollingTabList = featureFlags?.scrollingTabs || thirdPartyTabExperimentEnabled;
 
 	const tabList = (
 		<TabList>
@@ -147,7 +125,11 @@ export const SearchResults = ({
 								selected={activeTab}
 								onChange={handleTabChange}
 							>
-								{showScrollingTabList ? <ScrollingTabList>{tabList}</ScrollingTabList> : tabList}
+								{featureFlags?.scrollingTabs ? (
+									<ScrollingTabList>{tabList}</ScrollingTabList>
+								) : (
+									tabList
+								)}
 							</Tabs>
 							<TrackTabViewed activePlugin={activePlugin} />
 						</Box>

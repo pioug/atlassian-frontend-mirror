@@ -37,27 +37,20 @@ const iconSizeMap = cssMap({
 	},
 });
 
-const iconOffsetMap = cssMap({
-	square: {
-		right: '0px',
-		top: '0px',
-	},
-	small: {
-		right: '0px',
-		top: '0px',
-	},
-	medium: {
-		right: '0px',
-		top: '0px',
-	},
-	large: {
-		right: '1px',
-		top: '1px',
-	},
-	xlarge: {
-		right: '7px',
-		top: '7px',
-	},
+const circleIconOffsetMap = cssMap({
+	small: { insetInlineEnd: 0, insetBlockStart: 0 },
+	medium: { insetInlineEnd: 0, insetBlockStart: 0 },
+	large: { insetInlineEnd: '1px', insetBlockStart: '1px' },
+	xlarge: { insetInlineEnd: '7px', insetBlockStart: '7px' },
+});
+const squareIconOffsetMap = cssMap({
+	root: { insetInlineEnd: 0, insetBlockStart: 0 },
+});
+const hexagonIconOffsetMap = cssMap({
+	small: { insetInlineEnd: '-1px', insetBlockStart: '-1px' },
+	medium: { insetInlineEnd: '-1px', insetBlockStart: '-1px' },
+	large: { insetInlineEnd: '-4px', insetBlockStart: '4px' },
+	xlarge: { insetInlineEnd: '-5px', insetBlockStart: '17px' },
 });
 
 export interface StatusProps {
@@ -170,8 +163,9 @@ export const StatusWrapper: FC<StatusWrapperProps> = ({
 			css={[
 				styles.root,
 				iconSizeMap[size],
-				iconOffsetMap[size],
-				appearance === 'square' && iconOffsetMap['square'],
+				circleIconOffsetMap[size],
+				appearance === 'square' && squareIconOffsetMap.root,
+				appearance === 'hexagon' && hexagonIconOffsetMap[size],
 			]}
 		>
 			<AvatarStatus borderColor={borderColor} status={!children ? status : undefined}>

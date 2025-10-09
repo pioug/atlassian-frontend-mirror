@@ -1551,7 +1551,7 @@ export default class Select<
 		event.preventDefault();
 		this.focusInput();
 	};
-	onMenuMouseMove: MouseEventHandler<HTMLDivElement> = (event) => {
+	onMenuMouseMove: MouseEventHandler<HTMLDivElement> = (_) => {
 		this.blockOptionHover = false;
 	};
 	onControlMouseDown = (
@@ -2393,6 +2393,8 @@ export default class Select<
 				} else if (item.type === 'option') {
 					return render(item, `${item.index}`);
 				}
+
+				return undefined;
 			});
 		} else if (isLoading) {
 			const message = loadingMessage({ inputValue });

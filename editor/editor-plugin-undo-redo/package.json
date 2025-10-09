@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-undo-redo",
-	"version": "6.0.7",
+	"version": "6.1.2",
 	"description": "Undo redo plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,6 +41,7 @@
 		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/prosemirror-history": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*"
@@ -93,6 +94,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_cmd_y_mac_redo_shortcut": {
+			"type": "boolean"
+		},
+		"platform_editor_add_undo_meta_analytics": {
 			"type": "boolean"
 		}
 	}

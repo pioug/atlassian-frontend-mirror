@@ -110,6 +110,9 @@
 			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/smart-card/afm-cc/tsconfig.json"
 		},
 		{

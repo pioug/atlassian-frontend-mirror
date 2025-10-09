@@ -144,6 +144,9 @@
 			"path": "../../../people-and-teams/profilecard/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../react-ufo/atlaskit/afm-townsquare/tsconfig.json"
 		},
 		{

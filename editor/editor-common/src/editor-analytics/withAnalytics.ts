@@ -1,7 +1,17 @@
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '../analytics';
 import type { HigherOrderCommand } from '../types';
+
+/**
+ * Meta information that can be passed to the analytics payload callback
+ *
+ * @param currentDoc - Current document node after the transaction
+ */
+interface Meta {
+	currentDoc: Node;
+}
 
 /**
  * Callback accepts EditorState
@@ -12,8 +22,12 @@ import type { HigherOrderCommand } from '../types';
  * Also in cases where Analytics fails to load, the editor doesn't crash.
  *
  * @param state - EditorState, passed to the callback
+ * @param meta - Meta, passed to the callback
  */
-type AnalyticsEventPayloadCallback = (state: EditorState) => AnalyticsEventPayload | undefined;
+type AnalyticsEventPayloadCallback = (
+	state: EditorState,
+	meta: Meta,
+) => AnalyticsEventPayload | undefined;
 
 /**
  * Analytics API
@@ -44,7 +58,7 @@ export function withAnalytics(
 			(tr) => {
 				if (dispatch) {
 					if (payload instanceof Function) {
-						const dynamicPayload = payload(state);
+						const dynamicPayload = payload(state, { currentDoc: tr.doc });
 						if (dynamicPayload) {
 							analyticsApi?.attachAnalyticsEvent(dynamicPayload, channel)(tr);
 							dispatch(tr);

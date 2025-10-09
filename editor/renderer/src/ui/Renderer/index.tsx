@@ -879,7 +879,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 		>
 			<BaseTheme baseFontSize={getBaseFontSize(appearance, contentMode)}>
 				<EditorMediaClientProvider ssr={ssr}>
-					{/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+					{/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions*/}
 					<RendererStyleContainer
 						innerRef={innerRef}
 						onClick={onClick}

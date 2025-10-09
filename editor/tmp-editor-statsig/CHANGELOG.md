@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.8.0
+
+### Minor Changes
+
+- [`3e586d8ee0ce4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e586d8ee0ce4) -
+  Remove platform_editor_aifc_selection_toolbar_responsive exp and gate new logic in aiPlugin
+
+## 13.7.0
+
+### Minor Changes
+
+- [`a4db0a2351f7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4db0a2351f7d) -
+  [ux] ED-29502 Add plain text quick insert option to codeBlockPlugin
+
 ## 13.6.1
 
 ### Patch Changes

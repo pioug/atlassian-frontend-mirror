@@ -2,6 +2,7 @@
 import { css, type SerializedStyles } from '@emotion/react';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
@@ -415,15 +416,25 @@ export const getExtensionStyles = (): SerializedStyles => {
 		? relativeFontSizeToBase16(expVal('cc_editor_ai_content_mode', 'baseFontSize', 13))
 		: undefined;
 	// Fixes issue where TOC links fall back to default DST styles
-	const denseContentModeTocStyles = expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
-		? css({
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'.extension-container a span': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-					fontSize,
-				},
-			})
-		: css({});
+	const denseContentModeTocStyles =
+		expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+		fg('platform_editor_content_mode_button_mvp')
+			? css({
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+					'.extension-container *': {
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						fontSize: 'var(--ak-editor-base-font-size)',
+					},
+				})
+			: expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
+				? css({
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+						'.extension-container a span': {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+							fontSize,
+						},
+					})
+				: css({});
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 	return css(baseExtensionStyles, denseContentModeTocStyles);

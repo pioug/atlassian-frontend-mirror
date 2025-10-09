@@ -3,6 +3,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import EntriesTimeline from './entries-timeline';
 import * as getElementNameModule from './get-element-name';
 import VCCalculator_FY25_03 from './metric-calculator/fy25_03';
+import VCNextCalculator from './metric-calculator/vcnext';
 import type { VCObserverEntry } from './types';
 import ViewportObserver from './viewport-observer';
 import WindowEventObserver from './window-event-observer';
@@ -14,6 +15,7 @@ jest.mock('./viewport-observer');
 jest.mock('./window-event-observer');
 jest.mock('./entries-timeline');
 jest.mock('./metric-calculator/fy25_03');
+jest.mock('./metric-calculator/vcnext');
 jest.mock('./get-element-name');
 jest.mock('@atlaskit/platform-feature-flags');
 jest.mock('../vc-observer/observers/ssr-placeholders');
@@ -250,6 +252,7 @@ describe('VCObserverNew', () => {
 
 			mockEntriesTimeline.getOrderedEntries.mockReturnValue(mockEntries);
 			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue(mockResult);
+			(VCNextCalculator.prototype.calculate as jest.Mock).mockResolvedValue(mockResult);
 
 			const result = await vcObserver.getVCResult({
 				start: 0,
@@ -275,12 +278,13 @@ describe('VCObserverNew', () => {
 				interactionType: 'page_load',
 				isPageVisible: true,
 			});
-			expect(result).toEqual([mockResult]);
+			expect(result).toEqual([mockResult, mockResult]);
 		});
 
 		it('should handle empty calculator results', async () => {
 			mockEntriesTimeline.getOrderedEntries.mockReturnValue([]);
 			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue(undefined);
+			(VCNextCalculator.prototype.calculate as jest.Mock).mockResolvedValue(undefined);
 
 			const result = await vcObserver.getVCResult({
 				start: 0,

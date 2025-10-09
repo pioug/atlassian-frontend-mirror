@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "8.1.0",
+	"version": "8.1.1",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -165,6 +165,9 @@
 			"type": "boolean"
 		},
 		"platform_media_video_captions": {
+			"type": "boolean"
+		},
+		"platform_editor_fix_media_card_removal": {
 			"type": "boolean"
 		}
 	},

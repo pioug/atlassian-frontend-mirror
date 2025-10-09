@@ -110,6 +110,9 @@
 			"path": "../../../design-system/primitives/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../prosemirror-history/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/smart-card/afm-rovo-extension/tsconfig.json"
 		},
 		{

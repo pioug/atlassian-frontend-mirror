@@ -4,11 +4,10 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
 import { token } from '@atlaskit/tokens';
 
-import { RANDOM_USERS } from '../examples-util/data';
+import { appearances, RANDOM_USERS } from '../examples-util/data';
 
 const containerStyles = css({
 	display: 'flex',
@@ -27,14 +26,13 @@ const mockTopNavStyles = css({
 	insetBlockStart: 0,
 });
 
-export default function VRStackingContextExample() {
-	const data = RANDOM_USERS.map((d) => ({
-		key: d.email,
-		name: d.name,
-		appearance: 'circle' as AppearanceType,
-		size: 'medium' as SizeType,
-	}));
+const data = RANDOM_USERS.map((d, i) => ({
+	key: d.email,
+	name: d.name,
+	appearance: appearances[i % appearances.length],
+}));
 
+export default function VRStackingContextExample() {
 	return (
 		<div css={containerStyles} data-testid="container">
 			<div css={mockTopNavStyles} />

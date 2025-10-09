@@ -24,7 +24,6 @@ import { StatusWrapper } from './status';
 import {
 	type AppearanceType,
 	type AvatarClickEventHandler,
-	type IndicatorSizeType,
 	type Presence,
 	type SizeType,
 	type Status,
@@ -152,7 +151,7 @@ const Avatar: React.ForwardRefExoticComponent<
 	(
 		{
 			analyticsContext,
-			appearance = 'circle' as AppearanceType,
+			appearance = 'circle',
 			label,
 			borderColor,
 			children,
@@ -283,8 +282,8 @@ const Avatar: React.ForwardRefExoticComponent<
 					</AvatarContentContext.Provider>
 					{isPresence && (
 						<PresenceWrapper
-							appearance={appearance!}
-							size={size as IndicatorSizeType}
+							appearance={appearance}
+							size={size}
 							presence={typeof presence === 'string' ? (presence as Presence) : undefined}
 							testId={testId}
 						>
@@ -293,8 +292,8 @@ const Avatar: React.ForwardRefExoticComponent<
 					)}
 					{isStatus && (
 						<StatusWrapper
-							appearance={appearance!}
-							size={size as IndicatorSizeType}
+							appearance={appearance}
+							size={size}
 							borderColor={borderColor}
 							status={typeof status === 'string' ? (status as Status) : undefined}
 							testId={testId}

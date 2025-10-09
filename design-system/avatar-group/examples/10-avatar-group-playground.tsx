@@ -16,6 +16,8 @@ import ArrowUp from '@atlaskit/icon/glyph/arrow-up';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 
+import { appearances } from '../examples-util/data';
+
 export const N100 = '#7A869A';
 export const R400 = '#DE350B';
 export const R50 = '#FFEBE6';
@@ -201,7 +203,7 @@ const AvatarGroupExample: FC = () => {
 					onAvatarClick={console.log}
 					data={stackSourceURLs.map((i) => ({
 						key: i,
-						appearance: 'circle',
+						appearance: appearances[i % appearances.length],
 						href: '#',
 						name: `Grid Avatar ${i + 1}`,
 						size: avatarSize,
@@ -244,7 +246,7 @@ const AvatarGroupExample: FC = () => {
 					href: '#',
 					name: `Stack Avatar ${i + 1}`,
 					size: avatarSize,
-					appearance: 'circle',
+					appearance: appearances[i % appearances.length],
 				}))}
 				size={avatarSize}
 			/>
@@ -265,7 +267,7 @@ const AvatarGroupExample: FC = () => {
 						href: '#',
 						name: `Stack Avatar ${i + 1}`,
 						size: avatarSize,
-						appearance: 'circle',
+						appearance: appearances[i % appearances.length],
 					}))}
 					size={avatarSize}
 				/>
@@ -287,7 +289,7 @@ const AvatarGroupExample: FC = () => {
 					appearance="stack"
 					maxCount={5}
 					data={stackSourceURLs.map((i) => ({
-						appearance: 'circle',
+						appearance: appearances[i % appearances.length],
 						href: '#',
 						key: i,
 						name: `Stack Avatar ${i + 1}`,
@@ -324,7 +326,7 @@ const AvatarGroupExample: FC = () => {
 								key: i,
 								name: `Stack Avatar ${i + 1}`,
 								size: avatarSize,
-								appearance: 'circle',
+								appearance: appearances[i % appearances.length],
 							}))}
 						/>
 					</div>
@@ -340,7 +342,7 @@ const AvatarGroupExample: FC = () => {
 						key: i,
 						name: `Stack Avatar ${i + 1}`,
 						size: avatarSize,
-						appearance: 'circle',
+						appearance: appearances[i % appearances.length],
 					}))}
 					isTooltipDisabled={state.isTooltipsDisabled}
 					size={avatarSize}

@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 69.5.13
+
+### Patch Changes
+
+- [`39fb37c3e3fff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39fb37c3e3fff) -
+  Use width: auto during SSR to prevent image distortion
+- Updated dependencies
+
 ## 69.5.12
 
 ### Patch Changes

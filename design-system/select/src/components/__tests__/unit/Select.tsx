@@ -350,7 +350,7 @@ describe('Select', () => {
 	});
 
 	it('should autoFocus on the AtlaskitSelect when autoFocus is set to true', async () => {
-		// eslint-disable-next-line jsx-a11y/no-autofocus
+		// eslint-disable-next-line @atlassian/a11y/no-autofocus
 		render(<AtlaskitSelect options={OPTIONS} autoFocus label="Options" />);
 
 		await user.keyboard('5');
@@ -359,7 +359,7 @@ describe('Select', () => {
 	});
 
 	it('should not autoFocus on the AtlaskitSelect when autoFocus is set to false', async () => {
-		// eslint-disable-next-line jsx-a11y/no-autofocus
+		// eslint-disable-next-line @atlassian/a11y/no-autofocus
 		render(<AtlaskitSelect options={OPTIONS} autoFocus={false} label="Options" />);
 
 		await user.keyboard('5');

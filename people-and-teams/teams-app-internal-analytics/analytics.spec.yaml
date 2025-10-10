@@ -597,6 +597,25 @@ events:
         error:
           type: string
           description: the error
+  - teamProfileBreadcrumbsItem clicked:
+      type: ui
+      description: fired when the team profile breadcrumbs item is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        targetTeamId:
+          type: string
+          description: the team id
+  - hierarchyTeamLinkOut clicked:
+      type: ui
+      description: fired when the hierarchy team link out is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        targetTeamId:
+          type: string
+          description: the team id
+  - hierarchyField hovered:
+      type: ui
+      description: fired when the hierarchy field is hovered
   - parentTeamLinker opened:
       type: ui
       description: fired when the parent team field is clicked

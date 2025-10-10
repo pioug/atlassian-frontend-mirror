@@ -16,6 +16,21 @@ export const AI_VIEW_SECTION = {
 	type: 'section',
 } as const;
 
+export const AI_SECTION_PRIMARY_TOOLBAR = {
+	key: 'ai-section-primary-toolbar',
+	type: 'section',
+} as const;
+
+export const AI_SECTION_FULL_PAGE_PRIMARY_TOOLBAR = {
+	key: 'ai-section-full-page-primary-toolbar',
+	type: 'section',
+} as const;
+
+export const AI_SECTION_COMMENT_PRIMARY_TOOLBAR = {
+	key: 'ai-section-comment-primary-toolbar',
+	type: 'section',
+} as const;
+
 export const ROVO_GROUP = {
 	key: 'rovo-group',
 	type: 'group',
@@ -23,6 +38,11 @@ export const ROVO_GROUP = {
 
 export const ROVO_GROUP_VIEW = {
 	key: 'rovo-group-view',
+	type: 'group',
+} as const;
+
+export const ROVO_GROUP_PRIMARY_TOOLBAR = {
+	key: 'rovo-group-primary-toolbar',
 	type: 'group',
 } as const;
 
@@ -43,6 +63,11 @@ export const IMPROVE_WRITING_BUTTON = {
 
 export const ROVO_HERO_BUTTON = {
 	key: 'rovo-hero-button',
+	type: 'button',
+} as const;
+
+export const ROVO_WRITE_BUTTON_PRIMARY_TOOLBAR = {
+	key: 'rovo-write-button-primary-toolbar',
 	type: 'button',
 } as const;
 

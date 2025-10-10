@@ -1,10 +1,12 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import {
+	relativeFontSizeToBase16,
+	akEditorFullPageDenseFontSize,
+} from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -413,7 +415,7 @@ export const getExtensionStyles = (): SerializedStyles => {
 	// Dense content mode TOC styling fix - addresses EDITOR-1992
 	// When cleaning up the experiment, move this logic into the baseExtensionStyles above
 	const fontSize = expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
-		? relativeFontSizeToBase16(expVal('cc_editor_ai_content_mode', 'baseFontSize', 13))
+		? relativeFontSizeToBase16(akEditorFullPageDenseFontSize)
 		: undefined;
 	// Fixes issue where TOC links fall back to default DST styles
 	const denseContentModeTocStyles =

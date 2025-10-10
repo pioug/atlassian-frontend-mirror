@@ -37,6 +37,7 @@ import {
 } from '@atlaskit/emoji';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createEmojiFragment, insertEmoji } from './editor-commands/insert-emoji';
@@ -51,7 +52,7 @@ import {
 	setProvider as setProviderAction,
 } from './pm-plugins/actions';
 import { inputRulePlugin as asciiInputRulePlugin } from './pm-plugins/ascii-input-rules';
-import { InlineEmojiPopup, InlineEmojiPopupOld } from './ui/InlineEmojiPopup';
+import { InlineEmojiPopup } from './ui/InlineEmojiPopup';
 
 export const emojiToTypeaheadItem = (
 	emoji: EmojiDescription,
@@ -277,7 +278,15 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 				},
 				{
 					name: 'emojiAsciiInputRule',
-					plugin: ({ schema }) => asciiInputRulePlugin(schema, api?.analytics?.actions, api),
+					plugin: ({ schema }) =>
+						asciiInputRulePlugin(
+							schema,
+							api?.analytics?.actions,
+							api,
+							expValEquals('platform_editor_plain_text_support', 'isEnabled', true)
+								? options?.disableAutoformat
+								: undefined,
+						),
 				},
 			];
 		},
@@ -329,19 +338,6 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 		}) {
 			if (!api || editorExperiment('platform_editor_controls', 'control') || !editorView) {
 				return null;
-			}
-
-			if (!editorExperiment('platform_editor_controls_performance_fixes', true)) {
-				return (
-					<InlineEmojiPopupOld
-						api={api}
-						editorView={editorView}
-						popupsBoundariesElement={popupsBoundariesElement}
-						popupsMountPoint={popupsMountPoint}
-						popupsScrollableElement={popupsScrollableElement}
-						onClose={() => editorView.dispatch(setInlineEmojiPopupOpen(false)(editorView.state.tr))}
-					/>
-				);
 			}
 
 			return (

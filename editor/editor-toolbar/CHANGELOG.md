@@ -1,5 +1,12 @@
 # @atlaskit/editor-toolbar
 
+## 0.15.1
+
+### Patch Changes
+
+- [`ef423682519f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef423682519f4) -
+  EDITOR-2263 Adds a Rovo button to the main toolbar for AIFC
+
 ## 0.15.0
 
 ### Minor Changes

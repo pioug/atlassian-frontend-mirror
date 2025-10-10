@@ -64,7 +64,6 @@ export const DropdownToolbarButton = ({
 			iconBefore={
 				<div
 					css={
-						// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 						fg('platform-visual-refresh-icons')
 							? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 								triggerWrapperStylesWithPadding

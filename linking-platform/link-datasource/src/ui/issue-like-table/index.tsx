@@ -522,7 +522,6 @@ export const IssueLikeDataTableView = ({
 						return {
 							key,
 							columnKey: key,
-							// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 							content: (
 								<TableCellContent
 									id={id}

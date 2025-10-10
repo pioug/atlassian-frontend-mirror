@@ -23,7 +23,6 @@ import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 
@@ -37,9 +36,7 @@ function sendExtensionQuickInsertAnalytics(
 	source?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.QUICK_INSERT,
 ) {
 	if (createAnalyticsEvent) {
-		const insertLocation = fg('platform_nested_nbm_analytics_location')
-			? findInsertLocation(selection)
-			: undefined;
+		const insertLocation = findInsertLocation(selection);
 
 		fireAnalyticsEvent(createAnalyticsEvent)({
 			payload: {

@@ -10,6 +10,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { DRAG_HANDLE_SELECTOR, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -244,44 +245,50 @@ const BlockMenu = ({
 
 	if (targetHandleRef instanceof HTMLElement) {
 		return (
-			<PopupWithListeners
-				alignX={'right'}
-				alignY={'start'} // respected when forcePlacement is true
-				handleClickOutside={closeMenu}
-				handleEscapeKeydown={closeMenu}
-				mountTo={mountTo}
-				boundariesElement={boundariesElement}
-				scrollableElement={scrollableElement}
-				target={targetHandleRef}
-				zIndex={akEditorFloatingOverlapPanelZIndex}
-				fitWidth={DEFAULT_MENU_WIDTH}
-				forcePlacement={true}
-				preventOverflow={true} // disables forced horizontal placement when forcePlacement is on, so fitWidth controls flipping
-				stick={true}
-				focusTrap={
-					expValEqualsNoExposure(
-						'platform_editor_block_menu_keyboard_navigation',
-						'isEnabled',
-						true,
-					)
-						? { initialFocus: openedViaKeyboard ? undefined : targetHandleRef }
-						: undefined
-				}
-				offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, 0]}
+			<ErrorBoundary
+				component={ACTION_SUBJECT.BLOCK_MENU}
+				dispatchAnalyticsEvent={api?.analytics?.actions.fireAnalyticsEvent}
+				fallbackComponent={null}
 			>
-				<BlockMenuContent
-					api={api}
-					setRef={
+				<PopupWithListeners
+					alignX={'right'}
+					alignY={'start'} // respected when forcePlacement is true
+					handleClickOutside={closeMenu}
+					handleEscapeKeydown={closeMenu}
+					mountTo={mountTo}
+					boundariesElement={boundariesElement}
+					scrollableElement={scrollableElement}
+					target={targetHandleRef}
+					zIndex={akEditorFloatingOverlapPanelZIndex}
+					fitWidth={DEFAULT_MENU_WIDTH}
+					forcePlacement={true}
+					preventOverflow={true} // disables forced horizontal placement when forcePlacement is on, so fitWidth controls flipping
+					stick={true}
+					focusTrap={
 						expValEqualsNoExposure(
 							'platform_editor_block_menu_keyboard_navigation',
 							'isEnabled',
 							true,
 						)
-							? setRef
+							? { initialFocus: openedViaKeyboard ? undefined : targetHandleRef }
 							: undefined
 					}
-				/>
-			</PopupWithListeners>
+					offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, 0]}
+				>
+					<BlockMenuContent
+						api={api}
+						setRef={
+							expValEqualsNoExposure(
+								'platform_editor_block_menu_keyboard_navigation',
+								'isEnabled',
+								true,
+							)
+								? setRef
+								: undefined
+						}
+					/>
+				</PopupWithListeners>
+			</ErrorBoundary>
 		);
 	} else {
 		return null;

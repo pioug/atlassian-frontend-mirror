@@ -200,7 +200,6 @@ function PopperWrapper({
 							xcss as string,
 							// @ts-expect-error: `ax` is not typed correctly
 							!initialFocusRef &&
-								// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 								fg('platform-design-system-apply-popup-wrapper-focus') &&
 								focusRingStyles.root,
 						])}

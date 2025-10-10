@@ -238,6 +238,7 @@ export type DatasourceDetailsRequest = {
 };
 
 export interface RichText {
+	html?: string;
 	text: string;
 	type: 'adf';
 }

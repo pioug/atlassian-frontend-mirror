@@ -8,6 +8,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import { PinIcon, PinnedIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -24,11 +25,12 @@ type PinMenuItemProps = {
 const usePluginState = conditionalHooksFactory(
 	() => expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true),
 	(api?: ExtractInjectionAPI<SelectionToolbarPlugin> | undefined) => {
-		const { editorViewMode, editorToolbarDockingPreference } = useEditorToolbar();
+		const { editorViewMode, editorToolbarDockingPreference, isOffline } = useEditorToolbar();
 
 		return {
 			editorViewMode,
 			editorToolbarDockingPreference,
+			isOffline,
 		};
 	},
 	(api?: ExtractInjectionAPI<SelectionToolbarPlugin> | undefined) => {
@@ -37,10 +39,12 @@ const usePluginState = conditionalHooksFactory(
 			api,
 			'userPreferences.preferences.toolbarDockingPosition',
 		);
+		const isOffline = useSharedPluginStateSelector(api, 'connectivity.mode') === 'offline';
 
 		return {
 			editorViewMode,
 			editorToolbarDockingPreference,
+			isOffline,
 		};
 	},
 );
@@ -50,15 +54,17 @@ const usePluginState = conditionalHooksFactory(
  */
 export const PinMenuItem = ({ api }: PinMenuItemProps) => {
 	const intl = useIntl();
-	const { editorViewMode, editorToolbarDockingPreference } = usePluginState(api);
+	const { editorViewMode, editorToolbarDockingPreference, isOffline } = usePluginState(api);
 	const isToolbarDocked = editorToolbarDockingPreference === 'top';
+
+	const isDisabled = fg('platform_editor_toolbar_aifc_patch_7') ? isOffline : false;
 
 	if (!shouldShowPinMenuItem(editorViewMode)) {
 		return null;
 	}
 
 	const onClick = () => {
-		if (!api) {
+		if (!api || isDisabled) {
 			return;
 		}
 		if (isToolbarDocked) {
@@ -77,6 +83,7 @@ export const PinMenuItem = ({ api }: PinMenuItemProps) => {
 	return (
 		<ToolbarDropdownItem
 			onClick={onClick}
+			isDisabled={isDisabled}
 			elemBefore={
 				isToolbarDocked ? <PinnedIcon size="small" label="" /> : <PinIcon size="small" label="" />
 			}

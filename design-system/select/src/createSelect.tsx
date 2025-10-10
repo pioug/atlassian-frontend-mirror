@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React, {
 	type ComponentType,

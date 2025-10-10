@@ -147,14 +147,13 @@ export const ReactionButton = ({
 				reacted && styles.reacted,
 				!reacted && showSubtleStyle && styles.borderless,
 				!reacted && showOpaqueBackground && styles.opaqueBackground,
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+
 				fg('platform-component-visual-refresh') && styles.reactionStylesRefresh,
 			)}
 			{...dataAttributes}
 		>
 			<FlashAnimation
 				flash={flash}
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				css={[fg('platform-component-visual-refresh') ? flashStyle : flashStyleOld]}
 			>
 				{children}

@@ -943,7 +943,6 @@ const TableWithWidth = (
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	props: React.PropsWithChildren<any>,
 ) => {
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (fg('platform-ssr-table-resize')) {
 		const colWidthsSum =
 			props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;

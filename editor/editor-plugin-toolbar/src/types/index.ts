@@ -4,9 +4,7 @@ export type ToolbarPluginOptions = {
 	disableSelectionToolbar?: boolean;
 	disableSelectionToolbarWhenPinned?: boolean;
 	/**
-	 * Option to enable new toolbar designs - use this to disable the entire toolbar experience where it can't be disabled via the experiment
-	 *
-	 * Default: `true`
+	 * Option to enable new toolbar designs
 	 */
 	enableNewToolbarExperience?: boolean;
 };

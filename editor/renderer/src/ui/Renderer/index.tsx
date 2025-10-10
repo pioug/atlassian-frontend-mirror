@@ -905,7 +905,6 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 	//
 
 	// allowRendererContainerStyles is not needed for comment container styling as container should always be set for comments
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (appearance === 'comment' && isTopLevelRenderer && fg('platform-ssr-table-resize')) {
 		return <div css={setAsQueryContainerStyles}>{renderer}</div>;
 	}
@@ -919,7 +918,6 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 		// Make sure only the root renderer is set to be query container.
 		isTopLevelRenderer &&
 		allowRendererContainerStyles &&
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		fg('platform-ssr-table-resize') ? (
 		<div css={setAsQueryContainerStyles}>{renderer}</div>
 	) : (

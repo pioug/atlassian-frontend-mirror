@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event';
 import { type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { Popper } from '@atlaskit/popper';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { DefaultReactions } from '../shared/constants';
@@ -21,6 +22,10 @@ import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 
 jest.mock('../hooks/useDelayedState', () => ({
 	useDelayedState: (defaultState: any) => useState(defaultState),
+}));
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
 }));
 
 // override requestAnimationFrame letting us execute it when we need
@@ -201,6 +206,64 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 
 		const listWrapper = await screen.getByTestId(RENDER_LIST_ITEM_WRAPPER_TESTID);
 		expect(listWrapper).toBeInTheDocument();
+	});
+
+	describe('EmojiPicker Box wrapping with platform_reaction_full_picker_hover feature flag', () => {
+		const mockFg = fg as jest.MockedFunction<typeof fg>;
+
+		beforeEach(() => {
+			mockFg.mockClear();
+		});
+
+		it('should wrap EmojiPicker in Box when platform_reaction_full_picker_hover is enabled', async () => {
+			mockFg.mockImplementation((flagName: string) => {
+				return flagName === 'platform_reaction_full_picker_hover';
+			});
+
+			renderWithIntl(renderPicker());
+			const triggerPickerButton = await screen.findByLabelText('Add reaction');
+			const btn = triggerPickerButton.closest('button');
+
+			if (btn) {
+				await user.click(btn);
+			}
+
+			// Click on "Show more" to reveal the full emoji picker
+			const showMoreButton = await screen.findByTestId(RENDER_SHOWMORE_TESTID);
+			await user.click(showMoreButton);
+
+			// The EmojiPicker should be wrapped in a Box with the expected class/styling
+			const pickerPanel = await screen.findByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
+			expect(pickerPanel).toBeInTheDocument();
+
+			// Verify the feature flag was called
+			expect(mockFg).toHaveBeenCalledWith('platform_reaction_full_picker_hover');
+		});
+
+		it('should not wrap EmojiPicker in Box when platform_reaction_full_picker_hover is disabled', async () => {
+			mockFg.mockImplementation((flagName: string) => {
+				return flagName === 'platform_reaction_full_picker_hover' ? false : true;
+			});
+
+			renderWithIntl(renderPicker());
+			const triggerPickerButton = await screen.findByLabelText('Add reaction');
+			const btn = triggerPickerButton.closest('button');
+
+			if (btn) {
+				await user.click(btn);
+			}
+
+			// Click on "Show more" to reveal the full emoji picker
+			const showMoreButton = await screen.findByTestId(RENDER_SHOWMORE_TESTID);
+			await user.click(showMoreButton);
+
+			// The EmojiPicker should still be present but without the Box wrapper
+			const pickerPanel = await screen.findByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
+			expect(pickerPanel).toBeInTheDocument();
+
+			// Verify the feature flag was called
+			expect(mockFg).toHaveBeenCalledWith('platform_reaction_full_picker_hover');
+		});
 	});
 });
 

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 4.0.22
+
+### Patch Changes
+
+- [`3c7b7f4449751`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c7b7f4449751) -
+  Add error observability for block menu
+- Updated dependencies
+
 ## 4.0.21
 
 ### Patch Changes

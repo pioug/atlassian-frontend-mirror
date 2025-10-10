@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 33.3.0
+
+### Minor Changes
+
+- [`98d925e6d7670`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98d925e6d7670) -
+  [ux] Fixes issue where full picker can't be interacted with when hoverableReactionPicker=true
+
 ## 33.2.25
 
 ### Patch Changes

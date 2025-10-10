@@ -11,7 +11,6 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type {
@@ -31,14 +30,9 @@ export const SelectionExtensionComponentWrapper = ({
 	editorAnalyticsAPI,
 }: SelectionExtensionComponentWrapperProps) => {
 	const componentRef = useRef<React.ComponentType<SelectionExtensionComponentProps>>();
-	const isToolbarAIFCEnabled = editorExperiment('platform_editor_toolbar_aifc', true, {
-		exposure: true,
-	});
-	const isToolbarAIFCSelectionExtensionEnabled = expValEquals(
-		'platform_editor_toolbar_aifc_selection_extension',
-		'isEnabled',
-		true,
-	);
+	const isToolbarAIFCEnabled =
+		Boolean(api?.toolbar) &&
+		expValEquals('platform_editor_toolbar_aifc_selection_extension', 'isEnabled', true);
 
 	const { activeExtension, mode } = useSharedPluginStateWithSelector(
 		api,
@@ -77,7 +71,7 @@ export const SelectionExtensionComponentWrapper = ({
 		if (!extension) {
 			return;
 		}
-		if (isToolbarAIFCEnabled && isToolbarAIFCSelectionExtensionEnabled) {
+		if (isToolbarAIFCEnabled) {
 			let currentComponent: React.ComponentType<SelectionExtensionComponentProps> | undefined;
 
 			if ('contentComponent' in extension && extension.contentComponent !== undefined) {
@@ -117,17 +111,12 @@ export const SelectionExtensionComponentWrapper = ({
 			// Sets reference to active component
 			componentRef.current = extension.component;
 		}
-	}, [
-		activeExtension,
-		editorAnalyticsAPI,
-		isToolbarAIFCEnabled,
-		isToolbarAIFCSelectionExtensionEnabled,
-	]);
+	}, [activeExtension, editorAnalyticsAPI, isToolbarAIFCEnabled]);
 	const extension = activeExtension?.extension;
 	if (!extension) {
 		return null;
 	}
-	if (isToolbarAIFCEnabled && isToolbarAIFCSelectionExtensionEnabled) {
+	if (isToolbarAIFCEnabled) {
 		const hasContentComponent = (ext: typeof extension): ext is ExtensionMenuItemConfiguration => {
 			return 'contentComponent' in ext && ext.contentComponent !== undefined;
 		};

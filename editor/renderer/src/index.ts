@@ -15,6 +15,7 @@ export type { Serializer } from './serializer';
 export type {
 	HeadingAnchorLinksProps,
 	RendererAppearance,
+	RendererContentMode,
 	StickyHeaderProps,
 	NodeComponentsProps,
 } from './ui/Renderer/types';

@@ -21,6 +21,7 @@ export type PlaceholderPlugin = NextEditorPlugin<
 		commands: {
 			setAnimatingPlaceholderPrompts: (placeholderPrompts: string[]) => EditorCommand;
 			setPlaceholder: (placeholder: string) => EditorCommand;
+			setPlaceholderHidden: (isPlaceholderHidden: boolean) => EditorCommand;
 		};
 		dependencies: [FocusPlugin, CompositionPlugin, TypeAheadPlugin, OptionalPlugin<ShowDiffPlugin>];
 		pluginConfiguration: PlaceholderPluginOptions | undefined;

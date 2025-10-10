@@ -239,7 +239,6 @@ export const Trigger = React.forwardRef(
 							? styles.opaqueEnabledTrigger
 							: styles.transparentEnabledTrigger,
 					miniMode && styles.miniMode,
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 					fg('platform-component-visual-refresh') && styles.triggerStylesRefresh,
 				)}
 				style={{

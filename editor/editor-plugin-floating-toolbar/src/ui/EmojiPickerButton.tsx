@@ -200,7 +200,6 @@ export const EmojiPickerButton: EmojiPickerButtonReturnType = (props) => {
 	return (
 		<div
 			css={
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('platform-visual-refresh-icons')
 					? emojiPickerButtonWrapperVisualRefresh
 					: emojiPickerButtonWrapper

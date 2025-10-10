@@ -41,9 +41,9 @@ const styles = cssMap({
 	},
 	linkIconWrapperSmall: {
 		marginTop: token('space.025', '2px'),
-	marginRight: token('space.025', '2px'),
-	marginBottom: token('space.025', '2px'),
-	marginLeft: token('space.025', '2px'),
+		marginRight: token('space.025', '2px'),
+		marginBottom: token('space.025', '2px'),
+		marginLeft: token('space.025', '2px'),
 	},
 	skeletonMedium: {
 		backgroundColor: token('color.skeleton'),

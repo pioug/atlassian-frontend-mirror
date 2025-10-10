@@ -10,7 +10,7 @@ export default md`
   ${(
 		<Props
 			heading="AnalyticsListener Props"
-			props={require('!!extract-react-types-loader!../src/components/AnalyticsListener/LegacyAnalyticsListener')}
+			props={require('!!extract-react-types-loader!../src/components/AnalyticsListener/ModernAnalyticsListener')}
 		/>
 	)}
 `;

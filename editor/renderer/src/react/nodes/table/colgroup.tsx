@@ -164,9 +164,7 @@ const renderScaleDownColgroup = (
 	// when table resized and number column is enabled, we need to scale down the table in render
 	if (forceScaleForNumColumn) {
 		const calculatedTableContainerWidth =
-			rendererAppearance === 'comment' && fg('platform_custom_number_column')
-				? sumOfColumns
-				: tableContainerWidth;
+			rendererAppearance === 'comment' ? sumOfColumns : tableContainerWidth;
 		const scalePercentage = +(
 			(calculatedTableContainerWidth - akEditorTableNumberColumnWidth) /
 			calculatedTableContainerWidth

@@ -112,7 +112,6 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 								isMulti,
 								this.props.appearance === 'compact',
 								this.props.styles,
-								// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 								fg('platform-component-visual-refresh'),
 								false,
 								fg('jifjam_bulk_operations') ? this.props.height : undefined,

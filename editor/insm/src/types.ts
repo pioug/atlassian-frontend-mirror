@@ -1,18 +1,14 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 
 export type INSMOptions = {
-	getAnalyticsWebClient: Promise<AnalyticsWebClient>;
 	/**
 	 * If an experience is missing or not enabled - no session event will be fired
 	 */
 	experiences: { [key: string]: { enabled: boolean } | undefined };
+	getAnalyticsWebClient: Promise<AnalyticsWebClient>;
 };
 
 export type ExperienceProperties = {
-	/**
-	 * Whether this represents the initial page the user is visiting
-	 */
-	initial: boolean;
 	/**
 	 * An optional content id (ie. for a Confluence page - the page id)
 	 *
@@ -20,25 +16,47 @@ export type ExperienceProperties = {
 	 * not expected to provide this property.
 	 */
 	contentId?: string | null;
+	/**
+	 * Whether this represents the initial page the user is visiting
+	 */
+	initial: boolean;
 };
 
 export type AddedProperties =
-	| { [key: string]: string | number | boolean }
-	| (() => { [key: string]: string | number | boolean });
+	| { [key: string]: string | number | boolean | undefined }
+	| (() => { [key: string]: string | number | boolean | undefined });
 
 export type Measure = {
-	numerator: number;
+	average: number;
 	denominator: number;
 	max: number;
 	min: number;
-	average: number;
+	numerator: number;
 };
 
 export interface PeriodMeasurer {
 	/**
+	 * Run any cleanup, and report the last periods interactivity.
+	 *
+	 * Important note: A new period can start after the end has been reached
+	 * in cases where the measurement was ended due to a scenario such as an
+	 * error boundary being hit (via `insm.stopEarly`).
+	 */
+	end: () => Measure;
+	/**
 	 * Name of the interactivity measurement (measures in the resulting insm event will be under this key)
 	 */
 	name: string;
+
+	/**
+	 * Pauses measurement (ie. when heavy work is triggered)
+	 */
+	pause: () => void;
+
+	/**
+	 * Pauses measurement (ie. when heavy work completes)
+	 */
+	resume: () => void;
 	// Thoughts -- In future we may want to have the active period end logic lead to an active
 	// period close earlier than the active period end confirmation.
 	// ie.
@@ -70,22 +88,4 @@ export interface PeriodMeasurer {
 		 */
 		paused: boolean,
 	) => Measure | undefined;
-
-	/**
-	 * Run any cleanup, and report the last periods interactivity.
-	 *
-	 * Important note: A new period can start after the end has been reached
-	 * in cases where the measurement was ended due to a scenario such as an
-	 * error boundary being hit (via `insm.stopEarly`).
-	 */
-	end: () => Measure;
-
-	/**
-	 * Pauses measurement (ie. when heavy work is triggered)
-	 */
-	pause: () => void;
-	/**
-	 * Pauses measurement (ie. when heavy work completes)
-	 */
-	resume: () => void;
 }

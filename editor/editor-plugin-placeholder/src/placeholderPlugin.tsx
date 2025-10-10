@@ -13,6 +13,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PlaceholderPlugin } from './placeholderPluginType';
@@ -28,6 +29,7 @@ export const pluginKey = new PluginKey('placeholderPlugin');
 const placeholderTestId = 'placeholder-test-id';
 interface PlaceHolderState {
 	hasPlaceholder: boolean;
+	isPlaceholderHidden?: boolean;
 	placeholderPrompts?: string[];
 	placeholderText?: string;
 	pos?: number;
@@ -201,6 +203,7 @@ type CreatePlaceholderStateProps = {
 	emptyLinePlaceholder?: string;
 	intl: IntlShape;
 	isEditorFocused: boolean;
+	isPlaceholderHidden?: boolean;
 	isTypeAheadOpen: ((editorState: EditorState) => boolean) | undefined;
 	placeholderPrompts?: string[];
 	typedAndDeleted?: boolean;
@@ -218,7 +221,15 @@ function createPlaceHolderStateFrom({
 	placeholderPrompts,
 	typedAndDeleted,
 	userHadTyped,
+	isPlaceholderHidden,
 }: CreatePlaceholderStateProps): PlaceHolderState {
+	if (isPlaceholderHidden && fg('platform_editor_ai_aifc_patch_beta')) {
+		return {
+			...emptyPlaceholder(defaultPlaceholderText, placeholderPrompts, userHadTyped),
+			isPlaceholderHidden,
+		};
+	}
+
 	if (isTypeAheadOpen?.(editorState)) {
 		return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts, userHadTyped);
 	}
@@ -385,6 +396,11 @@ export function createPlugin(
 					newEditorState,
 				});
 
+				let isPlaceholderHidden = placeholderState?.isPlaceholderHidden ?? false;
+				if (meta?.isPlaceholderHidden !== undefined && fg('platform_editor_ai_aifc_patch_beta')) {
+					isPlaceholderHidden = meta.isPlaceholderHidden;
+				}
+
 				const newPlaceholderState = createPlaceHolderStateFrom({
 					isEditorFocused,
 					editorState: newEditorState,
@@ -398,6 +414,7 @@ export function createPlugin(
 					typedAndDeleted,
 					userHadTyped,
 					intl,
+					isPlaceholderHidden,
 				});
 
 				// Clear timeouts when hasPlaceholder becomes false
@@ -477,6 +494,11 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 				(placeholderPrompts: string[] | null) =>
 				({ tr }) => {
 					return tr.setMeta(pluginKey, { placeholderPrompts: placeholderPrompts });
+				},
+			setPlaceholderHidden:
+				(isPlaceholderHidden: boolean) =>
+				({ tr }) => {
+					return tr.setMeta(pluginKey, { isPlaceholderHidden });
 				},
 		},
 

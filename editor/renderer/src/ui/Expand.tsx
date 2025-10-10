@@ -4,7 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, Suspense, lazy } from 'react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import {
@@ -20,9 +20,10 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { default as ChevronRightIconLegacy } from '@atlaskit/icon/glyph/chevron-right';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import _uniqueId from 'lodash/uniqueId';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
@@ -155,6 +156,15 @@ const clearNextSiblingMarginTopStyle = css({
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		marginTop: '0 !important',
 	},
+});
+
+// Lazy-loaded children component
+const LazyChildren = lazy(() => {
+	return Promise.resolve({
+		default: ({ children }: { children: React.ReactNode }) => {
+			return React.createElement(React.Fragment, null, children);
+		},
+	});
 });
 
 const Container = (props: StyleProps) => {
@@ -333,7 +343,15 @@ function Expand({
 				<div className={`${nodeType}-content-wrapper`}>
 					<WidthProvider>
 						<div css={clearNextSiblingMarginTopStyle} />
-						{children}
+						{fg('hot-121622_lazy_load_expand_content') ? (
+							expanded ? (
+								<Suspense fallback={<div>Loading...</div>}>
+									<LazyChildren>{children}</LazyChildren>
+								</Suspense>
+							) : null
+						) : (
+							children
+						)}
 					</WidthProvider>
 				</div>
 			</ContentContainer>

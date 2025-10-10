@@ -8,7 +8,6 @@ import ensureTestRunnerNestedCount from './rules/ensure-test-runner-nested-count
 import ensureAtlassianTeam from './rules/ensure-atlassian-team';
 import noDuplicateDependencies from './rules/no-duplicate-dependencies';
 import noInvalidFeatureFlagUsage from './rules/no-invalid-feature-flag-usage';
-import ensureFeatureFlagPrefix from './rules/ensure-feature-flag-prefix';
 import ensureCriticalDependencyResolutions from './rules/ensure-critical-dependency-resolutions';
 import ensureValidBinValues from './rules/ensure-valid-bin-values';
 import ensureNoPrivateDependencies from './rules/ensure-no-private-dependencies';
@@ -61,7 +60,6 @@ const packageJson: {
 
 const rules = {
 	'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
-	'ensure-feature-flag-prefix': ensureFeatureFlagPrefix,
 	'ensure-test-runner-arguments': ensureTestRunnerArguments,
 	'ensure-test-runner-nested-count': ensureTestRunnerNestedCount,
 	'ensure-atlassian-team': ensureAtlassianTeam,
@@ -126,10 +124,6 @@ const recommendedRules = {
 	'@atlaskit/platform/no-alias': 'error',
 	// end: feature-gating rules
 	'@atlaskit/platform/ensure-feature-flag-registration': 'error',
-	'@atlaskit/platform/ensure-feature-flag-prefix': [
-		'warn',
-		{ allowedPrefixes: ['platform.', 'platform_'] },
-	],
 } satisfies Linter.RulesRecord;
 
 const jiraRules = commonConfig;

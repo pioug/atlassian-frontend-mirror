@@ -198,7 +198,6 @@ const buildNodesForTeamMention = (
 	// build team link
 	const defaultTeamLink = `${window.location.origin}/people/team/${teamId}`;
 	const teamLink = context && context.teamLink ? context.teamLink : defaultTeamLink;
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	const teamLinkNode = fg('team-mention-inline-smartlink')
 		? schema.nodes.inlineCard.create({ url: teamLink })
 		: // Ignored via go/ees005
@@ -487,7 +486,6 @@ export const createTypeAheadConfig = ({
 			}
 
 			const annotationMarksForPos: Mark[] | undefined = fg(
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				'editor_inline_comments_paste_insert_nodes',
 			)
 				? getAnnotationMarksForPos(state.tr.selection.$head)
@@ -502,12 +500,10 @@ export const createTypeAheadConfig = ({
 					localId: mentionLocalId,
 				},
 				null,
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
 			);
 			const space = schema.text(
 				' ',
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
 			);
 

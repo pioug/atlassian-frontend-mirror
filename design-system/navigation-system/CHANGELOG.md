@@ -1,5 +1,19 @@
 # @atlassian/navigation-system
 
+## 2.21.0
+
+### Minor Changes
+
+- [`3476b9c121ef9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3476b9c121ef9) -
+  Side nav animations have been updated to support right-to-left (RTL) languages/text direction.
+  This change is behind the feature gate `navx-full-height-sidebar`.
+
+  This includes:
+
+  - `SideNav` peek animations
+  - `SideNav` expand and collapse animations
+  - `TopNavStart` reorder animations
+
 ## 2.20.0
 
 ### Minor Changes

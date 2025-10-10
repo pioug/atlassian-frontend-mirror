@@ -141,11 +141,7 @@ const blockquotePluginOptions = (
 };
 
 const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
-	const isToolbarAIFCEnabled =
-		Boolean(api?.toolbar) &&
-		editorExperiment('platform_editor_toolbar_aifc', true, {
-			exposure: true,
-		});
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		popupsMountPoint,

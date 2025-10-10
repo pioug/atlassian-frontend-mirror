@@ -9,7 +9,6 @@ function scheduleIdleCallback(work: () => void) {
 	if (
 		typeof window !== 'undefined' &&
 		typeof window.requestIdleCallback === 'function' &&
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		fg('ufo_payload_use_idle_callback')
 	) {
 		window.requestIdleCallback(work);

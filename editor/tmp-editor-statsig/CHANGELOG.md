@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.10.0
+
+### Minor Changes
+
+- [`1a90419a2ae30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a90419a2ae30) -
+  [ED-29484] remove references to platform_editor_smart_link_cmd_ctrl_click
+
+## 13.9.0
+
+### Minor Changes
+
+- [`0b4cd77e72217`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b4cd77e72217) -
+  clean up references to platform_editor_controls_performance_fixes
+
 ## 13.8.0
 
 ### Minor Changes

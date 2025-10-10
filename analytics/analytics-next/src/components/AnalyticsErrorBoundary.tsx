@@ -1,10 +1,5 @@
 import React, { Component, type ReactNode } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import isModernContextEnabledEnv from '../utils/isModernContextEnabledEnv';
-
-import LegacyAnalyticsContext from './AnalyticsContext/LegacyAnalyticsContext';
 import ModernAnalyticsContext from './AnalyticsContext/ModernAnalyticsContext';
 
 type AnalyticsErrorBoundaryErrorInfo = {
@@ -49,30 +44,19 @@ export default class AnalyticsErrorBoundary extends Component<
 	render() {
 		const { data, children, ErrorComponent } = this.props;
 		const { hasError } = this.state;
-		const isModernContext =
-			isModernContextEnabledEnv || fg('analytics-next-use-modern-context_jira');
 
 		if (hasError) {
 			if (ErrorComponent) {
-				if (isModernContext) {
-					return (
-						<ModernAnalyticsContext data={data}>
-							<ErrorComponent />
-						</ModernAnalyticsContext>
-					);
-				}
 				return (
-					<LegacyAnalyticsContext data={data}>
+					<ModernAnalyticsContext data={data}>
 						<ErrorComponent />
-					</LegacyAnalyticsContext>
+					</ModernAnalyticsContext>
 				);
 			}
+
 			return null;
 		}
-		if (isModernContext) {
-			return <ModernAnalyticsContext data={data}>{children}</ModernAnalyticsContext>;
-		}
 
-		return <LegacyAnalyticsContext data={data}>{children}</LegacyAnalyticsContext>;
+		return <ModernAnalyticsContext data={data}>{children}</ModernAnalyticsContext>;
 	}
 }

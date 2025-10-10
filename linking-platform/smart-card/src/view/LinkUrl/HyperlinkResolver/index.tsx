@@ -61,8 +61,31 @@ const HyperlinkWithSmartLinkResolverInner = ({
 
 	const onAuthorize = useCallback(() => actions.authorize('hyperlink'), [actions]);
 
+	const shouldRenderConnectBtn = () => {
+		if (!props.children || !Array.isArray(props.children) || props.children.length === 0) {
+			return false;
+		}
+
+		const firstChild = props.children[0];
+
+		try {
+			// Check if first child has a string matching href
+			if (typeof firstChild === 'string') {
+				return props.href === firstChild;
+			}
+
+			// Check if first child has another child object containing matching href. This aligns with the behavior of the TextWrapper component used by editor to render link nodes
+			if (firstChild?.props?.children && typeof firstChild.props.children === 'string') {
+				return props.href === firstChild.props.children;
+			}
+		} catch (_) {
+			return false;
+		}
+	};
+
 	if (
 		state?.status === 'unauthorized' &&
+		shouldRenderConnectBtn() &&
 		(FeatureGates.getExperimentValue(
 			'platform_linking_bluelink_connect_confluence',
 			'isEnabled',

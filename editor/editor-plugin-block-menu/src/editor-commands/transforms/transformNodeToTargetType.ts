@@ -17,6 +17,16 @@ import {
 	isLayoutNode,
 } from './utils';
 
+/**
+ * Transforms a source node to the specified target type.
+ * Throws errors on failure which should be caught at the command level.
+ *
+ * @param tr - The transaction to apply transformations to
+ * @param sourceNode - The node to transform
+ * @param sourcePos - The position of the source node in the document
+ * @param targetType - The target node type to transform to
+ * @returns The modified transaction if successful, null if transformation is not possible
+ */
 export function transformNodeToTargetType(
 	tr: Transaction,
 	sourceNode: PMNode,
@@ -56,34 +66,29 @@ export function transformNodeToTargetType(
 	};
 
 	// Route to appropriate transformation strategy based on source node type
-	try {
-		if (isLayoutNodeType(targetNodeType)) {
-			return convertToLayout(transformationContext);
-		}
-
-		// special case codeblock to listType
-		if (sourceNode.type.name === 'codeBlock' && isListNodeType(targetNodeType)) {
-			return unwrapAndConvertToList(transformationContext);
-		}
-		if (isLayoutNode(sourceNode)) {
-			return transformLayoutNode(transformationContext);
-		}
-
-		if (isBlockNode(sourceNode)) {
-			return transformBlockNode(transformationContext);
-		}
-
-		if (isListNode(sourceNode)) {
-			return transformListNode(transformationContext);
-		}
-
-		if (isContainerNode(sourceNode)) {
-			return transformContainerNode(transformationContext);
-		}
-
-		return null;
-	} catch {
-		// Node transformation failed
-		return null;
+	if (isLayoutNodeType(targetNodeType)) {
+		return convertToLayout(transformationContext);
 	}
+
+	// special case codeblock to listType
+	if (sourceNode.type.name === 'codeBlock' && isListNodeType(targetNodeType)) {
+		return unwrapAndConvertToList(transformationContext);
+	}
+	if (isLayoutNode(sourceNode)) {
+		return transformLayoutNode(transformationContext);
+	}
+
+	if (isBlockNode(sourceNode)) {
+		return transformBlockNode(transformationContext);
+	}
+
+	if (isListNode(sourceNode)) {
+		return transformListNode(transformationContext);
+	}
+
+	if (isContainerNode(sourceNode)) {
+		return transformContainerNode(transformationContext);
+	}
+
+	return null;
 }

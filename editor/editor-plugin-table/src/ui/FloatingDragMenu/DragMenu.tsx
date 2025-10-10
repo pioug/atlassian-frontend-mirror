@@ -46,7 +46,6 @@ import PaintBucketIcon from '@atlaskit/icon/core/migration/paint-bucket--editor-
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import Toggle from '@atlaskit/toggle';
 
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../pm-plugins/commands';
@@ -324,6 +323,8 @@ const DragMenu = React.memo(
 			formatMessage,
 			selectionRect,
 		);
+
+		const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 		const handleSubMenuRef = (ref: HTMLDivElement | null) => {
 			const parent = closestElement(
@@ -665,7 +666,7 @@ const DragMenu = React.memo(
 			/>
 		);
 
-		return editorExperiment('platform_editor_toolbar_aifc', true) ? (
+		return isToolbarAIFCEnabled ? (
 			<UserIntentPopupWrapper api={api}>{Menu}</UserIntentPopupWrapper>
 		) : (
 			Menu

@@ -34,7 +34,6 @@ export function ToolbarDropdownTriggerWrapper({ children }: { children?: React.R
 	return (
 		<div
 			css={[
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('platform-visual-refresh-icons')
 					? triggerWrapperStylesWithPadding
 					: triggerWrapperStyles,

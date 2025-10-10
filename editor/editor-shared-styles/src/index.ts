@@ -19,6 +19,7 @@ export {
 	akEditorFloatingPanelZIndex,
 	akEditorFullPageMaxWidth,
 	akEditorFullPageDefaultFontSize,
+	akEditorFullPageDenseFontSize,
 	akEditorFullWidthLayoutWidth,
 	akEditorFullWidthLayoutLineLength,
 	akEditorGridLineZIndex,

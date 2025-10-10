@@ -1,5 +1,12 @@
 # @atlaskit/linking-types
 
+## 14.1.0
+
+### Minor Changes
+
+- [`3df7d3cfeda33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3df7d3cfeda33) -
+  Add optional `html` prop on a RichText field
+
 ## 14.0.1
 
 ### Patch Changes

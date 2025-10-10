@@ -96,6 +96,7 @@ export const FormatButton = ({
 				isSelected={isActive}
 				isDisabled={isDisabled}
 				ariaKeyshortcuts={getAriaKeyshortcuts(shortcut)}
+				testId={`editor-toolbar__${formatTitle}`}
 			/>
 		</ToolbarTooltip>
 	);

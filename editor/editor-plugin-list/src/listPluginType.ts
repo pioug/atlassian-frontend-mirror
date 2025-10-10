@@ -2,6 +2,7 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 
 import type {
 	FindRootParentListNode,
@@ -17,6 +18,7 @@ export type ListPluginDependencies = [
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<AnalyticsPlugin>,
 	OptionalPlugin<BlockMenuPlugin>,
+	OptionalPlugin<ToolbarPlugin>,
 ];
 
 export type ListPluginActions = {

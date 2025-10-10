@@ -81,7 +81,6 @@ export const toolbarPlugin: ToolbarPlugin = ({
 	config = {
 		disableSelectionToolbar: false,
 		disableSelectionToolbarWhenPinned: false,
-		enableNewToolbarExperience: true,
 	},
 }) => {
 	const { disableSelectionToolbar, disableSelectionToolbarWhenPinned } = config;

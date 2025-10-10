@@ -39,8 +39,7 @@ import { getToolbarComponents } from './ui/toolbar-components';
  * from `@atlaskit/editor-core`.
  */
 export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, api }) => {
-	const isToolbarAIFCEnabled =
-		Boolean(api?.toolbar) && editorExperiment('platform_editor_toolbar_aifc', true);
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,

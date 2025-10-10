@@ -1,5 +1,13 @@
 # @atlaskit/analytics-next
 
+## 11.1.3
+
+### Patch Changes
+
+- [`2752a069d8a01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2752a069d8a01) -
+  Cleaning up feature flag changes that remove the legacy contextTypes API, which is deprecated and
+  will be removed in the next major React release.
+
 ## 11.1.2
 
 ### Patch Changes

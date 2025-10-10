@@ -515,11 +515,25 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 						>
 							{settings.showFullPicker ||
 							(hoverableReactionPicker && isHoverableReactionPickerEmojiPickerOpen) ? (
-								<EmojiPicker
-									emojiProvider={emojiProvider}
-									onSelection={onEmojiSelected}
-									size={emojiPickerSize}
-								/>
+								fg('platform_reaction_full_picker_hover') ? (
+									<Box
+										xcss={additionalStyles.selectorContainer}
+										onMouseEnter={handlePopupMouseEnter}
+										onMouseLeave={handlePopupMouseLeave}
+									>
+										<EmojiPicker
+											emojiProvider={emojiProvider}
+											onSelection={onEmojiSelected}
+											size={emojiPickerSize}
+										/>
+									</Box>
+								) : (
+									<EmojiPicker
+										emojiProvider={emojiProvider}
+										onSelection={onEmojiSelected}
+										size={emojiPickerSize}
+									/>
+								)
 							) : (
 								<Box
 									xcss={additionalStyles.selectorContainer}

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 3.3.5
+
+### Patch Changes
+
+- [`a48139f041cd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a48139f041cd4) -
+  [ux] EDITOR-1654 implement sync block ui for hovered, selected and delete states
+- Updated dependencies
+
 ## 3.3.4
 
 ### Patch Changes

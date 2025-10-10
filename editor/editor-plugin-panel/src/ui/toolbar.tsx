@@ -44,7 +44,6 @@ import SuccessIcon from '@atlaskit/icon/core/migration/status-success--editor-su
 import WarningIcon from '@atlaskit/icon/core/migration/status-warning--editor-warning';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import RemoveEmojiIcon from '@atlaskit/icon/glyph/editor/remove-emoji';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changePanelType, removePanel } from '../editor-actions/actions';
 import type { PanelPlugin } from '../index';
@@ -134,9 +133,7 @@ export const getToolbarItems = (
 			]
 		: [
 				panelTypeDropdown({ activePanelType, editorAnalyticsAPI, formatMessage }),
-				...(Boolean(api?.toolbar) && editorExperiment('platform_editor_toolbar_aifc', true)
-					? []
-					: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
+				...(Boolean(api?.toolbar) ? [] : [{ type: 'separator' } as FloatingToolbarItem<Command>]),
 			];
 
 	if (isCustomPanelEnabled) {

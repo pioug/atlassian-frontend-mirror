@@ -1,9 +1,11 @@
 import {
 	ACTION,
 	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { logException } from '@atlaskit/editor-common/monitoring';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type Schema, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -303,7 +305,32 @@ export const formatNode =
 					return setSelectionAfterTransform(newTr, nodePos, targetType);
 				}
 				return newTr;
-			} catch {
+			} catch (error) {
+				logException(error as Error, { location: 'editor-plugin-block-menu' });
+
+				// Fire error analytics event
+				let sourceTypeName = nodeToFormat.type.name;
+				if (sourceTypeName === 'heading' && nodeToFormat.attrs?.level) {
+					sourceTypeName = `heading${nodeToFormat.attrs.level}`;
+				}
+
+				api?.analytics?.actions?.fireAnalyticsEvent({
+					action: ACTION.ERRORED,
+					actionSubject: ACTION_SUBJECT.ELEMENT,
+					actionSubjectId: ACTION_SUBJECT_ID.TRANSFORM,
+					eventType: EVENT_TYPE.OPERATIONAL,
+					attributes: {
+						error: (error as Error).message,
+						errorStack: (error as Error).stack,
+						docSize: tr.doc.nodeSize,
+						from: sourceTypeName,
+						to: targetType,
+						position: tr.selection.from,
+						selection: tr.selection.toJSON(),
+						inputMethod: analyticsAttrs?.inputMethod || INPUT_METHOD.BLOCK_MENU,
+						triggeredFrom: analyticsAttrs?.triggeredFrom || INPUT_METHOD.MOUSE,
+					},
+				});
 				return null;
 			}
 		};

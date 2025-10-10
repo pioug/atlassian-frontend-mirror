@@ -469,7 +469,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		return (
 			<span
 				css={
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/platform/ensure-feature-flag-prefix
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
 					fg('platform-visual-refresh-icons')
 						? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 							buttonGroupStyle

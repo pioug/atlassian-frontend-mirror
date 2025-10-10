@@ -33,9 +33,7 @@ const pluginConfig = (
 };
 
 export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api }) => {
-	const isToolbarAIFCEnabled =
-		Boolean(api?.toolbar) &&
-		editorExperiment('platform_editor_toolbar_aifc', true, { exposure: true });
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,
@@ -83,7 +81,7 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 		},
 
 		pmPlugins() {
-			return editorExperiment('platform_editor_toolbar_aifc', true) &&
+			return isToolbarAIFCEnabled &&
 				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
 				? [
 						{

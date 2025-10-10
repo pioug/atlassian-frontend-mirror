@@ -48,6 +48,7 @@ import {
 	akEditorTableToolbar,
 	blockNodesVerticalMargin,
 	gridMediumMaxWidth,
+	akEditorFullPageDefaultFontSize,
 } from '@atlaskit/editor-shared-styles';
 import { INLINE_IMAGE_WRAPPER_CLASS_NAME } from '@atlaskit/editor-common/media-inline';
 import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
@@ -73,6 +74,7 @@ import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
 import { LightWeightCodeBlockCssClassName } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
 import { editorUGCToken } from '@atlaskit/editor-common/ugc-tokens';
 import { getBaseFontSize } from './get-base-font-size';
+import { defaultEmojiHeight, EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const wrappedMediaBreakoutPoint = 410;
@@ -908,6 +910,13 @@ const codeMarkSharedStyles = css({
 		overflow: 'auto',
 		overflowWrap: 'break-word',
 		whiteSpace: 'pre-wrap',
+	},
+});
+
+const extensionStyle = css({
+	'.ak-renderer-extension *': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		fontSize: 'var(--ak-renderer-base-font-size)',
 	},
 });
 
@@ -2149,6 +2158,32 @@ const rendererAnnotationStylesCommentHeightFix = css({
 	},
 });
 
+// Calculate emoji size based on base font size
+// Default: 20px emoji at 16px base font
+// Scaled: 20px * (baseFontSize/16)
+// E.g., dense mode (13px base): 20px * (13/16) = 16.25px
+const denseEmojiStyles = css({
+	[`.${EmojiSharedCssClassName.EMOJI_IMAGE}`]: {
+		height: `calc(${defaultEmojiHeight} * var(--ak-renderer-base-font-size) / ${akEditorFullPageDefaultFontSize})`,
+		width: `calc(${defaultEmojiHeight} * var(--ak-renderer-base-font-size) / ${akEditorFullPageDefaultFontSize})`,
+		maxHeight: `calc(${defaultEmojiHeight} * var(--ak-renderer-base-font-size) / ${akEditorFullPageDefaultFontSize})`,
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		img: {
+			width: '100%',
+			height: '100%',
+			objectFit: 'contain',
+		},
+	},
+
+	// Scale panel icon
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	[`.${RendererCssClassName.DOCUMENT} .ak-editor-panel .ak-editor-panel__icon`]: {
+		height: token('space.250', '20px'),
+		width: token('space.250', '20px'),
+	},
+});
+
 type RendererStyleContainerProps = Pick<
 	RendererWrapperProps,
 	| 'onClick'
@@ -2194,6 +2229,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 		{ exposure: true },
 	);
 
+	const baseFontSize = getBaseFontSize(appearance, contentMode);
 	return (
 		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 		<div
@@ -2202,7 +2238,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 			onMouseDown={onMouseDown}
 			style={
 				{
-					'--ak-renderer-base-font-size': `${getBaseFontSize(appearance, contentMode)}px`,
+					'--ak-renderer-base-font-size': `${baseFontSize}px`,
 					'--ak-renderer-editor-font-heading-h1': `${editorUGCToken('editor.font.heading.h1')}`,
 					'--ak-renderer-editor-font-heading-h2': `${editorUGCToken('editor.font.heading.h2')}`,
 					'--ak-renderer-editor-font-heading-h3': `${editorUGCToken('editor.font.heading.h3')}`,
@@ -2214,6 +2250,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 			}
 			css={[
 				baseStyles,
+				expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+					fg('platform_editor_content_mode_button_mvp') &&
+					denseEmojiStyles,
 				hideHeadingCopyLinkWrapperStyles,
 				appearance === 'full-page' &&
 					isPreviewPanelResponsivenessOn &&
@@ -2232,6 +2271,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					: headingsSharedStyles,
 				headingWithAlignmentStyles,
 				ruleSharedStyles,
+				expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+					fg('platform_editor_content_mode_button_mvp') &&
+					extensionStyle,
 				fg('platform_editor_typography_ugc')
 					? paragraphSharedStylesWithEditorUGC
 					: paragraphSharedStyles,
@@ -2256,11 +2298,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					headerSmartCardStyles,
 				fg('smartcard_avatar_margin_fix') && smartCardStylesAvatarMarginFix,
 				smartCardStylesAvatarListZeroMarginTop,
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
-				// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
+				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 				fg('editor_inline_comments_on_inline_nodes') &&
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 					fg('annotations_align_editor_and_renderer_styles') &&
 					rendererAnnotationStylesCommentHeightFix,
 				baseOtherStyles,

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.2.6
+
+### Patch Changes
+
+- [`0b4cd77e72217`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b4cd77e72217) -
+  clean up references to platform_editor_controls_performance_fixes
+- Updated dependencies
+
 ## 7.2.5
 
 ### Patch Changes

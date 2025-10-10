@@ -51,6 +51,7 @@ type EditorViewModePluginType = NextEditorPlugin<
 	{ sharedState: EditorViewModePluginState }
 >;
 export interface EmojiPluginOptions {
+	disableAutoformat?: boolean;
 	emojiNodeDataProvider?: EmojiNodeDataProvider;
 	emojiProvider?: Promise<EmojiProvider>;
 	headless?: boolean;

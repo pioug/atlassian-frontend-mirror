@@ -121,6 +121,7 @@ export const ToolbarNext = ({
 					: editorViewMode
 			}
 			editorToolbarDockingPreference={editorToolbarDockingPreference}
+			isOffline={isOffline}
 		>
 			<EditorToolbarUIProvider
 				api={editorAPI}

@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 /* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 /**
  * @jsxRuntime classic
@@ -23,6 +22,8 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 import { useThemeObserver } from '@atlaskit/tokens';
+
+import { getBaseFontSize } from '../../composable-editor/utils/getBaseFontSize';
 
 import {
 	aiPanelBaseFirefoxStyles,
@@ -58,7 +59,7 @@ import { cursorStyles } from './styles/cursorStyles';
 import { dangerDateStyles, dateStyles, dateVanillaStyles } from './styles/dateStyles';
 import { editorUGCTokensDefault, editorUGCTokensRefreshed } from './styles/editorUGCTokenStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
-import { emojiDangerStyles, emojiStyles } from './styles/emoji';
+import { emojiDangerStyles, emojiStyles, getDenseEmojiStyles } from './styles/emoji';
 import {
 	expandStyles,
 	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
@@ -237,12 +238,14 @@ const firstWrappedMediaStyles = {
  */
 const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentContainerProps>(
 	(props, ref) => {
-		const { className, children, viewMode, isScrollable, appearance } = props;
+		const { className, children, viewMode, isScrollable, appearance, contentMode } = props;
 		const theme = useTheme();
 		const { colorMode } = useThemeObserver();
 
 		const isFullPage = appearance === 'full-page' || appearance === 'full-width';
 		const isComment = appearance === 'comment';
+
+		const baseFontSize = getBaseFontSize(appearance, contentMode);
 
 		const style = editorExperiment('platform_editor_preview_panel_responsiveness', true, {
 			exposure: true,
@@ -570,6 +573,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						mentionsStylesMixin_platform_editor_centre_mention_padding,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					emojiStyles,
+					// Dense emoji scaling based on base font size
+					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+						fg('platform_editor_content_mode_button_mvp') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						getDenseEmojiStyles(baseFontSize),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					panelViewStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

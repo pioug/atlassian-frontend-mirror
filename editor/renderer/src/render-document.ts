@@ -267,7 +267,6 @@ export const renderDocument = <T>(
 ): RenderOutput<T | null> => {
 	const stat: RenderOutputStat = { sanitizeTime: 0 };
 
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (fg('platform_editor_renderer_rm_usespecbasedvalidator')) {
 		useSpecBasedValidator = true;
 	}

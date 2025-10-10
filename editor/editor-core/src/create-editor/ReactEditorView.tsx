@@ -599,6 +599,34 @@ export function ReactEditorView(props: EditorViewProps) {
 							? getNodesVisibleInViewport(viewRef.current.dom)
 							: {};
 
+						const nodeSize = viewRef.current.state.doc.nodeSize;
+						const { totalNodes, nodeSizeBucket } = expValEquals(
+							'cc_editor_insm_doc_size_stats',
+							'isEnabled',
+							true,
+						)
+							? {
+									totalNodes: Object.values(nodes).reduce((acc, curr) => acc + curr, 0),
+									// Computed on client for dimension bucketing in Statsig
+									nodeSizeBucket: (() => {
+										switch (true) {
+											case nodeSize < 10000:
+												return '<10000';
+											case nodeSize < 20000:
+												return '<20000';
+											case nodeSize < 30000:
+												return '<30000';
+											case nodeSize < 40000:
+												return '<40000';
+											case nodeSize < 50000:
+												return '<50000';
+											default:
+												return '50000+';
+										}
+									})(),
+								}
+							: {};
+
 						dispatchAnalyticsEvent({
 							action: ACTION.PROSEMIRROR_RENDERED,
 							actionSubject: ACTION_SUBJECT.EDITOR,
@@ -607,6 +635,9 @@ export function ReactEditorView(props: EditorViewProps) {
 								startTime,
 								nodes,
 								nodesInViewport,
+								nodeSize,
+								nodeSizeBucket,
+								totalNodes,
 								ttfb,
 								severity: proseMirrorRenderedSeverity,
 								objectId: contextIdentifier?.objectId,

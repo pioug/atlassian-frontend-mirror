@@ -60,6 +60,7 @@ export const TableButton = ({ api }: TableButtonProps) => {
 				iconBefore={<TableIcon label={formatMessage(messages.table)} size="small" />}
 				onClick={onClick}
 				ariaKeyshortcuts={getAriaKeyshortcuts(toggleTable)}
+				testId="Table"
 			/>
 		</ToolbarTooltip>
 	);

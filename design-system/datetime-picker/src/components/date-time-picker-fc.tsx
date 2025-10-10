@@ -25,7 +25,6 @@ import DatePickerNew from './date-picker-fc';
 import TimePicker from './time-picker';
 
 const DatePicker = componentWithCondition(
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	() => fg('dst-date-picker-use-functional-component'),
 	DatePickerNew,
 	DatePickerOld,

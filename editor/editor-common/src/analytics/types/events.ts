@@ -19,7 +19,7 @@ import type { AIStreamingEventPayload } from './ai-streaming';
 import type { AIUnifiedEventPayload } from './ai-unified-events';
 import type { AlignmentEventPayload } from './alignment-events';
 import type { AvatarEventPayload } from './avatar';
-import type { BlockMenuEventPayload } from './block-menu-events';
+import type { BlockMenuEventPayload, ElementTransformErrorAEP } from './block-menu-events';
 import type { BreakoutEventPayload } from './breakout-events';
 import type { TextColorEventPayload } from './color-events';
 import type { ConfigPanelEventPayload } from './config-panel-events';
@@ -337,7 +337,8 @@ type ComponentCrashErrorAEP = OperationalAEP<
 	| ACTION_SUBJECT.REACT_NODE_VIEW
 	| ACTION_SUBJECT.TABLES_PLUGIN
 	| ACTION_SUBJECT.FLOATING_TOOLBAR_PLUGIN
-	| ACTION_SUBJECT.EDITOR,
+	| ACTION_SUBJECT.EDITOR
+	| ACTION_SUBJECT.BLOCK_MENU,
 	ACTION_SUBJECT_ID | FLOATING_CONTROLS_TITLE,
 	ErrorEventAttributes
 >;
@@ -372,7 +373,8 @@ export type ErrorEventPayload =
 	| PickerErrorAEP
 	| ComponentCrashErrorAEP
 	| ComponentCrashAdditionalInfoErrorAEP
-	| SmartLinkErrorAEP;
+	| SmartLinkErrorAEP
+	| ElementTransformErrorAEP;
 
 export type AnalyticsEventPayloadCallback = (
 	state: EditorState,

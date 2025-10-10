@@ -59,11 +59,9 @@ export function ToolbarButtonGroup({ children }: { children?: React.ReactNode })
 	return (
 		<span
 			css={[
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('platform-visual-refresh-icons')
 					? buttonGroupStyle
 					: buttonGroupStyleBeforeVisualRefresh,
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('platform-visual-refresh-icons')
 					? buttonGroupStyleUnbounded
 					: buttonGroupStyleBeforeVisualRefreshUnbounded,

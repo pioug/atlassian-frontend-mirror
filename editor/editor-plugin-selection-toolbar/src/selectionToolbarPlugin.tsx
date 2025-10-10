@@ -73,11 +73,7 @@ const getToolbarDockingV2 = (
 export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) => {
 	const __selectionToolbarHandlers: SelectionToolbarHandler[] = [];
 	let primaryToolbarComponent: ToolbarUIComponentFactory | undefined;
-	const isToolbarAIFCEnabled =
-		Boolean(api?.toolbar) &&
-		editorExperiment('platform_editor_toolbar_aifc', true, {
-			exposure: true,
-		});
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	const { userPreferencesProvider, contextualFormattingEnabled } = config;
 

@@ -249,6 +249,7 @@ export const TableResizer = ({
 	const [snappingEnabled, setSnappingEnabled] = useState(false);
 
 	const { formatMessage } = useIntl();
+	const isToolbarAIFCEnabled = Boolean(pluginInjectionApi?.toolbar);
 
 	const currentSelection = editorView.state?.selection;
 	const tableFromSelection = useMemo(() => {
@@ -429,7 +430,7 @@ export const TableResizer = ({
 
 		if (
 			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) ||
-			editorExperiment('platform_editor_toolbar_aifc', true)
+			isToolbarAIFCEnabled
 		) {
 			pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('resizing')({ tr });
 		}
@@ -460,14 +461,15 @@ export const TableResizer = ({
 		displayGapCursor,
 		node.attrs.localId,
 		tableRef,
+		isToolbarAIFCEnabled,
 		isTableScalingEnabled,
-		excludeGuidelineConfig,
-		containerWidth,
+		isFullWidthModeEnabled,
 		lineLength,
+		containerWidth,
+		excludeGuidelineConfig,
 		displayGuideline,
 		onResizeStart,
-		isFullWidthModeEnabled,
-		pluginInjectionApi,
+		pluginInjectionApi?.userIntent?.commands,
 	]);
 
 	const handleResize = useCallback(
@@ -612,7 +614,7 @@ export const TableResizer = ({
 			tr.setMeta('is-resizer-resizing', false);
 			if (
 				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) ||
-				editorExperiment('platform_editor_toolbar_aifc', true)
+				isToolbarAIFCEnabled
 			) {
 				pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 			}
@@ -709,15 +711,16 @@ export const TableResizer = ({
 			node,
 			isCommentEditor,
 			widthToWidest,
+			isToolbarAIFCEnabled,
 			endMeasure,
 			displayGapCursor,
 			displayGuideline,
 			updateWidth,
 			scheduleResize,
 			onResizeStop,
+			pluginInjectionApi,
 			attachAnalyticsEvent,
 			tableRef,
-			pluginInjectionApi,
 			isTableScalingEnabled,
 			shouldUseIncreasedScalingPercent,
 			formatMessage,

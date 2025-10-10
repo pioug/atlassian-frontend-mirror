@@ -24,7 +24,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { taskItemNodeSpec, blockTaskItemNodeSpec } from './nodeviews/taskItemNodeSpec';
 import { decisionItemSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/decisionItem';
@@ -151,11 +150,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		api?.contextIdentifier?.sharedState.currentState()?.contextIdentifierProvider;
 	let previousTaskAndDecisionProvider: TaskDecisionProvider | undefined;
 
-	const isToolbarAIFCEnabled =
-		Boolean(api?.toolbar) &&
-		editorExperiment('platform_editor_toolbar_aifc', true, {
-			exposure: true,
-		});
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	if (
 		isToolbarAIFCEnabled &&

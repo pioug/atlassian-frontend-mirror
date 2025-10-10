@@ -10,7 +10,6 @@ import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { ArrowKeyNavigationType, DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
@@ -120,75 +119,20 @@ const BlockMenu = ({
 		return null;
 	}
 
-	if (editorExperiment('platform_editor_controls_performance_fixes', true)) {
-		if (!menuTriggerBy) {
-			return null;
-		}
-
-		return (
-			<BlockMenuContent
-				editorView={editorView}
-				mountPoint={mountPoint}
-				boundariesElement={boundariesElement}
-				scrollableElement={scrollableElement}
-				api={api}
-				menuTriggerBy={menuTriggerBy}
-				formatMessage={formatMessage}
-			/>
-		);
+	if (!menuTriggerBy) {
+		return null;
 	}
 
-	const activeNodeSelector = `[${getAnchorAttrName()}=${menuTriggerBy}]`;
-	const targetHandleRef = document.querySelector(activeNodeSelector);
-	const items = getBlockMenuItems(formatMessage);
-
-	const handleOpenChange = (payload?: { event: PointerEvent | KeyboardEvent; isOpen: boolean }) => {
-		if (!payload?.isOpen) {
-			api?.core.actions.execute(api?.blockControls.commands.toggleBlockMenu({ closeMenu: true }));
-		}
-	};
-
-	const onMenuItemActivated = ({ item }: { item: MenuItem }) => {
-		if (editorView) {
-			menuItemsCallback[item.value.name as keyof typeof menuItemsCallback]?.(api, formatMessage)?.(
-				editorView.state,
-				editorView.dispatch,
-				editorView,
-			);
-			api?.core.actions.execute(api?.blockControls.commands.toggleBlockMenu({ closeMenu: true }));
-		}
-	};
-
 	return (
-		<Popup
-			alignX={'left'}
-			alignY={'start'}
-			// Ignored via go/ees005
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
-			target={targetHandleRef as HTMLElement}
-			mountTo={undefined}
-			zIndex={akEditorFloatingOverlapPanelZIndex}
-			forcePlacement={true}
-			stick={true}
-			offset={[-6, 8]}
-		>
-			<DropdownMenu
-				mountTo={mountPoint}
-				boundariesElement={boundariesElement}
-				scrollableElement={scrollableElement}
-				//This needs be removed when the a11y is completely handled
-				//Disabling key navigation now as it works only partially
-				arrowKeyNavigationProviderOptions={{
-					type: ArrowKeyNavigationType.MENU,
-				}}
-				items={items}
-				isOpen={true}
-				fitWidth={BLOCK_MENU_WIDTH}
-				section={{ hasSeparator: true }}
-				onOpenChange={handleOpenChange}
-				onItemActivated={onMenuItemActivated}
-			/>
-		</Popup>
+		<BlockMenuContent
+			editorView={editorView}
+			mountPoint={mountPoint}
+			boundariesElement={boundariesElement}
+			scrollableElement={scrollableElement}
+			api={api}
+			menuTriggerBy={menuTriggerBy}
+			formatMessage={formatMessage}
+		/>
 	);
 };
 

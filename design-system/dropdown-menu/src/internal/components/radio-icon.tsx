@@ -25,38 +25,35 @@ const RadioIcon = ({ checked }: { checked: boolean }) => {
 			secondaryColor={checked ? token('color.icon.inverse', N10) : 'transparent'}
 		>
 			<g fillRule="evenodd">
-				{
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-					fg('platform-visual-refresh-icons') ? (
-						<>
-							<circle
-								cx="12"
-								cy="12"
-								r="7.5"
-								fill="currentColor"
-								stroke={
-									checked ? token('color.border.selected', B400) : token('color.border.input', N100)
-								}
-								strokeWidth="1"
-							/>
-							<circle cx="12" cy="12" r="3" fill="inherit" />
-						</>
-					) : (
-						<>
-							<circle
-								fill="currentColor"
-								cx="12"
-								cy="12"
-								r="6"
-								stroke={
-									checked ? token('color.border.selected', B400) : token('color.border.input', N100)
-								}
-								strokeWidth={1}
-							/>
-							<circle fill="inherit" cx="12" cy="12" r="2" />
-						</>
-					)
-				}
+				{fg('platform-visual-refresh-icons') ? (
+					<>
+						<circle
+							cx="12"
+							cy="12"
+							r="7.5"
+							fill="currentColor"
+							stroke={
+								checked ? token('color.border.selected', B400) : token('color.border.input', N100)
+							}
+							strokeWidth="1"
+						/>
+						<circle cx="12" cy="12" r="3" fill="inherit" />
+					</>
+				) : (
+					<>
+						<circle
+							fill="currentColor"
+							cx="12"
+							cy="12"
+							r="6"
+							stroke={
+								checked ? token('color.border.selected', B400) : token('color.border.input', N100)
+							}
+							strokeWidth={1}
+						/>
+						<circle fill="inherit" cx="12" cy="12" r="2" />
+					</>
+				)}
 			</g>
 		</SVGIcon>
 	);

@@ -183,6 +183,8 @@ export enum ACTION {
 	SINGLE_COL_LAYOUT_DETECTED = 'singleColumLayoutDetected',
 	VIEW_MORE = 'viewMore',
 	LOCAL_ID_NOT_FOUND = 'localIdNotFound',
+	NO_DOC_CHANGE_FOUND = 'noDocChangeFound',
+	INVALID_COMMAND_FOUND = 'invalidCommandFound',
 	/**
 	 * used in Editor AI inline suggestion for a track event when a suggestion is inserted
 	 * previously tracked events being used by Editor AI proactive suggestion
@@ -507,6 +509,7 @@ export enum ACTION_SUBJECT_ID {
 	EDITOR_PLUGIN_SELECTION_EXTENSION_DROPDOWN = 'editorPluginSelectionExtensionDropdown',
 	EDITOR_PLUGIN_SELECTION_EXTENSION_ITEM = 'editorPluginSelectionExtensionItem',
 	EDITOR_PLUGIN_SELECTION_EXTENSION_COMPONENT = 'editorPluginSelectionExtensionComponent',
+	TRANSFORM = 'transform',
 }
 
 export enum FLOATING_CONTROLS_TITLE {

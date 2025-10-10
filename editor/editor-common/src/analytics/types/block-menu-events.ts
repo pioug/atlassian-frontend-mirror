@@ -1,5 +1,5 @@
-import type { ACTION, ACTION_SUBJECT, INPUT_METHOD } from './enums';
-import type { UIAEP, TrackAEP } from './utils';
+import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
+import type { UIAEP, TrackAEP, OperationalAEP, SELECTION_TYPE } from './utils';
 
 export type BlockMenuOpenedAEP = UIAEP<
 	ACTION.OPENED,
@@ -36,7 +36,34 @@ type ElementConvertedAEP = TrackAEP<
 	undefined
 >;
 
+type SelectionJson = {
+	anchor?: number;
+	head?: number;
+	pos?: number;
+	type: SELECTION_TYPE;
+};
+
+interface ElementTransformErrorAttr {
+	docSize: number;
+	error: string;
+	errorStack?: string;
+	from: string;
+	inputMethod: INPUT_METHOD.BLOCK_MENU;
+	position: number;
+	selection: SelectionJson;
+	to: string;
+	triggeredFrom: INPUT_METHOD.MOUSE | INPUT_METHOD.KEYBOARD;
+}
+
+export type ElementTransformErrorAEP = OperationalAEP<
+	ACTION.ERRORED,
+	ACTION_SUBJECT.ELEMENT,
+	ACTION_SUBJECT_ID.TRANSFORM,
+	ElementTransformErrorAttr
+>;
+
 export type BlockMenuEventPayload =
 	| BlockMenuOpenedAEP
 	| BlockMenuItemClickedAEP
-	| ElementConvertedAEP;
+	| ElementConvertedAEP
+	| ElementTransformErrorAEP;

@@ -64,11 +64,7 @@ const selectionToolbarLinkButtonTestId = 'ak-editor-selection-toolbar-link-butto
  */
 export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) => {
 	let primaryToolbarComponent: ToolbarUIComponentFactory | undefined;
-	const isToolbarAIFCEnabled =
-		Boolean(api?.toolbar) &&
-		editorExperiment('platform_editor_toolbar_aifc', true, {
-			exposure: true,
-		});
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	if (isToolbarAIFCEnabled) {
 		api?.toolbar?.actions.registerComponents(getToolbarComponents(api));

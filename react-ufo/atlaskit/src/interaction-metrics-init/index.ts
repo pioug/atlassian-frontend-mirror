@@ -93,7 +93,6 @@ function sinkExperimentalInteractionMetrics(
 
 			payloadPromise.then((payload) => {
 				if (payload) {
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 					if (fg('enable_ufo_devtools_api_for_extra_events')) {
 						// NOTE: This API is used by the UFO DevTool Chrome Extension and Criterion
 						const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
@@ -124,7 +123,6 @@ function sinkPostInteractionLog(
 			const payload = createPostInteractionLogPayload(logOutput);
 			if (payload) {
 				// NOTE: This API is used by the UFO DevTool Chrome Extension and also by Criterion
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				if (fg('enable_ufo_devtools_api_for_extra_events')) {
 					const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
 						.__ufo_devtool_onUfoPayload;
@@ -165,7 +163,6 @@ function sinkInteractionExtraMetrics(
 				);
 				if (payload) {
 					// NOTE: This API is used by the UFO DevTool Chrome Extension and also by Criterion
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 					if (fg('enable_ufo_devtools_api_for_extra_events')) {
 						const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
 							.__ufo_devtool_onUfoPayload;

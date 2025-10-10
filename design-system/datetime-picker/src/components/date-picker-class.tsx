@@ -472,7 +472,6 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 
 		let clearIndicator = Icon;
 
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		if (fg('platform-visual-refresh-icons')) {
 			clearIndicator = (props: DropdownIndicatorProps<OptionType>) => (
 				<Box xcss={styles.dropdownIndicatorStyles}>

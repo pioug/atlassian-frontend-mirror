@@ -1,7 +1,9 @@
 import type { EditorAppearance, EditorContentMode } from '@atlaskit/editor-common/types';
-import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorFullPageDefaultFontSize,
+	akEditorFullPageDenseFontSize,
+} from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 /**
  * @param appearance
@@ -13,9 +15,7 @@ export function getBaseFontSize(
 ): number | undefined {
 	if (expValEquals('cc_editor_ai_content_mode', 'variant', 'test')) {
 		if (contentMode === 'dense') {
-			const baseFontSize = expVal('cc_editor_ai_content_mode', 'baseFontSize', 13);
-
-			return baseFontSize;
+			return akEditorFullPageDenseFontSize;
 		}
 	}
 

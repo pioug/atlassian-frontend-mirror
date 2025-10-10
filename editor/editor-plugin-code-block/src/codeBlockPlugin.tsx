@@ -158,7 +158,10 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 						keywords: ['plain text'],
 						icon: () => <IconCode />,
 						action(_insert, state) {
-							const tr = createInsertCodeBlockTransaction({ state });
+							const tr = createInsertCodeBlockTransaction({
+								state,
+								attributes: { language: 'text' },
+							});
 							return tr;
 						},
 					});

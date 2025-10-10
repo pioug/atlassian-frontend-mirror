@@ -52,7 +52,6 @@ import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 
@@ -144,13 +143,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.maybeAdd(historyPlugin, Boolean(options.allowUndoRedoButtons))
 		.maybeAdd(
 			[toolbarPlugin, options.toolbar || {}],
-			// if explicitly set to false, don't enable. If undefined treat as truthy and allow plugin to be enabled under experiment
-			Boolean(
-				expValEquals('platform_editor_toolbar_aifc_exp_code_toggle', 'isEnabled', true)
-					? options.toolbar?.enableNewToolbarExperience !== false &&
-							editorExperiment('platform_editor_toolbar_aifc', true)
-					: editorExperiment('platform_editor_toolbar_aifc', true),
-			),
+			Boolean(options.toolbar?.enableNewToolbarExperience),
 		)
 		.add([primaryToolbarPlugin, { contextualFormattingEnabled: isFullPage }])
 		.maybeAdd(

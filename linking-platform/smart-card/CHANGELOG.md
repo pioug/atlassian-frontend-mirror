@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 43.1.4
+
+### Patch Changes
+
+- [`b692539d43044`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b692539d43044) -
+  [ux] Adjust hyperlink connect button logic to not show if the url is embedded in text
+- Updated dependencies
+
 ## 43.1.3
 
 ### Patch Changes

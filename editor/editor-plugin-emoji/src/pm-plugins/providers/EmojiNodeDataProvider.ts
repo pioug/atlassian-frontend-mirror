@@ -1,4 +1,5 @@
 import type { EmojiDefinition } from '@atlaskit/adf-schema';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import {
 	defaultEmojiHeight,
@@ -39,10 +40,13 @@ export class EmojiNodeDataProvider extends NodeDataProvider<
 		// This is how emojis are server-side rendered in Confluence.
 		// Without this, the emoji server response will hit timeout on SSR and the emoji will not be rendered.
 		//
+		// We are using this optimization only in SSR because on client side we need to know a valid emoji size
+		// which is not possible to get from optimisticImageApi.
+		//
 		// Check platform/packages/editor/renderer/src/react/nodes/emoji.tsx
 		// and platform/packages/elements/emoji/src/components/common/ResourcedEmojiComponent.tsx
 		const getOptimisticImageUrl = this.emojiResource.emojiProviderConfig.optimisticImageApi?.getUrl;
-		if (getOptimisticImageUrl) {
+		if (isSSR() && getOptimisticImageUrl) {
 			return nodes.map((node) => {
 				const emojiId: EmojiId = {
 					id: node.attrs.id,
@@ -73,7 +77,7 @@ export class EmojiNodeDataProvider extends NodeDataProvider<
 		// makes a request to fetch all emojis.
 		const emojiProvider = await this.emojiProvider;
 
-		const fetches = nodes.map((node) => {
+		const fetches = nodes.map(async (node) => {
 			const emojiId: EmojiId = {
 				id: node.attrs.id,
 				shortName: node.attrs.shortName,
@@ -81,7 +85,24 @@ export class EmojiNodeDataProvider extends NodeDataProvider<
 			};
 
 			// This usually fast because the emojiProvider already has all emojis fetched.
-			return emojiProvider.fetchByEmojiId(emojiId, true);
+			const result = await emojiProvider.fetchByEmojiId(emojiId, true);
+
+			// If we have optimisticImageApi, we need to path response and set URL from it to match the URL used in SSR.
+			if (getOptimisticImageUrl && result) {
+				const optimisticImageURL = getOptimisticImageUrl(emojiId);
+
+				if (result.representation && 'imagePath' in result.representation) {
+					return {
+						...result,
+						representation: {
+							...result.representation,
+							imagePath: optimisticImageURL,
+						},
+					};
+				}
+			}
+
+			return result;
 		});
 
 		return Promise.all(fetches);

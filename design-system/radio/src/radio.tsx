@@ -220,11 +220,7 @@ const InnerRadio: React.ForwardRefExoticComponent<
 				// isInvalid is used in a nonstandard way so cannot
 				// use :invalid selector
 				data-invalid={isInvalid ? 'true' : undefined}
-				css={[
-					radioStyles,
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-					fg('platform-visual-refresh-icons') && newRadioStyles,
-				]}
+				css={[radioStyles, fg('platform-visual-refresh-icons') && newRadioStyles]}
 				ref={ref}
 			/>
 			{label ? <span css={labelPaddingStyles}>{label}</span> : null}

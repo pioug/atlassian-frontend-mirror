@@ -48,7 +48,6 @@ export default function IconTile({
 	LEGACY_fallbackComponent,
 	UNSAFE_circleReplacementComponent,
 }: IconTileProps) {
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (LEGACY_fallbackComponent && !fg('platform-visual-refresh-icons')) {
 		return LEGACY_fallbackComponent;
 	}

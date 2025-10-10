@@ -7,7 +7,6 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { trackChangesMessages } from '@atlaskit/editor-common/messages';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarButton, ToolbarTooltip, HistoryIcon } from '@atlaskit/editor-toolbar';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type TrackChangesPlugin } from '../trackChangesPluginType';
 
@@ -16,6 +15,8 @@ type TrackChangesToolbarButtonProps = {
 };
 
 export const TrackChangesToolbarButton = ({ api }: TrackChangesToolbarButtonProps) => {
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
+
 	const { isDisplayingChanges, isShowDiffAvailable } = useSharedPluginStateWithSelector(
 		api,
 		['trackChanges'],
@@ -38,7 +39,7 @@ export const TrackChangesToolbarButton = ({ api }: TrackChangesToolbarButtonProp
 
 	return (
 		<ToolbarTooltip content={formatMessage(trackChangesMessages.toolbarIconLabel)}>
-			{Boolean(api?.toolbar) && editorExperiment('platform_editor_toolbar_aifc', true) ? (
+			{isToolbarAIFCEnabled ? (
 				<ToolbarButton
 					iconBefore={
 						<HistoryIcon

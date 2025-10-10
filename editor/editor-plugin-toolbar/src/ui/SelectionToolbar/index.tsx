@@ -191,6 +191,7 @@ export const SelectionToolbar = ({
 						? (editorViewMode ?? 'edit')
 						: editorViewMode
 				}
+				isOffline={isOffline}
 			>
 				<EditorToolbarUIProvider
 					api={api}

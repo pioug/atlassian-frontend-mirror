@@ -1,5 +1,53 @@
 # @atlaskit/renderer
 
+## 124.4.1
+
+### Patch Changes
+
+- [`dbb9e84ab30e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbb9e84ab30e0) -
+  [ux] dense mode emoji icon in panel
+- [`b647f715408c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b647f715408c4) -
+  clean up platform_custom_number_column
+- Updated dependencies
+
+## 124.4.0
+
+### Minor Changes
+
+- [`2a9e8a0692fdc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a9e8a0692fdc) -
+  [NO-ISSUE] Switch from using `cc_editor_ai_content_mode` param `baseFontSize` to having a proper
+  variable we can use for the sizing
+
+### Patch Changes
+
+- Updated dependencies
+
+## 124.3.0
+
+### Minor Changes
+
+- [`1ca1552bd1837`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ca1552bd1837) -
+  [EDITOR-2003] export RendererContentMode type from package
+
+### Patch Changes
+
+- [`1e40e7f832859`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e40e7f832859) -
+  [ux] Scale emojis in editor compact mode
+- [`41015d65a8be4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41015d65a8be4) -
+  [EDITOR-1992] Make table of contents text scale with dense mode
+- Updated dependencies
+
+## 124.2.0
+
+### Minor Changes
+
+- [`eed7bfad5be2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eed7bfad5be2c) -
+  Lazy load expand content on opening an expand element
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 124.1.7
 
 ### Patch Changes

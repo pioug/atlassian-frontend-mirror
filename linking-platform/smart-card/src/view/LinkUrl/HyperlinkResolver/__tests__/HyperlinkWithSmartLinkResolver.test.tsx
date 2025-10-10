@@ -42,7 +42,7 @@ describe('HyperlinkWithSmartLinkResolver - Connect Button Logic', () => {
 
 	const defaultProps: any = {
 		href: 'https://company.sharepoint.com/document.docx',
-		children: 'Test Link',
+		children: ['https://company.sharepoint.com/document.docx'],
 	};
 
 	const mockActions = {
@@ -172,6 +172,62 @@ describe('HyperlinkWithSmartLinkResolver - Connect Button Logic', () => {
 				await userEvent.click(hyperlink);
 
 				expect(mockOnClick).toHaveBeenCalled();
+			});
+
+			it('should not show button when the link is embedded in regular text', () => {
+				const embeddedInTextProps: any = {
+					href: 'https://company.sharepoint.com/document.docx',
+					children: ['Embedded in text'],
+				};
+
+				render(
+					<SmartCardProvider client={new CardClient()}>
+						<HyperlinkWithSmartLinkResolver {...embeddedInTextProps} />
+					</SmartCardProvider>,
+				);
+				expect(screen.queryByTestId('button-connect-account')).not.toBeInTheDocument();
+			});
+
+			it('should show button when the link is embedded in text that is wrapped by editor TextWrapper component', () => {
+				// Create a mock React element that mimics the editor TextWrapper component structure
+				getServices.mockReturnValue([{ key: 'service1' }]);
+				const MockTextWrapper = ({ children }: { children: string }) => <span>{children}</span>;
+				const wrappedElement = React.createElement(MockTextWrapper, {
+					key: 'text-wrapper',
+					children: 'https://company.sharepoint.com/document.docx',
+				});
+
+				const embeddedInTextProps: any = {
+					href: 'https://company.sharepoint.com/document.docx',
+					children: [wrappedElement],
+				};
+				render(
+					<SmartCardProvider client={new CardClient()}>
+						<HyperlinkWithSmartLinkResolver {...embeddedInTextProps} />
+					</SmartCardProvider>,
+				);
+				expect(screen.getByTestId('button-connect-account')).toBeInTheDocument();
+			});
+
+			it('should not show button when the link is embedded in text that is wrapped by editor TextWrapper component', () => {
+				// Create a mock React element that mimics the TextWrapper component structure
+				getServices.mockReturnValue([{ key: 'service1' }]);
+				const MockTextWrapper = ({ children }: { children: string[] }) => <span>{children}</span>;
+				const wrappedElement = React.createElement(MockTextWrapper, {
+					key: 'text-wrapper',
+					children: ['Embedded in text'],
+				});
+
+				const embeddedInTextProps: any = {
+					href: 'https://company.sharepoint.com/document.docx',
+					children: [wrappedElement],
+				};
+				render(
+					<SmartCardProvider client={new CardClient()}>
+						<HyperlinkWithSmartLinkResolver {...embeddedInTextProps} />
+					</SmartCardProvider>,
+				);
+				expect(screen.queryByTestId('button-connect-account')).not.toBeInTheDocument();
 			});
 		});
 

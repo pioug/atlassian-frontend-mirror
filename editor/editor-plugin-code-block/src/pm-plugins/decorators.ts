@@ -1,5 +1,3 @@
-/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
-
 import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
 import { type EditorState, type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';

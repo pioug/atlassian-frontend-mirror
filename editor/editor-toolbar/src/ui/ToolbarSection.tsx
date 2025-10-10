@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 export enum SeparatorPosition {
@@ -52,16 +51,11 @@ const ToolbarSeparator = () => {
 };
 
 export const ToolbarSection = ({ children, testId, hasSeparator }: ToolbarSectionProps) => {
-	return expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) ? (
+	return (
 		<Box xcss={cx(styles.container)} testId={testId} data-toolbar-component="section">
 			{hasSeparator === SeparatorPosition.START && <ToolbarSeparator />}
 			{children}
 			{hasSeparator === SeparatorPosition.END && <ToolbarSeparator />}
-		</Box>
-	) : (
-		<Box xcss={cx(styles.container)} testId={testId} data-toolbar-component="section">
-			{hasSeparator && <div css={separator} />}
-			{children}
 		</Box>
 	);
 };

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 3.2.1
+
+### Patch Changes
+
+- [`14b9e966da4dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14b9e966da4dd) -
+  [ux] ED-29517 Toolbar and offline banner is overlapping
+- [`ef001bf65d48f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef001bf65d48f) -
+  Remove usage of `platform_editor_toolbar_aifc` inside editor packages - instead rely on checking
+  for new toolbar plugin option, make `enableNewToolbarExperience` mandatory for consumers to opt in
+  to new toolbar experience
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

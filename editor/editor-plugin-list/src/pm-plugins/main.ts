@@ -6,7 +6,7 @@ import {
 	getOrderedListInlineStyles,
 	listItemCounterPadding,
 } from '@atlaskit/editor-common/styles';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import { getItemCounterDigitsSize, isListNode, pluginFactory } from '@atlaskit/editor-common/utils';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -19,8 +19,8 @@ import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import type { ListPlugin } from '../listPluginType';
 import type { ListState } from '../types';
 
 import { isWrappingPossible } from './utils/selection';
@@ -160,26 +160,33 @@ const reducer =
 		return state;
 	};
 
-const createInitialState = (featureFlags: FeatureFlags) => (state: EditorState) => {
-	return {
-		// When plugin is initialised, editor state is defined with selection
-		// hence returning the list state based on the selection to avoid list button in primary toolbar flickering during initial load
-		...(editorExperiment('platform_editor_toolbar_aifc', true) &&
-		expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
-			? getListState(state.doc, state.selection)
-			: initialState),
-		decorationSet: getDecorations(state.doc, state, featureFlags),
-	};
-};
+const createInitialState =
+	(featureFlags: FeatureFlags, api?: ExtractInjectionAPI<ListPlugin>) => (state: EditorState) => {
+		const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
-export const createPlugin = (eventDispatch: Dispatch, featureFlags: FeatureFlags): SafePlugin => {
+		return {
+			// When plugin is initialised, editor state is defined with selection
+			// hence returning the list state based on the selection to avoid list button in primary toolbar flickering during initial load
+			...(isToolbarAIFCEnabled &&
+			expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
+				? getListState(state.doc, state.selection)
+				: initialState),
+			decorationSet: getDecorations(state.doc, state, featureFlags),
+		};
+	};
+
+export const createPlugin = (
+	eventDispatch: Dispatch,
+	featureFlags: FeatureFlags,
+	api?: ExtractInjectionAPI<ListPlugin>,
+): SafePlugin => {
 	const { getPluginState, createPluginState } = pluginFactory(listPluginKey, reducer(), {
 		onDocChanged: handleDocChanged(featureFlags),
 		onSelectionChanged: handleSelectionChanged,
 	});
 
 	return new SafePlugin({
-		state: createPluginState(eventDispatch, createInitialState(featureFlags)),
+		state: createPluginState(eventDispatch, createInitialState(featureFlags, api)),
 		key: listPluginKey,
 		props: {
 			decorations(state) {

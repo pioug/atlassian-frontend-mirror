@@ -22,8 +22,6 @@ import EditorContentContainer from '../EditorContentContainer/EditorContentConta
 import PluginSlot from '../PluginSlot';
 import WithFlash from '../WithFlash';
 
-const AK_EDITOR_CHROMELESS_MIN_HEIGHT_VAR: string = '--ak-editor-chromeless-min-height';
-
 const scrollbarStylesNew = css({
 	msOverflowStyle: '-ms-autohiding-scrollbar',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -64,18 +62,6 @@ const chromelessEditorStylesNew = css({
 		'& > :last-child': {
 			paddingBottom: token('space.100', '0.5em'),
 		},
-	},
-});
-
-/**
- * minHeight styles are needed to expand the clickable area of ProseMirror.
- * Here, we propagate the minHeight that's used in the editor container to ProseMirror.
- */
-const minHeightStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'div > .ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		minHeight: `var(${AK_EDITOR_CHROMELESS_MIN_HEIGHT_VAR})`,
 	},
 });
 
@@ -220,16 +206,11 @@ export function ChromelessEditorContainer({
 			css={[
 				chromelessEditorStylesNew,
 				scrollbarStylesNew,
-				fg('platform_expand_editor_click_area_with_minheight') && minHeightStyles,
 				fg('platform_fix_extra_space_last_line_comment_editor') && extraSpaceLastLineFix,
 			]}
 			style={{
 				maxHeight: maxHeight ? `${maxHeight}px` : undefined,
 				minHeight: `${minHeight}px`,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				...(fg('platform_expand_editor_click_area_with_minheight') && {
-					[AK_EDITOR_CHROMELESS_MIN_HEIGHT_VAR]: `${minHeight}px`,
-				}),
 			}}
 			data-testid="chromeless-editor"
 			id="chromeless-editor"

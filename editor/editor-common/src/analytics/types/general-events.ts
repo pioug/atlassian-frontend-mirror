@@ -88,8 +88,11 @@ type EditorPerfAEP = OperationalAEPWithObjectId<
 		duration: number;
 		nodes?: Record<string, number>;
 		nodesInViewport?: Record<string, number>;
+		nodeSize?: number;
+		nodeSizeBucket?: string;
 		severity?: SEVERITY;
 		startTime: number;
+		totalNodes?: number;
 		ttfb?: number;
 	}
 >;

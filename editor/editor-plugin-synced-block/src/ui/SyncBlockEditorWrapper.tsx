@@ -7,6 +7,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { SyncedBlockEditorProps } from '../syncedBlockPluginType';
 
+import { SyncBlockLabel } from './SyncBlockLabel';
+
 type Props = {
 	defaultDocument: JSONDocNode;
 	getSyncedBlockEditor: (props: SyncedBlockEditorProps) => React.JSX.Element;
@@ -32,18 +34,21 @@ const SyncBlockEditorWrapperComponent = ({
 
 	useHandleContentChanges(updatedDoc);
 	return (
-		<div
-			data-testid={SyncBlockEditorWrapperDataId}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			className={SyncBlockSharedCssClassName.editor}
-		>
-			{getSyncedBlockEditor({
-				popupsBoundariesElement,
-				defaultDocument,
-				popupsMountPoint,
-				onChange: (value) => setUpdatedDoc(value.state.doc),
-				onEditorReady: (value) => setInnerEditorView(value.editorView),
-			})}
+		<div>
+			<SyncBlockLabel />
+			<div
+				data-testid={SyncBlockEditorWrapperDataId}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className={SyncBlockSharedCssClassName.editor}
+			>
+				{getSyncedBlockEditor({
+					popupsBoundariesElement,
+					defaultDocument,
+					popupsMountPoint,
+					onChange: (value) => setUpdatedDoc(value.state.doc),
+					onEditorReady: (value) => setInnerEditorView(value.editorView),
+				})}
+			</div>
 		</div>
 	);
 };

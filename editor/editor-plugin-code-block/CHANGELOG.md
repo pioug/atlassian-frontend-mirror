@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block
 
+## 8.0.11
+
+### Patch Changes
+
+- [`76178d0e6e20d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76178d0e6e20d) -
+  [ux] ED-29503 Update createInsertCodeBlockTransaction to pass in attributes when creating a new
+  node
+- Updated dependencies
+
 ## 8.0.10
 
 ### Patch Changes

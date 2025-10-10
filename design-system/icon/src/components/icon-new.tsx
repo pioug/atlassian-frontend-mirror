@@ -185,7 +185,6 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 		: undefined;
 
 	// Fall back to old icon
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (FallbackIcon && !fg('platform-visual-refresh-icons')) {
 		// parse out unnecessary props
 		return (

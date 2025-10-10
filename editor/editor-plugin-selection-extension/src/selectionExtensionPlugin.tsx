@@ -14,7 +14,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { insertAdfAtEndOfDoc } from './pm-plugins/actions/insertAdfAtEndOfDoc';
 import { replaceWithAdf } from './pm-plugins/actions/replaceWithAdf';
@@ -45,7 +44,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
 	let cachedSelection: Selection;
 	let cachedOverflowMenuOptions: FloatingToolbarOverflowDropdown<Command>['options'] | undefined;
-	const isToolbarAIFCEnabled = editorExperiment('platform_editor_toolbar_aifc', true);
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	const { extensionList = [], extensions = {} } = config || {};
 	const { firstParty = [], external = [] } = extensions || {};

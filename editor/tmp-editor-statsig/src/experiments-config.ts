@@ -25,6 +25,13 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	cc_editor_insm_doc_size_stats: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_editor_insm_doc_size_stats',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-09-30
 	cc_editor_insm_outlier_events: createMultivariateExperiment({
 		productKeys: {
@@ -113,15 +120,6 @@ export const editorExperimentsConfig = {
 	platform_renderer_table_sticky_scrollbar: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_renderer_table_sticky_scrollbar',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-
-	// Added 2025-05-28
-	platform_editor_controls_performance_fixes: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_controls_performance_fixes',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -246,14 +244,6 @@ export const editorExperimentsConfig = {
 	platform_editor_controls_block_controls_state_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_controls_block_controls_state_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-06-02
-	platform_editor_smart_link_cmd_ctrl_click: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_smart_link_cmd_ctrl_click',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

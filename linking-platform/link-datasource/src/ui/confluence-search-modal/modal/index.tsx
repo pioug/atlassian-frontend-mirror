@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 import React, { Fragment, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { cssMap } from '@compiled/react';

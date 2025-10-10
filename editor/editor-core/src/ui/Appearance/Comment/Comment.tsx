@@ -25,7 +25,6 @@ import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-tool
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearanceComponentProps } from '../../../types';
@@ -48,7 +47,7 @@ const commentEditorStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.less-margin .ProseMirror': {
+	'.less-margin > .ProseMirror': {
 		margin: `${token('space.150', '12px')} ${token('space.100', '8px')} ${token(
 			'space.100',
 			'8px',
@@ -212,8 +211,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 		</div>
 	);
 
-	const isToolbarAIFCEnabled =
-		Boolean(editorAPI?.toolbar) && editorExperiment('platform_editor_toolbar_aifc', true);
+	const isToolbarAIFCEnabled = Boolean(editorAPI?.toolbar);
 	const patch6Enabled = expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true);
 
 	return (

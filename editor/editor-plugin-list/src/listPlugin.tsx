@@ -98,7 +98,7 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
 			return [
 				{
 					name: 'list',
-					plugin: ({ dispatch }) => createPlugin(dispatch, featureFlags),
+					plugin: ({ dispatch }) => createPlugin(dispatch, featureFlags, api),
 				},
 				{
 					name: 'listInputRule',

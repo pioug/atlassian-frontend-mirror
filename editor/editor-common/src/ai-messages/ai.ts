@@ -148,6 +148,12 @@ export const aiMessages = defineMessages({
 		description:
 			'Title for an option in the Change Tone menu to use Atlassian Intellgience to change the tone of the content currently selected by the user to be more empathetic.',
 	},
+	adjustLengthToolbarDropdownIconTitle: {
+		id: 'fabric.editor.ai.toolbar.adjustLength.title',
+		defaultMessage: 'Adjust length',
+		description:
+			'Title for an option to use Atlassian Intellgience to adjust the length of the content currently selected by the user or full page',
+	},
 	DefineDropdownIconTitle: {
 		id: 'fabric.editor.ai.toolbar.DefineDropdownIconTitle.title',
 		defaultMessage: 'Define',

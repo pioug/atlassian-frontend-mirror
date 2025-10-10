@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::0d7940fbc9a2038bb629f21e1f22705f>>
+ * @codegen <<SignedSource::91c72b4ac5c355e95b3dd872f1c196e2>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -166,6 +166,13 @@ export type TeamMenuLinkFailedAttributesType = {
 	status: number | null;
 	error: string;
 };
+export type TeamProfileBreadcrumbsItemClickedAttributesType = {
+	targetTeamId: string;
+};
+export type HierarchyTeamLinkOutClickedAttributesType = {
+	targetTeamId: string;
+};
+export type HierarchyFieldHoveredAttributesType = undefined;
 export type ParentTeamLinkerOpenedAttributesType = {};
 export type ParentTeamLinkerClosedAttributesType = {
 	isCanceled: boolean;
@@ -1243,6 +1250,15 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the people menu link is failed */
 	'operational.teamMenuLink.failed': TeamMenuLinkFailedAttributesType;
+	/**
+	 * fired when the team profile breadcrumbs item is clicked */
+	'ui.teamProfileBreadcrumbsItem.clicked': TeamProfileBreadcrumbsItemClickedAttributesType;
+	/**
+	 * fired when the hierarchy team link out is clicked */
+	'ui.hierarchyTeamLinkOut.clicked': HierarchyTeamLinkOutClickedAttributesType;
+	/**
+	 * fired when the hierarchy field is hovered */
+	'ui.hierarchyField.hovered': HierarchyFieldHoveredAttributesType;
 	/**
 	 * fired when the parent team field is clicked */
 	'ui.parentTeamLinker.opened': ParentTeamLinkerOpenedAttributesType;

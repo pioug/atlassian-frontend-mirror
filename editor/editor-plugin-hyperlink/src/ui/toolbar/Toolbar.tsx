@@ -183,6 +183,7 @@ export const getToolbarConfig =
 		if (options.disableFloatingToolbar) {
 			return;
 		}
+		const isToolbarAIFCEnabled = Boolean(pluginInjectionApi?.toolbar);
 
 		const linkState: HyperlinkState | undefined = stateKey.getState(state);
 		const activeLinkMark = linkState?.activeLinkMark;
@@ -427,7 +428,8 @@ export const getToolbarConfig =
 											}}
 										/>
 									);
-									return editorExperiment('platform_editor_toolbar_aifc', true) ? (
+
+									return isToolbarAIFCEnabled ? (
 										<UserIntentPopupWrapper api={pluginInjectionApi}>
 											{Toolbar}
 										</UserIntentPopupWrapper>

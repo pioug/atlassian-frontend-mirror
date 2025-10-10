@@ -173,7 +173,6 @@ export const getToolbarMenuConfig = (
 			id: 'editor.table.tableOptions',
 			type: 'dropdown',
 			testId: 'table_options',
-			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 			icon: fg('platform-visual-refresh-icons') ? undefined : CustomizeIcon,
 			iconBefore: fg('platform-visual-refresh-icons') ? CustomizeIcon : undefined,
 			title: formatMessage(messages.tableOptions),

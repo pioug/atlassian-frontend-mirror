@@ -137,7 +137,6 @@ describe('interaction-metrics timeout behavior', () => {
 	});
 
 	describe('config set interaction metrics', () => {
-
 		it('should create interaction with 60s timeout by default when no config is set', () => {
 			const interactionId = 'test-interaction-1';
 			const startTime = 1000;

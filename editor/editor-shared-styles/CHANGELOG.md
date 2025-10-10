@@ -1,5 +1,17 @@
 # @atlaskit/editor-shared-styles
 
+## 3.7.0
+
+### Minor Changes
+
+- [`ef001bf65d48f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef001bf65d48f) -
+  Remove usage of `platform_editor_toolbar_aifc` inside editor packages - instead rely on checking
+  for new toolbar plugin option, make `enableNewToolbarExperience` mandatory for consumers to opt in
+  to new toolbar experience
+- [`2a9e8a0692fdc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a9e8a0692fdc) -
+  [NO-ISSUE] Switch from using `cc_editor_ai_content_mode` param `baseFontSize` to having a proper
+  variable we can use for the sizing
+
 ## 3.6.8
 
 ### Patch Changes

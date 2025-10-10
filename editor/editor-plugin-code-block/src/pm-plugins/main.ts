@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 import type { IntlShape } from 'react-intl-next';
 
 import { browser } from '@atlaskit/editor-common/browser';

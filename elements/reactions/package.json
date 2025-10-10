@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "33.2.25",
+	"version": "33.3.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -142,6 +142,9 @@
 			"type": "boolean"
 		},
 		"platform-a11y-remove-autofocus-prop": {
+			"type": "boolean"
+		},
+		"platform_reaction_full_picker_hover": {
 			"type": "boolean"
 		}
 	},

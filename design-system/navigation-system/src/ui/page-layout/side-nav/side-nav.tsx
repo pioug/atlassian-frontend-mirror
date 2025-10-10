@@ -173,6 +173,16 @@ const styles = cssMap({
 			},
 		},
 	},
+	animationRTLSupport: {
+		// Used to support animations for right-to-left (RTL) languages/text direction. We need to flip the animation direction for RTL.
+		// There are currently no logical properties for translate transforms: https://github.com/w3c/csswg-drafts/issues/1544
+		// Instead, we are using a CSS variable to flip the translate value.
+		'--animation-direction': '1',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		"[dir='rtl'] &": {
+			'--animation-direction': '-1',
+		},
+	},
 	flyoutBaseStylesFullHeightSidebar: {
 		// These styles are shared between the open and close animations for flyout
 		'@media (min-width: 64rem)': {
@@ -200,7 +210,7 @@ const styles = cssMap({
 			 */
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'@starting-style': {
-				transform: 'translateX(-100%)',
+				transform: 'translateX(calc(-100% * var(--animation-direction)))',
 			},
 		},
 	},
@@ -213,7 +223,7 @@ const styles = cssMap({
 		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
 			transitionDuration: '0.2s',
 			transitionTimingFunction: 'cubic-bezier(0, 0.4, 0, 1)',
-			transform: 'translateX(-100%)',
+			transform: 'translateX(calc(-100% * var(--animation-direction)))',
 		},
 	},
 	flexContainer: {
@@ -264,7 +274,7 @@ const styles = cssMap({
 			 */
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'@starting-style': {
-				transform: 'translateX(-100%)',
+				transform: 'translateX(calc(-100% * var(--animation-direction)))',
 			},
 		},
 	},
@@ -281,7 +291,7 @@ const styles = cssMap({
 		// animation to be disabled.
 		// Using `not` will flip the `min-width` condition. This is better than using `max-width` as it prevents an overlap
 		'@media (prefers-reduced-motion: no-preference) and (not (min-width: 64rem))': {
-			transform: 'translateX(-100%)',
+			transform: 'translateX(calc(-100% * var(--animation-direction)))',
 		},
 	},
 	expandAnimationDesktop: {
@@ -297,7 +307,7 @@ const styles = cssMap({
 			 */
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'@starting-style': {
-				transform: 'translateX(-100%)',
+				transform: 'translateX(calc(-100% * var(--animation-direction)))',
 			},
 		},
 	},
@@ -305,7 +315,7 @@ const styles = cssMap({
 		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
 			gridArea: 'main',
 			transitionTimingFunction: 'cubic-bezier(0, 0.4, 0, 1)',
-			transform: 'translateX(-100%)',
+			transform: 'translateX(calc(-100% * var(--animation-direction)))',
 		},
 	},
 	fullHeightSidebar: {
@@ -1001,8 +1011,8 @@ function SideNavInternal({
 					!isFlyoutVisible &&
 					styles.hiddenMobileAndDesktop,
 
+				fg('navx-full-height-sidebar') && styles.animationRTLSupport,
 				// Expand/collapse animation styles
-
 				shouldShowSidebarToggleAnimation &&
 					fg('navx-full-height-sidebar') &&
 					styles.animationBaseStyles,

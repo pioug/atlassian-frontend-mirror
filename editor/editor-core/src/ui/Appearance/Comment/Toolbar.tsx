@@ -11,7 +11,6 @@ import { css, jsx } from '@emotion/react';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
@@ -39,10 +38,6 @@ const mainToolbarWrapperStyleNew = css({
 		paddingLeft: 0,
 	},
 });
-
-const isToolbarAIFCEnabled =
-	editorExperiment('platform_editor_toolbar_aifc', true) &&
-	expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true);
 
 /** keep default padding for entire toolbar */
 const mainToolbarWithoutLeftPadding = css({
@@ -106,6 +101,12 @@ type StickyToolbarProps = {
 const StickyToolbar = (props: StickyToolbarProps) => {
 	const [top, setTop] = useState(0);
 
+	const toolbarPatch6Enabled = expValEquals(
+		'platform_editor_toolbar_aifc_patch_6',
+		'isEnabled',
+		true,
+	);
+
 	// ED-15802: if externalToolbarRef is passed in, set top to externalToolbarRef?.current?.clientHeight
 	// else if offsetTop is a number set top to offsetTop
 	// otherwise top is 0 as initial state
@@ -125,8 +126,8 @@ const StickyToolbar = (props: StickyToolbarProps) => {
 				props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
 				fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
 				stickyToolbarWrapperStyleNew,
-				props.isNewToolbarEnabled && !isToolbarAIFCEnabled && mainToolbarWithoutLeftPadding,
-				props.isNewToolbarEnabled && isToolbarAIFCEnabled && mainToolbarWithPadding,
+				props.isNewToolbarEnabled && !toolbarPatch6Enabled && mainToolbarWithoutLeftPadding,
+				props.isNewToolbarEnabled && toolbarPatch6Enabled && mainToolbarWithPadding,
 			]}
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 			style={{ top: `${top}px` }}

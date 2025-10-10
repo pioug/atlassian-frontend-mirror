@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 110.11.0
+
+### Minor Changes
+
+- [`fb9f586b347d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb9f586b347d0) -
+  EDITOR-2264 Added function to return actions to be added in full page editor object sidebar in
+  staging area.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.10.4
+
+### Patch Changes
+
+- [`14b9e966da4dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14b9e966da4dd) -
+  [ux] ED-29517 Toolbar and offline banner is overlapping
+- [`ef001bf65d48f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef001bf65d48f) -
+  Remove usage of `platform_editor_toolbar_aifc` inside editor packages - instead rely on checking
+  for new toolbar plugin option, make `enableNewToolbarExperience` mandatory for consumers to opt in
+  to new toolbar experience
+- Updated dependencies
+
+## 110.10.3
+
+### Patch Changes
+
+- [`a48139f041cd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a48139f041cd4) -
+  [ux] EDITOR-1654 implement sync block ui for hovered, selected and delete states
+- [`92b30d41852a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92b30d41852a0) -
+  EDITOR-1805 - analytics for invalid streaming command
+- Updated dependencies
+
 ## 110.10.2
 
 ### Patch Changes

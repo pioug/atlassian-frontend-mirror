@@ -10,7 +10,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	clearDirtyMark,
@@ -301,7 +300,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 					if (
 						isDrafting &&
 						!view.state.selection.eq(_prevState.selection) &&
-						editorExperiment('platform_editor_toolbar_aifc', true)
+						Boolean(api?.toolbar)
 					) {
 						// It is possible that user update selection while having a active draft,
 						// so we need to reset the user intent to allow inline text toolbar to be visible

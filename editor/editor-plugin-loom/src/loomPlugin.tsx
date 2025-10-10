@@ -2,7 +2,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LoomPlugin } from './loomPluginType';
 import { insertLoom, recordVideo, setupLoom } from './pm-plugins/commands';
@@ -15,7 +14,6 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
 	const isNewToolbarEnabled =
 		Boolean(api?.toolbar) &&
-		editorExperiment('platform_editor_toolbar_aifc', true, { exposure: true }) &&
 		expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true);
 
 	// Workaround since we want to insert a loom via the `hyperlink` plugin for now.

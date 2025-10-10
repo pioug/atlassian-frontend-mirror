@@ -10,6 +10,7 @@ export type EditorToolbarContextType = {
 	editorToolbarDockingPreference?: ToolbarDocking;
 	editorView: EditorView | null;
 	editorViewMode?: 'edit' | 'view';
+	isOffline?: boolean;
 };
 
 const EditorToolbarContext = createContext<EditorToolbarContextType>({
@@ -42,6 +43,7 @@ export const EditorToolbarProvider = ({
 	editorAppearance,
 	editorViewMode,
 	editorToolbarDockingPreference,
+	isOffline,
 }: EditorToolbarProviderProps) => {
 	return (
 		<EditorToolbarContext.Provider
@@ -50,6 +52,7 @@ export const EditorToolbarProvider = ({
 				editorAppearance,
 				editorViewMode,
 				editorToolbarDockingPreference,
+				isOffline,
 			}}
 		>
 			{children}

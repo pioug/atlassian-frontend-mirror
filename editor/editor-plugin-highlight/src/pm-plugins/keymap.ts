@@ -10,7 +10,6 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { highlightColorPalette, highlightColorPaletteNext } from '@atlaskit/editor-common/ui-color';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changeColor } from '../editor-commands/change-color';
 import { togglePalette } from '../editor-commands/palette';
@@ -18,10 +17,11 @@ import type { HighlightPlugin } from '../highlightPluginType';
 
 export function keymapPlugin({ api }: { api: ExtractInjectionAPI<HighlightPlugin> | undefined }) {
 	const list = {};
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	if (
 		!(
-			editorExperiment('platform_editor_toolbar_aifc', true) &&
+			isToolbarAIFCEnabled &&
 			expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
 		)
 	) {

@@ -93,10 +93,8 @@ const colorVisualRefresh = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getButtonStyles = (props: any) => ({
 	background: getStyles(
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		fg('platform-visual-refresh-icons') ? backgroundVisualRefresh : background,
 		props,
 	),
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	color: getStyles(fg('platform-visual-refresh-icons') ? colorVisualRefresh : color, props),
 });

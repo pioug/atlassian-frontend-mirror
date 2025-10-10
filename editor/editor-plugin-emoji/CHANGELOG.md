@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-emoji
 
+## 7.3.0
+
+### Minor Changes
+
+- [`9daa116b53aaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9daa116b53aaf) -
+  [ux] ED-29504 Add a new plugin option to disable emoji autoformatting
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.0
+
+### Minor Changes
+
+- [`3a08cc16abe76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a08cc16abe76) -
+  [https://product-fabric.atlassian.net/browse/ED-29521](ED-29521) - use optimistic image URL for
+  emojis in editor (client support)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.2
+
+### Patch Changes
+
+- [`0b4cd77e72217`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b4cd77e72217) -
+  clean up references to platform_editor_controls_performance_fixes
+- Updated dependencies
+
 ## 7.1.1
 
 ### Patch Changes

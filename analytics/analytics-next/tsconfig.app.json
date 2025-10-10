@@ -31,10 +31,6 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__analytics-next/app"
 	},
-	"references": [
-		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		}
-	],
+	"references": [],
 	"files": []
 }

@@ -21,11 +21,7 @@ import { getToolbarComponent } from './ui/toolbar-component';
 
 export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
-	const isToolbarAifcEnabled =
-		Boolean(api?.toolbar) &&
-		editorExperiment('platform_editor_toolbar_aifc', true, {
-			exposure: true,
-		});
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		popupsMountPoint,
@@ -52,7 +48,7 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 		);
 	};
 
-	if (!isToolbarAifcEnabled) {
+	if (!isToolbarAIFCEnabled) {
 		api?.primaryToolbar?.actions.registerComponent({
 			name: 'highlight',
 			component: primaryToolbarComponent,
@@ -102,7 +98,7 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 			return highlightPluginKey.getState(editorState);
 		},
 
-		pluginsOptions: !isToolbarAifcEnabled
+		pluginsOptions: !isToolbarAIFCEnabled
 			? {
 					selectionToolbar() {
 						const toolbarDocking = fg('platform_editor_use_preferences_plugin')

@@ -4,7 +4,6 @@ import { bind } from 'bind-event-listener';
 
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ExtractInjectionAPI, UserPreferencesProvider } from '@atlaskit/editor-common/types';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
@@ -33,10 +32,6 @@ export const PageVisibilityWatcher = ({
 				api?.selectionToolbar?.actions?.refreshToolbarDocking?.();
 			}
 		};
-
-		if (editorExperiment('platform_editor_controls_performance_fixes', false)) {
-			refreshPrefrerence();
-		}
 
 		return bind(document, {
 			type: 'visibilitychange',

@@ -32,6 +32,9 @@
 			"path": "../../editor-plugin-feature-flags/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-toolbar/afm-passionfruit/tsconfig.json"
 		},
 		{

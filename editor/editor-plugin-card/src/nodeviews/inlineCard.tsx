@@ -159,13 +159,9 @@ export const InlineCard = memo(
 			[propsOnClick, url, view, pluginInjectionApi],
 		);
 
-		const onClick =
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			editorExperiment('platform_editor_smart_link_cmd_ctrl_click', true, {
-				exposure: true,
-			})
-				? handleOnClick
-				: propsOnClick;
+		const onClick = editorExperiment('platform_editor_controls', 'variant1')
+			? handleOnClick
+			: propsOnClick;
 
 		const card = useMemo(() => {
 			if (

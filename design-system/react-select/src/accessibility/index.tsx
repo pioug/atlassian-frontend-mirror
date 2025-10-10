@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 import type { AriaAttributes } from 'react';
 
 import {

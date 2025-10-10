@@ -185,6 +185,8 @@ export const FullPageEditor = (props: ComponentProps) => {
 		}
 	}
 
+	const isToolbarAIFCEnabled = Boolean(editorAPI?.toolbar);
+
 	const popupsBoundariesElement =
 		props.popupsBoundariesElement || scrollContentContainerRef?.current?.containerArea || undefined;
 
@@ -198,13 +200,14 @@ export const FullPageEditor = (props: ComponentProps) => {
 				ref={wrapperElementRef}
 				style={
 					{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						'--ak-editor-fullpage-toolbar-height': FULL_PAGE_EDITOR_TOOLBAR_HEIGHT(),
+						'--ak-editor-fullpage-toolbar-height':
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							FULL_PAGE_EDITOR_TOOLBAR_HEIGHT(isToolbarAIFCEnabled),
 					} as React.CSSProperties
 				}
 			>
 				{!isEditorToolbarHidden &&
-					(Boolean(editorAPI?.toolbar) && editorExperiment('platform_editor_toolbar_aifc', true) ? (
+					(isToolbarAIFCEnabled ? (
 						<FullPageToolbarNext
 							disabled={
 								expValEquals('platform_editor_toolbar_aifc_patch_4', 'isEnabled', true)

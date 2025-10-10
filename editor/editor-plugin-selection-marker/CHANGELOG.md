@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 6.2.1
+
+### Patch Changes
+
+- [`a9d1ffcf3e2d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9d1ffcf3e2d0) -
+  EDITOR-2344: Should not hide selection marker based on AIFC flag.
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

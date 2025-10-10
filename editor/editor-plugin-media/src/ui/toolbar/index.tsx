@@ -574,10 +574,7 @@ const generateMediaSingleFloatingToolbar = (
 		}
 
 		// A separator is needed regardless switcher is enabled or not
-		if (
-			Boolean(pluginInjectionApi?.toolbar) &&
-			editorExperiment('platform_editor_toolbar_aifc', true)
-		) {
+		if (Boolean(pluginInjectionApi?.toolbar)) {
 			toolbarButtons.push({
 				type: 'separator',
 				fullHeight: true,

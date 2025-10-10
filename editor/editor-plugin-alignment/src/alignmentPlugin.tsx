@@ -22,9 +22,7 @@ const defaultConfig: AlignmentPluginState = {
 };
 
 export const alignmentPlugin: AlignmentPlugin = ({ api }) => {
-	const isToolbarAIFCEnabled =
-		Boolean(api?.toolbar) &&
-		editorExperiment('platform_editor_toolbar_aifc', true, { exposure: true });
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,

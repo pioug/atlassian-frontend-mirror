@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-alignment
 
+## 7.0.9
+
+### Patch Changes
+
+- [`ef001bf65d48f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef001bf65d48f) -
+  Remove usage of `platform_editor_toolbar_aifc` inside editor packages - instead rely on checking
+  for new toolbar plugin option, make `enableNewToolbarExperience` mandatory for consumers to opt in
+  to new toolbar experience
+- Updated dependencies
+
 ## 7.0.8
 
 ### Patch Changes

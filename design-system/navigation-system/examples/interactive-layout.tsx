@@ -136,6 +136,7 @@ const defaultSlotWidths = {
 };
 
 function Example() {
+	const [direction, setDirection] = useState<'ltr' | 'rtl'>('ltr');
 	const [isBannerVisible, setIsBannerVisible] = useState(false);
 	const [isAsideVisible, setIsAsideVisible] = useState(false);
 	const [isPanelVisible, setIsPanelVisible] = useState(false);
@@ -171,211 +172,224 @@ function Example() {
 	}, [showFlag]);
 
 	return (
-		<Root defaultSideNavCollapsed={isSideNavDefaultCollapsed}>
-			<ToggleSideNavKeyboardShortcut />
+		<div dir={direction}>
+			<Root defaultSideNavCollapsed={isSideNavDefaultCollapsed}>
+				<ToggleSideNavKeyboardShortcut />
 
-			{isBannerVisible && (
-				<Banner
-					xcss={bannerStyles.root}
-					// Setting slot height to match the height of the Atlaskit Banner component.
-					height={48}
-				>
-					<AKBanner appearance="announcement">Great news! A new navigation system.</AKBanner>
-				</Banner>
-			)}
-
-			<TopNav>
-				<TopNavStart
-					sideNavToggleButton={
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							shortcut={['[']}
-						/>
-					}
-				>
-					<AppSwitcher label="Switch apps" />
-					<AppLogo href="" icon={ConfluenceIcon} label="Home page" name="Confluence" />
-				</TopNavStart>
-
-				<TopNavMiddle>
-					<Search label="Search" />
-					<CreateButton>Create</CreateButton>
-				</TopNavMiddle>
-
-				<TopNavEnd>
-					<Help label="Help" />
-					<Notifications
-						label="Notifications"
-						badge={() => (
-							<Badge max={9} appearance="important">
-								{99999}
-							</Badge>
-						)}
-					/>
-					<Settings label="Settings" />
-					<DropdownMenu
-						shouldRenderToParent
-						trigger={({ triggerRef: ref, ...props }) => (
-							<Profile ref={ref} label="Profile" {...props} />
-						)}
+				{isBannerVisible && (
+					<Banner
+						xcss={bannerStyles.root}
+						// Setting slot height to match the height of the Atlaskit Banner component.
+						height={48}
 					>
-						<DropdownItemGroup>
-							<DropdownItem>Account</DropdownItem>
-						</DropdownItemGroup>
-					</DropdownMenu>
-				</TopNavEnd>
-			</TopNav>
+						<AKBanner appearance="announcement">Great news! A new navigation system.</AKBanner>
+					</Banner>
+				)}
 
-			<SideNav
-				defaultCollapsed={isSideNavDefaultCollapsed}
-				onExpand={() => setIsSideNavDefaultCollapsed(false)}
-				onCollapse={() => setIsSideNavDefaultCollapsed(true)}
-				defaultWidth={persistedSideNavWidth}
-			>
-				<SideNavHeader>
-					<Heading size="medium">Sidebar header</Heading>
-				</SideNavHeader>
-				<SideNavContent>
-					<MenuList>
-						<LinkMenuItem href="#" elemBefore={<InboxIcon label="" />}>
-							Your work
-						</LinkMenuItem>
-						<LinkMenuItem href="#" elemBefore={<AppsIcon label="" />}>
-							Apps
-						</LinkMenuItem>
-						<LinkMenuItem href="#" elemBefore={<ProjectIcon label="" />}>
-							Projects
-						</LinkMenuItem>
+				<TopNav>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								shortcut={['[']}
+							/>
+						}
+					>
+						<AppSwitcher label="Switch apps" />
+						<AppLogo href="" icon={ConfluenceIcon} label="Home page" name="Confluence" />
+					</TopNavStart>
 
-						<FlyoutMenuItem>
-							<FlyoutMenuItemTrigger elemBefore={<ClockIcon label="" />}>
-								Recent
-							</FlyoutMenuItemTrigger>
-							<FlyoutMenuItemContent>
-								<ButtonMenuItem elemBefore={<BoardIcon label="" />}>YNG board</ButtonMenuItem>
-								<Divider />
-								<ButtonMenuItem elemBefore={<AlignTextLeftIcon label="" />}>
-									View all starred items
-								</ButtonMenuItem>
-							</FlyoutMenuItemContent>
-						</FlyoutMenuItem>
+					<TopNavMiddle>
+						<Search label="Search" />
+						<CreateButton>Create</CreateButton>
+					</TopNavMiddle>
 
-						<ExpandableMenuItem>
-							<ExpandableMenuItemTrigger>
-								Expandable menu item with long content
-							</ExpandableMenuItemTrigger>
-							<ExpandableMenuItemContent>
-								{Array.from({ length: 100 }, (_, i) => (
-									<LinkMenuItem key={i} href="#" elemBefore={<InboxIcon label="" />}>
-										Item {i + 1}
-									</LinkMenuItem>
-								))}
-							</ExpandableMenuItemContent>
-						</ExpandableMenuItem>
-					</MenuList>
-				</SideNavContent>
-				<SideNavFooter>
-					<Text>Sidebar footer</Text>
-				</SideNavFooter>
-				<PanelSplitter
-					label="Resize side nav"
-					onResizeEnd={({ finalWidth }) => setPersistedSideNavWidth(finalWidth)}
-				/>
-			</SideNav>
-
-			<Main id="main-container">
-				<Stack space="space.100" xcss={headingStyles.root}>
-					<Heading size="large">Interactive layout example</Heading>
-					<Text>Resize your browser to see how it responds to different screen sizes.</Text>
-
-					<Text>
-						Play around with these toggles to see how the layout areas respond with different
-						combinations:
-					</Text>
-					<Inline space="space.100" shouldWrap>
-						<Button
-							isSelected={isBannerVisible}
-							onClick={() => setIsBannerVisible((prev) => !prev)}
+					<TopNavEnd>
+						<Help label="Help" />
+						<Notifications
+							label="Notifications"
+							badge={() => (
+								<Badge max={9} appearance="important">
+									{99999}
+								</Badge>
+							)}
+						/>
+						<Settings label="Settings" />
+						<DropdownMenu
+							shouldRenderToParent
+							trigger={({ triggerRef: ref, ...props }) => (
+								<Profile ref={ref} label="Profile" {...props} />
+							)}
 						>
-							Toggle banner
-						</Button>
-						<Button isSelected={isAsideVisible} onClick={() => setIsAsideVisible((prev) => !prev)}>
-							Toggle aside
-						</Button>
-						<Button isSelected={isPanelVisible} onClick={() => setIsPanelVisible((prev) => !prev)}>
-							Toggle panel
-						</Button>
-						<Button
-							isSelected={isMainLongPlaceholderContentVisible}
-							onClick={() => setIsMainLongPlaceholderContentVisible((current) => !current)}
-						>
-							Toggle long content
-						</Button>
-						<Button
-							isSelected={isCardGridVisible}
-							onClick={() => setIsCardGridVisible((current) => !current)}
-						>
-							Toggle card grid
-						</Button>
-						<Button onClick={addFlag}>Add flag</Button>
-					</Inline>
-					{isMainLongPlaceholderContentVisible && <LongPlaceholderContent />}
-					{isCardGridVisible && <CardGrid />}
-				</Stack>
-			</Main>
+							<DropdownItemGroup>
+								<DropdownItem>Account</DropdownItem>
+							</DropdownItemGroup>
+						</DropdownMenu>
+					</TopNavEnd>
+				</TopNav>
 
-			{isAsideVisible && (
-				<Aside xcss={asideStyles.root} defaultWidth={persistedAsideWidth}>
-					<Stack space="space.100" xcss={asideStyles.content}>
-						<Heading size="medium">Aside layout area</Heading>
-						<Text>This element is rendered in the aside layout area.</Text>
-						<Text>Aside moves below the main layout area on small viewports.</Text>
+				<SideNav
+					defaultCollapsed={isSideNavDefaultCollapsed}
+					onExpand={() => setIsSideNavDefaultCollapsed(false)}
+					onCollapse={() => setIsSideNavDefaultCollapsed(true)}
+					defaultWidth={persistedSideNavWidth}
+				>
+					<SideNavHeader>
+						<Heading size="medium">Sidebar header</Heading>
+					</SideNavHeader>
+					<SideNavContent>
+						<MenuList>
+							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" />}>
+								Your work
+							</LinkMenuItem>
+							<LinkMenuItem href="#" elemBefore={<AppsIcon label="" />}>
+								Apps
+							</LinkMenuItem>
+							<LinkMenuItem href="#" elemBefore={<ProjectIcon label="" />}>
+								Projects
+							</LinkMenuItem>
 
-						{/* Wrapping div added to prevent Button from taking full width */}
-						<div>
+							<FlyoutMenuItem>
+								<FlyoutMenuItemTrigger elemBefore={<ClockIcon label="" />}>
+									Recent
+								</FlyoutMenuItemTrigger>
+								<FlyoutMenuItemContent>
+									<ButtonMenuItem elemBefore={<BoardIcon label="" />}>YNG board</ButtonMenuItem>
+									<Divider />
+									<ButtonMenuItem elemBefore={<AlignTextLeftIcon label="" />}>
+										View all starred items
+									</ButtonMenuItem>
+								</FlyoutMenuItemContent>
+							</FlyoutMenuItem>
+
+							<ExpandableMenuItem>
+								<ExpandableMenuItemTrigger>
+									Expandable menu item with long content
+								</ExpandableMenuItemTrigger>
+								<ExpandableMenuItemContent>
+									{Array.from({ length: 100 }, (_, i) => (
+										<LinkMenuItem key={i} href="#" elemBefore={<InboxIcon label="" />}>
+											Item {i + 1}
+										</LinkMenuItem>
+									))}
+								</ExpandableMenuItemContent>
+							</ExpandableMenuItem>
+						</MenuList>
+					</SideNavContent>
+					<SideNavFooter>
+						<Text>Sidebar footer</Text>
+					</SideNavFooter>
+					<PanelSplitter
+						label="Resize side nav"
+						onResizeEnd={({ finalWidth }) => setPersistedSideNavWidth(finalWidth)}
+					/>
+				</SideNav>
+
+				<Main id="main-container">
+					<Stack space="space.100" xcss={headingStyles.root}>
+						<Heading size="large">Interactive layout example</Heading>
+						<Text>Resize your browser to see how it responds to different screen sizes.</Text>
+
+						<Text>
+							Play around with these toggles to see how the layout areas respond with different
+							combinations:
+						</Text>
+						<Inline space="space.100" shouldWrap>
 							<Button
-								isSelected={isAsideLongPlaceholderContentVisible}
-								onClick={() => setIsAsideLongPlaceholderContentVisible((current) => !current)}
+								isSelected={isBannerVisible}
+								onClick={() => setIsBannerVisible((prev) => !prev)}
+							>
+								Toggle banner
+							</Button>
+							<Button
+								isSelected={isAsideVisible}
+								onClick={() => setIsAsideVisible((prev) => !prev)}
+							>
+								Toggle aside
+							</Button>
+							<Button
+								isSelected={isPanelVisible}
+								onClick={() => setIsPanelVisible((prev) => !prev)}
+							>
+								Toggle panel
+							</Button>
+							<Button
+								isSelected={isMainLongPlaceholderContentVisible}
+								onClick={() => setIsMainLongPlaceholderContentVisible((current) => !current)}
 							>
 								Toggle long content
 							</Button>
-						</div>
-						{isAsideLongPlaceholderContentVisible && <LongPlaceholderContent />}
-					</Stack>
-					<PanelSplitter
-						label="Resize aside"
-						onResizeEnd={({ finalWidth }) => setPersistedAsideWidth(finalWidth)}
-					/>
-				</Aside>
-			)}
-
-			{isPanelVisible && (
-				<Panel defaultWidth={persistedPanelWidth}>
-					<Stack space="space.100" xcss={panelStyles.content}>
-						<Heading size="medium">Panel layout area</Heading>
-						<Text>This element is rendered in the panel layout area.</Text>
-						<Text>Panel becomes an overlay on small-medium viewports.</Text>
-
-						{/* Wrapping div added to prevent Button from taking full width */}
-						<div>
 							<Button
-								isSelected={isPanelLongPlaceholderContentVisible}
-								onClick={() => setIsPanelLongPlaceholderContentVisible((current) => !current)}
+								isSelected={isCardGridVisible}
+								onClick={() => setIsCardGridVisible((current) => !current)}
 							>
-								Toggle long content
+								Toggle card grid
 							</Button>
-						</div>
-
-						{isPanelLongPlaceholderContentVisible && <LongPlaceholderContent />}
+							<Button onClick={addFlag}>Add flag</Button>
+							<Button
+								onClick={() => setDirection((current) => (current === 'ltr' ? 'rtl' : 'ltr'))}
+							>
+								Toggle direction
+							</Button>
+						</Inline>
+						{isMainLongPlaceholderContentVisible && <LongPlaceholderContent />}
+						{isCardGridVisible && <CardGrid />}
 					</Stack>
-					<PanelSplitter
-						label="Resize panel"
-						onResizeEnd={({ finalWidth }) => setPersistedPanelWidth(finalWidth)}
-					/>
-				</Panel>
-			)}
-		</Root>
+				</Main>
+
+				{isAsideVisible && (
+					<Aside xcss={asideStyles.root} defaultWidth={persistedAsideWidth}>
+						<Stack space="space.100" xcss={asideStyles.content}>
+							<Heading size="medium">Aside layout area</Heading>
+							<Text>This element is rendered in the aside layout area.</Text>
+							<Text>Aside moves below the main layout area on small viewports.</Text>
+
+							{/* Wrapping div added to prevent Button from taking full width */}
+							<div>
+								<Button
+									isSelected={isAsideLongPlaceholderContentVisible}
+									onClick={() => setIsAsideLongPlaceholderContentVisible((current) => !current)}
+								>
+									Toggle long content
+								</Button>
+							</div>
+							{isAsideLongPlaceholderContentVisible && <LongPlaceholderContent />}
+						</Stack>
+						<PanelSplitter
+							label="Resize aside"
+							onResizeEnd={({ finalWidth }) => setPersistedAsideWidth(finalWidth)}
+						/>
+					</Aside>
+				)}
+
+				{isPanelVisible && (
+					<Panel defaultWidth={persistedPanelWidth}>
+						<Stack space="space.100" xcss={panelStyles.content}>
+							<Heading size="medium">Panel layout area</Heading>
+							<Text>This element is rendered in the panel layout area.</Text>
+							<Text>Panel becomes an overlay on small-medium viewports.</Text>
+
+							{/* Wrapping div added to prevent Button from taking full width */}
+							<div>
+								<Button
+									isSelected={isPanelLongPlaceholderContentVisible}
+									onClick={() => setIsPanelLongPlaceholderContentVisible((current) => !current)}
+								>
+									Toggle long content
+								</Button>
+							</div>
+
+							{isPanelLongPlaceholderContentVisible && <LongPlaceholderContent />}
+						</Stack>
+						<PanelSplitter
+							label="Resize panel"
+							onResizeEnd={({ finalWidth }) => setPersistedPanelWidth(finalWidth)}
+						/>
+					</Panel>
+				)}
+			</Root>
+		</div>
 	);
 }
 

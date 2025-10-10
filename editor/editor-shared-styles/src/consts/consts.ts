@@ -7,6 +7,7 @@ import { token } from '@atlaskit/tokens';
 import type { EditorTheme, ParticipantColor } from './types';
 
 export const akEditorFullPageDefaultFontSize = 16;
+export const akEditorFullPageDenseFontSize = 13;
 export const akEditorCodeFontFamily = token('font.family.code');
 export const akEditorSubtleAccent = token('color.background.accent.gray.subtler');
 export const akEditorBlockquoteBorderColor = token('color.border');
@@ -111,11 +112,14 @@ export const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
 
 const DEFAULT_FONT_SIZE = 14;
 
-export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = () => {
-	// eslint-disable-next-line no-constant-condition
+export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = (isToolbarAIFCEnabled?: boolean) => {
 	if (
-		editorExperiment('platform_editor_toolbar_aifc', true, { exposure: true }) &&
-		expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
+		// if value is undefined assume this is being called outside of editor where the experiment can be checked
+		isToolbarAIFCEnabled === undefined
+			? (editorExperiment('platform_editor_toolbar_aifc', true) || fg('aifc_create_enabled')) &&
+				expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
+			: isToolbarAIFCEnabled &&
+				expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
 	) {
 		return '44px';
 	}

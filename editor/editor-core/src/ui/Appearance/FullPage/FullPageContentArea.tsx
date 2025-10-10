@@ -301,21 +301,6 @@ const Content = React.forwardRef<
 		[],
 	);
 
-	const shouldSetHiddenDataAttribute = () => {
-		// When platform_editor_controls_performance_fixes is enabled we use a different method to
-		// determine if the toolbar is hidden from outside of the editor, which doesn't require setting
-		// data-editor-primary-toolbar-hidden on the content area
-		// NOTE: When tidying, this function and the data attribute can be removed
-		if (
-			!props.isEditorToolbarHidden ||
-			editorExperiment('platform_editor_controls_performance_fixes', true)
-		) {
-			return false;
-		}
-
-		return editorExperiment('platform_editor_controls', 'variant1');
-	};
-
 	return (
 		<div
 			css={[contentAreaNew, props.isEditorToolbarHidden && contentAreaHeightNoToolbar]}
@@ -373,9 +358,6 @@ const Content = React.forwardRef<
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 							className="ak-editor-content-area-region"
 							data-editor-editable-content
-							data-editor-primary-toolbar-hidden={
-								shouldSetHiddenDataAttribute() ? 'true' : undefined
-							}
 							role="region"
 							aria-label={props.intl.formatMessage(messages.editableContentLabel)}
 							ref={contentAreaRef}

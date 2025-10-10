@@ -7,12 +7,11 @@ import type {
 	ExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
 import { type PublicPluginAPI } from '@atlaskit/editor-common/types';
-import * as analyticsUtil from '@atlaskit/editor-common/utils/analytics';
+import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import type EditorActions from '../../../actions';
 import { extensionProviderToQuickInsertProvider } from '../../extensions';
@@ -40,6 +39,12 @@ function setup(customManifests: ExtensionManifest[] = []) {
 
 	return new DefaultExtensionProvider([dummyExtension1, dummyExtension2, ...customManifests]);
 }
+
+jest.mock('@atlaskit/editor-common/utils/analytics');
+
+afterEach(() => {
+	jest.restoreAllMocks();
+});
 
 describe('#extensionProviderToQuickInsertProvider', () => {
 	let dummyExtensionProvider: ExtensionProvider;
@@ -277,48 +282,37 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 			);
 		});
 
-		ffTest.on(
-			'platform_nested_nbm_analytics_location',
-			'insertLocation enabled for extension insertions',
-			() => {
-				afterEach(() => {
-					jest.restoreAllMocks();
-				});
+		it('should add the insertLocation attribute as the parent node for text selection', async () => {
+			const dummyExtensionProvider = setup();
+			const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
+			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+				dummyExtensionProvider,
+				{} as EditorActions,
+				{ current: undefined },
+				createAnalyticsEvent as unknown as CreateUIAnalyticsEvent,
+			);
 
-				it('should add the insertLocation attribute as the parent node for text selection', async () => {
-					const dummyExtensionProvider = setup();
-					const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
-					const quickInsertProvider = await extensionProviderToQuickInsertProvider(
-						dummyExtensionProvider,
-						{} as EditorActions,
-						{ current: undefined },
-						createAnalyticsEvent as unknown as CreateUIAnalyticsEvent,
-					);
+			jest.mocked(findInsertLocation).mockReturnValue('panel');
 
-					const findLocationSpy = jest.spyOn(analyticsUtil, 'findInsertLocation');
-					findLocationSpy.mockReturnValue('panel');
+			const items = await quickInsertProvider.getItems();
 
-					const items = await quickInsertProvider.getItems();
+			items[0].action(jest.fn(), {} as EditorState);
 
-					items[0].action(jest.fn(), {} as EditorState);
-
-					expect(createAnalyticsEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'inserted',
-							actionSubject: 'document',
-							actionSubjectId: 'extension',
-							attributes: {
-								extensionType: 'com.atlassian.forge',
-								extensionKey: 'first',
-								key: 'first:default',
-								inputMethod: 'quickInsert',
-								insertLocation: 'panel',
-							},
-							eventType: 'track',
-						}),
-					);
-				});
-			},
-		);
+			expect(createAnalyticsEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'inserted',
+					actionSubject: 'document',
+					actionSubjectId: 'extension',
+					attributes: {
+						extensionType: 'com.atlassian.forge',
+						extensionKey: 'first',
+						key: 'first:default',
+						inputMethod: 'quickInsert',
+						insertLocation: 'panel',
+					},
+					eventType: 'track',
+				}),
+			);
+		});
 	});
 });

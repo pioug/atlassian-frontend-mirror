@@ -1,5 +1,59 @@
 # @atlaskit/editor-core
 
+## 215.1.1
+
+### Patch Changes
+
+- [`dbb9e84ab30e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbb9e84ab30e0) -
+  [ux] dense mode emoji icon in panel
+- Updated dependencies
+
+## 215.1.0
+
+### Minor Changes
+
+- [`ef001bf65d48f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef001bf65d48f) -
+  Remove usage of `platform_editor_toolbar_aifc` inside editor packages - instead rely on checking
+  for new toolbar plugin option, make `enableNewToolbarExperience` mandatory for consumers to opt in
+  to new toolbar experience
+- [`2a9e8a0692fdc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a9e8a0692fdc) -
+  [NO-ISSUE] Switch from using `cc_editor_ai_content_mode` param `baseFontSize` to having a proper
+  variable we can use for the sizing
+
+### Patch Changes
+
+- [`14b9e966da4dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14b9e966da4dd) -
+  [ux] ED-29517 Toolbar and offline banner is overlapping
+- Updated dependencies
+
+## 215.0.6
+
+### Patch Changes
+
+- [`1e40e7f832859`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e40e7f832859) -
+  [ux] Scale emojis in editor compact mode
+- [`a48139f041cd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a48139f041cd4) -
+  [ux] EDITOR-1654 implement sync block ui for hovered, selected and delete states
+- [`ab5c971734fe5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab5c971734fe5) -
+  NOISSUE: Hydration mutation detection within editor example
+- [`9d0a393b141f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d0a393b141f9) -
+  [HOT-121657] Revert PR that sets minHeight behind FG
+  `platform_expand_editor_click_area_with_minheight`, there is another solution behind
+  `platform_editor_focus_fix` that can be used instead
+- [`b0b556769b28e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0b556769b28e) -
+  [EDITOR-1735] prompt editor padding issue
+- Updated dependencies
+
+## 215.0.5
+
+### Patch Changes
+
+- [`8e2162706bb08`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e2162706bb08) -
+  [REMOVE FF] platform_nested_nbm_analytics_location
+- [`0b4cd77e72217`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b4cd77e72217) -
+  clean up references to platform_editor_controls_performance_fixes
+- Updated dependencies
+
 ## 215.0.4
 
 ### Patch Changes

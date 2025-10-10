@@ -126,6 +126,14 @@ const childrenWrapperStyles = cssMap({
 		gap: 'inherit',
 		// Allow the flex item to shrink. Otherwise it will stay at min-content size, causing overflow out of the TopNavStart flex container.
 		minWidth: 0,
+		// Used to support animations for right-to-left (RTL) languages/text direction. We need to flip the animation direction for RTL.
+		// There are currently no logical properties for translate transforms: https://github.com/w3c/csswg-drafts/issues/1544
+		// Instead, we are using a CSS variable to flip the translate value.
+		'--animation-direction': '1',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		"[dir='rtl'] &": {
+			'--animation-direction': '-1',
+		},
 	},
 	animationBaseStyles: {
 		// Disabling animations if user has opted for reduced motion
@@ -141,12 +149,12 @@ const childrenWrapperStyles = cssMap({
 	},
 	expandAnimationStartPosition: {
 		'@media (prefers-reduced-motion: no-preference)': {
-			transform: `translateX(${childrenWrapperAnimationOffset})`,
+			transform: `translateX(calc(${childrenWrapperAnimationOffset} * var(--animation-direction)))`,
 		},
 	},
 	collapseAnimationStartPosition: {
 		'@media (prefers-reduced-motion: no-preference)': {
-			transform: `translateX(calc(-1 * ${childrenWrapperAnimationOffset}))`,
+			transform: `translateX(calc(-1 * ${childrenWrapperAnimationOffset} * var(--animation-direction)))`,
 		},
 	},
 });
@@ -163,6 +171,14 @@ const toggleButtonWrapperStyles = cssMap({
 		'@media (prefers-reduced-motion: no-preference)': {
 			transitionProperty: 'transform, opacity',
 		},
+		// Used to support animations for right-to-left (RTL) languages/text direction. We need to flip the animation direction for RTL.
+		// There are currently no logical properties for translate transforms: https://github.com/w3c/csswg-drafts/issues/1544
+		// Instead, we are using a CSS variable to flip the translate value.
+		'--animation-direction': '1',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		"[dir='rtl'] &": {
+			'--animation-direction': '-1',
+		},
 	},
 	finalPosition: {
 		'@media (prefers-reduced-motion: no-preference)': {
@@ -173,13 +189,13 @@ const toggleButtonWrapperStyles = cssMap({
 	},
 	expandAnimationStartPosition: {
 		'@media (prefers-reduced-motion: no-preference)': {
-			transform: 'translateX(-100%)',
+			transform: 'translateX(calc(-100% * var(--animation-direction)))',
 			opacity: 0,
 		},
 	},
 	collapseAnimationStartPosition: {
 		'@media (prefers-reduced-motion: no-preference)': {
-			transform: 'translateX(100%)',
+			transform: 'translateX(calc(100% * var(--animation-direction)))',
 			opacity: 0,
 		},
 	},
@@ -409,6 +425,7 @@ export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavSta
 								animationState.type === 'idle' &&
 								toggleButtonWrapperStyles.finalPosition,
 							!isFirefox &&
+								// Timing function is applied when the browser animates to the idle position.
 								animationState.type === 'idle' &&
 								toggleButtonWrapperStyles.collapseAnimationTimingFunction,
 							!isFirefox &&
@@ -454,6 +471,7 @@ export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavSta
 								animationState.type === 'idle' &&
 								toggleButtonWrapperStyles.finalPosition,
 							!isFirefox &&
+								// Timing function is applied when the browser animates to the idle position.
 								animationState.type === 'idle' &&
 								toggleButtonWrapperStyles.expandAnimationTimingFunction,
 							!isFirefox &&

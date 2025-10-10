@@ -48,6 +48,11 @@
 	"devDependencies": {
 		"@testing-library/react": "root:*"
 	},
+	"platform-feature-flags": {
+		"platform_editor_ai_aifc_patch_beta": {
+			"type": "boolean"
+		}
+	},
 	"techstack": {
 		"@atlassian/frontend": {
 			"import-structure": [

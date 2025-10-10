@@ -152,7 +152,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 		return (
 			<span
 				css={
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/platform/ensure-feature-flag-prefix
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform-visual-refresh-icons') ? [wrapperStyle, addMarginToWrapper] : wrapperStyle
 				}
 			>
@@ -193,7 +193,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 							iconBefore={
 								<div
 									css={
-										// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/platform/ensure-feature-flag-prefix
+										// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
 										fg('platform-visual-refresh-icons')
 											? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 												triggerWrapperStylesWithPadding
@@ -201,7 +201,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 												triggerWrapperStyles
 									}
 								>
-									{/* eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/platform/ensure-feature-flag-prefix */}
+									{/* eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration */}
 									{fg('platform-visual-refresh-icons') ? (
 										<DynamicStrokeIconDecoration
 											selectedColor={selectedColor}

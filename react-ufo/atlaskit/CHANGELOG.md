@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.11.8
+
+### Patch Changes
+
+- [`29629e6bfc4be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29629e6bfc4be) -
+  FG cleanup - platform_ufo_vcnext_v4_enabled
+- [`0e2fae38334fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e2fae38334fe) -
+  FG cleanup - platform_ufo_enable_timeout_config
+
 ## 4.11.7
 
 ### Patch Changes

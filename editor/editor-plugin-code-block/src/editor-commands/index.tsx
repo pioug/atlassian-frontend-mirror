@@ -1,3 +1,4 @@
+import type { CodeBlockAttrs } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -31,6 +32,7 @@ import {
 	removeSelectedNode,
 	safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { ACTIONS } from '../pm-plugins/actions';
 import { copySelectionPluginKey } from '../pm-plugins/codeBlockCopySelectionPlugin';
@@ -234,7 +236,13 @@ export const resetShouldIgnoreFollowingMutations: Command = (state, dispatch) =>
  * if there is text selected it will wrap the current selection if not it will
  * append the codeblock to the end of the document.
  */
-export function createInsertCodeBlockTransaction({ state }: { state: EditorState }) {
+export function createInsertCodeBlockTransaction({
+	state,
+	attributes,
+}: {
+	attributes?: CodeBlockAttrs;
+	state: EditorState;
+}) {
 	let { tr } = state;
 	const { from } = state.selection;
 	const { codeBlock } = state.schema.nodes;
@@ -251,13 +259,29 @@ export function createInsertCodeBlockTransaction({ state }: { state: EditorState
 		shouldSplitSelectedNodeOnNodeInsertion({
 			parentNodeType,
 			grandParentNodeType,
-			content: codeBlock.createAndFill() as PMNode,
+			content: codeBlock.createAndFill(
+				expValEqualsNoExposure('platform_editor_plain_text_support', 'isEnabled', true)
+					? attributes
+					: undefined,
+			) as PMNode,
 		}) && contentAllowedInCodeBlock(state);
 
 	if (canInsertCodeBlock) {
-		tr = transformToCodeBlockAction(state, from, undefined);
+		tr = transformToCodeBlockAction(
+			state,
+			from,
+			expValEqualsNoExposure('platform_editor_plain_text_support', 'isEnabled', true)
+				? attributes
+				: undefined,
+		);
 	} else {
-		safeInsert(codeBlock.createAndFill() as PMNode)(tr).scrollIntoView();
+		safeInsert(
+			codeBlock.createAndFill(
+				expValEqualsNoExposure('platform_editor_plain_text_support', 'isEnabled', true)
+					? attributes
+					: undefined,
+			) as PMNode,
+		)(tr).scrollIntoView();
 	}
 
 	return tr;

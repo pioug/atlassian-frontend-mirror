@@ -8,6 +8,32 @@ type AILocalIdNotFoundErrorAEP = OperationalAEP<
 	{ docSize: number | undefined; localId: string }
 >;
 
+type AIStreamingNoDocChangeAEP = OperationalAEP<
+	ACTION.NO_DOC_CHANGE_FOUND,
+	ACTION_SUBJECT.AI_STREAMING,
+	ACTION_SUBJECT_ID.EXPERIENCE_APPLICATION,
+	{
+		command: Record<string, unknown> | undefined;
+		isSameDoc: boolean;
+		isSameDocIgnoreAttrs: boolean;
+	}
+>;
+
+type AIStreamingInvalidCommandAEP = OperationalAEP<
+	ACTION.INVALID_COMMAND_FOUND,
+	ACTION_SUBJECT.AI_STREAMING,
+	ACTION_SUBJECT_ID.EXPERIENCE_APPLICATION,
+	{
+		ancestors?: string[];
+		command: Record<string, unknown>;
+		errorMessage?: string;
+		errorStack?: string;
+		fragments?: string[];
+		repaired: boolean;
+		success: boolean;
+	}
+>;
+
 type AIStreamingUpdateStreamError = OperationalAEP<
 	ACTION.ERRORED,
 	ACTION_SUBJECT.AI_STREAMING,
@@ -56,6 +82,8 @@ type AIChangesRejectButtonClickedAEP = UIAEP<
 
 export type AIStreamingEventPayload =
 	| AILocalIdNotFoundErrorAEP
+	| AIStreamingNoDocChangeAEP
+	| AIStreamingInvalidCommandAEP
 	| AIStreamingUpdateStreamError
 	| AIStreamingDiscardStreamError
 	| AIChangesAcceptButtonClickedAEP

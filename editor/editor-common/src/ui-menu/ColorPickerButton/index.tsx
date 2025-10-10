@@ -307,53 +307,16 @@ const ColorPickerButton = (props: Props) => {
 	return (
 		<div css={colorPickerButtonWrapper}>
 			<Tooltip content={title} position="top">
-				{
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-					fg('platform-visual-refresh-icons') ? (
-						<div css={colorPickerButtonStyle}>
-							<Button
-								appearance={'subtle'}
-								ref={buttonRef}
-								aria-label={title}
-								aria-expanded={props.isAriaExpanded ? isPopupOpen : undefined}
-								spacing={
-									editorExperiment('platform_editor_controls', 'variant1') ? 'default' : 'compact'
-								}
-								onClick={togglePopup}
-								onKeyDown={(event: React.KeyboardEvent) => {
-									if (event.key === 'Enter' || event.key === ' ') {
-										event.preventDefault();
-										togglePopup();
-										setIsOpenedByKeyboard(true);
-									}
-								}}
-								data-selected-color={props.currentColor}
-								isSelected={isPopupOpen}
-							>
-								<Inline alignBlock="start">
-									<span
-										// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-										css={buttonStyleVisualRefresh}
-									/>
-									<Box xcss={colorPickerExpandContainerVisualRefresh}>
-										<ChevronDownIcon
-											color="currentColor"
-											spacing="spacious"
-											LEGACY_fallbackIcon={LegacyExpandIcon}
-											label="color-picker-chevron-down"
-											size="small"
-										/>
-									</Box>
-								</Inline>
-							</Button>
-						</div>
-					) : (
-						<LegacyButton
+				{fg('platform-visual-refresh-icons') ? (
+					<div css={colorPickerButtonStyle}>
+						<Button
 							appearance={'subtle'}
 							ref={buttonRef}
 							aria-label={title}
 							aria-expanded={props.isAriaExpanded ? isPopupOpen : undefined}
-							spacing="compact"
+							spacing={
+								editorExperiment('platform_editor_controls', 'variant1') ? 'default' : 'compact'
+							}
 							onClick={togglePopup}
 							onKeyDown={(event: React.KeyboardEvent) => {
 								if (event.key === 'Enter' || event.key === ' ') {
@@ -362,10 +325,15 @@ const ColorPickerButton = (props: Props) => {
 									setIsOpenedByKeyboard(true);
 								}
 							}}
-							// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-							css={buttonStyle}
-							iconAfter={
-								<Box xcss={colorPickerExpandContainer}>
+							data-selected-color={props.currentColor}
+							isSelected={isPopupOpen}
+						>
+							<Inline alignBlock="start">
+								<span
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+									css={buttonStyleVisualRefresh}
+								/>
+								<Box xcss={colorPickerExpandContainerVisualRefresh}>
 									<ChevronDownIcon
 										color="currentColor"
 										spacing="spacious"
@@ -374,11 +342,40 @@ const ColorPickerButton = (props: Props) => {
 										size="small"
 									/>
 								</Box>
+							</Inline>
+						</Button>
+					</div>
+				) : (
+					<LegacyButton
+						appearance={'subtle'}
+						ref={buttonRef}
+						aria-label={title}
+						aria-expanded={props.isAriaExpanded ? isPopupOpen : undefined}
+						spacing="compact"
+						onClick={togglePopup}
+						onKeyDown={(event: React.KeyboardEvent) => {
+							if (event.key === 'Enter' || event.key === ' ') {
+								event.preventDefault();
+								togglePopup();
+								setIsOpenedByKeyboard(true);
 							}
-							data-selected-color={props.currentColor}
-						/>
-					)
-				}
+						}}
+						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
+						css={buttonStyle}
+						iconAfter={
+							<Box xcss={colorPickerExpandContainer}>
+								<ChevronDownIcon
+									color="currentColor"
+									spacing="spacious"
+									LEGACY_fallbackIcon={LegacyExpandIcon}
+									label="color-picker-chevron-down"
+									size="small"
+								/>
+							</Box>
+						}
+						data-selected-color={props.currentColor}
+					/>
+				)}
 			</Tooltip>
 			{renderPopup()}
 		</div>

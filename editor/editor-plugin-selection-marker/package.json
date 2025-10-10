@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-marker",
-	"version": "6.2.0",
+	"version": "6.2.1",
 	"description": "Selection marker plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -100,9 +100,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_inline_selection_marker_cursor": {
-			"type": "boolean"
-		},
-		"aifc_create_enabled": {
 			"type": "boolean"
 		}
 	}

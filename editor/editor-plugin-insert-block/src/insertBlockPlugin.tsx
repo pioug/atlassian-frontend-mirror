@@ -117,6 +117,8 @@ function delayUntilIdle(cb: Function) {
 }
 
 export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api }) => {
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
+
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,
 		editorActions,
@@ -188,10 +190,7 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		);
 	};
 
-	if (
-		Boolean(api?.toolbar) &&
-		editorExperiment('platform_editor_toolbar_aifc', true, { exposure: true })
-	) {
+	if (isToolbarAIFCEnabled) {
 		api?.toolbar?.actions.registerComponents(
 			getToolbarComponents({
 				api,

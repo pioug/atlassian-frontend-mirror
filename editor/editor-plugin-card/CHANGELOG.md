@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 11.3.1
+
+### Patch Changes
+
+- [`1a90419a2ae30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a90419a2ae30) -
+  [ED-29484] remove references to platform_editor_smart_link_cmd_ctrl_click
+- Updated dependencies
+
 ## 11.3.0
 
 ### Minor Changes

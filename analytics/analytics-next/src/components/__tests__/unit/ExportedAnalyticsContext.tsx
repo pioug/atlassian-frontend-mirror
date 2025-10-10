@@ -2,14 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import AnalyticsErrorBoundary from '../../AnalyticsErrorBoundary';
-
-jest.mock('../../AnalyticsContext/LegacyAnalyticsContext', () => ({
-	__esModule: true,
-	default: () => <div>LegacyAnalytics</div>,
-}));
 
 jest.mock('../../AnalyticsContext/ModernAnalyticsContext', () => ({
 	__esModule: true,
@@ -43,29 +36,15 @@ describe('ExportedAnalyticsListener with Error', () => {
 		return <div>Error occurred</div>;
 	};
 
-	ffTest(
-		'analytics-next-use-modern-context_jira',
-		() => {
-			render(
-				<AnalyticsErrorBoundary {...props} ErrorComponent={ErrorScreen} onError={onError}>
-					<Something error />
-				</AnalyticsErrorBoundary>,
-			);
+	test('renders the analytics context when there is an error', () => {
+		render(
+			<AnalyticsErrorBoundary {...props} ErrorComponent={ErrorScreen} onError={onError}>
+				<Something error />
+			</AnalyticsErrorBoundary>,
+		);
 
-			// when the ff is on- we expect the modern context to be used
-			expect(screen.getByText('ModernAnalytics')).toBeInTheDocument();
-		},
-		() => {
-			render(
-				<AnalyticsErrorBoundary {...props} ErrorComponent={ErrorScreen} onError={onError}>
-					<Something error />
-				</AnalyticsErrorBoundary>,
-			);
-
-			// when the ff is off - we expect the legacy context to be used
-			expect(screen.getByText('LegacyAnalytics')).toBeInTheDocument();
-		},
-	);
+		expect(screen.getByText('ModernAnalytics')).toBeInTheDocument();
+	});
 });
 
 describe('ExportedAnalyticsListener with no Error', () => {
@@ -76,27 +55,13 @@ describe('ExportedAnalyticsListener with no Error', () => {
 		return <div className="child-component" />;
 	};
 
-	ffTest(
-		'analytics-next-use-modern-context_jira',
-		() => {
-			render(
-				<AnalyticsErrorBoundary {...props} onError={onError}>
-					<Something />
-				</AnalyticsErrorBoundary>,
-			);
+	test('renders the correct analytics context when there is no error', () => {
+		render(
+			<AnalyticsErrorBoundary {...props} onError={onError}>
+				<Something />
+			</AnalyticsErrorBoundary>,
+		);
 
-			// when the ff is on- we expect the modern context to be used
-			expect(screen.getByText('ModernAnalytics')).toBeInTheDocument();
-		},
-		() => {
-			render(
-				<AnalyticsErrorBoundary {...props} onError={onError}>
-					<Something />
-				</AnalyticsErrorBoundary>,
-			);
-
-			// when the ff is off - we expect the legacy context to be used
-			expect(screen.getByText('LegacyAnalytics')).toBeInTheDocument();
-		},
-	);
+		expect(screen.getByText('ModernAnalytics')).toBeInTheDocument();
+	});
 });

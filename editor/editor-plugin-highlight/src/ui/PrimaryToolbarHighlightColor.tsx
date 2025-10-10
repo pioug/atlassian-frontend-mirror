@@ -146,7 +146,6 @@ const PrimaryToolbarHighlightColor = ({
 						onKeyDown={handleKeyDown}
 						ref={toolbarItemRef}
 						iconBefore={
-							// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 							fg('platform-visual-refresh-icons') ? (
 								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 								<div css={triggerWrapperStylesWithPadding}>

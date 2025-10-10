@@ -76,7 +76,6 @@ export const createSingleMentionFragment =
 		}
 
 		const annotationMarksForPos: Mark[] | undefined = fg(
-			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 			'editor_inline_comments_paste_insert_nodes',
 		)
 			? getAnnotationMarksForPos(tr.selection.$head)
@@ -91,12 +90,10 @@ export const createSingleMentionFragment =
 				localId: localId ?? uuid(),
 			},
 			null,
-			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 			fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
 		);
 		const space = schema.text(
 			' ',
-			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 			fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
 		);
 		return Fragment.from([mentionNode, space]);

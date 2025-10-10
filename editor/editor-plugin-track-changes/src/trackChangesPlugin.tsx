@@ -1,7 +1,6 @@
 import React from 'react';
 
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createTrackChangesPlugin, trackChangesPluginKey } from './pm-plugins/main';
 import { TOGGLE_TRACK_CHANGES_ACTION as ACTION } from './pm-plugins/types';
@@ -10,12 +9,14 @@ import { getToolbarComponents } from './ui/toolbar-components';
 import { TrackChangesToolbarButton } from './ui/TrackChangesToolbarButton';
 
 export const trackChangesPlugin: TrackChangesPlugin = ({ api, config: options }) => {
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
+
 	const primaryToolbarComponent = () => {
 		return <TrackChangesToolbarButton api={api} />;
 	};
 
 	if (options?.showOnToolbar === true) {
-		if (Boolean(api?.toolbar) && editorExperiment('platform_editor_toolbar_aifc', true)) {
+		if (isToolbarAIFCEnabled) {
 			api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
 		} else {
 			api?.primaryToolbar?.actions?.registerComponent({

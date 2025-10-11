@@ -225,6 +225,7 @@ const CardBuilder = ({
 			/>
 			<Field<{ label: string; value: string }>
 				name="previewSize"
+				// eslint-disable-next-line @atlassian/a11y/label-has-associated-control -- See https://go/a11y-label-has-associated-control for more details
 				label={<Label content="Preview size (preview action)" />}
 			>
 				{({ fieldProps: { id, ...rest } }) => (
@@ -251,6 +252,7 @@ const CardBuilder = ({
 					<Checkbox
 						{...fieldProps}
 						isChecked={template.actionOptions?.previewAction?.hideBlanket || false}
+						// eslint-disable-next-line @atlassian/a11y/label-has-associated-control -- See https://go/a11y-label-has-associated-control for more details
 						label={<Label content="Hide blanket (preview action)" />}
 						onChange={(e: React.SyntheticEvent<HTMLInputElement>) => {
 							handleHideBlanketChange(e.currentTarget.checked);

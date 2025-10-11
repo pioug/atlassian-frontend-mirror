@@ -23,6 +23,7 @@ const FallbackComponent = (): JSX.Element => {
 		>
 			An unexpected error occurred and this is a custom fallback component.
 			<br />
+			{/* eslint-disable-next-line @atlassian/a11y/anchor-ambiguous-text -- See https://go/a11y-anchor-ambiguous-text for more details*/}
 			<Link href="/packages/linking-platform/smart-card/docs/handle-errors">Learn more</Link>
 		</Banner>
 	);

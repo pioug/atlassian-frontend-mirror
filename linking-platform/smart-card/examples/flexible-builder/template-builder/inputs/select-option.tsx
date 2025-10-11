@@ -46,6 +46,7 @@ const SelectOption = <T extends object>({
 	return (
 		<Field<Value<{ label: string; value: string }>>
 			name={name}
+			// eslint-disable-next-line @atlassian/a11y/label-has-associated-control -- See https://go/a11y-label-has-associated-control for more details
 			label={<Label content={label} exclude={exclude} />}
 		>
 			{({ fieldProps: { id, ...rest } }) => (

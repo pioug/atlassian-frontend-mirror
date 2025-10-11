@@ -1,5 +1,12 @@
 # @atlaskit/avatar
 
+## 25.4.1
+
+### Patch Changes
+
+- [`eb7832f0123e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb7832f0123e5) -
+  Updates the Avatar hexagon shape to work better with circular images.
+
 ## 25.4.0
 
 ### Minor Changes

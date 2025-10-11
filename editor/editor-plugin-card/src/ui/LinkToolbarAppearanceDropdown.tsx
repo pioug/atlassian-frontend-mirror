@@ -179,6 +179,7 @@ export const LinkAppearanceMenu = ({
 				/>
 			</Section>
 			<Section hasSeparator>
+				{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid -- See https://go/a11y-anchor-is-valid for more details */}
 				<LinkItem
 					iconBefore={Icon && <Icon label="Settings" />}
 					href={'href' in settingsConfig ? settingsConfig.href : undefined}

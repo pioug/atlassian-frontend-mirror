@@ -143,6 +143,7 @@ describe('<Heading />', () => {
 	it('renders an aria hidden and visually hidden heading anchor when showAnchorLink is true and headingId is provided', () => {
 		const reactSerializer = new ReactSerializer({});
 		const screen = renderWithIntl(
+			// eslint-disable-next-line @atlassian/a11y/heading-has-content -- See https://go/a11y-heading-has-content for more details
 			<Heading
 				level={1}
 				headingId="heading-id"
@@ -163,6 +164,7 @@ describe('<Heading />', () => {
 	it('should fire AbortAll function, if user hover over the heading', async () => {
 		const reactSerializer = new ReactSerializer({});
 		const screen = renderWithIntl(
+			// eslint-disable-next-line @atlassian/a11y/heading-has-content -- See https://go/a11y-heading-has-content for more details
 			<Heading
 				level={1}
 				headingId="heading-id"

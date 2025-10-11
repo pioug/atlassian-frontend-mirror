@@ -101,6 +101,7 @@ const Page = ({
 	<SSRAnalyticsWrapper>
 		<h3>{title}</h3>
 		<MediaClientContext.Provider value={createMediaClient({ throwError })}>
+			{/* eslint-disable-next-line @atlassian/a11y/alt-text -- See https://go/a11y-alt-text for more details */}
 			<Image identifier={imageFileId} apiConfig={dimensions} ssr={ssr} />
 		</MediaClientContext.Provider>
 	</SSRAnalyticsWrapper>

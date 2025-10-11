@@ -8,15 +8,13 @@ import { Code } from '@atlaskit/code';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { Grid, Stack, Text } from '@atlaskit/primitives/compiled';
-import { N0, N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { avatarUrl } from '../examples-util/data';
+import loomCircleImage from '../examples-util/loom-circle.svg';
+import ExampleImg from '../examples-util/nucleus.png';
 
-const exampleColors = [
-	token('color.background.neutral', N20),
-	token('color.background.input.pressed', N0),
-];
+const exampleColors = [token('color.background.neutral'), token('color.background.input.pressed')];
 
 const presences: PresenceType[] = ['focus', 'online', 'offline', 'busy'];
 const statuses: StatusType[] = ['approved', 'locked', 'declined'];
@@ -110,7 +108,7 @@ export default () => (
 					<ColorColumn
 						key={index}
 						borderColor={color}
-						src={avatarUrl}
+						src={ExampleImg}
 						appearance="square"
 						status={statuses[index]}
 					/>
@@ -122,7 +120,7 @@ export default () => (
 					<ColorColumn
 						key={index}
 						borderColor={color}
-						src={avatarUrl}
+						src={loomCircleImage}
 						appearance="hexagon"
 						status={statuses[index]}
 					/>

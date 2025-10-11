@@ -36,6 +36,7 @@ describe('Link Type', () => {
 	const setup = ({ url = '', ...props }) => {
 		return render(
 			<SmartCardProvider client={smartLinkCustomClient}>
+				{/* eslint-disable-next-line @atlassian/a11y/anchor-has-content -- See https://go/a11y-anchor-has-content for more details */}
 				<Link url={url} {...props} />
 			</SmartCardProvider>,
 		);
@@ -139,6 +140,7 @@ describe('Link Type', () => {
 	it('should capture and report a11y violations', async () => {
 		const { container } = render(
 			<SmartCardProvider client={smartLinkCustomClient}>
+				{/* eslint-disable-next-line @atlassian/a11y/anchor-has-content -- See https://go/a11y-anchor-has-content for more details */}
 				<Link url={'https://www.atlassian.com/'} />
 			</SmartCardProvider>,
 		);

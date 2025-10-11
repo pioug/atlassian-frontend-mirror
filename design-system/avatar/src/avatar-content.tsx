@@ -89,16 +89,16 @@ const unboundStyles = unboundCssMap({
 	},
 	hexagonFocusContainer: {
 		backgroundColor: 'transparent',
-		// NOTE: The left/right sides of this are intentionally inset by 7% on each side to be more visually appealing…
-		clipPath: `polygon(45% 1.33975%, 46.5798% 0.60307%, 48.26352% 0.15192%, 50% 0%, 51.73648% 0.15192%, 53.4202% 0.60307%, 55% 1.33975%, 92.64102% 21.33975%, 94.06889% 22.33956%, 95.30146% 23.57212%, 96.30127% 25%, 97.03794% 26.5798%, 97.48909% 28.26352%, 97.64102% 30%, 97.64102% 70%, 97.48909% 71.73648%, 97.03794% 73.4202%, 96.30127% 75%, 95.30146% 76.42788%, 94.06889% 77.66044%, 92.64102% 78.66025%, 55% 98.66025%, 53.4202% 99.39693%, 51.73648% 99.84808%, 50% 100%, 48.26352% 99.84808%, 46.5798% 99.39693%, 45% 98.66025%, 7.35898% 78.66025%, 5.93111% 77.66044%, 4.69854% 76.42788%, 3.69873% 75%, 2.96206% 73.4202%, 2.51091% 71.73648%, 2.35898% 70%, 2.35898% 30%, 2.51091% 28.26352%, 2.96206% 26.5798%, 3.69873% 25%, 4.69854% 23.57212%, 5.93111% 22.33956%, 7.35898% 21.33975%)`,
+		// NOTE: The left/right sides of this are intentionally inset by 10% on each side to be more visually appealing and work with circular images.
+		clipPath: `polygon(45% 1.33975%, 46.5798% 0.60307%, 48.26352% 0.15192%, 50% 0%, 51.73648% 0.15192%, 53.4202% 0.60307%, 55% 1.33975%, 89.64102% 21.33975%, 91.06889% 22.33956%, 92.30146% 23.57212%, 93.30127% 25%, 94.03794% 26.5798%, 94.48909% 28.26352%, 94.64102% 30%, 94.64102% 70%, 94.48909% 71.73648%, 94.03794% 73.4202%, 93.30127% 75%, 92.30146% 76.42788%, 91.06889% 77.66044%, 89.64102% 78.66025%, 55% 98.66025%, 53.4202% 99.39693%, 51.73648% 99.84808%, 50% 100%, 48.26352% 99.84808%, 46.5798% 99.39693%, 45% 98.66025%, 10.35898% 78.66025%, 8.93111% 77.66044%, 7.69854% 76.42788%, 6.69873% 75%, 5.96206% 73.4202%, 5.51091% 71.73648%, 5.35898% 70%, 5.35898% 30%, 5.51091% 28.26352%, 5.96206% 26.5798%, 6.69873% 25%, 7.69854% 23.57212%, 8.93111% 22.33956%, 10.35898% 21.33975%)`,
 
-		// NOTE: The `clip-path` changes padding in an unexpected way, so `1.22` is a magic number
+		// NOTE: The `clip-path` changes padding in an unexpected way, so `1.25` is a magic number
 		// to increase the padding on this outer layer, but keep `padding-inline` unchanged.
 		// The goal here is emulating a 2px "outline"
-		paddingBlock: `calc(${token('border.width.selected')} * 1.22)`,
+		paddingBlock: `calc(${token('border.width.selected')} * 1.25)`,
 		paddingInline: token('border.width.selected'),
 		// NOTE: `marginInline` is set in `marginInlineMap[size]`
-		marginBlock: `calc(${token('border.width.selected')} * 1.22 * -1)`,
+		marginBlock: `calc(${token('border.width.selected')} * 1.25 * -1)`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- We have to hack the focus together with this hexagon `clip-path`
 		'&:has(:focus-visible)': {
 			backgroundColor: token('color.border.focused'),
@@ -108,7 +108,7 @@ const unboundStyles = unboundCssMap({
 		backgroundColor: `var(${bgColorCssVar})`,
 		clipPath: 'inherit',
 		// NOTE: The `clip-path` and `background` overflows padding in an unexpected way, so
-		// `0.5` and `0.4` are relatively magic numbers, but the ratio between block and inline is consistenty.
+		// `0.5` and `0.4` are relatively magic numbers, but the ratio between block and inline is consistent.
 		// The goal here is emulating a 2px "border"
 		paddingBlock: `calc(${token('border.width.selected')} * 0.5)`,
 		paddingInline: `calc(${token('border.width.selected')} * 0.4)`,

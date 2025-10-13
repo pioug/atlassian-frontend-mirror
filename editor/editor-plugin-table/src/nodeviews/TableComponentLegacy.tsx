@@ -148,6 +148,8 @@ interface TableState {
 }
 
 // Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
+// @deprecated Please use TableComponentNext instead
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class TableComponent extends React.Component<ComponentProps, TableState> {
 	static displayName = 'TableComponent';

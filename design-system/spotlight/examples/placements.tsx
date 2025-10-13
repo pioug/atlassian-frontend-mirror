@@ -73,7 +73,9 @@ const cardPlacements = [
 export default () => {
 	const [placement, setPlacement] = useState<(typeof cardPlacements)[number]>('bottom-start');
 	const [isVisible, setIsVisible] = useState(true);
+
 	const dismiss = () => setIsVisible(false);
+	const done = () => setIsVisible(false);
 
 	return (
 		<div css={styles.root}>
@@ -100,7 +102,7 @@ export default () => {
 							</SpotlightBody>
 							<SpotlightFooter>
 								<SpotlightActions>
-									<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
+									<SpotlightPrimaryAction onClick={done}>Done</SpotlightPrimaryAction>
 								</SpotlightActions>
 							</SpotlightFooter>
 						</SpotlightCard>

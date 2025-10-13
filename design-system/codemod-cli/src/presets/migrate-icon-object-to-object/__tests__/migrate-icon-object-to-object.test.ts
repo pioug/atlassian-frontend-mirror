@@ -201,11 +201,11 @@ describe('Migrate icon-object to object', () => {
 				const iconRef = IssueIcon;
 			`,
 			expected: `
-				import IssueObject from '@atlaskit/object/issue';
+				import WorkItemObject from '@atlaskit/object/work-item';
 
-				const renderIcon = () => IssueObject;
-				const Component = () => <IssueObject label="Issue" />;
-				const iconRef = IssueObject;
+				const renderIcon = () => WorkItemObject;
+				const Component = () => <WorkItemObject label="Issue" />;
+				const iconRef = WorkItemObject;
 			`,
 		});
 
@@ -249,12 +249,12 @@ describe('Migrate icon-object to object', () => {
 				);
 			`,
 			expected: `
-				import IssueObject from '@atlaskit/object/issue';
+				import WorkItemObject from '@atlaskit/object/work-item';
 				import StoryObjectTile from '@atlaskit/object/tile/story';
 
 				export default () => (
 					<div>
-						<IssueObject />
+						<WorkItemObject />
 						<StoryObjectTile size="small"></StoryObjectTile>
 					</div>
 				);

@@ -1,0 +1,41 @@
+---
+order: 1
+---
+
+import ObjectDefault from '../../examples/constellation/object-default.tsx';
+import ObjectSizes from '../../examples/constellation/object-sizes.tsx';
+import ObjectLabelling from '../../examples/constellation/object-labelling.tsx';
+
+## Default
+
+The default object has a medium size (16px) and a default label based on the object type.
+
+<Example
+	Component={ObjectDefault}
+	packageName="@atlaskit/object"
+	hiddenSections={['iconography']}
+/>
+
+## Size
+
+Objects can be set to two different sizes using the `size` prop: `small` (12px) or `medium` (16px).
+This defaults to `medium`.
+
+If you need a larger size, use an [Object Tile](/components/object/object-tile/examples) instead –
+which is available in 20px to 48px sizes.
+
+<Example Component={ObjectSizes} packageName="@atlaskit/object" hiddenSections={['iconography']} />
+
+## Label
+
+Use the `label` prop to provide accessible labelling for objects. Use descriptive labels for
+meaningful objects, or empty strings for decorative objects.
+
+If not provided, the label will default to a human-readable version of the object type (for example,
+"Task" for a task object).
+
+<Example
+	Component={ObjectLabelling}
+	packageName="@atlaskit/object"
+	hiddenSections={['iconography']}
+/>

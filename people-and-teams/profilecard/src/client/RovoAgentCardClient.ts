@@ -2,12 +2,89 @@ import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type FireEventType } from '@atlaskit/teams-app-internal-analytics';
 
-import type { AgentIdType, AgentPermissions, ProfileClientOptions, RovoAgent } from '../types';
+import type {
+	AgentIdType,
+	AgentPermissions,
+	ProfileClientOptions,
+	RovoAgent,
+	RovoAgentAgg,
+	RovoAgentCardClientResult,
+} from '../types';
 import { agentRequestAnalytics, PACKAGE_META_DATA } from '../util/analytics';
 import { getPageTime } from '../util/performance';
 
 import CachingClient from './CachingClient';
 import { DEPRECATED_getErrorAttributes, getErrorAttributes } from './errorUtils';
+import { AGGQuery } from './graphqlUtils';
+
+const buildActivationIdQuery = (cloudId: string, product: string) => ({
+	query: `
+		query RovoAgentProfileCard_ActivationQuery($cloudId: ID!, $product: String!) {
+			tenantContexts(cloudIds: [$cloudId]) {
+				activationIdByProduct(product: $product) {
+					active
+				}
+			}
+		}
+	`,
+	variables: {
+		cloudId,
+		product,
+	},
+});
+
+const buildRovoAgentQueryByAri = (agentAri: string) => ({
+	query: `
+	  query RovoAgentProfileCard_AgentQueryByAri($agentAri: ID!) {
+			agentStudio_agentById(id: $agentAri) @optIn(to: "AgentStudio") {
+			  __typename
+				... on AgentStudioAssistant {
+					authoringTeam {
+						displayName
+					}
+				}
+				... on QueryError {
+					message
+				}
+			}
+		}
+	`,
+	variables: {
+		agentAri,
+	},
+});
+
+const buildRovoAgentQueryByAccountId = (identityAccountId: string, cloudId: string) => ({
+	query: `
+		query RovoAgentProfileCard_AgentQueryByAccountId($identityAccountId: ID!, $cloudId: ID!) {
+			agentStudio_agentByIdentityAccountId(identityAccountId: $identityAccountId, cloudId: $cloudId) @optIn(to: "AgentStudio") {
+			  __typename
+				... on AgentStudioAssistant {
+					authoringTeam {
+						displayName
+						profileUrl
+					}
+				}
+				... on QueryError {
+					message
+				}
+			}
+		}
+	`,
+	variables: {
+		identityAccountId,
+		cloudId,
+	},
+});
+
+type AgentAggResponse =
+	| ({
+			__typename: 'AgentStudioAssistant';
+	  } & RovoAgentAgg)
+	| {
+			__typename: 'QueryError';
+			message: string | null | undefined;
+	  };
 
 const createHeaders = (product: string, cloudId?: string, isBodyJson?: boolean): Headers => {
 	const headers = new Headers({
@@ -23,7 +100,7 @@ const createHeaders = (product: string, cloudId?: string, isBodyJson?: boolean):
 	return headers;
 };
 
-export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
+export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClientResult> {
 	options: ProfileClientOptions;
 
 	constructor(options: ProfileClientOptions) {
@@ -37,11 +114,62 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 			: '/gateway/api/assist/agents/v1';
 	}
 
-	makeRequest(id: AgentIdType, cloudId: string): Promise<RovoAgent> {
+	private async getActivationId(cloudId: string, product: string): Promise<string | null> {
+		const response = await AGGQuery<{
+			tenantContexts: (
+				| {
+						activationIdByProduct:
+							| {
+									active: string | null | undefined;
+							  }
+							| null
+							| undefined;
+				  }
+				| null
+				| undefined
+			)[];
+		}>('/gateway/api/graphql', buildActivationIdQuery(cloudId, product));
+		return response?.tenantContexts?.[0]?.activationIdByProduct?.active ?? null;
+	}
+
+	private async getAgentByARIAgg(agentAri: string): Promise<RovoAgentAgg | null | undefined> {
+		const response = await AGGQuery<{
+			agentStudio_agentById: AgentAggResponse | null | undefined;
+		}>('/gateway/api/graphql', buildRovoAgentQueryByAri(agentAri));
+
+		if (response.agentStudio_agentById?.__typename === 'QueryError') {
+			throw new Error(
+				`ProfileCard agentStudio_agentById returning QueryError: ${response.agentStudio_agentById.message}`,
+			);
+		}
+
+		return response?.agentStudio_agentById;
+	}
+
+	private async getAgentByAccountIdAgg(
+		identityAccountId: string,
+		cloudId: string,
+	): Promise<RovoAgentAgg | null | undefined> {
+		const response = await AGGQuery<{
+			agentStudio_agentByIdentityAccountId: AgentAggResponse | null | undefined;
+		}>('/gateway/api/graphql', buildRovoAgentQueryByAccountId(identityAccountId, cloudId));
+
+		if (response.agentStudio_agentByIdentityAccountId?.__typename === 'QueryError') {
+			throw new Error(
+				`ProfileCard agentStudio_agentByIdentityAccountId returning QueryError: ${response.agentStudio_agentByIdentityAccountId.message}`,
+			);
+		}
+
+		return response?.agentStudio_agentByIdentityAccountId;
+	}
+
+	makeRequest(id: AgentIdType, analyticsNext?: FireEventType): Promise<RovoAgentCardClientResult> {
 		const product = this.options.productIdentifier || 'rovo';
 		const headers = createHeaders(product, this.options.cloudId);
+
+		let restPromise: Promise<RovoAgent>;
 		if (id.type === 'identity') {
-			return fetch(
+			restPromise = fetch(
 				new Request(`${this.basePath()}/accountid/${id.value}`, {
 					method: 'GET',
 					credentials: 'include',
@@ -49,22 +177,73 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 					headers,
 				}),
 			).then((response) => response.json());
+		} else {
+			restPromise = fetch(
+				new Request(`${this.basePath()}/${id.value}`, {
+					method: 'GET',
+					credentials: 'include',
+					mode: 'cors',
+					headers,
+				}),
+			).then((response) => response.json());
 		}
-		return fetch(
-			new Request(`${this.basePath()}/${id.value}`, {
-				method: 'GET',
-				credentials: 'include',
-				mode: 'cors',
-				headers,
-			}),
-		).then((response) => response.json());
+
+		if (!fg('agent_studio_permissions_settings_m3_profiles')) {
+			return restPromise.then((restData) => ({ restData, aggData: null }));
+		}
+
+		const aggStartTime = getPageTime();
+		const aggPromise = this.getActivationId(
+			this.options.cloudId || '',
+			this.options.productIdentifier || 'rovo',
+		)
+			.then((activationId) => {
+				if (!activationId) {
+					throw new Error('ProfileCard Activation ID not found');
+				}
+
+				if (id.type === 'identity') {
+					return this.getAgentByAccountIdAgg(id.value, this.options.cloudId || '');
+				} else {
+					const agentAri = `ari:cloud:rovo::agent/activation/${activationId}/${id.value}`;
+					return this.getAgentByARIAgg(agentAri);
+				}
+			})
+			// We are not going to break the flow if the AGG endpoint fails for now
+			// @TODO once all the data moved to AGG, we can remove this catch
+			.catch((error) => {
+				if (analyticsNext) {
+					analyticsNext('operational.rovoAgentProfilecard.failed.request', {
+						...getErrorAttributes(error),
+						errorType: 'RovoAgentProfileCardAggError',
+						duration: getPageTime() - aggStartTime,
+						gateway: true,
+						firedAt: Math.round(getPageTime()),
+						...PACKAGE_META_DATA,
+					});
+				}
+
+				return Promise.resolve(null);
+			});
+
+		return Promise.all([restPromise, aggPromise]).then(([restData, aggData]) => ({
+			restData,
+			aggData,
+		}));
 	}
 
+	/**
+	 * This function will call both REST and AGG endpoints to get the agent profile
+	 * There are some data that is only available in the AGG endpoint, so we need to call both
+	 * For any new fields, please only add them to the AGG endpoint
+	 *
+	 * @TODO migrate everything to AGG endpoint
+	 */
 	getProfile(
 		id: AgentIdType,
 		analytics?: (event: AnalyticsEventPayload) => void,
 		analyticsNext?: FireEventType,
-	): Promise<RovoAgent> {
+	): Promise<RovoAgentCardClientResult> {
 		if (!id.value) {
 			return Promise.reject(new Error('Id is missing'));
 		}
@@ -95,8 +274,8 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 				}
 			}
 
-			this.makeRequest(id, this.options.cloudId || '')
-				.then((data: RovoAgent) => {
+			this.makeRequest(id, analyticsNext)
+				.then((data) => {
 					if (this.cache) {
 						this.setCachedProfile(id.value, data);
 					}

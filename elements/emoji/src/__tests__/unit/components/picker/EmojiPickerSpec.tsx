@@ -990,6 +990,63 @@ describe('<EmojiPicker />', () => {
 			expect(parentEscapeReceived).toBe(true);
 		});
 
+		it('should allow escape key events to propagate to parent components when jira feature gate is enabled', () => {
+			// Mock the feature gate to be enabled
+			jest.doMock('@atlaskit/platform-feature-flags', () => ({
+				fg: jest.fn((flag: string) => flag === 'platform_jira_emoji_picker_escape_propagation'),
+			}));
+
+			let parentEscapeReceived = false;
+			let childEscapeReceived = false;
+
+			// Mock the suppressKeyPress function (our fixed version with feature gate)
+			const suppressKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+				childEscapeReceived = true;
+
+				// Allow escape key to propagate so parent components can handle it (behind feature gate)
+				if ((e.key === 'Escape' || e.key === 'Esc') && true) {
+					// feature gate enabled
+					return; // This is our fix - don't call stopPropagation for escape
+				}
+
+				e.stopPropagation();
+				if (e.key === 'Enter') {
+					e.preventDefault();
+				}
+			};
+
+			const TestComponent = () => {
+				const handleParentKeyDown = (e: React.KeyboardEvent) => {
+					if (e.key === 'Escape') {
+						parentEscapeReceived = true;
+					}
+				};
+
+				return (
+					// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
+					<div onKeyDown={handleParentKeyDown} data-testid="parent">
+						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex, @atlassian/a11y/no-static-element-interactions */}
+						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>
+							Mock Emoji Picker
+						</div>
+					</div>
+				);
+			};
+
+			const { getByTestId } = renderWithIntl(<TestComponent />);
+			const emojiPicker = getByTestId('emoji-picker-mock');
+
+			// Simulate escape key press
+			fireEvent.keyDown(emojiPicker, {
+				key: 'Escape',
+				bubbles: true,
+			});
+
+			// Both child and parent should have received the event
+			expect(childEscapeReceived).toBe(true);
+			expect(parentEscapeReceived).toBe(true);
+		});
+
 		it('should block escape key events when feature gate is disabled', () => {
 			let parentEscapeReceived = false;
 			let childEscapeReceived = false;

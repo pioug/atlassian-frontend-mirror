@@ -109,7 +109,7 @@ export const tableNodeSpecWithFixedToDOM = (
 			}
 
 			// For Chromeless editor, and nested tables in full page editor
-			const tableContainerDiv = [
+			const tableContainerDivLegacy = [
 				'div',
 				{
 					class: 'pm-table-container',
@@ -167,6 +167,52 @@ export const tableNodeSpecWithFixedToDOM = (
 					},
 				],
 			];
+
+			// removed the left/right shadow divs
+			const tableContainerDivNext = [
+				'div',
+				{
+					class: 'pm-table-container',
+					'data-number-column': node.attrs.isNumberColumnEnabled,
+					'data-layout': node.attrs.layout,
+					'data-testid': 'table-container',
+				},
+				[
+					'div',
+					{
+						class: 'pm-table-sticky-sentinel-top',
+						'data-testid': 'sticky-sentinel-top',
+					},
+				],
+				[
+					'div',
+					{
+						class: 'pm-table-row-controls-wrapper',
+					},
+					['div'],
+				],
+				[
+					'div',
+					{
+						class: 'pm-table-wrapper',
+					},
+					['table', attrs, colgroup, ['tbody', 0]],
+				],
+				[
+					'div',
+					{
+						class: 'pm-table-sticky-sentinel-bottom',
+						'data-testid': 'sticky-sentinel-bottom',
+					},
+				],
+			];
+
+			const tableContainerDiv =
+				expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant1') ||
+				expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant2') ||
+				expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant3')
+					? tableContainerDivNext
+					: tableContainerDivLegacy;
 
 			if (
 				!config.tableResizingEnabled ||

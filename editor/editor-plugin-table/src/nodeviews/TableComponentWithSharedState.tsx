@@ -14,11 +14,14 @@ import type {
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type tablePlugin from '../tablePlugin';
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
 
-import TableComponent from './TableComponent';
+import TableComponentLegacy from './TableComponentLegacy';
+import TableComponentNext from './TableComponentNext';
 import type { TableOptions } from './types';
 
 // Ignored via go/ees005
@@ -40,6 +43,15 @@ type TableComponentWithSharedStateProps = {
 	options?: TableOptions;
 	view: EditorView;
 };
+
+const TableComponent = componentWithCondition(
+	() =>
+		expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant1') ||
+		expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant2') ||
+		expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant3'),
+	TableComponentNext,
+	TableComponentLegacy,
+);
 
 /**
  * Use useSharedPluginState to control re-renders from plugin dependencies

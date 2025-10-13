@@ -98,6 +98,21 @@ export interface RovoAgent {
 	external_config_reference?: string;
 }
 
+export type RovoAgentAgg = {
+	authoringTeam:
+		| {
+				displayName: string | null | undefined;
+				profileUrl: string | null | undefined;
+		  }
+		| null
+		| undefined;
+};
+
+export type RovoAgentCardClientResult = {
+	restData: RovoAgent;
+	aggData: RovoAgentAgg | null | undefined;
+};
+
 export interface RovoAgentCreatorInfo {
 	type: 'CUSTOMER' | 'SYSTEM' | 'THIRD_PARTY' | 'FORGE';
 	name?: string;
@@ -574,7 +589,7 @@ export interface ProfileClient {
 		id: AgentIdType,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,
 		fireAnalyticsNext?: FireEventType,
-	) => Promise<RovoAgent>;
+	) => Promise<RovoAgentCardClientResult>;
 	getRovoAgentPermissions: (
 		id: string,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,

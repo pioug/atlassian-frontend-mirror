@@ -1,0 +1,1 @@
+export { TSMorphProps } from './props';

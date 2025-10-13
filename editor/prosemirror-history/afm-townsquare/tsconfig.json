@@ -21,5 +21,9 @@
 		"../src/**/stories/*",
 		"../src/**/stories/**/*"
 	],
-	"references": []
+	"references": [
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		}
+	]
 }

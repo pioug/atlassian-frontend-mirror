@@ -122,7 +122,7 @@ describe('ErrorMessage', () => {
 
 		it('should still render chat button when hideMoreActions is true', () => {
 			renderAgentActions(true);
-			expect(screen.getByRole('button', { name: /chat to agent/i })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
 		});
 	});
 });

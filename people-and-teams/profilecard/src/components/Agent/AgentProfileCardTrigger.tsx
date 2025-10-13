@@ -8,6 +8,7 @@ import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-ap
 import {
 	type AgentProfileCardTriggerProps,
 	type ProfileCardErrorType,
+	type RovoAgentAgg,
 	type RovoAgentProfileCardInfo,
 } from '../../types';
 import { fireEvent } from '../../util/analytics';
@@ -32,7 +33,15 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 			[createAnalyticsEvent],
 		);
 
-		const getCreator = async (creator_type: string, creator?: string) => {
+		const getCreator = async ({
+			creator_type,
+			creator,
+			authoringTeam,
+		}: {
+			creator_type: string;
+			creator?: string;
+			authoringTeam?: RovoAgentAgg['authoringTeam'];
+		}) => {
 			if (!creator) {
 				return undefined;
 			}
@@ -51,6 +60,14 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 					try {
 						if (!userId || !cloudId) {
 							return undefined;
+						}
+
+						if (authoringTeam && fg('agent_studio_permissions_settings_m3_profiles')) {
+							return {
+								type: 'CUSTOMER' as const,
+								name: authoringTeam.displayName ?? '',
+								profileLink: authoringTeam.profileUrl ?? '',
+							};
 						}
 
 						const { href: profileHref } = navigateToTeamsApp({
@@ -85,15 +102,18 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 		};
 
 		const fetchAgentProfile = async (): Promise<RovoAgentProfileCardInfo> => {
-			const agentInfo = await resourceClient.getRovoAgentProfile(
+			const agentProfileResult = await resourceClient.getRovoAgentProfile(
 				{ type: 'agent', value: userId },
 				fireAnalytics,
 				fireEventNext,
 			);
-			const agentCreatorInfo = await getCreator(
-				agentInfo.creator_type,
-				agentInfo.creator || undefined,
-			);
+
+			const agentInfo = agentProfileResult.restData;
+			const agentCreatorInfo = await getCreator({
+				creator_type: agentInfo.creator_type,
+				creator: agentInfo.creator || undefined,
+				authoringTeam: agentProfileResult.aggData?.authoringTeam ?? undefined,
+			});
 			return {
 				...agentInfo,
 				creatorInfo: agentCreatorInfo,

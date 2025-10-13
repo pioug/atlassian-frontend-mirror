@@ -20,7 +20,13 @@ const createPlugin = (dispatch: Dispatch) =>
 		state: createPluginState(dispatch, getInitialState),
 		key: historyPluginKey,
 		appendTransaction: (transactions, oldState, newState) => {
-			if (transactions.find((tr) => tr.docChanged && tr.getMeta('addToHistory') !== false)) {
+			if (
+				transactions.find(
+					(tr) =>
+						(tr.docChanged && tr.getMeta('addToHistory') !== false) ||
+						tr.getMeta('endHistorySlice'),
+				)
+			) {
 				const pmHistoryPluginState = getPmHistoryPluginState(newState);
 				if (!pmHistoryPluginState) {
 					return;
@@ -42,57 +48,78 @@ const createPlugin = (dispatch: Dispatch) =>
 		},
 	});
 
-const historyPlugin: HistoryPlugin = ({ api }) => ({
-	name: 'history',
-	pmPlugins() {
-		return [
-			{
-				name: 'history',
-				plugin: ({ dispatch }) => createPlugin(dispatch),
-			},
-		];
-	},
-	getSharedState: (editorState) => {
-		if (!editorState) {
-			return undefined;
-		}
-
-		const historyPluginState = historyPluginKey.getState(editorState);
-		if (!historyPluginState) {
-			return undefined;
-		}
-
-		const { done, undone } = getPmHistoryPluginState(editorState) ?? {};
-
-		return {
-			canUndo: historyPluginState.canUndo,
-			canRedo: historyPluginState.canRedo,
-			done: {
-				eventCount: done?.eventCount ?? 0,
-			},
-			undone: {
-				eventCount: undone?.eventCount ?? 0,
-			},
-		};
-	},
-	commands: {
-		updatePluginState: ({ tr }) => {
-			const { done, undone } = api?.history.sharedState.currentState() ?? {};
-			if (done === undefined || undone === undefined) {
-				return tr;
+const historyPlugin: HistoryPlugin = ({ api }) => {
+	let currentId: string | null = null;
+	return {
+		name: 'history',
+		pmPlugins() {
+			return [
+				{
+					name: 'history',
+					plugin: ({ dispatch }) => createPlugin(dispatch),
+				},
+			];
+		},
+		getSharedState: (editorState) => {
+			if (!editorState) {
+				return undefined;
 			}
 
-			const canUndo = done.eventCount > 0;
-			const canRedo = undone.eventCount > 0;
+			const historyPluginState = historyPluginKey.getState(editorState);
+			if (!historyPluginState) {
+				return undefined;
+			}
 
-			const action: HistoryAction = {
-				type: HistoryActionTypes.UPDATE,
-				canUndo,
-				canRedo,
+			const { done, undone } = getPmHistoryPluginState(editorState) ?? {};
+
+			return {
+				canUndo: historyPluginState.canUndo,
+				canRedo: historyPluginState.canRedo,
+				done: {
+					eventCount: done?.eventCount ?? 0,
+				},
+				undone: {
+					eventCount: undone?.eventCount ?? 0,
+				},
 			};
-			return tr.setMeta(historyPluginKey, action);
 		},
-	},
-});
+		commands: {
+			updatePluginState: ({ tr }) => {
+				const { done, undone } = api?.history.sharedState.currentState() ?? {};
+				if (done === undefined || undone === undefined) {
+					return tr;
+				}
+
+				const canUndo = done.eventCount > 0;
+				const canRedo = undone.eventCount > 0;
+
+				const action: HistoryAction = {
+					type: HistoryActionTypes.UPDATE,
+					canUndo,
+					canRedo,
+				};
+				return tr.setMeta(historyPluginKey, action);
+			},
+			startHistorySlice:
+				(id: string) =>
+				({ tr }) => {
+					if (currentId) {
+						return null;
+					}
+					currentId = id;
+					return tr.setMeta('startHistorySlice', true);
+				},
+			endHistorySlice:
+				(id: string) =>
+				({ tr }) => {
+					if (currentId !== id) {
+						return null;
+					}
+					currentId = null;
+					return tr.setMeta('endHistorySlice', true);
+				},
+		},
+	};
+};
 
 export default historyPlugin;

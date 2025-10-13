@@ -36,6 +36,10 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__prosemirror-history/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

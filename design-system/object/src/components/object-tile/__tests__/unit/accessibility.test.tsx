@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-
 import { axe } from '@af/accessibility-testing';
+import { render, screen } from '@atlassian/testing-library';
 
 import BlogObjectTile from '../../components/blog';
 import EpicObjectTile from '../../components/epic';
-import IssueObjectTile from '../../components/issue';
 import PullRequestObjectTile from '../../components/pull-request';
 import TaskObjectTile from '../../components/task';
+import WorkItemObjectTile from '../../components/work-item';
 
 describe('ObjectTile Accessibility', () => {
 	describe('aXe audits', () => {
@@ -40,7 +39,7 @@ describe('ObjectTile Accessibility', () => {
 		it('should provide meaningful default labels', () => {
 			const testCases = [
 				{ Component: BlogObjectTile, expectedLabel: 'Blog' },
-				{ Component: IssueObjectTile, expectedLabel: 'Issue' },
+				{ Component: WorkItemObjectTile, expectedLabel: 'Work Item' },
 				{ Component: EpicObjectTile, expectedLabel: 'Epic' },
 				{ Component: TaskObjectTile, expectedLabel: 'Task' },
 				{ Component: PullRequestObjectTile, expectedLabel: 'Pull Request' },

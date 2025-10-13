@@ -25,9 +25,6 @@ snapshot(RelatedLinksModal, {
 			},
 		},
 	],
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });
 
 snapshot(RelatedLinksResolvedView, {
@@ -48,9 +45,6 @@ snapshot(RelatedLinksResolvedView, {
 			},
 		},
 	],
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });
 
 snapshot(RelatedLinksResolvedViewWithEmptyList, {
@@ -71,9 +65,6 @@ snapshot(RelatedLinksResolvedViewWithEmptyList, {
 			},
 		},
 	],
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });
 
 snapshot(RelatedLinksModalErroredView, {
@@ -94,9 +85,6 @@ snapshot(RelatedLinksModalErroredView, {
 			},
 		},
 	],
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });
 
 snapshot(RelatedLinksModalUnavailableView, {
@@ -117,9 +105,6 @@ snapshot(RelatedLinksModalUnavailableView, {
 			},
 		},
 	],
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });
 
 snapshot(RelatedLinksModalResolvingView, {
@@ -140,7 +125,4 @@ snapshot(RelatedLinksModalResolvingView, {
 			},
 		},
 	],
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });

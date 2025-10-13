@@ -10,7 +10,6 @@ import {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { Button } from '../Button';
 import { Modal } from '../ModalDialog';
@@ -47,7 +46,7 @@ export const ConfirmDismissDialog = ({ active, onClose, onCancel }: ConfirmDismi
 						onClose={onCancelDismiss}
 						width="small"
 					>
-						<ModalHeader hasCloseButton={fg('navx-1483-a11y-close-button-in-modal-updates')}>
+						<ModalHeader hasCloseButton>
 							<ModalTitle>{intl.formatMessage(messages.title)}</ModalTitle>
 						</ModalHeader>
 						<ModalBody>{intl.formatMessage(messages.description)}</ModalBody>

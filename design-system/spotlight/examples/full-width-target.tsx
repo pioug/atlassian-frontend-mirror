@@ -44,6 +44,7 @@ const styles = cssMap({
 export default function Example() {
 	const [isVisible, setIsVisible] = useState(true);
 	const dismiss = () => setIsVisible(false);
+	const done = () => setIsVisible(false);
 
 	return (
 		<div css={styles.root}>
@@ -70,7 +71,7 @@ export default function Example() {
 							</SpotlightBody>
 							<SpotlightFooter>
 								<SpotlightActions>
-									<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
+									<SpotlightPrimaryAction onClick={done}>Done</SpotlightPrimaryAction>
 								</SpotlightActions>
 							</SpotlightFooter>
 						</SpotlightCard>

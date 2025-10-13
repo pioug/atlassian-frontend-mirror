@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-object",
-	"version": "7.2.3",
+	"version": "7.3.0",
 	"description": "An object icon is used to represent an Atlassian-specific content type.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,7 +29,11 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Icon object",
-			"category": "Images and icons"
+			"category": "Images and icons",
+			"status": {
+				"type": "deprecated",
+				"description": "This package is deprecated.\n\nUse [object](https://atlassian.design/components/object/examples) instead."
+			}
 		}
 	},
 	"scripts": {

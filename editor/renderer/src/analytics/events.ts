@@ -16,6 +16,7 @@ import type {
 	UnsupportedContentPayload,
 	UnsupportedContentTooltipPayload,
 } from '@atlaskit/editor-common/utils';
+import type { EditorBreakpointKey } from '@atlaskit/editor-common/utils/analytics';
 
 export enum PLATFORM {
 	NATIVE = 'mobileNative',
@@ -197,6 +198,10 @@ type TableWidthInfoAEP = AEP<
 	undefined,
 	{
 		editorWidth: number;
+		editorWidthBreakpoint: EditorBreakpointKey;
+		hasTableWiderThanEditor: boolean;
+		hasTableWithScrollbar: boolean;
+		maxTableWidthBreakpoint: EditorBreakpointKey;
 		mode: MODE.RENDERER;
 		tableWidthInfo: Array<{
 			hasScrollbar: boolean;

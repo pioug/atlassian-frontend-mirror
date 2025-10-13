@@ -18,6 +18,7 @@ import objectResolverClient from './object-resolver-client';
 import permsClient from './perms-client';
 import publicApiClient from './public-api-client';
 import replinesClient from './replines-client';
+import reportingLinesClient from './reporting-lines-client';
 import teamCentralClient from './team-central-client';
 import teamsInSlackClient from './teams-in-slack-client';
 import { type ClientContextProps } from './types';
@@ -49,6 +50,7 @@ export class TeamsClient {
 	private readonly _identityClient = identityClient;
 	private readonly _teamCentralClient = teamCentralClient;
 	private readonly _replinesClient = replinesClient;
+	private readonly _reportingLinesClient = reportingLinesClient;
 
 	constructor(
 		/**
@@ -991,6 +993,14 @@ export class TeamsClient {
 		...args: Parameters<typeof defaultLegionClient.checkOrgFullAlignmentStatus>
 	): Promise<AwaitedReturn<typeof defaultLegionClient.checkOrgFullAlignmentStatus>> {
 		return this._legionClient.checkOrgFullAlignmentStatus(...args);
+	}
+
+	async getReportingLines(
+		...args: Parameters<typeof reportingLinesClient.getReportingLines>
+	): Promise<AwaitedReturn<typeof reportingLinesClient.getReportingLines>> {
+		return this.measurePerformance('getReportingLines', () =>
+			this._reportingLinesClient.getReportingLines(...args),
+		);
 	}
 }
 

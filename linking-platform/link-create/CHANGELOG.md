@@ -1,5 +1,18 @@
 # @atlaskit/link-create
 
+## 4.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.5.1
+
+### Patch Changes
+
+- [`4f3b60691a4d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f3b60691a4d6) -
+  NAVX-1976 cleaning up navx-1483-a11y-close-button-in-modal-updates
+
 ## 4.5.0
 
 ### Minor Changes

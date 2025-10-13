@@ -15,7 +15,6 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../messages';
@@ -53,7 +52,7 @@ const RelatedLinksBaseModal = ({ onClose, showModal, children }: RelatedLinksBas
 					onOpenComplete={openCompleteHandler}
 					height={'504px'}
 				>
-					<ModalHeader hasCloseButton={fg('navx-1483-a11y-close-button-in-modal-updates')}>
+					<ModalHeader hasCloseButton>
 						<ModalTitle>
 							<FormattedMessage {...messages.related_links_modal_title} />
 						</ModalTitle>

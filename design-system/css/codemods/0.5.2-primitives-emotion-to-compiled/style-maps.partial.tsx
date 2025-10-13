@@ -1256,7 +1256,7 @@ export type Layer = keyof typeof layerMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4d0bfc4c706b9fbda2e8a4c73134354e>>
+ * @codegen <<SignedSource::dc59452c62abcdabe4029b664d7037e1>>
  * @codegenId border
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["width", "radius"]
@@ -1264,19 +1264,10 @@ export type Layer = keyof typeof layerMap;
  */
 export const borderWidthMap: {
 	'border.width': 'var(--ds-border-width)';
-	'border.width.0': 'var(--ds-border-width-0)';
-	'border.width.indicator': 'var(--ds-border-width-indicator)';
-	'border.width.outline': 'var(--ds-border-width-outline)';
 	'border.width.selected': 'var(--ds-border-width-selected)';
 	'border.width.focused': 'var(--ds-border-width-focused)';
 } = {
 	'border.width': token('border.width', '1px'),
-	// @deprecated
-	'border.width.0': token('border.width.0', '0px'),
-	// @deprecated
-	'border.width.indicator': token('border.width.indicator', '3px'),
-	// @deprecated
-	'border.width.outline': token('border.width.outline', '2px'),
 	'border.width.selected': token('border.width.selected', '2px'),
 	'border.width.focused': token('border.width.focused', '2px'),
 };
@@ -1291,13 +1282,6 @@ export const borderRadiusMap: {
 	'radius.xlarge': 'var(--ds-radius-xlarge)';
 	'radius.full': 'var(--ds-radius-full)';
 	'radius.tile': 'var(--ds-radius-tile)';
-	'border.radius': 'var(--ds-border-radius)';
-	'border.radius.050': 'var(--ds-border-radius-050)';
-	'border.radius.100': 'var(--ds-border-radius-100)';
-	'border.radius.200': 'var(--ds-border-radius-200)';
-	'border.radius.300': 'var(--ds-border-radius-300)';
-	'border.radius.400': 'var(--ds-border-radius-400)';
-	'border.radius.circle': 'var(--ds-border-radius-circle)';
 } = {
 	'radius.xsmall': token('radius.xsmall', '2px'),
 	'radius.small': token('radius.small', '3px'),
@@ -1306,20 +1290,6 @@ export const borderRadiusMap: {
 	'radius.xlarge': token('radius.xlarge', '12px'),
 	'radius.full': token('radius.full', '9999px'),
 	'radius.tile': token('radius.tile', '25%'),
-	// @deprecated
-	'border.radius': token('border.radius', '3px'),
-	// @deprecated
-	'border.radius.050': token('border.radius.050', '2px'),
-	// @deprecated
-	'border.radius.100': token('border.radius.100', '3px'),
-	// @deprecated
-	'border.radius.200': token('border.radius.200', '8px'),
-	// @deprecated
-	'border.radius.300': token('border.radius.300', '12px'),
-	// @deprecated
-	'border.radius.400': token('border.radius.400', '16px'),
-	// @deprecated
-	'border.radius.circle': token('border.radius.circle', '9999px'),
 };
 
 export type BorderRadius = keyof typeof borderRadiusMap;

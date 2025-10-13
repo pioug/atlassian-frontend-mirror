@@ -5,7 +5,4 @@ import ConfluenceSearchConfigModalNoInitialSearch from '../../examples/vr/conflu
 snapshot(ConfluenceSearchConfigModalNoInitialSearch, {
 	description: 'Confluence search config modal no initial search',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });

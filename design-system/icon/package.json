@@ -44,10 +44,6 @@
 				{
 					"title": "Icon tile",
 					"id": "icon-tile",
-					"status": {
-						"type": "open-alpha",
-						"description": "This is an experiment. We are in the process of making breaking changes."
-					},
 					"sortKey": 2
 				},
 				{

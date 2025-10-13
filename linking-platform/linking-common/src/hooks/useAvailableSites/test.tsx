@@ -16,6 +16,7 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { getOperationFailedAttributes } from './utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { AvailableSitesProductType, type AccessibleProduct, type AvailableSite } from './types';
+import { icon } from '../../common/mocks/icons';
 
 describe('useAvailableSites', () => {
 	beforeEach(() => {
@@ -97,14 +98,22 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 1',
-							workspaceUrl: 'https://customsite-1.atlassian.net',
+							workspaceUrl: 'https://customsite-1.jira.atlassian.net',
+							isPartOf: [],
+							orgId: '',
+							workspaceAri: '',
+							cloudUrl: 'https://customsite-1.atlassian.net',
 						},
 						{
 							cloudId: '22222',
 							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 2',
-							workspaceUrl: 'https://customsite-2.atlassian.net',
+							workspaceUrl: 'https://customsite-2.jira.atlassian.net',
+							isPartOf: [],
+							orgId: '',
+							workspaceAri: '',
+							cloudUrl: 'https://customsite-2.atlassian.net',
 						},
 					],
 				},
@@ -117,14 +126,22 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 1',
-							workspaceUrl: 'https://customsite-1.atlassian.net',
+							workspaceUrl: 'https://customsite-1.jira.atlassian.net',
+							cloudUrl: 'https://customsite-1.atlassian.net',
+							isPartOf: [],
+							orgId: '',
+							workspaceAri: '',
 						},
 						{
 							cloudId: '33333',
 							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 3',
-							workspaceUrl: 'https://customsite-3.atlassian.net',
+							workspaceUrl: 'https://customsite-3.jira.atlassian.net',
+							cloudUrl: 'https://customsite-3.atlassian.net',
+							isPartOf: [],
+							orgId: '',
+							workspaceAri: '',
 						},
 					],
 				},
@@ -137,7 +154,11 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 2',
-							workspaceUrl: 'https://customsite-2.atlassian.net',
+							workspaceUrl: 'https://customsite-2.jira.atlassian.net',
+							cloudUrl: 'https://customsite-2.atlassian.net',
+							isPartOf: [],
+							orgId: '',
+							workspaceAri: '',
 						},
 					],
 				},
@@ -200,6 +221,43 @@ describe('useAvailableSitesV2', () => {
 
 			expect(result.current.loading).toBe(false);
 			expect(result.current.data.length).toBeGreaterThan(0);
+		});
+
+		it('should return loading state then load data', async () => {
+			mockAccessibleProducts();
+			const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}));
+
+			expect(result.current).toMatchInlineSnapshot(`
+      {
+        "data": [],
+        "loading": true,
+      }
+    `);
+
+			await waitForNextUpdate();
+
+			expect(result.current).toEqual(
+				expect.objectContaining({
+					loading: false,
+					error: undefined,
+					data: expect.arrayContaining([
+						{
+							cloudId: '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5',
+							url: 'https://jdog.jira-dev.com',
+							displayName: 'jdog',
+							avatarUrl: icon.triangle.base64,
+							isVertigo: true,
+							products: [
+								'confluence.ondemand',
+								'jira-software.ondemand',
+								'jira-servicedesk.ondemand',
+								'jira-product-discovery',
+								'compass',
+							],
+						},
+					]),
+				}),
+			);
 		});
 
 		it('should return loading status and the result', async () => {

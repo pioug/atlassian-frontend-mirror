@@ -45,6 +45,9 @@
 			"path": "../../editor-toolbar-model/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags-react/afm-cc/tsconfig.json"
 		},
 		{

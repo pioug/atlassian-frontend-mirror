@@ -37,6 +37,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_hover_card_preview_panel_modal: 'control',
 	platform_inline_smartcard_connect_button_exp: 'control',
 	cc_editor_insm_outlier_events: 'test',
+	platform_editor_disable_table_overflow_shadows: 'control',
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {

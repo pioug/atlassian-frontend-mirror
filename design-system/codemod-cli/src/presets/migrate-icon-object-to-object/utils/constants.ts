@@ -5,33 +5,44 @@ export const OLD_ICON_OBJECT_ENTRY_POINT = '@atlaskit/icon-object';
 export const NEW_OBJECT_ENTRY_POINT = '@atlaskit/object';
 export const NEW_OBJECT_TILE_ENTRY_POINT = '@atlaskit/object/tile';
 
-// Icon name mappings from kebab-case to PascalCase
-export const ICON_NAME_MAPPINGS: Record<string, string> = {
-	blog: 'Blog',
-	branch: 'Branch',
-	bug: 'Bug',
-	calendar: 'Calendar',
-	changes: 'Changes',
-	code: 'Code',
-	commit: 'Commit',
-	epic: 'Epic',
-	improvement: 'Improvement',
-	incident: 'Incident',
-	issue: 'Issue',
-	'new-feature': 'NewFeature',
-	page: 'Page',
-	'page-live-doc': 'PageLiveDoc',
-	problem: 'Problem',
-	'pull-request': 'PullRequest',
-	question: 'Question',
-	story: 'Story',
-	subtask: 'Subtask',
-	task: 'Task',
-	whiteboard: 'Whiteboard',
+/**
+ * Mappings for icon-object names that change when migrating to object.
+ * Key: old icon-object name (kebab-case)
+ * Value: new object name (kebab-case)
+ *
+ * Use this when the icon name in icon-object doesn't match the object name.
+ * For example, 'issue' icon-object becomes 'work-item' object.
+ *
+ * Icons not listed here will use their original name (converted to PascalCase automatically).
+ */
+export const ICON_TO_OBJECT_NAME_MAPPINGS: Record<string, string> = {
+	issue: 'work-item',
 };
 
-// Available icon names (kebab-case)
-export const AVAILABLE_ICON_NAMES = Object.keys(ICON_NAME_MAPPINGS);
+// Available icon names (kebab-case) - icons supported in icon-object
+export const AVAILABLE_ICON_NAMES = [
+	'blog',
+	'branch',
+	'bug',
+	'calendar',
+	'changes',
+	'code',
+	'commit',
+	'epic',
+	'improvement',
+	'incident',
+	'issue',
+	'new-feature',
+	'page',
+	'page-live-doc',
+	'problem',
+	'pull-request',
+	'question',
+	'story',
+	'subtask',
+	'task',
+	'whiteboard',
+];
 
 export const PRINT_SETTINGS = {
 	quote: 'single' as const,

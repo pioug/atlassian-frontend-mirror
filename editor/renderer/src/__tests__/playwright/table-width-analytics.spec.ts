@@ -4,7 +4,6 @@ import { rendererTestCase as test, expect, type RendererPageInterface } from './
 import {
 	basicTableAdf,
 	nestedTablesInHeaderAndCellAdf,
-	noTablesAdf,
 	tableWithScrollbarAdf,
 } from './table-width-analytics.spec.ts-fixtures';
 
@@ -45,6 +44,10 @@ test.describe('table width information analytics', () => {
 					actionSubject: 'table',
 					attributes: expect.objectContaining({
 						editorWidth: 760,
+						editorWidthBreakpoint: 'S',
+						maxTableWidthBreakpoint: 'S',
+						hasTableWiderThanEditor: false,
+						hasTableWithScrollbar: false,
 						mode: 'renderer',
 						tableWidthInfo: [
 							expect.objectContaining({
@@ -74,6 +77,10 @@ test.describe('table width information analytics', () => {
 					actionSubject: 'table',
 					attributes: expect.objectContaining({
 						editorWidth: 760,
+						editorWidthBreakpoint: 'S',
+						maxTableWidthBreakpoint: 'S',
+						hasTableWiderThanEditor: false,
+						hasTableWithScrollbar: false,
 						mode: 'renderer',
 						tableWidthInfo: [
 							expect.objectContaining({
@@ -113,6 +120,10 @@ test.describe('table width information analytics', () => {
 					actionSubject: 'table',
 					attributes: expect.objectContaining({
 						editorWidth: 760,
+						editorWidthBreakpoint: 'S',
+						maxTableWidthBreakpoint: 'M',
+						hasTableWiderThanEditor: true,
+						hasTableWithScrollbar: true,
 						mode: 'renderer',
 						tableWidthInfo: [
 							expect.objectContaining({
@@ -121,29 +132,6 @@ test.describe('table width information analytics', () => {
 								tableWidth: 920,
 							}),
 						],
-					}),
-				}),
-			);
-		});
-	});
-
-	test.describe('for a document with no tables', () => {
-		test.use({
-			adf: noTablesAdf,
-		});
-
-		test('should send correct payload', async ({ renderer, page }) => {
-			await waitForTableWidthInformationEvent(renderer, page);
-
-			const events = await renderer.getAnalyticsEvents();
-			expect(events).toContainEqual(
-				expect.objectContaining({
-					action: 'tableWidthInformation',
-					actionSubject: 'table',
-					attributes: expect.objectContaining({
-						editorWidth: 760,
-						mode: 'renderer',
-						tableWidthInfo: [],
 					}),
 				}),
 			);

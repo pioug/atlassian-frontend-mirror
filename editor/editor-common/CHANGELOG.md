@@ -1,5 +1,36 @@
 # @atlaskit/editor-common
 
+## 110.12.1
+
+### Patch Changes
+
+- [`b6824e1dfce8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6824e1dfce8e) -
+  ED-29505 Add analytics for plain text code block inserted
+- Updated dependencies
+
+## 110.12.0
+
+### Minor Changes
+
+- [`d3e3f3fdb9cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3e3f3fdb9cee) -
+  Add new selection toolbar type to event, add errorboundary for selection toolbar and try/catch
+  blocks with log exceptions to sentry
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.11.1
+
+### Patch Changes
+
+- [`71cac2e4cf915`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71cac2e4cf915) -
+  [FF-CLEANUP] platform_editor_add_border_for_nested_panel
+- [`c0ef0bedb49c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0ef0bedb49c0) -
+  EDITOR-1391 only send table width information events if there are tables, add enums and boolean
+  values for table width, editor width and scrollbar existence for ingestion in signalfx
+- Updated dependencies
+
 ## 110.11.0
 
 ### Minor Changes

@@ -1,0 +1,82 @@
+---
+order: 1
+---
+
+import TileDefault from '../../examples/constellation/tile-default';
+import TileSizes from '../../examples/constellation/tile-sizes';
+import TileBackgroundColor from '../../examples/constellation/tile-background-color';
+import TileBackgroundColorStatic from '../../examples/constellation/tile-background-color-static';
+import TileBorder from '../../examples/constellation/tile-border';
+import TileInset from '../../examples/constellation/tile-inset';
+import TileLabelling from '../../examples/constellation/tile-labelling';
+import TileThemed from '../../examples/constellation/tile-themed';
+
+## Default
+
+The default tile has a medium size, neutral background, and inset enabled – ready to accept any
+asset as content.
+
+<Example Component={TileDefault} packageName="@atlaskit/tile" />
+
+## Size
+
+Tiles can be set to six different sizes using the <inlineCode>size</inlineCode> prop, from
+
+<inlineCode>xxsmall</inlineCode> (16px) to <inlineCode>xlarge</inlineCode> (48px). This defaults to
+<inlineCode>medium</inlineCode> (32px).
+
+<Example Component={TileSizes} packageName="@atlaskit/tile" />
+
+## Background color
+
+Tiles support a variety of background colors using the <inlineCode>backgroundColor</inlineCode>
+prop, which can be set to <a href="/components/tokens/all-tokens">design tokens</a>. This defaults
+to <inlineCode>color.background.neutral</inlineCode>.
+
+<Example Component={TileBackgroundColor} packageName="@atlaskit/tile" />
+
+### Static colors
+
+Alternatively, static <inlineCode>white</inlineCode> or <inlineCode>black</inlineCode> background
+colors are supported. These will not change with the color mode, unlike design tokens.
+
+<Example Component={TileBackgroundColorStatic} packageName="@atlaskit/tile" />
+
+## Border
+
+Tiles can display a border around the tile with the <inlineCode>hasBorder</inlineCode> prop. This is
+disabled by default.
+
+<Example Component={TileBorder} packageName="@atlaskit/tile" />
+
+## Inset
+
+Tiles can be configured with or without internal inset (padding) using
+
+<inlineCode>isInset</inlineCode>. Disabling inset can be used for supplying assets with backgrounds,
+such as third-party logos.
+
+Inset is enabled by default to provide appropriate spacing for assets.
+
+<Example Component={TileInset} packageName="@atlaskit/tile" />
+
+## Labelling
+
+Use the <inlineCode>label</inlineCode> prop to provide accessible labelling for tiles. Use
+descriptive labels for meaningful tiles, or empty strings for decorative tiles.
+
+<Example Component={TileLabelling} packageName="@atlaskit/tile" />
+
+## Themed assets
+
+Tiles can swap assets between light and dark mode, by using existing theming capabilities within the
+design system.
+
+This may be useful if assets need more contrast in either light or dark mode.
+
+Alternatively, suitable SVG assets that use <inlineCode>currentColor</inlineCode> will inherit
+tile's <inlineCode>color</inlineCode>, which is already themed using the design token
+
+<inlineCode>color.text</inlineCode>.
+
+<Example Component={TileThemed} packageName="@atlaskit/tile" appearance="source-only" />

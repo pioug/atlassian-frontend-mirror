@@ -1,106 +1,126 @@
 export const iconObjectMapping: Record<
 	string,
-	{ icon: string; appearance: string; packageName: string }
+	{ icon: string; appearance: string; packageName: string; objectName: string }
 > = {
 	blog: {
 		icon: 'quotation-mark',
 		appearance: 'blueBold',
 		packageName: 'icon',
+		objectName: 'blog',
 	},
 	branch: {
 		icon: 'branch',
 		appearance: 'blueBold',
 		packageName: 'icon',
+		objectName: 'branch',
 	},
 	bug: {
 		icon: 'bug',
 		appearance: 'redBold',
 		packageName: 'icon',
+		objectName: 'bug',
 	},
 	calendar: {
 		icon: 'calendar',
 		appearance: 'redBold',
 		packageName: 'icon',
+		objectName: 'calendar',
 	},
 	changes: {
 		icon: 'changes',
 		appearance: 'orangeBold',
 		packageName: 'icon',
+		objectName: 'changes',
 	},
 	code: {
 		icon: 'angle-brackets',
 		appearance: 'purpleBold',
 		packageName: 'icon',
+		objectName: 'code',
 	},
 	commit: {
 		icon: 'commit',
 		appearance: 'orangeBold',
 		packageName: 'icon',
+		objectName: 'commit',
 	},
 	epic: {
 		icon: 'epic',
 		appearance: 'purpleBold',
 		packageName: 'icon',
+		objectName: 'epic',
 	},
 	improvement: {
 		icon: 'arrow-up',
 		appearance: 'greenBold',
 		packageName: 'icon',
+		objectName: 'improvement',
 	},
 	incident: {
 		icon: 'incident',
 		appearance: 'redBold',
 		packageName: 'icon',
+		objectName: 'incident',
 	},
 	issue: {
 		icon: 'work-item',
 		appearance: 'blueBold',
 		packageName: 'icon',
+		objectName: 'work-item',
 	},
 	'new-feature': {
 		icon: 'add',
 		appearance: 'greenBold',
 		packageName: 'icon',
+		objectName: 'new-feature',
 	},
 	page: {
 		icon: 'page',
 		appearance: 'blueBold',
 		packageName: 'icon',
+		objectName: 'page',
 	},
 	problem: {
 		icon: 'problem',
 		appearance: 'redBold',
 		packageName: 'icon',
+		objectName: 'problem',
 	},
 	'pull-request': {
 		icon: 'pull-request',
 		appearance: 'greenBold',
 		packageName: 'icon',
+		objectName: 'pull-request',
 	},
 	question: {
 		icon: 'question-circle',
 		appearance: 'purpleBold',
 		packageName: 'icon',
+		objectName: 'question',
 	},
 	story: {
 		icon: 'story',
 		appearance: 'greenBold',
 		packageName: 'icon',
+		objectName: 'story',
 	},
 	subtask: {
 		icon: 'subtasks',
 		appearance: 'blueBold',
 		packageName: 'icon',
+		objectName: 'subtask',
 	},
 	task: {
 		icon: 'task',
 		appearance: 'blueBold',
 		packageName: 'icon',
+		objectName: 'task',
 	},
 	'page-live-doc': {
 		icon: 'page-live-doc',
 		appearance: 'magentaBold',
 		packageName: 'icon-lab',
+		objectName: 'page-live-doc',
 	},
 };
 
@@ -117,9 +137,11 @@ export const getIconObjectJSX = (
 		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 		.join('')}${size}Icon`;
 
-	// Determine the new component import path based on size
+	const objectName = iconObjectMapping[name].objectName;
+
+	// Determine the new component import path based on size using objectName
 	const newComponentPath =
-		size === '16' ? `@atlaskit/object/${name}` : `@atlaskit/object/tile/${name}`;
+		size === '16' ? `@atlaskit/object/${objectName}` : `@atlaskit/object/tile/${objectName}`;
 
 	return `import React from 'react';
 

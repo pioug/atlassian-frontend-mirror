@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 79.5.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 79.5.12
 
 ### Patch Changes

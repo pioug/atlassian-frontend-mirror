@@ -1,0 +1,101 @@
+---
+order: 3
+---
+
+import SectionMessage from '@atlaskit/section-message';
+import Image from '@atlaskit/image';
+
+import tileAnatomyLight from './images/tile-anatomy-light.png';
+import tileAnatomyDark from './images/tile-anatomy-dark.png';
+import tileReferenceDo from './images/do-donts/tile-reference-do.png';
+import tileReferenceDont from './images/do-donts/tile-reference-dont.png';
+import tileVariantDo from './images/do-donts/tile-variant-do.png';
+import tileVariantDont from './images/do-donts/tile-variant-dont.png';
+
+## Usage
+
+<SectionMessage appearance="warning">
+	Tile should only be used if existing components (e.g.{' '}
+	<a href="/components/icon/icon-tile/examples">Icon tile</a>,{' '}
+	<a href="/components/object/object-tile/examples">Object tile</a>,{' '}
+	<a href="/components/avatar/examples#square">Square Avatars</a>) do not meet your needs.
+</SectionMessage>
+
+Tile is a versatile, foundational container with baked in sizing and radii properties for displaying
+elements in a tile shape. It is unopinionated in its content and can be used to slot in any asset,
+background, color or foreground element as needed.
+
+Both <a href="/components/icon/icon-tile/examples">Icon tile</a> and
+
+<a href="/components/object/object-tile/examples">Object tile</a> inherit properties of tile
+ensuring a consistent and cohesive tile system across various applications.
+
+Use tiles to slot in elements such as:
+
+- Emojis
+- Third-party logos
+
+## Anatomy
+
+<Image src={tileAnatomyLight} srcDark={tileAnatomyDark} alt="Anatomy of a tile" />
+
+1. **Tile background**: By default, the inset variant has a neutral background set to
+   <inlineCode>color.background.neutral</inlineCode>. This can be switched out with other background
+   tokens, white, or black.
+2. **Foreground element**: Place any element within the bounds of the slot.
+
+## Best practices
+
+### Always use the correct variant
+
+- Non-inset variant: suited for full bleed assets as it allows for an end-to-end fill
+- Inset variant: use for any other content
+
+<DoDont
+	type="do"
+	image={{
+		url: tileVariantDo,
+		alt: '',
+	}}
+>
+	Use the same variant when tiles are listed or grouped.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: tileVariantDont,
+		alt: '',
+	}}
+>
+	Avoid mixing inset and non-inset variables in a group.
+</DoDont>
+
+### Reference height of adjacent content for size
+
+Tiles support a range of sizes from 16px to 48px. As a general rule when selecting size, reference
+the size of the tile to the height of its adjacent content for visual balance.
+
+<DoDont
+	type="do"
+	image={{
+		url: tileReferenceDo,
+		alt: '',
+	}}
+>
+	Align tile sizing to closely match the height of its adjacent content.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: tileReferenceDont,
+		alt: '',
+	}}
+>
+	Avoid selecting tile sizes smaller than the height of its adjacent content.
+</DoDont>
+
+## Related
+
+- For icons with colored backgrounds, use <a href="/components/icon/icon-tile/examples">Icon
+  tile</a>
+- For objects in a tile, use <a href="/components/object/object-tile/examples">Object tile</a>

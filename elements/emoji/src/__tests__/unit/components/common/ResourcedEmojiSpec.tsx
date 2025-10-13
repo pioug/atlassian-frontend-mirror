@@ -19,6 +19,7 @@ import * as samplingUfo from '../../../../util/analytics/samplingUfo';
 import browserSupport from '../../../../util/browser-support';
 import type { EmojiId } from '../../../..';
 import { renderWithIntl } from '../../_testing-library';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('../../../../util/constants', () => {
 	const originalModule = jest.requireActual('../../../../util/constants');
@@ -474,5 +475,35 @@ describe('<ResourcedEmoji />', () => {
 
 			spy.mockRestore();
 		});
+	});
+
+	describe('should automatically set width to auto if fitToHeight is true', () => {
+		ffTest(
+			'platform_emoji_width_auto_fitToHeight',
+			async () => {
+				renderWithIntl(
+					<ResourcedEmoji
+						emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+						emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
+						fitToHeight={40}
+					/>,
+				);
+				const image = await screen.findByAltText('Media example');
+				expect(image).toHaveAttribute('width', 'auto');
+				expect(image).toHaveAttribute('height', '40');
+			},
+			async () => {
+				renderWithIntl(
+					<ResourcedEmoji
+						emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+						emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
+						fitToHeight={40}
+					/>,
+				);
+				const image = await screen.findByAltText('Media example');
+				expect(image).toHaveAttribute('width', '40');
+				expect(image).toHaveAttribute('height', '40');
+			},
+		);
 	});
 });

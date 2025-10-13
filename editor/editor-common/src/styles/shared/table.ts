@@ -42,6 +42,9 @@ export const tableControlsSpacing = tableMarginTop + tablePadding - tableCellBor
 export const TableSharedCssClassName = {
 	TABLE_CONTAINER: `${tablePrefixSelector}-container`,
 	TABLE_NODE_WRAPPER: `${tablePrefixSelector}-wrapper`,
+	TABLE_SCROLL_INLINE_SHADOW: `${tablePrefixSelector}-scroll-inline-shadow`,
+	TABLE_RIGHT_BORDER: `${tablePrefixSelector}-right-border`,
+	TABLE_LEFT_BORDER: `${tablePrefixSelector}-left-border`,
 	TABLE_LEFT_SHADOW: `${tablePrefixSelector}-with-left-shadow`,
 	TABLE_RIGHT_SHADOW: `${tablePrefixSelector}-with-right-shadow`,
 	TABLE_STICKY_SHADOW: `${tablePrefixSelector}-sticky-shadow`,
@@ -109,6 +112,23 @@ const tableSharedStyle = () => {
 			.decisionItemView-content-wrap:first-of-type > div {
 				margin-top: 0;
 			}
+
+			${expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant2') &&
+			`.${TableSharedCssClassName.TABLE_RIGHT_BORDER}, .${TableSharedCssClassName.TABLE_LEFT_BORDER} {
+				display: block;
+				width: 1px;
+				height: calc(100% - ${token('space.300', '24px')});
+				background: ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
+				position: absolute;
+				top: ${token('space.300', '24px')};
+			}
+			.${TableSharedCssClassName.TABLE_RIGHT_BORDER} {
+				right: 0;
+			}
+			.${TableSharedCssClassName.TABLE_LEFT_BORDER} {
+				left: 0;
+			}
+			`}
 		}
 		.${TableSharedCssClassName.TABLE_CONTAINER}[data-number-column='true'] {
 			padding-left: ${akEditorTableNumberColumnWidth - 1}px;
@@ -146,6 +166,12 @@ const tableSharedStyle = () => {
 			border-collapse: collapse;
 			border: ${tableCellBorderWidth}px solid
 				${token('color.background.accent.gray.subtler', akEditorTableBorder)};
+
+			${expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant2') &&
+			`
+				border-left: 0;
+				border-right: 0;
+			`}
 			table-layout: fixed;
 			font-size: 1em;
 			width: 100%;

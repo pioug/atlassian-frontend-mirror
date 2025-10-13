@@ -24,6 +24,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",
 		"rope-sequence": "1.3.4"
 	},
@@ -73,11 +74,16 @@
 		}
 	},
 	"name": "@atlaskit/prosemirror-history",
-	"version": "0.2.0",
+	"version": "0.2.2",
 	"description": "Fork of the prosemirror-history plugin",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
+	},
+	"platform-feature-flags": {
+		"platform_editor_ai_aifc_undo_redo": {
+			"type": "boolean"
+		}
 	}
 }

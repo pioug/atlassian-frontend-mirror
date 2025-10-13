@@ -1,5 +1,32 @@
 # @atlaskit/renderer
 
+## 124.4.4
+
+### Patch Changes
+
+- [`c8fcf531a86b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8fcf531a86b8) -
+  [ux] Scale status in smart link inside excerpt when content in dense mode
+- Updated dependencies
+
+## 124.4.3
+
+### Patch Changes
+
+- [`83f9f7557b327`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83f9f7557b327) -
+  [EDITOR-2007] Scale paragraph margins based on paragraph size
+- Updated dependencies
+
+## 124.4.2
+
+### Patch Changes
+
+- [`71cac2e4cf915`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71cac2e4cf915) -
+  [FF-CLEANUP] platform_editor_add_border_for_nested_panel
+- [`c0ef0bedb49c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0ef0bedb49c0) -
+  EDITOR-1391 only send table width information events if there are tables, add enums and boolean
+  values for table width, editor width and scrollbar existence for ingestion in signalfx
+- Updated dependencies
+
 ## 124.4.1
 
 ### Patch Changes

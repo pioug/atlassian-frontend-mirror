@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::80d970238bae380ca0f003b9b81f6955>>
+ * @codegen <<SignedSource::316d8d283196d2547f70d10e2a8e84ad>>
  * @codegenCommand yarn build-glyphs
  */
 import type { ObjectTileProps } from '@atlaskit/object';
@@ -17,7 +17,6 @@ import EpicObjectTile from '../src/components/object-tile/components/epic';
 import IdeaObjectTile from '../src/components/object-tile/components/idea';
 import ImprovementObjectTile from '../src/components/object-tile/components/improvement';
 import IncidentObjectTile from '../src/components/object-tile/components/incident';
-import IssueObjectTile from '../src/components/object-tile/components/issue';
 import NewFeatureObjectTile from '../src/components/object-tile/components/new-feature';
 import PageObjectTile from '../src/components/object-tile/components/page';
 import PageLiveDocObjectTile from '../src/components/object-tile/components/page-live-doc';
@@ -28,6 +27,7 @@ import StoryObjectTile from '../src/components/object-tile/components/story';
 import SubtaskObjectTile from '../src/components/object-tile/components/subtask';
 import TaskObjectTile from '../src/components/object-tile/components/task';
 import WhiteboardObjectTile from '../src/components/object-tile/components/whiteboard';
+import WorkItemObjectTile from '../src/components/object-tile/components/work-item';
 
 export const allObjectTiles: (({
 	label,
@@ -47,7 +47,6 @@ export const allObjectTiles: (({
 	IdeaObjectTile,
 	ImprovementObjectTile,
 	IncidentObjectTile,
-	IssueObjectTile,
 	NewFeatureObjectTile,
 	PageObjectTile,
 	PageLiveDocObjectTile,
@@ -58,4 +57,5 @@ export const allObjectTiles: (({
 	SubtaskObjectTile,
 	TaskObjectTile,
 	WhiteboardObjectTile,
+	WorkItemObjectTile,
 ];

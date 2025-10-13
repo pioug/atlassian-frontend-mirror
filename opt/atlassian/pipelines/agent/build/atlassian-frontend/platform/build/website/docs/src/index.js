@@ -6,3 +6,4 @@ export { replaceSrc } from './replace-src';
 export { Prop } from 'pretty-proptypes';
 export { AtlassianInternalWarning, DevPreviewWarning } from './SectionMessages';
 export { TabLink } from './tabLink';
+export { TSProps } from './TSProps';

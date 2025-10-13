@@ -78,7 +78,7 @@ describe('Profile card trigger', () => {
 				{!props.hideMoreActions && (
 					<div data-testid="agent-dropdown-menu--trigger">Agent Dropdown</div>
 				)}
-				<button>Chat to Agent</button>
+				<button>Chat with Agent</button>
 			</div>
 		));
 

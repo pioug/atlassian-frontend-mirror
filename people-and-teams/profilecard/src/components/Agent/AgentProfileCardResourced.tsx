@@ -9,6 +9,7 @@ import {
 	type AgentActionsType,
 	type Flag,
 	type ProfileClient,
+	type RovoAgentAgg,
 	type RovoAgentProfileCardInfo,
 	type TriggerType,
 } from '../../types';
@@ -63,7 +64,15 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 	});
 
 	const getCreator = useCallback(
-		async (creator_type: string, creator?: string) => {
+		async ({
+			creator_type,
+			creator,
+			authoringTeam,
+		}: {
+			creator_type: string;
+			creator?: string;
+			authoringTeam?: RovoAgentAgg['authoringTeam'];
+		}) => {
 			if (!creator) {
 				return undefined;
 			}
@@ -78,6 +87,14 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 					try {
 						if (!creatorUserId || !props.cloudId) {
 							return undefined;
+						}
+
+						if (authoringTeam && fg('agent_studio_permissions_settings_m3_profiles')) {
+							return {
+								type: 'CUSTOMER' as const,
+								name: authoringTeam.displayName ?? '',
+								profileLink: authoringTeam.profileUrl ?? '',
+							};
 						}
 
 						const creatorInfo = await props.resourceClient.getProfile(
@@ -109,15 +126,18 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 	const fetchData = useCallback(async () => {
 		setIsLoading(true);
 		try {
-			const profileData = await props.resourceClient.getRovoAgentProfile(
+			const profileResult = await props.resourceClient.getRovoAgentProfile(
 				{ type: 'identity', value: props.accountId },
 				fireAnalytics,
 				fireEventNext,
 			);
-			const agentCreatorInfo = await getCreator(
-				profileData?.creator_type,
-				profileData?.creator || undefined,
-			);
+
+			const profileData = profileResult.restData;
+			const agentCreatorInfo = await getCreator({
+				creator_type: profileData?.creator_type,
+				creator: profileData?.creator || undefined,
+				authoringTeam: profileResult.aggData?.authoringTeam ?? undefined,
+			});
 			setAgentData({
 				...profileData,
 				creatorInfo: agentCreatorInfo,

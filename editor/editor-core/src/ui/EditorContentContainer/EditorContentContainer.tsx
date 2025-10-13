@@ -118,7 +118,12 @@ import {
 	panelViewStyles,
 	nestedPanelDangerStyles,
 } from './styles/panelStyles';
-import { paragraphStylesOld, paragraphStylesUGCRefreshed } from './styles/paragraphStyles';
+import {
+	paragraphStylesOld,
+	paragraphStylesOldWithScaledMargin,
+	paragraphStylesUGCRefreshed,
+	paragraphStylesWithScaledMargin,
+} from './styles/paragraphStyles';
 import {
 	placeholderOverflowStyles,
 	placeholderStyles,
@@ -150,6 +155,7 @@ import {
 	smartCardStylesWithSearchMatchAndBlockMenuDangerStyles,
 	smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
 	smartLinksInLivePagesStyles,
+	smartCardDiffStyles,
 } from './styles/smartCardStyles';
 import {
 	statusDangerStyles,
@@ -347,6 +353,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					ruleStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					fg('aifc_create_enabled') && smartCardDiffStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mediaStyles,
 					// merge firstWrappedMediaStyles with mediaStyles when clean up platform_editor_fix_media_in_renderer
 					fg('platform_editor_fix_media_in_renderer') && firstWrappedMediaStyles,
@@ -497,9 +505,19 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					dateVanillaStyles,
 					fg('platform_editor_typography_ugc')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							paragraphStylesUGCRefreshed
+							expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							fg('platform_editor_content_mode_button_mvp')
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								paragraphStylesWithScaledMargin
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								paragraphStylesUGCRefreshed
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							paragraphStylesOld,
+							expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							  fg('platform_editor_content_mode_button_mvp')
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								paragraphStylesOldWithScaledMargin
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								paragraphStylesOld,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					linkStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

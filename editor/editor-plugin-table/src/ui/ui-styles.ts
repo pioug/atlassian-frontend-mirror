@@ -394,6 +394,26 @@ const overflowShadowWidhoutDnD = (isDragAndDropEnabled: boolean | undefined) => 
 	}
 };
 
+export const OverflowShadowLessPadding = (tableOverflowShadowWidth: number) => css`
+	.${ClassName.TABLE_LEFT_SHADOW}, .${ClassName.TABLE_RIGHT_SHADOW} {
+		width: ${tableOverflowShadowWidth}px;
+	}
+
+	.${ClassName.TABLE_LEFT_SHADOW} {
+		left: 6px;
+	}
+	.${ClassName.TABLE_LEFT_SHADOW}.${ClassName.TABLE_CHROMELESS} {
+		left: 8px;
+	}
+
+	.${ClassName.TABLE_RIGHT_SHADOW} {
+		left: calc(100% - 6px);
+	}
+	.${ClassName.TABLE_RIGHT_SHADOW}.${ClassName.TABLE_CHROMELESS} {
+		left: calc(100% - 16px);
+	}
+`;
+
 const columnHeaderButton = (cssString?: string) => {
 	return css(
 		{

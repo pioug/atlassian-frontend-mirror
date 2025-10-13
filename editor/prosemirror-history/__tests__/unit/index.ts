@@ -6,6 +6,7 @@ import { EditorState, Plugin, TextSelection } from '@atlaskit/editor-prosemirror
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { history, closeHistory, undo, redo, undoDepth, redoDepth } from '../../src';
 
@@ -468,4 +469,446 @@ describe('history', () => {
 			type: 'text',
 		});
 	});
+
+	ffTest.on(
+		'platform_editor_ai_aifc_undo_redo',
+		'when platform_editor_ai_aifc_undo_redo is on',
+		() => {
+			it('should create and undo a single history slice', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(1000));
+				state = state.apply(state.tr.insertText('b').setTime(1600));
+				expect(undoDepth(state)).toBe(0);
+				expect(redoDepth(state)).toBe(0);
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(1);
+				expect(redoDepth(state)).toBe(0);
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('')));
+				expect(redoDepth(state)).toBe(1);
+				expect(undoDepth(state)).toBe(0);
+			});
+
+			it('should create and redo a single history slice', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(1000));
+				state = state.apply(state.tr.insertText('b').setTime(1600));
+				expect(undoDepth(state)).toBe(0);
+				expect(redoDepth(state)).toBe(0);
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				state = command(state, undo);
+				state = command(state, redo);
+				expect(state.doc).toEqualDocument(doc(p('ab')));
+				expect(redoDepth(state)).toBe(0);
+				expect(undoDepth(state)).toBe(1);
+			});
+
+			it('should restore selection for history slice on undo', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(1000));
+				state = state.apply(state.tr.insertText('b').setTime(1600));
+				state = state.apply(state.tr.setSelection(TextSelection.create(state.doc, 1, 2)));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				state = command(state, undo);
+				expect(state.selection.toJSON()).toEqual({
+					anchor: 1,
+					head: 1,
+					type: 'text',
+				});
+			});
+
+			it('should restore selection for history slice on redo', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(1000));
+				state = state.apply(state.tr.insertText('b').setTime(1600));
+				state = state.apply(state.tr.setSelection(TextSelection.create(state.doc, 1, 2)));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				state = command(state, undo);
+				state = command(state, redo);
+				expect(state.selection.toJSON()).toEqual({
+					anchor: 1,
+					head: 2,
+					type: 'text',
+				});
+			});
+
+			it('should handle nested history slice start (ignore inner start)', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(1000));
+				// Try to start another slice while one is active - should be ignored
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('b').setTime(1600));
+				expect(undoDepth(state)).toBe(0);
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(1);
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('')));
+			});
+
+			it('should handle empty history slice (no steps)', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				// End slice immediately without any steps
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(0);
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('')));
+				expect(undoDepth(state)).toBe(0);
+				expect(redoDepth(state)).toBe(0);
+			});
+
+			it('should ignore addToHistory=false transactions during history slice', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(1000));
+				// Non-tracked transaction should be ignored during slice
+				state = state.apply(state.tr.insertText('ignored').setMeta('addToHistory', false));
+				state = state.apply(state.tr.insertText('b').setTime(1600));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(1);
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('ignored')));
+				expect(state.selection.toJSON()).toEqual({
+					anchor: 1,
+					head: 1,
+					type: 'text',
+				});
+			});
+
+			it('should handle undos during history slice', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.insertText('first change').setTime(1000));
+				expect(undoDepth(state)).toBe(1);
+
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(1000));
+				// Non-tracked transaction should be ignored during slice
+				state = command(state, undo);
+				expect(undoDepth(state)).toBe(0);
+
+				state = state.apply(state.tr.insertText('b').setTime(1600));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(1);
+				expect(state.doc).toEqualDocument(doc(p('ba')));
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('')));
+				expect(state.selection.toJSON()).toEqual({
+					anchor: 1,
+					head: 1,
+					type: 'text',
+				});
+			});
+
+			it('should handle undo-redo during history slice', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.insertText('first change').setTime(1000));
+				expect(undoDepth(state)).toBe(1);
+
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(1000));
+				// Non-tracked transaction should be ignored during slice
+				state = command(state, undo);
+				state = command(state, redo);
+
+				state = state.apply(state.tr.insertText('b').setTime(1600));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(2);
+				expect(state.doc).toEqualDocument(doc(p('first changeab')));
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('first change')));
+				expect(state.selection.toJSON()).toEqual({
+					anchor: 13,
+					head: 13,
+					type: 'text',
+				});
+			});
+
+			it('should handle redo after undo during history slice', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.insertText('first change').setTime(1000));
+				expect(undoDepth(state)).toBe(1);
+
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(1000));
+
+				// Undo during slice
+				state = command(state, undo);
+
+				state = state.apply(state.tr.insertText('bc').setTime(1600));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(1);
+
+				expect(state.doc).toEqualDocument(doc(p('bca')));
+				state = command(state, redo);
+				expect(state.doc).toEqualDocument(doc(p('first changebca')));
+				state = command(state, undo);
+				state = command(state, undo);
+
+				expect(state.doc).toEqualDocument(doc(p('')));
+			});
+
+			it('should handle redo during history slice (no redo - due to branch reset)', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.insertText('first change').setTime(1000));
+				state = command(state, undo);
+
+				expect(redoDepth(state)).toBe(1);
+
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(1000));
+				// Non-tracked transaction should be ignored during slice
+				state = command(state, redo);
+
+				state = state.apply(state.tr.insertText('b').setTime(1600));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(1);
+				expect(state.doc).toEqualDocument(doc(p('ab')));
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('')));
+				expect(state.selection.toJSON()).toEqual({
+					anchor: 1,
+					head: 1,
+					type: 'text',
+				});
+			});
+
+			it('should handle addToHistory=false with null prevRanges during slice', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				// Start with a state that might have null prevRanges
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				expect(undoDepth(state)).toBe(0);
+
+				// Apply a transaction with addToHistory=false - this should not crash
+				state = state.apply(state.tr.insertText('test').setMeta('addToHistory', false));
+				expect(undoDepth(state)).toBe(0);
+
+				// Add a tracked transaction
+				state = state.apply(state.tr.insertText('tracked'));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(1);
+				expect(state.selection.toJSON()).toEqual({
+					anchor: 12,
+					head: 12,
+					type: 'text',
+				});
+
+				// Undo should only remove the tracked changes
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('test')));
+				expect(state.selection.toJSON()).toEqual({
+					anchor: 1,
+					head: 1,
+					type: 'text',
+				});
+			});
+
+			it('should handle addToHistory=false during slice with existing history', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				// First establish some history to ensure prevRanges is not null
+				state = state.apply(state.tr.insertText('initial').setTime(1000));
+				expect(undoDepth(state)).toBe(1);
+
+				// Start a history slice
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(2000));
+
+				// Apply multiple addToHistory=false transactions during the slice
+				state = state.apply(state.tr.insertText('x').setMeta('addToHistory', false));
+				state = state.apply(state.tr.insertText('y').setMeta('addToHistory', false));
+
+				// Add more tracked content
+				state = state.apply(state.tr.insertText('b').setTime(2100));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+
+				expect(state.doc).toEqualDocument(doc(p('initialaxyb')));
+				expect(undoDepth(state)).toBe(2);
+				expect(state.selection.toJSON()).toEqual({
+					anchor: 12,
+					head: 12,
+					type: 'text',
+				});
+
+				// Undo the slice - should remove 'ab' but keep 'xy'
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('initialxy')));
+				expect(undoDepth(state)).toBe(1);
+				expect(state.selection.toJSON()).toEqual({
+					anchor: 8,
+					head: 8,
+					type: 'text',
+				});
+
+				// Undo the initial change - should remove 'initial' but keep 'xy'
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('xy')));
+				expect(undoDepth(state)).toBe(0);
+				expect(state.selection.toJSON()).toEqual({
+					anchor: 1,
+					head: 1,
+					type: 'text',
+				});
+			});
+
+			it('should handle multiple consecutive history slices', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+
+				// First slice
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('first').setTime(1000));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(1);
+
+				// Second slice
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('second').setTime(2000));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(2);
+
+				// Undo both slices
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('first')));
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('')));
+			});
+
+			it('should handle closeHistory during active slice', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(1000));
+				// closeHistory should not affect active slice
+				state = state.apply(closeHistory(state.tr.insertText('b')));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(1);
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('')));
+			});
+
+			it('should handle complex document changes in history slice', () => {
+				let state = mkState(doc(p('hello world')), { newGroupDelay: 1000 });
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				// Delete text
+				state = state.apply(state.tr.delete(6, 13));
+				// Split paragraph
+				state = state.apply(state.tr.split(6));
+				// Insert text in new paragraph
+				state = state.apply(state.tr.insertText('universe', 7));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(state.doc).toEqualDocument(doc(p('hello'), p('universe'), p('')));
+
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('hello world')));
+
+				state = command(state, redo);
+				expect(state.doc).toEqualDocument(doc(p('hello'), p('universe'), p('')));
+			});
+
+			it('should handle large history slice with many steps', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+
+				// Add many steps to the slice
+				for (let i = 0; i < 50; i++) {
+					state = state.apply(state.tr.insertText(i.toString()));
+				}
+
+				expect(undoDepth(state)).toBe(0); // Still in slice
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(1); // Now should have one undo level
+
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('')));
+			});
+
+			it('should handle endHistorySlice without active slice (no-op)', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.insertText('normal').setTime(1000));
+				expect(undoDepth(state)).toBe(1);
+
+				// Try to end slice when none is active - should be no-op
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(undoDepth(state)).toBe(1);
+
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('')));
+			});
+
+			it('should maintain slice state across non-tracked transactions', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(1000));
+
+				// Add multiple non-tracked transactions
+				state = state.apply(state.tr.insertText('x').setMeta('addToHistory', false));
+				state = state.apply(state.tr.insertText('y').setMeta('addToHistory', false));
+
+				state = state.apply(state.tr.insertText('b').setTime(1600));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+
+				expect(undoDepth(state)).toBe(1);
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('xy')));
+			});
+
+			it('should handle invalid step positions during slice (range error scenario)', () => {
+				let state = mkState(doc(p('hello world')), { newGroupDelay: 1000 });
+
+				// Start a history slice
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+
+				// Insert text at position 6 (between 'hello' and ' world')
+				state = state.apply(state.tr.insertText(' awesome', 6));
+				expect(state.doc).toEqualDocument(doc(p('hello awesome world')));
+
+				// Apply a non-tracked transaction that changes the document structure
+				// This could make the tracked steps invalid
+				state = state.apply(state.tr.delete(1, 5).setMeta('addToHistory', false)); // Remove 'hell'
+				expect(state.doc).toEqualDocument(doc(p('o awesome world')));
+
+				// Add another tracked step that might conflict with the previous ones
+				state = state.apply(state.tr.insertText('X', 1));
+				expect(state.doc).toEqualDocument(doc(p('Xo awesome world')));
+
+				// End the slice - this should not throw a RangeError even though
+				// the tracked steps might not be perfectly applicable to the original document
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+
+				expect(undoDepth(state)).toBe(1);
+
+				// Undo should work and restore to original state plus non-tracked changes
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('o world'))); // 'hell' was removed by non-tracked transaction
+			});
+
+			it('should clear the redo branch on new history slice', () => {
+				let state = mkState(undefined, { newGroupDelay: 1000 });
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				state = state.apply(state.tr.insertText('a').setTime(1000));
+				state = state.apply(state.tr.insertText('b').setTime(1600));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+
+				expect(undoDepth(state)).toBe(1);
+				expect(redoDepth(state)).toBe(0);
+				expect(state.doc).toEqualDocument(doc(p('ab')));
+
+				state = command(state, undo);
+				expect(state.doc).toEqualDocument(doc(p('')));
+				expect(undoDepth(state)).toBe(0);
+				expect(redoDepth(state)).toBe(1);
+
+				state = state.apply(state.tr.setMeta('startHistorySlice', true));
+				expect(redoDepth(state)).toBe(0);
+				state = state.apply(state.tr.insertText('c').setTime(1000));
+				state = state.apply(state.tr.insertText('d').setTime(1600));
+				state = state.apply(state.tr.setMeta('endHistorySlice', true));
+				expect(redoDepth(state)).toBe(0);
+				expect(undoDepth(state)).toBe(1);
+				expect(state.doc).toEqualDocument(doc(p('cd')));
+			});
+		},
+	);
 });

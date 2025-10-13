@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::79c5d6a92f9129a27566e8b5c091cb3d>>
+ * @codegen <<SignedSource::844c8577e3943d6d7d8c1a6302edc692>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -8,7 +8,7 @@ import React from 'react';
 import { IconTile } from '@atlaskit/icon';
 import NewIcon from '@atlaskit/icon/core/work-item';
 import type { GlyphProps } from '@atlaskit/icon/types';
-import NewObjectComponent from '@atlaskit/object/tile/issue';
+import NewObjectComponent from '@atlaskit/object/tile/work-item';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import IconObjectOld from '../../glyph-legacy/issue/24';

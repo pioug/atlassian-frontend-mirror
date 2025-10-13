@@ -56,3 +56,8 @@ export {
 	type Container,
 	ContainerType,
 } from './team-container';
+
+export type {
+	ReportingLines,
+	ReportingLinesUser,
+} from '../services/reporting-lines-client/utils/types';

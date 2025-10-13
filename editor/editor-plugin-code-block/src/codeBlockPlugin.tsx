@@ -137,13 +137,21 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 						priority: 700,
 						keyshortcut: '```',
 						icon: () => <IconCode />,
-						action(_insert, state) {
+						action(_insert, state, source) {
 							const tr = createInsertCodeBlockTransaction({ state });
 							api?.analytics?.actions.attachAnalyticsEvent({
 								action: ACTION.INSERTED,
 								actionSubject: ACTION_SUBJECT.DOCUMENT,
 								actionSubjectId: ACTION_SUBJECT_ID.CODE_BLOCK,
-								attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+								attributes: {
+									inputMethod: expValEqualsNoExposure(
+										'platform_editor_plain_text_support',
+										'isEnabled',
+										true,
+									)
+										? source || INPUT_METHOD.QUICK_INSERT
+										: INPUT_METHOD.QUICK_INSERT,
+								},
 								eventType: EVENT_TYPE.TRACK,
 							})(tr);
 							return tr;
@@ -157,11 +165,18 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 						description: formatMessage(blockTypeMessages.plainTextCodeblockDescription),
 						keywords: ['plain text'],
 						icon: () => <IconCode />,
-						action(_insert, state) {
+						action(_insert, state, source) {
 							const tr = createInsertCodeBlockTransaction({
 								state,
 								attributes: { language: 'text' },
 							});
+							api?.analytics?.actions.attachAnalyticsEvent({
+								action: ACTION.INSERTED,
+								actionSubject: ACTION_SUBJECT.DOCUMENT,
+								actionSubjectId: ACTION_SUBJECT_ID.CODE_BLOCK,
+								attributes: { inputMethod: source || INPUT_METHOD.QUICK_INSERT, language: 'text' },
+								eventType: EVENT_TYPE.TRACK,
+							})(tr);
 							return tr;
 						},
 					});

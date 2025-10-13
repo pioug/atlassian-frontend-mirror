@@ -1,5 +1,19 @@
 # @atlaskit/jql-editor
 
+## 5.6.2
+
+### Patch Changes
+
+- [`45f01e2745891`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45f01e2745891) -
+  [ux] Migrate legacy icons
+- Updated dependencies
+
+## 5.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.6.0
 
 ### Minor Changes

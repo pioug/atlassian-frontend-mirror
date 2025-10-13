@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 6.0.10
+
+### Patch Changes
+
+- [`33820db9a729b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33820db9a729b) -
+  [NO-ISSUE] Rename references to the view mode (editting or viewing) from "content mode" to "view
+  mode" to prevent confusion with the new contentMode feature
+- Updated dependencies
+
+## 6.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.8
 
 ### Patch Changes

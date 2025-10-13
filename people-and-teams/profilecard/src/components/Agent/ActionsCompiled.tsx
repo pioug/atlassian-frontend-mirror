@@ -170,8 +170,8 @@ export const AgentActions = ({
 
 const messages = defineMessages({
 	actionChatToAgent: {
-		id: 'ptc-directory.agent-profile.action.dropdown.chat-to-agent.nonfinal',
-		defaultMessage: 'Chat to Agent',
-		description: 'Text for the "chat to agent" action to chat to the agent',
+		id: 'ptc-directory.agent-profile.action.dropdown.chat-with-agent',
+		defaultMessage: 'Chat with Agent',
+		description: 'Text for the "chat with agent" action to chat to the agent',
 	},
 });

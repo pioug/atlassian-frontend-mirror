@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.19.0
+
+### Minor Changes
+
+- [`cfa1ef120b213`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfa1ef120b213) -
+  Integrated atlassian/reporting-lines into atlassian/ptc-embeddable-directory
+
 ## 4.18.0
 
 ### Minor Changes

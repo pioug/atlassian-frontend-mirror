@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-show-diff",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "ShowDiff plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -31,9 +31,12 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
+		"lodash": "root:*",
+		"memoize-one": "root:*",
 		"prosemirror-changeset": "root:*"
 	},
 	"peerDependencies": {

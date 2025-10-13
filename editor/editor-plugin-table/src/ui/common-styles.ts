@@ -26,6 +26,7 @@ import {
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N40A, R500 } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -275,6 +276,47 @@ const tableStickyHeaderFirefoxFixStyle = () => {
 	}
 };
 
+/**
+ * Styles for the table scroll inline shadow
+ * inspired by https://css-scroll-shadows.vercel.app/
+ */
+const tableScrollInlineShadowStyles = () => {
+	return css`
+		.${ClassName.TABLE_SCROLL_INLINE_SHADOW} {
+			--editor-table-shadow-cover: #fff;
+			--editor-table-shadow-color: ${token('elevation.shadow.overflow.spread')};
+			--editor-table-shadow-size: ${token('space.100', '8px')};
+			background-image:
+				linear-gradient(to right, var(--editor-table-shadow-cover) 33%, transparent),
+				linear-gradient(to right, transparent, var(--editor-table-shadow-cover) 66%),
+				linear-gradient(to right, var(--editor-table-shadow-color), transparent),
+				linear-gradient(to left, var(--editor-table-shadow-color), transparent);
+			background-size:
+				calc(var(--editor-table-shadow-size) * 3) 100%,
+				calc(var(--editor-table-shadow-size) * 3) 100%,
+				calc(var(--editor-table-shadow-size) * 1) 100%,
+				calc(var(--editor-table-shadow-size) * 1) 100%;
+			background-position:
+				left ${token('space.300', '24px')},
+				right ${token('space.300', '24px')},
+				left ${token('space.300', '24px')},
+				right ${token('space.300', '24px')};
+			background-attachment: local, local, scroll, scroll;
+			background-repeat: no-repeat;
+
+			th,
+			td {
+				mix-blend-mode: multiply;
+			}
+		}
+
+		.${ClassName.TABLE_STICKY} .${ClassName.TABLE_SCROLL_INLINE_SHADOW} tr.sticky th,
+		.${ClassName.TABLE_STICKY} .${ClassName.TABLE_SCROLL_INLINE_SHADOW} tr.sticky td {
+			mix-blend-mode: normal;
+		}
+	`;
+};
+
 // re-exporting these styles to use in Gemini test when table node view is rendered outside of PM
 export const baseTableStyles = (props: {
 	featureFlags?: FeatureFlags;
@@ -302,7 +344,6 @@ export const baseTableStyles = (props: {
 
 		td.${ClassName.TABLE_CELL} {
 			background-color: ${tableCellBackgroundColor};
-
 			&::after {
 				height: 100%;
 				content: '';
@@ -318,6 +359,9 @@ export const baseTableStyles = (props: {
 			}
 		}
 	}
+
+	${expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant3') &&
+	tableScrollInlineShadowStyles()}
 
 	.${ClassName.CONTROLS_FLOATING_BUTTON_COLUMN} {
 		${insertColumnButtonWrapper()}
@@ -428,7 +472,10 @@ export const baseTableStyles = (props: {
 		background: ${token('elevation.surface', 'white')};
 		box-sizing: content-box;
 		box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter', N40A)};
+
 		margin-left: -1px;
+		${expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant2') &&
+		`border-right: 1px solid ${token('elevation.surface')};`}
 
 		&.no-pointer-events {
 			pointer-events: none;

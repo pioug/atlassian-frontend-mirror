@@ -16,7 +16,7 @@ const styles = cssMap({
 		alignItems: 'center',
 		gap: 'var(--ds-space-100)',
 		padding: 'var(--ds-space-200)',
-		borderRadius: 'var(--ds-border-radius-200)',
+		borderRadius: 'var(--ds-radius-large)',
 		backgroundColor: 'var(--ds-surface)',
 		boxShadow: 'var(--ds-shadow-raised)',
 	},

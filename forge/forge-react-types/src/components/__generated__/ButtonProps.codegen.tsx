@@ -196,6 +196,8 @@ export type Icon =
 	| 'folder-filled'
 	| 'followers'
 	| 'following'
+	| 'full-screen-off'
+	| 'full-screen-on'
 	| 'googledrive'
 	| 'graph-bar'
 	| 'graph-line'

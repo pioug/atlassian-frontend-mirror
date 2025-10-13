@@ -173,20 +173,20 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 
 						// Content Mode Validation
 						// Check if pageModes is provided and matches against current content mode
-						// This will eventually transition from mode to contentMode
-						const editorContentMode = api?.editorViewMode?.sharedState.currentState()?.mode;
+						// This will eventually transition from mode to viewMode
+						const editorViewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
 
 						if (pageModes) {
-							// Early Exit: consumer has set pageModes but editorContentMode is undefined
-							if (!editorContentMode) {
+							// Early Exit: consumer has set pageModes but editorViewMode is undefined
+							if (!editorViewMode) {
 								return;
 							}
 
 							// Simplify traversion of pageModes which can be string or array of strings
 							const showOnModesCollection = Array.isArray(pageModes) ? pageModes : [pageModes];
 
-							// Early Exit: consumer has set pageModes but current editorContentMode is not in the collection
-							if (!showOnModesCollection.includes(editorContentMode)) {
+							// Early Exit: consumer has set pageModes but current editorViewMode is not in the collection
+							if (!showOnModesCollection.includes(editorViewMode)) {
 								return;
 							}
 						}

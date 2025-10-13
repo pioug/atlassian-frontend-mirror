@@ -1,5 +1,24 @@
 # @atlaskit/icon-object
 
+## 7.3.0
+
+### Minor Changes
+
+- [`e1c9823b0b420`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1c9823b0b420) - ##
+  Deprecated
+
+  Icon object has been marked as deprecated, and has been replaced by Object (`@atlaskit/object`).
+
+  To migrate automatically, use the codemod:
+
+  ```sh
+  npx @atlaskit/codemod-cli -n migrate-icon-object-to-object --extensions tsx,ts,js --parser tsx <your-path>
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.3
 
 ### Patch Changes

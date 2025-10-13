@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 8.0.12
+
+### Patch Changes
+
+- [`b6824e1dfce8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6824e1dfce8e) -
+  ED-29505 Add analytics for plain text code block inserted
+- Updated dependencies
+
 ## 8.0.11
 
 ### Patch Changes

@@ -2,13 +2,13 @@
 import { snapshot } from '@af/visual-regression';
 
 import AllPlacements from '../../examples/all-placements';
-import Basic from '../../examples/basic';
+import Card from '../../examples/card';
 import FullWidthTarget from '../../examples/full-width-target';
-import MultiStep from '../../examples/multi-step';
 import OverlayingUI from '../../examples/overlaying-ui';
+import StepVariants from '../../examples/step-variants';
 import NoMedia from '../../examples/without-image';
 
-snapshot(Basic, {
+snapshot(Card, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},
@@ -28,7 +28,7 @@ snapshot(Basic, {
 	],
 });
 
-snapshot(MultiStep, {
+snapshot(StepVariants, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},

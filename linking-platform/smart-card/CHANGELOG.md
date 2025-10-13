@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 43.1.7
+
+### Patch Changes
+
+- [`a91dedaff8d02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a91dedaff8d02) -
+  [ux] Migrate legacy icons.
+- [`c8fcf531a86b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8fcf531a86b8) -
+  [ux] Scale status in smart link inside excerpt when content in dense mode
+
+## 43.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.1.5
+
+### Patch Changes
+
+- [`4f3b60691a4d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f3b60691a4d6) -
+  NAVX-1976 cleaning up navx-1483-a11y-close-button-in-modal-updates
+
 ## 43.1.4
 
 ### Patch Changes

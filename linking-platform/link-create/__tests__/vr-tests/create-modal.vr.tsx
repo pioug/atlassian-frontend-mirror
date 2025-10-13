@@ -23,25 +23,13 @@ const options: OptionsType = {
 
 snapshot(DefaultCreateWithModal, {
 	...options,
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });
 snapshot(DefaultCreateWithModalTitle, {
 	...options,
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });
 snapshot(DefaultCreateWithEditButton, {
 	...options,
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });
 snapshot(DefaultCreateWithModalHero, {
 	...options,
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });

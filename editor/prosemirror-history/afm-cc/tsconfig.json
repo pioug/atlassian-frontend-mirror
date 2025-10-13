@@ -17,5 +17,9 @@
 		"../src/**/mocks/*",
 		"../src/**/examples.*"
 	],
-	"references": []
+	"references": [
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		}
+	]
 }

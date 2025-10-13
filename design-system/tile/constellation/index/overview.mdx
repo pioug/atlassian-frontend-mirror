@@ -1,0 +1,101 @@
+---
+order: 0
+---
+
+import { RelatedCard, RelatedCardGrid } from '@af/design-system-docs-ui';
+import Image from '@atlaskit/image';
+import Table, { Cell, HeadCell, Row, TBody, THead } from '@atlaskit/table';
+
+import tileOverviewLight from './images/tile-overview-light.png';
+import tileOverviewDark from './images/tile-overview-dark.png';
+import objectTile from './images/object-tile-thumbnail-light.png';
+import iconTile from './images/icon-tile-thumbnail-light.png';
+
+## Tile system
+
+The tile component sets the foundation of our tile system, setting a standard for size, space, and
+shape properties for all tile-shaped elements within Atlassian UI.
+
+So far, the properties of tile is inherited by the following components:
+
+- Icon tile
+- Object tile
+
+Makers should default to using these components, but in cases where a 'custom' tile is needed (for
+assets such as third-party logos or emojis), the tile component can be leveraged.
+
+Together, these components make a comprehensive system that brings flexibility and consistency to
+our apps.
+
+<Image
+	src={tileOverviewLight}
+	srcDark={tileOverviewDark}
+	alt="An overview of the components in the tile system"
+/>
+
+## Tile components
+
+<Table>
+	<THead>
+		<HeadCell>Component</HeadCell>
+		<HeadCell>Description</HeadCell>
+		<HeadCell>Used for</HeadCell>
+	</THead>
+	<TBody>
+		<Row key={1}>
+			<Cell width="18%">
+				<a href="/components/tile/examples">Tile</a>
+			</Cell>
+			<Cell>
+				A versatile, foundational container with baked-in sizing and radii properties for displaying
+				elements in a tile shape. It is flexible and can be used as a container to add in any
+				foreground element, background, or color as needed.
+			</Cell>
+			<Cell>Anything that's not an icon or object, such as emojis and third-party logos</Cell>
+		</Row>
+		<Row key={2}>
+			<Cell width="18%">
+				<a href="/components/icon/icon-tile/examples">Icon tile</a>
+			</Cell>
+			<Cell>
+				Allows icons to be scaled larger than 16px. It has pre-set options for color and size to
+				ensure accessibility and readability, and to prominently highlight icons in a layout.
+			</Cell>
+			<Cell>Icons</Cell>
+		</Row>
+		<Row key={3}>
+			<Cell width="18%">
+				<a href="/components/object/object-tile/examples">Object tile</a>
+			</Cell>
+			<Cell>
+				Use instead of an icon tile to represent Atlassian-specific content icons, such as pages,
+				live docs, whiteboard, or bugs. Each object tile has a specific color token that cannot be
+				changed.
+			</Cell>
+			<Cell>Objects</Cell>
+		</Row>
+	</TBody>
+</Table>
+
+## Related
+
+<RelatedCardGrid>
+	<RelatedCard
+		title="Object tile"
+		description="Represents Atlassian-specific content in a tile"
+		image={{
+			src: objectTile,
+			alt: '',
+		}}
+		href="/components/object/object-tile/examples"
+	/>
+	<RelatedCard
+		title="Icon tile"
+		description="An icon with properties determined by Tile"
+		image={{
+			src: iconTile,
+			alt: '',
+		}}
+		href="/components/icon/icon-tile/examples"
+	/>
+</RelatedCardGrid>

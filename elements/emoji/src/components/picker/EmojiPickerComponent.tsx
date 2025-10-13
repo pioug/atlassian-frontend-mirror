@@ -578,7 +578,11 @@ const EmojiPickerComponent = ({
 	// stop all key propagation to other event listeners
 	const suppressKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
 		// Allow escape key to propagate so parent components can handle it (behind feature gate)
-		if ((e.key === 'Escape' || e.key === 'Esc') && fg('platform_emoji_picker_escape_propagation')) {
+		if (
+			(e.key === 'Escape' || e.key === 'Esc') &&
+			(fg('platform_emoji_picker_escape_propagation') ||
+				fg('platform_jira_emoji_picker_escape_propagation'))
+		) {
 			return;
 		}
 

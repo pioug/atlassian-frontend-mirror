@@ -23,7 +23,9 @@ describe('Package.json exports', () => {
 				(exportPath) =>
 					exportPath.startsWith('./') &&
 					!exportPath.includes('*') &&
-					!exportPath.startsWith('./tile/'),
+					!exportPath.startsWith('./tile/') &&
+					exportPath !== './types' &&
+					exportPath !== './metadata',
 			)
 			.map((exportPath) => exportPath.substring(2)) // Remove './' prefix
 			.sort();

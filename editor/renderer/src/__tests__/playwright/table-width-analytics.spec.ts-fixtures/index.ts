@@ -209,26 +209,6 @@ export const nestedTablesInHeaderAndCellAdf = {
 	],
 };
 
-export const noTablesAdf = {
-	version: 1,
-	type: 'doc',
-	content: [
-		{
-			type: 'paragraph',
-			content: [{ type: 'text', text: 'This document contains no tables.' }],
-		},
-		{
-			type: 'paragraph',
-			content: [
-				{
-					type: 'text',
-					text: 'test',
-				},
-			],
-		},
-	],
-};
-
 export const tableWithScrollbarAdf = {
 	version: 1,
 	type: 'doc',

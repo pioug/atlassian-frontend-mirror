@@ -1,5 +1,11 @@
 # @atlaskit/blanket
 
+## 15.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.14
 
 ### Patch Changes

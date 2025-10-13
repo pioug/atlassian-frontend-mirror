@@ -26,10 +26,6 @@ export interface ReactionSummary {
 	 */
 	emojiId: string;
 	/**
-	 * A path to the emoji image, used for optimistic rendering.
-	 */
-	emojiPath?: string;
-	/**
 	 * @deprecated Legacy content Not in use anymore
 	 */
 	optimisticallyUpdated?: boolean;

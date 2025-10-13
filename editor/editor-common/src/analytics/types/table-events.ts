@@ -1,5 +1,7 @@
 import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 
+import type { EditorBreakpointKey } from '../../utils/analytics';
+
 import type { ACTION_SUBJECT, INPUT_METHOD } from './enums';
 import type { OperationalAEP, TableAEP, UIAEP } from './utils';
 
@@ -384,6 +386,10 @@ type TableWidthInfoAEP = TableAEP<
 	TABLE_ACTION.TABLE_WIDTH_INFO,
 	{
 		editorWidth: number;
+		editorWidthBreakpoint: EditorBreakpointKey;
+		hasTableWiderThanEditor: boolean;
+		hasTableWithScrollbar: boolean;
+		maxTableWidthBreakpoint: EditorBreakpointKey;
 		mode: 'editor' | 'renderer';
 		tableWidthInfo: Array<{
 			hasScrollbar: boolean;

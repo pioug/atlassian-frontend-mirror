@@ -5,7 +5,4 @@ import LinkWarningModal from '../../../examples/vr-link-safety-modal/vr-link-saf
 snapshot(LinkWarningModal, {
 	description: 'link safety warning modal renders correctly',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });

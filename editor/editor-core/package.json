@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.1.1",
+	"version": "215.1.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -222,6 +222,9 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"aifc_create_enabled": {
+			"type": "boolean"
+		},
 		"platform_editor_use_preferences_plugin": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -414,10 +417,6 @@
 		},
 		"platform_editor_lce_scrolltop_mitigation": {
 			"type": "boolean"
-		},
-		"platform_editor_add_border_for_nested_panel": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_editor_controls_increase_full_page_gutter": {
 			"type": "boolean"

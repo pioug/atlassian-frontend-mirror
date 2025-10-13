@@ -3,10 +3,7 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Object",
-			"category": "Images and icons",
-			"status": {
-				"type": "alpha"
-			}
+			"category": "Images and icons"
 		}
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
@@ -40,7 +37,6 @@
 		"./idea": "./src/components/object/components/idea.tsx",
 		"./improvement": "./src/components/object/components/improvement.tsx",
 		"./incident": "./src/components/object/components/incident.tsx",
-		"./issue": "./src/components/object/components/issue.tsx",
 		"./new-feature": "./src/components/object/components/new-feature.tsx",
 		"./page": "./src/components/object/components/page.tsx",
 		"./page-live-doc": "./src/components/object/components/page-live-doc.tsx",
@@ -51,6 +47,7 @@
 		"./subtask": "./src/components/object/components/subtask.tsx",
 		"./task": "./src/components/object/components/task.tsx",
 		"./whiteboard": "./src/components/object/components/whiteboard.tsx",
+		"./work-item": "./src/components/object/components/work-item.tsx",
 		"./tile/blog": "./src/components/object-tile/components/blog.tsx",
 		"./tile/branch": "./src/components/object-tile/components/branch.tsx",
 		"./tile/bug": "./src/components/object-tile/components/bug.tsx",
@@ -63,7 +60,6 @@
 		"./tile/idea": "./src/components/object-tile/components/idea.tsx",
 		"./tile/improvement": "./src/components/object-tile/components/improvement.tsx",
 		"./tile/incident": "./src/components/object-tile/components/incident.tsx",
-		"./tile/issue": "./src/components/object-tile/components/issue.tsx",
 		"./tile/new-feature": "./src/components/object-tile/components/new-feature.tsx",
 		"./tile/page": "./src/components/object-tile/components/page.tsx",
 		"./tile/page-live-doc": "./src/components/object-tile/components/page-live-doc.tsx",
@@ -73,7 +69,10 @@
 		"./tile/story": "./src/components/object-tile/components/story.tsx",
 		"./tile/subtask": "./src/components/object-tile/components/subtask.tsx",
 		"./tile/task": "./src/components/object-tile/components/task.tsx",
-		"./tile/whiteboard": "./src/components/object-tile/components/whiteboard.tsx"
+		"./tile/whiteboard": "./src/components/object-tile/components/whiteboard.tsx",
+		"./tile/work-item": "./src/components/object-tile/components/work-item.tsx",
+		"./types": "./src/types.tsx",
+		"./metadata": "./src/metadata.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/css": "workspace:^",
@@ -97,7 +96,7 @@
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@atlassian/testing-library": "workspace:^",
 		"fs-extra": "root:*",
 		"lodash": "root:*",
 		"pkg-dir": "root:*",
@@ -142,8 +141,8 @@
 		}
 	},
 	"name": "@atlaskit/object",
-	"version": "0.2.2",
-	"description": "An object represents an Atlassian-specific content type.",
+	"version": "0.2.3",
+	"description": "An object is an icon that represents an Atlassian-specific content type.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {

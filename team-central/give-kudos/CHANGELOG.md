@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 4.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.0
 
 ### Minor Changes

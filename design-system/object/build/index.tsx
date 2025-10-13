@@ -35,6 +35,7 @@ export const OBJECT_MAP: Mapping = {
 	'new-feature': { icon: 'add', color: 'green', packageName: 'icon' },
 	'page-live-doc': { icon: 'page-live-doc', color: 'magenta', packageName: 'icon-lab' },
 	'pull-request': { icon: 'pull-request', color: 'green', packageName: 'icon' },
+	'work-item': { icon: 'work-item', color: 'blue', packageName: 'icon' },
 	blog: { icon: 'quotation-mark', color: 'blue', packageName: 'icon' },
 	branch: { icon: 'branch', color: 'blue', packageName: 'icon' },
 	bug: { icon: 'bug', color: 'red', packageName: 'icon' },
@@ -47,7 +48,6 @@ export const OBJECT_MAP: Mapping = {
 	idea: { icon: 'lightbulb', color: 'yellow', packageName: 'icon' },
 	improvement: { icon: 'arrow-up', color: 'green', packageName: 'icon' },
 	incident: { icon: 'incident', color: 'red', packageName: 'icon' },
-	issue: { icon: 'work-item', color: 'blue', packageName: 'icon' },
 	page: { icon: 'page', color: 'blue', packageName: 'icon' },
 	problem: { icon: 'problem', color: 'red', packageName: 'icon' },
 	question: { icon: 'question-circle', color: 'purple', packageName: 'icon' },
@@ -171,6 +171,7 @@ async function run() {
 		.join('\n');
 
 	const allObjectsSource = `import type { ObjectProps } from '@atlaskit/object';
+
 ${allObjectsImports}
 
 export const allObjects: (({ label, size, testId }: ObjectProps) => React.JSX.Element)[] = [
@@ -213,6 +214,7 @@ ${importNames.join(', ')}
 
 	const allObjectTilesSource = `
 import type { ObjectTileProps } from '@atlaskit/object';
+
 ${allObjectTilesImports}
 
 export const allObjectTiles: (({ label, size, testId, isBold, }: ObjectTileProps) => React.JSX.Element)[] = [
@@ -256,6 +258,8 @@ ${objectTileImportNames.join(', ')}
 	packageJson.exports = {
 		...objectExports,
 		...objectTileExports,
+		'./types': './src/types.tsx',
+		'./metadata': './src/metadata.tsx',
 	};
 
 	// Write the updated package.json with proper formatting
@@ -264,6 +268,78 @@ ${objectTileImportNames.join(', ')}
 
 	// eslint-disable-next-line no-console
 	console.log('Package.json exports updated');
+
+	// Generate metadata file for object explorer
+	await generateMetadata();
+}
+
+async function generateMetadata() {
+	const metadataDir = path.resolve(root!, 'src');
+	const metadataFile = path.resolve(metadataDir, 'metadata.tsx');
+
+	// Generate unified metadata entries with both Object and ObjectTile info
+	const metadataEntries = Object.entries(OBJECT_MAP)
+		.sort(([a], [b]) => a.localeCompare(b))
+		.map(([name, meta]) => {
+			const componentName = toPascalCase(name);
+			const displayName = startCase(name);
+			// Deduplicate keywords by converting to Set and back to array
+			const keywords = [...new Set([name, displayName.toLowerCase(), meta.color])];
+
+			return `\t'${name}': {
+		keywords: ${JSON.stringify(keywords)},
+		color: '${meta.color}',
+		icon: '${meta.icon}',
+		iconPackage: '${meta.packageName}',
+		object: {
+			componentName: '${componentName}Object',
+			package: '@atlaskit/object/${name}',
+			packageLoader: () =>
+				import(
+					/* webpackChunkName: "@atlaskit-internal_object" */
+					'./components/object/components/${name}'
+				),
+		},
+		tile: {
+			componentName: '${componentName}ObjectTile',
+			package: '@atlaskit/object/tile/${name}',
+			packageLoader: () =>
+				import(
+					/* webpackChunkName: "@atlaskit-internal_object-tile" */
+					'./components/object-tile/components/${name}'
+				),
+		},
+	}`;
+		});
+
+	const metadataSource = `
+interface ComponentMetadata {
+	componentName: string;
+	package: string;
+	packageLoader: () => Promise<{ default: React.ComponentType<any> }>;
+}
+
+interface ObjectMetadata {
+	keywords: string[];
+	color: string;
+	icon: string;
+	iconPackage: string;
+	object: ComponentMetadata;
+	tile: ComponentMetadata;
+}
+
+export const metadata: Record<string, ObjectMetadata> = {
+${metadataEntries.join(',\n')}
+};
+`;
+
+	await fs.outputFile(
+		metadataFile,
+		createSignedArtifact(format(metadataSource, 'tsx'), 'yarn build-glyphs'),
+	);
+
+	// eslint-disable-next-line no-console
+	console.log('Metadata file generated');
 }
 
 run();

@@ -1,5 +1,16 @@
 # @atlaskit/forge-react-types
 
+## 0.43.0
+
+### Minor Changes
+
+- [`6662b74dfa76b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6662b74dfa76b) -
+  Regenerating Icon glyphs and updating button icon types
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.42.22
 
 ### Patch Changes

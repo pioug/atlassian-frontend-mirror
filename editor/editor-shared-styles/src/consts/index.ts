@@ -66,6 +66,7 @@ export {
 	avatarColors,
 	participantColors,
 	blockNodesVerticalMargin,
+	scaledBlockNodesVerticalMargin,
 	breakoutWideScaleRatio,
 	editorFontSize,
 	gridMediumMaxWidth,

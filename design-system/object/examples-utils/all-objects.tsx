@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0d9c63b6c3bffa21616e752147d5284a>>
+ * @codegen <<SignedSource::5bbfb39ef9d3daa1c57a5f01053f22ea>>
  * @codegenCommand yarn build-glyphs
  */
 import type { ObjectProps } from '@atlaskit/object';
@@ -17,7 +17,6 @@ import EpicObject from '../src/components/object/components/epic';
 import IdeaObject from '../src/components/object/components/idea';
 import ImprovementObject from '../src/components/object/components/improvement';
 import IncidentObject from '../src/components/object/components/incident';
-import IssueObject from '../src/components/object/components/issue';
 import NewFeatureObject from '../src/components/object/components/new-feature';
 import PageObject from '../src/components/object/components/page';
 import PageLiveDocObject from '../src/components/object/components/page-live-doc';
@@ -28,6 +27,7 @@ import StoryObject from '../src/components/object/components/story';
 import SubtaskObject from '../src/components/object/components/subtask';
 import TaskObject from '../src/components/object/components/task';
 import WhiteboardObject from '../src/components/object/components/whiteboard';
+import WorkItemObject from '../src/components/object/components/work-item';
 
 export const allObjects: (({ label, size, testId }: ObjectProps) => React.JSX.Element)[] = [
 	BlogObject,
@@ -42,7 +42,6 @@ export const allObjects: (({ label, size, testId }: ObjectProps) => React.JSX.El
 	IdeaObject,
 	ImprovementObject,
 	IncidentObject,
-	IssueObject,
 	NewFeatureObject,
 	PageObject,
 	PageLiveDocObject,
@@ -53,4 +52,5 @@ export const allObjects: (({ label, size, testId }: ObjectProps) => React.JSX.El
 	SubtaskObject,
 	TaskObject,
 	WhiteboardObject,
+	WorkItemObject,
 ];

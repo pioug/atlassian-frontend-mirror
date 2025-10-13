@@ -44,11 +44,12 @@ const styles = cssMap({
 });
 
 const Example = () => {
-	const [currentStep, setCurrentStep] = useState<'step-1' | 'step-2' | 'step-3' | undefined>(
-		undefined,
-	);
-	const dismiss = () => setCurrentStep(undefined);
-	const done = () => setCurrentStep(undefined);
+	const [currentStep, setCurrentStep] = useState<number>(0);
+
+	const dismiss = () => setCurrentStep(0);
+	const back = () => setCurrentStep(Math.max(currentStep - 1, 1));
+	const next = () => setCurrentStep(Math.min(currentStep + 1, 3));
+	const done = () => setCurrentStep(0);
 
 	return (
 		<div css={styles.root}>
@@ -58,11 +59,7 @@ const Example = () => {
 						<Text>Target 1</Text>
 					</Box>
 				</PopoverTarget>
-				<PopoverContent
-					dismiss={dismiss}
-					placement="right-end"
-					isVisible={currentStep === 'step-1'}
-				>
+				<PopoverContent dismiss={dismiss} placement="right-end" isVisible={currentStep === 1}>
 					<SpotlightCard testId="spotlight">
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
@@ -76,9 +73,7 @@ const Example = () => {
 						<SpotlightFooter>
 							<SpotlightStepCount>1 of 3</SpotlightStepCount>
 							<SpotlightActions>
-								<SpotlightPrimaryAction onClick={() => setCurrentStep('step-2')}>
-									Next
-								</SpotlightPrimaryAction>
+								<SpotlightPrimaryAction onClick={next}>Next</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
 					</SpotlightCard>
@@ -91,7 +86,7 @@ const Example = () => {
 						<Text>Target 2</Text>
 					</Box>
 				</PopoverTarget>
-				<PopoverContent dismiss={dismiss} placement="left-end" isVisible={currentStep === 'step-2'}>
+				<PopoverContent dismiss={dismiss} placement="left-end" isVisible={currentStep === 2}>
 					<SpotlightCard testId="spotlight">
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
@@ -105,12 +100,8 @@ const Example = () => {
 						<SpotlightFooter>
 							<SpotlightStepCount>2 of 3</SpotlightStepCount>
 							<SpotlightActions>
-								<SpotlightSecondaryAction onClick={() => setCurrentStep('step-1')}>
-									Back
-								</SpotlightSecondaryAction>
-								<SpotlightPrimaryAction onClick={() => setCurrentStep('step-3')}>
-									Next
-								</SpotlightPrimaryAction>
+								<SpotlightSecondaryAction onClick={back}>Back</SpotlightSecondaryAction>
+								<SpotlightPrimaryAction onClick={next}>Next</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
 					</SpotlightCard>
@@ -123,11 +114,7 @@ const Example = () => {
 						<Text>Target 3</Text>
 					</Box>
 				</PopoverTarget>
-				<PopoverContent
-					dismiss={dismiss}
-					placement="right-end"
-					isVisible={currentStep === 'step-3'}
-				>
+				<PopoverContent dismiss={dismiss} placement="right-end" isVisible={currentStep === 3}>
 					<SpotlightCard testId="spotlight">
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
@@ -141,9 +128,7 @@ const Example = () => {
 						<SpotlightFooter>
 							<SpotlightStepCount>3 of 3</SpotlightStepCount>
 							<SpotlightActions>
-								<SpotlightSecondaryAction onClick={() => setCurrentStep('step-2')}>
-									Back
-								</SpotlightSecondaryAction>
+								<SpotlightSecondaryAction onClick={back}>Back</SpotlightSecondaryAction>
 								<SpotlightPrimaryAction onClick={done}>Done</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
@@ -151,7 +136,7 @@ const Example = () => {
 				</PopoverContent>
 			</PopoverProvider>
 
-			<Button onClick={() => setCurrentStep('step-1')}>Restart Tour</Button>
+			<Button onClick={() => setCurrentStep(1)}>Restart Tour</Button>
 		</div>
 	);
 };

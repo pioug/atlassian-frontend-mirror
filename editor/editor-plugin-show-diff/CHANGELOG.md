@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 3.0.1
+
+### Patch Changes
+
+- [`16d89ac68ca47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16d89ac68ca47) -
+  Improve how large number of small steps are grouped together in the diff.
+- Updated dependencies
+
 ## 3.0.0
 
 ### Patch Changes

@@ -6,7 +6,6 @@ import { cssMap, jsx, styled } from '@compiled/react';
 
 import Form, { type OnSubmitHandler } from '@atlaskit/form';
 import { CloseButton } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -48,12 +47,6 @@ const DEFAULT_AQL_QUERY = '';
 const SEARCH_FORM_ID = 'linkDataSource.assets.configModal.searchContainer-form';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
-const SchemaSelectContainer = styled.div({
-	width: '100%',
-	maxWidth: '386px',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
 const FormContainer = styled.form({
 	display: 'grid',
 	rowGap: token('space.200', '16px'),
@@ -78,34 +71,20 @@ export const AssetsSearchContainer = (props: SearchContainerProps) => {
 			{({ formProps }) => (
 				<FormContainer {...formProps} id={SEARCH_FORM_ID}>
 					<FormRowContainer isNarrowGap>
-						{fg('navx-1483-a11y-close-button-in-modal-updates') ? (
-							<Flex gap="space.200" justifyContent="space-between" xcss={styles.flexStyles}>
-								<Flex justifyContent="end">
-									<CloseButton onClick={onCancel} />
-								</Flex>
-								<Flex justifyContent="start" xcss={styles.modalTitleContainer}>
-									{modalTitle}
-									<AssetsObjectSchemaSelect
-										value={initialSearchData.objectSchema ?? undefined}
-										workspaceId={workspaceId}
-										initialObjectSchemas={initialSearchData.objectSchemas ?? undefined}
-										classNamePrefix="assets-datasource-modal--object-schema-select"
-									/>
-								</Flex>
+						<Flex gap="space.200" justifyContent="space-between" xcss={styles.flexStyles}>
+							<Flex justifyContent="end">
+								<CloseButton onClick={onCancel} />
 							</Flex>
-						) : (
-							<div>
+							<Flex justifyContent="start" xcss={styles.modalTitleContainer}>
 								{modalTitle}
-								<SchemaSelectContainer>
-									<AssetsObjectSchemaSelect
-										value={initialSearchData.objectSchema ?? undefined}
-										workspaceId={workspaceId}
-										initialObjectSchemas={initialSearchData.objectSchemas ?? undefined}
-										classNamePrefix="assets-datasource-modal--object-schema-select"
-									/>
-								</SchemaSelectContainer>
-							</div>
-						)}
+								<AssetsObjectSchemaSelect
+									value={initialSearchData.objectSchema ?? undefined}
+									workspaceId={workspaceId}
+									initialObjectSchemas={initialSearchData.objectSchemas ?? undefined}
+									classNamePrefix="assets-datasource-modal--object-schema-select"
+								/>
+							</Flex>
+						</Flex>
 					</FormRowContainer>
 					<FormRowContainer>
 						<AqlSearchInput

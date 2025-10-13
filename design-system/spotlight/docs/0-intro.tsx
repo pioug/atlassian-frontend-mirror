@@ -11,9 +11,9 @@ export default md`
   ${(
 		<Example
 			packageName="@atlaskit/spotlight"
-			Component={require('../examples/basic').default}
+			Component={require('../examples/card').default}
 			title="Basic example"
-			source={require('!!raw-loader!../examples/basic')}
+			source={require('!!raw-loader!../examples/card')}
 		/>
 	)}
 

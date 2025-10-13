@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.10.1
+
+### Patch Changes
+
+- [`18f1ab6ba31b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18f1ab6ba31b0) -
+  improve table overshadow under experiment with variants including variant1: complete remove table
+  overflow shadowing, variant2: complete remove table overflow shadowing but have border in table
+  outer wrapper, variant3: use css-only driven table overflow shadowing.
+
 ## 13.10.0
 
 ### Minor Changes

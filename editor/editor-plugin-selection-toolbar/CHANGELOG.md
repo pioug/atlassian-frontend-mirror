@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 7.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.11
 
 ### Patch Changes

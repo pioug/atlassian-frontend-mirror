@@ -527,4 +527,5 @@ export enum CONTENT_COMPONENT {
 	FLOATING_CONTEXTUAL_BUTTON = 'floatingContextualButton',
 	FLOATING_INSERT_BUTTON = 'floatingInsertButton',
 	FLOATING_TOOLBAR = 'floatingToolbar',
+	SELECTION_TOOLBAR = 'selectionToolbar',
 }

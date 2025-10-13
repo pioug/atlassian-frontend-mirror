@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 69.6.0
+
+### Minor Changes
+
+- [`9d77230acd685`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d77230acd685) -
+  [ux] add escape key support to close emoji picker component for reactions (A11y)
+
+### Patch Changes
+
+- [`c46d8779440a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c46d8779440a9) -
+  Use width: auto when fitToHeight is defined
+- Updated dependencies
+
 ## 69.5.13
 
 ### Patch Changes

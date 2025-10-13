@@ -8,6 +8,7 @@ import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import CalendarIcon from '@atlaskit/icon/core/calendar';
 import ClockIcon from '@atlaskit/icon/core/clock';
 import DataNumberIcon from '@atlaskit/icon/core/data-number';
+import FieldDropdownIcon from '@atlaskit/icon/core/field-dropdown';
 import InfoIcon from '@atlaskit/icon/core/migration/status-information--editor-panel';
 import PersonAvatarIcon from '@atlaskit/icon/core/person-avatar';
 import TagIcon from '@atlaskit/icon/core/tag';
@@ -75,8 +76,7 @@ const getFieldTypeIcon = (type: string) => {
 		case 'Date':
 			return <ResizedIcon Icon={CalendarIcon} LegacyIcon={LegacyCalendarIcon} />;
 		case 'Dropdown':
-			// TODO: https://product-fabric.atlassian.net/browse/DSP-21308
-			return <LegacyArrowDownIcon label="" size="small" testId="jql-editor-field-type-icon" />;
+			return <ResizedIcon Icon={FieldDropdownIcon} LegacyIcon={LegacyArrowDownIcon} />;
 		case 'Labels':
 			return <ResizedIcon Icon={TagIcon} LegacyIcon={LegacyTagIcon} />;
 		case 'Number':

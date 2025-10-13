@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-table
 
+## 15.1.1
+
+### Patch Changes
+
+- [`1ad50530f4fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ad50530f4fdd) -
+  fix wrong experiment for table toDOM relates to table overflow shadow
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`18f1ab6ba31b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18f1ab6ba31b0) -
+  improve table overshadow under experiment with variants including variant1: complete remove table
+  overflow shadowing, variant2: complete remove table overflow shadowing but have border in table
+  outer wrapper, variant3: use css-only driven table overflow shadowing.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.12
+
+### Patch Changes
+
+- [`c0ef0bedb49c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0ef0bedb49c0) -
+  EDITOR-1391 only send table width information events if there are tables, add enums and boolean
+  values for table width, editor width and scrollbar existence for ingestion in signalfx
+- Updated dependencies
+
 ## 15.0.11
 
 ### Patch Changes

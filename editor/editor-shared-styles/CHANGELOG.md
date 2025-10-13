@@ -1,5 +1,20 @@
 # @atlaskit/editor-shared-styles
 
+## 3.7.2
+
+### Patch Changes
+
+- [`c8fcf531a86b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8fcf531a86b8) -
+  [ux] Scale status in smart link inside excerpt when content in dense mode
+
+## 3.7.1
+
+### Patch Changes
+
+- [`83f9f7557b327`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83f9f7557b327) -
+  [EDITOR-2007] Scale paragraph margins based on paragraph size
+- Updated dependencies
+
 ## 3.7.0
 
 ### Minor Changes

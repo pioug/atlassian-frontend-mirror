@@ -45,6 +45,9 @@
 			"path": "../../editor-toolbar-model/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags-react/afm-rovo-extension/tsconfig.json"
 		},
 		{

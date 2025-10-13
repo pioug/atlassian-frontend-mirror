@@ -78,11 +78,15 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 			borderColor.push(token);
 		}
 
-		if (token.path.includes('border') && token.path.includes('width')) {
+		if (
+			token.path.includes('border') &&
+			token.path.includes('width') &&
+			token.attributes?.state !== 'deprecated'
+		) {
 			borderWidth.push(token);
 		}
 
-		if (token.path.includes('border.radius') || token.path.includes('radius')) {
+		if (token.path.includes('radius') && token.attributes?.state !== 'deprecated') {
 			borderRadius.push(token);
 		}
 

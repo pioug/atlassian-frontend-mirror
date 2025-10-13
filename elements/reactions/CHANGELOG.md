@@ -1,5 +1,18 @@
 # @atlaskit/reactions
 
+## 33.3.2
+
+### Patch Changes
+
+- [`2dc6ecfe2679d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2dc6ecfe2679d) -
+  Removing unused option to optimistically load the emoji using the reaction imagePath.
+
+## 33.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.3.0
 
 ### Minor Changes

@@ -99,7 +99,7 @@ export const mapAccessibleProductsToAvailableSites = (data: AccessibleProduct): 
 				displayName: workspace.workspaceDisplayName,
 				isVertigo: workspace.vortexMode === 'ENABLED',
 				products: [product.productId],
-				url: workspace.workspaceUrl,
+				url: workspace.cloudUrl,
 			});
 		});
 	});

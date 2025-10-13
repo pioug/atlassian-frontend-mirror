@@ -1,4 +1,4 @@
-import { type RovoAgent } from '../types';
+import { type RovoAgent, type RovoAgentAgg } from '../types';
 
 const agentData: RovoAgent = {
 	id: 'agentId',
@@ -12,6 +12,13 @@ const agentData: RovoAgent = {
 	actor_type: 'AGENT',
 	user_defined_conversation_starters: [],
 	deactivated: false,
+};
+
+export const agentAggData: RovoAgentAgg = {
+	authoringTeam: {
+		displayName: 'Profile card agent',
+		profileUrl: 'https://example.com/profile',
+	},
 };
 
 export default agentData;

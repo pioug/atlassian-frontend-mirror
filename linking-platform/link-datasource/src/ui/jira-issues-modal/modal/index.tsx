@@ -503,40 +503,25 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 					onClose={onCancel}
 					shouldReturnFocus={shouldReturnFocus}
 				>
-					{fg('navx-1483-a11y-close-button-in-modal-updates') ? (
-						<ModalHeader>
-							<Flex gap="space.200" justifyContent="space-between" xcss={styles.flexStyles}>
-								<Flex justifyContent="end" xcss={styles.viewModeContainer}>
-									{!hasNoJiraSites && <DatasourceViewModeDropDown />}
-									<CloseButton onClick={onCancel} />
-								</Flex>
-								<Flex justifyContent="start" xcss={styles.modalTitleContainer}>
-									<ModalTitle>
-										<SiteSelector
-											availableSites={availableSites}
-											onSiteSelection={onSiteSelection}
-											selectedSite={selectedJiraSite}
-											testId="jira-datasource-modal--site-selector"
-											label={siteSelectorLabel}
-										/>
-									</ModalTitle>
-								</Flex>
+					<ModalHeader>
+						<Flex gap="space.200" justifyContent="space-between" xcss={styles.flexStyles}>
+							<Flex justifyContent="end" xcss={styles.viewModeContainer}>
+								{!hasNoJiraSites && <DatasourceViewModeDropDown />}
+								<CloseButton onClick={onCancel} />
 							</Flex>
-						</ModalHeader>
-					) : (
-						<ModalHeader>
-							<ModalTitle>
-								<SiteSelector
-									availableSites={availableSites}
-									onSiteSelection={onSiteSelection}
-									selectedSite={selectedJiraSite}
-									testId="jira-datasource-modal--site-selector"
-									label={siteSelectorLabel}
-								/>
-							</ModalTitle>
-							{!hasNoJiraSites && <DatasourceViewModeDropDown />}
-						</ModalHeader>
-					)}
+							<Flex justifyContent="start" xcss={styles.modalTitleContainer}>
+								<ModalTitle>
+									<SiteSelector
+										availableSites={availableSites}
+										onSiteSelection={onSiteSelection}
+										selectedSite={selectedJiraSite}
+										testId="jira-datasource-modal--site-selector"
+										label={siteSelectorLabel}
+									/>
+								</ModalTitle>
+							</Flex>
+						</Flex>
+					</ModalHeader>
 					<ModalBody>
 						{!hasNoJiraSites ? (
 							<Fragment>

@@ -1,0 +1,97 @@
+---
+title: Icon tile
+description: An icon with background, shape, color, and size determined by the Tile component.
+order: 3
+---
+
+import SectionMessage from '@atlaskit/section-message';
+import Image from '@atlaskit/image';
+import iconTileAnatomyLight from './images/icon-tile-anatomy-light.png';
+import iconTileAnatomyDark from './images/icon-tile-anatomy-dark.png';
+import iconTileSizeLight from './images/icon-tile-size-light.png';
+import iconTileSizeDark from './images/icon-tile-size-dark.png';
+import iconTileColorLight from './images/icon-tile-color-light.png';
+import iconTileColorDark from './images/icon-tile-color-dark.png';
+import iconTileBoldDo from './images/do-donts/icon-tile-bold-do.png';
+import iconTileBoldDont from './images/do-donts/icon-tile-bold-dont.png';
+
+## Usage
+
+Icon tile inherits properties from the <a href="/components/tile/examples">Tile</a> component, like
+sizing and radii. Use an icon tile to prominently highlight icons in a layout, such as next to a
+group of text.
+
+For icon tiles representing Atlassian-specific content such as pages, live docs, or bugs use
+
+<a href="/components/object/object-tile/examples">Object tile</a>.
+
+## Anatomy
+
+<Image src={iconTileAnatomyLight} srcDark={iconTileAnatomyDark} alt="Anatomy of an icon tile" />
+
+1. **Foreground element**: Can be switched out with any icon from our iconography library.
+2. **Tile background**: The default variant has a neutral background set to
+   <inlineCode>color.background.neutral</inlineCode>. Bold tile backgrounds can be picked from a
+   range of preset background accent tokens.
+
+## Size
+
+Unlike the Icon component, Icon tile provides flexibility for icons to be scaled up for use in
+different layouts. There are currently 5 size options: xsmall (20px), small (24px), medium (32px),
+large (40px), xlarge (48px).
+
+<SectionMessage appearance="warning">
+	Icon tiles are only offered from 20px. For smaller sizes, use{' '}
+	<a href="/components/icon/icon/examples">Icon</a>.
+</SectionMessage>
+
+<Image
+	src={iconTileSizeLight}
+	srcDark={iconTileSizeDark}
+	alt="All sizes available for an icon tile"
+/>
+
+## Color
+
+Icon tiles come with readily set color variants in <inlineCode>default</inlineCode> and
+
+<inlineCode>bold</inlineCode>. For consistency across our apps, don't change the color of the icon
+tile to a custom color.
+
+<Image
+	src={iconTileColorLight}
+	srcDark={iconTileColorDark}
+	alt="All Colors available for an icon tile"
+/>
+
+## Best practices
+
+### Use bold variants with care
+
+Be cautious when using bold tiles. Use them only when highlighting stand-alone elements.
+
+<DoDont
+	type="do"
+	image={{
+		url: iconTileBoldDo,
+		alt: '',
+	}}
+>
+	Use sparingly, and only as stand-alone elements.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: iconTileBoldDont,
+		alt: '',
+	}}
+>
+	Don't use bold tiles on compact elements like lists or tables.
+</DoDont>
+
+## Related
+
+- To slot in elements other than an icon, use <a href="/components/tile/examples">Tile</a>
+- <a href="/components/object/examples">Object</a>
+- <a href="/components/object/object-tile/examples">Object tile</a>
+- <a href="/components/icon/examples">Icon</a>

@@ -465,7 +465,10 @@ export const RendererFunctionalComponent = (
 							props.innerRef?.current?.querySelector<HTMLElement>('.ak-renderer-document');
 
 						if (renderer) {
-							fireAnalyticsEvent(getWidthInfoPayload(renderer));
+							const payload = getWidthInfoPayload(renderer);
+							if (payload) {
+								fireAnalyticsEvent(payload);
+							}
 						}
 					};
 

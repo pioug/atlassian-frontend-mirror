@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 6.5.0
+
+### Minor Changes
+
+- [`d65b31774de31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d65b31774de31) -
+  Removed deprecated border radius and border width tokens from CSS type.
+
 ## 6.4.3
 
 ### Patch Changes

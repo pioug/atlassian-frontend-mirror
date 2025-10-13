@@ -6,11 +6,10 @@ import { defineMessages, useIntl } from 'react-intl-next';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
+import AutomationIcon from '@atlaskit/icon/core/automation';
 import LegacyManualTriggerIcon from '@atlaskit/legacy-custom-icons/manual-trigger-icon';
 import { ModalHeader, useModal } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
-import { G50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useAutomationMenu } from '../../menu-context';
@@ -52,7 +51,7 @@ export const AutomationModalHeader = ({
 	const showDescription = initialised && rules.length > 0 && !!modalDescription;
 
 	return (
-		<ModalHeader hasCloseButton={fg('navx-1483-a11y-close-button-in-modal-updates')}>
+		<ModalHeader hasCloseButton>
 			<Stack>
 				<Inline alignBlock="center">
 					<Box
@@ -60,11 +59,13 @@ export const AutomationModalHeader = ({
 						// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 						backgroundColor="color.background.accent.green.subtlest"
 					>
-						{/* TODO: no-custom-icons- https://product-fabric.atlassian.net/browse/DSP-21444 */}
-						<LegacyManualTriggerIcon
+						<AutomationIcon
 							size="small"
 							label={formatMessage(i18n.modalHeaderIconLabel)}
-							primaryColor={token('color.icon.accent.green', G50)}
+							color={token('color.icon.accent.green')}
+							spacing="compact"
+							LEGACY_fallbackIcon={LegacyManualTriggerIcon}
+							LEGACY_size="small"
 						/>
 					</Box>
 					<Heading size="medium" id={titleId}>

@@ -11,7 +11,4 @@ snapshotInformational(JiraIssuesConfigModalNoInitialJql, {
 	},
 	drawsOutsideBounds: true,
 	description: 'Jira Issues Config Modal No Initial Jql toggle to Basic mode',
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });

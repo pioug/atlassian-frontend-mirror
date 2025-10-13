@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::ed11f4244872e43591785f0876a00389>>
+ * @codegen <<SignedSource::253c55eaf2e641bb908b97eb3e197f50>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -284,21 +284,11 @@ export type BorderRadius =
 	| 'var(--ds-radius-xlarge)'
 	| 'var(--ds-radius-full)'
 	| 'var(--ds-radius-tile)'
-	| 'var(--ds-border-radius)'
-	| 'var(--ds-border-radius-050)'
-	| 'var(--ds-border-radius-100)'
-	| 'var(--ds-border-radius-200)'
-	| 'var(--ds-border-radius-300)'
-	| 'var(--ds-border-radius-400)'
-	| 'var(--ds-border-radius-circle)'
 	| 'inherit'
 	| `${number}px`
 	| `${number}rem`;
 export type BorderWidth =
 	| 'var(--ds-border-width)'
-	| 'var(--ds-border-width-0)'
-	| 'var(--ds-border-width-indicator)'
-	| 'var(--ds-border-width-outline)'
 	| 'var(--ds-border-width-selected)'
 	| 'var(--ds-border-width-focused)'
 	| 0

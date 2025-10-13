@@ -10,4 +10,7 @@ export type AnalyticsEventSource =
 	| 'teamProfileAbout'
 	| 'teamProfileScreen'
 	| 'userMenu'
-	| 'peopleHome';
+	| 'peopleHome'
+	| 'avatarInitialsPicker'
+	| 'peopleDirectorySearchPage'
+	| 'peopleDirectorySearchResultsPage';

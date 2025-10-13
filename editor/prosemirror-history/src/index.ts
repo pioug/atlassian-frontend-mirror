@@ -5,6 +5,13 @@ import { Plugin, PluginKey, type SelectionBookmark } from '@atlaskit/editor-pros
 import type { Step, StepMap, Transform } from '@atlaskit/editor-prosemirror/transform';
 import { Mapping } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import {
+	createTransformFromSteps,
+	InvertableStep,
+	mapInvertableSteps,
+} from './utils/createTransformFromSteps';
 
 type CommandDispatch = (tr: Transaction) => void;
 // Duplicated type to avoid circular dependency
@@ -354,6 +361,18 @@ class HistoryState {
 		readonly prevRanges: readonly number[] | null,
 		readonly prevTime: number,
 		readonly prevComposition: number,
+		/**
+		 * ===
+		 * FORK ADDITION START
+		 * Allow for "history slicing" which groups together changes regardless of time / position adjacency
+		 */
+		readonly historySliceActive?: boolean,
+		readonly trackedSteps?: InvertableStep[],
+		readonly selectionBookmark?: SelectionBookmark,
+		/**
+		 * FORK ADDITION END
+		 * ===
+		 */
 	) {}
 }
 
@@ -371,6 +390,71 @@ function applyTransaction(
 	if (historyTr) {
 		return historyTr.historyState;
 	}
+
+	/**
+	 * ===
+	 * FORK ADDITION START
+	 * If history slicing is active, we want to continue the current slice
+	 */
+	if (fg('platform_editor_ai_aifc_undo_redo')) {
+		if (
+			(tr.getMeta('startHistorySlice') === true || history?.historySliceActive) &&
+			tr.getMeta('endHistorySlice') !== true
+		) {
+			if (tr.getMeta('addToHistory') === false) {
+				// For addToHistory=false transactions during a slice, we need to:
+				// 1. Update the mapping for done/undone branches
+				// 2. Map the existing steps
+				// 3. Update the document to rebaseline
+				const mappedRanges = history.prevRanges ? mapRanges(history.prevRanges, tr.mapping) : null;
+				return new HistoryState(
+					history.done.addMaps(tr.mapping.maps),
+					history.undone.addMaps(tr.mapping.maps),
+					mappedRanges,
+					history.prevTime,
+					history.prevComposition,
+					true,
+					mapInvertableSteps(history.trackedSteps, tr),
+					history.selectionBookmark,
+				);
+			}
+			const startHistorySlice = tr.getMeta('startHistorySlice') === true;
+			const newTrackedSteps = [
+				...(history.trackedSteps || []),
+				...tr.steps.map((s, idx) => new InvertableStep(s, s.invert(tr.docs[idx]))),
+			];
+			const mappedRanges = history.prevRanges ? mapRanges(history.prevRanges, tr.mapping) : null;
+			return new HistoryState(
+				history.done,
+				startHistorySlice ? Branch.empty : history.undone,
+				mappedRanges,
+				history.prevTime,
+				history.prevComposition,
+				true,
+				newTrackedSteps,
+				startHistorySlice ? state.selection.getBookmark() : history.selectionBookmark,
+			);
+		} else if (tr.getMeta('endHistorySlice') === true && history.historySliceActive) {
+			const trackedSteps = history.historySliceActive ? history.trackedSteps || [] : [];
+			// Create transform that represents the changes made during the slice
+			// Use the original slice document as the base
+			const transform = createTransformFromSteps(trackedSteps, tr.doc);
+			const mappedRanges = history.prevRanges ? mapRanges(history.prevRanges, tr.mapping) : null;
+			return new HistoryState(
+				history.done
+					.addMaps(tr.mapping.maps)
+					.addTransform(transform, history.selectionBookmark, options, mustPreserveItems(state)),
+				history.undone.addMaps(tr.mapping.maps),
+				mappedRanges,
+				history.prevTime,
+				history.prevComposition,
+			);
+		}
+	}
+	/**
+	 * FORK ADDITION END
+	 * ===
+	 */
 
 	if (tr.getMeta(closeHistoryKey)) {
 		history = new HistoryState(history.done, history.undone, null, 0, -1);
@@ -533,13 +617,29 @@ function histTransaction(
 		preserveItems,
 	);
 
-	const newHist = new HistoryState(
-		redo ? added : pop.remaining,
-		redo ? pop.remaining : added,
-		null,
-		0,
-		-1,
-	);
+	/**
+	 * ===
+	 * FORK ADDITION START
+	 * If history slicing is active when we undo/redo, when we perform an undo/redo we want to
+	 * map and keep the relevant steps in the new history state
+	 */
+	const newHist =
+		history.historySliceActive && fg('platform_editor_ai_aifc_undo_redo')
+			? new HistoryState(
+					redo ? added : pop.remaining,
+					redo ? pop.remaining : added,
+					null,
+					0,
+					-1,
+					history.historySliceActive,
+					mapInvertableSteps(history.trackedSteps, pop.transform),
+					history.selectionBookmark?.map(pop.transform.mapping),
+				)
+			: new HistoryState(redo ? added : pop.remaining, redo ? pop.remaining : added, null, 0, -1);
+	/**
+	 * FORK ADDITION END
+	 * ===
+	 */
 	return pop.transform.setSelection(selection).setMeta(historyKey, { redo, historyState: newHist });
 }
 

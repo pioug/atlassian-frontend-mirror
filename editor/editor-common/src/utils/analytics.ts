@@ -62,3 +62,17 @@ export enum SEVERITY {
 }
 
 export const analyticsEventKey = 'EDITOR_ANALYTICS_EVENT';
+
+const EDITOR_BREAKPOINT_WIDTH = {
+	S: 760,
+	M: 1600,
+	L: Infinity,
+};
+
+export type EditorBreakpointKey = keyof typeof EDITOR_BREAKPOINT_WIDTH;
+
+const TABLE_BREAKPOINT_KEYS = Object.keys(EDITOR_BREAKPOINT_WIDTH) as EditorBreakpointKey[];
+
+export const getBreakpointKey = (width: number): EditorBreakpointKey => {
+	return TABLE_BREAKPOINT_KEYS.find((key) => width <= EDITOR_BREAKPOINT_WIDTH[key]) || 'L';
+};

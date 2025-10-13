@@ -1,5 +1,11 @@
 # @atlaskit/lozenge
 
+## 13.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.12
 
 ### Patch Changes

@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::91c72b4ac5c355e95b3dd872f1c196e2>>
+ * @codegen <<SignedSource::b415cf5bbcb0bc924155416a84549b88>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1107,6 +1107,39 @@ export type HeaderImageSucceededTeamHeaderImageAttributesType = {
 export type ButtonClickedProfileHeaderMediaPickerUploadAttributesType = undefined;
 export type ButtonClickedProfileHeaderRemoveAttributesType = undefined;
 export type SendFeedbackClickedAttributesType = undefined;
+export type ButtonClickedRemoveAvatarAttributesType = undefined;
+export type DeleteAvatarFailedAttributesType = undefined;
+export type DeleteAvatarSucceededAttributesType = undefined;
+export type AvatarPickerClosedAttributesType = {
+	hasUploadedAvatar: boolean;
+};
+export type AvatarPickerOpenedAttributesType = {
+	hasUploadedAvatar: boolean;
+};
+export type ButtonClickedChangeProfilePhotoAttributesType = undefined;
+export type ButtonClickedCreateInitialsAvatarAttributesType = undefined;
+export type AvatarInitialsPickerOpenedAttributesType = {
+	hasUploadedAvatar: boolean;
+};
+export type UploadAvatarFailedAttributesType = {
+	avatarType: 'image' | 'initials';
+	hasUploadedAvatar: boolean;
+};
+export type UploadAvatarSucceededAttributesType = {
+	avatarType: 'image' | 'initials';
+	hasUploadedAvatar: boolean;
+};
+export type ButtonClickedUpdateAvatarInitialsAttributesType = {
+	isInvalid: boolean;
+	color: string;
+};
+export type ButtonClickedCancelUpdateAvatarInitialsAttributesType = undefined;
+export type AvatarInitialsPickerClosedAttributesType = undefined;
+export type AvatarInitialsPickerViewedAttributesType = undefined;
+export type TeamOrgMismatchFailedAttributesType = {
+	currentOrgId: string;
+	queryName: string;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -1864,6 +1897,51 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the send feedback button is clicked */
 	'ui.sendFeedback.clicked': SendFeedbackClickedAttributesType;
+	/**
+	 * fired when the remove avatar button is clicked */
+	'ui.button.clicked.removeAvatar': ButtonClickedRemoveAvatarAttributesType;
+	/**
+	 * fired when the delete avatar action is failed */
+	'track.deleteAvatar.failed': DeleteAvatarFailedAttributesType;
+	/**
+	 * fired when the delete avatar action is succeeded */
+	'track.deleteAvatar.succeeded': DeleteAvatarSucceededAttributesType;
+	/**
+	 * fired when the avatar picker is closed */
+	'track.avatarPicker.closed': AvatarPickerClosedAttributesType;
+	/**
+	 * fired when the avatar picker is opened */
+	'track.avatarPicker.opened': AvatarPickerOpenedAttributesType;
+	/**
+	 * fired when the change profile photo button is clicked */
+	'ui.button.clicked.changeProfilePhoto': ButtonClickedChangeProfilePhotoAttributesType;
+	/**
+	 * fired when the create initials avatar button is clicked */
+	'ui.button.clicked.createInitialsAvatar': ButtonClickedCreateInitialsAvatarAttributesType;
+	/**
+	 * fired when the avatar initials picker is opened */
+	'track.avatarInitialsPicker.opened': AvatarInitialsPickerOpenedAttributesType;
+	/**
+	 * fired when the upload avatar action is failed */
+	'track.uploadAvatar.failed': UploadAvatarFailedAttributesType;
+	/**
+	 * fired when the upload avatar action is succeeded */
+	'track.uploadAvatar.succeeded': UploadAvatarSucceededAttributesType;
+	/**
+	 * fired when the update avatar initials button is clicked */
+	'ui.button.clicked.updateAvatarInitials': ButtonClickedUpdateAvatarInitialsAttributesType;
+	/**
+	 * fired when the cancel update avatar initials button is clicked */
+	'ui.button.clicked.cancelUpdateAvatarInitials': ButtonClickedCancelUpdateAvatarInitialsAttributesType;
+	/**
+	 * fired when the avatar initials picker is closed */
+	'track.avatarInitialsPicker.closed': AvatarInitialsPickerClosedAttributesType;
+	/**
+	 * fired when the avatar initials picker is viewed */
+	'screen.avatarInitialsPicker.viewed': AvatarInitialsPickerViewedAttributesType;
+	/**
+	 * fired when the team org mismatch is failed */
+	'operational.TeamOrgMismatch.failed': TeamOrgMismatchFailedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

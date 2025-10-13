@@ -575,9 +575,10 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 											const editorWidth = api?.width.sharedState.currentState()?.width;
 
 											if (editorWidth && editorViewRef.current) {
-												dispatchAnalyticsEvent(
-													getWidthInfoPayload(editorViewRef.current, editorWidth),
-												);
+												const payload = getWidthInfoPayload(editorViewRef.current, editorWidth);
+												if (payload) {
+													dispatchAnalyticsEvent(payload);
+												}
 											}
 										};
 

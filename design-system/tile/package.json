@@ -3,10 +3,7 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Tile",
-			"category": "Images and icons",
-			"status": {
-				"type": "alpha"
-			}
+			"category": "Images and icons"
 		}
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
@@ -87,8 +84,8 @@
 		}
 	},
 	"name": "@atlaskit/tile",
-	"version": "0.2.0",
-	"description": "A tile is a rounded square that takes an asset (Image, Icon, Logo) and represents a noun.",
+	"version": "0.2.1",
+	"description": "A tile is a rounded square that takes an asset and represents a noun.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {

@@ -1,6 +1,6 @@
 # Image
 
-A tile is a rounded square that takes an asset (Image, Icon, Logo) and represents a noun.
+A tile is a rounded square that takes an asset and represents a noun.
 
 ## Installation
 

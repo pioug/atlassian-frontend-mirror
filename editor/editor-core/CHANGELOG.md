@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 215.1.3
+
+### Patch Changes
+
+- [`83f9f7557b327`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83f9f7557b327) -
+  [EDITOR-2007] Scale paragraph margins based on paragraph size
+- Updated dependencies
+
+## 215.1.2
+
+### Patch Changes
+
+- [`71cac2e4cf915`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71cac2e4cf915) -
+  [FF-CLEANUP] platform_editor_add_border_for_nested_panel
+- Updated dependencies
+
 ## 215.1.1
 
 ### Patch Changes

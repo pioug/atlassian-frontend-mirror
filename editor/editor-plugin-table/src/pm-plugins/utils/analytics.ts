@@ -8,6 +8,7 @@ import type {
 } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
 import type { HigherOrderCommand } from '@atlaskit/editor-common/types';
+import { getBreakpointKey } from '@atlaskit/editor-common/utils/analytics';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -256,7 +257,7 @@ const tableContainerNodes = new Set([
 export const getWidthInfoPayload = (
 	editorView: EditorView,
 	editorWidth: number,
-): TableEventPayload => {
+): TableEventPayload | undefined => {
 	const tablesInfo: Array<{
 		hasScrollbar: boolean;
 		isNestedTable: boolean;
@@ -287,11 +288,22 @@ export const getWidthInfoPayload = (
 		}
 	});
 
+	// only send the event if there are tables on the page
+	if (tablesInfo.length === 0) {
+		return undefined;
+	}
+
+	const maxTableWidth = Math.max(...tablesInfo.map((table) => table.tableWidth));
+
 	return {
 		action: TABLE_ACTION.TABLE_WIDTH_INFO,
 		actionSubject: ACTION_SUBJECT.TABLE,
 		attributes: {
-			editorWidth: editorWidth,
+			editorWidth,
+			editorWidthBreakpoint: getBreakpointKey(editorWidth),
+			hasTableWithScrollbar: tablesInfo.some((table) => table.hasScrollbar),
+			hasTableWiderThanEditor: maxTableWidth > editorWidth,
+			maxTableWidthBreakpoint: getBreakpointKey(maxTableWidth),
 			tableWidthInfo: tablesInfo,
 			mode: 'editor',
 		},

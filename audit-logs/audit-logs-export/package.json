@@ -89,7 +89,7 @@
 		}
 	},
 	"name": "@atlaskit/audit-logs-export",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"description": "Audit-logs export component",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

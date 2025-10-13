@@ -1,6 +1,18 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 
-import { ICON_NAME_MAPPINGS } from './constants';
+import { AVAILABLE_ICON_NAMES, ICON_TO_OBJECT_NAME_MAPPINGS } from './constants';
+
+/**
+ * Converts a kebab-case string to PascalCase
+ * @param str - The kebab-case string (e.g., 'new-feature', 'work-item')
+ * @returns PascalCase string (e.g., 'NewFeature', 'WorkItem')
+ */
+export function kebabToPascalCase(str: string): string {
+	return str
+		.split('-')
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+		.join('');
+}
 
 /**
  * Extracts icon name and size from an icon-object import path
@@ -19,7 +31,7 @@ export function parseIconObjectImport(importPath: string): {
 	const [, iconName, size] = match;
 
 	// Check if this is a valid icon name we support
-	if (!ICON_NAME_MAPPINGS[iconName]) {
+	if (!AVAILABLE_ICON_NAMES.includes(iconName)) {
 		return null;
 	}
 
@@ -31,7 +43,7 @@ export function parseIconObjectImport(importPath: string): {
 
 /**
  * Gets the new import specifier for an icon based on its name and size
- * @param iconName - The kebab-case icon name (e.g., 'new-feature')
+ * @param iconName - The kebab-case icon name from icon-object (e.g., 'new-feature', 'issue')
  * @param size - The size ('16' or '24')
  * @returns Object with the new import path and component name
  */
@@ -42,16 +54,20 @@ export function getNewImportInfo(
 	importPath: string;
 	componentName: string;
 } {
-	const pascalCaseName = ICON_NAME_MAPPINGS[iconName];
+	// Check if this icon name needs to be mapped to a different object name
+	const objectName = ICON_TO_OBJECT_NAME_MAPPINGS[iconName] || iconName;
+
+	// Convert the object name to PascalCase
+	const pascalCaseName = kebabToPascalCase(objectName);
 
 	if (size === '16') {
 		return {
-			importPath: `@atlaskit/object/${iconName}`,
+			importPath: `@atlaskit/object/${objectName}`,
 			componentName: `${pascalCaseName}Object`,
 		};
 	} else {
 		return {
-			importPath: `@atlaskit/object/tile/${iconName}`,
+			importPath: `@atlaskit/object/tile/${objectName}`,
 			componentName: `${pascalCaseName}ObjectTile`,
 		};
 	}

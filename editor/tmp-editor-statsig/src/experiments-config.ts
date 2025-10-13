@@ -42,6 +42,19 @@ export const editorExperimentsConfig = {
 		defaultValue: 'control',
 	}),
 
+	// Added 2025-09-30
+	// variant 1: remove table overflow shadows completely, no table border shown when scrolling.
+	// variant 2: remove table overflow shadows, show table border when scrolling.
+	// variant 3: replace table overflow shadows with CSS-only solution.
+	platform_editor_disable_table_overflow_shadows: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'platform_editor_disable_table_overflow_shadows',
+		},
+		param: 'cohort',
+		values: ['control', 'variant1', 'variant2', 'variant3'],
+		defaultValue: 'control',
+	}),
+
 	// Added 2025-05-27
 	platform_editor_reduce_noisy_steps_ncs: createBooleanExperiment({
 		productKeys: {

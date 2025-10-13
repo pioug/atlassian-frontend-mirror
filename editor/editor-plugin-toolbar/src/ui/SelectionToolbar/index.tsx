@@ -1,40 +1,45 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { useIntl, type IntlShape } from 'react-intl-next';
+import { useIntl } from 'react-intl-next';
 
-import { getDocument } from '@atlaskit/browser-apis';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	type AnalyticsEventPayload,
+} from '@atlaskit/editor-common/analytics';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { fullPageMessages } from '@atlaskit/editor-common/messages';
+import { logException } from '@atlaskit/editor-common/monitoring';
 import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup, EDIT_AREA_ID } from '@atlaskit/editor-common/ui';
+import { Popup } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import {
 	calculateToolbarPositionTrackHead,
 	calculateToolbarPositionOnCellSelection,
 } from '@atlaskit/editor-common/utils';
 import { AllSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	ToolbarSection,
 	ToolbarButtonGroup,
 	ToolbarDropdownItemSection,
-	type ToolbarKeyboardNavigationProviderConfig,
 	useToolbarUI,
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { ToolbarPlugin } from '../../toolbarPluginType';
 import { SELECTION_TOOLBAR_LABEL } from '../consts';
-import { getFocusableElements, isShortcutToFocusToolbar } from '../utils/toolbar';
+
+import { getKeyboardNavigationConfig } from './keyboard-config';
+import { getDomRefFromSelection } from './utils';
 
 const isToolbarComponent = (component: RegisterComponent): component is RegisterToolbar => {
 	return component.type === 'toolbar' && component.key === 'inline-text-toolbar';
@@ -98,6 +103,59 @@ const usePluginState = conditionalHooksFactory(
 	},
 );
 
+const useOnPositionCalculated = conditionalHooksFactory(
+	() => fg('platform_editor_toolbar_aifc_patch_7'),
+	(editorView: EditorView) => {
+		const onPositionCalculated = useCallback(
+			(position: { left?: number; top?: number }) => {
+				try {
+					const toolbarTitle = SELECTION_TOOLBAR_LABEL;
+
+					// Show special position on cell selection only when editor controls experiment is enabled
+					const isEditorControlsEnabled = expValEquals(
+						'platform_editor_controls',
+						'cohort',
+						'variant1',
+					);
+					const isCellSelection = '$anchorCell' in editorView.state.selection;
+					if (isCellSelection && isEditorControlsEnabled) {
+						return calculateToolbarPositionOnCellSelection(toolbarTitle)(editorView, position);
+					}
+					return calculateToolbarPositionTrackHead(toolbarTitle)(editorView, position);
+				} catch (error: unknown) {
+					logException(error as Error, { location: 'editor-plugin-toolbar/selectionToolbar' });
+					return position;
+				}
+			},
+			[editorView],
+		);
+
+		return onPositionCalculated;
+	},
+	(editorView: EditorView) => {
+		const onPositionCalculated = useCallback(
+			(position: { left?: number; top?: number }) => {
+				const toolbarTitle = SELECTION_TOOLBAR_LABEL;
+
+				// Show special position on cell selection only when editor controls experiment is enabled
+				const isEditorControlsEnabled = expValEquals(
+					'platform_editor_controls',
+					'cohort',
+					'variant1',
+				);
+				const isCellSelection = '$anchorCell' in editorView.state.selection;
+				if (isCellSelection && isEditorControlsEnabled) {
+					return calculateToolbarPositionOnCellSelection(toolbarTitle)(editorView, position);
+				}
+				return calculateToolbarPositionTrackHead(toolbarTitle)(editorView, position);
+			},
+			[editorView],
+		);
+
+		return onPositionCalculated;
+	},
+);
+
 export const SelectionToolbar = ({
 	api,
 	editorView,
@@ -135,24 +193,7 @@ export const SelectionToolbar = ({
 	const isCellSelection =
 		!editorView.state.selection.empty && '$anchorCell' in editorView.state.selection;
 
-	const onPositionCalculated = useCallback(
-		(position: { left?: number; top?: number }) => {
-			const toolbarTitle = SELECTION_TOOLBAR_LABEL;
-
-			// Show special position on cell selection only when editor controls experiment is enabled
-			const isEditorControlsEnabled = expValEquals(
-				'platform_editor_controls',
-				'cohort',
-				'variant1',
-			);
-			const isCellSelection = '$anchorCell' in editorView.state.selection;
-			if (isCellSelection && isEditorControlsEnabled) {
-				return calculateToolbarPositionOnCellSelection(toolbarTitle)(editorView, position);
-			}
-			return calculateToolbarPositionTrackHead(toolbarTitle)(editorView, position);
-		},
-		[editorView],
-	);
+	const onPositionCalculated = useOnPositionCalculated(editorView);
 
 	if (
 		(expValEquals('platform_editor_toolbar_aifc_template_editor', 'isEnabled', true) &&
@@ -225,85 +266,25 @@ export const SelectionToolbar = ({
 	);
 };
 
-const getDomRefFromSelection = (
-	view: EditorView,
-	// dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-) => {
-	try {
-		// Ignored via go/ees005
-		// eslint-disable-next-line @atlaskit/editor/no-as-casting
-		return findDomRefAtPos(view.state.selection.from, view.domAtPos.bind(view)) as HTMLElement;
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	} catch (error: any) {
-		// // eslint-disable-next-line no-console
-		// console.warn(error);
-		// if (dispatchAnalyticsEvent) {
-		// 	const payload: AnalyticsEventPayload = {
-		// 		action: ACTION.ERRORED,
-		// 		actionSubject: ACTION_SUBJECT.CONTENT_COMPONENT,
-		// 		eventType: EVENT_TYPE.OPERATIONAL,
-		// 		attributes: {
-		// 			component: CONTENT_COMPONENT.FLOATING_TOOLBAR,
-		// 			selection: view.state.selection.toJSON(),
-		// 			position: view.state.selection.from,
-		// 			docSize: view.state.doc.nodeSize,
-		// 			error: error.toString(),
-		// 			// @ts-expect-error - Object literal may only specify known properties, 'errorStack' does not exist in type
-		// 			// This error was introduced after upgrading to TypeScript 5
-		// 			errorStack: error.stack || undefined,
-		// 		},
-		// 	};
-		// 	dispatchAnalyticsEvent(payload);
-		// }
-	}
-};
-
-const getKeyboardNavigationConfig = (
-	editorView: EditorView,
-	intl: IntlShape,
-	api?: ExtractInjectionAPI<ToolbarPlugin>,
-): ToolbarKeyboardNavigationProviderConfig | undefined => {
-	if (!(editorView.dom instanceof HTMLElement)) {
-		return;
-	}
-
-	const toolbarSelector = "[data-testid='editor-floating-toolbar']";
-
-	return {
-		childComponentSelector: toolbarSelector,
-		dom: editorView.dom,
-		isShortcutToFocusToolbar: isShortcutToFocusToolbar,
-		handleFocus: (event: KeyboardEvent) => {
-			const toolbar = getDocument()?.querySelector(toolbarSelector);
-			if (!(toolbar instanceof HTMLElement)) {
-				return;
-			}
-			const filteredFocusableElements = getFocusableElements(toolbar);
-			filteredFocusableElements[0]?.focus();
-
-			// the button element removes the focus ring so this class adds it back
-			if (filteredFocusableElements[0]?.tagName === 'BUTTON') {
-				filteredFocusableElements[0].classList.add('first-floating-toolbar-button');
-			}
-			filteredFocusableElements[0]?.scrollIntoView({
-				behavior: 'smooth',
-				block: 'center',
-				inline: 'nearest',
-			});
-			event.preventDefault();
-			event.stopPropagation();
-		},
-		handleEscape: (event: KeyboardEvent) => {
-			const isDropdownOpen = !!document.querySelector('[data-toolbar-component="menu-section"]');
-			if (isDropdownOpen) {
-				return;
-			}
-			api?.core.actions.focus();
-			event.preventDefault();
-			event.stopPropagation();
-		},
-		ariaControls: EDIT_AREA_ID,
-		ariaLabel: intl.formatMessage(fullPageMessages.toolbarLabel),
-	};
+export const SelectionToolbarWithErrorBoundary = ({
+	api,
+	editorView,
+	mountPoint,
+	disableSelectionToolbarWhenPinned,
+}: SelectionToolbarProps) => {
+	return (
+		<ErrorBoundary
+			component={ACTION_SUBJECT.TOOLBAR}
+			componentId={ACTION_SUBJECT_ID.SELECTION_TOOLBAR}
+			dispatchAnalyticsEvent={api?.analytics?.actions.fireAnalyticsEvent}
+			fallbackComponent={null}
+		>
+			<SelectionToolbar
+				api={api}
+				editorView={editorView}
+				mountPoint={mountPoint}
+				disableSelectionToolbarWhenPinned={disableSelectionToolbarWhenPinned}
+			/>
+		</ErrorBoundary>
+	);
 };

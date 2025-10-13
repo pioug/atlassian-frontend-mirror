@@ -1,5 +1,18 @@
 # @atlaskit/linking-common
 
+## 9.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.7.2
+
+### Patch Changes
+
+- [`e6776a2507c01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6776a2507c01) -
+  NOISSUE Updating accessible-products migration to use cloudUrl instead of workspaceUrl
+
 ## 9.7.1
 
 ### Patch Changes

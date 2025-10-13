@@ -972,6 +972,18 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 
 
 
+.emotion-0 .embedCardView-content-wrap.show-diff-changed-decoration-node-standard .loader-wrapper>div::after {
+  box-shadow: 0 0 0 1px var(--ds-border-accent-purple, #8270DB);
+  border-color: transparent;
+}
+
+.emotion-0 .embedCardView-content-wrap.show-diff-changed-decoration-node-traditional .loader-wrapper>div::after {
+  box-shadow: 0 0 0 1px var(--ds-border-accent-green, #22A06B);
+  border-color: transparent;
+}
+
+
+
 .emotion-0 .ProseMirror li .rich-media-item {
   margin: 0;
 }
@@ -6045,6 +6057,18 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 .emotion-0 .ProseMirror hr.ak-editor-selected-node {
   outline: none;
   background-color: var(--ds-border-selected, #0C66E4);
+}
+
+
+
+.emotion-0 .embedCardView-content-wrap.show-diff-changed-decoration-node-standard .loader-wrapper>div::after {
+  box-shadow: 0 0 0 1px var(--ds-border-accent-purple, #8270DB);
+  border-color: transparent;
+}
+
+.emotion-0 .embedCardView-content-wrap.show-diff-changed-decoration-node-traditional .loader-wrapper>div::after {
+  box-shadow: 0 0 0 1px var(--ds-border-accent-green, #22A06B);
+  border-color: transparent;
 }
 
 

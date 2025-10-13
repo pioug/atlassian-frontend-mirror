@@ -12,6 +12,7 @@ import EmojiPlaceholder from './EmojiPlaceholder';
 import { sampledUfoRenderedEmoji } from '../../util/analytics';
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface BaseResourcedEmojiProps {
 	/**
@@ -262,6 +263,13 @@ export const ResourcedEmojiComponent = ({
 		[onEmojiLoadSuccess],
 	);
 
+	// use width: auto as long as fitToHeight is defined
+	const autoWidth = fg('platform_emoji_width_auto_fitToHeight')
+		? !!fitToHeight
+		: !!emoji
+			? false
+			: true;
+
 	return (
 		<EmojiCommonProvider emojiProvider={resolvedEmojiProvider}>
 			<span
@@ -291,7 +299,7 @@ export const ResourcedEmojiComponent = ({
 							onLoadSuccess={handleOnLoadSuccess}
 							showTooltip={showTooltip}
 							fitToHeight={fitToHeight}
-							autoWidth={!!emoji ? false : true}
+							autoWidth={autoWidth}
 							editorEmoji={editorEmoji}
 						/>
 					)}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "124.4.1",
+	"version": "124.4.4",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -204,9 +204,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_renderer_rm_usespecbasedvalidator": {
-			"type": "boolean"
-		},
-		"platform_editor_add_border_for_nested_panel": {
 			"type": "boolean"
 		},
 		"platform_editor_bordered_panel_nested_in_table": {

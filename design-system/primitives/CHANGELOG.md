@@ -1,5 +1,16 @@
 # @atlaskit/primitives
 
+## 15.0.0
+
+### Major Changes
+
+- [`d65b31774de31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d65b31774de31) -
+  Removed deprecated border radius and border width tokens from xcss type.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.15.5
 
 ### Patch Changes

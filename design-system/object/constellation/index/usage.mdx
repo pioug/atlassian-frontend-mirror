@@ -1,0 +1,106 @@
+---
+order: 3
+---
+
+import SectionMessage from '@atlaskit/section-message';
+import Image from '@atlaskit/image';
+
+import objectSizeDark from './images/object-size-dark.png';
+import objectSizeLight from './images/object-size-light.png';
+import objectColorsDo from './images/do-donts/object-colors-do.png';
+import objectColorsDont from './images/do-donts/object-colors-dont.png';
+import objectLargerDo from './images/do-donts/object-larger-do.png';
+import objectLargerDont from './images/do-donts/object-larger-dont.png';
+
+## Usage
+
+<SectionMessage appearance="warning">
+	Objects are only offered in small (12px) and medium (16px). For larger representations, use{' '}
+	<a href="/components/object/object-tile/examples">Object tile</a>.
+</SectionMessage>
+
+An object is a representation of an Atlassian content type. They can be concepts such as a page in
+Confluence, a work item in Jira or a pull request in Bitbucket.
+
+Unlike the standard <a href="/components/icon/examples">Icon</a> component, an object is an icon
+that has an assigned color to help people identify the content type faster. This reduces cognitive
+load for people across apps and platforms.
+
+## Size
+
+There are 2 size options for object, representing the width and height in pixels: 12px and 16px. For
+larger sizes and increased legibility and visual prominence, use
+
+<a href="/components/object/object-tile/examples">Object tile</a>.
+
+<Image src={objectSizeLight} srcDark={objectSizeDark} alt="Object size" />
+
+## Best practices
+
+### Larger than 16px - use an Object tile
+
+Do not scale objects. For use cases that require a larger object, use
+
+<a href="/components/object/object-tile/examples">Object tile</a>.
+
+<DoDont
+	type="do"
+	image={{
+		url: objectLargerDo,
+		alt: '',
+	}}
+>
+	Use an object at either 12px or 16px.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: objectLargerDont,
+		alt: '',
+	}}
+>
+	Scale objects beyond 16px.
+</DoDont>
+
+### Don’t change object colors
+
+Objects are assigned specific colors. For consistency across our apps, don’t change the color of the
+object.
+
+<DoDont
+	type="do"
+	image={{
+		url: objectColorsDo,
+		alt: '',
+	}}
+>
+	Maintain the assigned color.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: objectColorsDont,
+		alt: '',
+	}}
+>
+	Switch color tokens or use custom fills.
+</DoDont>
+
+## Contributing and adding new objects
+
+Atlassian teams may request a new object for their apps. Please follow the
+
+<a href="https://go.atlassian.com/ads-request-object">request process</a> (Atlassian employees
+only).
+
+## Accessibility
+
+Use objects in combination with a title and meta-information, such as author, creation date, or
+sub-heading.
+
+## Related
+
+- For objects larger than 16px, use <a href="/components/object/object-tile/examples">Object
+  tile</a>
+- <a href="/components/icon/examples">Icon</a>
+- <a href="/components/icon/icon-tile/examples">Icon tile</a>

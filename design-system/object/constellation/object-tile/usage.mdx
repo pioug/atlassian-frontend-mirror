@@ -1,0 +1,113 @@
+---
+title: Object tile
+description: An object tile represents Atlassian-specific content in a tile.
+order: 3
+---
+
+import SectionMessage from '@atlaskit/section-message';
+import Image from '@atlaskit/image';
+
+import objectTileAnatomyDark from './images/object-tile-anatomy-dark.png';
+import objectTileAnatomyLight from './images/object-tile-anatomy-light.png';
+import objectTileSizeDark from './images/object-tile-size-dark.png';
+import objectTileSizeLight from './images/object-tile-size-light.png';
+
+import objectTileColorsDo from './images/do-donts/object-tile-colors-do.png';
+import objectTileColorsDont from './images/do-donts/object-tile-colors-dont.png';
+import objectTileSmallerDo from './images/do-donts/object-tile-smaller-do.png';
+import objectTileSmallerDont from './images/do-donts/object-tile-smaller-dont.png';
+
+## Usage
+
+Object tile represents objects in a tile shape with properties inherited from the tile component.
+Use them to highlight <a href="/components/object/examples">objects</a> in a layout, such as next to
+a group of text. To represent standard icons in a tile, use
+
+<a href="/components/icon/icon-tile/examples">Icon tile</a>.
+
+## Anatomy
+
+<Image
+	src={objectTileAnatomyLight}
+	srcDark={objectTileAnatomyDark}
+	alt="The anatomy of an Object tile"
+/>
+
+1. **Icon object:** Foreground icon represents Atlassian-specific content.
+2. **Background:** The default appearance has a neutral background set to
+   <inlineCode>color.background.neutral</inlineCode>. Bold tiles have an assigned background token
+   that cannot be changed.
+
+## Size
+
+There are currently 5 size options, representing the width and height in pixels: 20, 24, 32, 40, 48.
+To keep things easy to see, objects smaller than 20px must be shown without a tile container using
+the <a href="/components/object/examples">object</a> component.
+
+<Image
+	src={objectTileSizeLight}
+	srcDark={objectTileSizeDark}
+	alt="All available object tile options"
+/>
+
+## Best practices
+
+### Smaller than 20px - use an Object
+
+For smaller representations such as in tables or smart links, use
+
+<a href="/components/object/examples">Object</a>. Do not scale down object tile below 20px.
+
+<DoDont
+	type="do"
+	image={{
+		url: objectTileSmallerDo,
+		alt: '',
+	}}
+>
+	Use the prescribed size for object tiles.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: objectTileSmallerDont,
+		alt: '',
+	}}
+>
+	Scale down object tile below 20px.
+</DoDont>
+
+### Don’t change object tile colors
+
+Object tiles are assigned specific colors. For consistency across our apps, don’t change their
+color.
+
+<DoDont
+	type="do"
+	image={{
+		url: objectTileColorsDo,
+		alt: '',
+	}}
+>
+	Maintain the assigned color.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: objectTileColorsDont,
+		alt: '',
+	}}
+>
+	Switch color tokens or use custom fills.
+</DoDont>
+
+## Accessibility
+
+Use object tiles in combination with a title and meta-information, such as author, creation date, or
+sub-heading.
+
+## Related
+
+- For object tiles smaller than 20px, use <a href="/components/object/examples">Object</a>
+- <a href="/components/icon/icon-tile/examples">Icon tile</a>
+- <a href="/components/icon/examples">Icon</a>

@@ -2347,3 +2347,88 @@ events:
   - sendFeedback clicked:
       type: ui
       description: fired when the send feedback button is clicked
+  - button clicked (removeAvatar):
+      type: ui
+      description: fired when the remove avatar button is clicked
+  - deleteAvatar failed:
+      type: track
+      description: fired when the delete avatar action is failed
+  - deleteAvatar succeeded:
+      type: track
+      description: fired when the delete avatar action is succeeded
+  - avatarPicker closed:
+      type: track
+      description: fired when the avatar picker is closed
+      attributes:
+        hasUploadedAvatar:
+          type: boolean
+          description: whether the avatar has been uploaded
+  - avatarPicker opened:
+      type: track
+      description: fired when the avatar picker is opened
+      attributes:
+        hasUploadedAvatar:
+          type: boolean
+          description: whether the avatar has been uploaded
+  - button clicked (changeProfilePhoto):
+      type: ui
+      description: fired when the change profile photo button is clicked
+  - button clicked (createInitialsAvatar):
+      type: ui
+      description: fired when the create initials avatar button is clicked
+  - avatarInitialsPicker opened:
+      type: track
+      description: fired when the avatar initials picker is opened
+      attributes:
+        hasUploadedAvatar:
+          type: boolean
+          description: whether the avatar has been uploaded
+  - uploadAvatar failed:
+      type: track
+      description: fired when the upload avatar action is failed
+      attributes:
+        avatarType:
+          type: ['image', 'initials']
+          description: the type of the avatar
+        hasUploadedAvatar:
+          type: boolean
+          description: whether the avatar has been uploaded
+  - uploadAvatar succeeded:
+      type: track
+      description: fired when the upload avatar action is succeeded
+      attributes:
+        avatarType:
+          type: ['image', 'initials']
+          description: the type of the avatar
+        hasUploadedAvatar:
+          type: boolean
+          description: whether the avatar has been uploaded
+  - button clicked (updateAvatarInitials):
+      type: ui
+      description: fired when the update avatar initials button is clicked
+      attributes:
+        isInvalid:
+          type: boolean
+          description: whether the avatar is invalid
+        color:
+          type: string
+          description: the color of the avatar
+  - button clicked (cancelUpdateAvatarInitials):
+      type: ui
+      description: fired when the cancel update avatar initials button is clicked
+  - avatarInitialsPicker closed:
+      type: track
+      description: fired when the avatar initials picker is closed
+  - avatarInitialsPicker viewed:
+      type: screen
+      description: fired when the avatar initials picker is viewed
+  - TeamOrgMismatch failed:
+      type: operational
+      description: fired when the team org mismatch is failed
+      attributes:
+        currentOrgId:
+          type: string
+          description: the current org id
+        queryName:
+          type: string
+          description: the query name

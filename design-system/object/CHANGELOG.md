@@ -1,5 +1,14 @@
 # @atlaskit/object
 
+## 0.2.3
+
+### Patch Changes
+
+- [`e1c9823b0b420`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1c9823b0b420) - -
+  Added new metadata export
+  - Changed name of 'issue' object to 'work-item'
+- Updated dependencies
+
 ## 0.2.2
 
 ### Patch Changes

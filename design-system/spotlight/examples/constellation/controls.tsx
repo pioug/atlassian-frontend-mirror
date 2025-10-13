@@ -25,6 +25,7 @@ import {
 const Example = () => {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
 	const dismiss = () => setIsVisible(false);
+	const done = () => setIsVisible(false);
 
 	return (
 		<div>
@@ -37,7 +38,7 @@ const Example = () => {
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
 							<SpotlightControls>
-								<SpotlightDismissControl onClick={dismiss} />
+								<SpotlightDismissControl />
 							</SpotlightControls>
 						</SpotlightHeader>
 						<SpotlightBody>
@@ -45,7 +46,7 @@ const Example = () => {
 						</SpotlightBody>
 						<SpotlightFooter>
 							<SpotlightActions>
-								<SpotlightPrimaryAction onClick={dismiss}>Done</SpotlightPrimaryAction>
+								<SpotlightPrimaryAction onClick={done}>Done</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
 					</SpotlightCard>

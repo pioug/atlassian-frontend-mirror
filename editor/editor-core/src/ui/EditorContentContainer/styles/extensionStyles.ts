@@ -422,8 +422,8 @@ export const getExtensionStyles = (): SerializedStyles => {
 		expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 		fg('platform_editor_content_mode_button_mvp')
 			? css({
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'.extension-container *': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+					'.extension-container :not([data-inline-card-lozenge] *)': {
 						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 						fontSize: 'var(--ak-editor-base-font-size)',
 					},

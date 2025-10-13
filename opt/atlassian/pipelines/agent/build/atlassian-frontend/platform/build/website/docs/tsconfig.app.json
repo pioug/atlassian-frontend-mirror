@@ -50,6 +50,9 @@
 			"path": "../../../packages/design-system/link/tsconfig.app.json"
 		},
 		{
+			"path": "../../../packages/design-system/lozenge/tsconfig.app.json"
+		},
+		{
 			"path": "../../../packages/design-system/primitives/tsconfig.app.json"
 		},
 		{

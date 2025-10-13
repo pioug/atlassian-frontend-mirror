@@ -5,7 +5,4 @@ import ConfluenceSearchConfigModalNoResults from '../../examples/vr/confluence-s
 snapshot(ConfluenceSearchConfigModalNoResults, {
 	description: 'Confluence search config modal no results view',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-1483-a11y-close-button-in-modal-updates': true,
-	},
 });

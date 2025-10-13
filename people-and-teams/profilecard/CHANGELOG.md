@@ -1,5 +1,24 @@
 # @atlaskit/profilecard
 
+## 24.20.0
+
+### Minor Changes
+
+- [`c4c9dfedf66a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4c9dfedf66a9) -
+  Introduce agg query to agent profile card, refactor code to handle both REST and GraphQL agg type;
+  Implement authoring team to be shown if exist
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.19.0
+
+### Minor Changes
+
+- [`f6a1676c5404f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6a1676c5404f) -
+  Update chat to agent button text
+
 ## 24.18.1
 
 ### Patch Changes

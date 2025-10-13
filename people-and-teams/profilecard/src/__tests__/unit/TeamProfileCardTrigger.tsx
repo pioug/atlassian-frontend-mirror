@@ -63,7 +63,7 @@ const mockResourceClient: unknown = {
 		return 'http://dummy-url';
 	},
 	getRovoAgentProfile: () => {
-		return Promise.resolve(sampleAgent);
+		return Promise.resolve({ restData: sampleAgent, aggData: null });
 	},
 };
 

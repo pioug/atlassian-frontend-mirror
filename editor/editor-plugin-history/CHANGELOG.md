@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-history
 
+## 6.1.0
+
+### Minor Changes
+
+- [`cf00301977e5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf00301977e5b) -
+  Adds new history slice API which can be used to group together transactions over a period so they
+  can be undone at once.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

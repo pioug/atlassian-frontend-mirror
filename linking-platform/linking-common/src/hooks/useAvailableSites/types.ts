@@ -19,11 +19,11 @@ export interface Product {
 
 export interface Workspace {
 	cloudId: string;
-	cloudUrl?: string;
-	isPartOf?: string[];
-	orgId?: string;
+	cloudUrl: string;
+	isPartOf: string[];
+	orgId: string;
 	vortexMode: string;
-	workspaceAri?: string;
+	workspaceAri: string;
 	workspaceAvatarUrl: string;
 	workspaceDisplayName: string;
 	workspacePermissionIds?: string[];

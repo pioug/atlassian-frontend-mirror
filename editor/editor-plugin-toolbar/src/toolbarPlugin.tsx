@@ -8,12 +8,13 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findSelectedNodeOfType, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { createComponentRegistry } from '@atlaskit/editor-toolbar-model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { editorToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { EditorToolbarPluginState, ToolbarPlugin } from './toolbarPluginType';
 import { DEFAULT_POPUP_SELECTORS } from './ui/consts';
-import { SelectionToolbar } from './ui/SelectionToolbar';
+import { SelectionToolbar, SelectionToolbarWithErrorBoundary } from './ui/SelectionToolbar';
 import { getToolbarComponents } from './ui/toolbar-components';
 import { isEventInContainer } from './ui/utils/toolbar';
 
@@ -224,6 +225,17 @@ export const toolbarPlugin: ToolbarPlugin = ({
 			? ({ editorView, popupsMountPoint }) => {
 					if (!editorView) {
 						return null;
+					}
+
+					if (fg('platform_editor_toolbar_aifc_patch_7')) {
+						return (
+							<SelectionToolbarWithErrorBoundary
+								api={api}
+								editorView={editorView}
+								mountPoint={popupsMountPoint}
+								disableSelectionToolbarWhenPinned={disableSelectionToolbarWhenPinned ?? false}
+							/>
+						);
 					}
 
 					return (

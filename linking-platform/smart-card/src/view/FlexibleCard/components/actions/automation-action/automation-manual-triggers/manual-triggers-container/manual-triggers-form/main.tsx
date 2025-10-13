@@ -5,7 +5,6 @@ import { di } from 'react-magnetic-di';
 import Button from '@atlaskit/button/new';
 import Form, { ErrorMessage, FormSection } from '@atlaskit/form';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import messages from '../common/messages';
 import {
@@ -141,7 +140,7 @@ const UserInputForm = (props: UserInputProps) => {
 			<Form<Record<string, string>> onSubmit={handleSubmit}>
 				{({ formProps, submitting }) => (
 					<form {...formProps}>
-						<ModalHeader hasCloseButton={fg('navx-1483-a11y-close-button-in-modal-updates')}>
+						<ModalHeader hasCloseButton>
 							<ModalTitle>{rule.name}</ModalTitle>
 						</ModalHeader>
 						<ModalBody>

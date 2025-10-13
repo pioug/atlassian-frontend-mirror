@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 3.3.0
+
+### Minor Changes
+
+- [`d3e3f3fdb9cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3e3f3fdb9cee) -
+  Add new selection toolbar type to event, add errorboundary for selection toolbar and try/catch
+  blocks with log exceptions to sentry
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.1
 
 ### Patch Changes

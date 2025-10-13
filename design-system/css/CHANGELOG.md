@@ -1,5 +1,16 @@
 # @atlaskit/css
 
+## 0.15.0
+
+### Minor Changes
+
+- [`d65b31774de31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d65b31774de31) -
+  Removed deprecated border radius and border width tokens from CSS type.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.14.4
 
 ### Patch Changes

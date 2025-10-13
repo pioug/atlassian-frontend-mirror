@@ -1,0 +1,59 @@
+---
+title: Object tile
+description: An object tile represents Atlassian-specific content in a tile.
+order: 1
+---
+
+import ObjectTileDefault from '../../examples/constellation/object-tile-default.tsx';
+import ObjectTileSizes from '../../examples/constellation/object-tile-sizes.tsx';
+import ObjectTileLabelling from '../../examples/constellation/object-tile-labelling.tsx';
+import ObjectTileBold from '../../examples/constellation/object-tile-bold.tsx';
+
+## Default
+
+The default object tile has a medium size (32px) and a default label based on the object type.
+
+<Example
+	Component={ObjectTileDefault}
+	packageName="@atlaskit/object"
+	hiddenSections={['iconography']}
+/>
+
+## Size
+
+Object tiles can be set to five different sizes using the `size` prop, from `xsmall` (20px) to
+`xlarge` (48px). This defaults to `medium` (32px).
+
+If you need a smaller size, use a standard [Object](/components/object/examples) instead – which is
+available in 12px or 16px sizes.
+
+<Example
+	Component={ObjectTileSizes}
+	packageName="@atlaskit/object"
+	hiddenSections={['iconography']}
+/>
+
+## Label
+
+Use the `label` prop to provide accessible labelling for object tiles. Use descriptive labels for
+meaningful object tiles, or empty strings for decorative object tiles.
+
+If not provided, the label will default to a human-readable version of the object type (for example,
+"Task" for a task object tile).
+
+<Example
+	Component={ObjectTileLabelling}
+	packageName="@atlaskit/object"
+	hiddenSections={['iconography']}
+/>
+
+## Bold
+
+Object tiles can be displayed with a bold appearance using the `isBold` prop. This changes the icon
+color and adds a bold background color. This is disabled by default.
+
+<Example
+	Component={ObjectTileBold}
+	packageName="@atlaskit/object"
+	hiddenSections={['iconography']}
+/>

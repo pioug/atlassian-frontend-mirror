@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-important-styles */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -63,11 +64,25 @@ const insetSizeMap = cssMap({
 		'& span, & div, & svg, & img': {
 			width: '10px',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& .emoji-common-emoji-sprite': {
+			width: '10px !important',
+			minWidth: '10px !important',
+			height: '10px !important',
+			minHeight: '10px !important',
+		},
 	},
 	xsmall: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& span, & div, & svg, & img': {
 			width: '12px',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& .emoji-common-emoji-sprite': {
+			width: '12px !important',
+			minWidth: '12px !important',
+			height: '12px !important',
+			minHeight: '12px !important',
 		},
 	},
 	small: {
@@ -75,11 +90,25 @@ const insetSizeMap = cssMap({
 		'& span, & div, & svg, & img': {
 			width: '14px',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& .emoji-common-emoji-sprite': {
+			width: '14px !important',
+			minWidth: '14px !important',
+			height: '14px !important',
+			minHeight: '14px !important',
+		},
 	},
 	medium: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& span, & div, & svg, & img': {
 			width: '16px',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& .emoji-common-emoji-sprite': {
+			width: '16px !important',
+			minWidth: '16px !important',
+			height: '16px !important',
+			minHeight: '16px !important',
 		},
 	},
 	large: {
@@ -87,11 +116,25 @@ const insetSizeMap = cssMap({
 		'& span, & div, & svg, & img': {
 			width: '20px',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& .emoji-common-emoji-sprite': {
+			width: '20px !important',
+			minWidth: '20px !important',
+			height: '20px !important',
+			minHeight: '20px !important',
+		},
 	},
 	xlarge: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& span, & div, & svg, & img': {
 			width: '24px',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& .emoji-common-emoji-sprite': {
+			width: '24px !important',
+			minWidth: '24px !important',
+			height: '24px !important',
+			minHeight: '24px !important',
 		},
 	},
 });
@@ -243,7 +286,7 @@ const backgroundColorMap = cssMap({
 /**
  * __Tile__
  *
- * A tile is a rounded square that takes an asset (Image, Icon, Logo) and represents a noun.
+ * A tile is a rounded square that takes an asset and represents a noun.
  *
  */
 export default function Tile(props: TileProps) {

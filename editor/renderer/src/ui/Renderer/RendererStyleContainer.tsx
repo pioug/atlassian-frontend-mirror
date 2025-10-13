@@ -47,6 +47,7 @@ import {
 	akEditorTableNumberColumnWidth,
 	akEditorTableToolbar,
 	blockNodesVerticalMargin,
+	scaledBlockNodesVerticalMargin,
 	gridMediumMaxWidth,
 	akEditorFullPageDefaultFontSize,
 } from '@atlaskit/editor-shared-styles';
@@ -704,11 +705,21 @@ const ruleSharedStyles = css({
 	},
 });
 
+// When cleaning up `platform_editor_content_mode_button_mvp` simplify the name/ use the other paragraph style name
 const paragraphSharedStylesWithEditorUGC = css({
 	'& p': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		font: `var(--ak-renderer-editor-font-normal-text)`,
 		marginTop: blockNodesVerticalMargin,
+		marginBottom: 0,
+	},
+});
+
+const paragraphStylesUGCScaledMargin = css({
+	'& p': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		font: `var(--ak-renderer-editor-font-normal-text)`,
+		marginTop: scaledBlockNodesVerticalMargin,
 		marginBottom: 0,
 	},
 });
@@ -721,6 +732,21 @@ const paragraphSharedStyles = css({
 		lineHeight: akEditorLineHeight,
 		fontWeight: token('font.weight.regular'),
 		marginTop: blockNodesVerticalMargin,
+		marginBottom: 0,
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		letterSpacing: '-0.005em',
+	},
+});
+
+// When cleaning up `platform_editor_content_mode_button_mvp` simplify the name/ use the other paragraph style name
+const paragraphSharedStyleScaledMargin = css({
+	'& p': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		fontSize: '1em',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: akEditorLineHeight,
+		fontWeight: token('font.weight.regular'),
+		marginTop: scaledBlockNodesVerticalMargin,
 		marginBottom: 0,
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		letterSpacing: '-0.005em',
@@ -914,7 +940,8 @@ const codeMarkSharedStyles = css({
 });
 
 const extensionStyle = css({
-	'.ak-renderer-extension *': {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.ak-renderer-extension :not([data-inline-card-lozenge] *)': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: 'var(--ak-renderer-base-font-size)',
 	},
@@ -2275,8 +2302,14 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					fg('platform_editor_content_mode_button_mvp') &&
 					extensionStyle,
 				fg('platform_editor_typography_ugc')
-					? paragraphSharedStylesWithEditorUGC
-					: paragraphSharedStyles,
+					? expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+						fg('platform_editor_content_mode_button_mvp')
+						? paragraphStylesUGCScaledMargin
+						: paragraphSharedStylesWithEditorUGC
+					: expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+						  fg('platform_editor_content_mode_button_mvp')
+						? paragraphSharedStyleScaledMargin
+						: paragraphSharedStyles,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
 				indentationSharedStyles,

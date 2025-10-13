@@ -22,7 +22,7 @@ const styles = cssMap({
 		justifyContent: 'center',
 	},
 	radiusBox: {
-		borderWidth: token('border.width.outline'),
+		borderWidth: token('border.width.selected'),
 	},
 	widthBox: {
 		backgroundColor: token('elevation.surface.raised'),

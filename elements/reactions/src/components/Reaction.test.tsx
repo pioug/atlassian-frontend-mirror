@@ -2,7 +2,6 @@ import React from 'react';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type EmojiDescription, type EmojiProvider, toEmojiId } from '@atlaskit/emoji';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
 import {
@@ -52,7 +51,6 @@ const getReaction = (
 	count,
 	reacted,
 	users,
-	emojiPath: optimistic ? '/emoji/grinning' : undefined,
 });
 
 /**
@@ -287,16 +285,6 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 		const reactionContainer = await screen.findByTestId('render_reaction_wrapper');
 		expect(reactionContainer).toBeInTheDocument();
 		expect(reactionContainer).toHaveCompiledCss('border', 'none');
-	});
-
-	ffTest('platform_optimistic_reaction_emoji', async () => {
-		const count = 1;
-		const reacted = false;
-		renderReaction({ reacted, count, optimistic: true });
-
-		const emojiButton = await screen.findByTestId(RENDER_REACTION_TESTID);
-		expect(emojiButton).toBeInTheDocument();
-		expect(emojiButton).toHaveAttribute('data-emoji-id', grinning.id);
 	});
 
 	describe('with analytics', () => {

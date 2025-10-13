@@ -50,6 +50,9 @@
 			"path": "../app-provider/tsconfig.app.json"
 		},
 		{
+			"path": "../code/tsconfig.app.json"
+		},
+		{
 			"path": "../css/tsconfig.app.json"
 		},
 		{
@@ -65,6 +68,9 @@
 			"path": "../heading/tsconfig.app.json"
 		},
 		{
+			"path": "../image/tsconfig.app.json"
+		},
+		{
 			"path": "../link/tsconfig.app.json"
 		},
 		{
@@ -78,6 +84,9 @@
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../elements/util-data-test/tsconfig.app.json"
 		}
 	]
 }

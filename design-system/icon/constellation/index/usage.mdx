@@ -9,6 +9,10 @@ import settingsDo from './images/settings-do.png';
 import settingsDont from './images/settings-dont.png';
 import menuDo from './images/menu-do.png';
 import menuDont from './images/menu-dont.png';
+import iconTileLight from './images/icon-tile-light.png';
+import iconTileDark from './images/icon-tile-dark.png';
+
+import Image from '@atlaskit/image';
 
 ## Usage
 
@@ -172,7 +176,11 @@ that require more emphasis or color. Consider testing [icon tile](/components/ic
 for icons larger than 16px. As this component is still in alpha, it's subject to change as we gather
 feedback.
 
-![Icon tiles with red backgrounds appearing from smallest to largest. There's a 16, 24, 32, and 48 pixel tile.](./images/icon-tile-size.png)
+<Image
+	src={iconTileLight}
+	srcDark={iconTileDark}
+	alt="Icon tiles appearing from smallest to largest. There's a 20, 24, 32, 40, and 48 pixel tile."
+/>
 
 ## Data Center apps
 

@@ -43,6 +43,98 @@ export const createInlineChangedDecoration = (
 		{},
 	);
 
+const getEditorStyleNode = (nodeName: string, colourScheme?: 'standard' | 'traditional') => {
+	switch (nodeName) {
+		case 'blockquote':
+			return colourScheme === 'traditional' ? traditionalStyleQuoteNode : editingStyleQuoteNode;
+		case 'mediaSingle':
+		case 'mediaGroup':
+		case 'embedCard':
+		case 'table':
+		case 'tableRow':
+		case 'tableCell':
+		case 'tableHeader':
+			return undefined; // Handle table separately to avoid border issues
+		case 'paragraph':
+		case 'heading':
+		case 'hardBreak':
+			return undefined; // Paragraph and heading nodes do not need special styling
+		case 'decisionList':
+		case 'taskList':
+		case 'taskItem':
+		case 'bulletList':
+		case 'orderedList':
+		case 'listItem':
+			return undefined; // Lists do not need special styling
+		case 'layoutSection':
+			return undefined; // Layout nodes do not need special styling
+		case 'rule':
+			return colourScheme === 'traditional' ? traditionalStyleRuleNode : editingStyleRuleNode;
+		case 'blockCard':
+			return colourScheme === 'traditional'
+				? traditionalStyleCardBlockNode
+				: editingStyleCardBlockNode;
+		default:
+			return colourScheme === 'traditional' ? traditionalStyleNode : editingStyleNode;
+	}
+};
+
+const editingStyleQuoteNode = convertToInlineCss({
+	borderLeft: `2px solid ${token('color.border.accent.purple')}`,
+});
+
+const traditionalStyleQuoteNode = convertToInlineCss({
+	borderLeft: `2px solid ${token('color.border.accent.green')}`,
+});
+
+const editingStyleRuleNode = convertToInlineCss({
+	backgroundColor: token('color.border.accent.purple'),
+});
+
+const traditionalStyleRuleNode = convertToInlineCss({
+	backgroundColor: token('color.border.accent.green'),
+});
+
+const editingStyleNode = convertToInlineCss({
+	boxShadow: `0 0 0 1px ${token('color.border.accent.purple')}`,
+	borderRadius: token('radius.small'),
+});
+
+const traditionalStyleNode = convertToInlineCss({
+	boxShadow: `0 0 0 1px ${token('color.border.accent.green')}`,
+	borderRadius: token('radius.small'),
+});
+
+const editingStyleCardBlockNode = convertToInlineCss({
+	boxShadow: `0 0 0 1px ${token('color.border.accent.purple')}`,
+	borderRadius: token('radius.medium'),
+});
+
+const traditionalStyleCardBlockNode = convertToInlineCss({
+	boxShadow: `0 0 0 1px ${token('color.border.accent.green')}`,
+	borderRadius: token('radius.medium'),
+});
+/**
+ * Inline decoration used for insertions as the content already exists in the document
+ *
+ * @param change Changeset "change" containing information about the change content + range
+ * @returns Prosemirror inline decoration
+ */
+export const createBlockChangedDecoration = (
+	change: { from: number; name: string; to: number },
+	colourScheme?: 'standard' | 'traditional',
+) =>
+	Decoration.node(
+		change.from,
+		change.to,
+		{
+			style: getEditorStyleNode(change.name, colourScheme),
+			'data-testid': 'show-diff-changed-decoration-node',
+			class: `show-diff-changed-decoration-node-${colourScheme || 'standard'}`,
+		},
+		{},
+	);
+
 interface DeletedContentDecorationProps {
 	change: Change;
 	colourScheme?: 'standard' | 'traditional';

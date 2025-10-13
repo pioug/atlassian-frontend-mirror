@@ -56,6 +56,7 @@ const styles = cssMap({
 export default () => {
 	const [isVisible, setIsVisible] = useState<boolean>(true);
 	const dismiss = () => setIsVisible(false);
+	const done = () => setIsVisible(false);
 
 	return (
 		<div css={styles.root}>
@@ -71,7 +72,7 @@ export default () => {
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>
 								<SpotlightControls>
-									<SpotlightDismissControl onClick={dismiss} />
+									<SpotlightDismissControl />
 								</SpotlightControls>
 							</SpotlightHeader>
 							<SpotlightBody>
@@ -79,7 +80,7 @@ export default () => {
 							</SpotlightBody>
 							<SpotlightFooter>
 								<SpotlightActions>
-									<SpotlightPrimaryAction onClick={dismiss}>Done</SpotlightPrimaryAction>
+									<SpotlightPrimaryAction onClick={done}>Done</SpotlightPrimaryAction>
 								</SpotlightActions>
 							</SpotlightFooter>
 						</SpotlightCard>

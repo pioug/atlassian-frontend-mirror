@@ -82,6 +82,7 @@ export default () => {
 const Spotlight = ({ placement, children }: { placement: Placement; children: ReactNode }) => {
 	const [isVisible, setIsVisible] = useState(true);
 	const dismiss = () => setIsVisible(false);
+	const done = () => setIsVisible(false);
 
 	return (
 		<PopoverProvider>
@@ -99,7 +100,7 @@ const Spotlight = ({ placement, children }: { placement: Placement; children: Re
 					</SpotlightBody>
 					<SpotlightFooter>
 						<SpotlightActions>
-							<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
+							<SpotlightPrimaryAction onClick={done}>Done</SpotlightPrimaryAction>
 						</SpotlightActions>
 					</SpotlightFooter>
 				</SpotlightCard>

@@ -1,5 +1,18 @@
 # @atlaskit/docs
 
+## 11.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.2
+
+### Patch Changes
+
+- [`606e513732393`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/606e513732393) -
+  Added better component-prop generator for Atlaskit website
+
 ## 11.1.1
 
 ### Patch Changes

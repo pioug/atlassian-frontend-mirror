@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.29.1
+
+### Patch Changes
+
+- [`e1c9823b0b420`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1c9823b0b420) -
+  Updated `migrate-icon-object-to-object` to use new object name "Work item"
+- Updated dependencies
+
 ## 0.29.0
 
 ### Minor Changes

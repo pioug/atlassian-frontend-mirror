@@ -1,5 +1,16 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.16.0
+
+### Minor Changes
+
+- [`3c6833b0e9257`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c6833b0e9257) -
+  Migrated all ptc common analytics to teams app internal analytics
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.15.0
 
 ### Minor Changes

@@ -3,7 +3,6 @@ import React, { useLayoutEffect, useRef } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { CREATE_FORM_MAX_WIDTH_IN_PX, DEFAULT_TEST_ID, SCREEN_ID } from '../../common/constants';
@@ -69,7 +68,7 @@ const LinkCreateWithModal = ({
 						width={`${CREATE_FORM_MAX_WIDTH_IN_PX}px`}
 					>
 						<ModalHero hero={modalHero} />
-						<ModalHeader hasCloseButton={fg('navx-1483-a11y-close-button-in-modal-updates')}>
+						<ModalHeader hasCloseButton>
 							<ModalTitle>{modalTitle || intl.formatMessage(messages.heading)}</ModalTitle>
 						</ModalHeader>
 						<ModalBody>

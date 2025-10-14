@@ -33,7 +33,6 @@ const someStyles = xcss({
 Currently, the rule is extremely defensive, only reporting on `css` styles that contain:
 
 - one, and only one, style property from this list:
-
   - padding
   - paddingBlock
   - paddingBlockEnd

@@ -12,7 +12,7 @@ export const CustomThemingLogoExample = () => (
 		<TopNav
 			UNSAFE_theme={{ backgroundColor: parseHex('#964AC0'), highlightColor: parseHex('#F8EEFE') }}
 		>
-			<TopNavStart>
+			<TopNavStart sideNavToggleButton={null}>
 				<AppLogo
 					icon={ConfluenceIcon}
 					name="Confluence"

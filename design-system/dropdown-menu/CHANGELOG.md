@@ -678,7 +678,6 @@
 
   **Usage:** The `strategy` prop can be set to either `'absolute'` or `'fixed'`, with the default
   being `'fixed'`.
-
   - **`'fixed'`:** Positions the dropdown relative to the browser's viewport. This ensures that the
     dropdown remains in the same position regardless of page scrolling, making it ideal for
     dropdowns that need to maintain a consistent position on the screen.
@@ -705,7 +704,6 @@
   ```
 
   **Important Considerations:**
-
   - When using the `shouldFitContainer` prop, the `strategy` cannot be set to `'fixed'`. In such
     cases, the dropdown defaults to the `'absolute'` strategy to ensure proper rendering within the
     container.
@@ -1912,7 +1910,6 @@
   documentation for more details on the codemod CLI.
 
   ## Behaviour changes
-
   - _Portaling_ – The dropdown menu is now rendered in a React Portal and is appended at the bottom
     of the `<body>`. In most cases, this shouldn't make much of a difference. But if you have any
     tests that assert on DOM/React tree like snapshot tests, those will need to be updated.
@@ -1929,7 +1926,6 @@
     override the default behaviour by setting shouldTitleWrap and shouldDescriptionWrap to false.
 
   ## Visual changes
-
   - _Menu item padding_ – Dropdown menu items have 16px more padding horizontally.
   - _Removed elemAfter in group title_ – Icon after the group title has been removed.
 
@@ -1938,7 +1934,6 @@
   Dropdown menu items no longer `@atlaskit/item` as the underlying component, they use
   `@atlaskit/menu` instead. This mean that some of the props that used to be spread over an Item are
   no longer supported. In addition to that, the following API changes have been made:
-
   - `shouldFitContainer` – Deprecated. This prop has been deprecated and the codemod will remove it.
   - `shouldAllowMultiline` – This prop has been split up into two: shouldTitleWrap and
     shouldDescriptionWrap. The codemod replaces its occurance with the two new ones.
@@ -1970,7 +1965,6 @@
     directly applied to the first menu item.
 
   ## Entrypoint changes
-
   - `DropdownMenuStateless` – DropdownMenuStateless has been deprecated. The default export
     DropdownMenu handles both stateless and stateful logic. The API for DropdownMenuStateless has
     been retained and works as expected with DropdownMenu.The codemod converts the named import into
@@ -2324,7 +2318,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/avatar@17.1.7
@@ -2569,13 +2562,11 @@
 ## 8.0.1
 
 - [patch][ee788e6434](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ee788e6434):
-
   - Fix analytics for the toggle dropdownMenu event
 
 ## 8.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -2602,7 +2593,6 @@
 ## 7.0.5
 
 - [patch][6fd20256f3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6fd20256f3):
-
   - Add positionFixed property to Popper
 
 ## 7.0.4
@@ -2631,7 +2621,6 @@
 ## 7.0.2
 
 - [patch][dc114c4ce6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc114c4ce6):
-
   - Internal changes only. DropdownMenu is now compatible with SSR.
 
 ## 7.0.1
@@ -2650,7 +2639,6 @@
 ## 7.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -2757,13 +2745,11 @@
 ## 6.1.21
 
 - [patch][1fb2c2a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1fb2c2a):
-
   - Fixed issue where tooltips and modals would initially render in the wrong location
 
 ## 6.1.20
 
 - [patch][fe943bb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fe943bb" d):
-
   - Make sure we check userAgent only if we have a DOM
 
 ## 6.1.19

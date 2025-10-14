@@ -86,7 +86,6 @@
 
 - [`d281a835c4897`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d281a835c4897) -
   [ux]
-
   - `TeamCreateDialog`
     - Fixed incorrect ariaDescribedBy identifier so that VoiceOver can read out the error message.
     - Programmatically focus the input on submit when there is an error.

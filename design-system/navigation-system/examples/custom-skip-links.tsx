@@ -73,8 +73,11 @@ export function CustomSkipLinksExample() {
 		<WithResponsiveViewport>
 			<Root>
 				<TopNav>
-					<TopNavStart>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
 						<AppLogo href="" icon={ConfluenceIcon} label="Home page" name="Confluence" />
 						<AppSwitcher label="Switch apps" />
 					</TopNavStart>

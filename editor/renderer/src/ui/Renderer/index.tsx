@@ -304,6 +304,7 @@ export const RendererFunctionalComponent = (
 					...props.rendererContext,
 				} as RendererContext,
 				appearance: props.appearance,
+				contentMode: props.contentMode,
 				disableHeadingIDs: props.disableHeadingIDs,
 				disableActions: props.disableActions,
 				allowHeadingAnchorLinks: props.allowHeadingAnchorLinks,

@@ -160,7 +160,6 @@ Unconfirmed steps are stored within the ProseMirror editor state using the
    (`origins`) to track the source of changes even after rebasing operations.
 
 3. **Automatic Management**: The collab plugin automatically manages the unconfirmed steps array:
-
    - **Adding Steps**: When transactions are applied locally, new steps are added to the unconfirmed
      array
    - **Removing Steps**: When acknowledgments are received from the server, corresponding steps are

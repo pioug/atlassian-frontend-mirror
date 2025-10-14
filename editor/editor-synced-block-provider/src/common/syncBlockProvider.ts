@@ -5,6 +5,7 @@ import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { getPageARIFromResourceId } from '../utils/ari';
 import { convertSyncBlockPMNodeToSyncBlockData } from '../utils/utils';
 
 import {
@@ -27,15 +28,19 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		this.writeProvider = writeProvider;
 		this.sourceId = sourceId;
 	}
-	isNodeSupported = (node: JSONNode): node is SyncBlockNode => node.type === 'syncBlock';
-	nodeDataKey = (node: SyncBlockNode) => node.attrs.localId;
-	fetchNodesData = (nodes: SyncBlockNode[]): Promise<SyncBlockData[]> => {
+	isNodeSupported(node: JSONNode): node is SyncBlockNode {
+		return node.type === 'syncBlock';
+	}
+	nodeDataKey(node: SyncBlockNode) {
+		return node.attrs.localId;
+	}
+	fetchNodesData(nodes: SyncBlockNode[]): Promise<SyncBlockData[]> {
 		return Promise.all(
 			nodes.map((node) => {
 				return this.fetchProvider.fetchData(node.attrs.resourceId);
 			}),
 		);
-	};
+	}
 
 	/**
 	 *
@@ -44,10 +49,10 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 *
 	 * @returns the resource ids of the nodes that were written
 	 */
-	writeNodesData = (
+	writeNodesData(
 		nodes: SyncBlockNode[],
 		data: SyncBlockData[],
-	): Promise<Array<string | undefined>> => {
+	): Promise<Array<string | undefined>> {
 		const resourceIds: Promise<string>[] = [];
 		nodes.forEach((node, index) => {
 			if (!data[index].content) {
@@ -58,11 +63,24 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 			resourceIds.push(resourceId);
 		});
 		return Promise.all(resourceIds);
-	};
+	}
 
-	getSourceId = () => {
+	getSourceId() {
 		return this.sourceId;
-	};
+	}
+
+	retrieveSyncBlockSourceUrl(node: SyncBlockNode): Promise<string | undefined> {
+		const { resourceId } = node.attrs;
+		let pageARI;
+		if (resourceId && typeof resourceId === 'string') {
+			try {
+				pageARI = getPageARIFromResourceId(resourceId);
+			} catch (error) {
+				return Promise.reject(error);
+			}
+		}
+		return pageARI ? fetchURLfromARI(pageARI) : Promise.resolve(undefined);
+	}
 }
 
 export const useFetchDocNode = (
@@ -130,4 +148,28 @@ export const useHandleContentChanges = (
 		};
 		provider?.writeNodesData([syncBlockNode], [data]);
 	}, [isSource, node, provider, updatedDoc]);
+};
+
+const fetchURLfromARI = async (ari: string): Promise<string | undefined> => {
+	const response = await fetch('/gateway/api/object-resolver/resolve/ari', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			Accept: 'application/json',
+		},
+		body: JSON.stringify({ ari }),
+	});
+
+	if (response.ok) {
+		const payload = await response.json();
+		const url = payload?.data?.url;
+		if (typeof url === 'string') {
+			return url;
+		}
+	} else {
+		//eslint-disable-next-line no-console
+		console.error('Failed to fetch URL from ARI', response.statusText);
+	}
+
+	return undefined;
 };

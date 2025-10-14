@@ -56,33 +56,80 @@ const styles = cssMap({
 	},
 });
 
+type AgentCreator =
+	| {
+			type: 'CUSTOMER';
+			name: string;
+			profileLink: string;
+			status?: 'active' | 'inactive' | 'closed' | string;
+	  }
+	| {
+			type: 'SYSTEM';
+	  }
+	| {
+			// THIRD_PARTY is deprecated in convo-ai, use FORGE instead
+			type: 'THIRD_PARTY' | 'FORGE';
+			name: string;
+	  }
+	| {
+			type: 'OOTB';
+	  };
+
+export const getAgentCreator = ({
+	creatorType,
+	authoringTeam,
+	userCreator,
+	forgeCreator,
+}: {
+	creatorType: string;
+	authoringTeam?: { displayName: string; profileLink?: string };
+	userCreator?: { name: string; status?: string; profileLink?: string };
+	forgeCreator?: string;
+}): AgentCreator | undefined => {
+	if (creatorType === 'SYSTEM') {
+		return { type: 'SYSTEM' as const };
+	}
+
+	// THIRD_PARTY is deprecated in convo-ai, use FORGE instead
+	if (creatorType === 'FORGE' || creatorType === 'THIRD_PARTY') {
+		return { type: 'FORGE' as const, name: forgeCreator ?? '' };
+	}
+
+	if (creatorType === 'OOTB') {
+		return { type: 'OOTB' as const };
+	}
+
+	if (creatorType === 'CUSTOMER') {
+		if (authoringTeam && fg('agent_studio_permissions_settings_m3_profiles')) {
+			return {
+				type: 'CUSTOMER' as const,
+				name: authoringTeam.displayName,
+				profileLink: authoringTeam.profileLink ?? '',
+			};
+		}
+
+		if (!userCreator?.profileLink) {
+			return undefined;
+		}
+
+		return {
+			type: 'CUSTOMER' as const,
+			name: userCreator.name,
+			profileLink: userCreator.profileLink,
+			status: userCreator.status,
+		};
+	}
+};
+
 export const AgentProfileCreator = ({
 	creator,
 	onCreatorLinkClick,
-	isLoading: isLoading,
+	isLoading,
 }: {
-	creator?:
-		| {
-				type: 'CUSTOMER';
-				name: string;
-				profileLink: string;
-				status?: 'active' | 'inactive';
-		  }
-		| {
-				type: 'SYSTEM';
-		  }
-		| {
-				type: 'THIRD_PARTY';
-				name: string;
-		  }
-		| {
-				type: 'FORGE';
-				name: string;
-		  }
-		| {
-				type: 'OOTB';
-				name: string;
-		  };
+	/**
+	 * Get this value from `getAgentCreator`
+	 */
+	creator?: AgentCreator;
 	isLoading: boolean;
 	onCreatorLinkClick: () => void;
 }) => {
@@ -121,23 +168,13 @@ export const AgentProfileCreator = ({
 		if (creator.type === 'CUSTOMER') {
 			return formatMessage(messages.agentCreatedBy, {
 				creatorNameWithLink: fg('dst-a11y__replace-anchor-with-link__ai-mate') ? (
-					<Link
-						aria-label={creator.name || formatMessage(messages.creatorLabel)}
-						href={creator.profileLink}
-						onClick={() => onCreatorLinkClick()}
-						target="_blank"
-					>
+					<Link href={creator.profileLink} onClick={() => onCreatorLinkClick()} target="_blank">
 						{creator.name}{' '}
 						{creator.status === 'inactive' && formatMessage(messages.agentDeactivated)}
 					</Link>
 				) : (
 					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-					<a
-						aria-label={creator.name || formatMessage(messages.creatorLabel)}
-						href={creator.profileLink}
-						onClick={() => onCreatorLinkClick()}
-						target="_blank"
-					>
+					<a href={creator.profileLink} onClick={() => onCreatorLinkClick()} target="_blank">
 						{creator.name}{' '}
 						{creator.status === 'inactive' && formatMessage(messages.agentDeactivated)}
 					</a>
@@ -145,7 +182,8 @@ export const AgentProfileCreator = ({
 			});
 		}
 
-		if (creator.type === 'THIRD_PARTY') {
+		// THIRD_PARTY is deprecated in convo-ai, use FORGE instead
+		if (creator.type === 'THIRD_PARTY' || creator.type === 'FORGE') {
 			return formatMessage(messages.agentCreatedBy, {
 				creatorNameWithLink: creator.name,
 			});

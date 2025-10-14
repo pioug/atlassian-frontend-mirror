@@ -1,22 +1,19 @@
-import { emptyInputSchema } from '../../schema';
+import { z } from 'zod';
+import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import { components } from './components';
 
 export const listGetComponentsTool = {
 	name: 'ads_get_components',
-	description: `You MUST use this to fetch all Atlassian Design System components and parse their names, descriptions, and understand how they might be used (provided in JSON format) before working with components.
-You should never use a custom component not provided via this API where appropriate, or the custom component is a necessary wrapper around an ADS component.
-
-For a full example, guidelines, list of props, and more information, you should use the \`ads_search_components\` tool passing one or many component names as the 'terms' tool parameter.
-`,
+	description: `Fetch all Atlassian Design System components. Only use when \`ads_search_components\` does not return what you're looking for.`,
 	annotations: {
-		title: 'Get ADS components',
+		title: 'Get all ADS components',
 		readOnlyHint: true,
 		destructiveHint: false,
 		idempotentHint: true,
 		openWorldHint: true,
 	},
-	inputSchema: emptyInputSchema,
+	inputSchema: zodToJsonSchema(z.object({})),
 };
 
 export const getComponentsTool = async () => ({

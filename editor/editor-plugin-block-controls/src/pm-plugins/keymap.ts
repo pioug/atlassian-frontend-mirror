@@ -28,8 +28,8 @@ function keymapList(
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			showElementDragHandle.common!,
-			(state) => {
-				showDragHandleAtSelection(api)(state);
+			(state, dispatch, view) => {
+				showDragHandleAtSelection(api)(state, dispatch, view);
 				//we always want to handle this shortcut to prevent default browser special char insert when option + alphabetical key is used
 				return true;
 			},

@@ -83,12 +83,15 @@ export default function SideNavOnboardingExample() {
 				<Root>
 					<Banner xcss={bannerStyles.root}> </Banner>
 					<TopNav>
-						<TopNavStart>
-							<SideNavToggleButton
-								testId="side-nav-toggle-button"
-								collapseLabel="Collapse sidebar"
-								expandLabel="Expand sidebar"
-							/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									testId="side-nav-toggle-button"
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+								/>
+							}
+						>
 							<AppSwitcher label="Switch apps" />
 						</TopNavStart>
 						<TopNavMiddle>

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugins
 
+## 11.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.14
 
 ### Patch Changes
@@ -1582,7 +1600,6 @@
 - [#188604](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188604)
   [`2447351dcf766`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2447351dcf766) - ##
   What? Remove entry-points to table plugin:
-
   - `@atlaskit/editor-plugin-table/commands`
   - `@atlaskit/editor-plugin-table/plugin-key`
   - `@atlaskit/editor-plugin-table/ui/consts`
@@ -2522,7 +2539,6 @@
 
   This experiment was only enabled for Confluence and should not have been enabled in other places.
   If for some reason any of the following props/state/methdos were used please remove them:
-
   - isConsumption
   - contentMode
   - initialContentMode
@@ -4796,7 +4812,6 @@
   Removed external re-export from entry file:
 
   @atlaskit/editor-plugin-width:
-
   - type `WidthPluginState` -> Use type `EditorContainerWidth` from `@atlaskit/editor-common/types`
     instead
 
@@ -7732,7 +7747,6 @@
   Split out side-effects from viewmode plugin to seperate plugin to reduce cyclical dependency risk
 
   # WHAT
-
   - Remove `createFilterStepsPlugin` from the editorViewMode Plugin and is implemented in
     editorViewModeEffects instead.
   - Remove `appendTransaction` from the editorViewMode plugin and add as a new PMPlugin in
@@ -7752,7 +7766,6 @@
 
   All incompatibilities should be addressed within this changeset, however for the sake of
   completeness:
-
   - `editor-plugin-editor-viewmode-effects` must be added to any preset that relies on the viewmode
     filter steps plugin for viewmode annotations. Currently this seems to only be the confluence
     editor itself.
@@ -9598,7 +9611,6 @@
   ## WHAT?:
 
   Removing feature flags:
-
   - singleLayout
   - newInsertionBehaviour
   - interactiveExpand
@@ -9612,7 +9624,6 @@
   maintenance burden
 
   ## HOW to update your code:
-
   - If you were using the feature flag - the behaviour is now default and you can remove the flags
   - If you were not using the feature flag - the behaviour is now default.
   - If you have opted out of using the feature flag - we have been careful to ensure no-one has

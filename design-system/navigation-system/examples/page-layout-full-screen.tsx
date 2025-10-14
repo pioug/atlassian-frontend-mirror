@@ -56,20 +56,20 @@ import { WithResponsiveViewport } from './utils/example-utils';
 const asideStyles = cssMap({
 	root: { backgroundColor: token('elevation.surface.sunken') },
 	content: {
-		paddingTop: token('space.300'),
-		paddingRight: token('space.300'),
-		paddingBottom: token('space.300'),
-		paddingLeft: token('space.300'),
+		paddingBlockStart: token('space.300'),
+		paddingInlineEnd: token('space.300'),
+		paddingBlockEnd: token('space.300'),
+		paddingInlineStart: token('space.300'),
 		borderInlineStart: `${token('border.width')} solid ${token('color.border')}`,
 	},
 });
 
 const panelStyles = cssMap({
 	content: {
-		paddingTop: token('space.300'),
-		paddingRight: token('space.300'),
-		paddingBottom: token('space.300'),
-		paddingLeft: token('space.300'),
+		paddingBlockStart: token('space.300'),
+		paddingInlineEnd: token('space.300'),
+		paddingBlockEnd: token('space.300'),
+		paddingInlineStart: token('space.300'),
 	},
 });
 
@@ -109,12 +109,15 @@ export default function FullScreenModeExample() {
 				)}
 				{!isFullscreen && (
 					<TopNav>
-						<TopNavStart>
-							<SideNavToggleButton
-								testId="side-nav-toggle-button"
-								collapseLabel="Collapse sidebar"
-								expandLabel="Expand sidebar"
-							/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									testId="side-nav-toggle-button"
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+								/>
+							}
+						>
 							<AppSwitcher label="Switch apps" />
 							<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
 						</TopNavStart>

@@ -1,4 +1,10 @@
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import type {
 	Command,
 	CommandDispatch,
@@ -13,7 +19,6 @@ import type {
 	SyncBlockDataProvider,
 	SyncBlockStoreManager,
 } from '@atlaskit/editor-synced-block-provider';
-import { generateSyncBlockSourceUrl } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
@@ -104,19 +109,33 @@ export const copySyncedBlockReferenceToClipboard =
 	};
 
 export const editSyncedBlockSource =
-	(_api?: ExtractInjectionAPI<SyncedBlockPlugin>): Command =>
-	(state: EditorState, _dispatch?: CommandDispatch, _view?: EditorView) => {
+	(syncBlockStore: SyncBlockStoreManager, api?: ExtractInjectionAPI<SyncedBlockPlugin>): Command =>
+	(state: EditorState, dispatch?: CommandDispatch, _view?: EditorView) => {
 		const syncBlock = findSyncBlock(state);
-		if (!syncBlock) {
+
+		const resourceId = syncBlock?.node?.attrs?.resourceId;
+		if (!resourceId) {
 			return false;
 		}
 
-		const url = generateSyncBlockSourceUrl(syncBlock.node);
-		if (!url) {
-			return false;
+		const syncBlockURL = syncBlockStore.getSyncBlockURL(resourceId);
+
+		if (syncBlockURL) {
+			window.open(syncBlockURL, '_blank');
+		} else {
+			const tr = state.tr;
+			api?.analytics?.actions?.attachAnalyticsEvent({
+				eventType: EVENT_TYPE.OPERATIONAL,
+				action: ACTION.ERROR,
+				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_SOURCE_URL,
+				attributes: {
+					error: 'No URL resolved for synced block',
+				},
+			})(tr);
+			dispatch?.(tr);
 		}
 
-		window.open(url, '_blank');
 		return true;
 	};
 

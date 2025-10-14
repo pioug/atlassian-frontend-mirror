@@ -110,12 +110,16 @@ function MenuItemsDeeplyNestedExample({
 		<WithResponsiveViewport>
 			<Root>
 				<TopNav>
-					<TopNavStart>
-						<SideNavToggleButton
-							testId="side-nav-toggle-button"
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-						/>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton
+								testId="side-nav-toggle-button"
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+							/>
+						}
+					>
+						{null}
 					</TopNavStart>
 					<TopNavMiddle>
 						<CreateButton>Create</CreateButton>

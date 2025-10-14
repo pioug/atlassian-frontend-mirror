@@ -567,7 +567,6 @@
 - [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328)
   [`f166f5398b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f166f5398b2) - In this
   version we made **Blanket** faster and lighter
-
   - General performance improvements
 
   - **BREAKING** **Blanket** now accepts a `children` prop whose value is of type `ReactElement`.
@@ -592,7 +591,6 @@
   will automatically be upgraded.
 
   What will be changed:
-
   - It will rename the `canClickThrough` prop to `shouldAllowClickThrough`.
 
   Run `npx @atlaskit/codemod-cli -h` for more details on usage.
@@ -756,7 +754,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/button@13.3.7
@@ -898,12 +895,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -944,7 +939,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -995,20 +989,17 @@
 ## 10.0.1
 
 - [patch][27cf35ca9d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/27cf35ca9d):
-
   - Updated event type for `onBlanketClicked` prop
 
 ## 10.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 9.0.0
 
 - [major][38dab947e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/38dab947e6):
-
   - Updated Blanket to TypeScript. Flow types are no longer exported.
 
 ## 8.0.3
@@ -1040,7 +1031,6 @@
 ## 8.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1108,7 +1098,6 @@
 ## 7.0.9
 
 - [patch][a637f5e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a637f5e):
-
   - Refine and fix some flow type errors found by fixing @atlaskit/analytics-next HOCs to allow flow
     to type check properly
 

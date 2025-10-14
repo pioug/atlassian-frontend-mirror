@@ -271,7 +271,6 @@
   Migrated `ButtonItem`, `LinkItem` and `CustomItem` components from `@emotion/react` to
   `@compiled/react` in order to improve performance, align with the rest of the Atlaskit techstack,
   and support React 18 Streaming SSR.
-
   - Removed the deprecated `cssFn` prop from `ButtonItem`, `LinkItem` and `CustomItem` components.
 
   Please note, in order to use this version of `@atlaskit/menu`, you will need to ensure that your
@@ -1820,7 +1819,6 @@
 
   Fixes users being able to select text and drag both the link and custom item components.- Updated
   dependencies [8c9e4f1ec6](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c9e4f1ec6):
-
   - @atlaskit/docs@8.5.0
 
 ## 0.3.0
@@ -1857,7 +1855,6 @@
 - [patch][1f9c4f974a](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f9c4f974a):
 
   Updates to @atlaskit/menu to support better custom components
-
   - The `description` prop on items has been updated to take either `string` or `JSX.Element`
     allowing custom components such as links to be rendered
   - A stateless CSSFn type has been exported to override styles in static components (such as
@@ -1873,7 +1870,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/avatar@17.1.7
@@ -1927,7 +1923,6 @@
 ### Patch Changes
 
 - [patch][911d58c568](https://bitbucket.org/atlassian/atlassian-frontend/commits/911d58c568):
-
   - Fixes spacing between sections and items
   - Introduces new props on `MenuGroup` to control min/max width and height.
   - Introduces new `PopupMenuGroup` component which is variant of `MenuGroup` with sensible
@@ -1958,7 +1953,6 @@
 - [minor][795a9503da](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/795a9503da):
 
   Menu has had few styling fixes:
-
   - **BREAKING:** Height for all `Item` components when there is no `description` defined now equals
     `40px`.
   - **BREAKING:** `SkeletonHeadingItem` & `SkeletonItem` now match the real components dimensions,
@@ -1975,7 +1969,6 @@
   Adds `testId` to all components - useful when wanting to do any automated tests that want to
   target these specific elements.- Updated dependencies
   [429925f854](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/429925f854):
-
   - @atlaskit/theme@9.4.0
 
 ## 0.1.3

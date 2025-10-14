@@ -521,7 +521,6 @@
   Add a useIsReducedMotion() hook that returns the user's current motion preference.
 
   Other internal changes:
-
   - Upgrade to TypeScript 4.2.4
 
 ## 1.0.4
@@ -743,7 +742,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/button@13.3.7
@@ -760,7 +758,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 - [patch][166d7b1626](https://bitbucket.org/atlassian/atlassian-frontend/commits/166d7b1626):
 
   Fixes motion blowing up when rendered on the server. - @atlaskit/logo@12.3.1
-
   - @atlaskit/section-message@4.1.4
   - @atlaskit/docs@8.3.1
   - @atlaskit/button@13.3.6
@@ -773,7 +770,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 - [minor][1d72045e6b](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d72045e6b):
 
   `SlideIn` is now more customizable and has new props:
-
   - **BREAKING CHANGE: ** `from` prop has been renamed to `enterFrom`
   - You can now optionally set an explicit `exitTo` prop which specifies which direction the
     component will animate towards when exiting. The `from` prop has also been renamed to

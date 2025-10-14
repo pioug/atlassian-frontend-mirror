@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.2.10
+
+### Patch Changes
+
+- [`2470543de66c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2470543de66c4) -
+  [ux] ED-29341 fix block quote drag handle is hard to trigger behind with
+  platform_editor_native_anchor_support on
+- Updated dependencies
+
+## 7.2.9
+
+### Patch Changes
+
+- [`3a41420ddfc6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a41420ddfc6e) -
+  Clean up platform_editor_drag_layout_column_into_nodes
+
+## 7.2.8
+
+### Patch Changes
+
+- [`435745247f7ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/435745247f7ef) -
+  [ED-29337] Fix drag handle cannot be focus via shorcut when platform_editor_native_anchor_support
+  is enabled
+
 ## 7.2.7
 
 ### Patch Changes
@@ -537,7 +561,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -2231,7 +2254,6 @@
 - [#171014](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171014)
   [`6163248356c63`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6163248356c63) -
   [ED-25833] Replace the following FGs with experiment `platform_editor_advanced_layouts`
-
   - platform_editor_advanced_layouts_breakout_resizing
   - platform_editor_advanced_layouts_pre_release_1
   - platform_editor_advanced_layouts_pre_release_2

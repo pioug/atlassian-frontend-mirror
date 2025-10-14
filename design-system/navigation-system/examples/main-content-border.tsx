@@ -68,12 +68,15 @@ function MainContentBorderExample({
 			<Root>
 				{!isFullscreen && (
 					<TopNav UNSAFE_theme={isCustomThemeEnabled ? customTheme : undefined}>
-						<TopNavStart>
-							<SideNavToggleButton
-								testId="side-nav-toggle-button"
-								collapseLabel="Collapse sidebar"
-								expandLabel="Expand sidebar"
-							/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									testId="side-nav-toggle-button"
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+								/>
+							}
+						>
 							<AppSwitcher label="Switch apps" />
 						</TopNavStart>
 						<TopNavMiddle>

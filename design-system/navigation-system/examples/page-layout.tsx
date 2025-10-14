@@ -178,12 +178,15 @@ export const AllSlots = () => {
 					</Banner>
 				)}
 				<TopNav xcss={styles.topBar}>
-					<TopNavStart>
-						<SideNavToggleButton
-							defaultCollapsed
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-						/>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton
+								defaultCollapsed
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+							/>
+						}
+					>
 						<span css={styles.noShrink}>top nav</span>
 					</TopNavStart>
 					<TopNavEnd>
@@ -229,8 +232,11 @@ export const AllSlotsScrollable = () => {
 				</Banner>
 			)}
 			<TopNav xcss={styles.topBar}>
-				<TopNavStart>
-					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					}
+				>
 					<span css={styles.noShrink}>top nav</span>
 				</TopNavStart>
 				<TopNavEnd>
@@ -285,8 +291,11 @@ export const AllSlotsRTL = () => {
 					<AKBanner appearance="error">An error occurred</AKBanner>
 				</Banner>
 				<TopNav xcss={styles.topBar}>
-					<TopNavStart>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
 						<span css={styles.noShrink}>top nav</span>
 					</TopNavStart>
 					<TopNavEnd>
@@ -307,8 +316,11 @@ export const AllSlotsRTL = () => {
 export const TopBarSideNavMainAside = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
-			<TopNavStart>
-				<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
 				<span css={styles.noShrink}>top nav</span>
 			</TopNavStart>
 		</TopNav>
@@ -323,8 +335,11 @@ export const TopBarSideNavMainAside = () => (
 export const TopBarSideNavMainAsideScrollable = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
-			<TopNavStart>
-				<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
 				<span css={styles.noShrink}>top nav</span>
 			</TopNavStart>
 		</TopNav>
@@ -345,8 +360,11 @@ export const TopBarSideNavMainAsideScrollable = () => (
 export const TopBarSideNavMain = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
-			<TopNavStart>
-				<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
 				<span css={styles.noShrink}>top nav</span>
 			</TopNavStart>
 		</TopNav>
@@ -360,8 +378,11 @@ export const TopBarSideNavMain = () => (
 export const TopBarSideNavMainScrollable = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
-			<TopNavStart>
-				<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
 				<span css={styles.noShrink}>top nav</span>
 			</TopNavStart>
 		</TopNav>
@@ -423,8 +444,11 @@ export const MainAsideScrollable = () => (
 export const Resizable = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
-			<TopNavStart>
-				<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
 				<span css={styles.noShrink}>top nav</span>
 			</TopNavStart>
 		</TopNav>
@@ -442,8 +466,11 @@ export const ResizableRTL = () => (
 	<div dir="rtl">
 		<Root>
 			<TopNav xcss={styles.topBar}>
-				<TopNavStart>
-					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					}
+				>
 					<span css={styles.noShrink}>top nav</span>
 				</TopNavStart>
 			</TopNav>
@@ -465,8 +492,11 @@ export const ResizableRTL = () => (
 export const SideNavCustomWidthGreaterThanMaxWidth = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
-			<TopNavStart>
-				<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
 				<span css={styles.noShrink}>top nav</span>
 			</TopNavStart>
 		</TopNav>
@@ -481,8 +511,11 @@ export const SideNavCustomWidthGreaterThanMaxWidth = () => (
 export const SideNavCustomWidthSmallerThanMinWidth = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
-			<TopNavStart>
-				<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
 				<span css={styles.noShrink}>top nav</span>
 			</TopNavStart>
 		</TopNav>
@@ -497,8 +530,11 @@ export const SideNavCustomWidthSmallerThanMinWidth = () => (
 export const SideNavOverflowingChildren = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
-			<TopNavStart>
-				<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
 				<span css={styles.noShrink}>top nav</span>
 			</TopNavStart>
 		</TopNav>
@@ -530,8 +566,11 @@ export const EdgeCaseSiblingAbsolutePositioned = () => {
 		<div css={styles.debugSlots}>
 			<Root UNSAFE_dangerouslyHoistSlotSizes>
 				<TopNav xcss={styles.topBar}>
-					<TopNavStart>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
 						<span css={styles.noShrink}>top nav</span>
 					</TopNavStart>
 					<TopNavEnd>
@@ -557,12 +596,15 @@ export const EdgeCaseSiblingAbsolutePositionedCollapsed = () => (
 		<Root UNSAFE_dangerouslyHoistSlotSizes>
 			<Banner xcss={styles.banner}>banner</Banner>
 			<TopNav xcss={styles.topBar}>
-				<TopNavStart>
-					<SideNavToggleButton
-						collapseLabel="Collapse sidebar"
-						expandLabel="Expand sidebar"
-						defaultCollapsed
-					/>
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton
+							collapseLabel="Collapse sidebar"
+							expandLabel="Expand sidebar"
+							defaultCollapsed
+						/>
+					}
+				>
 					<span css={styles.noShrink}>top nav</span>
 				</TopNavStart>
 			</TopNav>
@@ -584,8 +626,11 @@ export const EdgeCaseSiblingAbsolutePositionedPanelVisible = () => {
 		<div css={styles.debugSlots}>
 			<Root UNSAFE_dangerouslyHoistSlotSizes>
 				<TopNav xcss={styles.topBar}>
-					<TopNavStart>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
 						<span css={styles.noShrink}>top nav</span>
 					</TopNavStart>
 					<TopNavEnd>
@@ -613,12 +658,15 @@ export const EdgeCaseUsingLegacyVars = () => {
 			<Root UNSAFE_dangerouslyHoistSlotSizes>
 				<Banner xcss={styles.banner}>banner</Banner>
 				<TopNav xcss={styles.topBar}>
-					<TopNavStart>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed
+							/>
+						}
+					>
 						<span css={styles.noShrink}>top nav</span>
 					</TopNavStart>
 					<TopNavEnd>
@@ -645,8 +693,11 @@ export const EdgeCaseSiblingAbsolutePositionedResizable = () => {
 		<div css={styles.debugSlots}>
 			<Root UNSAFE_dangerouslyHoistSlotSizes>
 				<TopNav xcss={styles.topBar}>
-					<TopNavStart>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
 						<span css={styles.noShrink}>top nav</span>
 					</TopNavStart>
 					<TopNavEnd>
@@ -707,8 +758,11 @@ export const ResizableWithIframeContent = () => {
 		<div css={styles.debugSlots}>
 			<Root UNSAFE_dangerouslyHoistSlotSizes>
 				<TopNav xcss={styles.topBar}>
-					<TopNavStart>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
 						<span css={styles.noShrink}>top nav</span>
 					</TopNavStart>
 					<TopNavEnd>
@@ -750,8 +804,11 @@ export const AllSlotsBannerHeightZero = () => {
 				</Banner>
 			)}
 			<TopNav xcss={styles.topBar}>
-				<TopNavStart>
-					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					}
+				>
 					<span css={styles.noShrink}>top nav</span>
 				</TopNavStart>
 				<TopNavEnd>
@@ -804,8 +861,11 @@ export const AllSlotsCustomSizes = () => {
 				</Banner>
 			)}
 			<TopNav xcss={styles.topBar} height={40}>
-				<TopNavStart>
-					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					}
+				>
 					<span css={styles.noShrink}>top nav</span>
 				</TopNavStart>
 				<TopNavEnd>
@@ -859,8 +919,11 @@ export const EdgeCaseSiblingAbsolutePositionedCustomSizes = () => {
 					</Banner>
 				)}
 				<TopNav xcss={styles.topBar} height={40}>
-					<TopNavStart>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
 						<span css={styles.noShrink}>top nav</span>
 					</TopNavStart>
 					<TopNavEnd>
@@ -912,8 +975,11 @@ const homeIcon = <HomeIcon label="" color="currentColor" spacing="spacious" />;
 export const SideNavWithMenuItems = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
-			<TopNavStart>
-				<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
 				<span css={styles.noShrink}>top nav</span>
 			</TopNavStart>
 		</TopNav>

@@ -67,7 +67,6 @@
 - [`ea46e2a3744ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea46e2a3744ac) -
   We are testing internal changes for Breadcrumb items behind a feature flag. If this change is
   successful it will be available in a later release:
-
   - No longer renders custom-styled legacy buttons from `@atlaskit/button`, but Anchor or Pressable
     primitives from `@atlaskit/primitives` – depending on whether a `href` is defined.
   - As legacy Button will no longer be used, breadcrumbs will intentionally no longer inherit
@@ -322,7 +321,6 @@
   should always render as a `<nav>`.
 
   **Migration:**
-
   1. For usages which set `href`:
 
   ```tsx
@@ -341,9 +339,8 @@
   </Breadcrumbs>
   ```
 
-  This is semantically correct, and will help you avoid accessibility violations.
-
-  2. For usages which don't set `href`:
+  This is semantically correct, and will help you avoid accessibility violations. 2. For usages
+  which don't set `href`:
 
   ```tsx
   // Incorrect
@@ -753,7 +750,6 @@
 - [#20341](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20341)
   [`af6e73a1e17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af6e73a1e17) - Bumping
   dependencies via Renovate:
-
   - react-loosely-lazy
 
 ## 11.7.1
@@ -1049,7 +1045,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 - [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762)
   [`3f80f8a2e4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f80f8a2e4b) - In this
   version we made breadcrumbs dramatically faster, lighter and easier to use 🤩
-
   - BreadcrumbsStateless has been merged into the default export
   - Performance improvements
   - Faster internal analytics
@@ -1103,7 +1098,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 - [#6930](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6930)
   [`4f2b2b5750`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f2b2b5750) - Internal
   change from class to function components
-
   - converted all the class component in the package to function
   - started to use `usePlatformLeafEventHandler` to replace HOCs from `analytics-next`
   - added more visual regression tests
@@ -1298,7 +1292,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1475,12 +1468,10 @@ _WRONG RELEASE TYPE - DON'T USE_
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1572,7 +1563,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ### Major Changes
 
 - [major][52b15f57d3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/52b15f57d3):
-
   - @atlaskit/breadcrumbs has been converted to Typescript. Typescript consumers will now get static
     type safety. Flow types are no longer provided. No API or behavioural changes.
 
@@ -1587,7 +1577,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 8.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1617,7 +1606,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 7.0.2
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 7.0.1
@@ -1635,7 +1623,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 7.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1698,7 +1685,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 6.0.13
 
 - [patch][c87112f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c87112f):
-
   - Breadcrumbs items no longer have unnecessary indent on the first item
 
 ## 6.0.12

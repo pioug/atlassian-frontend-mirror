@@ -452,7 +452,6 @@
 - [#102047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102047)
   [`3cc4b295175a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3cc4b295175a6) -
   Removed deprecated tokens:
-
   - `font.size.X`
   - `font.lineHeight.X`
   - `font.letterSpacing.X`
@@ -627,7 +626,6 @@
 - [#138792](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138792)
   [`59c6812e1be91`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/59c6812e1be91) -
   Update the @atlaskit/css schema to include:
-
   - `border` and `font` shorthand token values
   - Background and color `-hovered` and `-pressed` tokens are available in the non-psuedo-states for
     patterns like `<div css={[isHovered && hoveredStyles]} />`
@@ -814,7 +812,6 @@
 - [#98149](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98149)
   [`45101e24202a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45101e24202a) -
   Change the state of the following tokens from deprecated to active:
-
   - font.family.body
   - font.family.code
   - font.family.heading
@@ -1300,7 +1297,6 @@ Mapped red/danger icons to darker shades to create distinction between orange an
 - [#38420](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38420)
   [`5a967ac2397`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a967ac2397) - Adds two
   new synchronous theme configuration utilities:
-
   - `enableGlobalTheme` is a synchronous version of `setGlobalTheme` that sets data attributes on
     the page and takes a themeLoader
   - `UNSAFE_loadCustomThemeStyles` provides a synchronous way to generate and apply custom theme
@@ -1364,7 +1360,6 @@ Mapped red/danger icons to darker shades to create distinction between orange an
 - [#39430](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39430)
   [`ff1a0d8dcfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff1a0d8dcfd) -
   Introduces 80 new accent interaction tokens:
-
   - color.background.accent.blue.subtlest.hovered
   - color.background.accent.blue.subtlest.pressed
   - color.background.accent.blue.subtler.hovered
@@ -1486,7 +1481,6 @@ Mapped red/danger icons to darker shades to create distinction between orange an
 - [#37789](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37789)
   [`031034da425`](https://bitbucket.org/atlassian/atlassian-frontend/commits/031034da425) -
   Introduces surface detection through the use of design tokens/CSS variables:
-
   - The `utility.elevation.surface.current` design token allows UI to be styled with a color based
     on a parent element's surface color.
   - The `CURRENT_SURFACE_CSS_VAR` constant is exported to enable the current surface CSS variable to
@@ -1565,7 +1559,6 @@ Mapped red/danger icons to darker shades to create distinction between orange an
 - [#36967](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36967)
   [`bc512702bdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc512702bdc) -
   Introduces new brand background tokens.
-
   - `color.background.brand.subtlest` - Use for the background of elements used to reinforce our
     brand, but with less emphasis.
   - `color.background.brand.subtlest.hovered` - Hovered state of color.background.brand.subtlest.
@@ -1587,7 +1580,6 @@ Mapped red/danger icons to darker shades to create distinction between orange an
   experimental support for custom theming via the `UNSAFE_themeOptions` field in `themeState`.
 
   This option is supported in the following functions:
-
   - `setGlobalTheme()`: optionally generates and loads customized themes based on the options
     provided, and sets the `data-custom-theme` attribute on page's HTML tag.
   - `getThemeStyles()`: returns additional style objects for constructing custom theme `<style>`
@@ -1695,7 +1687,6 @@ Mapped red/danger icons to darker shades to create distinction between orange an
 - [#35526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35526)
   [`e200f2340ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e200f2340ed) -
   Introduces new lime token set.
-
   - `color.text.accent.lime` - Use for lime text on subtlest and subtler lime accent backgrounds
     when there is no meaning tied to the color.
   - `color.text.accent.lime.bolder` - Use for lime text on subtle lime accent backgrounds when there
@@ -2026,7 +2017,6 @@ Mapped red/danger icons to darker shades to create distinction between orange an
   various unused experimental spacing tokens in favor of the `space.X` token format.
 
   Removed:
-
   - `spacing.scale`
   - `spacing.scaleLinear`
   - `spacing.size`
@@ -2213,7 +2203,6 @@ This provides several benefits:
   version of `@atlaskit/tokens`.
 
 - Simpler logic for switching an experience based on the current theme:
-
   - Previously, experiences using theme observers had to check a combination of the
     `data-color-mode` attribute use media queries to to correctly match the currently rendered color
     mode in light, dark and 'auto' color modes. Now, the `data-color-mode` attribute always matches
@@ -2396,7 +2385,6 @@ will begin to error wherever they're used.
   [`0438a9318a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0438a9318a1) - Tweaked
   the values of the `Neutral500` and `Neutral500` base tokens and updated `text.accent.gray.bolder`
   to improve color contrast:
-
   - Adjust `Neutral500` from `#8993A5` to `#8590A2` so that it passes 3:1 contrast against sunken
     surfaces in light mode
   - Adjust `Neutral500A` from `#091E42 @ 48%` to `#091E42 @ 49%` to match color of `Neutral500` on
@@ -2407,13 +2395,11 @@ will begin to error wherever they're used.
   chart tokens for data visualisation and charts.
 
   27 generic chart tokens and hovered state tokens:
-
   - `color.chart.[color].bold`
   - `color.chart.[color].bolder`
   - `color.chart.[color].boldest`
 
   12 semantic chart tokens and hovered state tokens:
-
   - `color.chart.brand`
   - `color.chart.neutral`
   - `color.chart.success`
@@ -2428,7 +2414,6 @@ will begin to error wherever they're used.
   - `color.chart.discovery.bold`
 
   8 categorical chart tokens and hovered state tokens:
-
   - `color.chart.categorical.1`
   - `color.chart.categorical.2`
   - `color.chart.categorical.3`
@@ -2734,7 +2719,6 @@ will begin to error wherever they're used.
 - [#25211](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25211)
   [`9f6aa1d7cdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f6aa1d7cdc) -
   Introduces new interaction states to a number of existing elevation tokens:
-
   - elevation.surface.hovered
   - elevation.surface.pressed
   - elevation.surface.raised.hovered
@@ -2783,7 +2767,6 @@ will begin to error wherever they're used.
 - [#24188](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24188)
   [`50299267c2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50299267c2e) -
   Refactors style-dictionary to support multiple palettes.
-
   - Adds legacy-palette containing colours from `@atlaskit/theme`.
   - Palettes are processed as their own 'themes' (functionally) and now have their own configuration
     via style-dictionary.
@@ -2798,7 +2781,6 @@ will begin to error wherever they're used.
   [`e3377246ebc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3377246ebc) - Moves
   the following `deprecated` tokens to the `sunset` phase. Please ensure that all `sunset` tokens
   are removed from your application, they will be completely removed in the next major version:
-
   - 'color.interaction.inverse.hovered' => 'color.background.inverse.subtle.hovered'
   - 'color.interaction.inverse.pressed' => 'color.background.inverse.subtle.pressed'
 
@@ -2812,7 +2794,6 @@ will begin to error wherever they're used.
 - [#23579](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23579)
   [`39a56a3c4e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39a56a3c4e7) - Update
   disabled tokens to use alpha base tokens:
-
   - `color.text.disabled`
   - `color.icon.disabled`
   - `color.background.disabled`
@@ -2825,7 +2806,6 @@ will begin to error wherever they're used.
   [`83c253f28bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83c253f28bd) - [ux] -
   Correct 'color.interaction.hovered' and 'color.interaction.pressed' token values, which were
   mistakenly mapped inversely in light and dark mode. The token values have now been swapped.
-
   - Deprecate 'color.interaction.inverse.hovered' which has been replaced with
     'color.background.inverse.subtle.hovered'.
   - Deprecate 'color.interaction.inverse.pressed' which has been replaced with
@@ -2839,20 +2819,17 @@ will begin to error wherever they're used.
   [`d9d18df130f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9d18df130f) - [ux]
   Tweaked the values of the DN500 and DN500A base tokens to improve color contrast when paired with
   text:
-
   - DN500 has changed from `#5C6C7A` to `#596773`
   - DN500A has changed from `#A9C5DF7A` to `#9BB4CA80`
 
   This changes the values in dark mode for the following tokens:
 
   _(active)_:
-
   - `color.text.disabled`
   - `color.icon.disabled`
   - `color.background.accent.gray.subtle`
 
   _(deprecated)_:
-
   - `color.overlay.pressed`
 
 ## 0.10.10
@@ -2884,7 +2861,6 @@ will begin to error wherever they're used.
 - [#22107](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22107)
   [`cb8723a7974`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8723a7974) -
   Introduces a new set of neutral accent tokens:
-
   - `color.background.accent.gray.bolder`
   - `color.background.accent.gray.subtle`
   - `color.background.accent.gray.subtler`
@@ -2910,7 +2886,6 @@ will begin to error wherever they're used.
   [`1124fa435ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1124fa435ed) - Moves
   the following `deprecated` tokens to the `sunset` phase. Please ensure that all `sunset` tokens
   are removed from your application, they will be completely removed in the next major version:
-
   - `color.background.brand.hovered` => `color.background.selected.hovered`
   - `color.background.brand.pressed` => `color.background.selected.pressed`
   - `color.background.brand` => `color.background.selected`
@@ -2947,7 +2922,6 @@ will begin to error wherever they're used.
 - [#21920](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21920)
   [`5b8212f08b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b8212f08b0) - The
   current theme can now be accessed and monitored for changes using new exports.
-
   - `useThemeObserver` React hook
   - `ThemeMutationObserver` Mutation Observer
 
@@ -3064,7 +3038,6 @@ will begin to error wherever they're used.
   following tokens have been moved from the `deprecated` to `deleted` state in their lifecycles.
   These tokens will continue to exist, however tooling will begin to error wherever they're used. If
   you haven't already, please run `yarn eslint --fix` or similar to automate your migration.
-
   - `color.background.blanket` => `color.blanket`
   - `color.background.boldBrand.resting` => `color.background.brand.bold`
   - `color.background.boldBrand.hover` => `color.background.brand.bold.hovered`
@@ -3168,18 +3141,15 @@ will begin to error wherever they're used.
 
 - [`c2ec60d6a1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2ec60d6a1b) - [ux]
   Updating existing 16 background accent colors
-
   - Rename default to subtler (Light:200 / Dark:900)
   - Rename bold renamed to subtle (Light:400 / Dark:700)
   - Update this ⤴ base token for dark mode from 700 to 800 (so it is now Light:400 / Dark:800)
 
   16 new accent background colors:
-
   - color.background.accent.[color].subtlest (Light: 100 / Dark:1000)
   - color.background.accent.[color].bolder (Light: 700 / Dark: 400)
 
   8 new text accent colors:
-
   - color.text.accent.[color].bolder (Light:900 / Dark:200)
 
 - [`7b6b994bef5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b6b994bef5) - Correct
@@ -3203,7 +3173,6 @@ will begin to error wherever they're used.
 - [#19072](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19072)
   [`899fd622557`](https://bitbucket.org/atlassian/atlassian-frontend/commits/899fd622557) -
   Re-introduces the selected and selected.bold tokens:
-
   - `color.text.selected`
   - `color.icon.selected`
   - `color.border.selected`
@@ -3215,7 +3184,6 @@ will begin to error wherever they're used.
   - `color.background.selected.bold.pressed`
 
   The following tokens are _deprecated_:
-
   - `color.background.brand`
   - `color.background.brand.hovered`
   - `color.background.brand.pressed`
@@ -3224,7 +3192,6 @@ will begin to error wherever they're used.
 
   Please ensure all usages of the following tokens are replaced with their `selected` counterpart,
   wherever a brand token is used to represent a selected state.
-
   - `color.background.brand.[default|hovered|pressed]` =>
     `color.background.selected.[default|hovered|pressed]`
   - `color.background.brand.bold.[default|hovered|pressed]` =>
@@ -3358,7 +3325,6 @@ will begin to error wherever they're used.
   previous rename map
 - [`0936217160c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0936217160c) - Add bold
   accent tokens:
-
   - `color.accent.boldBlue`
   - `color.accent.boldRed`
   - `color.accent.boldGreen`
@@ -3397,7 +3363,6 @@ will begin to error wherever they're used.
   `background.selected.pressed`
 - [`53749f08286`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53749f08286) - Adds
   tokens:
-
   - `color.overlay.hover`
   - `color.overlay.pressed`
 
@@ -3442,11 +3407,9 @@ will begin to error wherever they're used.
   removes & renames tokens
 
   Adds:
-
   - `color.backgroundSelect`
 
   Renames:
-
   - `color.borderTextHighlighted` to `color.bordertextSelected`
   - `elevation.base` to `evelation.backgroundDefault`
   - `elevation.flatSecondary` to `elevation.backgroundSunken`
@@ -3457,11 +3420,9 @@ will begin to error wherever they're used.
   - `elevation.shadowOverlay` to `shadow.overlay`
 
   Removes:
-
   - `elevation.boarderFlatPrimary`
 
   Updates:
-
   - `elevation.shadowOverlay` value to `DN100`
   - `color.textWarning` in light mode to `O800`
   - `color.iconBorderWarning` in light mode to `O600`
@@ -3545,7 +3506,6 @@ will begin to error wherever they're used.
 - [#11433](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11433)
   [`202cf0733de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/202cf0733de) - Tokens
   are now built using style dictionary with three outputs:
-
   1. CSS
   1. Figma synchronizers
   1. Token name map

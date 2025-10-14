@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 15.1.3
+
+### Patch Changes
+
+- [`544fe6cd169ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/544fe6cd169ad) -
+  minor improvement on the fake table outer border when overflow
+- Updated dependencies
+
+## 15.1.2
+
+### Patch Changes
+
+- [`7c61ac7c9ef3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c61ac7c9ef3d) -
+  Clean up platform_editor_table_drag_menu_flickers_fix
+
 ## 15.1.1
 
 ### Patch Changes
@@ -614,7 +629,6 @@
 - [#188604](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188604)
   [`2447351dcf766`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2447351dcf766) - ##
   What? Remove entry-points to table plugin:
-
   - `@atlaskit/editor-plugin-table/commands`
   - `@atlaskit/editor-plugin-table/plugin-key`
   - `@atlaskit/editor-plugin-table/ui/consts`
@@ -742,7 +756,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -1603,21 +1616,17 @@
   # Improvements
 
   Feature Flag: `platform_editor_table_layout_shift_fix`
-
   - Make all Editor block nodes a proper inline container
 
   Feature Flag: `platform_editor_render_table_fallback_to_dom_on_ssr`
-
   - Always render the Table.toDOM when on SSR
 
   # Clean up
 
   `platform_editor_exp_lazy_node_views`
-
   - Make the `tableNodeSpecWithFixedToDOM` the default `Table.toDOM`
 
   `platform_editor_table_layout_shift_fix`
-
   - Fix the typo `px` typo
 
 ## 10.4.2
@@ -5204,7 +5213,6 @@
 - [#43646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43646)
   [`d43f8e9402f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d43f8e9402f) - Make
   feature flags plugin optional in all plugins including:
-
   - analytics
   - base
   - card
@@ -6064,7 +6072,6 @@
 - [#37787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37787)
   [`4cb3deef759`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cb3deef759) - Improved
   table container/wrapper styles to better support custom table widths
-
   - Remove padding on table wrapper so table overflow is restricted correctly, so it doesn't spew
     out
   - Update shadows to match these new styles
@@ -6651,7 +6658,6 @@
   turned on
 - [`741b3acd455`](https://bitbucket.org/atlassian/atlassian-frontend/commits/741b3acd455) - This
   major change includes:
-
   - `EditorMigrationComponent` being renamed to `Editor`. This includes making component methods
     which should never be used private (which should never be used in normal operation and have been
     deprecated for several releases).
@@ -6992,7 +6998,6 @@
 
 - [`8820442c2b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8820442c2b2) - [ux]
   ED-15709: add feature for delete element if it is `isReferencedSource` is `true`
-
   - add checkbox confirmation dialog when then config have `isReferentiality.`
   - add referentiality helper functions.
   - update confirmDialog config to a handler to reduce traverse times.
@@ -7020,7 +7025,6 @@
   table sticky header becoming unsticky when cursor moves below table
 - [`60068f7fcbe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60068f7fcbe) -
   [ED-16007] Changes made to enable the keyboard accessibility to the table's floating toolbar
-
   1. Use Alt+F10 to access the table's floating toolbar
   2. Use 'Esc' to return to table
   3. If any of the options accessed in dropdown of floating toolbar the focus should be retained on

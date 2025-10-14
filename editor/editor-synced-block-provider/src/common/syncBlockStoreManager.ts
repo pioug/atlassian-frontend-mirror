@@ -24,6 +24,7 @@ export interface SyncBlock {
 
 	// the id of the source syncBlock
 	sourceLocalId: string;
+	sourceURL?: string;
 }
 
 type ConfirmationCallback = () => Promise<boolean>;
@@ -44,6 +45,60 @@ export class SyncBlockStoreManager {
 	constructor(dataProvider?: SyncBlockDataProvider) {
 		this.syncBlocks = new Map();
 		this.dataProvider = dataProvider;
+	}
+
+	/**
+	 * Add/update a sync block node to the store.
+	 * @param node - The sync block node to add
+	 * @returns True if the sync block node was added/updated
+	 */
+	public updateSyncBlockNode(node: PMNode): boolean {
+		const { localId, resourceId } = node.attrs;
+
+		if (!localId || !resourceId) {
+			return false;
+		}
+
+		const existingSyncBlock = this.syncBlocks.get(resourceId);
+
+		const sourceURL = existingSyncBlock?.sourceURL; //avoid fetching the URL again
+
+		// if the sync block is a reference block, we need to fetch the URL to the source
+		// we could optimise this further by checking if the sync block is on the same page as the source
+		if (!sourceURL && !this.isSourceBlock(node) && this.dataProvider) {
+			this.syncBlocks.set(resourceId, {
+				resourceId,
+				sourceLocalId: localId,
+				sourceURL: undefined,
+			});
+
+			this.dataProvider
+				.retrieveSyncBlockSourceUrl({
+					attrs: { localId, resourceId },
+					type: 'syncBlock',
+				})
+				.then((url) => {
+					if (this.syncBlocks.has(resourceId)) {
+						this.syncBlocks.set(resourceId, {
+							resourceId,
+							sourceLocalId: localId,
+							sourceURL: url,
+						});
+					}
+				}); // prefetch the data for the sync block URL
+		}
+
+		return true;
+	}
+
+	/**
+	 * Get the URL for a sync block.
+	 * @param resourceId - The resource ID of the sync block to get the URL for
+	 * @returns
+	 */
+	public getSyncBlockURL(resourceId: ResourceId): string | undefined {
+		const syncBlock = this.syncBlocks.get(resourceId);
+		return syncBlock?.sourceURL;
 	}
 
 	public setEditorView(editorView: EditorView | undefined) {
@@ -93,7 +148,10 @@ export class SyncBlockStoreManager {
 	public createSyncBlockNode(): SyncBlockNode {
 		const localId = uuid();
 		const sourceId = this.dataProvider?.getSourceId();
-		const resourceId = sourceId ? resourceIdFromSourceAndLocalId(sourceId, localId) : localId;
+		if (!sourceId) {
+			throw new Error('Provider of sync block plugin is not set');
+		}
+		const resourceId = resourceIdFromSourceAndLocalId(sourceId, localId);
 		const syncBlockNode: SyncBlockNode = {
 			attrs: {
 				resourceId,
@@ -101,10 +159,6 @@ export class SyncBlockStoreManager {
 			},
 			type: 'syncBlock',
 		};
-		this.syncBlocks.set(syncBlockNode.attrs.resourceId, {
-			resourceId: syncBlockNode.attrs.resourceId,
-			sourceLocalId: syncBlockNode.attrs.localId,
-		});
 		return syncBlockNode;
 	}
 

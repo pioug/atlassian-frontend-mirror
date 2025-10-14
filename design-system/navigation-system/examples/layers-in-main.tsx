@@ -72,10 +72,10 @@ const contentStyles = cssMap({
 
 const panelStyles = cssMap({
 	content: {
-		paddingTop: token('space.300'),
-		paddingRight: token('space.300'),
-		paddingBottom: token('space.300'),
-		paddingLeft: token('space.300'),
+		paddingBlockStart: token('space.300'),
+		paddingInlineEnd: token('space.300'),
+		paddingBlockEnd: token('space.300'),
+		paddingInlineStart: token('space.300'),
 	},
 });
 
@@ -117,12 +117,15 @@ export default function LayersInMain({
 			<Root testId="root">
 				<Banner xcss={bannerStyles.root}> </Banner>
 				<TopNav>
-					<TopNavStart>
-						<SideNavToggleButton
-							testId="side-nav-toggle-button"
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-						/>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton
+								testId="side-nav-toggle-button"
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+							/>
+						}
+					>
 						<AppSwitcher label="Switch apps" />
 						<CustomLogo href="" logo={AtlassianLogo} icon={AtlassianIcon} label="Home page" />
 					</TopNavStart>

@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 0.6.0
+
+### Minor Changes
+
+- [`218e1d54178bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/218e1d54178bb) -
+  Pre-fetch URL to source blocks
+
 ## 0.5.3
 
 ### Patch Changes

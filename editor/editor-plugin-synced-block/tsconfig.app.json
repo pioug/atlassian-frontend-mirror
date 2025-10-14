@@ -44,6 +44,9 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-analytics/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-block-menu/tsconfig.app.json"
 		},
 		{

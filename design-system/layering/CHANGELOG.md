@@ -72,7 +72,6 @@
 - [#134955](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134955)
   [`eff111bcc88a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eff111bcc88a5) -
   The experimental OpenLayerObserver now supports:
-
   - Closing layers - the `useNotifyOpenLayerObserver` hook now requires an `onClose` callback.
   - Grouping layers within a namespace. This allows observers to check the number of open layers
     within a specific "namespace", and narrow their onChange listeners to only be called when the
@@ -210,7 +209,6 @@
 
   It has been replaced by a new `useOpenLayerObserver` hook, which returns an object with the
   functions:
-
   - `getCount`: returns the curent count of open layers under the observer
   - `onChange`: allows you to subscribe to changes in the layer count.
 
@@ -227,7 +225,6 @@
 - [#147187](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147187)
   [`f3fc0c5bb919d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3fc0c5bb919d) -
   Adds a new experimental open-layer-observer entrypoint. It contains:
-
   - OpenLayerObserver: a context provider that contains a ref that tracks the number of open layered
     components underneath it in the React DOM.
   - useNotifyOpenLayerObserver: a hook for use within layering components (e.g. popup) that will

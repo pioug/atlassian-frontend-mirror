@@ -10,7 +10,7 @@ import { MockTopBar } from '../common/mock-top-bar';
 export function TopNavStartLayoutExample() {
 	return (
 		<MockTopBar>
-			<TopNavStart>
+			<TopNavStart sideNavToggleButton={null}>
 				<SideNavToggleButton
 					defaultCollapsed
 					collapseLabel="Collapse sidebar"

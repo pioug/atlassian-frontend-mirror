@@ -73,12 +73,15 @@ export default function MenuItemIntegrationExample() {
 	return (
 		<Root>
 			<TopNav>
-				<TopNavStart>
-					<SideNavToggleButton
-						testId="side-nav-toggle-button"
-						collapseLabel="Collapse sidebar"
-						expandLabel="Expand sidebar"
-					/>
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton
+							testId="side-nav-toggle-button"
+							collapseLabel="Collapse sidebar"
+							expandLabel="Expand sidebar"
+						/>
+					}
+				>
 					<AppSwitcher label="Switch apps" />
 					<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
 				</TopNavStart>

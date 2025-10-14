@@ -812,7 +812,6 @@
   ### Changes
 
   In `5.0.0` we improved the performance of radio by making it more similar to a native radio input.
-
   - Previously we rendered a hidden input and an svg for the radio icon. This way we could get all
     the accessibility benefits of using a native radio input while being able to style the svg. We
     now use `appearance: none` on the input, enabling us to style the input and the `after`
@@ -999,7 +998,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1234,12 +1232,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1280,7 +1276,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1369,28 +1364,24 @@
 ## 3.0.1
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
 ## 3.0.0
 
 - [major][1da5351f72](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1da5351f72):
-
   - @atlaskit/radio has been converted to Typescript. Typescript consumers will now get static type
     safety. Flow types are no longer provided. No API or behavioural changes.
 
 ## 2.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 1.0.0
 
 - [major][6c4e41ff36](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6c4e41ff36):
-
   - This major release indicates that this package is no longer under dev preview but is ready for
     use
 
@@ -1435,7 +1426,6 @@
 ## 0.5.0
 
 - [minor][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1480,7 +1470,6 @@
 ## 0.4.7
 
 - [patch][942e0aec04](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/942e0aec04):
-
   - Added test to make sure props are passed hidden input
 
 ## 0.4.6
@@ -1497,7 +1486,6 @@
 ## 0.4.5
 
 - [patch][a048a85](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a048a85):
-
   - Updated to be compatible with new Forms API
 
 - Updated dependencies [647a46f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/647a46f):
@@ -1550,14 +1538,12 @@
 ## 0.4.0
 
 - [minor][b42680b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b42680b):
-
   - Add isDisabled prop to RadioGroup, once set will set the isDisabled value for all Radio elements
     within the group
 
 ## 0.3.0
 
 - [minor][8199088](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8199088):
-
   - BREAKING: defaultCheckedValue and checkedValue props in the RadioGroup component now changed to
     defaultValue and value respectively
 

@@ -822,7 +822,6 @@ _WRONG RELEASE TYPE - DON'T USE_
   reducing static structure or avoiding unnecessary function calls.
 
   Some big changes are made as following:
-
   - merged stateful and stateless component
   - replace `styled-components` to `emotion` as styling library
   - restructure DOM element to reduce size
@@ -1055,7 +1054,6 @@ import Toggle from '@atlaskit/toggle';
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1145,12 +1143,10 @@ import Toggle from '@atlaskit/toggle';
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1212,7 +1208,6 @@ import Toggle from '@atlaskit/toggle';
 ## 7.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1238,7 +1233,6 @@ import Toggle from '@atlaskit/toggle';
 ## 6.0.2
 
 - [patch][3ff7cfeeb7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3ff7cfeeb7):
-
   - Internal changes only. Toggle is now SSR-friendly.
 
 ## 6.0.1
@@ -1254,7 +1248,6 @@ import Toggle from '@atlaskit/toggle';
 ## 6.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages

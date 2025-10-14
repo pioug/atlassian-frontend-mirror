@@ -1009,7 +1009,6 @@
   Breaking changes:
 
   The following components have been removed from `@atlaskit/drawer`:
-
   - `DrawerItemTheme`
   - `DrawerSkeletonHeader`
   - `DrawerSkeletonItem`
@@ -1022,7 +1021,6 @@
   more accessible and performant way.
 
   Housekeeping:
-
   - Now exposes a `testId` property as a hook for automated testing.
   - Package no longer depends on `styled-components` for styling
   - Package no longer depends on `chromatism`
@@ -1257,7 +1255,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1443,12 +1440,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1535,7 +1530,6 @@
 ### Patch Changes
 
 - [patch][12e4a436a2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12e4a436a2):
-
   - Added focus lock to Drawer
 
 ## 4.1.5
@@ -1586,13 +1580,11 @@
 ## 4.1.0
 
 - [minor][3301793aae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3301793aae):
-
   - Add DrawerSkeletonHeader, DrawerSkeletonItem and DrawerItemGroup components to drawer
 
 ## 4.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1611,7 +1603,6 @@
 ## 3.0.8
 
 - [patch][371becf9e2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/371becf9e2):
-
   - Internal changes only. Drawer is compatible with SSR.
 
 ## 3.0.7
@@ -1645,19 +1636,16 @@
 ## 3.0.5
 
 - [patch][42d931a2fd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/42d931a2fd):
-
   - Move visual-regression to devDependncies
 
 ## 3.0.4
 
 - [patch][a28eb04426](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a28eb04426):
-
   - Migrates package from emotion 9 to emotion 10. No behaviour or API changes.
 
 ## 3.0.3
 
 - [patch][211463f820](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/211463f820):
-
   - Bugfix: fixes z-index problem causing drawer to appear underneath navigation.
 
 - Updated dependencies
@@ -1667,7 +1655,6 @@
 ## 3.0.2
 
 - [patch][37ee906cf7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/37ee906cf7):
-
   - Internal changes only. Drawer uses @atlaskit/portal and is now SSR compatible.
 
 ## 3.0.1
@@ -1687,7 +1674,6 @@
 ## 3.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1744,7 +1730,6 @@
 ## 2.7.0
 
 - [minor][9cfee26](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9cfee26):
-
   - Add data-test-selector to various components to help open and close the Notification Drawer
     programmatically. This would support test automation
 
@@ -1765,7 +1750,6 @@
 ## 2.6.0
 
 - [minor][53bf8be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/53bf8be):
-
   - Support onCloseComplete
 
 ## 2.5.4
@@ -1805,37 +1789,31 @@
 ## 2.5.1
 
 - [patch][f480bab](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f480bab):
-
   - Convert padding to margin to fix a scrolling issue in global-search
 
 ## 2.5.0
 
 - [minor][aacb208](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aacb208):
-
   - Export a new component, DrawerItemTheme, for theming the Drawer with the navigation item theme.
 
 ## 2.4.0
 
 - [minor][6746a42](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6746a42):
-
   - Add extended width option and width transitions
 
 ## 2.3.1
 
 - [patch][a6e5197](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a6e5197):
-
   - 1. Add canUseDOM to fix SSR issue in Drawer. 2) Update SSR tests in navigation-next to exclude
        the examples with Hash, Router or Dom
 
 ## 2.3.0
 
 - [patch][a637f5e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a637f5e):
-
   - Refine and fix some flow type errors found by fixing @atlaskit/analytics-next HOCs to allow flow
     to type check properly
 
 - [minor][670597d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/670597d):
-
   - Make `width` prop optional and default it to 'narrow'
 
 ## 2.2.0

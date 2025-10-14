@@ -8,41 +8,34 @@ import { type Token, tokens } from '@atlaskit/tokens/token-metadata';
 import { cleanQuery } from '../../helpers';
 
 const inputSchema = z.object({
-	terms: z.array(z.string()).describe('Search term(s) to find tokens by name or description'),
+	terms: z
+		.array(z.string())
+		.describe(
+			'An array of search terms to find tokens by name or description, eg. `["spacing", "inverted text", "background primary"]`',
+		),
 	limit: z
 		.number()
 		.optional()
 		.default(1)
-		.describe('Maximum number of results per term to return (default: 1)'),
+		.describe('Maximum number of results per search term in the array (default: 1)'),
 	exactName: z
 		.boolean()
 		.optional()
 		.default(false)
-		.describe('Whether to search for exact match only for the token name'),
+		.describe(
+			'Enable to explicitly search tokens by the exact name match (when you know the name, but need more details)',
+		),
 });
 
 export const listSearchTokensTool = {
 	name: 'ads_search_tokens',
-	description: `You SHOULD Search for Atlassian Design System tokens based on multiple query strings (if there's multiple candidates of token names, descriptions or example values, you SHOULD pass them in a single call). You SHOULD use default \`limit\` value of 1 first and only set a higher limit like 5 or 10 if you can't find the token you need). Fallback to \`ads_get_all_tokens\` if nothing is found). This tool searches through token names, descriptions, and example values to find the most relevant design tokens.
+	description: `Search for Atlassian Design System tokens.
 
-The search will match against:
-- Token names (e.g., "color.text", "space.100", "radius.small")
-- Token descriptions
-- Token example values (eg. "#2898BD" -> "color.icon.accent.teal")
-
-The results include the token's name and example value.
-
-Usage pattern for found tokens:
+Example token usage:
 \`\`\`tsx
 import { token } from '@atlaskit/tokens';
-
-const styles = css({
-color: token('color.text'),
-padding: token('space.100'),
-borderRadius: token('radius.small'),
-});
-\`\`\`
-`,
+const styles = css({ color: token('color.text'), padding: token('space.100') });
+\`\`\``,
 	annotations: {
 		title: 'Search ADS tokens',
 		readOnlyHint: true,

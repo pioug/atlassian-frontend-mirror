@@ -423,7 +423,6 @@
   [`c11b685c99fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c11b685c99fa) -
   This release includes bug fixes that slightly change behaviour of multi-line content in table
   cells:
-
   - Fixed bug where 'expand' chevron was incorrectly placed when the header cell was smaller than
     other cells in the row.
   - Fixed bug where long words in cells would not wrap to the next line.
@@ -778,7 +777,6 @@
   Package has been migrated from `styled-components` to `@emotion/core`.
 
   Other internal changes:
-
   - Package has been migrated to typescript
   - Components now have partial type support.
   - Package internally supports `@atlaskit/tokens` colors.
@@ -815,7 +813,6 @@ _WRONG RELEASE TYPE - DON'T USE_
   has been migrated from `styled-components` to `@emotion/core`.
 
   Other internal changes:
-
   - Package has been migrated to typescript
   - Components now have partial type support.
   - Package internally supports `@atlaskit/tokens` colors.
@@ -1025,7 +1022,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1185,7 +1181,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 7.0.3
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -1209,7 +1204,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 7.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1243,7 +1237,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 6.0.2
 
 - [patch][59eb35b62f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/59eb35b62f):
-
   - Quick change to TableTree is now compatible with SSR. This required moving setState to
     componentDidMount().
 
@@ -1264,7 +1257,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 6.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1372,14 +1364,12 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 5.0.1
 
 - [patch][a637f5e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a637f5e):
-
   - Refine and fix some flow type errors found by fixing @atlaskit/analytics-next HOCs to allow flow
     to type check properly
 
 ## 5.0.0
 
 - [major][90109e9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/90109e9" d):
-
   - added isDefaultExpanded flag to control default expansion state
   - Row component now takes in isExpanded prop to control the expansion state
 

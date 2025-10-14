@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/atlassian-notifications",
-	"version": "0.7.2",
+	"version": "0.8.0",
 	"description": "Notifications for Atlassian products",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,7 +25,8 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Work Platform: Incoming Work"
+		"team": "Work Platform: Incoming Work",
+		"docsPageStructure": "tabs"
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*",

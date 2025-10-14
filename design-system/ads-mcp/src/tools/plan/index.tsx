@@ -7,52 +7,61 @@ import { searchIconsTool } from '../search-icons';
 import { searchTokensTool } from '../search-tokens';
 
 const inputSchema = z.object({
-	tokens_search: z
+	tokens: z
 		.array(z.string())
-		.optional()
-		.describe('Search terms to find tokens by name, description, or example values'),
-	icons_search: z
+		.describe(
+			'Array of terms to search for tokens, eg. `["spacing", "inverted text", "background primary"]`. Provide a minimum of 2 terms when known.',
+		),
+	icons: z
 		.array(z.string())
-		.optional()
-		.describe('Search terms to find icons by name, keywords, or categorization'),
-	components_search: z
+		.describe(
+			'Array of terms to search for icons, eg. `["search", "folder", "user"]`. Provide a minimum of 2 terms when known.',
+		),
+	components: z
 		.array(z.string())
-		.optional()
-		.describe('Search terms to find components by name, package name, description, or category'),
+		.describe(
+			'Array of terms to search for components, eg. `["button", "input", "select"]`. Provide a minimum of 2 terms when known.',
+		),
 	limit: z
 		.number()
 		.optional()
 		.default(1)
-		.describe('Maximum number of results per term to return for each search type (default: 1)'),
+		.describe('Maximum number of results per search term in the provided arrays (default: 1)'),
 	exactName: z
 		.boolean()
 		.optional()
 		.default(false)
-		.describe('Whether to search for exact match only for names'),
+		.describe(
+			'Search tokens, icons, and components by their exact name match (use when you explicitly know the name and need more details)',
+		),
 });
 
 export const listPlanTool = {
 	name: 'ads_plan',
-	description: `You SHOULD use this to plan and search for multiple Atlassian Design System resources in a single call when you need tokens, icons, and components for implementing a complete feature or UI pattern. You SHOULD use this tool instead of making separate calls to ads_search_tokens, ads_search_icons, and ads_search_components when you need resources from multiple categories.
+	description: `Search how to use the Atlassian Design System offerings and get guidance on \`tokens\`, \`icons\`, and \`components\`.
 
-	You SHOULD use this tool when you need to find:
-	- Multiple types of design system resources at once
-	- Tokens, icons, and components for a specific feature or UI pattern
-	- Complete design system resources for implementing a particular design
+YOU MUST ALWAYS call this tool with known parameters and include a minimum of 2 search terms per parameter when known, eg.
+\`\`\`json
+{
+	"tokens": ["spacing", "inverted text", "background primary", "animation"],
+	"icons": ["search", "folder", "user"],
+	"components": ["button", "input", "select", "heading"]
+}
+\`\`\`
 
-	The tool will execute searches for tokens, icons, and components in parallel and return consolidated results from all three APIs in a structured format.
+Please note, there may not be results for everything as there are minor gaps in offerings or how we describe them.
 
-	You SHOULD provide search terms for at least one category (tokens_search, icons_search, or components_search) but can include all three for comprehensive planning.
+Example token usage:
+\`\`\`tsx
+import { token } from '@atlaskit/tokens';
+const styles = css({ color: token('color.text'), padding: token('space.100') });
+\`\`\`
 
-	Example usage:
-	\`\`\`
-	plan({
-	tokens_search: ["color.text", "space.100"],
-	icons_search: ["add", "edit"],
-	components_search: ["Button", "TextField"]
-	})
-	\`\`\`
-	`,
+Example icon usage:
+\`\`\`tsx
+import AddIcon from '@atlaskit/icon/core/add';
+<AddIcon label="Add work item" size="small" />
+\`\`\``,
 	annotations: {
 		title: 'Plan ADS resources',
 		readOnlyHint: true,
@@ -64,7 +73,13 @@ export const listPlanTool = {
 };
 
 export const planTool = async (params: z.infer<typeof inputSchema>) => {
-	const { tokens_search, icons_search, components_search, limit = 1, exactName = false } = params;
+	const {
+		tokens: tokens_search,
+		icons: icons_search,
+		components: components_search,
+		limit = 1,
+		exactName = false,
+	} = params;
 
 	// Validate that at least one search type is provided
 	if (!tokens_search?.length && !icons_search?.length && !components_search?.length) {

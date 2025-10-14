@@ -569,7 +569,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/button@13.3.7
   - @atlaskit/theme@9.5.1
@@ -614,7 +613,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -635,11 +633,9 @@
 ## 0.2.0
 
 - [minor][06e6dd5731](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06e6dd5731):
-
   - Initial release of Progress Bar component.
 
 ## 0.1.0
 
 - [minor][b2eb85b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b2eb85b):
-
   - Initial release of Progress Bar component.

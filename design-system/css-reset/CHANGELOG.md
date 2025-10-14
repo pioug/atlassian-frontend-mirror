@@ -708,7 +708,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/theme@9.5.1
 
@@ -768,7 +767,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -797,20 +795,17 @@
 ## 5.0.0
 
 - [major][bfb006f65a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bfb006f65a):
-
   - css-reset has been converted to Typescript. Typescript consumers will now get static type
     safety. Flow types are no longer provided. No API or behavioural changes.
 
 ## 4.0.1
 
 - [patch][52868d4352](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/52868d4352):
-
   - Fixed regression of font-weight for `<small>` elements
 
 ## 4.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -824,7 +819,6 @@
 ## 3.0.7
 
 - [patch][6c0d9da30e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6c0d9da30e):
-
   - Removes deprecated css property text-decoration-skip: ink. Users should no longer see a warning
     to update the property.
 
@@ -850,7 +844,6 @@
 ## 3.0.3
 
 - [patch][ef9931d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ef9931d):
-
   - Fix issues with ; due to prettier
 
 ## 3.0.2

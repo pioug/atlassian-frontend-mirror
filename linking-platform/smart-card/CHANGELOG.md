@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 43.1.8
+
+### Patch Changes
+
+- [`57d4a5b7703ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57d4a5b7703ef) -
+  Cleans up platform_renderer_blindspots
+- Updated dependencies
+
 ## 43.1.7
 
 ### Patch Changes
@@ -6321,7 +6329,6 @@
 
 - [#32793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32793)
   [`9c49eef4c87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c49eef4c87) - [ux]
-
   - Add lozenge action to hover preview (wip, opt-in, feature flag)
   - Fix hover preview's action dropdown menu showing behind container
   - Allow setting z-index for portal component inside flexible smart links
@@ -7421,7 +7428,6 @@
 - [#24442](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24442)
   [`d0b3a262e03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0b3a262e03) - [ux]
   Embed Preview: Update the new embed preview modal UX
-
   - Make title smaller
   - Reduce gap between element
   - Hide resize button on smaller screen
@@ -7545,7 +7551,6 @@
 - [#22592](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22592)
   [`e15410365b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e15410365b2) - - export
   types/functions in linking common to be used in smart card
-
   - add flag to card action to override re-using previous 'resolved' state
 
   - add prop to cardState which reflects the metadata state, can be pending, resolved or errored
@@ -7841,13 +7846,11 @@
   are now as follows:
 
   #### `ui.cardClickedEvent`
-
   - Now contains `location` as described by the `useSmartLinkAnalytics` hook.
   - Now is fired in `unauthorized`, `errored` and `forbidden` states, with the `status` attribute
     representing the state of the event.
 
   #### `ui.renderSuccessEvent`
-
   - Now contains the `status` attribute, representing the state of the event (`unauthorized`,
     `errored`, `resolved`, etc.)
 
@@ -8010,7 +8013,6 @@
 - [#20562](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20562)
   [`6ee499cbb73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ee499cbb73) - - Add
   @atlaskit/link-provider as peerDependency.
-
   - Use Provider/Client from @atlaskit/link-provider and remove local version.
   - Re export moved things from @atlaskit/link-provider to make adoption easier
 
@@ -9113,7 +9115,6 @@
 
   As of this version of `@atlaskit/smart-card`, when a Smart Link is initially rendered, one of two
   things will take place:
-
   - The link will be considered as within the viewport, and a `fetch` and `render` path will be
     taken, or;
   - The link will be considered as outside of the viewport, and a `prefetch` and `render` later path
@@ -9125,7 +9126,6 @@
   Links is fetched in the background, and persisted to the store.
 
   A few additional points here are:
-
   - The prefetching logic has been implemented as a hook which can be used in other components,
     `usePrefetch`;
   - The prefetching logic is error-safe, in that, if errors take place whilst replacing there should
@@ -9173,7 +9173,6 @@
 
   Added integration tests across the board, asserting that a new window is opened to kick off the
   3LO flow.
-
   - Added integration test for account connection and try another account flows for Inline Links;
   - Added integration test for account connection and try another account flows for Card Links;
   - Added integration test for account connection and try another account flows for Embed Links;
@@ -9183,7 +9182,6 @@
 
   Further, added an `AuthorizationWindow` method to the `@atlaskit/media-integration-test-helpers`,
   with the following methods:
-
   - `AuthorizationWindow.open()` - to open a window to authorize, dependent on which card state it
     is being activated from;
   - `AuthorizationWindow.checkUrl()` - to check if the window URL when redirected is the same as the
@@ -9598,7 +9596,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/button@13.3.7
@@ -9919,12 +9916,10 @@ Bumped dependencies.
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -10029,7 +10024,6 @@ Bumped dependencies.
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -10158,7 +10152,6 @@ Bumped dependencies.
 ### Patch Changes
 
 - [patch][1347760307](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1347760307):
-
   - fix pull request, branch and commit name formatting
 
 ## 11.1.4
@@ -10176,7 +10169,6 @@ Bumped dependencies.
 ## 11.1.3
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -10200,50 +10192,42 @@ Bumped dependencies.
 ## 11.1.0
 
 - [minor][4969df0716](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4969df0716):
-
   - fix lazy rendering bugs in Smart Links.
 
 ## 11.0.5
 
 - [patch][27f666ed85](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/27f666ed85):
-
   - Fixed example.
 
 ## 11.0.4
 
 - [patch][94ffb3b638](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/94ffb3b638):
-
   - check for taskType icon in the json payload
 
 ## 11.0.3
 
 - [patch][6a52b3d258](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6a52b3d258):
-
   - fix for clicking behaviour in view/edit mode for Inline Smart Links.
 
 ## 11.0.2
 
 - [patch][7e18a6398b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7e18a6398b):
-
   - improve type safety when defining smart-card environment
 
 ## 11.0.1
 
 - [patch][b7687b9981](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b7687b9981):
-
   - Changed smart link functionality so that it will open in the same tab if clicked.
 
 ## 11.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 10.5.0
 
 - [minor][593404cba8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/593404cba8):
-
   - add status lozenge to source code issue references.
 
 ## 10.4.2
@@ -10259,13 +10243,11 @@ Bumped dependencies.
 ## 10.4.1
 
 - [patch][3e4c4d7e2d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3e4c4d7e2d):
-
   - fix: send 'Origin' header in resolve requests
 
 ## 10.4.0
 
 - [minor][da5a7f3390](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/da5a7f3390):
-
   - fix third-party link extractors to resolve URLs more accurately.
 
 ## 10.3.1
@@ -10278,7 +10260,6 @@ Bumped dependencies.
 ## 10.3.0
 
 - [minor][ce985861c3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ce985861c3):
-
   - Added analytics for UI actions, and updated existing operational analytics events
 
 ## 10.2.4
@@ -10302,7 +10283,6 @@ Bumped dependencies.
 ## 10.2.3
 
 - [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
-
   - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
     supplied from itself.
 
@@ -10329,19 +10309,16 @@ Bumped dependencies.
 ## 10.2.1
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 10.2.0
 
 - [minor][9b0dd21ce7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9b0dd21ce7):
-
   - allow the appearance of lozenges within smart link tasks to be configured
 
 ## 10.1.2
 
 - [patch][aa117f5341](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aa117f5341):
-
   - fix alignment and UI for inline Smart Links.
 
 ## 10.1.1
@@ -10354,7 +10331,6 @@ Bumped dependencies.
 ## 10.1.0
 
 - [minor][11a6c98707](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/11a6c98707):
-
   - refactor Smart Links frontend directory structure.
 
 ## 10.0.2
@@ -10367,19 +10343,16 @@ Bumped dependencies.
 ## 10.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 10.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 9.11.4
 
 - [patch][8ed53a1cbb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8ed53a1cbb):
-
   - fix padding, wrapping for inline smart links.
 
 ## 9.11.3
@@ -10414,31 +10387,26 @@ Bumped dependencies.
 ## 9.11.1
 
 - [patch][2cb8c44165](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2cb8c44165):
-
   - Fix environments mix-up
 
 ## 9.11.0
 
 - [minor][41147bbc4c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/41147bbc4c):
-
   - Fix for links in editor
 
 ## 9.10.0
 
 - [minor][ea423a619f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ea423a619f):
-
   - Fixed the call to the /check endpoint
 
 ## 9.9.0
 
 - [minor][7f70e97f98](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7f70e97f98):
-
   - Added environments to client
 
 ## 9.8.0
 
 - [minor][1594f351d9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1594f351d9):
-
   - added inline extractors for Bitbucket and Github.
 
 ## 9.7.1
@@ -10450,68 +10418,57 @@ Bumped dependencies.
 ## 9.7.0
 
 - [minor][1c62bcce7d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1c62bcce7d):
-
   - Fix a problem with smart cards not appearing sometimes when lazy rendered and lazy loaded after
     code-split.
 
 ## 9.6.8
 
 - [patch][af3918bc89](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/af3918bc89):
-
   - The url part of the unauthorized link is now grey
 
 ## 9.6.7
 
 - [patch][abce6949c0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/abce6949c0):
-
   - fix icon sizing and url key.
 
 ## 9.6.6
 
 - [patch][5ae645d661](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5ae645d661):
-
   - Fixing analytics in smart-cards
 
 ## 9.6.5
 
 - [patch][2035bef8fb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2035bef8fb):
-
   - Fix inline extractor priority preventing @type arrays in some cases.
 
 ## 9.6.4
 
 - [patch][56c5a4b41f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/56c5a4b41f):
-
   - Fix "try again" should not be showing when there are no auth methods
 
 ## 9.6.3
 
 - [patch][63e6f7d420](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/63e6f7d420):
-
   - Fix missing attributes for link view
 
 ## 9.6.2
 
 - [patch][cbc601aed3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cbc601aed3):
-
   - Added missing type of events for Confluence
 
 ## 9.6.1
 
 - [patch][bef9abc8de](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bef9abc8de):
-
   - added background colour to inline card views, fixed icon alignment.
 
 ## 9.6.0
 
 - [minor][27b12fdfc6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/27b12fdfc6):
-
   - added support for rendering of icons in Jira links
 
 ## 9.5.0
 
 - [minor][d664fc3d49](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d664fc3d49):
-
   - added support for rendering of icons with Confluence links
 
 ## 9.4.1
@@ -10530,21 +10487,17 @@ Bumped dependencies.
 ## 9.4.0
 
 - [minor][8ff07c1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8ff07c1):
-
   - Analytics, first attempt, validate the idea
 
 - [minor][7777442](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7777442):
-
   - More analytics for smart links
 
 - [minor][7302ea6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7302ea6):
-
   - Analytics for smart cards
 
 ## 9.3.0
 
 - [minor][150626e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/150626e):
-
   - add support for source code repository urls (currently Bitbucket and Github) in smart-cards.
 
 ## 9.2.2
@@ -10557,19 +10510,16 @@ Bumped dependencies.
 ## 9.2.1
 
 - [patch][9c50550](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c50550):
-
   - Do not show connect button if there are no auth methods.
 
 ## 9.2.0
 
 - [minor][95f98cc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/95f98cc):
-
   - User can click on a smart card to open a new window/tab
 
 ## 9.1.0
 
 - [minor][1175616](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1175616):
-
   - Simplified error state in inline cards: no red state anymore, just blue link
 
 ## 9.0.4
@@ -10618,13 +10568,11 @@ Bumped dependencies.
 ## 9.0.1
 
 - [patch][4c0c2a0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4c0c2a0):
-
   - Fix Cards throwing Error when client is not provided.
 
 ## 9.0.0
 
 - [major][df32968](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/df32968):
-
   - Introduced pending state (which is represented as a link) and a race between resolving state and
     the data fetch.
 
@@ -10670,7 +10618,6 @@ Bumped dependencies.
 ## 8.8.2
 
 - [patch][b859e08](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b859e08):
-
   - Update dependent versions
 
 ## 8.8.1
@@ -10682,37 +10629,31 @@ Bumped dependencies.
 ## 8.8.0
 
 - [minor][93b31fa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/93b31fa):
-
   - Add support for nested <SmartCardProvider />
 
 ## 8.7.1
 
 - [patch][00cd9a8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/00cd9a8):
-
   - Add tag support for inline task card.
 
 ## 8.7.0
 
 - [minor][e89e244](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e89e244):
-
   - Implemented time-based caching for the client.
 
 ## 8.6.3
 
 - [patch][4b989c3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4b989c3):
-
   - Fix inline cards crashing after change to the format.
 
 ## 8.6.2
 
 - [patch][a567cc9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a567cc9):
-
   - Improve rendering of Smart Cards.
 
 ## 8.6.1
 
 - [patch][7bc4461](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7bc4461):
-
   - ED-5565: support connecting external React.Context to nodeviews
 
 ## 8.6.0

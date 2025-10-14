@@ -29,6 +29,9 @@
 			"path": "../../editor-json-transformer/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-analytics/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-block-menu/afm-rovo-extension/tsconfig.json"
 		},
 		{

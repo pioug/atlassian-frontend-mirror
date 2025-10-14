@@ -371,7 +371,6 @@
 - [#40270](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40270)
   [`27bbdfcb6ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27bbdfcb6ad) - This
   update includes several improvements and fixes to the css-to-design-tokens preset:
-
   - Resolved transformation errors.
   - Added support for new color properties such as `border-color-left`.
   - Omitted unrecognized functions, including `url`, and certain Less functions to prevent compile
@@ -596,7 +595,6 @@
 - [#20310](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20310)
   [`1977986ea86`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1977986ea86) - Bumping
   dependencies via Renovate:
-
   - simple-git
 
 ## 0.9.2
@@ -606,7 +604,6 @@
 - [#19927](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19927)
   [`5c45b17200d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c45b17200d) - Bumping
   dependencies via Renovate:
-
   - simple-git
 
 ## 0.9.1
@@ -709,13 +706,11 @@
   [Commit Changelog](https://github.com/facebook/jscodeshift/commit/2fd5e11f469427d474983b2d1c47be9408677591).
 
   ### Added
-
   - Added a `--fail-on-error` flag to return a `1` error code when errors were found (#416,
     @marcodejongh)
   - Created `template.asyncExpression` (#405, @jedwards1211)
 
   ### Changed
-
   - Removed lodash dependency from tsx parser (#432, @JHilker and @robyoder)
 
 ## 0.6.6

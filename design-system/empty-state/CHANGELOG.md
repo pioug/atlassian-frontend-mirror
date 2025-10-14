@@ -668,7 +668,6 @@
   work in the shortrun before it's formally removed in the component's next major release.
 
   Housekeeping:
-
   - Component now uses the new entrypoint format.
   - Prop descriptions have been updated to better describe component behaviors.
   - Small bug fix related to additional props being spread in to some of the component's internals.
@@ -826,7 +825,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/button@13.3.7
@@ -907,7 +905,6 @@
 ## 5.0.2
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -921,7 +918,6 @@
 ## 5.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -946,7 +942,6 @@
 ## 4.0.2
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 4.0.1
@@ -961,7 +956,6 @@
 ## 4.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages

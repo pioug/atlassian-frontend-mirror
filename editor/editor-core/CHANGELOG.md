@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 215.1.5
+
+### Patch Changes
+
+- [`af3a2c083b759`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af3a2c083b759) -
+  [ux] [EDITOR-2319] set font size for the expand title content to 13px when in dense mode
+- [`c2c833b3cdb28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2c833b3cdb28) -
+  ENGHEALTH-32567: add browse label to the ElementBrowser modal to give an accessible name
+- Updated dependencies
+
+## 215.1.4
+
+### Patch Changes
+
+- [`3a41420ddfc6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a41420ddfc6e) -
+  Clean up platform_editor_drag_layout_column_into_nodes
+- Updated dependencies
+
 ## 215.1.3
 
 ### Patch Changes
@@ -119,7 +137,6 @@
   Remove overflowY on tables to prevent Y axis scroll bar showing on Windows.
 - [`30bb04cd8a8e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30bb04cd8a8e9) -
   [ux] [ED-29292] Fix 2 issues with wrapped images in editor and renderer
-
   1. There is a gap between the first and the second wrapped images
   2. For wrapped images in layout, if image is the first node, it not horizontally aligned with the
      following wrapped images
@@ -862,7 +879,6 @@
 
 - [`286abb4d35eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/286abb4d35eba) -
   [ux] [ED-28960] Finish full page primary toolbar migration
-
   - Align with design update (separator, gap, height, icon size)
   - Add keyboard shortcut to focus toolbar and arrow key navigation
   - Address accessibility
@@ -1241,7 +1257,6 @@
 - [#188604](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188604)
   [`2447351dcf766`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2447351dcf766) - ##
   What? Remove entry-points to table plugin:
-
   - `@atlaskit/editor-plugin-table/commands`
   - `@atlaskit/editor-plugin-table/plugin-key`
   - `@atlaskit/editor-plugin-table/ui/consts`
@@ -1423,7 +1438,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -2284,7 +2298,6 @@
 
   This experiment was only enabled for Confluence and should not have been enabled in other places.
   If for some reason any of the following props/state/methdos were used please remove them:
-
   - isConsumption
   - contentMode
   - initialContentMode
@@ -4257,7 +4270,6 @@
 - [#171014](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171014)
   [`6163248356c63`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6163248356c63) -
   [ED-25833] Replace the following FGs with experiment `platform_editor_advanced_layouts`
-
   - platform_editor_advanced_layouts_breakout_resizing
   - platform_editor_advanced_layouts_pre_release_1
   - platform_editor_advanced_layouts_pre_release_2
@@ -4271,7 +4283,6 @@
   Fix re-exports in @atlaskit/editor-core and @atlaskit/editor-confluence-transformer
 
   ## Moved Entry Points:
-
   - @atlaskit/editor-core/element-browser -> atlaskit/editor-common/element-browser
   - @atlaskit/editor-core/messages -> @atlaskit/editor-common/messages
   - @atlaskit/editor-core/preset-builder -> @atlaskit/editor-common/preset
@@ -4279,7 +4290,6 @@
   ## Moved Exports:
 
   ### @atlaskit/editor-core:
-
   - AnalyticsEventPayload -> @atlaskit/editor-common/analytics
   - EditorPlugin -> @atlaskit/editor-common/types
   - setTextSelection -> @atlaskit/editor-common/utils
@@ -4292,7 +4302,6 @@
   `@atlaskit/editor-common/types`
 
   ### @atlaskit/editor-core/test-utils
-
   - DispatchAnalyticsEvent -> '@atlaskit/editor-common/analytics';
   - FeatureFlags -> '@atlaskit/editor-common/types';
   - EventDispatcher -> '@atlaskit/editor-common/event-dispatcher';
@@ -5180,7 +5189,6 @@
   The following lists the exports removed as well as where they can now be found if required.
 
   Exports removed:
-
   - ToolbarFeedback (removed)
   - EmojiResource (moved to -> @atlaskit/emoji/resource)
   - MentionResource (moved to -> @atlaskit/mention/resource)
@@ -5216,7 +5224,6 @@
   and can be safely removed without any change in functionality
 
   EditorProps removed:
-
   - trackValidTransactions (unused internally, please remove)
   - hideAvatarGroup (unused internally, please remove)
   - placeholder (unused internally for `ComposableEditor` - please pass to the `placeholderPlugin`
@@ -7644,7 +7651,6 @@
 
   There are slight changes in spacing where there was a design token close to the current design
   such as:
-
   - Comment padding (14px -> 12px)
   - Layout margin (7px -> 8px)
   - Toolbar margin (at certain widths) (15px -> 16px)
@@ -7815,7 +7821,6 @@
   ## WHAT?:
 
   Removing feature flags:
-
   - singleLayout
   - newInsertionBehaviour
   - interactiveExpand
@@ -7829,7 +7834,6 @@
   maintenance burden
 
   ## HOW to update your code:
-
   - If you were using the feature flag - the behaviour is now default and you can remove the flags
   - If you were not using the feature flag - the behaviour is now default.
   - If you have opted out of using the feature flag - we have been careful to ensure no-one has
@@ -8251,7 +8255,6 @@
   Deprecating entry-points from `@atlaskit/editor-core` to decouple the `extension` plugin.
 
   These entry-points will no longer be available:
-
   - `@atlaskit/editor-core/extensibility`
   - `@atlaskit/editor-core/extensions`
 
@@ -8270,7 +8273,6 @@
   `@atlaskit/editor-common/extensibility`.
 
   This includes:
-
   - Extension
   - ExtensionNode
   - ExtensionNodeWrapper
@@ -8885,19 +8887,13 @@
   auto-join lists together if the order numbers match up.
 
   Eg.
-
   1. A list item
-
   -
-
   50. Another list item
 
   Should NOT auto join to be 1 & 2 in a single list however...
-
   49. A list item
-
   -
-
   50. Another list item
 
   Should join to be 49 & 50 in a single list.
@@ -9040,7 +9036,6 @@
 - [#43646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43646)
   [`d43f8e9402f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d43f8e9402f) - Make
   feature flags plugin optional in all plugins including:
-
   - analytics
   - base
   - card
@@ -10162,13 +10157,11 @@
   This change removes plugin exports from editor-core that were used only for the mobile bridge.
 
   This includes:
-
   - All plugin keys
   - Plugin commands
   - Plugin types
 
   The full list is:
-
   - EditorFeatureFlags (available via '@atlaskit/editor-common/types' as `FeatureFlags`)
   - EmojiResource (available via '@atlaskit/emoji/resource' as `EmojiResource`)
   - mediaPlugin
@@ -12409,7 +12402,6 @@
 - [#37010](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37010)
   [`8e084d87da5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e084d87da5) - Remove
   deprecated hyperlink commands and plugin key including:
-
   - isTextAtPos
   - isLinkAtPos
   - insertLink
@@ -13131,7 +13123,6 @@
 - [#34644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34644)
   [`741b3acd455`](https://bitbucket.org/atlassian/atlassian-frontend/commits/741b3acd455) - This
   major change includes:
-
   - `EditorMigrationComponent` being renamed to `Editor`. This includes making component methods
     which should never be used private (which should never be used in normal operation and have been
     deprecated for several releases).
@@ -13692,7 +13683,6 @@
   [ED-16557] Refactor Editor and EditorNext to share common code in editor-core.
 
   Introduce new hooks in editor-common including:
-
   1. `usePreviousState` can be used to remember the last props passed to a functional component
 
   2. `useConstructor` can be used to run only once on a functional component
@@ -13907,7 +13897,6 @@
   text button should still work without activity provider
 - [`8da99a328df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8da99a328df) - [ux]
   This changes the behaviour of changing the appearance of a Smart Link or Smart Card.
-
   1. Previously, upon changing the appearance of a Smart Link, the cursor would move to _before_ the
      Smart Link. Now, the cursor will be placed after the Smart Link. In the case of Block Card and
      Embed, the cursor will be placed one paragraph after the Block or Embed card (due to Block and
@@ -14131,7 +14120,6 @@
   comment Editor
 - [`8820442c2b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8820442c2b2) - [ux]
   ED-15709: add feature for delete element if it is `isReferencedSource` is `true`
-
   - add checkbox confirmation dialog when then config have `isReferentiality.`
   - add referentiality helper functions.
   - update confirmDialog config to a handler to reduce traverse times.
@@ -14307,7 +14295,6 @@
   allow start/end line selection when cursor is next to an inline comment
 - [`94f8a899d36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94f8a899d36) -
   [ED-15851] Add feature flags for the restart numbered lists project. These include:
-
   - restartNumberedLists: Allow numbered lists to start from any number greater than 0, not just 1
   - listNumberContinuity: Allow lists to continue their numbering when split by other nodes
   - restartNumberedListsToolbar: Show a toolbar for users to restart the numbering of a list
@@ -14529,7 +14516,6 @@
   codeBlock as content on insertion.
 - [`3f7900cbf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f7900cbf37) - [ux]
   ED-14993 added better support for codeblocks inside lists and gap cursor selection inside lists:
-
   - made list markers visible in safari (desktop and mobile) when list contains codeblocks;
   - fixed bug so users can now set gapcursor next to codeblock by clicking or touching (mobile) the
     list marker;
@@ -14683,7 +14669,6 @@
   right, ensuring a user can add text beside it
 - [`13f3001af1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13f3001af1e) - ED-15482
   Improve esbuild devloop
-
   - Bumps esbuild to 0.15.5
   - Unlock locked prosemirror-dev-tools dependency version
   - Add prosemirror-dev-tools to Editor kitchen sink example
@@ -14853,7 +14838,6 @@
   [ux][ed-15181] Fix typeahead not opening when typing really quickly
 - [`d3ae8684731`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3ae8684731) - [ux]
   ED-14658 Pressing escape in edit mode when popover open shouldn't cancel changes
-
   - Moved keydown listener from document to editor element .akEditor to be able to prevent bubbling
   - Applies to toolbar menus and typeahead, date, emoji picker
 
@@ -14915,7 +14899,6 @@
 - [#24029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24029)
   [`8ed516834c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ed516834c1) - [ux]
   ED-15407: Bring forward patches below to master:
-
   - ED-14988: Patch dark mode in mobile-bridge by ensuring theme context is not stale. Repaints
     editor nodes when theme mode changes.
   - ME-2511: Revert the premature optimisation that introduces race condition.
@@ -15215,13 +15198,10 @@
   ED-14489 - Add implementation to allow parseDoc.check() to throw exception. This change will crash
   any apps that use the editor without a React's Error Boundary <ErrorBoundary /> ancestor in
   certain cases. This changed handling of how the Editor responds when;
-
   1. Previously it would load an empty document, it will now throw an error. Documents which it will
      exhibit this new behaviour are;
-
   - Passing a `defaultValue` which it is unable to understand (e.g. invalid document)
   - Calling `editorActions.replaceSelection()`
-
   2. Some actions occur that result in an invalid prosemirror document. These are not expected to be
      currently occurring, and would generally indicate a bug in the editor.
 
@@ -15544,16 +15524,13 @@
   @atlaskit/adf-schema to their own entry points. These new entry points are as follows
 
   @atlaskit/adf-schema/schema-bitbucket for:
-
   - bitbucketSchema
 
   @atlaskit/adf-schema/schema-confluence for:
-
   - confluenceSchema
   - confluenceSchemaWithMediaSingle
 
   @atlaskit/adf-schema/schema-jira for:
-
   - default as createJIRASchema
   - isSchemaWithLists
   - isSchemaWithMentions
@@ -15568,7 +15545,6 @@
   - isSchemaWithTables
 
   @atlaskit/adf-schema/schema-default for:
-
   - defaultSchema
   - getSchemaBasedOnStage
   - defaultSchemaConfig
@@ -15744,7 +15720,6 @@
 - [`9dfdfaab7c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dfdfaab7c6) - [ux]
   ED-14241: fix initial visibility of edit icon on extension floating toolbar when selecting an
   editable extension at the first node in the document
-
   - fixed bug in bodiedExtension where clicking on the border of 'extension-content' wont trigger a
     selection
 
@@ -15757,7 +15732,6 @@
   type updated for compatability with synchrony code.
 - [`03930b9f4c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03930b9f4c7) -
   ED-14253: fixed infinite transaction loop after uploading a file to the editor.
-
   - updated ADF for MediaBaseAttributes.\_\_contextId to allow for null value
   - fixed Editor example page 2-comment-jira-bento
 
@@ -16292,7 +16266,6 @@
 
   This change has several parts to ensure the correctness of serialize(), deserialize(),
   GroupedField.hasGroupedValues and BaseFieldDefinition.allowDuplicates
-
   - Introduced GroupedField.hasGroupedValues which allows expand/tabgroup/tab to store the value of
     its fields by the name of the expand/tabgroup/tab if hasGroupedValues=True (False by default)
   - Fixed a type safety issue with Parameters and ParametersWithDuplicateFields where Typescript
@@ -16375,7 +16348,6 @@
   UI.
 - [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) -
   ED-11632: Bump prosemirror packages;
-
   - prosmirror-commands 1.1.4 -> 1.1.11,
   - prosemirror-model 1.11.0 -> 1.14.3,
   - prosemirror-state 1.3.3 -> 1.3.4,
@@ -16820,7 +16792,6 @@
   User is able to change emoji and background color when selected
 - [`c796dfa0ae4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c796dfa0ae4) -
   [ME-1589] Rearchitect the adaptive toolbar solution for the editor mobile bridge.
-
   - Add a new plugin to editor-core that allows you to subscribe to events when the editor view is
     updated.
   - Created a subscription that allows you to listen to toolbar and picker plugin updates.
@@ -16836,7 +16807,6 @@
 
 - [`d2911917e8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2911917e8e) - [ux]
   ED-12991: added ability to collapse a table, flagged via table.allowCollapse option
-
   - feature can be accessed via table floating toolbar item "table options"
   - hidden when flag is off or expands are not in the schema
   - option to collapse is disabled when table is currently in an expand OR when collapsing will
@@ -17312,7 +17282,6 @@
   remove paddings from tab in config panel
 - [`de1ea3645b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de1ea3645b1) - [ux]
   extension config panels; fixed bug with custom/date/daterange fields not applying changes
-
   - renamed OnBlur > OnFieldChange, onFieldBlur/onBlur > onFieldChange, WithOnFieldBlur >
     WithOnFieldChange
   - removed blur event listeners on components which only update during onChange
@@ -17943,7 +17912,6 @@
   logic to retain selection after table resize.
 - [`70fecd78610`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70fecd78610) - [ux]
   This commit includes UX changes to Cmd+K link toolbar
-
   - MouseLeave will now correctly cancel the highlight of the item
   - Press Enter will now always submit things in the input fields. Previously we were allowing
     MouseOver + Enter to submit selected item. This had caused many misoperations that user would
@@ -18351,7 +18319,6 @@
   added TransactionTracking.usePerformanceMarks flag. when false (default) uses alternative
   performance measurement methods via getMeasureHelpers() helper and startMeasureSimple() and
   stopMeasureSimple() utils.
-
   - moved measure-transactions.ts and should-track-transaction.ts into track-transactions.ts
   - split shouldTrackTransaction() into bumpDispatchCounter()
   - use constants for event names
@@ -18407,7 +18374,6 @@
 
 - [`22791ceed0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22791ceed0) - [ux] -
   added new properites in MentionResource interface to support invite from mention experiment
-
   - updated util-data-test/mention to enable invite from mention experiment
   - added invite from mention experiment logic into editor-core
 
@@ -18534,7 +18500,6 @@
 
 - [`a09fabd2df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a09fabd2df) - [ux]
   ED-10625 Allow table to have leading cursor in mobile
-
   - Remove extra padding on the sides of the table component
   - Allow mobile nodes to have gap cursor
 
@@ -18609,7 +18574,6 @@
   Disabled linking keyboard shortcut for video
 - [`a41378f853`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a41378f853) - Refactor &
   fix few cases of unsupported node attributes:
-
   - Preseve attributes on nodes which do not support any attributes
   - Add unsupportedNodeAttribute to bulletList, layoutSection etc.
 
@@ -18859,7 +18823,6 @@
   Treat a cell selection that covers the whole table like a node selection
 
   This means:
-
   - If a user hits backspace with the table selected it is deleted
   - If a user types with the table selected, the table node is replaced with the typed text
   - If a user pastes content with the table selected, the table node is replaced with the pasted
@@ -18874,7 +18837,6 @@
 
 - [`ae50a98f18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae50a98f18) - ED-9125
   ED-8837 Update styles for selected media cards
-
   - Use editor selection styles from @atlaskit/editor-shared-styles
   - Update UI for selected items in media group to no longer set blue background and tick in corner
   - No longer set set text selection over filename, filesize etc. for media group cards when
@@ -18981,7 +18943,6 @@
 
   As of this version of `@atlaskit/smart-card`, when a Smart Link is initially rendered, one of two
   things will take place:
-
   - The link will be considered as within the viewport, and a `fetch` and `render` path will be
     taken, or;
   - The link will be considered as outside of the viewport, and a `prefetch` and `render` later path
@@ -18993,7 +18954,6 @@
   Links is fetched in the background, and persisted to the store.
 
   A few additional points here are:
-
   - The prefetching logic has been implemented as a hook which can be used in other components,
     `usePrefetch`;
   - The prefetching logic is error-safe, in that, if errors take place whilst replacing there should
@@ -19188,7 +19148,6 @@
 
   Added integration tests across the board, asserting that a new window is opened to kick off the
   3LO flow.
-
   - Added integration test for account connection and try another account flows for Inline Links;
   - Added integration test for account connection and try another account flows for Card Links;
   - Added integration test for account connection and try another account flows for Embed Links;
@@ -19198,7 +19157,6 @@
 
   Further, added an `AuthorizationWindow` method to the `@atlaskit/media-integration-test-helpers`,
   with the following methods:
-
   - `AuthorizationWindow.open()` - to open a window to authorize, dependent on which card state it
     is being activated from;
   - `AuthorizationWindow.checkUrl()` - to check if the window URL when redirected is the same as the
@@ -19213,7 +19171,6 @@
   **Ticket:** EDM-1120
 
   **Changes:**
-
   - Refactored Card Link `view` tests to separate files to be more maintainable;
   - Added unit tests to all Card Link actions;
   - Added unit tests to Card Link PreviewAction;
@@ -19265,7 +19222,6 @@
   Smart Links in Renderer.
 
   Selectors exported now include:
-
   - `inlineCardSelector` - for selecting the Inline Link representation, in any of its resolved or
     unresolved states;
   - `blockCardSelector` - for selecting the Card Link representation, in any of its resolved or
@@ -19395,7 +19351,6 @@
 
 - [`4a1120b6a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a1120b6a8) - Fix
   quickInsert on mobile:
-
   - Fixed missing options on quickInsertPlugin + added tests
   - Mock `formatMessage` on Editor component on mobile bridge, to be able to not depend on i18n for
     now, and unblock native side work
@@ -19520,7 +19475,6 @@
   selections
 
   See in-depth info on the events here:
-
   - [Selection events](https://hello.atlassian.net/wiki/spaces/PData/pages/140331421/Minimum+Event+Spec+-+Editor#Selection-events)
   - [Clipboard events](https://hello.atlassian.net/wiki/spaces/PData/pages/140331421/Minimum+Event+Spec+-+Editor#Clipboard-events)
 
@@ -19536,12 +19490,10 @@
   ## Breaking changes:
 
   Renamed the following exports from '@atlaskit/editor-common/extensions':
-
   - from `ExtensionModuleType` to `ExtensionQuickInsertModule`;
   - from `getItemsFromModule` to `getQuickInsertItemsFromModule`,
 
   Renamed the following exports from '@atlaskit/editor-common':
-
   - from `ExtensionModuleType` to `ExtensionQuickInsertModule`;
 
 - [`584cd5c528`](https://bitbucket.org/atlassian/atlassian-frontend/commits/584cd5c528) - Add
@@ -19959,7 +19911,6 @@
   no longer rely on a timer, rather make it rely on pushed updates from the consumer.
 
   This change also includes
-
   - Renaming of the Editor Prop `AnnotationProvider` to `AnnotationProviders` (plural).
   - Coupling the UI component with the relevant annotation provider
   - Adding the `updateSubscriber` attribute
@@ -20160,7 +20111,6 @@
   Add selection to panel-
   [`8bc9f3e9af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bc9f3e9af) - ED-8942:
   Changed default font size for full width editor and renderer
-
   - Previously default font size for full page editor was 14px. Now, when `allowDynamicTextSizing`
     is disabled it equals to 16px.
   - Font size in table was 14px, ignoring dynamic text sizing font size, after this change it
@@ -20479,7 +20429,6 @@
   [minor][3644fc1afe](https://bitbucket.org/atlassian/atlassian-frontend/commits/3644fc1afe):
 
   Enable slash command on editor-mobile-bridge:
-
   - All changes under `enableQuickInsert` flag consumed from query parameters.
   - This PR introduces basic changes in order to test, _THIS IS NOT PRODUCTION READY!_
   - All quick insert items present under `/` command on web, will be sent to native. Following up
@@ -21530,7 +21479,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -21960,7 +21908,6 @@
 
   ED-8578: always consume Tab-related events inside actions in full page- Updated dependencies
   [f97e248127](https://bitbucket.org/atlassian/atlassian-frontend/commits/f97e248127):
-
   - @atlaskit/editor-test-helpers@10.4.2
 
 ## 116.1.1
@@ -22040,7 +21987,6 @@
   ED-8380 Fix exception "Cannot read property 'nodeSize' of undefined"
 
   This is one of our top exceptions in the editor, and there were 2 causes which have been fixed:
-
   1. Pasting with cmd+shift+v when text formatting (eg. bold) is selected
   2. During collab editing when one user's change matched the other user's selection, and their
      selection was not mapped to the new document after the change-
@@ -22095,7 +22041,6 @@
 
   [ED-8439] Extract height css rule from WidthProvider and move to Editor wrapper- Updated
   dependencies [9a8127fc08](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a8127fc08):
-
   - @atlaskit/editor-common@43.2.1
 
 ## 116.0.0
@@ -22258,7 +22203,6 @@
 
   Fix type errors caused when generating declaration files- Updated dependencies
   [36f6e99c5b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/36f6e99c5b):
-
   - @atlaskit/calendar@9.2.2
   - @atlaskit/editor-test-helpers@10.3.2
   - @atlaskit/renderer@53.2.2
@@ -22466,7 +22410,6 @@
   Removed deprecated props from editor core
 
   Following props have been removed from `@atlaskit/editor-core`:
-
   - mediaProvider –> Use `media={{ provider }}` instead
   - cardProvider -> Use `UNSAFE_cards={{ provider }}` instead
   - allowPlaceholderCursor -> Enabled by default
@@ -22660,7 +22603,6 @@
   Make PopupSelect correctly pass props. Forcing update of @atlaskit/select for all other packages-
   Updated dependencies
   [3a20e9a596](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3a20e9a596):
-
   - @atlaskit/select@11.0.2
   - @atlaskit/user-picker@4.1.5
   - @atlaskit/media-test-helpers@25.2.5
@@ -22673,7 +22615,6 @@
 
   ED-8042 upgrade prosemirror-markdown to remove ES modules workaround- Updated dependencies
   [aed7d2a980](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aed7d2a980):
-
   - @atlaskit/editor-bitbucket-transformer@6.2.9
   - @atlaskit/editor-markdown-transformer@3.1.11
 
@@ -23165,7 +23106,6 @@ Bumped dependencies.
   [patch][b37ede79c8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b37ede79c8):
 
   ED-7799 Refactor analytics to prevent splitting history
-
   - Use analytics step direct into the same transaction instead of setting on meta and appending a
     different transaction afterwards.
   - Add current selection position into analytics step to create step map base on current position.
@@ -23273,7 +23213,6 @@ Bumped dependencies.
 - [minor][65ada7f318](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65ada7f318):
 
   **FABDODGEM-12 Editor Cashmere Release**
-
   - [Internal post](http://go.atlassian.com/cashmere-release)
 
   **Affected editor components:**
@@ -23281,19 +23220,16 @@ Bumped dependencies.
   tables, media, mobile, text color, emoji, copy/paste, analytics
 
   **Performance**
-
   - Async import for code blocks and task items on renderer
     - https://product-fabric.atlassian.net/browse/ED-7155
 
   **Table**
-
   - Add support to sort tables that contains smart links
     - https://product-fabric.atlassian.net/browse/ED-7449
   - Scale table when changing to full width mode
     - https://product-fabric.atlassian.net/browse/ED-7724
 
   **Text color**
-
   - Update text color toolbar with right color when text is inside a list, panel, etc.
     - https://product-fabric.atlassian.net/browse/FM-1752
 
@@ -23353,7 +23289,6 @@ https://product-fabric.atlassian.net/browse/FM-2393
   Single nodes, only when they are inserted at the beginning or at the end of an specific node.
 
   Examples:
-
   - Insert a horizontal rule when the cursor is at the begining of a paragraph, it will insert the
     node above the paragraph. Same with media single.
   - Insert a horizontal rule when the cursor is at the end of a paragraph, it will insert the node
@@ -23501,7 +23436,6 @@ Remove applicationCard node and action mark
 
   You can do this with the `annotationProvider` prop. Passing a truthy value to this (e.g. the empty
   object `{}`) will:
-
   - enable support for working with the `annotation` ADF mark
   - will render highlights around any annotations, and
   - allow copying and pasting of annotations within the same document, or between documents
@@ -23520,7 +23454,6 @@ Remove applicationCard node and action mark
   Annotations are styled within the editor using the `fabric-editor-annotation` CSS class.
 
   Other changes:
-
   - `Popup` now supports an optional `rect` parameter to direct placement, rather than calculating
     the bounding client rect around a DOM node.-
     [minor][45ae9e1cc2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/45ae9e1cc2):
@@ -23818,7 +23751,6 @@ Remove applicationCard node and action mark
   Tables, Media, Smart Cards, Extensions, Analytics, Copy and Paste, Code Block, Undo, Emoji
 
   **Performance**
-
   - Reduce number of wrapping nodes in table cells. – [table][affects: wrapping, overflow, resizing]
     - https://product-fabric.atlassian.net/browse/ED-7288
   - Cache resizeState in pluginState to avoid expensive DOM operations. – [table][affects: resizing]
@@ -23831,7 +23763,6 @@ Remove applicationCard node and action mark
     - https://product-fabric.atlassian.net/browse/ED-7342
 
   **SmartCards**
-
   - Pending and error states do not pass onClick prop
     - https://product-fabric.atlassian.net/browse/SL-359
   - Make toolbars consistent between blue link and smart link – [affects: link and smart link]
@@ -23842,7 +23773,6 @@ Remove applicationCard node and action mark
   Not clear how to test. – [affects: all type aheads, mention type ahead]
 
   **Copy and Paste**
-
   - Copying text & images from Google doc changes formatting on paste [affects: media]
     - https://product-fabric.atlassian.net/browse/ED-7338
   - Pasted code block does not persist selected language – [affects: code block]
@@ -23850,7 +23780,6 @@ Remove applicationCard node and action mark
   - Copy and paste media
 
   **Tables**
-
   - Table add 40+ blank columns
     - https://product-fabric.atlassian.net/browse/ED-7031
   - Implement Table Sorting in Edit Mode – [NEW BIG FEATURE][not enabled]
@@ -23859,14 +23788,12 @@ Remove applicationCard node and action mark
     - https://product-fabric.atlassian.net/browse/ED-7391
 
   **Analytics**
-
   - Fire undo events – [affects: undo]
     - https://product-fabric.atlassian.net/browse/ED-7276
   - Make all insert events set analytics meta
     - https://product-fabric.atlassian.net/browse/ED-7277
 
   **Notable Bug fixes**
-
   - Issue with ctrl+z [affects: undo on different languages, e.g. Russian keyboard]
     - https://product-fabric.atlassian.net/browse/ED-7310
 
@@ -24031,12 +23958,10 @@ Remove applicationCard node and action mark
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -24384,7 +24309,6 @@ Remove applicationCard node and action mark
 
   **`Editor`** For `Editor` component, a property called `feedbackInfo` is added contains the
   following properties:
-
   - `product`
   - `packageName`
   - `packageVersion`
@@ -24396,7 +24320,6 @@ Remove applicationCard node and action mark
 
   **`ToolbarFeedback`** For `ToolbarFeedback` component, the following feedback related properties
   are deprecated in favour of using the `feedbackInfo` property on Editor.
-
   - `packageName`
   - `packageVersion`
   - `labels`
@@ -24527,7 +24450,6 @@ Remove applicationCard node and action mark
 - [patch][92419b2ad8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/92419b2ad8):
 
   ED-7116 Update logic for image sizing when changing layout to/from aligned
-
   - If an image is smaller than 50% of line length the image will preserve its original size when
     aligned, else it will be capped at 50% line length
   - When returning to a centred image after aligning the image will use its most recent resized size
@@ -24592,7 +24514,6 @@ Remove applicationCard node and action mark
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -24821,7 +24742,6 @@ Remove applicationCard node and action mark
 - [minor][e754b5f85e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e754b5f85e):
 
   Media Picker Dropone component is now migrated to React.
-
   - Previous vanilla js API:
 
   ```
@@ -25192,7 +25112,6 @@ Remove applicationCard node and action mark
   ```
 
   Notes on new API:
-
   - No need to explicitly teardown the component. Unmounting the component will do the work
   - `onBrowseFn` and `onCancelFn` are workarounds to open the file browser and cancel an ongoing
     upload. Refer to its type definitions for more info. Before we were saving a ref and call
@@ -25422,7 +25341,6 @@ Remove applicationCard node and action mark
 ### Patch Changes
 
 - [patch][a8d95a6f8d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a8d95a6f8d):
-
   - remove mention text if CollabEditOptions.sanitizePrivateContent is true during copy/paste
 
 ## 112.12.5
@@ -25595,7 +25513,6 @@ Remove applicationCard node and action mark
 ### Patch Changes
 
 - [patch][9886f4afa1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9886f4afa1):
-
   - [ED-7017] Improve table performance removing cellView from table
 
 ## 112.11.10
@@ -25612,7 +25529,6 @@ Remove applicationCard node and action mark
 ### Patch Changes
 
 - [patch][65dbd23b3c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65dbd23b3c):
-
   - ED-6996: Memoise calling initialise on the collab plugin, this will prevent race conditions when
     toggling between full width mode and full page quickly.
 
@@ -25621,7 +25537,6 @@ Remove applicationCard node and action mark
 ### Patch Changes
 
 - [patch][7ac7d494de](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7ac7d494de):
-
   - ED-6995 Scale down tables created in full-width mode correctly
 
 ## 112.11.7
@@ -25629,7 +25544,6 @@ Remove applicationCard node and action mark
 ### Patch Changes
 
 - [patch][9631b66aa0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9631b66aa0):
-
   - ED-6997: When transitioning between modes (Full Width -> Full Page) while having a selection
     over React nodes, ProseMirror will try to re-apply the selection during the view update to
     detached nodes that are no longer rendered.
@@ -25642,7 +25556,6 @@ Remove applicationCard node and action mark
 ### Patch Changes
 
 - [patch][28cd9ab082](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/28cd9ab082):
-
   - ED-7019 Fix Scroll Gutter Plugin to only be added in full-page appearance
 
 ## 112.11.5
@@ -25650,7 +25563,6 @@ Remove applicationCard node and action mark
 ### Patch Changes
 
 - [patch][936c9775ca](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/936c9775ca):
-
   - [ED-7012] Move header column/row state to pluginState to avoid duplicate logic and increase
     performance
 
@@ -25669,7 +25581,6 @@ Remove applicationCard node and action mark
 ## 112.11.2
 
 - [patch][d7aa377982](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d7aa377982):
-
   - ED-6958: fix navigating using arrow keys around images in comment editors
 
   Specifically, the "gap cursor" on the right hand side of images in the comment editor would appear
@@ -25680,7 +25591,6 @@ Remove applicationCard node and action mark
 ## 112.11.1
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -25695,15 +25605,12 @@ Remove applicationCard node and action mark
   ED-6748: add inviteToEditComponent to allow custom React components in collab share
 
 - [minor][9cbd059bfa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9cbd059bfa):
-
   - Put `media-editor` into separate editor plugin, update `@atlaskit/media-editor` API
 
   ### Breaking change for `@atlaskit/media-editor`
-
   - Make `onUploadStart`, `onFinish` optional
   - Add new `onClose` callback for when the user closes the dialog (escape, cancel, error)
   - `onFinish` now only called when the upload itself finishes, not overloaded for other purposes
-
     - now also passes the `FileIdentifier` of the completed upload
 
   ### Editor changes
@@ -25715,7 +25622,6 @@ Remove applicationCard node and action mark
   is _not_ dependent on the `media` plugin.
 
 - [minor][58e3a9a2e1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/58e3a9a2e1):
-
   - [ED-6305] Adds mass formatting on selected cells in a table
 
 - Updated dependencies
@@ -25751,13 +25657,11 @@ Remove applicationCard node and action mark
 ## 112.10.10
 
 - [patch][7318619da7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7318619da7):
-
   - Revert [ED-5734] to reduce memory leak caused by getBoundingClientRect
 
 ## 112.10.9
 
 - [patch][1a1ea182d6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1a1ea182d6):
-
   - Fix an infinite loop in typeahead plugin
 
 ## 112.10.8
@@ -25785,105 +25689,88 @@ Remove applicationCard node and action mark
 ## 112.10.6
 
 - [patch][7eca61edf0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7eca61edf0):
-
   - ED-6965: bump prosemirror-utils to allow safeInsert replacing selected nodes when it conforms to
     schema
 
 ## 112.10.5
 
 - [patch][7ce86bae14](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7ce86bae14):
-
   - Shift selection for rows and columns
 
 ## 112.10.4
 
 - [patch][ca1f019d62](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ca1f019d62):
-
   - ED-6976: fix recovering from overflow when table has number column and all columns are selected
 
 ## 112.10.3
 
 - [patch][f823890888](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f823890888):
-
   - ED-6970: Fix backspacing inside a layout removing all content.
 
 ## 112.10.2
 
 - [patch][54b40d9757](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/54b40d9757):
-
   - ED-6832 Refactor ReactMediaSingleNodeView to remove usage of media plugin state private methods.
 
 ## 112.10.1
 
 - [patch][f3334a7083](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f3334a7083):
-
   - ED-6918: fix deleting table rows inside bodied extensions
 
 ## 112.10.0
 
 - [minor][21f5217343](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21f5217343):
-
   - consume emoji new entrypoints in AK
 
 ## 112.9.1
 
 - [patch][56356b17a3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/56356b17a3):
-
   - ED-6880: added even column widths on resize handle double-click and bulk resizing of columns
 
 ## 112.9.0
 
 - [minor][4969df0716](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4969df0716):
-
   - fix lazy rendering bugs in Smart Links.
 
 ## 112.8.1
 
 - [patch][5973916c23](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5973916c23):
-
   - [ED-6344] Remove scrollbar overlap from the last table row
 
 ## 112.8.0
 
 - [minor][7089d49f61](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7089d49f61):
-
   - consume the new mention entrypoints
 
 ## 112.7.0
 
 - [minor][f120090dfe](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f120090dfe):
-
   - Add GASv3 analytics to Emoji TypeAhead.
 
 ## 112.6.0
 
 - [minor][9a1b2075e8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9a1b2075e8):
-
   - consume new Status entrypoints
 
 ## 112.5.2
 
 - [patch][6a65053272](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6a65053272):
-
   - ED-6929: avoid having a negative rowspan after merging cells
 
 ## 112.5.1
 
 - [patch][a511611473](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a511611473):
-
   - ED-6808: Fix issue where toggling the same mark but different attributes would just remove the
     mark.
 
 ## 112.5.0
 
 - [minor][9be684e931](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9be684e931):
-
   - ED-5782 Replace text-color button with more easily identifiable A icon with colored bar.
 
 ## 112.4.0
 
 - [minor][d9f8b4d43d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d9f8b4d43d):
-
   - [ED-5505] Apply strong mark by default on table headers
 
 ## 112.3.1
@@ -25898,13 +25785,11 @@ Remove applicationCard node and action mark
 ## 112.3.0
 
 - [minor][f53003a5ed](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f53003a5ed):
-
   - ED-6741 Add 'appearance' to all editor analytics events
 
 ## 112.2.10
 
 - [patch][051800806c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/051800806c):
-
   -
 
   - MediaPicker Clipboard component is now a React Component
@@ -25936,7 +25821,6 @@ Remove applicationCard node and action mark
   ```
 
   With the new React API we benefit from:
-
   - No need to programatically activate/deactivate. We will just render the Clipboard component or
     not.
   - Event handlers are provided by react props
@@ -25965,101 +25849,85 @@ Remove applicationCard node and action mark
 ## 112.2.9
 
 - [patch][be2df0f8e7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/be2df0f8e7):
-
   - ED-6833: improve columns scaling by preventing table from going to overflow state
 
 ## 112.2.8
 
 - [patch][ab278c83e1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ab278c83e1):
-
   - Fix issue where multiple layouts in a document copy attributes from one another in an
     appendTransaction.
 
 ## 112.2.7
 
 - [patch][ed02efdb94](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ed02efdb94):
-
   - [ED-6817] Extract the current toggleHeader logic to prosemirror-table 0.8.0
 
 ## 112.2.6
 
 - [patch][8bdff125fb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8bdff125fb):
-
   - ED-6818 Scroll cursor into view after pasting rich text or text inside a code block
 
 ## 112.2.5
 
 - [patch][85328a0d76](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/85328a0d76):
-
   - ED-6466: (ED-6599) fix undo with cmd+z after scaling table columns by applying new widths to
     cells in one go
 
 ## 112.2.4
 
 - [patch][12aa76d5b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12aa76d5b5):
-
   - ED-6814: fixed rendering mediaSingle without collection
 
 ## 112.2.3
 
 - [patch][5fd9727f51](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5fd9727f51):
-
   - Remove duplicate isEmptyNode function from same code path, to prevent compilation errors
 
 ## 112.2.2
 
 - [patch][dc5b953c49](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc5b953c49):
-
   - Fix issue where attempting to fix layouts would reference a stale layout type
 
 ## 112.2.1
 
 - [patch][3c1c5165b3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3c1c5165b3):
-
   - ED-6815: fix resizing images to line length (100% width) after fix for ED-6467
 
 ## 112.2.0
 
 - [minor][79f0ef0601](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/79f0ef0601):
-
   - Use strict tsconfig to compile editor packages
 
 ## 112.1.1
 
 - [patch][ad5128f63c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ad5128f63c):
-
   - ED-5844 Refactor media floating toolbar into little pieces
 
 ## 112.1.0
 
 - [minor][0ed8ea77ab](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0ed8ea77ab):
-
   - ED-6049: New hyperlink experience, add text to display in the toolbar, refer spec in the ticket
 
 ## 112.0.3
 
 - [patch][74b05d57c4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/74b05d57c4):
-
   - Fix slowness after "fix regression where multiple cell context menu dropdowns would appear when
     adding rows"
 
 ## 112.0.2
 
 - [patch][1f276f95d4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1f276f95d4):
-
   - ED-6871 Remove unused duplicate functions from table commands
 
 ## 112.0.1
 
 - [patch][5ad66b6d1a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5ad66b6d1a):
-
   - [ED-6860] Revert prosemirror-view 1.8.9 bumps, this version was making the cursor typing slowly.
     this version is recreating all plugins when we use `EditorView.setProps`
 
 ## 112.0.0
 
 - [major][5e4ff01e4c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5e4ff01e4c):
-
   - Fix typeahead re-rendering when moving mouse
 
   Breaking change -> TypeAheadItem:
@@ -26090,37 +25958,31 @@ Remove applicationCard node and action mark
 ## 111.1.4
 
 - [patch][c5b70ffbdb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c5b70ffbdb):
-
   - fix regression where multiple cell context menu dropdowns would appear when adding rows
 
 ## 111.1.3
 
 - [patch][897c83c32a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/897c83c32a):
-
   - ED-6849: Prevent the collab plugin from re-initing on a reconfigure, also maintains previous
     state when reconfiguring
 
 ## 111.1.2
 
 - [patch][6a52b3d258](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6a52b3d258):
-
   - fix for clicking behaviour in view/edit mode for Inline Smart Links.
 
 ## 111.1.1
 
 - [patch][287036e319](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/287036e319):
-
   - ED-6765: workaround for mediaSingle deletion on Android
 
 ## 111.1.0
 
 - [minor][9626153146](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9626153146):
-
   - ED-6564: improve typing performance, especially in tables
 
   Be more selective about when to re-render certain nodes. In particular, only re-render table cells
   when selecting in/out of them, or their contents change. This applies to:
-
   - tables
   - images
   - emojis
@@ -26129,7 +25991,6 @@ Remove applicationCard node and action mark
 
   Also prevents a number of plugins from notifying about status changes when nothing has changed. In
   particular:
-
   - breakout
   - emoji
   - hyperlink
@@ -26138,25 +25999,21 @@ Remove applicationCard node and action mark
 ## 111.0.6
 
 - [patch][1c88068498](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1c88068498):
-
   - Fix re-rendering FullPage appearance on every scroll
 
 ## 111.0.5
 
 - [patch][2b85ca535a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2b85ca535a):
-
   - ED-6828: fix smart link selection inside lists
 
 ## 111.0.4
 
 - [patch][a3264821d0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a3264821d0):
-
   - ED-6129 Refactor table plugin state to use pluginFactory
 
 ## 111.0.3
 
 - [patch][519046cd9b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/519046cd9b):
-
   - ED-6789: improve table column stacking when resizing columns to the right by going to overflown
     state only when all resized columns are minWidths
 
@@ -26176,13 +26033,11 @@ Remove applicationCard node and action mark
 ## 111.0.1
 
 - [patch][58948126ef](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/58948126ef):
-
   - ED-6073: fix cursor selection and prevent jumping around inline smart links
 
 ## 111.0.0
 
 - [major][154372926b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/154372926b):
-
   - Remove insertFileFromDataUrl action
 
   If you want to upload a dataUrl to media, you should instead use **context.file.upload** from
@@ -26210,92 +26065,77 @@ Remove applicationCard node and action mark
 ## 110.4.0
 
 - [minor][a8e3fc91ae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a8e3fc91ae):
-
   - Remove react from panel node view
 
 ## 110.3.6
 
 - [patch][72fc33f8e7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/72fc33f8e7):
-
   - FS-3243 - Refactor status plugin to use new architecture
 
 ## 110.3.5
 
 - [patch][284e2d0b0b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/284e2d0b0b):
-
   - ED-6841 Fix inconsistent integration tests for inline card and table layout
 
 ## 110.3.4
 
 - [patch][d1741c1f40](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d1741c1f40):
-
   - ED-6788: refactor columns resize actions to commands
 
 ## 110.3.3
 
 - [patch][d9eccd861e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d9eccd861e):
-
   - ED-6804: pasting URLs with spaces properly convert to smart links
 
 ## 110.3.2
 
 - [patch][47273cabd4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/47273cabd4):
-
   - ED-6803: Added bridge.clearContent() method for Android
 
 ## 110.3.1
 
 - [patch][7890fa64fc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7890fa64fc):
-
   - ED-6723 Fix code block to be indented, if it's created using auto formating.
 
 ## 110.3.0
 
 - [minor][652ef1e6be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/652ef1e6be):
-
   - ED-6774: Adds a FF to priortize smart links resolution over Jira Issue Macro
 
 ## 110.2.0
 
 - [minor][5a49043dac](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5a49043dac):
-
   - Enable strictPropertyInitialization in tsconfig.base
 
 ## 110.1.1
 
 - [patch][6614c81995](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6614c81995):
-
   - ED-6792: refactor column resizing classes to helper functions
 
 ## 110.1.0
 
 - [minor][85d8a0831b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/85d8a0831b):
-
   - ED-6725 Add new "Three columns with sidebars" layout
 
 ## 110.0.3
 
 - [patch][80cf1c1e82](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/80cf1c1e82):
-
   - [ED-6654] Update prosemirror-view to 1.8.9 that fixes a few issues with mouse selections on
     prosemirror like click on table and the controls doesn't show up
 
 ## 110.0.2
 
 - [patch][e88b52e27c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e88b52e27c):
-
   - ED-6130 Refactor table actions
 
 ## 110.0.1
 
 - [patch][52846a2537](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/52846a2537):
-
   - ED-6633 Fix issue with size of table controls in new sidebar layouts
 
 ## 110.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -26374,26 +26214,22 @@ Remove applicationCard node and action mark
 ## 108.0.4
 
 - [patch][cc47b65340](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc47b65340):
-
   - ED-6738: Table scaling is now less aggressive, we will only attempt to 'scale to fix' when
     neccessary.
 
 ## 108.0.3
 
 - [patch][553c7e4fed](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/553c7e4fed):
-
   - ED-6779: Update CollabProvider types to cater for removing event listeners.
 
 ## 108.0.2
 
 - [patch][55925d8946](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/55925d8946):
-
   - Fix flickering in media annotation modal
 
 ## 108.0.1
 
 - [patch][312076749f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/312076749f):
-
   - [ED-6784] Fixes resize bar position when the mouse comes from a paragraph
 
 ## 108.0.0
@@ -26419,44 +26255,37 @@ Remove applicationCard node and action mark
 ## 107.24.4
 
 - [patch][5bebbeb98e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5bebbeb98e):
-
   - [ED-6367] Fixes table header row toggle when there is cells with column span, preventing it from
     being adding new cells wrongly
 
 ## 107.24.3
 
 - [patch][a6fb248987](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a6fb248987):
-
   - ED-6639 Align lists styles between editor & renderer
 
 ## 107.24.2
 
 - [patch][1e37f1bfc2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e37f1bfc2):
-
   - ED-6535: fix fallback for images without dimensions on upload
 
 ## 107.24.1
 
 - [patch][a2e9e69a6a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a2e9e69a6a):
-
   - ED-6745 Fix and prevent bad floating bar configuration
 
 ## 107.24.0
 
 - [minor][6ab657abdc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6ab657abdc):
-
   - ED-6644 Fire analytics event when full-width mode changes
 
 ## 107.23.1
 
 - [patch][86975facf8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/86975facf8):
-
   - ED-6664 Fix i18n messages generation, replacing all const enum to just enums inside editor-core
 
 ## 107.23.0
 
 - [minor][69d92c210f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/69d92c210f):
-
   - ED-6582 Add Analytcs GAS V3 for insert SmartLinks
 
 ## 107.22.2
@@ -26473,17 +26302,14 @@ Remove applicationCard node and action mark
 ## 107.22.1
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 - [patch][0ac39bd2dd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0ac39bd2dd):
-
   - Bump tslib to 1.9
 
 ## 107.22.0
 
 - [minor][229cb05e26](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/229cb05e26):
-
   - ED-6722 Rename 'Columns' to 'Layouts' in toolbar and quick insert menu
 
 ## 107.21.1
@@ -26495,49 +26321,41 @@ Remove applicationCard node and action mark
 ## 107.21.0
 
 - [minor][f005175d25](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f005175d25):
-
   - ED-6710: Replace UNSAFE_fullWidthMode with full-width appearance to match renderer API
 
 ## 107.20.0
 
 - [minor][ce8ac59383](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ce8ac59383):
-
   - ED-6635: You can now resize media inside columns
 
 ## 107.19.0
 
 - [minor][ee71c90037](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ee71c90037):
-
   - ED-6601: When toggling between Full Width appearance and Full Page appearance, resized tables
     now scale their sizes accordingly.
 
 ## 107.18.0
 
 - [minor][272b64139f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/272b64139f):
-
   - ED-5108 Adding padding in the bottom of full page editor appearance
 
 ## 107.17.1
 
 - [patch][16290b0448](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/16290b0448):
-
   - ED-6715 Fix issue with gap cursor + breakout + full-width mode where editor would crash
 
 ## 107.17.0
 
 - [minor][d6886fe651](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d6886fe651):
-
   - ED-6649 Add analytics events for layout toolbar buttons - changing layouts and deleting layouts
 
 - [patch][77936321cd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/77936321cd):
-
   - [ED-4898] Fixes the Backspace event for empty codeBlocks when triggered from inside of tables or
     columns
 
 ## 107.16.0
 
 - [minor][5d9455978b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5d9455978b):
-
   - ED-5292: add support for custom autoformatting
 
   You can now use the `customAutoformatting` prop to provide a custom autoformatting handler that
@@ -26572,19 +26390,16 @@ Remove applicationCard node and action mark
 ## 107.15.1
 
 - [patch][9210783b0e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9210783b0e):
-
   - [ED-6432] Fix remove table after cut event happen on the entire table
 
 ## 107.15.0
 
 - [minor][af359aa8d1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/af359aa8d1):
-
   - ED-6602: Disable breakout for full width mode
 
 ## 107.14.0
 
 - [minor][799b7daf70](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/799b7daf70):
-
   - ED-6600: Adding full-width mode to media
 
 ## 107.13.4
@@ -26627,26 +26442,22 @@ Remove applicationCard node and action mark
 ## 107.13.3
 
 - [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
-
   - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
     supplied from itself.
 
 ## 107.13.2
 
 - [patch][8e86c7c9d4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8e86c7c9d4):
-
   - Use isImagePreview util to know if file is an image or not
 
 ## 107.13.1
 
 - [patch][351e23aeb5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/351e23aeb5):
-
   - ED-6102: fixed inline node deletion on Android
 
 ## 107.13.0
 
 - [minor][a16ea57a8c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a16ea57a8c):
-
   - ED-6623 Add new layout options "Left Sidebar" and "Right Sidebar" in addition to current layouts
     "Two Columns" and "Three Columns"
 
@@ -26662,7 +26473,6 @@ Remove applicationCard node and action mark
 ## 107.12.6
 
 - [patch][6695367885](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6695367885):
-
   - Revert emoji refactor
 
 ## 107.12.5
@@ -26701,64 +26511,54 @@ Remove applicationCard node and action mark
 ## 107.12.4
 
 - [patch][068ecc926f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/068ecc926f):
-
   - Reverting column resize fix from ED-6627
 
 ## 107.12.3
 
 - [patch][247cc39577](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/247cc39577):
-
   - ED-2152 Remove any selection when pressing ` and completing inlinecode
 
 ## 107.12.2
 
 - [patch][24612aced0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24612aced0):
-
   - [ED-6467] Fixes alignments (left and right) for images, making them keep on the half of
     lineLength
 
 ## 107.12.1
 
 - [patch][098e5197b6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/098e5197b6):
-
   - ED-6197 Provide fallback for image resizing snapTo. Set media resizing to be based on bounding
     box instead of chained parent offsets.
 
 ## 107.12.0
 
 - [minor][049ff62abf](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/049ff62abf):
-
   - ED-6624: Add layout button to main toolbar
 
 ## 107.11.0
 
 - [minor][b81d427d5c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b81d427d5c):
-
   - ED-5373: Refactor emoji plugin to use new type ahead
 
 ## 107.10.2
 
 - [patch][55e47676aa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/55e47676aa):
-
   - revert update status code splits in Renderer/Editor which causes component dist to be broken
 
 ## 107.10.1
 
 - [patch][64dd2ab46f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/64dd2ab46f):
-
   - ED-6558 Fix clicking to set the cursor placement after an inline node that's at the end of a
     line. Set the default style attribute of Status nodes to be empty instead of 'null'.
 
 ## 107.10.0
 
 - [minor][969915d261](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/969915d261):
-
   - update status import entrypoints in Renderer/editor
 
 ## 107.9.6
 
 - [patch][0ff405bd0f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0ff405bd0f):
-
   - Removed CardView and CardViewLoader from public APIs and replaced it with light-weight and
     stateless CardLoading and CardError components. Handling of external images is now done by Card
     component itself using ExternalImageIdentifier interface.
@@ -26803,105 +26603,88 @@ Remove applicationCard node and action mark
 ## 107.9.5
 
 - [patch][97e555c168](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97e555c168):
-
   - Revert "[ED-5259 - ED-6200] adds defaultMarks on tableNode (pull request #5259)"
 
 ## 107.9.4
 
 - [patch][09a90e4af1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/09a90e4af1):
-
   - ED-6319 Supporting select media using gap cursor, fix behaviour of backspace key and gap cursor
     in media single with layout wrap-right.
 
 ## 107.9.3
 
 - [patch][a15643ba92](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a15643ba92):
-
   - Nodeviews now re-render without a view re-create
 
 ## 107.9.2
 
 - [patch][823d44ebb0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/823d44ebb0):
-
   - ED-6667 Enfoce consistent whitespace between renderer & editor
 
 ## 107.9.1
 
 - [patch][c976e9355c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c976e9355c):
-
   - ED-6320: support replacing smart links from Recent Items list via Cmd+K menu
 
 ## 107.9.0
 
 - [minor][2558e53738](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2558e53738):
-
   - ED-6665 Rename 'Panel' to 'Info Panel' (frontend text only)
 
 ## 107.8.3
 
 - [patch][b425ea772b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b425ea772b):
-
   - Revert "ED-5505 add strong as default mark to table header (pull request #5291)"
 
 ## 107.8.2
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 107.8.1
 
 - [patch][dfc4c5da7f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dfc4c5da7f):
-
   - Fix odd cursor selection going inside the inline smart links
 
 ## 107.8.0
 
 - [minor][02dd1f7287](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/02dd1f7287):
-
   - [ED-5505] Persists formatting to table cells and headers when toggling header row, column or
     applying any text formatting to empty cells.
 
 ## 107.7.12
 
 - [patch][44b14dba84](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/44b14dba84):
-
   - ED-6651: fix cell borders when table has merged cells
 
 ## 107.7.11
 
 - [patch][2e5b1c9783](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2e5b1c9783):
-
   - ED-6535: fix fallback for images without dimensions on upload
 
 ## 107.7.10
 
 - [patch][acfd88ba22](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/acfd88ba22):
-
   - ED-6639 Align lists styles between editor & renderer
 
 ## 107.7.9
 
 - [patch][513fb8a1a9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/513fb8a1a9):
-
   - ED-6640: fix resizing not focused table
 
 ## 107.7.8
 
 - [patch][eaf2f72de1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/eaf2f72de1):
-
   - ED-6650 Table doesn’t respond on inserting widget with min-width set
 
 ## 107.7.7
 
 - [patch][ce8caf29d5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ce8caf29d5):
-
   - ED-6463: fix contextual menu vertical position
 
 ## 107.7.6
 
 - [patch][eea996dac5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/eea996dac5):
-
   - ED-6598: Toggling `fullWidthMode` now re-creates `EditorView` instead of only re-creating
     `EditorState`
 
@@ -26910,11 +26693,9 @@ Remove applicationCard node and action mark
 ## 107.7.5
 
 - [patch][29d10e3d60](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/29d10e3d60):
-
   - ED-6626 Table doesn’t respond on inserting widget with min-width set
 
   _Test steps:_
-
   - Insert a `table`
   - Insert an widget macro with an YouTube video url
   - The `table` should resize the column accordingly
@@ -26922,89 +26703,75 @@ Remove applicationCard node and action mark
 ## 107.7.4
 
 - [patch][e80a553a6e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e80a553a6e):
-
   - ED-6478: upskip VR tests for numbered column
 
 ## 107.7.3
 
 - [patch][71c1a888f7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/71c1a888f7):
-
   - ED-6479: upskip table floating toolbar VR tests
 
 ## 107.7.2
 
 - [patch][41b940325e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/41b940325e):
-
   - ED-5948: added mass alignment on a range of selected cells
 
 ## 107.7.1
 
 - [patch][c4aedc236e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c4aedc236e):
-
   - ED-6613 Clear Action & Decision lists instead of wrapping them around floated content. Corrects
     gap cursor position when adjacent to floated content.
 
 ## 107.7.0
 
 - [minor][9df8755c0b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9df8755c0b):
-
   - ED-6603: Disable dynamic text sizing in full width mode
 
 ## 107.6.5
 
 - [patch][e125d7d78a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e125d7d78a):
-
   - ED-6627: fix re-rendering table controls when table is nested inside Columns or bodied
     extensions
 
 ## 107.6.4
 
 - [patch][0f0c06f787](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0f0c06f787):
-
   - ED-5850 Visual tweak to ensure icons are tightly bound by their borders
 
 ## 107.6.3
 
 - [patch][1b0b718266](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1b0b718266):
-
   - ED-6474: fix resizing last table column when table is nested inside Columns node
 
 ## 107.6.2
 
 - [patch][6110c666c6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6110c666c6):
-
   - ED-6619: scale table when deleting or adding columns
 
 ## 107.6.1
 
 - [patch][e0d04f321c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e0d04f321c):
-
   - ED-6376: fix rendering row controls when table has nested Jira macro (rendered as a nested
     table)
 
 ## 107.6.0
 
 - [minor][13d53eb7c9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/13d53eb7c9):
-
   - ED-6604 Animate transition from default -> full-width mode and vice versa
 
 ## 107.5.1
 
 - [patch][d26570e3b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d26570e3b5):
-
   - Update i18n for team mention
   - Fix a bug in team mention: missing https protocol in team link
 
 ## 107.5.0
 
 - [minor][81491bbc4e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/81491bbc4e):
-
   - ED-5850 Add fallback icon and fix SVG ids
 
 ## 107.4.0
 
 - [minor][60a89f843f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/60a89f843f):
-
   - ED-6598: Add initial prop for 'Full Width Mode'
 
   You may now enable our new experimental feature 'Full Width Mode' by passing a new `fullWidthMode`
@@ -27022,19 +26789,16 @@ Remove applicationCard node and action mark
 ## 107.3.3
 
 - [patch][92c8c14019](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/92c8c14019):
-
   - ED-6492: Fixed media single without dimensions not rendering on mobile
 
 ## 107.3.2
 
 - [patch][3d0da81a4b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3d0da81a4b):
-
   - ED-6583 Add analytics v3 for link inserts
 
 ## 107.3.1
 
 - [patch][9f08142085](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9f08142085):
-
   - ED-6618: Fixes the exception thrown when trying to apply the delete decoration.
 
   Occurs on a position where a node was recently deleted. We now re-map the decorations position on
@@ -27043,25 +26807,21 @@ Remove applicationCard node and action mark
 ## 107.3.0
 
 - [minor][936f12e761](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/936f12e761):
-
   - ED-5850 Add descriptions, richer icons and keyboard shortcuts to the quick insert menu
 
 ## 107.2.0
 
 - [minor][fb7a25ec0b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fb7a25ec0b):
-
   - ED-6221 Fire v3 analytics events when insert media
 
 ## 107.1.1
 
 - [patch][67e5bfeb72](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/67e5bfeb72):
-
   - ED-6181 Add analytics to paste event
 
 ## 107.1.0
 
 - [minor][e36f791fd6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e36f791fd6):
-
   - Improve types
 
 ## 107.0.0
@@ -27087,13 +26847,11 @@ Remove applicationCard node and action mark
 ## 106.7.9
 
 - [patch][495738bcd8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/495738bcd8):
-
   - Enable UI for links inside headings
 
 ## 106.7.8
 
 - [patch][2d7ff51814](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2d7ff51814):
-
   - ED-6595 Remove layout marks when pasting images inside a list
 
 ## 106.7.7
@@ -27112,19 +26870,16 @@ Remove applicationCard node and action mark
 ## 106.7.6
 
 - [patch][acaf2abb57](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/acaf2abb57):
-
   - ED-6146 Fix bug where gap cursor did not display to right of first node
 
 ## 106.7.5
 
 - [patch][298bfed4e1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/298bfed4e1):
-
   - ED-6580 Media in editor is sized incorrectly in firefox
 
 ## 106.7.4
 
 - [patch][5320e1bdb5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5320e1bdb5):
-
   - ED-6476 Columns should show border when inactive in the Editor.
 
 ## 106.7.3
@@ -27145,98 +26900,82 @@ Remove applicationCard node and action mark
 ## 106.7.1
 
 - [patch][b3c60e3c9c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b3c60e3c9c):
-
   - Update media-editor dependency
 
 ## 106.7.0
 
 - [minor][b32008359a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b32008359a):
-
   - ED-5823 Add red styling for document elements when they are selected for removal
 
 ## 106.6.3
 
 - [patch][97eeac260b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97eeac260b):
-
   - ED-6137 GAS v3 Analytics events for action subject Table
 
 ## 106.6.2
 
 - [patch][56766ce748](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/56766ce748):
-
   - ED-6407: improve table information density by reducing cells padding from 10px to 8px
 
 ## 106.6.1
 
 - [patch][92452e9323](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/92452e9323):
-
   - ED-5734: render table column control buttons for each column regardless of merged cells
 
 ## 106.6.0
 
 - [minor][0781a7068c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0781a7068c):
-
   - ED-6222 Add insertMenu insert events for: emoji picker, image picker, link typeahead, mention
     typeahead
 
 ## 106.5.0
 
 - [minor][ea6b08700c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ea6b08700c):
-
   - ED-6245: Ensure extensions scroll + overflow when they may break out of their parent container.
 
 ## 106.4.0
 
 - [minor][7e164b5a6b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7e164b5a6b):
-
   - ED-6547 Add GAS v3 analytics for smartLink
 
 ## 106.3.3
 
 - [patch][aa117f5341](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aa117f5341):
-
   - fix alignment and UI for inline Smart Links.
 
 ## 106.3.2
 
 - [patch][8187471d39](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8187471d39):
-
   - ED-4650 Allow inline code to render after a parentheses
 
 ## 106.3.1
 
 - [patch][2f4594a876](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2f4594a876):
-
   - ED-6526: Resize a table with breakout content
 
 ## 106.3.0
 
 - [minor][1affe17dc4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1affe17dc4):
-
   - add analytics events for team mention
 
 ## 106.2.3
 
 - [patch][08940b66c1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/08940b66c1):
-
   - ED-6561 Ignore empty transactions from collab provider
 
 ## 106.2.2
 
 - [patch][2ac4f3bf30](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2ac4f3bf30):
-
   - fix deleting multiple rows in table
 
 ## 106.2.1
 
 - [patch][8ea5466017](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8ea5466017):
-
   - ED-6438 Fix bg in codeblock gutter
 
 ## 106.2.0
 
 - [minor][7bd786fd4d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7bd786fd4d):
-
   - TEAMS-323 : Send additional information for teams when a team is selected in a mention
 
 ## 106.1.2
@@ -27249,32 +26988,27 @@ Remove applicationCard node and action mark
 ## 106.1.1
 
 - [patch][c604b1eb64](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c604b1eb64):
-
   - Fix ED-6522 & ED-6046. Remove z-index from images to ensure they doesn't overlap adjacent
     content. Ensure floated images remain clickable when adjacent a list.
 
 ## 106.1.0
 
 - [minor][0672369fc8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0672369fc8):
-
   - Integrate TeamMentionResource in editor-core
 
 ## 106.0.6
 
 - [patch][2f953a0738](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2f953a0738):
-
   - ED-6362: add analytics for media annotation button
 
 ## 106.0.5
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 106.0.4
 
 - [patch][205b101e2b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/205b101e2b):
-
   - ED-6230: bump prosemirror-view to 1.8.3; workaround Chrome bug with copy paste multiple images
 
 ## 106.0.3
@@ -27292,7 +27026,6 @@ Remove applicationCard node and action mark
 ## 106.0.2
 
 - [patch][8f1f21dd3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8f1f21dd3a):
-
   - ED-6275: drop size and alignment when pasting images into page columns or a table
 
 ## 106.0.1
@@ -27306,7 +27039,6 @@ Remove applicationCard node and action mark
 ## 106.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 - Updated dependencies
@@ -27360,38 +27092,32 @@ Remove applicationCard node and action mark
 ## 105.4.2
 
 - [patch][57fdb39e20](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/57fdb39e20):
-
   - ED-6512 Fix subscript
 
 ## 105.4.1
 
 - [patch][fb679d390f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fb679d390f):
-
   - Add a new TeamMenioResource for @atlaskit/mention package. That allows to fetch teams data for
     mention from a team service (Legion service)
 
 ## 105.4.0
 
 - [minor][f6345bba88](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f6345bba88):
-
   - Ed-4131 Fix text decorations to respect the selected text colour
 
 ## 105.3.2
 
 - [patch][b849dcb1e7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b849dcb1e7):
-
   - bump smart cards version to include patches.
 
 ## 105.3.1
 
 - [patch][3f6501c569](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f6501c569):
-
   - ED-6518: Fixes mark overflowing to the left
 
 ## 105.3.0
 
 - [minor][5b226754b8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5b226754b8):
-
   - ED-5939: Replace SizeDetector with WidthDetector in all editor components
 
 ## 105.2.1
@@ -27403,13 +27129,11 @@ Remove applicationCard node and action mark
 ## 105.2.0
 
 - [minor][b2c1f96b0d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b2c1f96b0d):
-
   - Allow text formatting marks only on text nodes.
 
 ## 105.1.0
 
 - [minor][804597a281](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/804597a281):
-
   - ED-6482 Add GAS v3 analytics for panel
 
 ## 105.0.0
@@ -27443,87 +27167,73 @@ Remove applicationCard node and action mark
 ## 104.1.0
 
 - [minor][55eb63afac](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/55eb63afac):
-
   - ED-6239 Add Analytics GAS V3 to autosubstituted
 
 ## 104.0.0
 
 - [major][4d17df92f8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4d17df92f8):
-
   - ED-6484: Remove the 'inline-comment' appearance from Editor.
 
 ## 103.4.4
 
 - [patch][65acb722e3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65acb722e3):
-
   - ED-6412: Prevent inserting links containing 'javascript:'
 
 ## 103.4.3
 
 - [patch][7641ec96cd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7641ec96cd):
-
   - ED-5998: improve cell selection with merged cells, deleting columns and rows
 
 ## 103.4.2
 
 - [patch][6380484429](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6380484429):
-
   - ED-6485 Support breakout mark on layout-section. Retain breakout mark when toggling list nested
     within columns.
 
 ## 103.4.1
 
 - [patch][5e319bb725](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5e319bb725):
-
   - ED-6286: fix post-PR for media upload on mobile
 
 ## 103.4.0
 
 - [minor][6739aea208](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6739aea208):
-
   - Update editor-common and editor-core types
 
 ## 103.3.0
 
 - [minor][738f58ef9e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/738f58ef9e):
-
   - ED-5019 Panels are no longer cleared by clear-formatting
 
 ## 103.2.0
 
 - [minor][08a09ae767](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/08a09ae767):
-
   - ED-6377 Add Analytics GAS V3 for numbered/bulleted list format
 
 ## 103.1.4
 
 - [patch][be479e2335](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/be479e2335):
-
   - fix link opening logic for view and edit mode.
 
 ## 103.1.3
 
 - [patch][ed6ef51cfe](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ed6ef51cfe):
-
   - ED-6158: added a shortcut to contextual menu for insertRow and insertColumn
 
 ## 103.1.2
 
 - [patch][abb200b0b4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/abb200b0b4):
-
   - ED-6374: Switch to MutationObserver instead of rAF + nodeview update for handling breakout
     content inside a table cell.
 
 ## 103.1.1
 
 - [patch][109158320c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/109158320c):
-
   - Make more avatar colors available to the collab plugin
 
 ## 103.1.0
 
 - [minor][58932a27f4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/58932a27f4):
-
   - ED-6220 Fire v3 analytics events when insert actions or decisions
 
 ## 103.0.3
@@ -27579,37 +27289,31 @@ Remove applicationCard node and action mark
 ## 103.0.2
 
 - [patch][44f4d1293a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/44f4d1293a):
-
   - ED-6219: Use TableMap to get column index over dom children index
 
 ## 103.0.1
 
 - [patch][b346b44c05](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b346b44c05):
-
   - ED-6411: Fix resizing the last column with dynamic text sizing enabled
 
 ## 103.0.0
 
 - [major][60f0ad9a7e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/60f0ad9a7e):
-
   - ED-6286: remove StateManager from media plugin and provider
 
 ## 102.2.2
 
 - [patch][06c4a70a2e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06c4a70a2e):
-
   - ED-6031: Dont reset selection if editor still has focus.
 
 ## 102.2.1
 
 - [patch][c427333c46](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c427333c46):
-
   - ED-6008 Dim telepointers that overlaps the cursor.
 
 ## 102.2.0
 
 - [minor][4a9a7487f1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4a9a7487f1):
-
   - ED-6240 Add Analytics GAS V3 for insert new line
 
 ## 102.1.10
@@ -27625,51 +27329,42 @@ Remove applicationCard node and action mark
 ## 102.1.9
 
 - [patch][9b0f6671ae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9b0f6671ae):
-
   - ED-6244: Fix Resizable Media to allow images go smaller size than videos
 
 ## 102.1.8
 
 - [patch][97a9ca095b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97a9ca095b):
-
   - ED-6452: Put collab document validation behind a flag
 
 ## 102.1.7
 
 - [patch][2e48ec26ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2e48ec26ba):
-
   - Changes to support new version of media-editor
 
 ## 102.1.6
 
 - [patch][59fcd0bbc9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/59fcd0bbc9):
-
   - FM-1618: fixed media upload on mobile
 
 ## 102.1.5
 
 - [patch][2b4b290610](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2b4b290610):
-
   - ED-6461: Fix placement start when scrolling for Popup
 
 ## 102.1.4
 
 - [patch][7a8d8ba656](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7a8d8ba656):
-
   - ED-6452: Validate documents on init through collab-editing
-
   * Add unsupportedInline and unsupportedBlock to test-helpers.
 
 ## 102.1.3
 
 - [patch][1c00bd6268](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1c00bd6268):
-
   - ED-6409: set minWidth to 140px for all new columns in resized table
 
 ## 102.1.2
 
 - [patch][f86078d629](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f86078d629):
-
   - ED-6327: highlight smart cards when selecting backwards in document
 
 ## 102.1.1
@@ -27684,19 +27379,16 @@ Remove applicationCard node and action mark
 ## 102.1.0
 
 - [minor][d18b085e2a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d18b085e2a):
-
   - Integrating truly upfront ID
 
 ## 102.0.2
 
 - [patch][4d0c196597](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4d0c196597):
-
   - ED-6232 Fix copy-pasting a table with numbered column drops one column
 
 ## 102.0.1
 
 - [patch][2787c79b6a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2787c79b6a):
-
   - ED-6296: Scale down table sizes when parent layout changes
 
 ## 102.0.0
@@ -27721,7 +27413,6 @@ Remove applicationCard node and action mark
 ## 101.7.0
 
 - [minor][d4afa2713d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d4afa2713d):
-
   - ED-6212 Fire v3 analytics events when insert table or emojis
 
 ## 101.6.3
@@ -27735,176 +27426,147 @@ Remove applicationCard node and action mark
 ## 101.6.2
 
 - [patch][4eb1af2892](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4eb1af2892):
-
   - ED-6265 fix external image call to media for dimensions
 
 ## 101.6.1
 
 - [patch][3f4a4e4f49](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f4a4e4f49):
-
   - [ED-6351] Fix table insert columns/row UI positions
 
 ## 101.6.0
 
 - [minor][8e407b5a24](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8e407b5a24):
-
   - ED-6289 Add analytics GAS V3 for color text formatting
 
 ## 101.5.3
 
 - [patch][37ca429b01](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/37ca429b01):
-
   - ED-6374: Fixes handling breakout content more efficiently.
 
 ## 101.5.2
 
 - [patch][1ede48ac5b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1ede48ac5b):
-
   - ED-6381: Gather max layout sizes based on dynamic text sizing
 
 ## 101.5.1
 
 - [patch][42b78a6133](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/42b78a6133):
-
   - ED-6278: a complete rewrite of mergeCells, deleteColumns and deleteRows
 
 ## 101.5.0
 
 - [minor][bab8f06b0a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bab8f06b0a):
-
   - ED-6285 When catch an invalid transaction, send the new & prev document structures
 
 ## 101.4.3
 
 - [patch][06f8fd872b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06f8fd872b):
-
   - [ED-6342] Fix remove bodied extension when it is selected
 
 ## 101.4.2
 
 - [patch][27189951b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/27189951b5):
-
   - ED-5967: added API to enable links on hybrid editor
 
 ## 101.4.1
 
 - [patch][c2360c53b2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c2360c53b2):
-
   - fixed status selection loss when dragging and drop
 
 ## 101.4.0
 
 - [minor][30b4e99377](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/30b4e99377):
-
   - ED-5888 Add editor dark mode
 
 ## 101.3.3
 
 - [patch][e08b35abef](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e08b35abef):
-
   - StatusPicker event listeners cleaned up
 
 ## 101.3.2
 
 - [patch][f5e8437365](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f5e8437365):
-
   - ED-6373: Fix position of breakout controls while scrolling
 
 ## 101.3.1
 
 - [patch][7308d1e0e9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7308d1e0e9):
-
   - ED-6061: support image annotations in editor
 
 ## 101.3.0
 
 - [minor][3672ec23ef](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3672ec23ef):
-
   - [ED-5788] Add new layout Breakout button for CodeBlock and Layout
 
 ## 101.2.0
 
 - [minor][d5856900a1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d5856900a1):
-
   - ED-6338: Dont allow nested nodes to be inserted with a non default layout.
 
 ## 101.1.0
 
 - [minor][e142e966c2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e142e966c2):
-
   - ED-6238, ED-5684 Add Analytcs GAS v3 to clear formatting and fix clear formatting on heading
     elements
 
 ## 101.0.6
 
 - [patch][60ea09b0cc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/60ea09b0cc):
-
   - ED-6246 Add more metadata to Unsupported Node logging
 
 ## 101.0.5
 
 - [patch][c5683f8422](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c5683f8422):
-
   - ED-4998 Fix highlighting and disabling of meatball menu items in different contexts
 
 ## 101.0.4
 
 - [patch][bd0f7a69ac](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bd0f7a69ac):
-
   - ED-5964: Remove marks from inline nodes that are not text
 
 ## 101.0.3
 
 - [patch][7a7cd4c491](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7a7cd4c491):
-
   - make smart links open in same window.
 
 ## 101.0.2
 
 - [patch][6773e958ab](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6773e958ab):
-
   - ED-5738: fix resize handles for merged cells
 
 ## 101.0.1
 
 - [patch][b832f0f57c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b832f0f57c):
-
   - ED-6320: inserting links via CMD+K can also insert smart links
 
 ## 101.0.0
 
 - [major][4a84fc40e0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4a84fc40e0):
-
   - ED-5766 Remove the deprecated 'message' appearance from Editor
 
 ## 100.2.0
 
 - [minor][af5572cf8e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/af5572cf8e):
-
   - ED-6284 Filter out invalid transactions before they are applied and send an analytics event
 
 ## 100.1.0
 
 - [minor][5dc1e046b2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5dc1e046b2):
-
   - Apply stricture typings to elements related editor code
 
 ## 100.0.0
 
 - [major][4af5bd2a58](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4af5bd2a58):
-
   - Remove linkCreateContext from MediaProvider
 
 ## 99.0.1
 
 - [patch][7f93e282b8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7f93e282b8):
-
   - ED-6257: Handle applying header column with a rowspan
 
 ## 99.0.0
 
 - [patch][5b5ae91921](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5b5ae91921):
-
   - Require Identifier type from media-core instead of media-card
 
 - Updated dependencies
@@ -27929,13 +27591,11 @@ Remove applicationCard node and action mark
 ## 98.13.6
 
 - [patch][f500b2c81e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f500b2c81e):
-
   - ED-6252 Change table floating toolbar to say 'Table options' instead of icon
 
 ## 98.13.5
 
 - [patch][bc340694d2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bc340694d2):
-
   - ED-6247: fix resizing with merged cells
 
 ## 98.13.4
@@ -27953,62 +27613,52 @@ Remove applicationCard node and action mark
 ## 98.13.3
 
 - [patch][0a13188647](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a13188647):
-
   - ED-6133: Fix scaling up going into overflow
 
 ## 98.13.2
 
 - [patch][cebfee91b3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cebfee91b3):
-
   - ED-6231 Fixes RangeError when deleting last column in full-width mode
 
 ## 98.13.1
 
 - [patch][7316e316bc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7316e316bc):
-
   - ED-6209: remove internal legacy event subscription model from media plugin
 
 ## 98.13.0
 
 - [minor][be86cbebc3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/be86cbebc3):
-
   - enable noImplicitAny for task-decision, and related changes
 
 ## 98.12.1
 
 - [patch][a3161a7927](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a3161a7927):
-
   - ED-6264 Fix examples page not been loaded when code is compiled
 
 ## 98.12.0
 
 - [minor][4d8d759bf9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4d8d759bf9):
-
   - [ED-6255] Migrate ADFNode type to ADFEntity
 
 ## 98.11.1
 
 - [patch][ea423a619f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ea423a619f):
-
   - Fixed the call to the /check endpoint
 
 ## 98.11.0
 
 - [minor][448b9946cc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/448b9946cc):
-
   - ED-6195 Add Analytics GAS V3 for identation
 
 ## 98.10.5
 
 - [patch][36986d383b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/36986d383b):
-
   - ED-6010 Rename "Block Quote" to "Quote", and "Code Block" to "Code snippet" in the insert menu
   - Update i18n translations
 
 ## 98.10.4
 
 - [patch][cf7fd7d3be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cf7fd7d3be):
-
   - Render external images in editor
 
 ## 98.10.3
@@ -28024,157 +27674,131 @@ Remove applicationCard node and action mark
 ## 98.10.2
 
 - [patch][45e3fffa9e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/45e3fffa9e):
-
   - suppress enter and tab keys events in the status node to prevent bugs
 
 ## 98.10.1
 
 - [patch][4cc0b47f6a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4cc0b47f6a):
-
   - ED-6233: Use minCellWith over wrapWidth to determine free space in a column
 
 ## 98.10.0
 
 - [minor][e6daf79012](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e6daf79012):
-
   - ED-6135 Fire analytics v3 events when insert panel, code block or horizontal rule
 
 ## 98.9.5
 
 - [patch][026d4424c2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/026d4424c2):
-
   - ED-6226 Fix row delete button displacement after many rows in a table
 
 ## 98.9.4
 
 - [patch][e04c61dc55](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e04c61dc55):
-
   - ED-6183 fix image wrapping, revert createDOMRef chang
 
 ## 98.9.3
 
 - [patch][8788a98286](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8788a98286):
-
   - [FS-3589] Fix re-rendering on status element after apply decoration
 
 ## 98.9.2
 
 - [patch][c81737b526](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c81737b526):
-
   - ED-6098: simplify internal state changes for completed media uploads
 
 ## 98.9.1
 
 - [patch][ebb0a98051](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ebb0a98051):
-
   - remove empty status before publishing document
 
 ## 98.9.0
 
 - [minor][59ae46e1cf](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/59ae46e1cf):
-
   - ED-5061: migrate media toolbar to new internal architecture
 
 ## 98.8.2
 
 - [patch][19a823bf2a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/19a823bf2a):
-
   - delete empty status node when user selects another node
 
 ## 98.8.1
 
 - [patch][0a304a48f6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a304a48f6):
-
   - ED-6218: fix repair table logic
 
 ## 98.8.0
 
 - [minor][cde3ff657f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cde3ff657f):
-
   - ED-6134 Add analytics GAS V3 for text formatting, headers and blockQuotes
 
 ## 98.7.2
 
 - [patch][6981b6d25a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6981b6d25a):
-
   - ED-6214: Fix resizing when rowspan exists in non last column
 
 ## 98.7.1
 
 - [patch][a22478c227](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a22478c227):
-
   - ED-6133: Re-draw resized columns in collab, cater for overflow tables when resizing
 
 ## 98.7.0
 
 - [minor][44a42d5eb3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/44a42d5eb3):
-
   - ED-5846: Refactoring new hyperlink toolbar and adding typeahead to the new floating toolbar
 
 ## 98.6.0
 
 - [minor][fa435d11f7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fa435d11f7):
-
   - ED-6155 Fire analytics v3 events for general editor UI events
 
 ## 98.5.1
 
 - [patch][4bead4dd64](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4bead4dd64):
-
   - Fix cursor bug between Panel and Status when moved with arrowkeys
 
 ## 98.5.0
 
 - [minor][5a6071d7f5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5a6071d7f5):
-
   - [ED-6159] Changes tooltip for the add contextual button on tables
 
 ## 98.4.6
 
 - [patch][09696170ec](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/09696170ec):
-
   - ED-6177 Deleting a range of rows/columns deletes only a subset of selected rows/columns
 
 ## 98.4.5
 
 - [patch][c61aaebd2d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c61aaebd2d):
-
   - ED-6172: Apply table layout based on total width for autoSize tables.
 
 ## 98.4.4
 
 - [patch][18dffaa5fd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dffaa5fd):
-
   - ED-6192: Bail out of column resizing if the table has changed via other means (e.g. collab)
 
 ## 98.4.3
 
 - [patch][66a5bd2f70](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/66a5bd2f70):
-
   - ED-6027 update ADF when image dimensions are missing
 
 ## 98.4.2
 
 - [patch][2487368a7e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2487368a7e):
-
   - ED-6170: repair the table by removing invisible columns
 
 ## 98.4.1
 
 - [patch][47970c78b1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/47970c78b1):
-
   - ED-5976 Maintain text alignment when hit return
 
 ## 98.4.0
 
 - [minor][1bc4b69b08](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bc4b69b08):
-
   - ED-6171 Adding feature flag for Analytics GAS V3
 
 ## 98.3.0
 
 - [minor][0f3f9f0992](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0f3f9f0992):
-
   - Fix context identifiers not being passed to mention provider's calls. MentionProvider interface
     was updated to include the optional contextIdentifier parameter in filter and
     recordMentionSelection methods.
@@ -28182,154 +27806,129 @@ Remove applicationCard node and action mark
 ## 98.2.6
 
 - [patch][3305886b5a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3305886b5a):
-
   - ED-6167: Handle extraneous column widths
 
 ## 98.2.5
 
 - [patch][b11848ebf8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b11848ebf8):
-
   - [ED-6165] Fix table cell options chevron overflow.
 
 ## 98.2.4
 
 - [patch][65b73cc466](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65b73cc466):
-
   - Code split media-picker: make MediaPicker factory async and make editor use it
 
 ## 98.2.3
 
 - [patch][14fe1381ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/14fe1381ba):
-
   - ED-6118: ensure media dimensions are always integers, preventing invalid ADF
 
 ## 98.2.2
 
 - [patch][86dcb6f814](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/86dcb6f814):
-
   - updated native status icon in Fabric editor
 
 ## 98.2.1
 
 - [patch][17107bdfb0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/17107bdfb0):
-
   - ED-6141: remove broken tables if its not fixable
 
 ## 98.2.0
 
 - [minor][3fecea2975](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3fecea2975):
-
   - ED-5933 Add analytics plugin to facilitate working with @atlaskit/analytics-next package
 
 ## 98.1.13
 
 - [patch][7ce3cc56ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7ce3cc56ff):
-
   - FS-3500 Fix missing call to recordMentionSelection() when a selection is made in the mention
     typeahead
 
 ## 98.1.12
 
 - [patch][1c62bcce7d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1c62bcce7d):
-
   - Fix a problem with smart cards not appearing sometimes when lazy rendered and lazy loaded after
     code-split.
 
 ## 98.1.11
 
 - [patch][be706e55f6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/be706e55f6):
-
   - Fixes tableRow validation failure
 
 ## 98.1.10
 
 - [patch][e7dcb7ef15](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e7dcb7ef15):
-
   - Revert table resizing collab change
 
 ## 98.1.9
 
 - [patch][1ee84815dd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1ee84815dd):
-
   - ED-6133: Visually apply column resize changes in collab editing
 
 ## 98.1.8
 
 - [patch][e83a20575b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e83a20575b):
-
   - ED-6148: Prevent autoSize tables from being in an endless loop, integrate with new resizing
 
 ## 98.1.7
 
 - [patch][69e29bab6c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/69e29bab6c):
-
   - ED-5860 Prevent invalid steps from being applied in the editor
 
 ## 98.1.6
 
 - [patch][406cbf0a4e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/406cbf0a4e):
-
   - ED-6092: allow passing undefined context to media filmstrip
 
 ## 98.1.5
 
 - [patch][b2b0a00d6a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b2b0a00d6a):
-
   - Fix table creation without rows
 
 ## 98.1.4
 
 - [patch][3b9236fb74](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3b9236fb74):
-
   - MS-1455, MS-1456: Fix max width for the surrounding element for the inline smart cards so that
     they don't overflow and positioning within li elements
 
 ## 98.1.3
 
 - [patch][af3918bc89](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/af3918bc89):
-
   - The url part of the unauthorized link is now grey
 
 ## 98.1.2
 
 - [patch][557a2b5734](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/557a2b5734):
-
   - ED-5788: bump prosemirror-view and prosemirror-model
 
 ## 98.1.1
 
 - [patch][2d14c5dae1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2d14c5dae1):
-
   - ED-5730 Allow attachment to be inserted after list
 
 ## 98.1.0
 
 - [minor][a26d644414](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a26d644414):
-
   - ED-5845, ED-6072: support resizing in multiple editors on page, fix snapping images in lists
 
 ## 98.0.3
 
 - [patch][5ae645d661](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5ae645d661):
-
   - Fixing analytics in smart-cards
 
 ## 98.0.2
 
 - [patch][4437882a9a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4437882a9a):
-
   - ED-6107: don't act on destroyed EditorView during cleanup in media plugin
 
 ## 98.0.1
 
 - [patch][2035bef8fb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2035bef8fb):
-
   - Fix inline extractor priority preventing @type arrays in some cases.
 
 ## 98.0.0
 
 - [patch][4e82fedc90](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4e82fedc90):
-
   - Expose real id upfront for remote files in MediaPicker
 
 - Updated dependencies
@@ -28354,37 +27953,31 @@ Remove applicationCard node and action mark
 ## 97.1.9
 
 - [patch][4552e804d3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4552e804d3):
-
   - dismiss StatusPicker if status node is not selected
 
 ## 97.1.8
 
 - [patch][adff2caed7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/adff2caed7):
-
   - Improve typings
 
 ## 97.1.7
 
 - [patch][7c497c2de6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c497c2de6):
-
   - ED-5810 Fix issue where numbered table rows flickered when hovering on the edge of row controls
 
 ## 97.1.6
 
 - [patch][cbc601aed3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cbc601aed3):
-
   - Added missing type of events for Confluence
 
 ## 97.1.5
 
 - [patch][bfe22480d0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bfe22480d0):
-
   - ED-6056: fix zero width columns in renderer for migration tables
 
 ## 97.1.4
 
 - [patch][f77cd3fb66](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f77cd3fb66):
-
   - fixed reactjs warning on FieldBase.onBlur and prevent breaking line when inserting Status via
     enter key
 
@@ -28403,31 +27996,26 @@ Remove applicationCard node and action mark
 ## 97.1.2
 
 - [patch][5132bc24a5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5132bc24a5):
-
   - Fix codeblock enter-press inside lists
 
 ## 97.1.1
 
 - [patch][478a86ae8a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/478a86ae8a):
-
   - avoid using the same localId when pasting status
 
 ## 97.1.0
 
 - [minor][2db7577588](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2db7577588):
-
   - ED-5924: Fixes handling of node deletion for composition events.
 
 ## 97.0.3
 
 - [patch][a5714ccc17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a5714ccc17):
-
   - Fixed table column not selectable (regression in prosemirror-view@1.6.8)
 
 ## 97.0.2
 
 - [patch][8dc4a35361](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8dc4a35361):
-
   - enable status and date components to be pasted into a task component
 
 ## 97.0.1
@@ -28463,7 +28051,6 @@ Remove applicationCard node and action mark
 ## 97.0.0
 
 - [minor][b1627a5837](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b1627a5837):
-
   - Enable inline video player in Editor and Renderer
 
 - Updated dependencies
@@ -28486,13 +28073,11 @@ Remove applicationCard node and action mark
 ## 96.0.2
 
 - [patch][4e764a26d4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4e764a26d4):
-
   - ED-6070: Don't render proper mediaCard on mobile until we have a valid collection
 
 ## 96.0.1
 
 - [patch][af85018](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/af85018):
-
   - ED-6064: always undo smart cards to links
 
 ## 96.0.0
@@ -28517,138 +28102,115 @@ Remove applicationCard node and action mark
 ## 95.1.0
 
 - [minor][2d6d5b6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2d6d5b6):
-
   - ED-5379: rework selecting media under the hood; maintain size and layout when copy-pasting
 
 ## 95.0.21
 
 - [patch][6c81bca](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6c81bca):
-
   - ED-6041: fix converting encoded URLs (e.g. URLs with spaces as %20) to smart cards
 
 ## 95.0.20
 
 - [patch][9d3f48c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d3f48c):
-
   - ED-4501 Wrap placeholder text onto new line
 
 ## 95.0.19
 
 - [patch][967f631](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/967f631):
-
   - ED-4732: Fixed preserving marks when pasting text into paragraph
 
 ## 95.0.18
 
 - [patch][8158fe0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8158fe0):
-
   - ED-6059: Extension and inlineExtension should read their content from attrs not the PMNode.
 
 ## 95.0.17
 
 - [patch][37b7edf](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/37b7edf):
-
   - ED-6062: fix deleting last character inside a node with breakout mark
 
 ## 95.0.16
 
 - [patch][23d298e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/23d298e):
-
   - ED-5950: fix merging rows
 
 ## 95.0.15
 
 - [patch][a8d8855](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a8d8855):
-
   - fixed StatusPicker analytics firing when user clicks in two Status instances, one after another
 
 ## 95.0.14
 
 - [patch][be6313e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/be6313e):
-
   - ED-5477 Support rendering of inline code together with other marks
 
 ## 95.0.13
 
 - [patch][c5ee0c8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c5ee0c8):
-
   - Added Annotation mark to ADF, editor & renderer
 
 ## 95.0.12
 
 - [patch][888e563](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/888e563):
-
   - Fixes an issue with ClickAreaBlock that wouldn't allow focus textareas
 
 ## 95.0.11
 
 - [patch][ec9ed50](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ec9ed50):
-
   - ED-5814 Fix issue where numbered columns' styling was off on small screens
 
 ## 95.0.10
 
 - [patch][060f2da](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/060f2da):
-
   - ED-5991: bumped prosemirror-view to 1.6.8
 
 ## 95.0.9
 
 - [patch][6514dda](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6514dda):
-
   - ED-5415, ED-6020: don't create broken document after sequential media insertion; always try to
     insert an empty paragraph after images, even in tables
 
 ## 95.0.8
 
 - [patch][fc9a884](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fc9a884):
-
   - ED-5543: fix backspacing after hardbreak node
 
 ## 95.0.7
 
 - [patch][5f8b151](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5f8b151):
-
   - Open date picker on enter when date node is selected
 
 ## 95.0.6
 
 - [patch][6855bec](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6855bec):
-
   - Updated internal use of ModalDialog to use new composition API
 
 ## 95.0.5
 
 - [patch][844feea](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/844feea):
-
   - ED-6039 Fixed extension toolbar remove action
 
 ## 95.0.4
 
 - [patch][e082366](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e082366):
-
   - ED-6045: fixed unable to select table row
 
 ## 95.0.3
 
 - [patch][61ce3c5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/61ce3c5):
-
   - ED-6015 Fix bug where cursor would jump to start of mention after hitting backspace after a
     mention
 
 ## 95.0.2
 
 - [patch][6866eba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6866eba):
-
   - ED-5638: insert a space after pasting links that turn into inline cards to help avoid refreshing
     them
 
 ## 95.0.1
 
 - [patch][df30c63](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/df30c63):
-
   - ED-5723: Enables typeahead support for mobile editor
-
   * Added a new bridge `typeAheadBridge`, which contains `typeAheadQuery()` and `dismissTypeAhead()`
     - `typeAheadQuery(query: string, trigger: string)` - This will notify integrators when a user is
       attempting to filter down a list.
@@ -28663,7 +28225,6 @@ Remove applicationCard node and action mark
 ## 95.0.0
 
 - [major][0c116d6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0c116d6):
-
   - Removed client-side indexed cache of mention results. Also removed method 'getUsersInContext'
     from MentionResourceConfig, 'remoteSearch' from MentionStats and 'weight' from
     MentionDescription. If you used to use them, simply remove any references to them.
@@ -28671,40 +28232,34 @@ Remove applicationCard node and action mark
 ## 94.1.5
 
 - [patch][c0dc7e3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c0dc7e3):
-
   - FS-3360 - Support state analytics attribute with values new or existing. Implement for web, and
     mobile support via mobile-bridge.
 
 ## 94.1.4
 
 - [patch][7d9ccd7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7d9ccd7):
-
   - fixed copy/paste status from renderer to editor
 
 ## 94.1.3
 
 - [patch][323b457](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/323b457):
-
   - trimmed status text so now the placeholder appears correctly when user types spaces in the
     status picker
 
 ## 94.1.2
 
 - [patch][c8a5e65](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c8a5e65):
-
   - ED-6023: fix scaling a table when deleting column
 
 ## 94.1.1
 
 - [patch][9b0341d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9b0341d):
-
   - ED-5871 Fix issue where user had to click twice to focus cursor in editor on full page editor in
     Firefox
 
 ## 94.1.0
 
 - [minor][58e30bb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/58e30bb):
-
   - deduped i18n key fabric.editor.orderedList
 
 ## 94.0.0
@@ -28746,74 +28301,62 @@ Remove applicationCard node and action mark
 ## 92.0.21
 
 - [patch][e930505](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e930505):
-
   - Added plugin state factory: createPluginState
 
 ## 92.0.20
 
 - [patch][ababb4a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ababb4a):
-
   - ED-5999: fix padding between Columns in renderer
 
 ## 92.0.19
 
 - [patch][e858305](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e858305):
-
   - ED-5805: Popup to support being sticky with alignX=top
 
 ## 92.0.18
 
 - [patch][5d4527e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5d4527e):
-
   - Fix issue where date was not respecting user's local date for initial date selection in quick
     insert
 
 ## 92.0.17
 
 - [patch][561f6cb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/561f6cb):
-
   - ED-5336 Disallow nesting lists past 6 levels
 
 ## 92.0.16
 
 - [patch][e251065](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e251065):
-
   - ED-5894: fix table controls disappearing while dragging resize handle
 
 ## 92.0.15
 
 - [patch][4b1567c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4b1567c):
-
   - ED-5991: fixed Position NaN out of range when resizing tables
 
 ## 92.0.14
 
 - [patch][88a8605](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/88a8605):
-
   - ED-5958: fix "getBoundingClientRect" errors
 
 ## 92.0.13
 
 - [patch][e79f8b0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e79f8b0):
-
   - Disable alignment when editor is disabled
 
 ## 92.0.12
 
 - [patch][80cadc7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/80cadc7):
-
   - ED-5861 - Fix panel style in order to render telepointers properly
 
 ## 92.0.11
 
 - [patch][53c513c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/53c513c):
-
   - ED-5947: fix preserving CellSelection when clicking on context menu
 
 ## 92.0.10
 
 - [patch][6d435cf](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6d435cf):
-
   - Fix issue where table contextual menu had incorrect styling when using a popups mount point
     outside of the editor
 
@@ -28828,34 +28371,28 @@ Remove applicationCard node and action mark
 ## 92.0.8
 
 - [patch][4611d97](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4611d97):
-
   - Remove hardcoded "unknown" value for mention's analytics 'source' attribute. In general the
     'source' attribute is not meant to be set by components and are supposed to be populated by
     products.
 
 - [patch][551696e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/551696e):
-
   - FS-3398 Fix incorrect event type for mention's "rendered" analytics event, ui -> operational
 
 - [patch][77b3be7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/77b3be7):
-
   - FS-3398 Fix case typo in actionSubject of mention's "rendered" analytics event, mentionTypeAhead
     -> mentionTypeahead
 
 - [patch][f6a1b31](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f6a1b31):
-
   - Remove 'query' attribute from mention's "rendered" analytics event. This attribute basically
     contains UGC and should not have been captured in the first place. It seems like it was added by
     accident as it wasn't part of the original specs.
 
 - [patch][551696e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/551696e):
-
   - FS-3398 Fix incorrect event type for mention's "rendered" analytics event, ui -> operational
 
 ## 92.0.7
 
 - [patch][7c10292](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c10292):
-
   - ED-5923: don't grow page while using resize handles on images
 
 ## 92.0.6
@@ -28872,31 +28409,26 @@ Remove applicationCard node and action mark
 ## 92.0.5
 
 - [patch][50d9b26](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/50d9b26):
-
   - ED-5806 Fix disappearing language in code block language picker
 
 ## 92.0.4
 
 - [patch][be12a8e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/be12a8e):
-
   - Fix popup picker dismiss on escape for Jira
 
 ## 92.0.3
 
 - [patch][88c8373](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/88c8373):
-
   - ED-5704: filtering out invalid marks from JSON output of editorActions.getValue()
 
 ## 92.0.2
 
 - [patch][dc39f5b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc39f5b):
-
   - ED-5956: don't close the typeaheads when calling getValue from EditorActions
 
 ## 92.0.1
 
 - [patch][a83bedb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a83bedb):
-
   - Fix codeblock input rules inside unsupported blocks
 
 ## 92.0.0
@@ -28921,55 +28453,46 @@ Remove applicationCard node and action mark
 ## 91.2.2
 
 - [patch][af32972](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/af32972):
-
   - ED-5880: disable media layout buttons
 
 ## 91.2.1
 
 - [patch][e714e7a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e714e7a):
-
   - ED-5667 Added hyperlink to quick insert
 
 ## 91.2.0
 
 - [minor][b9f8a8f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b9f8a8f):
-
   - Adding alignment options to media
 
 ## 91.1.4
 
 - [patch][3780be2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3780be2):
-
   - Fix extension delete when media is selected
 
 ## 91.1.3
 
 - [patch][462b70f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/462b70f):
-
   - ED-5819: Enables support for text color on mobile
 
 ## 91.1.2
 
 - [patch][8be04eb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8be04eb):
-
   - Remove option to change appearance mode on Smart Cards.
 
 ## 91.1.1
 
 - [patch][9f444e9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9f444e9):
-
   - ED-5882: fixed delayed scroll to top after page load
 
 ## 91.1.0
 
 - [minor][1205725](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1205725):
-
   - Move schema to its own package
 
 ## 91.0.0
 
 - [patch][8ae67fc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8ae67fc):
-
   - Use stretchy-fit resizeMode for media card components instead of full-fit or undefined values;
 
 - Updated dependencies [80f765b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/80f765b):
@@ -28992,37 +28515,31 @@ Remove applicationCard node and action mark
 ## 90.4.7
 
 - [patch][f621523](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f621523):
-
   - fix MediaMocker router
 
 ## 90.4.6
 
 - [patch][feb276c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/feb276c):
-
   - Don't scroll cursor into view on remote transactions
 
 ## 90.4.5
 
 - [patch][6beeada](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6beeada):
-
   - Don't hide media-picker on initialisation
 
 ## 90.4.4
 
 - [patch][f083737](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f083737):
-
   - Fix copy-paste of external images
 
 ## 90.4.3
 
 - [patch][4e483e7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4e483e7):
-
   - ED-5900: store resize handle always as a number
 
 ## 90.4.2
 
 - [patch][ebd73f4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ebd73f4):
-
   - ED-5880: allow breakout mode only in full-page editor
 
 ## 90.4.1
@@ -29033,34 +28550,28 @@ Remove applicationCard node and action mark
 ## 90.4.0
 
 - [minor][e06b553](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e06b553):
-
   - ED-5702: default new table resizing
 
 ## 90.3.18
 
 - [patch][d3f3e19](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d3f3e19):
-
   - restored StatusContainer to editor-core, avoid re-rendering on event handlers, removed unused
     props in the renderer
 
 - [patch][44cc61d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/44cc61d):
-
   - added native status analytics
 
 ## 90.3.17
 
 - [patch][b81da9b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b81da9b):
-
   - Fix typescript types to support strictFunctionTypes
 
 ## 90.3.16
 
 - [patch][43501db](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/43501db):
-
   - ED-5812: Fixes some regressions in the mobile editor
 
   Including:
-
   - Disables mediaGoup lazy loading.
   - Fixes unsupported emoji content.
   - Fixes missed call to Android bridge for block state.
@@ -29112,91 +28623,76 @@ Remove applicationCard node and action mark
 ## 90.3.14
 
 - [patch][b22d7e9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b22d7e9):
-
   - FS-3309 - Include native status in insert menu when enabled
 
 ## 90.3.13
 
 - [patch][9a1dbaa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9a1dbaa):
-
   - Fixed toolbar being positioned over a panel at the bottom of the page
 
 ## 90.3.12
 
 - [patch][85b71a9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/85b71a9):
-
   - ED-5704: Fixed invalid ADF sent when saving and mention/quickInsert/emoji is active
 
 ## 90.3.11
 
 - [patch][e0c91b6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e0c91b6):
-
   - FS-3310 Fix handling of duplicate users in mention typeahead causing HOT-85672
 
 ## 90.3.10
 
 - [patch][fa596d9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fa596d9):
-
   - display videos as mediaGroup for now
 
 ## 90.3.9
 
 - [patch][7190767](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7190767):
-
   - Fixes empty collection name and API naming mismatches
 
 ## 90.3.8
 
 - [patch][7fdfac1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7fdfac1):
-
   - FS-3269 - Ensure status attributes are read even if in mark
 
 ## 90.3.7
 
 - [patch][f0398a5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f0398a5):
-
   - Display media singles with video inside as inline video player
 
 ## 90.3.6
 
 - [patch][a60d8cd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a60d8cd):
-
   - FS-3278 - Prevent overflow of status in a table cell.
 
 ## 90.3.5
 
 - [patch][ef1df96](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ef1df96):
-
   - Remove unused deps
 
 ## 90.3.4
 
 - [patch][3c2c367](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3c2c367):
-
   - FS-3261 - Fix status selection growing as font size increases
 
 ## 90.3.3
 
 - [patch][5390041](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5390041):
-
   - FS-3160 - Prevent editor crash in some deletion use cases for status
 
 ## 90.3.2
 
 - [patch][48640fb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/48640fb):
-
   - FS-3227 - Prevent status popup focus from scrolling editor
 
 ## 90.3.1
 
 - [patch][dcd8f90](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dcd8f90):
-
   - Fix bug where gap cursor would remove previous node on backspace
 
 ## 90.3.0
 
 - [minor][a1b03d0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a1b03d0):
-
   - ED-3890 Adds Indentation support on paragraphs and headings
 
   **New Feature: Indentation**
@@ -29209,7 +28705,6 @@ Remove applicationCard node and action mark
   ```
 
   **Minor bug fixes**
-
   - ED-5841 Alignment is getting removed inside Table on load
   - ED-5842 Alignment mark aligns empty placeholder
   - ED-5843 Remove block marks on backspace when document is empty
@@ -29220,7 +28715,6 @@ Remove applicationCard node and action mark
 ## 90.2.2
 
 - [patch][1668ce3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1668ce3):
-
   - Wrap kitchen sink in smart card provider.
 
 ## 90.2.1
@@ -29257,50 +28751,42 @@ Remove applicationCard node and action mark
 ## 90.2.0
 
 - [minor][94094fe](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/94094fe):
-
   - Adds support for links around images
 
 ## 90.1.0
 
 - [minor][fef6755](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fef6755):
-
   - Change the way we deal with transactions in collab edit
 
 ## 90.0.0
 
 - [major][3a7224a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3a7224a):
-
   - ED-5677: enabled quickInsert and gapCursor by default (quickInsert: except for mobile
     appearance)
 
 ## 89.1.3
 
 - [patch][0e72eb6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0e72eb6):
-
   - Revert box-sizing change for node views
 
 ## 89.1.2
 
 - [patch][cf4e304](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cf4e304):
-
   - Fixed toolbar being positioned over a panel at the bottom of the page
 
 ## 89.1.1
 
 - [patch][3061b52](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3061b52):
-
   - AK-5723 - adjust files in package.json to ensure correct publishing of dist/package.json
 
 ## 89.1.0
 
 - [minor][7c9dcba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c9dcba):
-
   - Responsive wide breakout mode
 
 ## 89.0.8
 
 - [patch][6c90bb9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6c90bb9):
-
   - Fix mention plugin state in plugin
 
 ## 89.0.7
@@ -29342,7 +28828,6 @@ Remove applicationCard node and action mark
 ## 89.0.5
 
 - [patch][2db96d3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2db96d3):
-
   - Adjust min-width nodes to support table resizing
 
 ## 89.0.4
@@ -29378,19 +28863,16 @@ Remove applicationCard node and action mark
 ## 89.0.3
 
 - [patch][1e8d316](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e8d316):
-
   - ED-5819: Fixes emitting text color plugin state on every key stroke, without the state changing.
 
 ## 89.0.2
 
 - [patch][a2cae0c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a2cae0c):
-
   - Fix conversion of pasted urls via macroPlugin with html in clipboard (ED-5786)
 
 ## 89.0.1
 
 - [patch][086f816](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/086f816):
-
   - FS-3150 - Support status in the editor-mobile-bridge
 
 ## 89.0.0
@@ -29415,11 +28897,9 @@ Remove applicationCard node and action mark
 ## 88.5.3
 
 - [patch][dfcb816](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dfcb816):
-
   - ED-5818: Add support for inserting block nodes
 
   Bridge API now supports inserting:
-
   - Tables
   - Panels
   - Codeblocks
@@ -29430,17 +28910,14 @@ Remove applicationCard node and action mark
 ## 88.5.2
 
 - [patch][b73607f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b73607f):
-
   - ED-5770: fix resizer for media @ 0 and non-dynamic text sizes
 
 - [patch][7a9f647](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7a9f647):
-
   - ensure toolbar always appears even if media re-renders (e.g. resizer)
 
 ## 88.5.1
 
 - [patch][ab6d96b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ab6d96b):
-
   - ED-5710: Fixes calling media upfront.
 
   We now only call for the media auth, when rendering / loading a media item.
@@ -29448,66 +28925,55 @@ Remove applicationCard node and action mark
 ## 88.5.0
 
 - [minor][cfba914](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cfba914):
-
   - ED-5771: fix wide and full-width images in renderer
 
 ## 88.4.4
 
 - [patch][416fbb3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/416fbb3):
-
   - ED-3298: codeBlocks inside lists
 
 ## 88.4.3
 
 - [patch][96c125b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/96c125b):
-
   - Fixes an issue where using arrow keys to navigate between mention nodes would put the cursor in
     unexpected locations.
 
 ## 88.4.2
 
 - [patch][6e4570d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6e4570d):
-
   - Add height check when rendering images
 
 ## 88.4.1
 
 - [patch][8974838](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8974838):
-
   - Do not wrap in breakout a paragraph inserted after code block
 
 ## 88.4.0
 
 - [minor][6d6522b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6d6522b):
-
   - Refactor mentions to use TypeAhead plugin
 
 ## 88.3.0
 
 - [patch][43f178a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/43f178a):
-
   - ED-5813: Added type safety to width plugin.
 
 - [minor][1e5cd32](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e5cd32):
-
   - Make layouts stack on small screens
 
 ## 88.2.14
 
 - [patch][1ac6286](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1ac6286):
-
   - Fixes width plugin continuing without valid transaction state
 
 ## 88.2.13
 
 - [patch][37313f8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/37313f8):
-
   - Remove preprocessDoc because it was removing empty tasks & decisionItems
 
 ## 88.2.12
 
 - [patch][1358f62](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1358f62):
-
   - ED-5717: deduped quick insert provided items
 
 ## 88.2.11
@@ -29519,113 +28985,94 @@ Remove applicationCard node and action mark
 ## 88.2.10
 
 - [patch][368e858](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/368e858):
-
   - ED-5570 Fixed long URLs wrapping in editor panel
 
 ## 88.2.9
 
 - [patch][70a104dc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/70a104dc):
-
   - ED-5802: fix merging rows when rowspan > 1 in neighbour columns
 
 ## 88.2.8
 
 - [patch][04abea3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/04abea3):
-
   - ED-5186: Always show scroll bar, to avoid page shift.
 
 ## 88.2.7
 
 - [patch][4e2a3b1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4e2a3b1):
-
   - ED-5809 Fixes code mark getting removed from document
 
 ## 88.2.6
 
 - [patch][899b377](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/899b377):
-
   - ED-5750: fix selection for merged cells when its created by dragging mouse across table cells
 
 ## 88.2.5
 
 - [patch][4ad840a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4ad840a):
-
   - Adds resize property to fix media without dimensions
 
 ## 88.2.4
 
 - [patch][a458d03](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a458d03):
-
   - ED-5713: Quick insert aliases
 
 ## 88.2.3
 
 - [patch][8d30d62](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8d30d62):
-
   - ED-5774: add breakout for Columns
 
 ## 88.2.2
 
 - [patch][9a66a9b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9a66a9b):
-
   - Add Confluence cards in Editor example.
 
 ## 88.2.1
 
 - [patch][16ff8d2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/16ff8d2):
-
   - Add jira card editor example.
 
 ## 88.2.0
 
 - [minor][14477fa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/14477fa):
-
   - Adding text alignment to editor and renderer
 
 ## 88.1.14
 
 - [patch][380928b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/380928b):
-
   - ED-5293: fix merging cells
 
 ## 88.1.13
 
 - [patch][f9d1245](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f9d1245):
-
   - Fixes pasting from Microsoft & Apple office products (ED-5694, ED-5575)
 
 ## 88.1.12
 
 - [patch][cc78d09](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc78d09):
-
   - ED-5196: For a block as first node in a document, up and left arrow should show a gap cursor
 
 ## 88.1.11
 
 - [patch][4897ebf](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4897ebf):
-
   - ED-4777 Toggling list no longer selects previous text
 
 ## 88.1.10
 
 - [patch][ac02f46](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ac02f46):
-
   - ED-5499 ToolbarFeedback now accepts metadata that appears in feedback ticket
 
 ## 88.1.9
 
 - [patch][6cb44c4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6cb44c4):
-
   - ED-5162: fix table selection for merged cells
 
 ## 88.1.8
 
 - [patch][e151c1a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e151c1a):
-
   - Removes dependency on @atlaskit/layer-manager
 
   As of component versions:
-
   - \`@atlaskit/modal-dialog@7.0.0\`
   - \`@atlaskit/tooltip@12.0.2\`
   - \`@atlaskit/flag@9.0.6\`
@@ -29638,116 +29085,97 @@ Remove applicationCard node and action mark
 ## 88.1.7
 
 - [patch][8262781](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8262781):
-
   - Fix floating toolbars overlaping with main editor toolbar
 
 ## 88.1.6
 
 - [patch][50aa9d2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/50aa9d2):
-
   - Refactor transform-to-code command
 
 ## 88.1.5
 
 - [patch][60087ec](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/60087ec):
-
   - Remove decorators
 
 ## 88.1.4
 
 - [patch][5c148c8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5c148c8):
-
   - ED-5739: fix updating cells DOM attributes when deleting rows/columns
 
 ## 88.1.3
 
 - [patch][68f3e01](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/68f3e01):
-
   - ED-5687: add full-width grid lines and other resizing fixes
 
 ## 88.1.2
 
 - [patch][93e576a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/93e576a):
-
   - ED-5651: Typing // causes editor to disregard text
 
 ## 88.1.1
 
 - [patch][9072682](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9072682):
-
   - Fix emoticons alignment
 
 ## 88.1.0
 
 - [minor][b440439](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b440439):
-
   - Add breakout mark to editor, renderer and adf-utils
 
 ## 88.0.11
 
 - [patch][6ef824b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6ef824b):
-
   - Fix import of re-resizable
 
 ## 88.0.10
 
 - [patch][d518ce0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d518ce0):
-
   - FS-3118 - Only focus status input field on initial insertion. FS-3158 - Fix focus flicker in
     status input field.
 
 ## 88.0.9
 
 - [patch][6efc73e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6efc73e):
-
   - allow Fabric status plugin to be enabled but be hidden in the editor menu
 
 ## 88.0.8
 
 - [patch][9390a7e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9390a7e):
-
   - ED-5685: add grid ruler marks
 
 ## 88.0.7
 
 - [patch][c64c174](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c64c174):
-
   - Fix multiple papercuts in quick insert
 
 ## 88.0.6
 
 - [patch][82ad72d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/82ad72d):
-
   - Timestamp on date node must always be a string
 
 ## 88.0.5
 
 - [patch][beefae2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/beefae2):
-
   - Updated type definitions for prosemirror packages
 
 ## 88.0.4
 
 - [patch][2e1b194](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2e1b194):
-
   - Revert collab changes
 
 ## 88.0.3
 
 - [patch][222082a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/222082a):
-
   - Fix incorrect import of PanelType
 
 ## 88.0.2
 
 - [patch][ffcaedd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ffcaedd):
-
   - FS-2964 Implement status node placeholder support. Handle removing if no content in node
 
 ## 88.0.1
 
 - [patch][8059325](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8059325):
-
   - Fix delete doing nothing
 
 ## 88.0.0
@@ -29772,7 +29200,6 @@ Remove applicationCard node and action mark
 ## 87.9.5
 
 - [patch][e1db106](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e1db106):
-
   - ED-5696 Allow private properties in adf-validator
 
   `table` with `__autoSize`, `link` with `__confluenceMetadata` will render properly.
@@ -29780,13 +29207,11 @@ Remove applicationCard node and action mark
 ## 87.9.4
 
 - [patch][bce23bc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bce23bc):
-
   - Change style of status selection
 
 ## 87.9.3
 
 - [patch][e6c4231](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e6c4231):
-
   - ED-5639: fix deleting columns in Safari
 
 ## 87.9.2
@@ -29803,43 +29228,36 @@ Remove applicationCard node and action mark
 ## 87.9.1
 
 - [patch][676a586](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/676a586):
-
   - ED-5024 Quick insert improvements
 
 ## 87.9.0
 
 - [minor][2cc9764](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2cc9764):
-
   - Change the way we deal with transactions in collab edit
 
 ## 87.8.2
 
 - [patch][a9eb99f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a9eb99f):
-
   - ED-5510: fix deleting last character in a cell in Safari
 
 ## 87.8.1
 
 - [patch][1764e1c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1764e1c):
-
   - ED-5215: don't insert paragraph when inserting rule if another follows
 
 ## 87.8.0
 
 - [minor][f17f0a6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f17f0a6):
-
   - ED-5448: support macro autoconversion in actions
 
 ## 87.7.5
 
 - [patch][fb6b89b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fb6b89b):
-
   - Revert "Add buffer to the bottom of fullpage editor"
 
 ## 87.7.4
 
 - [patch][8f1073c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8f1073c):
-
   - ED-5572 Fixes copying 2+ lines from vs-code pastes as inline code
 
 ## 87.7.3
@@ -29855,67 +29273,56 @@ Remove applicationCard node and action mark
 ## 87.7.2
 
 - [patch][c032914](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c032914):
-
   - ED-2043: Added table keyboard shortcut
 
 ## 87.7.1
 
 - [patch][e8afbf1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e8afbf1):
-
   - ED-5310: fix inline code background appearing when wrapping
 
 ## 87.7.0
 
 - [minor][abef80b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/abef80b):
-
   - ED-5527: apply max-width: 100% and pass container size to Card as dimension
 
 ## 87.6.18
 
 - [patch][9f26f82](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9f26f82):
-
   - Removing extra padding inside the comment editor
 
 ## 87.6.17
 
 - [patch][aef4235](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aef4235):
-
   - Fix range selection
 
 ## 87.6.16
 
 - [patch][7bc4461](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7bc4461):
-
   - ED-5565: support connecting external React.Context to nodeviews
 
 ## 87.6.15
 
 - [patch][e8052e1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e8052e1):
-
   - Add main field to adf-utils package.json
 
 ## 87.6.14
 
 - [patch][7787595](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7787595):
-
   - ED-4359: don't change selection when deleting filmstrip item
 
 ## 87.6.13
 
 - [patch][71b59ae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/71b59ae):
-
   - Fixed Datepicker showing rendering outside viewport
 
 ## 87.6.12
 
 - [patch][12855b9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12855b9):
-
   - ED-5511: tweaked quickInsert so that query can match space-separated items
 
 ## 87.6.11
 
 - [patch][0e0a126](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0e0a126):
-
   - Fixed cursor when adding hyperlink on existing piece of text using Cmd-K
 
 ## 87.6.10
@@ -29927,139 +29334,116 @@ Remove applicationCard node and action mark
 ## 87.6.9
 
 - [patch][31653d9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/31653d9):
-
   - Fixed clicking between date pickers doesn't show correct date
 
 ## 87.6.8
 
 - [patch][8b084d0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8b084d0):
-
   - Fix unsupported node event name
 
 ## 87.6.7
 
 - [patch][6a0a6f8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6a0a6f8):
-
   - ED-5448, ED-5613, ED-5582: smart card UX improvements; allow blockCard in tableCell
 
 ## 87.6.6
 
 - [patch][c39507e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c39507e):
-
   - ED-5561 Single media honors scale factor from media-picker
 
 ## 87.6.5
 
 - [patch][f713993](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f713993):
-
   - ED-5537: table ux improvements
 
 ## 87.6.4
 
 - [patch][2dd9ae3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2dd9ae3):
-
   - ED-4979 When in the an unindentable list item, tab should do nothing
 
 ## 87.6.3
 
 - [patch][563c4da](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/563c4da):
-
   - ED-5149 Fixed DatePicker calendar shadow in table
 
 ## 87.6.2
 
 - [patch][7459970](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7459970):
-
   - ED-5263: handle rows and columns shift selection
 
 ## 87.6.1
 
 - [patch][bdc9961](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bdc9961" d):
-
   - Fixes the codeblock insert rules
 
 ## 87.6.0
 
 - [minor][bb3336a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bb3336a" d):
-
   - Make text formatting toolbar account for different item titles legnths
 
 ## 87.5.0
 
 - [minor][d182ad9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d182ad9" d):
-
   - Add <-> to ↔︎ convertion rule
 
 ## 87.4.3
 
 - [patch][8fb4b1e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8fb4b1e" d):
-
   - ED-5274 Fixes tables have excessive margin above
 
 ## 87.4.2
 
 - [patch][4cc767e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4cc767e" d):
-
   - ED-5030: Fixed gap-cursor on nodeviews in breakout mode.
 
 ## 87.4.1
 
 - [patch][abd19cd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/abd19cd" d):
-
   - ED-5616: fix inline cursor navigation
 
 ## 87.4.0
 
 - [minor][5981cec](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5981cec" d):
-
   - TypeAhead to preserve marks
 
 ## 87.3.2
 
 - [patch][14d581b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/14d581b" d):
-
   - Disable clear formatting menu when there is no formatting
 
 ## 87.3.1
 
 - [patch][52f5b51](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/52f5b51" d):
-
   - ED-4366: fix text selection inside table cell on triple click
 
 ## 87.3.0
 
 - [minor][b911028](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b911028" d):
-
   - Show selected color in a table contextual menu
 
 ## 87.2.0
 
 - [minor][746c927](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/746c927" d):
-
   - Add buffer to the bottom fullpage editor
 
 ## 87.1.13
 
 - [patch][f3d067d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f3d067d" d):
-
   - Fix font size for numbered column in tables with dynamic text sizing
 
 ## 87.1.12
 
 - [patch][534f6ab](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/534f6ab" d):
-
   - ED-5615: Fix block element padding inside table cells.
 
 ## 87.1.11
 
 - [patch][cb4168f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cb4168f" d):
-
   - ED-5307: make text white for selected heading menu item
 
 ## 87.1.10
 
 - [patch][db65837](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/db65837" d):
-
   - ED-3762: fix setting text cursor when clicking on editor gutter
 
 ## 87.1.9
@@ -30071,7 +29455,6 @@ Remove applicationCard node and action mark
 ## 87.1.8
 
 - [patch][3c505aa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3c505aa" d):
-
   - Adds Danish and Romanian translations
 
 ## 87.1.7
@@ -30083,13 +29466,11 @@ Remove applicationCard node and action mark
 ## 87.1.6
 
 - [patch][6201223](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6201223" d):
-
   - Add examples.
 
 ## 87.1.5
 
 - [patch][1662ae0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1662ae0" d):
-
   - ED-5440 convert sections to use percentages
 
 ## 87.1.4

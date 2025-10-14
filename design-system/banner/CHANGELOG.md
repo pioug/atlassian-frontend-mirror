@@ -1051,7 +1051,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/button@13.3.7
@@ -1221,7 +1220,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1266,20 +1264,17 @@
 ## 10.0.1
 
 - [patch][c9c5d026b1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c9c5d026b1):
-
   - Fixed outline around links in banner
 
 ## 10.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 9.0.3
 
 - [patch][50e8c82ec4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/50e8c82ec4):
-
   - index.ts is now ignored when published to npm to avoid ambiguity between ts and js files
 
 ## 9.0.2
@@ -1303,14 +1298,12 @@
 ## 9.0.0
 
 - [major][1433f91820](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1433f91820):
-
   - Banner has been internally converted to TypeScript. Typescript consumers will get static type
     safety. No API or behaviour changes. Flow Support has been dropped.
 
 ## 8.0.2
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 8.0.1
@@ -1325,7 +1318,6 @@
 ## 8.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages

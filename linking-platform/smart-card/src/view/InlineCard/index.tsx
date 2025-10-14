@@ -2,7 +2,6 @@ import React, { type PropsWithChildren, useEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 // TODO: Package Owner - please fix:
 // eslint-disable-next-line import/no-extraneous-dependencies
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
@@ -30,16 +29,12 @@ export {
 	InlineCardUnauthorizedView,
 };
 
-const UFOLoadHoldWrapper = ({ children }: PropsWithChildren) => {
-	return fg('platform_renderer_blindspots') ? (
-		<>
-			<UFOHoldLoad name="smart-card-inline-card" />
-			{children}
-		</>
-	) : (
-		children
-	);
-};
+const UFOLoadHoldWrapper = ({ children }: PropsWithChildren) => (
+	<>
+		<UFOHoldLoad name="smart-card-inline-card" />
+		{children}
+	</>
+);
 
 export const InlineCard = ({
 	id,

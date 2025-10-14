@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.11.0
+
+### Minor Changes
+
+- [`81a75afebab41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81a75afebab41) -
+  Update api for smarter suggested space recommendations.
+
 ## 13.10.1
 
 ### Patch Changes
@@ -355,7 +362,6 @@
 
 - [`0d0fe7a300841`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d0fe7a300841) -
   Cleanup platform_editor_usesharedpluginstatewithselector experiment
-
   - BREAKING CHANGE: sharedPluginStateHookMigratorFactory is deleted from @atlaskit/editor-common
 
 ## 12.8.0
@@ -1157,7 +1163,6 @@
 
   This experiment was only enabled for Confluence and should not have been enabled in other places.
   If for some reason any of the following props/state/methdos were used please remove them:
-
   - isConsumption
   - contentMode
   - initialContentMode
@@ -2094,12 +2099,10 @@
   [ux] [ED-25085] Migrate typography \
 
   editor-plugin-media:
-
   - replace caption placeholder span with button
   - replace x between width and height pixel entry with symbol × \
 
   tmp-editor-statsig:
-
   - Add experiment `platform_editor_typography_migration_ugc`
 
 ## 2.2.1
@@ -2328,7 +2331,6 @@
   [`705fe39cae267`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/705fe39cae267) -
   [ED-24597] Update to log `platform_editor_basic_text_transformations` exposure event only for
   users meet all of 3 checks:
-
   - Are enrolled to the experiment
   - Have AI disabled
   - Make top level text selection

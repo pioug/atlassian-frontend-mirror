@@ -14,7 +14,6 @@ import {
 } from '@atlaskit/editor-common/ui-react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { MenuGroup, Section } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { dragMenuDropdownWidth } from '../consts';
 
@@ -188,33 +187,20 @@ export const DropdownMenu = ({
 				offset={[offsetX, offsetY]}
 				allowOutOfBounds // required as this popup is child of a parent popup, should be allowed to be out of bound of the parent popup, otherwise horizontal offset is not right
 			>
-				{fg('platform_editor_table_drag_menu_flickers_fix') ? (
-					<ArrowKeyNavigationProvider
-						closeOnTab={!disableKeyboardHandling}
-						type={ArrowKeyNavigationType.MENU}
-						handleClose={onClose}
-						onSelection={onSelection}
-						// disableKeyboardHandling is linked with isSubmenuOpen in DragMenu
-						// When isSubmenuOpen is true, the background color picker palette is open, and the picker is a ColorPaletteArrowKeyNavigationProvider
-						// At the same time the MenuArrowKeyNavigationProvider are renderer too, as it is the wrapper for all other DragMenu items
-						// In this case we want the ColorPaletteArrowKeyNavigationProvider to handle the keyboard event, not the MenuArrowKeyNavigationProvider
-						// Hence set disableArrowKeyNavigation to true when disableKeyboardHandling is true
-						disableArrowKeyNavigation={disableKeyboardHandling}
-					>
-						{innerMenu()}
-					</ArrowKeyNavigationProvider>
-				) : disableKeyboardHandling ? (
-					innerMenu()
-				) : (
-					<ArrowKeyNavigationProvider
-						closeOnTab
-						type={ArrowKeyNavigationType.MENU}
-						handleClose={onClose}
-						onSelection={onSelection}
-					>
-						{innerMenu()}
-					</ArrowKeyNavigationProvider>
-				)}
+				<ArrowKeyNavigationProvider
+					closeOnTab={!disableKeyboardHandling}
+					type={ArrowKeyNavigationType.MENU}
+					handleClose={onClose}
+					onSelection={onSelection}
+					// disableKeyboardHandling is linked with isSubmenuOpen in DragMenu
+					// When isSubmenuOpen is true, the background color picker palette is open, and the picker is a ColorPaletteArrowKeyNavigationProvider
+					// At the same time the MenuArrowKeyNavigationProvider are renderer too, as it is the wrapper for all other DragMenu items
+					// In this case we want the ColorPaletteArrowKeyNavigationProvider to handle the keyboard event, not the MenuArrowKeyNavigationProvider
+					// Hence set disableArrowKeyNavigation to true when disableKeyboardHandling is true
+					disableArrowKeyNavigation={disableKeyboardHandling}
+				>
+					{innerMenu()}
+				</ArrowKeyNavigationProvider>
 			</Popup>
 		</div>
 	);

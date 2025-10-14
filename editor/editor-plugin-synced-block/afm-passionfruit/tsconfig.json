@@ -29,6 +29,9 @@
 			"path": "../../editor-json-transformer/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-analytics/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-block-menu/afm-passionfruit/tsconfig.json"
 		},
 		{

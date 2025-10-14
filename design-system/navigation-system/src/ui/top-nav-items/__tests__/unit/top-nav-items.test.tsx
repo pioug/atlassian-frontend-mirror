@@ -20,7 +20,7 @@ describe('TopNavigation', () => {
 	it('should be accessible', async () => {
 		const { container } = render(
 			<TopNav>
-				<TopNavStart>
+				<TopNavStart sideNavToggleButton={null}>
 					<AppSwitcher label="App switcher" />
 					<CustomLogo
 						href="http://www.atlassian.design"
@@ -47,7 +47,7 @@ describe('TopNavStart', () => {
 	describe('CustomLogo', () => {
 		it('should be accessible', async () => {
 			const { container } = render(
-				<TopNavStart>
+				<TopNavStart sideNavToggleButton={null}>
 					<CustomLogo
 						href="http://www.atlassian.design"
 						logo={AtlassianLogo}
@@ -61,7 +61,7 @@ describe('TopNavStart', () => {
 
 		it('should be in the document', () => {
 			render(
-				<TopNavStart>
+				<TopNavStart sideNavToggleButton={null}>
 					<CustomLogo
 						href="http://www.atlassian.design"
 						logo={AtlassianLogo}
@@ -78,7 +78,7 @@ describe('TopNavStart', () => {
 			const onClick = jest.fn();
 
 			render(
-				<TopNavStart>
+				<TopNavStart sideNavToggleButton={null}>
 					<CustomLogo
 						href="http://www.atlassian.design"
 						logo={AtlassianLogo}
@@ -100,7 +100,7 @@ describe('TopNavStart', () => {
 	describe('AppSwitcher', () => {
 		it('should be accessible', async () => {
 			const { container } = render(
-				<TopNavStart>
+				<TopNavStart sideNavToggleButton={null}>
 					<AppSwitcher label="App switcher" />,
 				</TopNavStart>,
 			);
@@ -109,7 +109,7 @@ describe('TopNavStart', () => {
 
 		it('should contain an app switcher', () => {
 			render(
-				<TopNavStart>
+				<TopNavStart sideNavToggleButton={null}>
 					<AppSwitcher label="App switcher" />
 				</TopNavStart>,
 			);
@@ -121,7 +121,7 @@ describe('TopNavStart', () => {
 			expect(label).not.toBe('App switcher');
 
 			render(
-				<TopNavStart>
+				<TopNavStart sideNavToggleButton={null}>
 					<AppSwitcher label={label} />
 				</TopNavStart>,
 			);
@@ -133,7 +133,7 @@ describe('TopNavStart', () => {
 			const onClick = jest.fn();
 
 			render(
-				<TopNavStart>
+				<TopNavStart sideNavToggleButton={null}>
 					<AppSwitcher label="App switcher" onClick={onClick} />
 				</TopNavStart>,
 			);

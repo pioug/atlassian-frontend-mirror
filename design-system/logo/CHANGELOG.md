@@ -140,11 +140,9 @@
   [`227f5ae9544a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/227f5ae9544a1) -
 
   **Updated**:
-
   - **`LoomAttributionLogo`** and **`LoomAttributionIcon`**: support new logo design language.
 
   **Added**:
-
   - **`LoomBlurpleLogo`** and **`LoomBlurpleIcon`**: matches the new logo design language, but using
     Loom's blurple color
 
@@ -182,13 +180,11 @@
 - [#173001](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173001)
   [`445bba751a18a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/445bba751a18a) -
   **Added**:
-
   - **`AdminLogo`** and **`AdminIcon`**
   - **`AnalyticsLogo`** and **`AnalyticsIcon`**
   - **`AlignLogo`** and **`AlignIcon`**
 
   **Updated**: Feature flagging added to:
-
   - **`AtlassianAdministrationLogo`** and **`AtlassianAdministrationIcon`**
   - **`AtlassianAnalyticsLogo`** and **`AtlassianAnalyticsIcon`**
   - **`AtlassianAlignLogo`** and **`AtlassianAlignIcon`**
@@ -263,7 +259,6 @@
   [`6b95a2eecc267`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b95a2eecc267) -
 
   **Removed deprecated logos**:
-
   - `HalpIcon`, `HalpLogo`
   - `AtlassianStartLogo`
 
@@ -484,7 +479,6 @@
   release also deletes a number of deprecated logos and props, and marks other logos as deprecated.
 
   ### Breaking changes:
-
   - `iconGradientStart` and `iconGradientStop` props have been removed from all Icon and Logo
     components. Updated logos do not support gradients.
   - Deprecated `Wordmark` components have been removed. These wordmarks were only designed for use
@@ -498,7 +492,6 @@
     - `OpsGenieLogo` and `OpsGenieIcon` (old versions of `OpsgenieLogo` and `OpsgenieIcon`)
 
   ### Deprecations
-
   - `AtlasLogo` and `AtlasIcon`
   - `AtlassianStartLogo`
   - `HalpLogo` and `HalpIcon`
@@ -804,7 +797,6 @@
   [`c7c2083475d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7c2083475d) - [ux] -
   Adds `appearance` prop that allows you to choose between three brand-approved appearances:
   `brand`, `neutral` and `inverse`. These will be based on design tokens and theme-responsive.
-
   - Deprecates the `iconColor`, `iconGradientStart`, `iconGradientEnd` and `textColor` props. They
     will still be supported in the immediate future but the goal is to shift usages towards using
     the `appearance` prop.
@@ -824,7 +816,6 @@
   This is an update to clearly mark all deprecated Logo exports as deprecated and slated for removal
   in the next major release. In the next verion we will be removing the following deprecated exports
   from the main entrypoint:
-
   - `StrideIcon`, `StrideLogo`, `StrideWordmark`
   - `HipchatIcon`, `HipchatLogo`, `HipchatWordmark`
   - `JiraCoreIcon`, `JiraCoreLogo`, `JiraCoreWordmark` (use `JiraWorkManagement` +
@@ -836,7 +827,6 @@
 
   We will also be removing the following deprecated exports from the `@atlaskit/logo/constants`
   entrypoint:
-
   - `Props` (use `LogoProps` instead)
   - `DefaultProps` (use `defaultLogoParams` instead)
 
@@ -986,7 +976,6 @@
   [`c8afaa49d34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8afaa49d34) - Add
   `OpsgenieIcon`, `OpsgenieLogo` and `OpsgenieWordmark` in order to rename `OpsGenie` to `Opsgenie`,
   and deprecate the following logos:
-
   - `JiraCoreIcon`, `JiraCoreLogo`, `JiraCoreWordmark`
   - `JiraServiceDeskIcon`, `JiraServiceDeskLogo`, `JiraServiceDeskWordmark`
   - `StrideIcon`, `StrideLogo`, `StrideWordmark`
@@ -1149,7 +1138,6 @@
 - [patch][fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
 
   Corrects accessibility behavior for wrapping span. It now will now:
-
   - conditionally set the `aria-label` if `label` is defined
   - conditionally set the `role` to either `img` if `label` is defined, or `presentation` if it is
     not defined- Updated dependencies
@@ -1170,7 +1158,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/button@13.3.7
@@ -1279,7 +1266,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1324,7 +1310,6 @@
 ## 12.0.2
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -1338,14 +1323,12 @@
 ## 12.0.0
 
 - [major][4b07b57640](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4b07b57640):
-
   - @atlaskit/logo has been converted to Typescript. Typescript consumers will now get static type
     safety. Flow types are no longer provided. No API or behavioural changes.
 
 ## 11.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1373,7 +1356,6 @@
 ## 10.0.2
 
 - [patch][e04a402953](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e04a402953):
-
   - Internal changes only. Ids relevant to Logo gradients are now ssr-friendly.
 
 ## 10.0.1
@@ -1389,7 +1371,6 @@
 ## 10.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages

@@ -788,9 +788,13 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 							{description ? <div>{description}</div> : null}
 						</>
 					)}
-					position="right"
+					position={fg('platform_dst_side_nav_remove_custom_tooltip') ? 'right-start' : 'right'}
 					// NOTE: Types in React 18 have changed and `forwardRef(() => <TooltipPrimitive>)` no longer appears to match 100%
-					component={MenuItemTooltip as TooltipProps['component']}
+					component={
+						fg('platform_dst_side_nav_remove_custom_tooltip')
+							? undefined
+							: (MenuItemTooltip as TooltipProps['component'])
+					}
 					ignoreTooltipPointerEvents
 					hideTooltipOnMouseDown
 					// We don't need a duplicate hidden element containing tooltip content

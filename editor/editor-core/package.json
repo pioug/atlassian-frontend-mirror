@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.1.3",
+	"version": "215.1.5",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -297,10 +297,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_split_list_item_for_gap_cursor": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_drag_layout_column_into_nodes": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

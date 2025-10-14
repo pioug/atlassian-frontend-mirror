@@ -686,7 +686,6 @@
 - [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837)
   [`942dd25df09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/942dd25df09) - In this
   version we made **Badge** dramatically faster and lighter.
-
   - General performance improvements.
 
   - We are now exporting a new `style` prop which you can use to pass a custom `backgroundColor` and
@@ -825,7 +824,6 @@
   will automatically be upgraded.
 
   What will be changed:
-
   - It will move `backgroundColor` and `textColor` from `appearance` prop (if object is passed as
     `appearance` prop value) to `style` prop.
 
@@ -1007,7 +1005,6 @@
 
   Change imports to comply with Atlassian conventions- Updated dependencies
   [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
-
   - @atlaskit/webdriver-runner@0.3.4
 
 ## 13.1.7
@@ -1043,7 +1040,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/theme@9.5.1
@@ -1057,7 +1053,6 @@
   Removes babel/runtime from dependencies. Users should see a smaller bundlesize as a result-
   Updated dependencies
   [82747f2922](https://bitbucket.org/atlassian/atlassian-frontend/commits/82747f2922):
-
   - @atlaskit/theme@9.5.0
 
 ## 13.1.3
@@ -1161,7 +1156,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1204,20 +1198,17 @@
 ## 12.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 11.0.3
 
 - [patch][50e8c82ec4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/50e8c82ec4):
-
   - index.ts is now ignored when published to npm to avoid ambiguity between ts and js files
 
 ## 11.0.2
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 11.0.1
@@ -1230,7 +1221,6 @@
 ## 11.0.0
 
 - [major][c95557e3ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c95557e3ff):
-
   - Drops flow support.
   - Badge has been internally converted to TypeScript.
   - Typescript consumers will get static type safety.
@@ -1239,13 +1229,11 @@
 ## 10.0.1
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 10.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1296,7 +1284,6 @@
 ## 9.2.1
 
 - [patch][d13242d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13242d):
-
   - Change API to experimental theming API to namespace component themes into separate contexts and
     make theming simpler. Update all dependant components.
 

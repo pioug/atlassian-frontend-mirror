@@ -635,7 +635,6 @@
   [`bc489da7472`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc489da7472) - [ux] -
   Adds new primitives to support expandable row functionality. This will supersede the
   `@atlaskit/table-tree` package.
-
   - `<ExpandableRow>`
   - `<ExpandableRowContent>`
   - `<ExpandableCell>`

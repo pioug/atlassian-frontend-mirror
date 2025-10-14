@@ -2185,11 +2185,11 @@ const rendererAnnotationStylesCommentHeightFix = css({
 	},
 });
 
-// Calculate emoji size based on base font size
-// Default: 20px emoji at 16px base font
-// Scaled: 20px * (baseFontSize/16)
-// E.g., dense mode (13px base): 20px * (13/16) = 16.25px
-const denseEmojiStyles = css({
+const denseStyles = css({
+	// Scale emoji size based on base font size
+	// Default: 20px emoji at 16px base font
+	// Scaled: 20px * (baseFontSize/16)
+	// E.g., dense mode (13px base): 20px * (13/16) = 16.25px
 	[`.${EmojiSharedCssClassName.EMOJI_IMAGE}`]: {
 		height: `calc(${defaultEmojiHeight} * var(--ak-renderer-base-font-size) / ${akEditorFullPageDefaultFontSize})`,
 		width: `calc(${defaultEmojiHeight} * var(--ak-renderer-base-font-size) / ${akEditorFullPageDefaultFontSize})`,
@@ -2279,7 +2279,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				baseStyles,
 				expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 					fg('platform_editor_content_mode_button_mvp') &&
-					denseEmojiStyles,
+					denseStyles,
 				hideHeadingCopyLinkWrapperStyles,
 				appearance === 'full-page' &&
 					isPreviewPanelResponsivenessOn &&

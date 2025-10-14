@@ -1,5 +1,17 @@
 # @atlaskit/docs
 
+## 11.2.0
+
+### Minor Changes
+
+- [`96f88aee5c5c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96f88aee5c5c1) -
+  Improved docs by removing references to extract-react-types-loader and adding Disclosure component
+
+### Patch Changes
+
+- [`96f88aee5c5c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96f88aee5c5c1) -
+  Added better component-prop generator for Atlaskit website
+
 ## 11.1.3
 
 ### Patch Changes

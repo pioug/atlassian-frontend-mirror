@@ -13,6 +13,7 @@ import type {
 	HeadingAnchorLinksProps,
 	NodeComponentsProps,
 	RendererAppearance,
+	RendererContentMode,
 	StickyHeaderConfig,
 } from '../ui/Renderer/types';
 import type { TextWrapper } from './nodes';
@@ -72,6 +73,7 @@ export interface ReactSerializerInit {
 	allowWindowedCodeBlock?: boolean;
 	allowWrapCodeBlock?: boolean;
 	appearance?: RendererAppearance;
+	contentMode?: RendererContentMode;
 	disableActions?: boolean;
 	disableHeadingIDs?: boolean;
 	disableTableOverflowShadow?: boolean;
@@ -163,6 +165,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private portal?: HTMLElement;
 	private rendererContext?: RendererContext;
 	private appearance?: RendererAppearance;
+	private contentMode?: RendererContentMode;
 	private disableHeadingIDs?: boolean;
 	private disableActions?: boolean;
 	private headingIds: string[] = [];
@@ -221,6 +224,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.portal = init.portal;
 		this.rendererContext = init.objectContext;
 		this.appearance = init.appearance;
+		this.contentMode = init.contentMode;
 		this.disableHeadingIDs = init.disableHeadingIDs;
 		this.disableActions = init.disableActions;
 		this.allowHeadingAnchorLinks = init.allowHeadingAnchorLinks;
@@ -752,6 +756,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			allowWrapCodeBlock: this.allowWrapCodeBlock,
 			allowPlaceholderText: this.allowPlaceholderText,
 			rendererAppearance: this.appearance,
+			rendererContentMode: this.contentMode,
 			fireAnalyticsEvent: this.fireAnalyticsEvent,
 			nodeType: node.type.name,
 			marks: node.marks,

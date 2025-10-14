@@ -170,7 +170,6 @@
   [`a832dd489aab3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a832dd489aab3) - -
   Migrated from `@emotion/react` to `@compiled/react` in order to improve performance, align with
   the rest of the Atlaskit techstack, and support React 18 Streaming SSR.
-
   - Added a `className` prop for applying a focus ring to the custom popup container (Currently
     controlled by the feature flag `platform-design-system-apply-popup-wrapper-focus`). See usage
     example [here](https://atlassian.design/components/popup/examples#customization).
@@ -1348,12 +1347,10 @@ _WRONG RELEASE TYPE - DON'T USE_
   well.
 
   These changes have ⚙️ codemod support:
-
   - ⚙️ `offset` is no longer a string, but an array of two integers (i.e. '0px 8px' is now [0, 8])
   - ⚙️ `boundariesElement` has been replaced with two props: `boundary` and `rootBoundary`. The
     three supported values from the boundariesElement prop have been split between the two as
     follows:
-
     - `boundariesElement = "scrollParents"` has been renamed: use `boundary = "clippingParents"`.
     - `boundariesElement = "window"` has been renamed: use `rootBoundary = "document"`, and acts in
       a similar fashion.
@@ -1361,7 +1358,6 @@ _WRONG RELEASE TYPE - DON'T USE_
     - **✨new** the `boundary` prop now supports custom elements.
 
   - Components passed into the `content` have a change to render props:
-
     - ⚙️ `scheduleUpdate`, for async updates, has been renamed to `update`, and now returns a
       Promise.
 
@@ -1540,7 +1536,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/button@13.3.7
@@ -1574,7 +1569,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ### Minor Changes
 
 - [minor][0946fdd319](https://bitbucket.org/atlassian/atlassian-frontend/commits/0946fdd319):
-
   - **BREAKING** - Changes `content` prop to expect render props instead of a component. This is
     primarily to stop your components remounting when not having a stable reference.
 
@@ -1661,7 +1655,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ### Minor Changes
 
 - [minor][6e0bcc75ac](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6e0bcc75ac):
-
   - Adds the ability to render class components as children of Popup.
   - Removes redundatnt onOpen callback prop for Popup
 
@@ -1686,7 +1679,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ### Patch Changes
 
 - [patch][28e9c65acd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/28e9c65acd):
-
   - Add multiple popups example
   - Add unit tests
   - Add useCloseManager

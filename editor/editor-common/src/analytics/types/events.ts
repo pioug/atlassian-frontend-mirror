@@ -68,6 +68,7 @@ import type { SelectionEventPayload } from './selection-events';
 import type { SelectionExtensionEventPayload } from './selection-extension-events';
 import type { SelectionToolbarEventPayload } from './selection-toolbar-events';
 import type { SubstituteEventPayload } from './substitute-events';
+import type { SyncBlockEventPayload } from './sync-block-events';
 import type { TableEventPayload } from './table-events';
 import type { TelepointerClickPayload } from './telepointer-events';
 import type { TypeAheadPayload } from './type-ahead';
@@ -150,7 +151,8 @@ export type AnalyticsEventPayload<T = void> =
 	| UndoRedoAEP
 	| OfflineEditingEventPayload
 	| NcsSessionStepEventAEP
-	| FloatingToolbarOverflowEventPayload;
+	| FloatingToolbarOverflowEventPayload
+	| SyncBlockEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

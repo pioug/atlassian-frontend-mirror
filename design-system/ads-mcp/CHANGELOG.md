@@ -1,5 +1,14 @@
 # @atlaskit/ads-mcp
 
+## 0.7.0
+
+### Minor Changes
+
+- [`b51ba8af7cc1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b51ba8af7cc1a) -
+  Switch ads-mcp to using esbuild-regsiter instead.
+- [`b51ba8af7cc1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b51ba8af7cc1a) -
+  Greatly decrease the resting system prompt token usages by reducing tool descriptions.
+
 ## 0.6.5
 
 ### Patch Changes

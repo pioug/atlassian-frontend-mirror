@@ -171,6 +171,7 @@ const FlagGroup = (props: FlagGroupProps) => {
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 									className={className}
 									ref={ref}
+									data-vc-oob
 								>
 									<FlagGroupContext.Provider
 										value={
@@ -189,7 +190,7 @@ const FlagGroup = (props: FlagGroupProps) => {
 	};
 
 	const flags = (
-		<div id={id} css={flagGroupContainerStyles}>
+		<div id={id} css={flagGroupContainerStyles} data-vc-oob>
 			{hasFlags ? (
 				<VisuallyHidden>
 					<LabelTag>{label}</LabelTag>

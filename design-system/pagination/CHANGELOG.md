@@ -857,7 +857,6 @@
 - [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569)
   [`517850f6451`](https://bitbucket.org/atlassian/atlassian-frontend/commits/517850f6451) - In this
   version we made pagination dramatically faster and lighter 🤩
-
   - General performance improvements.
   - Accesbility improvemnts (Change Pagination wrapper tag from div to nav).
   - Changed to on demand dyanmic generation of page components for better performance.
@@ -1043,7 +1042,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1143,12 +1141,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1189,7 +1185,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1258,14 +1253,12 @@
 ## 12.0.1
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
 ## 12.0.0
 
 - [major][8c65f23d32](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8c65f23d32):
-
   - @atlaskit/pagination has been converted to Typescript. Typescript consumers will now get static
     type safety. Flow types are no longer provided. No API or behavioural changes.
 
@@ -1287,7 +1280,6 @@
 ## 11.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1317,7 +1309,6 @@
 ## 10.0.2
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 10.0.1
@@ -1335,7 +1326,6 @@
 ## 10.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1400,7 +1390,6 @@
 - [major][1a09599](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1a09599):
 
   New features in this release of @atlaskit/pagination
-
   - Ability to extend the pagination UI with custom components
   - Control the maximum number of pages to be displayed
   - Ability to customise the logic to collapse the pagination affordance

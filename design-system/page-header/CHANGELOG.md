@@ -708,7 +708,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/breadcrumbs@9.2.6
@@ -887,7 +886,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -931,7 +929,6 @@
 ## 9.0.0
 
 - [major][afb88684ad](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/afb88684ad):
-
   - @atlaskit/page-header has been converted to Typescript. Typescript consumers will now get static
     type safety. Flow types are no longer provided. No API or behavioural changes.
 
@@ -944,7 +941,6 @@
 ## 8.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1008,7 +1004,6 @@
 ## 7.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1059,7 +1054,6 @@
 ## 6.1.3
 
 - [patch][4b0fb4e85f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4b0fb4e85f):
-
   - Allow items in Page Header actions to wrap on small screens.
 
 ## 6.1.2
@@ -1084,7 +1078,6 @@
 ## 6.1.0
 
 - [minor][6cfa757](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6cfa757):
-
   - PageHeader without truncation now wraps actions below the heading to avoid the heading becoming
     too narrow
 

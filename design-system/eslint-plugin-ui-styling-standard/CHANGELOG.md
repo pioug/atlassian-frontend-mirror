@@ -352,7 +352,6 @@
 - [#99544](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99544)
   [`391edf6de450`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/391edf6de450) -
   Added `no-global-styles` rule which prevents:
-
   - The `Global` API from `@emotion`
   - The `createGlobalStyle` and `injectGlobal` APIs from `styled-components`
   - `<style>` elements in JSX
@@ -537,7 +536,6 @@
   functions will no longer be required to end with "Styles".
 
   [BREAKING] Some rule options have been changed:
-
   - `fixNamesOnly` and `autoFixNames` have been removed, as there is no longer an autofixer that
     enforces variable names.
     - If you use `fixNamesOnly: true`, we recommend switching to using `autoFix: false`.
@@ -634,7 +632,6 @@
 - [#74981](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74981)
   [`842300de03a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/842300de03a1) -
   Add the following rules:
-
   - `consistent-css-prop-usage`: Ensures consistency with `css` and `xcss` prop usages
   - `no-empty-styled-expression`: Forbids any styled expression to be used when passing empty
     arguments to styled.div() (or other JSX elements).
@@ -645,7 +642,6 @@
 - [#72983](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72983)
   [`878065bfc4c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/878065bfc4c0) -
   Adds the following rules to the recommended preset:
-
   - `@atlaskit/design-system/no-css-tagged-template-expression`
   - `@atlaskit/design-system/no-keyframes-tagged-template-expression`
   - `@atlaskit/design-system/no-styled-tagged-template-expression`
@@ -671,7 +667,6 @@
 - [#69723](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69723)
   [`06cd0f04fefb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/06cd0f04fefb) -
   Adds the following rules to the recommended config:
-
   - `local-cx-xcss` - Ensures the `cx()` function is only used within the `xcss` prop
   - `no-supress-xcss` - Disallows supressing type violations when using the `xcss` prop
   - `no-js-xcss` - Disallows using `xcss` prop inside JavaScript files

@@ -875,11 +875,9 @@
 - [#28165](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28165)
   [`642298a54dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/642298a54dc) - Major
   changes:
-
   - Removing support for legacy dark mode.
 
   Minor changes:
-
   - Removal of row containers in day of month grid.
   - Vertically center heading inside the calendar.
   - Minor changes to visual layout to conform to design system tokens.
@@ -1137,14 +1135,12 @@
 
   Adds three props to make disabling dates more practical, performant and expressive in
   `@atlaskit/calendar`. These features are also available for DatePicker:
-
   - `minDate` for the minimum valid date
   - `maxDate` for the maximum valid date
   - `disabledDateFilter`, a function that takes a date string, and returns whether or not it should
     be disabled.
 
   ### Bugs
-
   - Disabled dates that lie outside of the currently selected month now have correct hover styles
 
 ### Patch Changes
@@ -1187,7 +1183,6 @@
 - [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083)
   [`8ed4c2efc42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ed4c2efc42) - In this
   version we made calendar dramatically faster and lighter 🤩
-
   - General performance improvements
   - Moved from using tables to CSS grid to display the days
   - Removed unnecessary DOM elements
@@ -1249,7 +1244,6 @@
   injected package name and version for analytics instead of version.json.
 - [`42785088a12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42785088a12) - -
   Migrate old entry points to new one. Calendar now has only following exports:
-
   - **default export**. Can be imported like:
     - `import Calendar from '@atlaskit/calendar'`
   - **named type exports** (`CalendarProps`, `ChangeEvent`, `SelectEvent`). Can be imported like:
@@ -1257,7 +1251,6 @@
     - `import { CalendarProps, ChangeEvent, SelectEvent } from '@atlaskit/calendar/types'`.
 
   **Internal change**
-
   - Remove reference of private types and props from the documentation. Right now private type is
     `CalendarInternalRef` and private prop is `calendarRef`.
   - Rename calendar exported private ref type from `CalendarInternalRef` to `CalendarRef`.
@@ -1265,7 +1258,6 @@
 
 - [`f74ba30c53c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f74ba30c53c) -
   **Internal change**
-
   - We have improved re-rendering quite a bit by memoizing components, loops and rendered elements.
   - Duplicate "pad-to-two" util has been removed.
   - Refactored few variables/functions/types.
@@ -1281,7 +1273,6 @@
   [`d069f7834ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d069f7834ef) - Calendar
   now accepts a `weekStartDay` prop that controls which day of the week should be used at the start.
   This prop accepts the following values:
-
   - `0` sunday (default value)
   - `1` monday
   - `2` tuesday
@@ -1298,7 +1289,6 @@
   Improvement in internal analytics performance
 
   **Dev changes**
-
   - Migrated from `@atlaskit/analytics-next` React HOC to React hooks. This improved re-rendering
     quite a bit.
 
@@ -1321,7 +1311,6 @@
   [`4dae77b2678`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4dae77b2678) - Calendar
   now accepts a `weekStartDay` prop that controls which day of the week should be used at the start.
   This prop accepts the following values:
-
   - `0` sunday (default value)
   - `1` monday
   - `2` tuesday
@@ -1341,7 +1330,6 @@
 - [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762)
   [`985961ce983`](https://bitbucket.org/atlassian/atlassian-frontend/commits/985961ce983) - Internal
   change from class to function components
-
   - We have converted all the components from class to functional. This improved performance quite a
     bit. Initial rendering, hydration, interaction, bundlesize and re-rendering; all have been
     improved.
@@ -1546,7 +1534,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/button@13.3.7
@@ -1632,7 +1619,6 @@
 - [minor][e3d466543f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e3d466543f):
 
   Add locale support for Calendar/DateTimePicker/DatePicker/TimePicker:
-
   - New prop `locale` enables localization for date/time format in `DatePicker`, `TimePicker` and
     `DateTimePicker`, and months/days in `Calendar`.
   - Deprecated `dateFormat`, `timeFormat` and `formatDisplayLabel` props. Please use `locale`
@@ -1725,7 +1711,6 @@
 ## 8.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1761,7 +1746,6 @@
 ## 7.0.19
 
 - [patch][f8cf9e271e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f8cf9e271e):
-
   - Internal changes only. Calendar is now ssr-friendly.
 
 ## 7.0.18
@@ -1818,13 +1802,11 @@
 ## 7.0.12
 
 - [patch][21f5216](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21f5216):
-
   - Remove enzyme-to-json as it is used in our jestFrameworkSetup.js
 
 ## 7.0.11
 
 - [patch][a637f5e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a637f5e):
-
   - Refine and fix some flow type errors found by fixing @atlaskit/analytics-next HOCs to allow flow
     to type check properly
 

@@ -9,7 +9,7 @@ import { MockTopBar } from '../common/mock-top-bar';
 export const AppLogoExample = () => {
 	return (
 		<MockTopBar>
-			<TopNavStart>
+			<TopNavStart sideNavToggleButton={null}>
 				<AppLogo href="https://jira.atlassian.com" icon={JiraIcon} name="Jira" label="Home page" />
 			</TopNavStart>
 		</MockTopBar>

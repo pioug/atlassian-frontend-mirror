@@ -240,7 +240,6 @@
   [`ec026e28730`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec026e28730) -
   `#getDaysShort` function now accepts new `#weekStartDay` parameter that controls which day of the
   week should be used at the start. This parameter accepts the following values:
-
   - `0` sunday (default value)
   - `1` monday
   - `2` tuesday
@@ -257,7 +256,6 @@
   [`689cf039197`](https://bitbucket.org/atlassian/atlassian-frontend/commits/689cf039197) -
   `#getDaysShort` function now accepts new `#weekStartDay` parameter that controls which day of the
   week should be used at the start. This parameter accepts the following values:
-
   - `0` sunday (default value)
   - `1` monday
   - `2` tuesday
@@ -330,7 +328,6 @@
 
   FIXED: Intl.DateTimeFormat returns March instead of April in Safari- Updated dependencies
   [91a1eb05db](https://bitbucket.org/atlassian/atlassian-frontend/commits/91a1eb05db):
-
   - @atlaskit/textfield@3.1.7
 
 ## 1.0.5
@@ -341,7 +338,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/field-base@14.0.1
   - @atlaskit/select@11.0.7
@@ -367,7 +363,6 @@
   Make PopupSelect correctly pass props. Forcing update of @atlaskit/select for all other packages-
   Updated dependencies
   [3a20e9a596](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3a20e9a596):
-
   - @atlaskit/select@11.0.2
 
 ## 1.0.2

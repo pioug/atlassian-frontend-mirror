@@ -31,12 +31,12 @@ describe('NotificationDrawerContents', () => {
 	});
 
 	it('should add the correct url to the iframe when a locale and product is provided', async () => {
-		render(<Notifications locale="en" product="jira" testId="navigation-notifications" />),
-			await testIframeUrl('/home/notificationsDrawer/iframe.html?locale=en&product=jira');
+		(render(<Notifications locale="en" product="jira" testId="navigation-notifications" />),
+			await testIframeUrl('/home/notificationsDrawer/iframe.html?locale=en&product=jira'));
 	});
 
 	it('should ignore subproduct in legacy experience', async () => {
-		render(
+		(render(
 			<Notifications
 				locale="en"
 				product="jira"
@@ -44,11 +44,11 @@ describe('NotificationDrawerContents', () => {
 				testId="navigation-notifications"
 			/>,
 		),
-			await testIframeUrl('/home/notificationsDrawer/iframe.html?locale=en&product=jira');
+			await testIframeUrl('/home/notificationsDrawer/iframe.html?locale=en&product=jira'));
 	});
 
 	it('should add the correct url to the iframe when the new experience is enabled', async () => {
-		render(
+		(render(
 			<Notifications
 				locale="en"
 				product="jira"
@@ -59,11 +59,11 @@ describe('NotificationDrawerContents', () => {
 		),
 			await testIframeUrl(
 				'/home/notificationList/index.html?locale=en&product=jira&subproduct=software',
-			);
+			));
 	});
 
 	it('should add override the default URL when passing the `_url` prop', async () => {
-		render(
+		(render(
 			<Notifications
 				_url="http://example.com/foo.html?foo=bar&bar=baz"
 				locale="en"
@@ -71,6 +71,6 @@ describe('NotificationDrawerContents', () => {
 				testId="navigation-notifications"
 			/>,
 		),
-			await testIframeUrl('http://example.com/foo.html?foo=bar&bar=baz');
+			await testIframeUrl('http://example.com/foo.html?foo=bar&bar=baz'));
 	});
 });

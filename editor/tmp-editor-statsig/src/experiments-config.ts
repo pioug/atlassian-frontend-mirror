@@ -980,6 +980,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-10-10
+	platform_use_llm_space_recommendations: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_use_llm_space_recommendations',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-09-15
 	platform_editor_text_highlight_padding: createBooleanExperiment({
 		productKeys: {

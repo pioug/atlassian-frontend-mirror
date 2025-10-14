@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.12.0
+
+### Minor Changes
+
+- [`1c7d57038910d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c7d57038910d) -
+  Adds react-ufo out of band concept, and prevents flags from impacting visual complete calculations
+
 ## 4.11.8
 
 ### Patch Changes

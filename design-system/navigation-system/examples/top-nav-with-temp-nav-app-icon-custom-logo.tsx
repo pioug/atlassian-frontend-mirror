@@ -35,8 +35,11 @@ export default function TopNavWithTempNavAppIcon() {
 			 */}
 			<Root>
 				<TopNav>
-					<TopNavStart>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
 						<AppSwitcher label="App switcher" />
 						<CustomLogo
 							href="http://www.atlassian.design"

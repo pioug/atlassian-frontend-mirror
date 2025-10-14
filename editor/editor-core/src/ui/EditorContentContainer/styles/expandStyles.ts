@@ -1,6 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, type SerializedStyles } from '@emotion/react';
 
+import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
@@ -215,6 +216,31 @@ export const expandStyles: SerializedStyles = css({
 		},
 	},
 });
+
+/**
+ * This function gets the dynamic styles that scale the expand title font size based on the base font size.
+ * If the base font size is not the default font size, we want the expand title font size to match the base font size.
+ * @param baseFontSize - The base font size in pixels. (e.g., 16 for default, 13 for dense mode)
+ * @returns SerializedStyles with expand title font size override if baseFontSize is provided and different from default.
+ */
+export const getDenseExpandTitleStyles = (baseFontSize?: number): SerializedStyles => {
+	if (!baseFontSize || baseFontSize === akEditorFullPageDefaultFontSize) {
+		return css({});
+	}
+
+	return css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ak-editor-expand__title-input': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/no-unsafe-values
+			fontSize: `${baseFontSize}px`,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ak-editor-expand__title-container': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/no-unsafe-values
+			fontSize: `${baseFontSize}px`,
+		},
+	});
+};
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const expandStylesMixin_fg_platform_visual_refresh_icons: SerializedStyles = css({

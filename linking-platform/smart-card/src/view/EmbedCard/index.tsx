@@ -1,7 +1,6 @@
 import React, { type PropsWithChildren } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 // TODO: Package Owner - please fix:
 // eslint-disable-next-line import/no-extraneous-dependencies
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
@@ -23,16 +22,12 @@ import NotFoundView from './views/not-found-view';
 import { EmbedCardResolvedView } from './views/ResolvedView';
 import UnauthorizedView from './views/unauthorized-view';
 
-const UFOLoadHoldWrapper = ({ children }: PropsWithChildren) => {
-	return fg('platform_renderer_blindspots') ? (
-		<>
-			<UFOHoldLoad name="smart-card-embed-card" />
-			{children}
-		</>
-	) : (
-		children
-	);
-};
+const UFOLoadHoldWrapper = ({ children }: PropsWithChildren) => (
+	<>
+		<UFOHoldLoad name="smart-card-embed-card" />
+		{children}
+	</>
+);
 
 export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 	(

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-quick-insert",
-	"version": "6.0.3",
+	"version": "6.0.4",
 	"description": "Quick insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -108,6 +108,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_update_modal_close_button": {
+			"type": "boolean"
+		},
+		"platform_editor_fix_browse_modal_header": {
 			"type": "boolean"
 		}
 	}

@@ -21,5 +21,5 @@ export {
 	useMemoizedContentAPIProviders,
 } from './providers/confluenceContentAPI';
 export { getConfluencePageAri } from './utils/ari';
-export { convertSyncBlockPMNodeToSyncBlockData, generateSyncBlockSourceUrl } from './utils/utils';
+export { convertSyncBlockPMNodeToSyncBlockData } from './utils/utils';
 export { rebaseTransaction } from './common/rebase-transaction';

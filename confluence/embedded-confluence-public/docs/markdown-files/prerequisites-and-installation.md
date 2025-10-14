@@ -13,21 +13,17 @@ browser settings.
 ## List of Prerequisites specific to Embedded Pages (EP) integration
 
 - 3rd party product needs to install EP from the public NPM registry.
-
   - _Recommended \`Node.js\` version: **v16.14.2** or above_
 
 - 3rd party platform needs to be able to support `React` and `iframes`.
-
   - _Recommended `React` version(s): **v16.8.0** to **v18.2.0**_
 
 - 3rd party must already have a tenant properly allocated with Atlassian and have x amount of
   published pages that exist within their tenant that they want to display.
-
   - _Process to obtain a tenant/Atlassian ID/license is **not** included in this setup process._
 
 - Needs to be integrated into applications that support browser environments. This can include most
   browsers and desktop applications.
-
   - _Embedded Confluence requires access to 3rd party cookies and for a user to be logged into
     Confluence beforehand. As of **v2.0.0**, there is a Login/Authentication flow supported for
     Embedded Pages which asks the user to allow Storage Access and login to Confluence using the

@@ -77,7 +77,7 @@ export function ElemBeforeExample() {
 						</ExpandableMenuItem>
 
 						<ExpandableMenuItem>
-							<ExpandableMenuItemTrigger elemBefore={<JiraIcon label="" />}>
+							<ExpandableMenuItemTrigger elemBefore={<JiraIcon shouldUseNewLogoDesign label="" />}>
 								Exp default menu item (app tile)
 							</ExpandableMenuItemTrigger>
 						</ExpandableMenuItem>
@@ -95,7 +95,7 @@ export function ElemBeforeExample() {
 						</FlyoutMenuItem>
 
 						<FlyoutMenuItem>
-							<FlyoutMenuItemTrigger elemBefore={<JiraIcon label="" />}>
+							<FlyoutMenuItemTrigger elemBefore={<JiraIcon shouldUseNewLogoDesign label="" />}>
 								Flyout menu item (app tile)
 							</FlyoutMenuItemTrigger>
 						</FlyoutMenuItem>

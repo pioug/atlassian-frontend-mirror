@@ -1608,7 +1608,6 @@
   ### Composable API
 
   The old version of modal dialog had three props that mapped into components.
-
   - `heading` was the text for the header.
   - `children` was the React node that ended up in the modal body.
   - `actions` was an array of objects that mapped into buttons in the footer.
@@ -1927,7 +1926,6 @@
   Modal actions: `{testId}-dialog-content--action-{index}` -> Removed, can set on Button
 
   ### Miscallaneous changes
-
   - `ModalFooter` now uses `flex-end` instead of `space-between` to justify its contents.
   - Inner components `ModalFooter`, `ModalHeader` and `ModalBody` no longer accepts style prop. If
     you wish to modify the styles, you have to build your own component.
@@ -2523,7 +2521,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -2751,12 +2748,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -2821,7 +2816,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -2949,19 +2943,16 @@
 ## 10.0.1
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
 ## 10.0.0
 
 - [major][06c5cccf9d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06c5cccf9d):
-
   - modal-dialog has been converted to Typescript. Typescript consumers will now get static type
     safety. Flow types are no longer provided. No API or behavioural changes.
 
 - [patch][c3ab82ed42](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c3ab82ed42):
-
   - Bump react-focus-lock to latest 1.19.1, it will fix a bug with document.activeElement
 
 - Updated dependencies
@@ -2971,7 +2962,6 @@
 ## 9.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -3032,7 +3022,6 @@
 ## 8.0.5
 
 - [patch][cc8378fcd4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc8378fcd4):
-
   - Modal-dialog has been migrated from styled-components to Emotion (v10)
   - styled-components is no longer a peer-dependency
   - Render props Body, Header, Footer and Container continue to get styles applied via className
@@ -3092,13 +3081,11 @@
 ## 8.0.1
 
 - [patch][0f764dbd7c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0f764dbd7c):
-
   - Modal-dialog no longer shows unnecessary scrollbars in modern browsers
 
 ## 8.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -3143,7 +3130,6 @@
 ## 7.3.0
 
 - [minor][f26a3d0235](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f26a3d0235):
-
   - Added media queries to make Modal Dialogs Responsive
 
 ## 7.2.4
@@ -3156,13 +3142,11 @@
 ## 7.2.3
 
 - [patch][06713e0a0c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06713e0a0c):
-
   - popup select "target" is now a function that must resolve to a node
 
 ## 7.2.2
 
 - [patch][a7670c1488](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a7670c1488):
-
   - Enabling handling focus in model-dialog by rendering component in model-dialog only after portal
     in model-dialog is attached to DOM.
 
@@ -3188,7 +3172,6 @@
 ## 7.2.0
 
 - [minor][07c4cd1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/07c4cd1):
-
   - **Feature**: `components` prop now has an optional `container` entry that is wrapped around the
     header, body and footer. This provides compatibility for forms with fields in the body, and
     submit buttons in the footer
@@ -3203,7 +3186,6 @@
 ## 7.1.2
 
 - [patch][2686f21](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2686f21):
-
   - Removed example demonstrating deprecated reference behaviour
 
 ## 7.1.1
@@ -3226,7 +3208,6 @@
 ## 7.1.0
 
 - [minor][7f99dec](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7f99dec):
-
   - Fix usage of PopupSelect inside ModalDialog
 
 ## 7.0.14
@@ -3274,17 +3255,14 @@
 ## 7.0.11
 
 - [patch][abd3a39](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/abd3a39):
-
   - Bump react-beautiful-dnd dependency to v10.0.2
 
 ## 7.0.10
 
 - [patch][e151c1a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e151c1a):
-
   - Removes dependency on @atlaskit/layer-manager
 
   As of component versions:
-
   - \`@atlaskit/modal-dialog@7.0.0\`
   - \`@atlaskit/tooltip@12.0.2\`
   - \`@atlaskit/flag@9.0.6\`
@@ -3297,7 +3275,6 @@
 ## 7.0.9
 
 - [patch][1fb2c2a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1fb2c2a):
-
   - Fixed issue where tooltips and modals would initially render in the wrong location
 
 ## 7.0.8
@@ -3308,24 +3285,20 @@
 ## 7.0.7
 
 - [patch][a637f5e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a637f5e):
-
   - Refine and fix some flow type errors found by fixing @atlaskit/analytics-next HOCs to allow flow
     to type check properly
 
 ## 7.0.6
 
 - [patch][7cbd729](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7cbd729):
-
   - Fixes visual bug where header and footer keylines appeared below textboxes and other components
 
 ## 7.0.5
 
 - [patch][72bc8da](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/72bc8da):
-
   - Removes reference to window in initial state to properly support ssr
 
 - [patch][b332c91](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b332c91):
-
   - upgrades verison of react-scrolllock to SSR safe version
 
 ## 7.0.4

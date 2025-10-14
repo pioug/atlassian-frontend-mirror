@@ -548,7 +548,6 @@
 - [#12654](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12654)
   [`d2cf99ba208`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2cf99ba208) - [ux]
   Fixes two regressions introduced in v15.0.8:
-
   - There was a bug in the `xsmall` size variant of Spinner where the Spinner path appeared flipped,
     making the rotation look like the axis was off.
   - The addition of a wrapping span and layout change from `inline` to `inline-block` in v15.0.8
@@ -665,7 +664,6 @@
 
   The mounting animation for spinner has been fixed. There are three parts to the mounting spinner
   animation:
-
   1. Accelerated spin
   2. Fade in
   3. Stretch (the spinner starts small and grows to a bigger size)
@@ -679,7 +677,6 @@
   ❤️_
 
   There have been a number of breaking changes in `13.0.0`.
-
   - Spinner no longer has a `peerDependency` on `styled-components@3`. Internally spinner is now
     using `@emotion/core` for styling
   - Added new `ref` prop which returns the `ref` of the spinner `svg` using `React.forwardRef`
@@ -713,7 +710,6 @@
   ```
 
   #### Notes
-
   - You first need to upgrade to `13.0.0` **before** you run the codemod cli. This is because the
     cli will look in your local `node_modules` for the codemod which is published inside the
     `spinner` package.
@@ -723,7 +719,6 @@
   #### Feel the power
 
   What the codemod will do:
-
   - `delay`: replace literal number values equal to or less than 150ms as they are no longer needed
     to avoid flickering
 
@@ -859,7 +854,6 @@
 
   The mounting animation for spinner has been fixed. There are three parts to the mounting spinner
   animation:
-
   1. Accelerated spin
   2. Fade in
   3. Stretch (the spinner starts small and grows to a bigger size)
@@ -873,7 +867,6 @@
   ❤️_
 
   There have been a number of breaking changes in `13.0.0`.
-
   - Spinner no longer has a `peerDependency` on `styled-components@3`. Internally spinner is now
     using `@emotion/core` for styling
   - Added new `ref` prop which returns the `ref` of the spinner `svg` using `React.forwardRef`
@@ -907,7 +900,6 @@
   ```
 
   #### Notes
-
   - You first need to upgrade to `13.0.0` **before** you run the codemod cli. This is because the
     cli will look in your local `node_modules` for the codemod which is published inside the
     `spinner` package.
@@ -917,7 +909,6 @@
   #### Feel the power
 
   What the codemod will do:
-
   - `delay`: replace literal number values equal to or less than 150ms as they are no longer needed
     to avoid flickering
 
@@ -1027,7 +1018,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/button@13.3.7
   - @atlaskit/theme@9.5.1
@@ -1174,7 +1164,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1203,21 +1192,18 @@
 ## 12.0.1
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
 ## 12.0.0
 
 - [major][215688984e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/215688984e):
-
   - @atlaskit/spinner has been converted to Typescript. Typescript consumers will now get static
     type safety. Flow types are no longer provided. No API or behavioural changes.
 
 ## 11.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1232,7 +1218,6 @@
 ## 10.0.6
 
 - [patch][d263485853](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d263485853):
-
   - update Spinner component's usage of styled-components to work in v3 and v4
 
 ## 10.0.5
@@ -1246,19 +1231,16 @@
 ## 10.0.4
 
 - [patch][fd940a833b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fd940a833b):
-
   - Update spinner imports to use alternative entry points of theme (to decrease bundle size)
 
 ## 10.0.3
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 10.0.2
 
 - [patch][986c5e47c8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/986c5e47c8):
-
   - use `<span>` rather than `<div>` to allow the spinner to be used within `<p>` style tags
 
 ## 10.0.1
@@ -1272,7 +1254,6 @@
 ## 10.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages

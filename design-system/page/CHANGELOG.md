@@ -240,7 +240,6 @@
 - [#18619](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18619)
   [`b3ea181f8ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3ea181f8ed) -
   Regressions in version `12.1.0` have been fixed:
-
   - Move to CSS `gap` has been reverted, as some use cases were not properly handled.
   - The `theme` prop has been re-introduced, mapping to the new props introduced in `12.1.0`.
 
@@ -377,7 +376,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/banner@10.1.5
@@ -469,7 +467,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -498,7 +495,6 @@
 ## 11.0.0
 
 - [major][3af5a7e685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3af5a7e685):
-
   - @atlaskit/page has been converted to Typescript. Typescript consumers will now get static type
     safety. Flow types are no longer provided. No API or behavioural changes.
 
@@ -513,13 +509,11 @@
 ## 10.0.1
 
 - [patch][7a68e88827](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7a68e88827):
-
   - Fixed aria-hidden attribute for banner container
 
 ## 10.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -554,7 +548,6 @@
 ## 9.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -619,7 +612,6 @@
 ## 8.0.10
 
 - [patch][84e8015](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/84e8015):
-
   - Bump react-syntax-highlighter to 10.0.1
 
 ## 8.0.9

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 3.4.0
+
+### Minor Changes
+
+- [`218e1d54178bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/218e1d54178bb) -
+  Pre-fetch URL to source blocks
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.3.6
 
 ### Patch Changes

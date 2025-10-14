@@ -95,7 +95,7 @@ function LoremSection() {
 export const AdvancedLayoutExample = () => (
 	<Root>
 		<TopNav>
-			<TopNavStart>
+			<TopNavStart sideNavToggleButton={null}>
 				<AppLogo href="" icon={HomeIcon} name="Home" label="Home page" />
 			</TopNavStart>
 		</TopNav>

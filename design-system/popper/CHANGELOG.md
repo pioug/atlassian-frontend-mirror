@@ -452,7 +452,6 @@
 
   There are a number of major changes for consumers are listed below; ⚙️ indicates the change has
   codemod support:
-
   - **Component Props**:
     - ⚙️ `offset` is no longer a string, but an array of two integers (i.e. '0px 8px' is now [0, 8])
   - **Render Props**:
@@ -555,7 +554,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/button@13.3.7
   - @atlaskit/theme@9.5.1
@@ -686,14 +684,12 @@
 ## 2.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 1.0.0
 
 - [major][8b5f052003](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8b5f052003):
-
   - This major release indicates that this package is no longer under dev preview but is ready for
     use
 
@@ -724,7 +720,6 @@
 ## 0.4.0
 
 - [minor][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -769,7 +764,6 @@
 ## 0.3.7
 
 - [patch][efc35d1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/efc35d1):
-
   - Internal changes: - Adding react-dom and build utils as dev dependencies - Adding unit test for
     server side rendering use-case - Adding unit test to cover Popper component
 
@@ -783,13 +777,11 @@
 ## 0.3.5
 
 - [patch][82fc5f5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/82fc5f5):
-
   - Pinning react-popper to 1.0.2 to avoid recursive bug
 
 ## 0.3.4
 
 - [patch][0a297ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a297ba):
-
   - Packages should not be shown in the navigation, search and overview
 
 ## 0.3.3

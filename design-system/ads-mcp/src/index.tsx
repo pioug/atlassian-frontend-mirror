@@ -15,9 +15,9 @@ import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
 import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
 import { getComponentsTool, listGetComponentsTool } from './tools/get-components';
 import { listPlanTool, planTool } from './tools/plan';
-import { listSearchComponentsTool, searchComponentsTool } from './tools/search-components';
-import { listSearchIconsTool, searchIconsTool } from './tools/search-icons';
-import { listSearchTokensTool, searchTokensTool } from './tools/search-tokens';
+import { searchComponentsTool } from './tools/search-components';
+import { searchIconsTool } from './tools/search-icons';
+import { searchTokensTool } from './tools/search-tokens';
 import { listSuggestA11yFixesTool, suggestA11yFixesTool } from './tools/suggest-a11y-fixes';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- this uses require because not all node versions this package supports use the same import assertions/attributes
@@ -40,32 +40,36 @@ const server = new Server(
 server.setRequestHandler(ListToolsRequestSchema, async () => {
 	return {
 		tools: [
-			listGetAllTokensTool,
-			listGetComponentsTool,
-			listSearchComponentsTool,
-			listGetAllIconsTool,
-			listSearchIconsTool,
-			listSearchTokensTool,
-			listPlanTool,
 			listAnalyzeA11yTool,
 			listAnalyzeLocalhostA11yTool,
 			listGetA11yGuidelinesTool,
+			listGetAllIconsTool,
+			listGetAllTokensTool,
+			listGetComponentsTool,
+			listPlanTool,
+			// NOTE: These are disabled as `ads_plan` should cover everything more performantly.
+			// When these are enabled, they result in token usage to describe them, even if never used.
+			// listSearchComponentsTool,
+			// listSearchIconsTool,
+			// listSearchTokensTool,
 			listSuggestA11yFixesTool,
 		],
 	};
 });
 
 const callTools: Record<string, (params: any) => Promise<any>> = {
-	ads_get_all_tokens: getAllTokensTool,
-	ads_search_tokens: searchTokensTool,
-	ads_get_components: getComponentsTool,
-	ads_search_components: searchComponentsTool,
-	ads_get_all_icons: getAllIconsTool,
-	ads_search_icons: searchIconsTool,
-	ads_plan: planTool,
 	ads_analyze_a11y: analyzeA11yTool,
 	ads_analyze_localhost_a11y: analyzeLocalhostA11yTool,
 	ads_get_a11y_guidelines: getA11yGuidelinesTool,
+	ads_get_all_icons: getAllIconsTool,
+	ads_get_all_tokens: getAllTokensTool,
+	ads_get_components: getComponentsTool,
+	ads_plan: planTool,
+	// NOTE: These should not actually be called as they're not in the `list_tools` endpoint.
+	// But there might be a reason to keep them around for backwards-compatibility.
+	ads_search_components: searchComponentsTool,
+	ads_search_icons: searchIconsTool,
+	ads_search_tokens: searchTokensTool,
 	ads_suggest_a11y_fixes: suggestA11yFixesTool,
 };
 

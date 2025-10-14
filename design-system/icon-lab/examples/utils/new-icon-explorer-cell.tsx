@@ -85,11 +85,11 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 	};
 
 	if (oldName && typeof oldName === 'string') {
-		(metadata['Legacy Icon name'] = oldName),
+		((metadata['Legacy Icon name'] = oldName),
 			(metadata['Legacy Icon import'] =
 				Object.entries(legacyIconMetadata).find(
 					([_, value]) => value.componentName === oldName,
-				)?.[1].package || '');
+				)?.[1].package || ''));
 	} else if (Array.isArray(oldName)) {
 		metadata['Legacy Icon names'] = oldName.join(', ');
 		metadata['Legacy Icon imports'] = oldName.reduce((acc, name) => {

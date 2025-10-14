@@ -12,6 +12,7 @@ import { isChildInput } from './utils';
 import ValueContainerWrapper from './ValueContainerWrapper';
 import { token } from '@atlaskit/tokens';
 import { cssMap, jsx } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export type State = {
 	previousValueSize: number;
@@ -90,9 +91,13 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 				ref: { current },
 			} = this.valueContainerInnerProps;
 			if (current !== null) {
-				const container = ReactDOM.findDOMNode(current);
-				if (container instanceof HTMLDivElement) {
-					container.scrollTop = container.scrollHeight;
+				if (fg('user-picker-migrate-off-finddomnode')) {
+					current.scrollTop = current.scrollHeight;
+				} else {
+					const container = ReactDOM.findDOMNode(current);
+					if (container instanceof HTMLDivElement) {
+						container.scrollTop = container.scrollHeight;
+					}
 				}
 			}
 			this.timeoutId = null;

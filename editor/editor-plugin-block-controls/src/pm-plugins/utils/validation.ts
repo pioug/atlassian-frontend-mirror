@@ -143,35 +143,30 @@ export function canMoveNodeToIndex(
 			return true;
 		}
 
-		if (fg('platform_editor_drag_layout_column_into_nodes')) {
-			if (destParentNodeType === tableCell || destParentNodeType === tableHeader) {
-				const contentContainsExpand = findChildrenByType(srcNode, expand).length > 0;
-				//convert expand to nestedExpand if there are expands inside the layout column
-				// otherwise, the createChecked will fail as expand is not a valid child of tableCell/tableHeader, but nestedExpand is
-				const convertedFragment = contentContainsExpand
-					? transformFragmentExpandToNestedExpand(layoutColumnContent)
-					: layoutColumnContent;
+		if (destParentNodeType === tableCell || destParentNodeType === tableHeader) {
+			const contentContainsExpand = findChildrenByType(srcNode, expand).length > 0;
+			//convert expand to nestedExpand if there are expands inside the layout column
+			// otherwise, the createChecked will fail as expand is not a valid child of tableCell/tableHeader, but nestedExpand is
+			const convertedFragment = contentContainsExpand
+				? transformFragmentExpandToNestedExpand(layoutColumnContent)
+				: layoutColumnContent;
 
-				if (!convertedFragment) {
-					return false;
-				}
-
-				return canCreateNodeWithContentInsideAnotherNode(
-					[tableCell, tableHeader],
-					convertedFragment,
-				);
-			}
-			if (destParentNodeType === panel) {
-				return canCreateNodeWithContentInsideAnotherNode([panel], layoutColumnContent);
+			if (!convertedFragment) {
+				return false;
 			}
 
-			if (destParentNodeType === expand) {
-				return canCreateNodeWithContentInsideAnotherNode([expand], layoutColumnContent);
-			}
+			return canCreateNodeWithContentInsideAnotherNode([tableCell, tableHeader], convertedFragment);
+		}
+		if (destParentNodeType === panel) {
+			return canCreateNodeWithContentInsideAnotherNode([panel], layoutColumnContent);
+		}
 
-			if (destParentNodeType === nestedExpand) {
-				return canCreateNodeWithContentInsideAnotherNode([nestedExpand], layoutColumnContent);
-			}
+		if (destParentNodeType === expand) {
+			return canCreateNodeWithContentInsideAnotherNode([expand], layoutColumnContent);
+		}
+
+		if (destParentNodeType === nestedExpand) {
+			return canCreateNodeWithContentInsideAnotherNode([nestedExpand], layoutColumnContent);
 		}
 	}
 

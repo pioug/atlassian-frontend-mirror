@@ -1180,7 +1180,6 @@
   reduced bundlesize.
 
   **Change summary:**
-
   - `name` is now a required property of the `data` attribute. This was previously not required
     simply because we forwarded avatars props. Names should always be supplied so that avatars can
     be differentiated in a meaningful way (although they are not required to be unique).
@@ -1188,7 +1187,6 @@
   - AvatarGroup now uses `@emotion`
 
   **Misc.**
-
   - Fixed broken margin styling bug with `stack` groups
   - Replaced `dropdown-menu` with a lighter and more performant `popup` component
   - Removed custom `dropdown-menu` styling
@@ -1358,7 +1356,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/avatar@17.1.7
@@ -1537,13 +1534,11 @@
 ## 4.0.1
 
 - [patch][21854842b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21854842b5):
-
   - Clean couple of TODO's that were already done
 
 ## 4.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1579,7 +1574,6 @@
 ## 3.0.2
 
 - [patch][ea173a3ee2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ea173a3ee2):
-
   - Internal changes only. Component is now SSR compatible. If server side rendered, Avatar Images
     will begin to load immediately; before client bundle is ready. If this is undesired, `imageUrl`
     can be passed in after component is mounted.
@@ -1600,7 +1594,6 @@
 ## 3.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1645,13 +1638,11 @@
 ## 2.1.12
 
 - [patch][3a9b559382](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3a9b559382):
-
   - Stopping href from being passed down to Avatar in DropdownMenu rendered in AvatarGroup
 
 ## 2.1.11
 
 - [patch][ed05c5c5d9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ed05c5c5d9):
-
   - Change border color of avatar in avatar group dropdown menu to transparent so that it does not
     overlap with focus ring
 

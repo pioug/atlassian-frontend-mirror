@@ -1,6 +1,5 @@
 import React, { type PropsWithChildren } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 // TODO: Package Owner - please fix:
 // eslint-disable-next-line import/no-extraneous-dependencies
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
@@ -17,16 +16,12 @@ import NotFoundView from './views/NotFoundView';
 import ResolvedView from './views/ResolvedView';
 import UnauthorisedView from './views/UnauthorisedView';
 
-const UFOLoadHoldWrapper = ({ children }: PropsWithChildren) => {
-	return fg('platform_renderer_blindspots') ? (
-		<>
-			<UFOHoldLoad name="smart-card-block-card" />
-			{children}
-		</>
-	) : (
-		children
-	);
-};
+const UFOLoadHoldWrapper = ({ children }: PropsWithChildren) => (
+	<>
+		<UFOHoldLoad name="smart-card-block-card" />
+		{children}
+	</>
+);
 
 export const BlockCard = ({
 	id,

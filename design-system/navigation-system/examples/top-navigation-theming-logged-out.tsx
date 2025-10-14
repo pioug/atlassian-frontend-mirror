@@ -37,8 +37,11 @@ const TopNavigationThemingInstance = ({ customTheme }: { customTheme?: CustomThe
 		 */
 		<MockRoot>
 			<TopNav UNSAFE_theme={customTheme}>
-				<TopNavStart>
-					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					}
+				>
 					<AppSwitcher
 						label="App switcher"
 						onClick={toggleIsAppSwitcherSelected}

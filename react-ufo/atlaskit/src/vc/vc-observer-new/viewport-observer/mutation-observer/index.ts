@@ -1,3 +1,5 @@
+import { expVal } from '../../../expVal';
+
 export type CreateMutationObserverProps = {
 	onAttributeMutation: (props: {
 		target: HTMLElement;
@@ -42,6 +44,16 @@ function createMutationObserver({
 			if (!(mut.target instanceof HTMLElement)) {
 				continue;
 			}
+
+			if (expVal('cc_editor_vc_exclude_flags', 'isEnabled', false)) {
+				// Intended for excluding out of band mutations such as tooltips on hover, and page flags
+				// Currently being tested in Confluence
+				// Skip elements with data-vc-oob attribute
+				if (mut.target.dataset.vcOob) {
+					return;
+				}
+			}
+
 			if (mut.type === 'attributes') {
 				/*
 							"MutationObserver was explicitly designed to work that way, but I can't now recall the reasoning.

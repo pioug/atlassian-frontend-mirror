@@ -17,31 +17,8 @@ const inputSchema = z.object({
 
 export const listAnalyzeA11yTool = {
 	name: 'ads_analyze_a11y',
-	description: `Analyze React component code for accessibility violations using axe-core and intelligently generate Atlassian Design System specific suggestions. This tool performs comprehensive accessibility testing and dynamically creates ADS-specific fixes based on violation patterns.
-
-Use this tool when:
-- Reviewing component code for accessibility compliance
-- Getting suggestions for improving accessibility
-- Understanding how to use ADS components accessibly
-- Identifying potential WCAG violations
-- Running automated accessibility testing
-
-The tool will analyze the code and provide:
-- Comprehensive axe-core accessibility analysis results
-- List of accessibility violations found (WCAG 2.1 AA compliant)
-- Intelligently generated ADS-specific fix suggestions
-- References to relevant fix patterns in llms-a11y.txt
-- Code examples for implementing fixes
-- Severity levels and impact assessment
-
-Features:
-- Uses axe-core for industry-standard accessibility testing
-- Converts JSX to HTML for accurate analysis
-- Intelligently maps violations to ADS-specific fixes
-- References fix patterns from llms-a11y.txt documentation
-- Includes fallback pattern analysis if axe-core fails
-- Provides detailed violation descriptions and help text
-- Dynamically generates fix suggestions based on violation type`,
+	description:
+		'Analyze React component code for accessibility violations using axe-core and generate ADS-specific suggestions.',
 	annotations: {
 		title: 'Analyze Accessibility',
 		readOnlyHint: true,
@@ -53,39 +30,20 @@ Features:
 };
 
 const urlInputSchema = z.object({
-	url: z.string().describe('The URL to analyze for accessibility (e.g. http://localhost:9000)'),
+	url: z.string().describe('The URL to analyze for accessibility (e.g. `http://localhost:9000`)'),
 	componentName: z.string().optional().describe('Name of the component being analyzed'),
 	context: z.string().optional().describe('Additional context about the component usage'),
 	selector: z
 		.string()
 		.optional()
 		.describe(
-			'CSS selector to target a specific element for analysis (e.g. "#my-form", ".component-class")',
+			'CSS selector to target a specific element for analysis (e.g. `#my-form` or `[data-role="button"]`)',
 		),
 });
 
 export const listAnalyzeLocalhostA11yTool = {
 	name: 'ads_analyze_localhost_a11y',
-	description: `Analyze a live web page (e.g. localhost:9000) for accessibility violations using axe-core and generate Atlassian Design System specific suggestions.
-
-Use this tool to:
-- Analyze running local dev servers or deployed URLs
-- Get comprehensive accessibility reports for any web page
-- Receive ADS-specific fix suggestions and code examples
-- Target specific elements using CSS selectors for focused analysis
-
-Parameters:
-- url: The URL to analyze (must be accessible from the server)
-- componentName: (optional) Name of the component/page
-- context: (optional) Additional context about the usage
-- selector: (optional) CSS selector to target a specific element (e.g. "#my-form", ".component-class")
-
-Returns:
-- Accessibility violations, suggestions, and ADS-specific fixes
-- References to relevant fix patterns in llms-a11y.txt
-- Code examples for implementing fixes
-- Severity levels and impact assessment
-`,
+	description: `Analyze a live web page for accessibility violations using axe-core and generate ADS-specific suggestions.`,
 	annotations: {
 		title: 'Analyze Localhost Accessibility',
 		readOnlyHint: true,

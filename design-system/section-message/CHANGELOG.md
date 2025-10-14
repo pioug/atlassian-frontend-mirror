@@ -854,12 +854,10 @@
   [`89a1b9b02d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89a1b9b02d9) - [ux] -
   Actions will now wrap onto new lines rather than overflowing the edges, in cases where the actions
   are wider than the available width of the Section Message.
-
   - Added test ID data attribute to actions list for testing purposes, using the existing `testId`
     prop.
 
 - [`edafa2f6366`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edafa2f6366) - [ux]
-
   - Prevent long text overflowing the Section Message content box by utilising CSS property
     `word-break: break-word` to add line breaks. This applies to both the `title` and `children`
     props.
@@ -1010,7 +1008,6 @@
 - [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569)
   [`5b0461cc42d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b0461cc42d) - [ux] In
   this version we made **SectionMessage** dramatically faster and lighter
-
   - General performance improvements
 
   - We are now exporting a new component and few new types. The new component is
@@ -1045,7 +1042,6 @@
   and you will automatically be upgraded.
 
   What will be changed:
-
   - It will convert the `actions` prop from an array of objects to an array of
     `SectionMessageAction`.
   - It will move `linkComponent` prop from `SectionMessage` to `SectionMessageAction`.
@@ -1072,7 +1068,6 @@
 - [#9756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9756)
   [`190c2c66087`](https://bitbucket.org/atlassian/atlassian-frontend/commits/190c2c66087) -
   **Internal change from class to functional components**
-
   - Converted all the components from class to functional. This improved performance quite a bit.
     Initial rendering, hydration and re-rendering all have been improved.
   - Stopped exporting unused `theme` variable.
@@ -1254,7 +1249,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/button@13.3.7
@@ -1420,7 +1414,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1482,21 +1475,18 @@
 ## 4.0.0
 
 - [major][6dd86f5b07](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6dd86f5b07):
-
   - @atlaskit/section-message has been converted to Typescript. Typescript consumers will now get
     static type safety. Flow types are no longer provided. No API or behavioural changes.
 
 ## 3.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 2.0.4
 
 - [patch][2020ab9db1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2020ab9db1):
-
   - Section message content area now takes 100% of its parent width
 
 ## 2.0.3
@@ -1532,7 +1522,6 @@
 ## 2.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1577,19 +1566,16 @@
 ## 1.2.0
 
 - [minor][3a7e838663](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3a7e838663):
-
   - Actions now require a key prop and action text now accepts React Nodes
 
 ## 1.1.0
 
 - [minor][dfd4cbc475](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dfd4cbc475):
-
   - Actions will now accept a key prop
 
 ## 1.0.17
 
 - [patch][b8091afbdd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b8091afbdd):
-
   - Fixed alignment of the separator dots
 
 ## 1.0.16
@@ -1604,7 +1590,6 @@
 ## 1.0.15
 
 - [patch][6d08da6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6d08da6):
-
   - Update css styles to `display: flex` for Actions and replace the content by a mid-dot without
     escape characters
 

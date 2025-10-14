@@ -1253,7 +1253,6 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1413,7 +1412,6 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 - [major][97bab7fd28](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97bab7fd28):
 
   `@atlaskit/checkbox` **10.x** includes the following changes:
-
   - Replaced previous theme implementation with new `@atlaskit/theme` v2 implementation
     - Please read more about this implementation in the
       [theming guide](https://atlaskit.atlassian.com/packages/core/theme/docs/theming-guide)
@@ -1497,12 +1495,10 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1543,7 +1539,6 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1634,7 +1629,6 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 ## 8.0.0
 
 - [major][70862830d6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/70862830d6):
-
   - Checkbox has been converted to Typescript. Typescript consumers will now get static type safety.
     Flow types are no longer provided. No API or behavioural changes.
 
@@ -1650,7 +1644,6 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 ## 7.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1680,7 +1673,6 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 ## 6.0.2
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 6.0.1
@@ -1698,7 +1690,6 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 ## 6.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1743,19 +1734,16 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 ## 5.0.14
 
 - [patch][c0ad531a70](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c0ad531a70):
-
   - Added test to make use props are passed down to hidden input
 
 ## 5.0.13
 
 - [patch][3ae465b6f0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3ae465b6f0):
-
   - fix for checkbox logging error on mount
 
 ## 5.0.12
 
 - [patch][b0153ee6c9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0153ee6c9):
-
   - Enabled the isRequired validation on checkbox and added the asterisk after the checkbox label to
     signify the required field
 
@@ -1771,7 +1759,6 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 ## 5.0.10
 
 - [patch][fad28be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fad28be):
-
   - Fixing invalid type for checkbox id prop
 
 ## 5.0.9
@@ -1882,13 +1869,11 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 
   `@atlaskit/checkbox` no longer exports a CheckboxGroup component. It has been removed for the
   following reasons:
-
   - It was really a thin wrapper enforcing very basic styling opinions over its children (display:
     flex, flex: column).
   - The existing styling blocks the horizontal display of checkbox group children.
 
   **Prop Changes**
-
   - `<Checkbox/>` - `initiallyChecked` renamed to `defaultChecked`
   - `<Checkbox/>` - `label` prop now accepts type Node instead of type string.
   - `<Checkbox/>` - `isChecked` is now an optional boolean prop on the Checkbox component.

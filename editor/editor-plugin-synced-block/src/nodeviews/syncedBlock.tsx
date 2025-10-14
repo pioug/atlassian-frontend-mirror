@@ -82,6 +82,7 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		);
 		this.options = props.options;
 		this.syncBlockStore = props.syncBlockStore;
+		this.syncBlockStore.updateSyncBlockNode(this.node);
 	}
 
 	unsubscribe: (() => void) | undefined;

@@ -1,5 +1,16 @@
 # @atlassian/navigation-system
 
+## 2.22.0
+
+### Minor Changes
+
+- [`3c732646f3e19`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c732646f3e19) -
+  The tooltip for truncated side nav menu item has been updated behind the feature gate
+  `platform_dst_side_nav_remove_custom_tooltip`:
+  - The tooltip now uses the standard tooltip styling and behavior, instead of using a custom
+    component.
+  - The tooltip position has been updated to `right-start` (previously it was `right`).
+
 ## 2.21.1
 
 ### Patch Changes
@@ -15,7 +26,6 @@
   This change is behind the feature gate `navx-full-height-sidebar`.
 
   This includes:
-
   - `SideNav` peek animations
   - `SideNav` expand and collapse animations
   - `TopNavStart` reorder animations
@@ -62,7 +72,6 @@
 - [`dc96cee1f923a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc96cee1f923a) -
   Minor improvements to the side nav peek (flyout) animations. These changes are behind the
   `navx-full-height-sidebar` feature flag.
-
   - The timing functions for the peek and hide animations have been slightly tweaked to align with
     the new full height sidebar animations
   - The peek animation duration has been increased to 300ms from 200ms to align with the new full
@@ -425,7 +434,6 @@
 - [`e40aa48c11a02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e40aa48c11a02) -
   The menu item `actionsOnHover` slot has been updated, behind a feature flag, to improve
   accessibility.
-
   - Popup triggers placed inside the slot will now correctly be focused when closing their
     respective popups.
 
@@ -863,12 +871,10 @@
 - [#171544](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171544)
   [`855881697b291`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/855881697b291) -
   The following components have been renamed:
-
   - `MenuLinkItem` -> `LinkMenuItem`
   - `MenuButtonItem` -> `ButtonMenuItem`
 
   Their imports have been updated to use the new names.
-
   - `@atlassian/navigation-system/side-nav/menu-link-item` ->
     `@atlassian/navigation-system/side-nav/link-menu-item`
   - `@atlassian/navigation-system/side-nav/menu-button-item` ->
@@ -902,7 +908,6 @@
 - [#169983](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169983)
   [`c72e85f165c1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c72e85f165c1b) -
   A number of components have been renamed:
-
   - `TopBar` -> `TopNav`
   - `HomeActions` -> `TopNavStart`
   - `CommonActions` -> `TopNavMiddle`
@@ -914,7 +919,6 @@
 
   The following components have been moved from the `@atlassian/navigation-system/top-nav-items`
   entrypoint to the `@atlassian/navigation-system/layout/top-nav` entrypoint:
-
   - `TopNavStart`
   - `TopNavMiddle`
   - `TopNavEnd`
@@ -1183,7 +1187,6 @@
 - [#152893](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152893)
   [`ffd9759e99c3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffd9759e99c3e) -
   Notifications and Help now re-use `UserAction` internally, which means:
-
   - They now support the `onMouseEnter` prop.
   - They now support the `isListItem` prop. This allows you to disable the default list item
     wrapper. It is intended for use with dropdown menus or popups, and requires you to render your
@@ -1357,7 +1360,6 @@
 - [#137059](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137059)
   [`8d6a3a75c70f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d6a3a75c70f1) -
   [ux] Changes the resizing bounds of the `Panel` slot to have a:
-
   - Minimum resizing width equal to the `defaultWidth` (up to a maximum of `400px`)
   - Maximum resizing width of half the viewport width after the sidebar has been removed. This means
     that the `Panel` will not be larger than the content.
@@ -2230,7 +2232,6 @@
   Color inputs should be parsed into `RGB` objects before providing them as the custom theme.
 
   We now export multiple utility functions to assist with color parsing:
-
   - Hex parsing with `parseHex` from
     `@atlassian/navigation-system/experimental/color-utils/parse-hex`
   - CSS `hsl()` parsing with `parseHsl` from
@@ -2295,14 +2296,12 @@
 - [#176005](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176005)
   [`a7f4659856234`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a7f4659856234) -
   Adds `visualContentRef` prop to:
-
   - `ExpandableMenuItemTrigger`
   - `FlyoutMenuItemTrigger`
   - `MenuButtonItem`
   - `MenuLinkItem`
 
   Adds `listItemRef` to:
-
   - `MenuButtonItem`
   - `MenuLinkItem`
 
@@ -2357,14 +2356,12 @@
 
   The following components previously had an optional `label` prop, which has now been made
   required:
-
   - Help
   - NavLogo
   - Notifications
 
   The following components previously used the `children` prop as the label, but have now been
   updated to use a required `label` prop:
-
   - Settings
   - Profile
   - UserAction
@@ -2437,7 +2434,6 @@
 - [#162526](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162526)
   [`9a0c103641a2f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a0c103641a2f) -
   Menu items are now more resilient to narrow widths and deep nesting.
-
   - A minimum width of 72px has been set on menu items.
   - The menu item slots (elemBefore, elemAfter, actions, actionsOnHover) now hide overflowing
     content to prevent content spilling out or overlapping other slots when space is limited.
@@ -2549,7 +2545,6 @@
   [`c3366ec919883`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3366ec919883) -
   The side nav slots and scroll container feature flag has been cleaned up. The following changes
   are now available for all consumers:
-
   - `PanelSplitterProvider` no longer renders a scroll container, and no longer adds a flex
     container.
   - `SideNavContent` renders a scroll container.
@@ -2593,7 +2588,6 @@
 - [#159268](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159268)
   [`487d22f32a93f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/487d22f32a93f) -
   Trivial CSS changes to bring this inline with @atlaskit/css typing:
-
   - We now allow certain `zIndex` values.
   - `background` is a banned property, use `backgroundColor` instead
   - Migrates a few things to the new `@atlaskit/css` JSX pragmas.
@@ -2741,7 +2735,6 @@
   [`b6738b5acfef0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6738b5acfef0) -
   We are making changes to the side nav scroll container behind a feature flag, in order to support
   the new header and footer slot components.
-
   - `PanelSplitterProvider` no longer renders a scroll container, and no longer adds a flex
     container.
   - `SideNavContent` renders a scroll container.
@@ -2920,7 +2913,6 @@
 - [#148601](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148601)
   [`eff2b0c0e6815`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eff2b0c0e6815) -
   Two required label props have been added to `SideNavToggleButton`:
-
   - `collapseLabel`: used as the button label when the toggle button will collapse the side nav
   - `expandLabel`: used as the button label when the toggle button will expand the side nav
 
@@ -3003,7 +2995,6 @@
 - [#145878](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145878)
   [`72e885acee099`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/72e885acee099) -
   [ux] Side nav buttons have been consolidated.
-
   - `SideNavToggleButton` (used in the top bar) is now always visible. It no longer has built in
     visibility logic for showing/hiding itself based on whether the side nav is expanded or
     collapsed.
@@ -3122,7 +3113,6 @@
   [`e484ea0d5c1e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e484ea0d5c1e2) -
   The `NavLogo` component logo and mobileLogo props have changed to prevent invalid and inaccessible
   states.
-
   - `logo` now takes a component reference that matches `@atlaskit/logo` props instead of arbitrary
     JSX
   - `mobileLogo` has been renamed to `icon` and now takes a component reference that matches

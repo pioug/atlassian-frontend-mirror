@@ -7,14 +7,8 @@ const inputSchema = z.object({});
 
 export const listGetAllTokensTool = {
 	name: 'ads_get_all_tokens',
-	description: `You SHOULD call this when you need complete guidance on what tokens to use, but you SHOULD use the \`ads_search_tokens\` tool to find specific tokens instead.
-	These tokens are used in place of hardcoded values; you should never use a hardcoded value where a token value is appropriate.
-	The resulting token name is used inside of the \`token()\` function, eg.:
-	\`\`\`tsx
-	import { token } from '@atlaskit/tokens';
-	const styles = css({ color: token('color.text') });
-	\`\`\`
-	`,
+	description:
+		"Fetch all Atlassian Design System tokens. Only use when `ads_search_tokens` does not return what you're looking for.",
 	annotations: {
 		title: 'Get all ADS tokens',
 		readOnlyHint: true,

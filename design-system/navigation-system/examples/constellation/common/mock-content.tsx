@@ -16,7 +16,7 @@ import { MockSearch } from '../../utils/mock-search';
 export const MockContent = () => {
 	return (
 		<>
-			<TopNavStart>
+			<TopNavStart sideNavToggleButton={null}>
 				<AppSwitcher label="App switcher" />
 				<AppLogo
 					href="https://www.atlassian.design"

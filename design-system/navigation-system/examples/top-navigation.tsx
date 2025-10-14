@@ -43,8 +43,11 @@ export const TopNavigationExample = () => (
 		 */}
 		<Root>
 			<TopNav>
-				<TopNavStart>
-					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					}
+				>
 					<AppSwitcher label="App switcher" onClick={() => alert('app switcher')} />
 					<AppLogo
 						href="http://www.atlassian.design"
@@ -82,7 +85,7 @@ export const SearchRightElem = () => (
 	<WithResponsiveViewport>
 		<Root>
 			<TopNav>
-				<TopNavStart>
+				<TopNavStart sideNavToggleButton={null}>
 					<AppSwitcher label="App switcher" onClick={() => alert('app switcher')} />
 				</TopNavStart>
 				<TopNavMiddle>
@@ -106,7 +109,7 @@ export const TopNavigationEnlargedSearchInput = () => (
 	<WithResponsiveViewport>
 		<Root>
 			<TopNav>
-				<TopNavStart>
+				<TopNavStart sideNavToggleButton={null}>
 					<AppSwitcher label="App switcher" onClick={() => alert('app switcher')} />
 				</TopNavStart>
 				<div>

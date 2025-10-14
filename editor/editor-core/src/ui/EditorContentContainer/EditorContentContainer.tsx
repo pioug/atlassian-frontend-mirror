@@ -62,6 +62,7 @@ import { embedCardStyles } from './styles/embedCardStyles';
 import { emojiDangerStyles, emojiStyles, getDenseEmojiStyles } from './styles/emoji';
 import {
 	expandStyles,
+	getDenseExpandTitleStyles,
 	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
 	expandStylesMixin_fg_platform_visual_refresh_icons,
 	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
@@ -388,6 +389,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					getExtensionStyles(),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					expandStyles,
+					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+						fg('platform_editor_content_mode_button_mvp') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						getDenseExpandTitleStyles(baseFontSize),
 					fg('platform_editor_nested_dnd_styles_changes')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes

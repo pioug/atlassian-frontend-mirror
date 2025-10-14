@@ -30,7 +30,8 @@ import { injectIntl } from 'react-intl-next';
 import type { AnalyticsEventPayload } from '../analytics/events';
 import { MODE, PLATFORM } from '../analytics/events';
 import { ActiveHeaderIdConsumer } from './active-header-id-provider';
-import type { RendererAppearance } from './Renderer/types';
+import type { RendererAppearance, RendererContentMode } from './Renderer/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type StyleProps = {
 	children?: React.ReactNode;
@@ -53,6 +54,11 @@ const titleStyles = css({
 	margin: 0,
 	padding: `0 0 0 ${token('space.050', '4px')}`,
 	textAlign: 'left',
+});
+
+const titleStylesDense = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	fontSize: 'var(--ak-renderer-base-font-size)',
 });
 
 const containerStyles = css({
@@ -228,6 +234,7 @@ export interface ExpandProps {
 	nestedHeaderIds?: Array<string>;
 	nodeType: 'expand' | 'nestedExpand';
 	rendererAppearance?: RendererAppearance;
+	rendererContentMode?: RendererContentMode;
 	title: string;
 }
 
@@ -261,6 +268,7 @@ function Expand({
 	localId,
 	nestedHeaderIds,
 	rendererAppearance,
+	rendererContentMode,
 }: ExpandProps & WrappedComponentProps) {
 	const [expanded, setExpanded] = React.useState(false);
 	const [focused, setFocused] = React.useState(false);
@@ -273,6 +281,11 @@ function Expand({
 
 	const handleFocus = useCallback(() => setFocused(true), []);
 	const handleBlur = useCallback(() => setFocused(false), []);
+
+	const isCompactModeSupported =
+		expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+		fg('platform_editor_content_mode_button_mvp');
+	const isDense = rendererContentMode === 'dense' && isCompactModeSupported;
 
 	return (
 		<Container
@@ -334,7 +347,7 @@ function Expand({
 						</ExpandIconWrapper>
 					</Tooltip>
 				)}
-				<span css={titleStyles} id={id}>
+				<span css={[titleStyles, isDense && titleStylesDense]} id={id}>
 					{title || intl.formatMessage(expandMessages.expandDefaultTitle)}
 				</span>
 			</TitleContainer>

@@ -84,7 +84,6 @@
   [`7724194406976`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7724194406976) -
   After a long deprecation process, removes the following APIs that are no longer used in known
   products and applications:
-
   - `AtlaskitThemeProvider` component
   - `useThemeResetStyles` hook
   - The `@atlaskit/theme/deprecated-provider-please-do-not-use` entrypoint
@@ -768,7 +767,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 - [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319)
   [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) -
   **Breaking Changes:**
-
   - Package no longer has a peer dependency on `styled-components`. `styled-components` was used
     exclusively in `AtlaskitThemeProvider` and `Reset`. `Reset` has been removed (see below), while
     `AtlaskitThemeProvider` has been re-worked to remove the need for the dependency. To maintain
@@ -781,7 +779,6 @@ _WRONG RELEASE TYPE - DON'T USE_
   - `FLATTENED` has been removed, this constant had no usage
 
   **Housekeeping**:
-
   - Package no longer uses `exenv`
   - `Context` has been removed from the package; this component wasn't ever exported
   - Documentation and examples have been updated
@@ -1066,7 +1063,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/button@13.3.7
@@ -1304,7 +1300,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 9.1.0
 
 - [minor][70862830d6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/70862830d6):
-
   - Checkbox has been converted to Typescript. Typescript consumers will now get static type safety.
     Flow types are no longer provided. No API or behavioural changes.
 
@@ -1323,33 +1318,28 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 9.0.1
 
 - [patch][d5f0e7d767](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d5f0e7d767):
-
   - Adds missing type def to typings for the /component.ts entrypoint
 
 ## 9.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 8.1.9
 
 - [patch][e0e3fabf8e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e0e3fabf8e):
-
   - Change button to use theme's multiple entry points. This should reduce the bundle size of button
 
 ## 8.1.8
 
 - [patch][453838d3c5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/453838d3c5):
-
   - Removes an import which referes to the old entry point of this component. Bundle size should now
     be slightly smaller
 
 ## 8.1.7
 
 - [patch][9c0b4744be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c0b4744be):
-
   - Crucial bugfix: Fixes problem where default theme was undefined in production builds. This
     caused styles to not be applied to components.
 
@@ -1364,13 +1354,11 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 8.1.5
 
 - [patch][9ac668e13d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9ac668e13d):
-
   - Release math js as a module
 
 ## 8.1.4
 
 - [patch][4368278bb4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4368278bb4):
-
   - Added components entry point allowing consumers to pull in just what they need out of theme
     (smaller bundle sizes!)
 
@@ -1383,31 +1371,26 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 8.1.3
 
 - [patch][b4732a178b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b4732a178b):
-
   - Fixing incorrect z-index for navigation-next and inline dialog
 
 ## 8.1.2
 
 - [patch][0f17bb7c20](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0f17bb7c20):
-
   - Theme TypeScript annotations are now exported as a module declaration.
 
 ## 8.1.1
 
 - [patch][7fe933beaa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7fe933beaa):
-
   - Adds missing typescript annotations
 
 ## 8.1.0
 
 - [minor][a561af5fc6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a561af5fc6):
-
   - Theme now exports top-level type definition for TS users
 
 ## 8.0.2
 
 - [patch][5150860405](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5150860405):
-
   - Updates Theme.Context prop type definiton
 
 ## 8.0.1
@@ -1421,7 +1404,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 8.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1466,25 +1448,21 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 7.0.5
 
 - [patch][b46504d2e4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b46504d2e4):
-
   - Fixed example docs
 
 ## 7.0.4
 
 - [patch][1a98f74](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1a98f74):
-
   - Added the missing unit to box-shadow for focus ring styles
 
 ## 7.0.3
 
 - [patch][899fac7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/899fac7):
-
   - added the focus ring and no focus ring styles
 
 ## 7.0.2
 
 - [patch][ca16fa9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ca16fa9):
-
   - Add SSR support to media components
 
 ## 7.0.1
@@ -1498,7 +1476,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 7.0.0
 
 - [major][d13242d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13242d):
-
   - Change API to experimental theming API to namespace component themes into separate contexts and
     make theming simpler. Update all dependant components.
 

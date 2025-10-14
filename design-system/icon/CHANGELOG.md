@@ -16,7 +16,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `chart-pie`
 
 ## 28.4.0
@@ -29,7 +28,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `chart-pie`
 
 ## 28.3.0
@@ -41,7 +39,6 @@
   change is successful it will be available in a later release.
 
   Additionally, backwards-compatible API changes were required to support this:
-
   - Deprecation of pixel number `size` in favor of new t-shirt sizes
   - Deprecation of `size` "16"
   - Deprecation of `shape`
@@ -69,7 +66,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `app-switcher-legacy`
   - `app-switcher`
   - `app`
@@ -127,7 +123,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `chart-pie`
 
 ## 27.11.0
@@ -141,7 +136,6 @@
   ### Deprecated:
 
   **`@atlaskit/icon/core`**
-
   - `chart-matrix`
   - `chart-trend`
   - `spreadsheet`
@@ -163,7 +157,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `chart-bar`
   - `chart-pie`
   - `check-mark`
@@ -176,7 +169,6 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `check-circle-unchecked`
 
 ## 27.9.2
@@ -204,7 +196,6 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `chart-bubble`
   - `chart-trend-down`
   - `chart-trend-up`
@@ -241,13 +232,11 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `rovo-chat`
 
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `ai-chat`
 
 ## 27.6.1
@@ -286,7 +275,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `ai-chat`
   - `collapse-horizontal`
   - `collapse-vertical`
@@ -306,7 +294,6 @@
   Updated migration mapping for several icon entrypoints.
 
   **`@atlaskit/icon/core/migration`**
-
   - `close--cross → cross`
   - `close--editor-close → cross--editor-close`
   - `error → status-error--error`
@@ -346,7 +333,6 @@
   ### Added:
 
   **`@atlaskit/icon/core/migration`**
-
   - `cross--editor-close`
   - `cross`
 
@@ -367,7 +353,6 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `cross`
   - `focus-area`
   - `status-discovery`
@@ -379,7 +364,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `cash`
   - `close`
   - `flask`
@@ -392,7 +376,6 @@
   ### Deprecated:
 
   **`@atlaskit/icon/core`**
-
   - `capture`
   - `close`
   - `discovery`
@@ -404,7 +387,6 @@
   ### Deprecated:
 
   **`@atlaskit/icon/utility`**
-
   - `add`
   - `arrow-down`
   - `arrow-left`
@@ -445,7 +427,6 @@
   ### Removed:
 
   **`@atlaskit/icon/core`**
-
   - `align-center`
   - `align-left`
   - `align-right`
@@ -486,13 +467,11 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `image`
 
   ### Deprecated:
 
   **`@atlaskit/icon/core`**
-
   - `child-issues`
   - `drawer-left`
   - `drawer-right`
@@ -513,7 +492,6 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `panel-left`
   - `panel-right`
 
@@ -528,7 +506,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `attachment`
   - `check-circle`
   - `chevron-right`
@@ -604,7 +581,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `refresh`
   - `shapes`
 
@@ -619,7 +595,6 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `child-work-items`
 
 ## 25.6.0
@@ -633,7 +608,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `api`
   - `data-number`
   - `data-string`
@@ -671,7 +645,6 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `ai-generative-text-summary`
 
 ## 25.4.0
@@ -703,7 +676,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `assets`
 
 ## 25.2.0
@@ -717,13 +689,11 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `text-underline`
 
   ### Deprecated:
 
   **`@atlaskit/icon/core`**
-
   - `border-weight-medium`
   - `border-weight-thick`
   - `border-weight-thin`
@@ -738,7 +708,6 @@
   ### Deprecated:
 
   **`@atlaskit/icon/utility`**
-
   - `drag-handle`
 
 ### Patch Changes
@@ -756,7 +725,6 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `accessibility`
   - `drawer-left`
   - `drawer-right`
@@ -809,14 +777,12 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `drag-handle-horizontal`
   - `drag-handle-vertical`
   - `drag-handle`
   - `text-strikethrough`
 
   **`@atlaskit/icon/utility`**
-
   - `drag-handle-horizontal`
   - `drag-handle-vertical`
   - `drag-handle`
@@ -850,26 +816,22 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `drag-handle-horizontal`
   - `drag-handle-vertical`
 
   **`@atlaskit/icon/utility`**
-
   - `drag-handle-horizontal`
   - `drag-handle-vertical`
 
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `refresh`
   - `text-strikethrough`
 
   ### Deprecated:
 
   **`@atlaskit/icon/core`**
-
   - `content-align-center`
   - `content-align-left`
   - `content-align-right`
@@ -932,7 +894,6 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `align-image-center`
   - `align-image-left`
   - `align-image-right`
@@ -947,7 +908,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `text-strikethrough`
 
 ## 23.7.1
@@ -969,7 +929,6 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `exclamation-square`
   - `information-circle`
   - `text-heading`
@@ -979,7 +938,6 @@
     ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `cloud-arrow-up`
   - `error`
   - `field-radio-group`
@@ -994,7 +952,6 @@
   - `warning`
 
   **`@atlaskit/icon/glyph`**
-
   - `issue-raise` - now has replacement icon, `core/plus-square` and migration component
 
 ## 23.6.1
@@ -1042,7 +999,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `field-radio-group`
 
 ## 23.3.1
@@ -1062,7 +1018,6 @@
   ### Added:
 
   **`@atlaskit/icon/utility`**
-
   - `chevron-double-left`
   - `chevron-double-right`
 
@@ -1075,7 +1030,6 @@
   This release updates icons in `@atlaskit/icon`.
 
   **`@atlaskit/icon/core`**
-
   - 'discovery'
   - 'field-radio-group'
   - 'mention'
@@ -1121,20 +1075,17 @@
   removing deprecated entrypoints.
 
   ### Renamed entrypoints:
-
   - `@atlaskit/icon/UNSAFE_base-new` → `@atlaskit/icon/base-new`
   - `@atlaskit/icon/UNSAFE_migration-map` → `@atlaskit/icon/migration-map`
 
   ### Removed entrypoints:
 
   **`@atlaskit/icon/core`**
-
   - `bulleted-list`
   - `collapse`
   - `expand`
 
   **`@atlaskit/icon/core/migration`**
-
   - `bulleted-list--bullet-list`
   - `bulleted-list--editor-bullet-list`
   - `collapse--editor-collapse`
@@ -1174,7 +1125,6 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `shield-strikethrough`
   - `video-skip-backward-fifteen`
   - `video-skip-forward-fifteen`
@@ -1182,7 +1132,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `field-radio-group`
   - `sidebar-collapse`
   - `sidebar-expand`
@@ -1224,7 +1173,6 @@
   Updated migration mapping for several icon entrypoints.
 
   **`@atlaskit/icon/core/migration`**
-
   - `content-wrap-left--editor-media-wrap-left`
   - `content-wrap-right--editor-media-wrap-right`
   - `discovery--editor-note`
@@ -1234,7 +1182,6 @@
   - `minus--editor-divider`
 
   Updated legacy icons to map to new icons via the icon facade:
-
   - document → file
   - document-filled → file
   - documents → files
@@ -1312,7 +1259,6 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `api`
   - `arrow-down-left`
   - `arrow-down-right`
@@ -1386,7 +1332,6 @@
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `edit`
   - `link-broken`
   - `link-external`
@@ -1419,21 +1364,18 @@
 - [#140548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140548)
   [`c66b92f724af1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c66b92f724af1) - ###
   Summary:
-
   - Fixes issue where icons with arrows sometimes rendered incorrectly.
   - Adds and updates some icons used in Editor.
 
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `highlight`
   - `layout-one-column`
 
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `text-style`: now feature smaller text with room for a color indicator underneath.
   - Icons containing arrows have corrected paths
 
@@ -1486,13 +1428,11 @@
   `@atlaskit/icon/utility`:
 
   ### Core icons (from `@atlaskit/icon/core`):
-
   - `bulleted-list`
   - `expand`
   - `collapse`
 
   ### Core migration icons (from `@atlaskit/icon/core/migration`):
-
   - `app-switcher--switcher`
   - `bulleted-list--bullet-list`
   - `bulleted-list--editor-bullet-list`
@@ -1507,7 +1447,6 @@
   - `phone--hipchat-dial-out`
 
   ### Utility migration icons (from `@atlaskit/icon/core/utility/migration`):
-
   - `check-circle`
   - `check-circle--editor-success`
 
@@ -1540,7 +1479,6 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `key-result`
   - `people-group`
   - `merge-failure`
@@ -1618,7 +1556,6 @@
   - `vehicle-car`
 
   **`@atlaskit/icon/utility`**
-
   - `success`
   - `arrow-down`
   - `arrow-left`
@@ -1629,7 +1566,6 @@
   ### Renamed:
 
   **`@atlaskit/icon/core`**
-
   - `list-bulleted → bulleted list`
   - `shrink-diagonal → minimize`
   - `grow-diagonal → maximize`
@@ -1638,13 +1574,11 @@
   - `success → check-circle`
 
   **`@atlaskit/icon/utility`**
-
   - `success → check-circle`
 
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `check-circle`
   - `ai-chat`
   - `comment`
@@ -1677,7 +1611,6 @@
   - `arrow-up-right`
 
   **`@atlaskit/icon/utility`**
-
   - `chevron-right`
   - `chevron-down`
   - `chevron-left`
@@ -1690,13 +1623,11 @@
   ### Removed entrypoints:
 
   **`@atlaskit/icon/core`**
-
   - `bulleted-list`
   - `expand`
   - `collapse`
 
   **`@atlaskit/icon/core/migration`**
-
   - `app-switcher--switcher`
   - `bulleted-list--bullet-list`
   - `bulleted-list--editor-bullet-list`
@@ -1711,7 +1642,6 @@
   - `phone--hipchat-dial-out`
 
   **`@atlaskit/icon/core/utility/migration`**
-
   - `check-circle`
   - `check-circle--editor-success`
 
@@ -2338,13 +2268,11 @@ _WRONG RELEASE TYPE - DON'T USE_
   Glyphs unfortunately aren't included and still only export cjs bundles.
 - [`6ef8824baee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ef8824baee) - - Icon
   now uses React.memo() to stop unnecessary re-renders.
-
   - A bug in the types for icon sizes has been resolved
 
   This change also includes a number of quality of life fixes as part of lite mode.
 
   ### Internal changes
-
   - class components have been changed to functional components
   - styled-components has been removed as a peer dependency
   - @emotion/core has been added a direct dependency, base components now use emotion for styling
@@ -2603,7 +2531,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 - [patch][fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
 
   Corrects accessibility behavior for wrapping span. It now will now:
-
   - conditionally set the `aria-label` if `label` is defined
   - conditionally set the `role` to either `img` if `label` is defined, or `presentation` if it is
     not defined- Updated dependencies
@@ -2648,7 +2575,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/button@13.3.7
@@ -2855,21 +2781,18 @@ _WRONG RELEASE TYPE - DON'T USE_
 ### Major Changes
 
 - [major][cfc3c8adb3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cfc3c8adb3):
-
   - @atlaskit/icon has been converted to TypeScript to provide static typing. Flow types are no
     longer provided. No API or bahavioural changes.
 
 ## 17.2.0
 
 - [minor][70862830d6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/70862830d6):
-
   - Checkbox has been converted to Typescript. Typescript consumers will now get static type safety.
     Flow types are no longer provided. No API or behavioural changes.
 
 ## 17.1.3
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -2893,7 +2816,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 17.1.0
 
 - [minor][8f4f5d914a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8f4f5d914a):
-
   - Updated home-circle icon and replaced home-filled icon with new home icon
 
 ## 17.0.2
@@ -2912,7 +2834,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 17.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -2953,13 +2874,11 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 16.0.7
 
 - [patch][a143c9758f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a143c9758f):
-
   - New Icon: Add the PremiumIcon
 
 ## 16.0.6
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 16.0.5
@@ -3011,13 +2930,11 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 16.0.1
 
 - [patch][6b5daa8080](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6b5daa8080):
-
   - Added the new Status icon
 
 ## 16.0.0
 
 - [major][d7ef59d432](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d7ef59d432):
-
   - Moved the priority icons to its own package.
   - Check the [Upgrade Guide](https://atlaskit.atlassian.com/packages/core/icon/docs/upgrade-guide)
     for more information.
@@ -3029,7 +2946,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 15.0.3
 
 - [patch][1d1f6d1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1d1f6d1):
-
   - Make icon glyphs not import metadata
 
 ## 15.0.2
@@ -3065,7 +2981,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 15.0.0
 
 - [major][ab9b69c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ab9b69c):
-
   - Removed onClick prop as icon is only a presentational placeholder. Please wrap your icon in a
     Button or a Link component and add onClick to that instead.
 
@@ -3087,19 +3002,16 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 14.6.0
 
 - [minor][29968f4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/29968f4):
-
   - Add a menu expand icon
 
 ## 14.5.0
 
 - [minor][f5e26e1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f5e26e1):
-
   - Add a retry icon
 
 ## 14.4.0
 
 - [patch][29b160f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/29b160f):
-
   - Simplify the icons build process
 
   Icons no longer need a custom `build` step to be accurate on npm. This has come about by renaming
@@ -3107,7 +3019,6 @@ _WRONG RELEASE TYPE - DON'T USE_
   notice.
 
 - [minor][62a7c37](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/62a7c37):
-
   - Add metadata export
 
   In trying to align the icons packages, the core `@atlaskit/icon` package now exports `metadata`,
@@ -3122,19 +3033,16 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 14.3.0
 
 - [minor][dced9bf](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dced9bf):
-
   - Remove StarOutlineIcon as it is not used
 
 ## 14.2.1
 
 - [patch][d15caa6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d15caa6):
-
   - adding editor image alignment icons
 
 ## 14.2.0
 
 - [minor][fe3c283](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fe3c283" d):
-
   - ED-5600: add icons for new table ux
 
 ## 14.1.0

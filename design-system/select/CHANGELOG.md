@@ -289,7 +289,6 @@
 - [#138461](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138461)
   [`455c7f648d71a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/455c7f648d71a) -
   Internal refactor to PopupSelect behind a feature flag.
-
   - No longer closing the popup when the internal select menu's onMenuClose is called.
   - It now registers with the experimental open layer observer, allowing it to close when the
     observer gives the close signal (e.g. when resizing a page layout slot).
@@ -1394,7 +1393,6 @@
 - [#35267](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35267)
   [`96ac277d0d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96ac277d0d7) - [ux] -
   created custom onFocus function, which overwrites built in onFocus method for ariaLiveMessages;
-
   - function is conditionally invoked only for grouped select options to enable group label
     announcement with it's group options;
 
@@ -1903,7 +1901,6 @@
 - [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570)
   [`145c9cea461`](https://bitbucket.org/atlassian/atlassian-frontend/commits/145c9cea461) - [ux]
   Added 2 new props for controlling the open state of PopupSelect:
-
   - `isOpen` controls whether the popup is open (controlled)
   - `defaultIsOpen` controls whether the popup is initially open on mount (uncontrolled)
 
@@ -2240,7 +2237,6 @@
   values accepted by the `popperProps` prop.
 
   Changes labelled with ⚙️ have codemod support:
-
   - ⚙️ the `positionFixed` prop has been replaced with `strategy`, which takes either `"fixed"` or
     `"absolute"`
   - the `modifiers` prop has been significantly updated:
@@ -2440,7 +2436,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -2844,7 +2839,6 @@
 ## 9.1.3
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -2871,19 +2865,16 @@
 ## 9.1.0
 
 - [minor][3d5ab16856](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3d5ab16856):
-
   - Add missing dependency @emotion/core
 
 ## 9.0.1
 
 - [patch][21854842b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21854842b5):
-
   - Clean couple of TODO's that were already done
 
 ## 9.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -2905,7 +2896,6 @@
 ## 8.1.0
 
 - [minor][b50c289008](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b50c289008):
-
   - Don't close popup select when cleared.
 
 ## 8.0.5
@@ -2927,7 +2917,6 @@
 ## 8.0.4
 
 - [patch][2a90c65e27](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2a90c65e27):
-
   - Fix, and guard against, missing refs
 
 ## 8.0.3
@@ -2949,20 +2938,17 @@
 ## 8.0.2
 
 - [patch][87808b7791](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/87808b7791):
-
   - AK-5973 expose handleKeyDown as prop for PopupSelect
 
 ## 8.0.1
 
 - [patch][69c6f6acb7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/69c6f6acb7):
-
   - Minor bug fixes in 2.4.2 react-select patch. See the release notes for details here
     https://github.com/JedWatson/react-select/releases/tag/v2.4.2
 
 ## 8.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -3007,38 +2993,32 @@
 ## 7.2.2
 
 - [patch][39850f9615](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/39850f9615):
-
   - Popup select set focus to selected option, instead of the first option, when the menu opens
 
 ## 7.2.1
 
 - [patch][37c2eeec43](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/37c2eeec43):
-
   - Added possibility to add compact styling for multi select component
 
 ## 7.2.0
 
 - [minor][46ffd45f21](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/46ffd45f21):
-
   - Added ability to toggle animations in atlaskit/select, updated UserPicker to disable animations
     using this new behaviour
 
 ## 7.1.2
 
 - [patch][bcdb413cb4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bcdb413cb4):
-
   - Encapsulate checkbox/radio option styles inside the primitive
 
 ## 7.1.1
 
 - [patch][896bf5bef9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/896bf5bef9):
-
   - Fix bug breaking mobile UX, and causing menu to not be openable on touch
 
 ## 7.1.0
 
 - [minor][571ec20522](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/571ec20522):
-
   - Updated react-select to 2.4.0, includes updates to BEM modifiers in options, for more
     information see the react-select release notes
     https://github.com/JedWatson/react-select/releases/tag/v2.4.0
@@ -3049,13 +3029,11 @@
 ## 7.0.0
 
 - [major][06713e0a0c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06713e0a0c):
-
   - popup select "target" is now a function that must resolve to a node
 
 ## 6.1.20
 
 - [patch][957778f085](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/957778f085):
-
   - Expose CheckboxOption and RadioOption from select package
 
 ## 6.1.19
@@ -3073,31 +3051,26 @@
 ## 6.1.18
 
 - [patch][6148c6c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6148c6c):
-
   - AK-5693 apply styles to loading indicator
 
 ## 6.1.17
 
 - [patch][e9ccac7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e9ccac7):
-
   - pin react-select at 2.1.x to avoid SSR issues in 2.2.0
 
 ## 6.1.16
 
 - [patch][b9b1900](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b9b1900):
-
   - Use @atlaskit/select instead of @atlaskit/single-select on the Fullscreen examples on website
 
 ## 6.1.15
 
 - [patch][6195ac3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6195ac3):
-
   - remove animated functionality to temporarily resolve blocking issue with portal
 
 ## 6.1.14
 
 - [patch][a048a85](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a048a85):
-
   - Updated to be compatible with new Forms API
 
 - Updated dependencies [647a46f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/647a46f):
@@ -3121,13 +3094,11 @@
 ## 6.1.12
 
 - [patch][82fc5f5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/82fc5f5):
-
   - Pinning react-popper to 1.0.2 to avoid recursive bug
 
 ## 6.1.11
 
 - [patch][bfc508c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bfc508c):
-
   - CheckboxSelect options now have correct flex styles on the option value
 
 ## 6.1.10
@@ -3173,39 +3144,33 @@
 ## 6.1.7
 
 - [patch][1fb2c2a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1fb2c2a):
-
   - Fixed issue where tooltips and modals would initially render in the wrong location
 
 ## 6.1.6
 
 - [patch][a637f5e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a637f5e):
-
   - Refine and fix some flow type errors found by fixing @atlaskit/analytics-next HOCs to allow flow
     to type check properly
 
 ## 6.1.5
 
 - [patch][fcf97d8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fcf97d8):
-
   - Fix countries and mismatched flags
 
 ## 6.1.4
 
 - [patch][6ab8e95](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6ab8e95" d):
-
   - Removed wrapping div from around selects as it is no longer needed when using the latest
     inline-dialog component.
 
 ## 6.1.3
 
 - [patch][dab963b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dab963b" d):
-
   - Make sure portal binds to DOM only
 
 ## 6.1.2
 
 - [patch][0782e03](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0782e03" d):
-
   - bumped react-select to 2.1.1 minor bug fixes including mirroring the logic for the backspace key
     to delete, and stripping theme props from Input and GroupHeading dom elements. See
     https://github.com/JedWatson/react-select/releases/tag/v2.1.1 for details

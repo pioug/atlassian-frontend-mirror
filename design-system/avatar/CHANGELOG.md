@@ -1363,7 +1363,6 @@
   on the codemod CLI.
 
   **Change summary:**
-
   - BREAKING: `Avatar`'s `component` prop is now a
     [renderProp](https://reactjs.org/docs/render-props.html) and has been renamed to `render`
   - BREAKING: `AvatarItem`'s `component` prop is now a
@@ -1439,7 +1438,6 @@
   [this doc](https://atlaskit.atlassian.com/docs/guides/atlassian-codemods)
 
   **Summary**
-
   - Fixes re-rendering issues
   - Removes all deprecated theme API. This includes previous experimental dark-mode theme support
   - Stop accepting and spreading arbitrary props
@@ -1448,7 +1446,6 @@
   - Replaces `styled-components` v3 with `@emotion/core` to improve runtime and bundlesize
 
   **Avatar API / PROP CHANGES**
-
   - `enableTooltip` removed. Please use `@atlaskit/tooltip` instead
   - `onClick` method signature has been simplified to `onChange(event, analyticsEvent)`
   - `isHover` removed
@@ -1463,7 +1460,6 @@
     the AvatarGroup component.
 
   **Avatar Item API / PROP CHANGES**
-
   - `enableTruncation` renamed to `isTruncationDisabled`
   - `onClick` method signature has been simplified to `onChange(event, analyticsEvent)`
   - `isHover` removed
@@ -1553,7 +1549,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1573,7 +1568,6 @@
 
   Avatar-item will now respect the width of it's parent container- Updated dependencies
   [c0102a3ea2](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0102a3ea2):
-
   - @atlaskit/field-base@14.0.0
   - @atlaskit/icon@20.0.0
   - @atlaskit/section-message@4.1.4
@@ -1769,12 +1763,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1865,20 +1857,17 @@
 ## 16.0.1
 
 - [patch][21854842b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21854842b5):
-
   - Clean couple of TODO's that were already done
 
 ## 16.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 15.0.5
 
 - [patch][d01ab3961b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d01ab3961b):
-
   - Bugfix: fixes issue with src image flickering
 
 ## 15.0.4
@@ -1910,7 +1899,6 @@
 ## 15.0.2
 
 - [patch][ea173a3ee2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ea173a3ee2):
-
   - Internal changes only. Component is now SSR compatible. If server side rendered, Avatar Images
     will begin to load immediately; before client bundle is ready. If this is undesired, `imageUrl`
     can be passed in after component is mounted.
@@ -1931,7 +1919,6 @@
 ## 15.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1976,7 +1963,6 @@
 ## 14.1.9
 
 - [patch][92d8e6317c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/92d8e6317c):
-
   - Check if the DOM is available when rendering an AvatarImage so that SSR rendered Avatars will
     render with the provided image.
 
@@ -2008,7 +1994,6 @@
 ## 14.1.6
 
 - [patch][d13242d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13242d):
-
   - Change API to experimental theming API to namespace component themes into separate contexts and
     make theming simpler. Update all dependant components.
 
@@ -2038,7 +2023,6 @@
 ## 14.1.3
 
 - [patch][a981c43](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a981c43):
-
   - Update Avatar to allow to use a custom icon as status.
 
 ## 14.1.2

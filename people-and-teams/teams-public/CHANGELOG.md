@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.62.2
+
+### Patch Changes
+
+- [`0c9c1550fefa7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c9c1550fefa7) -
+  Linker a11y fixes- navigating via arrow keys in list, team card minor padding and ux fixes
+
 ## 0.62.1
 
 ### Patch Changes

@@ -548,7 +548,6 @@
   CodeBlock has had some significant under-the-hood changes in this version. While technically it is
   a minor update as all API changes are additive and backwards-compatible, this is a heads up that
   there are some small visual changes that may require visual regression snapshots to be updated.
-
   - Adds a new `shouldWrapLongLines` prop that allows you to wrap long lines of code over multiple
     lines, instead of always forcing the container to scroll horizontally.
 
@@ -822,7 +821,6 @@
 
   Component theming is no longer supported in `<Code />` or `<CodeBlock />`; this change does not
   effect global theming. As an escape hatch, two CSS variables are exposed:
-
   - `--ds--code--line-number-bg-color`: which controls the background color of the line numbers if
     set
   - `--ds--code--bg-color`: which controls the background color of the block body if set
@@ -919,7 +917,6 @@
   is an escape hatch which will likley be removed in a future major version.
 
   This change also includes:
-
   - A bugfix for lineHeight that meant linenumbers and code body were not vertically aligned
     correctly.
   - A bugfix for the SSR'd components not rendering consistently before hydration
@@ -1089,7 +1086,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/theme@9.5.1
@@ -1102,7 +1098,6 @@
 
   ThemedCode and ThemeCodeBlock props are now correctly typed- Updated dependencies
   [d2b8166208](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2b8166208):
-
   - @atlaskit/docs@8.3.0
 
 ## 11.1.1
@@ -1114,7 +1109,6 @@
   Removes babel/runtime from dependencies. Users should see a smaller bundlesize as a result-
   Updated dependencies
   [82747f2922](https://bitbucket.org/atlassian/atlassian-frontend/commits/82747f2922):
-
   - @atlaskit/theme@9.5.0
 
 ## 11.1.0
@@ -1127,7 +1121,6 @@
   emphasize which lines of code you would like people to look at!
 
   The `highlight` prop can be used as follows:
-
   - To highlight one line: `highlight="3"`
   - To highlight sequential lines: `highlight="1-5"`
   - To highlight sequential and multiple single lines: `highlight="1-5,7,10,15-20"`
@@ -1208,7 +1201,6 @@
 - [patch][65ada7f318](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65ada7f318):
 
   **FABDODGEM-12 Editor Cashmere Release**
-
   - [Internal post](http://go.atlassian.com/cashmere-release)
 
   **Affected editor components:**
@@ -1216,19 +1208,16 @@
   tables, media, mobile, text color, emoji, copy/paste, analytics
 
   **Performance**
-
   - Async import for code blocks and task items on renderer
     - https://product-fabric.atlassian.net/browse/ED-7155
 
   **Table**
-
   - Add support to sort tables that contains smart links
     - https://product-fabric.atlassian.net/browse/ED-7449
   - Scale table when changing to full width mode
     - https://product-fabric.atlassian.net/browse/ED-7724
 
   **Text color**
-
   - Update text color toolbar with right color when text is inside a list, panel, etc.
     - https://product-fabric.atlassian.net/browse/FM-1752
 
@@ -1334,7 +1323,6 @@ https://product-fabric.atlassian.net/browse/FM-2393
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1371,21 +1359,18 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 11.0.1
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
 ## 11.0.0
 
 - [major][97bfe81ec8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97bfe81ec8):
-
   - @atlaskit/code has been converted to Typescript. Typescript consumers will now get static type
     safety. Flow types are no longer provided. No API or behavioural changes.
 
 ## 10.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1399,7 +1384,6 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 9.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1444,7 +1428,6 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 8.2.3
 
 - [patch][d49e9bbb13](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d49e9bbb13):
-
   - Expose the props on website
 
 ## 8.2.2
@@ -1462,19 +1445,16 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 8.2.0
 
 - [minor][10fe416](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/10fe416):
-
   - Props Language should be required and surfacing more props for code
 
 ## 8.1.1
 
 - [patch][84e8015](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/84e8015):
-
   - Bump react-syntax-highlighter to 10.0.1
 
 ## 8.1.0
 
 - [minor][26027dd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/26027dd):
-
   - Upgrade react syntax highlighter to version that ships its own async loaded languages and
     supports SSR
 

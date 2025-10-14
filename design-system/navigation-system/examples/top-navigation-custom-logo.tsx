@@ -41,8 +41,11 @@ const TopNavigationCustomLogoInstance = ({
 		 */}
 		<Root>
 			<TopNav>
-				<TopNavStart>
-					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					}
+				>
 					<AppSwitcher label="App switcher" onClick={() => alert('app switcher')} />
 					<CustomLogo
 						href="http://www.atlassian.design"

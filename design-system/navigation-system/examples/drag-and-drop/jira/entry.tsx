@@ -40,7 +40,7 @@ export function App() {
 			<div>
 				<Root>
 					<TopNav>
-						<TopNavStart>
+						<TopNavStart sideNavToggleButton={null}>
 							<SideNavToggleButton
 								collapseLabel="Collapse sidebar"
 								expandLabel="Expand sidebar"

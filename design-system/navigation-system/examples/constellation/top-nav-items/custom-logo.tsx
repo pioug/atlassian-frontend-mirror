@@ -13,7 +13,7 @@ const CustomIconImage = () => <img src={customIconSrc} alt="" />;
 export const CustomLogoExample = () => {
 	return (
 		<MockTopBar>
-			<TopNavStart>
+			<TopNavStart sideNavToggleButton={null}>
 				<CustomLogo
 					href="https://jira.atlassian.com"
 					logo={CustomLogoImage}

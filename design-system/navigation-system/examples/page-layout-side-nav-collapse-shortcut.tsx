@@ -34,12 +34,15 @@ const ToggleSideNavKeyboardShortcut = () => {
 const SideNavWithCollapseShortcut = () => (
 	<Root>
 		<TopNav>
-			<TopNavStart>
-				<SideNavToggleButton
-					collapseLabel="Collapse sidebar"
-					expandLabel="Expand sidebar"
-					shortcut={['Ctrl', '[']}
-				/>
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton
+						collapseLabel="Collapse sidebar"
+						expandLabel="Expand sidebar"
+						shortcut={['Ctrl', '[']}
+					/>
+				}
+			>
 				top nav
 			</TopNavStart>
 		</TopNav>

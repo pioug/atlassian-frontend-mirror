@@ -515,10 +515,10 @@ describe('PanelSplitter', () => {
 			// Advance timers to allow debounced functions to run
 			act(() => jest.runOnlyPendingTimers());
 
-			expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
+			(expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
 				width: '120px',
 			}),
-				expect(rangeInput).toHaveValue('120');
+				expect(rangeInput).toHaveValue('120'));
 		});
 
 		it('should decrease the width when resizing to the left with keyboard', async () => {

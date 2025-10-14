@@ -1,12 +1,17 @@
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import type { Decoration } from '@atlaskit/editor-prosemirror/view';
+import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { findNodeDecs } from '../pm-plugins/decorations-anchor';
 import { getDecorations, key } from '../pm-plugins/main';
-import { getNestedNodePosition } from '../pm-plugins/utils/getNestedNodePosition';
+import {
+	getNestedNodePosition,
+	getNestedNodeStartingPosition,
+} from '../pm-plugins/utils/getNestedNodePosition';
+import { NODE_ANCHOR_ATTR_NAME, NODE_NODE_TYPE_ATTR_NAME } from '../ui/utils/dom-attr-name';
 
 const findParentPosForHandle = (state: EditorState) => {
 	const {
@@ -38,11 +43,20 @@ const findParentPosForHandle = (state: EditorState) => {
 	}
 
 	// else find closest parent node
-	return getNestedNodePosition({
-		selection: state.selection,
-		schema: state.schema,
-		resolve: state.doc.resolve.bind(state.doc),
-	});
+	return expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+		? // With native anchor enabled, all nodes have anchor name attribute despite no drag handle support, e.g. listItem, caption,
+			// as opposed to old approach, node decoration is only added to the node that have drag handle,
+			// hence, we need to return the exact position of the node that can have drag handle
+			getNestedNodeStartingPosition({
+				selection: state.selection,
+				schema: state.schema,
+				resolve: state.doc.resolve.bind(state.doc),
+			})
+		: getNestedNodePosition({
+				selection: state.selection,
+				schema: state.schema,
+				resolve: state.doc.resolve.bind(state.doc),
+			});
 };
 
 const findNextAnchorDecoration = (state: EditorState): Decoration | undefined => {
@@ -92,24 +106,65 @@ const findNextAnchorDecoration = (state: EditorState): Decoration | undefined =>
 	return nodeDecorations[0];
 };
 
+const findNextAnchorNode = (view: EditorView) => {
+	const nextHandleNodePos = findParentPosForHandle(view.state);
+	if (nextHandleNodePos === undefined) {
+		return undefined;
+	}
+
+	const dom = view.nodeDOM(nextHandleNodePos);
+	if (!(dom instanceof HTMLElement)) {
+		return undefined;
+	}
+
+	const nodeDOM = dom.closest(`[${NODE_ANCHOR_ATTR_NAME}]`);
+	if (!nodeDOM) {
+		return undefined;
+	}
+
+	const nodeType = nodeDOM?.getAttribute(NODE_NODE_TYPE_ATTR_NAME);
+	const anchorName = nodeDOM?.getAttribute(NODE_ANCHOR_ATTR_NAME);
+
+	if (nodeType && anchorName) {
+		return { pos: nextHandleNodePos, nodeType, anchorName };
+	}
+};
+
 export const showDragHandleAtSelection =
 	(api?: ExtractInjectionAPI<BlockControlsPlugin>): Command =>
-	(state) => {
-		const decoration = findNextAnchorDecoration(state);
-		if (api && decoration) {
-			api.core.actions.execute(
-				api.blockControls.commands.showDragHandleAt(
-					decoration.from,
-					decoration.spec.anchorName,
-					decoration.spec.nodeTypeWithLevel,
-					{
+	(state, _, view) => {
+		if (view && expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+			const anchorNode = findNextAnchorNode(view);
+
+			if (api && anchorNode) {
+				const { pos, anchorName, nodeType } = anchorNode;
+				api.core.actions.execute(
+					api.blockControls.commands.showDragHandleAt(pos, anchorName, nodeType, {
 						isFocused: true,
-					},
-				),
-			);
+					}),
+				);
 
-			return true;
+				return true;
+			}
+
+			return false;
+		} else {
+			const decoration = findNextAnchorDecoration(state);
+			if (api && decoration) {
+				api.core.actions.execute(
+					api.blockControls.commands.showDragHandleAt(
+						decoration.from,
+						decoration.spec.anchorName,
+						decoration.spec.nodeTypeWithLevel,
+						{
+							isFocused: true,
+						},
+					),
+				);
+
+				return true;
+			}
+
+			return false;
 		}
-
-		return false;
 	};

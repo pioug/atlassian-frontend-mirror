@@ -620,7 +620,6 @@
 
 - [#27076](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27076)
   [`25e09731caa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25e09731caa) - Fixes:
-
   - Removes `vertical-align: baseline` from Lozenge which was being applied incorrectly.
   - Removes a default prop which was causing unintended re-renders.
 
@@ -818,7 +817,6 @@
 - [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837)
   [`1cd379a2199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1cd379a2199) - - In
   this version we made `Lozenge` dramatically faster and lighter. 🤩
-
   - General performance improvements.
 
   - We are now exporting a new `style` prop which you can use to pass a custom `backgroundColor` and
@@ -901,7 +899,6 @@
   will automatically be upgraded.
 
   What will be changed:
-
   - It will move `backgroundColor` and `textColor` from `appearance` prop (if object is passed as
     `appearance` prop value) to `style` prop.
 
@@ -1064,7 +1061,6 @@
 
   Change imports to comply with Atlassian conventions- Updated dependencies
   [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
-
   - @atlaskit/webdriver-runner@0.3.4
 
 ## 9.1.6
@@ -1100,7 +1096,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/theme@9.5.1
@@ -1114,7 +1109,6 @@
   Removes babel/runtime from dependencies. Users should see a smaller bundlesize as a result-
   Updated dependencies
   [82747f2922](https://bitbucket.org/atlassian/atlassian-frontend/commits/82747f2922):
-
   - @atlaskit/theme@9.5.0
 
 ## 9.1.2
@@ -1190,7 +1184,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1211,21 +1204,18 @@
 ## 9.0.0
 
 - [major][ed41cac6ac](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ed41cac6ac):
-
   - Lozenge has been converted to Typescript. Typescript consumers will now get static type safety.
     Flow types are no longer provided. No API or behavioural changes.
 
 ## 8.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 7.0.3
 
 - [patch][73a5c6f3dc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/73a5c6f3dc):
-
   - Add emotion and remove styled-components
 
 ## 7.0.2
@@ -1238,13 +1228,11 @@
 ## 7.0.1
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 7.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1295,7 +1283,6 @@
 ## 6.2.3
 
 - [patch][d13242d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13242d):
-
   - Change API to experimental theming API to namespace component themes into separate contexts and
     make theming simpler. Update all dependant components.
 

@@ -5,7 +5,11 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { AnalyticsEventPayload } from '../analytics/events';
 import type { Serializer } from '../serializer';
-import type { RendererAppearance, HeadingAnchorLinksProps } from '../ui/Renderer/types';
+import type {
+	RendererAppearance,
+	HeadingAnchorLinksProps,
+	RendererContentMode,
+} from '../ui/Renderer/types';
 import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 
 export interface RendererContext {
@@ -42,6 +46,7 @@ export interface NodeMeta {
 	portal?: HTMLElement | undefined;
 	providers?: ProviderFactory | undefined;
 	rendererAppearance?: RendererAppearance;
+	rendererContentMode?: RendererContentMode;
 	rendererContext?: RendererContext;
 	serializer: Serializer<JSX.Element>;
 	text?: PMNode['text'];

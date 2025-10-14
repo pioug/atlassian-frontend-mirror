@@ -115,12 +115,15 @@ function TopNavigationInstance({
 	return (
 		<MockRoot>
 			<TopNav>
-				<TopNavStart>
-					<SideNavToggleButton
-						testId="side-nav-toggle-button"
-						collapseLabel="Collapse sidebar"
-						expandLabel="Expand sidebar"
-					/>
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton
+							testId="side-nav-toggle-button"
+							collapseLabel="Collapse sidebar"
+							expandLabel="Expand sidebar"
+						/>
+					}
+				>
 					<AppSwitcher label="Switch apps" />
 					{CustomLogo}
 					<CustomTitle>Custom app title</CustomTitle>

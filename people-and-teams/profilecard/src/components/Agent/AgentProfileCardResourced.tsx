@@ -63,6 +63,10 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 		cloudId: props.cloudId,
 	});
 
+	/**
+	 * @TODO replace with `getAgentCreator` from `@atlassian/rovo-agent-components`
+	 * @deprecated use `getAgentCreator` from `@atlassian/rovo-agent-components`
+	 */
 	const getCreator = useCallback(
 		async ({
 			creator_type,

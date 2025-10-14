@@ -10,7 +10,6 @@ export default md`
 	Here are the places where you can find media-cards:
 
 	- Components
-
 	  - editor-core
 	    - single node
 	    - within filmstrip

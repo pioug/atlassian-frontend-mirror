@@ -10,39 +10,26 @@ import { type Component } from '../get-components/types';
 const inputSchema = z.object({
 	terms: z
 		.array(z.string())
-		.describe('Search term(s) to find components by name, package name, description, or example'),
+		.describe(
+			'An array of search terms to find components by name, package name, description, or example, eg. `["button", "input", "select"]`',
+		),
 	limit: z
 		.number()
 		.optional()
 		.default(1)
-		.describe('Maximum number of results per term to return (default: 1)'),
+		.describe('Maximum number of results per search term in the array (default: 1)'),
 	exactName: z
 		.boolean()
 		.optional()
 		.default(false)
-		.describe('Whether to search for exact match only for the component name'),
+		.describe(
+			'Enable to explicitly search components by the exact name match (when you know the name, but need more details)',
+		),
 });
 
 export const listSearchComponentsTool = {
 	name: 'ads_search_components',
-	description: `You SHOULD use this to search for Atlassian Design System components based on multiple query strings (if there are multiple candidates of component names, descriptions, categories, or package names, you SHOULD pass them in a single call). You SHOULD use default \`limit\` value of 1 first and only set a higher limit like 5 or 10 if you can't find the component you need. Fallback to \`ads_get_components\` if nothing is found. This tool searches through component names, descriptions, categories, and package names to find the most relevant design system components.
-
-The search will match against:
-- Component names (e.g., "Button", "TextField", "Avatar")
-- Package names (e.g., "@atlaskit/button", "@atlaskit/textfield")
-- Component descriptions (descriptive text about what the component does)
-- Component categories (e.g., "Forms and Input", "Navigation", "Data Display")
-
-The results include the component's name, package name, example, and props.
-
-Usage pattern for found components:
-\`\`\`tsx
-import Button from '@atlaskit/button/new';
-import CopyIcon from '@atlaskit/icon/core/copy';
-
-<Button appearance="primary" iconBefore={CopyIcon}>Copy text</Button>
-\`\`\`
-`,
+	description: 'Search for Atlassian Design System components.',
 	annotations: {
 		title: 'Search ADS components',
 		readOnlyHint: true,

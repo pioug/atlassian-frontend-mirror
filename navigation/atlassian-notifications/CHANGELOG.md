@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-notifications
 
+## 0.8.0
+
+### Minor Changes
+
+- [`96f88aee5c5c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96f88aee5c5c1) -
+  Improved docs by removing references to extract-react-types-loader and adding Disclosure component
+
 ## 0.7.2
 
 ### Patch Changes

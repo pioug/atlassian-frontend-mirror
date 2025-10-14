@@ -1368,7 +1368,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1497,7 +1496,6 @@
 ### Minor Changes
 
 - [minor][97a4a48f58](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97a4a48f58):
-
   - use more obvious hover background color for highlighted row
   - add onClick into RowType typing and add examples of its usage
 
@@ -1596,12 +1594,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1657,7 +1653,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1708,7 +1703,6 @@
 ## 13.1.0
 
 - [minor][647118a5ce](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/647118a5ce):
-
   - Added onPageRowUpdate function prop to dynamic table to be passed the currently shown table
     items and moved validateSortKey from the deprecated componentWillMount and
     componentWillRecieveProps to getDerivedStateFromProps
@@ -1716,7 +1710,6 @@
 ## 13.0.2
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -1733,7 +1726,6 @@
 ## 13.0.0
 
 - [major][3d95467c4b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3d95467c4b):
-
   - Dynamic table has been internally converted to TypeScript.
   - Drops Flow support.
   - TypeScript consumers will get static type safety.
@@ -1745,14 +1737,12 @@
 ## 12.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 11.0.4
 
 - [patch][08321f585d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/08321f585d):
-
   - Internal changes only. Makes DynamicTable compatible with SSR.
 
 ## 11.0.3
@@ -1799,7 +1789,6 @@
 ## 11.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1844,7 +1833,6 @@
 ## 10.0.23
 
 - [patch][d026472527](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d026472527):
-
   - Sorting behaviour fixed for integers. New behaviour groups datatypes with integers first, then
     strings, then other values, and sorting is performed within those groups.
   - Fixed sorting for strings; lowercase, uppercase and accented characters will be treated as
@@ -1883,7 +1871,6 @@
 ## 10.0.19
 
 - [patch][492b8ea](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/492b8ea):
-
   - Added `colspan` to cell type. Added example using `colspan`.
 
 ## 10.0.18
@@ -1902,13 +1889,11 @@
 ## 10.0.17
 
 - [patch][abd3a39](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/abd3a39):
-
   - Bump react-beautiful-dnd dependency to v10.0.2
 
 ## 10.0.16
 
 - [patch][85b3592](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/85b3592):
-
   - Passes analytics event through onSetPage prop when pagination component is clicked on
 
 ## 10.0.15

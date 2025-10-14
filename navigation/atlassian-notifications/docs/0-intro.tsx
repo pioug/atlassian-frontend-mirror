@@ -1,8 +1,16 @@
 import React from 'react';
-import { md, Example, Props, code, DevPreviewWarning } from '@atlaskit/docs';
+import { md, Example, TSProps, code, DevPreviewWarning } from '@atlaskit/docs';
 import { token } from '@atlaskit/tokens';
 
-export default md`
+// This is used by the website generator to define which components are tabs, and the tab order.
+// If this export is not present, tabs are generated in case-sensitive alphabetical-order (not source-code order).
+export const _PageTabs = ['Code', 'Usage'];
+
+export const Code = (
+	<TSProps props={require('!!@af/ts-morph-loader?export=Notifications!../src/Notifications.tsx')} />
+);
+
+export const Usage = md`
   ${
 		(
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -22,13 +30,6 @@ export default md`
 			packageName="@atlaskit/atlassian-notifications"
 			source={require('!!raw-loader!../examples/00-basic-usage')}
 			title="Basic usage"
-		/>
-	)}
-
-  ${(
-		<Props
-			heading="Notifications props"
-			props={require('!!extract-react-types-loader!../src/Notifications')}
 		/>
 	)}
 `;

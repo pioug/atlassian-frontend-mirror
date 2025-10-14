@@ -1021,7 +1021,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1182,12 +1181,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1307,20 +1304,17 @@
 ### Major Changes
 
 - [major][181209d135](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/181209d135):
-
   - @atlaskit/inline-dialog has been converted to Typescript. Typescript consumers will now get
     static type safety. Flow types are no longer provided. No API or behavioural changes.
 
 ## 11.0.1
 
 - [patch][21854842b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21854842b5):
-
   - Clean couple of TODO's that were already done
 
 ## 11.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1361,7 +1355,6 @@
 ## 10.0.2
 
 - [patch][da6ef8b69a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/da6ef8b69a):
-
   - Using new z-index values from theme
 
 ## 10.0.1
@@ -1381,7 +1374,6 @@
 ## 10.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1492,7 +1484,6 @@
 ## 9.0.9
 
 - [patch][d296df8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d296df8" d):
-
   - Inline-dialog now has useCapture: true for the outside click event listeners to avoid closing
     when clicking on child content that might disappear, such as a select or dropdown-menu
 

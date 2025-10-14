@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 17.5.0
+
+### Minor Changes
+
+- [`1c7d57038910d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c7d57038910d) -
+  Adds react-ufo out of band concept, and prevents flags from impacting visual complete calculations
+
 ## 17.4.4
 
 ### Patch Changes
@@ -952,7 +959,6 @@
   well as including fallbacks for non-token environments.
 
   Other changes include:
-
   - Flag shadow is now the same across normal and bold flags and has been made consistent with
     overlay shadows in other components.
   - Dismiss button is better aligned within the Flag and has a more consistent hit target.
@@ -1359,7 +1365,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 
   In `13.0.0` we bring significant performance improvements as well as improving the experience of
   using flag.
-
   - Flag no longer has a `peerDependency` on `styled-components@3`. Internally flag is now using
     `@emotion/core` for styling
   - Change Flag and FlagGroup to use our standardized and performant `@atlaskit/motion` instead of
@@ -1509,7 +1514,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 
   Fixes flag icon being slightly off center.- Updated dependencies
   [0603860c07](https://bitbucket.org/atlassian/atlassian-frontend/commits/0603860c07):
-
   - @atlaskit/icon@20.0.2
 
 ## 12.3.7
@@ -1520,7 +1524,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1736,12 +1739,10 @@ _WRONG RELEASE TYPE - DON'T USE_
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1790,7 +1791,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1887,7 +1887,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 12.0.3
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -1904,26 +1903,22 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 12.0.1
 
 - [patch][cdba81d4f2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cdba81d4f2):
-
   - export the correct types so typescript usage works correctly
 
 ## 12.0.0
 
 - [major][238b65171f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/238b65171f):
-
   - @atlaskit/flag has been converted to Typescript. Typescript consumers will now get static type
     safety. Flow types are no longer provided. No API or behavioural changes.
 
 ## 11.0.1
 
 - [patch][dccab11ef4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dccab11ef4):
-
   - Fixed incorrect flag appearing after dismiss a previous one
 
 ## 11.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1960,7 +1955,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 10.0.4
 
 - [patch][23672bbd2d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/23672bbd2d):
-
   - Improvement: Align the flag actions with title and text for normal appearance flags
 
 ## 10.0.3
@@ -1972,7 +1966,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 10.0.2
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 10.0.1
@@ -1991,7 +1984,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 10.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages

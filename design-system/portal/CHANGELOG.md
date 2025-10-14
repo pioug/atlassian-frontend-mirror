@@ -564,7 +564,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/button@13.3.7
@@ -708,7 +707,6 @@ It is broken for ie11 if you are not polyfilling the `new Event` constructor
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -777,14 +775,12 @@ It is broken for ie11 if you are not polyfilling the `new Event` constructor
 ## 3.0.1
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
 ## 3.0.0
 
 - [major][dacfb81ca1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dacfb81ca1):
-
   - @atlaskit/portal has been converted to Typescript. Typescript consumers will now get static type
     safety. Flow types are no longer provided. No API or behavioural changes.
 
@@ -803,14 +799,12 @@ It is broken for ie11 if you are not polyfilling the `new Event` constructor
 ## 2.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 1.0.0
 
 - [major][5b6b4d6a0f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5b6b4d6a0f):
-
   - This major release indicates that this package is no longer under dev preview but is ready for
     use
 
@@ -830,14 +824,12 @@ It is broken for ie11 if you are not polyfilling the `new Event` constructor
 ## 0.3.0
 
 - [minor][ce4e1b4780](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ce4e1b4780):
-
   - zIndex prop now accepts string and number values. Portal consumers can now use css values like
     "unset" if needed.
 
 ## 0.2.2
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 0.2.1
@@ -856,7 +848,6 @@ It is broken for ie11 if you are not polyfilling the `new Event` constructor
 ## 0.2.0
 
 - [minor][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -901,7 +892,6 @@ It is broken for ie11 if you are not polyfilling the `new Event` constructor
 ## 0.1.0
 
 - [minor][27cacd44ab](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/27cacd44ab):
-
   - Components inside Portal render after portal container element is attached to the DOM
 
 ## 0.0.18
@@ -956,13 +946,11 @@ It is broken for ie11 if you are not polyfilling the `new Event` constructor
 ## 0.0.14
 
 - [patch][1fb2c2a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1fb2c2a):
-
   - Fixed issue where tooltips and modals would initially render in the wrong location
 
 ## 0.0.13
 
 - [patch][3f5a4dd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f5a4dd):
-
   - Replaces our own check for dom in ssr with exenv package
 
 ## 0.0.12

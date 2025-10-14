@@ -736,7 +736,6 @@
   Box no longer supports usage as an anchor tag (`<a>`). Use
   [the Anchor primitive](https://atlassian.design/components/primitives/anchor/examples) instead,
   which is more specialized. This has benefits including:
-
   - Built-in event tracking support
   - Default text underlines
   - Automatic router link configuration from `@atlaskit/app-provider`
@@ -744,7 +743,6 @@
   - Warning screen-readers when links open in new windows
 
   **Migrating to Anchor**
-
   - First consider if another ADS link component such as `@atlaskit/link` is better suited rather
     than building a custom anchor.
   - Anchor has focus ring styles built-in, so remove existing styles including
@@ -836,7 +834,6 @@
   [`80c46fcb18957`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80c46fcb18957) -
   Increased type safety for `xcss`. In general, non-token values for the following properties are no
   longer allowed:
-
   - `margin`
   - `marginBlock`
   - `marginBlockEnd`
@@ -865,7 +862,6 @@
   ```
 
   A few additional non-token values are still accepted:
-
   - `margin`: `'0 auto'` | `'auto'` | `'0'`
   - `marginBlock`: `'auto'` | `'0'`
   - `marginBlockEnd`: `'auto'` | `'0'`
@@ -963,7 +959,6 @@
   Box no longer supports usage as a button. Use
   [the Pressable primitive](https://atlassian.design/components/primitives/pressable/examples)
   instead, which is more specialized and has built-in event tracking support.
-
   - Pressable has focus ring styles built-in, so remove existing styles including
     `@atlaskit/focus-ring`
   - Pressable has a default cursor (`cursor: pointer`) built-in, so existing styles can be removed.
@@ -1080,7 +1075,6 @@
 - [#110975](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110975)
   [`c462a22b33940`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c462a22b33940) -
   Removed type hinting for size values in the following properties in XCSS:
-
   - blockSize
   - height
   - inlineSize
@@ -1127,7 +1121,6 @@
 - [#108387](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108387)
   [`0f3b7b4c63c6d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0f3b7b4c63c6d) -
   `xcss`: Restrict valid chained pseudo-selectors a limited subset:
-
   - `:visited:active`
   - `:active:visited`
   - `:hover::before`
@@ -1353,7 +1346,6 @@
   `"small"`, `"medium"` (default), and `"large"`.
 
   Migration guide:
-
   - `variant="body.small"` -> `size="small"`
   - `variant="body"` -> `size="medium"` (Note: Since medium is the default, the size prop can be
     omitted here)
@@ -1797,7 +1789,6 @@
 - [#39412](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39412)
   [`c2e55a9b782`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2e55a9b782) - Adds
   surface detection support to the Box primitive:
-
   - Enable a `Box` background colour to be set to the `utility.elevation.surface.current` token.
   - Internally set the current surface CSS variable value when the background color of a Box is set
     to a surface token (e.g. `elevation.surface.raised`).
@@ -2052,7 +2043,6 @@
   without writing a dozen lines for just one `display: none` css rule.
 
   Additionally:
-
   - Adds some further examples, tests, and VRs.
   - Tweaks some internals around building these reusable media query maps.
 
@@ -2331,12 +2321,10 @@
 - [#32296](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32296)
   [`4d19bdd2218`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d19bdd2218) -
   **Inline**:
-
   - `space` prop now accepts values in the form `space.XXX`. For example: `space="space.100"`.
   - `rowSpace` prop now accepts values in the form `space.XXX`. For example: `rowSpace="space.100"`.
 
   **Stack**:
-
   - `space` prop now accepts values in the form `space.XXX`. For example: `space="space.100"`.
 
 ## 0.7.1
@@ -2353,7 +2341,6 @@
 
 - [#31841](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31841)
   [`7e17a8b8934`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e17a8b8934) - Box:
-
   - Add xcss prop to enable token powered styling.
 
 ## 0.6.0

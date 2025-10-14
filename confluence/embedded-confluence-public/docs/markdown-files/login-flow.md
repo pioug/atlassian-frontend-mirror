@@ -79,7 +79,6 @@ then the login page. Here is an overview of when these events are triggered:
 
 1. EP will send `embedded-confluence/storage-access` experience tracker `taskStart` event when Allow
    Access page is displayed.
-
    - `embedded-confluence/storage-access` `taskSuccess` event is sent when storage access is
      granted.
 
@@ -90,7 +89,6 @@ then the login page. Here is an overview of when these events are triggered:
 
 2. EP will send `embedded-confluence/login-page` experience tracker `taskStart` event when Login
    page is displayed.
-
    - `embedded-confluence/login-page` `taskSuccess` event is sent when user is logged in and click
      on `Finish and refresh` button.
 

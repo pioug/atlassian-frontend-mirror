@@ -33,6 +33,10 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 			[createAnalyticsEvent],
 		);
 
+		/**
+		 * @TODO replace with `getAgentCreator` from `@atlassian/rovo-agent-components`
+		 * @deprecated use `getAgentCreator` from `@atlassian/rovo-agent-components`
+		 */
 		const getCreator = async ({
 			creator_type,
 			creator,

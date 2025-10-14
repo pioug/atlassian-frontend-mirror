@@ -1056,7 +1056,6 @@
 - [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090)
   [`caa68aad0fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caa68aad0fd) - Internal
   changes around styles:
-
   - Application of primitives for more declarative code
   - Application of spacing tokens to internal styles
 
@@ -1329,7 +1328,6 @@
 - [#10255](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10255)
   [`4e72825fa89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e72825fa89) -
   JET-1156:
-
   - Export `VAR_SEPARATOR_COLOR` to override separator color when using custom backrounds in side
     navigation.
   - Export `VAR_SCROLL_INDICATOR_COLOR` to override menu scroll indicator color when using custom
@@ -1661,11 +1659,9 @@
 - [minor][7ecbf8d0bd](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ecbf8d0bd):
 
   **Breaking:**
-
   - SideNavigation now has a required `label` prop.
 
   **Accessibility Changes**
-
   - SideNavigation now has a `navigation` landmark for use with screen readers; this landmark is
     further described by the `label` prop to differentiate it from AtlassianNavigation-
     [minor][1fea6757c4](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fea6757c4):
@@ -1804,7 +1800,6 @@
 - [minor][e1416630ed](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1416630ed):
 
   **BREAKING**: Renamed exported components
-
   - Renamed `MainSection` to `NavigationContent`
   - Renamed `NestingTransitionProvider` to `NestableNavigationContent`
   - `NestableNavigationContent` does not need to be wrapped by a `MainSection`
@@ -1812,7 +1807,6 @@
   - Renamed `Footer` to `NavigationFooter`
 
   Improve behaviour of scrollabe sections:
-
   - Fixes a bug where different views shared the same scrollable section causing unexpected jumps on
     some unnesting interactions
   - `ScrollableSection` now shows an overflow indicator when items are scrolled off the top border
@@ -1820,7 +1814,6 @@
     [minor][d752f27427](https://bitbucket.org/atlassian/atlassian-frontend/commits/d752f27427):
 
   API changes and design changes for side-navigation
-
   - **BREAKING**: `SectionHeader` has been renamed to `SectionHeading`
   - `SIDEBAR_DEFAULT_WIDTH` has been exported
   - `Item` has been removed and replaced with `CustomItem`, `ButtonItem`, `LinkItem` which are thin
@@ -1838,21 +1831,18 @@
   **BREAKING**: `id` prop is now required on NestingItems
 
   The back button in nested views can now be customised
-
   - By default an English `Go Back` button will be shown
   - Use `renderDefaultBackButton` on the `NestableNavigationContent` to set a new default
   - Use `renderBackButton` on each `NestingItem` to specifically set a back trigger for exiting the
     view it controls
 
   The link form of nested views can now be customised
-
   - Use `customItemComponent` to pass in a functional/class component that adds extra behaviour
     around the link (see @atlaskit/menu for examples on how to configure CustomItems)
 
 ### Patch Changes
 
 - [patch][babae63a7b](https://bitbucket.org/atlassian/atlassian-frontend/commits/babae63a7b):
-
   - Refactors nested navigation implementation
   - Now selects `NestingItem` & `GoBackItem` when it is exiting
   - Fixes double clicking a `NestingItem` and `GoBackItem` resulting in an unwanted double
@@ -1881,7 +1871,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/icon@20.0.1
   - @atlaskit/menu@0.2.6
@@ -1896,13 +1885,11 @@
 
   `NestingItem` now has an extra prop `isInitiallyOpen` that allows the side-navigation to initially
   render a particular nested view
-
   - To select a particular sidebar view to be rendered initially the `isInitiallyOpen` prop must be
     set on all parent `NestingItem`s in the navigation tree-
     [patch][a806cde423](https://bitbucket.org/atlassian/atlassian-frontend/commits/a806cde423):
 
   Iterative updates to side-navigation:
-
   - Go Back link in nested views now sticks to the top of the scrollable area
   - Removed broken css styles
   - Implemented sliding transitions rather than fades- Updated dependencies

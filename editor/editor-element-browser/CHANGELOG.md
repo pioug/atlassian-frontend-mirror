@@ -1,5 +1,13 @@
 # @atlaskit/editor-element-browser
 
+## 4.0.2
+
+### Patch Changes
+
+- [`e55075670711e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e55075670711e) -
+  Renamed Atlassian Intelligence in the element browser menu to Rovo
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes
@@ -94,7 +102,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.

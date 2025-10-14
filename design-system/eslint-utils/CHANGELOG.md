@@ -151,7 +151,6 @@
 - [#87213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87213)
   [`466850a02a17`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/466850a02a17) -
   Introduced the following entrypoints:
-
   - `allowed-function-calls`
   - `find-identifier-node`
   - `find-variable`

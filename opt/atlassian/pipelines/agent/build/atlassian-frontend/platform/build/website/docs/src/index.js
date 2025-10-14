@@ -1,5 +1,6 @@
 export { md } from './markdown';
 export { default as code } from './code';
+export { Disclosure } from './Disclosure';
 export { Example } from './example';
 export { default as Props, PropsTable } from './Props';
 export { replaceSrc } from './replace-src';

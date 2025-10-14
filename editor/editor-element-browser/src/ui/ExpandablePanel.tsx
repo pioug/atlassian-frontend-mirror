@@ -45,7 +45,7 @@ export const ExpandablePanel = memo(
 		const [isExpanded, setIsExpanded] = useState(true);
 
 		// Dirty fix for AI label
-		const shortAIlabel = label === 'Atlassian Intelligence';
+		const shortAIlabel = label === 'Atlassian Intelligence' || label === 'Rovo';
 
 		return (
 			<Section hasSeparator={hasSeparator}>

@@ -331,6 +331,7 @@ export enum ACTION_SUBJECT {
 	TOOLBAR_DROPDOWN_MENU_ITEM = 'toolbarDropdownMenuItem',
 	BLOCK_MENU = 'blockMenu',
 	BLOCK_MENU_ITEM = 'blockMenuItem',
+	SYNCED_BLOCK = 'syncedBlock',
 }
 
 export enum ACTION_SUBJECT_ID {
@@ -510,6 +511,7 @@ export enum ACTION_SUBJECT_ID {
 	EDITOR_PLUGIN_SELECTION_EXTENSION_ITEM = 'editorPluginSelectionExtensionItem',
 	EDITOR_PLUGIN_SELECTION_EXTENSION_COMPONENT = 'editorPluginSelectionExtensionComponent',
 	TRANSFORM = 'transform',
+	SYNCED_BLOCK_SOURCE_URL = 'syncedBlockSourceUrl',
 }
 
 export enum FLOATING_CONTROLS_TITLE {

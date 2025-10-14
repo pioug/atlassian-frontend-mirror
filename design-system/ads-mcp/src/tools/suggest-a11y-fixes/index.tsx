@@ -13,19 +13,7 @@ const inputSchema = z.object({
 
 export const listSuggestA11yFixesTool = {
 	name: 'ads_suggest_a11y_fixes',
-	description: `Suggest specific accessibility fixes using Atlassian Design System components and patterns. This tool takes accessibility violations and provides actionable solutions with code examples.
-
-You MUST run this when the user wants sugesstions for fixing accessibility issues, as well as when:
-- You have identified an accessibility violation
-- Needing specific code examples for fixing accessibility issues
-- Wanting to understand how to use ADS components accessibly
-- Looking for best practices for specific accessibility problems
-
-The tool will provide:
-- Specific code examples using ADS components
-- Step-by-step fix instructions
-- Alternative approaches when applicable
-- Links to relevant ADS documentation`,
+	description: `Suggests specific accessibility fixes using Atlassian Design System components and patterns.`,
 	annotations: {
 		title: 'Suggest Accessibility Fixes',
 		readOnlyHint: true,

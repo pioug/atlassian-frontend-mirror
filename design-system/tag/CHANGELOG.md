@@ -488,7 +488,6 @@
 - [#96758](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96758)
   [`97190f5196c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/97190f5196c8) -
   `RemovableTag` remove buttons now use the `Pressable` primitive.
-
   - Button focus outlines are no longer negatively inset
   - `overflow: hidden` was removed from base tag styles to prevent button focus outlines being
     cropped. No known impacts are expected from this change
@@ -777,7 +776,6 @@
 - [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618)
   [`53588b7628f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53588b7628f) - [ux]
   Color updates
-
   - Link tag color background + text updates: hovered and pressed states. Now using accent tokens
   - Removable tag background, text, and remove button color updates: hovered and pressed states. Now
     using "danger" token color (red) on hover
@@ -1011,7 +1009,6 @@
   structure is reduced too.
 
   #### Other changes
-
   - Renamed `removeButtonText` to `removeButtonLabel` as it's used as `aria-label`
   - Added `isRemovable` prop to `RemovableTag` so you can conditionally allow removal
 
@@ -1104,7 +1101,6 @@
 - [minor][55b726b9af](https://bitbucket.org/atlassian/atlassian-frontend/commits/55b726b9af):
 
   Various accessibility improvements:
-
   - Clicking on an element that is not clickable will no longer activate a focus ring
   - Non-clickable tags no longer have focus / hover states
   - Links can be directly navigated to and clicked via native browser behavior
@@ -1124,7 +1120,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1154,7 +1149,6 @@
 
   Removed comment- Updated dependencies
   [d2b8166208](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2b8166208):
-
   - @atlaskit/docs@8.3.0
 
 ## 9.0.10
@@ -1285,12 +1279,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1371,20 +1363,17 @@
 ## 8.0.1
 
 - [patch][21854842b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21854842b5):
-
   - Clean couple of TODO's that were already done
 
 ## 8.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 7.0.3
 
 - [patch][ef0875bb53](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ef0875bb53):
-
   - Fixed size of tag remove icon
 
 ## 7.0.2
@@ -1400,13 +1389,11 @@
 ## 7.0.1
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 7.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1487,7 +1474,6 @@
 ## 6.1.0
 
 - [minor][925de1a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/925de1a):
-
   - Export `AppearanceType` flow type
 
 ## 6.0.9

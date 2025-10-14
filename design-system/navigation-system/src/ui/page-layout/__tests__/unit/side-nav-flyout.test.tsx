@@ -225,12 +225,17 @@ describe('side nav flyout', () => {
 			render(
 				<Root>
 					<TopNav>
-						<TopNavStart testId="top-nav-start">
-							<SideNavToggleButton
-								collapseLabel="Collapse sidebar"
-								expandLabel="Expand sidebar"
-								defaultCollapsed
-							/>
+						<TopNavStart
+							testId="top-nav-start"
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
 						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
@@ -254,12 +259,16 @@ describe('side nav flyout', () => {
 			render(
 				<Root>
 					<TopNav>
-						<TopNavStart testId="top-nav-start">
-							<SideNavToggleButton
-								collapseLabel="Collapse sidebar"
-								expandLabel="Expand sidebar"
-								defaultCollapsed
-							/>
+						<TopNavStart
+							testId="top-nav-start"
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
 							<button type="button">App switcher</button>
 						</TopNavStart>
 					</TopNav>
@@ -711,12 +720,17 @@ describe('side nav flyout', () => {
 				return (
 					<Root>
 						<TopNav>
-							<TopNavStart testId="top-nav-start">
-								<SideNavToggleButton
-									collapseLabel="Collapse sidebar"
-									expandLabel="Expand sidebar"
-									defaultCollapsed
-								/>
+							<TopNavStart
+								testId="top-nav-start"
+								sideNavToggleButton={
+									<SideNavToggleButton
+										collapseLabel="Collapse sidebar"
+										expandLabel="Expand sidebar"
+										defaultCollapsed
+									/>
+								}
+							>
+								{null}
 							</TopNavStart>
 						</TopNav>
 						<SideNav defaultCollapsed testId="sidenav">
@@ -766,12 +780,17 @@ describe('side nav flyout', () => {
 				return (
 					<Root>
 						<TopNav>
-							<TopNavStart testId="top-nav-start">
-								<SideNavToggleButton
-									collapseLabel="Collapse sidebar"
-									expandLabel="Expand sidebar"
-									defaultCollapsed
-								/>
+							<TopNavStart
+								testId="top-nav-start"
+								sideNavToggleButton={
+									<SideNavToggleButton
+										collapseLabel="Collapse sidebar"
+										expandLabel="Expand sidebar"
+										defaultCollapsed
+									/>
+								}
+							>
+								{null}
 							</TopNavStart>
 						</TopNav>
 						<SideNav defaultCollapsed testId="sidenav">

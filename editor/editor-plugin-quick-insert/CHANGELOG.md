@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 6.0.4
+
+### Patch Changes
+
+- [`c2c833b3cdb28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2c833b3cdb28) -
+  ENGHEALTH-32567: add browse label to the ElementBrowser modal to give an accessible name
+- Updated dependencies
+
 ## 6.0.3
 
 ### Patch Changes
@@ -157,7 +165,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.

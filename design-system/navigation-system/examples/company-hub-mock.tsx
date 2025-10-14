@@ -112,7 +112,7 @@ export function CompanyHubMockExample({ defaultPanelWidth = 440 }: { defaultPane
 		<WithResponsiveViewport>
 			<Root testId="root" defaultSideNavCollapsed>
 				<TopNav>
-					<TopNavStart>
+					<TopNavStart sideNavToggleButton={null}>
 						<AppSwitcher label="Switch apps" />
 						<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
 					</TopNavStart>

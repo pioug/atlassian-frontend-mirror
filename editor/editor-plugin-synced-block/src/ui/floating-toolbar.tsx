@@ -68,12 +68,13 @@ export const getToolbarConfig = (
 		const editSourceButton: FloatingToolbarItem<Command> = {
 			id: 'editor.syncedBlock.editSource',
 			type: 'button',
+			disabled: !syncBlockStore.getSyncBlockURL(syncBlockObject.node.attrs.resourceId),
 			appearance: 'subtle',
 			icon: LinkExternalIcon,
 			title: formatMessage(messages.editSourceLabel),
 			showTitle: true,
 			tooltipContent: formatMessage(messages.editSourceTooltip),
-			onClick: editSyncedBlockSource(api),
+			onClick: editSyncedBlockSource(syncBlockStore, api),
 			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 		};
 		items.push(editSourceButton);

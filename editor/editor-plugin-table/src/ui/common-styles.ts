@@ -474,8 +474,6 @@ export const baseTableStyles = (props: {
 		box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter', N40A)};
 
 		margin-left: -1px;
-		${expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant2') &&
-		`border-right: 1px solid ${token('elevation.surface')};`}
 
 		&.no-pointer-events {
 			pointer-events: none;

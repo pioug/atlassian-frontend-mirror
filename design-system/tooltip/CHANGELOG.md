@@ -995,7 +995,6 @@
   [`d36905cfe9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d36905cfe9) - Fixed
   incorrect function signature for onShow and onHide props, and added improved typing for these
   props.
-
   - **old:** analyticsEvent was the first argument
   - **change:** analyticsEvent became the second argument unintentionally (bug introduced 17.0.0)
   - **now:** restoring old behavior, analyticsEvent as the first argument
@@ -1045,7 +1044,6 @@
 - [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424)
   [`83586f015e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83586f015e) - Tooltip
   has been refactored to improve performance and be compliant with the lite-mode specification.
-
   - Removed `react-transition-group` in favor of `@atlaskit/motion` to reduce bundle size
   - Removed `react-node-resolver` because of its use of `React.findDOMNode` which has been marked as
     deprecated by the React team (more below...)
@@ -1203,7 +1201,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1413,12 +1410,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1518,7 +1513,6 @@
 ### Major Changes
 
 - [major][67f06f58dd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/67f06f58dd):
-
   - @atlaskit/tooltip has been converted to Typescript. Typescript consumers will now get static
     type safety. Flow types are no longer provided. No API or behavioural changes.
 
@@ -1534,7 +1528,6 @@
 ## 14.0.2
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -1547,7 +1540,6 @@
 ## 14.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1603,7 +1595,6 @@
 ## 13.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1648,7 +1639,6 @@
 ## 12.1.17
 
 - [patch][c4edb3ab4d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c4edb3ab4d):
-
   - Move tooltip to render popper in portal to maintain ref that Popper needs to initially position
     the tooltip
 
@@ -1670,7 +1660,6 @@
 ## 12.1.14
 
 - [patch][8f179c4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8f179c4):
-
   - Remove scroll listener in componentWillMount in Tooltip to fix potential memory leak from
     'close' tooltip not properly unmounting when hiding Examples modal via the X button
 
@@ -1726,7 +1715,6 @@
 ## 12.1.7
 
 - [patch][3b03f52](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3b03f52):
-
   - Use @atlaskit/popper internally instead of a custom approach to position management
 
 ## 12.1.6

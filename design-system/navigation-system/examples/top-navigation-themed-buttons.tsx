@@ -37,8 +37,11 @@ export default function TopNavigationThemedButtonsExample() {
 						text-decoration: underline;
 					}
 				`}</style>
-				<TopNavStart>
-					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					}
+				>
 					<AppSwitcher label="App switcher" />
 					<AppLogo
 						href="http://www.atlassian.design"

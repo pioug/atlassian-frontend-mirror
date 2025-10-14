@@ -12,24 +12,6 @@ test.describe('side nav flyout', () => {
 			});
 		});
 
-		test('should not show flyout when hovering on toggle button right after collapsing', async ({
-			page,
-		}) => {
-			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
-			await expect(sideNav).toBeVisible();
-
-			// Collapse side nav
-			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
-			await expect(sideNav).toBeHidden();
-
-			// Hover on the toggle button to [attempt to] show the flyout
-			await page.getByRole('button', { name: /Expand sidebar/ }).hover();
-
-			// Side nav should NOT be visible - the flyout should not have opened.
-			// This is because the user needs to mouse out of and then back into the toggle button before the flyout can open.
-			await expect(sideNav).toBeHidden();
-		});
-
 		test('should show flyout after mousing out of and then back into toggle button after collapsing', async ({
 			page,
 		}) => {

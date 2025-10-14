@@ -833,7 +833,6 @@
   they can no longer be used with the removal of `theme`.
 
   ### Other changes
-
   - Previously all interaction styles were generated in JavaScript using events, causing unnecessary
     and slow re-renders for actions like hovering and focusing. Now all styles for the `TextField`
     are applied using CSS selectors.
@@ -844,7 +843,6 @@
 
   There is a codemod that assists you in upgrading most of the changes from above. However, a manual
   step is still required to override styles via data attributes.
-
   - Removes `theme` and `overrides` prop.
   - Removes imports of `ThemeProps`, `ThemeTokens` and `Theme`.
 
@@ -1050,7 +1048,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1193,7 +1190,6 @@
 ### Major Changes
 
 - [major][84887b940c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/84887b940c):
-
   - Converting from flow to typescript 🎉
   - Correctly typing the current prop spreading onto the internal `<input>` element
   - Removing `isHovered` and `isFocused` from public API as they previously did not do anything
@@ -1245,21 +1241,18 @@
 ## 2.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 1.0.0
 
 - [major][6cdf11238d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6cdf11238d):
-
   - This major release indicates that this package is no longer under dev preview but is ready for
     use
 
 ## 0.4.5
 
 - [patch][7157a95389](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7157a95389):
-
   - Internal changes only. Textfield is compatible with SSR.
 
 ## 0.4.4
@@ -1288,19 +1281,16 @@
 ## 0.4.2
 
 - [patch][a28eb04426](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a28eb04426):
-
   - Migrates package from emotion 9 to emotion 10. No behaviour or API changes.
 
 ## 0.4.1
 
 - [patch][e0797c2937](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e0797c2937):
-
   - Support object refs e.g. React.createRef()
 
 ## 0.4.0
 
 - [minor][8eff47cacb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8eff47cacb):
-
   - Allow element before and/or after input
 
 ## 0.3.1
@@ -1316,7 +1306,6 @@
 ## 0.3.0
 
 - [minor][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1361,7 +1350,6 @@
 ## 0.2.0
 
 - [minor][e9b824bf86](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e9b824bf86):
-
   - **Breaking**: Changes to the `theme` prop. The type of this prop remains as
     `(ThemeTokens, ThemeProps) => ThemeTokens`.
     - The shape of `ThemeTokens` has changed. `container` and `input` keys are now required. The
@@ -1398,13 +1386,11 @@
 ## 0.1.6
 
 - [patch][3d8322bd71](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3d8322bd71):
-
   - Trival refactor: update a variable name
 
 ## 0.1.5
 
 - [patch][2e5dd50](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2e5dd50):
-
   - Update validation example to be compatible with the new Forms API
 
 - Updated dependencies [647a46f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/647a46f):
@@ -1422,13 +1408,11 @@
 ## 0.1.3
 
 - [patch][63f969d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/63f969d):
-
   - Fixed height of compact textfields to correctly be 32px instead of 28px
 
 ## 0.1.2
 
 - [patch][480a57c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/480a57c):
-
   - Convert to use new theme API.
 
 ## 0.1.1
@@ -1443,6 +1427,5 @@
 ## 0.1.0
 
 - [minor][62109bd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/62109bd):
-
   - Refactor of field-text to remove field-base and normalise along api patterns established in
     other form components.

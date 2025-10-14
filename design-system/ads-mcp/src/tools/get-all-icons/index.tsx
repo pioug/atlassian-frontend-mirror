@@ -1,6 +1,7 @@
-import { coreIconMetadata } from '@atlaskit/icon/metadata';
+import { z } from 'zod';
+import { zodToJsonSchema } from 'zod-to-json-schema';
 
-import { emptyInputSchema } from '../../schema';
+import { coreIconMetadata } from '@atlaskit/icon/metadata';
 
 const icons = Object.entries(coreIconMetadata).map(([_key, icon]) => ({
 	componentName: icon.componentName,
@@ -15,28 +16,16 @@ const icons = Object.entries(coreIconMetadata).map(([_key, icon]) => ({
 
 export const listGetAllIconsTool = {
 	name: 'ads_get_all_icons',
-	description: `You SHOULD call this when you need complete guidance on what icons to use, but you SHOULD use the \`ads_search_icons\` tool to find specific icons instead.
-These are the only icons to be used in modern code, though other legacy icons may still be found, these are not to be used by you, but you can keep them if you see them in existing code.
-The resulting icon name and package is often like this:
-\`\`\`tsx
-import AddIcon from '@atlaskit/icon/core/add';
-
-// Usage in isolation
-<AddIcon label="Add" />
-
-// Usage with a button
-import Button from '@atlaskit/button/new';
-<Button iconAfter={AddIcon}>Create</Button>
-\`\`\`
-`,
+	description:
+		"Fetch all Atlassian Design System icons. Only use when `ads_search_icons` does not return what you're looking for.",
 	annotations: {
-		title: 'Get ADS icons',
+		title: 'Get all ADS icons',
 		readOnlyHint: true,
 		destructiveHint: false,
 		idempotentHint: true,
 		openWorldHint: true,
 	},
-	inputSchema: emptyInputSchema,
+	inputSchema: zodToJsonSchema(z.object({})),
 };
 
 export const getAllIconsTool = async () => ({

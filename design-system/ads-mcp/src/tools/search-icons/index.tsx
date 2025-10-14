@@ -10,17 +10,21 @@ import { cleanQuery } from '../../helpers';
 const inputSchema = z.object({
 	terms: z
 		.array(z.string())
-		.describe('Search term(s) to find icons by name, keywords, or categorization'),
+		.describe(
+			'An array of search terms to find icons by name, keywords, or categorization, eg. `["search", "folder", "user"]`',
+		),
 	limit: z
 		.number()
 		.optional()
 		.default(1)
-		.describe('Maximum number of results per term to return (default: 1)'),
+		.describe('Maximum number of results per search term in the array (default: 1)'),
 	exactName: z
 		.boolean()
 		.optional()
 		.default(false)
-		.describe('Whether to search for exact match only for the icon name'),
+		.describe(
+			'Enable to explicitly search icons by the exact name match (when you know the name, but need more details)',
+		),
 });
 
 const icons = Object.entries(coreIconMetadata)
@@ -40,30 +44,13 @@ type Icon = (typeof icons)[number];
 
 export const listSearchIconsTool = {
 	name: 'ads_search_icons',
-	description: `You SHOULD Search for Atlassian Design System icons based on multiple query strings (if there's multiple candidates of icon names, categorization or keywords, you SHOULD pass them in a single call). You SHOULD use default \`limit\` value of 1 first and only set a higher limit like 5 or 10 if you can't find the icon you need). Fallback to \`ads_get_all_icons\` if nothing is found). This tool searches through component names, icon names, keywords, categorization, type and usage to find the most relevant design icons.
+	description: `Search for Atlassian Design System icons.
 
-	The search will match against:
-	- Icon component names (e.g., "AddIcon", "DeleteIcon", "EditIcon")
-	- Icon keywords (descriptive terms associated with icons)
-	- Icon categorization (e.g., "single-purpose", "multi-purpose", "utility")
-	- Icon usage descriptions (usage guidelines for the icon)
-
-	The results include the icon's component name, package path, and usage guidelines.
-
-	Usage pattern for found icons:
-	\`\`\`tsx
-	import AddIcon from '@atlaskit/icon/core/add';
-
-	// Usage in isolation
-	<AddIcon label="Add" size="small" />
-
-	// Usage with a button
-	import Button from '@atlaskit/button/new';
-	<Button iconAfter={AddIcon}>Create</Button>
-	\`\`\`
-
-	You SHOULD check proper usage (props, example usage, etc.) of the icon component using \`ads_search_components\` tool.
-	`,
+Example icon usage:
+\`\`\`tsx
+import AddIcon from '@atlaskit/icon/core/add';
+<AddIcon label="Add work item" size="small" />
+\`\`\``,
 	annotations: {
 		title: 'Search ADS icons',
 		readOnlyHint: true,

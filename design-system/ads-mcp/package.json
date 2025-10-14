@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ads-mcp",
-	"version": "0.6.5",
+	"version": "0.7.0",
 	"description": "The official Atlassian Design System MCP server to develop apps and user interfaces matching the Atlassian style.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,6 +40,7 @@
 		"@babel/runtime": "root:*",
 		"@modelcontextprotocol/sdk": "root:*",
 		"axe-core": "root:*",
+		"esbuild-register": "root:*",
 		"fuse.js": "root:*",
 		"jsdom": "root:*",
 		"playwright": "root:*",

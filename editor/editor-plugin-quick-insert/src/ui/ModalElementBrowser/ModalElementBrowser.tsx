@@ -128,11 +128,16 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 		],
 	);
 
+	const label = fg('platform_editor_fix_browse_modal_header')
+		? intl.formatMessage(messages.browse)
+		: undefined;
+
 	return (
 		<div data-editor-popup={true}>
 			<ModalTransition>
 				{props.isOpen && (
 					<Modal
+						label={label}
 						testId="element-browser-modal-dialog"
 						stackIndex={0}
 						key="element-browser-modal"

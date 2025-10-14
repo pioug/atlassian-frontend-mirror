@@ -22,10 +22,8 @@ function.
 
 - `navigate`: (Optional) Function that 3rd parties provides. This allow 3rd parties to customize the
   navigation for URL. Through the `navigate`, 3rd parties will have access to:
-
   - `url`: The URL that navigation is targeting on.
   - `modifiers`: An object contains modifiers that 3rd parties may be interested.
-
     - `target`: `'_self' | '_blank'` - specify if the navigation should stay within the same window:
       `_self`, or should open a new tab: `_blank`.
     - `contentId`: `string | undefined` - the id of content from Confluence perspective parsed from
@@ -46,7 +44,6 @@ function.
 
 - `shimUrl`: (Optional) If provided, any URL that navigates to Confluence app will be converted to
   the URL of the 3rd party. <br>
-
   - Example: If 3rd party tenant is `https://domain1.com/` and it is linked to Confluence Cloud,
     here is a table explains how this link `https://domain1.com/wiki/a/b/c` would be converted based
     on different `shimUrl` values:
@@ -66,7 +63,6 @@ function.
 
 - `spaceKeyFilter`: (Optional) A list of connected space keys for which URLs should be should be
   shimmed. <br>
-
   - Example: If 3rd party tenant is `https://domain1.com/`, the `shimUrl` value is
     `https://domain1.com/xyz`, and the `spaceKeyFilter` list contained `XXX` as a connected space
     key, here is what would happen two different URLs in Embedded Confluence:

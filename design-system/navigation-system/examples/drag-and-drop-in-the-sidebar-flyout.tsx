@@ -48,10 +48,10 @@ const dropTargetStyles = cssMap({
 		borderWidth: token('border.width'),
 		borderStyle: 'dashed',
 		borderColor: token('color.border.accent.purple'),
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 		borderRadius: token('radius.small'),
 	},
 	isOver: {
@@ -116,13 +116,16 @@ export default function SidebarExample() {
 		<WithResponsiveViewport>
 			<Root>
 				<TopNav>
-					<TopNavStart>
-						<SideNavToggleButton
-							testId="side-nav-toggle-button"
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton
+								testId="side-nav-toggle-button"
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed
+							/>
+						}
+					>
 						<AppSwitcher label="Switch apps" />
 						<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
 					</TopNavStart>

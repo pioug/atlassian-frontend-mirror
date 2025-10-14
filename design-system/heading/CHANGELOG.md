@@ -617,7 +617,6 @@
   production. The major is to simplify consumption and versioning in product.
 
   Other changes:
-
   - Introduction of a `HeadingContext` provider to aid with creating the right semantic structure
     for headings.
   - Migrated internals to use `@compiled/react` from `@emotion/react`.

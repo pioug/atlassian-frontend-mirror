@@ -838,7 +838,6 @@ tokens.
   package in downstream dependencies is correctly resolved.
 
   This update also includes changes to the way the `Text` component behaves with `Box`:
-
   - Text will now remove redundant DOM elements if it detects that it is already in the context of a
     `Text` element. This will only occur if the Text element that is a candidate for removal does
     not apply any custom property.

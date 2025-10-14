@@ -700,7 +700,6 @@
 - [#120669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120669)
   [`9e1c531090ea4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e1c531090ea4) -
   Removed these deprecated props for overriding icon sizes:
-
   - `UNSAFE_size`
   - `UNSAFE_iconBefore_size`
   - `UNSAFE_iconAfter_size`
@@ -825,7 +824,6 @@
   [`d7af9e23536c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d7af9e23536c0) -
   New button prevents unintended spread props being passed to children. The following props will now
   be ignored:
-
   - css
   - style
   - as
@@ -1994,7 +1992,6 @@ import { SplitButton } from '@atlaskit/button/new';
   `testId` to control `data-testid`
 
   We have:
-
   - Improved the types of button so that if you pass in `data-testid` or `data-has-overlay` you will
     get a type warning
   - Added a _codemod_ to shift over any usages of `data-testid` to `testId` on any of our buttons
@@ -2379,7 +2376,6 @@ content. This approach had a number of shortcomings.
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -2527,12 +2523,10 @@ content. This approach had a number of shortcomings.
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -2589,7 +2583,6 @@ content. This approach had a number of shortcomings.
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -2681,7 +2674,6 @@ content. This approach had a number of shortcomings.
 ## 13.0.5
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -2695,7 +2687,6 @@ content. This approach had a number of shortcomings.
 ## 13.0.3
 
 - [patch][2a2d2060ae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2a2d2060ae):
-
   - Fixing invalid style for isLoading button
 
 ## 13.0.2
@@ -2709,13 +2700,11 @@ content. This approach had a number of shortcomings.
 ## 13.0.1
 
 - [patch][754f83b6f0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/754f83b6f0):
-
   - Makes dependency on @atlaskit/spinner a caret version. No API or behaviour changes.
 
 ## 13.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -2730,19 +2719,16 @@ content. This approach had a number of shortcomings.
 ## 12.0.6
 
 - [patch][e0e3fabf8e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e0e3fabf8e):
-
   - Change button to use theme's multiple entry points. This should reduce the bundle size of button
 
 ## 12.0.5
 
 - [patch][d3cad2622e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d3cad2622e):
-
   - Removes babel-runtime in favour of @babel/runtime
 
 ## 12.0.4
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 12.0.3
@@ -2759,7 +2745,6 @@ content. This approach had a number of shortcomings.
 ## 12.0.2
 
 - [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
-
   - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
     supplied from itself.
 
@@ -2774,7 +2759,6 @@ content. This approach had a number of shortcomings.
 - [major][1e826b2966](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e826b2966):
 
   **Highlights**
-
   - **New theming API** - Button now supports the new Atlaskit theming API, which allows for
     powerful custom theming of Buttons and its internal components.
   - **Speed improvements** - Button has been re-written from the ground up - on heavy-load
@@ -2783,7 +2767,6 @@ content. This approach had a number of shortcomings.
     Emotion across all Atlaskit components.
 
   **Breaking Changes:**
-
   - The old theming API is no longer supported.
   - Styling a Button using Styled Components is no longer supported.
   - Button exports a Theme to use as context instead of using Styled Components' ThemeProvider.
@@ -2795,31 +2778,26 @@ content. This approach had a number of shortcomings.
 ## 11.0.11
 
 - [patch][f8d92ffc5e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f8d92ffc5e):
-
   - Revert the change to consume entry points from theme
 
 ## 11.0.10
 
 - [patch][5e3ad7f751](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5e3ad7f751):
-
   - Importing theme components from the root theme package instead of the theme build file
 
 ## 11.0.9
 
 - [patch][872b3b905a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/872b3b905a):
-
   - Updates theme to the version which exposes multiple entry points
 
 ## 11.0.8
 
 - [patch][22ce87801e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/22ce87801e):
-
   - Optimised usages of theme in button using multiple entry points
 
 ## 11.0.7
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 11.0.6
@@ -2831,7 +2809,6 @@ content. This approach had a number of shortcomings.
 ## 11.0.5
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 11.0.4
@@ -2843,25 +2820,21 @@ content. This approach had a number of shortcomings.
 ## 11.0.3
 
 - [patch][59d4ab031b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/59d4ab031b):
-
   - Call mouse handlers (e.g. onMouseDown) which are passed in as props
 
 ## 11.0.2
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 11.0.1
 
 - [patch][90a14be594](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/90a14be594):
-
   - Fix broken type-helpers
 
 ## 11.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 10.1.3
@@ -2898,7 +2871,6 @@ content. This approach had a number of shortcomings.
 ## 10.1.0
 
 - [minor][36929ef](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/36929ef):
-
   - Add reset as it is listed as a valid type for button and is useful when building forms
 
 ## 10.0.4
@@ -2914,7 +2886,6 @@ content. This approach had a number of shortcomings.
 ## 10.0.3
 
 - [patch][76a8f1c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76a8f1c):
-
   - Convert @atlaskit/textarea to Typescript
     - Dist paths have changed, if you are importing by exact file path you will need to update your
       imports `import '@atlaskit/button/dist/es5/components/ButtonGroup'`
@@ -2923,7 +2894,6 @@ content. This approach had a number of shortcomings.
 ## 10.0.2
 
 - [patch][8f89287](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8f89287):
-
   - Add tslib to dependencies to stop load breaking when it's not there
 
 ## 10.0.1
@@ -2936,7 +2906,6 @@ content. This approach had a number of shortcomings.
 ## 10.0.0
 
 - [major][6998f11](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6998f11):
-
   - Converted @atlaskit/button to Typescript
     - Dist paths have changed, if you are importing by exact file path you will need to update your
       imports

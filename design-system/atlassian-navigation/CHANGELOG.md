@@ -1399,7 +1399,6 @@
   This has now been split up into two separate rules:
 
   `ensure-design-token-usage` now covers:
-
   - `legacyElevation` — warns about old usages of the elevation mixins or styles, which instead
     should use the `card` or `overlay` tokens.
   - `hardCodedColor` — warns about use of hard-coded colors such as `color: colors.B100`, which
@@ -1407,7 +1406,6 @@
     codebases when first adopting tokens.
 
   `no-unsafe-design-token-usage` (new) covers the remaining rules:
-
   - `directTokenUsage` — warns against using the CSS Custom Property name that is output in the
     browser by the `token()` call. Eg. directly using `var(--ds-accent-subtleBlue)` is bad.
   - `staticToken` — warns when tokens aren't used inline. Inlining the token usages helps with
@@ -1741,7 +1739,6 @@
 ### Patch Changes
 
 - [patch][37edda3e89](https://bitbucket.org/atlassian/atlassian-frontend/commits/37edda3e89):
-
   - Fixes isHighlighted styles for SkeletonPrimaryButton without a dropdown
   - Updates hover, active and focus styles for all the skeletons
   - Supports children prop for SkeletonPrimaryButton so it has the same API as PrimaryButton
@@ -1764,7 +1761,6 @@
 - [minor][6e2dda87f4](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e2dda87f4):
 
   **Breaking Change:**
-
   - **Search component:**:
     - Added a required `label` prop
     - Renamed `text` prop to `placeholder` for clarity
@@ -1772,7 +1768,6 @@
     - Added a required `label` prop
 
   **Accessibility Changes**
-
   - Search now has a `search` landmark, further described by a `label` prop on the text field
   - AtlassianNavigation now has a `navigation` landmark for use with screen readers; this landmark
     is further described by the `label` prop to differentiate it from side-navigation
@@ -1834,7 +1829,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1897,7 +1891,6 @@
 ### Patch Changes
 
 - [patch][6c8c859801](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c8c859801):
-
   - Add `openOverflowMenu` and `closeOverflowMenu` to `useOverflowStatus`.
   - Add testIDs to the overflow menu and trigger.
 
@@ -1909,7 +1902,6 @@
 
   Bump @atlaskit/popup to get closeManager fixes- Updated dependencies
   [eb1ecc219a](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb1ecc219a):
-
   - @atlaskit/popup@0.2.7
 
 ## 0.9.0
@@ -2019,7 +2011,6 @@
 
   Misc UI changes- Updated dependencies
   [d0415ae306](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d0415ae306):
-
   - @atlaskit/popup@0.2.4
 
 ## 0.6.6
@@ -2059,7 +2050,6 @@
 ### Patch Changes
 
 - [patch][02d05ff668](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/02d05ff668):
-
   - Fix types for the tooltip prop to allow React components.
   - Introduce `buttonTooltip` and `iconButtonTooltip` to configure tooltip for create button.
 
@@ -2079,13 +2069,11 @@
 - [minor][355e7ca2ea](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/355e7ca2ea):
 
   Breaking changes from previous version:
-
   - Rename siteName to siteTitle to match what it is called in the products
   - Rename isSelected prop to isHighlighted to avoid confusion with the CSS states of the button,
     which is also exposed as a prop to Button
 
   Other visual changes:
-
   - Primary buttons in the nav with dropdowns stay highlighted when the drop down is open.
   - Fix active state in FF
   - Gradients for Atlassian products works correctly

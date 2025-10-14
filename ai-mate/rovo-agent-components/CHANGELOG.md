@@ -1,5 +1,26 @@
 # @atlaskit/rovo-agent-components
 
+## 3.9.0
+
+### Minor Changes
+
+- [`7cdfbaea2c495`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cdfbaea2c495) -
+  Create AgentCreatorDataComponent for relay component for AgentCreator, share between viewAgent and
+  agentProfile; Above implies that creator logic now purely relying on GraphQL endpoint, before it
+  was mix of GQL and REST;
+
+  Consolidate creator product logic to atlaskit/rovo-agent-components to reduce duplication;
+
+  Undo some relay changes added behind agent_studio_permissions_settings_m3_profiles, left the old
+  component how it was before, and move relay into the new component;
+
+  Remove the usage of useAtlasURL, instead generate home URL with just `cloudId` without the orgId;
+
+  Fix forge author to use forgeCreator from graphql
+
+  See
+  https://hello.atlassian.net/wiki/spaces/agents/pages/5926999212/Consolidating+Agent+creator+component
+
 ## 3.8.1
 
 ### Patch Changes

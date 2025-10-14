@@ -63,12 +63,17 @@ export const messages = defineMessages({
 	},
 	AI: {
 		id: 'fabric.editor.elementbrowser.categorylist.category-ai',
-		defaultMessage: 'Atlassian Intelligence',
+		defaultMessage: 'Rovo',
 		description: 'AI',
 	},
 	featuredWhiteboardDescription: {
 		id: 'fabric.editor.elementbrowser.featured.whiteboard.description',
 		defaultMessage: 'Use a whiteboard to add visuals to your page',
 		description: 'Displayed as the description for a featured whiteboard insert action',
+	},
+	browse: {
+		id: 'fabric.editor.elementbrowser.sidebar.heading',
+		defaultMessage: 'Browse',
+		description: 'Sidebar heading',
 	},
 });

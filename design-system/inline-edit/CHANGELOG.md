@@ -1031,7 +1031,6 @@
 - [#9749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9749)
   [`d65547e28ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d65547e28ba) - Fixed a
   few UI defects:
-
   - reset line-height to 1 for inline edit container
   - fixed action buttons background color issue
 
@@ -1062,7 +1061,6 @@
 - [#8728](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8728)
   [`0e9764f7384`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e9764f7384) - Added
   codemod-utils as a package dependency, also fixed a few codemod functions
-
   - elevate `InlineEditStateless` as default component as we have merged stateful and stateless
   - make sure named import works for `InlineEditableTextfield`
 
@@ -1082,7 +1080,6 @@
   [`b9987e84f3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9987e84f3f) - In this
   version we bring significant performance improvements as well as improving the experience of using
   `inline-edit`.
-
   - removed dynamic loading of inline dialog allowing consumers to compose their own experiences
   - merged controlled & uncontrolled inline edit components
   - split `InlineEditableTextfield` to its own entry-point
@@ -1161,7 +1158,6 @@
   General conversion for inline-edit
 
   There is no breaking change in this conversion, only some mechanical changes applied:
-
   - replaced `styled-components` to `emotion`
   - converted class component to function component
   - restructured the folder
@@ -1378,7 +1374,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1534,12 +1529,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1603,7 +1596,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1696,7 +1688,6 @@
 ## 10.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1713,19 +1704,16 @@
 ## 9.0.4
 
 - [patch][458331c958](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/458331c958):
-
   - Added index.ts to .npmignore to prevent jest tests resolving that instead of index.js
 
 ## 9.0.3
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 9.0.2
 
 - [patch][074c382946](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/074c382946):
-
   - Add isRequired prop, remove duplicate defaultProps in code (internal change only) and add
     padding to examples on website to prevent unnecessary scrollbar
 
@@ -1747,7 +1735,6 @@
 ## 9.0.0
 
 - [major][71e2d2cb3c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/71e2d2cb3c):
-
   - **Breaking:** this version is a major overhaul of the package. Check out the
     [upgrade guide in the Atlaskit website](https://atlaskit.atlassian.com/packages/core/inline-edit/docs/upgrade-guide)
     for more information.
@@ -1796,7 +1783,6 @@
 ## 8.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1905,7 +1891,6 @@
 ## 7.1.3
 
 - [patch][a637f5e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a637f5e):
-
   - Refine and fix some flow type errors found by fixing @atlaskit/analytics-next HOCs to allow flow
     to type check properly
 

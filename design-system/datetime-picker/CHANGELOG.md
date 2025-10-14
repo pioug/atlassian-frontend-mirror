@@ -628,7 +628,6 @@
   These two props that were removed on 14.0.0 and no longer impacted the functionality of the
   `DateTimePicker` were misrepresented in the type interface as options and have been fully removed
   now.
-
   - `timeIsEditable`
   - `times`
 
@@ -1759,14 +1758,12 @@
 
   Three props were added to `@atlaskit/calendar` and `@atlaskit/datetime-picker` to make disabling
   dates more practical, performant and expressive:
-
   - `minDate` for the minimum valid date
   - `maxDate` for the maximum valid date
   - `disabledDateFilter`, a function that takes a date string, and returns whether or not it should
     be disabled.
 
   #### Bugs
-
   - DatePicker: Disabled dates that lie outside of the currently selected month now have correct
     hover styles
 
@@ -1855,7 +1852,6 @@
   injected package name and version for analytics instead of version.json.
 - [`c20be966f07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c20be966f07) -
   **Internal change**
-
   - Change `@atlaskit/calendar` ref type import name from `CalendarInternalRef` to `CalendarRef`.
   - Change prop name which is being passed to `@atlaskit/calendar` from `internalRef` to
     `calendarRef`.
@@ -1869,7 +1865,6 @@
 - [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762)
   [`9c020a0e05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c020a0e05f) - Replaced
   `@atlaskit/calendar` exported types to access its `navigate()` api
-
   - Replaced `CalendarClassType` & `ArrowKeys` types with `CalendarInternalRef` type.
   - Also replaced `ref` prop with `internalRef` prop for accessing `navigate()` api.
 
@@ -2166,7 +2161,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -2240,7 +2234,6 @@
   Make PopupSelect correctly pass props. Forcing update of @atlaskit/select for all other packages-
   Updated dependencies
   [3a20e9a596](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3a20e9a596):
-
   - @atlaskit/select@11.0.2
   - @atlaskit/locale@1.0.3
 
@@ -2309,7 +2302,6 @@
 - [minor][e3d466543f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e3d466543f):
 
   Add locale support for Calendar/DateTimePicker/DatePicker/TimePicker:
-
   - New prop `locale` enables localization for date/time format in `DatePicker`, `TimePicker` and
     `DateTimePicker`, and months/days in `Calendar`.
   - Deprecated `dateFormat`, `timeFormat` and `formatDisplayLabel` props. Please use `locale`
@@ -2454,19 +2446,16 @@
 ## 8.0.2
 
 - [patch][06819642ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06819642ba):
-
   - Internal refactor and clean up
 
 ## 8.0.1
 
 - [patch][21854842b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21854842b5):
-
   - Clean couple of TODO's that were already done
 
 ## 8.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -2511,7 +2500,6 @@
 ## 7.0.2
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 7.0.1
@@ -2533,7 +2521,6 @@
 ## 7.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -2585,25 +2572,21 @@
 ## 6.5.0
 
 - [minor][a48dddb43c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a48dddb43c):
-
   - onChange will only be fired when a complete datetime is supplied by the user
 
 ## 6.4.2
 
 - [patch][0cd7f505b3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0cd7f505b3):
-
   - Iso date parsing on IE11 and Edge is now consistent with other browsers
 
 ## 6.4.1
 
 - [patch][348d3aed19](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/348d3aed19):
-
   - Datepicker will now reset the focused date on the calendar every time it is opened
 
 ## 6.4.0
 
 - [minor][52827feffb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/52827feffb):
-
   - onChange is now called only when the user selects or clears a value. The date passed to onChange
     will always be a valid date
 
@@ -2623,28 +2606,23 @@
 ## 6.3.24
 
 - [patch][55e0a3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/55e0a3a):
-
   - Fixes keyboard entry bug
 
 - [patch][075dfa2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/075dfa2):
-
   - Allowing control of input value in datetime-picker
 
 ## 6.3.23
 
 - [patch][4c4bdc5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4c4bdc5):
-
   - AK-5672 - Refactor parseTime by separating logic and concerns into smaller, testable functions.
     Fixes meridiem issues.
 
 - [patch][58a40bf](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/58a40bf):
-
   - Factoring in meridiem for 24hr time in editable
 
 ## 6.3.22
 
 - [patch][5c548ea](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5c548ea):
-
   - Removing extraneous wrapping span around icons which was causing an accessibility error
 
 ## 6.3.21
@@ -2707,7 +2685,6 @@
 ## 6.3.17
 
 - [patch][b332c91](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b332c91):
-
   - upgrades verison of react-scrolllock to SSR safe version
 
 ## 6.3.16

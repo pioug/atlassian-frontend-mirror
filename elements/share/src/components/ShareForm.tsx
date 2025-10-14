@@ -442,7 +442,9 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 								</div>
 							</Tab>
 						))}
-						{additionalTabs?.map((tab) => <Tab key={`share-tab-${tab.label}`}>{tab.label}</Tab>)}
+						{additionalTabs?.map((tab) => (
+							<Tab key={`share-tab-${tab.label}`}>{tab.label}</Tab>
+						))}
 					</TabList>
 					<TabPanel key={`share-tabPanel-default`}>
 						<div css={formWrapperStyles}>

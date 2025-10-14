@@ -1722,7 +1722,6 @@
   Allowing benefits modal buttons to stack vertically rather than overflow the modal when buttons
   contain lengthy text.- Updated dependencies
   [0603860c07](https://bitbucket.org/atlassian/atlassian-frontend/commits/0603860c07):
-
   - @atlaskit/icon@20.0.2
 
 ## 9.0.9
@@ -1733,7 +1732,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1792,7 +1790,6 @@
 
   Fixes spotlight target not updating its position when resizing the viewport.- Updated dependencies
   [768bac6d81](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/768bac6d81):
-
   - @atlaskit/analytics-next@6.3.2
 
 ## 9.0.5
@@ -1967,14 +1964,12 @@
 ## 8.0.3
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
 ## 8.0.2
 
 - [patch][c3ab82ed42](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c3ab82ed42):
-
   - Bump react-focus-lock to latest 1.19.1, it will fix a bug with document.activeElement
 
 - Updated dependencies
@@ -1988,13 +1983,11 @@
 ## 8.0.1
 
 - [patch][21854842b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21854842b5):
-
   - Clean couple of TODO's that were already done
 
 ## 8.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -2058,7 +2051,6 @@
 ## 7.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -2103,13 +2095,11 @@
 ## 6.2.0
 
 - [minor][eb81a2de65](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/eb81a2de65):
-
   - Spotlight footer and header props will now only accept React components
 
 ## 6.1.17
 
 - [patch][d669123bbd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d669123bbd):
-
   - Enable auto focus by rendering components only after the portal has been attached to DOM.
 
 - Updated dependencies
@@ -2130,7 +2120,6 @@
 ## 6.1.15
 
 - [patch][6855bec](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6855bec):
-
   - Updated internal use of ModalDialog to use new composition API
 
 ## 6.1.14
@@ -2149,13 +2138,11 @@
 ## 6.1.13
 
 - [patch][e59562a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e59562a):
-
   - Fix for visual bug in SpotlightCard component
 
 ## 6.1.12
 
 - [patch][d13242d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13242d):
-
   - Change API to experimental theming API to namespace component themes into separate contexts and
     make theming simpler. Update all dependant components.
 
@@ -2184,11 +2171,9 @@
 ## 6.1.9
 
 - [patch][e151c1a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e151c1a):
-
   - Removes dependency on @atlaskit/layer-manager
 
   As of component versions:
-
   - \`@atlaskit/modal-dialog@7.0.0\`
   - \`@atlaskit/tooltip@12.0.2\`
   - \`@atlaskit/flag@9.0.6\`
@@ -2213,26 +2198,22 @@
 ## 6.1.6
 
 - [patch][a637f5e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a637f5e):
-
   - Refine and fix some flow type errors found by fixing @atlaskit/analytics-next HOCs to allow flow
     to type check properly
 
 ## 6.1.5
 
 - [patch][b332c91](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b332c91):
-
   - upgrades verison of react-scrolllock to SSR safe version
 
 ## 6.1.4
 
 - [patch][9f91ea0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9f91ea0):
-
   - Adds visual regression test for ie11
 
 ## 6.1.3
 
 - [patch][4872a19](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4872a19):
-
   - actions prop officially accepts Node type for text. Adds optional key to action type.
 
   Previously if you were using the actions prop like:
@@ -2274,13 +2255,11 @@
 ## 6.1.2
 
 - [patch][2482922](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2482922" d):
-
   - Remove unecessary alt text for modal image to avoid redundancy for screenreaders
 
 ## 6.1.1
 
 - [patch][0c7a57d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0c7a57d" d):
-
   - Fixes layering of blanket and spotlight components in IE11 and Edge
 
 ## 6.1.0

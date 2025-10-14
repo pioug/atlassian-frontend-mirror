@@ -10,7 +10,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `arrow-end`
   - `arrow-start`
   - `dash-double`
@@ -25,7 +24,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `assets-data-manager`
   - `assets-graph`
 
@@ -43,7 +41,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `assets-object-type`
   - `assets-object`
   - `blast-radius`
@@ -69,7 +66,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `ai-generative-text`
   - `assets-schema`
   - `template`
@@ -88,7 +84,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `merge-queue`
   - `missed-call`
   - `text-density-compress`
@@ -131,7 +126,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `arrow-curved-down-left`
   - `arrow-curved-down-right`
   - `arrow-curved-left-down`
@@ -152,7 +146,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `reply-left`
   - `reply-right`
 
@@ -171,7 +164,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `atom`
   - `diagram-symbol-display`
   - `diagram-symbol-manual-operation`
@@ -186,7 +178,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `rovo`
   - `rss-feed`
 
@@ -214,7 +205,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `chart-area`
   - `chart-bar-line`
   - `chart-box-plot`
@@ -237,7 +227,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `boolean`
 
 ## 5.1.0
@@ -251,7 +240,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `ai-generative-audio-briefing`
   - `teamwork-graph`
 
@@ -278,7 +266,6 @@
   ### Removed:
 
   **`@atlaskit/icon-lab/core`**
-
   - `hand-clenched`
   - `hand`
   - `recur`
@@ -319,7 +306,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `incognito`
   - `milestone-complete`
   - `shape-triangle-inverted`
@@ -328,7 +314,6 @@
   ### Deprecated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `hand`
 
 ## 4.18.0
@@ -342,7 +327,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `diagram-symbol-action`
   - `diagram-symbol-alternate-process`
   - `diagram-symbol-collate`
@@ -380,7 +364,6 @@
   ### Deprecated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `hand-clenched`
   - `shape-comment-left`
   - `shape-comment-right`
@@ -413,7 +396,6 @@
   ### Deprecated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `space`
 
 ### Patch Changes
@@ -431,7 +413,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `compare`
   - `generative-date`
   - `generative-indicator`
@@ -456,7 +437,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `initiative`
   - `space`
   - `speedometer-up`
@@ -477,7 +457,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `spaces`
 
 ## 4.13.0
@@ -509,7 +488,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `hand-clenched`
   - `shape-comment-left`
   - `shape-comment-right`
@@ -538,7 +516,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `book-open`
   - `cloud-saved`
   - `speedometer-up`
@@ -558,7 +535,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `hourglass`
   - `text-subscript`
   - `text-superscript`
@@ -578,7 +554,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `ai-generative-cleanup`
   - `atom`
   - `bluetooth`
@@ -600,7 +575,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `layout-three-columns-sidebars-left`
   - `layout-three-columns-sidebars-right`
   - `studio`
@@ -621,7 +595,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `cloud-offline`
   - `colour-none`
   - `cursor-strikethrough`
@@ -639,7 +612,6 @@
   ### Deprecated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `recur`
   - `speedometer`
 
@@ -658,7 +630,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `page-live-doc`
 
 ## 4.6.0
@@ -672,7 +643,6 @@
   ### Added:
 
   **`@atlaskit/icon/core`**
-
   - `ai-generative-chapters`
   - `ai-generative-remove`
   - `ai-generative-remove-silence`
@@ -750,7 +720,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `calculate`
   - `colour-none`
   - `sort-options`
@@ -773,7 +742,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `arrows-diagonal-up-right-down-left`
   - `assets-graph`
   - `image-alt-text`
@@ -810,7 +778,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `colour-none`
   - `distribute-spacing-horizontal`
   - `distribute-spacing-vertical`
@@ -837,7 +804,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `tidy`
 
 ## 4.2.1
@@ -860,7 +826,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `dock-toolbar-top`
 
 ## 4.1.0
@@ -872,7 +837,6 @@
   [ux] This release adds icons in `@atlaskit/icon-lab`.
 
   **`@atlaskit/icon-lab/core`**
-
   - `calculate`
   - `sort-options`
 
@@ -881,7 +845,6 @@
   This release adds icons in `@atlaskit/icon-lab`.
 
   **`@atlaskit/icon-lab/core`**
-
   - `view-type-board-home`
   - `view-type-card-home`
   - `view-type-table-home`
@@ -910,7 +873,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `beach-umbrella`
   - `gift`
   - `party-popper`
@@ -936,7 +898,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `queue-pop-in`
   - `queue-pop-out`
 
@@ -951,7 +912,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `continue-when`
   - `split-parallel`
   - `switch-case`
@@ -968,7 +928,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `if-else`
   - `webhook`
 
@@ -983,14 +942,12 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `divider-element`
   - `expand-element`
 
   ### Updated:
 
   **`@atlaskit/icon/core`**
-
   - `cloud-offline`
   - `cloud-saved`
   - `cursor-strikethrough`
@@ -1030,7 +987,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `cloud-offline`
   - `cloud-saved`
   - `cursor-strikethrough`
@@ -1083,7 +1039,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `align-content-bottom`
   - `align-content-center-horizontal`
   - `align-content-center-vertical`
@@ -1127,7 +1082,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `cloud-offline`
   - `cloud-saved`
   - `database-storage-cache`
@@ -1147,13 +1101,11 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `page-live-doc`: Updated usage guidance
 
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `cloud-offline`
   - `cloud-saved`
   - `database-storage-cache`
@@ -1195,7 +1147,6 @@
   [ux] This release adds icons in `@atlaskit/icon-lab`.
 
   **`@atlaskit/icon-lab/core`**
-
   - `page-live-doc`
 
 ## 2.1.1
@@ -1215,7 +1166,6 @@
   This release updates icons in `@atlaskit/icon-lab`.
 
   **`@atlaskit/icon-lab/core`**
-
   - 'initiative'
   - 'qr-code'
 
@@ -1233,7 +1183,6 @@
   to UNSAFE types and entrypoints being renamed in the `@atlaskit/icon` package.
 
   ### Renamed entrypoints:
-
   - `@atlaskit/icon-lab/UNSAFE_migration-map` → `@atlaskit/icon-lab/migration-map`
 
 ### Patch Changes
@@ -1251,7 +1200,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `assets-data-manager`
   - `assets-schema`
   - `initiative`
@@ -1260,7 +1208,6 @@
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `vulnerability`
 
 ### Patch Changes
@@ -1309,19 +1256,16 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `book-open`
   - `lozenge`
   - `vulnerability`
 
   ### Renamed:
-
   - `status → lozenge`
 
   ### Removed entrypoints:
 
   **`@atlaskit/icon-lab/core`**
-
   - `highlight`
 
 ### Patch Changes
@@ -1338,20 +1282,17 @@
 - [#140548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140548)
   [`c66b92f724af1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c66b92f724af1) - ###
   Summary:
-
   - Fixes issue where icons with arrows sometimes rendered incorrectly.
   - Adds `status` icon.
 
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `status`
 
   ### Updated:
 
   **`@atlaskit/icon-lab/core`**
-
   - `highlight`: now feature smaller icon with room for a color indicator underneath.
   - Icons containing arrows have corrected paths
 
@@ -1373,7 +1314,6 @@
   ### Added:
 
   **`@atlaskit/icon-lab/core`**
-
   - `coins`
   - `cross-octagon`
   - `editions`
@@ -1391,13 +1331,11 @@
   ### Renamed:
 
   **`@atlaskit/icon-lab/core`**
-
   - `roadmaps-code → roadmaps-plan`
 
   ### Removed entrypoints:
 
   **`@atlaskit/icon-lab/core`**
-
   - `flag-filled`
   - `headphones`
   - `library`

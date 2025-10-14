@@ -29,6 +29,9 @@
 			"path": "../../editor-json-transformer/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-block-menu/afm-jira/tsconfig.json"
 		},
 		{

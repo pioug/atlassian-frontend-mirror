@@ -169,8 +169,8 @@ const tableSharedStyle = () => {
 
 			${expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant2') &&
 			`
-				border-left: 0;
-				border-right: 0;
+				border-left-color: transparent;
+				border-right-color: transparent;
 			`}
 			table-layout: fixed;
 			font-size: 1em;

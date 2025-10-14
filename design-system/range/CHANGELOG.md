@@ -424,7 +424,6 @@
 - [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860)
   [`78741dd1644`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78741dd1644) - [ux]
   Breaking visual changes to range to afford better contrast:
-
   - The scrubber now applies the same color as the foreground
   - The disabled state has been altered; it's now a consistently applied opacity state overlay
     across the whole element
@@ -704,7 +703,6 @@
   In `4.0.0` we bring significant performance improvements all for just the cost of 1 breaking
   change 😮. That's not all folks because this update comes with a 🤑 FREE 🤑 codemod for you to
   upgrade with.
-
   - Range no longer has a `peerDependency` on `styled-components@3`. Internally range is now using
     `@emotion/core` for styling
   - A performance issue made the range noticeably laggy with large ranges. With this change we are
@@ -727,7 +725,6 @@
   ```
 
   #### Notes
-
   - You first need to upgrade to `4.0.0` **before** you run the codemod cli. This is because the cli
     will look in your local `node_modules` for the codemod which is published inside the `spinner`
     package.
@@ -763,7 +760,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/checkbox@10.1.7
@@ -891,21 +887,18 @@
 ## 2.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 1.0.0
 
 - [major][546b636a36](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/546b636a36):
-
   - This major release indicates that this package is no longer under dev preview but is ready for
     use
 
 ## 0.2.2
 
 - [patch][1f2a181b0f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1f2a181b0f):
-
   - onChange is no longer overridden by spread props. As a result this component should now work in
     uncontrolled mode
 
@@ -921,7 +914,6 @@
 ## 0.2.0
 
 - [minor][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -966,7 +958,6 @@
 ## 0.1.3
 
 - [patch][aab267bb3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aab267bb3a):
-
   - Added test to make sure the props are passed down to hidden input
 
 ## 0.1.2
@@ -980,12 +971,10 @@
 ## 0.1.1
 
 - [patch][d13242d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13242d):
-
   - Change API to experimental theming API to namespace component themes into separate contexts and
     make theming simpler. Update all dependant components.
 
 ## 0.1.0
 
 - [minor][8945a58](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8945a58):
-
   - Initial release

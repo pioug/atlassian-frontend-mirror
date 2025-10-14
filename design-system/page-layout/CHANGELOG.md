@@ -871,7 +871,6 @@
 - [#32575](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32575)
   [`2a9f6f800ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a9f6f800ef) -
   **Fixes**
-
   - `onLeftSidebarExpand` is no longer called when the sidebar is already open.
     `onLeftSidebarExpand` oculd previously be incorrectly called if a user resized an expanded
     sidebar to slightly smaller than the default sidebar width, or when the user cancelled a sidebar
@@ -884,7 +883,6 @@
     closure)
 
   **Improvements**
-
   - no longer possible to trigger the collapse of the sidebar when it is already collapsed
   - no longer possible to trigger an expand of the sidebar when it is already expanded
   - triggering an expand while the sidebar is collapsing will now flush the pending
@@ -1607,12 +1605,10 @@
 - [minor][9015d5614a](https://bitbucket.org/atlassian/atlassian-frontend/commits/9015d5614a):
 
   **BREAKING**
-
   - Make `ResizeControl` composable. If it's not passed as a child to `LeftSidebar`, it will not be
     resizable.
 
   **NON-BREAKING**
-
   - Fix a bug with flyout behaviour in non-fixed mode. It no longer pushes body content to the side.
   - Fix a bug where `Main` couldn't handle wide content without breaking the layout.
   - Fixed the bug where expanding the LeftSidebar always set the width to 240px instead of users'
@@ -1626,7 +1622,6 @@
 
   Minor package.json config compliance updates- Updated dependencies
   [8c9e4f1ec6](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c9e4f1ec6):
-
   - @atlaskit/docs@8.5.0
 
 ## 0.0.3

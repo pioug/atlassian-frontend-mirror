@@ -1290,7 +1290,6 @@
 - [#86321](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86321)
   [`b353b26e22b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b353b26e22b6) -
   Improvements for `no-*-tagged-template-expression` rules:
-
   - Fixed a bug that could produce syntax errors when mixins were present in nested selectors.
   - Disabled autofixing styled components usages with mixins in nested selectors, as there is no
     general equivalent.
@@ -1334,7 +1333,6 @@
   functions will no longer be required to end with "Styles".
 
   [BREAKING] Some rule options have been changed:
-
   - `fixNamesOnly` and `autoFixNames` have been removed, as there is no longer an autofixer that
     enforces variable names.
     - If you use `fixNamesOnly: true`, we recommend switching to using `autoFix: false`.
@@ -1366,7 +1364,6 @@
 - [#80662](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80662)
   [`4833299b00d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4833299b00d4) -
   For `no-css-tagged-template-expression` and `no-styled-tagged-template-expression`:
-
   - When importing from Emotion, stop applying autofixer when the styles contain `!important`.
   - When importing from any library, stop applying autofixer when a selector contains a tagged
     template interpolation (previously only styled-components).
@@ -1551,7 +1548,6 @@
   [`ec187f466e23`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec187f466e23) -
   Update `consistent-css-prop-usage` to incorporate some updates previously made to the
   `@compiled/eslint-plugin` equivalent.
-
   1. Add autofixer to add the `css` function for the following scenario:
 
   ```
@@ -1563,17 +1559,14 @@
   `{ height: makeTaller ? '5px' : '2px' }`), or if there are spread elements, template literals, and
   other tricky-to-parse code. These continue to require fixing manually.
 
-  (This rule would previously only autofix if the file was originally `<div css={{ ... }} />`)
-
-  2. Add `import { css } from '@compiled/react'` (or `xcss`) automatically when fixing. The package
-     from which to import the `css` function can be specified through the `importSource` option.
-
-  3. Add `excludeReactComponents` to exclude linting React components (i.e. components that start
-     with uppercase). Sometimes it may not be desirable to have this rule apply to React components
-     (e.g. `@atlaskit/button`), which could either use the Emotion or Compiled APIs when they expose
-     a `css` prop. Passing a function from the wrong library can result in the styling erroneously
-     not being applied.
-
+  (This rule would previously only autofix if the file was originally `<div css={{ ... }} />`) 2.
+  Add `import { css } from '@compiled/react'` (or `xcss`) automatically when fixing. The package
+  from which to import the `css` function can be specified through the `importSource` option. 3. Add
+  `excludeReactComponents` to exclude linting React components (i.e. components that start with
+  uppercase). Sometimes it may not be desirable to have this rule apply to React components (e.g.
+  `@atlaskit/button`), which could either use the Emotion or Compiled APIs when they expose a `css`
+  prop. Passing a function from the wrong library can result in the styling erroneously not being
+  applied.
   4. Treat `{ ... } as const` statements the same way as `{ ... }` objects.
 
   5. Add `fixNamesOnly` to disable all autofixers _except_ the autofixer that adds `styles` to the
@@ -1592,7 +1585,6 @@
   Add some ESLint rules from Compiled CSS-in-JS, and adapt them for the UI Styling Standard.
 
   Rules added:
-
   - `no-empty-styled-expression`: ban `styled({})` usages
   - `no-exported-css` and `no-exported-keyframes`: ban `css` and `keyframes` function calls that are
     exported
@@ -1600,7 +1592,6 @@
     not valid
 
   Changes made:
-
   - Add them to monorepo, modify to use the existing utility functions
   - Add support for CSS-in-JS libraries other than Compiled (styled-components, Emotion,
     `@atlaskit/css`, etc.) and `xcss` where appropriate
@@ -1831,7 +1822,6 @@
   [`0004d49c240`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0004d49c240) - Adds a
   new argument `fallbackUsage` which replaces `shouldEnforceFallbacks`. This new argument is an enum
   which represents the three possible states this rule can be configured with.
-
   - `forced`: Fallbacks must always been in use
   - `none`: Fallbacks must never been in use. (Fixer will remove any value provided )
   - `optional`: (new) Fallbacks are optional
@@ -2181,7 +2171,6 @@
   This rule defaults to `error`.
 
   To update to this version:
-
   - If you are using the `ensure-design-token-usage` rule, add the `domains` property with a value
     of `['color']`:
 
@@ -2382,14 +2371,12 @@
 - [#32576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32576)
   [`b910bbe6130`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b910bbe6130) - The
   following rules are now included in the recommended preset as errors:
-
   - ensure-design-token-usage
   - no-deprecated-apis
   - no-deprecated-imports
   - no-unsafe-design-token-usage
 
   The following rules are now included in the recommended preset as warnings:
-
   - no-deprecated-design-token-usage
 
 ### Minor Changes
@@ -2886,7 +2873,6 @@
   as hardcoded color usage. This affected Styled Components and Emotion CSS prop syntaxes.
 
   These color types have been fixed:
-
   - rgb
   - rgba
   - hsl
@@ -2986,7 +2972,6 @@
   This has now been split up into two separate rules:
 
   `ensure-design-token-usage` now covers:
-
   - `legacyElevation` — warns about old usages of the elevation mixins or styles, which instead
     should use the `card` or `overlay` tokens.
   - `hardCodedColor` — warns about use of hard-coded colors such as `color: colors.B100`, which
@@ -2994,7 +2979,6 @@
     codebases when first adopting tokens.
 
   `no-unsafe-design-token-usage` (new) covers the remaining rules:
-
   - `directTokenUsage` — warns against using the CSS Custom Property name that is output in the
     browser by the `token()` call. Eg. directly using `var(--ds-accent-subtleBlue)` is bad.
   - `staticToken` — warns when tokens aren't used inline. Inlining the token usages helps with
@@ -3054,20 +3038,17 @@
 - [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319)
   [`b6a55ffa092`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6a55ffa092) -
   Introduces fixes for various edge-cases and false positives:
-
   - Objects that are not considered "style blocks" are now ignored. Style blocks are considered as
     objects assigned to variables with names containing either "style", "css", or "theme" and type
     annotations including "CSSProperties" or "CSSObject".
   - Hexadecimal colors using the `0x` notation are now ignored
 
   Increasing the linting surface-area:
-
   - Colors used in shorthand css property values will now be linted against. (ie
     `border: solid 1px red`)
   - Strings passed directly into JSX attributes (props) are now linted (ie `<Button color="red" />`)
 
   General improvements:
-
   - Color names will now only match against "whole" words. Meaning strings that inadvertently
     include color names like the "tan" in "standard" will no longer fail.
 
@@ -3144,11 +3125,9 @@
   removes & renames tokens
 
   Adds:
-
   - `color.backgroundSelect`
 
   Renames:
-
   - `color.borderTextHighlighted` to `color.bordertextSelected`
   - `elevation.base` to `evelation.backgroundDefault`
   - `elevation.flatSecondary` to `elevation.backgroundSunken`
@@ -3159,11 +3138,9 @@
   - `elevation.shadowOverlay` to `shadow.overlay`
 
   Removes:
-
   - `elevation.boarderFlatPrimary`
 
   Updates:
-
   - `elevation.shadowOverlay` value to `DN100`
   - `color.textWarning` in light mode to `O800`
   - `color.iconBorderWarning` in light mode to `O600`

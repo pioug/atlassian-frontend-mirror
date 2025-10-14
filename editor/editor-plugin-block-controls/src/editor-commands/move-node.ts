@@ -119,9 +119,8 @@ const nodesSupportDragLayoutColumnInto = [
 const isDragLayoutColumnIntoSupportedNodes = ($from: ResolvedPos, $to: ResolvedPos) => {
 	const isTopLevel = $to.depth === 0;
 	const isDragIntoNodes = nodesSupportDragLayoutColumnInto.includes($to.parent.type.name);
-	const supportedCondition = fg('platform_editor_drag_layout_column_into_nodes')
-		? isDragIntoNodes || isTopLevel
-		: isTopLevel;
+	const supportedCondition = isDragIntoNodes || isTopLevel;
+
 	return (
 		$from.nodeAfter?.type.name === 'layoutColumn' &&
 		$from.parent.type.name === 'layoutSection' &&

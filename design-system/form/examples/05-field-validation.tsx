@@ -61,71 +61,67 @@ export default () => {
 	return (
 		<Flex direction="column">
 			<Form onSubmit={handleSubmit}>
-				{({ formProps }) => (
-					<form {...formProps}>
-						<FormHeader title="Register and select a color">
-							<Text as="p" aria-hidden={true}>
-								Required fields are marked with an asterisk <RequiredAsterisk />
-							</Text>
-						</FormHeader>
-						<Field name="username" label="Username" defaultValue="" isRequired validate={validate}>
-							{({ fieldProps, error, valid }) => (
-								<Fragment>
-									<TextField {...fieldProps} autoComplete="username" />
-									<MessageWrapper>
-										{!error && !valid && (
-											<HelperMessage>Should be more than 4 characters</HelperMessage>
-										)}
-										{!error && valid && (
-											<ValidMessage>Nice one, this username is available.</ValidMessage>
-										)}
-										{error === 'TOO_SHORT' && (
-											<ErrorMessage>
-												Please enter a username that's longer than 4 characters.
-											</ErrorMessage>
-										)}
-										{error === 'IN_USE' && (
-											<ErrorMessage>
-												This username is already taken, please enter a different username.
-											</ErrorMessage>
-										)}
-									</MessageWrapper>
-								</Fragment>
-							)}
-						</Field>
-						<Field<ValueType<Option>>
-							name="colors"
-							label="Select a color"
-							defaultValue={null}
-							isRequired
-							validate={async (value) => {
-								if (value) {
-									return undefined;
-								}
+				<FormHeader title="Register and select a color">
+					<Text as="p" aria-hidden={true}>
+						Required fields are marked with an asterisk <RequiredAsterisk />
+					</Text>
+				</FormHeader>
+				<Field name="username" label="Username" defaultValue="" isRequired validate={validate}>
+					{({ fieldProps, error, valid }) => (
+						<Fragment>
+							<TextField {...fieldProps} autoComplete="username" />
+							<MessageWrapper>
+								{!error && !valid && (
+									<HelperMessage>Should be more than 4 characters</HelperMessage>
+								)}
+								{!error && valid && (
+									<ValidMessage>Nice one, this username is available.</ValidMessage>
+								)}
+								{error === 'TOO_SHORT' && (
+									<ErrorMessage>
+										Please enter a username that's longer than 4 characters.
+									</ErrorMessage>
+								)}
+								{error === 'IN_USE' && (
+									<ErrorMessage>
+										This username is already taken, please enter a different username.
+									</ErrorMessage>
+								)}
+							</MessageWrapper>
+						</Fragment>
+					)}
+				</Field>
+				<Field<ValueType<Option>>
+					name="colors"
+					label="Select a color"
+					defaultValue={null}
+					isRequired
+					validate={async (value) => {
+						if (value) {
+							return undefined;
+						}
 
-								return new Promise((resolve) => setTimeout(resolve, 300)).then(
-									() => 'Please select a color',
-								);
-							}}
-						>
-							{({ fieldProps: { id, ...rest }, error }) => (
-								<Fragment>
-									<Select<Option>
-										inputId={id}
-										{...rest}
-										options={colors}
-										isClearable
-										clearControlLabel="Clear color"
-									/>
-									<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-								</Fragment>
-							)}
-						</Field>
-						<FormFooter>
-							<Button type="submit">Next</Button>
-						</FormFooter>
-					</form>
-				)}
+						return new Promise((resolve) => setTimeout(resolve, 300)).then(
+							() => 'Please select a color',
+						);
+					}}
+				>
+					{({ fieldProps: { id, ...rest }, error }) => (
+						<Fragment>
+							<Select<Option>
+								inputId={id}
+								{...rest}
+								options={colors}
+								isClearable
+								clearControlLabel="Clear color"
+							/>
+							<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
+						</Fragment>
+					)}
+				</Field>
+				<FormFooter>
+					<Button type="submit">Next</Button>
+				</FormFooter>
 			</Form>
 		</Flex>
 	);

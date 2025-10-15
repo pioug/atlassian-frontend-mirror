@@ -456,4 +456,147 @@ describe('VCCalculator_FY25_03', () => {
 			});
 		});
 	});
+
+	describe('mutation:media entries with media-perf-uplift-mutation-fix feature flag', () => {
+		describe('when fg media-perf-uplift-mutation-fix is true', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(
+					(flag) =>
+						flag === 'media-perf-uplift-mutation-fix' ||
+						flag === 'platform_ufo_enable_media_for_ttvc_v3',
+				);
+			});
+
+			it('should exclude mutation:media entries with data-test-* attributes', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:media',
+						elementName: 'img',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'data-test-id',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
+			it('should exclude mutation:media entries with data-file-* attributes', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:media',
+						elementName: 'img',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'data-file-name',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
+			it('should exclude mutation:media entries with data-context-* attributes', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:media',
+						elementName: 'img',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'data-context-id',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
+			it('should exclude mutation:media entries with alt attribute', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:media',
+						elementName: 'img',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'alt',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
+			it('should include mutation:media entries with other attributes', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:media',
+						elementName: 'img',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'src',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+
+			it('should include mutation:media entries without attributeName', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:media',
+						elementName: 'img',
+						rect: new DOMRect(),
+						visible: true,
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+
+			it('should not affect non-mutation:media entries', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:element',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'data-test-id',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+		});
+
+		describe('when fg media-perf-uplift-mutation-fix is false', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation((flag) => flag === 'platform_ufo_enable_media_for_ttvc_v3');
+			});
+
+			it('should include mutation:media entries with data-test-* attributes', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:media',
+						elementName: 'img',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'data-test-id',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+
+			it('should include mutation:media entries with alt attribute', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:media',
+						elementName: 'img',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'alt',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+		});
+	});
 });

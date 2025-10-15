@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.2.12
+
+### Patch Changes
+
+- [`5e7e734485a98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e7e734485a98) -
+  upgrade browser util api
+- Updated dependencies
+
+## 7.2.11
+
+### Patch Changes
+
+- [`606c3303a0d61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/606c3303a0d61) -
+  [ux] ED-29331 fix block controls misalignment on first line of empty document with
+  platform_editor_native_anchor_support on
+- Updated dependencies
+
 ## 7.2.10
 
 ### Patch Changes

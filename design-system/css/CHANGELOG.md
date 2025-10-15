@@ -1,5 +1,13 @@
 # @atlaskit/css
 
+## 0.15.1
+
+### Patch Changes
+
+- [`75ba0401c1743`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75ba0401c1743) -
+  Internal changes.
+- Updated dependencies
+
 ## 0.15.0
 
 ### Minor Changes

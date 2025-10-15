@@ -31,28 +31,24 @@ export default () => {
 				return Promise.resolve(validateOnSubmit(formData));
 			}}
 		>
-			{({ formProps }) => (
-				<form {...formProps}>
-					<Field
-						label="Only validates on submit = open sesame"
-						isRequired
-						name="textarea-validation"
-						defaultValue=""
-					>
-						{({ fieldProps, error }: any) => (
-							<Fragment>
-								<TextArea {...fieldProps} />
-								{error === 'INCORRECT_PHRASE' && (
-									<ErrorMessage>Incorrect, try &lsquo;open sesame&rsquo;</ErrorMessage>
-								)}
-							</Fragment>
+			<Field
+				label="Only validates on submit = open sesame"
+				isRequired
+				name="textarea-validation"
+				defaultValue=""
+			>
+				{({ fieldProps, error }: any) => (
+					<Fragment>
+						<TextArea {...fieldProps} />
+						{error === 'INCORRECT_PHRASE' && (
+							<ErrorMessage>Incorrect, try &lsquo;open sesame&rsquo;</ErrorMessage>
 						)}
-					</Field>
-					<FormFooter>
-						<Button type="submit">Submit</Button>
-					</FormFooter>
-				</form>
-			)}
+					</Fragment>
+				)}
+			</Field>
+			<FormFooter>
+				<Button type="submit">Submit</Button>
+			</FormFooter>
 		</Form>
 	);
 };

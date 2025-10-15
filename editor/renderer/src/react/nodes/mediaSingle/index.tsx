@@ -172,19 +172,28 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 	const calcDimensions = useCallback(
 		(mediaContainerWidth: number) => {
 			const containerWidth = getMediaContainerWidth(mediaContainerWidth, layout);
+			let cardDimensions = {};
+			if (fg('media-perf-uplift-mutation-fix')) {
+				const maxWidth = widthAttr && typeof widthAttr === 'number' ? widthAttr : containerWidth;
+				cardDimensions = {
+					width: `${maxWidth}px`,
+					height: `100%`,
+				};
+			} else {
+				const maxWidth =
+					isSSR() &&
+					widthAttr &&
+					typeof widthAttr === 'number' &&
+					fg('platform_editor_fix_image_size_diff_during_ssr')
+						? Math.max(widthAttr, containerWidth)
+						: containerWidth;
+				const maxHeight = (height / width) * maxWidth;
+				cardDimensions = {
+					width: `${maxWidth}px`,
+					height: `${maxHeight}px`,
+				};
+			}
 
-			const maxWidth =
-				isSSR() &&
-				widthAttr &&
-				typeof widthAttr === 'number' &&
-				fg('platform_editor_fix_image_size_diff_during_ssr')
-					? Math.max(widthAttr, containerWidth)
-					: containerWidth;
-			const maxHeight = (height / width) * maxWidth;
-			const cardDimensions = {
-				width: `${maxWidth}px`,
-				height: `${maxHeight}px`,
-			};
 			let nonFullWidthSize = containerWidth;
 			if (!isInsideOfBlockNode && rendererAppearance !== 'comment') {
 				const isContainerSizeGreaterThanMaxFullPageWidth =

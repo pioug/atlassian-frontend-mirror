@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 69.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 69.6.1
+
+### Patch Changes
+
+- [`4614dcddb640f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4614dcddb640f) -
+  fix wrong feature gate usage for emoji width: auto gate
+
 ## 69.6.0
 
 ### Minor Changes
@@ -2174,7 +2187,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -2461,12 +2473,10 @@ Bumped dependencies.
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -2547,7 +2557,6 @@ Bumped dependencies.
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -2596,7 +2605,6 @@ Bumped dependencies.
 ### Minor Changes
 
 - [minor][11cb8d8626](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/11cb8d8626):
-
   - Remove @atlaskit/analytics dependency.
 
 ## 62.1.7
@@ -2621,7 +2629,6 @@ Bumped dependencies.
 ## 62.1.5
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -2636,13 +2643,11 @@ Bumped dependencies.
 ## 62.1.3
 
 - [patch][ee970b5526](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ee970b5526):
-
   - Detect emoji gender and skintone correctly on selection
 
 ## 62.1.2
 
 - [patch][9eb495b1e0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9eb495b1e0):
-
   - Remove completely canvas-prebuilt as it does not seem to be used
 
 ## 62.1.1
@@ -2656,13 +2661,11 @@ Bumped dependencies.
 ## 62.1.0
 
 - [minor][f120090dfe](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f120090dfe):
-
   - Add GASv3 analytics to Emoji TypeAhead.
 
 ## 62.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -2705,13 +2708,11 @@ Bumped dependencies.
 ## 59.2.5
 
 - [patch][d3cad2622e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d3cad2622e):
-
   - Removes babel-runtime in favour of @babel/runtime
 
 ## 59.2.4
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 59.2.3
@@ -2730,7 +2731,6 @@ Bumped dependencies.
 ## 59.2.2
 
 - [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
-
   - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
     supplied from itself.
 
@@ -2751,25 +2751,21 @@ Bumped dependencies.
 ## 59.2.0
 
 - [minor][b81d427d5c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b81d427d5c):
-
   - ED-5373: Refactor emoji plugin to use new type ahead
 
 ## 59.1.1
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 59.1.0
 
 - [minor][ce6fec11a3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ce6fec11a3):
-
   - code split for emoji
 
 ## 59.0.1
 
 - [patch][3fa12076fd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3fa12076fd):
-
   - Fix import statement in emoji analytics
 
 ## 59.0.0
@@ -2783,31 +2779,26 @@ Bumped dependencies.
 ## 58.3.0
 
 - [minor][fdc41108fa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fdc41108fa):
-
   - Updated analytics to modern form
 
 ## 58.2.0
 
 - [minor][b0210d7ccc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0210d7ccc):
-
   - reset jest modules before hydration
 
 ## 58.1.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 58.1.0
 
 - [minor][b684722884](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b684722884):
-
   - improvement of SSR tests and examples for Fabric Elements
 
 ## 58.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 - Updated dependencies
@@ -2860,13 +2851,11 @@ Bumped dependencies.
 ## 56.2.0
 
 - [minor][4072865c1c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4072865c1c):
-
   - added SSR tests to task-decision
 
 ## 56.1.0
 
 - [minor][36bb743af0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/36bb743af0):
-
   - added/cleaned up ssr tests
 
 ## 56.0.0
@@ -2880,13 +2869,11 @@ Bumped dependencies.
 ## 55.1.0
 
 - [minor][9ab9e467d2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9ab9e467d2):
-
   - Bump version of typestyle for ssr compatibility
 
 ## 55.0.2
 
 - [patch][2d691c1e48](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2d691c1e48):
-
   - Added aria labels to Emoji upload component
 
 ## 55.0.1
@@ -2906,7 +2893,6 @@ Bumped dependencies.
 ## 54.1.0
 
 - [minor][cf6799312a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cf6799312a):
-
   - Enable striter types for emoji package
 
 ## 54.0.0
@@ -2947,13 +2933,11 @@ Bumped dependencies.
 ## 51.2.0
 
 - [minor][6ef7a45](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6ef7a45):
-
   - FS-1230 New standalone emoji upload component added
 
 ## 51.1.0
 
 - [minor][e60d7aa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e60d7aa):
-
   - updated i18n translations
 
 ## 51.0.0
@@ -2972,15 +2956,12 @@ Bumped dependencies.
 ## 49.1.0
 
 - [patch][53cb129](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/53cb129):
-
   - show emoji preview error in a tooltip, render spinner outside button, css changes
 
 - [minor][514790b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/514790b):
-
   - added i18n support to emoji
 
 - [patch][686de31](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/686de31):
-
   - added maxWidth to other buttons
 
 ## 49.0.0
@@ -2992,24 +2973,20 @@ Bumped dependencies.
 ## 48.0.2
 
 - [patch][0f19693](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0f19693):
-
   - added tests for xregexp transformer, updated README and simplified code
 
 - [patch][b789b3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b789b3a):
-
   - removed xregexp library dependency from emoji and mention components, added xregexp-transformer
     package to compile xregexp expressions to unicode charsets
 
 ## 48.0.1
 
 - [patch][015fcd0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/015fcd0):
-
   - Adjusted unit tests to test for the bug noticed in FS-3259. Added multiple atlassian-ftfy emoji
     to test this, so updated a unit test to confirm that there are 14 Atlassian emoji, and also
     added an additional unit test to confirm that FS-3259 was corrected.
 
 - [patch][18203e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18203e6):
-
   - FS-3259 Fixed bug that caused an emoji to be automatically inserted for a query including a
     closing colon even if there are multiple (an odd number specifically) emoji with an exact
     shortName match.
@@ -3023,7 +3000,6 @@ Bumped dependencies.
 ## 47.0.8
 
 - [patch][b81da9b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b81da9b):
-
   - Fix typescript types to support strictFunctionTypes
 
 ## 47.0.7
@@ -3057,13 +3033,11 @@ Bumped dependencies.
 ## 47.0.5
 
 - [patch][31ac424](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/31ac424):
-
   - FS-1596 Changed sizes of example emojis in test00.
 
 ## 47.0.4
 
 - [patch][90c4702](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/90c4702):
-
   - FS-1734 Removed the try it out section from Emoji and Mentions documentation pages to match
     other pages. The section only contained a link to the same page, so was essentially redundant
     and potentially confusing.
@@ -3071,7 +3045,6 @@ Bumped dependencies.
 ## 47.0.3
 
 - [patch][3061b52](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3061b52):
-
   - AK-5723 - adjust files in package.json to ensure correct publishing of dist/package.json
 
 ## 47.0.2
@@ -3103,7 +3076,6 @@ Bumped dependencies.
 ## 46.0.1
 
 - [patch][49a2a58](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/49a2a58):
-
   - Use onClick from button in emoji
 
 ## 46.0.0
@@ -3115,13 +3087,11 @@ Bumped dependencies.
 ## 45.0.4
 
 - [patch][36c362f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/36c362f):
-
   - FS-3174 - Fix usage of gridSize() and borderRadius()
 
 ## 45.0.3
 
 - [patch][527b954](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/527b954):
-
   - FS-3174 - Remove usage of util-shared-styles from elements components
 
 ## 45.0.2

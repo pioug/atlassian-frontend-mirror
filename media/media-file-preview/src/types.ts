@@ -15,6 +15,7 @@ export type MediaFilePreviewDimensions = {
 
 export interface MediaFilePreview {
 	dataURI: string;
+	srcSet?: string;
 	orientation?: number;
 	dimensions?: MediaFilePreviewDimensions;
 	source: MediaFilePreviewSource;

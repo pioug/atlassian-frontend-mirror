@@ -1,5 +1,11 @@
 # @atlaskit/panel
 
+## 0.11.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.11.20
 
 ### Patch Changes
@@ -468,7 +474,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/button@13.3.7
   - @atlaskit/icon@20.0.1
@@ -563,7 +568,6 @@
 ## 0.2.0
 
 - [minor][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -599,7 +603,6 @@
 ## 0.1.0
 
 - [minor][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -692,7 +695,6 @@
 ## 0.0.7
 
 - [patch][21f5216](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21f5216):
-
   - Remove enzyme-to-json as it is used in our jestFrameworkSetup.js
 
 ## 0.0.6

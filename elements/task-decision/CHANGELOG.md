@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 19.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.2.12
 
 ### Patch Changes
@@ -1123,7 +1129,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/avatar-group@5.0.4
@@ -1420,12 +1425,10 @@ Bumped dependencies.
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1482,7 +1485,6 @@ Bumped dependencies.
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1555,7 +1557,6 @@ Bumped dependencies.
 ## 15.0.2
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -1569,7 +1570,6 @@ Bumped dependencies.
 ## 15.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1592,13 +1592,11 @@ Bumped dependencies.
 ## 14.0.7
 
 - [patch][a6fb248987](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a6fb248987):
-
   - ED-6639 Align lists styles between editor & renderer
 
 ## 14.0.6
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 14.0.5
@@ -1618,7 +1616,6 @@ Bumped dependencies.
 ## 14.0.4
 
 - [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
-
   - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
     supplied from itself.
 
@@ -1640,7 +1637,6 @@ Bumped dependencies.
 ## 14.0.2
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 14.0.1
@@ -1654,31 +1650,26 @@ Bumped dependencies.
 ## 14.0.0
 
 - [major][eb4323c388](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/eb4323c388):
-
   - removed cards appearance related code used by stride
 
 ## 13.2.0
 
 - [minor][b0210d7ccc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0210d7ccc):
-
   - reset jest modules before hydration
 
 ## 13.1.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 13.1.0
 
 - [minor][b684722884](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b684722884):
-
   - improvement of SSR tests and examples for Fabric Elements
 
 ## 13.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 12.0.2
@@ -1698,7 +1689,6 @@ Bumped dependencies.
 ## 12.0.0
 
 - [major][72c6f68226](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/72c6f68226):
-
   - removed ResourcedItemList component from task-decision
 
 ## 11.3.2
@@ -1729,7 +1719,6 @@ Bumped dependencies.
 ## 11.3.0
 
 - [minor][4072865c1c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4072865c1c):
-
   - added SSR tests to task-decision
 
 ## 11.2.3
@@ -1757,7 +1746,6 @@ Bumped dependencies.
 ## 11.2.0
 
 - [minor][be86cbebc3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/be86cbebc3):
-
   - enable noImplicitAny for task-decision, and related changes
 
 ## 11.1.8
@@ -1825,7 +1813,6 @@ Bumped dependencies.
 ## 11.1.0
 
 - [minor][d9815ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d9815ba):
-
   - ED-5888 Add dark mode for task-decision
 
 ## 11.0.10

@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 5.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.13
 
 ### Patch Changes
@@ -985,7 +991,6 @@
   `popperProps` prop.
 
   Changes labelled with ⚙️ have codemod support:
-
   - ⚙️ the `positionFixed` prop has been replaced with `strategy`, which takes either `"fixed"` or
     `"absolute"`
   - the `modifiers` prop has been significantly updated:
@@ -1051,7 +1056,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -1067,7 +1071,6 @@
 
   Fix padding and columns support.- Updated dependencies
   [c0102a3ea2](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0102a3ea2):
-
   - @atlaskit/icon@20.0.0
   - @atlaskit/docs@8.3.1
   - @atlaskit/select@11.0.6
@@ -1081,7 +1084,6 @@
   Make PopupSelect correctly pass props. Forcing update of @atlaskit/select for all other packages-
   Updated dependencies
   [3a20e9a596](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3a20e9a596):
-
   - @atlaskit/select@11.0.2
 
 ## 0.5.16
@@ -1153,12 +1155,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1199,7 +1199,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1265,14 +1264,12 @@
 ## 0.5.0
 
 - [minor][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 0.4.3
 
 - [patch][50cbf86910](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/50cbf86910):
-
   - removes the undesirable grey background on Safari
 
 ## 0.4.2
@@ -1288,19 +1285,16 @@
 ## 0.4.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 0.4.0
 
 - [minor][32f743afc5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/32f743afc5):
-
   - Enable noImplicitAny for @atlaskit/color-picker
 
 ## 0.3.0
 
 - [minor][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 0.2.6
@@ -1317,13 +1311,11 @@
 ## 0.2.5
 
 - [patch][f5482d0018](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f5482d0018):
-
   - taking advantage of the new target function for PopupSelect
 
 ## 0.2.4
 
 - [patch][06713e0a0c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06713e0a0c):
-
   - popup select "target" is now a function that must resolve to a node
 
 ## 0.2.3
@@ -1357,13 +1349,11 @@
 ## 0.2.0
 
 - [minor][60fb1eb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/60fb1eb):
-
   - Add popperProps property to allow consumers to change menu placement
 
 ## 0.1.2
 
 - [patch][3061b52](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3061b52):
-
   - AK-5723 - adjust files in package.json to ensure correct publishing of dist/package.json
 
 ## 0.1.1
@@ -1377,5 +1367,4 @@
 ## 0.1.0
 
 - [minor][b5df1db](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b5df1db):
-
   - First release

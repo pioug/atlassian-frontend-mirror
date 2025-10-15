@@ -9,19 +9,15 @@ const FormRangeFieldExample = () => {
 	return (
 		<Box>
 			<Form onSubmit={(data) => console.log(data)}>
-				{({ formProps }) => (
-					<form {...formProps}>
-						<RangeField name="threshold" defaultValue={50} label="Threshold">
-							{({ fieldProps }) => <Range {...fieldProps} min={0} max={70} />}
-						</RangeField>
+				<RangeField name="threshold" defaultValue={50} label="Threshold">
+					{({ fieldProps }) => <Range {...fieldProps} min={0} max={70} />}
+				</RangeField>
 
-						<FormFooter>
-							<Button type="submit" appearance="primary">
-								Submit
-							</Button>
-						</FormFooter>
-					</form>
-				)}
+				<FormFooter>
+					<Button type="submit" appearance="primary">
+						Submit
+					</Button>
+				</FormFooter>
 			</Form>
 		</Box>
 	);

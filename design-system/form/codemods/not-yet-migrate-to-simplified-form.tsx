@@ -1,20 +1,12 @@
 import {
 	type API,
+	type Collection,
 	type FileInfo,
 	type JSCodeshift,
 	type JSXAttribute,
 	type JSXElement,
 	type Options,
 } from 'jscodeshift';
-import { type Collection } from 'jscodeshift/src/Collection';
-
-import {
-	addJSXAttributeToJSXElement,
-	getImportDeclarationCollection,
-	getImportDefaultSpecifierCollection,
-	getImportDefaultSpecifierName,
-	hasImportDeclaration,
-} from './utils/helpers';
 
 const importPath = '@atlaskit/form';
 const EXISTING_FORM_ATTRIBUTES: Record<string, any> = {
@@ -25,6 +17,56 @@ const EXISTING_FORM_ATTRIBUTES: Record<string, any> = {
 	name: 'name',
 	noValidate: 'noValidate',
 };
+
+const shouldSkipFile = (filePath: string): boolean =>
+	filePath.includes('__tests__') || filePath.includes('test');
+
+/**
+ * Helper functions for JSX manipulation
+ */
+function getImportDeclarationCollection(
+	j: JSCodeshift,
+	collection: Collection<any>,
+	importPath: string,
+): Collection<any> {
+	return collection.find(j.ImportDeclaration, {
+		source: { value: importPath },
+	});
+}
+
+function getImportDefaultSpecifierCollection(
+	j: JSCodeshift,
+	importDeclarationCollection: Collection<any>,
+): Collection<any> {
+	return importDeclarationCollection.find(j.ImportDefaultSpecifier);
+}
+
+function getImportDefaultSpecifierName(defaultImport: Collection<any>): string | null {
+	if (defaultImport.length === 0) {
+		return null;
+	}
+	return defaultImport.get(0).node.local.name;
+}
+
+function hasImportDeclaration(
+	j: JSCodeshift,
+	collection: Collection<any>,
+	importPath: string,
+): boolean {
+	return getImportDeclarationCollection(j, collection, importPath).length > 0;
+}
+
+function addJSXAttributeToJSXElement(
+	j: JSCodeshift,
+	jsxElementPath: any,
+	attribute: JSXAttribute,
+	position: number = 0,
+): void {
+	if (!jsxElementPath.node.openingElement.attributes) {
+		jsxElementPath.node.openingElement.attributes = [];
+	}
+	jsxElementPath.node.openingElement.attributes.splice(position, 0, attribute);
+}
 
 const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 	const importDeclarationCollection = getImportDeclarationCollection(j, collection, importPath);
@@ -58,7 +100,7 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 			return;
 		}
 
-		// if function child but more than just `fieldProps`, exit early
+		// if function child but more than just `formProps`, exit early
 		const args = childFunction.expression.params
 			.filter((arg) => arg.type === 'ObjectPattern' && 'properties' in arg)
 			.flatMap((arg) => arg.properties)
@@ -188,7 +230,13 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 };
 
 export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) {
-	const { source } = fileInfo;
+	const { source, path } = fileInfo;
+
+	// Skip test files
+	if (path && shouldSkipFile(path)) {
+		return source;
+	}
+
 	const collection = j(source);
 
 	// If our component is not here, skip the file

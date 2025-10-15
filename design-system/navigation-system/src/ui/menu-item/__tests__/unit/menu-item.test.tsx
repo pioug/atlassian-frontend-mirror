@@ -9,7 +9,6 @@ import BugIcon from '@atlaskit/icon/core/bug';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import Lozenge from '@atlaskit/lozenge';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ButtonMenuItem } from '../../button-menu-item';
 import { ExpandableMenuItem } from '../../expandable-menu-item/expandable-menu-item';
@@ -37,7 +36,7 @@ describe('Menu items', () => {
 	const testId = 'menu-item-testid';
 	const containerTestId = testId + '-container';
 
-	ffTest.both('platform_dst_nav4_actionsonhover_focus_fix', 'ButtonMenuItem', () => {
+	describe('ButtonMenuItem', () => {
 		it('should render', () => {
 			render(<ButtonMenuItem>{menuItemText}</ButtonMenuItem>);
 			expect(screen.getByRole('button', { name: menuItemText })).toBeVisible();
@@ -209,7 +208,7 @@ describe('Menu items', () => {
 		// `:not(:has(button,a))` is not working with `.toHaveCompiledCss()`
 	});
 
-	ffTest.both('platform_dst_nav4_actionsonhover_focus_fix', 'LinkMenuItem', () => {
+	describe('LinkMenuItem', () => {
 		const href = 'http://www.atlassian.design';
 		const scrollIntoViewMock = jest.fn();
 		const scrollIntoViewIfNeededMock = jest.fn();

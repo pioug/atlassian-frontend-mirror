@@ -55,15 +55,6 @@ const backgroundStyle = css({
 	backgroundColor: token('color.background.neutral', N20),
 });
 
-const cursorStyleMap = cssMap({
-	pointer: {
-		cursor: 'pointer',
-	},
-	wait: {
-		cursor: 'wait',
-	},
-});
-
 const shadowStyleMap = cssMap({
 	withOverlay: {
 		boxShadow: `${token('elevation.shadow.raised', `0 1px 1px ${N60A}, 0 0 1px 0 ${N60A}`)}`,
@@ -173,6 +164,7 @@ export const Wrapper = (props: WrapperProps) => {
 				{
 					[LOCAL_WIDTH_VARIABLE]: width,
 					[LOCAL_HEIGHT_VARIABLE]: height,
+					cusror: mediaCardCursor,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					...getResponsiveStyles(breakpoint),
 				} as React.CSSProperties
@@ -180,7 +172,6 @@ export const Wrapper = (props: WrapperProps) => {
 			css={[
 				wrapperStyles.default,
 				displayBackground && backgroundStyle,
-				mediaCardCursor && cursorStyleMap[mediaCardCursor],
 				wrapperShadowKey && shadowStyleMap[wrapperShadowKey],
 				selected && hideNativeBrowserTextSelectionStyles,
 				isPlayButtonClickable && clickableButtonPlayButtonStyles,

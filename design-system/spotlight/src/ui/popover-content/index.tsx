@@ -9,7 +9,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { Popper, type Placement as PopperPlacement } from '@atlaskit/popper';
 
 import { SpotlightContext } from '../../controllers/context';
-import type { Placement } from '../../types';
+import type { DismissEvent, Placement } from '../../types';
 import { useFocusWithin } from '../../utils/use-focus-within';
 import { useOnClickOutside } from '../../utils/use-on-click-outside';
 import { useOnEscape } from '../../utils/use-on-escape';
@@ -39,7 +39,8 @@ export interface PopoverContentProps {
 	testId?: string;
 	placement: Placement;
 	isVisible?: boolean;
-	dismiss: (event: KeyboardEvent | MouseEvent) => void;
+	shouldDismissOnClickOutside?: boolean;
+	dismiss: (event: DismissEvent) => void;
 	children: ReactNode;
 }
 
@@ -74,6 +75,7 @@ export const PopoverContent = ({
 	children,
 	placement,
 	isVisible = true,
+	shouldDismissOnClickOutside = true,
 	dismiss,
 	testId,
 }: PopoverContentProps) => {
@@ -85,6 +87,10 @@ export const PopoverContent = ({
 	useEffect(() => {
 		popoverContent.setRef(ref);
 	}, [ref, popoverContent]);
+
+	useEffect(() => {
+		popoverContent.setDismiss(dismiss);
+	}, [dismiss, popoverContent]);
 
 	useEffect(() => {
 		card.setPlacement(placement);
@@ -101,11 +107,15 @@ export const PopoverContent = ({
 			return;
 		}
 
-		dismiss(event);
+		popoverContent.dismiss.current(event);
 	});
 
 	useOnClickOutside((event: MouseEvent) => {
-		dismiss(event);
+		if (!shouldDismissOnClickOutside) {
+			return;
+		}
+
+		popoverContent.dismiss.current(event);
 	});
 
 	return (

@@ -37,25 +37,17 @@ export default function RadioInvalid() {
 				return Promise.resolve(validateOnSubmit(data));
 			}}
 		>
-			{({ formProps }) => (
-				<form {...formProps}>
-					<Field
-						label="Radio group with validation"
-						name="radio-group-invalid"
-						defaultValue="valid"
-					>
-						{({ fieldProps, error }) => (
-							<Fragment>
-								<RadioGroup {...fieldProps} options={options} />
-								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-							</Fragment>
-						)}
-					</Field>
-					<FormFooter>
-						<Button type="submit">Submit</Button>
-					</FormFooter>
-				</form>
-			)}
+			<Field label="Radio group with validation" name="radio-group-invalid" defaultValue="valid">
+				{({ fieldProps, error }) => (
+					<Fragment>
+						<RadioGroup {...fieldProps} options={options} />
+						<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
+					</Fragment>
+				)}
+			</Field>
+			<FormFooter>
+				<Button type="submit">Submit</Button>
+			</FormFooter>
 		</Form>
 	);
 }

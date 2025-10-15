@@ -1,6 +1,7 @@
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -21,17 +22,38 @@ export const handleMouseDown =
 				return false;
 			}
 
-			api?.core.actions.execute(
-				api?.blockControls.commands.showDragHandleAt(
-					rootPos,
-					'',
-					rootNode.type.name ?? '',
-					undefined,
-					rootPos,
-					'',
-					rootNode.type.name ?? '',
-				),
-			);
+			if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+				const anchorName = api?.core.actions.getAnchorIdForNode(rootNode, rootPos);
+
+				// don't show the handles if we can't find an anchor
+				if (!anchorName) {
+					return false;
+				}
+
+				api?.core.actions.execute(
+					api?.blockControls.commands.showDragHandleAt(
+						rootPos,
+						anchorName,
+						rootNode.type.name ?? '',
+						undefined,
+						rootPos,
+						anchorName,
+						rootNode.type.name ?? '',
+					),
+				);
+			} else {
+				api?.core.actions.execute(
+					api?.blockControls.commands.showDragHandleAt(
+						rootPos,
+						'',
+						rootNode.type.name ?? '',
+						undefined,
+						rootPos,
+						'',
+						rootNode.type.name ?? '',
+					),
+				);
+			}
 		} else {
 			const isDragHandle =
 				event.target.closest(

@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 110.13.2
+
+### Patch Changes
+
+- [`b4dfb07c500c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4dfb07c500c1) -
+  Add disabled tooltip message for sync block
+- Updated dependencies
+
+## 110.13.1
+
+### Patch Changes
+
+- [`1c601de07087b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c601de07087b) -
+  Fix for CLS issue in Editor Resizer Component
+- Updated dependencies
+
 ## 110.13.0
 
 ### Minor Changes

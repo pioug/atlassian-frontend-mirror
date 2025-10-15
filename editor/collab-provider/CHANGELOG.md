@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 14.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.4
 
 ### Patch Changes
@@ -237,7 +243,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -2476,14 +2481,12 @@
   [ESS-3333] Update to the structure of errors emitted on the collab provider
 
   Upgrade instructions:
-
   - Change the type of the errors emitted on the provider from `CollabEventError` to `ProviderError`
   - Remove the reliance on the `status` field of the emitted errors, switch to using either the
     error code (exported as enum `PROVIDER_ERROR_CODE`) or the error flag `recoverable` indicating
     whether the provider can recover from the emitted error or not
 
   The mapping from the old status codes to the error codes is:
-
   - Status 403: PROVIDER_ERROR_CODE.NO_PERMISSION_ERROR, PROVIDER_ERROR_CODE.INVALID_USER_TOKEN
   - Status 404: PROVIDER_ERROR_CODE.DOCUMENT_NOT_FOUND
   - Status 423: PROVIDER_ERROR_CODE.LOCKED
@@ -2884,7 +2887,6 @@
 - [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998)
   [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) -
   ED-11632: Bump prosemirror packages;
-
   - prosmirror-commands 1.1.4 -> 1.1.11,
   - prosemirror-model 1.11.0 -> 1.14.3,
   - prosemirror-state 1.3.3 -> 1.3.4,

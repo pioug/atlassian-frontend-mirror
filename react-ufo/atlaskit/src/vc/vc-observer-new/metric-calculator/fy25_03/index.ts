@@ -103,6 +103,18 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 			return false;
 		}
 
+		if (entry.data.type === 'mutation:media' && fg('media-perf-uplift-mutation-fix')) {
+			const entryData = entry.data as ViewportEntryData;
+			const attributeName = entryData.attributeName;
+
+			if (
+				attributeName &&
+				(/data-(test|file|context)-\S+/g.test(attributeName) || attributeName === 'alt')
+			) {
+				return false;
+			}
+		}
+
 		if (entry.data.type === 'mutation:attribute') {
 			const entryData = entry.data as ViewportEntryData;
 			const attributeName = entryData.attributeName;

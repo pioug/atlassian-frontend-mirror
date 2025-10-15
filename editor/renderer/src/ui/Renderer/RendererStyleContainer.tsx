@@ -941,7 +941,7 @@ const codeMarkSharedStyles = css({
 
 const extensionStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.ak-renderer-extension :not([data-inline-card-lozenge] *)': {
+	'.ak-renderer-extension :not([data-inline-card-lozenge] *, code)': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: 'var(--ak-renderer-base-font-size)',
 	},

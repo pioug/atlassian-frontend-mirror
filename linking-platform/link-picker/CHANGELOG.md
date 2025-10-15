@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 3.16.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.16.1
 
 ### Patch Changes
@@ -85,11 +91,9 @@
 
 - [`489caede2951a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/489caede2951a) -
   [ux] link-picker-atlassian-plugin changes:
-
   - Introduce GoogleDriveConnectBanner to support Google Drive tab experiment
 
   link-picker changes:
-
   - Extend the LinkPickerPlugin interface to include an optional banner render function
   - Modify the usePlugins hook to collect the banner from the active plugin
   - Add banner rendering in LinkPicker between the moveSubmitButton clause and SearchResults
@@ -1936,7 +1940,6 @@
 - [#20341](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20341)
   [`af6e73a1e17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af6e73a1e17) - Bumping
   dependencies via Renovate:
-
   - react-loosely-lazy
 
 ## 1.11.0

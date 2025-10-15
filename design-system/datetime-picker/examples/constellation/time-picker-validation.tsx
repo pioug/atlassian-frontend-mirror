@@ -12,29 +12,20 @@ const validateField = (value?: string) => {
 
 const TimePickerValidationExample = () => (
 	<Form onSubmit={(formState) => console.log('form submitted', formState)}>
-		{({ formProps }) => (
-			<form {...formProps}>
-				<Field
-					name="datetime-picker"
-					label="Scheduled run time"
-					validate={validateField}
-					isRequired
-				>
-					{({ fieldProps, error, meta: { valid } }) => (
-						<>
-							<TimePicker clearControlLabel="Clear scheduled run time" {...fieldProps} />
-							{valid && <ValidMessage>You have entered a valid datetime</ValidMessage>}
-							{error === 'REQUIRED' && <ErrorMessage>This field is required</ErrorMessage>}
-						</>
-					)}
-				</Field>
-				<FormFooter>
-					<Button type="submit" appearance="primary">
-						Submit
-					</Button>
-				</FormFooter>
-			</form>
-		)}
+		<Field name="datetime-picker" label="Scheduled run time" validate={validateField} isRequired>
+			{({ fieldProps, error, meta: { valid } }) => (
+				<>
+					<TimePicker clearControlLabel="Clear scheduled run time" {...fieldProps} />
+					{valid && <ValidMessage>You have entered a valid datetime</ValidMessage>}
+					{error === 'REQUIRED' && <ErrorMessage>This field is required</ErrorMessage>}
+				</>
+			)}
+		</Field>
+		<FormFooter>
+			<Button type="submit" appearance="primary">
+				Submit
+			</Button>
+		</FormFooter>
 	</Form>
 );
 

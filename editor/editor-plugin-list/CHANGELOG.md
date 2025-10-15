@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-list
 
+## 8.1.3
+
+### Patch Changes
+
+- [`8abe663d8d5db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8abe663d8d5db) -
+  Add new list decorations logic
+- Updated dependencies
+
 ## 8.1.2
 
 ### Patch Changes
@@ -330,7 +338,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -1008,7 +1015,6 @@
 
   These are no longer available via `@atlaskit/prosemirror-input-rules` but are available from
   `@atlaskit/editor-common/types`:
-
   - InputRuleWrapper
   - InputRuleHandler
   - OnHandlerApply
@@ -1018,7 +1024,6 @@
   need to instantiate a `SafePlugin` (ie. `new SafePlugin(createPlugin( ... ))`).
 
   `SafePlugin` exists in `@atlaskit/editor-common/safe-plugin`.
-
   - createPlugin
   - createInputRulePlugin
 
@@ -1229,19 +1234,13 @@
   auto-join lists together if the order numbers match up.
 
   Eg.
-
   1. A list item
-
   -
-
   50. Another list item
 
   Should NOT auto join to be 1 & 2 in a single list however...
-
   49. A list item
-
   -
-
   50. Another list item
 
   Should join to be 49 & 50 in a single list.
@@ -1263,7 +1262,6 @@
 - [#43646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43646)
   [`d43f8e9402f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d43f8e9402f) - Make
   feature flags plugin optional in all plugins including:
-
   - analytics
   - base
   - card

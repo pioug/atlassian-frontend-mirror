@@ -45,7 +45,7 @@ var themeContrastModes = ['more', 'no-preference', 'auto'];
  *
  * These ids must be kebab case
  */
-var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-future', 'light-brand-refresh', 'dark', 'dark-future', 'dark-increased-contrast', 'dark-brand-refresh', 'legacy-light', 'legacy-dark', 'spacing', 'shape', 'shape-rounder', 'shape-roundest', 'typography', 'typography-adg3', 'typography-modernized', 'typography-refreshed'];
+var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-future', 'light-brand-refresh', 'dark', 'dark-future', 'dark-increased-contrast', 'dark-brand-refresh', 'legacy-light', 'legacy-dark', 'spacing', 'shape', 'typography', 'typography-adg3', 'typography-modernized', 'typography-refreshed'];
 /**
  * Theme override ids: the equivalent of themeIds for theme overrides.
  * Theme overrides are temporary and there may not be any defined at times.
@@ -176,22 +176,6 @@ var themeConfig = {
   'atlassian-shape': {
     id: 'shape',
     displayName: 'Shape',
-    palette: 'shapePalette',
-    attributes: {
-      type: 'shape'
-    }
-  },
-  'atlassian-shape-rounder': {
-    id: 'shape-rounder',
-    displayName: 'Shape (Rounder)',
-    palette: 'shapePalette',
-    attributes: {
-      type: 'shape'
-    }
-  },
-  'atlassian-shape-roundest': {
-    id: 'shape-roundest',
-    displayName: 'Shape (Roundest)',
     palette: 'shapePalette',
     attributes: {
       type: 'shape'

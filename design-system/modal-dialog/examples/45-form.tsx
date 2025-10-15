@@ -45,45 +45,37 @@ export default function ModalDialogForm() {
 							<ModalTitle>Form Demo</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
-							<Form onSubmit={onFormSubmit}>
-								{({ formProps }) => (
-									<form {...formProps} id="modal-form">
-										<p>Enter some text then submit the form to see the response.</p>
+							<Form onSubmit={onFormSubmit} id="modal-form">
+								<p>Enter some text then submit the form to see the response.</p>
 
-										<Field label="Name" name="name" defaultValue="" isRequired={true}>
-											{({ fieldProps }) => <Textfield {...fieldProps} />}
-										</Field>
+								<Field label="Name" name="name" defaultValue="" isRequired={true}>
+									{({ fieldProps }) => <Textfield {...fieldProps} />}
+								</Field>
 
-										<Field label="Email" name="email" defaultValue="" isRequired={true}>
-											{({ fieldProps }) => (
-												<Textfield
-													autoComplete="off"
-													placeholder="gbelson@hooli.com"
-													{...fieldProps}
-												/>
-											)}
-										</Field>
+								<Field label="Email" name="email" defaultValue="" isRequired={true}>
+									{({ fieldProps }) => (
+										<Textfield autoComplete="off" placeholder="gbelson@hooli.com" {...fieldProps} />
+									)}
+								</Field>
 
-										<CheckboxField name="checkbox" defaultIsChecked>
-											{({ fieldProps }) => (
-												<Checkbox {...fieldProps} value="example" label="Checkbox" />
-											)}
-										</CheckboxField>
+								<CheckboxField name="checkbox" defaultIsChecked>
+									{({ fieldProps }) => (
+										<Checkbox {...fieldProps} value="example" label="Checkbox" />
+									)}
+								</CheckboxField>
 
-										<Field name="radiogroup" defaultValue="" label="Basic Radio Group Example">
-											{({ fieldProps }) => (
-												<RadioGroup
-													options={[
-														{ name: 'color', value: 'red', label: 'Red' },
-														{ name: 'color', value: 'blue', label: 'Blue' },
-														{ name: 'color', value: 'yellow', label: 'Yellow' },
-													]}
-													{...fieldProps}
-												/>
-											)}
-										</Field>
-									</form>
-								)}
+								<Field name="radiogroup" defaultValue="" label="Basic Radio Group Example">
+									{({ fieldProps }) => (
+										<RadioGroup
+											options={[
+												{ name: 'color', value: 'red', label: 'Red' },
+												{ name: 'color', value: 'blue', label: 'Blue' },
+												{ name: 'color', value: 'yellow', label: 'Yellow' },
+											]}
+											{...fieldProps}
+										/>
+									)}
+								</Field>
 							</Form>
 						</ModalBody>
 						<ModalFooter>

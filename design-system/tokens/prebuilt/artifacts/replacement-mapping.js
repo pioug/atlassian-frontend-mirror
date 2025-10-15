@@ -18,39 +18,9 @@ exports.default = void 0;
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::7ca64db3c8d60ea8d78edec946e325bc>>
+ * @codegen <<SignedSource::c779b40628532228cae2ec34977f1f8e>>
  * @codegenCommand yarn build tokens
  */
 
-var replacementMapper = [{
-  "path": "border.radius.[default]",
-  "state": "deprecated"
-}, {
-  "path": "border.radius.050",
-  "state": "deprecated"
-}, {
-  "path": "border.radius.100",
-  "state": "deprecated"
-}, {
-  "path": "border.radius.200",
-  "state": "deprecated"
-}, {
-  "path": "border.radius.300",
-  "state": "deprecated"
-}, {
-  "path": "border.radius.400",
-  "state": "deprecated"
-}, {
-  "path": "border.radius.circle",
-  "state": "deprecated"
-}, {
-  "path": "border.width.0",
-  "state": "deprecated"
-}, {
-  "path": "border.width.indicator",
-  "state": "deprecated"
-}, {
-  "path": "border.width.outline",
-  "state": "deprecated"
-}];
+var replacementMapper = [];
 var _default = exports.default = replacementMapper;

@@ -6,23 +6,19 @@ import Form, { Field, FormFooter, HelperMessage } from '@atlaskit/form';
 
 const TimePickerFormExample = () => (
 	<Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
-		{({ formProps }) => (
-			<form {...formProps}>
-				<Field name="time-picker" label="Scheduled run time" isRequired={false}>
-					{({ fieldProps }) => (
-						<>
-							<TimePicker clearControlLabel="Clear scheduled run time" {...fieldProps} />
-							<HelperMessage>Help or instruction text goes here</HelperMessage>
-						</>
-					)}
-				</Field>
-				<FormFooter>
-					<Button type="submit" appearance="primary">
-						Submit
-					</Button>
-				</FormFooter>
-			</form>
-		)}
+		<Field name="time-picker" label="Scheduled run time" isRequired={false}>
+			{({ fieldProps }) => (
+				<>
+					<TimePicker clearControlLabel="Clear scheduled run time" {...fieldProps} />
+					<HelperMessage>Help or instruction text goes here</HelperMessage>
+				</>
+			)}
+		</Field>
+		<FormFooter>
+			<Button type="submit" appearance="primary">
+				Submit
+			</Button>
+		</FormFooter>
 	</Form>
 );
 

@@ -278,6 +278,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-10-14
+	platform_editor_resizer_cls_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_resizer_cls_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-03-28
 	platform_editor_ai_proactive_ai_nudge_parameters: createMultivariateExperiment({
 		productKeys: {
@@ -357,6 +365,14 @@ export const editorExperimentsConfig = {
 	platform_editor_debounce_portal_provider: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_debounce_portal_provider',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-10-15
+	platform_editor_no_ssr: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_no_ssr',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -666,14 +682,6 @@ export const editorExperimentsConfig = {
 	platform_editor_create_link_on_blur: createBooleanExperiment({
 		productKeys: {
 			jira: 'platform_editor_create_link_on_blur',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-07-29
-	cc_comments_include_path_for_renderer_emojis: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_comments_include_path_for_renderer_emojis',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1038,5 +1046,21 @@ export const editorExperimentsConfig = {
 		param: 'cohort',
 		values: ['control', 'test1', 'test2'],
 		defaultValue: 'control',
+	}),
+	// Added 2025-10-10
+	platform_editor_new_list_decorations_logic: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_new_list_decorations_logic',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-10-15
+	platform_editor_new_mentions_detection_logic: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_new_mentions_detection_logic',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
 	}),
 } satisfies Record<string, ExperimentConfigValue>;

@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 6.16.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.16.13
 
 ### Patch Changes
@@ -1374,7 +1380,6 @@
 - [#20341](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20341)
   [`af6e73a1e17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af6e73a1e17) - Bumping
   dependencies via Renovate:
-
   - react-loosely-lazy
 
 ## 3.5.3
@@ -2457,7 +2462,6 @@
 
   Slack API bug fixes- Updated dependencies
   [35910b842f](https://bitbucket.org/atlassian/atlassian-frontend/commits/35910b842f):
-
   - @atlaskit/util-data-test@13.2.0
 
 ## 0.11.0
@@ -2563,7 +2567,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/button@13.3.7
@@ -2829,12 +2832,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -2907,7 +2908,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -3114,88 +3114,74 @@
 ## 0.4.8
 
 - [patch][466682024f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/466682024f):
-
   - TEAMS-480: Sending team member counts via share analytics
 
 ## 0.4.7
 
 - [patch][cfc3d669d8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cfc3d669d8):
-
   - added share content type to submit share analytics event
 
 ## 0.4.6
 
 - [patch][2a64153b7a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2a64153b7a):
-
   - fixed escape key press closes share dialog when user picker menu is open
 
 ## 0.4.5
 
 - [patch][03957e8674](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/03957e8674):
-
   - deferred fetchConfig call until share dialog is triggered open
 
 ## 0.4.4
 
 - [patch][c27888ddff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c27888ddff):
-
   - added blogpost shared message and improved on documentation
 
 ## 0.4.3
 
 - [patch][c63137e1ed](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c63137e1ed):
-
   - fixed admin is notified flag shows up with no request access
 
 ## 0.4.2
 
 - [patch][50cd881689](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/50cd881689):
-
   - fixed escape key press closes share dialog when user picker menu is open
 
 ## 0.4.1
 
 - [patch][b684bc706c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b684bc706c):
-
   - added and set default config when client.getConfig fails
 
 ## 0.4.0
 
 - [minor][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 0.3.15
 
 - [patch][7461d7df4e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7461d7df4e):
-
   - added support to text-only Dialog Trigger Button
 
 ## 0.3.14
 
 - [patch][ffd178d638](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ffd178d638):
-
   - exposed renderCustomTriggerButton prop in ShareDialogContainer
 
 ## 0.3.13
 
 - [patch][f692c5e59c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f692c5e59c):
-
   - updated user picker field email validity check and ui copies for domain based user only invite
     in share component
 
 ## 0.3.12
 
 - [patch][00c4559516](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/00c4559516):
-
   - updated copies for placeholder and no result message for user picker field in share and added
     localizations for icon labels
 
 ## 0.3.11
 
 - [patch][131d76e6fc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/131d76e6fc):
-
   - updated flag model in elements/share
 
 ## 0.3.10
@@ -3219,14 +3205,12 @@
 ## 0.3.9
 
 - [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
-
   - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
     supplied from itself.
 
 ## 0.3.8
 
 - [patch][95293c5550](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/95293c5550):
-
   - Added documentation and consolidated example
 
 ## 0.3.7
@@ -3249,85 +3233,71 @@
 ## 0.3.6
 
 - [patch][e03dea5f5d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e03dea5f5d):
-
   - FS-3792 do no call loadUser on empty query
 
 ## 0.3.5
 
 - [patch][77c2d7bb2b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/77c2d7bb2b):
-
   - Added flags for successful share
 
 ## 0.3.4
 
 - [patch][0f4109e919](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0f4109e919):
-
   - FS-3743 remove loading message from user picker
 
 ## 0.3.3
 
 - [patch][66512e9026](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/66512e9026):
-
   - FS-3764 move dependencies to peer dependencies
 
 ## 0.3.2
 
 - [patch][c68b454ba9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c68b454ba9):
-
   - fixed unclear share panel state upon successful share
 
 ## 0.3.1
 
 - [patch][ddfc158dfb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ddfc158dfb):
-
   - Removed unused buttonStyle prop
 
 ## 0.3.0
 
 - [minor][b617f099aa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b617f099aa):
-
   - Limited length of comment messages.
 
 ## 0.2.10
 
 - [patch][69c72e07ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/69c72e07ba):
-
   - Fixed share button off position on IE11
 
 ## 0.2.9
 
 - [patch][fcdae04b8c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fcdae04b8c):
-
   - FS-3620 add share analytics
 
 ## 0.2.8
 
 - [patch][13d9986e40](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/13d9986e40):
-
   - fixed dialogue header font settings
 
 ## 0.2.7
 
 - [patch][26a3d443e2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/26a3d443e2):
-
   - fix warning when unmounting share doesn't cancel the async requests
 
 ## 0.2.6
 
 - [patch][3161a93cdb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3161a93cdb):
-
   - FS-3289 update share copy
 
 ## 0.2.5
 
 - [patch][9babee9fc2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9babee9fc2):
-
   - Fix share modal padding
 
 ## 0.2.4
 
 - [patch][8f56fe1259](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8f56fe1259):
-
   - Remove files from package.json to publish all the files in @atlaskit/share
 
 ## 0.2.3
@@ -3339,19 +3309,16 @@
 ## 0.2.2
 
 - [patch][9ce45faaf8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9ce45faaf8):
-
   - adjustments for design review
 
 ## 0.2.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 0.2.0
 
 - [minor][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 0.1.18
@@ -3374,44 +3341,37 @@
 ## 0.1.17
 
 - [patch][af38e4649a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/af38e4649a):
-
   - exposed shareContentType prop
 
 ## 0.1.16
 
 - [patch][aca247a78b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aca247a78b):
-
   - Exposed shareFormTitle prop to customise Share Form title
   - Removed object type from Copy link button
 
 ## 0.1.15
 
 - [patch][312572b5f8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/312572b5f8):
-
   - FS-3618 consume configuration in the UserPickerField
 
 ## 0.1.14
 
 - [patch][4d3226b06b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4d3226b06b):
-
   - exposed trigger button appearance prop
 
 ## 0.1.13
 
 - [patch][3f5be35333](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f5be35333):
-
   - Fixed errors and warnings in elements/share unit tests
 
 ## 0.1.12
 
 - [patch][376926523b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/376926523b):
-
   - Explosed buttonStyle prop to ShareDialogContainer
 
 ## 0.1.11
 
 - [patch][7e809344eb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7e809344eb):
-
   - Modified share web component to send a single atlOriginId
 
 ## 0.1.10
@@ -3423,63 +3383,52 @@
 ## 0.1.9
 
 - [patch][7569356ab3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7569356ab3):
-
   - FS-3417 add email warning, save intermediate state if click outside
 
 ## 0.1.8
 
 - [patch][d1fbdc3a35](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d1fbdc3a35):
-
   - enable noImplicitAny for share. fix related issues
 
 ## 0.1.7
 
 - [patch][8e0ea83f02](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8e0ea83f02):
-
   - Added ShareDialogContainer component
 
 ## 0.1.6
 
 - [patch][1d284d2437](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1d284d2437):
-
   - FS-3417 added ShareButton, ShareDialogTrigger components to @atlaskit/share
 
 ## 0.1.5
 
 - [patch][2f73eeac57](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2f73eeac57):
-
   - Added ShareServiceClient and unit test
 
 - [patch][8c905d11b7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8c905d11b7):
-
   - Added share service client
 
 ## 0.1.4
 
 - [patch][b752299534](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b752299534):
-
   - Added capabilities info message in ShareForm
 
 ## 0.1.3
 
 - [patch][42bfdcf8ed](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/42bfdcf8ed):
-
   - Added CopyLinkButton component and integrated into ShareForm
 
 ## 0.1.2
 
 - [patch][48856cfa79](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/48856cfa79):
-
   - Added IdentityClient and unit tests
 
 ## 0.1.1
 
 - [patch][64bf358](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/64bf358):
-
   - FS-3416 add ShareForm component to @atlaskit/share
 
 ## 0.1.0
 
 - [minor][891e116](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/891e116):
-
   - FS-3291 add share skeleton

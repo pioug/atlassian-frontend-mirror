@@ -23,6 +23,11 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'Navigate to source page of the sync block',
 		description: 'Tooltip for the button to navigate to the source page of the sync block element',
 	},
+	editSourceTooltipDisabled: {
+		id: 'fabric.editor.editSourceTooltipDisabled',
+		defaultMessage: 'Source link is not currently available',
+		description: 'Tooltip for the button to navigate to the source page, when URL is not available',
+	},
 	syncBlockGroup: {
 		id: 'fabric.editor.syncBlockGroup',
 		defaultMessage: 'Sync Block Types',

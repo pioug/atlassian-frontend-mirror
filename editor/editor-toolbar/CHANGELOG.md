@@ -1,5 +1,11 @@
 # @atlaskit/editor-toolbar
 
+## 0.15.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.15.2
 
 ### Patch Changes
@@ -332,7 +338,6 @@
 
 - [`286abb4d35eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/286abb4d35eba) -
   [ux] [ED-28960] Finish full page primary toolbar migration
-
   - Align with design update (separator, gap, height, icon size)
   - Add keyboard shortcut to focus toolbar and arrow key navigation
   - Address accessibility
@@ -364,7 +369,6 @@
 
 - [`3145f278b1f7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3145f278b1f7a) -
   [ux] [ED-28473] minor UI updates for editor-toolbar
-
   - Use ADS ButtonGroup for ToolbarButtonGroup
   - Remove groupLocation prop and use CSS instead
   - Use DropdownItemGroup for ToolbarDropdownItemSection and expand props for section separator and
@@ -413,7 +417,6 @@
   [`22cab8325fc62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22cab8325fc62) -
   [ux] [ED-28760] Fix editor lose focus and hence editing flow is interrupted. This is done for 2
   components
-
   - Dropdown
     - Create context ToolbarUIContext for toolbar consumers to access consumer specific state and
       callbacks
@@ -461,7 +464,6 @@
 - [#195899](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195899)
   [`345c0b6478f73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/345c0b6478f73) -
   [ED-28682]
-
   - Export more formatting icons
   - Add optional position props to ToolbarTooltip dictating tooltip position
   - Fix selected state for icon in ToolbarButton

@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 215.2.0
+
+### Minor Changes
+
+- [`0560b4dfd1361`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0560b4dfd1361) -
+  Experiment with disabling prosemirror rendering in SSR
+
+### Patch Changes
+
+- [`e22968790f2b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e22968790f2b5) -
+  [ux] [EDITOR-2374] prevent style overrides on codemarks in excerpts
+- Updated dependencies
+
+## 215.1.6
+
+### Patch Changes
+
+- [`8a6477def0c7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a6477def0c7d) -
+  [ux] clean up platform_editor_a11y_macro_sidebar_dialog
+- [`1c601de07087b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c601de07087b) -
+  Fix for CLS issue in Editor Resizer Component
+- [`5c07f0d4e428f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c07f0d4e428f) -
+  [EDITOR-1998] Make media captions follow dense/ compact content mode
+- Updated dependencies
+
 ## 215.1.5
 
 ### Patch Changes
@@ -8891,9 +8916,7 @@
   -
   50. Another list item
 
-  Should NOT auto join to be 1 & 2 in a single list however...
-  49. A list item
-  -
+  ## Should NOT auto join to be 1 & 2 in a single list however... 49. A list item
   50. Another list item
 
   Should join to be 49 & 50 in a single list.
@@ -25789,9 +25812,7 @@ Remove applicationCard node and action mark
 
 ## 112.2.10
 
-- [patch][051800806c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/051800806c):
-  -
-
+- ## [patch][051800806c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/051800806c):
   - MediaPicker Clipboard component is now a React Component
 
   These changes provide a new React api for Clipboard component. First one to be delivered, coming

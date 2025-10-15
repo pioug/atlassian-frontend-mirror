@@ -2,6 +2,7 @@
 import { css, type SerializedStyles } from '@emotion/react';
 
 import { INLINE_IMAGE_WRAPPER_CLASS_NAME } from '@atlaskit/editor-common/media-inline';
+import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single';
 import { MediaSharedClassNames, richMediaClassName } from '@atlaskit/editor-common/styles';
 import {
 	akEditorMediaResizeHandlerPadding,
@@ -486,6 +487,19 @@ export const mediaAlignmentStyles: SerializedStyles = css({
 			'.code-block, .extension-container, .multiBodiedExtension--container': {
 				maxWidth: '100%',
 			},
+		},
+	},
+});
+
+// When cleaning up platform_editor_content_mode_button_mvp, move this style into mediaStyles variable ⬆️
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const mediaCaptionStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.mediaSingleView-content-wrap': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`span#${CAPTION_PLACEHOLDER_ID}`]: {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: 'var(--ak-editor-base-font-size)',
 		},
 	},
 });

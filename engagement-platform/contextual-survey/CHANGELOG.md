@@ -1,5 +1,11 @@
 # @atlaskit/contextual-survey
 
+## 5.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.13
 
 ### Patch Changes
@@ -711,7 +717,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/button@13.3.7
   - @atlaskit/checkbox@10.1.7
@@ -819,7 +824,6 @@
   ```
 
   ### Other
-
   - `getUserHasAnsweredMailingList: () => boolean | () => Promise<boolean>` has been streamlined to
     just be `() => Promise<boolean>`.
   - ~~`onSignUp() => Promise<void>`~~ has become `onMailingListAnswer(answer) => Promise<void>`.

@@ -3861,6 +3861,10 @@ td>.emotion-0 .ak-editor-expand {
   background: var(--ds-border, #091E4224);
 }
 
+.emotion-0.resizer-hover-zone-cls-fix .resizer-hover-zone {
+  display: flow-root;
+}
+
 .emotion-0 .resizer-hover-zone {
   position: relative;
   display: inline-block;
@@ -4999,7 +5003,7 @@ td>.emotion-0 .ak-editor-expand {
 }
 
 <div
-  class="fabric-editor-popup-scroll-parent emotion-0"
+  class="fabric-editor-popup-scroll-parent resizer-hover-zone-cls-fix emotion-0"
   data-editor-scroll-container="true"
   data-testid="editor-content-container"
   role="region"
@@ -8983,6 +8987,10 @@ td>.emotion-0 .ak-editor-expand {
   background: var(--ds-border, #091E4224);
 }
 
+.emotion-0.resizer-hover-zone-cls-fix .resizer-hover-zone {
+  display: flow-root;
+}
+
 .emotion-0 .resizer-hover-zone {
   position: relative;
   display: inline-block;
@@ -9860,7 +9868,7 @@ td>.emotion-0 .ak-editor-expand {
 }
 
 <div
-  class="fabric-editor-popup-scroll-parent emotion-0"
+  class="fabric-editor-popup-scroll-parent resizer-hover-zone-cls-fix emotion-0"
   data-editor-scroll-container="true"
   data-testid="editor-content-container"
   role="region"

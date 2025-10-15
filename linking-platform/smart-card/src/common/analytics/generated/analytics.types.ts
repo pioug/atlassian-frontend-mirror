@@ -54,7 +54,7 @@ export type ButtonClickedCopyLinkAttributesType = {
 		| 'embedPreview'
 		| 'flexible'
 		| 'hoverCardPreview'
-		| 'hyperlink'
+		| 'url'
 		| null;
 	resourceType: string | null;
 };
@@ -69,7 +69,7 @@ export type ButtonClickedDownloadDocumentAttributesType = {
 		| 'embedPreview'
 		| 'flexible'
 		| 'hoverCardPreview'
-		| 'hyperlink'
+		| 'url'
 		| null;
 	resourceType: string | null;
 };
@@ -84,7 +84,7 @@ export type ButtonClickedInvokePreviewScreenAttributesType = {
 		| 'embedPreview'
 		| 'flexible'
 		| 'hoverCardPreview'
-		| 'hyperlink'
+		| 'url'
 		| null;
 	resourceType: string | null;
 };
@@ -99,7 +99,7 @@ export type ButtonClickedShortcutGoToLinkAttributesType = {
 		| 'embedPreview'
 		| 'flexible'
 		| 'hoverCardPreview'
-		| 'hyperlink'
+		| 'url'
 		| null;
 	resourceType: string | null;
 };
@@ -114,7 +114,7 @@ export type ButtonClickedIssueStatusUpdateAttributesType = {
 		| 'embedPreview'
 		| 'flexible'
 		| 'hoverCardPreview'
-		| 'hyperlink'
+		| 'url'
 		| null;
 	resourceType: string | null;
 };
@@ -149,28 +149,14 @@ export type RelatedLinksFailedAttributesType = {
 };
 export type SmartLinkIframeDwelledAttributesType = {
 	id: string;
-	display:
-		| 'inline'
-		| 'block'
-		| 'embed'
-		| 'embedPreview'
-		| 'flexible'
-		| 'hoverCardPreview'
-		| 'hyperlink';
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
 	definitionId: string | null;
 	dwellTime: number;
 	dwellPercentVisible: number;
 };
 export type SmartLinkIframeFocusedAttributesType = {
 	id: string;
-	display:
-		| 'inline'
-		| 'block'
-		| 'embed'
-		| 'embedPreview'
-		| 'flexible'
-		| 'hoverCardPreview'
-		| 'hyperlink';
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
 	definitionId: string | null;
 };
 export type ApplicationAccountConnectedAttributesType = {
@@ -231,14 +217,7 @@ export type SmartLinkUnresolvedAttributesType = {
 	reason: string;
 };
 export type SmartLinkChunkLoadFailedAttributesType = {
-	display:
-		| 'inline'
-		| 'block'
-		| 'embed'
-		| 'embedPreview'
-		| 'flexible'
-		| 'hoverCardPreview'
-		| 'hyperlink';
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
 	definitionId: string | null;
 	error: Record<string, unknown>;
 	errorInfo: Record<string, unknown>;
@@ -254,7 +233,7 @@ export type SmartLinkActionResolvedAttributesType = {
 		| 'embedPreview'
 		| 'flexible'
 		| 'hoverCardPreview'
-		| 'hyperlink'
+		| 'url'
 		| null;
 	resourceType: string | null;
 	duration: number | null;
@@ -270,7 +249,7 @@ export type SmartLinkActionUnresolvedAttributesType = {
 		| 'embedPreview'
 		| 'flexible'
 		| 'hoverCardPreview'
-		| 'hyperlink'
+		| 'url'
 		| null;
 	resourceType: string | null;
 	duration: number | null;
@@ -318,36 +297,15 @@ export type HoverCardDismissedAttributesType = {
 	definitionId: string | null;
 };
 export type ButtonClickedConnectAccountAttributesType = {
-	display:
-		| 'inline'
-		| 'block'
-		| 'embed'
-		| 'embedPreview'
-		| 'flexible'
-		| 'hoverCardPreview'
-		| 'hyperlink';
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
 	definitionId: string | null;
 };
 export type SmartLinkClickedTryAnotherAccountAttributesType = {
-	display:
-		| 'inline'
-		| 'block'
-		| 'embed'
-		| 'embedPreview'
-		| 'flexible'
-		| 'hoverCardPreview'
-		| 'hyperlink';
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
 	definitionId: string | null;
 };
 export type ConsentModalClosedAttributesType = {
-	display:
-		| 'inline'
-		| 'block'
-		| 'embed'
-		| 'embedPreview'
-		| 'flexible'
-		| 'hoverCardPreview'
-		| 'hyperlink';
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
 	definitionId: string | null;
 };
 export type ModalClosedEmbedPreviewAttributesType = {

@@ -1,5 +1,11 @@
 # @atlaskit/util-data-test
 
+## 18.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.3.2
 
 ### Patch Changes
@@ -1664,7 +1670,6 @@
 - [#6228](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6228)
   [`22791ceed0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22791ceed0) - [ux] -
   added new properites in MentionResource interface to support invite from mention experiment
-
   - updated util-data-test/mention to enable invite from mention experiment
   - added invite from mention experiment logic into editor-core
 
@@ -1771,7 +1776,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/emoji@62.6.3
@@ -1964,12 +1968,10 @@ Bumped dependencies.
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -2035,7 +2037,6 @@ Bumped dependencies.
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -2089,19 +2090,16 @@ Bumped dependencies.
 ## 12.2.0
 
 - [minor][21f5217343](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21f5217343):
-
   - consume emoji new entrypoints in AK
 
 ## 12.1.0
 
 - [minor][7089d49f61](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7089d49f61):
-
   - consume the new mention entrypoints
 
 ## 12.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -2122,13 +2120,11 @@ Bumped dependencies.
 ## 11.1.7
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 11.1.6
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 11.1.5
@@ -2147,41 +2143,34 @@ Bumped dependencies.
 ## 11.1.3
 
 - [patch][1affe17dc4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1affe17dc4):
-
   - add analytics events for team mention
 
 ## 11.1.2
 
 - [patch][5ca3696b14](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5ca3696b14):
-
   - TEAMS-319 : Render member counts and whether team includes you in byline
 
 - [patch][b8b55dc6ae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b8b55dc6ae):
-
   - TEAMS-319 : Render member counts and whether team includes you in byline
 
 ## 11.1.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 11.1.0
 
 - [minor][b684722884](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b684722884):
-
   - improvement of SSR tests and examples for Fabric Elements
 
 ## 11.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 10.2.6
 
 - [patch][fb679d390f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fb679d390f):
-
   - Add a new TeamMenioResource for @atlaskit/mention package. That allows to fetch teams data for
     mention from a team service (Legion service)
 
@@ -2225,13 +2214,11 @@ Bumped dependencies.
 ## 10.2.0
 
 - [minor][1d19234fbd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1d19234fbd):
-
   - Enable noImplicitAny and resolve issues for elements util packages
 
 ## 10.1.0
 
 - [minor][be86cbebc3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/be86cbebc3):
-
   - enable noImplicitAny for task-decision, and related changes
 
 ## 10.0.36
@@ -2244,7 +2231,6 @@ Bumped dependencies.
 ## 10.0.35
 
 - [patch][1ce0c13301](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1ce0c13301):
-
   - TEAMS-169 Adding team related example data
 
 ## 10.0.34
@@ -2280,7 +2266,6 @@ Bumped dependencies.
 ## 10.0.29
 
 - [patch][551696e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/551696e):
-
   - FS-3398 Fix incorrect event type for mention's "rendered" analytics event, ui -> operational
 
 ## 10.0.28
@@ -2292,7 +2277,6 @@ Bumped dependencies.
 ## 10.0.27
 
 - [patch][015fcd0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/015fcd0):
-
   - Adjusted unit tests to test for the bug noticed in FS-3259. Added multiple atlassian-ftfy emoji
     to test this, so updated a unit test to confirm that there are 14 Atlassian emoji, and also
     added an additional unit test to confirm that FS-3259 was corrected.
@@ -2315,19 +2299,16 @@ Bumped dependencies.
 ## 10.0.24
 
 - [patch][e0c91b6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e0c91b6):
-
   - FS-3310 Fix handling of duplicate users in mention typeahead causing HOT-85672
 
 ## 10.0.23
 
 - [patch][0a297ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a297ba):
-
   - Packages should not be shown in the navigation, search and overview
 
 ## 10.0.22
 
 - [patch][10a728e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/10a728e):
-
   - FS-3208 only display 'name' if same value as 'publicName'
 
 ## 10.0.21

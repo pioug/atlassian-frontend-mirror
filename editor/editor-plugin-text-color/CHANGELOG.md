@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-text-color
 
+## 6.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.4
 
 ### Patch Changes
@@ -336,7 +342,6 @@
 
 - [`3145f278b1f7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3145f278b1f7a) -
   [ux] [ED-28473] minor UI updates for editor-toolbar
-
   - Use ADS ButtonGroup for ToolbarButtonGroup
   - Remove groupLocation prop and use CSS instead
   - Use DropdownItemGroup for ToolbarDropdownItemSection and expand props for section separator and
@@ -447,7 +452,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.

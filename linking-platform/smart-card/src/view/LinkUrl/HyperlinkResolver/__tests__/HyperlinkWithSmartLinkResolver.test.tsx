@@ -154,7 +154,7 @@ describe('HyperlinkWithSmartLinkResolver - Connect Button Logic', () => {
 				const connectButton = screen.getByTestId('button-connect-account');
 				await userEvent.click(connectButton);
 
-				expect(mockActions.authorize).toHaveBeenCalledWith('hyperlink');
+				expect(mockActions.authorize).toHaveBeenCalledWith('url');
 			});
 
 			it('should pass onClick callback to HyperlinkUnauthorizedView', async () => {

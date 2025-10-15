@@ -1,5 +1,11 @@
 # @atlaskit/media-test-helpers
 
+## 39.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 39.0.6
 
 ### Patch Changes
@@ -1655,7 +1661,6 @@
 ### Minor Changes
 
 - [minor][6dcad31e41](https://bitbucket.org/atlassian/atlassian-frontend/commits/6dcad31e41):
-
   - Added Stargate integration to MediaPicker popup.
   - Added `useMediaPickerPopup` option to Editor which enables using MediaPicker popup even when
     userAuthProvider is not provided.
@@ -1806,7 +1811,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/dropdown-menu@8.2.4
   - @atlaskit/icon@20.0.1
   - @atlaskit/select@11.0.7
@@ -1926,7 +1930,6 @@
   Make PopupSelect correctly pass props. Forcing update of @atlaskit/select for all other packages-
   Updated dependencies
   [3a20e9a596](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3a20e9a596):
-
   - @atlaskit/select@11.0.2
 
 ## 25.2.4
@@ -2164,7 +2167,6 @@ Bumped dependencies.
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -2265,20 +2267,17 @@ Bumped dependencies.
 ### Patch Changes
 
 - [patch][0f47d97c78](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0f47d97c78):
-
   - fix getDefaultMediaClientConfig
 
 ## 24.0.1
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
 ## 24.0.0
 
 - [major][9ecfef12ac](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9ecfef12ac):
-
   - `createUserContext` was removed, with no alternatives to replace it. `asMockReturnValue` jest
     helper function was added to make it possible to be type safe.
 
@@ -2291,13 +2290,11 @@ Bumped dependencies.
 ## 23.1.0
 
 - [minor][12aa76d5b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12aa76d5b5):
-
   - ED-6814: fixed rendering mediaSingle without collection
 
 ## 23.0.0
 
 - [major][ed3f034232](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ed3f034232):
-
   - Changes to `MediaMock` signature: `MediaMock` constructor now takes an object where destination
     collection name is the key and the value is a list of `<MediaFile & {blob: Blob}>` objects that
     will be loaded directly into a database for the corresponding collections. MediaMock now also
@@ -2312,14 +2309,12 @@ Bumped dependencies.
 ## 22.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 21.4.0
 
 - [minor][6f463c4d88](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6f463c4d88):
-
   - add new methods to fake context
 
 - Updated dependencies
@@ -2332,7 +2327,6 @@ Bumped dependencies.
 ## 21.3.0
 
 - [minor][5489810e15](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5489810e15):
-
   - Add support for media-client objects: fakeMediaClient, getDefaultMediaClientConfig,
     createStorybookMediaClient, createStorybookMediaClientConfig, createUploadMediaClient,
     createUploadMediaClientConfig, createUserMediaClient
@@ -2350,7 +2344,6 @@ Bumped dependencies.
 ## 21.2.3
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 21.2.2
@@ -2365,19 +2358,16 @@ Bumped dependencies.
 ## 21.2.1
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 21.2.0
 
 - [minor][e1c1fa454a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e1c1fa454a):
-
   - Support external image identifier in MediaViewer
 
 ## 21.1.0
 
 - [minor][dd14a0a1f0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dd14a0a1f0):
-
   - export getDefaultContextConfig
 
 - Updated dependencies
@@ -2399,19 +2389,16 @@ Bumped dependencies.
 ## 21.0.2
 
 - [patch][1d09298688](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1d09298688):
-
   - Remove axios dependency
 
 ## 21.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 21.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 20.1.8
@@ -2489,7 +2476,6 @@ Bumped dependencies.
 ## 20.1.0
 
 - [minor][4e82fedc90](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4e82fedc90):
-
   - Expose real id upfront for remote files in MediaPicker
 
 - Updated dependencies
@@ -2504,13 +2490,11 @@ Bumped dependencies.
 ## 20.0.1
 
 - [patch][28353efea8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/28353efea8):
-
   - Fix expected/actual in expectToEqual utility
 
 ## 20.0.0
 
 - [major][07a187bb30](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/07a187bb30):
-
   - Fetch cloud accounts only on cloud folder opening
 
 ## 19.1.1
@@ -2526,7 +2510,6 @@ Bumped dependencies.
 ## 19.1.0
 
 - [minor][b1627a5837](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b1627a5837):
-
   - Enable inline video player in Editor and Renderer
 
 - Updated dependencies
@@ -2539,7 +2522,6 @@ Bumped dependencies.
 ## 19.0.0
 
 - [major][3ad16f3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3ad16f3):
-
   - More jest utilities has been added: expectToEqual, expectConstructorToHaveBeenCalledWith and
     expectFunctionToHaveBeenCalledWith to allow for typed jest assertions. mountWithIntlContext got
     generics types.
@@ -2553,7 +2535,6 @@ Bumped dependencies.
 ## 18.10.0
 
 - [minor][e6516fb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e6516fb):
-
   - Move media mocks into right location to prevent them to be included in dist
 
 ## 18.9.1
@@ -2566,7 +2547,6 @@ Bumped dependencies.
 ## 18.9.0
 
 - [minor][72d37fb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/72d37fb):
-
   - Remove deprecated methods from media-core
   - Use context.collection methods in MediaViewer
   - Remove link support from media-card
@@ -2578,13 +2558,11 @@ Bumped dependencies.
 ## 18.8.0
 
 - [minor][6bc785d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6bc785d):
-
   - default to HD video if available in video viewer
 
 ## 18.7.3
 
 - [patch][b677631](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b677631):
-
   - Add new example and ensure occurrenceKey is set for all copy/withToken calls
 
 ## 18.7.2
@@ -2597,13 +2575,11 @@ Bumped dependencies.
 ## 18.7.1
 
 - [patch][ca16fa9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ca16fa9):
-
   - Add SSR support to media components
 
 ## 18.7.0
 
 - [minor][5c06476](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5c06476):
-
   - Add touch endpoint to mock server
 
 - Updated dependencies [b3738ea](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b3738ea):
@@ -2622,7 +2598,6 @@ Bumped dependencies.
 ## 18.6.1
 
 - [patch][f621523](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f621523):
-
   - fix MediaMocker router
 
 ## 18.6.0
@@ -2640,25 +2615,21 @@ Bumped dependencies.
 ## 18.5.1
 
 - [patch][0a297ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a297ba):
-
   - Packages should not be shown in the navigation, search and overview
 
 ## 18.5.0
 
 - [minor][c1ea81c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c1ea81c):
-
   - use custom video player for inline video in media-card
 
 ## 18.4.0
 
 - [minor][b02ffa7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b02ffa7):
-
   - add touch event helpers and canvas mocking
 
 ## 18.3.2
 
 - [patch][5a6de24](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5a6de24):
-
   - translate component properties in media components
 
 ## 18.3.1
@@ -2673,7 +2644,6 @@ Bumped dependencies.
 ## 18.3.0
 
 - [minor][fa7d4c5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fa7d4c5):
-
   - asMock method was added; It can be used to convert any function into jest.Mock;
 
 - Updated dependencies [7e8b4b9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7e8b4b9):

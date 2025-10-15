@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 24.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.3.1
 
 ### Patch Changes
@@ -406,7 +412,6 @@
   [`30a69f02904da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30a69f02904da) -
   [ED-23460] Make sure that error analytics in editor-plugin-mentions can fire by using actions from
   editor-plugin-analytics
-
   - **@atlaskit/editor-common**: Add types for `@atlaskit/editor-plugin-mentions` analytics
   - **@atlaskit/editor-plugin-mentions**: Switch to using `@atlaskit/editor-plugin-analytics`
     actions so that error events can be queued and fired consistently
@@ -1046,7 +1051,6 @@
 - [#6228](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6228)
   [`22791ceed0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22791ceed0) - [ux] -
   added new properites in MentionResource interface to support invite from mention experiment
-
   - updated util-data-test/mention to enable invite from mention experiment
   - added invite from mention experiment logic into editor-core
 
@@ -1230,7 +1234,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/avatar@17.1.7
@@ -1443,12 +1446,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -1589,7 +1590,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1685,7 +1685,6 @@
 ### Minor Changes
 
 - [minor][11cb8d8626](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/11cb8d8626):
-
   - Remove @atlaskit/analytics dependency.
 
 ## 18.3.3
@@ -1693,7 +1692,6 @@
 ### Patch Changes
 
 - [patch][ac95568398](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ac95568398):
-
   - Some messages are never pushed to Transifex so we need to run `yarn i18n:push && yarn i18n:pull`
     again
 
@@ -1733,13 +1731,11 @@
 ## 18.2.0
 
 - [minor][a0d5982270](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a0d5982270):
-
   - Don't display nickname in mention list if it is the same as name.
 
 ## 18.1.0
 
 - [minor][5e4ff01e4c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5e4ff01e4c):
-
   - Fix typeahead re-rendering when moving mouse
 
   Breaking change -> TypeAheadItem:
@@ -1770,20 +1766,17 @@
 ## 18.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 17.6.9
 
 - [patch][d3cad2622e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d3cad2622e):
-
   - Removes babel-runtime in favour of @babel/runtime
 
 ## 17.6.8
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 17.6.7
@@ -1800,104 +1793,87 @@
 ## 17.6.6
 
 - [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
-
   - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
     supplied from itself.
 
 ## 17.6.5
 
 - [patch][ddb3238b1c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ddb3238b1c):
-
   - TEAMS-396 : Changing byline logic for mention
 
 ## 17.6.4
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 17.6.3
 
 - [patch][14b89652d7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/14b89652d7):
-
   - TEAMS-364 : Renaming the missed test files in the previous PR
 
 ## 17.6.2
 
 - [patch][c8b669eaec](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c8b669eaec):
-
   - TEAMS-364 : Renaming Team mention description highlight classes to Byline
 
 ## 17.6.1
 
 - [patch][d26570e3b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d26570e3b5):
-
   - Update i18n for team mention
   - Fix a bug in team mention: missing https protocol in team link
 
 ## 17.6.0
 
 - [minor][b31086fcf6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b31086fcf6):
-
   - Add additional entry points for selective imports of mention components
 
 ## 17.5.0
 
 - [minor][b0210d7ccc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0210d7ccc):
-
   - reset jest modules before hydration
 
 ## 17.4.0
 
 - [minor][1affe17dc4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1affe17dc4):
-
   - add analytics events for team mention
 
 ## 17.3.0
 
 - [minor][073320a681](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/073320a681):
-
   - Improve TeamMentionResource, both team and user requests are not blocked together
 
 ## 17.2.0
 
 - [patch][5ca3696b14](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5ca3696b14):
-
   - TEAMS-319 : Render member counts and whether team includes you in byline
 
 - [minor][b8b55dc6ae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b8b55dc6ae):
-
   - TEAMS-319 : Render member counts and whether team includes you in byline
 
 ## 17.1.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 17.1.0
 
 - [minor][b684722884](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b684722884):
-
   - improvement of SSR tests and examples for Fabric Elements
 
 ## 17.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 16.4.0
 
 - [minor][fb679d390f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fb679d390f):
-
   - Add a new TeamMenioResource for @atlaskit/mention package. That allows to fetch teams data for
     mention from a team service (Legion service)
 
 ## 16.3.0
 
 - [minor][7261577953](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7261577953):
-
   - use @atlaskit/ssr to ssr/hydrate mention examples
 
 ## 16.2.2
@@ -1925,13 +1901,11 @@
 ## 16.2.0
 
 - [minor][ef368572dc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ef368572dc):
-
   - Update types for @atlaskit/mention
 
 ## 16.1.0
 
 - [minor][0f3f9f0992](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0f3f9f0992):
-
   - Fix context identifiers not being passed to mention provider's calls. MentionProvider interface
     was updated to include the optional contextIdentifier parameter in filter and
     recordMentionSelection methods.
@@ -1948,7 +1922,6 @@
 ## 16.0.0
 
 - [major][0c116d6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0c116d6):
-
   - Removed client-side indexed cache of mention results. Also removed method 'getUsersInContext'
     from MentionResourceConfig, 'remoteSearch' from MentionStats and 'weight' from
     MentionDescription. If you used to use them, simply remove any references to them.
@@ -1956,40 +1929,33 @@
 ## 15.3.0
 
 - [minor][c238c00](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c238c00):
-
   - added i18n support to mentions
 
 - [minor][3b1de17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3b1de17):
-
   - added i18n translated files
 
 ## 15.2.2
 
 - [patch][0f19693](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0f19693):
-
   - added tests for xregexp transformer, updated README and simplified code
 
 - [patch][b789b3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b789b3a):
-
   - removed xregexp library dependency from emoji and mention components, added xregexp-transformer
     package to compile xregexp expressions to unicode charsets
 
 ## 15.2.1
 
 - [patch][cae5adb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cae5adb):
-
   - UR-197: Add queryLength to mentionTypeahead rendered event
 
 ## 15.2.0
 
 - [minor][f62557c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f62557c):
-
   - ED-5888 Add dark mode for mention
 
 ## 15.1.9
 
 - [patch][b81da9b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b81da9b):
-
   - Fix typescript types to support strictFunctionTypes
 
 ## 15.1.8
@@ -2020,7 +1986,6 @@
 ## 15.1.6
 
 - [patch][90c4702](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/90c4702):
-
   - FS-1734 Removed the try it out section from Emoji and Mentions documentation pages to match
     other pages. The section only contained a link to the same page, so was essentially redundant
     and potentially confusing.
@@ -2028,13 +1993,11 @@
 ## 15.1.5
 
 - [patch][3061b52](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3061b52):
-
   - AK-5723 - adjust files in package.json to ensure correct publishing of dist/package.json
 
 ## 15.1.4
 
 - [patch][01edbde](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/01edbde):
-
   - Force patch release
 
 ## 15.1.3
@@ -2048,13 +2011,11 @@
 ## 15.1.2
 
 - [patch][36c362f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/36c362f):
-
   - FS-3174 - Fix usage of gridSize() and borderRadius()
 
 ## 15.1.1
 
 - [patch][527b954](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/527b954):
-
   - FS-3174 - Remove usage of util-shared-styles from elements components
 
 ## 15.1.0

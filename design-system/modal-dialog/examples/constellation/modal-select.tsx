@@ -55,29 +55,25 @@ export default function ModalDialogSelect() {
 								This select should open and be visible on top of the modal dialog. This is because
 								of the usage of <Code>menuPosition="fixed"</Code> on <Code>@atlaskit/select</Code>.
 							</p>
-							<Form onSubmit={onSubmit}>
-								{({ formProps }) => (
-									<form {...formProps} id="modal-form">
-										<Field<Value<Option, true>> name="country" label="Country of residence">
-											{({ fieldProps }) => (
-												<Select<Option, true>
-													{...fieldProps}
-													menuPosition="fixed"
-													options={[
-														{ label: 'Adelaide', value: 'adelaide' },
-														{ label: 'Brisbane', value: 'brisbane' },
-														{ label: 'Canberra', value: 'canberra' },
-														{ label: 'Darwin', value: 'darwin' },
-														{ label: 'Hobart', value: 'hobart' },
-														{ label: 'Melbourne', value: 'melbourne' },
-														{ label: 'Perth', value: 'perth' },
-														{ label: 'Sydney', value: 'sydney' },
-													]}
-												/>
-											)}
-										</Field>
-									</form>
-								)}
+							<Form onSubmit={onSubmit} id="modal-form">
+								<Field<Value<Option, true>> name="country" label="Country of residence">
+									{({ fieldProps }) => (
+										<Select<Option, true>
+											{...fieldProps}
+											menuPosition="fixed"
+											options={[
+												{ label: 'Adelaide', value: 'adelaide' },
+												{ label: 'Brisbane', value: 'brisbane' },
+												{ label: 'Canberra', value: 'canberra' },
+												{ label: 'Darwin', value: 'darwin' },
+												{ label: 'Hobart', value: 'hobart' },
+												{ label: 'Melbourne', value: 'melbourne' },
+												{ label: 'Perth', value: 'perth' },
+												{ label: 'Sydney', value: 'sydney' },
+											]}
+										/>
+									)}
+								</Field>
 							</Form>
 						</ModalBody>
 						<ModalFooter>

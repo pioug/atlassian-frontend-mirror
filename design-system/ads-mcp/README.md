@@ -44,7 +44,7 @@ const addIcons = await search_icons({
 
 // Search for multiple resources at once (most efficient for complex UI patterns)
 const designResources = await plan({
-	tokens_search: ['color.text', 'space.100', 'border.radius'],
+	tokens_search: ['color.text', 'space.100', 'radius.small'],
 	icons_search: ['add', 'edit', 'delete'],
 	components_search: ['Button', 'TextField', 'Modal'],
 	limit: 2,

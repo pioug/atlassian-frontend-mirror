@@ -7,11 +7,12 @@
 
 # Understanding token values
 
-- **border.radius.050** - 2px (subtle rounding)
-- **border.radius.200** - 4px (standard rounding)
-- **border.radius.300** - 8px (prominent rounding)
-- **border.radius.400** - 12px (large rounding)
-- **border.radius.circle** - 9999px (perfect circle)
+- **radius.xsmall** - 2px (subtle rounding)
+- **radius.small** - 4px (standard rounding)
+- **radius.medium** - 6px (medium rounding)
+- **radius.large** - 8px (prominent rounding)
+- **radius.xlarge** - 12px (large rounding)
+- **radius.full** - 9999px (perfect circle, or pill shape for non-square elements)
 
 # Translation from Tailwind
 
@@ -29,27 +30,27 @@
 
 ## Examples
 
-- `rounded-lg` = `token('border.radius.300')` (NOT `border.radius.800`)
-- `rounded-sm` = `token('border.radius.050')` (NOT `border.radius.100`)
-- `rounded-full` = `token('border.radius.circle')`
+- `rounded-lg` = `token('radius.xlarge')` (NOT `border.radius.800`)
+- `rounded-sm` = `token('radius.xsmall')` (NOT `border.radius.100`)
+- `rounded-full` = `token('radius.full')`
 
 ## Border radius values
 
-| Tailwind Class | Pixel Value | Design Token         | Pixel Value |
-| -------------- | ----------- | -------------------- | ----------- |
-| rounded-sm     | 2px         | border.radius.050    | 2px         |
-| rounded        | 4px         | border.radius.200    | 4px         |
-| rounded-lg     | 8px         | border.radius.300    | 8px         |
-| rounded-xl     | 12px        | border.radius.400    | 12px        |
-| rounded-full   | 9999px      | border.radius.circle | 9999px      |
+| Tailwind Class | Pixel Value | Design Token  | Pixel Value |
+| -------------- | ----------- | ------------- | ----------- |
+| rounded-sm     | 2px         | radius.xsmall | 2px         |
+| rounded        | 4px         | radius.small  | 4px         |
+| rounded-lg     | 8px         | radius.large  | 8px         |
+| rounded-xl     | 12px        | radius.xlarge | 12px        |
+| rounded-full   | 9999px      | radius.full   | 9999px      |
 
 ## Example migration from Tailwind classes to ADS radius tokens
 
 ```tsx
 +import { token } from '@atlaskit/tokens';
 -<div className="rounded-lg">Card content</div>
-+<div style={{ borderRadius: token('border.radius.300') }}>Card content</div>
++<div style={{ borderRadius: token('radius.large') }}>Card content</div>
 
 -<img className="rounded-full" src="…" />
-+<img style={{ borderRadius: token('border.radius.circle') }} src="…" />
++<img style={{ borderRadius: token('radius.full') }} src="…" />
 ```

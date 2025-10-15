@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 24.20.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.20.0
 
 ### Minor Changes
@@ -439,7 +445,6 @@
   [`c6101121ae1df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6101121ae1df) -
   Removed unused component props in response to the removal of `isAgentCreatedByUser` from the agent
   dropdown actions component. Changes:
-
   - `AgentProfileCard`: removed `isCreatedByViewingUser` / `product` props. `isCreatedByViewingUser`
     is no longer needed for action dropdown permission checks, and `product` is an unused prop
   - `AgentProfileCardResourced`: removed `viewingUserId` / `product` props. `viewingUserId` is no
@@ -3560,7 +3565,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/avatar@17.1.7
   - @atlaskit/button@13.3.7
@@ -3782,7 +3786,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -3843,7 +3846,6 @@
 ## 10.2.5
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -3868,7 +3870,6 @@
 ## 10.2.2
 
 - [patch][afd34e36b0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/afd34e36b0):
-
   - Hide public name when it matches the full name
 
 ## 10.2.1
@@ -3881,27 +3882,23 @@
 ## 10.2.0
 
 - [minor][e7d7fe8252](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e7d7fe8252):
-
   - Make full name and public name in the same line. Remove `@` symbol in front of public name.
     Remove mention icon
 
 ## 10.1.0
 
 - [minor][5a49043dac](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5a49043dac):
-
   - Enable strictPropertyInitialization in tsconfig.base
 
 ## 10.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 9.0.5
 
 - [patch][d3cad2622e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d3cad2622e):
-
   - Removes babel-runtime in favour of @babel/runtime
 
 ## 9.0.4
@@ -3916,7 +3913,6 @@
 ## 9.0.3
 
 - [patch][50e8c82ec4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/50e8c82ec4):
-
   - index.ts is now ignored when published to npm to avoid ambiguity between ts and js files
 
 ## 9.0.2
@@ -3950,7 +3946,6 @@
 ## 9.0.0
 
 - [major][bfca144ea5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bfca144ea5):
-
   - Refactored internal components. Moved to Typescript. Updated named exports. Updated type
     definitions.
 
@@ -3971,19 +3966,16 @@
 ## 8.0.1
 
 - [patch][9a0c34d490](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9a0c34d490):
-
   - Fixes package.json to not exclude built files
 
 ## 8.0.0
 
 - [major][dbff4fdcf9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dbff4fdcf9):
-
   - Remove presence from profilecard now that users cannot use Stride to control it
 
 ## 7.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -4028,7 +4020,6 @@
 ## 6.2.0
 
 - [minor][e0e5dd69a7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e0e5dd69a7):
-
   - Support 2 new props "hasStatusLozengeForDisabledAccount" and "customMessageForDisabledAccount"
 
 ## 6.1.5
@@ -4043,13 +4034,11 @@
 ## 6.1.4
 
 - [patch][ba95c0e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ba95c0e):
-
   - Remove typescript type InjectedIntlProps from flow js code
 
 ## 6.1.3
 
 - [patch][3ef5292](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3ef5292):
-
   - Include type definitions in npm package
 
 ## 6.1.2
@@ -4081,7 +4070,6 @@
 ## 6.1.0
 
 - [minor][a2da489](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a2da489):
-
   - - wrap profile card in IntlProvider and support i18n
 
 ## 6.0.3
@@ -4106,19 +4094,16 @@
 ## 6.0.1
 
 - [patch][9d63842](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d63842):
-
   - Fixed a bug where content is not rendered for cards of users whose accounts are closed
 
 ## 6.0.0
 
 - [major][9c0844d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c0844d):
-
   - Replace "isActive" prop with new "status" prop and adding react-intl messages
 
 ## 5.0.0
 
 - [major][a6dd6e3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a6dd6e3):
-
   - Removed isCensored prop as this state no longer exists
 
 ## 4.0.10

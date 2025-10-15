@@ -2432,3 +2432,447 @@ events:
         queryName:
           type: string
           description: the query name
+  - profileAboutItem edited:
+      type: track
+      description: fired when the profile about item is edited
+      attributes:
+        fieldKey:
+          type: string
+          description: the key of the field
+  - userProfileScreenAboutPanel viewed:
+      type: track
+      description: fired when the user profile screen about panel is viewed
+      attributes:
+        nonEmptyFields:
+          type: string
+          description: the non empty fields
+  - privacyPolicyLink clicked:
+      type: ui
+      description: fired when the privacy policy link is clicked
+  - teamProfileItem clicked:
+      type: ui
+      description: fired when the team profile item is clicked
+      attributes:
+        position:
+          type: number
+          description: the position of the team profile item
+  - showMore clicked:
+      type: ui
+      description: fired when the show more button is clicked
+  - teamCreateDialogTriggerButton clicked:
+      type: ui
+      description: fired when the team create dialog trigger button is clicked
+      attributes:
+        trigger:
+          type: string
+          description: the trigger
+  - button clicked (manageAccountButton):
+      type: ui
+      description: fired when the manage account button is clicked
+  - button clicked (manageAccessButton):
+      type: ui
+      description: fired when the manage access button is clicked
+  - userProfileScreenLoad failed:
+      type: track
+      description: fired when the user profile screen load fails
+  - userProfileScreen viewed:
+      type: screen
+      description: fired when the user profile screen is viewed
+      attributes:
+        isCurrentUser:
+          type: boolean
+          description: whether the user is the current user
+  - viewAllWork clicked:
+      type: ui
+      description: fired when the view all work button is clicked
+      attributes:
+        location:
+          type: string
+          description: the location
+  - moreWork clicked:
+      type: ui
+      description: fired when the more work button is clicked
+      attributes:
+        numItemsDisplayed:
+          type: number
+          description: the number of items displayed
+  - activityEntry clicked:
+      type: ui
+      description: fired when the activity entry is clicked
+      attributes:
+        provider:
+          type: string
+          description: the provider
+        entryIndex:
+          type: number
+          description: the index
+  - placesLink clicked:
+      type: ui
+      description: fired when the places link is clicked
+      attributes:
+        type:
+          type: string
+          description: the type of the place
+  - ViewedTeamProfileFromRequestToJoinNotification viewed:
+      type: track
+      description: fired when the team profile is viewed from the request to join notification
+      attributes:
+        status:
+          type: number
+          description: error status code
+          required: false
+        errorType:
+          type: string
+          description: error type
+          required: false
+        isVerified:
+          type: boolean
+          description: whether the user is verified
+  - teamProfileScreen viewed:
+      type: screen
+      description: fired when the team profile screen is viewed
+      attributes:
+        teamId:
+          type: string
+          description: id of the selected team
+        membershipState:
+          type: string
+          description: the membership state of the user in the team
+          required: false
+        isViewerMember:
+          type: boolean
+          description: whether the viewer is a member of the team
+        isVerified:
+          type: boolean
+          description: whether the user is verified
+        isSiteAdmin:
+          type: boolean
+          description: whether the user is a site admin
+        isOrgAdmin:
+          type: boolean
+          description: whether the user is an org admin
+        orgId:
+          type: string
+          description: the id of the organization
+          required: false
+        hasContainersConnect:
+          type: boolean
+          description: whether the team has any connected containers
+        numberOfContainersConnected:
+          type: number
+          description: the number of connected containers
+        numberOfWebLinksConnected:
+          type: number
+          description: the number of connected weblinks
+        webLinksCurrentlyConnected:
+          type: []
+          description: the list of currently connected weblinks
+        containersCurrentlyConnected:
+          type: []
+          description: the list of currently connected containers
+  - GetTeamProfile succeeded:
+      type: operational
+      description: fired when the get team profile request is succeeded
+      attributes:
+        status:
+          type: number
+          description: status code of the request
+        isVerified:
+          type: boolean
+          description: whether the user is verified
+  - GetTeamProfile failed:
+      type: operational
+      description: fired when the get team profile request is failed
+      attributes:
+        status:
+          type: number
+          description: status code of the request
+          required: false
+  - addWebLinkDialog opened:
+      type: track
+      description: fired when the add weblink dialog is opened
+      attributes:
+        teamId:
+          type: string
+          description: id of the selected team
+  - editWebLinkDialog opened:
+      type: track
+      description: fired when the edit weblink dialog is opened
+      attributes:
+        teamId:
+          type: string
+          description: id of the selected team
+  - link clicked (helpLink):
+      type: ui
+      description: fired when the help link is clicked
+      attributes:
+        uiScreen:
+          type: string
+          description: the screen where the help link is located
+        descriptionLength:
+          type: number
+          description: the length of the team description
+        titleLength:
+          type: number
+          description: the length of the team title
+        type:
+          type: string
+          description: the type of help link
+          required: false
+        teamId:
+          type: string
+          description: id of the selected team
+          required: false
+        totalTags:
+          type: number
+          description: the number of tags associated with the team
+          required: false
+        numTagsMatchingSearch:
+          type: number
+          description: the number of tags matching the search
+          required: false
+  - TeamsProfileHelpPointers viewed:
+      type: ui
+      description: fired when the help pointers are viewed
+      attributes:
+        isEmpty:
+          type: boolean
+          description: whether the team profile is empty
+        canEdit:
+          type: boolean
+          description: whether the user can edit the team profile
+        totalArticles:
+          type: number
+          description: the number of articles associated with the team
+        totalRequests:
+          type: number
+          description: the number of requests associated with the team
+  - ShowMore expanded:
+      type: ui
+      description: fired when the show more button is clicked to expand the help pointers list
+      attributes:
+        helpType:
+          type: string
+          description: the type of help content being shown (articles or requests)
+        totalHelpPointers:
+          type: number
+          description: the total number of help pointers available
+  - dialog opened (createHelpPointerDialog):
+      type: ui
+      description: fired when the create help pointer dialog is opened
+      attributes:
+        screen:
+          type: string
+          description: the screen where the create help pointer dialog is opened
+  - helpPointer created:
+      type: track
+      description: fired when a help pointer is successfully created
+      attributes:
+        screen:
+          type: string
+          description: the screen where the help pointer is created
+        type:
+          type: string
+          description: the type of help pointer created
+          required: false
+        totalTags:
+          type: number
+          description: the number of tags associated with the team
+        descriptionLength:
+          type: number
+          description: the length of the team description
+        teamId:
+          type: string
+          description: id of the selected team
+          required: false
+        emptyProfilePage:
+          type: boolean
+          description: whether the team profile page is empty
+  - tag created:
+      type: track
+      description: fired when a tag is successfully created
+      attributes:
+        screen:
+          type: string
+          description: the screen where the tag is created
+        context:
+          type: string
+          description: the context where the tag is created
+  - dialog opened (editHelpPointerDialog):
+      type: ui
+      description: fired when the edit help pointer dialog is opened
+      attributes:
+        screen:
+          type: string
+          description: the screen where the edit help pointer dialog is opened
+  - dialog opened (deleteHelpPointerDialog):
+      type: ui
+      description: fired when the delete help pointer dialog is opened
+      attributes:
+        screen:
+          type: string
+          description: the screen where the delete help pointer dialog is opened
+  - helpPointer deleted:
+      type: track
+      description: fired when a help pointer is successfully deleted
+      attributes:
+        screen:
+          type: string
+          description: the screen where the help pointer is deleted
+        type:
+          type: string
+          description: the type of help pointer deleted
+          required: false
+        totalTags:
+          type: number
+          description: the number of tags associated with the team
+        descriptionLength:
+          type: number
+          description: the length of the team description
+        teamId:
+          type: string
+          description: id of the selected team
+          required: false
+  - helpPointer edited:
+      type: track
+      description: fired when a help pointer is successfully edited
+      attributes:
+        screen:
+          type: string
+          description: the screen where the help pointer is edited
+        type:
+          type: string
+          description: the type of help pointer edited
+          required: false
+        totalTags:
+          type: number
+          description: the number of tags associated with the team
+        descriptionLength:
+          type: number
+          description: the length of the team description
+        teamId:
+          type: string
+          description: id of the selected team
+          required: false
+        createdNewTeam:
+          type: boolean
+          description: whether a new team was created
+  - teamLink linked:
+      type: track
+      description: fired when a team is successfully linked to a container
+      attributes:
+        linkId:
+          type: string
+          description: the id of the linked container
+        teamId:
+          type: string
+          description: id of the selected team
+        linkDomain:
+          type: string
+          description: the domain of the linked container
+        hasWebLinksConnected:
+          type: boolean
+          description: whether the team has any connected weblinks
+        isMemberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        isVerified:
+          type: boolean
+          description: whether the user is verified
+          required: false
+  - teamLink typed:
+      type: ui
+      description: fired when a link is typed in the add link dialog
+      attributes:
+        length:
+          type: number
+          description: the length of the link being typed
+        isHttp:
+          type: boolean
+          description: whether the link is an http link
+        isHttps:
+          type: boolean
+          description: whether the link is an https link
+  - teamLink clicked (addHttpButton):
+      type: ui
+      description: fired when the add http button is clicked in the add link dialog
+      attributes:
+        previousLength:
+          type: number
+          description: the length of the link before the add http button was clicked
+  - teamLink clicked (addHttpsButton):
+      type: ui
+      description: fired when the add https button is clicked in the add link dialog
+      attributes:
+        previousLength:
+          type: number
+          description: the length of the link before the add https button was clicked
+  - teamRestoreScreen viewed:
+      type: screen
+      description: fired when the team restore screen is viewed
+      attributes:
+        teamId:
+          type: string
+          description: id of the selected team
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+  - button clicked (reactivateTeam):
+      type: ui
+      description: fired when the reactivate team button is clicked
+      attributes:
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+  - teamRestore succeeded:
+      type: operational
+      description: fired when the team is successfully restored
+  - teamRestore failed:
+      type: operational
+      description: fired when the team restore action fails
+      attributes:
+        status:
+          type: number
+          description: the status code if the action failed
+          required: false
+  - GetSettings succeeded:
+      type: operational
+      description: fired when the get settings request is succeeded
+  - GetSettings failed:
+      type: operational
+      description: fired when the get settings request fails
+  - teamLink edited:
+      type: track
+      description: fired when a team link is successfully edited
+      attributes:
+        linkId:
+          type: string
+          description: the id of the linked container
+        teamId:
+          type: string
+          description: id of the selected team
+        linkDomain:
+          type: string
+          description: the domain of the linked container
+        oldLinkDomain:
+          type: string
+          description: the old domain of the linked container
+        isLinkPartOfTeamContainers:
+          type: boolean
+          description: whether the link is part of the team containers section
+        memberOfTeam:
+          type: boolean
+          description: whether the user is a member of the team
+        orgAdminTriggered:
+          type: boolean
+          description: whether the org admin triggered the action
+        isVerified:
+          type: boolean
+          description: whether the user is verified
+          required: false

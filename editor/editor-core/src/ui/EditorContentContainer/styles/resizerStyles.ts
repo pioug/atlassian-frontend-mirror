@@ -222,10 +222,17 @@ export const resizerStyles: SerializedStyles = css({
 		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+	[`&.resizer-hover-zone-cls-fix .${resizerHoverZoneClassName}`]: {
+		display: 'flow-root',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 	[`.${resizerHoverZoneClassName}`]: {
 		position: 'relative',
 		display: 'inline-block',
 		width: '100%',
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 		[`&.${resizerExtendedZone}`]: {

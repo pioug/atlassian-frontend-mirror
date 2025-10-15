@@ -1,5 +1,11 @@
 # @atlaskit/jql-editor
 
+## 5.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.6.2
 
 ### Patch Changes
@@ -1161,7 +1167,6 @@
 - [#20341](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20341)
   [`af6e73a1e17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af6e73a1e17) - Bumping
   dependencies via Renovate:
-
   - react-loosely-lazy
 
 ## 2.5.3
@@ -1358,7 +1363,6 @@
 ### Minor Changes
 
 - 99dde51: Support AtlasKit-like field styling
-
   - Now editor won't render search related elements (search button, "Enter to search" text, etc.) if
     `onSearch` callback isn't provided
   - Now editor exposes an `isCompact` prop to control spacing: `false` to match AK's default field

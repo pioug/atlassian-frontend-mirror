@@ -1256,11 +1256,11 @@ export type Layer = keyof typeof layerMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dc59452c62abcdabe4029b664d7037e1>>
+ * @codegen <<SignedSource::a9118f8ed93d943746fd7e932ce5a639>>
  * @codegenId border
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["width", "radius"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::c4d3b4472a9cb61697f29cba3433c11f>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::45e4ecb92a72445f508219ea6a5f056a>>
  */
 export const borderWidthMap: {
 	'border.width': 'var(--ds-border-width)';

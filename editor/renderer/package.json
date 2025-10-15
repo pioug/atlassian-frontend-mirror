@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "124.5.0",
+	"version": "124.5.3",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -249,6 +249,9 @@
 			"type": "boolean"
 		},
 		"hot-121622_lazy_load_expand_content": {
+			"type": "boolean"
+		},
+		"media-perf-uplift-mutation-fix": {
 			"type": "boolean"
 		}
 	},

@@ -19,6 +19,9 @@ type CommentToolbarProps = {
 	editorAPI?: PublicPluginAPI<ToolbarEditorPlugins>;
 	editorAppearance: EditorAppearance;
 	editorView?: EditorView;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
 };
 
 /**
@@ -29,6 +32,9 @@ export const CommentToolbar = ({
 	editorView,
 	editorAppearance,
 	disabled,
+	popupsBoundariesElement,
+	popupsMountPoint,
+	popupsScrollableElement,
 }: CommentToolbarProps) => {
 	const components = editorAPI?.toolbar?.actions.getComponents();
 	const toolbar = components?.find((component) => component.key === TOOLBARS.PRIMARY_TOOLBAR);
@@ -45,6 +51,9 @@ export const CommentToolbar = ({
 			editorAPI={editorAPI}
 			editorAppearance={editorAppearance}
 			isDisabled={disabled}
+			popupsBoundariesElement={popupsBoundariesElement}
+			popupsScrollableElement={popupsScrollableElement}
+			popupsMountPoint={popupsMountPoint}
 		/>
 	);
 };

@@ -479,7 +479,7 @@ describe('<ResourcedEmoji />', () => {
 
 	describe('should automatically set width to auto if fitToHeight is true', () => {
 		ffTest(
-			'platform_emoji_width_auto_fitToHeight',
+			'platform_emoji_width_auto_fittoheight',
 			async () => {
 				renderWithIntl(
 					<ResourcedEmoji

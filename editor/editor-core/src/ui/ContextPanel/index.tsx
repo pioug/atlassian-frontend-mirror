@@ -166,10 +166,6 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 			width: `${this.props.customWidth}px`,
 			overflowX: 'hidden',
 		});
-		const ariaModal = fg('platform_editor_a11y_macro_sidebar_dialog') ? 'false' : undefined;
-		const ariaLabelledBy = fg('platform_editor_a11y_macro_sidebar_dialog')
-			? undefined
-			: 'context-panel-title';
 
 		return (
 			<ContextPanelConsumer>
@@ -188,8 +184,7 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 							]}
 							data-testid="context-panel-panel"
 							aria-label={this.props.intl?.formatMessage(contextPanelMessages.panelLabel) || ''}
-							aria-labelledby={ariaLabelledBy}
-							aria-modal={ariaModal}
+							aria-modal="false"
 							role="dialog"
 						>
 							<div

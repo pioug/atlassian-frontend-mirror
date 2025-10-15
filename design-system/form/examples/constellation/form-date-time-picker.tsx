@@ -38,65 +38,61 @@ const FormDateTimePickerExample = () => {
 					return Promise.resolve(validateOnSubmit(data));
 				}}
 			>
-				{({ formProps }) => (
-					<form {...formProps}>
-						<Field name="DOB" label="Date of Birth" defaultValue="" isRequired>
-							{({ fieldProps: { id, ...rest }, error }) => (
-								<Fragment>
-									<DatePicker shouldShowCalendarButton {...rest} id={id} />
-									<MessageWrapper>
-										{error && <ErrorMessage>Please select a date of birth.</ErrorMessage>}
-									</MessageWrapper>
-								</Fragment>
-							)}
-						</Field>
-						<Field
-							name="preference"
-							label="Preferred appointment date & time"
-							defaultValue=""
-							isRequired
-						>
-							{({ fieldProps: { id, ...rest }, error }) => {
-								const validationState = error ? 'error' : 'none';
-								return (
-									<Fragment>
-										<DateTimePicker
-											{...rest}
-											datePickerProps={{
-												shouldShowCalendarButton: true,
-												selectProps: {
-													// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
-													validationState,
-												},
-												label: 'Date, Preferred appointment date & time',
-												id: id,
-											}}
-											timePickerProps={{
-												selectProps: {
-													// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
-													validationState,
-												},
-												label: 'Time, Preferred appointment date & time',
-											}}
-										/>
-										<MessageWrapper>
-											{error && (
-												<ErrorMessage>
-													{`Please select preferred appointment date & time.`}
-												</ErrorMessage>
-											)}
-										</MessageWrapper>
-									</Fragment>
-								);
-							}}
-						</Field>
-						<FormFooter>
-							<Button type="submit" appearance="primary">
-								Submit
-							</Button>
-						</FormFooter>
-					</form>
-				)}
+				<Field name="DOB" label="Date of Birth" defaultValue="" isRequired>
+					{({ fieldProps: { id, ...rest }, error }) => (
+						<Fragment>
+							<DatePicker shouldShowCalendarButton {...rest} id={id} />
+							<MessageWrapper>
+								{error && <ErrorMessage>Please select a date of birth.</ErrorMessage>}
+							</MessageWrapper>
+						</Fragment>
+					)}
+				</Field>
+				<Field
+					name="preference"
+					label="Preferred appointment date & time"
+					defaultValue=""
+					isRequired
+				>
+					{({ fieldProps: { id, ...rest }, error }) => {
+						const validationState = error ? 'error' : 'none';
+						return (
+							<Fragment>
+								<DateTimePicker
+									{...rest}
+									datePickerProps={{
+										shouldShowCalendarButton: true,
+										selectProps: {
+											// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
+											validationState,
+										},
+										label: 'Date, Preferred appointment date & time',
+										id: id,
+									}}
+									timePickerProps={{
+										selectProps: {
+											// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
+											validationState,
+										},
+										label: 'Time, Preferred appointment date & time',
+									}}
+								/>
+								<MessageWrapper>
+									{error && (
+										<ErrorMessage>
+											{`Please select preferred appointment date & time.`}
+										</ErrorMessage>
+									)}
+								</MessageWrapper>
+							</Fragment>
+						);
+					}}
+				</Field>
+				<FormFooter>
+					<Button type="submit" appearance="primary">
+						Submit
+					</Button>
+				</FormFooter>
 			</Form>
 		</Flex>
 	);

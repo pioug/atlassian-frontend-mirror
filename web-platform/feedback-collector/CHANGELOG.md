@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 14.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.6.2
 
 ### Patch Changes
@@ -1129,7 +1135,6 @@
   [VULN229258](https://asecurityteam.atlassian.net/browse/VULN-229258))
 
   ## Other changes
-
   - Uses new Feedback Collector API for data analysis
   - Data encoding
 
@@ -1167,7 +1172,6 @@ _WRONG RELEASE TYPE - DON'T USE_
   [VULN-229258](https://asecurityteam.atlassian.net/browse/VULN-229258))
 
   ## Other changes
-
   - Uses new Feedback Collector API for data analysis
   - Data encoding
 
@@ -1463,7 +1467,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/button@13.3.7
   - @atlaskit/checkbox@10.1.7
@@ -1540,7 +1543,6 @@ _WRONG RELEASE TYPE - DON'T USE_
   Make PopupSelect correctly pass props. Forcing update of @atlaskit/select for all other packages-
   Updated dependencies
   [3a20e9a596](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3a20e9a596):
-
   - @atlaskit/select@11.0.2
   - @atlaskit/navigation-next@7.1.3
 
@@ -1741,7 +1743,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 4.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -1793,7 +1794,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 3.0.3
 
 - [patch][4c6816d81b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4c6816d81b):
-
   - Fix type from typeFiedlId to typeFieldId
 
 ## 3.0.2
@@ -1825,7 +1825,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 3.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1880,7 +1879,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 2.0.4
 
 - [patch][2a8536a220](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2a8536a220):
-
   - Button is no longer a peer dependency of this module
 
 ## 2.0.3
@@ -1902,7 +1900,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 2.0.2
 
 - [patch][a048a85](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a048a85):
-
   - Updated to be compatible with new Forms API
 
 - Updated dependencies [647a46f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/647a46f):
@@ -1992,7 +1989,6 @@ _WRONG RELEASE TYPE - DON'T USE_
 ## 0.2.4
 
 - [patch][a637f5e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a637f5e):
-
   - Refine and fix some flow type errors found by fixing @atlaskit/analytics-next HOCs to allow flow
     to type check properly
 

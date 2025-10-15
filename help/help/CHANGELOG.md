@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 9.1.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.22
 
 ### Patch Changes
@@ -799,7 +805,6 @@
 - [#101167](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101167)
   [`52a888c912e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52a888c912e8) -
   [ux] Display 4 extra article details in Article search display
-
   1. Last published
 
   2. Content source
@@ -1857,7 +1862,6 @@
 
   Remove unused dependencies- Updated dependencies
   [f45c19a96e](https://bitbucket.org/atlassian/atlassian-frontend/commits/f45c19a96e):
-
   - @atlaskit/help-article@1.0.5
   - @atlaskit/right-side-panel@0.3.3
 
@@ -1926,7 +1930,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/analytics@7.0.1
@@ -2449,12 +2452,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -2642,7 +2643,6 @@
 ## 0.5.8
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -2674,62 +2674,52 @@
 ## 0.5.4
 
 - [patch][84b7ee2f8b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/84b7ee2f8b):
-
   - fix articles loading when the articleId changes
 
 ## 0.5.3
 
 - [patch][45f063521d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/45f063521d):
-
   - Updated dependencies
 
 ## 0.5.2
 
 - [patch][d1854796ae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d1854796ae):
-
   - Updated dependencies
 
 ## 0.5.1
 
 - [patch][ccacfe8570](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ccacfe8570):
-
   - Updated help-article version
 
 ## 0.5.0
 
 - [minor][88b9f3568b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/88b9f3568b):
-
   - Update transition configuration of the panel. If the initial value of isOpen is true, fire
     analytics event and request the article
 
 ## 0.4.2
 
 - [patch][4053dcd740](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4053dcd740):
-
   - added close button and styles for header when the component renders the default content
 
 ## 0.4.1
 
 - [patch][a77b18b718](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a77b18b718):
-
   - fix - Display DefaultContent
 
 ## 0.4.0
 
 - [minor][f479974eb4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f479974eb4):
-
   - Added version.json and update analytics.json to read the info from there
 
 ## 0.3.0
 
 - [minor][875ff270e8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/875ff270e8):
-
   - Use @atlaskit/help-article instead of custom component
 
 ## 0.2.0
 
 - [minor][e6b180d4cd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e6b180d4cd):
-
   - First release of global-help
 
 - [major] First release of global-help

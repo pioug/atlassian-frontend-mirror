@@ -1133,21 +1133,9 @@ export interface TypographyTokenSchema<
 export interface ShapeTokenSchema<BaseToken> {
 	border: {
 		width: {
-			'0': ShapeToken<BaseToken>;
-			indicator: ShapeToken<BaseToken>;
-			outline: ShapeToken<BaseToken>;
 			'[default]': ShapeToken<BaseToken>;
 			selected: ShapeToken<BaseToken>;
 			focused: ShapeToken<BaseToken>;
-		};
-		radius: {
-			'[default]': ShapeToken<BaseToken>;
-			'050': ShapeToken<BaseToken>;
-			'100': ShapeToken<BaseToken>;
-			'200': ShapeToken<BaseToken>;
-			'300': ShapeToken<BaseToken>;
-			'400': ShapeToken<BaseToken>;
-			circle: ShapeToken<BaseToken>;
 		};
 	};
 	radius: {

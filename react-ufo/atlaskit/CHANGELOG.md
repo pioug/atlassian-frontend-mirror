@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.12.1
+
+### Patch Changes
+
+- [`eec573b4a7a6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eec573b4a7a6a) -
+  Excluded data-test* data-file* and data-context\* attributes from media fy25_03 as they are non
+  visual change required internally for testing and supporting copy and paste functionality
+
 ## 4.12.0
 
 ### Minor Changes

@@ -460,23 +460,23 @@ const formElement = (
   import Form from '@atlaskit/form';
 
   const FormComponent1 = () => (
-    <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form>
+    <Form onSubmit={() => {}} noValidate name="bar" id="foo" autocomplete="off"><input /></Form>
   );
 
   const FormComponent2 = () => (
     <>
-      <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form>
+      <Form onSubmit={() => {}} noValidate name="bar" id="foo" autocomplete="off"><input /></Form>
     </>
   );
 
   class FormComponent3 extends React.Component {
     render() {
-      return (<Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form>);
+      return (<Form onSubmit={() => {}} noValidate name="bar" id="foo" autocomplete="off"><input /></Form>);
     }
   }
 
   const formElement = (
-    <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form>
+    <Form onSubmit={() => {}} noValidate name="bar" id="foo" autocomplete="off"><input /></Form>
   );
 `,
 			'should migrate existing props on `form` into their respective props on `Form`',
@@ -540,23 +540,23 @@ const formElement = (
   import Form from '@atlaskit/form';
 
   const FormComponent1 = () => (
-    <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form>
+    <Form onSubmit={() => {}} labelId="bar" label="foo"><input /></Form>
   );
 
   const FormComponent2 = () => (
     <>
-      <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form>
+      <Form onSubmit={() => {}} labelId="bar" label="foo"><input /></Form>
     </>
   );
 
   class FormComponent3 extends React.Component {
     render() {
-      return (<Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form>);
+      return (<Form onSubmit={() => {}} labelId="bar" label="foo"><input /></Form>);
     }
   }
 
   const formElement = (
-    <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form>
+    <Form onSubmit={() => {}} labelId="bar" label="foo"><input /></Form>
   );
         `,
 			'should migrate existing props on `form` into different names',
@@ -622,26 +622,26 @@ const formElement = (
   const FormComponent1 = () => (
     <Form
       onSubmit={() => {}}
+      noValidate
+      name="bar"
+      id="foo"
+      autocomplete="off"
       formProps={{
         quu: "qux"
-      }}
-      autocomplete="off"
-      id="foo"
-      name="bar"
-      noValidate><input /></Form>
+      }}><input /></Form>
   );
 
   const FormComponent2 = () => (
     <>
       <Form
         onSubmit={() => {}}
+        noValidate
+        name="bar"
+        id="foo"
+        autocomplete="off"
         formProps={{
           quu: "qux"
-        }}
-        autocomplete="off"
-        id="foo"
-        name="bar"
-        noValidate><input /></Form>
+        }}><input /></Form>
     </>
   );
 
@@ -650,13 +650,13 @@ const formElement = (
       return (
         <Form
           onSubmit={() => {}}
+          noValidate
+          name="bar"
+          id="foo"
+          autocomplete="off"
           formProps={{
             quu: "qux"
-          }}
-          autocomplete="off"
-          id="foo"
-          name="bar"
-          noValidate><input /></Form>
+          }}><input /></Form>
       );
     }
   }
@@ -664,13 +664,13 @@ const formElement = (
   const formElement = (
     <Form
       onSubmit={() => {}}
+      noValidate
+      name="bar"
+      id="foo"
+      autocomplete="off"
       formProps={{
         quu: "qux"
-      }}
-      autocomplete="off"
-      id="foo"
-      name="bar"
-      noValidate><input /></Form>
+      }}><input /></Form>
   );
         `,
 			'should migrate existing props on `form` into their respective props on `Form` and also use `formProps` if needed',

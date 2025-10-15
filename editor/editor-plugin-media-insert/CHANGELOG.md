@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.2
 
 ### Patch Changes
@@ -237,7 +243,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -784,7 +789,6 @@
 - [#146446](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146446)
   [`c98c34dd5f307`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c98c34dd5f307) -
   [ED-24941] Added analytics for media-insert
-
   - **@atlaskit/editor-common**: Add enums and types for new anaylics params
   - **@atlaskit/editor-plugin-media**: Include 'insertMediaVia' on analytics events for inserting
     media into the document
@@ -1005,7 +1009,6 @@
 - [#129457](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129457)
   [`171c73d4033f0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/171c73d4033f0) -
   [ux] [ED-24566]
-
   - Internationalisation strings in editor-common for editor-plugin-media-insert
   - Removed default pre-filled URL for editor-plugin-media-insert popup
   - Added background color for editor-plugin-media-insert popup

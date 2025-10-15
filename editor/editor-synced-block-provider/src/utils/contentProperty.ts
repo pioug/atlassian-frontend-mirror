@@ -1,4 +1,5 @@
-import { getConfluencePageAri } from './ari';
+import { getConfluencePageAri, type PAGE_TYPE } from './ari';
+import { isBlogPageType } from './utils';
 
 const COMMON_HEADERS = {
 	'Content-Type': 'application/json',
@@ -19,6 +20,7 @@ type GetContentPropertyOptions = {
 	cloudId: string;
 	key: string;
 	pageId: string;
+	pageType: PAGE_TYPE;
 	signal?: AbortSignal;
 };
 
@@ -26,6 +28,7 @@ type CreateContentPropertyOptions = {
 	cloudId: string;
 	key: string;
 	pageId: string;
+	pageType: PAGE_TYPE;
 	value: string;
 };
 
@@ -33,6 +36,7 @@ type UpdateContentPropertyOptions = {
 	cloudId: string;
 	key: string;
 	pageId: string;
+	pageType: PAGE_TYPE;
 	signal?: AbortSignal;
 	value: string;
 };
@@ -41,6 +45,23 @@ export type GetContentPropertyResult = {
 	data: {
 		confluence: {
 			page: {
+				properties:
+					| [
+							{
+								key: string | null;
+								value: string | null;
+							},
+					  ]
+					| null;
+			};
+		};
+	};
+};
+
+export type GetBlogPostContentPropertyResult = {
+	data: {
+		confluence: {
+			blogPost: {
 				properties:
 					| [
 							{
@@ -67,11 +88,37 @@ export type UpdateContentPropertyResult = {
 	};
 };
 
+export type UpdateBlogPostContentPropertyResult = {
+	data: {
+		confluence: {
+			updateValueBlogPostProperty: {
+				blogPostProperty: {
+					key: string | null;
+					value: string | null;
+				} | null;
+			};
+		};
+	};
+};
+
 export type CreateContentPropertyResult = {
 	data: {
 		confluence: {
 			createPageProperty: {
 				pageProperty: {
+					key: string | null;
+					value: string | null;
+				} | null;
+			};
+		};
+	};
+};
+
+export type CreateBlogPostContentPropertyResult = {
+	data: {
+		confluence: {
+			createBlogPostProperty: {
+				blogPostProperty: {
 					key: string | null;
 					value: string | null;
 				} | null;
@@ -86,7 +133,7 @@ export type CreateContentPropertyResult = {
  * @param key
  * @returns
  */
-const GET_QUERY = `query ${GET_OPERATION_NAME} ($id: ID!, $keys: [String]!) {
+const GET_PAGE_QUERY = `query ${GET_OPERATION_NAME} ($id: ID!, $keys: [String]!) {
 					confluence {
 						page (id: $id) {
 							properties(keys: $keys) {
@@ -98,13 +145,30 @@ const GET_QUERY = `query ${GET_OPERATION_NAME} ($id: ID!, $keys: [String]!) {
 				}`;
 
 /**
+ * Query to get the blog page property by key
+ * @param documentARI
+ * @param key
+ * @returns
+ */
+const GET_BLOG_QUERY = `query ${GET_OPERATION_NAME} ($id: ID!, $keys: [String]!) {
+	confluence {
+		blogPost (id: $id) {
+			properties(keys: $keys) {
+				key,
+				value
+			}
+		}
+	}
+}`;
+
+/**
  * Query to create a page property with key and value
  * @param documentARI
  * @param key
  * @param value
  * @returns
  */
-const CREATE_QUERY = `mutation ${CREATE_OPERATION_NAME} ($input: ConfluenceCreatePagePropertyInput!){
+const CREATE_PAGE_QUERY = `mutation ${CREATE_OPERATION_NAME} ($input: ConfluenceCreatePagePropertyInput!){
 						confluence {
 							createPageProperty(input: $input) {
 								pageProperty {
@@ -116,13 +180,31 @@ const CREATE_QUERY = `mutation ${CREATE_OPERATION_NAME} ($input: ConfluenceCreat
 					}`;
 
 /**
+ * Query to create a blog page property with key and value
+ * @param documentARI
+ * @param key
+ * @param value
+ * @returns
+ */
+const CREATE_BLOG_QUERY = `mutation ${CREATE_OPERATION_NAME} ($input: ConfluenceCreateBlogPostPropertyInput!){
+	confluence {
+		createBlogPostProperty(input: $input) {
+			blogPostProperty {
+				key,
+				value
+			}
+		}
+	}
+}`;
+
+/**
  * Query to update a page property with key and value without bumping the version
  * @param documentARI
  * @param key
  * @param value
  * @returns
  */
-const UPDATE_QUERY = `mutation ${UPDATE_OPERATION_NAME} ($input: ConfluenceUpdateValuePagePropertyInput!) {
+const UPDATE_PAGE_QUERY = `mutation ${UPDATE_OPERATION_NAME} ($input: ConfluenceUpdateValuePagePropertyInput!) {
 						confluence {
 							updateValuePageProperty(input: $input) {
 								pageProperty {
@@ -133,15 +215,36 @@ const UPDATE_QUERY = `mutation ${UPDATE_OPERATION_NAME} ($input: ConfluenceUpdat
 						}
 					}`;
 
-export const getContentProperty = async ({
+/**
+ * Query to update a blog page property with key and value without bumping the version
+ * @param documentARI
+ * @param key
+ * @param value
+ * @returns
+ */
+const UPDATE_BLOG_QUERY = `mutation ${UPDATE_OPERATION_NAME} ($input: ConfluenceUpdateValueBlogPostPropertyInput!) {
+	confluence {
+		updateValueBlogPostProperty(input: $input) {
+			blogPostProperty {
+				key,
+				value
+			}
+		}
+	}
+}`;
+
+export const getContentProperty = async <
+	T extends GetContentPropertyResult | GetBlogPostContentPropertyResult,
+>({
 	pageId,
 	key,
 	cloudId,
-}: GetContentPropertyOptions): Promise<GetContentPropertyResult> => {
-	const documentARI = getConfluencePageAri(pageId, cloudId);
-
+	pageType,
+}: GetContentPropertyOptions): Promise<T> => {
+	const documentARI = getConfluencePageAri(pageId, cloudId, pageType);
+	const isBlog = isBlogPageType(pageType);
 	const bodyData = {
-		query: GET_QUERY,
+		query: isBlog ? GET_BLOG_QUERY : GET_PAGE_QUERY,
 		operationName: GET_OPERATION_NAME,
 		variables: {
 			id: documentARI,
@@ -159,28 +262,39 @@ export const getContentProperty = async ({
 		throw new Error(`Failed to get content property: ${response.statusText}`);
 	}
 
-	const contentProperty = (await response.json()) as GetContentPropertyResult;
-
-	return contentProperty;
+	return (await response.json()) as T;
 };
 
-export const updateContentProperty = async ({
+export const updateContentProperty = async <
+	T extends UpdateContentPropertyResult | UpdateBlogPostContentPropertyResult,
+>({
 	pageId,
 	key,
 	value,
 	cloudId,
-}: UpdateContentPropertyOptions): Promise<UpdateContentPropertyResult> => {
-	const documentARI = getConfluencePageAri(pageId, cloudId);
+	pageType,
+}: UpdateContentPropertyOptions): Promise<T> => {
+	const documentARI = getConfluencePageAri(pageId, cloudId, pageType);
+	const isBlog = isBlogPageType(pageType);
+
+	const useSameVersion = { useSameVersion: true };
+
+	let input = {
+		...(isBlog ? { blogPostId: documentARI } : { pageId: documentARI }),
+		key,
+		value,
+	};
+
+	// Blog content properties don't support the useSameVersion flag at the moment
+	if (!isBlog) {
+		input = { ...input, ...useSameVersion };
+	}
+
 	const bodyData = {
-		query: UPDATE_QUERY,
+		query: isBlog ? UPDATE_BLOG_QUERY : UPDATE_PAGE_QUERY,
 		operationName: UPDATE_OPERATION_NAME,
 		variables: {
-			input: {
-				pageId: documentARI,
-				key,
-				value,
-				useSameVersion: true,
-			},
+			input,
 		},
 	};
 
@@ -194,28 +308,30 @@ export const updateContentProperty = async ({
 		throw new Error(`Failed to update content property: ${response.statusText}`);
 	}
 
-	const contentProperty = (await response.json()) as UpdateContentPropertyResult;
-
-	return contentProperty;
+	return (await response.json()) as T;
 };
 
-export const createContentProperty = async ({
+export const createContentProperty = async <
+	T extends CreateContentPropertyResult | CreateBlogPostContentPropertyResult,
+>({
 	pageId,
 	key,
 	value,
 	cloudId,
-}: CreateContentPropertyOptions) => {
-	const documentARI = getConfluencePageAri(pageId, cloudId);
+	pageType,
+}: CreateContentPropertyOptions): Promise<T> => {
+	const documentARI = getConfluencePageAri(pageId, cloudId, pageType);
+	const isBlog = isBlogPageType(pageType);
 
 	// eslint-disable-next-line require-unicode-regexp
 	const escapedValue = value.replace(/"/g, '\\"');
 
 	const bodyData = {
-		query: CREATE_QUERY,
+		query: isBlog ? CREATE_BLOG_QUERY : CREATE_PAGE_QUERY,
 		operationName: CREATE_OPERATION_NAME,
 		variables: {
 			input: {
-				pageId: documentARI,
+				...(isBlog ? { blogPostId: documentARI } : { pageId: documentARI }),
 				key,
 				value: escapedValue,
 			},
@@ -232,7 +348,5 @@ export const createContentProperty = async ({
 		throw new Error(`Failed to create content property: ${response.statusText}`);
 	}
 
-	const contentProperty = (await response.json()) as CreateContentPropertyResult;
-
-	return contentProperty;
+	return (await response.json()) as T;
 };

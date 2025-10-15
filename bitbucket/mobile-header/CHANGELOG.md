@@ -1,5 +1,11 @@
 # @atlaskit/mobile-header
 
+## 7.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.20
 
 ### Patch Changes
@@ -451,7 +457,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/banner@10.1.5
   - @atlaskit/button@13.3.7
@@ -537,14 +542,12 @@
 ### Minor Changes
 
 - [minor][92a9ce6f80](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/92a9ce6f80):
-
   - Added property `topOffset` to handle cases such as when we need to display banner above the
     mobile header
 
 ## 3.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -571,7 +574,6 @@
 ## 2.1.0
 
 - [minor][1b1adaea63](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1b1adaea63):
-
   - Support using a custom menu button via new customMenu prop
 
 ## 2.0.1
@@ -587,7 +589,6 @@
 ## 2.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages

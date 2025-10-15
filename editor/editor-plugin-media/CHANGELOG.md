@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-media
 
+## 8.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.4
+
+### Patch Changes
+
+- [`5c07f0d4e428f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c07f0d4e428f) -
+  [EDITOR-1998] Make media captions follow dense/ compact content mode
+- Updated dependencies
+
 ## 8.1.3
 
 ### Patch Changes
@@ -141,7 +155,6 @@
 
 - [`0d0fe7a300841`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d0fe7a300841) -
   Cleanup platform_editor_usesharedpluginstatewithselector experiment
-
   - BREAKING CHANGE: sharedPluginStateHookMigratorFactory is deleted from @atlaskit/editor-common
 
 - Updated dependencies
@@ -509,7 +522,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -1914,12 +1926,10 @@
   [ux] [ED-25085] Migrate typography \
 
   editor-plugin-media:
-
   - replace caption placeholder span with button
   - replace x between width and height pixel entry with symbol × \
 
   tmp-editor-statsig:
-
   - Add experiment `platform_editor_typography_migration_ugc`
 
 - Updated dependencies
@@ -1983,7 +1993,6 @@
 - [#146446](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146446)
   [`c98c34dd5f307`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c98c34dd5f307) -
   [ED-24941] Added analytics for media-insert
-
   - **@atlaskit/editor-common**: Add enums and types for new anaylics params
   - **@atlaskit/editor-plugin-media**: Include 'insertMediaVia' on analytics events for inserting
     media into the document
@@ -3330,7 +3339,6 @@
   ## WHAT?:
 
   Removing feature flags:
-
   - singleLayout
   - newInsertionBehaviour
   - interactiveExpand
@@ -3344,7 +3352,6 @@
   maintenance burden
 
   ## HOW to update your code:
-
   - If you were using the feature flag - the behaviour is now default and you can remove the flags
   - If you were not using the feature flag - the behaviour is now default.
   - If you have opted out of using the feature flag - we have been careful to ensure no-one has
@@ -3837,7 +3844,6 @@
 - [#43646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43646)
   [`d43f8e9402f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d43f8e9402f) - Make
   feature flags plugin optional in all plugins including:
-
   - analytics
   - base
   - card

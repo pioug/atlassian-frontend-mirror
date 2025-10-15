@@ -10,6 +10,7 @@ import {
 	PanelBody,
 	PanelContainer,
 	PanelHeader,
+	PanelSubheader,
 	PanelTitle,
 } from '../../index';
 
@@ -34,6 +35,7 @@ describe('Panel System', () => {
 					<PanelActionMore onClick={handleMoreActions} />
 				</PanelActionGroup>
 			</PanelHeader>
+			<PanelSubheader>Subheader content</PanelSubheader>
 			<PanelBody>
 				<div>This is test content for the panel system.</div>
 			</PanelBody>

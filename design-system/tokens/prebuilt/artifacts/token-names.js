@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a8feb13ecf105e7fd6247cb4d1a99b01>>
+ * @codegen <<SignedSource::e7897709d50bd1f9582875a2a591b896>>
  * @codegenCommand yarn build tokens
  */
 var tokens = {
@@ -455,17 +455,7 @@ var tokens = {
   'radius.xlarge': '--ds-radius-xlarge',
   'radius.full': '--ds-radius-full',
   'radius.tile': '--ds-radius-tile',
-  'border.radius': '--ds-border-radius',
-  'border.radius.050': '--ds-border-radius-050',
-  'border.radius.100': '--ds-border-radius-100',
-  'border.radius.200': '--ds-border-radius-200',
-  'border.radius.300': '--ds-border-radius-300',
-  'border.radius.400': '--ds-border-radius-400',
-  'border.radius.circle': '--ds-border-radius-circle',
   'border.width': '--ds-border-width',
-  'border.width.0': '--ds-border-width-0',
-  'border.width.indicator': '--ds-border-width-indicator',
-  'border.width.outline': '--ds-border-width-outline',
   'border.width.selected': '--ds-border-width-selected',
   'border.width.focused': '--ds-border-width-focused'
 };

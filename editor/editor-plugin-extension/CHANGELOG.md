@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-extension
 
+## 9.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.2
 
 ### Patch Changes
@@ -283,7 +289,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -1367,12 +1372,10 @@
   [ux] [ED-25085] Migrate typography \
 
   editor-plugin-media:
-
   - replace caption placeholder span with button
   - replace x between width and height pixel entry with symbol × \
 
   tmp-editor-statsig:
-
   - Add experiment `platform_editor_typography_migration_ugc`
 
 - Updated dependencies
@@ -2194,7 +2197,6 @@
 - [#43646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43646)
   [`d43f8e9402f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d43f8e9402f) - Make
   feature flags plugin optional in all plugins including:
-
   - analytics
   - base
   - card

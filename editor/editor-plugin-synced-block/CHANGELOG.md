@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 3.4.1
+
+### Patch Changes
+
+- [`b4dfb07c500c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4dfb07c500c1) -
+  [ux] Add disabled tooltip when source link not resolved
+- Updated dependencies
+
 ## 3.4.0
 
 ### Minor Changes

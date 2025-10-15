@@ -86,6 +86,7 @@ export const ImageRenderer = ({
 				data-resizemode={resizeMode}
 				data-source={cardPreview.source}
 				src={cardPreview.dataURI}
+				srcSet={cardPreview.srcSet}
 				alt={alt}
 				onLoad={onLoad}
 				onError={onError}

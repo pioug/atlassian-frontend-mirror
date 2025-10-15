@@ -65,33 +65,29 @@ const FormCustomFieldExample = () => {
 	return (
 		<Flex direction="column">
 			<Form onSubmit={(data) => console.log(data)}>
-				{({ formProps }) => (
-					<form {...formProps}>
-						<Field name="favorite-color" defaultValue="" label="Favorite color">
-							{({ fieldProps }) => (
-								<Box data-name={fieldProps.id} data-value={fieldProps.value}>
-									<p css={paragraphStyles}>
-										Selected color:{' '}
-										{fieldProps.value ? (
-											<span style={{ color: fieldProps.value }}>{fieldProps.value}</span>
-										) : (
-											'none'
-										)}
-									</p>
-									<ColorButtons
-										colors={['Red', 'Green', 'Orange', 'Blue']}
-										changeHandler={fieldProps.onChange}
-									/>
-								</Box>
-							)}
-						</Field>
-						<FormFooter>
-							<Button type="submit" appearance="primary">
-								Submit
-							</Button>
-						</FormFooter>
-					</form>
-				)}
+				<Field name="favorite-color" defaultValue="" label="Favorite color">
+					{({ fieldProps }) => (
+						<Box data-name={fieldProps.id} data-value={fieldProps.value}>
+							<p css={paragraphStyles}>
+								Selected color:{' '}
+								{fieldProps.value ? (
+									<span style={{ color: fieldProps.value }}>{fieldProps.value}</span>
+								) : (
+									'none'
+								)}
+							</p>
+							<ColorButtons
+								colors={['Red', 'Green', 'Orange', 'Blue']}
+								changeHandler={fieldProps.onChange}
+							/>
+						</Box>
+					)}
+				</Field>
+				<FormFooter>
+					<Button type="submit" appearance="primary">
+						Submit
+					</Button>
+				</FormFooter>
 			</Form>
 		</Flex>
 	);

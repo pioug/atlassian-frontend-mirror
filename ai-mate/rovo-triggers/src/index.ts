@@ -19,9 +19,6 @@ export type {
 	JiraWorkflowWizardAction,
 	DashboardInsightsActionsPayload,
 	DashboardInsightsActionsPayloadData,
-	ChatCallToActionClickedPayload,
-	ValidChatCallToActionUseCases,
-	ValidSourceIdsForChatCallToAction,
 } from './types';
 export {
 	getRovoParams,

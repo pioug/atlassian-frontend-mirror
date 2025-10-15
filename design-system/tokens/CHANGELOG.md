@@ -1,5 +1,28 @@
 # @atlaskit/tokens
 
+## 7.0.0
+
+### Major Changes
+
+- [`75ba0401c1743`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75ba0401c1743) -
+  Deleted deprecated shape tokens. Migration guide:
+
+  | Old token                | New token/value                                   |
+  | ------------------------ | ------------------------------------------------- |
+  | `border.radius.050`      | `radius.xsmall`                                   |
+  | `border.radius`          | `radius.small`                                    |
+  | `border.radius.100`      | `radius.small`                                    |
+  | `border.radius.200`      | `radius.large`                                    |
+  | `border.radius.300`      | `radius.xlarge`                                   |
+  | `border.radius.400`      | `16px`                                            |
+  | `border.radius.circle`   | `radius.full`                                     |
+  | `border.width.0`         | `0`                                               |
+  | `border.width.outline`   | `border.width.selected` or `border.width.focused` |
+  | `border.width.indicator` | `3px`                                             |
+
+  The babel plugin has also been updated to skip new radius tokens in shouldForceAutoFallback mode
+  (previously only the deprecated `border.radius.x` tokens were skipped).
+
 ## 6.5.0
 
 ### Minor Changes

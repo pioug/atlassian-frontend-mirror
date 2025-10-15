@@ -31,27 +31,23 @@ const CheckboxInvalidExample = () => {
 				return Promise.resolve(validateOnSubmit(data));
 			}}
 		>
-			{({ formProps }) => (
-				<form {...formProps}>
-					<CheckboxField name="checkbox-invalid">
-						{({ fieldProps, error }) => (
-							<Fragment>
-								<Checkbox
-									{...fieldProps}
-									label="By checking this box you agree to the terms and conditions"
-									value="By checking this box you agree to the terms and conditions"
-									name="checkbox-invalid"
-									testId="cb-invalid"
-								/>
-								{error && <ErrorMessage>{error}</ErrorMessage>}
-							</Fragment>
-						)}
-					</CheckboxField>
-					<FormFooter>
-						<Button type="submit">Submit</Button>
-					</FormFooter>
-				</form>
-			)}
+			<CheckboxField name="checkbox-invalid">
+				{({ fieldProps, error }) => (
+					<Fragment>
+						<Checkbox
+							{...fieldProps}
+							label="By checking this box you agree to the terms and conditions"
+							value="By checking this box you agree to the terms and conditions"
+							name="checkbox-invalid"
+							testId="cb-invalid"
+						/>
+						{error && <ErrorMessage>{error}</ErrorMessage>}
+					</Fragment>
+				)}
+			</CheckboxField>
+			<FormFooter>
+				<Button type="submit">Submit</Button>
+			</FormFooter>
 		</Form>
 	);
 };

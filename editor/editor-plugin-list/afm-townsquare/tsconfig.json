@@ -41,6 +41,9 @@
 			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../insm/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
 		},
 		{

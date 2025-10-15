@@ -14,40 +14,31 @@ const validateField = (value?: string) => {
 
 const DateTimePickerFormExample = () => (
 	<Form onSubmit={(formState) => console.log('form submitted', formState)}>
-		{({ formProps }) => (
-			<form {...formProps}>
-				<Field
-					name="datetime-picker"
-					label="Scheduled run time"
-					validate={validateField}
-					isRequired
-				>
-					{({ fieldProps, error, meta: { valid } }) => (
-						<>
-							<DateTimePicker
-								{...fieldProps}
-								clearControlLabel="Clear scheduled run time"
-								datePickerProps={{
-									shouldShowCalendarButton: true,
-									label: 'Scheduled run time, date',
-								}}
-								timePickerProps={{ label: 'Scheduled run time, time' }}
-							/>
-							{valid && <ValidMessage>You have entered a valid datetime</ValidMessage>}
-							{error === 'REQUIRED' && <ErrorMessage>This field is required</ErrorMessage>}
-							{error === 'EXPIRED' && (
-								<ErrorMessage>You may not enter a datetime that is in the past</ErrorMessage>
-							)}
-						</>
+		<Field name="datetime-picker" label="Scheduled run time" validate={validateField} isRequired>
+			{({ fieldProps, error, meta: { valid } }) => (
+				<>
+					<DateTimePicker
+						{...fieldProps}
+						clearControlLabel="Clear scheduled run time"
+						datePickerProps={{
+							shouldShowCalendarButton: true,
+							label: 'Scheduled run time, date',
+						}}
+						timePickerProps={{ label: 'Scheduled run time, time' }}
+					/>
+					{valid && <ValidMessage>You have entered a valid datetime</ValidMessage>}
+					{error === 'REQUIRED' && <ErrorMessage>This field is required</ErrorMessage>}
+					{error === 'EXPIRED' && (
+						<ErrorMessage>You may not enter a datetime that is in the past</ErrorMessage>
 					)}
-				</Field>
-				<FormFooter>
-					<Button type="submit" appearance="primary">
-						Submit
-					</Button>
-				</FormFooter>
-			</form>
-		)}
+				</>
+			)}
+		</Field>
+		<FormFooter>
+			<Button type="submit" appearance="primary">
+				Submit
+			</Button>
+		</FormFooter>
 	</Form>
 );
 

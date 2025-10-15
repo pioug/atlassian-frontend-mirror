@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 124.5.3
+
+### Patch Changes
+
+- [`e22968790f2b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e22968790f2b5) -
+  [ux] [EDITOR-2374] prevent style overrides on codemarks in excerpts
+- Updated dependencies
+
+## 124.5.2
+
+### Patch Changes
+
+- [`eec573b4a7a6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eec573b4a7a6a) -
+  Passing the precise Pixel width when available instead of the container width, and passing height
+  100% to avoid attempting height calculations to remove changes for VC
+- Updated dependencies
+
+## 124.5.1
+
+### Patch Changes
+
+- [`08782f92b4f09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08782f92b4f09) -
+  COMMENTS-5684-fe-cleanup-and-archive-cc-comments-include-path-for-renderer-emojis
+- Updated dependencies
+
 ## 124.5.0
 
 ### Minor Changes

@@ -126,47 +126,43 @@ export default () => (
 				return Promise.resolve(validateOnSubmit(data));
 			}}
 		>
-			{({ formProps }) => (
-				<form {...formProps}>
-					<Field<ValueType<Option>> name="colors" label="Select a colour">
-						{({ fieldProps: { id, ...rest }, error }) => (
-							<Fragment>
-								<Select<Option>
-									inputId={id}
-									components={{
-										Option: CustomColorOption,
-										SingleValue: CustomValueOption,
-									}}
-									{...rest}
-									options={colors}
-									isClearable
-									clearControlLabel="Clear colour"
-								/>
-								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-							</Fragment>
-						)}
-					</Field>
-					<Field<ValueType<Option, true>> name="icecream" label="Select a flavor" defaultValue={[]}>
-						{({ fieldProps: { id, ...rest }, error }) => (
-							<Fragment>
-								<Select
-									inputId={id}
-									{...rest}
-									options={flavors}
-									isMulti
-									clearControlLabel="Clear flavor"
-								/>
-								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-							</Fragment>
-						)}
-					</Field>
-					<FormFooter>
-						<Button type="submit" appearance="primary">
-							Submit
-						</Button>
-					</FormFooter>
-				</form>
-			)}
+			<Field<ValueType<Option>> name="colors" label="Select a colour">
+				{({ fieldProps: { id, ...rest }, error }) => (
+					<Fragment>
+						<Select<Option>
+							inputId={id}
+							components={{
+								Option: CustomColorOption,
+								SingleValue: CustomValueOption,
+							}}
+							{...rest}
+							options={colors}
+							isClearable
+							clearControlLabel="Clear colour"
+						/>
+						<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
+					</Fragment>
+				)}
+			</Field>
+			<Field<ValueType<Option, true>> name="icecream" label="Select a flavor" defaultValue={[]}>
+				{({ fieldProps: { id, ...rest }, error }) => (
+					<Fragment>
+						<Select
+							inputId={id}
+							{...rest}
+							options={flavors}
+							isMulti
+							clearControlLabel="Clear flavor"
+						/>
+						<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
+					</Fragment>
+				)}
+			</Field>
+			<FormFooter>
+				<Button type="submit" appearance="primary">
+					Submit
+				</Button>
+			</FormFooter>
 		</Form>
 	</Flex>
 );

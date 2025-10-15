@@ -6,6 +6,7 @@ export type MediaCardSsrData = {
 	dataURI?: string;
 	dimensions?: Partial<NumericalCardDimensions>;
 	error?: MediaFilePreviewErrorInfo;
+	srcSet?: string;
 };
 
 export type MediaCardSsr = Record<string, MediaCardSsrData>;

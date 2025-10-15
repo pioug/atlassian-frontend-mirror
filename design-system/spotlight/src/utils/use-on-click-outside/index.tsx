@@ -16,8 +16,8 @@ export const useOnClickOutside = (onClickOutside: (event: MouseEvent) => void) =
 			return;
 		}
 
-		const unbindMouseDown = bind(doc, {
-			type: 'mousedown',
+		const unbindMouseUp = bind(doc, {
+			type: 'mouseup',
 			listener: (event) => {
 				if (!ref || !ref.current) {
 					return;
@@ -34,7 +34,7 @@ export const useOnClickOutside = (onClickOutside: (event: MouseEvent) => void) =
 		});
 
 		return () => {
-			unbindMouseDown();
+			unbindMouseUp();
 		};
 	}, [onClickOutside, ref]);
 };

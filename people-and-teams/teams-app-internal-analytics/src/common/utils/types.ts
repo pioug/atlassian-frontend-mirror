@@ -13,4 +13,7 @@ export type AnalyticsEventSource =
 	| 'peopleHome'
 	| 'avatarInitialsPicker'
 	| 'peopleDirectorySearchPage'
-	| 'peopleDirectorySearchResultsPage';
+	| 'peopleDirectorySearchResultsPage'
+	| 'createTeamModal'
+	| 'agentProfileScreen'
+	| 'teamRestoreScreen';

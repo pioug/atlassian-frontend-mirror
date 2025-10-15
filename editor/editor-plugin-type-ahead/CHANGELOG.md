@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.1
 
 ### Patch Changes
@@ -340,7 +346,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -1559,7 +1564,6 @@
 
   These are no longer available via `@atlaskit/prosemirror-input-rules` but are available from
   `@atlaskit/editor-common/types`:
-
   - InputRuleWrapper
   - InputRuleHandler
   - OnHandlerApply
@@ -1569,7 +1573,6 @@
   need to instantiate a `SafePlugin` (ie. `new SafePlugin(createPlugin( ... ))`).
 
   `SafePlugin` exists in `@atlaskit/editor-common/safe-plugin`.
-
   - createPlugin
   - createInputRulePlugin
 

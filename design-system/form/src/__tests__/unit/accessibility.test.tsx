@@ -118,7 +118,7 @@ describe('should pass axe accessibility testing', () => {
 			const { container } = render(
 				<Form onSubmit={noop}>
 					{() => (
-						<CheckboxField name="product" value="jira">
+						<CheckboxField name="app" value="jira">
 							{({ fieldProps }) => (
 								<>
 									<Checkbox {...fieldProps} label="Jira" />
@@ -157,7 +157,7 @@ describe('should pass axe accessibility testing', () => {
 				<Form onSubmit={noop}>
 					{() => (
 						<Fieldset legend="Legend">
-							<CheckboxField name="product" value="jira">
+							<CheckboxField name="app" value="jira">
 								{({ fieldProps }) => (
 									<>
 										<Checkbox {...fieldProps} label="Jira" />

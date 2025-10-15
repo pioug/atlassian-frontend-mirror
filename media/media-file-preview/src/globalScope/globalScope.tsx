@@ -21,6 +21,10 @@ export type MediaGlobalScope = {
 	[GLOBAL_MEDIA_CARD_SSR]?: MediaCardSsr;
 };
 
+type MediaFeatureFlags = {
+	'media-perf-uplift-mutation-fix'?: boolean;
+};
+
 export function getMediaGlobalScope(globalScope: any = window): MediaGlobalScope {
 	// Must match GLOBAL_MEDIA_NAMESPACE. Can't reference the constant from here.
 	const namespace = '__MEDIA_INTERNAL';
@@ -45,40 +49,90 @@ const dashed = (param?: string) => (param ? `-${param}` : '');
 export const getKey = ({ id, collectionName, occurrenceKey }: FileIdentifier) =>
 	`${id}${dashed(collectionName)}${dashed(occurrenceKey)}`;
 
+declare const script: HTMLScriptElement;
 export const storeDataURI = (
 	key: string,
-	dataURI?: string,
+	paramDataURI?: string,
+	paramSrcSet?: string,
 	dimensions?: Partial<NumericalCardDimensions>,
 	error?: MediaFilePreviewErrorInfo,
 	globalScope: any = window,
+	featureFlags: MediaFeatureFlags = {},
 ) => {
 	const mediaCardSsr = getMediaCardSSR(globalScope);
-	mediaCardSsr[key] = { dataURI, dimensions, error };
+
+	if (featureFlags['media-perf-uplift-mutation-fix']) {
+		const prevData = mediaCardSsr[key];
+		const isPreviousImageLarger =
+			prevData &&
+			prevData.dimensions?.width &&
+			dimensions?.width &&
+			prevData.dimensions.width > dimensions.width;
+
+		const srcSet = isPreviousImageLarger ? prevData?.srcSet : paramSrcSet;
+		const dataURI = isPreviousImageLarger ? prevData?.dataURI : paramDataURI;
+
+		const img = script?.parentElement?.querySelector('img');
+		if (img && dataURI) {
+			img.src = dataURI;
+		}
+		if (img && srcSet) {
+			img.srcset = srcSet;
+		}
+
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+		img?.addEventListener('load', () => {
+			if (img.currentSrc.startsWith('blob:')) {
+				return;
+			}
+			fetch(img.currentSrc)
+				.then((res) => res.blob())
+				.then((blob) => URL.createObjectURL(blob))
+				.then((blobUrl) => {
+					img.src = blobUrl;
+					img.srcset = '';
+					mediaCardSsr[key] = { ...mediaCardSsr[key], dataURI: blobUrl, srcSet: '' };
+				})
+				.catch((err) => {
+					mediaCardSsr[key] = { ...mediaCardSsr[key], error: err };
+				});
+		});
+		mediaCardSsr[key] = isPreviousImageLarger ? prevData : { dataURI, dimensions, error, srcSet };
+	} else {
+		mediaCardSsr[key] = { dataURI: paramDataURI, dimensions, error };
+	}
 };
 
 const generateScript = (
 	identifier: FileIdentifier,
 	dataURI?: string,
+	srcSet?: string,
 	dimensions?: Partial<NumericalCardDimensions>,
 	error?: MediaFilePreviewErrorInfo,
+	featureFlags: MediaFeatureFlags = {},
 ) => {
 	const functionCall = printFunctionCall(
 		storeDataURI,
 		getKey(identifier),
 		dataURI,
+		srcSet,
 		dimensions,
 		error,
+		featureFlags,
 	);
+
 	return printScript([getMediaCardSSR.toString(), getMediaGlobalScope.toString(), functionCall]);
 };
 
 export const generateScriptProps = (
 	identifier: FileIdentifier,
 	dataURI?: string,
+	srcSet?: string,
 	dimensions?: Partial<NumericalCardDimensions>,
 	error?: MediaFilePreviewErrorInfo,
+	featureFlags: MediaFeatureFlags = {},
 ): React.ScriptHTMLAttributes<HTMLScriptElement> => ({
 	dangerouslySetInnerHTML: {
-		__html: generateScript(identifier, dataURI, dimensions, error),
+		__html: generateScript(identifier, dataURI, srcSet, dimensions, error, featureFlags),
 	},
 });

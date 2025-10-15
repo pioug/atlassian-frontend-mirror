@@ -264,7 +264,7 @@ export const ResourcedEmojiComponent = ({
 	);
 
 	// use width: auto as long as fitToHeight is defined
-	const autoWidth = fg('platform_emoji_width_auto_fitToHeight')
+	const autoWidth = fg('platform_emoji_width_auto_fittoheight')
 		? !!fitToHeight
 		: !!emoji
 			? false

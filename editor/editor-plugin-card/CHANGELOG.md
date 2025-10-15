@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 11.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.2
 
 ### Patch Changes
@@ -185,7 +191,6 @@
 
 - [`0d0fe7a300841`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d0fe7a300841) -
   Cleanup platform_editor_usesharedpluginstatewithselector experiment
-
   - BREAKING CHANGE: sharedPluginStateHookMigratorFactory is deleted from @atlaskit/editor-common
 
 - Updated dependencies
@@ -572,7 +577,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -866,7 +870,6 @@
 
   This experiment was only enabled for Confluence and should not have been enabled in other places.
   If for some reason any of the following props/state/methdos were used please remove them:
-
   - isConsumption
   - contentMode
   - initialContentMode
@@ -3379,7 +3382,6 @@
 - [#64107](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64107)
   [`0372daafc639`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0372daafc639) -
   [ux] Refresh the inline card discoverability overlay design:
-
   - changed color, text size, font, padding, overlay behaviour
 
 ### Patch Changes
@@ -3607,7 +3609,6 @@
 - [#43646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43646)
   [`d43f8e9402f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d43f8e9402f) - Make
   feature flags plugin optional in all plugins including:
-
   - analytics
   - base
   - card

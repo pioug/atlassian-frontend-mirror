@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 33.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.3.2
 
 ### Patch Changes
@@ -2635,7 +2641,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/button@13.3.7
@@ -2760,12 +2765,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -2806,7 +2809,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -2871,19 +2873,16 @@
 ## 17.1.0
 
 - [minor][21f5217343](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21f5217343):
-
   - consume emoji new entrypoints in AK
 
 ## 17.0.1
 
 - [patch][5e00c40c32](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5e00c40c32):
-
   - Remove the Reactions component's white background
 
 ## 17.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -2906,7 +2905,6 @@
 ## 16.1.8
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 16.1.7
@@ -2923,7 +2921,6 @@
 ## 16.1.6
 
 - [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
-
   - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
     supplied from itself.
 
@@ -2942,7 +2939,6 @@
 ## 16.1.4
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 16.1.3
@@ -2963,19 +2959,16 @@
 ## 16.1.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 16.1.0
 
 - [minor][b684722884](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b684722884):
-
   - improvement of SSR tests and examples for Fabric Elements
 
 ## 16.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 15.6.3
@@ -3014,7 +3007,6 @@
 ## 15.6.0
 
 - [minor][aa6176aad1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aa6176aad1):
-
   - added SSR tests to reactions
 
 ## 15.5.1
@@ -3028,7 +3020,6 @@
 ## 15.5.0
 
 - [minor][9ab9e467d2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9ab9e467d2):
-
   - Bump version of typestyle for ssr compatibility
 
 ## 15.4.2
@@ -3049,7 +3040,6 @@
 ## 15.4.0
 
 - [minor][68ef17af8b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/68ef17af8b):
-
   - Enable noImplicitAny for reactions, fix type issues.
 
 ## 15.3.4
@@ -3089,7 +3079,6 @@
 ## 15.3.0
 
 - [minor][e60d7aa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e60d7aa):
-
   - updated i18n translations
 
 ## 15.2.2
@@ -3108,17 +3097,14 @@
 ## 15.2.0
 
 - [minor][277edda](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/277edda):
-
   - replaced enzyme-react-intl with @atlaskit/editor-test-helpers
 
 ## 15.1.0
 
 - [minor][1296324](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1296324):
-
   - added i18n support to reactions
 
 - [minor][ccf385a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ccf385a):
-
   - added i18n translations
 
 ## 15.0.11
@@ -3162,7 +3148,6 @@
 ## 15.0.7
 
 - [patch][3061b52](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3061b52):
-
   - AK-5723 - adjust files in package.json to ensure correct publishing of dist/package.json
 
 ## 15.0.6
@@ -3201,7 +3186,6 @@
 ## 15.0.2
 
 - [patch][36c362f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/36c362f):
-
   - FS-3174 - Fix usage of gridSize() and borderRadius()
 
 ## 15.0.1

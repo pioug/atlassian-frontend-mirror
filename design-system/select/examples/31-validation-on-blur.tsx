@@ -49,44 +49,40 @@ export default function OnBlurValidationExample() {
 			}}
 		>
 			<Form onSubmit={handleSubmit}>
-				{({ formProps }) => (
-					<form {...formProps}>
-						<Field<ValueType<Option>>
-							name="colors"
-							label="Select a color"
-							defaultValue={null}
-							isRequired
-							validate={(value) => {
-								setSelectValue(value);
-							}}
-						>
-							{({ fieldProps: { id, ...rest } }) => {
-								return (
-									<Fragment>
-										<Select<Option>
-											inputId={id}
-											{...rest}
-											options={colors}
-											isClearable
-											clearControlLabel="Clear color"
-											isInvalid={selectHasError}
-											descriptionId={selectHasError ? `${id}-error` : undefined}
-											onBlur={handleSelectBlurEvent}
-										/>
-										{selectHasError && (
-											<div id={`${id}-error`}>
-												<ErrorMessage>Please select a color</ErrorMessage>
-											</div>
-										)}
-									</Fragment>
-								);
-							}}
-						</Field>
-						<FormFooter>
-							<Button type="submit">Next</Button>
-						</FormFooter>
-					</form>
-				)}
+				<Field<ValueType<Option>>
+					name="colors"
+					label="Select a color"
+					defaultValue={null}
+					isRequired
+					validate={(value) => {
+						setSelectValue(value);
+					}}
+				>
+					{({ fieldProps: { id, ...rest } }) => {
+						return (
+							<Fragment>
+								<Select<Option>
+									inputId={id}
+									{...rest}
+									options={colors}
+									isClearable
+									clearControlLabel="Clear color"
+									isInvalid={selectHasError}
+									descriptionId={selectHasError ? `${id}-error` : undefined}
+									onBlur={handleSelectBlurEvent}
+								/>
+								{selectHasError && (
+									<div id={`${id}-error`}>
+										<ErrorMessage>Please select a color</ErrorMessage>
+									</div>
+								)}
+							</Fragment>
+						);
+					}}
+				</Field>
+				<FormFooter>
+					<Button type="submit">Next</Button>
+				</FormFooter>
 			</Form>
 		</div>
 	);

@@ -1,5 +1,20 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.17.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.17.0
+
+### Minor Changes
+
+- [`90377bb33b20e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90377bb33b20e) -
+  Add teams-profile analytics events
+- [`90377bb33b20e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90377bb33b20e) -
+  Migrated user profile analytics to teams-app-internal-analytics
+
 ## 1.16.0
 
 ### Minor Changes

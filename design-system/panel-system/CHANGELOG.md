@@ -1,5 +1,18 @@
 # @atlaskit/panel-system
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.0.6
+
+### Patch Changes
+
+- [`a52ec0b1c0791`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a52ec0b1c0791) -
+  Add PanelSubheader component, improve styles.
+
 ## 0.0.5
 
 ### Patch Changes

@@ -38,6 +38,14 @@ import {
 	type MediaFilePreviewStatus,
 } from './types';
 
+// invisible gif for SSR preview to show the underlying spinner until the src is replaced by
+// the actual image src in the inline script
+const DEFAULT_SSR_PREVIEW: MediaFilePreview = {
+	dataURI: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
+	dimensions: { width: 100, height: 100 },
+	source: 'ssr-server',
+};
+
 export interface UseFilePreviewParams {
 	/** Instance of file identifier. */
 	readonly identifier: FileIdentifier;
@@ -140,8 +148,8 @@ export const useFilePreview = ({
 					};
 				}
 			} else {
-				const { dimensions, dataURI } = ssrData;
-				return { dataURI, dimensions, source: 'ssr-data' };
+				const { dimensions, dataURI, srcSet } = ssrData;
+				return { dataURI, dimensions, source: 'ssr-data', srcSet };
 			}
 		}
 	};
@@ -306,6 +314,15 @@ export const useFilePreview = ({
 			upfrontPreviewStatus === 'resolved' &&
 			isBackendPreviewReady
 		) {
+			// If the preview is SSR and it's a blob URL, we can skip the refetch
+			if (
+				preview &&
+				isSSRPreview(preview) &&
+				preview.dataURI.startsWith('blob:') &&
+				fg('media-perf-uplift-mutation-fix')
+			) {
+				return;
+			}
 			setIsLoading(true);
 			getAndCacheRemotePreviewRef
 				.current()
@@ -422,10 +439,14 @@ export const useFilePreview = ({
 					generateScriptProps(
 						identifier,
 						preview?.dataURI,
+						preview?.srcSet,
 						requestDimensions,
 						ssrReliabilityRef.current.server?.status === 'fail'
 							? ssrReliabilityRef.current.server
 							: undefined,
+						{
+							'media-perf-uplift-mutation-fix': fg('media-perf-uplift-mutation-fix'),
+						},
 					)
 			: undefined;
 
@@ -436,7 +457,8 @@ export const useFilePreview = ({
 	// CXP-2723 TODO: should consider simplifying our analytics, and how
 	// we might get rid of ssrReliabiltyRef from our hook
 	return {
-		preview,
+		preview:
+			ssr === 'server' && fg('media-perf-uplift-mutation-fix') ? DEFAULT_SSR_PREVIEW : preview,
 		status,
 		error,
 		nonCriticalError,

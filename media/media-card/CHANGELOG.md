@@ -1,5 +1,20 @@
 # @atlaskit/media-card
 
+## 79.5.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 79.5.14
+
+### Patch Changes
+
+- [`eec573b4a7a6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eec573b4a7a6a) -
+  Moving the cursor styles from class based to inline styles to avoid VC offense and removing hidden
+  Titlebox hack implemented previously for VC removal
+- Updated dependencies
+
 ## 79.5.13
 
 ### Patch Changes
@@ -927,7 +942,6 @@
 - [#141583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141583)
   [`ba6def6b9d3ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba6def6b9d3ce) -
   Updated Media card and UI to avoid contributing to TTVC metrics
-
   - Media card will always render the `img`, even while it is still loading (in that case, the `img`
     will just be hidden). It will also use a custom loading spinner with no interaction context.
   - Media image will allow a null value for the image source. It will also always render the `img`
@@ -3020,7 +3034,6 @@
 - [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749)
   [`ae50a98f18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae50a98f18) - ED-9125
   ED-8837 Update styles for selected media cards
-
   - Use editor selection styles from @atlaskit/editor-shared-styles
   - Update UI for selected items in media group to no longer set blue background and tick in corner
   - No longer set set text selection over filename, filesize etc. for media group cards when
@@ -3622,7 +3635,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/button@13.3.7
@@ -3807,7 +3819,6 @@
 
   ED-4359 fix focus being reset on remove mediagroup- Updated dependencies
   [768bac6d81](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/768bac6d81):
-
   - @atlaskit/analytics-next@6.3.2
 
 ## 66.1.0
@@ -3912,7 +3923,6 @@
   > remove deprecated "context" property from media components in favor of "mediaClientConfig"
 
   This affects all public media UI components:
-
   - Card
   - Filmstrip
   - SmartMediaEditor
@@ -4416,7 +4426,6 @@ withAnalyticsEvents<Props>()(Button);
 ### Patch Changes
 
 - [patch][0a313cd541](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a313cd541):
-
   - rename AsyncCardState
 
 ## 63.1.2
@@ -4432,14 +4441,12 @@ withAnalyticsEvents<Props>()(Button);
 ## 63.1.1
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
 ## 63.1.0
 
 - [minor][a02cbd46c0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a02cbd46c0):
-
   - Now you can provide `MediaClientConfig` as `mediaClientConfig` prop to a Card as an alternative
     to Context. This is preferential, since Context prop will be dropped very soon.
 
@@ -4458,13 +4465,11 @@ withAnalyticsEvents<Props>()(Button);
 ## 63.0.4
 
 - [patch][b91590107b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b91590107b):
-
   - ED-6178 Fix media wrapper having a transparent background for images
 
 ## 63.0.3
 
 - [patch][a6f27f106a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a6f27f106a):
-
   - use componentDidMount in CardLoader to make it SSR hydrate friendly
 
 ## 63.0.2
@@ -4480,13 +4485,11 @@ withAnalyticsEvents<Props>()(Button);
 ## 63.0.1
 
 - [patch][cbc9ff5b6a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cbc9ff5b6a):
-
   - Fix support for exif orientation when dropping a picture
 
 ## 63.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -4531,19 +4534,16 @@ withAnalyticsEvents<Props>()(Button);
 ## 60.0.6
 
 - [patch][d3cad2622e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d3cad2622e):
-
   - Removes babel-runtime in favour of @babel/runtime
 
 ## 60.0.5
 
 - [patch][8f17450f46](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8f17450f46):
-
   - Fix media-card code split from 82kB to 10kB
 
 ## 60.0.4
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 60.0.3
@@ -4567,7 +4567,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 60.0.2
 
 - [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
-
   - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
     supplied from itself.
 
@@ -4595,7 +4594,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 60.0.0
 
 - [major][0ff405bd0f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0ff405bd0f):
-
   - Removed CardView and CardViewLoader from public APIs and replaced it with light-weight and
     stateless CardLoading and CardError components. Handling of external images is now done by Card
     component itself using ExternalImageIdentifier interface.
@@ -4640,13 +4638,11 @@ withAnalyticsEvents<Props>()(Button);
 ## 59.1.1
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 59.1.0
 
 - [minor][e1c1fa454a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e1c1fa454a):
-
   - Support external image identifier in MediaViewer
 
 ## 59.0.0
@@ -4661,37 +4657,31 @@ withAnalyticsEvents<Props>()(Button);
 ## 58.0.1
 
 - [patch][106d046114](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/106d046114):
-
   - Fix issue with media-viewer opening in CC on inline video player controlls clicked
 
 ## 58.0.0
 
 - [major][9c316bd8aa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c316bd8aa):
-
   - Exported MediaImage component is removed from media-card and moved to @atlaskit/media-ui
 
 ## 57.0.3
 
 - [patch][d402fdb775](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d402fdb775):
-
   - FIX ED-6584: Keep card dataURI regardless of previus state
 
 ## 57.0.2
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 57.0.1
 
 - [patch][9192df506a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9192df506a):
-
   - Do not call given onClick if it's a video file and inline video player is enabled
 
 ## 57.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 - Updated dependencies
@@ -4727,14 +4717,12 @@ withAnalyticsEvents<Props>()(Button);
 ## 55.0.4
 
 - [patch][ff3f40bc38](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ff3f40bc38):
-
   - Fix remove from cache function, which fixes issue when user is deleting recent image in media
     picker
 
 ## 55.0.3
 
 - [patch][3591859b2f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3591859b2f):
-
   - use ReactDOM.createPortal to render MediaViewer when shouldOpenMediaViewer=true
 
 ## 55.0.2
@@ -4762,13 +4750,11 @@ withAnalyticsEvents<Props>()(Button);
 ## 55.0.1
 
 - [patch][d18b085e2a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d18b085e2a):
-
   - Integrating truly upfront ID
 
 ## 55.0.0
 
 - [patch][6bd4c428e2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6bd4c428e2):
-
   - load image preview as soon representation is present instead of waiting for file status to be
     processed
 
@@ -4781,14 +4767,12 @@ withAnalyticsEvents<Props>()(Button);
 ## 54.1.0
 
 - [minor][eda74c4dce](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/eda74c4dce):
-
   - Add shouldOpenMediaViewer + mediaViewerDataSource optional props to Card api to simplify
     MediaViewer integration
 
 ## 54.0.0
 
 - [major][190c4b7bd3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/190c4b7bd3):
-
   - Remove Identifier type + related utilities and use the one from media-core
 
 - Updated dependencies
@@ -4800,26 +4784,22 @@ withAnalyticsEvents<Props>()(Button);
 ## 53.0.0
 
 - [major][46dfcfbeca](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/46dfcfbeca):
-
   - remove Link support from media-card
 
 ## 52.0.7
 
 - [patch][ab6ba14cd3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ab6ba14cd3):
-
   - Fix a bug where droping image with EXIF orientation >= 5 end up screwing up proportions for some
     of the cases
 
 ## 52.0.6
 
 - [patch][05c5bf7a93](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/05c5bf7a93):
-
   - Dont user pointer cursor for external images in Cards
 
 ## 52.0.5
 
 - [patch][c415876da9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c415876da9):
-
   - add selected state to InlinePlayer in media-card
 
 ## 52.0.4
@@ -4832,19 +4812,16 @@ withAnalyticsEvents<Props>()(Button);
 ## 52.0.3
 
 - [patch][ef469cbb0b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ef469cbb0b):
-
   - MS-357 replaced @atlaskit/util-shared-styles from media components by @atlaskit/theme
 
 ## 52.0.2
 
 - [patch][0e164e542a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0e164e542a):
-
   - MS-1465: Dont fetch file preview if we already have a local one
 
 ## 52.0.1
 
 - [patch][1d3e336534](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1d3e336534):
-
   - Show progress bar while file is uploading
 
 ## 52.0.0
@@ -4858,7 +4835,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 51.0.3
 
 - [patch][a3f8e527aa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a3f8e527aa):
-
   - Take into account if image is on it's side according to orientation tag when deciding how to
     crop/fit and image
 
@@ -4888,7 +4864,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 51.0.0
 
 - [patch][b1627a5837](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b1627a5837):
-
   - Enable inline video player in Editor and Renderer
 
 - Updated dependencies
@@ -4900,7 +4875,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 50.0.0
 
 - [patch][5b1e270](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5b1e270):
-
   - Minor bug fixes
 
 - Updated dependencies [dadef80](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dadef80):
@@ -4918,7 +4892,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 48.0.0
 
 - [minor][72d37fb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/72d37fb):
-
   - Remove deprecated methods from media-core
   - Use context.collection methods in MediaViewer
   - Remove link support from media-card
@@ -4934,13 +4907,11 @@ withAnalyticsEvents<Props>()(Button);
 ## 47.0.0
 
 - [major][135ed00](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/135ed00):
-
   - remove "small" appearance from media-card
 
 ## 46.0.1
 
 - [patch][ca16fa9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ca16fa9):
-
   - Add SSR support to media components
 
 ## 46.0.0
@@ -4952,7 +4923,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 45.0.0
 
 - [minor][b5ab1a5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b5ab1a5):
-
   - Add stretch as a prop for CardContent and MediaImage; Convert new stretchy-fit resizeMode to
     stretch=true;
 
@@ -4963,13 +4933,11 @@ withAnalyticsEvents<Props>()(Button);
 ## 44.2.0
 
 - [minor][34369e4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/34369e4):
-
   - ED-5888 Add dark mode for media-card
 
 ## 44.1.4
 
 - [patch][6f44079](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6f44079):
-
   - ED-5612: make image preview display correctly after replacing Card props
 
 ## 44.1.3
@@ -4991,20 +4959,17 @@ withAnalyticsEvents<Props>()(Button);
 ## 44.1.2
 
 - [patch][676257b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/676257b):
-
   - Prepare/fix card to be displayed as video inline player in renderer/editor contexts
 
 ## 44.1.1
 
 - [patch][5de3574](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5de3574):
-
   - CustomVideoPlayer is now CustomMediaPlayer and supports audio through type property. Media
     Viewer now uses custom audio player for audio everywhere except IE11.
 
 ## 44.1.0
 
 - [minor][c1ea81c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c1ea81c):
-
   - use custom video player for inline video in media-card
 
 ## 44.0.2
@@ -5045,7 +5010,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 43.0.0
 
 - [minor][2c21466](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2c21466):
-
   - Allow to inline play video files in media-card
 
 - Updated dependencies [2c21466](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2c21466):
@@ -5055,25 +5019,21 @@ withAnalyticsEvents<Props>()(Button);
 ## 42.0.0
 
 - [major][04c7192](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/04c7192):
-
   - remove CardList component from media-card
 
 ## 41.4.0
 
 - [minor][abef80b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/abef80b):
-
   - ED-5527: apply max-width: 100% and pass container size to Card as dimension
 
 ## 41.3.0
 
 - [minor][4718333](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4718333):
-
   - Add play icon for video files in MediaCard
 
 ## 41.2.0
 
 - [minor][439dde6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/439dde6" d):
-
   - rotate local image preview in cards based on the file orientation
 
 ## 41.1.2

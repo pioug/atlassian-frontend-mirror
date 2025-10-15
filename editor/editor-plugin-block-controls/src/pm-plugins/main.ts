@@ -7,7 +7,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import {
 	isMeasuring,
 	startMeasure,
@@ -369,6 +369,9 @@ export const apply = (
 		} else {
 			if (activeNode && meta?.isDragging !== true) {
 				let mappedPos;
+				const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+					? getBrowserInfo()
+					: browserLegacy;
 				// In safari, when platform_editor_controls is on,
 				// sometimes the drag handle for the layout disppears after you click on the handle for a few times
 				// Which caused the drag handle onClick event not firing, then block menu wouldn't be opened
@@ -673,7 +676,7 @@ export const apply = (
 	}
 
 	const isEmptyDoc = isEmptyDocument(newState.doc);
-	if (isEmptyDoc) {
+	if (isEmptyDoc && !expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
 		const hasNodeDecoration = !!findNodeDecs(newState, decorations).length;
 		if (!hasNodeDecoration) {
 			decorations = decorations.add(newState.doc, [emptyParagraphNodeDecorations()]);

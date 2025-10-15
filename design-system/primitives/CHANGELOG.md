@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 15.0.1
+
+### Patch Changes
+
+- [`75ba0401c1743`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75ba0401c1743) -
+  Internal changes.
+- Updated dependencies
+
 ## 15.0.0
 
 ### Major Changes

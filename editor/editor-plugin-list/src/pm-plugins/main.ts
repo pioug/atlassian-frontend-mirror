@@ -18,12 +18,15 @@ import type {
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { insm } from '@atlaskit/insm';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ListPlugin } from '../listPluginType';
 import type { ListState } from '../types';
 
 import { isWrappingPossible } from './utils/selection';
+
+type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 
 const listPluginKey = new PluginKey<ListState>('listPlugin');
 export const pluginKey = listPluginKey;
@@ -36,6 +39,86 @@ const initialState: ListState = {
 	decorationSet: DecorationSet.empty,
 };
 
+export const computeListDecorations = (doc: Node, from = 0, to = doc.content.size) => {
+	const decorations: Decoration[] = [];
+
+	// this stack keeps track of each (nested) list to calculate the indentation level
+	const processedListsStack: { node: Node; startPos: number }[] = [];
+
+	doc.nodesBetween(from, to, (node, currentNodeStartPos) => {
+		if (processedListsStack.length > 0) {
+			let isOutsideLastList = true;
+			while (isOutsideLastList && processedListsStack.length > 0) {
+				const lastList = processedListsStack[processedListsStack.length - 1];
+				const lastListEndPos = lastList.startPos + lastList.node.nodeSize;
+				isOutsideLastList = currentNodeStartPos >= lastListEndPos;
+				// once we finish iterating over each innermost list, pop the stack to
+				// decrease the indent level attribute accordingly
+				if (isOutsideLastList) {
+					processedListsStack.pop();
+				}
+			}
+		}
+
+		if (isListNode(node)) {
+			processedListsStack.push({ node, startPos: currentNodeStartPos });
+			const from = currentNodeStartPos;
+			const to = currentNodeStartPos + node.nodeSize;
+			const depth = processedListsStack.length;
+
+			decorations.push(
+				Decoration.node(from, to, {
+					'data-indent-level': `${depth}`,
+				}),
+			);
+
+			if (node.type.name === 'orderedList') {
+				// If a numbered list has item counters numbering >= 100, we'll need to add special
+				// spacing to account for the extra digit chars
+				const digitsSize = getItemCounterDigitsSize({
+					itemsCount: node?.childCount,
+					order: node?.attrs?.order,
+				});
+
+				if (digitsSize && digitsSize > 1) {
+					decorations.push(
+						Decoration.node(from, to, {
+							style: getOrderedListInlineStyles(digitsSize, 'string'),
+						}),
+					);
+				}
+			}
+		}
+	});
+
+	return decorations;
+};
+
+export const updateListDecorations = (decorationSet: DecorationSet, tr: ReadonlyTransaction) => {
+	let nextDecorationSet = decorationSet.map(tr.mapping, tr.doc);
+
+	tr.mapping.maps.forEach((stepMap, index) => {
+		stepMap.forEach((oldStart, oldEnd) => {
+			const start = tr.mapping.slice(index).map(oldStart, -1);
+			const end = tr.mapping.slice(index).map(oldEnd);
+
+			// Remove decorations in this range
+			const decorationsToRemove = nextDecorationSet.find(start, end);
+			nextDecorationSet = nextDecorationSet.remove(decorationsToRemove);
+
+			// Recompute decorations for this range
+			// Expand the range by 1 on each side to catch adjacent list nodes
+			const from = Math.max(0, start - 1);
+			const to = Math.min(tr.doc.content.size, end + 1);
+			const decorationsToAdd = computeListDecorations(tr.doc, from, to);
+			nextDecorationSet = nextDecorationSet.add(tr.doc, decorationsToAdd);
+		});
+	});
+
+	return nextDecorationSet;
+};
+
+// delete getDecorations during platform_editor_new_list_decorations_logic experiment clean up
 export const getDecorations = (
 	doc: Node,
 	state: EditorState,
@@ -163,7 +246,12 @@ const reducer =
 const createInitialState =
 	(featureFlags: FeatureFlags, api?: ExtractInjectionAPI<ListPlugin>) => (state: EditorState) => {
 		const isToolbarAIFCEnabled = Boolean(api?.toolbar);
-
+		const getInitialDecorations = () => {
+			insm.session?.startFeature('listDecorationsInit');
+			const decorations = computeListDecorations(state.doc);
+			insm.session?.endFeature('listDecorationsInit');
+			return decorations;
+		};
 		return {
 			// When plugin is initialised, editor state is defined with selection
 			// hence returning the list state based on the selection to avoid list button in primary toolbar flickering during initial load
@@ -171,7 +259,9 @@ const createInitialState =
 			expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
 				? getListState(state.doc, state.selection)
 				: initialState),
-			decorationSet: getDecorations(state.doc, state, featureFlags),
+			decorationSet: expValEquals('platform_editor_new_list_decorations_logic', 'isEnabled', true)
+				? DecorationSet.empty.add(state.doc, getInitialDecorations())
+				: getDecorations(state.doc, state, featureFlags),
 		};
 	};
 
@@ -185,12 +275,60 @@ export const createPlugin = (
 		onSelectionChanged: handleSelectionChanged,
 	});
 
+	const pluginState = createPluginState(eventDispatch, createInitialState(featureFlags, api));
+
+	const pluginStateInit = (_: EditorStateConfig, state: EditorState): ListState => {
+		return createInitialState(featureFlags)(state);
+	};
+
+	const pluginStateApply = (
+		tr: ReadonlyTransaction,
+		oldPluginState: ListState,
+		_oldEditorState: EditorState,
+		_newEditorState: EditorState,
+	): ListState => {
+		let nextPluginState = oldPluginState;
+		if (tr.docChanged) {
+			nextPluginState = handleSelectionChanged(tr, nextPluginState);
+
+			insm.session?.startFeature('listDecorationUpdate');
+			const nextDecorationSet = updateListDecorations(nextPluginState.decorationSet, tr);
+			insm.session?.endFeature('listDecorationUpdate');
+
+			nextPluginState = {
+				...nextPluginState,
+				decorationSet: nextDecorationSet,
+			};
+		} else if (tr.selectionSet) {
+			nextPluginState = handleSelectionChanged(tr, nextPluginState);
+		}
+
+		if (nextPluginState !== oldPluginState) {
+			eventDispatch(listPluginKey, nextPluginState);
+		}
+
+		return nextPluginState;
+	};
+
 	return new SafePlugin({
-		state: createPluginState(eventDispatch, createInitialState(featureFlags, api)),
+		state: {
+			init: expValEquals('platform_editor_new_list_decorations_logic', 'isEnabled', true)
+				? pluginStateInit
+				: pluginState.init,
+			apply: expValEquals('platform_editor_new_list_decorations_logic', 'isEnabled', true)
+				? pluginStateApply
+				: pluginState.apply,
+		},
 		key: listPluginKey,
 		props: {
 			decorations(state) {
-				const { decorationSet } = getPluginState(state);
+				const { decorationSet } = expValEquals(
+					'platform_editor_new_list_decorations_logic',
+					'isEnabled',
+					true,
+				)
+					? (listPluginKey.getState(state) as ListState)
+					: getPluginState(state);
 				return decorationSet;
 			},
 			handleClick: (view: EditorView, pos, event: MouseEvent) => {

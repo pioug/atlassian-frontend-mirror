@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-base
 
+## 7.1.1
+
+### Patch Changes
+
+- [`daff12e732636`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daff12e732636) -
+  use latest browser util
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes
@@ -186,7 +194,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -1016,7 +1023,6 @@
 - [#43646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43646)
   [`d43f8e9402f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d43f8e9402f) - Make
   feature flags plugin optional in all plugins including:
-
   - analytics
   - base
   - card
@@ -1091,13 +1097,11 @@
   This change removes plugin exports from editor-core that were used only for the mobile bridge.
 
   This includes:
-
   - All plugin keys
   - Plugin commands
   - Plugin types
 
   The full list is:
-
   - EditorFeatureFlags (available via '@atlaskit/editor-common/types' as `FeatureFlags`)
   - EmojiResource (available via '@atlaskit/emoji/resource' as `EmojiResource`)
   - mediaPlugin

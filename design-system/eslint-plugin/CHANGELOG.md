@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.21.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.21.2
 
 ### Patch Changes
@@ -1566,15 +1572,13 @@
   uppercase). Sometimes it may not be desirable to have this rule apply to React components (e.g.
   `@atlaskit/button`), which could either use the Emotion or Compiled APIs when they expose a `css`
   prop. Passing a function from the wrong library can result in the styling erroneously not being
-  applied.
-  4. Treat `{ ... } as const` statements the same way as `{ ... }` objects.
-
-  5. Add `fixNamesOnly` to disable all autofixers _except_ the autofixer that adds `styles` to the
-     end of existing style variables. For example, in
-     `<div css={buttonComponent} />; const buttonComponent = css({ ... })`, `buttonComponent` will
-     continue to be renamed to `buttonComponentStyles`. Autofixers that will be _disabled_ include
-     hoisting the styles to the top-most scope, and adding the `css` function call around style
-     objects.
+  applied. 4. Treat `{ ... } as const` statements the same way as `{ ... }` objects. 5. Add
+  `fixNamesOnly` to disable all autofixers _except_ the autofixer that adds `styles` to the end of
+  existing style variables. For example, in
+  `<div css={buttonComponent} />; const buttonComponent = css({ ... })`, `buttonComponent` will
+  continue to be renamed to `buttonComponentStyles`. Autofixers that will be _disabled_ include
+  hoisting the styles to the top-most scope, and adding the `css` function call around style
+  objects.
 
 ## 8.26.0
 

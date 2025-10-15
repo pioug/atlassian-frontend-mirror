@@ -16,7 +16,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import {
 	dragToMoveDown,
@@ -328,6 +328,9 @@ const selectedStyles = css({
 // icon span receives dragStart event, instead of button, and since it is not registered as a draggable element
 // with pragmatic DnD and pragmatic DnD is not triggered
 const handleIconDragStart = (e: DragEvent<HTMLSpanElement>) => {
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
 	if (!browser.chrome) {
 		return;
 	}
@@ -1257,6 +1260,10 @@ export const DragHandle = ({
 	};
 
 	const hasHadInteraction = interactionState !== 'hasNotHadInteraction';
+
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
 
 	const renderButton = () => (
 		// eslint-disable-next-line @atlaskit/design-system/no-html-button

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 4.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.23
 
 ### Patch Changes
@@ -609,7 +615,6 @@
 
 - [`3145f278b1f7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3145f278b1f7a) -
   [ux] [ED-28473] minor UI updates for editor-toolbar
-
   - Use ADS ButtonGroup for ToolbarButtonGroup
   - Remove groupLocation prop and use CSS instead
   - Use DropdownItemGroup for ToolbarDropdownItemSection and expand props for section separator and

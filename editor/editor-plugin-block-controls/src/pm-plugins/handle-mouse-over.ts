@@ -151,9 +151,20 @@ export const handleMouseOver = (
 			}
 		}
 
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		const anchorName = rootElement.getAttribute(getAnchorAttrName())!;
+		let anchorName;
+		if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+			anchorName = rootElement.getAttribute(getAnchorAttrName());
+
+			// don't show handles if we can't find an anchor
+			if (!anchorName) {
+				return false;
+			}
+		} else {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			anchorName = rootElement.getAttribute(getAnchorAttrName())!;
+		}
+
 		// No need to update handle position if its already there
 		if (activeNode?.anchorName === anchorName) {
 			return false;

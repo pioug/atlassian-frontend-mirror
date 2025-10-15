@@ -35,43 +35,39 @@ export default function FormValidationExample() {
 	};
 
 	return (
-		<Form onSubmit={handleSubmit}>
-			{({ formProps }) => (
-				<form {...formProps} name="validation-example">
-					<Field
-						label="Validates entering existing role"
-						isRequired
-						name="command"
-						validate={validate}
-						defaultValue=""
-					>
-						{({ fieldProps: { onBlur: fieldOnBlur, ...fieldProps }, meta: { valid } }: any) => (
-							<Fragment>
-								<Textfield
-									{...fieldProps}
-									testId="formValidationTest"
-									onBlur={() => {
-										// When defining your own onBlur handler, additionally call onBlur from the fieldProps to propagate internal field state
-										handleBlurEvent();
-										fieldOnBlur();
-									}}
-								/>
-								<MessageWrapper>
-									{valid && <ValidMessage>Your role is valid</ValidMessage>}
-									{fieldHasError && (
-										<ErrorMessage>Incorrect, try &lsquo;regular user&rsquo;</ErrorMessage>
-									)}
-								</MessageWrapper>
-							</Fragment>
-						)}
-					</Field>
-					<FormFooter>
-						<Button type="submit" appearance="primary">
-							Submit
-						</Button>
-					</FormFooter>
-				</form>
-			)}
+		<Form onSubmit={handleSubmit} name="validation-example">
+			<Field
+				label="Validates entering existing role"
+				isRequired
+				name="command"
+				validate={validate}
+				defaultValue=""
+			>
+				{({ fieldProps: { onBlur: fieldOnBlur, ...fieldProps }, meta: { valid } }: any) => (
+					<Fragment>
+						<Textfield
+							{...fieldProps}
+							testId="formValidationTest"
+							onBlur={() => {
+								// When defining your own onBlur handler, additionally call onBlur from the fieldProps to propagate internal field state
+								handleBlurEvent();
+								fieldOnBlur();
+							}}
+						/>
+						<MessageWrapper>
+							{valid && <ValidMessage>Your role is valid</ValidMessage>}
+							{fieldHasError && (
+								<ErrorMessage>Incorrect, try &lsquo;regular user&rsquo;</ErrorMessage>
+							)}
+						</MessageWrapper>
+					</Fragment>
+				)}
+			</Field>
+			<FormFooter>
+				<Button type="submit" appearance="primary">
+					Submit
+				</Button>
+			</FormFooter>
 		</Form>
 	);
 }

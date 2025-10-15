@@ -35,37 +35,33 @@ export default function Example() {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={closeModal}>
-						<Form onSubmit={onSubmit}>
-							{({ formProps }) => (
-								<form {...formProps} id="modal-form">
-									<ModalHeader hasCloseButton>
-										<ModalTitle>Create a user</ModalTitle>
-									</ModalHeader>
-									<ModalBody>
-										<Field
-											id="name"
-											name="name"
-											label="Type your name to continue"
-											defaultValue="Ian Atlas"
-										>
-											{({ fieldProps }) => (
-												<Fragment>
-													<Textfield {...fieldProps} />
-													<HelperMessage>{name ? `Hello, ${name}` : ''}</HelperMessage>
-												</Fragment>
-											)}
-										</Field>
-									</ModalBody>
-									<ModalFooter>
-										<Button appearance="subtle" onClick={closeModal}>
-											Close
-										</Button>
-										<Button appearance="primary" type="submit">
-											Create
-										</Button>
-									</ModalFooter>
-								</form>
-							)}
+						<Form onSubmit={onSubmit} id="modal-form">
+							<ModalHeader hasCloseButton>
+								<ModalTitle>Create a user</ModalTitle>
+							</ModalHeader>
+							<ModalBody>
+								<Field
+									id="name"
+									name="name"
+									label="Type your name to continue"
+									defaultValue="Ian Atlas"
+								>
+									{({ fieldProps }) => (
+										<Fragment>
+											<Textfield {...fieldProps} />
+											<HelperMessage>{name ? `Hello, ${name}` : ''}</HelperMessage>
+										</Fragment>
+									)}
+								</Field>
+							</ModalBody>
+							<ModalFooter>
+								<Button appearance="subtle" onClick={closeModal}>
+									Close
+								</Button>
+								<Button appearance="primary" type="submit">
+									Create
+								</Button>
+							</ModalFooter>
 						</Form>
 					</Modal>
 				)}

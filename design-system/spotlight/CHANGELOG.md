@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 0.6.3
+
+### Patch Changes
+
+- [`1b4bf57dec49e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b4bf57dec49e) -
+  Make 'click-outside-to-dismiss' functionality optional.
+- Updated dependencies
+
 ## 0.6.2
 
 ### Patch Changes

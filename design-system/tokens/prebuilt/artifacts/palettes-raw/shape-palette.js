@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::72feb1804c9c8d27535c172745ee1b9b>>
+ * @codegen <<SignedSource::0573206a0674f4e86073a4ec84cad3b9>>
  * @codegenCommand yarn build tokens
  */
 
@@ -175,35 +175,5 @@ var tokens = [{
   },
   "name": "border.width.BorderWidth2",
   "path": ["border", "width", "BorderWidth2"]
-}, {
-  "value": "0px",
-  "attributes": {
-    "group": "shape"
-  },
-  "filePath": "schema/palettes/shape-palette.tsx",
-  "isSource": true,
-  "original": {
-    "value": 0,
-    "attributes": {
-      "group": "shape"
-    }
-  },
-  "name": "border.width.Size0",
-  "path": ["border", "width", "Size0"]
-}, {
-  "value": "3px",
-  "attributes": {
-    "group": "shape"
-  },
-  "filePath": "schema/palettes/shape-palette.tsx",
-  "isSource": true,
-  "original": {
-    "value": 3,
-    "attributes": {
-      "group": "shape"
-    }
-  },
-  "name": "border.width.Size200",
-  "path": ["border", "width", "Size200"]
 }];
 var _default = exports.default = tokens;

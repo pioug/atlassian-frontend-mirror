@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 43.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.1.9
+
+### Patch Changes
+
+- [`6b483642e86d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b483642e86d0) -
+  Change the analytics "display" value for connection actions to be "url" instead of "hyperlink" for
+  consistency
+
 ## 43.1.8
 
 ### Patch Changes

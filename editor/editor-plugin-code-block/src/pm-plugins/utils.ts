@@ -10,8 +10,6 @@ import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 export function getCursor(selection: Selection): ResolvedPos | undefined {
 	return (selection as TextSelection).$cursor || undefined;
 }
-
-// Replaced by getAllChangedCodeBlocksInTransaction with FG editor_code_wrapping_perf_improvement_ed-25141.
 export function getAllCodeBlockNodesInDoc(state: EditorState): NodeWithPos[] {
 	const codeBlockNodes: NodeWithPos[] = [];
 	state.doc.descendants((node, pos) => {

@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 70.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 70.0.6
 
 ### Patch Changes
@@ -1953,7 +1959,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/button@13.3.7
@@ -2364,7 +2369,6 @@
   > remove deprecated "context" property from media components in favor of "mediaClientConfig"
 
   This affects all public media UI components:
-
   - Card
   - Filmstrip
   - SmartMediaEditor
@@ -2609,7 +2613,6 @@ https://product-fabric.atlassian.net/browse/FM-2393
 - Fixed bug where editor crashes after unmounting react component.
   - https://product-fabric.atlassian.net/browse/ED-7318
 - Fixed bug where custom emojis are not been showed on the editor
-
   - https://product-fabric.atlassian.net/browse/ED-7726
 
 - [patch][3addfe526a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3addfe526a):
@@ -3236,7 +3239,6 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 42.0.2
 
 - [patch][168df43047](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/168df43047):
-
   - Fix clipboard component deactivation logic when used in multiple contexts.
 
 ## 42.0.1
@@ -3254,7 +3256,6 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 42.0.0
 
 - [major][59cce82fd1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/59cce82fd1):
-
   - Remove Binary component from MediaPicker
 
   If you want to upload a file (string or blob) to media, you should instead use
@@ -3277,13 +3278,11 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 41.0.1
 
 - [patch][5cfa2ddf93](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5cfa2ddf93):
-
   - add clipboard support to MediaPicker
 
 ## 41.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -3314,7 +3313,6 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 40.0.0
 
 - [patch][6ffa3eaae9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6ffa3eaae9):
-
   - Emit file-added events in the tenant context
 
 - Updated dependencies
@@ -3360,7 +3358,6 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 38.1.5
 
 - [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
-
   - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
     supplied from itself.
 
@@ -3391,7 +3388,6 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 38.1.3
 
 - [patch][0ff405bd0f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0ff405bd0f):
-
   - Removed CardView and CardViewLoader from public APIs and replaced it with light-weight and
     stateless CardLoading and CardError components. Handling of external images is now done by Card
     component itself using ExternalImageIdentifier interface.
@@ -3436,19 +3432,16 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 38.1.2
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 38.1.1
 
 - [patch][60a89f843f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/60a89f843f):
-
   - cleanup DOM elements on teardown and deactivate
 
 ## 38.1.0
 
 - [minor][e36f791fd6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e36f791fd6):
-
   - Improve types
 
 ## 38.0.0
@@ -3476,19 +3469,16 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 37.0.2
 
 - [patch][b3c60e3c9c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b3c60e3c9c):
-
   - Update media-editor dependency
 
 ## 37.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 37.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 - Updated dependencies
@@ -3530,7 +3520,6 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 35.0.2
 
 - [patch][ff3f40bc38](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ff3f40bc38):
-
   - Fix remove from cache function, which fixes issue when user is deleting recent image in media
     picker
 
@@ -3563,7 +3552,6 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 35.0.0
 
 - [patch][6bd4c428e2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6bd4c428e2):
-
   - load image preview as soon representation is present instead of waiting for file status to be
     processed
 
@@ -3579,13 +3567,11 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 34.1.0
 
 - [minor][f1b46bcb42](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f1b46bcb42):
-
   - ED-6259 Enable stricter types for media packages
 
 ## 34.0.0
 
 - [patch][2e676676ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2e676676ba):
-
   - Use Identifier from media-core instead of media-card
 
 - Updated dependencies
@@ -3633,19 +3619,16 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 33.0.1
 
 - [patch][ef469cbb0b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ef469cbb0b):
-
   - MS-357 replaced @atlaskit/util-shared-styles from media components by @atlaskit/theme
 
 ## 33.0.0
 
 - [major][65b73cc466](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65b73cc466):
-
   - Code split media-picker: make MediaPicker factory async and make editor use it
 
 ## 32.0.1
 
 - [patch][6ead14f4eb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6ead14f4eb):
-
   - Move Async module loading of EditorView into media-editor component.
 
 - Updated dependencies
@@ -3655,11 +3638,9 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 32.0.0
 
 - [minor][4e82fedc90](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4e82fedc90):
-
   - Expose real id upfront for remote files in MediaPicker
 
 - [major][9d881f1eb8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d881f1eb8):
-
   - Use real id upfront for remote files + remove PublicMediaFile interface + now integrators can
     just use file.id from public events
 
@@ -3675,7 +3656,6 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 31.0.2
 
 - [patch][07a187bb30](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/07a187bb30):
-
   - Fetch cloud accounts only on cloud folder opening
 
 ## 31.0.1
@@ -3710,7 +3690,6 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 30.0.0
 
 - [patch][6da174b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6da174b):
-
   - Implementation of MediaEditor is partially moved to media-editor
 
 - Updated dependencies [dadef80](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dadef80):
@@ -3727,25 +3706,21 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 29.0.3
 
 - [patch][e6516fb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e6516fb):
-
   - Move media mocks into right location to prevent them to be included in dist
 
 ## 29.0.2
 
 - [patch][a55e4e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a55e4e6):
-
   - Remove Axios dependency from media-picker
 
 ## 29.0.1
 
 - [patch][c91adfe](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c91adfe):
-
   - remove customVideoPlayer featureFlag prop and enable by default
 
 ## 29.0.0
 
 - [patch][cbb8cb5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cbb8cb5):
-
   - Remove redundant fileStreamCache createKey() method and replace the cache key with id everywhere
 
 - Updated dependencies [cbb8cb5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cbb8cb5):
@@ -3768,20 +3743,17 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 27.0.5
 
 - [patch][8314694](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8314694):
-
   - Support uploading + processing files in MediaViewer
 
 ## 27.0.4
 
 - [patch][442821a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/442821a):
-
   - Fix the issue with being unable to save image inserted into the editor: pass collection to
     tenant auth for file polling
 
 ## 27.0.3
 
 - [patch][b677631](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b677631):
-
   - Add new example and ensure occurrenceKey is set for all copy/withToken calls
 
 ## 27.0.2
@@ -3795,13 +3767,11 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 27.0.1
 
 - [patch][ca16fa9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ca16fa9):
-
   - Add SSR support to media components
 
 ## 27.0.0
 
 - [major][6cb6696](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6cb6696):
-
   - All file ids returned in any of the triggered events (including syncronouse one like
     uploads-start) are real file IDs and not a temp. one;
 
@@ -3825,14 +3795,12 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 25.0.8
 
 - [patch][ff8b31d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ff8b31d):
-
   - Pass uploadParams to createStore when initializing MediaPicker popup. This fixes an issue when
     calling /copy/withToken endpoint
 
 ## 25.0.7
 
 - [patch][5f12909](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5f12909):
-
   - remove tenant property from MediaPicker + make show() faster
 
 ## 25.0.6
@@ -3858,7 +3826,6 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 25.0.5
 
 - [patch][92a6240](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/92a6240):
-
   - Picking video file will now send dimensions same way as image would
 
 ## 25.0.4
@@ -3905,13 +3872,11 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 25.0.1
 
 - [patch][b9d9e9a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b9d9e9a):
-
   - Support advanced i18n mode in MediaPicker
 
 ## 25.0.0
 
 - [minor][801fd18](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/801fd18):
-
   - Ability to delete file from recents has been added; MediaFile now has optional fields
     userUpfrontId and userOccurrenceKey;
 
@@ -3924,11 +3889,9 @@ https://product-fabric.atlassian.net/browse/MS-1942
 ## 24.0.1
 
 - [patch][e151c1a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e151c1a):
-
   - Removes dependency on @atlaskit/layer-manager
 
   As of component versions:
-
   - \`@atlaskit/modal-dialog@7.0.0\`
   - \`@atlaskit/tooltip@12.0.2\`
   - \`@atlaskit/flag@9.0.6\`
@@ -4458,7 +4421,6 @@ https://product-fabric.atlassian.net/browse/MS-1942
 
 - [patch] Updated dependencies
   [9d20f54](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d20f54)
-
   - @atlaskit/spinner@7.0.0
   - @atlaskit/media-card@29.1.0
   - @atlaskit/modal-dialog@5.1.0

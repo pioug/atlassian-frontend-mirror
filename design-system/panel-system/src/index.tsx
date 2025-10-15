@@ -9,6 +9,11 @@ export { PanelHeader, type PanelHeaderProps } from './components/panel-header/pa
 
 export { PanelTitle, type PanelTitleProps } from './components/panel-title/panel-title';
 
+export {
+	PanelSubheader,
+	type PanelSubheaderProps,
+} from './components/panel-subheader/panel-subheader';
+
 export { PanelBody, type PanelBodyProps } from './components/panel-body/panel-body';
 
 export { PanelFooter, type PanelFooterProps } from './components/panel-footer/panel-footer';

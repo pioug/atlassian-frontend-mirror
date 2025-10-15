@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 7.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.12
 
 ### Patch Changes
@@ -232,7 +238,6 @@
 
 - [`286abb4d35eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/286abb4d35eba) -
   [ux] [ED-28960] Finish full page primary toolbar migration
-
   - Align with design update (separator, gap, height, icon size)
   - Add keyboard shortcut to focus toolbar and arrow key navigation
   - Address accessibility
@@ -356,7 +361,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -1478,7 +1482,6 @@
 
 - [`193f8c85e1a39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/193f8c85e1a39) -
   [ux] [ED-24635]
-
   - Disable Turn into dropdown options when wrapping is not supported
   - Update expand icon so that it can show disabled status
   - Update Turn into icon to show active status when dropdown is open
@@ -1499,7 +1502,6 @@
   [`705fe39cae267`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/705fe39cae267) -
   [ED-24597] Update to log `platform_editor_basic_text_transformations` exposure event only for
   users meet all of 3 checks:
-
   - Are enrolled to the experiment
   - Have AI disabled
   - Make top level text selection
@@ -1896,7 +1898,6 @@
   ## WHAT?:
 
   Removing feature flags:
-
   - singleLayout
   - newInsertionBehaviour
   - interactiveExpand
@@ -1910,7 +1911,6 @@
   maintenance burden
 
   ## HOW to update your code:
-
   - If you were using the feature flag - the behaviour is now default and you can remove the flags
   - If you were not using the feature flag - the behaviour is now default.
   - If you have opted out of using the feature flag - we have been careful to ensure no-one has
@@ -2207,7 +2207,6 @@
 - [#43646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43646)
   [`d43f8e9402f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d43f8e9402f) - Make
   feature flags plugin optional in all plugins including:
-
   - analytics
   - base
   - card

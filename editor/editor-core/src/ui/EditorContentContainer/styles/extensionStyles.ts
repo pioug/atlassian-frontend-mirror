@@ -412,21 +412,21 @@ export const getExtensionStyles = (): SerializedStyles => {
 		},
 	});
 
-	// Dense content mode TOC styling fix - addresses EDITOR-1992
+	// Dense content mode extensions styling fix - addresses EDITOR-1992
 	// When cleaning up the experiment, move this logic into the baseExtensionStyles above
 	const fontSize = expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
 		? relativeFontSizeToBase16(akEditorFullPageDenseFontSize)
 		: undefined;
-	// Fixes issue where TOC links fall back to default DST styles
-	const denseContentModeTocStyles =
+	const denseExtensionStyles =
 		expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 		fg('platform_editor_content_mode_button_mvp')
 			? css({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-					'.extension-container :not([data-inline-card-lozenge] *)': {
-						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-						fontSize: 'var(--ak-editor-base-font-size)',
-					},
+					'.extension-container :not([data-inline-card-lozenge] *, [data-prosemirror-mark-name="code"])':
+						{
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+							fontSize: 'var(--ak-editor-base-font-size)',
+						},
 				})
 			: expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
 				? css({
@@ -439,5 +439,5 @@ export const getExtensionStyles = (): SerializedStyles => {
 				: css({});
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-	return css(baseExtensionStyles, denseContentModeTocStyles);
+	return css(baseExtensionStyles, denseExtensionStyles);
 };

@@ -43,6 +43,16 @@ const extendAndCachePreview = (
 	return { ...preview, dataURI };
 };
 
+const getDataUri = (
+	mediaClient: MediaClient,
+	id: string,
+	params: MediaStoreGetFileImageParams,
+	mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
+) => {
+	const rawDataURI = mediaClient.getImageUrlSync(id, params);
+	return mediaBlobUrlAttrs ? addFileAttrsToUrl(rawDataURI, mediaBlobUrlAttrs) : rawDataURI;
+};
+
 export const getSSRPreview = (
 	ssr: SSR,
 	mediaClient: MediaClient,
@@ -50,13 +60,22 @@ export const getSSRPreview = (
 	params: MediaStoreGetFileImageParams,
 	mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
 ): MediaFilePreview => {
-	let dataURI: string;
 	try {
-		const rawDataURI = mediaClient.getImageUrlSync(id, params);
-		// We want to embed some meta context into dataURI for Copy/Paste to work.
-		dataURI = mediaBlobUrlAttrs ? addFileAttrsToUrl(rawDataURI, mediaBlobUrlAttrs) : rawDataURI;
+		const dataURI = getDataUri(mediaClient, id, params, mediaBlobUrlAttrs);
+		let srcSet = `${dataURI} 1x`;
+
+		if (params.width) {
+			const doubleDataURI = getDataUri(
+				mediaClient,
+				id,
+				{ ...params, width: params.width * 2 },
+				mediaBlobUrlAttrs,
+			);
+			// We want to embed some meta context into dataURI for Copy/Paste to work.
+			srcSet += `, ${doubleDataURI} 2x`;
+		}
 		const source = ssr === 'client' ? 'ssr-client' : 'ssr-server';
-		return { dataURI, source, orientation: 1 };
+		return { dataURI, source, orientation: 1, srcSet };
 	} catch (e) {
 		const reason = ssr === 'server' ? 'ssr-server-uri' : 'ssr-client-uri';
 		throw new SsrPreviewError(reason, e instanceof Error ? e : undefined);

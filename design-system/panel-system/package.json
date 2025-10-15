@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/panel-system",
-	"version": "0.0.5",
+	"version": "0.0.7",
 	"description": "A set of UI components to standardize the display of content in panels across Atlassian products.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

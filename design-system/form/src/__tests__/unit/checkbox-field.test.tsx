@@ -104,13 +104,13 @@ describe('CheckboxField', () => {
 				{({ formProps }) => (
 					<>
 						<fieldset>
-							<CheckboxField name="product" value="jira" defaultIsChecked label="Jira">
+							<CheckboxField name="app" value="jira" defaultIsChecked label="Jira">
 								{({ fieldProps }) => <Checkbox {...fieldProps} />}
 							</CheckboxField>
-							<CheckboxField name="product" value="confluence" defaultIsChecked label="Confluence">
+							<CheckboxField name="app" value="confluence" defaultIsChecked label="Confluence">
 								{({ fieldProps }) => <Checkbox {...fieldProps} />}
 							</CheckboxField>
-							<CheckboxField name="product" value="bitbucket" label="Bitbucket">
+							<CheckboxField name="app" value="bitbucket" label="Bitbucket">
 								{({ fieldProps }) => <Checkbox {...fieldProps} />}
 							</CheckboxField>
 						</fieldset>
@@ -123,7 +123,7 @@ describe('CheckboxField', () => {
 		await user.click(screen.getByRole('button'));
 
 		expect(spy).toHaveBeenCalledWith({
-			product: ['jira', 'confluence'],
+			app: ['jira', 'confluence'],
 		});
 	});
 
@@ -134,10 +134,10 @@ describe('CheckboxField', () => {
 				{({ formProps }) => (
 					<>
 						<fieldset>
-							<CheckboxField name="product" value="jira" label="Jira">
+							<CheckboxField name="app" value="jira" label="Jira">
 								{({ fieldProps }) => <Checkbox {...fieldProps} />}
 							</CheckboxField>
-							<CheckboxField name="product" value="bitbucket" label="Bitbucket">
+							<CheckboxField name="app" value="bitbucket" label="Bitbucket">
 								{({ fieldProps }) => <Checkbox {...fieldProps} testId="Bitbucket" />}
 							</CheckboxField>
 						</fieldset>
@@ -153,7 +153,7 @@ describe('CheckboxField', () => {
 		await user.click(screen.getByRole('button'));
 
 		expect(spy).toHaveBeenCalledWith({
-			product: ['bitbucket'],
+			app: ['bitbucket'],
 		});
 	});
 });

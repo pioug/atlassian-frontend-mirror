@@ -37,27 +37,23 @@ export default function ConditionalFieldsExample() {
 
 	return (
 		<Form onSubmit={(data) => console.log('form data', data)}>
-			{({ formProps }) => (
-				<form {...formProps}>
-					<Field
-						label="Do you have an existing account?"
-						name="existingAccount"
-						defaultValue=""
-						isRequired
-					>
-						{({ fieldProps }) => (
-							<RadioGroup
-								{...fieldProps}
-								options={[
-									{ name: 'existingAccount', value: 'yes', label: 'Yes' },
-									{ name: 'existingAccount', value: 'no', label: 'No' },
-								]}
-							/>
-						)}
-					</Field>
-					{formState?.values.existingAccount === 'yes' ? <LoginForm /> : <SignUpForm />}
-				</form>
-			)}
+			<Field
+				label="Do you have an existing account?"
+				name="existingAccount"
+				defaultValue=""
+				isRequired
+			>
+				{({ fieldProps }) => (
+					<RadioGroup
+						{...fieldProps}
+						options={[
+							{ name: 'existingAccount', value: 'yes', label: 'Yes' },
+							{ name: 'existingAccount', value: 'no', label: 'No' },
+						]}
+					/>
+				)}
+			</Field>
+			{formState?.values.existingAccount === 'yes' ? <LoginForm /> : <SignUpForm />}
 		</Form>
 	);
 }

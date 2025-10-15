@@ -34,6 +34,9 @@ const styles = cssMap({
 	icon: {
 		display: 'flex',
 		alignItems: 'center',
+		justifyContent: 'center',
+		width: '24px',
+		height: '24px',
 	},
 });
 
@@ -45,7 +48,9 @@ export function PanelTitle({ children, icon, testId }: PanelTitleProps) {
 	return (
 		<Box testId={testId} xcss={styles.title}>
 			{icon && <Box xcss={styles.icon}>{icon}</Box>}
-			<Heading size="small">{children}</Heading>
+			<Heading size="xsmall" as="h2">
+				{children}
+			</Heading>
 		</Box>
 	);
 }

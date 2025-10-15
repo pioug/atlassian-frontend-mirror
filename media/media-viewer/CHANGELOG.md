@@ -1,5 +1,11 @@
 # @atlaskit/media-viewer
 
+## 52.4.27
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.4.26
 
 ### Patch Changes
@@ -1342,7 +1348,6 @@
 - [#40767](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40767)
   [`8836e1fb91c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8836e1fb91c) - [ux]
   Upgraded pdfjs-dist from 2.0.943 to 2.16.105. This includes changes such as:
-
   - [MEX-2580] displaying digital signatures on MediaViewer
   - [MEX-2225] handling the 'Cannot read properties of undefined' error
   - [MEX-2162] showing non-latin characters on MediaViewer
@@ -2585,7 +2590,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/analytics-next@6.3.5
@@ -2835,7 +2839,6 @@
   > remove deprecated "context" property from media components in favor of "mediaClientConfig"
 
   This affects all public media UI components:
-
   - Card
   - Filmstrip
   - SmartMediaEditor
@@ -3284,13 +3287,11 @@ withAnalyticsEvents<Props>()(Button);
 ### Minor Changes
 
 - [minor][7b48b319a3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7b48b319a3):
-
   - Remove media-core dependency and allow to pass mediaClientConfig as part of public api
 
 ## 43.0.3
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -3325,7 +3326,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 43.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -3367,7 +3367,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 40.1.11
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 40.1.10
@@ -3387,26 +3386,22 @@ withAnalyticsEvents<Props>()(Button);
 ## 40.1.9
 
 - [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
-
   - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
     supplied from itself.
 
 ## 40.1.8
 
 - [patch][8bdebe02f1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8bdebe02f1):
-
   - Remove tests from MediaViewer dist
 
 ## 40.1.7
 
 - [patch][bee4101a63](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bee4101a63):
-
   - instrument analytics for audio and video play and error events
 
 ## 40.1.6
 
 - [patch][caf134141e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/caf134141e):
-
   - Fix incorrect MediaButton imports
 
 ## 40.1.5
@@ -3429,13 +3424,11 @@ withAnalyticsEvents<Props>()(Button);
 ## 40.1.4
 
 - [patch][4e1138a13a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4e1138a13a):
-
   - add close event to MVNG
 
 ## 40.1.3
 
 - [patch][32317ff8f3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/32317ff8f3):
-
   - MS-1633 Renderer passes a list of files and external images to a Card to be opened with Media
     Viewer
 
@@ -3451,13 +3444,11 @@ withAnalyticsEvents<Props>()(Button);
 ## 40.1.1
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 40.1.0
 
 - [minor][e1c1fa454a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e1c1fa454a):
-
   - Support external image identifier in MediaViewer
 
 ## 40.0.0
@@ -3481,13 +3472,11 @@ withAnalyticsEvents<Props>()(Button);
 ## 39.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 39.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 - Updated dependencies
@@ -3539,7 +3528,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 37.0.0
 
 - [patch][6bd4c428e2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6bd4c428e2):
-
   - load image preview as soon representation is present instead of waiting for file status to be
     processed
 
@@ -3553,13 +3541,11 @@ withAnalyticsEvents<Props>()(Button);
 ## 36.1.0
 
 - [minor][f1b46bcb42](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f1b46bcb42):
-
   - ED-6259 Enable stricter types for media packages
 
 ## 36.0.0
 
 - [major][6e49c7c418](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6e49c7c418):
-
   - Remove custom MediaViewerItem + Identifier types and use the one from media-core as part of
     public api
 
@@ -3584,7 +3570,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 35.2.0
 
 - [minor][fde1cf51e0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fde1cf51e0):
-
   - Code split component
 
 - Updated dependencies
@@ -3596,19 +3581,16 @@ withAnalyticsEvents<Props>()(Button);
 ## 35.1.2
 
 - [patch][05d5d28e5d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/05d5d28e5d):
-
   - cleanup MVNG analytics as part of MS-1184
 
 ## 35.1.1
 
 - [patch][ef469cbb0b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ef469cbb0b):
-
   - MS-357 replaced @atlaskit/util-shared-styles from media components by @atlaskit/theme
 
 ## 35.1.0
 
 - [minor][a74d635f1c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a74d635f1c):
-
   - Remove feedback button
 
 ## 35.0.0
@@ -3665,19 +3647,16 @@ withAnalyticsEvents<Props>()(Button);
 ## 32.1.0
 
 - [minor][2dc7a74](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2dc7a74):
-
   - Remember video quality in video player in MediaViewer
 
 ## 32.0.1
 
 - [patch][3cc69de](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3cc69de):
-
   - only apply css pixelation to zoomed in images
 
 ## 32.0.0
 
 - [major][c91adfe](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c91adfe):
-
   - remove customVideoPlayer featureFlag prop and enable by default
 
 ## 31.0.0
@@ -3691,7 +3670,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 30.0.0
 
 - [patch][72d37fb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/72d37fb):
-
   - Remove deprecated methods from media-core
   - Use context.collection methods in MediaViewer
   - Remove link support from media-card
@@ -3709,13 +3687,11 @@ withAnalyticsEvents<Props>()(Button);
 ## 29.2.0
 
 - [minor][8314694](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8314694):
-
   - Support uploading + processing files in MediaViewer
 
 ## 29.1.0
 
 - [minor][6bc785d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6bc785d):
-
   - default to HD video if available in video viewer
 
 ## 29.0.2
@@ -3729,7 +3705,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 29.0.1
 
 - [patch][ca16fa9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ca16fa9):
-
   - Add SSR support to media components
 
 ## 29.0.0
@@ -3768,20 +3743,17 @@ withAnalyticsEvents<Props>()(Button);
 ## 27.1.0
 
 - [minor][5de3574](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5de3574):
-
   - CustomVideoPlayer is now CustomMediaPlayer and supports audio through type property. Media
     Viewer now uses custom audio player for audio everywhere except IE11.
 
 ## 27.0.6
 
 - [patch][01697a6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/01697a6):
-
   - CustomVideoPlayer improvements: fix currentTime origin + apply custom theme
 
 ## 27.0.5
 
 - [patch][c1ea81c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c1ea81c):
-
   - use custom video player for inline video in media-card
 
 ## 27.0.4
@@ -3799,7 +3771,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 27.0.3
 
 - [patch][5a6de24](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5a6de24):
-
   - translate component properties in media components
 
 ## 27.0.2
@@ -3839,7 +3810,6 @@ withAnalyticsEvents<Props>()(Button);
 ## 26.0.1
 
 - [patch][8584c5a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8584c5a):
-
   - Fix zoom not sorting numerical values correctly
 
 ## 26.0.0
@@ -3860,31 +3830,26 @@ withAnalyticsEvents<Props>()(Button);
 ## 25.0.2
 
 - [patch][714f6ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/714f6ba):
-
   - Add analytics for navigation events in MediaViewer
 
 ## 25.0.1
 
 - [patch][74c9cd1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/74c9cd1):
-
   - Add analytics for zoom controls
 
 ## 25.0.0
 
 - [major][023cb45](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/023cb45" d):
-
   - Add i18n support to MediaViewer
 
 ## 24.1.11
 
 - [patch][12afe80](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12afe80" d):
-
   - Move mocks directory structure to fix dist build issues
 
 ## 24.1.10
 
 - [patch][4b84e8b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4b84e8b" d):
-
   - Avoid unnecessary render cycle in ItemViewer
 
 ## 24.1.9

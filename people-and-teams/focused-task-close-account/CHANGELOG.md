@@ -1,5 +1,11 @@
 # @atlaskit/focused-task-close-account
 
+## 3.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.9
 
 ### Patch Changes
@@ -816,7 +822,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/avatar@17.1.7
   - @atlaskit/button@13.3.7
@@ -920,7 +925,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -1000,14 +1004,12 @@
 ## 0.11.0
 
 - [minor][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 0.10.0
 
 - [minor][7cf935a323](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7cf935a323):
-
   - DeleteUserContentPreviewScreen changes which include similar design to select if the user
     prefers nickname or former user but as a survey
 
@@ -1042,13 +1044,11 @@
 ## 0.9.0
 
 - [minor][524a6d207e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/524a6d207e):
-
   - Enable noImplicitAny for @atlaskit/focused-task-close-account
 
 ## 0.8.4
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 0.8.3
@@ -1096,31 +1096,26 @@
 ## 0.8.0
 
 - [minor][d89857a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d89857a):
-
   - Deactivation flow added which is a single screen flow in the focused task component
 
 ## 0.7.0
 
 - [minor][91f6abc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/91f6abc):
-
   - Bug fix in the basic drawer assembly example
 
 ## 0.6.0
 
 - [minor][52c6b63](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/52c6b63):
-
   - i18n support added for focused task component
 
 ## 0.5.0
 
 - [minor][49bd44d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/49bd44d):
-
   - Section message updated when the user is alreaady deactivated
 
 ## 0.4.0
 
 - [minor][81299f6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/81299f6):
-
   - Copy changes along with addition on new prop, isUserDeactivated
 
 ## 0.3.4
@@ -1177,13 +1172,11 @@
 ## 0.3.0
 
 - [minor][75772f8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/75772f8):
-
   - Content updated and added drop down list support as per the latest design.
 
 ## 0.2.0
 
 - [minor][c8ea304](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c8ea304):
-
   - Bug fix - index.ts file moved to src folder. The component couldn’t be imported as the index
     file was not in the correct directory. Minor changes - ‘Learn more link’ now a part of the
     FocusedTask props as different links could be sent from unified-profile and id-org manager flow.

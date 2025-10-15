@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a8feb13ecf105e7fd6247cb4d1a99b01>>
+ * @codegen <<SignedSource::e7897709d50bd1f9582875a2a591b896>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -459,17 +459,7 @@ const tokens = {
 	'radius.xlarge': '--ds-radius-xlarge',
 	'radius.full': '--ds-radius-full',
 	'radius.tile': '--ds-radius-tile',
-	'border.radius': '--ds-border-radius',
-	'border.radius.050': '--ds-border-radius-050',
-	'border.radius.100': '--ds-border-radius-100',
-	'border.radius.200': '--ds-border-radius-200',
-	'border.radius.300': '--ds-border-radius-300',
-	'border.radius.400': '--ds-border-radius-400',
-	'border.radius.circle': '--ds-border-radius-circle',
 	'border.width': '--ds-border-width',
-	'border.width.0': '--ds-border-width-0',
-	'border.width.indicator': '--ds-border-width-indicator',
-	'border.width.outline': '--ds-border-width-outline',
 	'border.width.selected': '--ds-border-width-selected',
 	'border.width.focused': '--ds-border-width-focused',
 } as const;
@@ -920,17 +910,7 @@ export type CSSTokenMap = {
 	'radius.xlarge': 'var(--ds-radius-xlarge)';
 	'radius.full': 'var(--ds-radius-full)';
 	'radius.tile': 'var(--ds-radius-tile)';
-	'border.radius': 'var(--ds-border-radius)';
-	'border.radius.050': 'var(--ds-border-radius-050)';
-	'border.radius.100': 'var(--ds-border-radius-100)';
-	'border.radius.200': 'var(--ds-border-radius-200)';
-	'border.radius.300': 'var(--ds-border-radius-300)';
-	'border.radius.400': 'var(--ds-border-radius-400)';
-	'border.radius.circle': 'var(--ds-border-radius-circle)';
 	'border.width': 'var(--ds-border-width)';
-	'border.width.0': 'var(--ds-border-width-0)';
-	'border.width.indicator': 'var(--ds-border-width-indicator)';
-	'border.width.outline': 'var(--ds-border-width-outline)';
 	'border.width.selected': 'var(--ds-border-width-selected)';
 	'border.width.focused': 'var(--ds-border-width-focused)';
 };

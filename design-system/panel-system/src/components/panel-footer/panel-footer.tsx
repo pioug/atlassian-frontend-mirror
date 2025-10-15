@@ -18,10 +18,8 @@ export interface PanelFooterProps {
 
 const styles = cssMap({
 	footer: {
-		paddingBlockStart: token('space.200', '16px'),
-		paddingInlineEnd: token('space.200', '16px'),
-		paddingBlockEnd: token('space.200', '16px'),
-		paddingInlineStart: token('space.200', '16px'),
+		paddingBlock: token('space.150'),
+		paddingInline: token('space.300'),
 		borderBlockStart: `${token('border.width')} solid ${token('color.border')}`,
 		backgroundColor: token('color.background.neutral.subtle'),
 	},

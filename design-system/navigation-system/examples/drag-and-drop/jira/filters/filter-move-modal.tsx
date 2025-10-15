@@ -100,71 +100,66 @@ export function FilterMoveModal({ onClose, filter }: { onClose: () => void; filt
 	return (
 		<Modal onClose={onClose}>
 			<Form<TFormData> onSubmit={onSubmit}>
-				{({ formProps }) => (
-					<form {...formProps}>
-						<ModalHeader hasCloseButton>
-							<ModalTitle>Move: {filter.name}</ModalTitle>
-						</ModalHeader>
-						<ModalBody>
-							<Stack space="space.200">
-								<Stack>
-									<Field<{ value: string; label: string }>
-										id="target"
-										name="target"
-										label="Move relative to filter"
-										isRequired
-									>
-										{({ fieldProps }) => (
-											<Select
-												{...fieldProps}
-												onChange={(option) => {
-													invariant(option !== null);
-													setTarget(option);
-													fieldProps.onChange(option);
-												}}
-												menuPosition="fixed"
-												options={targetOptions}
-											/>
-										)}
-									</Field>
-									<Field<{ value: string; label: string }>
-										id="operation"
-										name="operation"
-										label="Operation"
-										isRequired
-									>
-										{({ fieldProps }) => (
-											<Select
-												{...fieldProps}
-												onChange={(option) => {
-													invariant(option !== null);
-													console.log(option);
-													fieldProps.onChange(option);
-												}}
-												menuPosition="fixed"
-												options={operationOptions}
-											/>
-										)}
-									</Field>
-								</Stack>
-								<SectionMessage appearance="warning">
-									This experience is <strong>illustrative</strong> of what could be done to support
-									complex movement operations. More thought needs to be given about what these
-									fields are available, what the fields are called, and what the option labels
-									should be.
-								</SectionMessage>
-							</Stack>
-						</ModalBody>
-						<ModalFooter>
-							<Button appearance="subtle" onClick={onClose}>
-								Cancel
-							</Button>
-							<Button appearance="primary" onClick={onClose} type="submit">
-								Move
-							</Button>
-						</ModalFooter>
-					</form>
-				)}
+				<ModalHeader hasCloseButton>
+					<ModalTitle>Move: {filter.name}</ModalTitle>
+				</ModalHeader>
+				<ModalBody>
+					<Stack space="space.200">
+						<Stack>
+							<Field<{ value: string; label: string }>
+								id="target"
+								name="target"
+								label="Move relative to filter"
+								isRequired
+							>
+								{({ fieldProps }) => (
+									<Select
+										{...fieldProps}
+										onChange={(option) => {
+											invariant(option !== null);
+											setTarget(option);
+											fieldProps.onChange(option);
+										}}
+										menuPosition="fixed"
+										options={targetOptions}
+									/>
+								)}
+							</Field>
+							<Field<{ value: string; label: string }>
+								id="operation"
+								name="operation"
+								label="Operation"
+								isRequired
+							>
+								{({ fieldProps }) => (
+									<Select
+										{...fieldProps}
+										onChange={(option) => {
+											invariant(option !== null);
+											console.log(option);
+											fieldProps.onChange(option);
+										}}
+										menuPosition="fixed"
+										options={operationOptions}
+									/>
+								)}
+							</Field>
+						</Stack>
+						<SectionMessage appearance="warning">
+							This experience is <strong>illustrative</strong> of what could be done to support
+							complex movement operations. More thought needs to be given about what these fields
+							are available, what the fields are called, and what the option labels should be.
+						</SectionMessage>
+					</Stack>
+				</ModalBody>
+				<ModalFooter>
+					<Button appearance="subtle" onClick={onClose}>
+						Cancel
+					</Button>
+					<Button appearance="primary" onClick={onClose} type="submit">
+						Move
+					</Button>
+				</ModalFooter>
 			</Form>
 		</Modal>
 	);

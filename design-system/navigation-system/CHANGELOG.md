@@ -1,5 +1,24 @@
 # @atlassian/navigation-system
 
+## 2.23.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.23.0
+
+### Minor Changes
+
+- [`46f39b03ba41d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46f39b03ba41d) -
+  The menu item `actionsOnHover` slot has been updated to improve accessibility. These changes were
+  previously behind a feature flag, which has now been removed. These changes are now available for
+  all consumers.
+  - Popup triggers placed inside the slot will now correctly be focused when closing their
+    respective popups.
+
+  - Interactive elements placed inside the slot will be in the tab order when tabbing backwards.
+
 ## 2.22.0
 
 ### Minor Changes

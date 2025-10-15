@@ -9,12 +9,13 @@ import {
 	type ReactNode,
 	type SetStateAction,
 	useId,
+	useRef,
 	useState,
 } from 'react';
 
 import { jsx } from '@atlaskit/css';
 
-import type { Placement } from '../types';
+import type { DismissEvent, Placement } from '../types';
 
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export interface SpotlightContextType {
@@ -33,8 +34,8 @@ export interface SpotlightContextType {
 		setRef: Dispatch<SetStateAction<MutableRefObject<HTMLDivElement | undefined> | undefined>>;
 		update: () => () => Promise<any>;
 		setUpdate: Dispatch<SetStateAction<() => () => Promise<any>>>;
-		dismiss: () => void;
-		setDismiss: Dispatch<SetStateAction<() => void>>;
+		dismiss: MutableRefObject<(_event: DismissEvent) => void>;
+		setDismiss: (dismissFn: (_event: DismissEvent) => void) => void;
 	};
 }
 
@@ -55,8 +56,8 @@ export const SpotlightContext = createContext<SpotlightContextType>({
 		setRef: () => undefined,
 		update: () => () => new Promise(() => null),
 		setUpdate: () => () => new Promise(() => null),
-		dismiss: () => undefined,
-		setDismiss: () => () => undefined,
+		dismiss: { current: () => undefined },
+		setDismiss: () => undefined,
 	},
 });
 
@@ -70,7 +71,10 @@ export const SpotlightContextProvider = ({ children }: { children: ReactNode }) 
 		MutableRefObject<HTMLDivElement | undefined> | undefined
 	>();
 	const [cardRef, setCardRef] = useState<MutableRefObject<HTMLDivElement | null> | null>(null);
-	const [dismiss, setDismiss] = useState<() => void>(() => undefined);
+	const dismissRef = useRef<(_event: DismissEvent) => void>(() => undefined);
+	const setDismiss = (dismissFn: (_event: DismissEvent) => void) => {
+		dismissRef.current = dismissFn;
+	};
 
 	return (
 		<SpotlightContext.Provider
@@ -90,7 +94,7 @@ export const SpotlightContextProvider = ({ children }: { children: ReactNode }) 
 					setRef: setPopoverRef,
 					update,
 					setUpdate,
-					dismiss,
+					dismiss: dismissRef,
 					setDismiss,
 				},
 			}}

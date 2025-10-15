@@ -1,5 +1,11 @@
 # @atlaskit/docs
 
+## 11.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.0
 
 ### Minor Changes
@@ -135,7 +141,6 @@
 - [#168438](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168438)
   [`d1a0f382215a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1a0f382215a7) -
   Multiple updates have been made to the `Example` component:
-
   - An `appearance` prop has been added, which can be used to make the example only show the source
     code, and not render the component preview. This is useful for components that could cause
     problems when rendered inside the atlaskit site (e.g. causing nested react contexts).
@@ -147,7 +152,6 @@
     visibility of the source code.
 
   Internal refactors:
-
   - It has been refactored to be a functional component
   - It now uses `Compiled CSS` for styling
   - It now uses `TypeScript`
@@ -687,7 +691,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/button@13.3.7
   - @atlaskit/code@11.1.3
   - @atlaskit/icon@20.0.1
@@ -731,7 +734,6 @@
   emphasize which lines of code you would like people to look at!
 
   The `highlight` prop can be used as follows:
-
   - To highlight one line: `highlight="3"`
   - To highlight sequential lines: `highlight="1-5"`
   - To highlight sequential and multiple single lines: `highlight="1-5,7,10,15-20"`
@@ -812,7 +814,6 @@
 - [patch][97bab7fd28](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97bab7fd28):
 
   `@atlaskit/checkbox` **10.x** includes the following changes:
-
   - Replaced previous theme implementation with new `@atlaskit/theme` v2 implementation
     - Please read more about this implementation in the
       [theming guide](https://atlaskit.atlassian.com/packages/core/theme/docs/theming-guide)
@@ -896,7 +897,6 @@
 ## 8.1.1
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -912,7 +912,6 @@
   Now, in your docs, you can directly import those section messages to inform your customers.
 
   ## Usage:
-
   - <AtlassianInternalWarning /> is the section message that warns about Atlassian usage.
   - <DevPreviewWarning> is the section message that warns about the componenent readiness.
 
@@ -941,14 +940,12 @@
 ## 8.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 7.0.4
 
 - [patch][d3cad2622e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d3cad2622e):
-
   - Removes babel-runtime in favour of @babel/runtime
 
 ## 7.0.3
@@ -979,7 +976,6 @@
 ## 7.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -1024,7 +1020,6 @@
 ## 6.0.2
 
 - [patch][050e08173f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/050e08173f):
-
   - Add missing import for codesandboxer
 
 ## 6.0.1
@@ -1037,7 +1032,6 @@
 ## 6.0.0
 
 - [major][58b84fa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/58b84fa):
-
   - Use latest version of pretty-proptypes - this is incompatible with `extract-react-types`
     versions under `0.15.0`
 

@@ -27,7 +27,7 @@ export const TitleBox = injectIntl(
 		hidden,
 		intl,
 	}: TitleBoxProps & WrappedComponentProps) => (
-		<TitleBoxWrapper hidden={hidden} breakpoint={breakpoint} titleBoxBgColor={titleBoxBgColor}>
+		<TitleBoxWrapper breakpoint={breakpoint} titleBoxBgColor={titleBoxBgColor}>
 			<TitleBoxHeader hasIconOverlap={!!titleBoxIcon && !createdAt}>
 				<Truncate text={name ?? placeholderText} />
 			</TitleBoxHeader>

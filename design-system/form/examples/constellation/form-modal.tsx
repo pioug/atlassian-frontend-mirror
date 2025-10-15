@@ -30,59 +30,56 @@ const FormModalDialogExample = () => {
 							onSubmit={(value) =>
 								window.alert(`You submitted:\n${JSON.stringify(value, undefined, 2)}`)
 							}
+							id="form-with-id"
 						>
-							{({ formProps }) => (
-								<form id="form-with-id" {...formProps}>
-									<ModalHeader hasCloseButton>
-										<ModalTitle>Modal dialog with form</ModalTitle>
-									</ModalHeader>
+							<ModalHeader hasCloseButton>
+								<ModalTitle>Modal dialog with form</ModalTitle>
+							</ModalHeader>
 
-									<ModalBody>
-										<p>Enter some text then submit the form to see the response.</p>
+							<ModalBody>
+								<p>Enter some text then submit the form to see the response.</p>
 
-										<Field label="Name" name="my-name" defaultValue="">
-											{({ fieldProps }) => <Textfield {...fieldProps} />}
-										</Field>
+								<Field label="Name" name="my-name" defaultValue="">
+									{({ fieldProps }) => <Textfield {...fieldProps} />}
+								</Field>
 
-										<Field label="Email" name="my-email" defaultValue="">
-											{({ fieldProps }) => (
-												<Textfield
-													autoComplete="off"
-													placeholder="charlie@atlassian.com"
-													{...fieldProps}
-												/>
-											)}
-										</Field>
+								<Field label="Email" name="my-email" defaultValue="">
+									{({ fieldProps }) => (
+										<Textfield
+											autoComplete="off"
+											placeholder="charlie@atlassian.com"
+											{...fieldProps}
+										/>
+									)}
+								</Field>
 
-										<CheckboxField name="remember" defaultIsChecked>
-											{({ fieldProps }) => (
-												<Checkbox {...fieldProps} label="Always sign in on this device" />
-											)}
-										</CheckboxField>
+								<CheckboxField name="remember" defaultIsChecked>
+									{({ fieldProps }) => (
+										<Checkbox {...fieldProps} label="Always sign in on this device" />
+									)}
+								</CheckboxField>
 
-										<Field name="radiogroup" label="Colors" defaultValue="">
-											{({ fieldProps: { value, ...others } }) => (
-												<RadioGroup
-													options={[
-														{ name: 'color', value: 'red', label: 'Red' },
-														{ name: 'color', value: 'blue', label: 'Blue' },
-														{ name: 'color', value: 'yellow', label: 'Yellow' },
-													]}
-													{...others}
-												/>
-											)}
-										</Field>
-									</ModalBody>
-									<ModalFooter>
-										<Button onClick={close} appearance="subtle">
-											Cancel
-										</Button>
-										<Button type="submit" form="form-with-id" appearance="primary">
-											Submit
-										</Button>
-									</ModalFooter>
-								</form>
-							)}
+								<Field name="radiogroup" label="Colors" defaultValue="">
+									{({ fieldProps: { value, ...others } }) => (
+										<RadioGroup
+											options={[
+												{ name: 'color', value: 'red', label: 'Red' },
+												{ name: 'color', value: 'blue', label: 'Blue' },
+												{ name: 'color', value: 'yellow', label: 'Yellow' },
+											]}
+											{...others}
+										/>
+									)}
+								</Field>
+							</ModalBody>
+							<ModalFooter>
+								<Button onClick={close} appearance="subtle">
+									Cancel
+								</Button>
+								<Button type="submit" form="form-with-id" appearance="primary">
+									Submit
+								</Button>
+							</ModalFooter>
 						</Form>
 					</ModalDialog>
 				)}

@@ -123,9 +123,9 @@ function plugin() {
                 }
               }
 
-              // The border.radius tokens are skipped in shouldForceAutoFallback mode because these tokens are not enabled in the live apps and enforcing default values on them will override all the fallback values that are currently being used to render the actual UI.
+              // The radius tokens are skipped in shouldForceAutoFallback mode because these tokens are not enabled in the live apps and enforcing default values on them will override all the fallback values that are currently being used to render the actual UI.
               // The exempted tokens (the ones that start with any of the provided exemption prefixes) are also skipped.
-              var forceAutoFallbackExemptions = ['border.radius'].concat((0, _toConsumableArray2.default)(state.opts.forceAutoFallbackExemptions || []));
+              var forceAutoFallbackExemptions = ['radius'].concat((0, _toConsumableArray2.default)(state.opts.forceAutoFallbackExemptions || []));
 
               // Handle fallbacks
               var fallback = state.opts.shouldForceAutoFallback !== false && !isExempted(tokenName, forceAutoFallbackExemptions) ? t.stringLiteral(getDefaultFallback(tokenName, state.opts.defaultTheme)) : path.node.arguments[1];

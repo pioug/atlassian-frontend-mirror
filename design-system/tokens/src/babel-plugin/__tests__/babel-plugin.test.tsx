@@ -13,7 +13,7 @@ jest.mock('../../artifacts/token-names', () => {
 			'test-token-shadow-no-opacity': '--test-token-shadow-no-opacity',
 			'space.075': '--ds-space-075',
 			'space.100': '--ds-space-100',
-			'border.radius.050': '--ds-border-radius-050',
+			'radius.xsmall': '--ds-radius-xsmall',
 			'font.heading.xlarge': '--ds-font-heading-xlarge',
 		},
 	};
@@ -79,7 +79,7 @@ jest.mock('../../artifacts/tokens-raw/atlassian-spacing', () => ({
 
 jest.mock('../../artifacts/tokens-raw/atlassian-shape', () => ({
 	__esModule: true,
-	default: [{ value: '2px', cleanName: 'border.radius.050' }],
+	default: [{ value: '2px', cleanName: 'radius.xsmall' }],
 }));
 
 jest.mock('../../artifacts/tokens-raw/atlassian-typography-adg3', () => ({
@@ -480,13 +480,13 @@ const getStyles = css => css\`
 			`);
 		});
 
-		it('should not override manual fallback usage for border.radius tokens', () => {
+		it('should not override manual fallback usage for radius tokens', () => {
 			const actual = transform({ shouldForceAutoFallback: true })`
 				import { token } from '@atlaskit/tokens';
-				token('border.radius.050', '900px');
+				token('radius.xsmall', '900px');
 			`;
 
-			expect(actual).toMatchInlineSnapshot(`""var(--ds-border-radius-050, 900px)";"`);
+			expect(actual).toMatchInlineSnapshot(`""var(--ds-radius-xsmall, 900px)";"`);
 		});
 
 		it('should not override manual fallback usage for exempted tokens', () => {
@@ -535,14 +535,14 @@ const getStyles = css => css\`
         import { token } from '@atlaskit/tokens';
         token('space.075');
         token('space.100');
-        token('border.radius.050');
+        token('radius.xsmall');
         token('font.heading.xlarge');
       `;
 
 			expect(actual).toMatchInlineSnapshot(`
 			""var(--ds-space-075, 6px)";
 			"var(--ds-space-100, 8px)";
-			"var(--ds-border-radius-050, 2px)";
+			"var(--ds-radius-xsmall, 2px)";
 			"var(--ds-font-heading-xlarge, \\"normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, \\"Segoe UI\\", Ubuntu, system-ui, \\"Helvetica Neue\\", sans-serif\\")";"
 		`);
 		});

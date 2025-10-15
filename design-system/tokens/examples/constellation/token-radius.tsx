@@ -19,16 +19,13 @@ const RadiusCard = ({
 	heading,
 	children,
 }: {
-	heading: Extract<
-		Parameters<typeof token>[0],
-		'border.radius.300' | 'border.radius.200' | 'border.radius'
-	>;
+	heading: Extract<Parameters<typeof token>[0], 'radius.xlarge' | 'radius.large' | 'radius.small'>;
 	children?: ReactNode;
 }) => {
 	const radiusMap = {
-		'border.radius.300': token('border.radius.300'),
-		'border.radius.200': token('radius.large'),
-		'border.radius': token('border.radius'),
+		'radius.xlarge': token('radius.xlarge'),
+		'radius.large': token('radius.large'),
+		'radius.small': token('radius.small'),
 	};
 
 	return (
@@ -42,9 +39,9 @@ const RadiusCard = ({
 };
 
 const Cards = () => (
-	<RadiusCard heading="border.radius.300">
-		<RadiusCard heading="border.radius.200">
-			<RadiusCard heading="border.radius" />
+	<RadiusCard heading="radius.xlarge">
+		<RadiusCard heading="radius.large">
+			<RadiusCard heading="radius.small" />
 		</RadiusCard>
 	</RadiusCard>
 );

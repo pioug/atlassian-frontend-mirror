@@ -9,3 +9,16 @@ export type Placement =
 	| 'right-end'
 	| 'left-start'
 	| 'left-end';
+
+/**
+ * Spotlights can be dismissed by:
+ * 1. Clicking the `SpotlightDismissControl`
+ * 2. Clicking any DOM element outside the spotlight
+ * 3. Pressing the Escape key
+ *
+ * These events align to the `React.MouseEvent<HTMLButtonElement, MouseEvent>`, `MouseEvent`, and `KeyboardEvent` events respectively.
+ */
+export type DismissEvent =
+	| React.MouseEvent<HTMLButtonElement, MouseEvent>
+	| MouseEvent
+	| KeyboardEvent;

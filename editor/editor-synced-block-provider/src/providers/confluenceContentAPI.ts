@@ -3,12 +3,24 @@ import { useMemo } from 'react';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import type { ADFFetchProvider, ADFWriteProvider, SyncBlockData } from '../common/types';
-import { getLocalIdFromAri, getPageIdFromAri, resourceIdFromSourceAndLocalId } from '../utils/ari';
+import {
+	getLocalIdFromAri,
+	getPageIdAndTypeFromAri,
+	resourceIdFromSourceAndLocalId,
+	type PAGE_TYPE,
+} from '../utils/ari';
 import {
 	getContentProperty,
 	createContentProperty,
 	updateContentProperty,
+	type CreateContentPropertyResult,
+	type CreateBlogPostContentPropertyResult,
+	type UpdateBlogPostContentPropertyResult,
+	type UpdateContentPropertyResult,
+	type GetContentPropertyResult,
+	type GetBlogPostContentPropertyResult,
 } from '../utils/contentProperty';
+import { isBlogPageType } from '../utils/utils';
 
 /**
  * Configuration for Content API providers
@@ -26,22 +38,21 @@ export type SyncedBlockContentPropertyValue = {
 	content?: ADFEntity;
 };
 
-const parseSyncedBlockContentPropertyValue = (
-	value: string | object,
-): SyncedBlockContentPropertyValue => {
+const parseSyncedBlockContentPropertyValue = (value: string): SyncedBlockContentPropertyValue => {
 	try {
-		if (typeof value === 'string') {
-			return JSON.parse(value);
+		if (value !== '') {
+			const parsedValue = JSON.parse(value);
+			if (parsedValue.content) {
+				return parsedValue as SyncedBlockContentPropertyValue;
+			}
 		}
-		return value as SyncedBlockContentPropertyValue;
 	} catch (error) {
 		// eslint-disable-next-line no-console
 		console.error('Failed to parse synced block content:', error);
-
-		return {
-			content: undefined,
-		};
 	}
+	return {
+		content: undefined,
+	};
 };
 
 /**
@@ -51,16 +62,24 @@ class ConfluenceADFFetchProvider implements ADFFetchProvider {
 	constructor(private config: ContentAPIConfig) {}
 
 	async fetchData(resourceId: string): Promise<SyncBlockData> {
-		const pageId = getPageIdFromAri(resourceId);
+		const { id: pageId, type: pageType } = getPageIdAndTypeFromAri(resourceId);
 		const localId = getLocalIdFromAri(resourceId);
 		const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
 		const options = {
 			pageId,
 			key,
 			cloudId: this.config.cloudId,
+			pageType,
 		};
-		const contentProperty = await getContentProperty(options);
-		const value = contentProperty.data.confluence.page.properties?.[0]?.value;
+
+		let value;
+		if (isBlogPageType(pageType)) {
+			const contentProperty = await getContentProperty<GetBlogPostContentPropertyResult>(options);
+			value = contentProperty.data.confluence.blogPost.properties?.[0]?.value;
+		} else {
+			const contentProperty = await getContentProperty<GetContentPropertyResult>(options);
+			value = contentProperty.data.confluence.page.properties?.[0]?.value;
+		}
 
 		if (!value) {
 			throw new Error('Content property value does not exist');
@@ -83,23 +102,42 @@ class ConfluenceADFFetchProvider implements ADFFetchProvider {
 class ConfluenceADFWriteProvider implements ADFWriteProvider {
 	constructor(private config: ContentAPIConfig) {}
 
-	private createNewContentProperty = async (pageId: string, key: string, value: string) => {
-		const contentProperty = await createContentProperty({
+	private createNewContentProperty = async (
+		pageId: string,
+		key: string,
+		value: string,
+		pageType: PAGE_TYPE,
+	) => {
+		const options = {
 			pageId,
 			key,
 			value,
 			cloudId: this.config.cloudId,
-		});
+			pageType,
+		};
 
-		if (contentProperty.data.confluence.createPageProperty.pageProperty?.key === key) {
-			return key;
+		if (isBlogPageType(pageType)) {
+			const contentProperty =
+				await createContentProperty<CreateBlogPostContentPropertyResult>(options);
+
+			if (contentProperty.data.confluence.createBlogPostProperty.blogPostProperty?.key === key) {
+				return key;
+			} else {
+				throw new Error('Failed to create blog post content property');
+			}
 		} else {
-			throw new Error('Failed to create content property');
+			const contentProperty = await createContentProperty<CreateContentPropertyResult>(options);
+
+			if (contentProperty.data.confluence.createPageProperty.pageProperty?.key === key) {
+				return key;
+			} else {
+				throw new Error('Failed to create page content property');
+			}
 		}
 	};
 
 	async writeData(data: SyncBlockData): Promise<string> {
-		const pageId = getPageIdFromAri(data.resourceId);
+		const { id: pageId, type: pageType } = getPageIdAndTypeFromAri(data.resourceId);
 
 		if (
 			data.sourceDocumentAri &&
@@ -109,29 +147,48 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 		}
 
 		const syncedBlockValue = JSON.stringify({ content: data.content });
-
 		if (data.resourceId) {
 			// Update existing content property
 			const localId = getLocalIdFromAri(data.resourceId);
 			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
-			const contentProperty = await updateContentProperty({
+			const options = {
 				pageId,
 				key,
 				value: syncedBlockValue,
 				cloudId: this.config.cloudId,
-			});
+				pageType,
+			};
 
-			if (contentProperty.data.confluence.updateValuePageProperty.pageProperty?.key === key) {
-				return key;
-			} else if (contentProperty.data.confluence.updateValuePageProperty.pageProperty === null) {
-				return this.createNewContentProperty(pageId, key, syncedBlockValue);
+			if (isBlogPageType(pageType)) {
+				const contentProperty =
+					await updateContentProperty<UpdateBlogPostContentPropertyResult>(options);
+
+				if (
+					contentProperty.data.confluence.updateValueBlogPostProperty.blogPostProperty?.key === key
+				) {
+					return key;
+				} else if (
+					contentProperty.data.confluence.updateValueBlogPostProperty.blogPostProperty === null
+				) {
+					return this.createNewContentProperty(pageId, key, syncedBlockValue, pageType);
+				} else {
+					throw new Error('Failed to update blog post content property');
+				}
 			} else {
-				throw new Error('Failed to update content property');
+				const contentProperty = await updateContentProperty<UpdateContentPropertyResult>(options);
+
+				if (contentProperty.data.confluence.updateValuePageProperty.pageProperty?.key === key) {
+					return key;
+				} else if (contentProperty.data.confluence.updateValuePageProperty.pageProperty === null) {
+					return this.createNewContentProperty(pageId, key, syncedBlockValue, pageType);
+				} else {
+					throw new Error('Failed to update content property');
+				}
 			}
 		} else {
 			// Create new content property
 			const key = getContentPropertyKey(this.config.contentPropertyKey, data.localId);
-			return this.createNewContentProperty(pageId, key, syncedBlockValue);
+			return this.createNewContentProperty(pageId, key, syncedBlockValue, pageType);
 		}
 	}
 }

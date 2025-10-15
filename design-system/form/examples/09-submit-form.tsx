@@ -16,33 +16,29 @@ const FormWithoutField = () => {
 	return (
 		<Flex justifyContent="center">
 			{!hasSubmitted ? (
-				<Form onSubmit={handleSubmit}>
-					{({ formProps }) => (
-						<form {...formProps} name="submit-form">
-							<FormHeader title="Leave feedback">
-								<p aria-hidden="true">
-									Required fields are marked with an asterisk <RequiredAsterisk />
-								</p>
-							</FormHeader>
-							<Field name="name" defaultValue="" label="Name" isRequired>
-								{({ fieldProps }) => <TextField autoComplete="name" {...fieldProps} />}
-							</Field>
+				<Form onSubmit={handleSubmit} name="submit-form">
+					<FormHeader title="Leave feedback">
+						<p aria-hidden="true">
+							Required fields are marked with an asterisk <RequiredAsterisk />
+						</p>
+					</FormHeader>
+					<Field name="name" defaultValue="" label="Name" isRequired>
+						{({ fieldProps }) => <TextField autoComplete="name" {...fieldProps} />}
+					</Field>
 
-							<Field<string, HTMLTextAreaElement>
-								name="description"
-								defaultValue=""
-								label="Description"
-							>
-								{({ fieldProps }) => <TextArea {...fieldProps} />}
-							</Field>
+					<Field<string, HTMLTextAreaElement>
+						name="description"
+						defaultValue=""
+						label="Description"
+					>
+						{({ fieldProps }) => <TextArea {...fieldProps} />}
+					</Field>
 
-							<FormFooter>
-								<Button type="submit" appearance="primary">
-									Submit
-								</Button>
-							</FormFooter>
-						</form>
-					)}
+					<FormFooter>
+						<Button type="submit" appearance="primary">
+							Submit
+						</Button>
+					</FormFooter>
 				</Form>
 			) : (
 				<div id="submitted" aria-live="polite">

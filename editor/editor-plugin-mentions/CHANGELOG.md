@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-mentions
 
+## 8.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.2
 
 ### Patch Changes
@@ -241,7 +247,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -829,7 +834,6 @@
   [`30a69f02904da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30a69f02904da) -
   [ED-23460] Make sure that error analytics in editor-plugin-mentions can fire by using actions from
   editor-plugin-analytics
-
   - **@atlaskit/editor-common**: Add types for `@atlaskit/editor-plugin-mentions` analytics
   - **@atlaskit/editor-plugin-mentions**: Switch to using `@atlaskit/editor-plugin-analytics`
     actions so that error events can be queued and fired consistently

@@ -8,52 +8,44 @@ import TextField from '@atlaskit/textfield';
 
 export default () => (
 	<Flex direction="column">
-		<Form onSubmit={(data) => console.log(data)}>
-			{({ formProps }) => (
-				<form {...formProps} name="text-fields">
-					<FormHeader title="Leave feedback">
-						<p aria-hidden="true">
-							Required fields are marked with an asterisk <RequiredAsterisk />
-						</p>
-					</FormHeader>
-					<Field name="firstname" defaultValue="" label="First name" isRequired>
-						{({ fieldProps }) => <TextField autoComplete="given-name" {...fieldProps} />}
-					</Field>
+		<Form onSubmit={(data) => console.log(data)} name="text-fields">
+			<FormHeader title="Leave feedback">
+				<p aria-hidden="true">
+					Required fields are marked with an asterisk <RequiredAsterisk />
+				</p>
+			</FormHeader>
+			<Field name="firstname" defaultValue="" label="First name" isRequired>
+				{({ fieldProps }) => <TextField autoComplete="given-name" {...fieldProps} />}
+			</Field>
 
-					<Field name="lastname" defaultValue="" label="Last name" isRequired>
-						{({ fieldProps: { isRequired, isDisabled, ...others } }) => (
-							<TextField
-								isDisabled={isDisabled}
-								isRequired={isRequired}
-								autoComplete="family-name"
-								{...others}
-							/>
-						)}
-					</Field>
+			<Field name="lastname" defaultValue="" label="Last name" isRequired>
+				{({ fieldProps: { isRequired, isDisabled, ...others } }) => (
+					<TextField
+						isDisabled={isDisabled}
+						isRequired={isRequired}
+						autoComplete="family-name"
+						{...others}
+					/>
+				)}
+			</Field>
 
-					<Field<string, HTMLTextAreaElement>
-						name="description"
-						defaultValue=""
-						label="Description"
-					>
-						{({ fieldProps }) => <TextArea {...fieldProps} />}
-					</Field>
+			<Field<string, HTMLTextAreaElement> name="description" defaultValue="" label="Description">
+				{({ fieldProps }) => <TextArea {...fieldProps} />}
+			</Field>
 
-					<Field<string, HTMLTextAreaElement>
-						name="comments"
-						defaultValue=""
-						label="Additional comments"
-					>
-						{({ fieldProps }) => <TextArea {...fieldProps} />}
-					</Field>
+			<Field<string, HTMLTextAreaElement>
+				name="comments"
+				defaultValue=""
+				label="Additional comments"
+			>
+				{({ fieldProps }) => <TextArea {...fieldProps} />}
+			</Field>
 
-					<FormFooter>
-						<Button type="submit" appearance="primary">
-							Submit
-						</Button>
-					</FormFooter>
-				</form>
-			)}
+			<FormFooter>
+				<Button type="submit" appearance="primary">
+					Submit
+				</Button>
+			</FormFooter>
 		</Form>
 	</Flex>
 );

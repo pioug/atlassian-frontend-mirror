@@ -1,5 +1,32 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.13.0
+
+### Minor Changes
+
+- [`0560b4dfd1361`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0560b4dfd1361) -
+  Experiment with disabling prosemirror rendering in SSR
+
+### Patch Changes
+
+- [`b4c5701e7f2be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4c5701e7f2be) -
+  Adds a PR task to to ensure that if an override was added/removed, it was a safe change.
+
+## 13.12.1
+
+### Patch Changes
+
+- [`1c601de07087b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c601de07087b) -
+  Fix for CLS issue in Editor Resizer Component
+- Updated dependencies
+
+## 13.12.0
+
+### Minor Changes
+
+- [`08782f92b4f09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08782f92b4f09) -
+  COMMENTS-5684-fe-cleanup-and-archive-cc-comments-include-path-for-renderer-emojis
+
 ## 13.11.0
 
 ### Minor Changes

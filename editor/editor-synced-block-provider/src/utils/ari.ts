@@ -1,32 +1,36 @@
-export const getConfluencePageAri = (pageId: string, cloudId: string) =>
-	`ari:cloud:confluence:${cloudId}:page/${pageId}`;
+/* eslint-disable require-unicode-regexp  */
 
-export const getPageIdFromAri = (ari: string) => {
-	// eslint-disable-next-line require-unicode-regexp
-	const match = ari.match(/ari:cloud:confluence:[^:]+:page\/(\d+)/);
-	if (match?.[1]) {
-		return match[1];
+export type PAGE_TYPE = 'page' | 'blogpost';
+
+export const getConfluencePageAri = (
+	pageId: string,
+	cloudId: string,
+	pageType: PAGE_TYPE = 'page',
+) => `ari:cloud:confluence:${cloudId}:${pageType}/${pageId}`;
+
+export const getPageIdAndTypeFromAri = (ari: string): { id: string; type: PAGE_TYPE } => {
+	const match = ari.match(/ari:cloud:confluence:[^:]+:(page|blogpost)\/(\d+)/);
+	if (match?.[2]) {
+		return {
+			type: match[1] as PAGE_TYPE,
+			id: match[2],
+		};
 	}
 	throw new Error(`Invalid page ARI: ${ari}`);
 };
 
-/**
- *
- * @param ari ari:cloud:confluence:<cloudId>:page/<pageId>/<localId>
- * @returns
- */
 export const getLocalIdFromAri = (ari: string) => {
-	// eslint-disable-next-line require-unicode-regexp
-	const match = ari.match(/ari:cloud:confluence:[^:]+:page\/\d+\/([a-zA-Z0-9-]+)/);
-	if (match?.[1]) {
-		return match[1];
+	const match = ari.match(/ari:cloud:confluence:[^:]+:(page|blogpost)\/\d+\/([a-zA-Z0-9-]+)/);
+	if (match?.[2]) {
+		return match[2];
 	}
 	throw new Error(`Invalid page ARI: ${ari}`);
 };
 
 export const getPageARIFromResourceId = (resourceId: string) => {
-	// eslint-disable-next-line require-unicode-regexp
-	const match = resourceId.match(/(ari:cloud:confluence:[^:]+:page\/\d+)\/([a-zA-Z0-9-]+)$/);
+	const match = resourceId.match(
+		/(ari:cloud:confluence:[^:]+:(page|blogpost)\/\d+)\/([a-zA-Z0-9-]+)$/,
+	);
 	if (match?.[1]) {
 		return match[1];
 	}
@@ -36,8 +40,14 @@ export const getPageARIFromResourceId = (resourceId: string) => {
 export const getContentPropertyAri = (contentPropertyId: string, cloudId: string) =>
 	`ari:cloud:confluence:${cloudId}:content/${contentPropertyId}`;
 
+/**
+ * DEPRECATED - Will be removed in the future
+ * @private
+ * @deprecated
+ * @param ari
+ * @returns
+ */
 export const getContentPropertyIdFromAri = (ari: string) => {
-	// eslint-disable-next-line require-unicode-regexp
 	const match = ari.match(/ari:cloud:confluence:[^:]+:content\/([^/]+)/);
 	if (match) {
 		return match[1];

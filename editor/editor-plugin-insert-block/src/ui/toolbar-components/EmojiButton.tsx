@@ -5,21 +5,17 @@ import { useIntl } from 'react-intl-next';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { ToolTipContent, insertEmoji } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { ToolbarButton, ToolbarTooltip, EmojiIcon } from '@atlaskit/editor-toolbar';
+import { ToolbarButton, ToolbarTooltip, EmojiIcon, useToolbarUI } from '@atlaskit/editor-toolbar';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useEmojiPickerPopup } from './hooks/useEmojiPickerPopup';
 import { EmojiPickerPopup } from './popups/EmojiPickerPopup';
 import type { BaseToolbarButtonProps } from './shared/types';
 
-export const EmojiButton = ({
-	api,
-	popupsMountPoint,
-	popupsBoundariesElement,
-	popupsScrollableElement,
-}: BaseToolbarButtonProps) => {
+export const EmojiButton = ({ api }: BaseToolbarButtonProps) => {
 	const { formatMessage } = useIntl();
 	const emojiButtonRef = useRef<HTMLButtonElement | null>(null);
+	const { popupsMountPoint, popupsBoundariesElement, popupsScrollableElement } = useToolbarUI();
 
 	const { emojiProviderSelector, emojiProviderPromise, isTypeAheadAllowed } =
 		useSharedPluginStateWithSelector(api, ['emoji', 'typeAhead'], (states) => ({

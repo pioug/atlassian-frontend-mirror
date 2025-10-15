@@ -1,5 +1,6 @@
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { N20, N30 } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const previewStyle = {
@@ -77,6 +78,9 @@ const createContentPreviewElement = (
 			: // Ignored via go/ees005
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				(dom.cloneNode(true) as HTMLElement);
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
 
 	clonedDom.style.marginLeft = '0';
 	clonedDom.style.marginTop = nodeSpacing ? `${nodeSpacing.top}` : '0';

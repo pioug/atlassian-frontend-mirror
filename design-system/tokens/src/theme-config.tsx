@@ -21,8 +21,6 @@ export type Themes =
 	| 'atlassian-legacy-light'
 	| 'atlassian-legacy-dark'
 	| 'atlassian-shape'
-	| 'atlassian-shape-rounder'
-	| 'atlassian-shape-roundest'
 	| 'atlassian-spacing'
 	| 'atlassian-typography'
 	| 'atlassian-typography-refreshed'
@@ -81,8 +79,6 @@ export const themeIds = [
 	'legacy-dark',
 	'spacing',
 	'shape',
-	'shape-rounder',
-	'shape-roundest',
 	'typography',
 	'typography-adg3',
 	'typography-modernized',
@@ -279,22 +275,6 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
 			type: 'shape',
 		},
 	},
-	'atlassian-shape-rounder': {
-		id: 'shape-rounder',
-		displayName: 'Shape (Rounder)',
-		palette: 'shapePalette',
-		attributes: {
-			type: 'shape',
-		},
-	},
-	'atlassian-shape-roundest': {
-		id: 'shape-roundest',
-		displayName: 'Shape (Roundest)',
-		palette: 'shapePalette',
-		attributes: {
-			type: 'shape',
-		},
-	},
 	'atlassian-typography-modernized': {
 		id: 'typography-modernized',
 		displayName: 'Atlassian Typography (Modernized)',
@@ -373,7 +353,7 @@ export interface ThemeState {
 	>;
 	colorMode: ThemeColorModes;
 	contrastMode: ThemeContrastModes;
-	shape?: Extract<ThemeIds, 'shape' | 'shape-rounder' | 'shape-roundest'>;
+	shape?: Extract<ThemeIds, 'shape'>;
 	spacing: Extract<ThemeIds, 'spacing'>;
 	/**
 	 * @deprecated 'typography-adg3' is deprecated, use 'typography' instead

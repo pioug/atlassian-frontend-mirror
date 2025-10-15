@@ -96,82 +96,78 @@ export default function FieldLevelValidationExample() {
 	return (
 		<Flex direction="column">
 			<Form onSubmit={handleSubmit}>
-				{({ formProps }) => (
-					<form {...formProps}>
-						<FormHeader title="Log In">
-							<Text as="p" aria-hidden={true}>
-								Required fields are marked with an asterisk <RequiredAsterisk />
-							</Text>
-						</FormHeader>
-						<Field
-							name="username"
-							label="Username"
-							defaultValue=""
-							isRequired
-							validate={(value) => {
-								if (value) {
-									setFieldValue(value);
-								}
-							}}
-						>
-							{({ fieldProps: { id, ...rest } }) => {
-								return (
-									<Fragment>
-										<TextField
-											{...rest}
-											aria-describedby={fieldHasError ? `${id}${messageId}` : undefined}
-											isInvalid={fieldHasError}
-											onBlur={handleBlurEvent}
-										/>
-										<MessageWrapper>
-											{!fieldHasError && errorMessageText === 'IS_VALID' && (
-												<ValidMessage>{validUsername}</ValidMessage>
-											)}
-											{fieldHasError && errorMessageText === 'TOO_SHORT' && (
-												<ErrorMessage>{shortUsername}</ErrorMessage>
-											)}
-											{fieldHasError && errorMessageText === 'IN_USE' && (
-												<ErrorMessage>{usernameInUse}</ErrorMessage>
-											)}
-										</MessageWrapper>
-									</Fragment>
-								);
-							}}
-						</Field>
-						<Field<ValueType<Option>>
-							name="colors"
-							label="Select a color"
-							defaultValue={null}
-							isRequired
-							validate={(value) => {
-								setSelectValue(value);
-							}}
-						>
-							{({ fieldProps: { id, ...rest } }) => {
-								return (
-									<Fragment>
-										<Select<Option>
-											inputId={id}
-											{...rest}
-											options={colors}
-											isClearable
-											clearControlLabel="Clear color"
-											isInvalid={selectHasError}
-											descriptionId={selectHasError ? `${id}-error` : undefined}
-											onBlur={handleSelectBlurEvent}
-										/>
-										<MessageWrapper>
-											{selectHasError && <ErrorMessage>{selectError}</ErrorMessage>}
-										</MessageWrapper>
-									</Fragment>
-								);
-							}}
-						</Field>
-						<FormFooter>
-							<Button type="submit">Next</Button>
-						</FormFooter>
-					</form>
-				)}
+				<FormHeader title="Log In">
+					<Text as="p" aria-hidden={true}>
+						Required fields are marked with an asterisk <RequiredAsterisk />
+					</Text>
+				</FormHeader>
+				<Field
+					name="username"
+					label="Username"
+					defaultValue=""
+					isRequired
+					validate={(value) => {
+						if (value) {
+							setFieldValue(value);
+						}
+					}}
+				>
+					{({ fieldProps: { id, ...rest } }) => {
+						return (
+							<Fragment>
+								<TextField
+									{...rest}
+									aria-describedby={fieldHasError ? `${id}${messageId}` : undefined}
+									isInvalid={fieldHasError}
+									onBlur={handleBlurEvent}
+								/>
+								<MessageWrapper>
+									{!fieldHasError && errorMessageText === 'IS_VALID' && (
+										<ValidMessage>{validUsername}</ValidMessage>
+									)}
+									{fieldHasError && errorMessageText === 'TOO_SHORT' && (
+										<ErrorMessage>{shortUsername}</ErrorMessage>
+									)}
+									{fieldHasError && errorMessageText === 'IN_USE' && (
+										<ErrorMessage>{usernameInUse}</ErrorMessage>
+									)}
+								</MessageWrapper>
+							</Fragment>
+						);
+					}}
+				</Field>
+				<Field<ValueType<Option>>
+					name="colors"
+					label="Select a color"
+					defaultValue={null}
+					isRequired
+					validate={(value) => {
+						setSelectValue(value);
+					}}
+				>
+					{({ fieldProps: { id, ...rest } }) => {
+						return (
+							<Fragment>
+								<Select<Option>
+									inputId={id}
+									{...rest}
+									options={colors}
+									isClearable
+									clearControlLabel="Clear color"
+									isInvalid={selectHasError}
+									descriptionId={selectHasError ? `${id}-error` : undefined}
+									onBlur={handleSelectBlurEvent}
+								/>
+								<MessageWrapper>
+									{selectHasError && <ErrorMessage>{selectError}</ErrorMessage>}
+								</MessageWrapper>
+							</Fragment>
+						);
+					}}
+				</Field>
+				<FormFooter>
+					<Button type="submit">Next</Button>
+				</FormFooter>
 			</Form>
 		</Flex>
 	);

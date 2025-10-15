@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-marker",
-	"version": "6.2.2",
+	"version": "6.2.3",
 	"description": "Selection marker plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

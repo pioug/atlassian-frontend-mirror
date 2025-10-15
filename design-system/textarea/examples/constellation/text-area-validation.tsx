@@ -17,29 +17,23 @@ export default function TextAreaFormValidationExample() {
 	};
 
 	return (
-		<Form onSubmit={handleSubmit}>
-			{({ formProps }) => (
-				<form {...formProps} name="validation-example">
-					<Field label="Description" isRequired name="command" validate={validate} defaultValue="">
-						{({ fieldProps, error, meta: { valid } }: any) => (
-							<Fragment>
-								<TextArea {...fieldProps} />
-								{valid && <ValidMessage>Your description will be added to the board.</ValidMessage>}
-								{error === 'INCORRECT_PHRASE' && (
-									<ErrorMessage>
-										This field is required. Try entering text in this field.
-									</ErrorMessage>
-								)}
-							</Fragment>
+		<Form onSubmit={handleSubmit} name="validation-example">
+			<Field label="Description" isRequired name="command" validate={validate} defaultValue="">
+				{({ fieldProps, error, meta: { valid } }: any) => (
+					<Fragment>
+						<TextArea {...fieldProps} />
+						{valid && <ValidMessage>Your description will be added to the board.</ValidMessage>}
+						{error === 'INCORRECT_PHRASE' && (
+							<ErrorMessage>This field is required. Try entering text in this field.</ErrorMessage>
 						)}
-					</Field>
-					<FormFooter>
-						<Button type="submit" appearance="primary">
-							Submit
-						</Button>
-					</FormFooter>
-				</form>
-			)}
+					</Fragment>
+				)}
+			</Field>
+			<FormFooter>
+				<Button type="submit" appearance="primary">
+					Submit
+				</Button>
+			</FormFooter>
 		</Form>
 	);
 }

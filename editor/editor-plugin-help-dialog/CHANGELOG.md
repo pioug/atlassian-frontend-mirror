@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 6.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.6
+
+### Patch Changes
+
+- [`a067bf022fb93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a067bf022fb93) -
+  [ENGHEALTH-32561] Fixes a11y violations in editor plugin help dialog
+
 ## 6.0.5
 
 ### Patch Changes
@@ -199,7 +212,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.

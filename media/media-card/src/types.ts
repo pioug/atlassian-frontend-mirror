@@ -63,6 +63,7 @@ export interface CardPreview {
 	orientation?: number;
 	dimensions?: CardDimensions;
 	source: CardPreviewSource;
+	srcSet?: string;
 }
 
 export const isSSRPreview = (preview: CardPreview) =>

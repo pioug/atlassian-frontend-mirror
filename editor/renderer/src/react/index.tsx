@@ -274,12 +274,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			case 'media':
 				return this.getMediaProps(node, path);
 			case 'emoji':
-				return this.getEmojiProps(
-					node,
-					expValEquals('cc_comments_include_path_for_renderer_emojis', 'isEnabled', true)
-						? path
-						: undefined,
-				);
+				return this.getEmojiProps(node, path);
 			case 'extension':
 			case 'bodiedExtension':
 				return this.getExtensionProps(node, path);

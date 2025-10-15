@@ -20,5 +20,5 @@ export { SpotlightMedia, type SpotlightMediaProps } from './ui/media';
 export { PopoverProvider } from './ui/popover-provider';
 export { PopoverContent, type PopoverContentProps } from './ui/popover-content';
 export { PopoverTarget } from './ui/popover-target';
-export { type Placement } from './types';
+export { type Placement, type DismissEvent } from './types';
 export { UNSAFE_UpdateOnChange } from './ui/UNSAFE_update-on-change';

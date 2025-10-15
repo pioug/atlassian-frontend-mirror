@@ -88,7 +88,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-element-browser",
-	"version": "4.0.2",
+	"version": "4.0.3",
 	"description": "New UI for the QuickInsert menu and Right rail",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -1,5 +1,14 @@
 # @atlaskit/media-file-preview
 
+## 0.11.8
+
+### Patch Changes
+
+- [`eec573b4a7a6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eec573b4a7a6a) -
+  Added srcset for Media to remove dual fetching and implememted invisible image along blob
+  converison during SSR phase prior to hydration to avoid VC offenses
+- Updated dependencies
+
 ## 0.11.7
 
 ### Patch Changes

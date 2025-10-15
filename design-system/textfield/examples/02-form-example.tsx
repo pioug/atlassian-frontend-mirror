@@ -20,33 +20,27 @@ export default function FormExample() {
 
 	return (
 		<Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
-			{({ formProps }: any) => (
-				<form {...formProps}>
-					<Field
-						name="example-text"
-						defaultValue="a default value"
-						label="With default value"
-						validate={validate}
-					>
-						{({ fieldProps, error }: any) => (
-							<Fragment>
-								<Textfield {...fieldProps} />
-								<MessageWrapper>
-									<HelperMessage>Check the console to see the submitted data</HelperMessage>
-									{error && (
-										<ErrorMessage>Please remove the word "error" from the input</ErrorMessage>
-									)}
-								</MessageWrapper>
-							</Fragment>
-						)}
-					</Field>
-					<FormFooter>
-						<Button type="submit" appearance="primary">
-							Submit
-						</Button>
-					</FormFooter>
-				</form>
-			)}
+			<Field
+				name="example-text"
+				defaultValue="a default value"
+				label="With default value"
+				validate={validate}
+			>
+				{({ fieldProps, error }: any) => (
+					<Fragment>
+						<Textfield {...fieldProps} />
+						<MessageWrapper>
+							<HelperMessage>Check the console to see the submitted data</HelperMessage>
+							{error && <ErrorMessage>Please remove the word "error" from the input</ErrorMessage>}
+						</MessageWrapper>
+					</Fragment>
+				)}
+			</Field>
+			<FormFooter>
+				<Button type="submit" appearance="primary">
+					Submit
+				</Button>
+			</FormFooter>
 		</Form>
 	);
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.1.5",
+	"version": "215.2.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -444,9 +444,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_resolve_hyperlinks_killswitch": {
-			"type": "boolean"
-		},
-		"platform_editor_a11y_macro_sidebar_dialog": {
 			"type": "boolean"
 		},
 		"platform_editor_blocktaskitem_patch_2": {

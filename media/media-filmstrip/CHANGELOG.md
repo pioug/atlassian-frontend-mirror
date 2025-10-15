@@ -1,5 +1,11 @@
 # @atlaskit/media-filmstrip
 
+## 51.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 51.0.12
 
 ### Patch Changes
@@ -1104,7 +1110,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/button@13.3.7
   - @atlaskit/checkbox@10.1.7
@@ -1230,7 +1235,6 @@
   > remove deprecated "context" property from media components in favor of "mediaClientConfig"
 
   This affects all public media UI components:
-
   - Card
   - Filmstrip
   - SmartMediaEditor
@@ -1702,7 +1706,6 @@ interface:
 ## 31.0.1
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 31.0.0
@@ -1724,13 +1727,11 @@ interface:
 ## 30.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 30.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 - Updated dependencies
@@ -1780,13 +1781,11 @@ interface:
 ## 27.1.0
 
 - [minor][f1b46bcb42](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f1b46bcb42):
-
   - ED-6259 Enable stricter types for media packages
 
 ## 27.0.0
 
 - [patch][2e676676ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2e676676ba):
-
   - Use Identifier from media-core instead of media-card
 
 - Updated dependencies
@@ -1808,13 +1807,11 @@ interface:
 ## 26.1.1
 
 - [patch][ef469cbb0b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ef469cbb0b):
-
   - MS-357 replaced @atlaskit/util-shared-styles from media components by @atlaskit/theme
 
 ## 26.1.0
 
 - [minor][406cbf0a4e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/406cbf0a4e):
-
   - ED-6092: allow passing undefined context to media filmstrip
 
 ## 26.0.0
@@ -1886,7 +1883,6 @@ interface:
 ## 21.0.1
 
 - [patch][ca16fa9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ca16fa9):
-
   - Add SSR support to media components
 
 ## 21.0.0

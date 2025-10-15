@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 28.7.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.7.6
 
 ### Patch Changes
@@ -717,7 +723,6 @@
 - [#141583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141583)
   [`ba6def6b9d3ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba6def6b9d3ce) -
   Updated Media card and UI to avoid contributing to TTVC metrics
-
   - Media card will always render the `img`, even while it is still loading (in that case, the `img`
     will just be hidden). It will also use a custom loading spinner with no interaction context.
   - Media image will allow a null value for the image source. It will also always render the `img`
@@ -1786,7 +1791,6 @@
   [`3592e304adc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3592e304adc) - [ux]
   Underlying icons used in MediaTypeIcon (that is also used as part of MimeTypeIcon) has been
   replaced. This mean they will change size (2px) and in some cases colour (like for audio file).
-
   - Add `data-type` attribute for easier testing for both MediaTypeIcon and MimeTypeIcon components
   - Add `testId` prop to both MediaTypeIcon and MimeTypeIcon
 
@@ -2088,7 +2092,6 @@
   **Ticket:** EDM-1120
 
   **Changes:**
-
   - Refactored Card Link `view` tests to separate files to be more maintainable;
   - Added unit tests to all Card Link actions;
   - Added unit tests to Card Link PreviewAction;
@@ -2111,7 +2114,6 @@
 
   Added integration tests across the board, asserting that a new window is opened to kick off the
   3LO flow.
-
   - Added integration test for account connection and try another account flows for Inline Links;
   - Added integration test for account connection and try another account flows for Card Links;
   - Added integration test for account connection and try another account flows for Embed Links;
@@ -2121,7 +2123,6 @@
 
   Further, added an `AuthorizationWindow` method to the `@atlaskit/media-integration-test-helpers`,
   with the following methods:
-
   - `AuthorizationWindow.open()` - to open a window to authorize, dependent on which card state it
     is being activated from;
   - `AuthorizationWindow.checkUrl()` - to check if the window URL when redirected is the same as the
@@ -2633,7 +2634,6 @@
 
 - Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/avatar-group@5.0.4
   - @atlaskit/avatar@17.1.7
@@ -3000,7 +3000,6 @@ Bumped dependencies.
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -3105,7 +3104,6 @@ Bumped dependencies.
 ## 11.2.6
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -3128,7 +3126,6 @@ Bumped dependencies.
 ## 11.2.3
 
 - [patch][391c93daf7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/391c93daf7):
-
   - Prevents inline videos in Editor/Renderer to be played simulteneously in the same page
 
 ## 11.2.2
@@ -3142,19 +3139,16 @@ Bumped dependencies.
 ## 11.2.1
 
 - [patch][1c9586e1a0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1c9586e1a0):
-
   - Reverted strings to the original format
 
 ## 11.2.0
 
 - [minor][061eb57bab](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/061eb57bab):
-
   - Added partial i18n support to media-ui
 
 ## 11.1.2
 
 - [patch][6a52b3d258](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6a52b3d258):
-
   - fix for clicking behaviour in view/edit mode for Inline Smart Links.
 
 ## 11.1.1
@@ -3166,53 +3160,45 @@ Bumped dependencies.
 ## 11.1.0
 
 - [minor][121c945cc6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/121c945cc6):
-
   - fix padding, hover, icon for Inline Links.
 
 ## 11.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 10.1.11
 
 - [patch][682279973f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/682279973f):
-
   - Changed Unauthorized and Errored inline view for smart cards to be text only and added color
     theming for smart link titles
 
 ## 10.1.10
 
 - [patch][1a18876567](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1a18876567):
-
   - Changed behaviour so that icon and first 8 characters of a smart link no longer break when
     wrapping.
 
 ## 10.1.9
 
 - [patch][d3cad2622e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d3cad2622e):
-
   - Removes babel-runtime in favour of @babel/runtime
 
 ## 10.1.8
 
 - [patch][687f535a12](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/687f535a12):
-
   - Changed smart link selection in editor mode to not include text selection, but retain it in
     renderer mode
 
 ## 10.1.7
 
 - [patch][cfec2f0b70](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cfec2f0b70):
-
   - Fixed a text selection bug for inline smart links
 
 ## 10.1.6
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 10.1.5
@@ -3236,7 +3222,6 @@ Bumped dependencies.
 ## 10.1.4
 
 - [patch][bee4101a63](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bee4101a63):
-
   - instrument analytics for audio and video play and error events
 
 ## 10.1.3
@@ -3259,19 +3244,16 @@ Bumped dependencies.
 ## 10.1.2
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 10.1.1
 
 - [patch][106d046114](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/106d046114):
-
   - Fix issue with media-viewer opening in CC on inline video player controlls clicked
 
 ## 10.1.0
 
 - [minor][5d70c1ee30](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5d70c1ee30):
-
   - MediaImage component added (moved from @atlaskit/media-card). With extra fields: crossOrigin,
     onImageLoad, onImageError
 
@@ -3284,43 +3266,36 @@ Bumped dependencies.
 ## 10.0.4
 
 - [patch][62834d5210](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/62834d5210):
-
   - update dependency version of @atlaskit/spinner
 
 ## 10.0.3
 
 - [patch][9b0dd21ce7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9b0dd21ce7):
-
   - allow the appearance of lozenges within smart link tasks to be configured
 
 ## 10.0.2
 
 - [patch][aa117f5341](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aa117f5341):
-
   - fix alignment and UI for inline Smart Links.
 
 ## 10.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 10.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 9.2.3
 
 - [patch][8ed53a1cbb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8ed53a1cbb):
-
   - fix padding, wrapping for inline smart links.
 
 ## 9.2.2
 
 - [patch][be479e2335](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/be479e2335):
-
   - fix link opening logic for view and edit mode.
 
 ## 9.2.1
@@ -3346,69 +3321,58 @@ Bumped dependencies.
 ## 9.2.0
 
 - [minor][b7ead07438](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b7ead07438):
-
   - New messages to support media-editor changes
 
 ## 9.1.0
 
 - [minor][41147bbc4c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/41147bbc4c):
-
   - Fix for links in editor
 
 ## 9.0.1
 
 - [patch][9aa8faebd4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9aa8faebd4):
-
   - Added strict typing for i18n messages
 
 ## 9.0.0
 
 - [major][d5bce1ea15](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d5bce1ea15):
-
   - Breaking change. ModalSpinner props has changed. now it's blankedColor: string and
     invertSpinnerColor: boolean
 
 ## 8.5.1
 
 - [patch][ef469cbb0b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ef469cbb0b):
-
   - MS-357 replaced @atlaskit/util-shared-styles from media components by @atlaskit/theme
 
 ## 8.5.0
 
 - [minor][be66d1da3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/be66d1da3a):
-
   - Introduce ModalSpinner component to be used in modal type component while those loading via code
     split
 
 ## 8.4.2
 
 - [patch][af3918bc89](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/af3918bc89):
-
   - The url part of the unauthorized link is now grey
 
 ## 8.4.1
 
 - [patch][56c5a4b41f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/56c5a4b41f):
-
   - Fix "try again" should not be showing when there are no auth methods
 
 ## 8.4.0
 
 - [minor][63e6f7d420](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/63e6f7d420):
-
   - Fix missing attributes for link view
 
 ## 8.3.1
 
 - [patch][bef9abc8de](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bef9abc8de):
-
   - added background colour to inline card views, fixed icon alignment.
 
 ## 8.3.0
 
 - [minor][89668941e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/89668941e6):
-
   - Flip width and height around when image is on it's side according to metadata orientation;
     Introduce isRotated utility
 
@@ -3435,7 +3399,6 @@ Bumped dependencies.
 ## 8.2.4
 
 - [patch][e7100a8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e7100a8):
-
   - Minor tests realted changes
 
 - Updated dependencies [3ad16f3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3ad16f3):
@@ -3444,25 +3407,21 @@ Bumped dependencies.
 ## 8.2.3
 
 - [patch][e6516fb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e6516fb):
-
   - Move media mocks into right location to prevent them to be included in dist
 
 ## 8.2.2
 
 - [patch][ca16fa9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ca16fa9):
-
   - Add SSR support to media components
 
 ## 8.2.1
 
 - [patch][9c50550](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c50550):
-
   - Do not show connect button if there are no auth methods.
 
 ## 8.2.0
 
 - [minor][95f98cc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/95f98cc):
-
   - User can click on a smart card to open a new window/tab
 
 ## 8.1.2
@@ -3486,13 +3445,11 @@ Bumped dependencies.
 ## 8.1.1
 
 - [patch][e375b42](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e375b42):
-
   - Update props description
 
 ## 8.1.0
 
 - [minor][8fbb36f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8fbb36f):
-
   - Change impl. of CustomVideoPlayer; add disableThumbTooltip property to TimeRange component; Add
     ability to mouse click and drag right away to TimeRange even if clicked outside of thumb
     control;
@@ -3500,26 +3457,22 @@ Bumped dependencies.
 ## 8.0.0
 
 - [major][5de3574](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5de3574):
-
   - CustomVideoPlayer is now CustomMediaPlayer and supports audio through type property. Media
     Viewer now uses custom audio player for audio everywhere except IE11.
 
 ## 7.11.0
 
 - [minor][01697a6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/01697a6):
-
   - CustomVideoPlayer improvements: fix currentTime origin + apply custom theme
 
 ## 7.10.0
 
 - [minor][c1ea81c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c1ea81c):
-
   - use custom video player for inline video in media-card
 
 ## 7.9.0
 
 - [minor][c61f828](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c61f828):
-
   - add bounds to camera module
 
 ## 7.8.2
@@ -3542,19 +3495,16 @@ Bumped dependencies.
 ## 7.8.1
 
 - [patch][4c0c2a0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4c0c2a0):
-
   - Fix Cards throwing Error when client is not provided.
 
 ## 7.8.0
 
 - [minor][5a6de24](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5a6de24):
-
   - translate component properties in media components
 
 ## 7.7.0
 
 - [minor][df32968](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/df32968):
-
   - Introduced pending state (which is represented as a link) and a race between resolving state and
     the data fetch.
 
@@ -3589,26 +3539,22 @@ Bumped dependencies.
 ## 7.6.0
 
 - [minor][b9d9e9a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b9d9e9a):
-
   - Support advanced i18n mode in MediaPicker
 
 ## 7.5.0
 
 - [minor][2cac27f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2cac27f):
-
   - InfiniteScroll component now triggers on load and on change (where is previously only onScroll
     event)
 
 ## 7.4.1
 
 - [patch][a567cc9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a567cc9):
-
   - Improve rendering of Smart Cards.
 
 ## 7.4.0
 
 - [minor][b758737](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b758737):
-
   - add i18n support to media-avatar-picker
 
 ## 7.3.1
@@ -3620,7 +3566,6 @@ Bumped dependencies.
 ## 7.3.0
 
 - [minor][023cb45](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/023cb45" d):
-
   - Add i18n support to MediaViewer
 
 ## 7.2.1
@@ -3632,7 +3577,6 @@ Bumped dependencies.
 ## 7.2.0
 
 - [minor][439dde6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/439dde6" d):
-
   - rotate local image preview in cards based on the file orientation
 
 ## 7.1.1

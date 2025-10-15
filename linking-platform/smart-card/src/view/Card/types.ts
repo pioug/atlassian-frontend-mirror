@@ -14,7 +14,7 @@ export type CardInnerAppearance =
 	| 'embedPreview'
 	| 'flexible'
 	| 'hoverCardPreview'
-	| 'hyperlink';
+	| 'url';
 
 export type EmbedIframeUrlType = 'href' | 'interactiveHref';
 

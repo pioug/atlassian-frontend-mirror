@@ -15,6 +15,7 @@ import {
 	PanelContainer,
 	PanelFooter,
 	PanelHeader,
+	PanelSubheader,
 	PanelTitle,
 } from '@atlaskit/panel-system';
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
@@ -35,7 +36,6 @@ const styles = cssMap({
 	},
 	panelWrapper: {
 		width: '400px',
-		borderInlineStart: `${token('border.width')} solid ${token('color.border')}`,
 	},
 });
 
@@ -75,9 +75,7 @@ export function BasicPanelExample() {
 			<Box xcss={styles.panelWrapper}>
 				<PanelContainer testId="preview-panel">
 					<PanelHeader>
-						<PanelTitle icon={<ProjectIcon size="small" label="Project" />}>
-							Project: Panel System
-						</PanelTitle>
+						<PanelTitle icon={<ProjectIcon label="Project" />}>Project: Panel System</PanelTitle>
 						<PanelActionGroup>
 							<PanelActionExpand onClick={handleExpand} testId="expand-action" />
 							<PanelActionNewTab
@@ -89,21 +87,28 @@ export function BasicPanelExample() {
 							<PanelActionClose onClick={handleClose} testId="close-action" />
 						</PanelActionGroup>
 					</PanelHeader>
+					<PanelSubheader>Subheading Content</PanelSubheader>
 					<PanelBody>
 						<Stack space="space.200">
-							<Heading size="small">Project Overview</Heading>
+							<Heading size="small" as="h3">
+								Project Overview
+							</Heading>
 							<Text>
 								Panel System is a set of platform components to standardize the look and feel of
 								panels in Atlassian products.
 							</Text>
-							<Heading size="xsmall">Key Features</Heading>
+							<Heading size="xsmall" as="h4">
+								Key Features
+							</Heading>
 							<Box as="ul">
 								<Box as="li">Unified design system components</Box>
 								<Box as="li">Consistent navigation patterns</Box>
 								<Box as="li">Improved accessibility standards</Box>
 								<Box as="li">Enhanced performance metrics</Box>
 							</Box>
-							<Heading size="xsmall">Team</Heading>
+							<Heading size="xsmall" as="h4">
+								Team
+							</Heading>
 							<Text>Led by the Design System team.</Text>
 						</Stack>
 					</PanelBody>

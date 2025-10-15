@@ -52,40 +52,32 @@ export default function StateSubscriptionExample() {
 				console.log('form data', data);
 			}}
 		>
-			{({ formProps }) => (
-				<form {...formProps}>
-					<div css={styles.formContainer}>
-						<Field<string, HTMLTextAreaElement>
-							name="content"
-							defaultValue=" "
-							label="Banner content"
-						>
-							{({ fieldProps }) => <TextArea {...fieldProps} />}
-						</Field>
+			<div css={styles.formContainer}>
+				<Field<string, HTMLTextAreaElement> name="content" defaultValue=" " label="Banner content">
+					{({ fieldProps }) => <TextArea {...fieldProps} />}
+				</Field>
 
-						<Field<Value<Option>>
-							name="appearance"
-							label="Select banner appearance"
-							defaultValue={{ label: 'Announcement', value: 'announcement' }}
-						>
-							{({ fieldProps: { id, ...rest }, error }) => (
-								<Select<Option>
-									inputId={id}
-									{...rest}
-									options={[
-										{ label: 'Announcement', value: 'announcement' },
-										{ label: 'Warning', value: 'warning' },
-										{ label: 'Error', value: 'error' },
-									]}
-									isClearable
-									clearControlLabel="Clear appearance"
-								/>
-							)}
-						</Field>
-					</div>
-					<FormPreview />
-				</form>
-			)}
+				<Field<Value<Option>>
+					name="appearance"
+					label="Select banner appearance"
+					defaultValue={{ label: 'Announcement', value: 'announcement' }}
+				>
+					{({ fieldProps: { id, ...rest }, error }) => (
+						<Select<Option>
+							inputId={id}
+							{...rest}
+							options={[
+								{ label: 'Announcement', value: 'announcement' },
+								{ label: 'Warning', value: 'warning' },
+								{ label: 'Error', value: 'error' },
+							]}
+							isClearable
+							clearControlLabel="Clear appearance"
+						/>
+					)}
+				</Field>
+			</div>
+			<FormPreview />
 		</Form>
 	);
 }

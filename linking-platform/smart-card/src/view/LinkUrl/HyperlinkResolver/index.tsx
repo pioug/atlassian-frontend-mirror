@@ -59,7 +59,7 @@ const HyperlinkWithSmartLinkResolverInner = ({
 		[onClickCallback, fire3PClickEvent, state?.status],
 	);
 
-	const onAuthorize = useCallback(() => actions.authorize('hyperlink'), [actions]);
+	const onAuthorize = useCallback(() => actions.authorize('url'), [actions]);
 
 	const shouldRenderConnectBtn = () => {
 		if (!props.children || !Array.isArray(props.children) || props.children.length === 0) {

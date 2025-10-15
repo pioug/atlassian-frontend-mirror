@@ -69,13 +69,13 @@ const FormAllOptionsExample = () => (
 						</Field>
 
 						<Fieldset legend="Checkbox fieldset legend">
-							<CheckboxField name="product" value="jira">
+							<CheckboxField name="app" value="jira">
 								{({ fieldProps }) => <Checkbox {...fieldProps} label="Jira" />}
 							</CheckboxField>
-							<CheckboxField name="product" value="confluence">
+							<CheckboxField name="app" value="confluence">
 								{({ fieldProps }) => <Checkbox {...fieldProps} label="Confluence" />}
 							</CheckboxField>
-							<CheckboxField name="product" value="bitbucket">
+							<CheckboxField name="app" value="bitbucket">
 								{({ fieldProps }) => <Checkbox {...fieldProps} label="Bitbucket" />}
 							</CheckboxField>
 						</Fieldset>

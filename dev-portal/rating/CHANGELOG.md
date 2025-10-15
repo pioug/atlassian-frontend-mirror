@@ -1,5 +1,11 @@
 # @atlaskit/rating
 
+## 3.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.10
 
 ### Patch Changes
@@ -1110,7 +1116,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/visual-regression@0.1.9
   - @atlaskit/button@13.3.7

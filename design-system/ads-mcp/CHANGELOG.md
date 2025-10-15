@@ -1,5 +1,13 @@
 # @atlaskit/ads-mcp
 
+## 0.7.1
+
+### Patch Changes
+
+- [`75ba0401c1743`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75ba0401c1743) -
+  Updated shape token reference.
+- Updated dependencies
+
 ## 0.7.0
 
 ### Minor Changes

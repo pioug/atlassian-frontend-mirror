@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 6.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.2
 
 ### Patch Changes
@@ -181,7 +187,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -493,7 +498,6 @@
 - [#155853](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155853)
   [`0fab892fc92df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fab892fc92df) -
   [HOT-112603] Reduce React 18 memory leak on Selection Marker
-
   - Replacing react components for native HTML elements for Decorations
   - Reducing the amount of new decorations being created by using `DecorationSet.map`
 

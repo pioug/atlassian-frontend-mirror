@@ -3,6 +3,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { SyncBlockNode } from '../common/types';
 
+import type { PAGE_TYPE } from './ari';
+
 export const convertSyncBlockPMNodeToSyncBlockData = (
 	node: PMNode,
 	includeContent: boolean = false,
@@ -17,4 +19,8 @@ export const convertSyncBlockPMNodeToSyncBlockData = (
 		},
 		content: includeContent ? node.content.content.map(toJSON) : undefined,
 	};
+};
+
+export const isBlogPageType = (pageType: PAGE_TYPE): boolean => {
+	return pageType === 'blogpost';
 };

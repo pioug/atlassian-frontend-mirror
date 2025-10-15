@@ -64,16 +64,20 @@ export const getToolbarConfig = (
 	};
 	items.push(copyButton);
 
+	const disabled = !syncBlockStore.getSyncBlockURL(syncBlockObject.node.attrs.resourceId);
+
 	if (!syncBlockStore.isSourceBlock(syncBlockObject.node)) {
 		const editSourceButton: FloatingToolbarItem<Command> = {
 			id: 'editor.syncedBlock.editSource',
 			type: 'button',
-			disabled: !syncBlockStore.getSyncBlockURL(syncBlockObject.node.attrs.resourceId),
+			disabled,
 			appearance: 'subtle',
 			icon: LinkExternalIcon,
 			title: formatMessage(messages.editSourceLabel),
 			showTitle: true,
-			tooltipContent: formatMessage(messages.editSourceTooltip),
+			tooltipContent: disabled
+				? formatMessage(messages.editSourceTooltipDisabled)
+				: formatMessage(messages.editSourceTooltip),
 			onClick: editSyncedBlockSource(syncBlockStore, api),
 			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 		};

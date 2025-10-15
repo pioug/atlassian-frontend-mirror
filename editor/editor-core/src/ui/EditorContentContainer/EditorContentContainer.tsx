@@ -20,7 +20,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
+import { expVal, expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { getBaseFontSize } from '../../composable-editor/utils/getBaseFontSize';
@@ -99,6 +99,7 @@ import { hyperLinkFloatingToolbarStyles, linkLegacyIconStylesFix, linkStyles } f
 import { listsStyles, listsStylesSafariFix } from './styles/list';
 import {
 	mediaAlignmentStyles,
+	mediaCaptionStyles,
 	mediaDangerStyles,
 	mediaGroupStyles,
 	mediaStyles,
@@ -272,10 +273,16 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 			? getBrowserInfo()
 			: browserLegacy;
 
+		const allClassNames = [className];
+
+		if (expVal('platform_editor_resizer_cls_fix', 'isEnabled', false)) {
+			allClassNames.push('resizer-hover-zone-cls-fix');
+		}
+
 		return (
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={className}
+				className={allClassNames.join(' ')}
 				ref={ref}
 				css={[
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -357,6 +364,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('aifc_create_enabled') && smartCardDiffStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mediaStyles,
+					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+						fg('platform_editor_content_mode_button_mvp') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						mediaCaptionStyles,
 					// merge firstWrappedMediaStyles with mediaStyles when clean up platform_editor_fix_media_in_renderer
 					fg('platform_editor_fix_media_in_renderer') && firstWrappedMediaStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

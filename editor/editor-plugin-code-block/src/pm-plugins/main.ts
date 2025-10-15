@@ -16,7 +16,6 @@ import {
 	type EditorView,
 	type EditorProps as PMEditorProps,
 } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ignoreFollowingMutations, resetShouldIgnoreFollowingMutations } from '../editor-commands';
@@ -32,7 +31,7 @@ import {
 } from './decorators';
 import { type CodeBlockState } from './main-state';
 import { pluginKey } from './plugin-key';
-import { getAllChangedCodeBlocksInTransaction, getAllCodeBlockNodesInDoc } from './utils';
+import { getAllChangedCodeBlocksInTransaction } from './utils';
 
 export const createPlugin = ({
 	useLongPressSelection = false,
@@ -159,9 +158,7 @@ export const createPlugin = ({
 					// specifically used for updating word wrap node decorators (does not cover drag & drop, validateWordWrappedDecorators does).
 					let updatedDecorationSet = pluginState.decorations.map(tr.mapping, tr.doc);
 
-					const codeBlockNodes = fg('editor_code_wrapping_perf_improvement_ed-25141')
-						? getAllChangedCodeBlocksInTransaction(tr)
-						: getAllCodeBlockNodesInDoc(newState);
+					const codeBlockNodes = getAllChangedCodeBlocksInTransaction(tr);
 
 					if (codeBlockNodes) {
 						updateCodeBlockWrappedStateNodeKeys(codeBlockNodes, _oldState);

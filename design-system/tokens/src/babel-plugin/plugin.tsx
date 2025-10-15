@@ -154,10 +154,10 @@ export default function plugin() {
 								}
 							}
 
-							// The border.radius tokens are skipped in shouldForceAutoFallback mode because these tokens are not enabled in the live apps and enforcing default values on them will override all the fallback values that are currently being used to render the actual UI.
+							// The radius tokens are skipped in shouldForceAutoFallback mode because these tokens are not enabled in the live apps and enforcing default values on them will override all the fallback values that are currently being used to render the actual UI.
 							// The exempted tokens (the ones that start with any of the provided exemption prefixes) are also skipped.
 							const forceAutoFallbackExemptions = [
-								'border.radius',
+								'radius',
 								...(state.opts.forceAutoFallbackExemptions || []),
 							];
 

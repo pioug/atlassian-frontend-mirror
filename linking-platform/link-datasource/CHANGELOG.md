@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 4.25.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.25.5
 
 ### Patch Changes
@@ -2831,7 +2837,6 @@
   [`ab7caf1bf7ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab7caf1bf7ee) -
   Update AssetsConfigModalProps to be aligned with other modals. New fields made available
   including:
-
   - `url`: The url that was used to insert a List of Links
   - `viewMode`: 2 viewModes `inline` and `table` for different display.
   - `wrappedColumnKeys`: toggle line-wrapping for each column.
@@ -5112,7 +5117,6 @@
 - [#36302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36302)
   [`1c595c5a9d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c595c5a9d1) - Added
   assets modal to link-datasource, which includes the following API additions:
-
   - datasource ID for assets: `ASSETS_LIST_OF_LINKS_DATASOURCE_ID`
   - new component: `JSMAssetsConfigModal`
   - addition of 2 new types: `AssetsDatasourceAdf` and `AssetsDatasourceParameters`

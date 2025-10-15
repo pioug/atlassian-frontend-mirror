@@ -46,9 +46,9 @@ describe('useOnClickOutside', () => {
 			</SpotlightContext.Provider>,
 		);
 
-		// Simulate mousedown on element outside the card
+		// Simulate mouseup on element outside the card
 		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.mouseDown(outsideElement, { clientX: 50, clientY: 50 });
+		fireEvent.mouseUp(outsideElement, { clientX: 50, clientY: 50 });
 
 		expect(mockOnClickOutside).toHaveBeenCalledTimes(1);
 		expect(mockOnClickOutside).toHaveBeenCalledWith(
@@ -62,7 +62,7 @@ describe('useOnClickOutside', () => {
 		document.body.removeChild(outsideElement);
 	});
 
-	it('does not call onClickOutside callback when mousedown occurs inside the card', () => {
+	it('does not call onClickOutside callback when mouseup occurs inside the card', () => {
 		const mockOnClickOutside = jest.fn();
 		const mockElement = document.createElement('div');
 		const mockRef = { current: mockElement } as MutableRefObject<HTMLDivElement | null>;
@@ -85,12 +85,12 @@ describe('useOnClickOutside', () => {
 		// Test clicks on various child elements inside the card
 		insideElements.forEach((element) => {
 			// eslint-disable-next-line testing-library/prefer-user-event
-			fireEvent.mouseDown(element);
+			fireEvent.mouseUp(element);
 		});
 
 		// Also test clicking directly on the mockElement itself
 		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.mouseDown(mockElement);
+		fireEvent.mouseUp(mockElement);
 
 		expect(mockOnClickOutside).not.toHaveBeenCalled();
 	});
@@ -113,7 +113,7 @@ describe('useOnClickOutside', () => {
 
 		// Should not crash with null ref
 		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.mouseDown(outsideElementForNullTests, { clientX: 50, clientY: 50 });
+		fireEvent.mouseUp(outsideElementForNullTests, { clientX: 50, clientY: 50 });
 		expect(mockOnClickOutside).not.toHaveBeenCalled();
 
 		// Test with ref.current being null
@@ -128,7 +128,7 @@ describe('useOnClickOutside', () => {
 
 		// Should not crash with null current
 		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.mouseDown(outsideElementForNullTests, { clientX: 50, clientY: 50 });
+		fireEvent.mouseUp(outsideElementForNullTests, { clientX: 50, clientY: 50 });
 		expect(mockOnClickOutside).not.toHaveBeenCalled();
 
 		// Clean up null test element
@@ -152,7 +152,7 @@ describe('useOnClickOutside', () => {
 
 		// Should work with valid ref
 		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.mouseDown(outsideElement, { clientX: 50, clientY: 50 });
+		fireEvent.mouseUp(outsideElement, { clientX: 50, clientY: 50 });
 		expect(mockOnClickOutside).toHaveBeenCalledTimes(1);
 
 		// Clean up
@@ -168,7 +168,7 @@ describe('useOnClickOutside', () => {
 		document.body.appendChild(cleanupTestElement);
 
 		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.mouseDown(cleanupTestElement, { clientX: 50, clientY: 50 });
+		fireEvent.mouseUp(cleanupTestElement, { clientX: 50, clientY: 50 });
 		expect(mockOnClickOutside).not.toHaveBeenCalled();
 
 		// Clean up
@@ -195,7 +195,7 @@ describe('useOnClickOutside', () => {
 
 		// First callback should be called
 		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.mouseDown(outsideElement, { clientX: 50, clientY: 50 });
+		fireEvent.mouseUp(outsideElement, { clientX: 50, clientY: 50 });
 		expect(mockOnClickOutside1).toHaveBeenCalledTimes(1);
 		expect(mockOnClickOutside2).not.toHaveBeenCalled();
 
@@ -208,7 +208,7 @@ describe('useOnClickOutside', () => {
 
 		// Second callback should be called, first should not be called again
 		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.mouseDown(outsideElement, { clientX: 50, clientY: 50 });
+		fireEvent.mouseUp(outsideElement, { clientX: 50, clientY: 50 });
 		expect(mockOnClickOutside1).toHaveBeenCalledTimes(1); // Still only called once
 		expect(mockOnClickOutside2).toHaveBeenCalledTimes(1);
 
@@ -249,12 +249,12 @@ describe('useOnClickOutside', () => {
 
 		// Click outside first element (should trigger)
 		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.mouseDown(separateElement);
+		fireEvent.mouseUp(separateElement);
 		expect(mockOnClickOutside).toHaveBeenCalledTimes(1);
 
 		// Click inside first element (should not trigger)
 		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.mouseDown(insideElement1);
+		fireEvent.mouseUp(insideElement1);
 		expect(mockOnClickOutside).toHaveBeenCalledTimes(1); // Still only called once
 
 		// Change to second ref
@@ -267,12 +267,12 @@ describe('useOnClickOutside', () => {
 		// Click on element that was inside first element but is outside second element
 		// Since insideElement1 is not contained within mockElement2, this should trigger
 		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.mouseDown(insideElement1);
+		fireEvent.mouseUp(insideElement1);
 		expect(mockOnClickOutside).toHaveBeenCalledTimes(2); // Should trigger for second element
 
 		// Click inside second element (should not trigger)
 		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.mouseDown(insideElement2);
+		fireEvent.mouseUp(insideElement2);
 		expect(mockOnClickOutside).toHaveBeenCalledTimes(2); // Still only called twice
 
 		// Clean up

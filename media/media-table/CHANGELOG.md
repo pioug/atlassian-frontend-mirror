@@ -1,5 +1,11 @@
 # @atlaskit/media-table
 
+## 18.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.0.6
 
 ### Patch Changes
@@ -1014,7 +1020,6 @@
   implementation of MediaTable with upgraded API
 
   **New API Requirements**
-
   - `items`: The content of items we want to display on each row
 
   ```

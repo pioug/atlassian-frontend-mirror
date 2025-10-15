@@ -2,12 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+import { SpotlightContext } from '../../controllers/context';
 
 const styles = cssMap({
 	root: {
@@ -57,11 +59,17 @@ export const SpotlightDismissControl: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<SpotlightDismissControlProps> & React.RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, SpotlightDismissControlProps>(
 	({ autoFocus = true, onClick, testId }: SpotlightDismissControlProps, ref) => {
+		const { popoverContent } = useContext(SpotlightContext);
+
+		const dismiss: PressableProps['onClick'] = (event) => {
+			popoverContent.dismiss.current(event);
+		};
+
 		return (
 			<Pressable
 				// eslint-disable-next-line @atlassian/a11y/no-autofocus -- VERIFIED: autoFocus moving to first focusable element on non-modal modal dialog.
 				autoFocus={autoFocus}
-				onClick={onClick}
+				onClick={onClick || dismiss}
 				ref={ref}
 				testId={testId}
 				xcss={styles.root}

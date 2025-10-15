@@ -14,6 +14,7 @@ import type {
 import type { EditorState, SafeStateField } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { insm } from '@atlaskit/insm';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 import { SLI_EVENT_TYPE, SMART_EVENT_TYPE } from '@atlaskit/mention/resource';
 import {
@@ -22,6 +23,7 @@ import {
 	type SliNames,
 } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 import { MentionNodeView } from '../nodeviews/mentionNodeView';
@@ -146,6 +148,76 @@ export function createMentionPlugin({
 				if (hasNewPluginState) {
 					pmPluginFactoryParams.dispatch(mentionPluginKey, newPluginState);
 				}
+
+				type MentionMapItem = {
+					id: string;
+					localId: string;
+				};
+
+				if (
+					expValEquals('platform_editor_new_mentions_detection_logic', 'isEnabled', true) &&
+					options?.handleMentionsChanged &&
+					tr.docChanged
+				) {
+					insm.session?.startFeature('mentionDeletionDetection');
+
+					const mentionSchema = newState.schema.nodes.mention;
+					const mentionsRemoved = new Map<string, MentionMapItem>();
+
+					tr.steps.forEach((step) => {
+						step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
+							const oldSlice = oldState.doc.slice(oldStart, oldEnd);
+							const newSlice = newState.doc.slice(newStart, newEnd);
+
+							const mentionsBefore = new Map<string, MentionMapItem>();
+							const mentionsAfter = new Map<string, MentionMapItem>();
+
+							oldSlice.content.descendants((node) => {
+								if (node.type.name === mentionSchema.name && node.attrs.localId) {
+									mentionsBefore.set(node.attrs.localId, {
+										id: node.attrs.id,
+										localId: node.attrs.localId,
+									});
+								}
+							});
+
+							newSlice.content.descendants((node) => {
+								if (node.type.name === mentionSchema.name && node.attrs.localId) {
+									mentionsAfter.set(node.attrs.localId, {
+										id: node.attrs.id,
+										localId: node.attrs.localId,
+									});
+								}
+							});
+
+							// Determine which mentions were removed in this step
+							mentionsBefore.forEach((mention, localId) => {
+								if (!mentionsAfter.has(localId)) {
+									mentionsRemoved.set(localId, mention);
+								}
+							});
+
+							// Adjust mentionsRemoved by removing any that reappear
+							mentionsAfter.forEach((_, localId) => {
+								if (mentionsRemoved.has(localId)) {
+									mentionsRemoved.delete(localId);
+								}
+							});
+						});
+					});
+
+					if (mentionsRemoved.size > 0) {
+						const changes = Array.from(mentionsRemoved.values()).map((mention) => ({
+							id: mention.id,
+							localId: mention.localId,
+							type: 'deleted' as const,
+						}));
+						options.handleMentionsChanged(changes);
+					}
+
+					insm.session?.endFeature('mentionDeletionDetection');
+				}
+
 				return newPluginState;
 			},
 		} as SafeStateField<MentionPluginState>,
@@ -233,7 +305,10 @@ export function createMentionPlugin({
 				},
 				update(view: EditorView, prevState: EditorState) {
 					const newState = view.state;
-					if (options?.handleMentionsChanged) {
+					if (
+						!expValEquals('platform_editor_new_mentions_detection_logic', 'isEnabled', true) &&
+						options?.handleMentionsChanged
+					) {
 						const mentionSchema = newState.schema.nodes.mention;
 						const mentionNodesBefore = findChildrenByType(prevState.doc, mentionSchema);
 						const mentionLocalIdsAfter = new Set(

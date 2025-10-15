@@ -2,7 +2,6 @@ import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
 import { type EditorState, type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CodeBlockLineAttributes } from '../types';
 import { codeBlockClassNames } from '../ui/class-names';
@@ -56,42 +55,27 @@ export const updateDecorationSetWithLineNumberDecorators = (
 ): DecorationSet => {
 	let updatedDecorationSet = decorationSet;
 
-	if (!fg('editor_code_wrapping_perf_improvement_ed-25141')) {
-		const children = updatedDecorationSet.find(
-			undefined,
-			undefined,
-			(spec) => spec.type === DECORATION_WIDGET_TYPE,
-		);
-		updatedDecorationSet = updatedDecorationSet.remove(children);
-	}
-
 	const lineNumberDecorators: Decoration[] = [];
 
 	codeBlockNodes.forEach((node) => {
-		if (fg('editor_code_wrapping_perf_improvement_ed-25141')) {
-			const existingWidgetsOnNode = updatedDecorationSet.find(
-				node.pos,
-				node.pos + node.node.nodeSize,
-				(spec) => spec.type === DECORATION_WIDGET_TYPE,
-			);
+		const existingWidgetsOnNode = updatedDecorationSet.find(
+			node.pos,
+			node.pos + node.node.nodeSize,
+			(spec) => spec.type === DECORATION_WIDGET_TYPE,
+		);
 
-			const newLineAttributes = generateLineAttributesFromNode(node);
+		const newLineAttributes = generateLineAttributesFromNode(node);
 
-			// There will be no widgets on initialisation. If the number of existing widgets does not equal the amount of lines, regenerate the widgets.
-			// There may be a case where the number of existing widgets and the number of lines are the same, that's why we track totalLineCount. This allows
-			// us to know how many lines there were when the widget was created. It avoids a break in line numbers, e.g. "1, 2, 3, 5, 6". Happens on line removal.
-			if (
-				existingWidgetsOnNode.length === 0 ||
-				existingWidgetsOnNode.length !== newLineAttributes.length ||
-				existingWidgetsOnNode[0].spec.totalLineCount !== newLineAttributes.length
-			) {
-				updatedDecorationSet = updatedDecorationSet.remove(existingWidgetsOnNode);
-				lineNumberDecorators.push(...createDecorationSetFromLineAttributes(newLineAttributes));
-			}
-		} else {
-			lineNumberDecorators.push(
-				...createDecorationSetFromLineAttributes(generateLineAttributesFromNode(node)),
-			);
+		// There will be no widgets on initialisation. If the number of existing widgets does not equal the amount of lines, regenerate the widgets.
+		// There may be a case where the number of existing widgets and the number of lines are the same, that's why we track totalLineCount. This allows
+		// us to know how many lines there were when the widget was created. It avoids a break in line numbers, e.g. "1, 2, 3, 5, 6". Happens on line removal.
+		if (
+			existingWidgetsOnNode.length === 0 ||
+			existingWidgetsOnNode.length !== newLineAttributes.length ||
+			existingWidgetsOnNode[0].spec.totalLineCount !== newLineAttributes.length
+		) {
+			updatedDecorationSet = updatedDecorationSet.remove(existingWidgetsOnNode);
+			lineNumberDecorators.push(...createDecorationSetFromLineAttributes(newLineAttributes));
 		}
 	});
 
@@ -152,9 +136,7 @@ export const createDecorationSetFromLineAttributes = (
 		return Decoration.widget(lineStart, createLineNumberWidget, {
 			type: DECORATION_WIDGET_TYPE,
 			side: -1,
-			totalLineCount: fg('editor_code_wrapping_perf_improvement_ed-25141')
-				? lineAttributes.length
-				: undefined,
+			totalLineCount: lineAttributes.length,
 		});
 	});
 

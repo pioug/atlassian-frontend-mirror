@@ -242,6 +242,9 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 									editorView={editorView}
 									editorAppearance={appearance}
 									disabled={patch6Enabled ? !!disabled : undefined}
+									popupsBoundariesElement={popupsBoundariesElement}
+									popupsScrollableElement={popupsScrollableElement}
+									popupsMountPoint={popupsMountPoint}
 								/>
 								{customPrimaryToolbarComponents ? customToolbarSlot : null}
 							</React.Fragment>

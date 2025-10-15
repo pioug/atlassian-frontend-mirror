@@ -83,61 +83,53 @@ export default () => (
 				return Promise.resolve(validateOnSubmit(data));
 			}}
 		>
-			{({ formProps }) => (
-				<form {...formProps}>
-					<Field<Value<Option>> name="colors" label="Select a color" defaultValue={null}>
-						{({ fieldProps: { id, ...rest }, error }) => (
-							<Fragment>
-								<Select<Option>
-									inputId={id}
-									{...rest}
-									options={colors}
-									isClearable
-									clearControlLabel="Clear color"
-								/>
-								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-							</Fragment>
-						)}
-					</Field>
-					<Field<Value<Option, true>> name="icecream" label="Select a flavor" defaultValue={[]}>
-						{({ fieldProps: { id, ...rest }, error }) => (
-							<Fragment>
-								<Select
-									inputId={id}
-									{...rest}
-									options={flavors}
-									isMulti
-									clearControlLabel="Clear flavor"
-								/>
-								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-							</Fragment>
-						)}
-					</Field>
-					<Field<Value<Option, true>>
-						name="suits"
-						label="Select suits"
-						defaultValue={suits.slice(2)}
-					>
-						{({ fieldProps: { id, ...rest }, error }) => (
-							<Fragment>
-								<Select
-									inputId={id}
-									{...rest}
-									options={suits}
-									isMulti
-									clearControlLabel="Clear suits"
-								/>
-								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-							</Fragment>
-						)}
-					</Field>
-					<FormFooter>
-						<Button type="submit" appearance="primary">
-							Submit
-						</Button>
-					</FormFooter>
-				</form>
-			)}
+			<Field<Value<Option>> name="colors" label="Select a color" defaultValue={null}>
+				{({ fieldProps: { id, ...rest }, error }) => (
+					<Fragment>
+						<Select<Option>
+							inputId={id}
+							{...rest}
+							options={colors}
+							isClearable
+							clearControlLabel="Clear color"
+						/>
+						<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
+					</Fragment>
+				)}
+			</Field>
+			<Field<Value<Option, true>> name="icecream" label="Select a flavor" defaultValue={[]}>
+				{({ fieldProps: { id, ...rest }, error }) => (
+					<Fragment>
+						<Select
+							inputId={id}
+							{...rest}
+							options={flavors}
+							isMulti
+							clearControlLabel="Clear flavor"
+						/>
+						<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
+					</Fragment>
+				)}
+			</Field>
+			<Field<Value<Option, true>> name="suits" label="Select suits" defaultValue={suits.slice(2)}>
+				{({ fieldProps: { id, ...rest }, error }) => (
+					<Fragment>
+						<Select
+							inputId={id}
+							{...rest}
+							options={suits}
+							isMulti
+							clearControlLabel="Clear suits"
+						/>
+						<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
+					</Fragment>
+				)}
+			</Field>
+			<FormFooter>
+				<Button type="submit" appearance="primary">
+					Submit
+				</Button>
+			</FormFooter>
 		</Form>
 	</Flex>
 );

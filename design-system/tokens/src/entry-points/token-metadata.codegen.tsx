@@ -3,7 +3,7 @@
  *
  * Metadata for generation of of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::1e5ee1932049c613950d3e1b7e5d6d3c>>
+ * @codegen <<SignedSource::fc7eb246882a1c2dfeef3f7836f83459>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -2840,70 +2840,10 @@ export const tokens: Token[] = [
 		exampleValue: '25%',
 	},
 	{
-		name: 'border.radius',
-		path: ['border', 'radius', '[default]'],
-		description: 'The default border radius.',
-		exampleValue: '0.25rem',
-	},
-	{
-		name: 'border.radius.050',
-		path: ['border', 'radius', '050'],
-		description: 'Used for selection indicators, like tabs.',
-		exampleValue: '0.125rem',
-	},
-	{
-		name: 'border.radius.100',
-		path: ['border', 'radius', '100'],
-		description: 'Used for buttons and inputs.',
-		exampleValue: '0.25rem',
-	},
-	{
-		name: 'border.radius.200',
-		path: ['border', 'radius', '200'],
-		description: 'Used for smaller cards.',
-		exampleValue: '0.5rem',
-	},
-	{
-		name: 'border.radius.300',
-		path: ['border', 'radius', '300'],
-		description: 'Used for cards and larger containers.',
-		exampleValue: '0.75rem',
-	},
-	{
-		name: 'border.radius.400',
-		path: ['border', 'radius', '400'],
-		description: 'Used for modals.',
-		exampleValue: '1rem',
-	},
-	{
-		name: 'border.radius.circle',
-		path: ['border', 'radius', 'circle'],
-		description: 'Used for circular containers, like a rounded button.',
-		exampleValue: '624.9375rem',
-	},
-	{
 		name: 'border.width',
 		path: ['border', 'width', '[default]'],
 		description: 'The default width for all standard component borders and dividers.',
 		exampleValue: '0.0625rem',
-	},
-	{
-		name: 'border.width.0',
-		path: ['border', 'width', '0'],
-		description: 'Used for zero width borders.',
-		exampleValue: '0rem',
-	},
-	{
-		name: 'border.width.indicator',
-		path: ['border', 'width', 'indicator'],
-		description: 'Used for indicators like tab and menu selected states.',
-		exampleValue: '0.1875rem',
-	},
-	{
-		name: 'border.width.outline',
-		path: ['border', 'width', 'outline'],
-		description: 'Used for focus, active or selected inputs.',
-		exampleValue: '0.125rem',
 	},
 	{
 		name: 'border.width.selected',

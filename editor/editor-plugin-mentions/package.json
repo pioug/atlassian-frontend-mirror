@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "8.0.2",
+	"version": "8.0.3",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,6 +41,7 @@
 		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/insm": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/mention": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",

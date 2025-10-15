@@ -386,8 +386,6 @@ describe('getThemeStyles', () => {
 					{ id: 'legacy-dark', attrs: { 'data-theme': 'legacy-dark' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'shape-rounder', attrs: { 'data-theme': 'shape-rounder' } },
-					{ id: 'shape-roundest', attrs: { 'data-theme': 'shape-roundest' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 					{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
 					{
@@ -421,8 +419,6 @@ describe('getThemeStyles', () => {
 						{ id: 'legacy-dark', attrs: { 'data-theme': 'legacy-dark' } },
 						{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 						{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-						{ id: 'shape-rounder', attrs: { 'data-theme': 'shape-rounder' } },
-						{ id: 'shape-roundest', attrs: { 'data-theme': 'shape-roundest' } },
 						{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 						{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
 						{

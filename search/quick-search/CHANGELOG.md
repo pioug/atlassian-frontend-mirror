@@ -1,5 +1,11 @@
 # @atlaskit/quick-search
 
+## 10.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.21
 
 ### Patch Changes
@@ -157,14 +163,12 @@
   [`ca71694e29a27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca71694e29a27) -
   Removed dependency on `@atlaskit/item` and replaced its usage with `@atlaskit/menu`. The following
   ResultItem props have been **removed** as a result of this change:
-
   - onMouseEnter
   - onMouseLeave
   - isCompact
   - linkComponent
 
   Additionally the following types have changed:
-
   - ResultItemGroup's `title` prop has been restricted to `string`
   - ResultItem's `onClick` prop has been changed to
     `(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>): void` to match that of
@@ -481,7 +485,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics@7.0.1
   - @atlaskit/avatar@17.1.7
@@ -624,7 +627,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -702,32 +704,27 @@
 ## 7.3.0
 
 - [minor][42b0b6f253](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/42b0b6f253):
-
   - Adding autocomplete functionality to quick-search. New prop `autocomplete`.
 
 ## 7.2.0
 
 - [minor][4d5fb33572](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4d5fb33572):
-
   - Jira new design for advanced search
 
 ## 7.1.0
 
 - [minor][5a49043dac](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5a49043dac):
-
   - Enable strictPropertyInitialization in tsconfig.base
 
 ## 7.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 6.1.2
 
 - [patch][d3cad2622e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d3cad2622e):
-
   - Removes babel-runtime in favour of @babel/runtime
 
 ## 6.1.1
@@ -746,19 +743,16 @@
 ## 6.1.0
 
 - [minor][038e080474](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/038e080474):
-
   - Expose inputControls as a prop for passing in additional controls to the search input box
 
 ## 6.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 6.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 5.4.1
@@ -778,13 +772,11 @@
 ## 5.4.0
 
 - [minor][7be03e992f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7be03e992f):
-
   - Add support to register callback for category selection change on advanced search
 
 ## 5.3.0
 
 - [minor][25fffe3e00](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/25fffe3e00):
-
   - ED-6228 Enable stricter types for quick-search package
 
 ## 5.2.5
@@ -815,13 +807,11 @@
 ## 5.2.3
 
 - [patch][d498de7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d498de7):
-
   - Include type of result for boards and filters in jira search
 
 ## 5.2.2
 
 - [patch][38debc1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/38debc1):
-
   - trigger analytics on advanced search dropdown item clicked, disable jira people search
 
 ## 5.2.1
@@ -839,7 +829,6 @@
 ## 5.2.0
 
 - [minor][347a474](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/347a474):
-
   - Added icon on selected to quick search results
 
 ## 5.1.2
@@ -856,19 +845,16 @@
 ## 5.1.1
 
 - [patch][f480bab](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f480bab):
-
   - Convert padding to margin to fix a scrolling issue in global-search
 
 ## 5.1.0
 
 - [minor][e93ffe0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e93ffe0):
-
   - Change container result item to accept a react node as the subtext
 
 ## 5.0.0
 
 - [major][2da04ed](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2da04ed):
-
   - Migrate component from flow to TypeScript. Upgrading should not cause any problems but we are
     releasing a new major version because of the amount of changes that were being made internally.
     Please reach out to the maintainers in case you are having trouble uprading to the latest

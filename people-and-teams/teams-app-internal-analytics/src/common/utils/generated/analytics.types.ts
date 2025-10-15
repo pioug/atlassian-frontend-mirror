@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::b415cf5bbcb0bc924155416a84549b88>>
+ * @codegen <<SignedSource::a6b20df2d2f431cd63752ff404dab502>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1140,6 +1140,170 @@ export type TeamOrgMismatchFailedAttributesType = {
 	currentOrgId: string;
 	queryName: string;
 };
+export type ProfileAboutItemEditedAttributesType = {
+	fieldKey: string;
+};
+export type UserProfileScreenAboutPanelViewedAttributesType = {
+	nonEmptyFields: string;
+};
+export type PrivacyPolicyLinkClickedAttributesType = undefined;
+export type TeamProfileItemClickedAttributesType = {
+	position: number;
+};
+export type ShowMoreClickedAttributesType = undefined;
+export type TeamCreateDialogTriggerButtonClickedAttributesType = {
+	trigger: string;
+};
+export type ButtonClickedManageAccountButtonAttributesType = undefined;
+export type ButtonClickedManageAccessButtonAttributesType = undefined;
+export type UserProfileScreenLoadFailedAttributesType = undefined;
+export type UserProfileScreenViewedAttributesType = {
+	isCurrentUser: boolean;
+};
+export type ViewAllWorkClickedAttributesType = {
+	location: string;
+};
+export type MoreWorkClickedAttributesType = {
+	numItemsDisplayed: number;
+};
+export type ActivityEntryClickedAttributesType = {
+	provider: string;
+	entryIndex: number;
+};
+export type PlacesLinkClickedAttributesType = {
+	type: string;
+};
+export type ViewedTeamProfileFromRequestToJoinNotificationViewedAttributesType = {
+	status: number | null;
+	errorType: string | null;
+	isVerified: boolean;
+};
+export type TeamProfileScreenViewedAttributesType = {
+	teamId: string;
+	membershipState: string | null;
+	isViewerMember: boolean;
+	isVerified: boolean;
+	isSiteAdmin: boolean;
+	isOrgAdmin: boolean;
+	orgId: string | null;
+	hasContainersConnect: boolean;
+	numberOfContainersConnected: number;
+	numberOfWebLinksConnected: number;
+	webLinksCurrentlyConnected: unknown[];
+	containersCurrentlyConnected: unknown[];
+};
+export type GetTeamProfileSucceededAttributesType = {
+	status: number;
+	isVerified: boolean;
+};
+export type GetTeamProfileFailedAttributesType = {
+	status: number | null;
+};
+export type AddWebLinkDialogOpenedAttributesType = {
+	teamId: string;
+};
+export type EditWebLinkDialogOpenedAttributesType = {
+	teamId: string;
+};
+export type LinkClickedHelpLinkAttributesType = {
+	uiScreen: string;
+	descriptionLength: number;
+	titleLength: number;
+	type: string | null;
+	teamId: string | null;
+	totalTags: number | null;
+	numTagsMatchingSearch: number | null;
+};
+export type TeamsProfileHelpPointersViewedAttributesType = {
+	isEmpty: boolean;
+	canEdit: boolean;
+	totalArticles: number;
+	totalRequests: number;
+};
+export type ShowMoreExpandedAttributesType = {
+	helpType: string;
+	totalHelpPointers: number;
+};
+export type DialogOpenedCreateHelpPointerDialogAttributesType = {
+	screen: string;
+};
+export type HelpPointerCreatedAttributesType = {
+	screen: string;
+	type: string | null;
+	totalTags: number;
+	descriptionLength: number;
+	teamId: string | null;
+	emptyProfilePage: boolean;
+};
+export type TagCreatedAttributesType = {
+	screen: string;
+	context: string;
+};
+export type DialogOpenedEditHelpPointerDialogAttributesType = {
+	screen: string;
+};
+export type DialogOpenedDeleteHelpPointerDialogAttributesType = {
+	screen: string;
+};
+export type HelpPointerDeletedAttributesType = {
+	screen: string;
+	type: string | null;
+	totalTags: number;
+	descriptionLength: number;
+	teamId: string | null;
+};
+export type HelpPointerEditedAttributesType = {
+	screen: string;
+	type: string | null;
+	totalTags: number;
+	descriptionLength: number;
+	teamId: string | null;
+	createdNewTeam: boolean;
+};
+export type TeamLinkLinkedAttributesType = {
+	linkId: string;
+	teamId: string;
+	linkDomain: string;
+	hasWebLinksConnected: boolean;
+	isMemberOfTeam: boolean;
+	memberOfTeam: boolean;
+	orgAdminTriggered: boolean;
+	isVerified: boolean | null;
+};
+export type TeamLinkTypedAttributesType = {
+	length: number;
+	isHttp: boolean;
+	isHttps: boolean;
+};
+export type TeamLinkClickedAddHttpButtonAttributesType = {
+	previousLength: number;
+};
+export type TeamLinkClickedAddHttpsButtonAttributesType = {
+	previousLength: number;
+};
+export type TeamRestoreScreenViewedAttributesType = {
+	teamId: string;
+	orgAdminTriggered: boolean;
+};
+export type ButtonClickedReactivateTeamAttributesType = {
+	orgAdminTriggered: boolean;
+};
+export type TeamRestoreSucceededAttributesType = undefined;
+export type TeamRestoreFailedAttributesType = {
+	status: number | null;
+};
+export type GetSettingsSucceededAttributesType = undefined;
+export type GetSettingsFailedAttributesType = undefined;
+export type TeamLinkEditedAttributesType = {
+	linkId: string;
+	teamId: string;
+	linkDomain: string;
+	oldLinkDomain: string;
+	isLinkPartOfTeamContainers: boolean;
+	memberOfTeam: boolean;
+	orgAdminTriggered: boolean;
+	isVerified: boolean | null;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -1942,6 +2106,129 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the team org mismatch is failed */
 	'operational.TeamOrgMismatch.failed': TeamOrgMismatchFailedAttributesType;
+	/**
+	 * fired when the profile about item is edited */
+	'track.profileAboutItem.edited': ProfileAboutItemEditedAttributesType;
+	/**
+	 * fired when the user profile screen about panel is viewed */
+	'track.userProfileScreenAboutPanel.viewed': UserProfileScreenAboutPanelViewedAttributesType;
+	/**
+	 * fired when the privacy policy link is clicked */
+	'ui.privacyPolicyLink.clicked': PrivacyPolicyLinkClickedAttributesType;
+	/**
+	 * fired when the team profile item is clicked */
+	'ui.teamProfileItem.clicked': TeamProfileItemClickedAttributesType;
+	/**
+	 * fired when the show more button is clicked */
+	'ui.showMore.clicked': ShowMoreClickedAttributesType;
+	/**
+	 * fired when the team create dialog trigger button is clicked */
+	'ui.teamCreateDialogTriggerButton.clicked': TeamCreateDialogTriggerButtonClickedAttributesType;
+	/**
+	 * fired when the manage account button is clicked */
+	'ui.button.clicked.manageAccountButton': ButtonClickedManageAccountButtonAttributesType;
+	/**
+	 * fired when the manage access button is clicked */
+	'ui.button.clicked.manageAccessButton': ButtonClickedManageAccessButtonAttributesType;
+	/**
+	 * fired when the user profile screen load fails */
+	'track.userProfileScreenLoad.failed': UserProfileScreenLoadFailedAttributesType;
+	/**
+	 * fired when the user profile screen is viewed */
+	'screen.userProfileScreen.viewed': UserProfileScreenViewedAttributesType;
+	/**
+	 * fired when the view all work button is clicked */
+	'ui.viewAllWork.clicked': ViewAllWorkClickedAttributesType;
+	/**
+	 * fired when the more work button is clicked */
+	'ui.moreWork.clicked': MoreWorkClickedAttributesType;
+	/**
+	 * fired when the activity entry is clicked */
+	'ui.activityEntry.clicked': ActivityEntryClickedAttributesType;
+	/**
+	 * fired when the places link is clicked */
+	'ui.placesLink.clicked': PlacesLinkClickedAttributesType;
+	/**
+	 * fired when the team profile is viewed from the request to join notification */
+	'track.ViewedTeamProfileFromRequestToJoinNotification.viewed': ViewedTeamProfileFromRequestToJoinNotificationViewedAttributesType;
+	/**
+	 * fired when the team profile screen is viewed */
+	'screen.teamProfileScreen.viewed': TeamProfileScreenViewedAttributesType;
+	/**
+	 * fired when the get team profile request is succeeded */
+	'operational.GetTeamProfile.succeeded': GetTeamProfileSucceededAttributesType;
+	/**
+	 * fired when the get team profile request is failed */
+	'operational.GetTeamProfile.failed': GetTeamProfileFailedAttributesType;
+	/**
+	 * fired when the add weblink dialog is opened */
+	'track.addWebLinkDialog.opened': AddWebLinkDialogOpenedAttributesType;
+	/**
+	 * fired when the edit weblink dialog is opened */
+	'track.editWebLinkDialog.opened': EditWebLinkDialogOpenedAttributesType;
+	/**
+	 * fired when the help link is clicked */
+	'ui.link.clicked.helpLink': LinkClickedHelpLinkAttributesType;
+	/**
+	 * fired when the help pointers are viewed */
+	'ui.TeamsProfileHelpPointers.viewed': TeamsProfileHelpPointersViewedAttributesType;
+	/**
+	 * fired when the show more button is clicked to expand the help pointers list */
+	'ui.ShowMore.expanded': ShowMoreExpandedAttributesType;
+	/**
+	 * fired when the create help pointer dialog is opened */
+	'ui.dialog.opened.createHelpPointerDialog': DialogOpenedCreateHelpPointerDialogAttributesType;
+	/**
+	 * fired when a help pointer is successfully created */
+	'track.helpPointer.created': HelpPointerCreatedAttributesType;
+	/**
+	 * fired when a tag is successfully created */
+	'track.tag.created': TagCreatedAttributesType;
+	/**
+	 * fired when the edit help pointer dialog is opened */
+	'ui.dialog.opened.editHelpPointerDialog': DialogOpenedEditHelpPointerDialogAttributesType;
+	/**
+	 * fired when the delete help pointer dialog is opened */
+	'ui.dialog.opened.deleteHelpPointerDialog': DialogOpenedDeleteHelpPointerDialogAttributesType;
+	/**
+	 * fired when a help pointer is successfully deleted */
+	'track.helpPointer.deleted': HelpPointerDeletedAttributesType;
+	/**
+	 * fired when a help pointer is successfully edited */
+	'track.helpPointer.edited': HelpPointerEditedAttributesType;
+	/**
+	 * fired when a team is successfully linked to a container */
+	'track.teamLink.linked': TeamLinkLinkedAttributesType;
+	/**
+	 * fired when a link is typed in the add link dialog */
+	'ui.teamLink.typed': TeamLinkTypedAttributesType;
+	/**
+	 * fired when the add http button is clicked in the add link dialog */
+	'ui.teamLink.clicked.addHttpButton': TeamLinkClickedAddHttpButtonAttributesType;
+	/**
+	 * fired when the add https button is clicked in the add link dialog */
+	'ui.teamLink.clicked.addHttpsButton': TeamLinkClickedAddHttpsButtonAttributesType;
+	/**
+	 * fired when the team restore screen is viewed */
+	'screen.teamRestoreScreen.viewed': TeamRestoreScreenViewedAttributesType;
+	/**
+	 * fired when the reactivate team button is clicked */
+	'ui.button.clicked.reactivateTeam': ButtonClickedReactivateTeamAttributesType;
+	/**
+	 * fired when the team is successfully restored */
+	'operational.teamRestore.succeeded': TeamRestoreSucceededAttributesType;
+	/**
+	 * fired when the team restore action fails */
+	'operational.teamRestore.failed': TeamRestoreFailedAttributesType;
+	/**
+	 * fired when the get settings request is succeeded */
+	'operational.GetSettings.succeeded': GetSettingsSucceededAttributesType;
+	/**
+	 * fired when the get settings request fails */
+	'operational.GetSettings.failed': GetSettingsFailedAttributesType;
+	/**
+	 * fired when a team link is successfully edited */
+	'track.teamLink.edited': TeamLinkEditedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

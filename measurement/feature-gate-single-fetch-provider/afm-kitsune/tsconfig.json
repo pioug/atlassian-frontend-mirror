@@ -1,0 +1,32 @@
+{
+	"extends": "../../../../tsconfig.entry-points.kitsune.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../kitsune/tsDist/@atlaskit__feature-gate-single-fetch-provider/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../feature-gate-fetcher/afm-kitsune/tsconfig.json"
+		},
+		{
+			"path": "../../feature-gate-js-client/afm-kitsune/tsconfig.json"
+		}
+	]
+}

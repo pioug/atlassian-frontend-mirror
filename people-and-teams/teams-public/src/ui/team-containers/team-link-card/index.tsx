@@ -19,6 +19,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { type ContainerSubTypes, type ContainerTypes } from '../../../common/types';
 import { ContainerIcon } from '../../../common/ui/container-icon';
+import { Separator } from '../../../common/ui/separator';
 import { TeamLinkCardActions } from '../../../common/ui/team-link-card-actions';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
@@ -122,6 +123,26 @@ export interface TeamLinkCardProps {
 	isReadOnly?: boolean;
 	hideSubTextIcon?: boolean;
 }
+
+const renderContainerTypeTextWithSeparator = (containerTypeText: React.ReactNode, description: React.ReactNode) => {
+	return (
+		<>
+			{containerTypeText && (
+				<Text size="small" color="color.text.subtle">
+					{containerTypeText}
+				</Text>
+			)}
+			{containerTypeText && description && <Separator />}
+			{
+				description && (
+					<Text size="small" color="color.text.subtle">
+						{description}
+					</Text>
+				)
+			}
+		</>
+	);
+};
 
 export const TeamLinkCard = ({
 	containerType,
@@ -271,19 +292,25 @@ export const TeamLinkCard = ({
 							testId="team-link-card-linkable-content"
 							target={isOpenWebLinkInNewTabEnabled ? '_blank' : '_self'}
 						>
-							<Stack space="space.025">
+							<Stack>
 								<Text maxLines={1} weight="medium" color="color.text">
 									{title}
 								</Text>
 								<Flex gap="space.050" alignItems="center">
 									{!hideSubTextIcon ? icon : null}
-									<Inline space="space.050">
-										<Text size="small" color="color.text.subtle">
-											{description}
-										</Text>
-										<Text size="small" color="color.text.subtle">
-											{containerTypeText}
-										</Text>
+									<Inline space="space.050" alignBlock="center">
+										{
+											(isNewTeamProfilePageEnabled || isTeamLensInHomeEnabled) ?
+												renderContainerTypeTextWithSeparator(containerTypeText, description) :
+												<>
+													<Text size="small" color="color.text.subtle">
+														{description}
+													</Text>
+													<Text size="small" color="color.text.subtle">
+														{containerTypeText}
+													</Text>
+												</>
+										}
 									</Inline>
 								</Flex>
 							</Stack>
@@ -322,19 +349,25 @@ export const TeamLinkCard = ({
 					<>
 						<Box xcss={styles.linkableContent} testId="team-link-card-linkable-content">
 							<Link href={link || '#'} appearance="subtle" onClick={handleLinkClick}>
-								<Stack space="space.025">
+								<Stack>
 									<Text maxLines={1} weight="medium" color="color.text">
 										{title}
 									</Text>
 									<Flex gap="space.050" alignItems="center">
 										{!hideSubTextIcon ? icon : null}
-										<Inline space="space.050">
-											<Text size="small" color="color.text.subtle">
-												{description}
-											</Text>
-											<Text size="small" color="color.text.subtle">
-												{containerTypeText}
-											</Text>
+										<Inline space="space.050" alignBlock="center">
+											{
+												(isNewTeamProfilePageEnabled || isTeamLensInHomeEnabled) ?
+													renderContainerTypeTextWithSeparator(containerTypeText, description) :
+													<>
+														<Text size="small" color="color.text.subtle">
+															{description}
+														</Text>
+														<Text size="small" color="color.text.subtle">
+															{containerTypeText}
+														</Text>
+													</>
+											}
 										</Inline>
 									</Flex>
 								</Stack>

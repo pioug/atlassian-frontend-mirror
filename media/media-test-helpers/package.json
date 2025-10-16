@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-helpers",
-	"version": "39.0.7",
+	"version": "39.0.8",
 	"description": "Collection of test helpers used in media component stories and specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

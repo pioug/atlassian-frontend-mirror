@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.2.0",
+	"version": "215.3.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -164,9 +164,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_ai_rovo_free_gen": {
-			"type": "boolean"
-		},
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -278,10 +275,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_elements_dnd_multi_select_patch_1": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		},
@@ -299,9 +292,6 @@
 		"platform_editor_split_list_item_for_gap_cursor": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_add_media_from_url_rollout": {
-			"type": "boolean"
 		},
 		"platform_editor_elements_dnd_multi_select_patch_2": {
 			"type": "boolean",

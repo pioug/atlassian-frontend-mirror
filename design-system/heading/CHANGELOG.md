@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 5.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.10
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/badge
 
+## 18.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.2.2
 
 ### Patch Changes

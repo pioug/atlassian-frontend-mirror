@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "7.2.12",
+	"version": "7.3.0",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -120,9 +120,6 @@
 		"platform_editor_elements_dnd_shift_click_select": {
 			"type": "boolean"
 		},
-		"platform_editor_elements_dnd_multi_select_patch_1": {
-			"type": "boolean"
-		},
 		"platform_editor_elements_dnd_select_node_on_drag": {
 			"type": "boolean"
 		},
@@ -144,10 +141,10 @@
 		"platform_editor_column_count_analytics": {
 			"type": "boolean"
 		},
-		"platform_editor_ai_rovo_free_gen": {
+		"platform_editor_fix_widget_destroy": {
 			"type": "boolean"
 		},
-		"platform_editor_fix_widget_destroy": {
+		"aifc_create_enabled": {
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__editor-jenga": {
@@ -160,6 +157,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_draghandle_safari_scroll_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		}
 	}

@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 16.0.0
+
+### Major Changes
+
+- [`64bcecfcb59ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64bcecfcb59ac) -
+  MetricText no longer accepts emotion-based xcss props only @atlaskit/css compiled-based props as
+  per the Compiled variant API.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.1
 
 ### Patch Changes

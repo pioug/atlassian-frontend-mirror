@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 215.3.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- [`cebe32372285d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cebe32372285d) -
+  Tidy up feature gate
+- [`c21648c080e0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c21648c080e0c) -
+  [ux] EDITOR-2291: Tighten list and task spacing in dense content mode
+- [`0b0ef25b2f529`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b0ef25b2f529) -
+  Cleanup various feature gates and align them to aifc_create_enabled
+- [`3feef799ad0a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3feef799ad0a5) -
+  [ED-29333] Fix 2 issues when platform_editor_native_anchor_support is enabled
+  1. Drag handle is rendered for media node
+  2. When advanced_layouts experiment is off, quick insert button is rendered based on child node
+     inside layout column (as opposed to layout section node )
+
+- [`2bdec5e9ec1c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bdec5e9ec1c9) -
+  [EDITOR-442] Cleans up FG platform_editor_add_media_from_url_rollout
+- Updated dependencies
+
 ## 215.2.0
 
 ### Minor Changes

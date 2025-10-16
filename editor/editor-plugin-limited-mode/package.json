@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-limited-mode",
-	"version": "3.0.3",
+	"version": "3.0.4",
 	"description": "LimitedMode plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -32,7 +32,6 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert as pmSafeInsert, removeSelectedNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaState } from '../../types';
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
@@ -161,15 +160,13 @@ export const insertMediaAsMediaSingle = (
 		return false;
 	}
 
-	const insertMediaPopup = fg('platform_editor_add_media_from_url_rollout');
-	const mediaSingleAttrs =
-		allowPixelResizing && insertMediaPopup
-			? {
-					widthType: 'pixel',
-					width: getMediaSingleInitialWidth(node.attrs.width ?? DEFAULT_IMAGE_WIDTH),
-					layout: 'center',
-				}
-			: {};
+	const mediaSingleAttrs = allowPixelResizing
+		? {
+				widthType: 'pixel',
+				width: getMediaSingleInitialWidth(node.attrs.width ?? DEFAULT_IMAGE_WIDTH),
+				layout: 'center',
+			}
+		: {};
 
 	const mediaSingleNode = mediaSingle.create(mediaSingleAttrs, node);
 	const nodes = [mediaSingleNode];

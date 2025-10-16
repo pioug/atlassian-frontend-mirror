@@ -2,10 +2,9 @@ import React from 'react';
 
 import ReactDOM from 'react-dom';
 
-import type { MediaADFAttrs, MediaBaseAttributes } from '@atlaskit/adf-schema';
-import type { FileIdentifier, Identifier, MediaClientConfig } from '@atlaskit/media-client';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { Identifier, MediaClientConfig } from '@atlaskit/media-client';
 import { MediaViewer } from '@atlaskit/media-viewer';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { isExternalMedia } from '../../ui/toolbar/utils';
 
@@ -38,35 +37,13 @@ export const RenderMediaViewer = ({
 	selectedNodeAttrs,
 	items = [],
 }: RenderMediaViewerProps) => {
-	if (fg('platform_editor_add_media_from_url_rollout')) {
-		const identifier = getIdentifier(selectedNodeAttrs);
-		const collectionName = isExternalMedia(selectedNodeAttrs) ? '' : selectedNodeAttrs.collection;
-
-		return ReactDOM.createPortal(
-			<MediaViewer
-				collectionName={collectionName}
-				items={items}
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				mediaClientConfig={mediaClientConfig!}
-				selectedItem={identifier}
-				onClose={onClose}
-			/>,
-			document.body,
-		);
-	}
-
-	const { id, collection = '' } = selectedNodeAttrs as MediaBaseAttributes;
-	const identifier: FileIdentifier = {
-		id,
-		mediaItemType: 'file',
-		collectionName: collection,
-	};
+	const identifier = getIdentifier(selectedNodeAttrs);
+	const collectionName = isExternalMedia(selectedNodeAttrs) ? '' : selectedNodeAttrs.collection;
 
 	return ReactDOM.createPortal(
 		<MediaViewer
-			collectionName={collection}
-			items={[]}
+			collectionName={collectionName}
+			items={items}
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			mediaClientConfig={mediaClientConfig!}

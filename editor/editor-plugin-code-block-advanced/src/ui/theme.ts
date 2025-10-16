@@ -1,8 +1,26 @@
 import { EditorView as CodeMirror } from '@codemirror/view';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
-const lineHeight = '1.5rem';
+const getLineHeight = () =>
+	expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+	fg('platform_editor_content_mode_button_mvp')
+		? '1.5em'
+		: '1.5rem';
+
+const getMaxGutterHeight = () =>
+	expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+	fg('platform_editor_content_mode_button_mvp')
+		? '1.5em'
+		: undefined;
+
+const getFontSize = () =>
+	expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+	fg('platform_editor_content_mode_button_mvp')
+		? '0.875em'
+		: '0.875rem';
 
 export const cmTheme = CodeMirror.theme({
 	'&': {
@@ -11,10 +29,10 @@ export const cmTheme = CodeMirror.theme({
 		marginTop: token('space.100'),
 		marginBottom: token('space.100'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		fontSize: '0.875rem',
+		fontSize: getFontSize(),
 		// Custom syntax styling to match existing styling
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: lineHeight,
+		lineHeight: getLineHeight(),
 	},
 	'&.cm-focused': {
 		outline: 'none',
@@ -69,7 +87,8 @@ export const cmTheme = CodeMirror.theme({
 	// Ignore the first gutter element as it is a special hidden element.
 	'.cm-gutterElement:not(:first-child)': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		minHeight: lineHeight,
+		minHeight: getLineHeight(),
+		...(getMaxGutterHeight() && { maxHeight: getMaxGutterHeight() }),
 	},
 });
 

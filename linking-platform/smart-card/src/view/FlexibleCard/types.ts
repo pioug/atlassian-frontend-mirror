@@ -90,6 +90,13 @@ export type FlexibleCardProps = {
 	origin?: AnalyticsOrigin;
 
 	/**
+	 * Placeholder data to be used when the card is in a pending state.
+	 * This allows the card to render with some data until the actual data is fetched, useful for SSR.
+	 * @internal
+	 */
+	placeholderData?: SmartLinkResponse;
+
+	/**
 	 * Any additional renderers required by Flexible UI. Currently used by icon
 	 * to render Emoji.
 	 */

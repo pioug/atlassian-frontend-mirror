@@ -13,7 +13,6 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarButton, ToolbarTooltip, ImageIcon } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 
@@ -45,10 +44,7 @@ export const MediaButton = ({ api }: MediaButtonProps) => {
 			return;
 		}
 
-		if (
-			api?.mediaInsert?.commands?.showMediaInsertPopup &&
-			fg('platform_editor_add_media_from_url_rollout')
-		) {
+		if (api?.mediaInsert?.commands?.showMediaInsertPopup) {
 			const mountInfo = mediaButtonRef.current
 				? { ref: mediaButtonRef.current, mountPoint: mediaButtonRef.current }
 				: undefined;
@@ -61,9 +57,7 @@ export const MediaButton = ({ api }: MediaButtonProps) => {
 		api?.analytics?.actions.fireAnalyticsEvent({
 			action: ACTION.OPENED,
 			actionSubject: ACTION_SUBJECT.PICKER,
-			actionSubjectId: fg('platform_editor_add_media_from_url_rollout')
-				? ACTION_SUBJECT_ID.PICKER_MEDIA
-				: ACTION_SUBJECT_ID.PICKER_CLOUD,
+			actionSubjectId: ACTION_SUBJECT_ID.PICKER_MEDIA,
 			attributes: { inputMethod: INPUT_METHOD.TOOLBAR },
 			eventType: EVENT_TYPE.UI,
 		});

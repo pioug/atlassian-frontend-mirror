@@ -50,10 +50,7 @@ import { TableResizer } from './TableResizer';
 type InnerContainerProps = {
 	className: string;
 	node: PMNode;
-	style?: {
-		marginLeft?: number;
-		width: number | 'inherit';
-	};
+	style?: React.CSSProperties;
 };
 
 const InnerContainer = forwardRef<HTMLDivElement, PropsWithChildren<InnerContainerProps>>(
@@ -817,6 +814,13 @@ export const TableContainer = ({
 	}
 
 	const { isDragAndDropEnabled } = getPluginState(editorView.state);
+	const isFullPageAppearance = !isCommentEditor && !isChromelessEditor;
+
+	const resizableTableWidth = expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
+		? isFullPageAppearance
+			? getTableResizerContainerForFullPageWidthInCSS(node, isTableScalingEnabled)
+			: `calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2))`
+		: `min(calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2)), ${node.attrs.width ?? '100%'})`;
 	return (
 		<InnerContainer
 			node={node}
@@ -827,11 +831,15 @@ export const TableContainer = ({
 					!isNested &&
 					!(isChromelessEditor && isDragAndDropEnabled),
 			})}
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				width: 'inherit',
-				marginLeft: isChromelessEditor ? 18 : undefined,
-			}}
+			style={
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					width: 'inherit',
+					marginLeft: isChromelessEditor ? 18 : undefined,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					'--ak-editor-table-width': resizableTableWidth,
+				} as React.CSSProperties
+			}
 		>
 			{children}
 		</InnerContainer>

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/spotlight",
-	"version": "0.6.3",
+	"version": "0.6.4",
 	"description": "A spotlight introduces users to various points of interest across Atlassian through focused messages or multi-step tours.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

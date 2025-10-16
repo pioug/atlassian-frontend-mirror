@@ -4,6 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import uuid from 'uuid';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CardProps } from './types';
@@ -11,7 +12,11 @@ import { context } from './utils/analytics/analytics';
 import { CardWithUrlContent } from './view/CardWithUrl/component';
 import { LoadingCardLink } from './view/CardWithUrl/component-lazy/LoadingCardLink';
 
-export type CardSSRProps = CardProps & { hideIconLoadingSkeleton?: boolean; url: string };
+export type CardSSRProps = CardProps & {
+	hideIconLoadingSkeleton?: boolean;
+	placeholderData?: SmartLinkResponse;
+	url: string;
+};
 
 // SSR friendly version of smart-card
 // simplifies the logic around rendering and loading placeholders and

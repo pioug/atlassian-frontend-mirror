@@ -1,4 +1,4 @@
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -8,6 +8,7 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
@@ -45,6 +46,9 @@ const getAncestorResizableNode = (
 export const handleKeyDown =
 	(api: ExtractInjectionAPI<BreakoutPlugin> | undefined) =>
 	(view: EditorView, event: KeyboardEvent) => {
+		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+			? getBrowserInfo()
+			: browserLegacy;
 		const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
 		const isBracketKey = event.code === 'BracketRight' || event.code === 'BracketLeft';
 		if (metaKey && event.altKey && isBracketKey) {

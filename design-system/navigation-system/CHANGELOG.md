@@ -1,5 +1,20 @@
 # @atlassian/navigation-system
 
+## 3.0.0
+
+### Major Changes
+
+- [`f32509352e004`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f32509352e004) -
+  `MenuSectionHeading` has been updated to use regular text (`p` element) instead of a heading (`h2`
+  element). This change was behind a feature flag, which has now been cleaned up.
+
+  This has been done to resolve accessibility issues with the component. It does not need to be a
+  heading semantically.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.23.1
 
 ### Patch Changes

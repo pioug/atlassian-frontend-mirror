@@ -1,5 +1,12 @@
 # @atlaskit/editor-shared-styles
 
+## 3.8.0
+
+### Minor Changes
+
+- [`668649eea2f53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/668649eea2f53) -
+  [ux] EDITOR-2261 Toggles number column numbering sizing to match editor contentMode
+
 ## 3.7.3
 
 ### Patch Changes

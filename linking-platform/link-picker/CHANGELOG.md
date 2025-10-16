@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 3.16.3
+
+### Patch Changes
+
+- [`1300e23207706`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1300e23207706) -
+  NAVX-2134 Fix link-picker headings to rendered as h2 for a11y
+- Updated dependencies
+
 ## 3.16.2
 
 ### Patch Changes

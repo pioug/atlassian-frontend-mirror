@@ -158,11 +158,7 @@ export const InsertButton = ({
 				break;
 			case 'media':
 				if (showMediaPicker) {
-					if (fg('platform_editor_add_media_from_url_rollout')) {
-						api?.core?.actions.execute(api?.mediaInsert?.commands.showMediaInsertPopup());
-					} else {
-						showMediaPicker();
-					}
+					api?.core?.actions.execute(api?.mediaInsert?.commands.showMediaInsertPopup());
 				}
 				break;
 			case 'mention':

@@ -50,6 +50,7 @@ import {
 	scaledBlockNodesVerticalMargin,
 	gridMediumMaxWidth,
 	akEditorFullPageDefaultFontSize,
+	akEditorFullPageDenseFontSize,
 } from '@atlaskit/editor-shared-styles';
 import { INLINE_IMAGE_WRAPPER_CLASS_NAME } from '@atlaskit/editor-common/media-inline';
 import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
@@ -2185,6 +2186,9 @@ const rendererAnnotationStylesCommentHeightFix = css({
 	},
 });
 
+const RENDERER_LIST_DENSE_GAP = `max(0px,calc((var(--ak-renderer-base-font-size) - ${akEditorFullPageDenseFontSize}px)* (4/3)))`;
+const TASKLIST_CONTAINER_DENSE_MARGIN = `max(calc(10px + (var(--ak-renderer-base-font-size) - ${akEditorFullPageDenseFontSize}px) *( 2 / 3)))`;
+
 const denseStyles = css({
 	// Scale emoji size based on base font size
 	// Default: 20px emoji at 16px base font
@@ -2208,6 +2212,41 @@ const denseStyles = css({
 	[`.${RendererCssClassName.DOCUMENT} .ak-editor-panel .ak-editor-panel__icon`]: {
 		height: token('space.250', '20px'),
 		width: token('space.250', '20px'),
+	},
+
+	// Condense spacing across lists, tasks and decisions
+	[`.${RendererCssClassName.DOCUMENT}`]: {
+		// Adjacent list items
+		'li + li': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			marginTop: RENDERER_LIST_DENSE_GAP,
+		},
+		// Nested lists directly under an li (unordered and ordered)
+		'li > ul, li > ol, .ak-ul li > ul, .ak-ul li > ol, .ak-ol li > ul, .ak-ol li > ol': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			marginTop: RENDERER_LIST_DENSE_GAP,
+		},
+
+		// Task lists
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-task-list-local-id]': {
+			// Task lists: container top margin
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			marginTop: TASKLIST_CONTAINER_DENSE_MARGIN,
+		},
+
+		// Task lists: sibling items and nested lists
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-task-list-local-id] > * + *': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			marginTop: RENDERER_LIST_DENSE_GAP,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-task-list-local-id] [data-task-list-local-id], [data-task-local-id] [data-task-local-id]':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				marginTop: RENDERER_LIST_DENSE_GAP,
+			},
 	},
 });
 
@@ -2277,9 +2316,6 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 			}
 			css={[
 				baseStyles,
-				expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-					fg('platform_editor_content_mode_button_mvp') &&
-					denseStyles,
 				hideHeadingCopyLinkWrapperStyles,
 				appearance === 'full-page' &&
 					isPreviewPanelResponsivenessOn &&
@@ -2371,6 +2407,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					isPreviewPanelResponsivenessOn &&
 					responsiveBreakoutWidthWithReducedPadding,
 				appearance === 'full-width' && responsiveBreakoutWidthFullWidth,
+				expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+					fg('platform_editor_content_mode_button_mvp') &&
+					denseStyles,
 			]}
 			data-testid={testId}
 		>

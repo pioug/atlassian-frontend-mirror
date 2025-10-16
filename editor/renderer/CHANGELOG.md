@@ -1,5 +1,29 @@
 # @atlaskit/renderer
 
+## 124.7.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- [`685d27211d400`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/685d27211d400) -
+  [ux] Adjust codeblock font size relative to parent
+- [`c21648c080e0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c21648c080e0c) -
+  [ux] EDITOR-2291: Tighten list and task spacing in dense content mode
+- [`2bdec5e9ec1c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bdec5e9ec1c9) -
+  [EDITOR-442] Cleans up FG platform_editor_add_media_from_url_rollout
+- Updated dependencies
+
+## 124.6.0
+
+### Minor Changes
+
+- [`dde0a58b7f0e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dde0a58b7f0e5) -
+  Improve expand lazy loading children to render on initial open and remain in document
+
 ## 124.5.3
 
 ### Patch Changes

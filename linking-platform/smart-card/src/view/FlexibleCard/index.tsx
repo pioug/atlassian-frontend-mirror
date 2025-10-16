@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo } from 'react';
 
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import type { CardState } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { InternalActionName, SmartLinkStatus } from '../../constants';
-import { FlexibleCardContext } from '../../state/flexible-ui-context';
+import { extractPlaceHolderCardState } from '../../extractors/flexible/extract-placeholder-data';
+import { FlexibleCardContext, type FlexibleCardContextType } from '../../state/flexible-ui-context';
 import { useAISummaryConfig } from '../../state/hooks/use-ai-summary-config';
 import useResolve from '../../state/hooks/use-resolve';
 
@@ -25,7 +25,6 @@ const PENDING_LINK_STATUSES = [SmartLinkStatus.Pending, SmartLinkStatus.Resolvin
 const FlexibleCard = ({
 	appearance = 'flexible',
 	cardState,
-	placeholderData,
 	children,
 	id,
 	onAuthorize,
@@ -33,6 +32,7 @@ const FlexibleCard = ({
 	onError,
 	onResolve,
 	origin,
+	placeholderData,
 	renderers,
 	showHoverPreview,
 	hoverPreviewOptions,
@@ -40,18 +40,7 @@ const FlexibleCard = ({
 	testId,
 	ui,
 	url,
-}: FlexibleCardProps & {
-	/**
-	 * @experimental
-	 * This is a new prop that is not part of the public API - DO NOT USE.
-	 * If provided, the card will display using the respective object for the first render (particularly useful for SSR),
-	 * while still resolving `url` in the background.
-	 * Placeholder data should be considered a transient state - in the sense that it will not persisted to the main store -
-	 * and it will be replaced by the actual data when the given `url` is resolved.
-	 * ANIP-288: Expose this prop to the public API
-	 */
-	placeholderData?: CardState;
-}) => {
+}: FlexibleCardProps) => {
 	const aiSummaryConfig = useAISummaryConfig();
 	const resolve = useResolve();
 	const { isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
@@ -61,20 +50,26 @@ const FlexibleCard = ({
 	const { status: cardType, details } = cardState;
 	const status = cardType as SmartLinkStatus;
 
-	const shouldUsePlaceholderData =
-		PENDING_LINK_STATUSES.includes(status) &&
-		placeholderData &&
-		fg('platform_initial_data_for_smart_cards');
-	// if we have placeholder data it means we can internally use it
-	// as resolved data until the actual data comes back as one of the final statuses
-	const contextStatus = shouldUsePlaceholderData ? SmartLinkStatus.Resolved : status;
+	// if we have placeholder state it means we can internally use it
+	// as temporary resolved data until the actual data comes back as one of the final statuses
+	const placeholderCardState = useMemo(
+		() =>
+			PENDING_LINK_STATUSES.includes(status) &&
+			placeholderData &&
+			fg('platform_initial_data_for_smart_cards')
+				? extractPlaceHolderCardState(placeholderData)
+				: undefined,
+		[placeholderData, status],
+	);
+	const placeHolderStatus = placeholderCardState?.status as SmartLinkStatus | undefined;
+
 	const context = useMemo(
 		() =>
 			getContextByStatus({
 				aiSummaryConfig,
 				appearance,
 				fireEvent,
-				response: shouldUsePlaceholderData ? placeholderData.details : details,
+				response: placeholderCardState ? placeholderCardState.details : details,
 				id,
 				onAuthorize,
 				onClick,
@@ -82,7 +77,7 @@ const FlexibleCard = ({
 				renderers,
 				resolve,
 				actionOptions,
-				status: shouldUsePlaceholderData ? contextStatus : status,
+				status: placeholderCardState ? placeHolderStatus : status,
 				url,
 				isPreviewPanelAvailable,
 				openPreviewPanel,
@@ -90,31 +85,31 @@ const FlexibleCard = ({
 		[
 			aiSummaryConfig,
 			appearance,
-			fireEvent,
-			shouldUsePlaceholderData,
-			placeholderData?.details,
+			actionOptions,
 			details,
 			id,
+			isPreviewPanelAvailable,
 			onAuthorize,
 			onClick,
+			openPreviewPanel,
 			origin,
+			placeholderCardState,
+			placeHolderStatus,
 			renderers,
 			resolve,
-			actionOptions,
-			contextStatus,
 			status,
 			url,
-			isPreviewPanelAvailable,
-			openPreviewPanel,
+			fireEvent,
 		],
 	);
-	const flexibleCardContext = useMemo(
+
+	const flexibleCardContext = useMemo<FlexibleCardContextType>(
 		() => ({
 			data: context,
-			status: fg('platform_initial_data_for_smart_cards') ? contextStatus : status,
+			status: fg('platform_initial_data_for_smart_cards') ? (placeHolderStatus ?? status) : status,
 			ui,
 		}),
-		[context, contextStatus, status, ui],
+		[context, placeHolderStatus, status, ui],
 	);
 
 	const { linkTitle } = context || {};

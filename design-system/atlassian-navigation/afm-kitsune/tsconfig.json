@@ -1,0 +1,63 @@
+{
+	"extends": "../../../../tsconfig.entry-points.kitsune.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../kitsune/tsDist/@atlaskit__atlassian-navigation/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-namespaced-context/afm-kitsune/tsconfig.json"
+		},
+		{
+			"path": "../../button/afm-kitsune/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-kitsune/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-kitsune/tsconfig.json"
+		},
+		{
+			"path": "../../logo/afm-kitsune/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-kitsune/tsconfig.json"
+		},
+		{
+			"path": "../../popup/afm-kitsune/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-kitsune/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-kitsune/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-kitsune/tsconfig.json"
+		},
+		{
+			"path": "../../tooltip/afm-kitsune/tsconfig.json"
+		},
+		{
+			"path": "../../width-detector/afm-kitsune/tsconfig.json"
+		}
+	]
+}

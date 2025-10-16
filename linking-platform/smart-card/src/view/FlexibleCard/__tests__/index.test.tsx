@@ -251,23 +251,20 @@ describe('FlexibleCard', () => {
 	describe('placeholderData prop', () => {
 		const placeholderTitle = 'placeholder-title';
 		const placeholderUrl = 'http://placeholder-url.com';
-		const placeholderCardState: CardState = {
-			status: 'resolved',
-			details: {
-				meta: {
-					access: 'granted',
-					visibility: 'public',
+		const placeholderCardState: CardState['details'] = {
+			meta: {
+				access: 'granted',
+				visibility: 'public',
+			},
+			data: {
+				'@type': 'Object',
+				'@context': {
+					'@vocab': 'https://www.w3.org/ns/activitystreams#',
+					atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+					schema: 'http://schema.org/',
 				},
-				data: {
-					'@type': 'Object',
-					'@context': {
-						'@vocab': 'https://www.w3.org/ns/activitystreams#',
-						atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-						schema: 'http://schema.org/',
-					},
-					url: placeholderUrl,
-					name: placeholderTitle,
-				},
+				url: placeholderUrl,
+				name: placeholderTitle,
 			},
 		};
 
@@ -331,23 +328,8 @@ describe('FlexibleCard', () => {
 
 			it('should not use placeholder data when card is in resolved status', () => {
 				const resolvedCardState: CardState = {
+					...pendingCardState,
 					status: 'resolved',
-					details: {
-						meta: {
-							access: 'granted',
-							visibility: 'public',
-						},
-						data: {
-							'@type': 'Object',
-							'@context': {
-								'@vocab': 'https://www.w3.org/ns/activitystreams#',
-								atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-								schema: 'http://schema.org/',
-							},
-							url,
-							name: title,
-						},
-					},
 				};
 
 				render(
@@ -402,23 +384,8 @@ describe('FlexibleCard', () => {
 			it('should trigger onResolve callback with resolved data', () => {
 				const onResolve = jest.fn();
 				const resolvedCardState: CardState = {
+					...pendingCardState,
 					status: 'resolved',
-					details: {
-						meta: {
-							access: 'granted',
-							visibility: 'public',
-						},
-						data: {
-							'@type': 'Object',
-							'@context': {
-								'@vocab': 'https://www.w3.org/ns/activitystreams#',
-								atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-								schema: 'http://schema.org/',
-							},
-							url,
-							name: title,
-						},
-					},
 				};
 
 				render(

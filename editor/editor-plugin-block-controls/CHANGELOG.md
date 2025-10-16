@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.3.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- [`cebe32372285d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cebe32372285d) -
+  Tidy up feature gate
+- [`8062900ea5010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8062900ea5010) -
+  [ux] ED-29550 Fix drop targets not showing for layouts as first node
+- [`0b0ef25b2f529`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b0ef25b2f529) -
+  Cleanup various feature gates and align them to aifc_create_enabled
+- [`3feef799ad0a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3feef799ad0a5) -
+  [ED-29333] Fix 2 issues when platform_editor_native_anchor_support is enabled
+  1. Drag handle is rendered for media node
+  2. When advanced_layouts experiment is off, quick insert button is rendered based on child node
+     inside layout column (as opposed to layout section node )
+
+- [`e108f7cc7cedf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e108f7cc7cedf) -
+  [ux] Drag handle and quick insert button in dense mode
+- Updated dependencies
+
 ## 7.2.12
 
 ### Patch Changes

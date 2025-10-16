@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-paste
 
+## 7.4.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.0
 
 ### Minor Changes
@@ -259,7 +270,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -1774,7 +1784,6 @@
 - [#43646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43646)
   [`d43f8e9402f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d43f8e9402f) - Make
   feature flags plugin optional in all plugins including:
-
   - analytics
   - base
   - card

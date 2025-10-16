@@ -719,9 +719,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 				dispatchAnalyticsEvent({
 					action: ACTION.OPENED,
 					actionSubject: ACTION_SUBJECT.PICKER,
-					actionSubjectId: fg('platform_editor_add_media_from_url_rollout')
-						? ACTION_SUBJECT_ID.PICKER_MEDIA
-						: ACTION_SUBJECT_ID.PICKER_CLOUD,
+					actionSubjectId: ACTION_SUBJECT_ID.PICKER_MEDIA,
 					attributes: { inputMethod },
 					eventType: EVENT_TYPE.UI,
 				});

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-block-type
 
+## 10.2.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- [`2e5e55a02ab9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e5e55a02ab9a) -
+  upgrade browser util api
+- Updated dependencies
+
 ## 10.1.4
 
 ### Patch Changes

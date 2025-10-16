@@ -223,6 +223,9 @@ export const tableNodeSpecWithFixedToDOM = (
 					{
 						class: 'tableView-content-wrap',
 						'data-prosemirror-initial-toDOM-render': 'true',
+						style: convertToInlineCss({
+							'--ak-editor-table-width': resizableTableWidth,
+						}),
 					},
 					tableContainerDiv,
 				];

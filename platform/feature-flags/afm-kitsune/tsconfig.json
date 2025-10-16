@@ -1,0 +1,27 @@
+{
+	"extends": "../../../../tsconfig.entry-points.kitsune.json",
+	"include": [
+		"../src/**/*.ts"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"compilerOptions": {
+		"outDir": "../../../../../kitsune/tsDist/@atlaskit__platform-feature-flags/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"references": [
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-kitsune/tsconfig.json"
+		}
+	]
+}

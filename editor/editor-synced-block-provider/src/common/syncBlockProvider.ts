@@ -5,7 +5,7 @@ import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { getPageARIFromResourceId } from '../utils/ari';
+import { getLocalIdFromAri, getPageARIFromResourceId } from '../utils/ari';
 import { convertSyncBlockPMNodeToSyncBlockData } from '../utils/utils';
 
 import {
@@ -72,14 +72,22 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	retrieveSyncBlockSourceUrl(node: SyncBlockNode): Promise<string | undefined> {
 		const { resourceId } = node.attrs;
 		let pageARI;
+		let sourceLocalId;
 		if (resourceId && typeof resourceId === 'string') {
 			try {
 				pageARI = getPageARIFromResourceId(resourceId);
 			} catch (error) {
 				return Promise.reject(error);
 			}
+
+			try {
+				sourceLocalId = getLocalIdFromAri(resourceId);
+			} catch (error) {
+				// EDITOR-1921: log analytic here, safe to continue
+			}
 		}
-		return pageARI ? fetchURLfromARI(pageARI) : Promise.resolve(undefined);
+
+		return pageARI ? fetchURLfromARI(pageARI, sourceLocalId) : Promise.resolve(undefined);
 	}
 }
 
@@ -150,7 +158,10 @@ export const useHandleContentChanges = (
 	}, [isSource, node, provider, updatedDoc]);
 };
 
-const fetchURLfromARI = async (ari: string): Promise<string | undefined> => {
+const fetchURLfromARI = async (
+	ari: string,
+	sourceLocalId?: string,
+): Promise<string | undefined> => {
 	const response = await fetch('/gateway/api/object-resolver/resolve/ari', {
 		method: 'POST',
 		headers: {
@@ -164,7 +175,7 @@ const fetchURLfromARI = async (ari: string): Promise<string | undefined> => {
 		const payload = await response.json();
 		const url = payload?.data?.url;
 		if (typeof url === 'string') {
-			return url;
+			return sourceLocalId ? url + `?block=${sourceLocalId}` : url;
 		}
 	} else {
 		//eslint-disable-next-line no-console

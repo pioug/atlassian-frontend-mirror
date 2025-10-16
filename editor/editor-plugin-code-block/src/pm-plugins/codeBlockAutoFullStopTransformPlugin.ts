@@ -1,9 +1,10 @@
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { findCodeBlock } from '@atlaskit/editor-common/transforms';
-import { browser } from '@atlaskit/editor-common/utils';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export const codeBlockAutoFullStopTransformPluginKey = new PluginKey(
 	'codeBlockAutoFullStopTransformPluginKey',
@@ -29,6 +30,9 @@ export function codeBlockAutoFullStopTransformPlugin() {
 			const isCodeBlock =
 				!!findCodeBlock(oldState, trOld.selection) && !!findCodeBlock(newState, trNew.selection);
 
+			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+				? getBrowserInfo()
+				: browserLegacy;
 			/**
 			 * Mac will auto insert a fullstop when the user double taps the space key after some content.
 			 * Line number decorators are assumed content so on new lines the fullstop is inserted.

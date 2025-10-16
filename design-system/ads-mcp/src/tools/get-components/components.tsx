@@ -3,7 +3,7 @@
  *
  * Generates TypeScript components data for AI tooling from offerings.json files
  *
- * @codegen <<SignedSource::fc314ec33d20ef4426af527283a86eaa>>
+ * @codegen <<SignedSource::d39d38cf9fe44e75308cd943349942d1>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:prototyping
  */
 import type { Component } from './types';
@@ -18,7 +18,7 @@ export const components: Component[] = [
 			'A component for displaying user avatars with support for images, initials, and status indicators. An avatar is a visual representation of a user or entity. It can display user images, initials, presence indicators, and status indicators. Avatars help users quickly identify people and entities in your application. They provide visual context and make interfaces more personal and engaging.',
 		status: 'general-availability',
 		examples: [
-			'import Avatar from \'@atlaskit/avatar\';\nexport default [\n\t<Avatar src="https://example.com/avatar.jpg" name="John Doe" />,\n\t<Avatar name="Jane Smith" size="large" status="locked" />,\n\t<Avatar name="Bob Wilson" size="small" presence="online" status="approved" />,\n];',
+			'import Avatar from \'@atlaskit/avatar\';\nexport default [\n\t<Avatar src="https://example.com/avatar.jpg" name="John Doe" />,\n\t<Avatar name="Jane Smith" appearance="hexagon" size="large" status="locked" />,\n\t<Avatar name="Bob Wilson" appearance="square" size="small" presence="online" status="approved" />,\n];',
 		],
 		usageGuidelines: [
 			'Use consistent sizing within the same context',
@@ -28,6 +28,9 @@ export const components: Component[] = [
 			'Provide fallback initials when images fail to load',
 			'Use avatars to represent users, teams, projects, or any other entity that needs visual identification',
 			'Always provide meaningful names for accessibility',
+			'Use the `name` prop to include alternative text for screen readers',
+			'For decorative images, remove the `name` prop or leave it empty so it will be ignored by assistive technologies',
+			"Don't use a tooltip with an avatar when it's non-interactive or disabled. The tooltip won't work for keyboard users and screen readers",
 		],
 		contentGuidelines: [
 			'Use full names when possible for better recognition',
@@ -41,7 +44,7 @@ export const components: Component[] = [
 				name: 'appearance',
 				description:
 					"Indicates the shape of the avatar. Most avatars are circular, but square avatars\ncan be used for 'container' objects.",
-				type: '"circle" | "square"',
+				type: '"circle" | "square" | "hexagon"',
 			},
 			{
 				name: 'as',
@@ -145,7 +148,7 @@ export const components: Component[] = [
 			'A component for displaying multiple avatars in a group with overlap and overflow handling.',
 		status: 'general-availability',
 		examples: [
-			"import AvatarGroup from '@atlaskit/avatar-group';\nexport default [\n\t<AvatarGroup\n\t\tappearance=\"stack\"\n\t\tsize=\"large\"\n\t\tonAvatarClick={console.log}\n\t\tdata={[\n\t\t\t{ key: 'uid1', name: 'Bob Smith' },\n\t\t\t{ key: 'uid2', name: 'Alice Johnson' },\n\t\t\t{ key: 'uid3', name: 'Eve Brown' },\n\t\t\t{ key: 'uid4', name: 'Carol Davis' },\n\t\t]}\n\t\tmaxCount={3}\n\t/>,\n];",
+			"import AvatarGroup from '@atlaskit/avatar-group';\nexport default [\n\t<AvatarGroup\n\t\tappearance=\"stack\"\n\t\tsize=\"large\"\n\t\tonAvatarClick={console.log}\n\t\tdata={[\n\t\t\t{ key: 'uid1', name: 'Bob Smith' },\n\t\t\t{ key: 'uid2', name: 'Design System Team', appearance: 'square' },\n\t\t\t{ key: 'uid3', name: 'Review Agent', appearance: 'hexagon' },\n\t\t\t{ key: 'uid4', name: 'Carol Davis' },\n\t\t]}\n\t\tmaxCount={3}\n\t/>,\n];",
 		],
 		accessibilityGuidelines: [
 			'Provide clear labels for avatar groups',
@@ -542,12 +545,12 @@ export const components: Component[] = [
 			{
 				name: 'iconAfter',
 				description: "Places an icon within the button, after the button's text.",
-				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
+				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "spacing" | "size">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
 			},
 			{
 				name: 'iconBefore',
 				description: "Places an icon within the button, before the button's text.",
-				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
+				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "spacing" | "size">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
 			},
 			{
 				name: 'isDisabled',
@@ -588,7 +591,7 @@ export const components: Component[] = [
 			{
 				name: 'spacing',
 				description: 'Controls the amount of padding in the button.',
-				type: '"default" | "compact"',
+				type: '"compact" | "default"',
 			},
 		],
 	},
@@ -632,7 +635,7 @@ export const components: Component[] = [
 			{
 				name: 'icon',
 				description: 'Places an icon within the button.',
-				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
+				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "spacing" | "size">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
 			},
 			{
 				name: 'isDisabled',
@@ -689,7 +692,7 @@ export const components: Component[] = [
 			{
 				name: 'tooltip',
 				description: 'Props passed down to the Tooltip component.',
-				type: '{ testId?: string; analyticsContext?: Record<string, any>; content?: ReactNode | (({ update }: { update?: () => void; }) => ReactNode); component?: ComponentType<TooltipPrimitiveProps> | ForwardRefExoticComponent<...>; ... 12 more ...; strategy?: "fixed" | "absolute"; }',
+				type: '{ testId?: string; analyticsContext?: Record<string, any>; content?: ReactNode | (({ update }: { update?: () => void; }) => ReactNode); component?: ComponentType<TooltipPrimitiveProps> | ForwardRefExoticComponent<...>; ... 13 more ...; shortcut?: string[]; }',
 			},
 		],
 	},
@@ -1356,20 +1359,17 @@ export const components: Component[] = [
 		props: [
 			{
 				name: 'codeBidiWarningLabel',
-				description:
-					"Label for the bidi warning tooltip.\n@default 'Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.'",
+				description: 'Label for the bidi warning tooltip.',
 				type: 'string',
 			},
 			{
 				name: 'firstLineNumber',
-				description:
-					'Sets the number of the first line, if showLineNumbers is set to true.\n@default 1',
+				description: 'Sets the number of the first line, if showLineNumbers is set to true.',
 				type: 'number',
 			},
 			{
 				name: 'hasBidiWarnings',
-				description:
-					'When set to `false`, disables code decorating with bidi warnings.\n@default true',
+				description: 'When set to `false`, disables code decorating with bidi warnings.',
 				type: 'boolean',
 			},
 			{
@@ -1391,7 +1391,7 @@ export const components: Component[] = [
 			{
 				name: 'isBidiWarningTooltipEnabled',
 				description:
-					'Sets whether to render tooltip with the warning or not.\nIntended to be disabled when used in a mobile view, such as in the editor via mobile bridge,\nwhere the tooltip could end up being cut off or otherwise not work as expected.\n@default true',
+					'Sets whether to render tooltip with the warning or not.\nIntended to be disabled when used in a mobile view, such as in the editor via mobile bridge,\nwhere the tooltip could end up being cut off or otherwise not work as expected.',
 				type: 'boolean',
 			},
 			{
@@ -1403,18 +1403,18 @@ export const components: Component[] = [
 			{
 				name: 'language',
 				description:
-					'Language reference designed to be populated from `SUPPORTED_LANGUAGES` in\n`design-system/code`. Run against language grammars from PrismJS (full list\navailable at [PrismJS documentation](https://prismjs.com/#supported-languages)).\n\nWhen set to "text" will not perform highlighting. If unsupported language\nprovided - code will be treated as "text" with no highlighting.\n\n@default \'text\'',
-				type: '"text" | "PHP" | "php" | "php3" | "php4" | "php5" | "Java" | "java" | "CSharp" | "csharp" | "c#" | "Python" | "python" | "py" | "JavaScript" | "javascript" | "js" | "Html" | "html" | ... 232 more ... | "abap"',
+					'Language reference designed to be populated from `SUPPORTED_LANGUAGES` in\n`design-system/code`. Run against language grammars from PrismJS (full list\navailable at [PrismJS documentation](https://prismjs.com/#supported-languages)).\n\nWhen set to "text" will not perform highlighting. If unsupported language\nprovided - code will be treated as "text" with no highlighting.',
+				type: '"text" | "PHP" | "php" | "php3" | "php4" | "php5" | "Java" | "java" | "CSharp" | "csharp" | "c#" | "Python" | "python" | "py" | "JavaScript" | "javascript" | "js" | "Html" | "html" | ... 234 more ... | "markdown"',
 			},
 			{
 				name: 'shouldShowLineNumbers',
-				description: 'Sets whether to display code line numbers or not.\n@default true',
+				description: 'Sets whether to display code line numbers or not.',
 				type: 'boolean',
 			},
 			{
 				name: 'shouldWrapLongLines',
 				description:
-					'Sets whether long lines will create a horizontally scrolling container.\nWhen set to `true`, these lines will visually wrap instead.\n@default false',
+					'Sets whether long lines will create a horizontally scrolling container.\nWhen set to `true`, these lines will visually wrap instead.',
 				type: 'boolean',
 			},
 			{
@@ -1595,196 +1595,191 @@ export const components: Component[] = [
 		props: [
 			{
 				name: 'aria-describedby',
-				description:
-					'Used to associate accessible descriptions to the date picker.\nUsed to associate accessible descriptions to the date picker.',
+				description: 'Used to associate accessible descriptions to the date picker.',
 				type: 'string',
 			},
 			{
 				name: 'autoFocus',
-				description: 'Set the picker to autofocus on mount.\nSet the picker to autofocus on mount.',
+				description: 'Set the picker to autofocus on mount.',
 				type: 'boolean',
 			},
 			{
 				name: 'clearControlLabel',
 				description:
-					'Set the `aria-label` for the clear button.\nAdd the word "Clear" at the beginning of the clearControlLabel.\nFor instance, for a field to set an appointment, use "Clear appointment date and time".\nSet the `aria-label` for the clear button.\nAdd the word "Clear" at the beginning of the clearControlLabel.\nFor instance, for a field to set an appointment, use "Clear appointment date and time".',
+					'Set the `aria-label` for the clear button.\nAdd the word "Clear" at the beginning of the clearControlLabel.\nFor instance, for a field to set an appointment, use "Clear appointment date and time".',
 				type: 'string',
 			},
 			{
 				name: 'dateFormat',
 				description:
-					"Format the date with a string that is accepted by [date-fns's format\nfunction](https://date-fns.org/v1.29.0/docs/format). **This does not affect\nhow the input is parsed.** This must be done using the `parseInputValue`\nprop.\n\nNote that though we are using `date-fns` version 2, we use [the tokens from\n`date-fns` version 1](https://date-fns.org/v1.30.1/docs/format) under the\nhood.\nFormat the date with a string that is accepted by [date-fns's format\nfunction](https://date-fns.org/v1.29.0/docs/format). **This does not affect\nhow the input is parsed.** This must be done using the `parseInputValue`\nprop.\n\nNote that though we are using `date-fns` version 2, we use [the tokens from\n`date-fns` version 1](https://date-fns.org/v1.30.1/docs/format) under the\nhood.",
+					"Format the date with a string that is accepted by [date-fns's format\nfunction](https://date-fns.org/v1.29.0/docs/format). **This does not affect\nhow the input is parsed.** This must be done using the `parseInputValue`\nprop.\n\nNote that though we are using `date-fns` version 2, we use [the tokens from\n`date-fns` version 1](https://date-fns.org/v1.30.1/docs/format) under the\nhood.",
 				type: 'string',
 			},
 			{
 				name: 'defaultValue',
-				description: 'The default for `value`.\nThe default for `value`.',
+				description: 'The default for `value`.',
 				type: 'string',
 			},
 			{
 				name: 'disabled',
 				description:
-					'An array of ISO dates that should be disabled on the calendar. This does not affect what users can type into the picker.\nAn array of ISO dates that should be disabled on the calendar. This does not affect what users can type into the picker.',
+					'An array of ISO dates that should be disabled on the calendar. This does not affect what users can type into the picker.',
 				type: 'string[]',
 			},
 			{
 				name: 'disabledDateFilter',
 				description:
-					'A filter function for disabling dates on the calendar. This does not affect what users can type into the picker.\n\nThe function is called with a date string in the format `YYYY-MM-DD` and should return `true` if the date should be disabled.\nA filter function for disabling dates on the calendar. This does not affect what users can type into the picker.\n\nThe function is called with a date string in the format `YYYY-MM-DD` and should return `true` if the date should be disabled.',
-				type: '((date: string) => boolean) & ((_: string) => boolean)',
+					'A filter function for disabling dates on the calendar. This does not affect what users can type into the picker.\n\nThe function is called with a date string in the format `YYYY-MM-DD` and should return `true` if the date should be disabled.',
+				type: '(date: string) => boolean',
 			},
 			{
 				name: 'formatDisplayLabel',
 				description:
-					"A function for formatting the date displayed in the input. By default composes together [`date-fns`'s parse method](https://date-fns.org/v1.29.0/docs/parse) and [`date-fns`'s format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string.\n\nNote that this does not affect how the input is parsed. This must be done using the `parseInputValue` prop.\nA function for formatting the date displayed in the input. By default composes together [`date-fns`'s parse method](https://date-fns.org/v1.29.0/docs/parse) and [`date-fns`'s format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string.\n\nNote that this does not affect how the input is parsed. This must be done using the `parseInputValue` prop.",
+					"A function for formatting the date displayed in the input. By default composes together [`date-fns`'s parse method](https://date-fns.org/v1.29.0/docs/parse) and [`date-fns`'s format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string.\n\nNote that this does not affect how the input is parsed. This must be done using the `parseInputValue` prop.",
 				type: '(value: string, dateFormat: string) => string',
 			},
 			{
 				name: 'id',
-				description:
-					'Set the id of the field.\nAssociates a `<label></label>` with the field.\nSet the id of the field.\nAssociates a `<label></label>` with the field.',
+				description: 'Set the id of the field.\nAssociates a `<label></label>` with the field.',
 				type: 'string',
 			},
 			{
 				name: 'inputLabel',
 				description:
-					"The name of the input, used when `shouldShowCalendarButton` is true. See `shouldShowCalendarButton` description for more details.\n\n@default 'Date picker'\nThe name of the input, used when `shouldShowCalendarButton` is true. See `shouldShowCalendarButton` description for more details.\n\n@default 'Date picker'",
+					'The name of the input, used when `shouldShowCalendarButton` is true. See `shouldShowCalendarButton` description for more details.',
 				type: 'string',
 			},
 			{
 				name: 'inputLabelId',
 				description:
-					'The ID of the label for the input, used when `shouldShowCalendarButton` is\ntrue. See `shouldShowCalendarButton` description for more details.\nThe ID of the label for the input, used when `shouldShowCalendarButton` is\ntrue. See `shouldShowCalendarButton` description for more details.',
+					'The ID of the label for the input, used when `shouldShowCalendarButton` is\ntrue. See `shouldShowCalendarButton` description for more details.',
 				type: 'string',
 			},
 			{
 				name: 'isDisabled',
-				description: 'Set if the picker is disabled.\nSet if the picker is disabled.',
+				description: 'Set if the picker is disabled.',
 				type: 'boolean',
 			},
 			{
 				name: 'isInvalid',
-				description:
-					'Set if the picker has an invalid value.\nSet if the picker has an invalid value.',
+				description: 'Set if the picker has an invalid value.',
 				type: 'boolean',
 			},
 			{
 				name: 'isOpen',
-				description: 'Set if the picker is open.\nSet if the picker is open.',
+				description: 'Set if the picker is open.',
 				type: 'boolean',
 			},
 			{
 				name: 'isRequired',
-				description: 'Set the field as required.\nSet the field as required.',
+				description: 'Set the field as required.',
 				type: 'boolean',
 			},
 			{
 				name: 'label',
 				description:
-					'Accessible name for the Date Picker Select, rendered as `aria-label`. This will override any other method of providing a label.\nAccessible name for the Date Picker Select, rendered as `aria-label`. This will override any other method of providing a label.',
+					'Accessible name for the Date Picker Select, rendered as `aria-label`. This will override any other method of providing a label.',
 				type: 'string',
 			},
 			{
 				name: 'locale',
 				description:
-					'Locale used to format the date and calendar. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat).\nLocale used to format the date and calendar. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat).',
+					'Locale used to format the date and calendar. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat).',
 				type: 'string',
 			},
 			{
 				name: 'maxDate',
 				description:
-					'The latest enabled date. Dates after this are disabled on the calendar. This does not affect what users can type into the picker.\nThe latest enabled date. Dates after this are disabled on the calendar. This does not affect what users can type into the picker.',
+					'The latest enabled date. Dates after this are disabled on the calendar. This does not affect what users can type into the picker.',
 				type: 'string',
 			},
 			{
 				name: 'menuInnerWrapper',
 				description:
-					'This overrides the inner wrapper the Calendar.\n@private Please use this with extreme caution, this API may be changed in the future.\nThis overrides the inner wrapper the Calendar.\n@private Please use this with extreme caution, this API may be changed in the future.',
+					'This overrides the inner wrapper the Calendar.\n@private Please use this with extreme caution, this API may be changed in the future.',
 				type: 'ComponentClass<{ children: ReactNode; }, any> | FunctionComponent<{ children: ReactNode; }>',
 			},
 			{
 				name: 'minDate',
 				description:
-					'The earliest enabled date. Dates before this are disabled on the calendar. This does not affect what users can type into the picker.\nThe earliest enabled date. Dates before this are disabled on the calendar. This does not affect what users can type into the picker.',
+					'The earliest enabled date. Dates before this are disabled on the calendar. This does not affect what users can type into the picker.',
 				type: 'string',
 			},
 			{
 				name: 'name',
-				description: 'The name of the field.\nThe name of the field.',
+				description: 'The name of the field.',
 				type: 'string',
 			},
 			{
 				name: 'nextMonthLabel',
-				description:
-					'The aria-label attribute associated with the next-month arrow.\nThe aria-label attribute associated with the next-month arrow.',
+				description: 'The aria-label attribute associated with the next-month arrow.',
 				type: 'string',
 			},
 			{
 				name: 'onBlur',
-				description: 'Called when the field is blurred.\nCalled when the field is blurred.',
-				type: 'FocusEventHandler<HTMLInputElement> & ((_event: FocusEvent<HTMLInputElement, Element>) => void)',
+				description: 'Called when the field is blurred.',
+				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
 			},
 			{
 				name: 'onChange',
 				description:
-					'Called when the value changes. The only argument is an ISO time or empty string.\nCalled when the value changes. The only argument is an ISO time or empty string.',
-				type: '((value: string) => void) & ((_value: string) => void)',
+					'Called when the value changes. The only argument is an ISO time or empty string.',
+				type: '(value: string) => void',
 			},
 			{
 				name: 'onFocus',
-				description: 'Called when the field is focused.\nCalled when the field is focused.',
-				type: 'FocusEventHandler<HTMLInputElement> & ((_event: FocusEvent<HTMLInputElement, Element>) => void)',
+				description: 'Called when the field is focused.',
+				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
 			},
 			{
 				name: 'openCalendarLabel',
 				description:
-					'The label associated with the button to open the calendar, rendered via the\n`shouldShowCalendarButton` prop. If a `label` prop is provided, this\ncalendar button label will be prefixed by the value of `label`. If no\n`label` prop is provided, this prefix should be manually added. For\nexample,\n\n```tsx\n<label id="label" htmlFor="datepicker">Desired Appointment Date</label>\n<DatePicker\n\tid="datepicker"\n\tshouldShowCalendarButton\n\tinputLabel="Desired Appointment Date"\n\topenCalendarLabel="open calendar"\n/>\n```\n\n@default \'open calendar\'\nThe label associated with the button to open the calendar, rendered via the\n`shouldShowCalendarButton` prop. If a `label` prop is provided, this\ncalendar button label will be prefixed by the value of `label`. If no\n`label` prop is provided, this prefix should be manually added. For\nexample,\n\n```tsx\n<label id="label" htmlFor="datepicker">Desired Appointment Date</label>\n<DatePicker\n\tid="datepicker"\n\tshouldShowCalendarButton\n\tinputLabel="Desired Appointment Date"\n\topenCalendarLabel="open calendar"\n/>\n```\n\n@default \'open calendar\'',
+					'The label associated with the button to open the calendar, rendered via the\n`shouldShowCalendarButton` prop. If a `label` prop is provided, this\ncalendar button label will be prefixed by the value of `label`. If no\n`label` prop is provided, this prefix should be manually added. For\nexample,\n\n```tsx\n<label id="label" htmlFor="datepicker">Desired Appointment Date</label>\n<DatePicker\n\tid="datepicker"\n\tshouldShowCalendarButton\n\tinputLabel="Desired Appointment Date"\n\topenCalendarLabel="open calendar"\n/>\n```',
 				type: 'string',
 			},
 			{
 				name: 'parseInputValue',
 				description:
-					'A function for parsing input characters and transforming them into a Date object.\nBy default parses the date string based off the locale. Note that this does\nnot affect how the resulting value is displayed in the input. Use the\n`dateFormat` or `formatDisplayLabel` prop to handle how the value is\ndisplayed.\nA function for parsing input characters and transforming them into a Date object.\nBy default parses the date string based off the locale. Note that this does\nnot affect how the resulting value is displayed in the input. Use the\n`dateFormat` or `formatDisplayLabel` prop to handle how the value is\ndisplayed.',
+					'A function for parsing input characters and transforming them into a Date object.\nBy default parses the date string based off the locale. Note that this does\nnot affect how the resulting value is displayed in the input. Use the\n`dateFormat` or `formatDisplayLabel` prop to handle how the value is\ndisplayed.',
 				type: '(date: string, dateFormat: string) => Date',
 			},
 			{
 				name: 'placeholder',
-				description: 'Placeholder text displayed in input.\nPlaceholder text displayed in input.',
+				description: 'Placeholder text displayed in input.',
 				type: 'string',
 			},
 			{
 				name: 'previousMonthLabel',
-				description:
-					'The aria-label attribute associated with the previous-month arrow.\nThe aria-label attribute associated with the previous-month arrow.',
+				description: 'The aria-label attribute associated with the previous-month arrow.',
 				type: 'string',
 			},
 			{
 				name: 'selectProps',
 				description: '',
-				type: 'Omit<SelectProps<OptionType, false>, "aria-label" | "aria-describedby" | "inputId" | "placeholder"> & { \'aria-describedby\'?: never; \'aria-label\'?: never; inputId?: never; placeholder?: never; } & { ...; }',
+				type: 'Omit<SelectProps<OptionType, false>, "aria-describedby" | "placeholder" | "aria-label" | "inputId"> & { \'aria-describedby\'?: never; \'aria-label\'?: never; inputId?: never; placeholder?: never; }',
 			},
 			{
 				name: 'shouldShowCalendarButton',
 				description:
-					'Provides a functional calendar button that opens the calendar picker that\nlives on the right side of the date picker.\n\nThe accessible name for this button is caculated using either the `label`,\n`inputLabel`, or `inputLabelId` props, along with the `openCalendarLabel`\nprop.\n\n@default false\nProvides a functional calendar button that opens the calendar picker that\nlives on the right side of the date picker.\n\nThe accessible name for this button is caculated using either the `label`,\n`inputLabel`, or `inputLabelId` props, along with the `openCalendarLabel`\nprop.\n\n@default false',
+					'Provides a functional calendar button that opens the calendar picker that\nlives on the right side of the date picker.\n\nThe accessible name for this button is caculated using either the `label`,\n`inputLabel`, or `inputLabelId` props, along with the `openCalendarLabel`\nprop.',
 				type: 'boolean',
 			},
 			{
 				name: 'spacing',
 				description:
-					'The spacing for the select control.\n\nCompact is `gridSize() * 4`, default is `gridSize * 5`.\nThe spacing for the select control.\n\nCompact is `gridSize() * 4`, default is `gridSize * 5`.',
-				type: '"compact" | "default"',
+					'The spacing for the select control.\n\nCompact is `gridSize() * 4`, default is `gridSize * 5`.',
+				type: '"default" | "compact"',
 			},
 			{
 				name: 'value',
-				description: 'The ISO time used as the input value.\nThe ISO time used as the input value.',
+				description: 'The ISO time used as the input value.',
 				type: 'string',
 			},
 			{
 				name: 'weekStartDay',
 				description:
-					'Start day of the week for the calendar.\n- `0` sunday (default value)\n- `1` monday\n- `2` tuesday\n- `3` wednesday\n- `4` thursday\n- `5` friday\n- `6` saturday\nStart day of the week for the calendar.\n- `0` sunday (default value)\n- `1` monday\n- `2` tuesday\n- `3` wednesday\n- `4` thursday\n- `5` friday\n- `6` saturday',
-				type: '0 | 5 | 1 | 2 | 3 | 4 | 6',
+					'Start day of the week for the calendar.\n- `0` sunday (default value)\n- `1` monday\n- `2` tuesday\n- `3` wednesday\n- `4` thursday\n- `5` friday\n- `6` saturday',
+				type: '0 | 1 | 2 | 3 | 4 | 5 | 6',
 			},
 		],
 	},
@@ -2578,6 +2573,8 @@ export const components: Component[] = [
 			'Use appropriate timing for auto-dismiss',
 			'Provide clear action options',
 			'Consider screen reader announcement conflicts',
+			'Use an h2 heading level for the title',
+			'Use the `headingLevel` prop to maintain proper heading hierarchy',
 		],
 		usageGuidelines: [
 			'Use for confirmations and alerts needing minimal interaction',
@@ -2680,7 +2677,7 @@ export const components: Component[] = [
 		description: 'A component for building forms with validation and state management.',
 		status: 'general-availability',
 		examples: [
-			'import Button from \'@atlaskit/button/new\';\nimport { Checkbox } from \'@atlaskit/checkbox\';\nimport Form, { CheckboxField, ErrorMessage, Field, FormFooter, FormHeader } from \'@atlaskit/form\';\nimport TextField from \'@atlaskit/textfield\';\nexport default [\n\t<Form onSubmit={(data) => console.log(\'validated form\', data)}>\n\t\t{({ formProps }) => (\n\t\t\t<form {...formProps}>\n\t\t\t\t<FormHeader title="Basic Form">\n\t\t\t\t\t<p>Fill out the form below</p>\n\t\t\t\t</FormHeader>\n\t\t\t\t<Field\n\t\t\t\t\tname="username"\n\t\t\t\t\tlabel="Username"\n\t\t\t\t\tisRequired\n\t\t\t\t\tvalidate={(value) => (value && value.length < 3 ? \'Too short\' : undefined)}\n\t\t\t\t>\n\t\t\t\t\t{({ fieldProps, error }) => (\n\t\t\t\t\t\t<>\n\t\t\t\t\t\t\t<TextField {...fieldProps} />\n\t\t\t\t\t\t\t{error && <ErrorMessage>Username must be at least 3 characters</ErrorMessage>}\n\t\t\t\t\t\t</>\n\t\t\t\t\t)}\n\t\t\t\t</Field>\n\t\t\t\t<CheckboxField name="terms" value="terms">\n\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="I accept the terms" />}\n\t\t\t\t</CheckboxField>\n\t\t\t\t<FormFooter>\n\t\t\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\t\t\tCreate Account\n\t\t\t\t\t</Button>\n\t\t\t\t</FormFooter>\n\t\t\t</form>\n\t\t)}\n\t</Form>,\n];',
+			'import Button from \'@atlaskit/button/new\';\nimport { Checkbox } from \'@atlaskit/checkbox\';\nimport Form, { CheckboxField, ErrorMessage, Field, FormFooter, FormHeader } from \'@atlaskit/form\';\nimport TextField from \'@atlaskit/textfield\';\nexport default [\n\t<Form onSubmit={(data) => console.log(\'validated form\', data)}>\n\t\t<FormHeader title="Basic Form">\n\t\t\t<p>Fill out the form below</p>\n\t\t</FormHeader>\n\t\t<Field\n\t\t\tname="username"\n\t\t\tlabel="Username"\n\t\t\tisRequired\n\t\t\tvalidate={(value) => (value && value.length < 3 ? \'Too short\' : undefined)}\n\t\t>\n\t\t\t{({ fieldProps, error }) => (\n\t\t\t\t<>\n\t\t\t\t\t<TextField {...fieldProps} />\n\t\t\t\t\t{error && <ErrorMessage>Username must be at least 3 characters</ErrorMessage>}\n\t\t\t\t</>\n\t\t\t)}\n\t\t</Field>\n\t\t<CheckboxField name="terms" value="terms">\n\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="I accept the terms" />}\n\t\t</CheckboxField>\n\t\t<FormFooter>\n\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\tCreate Account\n\t\t\t</Button>\n\t\t</FormFooter>\n\t</Form>,\n];',
 		],
 		accessibilityGuidelines: [
 			'Provide clear labels for all form fields',
@@ -2706,6 +2703,12 @@ export const components: Component[] = [
 		],
 		props: [
 			{
+				name: 'autocomplete',
+				description:
+					"Indicates whether the value of the form's controls can be automatically completed by the browser. It is `on` by default.",
+				type: '"off" | "on"',
+			},
+			{
 				name: 'children',
 				description:
 					'The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.\n You can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).',
@@ -2718,9 +2721,37 @@ export const components: Component[] = [
 				type: '{ [x: string]: any; } & ExcludeReservedFormProps',
 			},
 			{
+				name: 'id',
+				description: '`id` attribute applied to the `form` element.',
+				type: 'string',
+			},
+			{
 				name: 'isDisabled',
 				description:
 					'Sets the form and its fields as disabled. Users cannot edit or focus on the fields.',
+				type: 'boolean',
+			},
+			{
+				name: 'label',
+				description:
+					'Accessible name to be applied to the form element. Maps to the `aria-label` attribute.',
+				type: 'string',
+			},
+			{
+				name: 'labelId',
+				description:
+					'ID of the element that has the accessible name to be applied to the form element. Maps to the `aria-labelledby` attribute.',
+				type: 'string',
+			},
+			{
+				name: 'name',
+				description: '`name` attribute applied to the `form` element.',
+				type: 'string',
+			},
+			{
+				name: 'noValidate',
+				description:
+					'Indicates if the inputs within the form will bypass HTML5 constraint\nvalidation when submitted. This is not recommended to be used because it\ncan cause experiences to be inaccessible. It is `false` by default but will\nbe set to `true` in the future to increase accessibility, so it is **not recommended**.',
 				type: 'boolean',
 			},
 			{
@@ -2728,6 +2759,12 @@ export const components: Component[] = [
 				description:
 					'Event handler called when the form is submitted. Fields must be free of validation errors.',
 				type: '(values: FormValues, form: FormApi<FormValues>, callback?: (errors?: Record<string, string>) => void) => void | Object | Promise<...>',
+			},
+			{
+				name: 'xcss',
+				description:
+					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
+				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | "alignTracks" | ... 458 more ... | "vectorEffect", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -2802,7 +2839,7 @@ export const components: Component[] = [
 				name: 'size',
 				description:
 					'Heading size. This value is detached from the specific heading level applied to allow for more flexibility.\nUse instead of the deprecated `level` prop.',
-				type: '"large" | "medium" | "small" | "xxlarge" | "xlarge" | "xsmall" | "xxsmall"',
+				type: '"xxlarge" | "xlarge" | "large" | "medium" | "small" | "xsmall" | "xxsmall"',
 			},
 		],
 	},
@@ -4290,7 +4327,7 @@ export const components: Component[] = [
 			{
 				name: 'as',
 				description:
-					"The DOM element to render as the Box.\n- This cannot be any SVG-related element such as `'svg'`, `'animate', `'circle'`, and many more\n- This cannot be a `'a'` (use the `Anchor` primitive instead)\n- This cannot be a `'button'` (use the `Anchor` primitive instead)\n@default 'div'",
+					"The DOM element to render as the Box.\n- This cannot be any SVG-related element such as `'svg'`, `'animate', `'circle'`, and many more\n- This cannot be a `'a'` (use the `Anchor` primitive instead)\n- This cannot be a `'button'` (use the `Anchor` primitive instead)",
 				type: '"object" | "style" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "canvas" | "caption" | "center" | ... 97 more ... | "webview"',
 			},
 			{
@@ -4426,7 +4463,7 @@ export const components: Component[] = [
 		props: [
 			{
 				name: 'as',
-				description: "The DOM element to render as the Focusable element.\n@default 'button'",
+				description: 'The DOM element to render as the Focusable element.',
 				type: '"symbol" | "object" | "style" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "canvas" | "caption" | ... 155 more ... | "view"',
 			},
 			{
@@ -4838,7 +4875,7 @@ export const components: Component[] = [
 				name: 'color',
 				description:
 					'Token representing text color with a built-in fallback value.\nWill apply inverse text color automatically if placed within a Box with bold background color.\nDefaults to `color.text` if not nested in other Text components.',
-				type: 'TextColor | "inherit"',
+				type: '"inherit" | TextColor',
 			},
 			{
 				name: 'id',
@@ -4860,7 +4897,7 @@ export const components: Component[] = [
 			{
 				name: 'size',
 				description: 'Text size.',
-				type: '"small" | "medium" | "UNSAFE_small" | "large"',
+				type: '"small" | "large" | "medium" | "UNSAFE_small"',
 			},
 			{
 				name: 'weight',
@@ -5046,13 +5083,13 @@ export const components: Component[] = [
 			{
 				name: 'ariaControls',
 				description:
-					"If interaction is enabled, use `ariaControls` to tell assistive technology what elements are controlled by the progress indicator.\n\n@default 'panel'",
+					'If interaction is enabled, use `ariaControls` to tell assistive technology what elements are controlled by the progress indicator.',
 				type: 'string',
 			},
 			{
 				name: 'ariaLabel',
 				description:
-					"Describes what the indicator represents to assistive technology. The selected index number will be appended to the label.\n\n@default 'tab'",
+					'Describes what the indicator represents to assistive technology. The selected index number will be appended to the label.',
 				type: 'string',
 			},
 			{
@@ -5488,7 +5525,7 @@ export const components: Component[] = [
 			{
 				name: 'appearance',
 				description: '',
-				type: '"none" | "default" | "subtle"',
+				type: '"default" | "subtle" | "none"',
 			},
 			{
 				name: 'autoFocus',
@@ -5728,7 +5765,7 @@ export const components: Component[] = [
 				name: 'menuPlacement',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
-				type: '"bottom" | "auto" | "top"',
+				type: '"auto" | "bottom" | "top"',
 			},
 			{
 				name: 'menuPortalTarget',
@@ -5848,7 +5885,7 @@ export const components: Component[] = [
 				name: 'spacing',
 				description:
 					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
-				type: '"default" | "compact"',
+				type: '"compact" | "default"',
 			},
 			{
 				name: 'tabIndex',
@@ -6653,6 +6690,12 @@ export const components: Component[] = [
 				description:
 					'Where the tooltip should appear relative to its target.\nIf set to `"mouse"`, the tooltip will display next to the mouse pointer instead.\nMake sure to utilize the `mousePosition` if you want to customize where the tooltip will show in relation to the mouse.',
 				type: 'Placement | "mouse"',
+			},
+			{
+				name: 'shortcut',
+				description:
+					'Display a keyboard shortcut in the tooltip.\n\nKeys will be displayed as individual keyboard key segments after the tooltip content.\n\nThis prop requires the `platform-dst-tooltip-shortcuts` feature flag to be enabled.',
+				type: 'string[]',
 			},
 			{
 				name: 'strategy',

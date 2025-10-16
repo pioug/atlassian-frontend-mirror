@@ -1,5 +1,16 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.20.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.19.0
 
 ### Minor Changes
@@ -280,7 +291,6 @@
   The following lists the exports removed as well as where they can now be found if required.
 
   Exports removed:
-
   - ToolbarFeedback (removed)
   - EmojiResource (moved to -> @atlaskit/emoji/resource)
   - MentionResource (moved to -> @atlaskit/mention/resource)
@@ -316,7 +326,6 @@
   and can be safely removed without any change in functionality
 
   EditorProps removed:
-
   - trackValidTransactions (unused internally, please remove)
   - hideAvatarGroup (unused internally, please remove)
   - placeholder (unused internally for `ComposableEditor` - please pass to the `placeholderPlugin`
@@ -1206,16 +1215,13 @@
   @atlaskit/adf-schema to their own entry points. These new entry points are as follows
 
   @atlaskit/adf-schema/schema-bitbucket for:
-
   - bitbucketSchema
 
   @atlaskit/adf-schema/schema-confluence for:
-
   - confluenceSchema
   - confluenceSchemaWithMediaSingle
 
   @atlaskit/adf-schema/schema-jira for:
-
   - default as createJIRASchema
   - isSchemaWithLists
   - isSchemaWithMentions
@@ -1230,7 +1236,6 @@
   - isSchemaWithTables
 
   @atlaskit/adf-schema/schema-default for:
-
   - defaultSchema
   - getSchemaBasedOnStage
   - defaultSchemaConfig
@@ -1268,7 +1273,6 @@
 
 - [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) -
   ED-11632: Bump prosemirror packages;
-
   - prosmirror-commands 1.1.4 -> 1.1.11,
   - prosemirror-model 1.11.0 -> 1.14.3,
   - prosemirror-state 1.3.3 -> 1.3.4,
@@ -2116,7 +2120,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/theme@9.5.1
   - @atlaskit/adf-schema@6.1.1
@@ -2778,7 +2781,6 @@ Bumped dependencies.
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -2838,25 +2840,21 @@ Bumped dependencies.
 ## 4.2.3
 
 - [patch][e794ba2c53](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e794ba2c53):
-
   - Release for es5
 
 ## 4.2.2
 
 - [patch][3e9995b40d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3e9995b40d):
-
   - remove unnessary dependencies and bring back es5 to wikimarkup
 
 ## 4.2.1
 
 - [patch][78f6d092be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/78f6d092be):
-
   - Allow issue links to be surrounded by ()
 
 ## 4.2.0
 
 - [minor][79f0ef0601](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/79f0ef0601):
-
   - Use strict tsconfig to compile editor packages
 
 ## 4.1.2
@@ -2878,7 +2876,6 @@ Bumped dependencies.
 ## 4.1.0
 
 - [minor][5a49043dac](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5a49043dac):
-
   - Enable strictPropertyInitialization in tsconfig.base
 
 ## 4.0.9
@@ -2932,13 +2929,11 @@ Bumped dependencies.
 ## 4.0.5
 
 - [patch][97e555c168](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97e555c168):
-
   - Revert "[ED-5259 - ED-6200] adds defaultMarks on tableNode (pull request #5259)"
 
 ## 4.0.4
 
 - [patch][b425ea772b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b425ea772b):
-
   - Revert "ED-5505 add strong as default mark to table header (pull request #5291)"
 
 ## 4.0.3
@@ -2963,13 +2958,11 @@ Bumped dependencies.
 ## 4.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 4.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 3.5.6
@@ -3035,31 +3028,26 @@ Bumped dependencies.
 ## 3.5.0
 
 - [minor][9bb0ecb48a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9bb0ecb48a):
-
   - Support wiki to smart link
 
 ## 3.4.0
 
 - [minor][1eb20bca95](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1eb20bca95):
-
   - ED-6368: No implicit any for editor-\*-transformer packages
 
 ## 3.3.0
 
 - [minor][6b23c22b7d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6b23c22b7d):
-
   - Advanced table fallback
 
 ## 3.2.0
 
 - [minor][06532fe23e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06532fe23e):
-
   - Adds mediaSingle support for list
 
 ## 3.1.0
 
 - [minor][8709be280f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8709be280f):
-
   - Add issue key token to convert into inline cards (Jira Smart Cards)
 
 ## 3.0.3
@@ -3096,20 +3084,17 @@ Bumped dependencies.
 ## 3.0.0
 
 - [major][be24d8040f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/be24d8040f):
-
   - Change parse function to accept context parameter
 
 ## 2.10.3
 
 - [patch][279b08b325](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/279b08b325):
-
   - Refactor internal TokenParser interface to receive an object and add immutable shared Context
     internally
 
 ## 2.10.2
 
 - [patch][557a2b5734](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/557a2b5734):
-
   - ED-5788: bump prosemirror-view and prosemirror-model
 
 ## 2.10.1
@@ -3126,7 +3111,6 @@ Bumped dependencies.
 ## 2.10.0
 
 - [minor][f56a86f8ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f56a86f8ff):
-
   - Adds in smart card conversion
 
 ## 2.9.11
@@ -3163,7 +3147,6 @@ Bumped dependencies.
 ## 2.9.8
 
 - [patch][74bf476](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/74bf476):
-
   - support codeblock in list
 
 ## 2.9.7
@@ -3198,31 +3181,26 @@ Bumped dependencies.
 ## 2.9.4
 
 - [patch][aca2425](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aca2425):
-
   - Escaping in common formatter
 
 ## 2.9.3
 
 - [patch][df74239](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/df74239):
-
   - Parse mailto text
 
 ## 2.9.2
 
 - [patch][1d9228c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1d9228c):
-
   - trim escape in link href
 
 ## 2.9.1
 
 - [patch][75046da](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/75046da):
-
   - macros keyword can be case insensitive
 
 ## 2.9.0
 
 - [minor][a4b49b2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a4b49b2):
-
   - Parse macros inside table cells
 
 ## 2.8.2
@@ -3238,13 +3216,11 @@ Bumped dependencies.
 ## 2.8.1
 
 - [patch][0a28c41](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a28c41):
-
   - bq. doesn't need a following space
 
 ## 2.8.0
 
 - [minor][1205725](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1205725):
-
   - Move schema to its own package
 
 ## 2.7.6
@@ -3271,7 +3247,6 @@ Bumped dependencies.
 ## 2.7.4
 
 - [patch][77df0db](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/77df0db):
-
   - use em dash for citation
 
 ## 2.7.3
@@ -3304,43 +3279,36 @@ Bumped dependencies.
 ## 2.7.0
 
 - [minor][37eaced](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/37eaced):
-
   - Fix media items inside table cells
 
 ## 2.6.2
 
 - [patch][352fbc9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/352fbc9):
-
   - Should not ignore double and triple dashes in list item
 
 ## 2.6.1
 
 - [patch][f11c6e2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f11c6e2):
-
   - Escape properly
 
 ## 2.6.0
 
 - [minor][8451c11](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8451c11):
-
   - Fly over links inside table cells
 
 ## 2.5.2
 
 - [patch][c93eb36](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c93eb36):
-
   - Do not jump over the link if invalid
 
 ## 2.5.1
 
 - [patch][fce377d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fce377d):
-
   - fix issue with mentions in list
 
 ## 2.5.0
 
 - [minor][6fb9918](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6fb9918):
-
   - Fix strong bug when ending line finishes with two strong symbols
 
 ## 2.4.6
@@ -3353,92 +3321,77 @@ Bumped dependencies.
 ## 2.4.5
 
 - [patch][3148c95](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3148c95):
-
   - add error and success color
 
 ## 2.4.4
 
 - [patch][01a92e1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/01a92e1):
-
   - Title for panel and noformat changes
 
 ## 2.4.3
 
 - [patch][131e012](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/131e012):
-
   - Port from Jira regex for dashes
 
 ## 2.4.2
 
 - [patch][171443f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/171443f):
-
   - Re-wrtie table parser
 
 ## 2.4.1
 
 - [patch][930ca26](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/930ca26):
-
   - Fixed issue with library importing from a path within the editor common package
 
 ## 2.4.0
 
 - [minor][8681fc0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8681fc0):
-
   - Improve wikimarkup link handling with formatting and titles
 
 ## 2.3.6
 
 - [patch][56007b3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/56007b3):
-
   - Allow {color} in formatter
 
 ## 2.3.5
 
 - [patch][d76aa5a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d76aa5a):
-
   - Adds in support for multiple -
 
 ## 2.3.4
 
 - [patch][7b8efea](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7b8efea):
-
   - Heading doesn't need a following space
 
 ## 2.3.3
 
 - [patch][5f2efe0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5f2efe0):
-
   - Change triple dash symbol and update parser rules
 
 ## 2.3.2
 
 - [patch][904b74c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/904b74c):
-
   - Fix the behaivor of \\ for line break
 
 ## 2.3.1
 
 - [patch][5b4474f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5b4474f):
-
   - Improve handling of 'rules' in lists and at end of content
 
 ## 2.3.0
 
 - [minor][640e01f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/640e01f):
-
   - Ignore double dash symbol when sticked with alphanumerical, unicode without space, or
     parenthesis
 
 ## 2.2.0
 
 - [minor][fd35bec](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fd35bec):
-
   - Refactor tokenizer to accpt the whole input and its position
 
 ## 2.1.27
 
 - [patch][fd0ed3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fd0ed3a):
-
   - Changed parser to only start a list if it is led with a single dash
 
 ## 2.1.26
@@ -3454,7 +3407,6 @@ Bumped dependencies.
 ## 2.1.25
 
 - [patch][b64fc55](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b64fc55):
-
   - Adds roundtrip for external image
 
 ## 2.1.24
@@ -3467,19 +3419,16 @@ Bumped dependencies.
 ## 2.1.23
 
 - [patch][7ca5551](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7ca5551):
-
   - allow list to jump over empty lines in macro successfully
 
 ## 2.1.22
 
 - [patch][674b3d9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/674b3d9):
-
   - convert unknow macros to plain text
 
 ## 2.1.21
 
 - [patch][c6763e2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c6763e2" d):
-
   - new pattern for mention
 
 ## 2.1.20

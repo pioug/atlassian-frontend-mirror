@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 43.2.0
+
+### Minor Changes
+
+- [`6f1b276e3b112`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f1b276e3b112) -
+  Adds the new `placeholderData` property to the Smart Card (SSR) component. The card will display
+  using the respective object for the first render while still resolving `url` in the background.
+  Placeholder data should be considered a transient state and it will be replaced by the actual data
+  when the given `url` is resolved.
+
+## 43.1.11
+
+### Patch Changes
+
+- [`f1542b8bcb4d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1542b8bcb4d3) -
+  [ux] NAVX-1910 removing dynamic image margin to improve performance metrics
+- Updated dependencies
+
 ## 43.1.10
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 3.1.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- [`38fb1054b8b7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38fb1054b8b7a) -
+  Recover from invalid deletion decorations
+- Updated dependencies
+
 ## 3.0.2
 
 ### Patch Changes

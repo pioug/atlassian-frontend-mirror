@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 19.25.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
 ## 19.24.0
 
 ### Minor Changes
@@ -943,7 +950,6 @@
   **The new (and only) @atlaskit/adf-utils entry points supported now are listed below:**
 
   @atlaskit/adf-utils/builders for:
-
   - breakout, code, em, link, link, strike, strong, strong, subsup, text-color, underline,
     underline, alignment, indentation, data-consumer fragment, blockquote, bodied-extension,
     block-card, bullet-list, bullet-list, code-block, date, decision-item, decision-list, doc,
@@ -954,32 +960,25 @@
     task-item, task-list, text, embed-card,
 
   @atlaskit/adf-utils/empty-adf for:
-
   - getEmptyADF
 
   @atlaskit/adf-utils/scrub for:
-
   - scrubAdf
 
   @atlaskit/adf-utils/transforms for:
-
   - transformMediaLinkMarks, transformTextLinkCodeMarks, transformDedupeMarks,
     transformNodesMissingContent, transformIndentationMarks
 
   @atlaskit/adf-utils/traverse for:
-
   - traverse, map, reduce, filter
 
   @atlaskit/adf-utils/validator for:
-
   - validateAttrs, validator
 
   @atlaskit/adf-utils/types for:
-
   - ADFEntityMark, ADFEntity, Visitor, VisitorCollection, EntityParent
 
   @atlaskit/adf-utils/validatorTypes for:
-
   - MarkValidationResult, Output, NodeValidationResult, ValidatorContent, AttributesSpec,
     ValidatorSpec, ValidationErrorMap, RequiredContentLength, Content, ValidationErrorType,
     ValidationError, ErrorCallback, ValidationMode, ValidationOptions, SpecValidatorResult, Err,
@@ -1388,7 +1387,6 @@
 - [#5516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5516)
   [`a41378f853`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a41378f853) - Refactor &
   fix few cases of unsupported node attributes:
-
   - Preseve attributes on nodes which do not support any attributes
   - Add unsupportedNodeAttribute to bulletList, layoutSection etc.
 
@@ -1613,7 +1611,6 @@
 
   Fix expand not allowing marks issue- Updated dependencies
   [b3cf2b8a05](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3cf2b8a05):
-
   - @atlaskit/adf-schema@7.0.1
 
 ## 8.0.0
@@ -1696,7 +1693,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/adf-schema@6.1.1
   - @atlaskit/json-schema-generator@2.2.1
@@ -1896,7 +1892,6 @@ Bumped dependencies.
 - [minor][65ada7f318](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65ada7f318):
 
   **FABDODGEM-12 Editor Cashmere Release**
-
   - [Internal post](http://go.atlassian.com/cashmere-release)
 
   **Affected editor components:**
@@ -1904,19 +1899,16 @@ Bumped dependencies.
   tables, media, mobile, text color, emoji, copy/paste, analytics
 
   **Performance**
-
   - Async import for code blocks and task items on renderer
     - https://product-fabric.atlassian.net/browse/ED-7155
 
   **Table**
-
   - Add support to sort tables that contains smart links
     - https://product-fabric.atlassian.net/browse/ED-7449
   - Scale table when changing to full width mode
     - https://product-fabric.atlassian.net/browse/ED-7724
 
   **Text color**
-
   - Update text color toolbar with right color when text is inside a list, panel, etc.
     - https://product-fabric.atlassian.net/browse/FM-1752
 
@@ -2031,7 +2023,6 @@ https://product-fabric.atlassian.net/browse/FM-2393
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -2044,7 +2035,6 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 6.1.0
 
 - [minor][79f0ef0601](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/79f0ef0601):
-
   - Use strict tsconfig to compile editor packages
 
 ## 6.0.5
@@ -2057,41 +2047,34 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 6.0.4
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 - [patch][0ac39bd2dd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0ac39bd2dd):
-
   - Bump tslib to 1.9
 
 ## 6.0.3
 
 - [patch][97e555c168](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97e555c168):
-
   - Revert "[ED-5259 - ED-6200] adds defaultMarks on tableNode (pull request #5259)"
 
 ## 6.0.2
 
 - [patch][b425ea772b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b425ea772b):
-
   - Revert "ED-5505 add strong as default mark to table header (pull request #5291)"
 
 ## 6.0.1
 
 - [patch][499f9783d8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/499f9783d8):
-
   - [ED-5505] Fix forceContentValidation replacing valid entities to empty array
 
 ## 6.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 5.8.0
 
 - [minor][a7af8a8865](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a7af8a8865):
-
   - [ED-6325] Add forceContentValidation to array specs
 
 ## 5.7.2
@@ -2103,61 +2086,51 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 5.7.1
 
 - [patch][60ea09b0cc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/60ea09b0cc):
-
   - ED-6246 Improves types and adds more metadata to errors
 
 ## 5.7.0
 
 - [minor][4d8d759bf9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4d8d759bf9):
-
   - [ED-6255] Migrate ADFNode type to ADFEntity
 
 ## 5.6.3
 
 - [patch][e83a441140](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e83a441140):
-
   - Revert type change to width/height attributes for media node
 
 ## 5.6.2
 
 - [patch][09696170ec](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/09696170ec):
-
   - Bumps prosemirror-utils to 0.7.6
 
 ## 5.6.1
 
 - [patch][14fe1381ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/14fe1381ba):
-
   - ED-6118: ensure media dimensions are always integers, preventing invalid ADF
 
 ## 5.6.0
 
 - [minor][be706e55f6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/be706e55f6):
-
   - ED-6154 Adds `array` validation support
 
 ## 5.5.0
 
 - [minor][a5b5a5098e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a5b5a5098e):
-
   - Adds index to visitor
 
 ## 5.4.2
 
 - [patch][76ed7f0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76ed7f0):
-
   - Update Specs
 
 ## 5.4.1
 
 - [patch][57cffcb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/57cffcb):
-
   - Need tslib
 
 ## 5.4.0
 
 - [minor][1205725](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1205725):
-
   - Move schema to its own package
 
 ## 5.3.4
@@ -2168,7 +2141,6 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 5.3.3
 
 - [patch][34df084](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/34df084):
-
   - Fix layout schema and enable breakout layouts in renderer
 
 ## 5.3.2
@@ -2179,19 +2151,16 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 5.3.1
 
 - [patch][0a297ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a297ba):
-
   - Packages should not be shown in the navigation, search and overview
 
 ## 5.3.0
 
 - [minor][a1b03d0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a1b03d0):
-
   - ED-3890 Adds Indentation support on paragraphs and headings
 
 ## 5.2.0
 
 - [minor][94094fe](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/94094fe):
-
   - Adds support for links around images
 
 ## 5.1.9
@@ -2202,55 +2171,46 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 5.1.8
 
 - [patch][416fbb3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/416fbb3):
-
   - ED-3298: codeBlocks inside lists
 
 ## 5.1.7
 
 - [patch][409e610](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/409e610):
-
   - Fix schema block marks name inconsistency
 
 ## 5.1.6
 
 - [patch][df33a8b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/df33a8b):
-
   - Fix block marks validation
 
 ## 5.1.5
 
 - [patch][d3bb11f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d3bb11f):
-
   - Fixing validator for alignment marks
 
 ## 5.1.4
 
 - [patch][4e2a3b1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4e2a3b1):
-
   - Fixes validating marks with multiple possible branch
 
 ## 5.1.3
 
 - [patch][a1fb551](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a1fb551):
-
   - Fixed style attribute ADF error for Fabric Status
 
 ## 5.1.2
 
 - [patch][11d4b85](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/11d4b85):
-
   - ED-5606 Adds union attrs support to validator
 
 ## 5.1.1
 
 - [patch][b19b7bb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b19b7bb):
-
   - ED-5721 Validator now supports optional content
 
 ## 5.1.0
 
 - [minor][b440439](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b440439):
-
   - Add breakout mark to editor, renderer and adf-utils
 
 ## 5.0.1
@@ -2261,7 +2221,6 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 5.0.0
 
 - [major][e1db106](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e1db106):
-
   - New validator API
 
   ### Breaking Change
@@ -2301,29 +2260,24 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 4.1.0
 
 - [minor][4f5830f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4f5830f):
-
   - ED-4200: add page layout support to generator and ADF schema
 
 ## 4.0.4
 
 - [patch][e8052e1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e8052e1):
-
   - Add main field to adf-utils package.json
 
 ## 4.0.3
 
 - [patch][653b6a9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/653b6a9):
-
   - removed optional attributes from adf-builder module for status node
 
 - [patch][cd5471b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cd5471b):
-
   - added style attribute for Status node in ADF schema
 
 ## 4.0.2
 
 - [patch][6201223](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6201223" d):
-
   - Add examples.
 
 ## 4.0.1

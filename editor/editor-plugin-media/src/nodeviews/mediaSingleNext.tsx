@@ -46,7 +46,7 @@ import { insertAndSelectCaptionFromMediaSinglePos } from '../pm-plugins/commands
 import { isMediaBlobUrlFromAttrs } from '../pm-plugins/utils/media-common';
 import type { ForwardRef, MediaOptions } from '../types';
 import { CaptionPlaceholder, CaptionPlaceholderButton } from '../ui/CaptionPlaceholder';
-import { CommentBadge, CommentBadgeNextWrapper } from '../ui/CommentBadge';
+import { CommentBadgeWrapper } from '../ui/CommentBadge';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
 
@@ -491,17 +491,6 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 		return Boolean(result && !disabledNode);
 	}, [mediaOptions, pos, view, editorDisabled, editorViewMode]);
 
-	const badgeOffsetRight: undefined | '2px' | '14px' = React.useMemo(() => {
-		if (typeof pos !== 'number') {
-			return undefined;
-		}
-
-		const $pos = view.state.doc.resolve(pos);
-		const { table } = view.state.schema.nodes;
-		const foundTableNode = findParentNodeOfTypeClosestToPos($pos, [table]);
-		return foundTableNode ? '2px' : '14px';
-	}, [pos, view]);
-
 	const shouldShowPlaceholder = React.useMemo(() => {
 		const result =
 			mediaOptions.allowCaptions &&
@@ -608,46 +597,32 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 			className={MediaSingleNodeSelector}
 			onClick={onMediaSingleClicked}
 		>
-			{fg('platform_editor_add_media_from_url_rollout') && (
-				<MediaBadges
-					mediaElement={currentMediaElement()}
-					mediaHeight={height}
-					mediaWidth={width}
-					extendedResizeOffset={mediaOptions.allowPixelResizing && !isInsideTable}
-				>
-					{({ visible }: { visible: boolean }) => (
-						<>
-							{visible && (
-								<ExternalImageBadge
-									type={childMediaNodeAttrs.type}
-									url={
-										childMediaNodeAttrs.type === 'external' ? childMediaNodeAttrs.url : undefined
-									}
-								/>
-							)}
-							{mediaOptions.allowCommentsOnMedia && (
-								<CommentBadgeNextWrapper
-									view={view}
-									api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}
-									mediaNode={mediaNode?.firstChild}
-									getPos={getPos}
-									isDrafting={isCurrentNodeDrafting}
-								/>
-							)}
-						</>
-					)}
-				</MediaBadges>
-			)}
-			{!fg('platform_editor_add_media_from_url_rollout') && mediaOptions.allowCommentsOnMedia && (
-				<CommentBadge
-					view={view}
-					api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}
-					mediaNode={mediaNode?.firstChild}
-					badgeOffsetRight={badgeOffsetRight}
-					getPos={getPos}
-					isDrafting={isCurrentNodeDrafting}
-				/>
-			)}
+			<MediaBadges
+				mediaElement={currentMediaElement()}
+				mediaHeight={height}
+				mediaWidth={width}
+				extendedResizeOffset={mediaOptions.allowPixelResizing && !isInsideTable}
+			>
+				{({ visible }: { visible: boolean }) => (
+					<>
+						{visible && (
+							<ExternalImageBadge
+								type={childMediaNodeAttrs.type}
+								url={childMediaNodeAttrs.type === 'external' ? childMediaNodeAttrs.url : undefined}
+							/>
+						)}
+						{mediaOptions.allowCommentsOnMedia && (
+							<CommentBadgeWrapper
+								view={view}
+								api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}
+								mediaNode={mediaNode?.firstChild}
+								getPos={getPos}
+								isDrafting={isCurrentNodeDrafting}
+							/>
+						)}
+					</>
+				)}
+			</MediaBadges>
 			<div ref={forwardRef} />
 			{shouldShowPlaceholder &&
 				(fg('platform_editor_typography_ugc') ? (

@@ -132,6 +132,11 @@ export const messages = defineMessages({
 		defaultMessage: 'space',
 		description: 'Text for space type containers',
 	},
+	spaceContainerTextOverride: {
+		id: 'ptc-directory.team-profile-page.team-containers.space-container-text-override',
+		defaultMessage: 'Space',
+		description: 'Text for space type containers',
+	},
 	emptyLinkContainerDescription: {
 		id: 'platform.teams.containers.empty-link-description',
 		defaultMessage: 'Add any link',
@@ -177,6 +182,11 @@ const getJiraContainerProperties = ({
 		'isEnabled',
 		false,
 	);
+	const isTeamLensInHomeEnabled = FeatureGates.getExperimentValue(
+		'team_lens_in_atlassian_home',
+		'cohort',
+		'control',
+	);
 	const { subType, name } = containerTypeProperties || {};
 	const baseProperties = {
 		description: <FormattedMessage {...messages.jiraProjectDescription} />,
@@ -194,7 +204,9 @@ const getJiraContainerProperties = ({
 		) : (
 			<FormattedMessage {...messages.addJiraProjectTitle} />
 		),
-		containerTypeText: <FormattedMessage {...messages.projectContainerText} />,
+		containerTypeText: (newTeamProfilePage || isTeamLensInHomeEnabled) ?
+			<FormattedMessage {...messages.spaceContainerTextOverride} /> :
+			<FormattedMessage {...messages.projectContainerText} />,
 	};
 
 	switch (subType) {
@@ -274,6 +286,11 @@ export const getContainerProperties = ({
 		'isEnabled',
 		false,
 	);
+	const isTeamLensInHomeEnabled = FeatureGates.getExperimentValue(
+		'team_lens_in_atlassian_home',
+		'cohort',
+		'control',
+	);
 	switch (containerType) {
 		case 'ConfluenceSpace':
 			return {
@@ -292,7 +309,9 @@ export const getContainerProperties = ({
 				) : (
 					<FormattedMessage {...messages.addConfluenceContainerTitle} />
 				),
-				containerTypeText: <FormattedMessage {...messages.spaceContainerText} />,
+				containerTypeText: (newTeamProfilePage || isTeamLensInHomeEnabled) ?
+					<FormattedMessage {...messages.spaceContainerTextOverride} /> :
+					<FormattedMessage {...messages.spaceContainerText} />,
 			};
 		case 'LoomSpace':
 			return {
@@ -311,7 +330,9 @@ export const getContainerProperties = ({
 				) : (
 					<FormattedMessage {...messages.addLoomContainerTitle} />
 				),
-				containerTypeText: <FormattedMessage {...messages.spaceContainerText} />,
+				containerTypeText: (newTeamProfilePage || isTeamLensInHomeEnabled) ?
+					<FormattedMessage {...messages.spaceContainerTextOverride} /> :
+					<FormattedMessage {...messages.spaceContainerText} />,
 			};
 		case 'JiraProject':
 			return getJiraContainerProperties({

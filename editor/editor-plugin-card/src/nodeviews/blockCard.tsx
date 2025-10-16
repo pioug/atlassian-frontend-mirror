@@ -4,12 +4,13 @@ import rafSchedule from 'raf-schd';
 import uuid from 'uuid/v4';
 
 import { EditorCardProvider } from '@atlaskit/editor-card-provider';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import ReactNodeView, {
 	type getInlineNodeViewProducer,
 } from '@atlaskit/editor-common/react-node-view';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, UnsupportedBlock } from '@atlaskit/editor-common/ui';
-import { browser, canRenderDatasource } from '@atlaskit/editor-common/utils';
+import { canRenderDatasource } from '@atlaskit/editor-common/utils';
 import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -120,6 +121,9 @@ export class BlockCardComponent extends React.PureComponent<
 	}
 
 	gapCursorSpan = () => {
+		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+			? getBrowserInfo()
+			: browserLegacy;
 		// Don't render in EdgeHTMl version <= 18 (Edge version 44)
 		// as it forces the edit popup to render 24px lower than it should
 		if (browser.ie && browser.ie_version < 79) {

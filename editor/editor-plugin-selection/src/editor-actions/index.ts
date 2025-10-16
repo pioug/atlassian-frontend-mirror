@@ -3,7 +3,6 @@ import { nodeToJSON, type JSONNode } from '@atlaskit/editor-json-transformer';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionPlugin } from '../selectionPluginType';
 
@@ -59,10 +58,8 @@ export const getSliceFromSelection = (selection: Selection): Fragment => {
 				: $from.sharedDepth(to);
 		let finalDepth = depth;
 		// For block-level lists (non-nested) specifically use the selection
-		if (fg('platform_editor_expand_selection_context')) {
-			if (selectionCoversAllListItems($from, $to)) {
-				finalDepth = $from.depth - listDepth;
-			}
+		if (selectionCoversAllListItems($from, $to)) {
+			finalDepth = $from.depth - listDepth;
 		}
 		const start = $from.start(finalDepth);
 		const node = $from.node(finalDepth);

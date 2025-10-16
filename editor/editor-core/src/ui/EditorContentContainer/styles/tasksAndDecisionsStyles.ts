@@ -1,8 +1,13 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, type SerializedStyles } from '@emotion/react';
 
+import {
+	akEditorFullPageDefaultFontSize,
+	akEditorFullPageDenseFontSize,
+} from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
+import { EDITOR_LIST_DENSE_GAP } from './list';
 import {
 	blanketSelectionStyles,
 	boxShadowSelectionStyles,
@@ -17,6 +22,8 @@ const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 export const TaskDecisionSharedCssClassName = {
 	DECISION_CONTAINER: 'decisionItemView-content-wrap',
 	TASK_CONTAINER: 'taskItemView-content-wrap',
+	//NOTE: value is a selector (data attribute), not a class name
+	TASK_LIST_CONTAINER: '[data-node-type="actionList"]',
 	TASK_ITEM: 'task-item',
 	TASK_CHECKBOX_CONTAINER: 'task-item-checkbox-wrap',
 };
@@ -93,6 +100,42 @@ export const tasksAndDecisionsStyles: SerializedStyles = css({
 		},
 	},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+const TASKLIST_CONTAINER_MARGIN_DENSE = `max(0px, calc(10px + (var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (2 / 3)))`;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const getDenseTasksAndDecisionsStyles = (baseFontSize?: number): SerializedStyles => {
+	if (!baseFontSize || baseFontSize === akEditorFullPageDefaultFontSize) {
+		return css({});
+	}
+
+	return css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ProseMirror': {
+			// Task lists
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+			[TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER]: {
+				// Task lists: container top margin
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				marginTop: TASKLIST_CONTAINER_MARGIN_DENSE,
+			},
+
+			// Task lists: sibling items and nested lists
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+			[`${TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER} > * + *`]: {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				marginTop: EDITOR_LIST_DENSE_GAP,
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+			[`${TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER} ${TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER}, .${TaskDecisionSharedCssClassName.TASK_CONTAINER} .${TaskDecisionSharedCssClassName.TASK_CONTAINER}`]:
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					marginTop: EDITOR_LIST_DENSE_GAP,
+				},
+		},
+	});
+};
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const decisionStyles: SerializedStyles = css({

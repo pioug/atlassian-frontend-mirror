@@ -11,12 +11,10 @@ import {
 } from '@atlaskit/adf-schema';
 import { InlineCommentsStateContext } from '../../../ui/annotations/context';
 import { IntlProvider } from 'react-intl-next';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('@atlaskit/editor-common/media-single', () => ({
 	...jest.requireActual('@atlaskit/editor-common/media-single'),
-	CommentBadge: () => <span data-testid="comment-badge">Comment Component</span>,
-	CommentBadgeNext: () => <span data-testid="comment-badge-next">Comment Component</span>,
+	CommentBadgeNext: () => <span data-testid="comment-badge">Comment Component</span>,
 }));
 
 type Props = {
@@ -153,7 +151,7 @@ describe('MediaWithDraftAnnotation', () => {
 	});
 
 	describe('ExternalImageBadge', () => {
-		describe('should show ExternalImageBadge when node type is external', () => {
+		it('should show ExternalImageBadge when node type is external', () => {
 			const renderExternal = () =>
 				render(
 					<IntlProvider locale="en">
@@ -169,22 +167,12 @@ describe('MediaWithDraftAnnotation', () => {
 					</IntlProvider>,
 				);
 
-			ffTest(
-				'platform_editor_add_media_from_url_rollout',
-				() => {
-					renderExternal();
-					const externalImageBadge = screen.queryByTestId('external-image-badge');
-					expect(externalImageBadge).not.toBeNull();
-				},
-				() => {
-					renderExternal();
-					const externalImageBadge = screen.queryByTestId('external-image-badge');
-					expect(externalImageBadge).toBeNull();
-				},
-			);
+			renderExternal();
+			const externalImageBadge = screen.queryByTestId('external-image-badge');
+			expect(externalImageBadge).not.toBeNull();
 		});
 
-		describe('should not show ExternalImageBadge when node type is not external', () => {
+		it('should not show ExternalImageBadge when node type is not external', () => {
 			const renderFile = () =>
 				render(
 					<IntlProvider locale="en">
@@ -200,19 +188,9 @@ describe('MediaWithDraftAnnotation', () => {
 					</IntlProvider>,
 				);
 
-			ffTest(
-				'platform_editor_add_media_from_url_rollout',
-				() => {
-					renderFile();
-					const externalImageBadge = screen.queryByTestId('external-image-badge');
-					expect(externalImageBadge).toBeNull();
-				},
-				() => {
-					renderFile();
-					const externalImageBadge = screen.queryByTestId('external-image-badge');
-					expect(externalImageBadge).toBeNull();
-				},
-			);
+			renderFile();
+			const externalImageBadge = screen.queryByTestId('external-image-badge');
+			expect(externalImageBadge).toBeNull();
 		});
 	});
 });

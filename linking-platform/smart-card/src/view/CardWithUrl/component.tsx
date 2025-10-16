@@ -2,7 +2,6 @@ import React, { type MouseEvent, useCallback, useEffect, useMemo } from 'react';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
-import type { CardState } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -42,9 +41,6 @@ import { type CardWithUrlContentProps } from './types';
 
 const thirdPartyARIPrefix = 'ari:third-party';
 
-const isValidPlaceholderData = (placeholderData: CardState['details']) =>
-	placeholderData?.data && 'url' in placeholderData.data && 'name' in placeholderData.data;
-
 function Component({
 	id,
 	url,
@@ -73,18 +69,7 @@ function Component({
 	hideIconLoadingSkeleton,
 	disablePreviewPanel,
 	placeholderData,
-}: CardWithUrlContentProps & {
-	/**
-	 * @experimental
-	 * This is a new prop that is not part of the public API - DO NOT USE.
-	 * If provided, the card will display using the respective object for the first render (particularly useful for SSR),
-	 * while still resolving `url` in the background.
-	 * Placeholder data should be considered a transient state - in the sense that it will not persisted to the main store -
-	 * and it will be replaced by the actual data when the given `url` is resolved.
-	 * ANIP-288: Expose this prop to the public API
-	 */
-	placeholderData?: CardState['details'];
-}) {
+}: CardWithUrlContentProps) {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 	const { fireEvent } = useAnalyticsEvents();
 
@@ -305,24 +290,6 @@ function Component({
 		});
 	}, [id, appearance, definitionId, isFlexibleUi, fireEvent]);
 
-	const structuredPlaceholderData: CardState | undefined = fg(
-		'platform_initial_data_for_smart_cards',
-	)
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useMemo(() => {
-				// execute some basic validation logic to ensure we should consider using placeholder data
-				if (isFlexibleUi && isValidPlaceholderData(placeholderData)) {
-					const data: CardState = {
-						status: 'resolved',
-						metadataStatus: undefined,
-						details: placeholderData,
-					};
-
-					return data;
-				}
-			}, [isFlexibleUi, placeholderData])
-		: undefined;
-
 	if (isFlexibleUi) {
 		let cardState = state;
 		if (error) {
@@ -337,9 +304,7 @@ function Component({
 			<FlexibleCard
 				id={id}
 				cardState={cardState}
-				placeholderData={
-					fg('platform_initial_data_for_smart_cards') ? structuredPlaceholderData : undefined
-				}
+				placeholderData={fg('platform_initial_data_for_smart_cards') ? placeholderData : undefined}
 				onAuthorize={(services.length && handleAuthorize) || undefined}
 				onClick={handleClickWrapper}
 				origin="smartLinkCard"

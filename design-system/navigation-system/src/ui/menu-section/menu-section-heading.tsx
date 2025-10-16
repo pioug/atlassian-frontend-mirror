@@ -6,7 +6,6 @@ import { type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useMenuSectionContext } from './menu-section-context';
@@ -35,16 +34,11 @@ export const MenuSectionHeading = ({
 }): JSX.Element => {
 	const id = useMenuSectionContext();
 
-	return fg('platform_dst_nav4_menu_section_heading_a11y') ? (
+	return (
 		// Not using Text primitive so we can add padding styles without adding an extra wrapper element.
 		// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 		<p css={styles.root} id={`${id}-heading`}>
 			{children}
 		</p>
-	) : (
-		// eslint-disable-next-line @atlaskit/design-system/use-heading
-		<h2 css={styles.root} id={`${id}-heading`}>
-			{children}
-		</h2>
 	);
 };

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-annotation
 
+## 6.2.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.9
 
 ### Patch Changes
@@ -161,7 +172,6 @@
 
 - [`0d0fe7a300841`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d0fe7a300841) -
   Cleanup platform_editor_usesharedpluginstatewithselector experiment
-
   - BREAKING CHANGE: sharedPluginStateHookMigratorFactory is deleted from @atlaskit/editor-common
 
 - Updated dependencies
@@ -265,7 +275,6 @@
 
 - [`286abb4d35eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/286abb4d35eba) -
   [ux] [ED-28960] Finish full page primary toolbar migration
-
   - Align with design update (separator, gap, height, icon size)
   - Add keyboard shortcut to focus toolbar and arrow key navigation
   - Address accessibility
@@ -317,7 +326,6 @@
 
 - [`3145f278b1f7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3145f278b1f7a) -
   [ux] [ED-28473] minor UI updates for editor-toolbar
-
   - Use ADS ButtonGroup for ToolbarButtonGroup
   - Remove groupLocation prop and use CSS instead
   - Use DropdownItemGroup for ToolbarDropdownItemSection and expand props for section separator and
@@ -464,7 +472,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -1505,7 +1512,6 @@
   Split out side-effects from viewmode plugin to seperate plugin to reduce cyclical dependency risk
 
   # WHAT
-
   - Remove `createFilterStepsPlugin` from the editorViewMode Plugin and is implemented in
     editorViewModeEffects instead.
   - Remove `appendTransaction` from the editorViewMode plugin and add as a new PMPlugin in
@@ -1525,7 +1531,6 @@
 
   All incompatibilities should be addressed within this changeset, however for the sake of
   completeness:
-
   - `editor-plugin-editor-viewmode-effects` must be added to any preset that relies on the viewmode
     filter steps plugin for viewmode annotations. Currently this seems to only be the confluence
     editor itself.
@@ -1884,7 +1889,6 @@
   [ux] - Add decoration to media node when there is active draft comment associated, update plugin
   state mapping so that create view component is removed when there's node changes invalidating the
   decoration
-
   - Save featureFlags plugin state as one of the annotation plugin state
 
 ## 1.2.2

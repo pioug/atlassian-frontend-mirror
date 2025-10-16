@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { extractSmartLinkPreviewImage } from '../../../extractors/flexible/extract-preview';
@@ -19,7 +20,7 @@ const ImagePreview = ({ fallbackElementHeight, response }: ImagePreviewProps) =>
 			setDynamicStyles({
 				borderTopLeftRadius: token('radius.large'),
 				borderTopRightRadius: token('radius.large'),
-				marginBottom: token('space.100'),
+				...(fg('navx-1910-fix-hovercard-performance-metrics') ? {} : { marginBottom: token('space.100') }),
 				...(previewHeight ? { height: `${previewHeight}px` } : {}),
 			});
 		}

@@ -1,5 +1,16 @@
 # @atlaskit/email-renderer
 
+## 9.11.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.10.0
 
 ### Minor Changes
@@ -220,7 +231,6 @@
   Removed duplicated re-exports
 
   The following types are exported from `@atlaskit/email-renderer/interfaces`:
-
   - Attrs
   - EmailSerializerOpts
   - MarkSerializer
@@ -850,16 +860,13 @@
   @atlaskit/adf-schema to their own entry points. These new entry points are as follows
 
   @atlaskit/adf-schema/schema-bitbucket for:
-
   - bitbucketSchema
 
   @atlaskit/adf-schema/schema-confluence for:
-
   - confluenceSchema
   - confluenceSchemaWithMediaSingle
 
   @atlaskit/adf-schema/schema-jira for:
-
   - default as createJIRASchema
   - isSchemaWithLists
   - isSchemaWithMentions
@@ -874,7 +881,6 @@
   - isSchemaWithTables
 
   @atlaskit/adf-schema/schema-default for:
-
   - defaultSchema
   - getSchemaBasedOnStage
   - defaultSchemaConfig
@@ -917,7 +923,6 @@
 
 - [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) -
   ED-11632: Bump prosemirror packages;
-
   - prosmirror-commands 1.1.4 -> 1.1.11,
   - prosemirror-model 1.11.0 -> 1.14.3,
   - prosemirror-state 1.3.3 -> 1.3.4,
@@ -1140,7 +1145,6 @@
 
   Fix non breaking space in email rendering- Updated dependencies
   [92d04b5c28](https://bitbucket.org/atlassian/atlassian-frontend/commits/92d04b5c28):
-
   - @atlaskit/adf-schema@9.0.1
 
 ## 4.2.1
@@ -1241,7 +1245,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/adf-schema@6.1.1
   - @atlaskit/util-data-test@13.1.1

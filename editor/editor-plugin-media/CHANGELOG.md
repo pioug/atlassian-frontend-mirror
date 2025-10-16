@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-media
 
+## 8.2.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- [`2bdec5e9ec1c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bdec5e9ec1c9) -
+  [EDITOR-442] Cleans up FG platform_editor_add_media_from_url_rollout
+- Updated dependencies
+
 ## 8.1.5
 
 ### Patch Changes

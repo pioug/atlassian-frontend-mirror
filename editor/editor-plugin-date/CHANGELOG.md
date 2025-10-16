@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-date
 
+## 8.1.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.3
 
 ### Patch Changes

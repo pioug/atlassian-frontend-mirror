@@ -3,7 +3,6 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import useResolve from '../../../state/hooks/use-resolve';
 import { mocks } from '../../../utils/mocks';
@@ -179,117 +178,58 @@ describe('EmbedCard Views', () => {
 			expect(view).toHaveCompiledCss('overflow-x', 'auto');
 			expect(view).toHaveCompiledCss('overflow-y', 'auto');
 		});
-		ffTest.on('ptc-enable-embed-team-smart-links', 'useEmbedResolvePostMessageListener', () => {
-			it('should force resolve when "force-resolve-smart-link" message is posted from the same iframe', () => {
-				const mockResolve = jest.fn();
-				(useResolve as jest.Mock).mockImplementation(() => mockResolve);
+		it('should force resolve when "force-resolve-smart-link" message is posted from the same iframe', () => {
+			const mockResolve = jest.fn();
+			(useResolve as jest.Mock).mockImplementation(() => mockResolve);
 
-				const props = getResolvedProps();
-				const ref = React.createRef<HTMLIFrameElement>();
-				render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />);
+			const props = getResolvedProps();
+			const ref = React.createRef<HTMLIFrameElement>();
+			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />);
 
-				const iframeEl = ref.current;
-				fireEvent(
-					window,
-					new MessageEvent('message', {
-						data: 'force-resolve-smart-link',
-						source: iframeEl?.contentWindow,
-					}),
-				);
+			const iframeEl = ref.current;
+			fireEvent(
+				window,
+				new MessageEvent('message', {
+					data: 'force-resolve-smart-link',
+					source: iframeEl?.contentWindow,
+				}),
+			);
 
-				expect(mockResolve).toHaveBeenCalledWith(props.link, true);
-			});
-			it('should not force resolve when a random message is posted', () => {
-				const mockResolve = jest.fn();
-				(useResolve as jest.Mock).mockImplementation(() => mockResolve);
-
-				const props = getResolvedProps();
-				const ref = React.createRef<HTMLIFrameElement>();
-				render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />);
-				const iframeEl = ref.current;
-				fireEvent(
-					window,
-					new MessageEvent('message', {
-						data: 'some-other-message',
-						source: iframeEl?.contentWindow,
-					}),
-				);
-				expect(mockResolve).not.toHaveBeenCalled();
-			});
-			it('should not force resolve when the iframe is not the same as the one that posted the message', () => {
-				const mockResolve = jest.fn();
-				(useResolve as jest.Mock).mockImplementation(() => mockResolve);
-
-				const props = getResolvedProps();
-				const ref = React.createRef<HTMLIFrameElement>();
-				const differentRef = React.createRef<HTMLIFrameElement>();
-				render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />);
-				fireEvent(
-					window,
-					new MessageEvent('message', {
-						data: 'force-resolve-smart-link',
-						source: differentRef.current?.contentWindow,
-					}),
-				);
-				expect(mockResolve).not.toHaveBeenCalled();
-			});
+			expect(mockResolve).toHaveBeenCalledWith(props.link, true);
 		});
-		ffTest.off('ptc-enable-embed-team-smart-links', 'useEmbedResolvePostMessageListener', () => {
-			it('should not force resolve when "force-resolve-smart-link" message is posted from the same iframe', () => {
-				const mockResolve = jest.fn();
-				(useResolve as jest.Mock).mockImplementation(() => mockResolve);
+		it('should not force resolve when a random message is posted', () => {
+			const mockResolve = jest.fn();
+			(useResolve as jest.Mock).mockImplementation(() => mockResolve);
 
-				const props = getResolvedProps();
-				const ref = React.createRef<HTMLIFrameElement>();
-				render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />);
+			const props = getResolvedProps();
+			const ref = React.createRef<HTMLIFrameElement>();
+			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />);
+			const iframeEl = ref.current;
+			fireEvent(
+				window,
+				new MessageEvent('message', {
+					data: 'some-other-message',
+					source: iframeEl?.contentWindow,
+				}),
+			);
+			expect(mockResolve).not.toHaveBeenCalled();
+		});
+		it('should not force resolve when the iframe is not the same as the one that posted the message', () => {
+			const mockResolve = jest.fn();
+			(useResolve as jest.Mock).mockImplementation(() => mockResolve);
 
-				const iframeEl = ref.current;
-				fireEvent(
-					window,
-					new MessageEvent('message', {
-						data: 'force-resolve-smart-link',
-						source: iframeEl?.contentWindow,
-					}),
-				);
-
-				expect(mockResolve).not.toHaveBeenCalled();
-			});
-			it('should not force resolve with a random message', () => {
-				const mockResolve = jest.fn();
-				(useResolve as jest.Mock).mockImplementation(() => mockResolve);
-
-				const props = getResolvedProps();
-				const ref = React.createRef<HTMLIFrameElement>();
-				render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />);
-
-				const iframeEl = ref.current;
-				fireEvent(
-					window,
-					new MessageEvent('message', {
-						data: 'some-other-message',
-						source: iframeEl?.contentWindow,
-					}),
-				);
-
-				expect(mockResolve).not.toHaveBeenCalled();
-			});
-			it('should not force resolve when the iframe is not the same as the one that posted the message', () => {
-				const mockResolve = jest.fn();
-				(useResolve as jest.Mock).mockImplementation(() => mockResolve);
-
-				const props = getResolvedProps();
-				const ref = React.createRef<HTMLIFrameElement>();
-				const differentRef = React.createRef<HTMLIFrameElement>();
-				render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />);
-				fireEvent(
-					window,
-					new MessageEvent('message', {
-						data: 'force-resolve-smart-link',
-						source: differentRef.current?.contentWindow,
-					}),
-				);
-				expect(mockResolve).not.toHaveBeenCalled();
-			});
+			const props = getResolvedProps();
+			const ref = React.createRef<HTMLIFrameElement>();
+			const differentRef = React.createRef<HTMLIFrameElement>();
+			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />);
+			fireEvent(
+				window,
+				new MessageEvent('message', {
+					data: 'force-resolve-smart-link',
+					source: differentRef.current?.contentWindow,
+				}),
+			);
+			expect(mockResolve).not.toHaveBeenCalled();
 		});
 	});
 

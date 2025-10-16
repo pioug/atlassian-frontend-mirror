@@ -61,50 +61,40 @@ import { getPosWhenMoveNodeDown, getPosWhenMoveNodeUp } from './utils/move-node-
 function transformSourceSlice(nodeCopy: Slice, destType: NodeType): Slice | null {
 	const srcNode = nodeCopy.content.firstChild;
 	const schema = srcNode?.type.schema;
-	if (fg('platform_editor_elements_dnd_multi_select_patch_1')) {
-		if (!schema) {
-			return nodeCopy;
+	if (!schema) {
+		return nodeCopy;
+	}
+
+	const { doc, layoutColumn } = schema.nodes;
+	const destTypeInTable = isInsideTable(destType);
+	const destTypeInDocOrLayoutCol = [doc, layoutColumn].includes(destType);
+
+	// No need to loop over slice content if destination requires no transformations
+	if (!destTypeInTable && !destTypeInDocOrLayoutCol) {
+		return nodeCopy;
+	}
+
+	let containsExpand = false;
+	let containsNestedExpand = false;
+
+	for (let i = 0; i < nodeCopy.content.childCount; i++) {
+		const node = nodeCopy.content.child(i);
+		if (node.type === schema.nodes.expand) {
+			containsExpand = true;
+		} else if (node.type === schema.nodes.nestedExpand) {
+			containsNestedExpand = true;
 		}
-
-		const { doc, layoutColumn } = schema.nodes;
-		const destTypeInTable = isInsideTable(destType);
-		const destTypeInDocOrLayoutCol = [doc, layoutColumn].includes(destType);
-
-		// No need to loop over slice content if destination requires no transformations
-		if (!destTypeInTable && !destTypeInDocOrLayoutCol) {
-			return nodeCopy;
-		}
-
-		let containsExpand = false;
-		let containsNestedExpand = false;
-
-		for (let i = 0; i < nodeCopy.content.childCount; i++) {
-			const node = nodeCopy.content.child(i);
-			if (node.type === schema.nodes.expand) {
-				containsExpand = true;
-			} else if (node.type === schema.nodes.nestedExpand) {
-				containsNestedExpand = true;
-			}
-			if (containsExpand && containsNestedExpand) {
-				break;
-			}
-		}
-
-		if (containsExpand && destTypeInTable) {
-			return transformSliceExpandToNestedExpand(nodeCopy);
-		} else if (containsNestedExpand && destTypeInDocOrLayoutCol) {
-			return transformSliceNestedExpandToExpand(nodeCopy, schema);
-		}
-	} else {
-		if (srcNode && schema) {
-			const { doc, layoutColumn } = schema.nodes;
-			if (srcNode.type === schema.nodes.nestedExpand && [doc, layoutColumn].includes(destType)) {
-				return transformSliceNestedExpandToExpand(nodeCopy, schema);
-			} else if (srcNode.type === schema.nodes.expand && isInsideTable(destType)) {
-				return transformSliceExpandToNestedExpand(nodeCopy);
-			}
+		if (containsExpand && containsNestedExpand) {
+			break;
 		}
 	}
+
+	if (containsExpand && destTypeInTable) {
+		return transformSliceExpandToNestedExpand(nodeCopy);
+	} else if (containsNestedExpand && destTypeInDocOrLayoutCol) {
+		return transformSliceNestedExpandToExpand(nodeCopy, schema);
+	}
+
 	return nodeCopy;
 }
 
@@ -190,7 +180,7 @@ export const moveNodeViaShortcut = (
 		let hoistedPos;
 		const from = Math.min(expandedAnchor, expandedHead);
 		// Nodes like lists nest within themselves, we need to find the top most position
-		if (isParentNodeOfTypeLayout && fg('platform_editor_elements_dnd_multi_select_patch_1')) {
+		if (isParentNodeOfTypeLayout) {
 			const LAYOUT_COL_DEPTH = 3;
 			hoistedPos = state.doc.resolve(from).before(LAYOUT_COL_DEPTH);
 		}
@@ -351,18 +341,7 @@ export const moveNodeViaShortcut = (
 			);
 			if (shouldMoveNode) {
 				api?.core?.actions.execute(({ tr }) => {
-					if (fg('platform_editor_elements_dnd_multi_select_patch_1')) {
-						api?.blockControls.commands.setMultiSelectPositions(
-							$newAnchor.pos,
-							$newHead.pos,
-						)({ tr });
-					} else {
-						api?.blockControls.commands.setMultiSelectPositions(
-							expandedAnchor,
-							expandedHead,
-						)({ tr });
-					}
-
+					api?.blockControls.commands.setMultiSelectPositions($newAnchor.pos, $newHead.pos)({ tr });
 					moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.SHORTCUT, formatMessage)({ tr });
 					tr.scrollIntoView();
 					return tr;
@@ -378,18 +357,7 @@ export const moveNodeViaShortcut = (
 				return true;
 			} else if (isMultiSelectEnabled) {
 				api?.core?.actions.execute(({ tr }) => {
-					if (fg('platform_editor_elements_dnd_multi_select_patch_1')) {
-						api?.blockControls.commands.setMultiSelectPositions(
-							$newAnchor.pos,
-							$newHead.pos,
-						)({ tr });
-					} else {
-						api?.blockControls.commands.setMultiSelectPositions(
-							expandedAnchor,
-							expandedHead,
-						)({ tr });
-					}
-
+					api?.blockControls.commands.setMultiSelectPositions($newAnchor.pos, $newHead.pos)({ tr });
 					tr.scrollIntoView();
 					return tr;
 				});

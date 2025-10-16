@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-table
 
+## 15.2.1
+
+### Patch Changes
+
+- [`668649eea2f53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/668649eea2f53) -
+  [ux] EDITOR-2261 Toggles number column numbering sizing to match editor contentMode
+- Updated dependencies
+
+## 15.2.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- [`fbecd9bc5082c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fbecd9bc5082c) -
+  fix a bug that caused column not resized in non-resizable table
+- Updated dependencies
+
 ## 15.1.4
 
 ### Patch Changes

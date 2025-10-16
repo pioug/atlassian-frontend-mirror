@@ -1,5 +1,18 @@
 # @atlaskit/dropdown-menu
 
+## 16.3.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.3.16
+
+### Patch Changes
+
+- [`1ef4259cba0f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ef4259cba0f0) -
+  Fixing typescript issues
+
 ## 16.3.15
 
 ### Patch Changes

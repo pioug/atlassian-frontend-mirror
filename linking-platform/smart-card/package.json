@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.1.10",
+	"version": "43.2.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -226,9 +226,6 @@
 		"platform_smartlink_3pclick_analytics": {
 			"type": "boolean"
 		},
-		"ptc-enable-embed-team-smart-links": {
-			"type": "boolean"
-		},
 		"platform_deprecate_lp_cc_embed": {
 			"type": "boolean"
 		},
@@ -245,6 +242,9 @@
 			"type": "boolean"
 		},
 		"jfp-magma-platform-lozenge-jump-fix": {
+			"type": "boolean"
+		},
+		"navx-1910-fix-hovercard-performance-metrics": {
 			"type": "boolean"
 		}
 	},

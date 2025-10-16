@@ -1148,6 +1148,7 @@ describe('Media', () => {
 						allowAltTextOnImages={false}
 						isDrafting={false}
 						featureFlags={undefined}
+						mediaSingleElement={document.createElement('div')}
 					/>,
 				);
 				expect(result.container.querySelector('#foo')).toBeInTheDocument();
@@ -1167,6 +1168,7 @@ describe('Media', () => {
 						allowAltTextOnImages={false}
 						isDrafting={true}
 						featureFlags={undefined}
+						mediaSingleElement={document.createElement('div')}
 					/>,
 				);
 				expect(result.container.querySelector('#foo')).not.toBeInTheDocument();

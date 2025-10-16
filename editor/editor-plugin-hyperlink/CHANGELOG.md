@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 8.1.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.9
 
 ### Patch Changes
@@ -223,7 +234,6 @@
 
 - [`286abb4d35eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/286abb4d35eba) -
   [ux] [ED-28960] Finish full page primary toolbar migration
-
   - Align with design update (separator, gap, height, icon size)
   - Add keyboard shortcut to focus toolbar and arrow key navigation
   - Address accessibility
@@ -268,7 +278,6 @@
 
 - [`3145f278b1f7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3145f278b1f7a) -
   [ux] [ED-28473] minor UI updates for editor-toolbar
-
   - Use ADS ButtonGroup for ToolbarButtonGroup
   - Remove groupLocation prop and use CSS instead
   - Use DropdownItemGroup for ToolbarDropdownItemSection and expand props for section separator and
@@ -410,7 +419,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -2131,7 +2139,6 @@
 
   These are no longer available via `@atlaskit/prosemirror-input-rules` but are available from
   `@atlaskit/editor-common/types`:
-
   - InputRuleWrapper
   - InputRuleHandler
   - OnHandlerApply
@@ -2141,7 +2148,6 @@
   need to instantiate a `SafePlugin` (ie. `new SafePlugin(createPlugin( ... ))`).
 
   `SafePlugin` exists in `@atlaskit/editor-common/safe-plugin`.
-
   - createPlugin
   - createInputRulePlugin
 
@@ -2302,7 +2308,6 @@
 - [#43646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43646)
   [`d43f8e9402f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d43f8e9402f) - Make
   feature flags plugin optional in all plugins including:
-
   - analytics
   - base
   - card
@@ -2561,7 +2566,6 @@
 - [#37010](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37010)
   [`8e084d87da5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e084d87da5) - Remove
   deprecated hyperlink commands and plugin key including:
-
   - isTextAtPos
   - isLinkAtPos
   - insertLink

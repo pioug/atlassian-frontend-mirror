@@ -1,5 +1,7 @@
 import { type EventHandler, type KeyboardEvent, type MouseEvent } from 'react';
 
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
+
 import type {
 	CardActionOptions,
 	CardAppearance,
@@ -33,6 +35,7 @@ export type CardWithUrlContentProps = {
 	onError?: OnErrorCallback;
 	onResolve?: OnResolveCallback;
 	placeholder?: string;
+	placeholderData?: SmartLinkResponse;
 	platform?: CardPlatform;
 	removeTextHighlightingFromTitle?: boolean;
 	resolvingPlaceholder?: string;

@@ -1,6 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, type SerializedStyles } from '@emotion/react';
 
+import {
+	akEditorFullPageDefaultFontSize,
+	akEditorFullPageDenseFontSize,
+} from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 // copied from packages/editor/editor-shared-styles/src/consts/consts.ts
@@ -165,3 +169,29 @@ export const listsStylesSafariFix: SerializedStyles = css({
 			marginTop: `-${akEditorLineHeight}em !important`,
 		},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+export const EDITOR_LIST_DENSE_GAP = `max(0px, calc((var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (4 / 3)))`;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const getDenseListStyles = (baseFontSize?: number): SerializedStyles => {
+	if (!baseFontSize || baseFontSize === akEditorFullPageDefaultFontSize) {
+		return css({});
+	}
+
+	return css({
+		/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors */
+		'.ProseMirror': {
+			// Adjacent list items
+			'li + li': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				marginTop: EDITOR_LIST_DENSE_GAP,
+			},
+			// Nested lists directly under an li (unordered and ordered)
+			'li > ul, li > ol, .ak-ul li > ul, .ak-ul li > ol, .ak-ol li > ul, .ak-ol li > ol': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				marginTop: EDITOR_LIST_DENSE_GAP,
+			},
+		},
+	});
+};

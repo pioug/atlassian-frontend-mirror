@@ -1,6 +1,6 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	EditorCommand,
@@ -13,6 +13,7 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockTypePlugin } from '../blockTypePluginType';
 
@@ -212,6 +213,10 @@ export const createPlugin = (
 					// Check for numpad keys if not found in digits row
 					headingLevel = HEADING_NUMPAD_KEYS.indexOf(event.keyCode);
 				}
+
+				const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+					? getBrowserInfo()
+					: browserLegacy;
 
 				if (headingLevel > -1 && event.altKey) {
 					if (browser.mac && event.metaKey) {

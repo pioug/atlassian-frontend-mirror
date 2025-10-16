@@ -11,7 +11,4 @@ const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 
 snapshot(MenuSectionExample, {
 	variants: lightModeVariant,
-	featureFlags: {
-		platform_dst_nav4_menu_section_heading_a11y: true,
-	},
 });

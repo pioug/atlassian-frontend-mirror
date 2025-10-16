@@ -40,3 +40,5 @@ export { AVP_CONTEXT, AVPAnalyticsContext } from './AVPAnalyticsContext';
 export { GROWTH_CONTEXT, GrowthAnalyticsContext } from './GrowthAnalyticsContext';
 
 export { OMNI_CHANNEL_CONTEXT, OmniChannelAnalyticsContext } from './OmniChannelAnalyticsContext';
+
+export { ROVO_EXTENSION_CONTEXT, RovoExtensionAnalyticsContext } from './RovoExtensionAnalyticsContext';

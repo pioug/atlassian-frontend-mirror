@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 7.0.14
+
+### Patch Changes
+
+- [`2bdec5e9ec1c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bdec5e9ec1c9) -
+  [EDITOR-442] Cleans up FG platform_editor_add_media_from_url_rollout
+- Updated dependencies
+
 ## 7.0.13
 
 ### Patch Changes

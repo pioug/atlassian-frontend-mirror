@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-rule
 
+## 6.1.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes
@@ -119,7 +130,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -690,7 +700,6 @@
 
   These are no longer available via `@atlaskit/prosemirror-input-rules` but are available from
   `@atlaskit/editor-common/types`:
-
   - InputRuleWrapper
   - InputRuleHandler
   - OnHandlerApply
@@ -700,7 +709,6 @@
   need to instantiate a `SafePlugin` (ie. `new SafePlugin(createPlugin( ... ))`).
 
   `SafePlugin` exists in `@atlaskit/editor-common/safe-plugin`.
-
   - createPlugin
   - createInputRulePlugin
 
@@ -717,7 +725,6 @@
   ## WHAT?:
 
   Removing feature flags:
-
   - singleLayout
   - newInsertionBehaviour
   - interactiveExpand
@@ -731,7 +738,6 @@
   maintenance burden
 
   ## HOW to update your code:
-
   - If you were using the feature flag - the behaviour is now default and you can remove the flags
   - If you were not using the feature flag - the behaviour is now default.
   - If you have opted out of using the feature flag - we have been careful to ensure no-one has
@@ -846,7 +852,6 @@
 - [#43646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43646)
   [`d43f8e9402f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d43f8e9402f) - Make
   feature flags plugin optional in all plugins including:
-
   - analytics
   - base
   - card

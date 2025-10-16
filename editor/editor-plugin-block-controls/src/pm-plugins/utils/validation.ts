@@ -217,8 +217,7 @@ export function canMoveSliceToIndex(
 
 	// Multiple layout columns do not drop correctly.
 	if (
-		slice.content.firstChild?.type.name === 'layoutColumn' &&
-		fg('platform_editor_elements_dnd_multi_select_patch_1')
+		slice.content.firstChild?.type.name === 'layoutColumn'
 	) {
 		return false;
 	}

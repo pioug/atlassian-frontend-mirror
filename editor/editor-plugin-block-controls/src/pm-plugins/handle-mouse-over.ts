@@ -51,7 +51,7 @@ const getNodeSelector = (ignoreNodes: string[], ignoreNodeDescendants: string[])
 const getDefaultNodeSelector = memoizeOne(() => {
 	// we don't show handler for node nested in table
 	return getNodeSelector(
-		[...IGNORE_NODES_NEXT],
+		[...IGNORE_NODES_NEXT, 'media'],
 		[...IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT, 'table'],
 	);
 });
@@ -72,7 +72,7 @@ export const handleMouseOver = (
 	};
 
 	// We shouldn't be firing mouse over transactions when the editor is disabled
-	if (editorDisabled && fg('platform_editor_ai_rovo_free_gen')) {
+	if (editorDisabled && fg('aifc_create_enabled')) {
 		return false;
 	}
 
@@ -85,15 +85,18 @@ export const handleMouseOver = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const target = event.target as HTMLElement;
+	const isNativeAnchorSupported = expValEquals(
+		'platform_editor_native_anchor_support',
+		'isEnabled',
+		true,
+	);
 
 	if (target?.classList?.contains('ProseMirror')) {
 		return false;
 	}
 
 	let rootElement = target?.closest(
-		expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
-			? getDefaultNodeSelector()
-			: `[data-drag-handler-anchor-name]`,
+		isNativeAnchorSupported ? getDefaultNodeSelector() : `[data-drag-handler-anchor-name]`,
 	);
 
 	if (rootElement) {
@@ -104,7 +107,8 @@ export const handleMouseOver = (
 
 		if (
 			rootElement.getAttribute(getTypeNameAttrName()) === 'media' &&
-			editorExperiment('advanced_layouts', true)
+			editorExperiment('advanced_layouts', true) &&
+			!isNativeAnchorSupported
 		) {
 			rootElement = rootElement.closest(
 				`[${getAnchorAttrName()}][${getTypeNameAttrName()}="mediaSingle"]`,
@@ -116,11 +120,7 @@ export const handleMouseOver = (
 		}
 
 		const parentElement = rootElement.parentElement?.closest(`[${getAnchorAttrName()}]`);
-		const parentElementType = expValEquals(
-			'platform_editor_native_anchor_support',
-			'isEnabled',
-			true,
-		)
+		const parentElementType = isNativeAnchorSupported
 			? getTypeNameFromDom(parentElement)
 			: parentElement?.getAttribute('data-drag-handler-node-type');
 
@@ -132,11 +132,7 @@ export const handleMouseOver = (
 				const grandparentElement = parentElement?.parentElement?.closest(
 					`[${getAnchorAttrName()}]`,
 				);
-				const grandparentElementType = expValEquals(
-					'platform_editor_native_anchor_support',
-					'isEnabled',
-					true,
-				)
+				const grandparentElementType = isNativeAnchorSupported
 					? getTypeNameFromDom(grandparentElement)
 					: grandparentElement?.getAttribute('data-drag-handler-node-type');
 
@@ -221,14 +217,14 @@ export const handleMouseOver = (
 				const rootDOM = view.nodeDOM(rootPos);
 				if (rootDOM instanceof HTMLElement) {
 					rootAnchorName = rootDOM.getAttribute(getAnchorAttrName()) ?? undefined;
-					rootNodeType = expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+					rootNodeType = isNativeAnchorSupported
 						? getTypeNameFromDom(rootDOM)
 						: rootDOM.getAttribute('data-drag-handler-node-type');
 				}
 			}
 		}
 
-		const nodeType = expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+		const nodeType = isNativeAnchorSupported
 			? getTypeNameFromDom(rootElement)
 			: rootElement.getAttribute('data-drag-handler-node-type');
 

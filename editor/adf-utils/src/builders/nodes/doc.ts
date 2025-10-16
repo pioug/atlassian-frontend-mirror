@@ -4,11 +4,16 @@ import type {
 	LayoutSectionDefinition,
 	MultiBodiedExtensionDefinition,
 	SyncBlockDefinition,
+	BodiedSyncBlockDefinition,
 } from '@atlaskit/adf-schema';
 
 export const doc = (
 	...content: Array<
-		BlockContent | LayoutSectionDefinition | MultiBodiedExtensionDefinition | SyncBlockDefinition
+		| BlockContent
+		| LayoutSectionDefinition
+		| MultiBodiedExtensionDefinition
+		| SyncBlockDefinition
+		| BodiedSyncBlockDefinition
 	>
 ): DocNode => ({
 	type: 'doc',

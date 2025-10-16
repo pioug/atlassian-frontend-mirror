@@ -152,6 +152,30 @@ export const relativeFontSizeToBase16 = (px: number | string) => {
 	return `${px / 16}rem`;
 };
 
+/**
+ * Converts a numeric value to a CSS calc expression that scales proportionally
+ * with the editor's base font size CSS variable.
+ *
+ * This function creates a responsive sizing calculation that maintains proportional
+ * scaling when the editor's base font size changes from the default 16px.
+ *
+ * @param value - The numeric value to scale (typically in pixels)
+ * @returns A CSS calc() expression string that scales the value relative to
+ *          the --ak-editor-base-font-size CSS variable
+ *
+ * @example
+ * ```typescript
+ * // Returns: "calc(24 * var(--ak-editor-base-font-size) / 16)"
+ * const scaledSize = relativeSizeToBaseFontSize(24);
+ *
+ * // If --ak-editor-base-font-size is 16px, result is 24px
+ * // If --ak-editor-base-font-size is 14px, result is 21px (24 * 14/16)
+ * ```
+ */
+export const relativeSizeToBaseFontSize = (value: number) => {
+	return `calc(${value} * var(--ak-editor-base-font-size) / ${akEditorFullPageDefaultFontSize})`;
+};
+
 export const VIEWPORT_SIZES = {
 	laptopHiDPI: { width: 1440, height: 900 },
 	laptopMDPI: { width: 1280, height: 800 },

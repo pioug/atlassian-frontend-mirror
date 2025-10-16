@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.13.1
+
+### Patch Changes
+
+- [`03153a278b044`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03153a278b044) -
+  Add new mentions detection logic
+
 ## 13.13.0
 
 ### Minor Changes

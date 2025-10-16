@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block",
-	"version": "8.0.14",
+	"version": "8.1.1",
 	"description": "Code block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

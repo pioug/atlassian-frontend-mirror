@@ -37,6 +37,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorTableToolbarSize,
 	akEditorFullPageNarrowBreakout,
+	akEditorFullPageDefaultFontSize,
 } from '@atlaskit/editor-shared-styles/consts';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
@@ -190,6 +191,16 @@ const dragHandleButtonStyles = css({
 	'&:hover:disabled': {
 		backgroundColor: token('color.background.disabled', 'transparent'),
 	},
+});
+
+// Calculate scaled dimensions based on the base font size using CSS calc()
+// Default font size is 16px, scale proportionally
+// Standard: 16px -> 24h x 12w, Dense: 13px -> 18h x 9w
+const dragHandleButtonDenseModeStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	height: `calc(${DRAG_HANDLE_HEIGHT}px * var(--ak-editor-base-font-size) / ${akEditorFullPageDefaultFontSize}px)`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	width: `calc(${DRAG_HANDLE_WIDTH}px * var(--ak-editor-base-font-size) / ${akEditorFullPageDefaultFontSize}px)`,
 });
 
 const dragHandleButtonSmallScreenStyles = css({
@@ -658,19 +669,12 @@ export const DragHandle = ({
 						if (typeof handlePos !== 'number') {
 							return tr;
 						}
-						const oldHandlePosCheck =
-							handlePos >= tr.selection.$from.start() - 1 && handlePos <= tr.selection.to;
 						const newHandlePosCheck = isHandleCorrelatedToSelection(
 							view.state,
 							tr.selection,
 							handlePos,
 						);
-						if (
-							!tr.selection.empty &&
-							(fg('platform_editor_elements_dnd_multi_select_patch_1')
-								? newHandlePosCheck
-								: oldHandlePosCheck)
-						) {
+						if (!tr.selection.empty && newHandlePosCheck) {
 							api?.blockControls?.commands.setMultiSelectPositions()({ tr });
 						} else if (fg('platform_editor_elements_dnd_select_node_on_drag')) {
 							tr = selectNode(tr, handlePos, nodeType);
@@ -897,11 +901,11 @@ export const DragHandle = ({
 				top:
 					editorExperiment('advanced_layouts', true) && isLayoutColumn
 						? `calc(anchor(${safeAnchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
-						: `calc(anchor(${safeAnchorName} start) + ${
+						: `calc(anchor(${safeAnchorName} start)+ ${topPositionAdjustment(
 								expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
 									? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
-									: nodeType
-							}px)`,
+									: nodeType,
+							)}px)`,
 
 				...bottom,
 			};
@@ -1296,6 +1300,9 @@ export const DragHandle = ({
 				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
 					? focusedStyles
 					: focusedStylesOld,
+				expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+					fg('platform_editor_content_mode_button_mvp') &&
+					dragHandleButtonDenseModeStyles,
 			]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

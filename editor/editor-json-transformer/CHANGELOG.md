@@ -1,5 +1,16 @@
 # @atlaskit/editor-json-transformer
 
+## 8.31.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.30.0
 
 ### Minor Changes
@@ -899,16 +910,13 @@
   @atlaskit/adf-schema to their own entry points. These new entry points are as follows
 
   @atlaskit/adf-schema/schema-bitbucket for:
-
   - bitbucketSchema
 
   @atlaskit/adf-schema/schema-confluence for:
-
   - confluenceSchema
   - confluenceSchemaWithMediaSingle
 
   @atlaskit/adf-schema/schema-jira for:
-
   - default as createJIRASchema
   - isSchemaWithLists
   - isSchemaWithMentions
@@ -923,7 +931,6 @@
   - isSchemaWithTables
 
   @atlaskit/adf-schema/schema-default for:
-
   - defaultSchema
   - getSchemaBasedOnStage
   - defaultSchemaConfig
@@ -973,7 +980,6 @@
 
 - [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) -
   ED-11632: Bump prosemirror packages;
-
   - prosmirror-commands 1.1.4 -> 1.1.11,
   - prosemirror-model 1.11.0 -> 1.14.3,
   - prosemirror-state 1.3.3 -> 1.3.4,
@@ -1664,7 +1670,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/adf-schema@6.1.1
   - @atlaskit/editor-bitbucket-transformer@6.2.15
@@ -2199,7 +2204,6 @@ Bumped dependencies.
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -2220,7 +2224,6 @@ Bumped dependencies.
 ## 6.1.0
 
 - [minor][79f0ef0601](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/79f0ef0601):
-
   - Use strict tsconfig to compile editor packages
 
 ## 6.0.2
@@ -2240,7 +2243,6 @@ Bumped dependencies.
 ## 6.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -2274,13 +2276,11 @@ Bumped dependencies.
 ## 5.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 5.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 4.3.5
@@ -2327,13 +2327,11 @@ Bumped dependencies.
 ## 4.3.0
 
 - [minor][1eb20bca95](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1eb20bca95):
-
   - ED-6368: No implicit any for editor-\*-transformer packages
 
 ## 4.2.0
 
 - [minor][7697e275b0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7697e275b0):
-
   - Expose the possibility of encoding a single node
 
 ## 4.1.12
@@ -2364,7 +2362,6 @@ Bumped dependencies.
 ## 4.1.9
 
 - [patch][557a2b5734](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/557a2b5734):
-
   - ED-5788: bump prosemirror-view and prosemirror-model
 
 ## 4.1.8
@@ -2435,7 +2432,6 @@ Bumped dependencies.
 ## 4.1.0
 
 - [minor][1205725](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1205725):
-
   - Move schema to its own package
 
 ## 4.0.25

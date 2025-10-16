@@ -40,21 +40,6 @@ export const getPageARIFromResourceId = (resourceId: string) => {
 export const getContentPropertyAri = (contentPropertyId: string, cloudId: string) =>
 	`ari:cloud:confluence:${cloudId}:content/${contentPropertyId}`;
 
-/**
- * DEPRECATED - Will be removed in the future
- * @private
- * @deprecated
- * @param ari
- * @returns
- */
-export const getContentPropertyIdFromAri = (ari: string) => {
-	const match = ari.match(/ari:cloud:confluence:[^:]+:content\/([^/]+)/);
-	if (match) {
-		return match[1];
-	}
-	throw new Error(`Invalid content property ARI: ${ari}`);
-};
-
 export const resourceIdFromSourceAndLocalId = (sourceId: string, localId: string): string => {
 	return sourceId + '/' + localId;
 };

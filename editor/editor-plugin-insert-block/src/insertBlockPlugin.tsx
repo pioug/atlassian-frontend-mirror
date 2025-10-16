@@ -382,13 +382,9 @@ function ToolbarInsertBlockWithInjectionApi({
 			return;
 		}
 
-		if (fg('platform_editor_add_media_from_url_rollout')) {
-			pluginInjectionApi?.core?.actions.execute(
-				pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(mountInfo),
-			);
-		} else {
-			showMediaPicker();
-		}
+		pluginInjectionApi?.core?.actions.execute(
+			pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(mountInfo),
+		);
 	};
 
 	return (

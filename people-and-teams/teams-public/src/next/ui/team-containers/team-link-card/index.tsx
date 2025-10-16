@@ -9,6 +9,7 @@ import { token } from '@atlaskit/tokens';
 
 import { type ContainerSubTypes, type ContainerTypes } from '../../../../common/types';
 import { ContainerIcon } from '../../../../common/ui/container-icon';
+import { Separator } from '../../../../common/ui/separator';
 import { TeamLinkCardActions } from '../../../../common/ui/team-link-card-actions';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../../common/utils/analytics';
 import { getContainerProperties } from '../../../../common/utils/get-container-properties';
@@ -191,12 +192,19 @@ export const TeamLinkCard = ({
 						</Text>
 						<Flex gap="space.050" alignItems="center">
 							<Inline space="space.050">
-								<Text size="small" color="color.text.subtle">
-									{description}
-								</Text>
-								<Text size="small" color="color.text.subtle">
-									{containerTypeText}
-								</Text>
+								{containerTypeText && (
+									<Text size="small" color="color.text.subtle">
+										{containerTypeText}
+									</Text>
+								)}
+								{containerTypeText && description && <Separator />}
+								{
+									description && (
+										<Text size="small" color="color.text.subtle">
+											{description}
+										</Text>
+									)
+								}
 							</Inline>
 						</Flex>
 					</Stack>

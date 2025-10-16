@@ -1,7 +1,6 @@
 import type { ResolvedPos, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { GapCursorSelection } from './gap-cursor/selection';
 
@@ -113,30 +112,15 @@ export const expandSelectionBounds = (
 		$to.before(toDepth - 1) !== $from.before(fromDepth - 1);
 
 	if (toDepth > fromDepth) {
-		if (fg('platform_editor_elements_dnd_multi_select_patch_1')) {
-			selectionStart = $from.before(sharedDepth);
-			selectionEnd = $to.after(sharedDepth);
-		} else {
-			selectionStart = fromDepth ? $from.before() : $from.pos;
-			selectionEnd = fromDepth ? $to.after(fromDepth) : $to.after(1);
-		}
+		selectionStart = $from.before(sharedDepth);
+		selectionEnd = $to.after(sharedDepth);
 	} else if (toDepth < fromDepth) {
-		if (fg('platform_editor_elements_dnd_multi_select_patch_1')) {
-			selectionStart = $from.before(sharedDepth);
-			selectionEnd = $to.after(sharedDepth);
-		} else {
-			selectionStart = toDepth ? $from.before(toDepth) : $from.before(1);
-			selectionEnd = toDepth ? $to.after() : $to.pos;
-		}
+		selectionStart = $from.before(sharedDepth);
+		selectionEnd = $to.after(sharedDepth);
 	} else if (selectionIsAcrossDiffParents || selectionIsAcrossTextBlocksWithDiffParents) {
 		// when selection from/to share same depth with different parents, hoist up the selection to the parent of the highest depth in the selection
-		if (fg('platform_editor_elements_dnd_multi_select_patch_1')) {
-			selectionStart = $from.before(sharedDepth);
-			selectionEnd = $to.after(sharedDepth);
-		} else {
-			selectionStart = $from.before(fromDepth - 1);
-			selectionEnd = $to.after(toDepth - 1);
-		}
+		selectionStart = $from.before(sharedDepth);
+		selectionEnd = $to.after(sharedDepth);
 	} else if (!$from.node().inlineContent) {
 		// when selection might be a Node selection, return what was passed in
 		return { $anchor, $head };

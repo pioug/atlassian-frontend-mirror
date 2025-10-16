@@ -72,3 +72,4 @@ export { text } from './builders/nodes/text';
 export { embedCard } from './builders/nodes/embed-card';
 export { blockTaskItem } from './builders/nodes/block-task-item';
 export { syncBlock } from './builders/nodes/sync-block';
+export { bodiedSyncBlock } from './builders/nodes/bodied-sync-block';

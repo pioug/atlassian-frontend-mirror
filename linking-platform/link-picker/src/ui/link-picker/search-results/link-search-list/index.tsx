@@ -7,7 +7,9 @@ import { forwardRef, Fragment, type KeyboardEvent, useCallback, useRef } from 'r
 import { css, cssMap, jsx } from '@compiled/react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
+import { cx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -24,6 +26,14 @@ const styles = cssMap({
 	emptyStateNoResultsWrapper: {
 		minHeight: token('space.200'),
 	},
+	baseListTitleStyles: {
+		font: token('font.body.small'),
+		fontWeight: token('font.weight.bold'),
+		marginBottom: token('space.050', '4px'),
+	},
+	newListTitleStyles: {
+		color: token('color.text.subtle'),
+	}
 });
 
 const listContainerStyles = css({
@@ -226,13 +236,24 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 		if (items && items.length > 0) {
 			itemsContent = (
 				<Fragment>
-					<div
-						css={[baseListTitleStyles, newListTitleStyles]}
-						id={testIds.resultListTitle}
-						data-testid={testIds.resultListTitle}
-					>
-						<FormattedMessage {...linkListTitle} />
-					</div>
+					{fg('navx-2134-fix-a11y-link-picker-headings') ? (
+						<Box
+							as="h2"
+							xcss={cx(styles.baseListTitleStyles, styles.newListTitleStyles)}
+							id={testIds.resultListTitle}
+							testId={testIds.resultListTitle}
+						>
+							<FormattedMessage {...linkListTitle} />
+						</Box>
+					) : (
+						<div
+							css={[baseListTitleStyles, newListTitleStyles]}
+							id={testIds.resultListTitle}
+							data-testid={testIds.resultListTitle}
+						>
+							<FormattedMessage {...linkListTitle} />
+						</div>
+					)}
 					<VisuallyHidden id="fabric.smartcard.linkpicker.suggested.results">
 						{hasSearchTerm && (
 							<FormattedMessage

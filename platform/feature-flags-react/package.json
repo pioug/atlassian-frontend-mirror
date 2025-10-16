@@ -87,7 +87,7 @@
 		}
 	},
 	"name": "@atlaskit/platform-feature-flags-react",
-	"version": "0.3.4",
+	"version": "0.3.5",
 	"description": "utility library for working with feature flags in react",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

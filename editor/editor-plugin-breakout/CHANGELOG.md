@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-breakout
 
+## 6.1.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- [`3430ee4d120bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3430ee4d120bd) -
+  upgrade use of browser util
+- Updated dependencies
+
 ## 6.0.3
 
 ### Patch Changes

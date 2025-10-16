@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 14.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.2
 
 ### Patch Changes

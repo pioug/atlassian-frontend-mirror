@@ -882,6 +882,24 @@ export const getValidNode = (
 					return getValidUnknownNode(node);
 				}
 			}
+			case 'bodiedSyncBlock': {
+				if (
+					adfStage === 'stage0' &&
+					attrs &&
+					Array.isArray(content) &&
+					content.length > 0 &&
+					expValEquals('platform_synced_block', 'isEnabled', true)
+				) {
+					return {
+						type,
+						attrs,
+						marks,
+						content,
+					};
+				} else {
+					return getValidUnknownNode(node);
+				}
+			}
 		}
 	}
 

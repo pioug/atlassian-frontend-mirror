@@ -24,6 +24,9 @@ const DummyOmniChannelCompWithAnalytics = createComponentWithAnalytics(FabricCha
 const DummyTownsquareHomeCompWithAnalytics = createComponentWithAnalytics(
 	FabricChannel.townsquareHome,
 );
+const DummyRovoExtensionCompWithAnalytics = createComponentWithAnalytics(
+	FabricChannel.rovoExtension,
+);
 
 describe('<FabricAnalyticsListeners />', () => {
 	let analyticsWebClientMock: AnalyticsWebClient;
@@ -702,6 +705,42 @@ describe('<FabricAnalyticsListeners />', () => {
 			);
 
 			const dummyComponent = screen.getByRole('button', { name: 'townsquareHome' });
+			expect(dummyComponent).toBeInTheDocument();
+
+			await fireEvent.click(dummyComponent);
+
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+		});
+	});
+
+	describe('<RovoExtensionAnalyticsListener />', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
+			const compOnClick = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={analyticsWebClientMock}>
+					<DummyRovoExtensionCompWithAnalytics onClick={compOnClick} />
+				</FabricAnalyticsListeners>,
+			);
+
+			const dummyComponent = screen.getByRole('button', { name: 'rovoExtension' });
+			expect(dummyComponent).toBeInTheDocument();
+
+			await fireEvent.click(dummyComponent);
+
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+		});
+
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
+
+			const compOnClick = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
+					<DummyRovoExtensionCompWithAnalytics onClick={compOnClick} />
+				</FabricAnalyticsListeners>,
+			);
+
+			const dummyComponent = screen.getByRole('button', { name: 'rovoExtension' });
 			expect(dummyComponent).toBeInTheDocument();
 
 			await fireEvent.click(dummyComponent);

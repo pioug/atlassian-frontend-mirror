@@ -1,4 +1,4 @@
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { bindKeymapWithCommand, moveDown, moveUp } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Command, FeatureFlags } from '@atlaskit/editor-common/types';
@@ -7,6 +7,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findChildren, flatten } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const lookupPixel = 10;
 
@@ -70,7 +71,9 @@ const selectAboveBelowInlineCard = (direction: Direction): Command => {
 
 export function cardKeymap(featureFlags: FeatureFlags): SafePlugin {
 	const list = {};
-
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
 	// https://bugs.chromium.org/p/chromium/issues/detail?id=1227468 introduced since Chrome 91
 	if (browser.chrome && browser.chrome_version > 90) {
 		// Ignored via go/ees005

@@ -247,7 +247,9 @@ export const createDeletedContentDecoration = ({
 					} else {
 						// Fallback to serializing the individual child node
 						const serializedChild = serializer.serializeNode(childNode);
-						dom.append(serializedChild);
+						if (serializedChild) {
+							dom.append(serializedChild);
+						}
 					}
 				});
 				return true; // Indicates we handled multiple children
@@ -261,7 +263,7 @@ export const createDeletedContentDecoration = ({
 		const hasInlineContent = node.content.childCount > 0 && node.type.inlineContent === true;
 
 		let targetNode: PMNode;
-		let fallbackSerialization: () => Node;
+		let fallbackSerialization: () => Node | null;
 
 		if ((isFirst || (isLast && slice.content.childCount > 2)) && hasInlineContent) {
 			if (handleMultipleChildNodes(node)) {
@@ -315,7 +317,10 @@ export const createDeletedContentDecoration = ({
 			// Skip the case where the node is a paragraph or table row that way it can still be rendered and delete the entire table
 			return;
 		} else {
-			dom.append(fallbackSerialization());
+			const fallbackNode = fallbackSerialization();
+			if (fallbackNode) {
+				dom.append(fallbackNode);
+			}
 		}
 	});
 

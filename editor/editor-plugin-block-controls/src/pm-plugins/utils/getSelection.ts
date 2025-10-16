@@ -9,7 +9,6 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -91,7 +90,7 @@ const oldGetSelection = (tr: Transaction, start: number) => {
 		nodeName === 'mediaGroup'
 	) {
 		return new NodeSelection($startPos);
-	} else if (nodeName === 'taskList' && fg('platform_editor_elements_dnd_multi_select_patch_1')) {
+	} else if (nodeName === 'taskList') {
 		return TextSelection.create(tr.doc, start, start + nodeSize);
 	} else {
 		const { inlineNodePos, inlineNodeEndPos } = getInlineNodePos(tr, start, nodeSize);
@@ -161,8 +160,7 @@ const newGetSelection = (tr: Transaction, start: number) => {
 
 	if (
 		nodeName === 'taskList' &&
-		!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-		fg('platform_editor_elements_dnd_multi_select_patch_1')
+		!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 	) {
 		return TextSelection.create(tr.doc, start, start + nodeSize);
 	}
@@ -244,44 +242,25 @@ export const isHandleCorrelatedToSelection = (
 	}
 	let nodeStart: number;
 	const $selectionFrom = selection.$from;
-	if (fg('platform_editor_elements_dnd_multi_select_patch_1')) {
-		nodeStart = $selectionFrom.before($selectionFrom.sharedDepth(selection.to) + 1);
+	nodeStart = $selectionFrom.before($selectionFrom.sharedDepth(selection.to) + 1);
 
-		if (nodeStart === $selectionFrom.pos) {
-			nodeStart = $selectionFrom.depth ? $selectionFrom.before() : $selectionFrom.pos;
-		}
+	if (nodeStart === $selectionFrom.pos) {
+		nodeStart = $selectionFrom.depth ? $selectionFrom.before() : $selectionFrom.pos;
+	}
 
-		const $resolvedNodePos = state.doc.resolve(nodeStart);
+	const $resolvedNodePos = state.doc.resolve(nodeStart);
 
-		if (['tableRow', 'tableCell', 'tableHeader'].includes($resolvedNodePos.node().type.name)) {
-			const parentNodeFindRes = findParentNodeOfType(state.schema.nodes['table'])(selection);
-			const tablePos = parentNodeFindRes?.pos;
-			nodeStart = typeof tablePos === 'undefined' ? nodeStart : tablePos;
-		} else if (['listItem'].includes($resolvedNodePos.node().type.name)) {
-			nodeStart = $resolvedNodePos.before(rootListDepth($resolvedNodePos));
-		} else if (['taskList'].includes($resolvedNodePos.node().type.name)) {
-			const listdepth = rootTaskListDepth($resolvedNodePos);
-			nodeStart = $resolvedNodePos.before(listdepth);
-		} else if (['blockquote'].includes($resolvedNodePos.node().type.name)) {
-			nodeStart = $resolvedNodePos.before();
-		}
-	} else {
-		const selectionFrom = $selectionFrom.pos;
-		nodeStart = $selectionFrom.depth ? $selectionFrom.before() : selectionFrom;
-		const $resolvedNodePos = state.doc.resolve(nodeStart);
-
-		if (['tableRow', 'tableCell', 'tableHeader'].includes($resolvedNodePos.node().type.name)) {
-			const parentNodeFindRes = findParentNodeOfType(state.schema.nodes['table'])(selection);
-			const tablePos = parentNodeFindRes?.pos;
-			nodeStart = typeof tablePos === 'undefined' ? nodeStart : tablePos;
-		} else if (['listItem'].includes($resolvedNodePos.node().type.name)) {
-			nodeStart = $resolvedNodePos.before(rootListDepth($resolvedNodePos));
-		} else if (['taskList'].includes($resolvedNodePos.node().type.name)) {
-			const listdepth = rootTaskListDepth($resolvedNodePos);
-			nodeStart = $resolvedNodePos.before(listdepth);
-		} else if (['blockquote'].includes($resolvedNodePos.node().type.name)) {
-			nodeStart = $resolvedNodePos.before();
-		}
+	if (['tableRow', 'tableCell', 'tableHeader'].includes($resolvedNodePos.node().type.name)) {
+		const parentNodeFindRes = findParentNodeOfType(state.schema.nodes['table'])(selection);
+		const tablePos = parentNodeFindRes?.pos;
+		nodeStart = typeof tablePos === 'undefined' ? nodeStart : tablePos;
+	} else if (['listItem'].includes($resolvedNodePos.node().type.name)) {
+		nodeStart = $resolvedNodePos.before(rootListDepth($resolvedNodePos));
+	} else if (['taskList'].includes($resolvedNodePos.node().type.name)) {
+		const listdepth = rootTaskListDepth($resolvedNodePos);
+		nodeStart = $resolvedNodePos.before(listdepth);
+	} else if (['blockquote'].includes($resolvedNodePos.node().type.name)) {
+		nodeStart = $resolvedNodePos.before();
 	}
 
 	return Boolean(handlePos < selection.$to.pos && handlePos >= nodeStart);

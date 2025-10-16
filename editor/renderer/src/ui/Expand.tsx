@@ -272,6 +272,7 @@ function Expand({
 }: ExpandProps & WrappedComponentProps) {
 	const [expanded, setExpanded] = React.useState(false);
 	const [focused, setFocused] = React.useState(false);
+	const [hasLoadedChildren, setHasLoadedChildren] = React.useState(false);
 
 	const isMobile = false;
 	const label = intl.formatMessage(
@@ -300,7 +301,12 @@ function Expand({
 			{nestedHeaderIds && nestedHeaderIds.length > 0 ? (
 				<ActiveHeaderIdConsumer
 					nestedHeaderIds={nestedHeaderIds}
-					onNestedHeaderIdMatch={() => setExpanded(true)}
+					onNestedHeaderIdMatch={() => {
+						if (!hasLoadedChildren) {
+							setHasLoadedChildren(true);
+						}
+						setExpanded(true);
+					}}
 				/>
 			) : null}
 			<TitleContainer
@@ -308,6 +314,12 @@ function Expand({
 					e.preventDefault();
 					e.stopPropagation();
 					fireExpandToggleAnalytics(nodeType, expanded, fireAnalyticsEvent);
+					
+					// Mark children as loaded when expanding for the first time
+					if (!expanded && !hasLoadedChildren) {
+						setHasLoadedChildren(true);
+					}
+					
 					setExpanded(!expanded);
 					e.persist();
 					// @ts-ignore detail doesn't exist on type
@@ -357,7 +369,7 @@ function Expand({
 					<WidthProvider>
 						<div css={clearNextSiblingMarginTopStyle} />
 						{fg('hot-121622_lazy_load_expand_content') ? (
-							expanded ? (
+							hasLoadedChildren ? (
 								<Suspense fallback={<div>Loading...</div>}>
 									<LazyChildren>{children}</LazyChildren>
 								</Suspense>

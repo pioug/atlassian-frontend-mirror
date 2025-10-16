@@ -13,11 +13,9 @@ export const unsupportedBlockAdf: DocNode = {
 			},
 			content: [
 				{
-					// @ts-expect-error
 					type: 'paragraph',
 					content: [
 						{
-							// @ts-expect-error
 							type: 'text',
 							text: 'text in panel',
 						},

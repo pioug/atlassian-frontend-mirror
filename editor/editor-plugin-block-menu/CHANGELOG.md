@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 4.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.24
 
 ### Patch Changes

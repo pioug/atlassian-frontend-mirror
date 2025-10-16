@@ -43,7 +43,9 @@ snapshot(HoverCardWithEntities, {
 			},
 		},
 	],
-	featureFlags: {},
+	featureFlags: {
+		'navx-1910-fix-hovercard-performance-metrics': true
+	},
 });
 
 snapshot(HoverCardActions, {

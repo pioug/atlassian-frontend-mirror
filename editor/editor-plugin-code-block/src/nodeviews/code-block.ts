@@ -1,4 +1,4 @@
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { codeBlockWrappedStates, defaultWordWrapState } from '@atlaskit/editor-common/code-block';
 import type {
 	ExtractInjectionAPI,
@@ -9,6 +9,7 @@ import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { CodeBlockPlugin } from '../codeBlockPluginType';
 import { resetShouldIgnoreFollowingMutations } from '../editor-commands';
@@ -206,6 +207,10 @@ export class CodeBlockView {
 			this.node = node;
 
 			this.maintainDynamicGutterSize();
+
+			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+				? getBrowserInfo()
+				: browserLegacy;
 
 			if (browser.android) {
 				this.coalesceDOMElements();

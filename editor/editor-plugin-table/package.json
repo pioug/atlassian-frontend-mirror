@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "15.1.4",
+	"version": "15.2.1",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -160,6 +160,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_fix_confirm_table_removal": {
+			"type": "boolean"
+		},
+		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		}
 	}

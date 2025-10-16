@@ -50,7 +50,6 @@ import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-deci
 import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
 import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-lists-indentation';
 import { ufoPlugin } from '@atlaskit/editor-plugins/ufo';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -251,10 +250,7 @@ export default function createUniversalPresetInternal({
 			],
 			Boolean(props.media),
 		)
-		.maybeAdd(
-			mediaInsertPlugin,
-			Boolean(props.media && fg('platform_editor_add_media_from_url_rollout')),
-		)
+		.maybeAdd(mediaInsertPlugin, Boolean(props.media))
 		.maybeAdd(captionPlugin, Boolean(props.media?.allowCaptions))
 		.maybeAdd(
 			[

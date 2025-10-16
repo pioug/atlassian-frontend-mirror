@@ -10,6 +10,8 @@ import type { CodeBlockButtonContainerProps } from './codeBlockButtonContainer';
 import { N20 } from '@atlaskit/theme/colors';
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import CodeBlockButtonContainer from './codeBlockButtonContainer';
@@ -73,6 +75,16 @@ const codeBlockStyleOverrides = css({
 	},
 });
 
+const denseModeOverrides = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`${CodeBlockSharedCssClassName.DS_CODEBLOCK}`]: {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		fontSize: '0.875em',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: '1.5em',
+	},
+});
+
 interface ContainerProps extends CodeBlockButtonContainerProps {
 	children: ReactNode;
 	className?: string;
@@ -94,7 +106,12 @@ const CodeBlockContainer = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			data-local-id={localId}
-			css={codeBlockStyleOverrides}
+			css={[
+				codeBlockStyleOverrides,
+				expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+					fg('platform_editor_content_mode_button_mvp') &&
+					denseModeOverrides,
+			]}
 		>
 			<CodeBlockButtonContainer
 				allowCopyToClipboard={allowCopyToClipboard}

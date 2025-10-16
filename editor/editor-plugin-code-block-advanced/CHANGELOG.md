@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 6.2.1
+
+### Patch Changes
+
+- [`2a658b46713fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a658b46713fb) -
+  upgrade use of browser util
+- Updated dependencies
+
+## 6.2.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- [`685d27211d400`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/685d27211d400) -
+  [ux] Adjust codeblock font size relative to parent
+- Updated dependencies
+
 ## 6.1.2
 
 ### Patch Changes

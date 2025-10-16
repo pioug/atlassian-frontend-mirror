@@ -49,14 +49,15 @@ export function BreakoutSSRInlineScript({ noOpSSRInlineScript }: { noOpSSRInline
 }
 
 export function createBreakoutInlineScript(id: number, shouldSkipScript: { table: boolean }) {
-	return `
-	 (function(window){
-		if(typeof window !== 'undefined' && window.__RENDERER_BYPASS_BREAKOUT_SSR__) {
-			return;
-		}
-    ${breakoutInlineScriptContext};
-    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${JSON.stringify(shouldSkipScript)});
-  })(window);
+	const flags = {
+		platform_editor_fix_image_size_diff_during_ssr: fg('platform_editor_fix_image_size_diff_during_ssr'),
+		platform_editor_fix_media_in_renderer: fg('platform_editor_fix_media_in_renderer')
+	 };
+	return `(function(window){
+if(typeof window !== 'undefined' && window.__RENDERER_BYPASS_BREAKOUT_SSR__) { return; }
+${breakoutInlineScriptContext};
+(${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${JSON.stringify(shouldSkipScript)}, ${JSON.stringify(flags)});
+})(window);
 `;
 }
 
@@ -70,12 +71,19 @@ export const breakoutInlineScriptContext = `
   breakoutConsts.FullPagePadding = ${FullPagePadding.toString()};
 `;
 
+/**
+ * WARNING: NO EXTERNAL FUNCTION CALL IN THIS FUNCTION
+ * This function will be put to DOM as an inline script.
+ * It can not have any external function dependency.
+ * All required data must be passed in as serializable parameters.
+ */
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function applyBreakoutAfterSSR(
 	id: string,
 	breakoutConsts: BreakoutConstsType,
 	shouldSkipBreakoutScript: { table: boolean },
+	flags: Record<string, boolean>,
 ) {
 	const MEDIA_NODE_TYPE = 'mediaSingle';
 	const WIDE_LAYOUT_MODES = ['full-width', 'wide', 'custom'];
@@ -133,8 +141,8 @@ function applyBreakoutAfterSSR(
 						// skip apply width styling to mediaSingle node with pixel width to avoid image size changing
 						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 						(isMediaSingleWithPixelWidth &&
-							fg('platform_editor_fix_image_size_diff_during_ssr') &&
-							fg('platform_editor_fix_media_in_renderer'))
+							flags['platform_editor_fix_image_size_diff_during_ssr'] &&
+							flags['platform_editor_fix_media_in_renderer'])
 					) {
 						return;
 					}

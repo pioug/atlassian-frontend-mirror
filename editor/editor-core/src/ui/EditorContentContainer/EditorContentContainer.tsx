@@ -96,7 +96,7 @@ import {
 	layoutStylesForView,
 } from './styles/layout';
 import { hyperLinkFloatingToolbarStyles, linkLegacyIconStylesFix, linkStyles } from './styles/link';
-import { listsStyles, listsStylesSafariFix } from './styles/list';
+import { getDenseListStyles, listsStyles, listsStylesSafariFix } from './styles/list';
 import {
 	mediaAlignmentStyles,
 	mediaCaptionStyles,
@@ -182,6 +182,7 @@ import {
 	taskItemStyles,
 	taskItemStylesWithBlockTaskItem,
 	decisionDangerStyles,
+	getDenseTasksAndDecisionsStyles,
 } from './styles/tasksAndDecisionsStyles';
 import { telepointerColorAndCommonStyle, telepointerStyle } from './styles/telepointerStyles';
 import { textColorStyles } from './styles/textColorStyles';
@@ -358,6 +359,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						textHighlightPaddingStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					listsStyles,
+					// Condense vertical spacing between list items when content mode dense is active
+					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+						fg('platform_editor_content_mode_button_mvp') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						getDenseListStyles(baseFontSize),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					ruleStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -390,6 +396,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					mentionsStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					tasksAndDecisionsStyles,
+					// condense vertical spacing between tasks/decisions items when content mode dense is active
+					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+						fg('platform_editor_content_mode_button_mvp') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						getDenseTasksAndDecisionsStyles(baseFontSize),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					gridStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

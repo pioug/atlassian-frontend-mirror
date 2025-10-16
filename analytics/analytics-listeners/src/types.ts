@@ -32,4 +32,5 @@ export enum FabricChannel {
 	growth = 'growth',
 	omniChannel = 'omniChannel',
 	townsquareHome = 'townsquareHome',
+	rovoExtension = 'rovoExtension',
 }

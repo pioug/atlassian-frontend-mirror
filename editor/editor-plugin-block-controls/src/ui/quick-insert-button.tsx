@@ -18,10 +18,13 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import AddIcon from '@atlaskit/icon/core/add';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Pressable, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -38,7 +41,9 @@ import { getLeftPositionForRootElement } from '../pm-plugins/utils/widget-positi
 
 import {
 	QUICK_INSERT_DIMENSIONS,
+	QUICK_INSERT_HEIGHT,
 	QUICK_INSERT_LEFT_OFFSET,
+	QUICK_INSERT_WIDTH,
 	rootElementGap,
 	topPositionAdjustment,
 } from './consts';
@@ -82,6 +87,16 @@ const stickyButtonStyles = xcss({
 	':focus': {
 		outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
 	},
+});
+
+// Calculate scaled dimensions based on the base font size using CSS calc()
+// Default font size is 16px, scale proportionally
+// Standard: 16px -> 24px x 24px, Dense: 13px -> ~18.5px x ~18.5px
+const stickyButtonDenseModeStyles = xcss({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	height: `calc(${QUICK_INSERT_HEIGHT}px * var(--ak-editor-base-font-size) / ${akEditorFullPageDefaultFontSize}px)`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	width: `calc(${QUICK_INSERT_WIDTH}px * var(--ak-editor-base-font-size) / ${akEditorFullPageDefaultFontSize}px)`,
 });
 
 const containerStaticStyles = xcss({
@@ -354,7 +369,12 @@ export const TypeAheadControl = ({
 				testId="editor-quick-insert-button"
 				type="button"
 				aria-label={formatMessage(messages.insert)}
-				xcss={[stickyButtonStyles]}
+				xcss={[
+					stickyButtonStyles,
+					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+						fg('platform_editor_content_mode_button_mvp') &&
+						stickyButtonDenseModeStyles,
+				]}
 				onClick={handleQuickInsert}
 				onMouseDown={handleMouseDown}
 			>

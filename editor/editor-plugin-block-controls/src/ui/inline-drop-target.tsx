@@ -126,7 +126,7 @@ export const InlineDropTarget = ({
 
 	const anchorName = useMemo(() => {
 		if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
-			return nextNode ? api?.core.actions.getAnchorIdForNode(nextNode, getPos() || -1) || '' : '';
+			return nextNode ? api?.core.actions.getAnchorIdForNode(nextNode, getPos() ?? -1) || '' : '';
 		}
 
 		return nextNode ? getNodeAnchor(nextNode) : '';

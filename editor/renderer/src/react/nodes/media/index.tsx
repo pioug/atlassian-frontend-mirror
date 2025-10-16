@@ -35,19 +35,15 @@ import {
 	EVENT_TYPE,
 	VIEW_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { MODE, PLATFORM } from '../../../analytics/events';
 import AnnotationComponent from '../../marks/annotation';
-import type { CommentBadgeProps } from '@atlaskit/editor-common/media-single';
 import {
-	CommentBadge as CommentBadgeComponent,
 	CommentBadgeNext,
 	ExternalImageBadge,
 	MediaBadges,
 } from '@atlaskit/editor-common/media-single';
-import { injectIntl } from 'react-intl-next';
 import { useInlineCommentsFilter } from '../../../ui/annotations/hooks/use-inline-comments-filter';
 import { useInlineCommentSubscriberContext } from '../../../ui/annotations/hooks/use-inline-comment-subscriber';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
@@ -217,102 +213,18 @@ const MediaAnnotations = ({
 	);
 };
 
-const CommentBadge = injectIntl(CommentBadgeComponent);
+type CommentBadgeWrapperProps = {
+	isDrafting?: boolean;
+	marks?: AnnotationMarkDefinition[];
+	mediaSingleElement?: HTMLElement | null;
+};
 
 const CommentBadgeWrapper = ({
 	marks,
 	mediaSingleElement,
 	isDrafting = false,
 	...rest
-}: Omit<CommentBadgeProps, 'onClick' | 'intl'> & {
-	marks?: AnnotationMarkDefinition[];
-}) => {
-	const [status, setStatus] = useState<'default' | 'active'>('default');
-	const [entered, setEntered] = useState(false);
-	const updateSubscriber = useInlineCommentSubscriberContext();
-	const activeParentIds = useInlineCommentsFilter({
-		annotationIds: marks?.map((mark) => mark.attrs.id) ?? [''],
-		filter: {
-			state: AnnotationMarkStates.ACTIVE,
-		},
-	});
-
-	useEffect(() => {
-		const observer = new MutationObserver((mutationList) => {
-			mutationList.forEach((mutation) => {
-				const parentNode = mutation.target.parentNode as Element | null;
-				if (mutation.attributeName === 'data-has-focus') {
-					const isMediaCaption = parentNode?.closest('[data-media-caption="true"]');
-					const elementHasFocus =
-						parentNode?.querySelector('[data-has-focus="true"]') && !isMediaCaption;
-					elementHasFocus ? setStatus('active') : setStatus('default');
-				}
-			});
-		});
-
-		if (mediaSingleElement) {
-			observer.observe(mediaSingleElement, {
-				attributes: true,
-				subtree: true,
-				attributeFilter: ['data-has-focus'],
-			});
-		}
-
-		return () => {
-			observer.disconnect();
-		};
-	}, [mediaSingleElement, setStatus]);
-
-	if (!isDrafting && !activeParentIds.length) {
-		return null;
-	}
-
-	const onClick = (e: React.MouseEvent) => {
-		e.preventDefault();
-		if (updateSubscriber) {
-			updateSubscriber.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
-				annotationIds: activeParentIds,
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				eventTarget: e.target as HTMLElement,
-				// use mediaSingle here to align with annotation viewed event dispatched in editor
-				eventTargetType: 'mediaSingle',
-				viewMethod: VIEW_METHOD.BADGE,
-			});
-		}
-	};
-
-	return (
-		<CommentBadge
-			onMouseEnter={() => setEntered(true)}
-			onMouseLeave={() => setEntered(false)}
-			status={entered ? 'entered' : status}
-			onClick={onClick}
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...rest}
-		/>
-	);
-};
-
-/**
- * Remove CommentBadgeWrapper component above
- * and rename CommentBadgeNextWrapper to CommentBadgeWrapper
- * when clean up platform_editor_add_media_from_url feature flag
- */
-
-type CommentBadgeNextWrapperProps = {
-	isDrafting?: boolean;
-	marks?: AnnotationMarkDefinition[];
-	mediaSingleElement?: HTMLElement | null;
-};
-
-const CommentBadgeNextWrapper = ({
-	marks,
-	mediaSingleElement,
-	isDrafting = false,
-	...rest
-}: CommentBadgeNextWrapperProps) => {
+}: CommentBadgeWrapperProps) => {
 	const [status, setStatus] = useState<'default' | 'active'>('default');
 	const [entered, setEntered] = useState(false);
 	const updateSubscriber = useInlineCommentSubscriberContext();
@@ -435,42 +347,30 @@ class Media extends PureComponent<MediaProps, Object> {
 								},
 							}}
 						>
-							{fg('platform_editor_add_media_from_url_rollout') && (
-								<MediaBadges
-									mediaElement={mediaSingleElement}
-									mediaWidth={width}
-									mediaHeight={height}
-									useMinimumZIndex
-								>
-									{({ visible }: { visible: boolean }) => (
-										<>
-											{visible && (
-												<ExternalImageBadge
-													type={this.props.type}
-													url={this.props.type === 'external' ? this.props.url : undefined}
-												/>
-											)}
-											{showCommentBadge && (
-												<CommentBadgeNextWrapper
-													marks={annotationMarks}
-													mediaSingleElement={mediaSingleElement}
-													isDrafting={isDrafting}
-												/>
-											)}
-										</>
-									)}
-								</MediaBadges>
-							)}
-
-							{!fg('platform_editor_add_media_from_url_rollout') && showCommentBadge && (
-								<CommentBadgeWrapper
-									marks={annotationMarks}
-									mediaSingleElement={mediaSingleElement}
-									width={width}
-									height={height}
-									isDrafting={isDrafting}
-								/>
-							)}
+							<MediaBadges
+								mediaElement={mediaSingleElement}
+								mediaWidth={width}
+								mediaHeight={height}
+								useMinimumZIndex
+							>
+								{({ visible }: { visible: boolean }) => (
+									<>
+										{visible && (
+											<ExternalImageBadge
+												type={this.props.type}
+												url={this.props.type === 'external' ? this.props.url : undefined}
+											/>
+										)}
+										{showCommentBadge && (
+											<CommentBadgeWrapper
+												marks={annotationMarks}
+												mediaSingleElement={mediaSingleElement}
+												isDrafting={isDrafting}
+											/>
+										)}
+									</>
+								)}
+							</MediaBadges>
 							<MediaCard
 								contextIdentifierProvider={contextIdentifierProvider}
 								// Ignored via go/ees005

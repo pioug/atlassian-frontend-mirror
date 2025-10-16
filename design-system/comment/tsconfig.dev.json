@@ -67,9 +67,6 @@
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
-			"path": "../../editor/editor-core/tsconfig.app.json"
-		},
-		{
 			"path": "../link/tsconfig.app.json"
 		},
 		{

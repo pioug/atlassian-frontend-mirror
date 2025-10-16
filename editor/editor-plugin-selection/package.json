@@ -85,9 +85,6 @@
 		"platform_editor_nested_tables_gap_cursor": {
 			"type": "boolean"
 		},
-		"platform_editor_expand_selection_context": {
-			"type": "boolean"
-		},
 		"platform_editor_fix_right_arrow_bug_list_in_layout": {
 			"type": "boolean"
 		},

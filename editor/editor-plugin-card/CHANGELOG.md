@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-card
 
+## 11.4.1
+
+### Patch Changes
+
+- [`3660feecde98f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3660feecde98f) -
+  upgrade use of browser util
+- Updated dependencies
+
+## 11.4.0
+
+### Minor Changes
+
+- [`5167552fe1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5167552fe1a93) -
+  [EDITOR-2339] Bump @atlaskit/adf-schema to 51.3.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.3
 
 ### Patch Changes

@@ -33,6 +33,8 @@ const getNextFocusableElement = (refs: FocusableElementRef[], currentFocusedIdx:
 			return element;
 		}
 	}
+
+	return;
 };
 
 /**
@@ -54,6 +56,8 @@ const getPrevFocusableElement = (refs: FocusableElementRef[], currentFocusedIdx:
 			return element;
 		}
 	}
+
+	return;
 };
 
 export default function handleFocus(

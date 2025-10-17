@@ -286,7 +286,11 @@ function Expand({
 	const isCompactModeSupported =
 		expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 		fg('platform_editor_content_mode_button_mvp');
-	const isDense = rendererContentMode === 'dense' && isCompactModeSupported;
+	const isCompact =
+		rendererContentMode ===
+			(expValEquals('confluence_content_mode_replace_dense_with_compact', 'cohort', 'test')
+				? 'compact'
+				: 'dense') && isCompactModeSupported;
 
 	return (
 		<Container
@@ -314,12 +318,12 @@ function Expand({
 					e.preventDefault();
 					e.stopPropagation();
 					fireExpandToggleAnalytics(nodeType, expanded, fireAnalyticsEvent);
-					
+
 					// Mark children as loaded when expanding for the first time
 					if (!expanded && !hasLoadedChildren) {
 						setHasLoadedChildren(true);
 					}
-					
+
 					setExpanded(!expanded);
 					e.persist();
 					// @ts-ignore detail doesn't exist on type
@@ -359,7 +363,7 @@ function Expand({
 						</ExpandIconWrapper>
 					</Tooltip>
 				)}
-				<span css={[titleStyles, isDense && titleStylesDense]} id={id}>
+				<span css={[titleStyles, isCompact && titleStylesDense]} id={id}>
 					{title || intl.formatMessage(expandMessages.expandDefaultTitle)}
 				</span>
 			</TitleContainer>

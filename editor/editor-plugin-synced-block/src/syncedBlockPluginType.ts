@@ -7,6 +7,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
@@ -63,6 +64,7 @@ export type SyncedBlockPlugin = NextEditorPlugin<
 			SelectionPlugin,
 			FloatingToolbarPlugin,
 			DecorationsPlugin,
+			OptionalPlugin<BlockControlsPlugin>,
 			OptionalPlugin<BlockMenuPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
 		];

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.5.1
+
+### Patch Changes
+
+- [`ae2119490a207`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae2119490a207) -
+  [ENGHEALTH-32516] Adds an aria-label to the React virtualized grid used in the type ahead menu
+- Updated dependencies
+
 ## 6.5.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 8.1.2
+
+### Patch Changes
+
+- [`a4fbfc862e34f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4fbfc862e34f) -
+  [ux] ED-29557 Clean up plain text quick insert as it's not needed
+- Updated dependencies
+
 ## 8.1.1
 
 ### Patch Changes

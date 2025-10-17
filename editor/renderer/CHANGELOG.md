@@ -1,5 +1,24 @@
 # @atlaskit/renderer
 
+## 124.8.0
+
+### Minor Changes
+
+- [`18aec70029328`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18aec70029328) -
+  EDITOR-2420 Rename parameter values of `dense` contentMode to `compact`
+
+### Patch Changes
+
+- Updated dependencies
+
+## 124.7.1
+
+### Patch Changes
+
+- [`5771b6f88f16a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5771b6f88f16a) -
+  Clean up platform_editor_fix_image_size_diff_during_ssr
+- Updated dependencies
+
 ## 124.7.0
 
 ### Minor Changes

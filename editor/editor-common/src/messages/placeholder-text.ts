@@ -16,4 +16,9 @@ export const placeholderTextMessages = defineMessages({
 		defaultMessage: 'Type / to insert elements',
 		description: 'Long placeholder text for empty nodes',
 	},
+	syncBlockPlaceholderText: {
+		id: 'fabric.editor.syncBlockPlaceholderText',
+		defaultMessage: 'Add content then copy this synced block to access it across spaces',
+		description: 'Placeholder text for sync block',
+	},
 });

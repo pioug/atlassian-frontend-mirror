@@ -3,6 +3,7 @@ import { type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regre
 import TooltipCustom from '../../../examples/component-prop';
 import TooltipBasic from '../../../examples/default-tooltip';
 import KeyboardShortcutsExample from '../../../examples/keyboard-shortcut';
+import KeyboardShortcutGlobalStylesExample from '../../../examples/keyboard-shortcut-global-styles';
 import TooltipPosition from '../../../examples/position';
 import TooltipTruncateExample from '../../../examples/truncate';
 
@@ -129,6 +130,27 @@ snapshot(KeyboardShortcutsExample, {
 				byRole: 'button',
 				options: {
 					name: 'Long content',
+				},
+			},
+			state: 'hovered',
+		},
+	],
+	drawsOutsideBounds: true,
+	variants: lightModeVariant,
+	featureFlags: {
+		'platform-dst-tooltip-shortcuts': true,
+		'platform-component-visual-refresh': true,
+	},
+});
+
+snapshot(KeyboardShortcutGlobalStylesExample, {
+	description: 'tooltip with keyboard shortcut - protect against global styles',
+	states: [
+		{
+			selector: {
+				byRole: 'button',
+				options: {
+					name: 'Hover over me',
 				},
 			},
 			state: 'hovered',

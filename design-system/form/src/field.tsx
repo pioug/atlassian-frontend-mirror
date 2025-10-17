@@ -335,6 +335,8 @@ export default function Field<
 						} else if (currentTarget) {
 							return currentTarget.value;
 						}
+
+						return;
 					} else {
 						return eventOrValue;
 					}

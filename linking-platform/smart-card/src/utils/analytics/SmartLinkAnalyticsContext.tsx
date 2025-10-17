@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
@@ -51,7 +52,17 @@ const getSmartLinkAnalyticsContext = ({
 	url,
 	error,
 }: GetSmartLinkAnalyticsContextParam) => {
-	const resolvedAttributes = getExtendedResolvedAttributes({ url }, response, status, error);
+	const isHyperlinkConnectExperimentEnabled = FeatureGates.getExperimentValue('platform_linking_bluelink_connect_confluence', 'isEnabled', false) || FeatureGates.getExperimentValue('platform_linking_bluelink_connect_jira', 'isEnabled', false);
+	const resolvedAttributes = isHyperlinkConnectExperimentEnabled ? getExtendedResolvedAttributes(
+		{
+			url,
+			displayCategory: display === 'url' ? 'link' : 'smartLink'
+		},
+		response,
+		status,
+		error
+	) : getExtendedResolvedAttributes({ url }, response, status, error);
+
 	return {
 		source,
 		attributes: {

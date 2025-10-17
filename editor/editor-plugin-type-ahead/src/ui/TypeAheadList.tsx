@@ -20,6 +20,7 @@ import { type ExtractInjectionAPI, type TypeAheadItem } from '@atlaskit/editor-c
 import { AssistiveText } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -425,9 +426,13 @@ const TypeAheadListComponent = React.memo(
 				onScroll={onScroll}
 				height={height}
 				overscanRowCount={3}
-				// We need to make this walkaround to make TS happy, cannot pass undefined otherwise ReactVirualized will make it equal to "grid" which we want to avoid
-				// https://github.com/bvaughn/react-virtualized/blob/master/source/Grid/Grid.js#L260
-				aria-label={null as unknown as string}
+				aria-label={
+					fg('platform_editor_typeahead_aria_label')
+						? getTypeAheadListAriaLabels(undefined, intl).popupAriaLabel
+						: // We need to make this walkaround to make TS happy, cannot pass undefined otherwise ReactVirualized will make it equal to "grid" which we want to avoid
+							// https://github.com/bvaughn/react-virtualized/blob/master/source/Grid/Grid.js#L260
+							(null as unknown as string)
+				}
 				containerRole="presentation"
 				role="listbox"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

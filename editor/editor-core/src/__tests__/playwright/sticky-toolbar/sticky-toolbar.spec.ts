@@ -28,6 +28,6 @@ test.describe('Sticky Toolbar', () => {
 		const boldButton = await toolbar.menuItemByLabel('Bold');
 		await expect(boldButton).toBeVisible();
 
-		await expect(editor.page).toBeAccessible({ violationCount: 2 });
+		await expect(editor.page).toBeAccessible({ violationCount: 1 });
 	});
 });

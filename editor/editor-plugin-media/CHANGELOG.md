@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 8.2.1
+
+### Patch Changes
+
+- [`5771b6f88f16a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5771b6f88f16a) -
+  Clean up platform_editor_fix_image_size_diff_during_ssr
+- Updated dependencies
+
 ## 8.2.0
 
 ### Minor Changes

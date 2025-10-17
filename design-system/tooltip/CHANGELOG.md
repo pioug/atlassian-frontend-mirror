@@ -1,5 +1,16 @@
 # @atlaskit/tooltip
 
+## 20.6.0
+
+### Minor Changes
+
+- [`6915142a30a40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6915142a30a40) -
+  The tooltip keyboard shortcut component has been updated to protect against global styles in apps,
+  by unsetting styles. Minor tweaks to the keyboard shortcut styling have also been made - font
+  size, height, and center alignment.
+
+  The `shortcut` prop is still behind the feature flag `platform-dst-tooltip-shortcuts`.
+
 ## 20.5.2
 
 ### Patch Changes

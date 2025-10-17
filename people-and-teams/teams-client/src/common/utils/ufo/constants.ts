@@ -26,6 +26,7 @@ const TeamsClientExperienceKeyList = [
 	'deleteTeamMembership',
 	'revokeTeamInvite',
 	'deleteTeam',
+	'archiveTeam',
 	'isSingleFullMemberTeam',
 	'createTeam',
 	'createTeamContainers',

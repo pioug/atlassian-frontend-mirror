@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "8.2.0",
+	"version": "8.2.1",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -153,9 +153,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_ssr_media": {
-			"type": "boolean"
-		},
-		"platform_editor_fix_image_size_diff_during_ssr": {
 			"type": "boolean"
 		},
 		"platform_editor_track_media_fail_to_insert": {

@@ -1,9 +1,16 @@
-import { snapshot } from '@af/visual-regression';
+import { type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
 import {
 	SideNavToggleButtonVR,
 	SideNavToggleButtonWithShortcutVR,
 } from '../../../../../examples/side-nav-toggle-button';
+
+const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
+	{
+		environment: { colorScheme: 'light' },
+		name: 'default',
+	},
+];
 
 snapshot(SideNavToggleButtonVR, {
 	description: 'Toggle button - hovered',
@@ -19,6 +26,7 @@ snapshot(SideNavToggleButtonVR, {
 		},
 	],
 	drawsOutsideBounds: true,
+	variants: lightModeVariant,
 });
 
 snapshot(SideNavToggleButtonWithShortcutVR, {
@@ -38,4 +46,5 @@ snapshot(SideNavToggleButtonWithShortcutVR, {
 	featureFlags: {
 		'platform-dst-tooltip-shortcuts': true,
 	},
+	variants: lightModeVariant,
 });

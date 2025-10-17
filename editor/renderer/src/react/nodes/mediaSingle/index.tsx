@@ -13,6 +13,7 @@ import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlas
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { MediaSingle as UIMediaSingle, WidthContext } from '@atlaskit/editor-common/ui';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { EventHandlers, MediaSingleWidthType } from '@atlaskit/editor-common/ui';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import {
@@ -21,7 +22,6 @@ import {
 	akEditorWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { FullPagePadding } from '../../../ui/Renderer/style';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
@@ -181,10 +181,7 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 				};
 			} else {
 				const maxWidth =
-					isSSR() &&
-					widthAttr &&
-					typeof widthAttr === 'number' &&
-					fg('platform_editor_fix_image_size_diff_during_ssr')
+					isSSR() && widthAttr && typeof widthAttr === 'number'
 						? Math.max(widthAttr, containerWidth)
 						: containerWidth;
 				const maxHeight = (height / width) * maxWidth;

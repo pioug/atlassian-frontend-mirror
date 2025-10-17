@@ -7,7 +7,7 @@ import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 import { FormattedMessage } from 'react-intl-next';
 
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import {
 	addInlineComment,
 	addLink,
@@ -61,6 +61,7 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -456,220 +457,43 @@ const quickInsertAskAI: (intl: IntlShape) => Format = ({ formatMessage }) => ({
 	keymap: () => askAIQuickInsert,
 });
 
-const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
-	{
-		name: formatMessage(toolbarMessages.clearFormatting),
-		type: 'clearFormatting',
-		keymap: () => clearFormatting,
-	},
-	{
-		name: formatMessage(undoRedoMessages.undo),
-		type: 'undo',
-		keymap: () => undo,
-	},
-	{
-		name: formatMessage(undoRedoMessages.redo),
-		type: 'redo',
-		keymap: () => (fg('platform_editor_cmd_y_mac_redo_shortcut') ? redoAlt : redo),
-	},
-	{
-		name: formatMessage(messages.pastePlainText),
-		type: 'paste',
-		keymap: () => pastePlainText,
-	},
-	{
-		name: formatMessage(annotationMessages.createComment),
-		type: 'annotation',
-		keymap: () => addInlineComment,
-	},
-	{
-		name: formatMessage(messages.CheckUncheckActionItem),
-		type: 'checkbox',
-		keymap: () => toggleTaskItemCheckbox,
-	},
-	{
-		name: formatMessage(messages.selectTableRow),
-		type: 'table',
-		autoFormatting: () => (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			<span css={shortcutsArray}>
-				<span>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
-						{browser.mac ? '⌘' : 'Ctrl'}
-					</Box>
-					{' + '}
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={codeMd}>
-						{browser.mac ? 'Opt' : 'Alt'}
-					</Box>
-					{' + '}
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={codeMd}>
-						Shift
-					</Box>
-					{' + '}
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={codeSm}>
-						←
-					</Box>
-				</span>
-				<span>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
-						{browser.mac ? '⌘' : 'Ctrl'}
-					</Box>
-					{' + '}
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={codeMd}>
-						{browser.mac ? 'Opt' : 'Alt'}
-					</Box>
-					{' + '}
-					<Box as="span" xcss={codeMd}>
-						Shift
-					</Box>
-					{' + '}
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={codeSm}>
-						→
-					</Box>
-				</span>
-			</span>
-		),
-	},
-	{
-		name: formatMessage(messages.selectTableColumn),
-		type: 'table',
-		autoFormatting: () => (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			<span css={shortcutsArray}>
-				<span>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
-						{browser.mac ? '⌘' : 'Ctrl'}
-					</Box>
-					{' + '}
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={codeMd}>
-						{browser.mac ? 'Opt' : 'Alt'}
-					</Box>
-					{' + '}
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={codeMd}>
-						Shift
-					</Box>
-					{' + '}
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={codeSm}>
-						↑
-					</Box>
-				</span>
-				<span>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
-						{browser.mac ? '⌘' : 'Ctrl'}
-					</Box>
-					{' + '}
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={codeMd}>
-						{browser.mac ? 'Opt' : 'Alt'}
-					</Box>
-					{' + '}
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={codeMd}>
-						Shift
-					</Box>
-					{' + '}
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box as="span" xcss={codeSm}>
-						↓
-					</Box>
-				</span>
-			</span>
-		),
-	},
-	...[
+const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => {
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
+	return [
 		{
-			name: formatMessage(messages.InsertTableColumn),
-			type: 'table',
-			autoFormatting: () => (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				<span css={shortcutsArray}>
-					<span>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
-							{browser.mac ? '⌘' : 'Ctrl'}
-						</Box>
-						{' + '}
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<Box as="span" xcss={codeMd}>
-							{browser.mac ? 'Opt' : 'Alt'}
-						</Box>
-						{' + '}
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<Box as="span" xcss={codeSm}>
-							=
-						</Box>
-					</span>
-					<span>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
-							{browser.mac ? '⌘' : 'Ctrl'}
-						</Box>
-						{' + '}
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<Box as="span" xcss={codeMd}>
-							{browser.mac ? 'Opt' : 'Alt'}
-						</Box>
-						{' + '}
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<Box as="span" xcss={codeSm}>
-							-
-						</Box>
-					</span>
-				</span>
-			),
+			name: formatMessage(toolbarMessages.clearFormatting),
+			type: 'clearFormatting',
+			keymap: () => clearFormatting,
 		},
 		{
-			name: formatMessage(messages.InsertTableRow),
-			type: 'table',
-			autoFormatting: () => (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				<span css={shortcutsArray}>
-					<span>
-						<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
-							{browser.mac ? '⌘' : 'Ctrl'}
-						</Box>
-						{' + '}
-						<Box as="span" xcss={codeMd}>
-							{browser.mac ? 'Opt' : 'Alt'}
-						</Box>
-						{' + '}
-						<Box as="span" xcss={codeSm}>
-							]
-						</Box>
-					</span>
-					<span>
-						<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
-							{browser.mac ? '⌘' : 'Ctrl'}
-						</Box>
-						{' + '}
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<Box as="span" xcss={codeMd}>
-							{browser.mac ? 'Opt' : 'Alt'}
-						</Box>
-						{' + '}
-						<Box as="span" xcss={codeSm}>
-							[
-						</Box>
-					</span>
-				</span>
-			),
+			name: formatMessage(undoRedoMessages.undo),
+			type: 'undo',
+			keymap: () => undo,
 		},
-	],
-	...[
 		{
-			name: formatMessage(messages.selectColumnResize),
+			name: formatMessage(undoRedoMessages.redo),
+			type: 'redo',
+			keymap: () => (fg('platform_editor_cmd_y_mac_redo_shortcut') ? redoAlt : redo),
+		},
+		{
+			name: formatMessage(messages.pastePlainText),
+			type: 'paste',
+			keymap: () => pastePlainText,
+		},
+		{
+			name: formatMessage(annotationMessages.createComment),
+			type: 'annotation',
+			keymap: () => addInlineComment,
+		},
+		{
+			name: formatMessage(messages.CheckUncheckActionItem),
+			type: 'checkbox',
+			keymap: () => toggleTaskItemCheckbox,
+		},
+		{
+			name: formatMessage(messages.selectTableRow),
 			type: 'table',
 			autoFormatting: () => (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
@@ -692,19 +516,201 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 						{' + '}
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<Box as="span" xcss={codeSm}>
-							C
+							←
+						</Box>
+					</span>
+					<span>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
+							{browser.mac ? '⌘' : 'Ctrl'}
+						</Box>
+						{' + '}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<Box as="span" xcss={codeMd}>
+							{browser.mac ? 'Opt' : 'Alt'}
+						</Box>
+						{' + '}
+						<Box as="span" xcss={codeMd}>
+							Shift
+						</Box>
+						{' + '}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<Box as="span" xcss={codeSm}>
+							→
 						</Box>
 					</span>
 				</span>
 			),
 		},
-	],
-	{
-		name: formatMessage(messages.highlightColor),
-		type: 'highlight',
-		keymap: () => toggleHighlightPalette,
-	},
-];
+		{
+			name: formatMessage(messages.selectTableColumn),
+			type: 'table',
+			autoFormatting: () => (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+				<span css={shortcutsArray}>
+					<span>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
+							{browser.mac ? '⌘' : 'Ctrl'}
+						</Box>
+						{' + '}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<Box as="span" xcss={codeMd}>
+							{browser.mac ? 'Opt' : 'Alt'}
+						</Box>
+						{' + '}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<Box as="span" xcss={codeMd}>
+							Shift
+						</Box>
+						{' + '}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<Box as="span" xcss={codeSm}>
+							↑
+						</Box>
+					</span>
+					<span>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
+							{browser.mac ? '⌘' : 'Ctrl'}
+						</Box>
+						{' + '}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<Box as="span" xcss={codeMd}>
+							{browser.mac ? 'Opt' : 'Alt'}
+						</Box>
+						{' + '}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<Box as="span" xcss={codeMd}>
+							Shift
+						</Box>
+						{' + '}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<Box as="span" xcss={codeSm}>
+							↓
+						</Box>
+					</span>
+				</span>
+			),
+		},
+		...[
+			{
+				name: formatMessage(messages.InsertTableColumn),
+				type: 'table',
+				autoFormatting: () => (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					<span css={shortcutsArray}>
+						<span>
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+							<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
+								{browser.mac ? '⌘' : 'Ctrl'}
+							</Box>
+							{' + '}
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+							<Box as="span" xcss={codeMd}>
+								{browser.mac ? 'Opt' : 'Alt'}
+							</Box>
+							{' + '}
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+							<Box as="span" xcss={codeSm}>
+								=
+							</Box>
+						</span>
+						<span>
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+							<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
+								{browser.mac ? '⌘' : 'Ctrl'}
+							</Box>
+							{' + '}
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+							<Box as="span" xcss={codeMd}>
+								{browser.mac ? 'Opt' : 'Alt'}
+							</Box>
+							{' + '}
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+							<Box as="span" xcss={codeSm}>
+								-
+							</Box>
+						</span>
+					</span>
+				),
+			},
+			{
+				name: formatMessage(messages.InsertTableRow),
+				type: 'table',
+				autoFormatting: () => (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					<span css={shortcutsArray}>
+						<span>
+							<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
+								{browser.mac ? '⌘' : 'Ctrl'}
+							</Box>
+							{' + '}
+							<Box as="span" xcss={codeMd}>
+								{browser.mac ? 'Opt' : 'Alt'}
+							</Box>
+							{' + '}
+							<Box as="span" xcss={codeSm}>
+								]
+							</Box>
+						</span>
+						<span>
+							<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
+								{browser.mac ? '⌘' : 'Ctrl'}
+							</Box>
+							{' + '}
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+							<Box as="span" xcss={codeMd}>
+								{browser.mac ? 'Opt' : 'Alt'}
+							</Box>
+							{' + '}
+							<Box as="span" xcss={codeSm}>
+								[
+							</Box>
+						</span>
+					</span>
+				),
+			},
+		],
+		...[
+			{
+				name: formatMessage(messages.selectColumnResize),
+				type: 'table',
+				autoFormatting: () => (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					<span css={shortcutsArray}>
+						<span>
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+							<Box as="span" xcss={browser.mac ? codeSm : codeMd}>
+								{browser.mac ? '⌘' : 'Ctrl'}
+							</Box>
+							{' + '}
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+							<Box as="span" xcss={codeMd}>
+								{browser.mac ? 'Opt' : 'Alt'}
+							</Box>
+							{' + '}
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+							<Box as="span" xcss={codeMd}>
+								Shift
+							</Box>
+							{' + '}
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+							<Box as="span" xcss={codeSm}>
+								C
+							</Box>
+						</span>
+					</span>
+				),
+			},
+		],
+		{
+			name: formatMessage(messages.highlightColor),
+			type: 'highlight',
+			keymap: () => toggleHighlightPalette,
+		},
+	];
+};
 
 const resizeInformationFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 	{

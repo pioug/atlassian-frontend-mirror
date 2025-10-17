@@ -1,3 +1,6 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
 import {
 	type API,
 	type Collection,
@@ -56,19 +59,42 @@ function hasImportDeclaration(
 	return getImportDeclarationCollection(j, collection, importPath).length > 0;
 }
 
-function addJSXAttributeToJSXElement(
-	j: JSCodeshift,
-	jsxElementPath: any,
-	attribute: JSXAttribute,
-	position: number = 0,
-): void {
-	if (!jsxElementPath.node.openingElement.attributes) {
-		jsxElementPath.node.openingElement.attributes = [];
+// Currently unused but saving for field conversion
+const generateFeatureFlag = (filePath: string): string => {
+	if (!filePath) {
+		return 'platform-design_system_team-form--unknown';
 	}
-	jsxElementPath.node.openingElement.attributes.splice(position, 0, attribute);
-}
 
-const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
+	let currentDir = path.dirname(filePath);
+
+	while (currentDir !== path.dirname(currentDir)) {
+		const packageJsonPath = path.join(currentDir, 'package.json');
+		if (fs.existsSync(packageJsonPath)) {
+			try {
+				const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+				const teamName = packageJson.atlassian?.team;
+				if (teamName) {
+					// Fit switcheroo requirements
+					const suffix = teamName
+						.toLowerCase()
+						.replace(/\s+/g, '-')
+						.replace(/[^a-z0-9-]/g, '');
+
+					const flag = `platform-design_system_team-form--${suffix}`;
+					return flag.length > 50 ? flag.substring(0, 50) : flag;
+				}
+			} catch (e) {
+				// Continue searching if JSON parsing fails
+			}
+		}
+		currentDir = path.dirname(currentDir);
+	}
+
+	// Fallback if no team found
+	return 'platform-design_system_team-form--unknown';
+};
+
+const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>, featureFlag: string) => {
 	const importDeclarationCollection = getImportDeclarationCollection(j, collection, importPath);
 	const defaultImport = getImportDefaultSpecifierCollection(j, importDeclarationCollection);
 	const defaultImportName = getImportDefaultSpecifierName(defaultImport);
@@ -78,6 +104,8 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 		return;
 	}
 
+	let transformationsMade = false;
+
 	collection.findJSXElements(defaultImportName).forEach((jsxElementPath) => {
 		const node = jsxElementPath.node;
 		// If no children, exit early
@@ -85,7 +113,7 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 			return;
 		}
 
-		// if component but child is not a function, exit early
+		// if component but child is not an expression, exit early
 		const children = node.children.filter((child) => child.type === 'JSXExpressionContainer');
 		if (children.length === 0 || children.length > 1) {
 			return;
@@ -101,8 +129,10 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 		}
 
 		// if function child but more than just `formProps`, exit early
-		const args = childFunction.expression.params
-			.filter((arg) => arg.type === 'ObjectPattern' && 'properties' in arg)
+		const objectPatternArgs = childFunction.expression.params.filter(
+			(arg) => arg.type === 'ObjectPattern' && 'properties' in arg,
+		);
+		const args = objectPatternArgs
 			.flatMap((arg) => arg.properties)
 			.filter((property) => property.type === 'ObjectProperty');
 		if (
@@ -197,36 +227,81 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 			return;
 		}
 
+		// Clone the original Form element for the fallback
+		const originalForm = j.jsxElement(
+			j.jsxOpeningElement(j.jsxIdentifier(defaultImportName), [
+				...(node.openingElement.attributes || []),
+			]),
+			j.jsxClosingElement(j.jsxIdentifier(defaultImportName)),
+			[...node.children],
+		);
+
+		// Create the simplified Form element
+		const simplifiedForm = j.jsxElement(
+			j.jsxOpeningElement(j.jsxIdentifier(defaultImportName), [
+				...(node.openingElement.attributes || []),
+			]),
+			j.jsxClosingElement(j.jsxIdentifier(defaultImportName)),
+			[],
+		);
+
+		// Add formProps attribute if needed
 		if (nonFormPropsAttributes.length !== 0) {
-			// make new attribute for parent `Form` default import called `formProps` and set new attribute to new object
 			const formPropsAttr = j.jsxAttribute(
 				j.jsxIdentifier('formProps'),
 				j.jsxExpressionContainer(j.objectExpression(nonFormPropsAttributes.filter(Boolean))),
 			);
-			addJSXAttributeToJSXElement(j, jsxElementPath, formPropsAttr, 1);
+			simplifiedForm.openingElement.attributes = simplifiedForm.openingElement.attributes || [];
+			simplifiedForm.openingElement.attributes.push(formPropsAttr);
 		}
+
+		// Add existing form attributes to simplified form
 		existingFormPropsAttributes.forEach((attr) => {
-			// add existing props to new `Form`
 			const fromName = attr.name.name;
 			if (typeof fromName !== 'string') {
 				return;
 			}
 			const toName = EXISTING_FORM_ATTRIBUTES[fromName];
-			attr.name.name = toName;
-			addJSXAttributeToJSXElement(j, jsxElementPath, attr, 1);
+			const newAttr = j.jsxAttribute(j.jsxIdentifier(toName), attr.value);
+			simplifiedForm.openingElement.attributes = simplifiedForm.openingElement.attributes || [];
+			simplifiedForm.openingElement.attributes.push(newAttr);
 		});
 
-		// replace functional child with inner (all children of HTML `form`)
+		// Add the children from the HTML form to simplified form
 		const htmlFormChildren = htmlForm.children?.filter((child) => child.type !== 'JSXText');
-		if (!htmlFormChildren) {
-			return;
+		if (htmlFormChildren) {
+			simplifiedForm.children = [...htmlFormChildren];
 		}
 
-		node.children.splice(0);
-		node.children.splice(0, 0, ...htmlFormChildren);
+		// Create the ternary expression: fg('flag') ? simplifiedForm : originalForm
+		const ternaryExpression = j.conditionalExpression(
+			j.callExpression(j.identifier('fg'), [j.literal(featureFlag)]),
+			simplifiedForm,
+			originalForm,
+		);
+
+		const isInsideJSXContext = (path: any): boolean => {
+			const parent = path.parent;
+			if (!parent) {
+				return false;
+			}
+
+			const parentType = parent.node?.type;
+			return parentType === 'JSXElement' || parentType === 'JSXFragment';
+		};
+
+		// Replace the original Form with the ternary expression
+		if (isInsideJSXContext(jsxElementPath)) {
+			// Inside JSX - wrap in JSX expression container
+			j(jsxElementPath).replaceWith(j.jsxExpressionContainer(ternaryExpression));
+		} else {
+			j(jsxElementPath).replaceWith(ternaryExpression);
+		}
+
+		transformationsMade = true;
 	});
 
-	return;
+	return transformationsMade;
 };
 
 export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) {
@@ -244,8 +319,34 @@ export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API,
 		return source;
 	}
 
+	// Leaving this here so that we don't get "unused" error, because I want to
+	// port this logic to the field codemod later
+	generateFeatureFlag(path);
+	const featureFlag = 'platform-design_system_team-form_conversion';
+
 	// Convert form if possible
-	convertToSimpleForm(j, collection);
+	const transformationsMade = convertToSimpleForm(j, collection, featureFlag);
+
+	// Only add import if transformations were made
+	if (transformationsMade) {
+		// Add import for fg function if not already present
+		const fgImportPath = '@atlaskit/platform-feature-flags';
+		if (!hasImportDeclaration(j, collection, fgImportPath)) {
+			const fgImport = j.importDeclaration(
+				[j.importSpecifier(j.identifier('fg'))],
+				j.literal(fgImportPath),
+			);
+
+			// Find the last import declaration and insert after it
+			const imports = collection.find(j.ImportDeclaration);
+			if (imports.length > 0) {
+				imports.at(-1).insertAfter(fgImport);
+			} else {
+				// If no imports, add at the beginning
+				collection.find(j.Program).get('body', 0).insertBefore(fgImport);
+			}
+		}
+	}
 
 	return collection.toSource(options.printOptions || { quote: 'single' });
 }

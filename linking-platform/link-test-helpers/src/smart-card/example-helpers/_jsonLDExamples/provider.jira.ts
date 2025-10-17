@@ -32,6 +32,7 @@ const generateJiraTask = (
 	taskType: string,
 	taskTypeName: string,
 	taskTag: { appearance?: string; name?: string } = {},
+	hasProjectPermission: boolean = true,
 ) => ({
 	'@type': ['Object', 'atlassian:Task'],
 	'@context': {
@@ -84,6 +85,7 @@ const generateJiraTask = (
 	'atlassian:isCompleted': false,
 	'atlassian:isDeleted': false,
 	name: taskName,
+	hasProjectPermission: hasProjectPermission,
 	startTime: '2018-07-10T15:00:32Z',
 	'atlassian:taskType': {
 		'@type': ['Object', 'atlassian:TaskType'],
@@ -162,6 +164,10 @@ export const JiraCustomTaskTypeWithIcon = (() => {
 
 	return json;
 })();
+export const JiraTaskWithNoEditPermission = generateJiraTask(
+	'Get Don to sing', 
+	JIRA_TASK, 'Task', { name: 'done', appearance: 'success' }, 
+	false);
 
 export const JiraTasks = [
 	JiraTask,
@@ -175,6 +181,7 @@ export const JiraTasks = [
 	JiraProblem,
 	JiraCustomTaskType,
 	JiraCustomTaskTypeWithIcon,
+	JiraTaskWithNoEditPermission,
 ];
 
 export const JiraIssue = {

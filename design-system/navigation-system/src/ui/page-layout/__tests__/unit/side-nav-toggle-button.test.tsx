@@ -33,7 +33,76 @@ describe('SideNavToggleButton', () => {
 		resetMatchMedia();
 	});
 
-	describe('tooltip', () => {
+	ffTest.on('platform-dst-tooltip-shortcuts', 'tooltip', () => {
+		beforeEach(() => {
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+		});
+
+		it('should display the correct tooltip when the side nav is collapsed', async () => {
+			const user = userEvent.setup();
+
+			render(
+				<SideNavToggleButton
+					collapseLabel="Collapse sidebar"
+					expandLabel="Expand sidebar"
+					defaultCollapsed
+				/>,
+			);
+
+			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+
+			expect(await screen.findByRole('tooltip', { name: 'Expand sidebar' })).toBeInTheDocument();
+		});
+
+		it('should display the correct tooltip when the side nav is expanded', async () => {
+			const user = userEvent.setup();
+
+			render(<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />);
+
+			await user.hover(screen.getByRole('button', { name: 'Collapse sidebar' }));
+
+			expect(await screen.findByRole('tooltip', { name: 'Collapse sidebar' })).toBeInTheDocument();
+		});
+
+		it('should include the provided keyboard shortcut in the tooltip when side nav is collapsed', async () => {
+			const user = userEvent.setup();
+
+			render(
+				<SideNavToggleButton
+					collapseLabel="Collapse sidebar"
+					expandLabel="Expand sidebar"
+					defaultCollapsed
+					shortcut={['Ctrl', '[']}
+				/>,
+			);
+
+			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+
+			expect(
+				await screen.findByRole('tooltip', { name: 'Expand sidebar Ctrl [' }),
+			).toBeInTheDocument();
+		});
+
+		it('should include the provided keyboard shortcut in the tooltip when side nav is expanded', async () => {
+			const user = userEvent.setup();
+
+			render(
+				<SideNavToggleButton
+					collapseLabel="Collapse sidebar"
+					expandLabel="Expand sidebar"
+					shortcut={['Ctrl', '[']}
+				/>,
+			);
+
+			await user.hover(screen.getByRole('button', { name: 'Collapse sidebar' }));
+
+			expect(
+				await screen.findByRole('tooltip', { name: 'Collapse sidebar Ctrl [' }),
+			).toBeInTheDocument();
+		});
+	});
+
+	ffTest.off('platform-dst-tooltip-shortcuts', 'tooltip', () => {
 		beforeEach(() => {
 			setMediaQuery('(min-width: 64rem)', { initial: true });
 		});
@@ -58,6 +127,39 @@ describe('SideNavToggleButton', () => {
 			const user = userEvent.setup();
 
 			render(<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />);
+
+			await user.hover(screen.getByRole('button', { name: 'Collapse sidebar' }));
+
+			expect(await screen.findByRole('tooltip', { name: 'Collapse sidebar' })).toBeInTheDocument();
+		});
+
+		it('should not include the provided keyboard shortcut in the tooltip when side nav is collapsed', async () => {
+			const user = userEvent.setup();
+
+			render(
+				<SideNavToggleButton
+					collapseLabel="Collapse sidebar"
+					expandLabel="Expand sidebar"
+					defaultCollapsed
+					shortcut={['Ctrl', '[']}
+				/>,
+			);
+
+			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+
+			expect(await screen.findByRole('tooltip', { name: 'Expand sidebar' })).toBeInTheDocument();
+		});
+
+		it('should not include the provided keyboard shortcut in the tooltip when side nav is expanded', async () => {
+			const user = userEvent.setup();
+
+			render(
+				<SideNavToggleButton
+					collapseLabel="Collapse sidebar"
+					expandLabel="Expand sidebar"
+					shortcut={['Ctrl', '[']}
+				/>,
+			);
 
 			await user.hover(screen.getByRole('button', { name: 'Collapse sidebar' }));
 

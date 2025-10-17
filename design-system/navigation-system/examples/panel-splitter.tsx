@@ -196,7 +196,7 @@ export const PanelSplitterWithTooltip = () => {
 		<OpenLayerObserver>
 			<div
 				ref={panelSplitterParentRef}
-				css={[styles.root, styles.positionStart]}
+				css={[styles.root, styles.positionEnd]}
 				style={
 					{
 						[widthVar]: `${width}px`,
@@ -212,7 +212,7 @@ export const PanelSplitterWithTooltip = () => {
 					onCompleteResize={setWidth}
 					getResizeBounds={getResizeBounds}
 					resizingCssVar={resizingCssVar}
-					position="start"
+					position="end"
 				>
 					<PanelSplitter
 						label="Resize panel"
@@ -237,7 +237,7 @@ export const PanelSplitterWithTooltipAndShortcut = () => {
 		<OpenLayerObserver>
 			<div
 				ref={panelSplitterParentRef}
-				css={[styles.root, styles.positionStart]}
+				css={[styles.root, styles.positionEnd]}
 				style={
 					{
 						[widthVar]: `${width}px`,
@@ -253,7 +253,7 @@ export const PanelSplitterWithTooltipAndShortcut = () => {
 					onCompleteResize={setWidth}
 					getResizeBounds={getResizeBounds}
 					resizingCssVar={resizingCssVar}
-					position="start"
+					position="end"
 				>
 					<PanelSplitter
 						label="Resize panel"
@@ -276,6 +276,10 @@ const Example = () => (
 		<Inline grow="fill" alignInline="end">
 			<PanelSplitterPositionStart />
 		</Inline>
+
+		<PanelSplitterWithTooltip />
+		<br />
+		<PanelSplitterWithTooltipAndShortcut />
 	</div>
 );
 

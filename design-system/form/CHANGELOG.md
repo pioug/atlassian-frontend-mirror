@@ -1,5 +1,12 @@
 # @atlaskit/form
 
+## 14.2.4
+
+### Patch Changes
+
+- [`6928afcd12672`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6928afcd12672) -
+  Typescript fixes
+
 ## 14.2.3
 
 ### Patch Changes

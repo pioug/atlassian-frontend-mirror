@@ -290,8 +290,9 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
 				css={[
 					innerStyles.root,
 					innerStyles.fullHeightSidebar,
-					isExpandedOnDesktop && innerStyles.fullHeightSidebarExpanded,
+					// Needs to be before the expanded styles so that the min-width can be unset
 					fg('team25-eu-jira-logo-updates-csm-jsm') && innerStyles.jiraProductLogoUpdate,
+					isExpandedOnDesktop && innerStyles.fullHeightSidebarExpanded,
 				]}
 			>
 				{children}

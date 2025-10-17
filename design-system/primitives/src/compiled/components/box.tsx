@@ -804,7 +804,7 @@ const Box = forwardRef(
 		ref: BoxProps<T>['ref'],
 	) => {
 		// This is to remove className from safeHtmlAttributes
-		// @ts-expect-error -- className doesn't exist in the prop definition but we want to ensure it cannot be applied even if types are bypassed
+		// @ts-ignore -- not using expect since it causes issues with help-center local consumption - className doesn't exist in the prop definition but we want to ensure it cannot be applied even if types are bypassed
 		const { className: _spreadClass, ...safeHtmlAttributes } = htmlAttributes;
 
 		const node = (

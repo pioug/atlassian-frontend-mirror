@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { syncBlock } from '@atlaskit/adf-schema';
+import { bodiedSyncBlock, syncBlock } from '@atlaskit/adf-schema';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
 import { IconSyncBlock } from '@atlaskit/editor-common/quick-insert';
@@ -28,6 +28,10 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				{
 					name: 'syncBlock',
 					node: syncBlock,
+				},
+				{
+					name: 'bodiedSyncBlock',
+					node: bodiedSyncBlock,
 				},
 			];
 		},

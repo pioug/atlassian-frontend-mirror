@@ -514,6 +514,7 @@ function Tooltip({
 					{hiddenContent}
 				</>
 			) : (
+				// @ts-ignore
 				<CastTargetContainer
 					{...tooltipTriggerProps}
 					ref={setImplicitRefFromChildren}

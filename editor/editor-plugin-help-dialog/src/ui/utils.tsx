@@ -5,10 +5,11 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { componentFromKeymapWrapperStyles } from './styles';
@@ -44,6 +45,9 @@ const codeSm = xcss({
 });
 
 const getKeyParts = (keymap: Keymap) => {
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
 	let shortcut: string = keymap[browser.mac ? 'mac' : 'windows'];
 	if (browser.mac) {
 		shortcut = shortcut.replace('Alt', 'Opt');

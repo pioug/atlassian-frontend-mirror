@@ -36,8 +36,10 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_hover_card_preview_panel: 'control',
 	platform_hover_card_preview_panel_modal: 'control',
 	platform_inline_smartcard_connect_button_exp: 'control',
+	confluence_content_mode_replace_dense_with_compact: 'control',
 	cc_editor_insm_outlier_events: 'test',
 	platform_editor_disable_table_overflow_shadows: 'control',
+	platform_editor_hoverlink_ui_fixes_exp: 'control',
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {

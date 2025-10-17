@@ -56,8 +56,12 @@ export class ConfigCollection {
 			return ConfigCollection.empty();
 		}
 
+		return this.fromData(result.data);
+	}
+
+	public static fromData(data: ZAnyConfig): ConfigCollection {
 		return new ConfigCollection(
-			Array.isArray(result.data) ? minimalToMap(result.data) : standardToMap(result.data),
+			Array.isArray(data) ? minimalToMap(data) : standardToMap(data),
 		);
 	}
 

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 6.0.10
+
+### Patch Changes
+
+- [`6a8ea33d35037`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a8ea33d35037) -
+  upgrade use of browser util
+- Updated dependencies
+
+## 6.0.9
+
+### Patch Changes
+
+- [`fc830b2ec8cad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc830b2ec8cad) -
+  ENGHEALTH-32569: ensure editor help modal has an accessible title
+- Updated dependencies
+
 ## 6.0.8
 
 ### Patch Changes

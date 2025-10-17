@@ -5,6 +5,7 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import type { CardState } from '@atlaskit/linking-common';
 
@@ -15,6 +16,11 @@ import {
 	useSmartLinkAnalyticsContext,
 } from '../SmartLinkAnalyticsContext';
 
+
+jest.mock('@atlaskit/feature-gate-js-client', () => ({
+	getExperimentValue: jest.fn(() => false),
+}));
+
 describe('SL analytics context', () => {
 	const url = 'https://some.url';
 	const display = 'inline';
@@ -22,6 +28,11 @@ describe('SL analytics context', () => {
 	const source = 'some-source';
 	const resolvedResponse = mockByUrl(url);
 	const resolvedCardState = { details: resolvedResponse, status: 'resolved' as const };
+	const getExperimentValueMock = FeatureGates.getExperimentValue as jest.Mock;
+
+	beforeEach(() => {
+		getExperimentValueMock.mockReturnValue(false);
+	});
 
 	describe('SmartLinkAnalyticsContext', () => {
 		const payload = {
@@ -124,6 +135,120 @@ describe('SL analytics context', () => {
 					listenerVersion: expect.any(String),
 					sourceHierarchy: 'some-source',
 					status: 'pending',
+					statusDetails: null,
+				},
+				source: 'some-source',
+				tags: ['media'],
+			});
+		});
+
+		it('adds analytics context with displayCategory "link" when display is "url" when the hyperlink button experiment is running', () => {
+			getExperimentValueMock.mockImplementation((experimentName: string) => {
+				if (
+					experimentName === 'platform_linking_bluelink_connect_confluence' ||
+					experimentName === 'platform_linking_bluelink_connect_jira'
+				) {
+					return true;
+				}
+			});
+			const setupWithUrlDisplay = (cardState?: CardState) => {
+				const storeOptions = cardState ? { initialState: { [url]: cardState } } : undefined;
+
+				render(
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
+						<SmartCardProvider storeOptions={storeOptions}>
+							<SmartLinkAnalyticsContext display="url" id={id} source={source} url={url}>
+								<DummyComponent />
+							</SmartLinkAnalyticsContext>
+						</SmartCardProvider>
+					</FabricAnalyticsListeners>,
+				);
+			};
+
+			setupWithUrlDisplay(resolvedCardState);
+
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
+				action: 'fired',
+				actionSubject: 'event',
+				attributes: {
+					...context,
+					canBeDatasource: false,
+					definitionId: 'd1',
+					destinationActivationId: null,
+					destinationCategory: null,
+					destinationContainerId: null,
+					destinationObjectId: null,
+					destinationObjectType: 'object-resource',
+					destinationProduct: 'object-product',
+					destinationSubproduct: 'object-subproduct',
+					destinationTenantId: null,
+					display: 'url',
+					displayCategory: 'link',
+					extensionKey: 'object-provider',
+					id,
+					listenerVersion: expect.any(String),
+					packageName: expect.any(String),
+					packageVersion: expect.any(String),
+					resourceType: 'object-resource',
+					sourceHierarchy: 'some-source',
+					status: 'resolved',
+					statusDetails: null,
+				},
+				source: 'some-source',
+				tags: ['media'],
+			});
+		});
+
+		it('adds analytics context with displayCategory "smartLink" when display is not "url" when the hyperlink button experiment is running', () => {
+			getExperimentValueMock.mockImplementation((experimentName: string) => {
+				if (
+					experimentName === 'platform_linking_bluelink_connect_confluence' ||
+					experimentName === 'platform_linking_bluelink_connect_jira'
+				) {
+					return true;
+				}
+			});
+			const setupWithInlineDisplay = (cardState?: CardState) => {
+				const storeOptions = cardState ? { initialState: { [url]: cardState } } : undefined;
+
+				render(
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
+						<SmartCardProvider storeOptions={storeOptions}>
+							<SmartLinkAnalyticsContext display="inline" id={id} source={source} url={url}>
+								<DummyComponent />
+							</SmartLinkAnalyticsContext>
+						</SmartCardProvider>
+					</FabricAnalyticsListeners>,
+				);
+			};
+
+			setupWithInlineDisplay(resolvedCardState);
+
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
+				action: 'fired',
+				actionSubject: 'event',
+				attributes: {
+					...context,
+					canBeDatasource: false,
+					definitionId: 'd1',
+					destinationActivationId: null,
+					destinationCategory: null,
+					destinationContainerId: null,
+					destinationObjectId: null,
+					destinationObjectType: 'object-resource',
+					destinationProduct: 'object-product',
+					destinationSubproduct: 'object-subproduct',
+					destinationTenantId: null,
+					display: 'inline',
+					displayCategory: 'smartLink',
+					extensionKey: 'object-provider',
+					id,
+					listenerVersion: expect.any(String),
+					packageName: expect.any(String),
+					packageVersion: expect.any(String),
+					resourceType: 'object-resource',
+					sourceHierarchy: 'some-source',
+					status: 'resolved',
 					statusDetails: null,
 				},
 				source: 'some-source',
@@ -287,6 +412,100 @@ describe('SL analytics context', () => {
 					packageVersion: expect.any(String),
 					resourceType: null,
 					status: 'pending',
+					statusDetails: null,
+				},
+			});
+		});
+
+		it('returns analytics context with displayCategory "link" when display is "url" when the hyperlink button experiment is running', () => {
+			getExperimentValueMock.mockImplementation((experimentName: string) => {
+				if (
+					experimentName === 'platform_linking_bluelink_connect_confluence' ||
+					experimentName === 'platform_linking_bluelink_connect_jira'
+				) {
+					return true;
+				}
+			});
+			const setupWithUrlDisplay = (cardState?: CardState) => {
+				const storeOptions = cardState ? { initialState: { [url]: cardState } } : undefined;
+				return renderHook(() => useSmartLinkAnalyticsContext({ display: 'url', id, source, url }), {
+					wrapper: ({ children }) => (
+						<SmartCardProvider storeOptions={storeOptions}>{children}</SmartCardProvider>
+					),
+				});
+			};
+
+			const { result } = setupWithUrlDisplay(resolvedCardState);
+
+			expect(result.current).toEqual({
+				source,
+				attributes: {
+					...context,
+					canBeDatasource: false,
+					definitionId: 'd1',
+					destinationActivationId: null,
+					destinationCategory: null,
+					destinationContainerId: null,
+					destinationObjectId: null,
+					destinationObjectType: 'object-resource',
+					destinationProduct: 'object-product',
+					destinationSubproduct: 'object-subproduct',
+					destinationTenantId: null,
+					display: 'url',
+					displayCategory: 'link',
+					extensionKey: 'object-provider',
+					id,
+					packageName: expect.any(String),
+					packageVersion: expect.any(String),
+					resourceType: 'object-resource',
+					status: 'resolved',
+					statusDetails: null,
+				},
+			});
+		});
+
+		it('returns analytics context with displayCategory "smartLink" when display is not "url" when the hyperlink button experiment is running', () => {
+			getExperimentValueMock.mockImplementation((experimentName: string) => {
+				if (
+					experimentName === 'platform_linking_bluelink_connect_confluence' ||
+					experimentName === 'platform_linking_bluelink_connect_jira'
+				) {
+					return true;
+				}
+			});
+			const setupWithInlineDisplay = (cardState?: CardState) => {
+				const storeOptions = cardState ? { initialState: { [url]: cardState } } : undefined;
+				return renderHook(() => useSmartLinkAnalyticsContext({ display: 'inline', id, source, url }), {
+					wrapper: ({ children }) => (
+						<SmartCardProvider storeOptions={storeOptions}>{children}</SmartCardProvider>
+					),
+				});
+			};
+
+			const { result } = setupWithInlineDisplay(resolvedCardState);
+
+			expect(result.current).toEqual({
+				source,
+				attributes: {
+					...context,
+					canBeDatasource: false,
+					definitionId: 'd1',
+					destinationActivationId: null,
+					destinationCategory: null,
+					destinationContainerId: null,
+					destinationObjectId: null,
+					destinationObjectType: 'object-resource',
+					destinationProduct: 'object-product',
+					destinationSubproduct: 'object-subproduct',
+					destinationTenantId: null,
+					display: 'inline',
+					displayCategory: 'smartLink',
+					extensionKey: 'object-provider',
+					id,
+					packageName: expect.any(String),
+					packageVersion: expect.any(String),
+					resourceType: 'object-resource',
+					status: 'resolved',
 					statusDetails: null,
 				},
 			});

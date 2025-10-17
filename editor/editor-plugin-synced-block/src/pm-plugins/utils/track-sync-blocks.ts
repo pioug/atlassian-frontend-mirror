@@ -13,6 +13,15 @@ export const trackSyncBlocks = (
 	tr: Transaction,
 	state: EditorState,
 ) => {
+	// TODO: EDITOR-2430 - Disable tracking for now, it will be updated to handle the new bodied sync block
+	const dontTrack = true;
+	if (dontTrack) {
+		return {
+			removed: [],
+			added: [],
+		};
+	}
+
 	const sourceSyncBlockRemoved: syncBlockMap = {};
 	const sourceSyncBlockAdded: syncBlockMap = {};
 

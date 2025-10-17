@@ -30,6 +30,7 @@ export const allPermissions = (defaultPermission: boolean, isMember: boolean): P
 	EDIT_TEAM_MEMBERSHIP: defaultPermission,
 	REMOVE_AGENT_FROM_TEAM: defaultPermission,
 	ADD_AGENT_TO_TEAM: defaultPermission,
+	ARCHIVE_TEAM: defaultPermission && isMember,
 });
 
 export const vanityActions: TeamAction[] = [
@@ -76,16 +77,19 @@ export const getPermissionMap = (
 		'isEnabled',
 		false,
 	);
+	const isArchiveTeamEnabled = fg('legion-enable-archive-teams') && newTeamProfileEnabled;
 	if (settings === 'OPEN') {
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember),
 			...openPermissions(permission),
+			ARCHIVE_TEAM: isArchiveTeamEnabled && permission === 'FULL_WRITE' && isMember,
 		};
 	}
 	if (settings === 'MEMBER_INVITE') {
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember),
 			...inviteOnlyPermissions(permission),
+			ARCHIVE_TEAM: isArchiveTeamEnabled && permission === 'FULL_WRITE' && isMember,
 		};
 	} else if (settings === 'EXTERNAL') {
 		return {
@@ -93,6 +97,7 @@ export const getPermissionMap = (
 			...SCIMSyncTeamPermissions(isMember, isOrgAdmin, source),
 			ADD_AGENT_TO_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
 			REMOVE_AGENT_FROM_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
+			ARCHIVE_TEAM: isArchiveTeamEnabled && isOrgAdmin,
 		};
 	}
 	return allPermissions(false, false);

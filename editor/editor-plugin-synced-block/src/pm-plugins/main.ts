@@ -4,6 +4,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
+import { lazyBodiedSyncBlockView } from '../nodeviews/bodiedLazySyncedBlock';
 import { lazySyncBlockView } from '../nodeviews/lazySyncedBlock';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 
@@ -37,6 +38,12 @@ export const createPlugin = (
 		props: {
 			nodeViews: {
 				syncBlock: lazySyncBlockView({ options, pmPluginFactoryParams, api, syncBlockStore }),
+				bodiedSyncBlock: lazyBodiedSyncBlockView({
+					pluginOptions: options,
+					pmPluginFactoryParams,
+					api,
+					syncBlockStore,
+				}),
 			},
 		},
 		view: (editorView: EditorView) => {
@@ -45,7 +52,6 @@ export const createPlugin = (
 			return {
 				destroy() {
 					syncBlockStore.setEditorView(undefined);
-					syncBlockStore.setSyncBlockNestedEditorView(undefined);
 				},
 			};
 		},
@@ -77,7 +83,7 @@ export const createPlugin = (
 
 			return true;
 		},
-		appendTransaction: (trs, oldState, newState) => {
+		appendTransaction: (trs, _oldState, newState) => {
 			trs
 				.filter((tr) => tr.docChanged)
 				.forEach((tr) => {

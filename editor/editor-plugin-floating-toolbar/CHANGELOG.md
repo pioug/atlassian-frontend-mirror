@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 8.2.8
+
+### Patch Changes
+
+- [`c73240f29d437`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c73240f29d437) -
+  upgrade use of browser util
+
 ## 8.2.7
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/ads-mcp
 
+## 0.7.2
+
+### Patch Changes
+
+- [`113082182ce8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/113082182ce8f) -
+  Use pre-built distribution files when source files are unavailable, preventing module resolution
+  failures.
+
 ## 0.7.1
 
 ### Patch Changes

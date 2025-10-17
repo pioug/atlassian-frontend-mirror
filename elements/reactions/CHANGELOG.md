@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.4.0
+
+### Minor Changes
+
+- [`8c47e99583a3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c47e99583a3e) -
+  [ux] Hoverable summary view not compatible with introduced FG, this removes the logic
+  conditionally
+
 ## 33.3.4
 
 ### Patch Changes

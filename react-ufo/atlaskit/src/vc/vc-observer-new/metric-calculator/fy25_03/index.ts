@@ -21,13 +21,9 @@ const getConsideredEntryTypes = (include3p?: boolean): VCObserverEntryType[] => 
 		'mutation:element',
 		'mutation:attribute',
 		'layout-shift',
+		'layout-shift:same-rect',
 		'window:event',
 	];
-
-	// in rolling this out, still include it in TTVC v3
-	if (fg('platform_ufo_vc_next_filter_ls_entries_same_rect')) {
-		entryTypes.push('layout-shift:same-rect');
-	}
 
 	// If not exclude 3p elements from ttvc,
 	// including the tags into the ConsideredEntryTypes so that it won't be ignored for TTVC calculation

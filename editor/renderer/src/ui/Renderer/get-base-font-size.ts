@@ -11,7 +11,12 @@ export const getBaseFontSize = (
 	contentMode: RendererContentMode,
 ) => {
 	if (expValEquals('cc_editor_ai_content_mode', 'variant', 'test')) {
-		if (contentMode === 'dense') {
+		if (
+			contentMode ===
+			(expValEquals('confluence_content_mode_replace_dense_with_compact', 'cohort', 'test')
+				? 'compact'
+				: 'dense')
+		) {
 			return akEditorFullPageDenseFontSize;
 		}
 	}

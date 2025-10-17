@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.14.0
+
+### Minor Changes
+
+- [`18aec70029328`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18aec70029328) -
+  EDITOR-2420 Rename parameter values of `dense` contentMode to `compact`
+
 ## 13.13.1
 
 ### Patch Changes

@@ -40,7 +40,6 @@ export class SyncBlockStoreManager {
 	private editorView?: EditorView;
 	private dataProvider?: SyncBlockDataProvider;
 	private confirmationTransaction?: Transaction;
-	private syncBlockNestedEditorView?: EditorView;
 
 	constructor(dataProvider?: SyncBlockDataProvider) {
 		this.syncBlocks = new Map();
@@ -105,16 +104,8 @@ export class SyncBlockStoreManager {
 		this.editorView = editorView;
 	}
 
-	public setSyncBlockNestedEditorView(editorView: EditorView | undefined) {
-		this.syncBlockNestedEditorView = editorView;
-	}
-
-	public getSyncBlockNestedEditorView(): EditorView | undefined {
-		return this.syncBlockNestedEditorView;
-	}
-
 	public isSourceBlock(node: PMNode): boolean {
-		if (node.type.name !== 'syncBlock') {
+		if (node.type.name !== 'bodiedSyncBlock') {
 			return false;
 		}
 

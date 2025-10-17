@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 7.1.1
+
+### Patch Changes
+
+- [`6d4a0ec8c53a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d4a0ec8c53a8) -
+  upgrade use of browser util
+
 ## 7.1.0
 
 ### Minor Changes

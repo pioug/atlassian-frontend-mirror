@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-breakout
 
+## 6.1.1
+
+### Patch Changes
+
+- [`637c29651f8ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/637c29651f8ab) -
+  clean up platform_editor_table_drag_menu_flickers_fix
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

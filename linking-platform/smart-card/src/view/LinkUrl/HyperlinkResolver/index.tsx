@@ -10,6 +10,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { getFirstPartyIdentifier, getServices, getThirdPartyARI } from '../../../state/helpers';
 import useResolveHyperlink from '../../../state/hooks/use-resolve-hyperlink';
 import useResolveHyperlinkValidator from '../../../state/hooks/use-resolve-hyperlink/useResolveHyperlinkValidator';
+import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 import withIntlProvider from '../../common/intl-provider';
 import { useFire3PWorkflowsClickEvent } from '../../SmartLinkEvents/useSmartLinkEvents';
 import Hyperlink from '../Hyperlink';
@@ -23,8 +24,14 @@ const withValidator =
 	(Component: ComponentType<LinkUrlProps>, DefaultComponent: ComponentType<LinkUrlProps>) =>
 	(props: LinkUrlProps) => {
 		const shouldResolveHyperlink = useResolveHyperlinkValidator(props?.href);
-		return shouldResolveHyperlink ? <Component {...props} /> : <DefaultComponent {...props} />;
-	};
+		return shouldResolveHyperlink && props.href ?
+			(
+				<SmartLinkAnalyticsContext url={props.href} display="url">
+					<Component {...props} />
+				</SmartLinkAnalyticsContext>
+			)
+			: <DefaultComponent {...props} />;
+		};
 
 const HyperlinkWithSmartLinkResolverInner = ({
 	onClick: onClickCallback,

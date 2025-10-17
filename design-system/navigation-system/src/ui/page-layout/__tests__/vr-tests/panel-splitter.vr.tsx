@@ -1,4 +1,4 @@
-import { snapshot } from '@af/visual-regression';
+import { type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
 import {
 	PanelSplitterPositionEnd,
@@ -7,11 +7,15 @@ import {
 	PanelSplitterWithTooltipAndShortcut,
 } from '../../../../../examples/panel-splitter';
 
+const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
+	{
+		environment: { colorScheme: 'light' },
+		name: 'default',
+	},
+];
+
 snapshot(PanelSplitterPositionStart, {
 	description: 'Hovered panel splitter with position: start',
-	featureFlags: {
-		platform_nav4_panel_splitter_keyboard_a11y: [true, false],
-	},
 	states: [
 		{
 			state: 'hovered',
@@ -20,13 +24,11 @@ snapshot(PanelSplitterPositionStart, {
 			},
 		},
 	],
+	variants: lightModeVariant,
 });
 
 snapshot(PanelSplitterPositionEnd, {
 	description: 'Hovered panel splitter with position: end',
-	featureFlags: {
-		platform_nav4_panel_splitter_keyboard_a11y: [true, false],
-	},
 	states: [
 		{
 			state: 'hovered',
@@ -35,13 +37,11 @@ snapshot(PanelSplitterPositionEnd, {
 			},
 		},
 	],
+	variants: lightModeVariant,
 });
 
 snapshot(PanelSplitterPositionStart, {
 	description: 'Focused panel splitter with position: start',
-	featureFlags: {
-		platform_nav4_panel_splitter_keyboard_a11y: true,
-	},
 	states: [
 		{
 			state: 'focused',
@@ -53,13 +53,11 @@ snapshot(PanelSplitterPositionStart, {
 			},
 		},
 	],
+	variants: lightModeVariant,
 });
 
 snapshot(PanelSplitterPositionEnd, {
 	description: 'Focused panel splitter with position: end',
-	featureFlags: {
-		platform_nav4_panel_splitter_keyboard_a11y: true,
-	},
 	states: [
 		{
 			state: 'focused',
@@ -71,6 +69,7 @@ snapshot(PanelSplitterPositionEnd, {
 			},
 		},
 	],
+	variants: lightModeVariant,
 });
 
 snapshot(PanelSplitterWithTooltip, {
@@ -86,6 +85,8 @@ snapshot(PanelSplitterWithTooltip, {
 			},
 		},
 	],
+	variants: lightModeVariant,
+	drawsOutsideBounds: true,
 });
 
 snapshot(PanelSplitterWithTooltipAndShortcut, {
@@ -101,4 +102,6 @@ snapshot(PanelSplitterWithTooltipAndShortcut, {
 			},
 		},
 	],
+	variants: lightModeVariant,
+	drawsOutsideBounds: true,
 });

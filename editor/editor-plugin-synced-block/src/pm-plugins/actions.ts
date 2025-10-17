@@ -3,8 +3,8 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { copyDomNode, toDOM } from '@atlaskit/editor-common/copy-button';
 import type {
 	Command,
 	CommandDispatch,
@@ -13,7 +13,6 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
-import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
 	SyncBlockDataProvider,
@@ -22,7 +21,12 @@ import type {
 
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
-import { canBeConvertedToSyncBlock, findSyncBlock } from './utils/utils';
+import {
+	canBeConvertedToSyncBlock,
+	findSyncBlock,
+	findSyncBlockOrBodiedSyncBlock,
+	isBodiedSyncBlockNode,
+} from './utils/utils';
 
 type createSyncedBlockProps = {
 	dataProvider?: SyncBlockDataProvider;
@@ -38,44 +42,49 @@ export const createSyncedBlock = ({
 }: createSyncedBlockProps): false | Transaction => {
 	const {
 		schema: {
-			nodes: { syncBlock, doc },
+			nodes: { bodiedSyncBlock, paragraph },
 		},
 	} = tr.doc.type;
 
-	const syncBlockNode = syncBlockStore.createSyncBlockNode();
-	const node = syncBlock.createAndFill({ ...syncBlockNode.attrs });
-
-	if (!node) {
-		return false;
-	}
-
 	// If the selection is empty, we want to insert the sync block on a new line
 	if (tr.selection.empty) {
+		const storeSyncBlockNode = syncBlockStore.createSyncBlockNode();
+		const paragraphNode = paragraph.createAndFill({});
+		const newBodiedSyncBlockNode = bodiedSyncBlock.createAndFill(
+			{ ...storeSyncBlockNode.attrs },
+			paragraphNode ? [paragraphNode] : [],
+		);
+
+		if (!newBodiedSyncBlockNode) {
+			return false;
+		}
+
 		if (typeAheadInsert) {
-			tr = typeAheadInsert(node);
+			tr = typeAheadInsert(newBodiedSyncBlockNode);
 		} else {
-			tr = tr.replaceSelectionWith(node).scrollIntoView();
+			tr = tr.replaceSelectionWith(newBodiedSyncBlockNode).scrollIntoView();
 		}
 	} else {
 		const conversionInfo = canBeConvertedToSyncBlock(tr.selection);
-		if (conversionInfo) {
-			tr.replaceWith(conversionInfo.from, conversionInfo.to, node).scrollIntoView();
-			const innerNodeJson = doc.create({}, conversionInfo.contentToInclude).toJSON();
-
-			// TMP solution to wait for the nested editor view to be set
-			// this will be removed once we have a proper architecture settled
-			setTimeout(() => {
-				const editorView = syncBlockStore.getSyncBlockNestedEditorView();
-				if (editorView) {
-					const innerTr = editorView.state.tr;
-					const innerNode = editorView.state.schema.nodeFromJSON(innerNodeJson);
-
-					editorView.dispatch(innerTr.replaceWith(0, editorView.state.doc.nodeSize - 2, innerNode));
-				}
-			}, 1000);
+		if (!conversionInfo) {
+			// TODO: EDITOR-1665 - Raise an error analytics event
+			return false;
 		} else {
-			// still insert an empty sync block if conversion is not possible
-			safeInsert(syncBlock.createAndFill(syncBlockNode.attrs) as PMNode)(tr)?.scrollIntoView();
+			const storeSyncBlockNode = syncBlockStore.createSyncBlockNode();
+			const newBodiedSyncBlockNode = bodiedSyncBlock.createAndFill(
+				{ ...storeSyncBlockNode.attrs },
+				conversionInfo.contentToInclude,
+			);
+
+			if (!newBodiedSyncBlockNode) {
+				return false;
+			}
+
+			tr.replaceWith(
+				conversionInfo.from - 1,
+				conversionInfo.to,
+				newBodiedSyncBlockNode,
+			).scrollIntoView();
 		}
 	}
 
@@ -84,29 +93,50 @@ export const createSyncedBlock = ({
 
 export const copySyncedBlockReferenceToClipboard =
 	(api?: ExtractInjectionAPI<SyncedBlockPlugin>): Command =>
-	(state: EditorState, dispatch?: CommandDispatch, _view?: EditorView) => {
-		if (!api?.floatingToolbar || !dispatch) {
+	(state: EditorState, _dispatch?: CommandDispatch, _view?: EditorView) => {
+		if (!api?.floatingToolbar) {
 			return false;
 		}
 
-		const {
-			schema: {
-				nodes: { syncBlock },
-			},
-			tr,
-		} = state;
-		const newTr = api.floatingToolbar.commands.copyNode(
-			syncBlock,
-			INPUT_METHOD.FLOATING_TB,
-		)({ tr });
-
-		if (!newTr) {
+		const syncBlockFindResult = findSyncBlockOrBodiedSyncBlock(state);
+		if (!syncBlockFindResult) {
 			return false;
 		}
 
-		dispatch(newTr);
+		const isBodiedSyncBlock = isBodiedSyncBlockNode(
+			syncBlockFindResult.node,
+			state.schema.nodes.bodiedSyncBlock,
+		);
+		let referenceSyncBlockNode: PMNode | null = null;
+
+		if (isBodiedSyncBlock) {
+			const {
+				schema: {
+					nodes: { syncBlock },
+				},
+			} = state.tr.doc.type;
+
+			// create sync block reference node
+			referenceSyncBlockNode = syncBlock.createAndFill({
+				resourceId: syncBlockFindResult.node.attrs.resourceId,
+			});
+			if (!referenceSyncBlockNode) {
+				return false;
+			}
+		} else {
+			referenceSyncBlockNode = syncBlockFindResult.node;
+		}
+
+		if (!referenceSyncBlockNode) {
+			return false;
+		}
+
+		const domNode = toDOM(referenceSyncBlockNode, state.tr.doc.type.schema);
+		copyDomNode(domNode, referenceSyncBlockNode.type, state.tr.selection);
+
 		return true;
 	};
+
 
 export const editSyncedBlockSource =
 	(syncBlockStore: SyncBlockStoreManager, api?: ExtractInjectionAPI<SyncedBlockPlugin>): Command =>
@@ -150,7 +180,7 @@ export const removeSyncedBlock =
 			tr,
 		} = state;
 
-		const syncBlock = findSyncBlock(state);
+		const syncBlock = findSyncBlockOrBodiedSyncBlock(state);
 		if (!syncBlock) {
 			return false;
 		}

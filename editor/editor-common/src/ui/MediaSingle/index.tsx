@@ -161,10 +161,7 @@ export default function MediaSingle({
 				nodeType,
 			})}
 			// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/platform/no-preconditioning
-			{...(fg('platform_editor_fix_image_size_diff_during_ssr') &&
-			!fg('platform_editor_fix_media_in_renderer')
-				? {}
-				: { 'data-layout': layout })}
+			{...(!fg('platform_editor_fix_media_in_renderer') ? {} : { 'data-layout': layout })}
 			data-width={mediaSingleWidth}
 			data-width-type={size?.widthType || 'percentage'}
 			data-node-type={nodeType}

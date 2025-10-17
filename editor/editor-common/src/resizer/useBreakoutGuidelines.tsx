@@ -10,7 +10,6 @@ import {
 	akEditorFullPageNarrowBreakout,
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type GuidelineConfig } from '../guideline';
@@ -62,11 +61,9 @@ export function useBreakoutGuidelines(
 		// But the lineLength variable here is being used like a const 760.
 		// when the page is full width, the calculation of wide is wrong.
 		// Actuall the wide is the wide breakout point, which is
-		const wide =
-			editorExperiment('single_column_layouts', true) &&
-			fg('platform_editor_layout_guideline_full_width_fix')
-				? akEditorCalculatedWideLayoutWidth
-				: wideCalWithRatio;
+		const wide = editorExperiment('single_column_layouts', true)
+			? akEditorCalculatedWideLayoutWidth
+			: wideCalWithRatio;
 
 		const padding =
 			width &&
@@ -89,11 +86,9 @@ export function useBreakoutGuidelines(
 			fullWidth,
 			// When page is full width, lineLength from widthState can be much wider than 760.
 			// But the lineLength variable here is being used like a const 760.
-			lineLength:
-				editorExperiment('single_column_layouts', true) &&
-				fg('platform_editor_layout_guideline_full_width_fix')
-					? akEditorDefaultLayoutWidth
-					: lineLength,
+			lineLength: editorExperiment('single_column_layouts', true)
+				? akEditorDefaultLayoutWidth
+				: lineLength,
 		};
 	}, [widthState, isResizing, dynamicFullWidthGuidelineOffset]);
 
@@ -104,10 +99,7 @@ export function useBreakoutGuidelines(
 			!wide ||
 			!lineLength ||
 			fullWidth <=
-				(editorExperiment('single_column_layouts', true) &&
-				fg('platform_editor_layout_guideline_full_width_fix')
-					? akEditorDefaultLayoutWidth
-					: lineLength)
+				(editorExperiment('single_column_layouts', true) ? akEditorDefaultLayoutWidth : lineLength)
 		) {
 			return null;
 		}

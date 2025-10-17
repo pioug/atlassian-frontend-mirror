@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 3.6.0
+
+### Minor Changes
+
+- [`10882b2fab738`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10882b2fab738) -
+  [ux] Introduced bodiedSyncBlock nodeview
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.5.1
 
 ### Patch Changes

@@ -549,6 +549,15 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-10-10
+	platform_editor_hoverlink_ui_fixes_exp: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'platform_editor_hoverlink_ui_fixes_exp',
+		},
+		param: 'cohort',
+		values: ['control', 'css_changes_only', 'css_js_changes'],
+		defaultValue: 'control',
+	}),
 	// Added 2025-08-17
 	platform_hover_card_preview_panel: createMultivariateExperiment({
 		productKeys: {
@@ -1036,6 +1045,15 @@ export const editorExperimentsConfig = {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
+	}),
+	// Added 2025-10-17
+	confluence_content_mode_replace_dense_with_compact: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'confluence_content_mode_replace_dense_with_compact',
+		},
+		param: 'cohort',
+		values: ['control', 'test'],
+		defaultValue: 'control',
 	}),
 	// Added 2025-10-01
 	platform_inline_smartcard_connect_button_exp: createMultivariateExperiment({

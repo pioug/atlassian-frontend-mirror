@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -54,7 +55,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		data: SyncBlockData[],
 	): Promise<Array<string | undefined>> {
 		const resourceIds: Promise<string>[] = [];
-		nodes.forEach((node, index) => {
+		nodes.forEach((_node, index) => {
 			if (!data[index].content) {
 				resourceIds.push(Promise.reject('No Synced Blockcontent to write'));
 				return;
@@ -136,7 +137,7 @@ export const useMemoizedSyncedBlockProvider = (
 };
 
 export const useHandleContentChanges = (
-	updatedDoc: PMNode,
+	updatedDoc: ADFEntity | undefined,
 	isSource: boolean,
 	node: PMNode,
 	provider?: SyncBlockDataProvider,
@@ -150,7 +151,7 @@ export const useHandleContentChanges = (
 		}
 		const syncBlockNode = convertSyncBlockPMNodeToSyncBlockData(node, false);
 		const data: SyncBlockData = {
-			content: updatedDoc.toJSON(),
+			content: updatedDoc,
 			resourceId: node.attrs.resourceId,
 			localId: node.attrs.localId,
 		};

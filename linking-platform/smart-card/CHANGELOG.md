@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 43.2.1
+
+### Patch Changes
+
+- [`8e09fe6bb6c78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e09fe6bb6c78) -
+  Add SmartLinkAnalyticsContext to the HyperlinkResolver logic so that the hyperlink analytics
+  events contains additional attributes about the resolution
+- Updated dependencies
+
 ## 43.2.0
 
 ### Minor Changes

@@ -50,9 +50,8 @@ export function BreakoutSSRInlineScript({ noOpSSRInlineScript }: { noOpSSRInline
 
 export function createBreakoutInlineScript(id: number, shouldSkipScript: { table: boolean }) {
 	const flags = {
-		platform_editor_fix_image_size_diff_during_ssr: fg('platform_editor_fix_image_size_diff_during_ssr'),
-		platform_editor_fix_media_in_renderer: fg('platform_editor_fix_media_in_renderer')
-	 };
+		platform_editor_fix_media_in_renderer: fg('platform_editor_fix_media_in_renderer'),
+	};
 	return `(function(window){
 if(typeof window !== 'undefined' && window.__RENDERER_BYPASS_BREAKOUT_SSR__) { return; }
 ${breakoutInlineScriptContext};
@@ -140,9 +139,7 @@ function applyBreakoutAfterSSR(
 						!WIDE_LAYOUT_MODES.includes(mode) ||
 						// skip apply width styling to mediaSingle node with pixel width to avoid image size changing
 						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(isMediaSingleWithPixelWidth &&
-							flags['platform_editor_fix_image_size_diff_during_ssr'] &&
-							flags['platform_editor_fix_media_in_renderer'])
+						(isMediaSingleWithPixelWidth && flags['platform_editor_fix_media_in_renderer'])
 					) {
 						return;
 					}

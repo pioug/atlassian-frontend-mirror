@@ -1,5 +1,40 @@
 # @atlaskit/editor-core
 
+## 215.4.0
+
+### Minor Changes
+
+- [`18aec70029328`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18aec70029328) -
+  EDITOR-2420 Rename parameter values of `dense` contentMode to `compact`
+
+### Patch Changes
+
+- Updated dependencies
+
+## 215.3.3
+
+### Patch Changes
+
+- [`cb4c073423dc7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb4c073423dc7) -
+  Added testId for Comment Editor Cancel button
+- Updated dependencies
+
+## 215.3.2
+
+### Patch Changes
+
+- [`5bdcb96c64433`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bdcb96c64433) -
+  Fix exposure firing for editor no ssr experiment
+- Updated dependencies
+
+## 215.3.1
+
+### Patch Changes
+
+- [`10882b2fab738`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10882b2fab738) -
+  [ux] Introduced bodiedSyncBlock nodeview
+- Updated dependencies
+
 ## 215.3.0
 
 ### Minor Changes

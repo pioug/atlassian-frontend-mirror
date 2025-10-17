@@ -23,7 +23,12 @@ export const CreateSyncedBlockDropdownItem = ({
 	}
 
 	const onClick = () => {
-		api?.core?.actions.execute(api?.syncedBlock.commands.insertSyncedBlock());
+		api?.core?.actions.execute(({ tr }) => {
+			api?.syncedBlock.commands.insertSyncedBlock()({ tr });
+			api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
+			return tr;
+		});
+		api?.core?.actions.focus();
 	};
 
 	return (

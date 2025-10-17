@@ -21,19 +21,21 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
-	<div css={styles.container}>
-		<Tooltip content="Single key" shortcut={['[']}>
-			{(tooltipProps) => <Button {...tooltipProps}>Short with single key</Button>}
-		</Tooltip>
-		<Tooltip content="Multiple keys" shortcut={['Cmd', 'Opt', 'V']}>
-			{(tooltipProps) => <Button {...tooltipProps}>Short with multiple keys</Button>}
-		</Tooltip>
-		<Tooltip
-			content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing"
-			shortcut={['Ctrl', 'Opt', 'Z']}
-		>
-			{(tooltipProps) => <Button {...tooltipProps}>Long content</Button>}
-		</Tooltip>
-	</div>
-);
+export default function KeyboardShortcutExample() {
+	return (
+		<div css={styles.container}>
+			<Tooltip content="Single key" shortcut={['[']}>
+				{(tooltipProps) => <Button {...tooltipProps}>Short with single key</Button>}
+			</Tooltip>
+			<Tooltip content="Multiple keys" shortcut={['Cmd', 'Opt', 'V']}>
+				{(tooltipProps) => <Button {...tooltipProps}>Short with multiple keys</Button>}
+			</Tooltip>
+			<Tooltip
+				content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing"
+				shortcut={['Ctrl', 'Opt', 'Z']}
+			>
+				{(tooltipProps) => <Button {...tooltipProps}>Long content</Button>}
+			</Tooltip>
+		</div>
+	);
+}

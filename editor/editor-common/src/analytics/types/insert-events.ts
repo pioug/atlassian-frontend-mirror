@@ -83,7 +83,6 @@ type InsertCodeBlockAEP = InsertAEP<
 			| INPUT_METHOD.INSERT_MENU
 			| INPUT_METHOD.FORMATTING
 			| INPUT_METHOD.INSERT_MENU;
-		language?: string;
 	},
 	undefined
 >;

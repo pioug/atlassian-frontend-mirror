@@ -448,6 +448,13 @@ export class TeamsClient {
 	}
 
 	/**
+	 * Archive a team
+	 */
+	async archiveTeam(teamId: string): Promise<void> {
+		return this.measurePerformance('archiveTeam', () => this._legionClient.archiveTeam(teamId));
+	}
+
+	/**
 	 * @private
 	 * @deprecated should be other means to solve this issue
 	 */

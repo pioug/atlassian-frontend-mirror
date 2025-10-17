@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
 import isDnDStyleMutation from '../../vc-observer/observers/non-visual-styles/is-dnd-style-mutation';
 import isNonVisualStyleMutation from '../../vc-observer/observers/non-visual-styles/is-non-visual-style-mutation';
@@ -350,29 +348,18 @@ export default class ViewportObserver {
 			const target = changedRect.node;
 
 			if (target) {
-				if (fg('platform_ufo_vc_next_filter_ls_entries_same_rect')) {
-					const isSameCurrentAndPreviousRects = isSameRectDimensions(
-						changedRect.rect,
-						changedRect.previousRect,
-					);
-					this.onChange({
-						time,
-						elementRef: new WeakRef(target),
-						visible: true,
-						rect: changedRect.rect,
-						previousRect: changedRect.previousRect,
-						type: isSameCurrentAndPreviousRects ? 'layout-shift:same-rect' : 'layout-shift',
-					});
-				} else {
-					this.onChange({
-						time,
-						elementRef: new WeakRef(target),
-						visible: true,
-						rect: changedRect.rect,
-						previousRect: changedRect.previousRect,
-						type: 'layout-shift',
-					});
-				}
+				const isSameCurrentAndPreviousRects = isSameRectDimensions(
+					changedRect.rect,
+					changedRect.previousRect,
+				);
+				this.onChange({
+					time,
+					elementRef: new WeakRef(target),
+					visible: true,
+					rect: changedRect.rect,
+					previousRect: changedRect.previousRect,
+					type: isSameCurrentAndPreviousRects ? 'layout-shift:same-rect' : 'layout-shift',
+				});
 			}
 		}
 	};

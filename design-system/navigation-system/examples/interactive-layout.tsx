@@ -135,6 +135,9 @@ const defaultSlotWidths = {
 	aside: 400,
 };
 
+// Placed outside of component so it isn't recreated on every render
+const sideNavToggleButtonTooltipShortcut = ['['];
+
 function Example() {
 	const [direction, setDirection] = useState<'ltr' | 'rtl'>('ltr');
 	const [isBannerVisible, setIsBannerVisible] = useState(false);
@@ -192,7 +195,7 @@ function Example() {
 							<SideNavToggleButton
 								collapseLabel="Collapse sidebar"
 								expandLabel="Expand sidebar"
-								shortcut={['[']}
+								shortcut={sideNavToggleButtonTooltipShortcut}
 							/>
 						}
 					>

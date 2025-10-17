@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 3.0.1
+
+### Patch Changes
+
+- [`006edbc465657`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/006edbc465657) -
+  Fixes when `min-width` is applied to `TopNavStart` while the `navx-full-height-sidebar` feature
+  gate is enabled.
+
 ## 3.0.0
 
 ### Major Changes

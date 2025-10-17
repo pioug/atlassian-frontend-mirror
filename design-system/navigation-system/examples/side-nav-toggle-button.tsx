@@ -22,3 +22,5 @@ export const SideNavToggleButtonVR = () => <SideNavToggleButtonExample />;
 export const SideNavToggleButtonWithShortcutVR = () => (
 	<SideNavToggleButtonExample shortcut={['Ctrl', '[']} />
 );
+
+export default SideNavToggleButtonWithShortcutVR;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "124.7.0",
+	"version": "124.8.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -204,9 +204,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_bordered_panel_nested_in_table": {
-			"type": "boolean"
-		},
-		"platform_editor_fix_image_size_diff_during_ssr": {
 			"type": "boolean"
 		},
 		"smartcard_avatar_margin_fix": {

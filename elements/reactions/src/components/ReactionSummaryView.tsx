@@ -369,7 +369,7 @@ export const ReactionSummaryView = ({
 					summaryViewParticleEffectEmojiId={summaryViewParticleEffectEmojiId}
 				/>
 			)}
-			shouldRenderToParent={fg('should-render-to-parent-should-be-true-editor-coll')}
+			shouldRenderToParent={!hoverableSummaryView && fg('should-render-to-parent-should-be-true-editor-coll')}
 		/>
 	);
 };

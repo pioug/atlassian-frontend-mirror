@@ -18,7 +18,6 @@ import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { type EditorView, type NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -78,7 +77,7 @@ class BreakoutView implements NodeView {
 						appearance &&
 						appearance === 'full-width' &&
 						editorExperiment('single_column_layouts', true) &&
-						fg('platform_editor_layout_guideline_full_width_fix')
+						true
 					) {
 						contentDOM.style.minWidth = `min(var(--ak-editor--breakout-wide-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding)))`;
 					} else {

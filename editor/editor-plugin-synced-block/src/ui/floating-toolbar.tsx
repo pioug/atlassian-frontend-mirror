@@ -25,7 +25,7 @@ import {
 	editSyncedBlockSource,
 	removeSyncedBlock,
 } from '../pm-plugins/actions';
-import { findSyncBlock } from '../pm-plugins/utils/utils';
+import { findSyncBlockOrBodiedSyncBlock, isBodiedSyncBlockNode } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 
 export const getToolbarConfig = (
@@ -36,12 +36,19 @@ export const getToolbarConfig = (
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
 	syncBlockStore: SyncBlockStoreManager,
 ): FloatingToolbarConfig | undefined => {
-	const syncBlockObject = findSyncBlock(state);
+	const syncBlockObject = findSyncBlockOrBodiedSyncBlock(state);
 	if (!syncBlockObject) {
 		return;
 	}
+	const {
+		schema: {
+			nodes: { bodiedSyncBlock },
+		},
+	} = state;
+	const isBodiedSyncBlock = isBodiedSyncBlockNode(syncBlockObject.node, bodiedSyncBlock);
+
 	const { formatMessage } = intl;
-	const nodeType = state.schema.nodes.syncBlock;
+	const nodeType = syncBlockObject.node.type;
 	const hoverDecoration = api?.decorations?.actions.hoverDecoration;
 	const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) => ({
 		onMouseEnter: hoverDecoration?.(nodeType, true, className),
@@ -66,7 +73,7 @@ export const getToolbarConfig = (
 
 	const disabled = !syncBlockStore.getSyncBlockURL(syncBlockObject.node.attrs.resourceId);
 
-	if (!syncBlockStore.isSourceBlock(syncBlockObject.node)) {
+	if (!isBodiedSyncBlock) {
 		const editSourceButton: FloatingToolbarItem<Command> = {
 			id: 'editor.syncedBlock.editSource',
 			type: 'button',

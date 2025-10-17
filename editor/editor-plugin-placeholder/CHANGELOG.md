@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 6.2.0
+
+### Minor Changes
+
+- [`10882b2fab738`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10882b2fab738) -
+  [ux] Introduced bodiedSyncBlock nodeview
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.1
 
 ### Patch Changes
@@ -114,7 +125,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.

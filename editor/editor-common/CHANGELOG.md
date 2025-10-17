@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 110.15.0
+
+### Minor Changes
+
+- [`18aec70029328`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18aec70029328) -
+  EDITOR-2420 Rename parameter values of `dense` contentMode to `compact`
+- [`a4fbfc862e34f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4fbfc862e34f) -
+  [ux] ED-29557 Clean up plain text quick insert as it's not needed
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.14.2
+
+### Patch Changes
+
+- [`10882b2fab738`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10882b2fab738) -
+  [ux] Introduced bodiedSyncBlock nodeview
+
+## 110.14.1
+
+### Patch Changes
+
+- [`5771b6f88f16a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5771b6f88f16a) -
+  Clean up platform_editor_fix_image_size_diff_during_ssr
+- [`637c29651f8ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/637c29651f8ab) -
+  clean up platform_editor_table_drag_menu_flickers_fix
+- Updated dependencies
+
 ## 110.14.0
 
 ### Minor Changes

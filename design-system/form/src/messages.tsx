@@ -109,6 +109,8 @@ const Message = ({ children, appearance = 'default', fieldId, testId }: Internal
 			}, 10);
 			return () => clearTimeout(timer);
 		}
+
+		return;
 	}, [isDelayRenderEnabled]);
 
 	/**

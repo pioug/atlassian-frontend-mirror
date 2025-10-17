@@ -78,6 +78,12 @@ describe('In open teams', () => {
 	describe('When the user is a member', () => {
 		beforeEach(() => {
 			(isMember as jest.Mock).mockReturnValue(true);
+			(fg as jest.Mock).mockImplementation(
+				(flagName) => flagName === 'legion-enable-archive-teams',
+			);
+			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+				exp === 'new_team_profile' ? true : false,
+			);
 		});
 
 		it.each([...openActionsExceptJoin])(
@@ -113,6 +119,12 @@ describe('In open teams', () => {
 	describe('When the user is not a member', () => {
 		beforeEach(() => {
 			(isMember as jest.Mock).mockReturnValue(false);
+			(fg as jest.Mock).mockImplementation(
+				(flagName) => flagName === 'legion-enable-archive-teams',
+			);
+			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+				exp === 'new_team_profile' ? true : false,
+			);
 		});
 
 		test('anyone can join', () => {
@@ -155,6 +167,12 @@ describe('In invite-only teams', () => {
 	describe('When the user is a member', () => {
 		beforeEach(() => {
 			(isMember as jest.Mock).mockReturnValue(true);
+			(fg as jest.Mock).mockImplementation(
+				(flagName) => flagName === 'legion-enable-archive-teams',
+			);
+			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+				exp === 'new_team_profile' ? true : false,
+			);
 		});
 
 		it.each([...allActionsExceptJoin])('members with write permission can perform %s', (action) => {
@@ -178,9 +196,15 @@ describe('In invite-only teams', () => {
 	describe('When the user is not a member', () => {
 		beforeEach(() => {
 			(isMember as jest.Mock).mockReturnValue(false);
+			(fg as jest.Mock).mockImplementation(
+				(flagName) => flagName === 'legion-enable-archive-teams',
+			);
+			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+				exp === 'new_team_profile' ? true : false,
+			);
 		});
 
-		it.each([...allActionsExceptJoin].filter((a) => a !== 'LEAVE_TEAM'))(
+		it.each([...allActionsExceptJoin].filter((a) => a !== 'LEAVE_TEAM' && a !== 'ARCHIVE_TEAM'))(
 			'users with write permission can %s',
 			(action) => {
 				expect(
@@ -208,7 +232,7 @@ describe('In invite-only teams', () => {
 describe('In SCIM-synced teams', () => {
 	beforeEach(() => {
 		(fg as jest.Mock).mockImplementation(
-			(flagName) => flagName !== 'enable_edit_team_name_external_type_teams',
+			(flagName) => flagName !== 'enable_edit_team_name_external_type_teams' || flagName !== 'legion-enable-archive-teams',
 		);
 		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 			exp === 'new_team_profile' ? true : false,
@@ -264,6 +288,12 @@ describe('In SCIM-synced teams', () => {
 	describe('When the user is an org admin', () => {
 		beforeEach(() => {
 			(isMember as jest.Mock).mockReturnValue(false);
+			(fg as jest.Mock).mockImplementation(
+				(flagName) => flagName === 'legion-enable-archive-teams',
+			);
+			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+				exp === 'new_team_profile' ? true : false,
+			);
 		});
 		it.each(
 			AllTeamActions.filter((a) =>
@@ -273,6 +303,7 @@ describe('In SCIM-synced teams', () => {
 					'EDIT_TEAM_SETTINGS',
 					'REMOVE_AGENT_FROM_TEAM',
 					'ADD_AGENT_TO_TEAM',
+					'ARCHIVE_TEAM',
 				].some((s) => a.includes(s)),
 			),
 		)('members can perform %s', (action) => {
@@ -294,6 +325,7 @@ describe('In SCIM-synced teams', () => {
 						'EDIT_TEAM_SETTINGS',
 						'REMOVE_AGENT_FROM_TEAM',
 						'ADD_AGENT_TO_TEAM',
+						'ARCHIVE_TEAM',
 					].some((s) => a.includes(s)),
 			),
 		)('members cannot perform %s', (action) => {

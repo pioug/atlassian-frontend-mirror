@@ -1,21 +1,39 @@
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { getDefaultSyncBlockSchema } from '@atlaskit/editor-synced-block-provider';
 import { CellSelection, findTable } from '@atlaskit/editor-tables';
 
 export const findSyncBlock = (
 	state: EditorState,
 	selection?: Selection | null,
-):
-	| ReturnType<ReturnType<typeof findSelectedNodeOfType>>
-	| ReturnType<ReturnType<typeof findParentNodeOfType>> => {
+): ContentNodeWithPos | undefined => {
 	const { syncBlock } = state.schema.nodes;
+	return findSelectedNodeOfType(syncBlock)(selection || state.selection);
+};
+
+export const findBodiedSyncBlock = (
+	state: EditorState,
+	selection?: Selection | null,
+): ContentNodeWithPos | undefined => {
+	const { bodiedSyncBlock } = state.schema.nodes;
 	return (
-		findSelectedNodeOfType(syncBlock)(selection || state.selection) ||
-		findParentNodeOfType(syncBlock)(selection || state.selection)
+		findSelectedNodeOfType(bodiedSyncBlock)(selection || state.selection) ||
+		findParentNodeOfType(bodiedSyncBlock)(selection || state.selection)
 	);
 };
+
+export const findSyncBlockOrBodiedSyncBlock = (
+	state: EditorState,
+	selection?: Selection | null,
+): ContentNodeWithPos | undefined => {
+	return findSyncBlock(state, selection) || findBodiedSyncBlock(state, selection);
+};
+
+export const isBodiedSyncBlockNode = (node: PMNode, bodiedSyncBlock: NodeType): boolean =>
+	node.type === bodiedSyncBlock;
 
 export interface SyncBlockConversionInfo {
 	contentToInclude: Fragment;

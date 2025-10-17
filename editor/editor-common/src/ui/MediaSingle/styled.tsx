@@ -14,7 +14,6 @@ import {
 	akEditorFullPageMaxWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { isSSR } from '../../core-utils/is-ssr';
 import { nonWrappedLayouts } from '../../utils';
@@ -311,9 +310,7 @@ export const MediaSingleDimensionHelper = ({
 		})}
 
 		/* If container doesn't exists, it will fallback to this */
-		max-width: ${isSSR() &&
-		!calculatedMaxWidth.endsWith('%') &&
-		fg('platform_editor_fix_image_size_diff_during_ssr')
+		max-width: ${isSSR() && !calculatedMaxWidth.endsWith('%')
 			? Math.max(
 					parseInt(calculatedWidth.replace('px', '')),
 					parseInt(calculatedMaxWidth.replace('px', '')),

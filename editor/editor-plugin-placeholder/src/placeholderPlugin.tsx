@@ -14,6 +14,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PlaceholderPlugin } from './placeholderPluginType';
@@ -43,6 +44,7 @@ function getPlaceholderState(editorState: EditorState): PlaceHolderState {
 
 const nodeTypesWithLongPlaceholderText = ['expand', 'panel'];
 const nodeTypesWithShortPlaceholderText = ['tableCell', 'tableHeader'];
+const nodeTypesWithSyncBlockPlaceholderText = ['bodiedSyncBlock'];
 
 const cycleThroughPlaceholderPrompts = (
 	placeholderPrompts: string[],
@@ -296,6 +298,20 @@ function createPlaceHolderStateFrom({
 		if (nodeTypesWithLongPlaceholderText.includes(parentType) && isEmptyNode) {
 			return setPlaceHolderState(
 				intl.formatMessage(messages.longEmptyNodePlaceholderText),
+				$from.pos,
+				placeholderPrompts,
+				typedAndDeleted,
+				userHadTyped,
+			);
+		}
+
+		if (
+			nodeTypesWithSyncBlockPlaceholderText.includes(parentType) &&
+			isEmptyNode &&
+			expValEquals('platform_synced_block', 'isEnabled', true)
+		) {
+			return setPlaceHolderState(
+				intl.formatMessage(messages.syncBlockPlaceholderText),
 				$from.pos,
 				placeholderPrompts,
 				typedAndDeleted,

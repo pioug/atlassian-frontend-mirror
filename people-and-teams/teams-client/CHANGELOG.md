@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.20.0
+
+### Minor Changes
+
+- [`ad907b3b5b89e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad907b3b5b89e) -
+  Added Archive team functionality
+
 ## 4.19.0
 
 ### Minor Changes
@@ -244,18 +251,15 @@
   package
 
   WHAT:
-
   - Migrated teams-client from private package (@atlassian/teams-client) to public package
     (@atlaskit/teams-client)
   - All functionality remains the same, only the package name has changed.
 
   WHY:
-
   - To make teams-client functionality available to a wider range of public packages
 
   Note: All local consumer changes within this repository have already been included in this PR. HOW
   TO UPDATE:
-
   1. Update your package.json to use the new dependency:
      ```diff
      - "@atlassian/teams-client": "^x.x.x"

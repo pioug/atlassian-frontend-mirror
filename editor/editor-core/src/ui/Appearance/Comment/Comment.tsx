@@ -360,6 +360,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 								<Button
 									appearance="subtle"
 									onClick={handleCancel}
+									testId="comment-cancel-button"
 									isDisabled={disabled}
 									interactionName="editor-comment-cancel-button"
 								>

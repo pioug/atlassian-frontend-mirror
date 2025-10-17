@@ -132,7 +132,7 @@ const Pressable: React.ForwardRefExoticComponent<
 
 		return (
 			<Focusable
-				// @ts-expect-error we don't allow `button` on Focusable for makers as they should use Pressable instead
+				// @ts-ignore -- not using expect since it causes issues with help-center local consumption - we don't allow `button` on Focusable for makers as they should use Pressable instead
 				as="button"
 				// Safari does not apply focus to buttons on click like other browsers, which means click events will not be fired.
 				// Adding a tabIndex of 0 to the button will allow it to be focused on click.

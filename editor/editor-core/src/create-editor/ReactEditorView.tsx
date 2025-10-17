@@ -730,7 +730,7 @@ export function ReactEditorView(props: EditorViewProps) {
 
 	const handleEditorViewRef = useCallback(
 		(node: HTMLDivElement) => {
-			if (isSSR() && expVal('platform_editor_no_ssr', 'isEnabled', false)) {
+			if (expVal('platform_editor_no_ssr', 'isEnabled', false) && isSSR()) {
 				return;
 			}
 

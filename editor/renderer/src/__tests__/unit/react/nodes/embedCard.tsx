@@ -2,7 +2,6 @@ import React from 'react';
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { WidthContext } from '@atlaskit/editor-common/ui';
 import '@atlaskit/link-test-helpers/jest';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { RendererAppearance } from '@atlaskit/renderer';
 import { Pressable } from '@atlaskit/primitives/compiled';
@@ -157,15 +156,13 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
 					process.env = BASE_ENV;
 				});
 
-				ffTest.on('platform_editor_fix_image_size_diff_during_ssr', '', () => {
-					it('should media container has correct max width', () => {
-						// this test is to ensure the embed card media container has correct max-width applied
-						// HOT-117393 https://ops.internal.atlassian.com/jira/browse/HOT-117393?src=confmacro
-						const { baseElement } = mountEmbedCardSSR();
-						const mediaSingleElement = baseElement.querySelector(mediaSingleSelector);
-						expect(mediaSingleElement).toHaveAttribute('data-width-type', 'percentage');
-						expect(mediaSingleElement).toHaveStyleDeclaration('max-width', '100%');
-					});
+				it('should media container has correct max width', () => {
+					// this test is to ensure the embed card media container has correct max-width applied
+					// HOT-117393 https://ops.internal.atlassian.com/jira/browse/HOT-117393?src=confmacro
+					const { baseElement } = mountEmbedCardSSR();
+					const mediaSingleElement = baseElement.querySelector(mediaSingleSelector);
+					expect(mediaSingleElement).toHaveAttribute('data-width-type', 'percentage');
+					expect(mediaSingleElement).toHaveStyleDeclaration('max-width', '100%');
 				});
 			});
 		});

@@ -1,3 +1,4 @@
+/* eslint-disable @atlassian/i18n/no-literal-string-in-object */
 import { token } from '@atlaskit/tokens';
 
 import { darkPanelColors } from '../../../panel';

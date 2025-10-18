@@ -40,3 +40,8 @@ it('should localize by the locale provided', async () => {
 		`${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/edit-embed/123?parentProduct=test&parentProductContentContainerId=10000&locale=${locale}`,
 	);
 });
+
+it('should capture and report a11y violations', async () => {
+	const { container } = render(<EditPage {...defaultProps} locale={undefined} />);
+	await expect(container).toBeAccessible();
+});

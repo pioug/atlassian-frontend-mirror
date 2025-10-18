@@ -4,7 +4,8 @@ order: 0
 
 import FormDateTimePicker from '../../examples/constellation/form-date-time-picker.tsx';
 import FormCustomField from '../../examples/constellation/form-custom-field.tsx';
-import FormDefault from '../../examples/constellation/form-default.tsx';
+import FormDefaultComplex from '../../examples/constellation/form-default-complex.tsx';
+import FormDefaultSimple from '../../examples/constellation/form-default-simple.tsx';
 import FormField from '../../examples/constellation/form-field.tsx';
 import FormSelect from '../../examples/constellation/form-select.tsx';
 import FormCheckboxField from '../../examples/constellation/form-checkbox-field.tsx';
@@ -35,7 +36,21 @@ People can submit the form when all fields are valid (see
 [validation](/components/form/examples#validation)). The current state of the fields is the single
 source of truth for the form.
 
-<Example Component={FormDefault} packageName="@atlaskit/form" />
+<Example Component={FormDefaultComplex} packageName="@atlaskit/form" />
+
+### Simple implementation
+
+If your form component only requires spreading `formProps` on the HTML `<form>` element and doesn't
+utilize any of the other render props like `submitting`, you can simplify how it's written in your
+code.
+
+Props can be added to the underlying `<form>` element by applying them to the form component
+directly or the `formProps` object if not directly supported.
+
+All of the form component's childen are wrapped within an HTML `<form>` element under the hood that
+includes all necessary props, including those provided on the form component.
+
+<Example Component={FormDefaultSimple} packageName="@atlaskit/form" />
 
 ## Custom
 

@@ -24,14 +24,14 @@ const withValidator =
 	(Component: ComponentType<LinkUrlProps>, DefaultComponent: ComponentType<LinkUrlProps>) =>
 	(props: LinkUrlProps) => {
 		const shouldResolveHyperlink = useResolveHyperlinkValidator(props?.href);
-		return shouldResolveHyperlink && props.href ?
-			(
-				<SmartLinkAnalyticsContext url={props.href} display="url">
-					<Component {...props} />
-				</SmartLinkAnalyticsContext>
-			)
-			: <DefaultComponent {...props} />;
-		};
+		return shouldResolveHyperlink && props.href ? (
+			<SmartLinkAnalyticsContext url={props.href} display="url">
+				<Component {...props} />
+			</SmartLinkAnalyticsContext>
+		) : (
+			<DefaultComponent {...props} />
+		);
+	};
 
 const HyperlinkWithSmartLinkResolverInner = ({
 	onClick: onClickCallback,

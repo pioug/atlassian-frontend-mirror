@@ -263,6 +263,7 @@ export const getToolbarItems = (
 		const defaultPalette =
 			panelBackgroundPalette.find((item) => item.value === panelColor) ||
 			({
+				// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 				label: 'Custom',
 				value: panelColor,
 				border: DEFAULT_BORDER_COLOR,

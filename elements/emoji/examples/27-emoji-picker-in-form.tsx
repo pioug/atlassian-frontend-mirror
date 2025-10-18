@@ -45,40 +45,36 @@ const EmojiPickerWithUpload = () => {
 						setFormSubmitted(true);
 						setFormSubmittedData(data);
 					}}
+					name="submit-form"
 				>
-					{({ formProps }) => (
-						<form name="submit-form" {...formProps}>
-							<p>Press enter after search emoji, form should not be submitted automatically.</p>
-							<Field testId="input-title" name="title" label="title" defaultValue="">
-								{({ fieldProps }) => <TextField autoComplete="off" {...fieldProps} />}
-							</Field>
-							<Field name="emoji" label="emoji" defaultValue={selectedEmoji?.shortName}>
-								{({ fieldProps: { value, ...rest } }) => (
-									<div>
-										{enablePopup ? (
-											<EmojiPickerPopup emojiProvider={emojiProvider} onSelected={onSelection} />
-										) : (
-											<div data-testid="selected-emoji">
-												<EmojiPicker emojiProvider={emojiProvider} onSelection={onSelection} />
-												{selectedEmoji && (
-													<ResourcedEmoji emojiProvider={emojiProvider} emojiId={selectedEmoji} />
-												)}
-											</div>
+					<p>Press enter after search emoji, form should not be submitted automatically.</p>
+					<Field testId="input-title" name="title" label="title" defaultValue="">
+						{({ fieldProps }) => <TextField autoComplete="off" {...fieldProps} />}
+					</Field>
+					<Field name="emoji" label="emoji" defaultValue={selectedEmoji?.shortName}>
+						{({ fieldProps: { value, ...rest } }) => (
+							<div>
+								{enablePopup ? (
+									<EmojiPickerPopup emojiProvider={emojiProvider} onSelected={onSelection} />
+								) : (
+									<div data-testid="selected-emoji">
+										<EmojiPicker emojiProvider={emojiProvider} onSelection={onSelection} />
+										{selectedEmoji && (
+											<ResourcedEmoji emojiProvider={emojiProvider} emojiId={selectedEmoji} />
 										)}
 									</div>
 								)}
-							</Field>
-
-							<FormFooter>
-								<Button type="button" appearance="subtle" onClick={() => setFormSubmitted(false)}>
-									Reset
-								</Button>
-								<Button type="submit" appearance="primary">
-									Submit
-								</Button>
-							</FormFooter>
-						</form>
-					)}
+							</div>
+						)}
+					</Field>
+					<FormFooter>
+						<Button type="button" appearance="subtle" onClick={() => setFormSubmitted(false)}>
+							Reset
+						</Button>
+						<Button type="submit" appearance="primary">
+							Submit
+						</Button>
+					</FormFooter>
 				</Form>
 
 				<div data-testid="form-message">

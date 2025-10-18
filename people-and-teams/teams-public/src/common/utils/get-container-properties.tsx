@@ -204,9 +204,12 @@ const getJiraContainerProperties = ({
 		) : (
 			<FormattedMessage {...messages.addJiraProjectTitle} />
 		),
-		containerTypeText: (newTeamProfilePage || isTeamLensInHomeEnabled) ?
-			<FormattedMessage {...messages.spaceContainerTextOverride} /> :
-			<FormattedMessage {...messages.projectContainerText} />,
+		containerTypeText:
+			newTeamProfilePage || isTeamLensInHomeEnabled ? (
+				<FormattedMessage {...messages.spaceContainerTextOverride} />
+			) : (
+				<FormattedMessage {...messages.projectContainerText} />
+			),
 	};
 
 	switch (subType) {
@@ -309,9 +312,12 @@ export const getContainerProperties = ({
 				) : (
 					<FormattedMessage {...messages.addConfluenceContainerTitle} />
 				),
-				containerTypeText: (newTeamProfilePage || isTeamLensInHomeEnabled) ?
-					<FormattedMessage {...messages.spaceContainerTextOverride} /> :
-					<FormattedMessage {...messages.spaceContainerText} />,
+				containerTypeText:
+					newTeamProfilePage || isTeamLensInHomeEnabled ? (
+						<FormattedMessage {...messages.spaceContainerTextOverride} />
+					) : (
+						<FormattedMessage {...messages.spaceContainerText} />
+					),
 			};
 		case 'LoomSpace':
 			return {
@@ -330,9 +336,12 @@ export const getContainerProperties = ({
 				) : (
 					<FormattedMessage {...messages.addLoomContainerTitle} />
 				),
-				containerTypeText: (newTeamProfilePage || isTeamLensInHomeEnabled) ?
-					<FormattedMessage {...messages.spaceContainerTextOverride} /> :
-					<FormattedMessage {...messages.spaceContainerText} />,
+				containerTypeText:
+					newTeamProfilePage || isTeamLensInHomeEnabled ? (
+						<FormattedMessage {...messages.spaceContainerTextOverride} />
+					) : (
+						<FormattedMessage {...messages.spaceContainerText} />
+					),
 			};
 		case 'JiraProject':
 			return getJiraContainerProperties({

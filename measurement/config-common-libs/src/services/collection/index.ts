@@ -60,9 +60,7 @@ export class ConfigCollection {
 	}
 
 	public static fromData(data: ZAnyConfig): ConfigCollection {
-		return new ConfigCollection(
-			Array.isArray(data) ? minimalToMap(data) : standardToMap(data),
-		);
+		return new ConfigCollection(Array.isArray(data) ? minimalToMap(data) : standardToMap(data));
 	}
 
 	public static empty(): ConfigCollection {

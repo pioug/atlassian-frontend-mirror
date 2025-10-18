@@ -93,31 +93,23 @@ const TemplateBuilder = ({
 
 	return (
 		<Form onSubmit={console.log}>
-			{({ formProps }) => (
-				<form {...formProps}>
-					<FlexibleToggle display={display} onChange={handleOnFlexibleChange} />
-					<CardBuilder
-						display={display}
-						template={template.cardProps}
-						onChange={handleOnPropChange}
+			<FlexibleToggle display={display} onChange={handleOnFlexibleChange} />
+			<CardBuilder display={display} template={template.cardProps} onChange={handleOnPropChange} />
+			{isFlexible && (
+				<React.Fragment>
+					<UiBuilder onChange={handleOnUiChange} template={template} />
+					<BlockBuilder
+						blocks={template.blocks}
+						onChange={handleOnBlockChange}
+						size={template?.ui?.size}
 					/>
-					{isFlexible && (
-						<React.Fragment>
-							<UiBuilder onChange={handleOnUiChange} template={template} />
-							<BlockBuilder
-								blocks={template.blocks}
-								onChange={handleOnBlockChange}
-								size={template?.ui?.size}
-							/>
-						</React.Fragment>
-					)}
-					<FormFooter>
-						<Button shouldFitContainer onClick={handleOnReset}>
-							Reset
-						</Button>
-					</FormFooter>
-				</form>
+				</React.Fragment>
 			)}
+			<FormFooter>
+				<Button shouldFitContainer onClick={handleOnReset}>
+					Reset
+				</Button>
+			</FormFooter>
 		</Form>
 	);
 };

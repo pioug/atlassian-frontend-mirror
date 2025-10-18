@@ -26,7 +26,7 @@ describe('TeamConnections', () => {
 				<TeamConnections
 					containerType={'ConfluenceSpace'}
 					title={'Test Confluence Space'}
-					onDisconnectButtonClick={() => { }}
+					onDisconnectButtonClick={() => {}}
 				/>
 			</IntlProvider>,
 		);
@@ -41,7 +41,7 @@ describe('TeamConnections', () => {
 				<TeamConnections
 					containerType={'ConfluenceSpace'}
 					title={'Test Confluence Space'}
-					onDisconnectButtonClick={() => { }}
+					onDisconnectButtonClick={() => {}}
 				/>
 			</IntlProvider>,
 		);
@@ -56,7 +56,7 @@ describe('TeamConnections', () => {
 				<TeamConnections
 					containerType={'ConfluenceSpace'}
 					title={'Test title'}
-					onDisconnectButtonClick={() => { }}
+					onDisconnectButtonClick={() => {}}
 				/>
 			</IntlProvider>,
 		);
@@ -71,7 +71,7 @@ describe('TeamConnections', () => {
 				<TeamConnections
 					containerType={'ConfluenceSpace'}
 					title={'Test Confluence Space'}
-					onDisconnectButtonClick={() => { }}
+					onDisconnectButtonClick={() => {}}
 				/>
 			</IntlProvider>,
 		);
@@ -86,7 +86,7 @@ describe('TeamConnections', () => {
 				<TeamConnections
 					containerType={'JiraProject'}
 					title={'Test Jira Project'}
-					onDisconnectButtonClick={() => { }}
+					onDisconnectButtonClick={() => {}}
 				/>
 			</IntlProvider>,
 		);
@@ -104,7 +104,7 @@ describe('TeamConnections', () => {
 				<TeamConnections
 					containerType={'JiraProject'}
 					title={'Test Jira Project'}
-					onDisconnectButtonClick={() => { }}
+					onDisconnectButtonClick={() => {}}
 					link="https://test-dev.com"
 				/>
 			</IntlProvider>,
@@ -122,7 +122,7 @@ describe('NewTeamConnections', () => {
 				<NewTeamConnections
 					containerType={'ConfluenceSpace'}
 					title={'Test Confluence Space'}
-					onDisconnectButtonClick={() => { }}
+					onDisconnectButtonClick={() => {}}
 					link="https://test-dev.com"
 				/>
 			</IntlProvider>,
@@ -179,7 +179,7 @@ describe('NewTeamConnections', () => {
 				<NewTeamConnections
 					containerType={'JiraProject'}
 					title={'Test Jira Project'}
-					onDisconnectButtonClick={() => { }}
+					onDisconnectButtonClick={() => {}}
 				/>
 			</IntlProvider>,
 		);

@@ -28,7 +28,7 @@ export default () => (
 			}}
 		>
 			{({ formProps, submitting }) => (
-				<form {...formProps}>
+				<form {...formProps} name="sign-in">
 					<FormHeader title="Sign in">
 						<p aria-hidden="true">
 							Required fields are marked with an asterisk <RequiredAsterisk />

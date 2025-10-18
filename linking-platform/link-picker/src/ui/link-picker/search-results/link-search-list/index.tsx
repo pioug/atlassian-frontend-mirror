@@ -33,7 +33,7 @@ const styles = cssMap({
 	},
 	newListTitleStyles: {
 		color: token('color.text.subtle'),
-	}
+	},
 });
 
 const listContainerStyles = css({

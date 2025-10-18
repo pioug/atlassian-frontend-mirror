@@ -169,6 +169,7 @@ export const getSyncedBlockManifest = (schema?: Schema): ExtensionManifest => ({
 				toolbarItems: [
 					{
 						key: 'toolbar-item-key',
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 						label: 'Referenece',
 						display: 'icon',
 						tooltip: 'Copy reference to clipboard',

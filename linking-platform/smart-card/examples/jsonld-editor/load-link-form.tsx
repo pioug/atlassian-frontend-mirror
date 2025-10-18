@@ -145,71 +145,65 @@ const LoadLinkForm = ({
 	);
 
 	return (
-		<Form onSubmit={handleSubmit}>
-			{({ formProps }) => (
-				<form {...formProps} name="load-link">
-					<Stack>
-						<Field
-							aria-required={true}
-							defaultValue=""
-							label="URL"
-							isRequired
-							name="url"
-							validate={validateUrl}
-						>
-							{({ fieldProps, error, meta: { dirtySinceLastSubmit } }: any) => (
+		<Form onSubmit={handleSubmit} name="load-link">
+			<Stack>
+				<Field
+					aria-required={true}
+					defaultValue=""
+					label="URL"
+					isRequired
+					name="url"
+					validate={validateUrl}
+				>
+					{({ fieldProps, error, meta: { dirtySinceLastSubmit } }: any) => (
+						<React.Fragment>
+							<Textfield {...fieldProps} />
+							{error === 'INCORRECT_URL_FORMAT' && (
+								<ErrorMessage>Please enter a valid url.</ErrorMessage>
+							)}
+							{!dirtySinceLastSubmit && urlError && <ErrorMessage>{urlError}</ErrorMessage>}
+						</React.Fragment>
+					)}
+				</Field>
+				{showAdvancedOptions && (
+					<React.Fragment>
+						<Field label={ariLabel} name="ari" validate={validateAri} defaultValue="">
+							{({ fieldProps, error }: any) => (
 								<React.Fragment>
 									<Textfield {...fieldProps} />
-									{error === 'INCORRECT_URL_FORMAT' && (
-										<ErrorMessage>Please enter a valid url.</ErrorMessage>
+									{error === 'INCORRECT_ARI_FORMAT' && (
+										<ErrorMessage>Please enter a valid ARI.</ErrorMessage>
 									)}
-									{!dirtySinceLastSubmit && urlError && <ErrorMessage>{urlError}</ErrorMessage>}
 								</React.Fragment>
 							)}
 						</Field>
-						{showAdvancedOptions && (
-							<React.Fragment>
-								<Field label={ariLabel} name="ari" validate={validateAri} defaultValue="">
-									{({ fieldProps, error }: any) => (
-										<React.Fragment>
-											<Textfield {...fieldProps} />
-											{error === 'INCORRECT_ARI_FORMAT' && (
-												<ErrorMessage>Please enter a valid ARI.</ErrorMessage>
-											)}
-										</React.Fragment>
+						<Field
+							label="Branch deploy"
+							name="branchDeploy"
+							validate={validateBranchDeploy}
+							defaultValue={branchDeploy}
+						>
+							{({ fieldProps, error }: any) => (
+								<React.Fragment>
+									<Textfield {...fieldProps} />
+									{error === 'INCORRECT_BRANCH_DEPLOY_FORMAT' && (
+										<ErrorMessage>Please enter a valid Branch Deploy</ErrorMessage>
 									)}
-								</Field>
-								<Field
-									label="Branch deploy"
-									name="branchDeploy"
-									validate={validateBranchDeploy}
-									defaultValue={branchDeploy}
-								>
-									{({ fieldProps, error }: any) => (
-										<React.Fragment>
-											<Textfield {...fieldProps} />
-											{error === 'INCORRECT_BRANCH_DEPLOY_FORMAT' && (
-												<ErrorMessage>Please enter a valid Branch Deploy</ErrorMessage>
-											)}
-										</React.Fragment>
-									)}
-								</Field>
-							</React.Fragment>
-						)}
-						<HelperMessage>{helpMessageUrl}</HelperMessage>
-						<Box paddingBlockStart="space.100">
-							<Inline space="space.100">
-								<Button type="submit" appearance="primary">
-									Load URL
-								</Button>
-								<Button onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}>
-									Advanced
-								</Button>
-							</Inline>
-						</Box>
-					</Stack>
-				</form>
-			)}
+								</React.Fragment>
+							)}
+						</Field>
+					</React.Fragment>
+				)}
+				<HelperMessage>{helpMessageUrl}</HelperMessage>
+				<Box paddingBlockStart="space.100">
+					<Inline space="space.100">
+						<Button type="submit" appearance="primary">
+							Load URL
+						</Button>
+						<Button onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}>Advanced</Button>
+					</Inline>
+				</Box>
+			</Stack>
 		</Form>
 	);
 };

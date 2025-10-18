@@ -316,10 +316,12 @@ const allCountries: Array<Country> = [
 // separate countries into groups
 export const groupedCountries = [
 	{
+		// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 		label: 'Suggested',
 		options: allCountries.filter((c) => c.suggested),
 	},
 	{
+		// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 		label: 'All Countries',
 		options: allCountries.filter((c) => !c.suggested),
 	},

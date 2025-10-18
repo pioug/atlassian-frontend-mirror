@@ -1,3 +1,4 @@
+/* eslint-disable @atlassian/i18n/no-literal-string-in-object */
 import { IconType } from '../../../constants';
 
 import { type IconDescriptor } from './types';

@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 16.0.1
+
+### Patch Changes
+
+- [`e336b1e1861e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e336b1e1861e5) -
+  ts-expect-error was replaced with ts-ignore to fix typecheck issues with help-center local
+  consumption
+
 ## 16.0.0
 
 ### Major Changes

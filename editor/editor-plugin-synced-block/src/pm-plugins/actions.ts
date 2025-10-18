@@ -137,7 +137,6 @@ export const copySyncedBlockReferenceToClipboard =
 		return true;
 	};
 
-
 export const editSyncedBlockSource =
 	(syncBlockStore: SyncBlockStoreManager, api?: ExtractInjectionAPI<SyncedBlockPlugin>): Command =>
 	(state: EditorState, dispatch?: CommandDispatch, _view?: EditorView) => {

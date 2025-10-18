@@ -198,13 +198,11 @@ export const TeamLinkCard = ({
 									</Text>
 								)}
 								{containerTypeText && description && <Separator />}
-								{
-									description && (
-										<Text size="small" color="color.text.subtle">
-											{description}
-										</Text>
-									)
-								}
+								{description && (
+									<Text size="small" color="color.text.subtle">
+										{description}
+									</Text>
+								)}
 							</Inline>
 						</Flex>
 					</Stack>

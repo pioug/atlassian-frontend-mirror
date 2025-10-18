@@ -124,7 +124,10 @@ export interface TeamLinkCardProps {
 	hideSubTextIcon?: boolean;
 }
 
-const renderContainerTypeTextWithSeparator = (containerTypeText: React.ReactNode, description: React.ReactNode) => {
+const renderContainerTypeTextWithSeparator = (
+	containerTypeText: React.ReactNode,
+	description: React.ReactNode,
+) => {
 	return (
 		<>
 			{containerTypeText && (
@@ -133,13 +136,11 @@ const renderContainerTypeTextWithSeparator = (containerTypeText: React.ReactNode
 				</Text>
 			)}
 			{containerTypeText && description && <Separator />}
-			{
-				description && (
-					<Text size="small" color="color.text.subtle">
-						{description}
-					</Text>
-				)
-			}
+			{description && (
+				<Text size="small" color="color.text.subtle">
+					{description}
+				</Text>
+			)}
 		</>
 	);
 };
@@ -299,18 +300,18 @@ export const TeamLinkCard = ({
 								<Flex gap="space.050" alignItems="center">
 									{!hideSubTextIcon ? icon : null}
 									<Inline space="space.050" alignBlock="center">
-										{
-											(isNewTeamProfilePageEnabled || isTeamLensInHomeEnabled) ?
-												renderContainerTypeTextWithSeparator(containerTypeText, description) :
-												<>
-													<Text size="small" color="color.text.subtle">
-														{description}
-													</Text>
-													<Text size="small" color="color.text.subtle">
-														{containerTypeText}
-													</Text>
-												</>
-										}
+										{isNewTeamProfilePageEnabled || isTeamLensInHomeEnabled ? (
+											renderContainerTypeTextWithSeparator(containerTypeText, description)
+										) : (
+											<>
+												<Text size="small" color="color.text.subtle">
+													{description}
+												</Text>
+												<Text size="small" color="color.text.subtle">
+													{containerTypeText}
+												</Text>
+											</>
+										)}
 									</Inline>
 								</Flex>
 							</Stack>
@@ -356,18 +357,18 @@ export const TeamLinkCard = ({
 									<Flex gap="space.050" alignItems="center">
 										{!hideSubTextIcon ? icon : null}
 										<Inline space="space.050" alignBlock="center">
-											{
-												(isNewTeamProfilePageEnabled || isTeamLensInHomeEnabled) ?
-													renderContainerTypeTextWithSeparator(containerTypeText, description) :
-													<>
-														<Text size="small" color="color.text.subtle">
-															{description}
-														</Text>
-														<Text size="small" color="color.text.subtle">
-															{containerTypeText}
-														</Text>
-													</>
-											}
+											{isNewTeamProfilePageEnabled || isTeamLensInHomeEnabled ? (
+												renderContainerTypeTextWithSeparator(containerTypeText, description)
+											) : (
+												<>
+													<Text size="small" color="color.text.subtle">
+														{description}
+													</Text>
+													<Text size="small" color="color.text.subtle">
+														{containerTypeText}
+													</Text>
+												</>
+											)}
 										</Inline>
 									</Flex>
 								</Stack>

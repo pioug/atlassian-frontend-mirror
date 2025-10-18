@@ -69,16 +69,22 @@ function typeToIconDescriptor({
 }): IconDescriptor | undefined {
 	switch (type) {
 		case 'atlassian:Goal':
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 			return { icon: IconType.Task, label: label || 'Goal' };
 		case 'atlassian:Project':
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 			return { icon: IconType.Project, label: label || 'Project' };
 		case 'atlassian:SourceCodeCommit':
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 			return { icon: IconType.Commit, label: label || 'Commit' };
 		case 'atlassian:SourceCodePullRequest':
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 			return { icon: IconType.PullRequest, label: label || 'Pull request' };
 		case 'atlassian:SourceCodeReference':
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 			return { icon: IconType.Branch, label: label || 'Reference' };
 		case 'atlassian:SourceCodeRepository':
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 			return { icon: IconType.Repo, label: label || 'Repository' };
 		case 'atlassian:Task':
 			const taskLabel = label || 'Task';

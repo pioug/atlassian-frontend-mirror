@@ -108,8 +108,10 @@ export interface FormProps<FormValues> {
 	 */
 	autocomplete?: 'off' | 'on';
 	/**
-	 *  The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.
-	 *  You can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).
+	 * The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.
+	 * You can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).
+	 *
+	 * If you are only spreading `formProps` onto the HTML `<form>` element and not using any of the other props (like `submitting`, etc.), `children` can be plain JSX. All of the children will be wrapped within an HTML `<form>` element that includes all necessary props, including those provided on the form component.
 	 */
 	children: ((args: FormChildrenArgs<FormValues>) => ReactNode) | (() => void) | ReactNode;
 	/**

@@ -16,7 +16,6 @@ import {
 	useSmartLinkAnalyticsContext,
 } from '../SmartLinkAnalyticsContext';
 
-
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	getExperimentValue: jest.fn(() => false),
 }));
@@ -475,11 +474,14 @@ describe('SL analytics context', () => {
 			});
 			const setupWithInlineDisplay = (cardState?: CardState) => {
 				const storeOptions = cardState ? { initialState: { [url]: cardState } } : undefined;
-				return renderHook(() => useSmartLinkAnalyticsContext({ display: 'inline', id, source, url }), {
-					wrapper: ({ children }) => (
-						<SmartCardProvider storeOptions={storeOptions}>{children}</SmartCardProvider>
-					),
-				});
+				return renderHook(
+					() => useSmartLinkAnalyticsContext({ display: 'inline', id, source, url }),
+					{
+						wrapper: ({ children }) => (
+							<SmartCardProvider storeOptions={storeOptions}>{children}</SmartCardProvider>
+						),
+					},
+				);
 			};
 
 			const { result } = setupWithInlineDisplay(resolvedCardState);

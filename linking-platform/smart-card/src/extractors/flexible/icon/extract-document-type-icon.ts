@@ -26,22 +26,30 @@ const extractDocumentTypeIcon = (
 ): IconDescriptor | undefined => {
 	switch (documentType) {
 		case 'schema:BlogPosting':
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 			return { icon: IconType.Blog, label: label || 'Blog' };
 		case 'schema:DigitalDocument':
 			if (providerId && isConfluenceGenerator(providerId)) {
+				// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 				return { icon: IconType.LiveDocument, label: label || 'Live Document' };
 			} else {
+				// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 				return { icon: IconType.File, label: label || 'File' };
 			}
 		case 'schema:TextDigitalDocument':
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 			return { icon: IconType.Document, label: label || 'Document' };
 		case 'schema:PresentationDigitalDocument':
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 			return { icon: IconType.Presentation, label: label || 'Presentation' };
 		case 'schema:SpreadsheetDigitalDocument':
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 			return { icon: IconType.Spreadsheet, label: label || 'Spreadsheet' };
 		case 'atlassian:Template':
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 			return { icon: IconType.Template, label: label || 'Template' };
 		case 'atlassian:UndefinedLink':
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 			return { icon: IconType.Document, label: label || 'Undefined link' };
 		default:
 			return undefined;

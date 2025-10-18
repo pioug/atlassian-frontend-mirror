@@ -3,9 +3,9 @@ import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
 
 import type { BodiedSyncBlockNodeViewProperties } from './bodiedSyncedBlock';
 
-export const lazyBodiedSyncBlockView: (props: BodiedSyncBlockNodeViewProperties) => NodeViewConstructor = (
+export const lazyBodiedSyncBlockView: (
 	props: BodiedSyncBlockNodeViewProperties,
-) => {
+) => NodeViewConstructor = (props: BodiedSyncBlockNodeViewProperties) => {
 	return withLazyLoading({
 		nodeName: 'bodiedSyncBlock',
 		getNodeViewOptions: () => {},

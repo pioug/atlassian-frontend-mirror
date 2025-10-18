@@ -165,9 +165,12 @@ export const JiraCustomTaskTypeWithIcon = (() => {
 	return json;
 })();
 export const JiraTaskWithNoEditPermission = generateJiraTask(
-	'Get Don to sing', 
-	JIRA_TASK, 'Task', { name: 'done', appearance: 'success' }, 
-	false);
+	'Get Don to sing',
+	JIRA_TASK,
+	'Task',
+	{ name: 'done', appearance: 'success' },
+	false,
+);
 
 export const JiraTasks = [
 	JiraTask,

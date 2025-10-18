@@ -62,12 +62,10 @@ export function WithLayeredComponentsExample() {
 					/>
 				)}
 			</Field>
-
 			<Break />
 			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="open-modal">
 				Open modal
 			</Button>
-
 			<ModalTransition>
 				{isOpen && (
 					<ModalDialog

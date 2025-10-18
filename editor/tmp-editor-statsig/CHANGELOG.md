@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.15.0
+
+### Minor Changes
+
+- [`f34518606af3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f34518606af3d) -
+  [ux] Fixes UI issues of the HoverLinkOverlay when it is shown on a heading and on a mulitline
+  smartlink.
+
 ## 13.14.0
 
 ### Minor Changes

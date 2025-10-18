@@ -52,16 +52,24 @@ const getSmartLinkAnalyticsContext = ({
 	url,
 	error,
 }: GetSmartLinkAnalyticsContextParam) => {
-	const isHyperlinkConnectExperimentEnabled = FeatureGates.getExperimentValue('platform_linking_bluelink_connect_confluence', 'isEnabled', false) || FeatureGates.getExperimentValue('platform_linking_bluelink_connect_jira', 'isEnabled', false);
-	const resolvedAttributes = isHyperlinkConnectExperimentEnabled ? getExtendedResolvedAttributes(
-		{
-			url,
-			displayCategory: display === 'url' ? 'link' : 'smartLink'
-		},
-		response,
-		status,
-		error
-	) : getExtendedResolvedAttributes({ url }, response, status, error);
+	const isHyperlinkConnectExperimentEnabled =
+		FeatureGates.getExperimentValue(
+			'platform_linking_bluelink_connect_confluence',
+			'isEnabled',
+			false,
+		) ||
+		FeatureGates.getExperimentValue('platform_linking_bluelink_connect_jira', 'isEnabled', false);
+	const resolvedAttributes = isHyperlinkConnectExperimentEnabled
+		? getExtendedResolvedAttributes(
+				{
+					url,
+					displayCategory: display === 'url' ? 'link' : 'smartLink',
+				},
+				response,
+				status,
+				error,
+			)
+		: getExtendedResolvedAttributes({ url }, response, status, error);
 
 	return {
 		source,

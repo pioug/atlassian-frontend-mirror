@@ -21,7 +21,7 @@ import type Logger from '../helpers/logger';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ROVO_EXTENSION_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 
-const ROVO_EXTENSION_TAG = 'rovoExtension'
+const ROVO_EXTENSION_TAG = 'rovoExtension';
 const listenerVersion = process.env._PACKAGE_VERSION_ as string;
 
 /**
@@ -39,7 +39,8 @@ export default (
 	const extraAttributes = getExtraAttributes(event, ROVO_EXTENSION_CONTEXT);
 	const components = getComponents(event, ROVO_EXTENSION_CONTEXT);
 	const packages = getPackageInfo(event, ROVO_EXTENSION_CONTEXT);
-	const { packageName, packageVersion } = last(getPackageInfo(event, ROVO_EXTENSION_CONTEXT)) || ({} as any);
+	const { packageName, packageVersion } =
+		last(getPackageInfo(event, ROVO_EXTENSION_CONTEXT)) || ({} as any);
 	const packageHierarchy = packages.map((p) =>
 		p.packageVersion ? `${p.packageName}@${p.packageVersion}` : p.packageName,
 	);

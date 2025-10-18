@@ -62,6 +62,7 @@ export const PaletteDropdown = (props: PaletteDropdownProps) => {
 			if (item.label === 'Orange') {
 				return {
 					...item,
+					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 					label: 'Yellow',
 					message: colorPaletteMessages.yellow,
 				};

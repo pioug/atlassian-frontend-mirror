@@ -20,7 +20,9 @@ const ImagePreview = ({ fallbackElementHeight, response }: ImagePreviewProps) =>
 			setDynamicStyles({
 				borderTopLeftRadius: token('radius.large'),
 				borderTopRightRadius: token('radius.large'),
-				...(fg('navx-1910-fix-hovercard-performance-metrics') ? {} : { marginBottom: token('space.100') }),
+				...(fg('navx-1910-fix-hovercard-performance-metrics')
+					? {}
+					: { marginBottom: token('space.100') }),
 				...(previewHeight ? { height: `${previewHeight}px` } : {}),
 			});
 		}

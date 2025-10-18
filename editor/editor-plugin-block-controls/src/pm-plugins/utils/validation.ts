@@ -216,9 +216,7 @@ export function canMoveSliceToIndex(
 	}
 
 	// Multiple layout columns do not drop correctly.
-	if (
-		slice.content.firstChild?.type.name === 'layoutColumn'
-	) {
+	if (slice.content.firstChild?.type.name === 'layoutColumn') {
 		return false;
 	}
 

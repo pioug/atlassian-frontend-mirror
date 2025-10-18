@@ -51,6 +51,40 @@
   not a function as children, the HTML `form` element will be implicitly rendered with props passed
   down from the ADS form component.
 
+#### New streamlined form
+
+The majority of uses of our form component look like the following:
+
+```tsx
+<Form onSubmit={(data) => console.log(data)}>
+	{({ formProps }) => (
+		<form {...formProps} name="form" id="form" data-attribute="abc">
+			{/* form contents */}
+		</form>
+	)}
+</Form>
+```
+
+We've provided a way to simplify these use cases. You can move the attributes on the HTML `<form>`
+element up to the form component. If they aren't a top-level prop, you can use the `formProps` prop
+on the form component. All of the contents will be wrapped within an HTML `<form>` element that
+includes all necessary props, including those provided on the form component.
+
+```tsx
+<Form
+	onSubmit={(data) => console.log(data)}
+	name="form"
+	id="form"
+	formProps={{
+		'data-attribute': 'abc',
+	}}
+>
+	{/* form contents */}
+</Form>
+```
+
+The original implementation still exists and works as it did previously.
+
 ### Patch Changes
 
 - Updated dependencies

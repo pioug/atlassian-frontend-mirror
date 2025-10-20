@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 3.1.1
+
+### Patch Changes
+
+- [`174d939cfd1ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/174d939cfd1ba) -
+  Use valid positioning for deleted diff content to avoid invalid nesting diffs
+
 ## 3.1.0
 
 ### Minor Changes

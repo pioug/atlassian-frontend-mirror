@@ -41,9 +41,10 @@ export type BlockMenuPlugin = NextEditorPlugin<
 
 export type BlockMenuPluginOptions = {
 	/**
-	 * Optional query parameter name used for block-specific URL to create a deep link to specific block
+	 * Optional hash prefix used for block-specific URL to create a deep link to specific block
+	 * Default value from DEFAULT_BLOCK_LINK_HASH_PREFIX in @atlaskit/editor-common/block-menu
 	 */
-	blockQueryParam?: string;
+	blockLinkHashPrefix?: string;
 
 	/**
 	 * Optional function to retrieve the current link path for the editor context.

@@ -14,6 +14,7 @@ import {
 	ModalHeader,
 	ModalTitle,
 } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -84,7 +85,7 @@ const isValidParameters = (parameters: DatasourceParameters | undefined): boolea
 export const PlainConfluenceSearchConfigModal = (
 	props: ConnectedConfluenceSearchConfigModalProps,
 ) => {
-	const { onCancel, url: urlBeingEdited, overrideParameters } = props;
+	const { onCancel, url: urlBeingEdited, overrideParameters, disableSiteSelector } = props;
 
 	const { currentViewMode } = useViewModeContext();
 
@@ -194,11 +195,15 @@ export const PlainConfluenceSearchConfigModal = (
 		[reset, setParameters, userInteractions],
 	);
 
-	const siteSelectorLabel =
-		availableSites && availableSites.length > 1
-			? confluenceSearchModalMessages.insertIssuesTitleManySites
-			: confluenceSearchModalMessages.insertIssuesTitle;
-
+	let siteSelectorLabel;
+	if (disableSiteSelector && fg('add-disablesiteselector')) {
+		siteSelectorLabel = confluenceSearchModalMessages.insertIssuesTitle;
+	} else {
+		siteSelectorLabel =
+			availableSites && availableSites.length > 1
+				? confluenceSearchModalMessages.insertIssuesTitleManySites
+				: confluenceSearchModalMessages.insertIssuesTitle;
+	}
 	const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
 
 	const hasConfluenceSearchParams = selectedConfluenceSite && parameters?.searchString;
@@ -427,6 +432,7 @@ export const PlainConfluenceSearchConfigModal = (
 									selectedSite={selectedConfluenceSite}
 									testId="confluence-search-datasource-modal--site-selector"
 									label={siteSelectorLabel}
+									disableSiteSelector={disableSiteSelector}
 								/>
 							</ModalTitle>
 						</Flex>

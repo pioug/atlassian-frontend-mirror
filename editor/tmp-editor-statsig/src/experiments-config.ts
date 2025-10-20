@@ -137,6 +137,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-10-10
+	platform_editor_experience_tracking: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_experience_tracking',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-05-26
 	platform_editor_prevent_toolbar_layout_shifts: createBooleanExperiment({
 		productKeys: {
@@ -764,14 +772,6 @@ export const editorExperimentsConfig = {
 	platform_editor_native_anchor_support: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_native_anchor_support',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-08-05
-	platform_editor_tables_scaling_css: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_tables_scaling_css',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

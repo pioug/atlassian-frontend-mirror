@@ -100,19 +100,6 @@ const fullWidthNonChromelessBreakoutBlockTableStyle = css({
 	},
 });
 
-// An additional spacing applied at the top of the content area reserving space when the primary toolbar
-// is hidden – this avoids layout shift when the toolbar is toggled under the editor controls feature
-const contentAreaReservedPrimaryToolbarSpace = css({
-	// extra 1px to account for the bottom border on the toolbar
-	marginTop: `calc(${token('space.500', '40px')} + 1px)`,
-});
-
-// A reduced top spacing applied to the content area to compensate for the reserved space at the top
-// of the page when the primary toolbar is hidden under the editor controls feature
-const contentAreaReducedHeaderSpace = css({
-	paddingTop: token('space.400', '32px'),
-});
-
 // new styles
 const editorContentAreaNew = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -339,13 +326,6 @@ const Content = React.forwardRef<
 									: editorContentAreaContainerStyleNew,
 								fg('platform_editor_nested_dnd_styles_changes') &&
 									editorContentAreaContainerNestedDndStyle,
-								!fg('platform_editor_controls_no_toolbar_space') &&
-									editorExperiment('platform_editor_controls', 'variant1') &&
-									contentAreaReducedHeaderSpace,
-								!fg('platform_editor_controls_no_toolbar_space') &&
-									props.isEditorToolbarHidden &&
-									editorExperiment('platform_editor_controls', 'variant1') &&
-									contentAreaReservedPrimaryToolbarSpace,
 							]}
 							style={
 								{

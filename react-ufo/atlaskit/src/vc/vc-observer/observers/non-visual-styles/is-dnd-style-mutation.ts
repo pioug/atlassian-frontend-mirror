@@ -1,7 +1,5 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { expVal } from '../../../expVal';
-
 const isDnDStyleChange = (style: string): boolean => {
 	return style.startsWith('anchor-name: --node-anchor');
 };
@@ -42,10 +40,6 @@ function isDnDStyleMutation({
 	newValue?: string | undefined | null;
 }) {
 	if (!fg('platform_editor_exclude_dnd_anchor_name_from_ttvc')) {
-		return false;
-	}
-
-	if (!expVal('platform_editor_tables_scaling_css', 'excludeDnD', false)) {
 		return false;
 	}
 

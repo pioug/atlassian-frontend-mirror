@@ -236,10 +236,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				},
 			});
 
-			if (expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
-				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-				window.addEventListener('resize', this.handleWindowResizeNewDebounced);
-			}
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			window.addEventListener('resize', this.handleWindowResizeNewDebounced);
 		}
 	}
 
@@ -250,8 +248,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			eventDispatcher,
 			isDragAndDropEnabled,
 			getNode,
-			getEditorFeatureFlags,
-			isTableScalingEnabled,
 		} = this.props;
 
 		// Ignored via go/ees005
@@ -265,22 +261,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this?.table?.addEventListener('mouseover', this.handleMouseOver);
-
-		const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
-
-		if (!expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
-			if (isTableScalingEnabled && !tableWithFixedColumnWidthsOption) {
-				this.handleColgroupUpdates(true);
-			}
-
-			if (
-				isTableScalingEnabled &&
-				tableWithFixedColumnWidthsOption &&
-				getNode().attrs.displayMode !== 'fixed'
-			) {
-				this.handleColgroupUpdates(true);
-			}
-		}
 
 		if (this.wrapper) {
 			this.wrapperReisizeObserver = new ResizeObserver((entries) => {
@@ -388,10 +368,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			window.removeEventListener('resize', this.handleWindowResizeDebounced);
 		}
 
-		if (expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
-			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-			window.removeEventListener('resize', this.handleWindowResizeNewDebounced);
-		}
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+		window.removeEventListener('resize', this.handleWindowResizeNewDebounced);
 
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -495,8 +473,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			(isTableResizedFullWidth && !options?.isCommentEditor) ||
 			isNumberColumnChanged ||
 			isNumberOfColumnsChanged ||
-			(expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true) &&
-				this.state.windowResized);
+			this.state.windowResized;
 
 		if (force || maybeScale || isFullWidthModeAndLineLengthChanged) {
 			const isWidthChanged = this.containerWidth?.width !== containerWidthValue;
@@ -645,10 +622,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			shouldHandleColgroupUpdates = true;
 		}
 
-		if (
-			expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true) &&
-			this.state.windowResized
-		) {
+		if (this.state.windowResized) {
 			shouldHandleColgroupUpdates = true;
 		}
 
@@ -1255,7 +1229,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const isFullPageEditor =
 			!this.props.options?.isCommentEditor && !this.props.options?.isChromelessEditor;
 
-		if (expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true) && isFullPageEditor) {
+		if (isFullPageEditor) {
 			return (
 				!!isWindowResized ||
 				isColumnsDistributed ||

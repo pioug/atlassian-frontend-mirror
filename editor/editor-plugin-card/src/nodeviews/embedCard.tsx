@@ -5,7 +5,6 @@ import uuid from 'uuid/v4';
 
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
-import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
@@ -177,7 +176,6 @@ const CardInner = ({
 export type EmbedCardState = {
 	hasPreview: boolean;
 	initialAspectRatio?: number;
-	isSSRDataAvailable?: boolean;
 	liveHeight?: number;
 };
 
@@ -196,8 +194,6 @@ export class EmbedCardComponent extends React.PureComponent<
 		this.scrollContainer = findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
 		this.state = {
 			hasPreview: true,
-			isSSRDataAvailable:
-				expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && props.isPageSSRed,
 		};
 	}
 
@@ -367,31 +363,6 @@ export class EmbedCardComponent extends React.PureComponent<
 		}
 	};
 
-	componentDidMount() {
-		if (!expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)) {
-			return;
-		}
-
-		const provider = this.props.provider;
-
-		if (!provider) {
-			return;
-		}
-
-		const updateSSRDataAvailability = async () => {
-			const resolvedProvider = await provider;
-
-			if (resolvedProvider instanceof EditorCardProvider) {
-				this.setState((state) => ({
-					...state,
-					isSSRDataAvailable: resolvedProvider.getCacheStatusForNode(this.props.node) === 'ssr',
-				}));
-			}
-		};
-
-		void updateSSRDataAvailability();
-	}
-
 	componentWillUnmount(): void {
 		this.removeCard();
 	}
@@ -444,9 +415,7 @@ export class EmbedCardComponent extends React.PureComponent<
 		};
 
 		const smartCard =
-			expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
-			this.state.isSSRDataAvailable &&
-			isPageSSRed ? (
+			expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && isPageSSRed ? (
 				<CardSSR
 					key={url}
 					url={url}

@@ -12,4 +12,5 @@ export type UserIntent =
 	| 'resizing'
 	| 'popupOpen'
 	| 'commenting'
-	| 'aiStreaming';
+	| 'aiStreaming'
+	| 'dragHandleSelected';

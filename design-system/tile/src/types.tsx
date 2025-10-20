@@ -115,9 +115,9 @@ export type TileProps = {
 	testId?: string;
 };
 
-export type SkeletonProps = {
+export type TileSkeletonProps = {
 	/**
-	 * Overrides the default color of skeleton, and overrides the default shimmering start color if ShimmeringEndColor also provided.
+	 * Overrides the default color of skeleton, and overrides the default shimmering start color if `shimmeringEndColor` is also provided.
 	 */
 	color?: string;
 	/**

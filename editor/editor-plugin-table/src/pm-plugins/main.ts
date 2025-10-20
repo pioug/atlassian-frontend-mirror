@@ -7,7 +7,7 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { insideTable, isSSR } from '@atlaskit/editor-common/core-utils';
+import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -26,7 +26,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	tableCellView,
@@ -134,27 +133,6 @@ export const createPlugin = (
 	};
 
 	const getNodeView = () => {
-		// Because the layout shift issues has been fixed under experiment platform_editor_tables_scaling_css, so still want to load nodeview on SSR if experiment is enabled
-		if (expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
-			return {
-				table: tableView({
-					portalProviderAPI,
-					eventDispatcher,
-					getEditorContainerWidth,
-					getEditorFeatureFlags,
-					dispatchAnalyticsEvent,
-					pluginInjectionApi,
-					isCommentEditor,
-					isChromelessEditor,
-				}),
-				tableRow: tableRowView({ eventDispatcher, pluginInjectionApi }),
-				tableCell: tableCellView({ eventDispatcher, pluginInjectionApi }),
-				tableHeader: tableHeaderView({ eventDispatcher, pluginInjectionApi }),
-			};
-		}
-		if (isSSR()) {
-			return undefined;
-		}
 		return {
 			table: tableView({
 				portalProviderAPI,

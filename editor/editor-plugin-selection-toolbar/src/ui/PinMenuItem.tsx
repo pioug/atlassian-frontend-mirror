@@ -67,6 +67,17 @@ export const PinMenuItem = ({ api }: PinMenuItemProps) => {
 		if (!api || isDisabled) {
 			return;
 		}
+
+		if (fg('platform_editor_migrate_toolbar_docking')) {
+			api?.core.actions.execute(
+				api?.userPreferences?.actions.updateUserPreference(
+					'toolbarDockingPosition',
+					isToolbarDocked ? 'none' : 'top',
+				),
+			);
+			return;
+		}
+
 		if (isToolbarDocked) {
 			api.selectionToolbar.actions?.setToolbarDocking?.('none');
 		} else {

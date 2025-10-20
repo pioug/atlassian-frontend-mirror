@@ -25,8 +25,6 @@ import {
 	akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
@@ -134,16 +132,8 @@ const AlignmentTableContainer = ({
 	return (
 		<div
 			data-testid="table-alignment-container"
-			data-ssr-placeholder={
-				expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
-					? `table-${node.attrs.localId}`
-					: undefined
-			}
-			data-ssr-placeholder-replace={
-				expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
-					? `table-${node.attrs.localId}`
-					: undefined
-			}
+			data-ssr-placeholder={`table-${node.attrs.localId}`}
+			data-ssr-placeholder-replace={`table-${node.attrs.localId}`}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
 		>
@@ -164,16 +154,8 @@ const AlignmentTableContainerWrapper = ({
 		return (
 			<div
 				data-testid="table-alignment-container"
-				data-ssr-placeholder={
-					expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
-						? `table-${node.attrs.localId}`
-						: undefined
-				}
-				data-ssr-placeholder-replace={
-					expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
-						? `table-${node.attrs.localId}`
-						: undefined
-				}
+				data-ssr-placeholder={`table-${node.attrs.localId}`}
+				data-ssr-placeholder-replace={`table-${node.attrs.localId}`}
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					display: 'flex',
@@ -240,229 +222,7 @@ const getPadding = (containerWidth: number) => {
 		: akEditorGutterPaddingDynamic();
 };
 
-const ResizableTableContainerLegacy = React.memo(
-	({
-		children,
-		className,
-		node,
-		containerWidth,
-		lineLength,
-		editorView,
-		getPos,
-		tableRef,
-		isResizing,
-		pluginInjectionApi,
-		tableWrapperHeight,
-		isWholeTableInDanger,
-		isTableScalingEnabled,
-		isTableWithFixedColumnWidthsOptionEnabled,
-		isTableAlignmentEnabled,
-		shouldUseIncreasedScalingPercent,
-		isCommentEditor,
-	}: PropsWithChildren<ResizableTableContainerProps>) => {
-		const containerRef = useRef<HTMLDivElement | null>(null);
-		const tableWidthRef = useRef<number>(akEditorDefaultLayoutWidth);
-		const [resizing, setIsResizing] = useState(false);
-
-		const { tableState, editorViewModeState } = useSharedPluginStateWithSelector(
-			pluginInjectionApi,
-			['table', 'editorViewMode'],
-			selector,
-		);
-		const isFullWidthModeEnabled = tableState?.isFullWidthModeEnabled;
-		const mode = editorViewModeState?.mode;
-
-		const updateContainerHeight = useCallback((height: number | 'auto') => {
-			// current StickyHeader State is not stable to be fetch.
-			// we need to update stickyHeader plugin to make sure state can be
-			//    consistently fetch and refactor below
-			const stickyHeaders = containerRef.current?.getElementsByClassName('pm-table-sticky');
-			if (!stickyHeaders || stickyHeaders.length < 1) {
-				// when starting to drag, we need to keep the original space,
-				// -- When sticky header not appear, margin top(24px) and margin bottom(16px), should be 40px,
-				//    1px is border width but collapse make it 0.5.
-				// -- When sticky header appear, we should add first row height but reduce
-				//    collapsed border
-				return typeof height === 'number' ? `${height + 40.5}px` : 'auto';
-			} else {
-				const stickyHeaderHeight =
-					containerRef.current?.getElementsByTagName('th')[0].getBoundingClientRect().height || 0;
-
-				return typeof height === 'number' ? `${height + stickyHeaderHeight + 39.5}px` : 'auto';
-			}
-		}, []);
-
-		const onResizeStart = useCallback(() => {
-			setIsResizing(true);
-		}, []);
-
-		const onResizeStop = useCallback(() => {
-			setIsResizing(false);
-		}, []);
-
-		const updateWidth = useCallback((width: number) => {
-			if (!containerRef.current) {
-				return;
-			}
-
-			// make sure during resizing
-			// the pm-table-resizer-container width is the same as its child div resizer-item
-			// otherwise when resize table from wider to narrower , pm-table-resizer-container stays wider
-			// and cause the fabric-editor-popup-scroll-parent to overflow
-			if (containerRef.current.style.width !== `${width}px`) {
-				containerRef.current.style.width = `${width}px`;
-			}
-		}, []);
-
-		const displayGuideline = useCallback(
-			(guidelines: GuidelineConfig[]) => {
-				return (
-					pluginInjectionApi?.guideline?.actions?.displayGuideline(editorView)({
-						guidelines,
-					}) ?? false
-				);
-			},
-			[pluginInjectionApi, editorView],
-		);
-
-		const attachAnalyticsEvent = useCallback(
-			(payload: TableEventPayload) => {
-				return pluginInjectionApi?.analytics?.actions.attachAnalyticsEvent(payload);
-			},
-			[pluginInjectionApi],
-		);
-
-		const displayGapCursor = useCallback(
-			(toggle: boolean) => {
-				return (
-					pluginInjectionApi?.core?.actions.execute(
-						pluginInjectionApi?.selection?.commands.displayGapCursor(toggle),
-					) ?? false
-				);
-			},
-			[pluginInjectionApi],
-		);
-
-		const tableWidth = getTableContainerWidth(node);
-
-		let responsiveContainerWidth = 0;
-		const resizeHandleSpacing = 12;
-		const padding = getPadding(containerWidth);
-		// When Full width editor enabled, a Mac OS user can change "ak-editor-content-area" width by
-		// updating Settings -> Appearance -> Show scroll bars from "When scrolling" to "Always". It causes
-		// issues when viwport width is less than full width Editor's width. To detect avoid them
-		// we need to use lineLength to defined responsiveWidth instead of containerWidth
-		// (which does not get updated when Mac setting changes) in Full-width editor.
-		if (isFullWidthModeEnabled) {
-			// When: Show scroll bars -> containerWidth = akEditorGutterPadding * 2 + lineLength;
-			// When: Always -> containerWidth = akEditorGutterPadding * 2 + lineLength + scrollbarWidth;
-			// scrollbarWidth can vary. Values can be 14, 15, 16 and up to 20px;
-			responsiveContainerWidth = isTableScalingEnabled
-				? lineLength
-				: containerWidth - padding * 2 - resizeHandleSpacing;
-
-			// platform_editor_table_fw_numcol_overflow_fix:
-			// lineLength is undefined on first paint → width: NaN → wrapper expands to page
-			// width. rAF col-sizing then runs before the number-column padding and
-			// the final shrink, so column widths are locked in wrong.
-			// With the flag ON, if the value isn’t finite we fall back to gutterWidth
-			// for that first frame—no flash, no premature rAF.
-			//
-			// Type clean-up comes later:
-			// 1) ship this runtime guard (quick fix, no breakage);
-			// 2) TODO: widen lineLength to `number|undefined` and remove this block.
-			if (fg('platform_editor_table_fw_numcol_overflow_fix')) {
-				if (isTableScalingEnabled && !Number.isFinite(responsiveContainerWidth)) {
-					responsiveContainerWidth = containerWidth - padding * 2 - resizeHandleSpacing;
-				}
-			}
-		} else if (isCommentEditor) {
-			responsiveContainerWidth = containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR;
-		} else {
-			// 76 is currently an accepted padding value considering the spacing for resizer handle
-			// containerWidth = width of a DIV with test id="ak-editor-fp-content-area". It is a parent of
-			// a DIV with className="ak-editor-content-area". This DIV has padding left and padding right.
-			// padding left = padding right = akEditorGutterPadding = 32
-			responsiveContainerWidth = isTableScalingEnabled
-				? containerWidth - padding * 2
-				: containerWidth - padding * 2 - resizeHandleSpacing;
-		}
-		// Fix for HOT-119925: Ensure table width is properly constrained and responsive
-		// For wide tables, ensure they don't exceed container width and can be scrolled
-		const calculatedWidth =
-			!node.attrs.width && isCommentEditor
-				? responsiveContainerWidth
-				: Math.min(tableWidth, responsiveContainerWidth);
-
-		// Ensure minimum width for usability while respecting container constraints
-		const width = Math.max(calculatedWidth, Math.min(responsiveContainerWidth * 0.5, 300));
-
-		if (!isResizing) {
-			tableWidthRef.current = width;
-		}
-		const maxResizerWidth = isCommentEditor
-			? responsiveContainerWidth
-			: Math.min(responsiveContainerWidth, TABLE_MAX_WIDTH);
-
-		const tableResizerProps = {
-			width,
-			maxWidth: maxResizerWidth,
-			containerWidth,
-			lineLength,
-			updateWidth,
-			editorView,
-			getPos,
-			node,
-			tableRef,
-			displayGuideline,
-			attachAnalyticsEvent,
-			displayGapCursor,
-			isTableAlignmentEnabled,
-			isFullWidthModeEnabled,
-			isTableScalingEnabled,
-			isTableWithFixedColumnWidthsOptionEnabled,
-			isWholeTableInDanger,
-			shouldUseIncreasedScalingPercent,
-			pluginInjectionApi,
-			onResizeStart,
-			onResizeStop,
-			isCommentEditor,
-		};
-
-		const isLivePageViewMode = mode === 'view';
-
-		return (
-			<AlignmentTableContainerWrapper
-				isTableAlignmentEnabled={isTableAlignmentEnabled}
-				node={node}
-				pluginInjectionApi={pluginInjectionApi}
-				getPos={getPos}
-				editorView={editorView}
-			>
-				<div
-					style={{
-						width: tableWidthRef.current,
-						height: resizing ? updateContainerHeight(tableWrapperHeight ?? 'auto') : 'auto',
-						position: isLivePageViewMode ? 'relative' : 'unset',
-					}}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={ClassName.TABLE_RESIZER_CONTAINER}
-					ref={containerRef}
-				>
-					{/* eslint-disable-next-line react/jsx-props-no-spreading -- Ignored via go/ees005 */}
-					<TableResizer {...tableResizerProps} disabled={isLivePageViewMode}>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-						<InnerContainer className={className} node={node}>
-							{children}
-						</InnerContainer>
-					</TableResizer>
-				</div>
-			</AlignmentTableContainerWrapper>
-		);
-	},
-);
-
-const ResizableTableContainerNext = React.memo(
+export const ResizableTableContainer = React.memo(
 	({
 		children,
 		className,
@@ -733,12 +493,6 @@ const ResizableTableContainerNext = React.memo(
 	},
 );
 
-export const ResizableTableContainer = componentWithCondition(
-	() => expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true),
-	ResizableTableContainerNext,
-	ResizableTableContainerLegacy,
-);
-
 type TableContainerProps = {
 	className: string;
 	containerWidth: EditorContainerWidth;
@@ -816,11 +570,9 @@ export const TableContainer = ({
 	const { isDragAndDropEnabled } = getPluginState(editorView.state);
 	const isFullPageAppearance = !isCommentEditor && !isChromelessEditor;
 
-	const resizableTableWidth = expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
-		? isFullPageAppearance
-			? getTableResizerContainerForFullPageWidthInCSS(node, isTableScalingEnabled)
-			: `calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2))`
-		: `min(calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2)), ${node.attrs.width ?? '100%'})`;
+	const resizableTableWidth = isFullPageAppearance
+		? getTableResizerContainerForFullPageWidthInCSS(node, isTableScalingEnabled)
+		: `calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2))`;
 	return (
 		<InnerContainer
 			node={node}

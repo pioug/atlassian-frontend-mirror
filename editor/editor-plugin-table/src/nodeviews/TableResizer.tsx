@@ -730,19 +730,12 @@ export const TableResizer = ({
 	const handleTableSizeChangeOnKeypress = useCallback(
 		(step: number) => {
 			const newWidth = width + step;
-			if (expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
-				if (newWidth < resizerMinWidth) {
-					return;
-				}
-			} else {
-				// maxWidth when platform_editor_tables_scaling_css off is always a number
-				if (newWidth > (maxWidth as number) || newWidth < resizerMinWidth) {
-					return;
-				}
+			if (newWidth < resizerMinWidth) {
+				return;
 			}
 			handleResizeStop({ width: width, x: 0, y: 0, height: 0 }, { width: step, height: 0 });
 		},
-		[width, handleResizeStop, maxWidth, resizerMinWidth],
+		[width, handleResizeStop, resizerMinWidth],
 	);
 
 	const handleEscape = useCallback((): void => {

@@ -30,11 +30,15 @@ import type {
 } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { CodeBlockAdvancedPlugin } from '../codeBlockAdvancedPluginType';
 import { highlightStyle } from '../ui/syntaxHighlightingTheme';
 import { cmTheme, codeFoldingTheme } from '../ui/theme';
+
+// Store last observed heights of code blocks
+const codeBlockHeights = new WeakMap<HTMLElement, number>();
 
 import { syncCMWithPM } from './codemirrorSync/syncCMWithPM';
 import { getCMSelectionChanges } from './codemirrorSync/updateCMSelection';
@@ -70,6 +74,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private cleanupDisabledState: (() => void) | undefined;
 	private languageLoader: LanguageLoader;
 	private pmFacet = Facet.define<DecorationSource>();
+	private ro?: ResizeObserver;
 
 	constructor(
 		node: PMNode,
@@ -167,6 +172,34 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.dom = this.cm.dom;
 		this.dom.appendChild(spaceContainer);
 
+		// Observe size changes of the CodeMirror DOM and request a measurement pass
+		if (
+			expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+			fg('platform_editor_content_mode_button_mvp')
+		) {
+			this.ro = new ResizeObserver((entries) => {
+				// Skip measurements when:
+				// 1. Currently updating (prevents feedback loops)
+				// 2. CodeMirror has focus (user is actively typing/editing)
+				if (this.updating || this.cm.hasFocus) {
+					return;
+				}
+
+				// Only trigger on height changes, not width or other dimension changes
+				for (const entry of entries) {
+					const currentHeight = entry.contentRect.height;
+					const lastHeight = codeBlockHeights.get(this.cm.contentDOM);
+					if (lastHeight !== undefined && lastHeight === currentHeight) {
+						return;
+					}
+					codeBlockHeights.set(this.cm.contentDOM, currentHeight);
+				}
+				// CodeMirror to re-measure when its content size changes
+				this.cm.requestMeasure();
+			});
+			this.ro.observe(this.cm.contentDOM);
+		}
+
 		// This flag is used to avoid an update loop between the outer and
 		// inner editor
 		this.updating = false;
@@ -186,6 +219,12 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		// codemirror
 		this.clearProseMirrorDecorations();
 		this.cleanupDisabledState?.();
+		if (
+			expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+			fg('platform_editor_content_mode_button_mvp')
+		) {
+			this.ro?.disconnect();
+		}
 	}
 
 	forwardUpdate(update: ViewUpdate) {

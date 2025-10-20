@@ -6,7 +6,6 @@ import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
 import { getRowHeights } from '../../../pm-plugins/utils/row-controls';
@@ -36,7 +35,7 @@ export default class NumberColumn extends Component<Props, any> {
 			this.props;
 		const rowHeights = getRowHeights(tableRef);
 
-		if (isSSR() && expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
+		if (isSSR()) {
 			return (
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -67,9 +66,7 @@ export default class NumberColumn extends Component<Props, any> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						isDragAndDropEnabled && tableActive ? `1px solid ${tableBorderColor}` : undefined,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					...(expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
-						? { visibility: 'visible' }
-						: {}),
+					visibility: 'visible',
 				}}
 				contentEditable={false}
 			>

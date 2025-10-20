@@ -334,8 +334,22 @@ export function ContentComponent({
 		const selection = editorView.state.selection as Selection;
 		const isCellSelection = '$anchorCell' in selection && !selection.empty;
 		const isTextSelected = selection instanceof TextSelection && !selection.empty;
-		if ((isTextSelected && config.className !== 'hyperlink-floating-toolbar') || isCellSelection) {
-			return null;
+
+		// don't dismiss table toolbar when a cell selection is caused by clicking the drag handle (which has it's own userIntent)
+		if (fg('platform_editor_toolbar_aifc_user_intent_fix')) {
+			if (
+				(isTextSelected && config.className !== 'hyperlink-floating-toolbar') ||
+				(isCellSelection && userIntentState?.currentUserIntent === 'default')
+			) {
+				return null;
+			}
+		} else {
+			if (
+				(isTextSelected && config.className !== 'hyperlink-floating-toolbar') ||
+				isCellSelection
+			) {
+				return null;
+			}
 		}
 	}
 

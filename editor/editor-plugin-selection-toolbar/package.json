@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-toolbar",
-	"version": "7.0.13",
+	"version": "7.0.14",
 	"description": "@atlaskit/editor-plugin-selection-toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -112,6 +112,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_lcm_toolbar_docking_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_migrate_toolbar_docking": {
 			"type": "boolean"
 		}
 	}

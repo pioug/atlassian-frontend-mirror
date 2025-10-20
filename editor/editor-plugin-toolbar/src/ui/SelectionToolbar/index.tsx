@@ -211,7 +211,12 @@ export const SelectionToolbar = ({
 		!shouldShowToolbar ||
 		(currentUserIntent === 'blockMenuOpen' &&
 			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) ||
-		(currentUserIntent && currentUserIntent !== 'default') ||
+		(fg('platform_editor_toolbar_aifc_user_intent_fix')
+			? // hide toolbar when user intent is not default, except when it's dragHandleSelected without cell selection
+				currentUserIntent &&
+				currentUserIntent !== 'default' &&
+				!(currentUserIntent === 'dragHandleSelected' && !isCellSelection)
+			: currentUserIntent && currentUserIntent !== 'default') ||
 		isSSR()
 	) {
 		return null;

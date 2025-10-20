@@ -30,6 +30,7 @@ const styles = cssMap({
 
 export interface SiteSelectorProps {
 	availableSites: Site[] | undefined;
+	disableSiteSelector?: boolean;
 	label: MessageDescriptor;
 	onSiteSelection: (selectedSite: Site) => void;
 	selectedSite?: Site;
@@ -37,9 +38,11 @@ export interface SiteSelectorProps {
 }
 
 export const SiteSelector = (props: SiteSelectorProps) => {
-	const { availableSites, onSiteSelection, selectedSite, label, testId } = props;
+	const { availableSites, disableSiteSelector, onSiteSelection, selectedSite, label, testId } =
+		props;
 
 	const { formatMessage } = useIntl();
+	const isSiteSelectorEnabled = !fg('add-disablesiteselector') || !disableSiteSelector;
 
 	const onChange = (newValue: ValueType<OptionType>) => {
 		const selectedSite = availableSites?.find((site) => site.cloudId === newValue?.value);
@@ -69,7 +72,7 @@ export const SiteSelector = (props: SiteSelectorProps) => {
 				{formatMessage(label)}
 			</Heading>
 
-			{availableSites && availableSites.length > 1 && (
+			{isSiteSelectorEnabled && availableSites && availableSites.length > 1 && (
 				<span data-testid={`${testId}--trigger`}>
 					<PopupSelect
 						searchThreshold={10}

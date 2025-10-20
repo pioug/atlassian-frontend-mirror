@@ -161,6 +161,9 @@
 		},
 		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
+		},
+		"platform_editor_toolbar_aifc_user_intent_fix": {
+			"type": "boolean"
 		}
 	}
 }

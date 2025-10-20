@@ -130,6 +130,9 @@
 		},
 		"platform_editor_update_modal_close_button": {
 			"type": "boolean"
+		},
+		"platform_editor_toolbar_aifc_user_intent_fix": {
+			"type": "boolean"
 		}
 	}
 }

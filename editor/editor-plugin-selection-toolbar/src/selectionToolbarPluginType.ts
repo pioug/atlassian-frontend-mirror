@@ -26,6 +26,10 @@ export type SelectionToolbarPlugin = NextEditorPlugin<
 	{
 		actions?: {
 			forceToolbarDockingWithoutAnalytics?: (toolbarDocking: ToolbarDocking) => boolean;
+			/**
+			 * @private
+			 * @deprecated not in use
+			 */
 			refreshToolbarDocking?: () => boolean;
 			/**
 			 * @private

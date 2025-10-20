@@ -43,3 +43,9 @@ export {
 	MOVE_BLOCK_SECTION_RANK,
 	ADD_BLOCKS_MENU_SECTION_RANK,
 } from './rank';
+
+export {
+	DEFAULT_BLOCK_LINK_HASH_PREFIX,
+	isBlockLinkHash,
+	extractBlockIdFromLinkHash,
+} from './block-link';

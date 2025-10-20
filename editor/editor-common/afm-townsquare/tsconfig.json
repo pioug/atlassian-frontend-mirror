@@ -183,6 +183,9 @@
 			"path": "../../../design-system/tooltip/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../../data/ufo-external/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/width-detector/afm-townsquare/tsconfig.json"
 		},
 		{

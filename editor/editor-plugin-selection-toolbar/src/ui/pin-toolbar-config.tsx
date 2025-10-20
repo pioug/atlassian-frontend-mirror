@@ -11,6 +11,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import PinIcon from '@atlaskit/icon/core/pin';
 import PinFilledIcon from '@atlaskit/icon/core/pin-filled';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
@@ -31,6 +32,13 @@ export const getPinOptionToolbarConfig = ({
 		id: 'editor.toolbar.unpined',
 		icon: () => <PinIcon label="" />,
 		onClick: () => {
+			if (fg('platform_editor_migrate_toolbar_docking')) {
+				return (
+					api?.core.actions.execute(
+						api?.userPreferences?.actions.updateUserPreference('toolbarDockingPosition', 'top'),
+					) ?? false
+				);
+			}
 			return api?.selectionToolbar.actions?.setToolbarDocking?.('top') ?? false;
 		},
 		title: intl.formatMessage(selectionToolbarMessages.toolbarPositionUnpined),
@@ -44,6 +52,13 @@ export const getPinOptionToolbarConfig = ({
 			id: 'editor.toolbar.pinedToTop',
 			icon: () => <PinFilledIcon label="" />,
 			onClick: () => {
+				if (fg('platform_editor_migrate_toolbar_docking')) {
+					return (
+						api?.core.actions.execute(
+							api?.userPreferences?.actions.updateUserPreference('toolbarDockingPosition', 'none'),
+						) ?? false
+					);
+				}
 				return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
 			},
 			type: 'button',

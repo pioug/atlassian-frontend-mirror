@@ -13,6 +13,8 @@ import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { blockControlsPlugin } from '@atlaskit/editor-plugins/block-controls';
 import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
 import { breakoutPlugin } from '@atlaskit/editor-plugins/breakout';
+import { captionPlugin } from '@atlaskit/editor-plugins/caption';
+import { cardPlugin } from '@atlaskit/editor-plugins/card';
 import { codeBlockPlugin } from '@atlaskit/editor-plugins/code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugins/composition';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-insertion';
@@ -27,17 +29,21 @@ import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar
 import { focusPlugin } from '@atlaskit/editor-plugins/focus';
 import { gridPlugin } from '@atlaskit/editor-plugins/grid';
 import { guidelinePlugin } from '@atlaskit/editor-plugins/guideline';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugins/hyperlink';
 import { layoutPlugin } from '@atlaskit/editor-plugins/layout';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
 import { mediaPlugin } from '@atlaskit/editor-plugins/media';
+import { mentionsPlugin } from '@atlaskit/editor-plugins/mentions';
 import { panelPlugin } from '@atlaskit/editor-plugins/panel';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import { rulePlugin } from '@atlaskit/editor-plugins/rule';
 import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
+import { statusPlugin } from '@atlaskit/editor-plugins/status';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
+import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 
 const step1 = {
@@ -70,6 +76,7 @@ export default function Editor() {
 				.add([analyticsPlugin, {}])
 				.add(contentInsertionPlugin)
 				.add(widthPlugin)
+				.add(statusPlugin)
 				.add(guidelinePlugin)
 				.add(textFormattingPlugin)
 				.add([
@@ -88,6 +95,9 @@ export default function Editor() {
 					},
 				])
 				.add(emojiPlugin)
+				.add(hyperlinkPlugin)
+				.add(unsupportedContentPlugin)
+				.add(mentionsPlugin)
 				.add(panelPlugin)
 				.add(rulePlugin)
 				.add(tasksAndDecisionsPlugin)
@@ -100,12 +110,13 @@ export default function Editor() {
 				.add(breakoutPlugin)
 				.add(gridPlugin)
 				.add(floatingToolbarPlugin)
+				.add([cardPlugin, { allowBlockCards: true, allowEmbeds: true }])
 				.add([editorViewModePlugin, { mode: 'view' }])
 				.add([
 					mediaPlugin,
 					{
-						allowMediaSingle: { disableLayout: true },
-						allowMediaGroup: false,
+						allowMediaSingle: { disableLayout: false },
+						allowMediaGroup: true,
 						allowResizing: true,
 						isCopyPasteEnabled: true,
 						allowBreakoutSnapPoints: true,
@@ -115,8 +126,10 @@ export default function Editor() {
 						allowImagePreview: true,
 						fullWidthEnabled: true,
 						waitForMediaUpload: true,
+						allowCaptions: true,
 					},
 				])
+				.add(captionPlugin)
 				.add([
 					annotationPlugin,
 					{

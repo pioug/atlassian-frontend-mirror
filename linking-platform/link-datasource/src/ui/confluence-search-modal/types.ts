@@ -10,11 +10,13 @@ export interface ConfluenceSearchConfigModalProps
 		InlineCardAdf | ConfluenceSearchDatasourceAdf,
 		DatasourceParameters | ConfluenceSearchDatasourceParameters
 	> {
+	disableSiteSelector?: boolean;
 	overrideParameters?: Pick<ConfluenceSearchDatasourceParameters, 'entityTypes'>;
 }
 
 export interface ConnectedConfluenceSearchConfigModalProps
 	extends ConnectedConfigModalProps<ConfluenceSearchDatasourceParameters> {
+	disableSiteSelector?: boolean;
 	overrideParameters?: Pick<ConfluenceSearchDatasourceParameters, 'entityTypes'>;
 }
 

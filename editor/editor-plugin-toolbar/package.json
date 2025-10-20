@@ -55,6 +55,9 @@
 	"platform-feature-flags": {
 		"platform_editor_toolbar_aifc_patch_7": {
 			"type": "boolean"
+		},
+		"platform_editor_toolbar_aifc_user_intent_fix": {
+			"type": "boolean"
 		}
 	},
 	"techstack": {

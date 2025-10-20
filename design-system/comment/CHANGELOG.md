@@ -1,5 +1,13 @@
 # @atlaskit/comment
 
+## 13.1.0
+
+### Minor Changes
+
+- [`f28b10cc7eeeb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f28b10cc7eeeb) -
+  [ux] Adds better header wrapping header ability. This feature was rolled out previously behind a
+  feature flag and this release now cleans up the feature flag.
+
 ## 13.0.27
 
 ### Patch Changes

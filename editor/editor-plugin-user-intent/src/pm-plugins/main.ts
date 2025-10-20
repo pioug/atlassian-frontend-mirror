@@ -31,6 +31,11 @@ export const createPlugin = () => {
 				const meta = tr.getMeta(userIntentPluginKey) as SetCurrentUserIntentMeta | undefined;
 
 				if (meta) {
+					// If the incoming currentUserIntent is the same as the existing one, return the existing state
+					if (meta.data.currentUserIntent === currentPluginState.currentUserIntent) {
+						return currentPluginState;
+					}
+
 					return { currentUserIntent: meta.data.currentUserIntent };
 				}
 

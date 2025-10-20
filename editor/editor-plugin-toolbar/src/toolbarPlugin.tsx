@@ -5,12 +5,13 @@ import { bind } from 'bind-event-listener';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { findSelectedNodeOfType, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { createComponentRegistry } from '@atlaskit/editor-toolbar-model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import contextualToolbarOpenExperience from './pm-plugins/experiences/ContextualToolbarOpenExperience';
 import { editorToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { EditorToolbarPluginState, ToolbarPlugin } from './toolbarPluginType';
 import { DEFAULT_POPUP_SELECTORS } from './ui/consts';
@@ -218,6 +219,14 @@ export const toolbarPlugin: ToolbarPlugin = ({
 						});
 					},
 				},
+				...(expValEquals('platform_editor_experience_tracking', 'isEnabled', true)
+					? [
+							{
+								name: 'contextualToolbarOpenExperience',
+								plugin: () => contextualToolbarOpenExperience(),
+							},
+						]
+					: []),
 			];
 		},
 

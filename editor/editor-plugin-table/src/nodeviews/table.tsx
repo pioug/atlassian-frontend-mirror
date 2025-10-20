@@ -18,7 +18,6 @@ import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-config';
 import { getPluginState } from '../pm-plugins/plugin-factory';
@@ -189,7 +188,7 @@ export default class TableView extends ReactNodeView<Props> {
 				selectionBookmark = this.view.state.selection.getBookmark();
 			}
 
-			if (this.dom && expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
+			if (this.dom) {
 				this.dom.setAttribute('data-ssr-placeholder', `table-nodeview-${this.node.attrs.localId}`);
 				this.dom.setAttribute(
 					'data-ssr-placeholder-replace',

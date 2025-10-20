@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.15.1
+
+### Patch Changes
+
+- [`5f70b8e74f5f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f70b8e74f5f3) -
+  tidy up feature flag platform_editor_tables_scaling_css
+- Updated dependencies
+
 ## 13.15.0
 
 ### Minor Changes

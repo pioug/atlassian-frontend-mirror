@@ -3,12 +3,12 @@ import React from 'react';
 import Skeleton from '@atlaskit/skeleton';
 
 import Tile from './tile';
-import type { SkeletonProps } from './types';
+import type { TileSkeletonProps } from './types';
 
 /**
- * __Skeleton__
+ * __Tile Skeleton__
  *
- * A skeleton is the loading state for the tile component.
+ * A tile skeleton is the loading state for the tile component.
  *
  */
 export default function TileSkeleton({
@@ -17,7 +17,7 @@ export default function TileSkeleton({
 	shimmeringEndColor,
 	size = 'medium',
 	testId,
-}: SkeletonProps) {
+}: TileSkeletonProps) {
 	return (
 		<Tile label="" size={size} testId={testId} backgroundColor="transparent">
 			<Skeleton

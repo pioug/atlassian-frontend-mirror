@@ -127,7 +127,8 @@
 		"./toolbar-flag-check": "./src/toolbar-flag-check.ts",
 		"./context-panel": "./src/ui/ContextPanel/context.tsx",
 		"./sync-block": "./src/sync-block.ts",
-		"./user-intent": "./src/user-intent/index.ts"
+		"./user-intent": "./src/user-intent/index.ts",
+		"./experiences": "./src/experiences/index.ts"
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "workspace:^",
@@ -186,6 +187,7 @@
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
+		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",

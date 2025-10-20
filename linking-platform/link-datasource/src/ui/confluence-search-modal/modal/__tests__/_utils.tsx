@@ -1,5 +1,4 @@
-import { setupFactory } from '../../../../common/__tests__/_utils';
-import { type ConfigModalProps } from '../../../../common/types';
+import { type ModalProps, setupFactory } from '../../../../common/__tests__/_utils';
 import {
 	type ConfluenceSearchDatasourceAdf,
 	type ConfluenceSearchDatasourceParameters,
@@ -32,7 +31,7 @@ const {
 } = setupFactory<ConfluenceSearchDatasourceParameters, InsertArgs, ConfluenceSearchDatasourceAdf>(
 	'confluence-search',
 	ConfluenceSearchConfigModal as React.ForwardRefExoticComponent<
-		ConfigModalProps<ConfluenceSearchDatasourceAdf, ConfluenceSearchDatasourceParameters>
+		ModalProps<ConfluenceSearchDatasourceAdf, ConfluenceSearchDatasourceParameters>
 	>,
 	getDefaultParameters,
 	(args) => {

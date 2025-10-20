@@ -319,10 +319,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_controls_no_toolbar_space": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_quick_insert_placeholder": {
 			"type": "boolean"
 		},

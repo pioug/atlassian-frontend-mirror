@@ -3,7 +3,6 @@ import React from 'react';
 import rafSchedule from 'raf-schd';
 import uuid from 'uuid/v4';
 
-import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import ReactNodeView, {
 	type getInlineNodeViewProducer,
@@ -25,30 +24,18 @@ import { isDatasourceNode } from '../pm-plugins/utils';
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
 
-interface State {
-	isSSRDataAvailable?: boolean;
-}
-
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class BlockCardComponent extends React.PureComponent<
 	SmartCardProps & { id?: string },
-	State
+	unknown
 > {
 	private scrollContainer?: HTMLElement;
-
-	state: State = {
-		isSSRDataAvailable: false,
-	};
 
 	constructor(props: SmartCardProps & { id?: string }) {
 		super(props);
 		// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.scrollContainer = findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
-		this.state = {
-			isSSRDataAvailable:
-				expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && props.isPageSSRed,
-		};
 	}
 
 	onResolve = (data: { title?: string; url?: string }) => {
@@ -78,31 +65,6 @@ export class BlockCardComponent extends React.PureComponent<
 			);
 		})();
 	};
-
-	componentDidMount() {
-		if (!expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)) {
-			return;
-		}
-
-		const provider = this.props.provider;
-
-		if (!provider) {
-			return;
-		}
-
-		const updateSSRDataAvailability = async () => {
-			const resolvedProvider = await provider;
-
-			if (resolvedProvider instanceof EditorCardProvider) {
-				this.setState((state) => ({
-					...state,
-					isSSRDataAvailable: resolvedProvider.getCacheStatusForNode(this.props.node) === 'ssr',
-				}));
-			}
-		};
-
-		void updateSSRDataAvailability();
-	}
 
 	componentWillUnmount(): void {
 		this.removeCard();
@@ -146,9 +108,7 @@ export class BlockCardComponent extends React.PureComponent<
 		const { url, data } = node.attrs;
 
 		const cardInner =
-			expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
-			this.state.isSSRDataAvailable &&
-			isPageSSRed ? (
+			expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && isPageSSRed ? (
 				<>
 					<CardSSR
 						key={url}

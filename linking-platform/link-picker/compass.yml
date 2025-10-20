@@ -7,7 +7,7 @@ description: >-
   and enhancing productivity.
 configVersion: 1
 typeId: CAPABILITY
-ownerId: 'ari:cloud:identity::team/e738fbc3-d778-4660-aa11-5697a458ffa7'
+ownerId: 'ari:cloud:identity::team/0e6dedf8-18d1-4531-b4b9-07648a425d47'
 fields:
   isMonorepoProject: false
   tier: 4
@@ -21,10 +21,10 @@ links:
     url: 'https://hello.jira.atlassian.cloud/jira/software/projects/NAVX/boards/14605'
   - name: ''
     type: CHAT_CHANNEL
-    url: 'https://atlassian.enterprise.slack.com/archives/C07TNMDEVHC'
+    url: 'https://atlassian.enterprise.slack.com/archives/C09FTFN0APN'
   - name: ''
     type: ON_CALL
-    url: 'https://hello.jira.atlassian.cloud/jira/ops/teams/e738fbc3-d778-4660-aa11-5697a458ffa7/on-call'
+    url: 'https://hello.jira.atlassian.cloud/jira/ops/teams/0e6dedf8-18d1-4531-b4b9-07648a425d47/on-call'
 relationships:
   DEPENDS_ON:
     - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/85cec322-aa6f-4e16-800d-8ee284f6195b'
@@ -60,7 +60,7 @@ customFields:
     value: null
   - name: Owner or Team Name
     type: single_select
-    value: 1e93a963-fa64-4c3a-aebb-cc835e418a0a
+    value: 1e93a963-fa64-4c3a-aebb-cc835e418a0a # This means Yes
   - name: Perimeter
     type: single_select
     value: null

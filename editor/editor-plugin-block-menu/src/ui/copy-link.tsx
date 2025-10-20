@@ -47,8 +47,8 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 			return tr;
 		});
 		onDropdownOpenChanged(false);
-		return copyLink(config?.getLinkPath, config?.blockQueryParam, api);
-	}, [config?.getLinkPath, config?.blockQueryParam, api, onDropdownOpenChanged]);
+		return copyLink(config?.getLinkPath, config?.blockLinkHashPrefix, api);
+	}, [config?.getLinkPath, config?.blockLinkHashPrefix, api, onDropdownOpenChanged]);
 
 	const checkIsNestedNode = useCallback(() => {
 		const selection = api?.selection?.sharedState?.currentState()?.selection;

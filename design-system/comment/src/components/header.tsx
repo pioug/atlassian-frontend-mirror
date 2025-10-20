@@ -80,14 +80,32 @@ const Header: FC<HeaderProps> = ({
 	const Heading: HeadingLevel = `h${headingLevel}`;
 	const shouldRender = author || time || restrictedTo || (isSaving && savingText) || edited || type;
 
-	// If shouldHeaderWrap prop is explicitly passed, use it; otherwise use feature flag default
-	const effectiveShouldHeaderWrap =
-		shouldHeaderWrap !== undefined
-			? shouldHeaderWrap
-			: fg('design-system-comment-header-wraps-by-default');
 	return shouldRender ? (
 		<Heading css={headingStyles.root}>
-			{effectiveShouldHeaderWrap ? (
+			{shouldHeaderWrap === false ? (
+				<Inline alignBlock="center" testId={testId} space="space.100" as="span" shouldWrap={false}>
+					{author}
+					{type && <Lozenge testId={testId && `${testId}-type`}>{type}</Lozenge>}
+					{time && !isSaving && !isError && time}
+					{edited || null}
+					{isSaving ? savingText : null}
+					{restrictedTo && (
+						<Text color="color.text.subtlest">
+							<Inline alignBlock="center" space="space.050" as="span">
+								&bull;
+								{fg('platform-visual-refresh-icons') ? (
+									<Box as="span" xcss={iconWrapperStyles.root}>
+										<LockFilledIcon color="currentColor" label="" size="small" />
+									</Box>
+								) : (
+									<LegacyLockFilledIcon size="small" label="" />
+								)}
+								{restrictedTo}
+							</Inline>
+						</Text>
+					)}
+				</Inline>
+			) : (
 				<Inline
 					alignBlock="center"
 					testId={testId}
@@ -122,41 +140,20 @@ const Header: FC<HeaderProps> = ({
 						</Box>
 					)}
 					{restrictedTo && (
-						<Box as="span" xcss={headerItemStyles.root}>
+						<Box as="span">
 							<Text color="color.text.subtlest">
-								{fg('platform-visual-refresh-icons') ? (
-									<Box as="span" xcss={iconWrapperStyles.root}>
-										<LockFilledIcon color="currentColor" label="" size="small" />
-									</Box>
-								) : (
-									<LegacyLockFilledIcon size="small" label="" />
-								)}
-								{restrictedTo}
+								<Inline alignBlock="center" space="space.050" as="span">
+									{fg('platform-visual-refresh-icons') ? (
+										<Box as="span" xcss={iconWrapperStyles.root}>
+											<LockFilledIcon color="currentColor" label="" size="small" />
+										</Box>
+									) : (
+										<LegacyLockFilledIcon size="small" label="" />
+									)}
+									{restrictedTo}
+								</Inline>
 							</Text>
 						</Box>
-					)}
-				</Inline>
-			) : (
-				<Inline alignBlock="center" testId={testId} space="space.100" as="span" shouldWrap={false}>
-					{author}
-					{type && <Lozenge testId={testId && `${testId}-type`}>{type}</Lozenge>}
-					{time && !isSaving && !isError && time}
-					{edited || null}
-					{isSaving ? savingText : null}
-					{restrictedTo && (
-						<Text color="color.text.subtlest">
-							<Inline alignBlock="center" space="space.050" as="span">
-								&bull;
-								{fg('platform-visual-refresh-icons') ? (
-									<Box as="span" xcss={iconWrapperStyles.root}>
-										<LockFilledIcon color="currentColor" label="" size="small" />
-									</Box>
-								) : (
-									<LegacyLockFilledIcon size="small" label="" />
-								)}
-								{restrictedTo}
-							</Inline>
-						</Text>
 					)}
 				</Inline>
 			)}

@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.27.0
+
+### Minor Changes
+
+- [`9f7b37d4149bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f7b37d4149bc) -
+  [ux] Add optional `disableSiteSelector` prop to `confluence-search-modal`. Setting the prop to
+  true allows the consumer to hide the site selector dropdown in the modal header.
+
 ## 4.26.0
 
 ### Minor Changes

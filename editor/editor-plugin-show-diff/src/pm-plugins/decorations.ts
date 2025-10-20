@@ -5,6 +5,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
 
+import { findSafeInsertPos } from './findSafeInsertPos';
 import type { NodeViewSerializer } from './NodeViewSerializer';
 
 const editingStyle = convertToInlineCss({
@@ -139,6 +140,7 @@ interface DeletedContentDecorationProps {
 	change: Change;
 	colourScheme?: 'standard' | 'traditional';
 	doc: PMNode;
+	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
 }
 
@@ -189,6 +191,7 @@ export const createDeletedContentDecoration = ({
 	doc,
 	nodeViewSerializer,
 	colourScheme,
+	newDoc,
 }: DeletedContentDecorationProps) => {
 	const slice = doc.slice(change.fromA, change.toA);
 
@@ -328,5 +331,6 @@ export const createDeletedContentDecoration = ({
 
 	// Widget decoration used for deletions as the content is not in the document
 	// and we want to display the deleted content with a style.
-	return Decoration.widget(change.fromB, dom, {});
+	const safeInsertPos = findSafeInsertPos(newDoc, change.fromB, slice);
+	return Decoration.widget(safeInsertPos, dom, {});
 };

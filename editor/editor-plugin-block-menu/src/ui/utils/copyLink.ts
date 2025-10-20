@@ -1,3 +1,4 @@
+import { DEFAULT_BLOCK_LINK_HASH_PREFIX } from '@atlaskit/editor-common/block-menu';
 import { copyToClipboard } from '@atlaskit/editor-common/clipboard';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -7,7 +8,7 @@ import type { BlockMenuPlugin } from '../../blockMenuPluginType';
 
 export const copyLink = async (
 	getLinkPath?: () => string | null,
-	blockQueryParam: string = 'block',
+	blockLinkHashPrefix: string = DEFAULT_BLOCK_LINK_HASH_PREFIX,
 	api?: ExtractInjectionAPI<BlockMenuPlugin>,
 ): Promise<boolean> => {
 	try {
@@ -32,7 +33,8 @@ export const copyLink = async (
 		}
 
 		const url = new URL(location.origin + path);
-		url.searchParams.set(blockQueryParam, node.attrs.localId);
+		// append the localId as a hash fragment in the form #block-{localId}
+		url.hash = `${blockLinkHashPrefix}${node.attrs.localId}`;
 		const href = url.toString();
 
 		await copyToClipboard(href);

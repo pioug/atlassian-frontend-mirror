@@ -5,7 +5,6 @@ import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getSelectedTableInfo } from '../../utils/analytics';
 
@@ -119,9 +118,9 @@ export const updateColgroup = (
 	isTableScalingEnabled?: boolean,
 	scalePercent?: number,
 ): void => {
-	const cols = expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
-		? (tableRef?.querySelectorAll(':scope > colgroup > col') as NodeListOf<HTMLElement> | undefined)
-		: (tableRef?.querySelectorAll('col') as NodeListOf<HTMLElement> | undefined);
+	const cols = tableRef?.querySelectorAll(':scope > colgroup > col') as
+		| NodeListOf<HTMLElement>
+		| undefined;
 	const columnsCount = cols?.length;
 	/**
      updateColgroup will update whole table scale when click the column resize handle, this behavior will affect when table overflowed, when now resize handle been dragged and extend to make table overflowed, table will show overflow. This need to be confirmed because it conflict with how isTableScalingEnabled work.

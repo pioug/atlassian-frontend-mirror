@@ -37,10 +37,9 @@ import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-deci
 import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
+import { getUserPreferencesProvider } from '@atlaskit/editor-test-helpers/mock-user-preference-provider';
 
 import { userPreferencesPlugin } from '../src';
-
-import { getUserPreferencesProvider } from './user-preferences-provider';
 
 /**
  * This is an example Editor class

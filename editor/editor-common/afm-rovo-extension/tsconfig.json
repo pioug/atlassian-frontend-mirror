@@ -183,6 +183,9 @@
 			"path": "../../../design-system/tooltip/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../../data/ufo-external/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/width-detector/afm-rovo-extension/tsconfig.json"
 		},
 		{

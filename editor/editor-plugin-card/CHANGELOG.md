@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 11.4.2
+
+### Patch Changes
+
+- [`57a9de1ebc5db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57a9de1ebc5db) -
+  fix: remove unnecessary re-renders in smart card node views
+- Updated dependencies
+
 ## 11.4.1
 
 ### Patch Changes

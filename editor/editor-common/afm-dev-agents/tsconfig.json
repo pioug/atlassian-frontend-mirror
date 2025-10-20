@@ -183,6 +183,9 @@
 			"path": "../../../design-system/tooltip/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../../data/ufo-external/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/width-detector/afm-dev-agents/tsconfig.json"
 		},
 		{

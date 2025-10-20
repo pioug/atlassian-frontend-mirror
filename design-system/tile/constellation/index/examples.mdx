@@ -10,6 +10,7 @@ import TileBorder from '../../examples/constellation/tile-border';
 import TileInset from '../../examples/constellation/tile-inset';
 import TileLabelling from '../../examples/constellation/tile-labelling';
 import TileThemed from '../../examples/constellation/tile-themed';
+import TileSkeletonExample from '../../examples/constellation/tile-skeleton';
 
 ## Default
 
@@ -80,3 +81,16 @@ tile's <inlineCode>color</inlineCode>, which is already themed using the design 
 <inlineCode>color.text</inlineCode>.
 
 <Example Component={TileThemed} packageName="@atlaskit/tile" appearance="source-only" />
+
+## Loading skeleton
+
+A loading skeleton is provided called <inlineCode>TileSkeleton</inlineCode>. This can be used in
+conjunction with the [Skeleton component](/components/skeleton), which
+
+<inlineCode>TileSkeleton</inlineCode> utilizes internally – with added consistent sizing for tiles
+to prevent layout shift.
+
+This is useful for when you need to display a loading state for a tile, such as when fetching data
+or waiting for an API response.
+
+<Example Component={TileSkeletonExample} packageName="@atlaskit/tile/skeleton" />

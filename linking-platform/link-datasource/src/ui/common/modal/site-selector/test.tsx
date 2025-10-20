@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { SiteSelector, type SiteSelectorProps } from './index';
 
@@ -96,5 +97,19 @@ describe('SiteSelector', () => {
 			</IntlProvider>,
 		);
 		await expect(container).toBeAccessible();
+	});
+
+	ffTest.on('add-disablesiteselector', 'when feature flag is enabled', () => {
+		it('should not render the site selector dropdown when disableSiteSelector is true', () => {
+			renderSiteSelector({ disableSiteSelector: true });
+			expect(screen.queryByTestId('my-selector__control')).not.toBeInTheDocument();
+		});
+	});
+
+	ffTest.off('add-disablesiteselector', 'when feature flag is disabled', () => {
+		it('should render the site selector dropdown when disableSiteSelector is false', () => {
+			renderSiteSelector({ disableSiteSelector: true });
+			expect(screen.queryByTestId('my-selector__control')).toBeInTheDocument();
+		});
 	});
 });

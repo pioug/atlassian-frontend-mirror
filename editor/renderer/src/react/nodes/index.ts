@@ -55,6 +55,7 @@ import type { NodeComponentsProps } from '../../ui/Renderer/types';
 import type CodeBlockComponent from './codeBlock/codeBlock';
 import type WindowedCodeBlockComponent from './codeBlock/windowedCodeBlock';
 import type SyncBlock from './syncBlock';
+import type BodiedSyncBlockComponent from './bodiedSyncBlock';
 
 const WindowedCodeBlock = Loadable({
 	loader: () =>
@@ -236,6 +237,14 @@ const SyncBlockLoader = Loadable({
 	loading: () => null,
 });
 
+const BodiedSyncBlock = Loadable({
+	loader: () =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_renderer-node_BodiedSyncBlock" */ './bodiedSyncBlock'
+		).then((mod) => mod.default) as Promise<typeof BodiedSyncBlockComponent>,
+	loading: () => null,
+});
+
 export const nodeToReact: {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -283,6 +292,7 @@ export const nodeToReact: {
 	unsupportedInline: UnsupportedInline,
 	expand: Expand,
 	syncBlock: SyncBlockLoader,
+	bodiedSyncBlock: BodiedSyncBlock,
 	nestedExpand: Expand,
 	embedCard: EmbedCard,
 	blockTaskItem: TaskItem,

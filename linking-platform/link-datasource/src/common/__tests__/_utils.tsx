@@ -66,9 +66,12 @@ type AnalyticsPayloadOverride = {
 	attributes?: object;
 };
 
-interface ModalProps<ADF, Parameters extends DatasourceParameters>
+export interface ModalProps<ADF, Parameters extends DatasourceParameters>
 	extends ConfigModalProps<ADF, Parameters>,
-		Pick<ConfluenceSearchConfigModalProps, 'disableDisplayDropdown' | 'overrideParameters'> {}
+		Pick<
+			ConfluenceSearchConfigModalProps,
+			'disableDisplayDropdown' | 'overrideParameters' | 'disableSiteSelector'
+		> {}
 
 export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs, ADF>(
 	providerType: ProviderType,
@@ -217,6 +220,7 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 		args: {
 			columnCustomSizes?: ConfigModalProps<ADF, Parameters>['columnCustomSizes'];
 			disableDisplayDropdown?: ConfluenceSearchConfigModalProps['disableDisplayDropdown'];
+			disableSiteSelector?: ConfluenceSearchConfigModalProps['disableSiteSelector'];
 			dontWaitForSitesToLoad?: boolean;
 			hookState?: DatasourceTableState;
 			mockSiteDataOverride?: {
@@ -272,6 +276,7 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 								}
 								url={args.url}
 								disableDisplayDropdown={args.disableDisplayDropdown}
+								disableSiteSelector={args.disableSiteSelector}
 								overrideParameters={args.overrideParameters}
 							/>
 						</SmartCardProvider>

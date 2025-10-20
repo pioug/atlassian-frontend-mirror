@@ -46,9 +46,6 @@ snapshot(LongAuthorCommentWithHeaderWrap, {
 			device: Device.MOBILE_CHROME,
 		},
 	],
-	featureFlags: {
-		'design-system-comment-header-wraps-by-default': [true, false],
-	},
 });
 
 snapshot(LongAuthorCommentWithNoHeaderWrap, {
@@ -58,9 +55,6 @@ snapshot(LongAuthorCommentWithNoHeaderWrap, {
 			device: Device.MOBILE_CHROME,
 		},
 	],
-	featureFlags: {
-		'design-system-comment-header-wraps-by-default': [true, false],
-	},
 });
 
 snapshot(LongAuthorCommentWithNoHeaderWrapPropSet, {
@@ -70,7 +64,4 @@ snapshot(LongAuthorCommentWithNoHeaderWrapPropSet, {
 			device: Device.MOBILE_CHROME,
 		},
 	],
-	featureFlags: {
-		'design-system-comment-header-wraps-by-default': [true, false],
-	},
 });

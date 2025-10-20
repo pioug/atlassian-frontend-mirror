@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 7.0.14
+
+### Patch Changes
+
+- [`4b4188d469ef6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b4188d469ef6) -
+  Migrate usage of setToolbarDocking to use user preferences
+
 ## 7.0.13
 
 ### Patch Changes

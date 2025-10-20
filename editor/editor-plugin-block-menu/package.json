@@ -45,6 +45,7 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -111,6 +112,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_block_menu_shouldfitcontainer": {
+			"type": "boolean"
+		},
+		"platform_editor_toolbar_aifc_user_intent_fix": {
 			"type": "boolean"
 		}
 	}

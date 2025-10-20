@@ -49,6 +49,16 @@ export const PrimaryToolbarComponent = ({ api, disabled }: PrimaryToolbarCompone
 				disabled={disabled || isOffline}
 				iconBefore={<PinFilledIcon label="" spacing="spacious" />}
 				onClick={() => {
+					if (fg('platform_editor_migrate_toolbar_docking')) {
+						return (
+							api?.core.actions.execute(
+								api?.userPreferences?.actions.updateUserPreference(
+									'toolbarDockingPosition',
+									'none',
+								),
+							) ?? false
+						);
+					}
 					return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
 				}}
 				title={intl.formatMessage(selectionToolbarMessages.toolbarPositionPinedAtTop)}
@@ -64,6 +74,14 @@ export const PrimaryToolbarComponent = ({ api, disabled }: PrimaryToolbarCompone
 			disabled={disabled || isOffline}
 			iconBefore={<PinIcon label="" spacing="spacious" />}
 			onClick={() => {
+				if (fg('platform_editor_migrate_toolbar_docking')) {
+					return (
+						api?.core.actions.execute(
+							api?.userPreferences?.actions.updateUserPreference('toolbarDockingPosition', 'top'),
+						) ?? false
+					);
+				}
+
 				return api?.selectionToolbar.actions?.setToolbarDocking?.('top') ?? false;
 			}}
 			title={intl.formatMessage(selectionToolbarMessages.toolbarPositionUnpined)}

@@ -1,9 +1,8 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import rafSchedule from 'raf-schd';
 import uuid from 'uuid/v4';
 
-import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	type NamedPluginStatesFromInjectionAPI,
@@ -64,29 +63,6 @@ export const InlineCard = memo(
 				view.dispatch(tr);
 			};
 		}, [getPos, view]);
-
-		const [isSSRDataAvailable, setIsSSRDataAvailable] = useState(
-			expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && isPageSSRed,
-		);
-		useEffect(() => {
-			if (!expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)) {
-				return;
-			}
-
-			if (!provider) {
-				return;
-			}
-
-			const updateSSRDataAvailability = async () => {
-				const resolvedProvider = await provider;
-
-				if (resolvedProvider instanceof EditorCardProvider) {
-					setIsSSRDataAvailable(resolvedProvider.getCacheStatusForNode(node) === 'ssr');
-				}
-			};
-
-			void updateSSRDataAvailability();
-		}, [provider, node]);
 
 		const scrollContainer: HTMLElement | undefined = useMemo(
 			// Ignored via go/ees005
@@ -164,15 +140,7 @@ export const InlineCard = memo(
 			: propsOnClick;
 
 		const card = useMemo(() => {
-			if (
-				// The `isSSRDataAvailable` check is only required when the OTP experiment is on,
-				// because inline smart card SSR is already implemented without OTP.
-				(expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
-					? isSSRDataAvailable
-					: true) &&
-				isPageSSRed &&
-				url
-			) {
+			if (isPageSSRed && url) {
 				return (
 					<CardSSR
 						key={url}
@@ -189,11 +157,11 @@ export const InlineCard = memo(
 						hoverPreviewOptions={hoverPreviewOptions}
 						disablePreviewPanel={disablePreviewPanel}
 						// Durin `platform_editor_smart_card_otp` cleaning up, replace this with `true`.
-						// Ths `isSSRDataAvailable` should be checked in the `if` condition above.
-						hideIconLoadingSkeleton={
-							expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
-							isSSRDataAvailable
-						}
+						hideIconLoadingSkeleton={expValEquals(
+							'platform_editor_smart_card_otp',
+							'isEnabled',
+							true,
+						)}
 					/>
 				);
 			}
@@ -229,7 +197,6 @@ export const InlineCard = memo(
 			hoverPreviewOptions,
 			isPageSSRed,
 			disablePreviewPanel,
-			isSSRDataAvailable,
 		]);
 
 		// [WS-2307]: we only render card wrapped into a Provider when the value is ready,

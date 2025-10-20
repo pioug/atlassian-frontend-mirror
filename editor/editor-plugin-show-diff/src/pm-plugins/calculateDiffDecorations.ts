@@ -157,6 +157,7 @@ const calculateDiffDecorationsInner = ({
 				doc: originalDoc,
 				nodeViewSerializer,
 				colourScheme,
+				newDoc: tr.doc,
 			});
 			if (decoration) {
 				decorations.push(decoration);

@@ -10,12 +10,6 @@ const getLineHeight = () =>
 		? '1.5em'
 		: '1.5rem';
 
-const getMaxGutterHeight = () =>
-	expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-	fg('platform_editor_content_mode_button_mvp')
-		? '1.5em'
-		: undefined;
-
 const getFontSize = () =>
 	expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 	fg('platform_editor_content_mode_button_mvp')
@@ -88,7 +82,6 @@ export const cmTheme = CodeMirror.theme({
 	'.cm-gutterElement:not(:first-child)': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		minHeight: getLineHeight(),
-		...(getMaxGutterHeight() && { maxHeight: getMaxGutterHeight() }),
 	},
 });
 

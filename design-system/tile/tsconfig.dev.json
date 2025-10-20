@@ -80,7 +80,13 @@
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{
+			"path": "../skeleton/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+		},
+		{
+			"path": "../toggle/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"

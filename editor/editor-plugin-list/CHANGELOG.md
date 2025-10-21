@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-list
 
+## 8.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.0
 
 ### Minor Changes
@@ -1249,8 +1255,7 @@
   -
   50. Another list item
 
-  Should NOT auto join to be 1 & 2 in a single list however... 49. A list item
-  -
+  ## Should NOT auto join to be 1 & 2 in a single list however... 49. A list item
   50. Another list item
 
   Should join to be 49 & 50 in a single list.

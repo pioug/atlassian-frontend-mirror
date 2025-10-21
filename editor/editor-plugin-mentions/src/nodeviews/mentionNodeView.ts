@@ -1,4 +1,4 @@
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
@@ -12,6 +12,7 @@ import {
 	MentionNameStatus,
 } from '@atlaskit/mention/resource';
 import { isRestricted } from '@atlaskit/mention/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 import { type MentionPluginOptions } from '../types';
@@ -41,6 +42,10 @@ const toDOM = (node: PMNode): DOMOutputSpec => {
 		'data-prosemirror-node-view-type': 'vanilla',
 		class: 'mentionView-content-wrap inlineNodeView',
 	};
+
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
 
 	return [
 		'span',

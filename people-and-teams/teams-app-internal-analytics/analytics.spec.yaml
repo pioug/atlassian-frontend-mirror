@@ -2459,6 +2459,15 @@ events:
   - showMore clicked:
       type: ui
       description: fired when the show more button is clicked
+      attributes:
+        selectedUser:
+          type: boolean
+          required: false
+          description: whether the selected user is the current user
+        withSearchQuery:
+          type: boolean
+          required: false
+          description: whether the search query is present
   - teamCreateDialogTriggerButton clicked:
       type: ui
       description: fired when the team create dialog trigger button is clicked
@@ -2876,3 +2885,97 @@ events:
           type: boolean
           description: whether the user is verified
           required: false
+  - peopleHome viewed:
+      type: screen
+      description: fired when the people home is viewed
+  - userFilter selected:
+      type: ui
+      description: fired when a user filter is selected
+      attributes:
+        isCurrentUser:
+          type: boolean
+          description: whether the selected user is the current user
+  - teamElement clicked:
+      type: ui
+      description: fired when a team element is clicked
+      attributes:
+        entryIndex:
+          type: number
+          description: the index
+        withSearchQuery:
+          type: boolean
+          description: whether the search query is present
+        isCurrentUser:
+          type: boolean
+          description: whether the selected user is the current user
+  - suggestedCollaborators clicked:
+      type: ui
+      description: fired when a suggested collaborator is clicked
+      attributes:
+        entryIndex:
+          type: number
+          description: the index
+  - ViewDirectoryFiltersInAtlas clicked:
+      type: ui
+      description: fired when the view directory filters in atlas is clicked
+      attributes:
+        isAdmin:
+          type: boolean
+          description: whether the user is a site admin
+        product:
+          type: string
+          description: the product
+        workspaceUuid:
+          type: string
+          description: the workspace uuid
+          required: false
+  - yourTeams clicked:
+      type: ui
+      description: fired when the your teams is clicked
+      attributes:
+        entryIndex:
+          type: number
+          description: the index
+  - browseAllTeams clicked:
+      type: ui
+      description: fired when the browse all teams is clicked
+  - addPeopleButton clicked:
+      type: ui
+      description: fired when the add people button is clicked
+      attributes:
+        trigger:
+          type: string
+          description: the trigger
+  - teamSearchResult clicked:
+      type: ui
+      description: fired when the team search result is clicked
+      attributes:
+        entryIndex:
+          type: number
+          description: the index
+        withSearchQuery:
+          type: boolean
+          description: whether the search query is present
+  - recentCollaborator clicked:
+      type: ui
+      description: fired when the recent collaborator is clicked
+      attributes:
+        entryIndex:
+          type: number
+          description: the index
+        sessionId:
+          type: string
+          description: the session id
+        dataSource:
+          type: string
+          description: the data source
+  - peopleSearchResult clicked:
+      type: ui
+      description: fired when the people search result is clicked
+      attributes:
+        entryIndex:
+          type: number
+          description: the index
+        withSearchQuery:
+          type: boolean
+          description: whether the search query is present

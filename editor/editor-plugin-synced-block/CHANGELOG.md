@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 3.7.0
+
+### Minor Changes
+
+- [`7b80545f98f03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b80545f98f03) -
+  Refactor to suit provider changes
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.6.0
 
 ### Minor Changes

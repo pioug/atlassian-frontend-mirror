@@ -10,6 +10,7 @@ import { injectIntl } from 'react-intl-next';
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
@@ -17,7 +18,7 @@ import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
 import { getParentNodeWidth, getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { tableMarginSides } from '@atlaskit/editor-common/styles';
 import type { EditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-import { browser, isValidPosition } from '@atlaskit/editor-common/utils';
+import { isValidPosition } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -83,7 +84,6 @@ import { TableContainer } from './TableContainer';
 import { TableStickyScrollbar } from './TableStickyScrollbar';
 import type { TableOptions } from './types';
 
-const isIE11 = browser.ie_version === 11;
 // When table is inserted via paste, keyboard shortcut or quickInsert,
 // componentDidUpdate is called multiple times. The isOverflowing value is correct only on the last update.
 // To make sure we capture the last update, we use setTimeout.
@@ -281,6 +281,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			isDragAndDropEnabled,
 			getNode,
 		} = this.props;
+		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+			? getBrowserInfo()
+			: browserLegacy;
+		const isIE11 = browser.ie_version === 11;
 
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -365,6 +369,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			view,
 			isInDanger,
 		} = this.props;
+		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+			? getBrowserInfo()
+			: browserLegacy;
+		const isIE11 = browser.ie_version === 11;
 		if (this.wrapper && !isIE11) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners

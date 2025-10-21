@@ -1,11 +1,11 @@
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import type { SyncBlockNode } from '../common/types';
+import type { SyncBlockData, SyncBlockNode } from '../common/types';
 
 import type { PAGE_TYPE } from './ari';
 
-export const convertSyncBlockPMNodeToSyncBlockData = (
+export const convertSyncBlockPMNodeToSyncBlockNode = (
 	node: PMNode,
 	includeContent: boolean = false,
 ): SyncBlockNode => {
@@ -18,6 +18,14 @@ export const convertSyncBlockPMNodeToSyncBlockData = (
 			resourceId: node.attrs.resourceId,
 		},
 		content: includeContent ? node.content.content.map(toJSON) : undefined,
+	};
+};
+
+export const convertSyncBlockPMNodeToSyncBlockData = (node: PMNode): SyncBlockData => {
+	return {
+		blockInstanceId: node.attrs.localId,
+		content: node.content.toJSON(),
+		resourceId: node.attrs.resourceId,
 	};
 };
 

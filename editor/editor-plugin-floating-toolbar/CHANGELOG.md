@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 8.2.9
+
+### Patch Changes
+
+- [`4f5569bde5e64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f5569bde5e64) -
+  Add new 'dragHandleSelected' user intent, use this to control table toolbar when drag handle is
+  selected
+- Updated dependencies
+
 ## 8.2.8
 
 ### Patch Changes

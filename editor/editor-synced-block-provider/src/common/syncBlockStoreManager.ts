@@ -1,30 +1,29 @@
+import { useCallback, useEffect, useState } from 'react';
+
 import uuid from 'uuid';
 
-import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { DocNode } from '@atlaskit/adf-schema';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { resourceIdFromSourceAndLocalId } from '../utils/ari';
+import {
+	convertSyncBlockPMNodeToSyncBlockData,
+	convertSyncBlockPMNodeToSyncBlockNode,
+} from '../utils/utils';
 
 import { rebaseTransaction } from './rebase-transaction';
-import type { SyncBlockAttrs, SyncBlockDataProvider, SyncBlockNode } from './types';
+import type { SyncBlockAttrs, SyncBlockData, SyncBlockDataProvider, SyncBlockNode } from './types';
 
 // Do this typedef to make it clear that
 // this is a local identifier for a resource for local use
-type ResourceId = string;
+type BlockInstanceId = string;
 
 export interface SyncBlock {
-	/**
-	 * The local content of the block,
-	 * this might or might not be synced with the server
-	 */
-	content?: ADFEntity;
-	resourceId: string;
-
-	// the id of the source syncBlock
-	sourceLocalId: string;
 	sourceURL?: string;
+	syncBlockData: SyncBlockData;
+	syncNode: SyncBlockNode;
 }
 
 type ConfirmationCallback = () => Promise<boolean>;
@@ -35,7 +34,8 @@ type ConfirmationCallback = () => Promise<boolean>;
 // Handles caching, debouncing updates, and publish/subscribe for local changes.
 // Ensures consistency between local and remote state, and can be used in both editor and renderer contexts.
 export class SyncBlockStoreManager {
-	private syncBlocks: Map<ResourceId, SyncBlock>;
+	private syncBlocks: Map<BlockInstanceId, SyncBlock>;
+	private syncBlockURLRequests: Map<BlockInstanceId, boolean>;
 	private confirmationCallback?: ConfirmationCallback;
 	private editorView?: EditorView;
 	private dataProvider?: SyncBlockDataProvider;
@@ -43,60 +43,132 @@ export class SyncBlockStoreManager {
 
 	constructor(dataProvider?: SyncBlockDataProvider) {
 		this.syncBlocks = new Map();
+		this.syncBlockURLRequests = new Map();
 		this.dataProvider = dataProvider;
 	}
 
 	/**
-	 * Add/update a sync block node to the store.
-	 * @param node - The sync block node to add
-	 * @returns True if the sync block node was added/updated
+	 *
+	 * @param node - The sync block node to get the source URL for
+	 * @returns The source URL for the sync block node if it exists. Otherwise trigger fetch and return undefined, syncBlock will update with URL asynchronously.
 	 */
-	public updateSyncBlockNode(node: PMNode): boolean {
+	private getSyncBlockSourceURL(node: PMNode): string | undefined {
 		const { localId, resourceId } = node.attrs;
 
-		if (!localId || !resourceId) {
-			return false;
+		if (!localId || !resourceId || !this.dataProvider) {
+			return undefined;
 		}
 
-		const existingSyncBlock = this.syncBlocks.get(resourceId);
+		const existingSyncBlock = this.syncBlocks.get(localId);
 
-		const sourceURL = existingSyncBlock?.sourceURL; //avoid fetching the URL again
+		if (!existingSyncBlock) {
+			return undefined;
+		}
+
+		const { sourceURL } = existingSyncBlock;
+		if (sourceURL) {
+			return sourceURL;
+		}
 
 		// if the sync block is a reference block, we need to fetch the URL to the source
 		// we could optimise this further by checking if the sync block is on the same page as the source
-		if (!sourceURL && !this.isSourceBlock(node) && this.dataProvider) {
-			this.syncBlocks.set(resourceId, {
-				resourceId,
-				sourceLocalId: localId,
-				sourceURL: undefined,
-			});
-
+		if (!this.isSourceBlock(node) && !this.syncBlockURLRequests.get(localId)) {
+			const syncBlockNode: SyncBlockNode = convertSyncBlockPMNodeToSyncBlockNode(node, false);
+			this.syncBlockURLRequests.set(localId, true);
 			this.dataProvider
-				.retrieveSyncBlockSourceUrl({
-					attrs: { localId, resourceId },
-					type: 'syncBlock',
-				})
-				.then((url) => {
-					if (this.syncBlocks.has(resourceId)) {
-						this.syncBlocks.set(resourceId, {
-							resourceId,
-							sourceLocalId: localId,
-							sourceURL: url,
-						});
+				.retrieveSyncBlockSourceUrl(syncBlockNode)
+				.then((sourceURL) => {
+					const existingSyncBlock = this.syncBlocks.get(localId);
+					if (existingSyncBlock) {
+						const syncBlock: SyncBlock = {
+							...existingSyncBlock,
+							sourceURL,
+						};
+						this.syncBlocks.set(localId, syncBlock);
 					}
-				}); // prefetch the data for the sync block URL
+				})
+				.finally(() => {
+					this.syncBlockURLRequests.set(localId, false);
+				});
+		}
+		return undefined;
+	}
+
+	public async fetchSyncBlockData(syncBlockNode: PMNode): Promise<SyncBlockData> {
+		if (!['bodiedSyncBlock', 'syncBlock'].includes(syncBlockNode.type.name)) {
+			throw new Error('Node is not a sync block');
 		}
 
-		return true;
+		const syncNode: SyncBlockNode = convertSyncBlockPMNodeToSyncBlockNode(syncBlockNode, false);
+		if (!this.dataProvider) {
+			throw new Error('Data provider not set');
+		}
+
+		const data = await this.dataProvider.fetchNodesData([syncNode]);
+		if (!data) {
+			throw new Error('Failed to fetch sync block node data');
+		}
+
+		const sourceURL = this.getSyncBlockSourceURL(syncBlockNode);
+
+		this.syncBlocks.set(syncBlockNode.attrs.localId, {
+			syncNode,
+			sourceURL,
+			syncBlockData: data[0],
+		});
+
+		return data[0];
+	}
+
+	/**
+	 * Add/update a sync block node to/from the store.
+	 * @param syncBlockNode - The sync block node to update
+	 * @param newContent - The updated node content to use for the sync block node
+	 * @returns True if the sync block node was added/updated
+	 */
+	public updateSyncBlockData(syncBlockNode: PMNode): Promise<boolean> {
+		if (!this.isSourceBlock(syncBlockNode)) {
+			throw new Error('Node is not a source sync block');
+		}
+
+		if (!this.dataProvider) {
+			throw new Error('Data provider not set');
+		}
+
+		const { localId, resourceId } = syncBlockNode.attrs;
+
+		if (!localId || !resourceId) {
+			throw new Error('Local ID or resource ID is not set');
+		}
+
+		const existingSyncBlock = this.syncBlocks.get(localId);
+		const sourceURL = existingSyncBlock?.sourceURL;
+		const syncBlock: SyncBlock = {
+			syncNode: convertSyncBlockPMNodeToSyncBlockNode(syncBlockNode),
+			sourceURL,
+			syncBlockData: {
+				...convertSyncBlockPMNodeToSyncBlockData(syncBlockNode),
+				sourceDocumentAri: resourceId, // same as resourceId ARI when content property API
+			},
+		};
+		this.syncBlocks.set(localId, syncBlock);
+
+		//TODO: EDITOR-1921 - add error analytics
+		return !this.isSourceBlock(syncBlockNode)
+			? Promise.resolve(true)
+			: this.dataProvider
+					.writeNodesData([syncBlock.syncNode], [syncBlock.syncBlockData])
+					.then((resourceIds) => resourceIds.every((resourceId) => resourceId !== undefined))
+					.catch(() => false);
 	}
 
 	/**
 	 * Get the URL for a sync block.
-	 * @param resourceId - The resource ID of the sync block to get the URL for
+	 * @param localId - The local ID of the sync block to get the URL for
 	 * @returns
 	 */
-	public getSyncBlockURL(resourceId: ResourceId): string | undefined {
-		const syncBlock = this.syncBlocks.get(resourceId);
+	public getSyncBlockURL(localId: BlockInstanceId): string | undefined {
+		const syncBlock = this.syncBlocks.get(localId);
 		return syncBlock?.sourceURL;
 	}
 
@@ -137,16 +209,18 @@ export class SyncBlockStoreManager {
 	}
 
 	public createSyncBlockNode(): SyncBlockNode {
-		const localId = uuid();
+		const blockInstanceId = uuid();
 		const sourceId = this.dataProvider?.getSourceId();
 		if (!sourceId) {
 			throw new Error('Provider of sync block plugin is not set');
 		}
-		const resourceId = resourceIdFromSourceAndLocalId(sourceId, localId);
+
+		// This should be generated by the data provider implementation as it differs between data providers
+		const resourceId = resourceIdFromSourceAndLocalId(sourceId, blockInstanceId);
 		const syncBlockNode: SyncBlockNode = {
 			attrs: {
 				resourceId,
-				localId,
+				localId: blockInstanceId,
 			},
 			type: 'syncBlock',
 		};
@@ -162,7 +236,7 @@ export class SyncBlockStoreManager {
 					this.confirmationTransaction.setMeta('isConfirmedSyncBlockDeletion', true),
 				);
 				// Need to update the BE on deletion
-				syncBlockIds.forEach(({ resourceId }) => this.syncBlocks.delete(resourceId));
+				syncBlockIds.forEach(({ localId }) => this.syncBlocks.delete(localId));
 			}
 			this.confirmationTransaction = undefined;
 		}
@@ -179,4 +253,42 @@ export class SyncBlockStoreManager {
 			state,
 		);
 	}
+}
+
+export function useFetchDocNode(
+	manager: SyncBlockStoreManager,
+	syncBlockNode: PMNode,
+	defaultDocNode: DocNode,
+): DocNode {
+	const [docNode, setDocNode] = useState<DocNode>(defaultDocNode);
+	const fetchSyncBlockNode = useCallback(() => {
+		manager
+			.fetchSyncBlockData(syncBlockNode)
+			.then((data) =>
+				setDocNode({ content: data.content || [], version: 1, type: 'doc' } as DocNode),
+			)
+			.catch(() => {
+				//TODO: EDITOR-1921 - add error analytics
+			});
+	}, [manager, syncBlockNode, setDocNode]);
+
+	useEffect(() => {
+		fetchSyncBlockNode();
+		const interval = window.setInterval(fetchSyncBlockNode, 3000);
+
+		return () => {
+			window.clearInterval(interval);
+		};
+	}, [fetchSyncBlockNode]);
+	return docNode;
+}
+
+export function useHandleContentChanges(
+	manager: SyncBlockStoreManager,
+	syncBlockNode: PMNode,
+): void {
+	useEffect(() => {
+		//TODO: EDITOR-1921 - add error analytics
+		manager.updateSyncBlockData(syncBlockNode);
+	}, [manager, syncBlockNode]);
 }

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-user-intent
 
+## 4.0.2
+
+### Patch Changes
+
+- [`4f5569bde5e64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f5569bde5e64) -
+  Add new 'dragHandleSelected' user intent, use this to control table toolbar when drag handle is
+  selected
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes
@@ -66,7 +75,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.

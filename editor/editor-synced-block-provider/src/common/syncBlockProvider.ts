@@ -1,13 +1,8 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useMemo } from 'react';
 
-import type { DocNode } from '@atlaskit/adf-schema';
-import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { getLocalIdFromAri, getPageARIFromResourceId } from '../utils/ari';
-import { convertSyncBlockPMNodeToSyncBlockData } from '../utils/utils';
 
 import {
 	SyncBlockDataProvider,
@@ -57,7 +52,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		const resourceIds: Promise<string>[] = [];
 		nodes.forEach((_node, index) => {
 			if (!data[index].content) {
-				resourceIds.push(Promise.reject('No Synced Blockcontent to write'));
+				resourceIds.push(Promise.reject('No Synced Block content to write'));
 				return;
 			}
 			const resourceId = this.writeProvider.writeData(data[index]);
@@ -92,40 +87,6 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	}
 }
 
-export const useFetchDocNode = (
-	editorView: EditorView,
-	node: PMNode,
-	defaultDocNode: DocNode,
-	provider?: SyncBlockDataProvider,
-): DocNode => {
-	const [docNode, setDocNode] = useState<DocNode>(defaultDocNode);
-
-	const fetchNode = (editorView: EditorView, node: PMNode, provider: SyncBlockDataProvider) => {
-		const nodes: SyncBlockNode[] = [convertSyncBlockPMNodeToSyncBlockData(node, false)];
-		provider?.fetchNodesData(nodes).then((data) => {
-			if (data && data[0]?.content) {
-				const newNode = editorView.state.schema.nodeFromJSON(data[0].content);
-				setDocNode({ ...newNode.toJSON(), version: 1 });
-			}
-		});
-	};
-
-	useEffect(() => {
-		if (!provider) {
-			return;
-		}
-		fetchNode(editorView, node, provider);
-		const interval = window.setInterval(() => {
-			fetchNode(editorView, node, provider);
-		}, 3000);
-
-		return () => {
-			window.clearInterval(interval);
-		};
-	}, [editorView, node, provider]);
-	return docNode;
-};
-
 export const useMemoizedSyncedBlockProvider = (
 	fetchProvider: ADFFetchProvider,
 	writeProvider: ADFWriteProvider,
@@ -134,29 +95,6 @@ export const useMemoizedSyncedBlockProvider = (
 	return useMemo(() => {
 		return new SyncBlockProvider(fetchProvider, writeProvider, sourceId);
 	}, [fetchProvider, writeProvider, sourceId]);
-};
-
-export const useHandleContentChanges = (
-	updatedDoc: ADFEntity | undefined,
-	isSource: boolean,
-	node: PMNode,
-	provider?: SyncBlockDataProvider,
-): void => {
-	useEffect(() => {
-		if (!isSource) {
-			return;
-		}
-		if (!provider) {
-			return;
-		}
-		const syncBlockNode = convertSyncBlockPMNodeToSyncBlockData(node, false);
-		const data: SyncBlockData = {
-			content: updatedDoc,
-			resourceId: node.attrs.resourceId,
-			localId: node.attrs.localId,
-		};
-		provider?.writeNodesData([syncBlockNode], [data]);
-	}, [isSource, node, provider, updatedDoc]);
 };
 
 const fetchURLfromARI = async (

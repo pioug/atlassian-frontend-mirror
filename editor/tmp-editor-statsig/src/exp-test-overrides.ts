@@ -27,6 +27,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_editor_controls: 'control',
 	confluence_whiteboards_quick_insert_aa: 'control',
 	confluence_whiteboards_quick_insert: 'control',
+	confluence_whiteboards_quick_insert_localised: 'control',
 	platform_editor_insertion: 'control',
 	editor_ai_inline_suggestion_date_v2: 'control',
 	cc_editor_ai_content_mode: 'control',

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 6.2.2
+
+### Patch Changes
+
+- [`b4284749422b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4284749422b0) -
+  [ux] Fix the code block gutter alignment issue when toggling content mode
+- Updated dependencies
+
 ## 6.2.1
 
 ### Patch Changes

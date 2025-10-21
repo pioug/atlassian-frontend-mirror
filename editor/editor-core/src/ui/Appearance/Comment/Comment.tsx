@@ -24,6 +24,7 @@ import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -236,18 +237,40 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 						isNewToolbarEnabled={isToolbarAIFCEnabled}
 					>
 						{isToolbarAIFCEnabled ? (
-							<React.Fragment>
-								<CommentToolbar
-									editorAPI={editorAPI}
+							fg('platform_editor_toolbar_aifc_patch_7') ? (
+								<ToolbarArrowKeyNavigationProvider
 									editorView={editorView}
+									childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
+									isShortcutToFocusToolbar={isShortcutToFocusToolbar}
+									handleEscape={handleEscape}
 									editorAppearance={appearance}
-									disabled={patch6Enabled ? !!disabled : undefined}
-									popupsBoundariesElement={popupsBoundariesElement}
-									popupsScrollableElement={popupsScrollableElement}
-									popupsMountPoint={popupsMountPoint}
-								/>
-								{customPrimaryToolbarComponents ? customToolbarSlot : null}
-							</React.Fragment>
+									useStickyToolbar={useStickyToolbar}
+									intl={intl}
+								>
+									<CommentToolbar
+										editorAPI={editorAPI}
+										editorView={editorView}
+										editorAppearance={appearance}
+										disabled={patch6Enabled ? !!disabled : undefined}
+										popupsBoundariesElement={popupsBoundariesElement}
+										popupsScrollableElement={popupsScrollableElement}
+										popupsMountPoint={popupsMountPoint}
+									/>
+								</ToolbarArrowKeyNavigationProvider>
+							) : (
+								<React.Fragment>
+									<CommentToolbar
+										editorAPI={editorAPI}
+										editorView={editorView}
+										editorAppearance={appearance}
+										disabled={patch6Enabled ? !!disabled : undefined}
+										popupsBoundariesElement={popupsBoundariesElement}
+										popupsScrollableElement={popupsScrollableElement}
+										popupsMountPoint={popupsMountPoint}
+									/>
+									{customPrimaryToolbarComponents ? customToolbarSlot : null}
+								</React.Fragment>
+							)
 						) : (
 							<ToolbarArrowKeyNavigationProvider
 								editorView={editorView}

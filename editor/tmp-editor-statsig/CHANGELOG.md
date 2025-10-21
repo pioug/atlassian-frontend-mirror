@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.16.1
+
+### Patch Changes
+
+- [`c1691aca7fb1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1691aca7fb1d) -
+  [ux] Update and standardise insert menu ordering behaviour to support localisation
+
+## 13.16.0
+
+### Minor Changes
+
+- [`916133ef0c6dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/916133ef0c6dd) -
+  [ux] Editor experience tracking foundation
+
 ## 13.15.1
 
 ### Patch Changes

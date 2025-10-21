@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 7.0.15
+
+### Patch Changes
+
+- [`c1691aca7fb1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1691aca7fb1d) -
+  [ux] Update and standardise insert menu ordering behaviour to support localisation
+- Updated dependencies
+
 ## 7.0.14
 
 ### Patch Changes

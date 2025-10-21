@@ -5,7 +5,7 @@ export const inMemoryFetchProvider: ADFFetchProvider = {
 	fetchData: (resourceId: string) => {
 		const data = inMemStore.get(resourceId);
 		if (!data) {
-			return Promise.reject(new Error('Data not found'));
+			throw new Error('Sync Block Provider (in-mem): Data not found');
 		}
 		return Promise.resolve(data);
 	},

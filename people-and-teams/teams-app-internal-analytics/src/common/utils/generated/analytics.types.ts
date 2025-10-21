@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::a6b20df2d2f431cd63752ff404dab502>>
+ * @codegen <<SignedSource::cca058e42b3290c5e6cd84091c7e9308>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1150,7 +1150,10 @@ export type PrivacyPolicyLinkClickedAttributesType = undefined;
 export type TeamProfileItemClickedAttributesType = {
 	position: number;
 };
-export type ShowMoreClickedAttributesType = undefined;
+export type ShowMoreClickedAttributesType = {
+	selectedUser: boolean | null;
+	withSearchQuery: boolean | null;
+};
 export type TeamCreateDialogTriggerButtonClickedAttributesType = {
 	trigger: string;
 };
@@ -1303,6 +1306,43 @@ export type TeamLinkEditedAttributesType = {
 	memberOfTeam: boolean;
 	orgAdminTriggered: boolean;
 	isVerified: boolean | null;
+};
+export type PeopleHomeViewedAttributesType = undefined;
+export type UserFilterSelectedAttributesType = {
+	isCurrentUser: boolean;
+};
+export type TeamElementClickedAttributesType = {
+	entryIndex: number;
+	withSearchQuery: boolean;
+	isCurrentUser: boolean;
+};
+export type SuggestedCollaboratorsClickedAttributesType = {
+	entryIndex: number;
+};
+export type ViewDirectoryFiltersInAtlasClickedAttributesType = {
+	isAdmin: boolean;
+	product: string;
+	workspaceUuid: string | null;
+};
+export type YourTeamsClickedAttributesType = {
+	entryIndex: number;
+};
+export type BrowseAllTeamsClickedAttributesType = undefined;
+export type AddPeopleButtonClickedAttributesType = {
+	trigger: string;
+};
+export type TeamSearchResultClickedAttributesType = {
+	entryIndex: number;
+	withSearchQuery: boolean;
+};
+export type RecentCollaboratorClickedAttributesType = {
+	entryIndex: number;
+	sessionId: string;
+	dataSource: string;
+};
+export type PeopleSearchResultClickedAttributesType = {
+	entryIndex: number;
+	withSearchQuery: boolean;
 };
 
 export type AnalyticsEventAttributes = {
@@ -2229,6 +2269,39 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when a team link is successfully edited */
 	'track.teamLink.edited': TeamLinkEditedAttributesType;
+	/**
+	 * fired when the people home is viewed */
+	'screen.peopleHome.viewed': PeopleHomeViewedAttributesType;
+	/**
+	 * fired when a user filter is selected */
+	'ui.userFilter.selected': UserFilterSelectedAttributesType;
+	/**
+	 * fired when a team element is clicked */
+	'ui.teamElement.clicked': TeamElementClickedAttributesType;
+	/**
+	 * fired when a suggested collaborator is clicked */
+	'ui.suggestedCollaborators.clicked': SuggestedCollaboratorsClickedAttributesType;
+	/**
+	 * fired when the view directory filters in atlas is clicked */
+	'ui.ViewDirectoryFiltersInAtlas.clicked': ViewDirectoryFiltersInAtlasClickedAttributesType;
+	/**
+	 * fired when the your teams is clicked */
+	'ui.yourTeams.clicked': YourTeamsClickedAttributesType;
+	/**
+	 * fired when the browse all teams is clicked */
+	'ui.browseAllTeams.clicked': BrowseAllTeamsClickedAttributesType;
+	/**
+	 * fired when the add people button is clicked */
+	'ui.addPeopleButton.clicked': AddPeopleButtonClickedAttributesType;
+	/**
+	 * fired when the team search result is clicked */
+	'ui.teamSearchResult.clicked': TeamSearchResultClickedAttributesType;
+	/**
+	 * fired when the recent collaborator is clicked */
+	'ui.recentCollaborator.clicked': RecentCollaboratorClickedAttributesType;
+	/**
+	 * fired when the people search result is clicked */
+	'ui.peopleSearchResult.clicked': PeopleSearchResultClickedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

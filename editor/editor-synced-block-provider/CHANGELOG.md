@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.0.0
+
+### Major Changes
+
+- [`7b80545f98f03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b80545f98f03) -
+  Move use hooks into manager, refactor manager API
+
 ## 1.0.0
 
 ### Major Changes

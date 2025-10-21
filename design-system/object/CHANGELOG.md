@@ -1,5 +1,16 @@
 # @atlaskit/object
 
+## 1.0.0
+
+### Major Changes
+
+- [`951d5982db119`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/951d5982db119) -
+  Released for general availability
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.5
 
 ### Patch Changes

@@ -1,6 +1,12 @@
 import React, { useMemo } from 'react';
 
 import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
+import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -12,6 +18,7 @@ import type {
 	PMPlugin,
 	PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
@@ -140,6 +147,8 @@ const MediaViewerFunctionalComponent = ({
 
 export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, api }) => {
 	let previousMediaProvider: Promise<MediaProvider> | undefined;
+	const mediaErrorLocalIds = new Set<string>();
+
 	return {
 		name: 'media',
 
@@ -151,6 +160,22 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 		},
 
 		actions: {
+			handleMediaNodeRenderError: (node: PMNode, reason: string) => {
+				// Only fire the errored event once per media node
+				if (mediaErrorLocalIds.has(node.attrs.localId)) {
+					return;
+				}
+				mediaErrorLocalIds.add(node.attrs.localId);
+
+				api?.analytics?.actions.fireAnalyticsEvent({
+					action: ACTION.ERRORED,
+					actionSubject: ACTION_SUBJECT.EDITOR,
+					actionSubjectId: ACTION_SUBJECT_ID.MEDIA,
+					eventType: EVENT_TYPE.UI,
+					attributes: { reason, external: node.attrs.__external },
+				});
+			},
+
 			insertMediaAsMediaSingle: (view, node, inputMethod, insertMediaVia) =>
 				insertMediaAsMediaSingle(
 					view,

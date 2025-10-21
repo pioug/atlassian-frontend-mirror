@@ -195,8 +195,11 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 			const isSelectedAndInteracted =
 				this.nodeInsideSelection() && interactionState !== 'hasNotHadInteraction';
 
+			const { pluginInjectionApi } = this.reactComponentProps;
+
 			return (
 				<MediaNode
+					api={pluginInjectionApi}
 					view={this.view}
 					node={this.node}
 					getPos={getPos}

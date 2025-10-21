@@ -7,7 +7,7 @@ import { useCallback, useContext, useLayoutEffect, useMemo, useState } from 'rea
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
-import { useIntl } from 'react-intl-next';
+import { type MessageDescriptor, useIntl } from 'react-intl-next';
 import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -44,6 +44,114 @@ import type { insertBlockPlugin } from '../../insertBlockPlugin';
 import type { InsertMenuProps, SvgGetterParams } from './types';
 
 export const DEFAULT_HEIGHT = 560;
+
+/**
+ * Exported helper to allow testing of InsertMenu whiteboard pinning logic. NOTE: this is
+   *not* the ideal way to approach this, quickinsert plugin provides a `getSuggestions`
+   method that can be used to get suggestions -> once all experiments are cleaned up,
+   they should be unified through `pluginInjectionApi?.quickInsert?.actions.getSuggestions`
+ */
+export const filterForPinWhiteboardsExperiment = (
+	featuredItems: QuickInsertItem[],
+	formatMessage: (msg: MessageDescriptor) => string,
+): QuickInsertItem[] => {
+	// Legacy path fallback -- prior comments as follows:
+	/**
+	 * // Part of ATLAS-95399 to pin whiteboards to the top of the InsertMenu
+		// Need to check if whiteboard options are available, and filter for the cohort
+		// Takes the original featuredItems list and returns one with the right whiteboard option at the top
+	 */
+	if (fg('confluence-whiteboards-quick-insert-eligible')) {
+		const [DIAGRAM_TITLE, BLANK_TITLE] = ['Create diagram', 'Create whiteboard'];
+		const featuredWhiteboardsPresent =
+			featuredItems.filter((item) => [DIAGRAM_TITLE, BLANK_TITLE].includes(item.title)).length ===
+			2;
+		if (featuredWhiteboardsPresent) {
+			const pinWhiteboardActionToTop = (
+				items: QuickInsertItem[],
+				title: string,
+			): QuickInsertItem[] => {
+				// find the requested item by title, give it the appropriate description, and bring it to the top of the list
+				const index = items.findIndex((item) => item.title === title);
+				const filteredList = items.filter(
+					(item) => ![DIAGRAM_TITLE, BLANK_TITLE].includes(item.title),
+				);
+				if (index === -1) {
+					return filteredList;
+				}
+				const featuredItem = { ...items[index] };
+				featuredItem.description = formatMessage(messages.featuredWhiteboardDescription);
+				return [featuredItem, ...filteredList];
+			};
+			if (expValEquals('confluence_whiteboards_quick_insert', 'cohort', 'test_blank')) {
+				return pinWhiteboardActionToTop(featuredItems, BLANK_TITLE);
+			}
+			if (expValEquals('confluence_whiteboards_quick_insert', 'cohort', 'test_diagram')) {
+				return pinWhiteboardActionToTop(featuredItems, DIAGRAM_TITLE);
+			}
+			// NOTE this is not desirable/the OG behaviour, but given we've shipped the test_diagram variant,
+			return featuredItems.filter((item) => ![DIAGRAM_TITLE, BLANK_TITLE].includes(item.title));
+		} else {
+			if (fg('confluence-whiteboards-quick-insert-l10n-eligible')) {
+				/** BEGIN locale agnostic path */
+
+				/**
+				 * EXTREMELY IMPORTANT: we must not drop diagram for those who already receive
+				 * the 'insert diagram to the top' treatment.
+				 *
+				 * Our heuristic to check that this is only targeting users where they haven't
+				 * gotten the experience, is if we _cannot_ find the blank board experience in
+				 * the list, matching purely on title.
+				 *
+				 * e.g. `featuredWhiteboardsPresent` = false, given it matches on title.
+				 *
+				 * The side-effect of this, is that there's a small chance/edge case of users
+				 * who toggle between locales, and receive different experiences.
+				 *
+				 * Hopefully we can make a call early on this experiment, and eliminate this
+				 * code path.
+				 */
+				const WHITEBOARD_KEY = 'whiteboard-extension:create-whiteboard';
+				const DIAGRAM_KEY = 'whiteboard-extension:create-diagram';
+				const isBlank = (item: QuickInsertItem) => item.key === WHITEBOARD_KEY;
+				const isDiagram = (item: QuickInsertItem) => item.key === DIAGRAM_KEY;
+
+				const hasBoth = featuredItems.some(isBlank) && featuredItems.some(isDiagram);
+				if (hasBoth) {
+					const pin = (key: string) => {
+						const idx = featuredItems.findIndex((item) => item.key === key);
+						const filtered = featuredItems.filter((item) => !isBlank(item) && !isDiagram(item));
+						if (idx === -1) {
+							return filtered;
+						}
+						const picked = {
+							...featuredItems[idx],
+							description: formatMessage(messages.featuredWhiteboardDescription),
+						};
+						return [picked, ...filtered];
+					};
+
+					if (
+						expValEquals('confluence_whiteboards_quick_insert_localised', 'cohort', 'test_blank')
+					) {
+						return pin(WHITEBOARD_KEY);
+					}
+					if (
+						expValEquals('confluence_whiteboards_quick_insert_localised', 'cohort', 'test_diagram')
+					) {
+						return pin(DIAGRAM_KEY);
+					}
+					if (expValEquals('confluence_whiteboards_quick_insert_localised', 'cohort', 'control')) {
+						return featuredItems;
+					}
+				}
+			}
+			/** END locale agnostic path */
+		}
+	}
+
+	return featuredItems;
+};
 
 const selector = (
 	states: NamedPluginStatesFromInjectionAPI<
@@ -142,50 +250,6 @@ const InsertMenu = ({
 
 	const getItems = useCallback(
 		(query?: string, category?: string) => {
-			const filterForPinWhiteboardsExperiment = (
-				featuredItems: QuickInsertItem[],
-			): QuickInsertItem[] => {
-				// Part of ATLAS-95399 to pin whiteboards to the top of the InsertMenu
-				// Need to check if whiteboard options are available, and filter for the cohort
-				// Takes the original featuredItems list and returns one with the right whiteboard option at the top
-				if (fg('confluence-whiteboards-quick-insert-eligible')) {
-					const [DIAGRAM_TITLE, BLANK_TITLE] = ['Create diagram', 'Create whiteboard'];
-					const featuredWhiteboardsPresent =
-						featuredItems.filter((item) => [DIAGRAM_TITLE, BLANK_TITLE].includes(item.title))
-							.length === 2;
-					if (featuredWhiteboardsPresent) {
-						const pinWhiteboardActionToTop = (
-							featuredItems: QuickInsertItem[],
-							title: string,
-						): QuickInsertItem[] => {
-							// find the requested item by title, give it the appropriate description, and bring it to the top of the list
-							const index = featuredItems.findIndex((item) => item.title === title);
-							const filteredList = featuredItems.filter(
-								(item) => ![DIAGRAM_TITLE, BLANK_TITLE].includes(item.title),
-							);
-							if (index === -1) {
-								return filteredList;
-							}
-							const featuredItem = { ...featuredItems[index] };
-							featuredItem.description = formatMessage(messages.featuredWhiteboardDescription);
-							return [featuredItem, ...filteredList];
-						};
-						if (expValEquals('confluence_whiteboards_quick_insert', 'cohort', 'test_blank')) {
-							return pinWhiteboardActionToTop(featuredItems, BLANK_TITLE);
-						} else if (
-							expValEquals('confluence_whiteboards_quick_insert', 'cohort', 'test_diagram')
-						) {
-							return pinWhiteboardActionToTop(featuredItems, DIAGRAM_TITLE);
-						} else {
-							return featuredItems.filter(
-								(item) => ![DIAGRAM_TITLE, BLANK_TITLE].includes(item.title),
-							);
-						}
-					}
-				}
-				return featuredItems;
-			};
-
 			let result;
 			/**
 			 * @warning The results if there is a query are not the same as the results if there is no query.
@@ -221,7 +285,7 @@ const InsertMenu = ({
 					featuredQuickInsertSuggestions,
 				) as QuickInsertItem[];
 				// need to filter on the concatenated list so whiteboards are at the top
-				result = filterForPinWhiteboardsExperiment(unfilteredResult);
+				result = filterForPinWhiteboardsExperiment(unfilteredResult, formatMessage);
 			}
 			setItemCount(result.length);
 			return result;

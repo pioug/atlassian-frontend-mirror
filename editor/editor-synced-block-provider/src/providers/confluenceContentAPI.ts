@@ -1,14 +1,7 @@
 import { useMemo } from 'react';
 
-import type { ADFEntity } from '@atlaskit/adf-utils/types';
-
 import type { ADFFetchProvider, ADFWriteProvider, SyncBlockData } from '../common/types';
-import {
-	getLocalIdFromAri,
-	getPageIdAndTypeFromAri,
-	resourceIdFromSourceAndLocalId,
-	type PAGE_TYPE,
-} from '../utils/ari';
+import { getLocalIdFromAri, getPageIdAndTypeFromAri, type PAGE_TYPE } from '../utils/ari';
 import {
 	getContentProperty,
 	createContentProperty,
@@ -34,25 +27,21 @@ const getContentPropertyKey = (contentPropertyKey: string, localId: string) => {
 	return contentPropertyKey + '-' + localId;
 };
 
-export type SyncedBlockContentPropertyValue = {
-	content?: ADFEntity;
-};
-
-const parseSyncedBlockContentPropertyValue = (value: string): SyncedBlockContentPropertyValue => {
+const parseSyncedBlockContentPropertyValue = (value: string): SyncBlockData => {
 	try {
 		if (value !== '') {
 			const parsedValue = JSON.parse(value);
-			if (parsedValue.content) {
-				return parsedValue as SyncedBlockContentPropertyValue;
+			if (typeof parsedValue.content === 'object') {
+				return parsedValue as SyncBlockData;
 			}
+
+			throw new Error('Cannot parse synced block data: required properties missing in value');
+		} else {
+			throw new Error('Cannot parse synced block data: value is empty');
 		}
 	} catch (error) {
-		// eslint-disable-next-line no-console
-		console.error('Failed to parse synced block content:', error);
+		throw new Error(`Failed to parse synced block data: ${error}`);
 	}
-	return {
-		content: undefined,
-	};
 };
 
 /**
@@ -91,7 +80,7 @@ class ConfluenceADFFetchProvider implements ADFFetchProvider {
 		return {
 			content: syncedBlockData.content,
 			resourceId,
-			localId,
+			blockInstanceId: localId,
 		};
 	}
 }
@@ -105,7 +94,7 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 	private createNewContentProperty = async (
 		pageId: string,
 		key: string,
-		value: string,
+		value: SyncBlockData,
 		pageType: PAGE_TYPE,
 	) => {
 		const options = {
@@ -139,14 +128,6 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 	async writeData(data: SyncBlockData): Promise<string> {
 		const { id: pageId, type: pageType } = getPageIdAndTypeFromAri(data.resourceId);
 
-		if (
-			data.sourceDocumentAri &&
-			data.resourceId !== resourceIdFromSourceAndLocalId(data.sourceDocumentAri, data.localId)
-		) {
-			return Promise.reject('Resource ARI differs from source document ARI');
-		}
-
-		const syncedBlockValue = JSON.stringify({ content: data.content });
 		if (data.resourceId) {
 			// Update existing content property
 			const localId = getLocalIdFromAri(data.resourceId);
@@ -154,7 +135,7 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 			const options = {
 				pageId,
 				key,
-				value: syncedBlockValue,
+				value: data,
 				cloudId: this.config.cloudId,
 				pageType,
 			};
@@ -170,7 +151,7 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 				} else if (
 					contentProperty.data.confluence.updateValueBlogPostProperty.blogPostProperty === null
 				) {
-					return this.createNewContentProperty(pageId, key, syncedBlockValue, pageType);
+					return this.createNewContentProperty(pageId, key, data, pageType);
 				} else {
 					throw new Error('Failed to update blog post content property');
 				}
@@ -180,15 +161,15 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 				if (contentProperty.data.confluence.updateValuePageProperty.pageProperty?.key === key) {
 					return key;
 				} else if (contentProperty.data.confluence.updateValuePageProperty.pageProperty === null) {
-					return this.createNewContentProperty(pageId, key, syncedBlockValue, pageType);
+					return this.createNewContentProperty(pageId, key, data, pageType);
 				} else {
 					throw new Error('Failed to update content property');
 				}
 			}
 		} else {
 			// Create new content property
-			const key = getContentPropertyKey(this.config.contentPropertyKey, data.localId);
-			return this.createNewContentProperty(pageId, key, syncedBlockValue, pageType);
+			const key = getContentPropertyKey(this.config.contentPropertyKey, data.blockInstanceId);
+			return this.createNewContentProperty(pageId, key, data, pageType);
 		}
 	}
 }

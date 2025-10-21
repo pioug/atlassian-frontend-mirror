@@ -12,9 +12,14 @@ import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../../../actions';
 import { extensionProviderToQuickInsertProvider } from '../../extensions';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
 
 function replaceCustomQuickInsertModules(
 	manifest: ExtensionManifest,
@@ -313,6 +318,51 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 					eventType: 'track',
 				}),
 			);
+		});
+	});
+
+	describe('key parsing & passthrough via `getItems()`', () => {
+		it('should include key property when feature gate is enabled', async () => {
+			const mockFg = fg as jest.MockedFunction<typeof fg>;
+			mockFg.mockImplementation((gateName) => {
+				if (gateName === 'confluence-whiteboards-quick-insert-l10n-eligible') {
+					return true;
+				}
+				return false;
+			});
+
+			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+				dummyExtensionProvider,
+				{} as EditorActions,
+				{ current: undefined },
+			);
+
+			const items = await quickInsertProvider.getItems();
+
+			expect(items[0]).toHaveProperty('key', 'first:default');
+			expect(items[1]).toHaveProperty('key', 'second:default');
+		});
+
+		// Negative case to ensure the FF guard works; this is the _current_ behaviour
+		it('should not include key property when feature gate is disabled', async () => {
+			const mockFg = fg as jest.MockedFunction<typeof fg>;
+			mockFg.mockImplementation((gateName) => {
+				if (gateName === 'confluence-whiteboards-quick-insert-l10n-eligible') {
+					return false;
+				}
+				return false;
+			});
+
+			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+				dummyExtensionProvider,
+				{} as EditorActions,
+				{ current: undefined },
+			);
+
+			const items = await quickInsertProvider.getItems();
+
+			expect(items[0]).not.toHaveProperty('key');
+			expect(items[1]).not.toHaveProperty('key');
 		});
 	});
 });

@@ -59,7 +59,6 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		);
 		this.options = props.options;
 		this.syncBlockStore = props.syncBlockStore;
-		this.syncBlockStore.updateSyncBlockNode(this.node);
 	}
 
 	unsubscribe: (() => void) | undefined;
@@ -80,12 +79,7 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		return (
 			<SyncBlockRendererWrapper
 				useFetchDocNode={() =>
-					useFetchDocNode(
-						this.view,
-						this.node,
-						defaultSyncBlockRendererDocument,
-						this.options?.dataProvider,
-					)
+					useFetchDocNode(this.syncBlockStore, this.node, defaultSyncBlockRendererDocument)
 				}
 				getSyncedBlockRenderer={this.options?.getSyncedBlockRenderer}
 			/>

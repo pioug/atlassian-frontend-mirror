@@ -27,7 +27,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import { getDistortedDurationMonitor } from '@atlaskit/editor-common/performance/measure-render';
 import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
@@ -94,6 +94,9 @@ const setAsQueryContainerStyles = css({
 });
 
 const handleMouseTripleClickInTables = (event: MouseEvent) => {
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
 	if (browser.ios || browser.android) {
 		return;
 	}

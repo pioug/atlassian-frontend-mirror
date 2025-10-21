@@ -18,8 +18,10 @@ import {
 	type SSR,
 } from '@atlaskit/media-common';
 import { type CardAction } from './card/actions';
-import { type MediaCardError } from './errors';
+import { type MediaCardError, type MediaCardErrorPrimaryReason } from './errors';
 import { type ViewerOptionsProps } from '@atlaskit/media-viewer';
+import type { MediaFilePreviewErrorPrimaryReason } from '@atlaskit/media-file-preview';
+import type { ImageLoadErrorType } from './card/fileCard';
 
 export type CardStatus =
 	| 'uploading'
@@ -182,6 +184,10 @@ export interface CardProps extends SharedCardProps, CardEventProps {
 	readonly shouldHideTooltip?: boolean;
 	/** General Media Settings */
 	readonly mediaSettings?: MediaSettings;
+	/** General Error handling include status errors and display errors*/
+	readonly onError?: (
+		reason: MediaFilePreviewErrorPrimaryReason | MediaCardErrorPrimaryReason | ImageLoadErrorType,
+	) => void;
 }
 
 export interface CardState {

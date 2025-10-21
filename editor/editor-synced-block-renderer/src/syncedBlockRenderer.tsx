@@ -97,7 +97,7 @@ const SyncBlockNodeComponent = (
 		return <div>Sync block not found</div>;
 	}
 
-	const syncBlockDoc = { ...syncBlockData.content, version: 1 } as DocNode;
+	const syncBlockDoc = { content: syncBlockData.content, version: 1, type: 'doc' } as DocNode;
 
 	return (
 		<div data-testid="sync-block-renderer-wrapper">

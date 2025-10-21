@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.4.0
+
+### Minor Changes
+
+- [`4f5569bde5e64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f5569bde5e64) -
+  Add new 'dragHandleSelected' user intent, use this to control table toolbar when drag handle is
+  selected
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.0
 
 ### Minor Changes

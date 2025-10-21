@@ -14,10 +14,7 @@ import type {
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type {
-	SyncBlockDataProvider,
-	SyncBlockStoreManager,
-} from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
@@ -29,7 +26,6 @@ import {
 } from './utils/utils';
 
 type createSyncedBlockProps = {
-	dataProvider?: SyncBlockDataProvider;
 	syncBlockStore: SyncBlockStoreManager;
 	tr: Transaction;
 	typeAheadInsert?: TypeAheadInsert;
@@ -142,12 +138,12 @@ export const editSyncedBlockSource =
 	(state: EditorState, dispatch?: CommandDispatch, _view?: EditorView) => {
 		const syncBlock = findSyncBlock(state);
 
-		const resourceId = syncBlock?.node?.attrs?.resourceId;
-		if (!resourceId) {
+		const localId = syncBlock?.node?.attrs?.localId;
+		if (!localId) {
 			return false;
 		}
 
-		const syncBlockURL = syncBlockStore.getSyncBlockURL(resourceId);
+		const syncBlockURL = syncBlockStore.getSyncBlockURL(localId);
 
 		if (syncBlockURL) {
 			window.open(syncBlockURL, '_blank');

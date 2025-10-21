@@ -1073,6 +1073,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-10-13
+	platform_editor_media_error_analytics: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_media_error_analytics',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-10-15
 	platform_editor_new_mentions_detection_logic: createBooleanExperiment({
 		productKeys: {
@@ -1080,5 +1088,14 @@ export const editorExperimentsConfig = {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
+	}),
+	// Added 2025-10-20
+	confluence_whiteboards_quick_insert_localised: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'confluence_whiteboards_quick_insert_localised',
+		},
+		param: 'cohort',
+		values: ['control', 'test_blank', 'test_diagram'],
+		defaultValue: 'control',
 	}),
 } satisfies Record<string, ExperimentConfigValue>;

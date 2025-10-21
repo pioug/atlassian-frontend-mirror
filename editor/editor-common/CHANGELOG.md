@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 110.15.2
+
+### Patch Changes
+
+- [`916133ef0c6dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/916133ef0c6dd) -
+  [ux] Editor experience tracking foundation
+- [`6e51d74bb2a29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e51d74bb2a29) -
+  [ux] ED-29560 Use hash instead of query parameter for link to block
+- Updated dependencies
+
 ## 110.15.1
 
 ### Patch Changes

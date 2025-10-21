@@ -16,4 +16,6 @@ export type AnalyticsEventSource =
 	| 'peopleDirectorySearchResultsPage'
 	| 'createTeamModal'
 	| 'agentProfileScreen'
-	| 'teamRestoreScreen';
+	| 'teamRestoreScreen'
+	| 'teamsPage'
+	| 'directoryScreen';

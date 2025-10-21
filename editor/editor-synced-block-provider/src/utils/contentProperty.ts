@@ -1,3 +1,5 @@
+import type { SyncBlockData } from '../common/types';
+
 import { getConfluencePageAri, type PAGE_TYPE } from './ari';
 import { isBlogPageType } from './utils';
 
@@ -29,7 +31,7 @@ type CreateContentPropertyOptions = {
 	key: string;
 	pageId: string;
 	pageType: PAGE_TYPE;
-	value: string;
+	value: SyncBlockData;
 };
 
 type UpdateContentPropertyOptions = {
@@ -38,7 +40,7 @@ type UpdateContentPropertyOptions = {
 	pageId: string;
 	pageType: PAGE_TYPE;
 	signal?: AbortSignal;
-	value: string;
+	value: SyncBlockData;
 };
 
 export type GetContentPropertyResult = {
@@ -282,7 +284,7 @@ export const updateContentProperty = async <
 	let input = {
 		...(isBlog ? { blogPostId: documentARI } : { pageId: documentARI }),
 		key,
-		value,
+		value: JSON.stringify({ content: value.content }),
 	};
 
 	// Blog content properties don't support the useSameVersion flag at the moment
@@ -322,10 +324,6 @@ export const createContentProperty = async <
 }: CreateContentPropertyOptions): Promise<T> => {
 	const documentARI = getConfluencePageAri(pageId, cloudId, pageType);
 	const isBlog = isBlogPageType(pageType);
-
-	// eslint-disable-next-line require-unicode-regexp
-	const escapedValue = value.replace(/"/g, '\\"');
-
 	const bodyData = {
 		query: isBlog ? CREATE_BLOG_QUERY : CREATE_PAGE_QUERY,
 		operationName: CREATE_OPERATION_NAME,
@@ -333,7 +331,7 @@ export const createContentProperty = async <
 			input: {
 				...(isBlog ? { blogPostId: documentARI } : { pageId: documentARI }),
 				key,
-				value: escapedValue,
+				value: JSON.stringify({ content: value.content }),
 			},
 		},
 	};

@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 215.5.0
+
+### Minor Changes
+
+- [`c1691aca7fb1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1691aca7fb1d) -
+  Surface extension keys into quick insert provider
+
+### Patch Changes
+
+- Updated dependencies
+
+## 215.4.1
+
+### Patch Changes
+
+- [`2fc927b3b7437`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fc927b3b7437) -
+  [ux] ED29532 Add keyboard navigation provider to comment toolbar
+- Updated dependencies
+
 ## 215.4.0
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # @atlaskit/tile
 
+## 1.0.0
+
+### Major Changes
+
+- [`951d5982db119`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/951d5982db119) -
+  Released for general availability
+
 ## 0.2.2
 
 ### Patch Changes

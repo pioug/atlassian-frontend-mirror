@@ -1,13 +1,14 @@
 import React, { useCallback } from 'react';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { hoverCell, hoverRows, selectRow, selectRows } from '../../pm-plugins/commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
@@ -69,6 +70,9 @@ export const TableFloatingControls = ({
 	const _selectRow = useCallback(
 		(row: number, expand: boolean) => {
 			const { state, dispatch } = editorView;
+			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+				? getBrowserInfo()
+				: browserLegacy;
 			if (browser.ie_version === 11) {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -82,6 +86,9 @@ export const TableFloatingControls = ({
 	const _selectRows = useCallback(
 		(rowIndexes: number[]) => {
 			const { state, dispatch } = editorView;
+			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+				? getBrowserInfo()
+				: browserLegacy;
 			if (browser.ie_version === 11) {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting

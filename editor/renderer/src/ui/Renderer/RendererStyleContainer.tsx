@@ -69,7 +69,7 @@ import {
 } from '@atlaskit/editor-common/styles';
 import { bulletListSelector, orderedListSelector } from '@atlaskit/adf-schema';
 import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { isStickyScrollbarEnabled, isTableResizingEnabled } from '../../react/nodes/table';
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
@@ -89,8 +89,12 @@ const LAYOUT_BREAKPOINT_RENDERER = 629;
 // TODO: tableRowHeight can be moved into `@atlaskit/editor-common/table`
 const tableRowHeight = 44;
 
-const isBackgroundClipBrowserFixNeeded = () =>
-	browser.isGecko || browser.isIE || (browser.isMac && browser.isChrome);
+const isBackgroundClipBrowserFixNeeded = () => {
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
+	return browser.isGecko || browser.isIE || (browser.isMac && browser.isChrome);
+};
 
 // styles are copied from ./style.tsx
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage
@@ -489,9 +493,9 @@ const blockquoteSharedStyles = css({
 		// Workaround for overriding the inline-block display on last child of a blockquote set in CSS reset.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'> .code-block:last-child, >.mediaSingleView-content-wrap:last-child, >.mediaGroupView-content-wrap:last-child':
-			{
-				display: 'block',
-			},
+		{
+			display: 'block',
+		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'> .extensionView-content-wrap:last-child': {
@@ -687,12 +691,12 @@ const headingWithAlignmentStyles = css({
 	// Set marginTop: 0 if alignment block is next to a gap cursor or widget that is first child
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.ProseMirror-gapcursor:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .ProseMirror-widget:nth-child(2) + .fabric-editor-block-mark.fabric-editor-alignment':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'> :is(h1, h2, h3, h4, h5, h6):first-child': {
-				marginTop: '0',
-			},
+	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'> :is(h1, h2, h3, h4, h5, h6):first-child': {
+			marginTop: '0',
 		},
+	},
 });
 
 const ruleSharedStyles = css({
@@ -942,7 +946,7 @@ const codeMarkSharedStyles = css({
 
 const extensionStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.ak-renderer-extension :not([data-inline-card-lozenge] *, code)': {
+	'.ak-renderer-extension :not(.ak-renderer-extension .ak-renderer-document *)': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: 'var(--ak-renderer-base-font-size)',
 	},
@@ -951,16 +955,16 @@ const extensionStyle = css({
 const shadowSharedStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${shadowClassNames.RIGHT_SHADOW}::before, .${shadowClassNames.RIGHT_SHADOW}::after, .${shadowClassNames.LEFT_SHADOW}::before, .${shadowClassNames.LEFT_SHADOW}::after`]:
-		{
-			display: 'none',
-			position: 'absolute',
-			pointerEvents: 'none',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			zIndex: akEditorShadowZIndex,
-			width: '8px',
-			content: "''",
-			height: 'calc(100%)',
-		},
+	{
+		display: 'none',
+		position: 'absolute',
+		pointerEvents: 'none',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		zIndex: akEditorShadowZIndex,
+		width: '8px',
+		content: "''",
+		height: 'calc(100%)',
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${shadowClassNames.RIGHT_SHADOW}, .${shadowClassNames.LEFT_SHADOW}`]: {
 		position: 'relative',
@@ -1255,9 +1259,9 @@ const baseOtherStyles = css({
 		},
 
 		[`.${shadowObserverClassNames.SHADOW_CONTAINER} .${TableSharedCssClassName.TABLE_NODE_WRAPPER}`]:
-			{
-				display: 'flex',
-			},
+		{
+			display: 'flex',
+		},
 	},
 });
 
@@ -1291,10 +1295,10 @@ const alignedHeadingAnchorStyle = css({
 const firstWrappedMediaStyles = css({
 	// Remove gap between first wrapped mediaSingle and its fellow wrapped mediaSingle
 	[`.${richMediaClassName}[class*="image-wrap-"]:has(+ .${richMediaClassName}[class*="image-wrap-"])`]:
-		{
-			marginRight: 0,
-			marginLeft: 0,
-		},
+	{
+		marginRight: 0,
+		marginLeft: 0,
+	},
 });
 // Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
 // eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
@@ -1346,19 +1350,19 @@ const mediaSingleSharedStyle = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`.${richMediaClassName}.image-wrap-left + .${richMediaClassName}.image-wrap-right, .${richMediaClassName}.image-wrap-right + .${richMediaClassName}.image-wrap-left, .${richMediaClassName}.image-wrap-left + .${richMediaClassName}.image-wrap-left, .${richMediaClassName}.image-wrap-right + .${richMediaClassName}.image-wrap-right`]:
-		{
-			marginRight: 0,
-			marginLeft: 0,
-		},
+	{
+		marginRight: 0,
+		marginLeft: 0,
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`@media all and (max-width: ${wrappedMediaBreakoutPoint}px)`]: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		"div.mediaSingleView-content-wrap[layout='wrap-left'], div.mediaSingleView-content-wrap[data-layout='wrap-left'], div.mediaSingleView-content-wrap[layout='wrap-right'], div.mediaSingleView-content-wrap[data-layout='wrap-right']":
-			{
-				float: 'none',
-				overflow: 'auto',
-				margin: `${token('space.150', '12px')} 0`,
-			},
+		{
+			float: 'none',
+			overflow: 'auto',
+			margin: `${token('space.150', '12px')} 0`,
+		},
 	},
 });
 
@@ -1683,14 +1687,14 @@ const firstNodeWithNotMarginTop = css({
 			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'> .ProseMirror-gapcursor:first-child + *, > style:first-child + .ProseMirror-gapcursor + *':
-				{
-					marginTop: 0,
-				},
+			{
+				marginTop: 0,
+			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'> .ProseMirror-gapcursor:first-child + span + *, > style:first-child + .ProseMirror-gapcursor + span + *':
-				{
-					marginTop: 0,
-				},
+			{
+				marginTop: 0,
+			},
 		},
 	},
 });
@@ -1780,83 +1784,83 @@ const stickyScrollbarStyles = css({
 const rendererTableHeaderEqualHeightStylesForTableCellOnly = css({
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
 		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
-			{
-				height: '1px' /* will be ignored */,
-				marginLeft: 0,
-				marginRight: 0,
-			},
+		{
+			height: '1px' /* will be ignored */,
+			marginLeft: 0,
+			marginRight: 0,
+		},
 	},
 	[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table > tbody > tr:first-of-type, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table > tbody > tr:first-of-type`]:
-		{
-			height: '100%',
-			'td, th': {
-				position: 'relative',
-			},
+	{
+		height: '100%',
+		'td, th': {
+			position: 'relative',
 		},
+	},
 });
 
 const rendererTableSortableColumnStyles = css({
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
 		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
-			{
-				// allow nested heading links
-				[`.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}`]: {
-					padding: 0,
+		{
+			// allow nested heading links
+			[`.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}`]: {
+				padding: 0,
 
-					[`.${RendererCssClassName.SORTABLE_COLUMN}`]: {
-						width: '100%',
-						height: '100%',
-						padding: `${tableCellPadding}px`,
-						borderWidth: '1.5px',
-						borderStyle: 'solid',
-						borderColor: `transparent`,
+				[`.${RendererCssClassName.SORTABLE_COLUMN}`]: {
+					width: '100%',
+					height: '100%',
+					padding: `${tableCellPadding}px`,
+					borderWidth: '1.5px',
+					borderStyle: 'solid',
+					borderColor: `transparent`,
 
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-						'> *:first-child': {
-							marginTop: 0,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+					'> *:first-child': {
+						marginTop: 0,
+					},
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+					'> .ProseMirror-gapcursor:first-child + *, > style:first-child + .ProseMirror-gapcursor + *':
+					{
+						marginTop: 0,
+					},
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+					'> .ProseMirror-gapcursor:first-child + span + *, > style:first-child + .ProseMirror-gapcursor + span + *':
+					{
+						marginTop: 0,
+					},
+
+					'@supports selector(:focus-visible)': {
+						'&:focus': {
+							outline: 'unset',
 						},
-
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-						'> .ProseMirror-gapcursor:first-child + *, > style:first-child + .ProseMirror-gapcursor + *':
-							{
-								marginTop: 0,
-							},
-
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-						'> .ProseMirror-gapcursor:first-child + span + *, > style:first-child + .ProseMirror-gapcursor + span + *':
-							{
-								marginTop: 0,
-							},
-
-						'@supports selector(:focus-visible)': {
-							'&:focus': {
-								outline: 'unset',
-							},
-							'&:focus-visible': {
-								borderColor: `${token('color.border.focused', B300)}`,
-							},
+						'&:focus-visible': {
+							borderColor: `${token('color.border.focused', B300)}`,
 						},
 					},
-					[`> .${RendererCssClassName.SORTABLE_COLUMN} > .${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER}`]:
-						{
-							margin: 0,
-							[`.${SORTABLE_COLUMN_ICON_CLASSNAME}`]: {
-								opacity: 1,
-								transition: `opacity 0.2s ease-in-out`,
-							},
-						},
+				},
+				[`> .${RendererCssClassName.SORTABLE_COLUMN} > .${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER}`]:
+				{
+					margin: 0,
+					[`.${SORTABLE_COLUMN_ICON_CLASSNAME}`]: {
+						opacity: 1,
+						transition: `opacity 0.2s ease-in-out`,
+					},
+				},
 
-					[`> .${RendererCssClassName.SORTABLE_COLUMN}
+				[`> .${RendererCssClassName.SORTABLE_COLUMN}
 						> .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER}`]: {
-						[`.${SORTABLE_COLUMN_ICON_CLASSNAME}`]: {
-							opacity: 0,
-							'&:focus': {
-								opacity: 1,
-							},
+					[`.${SORTABLE_COLUMN_ICON_CLASSNAME}`]: {
+						opacity: 0,
+						'&:focus': {
+							opacity: 1,
 						},
 					},
+				},
 
-					[`&:hover:not(
+				[`&:hover:not(
 							:has(
 									.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}
 										.${RendererCssClassName.SORTABLE_COLUMN}:hover
@@ -1864,12 +1868,12 @@ const rendererTableSortableColumnStyles = css({
 						)
 						> .${RendererCssClassName.SORTABLE_COLUMN}
 						> .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER}`]: {
-						[`.${SORTABLE_COLUMN_ICON_CLASSNAME}`]: {
-							opacity: 1,
-						},
+					[`.${SORTABLE_COLUMN_ICON_CLASSNAME}`]: {
+						opacity: 1,
 					},
 				},
 			},
+		},
 	},
 });
 
@@ -1919,21 +1923,21 @@ const rendererTableColumnStyles = css({
 const rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks = css({
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
 		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
-			{
-				[`.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}`]: {
-					[`.${RendererCssClassName.SORTABLE_COLUMN}`]: {
-						[`.${HeadingAnchorWrapperClassName}`]: {
-							position: 'unset',
-						},
-						'>': {
-							'h1, h2, h3, h4, h5, h6': {
-								// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-								marginRight: '30px',
-							},
+		{
+			[`.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}`]: {
+				[`.${RendererCssClassName.SORTABLE_COLUMN}`]: {
+					[`.${HeadingAnchorWrapperClassName}`]: {
+						position: 'unset',
+					},
+					'>': {
+						'h1, h2, h3, h4, h5, h6': {
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							marginRight: '30px',
 						},
 					},
 				},
 			},
+		},
 	},
 });
 
@@ -2157,13 +2161,13 @@ const columnLayoutResponsiveRendererStyles = css({
 
 const rendererAnnotationStyles = css({
 	"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark], & [data-annotation-draft-mark][data-annotation-inline-node]":
-		{
-			background: token('color.background.accent.yellow.subtler', Y75),
-			borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow', Y300)}`,
-			boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
-			cursor: 'pointer',
-			padding: `${token('space.050', '4px')} ${token('space.025', '2px')}`,
-		},
+	{
+		background: token('color.background.accent.yellow.subtler', Y75),
+		borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow', Y300)}`,
+		boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
+		cursor: 'pointer',
+		padding: `${token('space.050', '4px')} ${token('space.025', '2px')}`,
+	},
 });
 
 const rendererAnnotationStylesCommentHeightFix = css({
@@ -2243,10 +2247,10 @@ const denseStyles = css({
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-task-list-local-id] [data-task-list-local-id], [data-task-local-id] [data-task-local-id]':
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				marginTop: RENDERER_LIST_DENSE_GAP,
-			},
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			marginTop: RENDERER_LIST_DENSE_GAP,
+		},
 	},
 });
 
@@ -2296,6 +2300,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 	);
 
 	const baseFontSize = getBaseFontSize(appearance, contentMode);
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
 	return (
 		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 		<div
@@ -2318,13 +2325,13 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				baseStyles,
 				hideHeadingCopyLinkWrapperStyles,
 				appearance === 'full-page' &&
-					isPreviewPanelResponsivenessOn &&
-					rendererFullPageStylesWithReducedPadding,
+				isPreviewPanelResponsivenessOn &&
+				rendererFullPageStylesWithReducedPadding,
 				appearance === 'full-page' && !isPreviewPanelResponsivenessOn && rendererFullPageStyles,
 				appearance === 'full-width' && rendererFullWidthStyles,
 				appearance === 'full-width' &&
-					!isTableResizingEnabled(appearance) &&
-					rendererFullWidthStylesForTableResizing,
+				!isTableResizingEnabled(appearance) &&
+				rendererFullWidthStylesForTableResizing,
 				!fg('aifc_create_enabled') && telepointerStyles,
 				fg('aifc_create_enabled') && rovoTelepointerStyles,
 				whitespaceSharedStyles,
@@ -2335,22 +2342,22 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				headingWithAlignmentStyles,
 				ruleSharedStyles,
 				expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-					fg('platform_editor_content_mode_button_mvp') &&
-					extensionStyle,
+				fg('platform_editor_content_mode_button_mvp') &&
+				extensionStyle,
 				fg('platform_editor_typography_ugc')
 					? expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 						fg('platform_editor_content_mode_button_mvp')
 						? paragraphStylesUGCScaledMargin
 						: paragraphSharedStylesWithEditorUGC
 					: expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-						  fg('platform_editor_content_mode_button_mvp')
+						fg('platform_editor_content_mode_button_mvp')
 						? paragraphSharedStyleScaledMargin
 						: paragraphSharedStyles,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
 				indentationSharedStyles,
 				fg('platform_editor__renderer_indentation_text_margin') &&
-					indentationSharedStylesWithMarginFix,
+				indentationSharedStylesWithMarginFix,
 				blockMarksSharedStyles,
 				codeMarkSharedStyles,
 				shadowSharedStyle,
@@ -2358,20 +2365,20 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				textColorStyles,
 				backgroundColorStyles,
 				expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					textHighlightPaddingStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				textHighlightPaddingStyles,
 				tasksAndDecisionsStyles,
 				smartCardStyles,
 				smartCardStylesAvatarFix,
 				editorExperiment('platform_editor_preview_panel_linking_exp', true) &&
-					headerSmartCardStyles,
+				headerSmartCardStyles,
 				fg('smartcard_avatar_margin_fix') && smartCardStylesAvatarMarginFix,
 				smartCardStylesAvatarListZeroMarginTop,
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 				fg('editor_inline_comments_on_inline_nodes') &&
-					fg('annotations_align_editor_and_renderer_styles') &&
-					rendererAnnotationStylesCommentHeightFix,
+				fg('annotations_align_editor_and_renderer_styles') &&
+				rendererAnnotationStylesCommentHeightFix,
 				baseOtherStyles,
 				allowNestedHeaderLinks && alignedHeadingAnchorStyle,
 				mediaSingleSharedStyle,
@@ -2389,8 +2396,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				rendererTableHeaderEqualHeightStylesForTableCellOnly,
 				allowColumnSorting && rendererTableSortableColumnStyles,
 				allowColumnSorting &&
-					allowNestedHeaderLinks &&
-					rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks,
+				allowNestedHeaderLinks &&
+				rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks,
 				fg('platform_editor_tables_numbered_column_correction')
 					? rendererTableColumnStyles
 					: rendererTableColumnStylesOld,
@@ -2404,12 +2411,12 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				browser.safari && codeBlockInListSafariFixStyles,
 				appearance === 'full-page' && !isPreviewPanelResponsivenessOn && responsiveBreakoutWidth,
 				appearance === 'full-page' &&
-					isPreviewPanelResponsivenessOn &&
-					responsiveBreakoutWidthWithReducedPadding,
+				isPreviewPanelResponsivenessOn &&
+				responsiveBreakoutWidthWithReducedPadding,
 				appearance === 'full-width' && responsiveBreakoutWidthFullWidth,
 				expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-					fg('platform_editor_content_mode_button_mvp') &&
-					denseStyles,
+				fg('platform_editor_content_mode_button_mvp') &&
+				denseStyles,
 			]}
 			data-testid={testId}
 		>

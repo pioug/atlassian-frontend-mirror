@@ -74,21 +74,21 @@ export const getExtensionStyles = (): SerializedStyles => {
 			/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
-				{
-					boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
-				},
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
-				{
-					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
-				},
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
-				{
-					backgroundColor: token('color.background.accent.red.subtler'),
-					color: token('color.text.danger'),
-					boxShadow: 'none',
-				},
+			{
+				backgroundColor: token('color.background.accent.red.subtler'),
+				color: token('color.text.danger'),
+				boxShadow: 'none',
+			},
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&.danger > span > .with-danger-overlay': {
@@ -198,21 +198,21 @@ export const getExtensionStyles = (): SerializedStyles => {
 			/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
-				{
-					boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
-				},
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
-				{
-					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
-				},
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
-				{
-					backgroundColor: token('color.background.accent.red.subtler'),
-					color: token('color.text.danger'),
-					boxShadow: 'none',
-				},
+			{
+				backgroundColor: token('color.background.accent.red.subtler'),
+				color: token('color.text.danger'),
+				boxShadow: 'none',
+			},
 		},
 
 		/* This is referenced in the toDOM of a bodied extension and is used to put
@@ -226,126 +226,126 @@ export const getExtensionStyles = (): SerializedStyles => {
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.extensionView-content-wrap, .multiBodiedExtensionView-content-wrap, .bodiedExtensionView-content-wrap':
-			{
-				margin: `0.75rem 0`,
+		{
+			margin: `0.75rem 0`,
 
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&:first-of-type': {
-					marginTop: 0,
-				},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:first-of-type': {
+				marginTop: 0,
+			},
 
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&:last-of-type': {
-					marginBottom: 0,
-				},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:last-of-type': {
+				marginBottom: 0,
+			},
 
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&:not(.danger).ak-editor-selected-node': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
-					'& > span > .extension-container': [
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						boxShadowSelectionStyles,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						hideNativeBrowserTextSelectionStyles,
-					],
-				},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:not(.danger).ak-editor-selected-node': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+				'& > span > .extension-container': [
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					hideNativeBrowserTextSelectionStyles,
+				],
+			},
 
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&.danger > span > .extension-container': {
-					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
-					backgroundColor: token('color.background.danger'),
-				},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.danger > span > .extension-container': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: token('color.background.danger'),
+			},
 
-				// ...extensionLabelStyles
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&.danger > span > div > .extension-label': {
-					backgroundColor: token('color.background.accent.red.subtler'),
-					color: token('color.text.danger'),
-					opacity: 1,
-					boxShadow: 'none',
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&:not(.danger).ak-editor-selected-node > span > div > .extension-label': {
-					backgroundColor: token('color.background.selected'),
-					color: token('color.text.selected'),
-					opacity: 1,
-					boxShadow: 'none',
-				},
-				/* Targets the icon for bodied macro styling in button label */
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&.danger > span > div > .extension-label > span': {
-					display: 'inline',
-				},
-				/** Targets legacy content header in LCM extension */
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&.danger > span > .legacy-content-header': {
-					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
-					backgroundColor: `${token('color.background.danger')}`,
-
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'& .status-lozenge-span > span': {
-						backgroundColor: `${token('color.background.accent.red.subtle.hovered')}`,
-					},
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
-					display: 'inline',
-				},
-				/* Start of bodied extension edit toggle styles */
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container': {
-					opacity: 1,
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&:not(.danger).ak-editor-selected-node > span > .extension-edit-toggle-container': {
-					opacity: 1,
-				},
-				/* In view mode of the bodied macro, we never want to show the extension label */
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&.danger.ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
-					opacity: 0,
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.always-hide-label':
-					{
-						opacity: 0,
-					},
-				/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
-					{
-						boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
-					},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
-					{
-						boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
-					},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
-					{
-						backgroundColor: token('color.background.accent.red.subtler'),
-						color: token('color.text.danger'),
-						boxShadow: 'none',
-					},
-
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&.danger > span > .with-danger-overlay': {
-					backgroundColor: 'transparent',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'.extension-overlay': {
-						// ...dangerOverlayStyles
-						opacity: 0.3,
-						backgroundColor: token('color.background.danger.hovered'),
-					},
-				},
+			// ...extensionLabelStyles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.danger > span > div > .extension-label': {
+				backgroundColor: token('color.background.accent.red.subtler'),
+				color: token('color.text.danger'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label': {
+				backgroundColor: token('color.background.selected'),
+				color: token('color.text.selected'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			/* Targets the icon for bodied macro styling in button label */
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.danger > span > div > .extension-label > span': {
+				display: 'inline',
+			},
+			/** Targets legacy content header in LCM extension */
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.danger > span > .legacy-content-header': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: `${token('color.background.danger')}`,
 
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&.inline': {
-					// wordWrap: 'break-all' was previously used here, but break-all is not a valid CSS property of word-wrap.
-					// It was probably intended to be word-break: break-all, however I'm omitting it here for consistency with previous actual behavior.
+				'& .status-lozenge-span > span': {
+					backgroundColor: `${token('color.background.accent.red.subtle.hovered')}`,
 				},
 			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
+				display: 'inline',
+			},
+			/* Start of bodied extension edit toggle styles */
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:not(.danger).ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			/* In view mode of the bodied macro, we never want to show the extension label */
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.always-hide-label':
+			{
+				opacity: 0,
+			},
+			/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
+			{
+				backgroundColor: token('color.background.accent.red.subtler'),
+				color: token('color.text.danger'),
+				boxShadow: 'none',
+			},
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&.danger > span > .with-danger-overlay': {
+				backgroundColor: 'transparent',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'.extension-overlay': {
+					// ...dangerOverlayStyles
+					opacity: 0.3,
+					backgroundColor: token('color.background.danger.hovered'),
+				},
+			},
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.inline': {
+				// wordWrap: 'break-all' was previously used here, but break-all is not a valid CSS property of word-wrap.
+				// It was probably intended to be word-break: break-all, however I'm omitting it here for consistency with previous actual behavior.
+			},
+		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.extensionView-content-wrap .extension-container': {
@@ -419,23 +419,31 @@ export const getExtensionStyles = (): SerializedStyles => {
 		: undefined;
 	const denseExtensionStyles =
 		expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-		fg('platform_editor_content_mode_button_mvp')
+			fg('platform_editor_content_mode_button_mvp')
 			? css({
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-					'.extension-container :not([data-inline-card-lozenge] *, [data-prosemirror-mark-name="code"])':
-						{
-							// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-							fontSize: 'var(--ak-editor-base-font-size)',
-						},
-				})
+				// Table of Contents Macro
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'.extension-container [data-macro-name="toc"] *':
+				{
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontSize: 'var(--ak-editor-base-font-size)',
+				},
+				// Excerpt Include Macro
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'.extension-container .ak-excerpt-include :not([data-inline-card-lozenge] *, code, .status-lozenge-span *, .code-block *)':
+				{
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontSize: 'var(--ak-editor-base-font-size)',
+				},
+			})
 			: expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
 				? css({
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 						'.extension-container a span': {
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-							fontSize,
-						},
-					})
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+						fontSize,
+					},
+				})
 				: css({});
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values

@@ -9,8 +9,9 @@ import type {
 	ContextIdentifierProvider,
 	MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { setNodeSelection, setTextSelection, withImageLoader } from '@atlaskit/editor-common/utils';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
+import { setNodeSelection, setTextSelection, withImageLoader } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
@@ -25,8 +26,10 @@ import type { Identifier } from '@atlaskit/media-client';
 import type { SSR } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { stateKey as mediaStateKey } from '../../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../../pm-plugins/types';
 import type {
@@ -41,6 +44,7 @@ export const MEDIA_HEIGHT = 125;
 export const FILE_WIDTH = 156;
 
 export interface MediaNodeProps extends ReactNodeProps, ImageLoaderProps {
+	api?: ExtractInjectionAPI<MediaNextEditorPluginType>;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	getPos: ProsemirrorGetPosHandler;
 	isLoading?: boolean;
@@ -232,7 +236,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	};
 
 	render() {
-		const { node, selected, originalDimensions, isLoading, maxDimensions, mediaOptions } =
+		const { node, selected, originalDimensions, isLoading, maxDimensions, mediaOptions, api } =
 			this.props;
 
 		const borderMark = node.marks.find((m) => m.type.name === 'border');
@@ -327,6 +331,11 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 								? !!viewAndUploadMediaClientConfig
 								: false,
 						}}
+						onError={
+							expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)
+								? (reason: string) => api?.media.actions.handleMediaNodeRenderError(node, reason)
+								: undefined
+						}
 					/>
 				</AnalyticsContext>
 			</MediaCardWrapper>

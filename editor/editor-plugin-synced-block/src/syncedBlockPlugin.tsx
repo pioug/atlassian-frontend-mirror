@@ -53,7 +53,6 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 					createSyncedBlock({
 						tr,
 						syncBlockStore,
-						dataProvider: config?.dataProvider,
 					}) || null,
 		},
 
@@ -81,7 +80,6 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 						return createSyncedBlock({
 							tr: state.tr,
 							syncBlockStore,
-							dataProvider: config?.dataProvider,
 							typeAheadInsert: insert,
 						});
 					},

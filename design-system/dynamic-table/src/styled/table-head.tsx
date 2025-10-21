@@ -110,6 +110,8 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
 			} else if (isDESC) {
 				return 'descending';
 			}
+
+			return;
 		};
 
 		// If there is no content in the cell, it should be rendered as an empty `td`, not a `th`.

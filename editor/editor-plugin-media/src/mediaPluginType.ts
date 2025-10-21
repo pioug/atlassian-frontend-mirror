@@ -21,6 +21,7 @@ import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { MediaPluginState } from './pm-plugins/types';
 import type { InsertMediaAsMediaSingle } from './pm-plugins/utils/media-single';
@@ -50,6 +51,10 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 	'media',
 	{
 		actions: {
+			/**
+			 * Callback to be called when there is an error rendering a media node.
+			 */
+			handleMediaNodeRenderError: (node: PMNode, reason: string) => void;
 			insertMediaAsMediaSingle: InsertMediaAsMediaSingle;
 			/**
 			 * Used to update the initial provider passed to the media plugin.

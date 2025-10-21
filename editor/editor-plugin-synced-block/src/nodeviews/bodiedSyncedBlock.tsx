@@ -25,6 +25,7 @@ export interface BodiedSyncBlockNodeViewProps extends ReactComponentProps {
 	pluginOptions: SyncedBlockPluginOptions | undefined;
 	portalProviderAPI: PortalProviderAPI;
 	view: EditorView;
+	syncBlockStore: SyncBlockStoreManager;
 }
 
 const toDOM = (): DOMOutputSpec => [
@@ -37,7 +38,7 @@ const toDOM = (): DOMOutputSpec => [
 ];
 
 class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
-	private pluginOptions: SyncedBlockPluginOptions | undefined;
+	private syncBlockStore: SyncBlockStoreManager;
 
 	constructor(props: BodiedSyncBlockNodeViewProps) {
 		super(
@@ -48,7 +49,7 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 			props.eventDispatcher,
 			props,
 		);
-		this.pluginOptions = props.pluginOptions;
+		this.syncBlockStore = props.syncBlockStore;
 	}
 
 	createDomRef(): HTMLElement {
@@ -61,7 +62,7 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 		return (
 			<BodiedSyncBlockWrapper
 				ref={forwardRef}
-				dataProvider={this.pluginOptions?.dataProvider}
+				syncBlockStore={this.syncBlockStore}
 				node={this.node}
 			/>
 		);

@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 124.8.1
+
+### Patch Changes
+
+- [`68b3394583485`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68b3394583485) -
+  [ux] [EDITOR-2378] Add renderer support for bodied sync block
+- Updated dependencies
+
 ## 124.8.0
 
 ### Minor Changes

@@ -14,11 +14,11 @@ export type SyncBlockNode = {
 };
 
 export type SyncBlockData = {
-	content: ADFEntity | undefined;
+	blockInstanceId: string;
+	content: Array<ADFEntity>;
 	createdAt?: string;
 	createdBy?: string;
 	isSynced?: boolean;
-	localId: string;
 	resourceId: string;
 	sourceDocumentAri?: string;
 	status?: 'deleted' | 'active';

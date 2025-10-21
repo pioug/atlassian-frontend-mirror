@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.0.0
+
+### Major Changes
+
+- [`6e51d74bb2a29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e51d74bb2a29) -
+  [ux] ED-29560 Use hash instead of query parameter for link to block
+
+### Patch Changes
+
+- [`4f5569bde5e64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f5569bde5e64) -
+  Add new 'dragHandleSelected' user intent, use this to control table toolbar when drag handle is
+  selected
+- Updated dependencies
+
 ## 4.0.25
 
 ### Patch Changes

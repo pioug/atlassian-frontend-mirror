@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 3.3.1
+
+### Patch Changes
+
+- [`916133ef0c6dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/916133ef0c6dd) -
+  [ux] Editor experience tracking foundation
+- [`4f5569bde5e64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f5569bde5e64) -
+  Add new 'dragHandleSelected' user intent, use this to control table toolbar when drag handle is
+  selected
+- Updated dependencies
+
 ## 3.3.0
 
 ### Minor Changes
@@ -285,7 +296,6 @@
 
 - [`286abb4d35eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/286abb4d35eba) -
   [ux] [ED-28960] Finish full page primary toolbar migration
-
   - Align with design update (separator, gap, height, icon size)
   - Add keyboard shortcut to focus toolbar and arrow key navigation
   - Address accessibility
@@ -323,7 +333,6 @@
 
 - [`3145f278b1f7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3145f278b1f7a) -
   [ux] [ED-28473] minor UI updates for editor-toolbar
-
   - Use ADS ButtonGroup for ToolbarButtonGroup
   - Remove groupLocation prop and use CSS instead
   - Use DropdownItemGroup for ToolbarDropdownItemSection and expand props for section separator and
@@ -355,7 +364,6 @@
   [`22cab8325fc62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22cab8325fc62) -
   [ux] [ED-28760] Fix editor lose focus and hence editing flow is interrupted. This is done for 2
   components
-
   - Dropdown
     - Create context ToolbarUIContext for toolbar consumers to access consumer specific state and
       callbacks

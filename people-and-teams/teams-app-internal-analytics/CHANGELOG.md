@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.18.0
+
+### Minor Changes
+
+- [`f2ea519415d68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2ea519415d68) -
+  Migrated search page analytics from ptc-embeddable-directory to teams-app-internal-analytics
+
 ## 1.17.2
 
 ### Patch Changes

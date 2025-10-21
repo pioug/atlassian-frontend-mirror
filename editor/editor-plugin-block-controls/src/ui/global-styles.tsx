@@ -33,7 +33,10 @@ import { NODE_ANCHOR_ATTR_NAME } from './utils/dom-attr-name';
  */
 const dragHandlerAnchorSelector =
 	'[data-drag-handler-anchor-name]:not([data-drag-handler-node-type="tableRow"], [data-drag-handler-node-type="media"])';
-const dragHandlerAnchorSelectorNext = `[${NODE_ANCHOR_ATTR_NAME}]:not([data-prosemirror-node-name="tableRow"], [data-prosemirror-node-name="tableCell"], [data-prosemirror-node-name="media"])`;
+/**
+ * Disregards anchors that can not have handles next to them, and so shouldn't have an extended hover zone
+ */
+const dragHandlerAnchorSelectorNext = `[${NODE_ANCHOR_ATTR_NAME}]:not([data-prosemirror-node-name="tableRow"], [data-prosemirror-node-name="tableCell"],  [data-prosemirror-node-name="tableHeader"], [data-prosemirror-node-name="media"], [data-prosemirror-node-inline="true"])`;
 
 const gutterPaddingWidth = () =>
 	editorExperiment('platform_editor_controls', 'variant1')
@@ -171,31 +174,12 @@ const extendedHoverZoneNext = () =>
 					content: '""',
 					position: 'absolute',
 					top: 0,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 					left: 0,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 					width: 0,
 					height: '100%',
 					cursor: 'default',
 					zIndex: 1,
 				},
-
-			// hover zone for layout column should be placed near the top of the column (where drag handle is)
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-			[`&&& ${dragHandlerAnchorSelectorNext}[data-layout-column]::after`]: {
-				content: '""',
-				position: 'absolute',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				top: `${-DRAG_HANDLE_WIDTH / 2}px`,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				left: 0,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				width: '100%',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				height: `${DRAG_HANDLE_WIDTH}px`,
-				cursor: 'default',
-				zIndex: 1,
-			},
 		},
 		// TODO: ED-23995 - this style override needs to be moved to the Rule styles after FF cleanup packages/editor/editor-common/src/styles/shared/rule.ts
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -209,6 +193,37 @@ const extendedHoverZoneNext = () =>
 				display: 'none',
 			},
 	});
+
+const layoutColumnExtendedHoverZone = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// hover zone for layout column should be placed near the top of the column (where drag handle is)
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`&&& ${dragHandlerAnchorSelectorNext}[data-layout-column]::after`]: {
+			content: '""',
+			position: 'absolute',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			top: `${-DRAG_HANDLE_WIDTH / 2}px`,
+			left: 0,
+			width: '100%',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			height: `${DRAG_HANDLE_WIDTH}px`,
+			cursor: 'default',
+			zIndex: 1,
+		},
+	}
+});
+
+const layoutColumnWithoutHoverZone = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// when advanced_layouts is off, layout columns should not have hover zones, because there aren't any drag handles for layout columns
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`&&& ${dragHandlerAnchorSelectorNext}[data-layout-column]::after`]: {
+			display: 'none'
+		},
+	}
+})
 
 const extendHoverZoneReduced = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -596,6 +611,10 @@ export const GlobalStylesWrapper = ({
 				expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
 					? withAnchorNameZindexStyleNext
 					: withAnchorNameZindexStyle,
+				expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+					&& expValEquals('advanced_layouts', 'isEnabled', true)
+						? layoutColumnExtendedHoverZone
+						: layoutColumnWithoutHoverZone
 			]}
 		/>
 	);

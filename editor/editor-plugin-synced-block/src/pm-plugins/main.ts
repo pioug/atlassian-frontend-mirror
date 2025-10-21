@@ -1,5 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
@@ -9,11 +10,16 @@ import { lazySyncBlockView } from '../nodeviews/lazySyncedBlock';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 
 import { trackSyncBlocks } from './utils/track-sync-blocks';
+import { findBodiedSyncBlock } from './utils/utils';
 
 export const syncedBlockPluginKey = new PluginKey('syncedBlockPlugin');
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type SyncedBlockPluginState = {};
+
+function isInsideBodiedSyncBlock(state: EditorState, selection: Selection): boolean {
+	return findBodiedSyncBlock(state, selection) !== undefined;
+}
 
 export const createPlugin = (
 	options: SyncedBlockPluginOptions | undefined,
@@ -44,6 +50,17 @@ export const createPlugin = (
 					api,
 					syncBlockStore,
 				}),
+			},
+			handleKeyDown: (view: EditorView, event: KeyboardEvent) => {
+				if (event.key === 'Enter' && isInsideBodiedSyncBlock(view.state, view.state.selection)) {
+					event.preventDefault();
+					// Insert a new paragraph instead of letting browser handle it
+					const tr = view.state.tr;
+					tr.split(view.state.selection.from);
+					view.dispatch(tr);
+					return true;
+				}
+				return false;
 			},
 		},
 		view: (editorView: EditorView) => {

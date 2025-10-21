@@ -23,6 +23,7 @@ import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 
@@ -95,6 +96,10 @@ export async function extensionProviderToQuickInsertProvider(
 					});
 
 					return {
+						// Add module key so typeahead/quick-insert can identify items
+						// **locale-agnostically**! nb: we _already_ send key in analytics
+						// events, this standardises and makes our items more predictable.
+						...(fg('confluence-whiteboards-quick-insert-l10n-eligible') && { key: item.key }),
 						title: item.title,
 						description: item.description,
 						icon: () => <Icon label="" />,

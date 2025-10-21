@@ -15,6 +15,7 @@ import type {
 	RichMediaLayout as MediaSingleLayout,
 } from '@atlaskit/adf-schema';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { usePreviousState } from '@atlaskit/editor-common/hooks';
 import { captionMessages } from '@atlaskit/editor-common/media';
@@ -33,13 +34,13 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { MediaSingle } from '@atlaskit/editor-common/ui';
-import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../pm-plugins/commands/captions';
@@ -555,6 +556,9 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 
 	const onMediaSingleClicked = React.useCallback(
 		(event: MouseEvent) => {
+			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+				? getBrowserInfo()
+				: browserLegacy;
 			// Workaround for iOS 16 Caption selection issue
 			// @see https://product-fabric.atlassian.net/browse/MEX-2012
 			if (!browser.ios) {

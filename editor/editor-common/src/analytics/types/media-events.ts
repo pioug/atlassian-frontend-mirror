@@ -130,6 +130,14 @@ export type MediaAltTextActionType =
 	| ACTION.CLEARED
 	| ACTION.OPENED;
 
+export type MediaRenderErrorEvent = UIAEP<
+	ACTION.ERRORED,
+	ACTION_SUBJECT.EDITOR,
+	ACTION_SUBJECT_ID.MEDIA,
+	{ external?: boolean; reason: string },
+	undefined
+>;
+
 export type MediaEventPayload =
 	| MediaLinkAEP
 	| MediaAltTextAction
@@ -139,4 +147,5 @@ export type MediaEventPayload =
 	| MediaBorderTrackAction
 	| CaptionTrackAction
 	| ChangeMediaAEP
-	| MediaViewerEventAction;
+	| MediaViewerEventAction
+	| MediaRenderErrorEvent;

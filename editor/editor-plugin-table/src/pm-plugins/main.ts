@@ -7,6 +7,7 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -19,13 +20,14 @@ import {
 	transformSliceToRemoveOpenNestedExpand,
 } from '@atlaskit/editor-common/transforms';
 import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-import { browser, closestElement } from '@atlaskit/editor-common/utils';
+import { closestElement } from '@atlaskit/editor-common/utils';
 import type { EditorState, TextSelection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentDomRefOfType, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	tableCellView,
@@ -343,6 +345,9 @@ export const createPlugin = (
 			},
 			handleClick: ({ state, dispatch }, _pos, event: MouseEvent) => {
 				const decorationSet = decorationsPluginKey.getState(state);
+				const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+					? getBrowserInfo()
+					: browserLegacy;
 				if (findControlsHoverDecoration(decorationSet).length) {
 					clearHoverSelection()(state, dispatch);
 				}

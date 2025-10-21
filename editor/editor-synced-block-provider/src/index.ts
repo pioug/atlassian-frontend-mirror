@@ -2,11 +2,13 @@
 
 export {
 	SyncBlockProvider as SyncedBlockProvider,
-	useFetchDocNode,
-	useHandleContentChanges,
 	useMemoizedSyncedBlockProvider,
 } from './common/syncBlockProvider';
-export { SyncBlockStoreManager } from './common/syncBlockStoreManager';
+export {
+	SyncBlockStoreManager,
+	useFetchDocNode,
+	useHandleContentChanges,
+} from './common/syncBlockStoreManager';
 export type {
 	SyncBlockDataProvider,
 	ADFFetchProvider,
@@ -21,5 +23,5 @@ export {
 	useMemoizedContentAPIProviders,
 } from './providers/confluenceContentAPI';
 export { getConfluencePageAri } from './utils/ari';
-export { convertSyncBlockPMNodeToSyncBlockData } from './utils/utils';
+export { convertSyncBlockPMNodeToSyncBlockNode as convertSyncBlockPMNodeToSyncBlockData } from './utils/utils';
 export { rebaseTransaction } from './common/rebase-transaction';

@@ -27,7 +27,7 @@ import {
 import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
 import React, { Suspense, useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useMergeRefs } from 'use-callback-ref';
-import { MediaCardError } from '../errors';
+import { MediaCardError, type MediaCardErrorPrimaryReason } from '../errors';
 import {
 	type CardAppearance,
 	type CardDimensions,
@@ -59,7 +59,11 @@ import {
 } from './cardAnalytics';
 import { CardView } from './cardView';
 import { InlinePlayerLazy } from './inlinePlayerLazy';
-import { useFilePreview, type MediaFilePreview } from '@atlaskit/media-file-preview';
+import {
+	useFilePreview,
+	type MediaFilePreview,
+	type MediaFilePreviewErrorPrimaryReason,
+} from '@atlaskit/media-file-preview';
 import { type CardAction, createDownloadAction } from './actions';
 import { performanceNow } from './performance';
 import { useContext } from 'react';
@@ -69,6 +73,10 @@ import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { getActiveTrace } from '@atlaskit/react-ufo/experience-trace-id-context';
 import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
+
+const IMAGE_LOAD_ERROR = 'image-load-error';
+
+export type ImageLoadErrorType = typeof IMAGE_LOAD_ERROR;
 
 export interface FileCardProps extends CardEventProps {
 	/** Overlay the media file. */
@@ -119,7 +127,12 @@ export interface FileCardProps extends CardEventProps {
 	readonly viewerOptions?: ViewerOptionsProps;
 	/** Sets options for viewer **/
 	readonly includeHashForDuplicateFiles?: boolean;
+	/** General Error handling include status errors and display errors*/
+	readonly onError?: (
+		reason: MediaFilePreviewErrorPrimaryReason | MediaCardErrorPrimaryReason | ImageLoadErrorType,
+	) => void;
 }
+
 const traceContextRetriever = () => {
 	const trace = getActiveTrace();
 	if (trace && fg('platform-filecard-ufo-trace')) {
@@ -130,6 +143,7 @@ const traceContextRetriever = () => {
 		};
 	}
 };
+
 export const FileCard = ({
 	appearance = 'auto',
 	resizeMode = 'crop',
@@ -160,6 +174,7 @@ export const FileCard = ({
 	videoControlsWrapperRef,
 	viewerOptions,
 	includeHashForDuplicateFiles,
+	onError,
 }: FileCardProps) => {
 	const { formatMessage } = useIntl();
 	const [isAbuseModalOpen, setIsAbuseModalOpen] = useState(false);
@@ -173,6 +188,9 @@ export const FileCard = ({
 	const mediaClient = useMediaClient();
 
 	const [cardElement, setCardElement] = useState<HTMLDivElement | null>(null);
+
+	// use reference here to avoid excessive calls.
+	const onErrorRef = useCurrentValueRef(onError);
 
 	const cardDimensions = dimensions || getDefaultCardDimensions(appearance);
 
@@ -473,6 +491,17 @@ export const FileCard = ({
 	});
 
 	//----------------------------------------------------------------//
+	//--------------------- Handling Errors---------------------------//
+	//----------------------------------------------------------------//
+
+	useEffect(() => {
+		if (onErrorRef.current && finalError) {
+			const errorReason = finalError.primaryReason;
+			onErrorRef.current(errorReason);
+		}
+	}, [finalError, onErrorRef]);
+
+	//----------------------------------------------------------------//
 	//--------------------- Focus on Close Viewer  -------------------//
 	//----------------------------------------------------------------//
 
@@ -498,6 +527,11 @@ export const FileCard = ({
 			return;
 		}
 		onImageErrorBase(newCardPreview);
+
+		// The image error is not reflected in the status,
+		// as the preview might fail to load if the file itself is broken.
+		// In that case we want call onError callback.
+		onErrorRef.current?.(IMAGE_LOAD_ERROR);
 	};
 
 	const onSvgLoad = () => {

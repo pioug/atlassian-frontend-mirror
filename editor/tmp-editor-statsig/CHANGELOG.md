@@ -1,5 +1,26 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.18.1
+
+### Patch Changes
+
+- [`5df1f9fc61bdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5df1f9fc61bdd) -
+  Cleans up experiment platform_editor_layout_node_view_early_exit
+
+## 13.18.0
+
+### Minor Changes
+
+- [`f3e7f3af81cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3e7f3af81cee) -
+  [ux] NO-ISSUE clean up platform_editor_create_link_on_blur
+
+## 13.17.0
+
+### Minor Changes
+
+- [`e5f402044b1c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5f402044b1c6) -
+  Add media render error analytics
+
 ## 13.16.1
 
 ### Patch Changes

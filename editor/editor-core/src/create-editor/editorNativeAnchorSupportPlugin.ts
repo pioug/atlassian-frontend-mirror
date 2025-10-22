@@ -32,7 +32,7 @@ const key = new PluginKey('editorNativeAnchorSupportPlugin');
 export const createEditorNativeAnchorSupportPlugin = (schema: Schema) => {
 	const nodeViewEntries: [string, NodeViewConstructor][] = [];
 
-	const injectList = expValEquals('advanced_layouts', 'isEnabled', true)
+	const injectList = expValEquals('advanced_layouts', 'isEnabled', true) && !expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)
 		? injectNodeViewNodeTypeList
 		: injectNodeViewNodeTypeConditionalList;
 

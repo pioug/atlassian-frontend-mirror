@@ -44,7 +44,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { tableNodeSpecWithFixedToDOM } from './nodeviews/toDOM';
 import { createPlugin as createTableAnalyticsPlugin } from './pm-plugins/analytics/plugin';
-import { insertTableWithNestingSupport, insertTableWithSize } from './pm-plugins/commands/insert';
+import { insertTableWithNestingSupport } from './pm-plugins/commands/insert';
 import { pluginConfig } from './pm-plugins/create-plugin-config';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 import { createPlugin as createDragAndDropPlugin } from './pm-plugins/drag-and-drop/plugin';
@@ -184,10 +184,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 			insertTable:
 				(analyticsPayload): Command =>
 				(state, dispatch) => {
-					if (
-						options?.tableOptions?.allowNestedTables &&
-						fg('platform_editor_use_nested_table_pm_nodes')
-					) {
+					if (options?.tableOptions?.allowNestedTables) {
 						return editorCommandToPMCommand(
 							insertTableWithNestingSupport(
 								{
@@ -234,41 +231,33 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 		},
 
 		commands: {
-			insertTableWithSize: fg('platform_editor_use_nested_table_pm_nodes')
-				? (rowsCount, colsCount, inputMethod) =>
-						insertTableWithNestingSupport(
-							{
-								isTableScalingEnabled: options?.isTableScalingEnabled,
-								isTableAlignmentEnabled: options?.tableOptions.allowTableAlignment,
-								isFullWidthModeEnabled: options?.fullWidthEnabled,
-								isCommentEditor: options?.isCommentEditor,
-								isChromelessEditor: options?.isChromelessEditor,
-								isTableResizingEnabled: options?.tableOptions.allowTableResizing,
-								createTableProps: {
-									rowsCount,
-									colsCount,
-								},
-							},
-							api,
-							{
-								action: ACTION.INSERTED,
-								actionSubject: ACTION_SUBJECT.DOCUMENT,
-								actionSubjectId: ACTION_SUBJECT_ID.TABLE,
-								attributes: {
-									inputMethod: inputMethod ?? INPUT_METHOD.PICKER,
-									totalRowCount: rowsCount,
-									totalColumnCount: colsCount,
-								},
-								eventType: EVENT_TYPE.TRACK,
-							},
-						)
-				: insertTableWithSize(
-						options?.fullWidthEnabled,
-						options?.isTableScalingEnabled,
-						options?.tableOptions.allowTableAlignment,
-						api?.analytics?.actions,
-						options?.isCommentEditor,
-					),
+			insertTableWithSize: (rowsCount, colsCount, inputMethod) =>
+				insertTableWithNestingSupport(
+					{
+						isTableScalingEnabled: options?.isTableScalingEnabled,
+						isTableAlignmentEnabled: options?.tableOptions.allowTableAlignment,
+						isFullWidthModeEnabled: options?.fullWidthEnabled,
+						isCommentEditor: options?.isCommentEditor,
+						isChromelessEditor: options?.isChromelessEditor,
+						isTableResizingEnabled: options?.tableOptions.allowTableResizing,
+						createTableProps: {
+							rowsCount,
+							colsCount,
+						},
+					},
+					api,
+					{
+						action: ACTION.INSERTED,
+						actionSubject: ACTION_SUBJECT.DOCUMENT,
+						actionSubjectId: ACTION_SUBJECT_ID.TABLE,
+						attributes: {
+							inputMethod: inputMethod ?? INPUT_METHOD.PICKER,
+							totalRowCount: rowsCount,
+							totalColumnCount: colsCount,
+						},
+						eventType: EVENT_TYPE.TRACK,
+					},
+				),
 		},
 
 		nodes() {
@@ -694,8 +683,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 						// If the cursor is inside a table
 						if (
 							hasParentNodeOfType(state.schema.nodes.table)(state.selection) &&
-							options?.tableOptions?.allowNestedTables &&
-							fg('platform_editor_use_nested_table_pm_nodes')
+							options?.tableOptions?.allowNestedTables
 						) {
 							// If the experiment is disabled, or we're trying to nest deeper than one level, we insert the table after the top table
 							if (

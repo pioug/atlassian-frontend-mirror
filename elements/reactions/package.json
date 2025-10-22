@@ -146,6 +146,9 @@
 		},
 		"platform_reaction_full_picker_hover": {
 			"type": "boolean"
+		},
+		"platform_reactions_custom_popper_zindex": {
+			"type": "boolean"
 		}
 	},
 	"sideEffects": [

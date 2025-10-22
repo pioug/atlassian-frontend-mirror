@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 3.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.7.1
+
+### Patch Changes
+
+- [`cdf397d4529c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdf397d4529c6) -
+  EDITOR-2443 Temporary fix for inserting 'random' node into sync block on enter
+- Updated dependencies
+
 ## 3.7.0
 
 ### Minor Changes

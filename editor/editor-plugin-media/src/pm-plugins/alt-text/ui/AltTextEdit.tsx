@@ -37,7 +37,6 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-large';
 import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
 import { N200, N30, N80, R400 } from '@atlaskit/theme/colors';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { closeMediaAltTextMenu, closeMediaAltTextMenuAndSave } from '../commands';
@@ -177,7 +176,7 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 		});
 		const hasErrors = !!errorsList.length;
 
-		const onSubmit = editorExperiment('platform_editor_controls', 'variant1')
+		const onSubmit = (this.props.areAnyNewToolbarFlagsEnabled ?? areToolbarFlagsEnabled())
 			? this.closeMediaAltTextMenuAndSetFocus
 			: this.closeMediaAltTextMenu;
 
@@ -313,7 +312,7 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 	private handleOnBlur = (e: FocusEvent) => {
 		// prevent other selection transaction gets triggered
 		e.stopPropagation();
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
+		if (this.props.areAnyNewToolbarFlagsEnabled ?? areToolbarFlagsEnabled()) {
 			this.closeMediaAltTextMenuAndSetFocus();
 		} else {
 			this.closeMediaAltTextMenu();

@@ -121,6 +121,46 @@ test.describe('side nav flyout', () => {
 			await expect(sideNav).toBeVisible();
 		});
 
+		test('should keep the side nav flyout open when mousing from side nav toggle button to the TopNavStart element', async ({
+			page,
+		}) => {
+			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
+			await expect(sideNav).toBeVisible();
+
+			// Collapse side nav
+			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(sideNav).toBeHidden();
+
+			// Move mouse somewhere else to re-activate the flyout mouse listeners
+			await page.getByRole('button', { name: /Switch apps/ }).hover();
+
+			// Hover on the toggle button to show the flyout
+			await page.getByRole('button', { name: /Expand sidebar/ }).hover();
+
+			// Side nav (flyout) should be visible
+			await expect(sideNav).toBeVisible();
+
+			// Move mouse to the TopNavStart element
+			// Setting the position to the top of the element so it doesn't conflict with the contents.
+			// If we don't set the position, by default it will be in the center of the element, which is over the app logo,
+			// which would close the flyout.
+			await page.getByTestId('top-nav-start').hover({
+				position: {
+					x: 80,
+					y: 1,
+				},
+			});
+
+			// Wait for the flyout "collapse" timeout to have finished to make sure the flyout stays open.
+			// Waiting for a period of time is appropriate in this case,
+			// as the logic we are testing is timeout based.
+			// eslint-disable-next-line playwright/no-wait-for-timeout
+			await page.waitForTimeout(sideNavFlyoutCloseDelayMs * 2);
+
+			// Side nav (flyout) should still be visible
+			await expect(sideNav).toBeVisible();
+		});
+
 		test('should lock the flyout open when a child layer is open', async ({ page }) => {
 			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
 			await expect(sideNav).toBeVisible();
@@ -328,6 +368,46 @@ test.describe('side nav flyout', () => {
 
 			// Move mouse back into the side nav before the flyout "collapse" timeout has finished
 			await page.getByRole('link', { name: /Your work/ }).hover();
+
+			// Wait for the flyout "collapse" timeout to have finished to make sure the flyout stays open.
+			// Waiting for a period of time is appropriate in this case,
+			// as the logic we are testing is timeout based.
+			// eslint-disable-next-line playwright/no-wait-for-timeout
+			await page.waitForTimeout(sideNavFlyoutCloseDelayMs * 2);
+
+			// Side nav (flyout) should still be visible
+			await expect(sideNav).toBeVisible();
+		});
+
+		test('should keep the side nav flyout open when mousing from side nav toggle button to the TopNavStart element', async ({
+			page,
+		}) => {
+			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
+			await expect(sideNav).toBeVisible();
+
+			// Collapse side nav
+			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(sideNav).toBeHidden();
+
+			// Move mouse somewhere else to re-activate the flyout mouse listeners
+			await page.getByRole('button', { name: /Switch apps/ }).hover();
+
+			// Hover on the toggle button to show the flyout
+			await page.getByRole('button', { name: /Expand sidebar/ }).hover();
+
+			// Side nav (flyout) should be visible
+			await expect(sideNav).toBeVisible();
+
+			// Move mouse to the TopNavStart element
+			// Setting the position to the top of the element so it doesn't conflict with the contents.
+			// If we don't set the position, by default it will be in the center of the element, which is over the app logo,
+			// which would close the flyout.
+			await page.getByTestId('top-nav-start').hover({
+				position: {
+					x: 80,
+					y: 1,
+				},
+			});
 
 			// Wait for the flyout "collapse" timeout to have finished to make sure the flyout stays open.
 			// Waiting for a period of time is appropriate in this case,

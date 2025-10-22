@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-highlight",
-	"version": "6.3.0",
+	"version": "6.3.1",
 	"description": "Highlight plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

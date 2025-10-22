@@ -1,5 +1,23 @@
 # @atlassian/navigation-system
 
+## 3.1.1
+
+### Patch Changes
+
+- [`ac431cadd9a33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac431cadd9a33) -
+  Fixes a regression when the `navx-full-height-sidebar` feature gate is enabled, where the peeking
+  side nav would close if the user mouses over the `TopNavStart` element.
+
+## 3.1.0
+
+### Minor Changes
+
+- [`ee578a4721dcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee578a4721dcf) -
+  The following animations have been updated to shorten their durations from `300ms` to `200ms`.
+  These changes are behind the `navx-full-height-sidebar` feature flag.
+  - `SideNav` slide in/out animations, including peek (flyout) and regular expand/collapse
+  - `TopNavStart` button reorder animations
+
 ## 3.0.1
 
 ### Patch Changes

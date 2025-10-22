@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-layout
 
+## 6.1.3
+
+### Patch Changes
+
+- [`5df1f9fc61bdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5df1f9fc61bdd) -
+  Cleans up experiment platform_editor_layout_node_view_early_exit
+- Updated dependencies
+
+## 6.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.1
 
 ### Patch Changes

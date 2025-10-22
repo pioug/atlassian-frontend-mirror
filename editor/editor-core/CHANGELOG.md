@@ -1,5 +1,35 @@
 # @atlaskit/editor-core
 
+## 215.6.2
+
+### Patch Changes
+
+- [`5a56aa8073a44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a56aa8073a44) -
+  [ux] ED-29340 fix block controls for layouts with platform_editor_breakout_resizing on and
+  platform_editor_native_anchor_support on
+- Updated dependencies
+
+## 215.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 215.6.0
+
+### Minor Changes
+
+- [`93a78565619a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93a78565619a0) -
+  [ux] Fixing the borded which was cut off cause of fixed toolbar
+
+## 215.5.1
+
+### Patch Changes
+
+- [`7eb66badf6a43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7eb66badf6a43) -
+  [ux] [EDITOR-2397] update extension styles to exclude nested renderers/ bodied extensions
+- Updated dependencies
+
 ## 215.5.0
 
 ### Minor Changes

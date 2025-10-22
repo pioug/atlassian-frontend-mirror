@@ -21,6 +21,9 @@
 			"path": "../../../design-system/badge/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../../helpers/browser-apis/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/button/afm-passionfruit/tsconfig.json"
 		},
 		{

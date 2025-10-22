@@ -9,6 +9,7 @@ import type {
 	ContextIdentifierProvider,
 	MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import { setNodeSelection, setTextSelection, withImageLoader } from '@atlaskit/editor-common/utils';
@@ -56,6 +57,7 @@ export interface MediaNodeProps extends ReactNodeProps, ImageLoaderProps {
 	node: PMNode;
 	onClick?: CardOnClickCallback;
 	originalDimensions: NumericalCardDimensions;
+	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	view: EditorView;
 }
 
@@ -196,7 +198,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		// In edit mode (node content wrapper has contenteditable set to true), link redirection is disabled by default
 		// We need to call "stopPropagation" here in order to prevent in editor view mode, the browser from navigating to
 		// another URL if the media node is wrapped in a link mark.
-		if (this.props.isViewOnly && editorExperiment('platform_editor_controls', 'variant1')) {
+		if (this.props.isViewOnly && areToolbarFlagsEnabled(Boolean(this.props.pluginInjectionApi?.toolbar))) {
 			event.preventDefault();
 		}
 	};

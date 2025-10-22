@@ -99,6 +99,7 @@ export default function SideNavFlyout({
 			<Root>
 				<TopNav>
 					<TopNavStart
+						testId="top-nav-start"
 						sideNavToggleButton={
 							<SideNavToggleButton
 								testId="side-nav-toggle-button"

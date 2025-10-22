@@ -5,6 +5,8 @@ jest.mock('bowser-ultralight', () => ({
 
 import Bowser from 'bowser-ultralight';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import getBrowserMetadata, { getBrowserMetadataToLegacyFormat } from './get-browser-metadata';
 
 const mockBowser = Bowser as jest.Mocked<typeof Bowser>;
@@ -36,231 +38,279 @@ describe('getBrowserMetadata', () => {
 		});
 		global.Date = originalDate;
 	});
+	ffTest.off('react_ufo_add_webdriver_info', 'Add webdriver FG is off', () => {
 
-	it('should return time information', () => {
-		// Mock basic navigator
-		Object.defineProperty(global, 'navigator', {
-			value: {},
-			configurable: true,
+		it('should return time information', () => {
+			// Mock basic navigator
+			Object.defineProperty(global, 'navigator', {
+				value: {},
+				configurable: true,
+			});
+
+			const result = getBrowserMetadata();
+
+			expect(result).toEqual(
+				expect.objectContaining({
+					time: {
+						localHour: 14,
+						localDayOfWeek: 3,
+						localTimezoneOffset: -480,
+					},
+				}),
+			);
 		});
 
-		const result = getBrowserMetadata();
+		it('should return browser information when userAgent is available', () => {
+			const mockParser = {
+				getBrowserName: jest.fn().mockReturnValue('Chrome'),
+				getBrowserVersion: jest.fn().mockReturnValue('91.0.4472.124'),
+				getBrowser: jest.fn(),
+				isMobile: jest.fn(),
+				getUA: jest.fn(),
+				parse: jest.fn(),
+				getOS: jest.fn(),
+				getPlatform: jest.fn(),
+				getEngine: jest.fn(),
+			};
 
-		expect(result).toEqual(
-			expect.objectContaining({
+			mockBowser.getParser.mockReturnValue(mockParser as any);
+
+			Object.defineProperty(global, 'navigator', {
+				value: {
+					userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+				},
+				configurable: true,
+			});
+
+			const result = getBrowserMetadata();
+
+			expect(mockBowser.getParser).toHaveBeenCalledWith(
+				'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+			);
+			expect(result).toEqual(
+				expect.objectContaining({
+					browser: {
+						name: 'Chrome',
+						version: '91.0.4472.124',
+					},
+				}),
+			);
+		});
+
+		it('should not include browser info when userAgent is null', () => {
+			Object.defineProperty(global, 'navigator', {
+				value: {
+					userAgent: null,
+				},
+				configurable: true,
+			});
+
+			const result = getBrowserMetadata();
+
+			expect(mockBowser.getParser).not.toHaveBeenCalled();
+			expect(result).not.toHaveProperty('browser');
+		});
+
+		it('should include hardware concurrency when available', () => {
+			Object.defineProperty(global, 'navigator', {
+				value: {
+					hardwareConcurrency: 8,
+				},
+				configurable: true,
+			});
+
+			const result = getBrowserMetadata();
+
+			expect(result).toEqual(
+				expect.objectContaining({
+					device: {
+						cpus: 8,
+					},
+				}),
+			);
+		});
+
+		it('should not include hardware concurrency when null', () => {
+			Object.defineProperty(global, 'navigator', {
+				value: {
+					hardwareConcurrency: null,
+				},
+				configurable: true,
+			});
+
+			const result = getBrowserMetadata();
+
+			expect(result).not.toHaveProperty('device');
+		});
+
+		it('should include device memory when available', () => {
+			Object.defineProperty(global, 'navigator', {
+				value: {
+					deviceMemory: 4,
+				},
+				configurable: true,
+			});
+
+			const result = getBrowserMetadata();
+
+			expect(result).toEqual(
+				expect.objectContaining({
+					device: {
+						memory: 4,
+					},
+				}),
+			);
+		});
+
+		it('should not include device memory when null', () => {
+			Object.defineProperty(global, 'navigator', {
+				value: {
+					deviceMemory: null,
+				},
+				configurable: true,
+			});
+
+			const result = getBrowserMetadata();
+
+			expect(result).not.toHaveProperty('device');
+		});
+
+		it('should include network information when connection is available', () => {
+			Object.defineProperty(global, 'navigator', {
+				value: {
+					connection: {
+						effectiveType: '4g',
+						rtt: 100,
+						downlink: 10,
+					},
+				},
+				configurable: true,
+			});
+
+			const result = getBrowserMetadata();
+
+			expect(result).toEqual(
+				expect.objectContaining({
+					network: {
+						effectiveType: '4g',
+						rtt: 100,
+						downlink: 10,
+					},
+				}),
+			);
+		});
+
+		it('should not include network information when connection is null', () => {
+			Object.defineProperty(global, 'navigator', {
+				value: {
+					connection: null,
+				},
+				configurable: true,
+			});
+
+			const result = getBrowserMetadata();
+
+			expect(result).not.toHaveProperty('network');
+		});
+
+		it('should handle complete navigator object with all properties', () => {
+			const mockParser = {
+				getBrowserName: jest.fn().mockReturnValue('Firefox'),
+				getBrowserVersion: jest.fn().mockReturnValue('89.0'),
+				getBrowser: jest.fn(),
+				isMobile: jest.fn(),
+				getUA: jest.fn(),
+				parse: jest.fn(),
+				getOS: jest.fn(),
+				getPlatform: jest.fn(),
+				getEngine: jest.fn(),
+			};
+
+			mockBowser.getParser.mockReturnValue(mockParser as any);
+
+			Object.defineProperty(global, 'navigator', {
+				value: {
+					userAgent:
+						'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:89.0) Gecko/20100101 Firefox/89.0',
+					hardwareConcurrency: 16,
+					deviceMemory: 8,
+					connection: {
+						effectiveType: '4g',
+						rtt: 50,
+						downlink: 20,
+					},
+				},
+				configurable: true,
+			});
+
+			const result = getBrowserMetadata();
+
+			expect(result).toEqual({
 				time: {
 					localHour: 14,
 					localDayOfWeek: 3,
 					localTimezoneOffset: -480,
 				},
-			}),
-		);
-	});
-
-	it('should return browser information when userAgent is available', () => {
-		const mockParser = {
-			getBrowserName: jest.fn().mockReturnValue('Chrome'),
-			getBrowserVersion: jest.fn().mockReturnValue('91.0.4472.124'),
-			getBrowser: jest.fn(),
-			isMobile: jest.fn(),
-			getUA: jest.fn(),
-			parse: jest.fn(),
-			getOS: jest.fn(),
-			getPlatform: jest.fn(),
-			getEngine: jest.fn(),
-		};
-
-		mockBowser.getParser.mockReturnValue(mockParser as any);
-
-		Object.defineProperty(global, 'navigator', {
-			value: {
-				userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-			},
-			configurable: true,
-		});
-
-		const result = getBrowserMetadata();
-
-		expect(mockBowser.getParser).toHaveBeenCalledWith(
-			'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-		);
-		expect(result).toEqual(
-			expect.objectContaining({
 				browser: {
-					name: 'Chrome',
-					version: '91.0.4472.124',
+					name: 'Firefox',
+					version: '89.0',
 				},
-			}),
-		);
-	});
-
-	it('should not include browser info when userAgent is null', () => {
-		Object.defineProperty(global, 'navigator', {
-			value: {
-				userAgent: null,
-			},
-			configurable: true,
-		});
-
-		const result = getBrowserMetadata();
-
-		expect(mockBowser.getParser).not.toHaveBeenCalled();
-		expect(result).not.toHaveProperty('browser');
-	});
-
-	it('should include hardware concurrency when available', () => {
-		Object.defineProperty(global, 'navigator', {
-			value: {
-				hardwareConcurrency: 8,
-			},
-			configurable: true,
-		});
-
-		const result = getBrowserMetadata();
-
-		expect(result).toEqual(
-			expect.objectContaining({
 				device: {
-					cpus: 8,
+					cpus: 16,
+					memory: 8,
 				},
-			}),
-		);
-	});
-
-	it('should not include hardware concurrency when null', () => {
-		Object.defineProperty(global, 'navigator', {
-			value: {
-				hardwareConcurrency: null,
-			},
-			configurable: true,
-		});
-
-		const result = getBrowserMetadata();
-
-		expect(result).not.toHaveProperty('device');
-	});
-
-	it('should include device memory when available', () => {
-		Object.defineProperty(global, 'navigator', {
-			value: {
-				deviceMemory: 4,
-			},
-			configurable: true,
-		});
-
-		const result = getBrowserMetadata();
-
-		expect(result).toEqual(
-			expect.objectContaining({
-				device: {
-					memory: 4,
-				},
-			}),
-		);
-	});
-
-	it('should not include device memory when null', () => {
-		Object.defineProperty(global, 'navigator', {
-			value: {
-				deviceMemory: null,
-			},
-			configurable: true,
-		});
-
-		const result = getBrowserMetadata();
-
-		expect(result).not.toHaveProperty('device');
-	});
-
-	it('should include network information when connection is available', () => {
-		Object.defineProperty(global, 'navigator', {
-			value: {
-				connection: {
-					effectiveType: '4g',
-					rtt: 100,
-					downlink: 10,
-				},
-			},
-			configurable: true,
-		});
-
-		const result = getBrowserMetadata();
-
-		expect(result).toEqual(
-			expect.objectContaining({
 				network: {
-					effectiveType: '4g',
-					rtt: 100,
-					downlink: 10,
-				},
-			}),
-		);
-	});
-
-	it('should not include network information when connection is null', () => {
-		Object.defineProperty(global, 'navigator', {
-			value: {
-				connection: null,
-			},
-			configurable: true,
-		});
-
-		const result = getBrowserMetadata();
-
-		expect(result).not.toHaveProperty('network');
-	});
-
-	it('should handle complete navigator object with all properties', () => {
-		const mockParser = {
-			getBrowserName: jest.fn().mockReturnValue('Firefox'),
-			getBrowserVersion: jest.fn().mockReturnValue('89.0'),
-			getBrowser: jest.fn(),
-			isMobile: jest.fn(),
-			getUA: jest.fn(),
-			parse: jest.fn(),
-			getOS: jest.fn(),
-			getPlatform: jest.fn(),
-			getEngine: jest.fn(),
-		};
-
-		mockBowser.getParser.mockReturnValue(mockParser as any);
-
-		Object.defineProperty(global, 'navigator', {
-			value: {
-				userAgent:
-					'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:89.0) Gecko/20100101 Firefox/89.0',
-				hardwareConcurrency: 16,
-				deviceMemory: 8,
-				connection: {
 					effectiveType: '4g',
 					rtt: 50,
 					downlink: 20,
 				},
-			},
-			configurable: true,
+			});
 		});
 
-		const result = getBrowserMetadata();
+		it('should transform to legacy format correctly for backward compatibility', () => {
+			const mockParser = {
+				getBrowserName: jest.fn().mockReturnValue('Chrome'),
+				getBrowserVersion: jest.fn().mockReturnValue('91.0.4472.124'),
+				getBrowser: jest.fn(),
+				isMobile: jest.fn(),
+				getUA: jest.fn(),
+				parse: jest.fn(),
+				getOS: jest.fn(),
+				getPlatform: jest.fn(),
+				getEngine: jest.fn(),
+			};
 
-		expect(result).toEqual({
-			time: {
-				localHour: 14,
-				localDayOfWeek: 3,
-				localTimezoneOffset: -480,
-			},
-			browser: {
-				name: 'Firefox',
-				version: '89.0',
-			},
-			device: {
-				cpus: 16,
-				memory: 8,
-			},
-			network: {
-				effectiveType: '4g',
-				rtt: 50,
-				downlink: 20,
-			},
+			mockBowser.getParser.mockReturnValue(mockParser as any);
+
+			Object.defineProperty(global, 'navigator', {
+				value: {
+					userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+					hardwareConcurrency: 8,
+					deviceMemory: 4,
+					connection: {
+						effectiveType: '4g',
+						rtt: 100,
+						downlink: 10,
+					},
+				},
+				configurable: true,
+			});
+
+			const legacyResult = getBrowserMetadataToLegacyFormat();
+
+			// Should transform to the old colon-separated format
+			expect(legacyResult).toEqual({
+				'event:localHour': 14,
+				'event:localDayOfWeek': 3,
+				'event:localTimezoneOffset': -480,
+				'event:browser:name': 'Chrome',
+				'event:browser:version': '91.0.4472.124',
+				'event:cpus': 8,
+				'event:memory': 4,
+				'event:network:effectiveType': '4g',
+				'event:network:rtt': 100,
+				'event:network:downlink': 10,
+			});
 		});
 	});
 
@@ -282,49 +332,60 @@ describe('getBrowserMetadata', () => {
 		});
 	});
 
-	it('should transform to legacy format correctly for backward compatibility', () => {
-		const mockParser = {
-			getBrowserName: jest.fn().mockReturnValue('Chrome'),
-			getBrowserVersion: jest.fn().mockReturnValue('91.0.4472.124'),
-			getBrowser: jest.fn(),
-			isMobile: jest.fn(),
-			getUA: jest.fn(),
-			parse: jest.fn(),
-			getOS: jest.fn(),
-			getPlatform: jest.fn(),
-			getEngine: jest.fn(),
-		};
-
-		mockBowser.getParser.mockReturnValue(mockParser as any);
-
-		Object.defineProperty(global, 'navigator', {
-			value: {
-				userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-				hardwareConcurrency: 8,
-				deviceMemory: 4,
-				connection: {
-					effectiveType: '4g',
-					rtt: 100,
-					downlink: 10,
-				},
-			},
-			configurable: true,
+	describe('webdriver field', () => {
+		ffTest.off('react_ufo_add_webdriver_info', 'Add webdriver FG is off', () => {
+			it('should not include webdriver field when feature flag is disabled', () => {
+				Object.defineProperty(global, 'navigator', {
+					value: {
+						userAgent: 'test',
+						webdriver: true,
+					},
+					configurable: true,
+				});
+	
+				const legacyFormat = getBrowserMetadataToLegacyFormat();
+				expect(legacyFormat['event:browser:webdriver']).toBeUndefined();
+			});
 		});
 
-		const legacyResult = getBrowserMetadataToLegacyFormat();
+		ffTest.on('react_ufo_add_webdriver_info', 'Add webdriver FG is on', () => {
+			it('should include webdriver field when feature flag is enabled and navigator.webdriver is true', () => {
+			
+				// Mock navigator with webdriver enabled
+				Object.defineProperty(global, 'navigator', {
+					value: {
+						userAgent: 'test',
+						webdriver: true,
+					},
+					configurable: true,
+				});
+	
+				const legacyFormat = getBrowserMetadataToLegacyFormat();
+				expect(legacyFormat['event:browser:webdriver']).toBe(true);
+			});
 
-		// Should transform to the old colon-separated format
-		expect(legacyResult).toEqual({
-			'event:localHour': 14,
-			'event:localDayOfWeek': 3,
-			'event:localTimezoneOffset': -480,
-			'event:browser:name': 'Chrome',
-			'event:browser:version': '91.0.4472.124',
-			'event:cpus': 8,
-			'event:memory': 4,
-			'event:network:effectiveType': '4g',
-			'event:network:rtt': 100,
-			'event:network:downlink': 10,
+			it('should include webdriver field when feature flag is enabled and navigator.webdriver is false', () => {
+				Object.defineProperty(global, 'navigator', {
+					value: {
+						userAgent: 'test',
+						webdriver: false,
+					},
+					configurable: true,
+				});
+
+				const legacyFormat = getBrowserMetadataToLegacyFormat();
+				expect(legacyFormat['event:browser:webdriver']).toBe(false);
+			});
+		});
+
+		it('should handle undefined navigator gracefully', () => {
+			Object.defineProperty(global, 'navigator', {
+				value: undefined,
+				configurable: true,
+			});
+
+			const legacyFormat = getBrowserMetadataToLegacyFormat();
+			expect(legacyFormat['event:browser:webdriver']).toBeUndefined();
 		});
 	});
 });

@@ -695,14 +695,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-07-28
-	platform_editor_create_link_on_blur: createBooleanExperiment({
-		productKeys: {
-			jira: 'platform_editor_create_link_on_blur',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-07-31
 	platform_editor_breakout_interaction_rerender: createBooleanExperiment({
 		productKeys: {
@@ -953,14 +945,6 @@ export const editorExperimentsConfig = {
 	platform_editor_add_aria_checked_to_inline_img_btn: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_add_aria_checked_to_inline_image_btn',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-09-09
-	platform_editor_layout_node_view_early_exit: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_layout_node_view_early_exit',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
@@ -17,6 +17,7 @@ import {
 	getContrastingBackgroundColor,
 	useToolbarUI,
 } from '@atlaskit/editor-toolbar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -72,6 +73,20 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 		},
 		[api?.textColor?.commands, api?.core.actions],
 	);
+
+	useEffect(() => {
+		return () => {
+			if (
+				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
+				fg('platform_editor_toolbar_aifc_patch_7')
+			) {
+				if (isPaletteOpen) {
+					setIsPaletteOpen(false);
+				}
+			}
+		};
+	}, [setIsPaletteOpen, isPaletteOpen]);
+
 	const iconColor = getIconColor(textColor, defaultColor, highlightColor);
 	const highlightColorIcon = highlightColor
 		? highlightColor

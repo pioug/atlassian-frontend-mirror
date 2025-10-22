@@ -55,6 +55,7 @@ type ToolbarButtonProps = Partial<TriggerProps> & {
 	ariaKeyshortcuts?: string;
 	children?: ReactNode;
 	iconBefore: React.ReactNode;
+	id?: string;
 	interactionName?: string;
 	isDisabled?: boolean;
 	isSelected?: boolean;
@@ -79,6 +80,7 @@ export const ToolbarButton = forwardRef(
 			onBlur,
 			onFocus,
 			testId,
+			id,
 			isDisabled,
 			ariaKeyshortcuts,
 			label,
@@ -107,6 +109,7 @@ export const ToolbarButton = forwardRef(
 				onBlur={onBlur}
 				onFocus={onFocus}
 				testId={testId}
+				id={id}
 				isDisabled={disabled}
 				onMouseDown={(event) => {
 					if (preventDefaultOnMouseDown) {

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 8.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.1
+
+### Patch Changes
+
+- [`f3e7f3af81cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3e7f3af81cee) -
+  [ux] NO-ISSUE clean up platform_editor_create_link_on_blur
+- Updated dependencies
+
 ## 8.1.0
 
 ### Minor Changes

@@ -3,7 +3,7 @@
  *
  * Generates TypeScript components data for AI tooling from offerings.json files
  *
- * @codegen <<SignedSource::d39d38cf9fe44e75308cd943349942d1>>
+ * @codegen <<SignedSource::1792e8b918fbdc85769f6ddf38970c58>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:prototyping
  */
 import type { Component } from './types';
@@ -2711,7 +2711,7 @@ export const components: Component[] = [
 			{
 				name: 'children',
 				description:
-					'The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.\n You can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).',
+					'The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.\nYou can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).\n\nIf you are only spreading `formProps` onto the HTML `<form>` element and not using any of the other props (like `submitting`, etc.), `children` can be plain JSX. All of the children will be wrapped within an HTML `<form>` element that includes all necessary props, including those provided on the form component.',
 				type: '(() => void) | React.ReactNode | ((args: FormChildrenArgs<FormValues>) => React.ReactNode)',
 			},
 			{

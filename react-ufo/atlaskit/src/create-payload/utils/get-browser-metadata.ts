@@ -1,5 +1,7 @@
 import Bowser from 'bowser-ultralight';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 export default function getBrowserMetadata() {
 	const data: {
 		browser?: {
@@ -15,6 +17,7 @@ export default function getBrowserMetadata() {
 			rtt: number;
 			downlink: number;
 		};
+		webdriver?: boolean;
 		time: {
 			localHour: number;
 			localDayOfWeek: number;
@@ -64,6 +67,10 @@ export default function getBrowserMetadata() {
 		};
 	}
 
+	if (typeof navigator !== 'undefined' && fg('react_ufo_add_webdriver_info')) {
+		data.webdriver = Boolean((navigator as any).webdriver);
+	}
+
 	return data;
 }
 
@@ -81,6 +88,11 @@ export function getBrowserMetadataToLegacyFormat() {
 	if (metadata.browser) {
 		legacyFormat['event:browser:name'] = metadata.browser.name;
 		legacyFormat['event:browser:version'] = metadata.browser.version;
+	}
+
+	// Webdriver data
+	if (metadata.webdriver !== undefined) {
+		legacyFormat['event:browser:webdriver'] = metadata.webdriver;
 	}
 
 	// Device data

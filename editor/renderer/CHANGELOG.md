@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 124.8.3
+
+### Patch Changes
+
+- [`3b3175c237886`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b3175c237886) -
+  upgrade use of browser util
+
+## 124.8.2
+
+### Patch Changes
+
+- [`7eb66badf6a43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7eb66badf6a43) -
+  [ux] [EDITOR-2397] update extension styles to exclude nested renderers/ bodied extensions
+- Updated dependencies
+
 ## 124.8.1
 
 ### Patch Changes

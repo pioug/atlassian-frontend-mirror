@@ -102,6 +102,7 @@ export type ReactUFOPayload = {
 			'event:localTimezoneOffset': number;
 			'event:browser:name': string;
 			'event:browser:version': string;
+			'event:webdriver:enabled'?: boolean;
 			'event:cpus': number;
 			'event:memory': 0.25 | 0.5 | 1 | 2 | 4 | 8; // as per https://developer.mozilla.org/en-US/docs/Web/API/Navigator/deviceMemory#value
 			'event:network:effectiveType': 'slow-2g' | '2g' | '3g' | '4g'; // as per https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/effectiveType

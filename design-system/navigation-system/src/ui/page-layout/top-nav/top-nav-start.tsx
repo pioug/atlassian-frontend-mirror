@@ -91,10 +91,10 @@ const innerStyles = cssMap({
 const wrapperStyles = cssMap({
 	root: {
 		boxSizing: 'border-box',
-	},
-	fullHeightSidebar: {
 		// Start padding is not applied to the top nav itself, to avoid misalignment with the side nav
 		paddingInlineStart: token('space.150'),
+		// Taking up the full height of top bar to allow for monitoring mouse events, for improving the side nav flyout experience
+		height: '100%',
 	},
 	fullHeightSidebarExpanded: {
 		'@media (min-width: 64rem)': {
@@ -144,7 +144,7 @@ const childrenWrapperStyles = cssMap({
 	finalPosition: {
 		'@media (prefers-reduced-motion: no-preference)': {
 			transform: 'translateX(0rem)',
-			transitionDuration: '0.3s',
+			transitionDuration: '0.2s',
 		},
 	},
 	expandAnimationStartPosition: {
@@ -183,7 +183,7 @@ const toggleButtonWrapperStyles = cssMap({
 	finalPosition: {
 		'@media (prefers-reduced-motion: no-preference)': {
 			transform: 'translateX(0rem)',
-			transitionDuration: '0.3s',
+			transitionDuration: '0.2s',
 			opacity: 1,
 		},
 	},
@@ -277,16 +277,10 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
 	const { isExpandedOnDesktop } = useSideNavVisibility({ defaultCollapsed: true });
 
 	return (
-		<div
-			ref={ref}
-			data-testid={testId}
-			css={[
-				wrapperStyles.root,
-				wrapperStyles.fullHeightSidebar,
-				isExpandedOnDesktop && wrapperStyles.fullHeightSidebarExpanded,
-			]}
-		>
+		<div css={[wrapperStyles.root, isExpandedOnDesktop && wrapperStyles.fullHeightSidebarExpanded]}>
 			<div
+				ref={ref}
+				data-testid={testId}
 				css={[
 					innerStyles.root,
 					innerStyles.fullHeightSidebar,

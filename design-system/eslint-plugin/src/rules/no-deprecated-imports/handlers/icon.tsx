@@ -53,6 +53,20 @@ export const getDeprecationIconHandler: DeprecationIconHandler = (context: Rule.
 	const importErrors: ImportIconDeprecationErrorListAuto = {};
 	const exportErrors: ExportIconDeprecationErrorListAuto = {};
 
+	const getConfigFlag = (key: string, defaultValue: boolean) => {
+		if (
+			context.options &&
+			context.options.length > 0 &&
+			context.options[0] &&
+			context.options[0].hasOwnProperty(key)
+		) {
+			return (context.options[0] as { [key: string]: any })[key] === !defaultValue
+				? !defaultValue
+				: defaultValue;
+		}
+		return defaultValue;
+	};
+
 	const getIconComponentName = (name: string) => {
 		return name
 			.split(/\W/)
@@ -107,6 +121,7 @@ export const getDeprecationIconHandler: DeprecationIconHandler = (context: Rule.
 	};
 
 	const throwErrors = () => {
+		const shouldTurnOffAutoFixer = getConfigFlag('turnOffAutoFixer', false);
 		for (const [importSource, error] of Object.entries(importErrors)) {
 			if (importSource.includes('/migration/')) {
 				const [_location, type, _migration, name] = importSource.split('/').slice(1);
@@ -116,12 +131,14 @@ export const getDeprecationIconHandler: DeprecationIconHandler = (context: Rule.
 				const replacement = metadata?.[deprecatedIconName]?.replacement;
 				if (replacement && error.data?.unfixable === 'false') {
 					const newIconName = getIconComponentName(replacement.name);
-					addAutoFix(
-						error,
-						importSource,
-						`${replacement.location}/${replacement.type}/migration/${replacement.name}--${legacyIconName}`,
-						newIconName,
-					);
+					if (!shouldTurnOffAutoFixer) {
+						addAutoFix(
+							error,
+							importSource,
+							`${replacement.location}/${replacement.type}/migration/${replacement.name}--${legacyIconName}`,
+							newIconName,
+						);
+					}
 				}
 			} else {
 				const [location, type, name] = importSource.split('/').slice(1);
@@ -136,12 +153,14 @@ export const getDeprecationIconHandler: DeprecationIconHandler = (context: Rule.
 				const replacement = metadata?.[name]?.replacement;
 				if (replacement) {
 					const newIconName = getIconComponentName(replacement.name);
-					addAutoFix(
-						error,
-						importSource,
-						`${replacement.location}/${replacement.type}/${replacement.name}`,
-						newIconName,
-					);
+					if (!shouldTurnOffAutoFixer) {
+						addAutoFix(
+							error,
+							importSource,
+							`${replacement.location}/${replacement.type}/${replacement.name}`,
+							newIconName,
+						);
+					}
 				}
 			}
 			context.report(error);

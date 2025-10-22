@@ -18,7 +18,6 @@ import CrossIcon from '@atlaskit/icon/core/cross';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Box, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -60,6 +59,7 @@ export const PixelEntryComponent = ({
 	onMigrate,
 	onCloseAndSave,
 	isViewMode,
+	areAnyNewToolbarFlagsEnabled,
 }: PixelEntryProps) => {
 	const ratioWidth = useMemo(() => {
 		return mediaHeight / mediaWidth;
@@ -191,7 +191,7 @@ export const PixelEntryComponent = ({
 		);
 	}
 
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
+	if (areAnyNewToolbarFlagsEnabled) {
 		return (
 			<PixelEntryComponentNext
 				maxWidth={maxWidth}

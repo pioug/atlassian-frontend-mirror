@@ -211,7 +211,7 @@ const layoutColumnExtendedHoverZone = css({
 			cursor: 'default',
 			zIndex: 1,
 		},
-	}
+	},
 });
 
 const layoutColumnWithoutHoverZone = css({
@@ -220,10 +220,10 @@ const layoutColumnWithoutHoverZone = css({
 		// when advanced_layouts is off, layout columns should not have hover zones, because there aren't any drag handles for layout columns
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 		[`&&& ${dragHandlerAnchorSelectorNext}[data-layout-column]::after`]: {
-			display: 'none'
+			display: 'none',
 		},
-	}
-})
+	},
+});
 
 const extendHoverZoneReduced = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -611,10 +611,10 @@ export const GlobalStylesWrapper = ({
 				expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
 					? withAnchorNameZindexStyleNext
 					: withAnchorNameZindexStyle,
-				expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
-					&& expValEquals('advanced_layouts', 'isEnabled', true)
-						? layoutColumnExtendedHoverZone
-						: layoutColumnWithoutHoverZone
+				expValEquals('platform_editor_native_anchor_support', 'isEnabled', true) &&
+				expValEquals('advanced_layouts', 'isEnabled', true)
+					? layoutColumnExtendedHoverZone
+					: layoutColumnWithoutHoverZone,
 			]}
 		/>
 	);

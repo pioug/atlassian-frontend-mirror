@@ -55,6 +55,9 @@ const rule = createLintRule({
 			{
 				type: 'object',
 				properties: {
+					turnOffAutoFixer: {
+						type: 'boolean',
+					},
 					deprecatedConfig: {
 						type: 'object',
 						properties: {
@@ -78,6 +81,7 @@ const rule = createLintRule({
 						},
 					},
 				},
+				additionalProperties: false,
 			},
 		],
 	},

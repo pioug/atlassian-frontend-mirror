@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 79.6.0
+
+### Minor Changes
+
+- [`e5f402044b1c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5f402044b1c6) -
+  Add media render error analytics
+
 ## 79.5.16
 
 ### Patch Changes

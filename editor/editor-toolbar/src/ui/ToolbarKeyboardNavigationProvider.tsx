@@ -1,5 +1,8 @@
 import React, { useLayoutEffect, useRef } from 'react';
 
+import { getDocument } from '@atlaskit/browser-apis';
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { ToolbarKeyboardNavigationProviderConfig } from '../types';
 
 type ToolbarKeyboardNavigationProviderProps = ToolbarKeyboardNavigationProviderConfig & {
@@ -25,6 +28,65 @@ export const ToolbarKeyboardNavigationProvider = ({
 
 		const { current: element } = wrapperRef;
 
+		const getFocusableElements = (): HTMLElement[] => {
+			if (!element) {
+				return [];
+			}
+			// Find all focusable elements within the toolbar that match the child component selector
+			const focusableSelectors = [
+				'button:not([disabled])',
+				'[role="button"]:not([disabled])',
+				'[tabindex]:not([tabindex="-1"])',
+			].join(',');
+
+			const allFocusable = Array.from(element.querySelectorAll<HTMLElement>(focusableSelectors));
+
+			// Filter to only include elements that are:
+			// 1. Within the child component selector
+			// 2. Visible (not hidden by display:none on itself or any parent)
+			return allFocusable.filter((el) => {
+				if (!el.closest(`${childComponentSelector}`)) {
+					return false;
+				}
+
+				// Check if the element or any of its parents have display: none
+				let currentEl: HTMLElement | null = el;
+				while (currentEl && currentEl !== element) {
+					const computedStyle = window.getComputedStyle(currentEl);
+					if (computedStyle.display === 'none' || computedStyle.visibility === 'hidden') {
+						return false;
+					}
+					currentEl = currentEl.parentElement;
+				}
+
+				return true;
+			});
+		};
+
+		const moveFocus = (direction: 'left' | 'right'): void => {
+			const focusableElements = getFocusableElements();
+			if (focusableElements.length === 0) {
+				return;
+			}
+
+			const doc = getDocument();
+			const currentIndex = focusableElements.findIndex((el) => el === doc?.activeElement);
+
+			let nextIndex: number;
+			if (currentIndex === -1) {
+				// No element currently focused, focus the first one
+				nextIndex = 0;
+			} else if (direction === 'right') {
+				// Move right, wrap to beginning if at end
+				nextIndex = (currentIndex + 1) % focusableElements.length;
+			} else {
+				// Move left, wrap to end if at beginning
+				nextIndex = currentIndex === 0 ? focusableElements.length - 1 : currentIndex - 1;
+			}
+
+			focusableElements[nextIndex]?.focus();
+		};
+
 		const handleKeyDown = (event: KeyboardEvent): void => {
 			const targetElement = event.target;
 
@@ -35,11 +97,28 @@ export const ToolbarKeyboardNavigationProvider = ({
 				return;
 			}
 
-			switch (event.key) {
-				case 'Escape':
-					handleEscape(event);
-					break;
-				default:
+			if (fg('platform_editor_toolbar_aifc_patch_7')) {
+				switch (event.key) {
+					case 'Escape':
+						handleEscape(event);
+						break;
+					case 'ArrowLeft':
+						event.preventDefault();
+						moveFocus('left');
+						break;
+					case 'ArrowRight':
+						event.preventDefault();
+						moveFocus('right');
+						break;
+					default:
+				}
+			} else {
+				switch (event.key) {
+					case 'Escape':
+						handleEscape(event);
+						break;
+					default:
+				}
 			}
 		};
 

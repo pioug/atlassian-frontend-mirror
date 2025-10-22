@@ -12,6 +12,7 @@ import {
 } from '@atlaskit/editor-common/hooks';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	EditorAppearance,
 	ExtractInjectionAPI,
@@ -23,7 +24,6 @@ import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from './mediaPluginType';
 import { lazyMediaView } from './nodeviews/lazy-media';
@@ -355,7 +355,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 				options &&
 				options.allowAdvancedToolBarOptions &&
 				options.allowResizing &&
-				editorExperiment('platform_editor_controls', 'variant1') &&
+				areToolbarFlagsEnabled(Boolean(api?.toolbar)) &&
 				options.allowPixelResizing
 			) {
 				pmPlugins.push({

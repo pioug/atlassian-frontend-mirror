@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.0
+
+### Minor Changes
+
+- [`0ec7ab64eb92d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ec7ab64eb92d) -
+  Remove remaining usages of `platform_editor_use_nested_table_pm_nodes` which are safe to remove.
+  Additional usages will be replaced with a helper function in followup releases
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.2.3
+
+### Patch Changes
+
+- [`14a03e6be917d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14a03e6be917d) -
+  upgrade use of browser util
+- Updated dependencies
+
 ## 15.2.2
 
 ### Patch Changes

@@ -341,26 +341,56 @@ describe('comment editor', () => {
 
 	describe('fixed toolbar styles', () => {
 		ffTest.on('platform-visual-refresh-icons', 'visual refresh icons', () => {
-			it('should render sticky toolbar with correct styles', () => {
-				const fullPage = mountWithIntl(
-					<Comment
-						editorAPI={undefined}
-						onSave={true as any}
-						providerFactory={{} as any}
-						editorDOMElement={<div />}
-						featureFlags={{}}
-						// this would enable two line toolbar
-						customPrimaryToolbarComponents={<div>custom primary toolbar</div>}
-					/>,
-				);
-				const fixedToolbar = fullPage.find('div[data-testid="ak-editor-main-toolbar"]');
-				expect(fixedToolbar.exists()).toBe(true);
-				expect(fixedToolbar).toHaveStyleRule('position', 'relative');
-				const emotionStyles = Array.from(document.querySelectorAll('style[data-emotion]'))
-					.map((el) => el.textContent)
-					.filter((style) => style?.includes('-FixedToolbar'))
-					.join('\n');
-				expect(emotionStyles).toMatchSnapshot();
+			ffTest.off('platform_editor_comments_border_radius', 'border radius disabled', () => {
+				it('should render sticky toolbar with correct styles', () => {
+					const fullPage = mountWithIntl(
+						<Comment
+							editorAPI={undefined}
+							onSave={true as any}
+							providerFactory={{} as any}
+							editorDOMElement={<div />}
+							featureFlags={{}}
+							// this would enable two line toolbar
+							customPrimaryToolbarComponents={<div>custom primary toolbar</div>}
+						/>,
+					);
+					const fixedToolbar = fullPage.find('div[data-testid="ak-editor-main-toolbar"]');
+					expect(fixedToolbar.exists()).toBe(true);
+					expect(fixedToolbar).toHaveStyleRule('position', 'relative');
+					const emotionStyles = Array.from(document.querySelectorAll('style[data-emotion]'))
+						.map((el) => el.textContent)
+						.filter((style) => style?.includes('-FixedToolbar'))
+						.join('\n');
+					expect(emotionStyles).toMatchSnapshot();
+				});
+			});
+
+			ffTest.on('platform_editor_comments_border_radius', 'border radius enabled', () => {
+				it('should render sticky toolbar with border radius styles', () => {
+					const fullPage = mountWithIntl(
+						<Comment
+							editorAPI={undefined}
+							onSave={true as any}
+							providerFactory={{} as any}
+							editorDOMElement={<div />}
+							featureFlags={{}}
+							// this would enable two line toolbar
+							customPrimaryToolbarComponents={<div>custom primary toolbar</div>}
+						/>,
+					);
+					const fixedToolbar = fullPage.find('div[data-testid="ak-editor-main-toolbar"]');
+					expect(fixedToolbar.exists()).toBe(true);
+					expect(fixedToolbar).toHaveStyleRule('position', 'relative');
+					expect(fixedToolbar).toHaveStyleRule(
+						'border-radius',
+						'var(--ds-radius-small, 3px) var(--ds-radius-small, 3px) 0 0',
+					);
+					const emotionStyles = Array.from(document.querySelectorAll('style[data-emotion]'))
+						.map((el) => el.textContent)
+						.filter((style) => style?.includes('-FixedToolbar'))
+						.join('\n');
+					expect(emotionStyles).toMatchSnapshot();
+				});
 			});
 		});
 	});

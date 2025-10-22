@@ -37,7 +37,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorTableToolbarSize,
 	akEditorFullPageNarrowBreakout,
-	akEditorFullPageDefaultFontSize,
+	relativeSizeToBaseFontSize,
 } from '@atlaskit/editor-shared-styles/consts';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
@@ -198,9 +198,9 @@ const dragHandleButtonStyles = css({
 // Standard: 16px -> 24h x 12w, Dense: 13px -> 18h x 9w
 const dragHandleButtonDenseModeStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	height: `calc(${DRAG_HANDLE_HEIGHT}px * var(--ak-editor-base-font-size) / ${akEditorFullPageDefaultFontSize}px)`,
+	height: relativeSizeToBaseFontSize(DRAG_HANDLE_HEIGHT),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	width: `calc(${DRAG_HANDLE_WIDTH}px * var(--ak-editor-base-font-size) / ${akEditorFullPageDefaultFontSize}px)`,
+	width: relativeSizeToBaseFontSize(DRAG_HANDLE_WIDTH),
 });
 
 const dragHandleButtonSmallScreenStyles = css({

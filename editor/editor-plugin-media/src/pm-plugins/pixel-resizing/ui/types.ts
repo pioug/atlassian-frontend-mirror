@@ -4,6 +4,10 @@ import type { IntlShape } from 'react-intl-next';
 
 export type PixelEntryProps = {
 	/**
+	 * Whether the new toolbar flags are enabled
+	 */
+	areAnyNewToolbarFlagsEnabled?: boolean;
+	/**
 	 * IntlShape passed in for translations
 	 */
 	intl: IntlShape;
@@ -44,6 +48,7 @@ export type PixelEntryProps = {
 	 * The submit function that is called when the form is valid and the submit key is pressed
 	 */
 	onSubmit?: (value: PixelEntryFormData) => void;
+
 	/**
 	 * show migration button to convert to pixels for legacy image resize experience
 	 */

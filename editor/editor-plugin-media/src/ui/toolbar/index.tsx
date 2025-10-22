@@ -59,7 +59,6 @@ import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
 import { messages } from '@atlaskit/media-ui';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { MediaSingleNodeSelector } from '../../nodeviews/styles';
@@ -952,7 +951,7 @@ export const floatingToolbar = (
 
 	// testId is required to show focus on trigger button on ESC key press
 	// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-	const overflowButtonSelector = editorExperiment('platform_editor_controls', 'variant1')
+	const overflowButtonSelector = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar))
 		? `[data-testid="${overflowDropdwonBtnTriggerTestId}"]`
 		: undefined;
 
@@ -975,7 +974,7 @@ export const floatingToolbar = (
 		allowResizing &&
 		(!isWithinTable || allowResizingInTables === true) &&
 		allowPixelResizing &&
-		editorExperiment('platform_editor_controls', 'variant1')
+		areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar))
 	) {
 		const mediaPixelResizingPluginState = getMediaPixelResizingPluginState(state);
 		if (mediaPixelResizingPluginState?.isPixelEditorOpen) {

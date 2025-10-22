@@ -10,6 +10,7 @@ import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next/src/types';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ELEMENT_BROWSER_ID } from '../../element-browser';
 import { fullPageMessages } from '../../messages';
@@ -331,12 +332,52 @@ function getFocusableElements(rootNode: HTMLElement | null): Array<HTMLElement> 
 	return Array.from(focusableModalElements);
 }
 
+function isElementOrAncestorHiddenOrDisabled(element: HTMLElement, rootNode: HTMLElement | null): boolean {
+	let currentElement: HTMLElement | null = element;
+
+	while (currentElement && currentElement !== rootNode && currentElement !== document.body) {
+		const style = window.getComputedStyle(currentElement);
+
+		// Check if current element is hidden
+		if (style.visibility === 'hidden' || style.display === 'none') {
+			return true;
+		}
+
+		// Check if current element is disabled
+		if (
+			currentElement.hasAttribute('disabled') ||
+			currentElement.getAttribute('aria-disabled') === 'true' ||
+			(currentElement as HTMLButtonElement | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).disabled === true
+		) {
+			return true;
+		}
+
+		// Move to parent element
+		currentElement = currentElement.parentElement;
+	}
+
+	return false;
+}
+
 function getFilteredFocusableElements(rootNode: HTMLElement | null): Array<HTMLElement> {
 	// The focusable elements from child components such as dropdown menus / popups are ignored
 	return getFocusableElements(rootNode).filter((elm) => {
 		const style = window.getComputedStyle(elm);
 		// ignore invisible element to avoid losing focus
 		const isVisible = style.visibility !== 'hidden' && style.display !== 'none';
+
+		// Check if element or any ancestor is hidden or disabled
+		const isHiddenOrDisabled = isElementOrAncestorHiddenOrDisabled(elm, rootNode);
+
+		if (fg('platform_editor_toolbar_aifc_patch_7')) {
+			return (
+				!elm.closest('[data-role="droplistContent"]') &&
+				!elm.closest('[data-emoji-picker-container="true"]') &&
+				!elm.closest('[data-test-id="color-picker-menu"]') &&
+				!elm.closest('.scroll-buttons') &&
+				!isHiddenOrDisabled
+			);
+		}
 
 		return (
 			!elm.closest('[data-role="droplistContent"]') &&

@@ -44,7 +44,6 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { moveSourceWithAnalyticsViaShortcut } from '../pm-plugins/drag-and-drop/commands-with-analytics';
 import type { PluginInjectionAPI, PluginInjectionAPIWithA11y } from '../types';
@@ -66,7 +65,6 @@ import { goToNextCellVertical } from './commands/go-to-next-cell';
 import {
 	addColumnAfter as addColumnAfterCommand,
 	addColumnBefore as addColumnBeforeCommand,
-	createTable,
 	insertTableWithNestingSupport,
 } from './commands/insert';
 
@@ -109,36 +107,26 @@ export function keymapPlugin(
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		toggleTable.common!,
-		fg('platform_editor_use_nested_table_pm_nodes')
-			? editorCommandToPMCommand(
-					insertTableWithNestingSupport(
-						{
-							isTableScalingEnabled,
-							isTableAlignmentEnabled,
-							isFullWidthModeEnabled: !!isFullWidthEnabled,
-							isCommentEditor: isCommentEditor,
-							isChromelessEditor: isChromelessEditor,
-							isTableResizingEnabled,
-						},
-						api,
-						{
-							action: ACTION.INSERTED,
-							actionSubject: ACTION_SUBJECT.DOCUMENT,
-							actionSubjectId: ACTION_SUBJECT_ID.TABLE,
-							attributes: { inputMethod: INPUT_METHOD.SHORTCUT },
-							eventType: EVENT_TYPE.TRACK,
-						},
-					),
-				)
-			: createTable(
+		editorCommandToPMCommand(
+			insertTableWithNestingSupport(
+				{
 					isTableScalingEnabled,
 					isTableAlignmentEnabled,
-					!!isFullWidthEnabled,
-					editorAnalyticsAPI,
-					isCommentEditor,
-					isChromelessEditor,
+					isFullWidthModeEnabled: !!isFullWidthEnabled,
+					isCommentEditor: isCommentEditor,
+					isChromelessEditor: isChromelessEditor,
 					isTableResizingEnabled,
-				),
+				},
+				api,
+				{
+					action: ACTION.INSERTED,
+					actionSubject: ACTION_SUBJECT.DOCUMENT,
+					actionSubjectId: ACTION_SUBJECT_ID.TABLE,
+					attributes: { inputMethod: INPUT_METHOD.SHORTCUT },
+					eventType: EVENT_TYPE.TRACK,
+				},
+			),
+		),
 		list,
 	);
 	bindKeymapWithCommand(

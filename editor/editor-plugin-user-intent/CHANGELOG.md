@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-user-intent
 
+## 4.0.3
+
+### Patch Changes
+
+- [`9582f030b2f51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9582f030b2f51) -
+  re-release @atlaskit/editor-plugin-user-intent to see if it fixes
+
 ## 4.0.2
 
 ### Patch Changes

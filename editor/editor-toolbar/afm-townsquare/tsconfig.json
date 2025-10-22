@@ -21,6 +21,9 @@
 			"path": "../../../design-system/badge/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../../helpers/browser-apis/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/button/afm-townsquare/tsconfig.json"
 		},
 		{

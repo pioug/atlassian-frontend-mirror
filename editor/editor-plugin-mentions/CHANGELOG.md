@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 8.2.1
+
+### Patch Changes
+
+- [`92e5b46bd46ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92e5b46bd46ca) -
+  upgrade use of browser util
+- Updated dependencies
+
 ## 8.2.0
 
 ### Minor Changes

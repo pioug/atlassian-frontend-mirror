@@ -21,6 +21,9 @@
 			"path": "../../../design-system/badge/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../../helpers/browser-apis/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/button/afm-rovo-extension/tsconfig.json"
 		},
 		{

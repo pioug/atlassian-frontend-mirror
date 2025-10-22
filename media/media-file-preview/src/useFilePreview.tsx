@@ -55,6 +55,8 @@ export interface UseFilePreviewParams {
 	readonly dimensions?: MediaFilePreviewDimensions;
 	/** Server-Side-Rendering modes are "server" and "client" */
 	readonly ssr?: SSR;
+	/** Whether to use the srcSet for the preview. */
+	readonly useSrcSet?: boolean; // Defaults to false
 	/** Attributes to attach to the created Blob Url */
 	readonly mediaBlobUrlAttrs?: MediaBlobUrlAttrs; // FOR COPY & PASTE
 	/** Trace context to be passed to the backend requests */
@@ -77,6 +79,7 @@ export const useFilePreview = ({
 	identifier,
 	ssr,
 	dimensions,
+	useSrcSet = false,
 	traceContext,
 	skipRemote,
 	mediaBlobUrlAttrs, // TODO: mediaBlobUrlAttrs can be missing several values contained in the file details. The preview hook is not updating the params in the preview after the file details are available.
@@ -458,7 +461,9 @@ export const useFilePreview = ({
 	// we might get rid of ssrReliabiltyRef from our hook
 	return {
 		preview:
-			ssr === 'server' && fg('media-perf-uplift-mutation-fix') ? DEFAULT_SSR_PREVIEW : preview,
+			ssr === 'server' && useSrcSet && fg('media-perf-uplift-mutation-fix')
+				? DEFAULT_SSR_PREVIEW
+				: preview,
 		status,
 		error,
 		nonCriticalError,

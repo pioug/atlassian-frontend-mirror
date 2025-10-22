@@ -16,7 +16,6 @@ import {
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { createPlugin } from '@atlaskit/prosemirror-input-rules';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { toolbarKey } from './toolbar-buttons';
 
@@ -144,7 +143,7 @@ export function createInputRulePlugin(
 		createPlugin(
 			'hyperlink',
 			[urlWithASpaceRule, markdownLinkRule],
-			autoLinkOnBlur && expValEquals('platform_editor_create_link_on_blur', 'isEnabled', true)
+			autoLinkOnBlur
 				? {
 						checkOnBlur: true,
 						appendTextOnBlur: ' ',

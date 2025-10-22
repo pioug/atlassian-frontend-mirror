@@ -21,6 +21,9 @@
 			"path": "../../../design-system/badge/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../helpers/browser-apis/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/button/afm-post-office/tsconfig.json"
 		},
 		{

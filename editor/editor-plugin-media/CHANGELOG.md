@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-media
 
+## 8.3.1
+
+### Patch Changes
+
+- [`507be0327d12c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/507be0327d12c) -
+  [ux] ED-29558 [Jira] Media element toolbar 'resize' doesn't work
+- Updated dependencies
+
+## 8.3.0
+
+### Minor Changes
+
+- [`e5f402044b1c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5f402044b1c6) -
+  Add media render error analytics
+
+### Patch Changes
+
+- [`2352f7c910f27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2352f7c910f27) -
+  upgrade use of browser util
+- Updated dependencies
+
 ## 8.2.1
 
 ### Patch Changes

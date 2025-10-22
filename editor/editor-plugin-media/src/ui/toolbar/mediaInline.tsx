@@ -33,7 +33,6 @@ import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import { messages } from '@atlaskit/media-ui';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { showLinkingToolbar } from '../../pm-plugins/commands/linking';
@@ -241,7 +240,7 @@ const getMediaInlineImageToolbar = (
 	const mediaSingleTitle = intl.formatMessage(mediaAndEmbedToolbarMessages.changeToMediaSingle);
 	const widthPluginState = pluginInjectionApi?.width?.sharedState.currentState();
 	const inlineImageItems: FloatingToolbarItem<Command>[] = [];
-	const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
+	const isEditorControlsEnabled = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar));
 	const { isViewOnly, allowAltTextOnImages, allowLinking, allowImagePreview } = options;
 
 	if (shouldShowImageBorder(state)) {

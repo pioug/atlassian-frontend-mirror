@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.4.2
+
+### Patch Changes
+
+- [`c219d22cf0788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c219d22cf0788) -
+  [ux] Card hover link overlay in compact mode
+- Updated dependencies
+
+## 7.4.1
+
+### Patch Changes
+
+- [`9ca86d5ced1c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ca86d5ced1c4) -
+  ED-294112 fix extended hover zone for platform_editor_native_anchor_support to match existing
+  behaviour; no hover zones for inline elements, headerCells or (when advanced_layouts is off)
+  layout columns
+- Updated dependencies
+
 ## 7.4.0
 
 ### Minor Changes

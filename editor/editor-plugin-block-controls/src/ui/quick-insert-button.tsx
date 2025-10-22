@@ -18,7 +18,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
+import { relativeSizeToBaseFontSize } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import AddIcon from '@atlaskit/icon/core/add';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -94,9 +94,9 @@ const stickyButtonStyles = xcss({
 // Standard: 16px -> 24px x 24px, Dense: 13px -> ~18.5px x ~18.5px
 const stickyButtonDenseModeStyles = xcss({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	height: `calc(${QUICK_INSERT_HEIGHT}px * var(--ak-editor-base-font-size) / ${akEditorFullPageDefaultFontSize}px)`,
+	height: relativeSizeToBaseFontSize(QUICK_INSERT_HEIGHT),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	width: `calc(${QUICK_INSERT_WIDTH}px * var(--ak-editor-base-font-size) / ${akEditorFullPageDefaultFontSize}px)`,
+	width: relativeSizeToBaseFontSize(QUICK_INSERT_WIDTH),
 });
 
 const containerStaticStyles = xcss({

@@ -215,6 +215,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 						this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState()
 							?.mode === 'view'
 					}
+					pluginInjectionApi={this.reactComponentProps.pluginInjectionApi}
 				/>
 			);
 		};

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-text-color
 
+## 6.3.3
+
+### Patch Changes
+
+- [`2d7e0bee11270`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d7e0bee11270) -
+  [ux] ED-29586 Colour picker remains open after toolbar is dismissed and reopened
+- Updated dependencies
+
+## 6.3.2
+
+### Patch Changes
+
+- [`65a0457b5c987`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65a0457b5c987) -
+  re-release @atlaskit/editor-plugin-text-color to see if it fixes the master-publish pipeline
+- Updated dependencies
+
+## 6.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.0
 
 ### Minor Changes

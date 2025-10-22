@@ -10,10 +10,15 @@ import { css, jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-s
 import { useIntl } from 'react-intl-next';
 
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import {
+	akEditorFullPageDefaultFontSize,
+	akEditorFullPageDenseFontSize,
+} from '@atlaskit/editor-shared-styles';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
@@ -31,6 +36,13 @@ import { cardMessages } from '../../messages';
 import { type Command } from '../../types';
 
 import type { HoverLinkOverlayProps } from './types';
+
+/**
+ * Dynamic padding value that adjusts based on the editor's base font size.
+ * When base font size is <= akEditorFullPageDenseFontSize (13px), uses 1px padding.
+ * Otherwise, uses default value with token('space.025').
+ */
+const DYNAMIC_PADDING_BLOCK = `clamp(1px, calc((var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * 999), ${token('space.025')})`;
 
 const containerStylesOld = css({
 	position: 'relative',
@@ -284,7 +296,12 @@ const HoverLinkOverlayOriginal = ({
 					href={url}
 					target="_blank"
 					style={{
-						paddingBlock: compactPadding ? '1px' : token('space.025'),
+						paddingBlock: compactPadding
+							? '1px'
+							: expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+								  fg('platform_editor_content_mode_button_mvp')
+								? DYNAMIC_PADDING_BLOCK
+								: token('space.025'),
 					}}
 					onClick={handleClick}
 					testId="inline-card-hoverlink-overlay"
@@ -438,7 +455,12 @@ const HoverLinkOverlayNew = ({
 					href={url}
 					target="_blank"
 					style={{
-						paddingBlock: compactPadding ? '1px' : token('space.025'),
+						paddingBlock: compactPadding
+							? '1px'
+							: expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+								  fg('platform_editor_content_mode_button_mvp')
+								? DYNAMIC_PADDING_BLOCK
+								: token('space.025'),
 					}}
 					onClick={handleClick}
 					testId="inline-card-hoverlink-overlay"

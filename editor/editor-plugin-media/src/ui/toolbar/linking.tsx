@@ -23,7 +23,6 @@ import { RECENT_SEARCH_HEIGHT_IN_PX, RECENT_SEARCH_WIDTH_IN_PX } from '@atlaskit
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/link';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import {
@@ -93,7 +92,7 @@ export const getLinkingToolbar = (
 							}
 
 							const setFocusOnFloatingToolbar = (setFocus?: boolean) => {
-								if (setFocus && editorExperiment('platform_editor_controls', 'variant1')) {
+								if (setFocus && areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar))) {
 									const {
 										state: { tr },
 										dispatch,
@@ -136,7 +135,7 @@ export const getLinkingToolbar = (
 											state: { tr },
 											dispatch,
 										} = view;
-										const selector = editorExperiment('platform_editor_controls', 'variant1')
+										const selector = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar))
 											? FORCE_FOCUS_SELECTOR_EDITOR_CONTROLS
 											: FORCE_FOCUS_SELECTOR;
 										pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector(selector)(tr);

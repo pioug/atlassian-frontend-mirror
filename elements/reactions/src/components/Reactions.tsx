@@ -103,6 +103,7 @@ export interface ReactionsProps
 			| 'miniMode'
 			| 'reactionPickerTriggerIcon'
 			| 'reactionPickerPlacement'
+			| 'reactionPickerPopperZIndex'
 		>,
 		Pick<SelectorProps, 'pickerQuickReactionEmojiIds'> {
 	/**
@@ -333,6 +334,7 @@ export const Reactions = React.memo(
 		reactionPickerPlacement,
 		summaryButtonIconAfter,
 		renderParticleEffectOnSummaryView = false,
+		reactionPickerPopperZIndex,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>('');
 		const [summaryViewParticleEffectEmojiId, setSummaryViewParticleEffectEmojiId] = useState<{
@@ -649,6 +651,7 @@ export const Reactions = React.memo(
 							hoverableReactionPicker={hoverableSummaryView}
 							hoverableReactionPickerDelay={hoverableSummaryView ? 300 : 0}
 							reactionPickerPlacement={reactionPickerPlacement}
+							reactionPickerPopperZIndex={reactionPickerPopperZIndex}
 						/>
 					)}
 					<ModalTransition>

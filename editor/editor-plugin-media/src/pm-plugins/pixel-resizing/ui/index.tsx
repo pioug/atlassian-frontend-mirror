@@ -14,6 +14,7 @@ import {
 	DEFAULT_IMAGE_HEIGHT,
 	DEFAULT_IMAGE_WIDTH,
 } from '@atlaskit/editor-common/media-single';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -116,6 +117,7 @@ export const PixelEntry = ({
 	const pixelWidth = hasPixelType ? mediaSingleWidth : pixelWidthFromElement;
 
 	const forceFocusSelector = pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector;
+	const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar));
 
 	return (
 		<PixelEntryComponent
@@ -167,6 +169,7 @@ export const PixelEntry = ({
 			}}
 			isViewMode={pluginState.isResizing}
 			triggerButtonSelector={triggerButtonSelector}
+			areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 		/>
 	);
 };

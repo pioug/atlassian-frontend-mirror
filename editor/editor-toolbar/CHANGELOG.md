@@ -1,5 +1,19 @@
 # @atlaskit/editor-toolbar
 
+## 0.16.1
+
+### Patch Changes
+
+- [`238f9a879ab1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/238f9a879ab1d) -
+  Add left and right arrow keyboard shortcuts to selection toolbar
+
+## 0.16.0
+
+### Minor Changes
+
+- [`0d64de95a912a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d64de95a912a) -
+  Allow editor ToolbarButton to take id as a prop
+
 ## 0.15.4
 
 ### Patch Changes

@@ -200,7 +200,7 @@ const styles = cssMap({
 	},
 	flyoutOpenFullHeightSidebar: {
 		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
-			transitionDuration: '0.3s',
+			transitionDuration: '0.2s',
 			transitionTimingFunction: 'cubic-bezier(0.6, 0, 0, 1)',
 
 			/**
@@ -258,7 +258,7 @@ const styles = cssMap({
 		'@media (prefers-reduced-motion: no-preference)': {
 			transitionProperty: 'transform, display',
 			transitionBehavior: 'allow-discrete',
-			transitionDuration: '0.3s',
+			transitionDuration: '0.2s',
 		},
 	},
 	expandAnimationMobile: {

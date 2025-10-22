@@ -5,11 +5,10 @@ export const invalidDeprecatedIconTests: {
 	name: string;
 	code: string;
 	output?: string;
-	errors: {
-		messageId: string;
-	}[];
+	errors: { messageId: string }[];
 	options: {
-		deprecatedConfig: Record<string, { message: string; unfixable?: boolean }>;
+		deprecatedConfig?: Record<string, { message: string; unfixable?: boolean }>;
+		turnOffAutoFixer?: boolean;
 	}[];
 }[] = [
 	{
@@ -22,11 +21,7 @@ export const invalidDeprecatedIconTests: {
 
 		<DashboardIcon spacing="spacious" color="currentColor" />
 		`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -44,11 +39,7 @@ export const invalidDeprecatedIconTests: {
 
 		<AddOnIcon spacing="spacious" color="currentColor" />
 		`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -70,11 +61,7 @@ export const invalidDeprecatedIconTests: {
 
 		<ChevronUpIcon spacing="spacious" color="currentColor" />
 		`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -87,13 +74,32 @@ export const invalidDeprecatedIconTests: {
 		],
 	},
 	{
-		name: 'Deprecated utility icon from @atlaskit/icon without replacement',
-		code: `import ChevronDownCircleIcon from '@atlaskit/icon/utility/chevron-down-circle';`,
-		errors: [
+		name: 'Deprecated utility icon from @atlaskit/icon with replacement but AutoFixer is turned off',
+		code: `import ChevronUpCircleIcon from '@atlaskit/icon/utility/chevron-up-circle';
+
+		<ChevronUpCircleIcon spacing="spacious" color="currentColor" />
+		`,
+		output: `import ChevronUpCircleIcon from '@atlaskit/icon/utility/chevron-up-circle';
+
+		<ChevronUpCircleIcon spacing="spacious" color="currentColor" />
+		`,
+		errors: [{ messageId: 'pathWithCustomMessage' }],
+		options: [
 			{
-				messageId: 'pathWithCustomMessage',
+				deprecatedConfig: {
+					'@atlaskit/icon/utility/chevron-up-circle': {
+						message:
+							'The icon "chevron-up-circle" is deprecated in favour of "chevron-up" from "@atlaskit/icon/utility"',
+					},
+				},
+				turnOffAutoFixer: true,
 			},
 		],
+	},
+	{
+		name: 'Deprecated utility icon from @atlaskit/icon without replacement',
+		code: `import ChevronDownCircleIcon from '@atlaskit/icon/utility/chevron-down-circle';`,
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -113,11 +119,7 @@ export const invalidDeprecatedIconTests: {
 		output: `import DashboardIcon from '@atlaskit/icon-lab/core/dashboard';
 
 		<DashboardIcon spacing="spacious" color="currentColor" />`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -132,11 +134,7 @@ export const invalidDeprecatedIconTests: {
 	{
 		name: 'Deprecated core icon from @atlaskit/icon-lab without replacement',
 		code: `import AddOnIcon from '@atlaskit/icon-lab/core/addon';`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -151,11 +149,7 @@ export const invalidDeprecatedIconTests: {
 	{
 		name: 'Re-export deprecated core icon from @atlaskit/icon',
 		code: `export { default as ActivityIcon } from '@atlaskit/icon/core/activity';`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -189,11 +183,7 @@ export const invalidDeprecatedIconTests: {
 			<IconButton icon={AddIcon} label="add" />;
 		</>
 		`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -227,11 +217,7 @@ export const invalidDeprecatedIconTests: {
 			<IconButton icon={(iconProps) => <AddIcon {...iconProps} />} label="add" />
 		</>
 		`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -265,11 +251,7 @@ export const invalidDeprecatedIconTests: {
 			<Button iconBefore={AddIcon} label="add" />;
 		</>
 		`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -303,11 +285,7 @@ export const invalidDeprecatedIconTests: {
 			<Button iconBefore={<AddIcon />} label="add" />;
 		</>
 		`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -341,11 +319,7 @@ export const invalidDeprecatedIconTests: {
 			<Button iconBefore={<AddIcon {...iconProps} />} label="add" />
 		</>
 		`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -367,11 +341,7 @@ export const invalidDeprecatedIconTests: {
 
 		<ListBulletedIcon spacing="spacious" color="currentColor" />
 		`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -389,11 +359,7 @@ export const invalidDeprecatedIconTests: {
 
 		<PageIcon spacing="spacious" color="currentColor" />
 		`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {
@@ -411,11 +377,7 @@ export const invalidDeprecatedIconTests: {
 
 		<ImageResizeIcon spacing="spacious" color="currentColor" />
 		`,
-		errors: [
-			{
-				messageId: 'pathWithCustomMessage',
-			},
-		],
+		errors: [{ messageId: 'pathWithCustomMessage' }],
 		options: [
 			{
 				deprecatedConfig: {

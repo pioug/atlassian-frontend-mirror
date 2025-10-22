@@ -79,6 +79,10 @@ const mainToolbarWrapperStylesVisualRefresh = css({
 	'span svg': { maxWidth: '100%' },
 });
 
+const mainToolbarWithRadiusStyle = css({
+	borderRadius: `${token('radius.small', '3px')} ${token('radius.small', '3px')} 0 0`,
+});
+
 const stickyToolbarWrapperStyleNew = css({
 	position: 'sticky',
 	paddingBottom: token('space.100', '8px'),
@@ -154,6 +158,7 @@ const FixedToolbar = (props: FixedToolbarProps) => (
 			props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
 			fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
 			props.isNewToolbarEnabled && mainToolbarWithoutLeftPadding,
+			fg('platform_editor_comments_border_radius') && mainToolbarWithRadiusStyle,
 		]}
 		data-testid="ak-editor-main-toolbar"
 	>

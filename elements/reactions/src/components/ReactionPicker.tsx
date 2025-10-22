@@ -153,6 +153,10 @@ export interface ReactionPickerProps
 	 */
 	reactionPickerPlacement?: Placement;
 	/**
+	 * Optional zIndex for the reaction picker popper
+	 */
+	reactionPickerPopperZIndex?: number;
+	/**
 	 * Optional prop to set the strategy of the reaction picker popup
 	 */
 	reactionPickerStrategy?: PopperProps<{}>['strategy'];
@@ -172,6 +176,7 @@ export interface ReactionPickerProps
 	 * Optional prop for using an opaque button background instead of a transparent background
 	 */
 	showOpaqueBackground?: boolean;
+
 	/**
 	 * Optional prop for applying subtle styling to reaction summary and picker
 	 */
@@ -204,6 +209,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		isListItem = false,
 		hoverableReactionPicker = false,
 		hoverableReactionPickerDelay = 0,
+		reactionPickerPopperZIndex,
 	} = props;
 
 	const [triggerRef, setTriggerRef] = useState<HTMLButtonElement | null>(null);
@@ -505,13 +511,24 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 					)}
 				</Reference>
 				{isPopupTrayOpen && (
-					<Portal zIndex={layers.flag()}>
+					<Portal
+						zIndex={
+							fg('platform_reactions_custom_popper_zindex')
+								? reactionPickerPopperZIndex || layers.flag()
+								: layers.flag()
+						}
+					>
 						<PopperWrapper
 							settings={settings}
 							popperModifiers={popperModifiers}
 							isOpen={isPopupTrayOpen}
 							onClose={onClose}
 							triggerRef={triggerRef}
+							zIndex={
+								fg('platform_reactions_custom_popper_zindex')
+									? reactionPickerPopperZIndex || layers.flag()
+									: layers.layer()
+							}
 						>
 							{settings.showFullPicker ||
 							(hoverableReactionPicker && isHoverableReactionPickerEmojiPickerOpen) ? (
@@ -567,10 +584,11 @@ export interface PopperWrapperProps {
 		showFullPicker: boolean;
 	};
 	triggerRef: HTMLDivElement | HTMLButtonElement | null;
+	zIndex?: number;
 }
 
 export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
-	const { triggerRef, settings, isOpen, onClose, children, popperModifiers } = props;
+	const { triggerRef, settings, isOpen, onClose, children, popperModifiers, zIndex } = props;
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 	const { formatMessage } = useIntl();
 	/**
@@ -602,8 +620,11 @@ export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 						aria-label={formatMessage(messages.popperWrapperLabel)}
 						id={PICKER_CONTROL_ID}
 						data-testid={RENDER_REACTIONPICKERPANEL_TESTID}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={{ zIndex: layers.layer(), ...style }}
+						style={{
+							zIndex,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+							...style,
+						}}
 						ref={(node: HTMLDivElement) => {
 							if (node) {
 								if (typeof ref === 'function') {

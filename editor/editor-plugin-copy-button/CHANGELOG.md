@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-copy-button
 
+## 6.0.3
+
+### Patch Changes
+
+- [`38bdf0355311c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38bdf0355311c) -
+  upgrade use of browser util
+- Updated dependencies
+
 ## 6.0.2
 
 ### Patch Changes
@@ -62,7 +70,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.

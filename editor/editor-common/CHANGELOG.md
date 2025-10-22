@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 110.16.3
+
+### Patch Changes
+
+- [`4821b70c5e660`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4821b70c5e660) -
+  ED-29531 Arrow key navigation on primary toolbar cannot go pass format text dropdown button
+- Updated dependencies
+
+## 110.16.2
+
+### Patch Changes
+
+- [`c219d22cf0788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c219d22cf0788) -
+  [ux] Card hover link overlay in compact mode
+
+## 110.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.16.0
+
+### Minor Changes
+
+- [`e5f402044b1c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5f402044b1c6) -
+  Add media render error analytics
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.15.2
 
 ### Patch Changes

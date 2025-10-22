@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
@@ -9,6 +9,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { Popup } from '@atlaskit/popup';
 import Tooltip from '@atlaskit/tooltip';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { FlyoutMenuItem } from '../../../menu-item/flyout-menu-item/flyout-menu-item';
 import { FlyoutMenuItemContent } from '../../../menu-item/flyout-menu-item/flyout-menu-item-content';
@@ -28,6 +29,15 @@ import {
 	setMediaQuery,
 } from './_test-utils';
 
+/**
+ * In this test suite, we need to use `fireEvent` instead of `userEvent` when interacting with
+ * elements inside of `TopNav`, to work around a Compiled bug.
+ *
+ * TopNav applies `pointer-events: none`, and its child `TopNavStart` applies `pointer-events: auto`.
+ * However, the `pointer-events: auto` style is not being inserted into the test environment.
+ *
+ * https://atlassian.slack.com/archives/C017XR8K1RB/p1756949097822119
+ */
 const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
 const runAllTimers = () => {
@@ -36,7 +46,7 @@ const runAllTimers = () => {
 	});
 };
 
-describe('side nav flyout', () => {
+ffTest.both('navx-full-height-sidebar', 'side nav flyout', () => {
 	beforeEach(() => {
 		resetMatchMedia();
 		jest.useFakeTimers();
@@ -64,11 +74,17 @@ describe('side nav flyout', () => {
 		render(
 			<Root>
 				<TopNav>
-					<SideNavToggleButton
-						collapseLabel="Collapse sidebar"
-						expandLabel="Expand sidebar"
-						defaultCollapsed
-					/>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed
+							/>
+						}
+					>
+						{null}
+					</TopNavStart>
 				</TopNav>
 				<SideNav defaultCollapsed testId="sidenav">
 					sidenav
@@ -89,11 +105,19 @@ describe('side nav flyout', () => {
 		});
 
 		it('should not display the side nav flyout when the toggle button is hovered', async () => {
-			const user = createUser();
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav testId="sidenav">sidenav</SideNav>
 					<Main>main</Main>
@@ -101,16 +125,16 @@ describe('side nav flyout', () => {
 			);
 
 			// Side nav is always collapsed by default on small viewports
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseOver(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).not.toHaveAttribute('data-visible', 'flyout');
 
 			// Expand side nav
-			await user.click(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.click(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
-			await user.hover(screen.getByRole('button', { name: 'Collapse sidebar' }));
+			fireEvent.mouseOver(screen.getByRole('button', { name: 'Collapse sidebar' }));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).not.toHaveAttribute('data-visible', 'flyout');
@@ -119,18 +143,26 @@ describe('side nav flyout', () => {
 
 	describe('large viewports', () => {
 		it('should not display the side nav flyout when the side nav is expanded and the toggle button is hovered', async () => {
-			const user = createUser();
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav testId="sidenav">sidenav</SideNav>
 					<Main>main</Main>
 				</Root>,
 			);
 
-			await user.hover(screen.getByRole('button', { name: 'Collapse sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Collapse sidebar' }));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).not.toHaveAttribute(
@@ -140,15 +172,20 @@ describe('side nav flyout', () => {
 		});
 
 		it('should display the side nav flyout when the side nav is collapsed and the toggle button is hovered', async () => {
-			const user = createUser();
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
@@ -157,34 +194,37 @@ describe('side nav flyout', () => {
 				</Root>,
 			);
 
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
 		});
 
-		it('should stop displaying the side nav flyout when hovering from toggle button to something else', async () => {
-			const user = createUser();
+		it('should stop displaying the side nav flyout when mousing from toggle button to something else', async () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
 					</SideNav>
-					<Main>main</Main>
 				</Root>,
 			);
 
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
-
-			await user.hover(screen.getByText('main'));
+			fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).not.toHaveAttribute(
@@ -193,16 +233,22 @@ describe('side nav flyout', () => {
 			);
 		});
 
-		it('should keep the side nav flyout displayed when hovering from side nav toggle button to the side nav', async () => {
+		it('should keep the side nav flyout displayed when mousing from side nav toggle button to the side nav', async () => {
 			const user = createUser();
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
@@ -211,17 +257,17 @@ describe('side nav flyout', () => {
 				</Root>,
 			);
 
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
+			fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 			await user.hover(screen.getByTestId('sidenav'));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
 		});
 
-		it('should keep the side nav flyout displayed when hovering from side nav toggle button to the TopNavStart element', async () => {
-			const user = createUser();
+		it('should keep the side nav flyout displayed when mousing from side nav toggle button to the TopNavStart element', async () => {
 			render(
 				<Root>
 					<TopNav>
@@ -245,22 +291,21 @@ describe('side nav flyout', () => {
 				</Root>,
 			);
 
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
-			await user.hover(screen.getByTestId('top-nav-start'));
+			fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByTestId('top-nav-start'));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
 		});
 
-		it('should stop displaying the side nav flyout when hovering from the side nav toggle button to another element in the TopNavStart element', async () => {
-			const user = createUser();
+		it('should stop displaying the side nav flyout when mousing from the side nav toggle button to another element in the TopNavStart element', async () => {
 			render(
 				<Root>
 					<TopNav>
 						<TopNavStart
-							testId="top-nav-start"
 							sideNavToggleButton={
 								<SideNavToggleButton
 									collapseLabel="Collapse sidebar"
@@ -279,10 +324,11 @@ describe('side nav flyout', () => {
 				</Root>,
 			);
 
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
-			await user.hover(screen.getByRole('button', { name: 'App switcher' }));
+			fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'App switcher' }));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).not.toHaveAttribute(
@@ -291,16 +337,22 @@ describe('side nav flyout', () => {
 			);
 		});
 
-		it('should stop displaying the side nav flyout when hovering from the side nav to something else', async () => {
+		it('should stop displaying the side nav flyout when mousing from the side nav to something else', async () => {
 			const user = createUser();
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
@@ -309,12 +361,12 @@ describe('side nav flyout', () => {
 				</Root>,
 			);
 
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
+			fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 			await user.hover(screen.getByTestId('sidenav'));
 			runAllTimers();
-
 			await user.hover(screen.getByText('main'));
 			runAllTimers();
 
@@ -325,15 +377,20 @@ describe('side nav flyout', () => {
 		});
 
 		it('should expand the side nav when clicking on the toggle button while the side nav flyout is visible', async () => {
-			const user = createUser();
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
@@ -343,28 +400,33 @@ describe('side nav flyout', () => {
 			);
 
 			// Hover on side nav toggle button to flyout the side nav
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
 
 			// Click on the toggle button to expand the side nav
-			await user.click(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.click(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
 		});
 
 		it('should stop displaying the side nav flyout when the flyout was visible, and the user expands then collapses', async () => {
-			const user = createUser();
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
@@ -374,17 +436,17 @@ describe('side nav flyout', () => {
 			);
 
 			// Hover on side nav toggle button to flyout the side nav
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
 
 			// Click on the toggle button to expand the side nav
-			await user.click(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.click(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			// Click the toggle button again to collapse the side nav
-			await user.click(screen.getByRole('button', { name: 'Collapse sidebar' }));
+			fireEvent.click(screen.getByRole('button', { name: 'Collapse sidebar' }));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).not.toHaveAttribute(
@@ -402,15 +464,20 @@ describe('side nav flyout', () => {
 				return <div>LayerComponent</div>;
 			};
 
-			const user = createUser();
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
@@ -421,17 +488,17 @@ describe('side nav flyout', () => {
 			);
 
 			// Hover on side nav toggle button to flyout the side nav
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
 
 			// Click on the toggle button to expand the side nav
-			await user.click(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.click(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			// Click the toggle button again to collapse the side nav
-			await user.click(screen.getByRole('button', { name: 'Collapse sidebar' }));
+			fireEvent.click(screen.getByRole('button', { name: 'Collapse sidebar' }));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).not.toHaveAttribute(
@@ -445,11 +512,17 @@ describe('side nav flyout', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
@@ -459,12 +532,13 @@ describe('side nav flyout', () => {
 			);
 
 			// Hover on side nav toggle button to flyout the side nav
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
 
 			// Hover on another element outside of side nav
+			fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 			await user.hover(screen.getByText('main'));
 
 			// We are specifically _not_ running pending timers here so we can hover back to the side nav before the flyout timer finishes.
@@ -493,11 +567,17 @@ describe('side nav flyout', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
@@ -517,11 +597,17 @@ describe('side nav flyout', () => {
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
@@ -539,15 +625,20 @@ describe('side nav flyout', () => {
 		});
 
 		it('should lock the flyout open when there is an open layer and the side nav is flied out', async () => {
-			const user = createUser();
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
@@ -558,14 +649,14 @@ describe('side nav flyout', () => {
 			);
 
 			// Hover on side nav toggle button to flyout the side nav
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			// Assert flyout is visible
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
 
-			// Hover on another element outside of side nav to check if lock is working
-			await user.hover(screen.getByText('main'));
+			// Mouse out of toggle button to check if lock is working
+			fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			// Assert flyout is still visible
@@ -573,15 +664,20 @@ describe('side nav flyout', () => {
 		});
 
 		it('should lock the flyout open when there are multiple layers open and the side nav is flied out', async () => {
-			const user = createUser();
 			render(
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
@@ -593,14 +689,14 @@ describe('side nav flyout', () => {
 			);
 
 			// Hover on side nav toggle button to flyout the side nav
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			// Assert flyout is visible
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
 
-			// Hover on another element outside of side nav to check if lock is working
-			await user.hover(screen.getByText('main'));
+			// Mouse out of toggle button to check if lock is working
+			fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			// Assert flyout is visible
@@ -615,11 +711,17 @@ describe('side nav flyout', () => {
 				return (
 					<Root>
 						<TopNav>
-							<SideNavToggleButton
-								collapseLabel="Collapse sidebar"
-								expandLabel="Expand sidebar"
-								defaultCollapsed
-							/>
+							<TopNavStart
+								sideNavToggleButton={
+									<SideNavToggleButton
+										collapseLabel="Collapse sidebar"
+										expandLabel="Expand sidebar"
+										defaultCollapsed
+									/>
+								}
+							>
+								{null}
+							</TopNavStart>
 						</TopNav>
 						<SideNav defaultCollapsed testId="sidenav">
 							sidenav
@@ -638,11 +740,11 @@ describe('side nav flyout', () => {
 			render(<TestComponent />);
 
 			// Hover on side nav toggle button to flyout the side nav
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
-			// Hover on another element outside of side nav to check if lock is working
-			await user.hover(screen.getByText('main'));
+			// Mouse out of toggle button to check if lock is working
+			fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			// Assert flyout is visible
@@ -664,11 +766,17 @@ describe('side nav flyout', () => {
 				return (
 					<Root>
 						<TopNav>
-							<SideNavToggleButton
-								collapseLabel="Collapse sidebar"
-								expandLabel="Expand sidebar"
-								defaultCollapsed
-							/>
+							<TopNavStart
+								sideNavToggleButton={
+									<SideNavToggleButton
+										collapseLabel="Collapse sidebar"
+										expandLabel="Expand sidebar"
+										defaultCollapsed
+									/>
+								}
+							>
+								{null}
+							</TopNavStart>
 						</TopNav>
 						<SideNav defaultCollapsed testId="sidenav">
 							sidenav
@@ -691,11 +799,11 @@ describe('side nav flyout', () => {
 			render(<TestComponent />);
 
 			// Hover on side nav toggle button to flyout the side nav
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
-			// Hover on another element outside of side nav to check if lock is working
-			await user.hover(screen.getByText('main'));
+			// Mouse out of toggle button to check if lock is working
+			fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
 			// Assert flyout is visible
@@ -712,7 +820,7 @@ describe('side nav flyout', () => {
 			);
 		});
 
-		it('should close the side nav flyout with a delay when the user mouses out of the side nav and then the last open layer is closed', async () => {
+		it('should close the side nav flyout with a delay when the user mouses away and then the last open layer is closed', async () => {
 			const user = createUser();
 			const TestComponent = () => {
 				const [isLayerOpen, setIsLayerOpen] = useState(true);
@@ -749,11 +857,11 @@ describe('side nav flyout', () => {
 			render(<TestComponent />);
 
 			// Hover on side nav toggle button to flyout the side nav
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
-			// Hover on another element outside of side nav to check if lock is working
-			await user.hover(screen.getByText('main'));
+			// Mouse out of toggle button to check if lock is working
+			fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 
 			// Assert flyout is visible
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
@@ -774,8 +882,7 @@ describe('side nav flyout', () => {
 			);
 		});
 
-		it('should keep the side nav flyout locked when a layer is opened after the user mouses out of the side nav', async () => {
-			const user = createUser();
+		it('should keep the side nav flyout locked when a layer is opened after the user mouses away', async () => {
 			const TestComponent = ({ isLayerOpen }: { isLayerOpen: boolean }) => {
 				return (
 					<Root>
@@ -804,11 +911,11 @@ describe('side nav flyout', () => {
 			const { rerender } = render(<TestComponent isLayerOpen={false} />);
 
 			// Hover on side nav toggle button to flyout the side nav
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 			runAllTimers();
 
-			// Hover on another element outside of side nav to check if lock is working
-			await user.hover(screen.getByText('main'));
+			// Mouse out of toggle button to check if lock is working
+			fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 
 			// We are specifically _not_ running pending timers here to make sure the flyout is not closed immediately.
 
@@ -841,11 +948,17 @@ describe('side nav flyout', () => {
 				render(
 					<Root>
 						<TopNav>
-							<SideNavToggleButton
-								collapseLabel="Collapse sidebar"
-								expandLabel="Expand sidebar"
-								defaultCollapsed
-							/>
+							<TopNavStart
+								sideNavToggleButton={
+									<SideNavToggleButton
+										collapseLabel="Collapse sidebar"
+										expandLabel="Expand sidebar"
+										defaultCollapsed
+									/>
+								}
+							>
+								{null}
+							</TopNavStart>
 						</TopNav>
 						<SideNav defaultCollapsed testId="sidenav">
 							sidenav
@@ -859,10 +972,11 @@ describe('side nav flyout', () => {
 				);
 
 				// Hover on side nav toggle button to flyout the side nav
-				await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+				fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 				runAllTimers();
 
 				// Open a flyout menu item to lock the flyout
+				fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 				await user.click(screen.getByText('Flyout menu item trigger'));
 				runAllTimers();
 
@@ -879,11 +993,17 @@ describe('side nav flyout', () => {
 				render(
 					<Root>
 						<TopNav>
-							<SideNavToggleButton
-								collapseLabel="Collapse sidebar"
-								expandLabel="Expand sidebar"
-								defaultCollapsed
-							/>
+							<TopNavStart
+								sideNavToggleButton={
+									<SideNavToggleButton
+										collapseLabel="Collapse sidebar"
+										expandLabel="Expand sidebar"
+										defaultCollapsed
+									/>
+								}
+							>
+								{null}
+							</TopNavStart>
 						</TopNav>
 						<SideNav defaultCollapsed testId="sidenav">
 							sidenav
@@ -900,10 +1020,11 @@ describe('side nav flyout', () => {
 				);
 
 				// Hover on side nav toggle button to flyout the side nav
-				await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+				fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 				runAllTimers();
 
 				// Open a flyout menu item to lock the flyout
+				fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 				await user.click(screen.getByText('Flyout menu item trigger'));
 				runAllTimers();
 
@@ -933,11 +1054,17 @@ describe('side nav flyout', () => {
 				return (
 					<Root>
 						<TopNav>
-							<SideNavToggleButton
-								collapseLabel="Collapse sidebar"
-								expandLabel="Expand sidebar"
-								defaultCollapsed
-							/>
+							<TopNavStart
+								sideNavToggleButton={
+									<SideNavToggleButton
+										collapseLabel="Collapse sidebar"
+										expandLabel="Expand sidebar"
+										defaultCollapsed
+									/>
+								}
+							>
+								{null}
+							</TopNavStart>
 						</TopNav>
 						<SideNav defaultCollapsed testId="sidenav">
 							sidenav
@@ -969,10 +1096,11 @@ describe('side nav flyout', () => {
 				render(<TestComponent />);
 
 				// Hover on side nav toggle button to flyout the side nav
-				await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+				fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 				runAllTimers();
 
 				// Open popup to lock the flyout
+				fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 				await user.click(screen.getByText('Popup trigger'));
 				runAllTimers();
 
@@ -989,10 +1117,11 @@ describe('side nav flyout', () => {
 				render(<TestComponent />);
 
 				// Hover on side nav toggle button to flyout the side nav
-				await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+				fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 				runAllTimers();
 
 				// Open popup to lock the flyout
+				fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 				await user.click(screen.getByText('Popup trigger'));
 				runAllTimers();
 
@@ -1019,11 +1148,17 @@ describe('side nav flyout', () => {
 			const TestComponent = () => (
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
@@ -1043,10 +1178,11 @@ describe('side nav flyout', () => {
 				render(<TestComponent />);
 
 				// Hover on side nav toggle button to flyout the side nav
-				await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+				fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 				runAllTimers();
 
 				// Open dropdown to lock the flyout
+				fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 				await user.click(screen.getByText('Dropdown trigger'));
 				runAllTimers();
 
@@ -1063,10 +1199,11 @@ describe('side nav flyout', () => {
 				render(<TestComponent />);
 
 				// Hover on side nav toggle button to flyout the side nav
-				await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+				fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 				runAllTimers();
 
 				// Open dropdown to lock the flyout
+				fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
 				await user.click(screen.getByText('Dropdown trigger'));
 				runAllTimers();
 
@@ -1093,11 +1230,17 @@ describe('side nav flyout', () => {
 			const TestComponent = () => (
 				<Root>
 					<TopNav>
-						<SideNavToggleButton
-							collapseLabel="Collapse sidebar"
-							expandLabel="Expand sidebar"
-							defaultCollapsed
-						/>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							{null}
+						</TopNavStart>
 					</TopNav>
 					<SideNav defaultCollapsed testId="sidenav">
 						sidenav
@@ -1121,7 +1264,7 @@ describe('side nav flyout', () => {
 				render(<TestComponent />);
 
 				// Hover on side nav toggle button to flyout the side nav
-				await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+				fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 				runAllTimers();
 
 				// Hover over the tooltip trigger to lock the flyout
@@ -1144,10 +1287,12 @@ describe('side nav flyout', () => {
 				render(<TestComponent />);
 
 				// Hover on side nav toggle button to flyout the side nav
-				await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+				fireEvent.mouseEnter(screen.getByRole('button', { name: 'Expand sidebar' }));
 				runAllTimers();
 
 				// Hover over the tooltip trigger to lock the flyout
+				fireEvent.mouseLeave(screen.getByRole('button', { name: 'Expand sidebar' }));
+				await user.hover(screen.getByTestId('sidenav'));
 				await user.hover(screen.getByRole('button', { name: 'Tooltip trigger' }));
 				runAllTimers();
 

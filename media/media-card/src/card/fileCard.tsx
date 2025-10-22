@@ -282,6 +282,7 @@ export const FileCard = ({
 		getSsrScriptProps,
 		copyNodeRef,
 	} = useFilePreview({
+		useSrcSet: true,
 		mediaBlobUrlAttrs,
 		resizeMode: imageResizeModeToFileImageMode(resizeMode),
 		identifier,

@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.7.3
+
+### Patch Changes
+
+- [`1e36a2d0fe31e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e36a2d0fe31e) -
+  Tiny update to form component types
+
 ## 0.7.2
 
 ### Patch Changes

@@ -13,7 +13,9 @@ export default {
 		],
 		definitionId: 'e1bfa9cc-ecfe-4466-bcfb-8759bf9a1c60',
 		key: 'slack-object-provider',
+		objectId: 'slack-channel-67890',
 		resourceType: 'channel',
+		tenantId: 'slack-tenant',
 		version: '6.0.4',
 		generator: {
 			'@type': 'Application',

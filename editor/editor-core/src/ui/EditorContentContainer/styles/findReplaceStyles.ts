@@ -1,6 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, type SerializedStyles } from '@emotion/react';
 
+import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
@@ -16,6 +17,33 @@ export const findReplaceStyles: SerializedStyles = css({
 	'.selected-search-match': {
 		backgroundColor: token('color.background.accent.teal.subtle'),
 	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const findReplaceStylesWithCodeblockColorContrastFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} .search-match.selected-search-match`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		span: {
+			// we need to use !important here as we need to override inline selection styles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			color: `${token('color.text')} !important`,
+		},
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const findReplaceStylesNewWithCodeblockColorContrastFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} .search-match-text.selected-search-match`]:
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			span: {
+				// we need to use !important here as we need to override inline selection styles
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				color: `${token('color.text')} !important`,
+			},
+		},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles

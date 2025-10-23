@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.5.0
+
+### Minor Changes
+
+- [`f54c8f46bb85f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f54c8f46bb85f) -
+  Add @atlaskit/editor-plugin-toolbar as an optional dependency, and check its presence to enable
+  the floating insert button
+
+## 7.4.3
+
+### Patch Changes
+
+- [`c28cd65d12c24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28cd65d12c24) -
+  EDITOR-2447 Bump adf-schema to 51.3.1
+- Updated dependencies
+
 ## 7.4.2
 
 ### Patch Changes

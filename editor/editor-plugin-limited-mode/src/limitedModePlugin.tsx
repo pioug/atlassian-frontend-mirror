@@ -50,6 +50,11 @@ export const limitedModePlugin: LimitedModePlugin = ({ config: options = {}, api
 
 			const checkAndShowFlag = useCallback(
 				(isLimitedModeEnabled: boolean) => {
+					if (!(expVal('cc_editor_limited_mode', 'flagEnabled', true) === true)) {
+						// Disable the flag behavior entirely if the flag is off
+						return;
+					}
+
 					const learnMoreLink = expVal('cc_editor_limited_mode', 'learnMoreLink', '');
 
 					if (isLimitedModeEnabled && hasEditorBeenFocusedRef.current && !hasShownFlagRef.current) {

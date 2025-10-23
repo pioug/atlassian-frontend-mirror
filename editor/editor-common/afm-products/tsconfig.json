@@ -1,0 +1,195 @@
+{
+	"extends": "../../../../tsconfig.entry-points.products.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__editor-common/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../activity-provider/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../adf-utils/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-listeners/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-namespaced-context/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../uip/atlassian-context/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/code/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../monorepo-tooling/codemod-utils/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../custom-steps/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-json-transformer/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-palette/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-tables/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/emoji/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-object/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-datasource/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-picker/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-card/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-client/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-client-react/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-common/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-file-preview/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-picker/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-ui/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-viewer/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/mention/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/menu/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/onboarding/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags-react/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popper/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../people-and-teams/profilecard/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../prosemirror-history/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/section-message/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/smart-card/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../smart-experiences/smart-user-picker/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/status/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/task-decision/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/width-detector/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-core/afm-products/tsconfig.json"
+		}
+	]
+}

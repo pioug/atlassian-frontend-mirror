@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.22.0
+
+### Minor Changes
+
+- [`4df3a43323a47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4df3a43323a47) -
+  Added `turnOffAutoFixer` configuration option to the `no-deprecated-imports` rule, allowing users
+  to disable automatic code fixes while still reporting deprecated import violations.
+
 ## 13.21.3
 
 ### Patch Changes

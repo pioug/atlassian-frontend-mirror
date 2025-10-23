@@ -24,13 +24,13 @@
 	],
 	"references": [
 		{
+			"path": "../../css/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../ds-lib/afm-dev-agents/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
-		},
-		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-dev-agents/tsconfig.json"
 		},
 		{
 			"path": "../../theme/afm-dev-agents/tsconfig.json"

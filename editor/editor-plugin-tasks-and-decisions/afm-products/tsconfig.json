@@ -1,0 +1,95 @@
+{
+	"extends": "../../../../tsconfig.entry-points.products.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-tasks-and-decisions/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-namespaced-context/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-menu/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-context-identifier/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-viewmode/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-toolbar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-type-ahead/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popup/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../input-rules/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/task-decision/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-products/tsconfig.json"
+		}
+	]
+}

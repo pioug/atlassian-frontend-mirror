@@ -6,6 +6,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import { ToolbarSection, SeparatorPosition } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentType, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -31,8 +32,14 @@ const shouldShowSection = (
 		return false;
 	}
 
-	if (disableSelectionToolbar) {
-		return true;
+	/**
+	 * This check is no longer needed with plugin config changes, the selection toolbar will not be registered and so
+	 * no components will render
+	 */
+	if (!fg('platform_editor_toolbar_aifc_placement_config')) {
+		if (disableSelectionToolbar) {
+			return true;
+		}
 	}
 
 	if (toolbar?.key === TOOLBARS.INLINE_TEXT_TOOLBAR && toolbarDocking !== 'top') {

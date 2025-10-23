@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.18.2
+
+### Patch Changes
+
+- [`b2520b000ee03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2520b000ee03) -
+  ED-29593 cleanup platform_editor_ttvc_nodes_in_viewport
+
 ## 13.18.1
 
 ### Patch Changes

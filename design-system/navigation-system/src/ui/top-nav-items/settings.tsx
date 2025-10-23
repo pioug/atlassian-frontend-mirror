@@ -4,13 +4,7 @@ import SettingsIcon from '@atlaskit/icon/core/settings';
 
 import { EndItem, type EndItemProps } from './end-item';
 
-interface SettingsProps extends Omit<EndItemProps, 'icon'> {
-	/**
-	 * Experimental, do not use. May be removed at any time.
-	 * Whether the tooltip should be disabled.
-	 */
-	UNSAFE_isTooltipDisabled?: boolean;
-}
+interface SettingsProps extends Omit<EndItemProps, 'icon'> {}
 
 /**
  * __Settings__

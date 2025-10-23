@@ -1,6 +1,7 @@
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep, type Step } from '@atlaskit/editor-prosemirror/transform';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+
+import type { FlagType } from '../main';
 
 interface TransactionMetadata {
 	from: number;
@@ -52,7 +53,10 @@ const isStepContentReplacedWithAnotherOfSameSize = (s: Step): boolean => {
  * Number of ReplaceStep and ReplaceAroundStep steps 'numReplaceSteps'.
  * 'isAllText' if all steps are represent adding inline text or a backspace/delete or no-op
  */
-export const getTrMetadata = (tr: Transaction | ReadonlyTransaction): TransactionMetadata => {
+export const getTrMetadata = (
+	tr: Transaction | ReadonlyTransaction,
+	flags: FlagType,
+): TransactionMetadata => {
 	let from: number | undefined;
 	let to: number | undefined;
 	let numReplaceSteps = 0;
@@ -67,7 +71,9 @@ export const getTrMetadata = (tr: Transaction | ReadonlyTransaction): Transactio
 			) {
 				isAllText = false;
 			}
-			if (editorExperiment('platform_editor_controls', 'variant1')) {
+			// Fixes drag handle and quick insert button overlap issues
+			if (flags.toolbarFlagsEnabled) {
+				// platform_editor_controls note: fixes drag handle and quick insert button overlap issues
 				isReplacedWithSameSize = isStepContentReplacedWithAnotherOfSameSize(s);
 			}
 			const mappedTo = tr.mapping.map(s.to);

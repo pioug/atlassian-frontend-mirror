@@ -1,11 +1,5 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 /**
- * When `platform_dst_nav4_panel_splitter_guards` is disabled,
- * `useSafeDefaultWidth` returns the provided `defaultWidthProp`.
- *
- * When `platform_dst_nav4_panel_splitter_guards` is enabled,
- * `useSafeDefaultWidth` returns the `fallbackWidth` if the provided `defaultWidthProp` is not an integer value.
+ * Returns the `fallbackWidth` if the provided `defaultWidthProp` is not an integer value.
  */
 export function useSafeDefaultWidth({
 	defaultWidthProp,
@@ -25,20 +19,18 @@ export function useSafeDefaultWidth({
 	 */
 	slotName: string;
 }) {
-	if (fg('platform_dst_nav4_panel_splitter_guards')) {
-		// If the provided `defaultWidth` is invalid then we use our fallback.
-		// We are using a runtime check because some invalid numbers like `NaN` are not caught by types,
-		// and we saw some issues in products where our experience broke due to this.
-		if (!Number.isInteger(defaultWidthProp)) {
-			if (process.env.NODE_ENV !== 'production') {
-				// eslint-disable-next-line no-console
-				console.error(
-					`The defaultWidth value must be an integer, but '${defaultWidthProp}' was provided to ${slotName}. Falling back to ${fallbackDefaultWidth}px instead.`,
-				);
-			}
-
-			return fallbackDefaultWidth;
+	// If the provided `defaultWidth` is invalid then we use our fallback.
+	// We are using a runtime check because some invalid numbers like `NaN` are not caught by types,
+	// and we saw some issues in products where our experience broke due to this.
+	if (!Number.isInteger(defaultWidthProp)) {
+		if (process.env.NODE_ENV !== 'production') {
+			// eslint-disable-next-line no-console
+			console.error(
+				`The defaultWidth value must be an integer, but '${defaultWidthProp}' was provided to ${slotName}. Falling back to ${fallbackDefaultWidth}px instead.`,
+			);
 		}
+
+		return fallbackDefaultWidth;
 	}
 
 	return defaultWidthProp;

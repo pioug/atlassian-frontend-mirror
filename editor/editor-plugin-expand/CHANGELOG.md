@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 7.2.3
+
+### Patch Changes
+
+- [`c28cd65d12c24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28cd65d12c24) -
+  EDITOR-2447 Bump adf-schema to 51.3.1
+- Updated dependencies
+
 ## 7.2.2
 
 ### Patch Changes

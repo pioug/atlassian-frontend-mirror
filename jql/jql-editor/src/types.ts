@@ -6,6 +6,7 @@ export type {
 	HydratedValues,
 	HydratedValue,
 	HydratedUser,
+	HydratedTeam,
 } from './ui/types';
 
 export type {

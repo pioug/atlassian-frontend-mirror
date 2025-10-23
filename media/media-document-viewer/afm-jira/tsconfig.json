@@ -35,6 +35,9 @@
 			"path": "../../media-common/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
 		},
 		{

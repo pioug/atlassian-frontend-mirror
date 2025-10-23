@@ -198,7 +198,10 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		// In edit mode (node content wrapper has contenteditable set to true), link redirection is disabled by default
 		// We need to call "stopPropagation" here in order to prevent in editor view mode, the browser from navigating to
 		// another URL if the media node is wrapped in a link mark.
-		if (this.props.isViewOnly && areToolbarFlagsEnabled(Boolean(this.props.pluginInjectionApi?.toolbar))) {
+		if (
+			this.props.isViewOnly &&
+			areToolbarFlagsEnabled(Boolean(this.props.pluginInjectionApi?.toolbar))
+		) {
 			event.preventDefault();
 		}
 	};

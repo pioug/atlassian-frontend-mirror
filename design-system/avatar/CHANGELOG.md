@@ -1,5 +1,12 @@
 # @atlaskit/avatar
 
+## 25.5.0
+
+### Minor Changes
+
+- [`f70c3197f7179`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f70c3197f7179) -
+  [ux] add hexagon appearanceShape to user-picker based on appType as agent
+
 ## 25.4.4
 
 ### Patch Changes

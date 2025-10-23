@@ -1,12 +1,9 @@
 import React from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import {
-	type IconProps as TempIconProps,
-	type LogoProps as TempLogoProps,
-} from '@atlaskit/temp-nav-app-icons/types';
 
 import { type LogoProps } from './types';
+import { type AppIconProps, type AppLogoProps } from './utils/types';
 
 /**
  * Creates a feature flagged component that renders the legacy logo or the new logo
@@ -18,7 +15,7 @@ import { type LogoProps } from './types';
  */
 export const createFeatureFlaggedComponent = (
 	LegacyComponent: React.ComponentType<LogoProps>,
-	NewComponent: React.ComponentType<TempLogoProps> | React.ComponentType<TempIconProps>,
+	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
 ) => {
 	// Note: textColor and iconColor aren't supported on all new logos
 	// These props will be deprecated in the future
@@ -42,7 +39,7 @@ export const createFeatureFlaggedComponent = (
  */
 export const createFeatureFlaggedServiceCollectionComponent = (
 	LegacyComponent: React.ComponentType<LogoProps>,
-	NewComponent: React.ComponentType<TempLogoProps> | React.ComponentType<TempIconProps>,
+	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
 ) => {
 	// Note: textColor and iconColor aren't supported on all new logos
 	// These props will be deprecated in the future
@@ -62,8 +59,8 @@ export const createFeatureFlaggedServiceCollectionComponent = (
 
 export const createFeatureFlaggedRovoComponent = (
 	LegacyComponent: React.ComponentType<LogoProps>,
-	NewComponent: React.ComponentType<TempLogoProps> | React.ComponentType<TempIconProps>,
-	NewHexComponent: React.ComponentType<TempLogoProps> | React.ComponentType<TempIconProps>,
+	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
+	NewHexComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
 ) => {
 	const RovoHexWrapped = tempSizeWrapper(NewHexComponent);
 	const RovoServiceCollectionWrapped = createFeatureFlaggedServiceCollectionComponent(
@@ -100,7 +97,7 @@ export const createFeatureFlaggedRovoComponent = (
  * @param NewComponent - The new logo or icon component.
  */
 export const tempSizeWrapper = (
-	NewComponent: React.ComponentType<TempLogoProps> | React.ComponentType<TempIconProps>,
+	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
 ) => {
 	return ({ size, ...props }: LogoProps) => {
 		return <NewComponent size={size || 'medium'} {...props} />;
@@ -108,8 +105,8 @@ export const tempSizeWrapper = (
 };
 
 export const teamEUFlaggedIcon = (
-	LegacyComponent: React.ComponentType<TempIconProps> | React.ComponentType<TempLogoProps>,
-	NewComponent: React.ComponentType<TempIconProps> | React.ComponentType<TempLogoProps>,
+	LegacyComponent: React.ComponentType<AppIconProps> | React.ComponentType<AppLogoProps>,
+	NewComponent: React.ComponentType<AppIconProps> | React.ComponentType<AppLogoProps>,
 ) => {
 	return (props: LogoProps) => {
 		const Logo = fg('platform-logo-rebrand-team-eu')

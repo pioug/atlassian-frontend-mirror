@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-card
 
+## 11.4.3
+
+### Patch Changes
+
+- [`9854f5d3e02e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9854f5d3e02e7) -
+  EDITOR-2416: Add a fatal error position map to cache errors to prevent the failed link conversion
+  to run multiple times for the same links at the same positions.
+- [`c28cd65d12c24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28cd65d12c24) -
+  EDITOR-2447 Bump adf-schema to 51.3.1
+- Updated dependencies
+
 ## 11.4.2
 
 ### Patch Changes

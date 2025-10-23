@@ -24,6 +24,9 @@
 	"references": [
 		{
 			"path": "../../jql-editor-common/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
 		}
 	]
 }

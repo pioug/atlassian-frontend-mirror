@@ -153,6 +153,15 @@ export const listsStyles: SerializedStyles = css({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const diffListStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'li[data-testid="show-diff-changed-decoration-node"]::marker': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		color: 'var(--diff-decoration-marker-color)',
+	},
+});
+
 /* This prevents https://product-fabric.atlassian.net/browse/ED-20924 */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const listsStylesSafariFix: SerializedStyles = css({

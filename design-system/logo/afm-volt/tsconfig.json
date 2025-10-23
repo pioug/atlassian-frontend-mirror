@@ -7,10 +7,7 @@
 		"rootDir": "../",
 		"composite": true
 	},
-	"include": [
-		"../src/**/*.ts",
-		"../src/**/*.tsx"
-	],
+	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
@@ -28,9 +25,6 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
-		},
-		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../theme/afm-volt/tsconfig.json"

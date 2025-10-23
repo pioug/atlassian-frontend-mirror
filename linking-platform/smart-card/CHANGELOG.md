@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 43.3.0
+
+### Minor Changes
+
+- [`5f5cd4138ca9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f5cd4138ca9d) -
+  Remove feature gate for snippet renderer option
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.2.1
 
 ### Patch Changes

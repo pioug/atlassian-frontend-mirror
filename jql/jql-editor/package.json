@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor",
-	"version": "5.6.4",
+	"version": "5.6.5",
 	"description": "This package allows consumers to render an advanced JQL editor component to enable autocomplete-assisted authoring and validation of JQL queries.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -146,6 +146,9 @@
 			"type": "boolean"
 		},
 		"jql_editor_autocomplete_use_popper": {
+			"type": "boolean"
+		},
+		"jira_update_jql_teams": {
 			"type": "boolean"
 		}
 	}

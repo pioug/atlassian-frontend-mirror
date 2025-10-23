@@ -12,6 +12,13 @@ export type HydratedUser = {
 	type: 'user';
 };
 
+export type HydratedTeam = {
+	avatarUrl: string;
+	id: string;
+	name: string;
+	type: 'team';
+};
+
 export type HydratedDeprecatedField = {
 	deprecatedSearcherKey: string;
 	/**
@@ -21,7 +28,7 @@ export type HydratedDeprecatedField = {
 	type: 'deprecated-field';
 };
 
-export type HydratedValue = HydratedUser | HydratedDeprecatedField;
+export type HydratedValue = HydratedUser | HydratedTeam | HydratedDeprecatedField;
 
 export type HydratedValues = {
 	[fieldName: string]: HydratedValue[];

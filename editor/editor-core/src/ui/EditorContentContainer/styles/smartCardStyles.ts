@@ -35,18 +35,11 @@ export const editorControlsSmartCardStyles: SerializedStyles = css({
 export const smartCardDiffStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
 	[`.${SmartCardSharedCssClassName.EMBED_CARD_CONTAINER}`]: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
-		[`&.show-diff-changed-decoration-node-standard .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after`]:
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 1px ${token('color.border.accent.purple')}`,
-				borderColor: 'transparent',
-			},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
-		[`&.show-diff-changed-decoration-node-traditional .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after`]:
+		[`&[data-testid="show-diff-changed-decoration-node"] .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after`]:
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 1px ${token('color.border.accent.green')}`,
+				boxShadow: `0 0 0 1px var(--diff-decoration-marker-color)`,
 				borderColor: 'transparent',
 			},
 	},

@@ -1,12 +1,10 @@
-// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
-// Remove links that the component does not have (such as usage). If there are no links remove them all.
 /**
  * __Jira icon__
  *
- * A jira icon {description}.
+ * The Jira icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export { JiraIcon } from '../index';

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media
 
+## 8.4.1
+
+### Patch Changes
+
+- [`c28cd65d12c24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28cd65d12c24) -
+  EDITOR-2447 Bump adf-schema to 51.3.1
+- Updated dependencies
+
+## 8.4.0
+
+### Minor Changes
+
+- [`641ffaa365b47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/641ffaa365b47) -
+  [ux] add prevent auto focus after uploading support
+
 ## 8.3.1
 
 ### Patch Changes

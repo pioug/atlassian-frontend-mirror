@@ -7,6 +7,7 @@ import {
 	useCallback,
 	useContext,
 	useEffect,
+	useLayoutEffect,
 	useMemo,
 	useRef,
 	useState,
@@ -354,7 +355,7 @@ type SideNavProps = CommonSlotProps & {
 	 * @deprecated
 	 *
 	 * This prop is being replaced by `defaultSideNavCollapsed` on the `Root` element,
-	 * and will be removed after `platform_dst_nav4_full_height_sidebar_api_changes` is cleaned up.
+	 * and will be removed in the future.
 	 *
 	 * ---
 	 *
@@ -582,8 +583,8 @@ function SideNavInternal({
 	});
 
 	useEffect(() => {
-		if (fg('platform_dst_nav4_full_height_sidebar_api_changes')) {
-			// We are passing initial state to the Root now, so no initial sync is required
+		if (fg('platform_dst_nav4_side_nav_default_collapsed_api')) {
+			// This is the old version of the hook, so we skip it when the flag is enabled
 			return;
 		}
 
@@ -596,6 +597,29 @@ function SideNavInternal({
 			lastTrigger: null,
 		});
 	}, [initialDefaultCollapsed, setSideNavState]);
+
+	// Moving to `useLayoutEffect` so that there's no visual shift in non-SSR environments when using legacy API
+	// For SSR the new API is still necessary
+	useLayoutEffect(() => {
+		if (!fg('platform_dst_nav4_side_nav_default_collapsed_api')) {
+			// This is the new version of the hook, so we skip it when the flag is disabled
+			return;
+		}
+
+		if (sideNavState !== null) {
+			// Only need to do an initial sync if it hasn't been initialized from Root
+			return;
+		}
+
+		// Sync the visibility in context (provided in `<Root>`) with the local `defaultCollapsed` prop provided to `SideNav`
+		// after SSR hydration. This should only run once, after the initial render on the client.
+		setSideNavState({
+			desktop: initialDefaultCollapsed ? 'collapsed' : 'expanded',
+			mobile: 'collapsed',
+			flyout: 'closed',
+			lastTrigger: null,
+		});
+	}, [initialDefaultCollapsed, setSideNavState, sideNavState]);
 
 	const handleExpand = useCallback<VisibilityCallback>(
 		({ screen, trigger }) => {

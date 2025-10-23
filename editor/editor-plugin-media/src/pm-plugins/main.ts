@@ -96,6 +96,7 @@ const createDropPlaceholder = (
 	dropPlaceholderKey: string,
 	allowDropLine?: boolean,
 ) => {
+	// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 	const dropPlaceholder = document.createElement('div');
 	const createElement = React.createElement;
 
@@ -540,6 +541,15 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	};
 
 	private selectLastAddedMediaNode() {
+		// if preventAutoFocusOnUpload is enabled, skip auto-selection and just clear the tracking array
+		if (
+			this.mediaOptions?.preventAutoFocusOnUpload &&
+			fg('jira_kuro-jjj_disable_auto_focus_after_img_upload')
+		) {
+			this.lastAddedMediaSingleFileIds = [];
+			return;
+		}
+
 		// if lastAddedMediaSingleFileIds is empty exit because there are no added media single nodes to be selected
 		if (this.lastAddedMediaSingleFileIds.length !== 0) {
 			this.waitForPendingTasks().then(() => {
@@ -1116,6 +1126,7 @@ export const createPlugin = (
 					if (videoControls) {
 						const isVideoControl = Array.from(videoControls).some(
 							(videoControl: HTMLButtonElement) => {
+								// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 								return document.activeElement === videoControl;
 							},
 						);

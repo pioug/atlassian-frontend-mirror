@@ -24,13 +24,13 @@
 	],
 	"references": [
 		{
+			"path": "../../css/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../ds-lib/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
-		},
-		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../theme/afm-rovo-extension/tsconfig.json"

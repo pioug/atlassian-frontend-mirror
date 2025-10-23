@@ -100,16 +100,23 @@ const SyncBlockNodeComponent = (
 	const syncBlockDoc = { content: syncBlockData.content, version: 1, type: 'doc' } as DocNode;
 
 	return (
-		<div data-testid="sync-block-renderer-wrapper">
-			<ReactRenderer
-				appearance="full-width"
-				adfStage="stage0"
-				schema={getDefaultSyncBlockSchema()}
-				document={syncBlockDoc}
-				disableHeadingIDs={true}
-				dataProviders={props.providers}
-			/>
-		</div>
+		<RendererActionsContext>
+			<div
+				data-sync-block
+				data-testid="sync-block-renderer-wrapper"
+				data-resource-id={props.resourceId}
+				data-local-id={props.localId}
+			>
+				<ReactRenderer
+					appearance="full-width"
+					adfStage="stage0"
+					schema={getDefaultSyncBlockSchema()}
+					document={syncBlockDoc}
+					disableHeadingIDs={true}
+					dataProviders={props.providers}
+				/>
+			</div>
+		</RendererActionsContext>
 	);
 };
 

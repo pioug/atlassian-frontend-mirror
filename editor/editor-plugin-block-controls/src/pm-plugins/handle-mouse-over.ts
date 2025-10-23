@@ -1,5 +1,6 @@
 import memoizeOne from 'memoize-one';
 
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -70,6 +71,7 @@ export const handleMouseOver = (
 	const { editorDisabled } = api?.editorDisabled?.sharedState.currentState() || {
 		editorDisabled: false,
 	};
+	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 	// We shouldn't be firing mouse over transactions when the editor is disabled
 	if (editorDisabled && fg('aifc_create_enabled')) {
@@ -211,7 +213,8 @@ export const handleMouseOver = (
 		let rootNodeType;
 		let rootPos;
 
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
+		// platform_editor_controls note: enables quick insert
+		if (toolbarFlagsEnabled) {
 			rootPos = view.state.doc.resolve(pos).before(1);
 			if (targetPos !== rootPos) {
 				const rootDOM = view.nodeDOM(rootPos);
@@ -229,7 +232,8 @@ export const handleMouseOver = (
 			: rootElement.getAttribute('data-drag-handler-node-type');
 
 		if (nodeType) {
-			if (editorExperiment('platform_editor_controls', 'variant1')) {
+			// platform_editor_controls note: enables quick insert
+			if (toolbarFlagsEnabled) {
 				api?.core?.actions.execute(
 					api?.blockControls?.commands.showDragHandleAt(
 						targetPos,

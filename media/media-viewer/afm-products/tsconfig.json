@@ -1,0 +1,102 @@
+{
+	"extends": "../../../../tsconfig.entry-points.products.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__media-viewer/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/code/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../icon-file-type/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../media-client/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../media-client-react/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../media-common/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../media-document-viewer/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../media-svg/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../media-ui/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/portal/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/side-navigation/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-products/tsconfig.json"
+		}
+	]
+}

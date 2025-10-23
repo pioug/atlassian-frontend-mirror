@@ -24,13 +24,13 @@
 	],
 	"references": [
 		{
+			"path": "../../css/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../ds-lib/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../theme/afm-jira/tsconfig.json"

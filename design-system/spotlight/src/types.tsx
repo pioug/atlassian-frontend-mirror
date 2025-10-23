@@ -22,3 +22,7 @@ export type DismissEvent =
 	| React.MouseEvent<HTMLButtonElement, MouseEvent>
 	| MouseEvent
 	| KeyboardEvent;
+
+export type BackEvent = React.MouseEvent<HTMLButtonElement, MouseEvent>;
+export type NextEvent = React.MouseEvent<HTMLButtonElement, MouseEvent>;
+export type DoneEvent = React.MouseEvent<HTMLButtonElement, MouseEvent>;

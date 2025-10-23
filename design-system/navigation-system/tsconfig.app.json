@@ -76,9 +76,6 @@
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{
-			"path": "../../navigation/temp-nav-app-icons/tsconfig.app.json"
-		},
-		{
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{

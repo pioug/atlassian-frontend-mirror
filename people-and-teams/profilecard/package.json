@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.20.2",
+	"version": "24.20.3",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -157,9 +157,6 @@
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__people-and-tea": {
-			"type": "boolean"
-		},
-		"platform_profilecard-update-time-format": {
 			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-people-and-": {

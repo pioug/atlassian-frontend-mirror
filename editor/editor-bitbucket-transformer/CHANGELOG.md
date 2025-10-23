@@ -1,5 +1,13 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 9.6.0
+
+### Minor Changes
+
+- [`aeaa1e60ca116`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aeaa1e60ca116) -
+  Update the special characters serialized in captions to include markdown related special
+  characters such as \*,`,~,{
+
 ## 9.5.0
 
 ### Minor Changes
@@ -251,7 +259,6 @@
   The following lists the exports removed as well as where they can now be found if required.
 
   Exports removed:
-
   - ToolbarFeedback (removed)
   - EmojiResource (moved to -> @atlaskit/emoji/resource)
   - MentionResource (moved to -> @atlaskit/mention/resource)
@@ -287,7 +294,6 @@
   and can be safely removed without any change in functionality
 
   EditorProps removed:
-
   - trackValidTransactions (unused internally, please remove)
   - hideAvatarGroup (unused internally, please remove)
   - placeholder (unused internally for `ComposableEditor` - please pass to the `placeholderPlugin`
@@ -952,16 +958,13 @@
   @atlaskit/adf-schema to their own entry points. These new entry points are as follows
 
   @atlaskit/adf-schema/schema-bitbucket for:
-
   - bitbucketSchema
 
   @atlaskit/adf-schema/schema-confluence for:
-
   - confluenceSchema
   - confluenceSchemaWithMediaSingle
 
   @atlaskit/adf-schema/schema-jira for:
-
   - default as createJIRASchema
   - isSchemaWithLists
   - isSchemaWithMentions
@@ -976,7 +979,6 @@
   - isSchemaWithTables
 
   @atlaskit/adf-schema/schema-default for:
-
   - defaultSchema
   - getSchemaBasedOnStage
   - defaultSchemaConfig
@@ -1032,7 +1034,6 @@
 
 - [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) -
   ED-11632: Bump prosemirror packages;
-
   - prosmirror-commands 1.1.4 -> 1.1.11,
   - prosemirror-model 1.11.0 -> 1.14.3,
   - prosemirror-state 1.3.3 -> 1.3.4,
@@ -1679,7 +1680,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/theme@9.5.1
   - @atlaskit/adf-schema@6.1.1
@@ -2006,7 +2006,6 @@
 
   ED-8042 upgrade prosemirror-markdown to remove ES modules workaround- Updated dependencies
   [aed7d2a980](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aed7d2a980):
-
   - @atlaskit/editor-core@114.1.3
 
 ## 6.2.8
@@ -2188,7 +2187,6 @@ Bumped dependencies.
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -2201,7 +2199,6 @@ Bumped dependencies.
 ## 6.1.0
 
 - [minor][79f0ef0601](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/79f0ef0601):
-
   - Use strict tsconfig to compile editor packages
 
 ## 6.0.2
@@ -2221,7 +2218,6 @@ Bumped dependencies.
 ## 6.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -2246,7 +2242,6 @@ Bumped dependencies.
 ## 5.0.3
 
 - [patch][b425ea772b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b425ea772b):
-
   - Revert "ED-5505 add strong as default mark to table header (pull request #5291)"
 
 ## 5.0.2
@@ -2261,13 +2256,11 @@ Bumped dependencies.
 ## 5.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 5.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 4.2.5
@@ -2314,7 +2307,6 @@ Bumped dependencies.
 ## 4.2.0
 
 - [minor][1eb20bca95](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1eb20bca95):
-
   - ED-6368: No implicit any for editor-\*-transformer packages
 
 ## 4.1.13
@@ -2345,13 +2337,11 @@ Bumped dependencies.
 ## 4.1.10
 
 - [patch][0a601f9b7a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a601f9b7a):
-
   - support new Bitbucket mentions format
 
 ## 4.1.9
 
 - [patch][557a2b5734](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/557a2b5734):
-
   - ED-5788: bump prosemirror-view and prosemirror-model
 
 ## 4.1.8
@@ -2422,7 +2412,6 @@ Bumped dependencies.
 ## 4.1.0
 
 - [minor][1205725](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1205725):
-
   - Move schema to its own package
 
 ## 4.0.23
@@ -2436,7 +2425,6 @@ Bumped dependencies.
 ## 4.0.22
 
 - [patch][da43fb4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/da43fb4):
-
   - ED-5840 Fixed Bitbucket markdown transformer to use triple backticks
 
 ## 4.0.21

@@ -16,6 +16,7 @@ import {
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { EDIT_AREA_ID } from '@atlaskit/editor-common/ui';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
@@ -170,7 +171,7 @@ const destroyFn = (
 
 								if ($head.node() === $anchor.node()) {
 									const $from = $anchor.min($head);
-									selectNode(tr, $from.pos, $from.node().type.name);
+									selectNode(tr, $from.pos, $from.node().type.name, api);
 								} else {
 									tr.setSelection(
 										TextSelection.create(
@@ -273,6 +274,7 @@ const initialState: PluginState = {
 
 export interface FlagType {
 	isMultiSelectEnabled: boolean;
+	toolbarFlagsEnabled: boolean;
 }
 
 export const getDecorations = (state: EditorState): DecorationSet | undefined =>
@@ -327,9 +329,8 @@ export const apply = (
 		lastDragCancelled,
 		isSelectedViaDragHandle,
 	} = currentState;
-
 	let isActiveNodeDeleted = false;
-	const { from, to, numReplaceSteps, isAllText, isReplacedWithSameSize } = getTrMetadata(tr);
+	const { from, to, numReplaceSteps, isAllText, isReplacedWithSameSize } = getTrMetadata(tr, flags);
 	const meta = tr.getMeta(key);
 
 	const hasDocumentSizeBreachedThreshold = api?.limitedMode?.sharedState
@@ -355,8 +356,9 @@ export const apply = (
 	if (tr.docChanged) {
 		decorations = decorations.map(tr.mapping, tr.doc);
 
+		// platform_editor_controls note: enables quick insert
 		// don't remap activeNode if it's being dragged
-		if (editorExperiment('platform_editor_controls', 'control')) {
+		if (!flags.toolbarFlagsEnabled) {
 			if (activeNode) {
 				const mappedPos = tr.mapping.mapResult(activeNode.pos);
 				isActiveNodeDeleted = mappedPos.deleted;
@@ -458,7 +460,8 @@ export const apply = (
 		);
 		decorations = decorations.add(newState.doc, newNodeDecs);
 
-		if (editorExperiment('platform_editor_controls', 'control')) {
+		// platform_editor_controls note: enables quick insert
+		if (!flags.toolbarFlagsEnabled) {
 			if (latestActiveNode && !isActiveNodeDeleted) {
 				// Find the newly minted node decs that touch the active node
 				const findNewNodeDecs = findNodeDecs(
@@ -553,7 +556,8 @@ export const apply = (
 		? isResizerResizing || (isActiveNodeDeleted && !isReplacedWithSameSize) || meta?.nodeMoved
 		: true;
 
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
+	// platform_editor_controls note: enables quick insert
+	if (flags.toolbarFlagsEnabled) {
 		// Remove handle dec when editor is blurred
 		shouldRemoveHandle = shouldRemoveHandle || meta?.editorBlurred;
 	}
@@ -561,7 +565,8 @@ export const apply = (
 	if (shouldRemoveHandle) {
 		const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
 		decorations = decorations.remove(oldHandle);
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
+		// platform_editor_controls note: enables quick insert
+		if (flags.toolbarFlagsEnabled) {
 			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
 				decorations,
 				activeNode?.rootPos,
@@ -592,7 +597,8 @@ export const apply = (
 		if (
 			shouldRecreateQuickInsertButton &&
 			latestActiveNode?.rootPos !== undefined &&
-			editorExperiment('platform_editor_controls', 'variant1')
+			// platform_editor_controls note: enables quick insert
+			flags.toolbarFlagsEnabled
 		) {
 			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
 				decorations,
@@ -684,7 +690,8 @@ export const apply = (
 	}
 
 	let newActiveNode;
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
+	// platform_editor_controls note: enables quick insert
+	if (flags.toolbarFlagsEnabled) {
 		// remove isEmptyDoc check and let decorations render and determine their own visibility
 		newActiveNode =
 			!meta?.activeNode &&
@@ -702,7 +709,7 @@ export const apply = (
 
 	let isMenuOpenNew = isMenuOpen;
 	if (
-		(BLOCK_MENU_ENABLED && editorExperiment('platform_editor_controls', 'variant1')) ||
+		(BLOCK_MENU_ENABLED && flags.toolbarFlagsEnabled) ||
 		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 	) {
 		if (meta?.closeMenu) {
@@ -720,7 +727,7 @@ export const apply = (
 
 	let isSelectedViaDragHandleNew;
 	if (
-		editorExperiment('platform_editor_controls', 'variant1') &&
+		flags.toolbarFlagsEnabled &&
 		expValEquals('platform_editor_controls_block_controls_state_fix', 'isEnabled', true)
 	) {
 		isSelectedViaDragHandleNew =
@@ -730,7 +737,7 @@ export const apply = (
 	} else {
 		isSelectedViaDragHandleNew =
 			meta?.isSelectedViaDragHandle !== undefined &&
-			editorExperiment('platform_editor_controls', 'variant1') &&
+			flags.toolbarFlagsEnabled &&
 			meta?.isSelectedViaDragHandle;
 	}
 
@@ -741,7 +748,7 @@ export const apply = (
 		isDragging: meta?.isDragging ?? isDragging,
 		isMenuOpen: isMenuOpenNew,
 		menuTriggerBy:
-			editorExperiment('platform_editor_controls', 'variant1') ||
+			flags.toolbarFlagsEnabled ||
 			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 				? meta?.toggleMenu?.anchorName || menuTriggerBy
 				: undefined,
@@ -792,8 +799,10 @@ export const createPlugin = (
 		true,
 		{ exposure: true },
 	);
+	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 	const flags: FlagType = {
 		isMultiSelectEnabled,
+		toolbarFlagsEnabled,
 	};
 
 	let anchorRectCache: AnchorRectCache | undefined;

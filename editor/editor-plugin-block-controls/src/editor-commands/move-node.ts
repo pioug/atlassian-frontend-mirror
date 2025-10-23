@@ -350,7 +350,7 @@ export const moveNodeViaShortcut = (
 			} else if (nodeType && !isMultiSelectEnabled) {
 				// If the node is first/last one, only select the node
 				api?.core?.actions.execute(({ tr }) => {
-					selectNode(tr, currentNodePos, nodeType);
+					selectNode(tr, currentNodePos, nodeType, api);
 					tr.scrollIntoView();
 					return tr;
 				});
@@ -383,7 +383,6 @@ export const moveNode =
 		) {
 			return tr;
 		}
-
 		const handleNode = tr.doc.nodeAt(start);
 
 		if (!handleNode) {
@@ -495,13 +494,13 @@ export const moveNode =
 		const sliceSize = sliceTo - sliceFrom;
 		tr =
 			inputMethod === INPUT_METHOD.DRAG_AND_DROP
-				? setCursorPositionAtMovedNode(tr, mappedTo)
+				? setCursorPositionAtMovedNode(tr, mappedTo, api)
 				: isMultiSelect
 					? (api?.blockControls.commands.setMultiSelectPositions(
 							mappedTo,
 							mappedTo + sliceSize,
 						)({ tr }) ?? tr)
-					: selectNode(tr, mappedTo, handleNode.type.name);
+					: selectNode(tr, mappedTo, handleNode.type.name, api);
 		const currMeta = tr.getMeta(key);
 		tr.setMeta(key, { ...currMeta, nodeMoved: true });
 		api?.core.actions.focus();

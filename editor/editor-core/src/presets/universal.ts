@@ -1,4 +1,5 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar';
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
 import { shouldForceTracking } from '@atlaskit/editor-common/utils';
 import type { ToolbarInsertBlockButtonsConfig } from '@atlaskit/editor-plugin-insert-block';
@@ -80,6 +81,9 @@ export type UniversalPresetProps = DefaultPresetPluginOptions &
  * Note: not all plugins are configurable via this mechanism, and for plugins configured -- it is only doing a subset of the configuration.
  */
 export type InitialPluginConfiguration = {
+	emojiPlugin?: {
+		disableAutoformat?: boolean;
+	};
 	extensionPlugin?: {
 		__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'];
 	};
@@ -105,6 +109,12 @@ export type InitialPluginConfiguration = {
 		taskPlaceholder?: string;
 	};
 	toolbarPlugin?: {
+		contextualFormattingEnabled?: ContextualFormattingEnabledOptions;
+		/**
+		 * The disableSelectionToolbar option is deprecated and will be removed in the future, replaced with `contextualFormattingEnabled`.
+		 *
+		 * To disable the selection toolbar (so only the primary toolbar is shown), use `contextualFormattingEnabled: 'always-pinned'`.
+		 */
 		disableSelectionToolbar?: boolean;
 		enableNewToolbarExperience?: boolean;
 	};
@@ -272,6 +282,9 @@ export default function createUniversalPresetInternal({
 				emojiPlugin,
 				{
 					emojiProvider: props.emojiProvider,
+					...(expValEquals('platform_editor_plain_text_support', 'isEnabled', true)
+						? initialPluginConfiguration?.emojiPlugin
+						: {}),
 				},
 			],
 			Boolean(props.emojiProvider),

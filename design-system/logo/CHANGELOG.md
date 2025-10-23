@@ -1,5 +1,12 @@
 # @atlaskit/logo
 
+## 19.9.2
+
+### Patch Changes
+
+- [`d55bbfc88149b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d55bbfc88149b) -
+  Internal changes to logo generation; package no longer consumes @atlaskit/temp-nav-app-icons
+
 ## 19.9.1
 
 ### Patch Changes

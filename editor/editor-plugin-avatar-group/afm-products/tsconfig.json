@@ -1,0 +1,62 @@
+{
+	"extends": "../../../../tsconfig.entry-points.products.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-avatar-group/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/avatar-group/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-collab-edit/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-primary-toolbar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-products/tsconfig.json"
+		}
+	]
+}

@@ -176,9 +176,10 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 		});
 		const hasErrors = !!errorsList.length;
 
-		const onSubmit = (this.props.areAnyNewToolbarFlagsEnabled ?? areToolbarFlagsEnabled())
-			? this.closeMediaAltTextMenuAndSetFocus
-			: this.closeMediaAltTextMenu;
+		const onSubmit =
+			(this.props.areAnyNewToolbarFlagsEnabled ?? areToolbarFlagsEnabled())
+				? this.closeMediaAltTextMenuAndSetFocus
+				: this.closeMediaAltTextMenu;
 
 		return (
 			<div css={containerStyles}>

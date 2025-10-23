@@ -1,0 +1,107 @@
+{
+	"extends": "../../../../tsconfig.entry-points.products.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-block-controls/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../editor-plugin-accessibility-utils/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-disabled/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-interaction/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-limited-mode/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-metrics/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-quick-insert/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-toolbar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-type-ahead/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-width/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-tables/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/core/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/auto-scroll/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/react-drop-indicator/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-products/tsconfig.json"
+		}
+	]
+}

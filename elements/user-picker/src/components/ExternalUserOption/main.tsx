@@ -22,6 +22,8 @@ import { ExternalUserSourcesContainer } from '../ExternalUserSourcesContainer';
 import InfoIcon from './InfoIcon';
 import { ExternalAvatarItemOption } from './ExternalAvatarItemOption';
 import { SourcesTooltipContent } from './SourcesTooltipContent';
+import { getAppearanceForAppType } from '@atlaskit/avatar';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const imageContainer = css({
@@ -109,10 +111,21 @@ class ExternalUserOptionImpl extends React.PureComponent<ExternalUserOptionProps
 
 	private renderAvatar = () => {
 		const {
-			user: { avatarUrl },
+			user: { avatarUrl, appType },
 			status,
 		} = this.props;
-		return <SizeableAvatar appearance="big" src={avatarUrl} presence={status} />;
+		return (
+			<SizeableAvatar
+				appearance="big"
+				src={avatarUrl}
+				presence={status}
+				avatarAppearanceShape={
+					fg('jira_ai_agent_avatar_user_picker_user_option')
+						? getAppearanceForAppType(appType)
+						: undefined
+				}
+			/>
+		);
 	};
 
 	private fireEvent = <Args extends unknown[]>(

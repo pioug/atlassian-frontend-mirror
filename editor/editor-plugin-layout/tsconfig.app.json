@@ -56,6 +56,9 @@
 			"path": "../editor-plugin-selection/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-toolbar/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-width/tsconfig.app.json"
 		},
 		{

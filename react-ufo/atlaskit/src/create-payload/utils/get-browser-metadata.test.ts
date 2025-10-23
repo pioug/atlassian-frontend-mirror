@@ -39,7 +39,6 @@ describe('getBrowserMetadata', () => {
 		global.Date = originalDate;
 	});
 	ffTest.off('react_ufo_add_webdriver_info', 'Add webdriver FG is off', () => {
-
 		it('should return time information', () => {
 			// Mock basic navigator
 			Object.defineProperty(global, 'navigator', {
@@ -342,7 +341,7 @@ describe('getBrowserMetadata', () => {
 					},
 					configurable: true,
 				});
-	
+
 				const legacyFormat = getBrowserMetadataToLegacyFormat();
 				expect(legacyFormat['event:browser:webdriver']).toBeUndefined();
 			});
@@ -350,7 +349,6 @@ describe('getBrowserMetadata', () => {
 
 		ffTest.on('react_ufo_add_webdriver_info', 'Add webdriver FG is on', () => {
 			it('should include webdriver field when feature flag is enabled and navigator.webdriver is true', () => {
-			
 				// Mock navigator with webdriver enabled
 				Object.defineProperty(global, 'navigator', {
 					value: {
@@ -359,7 +357,7 @@ describe('getBrowserMetadata', () => {
 					},
 					configurable: true,
 				});
-	
+
 				const legacyFormat = getBrowserMetadataToLegacyFormat();
 				expect(legacyFormat['event:browser:webdriver']).toBe(true);
 			});

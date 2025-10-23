@@ -143,6 +143,12 @@
     "publicName": "penelope"
   },
   {
+    "id": "23",
+    "name": "Agent Rovo",
+    "publicName": "rovo",
+	  "appType": "agent"
+  },
+  {
     "id": "Assignee",
     "name": "Assignee",
     "avatarUrl": "",

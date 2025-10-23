@@ -476,10 +476,10 @@ export const DragHandle = ({
 							const selection = new NodeSelection(tr.doc.resolve(startPos));
 							tr.setSelection(selection);
 						} else {
-							tr = selectNode(tr, startPos, nodeType);
+							tr = selectNode(tr, startPos, nodeType, api);
 						}
 					} else {
-						tr = selectNode(tr, startPos, nodeType);
+						tr = selectNode(tr, startPos, nodeType, api);
 					}
 
 					if (BLOCK_MENU_ENABLED && editorExperiment('platform_editor_controls', 'variant1')) {
@@ -544,19 +544,7 @@ export const DragHandle = ({
 
 			view.focus();
 		},
-		[
-			isMultiSelect,
-			api?.core?.actions,
-			api?.blockControls.sharedState,
-			api?.blockControls?.commands,
-			api?.analytics?.actions,
-			view,
-			dragHandleSelected,
-			getPos,
-			isTopLevelNode,
-			nodeType,
-			anchorName,
-		],
+		[isMultiSelect, api, view, dragHandleSelected, getPos, isTopLevelNode, nodeType, anchorName],
 	);
 
 	// TODO: ED-26959 - This needs to be investigated further. Drag preview generation is not always working
@@ -622,7 +610,7 @@ export const DragHandle = ({
 						return tr;
 					}
 
-					tr = selectNode(tr, startPos, nodeType);
+					tr = selectNode(tr, startPos, nodeType, api);
 					!isMultiSelect && tr.setMeta(key, { pos: startPos });
 
 					api?.blockControls?.commands.toggleBlockMenu({ anchorName, openedViaKeyboard: true })({
@@ -637,16 +625,7 @@ export const DragHandle = ({
 				view.focus();
 			}
 		},
-		[
-			getPos,
-			api?.core?.actions,
-			api?.blockControls?.commands,
-			api?.userIntent?.commands,
-			nodeType,
-			isMultiSelect,
-			anchorName,
-			view,
-		],
+		[getPos, api, nodeType, isMultiSelect, anchorName, view],
 	);
 
 	useEffect(() => {
@@ -677,7 +656,7 @@ export const DragHandle = ({
 						if (!tr.selection.empty && newHandlePosCheck) {
 							api?.blockControls?.commands.setMultiSelectPositions()({ tr });
 						} else if (fg('platform_editor_elements_dnd_select_node_on_drag')) {
-							tr = selectNode(tr, handlePos, nodeType);
+							tr = selectNode(tr, handlePos, nodeType, api);
 						}
 
 						return tr;

@@ -72,7 +72,7 @@ export function Root({
 	UNSAFE_dangerouslyHoistSlotSizes = false,
 	skipLinksLabel = 'Skip to:',
 	testId,
-	defaultSideNavCollapsed = false,
+	defaultSideNavCollapsed,
 }: {
 	/**
 	 * For rendering the layout areas, e.g. TopNav, SideNav, Main.
@@ -108,7 +108,7 @@ export function Root({
 	 * persisted state using the `onCollapse` and `onExpand` callbacks, to ensure it is up to date
 	 * when the app is reloaded.
 	 *
-	 * __Note:__ This prop will only work when the `platform_dst_nav4_full_height_sidebar_api_changes` gate is enabled.
+	 * __Note:__ When provided, the `defaultCollapsed` props on `SideNav` and `SideNavToggleButton` will be ignored.
 	 */
 	defaultSideNavCollapsed?: boolean;
 }) {

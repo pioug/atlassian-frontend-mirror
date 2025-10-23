@@ -144,7 +144,7 @@ export default class UserProfileCardClient extends CachingClient<any> {
 		const user = await userQueryPromise;
 		let timestring: string | undefined;
 		const localWeekdayIndex = new Date().getDay().toString();
-		const timeFormat = fg('platform_profilecard-update-time-format') ? 'h:mmaaa' : 'h:mmbbb';
+		const timeFormat = 'h:mmaaa';
 		if (user.zoneinfo) {
 			if (localTime(user.zoneinfo, 'i') === localWeekdayIndex) {
 				timestring = localTime(user.zoneinfo, timeFormat) || undefined;

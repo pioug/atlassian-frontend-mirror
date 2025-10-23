@@ -1028,7 +1028,7 @@ describe('BitbucketTransformer: serializer', () => {
 					)(defaultSchema),
 				),
 			).toEqual(
-				"![](http://path/to/image.jpg){: data-layout='center' data-caption='Caption with **bold** and _italic_ text' }\n",
+				"![](http://path/to/image.jpg){: data-layout='center' data-caption='Caption with &#42;&#42;bold&#42;&#42; and &#95;italic&#95; text' }\n",
 			);
 		});
 

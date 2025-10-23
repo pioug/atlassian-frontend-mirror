@@ -1,4 +1,6 @@
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,
@@ -10,7 +12,8 @@ import {
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+
+import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 
 export const getInlineNodePos = (
 	tr: Transaction,
@@ -169,22 +172,31 @@ const newGetSelection = (tr: Transaction, start: number) => {
 	return new TextSelection(tr.doc.resolve(inlineNodePos), tr.doc.resolve(inlineNodeEndPos));
 };
 
-export const getSelection = (tr: Transaction, start: number) => {
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
+export const getSelection = (
+	tr: Transaction,
+	start: number,
+	api?: ExtractInjectionAPI<BlockControlsPlugin>,
+) => {
+	if (areToolbarFlagsEnabled(Boolean(api?.toolbar))) {
 		return newGetSelection(tr, start);
 	}
 
 	return oldGetSelection(tr, start);
 };
 
-export const selectNode = (tr: Transaction, start: number, nodeType: string): Transaction => {
+export const selectNode = (
+	tr: Transaction,
+	start: number,
+	nodeType: string,
+	api?: ExtractInjectionAPI<BlockControlsPlugin>,
+): Transaction => {
 	// For table, we need to do cell selection instead of node selection
 	if (nodeType === 'table') {
 		tr = selectTableClosestToPos(tr, tr.doc.resolve(start + 1));
 		return tr;
 	}
 
-	const selection = getSelection(tr, start);
+	const selection = getSelection(tr, start, api);
 
 	if (selection) {
 		tr.setSelection(selection);
@@ -193,7 +205,11 @@ export const selectNode = (tr: Transaction, start: number, nodeType: string): Tr
 	return tr;
 };
 
-export const setCursorPositionAtMovedNode = (tr: Transaction, start: number): Transaction => {
+export const setCursorPositionAtMovedNode = (
+	tr: Transaction,
+	start: number,
+	api?: ExtractInjectionAPI<BlockControlsPlugin>,
+): Transaction => {
 	const node = tr.doc.nodeAt(start);
 	const isNodeSelection = node && NodeSelection.isSelectable(node);
 
@@ -211,7 +227,7 @@ export const setCursorPositionAtMovedNode = (tr: Transaction, start: number): Tr
 	if (
 		node?.type.name === 'paragraph' &&
 		node?.childCount === 0 &&
-		editorExperiment('platform_editor_controls', 'variant1')
+		areToolbarFlagsEnabled(Boolean(api?.toolbar))
 	) {
 		const selection = new TextSelection(tr.doc.resolve(start));
 		tr.setSelection(selection);

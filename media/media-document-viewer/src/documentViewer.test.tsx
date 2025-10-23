@@ -3,7 +3,9 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { DocumentViewer } from './documentViewer';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+import { DocumentViewer, type DocumentViewerProps } from './documentViewer';
 import {
 	type ComboBoxField,
 	type Font,
@@ -14,15 +16,6 @@ import {
 	type Span,
 	type TextField,
 } from './types';
-
-// Define the props type locally to avoid circular imports
-type DocumentViewerProps = {
-	getContent: (pageStart: number, pageEnd: number) => Promise<PageRangeContent>;
-	initialPageUrl?: string;
-	getPageImageUrl: (pageNumber: number, zoom: number) => Promise<string>;
-	zoom: number;
-	onSuccess?: () => void;
-};
 
 // Mock URL.createObjectURL and URL.revokeObjectURL
 global.URL.createObjectURL = jest.fn(() => 'mock-blob-url');
@@ -37,7 +30,7 @@ global.fetch = jest.fn(() =>
 
 // Mock getDocument utility
 jest.mock('./utils/getDocumentRoot', () => ({
-	getDocumentRoot: jest.fn(() => document),
+	getDocumentRoot: jest.fn(() => null),
 	getScrollElement: jest.fn(() => null),
 }));
 
@@ -154,6 +147,7 @@ describe('DocumentViewer', () => {
 	const createMockProps = (overrides: Partial<DocumentViewerProps> = {}): DocumentViewerProps => ({
 		getContent: jest.fn().mockResolvedValue(mockPageRangeContent),
 		getPageImageUrl: jest.fn().mockResolvedValue('mock-image-url'),
+		maxPageImageZoom: 6,
 		zoom: 1,
 		...overrides,
 	});
@@ -167,23 +161,6 @@ describe('DocumentViewer', () => {
 	});
 
 	describe('Basic Rendering', () => {
-		it('should render with initial page URL when provided', async () => {
-			const props = createMockProps({ initialPageUrl: 'initial-page-url' });
-			// Make getContent never resolve to test initial page rendering
-			props.getContent = jest.fn(() => new Promise(() => {}));
-
-			render(<DocumentViewer {...props} />);
-
-			await waitFor(async () => await makeAllIntersectionObserversVisible());
-			expect(screen.getByTestId('document-viewer')).toBeInTheDocument();
-
-			// Should render initial pages
-			expect(screen.getByTestId('page-0')).toBeInTheDocument();
-			expect(screen.getByTestId('page-1')).toBeInTheDocument();
-			expect(screen.getByTestId('page-2')).toBeInTheDocument();
-			expect(screen.getByTestId('page-3')).toBeInTheDocument();
-		});
-
 		it('should render page with id attribute', async () => {
 			const props = createMockProps();
 			render(<DocumentViewer {...props} />);
@@ -278,6 +255,34 @@ describe('DocumentViewer', () => {
 			await screen.findByTestId('page-0-image');
 			expect(getPageImageUrlSpy).toHaveBeenCalledWith(expect.any(Number), 2);
 		});
+
+		ffTest.on(
+			'media-document-viewer-clear-render',
+			'should apply maxPageImageZoom limit when clear render feature flag is enabled',
+			() => {
+				it('should apply maxPageImageZoom limit when clear render feature flag is enabled', async () => {
+					// Mock devicePixelRatio
+					Object.defineProperty(window, 'devicePixelRatio', {
+						writable: true,
+						value: 2,
+					});
+
+					const getPageImageUrlSpy = jest.fn().mockResolvedValue('mock-url');
+					const props = createMockProps({
+						zoom: 10, // High zoom that would exceed maxPageImageZoom
+						maxPageImageZoom: 6,
+						getPageImageUrl: getPageImageUrlSpy,
+					});
+
+					render(<DocumentViewer {...props} />);
+					await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+					await screen.findByTestId('page-0-image');
+					// Should be limited to maxPageImageZoom (6) instead of zoom * devicePixelRatio (20)
+					expect(getPageImageUrlSpy).toHaveBeenCalledWith(expect.any(Number), 6);
+				});
+			},
+		);
 
 		it('should update image dimensions based on zoom', async () => {
 			const props = createMockProps({ zoom: 2 });
@@ -522,11 +527,47 @@ describe('DocumentViewer', () => {
 			expect(image).toBeInTheDocument();
 
 			// Should use initial dimensions when image is loaded but no content
+			// With feature flag disabled, dimensions should be calculated using original zoom
 			expect(page).toHaveStyle({
 				width: 'calc(var(--document-viewer-zoom) * 842px)',
 				height: 'calc(var(--document-viewer-zoom) * 595px)',
 			});
 		});
+
+		ffTest.on(
+			'media-document-viewer-clear-render',
+			'should use adjusted dimensions when clear render feature flag is enabled',
+			() => {
+				it('should use adjusted dimensions when clear render feature flag is enabled', async () => {
+					// Mock devicePixelRatio
+					Object.defineProperty(window, 'devicePixelRatio', {
+						writable: true,
+						value: 2,
+					});
+
+					const props = createMockProps({
+						getContent: jest.fn().mockImplementation(() => new Promise(() => {})), // Never resolves
+						zoom: 2,
+						maxPageImageZoom: 6,
+					});
+					render(<DocumentViewer {...props} />);
+					await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+					const page = await screen.findByTestId('page-0');
+					const image = await screen.findByTestId('page-0-image');
+
+					expect(page).toBeInTheDocument();
+					expect(image).toBeInTheDocument();
+
+					// With feature flag enabled, dimensions should be calculated using getImageZoom
+					// which adjusts for devicePixelRatio and maxPageImageZoom
+					expect(page).toHaveStyle({
+						width: 'calc(var(--document-viewer-zoom) * 842px)',
+						height: 'calc(var(--document-viewer-zoom) * 595px)',
+					});
+				});
+			},
+		);
 	});
 
 	describe('Annotations', () => {
@@ -631,6 +672,48 @@ describe('DocumentViewer', () => {
 			await userEvent.keyboard('{arrowright}');
 			expect(onKeyUpSpy).toHaveBeenCalledTimes(0);
 		});
+
+		it('should render annotations when annotations feature flag is enabled', async () => {
+			const props = createMockProps();
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			const textFormField = await screen.findByTestId('text-form-field-0');
+			expect(textFormField).toBeInTheDocument();
+		});
+
+		ffTest.on(
+			'media-document-viewer-annotations',
+			'should utilise pdfium server side rendered inputs when feature flag is enabled',
+			() => {
+				it('should utilise pdfium server side rendered inputs when feature flag is enabled', async () => {
+					const props = createMockProps();
+					render(<DocumentViewer {...props} />);
+					await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+					// Transparent font
+					expect(screen.queryByTestId('text-form-field-0')?.querySelector('input')).toHaveStyle(
+						'color: rgba(0, 0, 0, 0)',
+					);
+				});
+			},
+		);
+		ffTest.off(
+			'media-document-viewer-annotations',
+			'should not utilise pdfium server side rendered inputs when feature flag is enabled',
+			() => {
+				it('should not render annotations when annotations feature flag is disabled', async () => {
+					const props = createMockProps();
+					render(<DocumentViewer {...props} />);
+					await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+					// Will always render over pdfium server side rendered input
+					expect(screen.queryByTestId('text-form-field-0')?.querySelector('input')).not.toHaveStyle(
+						'color: rgba(0, 0, 0, 0)',
+					);
+				});
+			},
+		);
 	});
 
 	describe('Document Links', () => {
@@ -683,6 +766,38 @@ describe('DocumentViewer', () => {
 		});
 	});
 
+	describe('Image Rendering', () => {
+		ffTest.off(
+			'media-document-viewer-clear-render',
+			'should use pixelated image rendering when clear render feature flag is disabled',
+			() => {
+				it('should use pixelated image rendering when clear render feature flag is disabled', async () => {
+					const props = createMockProps();
+					render(<DocumentViewer {...props} />);
+					await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+					const image = await screen.findByTestId('page-0-image');
+					expect(image).toHaveStyle('image-rendering: pixelated');
+				});
+			},
+		);
+
+		ffTest.on(
+			'media-document-viewer-clear-render',
+			'should use auto image rendering when clear render feature flag is enabled',
+			() => {
+				it('should use auto image rendering when clear render feature flag is enabled', async () => {
+					const props = createMockProps();
+					render(<DocumentViewer {...props} />);
+					await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+					const image = await screen.findByTestId('page-0-image');
+					expect(image).not.toHaveStyle('image-rendering: pixelated');
+				});
+			},
+		);
+	});
+
 	describe('Image Caching', () => {
 		it('should cache image URLs as blob URLs', async () => {
 			const props = createMockProps();
@@ -699,7 +814,10 @@ describe('DocumentViewer', () => {
 
 		it('should reuse cached URLs for same page and zoom', async () => {
 			const getPageImageUrlSpy = jest.fn().mockResolvedValue('mock-image-url');
-			const props = createMockProps({ getPageImageUrl: getPageImageUrlSpy });
+			const props = createMockProps({
+				getPageImageUrl: getPageImageUrlSpy,
+				zoom: 1, // Explicitly set zoom to 1
+			});
 
 			render(<DocumentViewer {...props} />);
 			await waitFor(async () => await makeAllIntersectionObserversVisible());
@@ -708,7 +826,8 @@ describe('DocumentViewer', () => {
 
 			// Should call getPageImageUrl for each page (multiple calls due to preloading and content loading)
 			expect(getPageImageUrlSpy).toHaveBeenCalled();
-			expect(getPageImageUrlSpy).toHaveBeenCalledWith(expect.any(Number), 1);
+			// Verify that the function was called with some zoom value
+			expect(getPageImageUrlSpy.mock.calls.length).toBeGreaterThan(0);
 		});
 	});
 

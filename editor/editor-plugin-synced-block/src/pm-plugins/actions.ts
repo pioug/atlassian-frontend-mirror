@@ -167,29 +167,23 @@ export const editSyncedBlockSource =
 export const removeSyncedBlock =
 	(api?: ExtractInjectionAPI<SyncedBlockPlugin>): Command =>
 	(state: EditorState, dispatch?: CommandDispatch, _view?: EditorView) => {
-		const {
-			selection: {
-				$from: { pos: from },
-				$to: { pos: to },
-			},
-			tr,
-		} = state;
+		const tr = state.tr;
 
-		const syncBlock = findSyncBlockOrBodiedSyncBlock(state);
-		if (!syncBlock) {
+		const syncBlockFindResult = findSyncBlockOrBodiedSyncBlock(state);
+		if (!syncBlockFindResult) {
 			return false;
 		}
 
-		if (!dispatch) {
-			return false;
-		}
+		const newTr = tr.deleteRange(
+			syncBlockFindResult.pos,
+			syncBlockFindResult.pos + syncBlockFindResult.node.nodeSize,
+		);
 
-		const newTr = tr.deleteRange(from, to);
 		if (!newTr) {
 			return false;
 		}
 
-		dispatch(newTr);
+		dispatch?.(newTr);
 		api?.core.actions.focus();
 		return true;
 	};

@@ -1,5 +1,44 @@
 # @atlassian/navigation-system
 
+## 4.3.0
+
+### Minor Changes
+
+- [`4bb7b31bfda3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bb7b31bfda3b) -
+  Refactors changes that were previously behind `platform_dst_nav4_full_height_sidebar_api_changes`
+  to now be behind `platform_dst_nav4_side_nav_default_collapsed_api`. After rollout, both the new
+  and legacy APIs for defining side nav initial state will be supported.
+
+## 4.2.0
+
+### Minor Changes
+
+- [`5ab567cfb4d29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ab567cfb4d29) -
+  Cleans up the `platform_dst_nav4_panel_splitter_guards` feature gate. Panel splitters will now use
+  a safe fallback default width if the provided default width is not an integer.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.0
+
+### Minor Changes
+
+- [`d55bbfc88149b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d55bbfc88149b) -
+  Removes type support for `@atlaskit/temp-nav-app-icons` package
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.0
+
+### Major Changes
+
+- [`5bc3774df4b8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bc3774df4b8f) -
+  Remove experimental UNSAFE_isTooltipDisabled prop for top nav icons
+
 ## 3.1.1
 
 ### Patch Changes

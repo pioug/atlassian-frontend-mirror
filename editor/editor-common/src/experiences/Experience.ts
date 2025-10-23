@@ -40,6 +40,7 @@ export class Experience {
 			this._ufoExperience = new UFOExperience(this.id, {
 				type: ExperienceTypes.Experience,
 				performanceType: ExperiencePerformanceTypes.InlineResult,
+				platform: { component: 'editor' },
 			});
 		}
 		return this._ufoExperience;

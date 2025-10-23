@@ -10,6 +10,7 @@ import {
 	LeftArrow,
 	RightArrow,
 } from './wrappers';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export { LeftArrow, RightArrow } from './wrappers';
 
@@ -444,10 +445,12 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 	componentDidUpdate() {
 		this.previousOffset = this.offset;
 
-		// trigger a "real" scroll event so lazily loaded cards realize they've been shown
-		// note: we have to wait for the transition to end, otherwise the cards not visible when the scroll
-		// event is triggered will be forever stuck in the loading screen (due to the lazy load)
-		window.setTimeout(() => this.triggerScrollEvent(), this.transitionDuration * 1000);
+		if (!fg('platform_editor_disable_trigger_scroll_event')) {
+			// trigger a "real" scroll event so lazily loaded cards realize they've been shown
+			// note: we have to wait for the transition to end, otherwise the cards not visible when the scroll
+			// event is triggered will be forever stuck in the loading screen (due to the lazy load)
+			window.setTimeout(() => this.triggerScrollEvent(), this.transitionDuration * 1000);
+		}
 	}
 
 	render(): JSX.Element {

@@ -23,7 +23,6 @@ import {
 	ElementName,
 	TitleBlock,
 } from '@atlaskit/smart-card';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { analyticsTests } from './common/analytics.test-utils';
 import { runCommonHoverCardTests, unauthorizedViewTests } from './common/common.test-utils';
@@ -173,8 +172,6 @@ describe('hover card over flexible smart links', () => {
 
 			await hoverAndVerify(renderResult, hoverCardTestId, 'smart-element-link', true);
 			await hoverAndVerify(renderResult, hoverCardTestId, 'smart-action-edit-action', false);
-
-			renderResult;
 			const link = await screen.findByTestId('smart-element-link');
 			fireEvent.mouseMove(link);
 			const wrapper = await screen.findByTestId('smart-links-container-hover-card-wrapper');
@@ -237,34 +234,31 @@ describe('hover card over flexible smart links', () => {
 		});
 	});
 
-	describe('feature flags', () => {
-		ffTest.on('cc-ai-linking-platform-snippet-renderer', 'with fg', () => {
-			it('sets enableSnippetRenderer based on cc-ai-linking-platform-snippet-renderer flag', async () => {
-				const renderResult = await setupComponent({
-					extraCardProps: {
-						ui: { enableSnippetRenderer: true },
-					},
-				});
-				await renderResult.event.hover(renderResult.element);
-
-				const hoverCard = await screen.findByTestId(hoverCardTestId);
-				expect(hoverCard).toBeInTheDocument();
+	describe('snippet renderer', () => {
+		it('sets enableSnippetRenderer to true by default', async () => {
+			const renderResult = await setupComponent({
+				extraCardProps: {
+					ui: { enableSnippetRenderer: true },
+				},
 			});
+			await renderResult.event.hover(renderResult.element);
+
+			const hoverCard = await screen.findByTestId(hoverCardTestId);
+			expect(hoverCard).toBeInTheDocument();
 		});
 
-		ffTest.off('cc-ai-linking-platform-snippet-renderer', 'without fg', () => {
-			it('does not set enableSnippetRenderer when flag is off', async () => {
-				const renderResult = await setupComponent({
-					extraCardProps: {
-						ui: { enableSnippetRenderer: false },
-					},
-				});
-				await renderResult.event.hover(renderResult.element);
-
-				const hoverCard = await screen.findByTestId(hoverCardTestId);
-				expect(hoverCard).toBeInTheDocument();
+		it('can disable enableSnippetRenderer when explicitly set to false', async () => {
+			const renderResult = await setupComponent({
+				extraCardProps: {
+					ui: { enableSnippetRenderer: false },
+				},
 			});
+			await renderResult.event.hover(renderResult.element);
+
+			const hoverCard = await screen.findByTestId(hoverCardTestId);
+			expect(hoverCard).toBeInTheDocument();
 		});
+
 		it('should capture and report a11y violations', async () => {
 			const { container } = await setupComponent({
 				extraCardProps: {

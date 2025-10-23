@@ -1,0 +1,77 @@
+{
+	"extends": "../../../../tsconfig.entry-points.products.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-paste/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/code/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-markdown-transformer/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-annotation/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-better-type-history/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-card/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-list/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-media/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-mentions/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-tables/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../insm/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-client/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-common/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-products/tsconfig.json"
+		}
+	]
+}

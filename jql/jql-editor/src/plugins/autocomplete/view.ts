@@ -4,6 +4,7 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isListOperator } from '@atlaskit/jql-ast';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type PortalActions } from '../../ui/jql-editor-portal-provider/types';
 import getDocumentPosition from '../common/get-document-position';
@@ -73,6 +74,15 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 
 		// Request query hydration if we are inserting a user node
 		if (this.enableRichInlineNodes && option.type === 'value' && option.valueType === 'user') {
+			transaction.setMeta('hydrate', true);
+		}
+
+		if (
+			this.enableRichInlineNodes &&
+			option.type === 'value' &&
+			option.valueType === 'team' &&
+			fg('jira_update_jql_teams')
+		) {
 			transaction.setMeta('hydrate', true);
 		}
 

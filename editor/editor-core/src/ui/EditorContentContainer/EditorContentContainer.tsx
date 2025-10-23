@@ -68,7 +68,12 @@ import {
 	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
 } from './styles/expandStyles';
 import { getExtensionStyles } from './styles/extensionStyles';
-import { findReplaceStyles, findReplaceStylesNew } from './styles/findReplaceStyles';
+import {
+	findReplaceStyles,
+	findReplaceStylesWithCodeblockColorContrastFix,
+	findReplaceStylesNew,
+	findReplaceStylesNewWithCodeblockColorContrastFix,
+} from './styles/findReplaceStyles';
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
 import { firstFloatingToolbarButtonStyles } from './styles/floatingToolbarStyles';
 import { fullPageEditorStyles } from './styles/fullPageEditorStyles';
@@ -96,7 +101,12 @@ import {
 	layoutStylesForView,
 } from './styles/layout';
 import { hyperLinkFloatingToolbarStyles, linkLegacyIconStylesFix, linkStyles } from './styles/link';
-import { getDenseListStyles, listsStyles, listsStylesSafariFix } from './styles/list';
+import {
+	getDenseListStyles,
+	listsStyles,
+	diffListStyles,
+	listsStylesSafariFix,
+} from './styles/list';
 import {
 	mediaAlignmentStyles,
 	mediaCaptionStyles,
@@ -359,6 +369,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						textHighlightPaddingStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					listsStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					fg('aifc_create_enabled') && diffListStyles,
 					// Condense vertical spacing between list items when content mode dense is active
 					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 						fg('platform_editor_content_mode_button_mvp') &&
@@ -427,6 +439,14 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							findReplaceStylesNew
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							findReplaceStyles,
+					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+						fg('platform_editor_find_codeblock_color_contrast_fix') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						findReplaceStylesNewWithCodeblockColorContrastFix,
+					!expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+						fg('platform_editor_find_codeblock_color_contrast_fix') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						findReplaceStylesWithCodeblockColorContrastFix,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					textHighlightStyle,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

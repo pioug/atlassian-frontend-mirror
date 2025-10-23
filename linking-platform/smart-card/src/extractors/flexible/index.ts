@@ -146,13 +146,11 @@ const extractFlexibleUiContext = ({
 		url,
 		ari: extractSmartLinkAri(response),
 		type: extractType(data),
-		...(fg('cc-ai-linking-platform-snippet-renderer') && {
-			meta: {
-				objectId: extractMetaObjectId(meta),
-				resourceType: extractMetaResourceType(meta),
-				tenantId: extractMetaTenantId(meta),
-			},
-		}),
+		meta: {
+			objectId: extractMetaObjectId(meta),
+			resourceType: extractMetaResourceType(meta),
+			tenantId: extractMetaTenantId(meta),
+		},
 	};
 };
 

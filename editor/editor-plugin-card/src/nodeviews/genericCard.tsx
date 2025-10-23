@@ -32,6 +32,8 @@ import { WithCardContext } from '../ui/WithCardContext';
 
 export type EditorContext<T> = React.Context<T> & { value: T };
 
+const fatalErrorPositionMap = new Map<string, number>();
+
 export interface CardNodeViewProps extends ReactComponentProps {
 	eventDispatcher?: EventDispatcher;
 	providerFactory?: ProviderFactory;
@@ -224,6 +226,21 @@ export function Card(
 				if (!getPos || typeof getPos === 'boolean') {
 					return;
 				}
+
+				const pos = getPos();
+
+				/**
+				 * We cache fatal errors by position to avoid retrying the same errors
+				 * on the same links at the same position.
+				 */
+				if (
+					url &&
+					pos &&
+					fatalErrorPositionMap.get(url) === pos &&
+					fg('platform_editor_ai_aifc_patch_beta_2')
+				) {
+					return null;
+				}
 				changeSelectedCardToLinkFallback(
 					undefined,
 					url,
@@ -232,6 +249,9 @@ export function Card(
 					getPos(),
 					pluginInjectionApi?.analytics?.actions,
 				)(view.state, view.dispatch);
+				if (url && pos && fg('platform_editor_ai_aifc_patch_beta_2')) {
+					fatalErrorPositionMap.set(url, pos);
+				}
 				return null;
 			} else {
 				// Otherwise, render a blue link as fallback (above in render()).

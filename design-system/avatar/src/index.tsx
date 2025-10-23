@@ -9,6 +9,7 @@ export { default as Status } from './status';
 export type { StatusProps } from './status';
 export { default as Skeleton } from './skeleton';
 export type { SkeletonProps } from './skeleton';
+export { getAppearanceForAppType } from './utilities';
 
 export { AvatarContext, type AvatarContextProps, useAvatarContext } from './context';
 

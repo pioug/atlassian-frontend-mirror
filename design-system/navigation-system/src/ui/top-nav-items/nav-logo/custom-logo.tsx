@@ -10,10 +10,6 @@ import type { LogoProps } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor } from '@atlaskit/primitives';
-import type {
-	IconProps as TempIconProps,
-	LogoProps as TempLogoProps,
-} from '@atlaskit/temp-nav-app-icons/types';
 import { token } from '@atlaskit/tokens';
 
 import { useHasCustomTheme } from '../themed/has-custom-theme-context';
@@ -155,11 +151,11 @@ export const CustomLogo = ({
 	/**
 	 * The logo component to render. It will be used for large viewports.
 	 */
-	logo: ((props: LogoProps) => JSX.Element) | ((props: TempLogoProps) => JSX.Element);
+	logo: (props: LogoProps) => JSX.Element;
 	/**
 	 * The icon component to render. It will be used for small viewports.
 	 */
-	icon: ((props: LogoProps) => JSX.Element) | ((props: TempIconProps) => JSX.Element);
+	icon: (props: LogoProps) => JSX.Element;
 	/**
 	 * Handler called on click.
 	 */

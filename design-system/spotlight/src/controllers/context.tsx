@@ -15,7 +15,7 @@ import {
 
 import { jsx } from '@atlaskit/css';
 
-import type { DismissEvent, Placement } from '../types';
+import type { BackEvent, DismissEvent, DoneEvent, Placement } from '../types';
 
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export interface SpotlightContextType {
@@ -36,6 +36,14 @@ export interface SpotlightContextType {
 		setUpdate: Dispatch<SetStateAction<() => () => Promise<any>>>;
 		dismiss: MutableRefObject<(_event: DismissEvent) => void>;
 		setDismiss: (dismissFn: (_event: DismissEvent) => void) => void;
+	};
+	primaryAction: {
+		action: MutableRefObject<(_event: DoneEvent) => void>;
+		setAction: (doneFn: (_event: DoneEvent) => void) => void;
+	};
+	secondaryAction: {
+		action: MutableRefObject<(_event: BackEvent) => void>;
+		setAction: (backFn: (_event: BackEvent) => void) => void;
 	};
 }
 
@@ -59,6 +67,14 @@ export const SpotlightContext = createContext<SpotlightContextType>({
 		dismiss: { current: () => undefined },
 		setDismiss: () => undefined,
 	},
+	primaryAction: {
+		action: { current: () => undefined },
+		setAction: () => undefined,
+	},
+	secondaryAction: {
+		action: { current: () => undefined },
+		setAction: () => undefined,
+	},
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
@@ -71,9 +87,20 @@ export const SpotlightContextProvider = ({ children }: { children: ReactNode }) 
 		MutableRefObject<HTMLDivElement | undefined> | undefined
 	>();
 	const [cardRef, setCardRef] = useState<MutableRefObject<HTMLDivElement | null> | null>(null);
+
 	const dismissRef = useRef<(_event: DismissEvent) => void>(() => undefined);
 	const setDismiss = (dismissFn: (_event: DismissEvent) => void) => {
 		dismissRef.current = dismissFn;
+	};
+
+	const secondaryActionRef = useRef<(_event: BackEvent) => void>(() => undefined);
+	const setSecondaryAction = (actionFn: (_event: BackEvent) => void) => {
+		secondaryActionRef.current = actionFn;
+	};
+
+	const primaryActionRef = useRef<(_event: DoneEvent) => void>(() => undefined);
+	const setPrimaryAction = (actionFn: (_event: DoneEvent) => void) => {
+		primaryActionRef.current = actionFn;
 	};
 
 	return (
@@ -96,6 +123,14 @@ export const SpotlightContextProvider = ({ children }: { children: ReactNode }) 
 					setUpdate,
 					dismiss: dismissRef,
 					setDismiss,
+				},
+				primaryAction: {
+					action: primaryActionRef,
+					setAction: setPrimaryAction,
+				},
+				secondaryAction: {
+					action: secondaryActionRef,
+					setAction: setSecondaryAction,
 				},
 			}}
 		>

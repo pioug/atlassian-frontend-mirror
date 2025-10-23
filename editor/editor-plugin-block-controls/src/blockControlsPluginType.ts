@@ -16,6 +16,7 @@ import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
 import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
@@ -119,6 +120,7 @@ export type BlockControlsPluginDependencies = [
 	OptionalPlugin<MetricsPlugin>,
 	OptionalPlugin<InteractionPlugin>,
 	OptionalPlugin<UserIntentPlugin>,
+	OptionalPlugin<ToolbarPlugin>,
 ];
 
 export type BlockControlsPlugin = NextEditorPlugin<

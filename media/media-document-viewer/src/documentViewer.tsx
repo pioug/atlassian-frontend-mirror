@@ -15,10 +15,18 @@ import { usePageContent } from './usePageContent';
 import { getScrollElement } from './utils/getDocumentRoot';
 import { useCachedGetImage } from './utils/useCachedGetImage';
 
-type DocumentViewerProps = {
+export type DocumentViewerProps = {
 	getContent: (pageStart: number, pageEnd: number) => Promise<PageRangeContent>;
 	getPageImageUrl: (pageNumber: number, zoom: number) => Promise<string>;
 	paginationSize?: number;
+	/**
+	 * The maximum zoom level that will be requested from the image service.
+	 * This is used to prevent the page from being too large to render server side in a reasonable time.
+	 *
+	 * The 'zoom' prop can still be greater than this value, but the server side image service will return
+	 * a smaller image and the image will be scaled-up client side.
+	 */
+	maxPageImageZoom?: number;
 	zoom: number;
 	onSuccess?: () => void;
 };
@@ -33,19 +41,21 @@ const documentViewerStyles = css({
 });
 
 const DEFAULT_PAGINATION_SIZE = 50;
+const DEFAULT_MAX_PAGE_IMAGE_ZOOM = 6;
 
 export const DocumentViewer = ({
 	onSuccess,
 	getContent,
 	getPageImageUrl,
 	paginationSize = DEFAULT_PAGINATION_SIZE,
+	maxPageImageZoom = DEFAULT_MAX_PAGE_IMAGE_ZOOM,
 	zoom,
 }: DocumentViewerProps) => {
 	const { getPageContent, loadPageContent, documentMetadata } = usePageContent(
 		getContent,
 		paginationSize,
 	);
-	const getImageUrl = useCachedGetImage(getPageImageUrl);
+	const getImageUrl = useCachedGetImage(getPageImageUrl, maxPageImageZoom);
 
 	const style: Record<string, number> = {
 		'--document-viewer-zoom': zoom,
@@ -89,6 +99,7 @@ export const DocumentViewer = ({
 					<Page
 						key={i}
 						getPageSrc={getImageUrl}
+						maxPageImageZoom={maxPageImageZoom}
 						pageIndex={i}
 						zoom={zoom}
 						defaultDimensions={documentMetadata.defaultDimensions}

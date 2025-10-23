@@ -1,5 +1,15 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 2.2.1
+
+### Patch Changes
+
+- [`2261b8ade339b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2261b8ade339b) -
+  [ux] EDITOR-2255 integrate data provider for renderer sync block node
+- [`c28cd65d12c24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28cd65d12c24) -
+  EDITOR-2447 Bump adf-schema to 51.3.1
+- Updated dependencies
+
 ## 2.2.0
 
 ### Minor Changes

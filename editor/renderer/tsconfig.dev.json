@@ -96,6 +96,9 @@
 			"path": "../editor-shared-styles/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-synced-block-renderer/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-test-helpers/tsconfig.app.json"
 		},
 		{

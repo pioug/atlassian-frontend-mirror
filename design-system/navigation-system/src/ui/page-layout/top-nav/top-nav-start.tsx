@@ -13,6 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-start-context';
 import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
+import { SideNavVisibilityState } from '../side-nav/visibility-context';
 
 /**
  * Firefox does support these reorder animations, but only partially enabling layout animations would look odd.
@@ -241,7 +242,7 @@ type TopNavStartProps = {
 	 *
 	 * You should only render `<SideNavToggleButton>` inside this slot, not as a child.
 	 *
-	 * After `platform_dst_nav4_full_height_sidebar_api_changes` rolls out,
+	 * After `platform_dst_nav4_side_nav_toggle_button_slot` rolls out,
 	 * this prop will become required.
 	 *
 	 * Consumers that do not need a toggle button can explicitly pass `null`.
@@ -341,15 +342,24 @@ export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavSta
 	// Used to prevent the reorder animations from running on the initial render.
 	const isFirstRenderRef = useRef(true);
 
+	const sideNavState = useContext(SideNavVisibilityState);
+
 	useEffect(() => {
 		if (!fg('navx-full-height-sidebar')) {
+			return;
+		}
+
+		// Ignore renders until the side nav state is initialized
+		// So that apps using the legacy API for setting side nav default state do not see
+		// animations when they shouldn't
+		if (sideNavState === null) {
 			return;
 		}
 
 		if (isFirstRenderRef.current) {
 			isFirstRenderRef.current = false;
 		}
-	}, []);
+	}, [sideNavState]);
 
 	// Using a stable ref to avoid re-running the animation layout effect when the toggle button prop value changes, which
 	// can happen a lot (e.g. if the parent re-renders)

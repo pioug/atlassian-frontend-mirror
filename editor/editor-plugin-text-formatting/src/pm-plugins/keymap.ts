@@ -2,6 +2,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	bindKeymapWithEditorCommand,
+	findShortcutByKeymap,
 	isCapsLockOnAndModifyKeyboardEvent,
 	toggleBold,
 	toggleCode,
@@ -15,6 +16,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -37,9 +39,11 @@ export default function keymapPlugin(
 
 	if (schema.marks.strong) {
 		bindKeymapWithEditorCommand(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			toggleBold.common!,
+			expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+				? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					findShortcutByKeymap(toggleBold)!
+				: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					toggleBold.common!,
 			toggleStrongWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 			list,
 		);
@@ -47,9 +51,11 @@ export default function keymapPlugin(
 
 	if (schema.marks.em) {
 		bindKeymapWithEditorCommand(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			toggleItalic.common!,
+			expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+				? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					findShortcutByKeymap(toggleItalic)!
+				: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					toggleItalic.common!,
 			toggleEmWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 			list,
 		);
@@ -57,9 +63,11 @@ export default function keymapPlugin(
 
 	if (schema.marks.code) {
 		bindKeymapWithEditorCommand(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			toggleCode.common!,
+			expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+				? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					findShortcutByKeymap(toggleCode)!
+				: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					toggleCode.common!,
 			toggleCodeWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 			list,
 		);
@@ -67,9 +75,11 @@ export default function keymapPlugin(
 
 	if (schema.marks.strike) {
 		bindKeymapWithEditorCommand(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			toggleStrikethrough.common!,
+			expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+				? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					findShortcutByKeymap(toggleStrikethrough)!
+				: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					toggleStrikethrough.common!,
 			toggleStrikeWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 			list,
 		);
@@ -77,9 +87,11 @@ export default function keymapPlugin(
 
 	if (schema.marks.subsup) {
 		bindKeymapWithEditorCommand(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			toggleSubscript.common!,
+			expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+				? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					findShortcutByKeymap(toggleSubscript)!
+				: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					toggleSubscript.common!,
 			toggleSubscriptWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 			list,
 		);
@@ -87,9 +99,11 @@ export default function keymapPlugin(
 
 	if (schema.marks.subsup) {
 		bindKeymapWithEditorCommand(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			toggleSuperscript.common!,
+			expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+				? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					findShortcutByKeymap(toggleSuperscript)!
+				: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					toggleSuperscript.common!,
 			toggleSuperscriptWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 			list,
 		);
@@ -97,9 +111,11 @@ export default function keymapPlugin(
 
 	if (schema.marks.underline) {
 		bindKeymapWithEditorCommand(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			toggleUnderline.common!,
+			expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+				? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					findShortcutByKeymap(toggleUnderline)!
+				: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					toggleUnderline.common!,
 			toggleUnderlineWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 			list,
 		);
@@ -111,9 +127,11 @@ export default function keymapPlugin(
 
 		if (schema.marks.strong && !textFormattingState?.strongDisabled) {
 			bindKeymapWithEditorCommand(
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				toggleBold.common!,
+				expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+					? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						findShortcutByKeymap(toggleBold)!
+					: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						toggleBold.common!,
 				toggleStrongWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 				list,
 			);
@@ -121,9 +139,11 @@ export default function keymapPlugin(
 
 		if (schema.marks.em && !textFormattingState?.emDisabled) {
 			bindKeymapWithEditorCommand(
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				toggleItalic.common!,
+				expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+					? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						findShortcutByKeymap(toggleItalic)!
+					: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						toggleItalic.common!,
 				toggleEmWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 				list,
 			);
@@ -131,9 +151,11 @@ export default function keymapPlugin(
 
 		if (schema.marks.code && !textFormattingState?.codeDisabled) {
 			bindKeymapWithEditorCommand(
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				toggleCode.common!,
+				expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+					? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						findShortcutByKeymap(toggleCode)!
+					: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						toggleCode.common!,
 				toggleCodeWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 				list,
 			);
@@ -141,9 +163,11 @@ export default function keymapPlugin(
 
 		if (schema.marks.strike && !textFormattingState?.strikeDisabled) {
 			bindKeymapWithEditorCommand(
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				toggleStrikethrough.common!,
+				expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+					? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						findShortcutByKeymap(toggleStrikethrough)!
+					: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						toggleStrikethrough.common!,
 				toggleStrikeWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 				list,
 			);
@@ -151,9 +175,11 @@ export default function keymapPlugin(
 
 		if (schema.marks.subsup && !textFormattingState?.subscriptDisabled) {
 			bindKeymapWithEditorCommand(
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				toggleSubscript.common!,
+				expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+					? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						findShortcutByKeymap(toggleSubscript)!
+					: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						toggleSubscript.common!,
 				toggleSubscriptWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 				list,
 			);
@@ -161,9 +187,11 @@ export default function keymapPlugin(
 
 		if (schema.marks.subsup && !textFormattingState?.superscriptDisabled) {
 			bindKeymapWithEditorCommand(
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				toggleSuperscript.common!,
+				expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+					? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						findShortcutByKeymap(toggleSuperscript)!
+					: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						toggleSuperscript.common!,
 				toggleSuperscriptWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 				list,
 			);
@@ -171,9 +199,11 @@ export default function keymapPlugin(
 
 		if (schema.marks.underline && !textFormattingState?.underlineDisabled) {
 			bindKeymapWithEditorCommand(
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				toggleUnderline.common!,
+				expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+					? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						findShortcutByKeymap(toggleUnderline)!
+					: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						toggleUnderline.common!,
 				toggleUnderlineWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 				list,
 			);

@@ -61,6 +61,9 @@
 			"path": "../heading/tsconfig.app.json"
 		},
 		{
+			"path": "../image/tsconfig.app.json"
+		},
+		{
 			"path": "../link/tsconfig.app.json"
 		},
 		{
@@ -70,13 +73,25 @@
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{
+			"path": "../select/tsconfig.app.json"
+		},
+		{
+			"path": "../table/tsconfig.app.json"
+		},
+		{
 			"path": "../theme/tsconfig.app.json"
+		},
+		{
+			"path": "../toggle/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
 		}
 	]
 }

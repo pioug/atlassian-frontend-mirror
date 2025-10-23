@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "110.16.3",
+	"version": "110.18.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -267,9 +267,6 @@
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean"
 		},
-		"annotations_align_editor_and_renderer_styles": {
-			"type": "boolean"
-		},
 		"editor_inline_comments_paste_insert_nodes": {
 			"type": "boolean"
 		},
@@ -288,13 +285,7 @@
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},
-		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
 		"platform_editor_multi_body_extension_extensibility": {
-			"type": "boolean"
-		},
-		"platform_editor_renderer_table_header_styles": {
 			"type": "boolean"
 		},
 		"platform_editor_link_popup_position_fix_aifc": {
@@ -304,12 +295,6 @@
 			"type": "boolean"
 		},
 		"confluence-issue-terminology-refresh": {
-			"type": "boolean"
-		},
-		"platform-dst-jira-web-fonts": {
-			"type": "boolean"
-		},
-		"atlas_editor_typography_refreshed": {
 			"type": "boolean"
 		},
 		"platform_editor_nested_dnd_styles_changes": {
@@ -327,16 +312,7 @@
 		"platform_editor_bordered_panel_nested_in_table": {
 			"type": "boolean"
 		},
-		"dst-a11y__replace-anchor-with-link__editor": {
-			"type": "boolean"
-		},
-		"confluence_preload_forge_viewport_heights_editor": {
-			"type": "boolean"
-		},
 		"interactable_in_editor_inputs": {
-			"type": "boolean"
-		},
-		"should-render-to-parent-should-be-true-editor": {
 			"type": "boolean"
 		},
 		"confluence_connect_macro_preset_height": {
@@ -363,16 +339,10 @@
 		"p2m-drop-down-motion": {
 			"type": "boolean"
 		},
-		"platform_editor_resolve_hyperlinks_killswitch": {
-			"type": "boolean"
-		},
 		"platform_editor_a11y_insert_link_item_focus": {
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_aifc_patch_7": {
-			"type": "boolean"
-		},
-		"platform_editor_block_menu_format_rank_revised": {
 			"type": "boolean"
 		},
 		"platform_editor_update_modal_close_button": {

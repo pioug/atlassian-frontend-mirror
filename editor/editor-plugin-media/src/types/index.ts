@@ -61,6 +61,12 @@ export interface MediaPluginOptions {
 	allowResizing?: boolean;
 	allowResizingInTables?: boolean;
 	allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
+	/**
+	 * When enabled, prevents automatic focus/selection of media nodes after upload completion.
+	 * The existing focus will be preserved instead of switching to the uploaded media.
+	 * @default false
+	 */
+	preventAutoFocusOnUpload?: boolean;
 	// returns array of validation errors based on value, if no errors returned - value is considered to be valid
 	altTextValidator?: (value: string) => string[];
 	customDropzoneContainer?: HTMLElement;

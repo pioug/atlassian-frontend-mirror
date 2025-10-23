@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/logo",
-	"version": "19.9.1",
+	"version": "19.9.2",
 	"description": "A logo is a visual representation of a brand or app. It can be a word, an image, or a combination of both.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -16,7 +16,8 @@
 		"**/*.compiled.css"
 	],
 	"scripts": {
-		"generate:examples": "ts-node --project ../../../tsconfig.node.json ./build/generate-examples.tsx"
+		"generate:examples": "ts-node --project ../../../tsconfig.node.json ./build/build-examples.tsx",
+		"generate:components": "ts-node --project ../../../tsconfig.node.json ./build/build-components.tsx"
 	},
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
@@ -27,9 +28,9 @@
 		}
 	},
 	"dependencies": {
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/temp-nav-app-icons": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -46,19 +47,25 @@
 		"@atlaskit/code": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/form": "workspace:^",
+		"@atlaskit/image": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlaskit/table": "workspace:^",
+		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"fs-extra": "root:*",
 		"jscodeshift": "root:*",
 		"lodash": "root:*",
+		"pkg-dir": "root:*",
 		"react-dom": "root:*",
+		"svgo": "root:*",
 		"ts-node": "root:*"
 	},
 	"techstack": {
@@ -92,7 +99,7 @@
 		}
 	},
 	"exports": {
-		"./raw-icons": "./src/exports/raw-icons.tsx",
+		"./raw-icons": "./src/artifacts/raw-icons/index.tsx",
 		"./atlassian-icon": "./src/exports/atlassian-icon.tsx",
 		"./bitbucket-icon": "./src/exports/bitbucket-icon.tsx",
 		"./confluence-icon": "./src/exports/confluence-icon.tsx",
@@ -101,8 +108,8 @@
 		"./opsgenie-icon": "./src/exports/opsgenie.tsx",
 		"./statuspage-icon": "./src/exports/statuspage-icon.tsx",
 		"./trello-icon": "./src/exports/trello-icon.tsx",
-		"./jira-software-icon": "./src/legacy-logos/jira-software/icon.tsx",
-		"./atlas-icon": "./src/legacy-logos/atlas/icon.tsx",
+		"./jira-software-icon": "./src/exports/jira-software.tsx",
+		"./atlas-icon": "./src/exports/atlas-icon.tsx",
 		"./constants": "./src/constants.tsx",
 		"./Wrapper": "./src/wrapper.tsx",
 		".": "./src/index.tsx"
@@ -118,6 +125,9 @@
 			"type": "boolean"
 		},
 		"platform-logo-rebrand-rovo-hex": {
+			"type": "boolean"
+		},
+		"assets-platform-branding": {
 			"type": "boolean"
 		}
 	},

@@ -10,6 +10,7 @@ import {
 	type TerminalClause,
 	type ValueOperand,
 } from '@atlaskit/jql-ast';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { JQLEditorSchema } from '../../../schema';
 import { type HydratedValuesMap } from '../../../state/types';
@@ -29,7 +30,7 @@ export const replaceRichInlineNodes = (
 
 	Object.entries(hydratedValues).forEach(([fieldName, values]) => {
 		values.forEach((value) => {
-			if (value.type === 'user') {
+			if (value.type === 'user' || (value.type === 'team' && fg('jira_update_jql_teams'))) {
 				const astNodes = getValueNodes(ast, fieldName, value.id);
 				astNodes.forEach((astNode) => {
 					if (astNode.position) {
@@ -54,6 +55,10 @@ const getRichInlineNode = (fieldName: string, value: HydratedValue, text: string
 		case 'user': {
 			const textContent = JQLEditorSchema.text(text);
 			return JQLEditorSchema.nodes.user.create({ ...value, fieldName }, textContent);
+		}
+		case 'team': {
+			const textContent = JQLEditorSchema.text(text);
+			return JQLEditorSchema.nodes.team.create({ ...value, fieldName }, textContent);
 		}
 		default: {
 			throw new Error(`Unsupported hydrated value type ${value.type}`);

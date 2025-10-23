@@ -1,5 +1,15 @@
 # @atlaskit/spotlight
 
+## 0.7.0
+
+### Minor Changes
+
+- [`6e38d616cae8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e38d616cae8e) -
+  Allow back, next, done actions to be passed into PopoverContent. These actions will be used if no
+  onClick handler is passed to SpotlightSecondaryAction, SpotlightPrimaryAction. If onClick handlers
+  are provided to the specific components, then they will take preference over what is passed to
+  PopoverContent.
+
 ## 0.6.4
 
 ### Patch Changes

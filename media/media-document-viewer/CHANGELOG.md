@@ -1,5 +1,13 @@
 # @atlaskit/media-document-viewer
 
+## 0.5.0
+
+### Minor Changes
+
+- [`3a4089c3a27b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4089c3a27b3) -
+  Improve handling of zoom to take into account device DPI to prevent blurry images. Also update
+  form handling to show default pdfium rendered forms, and only show HTML input elements on focus.
+
 ## 0.4.4
 
 ### Patch Changes

@@ -15,6 +15,12 @@ import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-prefere
 import type { ToolbarDocking } from './types';
 
 export type SelectionToolbarPluginOptions = {
+	/**
+	 * Whether to enable floating toolbar for text selection.
+	 *
+	 * Warning: This option will be deprecated in the future, and instead will rely on options passed to `toolbarPlugin` which
+	 * allows more control over toolbar placement.
+	 */
 	contextualFormattingEnabled?: boolean;
 	/** @defaults false */
 	preferenceToolbarAboveSelection?: boolean;

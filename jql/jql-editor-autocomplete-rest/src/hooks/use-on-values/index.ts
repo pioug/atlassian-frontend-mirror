@@ -13,12 +13,13 @@ import {
 	type AutocompleteOptions,
 	type AutocompleteValueType,
 } from '@atlaskit/jql-editor-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type JqlEditorAutocompleteAnalyticsEvent } from '../../analytics';
 import { type GetAutocompleteSuggestions, type JQLFieldResponse } from '../../common/types';
 import findField$ from '../../utils/find-field-observable';
 import { normalize } from '../../utils/strings';
-import { USER_FIELD_TYPE } from '../constants';
+import { TEAM_FIELD_TYPE, USER_FIELD_TYPE } from '../constants';
 import {
 	type FieldValuesCache,
 	type OnValues,
@@ -29,6 +30,9 @@ import { useFetchFieldValues } from '../use-fetch-field-values';
 const getValueType = (field: JQLFieldResponse): AutocompleteValueType | void => {
 	if (field.types.includes(USER_FIELD_TYPE)) {
 		return 'user';
+	}
+	if (field.types.includes(TEAM_FIELD_TYPE) && fg('jira_update_jql_teams')) {
+		return 'team';
 	}
 
 	return undefined;
@@ -108,6 +112,11 @@ const useOnValues = (
 											// REST autocomplete API returns user display names with this format: "Name - email". To be
 											// consistent with hydration API, we want to remove email from this name for rich inline nodes.
 											value.nameOnRichInlineNode = value.name.replace(BASIC_REMOVE_EMAIL_REGEX, '');
+										});
+									}
+									if (valueType === 'team' && fg('jira_update_jql_teams')) {
+										values.forEach((value: AutocompleteOption) => {
+											value.valueType = valueType;
 										});
 									}
 									// Save response to in-memory cache

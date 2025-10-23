@@ -2,6 +2,7 @@ import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { shallow } from 'enzyme';
 import React, { type ReactElement } from 'react';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { type LozengeProps } from '../../../types';
 import { AvatarItemOption, textWrapper } from '../../../components/AvatarItemOption';
 import { HighlightText } from '../../../components/HighlightText';
@@ -221,5 +222,52 @@ describe('User Option', () => {
 
 		expect(primaryText[0].key).toEqual('name');
 		expect(primaryText[0].props.children).toEqual(<HighlightText>Jace Beleren</HighlightText>);
+	});
+
+	ffTest.on('jira_ai_agent_avatar_user_picker_user_option', 'on', () => {
+		it('should render hexagon avatar when appType is agent with feature flag enabled', () => {
+			const getAppearanceForAppTypeSpy = jest.spyOn(
+				require('@atlaskit/avatar'),
+				'getAppearanceForAppType',
+			);
+			const userWithAgentAppType = {
+				...user,
+				appType: 'agent',
+			};
+
+			const component = shallowOption({ user: userWithAgentAppType });
+			const avatarItemOption = component.find(AvatarItemOption);
+
+			expect(getAppearanceForAppTypeSpy).toHaveBeenCalledWith('agent');
+			expect(getAppearanceForAppTypeSpy).toHaveReturnedWith('hexagon');
+
+			const avatar = avatarItemOption.props().avatar as ReactElement;
+			expect(avatar.props.avatarAppearanceShape).toBe('hexagon');
+
+			getAppearanceForAppTypeSpy.mockRestore();
+		});
+	});
+
+	ffTest.off('jira_ai_agent_avatar_user_picker_user_option', 'off', () => {
+		it('should not render hexagon avatar when appType is agent with feature flag disabled', () => {
+			const getAppearanceForAppTypeSpy = jest.spyOn(
+				require('@atlaskit/avatar'),
+				'getAppearanceForAppType',
+			);
+			const userWithAgentAppType = {
+				...user,
+				appType: 'agent',
+			};
+
+			const component = shallowOption({ user: userWithAgentAppType });
+			const avatarItemOption = component.find(AvatarItemOption);
+
+			expect(getAppearanceForAppTypeSpy).not.toHaveBeenCalled();
+
+			const avatar = avatarItemOption.props().avatar as ReactElement;
+			expect(avatar.props.avatarAppearanceShape).toBeUndefined();
+
+			getAppearanceForAppTypeSpy.mockRestore();
+		});
 	});
 });

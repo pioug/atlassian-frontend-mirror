@@ -1,3 +1,4 @@
+import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar';
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
@@ -24,6 +25,18 @@ export type ToolbarPlugin = NextEditorPlugin<
 	'toolbar',
 	{
 		actions: {
+			/**
+			 * Returns the current contextual formatting toolbar mode configuration.
+			 *
+			 * This method retrieves the active setting that determines the behavior and placement
+			 * of the contextual formatting toolbar in the editor.
+			 *
+			 * @returns The active contextual formatting mode:
+			 * - `always-inline`: Formatting controls appear in a floating toolbar near selected text
+			 * - `always-pinned`: Formatting controls are pinned to the top toolbar (default)
+			 * - `controlled`: Both inline and primary toolbars are available
+			 */
+			contextualFormattingMode: () => ContextualFormattingEnabledOptions;
 			getComponents: () => Array<RegisterComponent>;
 			registerComponents: RegisterComponentsAction;
 		};

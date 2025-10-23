@@ -1,0 +1,176 @@
+{
+	"extends": "../../../../tsconfig.entry-points.products.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__link-datasource/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../uip/atlassian-context/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar-group/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/badge/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/datetime-picker/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/empty-state/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/flag/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-object/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/image/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/inline-edit/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/intl-messages-provider/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../jql/jql-ast/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../jql/jql-editor/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../jql/jql-editor-autocomplete-rest/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/layering/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../link-client-extension/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../linking-common/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../linking-types/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/logo/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/lozenge/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../teamwork-ecosystem/outbound-auth-flow-client/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popup/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/core/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/hitbox/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/react-beautiful-dnd-autoscroll/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/react-drop-indicator/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/react-select/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../smart-card/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../smart-experiences/smart-user-picker/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tag/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/width-detector/afm-products/tsconfig.json"
+		}
+	]
+}

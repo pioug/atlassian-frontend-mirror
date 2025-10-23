@@ -50,12 +50,18 @@ const getEditorStyleNode = (nodeName: string, colourScheme?: 'standard' | 'tradi
 			return colourScheme === 'traditional' ? traditionalStyleQuoteNode : editingStyleQuoteNode;
 		case 'mediaSingle':
 		case 'mediaGroup':
-		case 'embedCard':
 		case 'table':
 		case 'tableRow':
 		case 'tableCell':
 		case 'tableHeader':
 			return undefined; // Handle table separately to avoid border issues
+		case 'embedCard':
+			return convertToInlineCss({
+				'--diff-decoration-marker-color':
+					colourScheme === 'traditional'
+						? token('color.border.accent.green')
+						: token('color.border.accent.purple'),
+			});
 		case 'paragraph':
 		case 'heading':
 		case 'hardBreak':
@@ -65,8 +71,14 @@ const getEditorStyleNode = (nodeName: string, colourScheme?: 'standard' | 'tradi
 		case 'taskItem':
 		case 'bulletList':
 		case 'orderedList':
+			return undefined;
 		case 'listItem':
-			return undefined; // Lists do not need special styling
+			return convertToInlineCss({
+				'--diff-decoration-marker-color':
+					colourScheme === 'traditional'
+						? token('color.border.accent.green')
+						: token('color.border.accent.purple'),
+			});
 		case 'layoutSection':
 			return undefined; // Layout nodes do not need special styling
 		case 'rule':
@@ -131,7 +143,6 @@ export const createBlockChangedDecoration = (
 		{
 			style: getEditorStyleNode(change.name, colourScheme),
 			'data-testid': 'show-diff-changed-decoration-node',
-			class: `show-diff-changed-decoration-node-${colourScheme || 'standard'}`,
 		},
 		{},
 	);

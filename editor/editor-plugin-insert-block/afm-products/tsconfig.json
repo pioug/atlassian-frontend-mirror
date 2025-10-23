@@ -1,0 +1,149 @@
+{
+	"extends": "../../../../tsconfig.entry-points.products.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-insert-block/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/button/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-type/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-code-block/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-connectivity/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-date/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-emoji/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-expand/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-extension/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-hyperlink/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-image-upload/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-layout/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-media/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-media-insert/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-mentions/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-metrics/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-panel/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-placeholder-text/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-primary-toolbar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-quick-insert/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-rule/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-status/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-table/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-tasks-and-decisions/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-toolbar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-type-ahead/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/emoji/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-products/tsconfig.json"
+		}
+	]
+}

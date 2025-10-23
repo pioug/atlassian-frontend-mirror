@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 6.3.0
+
+### Minor Changes
+
+- [`673772ec67daf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/673772ec67daf) -
+  [ux] EDITOR-2265 - show placeholder for empty paragraph
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

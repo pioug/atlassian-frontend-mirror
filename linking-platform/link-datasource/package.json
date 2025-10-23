@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.27.0",
+	"version": "4.27.1",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

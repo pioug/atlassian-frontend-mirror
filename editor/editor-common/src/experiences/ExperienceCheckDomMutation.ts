@@ -14,12 +14,14 @@ export type ExperienceCheckDomMutationObserveConfig = {
 	 * MutationObserver options specifying what types of mutations to observe
 	 * @see https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver/observe
 	 */
-	options: MutationObserverInit;
+	options?: MutationObserverInit;
 
 	/**
 	 * Target element to observe for mutations
+	 *
+	 * If null or undefined, the experience will fail with reason 'target-not-found'.
 	 */
-	target: Node;
+	target?: Node | null;
 };
 
 export type ExperienceCheckDomMutationConfig = {
@@ -71,7 +73,7 @@ export class ExperienceCheckDomMutation implements ExperienceCheck {
 
 		const config = this.observeConfig();
 
-		if (!config) {
+		if (!config?.target) {
 			callback({
 				status: 'failure',
 				reason: EXPERIENCE_FAILURE_REASON.DOM_MUTATION_TARGET_NOT_FOUND,

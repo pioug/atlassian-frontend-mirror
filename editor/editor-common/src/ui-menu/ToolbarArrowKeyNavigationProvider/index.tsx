@@ -332,7 +332,10 @@ function getFocusableElements(rootNode: HTMLElement | null): Array<HTMLElement> 
 	return Array.from(focusableModalElements);
 }
 
-function isElementOrAncestorHiddenOrDisabled(element: HTMLElement, rootNode: HTMLElement | null): boolean {
+function isElementOrAncestorHiddenOrDisabled(
+	element: HTMLElement,
+	rootNode: HTMLElement | null,
+): boolean {
 	let currentElement: HTMLElement | null = element;
 
 	while (currentElement && currentElement !== rootNode && currentElement !== document.body) {
@@ -347,7 +350,13 @@ function isElementOrAncestorHiddenOrDisabled(element: HTMLElement, rootNode: HTM
 		if (
 			currentElement.hasAttribute('disabled') ||
 			currentElement.getAttribute('aria-disabled') === 'true' ||
-			(currentElement as HTMLButtonElement | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).disabled === true
+			(
+				currentElement as
+					| HTMLButtonElement
+					| HTMLInputElement
+					| HTMLSelectElement
+					| HTMLTextAreaElement
+			).disabled === true
 		) {
 			return true;
 		}

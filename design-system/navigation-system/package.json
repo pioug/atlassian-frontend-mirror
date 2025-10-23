@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "3.1.1",
+	"version": "4.3.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -154,7 +154,6 @@
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/skeleton": "workspace:^",
-		"@atlaskit/temp-nav-app-icons": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/gemini": "workspace:^",
@@ -187,6 +186,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_dst_nav4_side_nav_default_collapsed_api": {
+			"type": "boolean"
+		},
 		"platform_dst_nav4_side_nav_toggle_ref_fix": {
 			"type": "boolean"
 		},
@@ -206,16 +208,10 @@
 		"platform_dst_nav4_flyoutmenuitem_render_to_parent": {
 			"type": "boolean"
 		},
-		"platform_dst_nav4_panel_splitter_guards": {
-			"type": "boolean"
-		},
 		"navx-full-height-sidebar": {
 			"type": "boolean"
 		},
 		"team25-eu-jira-logo-updates-csm-jsm": {
-			"type": "boolean"
-		},
-		"platform_dst_nav4_full_height_sidebar_api_changes": {
 			"type": "boolean"
 		},
 		"platform-dst-tooltip-shortcuts": {

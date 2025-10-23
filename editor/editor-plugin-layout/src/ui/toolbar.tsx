@@ -7,6 +7,7 @@ import commonMessages, {
 	layoutMessages,
 	layoutMessages as toolbarMessages,
 } from '@atlaskit/editor-common/messages';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	Command,
 	DropdownOptions,
@@ -298,6 +299,8 @@ export const buildToolbar = (
 	const { hoverDecoration } = api?.decorations?.actions ?? {};
 	const editorAnalyticsAPI = api?.analytics?.actions;
 	const node = state.doc.nodeAt(pos);
+	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
+
 	if (node) {
 		const currentLayout = getPresetLayout(node);
 
@@ -401,7 +404,7 @@ export const buildToolbar = (
 								: []),
 						]),
 
-				...(editorExperiment('platform_editor_controls', 'variant1')
+				...(toolbarFlagsEnabled
 					? [fullHeightSeparator, overflowMenu]
 					: [separator, copyButton, separator, deleteButton]),
 			],

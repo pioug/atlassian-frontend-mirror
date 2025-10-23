@@ -104,6 +104,11 @@ const itemDescription = css({
 	color: `${token('color.text.subtlest', N200)};`,
 	marginTop: `${token('space.050', '4px')};`,
 });
+// when cleaning up FG `platform_editor_typeahead_description_text_colour`
+// replace above color with this and delete itemDescriptionColor
+const itemDescriptionColor = css({
+	color: `${token('color.text.subtle')};`,
+});
 const itemDescriptionOverride = css({
 	font: token('font.body.small'),
 	marginTop: 0,
@@ -392,6 +397,7 @@ export const TypeAheadListItem = React.memo(
 							<div
 								css={[
 									itemDescription,
+									fg('platform_editor_typeahead_description_text_colour') && itemDescriptionColor,
 									moreElementsInQuickInsertViewEnabled && itemDescriptionOverride,
 									itemIsDisabled && disabledStyle,
 								]}

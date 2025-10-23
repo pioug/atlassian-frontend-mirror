@@ -1,5 +1,45 @@
 # @atlaskit/editor-core
 
+## 215.8.0
+
+### Minor Changes
+
+- [`301c7dd0ccdd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/301c7dd0ccdd2) -
+  Adds new `contextualFormattingEnabled` plugin option to editor-plugin-toolbar. This has 3 options
+  (always-inline, always-pinned and controlled) to allow direct control over toolbar placement in
+  the editor.
+
+### Patch Changes
+
+- [`b2520b000ee03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2520b000ee03) -
+  ED-29593 cleanup platform_editor_ttvc_nodes_in_viewport
+- [`c28cd65d12c24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28cd65d12c24) -
+  EDITOR-2447 Bump adf-schema to 51.3.1
+- Updated dependencies
+
+## 215.7.0
+
+### Minor Changes
+
+- [`a28ac1e7cb62d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a28ac1e7cb62d) -
+  EDITOR-2498 Add emoji disableAutoformatProp to universalPreset so jira can disable autoformatting
+  when required
+
+### Patch Changes
+
+- [`b24541c8bc571`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b24541c8bc571) -
+  [ux] Fixes an A11Y issue. When there are selected Find and Replace matches inside of a codeblock,
+  color contrast is insufficient.
+- Updated dependencies
+
+## 215.6.3
+
+### Patch Changes
+
+- [`63e63c69cd679`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63e63c69cd679) -
+  Add styling for bullet point markers on diff
+- Updated dependencies
+
 ## 215.6.2
 
 ### Patch Changes

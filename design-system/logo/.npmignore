@@ -4,6 +4,7 @@ examples/
 index.ts
 constellation/
 docs/
+logos_raw/
 build/
 tsconfig.json
 tsconfig.app.json

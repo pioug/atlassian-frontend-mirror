@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { getAppearanceForAppType } from '@atlaskit/avatar';
 import { B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -77,7 +78,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 
 	private renderAvatar = () => {
 		const {
-			user: { avatarUrl },
+			user: { avatarUrl, appType },
 			status,
 		} = this.props;
 
@@ -86,6 +87,11 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 				appearance={fg('platform-component-visual-refresh') ? 'medium' : 'big'}
 				src={avatarUrl}
 				presence={status}
+				avatarAppearanceShape={
+					fg('jira_ai_agent_avatar_user_picker_user_option')
+						? getAppearanceForAppType(appType)
+						: undefined
+				}
 			/>
 		);
 	};

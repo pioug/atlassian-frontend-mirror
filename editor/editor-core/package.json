@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.6.2",
+	"version": "215.8.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -440,11 +440,17 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_find_codeblock_color_contrast_fix": {
+			"type": "boolean"
+		},
 		"platform_editor_blocktaskitem_patch_3": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
 		"platform_editor_text_highlight_padding": {
+			"type": "boolean"
+		},
+		"platform_editor_toolbar_aifc_placement_config": {
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_aifc_patch_7": {

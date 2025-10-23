@@ -24,6 +24,9 @@
 	"references": [
 		{
 			"path": "../../jql-editor-common/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
 		}
 	]
 }

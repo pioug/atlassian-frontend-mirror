@@ -9,7 +9,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { Popper, type Placement as PopperPlacement } from '@atlaskit/popper';
 
 import { SpotlightContext } from '../../controllers/context';
-import type { DismissEvent, Placement } from '../../types';
+import type { BackEvent, DismissEvent, DoneEvent, NextEvent, Placement } from '../../types';
 import { useFocusWithin } from '../../utils/use-focus-within';
 import { useOnClickOutside } from '../../utils/use-on-click-outside';
 import { useOnEscape } from '../../utils/use-on-escape';
@@ -30,7 +30,7 @@ const styles = cssMap({
  */
 const offset: [number, number] = [0, 2];
 
-export interface PopoverContentProps {
+interface BasePopoverContentProps {
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
 	 * string that appears as a data attribute `data-testid` in the rendered code,
@@ -41,8 +41,16 @@ export interface PopoverContentProps {
 	isVisible?: boolean;
 	shouldDismissOnClickOutside?: boolean;
 	dismiss: (event: DismissEvent) => void;
+	back?: (event: BackEvent) => void;
 	children: ReactNode;
 }
+
+export type PopoverContentProps = BasePopoverContentProps &
+	(
+		| { next: (event: NextEvent) => void; done?: never }
+		| { done: (event: DoneEvent) => void; next?: never }
+		| { next?: never; done?: never }
+	);
 
 /**
  * The Spotlight card can be positioned in many different configurations, but the caret should always point to
@@ -71,17 +79,28 @@ const popperPlacementMap: Record<
  *
  * A `PopoverContent` is the element that is shown as a popover.
  */
-export const PopoverContent = ({
-	children,
-	placement,
-	isVisible = true,
-	shouldDismissOnClickOutside = true,
-	dismiss,
-	testId,
-}: PopoverContentProps) => {
+export const PopoverContent = (props: PopoverContentProps) => {
+	const {
+		children,
+		placement,
+		isVisible = true,
+		shouldDismissOnClickOutside = true,
+		dismiss,
+		back,
+		testId,
+	} = props;
+
+	/**
+	 * A user should only be able to pass a `done` or a `next`. Not both.
+	 * The type is set up as a discriminant union. So, we need a typeguard
+	 * here to destructure it properly.
+	 */
+	const done = 'done' in props ? props.done : undefined;
+	const next = 'next' in props ? props.next : undefined;
 	const updateRef = useRef<() => Promise<any>>(() => new Promise(() => undefined));
 	const ref = useRef<HTMLDivElement>();
-	const { heading, popoverContent, card } = useContext(SpotlightContext);
+	const { heading, popoverContent, card, primaryAction, secondaryAction } =
+		useContext(SpotlightContext);
 	const focusWithin = useFocusWithin(popoverContent.ref);
 
 	useEffect(() => {
@@ -89,8 +108,30 @@ export const PopoverContent = ({
 	}, [ref, popoverContent]);
 
 	useEffect(() => {
+		if (!done && !next) {
+			return;
+		}
+
+		if (done) {
+			primaryAction.setAction(done);
+			return;
+		} else if (next) {
+			primaryAction.setAction(next);
+			return;
+		}
+	}, [done, next, primaryAction]);
+
+	useEffect(() => {
 		popoverContent.setDismiss(dismiss);
 	}, [dismiss, popoverContent]);
+
+	useEffect(() => {
+		if (!back) {
+			return;
+		}
+
+		secondaryAction.setAction(back);
+	}, [back, secondaryAction]);
 
 	useEffect(() => {
 		card.setPlacement(placement);

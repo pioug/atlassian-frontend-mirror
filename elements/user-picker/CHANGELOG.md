@@ -1,5 +1,16 @@
 # @atlaskit/user-picker
 
+## 11.9.0
+
+### Minor Changes
+
+- [`f70c3197f7179`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f70c3197f7179) -
+  [ux] add hexagon appearanceShape to user-picker based on appType as agent
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.8.2
 
 ### Patch Changes

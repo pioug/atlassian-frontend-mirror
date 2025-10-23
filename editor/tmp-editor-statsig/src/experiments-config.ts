@@ -893,14 +893,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-09-02
-	platform_editor_ttvc_nodes_in_viewport: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ttvc_nodes_in_viewport',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-09-10
 	platform_editor_fix_button_name_violation_in_table: createBooleanExperiment({
 		productKeys: {

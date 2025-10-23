@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.5.3
+
+### Patch Changes
+
+- [`c28cd65d12c24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28cd65d12c24) -
+  EDITOR-2447 Bump adf-schema to 51.3.1
+- Updated dependencies
+
+## 6.5.2
+
+### Patch Changes
+
+- [`8159502f4e3ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8159502f4e3ed) -
+  [ux] [ENGHEALTH-32547] Changes the colour of the typeahead item description text to fix a colour
+  contrast a11y violation
+- Updated dependencies
+
 ## 6.5.1
 
 ### Patch Changes

@@ -593,13 +593,7 @@ export function ReactEditorView(props: EditorViewProps) {
 							.api()
 							.base?.sharedState.currentState() as ContextIdentifierProvider | undefined;
 
-						const nodesInViewport = expValEquals(
-							'platform_editor_ttvc_nodes_in_viewport',
-							'isEnabled',
-							true,
-						)
-							? getNodesVisibleInViewport(viewRef.current.dom)
-							: {};
+						const nodesInViewport = getNodesVisibleInViewport(viewRef.current.dom);
 
 						const nodeSize = viewRef.current.state.doc.nodeSize;
 						const { totalNodes, nodeSizeBucket } = expValEquals(

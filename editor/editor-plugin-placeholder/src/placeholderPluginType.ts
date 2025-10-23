@@ -13,6 +13,7 @@ export interface PlaceholderPluginOptions {
 	placeholder?: string;
 	placeholderBracketHint?: string;
 	placeholderPrompts?: string[];
+	withEmptyParagraph?: boolean;
 }
 
 export type PlaceholderPlugin = NextEditorPlugin<

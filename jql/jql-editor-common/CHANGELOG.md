@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor-common
 
+## 3.0.2
+
+### Patch Changes
+
+- [`6cf4b64a5d781`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cf4b64a5d781) -
+  Update team JQl to show rich text node (and hydrate)
+
 ## 3.0.1
 
 ### Patch Changes

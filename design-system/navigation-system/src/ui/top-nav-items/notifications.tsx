@@ -14,11 +14,6 @@ interface NotificationsProps extends Omit<EndItemProps, 'icon'> {
 	 * You are recommended to use the Badge component from `@atlaskit/badge`.
 	 */
 	badge: ComponentType;
-	/**
-	 * Experimental, do not use. May be removed at any time.
-	 * Whether the tooltip should be disabled.
-	 */
-	UNSAFE_isTooltipDisabled?: boolean;
 }
 
 /**
@@ -41,7 +36,6 @@ export const Notifications: React.ForwardRefExoticComponent<
 		'aria-haspopup': ariaHasPopup,
 		isListItem,
 		badge,
-		UNSAFE_isTooltipDisabled,
 	},
 	ref,
 ) {
@@ -67,7 +61,6 @@ export const Notifications: React.ForwardRefExoticComponent<
 				// We explicitly set the EndItem to not be a list item,
 				// because the BadgeContainer already has a list item role (if `isListItem` is true)
 				isListItem={false}
-				UNSAFE_isTooltipDisabled={UNSAFE_isTooltipDisabled}
 			/>
 		</BadgeContainer>
 	);

@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 3.4.0
+
+### Minor Changes
+
+- [`301c7dd0ccdd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/301c7dd0ccdd2) -
+  Adds new `contextualFormattingEnabled` plugin option to editor-plugin-toolbar. This has 3 options
+  (always-inline, always-pinned and controlled) to allow direct control over toolbar placement in
+  the editor.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.3
+
+### Patch Changes
+
+- [`74c8f9fcfdf9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74c8f9fcfdf9d) -
+  Selection toolbar experience tracking
+- Updated dependencies
+
 ## 3.3.2
 
 ### Patch Changes

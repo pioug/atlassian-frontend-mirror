@@ -830,7 +830,7 @@ describe('Side nav', () => {
 			return render(<div dangerouslySetInnerHTML={{ __html: renderToString(element) }} />);
 		}
 
-		ffTest.on('platform_dst_nav4_full_height_sidebar_api_changes', 'future state', () => {
+		ffTest.on('platform_dst_nav4_side_nav_default_collapsed_api', 'future state', () => {
 			it('should use the root collapse state for the initial render', () => {
 				// Intentionally using opposite values on Root and SideNav
 				// to demonstrate that only the root value is used
@@ -871,11 +871,11 @@ describe('Side nav', () => {
 				expect(screen.getByTestId('side-nav')).toHaveAttribute('data-visible', 'false');
 			});
 
-			it('should not sync state post-SSR', () => {
+			it('should not sync state post-SSR when default state is provided to Root', () => {
 				const setSideNavStateMock = jest.fn();
 
 				render(
-					<Root>
+					<Root defaultSideNavCollapsed>
 						<SetSideNavVisibilityState.Provider value={setSideNavStateMock}>
 							<SideNav testId="side-nav">sidenav</SideNav>
 						</SetSideNavVisibilityState.Provider>
@@ -884,6 +884,20 @@ describe('Side nav', () => {
 
 				expect(setSideNavStateMock).not.toHaveBeenCalled();
 			});
+		});
+	});
+
+	ffTest.on('platform_dst_nav4_side_nav_default_collapsed_api', 'future state', () => {
+		it('should still use the legacy API if no default state is provided to Root', () => {
+			render(
+				<Root>
+					<SideNav defaultCollapsed testId="side-nav">
+						sidenav
+					</SideNav>
+				</Root>,
+			);
+
+			expect(screen.getByTestId('side-nav')).toHaveAttribute('data-visible', 'false');
 		});
 	});
 });

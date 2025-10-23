@@ -24,13 +24,13 @@
 	],
 	"references": [
 		{
+			"path": "../../css/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../ds-lib/afm-passionfruit/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
-		},
-		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-passionfruit/tsconfig.json"
 		},
 		{
 			"path": "../../theme/afm-passionfruit/tsconfig.json"

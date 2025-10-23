@@ -1,5 +1,16 @@
 # @atlaskit/media-filmstrip
 
+## 51.1.0
+
+### Minor Changes
+
+- [`3655078e94cc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3655078e94cc0) -
+  Disable trigger scroll event in Media Filmstrip
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 51.0.13
 
 ### Patch Changes

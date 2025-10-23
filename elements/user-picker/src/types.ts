@@ -301,6 +301,7 @@ export interface ExternalUser extends User {
 }
 
 export interface User extends OptionData {
+	appType?: string | null;
 	avatarUrl?: string;
 	byline?: string;
 	email?: string;

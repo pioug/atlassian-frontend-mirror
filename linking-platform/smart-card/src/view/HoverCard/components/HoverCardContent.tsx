@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
@@ -120,9 +119,7 @@ const HoverCardContent = ({
 	};
 
 	const uiOptions = flexibleUiOptions;
-	if (fg('cc-ai-linking-platform-snippet-renderer')) {
-		uiOptions.enableSnippetRenderer = true;
-	}
+	uiOptions.enableSnippetRenderer = true;
 
 	const flexibleCardProps: FlexibleCardProps = {
 		appearance: CardDisplay.HoverCardPreview,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-wikimarkup-transformer",
-	"version": "11.20.0",
+	"version": "11.20.1",
 	"description": "Wiki markup transformer for JIRA and Confluence",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

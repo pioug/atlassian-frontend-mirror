@@ -30,9 +30,6 @@
 			"path": "../../../platform/feature-flags/afm-kitsune/tsconfig.json"
 		},
 		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-kitsune/tsconfig.json"
-		},
-		{
 			"path": "../../theme/afm-kitsune/tsconfig.json"
 		},
 		{

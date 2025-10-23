@@ -393,8 +393,9 @@ const editorNodes = {
 		}
 
 		// Store caption for media serializer to use
-		state.captionForMedia = captionText ? escapeHtmlAttribute(captionText) : '';
-
+		// Use a shared util to entity-encode markdown and special characters inside data-caption
+		const escapedCaption = captionText ? escapeHtmlAttribute(captionText) : '';
+		state.captionForMedia = escapedCaption;
 		// Second pass: render only media nodes (caption serializer will be a no-op)
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
@@ -432,6 +433,8 @@ const editorNodes = {
 		} else {
 			state.write(`![](${node.attrs.url})`);
 		}
+		// Clear caption after use to avoid leaking to subsequent media nodes
+		state.captionForMedia = '';
 	},
 	image(state: MarkdownSerializerState, node: PMNode) {
 		// Note: the 'title' is not escaped in this flavor of markdown.

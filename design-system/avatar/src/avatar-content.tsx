@@ -288,7 +288,6 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 	// layer multiple elements and use their background colors to create the different layers.
 	return (
 		<div
-			// NOTE: This is effectively the "outline" of the hexagon.
 			css={[unboundStyles.hexagonFocusContainer, marginAdjustmentMap[size]]}
 			style={
 				{
@@ -296,10 +295,11 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 					[boxShadowCssVar]: `0 0 0 2px ${borderColor}`,
 				} as CSSProperties
 			}
+			data-testid={testId ? `${testId}-hexagon-focus-container` : 'hexagon-focus-container'}
 		>
 			<div
-				// NOTE: This is effectively the "border" of the hexagon.
 				css={unboundStyles.hexagonBorderContainer}
+				data-testid={testId ? `${testId}-hexagon-border-container` : 'hexagon-border-container'}
 			>
 				{renderedContent}
 			</div>

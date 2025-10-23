@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 3.8.0
+
+### Minor Changes
+
+- [`7ef8ad00e2b1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ef8ad00e2b1f) -
+  EDITOR-2430 Update the sync-blocker-tracker to work properly for bodied-sync-block
+
+### Patch Changes
+
+- [`23b21c4b4ffe5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23b21c4b4ffe5) -
+  [ux] EDITOR-2505 Fix deletion of source sync block from floating toolbar
+- [`c28cd65d12c24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28cd65d12c24) -
+  EDITOR-2447 Bump adf-schema to 51.3.1
+- Updated dependencies
+
 ## 3.7.2
 
 ### Patch Changes

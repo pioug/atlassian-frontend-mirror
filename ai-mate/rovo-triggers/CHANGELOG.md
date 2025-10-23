@@ -1,5 +1,27 @@
 # @atlaskit/rovo-triggers
 
+## 3.15.1
+
+### Patch Changes
+
+- [`c28cd65d12c24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28cd65d12c24) -
+  EDITOR-2447 Bump adf-schema to 51.3.1
+
+## 3.15.0
+
+### Minor Changes
+
+- [`534bece8a4fe1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/534bece8a4fe1) -
+  Adds the ability to add uploaded files to the chat-new pubsub listener event
+
+## 3.14.1
+
+### Patch Changes
+
+- [`b7c4ffd0fd579`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7c4ffd0fd579) -
+  [ux] Adding isViewMode property to send to chat if the user is in view/readonly mode on a
+  whiteboard
+
 ## 3.14.0
 
 ### Minor Changes

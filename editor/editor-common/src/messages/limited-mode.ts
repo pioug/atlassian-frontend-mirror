@@ -13,7 +13,7 @@ export const limitedModeMessages = defineMessages({
 	limitedModeDescriptionWithLink: {
 		id: 'fabric.editor.limitedModeDescription',
 		defaultMessage:
-			'To increase speed and response time <learnMoreLink>some editing features are limited.</learnMoreLink>',
+			'To increase speed and response time <learnMoreLink>some editing features are limited</learnMoreLink>.',
 		description:
 			'Description for flag shown when some functionality is disabled in a page in order to improve the pages speed. This description contains a link to learn more about limited mode.',
 	},

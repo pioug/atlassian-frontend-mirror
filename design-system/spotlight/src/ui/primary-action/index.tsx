@@ -2,11 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, type ReactNode } from 'react';
+import { forwardRef, type ReactNode, useContext } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Pressable, type PressableProps, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+import { SpotlightContext } from '../../controllers/context';
 
 const styles = cssMap({
 	root: {
@@ -60,13 +62,18 @@ export const SpotlightPrimaryAction: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<SpotlightPrimaryActionProps> & React.RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, SpotlightPrimaryActionProps>(
 	({ 'aria-label': ariaLabel, onClick, children, testId }: SpotlightPrimaryActionProps, ref) => {
+		const { primaryAction } = useContext(SpotlightContext);
+		const done: PressableProps['onClick'] = (event) => {
+			primaryAction.action.current(event);
+		};
+
 		return (
 			<Pressable
 				aria-label={ariaLabel}
 				ref={ref}
 				testId={testId}
 				xcss={styles.root}
-				onClick={onClick}
+				onClick={onClick || done}
 			>
 				<Text as="span">{children}</Text>
 			</Pressable>

@@ -6,6 +6,7 @@
 import { css, Global, jsx } from '@emotion/react';
 
 import { tableControlsSpacing, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
@@ -573,6 +574,7 @@ export const GlobalStylesWrapper = ({
 	const isDragging = useSharedPluginStateSelector(api, 'blockControls.isDragging', {
 		disabled: !expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true),
 	});
+	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 	return (
 		<Global
@@ -593,7 +595,8 @@ export const GlobalStylesWrapper = ({
 						? extendHoverZoneReducedNext
 						: extendHoverZoneReduced
 					: undefined,
-				editorExperiment('platform_editor_controls', 'variant1') ? undefined : withInlineNodeStyle,
+				// platform_editor_controls note: this allows drag handles to render on empty lines
+				toolbarFlagsEnabled ? undefined : withInlineNodeStyle,
 				editorExperiment('platform_editor_block_control_optimise_render', true)
 					? quickInsertStyles
 					: undefined,

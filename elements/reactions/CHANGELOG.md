@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 33.4.1
+
+### Patch Changes
+
+- [`feb2d9020eaf2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/feb2d9020eaf2) -
+  introduce optional popperZIndex of reaction picker for products to config
+
 ## 33.4.0
 
 ### Minor Changes

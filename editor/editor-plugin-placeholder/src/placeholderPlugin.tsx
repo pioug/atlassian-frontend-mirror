@@ -6,13 +6,14 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	bracketTyped,
 	browser,
+	hasDocAsParent,
 	isEmptyDocument,
 	isEmptyParagraph,
 } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
-import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -26,14 +27,19 @@ const TYPEWRITER_ERASE_DELAY = 40; // Delay between erasing each character
 const TYPEWRITER_CYCLE_DELAY = 500; // Delay before starting next cycle
 const TYPEWRITER_TYPED_AND_DELETED_DELAY = 1500; // Delay before starting animation after user typed and deleted
 
+export const EMPTY_PARAGRAPH_TIMEOUT_DELAY = 2000; // Delay before showing placeholder on empty paragraph
+
 export const pluginKey = new PluginKey('placeholderPlugin');
 const placeholderTestId = 'placeholder-test-id';
 interface PlaceHolderState {
+	// if true, showOnEmptyParagraph will be true after setTimeout
+	canShowOnEmptyParagraph?: boolean;
 	hasPlaceholder: boolean;
 	isPlaceholderHidden?: boolean;
 	placeholderPrompts?: string[];
 	placeholderText?: string;
 	pos?: number;
+	showOnEmptyParagraph?: boolean;
 	typedAndDeleted?: boolean;
 	userHadTyped?: boolean;
 }
@@ -169,13 +175,23 @@ export function createPlaceholderDecoration(
 	]);
 }
 
-function setPlaceHolderState(
-	placeholderText?: string,
-	pos?: number,
-	placeholderPrompts?: string[],
-	typedAndDeleted?: boolean,
-	userHadTyped?: boolean,
-): PlaceHolderState {
+function setPlaceHolderState({
+	placeholderText,
+	pos,
+	placeholderPrompts,
+	typedAndDeleted,
+	userHadTyped,
+	canShowOnEmptyParagraph,
+	showOnEmptyParagraph,
+}: {
+	canShowOnEmptyParagraph?: boolean;
+	placeholderPrompts?: string[];
+	placeholderText?: string;
+	pos?: number;
+	showOnEmptyParagraph?: boolean;
+	typedAndDeleted?: boolean;
+	userHadTyped?: boolean;
+}): PlaceHolderState {
 	return {
 		hasPlaceholder: true,
 		placeholderText,
@@ -183,19 +199,34 @@ function setPlaceHolderState(
 		pos: pos ? pos : 1,
 		typedAndDeleted,
 		userHadTyped,
+		canShowOnEmptyParagraph,
+		showOnEmptyParagraph,
 	};
 }
 
-const emptyPlaceholder = (
-	placeholderText: string | undefined,
-	placeholderPrompts?: string[],
-	userHadTyped?: boolean,
-): PlaceHolderState => ({
+const emptyPlaceholder = ({
+	placeholderText,
+	placeholderPrompts,
+	userHadTyped,
+	pos,
+	canShowOnEmptyParagraph,
+	showOnEmptyParagraph,
+}: {
+	canShowOnEmptyParagraph?: boolean;
+	placeholderPrompts?: string[];
+	placeholderText: string | undefined;
+	pos?: number;
+	showOnEmptyParagraph?: boolean;
+	userHadTyped?: boolean;
+}): PlaceHolderState => ({
 	hasPlaceholder: false,
 	placeholderText,
 	placeholderPrompts,
 	userHadTyped,
 	typedAndDeleted: false,
+	canShowOnEmptyParagraph,
+	showOnEmptyParagraph,
+	pos,
 });
 
 type CreatePlaceholderStateProps = {
@@ -205,14 +236,18 @@ type CreatePlaceholderStateProps = {
 	emptyLinePlaceholder?: string;
 	intl: IntlShape;
 	isEditorFocused: boolean;
+	isInitial?: boolean;
 	isPlaceholderHidden?: boolean;
 	isTypeAheadOpen: ((editorState: EditorState) => boolean) | undefined;
 	placeholderPrompts?: string[];
+	showOnEmptyParagraph?: boolean;
 	typedAndDeleted?: boolean;
 	userHadTyped?: boolean;
+	withEmptyParagraph?: boolean;
 };
 
 function createPlaceHolderStateFrom({
+	isInitial,
 	isEditorFocused,
 	editorState,
 	isTypeAheadOpen,
@@ -224,33 +259,80 @@ function createPlaceHolderStateFrom({
 	typedAndDeleted,
 	userHadTyped,
 	isPlaceholderHidden,
+	withEmptyParagraph,
+	showOnEmptyParagraph,
 }: CreatePlaceholderStateProps): PlaceHolderState {
 	if (isPlaceholderHidden && fg('platform_editor_ai_aifc_patch_beta')) {
 		return {
-			...emptyPlaceholder(defaultPlaceholderText, placeholderPrompts, userHadTyped),
+			...emptyPlaceholder({
+				placeholderText: defaultPlaceholderText,
+				placeholderPrompts,
+				userHadTyped,
+			}),
 			isPlaceholderHidden,
 		};
 	}
 
 	if (isTypeAheadOpen?.(editorState)) {
-		return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts, userHadTyped);
+		return emptyPlaceholder({
+			placeholderText: defaultPlaceholderText,
+			placeholderPrompts,
+			userHadTyped,
+		});
 	}
 
 	if ((defaultPlaceholderText || placeholderPrompts) && isEmptyDocument(editorState.doc)) {
-		return setPlaceHolderState(
-			defaultPlaceholderText,
-			1,
+		return setPlaceHolderState({
+			placeholderText: defaultPlaceholderText,
+			pos: 1,
 			placeholderPrompts,
 			typedAndDeleted,
 			userHadTyped,
-		);
+		});
+	}
+
+	if (fg('platform_editor_ai_aifc_patch_beta_2')) {
+		const { from, to, $to } = editorState.selection;
+		if (
+			defaultPlaceholderText &&
+			withEmptyParagraph &&
+			isEditorFocused &&
+			!isInitial &&
+			!isEmptyDocument(editorState.doc) &&
+			from === to &&
+			isEmptyParagraph($to.parent) &&
+			hasDocAsParent($to)
+		) {
+			return showOnEmptyParagraph
+				? setPlaceHolderState({
+						placeholderText: defaultPlaceholderText,
+						pos: to,
+						placeholderPrompts,
+						typedAndDeleted,
+						userHadTyped,
+						canShowOnEmptyParagraph: true,
+						showOnEmptyParagraph: true,
+					})
+				: emptyPlaceholder({
+						placeholderText: defaultPlaceholderText,
+						placeholderPrompts,
+						userHadTyped,
+						canShowOnEmptyParagraph: true,
+						showOnEmptyParagraph: false,
+						pos: to,
+					});
+		}
 	}
 
 	if (isEditorFocused && editorExperiment('platform_editor_controls', 'variant1')) {
 		const { $from, $to } = editorState.selection;
 
 		if ($from.pos !== $to.pos) {
-			return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts, userHadTyped);
+			return emptyPlaceholder({
+				placeholderText: defaultPlaceholderText,
+				placeholderPrompts,
+				userHadTyped,
+			});
 		}
 
 		const parentNode = $from.node($from.depth - 1);
@@ -259,13 +341,13 @@ function createPlaceHolderStateFrom({
 		if (emptyLinePlaceholder && parentType === 'doc') {
 			const isEmptyLine = isEmptyParagraph($from.parent);
 			if (isEmptyLine) {
-				return setPlaceHolderState(
-					emptyLinePlaceholder,
-					$from.pos,
+				return setPlaceHolderState({
+					placeholderText: emptyLinePlaceholder,
+					pos: $from.pos,
 					placeholderPrompts,
 					typedAndDeleted,
 					userHadTyped,
-				);
+				});
 			}
 		}
 
@@ -280,29 +362,33 @@ function createPlaceHolderStateFrom({
 			);
 
 			if (!table) {
-				return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts, userHadTyped);
+				return emptyPlaceholder({
+					placeholderText: defaultPlaceholderText,
+					placeholderPrompts,
+					userHadTyped,
+				});
 			}
 
 			const isFirstCell = table?.node.firstChild?.content.firstChild === parentNode;
 			if (isFirstCell) {
-				return setPlaceHolderState(
-					intl.formatMessage(messages.shortEmptyNodePlaceholderText),
-					$from.pos,
+				return setPlaceHolderState({
+					placeholderText: intl.formatMessage(messages.shortEmptyNodePlaceholderText),
+					pos: $from.pos,
 					placeholderPrompts,
 					typedAndDeleted,
 					userHadTyped,
-				);
+				});
 			}
 		}
 
 		if (nodeTypesWithLongPlaceholderText.includes(parentType) && isEmptyNode) {
-			return setPlaceHolderState(
-				intl.formatMessage(messages.longEmptyNodePlaceholderText),
-				$from.pos,
+			return setPlaceHolderState({
+				placeholderText: intl.formatMessage(messages.longEmptyNodePlaceholderText),
+				pos: $from.pos,
 				placeholderPrompts,
 				typedAndDeleted,
 				userHadTyped,
-			);
+			});
 		}
 
 		if (
@@ -310,32 +396,40 @@ function createPlaceHolderStateFrom({
 			isEmptyNode &&
 			expValEquals('platform_synced_block', 'isEnabled', true)
 		) {
-			return setPlaceHolderState(
-				intl.formatMessage(messages.syncBlockPlaceholderText),
-				$from.pos,
+			return setPlaceHolderState({
+				placeholderText: intl.formatMessage(messages.syncBlockPlaceholderText),
+				pos: $from.pos,
 				placeholderPrompts,
 				typedAndDeleted,
 				userHadTyped,
-			);
+			});
 		}
 
-		return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts, userHadTyped);
+		return emptyPlaceholder({
+			placeholderText: defaultPlaceholderText,
+			placeholderPrompts,
+			userHadTyped,
+		});
 	}
 
 	if (bracketPlaceholderText && bracketTyped(editorState) && isEditorFocused) {
 		const { $from } = editorState.selection;
 		// Space is to account for positioning of the bracket
 		const bracketHint = '  ' + bracketPlaceholderText;
-		return setPlaceHolderState(
-			bracketHint,
-			$from.pos - 1,
+		return setPlaceHolderState({
+			placeholderText: bracketHint,
+			pos: $from.pos - 1,
 			placeholderPrompts,
 			typedAndDeleted,
 			userHadTyped,
-		);
+		});
 	}
 
-	return emptyPlaceholder(defaultPlaceholderText, placeholderPrompts, userHadTyped);
+	return emptyPlaceholder({
+		placeholderText: defaultPlaceholderText,
+		placeholderPrompts,
+		userHadTyped,
+	});
 }
 
 type UserInteractionState = {
@@ -373,6 +467,7 @@ export function createPlugin(
 	bracketPlaceholderText?: string,
 	emptyLinePlaceholder?: string,
 	placeholderPrompts?: string[],
+	withEmptyParagraph?: boolean,
 	api?: ExtractInjectionAPI<PlaceholderPlugin>,
 ): SafePlugin | undefined {
 	if (!defaultPlaceholderText && !placeholderPrompts && !bracketPlaceholderText) {
@@ -391,6 +486,7 @@ export function createPlugin(
 		state: {
 			init: (_, state) =>
 				createPlaceHolderStateFrom({
+					isInitial: true,
 					isEditorFocused: Boolean(api?.focus?.sharedState.currentState()?.hasFocus),
 					editorState: state,
 					isTypeAheadOpen: api?.typeAhead?.actions.isOpen,
@@ -417,12 +513,19 @@ export function createPlugin(
 					isPlaceholderHidden = meta.isPlaceholderHidden;
 				}
 
+				if (meta?.placeholderText !== undefined && fg('platform_editor_ai_aifc_patch_beta_2')) {
+					defaultPlaceholderText = meta.placeholderText;
+				}
+
 				const newPlaceholderState = createPlaceHolderStateFrom({
 					isEditorFocused,
 					editorState: newEditorState,
 					isTypeAheadOpen: api?.typeAhead?.actions.isOpen,
-					defaultPlaceholderText:
-						meta?.placeholderText ?? placeholderState?.placeholderText ?? defaultPlaceholderText,
+					defaultPlaceholderText: fg('platform_editor_ai_aifc_patch_beta_2')
+						? defaultPlaceholderText
+						: (meta?.placeholderText ??
+							placeholderState?.placeholderText ??
+							defaultPlaceholderText),
 					bracketPlaceholderText,
 					emptyLinePlaceholder,
 					placeholderPrompts:
@@ -431,6 +534,9 @@ export function createPlugin(
 					userHadTyped,
 					intl,
 					isPlaceholderHidden,
+					withEmptyParagraph,
+					showOnEmptyParagraph:
+						meta?.showOnEmptyParagraph ?? placeholderState?.showOnEmptyParagraph,
 				});
 
 				// Clear timeouts when hasPlaceholder becomes false
@@ -480,9 +586,69 @@ export function createPlugin(
 			},
 		},
 		view() {
+			let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+			function startEmptyParagraphTimeout(editorView: EditorView) {
+				if (timeoutId) {
+					return;
+				}
+				timeoutId = setTimeout(() => {
+					timeoutId = undefined;
+					editorView.dispatch(
+						editorView.state.tr.setMeta(pluginKey, {
+							showOnEmptyParagraph: true,
+						}),
+					);
+				}, EMPTY_PARAGRAPH_TIMEOUT_DELAY);
+			}
+
+			function destroyEmptyParagraphTimeout() {
+				if (timeoutId) {
+					clearTimeout(timeoutId);
+					timeoutId = undefined;
+				}
+			}
+
 			return {
+				update(editorView, prevState) {
+					if (fg('platform_editor_ai_aifc_patch_beta_2')) {
+						const prevPluginState = getPlaceholderState(prevState);
+						const newPluginState = getPlaceholderState(editorView.state);
+
+						// user start typing after move to an empty paragraph, clear timeout
+						if (!newPluginState.canShowOnEmptyParagraph && timeoutId) {
+							destroyEmptyParagraphTimeout();
+						}
+						// user move to an empty paragraph again, reset state to hide placeholder, and restart timeout
+						else if (
+							prevPluginState.canShowOnEmptyParagraph &&
+							newPluginState.canShowOnEmptyParagraph &&
+							newPluginState.pos !== prevPluginState.pos
+						) {
+							editorView.dispatch(
+								editorView.state.tr.setMeta(pluginKey, {
+									showOnEmptyParagraph: false,
+								}),
+							);
+							destroyEmptyParagraphTimeout();
+							startEmptyParagraphTimeout(editorView);
+						}
+						// user move to an empty paragraph (by click enter or move to an empty paragraph), start timeout
+						else if (
+							!prevPluginState.canShowOnEmptyParagraph &&
+							newPluginState.canShowOnEmptyParagraph &&
+							!newPluginState.showOnEmptyParagraph &&
+							!timeoutId
+						) {
+							startEmptyParagraphTimeout(editorView);
+						}
+					}
+				},
 				destroy() {
 					clearAllTypewriterTimeouts();
+
+					destroyEmptyParagraphTimeout();
+
 					isDestroyed = true;
 				},
 			};
@@ -529,6 +695,7 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 							options && options.placeholderBracketHint,
 							options && options.emptyLinePlaceholder,
 							options && options.placeholderPrompts,
+							options?.withEmptyParagraph,
 							api,
 						),
 				},

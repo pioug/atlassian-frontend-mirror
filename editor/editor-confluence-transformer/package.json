@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-confluence-transformer",
-	"version": "13.1.0",
+	"version": "13.1.1",
 	"description": "Editor Confluence Transformer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

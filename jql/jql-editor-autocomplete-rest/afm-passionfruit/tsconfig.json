@@ -24,6 +24,9 @@
 	"references": [
 		{
 			"path": "../../jql-editor-common/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
 		}
 	]
 }

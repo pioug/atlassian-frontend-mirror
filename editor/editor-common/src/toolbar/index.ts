@@ -212,3 +212,5 @@ export { useEditorToolbar, EditorToolbarProvider, type EditorToolbarContextType 
 export { EditorToolbarUIProvider } from './EditorToolbarUIProvider';
 
 export { getInputMethodFromParentKeys } from './utils';
+
+export { type ContextualFormattingEnabledOptions } from './types';

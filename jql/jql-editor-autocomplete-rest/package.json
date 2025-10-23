@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor-autocomplete-rest",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"description": "Autocomplete REST API integration for the JQL Editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,6 +34,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/jql-editor-common": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",
 		"lodash": "root:*",
 		"react-magnetic-di": "root:*",
@@ -82,6 +83,11 @@
 				"static",
 				"emotion"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"jira_update_jql_teams": {
+			"type": "boolean"
 		}
 	}
 }

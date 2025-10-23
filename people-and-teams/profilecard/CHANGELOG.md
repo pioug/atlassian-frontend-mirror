@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 24.20.3
+
+### Patch Changes
+
+- [`ec44e27cc6e4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec44e27cc6e4e) -
+  Clean up platform_profilecard-update-time-format feature gate
+- Updated dependencies
+
 ## 24.20.2
 
 ### Patch Changes

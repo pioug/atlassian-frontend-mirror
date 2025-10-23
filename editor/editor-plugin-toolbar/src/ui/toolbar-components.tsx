@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
+import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar';
 import {
 	INSERT_BLOCK_SECTION,
 	LINKING_SECTION,
@@ -26,6 +27,7 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { PrimaryToolbar as PrimaryToolbarBase, Show, Toolbar } from '@atlaskit/editor-toolbar';
 import { type RegisterComponent, type ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarPlugin } from '../toolbarPluginType';
@@ -37,11 +39,8 @@ import { PrimaryToolbar } from './PrimaryToolbar';
 import { Section } from './Section';
 import { TextCollapsedMenu } from './TextCollapsedMenu';
 
-export const getToolbarComponents = (
-	api?: ExtractInjectionAPI<ToolbarPlugin>,
-	disableSelectionToolbar?: boolean,
-): RegisterComponent[] => {
-	const components: RegisterComponent[] = [
+const getInlineTextToolbarComponents = () => {
+	return [
 		{
 			type: 'toolbar',
 			key: TOOLBARS.INLINE_TEXT_TOOLBAR,
@@ -61,6 +60,11 @@ export const getToolbarComponents = (
 				);
 			},
 		},
+	] as RegisterComponent[];
+};
+
+const getPrimaryToolbarComponents = () => {
+	return [
 		{
 			type: 'toolbar',
 			key: TOOLBARS.PRIMARY_TOOLBAR,
@@ -72,6 +76,15 @@ export const getToolbarComponents = (
 						</PrimaryToolbarBase>
 					),
 		},
+	] as RegisterComponent[];
+};
+
+export const getToolbarComponents = (
+	contextualFormattingEnabled: ContextualFormattingEnabledOptions,
+	api?: ExtractInjectionAPI<ToolbarPlugin>,
+	disableSelectionToolbar?: boolean,
+): RegisterComponent[] => {
+	const components: RegisterComponent[] = [
 		{
 			type: TEXT_SECTION.type,
 			key: TEXT_SECTION.key,
@@ -352,6 +365,24 @@ export const getToolbarComponents = (
 				},
 			},
 		);
+	}
+
+	if (fg('platform_editor_toolbar_aifc_placement_config')) {
+		switch (contextualFormattingEnabled) {
+			case 'always-inline':
+				components.unshift(...getInlineTextToolbarComponents());
+				break;
+			case 'always-pinned':
+				components.unshift(...getPrimaryToolbarComponents());
+				break;
+			case 'controlled':
+				components.unshift(...getInlineTextToolbarComponents());
+				components.unshift(...getPrimaryToolbarComponents());
+				break;
+		}
+	} else {
+		components.unshift(...getInlineTextToolbarComponents());
+		components.unshift(...getPrimaryToolbarComponents());
 	}
 
 	return components;

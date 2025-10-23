@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-placeholder",
-	"version": "6.2.0",
+	"version": "6.3.0",
 	"description": "Placeholder plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -50,6 +50,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_ai_aifc_patch_beta": {
+			"type": "boolean"
+		},
+		"platform_editor_ai_aifc_patch_beta_2": {
 			"type": "boolean"
 		}
 	},

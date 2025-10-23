@@ -1,153 +1,152 @@
 import {
 	AdminIcon as NewAdminIcon,
 	AdminLogoCS as NewAdminLogo,
-} from '@atlaskit/temp-nav-app-icons/admin';
+} from './artifacts/logo-components/admin';
 import {
 	AlignIcon as NewAlignIcon,
 	AlignLogoCS as NewAlignLogo,
-} from '@atlaskit/temp-nav-app-icons/align';
+} from './artifacts/logo-components/align';
 import {
 	AnalyticsIcon as NewAnalyticsIcon,
 	AnalyticsLogoCS as NewAnalyticsLogo,
-} from '@atlaskit/temp-nav-app-icons/analytics';
+} from './artifacts/logo-components/analytics';
 import {
 	AssetsIcon as NewAssetsIcon,
 	AssetsLogoCS as NewAssetsLogo,
-} from '@atlaskit/temp-nav-app-icons/assets';
+} from './artifacts/logo-components/assets';
 import {
 	BambooIcon as NewBambooIcon,
 	BambooLogoCS as NewBambooLogo,
-} from '@atlaskit/temp-nav-app-icons/bamboo';
+} from './artifacts/logo-components/bamboo';
 import {
 	BitbucketIcon as NewBitbucketIcon,
 	BitbucketLogoCS as NewBitbucketLogo,
-} from '@atlaskit/temp-nav-app-icons/bitbucket';
+} from './artifacts/logo-components/bitbucket';
 import {
 	BitbucketDataCenterIcon as NewBitbucketDataCenterIcon,
 	BitbucketDataCenterLogoCS as NewBitbucketDataCenterLogo,
-} from '@atlaskit/temp-nav-app-icons/bitbucket-data-center';
+} from './artifacts/logo-components/bitbucket-data-center';
 import {
 	ChatIcon as OldChatIcon,
 	ChatLogoCS as OldChatLogo,
-} from '@atlaskit/temp-nav-app-icons/chat';
-import { ChatNewIcon, ChatNewLogoCS } from '@atlaskit/temp-nav-app-icons/chat-new';
+} from './artifacts/logo-components/chat';
+import { ChatNewIcon, ChatNewLogoCS } from './artifacts/logo-components/chat-new';
 import {
 	CompassIcon as NewCompassIcon,
 	CompassLogoCS as NewCompassLogo,
-} from '@atlaskit/temp-nav-app-icons/compass';
+} from './artifacts/logo-components/compass';
 import {
 	ConfluenceIcon as NewConfluenceIcon,
 	ConfluenceLogoCS as NewConfluenceLogo,
-} from '@atlaskit/temp-nav-app-icons/confluence';
+} from './artifacts/logo-components/confluence';
 import {
 	ConfluenceDataCenterIcon as NewConfluenceDataCenterIcon,
 	ConfluenceDataCenterLogoCS as NewConfluenceDataCenterLogo,
-} from '@atlaskit/temp-nav-app-icons/confluence-data-center';
+} from './artifacts/logo-components/confluence-data-center';
 import {
 	CrowdIcon as NewCrowdIcon,
 	CrowdLogoCS as NewCrowdLogo,
-} from '@atlaskit/temp-nav-app-icons/crowd';
+} from './artifacts/logo-components/crowd';
 import {
 	CustomerServiceManagementIcon as NewCustomerServiceManagementIcon,
 	CustomerServiceManagementLogoCS as NewCustomerServiceManagementLogo,
-} from '@atlaskit/temp-nav-app-icons/customer-service-management';
+} from './artifacts/logo-components/customer-service-management';
 import {
 	FocusIcon as NewFocusIcon,
 	FocusLogoCS as NewFocusLogo,
-} from '@atlaskit/temp-nav-app-icons/focus';
+} from './artifacts/logo-components/focus';
 import {
 	GoalsIcon as NewGoalsIcon,
 	GoalsLogoCS as NewGoalsLogo,
-} from '@atlaskit/temp-nav-app-icons/goals';
+} from './artifacts/logo-components/goals';
 import {
 	GuardIcon as NewGuardIcon,
 	GuardLogoCS as NewGuardLogo,
-} from '@atlaskit/temp-nav-app-icons/guard';
+} from './artifacts/logo-components/guard';
 import {
 	HomeIcon as NewHomeIcon,
 	HomeLogoCS as NewHomeLogo,
-} from '@atlaskit/temp-nav-app-icons/home';
-import { HubIcon as NewHubIcon, HubLogoCS as NewHubLogo } from '@atlaskit/temp-nav-app-icons/hub';
+} from './artifacts/logo-components/home';
+import { HubIcon as NewHubIcon, HubLogoCS as NewHubLogo } from './artifacts/logo-components/hub';
 import {
 	JiraIcon as NewJiraIcon,
 	JiraLogoCS as NewJiraLogo,
-} from '@atlaskit/temp-nav-app-icons/jira';
+} from './artifacts/logo-components/jira';
 import {
 	JiraDataCenterIcon as NewJiraDataCenterIcon,
 	JiraDataCenterLogoCS as NewJiraDataCenterLogo,
-} from '@atlaskit/temp-nav-app-icons/jira-data-center';
+} from './artifacts/logo-components/jira-data-center';
 import {
 	JiraProductDiscoveryIcon as NewJPDIcon,
 	JiraProductDiscoveryLogoCS as NewJPDLogo,
-} from '@atlaskit/temp-nav-app-icons/jira-product-discovery';
+} from './artifacts/logo-components/jira-product-discovery';
 import {
 	JiraServiceManagementIcon as NewJSMIcon,
 	JiraServiceManagementLogoCS as NewJSMLogo,
-} from '@atlaskit/temp-nav-app-icons/jira-service-management';
+} from './artifacts/logo-components/jira-service-management';
 import {
 	JiraServiceManagementDataCenterIcon as NewJiraServiceManagementDataCenterIcon,
 	JiraServiceManagementDataCenterLogoCS as NewJiraServiceManagementDataCenterLogo,
-} from '@atlaskit/temp-nav-app-icons/jira-service-management-data-center';
+} from './artifacts/logo-components/jira-service-management-data-center';
 import {
 	LoomIcon as NewLoomIcon,
 	LoomLogoCS as NewLoomLogo,
-} from '@atlaskit/temp-nav-app-icons/loom';
-import { LoomAttributionLogoCS as NewLoomAttributionLogo } from '@atlaskit/temp-nav-app-icons/loom-attribution';
+} from './artifacts/logo-components/loom';
+import { LoomAttributionLogoCS as NewLoomAttributionLogo } from './artifacts/logo-components/loom-attribution';
 import {
 	LoomInternalIcon as NewLoomInternalIcon,
 	LoomInternalLogoCS as NewLoomInternalLogo,
-} from '@atlaskit/temp-nav-app-icons/loom-internal';
+} from './artifacts/logo-components/loom-internal';
 import {
 	OpsgenieIcon as NewOpsgenieIcon,
 	OpsgenieLogoCS as NewOpsgenieLogo,
-} from '@atlaskit/temp-nav-app-icons/opsgenie';
+} from './artifacts/logo-components/opsgenie';
 import {
 	ProjectsIcon as NewProjectsIcon,
 	ProjectsLogoCS as NewProjectsLogo,
-} from '@atlaskit/temp-nav-app-icons/projects';
+} from './artifacts/logo-components/projects';
 import {
 	RovoIcon as NewRovoIcon,
 	RovoLogoCS as NewRovoLogo,
-} from '@atlaskit/temp-nav-app-icons/rovo';
+} from './artifacts/logo-components/rovo';
 import {
 	RovoDevIcon as NewRovoDevIcon,
 	RovoDevLogoCS as NewRovoDevLogo,
-} from '@atlaskit/temp-nav-app-icons/rovo-dev';
+} from './artifacts/logo-components/rovo-dev';
 import {
 	RovoDevAgentIcon as NewRovoDevAgentIcon,
 	RovoDevAgentLogoCS as NewRovoDevAgentLogo,
-} from '@atlaskit/temp-nav-app-icons/rovo-dev-agent';
+} from './artifacts/logo-components/rovo-dev-agent';
 import {
 	RovoHexIcon as NewRovoHexIcon,
 	RovoHexLogoCS as NewRovoHexLogo,
-} from '@atlaskit/temp-nav-app-icons/rovo-hex';
+} from './artifacts/logo-components/rovo-hex';
 import {
 	SearchIcon as OldSearchIcon,
 	SearchLogoCS as OldSearchLogo,
-} from '@atlaskit/temp-nav-app-icons/search';
-import { SearchNewIcon, SearchNewLogoCS } from '@atlaskit/temp-nav-app-icons/search-new';
+} from './artifacts/logo-components/search';
+import { SearchNewIcon, SearchNewLogoCS } from './artifacts/logo-components/search-new';
 import {
 	StatuspageIcon as NewStatuspageIcon,
 	StatuspageLogoCS as NewStatuspageLogo,
-} from '@atlaskit/temp-nav-app-icons/statuspage';
+} from './artifacts/logo-components/statuspage';
 import {
 	StudioIcon as OldStudioIcon,
 	StudioLogoCS as OldStudioLogo,
-} from '@atlaskit/temp-nav-app-icons/studio';
-import { StudioNewIcon, StudioNewLogoCS } from '@atlaskit/temp-nav-app-icons/studio-new';
+} from './artifacts/logo-components/studio';
+import { StudioNewIcon, StudioNewLogoCS } from './artifacts/logo-components/studio-new';
 import {
 	TalentIcon as NewTalentIcon,
 	TalentLogoCS as NewTalentLogo,
-} from '@atlaskit/temp-nav-app-icons/talent';
+} from './artifacts/logo-components/talent';
 import {
 	TeamsIcon as NewTeamsIcon,
 	TeamsLogoCS as NewTeamsLogo,
-} from '@atlaskit/temp-nav-app-icons/teams';
+} from './artifacts/logo-components/teams';
 import {
 	TrelloIcon as NewTrelloIcon,
 	TrelloLogoCS as NewTrelloLogo,
-} from '@atlaskit/temp-nav-app-icons/trello';
-
+} from './artifacts/logo-components/trello';
 import {
 	AtlassianAdminIcon as LegacyAtlassianAdminIcon,
 	AtlassianAdminLogo as LegacyAtlassianAdminLogo,

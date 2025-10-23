@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { SmartLinkStatus } from '../../../../../constants';
 import {
 	useFlexibleCardContext,
@@ -33,21 +31,9 @@ const SnippetBlock = ({
 	showFooter = true,
 	...blockProps
 }: SnippetBlockProps) => {
-	const context = fg('cc-ai-linking-platform-snippet-renderer')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFlexibleUiContext()
-		: undefined;
-
-	const renderers = fg('cc-ai-linking-platform-snippet-renderer')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useSmartLinkRenderers()
-		: undefined;
-
-	const enableSnippetRenderer = fg('cc-ai-linking-platform-snippet-renderer')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFlexibleUiOptionContext()?.enableSnippetRenderer
-		: undefined;
-
+	const context = useFlexibleUiContext();
+	const renderers = useSmartLinkRenderers();
+	const enableSnippetRenderer = useFlexibleUiOptionContext()?.enableSnippetRenderer;
 	const cardContext = useFlexibleCardContext();
 
 	if (cardContext?.status !== SmartLinkStatus.Resolved && !text) {
@@ -64,7 +50,7 @@ const SnippetBlock = ({
 
 	const snippet = <Snippet maxLines={snippetMaxLines} content={text} />;
 
-	if (!fg('cc-ai-linking-platform-snippet-renderer') || !enableSnippetRenderer) {
+	if (!enableSnippetRenderer) {
 		return (
 			<Block
 				{...blockProps}

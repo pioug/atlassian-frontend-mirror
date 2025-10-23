@@ -512,7 +512,7 @@ describe('SideNavToggleButton', () => {
 			return render(<div dangerouslySetInnerHTML={{ __html: renderToString(element) }} />);
 		}
 
-		ffTest.on('platform_dst_nav4_full_height_sidebar_api_changes', 'future state', () => {
+		ffTest.on('platform_dst_nav4_side_nav_default_collapsed_api', 'future state', () => {
 			it('should use the root collapse state for the initial render', () => {
 				// Intentionally using opposite values on root and button
 				// to demonstrate that only the root value is used
@@ -567,6 +567,25 @@ describe('SideNavToggleButton', () => {
 				expect(screen.getByRole('button', { name: 'Expand sidebar' })).toBeInTheDocument();
 				expect(screen.queryByRole('button', { name: 'Collapse sidebar' })).not.toBeInTheDocument();
 			});
+		});
+	});
+
+	ffTest.on('platform_dst_nav4_side_nav_default_collapsed_api', 'future state', () => {
+		it('should still use the legacy API if no default state is provided to Root', () => {
+			render(
+				<Root>
+					<TopNav>
+						<SideNavToggleButton
+							collapseLabel="Collapse sidebar"
+							expandLabel="Expand sidebar"
+							defaultCollapsed
+						/>
+					</TopNav>
+				</Root>,
+			);
+
+			expect(screen.getByRole('button', { name: 'Expand sidebar' })).toBeInTheDocument();
+			expect(screen.queryByRole('button', { name: 'Collapse sidebar' })).not.toBeInTheDocument();
 		});
 	});
 });

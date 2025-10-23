@@ -23,7 +23,7 @@ describe('Utility Functions Tests', () => {
 
 		it('should handle complex real-world caption text', () => {
 			const input = `Caption with 'quotes' & <script>alert("xss")</script>`;
-			const expected = `Caption with &#39;quotes&#39; &amp; &lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;`;
+			const expected = `Caption with &#39;quotes&#39; &amp; &lt;script&gt;alert&#40;&quot;xss&quot;&#41;&lt;/script&gt;`;
 			expect(escapeHtmlAttribute(input)).toBe(expected);
 		});
 

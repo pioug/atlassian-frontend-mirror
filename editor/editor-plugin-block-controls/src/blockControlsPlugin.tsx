@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { PMPlugin, DIRECTION } from '@atlaskit/editor-common/types';
 import {
 	TextSelection,
@@ -49,6 +50,10 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				name: 'blockControlsInteractionTrackingPlugin',
 				plugin: createInteractionTrackingPlugin,
 			});
+		}
+
+		// platform_editor_controls note: quick insert rendering fixes
+		if (areToolbarFlagsEnabled(Boolean(api?.toolbar))) {
 			pmPlugins.push({
 				name: 'firstNodeDec',
 				plugin: firstNodeDecPlugin,
@@ -214,7 +219,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				const $to = $expandedAnchor.max($expandedHead);
 				let expandedNormalisedSel;
 				if ($from.nodeAfter === $to.nodeBefore) {
-					selectNode(tr, $from.pos, $expandedAnchor.node().type.name);
+					selectNode(tr, $from.pos, $expandedAnchor.node().type.name, api);
 					expandedNormalisedSel = tr.selection;
 				} else if (
 					$to.nodeBefore?.type.name === 'mediaSingle' ||

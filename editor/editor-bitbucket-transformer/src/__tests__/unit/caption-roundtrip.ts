@@ -7,6 +7,7 @@ import {
 	strong,
 	em,
 	code,
+	strike,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
@@ -141,7 +142,7 @@ describe('Caption HTML Parsing Tests', () => {
 
 			const markdown = transformer.encode(adfDoc);
 			expect(markdown).toEqual(
-				"![](http://path/to/image.jpg){: data-layout='center' data-caption='Caption with **bold** and _italic_ text' }\n",
+				"![](http://path/to/image.jpg){: data-layout='center' data-caption='Caption with &#42;&#42;bold&#42;&#42; and &#95;italic&#95; text' }\n",
 			);
 		});
 
@@ -155,7 +156,7 @@ describe('Caption HTML Parsing Tests', () => {
 
 			const markdown = transformer.encode(adfDoc);
 			expect(markdown).toEqual(
-				"![](http://path/to/image.jpg){: data-layout='center' data-caption='Caption with `code snippet` and more `inline code`' }\n",
+				"![](http://path/to/image.jpg){: data-layout='center' data-caption='Caption with &#96;code snippet&#96; and more &#96;inline code&#96;' }\n",
 			);
 		});
 
@@ -255,6 +256,99 @@ describe('Caption HTML Parsing Tests', () => {
 			expect(markdown).toEqual(
 				"![](http://path/to/image.jpg){: data-layout='center' data-caption='Backward compatibility test' }\n",
 			);
+		});
+	});
+
+	describe('Additional edge cases for captions', () => {
+		const transformer = new BitbucketTransformer(defaultSchema);
+
+		it('parses data-caption with strikethrough markdown ~~text~~ and serializes safely', () => {
+			const html = `<img src="http://example.com/image.jpg" data-caption="hello ~~strike~~ world" />`;
+			const expected = doc(
+				mediaSingle()(
+					media({ url: 'http://example.com/image.jpg', type: 'external', alt: '' })(),
+					caption('hello ', strike('strike'), ' world'),
+				),
+			)(defaultSchema);
+			const parsed = transformer.parse(html, { shouldParseCaptions: true });
+			expect(parsed).toEqualDocument(expected);
+
+			// Now serialize back and ensure tildes are entity-encoded
+			const markdown = transformer.encode(expected);
+			expect(markdown).toEqual(
+				"![](http://example.com/image.jpg){: data-layout='center' data-caption='hello &#126;&#126;strike&#126;&#126; world' }\n",
+			);
+		});
+
+		it('serializes a wide range of special characters safely in data-caption', () => {
+			const adf = doc(
+				mediaSingle({ layout: 'center' })(
+					media({ url: 'http://path/to/image.jpg', type: 'external' })(),
+					caption("[](){}!| * _ ` ~ < > & \" '\""),
+				),
+			)(defaultSchema);
+			const md = transformer.encode(adf);
+			expect(md).toEqual(
+				"![](http://path/to/image.jpg){: data-layout='center' data-caption='&#91;&#93;&#40;&#41;&#123;&#125;&#33;&#124; &#42; &#95; &#96; &#126; &lt; &gt; &amp; &quot; &#39;&quot;' }\n",
+			);
+		});
+
+		it('treats literal HTML in caption text as text (sanitized on parse)', () => {
+			const html = `<img src="http://example.com/image.jpg" data-caption="<b>bold</b> & <i>italic</i>" />`;
+			const expected = doc(
+				mediaSingle()(
+					media({ url: 'http://example.com/image.jpg', type: 'external', alt: '' })(),
+					caption('<b>bold</b> & <i>italic</i>'),
+				),
+			)(defaultSchema);
+			const parsed = transformer.parse(html, { shouldParseCaptions: true });
+			expect(parsed).toEqualDocument(expected);
+		});
+
+		it('does not interpret unmatched single markdown markers', () => {
+			const html = `<img src="http://example.com/image.jpg" data-caption="A * lone asterisk and _ underscore" />`;
+			const expected = doc(
+				mediaSingle()(
+					media({ url: 'http://example.com/image.jpg', type: 'external', alt: '' })(),
+					caption('A * lone asterisk and _ underscore'),
+				),
+			)(defaultSchema);
+			const parsed = transformer.parse(html, { shouldParseCaptions: true });
+			expect(parsed).toEqualDocument(expected);
+		});
+
+		it('ignores whitespace-only data-caption', () => {
+			const html = `<img src="http://example.com/image.jpg" data-caption="   \t\n" />`;
+			const expected = doc(
+				mediaSingle()(media({ url: 'http://example.com/image.jpg', type: 'external', alt: '' })()),
+			)(defaultSchema);
+			const parsed = transformer.parse(html, { shouldParseCaptions: true });
+			expect(parsed).toEqualDocument(expected);
+		});
+
+		it('escapes attr-list-like sequences in captions so they do not break attributes', () => {
+			const adf = doc(
+				mediaSingle({ layout: 'center' })(
+					media({ url: 'http://path/to/image.jpg', type: 'external' })(),
+					caption("{: data-layout='left' } suspicious"),
+				),
+			)(defaultSchema);
+			const md = transformer.encode(adf);
+			expect(md).toEqual(
+				"![](http://path/to/image.jpg){: data-layout='center' data-caption='&#123;: data-layout=&#39;left&#39; &#125; suspicious' }\n",
+			);
+		});
+
+		it('unescapes attribute entities and then sanitizes when building caption', () => {
+			const html = `<img src="http://example.com/image.jpg" data-caption="&lt;b&gt;bold&lt;/b&gt; and &#39;quote&#39;" />`;
+			const expected = doc(
+				mediaSingle()(
+					media({ url: 'http://example.com/image.jpg', type: 'external', alt: '' })(),
+					caption("<b>bold</b> and 'quote'"),
+				),
+			)(defaultSchema);
+			const parsed = transformer.parse(html, { shouldParseCaptions: true });
+			expect(parsed).toEqualDocument(expected);
 		});
 	});
 });

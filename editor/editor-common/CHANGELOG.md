@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 110.18.0
+
+### Minor Changes
+
+- [`301c7dd0ccdd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/301c7dd0ccdd2) -
+  Adds new `contextualFormattingEnabled` plugin option to editor-plugin-toolbar. This has 3 options
+  (always-inline, always-pinned and controlled) to allow direct control over toolbar placement in
+  the editor.
+
+### Patch Changes
+
+- [`2261b8ade339b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2261b8ade339b) -
+  [ux] EDITOR-2255 integrate data provider for renderer sync block node
+- [`c28cd65d12c24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28cd65d12c24) -
+  EDITOR-2447 Bump adf-schema to 51.3.1
+- Updated dependencies
+
+## 110.17.1
+
+### Patch Changes
+
+- [`74c8f9fcfdf9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74c8f9fcfdf9d) -
+  Selection toolbar experience tracking
+- Updated dependencies
+
+## 110.17.0
+
+### Minor Changes
+
+- [`991e0a08a6318`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/991e0a08a6318) -
+  EDITOR-2436 Source Block copy should convert to Reference sync block on paste
+
 ## 110.16.3
 
 ### Patch Changes

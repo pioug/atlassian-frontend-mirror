@@ -19,6 +19,7 @@ import { IconButton } from '../../top-nav-items/themed/migration';
 import { SideNavToggleButtonAttachRef } from './toggle-button-context';
 import { useSideNavVisibility } from './use-side-nav-visibility';
 import { useToggleSideNav } from './use-toggle-side-nav';
+import { SideNavVisibilityState } from './visibility-context';
 
 export type SideNavVisibilityChangeAnalyticsAttributes = {
 	isSideNavVisible: boolean;
@@ -49,7 +50,6 @@ export const SideNavToggleButton = ({
 	collapseLabel,
 	testId,
 	interactionName,
-	UNSAFE_isTooltipDisabled = false,
 	onClick,
 	shortcut,
 }: {
@@ -57,7 +57,7 @@ export const SideNavToggleButton = ({
 	 * @deprecated
 	 *
 	 * This prop is being replaced by `defaultSideNavCollapsed` on the `Root` element,
-	 * and will be removed after `platform_dst_nav4_full_height_sidebar_api_changes` is cleaned up.
+	 * and will be removed in the future.
 	 *
 	 * ---
 	 *
@@ -86,11 +86,6 @@ export const SideNavToggleButton = ({
 	 */
 	interactionName?: string;
 	/**
-	 * Experimental, do not use. May be removed at any time.
-	 * Whether the tooltip should be disabled.
-	 */
-	UNSAFE_isTooltipDisabled?: boolean;
-	/**
 	 * The callback function that is called when the toggle button is clicked.
 	 */
 	onClick?: (
@@ -110,12 +105,14 @@ export const SideNavToggleButton = ({
 		isExpandedOnMobile: isSideNavExpandedOnMobile,
 	} = useSideNavVisibility({ defaultCollapsed });
 
-	// When `platform_dst_nav4_full_height_sidebar_api_changes` is enabled,
-	// we default to the desktop state for SSR
+	const sideNavState = useContext(SideNavVisibilityState);
+
+	// When default state is provided to `Root` the state in context will already be
+	// initialized in SSR
 	const [isSideNavExpanded, setIsSideNavExpanded] = useState<boolean>(
-		fg('platform_dst_nav4_full_height_sidebar_api_changes')
-			? isSideNavExpandedOnDesktop
-			: !defaultCollapsed,
+		sideNavState === null || !fg('platform_dst_nav4_side_nav_default_collapsed_api')
+			? !defaultCollapsed
+			: isSideNavExpandedOnDesktop,
 	);
 
 	const ref = useContext(SideNavToggleButtonAttachRef);
@@ -210,7 +207,7 @@ export const SideNavToggleButton = ({
 			icon={icon}
 			onClick={handleClick}
 			testId={testId}
-			isTooltipDisabled={UNSAFE_isTooltipDisabled}
+			isTooltipDisabled={false}
 			interactionName={interactionName}
 			ref={fg('platform_dst_nav4_side_nav_toggle_ref_fix') ? setElement : elementRef}
 			tooltip={tooltipProps}

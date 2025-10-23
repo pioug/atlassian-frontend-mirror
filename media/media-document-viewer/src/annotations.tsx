@@ -9,14 +9,37 @@ import { css } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type ComboBoxField, type PageAnnotations, type TextField } from './types';
 
 const formInputBaseStyles = css({
+	// eslint-disable-next-line  @atlaskit/design-system/use-tokens-typography
+	fontFamily: 'Arial', // Ensures consistent font across multi-line and single line inputs
+	// eslint-disable-next-line  @atlaskit/design-system/use-tokens-typography
+	lineHeight: 1.25, // Ensures consistent line height across multi-line and single line inputs
 	appearance: 'none',
 	border: 'none',
 	resize: 'none',
 	padding: 0,
+});
+
+/**
+ * By default, the visual pdf form elements are rendered by pdfium server side. Therefore we only
+ * show visibility of the html input if the user interacts with it. This allows us to show visually
+ * accurate PDF form elements while still allowing the user to interact with the input.
+ */
+const invisibleInputStyles = css({
+	backgroundColor: 'transparent',
+	color: 'transparent',
+	overflow: 'hidden',
+	'&:focus': {
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		backgroundColor: 'white',
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		color: 'black',
+		overflow: 'auto',
+	},
 });
 
 const textInputStyles = css({
@@ -39,7 +62,11 @@ type TextInputProps = {
 const TextInput = ({ as: Component, value, style }: TextInputProps) => (
 	<Component
 		{...foreignObjectProps}
-		css={[formInputBaseStyles, textInputStyles]}
+		css={[
+			formInputBaseStyles,
+			textInputStyles,
+			fg('media-document-viewer-annotations') ? invisibleInputStyles : undefined,
+		]}
 		style={style}
 		onKeyUp={(e: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
 			// stop propagation of the arrow key events because they can be used to navigate viewports
@@ -106,7 +133,11 @@ export const ComboBoxFormField = ({
 		>
 			<div {...foreignObjectProps} css={comboBoxStyles}>
 				<input
-					css={[formInputBaseStyles, comboBoxInputStyles]}
+					css={[
+						formInputBaseStyles,
+						comboBoxInputStyles,
+						fg('media-document-viewer-annotations') ? invisibleInputStyles : undefined,
+					]}
 					style={{ ['fontSize']: `${field.f}px` }}
 					type="text"
 					value={field.text}
@@ -118,7 +149,7 @@ export const ComboBoxFormField = ({
 					}}
 					readOnly
 				/>
-				<ChevronDownIcon label="" size="small" />
+				{!fg('media-document-viewer-annotations') && <ChevronDownIcon label="" size="small" />}
 			</div>
 		</foreignObject>
 	);

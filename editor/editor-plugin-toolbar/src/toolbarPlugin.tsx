@@ -11,7 +11,7 @@ import { createComponentRegistry } from '@atlaskit/editor-toolbar-model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import contextualToolbarOpenExperience from './pm-plugins/experiences/ContextualToolbarOpenExperience';
+import selectionToolbarOpenExperience from './pm-plugins/experiences/SelectionToolbarOpenExperience';
 import { editorToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { EditorToolbarPluginState, ToolbarPlugin } from './toolbarPluginType';
 import { DEFAULT_POPUP_SELECTORS } from './ui/consts';
@@ -85,11 +85,19 @@ export const toolbarPlugin: ToolbarPlugin = ({
 		disableSelectionToolbarWhenPinned: false,
 	},
 }) => {
-	const { disableSelectionToolbar, disableSelectionToolbarWhenPinned } = config;
+	const popupsMountPointRef: { current?: HTMLElement } = {};
+	const editorViewDomRef: { current?: HTMLElement } = {};
+	const {
+		disableSelectionToolbar,
+		disableSelectionToolbarWhenPinned,
+		contextualFormattingEnabled = 'always-pinned',
+	} = config;
 
 	const registry = createComponentRegistry();
 
-	registry.register(getToolbarComponents(api, disableSelectionToolbar));
+	registry.register(
+		getToolbarComponents(contextualFormattingEnabled, api, disableSelectionToolbar),
+	);
 
 	return {
 		name: 'toolbar',
@@ -105,6 +113,10 @@ export const toolbarPlugin: ToolbarPlugin = ({
 
 			getComponents: () => {
 				return registry.components;
+			},
+
+			contextualFormattingMode: () => {
+				return contextualFormattingEnabled;
 			},
 		},
 
@@ -163,6 +175,8 @@ export const toolbarPlugin: ToolbarPlugin = ({
 								},
 							},
 							view(view) {
+								editorViewDomRef.current = view.dom;
+
 								const unbind = bind(view.root, {
 									type: 'mouseup',
 									listener: function (this: Document | ShadowRoot, ev: Event) {
@@ -222,8 +236,9 @@ export const toolbarPlugin: ToolbarPlugin = ({
 				...(expValEquals('platform_editor_experience_tracking', 'isEnabled', true)
 					? [
 							{
-								name: 'contextualToolbarOpenExperience',
-								plugin: () => contextualToolbarOpenExperience(),
+								name: 'selectionToolbarOpenExperience',
+								plugin: () =>
+									selectionToolbarOpenExperience({ popupsMountPointRef, editorViewDomRef }),
 							},
 						]
 					: []),
@@ -232,6 +247,8 @@ export const toolbarPlugin: ToolbarPlugin = ({
 
 		contentComponent: !disableSelectionToolbar
 			? ({ editorView, popupsMountPoint }) => {
+					popupsMountPointRef.current = popupsMountPoint;
+
 					if (!editorView) {
 						return null;
 					}

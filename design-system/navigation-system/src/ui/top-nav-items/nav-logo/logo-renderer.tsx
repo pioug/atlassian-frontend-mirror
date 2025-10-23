@@ -8,10 +8,6 @@ import { jsx } from '@compiled/react';
 
 import type { LogoProps } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
-import type {
-	IconProps as TempIconProps,
-	LogoProps as TempLogoProps,
-} from '@atlaskit/temp-nav-app-icons/types';
 
 import { useHasCustomTheme } from '../themed/has-custom-theme-context';
 
@@ -35,10 +31,7 @@ function LogoRendererNoMemo({
 	logoOrIcon: LogoOrIcon,
 	shouldUseNewLogoDesign,
 }: {
-	logoOrIcon:
-		| ((props: LogoProps) => JSX.Element)
-		| ((props: TempLogoProps) => JSX.Element)
-		| ((props: TempIconProps) => JSX.Element);
+	logoOrIcon: (props: LogoProps) => JSX.Element;
 	shouldUseNewLogoDesign?: boolean;
 }) {
 	const hasCustomTheme = useHasCustomTheme();

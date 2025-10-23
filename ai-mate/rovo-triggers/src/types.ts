@@ -53,6 +53,7 @@ export type ChatNewPayload = PayloadCore<
 		}>;
 		// Used for follow-up prompt once chat is created
 		prompt?: string | DocNode;
+		files?: UploadedFile[];
 		contentContext?: 'staging-area' | 'global';
 		sourceId?: string;
 		minionAlias?: string;
@@ -80,6 +81,7 @@ export type WhiteboardContextPayloadData =
 			type: 'image/svg+xml' | 'text/plain';
 			content: string;
 			contentId?: string;
+			isViewMode?: boolean;
 	  }
 	| undefined;
 
@@ -311,4 +313,18 @@ export type TopicEvents = {
 
 export type TopicEventQueue = {
 	[key in Topic]?: Payload;
+};
+
+export type UploadedFile = {
+	id: string;
+	conversation_channel_id?: string;
+	blob_id?: string;
+	name: string;
+	size?: number;
+	type?: string;
+	created_at?: string;
+	owner?: string;
+	isLoading: boolean;
+	error?: string;
+	fileObject?: File;
 };

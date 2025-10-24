@@ -169,10 +169,13 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 		forceSelect({ query, items, editorState }) {
 			const { asciiMap } = emojiPluginKey.getState(editorState) || {};
 			const normalizedQuery = TRIGGER.concat(query);
-
 			// if the query has space at the end
 			// check the ascii map for emojis
 			if (
+				!(
+					options?.disableAutoformat &&
+					expValEquals('platform_editor_plain_text_support', 'isEnabled', true)
+				) &&
 				asciiMap &&
 				normalizedQuery.length >= 3 &&
 				normalizedQuery.endsWith(' ') &&

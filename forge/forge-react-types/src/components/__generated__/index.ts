@@ -12,6 +12,7 @@ export type { DatePickerProps, TDatePicker } from './DatePickerProps.codegen';
 export type { DynamicTableProps, TDynamicTable } from './DynamicTableProps.codegen';
 export type { EmptyStateProps, TEmptyState } from './EmptyStateProps.codegen';
 export type { ErrorMessageProps, TErrorMessage } from './ErrorMessageProps.codegen';
+export type { FileCardProps, TFileCard } from './FileCardProps.codegen';
 export type { FlexProps, TFlex } from './FlexProps.codegen';
 export type { FormFooterProps, TFormFooter } from './FormFooterProps.codegen';
 export type { FormHeaderProps, TFormHeader } from './FormHeaderProps.codegen';
@@ -62,6 +63,7 @@ export type { TooltipProps, TTooltip } from './TooltipProps.codegen';
 export type { ValidMessageProps, TValidMessage } from './ValidMessageProps.codegen';
 export type { PopupProps, TPopup } from './PopupProps.codegen';
 export type { AdfRendererProps, TAdfRenderer } from './AdfRendererProps.codegen';
+export type { FilePickerProps, TFilePicker } from './FilePickerProps.codegen';
 
 // Forge UI supports the value "strike" for the "as" prop of the Text component, to have a migration path
 // off using <Strike>. The native ADS Text component does not support it, so we patched it to support it.

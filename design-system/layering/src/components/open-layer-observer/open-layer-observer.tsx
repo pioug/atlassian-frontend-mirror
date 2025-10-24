@@ -2,11 +2,14 @@ import React, { useContext, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { OpenLayerObserverContext } from './open-layer-observer-context';
 import type {
 	CleanupFn,
 	LayerCloseListenerFn,
 	LayerCountChangeListenerFn,
+	LayerType,
 	OpenLayerObserverInternalAPI,
 } from './types';
 
@@ -19,11 +22,32 @@ type NoNamespaceSymbol = typeof noNamespaceSymbol;
 type NamespaceToListenerRegistry<T> = Map<string | NoNamespaceSymbol, Set<T>>;
 
 /**
+ * A registered layer with its close listener and optional layer type.
+ */
+type RegisteredLayer = {
+	listener: LayerCloseListenerFn;
+	type?: LayerType;
+};
+
+/**
  * Returns the number of open layers across all namespaces.
  * It calculates the sum of the set sizes in the map, which corresponds to the number of open layers.
  */
 function getTotalOpenLayerCount<T>(registry: NamespaceToListenerRegistry<T>): number {
 	return Array.from(registry.values()).reduce((acc, listeners) => acc + listeners.size, 0);
+}
+
+/**
+ * Returns the number of layers in the set that match the type filter.
+ */
+function getLayerCountWithFilter({
+	layers,
+	type,
+}: {
+	layers: Set<RegisteredLayer>;
+	type: LayerType;
+}): number {
+	return Array.from(layers.values()).filter((layer) => layer.type === type).length;
 }
 
 /**
@@ -63,14 +87,14 @@ function createInternalAPI(): OpenLayerObserverInternalAPI {
 		new Map();
 
 	/**
-	 * The `onClose` listeners for each namespace.
-	 * Each layer provides an `onClose` callback. **When the layer is open**, its `onClose`
-	 * callback is registered in this set.
+	 * The registered layers for each namespace.
+	 * Each layer registers with an `onClose` callback, and optionally with a layer type (`type`).
+	 * **When the layer is open**, its `onClose`
+	 * callback is registered in this set along with its type.
 	 *
 	 * This data structure is also used determine the number of open layers.
 	 */
-	const namespaceToLayerCloseListenerRegistry: NamespaceToListenerRegistry<LayerCloseListenerFn> =
-		new Map();
+	const namespaceToLayerRegistry: NamespaceToListenerRegistry<RegisteredLayer> = new Map();
 
 	/**
 	 * Calls the appropriate layer count change listeners after the number of open layers has changed.
@@ -101,7 +125,7 @@ function createInternalAPI(): OpenLayerObserverInternalAPI {
 
 		// For the listeners without a specific namespace, we need to provide the sum of all namespace counts
 		// as the callback `count` arg.
-		const totalCount = getTotalOpenLayerCount(namespaceToLayerCloseListenerRegistry);
+		const totalCount = getTotalOpenLayerCount(namespaceToLayerRegistry);
 
 		Array.from(noNamespaceListeners).forEach((listener) => listener({ count: totalCount }));
 	}
@@ -109,16 +133,48 @@ function createInternalAPI(): OpenLayerObserverInternalAPI {
 	/**
 	 * Returns the current count of open layers.
 	 *
-	 * If a namespace is provided, the count for that namespace is returned.
-	 * Otherwise, the sum of all namespace counts is returned.
+	 * - If a namespace is provided, the count for that namespace is returned.
+	 * - If a type is provided, only layers of that type are counted.
+	 * - If both are provided, only layers matching both criteria are counted.
+	 * - Otherwise, the sum of all namespace counts is returned.
 	 */
-	function getCount({ namespace }: { namespace?: string } = {}): number {
-		if (namespace) {
-			return namespaceToLayerCloseListenerRegistry.get(namespace)?.size ?? 0;
+	function getCount({ namespace, type }: { namespace?: string; type?: LayerType } = {}): number {
+		if (!fg('platform-dst-open-layer-observer-layer-type')) {
+			if (namespace) {
+				return namespaceToLayerRegistry.get(namespace)?.size ?? 0;
+			}
+
+			return getTotalOpenLayerCount(namespaceToLayerRegistry);
 		}
 
-		// A specific namespace was not requested, so we return the sum across all namespaces.
-		return getTotalOpenLayerCount(namespaceToLayerCloseListenerRegistry);
+		if (namespace) {
+			// 1. A namespace was requested, so we count only layers in that namespace
+			const layersForNamespace = namespaceToLayerRegistry.get(namespace);
+			if (!layersForNamespace) {
+				return 0;
+			}
+
+			if (type) {
+				// Count layers in the namespace that match the type filter
+				return getLayerCountWithFilter({ layers: layersForNamespace, type });
+			}
+
+			// No type filter - just return the size of the set
+			return layersForNamespace.size;
+		}
+
+		// 2. A specific namespace was not requested, so we count across all namespaces
+
+		if (type) {
+			// Count layers in each namespace that match the type filter
+			return Array.from(namespaceToLayerRegistry.values()).reduce(
+				(acc, layers) => acc + getLayerCountWithFilter({ layers, type }),
+				0,
+			);
+		}
+
+		// No type filter - count all layers across all namespaces
+		return getTotalOpenLayerCount(namespaceToLayerRegistry);
 	}
 
 	/**
@@ -168,22 +224,15 @@ function createInternalAPI(): OpenLayerObserverInternalAPI {
 	 */
 	function onClose(
 		listener: LayerCloseListenerFn,
-		{ namespace: providedNamespace }: { namespace: string | null },
+		{ namespace: providedNamespace, type }: { namespace: string | null; type?: LayerType },
 	): CleanupFn {
-		/**
-		 * We are wrapping the passed listener in a function to ensure that each call to `onClose` creates a unique
-		 * function reference. This is to handle scenarios where the same function is provided to several different `onClose`
-		 * calls - we want to ensure that each call to `unsubscribe` only removes the specific listener registration that was added.
-		 */
-		function wrapped() {
-			listener();
-		}
+		const wrapped = { listener, type };
 
 		const namespace = providedNamespace ?? noNamespaceSymbol;
 
 		const listenersForNamespace = getListeners({
 			namespace,
-			registry: namespaceToLayerCloseListenerRegistry,
+			registry: namespaceToLayerRegistry,
 		});
 
 		listenersForNamespace.add(wrapped);
@@ -203,7 +252,7 @@ function createInternalAPI(): OpenLayerObserverInternalAPI {
 
 			// If there are no listeners for this namespace, remove the registry entry.
 			if (listenersForNamespace.size === 0) {
-				namespaceToLayerCloseListenerRegistry.delete(namespace);
+				namespaceToLayerRegistry.delete(namespace);
 			}
 		};
 	}
@@ -214,8 +263,8 @@ function createInternalAPI(): OpenLayerObserverInternalAPI {
 	function closeLayers(): void {
 		// Using `Array.from` to ensure we iterate over a stable list - e.g. in case a listener adds to the registry while we are
 		// iterating over it.
-		Array.from(namespaceToLayerCloseListenerRegistry.values()).forEach((listeners) => {
-			Array.from(listeners).forEach((listener) => listener());
+		Array.from(namespaceToLayerRegistry.values()).forEach((listeners) => {
+			Array.from(listeners).forEach(({ listener }) => listener());
 		});
 	}
 

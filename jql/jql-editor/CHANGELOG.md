@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 5.7.0
+
+### Minor Changes
+
+- [`8e600a4218a79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e600a4218a79) -
+  [ux] Fixed offset of anonymous user icon in jqlEditor and edited user example to showcase the
+  anonymous user icon
+
 ## 5.6.5
 
 ### Patch Changes

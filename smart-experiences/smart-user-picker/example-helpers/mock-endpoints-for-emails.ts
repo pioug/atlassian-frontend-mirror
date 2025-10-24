@@ -29,13 +29,11 @@ const mockEndpoints = () => {
 		errors: [],
 	});
 
-	//"(email:\"alicejohnson@gmail.com\")"
-
 	fetchMock.mock(
 		(url: any, opts: any) =>
 			/\/gateway\/api\/v1\/recommendations/.test(url) &&
 			opts.method === 'POST' &&
-			opts.body?.includes?.('"customQuery":"(email:\\"alicejohnson@gmail.com\\")"'),
+			opts.body?.includes?.('"queryString":"alicejohnson@gmail.com"'),
 		() =>
 			new Promise((resolve) => {
 				setTimeout(resolve, 250);

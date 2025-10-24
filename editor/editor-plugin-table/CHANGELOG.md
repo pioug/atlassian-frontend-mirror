@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.3.4
+
+### Patch Changes
+
+- [`135fb050129cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/135fb050129cb) -
+  [ux] [ED-25852] Fixes table menus rendering outside their container in Jira
+
+## 15.3.3
+
+### Patch Changes
+
+- [`21fe79119fe74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21fe79119fe74) -
+  EDITOR-2447 Bump adf-schema to 51.3.2
+- Updated dependencies
+
+## 15.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.3.1
 
 ### Patch Changes

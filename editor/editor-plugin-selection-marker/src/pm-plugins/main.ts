@@ -1,6 +1,6 @@
 import debounce from 'lodash/debounce';
 
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
@@ -8,6 +8,7 @@ import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemir
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SelectionMarkerPlugin } from '../selectionMarkerPluginType';
 import { selectionDecoration } from '../ui/selection-decoration';
@@ -105,6 +106,9 @@ export const createPlugin = (api: ExtractInjectionAPI<SelectionMarkerPlugin> | u
 		},
 		props: {
 			decorations: (state: EditorState) => {
+				const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+					? getBrowserInfo()
+					: browserLegacy;
 				if (browser.ie) {
 					return debouncedDecorations(state);
 				} else {

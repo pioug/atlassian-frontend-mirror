@@ -19,6 +19,7 @@ import {
 	getSelectionRect,
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getPluginState } from '../../pm-plugins/plugin-factory';
@@ -138,6 +139,7 @@ const FloatingContextualMenu = ({
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					allowBackgroundColor={pluginConfig!.allowBackgroundColor}
 					selectionRect={selectionRect}
+					mountPoint={fg('platform_editor_fix_table_menus_jira') ? mountPoint : undefined}
 					boundariesElement={boundariesElement}
 					editorAnalyticsAPI={editorAnalyticsAPI}
 					getEditorContainerWidth={getEditorContainerWidth}

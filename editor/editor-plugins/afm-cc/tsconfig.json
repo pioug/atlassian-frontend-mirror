@@ -272,9 +272,6 @@
 			"path": "../../editor-plugin-synced-block/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-synced-block-prototype/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-table/afm-cc/tsconfig.json"
 		},
 		{

@@ -9,7 +9,6 @@ import { Fragment } from 'react';
 import { jsx } from '@emotion/react';
 
 import EditorFileIcon from '@atlaskit/icon/core/migration/file--editor-file';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type ExtensionsPluginInjectionAPI } from '../../types';
 import { placeholderFallback, placeholderFallbackParams } from '../styles';
@@ -65,9 +64,6 @@ export const LozengeComponent = ({
 	pluginInjectionApi,
 }: LozengeComponentProps) => {
 	const capitalizedTitle = capitalizeFirstLetter(title);
-	if (title.startsWith('synced-block:') && fg('platform_synced_block_demo')) {
-		return null; // Synced blocks do not use the lozenge component
-	}
 
 	if (showMacroInteractionDesignUpdates) {
 		return (

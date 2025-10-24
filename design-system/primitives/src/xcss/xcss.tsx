@@ -405,6 +405,9 @@ export type XCSS = ReturnType<typeof xcss>;
  *   padding: 'space.100'
  * })
  * ```
+ *
+ * @deprecated Use `@atlaskit/css` with `@atlaskit/primitives/compiled` instead.
+ * {@link https://hello.atlassian.net/wiki/spaces/DST/pages/4992259434/Guidance+Migrating+to+atlaskit+css+from+xcss Internal documentation for migration; no external access}
  */
 export function xcss(style: SafeCSSObject): {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

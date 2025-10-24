@@ -106,6 +106,7 @@ import {
 	listsStyles,
 	diffListStyles,
 	listsStylesSafariFix,
+	listsStylesMarginLayoutShiftFix,
 } from './styles/list';
 import {
 	mediaAlignmentStyles,
@@ -376,6 +377,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						fg('platform_editor_content_mode_button_mvp') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						getDenseListStyles(baseFontSize),
+					expValEquals('cc_editor_ttvc_release_bundle_one', 'listLayoutShiftFix', true) &&
+						isFullPage &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						listsStylesMarginLayoutShiftFix,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					ruleStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -23,8 +23,7 @@ export interface SpotlightMediaProps {
 	testId?: string;
 
 	/**
-	 * Textual content is required for all spotlights. It should be brief and direct
-	 * to quickly elaborate on the intent.
+	 * Media to be displayed. This can be an image, video, gif that helps communicate spotlight intent.
 	 */
 	children: ReactNode;
 }

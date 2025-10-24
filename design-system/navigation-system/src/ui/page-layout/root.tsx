@@ -14,6 +14,7 @@ import { TopNavStartProvider } from '../../context/top-nav-start/top-nav-start-c
 
 import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
 import { SideNavElementProvider } from './side-nav/element-context';
+import { IsSideNavShortcutEnabledProvider } from './side-nav/is-side-nav-shortcut-enabled-context';
 import { SideNavToggleButtonProvider } from './side-nav/toggle-button-provider';
 import { SideNavVisibilityProvider } from './side-nav/visibility-provider';
 
@@ -73,6 +74,7 @@ export function Root({
 	skipLinksLabel = 'Skip to:',
 	testId,
 	defaultSideNavCollapsed,
+	isSideNavShortcutEnabled = false,
 }: {
 	/**
 	 * For rendering the layout areas, e.g. TopNav, SideNav, Main.
@@ -111,6 +113,25 @@ export function Root({
 	 * __Note:__ When provided, the `defaultCollapsed` props on `SideNav` and `SideNavToggleButton` will be ignored.
 	 */
 	defaultSideNavCollapsed?: boolean;
+
+	/**
+	 * Controls whether the side nav toggle shortcut is enabled. This will be used to bind the keyboard event listener,
+	 * and to display the keyboard shortcuts in the appropriate tooltips (`SideNavToggleButton`, `SideNavPanelSplitter`).
+	 *
+	 * The shortcut key is `Ctrl` + `[`.
+	 *
+	 * The shortcut is not enabled by default.
+	 *
+	 * The shortcut will also be ignored if there are any open ADS modal dialogs (`@atlaskit/modal-dialog`). This is behind
+	 * the `platform-dst-open-layer-observer-layer-type` feature flag.
+	 *
+	 * `SideNav` has another prop `canToggleWithShortcut()` that can be used to run additional checks after the shortcut
+	 * is pressed, before the SideNav is toggled. You can use this to conditionally disable the shortcut based on your
+	 * your own custom checks, e.g. if there is a legacy dialog open.
+	 *
+	 * Note: The built-in keyboard shortcut is behind the `navx-full-height-sidebar` feature flag.
+	 */
+	isSideNavShortcutEnabled?: boolean;
 }) {
 	const ref = useRef<HTMLDivElement>(null);
 
@@ -149,23 +170,25 @@ This message will not be displayed in production.
 		<SideNavVisibilityProvider defaultCollapsed={defaultSideNavCollapsed}>
 			<SideNavToggleButtonProvider>
 				<SideNavElementProvider>
-					<TopNavStartProvider>
-						<OpenLayerObserver>
-							<DangerouslyHoistSlotSizes.Provider value={UNSAFE_dangerouslyHoistSlotSizes}>
-								<SkipLinksProvider label={skipLinksLabel} testId={testId}>
-									<div
-										ref={ref}
-										css={styles.root}
-										className={xcss}
-										id={gridRootId}
-										data-testid={testId}
-									>
-										{children}
-									</div>
-								</SkipLinksProvider>
-							</DangerouslyHoistSlotSizes.Provider>
-						</OpenLayerObserver>
-					</TopNavStartProvider>
+					<IsSideNavShortcutEnabledProvider isSideNavShortcutEnabled={isSideNavShortcutEnabled}>
+						<TopNavStartProvider>
+							<OpenLayerObserver>
+								<DangerouslyHoistSlotSizes.Provider value={UNSAFE_dangerouslyHoistSlotSizes}>
+									<SkipLinksProvider label={skipLinksLabel} testId={testId}>
+										<div
+											ref={ref}
+											css={styles.root}
+											className={xcss}
+											id={gridRootId}
+											data-testid={testId}
+										>
+											{children}
+										</div>
+									</SkipLinksProvider>
+								</DangerouslyHoistSlotSizes.Provider>
+							</OpenLayerObserver>
+						</TopNavStartProvider>
+					</IsSideNavShortcutEnabledProvider>
 				</SideNavElementProvider>
 			</SideNavToggleButtonProvider>
 		</SideNavVisibilityProvider>

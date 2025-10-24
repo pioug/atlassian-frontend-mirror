@@ -43,7 +43,7 @@ export interface SpotlightSecondaryActionProps {
 	onClick?: PressableProps['onClick'];
 
 	/**
-	 * An accessible label to read out in the event that the displayed text does not provide anough context.
+	 * An accessible label to read out in the event that the displayed text does not provide enough context.
 	 */
 	'aria-label'?: string;
 }
@@ -51,7 +51,7 @@ export interface SpotlightSecondaryActionProps {
 /**
  * __Spotlight secondary action__
  *
- * `SpotlightSecondaryAction` is not required for all `Spotlight` components. It should supplement the SpotlightPrimaryAction.
+ * `SpotlightSecondaryAction` is not required for all spotlight components. It should supplement the `SpotlightPrimaryAction`.
  * It is intended to be used to go back to the previous step in multi step spotlight tours, or other similar actions.
  *
  */

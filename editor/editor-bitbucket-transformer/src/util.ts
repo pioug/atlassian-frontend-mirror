@@ -45,26 +45,28 @@ export function escapeHtmlAttribute(text: string): string {
 	if (!text) {
 		return text;
 	}
-	return text
-		// HTML/meta
-		.replace(/&/g, '&amp;')
-		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;')
-		.replace(/"/g, '&quot;')
-		.replace(/'/g, '&#39;')
-		// Markdown punctuation that risks interpretation by backend attr_list / python-markdown
-		.replace(/\*/g, '&#42;')
-		.replace(/_/g, '&#95;')
-		.replace(/`/g, '&#96;')
-		.replace(/~/g, '&#126;')
-		.replace(/\|/g, '&#124;')
-		.replace(/\{/g, '&#123;')
-		.replace(/\}/g, '&#125;')
-		.replace(/\[/g, '&#91;')
-		.replace(/\]/g, '&#93;')
-		.replace(/\(/g, '&#40;')
-		.replace(/\)/g, '&#41;')
-		.replace(/!/g, '&#33;');
+	return (
+		text
+			// HTML/meta
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;')
+			.replace(/'/g, '&#39;')
+			// Markdown punctuation that risks interpretation by backend attr_list / python-markdown
+			.replace(/\*/g, '&#42;')
+			.replace(/_/g, '&#95;')
+			.replace(/`/g, '&#96;')
+			.replace(/~/g, '&#126;')
+			.replace(/\|/g, '&#124;')
+			.replace(/\{/g, '&#123;')
+			.replace(/\}/g, '&#125;')
+			.replace(/\[/g, '&#91;')
+			.replace(/\]/g, '&#93;')
+			.replace(/\(/g, '&#40;')
+			.replace(/\)/g, '&#41;')
+			.replace(/!/g, '&#33;')
+	);
 }
 
 /**
@@ -74,27 +76,29 @@ export function unescapeHtmlAttribute(text: string): string {
 	if (!text) {
 		return text;
 	}
-	return text
-		// HTML/meta
-		.replace(/&gt;/g, '>')
-		.replace(/&lt;/g, '<')
-		.replace(/&quot;/g, '"')
-		.replace(/&#39;/g, '\'')
-		// Markdown punctuation we may have entity-encoded
-		.replace(/&#42;/g, '*')
-		.replace(/&#95;/g, '_')
-		.replace(/&#96;/g, '`')
-		.replace(/&#126;/g, '~')
-		.replace(/&#124;/g, '|')
-		.replace(/&#123;/g, '{')
-		.replace(/&#125;/g, '}')
-		.replace(/&#91;/g, '[')
-		.replace(/&#93;/g, ']')
-		.replace(/&#40;/g, '(')
-		.replace(/&#41;/g, ')')
-		.replace(/&#33;/g, '!')
-		// Ampersand must be last
-		.replace(/&amp;/g, '&');
+	return (
+		text
+			// HTML/meta
+			.replace(/&gt;/g, '>')
+			.replace(/&lt;/g, '<')
+			.replace(/&quot;/g, '"')
+			.replace(/&#39;/g, "'")
+			// Markdown punctuation we may have entity-encoded
+			.replace(/&#42;/g, '*')
+			.replace(/&#95;/g, '_')
+			.replace(/&#96;/g, '`')
+			.replace(/&#126;/g, '~')
+			.replace(/&#124;/g, '|')
+			.replace(/&#123;/g, '{')
+			.replace(/&#125;/g, '}')
+			.replace(/&#91;/g, '[')
+			.replace(/&#93;/g, ']')
+			.replace(/&#40;/g, '(')
+			.replace(/&#41;/g, ')')
+			.replace(/&#33;/g, '!')
+			// Ampersand must be last
+			.replace(/&amp;/g, '&')
+	);
 }
 
 /**

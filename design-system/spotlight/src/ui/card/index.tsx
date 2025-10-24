@@ -93,7 +93,7 @@ export interface SpotlightCardProps {
 	testId?: string;
 
 	/**
-	 * Elements to be rendered inside the spotlight.
+	 * Elements to be rendered inside the `SpotlightCard`.
 	 */
 	children?: ReactNode;
 }

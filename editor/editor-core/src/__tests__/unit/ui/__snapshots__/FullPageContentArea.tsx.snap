@@ -973,6 +973,18 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
   color: var(--diff-decoration-marker-color);
 }
 
+
+
+.emotion-0 .ProseMirror ul:not(li > ul):not(:nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))),
+.emotion-0 .ProseMirror ol:not(li > ol):not(:nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))) {
+  margin-top: var(--ds-space-150, 12px);
+}
+
+.emotion-0 .ProseMirror li>ol,
+.emotion-0 .ProseMirror li>ul {
+  margin-top: var(--ds-space-050, 4px);
+}
+
 .emotion-0 .ProseMirror hr {
   border: none;
   background-color: var(--ds-border, #091E4224);
@@ -6112,6 +6124,18 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
 
 .emotion-0 li[data-testid="show-diff-changed-decoration-node"]::marker {
   color: var(--diff-decoration-marker-color);
+}
+
+
+
+.emotion-0 .ProseMirror ul:not(li > ul):not(:nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))),
+.emotion-0 .ProseMirror ol:not(li > ol):not(:nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))) {
+  margin-top: var(--ds-space-150, 12px);
+}
+
+.emotion-0 .ProseMirror li>ol,
+.emotion-0 .ProseMirror li>ul {
+  margin-top: var(--ds-space-050, 4px);
 }
 
 .emotion-0 .ProseMirror hr {

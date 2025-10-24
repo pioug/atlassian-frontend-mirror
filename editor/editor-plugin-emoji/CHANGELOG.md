@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-emoji
 
+## 7.4.2
+
+### Patch Changes
+
+- [`21fe79119fe74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21fe79119fe74) -
+  EDITOR-2447 Bump adf-schema to 51.3.2
+- [`f42616e52392b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f42616e52392b) -
+  [ux] EDITOR-2506 Disable emoji inserting when matched with ascii map
+- Updated dependencies
+
 ## 7.4.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/onboarding",
-	"version": "14.4.7",
+	"version": "14.4.8",
 	"description": "An onboarding spotlight introduces new features to users through focused messages or multi-step tours.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,16 +35,21 @@
 			"name": "Onboarding (spotlight)",
 			"category": "Messaging",
 			"status": {
-				"type": "intent-to-deprecate",
-				"description": "We intend to deprecate `@atlaskit/onboarding` in favor of a future `@atlaskit/spotlight` package."
+				"type": "deprecated"
 			},
 			"subPages": [
 				{
 					"title": "Benefits modal",
 					"id": "benefits-modal",
 					"status": {
-						"type": "intent-to-deprecate",
-						"description": "We recommend using our [modal dialog](/components/modal-dialog) component instead of this component for all new experiences. This is because modal dialog has a native close button and better default close behaviors, which all significantly improve the accessibility and experience for all users."
+						"type": "deprecated"
+					}
+				},
+				{
+					"title": "Spotlight card",
+					"id": "spotlight-card",
+					"status": {
+						"type": "deprecated"
 					}
 				}
 			]

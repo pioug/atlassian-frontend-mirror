@@ -272,9 +272,6 @@
 			"path": "../../editor-plugin-synced-block/afm-townsquare/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-synced-block-prototype/afm-townsquare/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-table/afm-townsquare/tsconfig.json"
 		},
 		{

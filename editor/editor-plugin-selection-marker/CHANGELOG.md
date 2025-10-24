@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 6.2.5
+
+### Patch Changes
+
+- [`14bcefe1ca8ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14bcefe1ca8ed) -
+  upgrade use of browser util
+- Updated dependencies
+
 ## 6.2.4
 
 ### Patch Changes

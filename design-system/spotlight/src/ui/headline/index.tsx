@@ -18,7 +18,7 @@ export interface SpotlightHeadlineProps {
 	testId?: string;
 
 	/**
-	 * A brief and direct title to quickly hook the user on the intent.
+	 * A brief and direct title to clearly communicate the intent.
 	 */
 	children: ReactNode;
 }

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.5.5
+
+### Patch Changes
+
+- [`21fe79119fe74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21fe79119fe74) -
+  EDITOR-2447 Bump adf-schema to 51.3.2
+- Updated dependencies
+
+## 6.5.4
+
+### Patch Changes
+
+- [`14bcefe1ca8ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14bcefe1ca8ed) -
+  upgrade use of browser util
+
 ## 6.5.3
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.7.1
+
+### Patch Changes
+
+- [`991d1598db6d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/991d1598db6d6) -
+  Documentation for upcoming beta release.
+
 ## 0.7.0
 
 ### Minor Changes

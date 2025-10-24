@@ -10,7 +10,7 @@ import type { IntlShape } from 'react-intl-next';
 import { useIntl } from 'react-intl-next';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
 import type { TypeAheadItem } from '@atlaskit/editor-common/types';
 import { AssistiveText } from '@atlaskit/editor-common/ui';
@@ -313,6 +313,10 @@ export const InputQuery = React.memo(
 			if (!ref.current) {
 				return;
 			}
+
+			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+				? getBrowserInfo()
+				: browserLegacy;
 			const { current: element } = ref;
 			const { removePrefixTriggerOnCancel } = getPluginState(editorView.state) || {};
 			const onFocusIn = (event: FocusEvent) => {

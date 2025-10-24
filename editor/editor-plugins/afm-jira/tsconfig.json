@@ -272,9 +272,6 @@
 			"path": "../../editor-plugin-synced-block/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-synced-block-prototype/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-table/afm-jira/tsconfig.json"
 		},
 		{

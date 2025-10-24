@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 110.18.3
+
+### Patch Changes
+
+- [`0adf16debc7be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0adf16debc7be) -
+  EDITOR-2450 Sync Block Prototype clean up
+- Updated dependencies
+
+## 110.18.2
+
+### Patch Changes
+
+- [`21fe79119fe74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21fe79119fe74) -
+  EDITOR-2447 Bump adf-schema to 51.3.2
+- Updated dependencies
+
+## 110.18.1
+
+### Patch Changes
+
+- [`9fdf007456703`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fdf007456703) -
+  PGXT-9052 interactable_in_editor_inputs feature gate clean up
+- Updated dependencies
+
 ## 110.18.0
 
 ### Minor Changes

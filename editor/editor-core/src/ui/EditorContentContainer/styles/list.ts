@@ -162,6 +162,31 @@ export const diffListStyles: SerializedStyles = css({
 	},
 });
 
+// These styles are to fix a layout shift issue that occurs when aui-reset.less CSS is applied post-hydration.
+// It overrides the design system bundle.css list margins, which in turn causes the lists to shift vertically.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const listsStylesMarginLayoutShiftFix: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// Root lists: 12px top margin (design system value), except first content child. Uses :not(:nth-child(1 of ...)) to exclude first content lists.
+		// A more complex selector is used here to ensure this style is not applied to block quotes and panels, as they do not have a margin-top property already, and this will incorrectly add a margin-top to them.
+		// This is unlike tables and expands, which do have a margin-top property already, and this style would not change their top margin, even without the :not(:nth-child(1 of ...)) selector.
+		// This targeted approach reduces the blast radius of the fix. Instead of modifying numerous existing styles, we add this single selector until the issue with bundle.css & aui-reset.less is fixed.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'ul:not(li > ul):not(:nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))), ol:not(li > ol):not(:nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span)))':
+			{
+				marginTop: `var(--ds-space-150, 12px)`,
+			},
+
+		// Nested lists: 4px top margin (design system value)
+		// Applies to both OL and UL nested inside list items
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'li > ol, li > ul': {
+			marginTop: `var(--ds-space-050, 4px)`,
+		},
+	},
+});
+
 /* This prevents https://product-fabric.atlassian.net/browse/ED-20924 */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const listsStylesSafariFix: SerializedStyles = css({

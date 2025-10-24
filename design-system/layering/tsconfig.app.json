@@ -32,6 +32,9 @@
 	"references": [
 		{
 			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		}
 	],
 	"files": []

@@ -76,6 +76,7 @@ export type {
 	TDynamicTable,
 	TEmptyState,
 	TErrorMessage,
+	TFileCard,
 	TFlex,
 	TFormFooter,
 	TFormHeader,
@@ -125,6 +126,7 @@ export type {
 	TAdfRenderer,
 	TText,
 	TPressable,
+	TFilePicker,
 } from './components/__generated__';
 
 export type {

@@ -1,11 +1,17 @@
 {
 	"name": "@atlaskit/spotlight",
-	"version": "0.7.0",
-	"description": "A spotlight introduces users to various points of interest across Atlassian through focused messages or multi-step tours.",
+	"version": "0.7.1",
+	"description": "A spotlight introduces users to points of interest, from focused messages to multi-step tours.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"atlassian": {
-		"team": "Design System Team"
+		"team": "Design System Team",
+		"website": {
+			"category": "Messaging",
+			"status": {
+				"type": "beta"
+			}
+		}
 	},
 	"homepage": "https://atlassian.design/components/spotlight/",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",

@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 124.8.6
+
+### Patch Changes
+
+- [`21fe79119fe74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21fe79119fe74) -
+  EDITOR-2447 Bump adf-schema to 51.3.2
+- Updated dependencies
+
+## 124.8.5
+
+### Patch Changes
+
+- [`6800be8c35a5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6800be8c35a5f) -
+  [ux] Omit .aui-lozenge from contentMode scaling when inside extensions
+
 ## 124.8.4
 
 ### Patch Changes

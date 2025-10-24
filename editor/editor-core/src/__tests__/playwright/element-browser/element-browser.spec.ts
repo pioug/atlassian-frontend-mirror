@@ -40,20 +40,6 @@ test.describe('ElementBrowser', () => {
 		await expect(toolbar.droplistContentMenuPopup).toBeHidden();
 	});
 
-	test.describe('"platform_editor_fix_browse_modal_header" off', () => {
-		test.use({ platformFeatureFlags: { platform_editor_fix_browse_modal_header: false } });
-
-		test('should capture and report a11y violations', async ({ editor }) => {
-			const toolbar = EditorMainToolbarModel.from(editor);
-			const elementBrowserModel = EditorModalElementBrowserModel.from(editor);
-			const insertMenu = await toolbar.openInsertMenu();
-			await insertMenu.viewMoreElementsButton.click();
-			await expect(elementBrowserModel.modal).toBeVisible();
-
-			await expect(editor.page).toBeAccessible({ violationCount: 1 });
-		});
-	});
-
 	test('should capture and report a11y violations', async ({ editor }) => {
 		const toolbar = EditorMainToolbarModel.from(editor);
 		const elementBrowserModel = EditorModalElementBrowserModel.from(editor);

@@ -1,5 +1,13 @@
 # @atlaskit/teams-app-config
 
+## 1.12.4
+
+### Patch Changes
+
+- [`0adf16debc7be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0adf16debc7be) -
+  EDITOR-2450 Sync Block Prototype clean up
+- Updated dependencies
+
 ## 1.12.3
 
 ### Patch Changes

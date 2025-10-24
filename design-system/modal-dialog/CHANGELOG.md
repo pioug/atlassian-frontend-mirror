@@ -1,5 +1,17 @@
 # @atlaskit/modal-dialog
 
+## 14.6.0
+
+### Minor Changes
+
+- [`8a71ce992f8c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a71ce992f8c8) -
+  Modal dialog now registers with the open layer observer using the `useNotifyLayerObserver` hook.
+  This is behind the `platform-dst-open-layer-observer-layer-type` feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.5.3
 
 ### Patch Changes

@@ -21,6 +21,13 @@ import SettingsIcon from '@atlaskit/icon/core/settings';
 import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import Link from '@atlaskit/link';
 import { ConfluenceIcon } from '@atlaskit/logo';
+import Modal, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
+} from '@atlaskit/modal-dialog';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Panel } from '@atlaskit/navigation-system/layout/panel';
@@ -191,6 +198,8 @@ export function ResizableSlots() {
 		[],
 	);
 
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
 	return (
 		<Root>
 			<TopNav>
@@ -273,6 +282,23 @@ export function ResizableSlots() {
 
 					<OpenLayerCountTracker />
 				</Stack>
+
+				<ModalTransition>
+					{isModalOpen && (
+						<Modal onClose={() => setIsModalOpen(false)}>
+							<ModalHeader hasCloseButton>
+								<ModalTitle>Move your page to the Design team space</ModalTitle>
+							</ModalHeader>
+							<ModalBody>
+								If you move this page to the Design system space, your access permissions will
+								change to view only. You'll need to ask the space admin for edit access.
+							</ModalBody>
+							<ModalFooter>
+								<Button onClick={() => setIsModalOpen(false)}>Move page</Button>
+							</ModalFooter>
+						</Modal>
+					)}
+				</ModalTransition>
 			</Main>
 
 			<Aside xcss={asideStyles.root} defaultWidth={400} id="aside">
@@ -319,6 +345,7 @@ export function ResizableSlots() {
 							label="Uncontrolled checkbox select"
 						/>
 						<ControlledStateCheckboxSelect />
+						<Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
 					</Stack>
 				</Stack>
 				<PanelSplitter

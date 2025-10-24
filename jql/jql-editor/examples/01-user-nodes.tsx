@@ -52,7 +52,8 @@ const onHydrate = (jql: string): Promise<HydratedValues> =>
 						type: 'user',
 						id: user.value,
 						name: user.displayName,
-						avatarUrl: mockAvatarUrl,
+						// Use empty avatar for the first user to demonstrate the alignment issue
+						avatarUrl: user.value === 'rjuedbergtlfrde' ? '' : mockAvatarUrl,
 					}),
 				);
 

@@ -1,5 +1,35 @@
 # @atlaskit/editor-core
 
+## 215.8.4
+
+### Patch Changes
+
+- [`0adf16debc7be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0adf16debc7be) -
+  EDITOR-2450 Sync Block Prototype clean up
+- Updated dependencies
+
+## 215.8.3
+
+### Patch Changes
+
+- [`76effece25ab5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76effece25ab5) -
+  ED-29540: Fix layout shift caused by the top margin of lists changing post-hydration.
+
+## 215.8.2
+
+### Patch Changes
+
+- [`21fe79119fe74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21fe79119fe74) -
+  EDITOR-2447 Bump adf-schema to 51.3.2
+- Updated dependencies
+
+## 215.8.1
+
+### Patch Changes
+
+- [`3ed49ba1f53e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ed49ba1f53e7) -
+  ENGHEALTH-32567: remove redundant tests for a11y issues when fix gate was off
+
 ## 215.8.0
 
 ### Minor Changes

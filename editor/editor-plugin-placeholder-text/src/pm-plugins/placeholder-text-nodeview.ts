@@ -1,9 +1,10 @@
-import { browser } from '@atlaskit/editor-common/browser';
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type PmMutationRecord =
 	| MutationRecord
@@ -14,6 +15,9 @@ type PmMutationRecord =
 
 const serializePlaceholderNode = (node: PMNode): HTMLElement => {
 	const element = document.createElement('span');
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
 
 	element.classList.add('pm-placeholder');
 

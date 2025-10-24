@@ -1,8 +1,9 @@
+import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import { browser } from '@atlaskit/editor-common/utils';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // eg. Version/4.0 Chrome/95.0.4638.50
 const isAndroidChromium =
@@ -10,6 +11,9 @@ const isAndroidChromium =
 	typeof window !== 'undefined' && /Version\/.* Chrome\/.*/u.test(window.navigator.userAgent);
 
 export const statusToDOM = (node: PMNode): DOMOutputSpec => {
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
 	const { text, color, style, localId } = node.attrs;
 
 	const editorNodeWrapperAttrs = {

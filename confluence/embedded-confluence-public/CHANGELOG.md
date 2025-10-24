@@ -1,5 +1,7 @@
 # @atlaskit/embedded-confluence
 
+## 4.3.3
+
 ## 4.3.2
 
 ### Patch Changes
@@ -70,7 +72,6 @@
 - [#147926](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147926)
   [`4c5a404f45416`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c5a404f45416) - 1.
   This upgrade migrates css styles from using `@emotion/react` to use `@compiled/react`.
-
   2. In addition to some dependency changes, **the embedded `ViewPage` and `Page` components will no
      longer accept the `className` prop because of the interference it causes with SSR.**
 
@@ -80,17 +81,14 @@
   **NOTE:** Some bundlers may not support `.css` files inside `node_modules/` out-of-the-box like
   the ones that Compiled generates. Please follow the guide below depending on the bundler your app
   uses:
-
   1. If your app relies on **Webpack**, then you need to add `style-loader` and `css-loader` to your
      `webpack.config.js`. (More info on [CSS Loader](https://webpack.js.org/loaders/css-loader/)).
-
      - (OPTIONAL) Consider adding `@compiled/webpack-loader` to your Webpack configuration, so that
        the `.css` files from Compiled CSS-in-JS are merged into a single stylesheet.
        [See here for installation instructions](https://compiledcssinjs.com/docs/installation#webpack).
 
   2. If your app relies on **Parcel**, no intervention is necessary. (More info on
      [Parcel CSS](https://parceljs.org/languages/css/)).
-
      - (OPTIONAL) Consider adding `@compiled/parcel-loader` to your Parcel configuration, so that
        the `.css` files from Compiled CSS-in-JS are merged into a single stylesheet.
        [See here for installation instructions](https://compiledcssinjs.com/docs/installation#parcel).
@@ -418,7 +416,6 @@
 ### Enabling the Login/Authentication flow for EP:
 
 1. **What's changed:**
-
    - Embedded Pages now allow users to authenticate within it and also request for its first-party
      storage.
      - Embedded Pages is using `Document.hasStorageAccess()` to check if it has access to its
@@ -430,7 +427,6 @@
        page is opened in a new window which will take users through the Login/Sign up flow.
 
 2. **Why it's changed:**
-
    - With the Login flow the end user is taken through an authentication process within EP which
      doesn't require them to navigate out of the parent products to Login to Confluence. This also
      mitigates the problem of having to enable 3rd party cookies in the browser settings before

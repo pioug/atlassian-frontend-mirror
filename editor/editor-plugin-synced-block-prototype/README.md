@@ -1,1 +1,0 @@
-# Editor plugin synced block

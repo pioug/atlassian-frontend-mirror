@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.8.0",
+	"version": "215.8.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -420,9 +420,6 @@
 			"type": "boolean"
 		},
 		"platform_fix_extra_space_last_line_comment_editor": {
-			"type": "boolean"
-		},
-		"platform_synced_block_demo": {
 			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {

@@ -82,11 +82,9 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	 * typing inside a text field (in an extension body) will print the text in the editor
 	 * content area instead. This change prevents the editor view from trying to handle these events,
 	 * when the target of the event is an input element, so the extension can.
-	 *
-	 * TODO: PGXT-8180 - write tests https://product-fabric.atlassian.net/browse/PGXT-8180
 	 */
 	stopEvent(event: Event) {
-		return event.target instanceof HTMLInputElement && fg('interactable_in_editor_inputs');
+		return event.target instanceof HTMLInputElement;
 	}
 
 	getContentDOM() {

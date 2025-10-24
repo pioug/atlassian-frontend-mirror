@@ -23,6 +23,7 @@ import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-id
 import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { Fragment, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -112,6 +113,7 @@ export type ExtensionPluginDependencies = [
 	OptionalPlugin<ContextPanelPlugin>,
 	OptionalPlugin<ContextIdentifierPlugin>,
 	OptionalPlugin<ConnectivityPlugin>,
+	OptionalPlugin<ToolbarPlugin>,
 ];
 
 export type ExtensionPluginActions = {

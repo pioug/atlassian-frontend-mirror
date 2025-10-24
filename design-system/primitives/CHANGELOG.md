@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 16.0.2
+
+### Patch Changes
+
+- [`cd77e341e3aa0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd77e341e3aa0) -
+  Mark `xcss()` as deprecated. Please use `@atlaskit/css` with `@atlaskit/primitives/compiled`
+  instead.
+
 ## 16.0.1
 
 ### Patch Changes

@@ -1,5 +1,33 @@
 # @atlassian/navigation-system
 
+## 4.5.0
+
+### Minor Changes
+
+- [`8a71ce992f8c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a71ce992f8c8) -
+  `SideNav` now provides a built-in keyboard shortcut for expanding and collapsing. This is behind
+  the feature gate `navx-full-height-sidebar`.
+  - The shortcut key is `Ctrl` + `[`.
+  - The shortcut is not enabled by default.
+  - The prop `isSideNavShortcutEnabled` has been added to `Root`, as a way to control whether the
+    shortcut is enabled (whether the keyboard event listener is binded). It defaults to `false`.
+  - The prop `canToggleWithShortcut()` has been added to `SideNav`, as a way to run additional
+    checks after the shortcut is pressed, before the side nav is toggled.
+  - The shortcut will also be ignored if there are any open modals. This check is behind the feature
+    gate `platform-dst-open-layer-observer-layer-type`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.4.0
+
+### Minor Changes
+
+- [`327d6a06eebb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/327d6a06eebb2) -
+  Adds `onPeekStart` and `onPeekEnd` callbacks to the `SideNav` to use for monitoring when users
+  peek at the side navigation when it is collapsed.
+
 ## 4.3.0
 
 ### Minor Changes

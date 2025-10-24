@@ -3,11 +3,38 @@ export type CleanupFn = () => void;
 
 export type LayerCloseListenerFn = () => void;
 
+/**
+ * The type of layer. This is used as a filter when requesting the count of open layers.
+ */
+// Only `modal` is explictly supported for now, as that's the only layer type that we have an
+// immediate need for. We can add more types as we need them - e.g. `popup`, `tooltip`, `select`, etc.
+// Disabling the eslint rule, as it semantically makes sense to include "Type" in the name.
+// eslint-disable-next-line @repo/internal/react/consistent-types-definitions
+export type LayerType = 'modal';
+
 export type OpenLayerObserverInternalAPI = {
 	/**
 	 * Returns the current count of open layers.
+	 *
+	 * - If a namespace is provided, the count for that namespace is returned.
+	 * - If a type is provided, only layers of that type are counted.
+	 * - If both are provided, only layers matching both criteria are counted.
+	 * - Otherwise, the sum of all namespace counts is returned.
+	 *
+	 * Note: the `type` parameter is only supported if the `platform-dst-open-layer-observer-layer-type` feature flag is enabled.
 	 */
-	getCount: (options?: { namespace?: string }) => number;
+	getCount: (options?: {
+		/**
+		 * The namespace to get the count of open layers of.
+		 */
+		namespace?: string;
+		/**
+		 * The type of layer to get the count of.
+		 *
+		 * Note: the `type` parameter is only supported if the `platform-dst-open-layer-observer-layer-type` feature flag is enabled.
+		 */
+		type?: LayerType;
+	}) => number;
 
 	/**
 	 * Adds a listener that will be called when the number of open layers changes.
@@ -40,7 +67,10 @@ export type OpenLayerObserverInternalAPI = {
 	 *
 	 * Returns a clean up function to unsubscribe the listener.
 	 */
-	onClose: (listener: LayerCloseListenerFn, options: { namespace: string | null }) => CleanupFn;
+	onClose: (
+		listener: LayerCloseListenerFn,
+		options: { namespace: string | null; type?: LayerType },
+	) => CleanupFn;
 
 	/**
 	 * Closes all open layers.

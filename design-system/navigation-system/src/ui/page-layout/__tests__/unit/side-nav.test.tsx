@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { act, render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 import { renderToString } from 'react-dom/server';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { act, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
+import { Main } from '../../main/main';
 import { Root } from '../../root';
-import { SideNav } from '../../side-nav/side-nav';
+import { onPeekStartDelayMs, SideNav } from '../../side-nav/side-nav';
 import { SideNavToggleButton } from '../../side-nav/toggle-button';
 import type { SideNavState } from '../../side-nav/types';
 import { useToggleSideNav } from '../../side-nav/use-toggle-side-nav';
@@ -629,6 +629,363 @@ describe('Side nav', () => {
 					trigger: 'programmatic',
 				});
 			});
+		});
+	});
+
+	describe('onPeekStart', () => {
+		beforeEach(() => {
+			jest.useFakeTimers();
+		});
+
+		afterEach(() => {
+			jest.runOnlyPendingTimers();
+			jest.useRealTimers();
+		});
+
+		it('should be called after a delay when the flyout is triggered', async () => {
+			const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+			const onPeekStart = jest.fn();
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+
+			render(
+				<Root>
+					<TopNav>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							<div data-testid="outside-click-target">outside click target</div>
+						</TopNavStart>
+					</TopNav>
+					<SideNav testId="sidenav" onPeekStart={onPeekStart} defaultCollapsed>
+						sidenav
+					</SideNav>
+				</Root>,
+			);
+
+			// Trigger the flyout
+			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
+
+			// Advance to right before the expected delay
+			await jest.advanceTimersByTimeAsync(onPeekStartDelayMs - 1);
+			expect(onPeekStart).toHaveBeenCalledTimes(0);
+
+			// Ensure it's only called after expected delay
+			await jest.advanceTimersByTimeAsync(1);
+			expect(onPeekStart).toHaveBeenCalledTimes(1);
+		});
+
+		it('should not be called multiple times during the same flyout', async () => {
+			const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+			const onPeekStart = jest.fn();
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+
+			render(
+				<Root>
+					<TopNav>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							<div data-testid="outside-click-target">outside click target</div>
+						</TopNavStart>
+					</TopNav>
+					<SideNav testId="sidenav" onPeekStart={onPeekStart} defaultCollapsed>
+						sidenav
+					</SideNav>
+				</Root>,
+			);
+
+			// Trigger the flyout
+			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			await jest.advanceTimersByTimeAsync(onPeekStartDelayMs);
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
+			expect(onPeekStart).toHaveBeenCalledTimes(1);
+
+			// Hover the side nav
+			await user.hover(screen.getByTestId('sidenav'));
+			// Simulate hovering for 500ms
+			await jest.advanceTimersByTimeAsync(onPeekStartDelayMs);
+			expect(onPeekStart).toHaveBeenCalledTimes(1);
+		});
+
+		it('should not be called when expanding without intent to peek', async () => {
+			const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+			const onPeekStart = jest.fn();
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+
+			render(
+				<Root>
+					<TopNav>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							<div data-testid="outside-click-target">outside click target</div>
+						</TopNavStart>
+					</TopNav>
+					<SideNav testId="sidenav" onPeekStart={onPeekStart} defaultCollapsed>
+						sidenav
+					</SideNav>
+				</Root>,
+			);
+
+			// Expand the side nav
+			// No simulated hover time, just an immediate click
+			await user.click(screen.getByRole('button', { name: 'Expand sidebar' }));
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
+			await jest.advanceTimersByTimeAsync(onPeekStartDelayMs);
+			expect(onPeekStart).not.toHaveBeenCalled();
+		});
+
+		it('should not be called when hovering without intent to peek', async () => {
+			const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+			const onPeekStart = jest.fn();
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+
+			render(
+				<Root>
+					<TopNav>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							<div data-testid="outside-click-target">outside click target</div>
+						</TopNavStart>
+					</TopNav>
+					<SideNav testId="sidenav" onPeekStart={onPeekStart} defaultCollapsed>
+						sidenav
+					</SideNav>
+					<Main testId="main">main</Main>
+				</Root>,
+			);
+
+			// Trigger flyout briefly
+			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
+
+			// Leave flyout before 500ms
+			await user.hover(screen.getByTestId('main'));
+			await jest.advanceTimersByTimeAsync(onPeekStartDelayMs);
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
+			expect(onPeekStart).not.toHaveBeenCalled();
+		});
+
+		it('should not be called after unmounting', async () => {
+			const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+			const onPeekStart = jest.fn();
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+
+			const { unmount } = render(
+				<Root>
+					<TopNav>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							<div data-testid="outside-click-target">outside click target</div>
+						</TopNavStart>
+					</TopNav>
+					<SideNav testId="sidenav" onPeekStart={onPeekStart} defaultCollapsed>
+						sidenav
+					</SideNav>
+					<Main testId="main">main</Main>
+				</Root>,
+			);
+
+			// Trigger flyout
+			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
+
+			unmount();
+
+			await jest.advanceTimersByTimeAsync(onPeekStartDelayMs);
+			expect(onPeekStart).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('onPeekEnd', () => {
+		beforeEach(() => {
+			jest.useFakeTimers();
+		});
+
+		afterEach(() => {
+			jest.runOnlyPendingTimers();
+			jest.useRealTimers();
+		});
+
+		it('should be called when the flyout is closed due to pointer leaving toggle button', async () => {
+			const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+			const onPeekEnd = jest.fn();
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+
+			render(
+				<Root>
+					<TopNav>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							<div data-testid="outside-click-target">outside click target</div>
+						</TopNavStart>
+					</TopNav>
+					<SideNav testId="sidenav" onPeekEnd={onPeekEnd} defaultCollapsed>
+						sidenav
+					</SideNav>
+					<Main testId="main">main</Main>
+				</Root>,
+			);
+
+			// Trigger the flyout
+			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			await jest.advanceTimersByTimeAsync(onPeekStartDelayMs);
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
+			expect(onPeekEnd).toHaveBeenCalledTimes(0);
+
+			// Hover over main until the flyout closes
+			await user.hover(screen.getByTestId('main'));
+			await waitFor(() =>
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false'),
+			);
+			expect(onPeekEnd).toHaveBeenCalledTimes(1);
+			expect(onPeekEnd).toHaveBeenCalledWith({ trigger: 'mouse-leave' });
+		});
+
+		it('should be called when the flyout is closed due to the sidenav expanding', async () => {
+			const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+			const onPeekEnd = jest.fn();
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+
+			render(
+				<Root>
+					<TopNav>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							<div data-testid="outside-click-target">outside click target</div>
+						</TopNavStart>
+					</TopNav>
+					<SideNav testId="sidenav" onPeekEnd={onPeekEnd} defaultCollapsed>
+						sidenav
+					</SideNav>
+					<Main testId="main">main</Main>
+				</Root>,
+			);
+
+			// Trigger the flyout
+			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			await jest.advanceTimersByTimeAsync(onPeekStartDelayMs);
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'flyout');
+			expect(onPeekEnd).toHaveBeenCalledTimes(0);
+
+			// Expand the sidenav
+			await user.click(screen.getByRole('button', { name: 'Expand sidebar' }));
+			await waitFor(() =>
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large'),
+			);
+			expect(onPeekEnd).toHaveBeenCalledTimes(1);
+			expect(onPeekEnd).toHaveBeenCalledWith({ trigger: 'side-nav-expand' });
+		});
+
+		it('should not be called when expanding without intent to peek', async () => {
+			const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+			const onPeekEnd = jest.fn();
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+
+			render(
+				<Root>
+					<TopNav>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+									defaultCollapsed
+								/>
+							}
+						>
+							<div data-testid="outside-click-target">outside click target</div>
+						</TopNavStart>
+					</TopNav>
+					<SideNav testId="sidenav" onPeekEnd={onPeekEnd} defaultCollapsed>
+						sidenav
+					</SideNav>
+					<Main testId="main">main</Main>
+				</Root>,
+			);
+
+			// Expand the sidenav
+			await user.click(screen.getByRole('button', { name: 'Expand sidebar' }));
+			expect(onPeekEnd).not.toHaveBeenCalled();
+		});
+
+		it('should not be called when collapsing the side nav', async () => {
+			const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+			const onPeekEnd = jest.fn();
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+
+			render(
+				<Root>
+					<TopNav>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+								/>
+							}
+						>
+							<div data-testid="outside-click-target">outside click target</div>
+						</TopNavStart>
+					</TopNav>
+					<SideNav testId="sidenav" onPeekEnd={onPeekEnd}>
+						sidenav
+					</SideNav>
+					<Main testId="main">main</Main>
+				</Root>,
+			);
+
+			// Trigger the flyout
+			await user.click(screen.getByRole('button', { name: 'Collapse sidebar' }));
+			expect(onPeekEnd).not.toHaveBeenCalled();
 		});
 	});
 

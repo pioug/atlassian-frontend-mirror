@@ -1,5 +1,12 @@
 # @atlaskit/status
 
+## 3.0.22
+
+### Patch Changes
+
+- [`a5252d864001d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5252d864001d) -
+  Fix fg call from module scope to component scope
+
 ## 3.0.21
 
 ### Patch Changes

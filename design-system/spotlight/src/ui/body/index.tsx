@@ -25,8 +25,8 @@ export interface SpotlightBodyProps {
 	testId?: string;
 
 	/**
-	 * Textual content is required for all spotlights. It should be brief and direct
-	 * to quickly elaborate on the intent.
+	 * Textual content is required for all spotlights.
+	 * It should be brief and direct to quickly elaborate on the value.
 	 */
 	children: ReactNode;
 }
@@ -34,7 +34,7 @@ export interface SpotlightBodyProps {
 /**
  * __SpotlightBody__
  *
- * `SpotlightBody` is required in a `Spotlight`. The content should be brief and direct to elaborate on the intent.
+ * `SpotlightBody` is required in a spotlight. The content should be brief and direct to elaborate on the intent.
  *
  */
 export const SpotlightBody: React.ForwardRefExoticComponent<

@@ -6,10 +6,12 @@ import { INPUT_METHOD, type EditorAnalyticsAPI } from '@atlaskit/editor-common/a
 import { messages } from '@atlaskit/editor-common/extensions';
 import commonMessages from '@atlaskit/editor-common/messages';
 import { BODIED_EXT_MBE_MARGIN_TOP } from '@atlaskit/editor-common/styles';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	Command,
 	ConfirmDialogOptions,
 	DropdownOptionT,
+	ExtractInjectionAPI,
 	FloatingToolbarConfig,
 	FloatingToolbarHandler,
 	FloatingToolbarItem,
@@ -39,7 +41,7 @@ import {
 	removeExtension,
 	updateExtensionLayout,
 } from '../editor-commands/commands';
-import type { ExtensionState } from '../extensionPluginType';
+import type { ExtensionPlugin, ExtensionState } from '../extensionPluginType';
 
 import { pluginKey as macroPluginKey } from './macro/plugin-key';
 import { getPluginState } from './plugin-factory';
@@ -258,8 +260,9 @@ const breakoutOptions = (
 	extensionState: ExtensionState,
 	breakoutEnabled: boolean,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	api?: ExtractInjectionAPI<ExtensionPlugin>,
 ): Array<FloatingToolbarItem<Command>> => {
-	return editorExperiment('platform_editor_controls', 'variant1')
+	return areToolbarFlagsEnabled(Boolean(api?.toolbar))
 		? breakoutDropdownOptions(state, formatMessage, breakoutEnabled, editorAnalyticsAPI)
 		: breakoutButtonListOptions(
 				state,
@@ -276,10 +279,12 @@ const editButton = (
 	applyChangeToContextPanel: ApplyChangeHandler | undefined,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	isDisabled: boolean = false,
+	api?: ExtractInjectionAPI<ExtensionPlugin>,
 ): Array<FloatingToolbarItem<Command>> => {
 	if (!extensionState.showEditButton) {
 		return [];
 	}
+	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 	const editButtonItems: Array<FloatingToolbarItem<Command>> = [
 		{
@@ -312,7 +317,7 @@ const editButton = (
 		},
 	];
 
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
+	if (toolbarFlagsEnabled) {
 		editButtonItems.push({
 			type: 'separator',
 			fullHeight: true,
@@ -415,6 +420,7 @@ export const getToolbarConfig =
 			editorAnalyticsAPI,
 			editorExperiment('platform_editor_offline_editing_web', true) &&
 				extensionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
+			extensionApi as ExtractInjectionAPI<ExtensionPlugin>,
 		);
 		const breakoutItems = breakoutOptions(
 			state,
@@ -422,6 +428,7 @@ export const getToolbarConfig =
 			extensionState,
 			breakoutEnabled,
 			editorAnalyticsAPI,
+			extensionApi as ExtractInjectionAPI<ExtensionPlugin>,
 		);
 		const extensionObj = getSelectedExtension(state, true);
 

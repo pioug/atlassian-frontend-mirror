@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.12.4
+
+### Patch Changes
+
+- [`189df14145d27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/189df14145d27) -
+  Handle elements that are both display: contents and SSR placeholder replacement
+
 ## 4.12.3
 
 ### Patch Changes

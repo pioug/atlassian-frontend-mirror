@@ -272,9 +272,6 @@
 			"path": "../../editor-plugin-synced-block/afm-rovo-extension/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-synced-block-prototype/afm-rovo-extension/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-table/afm-rovo-extension/tsconfig.json"
 		},
 		{

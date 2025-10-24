@@ -26,12 +26,12 @@ export interface RecommendationRequest {
 	context: Context;
 	maxNumberOfResults: number;
 	query?: string;
-	customQuery?: string;
 	searchQueryFilter?: string;
 	includeUsers?: boolean;
 	includeGroups?: boolean;
 	includeTeams?: boolean;
 	includeNonLicensedUsers?: boolean;
+	searchEmail?: boolean;
 }
 
 type OnError = (error: any, request: RecommendationRequest) => Promise<OptionData[]> | void;

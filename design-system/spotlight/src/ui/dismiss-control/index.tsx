@@ -44,7 +44,7 @@ export interface SpotlightDismissControlProps {
 	 *
 	 * Specifies whether the dismiss button should be focused when the spotlight is rendered.
 	 * For spotlights that are triggered by user-action, this should be `true`. In the event that
-	 * a spotlight is rendered on pageload, without explicit user interaction, this should be `false`.
+	 * a spotlight is rendered on page load, without explicit user interaction, this should be `false`.
 	 */
 	autoFocus?: boolean;
 }

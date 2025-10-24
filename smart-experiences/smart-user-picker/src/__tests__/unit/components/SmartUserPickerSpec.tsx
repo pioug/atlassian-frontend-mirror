@@ -457,7 +457,7 @@ describe('SmartUserPicker', () => {
 				includeNonLicensedUsers: false,
 				maxNumberOfResults: 100,
 				query: '',
-				customQuery: '',
+				searchEmail: false,
 				searchQueryFilter: undefined,
 			};
 
@@ -1377,7 +1377,7 @@ describe('SmartUserPicker', () => {
 				expect(getUserRecommendations).toHaveBeenCalledWith(
 					expect.objectContaining({
 						query: 'john.doe@example.com',
-						customQuery: '',
+						searchEmail: false,
 					}),
 					expect.any(Object),
 				);
@@ -1400,7 +1400,7 @@ describe('SmartUserPicker', () => {
 				expect(getUserRecommendations).toHaveBeenCalledWith(
 					expect.objectContaining({
 						query: 'john.doe@example.com',
-						customQuery: '',
+						searchEmail: false,
 					}),
 					expect.any(Object),
 				);
@@ -1422,10 +1422,8 @@ describe('SmartUserPicker', () => {
 			await waitFor(() => {
 				expect(getUserRecommendations).toHaveBeenCalledWith(
 					expect.objectContaining({
-						query: '', // Empty query for email searches
-						customQuery: '(email:"john.doe@example.com")',
-						includeGroups: false, // Disabled for email searches
-						includeTeams: false, // Disabled for email searches
+						query: 'john.doe@example.com',
+						searchEmail: true,
 					}),
 					expect.any(Object),
 				);
@@ -1447,10 +1445,8 @@ describe('SmartUserPicker', () => {
 			await waitFor(() => {
 				expect(getUserRecommendations).toHaveBeenCalledWith(
 					expect.objectContaining({
-						query: '', // Empty query for email searches
-						customQuery: '(email:"john.doe@example.com")',
-						includeGroups: false, // Disabled for email searches
-						includeTeams: false, // Disabled for email searches
+						query: 'john.doe@example.com',
+						searchEmail: true,
 					}),
 					expect.any(Object),
 				);
@@ -1476,10 +1472,8 @@ describe('SmartUserPicker', () => {
 			await waitFor(() => {
 				expect(getUserRecommendations).toHaveBeenCalledWith(
 					expect.objectContaining({
-						query: '', // Empty query for email searches
-						customQuery: '(email:"john.doe@example.com")',
-						includeGroups: false, // Disabled for email searches
-						includeTeams: false, // Disabled for email searches
+						query: 'john.doe@example.com',
+						searchEmail: true,
 					}),
 					expect.any(Object),
 				);

@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugins
 
+## 11.1.0
+
+### Minor Changes
+
+- [`0adf16debc7be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0adf16debc7be) -
+  EDITOR-2450 Sync Block Prototype clean up
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.48
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.47
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.46
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.45
 
 ### Patch Changes

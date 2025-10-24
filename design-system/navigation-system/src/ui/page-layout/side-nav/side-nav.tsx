@@ -18,6 +18,7 @@ import { bind } from 'bind-event-listener';
 import { flushSync } from 'react-dom';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import {
 	OpenLayerObserverNamespaceProvider,
 	useOpenLayerObserver,
@@ -53,6 +54,7 @@ import { useSideNavRef } from './element-context';
 import { sideNavFlyoutCloseDelayMs } from './flyout-close-delay-ms';
 import { SideNavToggleButtonElement } from './toggle-button-context';
 import { useExpandSideNav } from './use-expand-side-nav';
+import { useSideNavToggleKeyboardShortcut } from './use-side-nav-toggle-keyboard-shortcut';
 import { useSideNavVisibility } from './use-side-nav-visibility';
 import {
 	useSideNavVisibilityCallbacks,
@@ -393,9 +395,33 @@ type SideNavProps = CommonSlotProps & {
 	 * Note: The trigger parameter is only provided when the `navx-full-height-sidebar` feature flag is enabled.
 	 */
 	onCollapse?: VisibilityCallback;
+
+	/**
+	 * Called when the side nav begins peeking / flyout.
+	 */
+	onPeekStart?: () => void;
+	/**
+	 * Called when the side nav stops peeking / flyout.
+	 */
+	onPeekEnd?: (args: { trigger: 'mouse-leave' | 'side-nav-expand' }) => void;
+
+	/**
+	 * Whether the side nav should be toggled in response to the built-in keyboard shortcut. Use this callback to
+	 * conditionally disable the shortcut based on your own custom checks, e.g. if there is a legacy dialog open.
+	 *
+	 * This prop will do nothing if `isSideNavShortcutEnabled` on Root is not set to `true`, as the keyboard event
+	 * listener is only binded if `isSideNavShortcutEnabled` is `true`.
+	 *
+	 * The shortcut key is `Ctrl` + `[`.
+	 *
+	 * Note: The built-in keyboard shortcut is behind the `navx-full-height-sidebar` feature flag.
+	 */
+	canToggleWithShortcut?: () => boolean;
 };
 
 const fallbackDefaultWidth = 320;
+
+export const onPeekStartDelayMs = 500;
 
 /**
  * We need an additional component layer so we can wrap the side nav in a `OpenLayerObserver` and have access to the
@@ -410,7 +436,10 @@ function SideNavInternal({
 	skipLinkLabel = label,
 	onExpand,
 	onCollapse,
+	onPeekStart,
+	onPeekEnd,
 	id: providedId,
+	canToggleWithShortcut,
 }: SideNavProps) {
 	const id = useLayoutId({ providedId });
 	const expandSideNav = useExpandSideNav({ trigger: 'skip-link' });
@@ -471,6 +500,19 @@ function SideNavInternal({
 	const flyoutStateRef = useRef<FlyoutState>({ type: 'not-active' });
 	const isFlyoutVisible = sideNavState?.flyout === 'open';
 
+	const isExpandedOnDesktopRef = useStableRef(isExpandedOnDesktop);
+	const hasPeekStartedRef = useRef(false);
+	const onPeekStartRef = useStableRef(onPeekStart);
+	const onPeekEndRef = useStableRef(onPeekEnd);
+
+	const onPeekStartTimeoutIdRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+	useEffect(() => {
+		return () => {
+			clearTimeout(onPeekStartTimeoutIdRef.current);
+		};
+	}, []);
+
 	const updateFlyoutState = useMemo(() => {
 		function tryAbortPendingClose() {
 			if (flyoutStateRef.current.type === 'waiting-for-close') {
@@ -479,6 +521,8 @@ function SideNavInternal({
 		}
 
 		function open() {
+			const prevFlyoutState = flyoutStateRef.current;
+
 			tryAbortPendingClose();
 			flyoutStateRef.current = { type: 'open' };
 			setSideNavState((currentState) => {
@@ -491,9 +535,26 @@ function SideNavInternal({
 
 				return currentState;
 			});
+
+			// Avoid redundant calls to `onPeekStart()`
+			if (prevFlyoutState.type === 'not-active') {
+				clearTimeout(onPeekStartTimeoutIdRef.current);
+				onPeekStartTimeoutIdRef.current = setTimeout(() => {
+					// If the flyout isn't still open after ~500ms then we won't count the peek
+					// As we want to track user intention rather than all hovers
+					if (isExpandedOnDesktopRef.current || flyoutStateRef.current.type !== 'open') {
+						return;
+					}
+
+					hasPeekStartedRef.current = true;
+					onPeekStartRef.current?.();
+				}, onPeekStartDelayMs);
+			}
 		}
 
 		function close() {
+			const prevFlyoutState = flyoutStateRef.current;
+
 			tryAbortPendingClose();
 			flyoutStateRef.current = { type: 'not-active' };
 			setSideNavState((currentState) => {
@@ -506,6 +567,14 @@ function SideNavInternal({
 
 				return currentState;
 			});
+
+			// Avoid redundant calls to `onPeekEnd()`
+			if (prevFlyoutState.type !== 'not-active' && hasPeekStartedRef.current) {
+				hasPeekStartedRef.current = false;
+				onPeekEndRef.current?.({
+					trigger: isExpandedOnDesktopRef.current ? 'side-nav-expand' : 'mouse-leave',
+				});
+			}
 		}
 
 		return function onAction(
@@ -575,7 +644,7 @@ function SideNavInternal({
 				return;
 			}
 		};
-	}, [openLayerObserver, setSideNavState]);
+	}, [isExpandedOnDesktopRef, onPeekEndRef, onPeekStartRef, openLayerObserver, setSideNavState]);
 
 	const toggleVisibilityByScreenResize = useToggleSideNav({ trigger: 'screen-resize' });
 	const toggleVisibilityByClickOutsideOnMobile = useToggleSideNav({
@@ -963,6 +1032,8 @@ function SideNavInternal({
 		devTimeOnlyAttributes['data-visible'] = visible.length ? visible.join(',') : 'false';
 	}
 
+	useSideNavToggleKeyboardShortcut({ canToggleWithShortcut });
+
 	useResizingWidthCssVarOnRootElement({
 		isEnabled: true,
 		cssVar: panelSplitterResizingVar,
@@ -1140,6 +1211,9 @@ export function SideNav({
 	skipLinkLabel = label, // Default value is defined in `SideNavInternal`
 	onExpand,
 	onCollapse,
+	onPeekStart,
+	onPeekEnd,
+	canToggleWithShortcut,
 	id,
 }: SideNavProps) {
 	return (
@@ -1152,7 +1226,10 @@ export function SideNav({
 				skipLinkLabel={skipLinkLabel}
 				onExpand={onExpand}
 				onCollapse={onCollapse}
+				onPeekStart={onPeekStart}
+				onPeekEnd={onPeekEnd}
 				id={id}
+				canToggleWithShortcut={canToggleWithShortcut}
 			>
 				{children}
 			</SideNavInternal>

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 
 import { OpenLayerObserverContext } from './open-layer-observer-context';
-import type { LayerCloseListenerFn } from './types';
+import type { LayerCloseListenerFn, LayerType } from './types';
 import { useOpenLayerObserverNamespace } from './use-open-layer-observer-namespace';
 
 type NotifyOpenLayerObserverProps = {
@@ -9,6 +9,12 @@ type NotifyOpenLayerObserverProps = {
 	 * Whether the layer is open.
 	 */
 	isOpen: boolean;
+
+	/**
+	 * The type of layer that this is.
+	 */
+	type?: LayerType;
+
 	/**
 	 * Handler that is used to close this layer.
 	 *
@@ -39,6 +45,7 @@ type NotifyOpenLayerObserverProps = {
  */
 export function useNotifyOpenLayerObserver({
 	isOpen,
+	type,
 	onClose,
 }: NotifyOpenLayerObserverProps): void {
 	const context = useContext(OpenLayerObserverContext);
@@ -65,6 +72,6 @@ export function useNotifyOpenLayerObserver({
 			return;
 		}
 
-		return context.onClose(onClose, { namespace });
-	}, [context, isOpen, namespace, onClose]);
+		return context.onClose(onClose, { namespace, type });
+	}, [context, isOpen, namespace, onClose, type]);
 }

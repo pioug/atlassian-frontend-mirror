@@ -37,19 +37,74 @@ interface BasePopoverContentProps {
 	 * serving as a hook for automated tests
 	 */
 	testId?: string;
+
+	/**
+	 * The position in relation to the target the content should be shown at.
+	 */
 	placement: Placement;
+
+	/**
+	 * Controls whether or not `PopoverContent` is visible. Defaults to `true`.
+	 */
 	isVisible?: boolean;
+
+	/**
+	 * Controls whether the 'dismiss' action is invoked when the user clicks outside the content. Defaults to `true`.
+	 */
 	shouldDismissOnClickOutside?: boolean;
+
+	/**
+	 * Spotlights can be dismissed by:
+	 * - Clicking the `SpotlightDismissControl`
+	 * - Clicking any DOM element outside the spotlight (if `shouldDismissOnClickOutside === true`)
+	 * - Pressing the Escape key
+	 *
+	 * These events align to the React.MouseEvent<HTMLButtonElement, MouseEvent>, MouseEvent, and KeyboardEvent events respectively.
+	 * Defaults to `true`.
+	 */
 	dismiss: (event: DismissEvent) => void;
+
+	/**
+	 * Invoked when the user clicks `SpotlightSecondaryAction`. If an `onClick` handler is provided to `SpotlightSecondaryAction`
+	 * then that takes precedence, and `back` will be ignored.
+	 */
 	back?: (event: BackEvent) => void;
+
+	/**
+	 * The content to be rendered in `PopoverContent`. This is intended to be a `SpotlightCard`.
+	 */
 	children: ReactNode;
 }
 
 export type PopoverContentProps = BasePopoverContentProps &
 	(
-		| { next: (event: NextEvent) => void; done?: never }
-		| { done: (event: DoneEvent) => void; next?: never }
-		| { next?: never; done?: never }
+		| {
+				/**
+				 * Invoked when the user clicks `SpotlightPrimaryAction` in a tour.
+				 * If an `onClick` handler is provided to `SpotlightPrimaryAction` then that takes precedence,
+				 * and `next` will be ignored.
+				 *
+				 * If `next` is passed to `PopoverContent`, then `done` cannot be passed. This will result in a type error.
+				 */
+				next: (event: NextEvent) => void;
+
+				/**
+				 * Invoked when the user clicks `SpotlightPrimaryAction`.
+				 * If an `onClick` handler is provided to SpotlightPrimaryAction then that takes precedence,
+				 * and `done` will be ignored.
+				 *
+				 * If `done` is passed to PopoverContent, then `next` cannot be passed. This will result in a type error.
+				 */
+				done?: never;
+		  }
+		| {
+				done: (event: DoneEvent) => void;
+				next?: never;
+		  }
+		| {
+				next?: never;
+				done?: never;
+		  }
 	);
 
 /**

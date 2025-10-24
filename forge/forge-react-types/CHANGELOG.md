@@ -1,5 +1,23 @@
 # @atlaskit/forge-react-types
 
+## 0.46.0
+
+### Minor Changes
+
+- [`0cfb7e145638f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cfb7e145638f) -
+  Add file card component
+
+## 0.45.0
+
+### Minor Changes
+
+- [`084bdadef716f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/084bdadef716f) -
+  Adds new FilePicker UI Kit component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.44.2
 
 ### Patch Changes

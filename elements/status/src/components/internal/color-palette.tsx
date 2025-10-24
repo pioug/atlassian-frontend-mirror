@@ -95,8 +95,6 @@ const paletteRefreshed: [
 const getPalette = () =>
 	fg('platform-component-visual-refresh') ? paletteRefreshed : paletteLegacy;
 
-const palette = getPalette();
-
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const colorPaletteWrapperStyles = css({
 	paddingLeft: '0px',
@@ -124,11 +122,12 @@ const VK_DOWN = 40; //ArrowDown
 const VK_TAB = 9;
 
 export default ({ cols = 7, onClick, selectedColor, className, onHover }: ColorPaletteProps) => {
+	const palette = getPalette();
 	const colorRefs: React.MutableRefObject<HTMLButtonElement[]> = useRef([]);
 	const [currentFocusedColor, setCurrentFocusedColor] = useState(0);
 	useEffect(() => {
 		colorRefs.current = colorRefs.current.slice(0, palette.length);
-	}, []);
+	}, [palette.length]);
 
 	const memoizedHandleKeyDown = useCallback(
 		(e: React.KeyboardEvent) => {
@@ -178,7 +177,7 @@ export default ({ cols = 7, onClick, selectedColor, className, onHover }: ColorP
 			const newRef = colorRefs.current[newColorIndex];
 			newRef?.focus();
 		},
-		[currentFocusedColor, setCurrentFocusedColor, colorRefs],
+		[currentFocusedColor, setCurrentFocusedColor, colorRefs, palette.length],
 	);
 
 	return (

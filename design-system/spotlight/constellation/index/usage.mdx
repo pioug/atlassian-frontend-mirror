@@ -1,127 +1,212 @@
-import { SingleStepSpotlightTable, MultiStepSpotlightTable } from '@af/design-system-docs-ui';
+import {
+	SpotlightTable,
+	SpotlightVisualGuidelines,
+	SpotlightCollectionBackgroundColors,
+} from '@af/design-system-docs-ui';
+import { Stack } from '@atlaskit/primitives/compiled';
+
+import tourUseDo from '../images/tour-use-do.png';
+import tourUseDont from '../images/tour-use-dont.png';
+import principlesDo from '../images/principles-of-use-do.png';
+import principlesDont from '../images/principles-of-use-dont.png';
 
 ## Usage
 
-A spotlight focuses attention on a specific part of the UI, such as a button or icon, to educate
-users about key features or workflows. Spotlights are most effective for onboarding new users,
-driving feature discovery, or highlighting important changes. Use them sparingly — if your UI needs
-frequent spotlights, consider simplifying the core experience instead.
+Use a spotlight to bring attention to a specific part of the UI, such as a button or icon, to
+educate users about key features or workflows.
 
-## Spotlight Scenarios
+Spotlights are most effective for onboarding new users, driving feature discovery, or highlighting
+important changes. Use them sparingly. If your UI needs frequent spotlights, consider simplifying
+the core experience instead.
 
-### Top use cases
+### Single-step spotlight
 
-- **Onboarding new users**: Guide first-time users to essential features and workflows.
-- **Feature discovery**: Help existing users learn about new or updated capabilities.
+The ideal spotlight experience is lightweight and a single-step. Always try to limit your experience
+to one spotlight to prevent information overload for the user.
 
-### Growth use cases
+![Example of a single-step spotlight with content about Jira tasks pointing at a task on a Jira board.](../images/single-step.png)
 
-- **Cross-flow, cross-join, co-use**: Use spotlights only when triggered by another message type
-  (e.g., a banner that asks for permission to “show me” before triggering a spotlight).
+### Multi-step tour
 
-### Unsupported use cases
+A tour is a series of spotlights that point to multiple areas of the UI. <br /> Ensure your tour:
 
-- **Transactional**: Never use spotlights for transactional messages.
+- has a maximum of three steps
+- is logically sequenced
+- is limited to one screen
+- includes a “Back” call-to-action (CTA) after the initial spotlight
+- displays a step count
 
-## Guiding Principles
+**In a tour, the initial spotlight references step count and clear next action**
 
-- **Use sparingly**: Spotlights are a Level 3 (Neutral Plus) attention component. Overuse can
-  distract and fatigue users.
-- **One at a time**: Only show one spotlight at a time.
-- **Dismissibility**: Always provide a dismiss option. Never force participation.
-- **Step count**: Prefer single-step spotlights. For tours, keep flows short (2–3 steps max).
-- **Orchestration**: Build spotlights with Post Office to avoid message collisions and enforce
-  fatigue rules (Atlassians Only).
-- **Media**: Use media (images or video) only when it enhances understanding. Exclude media if the
-  spotlight already focuses attention effectively.
+![Example of a first spotlight in multi-step tour with content about Loom pointing at a Loom video.](../images/multi-step-step-1.png)
 
-## Anatomy & Specifications
+**Advancing to the next step introduces a Back button**
 
-### Single Step Spotlight
+![Example of a second spotlight in multi-step tour with content about creating docs in Jira pointing at a Jira update.](../images/multi-step-step-2.png)
 
-<SingleStepSpotlightTable />
+### Tour use
+
+Tours should be used sparingly. Before designing a tour, assess if you can combine or eliminate
+steps to keep the experience as lightweight as possible, as seen below.
+
+<DoDont
+	type="do"
+	image={{
+		url: tourUseDo,
+		alt: 'Example of a single-step spotlight with content that combines the example content of the multi-step tour next to it.',
+	}}
+>
+	Keep things lightweight. Aim for one step with active and concise messaging.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: tourUseDont,
+		alt: 'Example of a multi-step spotlight with content that that can be combined into a single step.',
+	}}
+>
+	Avoid tours unless the steps are crucial. Consolidate information first.
+</DoDont>
+
+### Triggered spotlights
+
+Spotlights can activate UI if triggered by another component. Although they are a second step in an
+experience, they should not use a step count or “Back” CTA.
+
+**In this example, a banner triggers a spotlight that opens a dropdown**
+
+![Example of a single-step spotlight with content that combines the example content of the multi-step tour next to it.](../images/triggered-spotlight.png)
+
+## Spotlight use cases
+
+### Onboarding
+
+Guide first-time users to essential features and workflows.
+
+### Feature discovery
+
+Help existing users learn about new or updated capabilities.
+
+### Cross-flow, cross-join, and co-use
+
+Trigger a spotlight from another component to elaborate on the message. For example, a flag with a
+“Show me” CTA triggers a spotlight to demonstrate the feature in context. Triggered spotlights can
+also activate UI.
+
+## Principles of use
+
+<DoDont
+	type="do"
+	image={{
+		url: principlesDo,
+		alt: 'Example of spotlight with content that explains what Rovo is.',
+	}}
+>
+	Use spotlights to educate users or introduce them to something new.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: principlesDont,
+		alt: 'Example of a spotlight with content that promotes purchasing collections to get Rovo.',
+	}}
+>
+	Use spotlights for upsells or other transactional messaging.
+</DoDont>
+
+## Anatomy and specifications
+
+![Example spotlight with a diagram that points to the elements that exist within a spotlight.](../images/spotlight-anatomy.png)
+
+<SpotlightTable />
+
+## Visual guidelines
+
+### Media
+
+Media should only be used to make messaging clearer for more complex features. For simple
+experiences, stick to text to avoid distracting the user.
+
+The cognitive load necessary for comprehension should determine the level of complexity.
+
+<br />
+<SpotlightVisualGuidelines />
 <br />
 
-### Multi Step Spotlight/Tour
+### Color application
 
-<MultiStepSpotlightTable />
+![Example spotlight with a diagram that points to the background color then outlines that it should be the right collection color.](../images/color-application.png)
+
+- Use solid color for the background color to drive focus to the main UI elements
+- Incorporate the collection color into background color to further strengthen the color association
+  to the collection (see colors below)
+- Start with the color designated for each collection, then evenly distribute other brand colors to
+  the UI elements
+- Limit the use to no more than three different colors in a single composition
+- Different shades can be used to create contrast and spatial depth in the UI illustrations, but
+  avoid using too many shades within one composition
+
+### Collection background colors
+
+<br />
+<SpotlightCollectionBackgroundColors />
 <br />
 
-## Visual Guidance
+## Content guidelines
 
-- **Complexity**: Match the visual complexity to the feature’s learning curve. Use text-only for
-  simple features, a single illustration for moderate complexity, and a narrative/motion for complex
-  flows.
+A successful spotlight can be understood in just a few seconds. Spotlight content should be as
+concise as possible, easy to scan, and only communicate essential information.
 
-- **Brand color**: Use solid backgrounds to focus attention. Limit to three brand colors per
-  composition.
+### Messaging guidelines
 
-- **Composition**: Highlight the focal point with size, color, and gesture lines. Use motion only if
-  it clarifies the feature.
+- Prioritize the most relevant information and if more context is needed, find a way to provide a
+  path to further learning
+- Don’t talk about things the user cannot see at that time
 
-## Behavior
+#### Headline
 
-- **Entry points**: Spotlights should be triggered contextually and never interrupt core workflows.
-  For cross-product or promotional spotlights, use a less obtrusive entrypoint (like a banner)
-  first.
+- 27 characters max
+- Start with an active verb
+- Clearly communicate intent
+- Focus on benefits rather than announcements
+- Personalize with words such as, “your” where it is relevant
 
-- **Tours**: Sequence steps logically. Keep flows short and focused.
+#### Body copy
 
-## Best Practices
+- 75 characters max
+- Brief and direct
+- Elaborate value 
 
-- Use spotlights only when necessary to drive understanding or adoption.
-- Sequence multi-step spotlights logically; aim for 2–3 steps max.
-- Always allow users to dismiss or skip.
-- Avoid competing with other in-product messages.
-- Prefer embedded, contextual education over overlays.
+#### Primary CTA
+
+- 24 characters max for single-step
+- 15 characters max for tour
+- Provide an obvious next action
+  - If used for dismissal, use “Done”
+  - Let them know where they’re going next when navigating to another screen “Go to Jira”
+  - Be explicit when activating UI components “Chat with Rovo” opens the Rovo panel
+  - Use “Learn more” when navigating to more detailed information
+  - For tours: start with “Next” and conclude the flow with “Done” 
+
+#### Secondary CTA
+
+- Reserved for “Back” navigation in tours
 
 ## Accessibility
 
-- The headline is used as the accessible name for the spotlight dialog.
-- Keep content concise and avoid motion that could be disruptive.
-- Ensure the carat and spotlight are not truncated by the browser bounds.
+- The headline is used as the accessible name for the spotlight dialog
+- Keep content concise and avoid motion that could be disruptive
+- Ensure the arrow and spotlight are not truncated by the browser bounds
 
-### Focus Management
+### Focus management
 
-#### Single step spotlights
+For a **single-step spotlight** or the **first in a multi-step tour**, tabbing begins after the
+targeted element so the user is aware of what the spotlight is referring to. It follows a normal
+tabbing order, automatically starting with the "X" dismissal on the top right, even if a "…" show
+more is included ahead of it.
 
-The spotlight should **not** grab focus. Allow users to tab onto the spotlight in normal tabbing
-order. By default the tabbable elements in spotlight will be ordered directly after the target
-element to give screen-reader/keyboard users context about what the spotlight is related to.
-
-The first focusable element in the spotlight should **always** be the dismiss button at the top of
-the card. This will happen automatically even when a show-more button is visually ahead of it. So
-product engineers shouldn't need to do any additional work.
-
-#### Multi step spotlights
-
-The first spotlight in a tour should **not** grab focus. Allow users to tab onto the spotlight in
-normal tabbing order.
-
-The second (and subsequent step) spotlights **should** grab focus. This is because screen-reader
-users have no other method of knowing where the new spotlight steps are shown.
-
-Once the tour completes, focus should be returned to the target element for the first step. This
-allows screen-reader users to easily perform the actions just taught to them via the spotlight tour.
-
-## Content Guidelines
-
-## Headline
-
-- Required. Begin with an active verb where possible.
-- Brief and direct; communicate the main benefit.
-- Limit to one line and use sentence case.
-
-## Body
-
-- Required. Briefly elaborate on the intent.
-- Avoid repeating the headline verb.
-- Two lines max. Focus on benefits and relevance.
-- Reference only visible elements.
-
-## CTA
-
-- Required. One clear next action.
-- Avoid plan or feature names in CTAs.
-- For tours: “Next”, “Back”, “Done”.
-- For features: 1–3 words; “Done” is acceptable if no clear next action.
+Unless the first spotlight is dismissed with the "X," in a **multi-step tour** the second and third
+spotlights grab focus to continue the messaging narrative then return to the targeted element once
+complete so the user can perform the intended action.

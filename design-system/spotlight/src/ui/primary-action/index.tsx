@@ -46,7 +46,7 @@ export interface SpotlightPrimaryActionProps {
 	onClick?: PressableProps['onClick'];
 
 	/**
-	 * An accessible label to read out in the event that the displayed text does not provide anough context.
+	 * An accessible label to read out in the event that the displayed text does not provide enough context.
 	 */
 	'aria-label'?: string;
 }

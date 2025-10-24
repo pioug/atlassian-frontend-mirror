@@ -3,10 +3,9 @@
  * @jsx jsx
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
-import { bind } from 'bind-event-listener';
 
 import Badge from '@atlaskit/badge';
 import AKBanner from '@atlaskit/banner';
@@ -22,6 +21,13 @@ import InboxIcon from '@atlaskit/icon/core/inbox';
 import ProjectIcon from '@atlaskit/icon/core/project';
 import StatusInformationIcon from '@atlaskit/icon/core/status-information';
 import { ConfluenceIcon } from '@atlaskit/logo';
+import Modal, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
+} from '@atlaskit/modal-dialog';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import { Main } from '@atlaskit/navigation-system/layout/main';
@@ -34,7 +40,6 @@ import {
 	SideNavFooter,
 	SideNavHeader,
 	SideNavToggleButton,
-	useToggleSideNav,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
@@ -108,26 +113,6 @@ const headingStyles = cssMap({
 	},
 });
 
-// Placed in a component so it can access the side nav state context
-const ToggleSideNavKeyboardShortcut = () => {
-	const toggleSideNav = useToggleSideNav();
-
-	useEffect(() => {
-		const toggle = (event: KeyboardEvent) => {
-			if (event.key === '[') {
-				toggleSideNav();
-			}
-		};
-
-		return bind(document, {
-			type: 'keydown',
-			listener: toggle,
-		});
-	}, [toggleSideNav]);
-
-	return null;
-};
-
 // Example slot widths
 const defaultSlotWidths = {
 	sideNav: 350,
@@ -136,7 +121,7 @@ const defaultSlotWidths = {
 };
 
 // Placed outside of component so it isn't recreated on every render
-const sideNavToggleButtonTooltipShortcut = ['['];
+const sideNavToggleButtonTooltipShortcut = ['Ctrl', '['];
 
 function Example() {
 	const [direction, setDirection] = useState<'ltr' | 'rtl'>('ltr');
@@ -160,6 +145,7 @@ function Example() {
 		useState(false);
 
 	const [isCardGridVisible, setIsCardGridVisible] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const { showFlag } = useFlags();
 	const flagCount = useRef(1);
@@ -176,9 +162,7 @@ function Example() {
 
 	return (
 		<div dir={direction}>
-			<Root defaultSideNavCollapsed={isSideNavDefaultCollapsed}>
-				<ToggleSideNavKeyboardShortcut />
-
+			<Root defaultSideNavCollapsed={isSideNavDefaultCollapsed} isSideNavShortcutEnabled>
 				{isBannerVisible && (
 					<Banner
 						xcss={bannerStyles.root}
@@ -330,6 +314,7 @@ function Example() {
 								Toggle card grid
 							</Button>
 							<Button onClick={addFlag}>Add flag</Button>
+							<Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
 							<Button
 								onClick={() => setDirection((current) => (current === 'ltr' ? 'rtl' : 'ltr'))}
 							>
@@ -339,6 +324,23 @@ function Example() {
 						{isMainLongPlaceholderContentVisible && <LongPlaceholderContent />}
 						{isCardGridVisible && <CardGrid />}
 					</Stack>
+
+					<ModalTransition>
+						{isModalOpen && (
+							<Modal onClose={() => setIsModalOpen(false)}>
+								<ModalHeader hasCloseButton>
+									<ModalTitle>Move your page to the Design team space</ModalTitle>
+								</ModalHeader>
+								<ModalBody>
+									If you move this page to the Design system space, your access permissions will
+									change to view only. You'll need to ask the space admin for edit access.
+								</ModalBody>
+								<ModalFooter>
+									<Button onClick={() => setIsModalOpen(false)}>Move page</Button>
+								</ModalFooter>
+							</Modal>
+						)}
+					</ModalTransition>
 				</Main>
 
 				{isAsideVisible && (

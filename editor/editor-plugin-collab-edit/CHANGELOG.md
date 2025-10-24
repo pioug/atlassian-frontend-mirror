@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 7.1.3
+
+### Patch Changes
+
+- [`21fe79119fe74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21fe79119fe74) -
+  EDITOR-2447 Bump adf-schema to 51.3.2
+- Updated dependencies
+
 ## 7.1.2
 
 ### Patch Changes

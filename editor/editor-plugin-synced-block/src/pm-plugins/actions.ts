@@ -13,6 +13,11 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import {
+	findSelectedNodeOfType,
+	removeParentNodeOfType,
+	removeSelectedNode,
+} from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
@@ -167,23 +172,31 @@ export const editSyncedBlockSource =
 export const removeSyncedBlock =
 	(api?: ExtractInjectionAPI<SyncedBlockPlugin>): Command =>
 	(state: EditorState, dispatch?: CommandDispatch, _view?: EditorView) => {
-		const tr = state.tr;
+		const {
+			schema: { nodes },
+			tr,
+		} = state;
 
-		const syncBlockFindResult = findSyncBlockOrBodiedSyncBlock(state);
-		if (!syncBlockFindResult) {
+		if (!dispatch) {
 			return false;
 		}
 
-		const newTr = tr.deleteRange(
-			syncBlockFindResult.pos,
-			syncBlockFindResult.pos + syncBlockFindResult.node.nodeSize,
-		);
+		let removeTr = tr;
+		if (
+			findSelectedNodeOfType(nodes.syncBlock)(tr.selection) ||
+			findSelectedNodeOfType(nodes.bodiedSyncBlock)(tr.selection)
+		) {
+			removeTr = removeSelectedNode(tr);
+		} else {
+			removeTr = removeParentNodeOfType(nodes.bodiedSyncBlock)(tr);
+		}
 
-		if (!newTr) {
+		if (!removeTr) {
 			return false;
 		}
 
-		dispatch?.(newTr);
+		dispatch(removeTr);
 		api?.core.actions.focus();
+
 		return true;
 	};

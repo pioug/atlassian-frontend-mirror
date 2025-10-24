@@ -945,8 +945,12 @@ const codeMarkSharedStyles = css({
 });
 
 const extensionStyle = css({
+	// Sets fontSize of extensions to match base font size which scales with the renderer contentMode prop
+	// exceptions:
+	// - nested renderers - bodied extensions have nested renderers adopt the contentMode prop themselves so should not be touched
+	// - legacy status lozenge - some extensions use the .aui-lozenge class for a legacy status lozenge and is not designed to scale
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.ak-renderer-extension :not(.ak-renderer-extension .ak-renderer-document *)': {
+	'.ak-renderer-extension :not(.ak-renderer-extension .ak-renderer-document *, .aui-lozenge)': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: 'var(--ak-renderer-base-font-size)',
 	},

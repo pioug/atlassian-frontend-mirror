@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 8.4.0
+
+### Minor Changes
+
+- [`f680d15e02105`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f680d15e02105) -
+  Move from customQuery to searchEmail argument in URS query
+
 ## 8.3.1
 
 ### Patch Changes

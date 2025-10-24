@@ -1,5 +1,18 @@
 # @atlaskit/layering
 
+## 3.2.0
+
+### Minor Changes
+
+- [`8a71ce992f8c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a71ce992f8c8) -
+  The open layer observer now supports layers providing a `type` when registering, using
+  `useNotifyOpenLayerObserver`.
+
+  This is used for getting the count of open layers of a specific type, using `getCount`. Filtering
+  by type is behind the FG `platform-dst-open-layer-observer-layer-type`.
+
+  Currently only `modal` is supported as a type.
+
 ## 3.1.0
 
 ### Minor Changes

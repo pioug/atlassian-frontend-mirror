@@ -284,9 +284,6 @@
 			"path": "../editor-plugin-synced-block/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-synced-block-prototype/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugin-table/tsconfig.app.json"
 		},
 		{

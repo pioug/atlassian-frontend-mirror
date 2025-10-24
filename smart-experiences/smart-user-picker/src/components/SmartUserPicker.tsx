@@ -259,13 +259,12 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			},
 			includeUsers,
 			// For email searches, disable groups and teams
-			includeGroups: isEmail ? false : includeGroups,
-			includeTeams: isEmail ? false : includeTeams,
+			includeGroups,
+			includeTeams,
 			includeNonLicensedUsers,
 			maxNumberOfResults,
-			// For email searches, leverage customQuery instead of queryString
-			query: isEmail ? '' : query,
-			customQuery: isEmail ? `(email:"${query.trim()}")` : '',
+			query,
+			searchEmail: isEmail,
 			/*
 				For email-based searches, we have decided to filter out apps.
 				Also - because the other 2 filters ((NOT not_mentionable:true) AND (account_status:active)) are included

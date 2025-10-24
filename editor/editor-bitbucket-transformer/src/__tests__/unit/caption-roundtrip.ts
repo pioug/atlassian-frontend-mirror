@@ -284,7 +284,7 @@ describe('Caption HTML Parsing Tests', () => {
 			const adf = doc(
 				mediaSingle({ layout: 'center' })(
 					media({ url: 'http://path/to/image.jpg', type: 'external' })(),
-					caption("[](){}!| * _ ` ~ < > & \" '\""),
+					caption('[](){}!| * _ ` ~ < > & " \'"'),
 				),
 			)(defaultSchema);
 			const md = transformer.encode(adf);

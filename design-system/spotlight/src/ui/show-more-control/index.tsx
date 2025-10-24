@@ -41,7 +41,7 @@ export interface SpotlightShowMoreControlProps {
 /**
  * __SpotlightShowMoreControl__
  *
- * SpotlightShowMoreControl allows the user to close the `Spotlight`.
+ * `SpotlightShowMoreControl` provides follow-up actions and customizations for the spotlight.
  *
  */
 export const SpotlightShowMoreControl: React.ForwardRefExoticComponent<

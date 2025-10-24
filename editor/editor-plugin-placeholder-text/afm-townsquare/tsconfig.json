@@ -38,6 +38,9 @@
 			"path": "../../../design-system/theme/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../tmp-editor-statsig/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
 		},
 		{

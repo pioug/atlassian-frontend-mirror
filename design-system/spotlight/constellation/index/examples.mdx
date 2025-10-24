@@ -8,15 +8,13 @@ import MultipleStepsExample from '../../examples/constellation/multiple-steps';
 import MediaExample from '../../examples/constellation/media';
 import ControlsExample from '../../examples/constellation/controls';
 
-## Single Step
+## Single step
 
-Ideally, spotlights should only have a single step so as not to overwhelm users with too much
-information. Try and combine or eliminate tasks where possible. Dismiss functionality is required.
-Don't force users to participate.
+Always aim for a single step experience.
 
-By design `@atlaskit/spotlight` does not have a blanket, scroll-lock, focus-trap, or click-outside
-to dismiss functionality. This is to ensure the user is not hijacked into the spotlight experience,
-and can opt-in if they are interested.
+By design, `@atlaskit/spotlight` does not have a blanket, scroll-lock, or focus-trap functionality.
+This is to ensure the user is not hijacked into the spotlight experience, and can opt-in if they are
+interested.
 
 To show/hide the `SpotlightCard`, simply use a `useState` to control the `isVisible` prop on
 `PopoverContent`. To position the `SpotlightCard`, use `PopoverProvider`, `PopoverTarget` and
@@ -24,12 +22,12 @@ To show/hide the `SpotlightCard`, simply use a `useState` to control the `isVisi
 
 <Example Component={SingleStepExample} packageName="@atlaskit/spinner" />
 
-## Multiple Steps/Tour
+## Multi-step tour
 
-Multiple steps should be avoided if possible. Try and combine or eliminate steps where possible. If
-multiple steps are required, preference managing the tour with a `useState`. As a last resort a
-React context may be used. However, these contexts will often need to be wrapping the entire `App`
-and therefore will cause the entire `App` to re-render every time a new spotlight step is shown.
+Multiple steps should be avoided if possible. If multiple steps are required, preference managing
+the tour with a `useState`. If `useState` is not feasible, then a React context may be used.
+However, these contexts will often need to be wrapping the entire `App` and therefore will cause the
+entire `App` to re-render every time a new spotlight step is shown, which is not performant.
 
 <Example Component={MultipleStepsExample} packageName="@atlaskit/spinner" />
 
@@ -43,10 +41,10 @@ displayed in full.
 
 ## Media
 
-Media is optional for a `SpotlightCard`. However if it is used it must be 295px width X 135px
-height. This is to ensure correct reflow on smaller viewports.
+Media is optional for a `SpotlightCard`and should only be used for more complex features. To ensure
+correct reflow on smaller viewports, media must be 295px width X 135px height.
 
-Media can be an image, video, animation, or any other visual aid to communicate spotlight intent.
+Media can be an image, gif, or video that helps communicate spotlight intent.
 
 <Example Component={MediaExample} packageName="@atlaskit/spinner" />
 

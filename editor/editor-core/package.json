@@ -305,10 +305,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_cmd_y_mac_redo_shortcut": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_posfromdom_null_fix": {
 			"type": "boolean"
 		},
@@ -460,6 +456,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_comments_border_radius": {
+			"type": "boolean"
+		},
+		"cc_fd_wb_create_priority_in_slash_menu_enabled": {
 			"type": "boolean"
 		}
 	},

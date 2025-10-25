@@ -91,9 +91,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_cmd_y_mac_redo_shortcut": {
-			"type": "boolean"
-		},
 		"platform_editor_fix_help_dialog_color_contrast": {
 			"type": "boolean"
 		},

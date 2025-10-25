@@ -93,9 +93,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_cmd_y_mac_redo_shortcut": {
-			"type": "boolean"
-		},
 		"platform_editor_add_undo_meta_analytics": {
 			"type": "boolean"
 		}

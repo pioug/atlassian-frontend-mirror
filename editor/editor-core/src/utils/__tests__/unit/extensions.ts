@@ -1,11 +1,11 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type {
 	ExtensionManifest,
 	ExtensionModule,
 	ExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
+import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { type PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
@@ -73,7 +73,9 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 
 	it('should create analytics event when inserted', async () => {
 		const dummyExtensionProvider = setup();
-		const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
+		const createAnalyticsEvent = jest.fn(() => ({
+			fire() {},
+		}));
 		const quickInsertProvider = await extensionProviderToQuickInsertProvider(
 			dummyExtensionProvider,
 			{} as EditorActions,
@@ -102,7 +104,9 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 	});
 
 	it('should have access to the extensionAPI in the action', async () => {
-		const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
+		const createAnalyticsEvent = jest.fn(() => ({
+			fire() {},
+		}));
 		const mockAction = jest.fn();
 		const mockAPI = {
 			extension: { actions: { api: () => 'fake extension API' } },
@@ -134,7 +138,9 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 	});
 
 	it('should still run the action in the provider if extension plugin not attached', async () => {
-		const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
+		const createAnalyticsEvent = jest.fn(() => ({
+			fire() {},
+		}));
 		const mockAction = jest.fn();
 		const mockAPI = {} as unknown as PublicPluginAPI<[ExtensionPlugin]>;
 		const dummyExtensionProvider = replaceCustomQuickInsertModules(
@@ -164,7 +170,9 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 	});
 
 	it('should warn when trying to use a method on the extension API', async () => {
-		const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
+		const createAnalyticsEvent = jest.fn(() => ({
+			fire() {},
+		}));
 		const mockAction = jest.fn().mockImplementation((api) => {
 			api.editInContextPanel();
 		});
@@ -201,7 +209,9 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 
 	it('should create analytics with inputMethod as toolbar event when inserted', async () => {
 		const dummyExtensionProvider = setup();
-		const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
+		const createAnalyticsEvent = jest.fn(() => ({
+			fire() {},
+		}));
 		const quickInsertProvider = await extensionProviderToQuickInsertProvider(
 			dummyExtensionProvider,
 			{} as EditorActions,
@@ -251,13 +261,17 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 		});
 
 		it('should create analytics event when inserted async', async () => {
-			const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
+			const createAnalyticsEvent = jest.fn(() => ({
+				fire() {},
+			}));
 			const mockAPI = { extension: { actions: { api: () => ({}) } } } as PublicPluginAPI<
 				[ExtensionPlugin]
 			>;
 			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
 				dummyExtensionProvider,
-				{ replaceSelection: () => {} } as unknown as EditorActions,
+				{
+					replaceSelection: () => {},
+				} as unknown as EditorActions,
 				{
 					current: mockAPI,
 				},
@@ -289,7 +303,9 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 
 		it('should add the insertLocation attribute as the parent node for text selection', async () => {
 			const dummyExtensionProvider = setup();
-			const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
+			const createAnalyticsEvent = jest.fn(() => ({
+				fire() {},
+			}));
 			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
 				dummyExtensionProvider,
 				{} as EditorActions,
@@ -363,6 +379,115 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 
 			expect(items[0]).not.toHaveProperty('key');
 			expect(items[1]).not.toHaveProperty('key');
+		});
+	});
+
+	describe('priority parsing & passthrough via `getItems()`', () => {
+		it('should include priority property when feature gate is enabled and priority is set', async () => {
+			const mockFg = fg as jest.MockedFunction<typeof fg>;
+			mockFg.mockImplementation((gateName) => {
+				if (gateName === 'cc_fd_wb_create_priority_in_slash_menu_enabled') {
+					return true;
+				}
+				return false;
+			});
+
+			// Create extensions with priority values
+			const extensionWithPriority1 = replaceCustomQuickInsertModules(
+				createFakeExtensionManifest({
+					title: 'Extension with priority 100',
+					type: 'com.atlassian.forge',
+					extensionKey: 'priority-high',
+				}),
+				{
+					key: 'default',
+					priority: 100,
+					action: jest.fn(),
+				},
+			);
+
+			const extensionWithPriority2 = replaceCustomQuickInsertModules(
+				createFakeExtensionManifest({
+					title: 'Extension with priority 50',
+					type: 'com.atlassian.forge',
+					extensionKey: 'priority-medium',
+				}),
+				{
+					key: 'default',
+					priority: 50,
+					action: jest.fn(),
+				},
+			);
+
+			const priorityExtensionProvider = setup([extensionWithPriority1, extensionWithPriority2]);
+
+			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+				priorityExtensionProvider,
+				{} as EditorActions,
+				{ current: undefined },
+			);
+
+			const items = await quickInsertProvider.getItems();
+
+			// Check that priority is included for extensions that have it set
+			expect(items[2]).toHaveProperty('priority', 100);
+			expect(items[3]).toHaveProperty('priority', 50);
+		});
+
+		it('should not include priority property when feature gate is disabled', async () => {
+			const mockFg = fg as jest.MockedFunction<typeof fg>;
+			mockFg.mockImplementation((gateName) => {
+				if (gateName === 'cc_fd_wb_create_priority_in_slash_menu_enabled') {
+					return false;
+				}
+				return false;
+			});
+
+			// Create extensions with priority values
+			const extensionWithPriority = replaceCustomQuickInsertModules(
+				createFakeExtensionManifest({
+					title: 'Extension with priority',
+					type: 'com.atlassian.forge',
+					extensionKey: 'priority-test',
+				}),
+				{
+					key: 'default',
+					priority: 100,
+					action: jest.fn(),
+				},
+			);
+
+			const priorityExtensionProvider = setup([extensionWithPriority]);
+
+			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+				priorityExtensionProvider,
+				{} as EditorActions,
+				{ current: undefined },
+			);
+
+			const items = await quickInsertProvider.getItems();
+
+			// Check that priority is not included when feature flag is disabled
+			expect(items[2]).not.toHaveProperty('priority');
+		});
+
+		it('should not include priority property when feature gate is enabled but priority is not set', async () => {
+			const mockFg = fg as jest.MockedFunction<typeof fg>;
+			mockFg.mockImplementation((gateName) => {
+				return gateName === 'cc_fd_wb_create_priority_in_slash_menu_enabled';
+			});
+
+			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+				dummyExtensionProvider,
+				{} as EditorActions,
+				{ current: undefined },
+			);
+
+			const items = await quickInsertProvider.getItems();
+
+			// Check that priority is not included when not set on extension modules
+			expect(items[0]).toHaveProperty('priority', undefined);
+			expect(items[1]).toHaveProperty('priority', undefined);
 		});
 	});
 });

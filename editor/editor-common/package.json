@@ -347,6 +347,9 @@
 		},
 		"platform_editor_fix_mixed_types_column_sort": {
 			"type": "boolean"
+		},
+		"cc_fd_wb_create_priority_in_slash_menu_enabled": {
+			"type": "boolean"
 		}
 	}
 }

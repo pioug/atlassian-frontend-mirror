@@ -24,7 +24,6 @@ import {
 	navToEditorToolbar,
 	navToFloatingToolbar,
 	pastePlainText,
-	redo,
 	redoAlt,
 	setNormalText,
 	toggleBlockQuote,
@@ -58,7 +57,6 @@ import {
 	undoRedoMessages,
 } from '@atlaskit/editor-common/messages';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -475,7 +473,7 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => {
 		{
 			name: formatMessage(undoRedoMessages.redo),
 			type: 'redo',
-			keymap: () => (fg('platform_editor_cmd_y_mac_redo_shortcut') ? redoAlt : redo),
+			keymap: () => redoAlt,
 		},
 		{
 			name: formatMessage(messages.pastePlainText),

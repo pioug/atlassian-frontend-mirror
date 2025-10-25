@@ -1,4 +1,5 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Command, FloatingToolbarDropdown } from '../types';
 
@@ -56,6 +57,9 @@ export function buildMenuItem<T extends Parameters>(
 		description: extensionModule.description || manifest.description,
 		summary: manifest.summary,
 		documentationUrl: manifest.documentationUrl,
+		...(fg('cc_fd_wb_create_priority_in_slash_menu_enabled') && {
+			priority: extensionModule.priority,
+		}),
 		icon: extensionModule.icon || manifest.icons['48'],
 		node,
 	};

@@ -5,6 +5,15 @@ order: 1
 import { Code } from '@atlaskit/code';
 import { Stack } from '@atlaskit/primitives';
 import { TokenExplorer } from '@af/design-system-docs-ui';
+import SectionMessage from '@atlaskit/section-message';
+
+<SectionMessage title="New color token changes (24/10/25)" appearance="information">
+	<p>
+		We’ve updated all ADS components and Figma Libraries to use the color tokens on this page. These
+		colors are active in most Atlassian apps (using a feature flag), and will be generally available
+		in code soon.{' '}
+	</p>
+</SectionMessage>
 
 <Stack space="space.400">
 	<TokenExplorer scrollOffset={0} />

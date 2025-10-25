@@ -10,7 +10,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { UndoRedoPlugin } from '../undoRedoPluginType';
 
@@ -32,14 +31,12 @@ export function keymapPlugin(api?: ExtractInjectionAPI<UndoRedoPlugin>): SafePlu
 		list,
 	);
 
-	if (fg('platform_editor_cmd_y_mac_redo_shortcut')) {
-		bindKeymapWithCommand(
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			findKeyMapForBrowser(redoAlt)!,
-			redoFromKeyboardWithAnalytics(api?.analytics?.actions),
-			list,
-		);
-	}
+	bindKeymapWithCommand(
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		findKeyMapForBrowser(redoAlt)!,
+		redoFromKeyboardWithAnalytics(api?.analytics?.actions),
+		list,
+	);
 
 	bindKeymapWithCommand(
 		// Ignored via go/ees005

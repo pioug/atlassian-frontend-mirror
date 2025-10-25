@@ -20,6 +20,7 @@ export type MenuItem = {
 	node: ADFEntity | ExtensionModuleActionHandler;
 	summary?: string;
 	title: string;
+	priority?: number;
 };
 
 export type MenuItemMap = { [key: string]: MenuItem };

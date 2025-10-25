@@ -10,7 +10,6 @@ import { injectIntl } from 'react-intl-next';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import {
 	getAriaKeyshortcuts,
-	redo,
 	redoAlt,
 	tooltip,
 	ToolTipContent,
@@ -67,8 +66,6 @@ export const ToolbarUndoRedo = ({
 	const labelUndo = formatMessage(undoRedoMessages.undo);
 	const labelRedo = formatMessage(undoRedoMessages.redo);
 
-	const redoKeymap = fg('platform_editor_cmd_y_mac_redo_shortcut') ? redoAlt : redo;
-
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span
@@ -97,11 +94,11 @@ export const ToolbarUndoRedo = ({
 				buttonId={TOOLBAR_BUTTON.REDO}
 				onClick={handleRedo}
 				disabled={!canRedo || disabled}
-				title={<ToolTipContent description={labelRedo} keymap={redoKeymap} />}
+				title={<ToolTipContent description={labelRedo} keymap={redoAlt} />}
 				iconBefore={<RedoIcon label="" color="currentColor" spacing="spacious" />}
 				testId="ak-editor-toolbar-button-redo"
-				aria-label={tooltip(redoKeymap, labelRedo)}
-				aria-keyshortcuts={getAriaKeyshortcuts(redoKeymap)}
+				aria-label={tooltip(redoAlt, labelRedo)}
+				aria-keyshortcuts={getAriaKeyshortcuts(redoAlt)}
 			/>
 			{!api?.primaryToolbar && (
 				/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */

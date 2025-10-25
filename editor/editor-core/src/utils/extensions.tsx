@@ -105,6 +105,9 @@ export async function extensionProviderToQuickInsertProvider(
 						icon: () => <Icon label="" />,
 						keywords: item.keywords,
 						featured: item.featured,
+						...(fg('cc_fd_wb_create_priority_in_slash_menu_enabled') && {
+							priority: item.priority,
+						}),
 						categories: item.categories,
 						isDisabledOffline: true,
 						action: (insert, state, source) => {

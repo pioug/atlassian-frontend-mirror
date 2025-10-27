@@ -1,6 +1,12 @@
 import { useMemo } from 'react';
 
-import type { ADFFetchProvider, ADFWriteProvider, SyncBlockData } from '../common/types';
+import { SyncBlockStatus } from '../common/types';
+import type {
+	ADFFetchProvider,
+	ADFWriteProvider,
+	FetchSyncBlockDataResult,
+	SyncBlockData,
+} from '../common/types';
 import { getLocalIdFromAri, getPageIdAndTypeFromAri, type PAGE_TYPE } from '../utils/ari';
 import {
 	getContentProperty,
@@ -44,44 +50,69 @@ const parseSyncedBlockContentPropertyValue = (value: string): SyncBlockData => {
 	}
 };
 
+const getResponseStatus = (
+	contentProperty: GetBlogPostContentPropertyResult | GetContentPropertyResult,
+): SyncBlockStatus => {
+	const content =
+		'blogPost' in contentProperty.data.confluence
+			? contentProperty.data.confluence.blogPost
+			: contentProperty.data.confluence.page;
+
+	if (!content) {
+		return SyncBlockStatus.Unauthorized;
+	}
+	if (!content.properties?.[0]) {
+		return SyncBlockStatus.NotFound;
+	}
+	return SyncBlockStatus.Errored;
+};
+
 /**
  * ADFFetchProvider implementation that fetches synced block data from Confluence Content API
  */
 class ConfluenceADFFetchProvider implements ADFFetchProvider {
 	constructor(private config: ContentAPIConfig) {}
 
-	async fetchData(resourceId: string): Promise<SyncBlockData> {
+	async fetchData(resourceId: string): Promise<FetchSyncBlockDataResult> {
 		const { id: pageId, type: pageType } = getPageIdAndTypeFromAri(resourceId);
 		const localId = getLocalIdFromAri(resourceId);
-		const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
-		const options = {
-			pageId,
-			key,
-			cloudId: this.config.cloudId,
-			pageType,
-		};
 
-		let value;
-		if (isBlogPageType(pageType)) {
-			const contentProperty = await getContentProperty<GetBlogPostContentPropertyResult>(options);
-			value = contentProperty.data.confluence.blogPost.properties?.[0]?.value;
-		} else {
-			const contentProperty = await getContentProperty<GetContentPropertyResult>(options);
-			value = contentProperty.data.confluence.page.properties?.[0]?.value;
+		try {
+			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
+			const options = {
+				pageId,
+				key,
+				cloudId: this.config.cloudId,
+				pageType,
+			};
+
+			let status;
+			let value;
+			if (isBlogPageType(pageType)) {
+				const contentProperty = await getContentProperty<GetBlogPostContentPropertyResult>(options);
+				value = contentProperty.data.confluence.blogPost?.properties?.[0]?.value;
+				status = getResponseStatus(contentProperty);
+			} else {
+				const contentProperty = await getContentProperty<GetContentPropertyResult>(options);
+				value = contentProperty.data.confluence.page?.properties?.[0]?.value;
+				status = getResponseStatus(contentProperty);
+			}
+
+			if (!value) {
+				return { status: status, resourceId };
+			}
+
+			// Parse the synced block content from the property value
+			const syncedBlockData = parseSyncedBlockContentPropertyValue(value);
+
+			return {
+				content: syncedBlockData.content,
+				resourceId,
+				blockInstanceId: localId,
+			};
+		} catch {
+			return { status: SyncBlockStatus.Errored, resourceId };
 		}
-
-		if (!value) {
-			throw new Error('Content property value does not exist');
-		}
-
-		// Parse the synced block content from the property value
-		const syncedBlockData = parseSyncedBlockContentPropertyValue(value);
-
-		return {
-			content: syncedBlockData.content,
-			resourceId,
-			blockInstanceId: localId,
-		};
 	}
 }
 

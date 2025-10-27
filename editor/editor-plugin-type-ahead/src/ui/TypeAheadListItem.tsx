@@ -46,26 +46,6 @@ export const itemIcon: SerializedStyles = css({
 	},
 });
 
-const itemIconSize = css({
-	width: token('space.400', '32px'),
-	height: token('space.400', '32px'),
-
-	// Icon svgs may contain nested svg, which are likely smaller than 32px
-	// Hence only change the parent svg
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'svg:first-of-type': {
-		width: token('space.400', '32px'),
-		height: token('space.400', '32px'),
-	},
-
-	// AI icons may contain div as container of the icon
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	div: {
-		width: token('space.400', '32px'),
-		height: token('space.400', '32px'),
-	},
-});
-
 const itemIconSizeUpdated = css({
 	width: token('space.400', '32px'),
 	height: token('space.400', '32px'),
@@ -294,16 +274,7 @@ export const TypeAheadListItem = React.memo(
 		const { icon, title, render: customRenderItem } = item;
 		const elementIcon = useMemo(() => {
 			return (
-				<div
-					css={[
-						itemIcon,
-						moreElementsInQuickInsertViewEnabled
-							? fg('platform_editor_ai_rovo_rebrand')
-								? itemIconSizeUpdated
-								: itemIconSize
-							: null,
-					]}
-				>
+				<div css={[itemIcon, moreElementsInQuickInsertViewEnabled && itemIconSizeUpdated]}>
 					{icon ? icon() : <FallbackIcon label={title} />}
 				</div>
 			);

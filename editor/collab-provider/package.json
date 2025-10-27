@@ -80,6 +80,9 @@
 		},
 		"add_session_id_to_catchup_query": {
 			"type": "boolean"
+		},
+		"platform_collab_do_not_client_error_log": {
+			"type": "boolean"
 		}
 	},
 	"peerDependencies": {

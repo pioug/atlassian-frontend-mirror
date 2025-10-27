@@ -1,0 +1,93 @@
+{
+	"extends": "../../../../tsconfig.entry-points.products.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__help/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/checkbox/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../help-article/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../help-layout/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/legacy-custom-icons/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../notifications/notification-indicator/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../notifications/notification-log-client/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/radio/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/section-message/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textarea/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
+		}
+	]
+}

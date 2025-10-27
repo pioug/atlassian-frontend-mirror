@@ -74,7 +74,7 @@ export interface RendererProps {
 	 * Configures the content mode of the editor.
 	 *
 	 * - `"standard"` | `undefined` - normal content mode <- Default
-	 * - `"dense"` - content in editor has reduced size
+	 * - `"compact"` - content in editor has reduced size
 	 *
 	 * @private
 	 * @deprecated this attribute is not supported outside of Confluence Full Page editors

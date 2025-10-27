@@ -1,0 +1,60 @@
+{
+	"extends": "../../../../tsconfig.entry-points.products.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__util-data-test/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../editor/editor-plugin-emoji/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../emoji/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../mention/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../people-and-teams/profilecard/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../user-picker/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../util-service-support/afm-products/tsconfig.json"
+		}
+	]
+}

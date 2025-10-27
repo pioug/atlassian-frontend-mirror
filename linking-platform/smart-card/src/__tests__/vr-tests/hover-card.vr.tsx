@@ -24,6 +24,9 @@ snapshot(HoverCard, {
 			},
 		},
 	],
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });
 
 snapshot(HoverCardWithEntities, {
@@ -57,6 +60,9 @@ snapshot(HoverCardActions, {
 		},
 	],
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });
 
 snapshot(HoverCardActions, {
@@ -68,6 +74,9 @@ snapshot(HoverCardActions, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });
 
 snapshot(HoverCardUnauthorised, {
@@ -109,6 +118,9 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-can-open-left' },
 		},
 	],
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });
 
 snapshot(HoverCardPositioning, {
@@ -131,4 +143,7 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-can-open-right' },
 		},
 	],
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });

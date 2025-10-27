@@ -1074,4 +1074,20 @@ export const editorExperimentsConfig = {
 		values: ['control', 'test_blank', 'test_diagram'],
 		defaultValue: 'control',
 	}),
+	// Added 2025-10-22
+	platform_editor_remove_bidi_char_warning: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_remove_bidi_char_warning',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-10-24
+	platform_editor_fix_clone_nesting_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_clone_nesting_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

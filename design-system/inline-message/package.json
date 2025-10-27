@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/inline-message",
-	"version": "15.3.14",
+	"version": "15.4.0",
 	"description": "An inline message lets users know when important information is available or when an action is required.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -94,6 +94,9 @@
 	"homepage": "https://atlassian.design/components/inline-message/",
 	"platform-feature-flags": {
 		"dst-a11y__replace-anchor-with-link__design-system-": {
+			"type": "boolean"
+		},
+		"add-max-width-and-height-to-inline-message": {
 			"type": "boolean"
 		}
 	}

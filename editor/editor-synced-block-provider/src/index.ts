@@ -6,7 +6,7 @@ export {
 } from './common/syncBlockProvider';
 export {
 	SyncBlockStoreManager,
-	useFetchDocNode,
+	useFetchSyncBlockData,
 	useHandleContentChanges,
 } from './common/syncBlockStoreManager';
 export type {
@@ -15,7 +15,9 @@ export type {
 	ADFWriteProvider,
 	SyncBlockData,
 	SyncBlockNode,
+	FetchSyncBlockDataResult,
 } from './common/types';
+export { SyncBlockStatus } from './common/types';
 export { inMemoryFetchProvider, inMemoryWriteProvider } from './providers/inMemory';
 export { getDefaultSyncBlockSchema } from './common/schema';
 export {

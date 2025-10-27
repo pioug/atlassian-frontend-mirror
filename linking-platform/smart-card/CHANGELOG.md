@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 43.3.1
+
+### Patch Changes
+
+- [`2273597b13275`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2273597b13275) -
+  [ux] Update product logo to use new design, behind fg navx-1895-new-logo-design
+- Updated dependencies
+
 ## 43.3.0
 
 ### Minor Changes

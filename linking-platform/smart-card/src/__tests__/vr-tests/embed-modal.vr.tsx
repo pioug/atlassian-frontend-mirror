@@ -6,6 +6,9 @@ import EmbedModalWithFlexibleUiIcon from '../../../examples/vr-embed-modal/vr-em
 
 snapshot(EmbedModal, {
 	description: 'renders embed modal',
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });
 
 snapshot(EmbedModalWithFlexibleUiIcon, {
@@ -14,4 +17,7 @@ snapshot(EmbedModalWithFlexibleUiIcon, {
 
 snapshot(EmbedModalConfluence, {
 	description: 'renders embed modal with Confluence icon',
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });

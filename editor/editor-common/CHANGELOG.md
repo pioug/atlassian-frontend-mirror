@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 110.18.4
+
+### Patch Changes
+
+- [`9842848622554`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9842848622554) -
+  ENGHEALTH-23797:Fixed aria prohibited attr from selection marker
+- [`e27eb4901d2c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e27eb4901d2c1) -
+  EDITOR-1794 Added ask rovo button click analytics
+- Updated dependencies
+
 ## 110.18.3
 
 ### Patch Changes

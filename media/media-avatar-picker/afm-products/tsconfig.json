@@ -1,0 +1,69 @@
+{
+	"extends": "../../../../tsconfig.entry-points.products.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__media-avatar-picker/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/button/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/flag/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../media-ui/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/range/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/visually-hidden/afm-products/tsconfig.json"
+		}
+	]
+}

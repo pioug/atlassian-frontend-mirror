@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 8.2.10
+
+### Patch Changes
+
+- [`9842848622554`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9842848622554) -
+  ENGHEALTH-23797:Fixed aria prohibited attr from selection marker
+- Updated dependencies
+
 ## 8.2.9
 
 ### Patch Changes

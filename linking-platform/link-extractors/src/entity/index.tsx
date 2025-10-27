@@ -7,6 +7,7 @@ import {
 } from '@atlaskit/linking-types';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type LinkProvider } from '../common';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../common/constants';
@@ -37,10 +38,22 @@ export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvide
 	let providerIcon;
 	switch (id) {
 		case CONFLUENCE_GENERATOR_ID:
-			providerIcon = <ConfluenceIcon appearance="brand" size="xxsmall" />;
+			providerIcon = (
+				<ConfluenceIcon
+					appearance="brand"
+					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
+					size="xxsmall"
+				/>
+			);
 			break;
 		case JIRA_GENERATOR_ID:
-			providerIcon = <JiraIcon appearance="brand" size="xxsmall" />;
+			providerIcon = (
+				<JiraIcon
+					appearance="brand"
+					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
+					size="xxsmall"
+				/>
+			);
 			break;
 		default:
 			providerIcon = icon.url;

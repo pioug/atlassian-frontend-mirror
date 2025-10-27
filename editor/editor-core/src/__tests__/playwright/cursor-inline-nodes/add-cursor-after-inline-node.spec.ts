@@ -140,7 +140,7 @@ test.describe('Cursor Inline Nodes', () => {
 				anchor: 4,
 				head: 1,
 			});
-			await expect(editor.page).toBeAccessible({ violationCount: 1 });
+			await expect(editor.page).toBeAccessible();
 		});
 	});
 });

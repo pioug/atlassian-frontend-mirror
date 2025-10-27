@@ -7,6 +7,7 @@ import { Fragment, lazy, memo, Suspense, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useInViewport } from '../../hooks/use-in-viewport';
 import { useBidiWarnings } from '../../hooks/use-bidi-warnings';
@@ -72,6 +73,11 @@ const WindowedCodeBlock = ({
 						codeBidiWarningLabel={warningLabel}
 						codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
 						shouldWrapLongLines={allowWrapCodeBlock && wrapLongLines}
+						hasBidiWarnings={
+							expValEquals('platform_editor_remove_bidi_char_warning', 'isEnabled', true)
+								? false
+								: undefined
+						}
 					/>
 				</CodeBlockContainer>
 			</Suspense>

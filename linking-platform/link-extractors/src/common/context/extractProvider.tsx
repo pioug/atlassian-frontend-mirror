@@ -3,6 +3,7 @@ import React from 'react';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
 import { extractUrlFromIconJsonLd, extractUrlFromLinkJsonLd } from '../url';
@@ -47,9 +48,21 @@ export const extractProviderIcon = (
 ): React.ReactNode | undefined => {
 	if (id) {
 		if (id === CONFLUENCE_GENERATOR_ID) {
-			return <ConfluenceIcon appearance="brand" size="xxsmall" />;
+			return (
+				<ConfluenceIcon
+					appearance="brand"
+					size="xxsmall"
+					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
+				/>
+			);
 		} else if (id === JIRA_GENERATOR_ID) {
-			return <JiraIcon appearance="brand" size="xxsmall" />;
+			return (
+				<JiraIcon
+					appearance="brand"
+					size="xxsmall"
+					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
+				/>
+			);
 		}
 	}
 	if (icon) {

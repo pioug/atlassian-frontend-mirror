@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-code-bidi-warning
 
+## 6.1.0
+
+### Minor Changes
+
+- [`ce0b8f9e44b69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce0b8f9e44b69) -
+  [ux] [ED-29581] Removes bidi character scanning from code blocks and code snippets
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes
@@ -68,7 +79,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.

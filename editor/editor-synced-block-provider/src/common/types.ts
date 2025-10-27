@@ -13,6 +13,12 @@ export type SyncBlockNode = {
 	type: 'syncBlock';
 };
 
+export enum SyncBlockStatus {
+	Errored = 'errored',
+	NotFound = 'not_found',
+	Unauthorized = 'unauthorized',
+}
+
 export type SyncBlockData = {
 	blockInstanceId: string;
 	content: Array<ADFEntity>;
@@ -21,17 +27,26 @@ export type SyncBlockData = {
 	isSynced?: boolean;
 	resourceId: string;
 	sourceDocumentAri?: string;
-	status?: 'deleted' | 'active';
 	updatedAt?: string;
 };
 
+export type FetchSyncBlockDataResult =
+	| SyncBlockData
+	| {
+			resourceId?: string;
+			status: SyncBlockStatus;
+	  };
+
 export interface ADFFetchProvider {
-	fetchData: (resourceId: string) => Promise<SyncBlockData>;
+	fetchData: (resourceId: string) => Promise<FetchSyncBlockDataResult>;
 }
 export interface ADFWriteProvider {
 	writeData: (data: SyncBlockData) => Promise<string>;
 }
-export abstract class SyncBlockDataProvider extends NodeDataProvider<SyncBlockNode, SyncBlockData> {
+export abstract class SyncBlockDataProvider extends NodeDataProvider<
+	SyncBlockNode,
+	FetchSyncBlockDataResult
+> {
 	abstract writeNodesData(
 		nodes: SyncBlockNode[],
 		data: SyncBlockData[],

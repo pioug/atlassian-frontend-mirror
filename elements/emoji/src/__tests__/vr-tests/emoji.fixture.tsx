@@ -1,13 +1,13 @@
 import React from 'react';
-// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Emoji } from '../../element';
 import { IntlProvider } from 'react-intl-next';
-import { EmojiRepository } from '../../resource';
-import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/utils';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { testingEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
+import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/utils';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Emoji } from '../../element';
+import { EmojiRepository } from '../../resource';
 
 const emojiResponse = denormaliseEmojiServiceResponse(testingEmojis);
 

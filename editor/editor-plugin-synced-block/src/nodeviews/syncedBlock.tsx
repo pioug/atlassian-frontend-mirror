@@ -1,6 +1,5 @@
 import React from 'react';
 
-import type { DocNode } from '@atlaskit/adf-schema';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView, { type getPosHandler } from '@atlaskit/editor-common/react-node-view';
@@ -10,26 +9,10 @@ import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/edito
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { useFetchDocNode } from '@atlaskit/editor-synced-block-provider';
+import { useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { SyncBlockRendererWrapper } from '../ui/SyncBlockRendererWrapper';
-
-const defaultSyncBlockRendererDocument: DocNode = {
-	version: 1,
-	type: 'doc',
-	content: [
-		{
-			type: 'paragraph',
-			content: [
-				{
-					type: 'text',
-					text: 'This is a reference sync block. Stay tuned for updates...',
-				},
-			],
-		},
-	],
-};
 
 export interface SyncBlockNodeViewProps extends ReactComponentProps {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
@@ -78,9 +61,7 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 
 		return (
 			<SyncBlockRendererWrapper
-				useFetchDocNode={() =>
-					useFetchDocNode(this.syncBlockStore, this.node, defaultSyncBlockRendererDocument)
-				}
+				useFetchSyncBlockData={() => useFetchSyncBlockData(this.syncBlockStore, this.node)}
 				getSyncedBlockRenderer={this.options?.getSyncedBlockRenderer}
 			/>
 		);

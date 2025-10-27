@@ -52,6 +52,7 @@ import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { updateMediaNodeAttrs } from '../pm-plugins/commands/helpers';
@@ -224,10 +225,30 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 	clone() {
 		const clonedAt = (performance || Date).now();
-		return new Proxy(this, {
+
+		// Prevent double wrapping
+		// If clone is repeatedly called, we want to proxy the underlying MediaPluginStateImplementation target, rather than the proxy itself
+		// If we proxy the proxy, then calling get in future will need to recursively unwrap proxies to find the original target, which causes performance issues
+		// Instead, we check if there is an original target stored on "this", and if so, we use that as the proxy target instead
+		// eslint-disable-next-line @typescript-eslint/no-this-alias -- This is required while this is behind a feature-gate. Once the feature-gate is removed, we can inline proxyTarget as "(this as unknown as { originalTarget?: typeof proxyTarget }).originalTarget ?? this"
+		let proxyTarget = this;
+		const originalTarget = (this as unknown as { originalTarget?: typeof proxyTarget })
+			.originalTarget;
+		if (
+			originalTarget !== undefined &&
+			expValEquals('platform_editor_fix_clone_nesting_exp', 'isEnabled', true)
+		) {
+			proxyTarget = originalTarget;
+		}
+
+		return new Proxy(proxyTarget, {
 			get(target, prop, receiver) {
 				if (prop === 'singletonCreatedAt') {
 					return clonedAt;
+				}
+
+				if (prop === 'originalTarget') {
+					return target;
 				}
 
 				return Reflect.get(target, prop, receiver);

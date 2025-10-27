@@ -7,7 +7,6 @@ import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -74,10 +73,9 @@ type WidgetProps = { isHighlight: boolean; isInWord: boolean; type: SelectionTyp
 const Widget = ({ type, isHighlight, isInWord }: WidgetProps) => {
 	const span = document.createElement('span');
 
-	const selectionMarkerCursorStyles =
-		isInWord && fg('platform_editor_inline_selection_marker_cursor')
-			? selectionMarkerInlineCursorStyles
-			: selectionMarkerBlockCursorStyles;
+	const selectionMarkerCursorStyles = isInWord
+		? selectionMarkerInlineCursorStyles
+		: selectionMarkerBlockCursorStyles;
 
 	const styles = isHighlight ? selectionMarkerHighlightStyles : selectionMarkerCursorStyles;
 
@@ -123,21 +121,18 @@ export const createWidgetDecoration = (
 		return [];
 	}
 
-	let isInWord = false;
-	if (fg('platform_editor_inline_selection_marker_cursor')) {
-		// We're inside a word if the parent, before, and after nodes are all text nodes
-		// and the before/after nodes are appended/prepended with non-whitespace characters
-		// Also if we're making a selection and not just a cursor, this isn't relevant
-		const { nodeBefore, nodeAfter, parent } = resolvedPos;
-		// Check if the parent is a text node and the before/after nodes are also text nodes
-		const areTextNodes = parent.isTextblock && nodeBefore?.isText && nodeAfter?.isText;
-		const lastCharacterOfBeforeNode = nodeBefore?.textContent?.slice(-1);
-		const firstCharacterOfAfterNode = nodeAfter?.textContent?.slice(0, 1);
-		const areAdjacentCharactersNonWhitespace =
-			// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-			/\S/u.test(lastCharacterOfBeforeNode || '') && /\S/u.test(firstCharacterOfAfterNode || '');
-		isInWord = Boolean(areTextNodes && areAdjacentCharactersNonWhitespace);
-	}
+	// We're inside a word if the parent, before, and after nodes are all text nodes
+	// and the before/after nodes are appended/prepended with non-whitespace characters
+	// Also if we're making a selection and not just a cursor, this isn't relevant
+	const { nodeBefore, nodeAfter, parent } = resolvedPos;
+	// Check if the parent is a text node and the before/after nodes are also text nodes
+	const areTextNodes = parent.isTextblock && nodeBefore?.isText && nodeAfter?.isText;
+	const lastCharacterOfBeforeNode = nodeBefore?.textContent?.slice(-1);
+	const firstCharacterOfAfterNode = nodeAfter?.textContent?.slice(0, 1);
+	const areAdjacentCharactersNonWhitespace =
+		// @ts-ignore - TS1501 Older versions of TypeScript don't play nice with the u flag. With the current AFM TypeScript version, this *should* be fine, but the pipeline type check fails, hence why a ts-ignore is needed (over a ts-expect-error)
+		/\S/u.test(lastCharacterOfBeforeNode || '') && /\S/u.test(firstCharacterOfAfterNode || '');
+	const isInWord = Boolean(areTextNodes && areAdjacentCharactersNonWhitespace);
 
 	return [
 		Decoration.widget(resolvedPos.pos, toDOM(type, isHighlight, isInWord), {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.3.0",
+	"version": "43.3.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -233,6 +233,9 @@
 			"type": "boolean"
 		},
 		"navx-1895-a11y-close-button-in-preview-modal": {
+			"type": "boolean"
+		},
+		"navx-1895-new-logo-design": {
 			"type": "boolean"
 		},
 		"platform_initial_data_for_smart_cards": {

@@ -14,6 +14,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -230,12 +231,25 @@ export class DocumentService implements DocumentServiceInterface {
 			});
 		} catch (error) {
 			const latency = new Date().getTime() - start;
-			this.analyticsHelper?.sendActionEvent(EVENT_ACTION.CATCHUP, EVENT_STATUS.FAILURE, {
-				latency,
-				reason,
-				unconfirmedStepsLength: reconnectionMetadata?.unconfirmedStepsLength,
-				disconnectionPeriodSeconds: reconnectionMetadata?.disconnectionPeriodSeconds,
-			});
+			// Skip client side errors; TypeErrors are client side errors https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch
+			if (fg('platform_collab_do_not_client_error_log')) {
+				const errorMessage = error instanceof Error ? error.message : String(error);
+				if (!errorMessage.includes('TypeError') && !(error instanceof TypeError)) {
+					this.analyticsHelper?.sendActionEvent(EVENT_ACTION.CATCHUP, EVENT_STATUS.FAILURE, {
+						latency,
+						reason,
+						unconfirmedStepsLength: reconnectionMetadata?.unconfirmedStepsLength,
+						disconnectionPeriodSeconds: reconnectionMetadata?.disconnectionPeriodSeconds,
+					});
+				}
+			} else {
+				this.analyticsHelper?.sendActionEvent(EVENT_ACTION.CATCHUP, EVENT_STATUS.FAILURE, {
+					latency,
+					reason,
+					unconfirmedStepsLength: reconnectionMetadata?.unconfirmedStepsLength,
+					disconnectionPeriodSeconds: reconnectionMetadata?.disconnectionPeriodSeconds,
+				});
+			}
 		} finally {
 			this.stepQueue.resumeQueue();
 			this.processQueue();

@@ -234,19 +234,25 @@ export const RendererFunctionalComponent = (
 		[props.dataProviders],
 	);
 
+	const { contentMode: parentContextContentMode } = useRendererContext();
+
 	const createRendererContext = useMemo(
 		() =>
 			(
 				featureFlags: RendererProps['featureFlags'],
 				isTopLevelRenderer: RendererProps['isTopLevelRenderer'],
+				contentMode?: RendererProps['contentMode'],
 			) => {
 				const normalizedFeatureFlags = normalizeFeatureFlags(featureFlags);
 				return {
 					featureFlags: normalizedFeatureFlags,
 					isTopLevelRenderer: isTopLevelRenderer === undefined,
+					...(fg('platform_editor_content_mode_render_context') && {
+						contentMode: contentMode || parentContextContentMode,
+					}),
 				};
 			},
-		[],
+		[parentContextContentMode],
 	);
 
 	const fireAnalyticsEventOld: FireAnalyticsCallback = useCallback(
@@ -292,7 +298,11 @@ export const RendererFunctionalComponent = (
 					annotationProvider.inlineComment &&
 					annotationProvider.inlineComment.allowDraftMode,
 			);
-			const { featureFlags } = createRendererContext(props.featureFlags, props.isTopLevelRenderer);
+			const { featureFlags } = createRendererContext(
+				props.featureFlags,
+				props.isTopLevelRenderer,
+				props.contentMode,
+			);
 			return {
 				startPos: props.startPos ?? 0,
 				providers: providerFactory,
@@ -515,8 +525,8 @@ export const RendererFunctionalComponent = (
 	}, []);
 
 	const rendererContext = useMemo(
-		() => createRendererContext(props.featureFlags, props.isTopLevelRenderer),
-		[props.featureFlags, props.isTopLevelRenderer, createRendererContext],
+		() => createRendererContext(props.featureFlags, props.isTopLevelRenderer, props.contentMode),
+		[props.featureFlags, props.isTopLevelRenderer, createRendererContext, props.contentMode],
 	);
 
 	try {
@@ -554,7 +564,11 @@ export const RendererFunctionalComponent = (
 								<RendererWrapper
 									allowAnnotations={props.allowAnnotations}
 									appearance={props.appearance}
-									contentMode={props.contentMode || 'standard'}
+									contentMode={
+										fg('platform_editor_content_mode_render_context')
+											? props.contentMode || rendererContext.contentMode || 'standard'
+											: props.contentMode || 'standard'
+									}
 									allowNestedHeaderLinks={isNestedHeaderLinksEnabled(props.allowHeadingAnchorLinks)}
 									allowColumnSorting={props.allowColumnSorting}
 									allowCopyToClipboard={props.allowCopyToClipboard}
@@ -611,7 +625,11 @@ export const RendererFunctionalComponent = (
 			<RendererWrapper
 				allowAnnotations={props.allowAnnotations}
 				appearance={props.appearance}
-				contentMode={props.contentMode || 'standard'}
+				contentMode={
+					fg('platform_editor_content_mode_render_context')
+						? props.contentMode || rendererContext.contentMode || 'standard'
+						: props.contentMode || 'standard'
+				}
 				allowCopyToClipboard={props.allowCopyToClipboard}
 				allowWrapCodeBlock={props.allowWrapCodeBlock}
 				allowPlaceholderText={props.allowPlaceholderText}

@@ -63,7 +63,7 @@ export const mentionNodeStyles: SerializedStyles = css({
 		display: 'inline',
 		borderRadius: token('radius.full'),
 		cursor: 'pointer',
-		padding: '0 0.3em 2px 0.23em',
+		padding: '1px 0.3em 1px 0.23em',
 		// To match `packages/elements/mention/src/components/Mention/PrimitiveMention.tsx` implementation
 		// we match the line height exactly
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -108,17 +108,6 @@ export const mentionNodeStyles: SerializedStyles = css({
 		'&:active': {
 			background: token('color.background.brand.bold.pressed'),
 		},
-	},
-});
-
-// The feature-gate for this is dependent on the use of refreshed typography - bear this in mind when cleaning up
-// This is currently enforced through statsig prerequisite gates, as per #help-afm recommendation.
-// So it will need to be considered if the typography gates are still in use when this is cleaned up.
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const mentionsStylesMixin_platform_editor_centre_mention_padding: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.editor-mention-primitive': {
-		padding: '1px 0.3em 1px 0.23em',
 	},
 });
 

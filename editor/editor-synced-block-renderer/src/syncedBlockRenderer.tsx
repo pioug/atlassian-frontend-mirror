@@ -6,20 +6,42 @@ import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import type { NodeType, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import {
 	getDefaultSyncBlockSchema,
-	type SyncBlockData,
+	SyncBlockStatus,
 	type SyncBlockNode,
+	type FetchSyncBlockDataResult,
 } from '@atlaskit/editor-synced-block-provider';
 import type { NodeDataProvider } from '@atlaskit/node-data-provider';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { RendererActionsContext } from '@atlaskit/renderer/actions';
 
+import { SyncedBlockErrorComponent } from './ui/SyncedBlockErrorComponent';
+import { SyncedBlockLoadingState } from './ui/SyncedBlockLoadingState';
+
 export type SyncedBlockRendererProps = {
 	dataProviders?: ProviderFactory;
-	useFetchDocNode: () => DocNode;
+	useFetchSyncBlockData: () => FetchSyncBlockDataResult | null;
 };
 
-const SyncedBlockRenderer = ({ useFetchDocNode, dataProviders }: SyncedBlockRendererProps) => {
-	const latestDocNode = useFetchDocNode();
+const SyncedBlockRenderer = ({
+	useFetchSyncBlockData,
+	dataProviders,
+}: SyncedBlockRendererProps) => {
+	const fetchResult = useFetchSyncBlockData();
+
+	if (!fetchResult) {
+		return <SyncedBlockLoadingState />;
+	}
+
+	if ('status' in fetchResult) {
+		return <SyncedBlockErrorComponent status={fetchResult.status} />;
+	}
+
+	const syncBlockData = fetchResult;
+	const syncBlockDoc = {
+		content: syncBlockData.content,
+		version: 1,
+		type: 'doc',
+	} as DocNode;
 
 	return (
 		<RendererActionsContext>
@@ -28,7 +50,7 @@ const SyncedBlockRenderer = ({ useFetchDocNode, dataProviders }: SyncedBlockRend
 					appearance="full-width"
 					adfStage="stage0"
 					schema={getDefaultSyncBlockSchema()}
-					document={latestDocNode}
+					document={syncBlockDoc}
 					disableHeadingIDs={true}
 					dataProviders={dataProviders}
 				/>
@@ -38,7 +60,7 @@ const SyncedBlockRenderer = ({ useFetchDocNode, dataProviders }: SyncedBlockRend
 };
 
 export const getSyncedBlockRenderer = (props: SyncedBlockRendererProps): React.JSX.Element => {
-	return <SyncedBlockRenderer useFetchDocNode={props.useFetchDocNode} />;
+	return <SyncedBlockRenderer useFetchSyncBlockData={props.useFetchSyncBlockData} />;
 };
 
 /**
@@ -72,9 +94,9 @@ export interface NodeMeta {
 }
 
 const SyncBlockNodeComponent = (
-	props: NodeMeta & { dataPromise: Promise<SyncBlockData[]> | null },
+	props: NodeMeta & { dataPromise: Promise<FetchSyncBlockDataResult[]> | null },
 ): React.JSX.Element => {
-	const [data, setData] = useState<SyncBlockData[] | null>(null);
+	const [data, setData] = useState<FetchSyncBlockDataResult[] | null>(null);
 
 	useEffect(() => {
 		if (!props.dataPromise) {
@@ -89,15 +111,24 @@ const SyncBlockNodeComponent = (
 	}, [props.dataPromise, data]);
 
 	if (!data) {
-		return <div>loading...</div>;
+		return <SyncedBlockLoadingState />;
 	}
 
-	const syncBlockData = data.find((item) => item.resourceId === props.resourceId);
-	if (!syncBlockData?.content) {
-		return <div>Sync block not found</div>;
+	const fetchResult = data.find((item) => item.resourceId === props.resourceId);
+
+	if (!fetchResult) {
+		return <SyncedBlockErrorComponent status={SyncBlockStatus.Errored} />;
+	}
+	if ('status' in fetchResult) {
+		return <SyncedBlockErrorComponent status={fetchResult.status} />;
 	}
 
-	const syncBlockDoc = { content: syncBlockData.content, version: 1, type: 'doc' } as DocNode;
+	const syncBlockData = fetchResult;
+	const syncBlockDoc = {
+		content: syncBlockData.content,
+		version: 1,
+		type: 'doc',
+	} as DocNode;
 
 	return (
 		<RendererActionsContext>
@@ -121,7 +152,7 @@ const SyncBlockNodeComponent = (
 };
 
 export const getSyncBlockNodeComponent = (
-	dataProvider: NodeDataProvider<SyncBlockNode, SyncBlockData>,
+	dataProvider: NodeDataProvider<SyncBlockNode, FetchSyncBlockDataResult>,
 	doc: DocNode,
 ) => {
 	const { content } = doc;

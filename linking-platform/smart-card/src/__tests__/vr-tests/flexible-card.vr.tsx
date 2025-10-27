@@ -35,6 +35,7 @@ import FlexibleUiPlaceholderData from '../../../examples/vr-flexible-card/vr-fle
 snapshot(FlexibleUiOptions, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(FlexibleUiComposition, {
@@ -47,6 +48,7 @@ snapshot(FlexibleUiComposition, {
 		},
 	],
 	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
 		'platform-component-visual-refresh': [true, false],
 	},
 });
@@ -74,6 +76,7 @@ snapshot(FlexibleUiBlockTitle, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockTitle, {
@@ -95,6 +98,7 @@ snapshot(FlexibleUiBlockTitle, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockTitle, {
@@ -116,6 +120,7 @@ snapshot(FlexibleUiBlockTitle, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockMetadata, {
@@ -138,31 +143,37 @@ snapshot(FlexibleUiBlockSnippet, {
 snapshot(FlexibleUiBlockFooter, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockPreviewXLarge, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockPreviewLarge, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockPreviewMedium, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockPreviewSmall, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockPreviewMixedPadding, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockPreviewOverrideCSS, {
@@ -201,6 +212,7 @@ snapshot(FlexibleUiElementBadge, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(FlexibleUiElementAppliedToComponentsCount, {
@@ -245,6 +257,7 @@ snapshot(FlexibleUiHoverCard, {
 	description: 'FlexibleUiHoverCard',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(FlexibleUiHoverCardNoPreviewButton, {
@@ -259,6 +272,7 @@ snapshot(FlexibleUiHoverCardNoPreviewButton, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 
@@ -304,6 +318,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
@@ -318,6 +333,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 
@@ -333,6 +349,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 
@@ -346,6 +363,7 @@ snapshot(FlexibleUiPlaceholderData, {
 snapshot(FlexibleUiBlockCardErroredStates, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 

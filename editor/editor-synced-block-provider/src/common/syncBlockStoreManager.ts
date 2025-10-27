@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 
 import uuid from 'uuid';
 
-import type { DocNode } from '@atlaskit/adf-schema';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -14,7 +13,14 @@ import {
 } from '../utils/utils';
 
 import { rebaseTransaction } from './rebase-transaction';
-import type { SyncBlockAttrs, SyncBlockData, SyncBlockDataProvider, SyncBlockNode } from './types';
+import { SyncBlockStatus } from './types';
+import type {
+	FetchSyncBlockDataResult,
+	SyncBlockAttrs,
+	SyncBlockData,
+	SyncBlockDataProvider,
+	SyncBlockNode,
+} from './types';
 
 // Do this typedef to make it clear that
 // this is a local identifier for a resource for local use
@@ -94,7 +100,7 @@ export class SyncBlockStoreManager {
 		return undefined;
 	}
 
-	public async fetchSyncBlockData(syncBlockNode: PMNode): Promise<SyncBlockData> {
+	public async fetchSyncBlockData(syncBlockNode: PMNode): Promise<FetchSyncBlockDataResult> {
 		if (!['bodiedSyncBlock', 'syncBlock'].includes(syncBlockNode.type.name)) {
 			throw new Error('Node is not a sync block');
 		}
@@ -111,13 +117,17 @@ export class SyncBlockStoreManager {
 
 		const sourceURL = this.getSyncBlockSourceURL(syncBlockNode);
 
-		this.syncBlocks.set(syncBlockNode.attrs.localId, {
-			syncNode,
-			sourceURL,
-			syncBlockData: data[0],
-		});
+		const fetchSyncBlockDataResult = data[0];
+		if (!('status' in fetchSyncBlockDataResult)) {
+			// only adds it to the map if it did not error out
+			this.syncBlocks.set(syncBlockNode.attrs.localId, {
+				syncNode,
+				sourceURL,
+				syncBlockData: fetchSyncBlockDataResult,
+			});
+		}
 
-		return data[0];
+		return fetchSyncBlockDataResult;
 	}
 
 	/**
@@ -255,22 +265,32 @@ export class SyncBlockStoreManager {
 	}
 }
 
-export function useFetchDocNode(
+export function useFetchSyncBlockData(
 	manager: SyncBlockStoreManager,
 	syncBlockNode: PMNode,
-	defaultDocNode: DocNode,
-): DocNode {
-	const [docNode, setDocNode] = useState<DocNode>(defaultDocNode);
+): FetchSyncBlockDataResult | null {
+	const [fetchSyncBlockDataResult, setFetchSyncBlockDataResult] =
+		useState<FetchSyncBlockDataResult | null>(null);
 	const fetchSyncBlockNode = useCallback(() => {
 		manager
 			.fetchSyncBlockData(syncBlockNode)
-			.then((data) =>
-				setDocNode({ content: data.content || [], version: 1, type: 'doc' } as DocNode),
-			)
+			.then((data) => {
+				if ('status' in data) {
+					// if there is an error, we don't want to replace real existing data with the error data
+					if (!fetchSyncBlockDataResult || 'status' in fetchSyncBlockDataResult) {
+						setFetchSyncBlockDataResult(data);
+					}
+				} else {
+					setFetchSyncBlockDataResult(data);
+				}
+			})
 			.catch(() => {
 				//TODO: EDITOR-1921 - add error analytics
+				if (!fetchSyncBlockDataResult || 'status' in fetchSyncBlockDataResult) {
+					setFetchSyncBlockDataResult({ status: SyncBlockStatus.Errored });
+				}
 			});
-	}, [manager, syncBlockNode, setDocNode]);
+	}, [manager, syncBlockNode, fetchSyncBlockDataResult]);
 
 	useEffect(() => {
 		fetchSyncBlockNode();
@@ -280,7 +300,7 @@ export function useFetchDocNode(
 			window.clearInterval(interval);
 		};
 	}, [fetchSyncBlockNode]);
-	return docNode;
+	return fetchSyncBlockDataResult;
 }
 
 export function useHandleContentChanges(

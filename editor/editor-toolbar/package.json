@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "0.16.1",
+	"version": "0.16.2",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"team": "Editor: Jenga",
@@ -90,9 +90,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_ai_rovo_rebrand": {
-			"type": "boolean"
-		},
 		"platform_editor_toolbar_aifc_patch_7": {
 			"type": "boolean"
 		}

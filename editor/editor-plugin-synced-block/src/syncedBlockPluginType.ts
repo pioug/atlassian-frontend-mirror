@@ -1,4 +1,3 @@
-import type { DocNode } from '@atlaskit/adf-schema';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type {
 	EditorCommand,
@@ -13,7 +12,10 @@ import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
-import type { SyncBlockDataProvider } from '@atlaskit/editor-synced-block-provider';
+import type {
+	FetchSyncBlockDataResult,
+	SyncBlockDataProvider,
+} from '@atlaskit/editor-synced-block-provider';
 
 export type SyncedBlockEditorProps = {
 	defaultDocument: JSONDocNode;
@@ -45,7 +47,7 @@ export type SyncedBlockEditorProps = {
 };
 
 export type SyncedBlockRendererProps = {
-	useFetchDocNode: () => DocNode;
+	useFetchSyncBlockData: () => FetchSyncBlockDataResult | null;
 };
 
 export type SyncedBlockPluginOptions = {

@@ -8,6 +8,7 @@ import {
 	SyncBlockDataProvider,
 	type ADFFetchProvider,
 	type ADFWriteProvider,
+	type FetchSyncBlockDataResult,
 	type SyncBlockData,
 	type SyncBlockNode,
 } from './types';
@@ -30,7 +31,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	nodeDataKey(node: SyncBlockNode) {
 		return node.attrs.localId;
 	}
-	fetchNodesData(nodes: SyncBlockNode[]): Promise<SyncBlockData[]> {
+	fetchNodesData(nodes: SyncBlockNode[]): Promise<FetchSyncBlockDataResult[]> {
 		return Promise.all(
 			nodes.map((node) => {
 				return this.fetchProvider.fetchData(node.attrs.resourceId);

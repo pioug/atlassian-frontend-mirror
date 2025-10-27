@@ -497,6 +497,13 @@ type RovoMoreOptionsClickedAEP = ButtonAEP<
 	}
 >;
 
+type AskRovoButtonClickedAEP = ButtonAEP<
+	ACTION_SUBJECT_ID.AI_ASK_ROVO_BUTTON,
+	{
+		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
+	}
+>;
+
 type ChangeToneMenuItemClickedAEP = UIAEP<
 	ACTION.CLICKED,
 	ACTION_SUBJECT.TOOLBAR_DROPDOWN_MENU_ITEM,
@@ -565,5 +572,6 @@ export type GeneralEventPayload<T = void> =
 	| CopyLinkToAnchorButtonAEP
 	| DockedPrimaryToolbarRenderedAEP
 	| RovoMoreOptionsClickedAEP
+	| AskRovoButtonClickedAEP
 	| ChangeToneMenuItemClickedAEP
 	| TranslateMenuItemClickedAEP;

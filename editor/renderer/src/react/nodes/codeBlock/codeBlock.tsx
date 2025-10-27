@@ -12,6 +12,7 @@ import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { CodeBlock as AkCodeBlock } from '@atlaskit/code';
 import type { SupportedLanguages } from '@atlaskit/code';
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import CodeBlockContainer from './components/codeBlockContainer';
 
@@ -59,6 +60,11 @@ function CodeBlock(props: Props & WrappedComponentProps) {
 				codeBidiWarningLabel={codeBidiWarningLabel}
 				codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
 				shouldWrapLongLines={allowWrapCodeBlock && wrapLongLines}
+				hasBidiWarnings={
+					expValEquals('platform_editor_remove_bidi_char_warning', 'isEnabled', true)
+						? false
+						: undefined
+				}
 			/>
 		</CodeBlockContainer>
 	);

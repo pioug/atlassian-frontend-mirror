@@ -119,7 +119,6 @@ import {
 	mentionsStyles,
 	mentionsSelectionStyles,
 	mentionNodeStyles,
-	mentionsStylesMixin_platform_editor_centre_mention_padding,
 	mentionsSelectionStylesWithSearchMatch,
 	mentionDangerStyles,
 } from './styles/mentions';
@@ -638,9 +637,6 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							mentionsSelectionStylesWithSearchMatch
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							mentionsSelectionStyles,
-					fg('platform_editor_centre_mention_padding') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						mentionsStylesMixin_platform_editor_centre_mention_padding,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					emojiStyles,
 					// Dense emoji scaling based on base font size

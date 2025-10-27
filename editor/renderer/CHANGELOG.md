@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 124.9.0
+
+### Minor Changes
+
+- [`b6d8f527de69b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6d8f527de69b) -
+  [ux] EDITOR-2503 Pass contentMode through React context to nested renderers
+
+### Patch Changes
+
+- [`ce0b8f9e44b69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce0b8f9e44b69) -
+  [ux] [ED-29581] Removes bidi character scanning from code blocks and code snippets
+- Updated dependencies
+
 ## 124.8.6
 
 ### Patch Changes

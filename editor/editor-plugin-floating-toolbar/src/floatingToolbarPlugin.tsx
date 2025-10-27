@@ -509,6 +509,7 @@ export function ContentComponent({
 		>
 			<Popup
 				ariaLabel={title}
+				role={fg('platform_editor_a11y_add_role_to_popup') ? 'toolbar' : undefined}
 				offset={offset}
 				target={targetRef}
 				alignY="bottom"

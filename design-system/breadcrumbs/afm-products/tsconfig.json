@@ -1,0 +1,54 @@
+{
+	"extends": "../../../../tsconfig.entry-points.products.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__breadcrumbs/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../button/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../css/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../tooltip/afm-products/tsconfig.json"
+		}
+	]
+}

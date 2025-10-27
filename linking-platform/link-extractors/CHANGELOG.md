@@ -1,5 +1,12 @@
 # @atlaskit/link-extractors
 
+## 2.4.5
+
+### Patch Changes
+
+- [`2273597b13275`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2273597b13275) -
+  [ux] Update product logo to use new design, behind fg navx-1895-new-logo-design
+
 ## 2.4.4
 
 ### Patch Changes

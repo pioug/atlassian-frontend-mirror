@@ -1,5 +1,15 @@
 # @atlaskit/editor-core
 
+## 215.8.5
+
+### Patch Changes
+
+- [`6c205cefd968a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c205cefd968a) -
+  Cleanup FG platform_editor_centre_mention_padding
+- [`9842848622554`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9842848622554) -
+  ENGHEALTH-23797:Fixed aria prohibited attr from selection marker
+- Updated dependencies
+
 ## 215.8.4
 
 ### Patch Changes

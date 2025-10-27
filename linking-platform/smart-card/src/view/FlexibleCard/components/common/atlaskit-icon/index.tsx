@@ -3,6 +3,7 @@ import React from 'react';
 import Loadable from 'react-loadable';
 
 import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import BlogIcon from '../../../../../common/ui/icons/blog-icon';
@@ -53,6 +54,7 @@ const AtlaskitIcon = ({ icon, label, testId, size = SmartLinkSize.Medium }: Atla
 					appearance="brand"
 					testId={testId}
 					size={size === SmartLinkSize.Large || size === SmartLinkSize.XLarge ? 'small' : 'xxsmall'}
+					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
 				/>
 			);
 		case IconType.Jira:
@@ -61,6 +63,7 @@ const AtlaskitIcon = ({ icon, label, testId, size = SmartLinkSize.Medium }: Atla
 					appearance="brand"
 					testId={testId}
 					size={size === SmartLinkSize.Large || size === SmartLinkSize.XLarge ? 'small' : 'xxsmall'}
+					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
 				/>
 			);
 		case IconType.Error:

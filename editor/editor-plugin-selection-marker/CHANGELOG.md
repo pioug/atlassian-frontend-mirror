@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 6.2.6
+
+### Patch Changes
+
+- [`1d6a18c8a712e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d6a18c8a712e) -
+  Cleanup fg platform_editor_inline_selection_marker_cursor
+- Updated dependencies
+
 ## 6.2.5
 
 ### Patch Changes

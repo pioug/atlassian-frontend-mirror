@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.8.4",
+	"version": "215.8.5",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -150,9 +150,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"aifc_use_llm_space_recommendations": {
-			"type": "boolean"
-		},
 		"confluence_floating_toolbar_animation": {
 			"type": "boolean"
 		},
@@ -186,12 +183,6 @@
 		"platform-editor-single-player-expand": {
 			"type": "boolean",
 			"referenceOnly": "true"
-		},
-		"platform_editor_track_dangerous_append_plugins": {
-			"type": "boolean"
-		},
-		"platform_editor_disable_instrumented_plugin": {
-			"type": "boolean"
 		},
 		"platform_editor_table_initial_load_fix": {
 			"type": "boolean",
@@ -246,9 +237,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_ease_of_use_metrics": {
-			"type": "boolean"
-		},
 		"platform_editor_table_use_shared_state_hook_fg": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -281,9 +269,6 @@
 		"platform_editor_table_column_selected_state_fix": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_number_column_sticky_header_bug": {
-			"type": "boolean"
 		},
 		"platform_editor_elements_dnd_select_node_on_drag": {
 			"type": "boolean",
@@ -385,16 +370,10 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"dst-a11y__replace-anchor-with-link__editor": {
-			"type": "boolean"
-		},
 		"platform-dst-jira-web-fonts": {
 			"type": "boolean"
 		},
 		"atlas_editor_typography_refreshed": {
-			"type": "boolean"
-		},
-		"should-render-to-parent-should-be-true-editor": {
 			"type": "boolean"
 		},
 		"platform_editor_lce_scrolltop_mitigation": {
@@ -404,9 +383,6 @@
 			"type": "boolean"
 		},
 		"cc_editor_focus_before_editor_on_load": {
-			"type": "boolean"
-		},
-		"platform_editor_centre_mention_padding": {
 			"type": "boolean"
 		},
 		"platform_editor_fix_code_block_bg_color_in_macro_2": {
@@ -426,9 +402,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_resolve_hyperlinks_killswitch": {
-			"type": "boolean"
-		},
 		"platform_editor_blocktaskitem_patch_2": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -441,9 +414,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_text_highlight_padding": {
-			"type": "boolean"
-		},
-		"platform_editor_toolbar_aifc_placement_config": {
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_aifc_patch_7": {

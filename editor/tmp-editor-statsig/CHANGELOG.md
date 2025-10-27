@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.19.0
+
+### Minor Changes
+
+- [`ce0b8f9e44b69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce0b8f9e44b69) -
+  [ux] [ED-29581] Removes bidi character scanning from code blocks and code snippets
+
 ## 13.18.2
 
 ### Patch Changes

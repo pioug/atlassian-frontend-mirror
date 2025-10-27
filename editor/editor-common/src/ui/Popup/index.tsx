@@ -40,6 +40,7 @@ export interface Props {
 	onUnmount?: () => void;
 	preventOverflow?: boolean;
 	rect?: DOMRect;
+	role?: string;
 	scrollableElement?: HTMLElement;
 	shouldRenderPopup?: (position: Position) => boolean;
 	stick?: boolean;
@@ -398,7 +399,15 @@ export default class Popup extends React.Component<Props, State> {
 			: this.props.ariaLabel === null
 				? undefined
 				: this.props.ariaLabel || 'Popup';
-
+		const getRole = () => {
+			// Provide a valid role only when aria-label is present to satisfy a11y rules, as when aria-label is present, role is required
+			// use role = dialog as default role, as dialog role itself is not a parent role that requires specific children to function as some other ARIA roles(menu) do
+			// if set default role to menu, tons of integration tests will fail as many of our popup usages do not have children that satisfy menu role requirements
+			if (ariaLabel && fg('platform_editor_a11y_add_role_to_popup')) {
+				return this.props.role || 'dialog';
+			}
+			return undefined;
+		};
 		return (
 			<div
 				ref={this.handleRef}
@@ -412,6 +421,7 @@ export default class Popup extends React.Component<Props, State> {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					...this.props.style,
 				}}
+				role={getRole()}
 				aria-label={ariaLabel}
 				data-testid="popup-wrapper"
 				// Indicates component is an editor pop. Required for focus handling in Message.tsx

@@ -144,29 +144,41 @@ snapshot(InlineCardForbiddenTruncate, {
 
 snapshot(InlineCardForbiddenRequestAccess, {
 	description: 'inline card forbidden view with request access to object',
-	featureFlags: {},
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });
 snapshot(InlineCardForbiddenSiteRequestAccess, {
 	description: 'inline card forbidden view with request access to site',
-	featureFlags: {},
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });
 
 snapshot(InlineCardForbiddenSiteRequestAccessTruncate, {
 	description: 'inline card forbidden view with request access to site and truncation',
-	featureFlags: {},
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });
 
 snapshot(InlineCardForbiddenDirectAccess, {
 	description: 'inline card forbidden view with direct access',
-	featureFlags: {},
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });
 snapshot(InlineCardForbiddenPendingSiteAccess, {
 	description: 'inline card forbidden view with pending site access',
-	featureFlags: {},
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });
 snapshot(InlineCardForbiddenDeniedSiteAccess, {
 	description: 'inline card forbidden view with denied site access',
-	featureFlags: {},
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });
 
 // Design refresh: emotion + legacy icon
@@ -245,6 +257,7 @@ snapshot(InlineCardFontSizeDefault, {
 	description: 'inline card with default font size',
 	featureFlags: {
 		'jfp-magma-platform-lozenge-jump-fix': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 
@@ -252,6 +265,7 @@ snapshot(InlineCardFontSize32, {
 	description: 'inline card with 32 font size',
 	featureFlags: {
 		'jfp-magma-platform-lozenge-jump-fix': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 
@@ -259,6 +273,7 @@ snapshot(InlineCardFontSize24, {
 	description: 'inline card with 24 font size',
 	featureFlags: {
 		'jfp-magma-platform-lozenge-jump-fix': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 
@@ -266,6 +281,7 @@ snapshot(InlineCardFontSize16, {
 	description: 'inline card with 16 font size',
 	featureFlags: {
 		'jfp-magma-platform-lozenge-jump-fix': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 
@@ -286,15 +302,21 @@ snapshot(InlineCardWordWrapForbidden, {
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapForbiddenWithSiteRequestAccess, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapForbiddenWithSitePendingRequest, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapNotFoundWithSiteAccessExists, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapUnAuth, {

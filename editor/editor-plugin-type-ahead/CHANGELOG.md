@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.5.6
+
+### Patch Changes
+
+- [`bcd51cc2f9737`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcd51cc2f9737) -
+  EDITOR-2489: Clean up platform_editor_ai_rovo_rebrand
+- Updated dependencies
+
 ## 6.5.5
 
 ### Patch Changes

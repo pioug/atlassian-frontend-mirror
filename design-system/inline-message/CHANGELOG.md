@@ -1,5 +1,13 @@
 # @atlaskit/inline-message
 
+## 15.4.0
+
+### Minor Changes
+
+- [`0dc4206204f86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0dc4206204f86) -
+  Fixes accessibility issue when tabbing into inline-message. Additionally, behind a feature flag,
+  adds height and width constraints to inline-message in line with ADS recommendations.
+
 ## 15.3.14
 
 ### Patch Changes

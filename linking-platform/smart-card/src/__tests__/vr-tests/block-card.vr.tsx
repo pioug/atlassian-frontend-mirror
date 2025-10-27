@@ -88,11 +88,13 @@ snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 snapshot(BlockCardJira, {
 	featureFlags: {
 		'platform-linking-enable-avatar-data-separator': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(BlockCardConfluence, {
 	featureFlags: {
 		'platform-linking-enable-avatar-data-separator': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(BlockCardTrello, {
@@ -111,7 +113,9 @@ snapshot(BlockCardBitbucket, {
 	},
 });
 snapshot(BlockCardForbiddenViews, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });
 snapshot(BlockCardLazyIcon1, {
 	description: `block card with lazy load icons, slice 1`,
@@ -125,6 +129,7 @@ snapshot(BlockCardLazyIcon2, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(BlockCardLazyIcon3, {
@@ -132,6 +137,7 @@ snapshot(BlockCardLazyIcon3, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(BlockCardLazyIcon4, {
@@ -139,6 +145,7 @@ snapshot(BlockCardLazyIcon4, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(BlockCardLazyIcon5, {
@@ -146,6 +153,7 @@ snapshot(BlockCardLazyIcon5, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
+		'navx-1895-new-logo-design': [true, false],
 	},
 });
 snapshot(BlockCardLazyIcon6, {

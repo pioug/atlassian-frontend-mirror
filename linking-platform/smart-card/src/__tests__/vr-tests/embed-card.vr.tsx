@@ -45,15 +45,43 @@ snapshot(EmbedCardErrorView);
 snapshot(EmbedCardForbiddenView);
 snapshot(EmbedCardForbiddenFixBlurring);
 snapshot(EmbedCardForbiddenDefault);
-snapshot(EmbedCardForbiddenObjectRequestAccess);
-snapshot(EmbedCardForbiddenSiteDeniedAccess);
-snapshot(EmbedCardForbiddenSiteDirectAccess);
-snapshot(EmbedCardForbiddenSiteForbiddenAccess);
-snapshot(EmbedCardForbiddenSitePendingAccess);
-snapshot(EmbedCardForbiddenSiteRequestAccess);
+snapshot(EmbedCardForbiddenObjectRequestAccess, {
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenSiteDeniedAccess, {
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenSiteDirectAccess, {
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenSiteForbiddenAccess, {
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenSitePendingAccess, {
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenSiteRequestAccess, {
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
+});
 snapshot(EmbedCardNotFoundView);
 snapshot(EmbedCardNotFoundDefault);
-snapshot(EmbedCardNotFoundSiteAccessExists);
+snapshot(EmbedCardNotFoundSiteAccessExists, {
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
+});
 snapshot(EmbedCardResolvedSmall);
 snapshot(EmbedCardResolvedView);
 snapshot(EmbedCardResolvedView, {

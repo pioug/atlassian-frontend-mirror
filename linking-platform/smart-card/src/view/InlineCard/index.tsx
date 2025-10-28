@@ -2,6 +2,7 @@ import React, { type PropsWithChildren, useEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 // TODO: Package Owner - please fix:
 // eslint-disable-next-line import/no-extraneous-dependencies
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
@@ -74,6 +75,9 @@ export const InlineCard = ({
 				onResolve?.({
 					url,
 					title: resolvedProps.title,
+					...(fg('expose-product-details-from-smart-card') && {
+						extensionKey: details?.meta?.key,
+					}),
 				});
 				break;
 			case SmartLinkStatus.Errored:
@@ -86,7 +90,7 @@ export const InlineCard = ({
 				}
 				break;
 		}
-	}, [onError, onResolve, status, url, resolvedProps.title]);
+	}, [onError, onResolve, status, url, resolvedProps.title, details?.meta?.key]);
 
 	switch (status) {
 		case 'pending':

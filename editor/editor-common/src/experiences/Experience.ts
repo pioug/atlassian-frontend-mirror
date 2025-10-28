@@ -3,6 +3,7 @@ import {
 	ExperienceTypes,
 	UFOExperience,
 	UFOExperienceState,
+	type CustomData,
 } from '@atlaskit/ufo';
 
 import type { ExperienceCheck } from './ExperienceCheck';
@@ -17,8 +18,12 @@ type ExperienceOptions = {
 	checks?: ExperienceCheck[];
 };
 
-type ExperienceFailureOptions = {
-	reason?: string;
+type ExperienceStartOptions = {
+	metadata?: CustomData;
+};
+
+type ExperienceEndOptions = {
+	metadata?: CustomData;
 };
 
 export class Experience {
@@ -27,6 +32,7 @@ export class Experience {
 
 	private _ufoExperience: UFOExperience | undefined;
 	private check: ExperienceCheck;
+	private startOptions: ExperienceStartOptions | undefined;
 
 	constructor(id: string, options: ExperienceOptions = {}) {
 		this.id = id;
@@ -50,10 +56,13 @@ export class Experience {
 		this.stopCheck();
 
 		this.check.start((result) => {
+			const { metadata } = result;
 			if (result.status === 'success') {
-				this.success();
-			} else {
-				this.failure({ reason: result.reason });
+				this.success({ metadata });
+			} else if (result.status === 'abort') {
+				this.abort({ metadata });
+			} else if (result.status === 'failure') {
+				this.failure({ metadata });
 			}
 		});
 	}
@@ -66,10 +75,29 @@ export class Experience {
 		return PROGRESS_STATES.includes(this.ufoExperience.state.id);
 	}
 
+	private getEndStateConfig(options?: ExperienceEndOptions) {
+		return {
+			metadata:
+				options?.metadata || this.startOptions?.metadata
+					? {
+							...this.startOptions?.metadata,
+							...options?.metadata,
+						}
+					: undefined,
+		};
+	}
+
 	/**
-	 * Starts UFO experience tracking and starts all checks which monitor for completion of the experience.
+	 * Starts tracking the experience and all checks which monitor for completion.
+	 *
+	 * If the experience is already in progress, this will restart the checks.
+	 * Metadata from options will be merged with any end state metadata.
+	 *
+	 * @param options - Configuration for starting the experience
+	 * @param options.metadata - Optional metadata attached to all subsequent events for this started experience
 	 */
-	start() {
+	start(options?: ExperienceStartOptions) {
+		this.startOptions = options?.metadata;
 		this.ufoExperience.start();
 
 		if (this.isInProgress()) {
@@ -78,29 +106,51 @@ export class Experience {
 	}
 
 	/**
-	 * Manually mark the experience as successful and stop any ongoing checks.
-	 */
-	success() {
-		this.stopCheck();
-		this.ufoExperience.success();
-	}
-
-	/**
-	 * Manually abort the experience and stop any ongoing checks.
+	 * Marks the experience as successful and stops any ongoing checks.
 	 *
-	 * Typically used when the experience did not complete due to user action and should not be marked as success or failure,
-	 * for example on unmount or when navigating away from a page.
+	 * Use this when the experience completes as expected.
+	 *
+	 * @param options - Configuration for the success event
+	 * @param options.metadata - Optional metadata attached to the success event
 	 */
-	abort() {
+	success(options?: ExperienceEndOptions) {
 		this.stopCheck();
-		this.ufoExperience.abort();
+		this.ufoExperience.success(this.getEndStateConfig(options));
+		this.startOptions = undefined;
 	}
 
 	/**
-	 * Manually mark the experience as failed and stop any ongoing checks.
+	 * Aborts the experience and stops any ongoing checks.
+	 *
+	 * Use this when a started experience terminates early due to user action or context change
+	 * (e.g., component unmount, navigation). This is neither success nor failure.
+	 *
+	 * @param options - Configuration for the abort event
+	 * @param options.metadata - Optional metadata attached to the abort event
+	 *
+	 * @example
+	 * // Abort on component unmount
+	 * useEffect(() => {
+	 *   return () => experience.abort({ metadata: { reason: 'unmount' } });
+	 * }, []);
 	 */
-	failure({ reason = 'error' }: ExperienceFailureOptions = {}) {
+	abort(options?: ExperienceEndOptions) {
 		this.stopCheck();
-		this.ufoExperience.failure({ metadata: { reason } });
+		this.ufoExperience.abort(this.getEndStateConfig(options));
+		this.startOptions = undefined;
+	}
+
+	/**
+	 * Manually marks the experience as failed and stops any ongoing checks.
+	 *
+	 * Use this for actual failures in the experience flow (e.g., timeout, error conditions).
+	 *
+	 * @param options - Configuration for the failure event
+	 * @param options.metadata - Optional metadata attached to the failure event
+	 */
+	failure(options?: ExperienceEndOptions) {
+		this.stopCheck();
+		this.ufoExperience.failure(this.getEndStateConfig(options));
+		this.startOptions = undefined;
 	}
 }

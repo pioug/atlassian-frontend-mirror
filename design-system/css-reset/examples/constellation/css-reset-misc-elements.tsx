@@ -1,7 +1,5 @@
+/* eslint-disable @atlaskit/design-system/no-html-heading, @atlaskit/design-system/no-html-anchor */
 import React from 'react';
-
-import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const CSSResetMiscExample = () => {
 	return (
@@ -33,27 +31,14 @@ const CSSResetMiscExample = () => {
 			</h2>
 			<p>
 				These elements
-				{fg('dst-a11y__replace-anchor-with-link__design-system-') ? (
-					<Link href=".">
-						<sup>1</sup>
-					</Link>
-				) : (
-					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-					<a href=".">
-						<sup>1</sup>
-					</a>
-				)}{' '}
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
+				<a href=".">
+					<sup>1</sup>
+				</a>{' '}
 				should still
-				{fg('dst-a11y__replace-anchor-with-link__design-system-') ? (
-					<Link href=".">
-						<sub>2</sub>
-					</Link>
-				) : (
-					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-					<a href=".">
-						<sub>2</sub>
-					</a>
-				)}{' '}
+				<a href=".">
+					<sub>2</sub>
+				</a>{' '}
 				have default styling<sup>3</sup> as well<sub>4</sub>
 			</p>
 			<h2>Keyboard commands with {`<kbd>`}</h2>

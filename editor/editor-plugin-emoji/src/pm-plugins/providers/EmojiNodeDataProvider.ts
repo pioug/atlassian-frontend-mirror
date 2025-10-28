@@ -1,6 +1,7 @@
 import type { EmojiDefinition } from '@atlaskit/adf-schema';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	defaultEmojiHeight,
 	type EmojiId,
@@ -8,7 +9,7 @@ import {
 	type EmojiResource,
 	type OptionalEmojiDescriptionWithVariations,
 } from '@atlaskit/emoji';
-import { NodeDataProvider } from '@atlaskit/node-data-provider';
+import { NodeDataProvider, isPromise } from '@atlaskit/node-data-provider';
 
 export class EmojiNodeDataProvider extends NodeDataProvider<
 	EmojiDefinition,
@@ -31,6 +32,39 @@ export class EmojiNodeDataProvider extends NodeDataProvider<
 
 	nodeDataKey(node: EmojiDefinition): string {
 		return node.attrs.id ?? node.attrs.shortName;
+	}
+
+	/**
+	 * Implementing different re-fetching strategy for emoji.
+	 *
+	 * Default strategy for NodeDataProvider is to:
+	 * 1. If entry is in cache = return from cache
+	 * 2. Re-fetch data.
+	 * 3. Update cache
+	 * 4. Re-render node with fresh data.
+	 *
+	 * This is similar, but doesn't update the node.
+	 * 1. If entry is in cache = return from cache
+	 * 2. Re-fetch data.
+	 * 3. Update cache
+	 */
+	getData(
+		node: EmojiDefinition | PMNode,
+		callback: (
+			payload:
+				| { data: OptionalEmojiDescriptionWithVariations; error?: undefined }
+				| { data?: undefined; error: Error },
+		) => void,
+	) {
+		const cached = this.getNodeDataFromCache(node);
+		if (cached && cached.data && !isPromise(cached.data)) {
+			callback(cached as { data: OptionalEmojiDescriptionWithVariations });
+			if (!isSSR() && typeof requestAnimationFrame !== 'undefined') {
+				requestAnimationFrame(() => void this.getDataAsync(node, () => {}));
+			}
+		} else {
+			void this.getDataAsync(node, callback);
+		}
 	}
 
 	async fetchNodesData(

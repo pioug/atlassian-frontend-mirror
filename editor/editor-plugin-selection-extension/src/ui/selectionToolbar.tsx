@@ -6,7 +6,6 @@ import type {
 	FloatingToolbarOverflowDropdownOptions,
 	SelectionToolbarGroup,
 } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExtensionConfiguration } from '../types';
 
@@ -22,9 +21,7 @@ export const selectionToolbar = ({
 	overflowOptions,
 	extensionList = [],
 }: SelectionToolbarOptions): SelectionToolbarGroup => {
-	const inlineToolbarItemExtensions = fg('platform_editor_selection_extension_api_v2')
-		? getToolbarItemExtensions(extensionList, 'inlineToolbar')
-		: [];
+	const inlineToolbarItemExtensions = getToolbarItemExtensions(extensionList, 'inlineToolbar');
 
 	return {
 		items: [

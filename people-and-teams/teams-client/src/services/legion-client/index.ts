@@ -180,7 +180,7 @@ export interface LegionClient {
 	}>;
 	getLinkedTeamsBulk(groupIds: string[]): Promise<LinkedTeamsBulkResponse>;
 
-	getTeamProfileDetails(teamId: string): Promise<LinkedTeamsProfileDetails>;
+	getTeamProfileDetails(teamId: string, siteId?: string): Promise<LinkedTeamsProfileDetails>;
 
 	getOrgScope(): Promise<OrgScope>;
 
@@ -691,17 +691,17 @@ export class LegionClient extends RestClient implements LegionClient {
 		return legionExternalTeam;
 	}
 
-	async getTeamProfileDetails(teamId: string): Promise<LinkedTeamsProfileDetails> {
-		const siteId = this.getCloudId();
+	async getTeamProfileDetails(teamId: string, siteId?: string): Promise<LinkedTeamsProfileDetails> {
+		const finalSiteId = siteId || this.getCloudId();
 
-		if (!siteId) {
+		if (!finalSiteId) {
 			const err = new Error('Site ID is required');
 			this.logException(err, 'getTeamProfileDetails');
 			throw err;
 		}
 
 		const linkedTeamsProfileDetails = await this.getResource<LinkedTeamsProfileDetails>(
-			`${v4UrlPath}/${teamId}/profile?siteId=${this.getCloudId()}`,
+			`${v4UrlPath}/${teamId}/profile?siteId=${finalSiteId}`,
 		);
 
 		return linkedTeamsProfileDetails;

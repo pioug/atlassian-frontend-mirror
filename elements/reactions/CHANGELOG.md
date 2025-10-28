@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 33.6.0
+
+### Minor Changes
+
+- [`e120a04be28c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e120a04be28c8) -
+  [ux] Return focus to add reactions button after selecting emoji
+
+## 33.5.0
+
+### Minor Changes
+
+- [`b5eb7e7afc46a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5eb7e7afc46a) -
+  [ux] A11Y-9714: use unordered list markup for emojis in the reaction picker for screen reader a11y
+
 ## 33.4.1
 
 ### Patch Changes

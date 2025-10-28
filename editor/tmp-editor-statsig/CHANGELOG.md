@@ -1,5 +1,20 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.19.2
+
+### Patch Changes
+
+- [`71746e992b602`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71746e992b602) -
+  Add aa keys & exposure event for insert-block
+
+## 13.19.1
+
+### Patch Changes
+
+- [`da82d015556d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da82d015556d4) -
+  Fix a bug where repeatedly cloning the media plugin state would cause severe performance
+  degradation over time
+
 ## 13.19.0
 
 ### Minor Changes

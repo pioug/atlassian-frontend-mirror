@@ -10,7 +10,7 @@ export type SyncBlockAttrs = {
 export type SyncBlockNode = {
 	attrs: SyncBlockAttrs;
 	content?: Array<JSONNode>;
-	type: 'syncBlock';
+	type: 'syncBlock' | 'bodiedSyncBlock';
 };
 
 export enum SyncBlockStatus {

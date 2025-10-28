@@ -1,5 +1,28 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 2.2.4
+
+### Patch Changes
+
+- [`021d07c1b2d61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/021d07c1b2d61) -
+  Minor refactor of editor-synced-block-renderer
+
+## 2.2.3
+
+### Patch Changes
+
+- [`79981eddfbabb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79981eddfbabb) -
+  Remove schema check in nested renderer
+- Updated dependencies
+
+## 2.2.2
+
+### Patch Changes
+
+- [`62d0954696c7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62d0954696c7e) -
+  [ux] EDITOR-1648 handle permission denied, not found and any generic error for sync block
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

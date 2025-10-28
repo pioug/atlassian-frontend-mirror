@@ -176,13 +176,21 @@ function ComposableEditorPage() {
 			return {
 				label: 'Multiple Issues',
 				icon: AddIcon,
-				onClick: () => alert('Multiple issues clicked'),
+				onClick: () => {
+					showCreateButton('multiple');
+					selectedNodeAdfRef.current = selectionResult?.selectedNodeAdf;
+					selectionRangesRef.current = selectionResult?.selectionRanges;
+				},
 			};
 		} else {
 			return {
 				label: 'Single Issue',
 				icon: AddIcon,
-				onClick: () => alert('Single issue clicked'),
+				onClick: () => {
+					showCreateButton('single');
+					selectedNodeAdfRef.current = selectionResult?.selectedNodeAdf;
+					selectionRangesRef.current = selectionResult?.selectionRanges;
+				},
 			};
 		}
 	};
@@ -243,35 +251,6 @@ function ComposableEditorPage() {
 					pageModes: ['view', 'edit'],
 					extensions: {
 						firstParty: [
-							({ selectionRanges, selectedNodeAdf }) => {
-								if (
-									selectionRanges &&
-									Array.isArray(selectionRanges) &&
-									selectionRanges.length > 1
-								) {
-									return {
-										name: 'Create Multiple work items',
-										icon: AppIcon,
-										onClick: ({ selectionRanges, selectedNodeAdf }) => {
-											console.log(JSON.stringify({ selectionRanges, selectedNodeAdf }));
-											showCreateButton('multiple');
-											selectedNodeAdfRef.current = selectedNodeAdf;
-											selectionRangesRef.current = selectionRanges;
-										},
-									};
-								}
-
-								return {
-									name: 'Create work item',
-									icon: AppIcon,
-									onClick: ({ selectionRanges, selectedNodeAdf }) => {
-										console.log(JSON.stringify({ selectionRanges, selectedNodeAdf }));
-										showCreateButton('single');
-										selectedNodeAdfRef.current = selectedNodeAdf;
-										selectionRangesRef.current = selectionRanges;
-									},
-								};
-							},
 							{
 								name: 'Create Jira Issue',
 								onClick: (params) => {

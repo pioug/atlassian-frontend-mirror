@@ -1,9 +1,9 @@
+import { isSafeUrl } from '@atlaskit/adf-schema';
 import Link from '@atlaskit/link';
+import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource';
 import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import { InlineCard } from './';
-import { isSafeUrl } from '@atlaskit/adf-schema';
-import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource';
 
 type CardErrorBoundaryProps = {
 	unsupportedComponent: React.ComponentType<React.PropsWithChildren<unknown>>;

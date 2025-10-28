@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.16.3
+
+### Patch Changes
+
+- [`f65390f90cb53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f65390f90cb53) -
+  [ux] ED-29582 [Keyboard] When tab is pressed using keyboard shortcuts on selection toolbar, focus
+  should be moved away
+
 ## 0.16.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 3.4.1
+
+### Patch Changes
+
+- [`7aff1e36b43e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7aff1e36b43e1) -
+  Improve editor selection toolbar experience tracking
+- Updated dependencies
+
 ## 3.4.0
 
 ### Minor Changes

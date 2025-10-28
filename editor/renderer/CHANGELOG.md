@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 124.9.2
+
+### Patch Changes
+
+- [`627578acbbf46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/627578acbbf46) -
+  [ux] EDITOR-2554: Fix oversized status lozenge in TOC macro in content mode
+- Updated dependencies
+
+## 124.9.1
+
+### Patch Changes
+
+- [`62d0954696c7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62d0954696c7e) -
+  [ux] EDITOR-1648 handle permission denied, not found and any generic error for sync block
+- Updated dependencies
+
 ## 124.9.0
 
 ### Minor Changes

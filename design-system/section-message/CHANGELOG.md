@@ -1,5 +1,13 @@
 # @atlaskit/section-message
 
+## 8.8.0
+
+### Minor Changes
+
+- [`9da67d455336d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9da67d455336d) -
+  [ux] Updated default icons for discovery appearance from the 'question mark circle' icon to the
+  'discovery' icon.
+
 ## 8.7.8
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.8.0
+
+### Minor Changes
+
+- [`307bb9ca6972b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/307bb9ca6972b) -
+  Add analytics tracking for tool requests and errors
+
 ## 0.7.3
 
 ### Patch Changes

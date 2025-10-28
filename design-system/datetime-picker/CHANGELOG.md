@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 17.1.4
+
+### Patch Changes
+
+- [`16194129e5cdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16194129e5cdf) -
+  Refactor to use `noop` helper function over noop functions.
+- Updated dependencies
+
 ## 17.1.3
 
 ### Patch Changes

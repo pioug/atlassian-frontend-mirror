@@ -12,7 +12,7 @@ export const convertSyncBlockPMNodeToSyncBlockNode = (
 	const transformer = new JSONTransformer();
 	const toJSON = (node: PMNode) => transformer.encodeNode(node);
 	return {
-		type: 'syncBlock',
+		type: node.type.name === 'bodiedSyncBlock' ? 'bodiedSyncBlock' : 'syncBlock',
 		attrs: {
 			localId: node.attrs.localId,
 			resourceId: node.attrs.resourceId,

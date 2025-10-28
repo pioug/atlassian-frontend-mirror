@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 7.0.0
+
+### Major Changes
+
+- [`d152779f27d4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d152779f27d4f) -
+  Clean up feature gate platform_editor_selection_extension_api_v2 and unused code for extension
+  config as callback
+
 ## 6.0.13
 
 ### Patch Changes

@@ -18,7 +18,6 @@ snapshot(Basic, {
 
 snapshot(AppearanceVariations, {
 	featureFlags: {
-		platform_dst_section_message_discovery_icon: [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
 });

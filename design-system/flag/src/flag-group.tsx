@@ -193,6 +193,7 @@ const FlagGroup = (props: FlagGroupProps) => {
 		<div id={id} css={flagGroupContainerStyles} data-vc-oob>
 			{hasFlags ? (
 				<VisuallyHidden>
+					{/* @ts-ignore - TS2604/TS2786: LabelTag type union causing issues for help-center local consumption with TS 5.9.2 */}
 					<LabelTag>{label}</LabelTag>
 				</VisuallyHidden>
 			) : null}

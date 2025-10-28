@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 21.3.7
+
+### Patch Changes
+
+- [`2c386d1fc1477`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c386d1fc1477) -
+  ts-ignore added as a workaround for help-center local consumption
+- Updated dependencies
+
 ## 21.3.6
 
 ### Patch Changes

@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 110.18.6
+
+### Patch Changes
+
+- [`bbd03bed5ca41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbd03bed5ca41) -
+  [ux] ED-29587 Keyboard shortcuts break when navigating to and from dropdown menus
+- Updated dependencies
+
+## 110.18.5
+
+### Patch Changes
+
+- [`822ed20eeca65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/822ed20eeca65) -
+  Clean up platform_editor_fix_unsubscribe_of_provider
+- [`7aff1e36b43e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7aff1e36b43e1) -
+  Improve editor selection toolbar experience tracking
+- [`3cbddf575e48e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3cbddf575e48e) -
+  platform_editor_ai_open_chat_general_ai_fg clean up
+
 ## 110.18.4
 
 ### Patch Changes

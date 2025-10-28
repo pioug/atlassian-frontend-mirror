@@ -1,5 +1,12 @@
 # @atlaskit/inline-message
 
+## 15.4.1
+
+### Patch Changes
+
+- [`67dd9df06af0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67dd9df06af0f) -
+  Replace instances of the `a` tag with `Link` where applicable.
+
 ## 15.4.0
 
 ### Minor Changes

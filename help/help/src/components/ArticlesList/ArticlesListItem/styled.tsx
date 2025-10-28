@@ -100,7 +100,7 @@ const articlesListItemTitleTextStyles = css({
 
 export const ArticlesListItemTitleText = ({ children }: { children: React.ReactNode }) => (
 	<div css={articlesListItemTitleTextStyles}>
-		<Heading size="xsmall" as="h3">
+		<Heading size="xsmall" as="h4">
 			{children}
 		</Heading>
 	</div>

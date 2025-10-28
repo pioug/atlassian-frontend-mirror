@@ -1,5 +1,12 @@
 # @atlaskit/inline-dialog
 
+## 18.0.5
+
+### Patch Changes
+
+- [`67dd9df06af0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67dd9df06af0f) -
+  Replace instances of the `a` tag with `Link` where applicable.
+
 ## 18.0.4
 
 ### Patch Changes

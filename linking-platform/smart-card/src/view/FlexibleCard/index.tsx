@@ -119,7 +119,13 @@ const FlexibleCard = ({
 		switch (status) {
 			case SmartLinkStatus.Resolved:
 				if (onResolve) {
-					onResolve({ title, url });
+					onResolve({
+						title,
+						url,
+						...(fg('expose-product-details-from-smart-card') && {
+							extensionKey: details?.meta?.key,
+						}),
+					});
 				}
 				break;
 			case SmartLinkStatus.Errored:
@@ -132,7 +138,7 @@ const FlexibleCard = ({
 				}
 				break;
 		}
-	}, [onError, onResolve, status, title, url]);
+	}, [onError, onResolve, status, title, url, details?.meta?.key]);
 
 	const retry = flexibleCardContext.data?.actions?.[InternalActionName.UnresolvedAction];
 

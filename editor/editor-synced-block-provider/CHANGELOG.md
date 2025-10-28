@@ -1,5 +1,24 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.2.0
+
+### Minor Changes
+
+- [`49860e3111ce8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49860e3111ce8) -
+  [ux] [EDITOR-2481] Implement plugin action flushBodiedSyncBlocks so that bodied sync block content
+  is only updated when required
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.2
+
+### Patch Changes
+
+- [`62d0954696c7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62d0954696c7e) -
+  [ux] EDITOR-1648 handle permission denied, not found and any generic error for sync block
+
 ## 2.1.1
 
 ### Patch Changes

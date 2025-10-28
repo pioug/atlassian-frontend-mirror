@@ -74,6 +74,10 @@ import {
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
+// SideNavPanelSplitter is not publicly exported yet, so we need to import it directly from the src folder.
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
+import { SideNavPanelSplitter } from '../src/ui/page-layout/panel-splitter/side-nav-panel-splitter';
+
 import { CardGrid } from './utils/card-grid';
 import { WithResponsiveViewport } from './utils/example-utils';
 import { LongPlaceholderContent } from './utils/long-placeholder-content';
@@ -119,9 +123,6 @@ const defaultSlotWidths = {
 	panel: 350,
 	aside: 400,
 };
-
-// Placed outside of component so it isn't recreated on every render
-const sideNavToggleButtonTooltipShortcut = ['Ctrl', '['];
 
 function Example() {
 	const [direction, setDirection] = useState<'ltr' | 'rtl'>('ltr');
@@ -176,11 +177,7 @@ function Example() {
 				<TopNav>
 					<TopNavStart
 						sideNavToggleButton={
-							<SideNavToggleButton
-								collapseLabel="Collapse sidebar"
-								expandLabel="Expand sidebar"
-								shortcut={sideNavToggleButtonTooltipShortcut}
-							/>
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
 						}
 					>
 						<AppSwitcher label="Switch apps" />
@@ -267,9 +264,10 @@ function Example() {
 					<SideNavFooter>
 						<Text>Sidebar footer</Text>
 					</SideNavFooter>
-					<PanelSplitter
+					<SideNavPanelSplitter
 						label="Resize side nav"
 						onResizeEnd={({ finalWidth }) => setPersistedSideNavWidth(finalWidth)}
+						tooltipContent="Double click to collapse"
 					/>
 				</SideNav>
 

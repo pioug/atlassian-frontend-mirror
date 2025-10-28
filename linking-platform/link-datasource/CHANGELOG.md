@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 4.27.3
+
+### Patch Changes
+
+- [`af2532cac21dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af2532cac21dc) -
+  [ux] Update product logo to use new design, behind fg navx-1895-new-logo-design
+
 ## 4.27.2
 
 ### Patch Changes

@@ -15,7 +15,6 @@ import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 
 import type {
-	DynamicSelectionExtension,
 	SelectionAdfResult,
 	InsertAdfAtEndOfDocResult,
 	ReplaceWithAdfResult,
@@ -43,7 +42,7 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 				extension,
 				selection,
 			}: {
-				extension: SelectionExtension | DynamicSelectionExtension | ExtensionMenuItemConfiguration;
+				extension: SelectionExtension | ExtensionMenuItemConfiguration;
 				selection: SelectionExtensionSelectionInfo;
 			}) => EditorCommand;
 		};

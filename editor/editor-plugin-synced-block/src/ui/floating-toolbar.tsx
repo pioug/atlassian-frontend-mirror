@@ -24,7 +24,7 @@ import {
 	copySyncedBlockReferenceToClipboard,
 	editSyncedBlockSource,
 	removeSyncedBlock,
-} from '../pm-plugins/actions';
+} from '../editor-commands';
 import { findSyncBlockOrBodiedSyncBlock, isBodiedSyncBlockNode } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 

@@ -1,5 +1,13 @@
 # @atlaskit/flag
 
+## 17.5.3
+
+### Patch Changes
+
+- [`2c386d1fc1477`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c386d1fc1477) -
+  ts-ignore added as a workaround for help-center local consumption
+- Updated dependencies
+
 ## 17.5.2
 
 ### Patch Changes

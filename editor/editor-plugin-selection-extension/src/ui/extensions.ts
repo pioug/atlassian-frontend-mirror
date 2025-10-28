@@ -5,7 +5,7 @@ import type {
 	GetBlockMenuNestedItemsFn,
 	GetMenuItemsFn,
 	GetToolbarItemFn,
-	SelectionExtensionConfig,
+	SelectionExtension,
 } from '../types';
 
 export type ToolbarItemExtension = {
@@ -42,18 +42,18 @@ export const getToolbarItemExtensions = (
  * From the full list of extensions, extract only those that have a menu item configuration
  * for the specified source (either 'first-party' or 'external').
  *
- * Map each to the legacy format for SelectionExtensionConfig.
+ * Map each to the legacy format for SelectionExtension.
  *
  * @param extensionList - List of all extensions
  * @param targetSource - Source of the extensions ('first-party' or 'external')
- * @returns Array of SelectionExtensionConfig objects
+ * @returns Array of SelectionExtension objects
  * @example
  */
 export const getMenuItemExtensions = (
 	extensionList: ExtensionConfiguration[],
 	targetSource: ExtensionSource,
-): SelectionExtensionConfig[] => {
-	return extensionList.reduce<SelectionExtensionConfig[]>((acc, extension) => {
+): SelectionExtension[] => {
+	return extensionList.reduce<SelectionExtension[]>((acc, extension) => {
 		const { source, inlineToolbar } = extension;
 		if (source === targetSource && inlineToolbar?.getMenuItems && !inlineToolbar.getToolbarItem) {
 			const menuItems = inlineToolbar.getMenuItems();

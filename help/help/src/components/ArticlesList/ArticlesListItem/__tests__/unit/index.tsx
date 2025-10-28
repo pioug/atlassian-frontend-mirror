@@ -69,12 +69,12 @@ describe('ArticlesListItem', () => {
 	//   expect(TypeHelpArticleElm).not.toBeNull();
 	// });
 
-	it('should render the title as a level 3 heading', () => {
+	it('should render the title as a level 4 heading', () => {
 		const { getByRole } = render(
 			<ArticlesListItem intl={intl} {...mockArticleItem} onClick={mockOnClick} />,
 		);
 
-		const heading = getByRole('heading', { level: 3 });
+		const heading = getByRole('heading', { level: 4 });
 		expect(heading).toBeVisible();
 		expect(heading).toHaveTextContent(mockArticleItem.title);
 	});

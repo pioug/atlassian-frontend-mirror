@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.12.5
+
+### Patch Changes
+
+- [`5976942ba053c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5976942ba053c) -
+  Additional fixes for display contents children handling in TTVC
+
 ## 4.12.4
 
 ### Patch Changes

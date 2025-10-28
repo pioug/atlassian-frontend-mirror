@@ -59,6 +59,16 @@ export type SyncedBlockPluginOptions = {
 export type SyncedBlockPlugin = NextEditorPlugin<
 	'syncedBlock',
 	{
+		actions: {
+			/**
+			 * Save content of bodiedSyncBlock nodes in local cache to backend.
+			 * This action allows bodiedSyncBlock to be saved in sync with product saving experience
+			 * as per {@link https://hello.atlassian.net/wiki/spaces/egcuc/pages/5932393240/Synced+Blocks+Save+refresh+principles}
+			 *
+			 * @returns true if saving all nodes successfully, false if fail to save some/all nodes
+			 */
+			flushBodiedSyncBlocks: () => Promise<boolean>;
+		};
 		commands: {
 			insertSyncedBlock: () => EditorCommand;
 		};

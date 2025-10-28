@@ -26,6 +26,10 @@ snapshot(SideNavToggleButtonVR, {
 		},
 	],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform-dst-tooltip-shortcuts': true,
+		'navx-full-height-sidebar': true,
+	},
 	variants: lightModeVariant,
 });
 
@@ -45,6 +49,7 @@ snapshot(SideNavToggleButtonWithShortcutVR, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-dst-tooltip-shortcuts': true,
+		'navx-full-height-sidebar': true,
 	},
 	variants: lightModeVariant,
 });

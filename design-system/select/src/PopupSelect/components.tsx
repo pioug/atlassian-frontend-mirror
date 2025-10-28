@@ -84,6 +84,7 @@ const controlStyles = css({
 
 const Control: FC<ControlProps<OptionType, boolean>> = ({ innerRef, innerProps, ...props }) => (
 	<div ref={innerRef} css={controlStyles}>
+		{/* @ts-ignore - TS2322: Complex generic type causing issues for help-center local consumption with TS 5.9.2 */}
 		<components.Control {...(props as ControlProps<OptionType, boolean>)} innerProps={innerProps} />
 	</div>
 );
@@ -95,6 +96,7 @@ const Control: FC<ControlProps<OptionType, boolean>> = ({ innerRef, innerProps, 
 export const DummyControl: FC<ControlProps<OptionType, boolean>> = (props) => (
 	<VisuallyHidden>
 		{/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
+		{/* @ts-ignore - TS2322: Complex generic type causing issues for help-center local consumption with TS 5.9.2 */}
 		<components.Control {...props} />
 	</VisuallyHidden>
 );

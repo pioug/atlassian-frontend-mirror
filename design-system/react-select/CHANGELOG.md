@@ -1,5 +1,12 @@
 # @atlaskit/react-select
 
+## 3.8.5
+
+### Patch Changes
+
+- [`2c386d1fc1477`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c386d1fc1477) -
+  ts-ignore added as a workaround for help-center local consumption
+
 ## 3.8.4
 
 ### Patch Changes

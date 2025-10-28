@@ -73,6 +73,14 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		},
 	);
 
+	it('should not have accessibility violations', async () => {
+		(fg as jest.Mock).mockImplementation(
+			(gate) => gate === 'platform_emoji_picker_focus_on_button',
+		);
+		const { container } = renderWithIntl(renderPicker());
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render a trigger button', async () => {
 		renderWithIntl(renderPicker());
 		const triggerPickerButton = await screen.findByLabelText('Add reaction');
@@ -118,7 +126,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		expect(selectorButtons[0]).not.toHaveFocus();
 	});
 
-	it('should call "onSelection" when an emoji is seleted', async () => {
+	it('should call "onSelection" when an emoji is selected', async () => {
 		renderWithIntl(renderPicker(onSelectionSpy));
 		const triggerPickerButton = await screen.findByLabelText('Add reaction');
 		const btn = triggerPickerButton.closest('button');
@@ -136,6 +144,30 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		await waitFor(() => {
 			expect(onSelectionSpy).toHaveBeenCalled();
 		});
+	});
+
+	it('should call "onSelection" when an emoji is selected and also focus the trigger button', async () => {
+		(fg as jest.Mock).mockImplementation(
+			(gate) => gate === 'platform_emoji_picker_focus_on_button',
+		);
+		const mockOnCancel = jest.fn();
+		renderWithIntl(renderPicker(onSelectionSpy, false, mockOnCancel));
+		const triggerPickerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
+		expect(triggerPickerButton).toBeInTheDocument();
+		await user.click(triggerPickerButton);
+		requestAnimationFrame.step();
+
+		const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
+		expect(selectorButtons).toBeDefined();
+		const firstEmoji = selectorButtons[0];
+		await user.click(firstEmoji);
+
+		await waitFor(() => {
+			expect(onSelectionSpy).toHaveBeenCalled();
+		});
+		requestAnimationFrame.step();
+		expect(screen.queryByTestId(RENDER_REACTIONPICKERPANEL_TESTID)).not.toBeInTheDocument();
+		expect(triggerPickerButton).toHaveFocus();
 	});
 
 	it('should disable trigger', async () => {

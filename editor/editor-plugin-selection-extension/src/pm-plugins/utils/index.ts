@@ -84,8 +84,7 @@ export const getSelectionTextInfo = (
 		? api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition
 		: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
 	const isEditMode = Boolean(api?.editorViewMode?.sharedState.currentState()?.mode === 'edit');
-	const shouldOffsetToolbarHeight =
-		toolbarDocking === 'top' && isEditMode && fg('platform_editor_selection_extension_api_v2');
+	const shouldOffsetToolbarHeight = toolbarDocking === 'top' && isEditMode;
 
 	const { from, to } = currentSelection;
 	const text = view.state.doc.textBetween(from, to, '\n');

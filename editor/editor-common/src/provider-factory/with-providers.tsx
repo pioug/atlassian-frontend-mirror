@@ -1,8 +1,6 @@
 /* eslint-disable @repo/internal/react/no-class-components */
 import { PureComponent } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type ProviderFactory from './provider-factory';
 import type { ProviderName, Providers } from './types';
 
@@ -43,12 +41,7 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
 		const { providers, providerFactory } = this.props;
 
 		providers.forEach((name) => {
-			providerFactory.unsubscribe(
-				name,
-				fg('platform_editor_fix_unsubscribe_of_provider')
-					? this.handleProviderIfMounted
-					: this.handleProvider,
-			);
+			providerFactory.unsubscribe(name, this.handleProviderIfMounted);
 		});
 	}
 

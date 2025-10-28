@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 7.0.17
+
+### Patch Changes
+
+- [`71746e992b602`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71746e992b602) -
+  Add aa keys & exposure event for insert-block
+- Updated dependencies
+
 ## 7.0.16
 
 ### Patch Changes

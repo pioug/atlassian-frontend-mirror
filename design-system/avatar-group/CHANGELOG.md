@@ -1,5 +1,12 @@
 # @atlaskit/avatar-group
 
+## 12.4.0
+
+### Minor Changes
+
+- [`ac5c6b99586dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac5c6b99586dc) -
+  Add accessible name to group overflow section.
+
 ## 12.3.3
 
 ### Patch Changes

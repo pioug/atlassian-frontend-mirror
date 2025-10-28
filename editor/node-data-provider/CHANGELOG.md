@@ -1,5 +1,16 @@
 # @atlaskit/node-data-provider
 
+## 7.3.0
+
+### Minor Changes
+
+- [`5319dac3f8740`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5319dac3f8740) -
+  Do not re-fetch emoji on a client after successful ssr
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.2
 
 ### Patch Changes

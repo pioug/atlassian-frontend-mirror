@@ -1,5 +1,7 @@
 import { createContext, type MutableRefObject } from 'react';
 
+import type { TooltipProps } from '@atlaskit/tooltip';
+
 import { type ResizeBounds } from './types';
 
 // Disabling the rule to allow for `Type` suffix, to differentiate from the Context object.
@@ -52,6 +54,13 @@ export type PanelSplitterContextType = {
 	 * If `false`, the panel splitter will not be rendered.
 	 */
 	isEnabled?: boolean;
+
+	/**
+	 * The keyboard shortcut to display in the tooltip.
+	 * Only used if the `platform-dst-tooltip-shortcuts` feature flag is enabled.
+	 * Note this does not handle the keyboard shortcut functionality, it only displays the shortcut in the tooltip.
+	 */
+	shortcut?: TooltipProps['shortcut'];
 };
 
 /**

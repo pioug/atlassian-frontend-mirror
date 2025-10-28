@@ -6,9 +6,10 @@ import React, { forwardRef } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import type { IconButtonProps } from '@atlaskit/button/new';
+import { type IconButtonProps } from '@atlaskit/button/new';
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	Anchor,
 	type AnchorProps,
@@ -18,6 +19,8 @@ import {
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden';
+
+import IconRenderer from '../icon-renderer';
 
 type ButtonAppearance = 'default' | 'primary' | 'subtle';
 
@@ -393,7 +396,11 @@ export const ThemedButton: React.ForwardRefExoticComponent<
 		<ThemedPressable {...props} ref={ref}>
 			{IconBefore && (
 				<span css={textButtonStyles.iconBefore}>
-					<IconBefore label="" color="currentColor" />
+					{fg('platform_themed_button_use_icon_renderer') ? (
+						<IconRenderer icon={IconBefore} />
+					) : (
+						<IconBefore label="" color="currentColor" />
+					)}
 				</span>
 			)}
 			<span css={textButtonStyles.text}>{children}</span>
@@ -506,7 +513,11 @@ export const ThemedIconButton: React.ForwardRefExoticComponent<
 						props.onBlur?.(e);
 					}}
 				>
-					<Icon label="" color="currentColor" />
+					{fg('platform_themed_button_use_icon_renderer') ? (
+						<IconRenderer icon={Icon} />
+					) : (
+						<Icon label="" color="currentColor" />
+					)}
 					<VisuallyHidden>{label}</VisuallyHidden>
 				</ThemedPressable>
 			)}

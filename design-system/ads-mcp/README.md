@@ -111,11 +111,69 @@ Add an entry to your `mcp.json` (eg. `~/.cursor/mcp.json` or wherever your MCP c
 	"mcpServers": {
 		"ads": {
 			"command": "npx",
-			"args": ["-y", "@atlaskit/ads-mcp"]
+			"args": ["-y", "@atlaskit/ads-mcp"],
+			"env": {
+				"ADSMCP_AGENT": "cursor"
+			}
 		}
 	}
 }
 ```
+
+### Environment Variables
+
+- `ADSMCP_AGENT` - Identifies the AI agent/platform using the MCP server. Supported values:
+  - `cursor` - Cursor editor
+  - `vscode` - Visual Studio Code
+  - `rovodev` - Rovo Development environment
+  - `codelassian` - Codelassian platform
+  - `unknown` - Default value when not specified
+  
+  The `ADSMCP_AGENT` variable helps track which platforms are using the MCP server for analytics purposes.
+
+- `ADSMCP_ANALYTICS_OPT_OUT` - Opt out of analytics collection. Set to `true` to disable:
+  ```json
+  {
+    "mcpServers": {
+      "ads": {
+        "command": "npx",
+        "args": ["-y", "@atlaskit/ads-mcp"],
+        "env": {
+          "ADSMCP_AGENT": "cursor",
+          "ADSMCP_ANALYTICS_OPT_OUT": true
+        }
+      }
+    }
+  }
+  ```
+
+## Analytics
+
+The MCP server includes built-in analytics to help improve the service. Analytics are sent to
+Atlassian's internal analytics system and track:
+
+### What We Track
+
+- **Tool Usage**: Which tools are being called (e.g., `ads_plan`, `ads_analyze_a11y`)
+- **Tool Parameters**: Arguments passed to tools (search terms, component names, etc.)
+- **Success/Failure**: Whether tool calls succeed or fail, including error messages
+- **Environment Context**:
+  - `agent`: The platform using the MCP server (from `ADSMCP_AGENT` env var)
+  - `os`: Operating system name (darwin, win32, linux)
+  - `osVersion`: Operating system version (e.g., 24.6.0 for macOS)
+  - `version`: The version of `@atlaskit/ads-mcp` being used
+  - `staffId`: User identifier (from `STAFF_ID`, `USER`, `ATLAS_USER`, or username)
+  - `timestamp`: When the event occurred
+
+### Privacy & Error Handling
+
+- Analytics are collected for internal Atlassian use only to improve the MCP server
+- **You can opt out** by setting `ADSMCP_ANALYTICS_OPT_OUT=true` in your environment variables
+- If the analytics client fails to initialize or send events, the MCP server continues to work
+  normally
+- All analytics errors are caught and logged, ensuring they never interrupt your workflow
+- Events are batched and flushed every 5 seconds for efficiency
+
 
 ## Development
 
@@ -130,7 +188,10 @@ running it from, but you should force it like so:
 			"args": [
 				"-y",
 				"~/git/atlassian/atlassian-frontend-monorepo/platform/packages/design-system/ads-mcp"
-			]
+			],
+			"env": {
+				"ADSMCP_AGENT": "cursor"
+			}
 		}
 	}
 }

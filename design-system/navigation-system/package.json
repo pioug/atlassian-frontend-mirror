@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "4.5.0",
+	"version": "5.0.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -219,9 +219,6 @@
 		"platform-dst-tooltip-shortcuts": {
 			"type": "boolean"
 		},
-		"platform_dst_nav4_side_nav_click_outside_fix": {
-			"type": "boolean"
-		},
 		"platform_dst_flyout_menu_item_chevron_color": {
 			"type": "boolean"
 		},
@@ -229,6 +226,12 @@
 			"type": "boolean"
 		},
 		"platform-dst-open-layer-observer-layer-type": {
+			"type": "boolean"
+		},
+		"platform_themed_button_use_icon_renderer": {
+			"type": "boolean"
+		},
+		"platform_dst_button_chevron_sizing": {
 			"type": "boolean"
 		}
 	},

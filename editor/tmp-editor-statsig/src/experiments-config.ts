@@ -1074,6 +1074,15 @@ export const editorExperimentsConfig = {
 		values: ['control', 'test_blank', 'test_diagram'],
 		defaultValue: 'control',
 	}),
+	// Added 2025-10-28
+	confluence_whiteboards_quick_insert_localised_aa: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'confluence_whiteboards_quick_insert_localised_aa',
+		},
+		param: 'cohort',
+		values: ['control', 'test_diagram'],
+		defaultValue: 'control',
+	}),
 	// Added 2025-10-22
 	platform_editor_remove_bidi_char_warning: createBooleanExperiment({
 		productKeys: {

@@ -152,18 +152,13 @@ export type PanelSplitterProps = {
 
 	/**
 	 * Displays a tooltip with the provided content.
+	 *
 	 * The `tooltipContent` will not be announced by screen readers because it pertains to the draggable element, which lacks keyboard functionality.
 	 * Use the `label` prop to provide accessible information about the panel splitter.
-	 * Only used if the `platform-dst-tooltip-shortcuts` feature flag is enabled.
+	 *
+	 * Only used if the `navx-full-height-sidebar` feature flag is enabled.
 	 */
 	tooltipContent?: TooltipProps['content'];
-
-	/**
-	 * The keyboard shortcut to display in the tooltip.
-	 * Only used if the `platform-dst-tooltip-shortcuts` feature flag is enabled.
-	 * Note this does not handle the keyboard shortcut functionality, it only displays the shortcut in the tooltip.
-	 */
-	shortcut?: TooltipProps['shortcut'];
 };
 
 type PanelSplitterDragData = {
@@ -180,15 +175,16 @@ function signPanelSplitterDragData(data: PanelSplitterDragData) {
 	return { ...data, [panelSplitterDragDataSymbol]: true };
 }
 
-type MaybeTooltipProps = Pick<PanelSplitterProps, 'tooltipContent' | 'shortcut'> & {
+type MaybeTooltipProps = Pick<PanelSplitterProps, 'tooltipContent'> & {
 	children: ReactNode;
+	shortcut?: TooltipProps['shortcut'];
 };
 
 /**
  * A wrapper component that renders a tooltip if the tooltipContent or shortcut is provided.
  */
 const MaybeTooltip = ({ tooltipContent, shortcut, children }: MaybeTooltipProps) => {
-	if ((tooltipContent || shortcut) && fg('platform-dst-tooltip-shortcuts')) {
+	if (tooltipContent && fg('navx-full-height-sidebar')) {
 		return (
 			<Tooltip
 				content={tooltipContent}
@@ -239,6 +235,7 @@ const PortaledPanelSplitter = ({
 		| 'getResizeBounds'
 		| 'resizingCssVar'
 		| 'position'
+		| 'shortcut'
 	>): ReactNode => {
 	const splitterRef = useRef<HTMLDivElement | null>(null);
 	const labelId = useId();
@@ -513,7 +510,6 @@ export const PanelSplitter = ({
 	onResizeEnd,
 	testId,
 	tooltipContent,
-	shortcut,
 }: PanelSplitterProps): ReactNode => {
 	const [panel, setPanel] = useState<HTMLElement | null>(null);
 	const [portal, setPortal] = useState<HTMLElement | null>(null);
@@ -529,6 +525,7 @@ export const PanelSplitter = ({
 		getResizeBounds,
 		resizingCssVar,
 		position,
+		shortcut,
 	} = context;
 
 	/**

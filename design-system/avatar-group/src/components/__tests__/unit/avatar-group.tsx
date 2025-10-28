@@ -152,6 +152,26 @@ describe('<AvatarGroup />', () => {
 		expect(screen.getByTestId('test--avatar-group-item-1')).toHaveAttribute('href', '#');
 	});
 
+	it('should set accessible name for dropdown using provided `label', async () => {
+		const user = userEvent.setup();
+		const label = 'label';
+
+		render(
+			<AvatarGroup
+				testId="test"
+				data={generateData({ avatarCount: 5 })}
+				// While max count is 4 - 2 items will be moved into the overflow menu
+				// because the fourth item will now be the trigger itself!
+				maxCount={4}
+				label={label}
+			/>,
+		);
+
+		await user.click(screen.getByTestId('test--overflow-menu--trigger'));
+		const overflowMenuSection = screen.getByTestId(/--section$/);
+		expect(overflowMenuSection).toHaveAccessibleName(label);
+	});
+
 	it('should set accessible name for avatar images when name prop is provided', async () => {
 		render(
 			<AvatarGroup
@@ -231,7 +251,8 @@ describe('<AvatarGroup />', () => {
 		const avatarsWithLabel = screen.queryAllByLabelText('Name', {
 			exact: false,
 		});
-		expect(avatarsWithLabel).toHaveLength(2);
+		// One is the section that groups the overflow, two are the avatars
+		expect(avatarsWithLabel).toHaveLength(3);
 
 		const avatarsWithLabelInMenu = within(overflowMenu).queryAllByLabelText('Name', {
 			exact: false,

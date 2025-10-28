@@ -1,13 +1,11 @@
-type ExperienceCheckSuccessResult = {
-	status: 'success';
-};
+import type { CustomData } from '@atlaskit/ufo';
 
-type ExperienceCheckFailureResult = {
-	reason?: string;
-	status: 'failure';
-};
+type ExperienceCheckResultStatus = 'success' | 'failure' | 'abort';
 
-export type ExperienceCheckResult = ExperienceCheckSuccessResult | ExperienceCheckFailureResult;
+export type ExperienceCheckResult = {
+	metadata?: CustomData;
+	status: ExperienceCheckResultStatus;
+};
 
 export type ExperienceCheckCallback = (result: ExperienceCheckResult) => void;
 

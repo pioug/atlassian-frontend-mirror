@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 215.8.7
+
+### Patch Changes
+
+- [`260fb52459987`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/260fb52459987) -
+  Don't let styles be applied to pages that don't have compact mode turned on
+- Updated dependencies
+
+## 215.8.6
+
+### Patch Changes
+
+- [`7aff1e36b43e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7aff1e36b43e1) -
+  Improve editor selection toolbar experience tracking
+- [`627578acbbf46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/627578acbbf46) -
+  [ux] EDITOR-2554: Fix oversized status lozenge in TOC macro in content mode
+- Updated dependencies
+
 ## 215.8.5
 
 ### Patch Changes

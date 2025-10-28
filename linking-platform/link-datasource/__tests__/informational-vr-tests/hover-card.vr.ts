@@ -22,5 +22,7 @@ snapshotInformational(VRIssueLikeTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {},
+	featureFlags: {
+		'navx-1895-new-logo-design': [true, false],
+	},
 });

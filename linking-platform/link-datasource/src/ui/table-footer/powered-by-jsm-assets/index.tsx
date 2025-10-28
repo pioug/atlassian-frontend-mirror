@@ -50,9 +50,17 @@ export const PoweredByJSMAssets = (props: { text: string }) => {
 				}}
 			>
 				{fg('assets_as_an_app_v2') ? (
-					<AssetsIcon size="small" />
+					<AssetsIcon
+						size="small"
+						{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
+					/>
 				) : (
-					<JiraServiceManagementIcon size="xxsmall" appearance="brand" label={props.text} />
+					<JiraServiceManagementIcon
+						size="xxsmall"
+						appearance="brand"
+						label={props.text}
+						{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
+					/>
 				)}
 				<Box
 					xcss={styles.jsmTextStyles}

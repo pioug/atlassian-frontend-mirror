@@ -8,7 +8,8 @@ import type { EditorCommand, PMPluginFactoryParams } from '@atlaskit/editor-comm
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
-import { createSyncedBlock } from './pm-plugins/actions';
+import { flushBodiedSyncBlocks } from './editor-actions';
+import { createSyncedBlock } from './editor-commands';
 import { createPlugin } from './pm-plugins/main';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
 import { getBlockMenuComponents } from './ui/block-menu-components';
@@ -54,6 +55,12 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 						tr,
 						syncBlockStore,
 					}) || null,
+		},
+
+		actions: {
+			flushBodiedSyncBlocks: () => {
+				return flushBodiedSyncBlocks(syncBlockStore);
+			},
 		},
 
 		pluginsOptions: {

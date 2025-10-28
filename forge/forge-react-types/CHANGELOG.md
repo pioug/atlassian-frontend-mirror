@@ -1,5 +1,18 @@
 # @atlaskit/forge-react-types
 
+## 0.46.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.46.1
+
+### Patch Changes
+
+- [`5424277535660`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5424277535660) -
+  Adds tests and testId prop to UI Kit FilePicker component
+
 ## 0.46.0
 
 ### Minor Changes

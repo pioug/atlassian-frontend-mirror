@@ -1,6 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, type SerializedStyles } from '@emotion/react';
 
+import type { EditorContentMode } from '@atlaskit/editor-common/types';
 import {
 	relativeFontSizeToBase16,
 	akEditorFullPageDenseFontSize,
@@ -19,7 +20,7 @@ import {
  * Creates the extension styles with the ability to use feature flags and experiments.
  * @returns Complete SerializedStyles including base styles and any feature-gated styles
  */
-export const getExtensionStyles = (): SerializedStyles => {
+export const getExtensionStyles = (contentMode?: EditorContentMode): SerializedStyles => {
 	const baseExtensionStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.multiBodiedExtensionView-content-wrap': {
@@ -418,12 +419,13 @@ export const getExtensionStyles = (): SerializedStyles => {
 		? relativeFontSizeToBase16(akEditorFullPageDenseFontSize)
 		: undefined;
 	const denseExtensionStyles =
+		(contentMode === 'compact' || contentMode === 'dense') &&
 		expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 		fg('platform_editor_content_mode_button_mvp')
 			? css({
 					// Table of Contents Macro
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-					'.extension-container [data-macro-name="toc"] *': {
+					'.extension-container [data-macro-name="toc"] * :not(.status-lozenge-span *)': {
 						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 						fontSize: 'var(--ak-editor-base-font-size)',
 					},
@@ -435,7 +437,8 @@ export const getExtensionStyles = (): SerializedStyles => {
 							fontSize: 'var(--ak-editor-base-font-size)',
 						},
 				})
-			: expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
+			: (contentMode === 'compact' || contentMode === 'dense') &&
+				  expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
 				? css({
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 						'.extension-container a span': {

@@ -325,27 +325,39 @@ export class EmojiNodeView implements NodeView {
 		imageElement.loading = 'lazy';
 		imageElement.alt = emojiDescription.name || emojiDescription.shortName;
 
-		if (representation.width && representation.height) {
-			imageElement.height = defaultEmojiHeight;
-			// Because img.width is round to the nearest integer.
-			imageElement.setAttribute(
-				'width',
-				`${(defaultEmojiHeight / representation.height) * representation.width}`,
-			);
+		if (expValEquals('platform_editor_emoji_otp', 'isEnabled', true)) {
+			imageElement.style.minWidth = `${defaultEmojiHeight}px`;
+			imageElement.style.objectFit = 'contain';
 		}
 
-		if (editorExperiment('platform_editor_offline_editing_web', true)) {
-			// If there's an error (ie. offline) render the ascii fallback if possible, otherwise
-			// mark the node to refresh when returning online.
-			imageElement.onerror = () => {
+		if (representation.width && representation.height) {
+			imageElement.height = defaultEmojiHeight;
+			if (!expValEquals('platform_editor_emoji_otp', 'isEnabled', true)) {
+				// Because img.width is round to the nearest integer.
+				imageElement.setAttribute(
+					'width',
+					`${(defaultEmojiHeight / representation.height) * representation.width}`,
+				);
+			}
+		}
+
+		imageElement.onerror = () => {
+			if (expValEquals('platform_editor_emoji_otp', 'isEnabled', true)) {
+				this.renderFallback();
+				return;
+			}
+
+			if (editorExperiment('platform_editor_offline_editing_web', true)) {
+				// If there's an error (ie. offline) render the ascii fallback if possible, otherwise
+				// mark the node to refresh when returning online.
 				// Create a check that confirms if this.node.attrs.text if an ascii emoji
 				if (isSingleEmoji(this.node.attrs.text)) {
 					this.renderFallback();
 				} else {
 					this.renderingFallback = true;
 				}
-			};
-		}
+			}
+		};
 
 		return imageElement;
 	}

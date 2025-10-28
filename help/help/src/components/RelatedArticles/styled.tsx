@@ -20,7 +20,7 @@ const relatedArticlesTitleStyles = css({
 
 export const RelatedArticlesTitle = ({ children }: { children: React.ReactNode }) => (
 	<div css={relatedArticlesTitleStyles}>
-		<Heading size="large" color="color.text">
+		<Heading size="large" as="h3" color="color.text">
 			{children}
 		</Heading>
 	</div>

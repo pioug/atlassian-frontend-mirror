@@ -61,6 +61,8 @@ const useResizeAwareElementBox = (element: HTMLElement, updateMethod: ResizeUpda
 				listener: onResize,
 			});
 		}
+
+		return () => {};
 	}, [element, updateMethod]);
 
 	return box;

@@ -11,7 +11,6 @@ import type {
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -26,10 +25,8 @@ import {
 import type { SelectionExtensionPlugin } from './selectionExtensionPluginType';
 import {
 	SelectionExtensionActionTypes,
-	type DynamicSelectionExtension,
 	type SelectionExtension,
 	type SelectionExtensionCallbackOptions,
-	type SelectionExtensionConfig,
 } from './types';
 import { SelectionExtensionComponentWrapper } from './ui/extension/SelectionExtensionComponentWrapper';
 import { getMenuItemExtensions, getToolbarItemExtensions } from './ui/extensions';
@@ -37,8 +34,6 @@ import { LegacyPrimaryToolbarComponent } from './ui/LegacyToolbarComponent';
 import { selectionToolbar } from './ui/selectionToolbar';
 import { getToolbarComponents } from './ui/toolbar-components';
 import { registerBlockMenuItems } from './ui/utils/registerBlockMenuItems';
-
-type SelectionExtensionStaticOrDynamic = SelectionExtension | DynamicSelectionExtension;
 
 export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config }) => {
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
@@ -49,7 +44,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 	const { extensionList = [], extensions = {} } = config || {};
 	const { firstParty = [], external = [] } = extensions || {};
 
-	if (!isToolbarAIFCEnabled && fg('platform_editor_selection_extension_api_v2')) {
+	if (!isToolbarAIFCEnabled) {
 		const primaryToolbarItemExtensions = getToolbarItemExtensions(extensionList, 'primaryToolbar');
 
 		if (primaryToolbarItemExtensions?.length) {
@@ -199,7 +194,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 						}
 
 						const handleOnExtensionClick =
-							(view: EditorView) => (extension: SelectionExtensionStaticOrDynamic) => {
+							(view: EditorView) => (extension: SelectionExtension) => {
 								const selection = getSelectionTextInfo(view, api);
 
 								if (extension.component) {
@@ -211,31 +206,26 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 									);
 								}
 
-								let onClickCallbackOptions: SelectionExtensionCallbackOptions = { selection };
+								const { selectedNodeAdf, selectionRanges, selectedNode, nodePos } =
+									getSelectionAdfInfo(view.state);
+								const onClickCallbackOptions: SelectionExtensionCallbackOptions = {
+									selectedNodeAdf,
+									selectionRanges,
+								};
+								extension.onClick?.(onClickCallbackOptions);
 
-								if (fg('platform_editor_selection_extension_api_v2')) {
-									const { selectedNodeAdf, selectionRanges, selectedNode, nodePos } =
-										getSelectionAdfInfo(view.state);
-									onClickCallbackOptions = { selectedNodeAdf, selectionRanges };
-									extension.onClick?.(onClickCallbackOptions);
-
-									api?.core?.actions.execute(({ tr }) => {
-										tr.setMeta(selectionExtensionPluginKey, {
-											type: SelectionExtensionActionTypes.SET_SELECTED_NODE,
-											selectedNode,
-											nodePos,
-										});
-										return tr;
+								api?.core?.actions.execute(({ tr }) => {
+									tr.setMeta(selectionExtensionPluginKey, {
+										type: SelectionExtensionActionTypes.SET_SELECTED_NODE,
+										selectedNode,
+										nodePos,
 									});
-								} else {
-									if (extension.onClick) {
-										extension.onClick(onClickCallbackOptions);
-									}
-								}
+									return tr;
+								});
 							};
 
 						const convertExtensionToDropdownMenuItem = (
-							extension: SelectionExtensionStaticOrDynamic,
+							extension: SelectionExtension,
 							rank?: number,
 						) => {
 							const disabled =
@@ -258,53 +248,21 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 							} as OverflowDropdownOption<Command>;
 						};
 
-						const getConfigFromExtensionCallback = (extension: SelectionExtensionConfig) => {
-							if (typeof extension === 'function') {
-								const { selectedNodeAdf, selectionRanges } = getSelectionAdfInfo(state);
-								return extension({
-									selectedNodeAdf,
-									selectionRanges,
-								});
-							}
-							return extension;
-						};
-
-						const prefilterExtensions = (
-							extensions: SelectionExtensionConfig[],
-						): SelectionExtensionConfig[] => {
-							// this is to prevent integration issues when passing in a function as an extension
-							// but not having platform_editor_selection_extension_api_v2 FG on
-							if (!fg('platform_editor_selection_extension_api_v2')) {
-								return extensions.filter((ext) => typeof ext !== 'function');
-							}
-							return extensions;
-						};
-
-						const getFirstPartyExtensions = (extensions: SelectionExtensionConfig[]) => {
-							const prefilteredExtensions = prefilterExtensions(extensions);
-
-							return prefilteredExtensions.map((extension) => {
-								const ext = fg('platform_editor_selection_extension_api_v2')
-									? getConfigFromExtensionCallback(extension)
-									: extension;
-								return convertExtensionToDropdownMenuItem(ext, 30);
+						const getFirstPartyExtensions = (extensions: SelectionExtension[]) => {
+							return extensions.map((extension) => {
+								return convertExtensionToDropdownMenuItem(extension, 30);
 							});
 						};
 
 						// Add a heading to the external extensions
-						const getExternalExtensions = (extensions: SelectionExtensionConfig[]) => {
-							const prefilteredExtensions = prefilterExtensions(extensions);
-
+						const getExternalExtensions = (extensions: SelectionExtension[]) => {
 							let externalExtensions: (
 								| OverflowDropdownOption<Command>
 								| OverflowDropdownHeading
 							)[] = [];
-							if (prefilteredExtensions?.length) {
-								externalExtensions = prefilteredExtensions.map((extension) => {
-									const ext = fg('platform_editor_selection_extension_api_v2')
-										? getConfigFromExtensionCallback(extension)
-										: extension;
-									return convertExtensionToDropdownMenuItem(ext);
+							if (extensions?.length) {
+								externalExtensions = extensions.map((extension) => {
+									return convertExtensionToDropdownMenuItem(extension);
 								});
 
 								const externalExtensionsHeading: OverflowDropdownHeading = {
@@ -318,27 +276,18 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 
 						// NEXT PR: Make sure we cache the whole generated selection toolbar
 						// also debug this to make sure it's actually preventing unnecessary re-renders / work
-						if (
-							cachedOverflowMenuOptions &&
-							state.selection.eq(cachedSelection) &&
-							fg('platform_editor_selection_extension_api_v2')
-						) {
+						if (cachedOverflowMenuOptions && state.selection.eq(cachedSelection)) {
 							return selectionToolbar({
 								overflowOptions: cachedOverflowMenuOptions,
 								extensionList,
 							});
 						}
 
-						let allFirstParty = [...firstParty];
-						let allExternal = [...external];
-
-						if (fg('platform_editor_selection_extension_api_v2')) {
-							allFirstParty = [
-								...firstParty,
-								...getMenuItemExtensions(extensionList, 'first-party'),
-							];
-							allExternal = [...external, ...getMenuItemExtensions(extensionList, 'external')];
-						}
+						const allFirstParty = [
+							...firstParty,
+							...getMenuItemExtensions(extensionList, 'first-party'),
+						];
+						const allExternal = [...external, ...getMenuItemExtensions(extensionList, 'external')];
 
 						const groupedExtensionsArray = [
 							...getFirstPartyExtensions(allFirstParty),

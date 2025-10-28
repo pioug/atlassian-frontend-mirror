@@ -37,6 +37,7 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 import type { insertBlockPlugin } from '../../insertBlockPlugin';
@@ -93,6 +94,10 @@ export const filterForPinWhiteboardsExperiment = (
 			return featuredItems.filter((item) => ![DIAGRAM_TITLE, BLANK_TITLE].includes(item.title));
 		} else {
 			if (fg('confluence-whiteboards-quick-insert-l10n-eligible')) {
+				// Fire exposure for confluence_whiteboards_quick_insert_localised_aa
+				// https://switcheroo.atlassian.com/ui/gates/ccd80d32-28a1-4dcf-b3f9-dbdc02a046ff/key/confluence_whiteboards_quick_insert_localised_aa
+				expVal('confluence_whiteboards_quick_insert_localised_aa', 'cohort', 'test_diagram');
+
 				/** BEGIN locale agnostic path */
 
 				/**

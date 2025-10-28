@@ -134,12 +134,11 @@ const DatePicker: React.ForwardRefExoticComponent<
 		isRequired = false,
 		label = '',
 		name = '',
-		// eslint-disable-next-line @repo/internal/react/use-noop
+		/* eslint-disable @repo/internal/react/use-noop */
 		onBlur = (_event: React.FocusEvent<HTMLInputElement>) => {},
-		// eslint-disable-next-line @repo/internal/react/use-noop
 		onChange: onChangeProp = (_value: string) => {},
-		// eslint-disable-next-line @repo/internal/react/use-noop
 		onFocus = (_event: React.FocusEvent<HTMLInputElement>) => {},
+		/* eslint-enable @repo/internal/react/use-noop */
 		selectProps = {},
 		shouldShowCalendarButton,
 		spacing = 'default' as Spacing,

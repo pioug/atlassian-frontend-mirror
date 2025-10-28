@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { act, render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 import { renderToString } from 'react-dom/server';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';
 import { SideNavToggleButton } from '../../side-nav/toggle-button';
 import { TopNav } from '../../top-nav/top-nav';
+import { TopNavStart } from '../../top-nav/top-nav-start';
 
 import {
 	filterFromConsoleErrorOutput,
@@ -18,6 +18,18 @@ import {
 	resetMatchMedia,
 	setMediaQuery,
 } from './_test-utils';
+
+/**
+ * In this test suite, we need to use `fireEvent` instead of `userEvent` when interacting with
+ * elements inside of `TopNav` when the full height sidebar feature flag is enabled, to work around a Compiled bug.
+ *
+ * TopNav applies `pointer-events: none`, and its child `TopNavStart` applies `pointer-events: auto`.
+ * However, the `pointer-events: auto` style is not being inserted into the test environment.
+ *
+ * https://atlassian.slack.com/archives/C017XR8K1RB/p1756949097822119
+ */
+
+const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
 describe('SideNavToggleButton', () => {
 	let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
@@ -31,6 +43,11 @@ describe('SideNavToggleButton', () => {
 
 	beforeEach(() => {
 		resetMatchMedia();
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		jest.useRealTimers();
 	});
 
 	ffTest.on('platform-dst-tooltip-shortcuts', 'tooltip', () => {
@@ -39,7 +56,7 @@ describe('SideNavToggleButton', () => {
 		});
 
 		it('should display the correct tooltip when the side nav is collapsed', async () => {
-			const user = userEvent.setup();
+			const user = createUser();
 
 			render(
 				<SideNavToggleButton
@@ -50,120 +67,140 @@ describe('SideNavToggleButton', () => {
 			);
 
 			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			act(() => {
+				jest.runAllTimers();
+			});
 
 			expect(await screen.findByRole('tooltip', { name: 'Expand sidebar' })).toBeInTheDocument();
 		});
 
 		it('should display the correct tooltip when the side nav is expanded', async () => {
-			const user = userEvent.setup();
+			const user = createUser();
 
 			render(<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />);
 
 			await user.hover(screen.getByRole('button', { name: 'Collapse sidebar' }));
+			act(() => {
+				jest.runAllTimers();
+			});
 
 			expect(await screen.findByRole('tooltip', { name: 'Collapse sidebar' })).toBeInTheDocument();
 		});
 
-		it('should include the provided keyboard shortcut in the tooltip when side nav is collapsed', async () => {
-			const user = userEvent.setup();
+		ffTest.on('navx-full-height-sidebar', 'FHS flag enabled', () => {
+			ffTest.on(
+				'platform_dst_nav4_side_nav_default_collapsed_api',
+				'default collapsed API flag enabled',
+				() => {
+					it('should include the built-in keyboard shortcut in the tooltip when side nav is collapsed and the shortcut is enabled on Root', async () => {
+						render(
+							<Root isSideNavShortcutEnabled defaultSideNavCollapsed>
+								<TopNav>
+									<TopNavStart
+										sideNavToggleButton={
+											<SideNavToggleButton
+												collapseLabel="Collapse sidebar"
+												expandLabel="Expand sidebar"
+											/>
+										}
+									>
+										top nav start
+									</TopNavStart>
+								</TopNav>
+							</Root>,
+						);
 
-			render(
-				<SideNavToggleButton
-					collapseLabel="Collapse sidebar"
-					expandLabel="Expand sidebar"
-					defaultCollapsed
-					shortcut={['Ctrl', '[']}
-				/>,
+						fireEvent.mouseOver(screen.getByRole('button', { name: 'Expand sidebar' }));
+						act(() => {
+							jest.runAllTimers();
+						});
+
+						expect(
+							await screen.findByRole('tooltip', { name: 'Expand sidebar Ctrl [' }),
+						).toBeInTheDocument();
+					});
+
+					it('should include the built-in keyboard shortcut in the tooltip when side nav is expanded and the shortcut is enabled on Root', async () => {
+						render(
+							<Root isSideNavShortcutEnabled>
+								<TopNav>
+									<SideNavToggleButton
+										collapseLabel="Collapse sidebar"
+										expandLabel="Expand sidebar"
+									/>
+								</TopNav>
+							</Root>,
+						);
+
+						fireEvent.mouseOver(screen.getByRole('button', { name: 'Collapse sidebar' }));
+						act(() => {
+							jest.runAllTimers();
+						});
+
+						expect(
+							await screen.findByRole('tooltip', { name: 'Collapse sidebar Ctrl [' }),
+						).toBeInTheDocument();
+					});
+
+					it('should not include the built-in keyboard shortcut in the tooltip when the shortcut is disabled on Root', async () => {
+						render(
+							<Root isSideNavShortcutEnabled={false} defaultSideNavCollapsed>
+								<TopNav>
+									<TopNavStart
+										sideNavToggleButton={
+											<SideNavToggleButton
+												collapseLabel="Collapse sidebar"
+												expandLabel="Expand sidebar"
+											/>
+										}
+									>
+										top nav start
+									</TopNavStart>
+								</TopNav>
+							</Root>,
+						);
+
+						fireEvent.mouseOver(screen.getByRole('button', { name: 'Expand sidebar' }));
+						act(() => {
+							jest.runAllTimers();
+						});
+
+						expect(
+							// Tooltip does not include keyboard shortcut
+							await screen.findByRole('tooltip', { name: 'Expand sidebar' }),
+						).toBeInTheDocument();
+					});
+
+					it('should not include the built-in keyboard shortcut in the tooltip when the isSideNavShortcutEnabled prop on Root is not provided', async () => {
+						render(
+							<Root defaultSideNavCollapsed>
+								<TopNav>
+									<TopNavStart
+										sideNavToggleButton={
+											<SideNavToggleButton
+												collapseLabel="Collapse sidebar"
+												expandLabel="Expand sidebar"
+											/>
+										}
+									>
+										top nav start
+									</TopNavStart>
+								</TopNav>
+							</Root>,
+						);
+
+						fireEvent.mouseOver(screen.getByRole('button', { name: 'Expand sidebar' }));
+						act(() => {
+							jest.runAllTimers();
+						});
+
+						expect(
+							// Tooltip does not include keyboard shortcut
+							await screen.findByRole('tooltip', { name: 'Expand sidebar' }),
+						).toBeInTheDocument();
+					});
+				},
 			);
-
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
-
-			expect(
-				await screen.findByRole('tooltip', { name: 'Expand sidebar Ctrl [' }),
-			).toBeInTheDocument();
-		});
-
-		it('should include the provided keyboard shortcut in the tooltip when side nav is expanded', async () => {
-			const user = userEvent.setup();
-
-			render(
-				<SideNavToggleButton
-					collapseLabel="Collapse sidebar"
-					expandLabel="Expand sidebar"
-					shortcut={['Ctrl', '[']}
-				/>,
-			);
-
-			await user.hover(screen.getByRole('button', { name: 'Collapse sidebar' }));
-
-			expect(
-				await screen.findByRole('tooltip', { name: 'Collapse sidebar Ctrl [' }),
-			).toBeInTheDocument();
-		});
-	});
-
-	ffTest.off('platform-dst-tooltip-shortcuts', 'tooltip', () => {
-		beforeEach(() => {
-			setMediaQuery('(min-width: 64rem)', { initial: true });
-		});
-
-		it('should display the correct tooltip when the side nav is hidden', async () => {
-			const user = userEvent.setup();
-
-			render(
-				<SideNavToggleButton
-					collapseLabel="Collapse sidebar"
-					expandLabel="Expand sidebar"
-					defaultCollapsed
-				/>,
-			);
-
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
-
-			expect(await screen.findByRole('tooltip', { name: 'Expand sidebar' })).toBeInTheDocument();
-		});
-
-		it('should display the correct tooltip when the side nav is visible', async () => {
-			const user = userEvent.setup();
-
-			render(<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />);
-
-			await user.hover(screen.getByRole('button', { name: 'Collapse sidebar' }));
-
-			expect(await screen.findByRole('tooltip', { name: 'Collapse sidebar' })).toBeInTheDocument();
-		});
-
-		it('should not include the provided keyboard shortcut in the tooltip when side nav is collapsed', async () => {
-			const user = userEvent.setup();
-
-			render(
-				<SideNavToggleButton
-					collapseLabel="Collapse sidebar"
-					expandLabel="Expand sidebar"
-					defaultCollapsed
-					shortcut={['Ctrl', '[']}
-				/>,
-			);
-
-			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
-
-			expect(await screen.findByRole('tooltip', { name: 'Expand sidebar' })).toBeInTheDocument();
-		});
-
-		it('should not include the provided keyboard shortcut in the tooltip when side nav is expanded', async () => {
-			const user = userEvent.setup();
-
-			render(
-				<SideNavToggleButton
-					collapseLabel="Collapse sidebar"
-					expandLabel="Expand sidebar"
-					shortcut={['Ctrl', '[']}
-				/>,
-			);
-
-			await user.hover(screen.getByRole('button', { name: 'Collapse sidebar' }));
-
-			expect(await screen.findByRole('tooltip', { name: 'Collapse sidebar' })).toBeInTheDocument();
 		});
 	});
 
@@ -173,7 +210,7 @@ describe('SideNavToggleButton', () => {
 		});
 
 		it('should be called when expanding with correct arguments', async () => {
-			const user = userEvent.setup();
+			const user = createUser();
 			const onClickHandlerMock = jest.fn();
 			render(
 				// Wrapping in Root to provide contexts
@@ -203,7 +240,7 @@ describe('SideNavToggleButton', () => {
 		});
 
 		it('should be called when collapsing with correct arguments', async () => {
-			const user = userEvent.setup();
+			const user = createUser();
 			const onClickHandlerMock = jest.fn();
 			render(
 				// Wrapping in Root to provide contexts
@@ -231,7 +268,7 @@ describe('SideNavToggleButton', () => {
 	});
 
 	it('should collapse the side nav on large viewports', async () => {
-		const user = userEvent.setup();
+		const user = createUser();
 		setMediaQuery('(min-width: 64rem)', { initial: true });
 		render(
 			<Root>
@@ -254,7 +291,7 @@ describe('SideNavToggleButton', () => {
 	});
 
 	it('should expand the side nav on small viewports', async () => {
-		const user = userEvent.setup();
+		const user = createUser();
 
 		render(
 			<Root>
@@ -276,7 +313,7 @@ describe('SideNavToggleButton', () => {
 	});
 
 	it('should expand the side nav after being collapsed on large viewports', async () => {
-		const user = userEvent.setup();
+		const user = createUser();
 		setMediaQuery('(min-width: 64rem)', { initial: true });
 
 		render(
@@ -305,7 +342,7 @@ describe('SideNavToggleButton', () => {
 	});
 
 	it('should open the side nav after being collapsed and then resized from a large to small viewport', async () => {
-		const user = userEvent.setup();
+		const user = createUser();
 		const matches = setMediaQuery('(min-width: 64rem)', { initial: true });
 		render(
 			<Root>
@@ -336,7 +373,7 @@ describe('SideNavToggleButton', () => {
 	});
 
 	it('should keep the side nav expanded after resizing from a large to small viewport, opening it, and resizing back to a large viewport', async () => {
-		const user = userEvent.setup();
+		const user = createUser();
 		const matches = setMediaQuery('(min-width: 64rem)', { initial: true });
 		render(
 			<Root>
@@ -370,7 +407,7 @@ describe('SideNavToggleButton', () => {
 	});
 
 	it('should collapse the side nav after toggling its visibility three times resizing between large -> small -> large viewports', async () => {
-		const user = userEvent.setup();
+		const user = createUser();
 		const matches = setMediaQuery('(min-width: 64rem)', { initial: true });
 		render(
 			<Root>
@@ -410,7 +447,7 @@ describe('SideNavToggleButton', () => {
 	});
 
 	it('should collapse the side nav when resizing from a large to small viewport, opening and closing, then resizing back to a large viewport', async () => {
-		const user = userEvent.setup();
+		const user = createUser();
 		const matches = setMediaQuery('(min-width: 64rem)', { initial: true });
 		render(
 			<Root>
@@ -451,7 +488,7 @@ describe('SideNavToggleButton', () => {
 	});
 
 	it('should not throw an error when clicked if the side nav state is not initialised', async () => {
-		const user = userEvent.setup();
+		const user = createUser();
 		setMediaQuery('(min-width: 64rem)', { initial: true });
 
 		render(
@@ -470,7 +507,7 @@ describe('SideNavToggleButton', () => {
 	});
 
 	it('should work correctly when clicked before the side nav is mounted, and then after it is mounted', async () => {
-		const user = userEvent.setup();
+		const user = createUser();
 		setMediaQuery('(min-width: 64rem)', { initial: true });
 
 		// Side nav is not mounted initially

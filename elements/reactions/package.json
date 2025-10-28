@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "33.4.1",
+	"version": "33.6.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -123,6 +123,9 @@
 		"start:edge": "cd ../../ && PROXY_TARGET_ENV=edge yarn start:webpack reactions --proxy ./packages/elements/reactions/proxy.ts"
 	},
 	"platform-feature-flags": {
+		"platform_emoji_picker_focus_on_button": {
+			"type": "boolean"
+		},
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
@@ -148,6 +151,9 @@
 			"type": "boolean"
 		},
 		"platform_reactions_custom_popper_zindex": {
+			"type": "boolean"
+		},
+		"platform-reactions-selector-list-semantics": {
 			"type": "boolean"
 		}
 	},

@@ -1,6 +1,7 @@
 import React, { type PropsWithChildren } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 // TODO: Package Owner - please fix:
 // eslint-disable-next-line import/no-extraneous-dependencies
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
@@ -86,6 +87,9 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 						title: resolvedViewProps.title,
 						url,
 						aspectRatio: resolvedViewProps.preview?.aspectRatio,
+						...(fg('expose-product-details-from-smart-card') && {
+							extensionKey: details?.meta?.key,
+						}),
 					});
 				}
 

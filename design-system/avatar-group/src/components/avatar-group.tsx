@@ -12,6 +12,7 @@ import Avatar from '@atlaskit/avatar';
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import noop from '@atlaskit/ds-lib/noop';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
+import { useId } from '@atlaskit/ds-lib/use-id';
 import { Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import Tooltip, { type PositionType } from '@atlaskit/tooltip';
@@ -274,7 +275,7 @@ const AvatarGroup = ({
 		return unbind;
 	}, [isFocused, isOpen, handleTriggerClicked]);
 
-	function renderMoreDropdown(max: number, total: number) {
+	function renderMoreDropdown(max: number, total: number, labelId: string) {
 		if (total <= max) {
 			return null;
 		}
@@ -340,9 +341,7 @@ const AvatarGroup = ({
 							maxHeight={300}
 							setInitialFocusRef={isTriggeredUsingKeyboard ? setInitialFocusRef : undefined}
 						>
-							{/* TODO: Give section an accessible name -- https://product-fabric.atlassian.net/browse/DSP-21437 */}
-							{/* eslint-disable-next-line @atlaskit/design-system/use-menu-section-title */}
-							<Section>
+							<Section titleId={labelId} testId={`${testId}--section`}>
 								{data.slice(max).map((avatar, index) =>
 									getOverrides(overrides).AvatarGroupItem.render(
 										AvatarGroupItem,
@@ -376,10 +375,10 @@ const AvatarGroup = ({
 	const max = maxCount === undefined || maxCount === 0 ? MAX_COUNT[appearance] : maxCount;
 	const total = data.length;
 	const maxAvatar = total > max ? max - 1 : max;
-	const Group = appearance === 'stack' ? Stack : Grid;
+	const groupId = useId();
 
-	return (
-		<Group testId={testId && `${testId}--avatar-group`} aria-label={label} size={size}>
+	return appearance === 'stack' ? (
+		<Stack id={groupId} testId={testId && `${testId}--avatar-group`} aria-label={label} size={size}>
 			{data.slice(0, maxAvatar).map((avatarData, idx) => {
 				const callback = avatarData.onClick || onAvatarClick;
 				const finalAvatar = getOverrides(overrides).Avatar.render(
@@ -412,8 +411,44 @@ const AvatarGroup = ({
 					finalAvatar
 				);
 			})}
-			{renderMoreDropdown(+maxAvatar, total)}
-		</Group>
+			{renderMoreDropdown(+maxAvatar, total, groupId)}
+		</Stack>
+	) : (
+		<Grid id={groupId} testId={testId && `${testId}--avatar-group`} aria-label={label}>
+			{data.slice(0, maxAvatar).map((avatarData, idx) => {
+				const callback = avatarData.onClick || onAvatarClick;
+				const finalAvatar = getOverrides(overrides).Avatar.render(
+					avatar,
+					{
+						...avatarData,
+						size,
+						borderColor: borderColor || avatarData.borderColor,
+						testId: testId && `${testId}--avatar-${idx}`,
+						onClick: callback
+							? (event, analyticsEvent) => {
+									callback(event, analyticsEvent, idx);
+								}
+							: undefined,
+						stackIndex: max - idx,
+					},
+					idx,
+				);
+
+				return !isTooltipDisabled && !avatarData.isDisabled ? (
+					<Tooltip
+						key={composeUniqueKey(avatarData, idx)}
+						content={avatarData.name}
+						testId={testId && `${testId}--tooltip-${idx}`}
+						position={tooltipPosition}
+					>
+						{finalAvatar}
+					</Tooltip>
+				) : (
+					finalAvatar
+				);
+			})}
+			{renderMoreDropdown(+maxAvatar, total, groupId)}
+		</Grid>
 	);
 };
 

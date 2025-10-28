@@ -1,14 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import createStub from 'raf-stub';
 import invariant from 'tiny-invariant';
 
 import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { act, fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import * as panelSplitterWidthUtils from '../../panel-splitter/get-width';
-import { PanelSplitter } from '../../panel-splitter/panel-splitter';
+import { PanelSplitter, type PanelSplitterProps } from '../../panel-splitter/panel-splitter';
 import {
 	PanelSplitterProvider,
 	type PanelSplitterProviderProps,
@@ -20,14 +21,14 @@ import type { ResizeBounds } from '../../panel-splitter/types';
 const rafStub = createStub();
 jest.spyOn(window, 'requestAnimationFrame').mockImplementation(rafStub.add);
 
+const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
 const resizingCssVar = '--panel-splitter-resizing';
-type TestArgs = Omit<Partial<PanelSplitterProviderProps>, 'panelWidth'> & {
-	initialPanelWidth?: number;
-	textDirection?: 'ltr' | 'rtl';
-	onResizeStart?: (args: { initialWidth: number }) => void;
-	onResizeEnd?: (args: { initialWidth: number; finalWidth: number }) => void;
-	testId?: string;
-};
+type TestArgs = Omit<Partial<PanelSplitterProviderProps>, 'panelWidth'> &
+	Pick<PanelSplitterProps, 'onResizeStart' | 'onResizeEnd' | 'testId' | 'tooltipContent'> & {
+		initialPanelWidth?: number;
+		textDirection?: 'ltr' | 'rtl';
+	};
 
 function setTextDirection(value: 'ltr' | 'rtl'): () => void {
 	const original = window.getComputedStyle;
@@ -71,6 +72,7 @@ const TestComponent = ({
 	onResizeStart,
 	onResizeEnd,
 	testId = 'panel-splitter',
+	tooltipContent,
 	...overrides
 }: TestArgs = {}): JSX.Element => {
 	const panelSplitterParentRef = useRef<HTMLDivElement | null>(null);
@@ -113,6 +115,7 @@ const TestComponent = ({
 						onResizeStart={onResizeStart}
 						onResizeEnd={onResizeEnd}
 						testId={testId}
+						tooltipContent={tooltipContent}
 					/>
 				</PanelSplitterProvider>
 			</div>
@@ -884,5 +887,59 @@ describe('PanelSplitter', () => {
 		expect(
 			screen.getByTestId('panel-splitter-parent').style.getPropertyValue(resizingCssVar),
 		).toEqual('');
+	});
+
+	ffTest.on('navx-full-height-sidebar', 'FHS flag enabled', () => {
+		beforeEach(() => {
+			jest.useFakeTimers();
+		});
+
+		afterEach(() => {
+			jest.useRealTimers();
+		});
+
+		it('should display a tooltip when the tooltipContent prop is provided', async () => {
+			const user = createUser();
+			render(<TestComponent tooltipContent="Double click to collapse" />);
+
+			await user.hover(screen.getByTestId('panel-splitter'));
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			expect(
+				await screen.findByRole('tooltip', { name: 'Double click to collapse' }),
+			).toBeInTheDocument();
+		});
+
+		it('should not display a tooltip when the tooltipContent prop is not provided', async () => {
+			const user = createUser();
+			render(<TestComponent />);
+
+			await user.hover(screen.getByTestId('panel-splitter'));
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+		});
+
+		ffTest.on('platform-dst-tooltip-shortcuts', 'tooltip shortcuts flag enabled', () => {
+			it('should display tooltip shortcuts when the shortcut prop is provided to the provider', async () => {
+				const user = createUser();
+				render(
+					<TestComponent tooltipContent="Double click to collapse" shortcut={['Ctrl', '[']} />,
+				);
+
+				await user.hover(screen.getByTestId('panel-splitter'));
+				act(() => {
+					jest.runAllTimers();
+				});
+
+				expect(
+					await screen.findByRole('tooltip', { name: 'Double click to collapse Ctrl [' }),
+				).toBeInTheDocument();
+			});
+		});
 	});
 });

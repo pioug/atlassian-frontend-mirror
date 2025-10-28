@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 11.10.0
+
+### Minor Changes
+
+- [`b7c680ed7d6c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7c680ed7d6c8) -
+  [ux] fix screenreader doesn't announce selected option when both aria labelledby and describedby
+  are provided
+
 ## 11.9.0
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # @atlaskit/popper
 
+## 7.1.6
+
+### Patch Changes
+
+- [`16194129e5cdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16194129e5cdf) -
+  Refactor to use `noop` helper function over noop functions.
+
 ## 7.1.5
 
 ### Patch Changes

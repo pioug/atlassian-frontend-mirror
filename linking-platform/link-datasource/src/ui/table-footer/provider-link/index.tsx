@@ -33,14 +33,29 @@ export const ProviderLink = ({ datasourceId }: { datasourceId: string }) => {
 				? {
 						content: intl.formatMessage(footerMessages.poweredByAssets),
 						extensionKey: 'jsm-cmdb-gateway',
-						icon: <AssetsIcon size="xsmall" />,
+						icon: (
+							<AssetsIcon
+								size="xsmall"
+								{...(fg('navx-1895-new-logo-design')
+									? { shouldUseNewLogoDesign: true }
+									: undefined)}
+							/>
+						),
 						interactionName: 'atlas-link',
 						url: '/jira/assets',
 					}
 				: {
 						content: intl.formatMessage(footerMessages.powerByJSM),
 						extensionKey: 'jsm-cmdb-gateway',
-						icon: <JiraServiceManagementIcon appearance="neutral" size="small" />,
+						icon: (
+							<JiraServiceManagementIcon
+								appearance="neutral"
+								size="small"
+								{...(fg('navx-1895-new-logo-design')
+									? { shouldUseNewLogoDesign: true }
+									: undefined)}
+							/>
+						),
 						interactionName: 'atlas-link',
 						url: '/jira/servicedesk/assets',
 					};

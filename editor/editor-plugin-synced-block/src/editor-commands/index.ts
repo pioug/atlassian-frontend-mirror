@@ -21,14 +21,13 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
-import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
-
 import {
 	canBeConvertedToSyncBlock,
 	findSyncBlock,
 	findSyncBlockOrBodiedSyncBlock,
 	isBodiedSyncBlockNode,
-} from './utils/utils';
+} from '../pm-plugins/utils/utils';
+import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
 type createSyncedBlockProps = {
 	syncBlockStore: SyncBlockStoreManager;

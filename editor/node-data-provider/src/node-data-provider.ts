@@ -164,7 +164,7 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 		void this.getDataAsync(node, callback);
 	}
 
-	private async getDataAsync(
+	async getDataAsync(
 		node: Node | PMNode,
 		callback: (payload: CallbackPayload<Data>) => void,
 	): Promise<void> {
@@ -286,9 +286,18 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 		const dataFromCache = this.cache[dataKey];
 		return dataFromCache ? dataFromCache.source : false;
 	}
+
+	getNodeDataFromCache(node: JSONNode | PMNode) {
+		const jsonNode: JSONNode = 'toJSON' in node ? node.toJSON() : node;
+		const dataKey = this.nodeDataKey(jsonNode as Node);
+		return this.cache[dataKey];
+	}
 }
 
-function isPromise<T>(value: T | Promise<T>): value is Promise<T> {
+/**
+ * Checks if value is a promise using hacky heuristics.
+ */
+export function isPromise<T>(value: T | Promise<T>): value is Promise<T> {
 	return (
 		typeof value === 'object' &&
 		value !== null &&

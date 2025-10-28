@@ -254,12 +254,12 @@ export const PanelSplitterWithTooltipAndShortcut = () => {
 					getResizeBounds={getResizeBounds}
 					resizingCssVar={resizingCssVar}
 					position="end"
+					shortcut={['Ctrl', '[']}
 				>
 					<PanelSplitter
 						label="Resize panel"
 						testId="panel-splitter"
 						tooltipContent="Collapse sidebar"
-						shortcut={['Ctrl', '[']}
 					/>
 				</PanelSplitterProvider>
 			</div>

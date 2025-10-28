@@ -49,8 +49,10 @@ const Grid: FC<{
 	children: ReactNode;
 	testId?: string;
 	'aria-label': string;
-}> = ({ children, testId, 'aria-label': label }) => (
+	id?: string;
+}> = ({ id, children, testId, 'aria-label': label }) => (
 	<ul
+		id={id}
 		data-testid={testId}
 		aria-label={label}
 		css={[listStyles, fg('platform-avatar-group-spacing-fix') && listStylesFlagged]}

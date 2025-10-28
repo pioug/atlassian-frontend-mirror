@@ -24,6 +24,7 @@ export const PanelSplitterProvider = ({
 	panelRef,
 	position = 'end',
 	isEnabled = true,
+	shortcut,
 	children,
 }: PanelSplitterProviderProps) => {
 	const portalRef = useRef<HTMLDivElement | null>(null);
@@ -39,6 +40,7 @@ export const PanelSplitterProvider = ({
 			panelRef,
 			isEnabled,
 			portalRef,
+			shortcut,
 		}),
 		[
 			panelId,
@@ -50,6 +52,7 @@ export const PanelSplitterProvider = ({
 			portalRef,
 			panelRef,
 			isEnabled,
+			shortcut,
 		],
 	);
 

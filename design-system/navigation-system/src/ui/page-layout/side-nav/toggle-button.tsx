@@ -16,6 +16,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { IconButton } from '../../top-nav-items/themed/migration';
 
+import { useIsSideNavShortcutEnabled } from './is-side-nav-shortcut-enabled-context';
+import { sideNavToggleTooltipKeyboardShortcut } from './side-nav-toggle-tooltip-keyboard-shortcut';
 import { SideNavToggleButtonAttachRef } from './toggle-button-context';
 import { useSideNavVisibility } from './use-side-nav-visibility';
 import { useToggleSideNav } from './use-toggle-side-nav';
@@ -51,7 +53,6 @@ export const SideNavToggleButton = ({
 	testId,
 	interactionName,
 	onClick,
-	shortcut,
 }: {
 	/**
 	 * @deprecated
@@ -93,12 +94,6 @@ export const SideNavToggleButton = ({
 		analyticsEvent: UIAnalyticsEvent,
 		attributes?: SideNavVisibilityChangeAnalyticsAttributes,
 	) => void;
-	/**
-	 * Display a keyboard shortcut in the tooltip.
-	 * Only used if the `platform-dst-tooltip-shortcuts` feature flag is enabled.
-	 * Note this does not handle the keyboard shortcut functionality, it only displays the shortcut in the tooltip.
-	 */
-	shortcut?: string[];
 }) => {
 	const {
 		isExpandedOnDesktop: isSideNavExpandedOnDesktop,
@@ -189,16 +184,18 @@ export const SideNavToggleButton = ({
 		</span>
 	);
 
+	const isShortcutEnabled = useIsSideNavShortcutEnabled();
+
 	const tooltipProps = useMemo(() => {
-		if (fg('platform-dst-tooltip-shortcuts')) {
+		if (fg('navx-full-height-sidebar')) {
 			return {
 				...toggleButtonTooltipOptions,
-				shortcut,
+				shortcut: isShortcutEnabled ? sideNavToggleTooltipKeyboardShortcut : undefined,
 			};
 		}
 
 		return toggleButtonTooltipOptions;
-	}, [shortcut]);
+	}, [isShortcutEnabled]);
 
 	return (
 		<IconButton

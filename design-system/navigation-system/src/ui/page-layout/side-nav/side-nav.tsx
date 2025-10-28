@@ -52,6 +52,8 @@ import { useSafeDefaultWidth } from '../use-safe-default-width';
 
 import { useSideNavRef } from './element-context';
 import { sideNavFlyoutCloseDelayMs } from './flyout-close-delay-ms';
+import { useIsSideNavShortcutEnabled } from './is-side-nav-shortcut-enabled-context';
+import { sideNavToggleTooltipKeyboardShortcut } from './side-nav-toggle-tooltip-keyboard-shortcut';
 import { SideNavToggleButtonElement } from './toggle-button-context';
 import { useExpandSideNav } from './use-expand-side-nav';
 import { useSideNavToggleKeyboardShortcut } from './use-side-nav-toggle-keyboard-shortcut';
@@ -774,7 +776,7 @@ function SideNavInternal({
 					return;
 				}
 
-				if (!event.target.isConnected && fg('platform_dst_nav4_side_nav_click_outside_fix')) {
+				if (!event.target.isConnected) {
 					/**
 					 * If the element that was clicked is no longer in the document, we should not collapse the side nav.
 					 * This can happen when the user clicks on a dropdown menu item (such as one used in a `...` More menu),
@@ -1033,6 +1035,8 @@ function SideNavInternal({
 	}
 
 	useSideNavToggleKeyboardShortcut({ canToggleWithShortcut });
+	// Used to conditionally display the keyboard shortcut in the SideNavPanelSplitter tooltip.
+	const isShortcutEnabled = useIsSideNavShortcutEnabled();
 
 	useResizingWidthCssVarOnRootElement({
 		isEnabled: true,
@@ -1187,6 +1191,7 @@ function SideNavInternal({
 				getResizeBounds={getResizeBounds}
 				resizingCssVar={panelSplitterResizingVar}
 				isEnabled={isExpandedOnDesktop && !isFlyoutVisible}
+				shortcut={isShortcutEnabled ? sideNavToggleTooltipKeyboardShortcut : undefined}
 			>
 				<div css={styles.flexContainer}>{children}</div>
 			</PanelSplitterProvider>

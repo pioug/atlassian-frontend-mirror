@@ -381,16 +381,11 @@ test.describe('side nav responsive behaviour', () => {
 			// The side nav closed from the outside click
 			await expect(sideNav).toBeHidden();
 		});
-	});
 
-	test.describe('when platform_dst_nav4_side_nav_click_outside_fix is enabled', () => {
 		// This is tested using Playwright instead of Jest, as Jest isn't able to reproduce this nuanced edge case
 		test('should not collapse when clicking on an element that is removed from the document once clicked, on mobile', async ({
 			page,
 		}) => {
-			await page.visitExample('design-system', 'navigation-system', 'menu-item-integration', {
-				featureFlag: 'platform_dst_nav4_side_nav_click_outside_fix',
-			});
 			await page.setViewportSize(mobileViewport);
 
 			const sideNav = page.getByRole('navigation', { name: /Side navigation/ });
@@ -410,34 +405,6 @@ test.describe('side nav responsive behaviour', () => {
 
 			// The side nav should still be open
 			await expect(sideNav).toBeVisible();
-		});
-	});
-
-	// Asserting old behaviour when FG is off
-	test.describe('when platform_dst_nav4_side_nav_click_outside_fix is disabled', () => {
-		test('should collapse when clicking on an element that is removed from the document once clicked, on mobile', async ({
-			page,
-		}) => {
-			await page.visitExample('design-system', 'navigation-system', 'menu-item-integration');
-			await page.setViewportSize(mobileViewport);
-
-			const sideNav = page.getByRole('navigation', { name: /Side navigation/ });
-
-			// Closed by default on mobile
-			await expect(sideNav).toBeHidden();
-
-			// Expand the side nav
-			await page.getByRole('button', { name: /Expand sidebar/ }).click();
-			await expect(sideNav).toBeVisible();
-
-			// Open a dropdown menu
-			await page.getByRole('button', { name: /Starred more options/ }).click();
-
-			// Click a dropdown menu item
-			await page.getByRole('menuitem', { name: /Manage starred/ }).click();
-
-			// The side nav should now be collapsed
-			await expect(sideNav).toBeHidden();
 		});
 	});
 });

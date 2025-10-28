@@ -37,9 +37,12 @@ const AsyncCreatableSelect = forwardRef(
 			| null,
 	) => {
 		const stateManagerProps = useAsync(props);
+		// @ts-ignore - TS2345: Complex generic type causing issues for help-center local consumption with TS 5.9.2
 		const creatableProps = useStateManager(stateManagerProps);
+		// @ts-ignore - TS2345: Complex generic type causing issues for help-center local consumption with TS 5.9.2
 		const selectProps = useCreatable(creatableProps);
 
+		// @ts-ignore - TS2322: Complex generic type causing issues for help-center local consumption with TS 5.9.2
 		return <Select ref={ref} {...selectProps} />;
 	},
 ) as AsyncCreatableSelect;

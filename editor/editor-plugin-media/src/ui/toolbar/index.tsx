@@ -1101,8 +1101,7 @@ export const floatingToolbar = (
 				{
 					title: intl?.formatMessage(commonMessages.delete),
 					onClick:
-						parentMediaGroupNode?.node.type === mediaGroup &&
-						fg('platform_editor_fix_media_card_removal')
+						parentMediaGroupNode?.node.type === mediaGroup
 							? handleRemoveMediaGroupWithAnalytics(pluginInjectionApi?.analytics?.actions)
 							: removeWithAnalytics(pluginInjectionApi?.analytics?.actions, selectedNodeType),
 					icon: <DeleteIcon label="" />,

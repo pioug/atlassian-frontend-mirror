@@ -599,6 +599,7 @@ export default class PopupSelect<
 			Control: showSearchControl ? mergedComponents.Control : DummyControl,
 		} as Partial<SelectComponents>;
 
+		// @ts-ignore - TS7030: Not all code paths return a value - causing issues for help-center local consumption with TS 5.9.2
 		const getLabel: () => string | undefined = () => {
 			if (label) {
 				return label;

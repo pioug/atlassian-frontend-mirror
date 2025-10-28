@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "11.9.0",
+	"version": "11.10.0",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -126,6 +126,9 @@
 			"type": "boolean"
 		},
 		"jira_ai_agent_avatar_user_picker_user_option": {
+			"type": "boolean"
+		},
+		"user_picker_migrate_aria_label_description": {
 			"type": "boolean"
 		}
 	}

@@ -40,10 +40,6 @@ export type SelectionExtension = {
 	onClick?: (params: SelectionExtensionCallbackOptions) => void;
 };
 
-export type DynamicSelectionExtension = Omit<SelectionExtension, 'isDisabled'> & {
-	isDisabled?: boolean;
-};
-
 // inspired by content api operation https://bitbucket.org/atlassian/pf-adf-service/src/master/src/lib/update/types.ts
 export type SelectionPointer = {
 	pointer: string;
@@ -56,21 +52,9 @@ export type SelectionRange = {
 	start: SelectionPointer;
 };
 
-export type SelectionExtensionFnOptions = {
-	selectedNodeAdf: ADFEntity;
-	selectionRanges?: SelectionRange[];
-};
-
-export type SelectionExtensionFn = ({
-	selectedNodeAdf,
-	selectionRanges,
-}: SelectionExtensionFnOptions) => DynamicSelectionExtension;
-
-export type SelectionExtensionConfig = SelectionExtension | SelectionExtensionFn;
-
 export type SelectionExtensions = {
-	external?: SelectionExtensionConfig[];
-	firstParty?: SelectionExtensionConfig[];
+	external?: SelectionExtension[];
+	firstParty?: SelectionExtension[];
 };
 
 type SelectionExtensionModes = ViewMode;

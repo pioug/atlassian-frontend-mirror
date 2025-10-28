@@ -78,7 +78,14 @@ const PluginSlot = ({
 				pluginHooks={pluginHooks}
 				containerElement={containerElement}
 			/>
-			<div css={pluginsComponentsWrapper}>
+			<div
+				css={pluginsComponentsWrapper}
+				data-testid={
+					expVal('platform_editor_experience_tracking', 'isEnabled', true)
+						? 'plugins-components-wrapper'
+						: undefined
+				}
+			>
 				{/**
 				 * Why don't we do this as:
 				 * ```tsx

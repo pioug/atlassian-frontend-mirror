@@ -48,8 +48,10 @@ const Stack: FC<{
 	testId?: string;
 	'aria-label': string;
 	size: AvatarGroupSize;
-}> = ({ children, testId, 'aria-label': label, size }) => (
+	id?: string;
+}> = ({ id, children, testId, 'aria-label': label, size }) => (
 	<ul
+		id={id}
 		data-testid={testId}
 		aria-label={label}
 		css={[

@@ -233,7 +233,8 @@ export const toolbarPlugin: ToolbarPlugin = ({
 						});
 					},
 				},
-				...(expValEquals('platform_editor_experience_tracking', 'isEnabled', true)
+				...(!disableSelectionToolbar &&
+				expValEquals('platform_editor_experience_tracking', 'isEnabled', true)
 					? [
 							{
 								name: 'selectionToolbarOpenExperience',

@@ -20,6 +20,7 @@ export type EmbedIframeUrlType = 'href' | 'interactiveHref';
 
 export type OnResolveCallback = (data: {
 	aspectRatio?: number;
+	extensionKey?: string;
 	title?: string;
 	url?: string;
 }) => void;

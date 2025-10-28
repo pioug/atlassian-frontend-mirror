@@ -1,2 +1,3 @@
-// eslint-disable-next-line @atlaskit/editor/no-re-export
-export { getSyncBlockNodeComponent, getSyncedBlockRenderer } from './syncedBlockRenderer';
+/* eslint-disable @atlaskit/editor/no-re-export */
+export { getSyncedBlockNodeComponent } from './getSyncedBlockNodeComponent';
+export { getSyncedBlockRenderer } from './getSyncedBlockRenderer';

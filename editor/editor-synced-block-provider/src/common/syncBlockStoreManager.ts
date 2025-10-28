@@ -131,45 +131,71 @@ export class SyncBlockStoreManager {
 	}
 
 	/**
-	 * Add/update a sync block node to/from the store.
+	 * Add/update a sync block node to/from the local cache
 	 * @param syncBlockNode - The sync block node to update
-	 * @param newContent - The updated node content to use for the sync block node
-	 * @returns True if the sync block node was added/updated
 	 */
-	public updateSyncBlockData(syncBlockNode: PMNode): Promise<boolean> {
-		if (!this.isSourceBlock(syncBlockNode)) {
-			throw new Error('Node is not a source sync block');
+	public updateSyncBlockData(syncBlockNode: PMNode) {
+		try {
+			if (!this.isSourceBlock(syncBlockNode)) {
+				throw new Error('Node is not a source sync block');
+			}
+
+			const { localId, resourceId } = syncBlockNode.attrs;
+
+			if (!localId || !resourceId) {
+				throw new Error('Local ID or resource ID is not set');
+			}
+
+			const existingSyncBlock = this.syncBlocks.get(localId);
+			const sourceURL = existingSyncBlock?.sourceURL;
+			const syncBlock: SyncBlock = {
+				syncNode: convertSyncBlockPMNodeToSyncBlockNode(syncBlockNode),
+				sourceURL,
+				syncBlockData: {
+					...convertSyncBlockPMNodeToSyncBlockData(syncBlockNode),
+					sourceDocumentAri: resourceId, // same as resourceId ARI when content property API
+				},
+			};
+			this.syncBlocks.set(localId, syncBlock);
+		} catch {
+			//TODO: EDITOR-1921 - add error analytics
 		}
+	}
 
-		if (!this.dataProvider) {
-			throw new Error('Data provider not set');
+	/**
+	 * Save content of bodiedSyncBlock nodes in local cache to backend
+	 *
+	 * @returns true if saving all nodes successfully, false if fail to save some/all nodes
+	 */
+	public async flushBodiedSyncBlocks(): Promise<boolean> {
+		try {
+			if (!this.dataProvider) {
+				throw new Error('Data provider not set');
+			}
+
+			const bodiedSyncBlockNodes: SyncBlockNode[] = [];
+			const bodiedSyncBlockData: SyncBlockData[] = [];
+
+			Array.from(this.syncBlocks.values()).forEach((syncBlock) => {
+				if (syncBlock.syncNode.type === 'bodiedSyncBlock') {
+					bodiedSyncBlockNodes.push(syncBlock.syncNode);
+					bodiedSyncBlockData.push(syncBlock.syncBlockData);
+				}
+			});
+
+			if (bodiedSyncBlockNodes.length === 0) {
+				return Promise.resolve(true);
+			}
+
+			const resourceIds = await this.dataProvider.writeNodesData(
+				bodiedSyncBlockNodes,
+				bodiedSyncBlockData,
+			);
+			return resourceIds.every((resourceId) => resourceId !== undefined);
+		} catch {
+			//TODO: EDITOR-1921 - add error analytics
+			return false;
 		}
-
-		const { localId, resourceId } = syncBlockNode.attrs;
-
-		if (!localId || !resourceId) {
-			throw new Error('Local ID or resource ID is not set');
-		}
-
-		const existingSyncBlock = this.syncBlocks.get(localId);
-		const sourceURL = existingSyncBlock?.sourceURL;
-		const syncBlock: SyncBlock = {
-			syncNode: convertSyncBlockPMNodeToSyncBlockNode(syncBlockNode),
-			sourceURL,
-			syncBlockData: {
-				...convertSyncBlockPMNodeToSyncBlockData(syncBlockNode),
-				sourceDocumentAri: resourceId, // same as resourceId ARI when content property API
-			},
-		};
-		this.syncBlocks.set(localId, syncBlock);
-
-		//TODO: EDITOR-1921 - add error analytics
-		return !this.isSourceBlock(syncBlockNode)
-			? Promise.resolve(true)
-			: this.dataProvider
-					.writeNodesData([syncBlock.syncNode], [syncBlock.syncBlockData])
-					.then((resourceIds) => resourceIds.every((resourceId) => resourceId !== undefined))
-					.catch(() => false);
 	}
 
 	/**
@@ -232,7 +258,7 @@ export class SyncBlockStoreManager {
 				resourceId,
 				localId: blockInstanceId,
 			},
-			type: 'syncBlock',
+			type: 'bodiedSyncBlock',
 		};
 		return syncBlockNode;
 	}

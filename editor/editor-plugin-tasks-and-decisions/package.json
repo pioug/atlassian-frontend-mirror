@@ -110,9 +110,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"should-render-to-parent-should-be-true-editor-ai": {
-			"type": "boolean"
-		},
 		"platform_editor_blocktaskitem_patch_2": {
 			"type": "boolean"
 		},

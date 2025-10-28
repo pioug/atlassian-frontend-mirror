@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 8.4.4
+
+### Patch Changes
+
+- [`dba0cb8c22976`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dba0cb8c22976) -
+  Cleans up FG platform_editor_fix_media_card_removal
+- Updated dependencies
+
+## 8.4.3
+
+### Patch Changes
+
+- [`da82d015556d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da82d015556d4) -
+  Fix a bug where repeatedly cloning the media plugin state would cause severe performance
+  degradation over time
+- Updated dependencies
+
 ## 8.4.2
 
 ### Patch Changes

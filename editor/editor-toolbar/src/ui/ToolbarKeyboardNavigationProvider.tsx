@@ -87,6 +87,22 @@ export const ToolbarKeyboardNavigationProvider = ({
 			focusableElements[nextIndex]?.focus();
 		};
 
+		const handleTab = (): void => {
+			const focusableElements = getFocusableElements();
+			if (focusableElements.length === 0) {
+				return;
+			}
+			const doc = getDocument();
+			let index = doc?.activeElement
+				? focusableElements.findIndex((el) => el === doc?.activeElement)
+				: 0;
+			if (index < 0) {
+				index = 0;
+			}
+			focusableElements.forEach((el) => el.setAttribute('tabindex', '-1'));
+			focusableElements[index].setAttribute('tabindex', '0');
+		};
+
 		const handleKeyDown = (event: KeyboardEvent): void => {
 			const targetElement = event.target;
 
@@ -110,6 +126,10 @@ export const ToolbarKeyboardNavigationProvider = ({
 						event.preventDefault();
 						moveFocus('right');
 						break;
+					case 'Tab': {
+						handleTab();
+						break;
+					}
 					default:
 				}
 			} else {

@@ -5,7 +5,6 @@ export { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-exte
 export type {
 	SelectionExtensionPlugin,
 	BlockMenuExtensionConfiguration,
-	DynamicSelectionExtension,
 	ExtensionConfiguration,
 	ExtensionMenuItemConfiguration,
 	ExtensionToolbarItemConfiguration,
@@ -14,7 +13,6 @@ export type {
 	ReplaceWithAdfResult,
 	SelectionExtension,
 	SelectionExtensionComponentProps,
-	SelectionExtensionConfig,
 	SelectionExtensionPluginOptions,
 	SelectionExtensionPluginState,
 	SelectionExtensionSelectionInfo,

@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 43.4.0
+
+### Minor Changes
+
+- [`02de8310e32cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02de8310e32cc) -
+  Expose URL extension key from the onResolve function in the Card component
+
 ## 43.3.1
 
 ### Patch Changes

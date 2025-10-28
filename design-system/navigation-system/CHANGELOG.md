@@ -1,5 +1,43 @@
 # @atlassian/navigation-system
 
+## 5.0.0
+
+### Major Changes
+
+- [`ea9dfe33b50c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea9dfe33b50c1) -
+  Several changes have been made to the tooltip keyboard shortcut functionality:
+  - The `shortcut` prop has been removed from `SideNavToggleButton`, `PanelSplitter`, and
+    `SideNavPanelSplitter`. The keyboard shortcut used in the tooltips for these components is now
+    controlled internally for consistency, and cannot be configured. It is set to `["Ctrl", "["]`.
+    The shortcuts will only be displayed in the tooltips for `SideNavToggleButton` and
+    `SideNavPanelSplitter` when the `isSideNavShortcutEnabled` prop is enabled on the `Root`
+    component. This is behind the `navx-full-height-sidebar` feature flag - previously, the
+    `shortcuts` prop (now removed) was behind the `platform-dst-tooltip-shortcuts` feature flag.
+
+  - The `shortcuts` prop has been added to `PanelSplitterProvider`, so that layout components (e.g.
+    `SideNav`) can specify the keyboard shortcuts used for the panel splitters that are rendered
+    within them, instead of consumers needing to specify them.
+
+  - `SideNavPanelSplitter` will now only render a tooltip if `shouldCollapseOnDoubleClick` is true.
+    If it is false, the `tooltipContent` prop will be ignored.
+
+## 4.6.0
+
+### Minor Changes
+
+- [`5bda2d3b2d6cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bda2d3b2d6cd) -
+  Clicking dropdown menu items will no longer collapse the side navigation on mobile. This change
+  was behind a feature flag, which has now been removed.
+
+## 4.5.1
+
+### Patch Changes
+
+- [`f5e53b7b1e130`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5e53b7b1e130) -
+  Use IconRenderer for Themed IconButtons to mitigate their DOM be recreated during SSR -> SPA
+  hydration, which delays TTVC. This is an experiment behind
+  platform_themed_button_use_icon_renderer.
+
 ## 4.5.0
 
 ### Minor Changes

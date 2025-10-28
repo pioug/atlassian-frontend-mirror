@@ -24,6 +24,8 @@ const getNextFocusableElement = (refs: FocusableElement[], currentFocusedIdx: nu
 		}
 		currentFocusedIdx++;
 	}
+
+	return;
 };
 
 /**
@@ -41,6 +43,8 @@ const getPrevFocusableElement = (refs: FocusableElement[], currentFocusedIdx: nu
 		}
 		currentFocusedIdx--;
 	}
+
+	return;
 };
 
 export default function handleFocus(refs: Array<FocusableElement>) {

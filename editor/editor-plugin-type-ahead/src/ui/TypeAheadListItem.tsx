@@ -23,6 +23,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { B400, N200, N30, N800 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { type TypeAheadPlugin } from '../typeAheadPluginType';
 
@@ -270,6 +271,7 @@ export const TypeAheadListItem = React.memo(
 		const shortcutText = item.keyshortcut
 			? ` ${intl.formatMessage(typeAheadListMessages.shortcutLabel)} ${item.keyshortcut}.`
 			: '';
+		const descriptionId = `typeahead-item-description-${itemIndex}`;
 
 		const { icon, title, render: customRenderItem } = item;
 		const elementIcon = useMemo(() => {
@@ -324,6 +326,11 @@ export const TypeAheadListItem = React.memo(
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<span css={listItemClasses}>
+				{(descriptionText || shortcutText) && fg('platform_editor_a11y_fix_aria_description') && (
+					<VisuallyHidden id={descriptionId}>
+						{descriptionText} {shortcutText}
+					</VisuallyHidden>
+				)}
 				<ButtonItem
 					onClick={insertSelectedItem}
 					iconBefore={elementIcon}
@@ -333,7 +340,16 @@ export const TypeAheadListItem = React.memo(
 					// TODO: ED-26959 - aria-description is in draft for ARIA 1.3.
 					// For now replace it with aria-describedby.
 					// eslint-disable-next-line @atlassian/a11y/aria-props -- TODO: Avoid using "aria-description" as aria attribute. See https://go/a11y-aria-props for more details.
-					aria-description={`${descriptionText} ${shortcutText}`}
+					aria-description={
+						fg('platform_editor_a11y_fix_aria_description')
+							? undefined
+							: `${descriptionText} ${shortcutText}`
+					}
+					aria-describedby={
+						(descriptionText || shortcutText) && fg('platform_editor_a11y_fix_aria_description')
+							? descriptionId
+							: undefined
+					}
 					aria-setsize={itemsLength}
 					aria-posinset={
 						expValEquals('platform_editor_fix_a11y_aria_posinset_0', 'isEnabled', true)

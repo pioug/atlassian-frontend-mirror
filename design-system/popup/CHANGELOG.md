@@ -1,5 +1,20 @@
 # @atlaskit/popup
 
+## 4.5.0
+
+### Minor Changes
+
+- [`0e417a8c4a92e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e417a8c4a92e) -
+  Popup will now stay open when a click starts inside the popup but then moves outside the popup.
+  The `onClose` callback will not be called in this case. This aligns it with the behaviour of Modal
+  Dialog.
+
+  This change was previously behind a feature flag, which has now been removed.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.5
 
 ### Patch Changes

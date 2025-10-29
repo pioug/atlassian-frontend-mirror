@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 2.2.5
+
+### Patch Changes
+
+- [`f282b1ca41f1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f282b1ca41f1c) -
+  EDITOR-1648 refactor of sync block error types
+- Updated dependencies
+
 ## 2.2.4
 
 ### Patch Changes

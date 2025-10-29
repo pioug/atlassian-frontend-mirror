@@ -12,7 +12,7 @@ export const TeamContainer = styled.span<{ error: boolean; selected: boolean }>(
 		display: 'inline-flex',
 		alignItems: 'baseline',
 		paddingLeft: `${token('space.025', '2px')}`,
-		borderRadius: token('radius.xlarge'),
+		borderRadius: token('radius.xsmall'),
 		cursor: 'pointer',
 		userSelect: 'none',
 	},
@@ -68,7 +68,7 @@ export const TeamContainer = styled.span<{ error: boolean; selected: boolean }>(
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const NameContainer = styled.span({
 	marginLeft: token('space.075', '6px'),
-	marginRight: token('space.100', '8px'),
+	marginRight: token('space.050', '4px'),
 	// eslint-disable-next-line -- Ignored via go/DSP-18766
 	lineHeight: token('space.250', '20px'),
 });

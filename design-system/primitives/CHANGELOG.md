@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 16.1.0
+
+### Minor Changes
+
+- [`c9b86863a2583`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9b86863a2583) -
+  The Focusable component now resets the outline style when the element matches the pseudo-class
+  `:focus` but not `:focus-visible`. This is to ensure the focus ring is not applied when it should
+  not be. Some apps have global styles targeting all buttons and anchors, adding an outline on
+  `:focus`. This will unset that style.
+
+  This change was previously behind a feature flag, which has now been removed.
+
 ## 16.0.2
 
 ### Patch Changes

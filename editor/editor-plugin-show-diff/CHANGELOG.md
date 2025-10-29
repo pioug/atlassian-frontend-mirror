@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 3.1.5
+
+### Patch Changes
+
+- [`7c8492867be97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c8492867be97) -
+  [ux] Add support for media attribute changes in the diff
+
 ## 3.1.4
 
 ### Patch Changes

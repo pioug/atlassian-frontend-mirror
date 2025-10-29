@@ -1,7 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import { functionWithCondition } from '../function-with-condition';
-
 // Shorthand alias for the global cache map key because it's (intentionally) a long name
 const CACHE_MAP_KEY =
 	'__conditionalHooksFactory_conditionCacheMap_dont_modify_this_manually_unless_you_want_react_to_blow_up';
@@ -71,75 +67,28 @@ export function conditionalHooksFactory<Result, A>(
 	newHook: (...args: A[]) => Result,
 	oldHook: (...args: A[]) => Result,
 ): (...args: A[]) => Result {
-	// Since we are conditionally rendering hooks, we need to ensure the condition result won't change
-	// between renders. We can do this by caching the result of the condition.
-	// Clean up with platform_editor_global_conditional_factory_cache
-	let localConditionCache: boolean | null = null;
-
-	// Because the gate to use or not use the global cache needs to stay constant,
-	// we need a separate cache to force that to also be constant.
-	// Clean up with platform_editor_global_conditional_factory_cache
-	let globalCacheGateCache: boolean | null = null;
-
-	const globalCacheHookFn = (...args: A[]) => {
+	const hookFn = (...args: A[]) => {
 		// call each time so we can track exposures
 		const conditionResult = condition();
 		const cache: WeakMap<(...args: never[]) => unknown, boolean> = globalThis[CACHE_MAP_KEY];
-		if (!cache.has(globalCacheHookFn)) {
-			cache.set(globalCacheHookFn, conditionResult);
+		if (!cache.has(hookFn)) {
+			cache.set(hookFn, conditionResult);
 		}
 
 		// Extra level of safety for dev environment to notify devs of changed condition
 		if (process.env.NODE_ENV !== 'production') {
-			if (cache.get(globalCacheHookFn) !== conditionResult) {
+			if (cache.get(hookFn) !== conditionResult) {
 				throw new Error(
 					'Conditional hook called with different condition, this breaks the rules of hooks!',
 				);
 			}
 		}
 
-		if (cache.get(globalCacheHookFn)) {
+		if (cache.get(hookFn)) {
 			return newHook(...args);
 		} else {
 			return oldHook(...args);
 		}
 	};
-
-	// Clean up this branch with platform_editor_global_conditional_factory_cache
-	const localCacheHookFn = (...args: A[]) => {
-		// call each time so we can track exposures
-		const conditionResult = condition();
-		if (localConditionCache === null) {
-			localConditionCache = conditionResult;
-		}
-
-		// Extra level of safety for dev environment to notify devs of changed condition
-		if (process.env.NODE_ENV !== 'production') {
-			if (localConditionCache !== conditionResult) {
-				throw new Error(
-					'Conditional hook called with different condition, this breaks the rules of hooks!',
-				);
-			}
-		}
-
-		if (localConditionCache) {
-			return newHook(...args);
-		} else {
-			return oldHook(...args);
-		}
-	};
-
-	return functionWithCondition(
-		() => {
-			// Check if we are using the global cache or local cache
-			// We cache this again to ensure that the gate is constant between renders
-			if (globalCacheGateCache === null) {
-				globalCacheGateCache = fg('platform_editor_global_conditional_factory_cache');
-			}
-
-			return globalCacheGateCache;
-		},
-		globalCacheHookFn,
-		localCacheHookFn,
-	);
+	return hookFn;
 }

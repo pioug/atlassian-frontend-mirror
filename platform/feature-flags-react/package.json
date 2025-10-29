@@ -87,16 +87,11 @@
 		}
 	},
 	"name": "@atlaskit/platform-feature-flags-react",
-	"version": "0.3.5",
+	"version": "0.4.0",
 	"description": "utility library for working with feature flags in react",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
-	},
-	"platform-feature-flags": {
-		"platform_editor_global_conditional_factory_cache": {
-			"type": "boolean"
-		}
 	}
 }

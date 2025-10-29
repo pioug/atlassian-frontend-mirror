@@ -17,15 +17,23 @@ export class InvertableStep {
  */
 export function createTransformFromSteps(steps: InvertableStep[], finalDoc: PMNode): Transform {
 	for (const step of steps.slice().reverse()) {
-		const result = step.inverted.apply(finalDoc);
-		if (result.failed === null && result.doc) {
-			finalDoc = result.doc;
+		try {
+			const result = step.inverted.apply(finalDoc);
+			if (result.failed === null && result.doc) {
+				finalDoc = result.doc;
+			}
+		} catch (e) {
+			//TODO: EDITOR-2471 - Log the error
 		}
 	}
 
 	let tr = new Transform(finalDoc);
 	for (const step of steps) {
-		tr = tr.step(step.step);
+		try {
+			tr = tr.step(step.step);
+		} catch (e) {
+			//TODO: EDITOR-2471 - Log the error
+		}
 	}
 	return tr;
 }

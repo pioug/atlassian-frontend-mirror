@@ -4,4 +4,5 @@ export const extractDateUpdated = (jsonLd: JsonLd.Data.BaseData): string | undef
 	if (jsonLd.updated) {
 		return jsonLd.updated;
 	}
+	return undefined;
 };

@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 33.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.6.1
+
+### Patch Changes
+
+- [`fcf19235f6097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcf19235f6097) -
+  Clean up feature flag.
+- Updated dependencies
+
 ## 33.6.0
 
 ### Minor Changes

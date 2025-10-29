@@ -10,6 +10,7 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes } from '../../types';
+import { getIsExperimentEnabled } from '../../utils/get-is-experiment-enabled';
 import { LoomSpaceAvatar } from '../loom-avatar';
 
 const styles = cssMap({
@@ -92,11 +93,7 @@ export const ContainerIcon = ({
 	iconHasLoaded = true,
 }: ContainerIconProps) => {
 	const isMedium = size === 'medium';
-	const isTeamLensInHomeEnabled = FeatureGates.getExperimentValue(
-		'team_lens_in_atlassian_home',
-		'cohort',
-		'control',
-	);
+	const isTeamLensInHomeEnabled = getIsExperimentEnabled('team_lens_in_atlassian_home');
 	const isNewTeamProfilePageEnabled = FeatureGates.getExperimentValue(
 		'new_team_profile',
 		'isEnabled',

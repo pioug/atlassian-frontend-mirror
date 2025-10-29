@@ -99,6 +99,7 @@ export class EditorCardProvider implements CardProvider {
 		} catch (e) {
 			return false;
 		}
+		return undefined;
 	}
 
 	private async fetchProvidersData(): Promise<ProvidersData | undefined> {
@@ -169,6 +170,7 @@ export class EditorCardProvider implements CardProvider {
 				return defaultAppearance;
 			}
 		}
+		return undefined;
 	}
 
 	private async findPatternData(url: string): Promise<ProviderPattern | undefined> {
@@ -188,6 +190,7 @@ export class EditorCardProvider implements CardProvider {
 		) {
 			return 'embed';
 		}
+		return undefined;
 	}
 
 	/**

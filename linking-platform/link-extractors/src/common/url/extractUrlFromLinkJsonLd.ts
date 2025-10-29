@@ -22,4 +22,5 @@ export const extractUrlFromLinkJsonLd = (
 	} else {
 		return link.href;
 	}
+	return undefined;
 };

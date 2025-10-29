@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 5.7.1
+
+### Patch Changes
+
+- [`c4f71a3593ce3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4f71a3593ce3) -
+  Update team node styling
+
 ## 5.7.0
 
 ### Minor Changes

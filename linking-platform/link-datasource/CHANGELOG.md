@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.27.4
+
+### Patch Changes
+
+- [`72222bda541f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72222bda541f2) -
+  Clean up feature flags.
+- Updated dependencies
+
 ## 4.27.3
 
 ### Patch Changes

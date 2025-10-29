@@ -28,6 +28,15 @@ import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import type { RendererAppearance } from './Renderer/types';
 import type { RendererContext } from '../react/types';
 import type { MediaSSR } from '../types/mediaOptions';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import AnalyticsContext from '../analytics/analyticsContext';
+import type { AnalyticsEventPayload } from '../analytics/events';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 
 export type MediaProvider = {
 	viewMediaClientConfig: MediaClientConfig;
@@ -105,6 +114,7 @@ export const getListOfIdentifiersFromDoc = (doc?: ADFEntity): Identifier[] => {
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class MediaCardView extends Component<
 	MediaCardProps & {
+		fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 		mediaClient?: MediaClient;
 	},
 	State
@@ -180,6 +190,19 @@ export class MediaCardView extends Component<
 		}
 	};
 
+	private onError = (reason: string) => {
+		this.props.fireAnalyticsEvent?.({
+			action: ACTION.ERRORED,
+			actionSubject: ACTION_SUBJECT.RENDERER,
+			actionSubjectId: ACTION_SUBJECT_ID.MEDIA,
+			eventType: EVENT_TYPE.UI,
+			attributes: {
+				reason,
+				external: false,
+			},
+		});
+	};
+
 	private renderLoadingCard = () => {
 		const { cardDimensions } = this.props;
 
@@ -241,6 +264,11 @@ export class MediaCardView extends Component<
 					featureFlags={featureFlags}
 					ssr={ssr?.mode}
 					shouldHideTooltip={false}
+					onError={
+						expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)
+							? this.onError
+							: undefined
+					}
 				/>
 			</div>
 		);
@@ -368,6 +396,11 @@ export class MediaCardView extends Component<
 					shouldEnableDownloadButton={shouldEnableDownloadButton}
 					ssr={ssr?.mode}
 					shouldHideTooltip={isMobile}
+					onError={
+						expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)
+							? this.onError
+							: undefined
+					}
 				/>
 			</div>
 		);
@@ -423,9 +456,21 @@ export const getClipboardAttrs = ({
 export const MediaCardInternal = (props: MediaCardProps) => {
 	const mediaClient = useContext(MediaClientContext);
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line react/jsx-props-no-spreading
-	return <MediaCardView {...props} mediaClient={mediaClient} />;
+	return (
+		<AnalyticsContext.Consumer>
+			{({ fireAnalyticsEvent }) => {
+				return (
+					<MediaCardView
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...props}
+						mediaClient={mediaClient}
+						fireAnalyticsEvent={fireAnalyticsEvent}
+					/>
+				);
+			}}
+		</AnalyticsContext.Consumer>
+	);
 };
 
 export const MediaCard = withImageLoader<MediaCardProps>(MediaCardInternal);

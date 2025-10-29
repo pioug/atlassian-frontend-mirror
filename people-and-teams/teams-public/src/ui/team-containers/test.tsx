@@ -22,6 +22,7 @@ jest.mock('@atlaskit/platform-feature-flags');
 
 jest.mock('../../controllers/hooks/use-team-containers', () => ({
 	...jest.requireActual('../../controllers/hooks/use-team-containers'),
+	initializeCalled: jest.fn().mockReturnValue(true),
 	useTeamContainers: jest.fn(),
 	useTeamContainersHook: jest.fn().mockReturnValue([]),
 }));

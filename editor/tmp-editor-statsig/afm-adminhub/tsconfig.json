@@ -1,0 +1,32 @@
+{
+	"extends": "../../../../tsconfig.entry-points.adminhub.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../adminhub/tsDist/@atlaskit__tmp-editor-statsig/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-adminhub/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-adminhub/tsconfig.json"
+		}
+	]
+}

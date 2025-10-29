@@ -13,6 +13,7 @@ import {
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	...jest.requireActual('@atlaskit/feature-gate-js-client'),
 	getExperimentValue: jest.fn(),
+	initializeCalled: jest.fn().mockReturnValue(true),
 }));
 
 mockRunItLaterSynchronously();

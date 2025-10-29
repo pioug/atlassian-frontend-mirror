@@ -1,5 +1,12 @@
 # @atlaskit/linking-common
 
+## 9.7.5
+
+### Patch Changes
+
+- [`b687f93157a72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b687f93157a72) -
+  Typescript fixes
+
 ## 9.7.4
 
 ### Patch Changes

@@ -304,6 +304,13 @@ type NestedTableTransformedAEP = OperationalAEP<
 	undefined
 >;
 
+export type MediaRenderErrorEvent = UIAEP<
+	ACTION.ERRORED,
+	ACTION_SUBJECT.RENDERER,
+	ACTION_SUBJECT_ID.MEDIA,
+	{ external?: boolean; reason: string }
+>;
+
 export type AnalyticsEventPayload<T = void> =
 	| RendererStartAEP
 	| RendererRenderedAEP
@@ -329,7 +336,8 @@ export type AnalyticsEventPayload<T = void> =
 	| AnnotationDeleteAEP
 	| MediaLnkTransformedAEP
 	| InvalidProsemirrorDocumentErrorAEP
-	| NestedTableTransformedAEP;
+	| NestedTableTransformedAEP
+	| MediaRenderErrorEvent;
 
 export type FireAnalyticsCallback = <T = void>(
 	payload: AnalyticsEventPayload<T>,

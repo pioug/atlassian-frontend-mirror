@@ -20,3 +20,8 @@ export type {
 	ExperienceCheckDomMutationObserveConfig,
 	ExperienceDomMutationCheckOptions,
 } from './ExperienceCheckDomMutation';
+
+export {
+	containsPopupWithNestedElement,
+	getPopupContainerFromEditorView,
+} from './experience-utils';

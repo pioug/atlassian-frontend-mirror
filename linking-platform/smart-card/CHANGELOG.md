@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 43.4.2
+
+### Patch Changes
+
+- [`9e84a17c1d832`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e84a17c1d832) -
+  NAVX-1854 cleaning up navx-1706-smart-link-layered-link-a11y-update
+- Updated dependencies
+
+## 43.4.1
+
+### Patch Changes
+
+- [`72222bda541f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72222bda541f2) -
+  Clean up feature flags.
+- Updated dependencies
+
 ## 43.4.0
 
 ### Minor Changes

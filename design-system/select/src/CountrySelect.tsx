@@ -60,8 +60,7 @@ const CountrySelect = (props: SelectProps<Country>) => {
 	const countryOptions = options || groupedCountries;
 
 	return (
-		// @ts-ignore - TS2322: Complex generic type causing issues for help-center local consumption with TS 5.9.2
-		<Select
+		<Select<Country, false>
 			isClearable={false}
 			formatOptionLabel={formatOptionLabel}
 			getOptionLabel={getOptionLabel}

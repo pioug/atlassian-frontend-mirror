@@ -245,6 +245,7 @@ const Avatar: React.ForwardRefExoticComponent<
 
 		return (
 			<EnsureIsInsideAvatarContext.Provider value={true}>
+				{/* @ts-ignore - Workaround for typecheck issues with help-center local consumption */}
 				<AvatarContainer
 					data-testid={testId}
 					role={containerShouldBeImage ? 'img' : undefined}

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 
 import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
 import { cssMap, cx, jsx } from '@atlaskit/css';
@@ -29,6 +29,13 @@ const styles = cssMap({
 		objectFit: 'cover',
 	},
 });
+
+const Observer = ({ onLoad }: { onLoad: () => void }) => {
+	useEffect(() => {
+		onLoad();
+	}, [onLoad]);
+	return null;
+};
 
 const AutoDevAvatar = lazy(
 	() => import(/* webpackChunkName: "@atlaskit-rovo-avatar-AutoDevAvatar"*/ './assets/auto-dev'),
@@ -190,6 +197,7 @@ type GeneratedAvatarProps = {
 	agentId?: string;
 	agentIdentityAccountId?: string | null | undefined;
 	size: SizeType;
+	onLoad?: () => void;
 };
 
 const outOfTheBoxAgentAvatar: {
@@ -471,6 +479,7 @@ export const AgentBanner = ({
 
 export const GeneratedAvatar = (props: GeneratedAvatarProps) => {
 	const { render, color } = getAvatarRender(props);
+	const { onLoad } = props;
 
 	return (
 		<Box
@@ -479,7 +488,10 @@ export const GeneratedAvatar = (props: GeneratedAvatarProps) => {
 				backgroundColor: color.primary,
 			}}
 		>
-			<Suspense fallback={null}>{render}</Suspense>
+			<Suspense fallback={null}>
+				{onLoad && <Observer onLoad={onLoad} />}
+				{render}
+			</Suspense>
 		</Box>
 	);
 };

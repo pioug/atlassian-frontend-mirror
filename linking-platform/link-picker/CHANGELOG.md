@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 3.16.4
+
+### Patch Changes
+
+- [`72222bda541f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72222bda541f2) -
+  Clean up feature flags.
+- Updated dependencies
+
 ## 3.16.3
 
 ### Patch Changes

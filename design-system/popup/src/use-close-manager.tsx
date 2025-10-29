@@ -96,11 +96,7 @@ export const useCloseManager = ({
 				mouseDownTarget.current instanceof Node &&
 				popupRef.contains(mouseDownTarget.current);
 
-			if (
-				!isClickOnPopup &&
-				!isClickOnTrigger &&
-				(fg('popup-onclose-fix-mouse-down-inside-popup') ? !didClickStartInsidePopup : true)
-			) {
+			if (!isClickOnPopup && !isClickOnTrigger && !didClickStartInsidePopup) {
 				closePopup(event);
 				// If there was an outside click on a non-interactive element, the focus should be on the trigger.
 				if (

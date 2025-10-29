@@ -38,6 +38,7 @@ jest.mock('../../../common/utils/get-link-domain', () => ({
 
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	...jest.requireActual('@atlaskit/feature-gate-js-client'),
+	initializeCalled: jest.fn().mockReturnValue(true),
 	getExperimentValue: jest.fn(),
 	initializeCompleted: jest.fn(),
 }));

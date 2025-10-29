@@ -1,5 +1,12 @@
 # @atlaskit/avatar
 
+## 25.5.1
+
+### Patch Changes
+
+- [`221b64f10f5eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/221b64f10f5eb) -
+  ts-ignore added as a workaround for help-center local consumption typecheck
+
 ## 25.5.0
 
 ### Minor Changes

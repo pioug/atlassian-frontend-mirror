@@ -101,7 +101,6 @@ const LinkPickerCreate = () => {
 						Toggle
 					</Button>
 				)}
-				shouldRenderToParent={fg('should-render-to-parent-should-be-true-linking-pla')}
 			/>
 		</div>
 	);

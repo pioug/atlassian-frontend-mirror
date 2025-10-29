@@ -23,4 +23,5 @@ export const extractMembers = (jsonLd: JsonLd.Data.Project): LinkPerson[] | unde
 			}
 		}
 	}
+	return undefined;
 };

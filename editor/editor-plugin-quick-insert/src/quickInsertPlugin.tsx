@@ -28,12 +28,15 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createInsertItem, openElementBrowserModal } from './pm-plugins/commands';
+import { getQuickInsertOpenExperiencePlugin } from './pm-plugins/experiences/quick-insert-open-experience';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { type QuickInsertPlugin } from './quickInsertPluginType';
 import ModalElementBrowser from './ui/ModalElementBrowser';
 import { getQuickInsertSuggestions } from './ui/search';
 
 export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) => {
+	const refs: { popupsMountPoint?: HTMLElement; wrapperElement?: HTMLElement } = {};
+
 	const onInsert = (item: QuickInsertItem) => {
 		options?.onInsert?.(item);
 	};
@@ -98,6 +101,14 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 							options?.emptyStateHandler,
 						),
 				},
+				...(expValEquals('platform_editor_experience_tracking', 'isEnabled', true)
+					? [
+							{
+								name: 'quickInsertOpenExperience',
+								plugin: () => getQuickInsertOpenExperiencePlugin({ refs }),
+							},
+						]
+					: []),
 			];
 		},
 
@@ -105,7 +116,10 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 			typeAhead,
 		},
 
-		contentComponent({ editorView }) {
+		contentComponent({ editorView, popupsMountPoint, wrapperElement }) {
+			refs.popupsMountPoint = popupsMountPoint || undefined;
+			refs.wrapperElement = wrapperElement || undefined;
+
 			if (
 				!editorView ||
 				(expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && isSSR())

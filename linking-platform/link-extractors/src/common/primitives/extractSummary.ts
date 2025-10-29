@@ -8,4 +8,5 @@ export const extractSummary = (jsonLd: JsonLd.Data.BaseData): string | undefined
 		const summary = jsonLd.summary.trim();
 		return Boolean(summary) ? summary : undefined;
 	}
+	return undefined;
 };

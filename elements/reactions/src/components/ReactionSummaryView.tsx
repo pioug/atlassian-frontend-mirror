@@ -8,7 +8,6 @@ import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
 import { type OnEmojiEvent } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type ReactionClick,
@@ -369,9 +368,6 @@ export const ReactionSummaryView = ({
 					summaryViewParticleEffectEmojiId={summaryViewParticleEffectEmojiId}
 				/>
 			)}
-			shouldRenderToParent={
-				!hoverableSummaryView && fg('should-render-to-parent-should-be-true-editor-coll')
-			}
 		/>
 	);
 };

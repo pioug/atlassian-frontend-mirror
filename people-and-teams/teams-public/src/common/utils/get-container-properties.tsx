@@ -17,6 +17,8 @@ import JiraServiceManagement from '../assets/JiraServiceManagement.svg';
 import LoomIcon from '../assets/LoomIcon.svg';
 import { type ContainerSubTypes, type ContainerTypes } from '../types';
 
+import { getIsExperimentEnabled } from './get-is-experiment-enabled';
+
 interface ContainerProperties {
 	description: ReactNode;
 	icon: ReactNode;
@@ -182,11 +184,7 @@ const getJiraContainerProperties = ({
 		'isEnabled',
 		false,
 	);
-	const isTeamLensInHomeEnabled = FeatureGates.getExperimentValue(
-		'team_lens_in_atlassian_home',
-		'cohort',
-		'control',
-	);
+	const isTeamLensInHomeEnabled = getIsExperimentEnabled('team_lens_in_atlassian_home');
 	const { subType, name } = containerTypeProperties || {};
 	const baseProperties = {
 		description: <FormattedMessage {...messages.jiraProjectDescription} />,
@@ -289,11 +287,7 @@ export const getContainerProperties = ({
 		'isEnabled',
 		false,
 	);
-	const isTeamLensInHomeEnabled = FeatureGates.getExperimentValue(
-		'team_lens_in_atlassian_home',
-		'cohort',
-		'control',
-	);
+	const isTeamLensInHomeEnabled = getIsExperimentEnabled('team_lens_in_atlassian_home');
 	switch (containerType) {
 		case 'ConfluenceSpace':
 			return {

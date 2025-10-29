@@ -14,4 +14,5 @@ export const extractLink = (jsonLd: JsonLd.Data.BaseData): string | undefined =>
 			return extractUrlFromLinkJsonLd(url);
 		}
 	}
+	return undefined;
 };

@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 4.0.4
+
+### Patch Changes
+
+- [`b687f93157a72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b687f93157a72) -
+  Typescript fixes
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes
@@ -55,7 +63,6 @@
 - [`6b61788ba65a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b61788ba65a2) - -
   Added a new `custom` environment to `EnvironmentsKeys`. Now, you can pass the `baseUrlOverride`
   parameter to both `EditorCardProvider` and `CardClient` to access a service directly.
-
   - Introduced a new `setHeaders` method in CardClient, allowing you to specify custom HTTP headers
     for requests to the object-resolver service.
   - `EditorCardProvider` now supports passing a custom `CardClient` instance, so you can use your
@@ -75,7 +82,6 @@
 - [`e5b3e00a23242`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5b3e00a23242) - -
   Added a new `custom` environment to `EnvironmentsKeys`. Now, you can pass the `baseUrlOverride`
   parameter to both `EditorCardProvider` and `CardClient` to access a service directly.
-
   - Introduced a new `setHeaders` method in CardClient, allowing you to specify custom HTTP headers
     for requests to the object-resolver service.
   - `EditorCardProvider` now supports passing a custom `CardClient` instance, so you can use your
@@ -95,7 +101,6 @@
 - [`19da7355cd815`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19da7355cd815) - -
   Added a new `custom` environment to `EnvironmentsKeys`. Now, you can pass the `baseUrlOverride`
   parameter to both `EditorCardProvider` and `CardClient` to access a service directly.
-
   - Introduced a new `setHeaders` method in CardClient, allowing you to specify custom HTTP headers
     for requests to the object-resolver service.
   - `EditorCardProvider` now supports passing a custom `CardClient` instance, so you can use your
@@ -870,7 +875,6 @@
 - [#22592](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22592)
   [`e15410365b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e15410365b2) - - export
   types/functions in linking common to be used in smart card
-
   - add flag to card action to override re-using previous 'resolved' state
 
   - add prop to cardState which reflects the metadata state, can be pending, resolved or errored

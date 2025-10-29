@@ -1,5 +1,12 @@
 # @atlaskit/prosemirror-history
 
+## 0.2.3
+
+### Patch Changes
+
+- [`34d352d2bcb95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34d352d2bcb95) -
+  EDITOR-2445 Gracefully handle errors in createTransformFromSteps
+
 ## 0.2.2
 
 ### Patch Changes

@@ -11,4 +11,5 @@ export const extractPersonAssignedTo = (jsonLd: LinkTypeAssignedTo): LinkPerson 
 	if (assignedTo) {
 		return extractPersonFromJsonLd(assignedTo);
 	}
+	return undefined;
 };

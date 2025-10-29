@@ -1,5 +1,12 @@
 # @atlaskit/link-analytics
 
+## 11.0.1
+
+### Patch Changes
+
+- [`72222bda541f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72222bda541f2) -
+  Clean up feature flags.
+
 ## 11.0.0
 
 ### Patch Changes

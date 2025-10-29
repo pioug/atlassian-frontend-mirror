@@ -13,11 +13,6 @@ const styles = cssMap({
 		gap: token('space.025'),
 		paddingBlockStart: token('space.050'),
 		paddingBlockEnd: token('space.025'),
-		// Setting the font on the shortcut container so that the font size of the shortcut segments (kbd elements)
-		// have the correct size.
-		// The `font.code` token sets the font-size to `0.875em`, which is relative to the parent element's font size.
-		// Setting font to the `font.body` token here ensures that the `em` calculation happens against the correct font size.
-		font: token('font.body'),
 	},
 	shortcutSegment: {
 		display: 'flex',

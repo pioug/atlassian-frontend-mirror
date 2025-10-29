@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 110.18.9
+
+### Patch Changes
+
+- [`610bf07ab4a4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/610bf07ab4a4f) -
+  ED-29611 Editor quick insert experience tracking
+- Updated dependencies
+
+## 110.18.8
+
+### Patch Changes
+
+- [`8b3772cdf2d64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b3772cdf2d64) -
+  [ux] Updates the width of editor's link picker to be narrower.
+- Updated dependencies
+
+## 110.18.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.18.6
 
 ### Patch Changes

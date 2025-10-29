@@ -1,5 +1,12 @@
 # @atlaskit/link-create
 
+## 4.5.5
+
+### Patch Changes
+
+- [`72222bda541f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72222bda541f2) -
+  Clean up feature flags.
+
 ## 4.5.4
 
 ### Patch Changes

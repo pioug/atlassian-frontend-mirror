@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.5.8
+
+### Patch Changes
+
+- [`2ab1e9998d893`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ab1e9998d893) -
+  Removed tab-index on list container
+- Updated dependencies
+
+## 6.5.7
+
+### Patch Changes
+
+- [`fff396252899c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fff396252899c) -
+  Used aria label instead of description
+- Updated dependencies
+
 ## 6.5.6
 
 ### Patch Changes

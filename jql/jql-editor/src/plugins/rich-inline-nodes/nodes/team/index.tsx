@@ -23,7 +23,7 @@ const Team = ({ id, name, fieldName, selected, error }: NodeViewProps<Props>) =>
 	return (
 		<TeamContainer selected={selected} error={error}>
 			<AvatarWrapper>
-				<Avatar src={team?.avatarUrl} borderColor="transparent" size="xsmall" />
+				<Avatar src={team?.avatarUrl} appearance="square" borderColor="transparent" size="xsmall" />
 			</AvatarWrapper>
 			<NameContainer>{name}</NameContainer>
 		</TeamContainer>

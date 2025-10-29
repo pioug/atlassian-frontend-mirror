@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-width
 
+## 7.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.1
 
 ### Patch Changes
@@ -89,7 +95,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -246,7 +251,6 @@
   Removed external re-export from entry file:
 
   @atlaskit/editor-plugin-width:
-
   - type `WidthPluginState` -> Use type `EditorContainerWidth` from `@atlaskit/editor-common/types`
     instead
 

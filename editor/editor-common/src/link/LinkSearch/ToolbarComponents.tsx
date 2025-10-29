@@ -31,3 +31,9 @@ export const containerWithProvider: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `${RECENT_SEARCH_WIDTH_IN_PX}px`,
 });
+
+// Link picker in Jira will be 324px = 292 + 2*8 + 2*8 (8px are side paddings on the parents)
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const narrowContainerWidth: SerializedStyles = css({
+	width: '292px',
+});

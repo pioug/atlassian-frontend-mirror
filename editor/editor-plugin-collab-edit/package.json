@@ -103,9 +103,6 @@
 		"platform_enable_ncs_step_metrics": {
 			"type": "boolean"
 		},
-		"platform_editor_offline_editing_resync_flicker_fix": {
-			"type": "boolean"
-		},
 		"aifc_create_enabled": {
 			"type": "boolean"
 		}

@@ -600,55 +600,22 @@ describe('Popup', () => {
 		expect(onClose).toHaveBeenCalledTimes(0);
 	});
 
-	ffTest.on('popup-onclose-fix-mouse-down-inside-popup', 'enabled', () => {
-		it('popup stays open when click starts inside the popup but then moves outside the popup', async () => {
-			const onClose = jest.fn();
-			render(
-				<div>
-					<Popup
-						{...defaultProps}
-						isOpen
-						onClose={onClose}
-						content={() => <div>inside popup</div>}
-					/>
-					<div>outside popup</div>
-				</div>,
-			);
+	it('popup stays open when click starts inside the popup but then moves outside the popup', async () => {
+		const onClose = jest.fn();
+		render(
+			<div>
+				<Popup {...defaultProps} isOpen onClose={onClose} content={() => <div>inside popup</div>} />
+				<div>outside popup</div>
+			</div>,
+		);
 
-			// We need to simulate these events separately, as fireEvent.click does not trigger the mousedown and mouseup events
-			// https://testing-library.com/docs/guide-events/#interactions-vs-events
-			fireEvent.mouseDown(screen.getByText('inside popup'));
-			fireEvent.mouseUp(screen.getByText('outside popup'));
-			fireEvent.click(screen.getByText('outside popup'));
+		// We need to simulate these events separately, as fireEvent.click does not trigger the mousedown and mouseup events
+		// https://testing-library.com/docs/guide-events/#interactions-vs-events
+		fireEvent.mouseDown(screen.getByText('inside popup'));
+		fireEvent.mouseUp(screen.getByText('outside popup'));
+		fireEvent.click(screen.getByText('outside popup'));
 
-			expect(onClose).toHaveBeenCalledTimes(0);
-		});
-	});
-
-	ffTest.off('popup-onclose-fix-mouse-down-inside-popup', 'disabled', () => {
-		// Old (undesired) behaviour, will be removed with feature flag
-		it('popup closes when click starts inside the popup but then moves outside the popup', async () => {
-			const onClose = jest.fn();
-			render(
-				<div>
-					<Popup
-						{...defaultProps}
-						isOpen
-						onClose={onClose}
-						content={() => <div>inside popup</div>}
-					/>
-					<div>outside popup</div>
-				</div>,
-			);
-
-			// We need to simulate these events separately, as fireEvent.click does not trigger the mousedown and mouseup events
-			// https://testing-library.com/docs/guide-events/#interactions-vs-events
-			fireEvent.mouseDown(screen.getByText('inside popup'));
-			fireEvent.mouseUp(screen.getByText('outside popup'));
-			fireEvent.click(screen.getByText('outside popup'));
-
-			expect(onClose).toHaveBeenCalledTimes(1);
-		});
+		expect(onClose).toHaveBeenCalledTimes(0);
 	});
 
 	it('popup renders inside parent when the shouldRenderToParent is passed', () => {

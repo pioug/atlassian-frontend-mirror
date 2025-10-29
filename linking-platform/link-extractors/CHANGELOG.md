@@ -1,5 +1,12 @@
 # @atlaskit/link-extractors
 
+## 2.4.6
+
+### Patch Changes
+
+- [`b687f93157a72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b687f93157a72) -
+  Typescript fixes
+
 ## 2.4.5
 
 ### Patch Changes

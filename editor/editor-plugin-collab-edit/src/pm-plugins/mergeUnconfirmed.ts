@@ -1,6 +1,5 @@
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Rebaseable } from '@atlaskit/prosemirror-collab';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -48,21 +47,13 @@ export function mergeUnconfirmedSteps(
 			const origin = lastStep.origin;
 
 			if (mergedStep && inverted) {
-				if (fg('platform_editor_offline_editing_resync_flicker_fix')) {
-					acc[acc.length - 1] = new Rebaseable(
-						mergedStep,
-						inverted,
-						origin instanceof Transaction
-							? origin.setMeta('isOffline', origin.getMeta('isOffline') === true || isOffline)
-							: origin,
-					);
-				} else {
-					acc[acc.length - 1] = new Rebaseable(
-						mergedStep,
-						inverted,
-						origin instanceof Transaction ? origin.setMeta('isOffline', isOffline) : origin,
-					);
-				}
+				acc[acc.length - 1] = new Rebaseable(
+					mergedStep,
+					inverted,
+					origin instanceof Transaction
+						? origin.setMeta('isOffline', origin.getMeta('isOffline') === true || isOffline)
+						: origin,
+				);
 				return acc;
 			}
 		}

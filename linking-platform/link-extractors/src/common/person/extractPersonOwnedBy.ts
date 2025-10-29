@@ -16,4 +16,5 @@ export const extractPersonOwnedBy = (jsonLd: JsonLd.Data.BaseData): LinkPerson[]
 			}
 		}
 	}
+	return undefined;
 };

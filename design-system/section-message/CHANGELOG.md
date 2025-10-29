@@ -1,5 +1,12 @@
 # @atlaskit/section-message
 
+## 8.8.1
+
+### Patch Changes
+
+- [`221b64f10f5eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/221b64f10f5eb) -
+  ts-ignore added as a workaround for help-center local consumption typecheck
+
 ## 8.8.0
 
 ### Minor Changes

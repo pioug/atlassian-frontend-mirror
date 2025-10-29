@@ -41,7 +41,12 @@ import { Announcer, PanelTextInput } from '../../../ui';
 import { normalizeUrl } from '../../../utils';
 import { browser as browserLegacy, getBrowserInfo } from '../../../utils/browser';
 import LinkSearchList, { LinkSearchListNext } from '../../LinkSearch/LinkSearchList';
-import { container, containerWithProvider, inputWrapper } from '../../LinkSearch/ToolbarComponents';
+import {
+	container,
+	containerWithProvider,
+	narrowContainerWidth,
+	inputWrapper,
+} from '../../LinkSearch/ToolbarComponents';
 import { transformTimeStamp } from '../../LinkSearch/transformTimeStamp';
 import type { LinkSearchListItemData } from '../../LinkSearch/types';
 
@@ -604,6 +609,10 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		// for details: https://a11y-internal.atlassian.net/browse/AK-740
 		const screenReaderText = browser.safari && this.getScreenReaderText();
 
+		const containerWidth = fg('platform_editor_link_picker_width_fix')
+			? narrowContainerWidth
+			: !!activityProvider && containerWithProvider;
+
 		return (
 			<div
 				aria-label="Hyperlink Edit"
@@ -613,7 +622,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 			>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					css={[container, !!activityProvider && containerWithProvider, containerPadding]}
+					css={[container, containerWidth, containerPadding]}
 					ref={this.wrapperRef}
 				>
 					<label htmlFor={linkSearchInputId} css={inputLabel}>

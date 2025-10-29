@@ -57,4 +57,5 @@ export const extractPreview = (
 			}
 		}
 	}
+	return undefined;
 };

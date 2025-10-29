@@ -1099,4 +1099,13 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-10-27
+	platform_editor_table_sticky_header_improvements: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_sticky_header_improvements',
+		},
+		param: 'cohort',
+		values: ['control', 'test_with_overflow', 'test_without_overflow'],
+		defaultValue: 'control',
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

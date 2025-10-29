@@ -1,5 +1,12 @@
 # @atlaskit/platform-feature-flags-react
 
+## 0.4.0
+
+### Minor Changes
+
+- [`1192906179ab0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1192906179ab0) -
+  Clean up platform_editor_conditional_factory_cache so that the global cache is now used always
+
 ## 0.3.5
 
 ### Patch Changes

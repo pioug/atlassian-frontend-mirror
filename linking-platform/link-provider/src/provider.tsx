@@ -50,7 +50,7 @@ export function SmartCardProvider({
 		const getPreview = (
 			url: string,
 			// @deprecated The support for platform will be removed and default to `web`
-			platform?: CardPlatform,
+			_platform?: CardPlatform,
 		): LinkPreview | undefined => {
 			const cardState = getUrl(store, url);
 

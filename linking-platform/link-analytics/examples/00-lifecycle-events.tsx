@@ -12,7 +12,6 @@ import { createAndFireEvent, useAnalyticsEvents } from '@atlaskit/analytics-next
 import { FooterBlock, Card, SmartLinkSize, TitleBlock, ActionName } from '@atlaskit/smart-card';
 import fetchMock from 'fetch-mock/cjs/client';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const OBJECT_RESOLVER_SERVICE_ENDPOINT = 'glob:*/gateway/api/object-resolver/*';
 
@@ -121,7 +120,6 @@ const LinkPickerPopup = ({
 			)}
 			placement={placement}
 			trigger={trigger}
-			shouldRenderToParent={fg('should-render-to-parent-should-be-true-linking-pla')}
 		/>
 	);
 };

@@ -1,5 +1,29 @@
 # @atlaskit/renderer
 
+## 124.9.5
+
+### Patch Changes
+
+- [`5643e8f693872`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5643e8f693872) -
+  [ux] Add tests for smart links and smart link list view using new logo design, behind feature gate
+  navx-1895-new-logo-design
+- Updated dependencies
+
+## 124.9.4
+
+### Patch Changes
+
+- [`6e739b8f7a7a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e739b8f7a7a7) -
+  Only add compact mode styles to extensions if compact mode is turned on
+- Updated dependencies
+
+## 124.9.3
+
+### Patch Changes
+
+- [`58503bebcd904`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58503bebcd904) -
+  [ux] NO-ISSUE: Fix non-ADF macros not inheriting Compact size when nested inside ADF macros
+
 ## 124.9.2
 
 ### Patch Changes

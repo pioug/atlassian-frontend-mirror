@@ -29,6 +29,9 @@
 			"path": "../../../design-system/avatar/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../helpers/browser-apis/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/button/afm-jira/tsconfig.json"
 		},
 		{

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-synced-block-renderer",
-	"version": "2.2.4",
+	"version": "2.2.5",
 	"description": "SyncedBlockRenderer for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -1,5 +1,20 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.2.2
+
+### Patch Changes
+
+- [`f282b1ca41f1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f282b1ca41f1c) -
+  EDITOR-1648 refactor of sync block error types
+
+## 2.2.1
+
+### Patch Changes
+
+- [`127d07803ff4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/127d07803ff4c) -
+  Internal refactor of sync block store manager
+- Updated dependencies
+
 ## 2.2.0
 
 ### Minor Changes

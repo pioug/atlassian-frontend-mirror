@@ -1,5 +1,17 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.20.0
+
+### Minor Changes
+
+- [`755d06b52ebe4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/755d06b52ebe4) -
+  Add table sticky header experiment
+
+### Patch Changes
+
+- [`b687f93157a72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b687f93157a72) -
+  Typescript fixes
+
 ## 13.19.2
 
 ### Patch Changes

@@ -5,7 +5,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import Range from '@atlaskit/range/range';
@@ -80,7 +79,6 @@ const TemplateRenderer = ({ template, url }: { template: FlexibleTemplate; url?:
 									spacing="compact"
 								/>
 							)}
-							shouldRenderToParent={fg('should-render-to-parent-should-be-true-linking-pla')}
 						>
 							<DropdownItemRadioGroup id="renderer-actions">
 								<DropdownItemRadio id="card" isSelected={!showDataView} onClick={handleViewChange}>

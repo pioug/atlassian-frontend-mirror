@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 3.4.3
+
+### Patch Changes
+
+- [`610bf07ab4a4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/610bf07ab4a4f) -
+  ED-29611 Editor quick insert experience tracking
+- Updated dependencies
+
+## 3.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.1
 
 ### Patch Changes

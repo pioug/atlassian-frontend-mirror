@@ -16,6 +16,6 @@ export { ChatPillIcon } from './common/ui/chat-icon';
 export { ShowIcon } from './common/ui/show-icon';
 export { HiddenIcon } from './common/ui/hidden-icon';
 export { AgentAvatar } from './ui/agent-avatar';
-export { AgentBanner } from './ui/agent-avatar/generated-avatars';
+export { AgentBanner, GeneratedAvatar } from './ui/agent-avatar/generated-avatars';
 export { AgentDropdownMenu } from './ui/agent-dropdown-menu';
 export { AgentMenuItemSkeleton } from './ui/agent-menu-item-skeleton';

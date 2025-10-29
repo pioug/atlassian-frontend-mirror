@@ -105,6 +105,9 @@
 	"platform-feature-flags": {
 		"platform_editor_use_preferences_plugin": {
 			"type": "boolean"
+		},
+		"platform_editor_link_picker_width_fix": {
+			"type": "boolean"
 		}
 	}
 }

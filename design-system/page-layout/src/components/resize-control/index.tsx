@@ -323,7 +323,7 @@ const ResizeControl = ({
 		});
 	};
 
-	const onKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>) => {
+	const onKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>): boolean => {
 		if (isLeftSidebarCollapsed || !isGrabAreaFocused) {
 			return false;
 		}
@@ -338,6 +338,7 @@ const ResizeControl = ({
 		if (isSpaceOrEnter) {
 			toggleSideBar(event);
 			event.preventDefault();
+			return true; // Added return value
 		}
 
 		if (isLeftOrTopArrow || isRightOrBottomArrow) {
@@ -384,7 +385,11 @@ const ResizeControl = ({
 					onResizeEnd && onResizeEnd(updatedLeftSidebarState);
 				}, 50);
 			});
+
+			return true; // Added return value
 		}
+
+		return false; // Added default return value for all other cases
 	};
 
 	const onFocus = useCallback(() => {
@@ -396,11 +401,10 @@ const ResizeControl = ({
 
 	const resizeButton = {
 		render: (Component: ElementType<ResizeButtonProps>, props: ResizeButtonProps) => (
-			<Component {...props} />
+			<Component {...(props as any)} />
 		),
 		...(overrides && overrides.ResizeButton),
 	};
-
 	// This width is calculated once only on mount.
 	// This means resizing the window will cause this value to be incorrect for screen reader users,
 	// however this comes with a substantial performance gain and so is considered acceptable.

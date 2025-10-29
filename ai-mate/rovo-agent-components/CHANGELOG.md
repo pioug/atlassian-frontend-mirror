@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.10.0
+
+### Minor Changes
+
+- [`45556fb92fa69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45556fb92fa69) -
+  [ux] Updated favicon to match the selected agent
+
 ## 3.9.2
 
 ### Patch Changes

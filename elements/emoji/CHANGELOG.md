@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 69.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 69.6.4
+
+### Patch Changes
+
+- [`fcf19235f6097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcf19235f6097) -
+  Clean up feature flag.
+
 ## 69.6.3
 
 ### Patch Changes

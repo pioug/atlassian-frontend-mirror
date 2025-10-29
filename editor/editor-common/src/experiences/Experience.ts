@@ -97,7 +97,7 @@ export class Experience {
 	 * @param options.metadata - Optional metadata attached to all subsequent events for this started experience
 	 */
 	start(options?: ExperienceStartOptions) {
-		this.startOptions = options?.metadata;
+		this.startOptions = options;
 		this.ufoExperience.start();
 
 		if (this.isInProgress()) {

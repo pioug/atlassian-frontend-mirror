@@ -15,4 +15,5 @@ export const extractImage = (jsonLd: JsonLd.Data.BaseData): string | undefined =
 			}
 		}
 	}
+	return undefined;
 };

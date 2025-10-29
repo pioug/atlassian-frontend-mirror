@@ -13,7 +13,6 @@ import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-commo
 import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages';
 import Heading from '@atlaskit/heading';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -36,7 +35,7 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps) => {
 		<>
 			<ModalHeader onClose={onClose} />
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage, @atlassian/a11y/no-noninteractive-tabindex -- Ignored via go/DSP-18766 */}
-			<div css={contentWrapper} tabIndex={fg('platform_editor_help_dialog_a11y') ? 0 : undefined}>
+			<div css={contentWrapper} tabIndex={0}>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div css={line} />
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}

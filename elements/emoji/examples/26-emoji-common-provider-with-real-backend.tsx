@@ -10,7 +10,6 @@ import EmojiPicker, {
 	useEmoji,
 } from '../src';
 import { EmojiTypeAheadTextInput } from './03-standard-emoji-typeahead';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Popup } from '@atlaskit/popup';
 import { IconButton } from '@atlaskit/button/new';
 import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
@@ -52,7 +51,6 @@ export const EmojiPickerPopup = ({
 					/>
 				)}
 				content={() => <EmojiPicker emojiProvider={emojiProvider} onSelection={onSelection} />}
-				shouldRenderToParent={fg('should-render-to-parent-should-be-true-editor-coll')}
 			/>
 			<p data-testid="selected-emoji">
 				{selectedEmoji && (

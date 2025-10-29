@@ -36,7 +36,7 @@ const sectionMessageStyles = cssMap({
 		font: token('font.body'),
 	},
 	dismissButtonContainer: {
-		marginTop: token('space.negative.025'),
+		marginBlockStart: token('space.negative.025'),
 	},
 });
 
@@ -100,6 +100,7 @@ const SectionMessage: React.ForwardRefExoticComponent<
 		>
 			<Inline space="space.200" alignBlock="stretch">
 				<div css={sectionMessageStyles.iconContainer}>
+					{/* @ts-ignore - Workaround for typecheck issues with help-center local consumption */}
 					<Icon
 						size="medium"
 						primaryColor={primaryColor}

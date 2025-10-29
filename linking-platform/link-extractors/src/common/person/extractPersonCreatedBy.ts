@@ -16,4 +16,5 @@ export const extractPersonCreatedBy = (jsonLd: JsonLd.Data.BaseData): LinkPerson
 			}
 		}
 	}
+	return undefined;
 };

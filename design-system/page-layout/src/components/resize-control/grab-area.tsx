@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import * as React from 'react';
 import { type ComponentProps, type FocusEvent, type KeyboardEvent, type MouseEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -23,8 +24,8 @@ type GrabAreaProps = {
 	onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void;
 	onMouseDown: (event: MouseEvent<HTMLButtonElement>) => void;
 	testId?: string;
-	ref?: React.Ref<HTMLButtonElement>;
-} & ComponentProps<'button'>;
+	valueTextLabel?: string;
+} & Omit<ComponentProps<'button'>, 'ref'>;
 
 /**
  * Determines the color of the grab line.
@@ -73,47 +74,58 @@ const lineStyles = css({
 const grabAreaLineSelector = { [GRAB_AREA_LINE_SELECTOR]: true };
 const grabAreaSelector = { [GRAB_AREA_SELECTOR]: true };
 
-const GrabArea = ({
-	testId,
-	valueTextLabel = 'Width',
-	isDisabled,
-	isLeftSidebarCollapsed,
-	label,
-	leftSidebarPercentageExpanded,
-	onKeyDown,
-	onMouseDown,
-	onBlur,
-	onFocus,
-	ref,
-	...rest
-}: GrabAreaProps & Partial<LeftSidebarProps>) => (
-	<button
-		{...grabAreaSelector}
-		aria-label={label}
-		data-testid={testId}
-		disabled={isDisabled}
-		aria-hidden={isLeftSidebarCollapsed}
-		type="button"
-		// The slider role is applied to a button to utilize the native
-		// interactive and disabled functionality on the resize slider. While a
-		// range input would be more semantically accurate, it does not affect
-		// usability.
-		role="slider"
-		css={[grabAreaStyles, isLeftSidebarCollapsed && grabAreaCollapsedStyles]}
-		aria-orientation="vertical"
-		aria-valuenow={leftSidebarPercentageExpanded}
-		aria-valuemin={0}
-		aria-valuemax={100}
-		aria-valuetext={`${valueTextLabel} ${leftSidebarPercentageExpanded}%`}
-		onKeyDown={onKeyDown}
-		onMouseDown={onMouseDown}
-		onFocus={onFocus}
-		onBlur={onBlur}
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-		{...rest}
-	>
-		<span css={lineStyles} {...grabAreaLineSelector} />
-	</button>
+const GrabArea = React.forwardRef<HTMLButtonElement, GrabAreaProps & Partial<LeftSidebarProps>>(
+	(
+		{
+			testId,
+			valueTextLabel = 'Width',
+			isDisabled,
+			isLeftSidebarCollapsed,
+			label,
+			leftSidebarPercentageExpanded,
+			onKeyDown,
+			onMouseDown,
+			onBlur,
+			onFocus,
+			...rest
+		},
+		ref,
+	) => {
+		return (
+			<button
+				ref={ref}
+				{...grabAreaSelector}
+				aria-label={label}
+				data-testid={testId}
+				disabled={isDisabled}
+				aria-hidden={isLeftSidebarCollapsed}
+				type="button"
+				// The slider role is applied to a button to utilize the native
+				// interactive and disabled functionality on the resize slider. While a
+				// range input would be more semantically accurate, it does not affect
+				// usability.
+				role="slider"
+				css={
+					isLeftSidebarCollapsed
+						? ([grabAreaStyles, grabAreaCollapsedStyles] as any)
+						: (grabAreaStyles as any)
+				}
+				aria-orientation="vertical"
+				aria-valuenow={leftSidebarPercentageExpanded}
+				aria-valuemin={0}
+				aria-valuemax={100}
+				aria-valuetext={`${valueTextLabel} ${leftSidebarPercentageExpanded}%`}
+				onKeyDown={onKeyDown}
+				onMouseDown={onMouseDown}
+				onFocus={onFocus}
+				onBlur={onBlur}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...rest}
+			>
+				<span css={lineStyles} {...grabAreaLineSelector} />
+			</button>
+		);
+	},
 );
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

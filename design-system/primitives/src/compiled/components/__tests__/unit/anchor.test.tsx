@@ -11,7 +11,6 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Anchor from '../../anchor';
 
@@ -322,14 +321,12 @@ describe('Anchor', () => {
 			});
 		});
 
-		ffTest.on('platform_dst_compiled_primitives_outline_reset', 'enabled', () => {
-			it('should override global outline styles', () => {
-				render(<Anchor href="/required">Anchor</Anchor>);
+		it('should override global outline styles', () => {
+			render(<Anchor href="/required">Anchor</Anchor>);
 
-				// The outline shorthand gets expanded by Compiled CSS, so we need to look for the expanded property
-				expect(screen.getByRole('link')).toHaveCompiledCss('outline-style', 'none', {
-					target: ':focus:not(:focus-visible)',
-				});
+			// The outline shorthand gets expanded by Compiled CSS, so we need to look for the expanded property
+			expect(screen.getByRole('link')).toHaveCompiledCss('outline-style', 'none', {
+				target: ':focus:not(:focus-visible)',
 			});
 		});
 	});

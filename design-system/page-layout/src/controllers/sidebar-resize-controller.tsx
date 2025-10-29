@@ -185,7 +185,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 	]);
 
 	const collapseLeftSidebar = useCallback(
-		(event?: MouseEvent | KeyboardEvent, collapseWithoutTransition?: boolean) => {
+		(_event?: MouseEvent | KeyboardEvent, collapseWithoutTransition?: boolean) => {
 			if (!isOpen) {
 				return;
 			}

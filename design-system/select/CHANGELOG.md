@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 21.3.8
+
+### Patch Changes
+
+- [`e02c11e7be73c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e02c11e7be73c) -
+  types made more explicit
+- Updated dependencies
+
 ## 21.3.7
 
 ### Patch Changes

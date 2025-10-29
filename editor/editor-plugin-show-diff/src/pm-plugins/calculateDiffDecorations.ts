@@ -10,6 +10,7 @@ import type { Step as ProseMirrorStep, StepMap } from '@atlaskit/editor-prosemir
 import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
 import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
+import { getAttrChangeRanges } from './attributeDecorations';
 import {
 	createInlineChangedDecoration,
 	createDeletedContentDecoration,
@@ -166,6 +167,11 @@ const calculateDiffDecorationsInner = ({
 	});
 	getMarkChangeRanges(steps).forEach((change) => {
 		decorations.push(createInlineChangedDecoration(change, colourScheme));
+	});
+	getAttrChangeRanges(tr.doc, rawSteps).forEach((change) => {
+		decorations.push(
+			...calculateNodesForBlockDecoration(tr.doc, change.fromB, change.toB, colourScheme),
+		);
 	});
 
 	return DecorationSet.empty.add(tr.doc, decorations);

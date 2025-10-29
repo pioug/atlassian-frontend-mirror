@@ -606,6 +606,8 @@ export default class PopupSelect<
 			} else if (typeof placeholder === 'string') {
 				return placeholder;
 			}
+
+			return undefined;
 		};
 
 		const popper = (

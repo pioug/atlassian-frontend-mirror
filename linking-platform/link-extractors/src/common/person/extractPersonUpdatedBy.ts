@@ -18,4 +18,5 @@ export const extractPersonUpdatedBy = (jsonLd: LinkTypeUpdatedBy): LinkPerson | 
 	if (updatedBy) {
 		return extractPersonFromJsonLd(updatedBy as JsonLd.Primitives.Object | JsonLd.Primitives.Link);
 	}
+	return undefined;
 };

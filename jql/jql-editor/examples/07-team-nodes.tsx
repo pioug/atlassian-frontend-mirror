@@ -10,7 +10,7 @@ import {
 	jqlFieldsMock,
 	jqlFunctionsMock,
 	jqlValuesMock,
-	mockAvatarUrl,
+	mockTeamAvatarUrl,
 	teams,
 } from '../examples-utils/data';
 import { Container } from '../examples-utils/styled';
@@ -52,7 +52,7 @@ const onHydrate = (jql: string): Promise<HydratedValues> =>
 						type: 'team',
 						id: team.value,
 						name: team.displayName,
-						avatarUrl: mockAvatarUrl,
+						avatarUrl: mockTeamAvatarUrl,
 					}),
 				);
 

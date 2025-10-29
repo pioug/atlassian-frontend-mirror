@@ -40,6 +40,7 @@ export const extractProvider = (jsonLd: JsonLd.Data.BaseData): LinkProvider | un
 			}
 		}
 	}
+	return undefined;
 };
 
 export const extractProviderIcon = (
@@ -68,6 +69,7 @@ export const extractProviderIcon = (
 	if (icon) {
 		return extractUrlFromIconJsonLd(icon);
 	}
+	return undefined;
 };
 
 const extractProviderImage = (
@@ -84,6 +86,7 @@ const extractProviderImage = (
 			}
 		}
 	}
+	return undefined;
 };
 
 export const isConfluenceGenerator = (id: string) => {

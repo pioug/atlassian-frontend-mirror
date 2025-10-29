@@ -28,4 +28,5 @@ export const extractContext = (jsonLd: JsonLd.Data.BaseData): LinkContext | unde
 			}
 		}
 	}
+	return undefined;
 };

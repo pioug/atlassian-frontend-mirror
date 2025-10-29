@@ -949,8 +949,10 @@ const extensionStyle = css({
 	// exceptions:
 	// - nested renderers - bodied extensions have nested renderers adopt the contentMode prop themselves so should not be touched
 	// - legacy status lozenge - some extensions use the .aui-lozenge class for a legacy status lozenge and is not designed to scale
+	// - .ak-renderer-extension .ak-renderer-document .ak-renderer-extension:not(:has(.ak-renderer-document)) :not(.aui-lozenge, .status-lozenge-span *)
+	//	 extensions inside extension documents (like ones with their own renderer) will need the font size to be applied again (e.g. TOC inside Excerpt, or TOC inside Page Properties inside LCM inside table)
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.ak-renderer-extension :not(.ak-renderer-extension .ak-renderer-document *, .aui-lozenge, .status-lozenge-span *)':
+	'.ak-renderer-extension :not(.ak-renderer-extension .ak-renderer-document *, .aui-lozenge, .status-lozenge-span *), .ak-renderer-extension .ak-renderer-document .ak-renderer-extension:not(:has(.ak-renderer-document)) :not(.aui-lozenge, .status-lozenge-span *)':
 		{
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			fontSize: 'var(--ak-renderer-base-font-size)',
@@ -2346,7 +2348,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					: headingsSharedStyles,
 				headingWithAlignmentStyles,
 				ruleSharedStyles,
-				expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+				(contentMode === 'compact' || contentMode === 'dense') &&
+					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 					fg('platform_editor_content_mode_button_mvp') &&
 					extensionStyle,
 				fg('platform_editor_typography_ugc')

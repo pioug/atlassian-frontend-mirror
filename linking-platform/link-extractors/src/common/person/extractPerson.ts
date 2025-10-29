@@ -21,4 +21,5 @@ export const extractPersonFromJsonLd = (
 			};
 		}
 	}
+	return undefined;
 };

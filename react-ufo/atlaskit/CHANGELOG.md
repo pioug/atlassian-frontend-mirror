@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.13.0
+
+### Minor Changes
+
+- [`b0fe1aee585a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0fe1aee585a6) -
+  Updated ssrRatio to 0-1 from 0-100 to be backwards compatibile
+
 ## 4.12.5
 
 ### Patch Changes

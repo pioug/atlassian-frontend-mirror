@@ -4,4 +4,5 @@ export const extractDateViewed = (jsonLd: JsonLd.Data.Document): string | undefi
 	if (jsonLd['atlassian:dateViewed']) {
 		return jsonLd['atlassian:dateViewed'];
 	}
+	return undefined;
 };

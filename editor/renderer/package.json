@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "124.9.2",
+	"version": "124.9.5",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -246,6 +246,9 @@
 			"type": "boolean"
 		},
 		"hot-121622_lazy_load_expand_content": {
+			"type": "boolean"
+		},
+		"navx-1895-new-logo-design": {
 			"type": "boolean"
 		},
 		"media-perf-uplift-mutation-fix": {

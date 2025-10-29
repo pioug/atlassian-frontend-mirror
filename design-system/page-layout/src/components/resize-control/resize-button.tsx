@@ -20,7 +20,7 @@ import { RESIZE_BUTTON_SELECTOR } from '../../common/constants';
 
 import { type ResizeButtonProps } from './types';
 
-const increaseHitAreaStyles = css({
+const hitAreaSpanStyles = css({
 	position: 'absolute',
 	insetBlockEnd: `${token('space.negative.300', '-24px')}`,
 	insetBlockStart: `${token('space.negative.300', '-24px')}`,
@@ -81,28 +81,33 @@ const resizeIconButtonExpandedStyles = css({
 
 const preventDefault = (event: MouseEvent) => event.preventDefault();
 const cssSelector = { [RESIZE_BUTTON_SELECTOR]: true };
-const ResizeButton = ({ isLeftSidebarCollapsed, label, testId, ...props }: ResizeButtonProps) => (
-	<button
-		{...cssSelector} // DO NOT remove. used as a CSS selector.
-		aria-expanded={!isLeftSidebarCollapsed}
-		aria-label={label}
-		type="button"
-		// The error goes away when we remove the spread ...props
-		css={[
-			resizeIconButtonStyles,
-			mobileStyles,
-			!isLeftSidebarCollapsed && resizeIconButtonExpandedStyles,
-		]}
-		data-testid={testId}
-		// Prevents focus staying attached to the button when pressed
-		onMouseDown={preventDefault}
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-		{...props}
-	>
-		<ChevronRight label="" color="currentColor" size="small" />
-		<span css={increaseHitAreaStyles} />
-	</button>
-);
+
+const ResizeButton = ({ isLeftSidebarCollapsed, label, testId, ...props }: ResizeButtonProps) => {
+	// Extract css from props if it exists to avoid conflicts
+	const { css: _ignoredCss, ...restProps } = props as any;
+
+	return (
+		<button
+			{...cssSelector} // DO NOT remove. used as a CSS selector.
+			aria-expanded={!isLeftSidebarCollapsed}
+			aria-label={label}
+			type="button"
+			css={[
+				resizeIconButtonStyles,
+				mobileStyles,
+				!isLeftSidebarCollapsed && resizeIconButtonExpandedStyles,
+			]}
+			data-testid={testId}
+			// Prevents focus staying attached to the button when pressed
+			onMouseDown={preventDefault}
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+			{...restProps}
+		>
+			<ChevronRight label="" color="currentColor" size="small" />
+			<span css={hitAreaSpanStyles} />
+		</button>
+	);
+};
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default ResizeButton;

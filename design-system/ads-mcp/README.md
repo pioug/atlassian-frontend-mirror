@@ -128,22 +128,23 @@ Add an entry to your `mcp.json` (eg. `~/.cursor/mcp.json` or wherever your MCP c
   - `rovodev` - Rovo Development environment
   - `codelassian` - Codelassian platform
   - `unknown` - Default value when not specified
-  
-  The `ADSMCP_AGENT` variable helps track which platforms are using the MCP server for analytics purposes.
+
+  The `ADSMCP_AGENT` variable helps track which platforms are using the MCP server for analytics
+  purposes.
 
 - `ADSMCP_ANALYTICS_OPT_OUT` - Opt out of analytics collection. Set to `true` to disable:
   ```json
   {
-    "mcpServers": {
-      "ads": {
-        "command": "npx",
-        "args": ["-y", "@atlaskit/ads-mcp"],
-        "env": {
-          "ADSMCP_AGENT": "cursor",
-          "ADSMCP_ANALYTICS_OPT_OUT": true
-        }
-      }
-    }
+  	"mcpServers": {
+  		"ads": {
+  			"command": "npx",
+  			"args": ["-y", "@atlaskit/ads-mcp"],
+  			"env": {
+  				"ADSMCP_AGENT": "cursor",
+  				"ADSMCP_ANALYTICS_OPT_OUT": true
+  			}
+  		}
+  	}
   }
   ```
 
@@ -173,7 +174,6 @@ Atlassian's internal analytics system and track:
   normally
 - All analytics errors are caught and logged, ensuring they never interrupt your workflow
 - Events are batched and flushed every 5 seconds for efficiency
-
 
 ## Development
 

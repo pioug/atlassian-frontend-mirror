@@ -97,9 +97,6 @@
 		"platform_editor_update_modal_close_button": {
 			"type": "boolean"
 		},
-		"platform_editor_help_dialog_a11y": {
-			"type": "boolean"
-		},
 		"platform_editor_fix_help_modal_header": {
 			"type": "boolean"
 		}

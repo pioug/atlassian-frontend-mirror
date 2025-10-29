@@ -36,11 +36,19 @@ const AsyncCreatableSelect = forwardRef(
 			| MutableRefObject<Select<Option, IsMulti, Group> | null>
 			| null,
 	) => {
-		const stateManagerProps = useAsync(props);
-		// @ts-ignore - TS2345: Complex generic type causing issues for help-center local consumption with TS 5.9.2
-		const creatableProps = useStateManager(stateManagerProps);
-		// @ts-ignore - TS2345: Complex generic type causing issues for help-center local consumption with TS 5.9.2
-		const selectProps = useCreatable(creatableProps);
+		const stateManagerProps = useAsync<
+			Option,
+			IsMulti,
+			Group,
+			CreatableAdditionalProps<Option, Group>
+		>(props);
+		const creatableProps = useStateManager<
+			Option,
+			IsMulti,
+			Group,
+			CreatableAdditionalProps<Option, Group>
+		>(stateManagerProps);
+		const selectProps = useCreatable<Option, IsMulti, Group>(creatableProps);
 
 		// @ts-ignore - TS2322: Complex generic type causing issues for help-center local consumption with TS 5.9.2
 		return <Select ref={ref} {...selectProps} />;

@@ -11,7 +11,7 @@ import { createComponentRegistry } from '@atlaskit/editor-toolbar-model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import selectionToolbarOpenExperience from './pm-plugins/experiences/SelectionToolbarOpenExperience';
+import { getSelectionToolbarOpenExperiencePlugin } from './pm-plugins/experiences/selection-toolbar-open-experience';
 import { editorToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { EditorToolbarPluginState, ToolbarPlugin } from './toolbarPluginType';
 import { DEFAULT_POPUP_SELECTORS } from './ui/consts';
@@ -85,8 +85,7 @@ export const toolbarPlugin: ToolbarPlugin = ({
 		disableSelectionToolbarWhenPinned: false,
 	},
 }) => {
-	const popupsMountPointRef: { current?: HTMLElement } = {};
-	const editorViewDomRef: { current?: HTMLElement } = {};
+	const refs: { popupsMountPoint?: HTMLElement } = {};
 	const {
 		disableSelectionToolbar,
 		disableSelectionToolbarWhenPinned,
@@ -175,8 +174,6 @@ export const toolbarPlugin: ToolbarPlugin = ({
 								},
 							},
 							view(view) {
-								editorViewDomRef.current = view.dom;
-
 								const unbind = bind(view.root, {
 									type: 'mouseup',
 									listener: function (this: Document | ShadowRoot, ev: Event) {
@@ -238,8 +235,7 @@ export const toolbarPlugin: ToolbarPlugin = ({
 					? [
 							{
 								name: 'selectionToolbarOpenExperience',
-								plugin: () =>
-									selectionToolbarOpenExperience({ popupsMountPointRef, editorViewDomRef }),
+								plugin: () => getSelectionToolbarOpenExperiencePlugin({ refs }),
 							},
 						]
 					: []),
@@ -248,7 +244,7 @@ export const toolbarPlugin: ToolbarPlugin = ({
 
 		contentComponent: !disableSelectionToolbar
 			? ({ editorView, popupsMountPoint }) => {
-					popupsMountPointRef.current = popupsMountPoint;
+					refs.popupsMountPoint = popupsMountPoint || undefined;
 
 					if (!editorView) {
 						return null;

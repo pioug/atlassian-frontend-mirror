@@ -12,7 +12,6 @@ import {
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { BasePrimitiveProps, StyleProp } from '../components/types';
@@ -30,6 +29,13 @@ const focusRingStyles = css({
 			outlineWidth: 1,
 		},
 	},
+	// This is added to override and reset global styles that apps might be applying - for example,
+	// at the time of writing, Jira has global styles that targets all button and anchor elements,
+	// adding an outline on :focus.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:focus:not(:focus-visible)': {
+		outline: 'none',
+	},
 });
 
 const insetFocusRingStyles = css({
@@ -40,16 +46,6 @@ const insetFocusRingStyles = css({
 		'&:focus-visible': {
 			outlineOffset: `calc(0px - ${token('border.width.focused')})`,
 		},
-	},
-});
-
-// This is added to override and reset global styles that apps might be applying - for example,
-// at the time of writing, Jira has global styles that targets all button and anchor elements,
-// adding an outline on :focus.
-const outlineResetStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'&:focus:not(:focus-visible)': {
-		outline: 'none',
 	},
 });
 
@@ -118,11 +114,7 @@ const Focusable = forwardRef(
 				className={xcss}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={style}
-				css={[
-					focusRingStyles,
-					isInset && insetFocusRingStyles,
-					fg('platform_dst_compiled_primitives_outline_reset') && outlineResetStyles,
-				]}
+				css={[focusRingStyles, isInset && insetFocusRingStyles]}
 				data-testid={testId}
 			>
 				{children}

@@ -82,10 +82,13 @@ const controlStyles = css({
 	paddingInlineStart: token('space.100', '8px'),
 });
 
-const Control: FC<ControlProps<OptionType, boolean>> = ({ innerRef, innerProps, ...props }) => (
+const Control = <Option, IsMulti extends boolean>({
+	innerRef,
+	innerProps,
+	...props
+}: ControlProps<Option, IsMulti>) => (
 	<div ref={innerRef} css={controlStyles}>
-		{/* @ts-ignore - TS2322: Complex generic type causing issues for help-center local consumption with TS 5.9.2 */}
-		<components.Control {...(props as ControlProps<OptionType, boolean>)} innerProps={innerProps} />
+		<components.Control {...(props as ControlProps<Option, IsMulti>)} innerProps={innerProps} />
 	</div>
 );
 
@@ -93,11 +96,10 @@ const Control: FC<ControlProps<OptionType, boolean>> = ({ innerRef, innerProps, 
  * __Dummy control__
  * Overrides the default DummyControl component in Select.
  */
-export const DummyControl: FC<ControlProps<OptionType, boolean>> = (props) => (
+export const DummyControl = (props: ControlProps<OptionType, boolean>): JSX.Element => (
 	<VisuallyHidden>
 		{/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
-		{/* @ts-ignore - TS2322: Complex generic type causing issues for help-center local consumption with TS 5.9.2 */}
-		<components.Control {...props} />
+		<components.Control {...(props as any)} />
 	</VisuallyHidden>
 );
 

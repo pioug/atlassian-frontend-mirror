@@ -23,7 +23,10 @@ import { Separator } from '../../../common/ui/separator';
 import { TeamLinkCardActions } from '../../../common/ui/team-link-card-actions';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
+import { getIsExperimentEnabled } from '../../../common/utils/get-is-experiment-enabled';
 import { getDomainFromLinkUri } from '../../../common/utils/get-link-domain';
+
+import { TeamLinkCardTitle } from './team-link-card-title';
 
 const styles = cssMap({
 	container: {
@@ -175,11 +178,7 @@ export const TeamLinkCard = ({
 	const { formatMessage } = useIntl();
 	const { fireUIEvent } = usePeopleAndTeamAnalytics();
 	const { fireEvent } = useAnalyticsEventsNext();
-	const isTeamLensInHomeEnabled = FeatureGates.getExperimentValue(
-		'team_lens_in_atlassian_home',
-		'cohort',
-		'control',
-	);
+	const isTeamLensInHomeEnabled: boolean = getIsExperimentEnabled('team_lens_in_atlassian_home');
 	const isNewTeamProfilePageEnabled = FeatureGates.getExperimentValue(
 		'new_team_profile',
 		'isEnabled',
@@ -238,6 +237,7 @@ export const TeamLinkCard = ({
 	};
 
 	const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+		e.stopPropagation();
 		const baseAttributes = { container: containerType, containerId };
 		const attributes =
 			containerType === 'WebLink' && link
@@ -294,9 +294,13 @@ export const TeamLinkCard = ({
 							target={isOpenWebLinkInNewTabEnabled ? '_blank' : '_self'}
 						>
 							<Stack>
-								<Text maxLines={1} weight="medium" color="color.text">
-									{title}
-								</Text>
+								<TeamLinkCardTitle
+									isTeamLensInHomeEnabled={isTeamLensInHomeEnabled}
+									isOpenWebLinkInNewTabEnabled={isOpenWebLinkInNewTabEnabled}
+									link={link || '#'}
+									handleLinkClick={handleLinkClick}
+									title={title}
+								/>
 								<Flex gap="space.050" alignItems="center">
 									{!hideSubTextIcon ? icon : null}
 									<Inline space="space.050" alignBlock="center">
@@ -351,9 +355,13 @@ export const TeamLinkCard = ({
 						<Box xcss={styles.linkableContent} testId="team-link-card-linkable-content">
 							<Link href={link || '#'} appearance="subtle" onClick={handleLinkClick}>
 								<Stack>
-									<Text maxLines={1} weight="medium" color="color.text">
-										{title}
-									</Text>
+									<TeamLinkCardTitle
+										isTeamLensInHomeEnabled={isTeamLensInHomeEnabled}
+										isOpenWebLinkInNewTabEnabled={isOpenWebLinkInNewTabEnabled}
+										link={link || '#'}
+										handleLinkClick={handleLinkClick}
+										title={title}
+									/>
 									<Flex gap="space.050" alignItems="center">
 										{!hideSubTextIcon ? icon : null}
 										<Inline space="space.050" alignBlock="center">

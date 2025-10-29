@@ -21,4 +21,5 @@ export const extractUrlFromIconJsonLd = (
 			return extractUrlFromLinkJsonLd(icon.url);
 		}
 	}
+	return undefined;
 };

@@ -9,6 +9,7 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { history, closeHistory, undo, redo, undoDepth, redoDepth } from '../../src';
+import { createTransformFromSteps, InvertableStep } from '../../src/utils/createTransformFromSteps';
 
 const plugin = history();
 
@@ -911,4 +912,56 @@ describe('history', () => {
 			});
 		},
 	);
+
+	describe('createTransformFromSteps', () => {
+		it('should work correctly with valid steps', () => {
+			// Simple test with no steps applied - just verify the function works
+			const testDoc = doc(p('hello'));
+			const steps: InvertableStep[] = [];
+
+			const transform = createTransformFromSteps(steps, testDoc(schema));
+			expect(transform.doc).toEqualDocument(testDoc(schema));
+		});
+
+		it('should handle errors when applying inverted steps', () => {
+			// Create a step that will fail when inverted.apply() is called
+			// ReplaceStep with invalid positions that exceed document bounds
+			const testDoc = doc(p('test'));
+			const invalidStep = new ReplaceStep(100, 200, Slice.empty); // positions beyond doc length
+			const invertedStep = new ReplaceStep(100, 200, Slice.empty); // also invalid
+			const steps = [new InvertableStep(invalidStep, invertedStep)];
+
+			// Should not throw and should return a transform with the original document
+			const transform = createTransformFromSteps(steps, testDoc(schema));
+			expect(transform.doc).toEqualDocument(testDoc(schema));
+		});
+
+		it('should handle errors when applying forward steps', () => {
+			// Create a step that will succeed in the inverted phase but fail in forward phase
+			const testDoc = doc(p('test'));
+			const validInvertedStep = new ReplaceStep(0, 0, Slice.empty); // valid inverted step
+			const invalidForwardStep = new ReplaceStep(100, 200, Slice.empty); // invalid forward step
+			const steps = [new InvertableStep(invalidForwardStep, validInvertedStep)];
+
+			// Should not throw even when forward step fails
+			const transform = createTransformFromSteps(steps, testDoc(schema));
+			// The transform should exist but may not have applied the invalid step
+			expect(transform).toBeDefined();
+		});
+
+		it('should handle multiple invalid steps gracefully', () => {
+			const testDoc = doc(p('hello world'));
+			const invalidStep1 = new ReplaceStep(1000, 2000, Slice.empty);
+			const invalidStep2 = new ReplaceStep(-10, -5, Slice.empty);
+			const steps = [
+				new InvertableStep(invalidStep1, invalidStep1),
+				new InvertableStep(invalidStep2, invalidStep2),
+			];
+
+			// Should handle multiple failures without throwing
+			const transform = createTransformFromSteps(steps, testDoc(schema));
+			expect(transform).toBeDefined();
+			expect(transform.doc).toEqualDocument(testDoc(schema));
+		});
+	});
 });

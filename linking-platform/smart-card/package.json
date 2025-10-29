@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.4.0",
+	"version": "43.4.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -199,9 +199,6 @@
 		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		},
-		"should-render-to-parent-should-be-true-linking-pla": {
-			"type": "boolean"
-		},
 		"prompt_whiteboard_competitor_link_gate": {
 			"type": "boolean"
 		},
@@ -224,9 +221,6 @@
 			"type": "boolean"
 		},
 		"platform_deprecate_lp_cc_embed": {
-			"type": "boolean"
-		},
-		"navx-1706-smart-link-layered-link-a11y-update": {
 			"type": "boolean"
 		},
 		"hover-card-on-visibility-change-callback": {

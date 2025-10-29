@@ -11,4 +11,5 @@ export const extractType = (
 			return [type as JsonLd.Primitives.ObjectType];
 		}
 	}
+	return undefined;
 };

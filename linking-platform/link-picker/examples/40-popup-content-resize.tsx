@@ -1,7 +1,6 @@
 import React, { Fragment, useCallback, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
@@ -104,7 +103,6 @@ function TestContentResize() {
 						Toggle
 					</Button>
 				)}
-				shouldRenderToParent={fg('should-render-to-parent-should-be-true-linking-pla')}
 			/>
 		</Fragment>
 	);

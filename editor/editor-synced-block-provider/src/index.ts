@@ -3,27 +3,24 @@
 export {
 	SyncBlockProvider as SyncedBlockProvider,
 	useMemoizedSyncedBlockProvider,
-} from './common/syncBlockProvider';
-export {
-	SyncBlockStoreManager,
-	useFetchSyncBlockData,
-	useHandleContentChanges,
-} from './common/syncBlockStoreManager';
+} from './providers/syncBlockProvider';
+export { SyncBlockStoreManager } from './store-manager/syncBlockStoreManager';
+export { useFetchSyncBlockData } from './hooks/useFetchSyncBlockData';
+export { useHandleContentChanges } from './hooks/useHandleContentChanges';
+export type { SyncBlockData, SyncBlockNode } from './common/types';
 export type {
 	SyncBlockDataProvider,
 	ADFFetchProvider,
 	ADFWriteProvider,
-	SyncBlockData,
-	SyncBlockNode,
 	FetchSyncBlockDataResult,
-} from './common/types';
-export { SyncBlockStatus } from './common/types';
-export { inMemoryFetchProvider, inMemoryWriteProvider } from './providers/inMemory';
+} from './providers/types';
+export { SyncBlockError } from './common/types';
+export { inMemoryFetchProvider, inMemoryWriteProvider } from './providers/in-memory/inMemory';
 export { getDefaultSyncBlockSchema } from './common/schema';
 export {
 	createContentAPIProvidersWithDefaultKey,
 	useMemoizedContentAPIProviders,
-} from './providers/confluenceContentAPI';
+} from './providers/confluence/confluenceContentAPI';
 export { getConfluencePageAri } from './utils/ari';
-export { convertSyncBlockPMNodeToSyncBlockNode as convertSyncBlockPMNodeToSyncBlockData } from './utils/utils';
+export { convertSyncBlockPMNodeToSyncBlockData } from './utils/utils';
 export { rebaseTransaction } from './common/rebase-transaction';

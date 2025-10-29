@@ -1,5 +1,13 @@
 # @atlaskit/code
 
+## 17.3.0
+
+### Minor Changes
+
+- [`480d781cdc018`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/480d781cdc018) -
+  Align the code component to ADS design tokens where possible behind a feature flag. If successful,
+  this will be part of a later release.
+
 ## 17.2.8
 
 ### Patch Changes

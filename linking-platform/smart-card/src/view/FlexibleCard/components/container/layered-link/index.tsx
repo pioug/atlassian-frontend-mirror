@@ -4,8 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 
 import { type LayeredLinkProps } from './types';
@@ -68,7 +66,7 @@ const LayeredLink = ({ onClick, target, testId, text, url }: LayeredLinkProps) =
 			onMouseDown={onMouseDown}
 			target={target}
 			tabIndex={-1} // Hide tab index and let the title link be the link.
-			aria-hidden={fg('navx-1706-smart-link-layered-link-a11y-update')} // This is to avoid screen readers reading out the link twice.
+			aria-hidden={true} // This is to avoid screen readers reading out the link twice.
 		>
 			{text}
 		</a>

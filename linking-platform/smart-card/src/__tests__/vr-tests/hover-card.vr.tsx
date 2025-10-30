@@ -27,6 +27,7 @@ snapshot(HoverCard, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardWithEntities, {
@@ -49,6 +50,7 @@ snapshot(HoverCardWithEntities, {
 	featureFlags: {
 		'navx-1910-fix-hovercard-performance-metrics': true,
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardActions, {
@@ -63,6 +65,7 @@ snapshot(HoverCardActions, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardActions, {
@@ -77,6 +80,7 @@ snapshot(HoverCardActions, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardUnauthorised, {
@@ -87,6 +91,7 @@ snapshot(HoverCardUnauthorised, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardSSRLoading, {
@@ -97,6 +102,7 @@ snapshot(HoverCardSSRLoading, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardSSRError, {
@@ -107,6 +113,7 @@ snapshot(HoverCardSSRError, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardPositioning, {
@@ -121,6 +128,7 @@ snapshot(HoverCardPositioning, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardPositioning, {
@@ -132,6 +140,7 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-cannot-open' },
 		},
 	],
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardPositioning, {
@@ -146,4 +155,5 @@ snapshot(HoverCardPositioning, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "4.5.0",
+	"version": "4.6.0",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -121,6 +121,9 @@
 			"type": "boolean"
 		},
 		"popup-onclose-fix": {
+			"type": "boolean"
+		},
+		"platform-dst-popup-compositional-trigger-ref": {
 			"type": "boolean"
 		}
 	},

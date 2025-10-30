@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 110.19.1
+
+### Patch Changes
+
+- [`e727490d9f62f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e727490d9f62f) -
+  [ux] EDITOR-2572 Hide floating toolbar when status picker is open
+- Updated dependencies
+
+## 110.19.0
+
+### Minor Changes
+
+- [`28ba94dae8f9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28ba94dae8f9a) -
+  [ux] EDITOR-2458 Replace usage of \_\_suppressAllToolbars with userIntentPlugin
+- [`68caaf98e8f89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68caaf98e8f89) -
+  [ux] [EDITOR-1628] Added "Removed" Lozenge and gray border decorations to deleted block nodes in
+  show diff view
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.18.9
 
 ### Patch Changes

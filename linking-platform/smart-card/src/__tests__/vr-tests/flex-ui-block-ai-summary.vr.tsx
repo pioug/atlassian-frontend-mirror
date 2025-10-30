@@ -20,6 +20,7 @@ snapshot(FlexUiBlockAiSummaryReady, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(FlexUiBlockAiSummaryLoading, {
@@ -37,6 +38,7 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(FlexUiBlockAiSummaryDone, {
@@ -54,6 +56,7 @@ snapshot(FlexUiBlockAiSummaryDone, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(FlexUiBlockAiSummaryDoneOnMount, {
@@ -71,6 +74,7 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(FlexUiBlockAiSummaryError, {
@@ -88,4 +92,5 @@ snapshot(FlexUiBlockAiSummaryError, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });

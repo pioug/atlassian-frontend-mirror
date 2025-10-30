@@ -45,6 +45,7 @@ import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosem
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
@@ -61,6 +62,15 @@ import { findNode } from './pm-plugins/utils';
 import { ConfirmationModal } from './ui/ConfirmationModal';
 import Toolbar from './ui/Toolbar';
 import { consolidateOverflowDropdownItems } from './ui/utils';
+
+const SUPPRESS_TOOLBAR_USER_INTENTS = [
+	'dragging',
+	'tablePopupOpen',
+	'commenting',
+	'resizing',
+	'blockMenuOpen',
+	'statusPickerOpen',
+];
 
 // TODO: AFP-2532 - Fix automatic suppressions below
 export const getRelevantConfig = (
@@ -175,6 +185,7 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 					name: 'floatingToolbar',
 					plugin: ({ providerFactory, getIntl }) =>
 						floatingToolbarPluginFactory({
+							api,
 							floatingToolbarHandlers,
 							providerFactory,
 							getIntl,
@@ -313,19 +324,28 @@ export function ContentComponent({
 		return null;
 	}
 
+	const userIntentEnabled = Boolean(
+		pluginInjectionApi?.userIntent &&
+			expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true),
+	);
+
 	if (
-		userIntentState?.currentUserIntent === 'dragging' ||
-		(userIntentState?.currentUserIntent === 'blockMenuOpen' &&
-			expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
-			fg('platform_editor_block_menu_hide_floating_toolbar'))
+		(userIntentState?.currentUserIntent === 'dragging' ||
+			(userIntentState?.currentUserIntent === 'blockMenuOpen' &&
+				expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+				fg('platform_editor_block_menu_hide_floating_toolbar'))) &&
+		!userIntentEnabled
 	) {
 		return null;
 	}
 
-	// TODO: ED-27539 - This feature is unreleased and rendering logic needs to be move userIntentState which is not ready yet
-	// if (blockControlsState?.isMenuOpen && editorExperiment('platform_editor_controls', 'variant1')) {
-	// 	return null;
-	// }
+	if (
+		userIntentState?.currentUserIntent &&
+		SUPPRESS_TOOLBAR_USER_INTENTS.includes(userIntentState?.currentUserIntent) &&
+		userIntentEnabled
+	) {
+		return null;
+	}
 
 	const { config, node } = configWithNodeInfo;
 
@@ -630,25 +650,44 @@ function sanitizeFloatingToolbarConfig(config: FloatingToolbarConfig): FloatingT
  * @returns A SafePlugin instance that manages floating toolbar state and behavior
  */
 export function floatingToolbarPluginFactory(options: {
+	api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
 	floatingToolbarHandlers: Array<FloatingToolbarHandler>;
 	getIntl: () => IntlShape;
 	providerFactory: ProviderFactory;
 }) {
-	const { floatingToolbarHandlers, providerFactory, getIntl } = options;
+	const { floatingToolbarHandlers, providerFactory, getIntl, api } = options;
 	const intl = getIntl();
 	const getConfigWithNodeInfo = (editorState: EditorState) => {
 		let activeConfigs: Array<FloatingToolbarConfig> | undefined = [];
+
 		for (let index = 0; index < floatingToolbarHandlers.length; index++) {
 			const handler = floatingToolbarHandlers[index];
 			const config = handler(editorState, intl, providerFactory, activeConfigs);
 			if (config) {
+				const userIntentEnabled = Boolean(
+					api?.userIntent &&
+						expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true),
+				);
+
 				if (
 					config.__suppressAllToolbars &&
-					editorExperiment('platform_editor_controls', 'variant1')
+					editorExperiment('platform_editor_controls', 'variant1') &&
+					!userIntentEnabled
 				) {
 					activeConfigs = undefined;
 					break;
 				}
+
+				if (
+					userIntentEnabled &&
+					SUPPRESS_TOOLBAR_USER_INTENTS.includes(
+						api?.userIntent?.sharedState.currentState()?.currentUserIntent || '',
+					)
+				) {
+					activeConfigs = undefined;
+					break;
+				}
+
 				activeConfigs.push(sanitizeFloatingToolbarConfig(config));
 			}
 		}

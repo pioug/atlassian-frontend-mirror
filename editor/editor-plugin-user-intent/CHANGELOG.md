@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-user-intent
 
+## 4.0.4
+
+### Patch Changes
+
+- [`28ba94dae8f9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28ba94dae8f9a) -
+  [ux] EDITOR-2458 Replace usage of \_\_suppressAllToolbars with userIntentPlugin
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

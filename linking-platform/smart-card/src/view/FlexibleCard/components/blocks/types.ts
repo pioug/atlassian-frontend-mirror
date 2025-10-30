@@ -7,6 +7,13 @@ import {
 	type SmartLinkSize,
 } from '../../../../constants';
 import { type ActionProps } from '../actions/action/types';
+import type { AssignedToGroupElementProps } from '../elements/assigned-to-group-element';
+import type { BaseAvatarGroupElementProps } from '../elements/common/base-avatar-group-element';
+import type { CreatedOnProps } from '../elements/created-on-element';
+import type { ModifiedOnProps } from '../elements/modified-on-element';
+import type { OwnedByElementProps } from '../elements/owned-by-element';
+import type { OwnedByGroupElementProps } from '../elements/owned-by-group-element';
+import type { ProviderElementProps } from '../elements/provider-element';
 
 export type BlockProps = {
 	/**
@@ -293,37 +300,21 @@ export type AppliedToComponentsCount = {
  */
 export type AuthorGroup = {
 	name: ElementName.AuthorGroup;
-	/**
-	 * Shows a name prefix Created by in the Avatar tooltip.
-	 */
-	showNamePrefix?: boolean;
-};
+} & Pick<BaseAvatarGroupElementProps, 'showNamePrefix'>;
 /**
  * Represents the props available for an OwnedByGroup element.
  * @see AuthorGroup
  */
 export type OwnedByGroup = {
 	name: ElementName.OwnedByGroup;
-	/**
-	 * Shows a name prefix Owned by in the Avatar tooltip.
-	 */
-	showNamePrefix?: boolean;
-};
+} & Pick<OwnedByGroupElementProps, 'showNamePrefix'>;
 /**
  * Represents the props available for an AssignedToGroup element.
  * @see AuthorGroup
  */
 export type AssignedToGroup = {
 	name: ElementName.AssignedToGroup;
-	/**
-	 * Shows a default unassigned fallback avatar when no person is assigned.
-	 */
-	showFallbackAvatar?: boolean;
-	/**
-	 * Shows a name prefix Assigned To in the Avatar tooltip.
-	 */
-	showNamePrefix?: boolean;
-};
+} & Pick<AssignedToGroupElementProps, 'showFallbackAvatar' | 'showNamePrefix'>;
 
 /**
  * Represents the props available for an ChecklistProgress element.
@@ -365,26 +356,15 @@ export type CreatedBy = {
  * @see OwnedBy
  */
 export type OwnedBy = {
-	fontSize?: 'font.body' | 'font.body.large' | 'font.body.small' | 'font.body.UNSAFE_small';
-
-	hideFormat?: boolean;
 	name: ElementName.OwnedBy;
-	// Note: These types originate from `OwnedByElementProps` however due to compilation issues with Atlaskit
-	// they have been replaced with their direct types
-	// https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183586/overview
-	textPrefix?: 'owned_by' | 'owned_by_override';
-};
+} & Pick<OwnedByElementProps, 'fontSize' | 'hideFormat' | 'textPrefix'>;
 /**
  * Represents the props available for an CreatedOn element.
  * @see CreatedOn
  */
 export type CreatedOn = {
 	name: ElementName.CreatedOn;
-	/**
-	 * A string which will be displayed before the specified element.
-	 */
-	text?: string;
-};
+} & Pick<CreatedOnProps, 'text'>;
 /**
  * Represents the props available for an DueOn element.
  * @see CreatedOn
@@ -424,16 +404,8 @@ export type ModifiedBy = {
  * @see ModifiedOn
  */
 export type ModifiedOn = {
-	// Note: This type originates from `ModifiedOnElementProps` however due to compilation issues with Atlaskit
-	// it has been replaced with its direct type
-	// https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183586/overview
-	fontSize?: 'font.body' | 'font.body.large' | 'font.body.small' | 'font.body.UNSAFE_small';
 	name: ElementName.ModifiedOn;
-	/**
-	 * A string which will be displayed before the specified element.
-	 */
-	text?: string;
-};
+} & Pick<ModifiedOnProps, 'fontSize' | 'text'>;
 /**
  * Represents the props available for an Preview element.
  * @see Preview
@@ -460,9 +432,8 @@ export type ProgrammingLanguage = {
  * @see Provider
  */
 export type Provider = {
-	hideIcon?: boolean;
 	name: ElementName.Provider;
-};
+} & Pick<ProviderElementProps, 'hideIcon'>;
 /**
  * Represents the props available for an ReactCount element.
  * @see ReactCount

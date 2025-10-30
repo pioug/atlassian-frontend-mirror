@@ -215,7 +215,7 @@ export interface UnassignedTeam {
 
 export interface UnassignedTeamsResponse {
 	teams: UnassignedTeam[];
-	cursor: string;
+	cursor: string | null;
 }
 
 export type AlignmentPermission = 'ALL_USERS' | 'ORG_ADMIN';

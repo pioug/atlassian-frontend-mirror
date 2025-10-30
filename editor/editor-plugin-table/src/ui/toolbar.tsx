@@ -58,6 +58,7 @@ import EditorAlignImageCenter from '@atlaskit/icon/glyph/editor/align-image-cent
 import EditorAlignImageLeft from '@atlaskit/icon/glyph/editor/align-image-left';
 import DistributeColumnIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -513,12 +514,17 @@ export const getToolbarConfig =
 			// Note: when focus is in codeblocks, pluginState.editorHasFocus is false, so the codeblocks toolbar
 			// won't be suppressed.
 			const shouldSuppressAllToolbars = isTableState && pluginState.editorHasFocus && !isViewMode;
+
 			if (shouldSuppressAllToolbars) {
+				const userIntentEnabled = Boolean(
+					api?.userIntent &&
+						expValEquals('platform_editor_lovability_user_intent', 'isEnabled', true),
+				);
 				return {
 					title: toolbarTitle,
 					items: [],
 					nodeType,
-					__suppressAllToolbars: true,
+					__suppressAllToolbars: userIntentEnabled ? undefined : true,
 				};
 			}
 		}

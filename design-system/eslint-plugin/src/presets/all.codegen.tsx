@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::daf4a5893d65c7a1592f8bc6e51920c6>>
+ * @codegen <<SignedSource::43ea4411c4e338a916772d4bfda146cc>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -72,6 +72,7 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/use-primitives': 'warn',
 		'@atlaskit/design-system/use-primitives-text': 'warn',
 		'@atlaskit/design-system/use-should-render-to-parent': 'warn',
+		'@atlaskit/design-system/use-spotlight-package': 'warn',
 		'@atlaskit/design-system/use-tag-group-label': 'warn',
 		'@atlaskit/design-system/use-tokens-shape': 'error',
 		'@atlaskit/design-system/use-tokens-space': 'error',

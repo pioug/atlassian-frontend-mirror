@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.2.3
+
+### Patch Changes
+
+- [`b32a210dc472a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b32a210dc472a) -
+  Refactor async logic
+
 ## 2.2.2
 
 ### Patch Changes

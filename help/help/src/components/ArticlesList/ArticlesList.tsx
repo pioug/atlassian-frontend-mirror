@@ -45,7 +45,7 @@ const articlesList: React.FC<Partial<ArticlesListInterface> & Props> = ({
 	const isExpanded = numberOfArticlesToDisplay > minItemsToDisplay;
 
 	return articles ? (
-		<Box as="ul" padding="space.0">
+		<Box as="ul" padding="space.0" role="list">
 			{articles.slice(0, numberOfArticlesToDisplay).map((article: ArticleItem, index: number) => {
 				const isVisible = index < minItemsToDisplay || isExpanded;
 				return (

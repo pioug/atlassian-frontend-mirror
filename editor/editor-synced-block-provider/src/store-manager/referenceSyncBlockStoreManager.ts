@@ -1,7 +1,13 @@
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { BlockInstanceId, ResourceId, SyncBlockData, SyncBlockNode } from '../common/types';
-import type { FetchSyncBlockDataResult, SyncBlockDataProvider } from '../providers/types';
+import type { BlockInstanceId, ResourceId, SyncBlockNode } from '../common/types';
+import type {
+	FetchSyncBlockDataResult,
+	SubscriptionCallback,
+	SyncBlockDataProvider,
+} from '../providers/types';
+import { resolveFetchSyncBlockDataResult } from '../utils/mergeFetchSyncBlockDataResult';
 
 const createSyncBlockNode = (localId: BlockInstanceId, resourceId: ResourceId): SyncBlockNode => {
 	return {
@@ -15,51 +21,114 @@ const createSyncBlockNode = (localId: BlockInstanceId, resourceId: ResourceId): 
 
 export class ReferenceSyncBlockStoreManager {
 	private dataProvider?: SyncBlockDataProvider;
+	private syncBlockCache: Map<ResourceId, FetchSyncBlockDataResult>;
+	private subscriptions: Map<ResourceId, { [localId: BlockInstanceId]: SubscriptionCallback }>;
 
-	private syncBlockCache: Map<BlockInstanceId, SyncBlockData>;
-	private syncBlockURLRequests: Map<BlockInstanceId, boolean>;
+	private syncBlockURLRequests: Map<ResourceId, boolean>;
+	private editorView?: EditorView;
+	private isInitialized: boolean = false;
+	private isRefreshingSubscriptions: boolean = false;
 
 	constructor(dataProvider?: SyncBlockDataProvider) {
-		this.dataProvider = dataProvider;
 		this.syncBlockCache = new Map();
+		this.subscriptions = new Map();
+		this.dataProvider = dataProvider;
 		this.syncBlockURLRequests = new Map();
 	}
 
+	public async init(editorView: EditorView) {
+		if (!this.editorView && !this.isInitialized) {
+			this.editorView = editorView;
+
+			const syncBlockNodes =
+				editorView.state.doc.children
+					.filter((node) => node.type.name === 'syncBlock')
+					.map((node) => {
+						return node.toJSON() as SyncBlockNode;
+					}) || [];
+
+			if (syncBlockNodes.length > 0) {
+				try {
+					const dataResults = await this.fetchSyncBlocksData(syncBlockNodes);
+
+					if (!dataResults) {
+						throw new Error('No data results returned when initializing sync block store manager');
+					}
+
+					dataResults.forEach((dataResult) => {
+						this.updateCache(dataResult);
+					});
+				} catch (error) {
+					// TODO: EDITOR-1921 - add error analytics
+				}
+			}
+		}
+
+		this.isInitialized = true;
+	}
+
 	/**
-	 *
-	 * @param localId - The local ID of the sync block to get the source URL for
-	 * @param resourceId - The resource ID of the sync block to get the source URL for
-	 * Fetches source URl for a sync block and updates sync block data with the source URL asynchronously.
+	 * Refreshes the subscriptions for all sync blocks.
+	 * @returns {Promise<void>}
 	 */
-	private fetchSyncBlockSourceURL({
-		localId,
-		resourceId,
-	}: {
-		localId: BlockInstanceId;
-		resourceId: ResourceId;
-	}) {
-		if (!localId || !resourceId || !this.dataProvider) {
+	public async refreshSubscriptions() {
+		if (this.isRefreshingSubscriptions || !this.isInitialized) {
+			return;
+		}
+
+		this.isRefreshingSubscriptions = true;
+
+		const syncBlocks: SyncBlockNode[] = [];
+
+		for (const [resourceId, callbacks] of this.subscriptions.entries()) {
+			Object.keys(callbacks).forEach((localId) => {
+				syncBlocks.push(createSyncBlockNode(localId, resourceId));
+			});
+		}
+
+		try {
+			// fetch latest data for all subscribed sync blocks
+			// this function will update the cache and call the subscriptions
+			await this.fetchSyncBlocksData(syncBlocks);
+		} catch (error) {
+			// TODO: EDITOR-1921 - add error analytics
+		} finally {
+			this.isRefreshingSubscriptions = false;
+		}
+	}
+
+	private fetchSyncBlockSourceURL(resourceId: ResourceId) {
+		if (!resourceId || !this.dataProvider) {
 			return;
 		}
 
 		// if the sync block is a reference block, we need to fetch the URL to the source
 		// we could optimise this further by checking if the sync block is on the same page as the source
-		if (!this.syncBlockURLRequests.get(localId)) {
-			this.syncBlockURLRequests.set(localId, true);
+		if (!this.syncBlockURLRequests.get(resourceId)) {
+			this.syncBlockURLRequests.set(resourceId, true);
 			this.dataProvider
-				.retrieveSyncBlockSourceUrl(createSyncBlockNode(localId, resourceId))
+				.retrieveSyncBlockSourceUrl(createSyncBlockNode('', resourceId))
 				.then((sourceURL) => {
-					const existingSyncBlock = this.syncBlockCache.get(localId);
-					if (existingSyncBlock) {
-						existingSyncBlock.sourceURL = sourceURL;
+					const existingSyncBlock = this.getFromCache(resourceId);
+					if (existingSyncBlock && existingSyncBlock.data) {
+						existingSyncBlock.data = {
+							...existingSyncBlock.data,
+							sourceURL,
+						};
+						this.updateCache(existingSyncBlock);
 					}
 				})
 				.finally(() => {
-					this.syncBlockURLRequests.set(localId, false);
+					this.syncBlockURLRequests.set(resourceId, false);
 				});
 		}
 	}
 
+	/**
+	 * Fetch sync block data for a given sync block node.
+	 * @param syncBlockNode - The sync block node to fetch data for
+	 * @returns The fetched sync block data result
+	 */
 	public async fetchSyncBlockData(syncBlockNode: PMNode): Promise<FetchSyncBlockDataResult> {
 		if (!this.dataProvider) {
 			throw new Error('Data provider not set');
@@ -70,39 +139,133 @@ export class ReferenceSyncBlockStoreManager {
 			syncBlockNode.attrs.resourceId,
 		);
 
-		// async fetch source URL if it is not already fetched
-		const existingSyncBlock = this.syncBlockCache.get(syncBlockNode.attrs.localId);
-		if (!existingSyncBlock?.sourceURL) {
-			this.fetchSyncBlockSourceURL({
-				localId: syncBlockNode.attrs.localId,
-				resourceId: syncBlockNode.attrs.resourceId,
-			});
+		const data = await this.fetchSyncBlocksData([syncNode]);
+		if (!data || data.length === 0) {
+			throw new Error('Failed to fetch sync block data');
 		}
 
-		const data = await this.dataProvider.fetchNodesData([syncNode]);
+		return data[0];
+	}
+
+	public async fetchSyncBlocksData(
+		syncBlockNodes: SyncBlockNode[],
+	): Promise<FetchSyncBlockDataResult[]> {
+		if (!this.dataProvider) {
+			throw new Error('Data provider not set');
+		}
+
+		const data = await this.dataProvider.fetchNodesData(syncBlockNodes);
 		if (!data) {
 			throw new Error('Failed to fetch sync block node data');
 		}
 
-		const fetchSyncBlockDataResult = data[0];
-		if (!fetchSyncBlockDataResult.error && fetchSyncBlockDataResult.data) {
-			// only adds it to the map if it did not error out
-			this.syncBlockCache.set(syncBlockNode.attrs.localId, {
-				...existingSyncBlock,
-				...fetchSyncBlockDataResult.data,
-			});
+		const resolvedData: FetchSyncBlockDataResult[] = [];
+
+		data.forEach((fetchSyncBlockDataResult) => {
+			if (!fetchSyncBlockDataResult.resourceId) {
+				return;
+			}
+
+			const existingSyncBlock = this.getFromCache(fetchSyncBlockDataResult.resourceId);
+
+			const resolvedFetchSyncBlockDataResult = existingSyncBlock
+				? resolveFetchSyncBlockDataResult(existingSyncBlock, fetchSyncBlockDataResult)
+				: fetchSyncBlockDataResult;
+
+			this.updateCache(resolvedFetchSyncBlockDataResult);
+			resolvedData.push(resolvedFetchSyncBlockDataResult);
+
+			// fetch source URL if not already present
+			if (
+				!resolvedFetchSyncBlockDataResult.data?.sourceURL &&
+				resolvedFetchSyncBlockDataResult.resourceId
+			) {
+				this.fetchSyncBlockSourceURL(resolvedFetchSyncBlockDataResult.resourceId);
+			}
+		});
+
+		return resolvedData;
+	}
+
+	private updateCache(syncBlock: FetchSyncBlockDataResult) {
+		const { resourceId } = syncBlock;
+
+		if (resourceId) {
+			this.syncBlockCache.set(resourceId, syncBlock);
+			const callbacks = this.subscriptions.get(resourceId);
+			if (callbacks) {
+				Object.values(callbacks).forEach((callback) => {
+					callback(syncBlock);
+				});
+			}
+		}
+	}
+
+	private getFromCache(resourceId: ResourceId): FetchSyncBlockDataResult | undefined {
+		return this.syncBlockCache.get(resourceId);
+	}
+
+	private deleteFromCache(resourceId: ResourceId) {
+		this.syncBlockCache.delete(resourceId);
+	}
+
+	public subscribe(node: PMNode, callback: SubscriptionCallback): () => void {
+		// check node is a sync block, as we only support sync block subscriptions
+		if (node.type.name !== 'syncBlock') {
+			return () => {};
+		}
+		const { resourceId, localId } = node.attrs;
+
+		if (!localId || !resourceId) {
+			return () => {};
 		}
 
-		return fetchSyncBlockDataResult;
+		// add to subscriptions map
+		const resourceSubscriptions = this.subscriptions.get(resourceId) || {};
+		this.subscriptions.set(resourceId, { ...resourceSubscriptions, [localId]: callback });
+
+		// call the callback immediately if we have cached data
+		const cachedData = this.getFromCache(resourceId);
+		if (cachedData) {
+			callback(cachedData);
+		} else {
+			this.fetchSyncBlockData(node).catch(() => {});
+		}
+
+		return () => {
+			const resourceSubscriptions = this.subscriptions.get(resourceId);
+			if (resourceSubscriptions) {
+				delete resourceSubscriptions[localId];
+				if (Object.keys(resourceSubscriptions).length === 0) {
+					this.subscriptions.delete(resourceId);
+					this.deleteFromCache(resourceId);
+				} else {
+					this.subscriptions.set(resourceId, resourceSubscriptions);
+				}
+			}
+		};
 	}
 
 	/**
 	 * Get the URL for a sync block.
-	 * @param localId - The local ID of the sync block to get the URL for
+	 * @param resourceId - The resource ID of the sync block
 	 * @returns
 	 */
-	public getSyncBlockURL(localId: BlockInstanceId): string | undefined {
-		const syncBlock = this.syncBlockCache.get(localId);
-		return syncBlock?.sourceURL;
+	public getSyncBlockURL(resourceId: ResourceId): string | undefined {
+		const syncBlock = this.getFromCache(resourceId);
+
+		if (!syncBlock) {
+			return undefined;
+		}
+
+		return syncBlock.data?.sourceURL;
+	}
+
+	destroy() {
+		this.syncBlockCache.clear();
+		this.subscriptions.clear();
+		this.syncBlockURLRequests.clear();
+		this.editorView = undefined;
+		this.isInitialized = false;
 	}
 }

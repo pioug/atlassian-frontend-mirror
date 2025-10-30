@@ -94,6 +94,7 @@ export function ContentComponent({
 			closeStatusPicker={closeStatusPicker}
 			onEnter={onEnter}
 			editorView={editorView}
+			api={api}
 		/>
 	);
 }

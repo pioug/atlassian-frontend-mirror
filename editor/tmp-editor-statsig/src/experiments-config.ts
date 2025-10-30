@@ -195,14 +195,6 @@ export const editorExperimentsConfig = {
 		values: ['control', 'test'],
 		defaultValue: 'control',
 	}),
-	platform_editor_toolbar_aifc_fix_editor_view: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_aifc_fix_editor_view',
-			jira: 'platform_editor_toolbar_aifc_fix_editor_view',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// added 2024-11-06
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nested_tables/setup
 	'nested-tables-in-tables': createBooleanExperiment({
@@ -985,6 +977,14 @@ export const editorExperimentsConfig = {
 	platform_editor_text_highlight_padding: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_text_highlight_padding',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-10-24
+	platform_editor_lovability_user_intent: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_lovability_user_intent',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -26,7 +26,7 @@ export const TableButton = ({ api }: TableButtonProps) => {
 
 	const { editorView } = useEditorToolbar();
 
-	if (!editorView?.state.schema.nodes.table) {
+	if (!api?.table) {
 		return null;
 	}
 

@@ -10,6 +10,7 @@ import { FullPageBase } from '@af/editor-examples-helpers/example-presets';
 import type { ExampleProps } from '@af/editor-examples-helpers/example-presets';
 
 export {
+	type EditorAPI,
 	ExampleEditor,
 	ExampleEditorComponent,
 	getAppearance,

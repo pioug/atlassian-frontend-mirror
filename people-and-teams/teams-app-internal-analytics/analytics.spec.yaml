@@ -2456,6 +2456,10 @@ events:
         position:
           type: number
           description: the position of the team profile item
+        isPoweredByTWG:
+          type: boolean
+          required: false
+          description: whether the team profile item is powered by TWG
   - showMore clicked:
       type: ui
       description: fired when the show more button is clicked
@@ -2979,3 +2983,24 @@ events:
         withSearchQuery:
           type: boolean
           description: whether the search query is present
+  - agentProfileAboutTeams viewed:
+      type: screen
+      description: fired when agent profile about teams section is viewed
+      attributes:
+        teamsCount:
+          type: number
+          description: how many teams
+  - userProfileAboutTeams viewed:
+      type: screen
+      description: fired when user profile about teams section is viewed
+      attributes:
+        teamsCount:
+          type: number
+          description: how many teams
+  - teamAgentsPanel viewed:
+      type: screen
+      description: fired when team agents panel is viewed
+      attributes:
+        activeAgentsCount:
+          type: number
+          description: how many active agents

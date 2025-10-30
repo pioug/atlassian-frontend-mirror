@@ -8,6 +8,7 @@ import { type ComponentProps, type FocusEvent, type KeyboardEvent, type MouseEve
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -119,8 +120,7 @@ const GrabArea = React.forwardRef<HTMLButtonElement, GrabAreaProps & Partial<Lef
 				onMouseDown={onMouseDown}
 				onFocus={onFocus}
 				onBlur={onBlur}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-				{...rest}
+				{...(fg('platform_dst_spread-props-page-layout') ? {} : rest)}
 			>
 				<span css={lineStyles} {...grabAreaLineSelector} />
 			</button>

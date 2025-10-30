@@ -76,6 +76,8 @@ export { HistoryIcon } from './ui/icons/HistoryIcon';
 export { LoomIcon } from './ui/icons/LoomIcon';
 export { PlusIcon } from './ui/icons/PlusIcon';
 export { SyncBlocksIcon } from './ui/icons/SyncBlocksIcon';
+export { WorkItemIcon } from './ui/icons/WorkItemIcon';
+export { WorkItemsIcon } from './ui/icons/WorkItemsIcon';
 
 export { default as ColorPalette } from './ui/ColorPalette';
 export { getContrastingBackgroundColor } from './ui/ColorPalette/utils';

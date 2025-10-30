@@ -1,0 +1,44 @@
+{
+	"extends": "../../../../tsconfig.entry-points.adminhub.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../adminhub/tsDist/@atlaskit__teams-avatar/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/avatar/afm-adminhub/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-adminhub/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-adminhub/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-adminhub/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-adminhub/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-adminhub/tsconfig.json"
+		}
+	]
+}

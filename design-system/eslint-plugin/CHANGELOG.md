@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.23.0
+
+### Minor Changes
+
+- [`8bb8c54e2f01f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bb8c54e2f01f) -
+  Create use-spotlight-package rule.
+
 ## 13.22.0
 
 ### Minor Changes

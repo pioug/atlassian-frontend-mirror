@@ -29,6 +29,7 @@ const getConsideredEntryTypes = (include3p?: boolean): VCObserverEntryType[] => 
 	// including the tags into the ConsideredEntryTypes so that it won't be ignored for TTVC calculation
 	if (!fg('platform_ufo_exclude_3p_elements_from_ttvc') || include3p) {
 		entryTypes.push('mutation:third-party-element');
+		entryTypes.push('mutation:third-party-attribute');
 	}
 
 	if (fg('platform_ufo_enable_media_for_ttvc_v3')) {

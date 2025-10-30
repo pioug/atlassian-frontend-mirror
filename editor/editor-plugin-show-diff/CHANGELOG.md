@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 3.2.0
+
+### Minor Changes
+
+- [`68caaf98e8f89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68caaf98e8f89) -
+  [ux] [EDITOR-1628] Added "Removed" Lozenge and gray border decorations to deleted block nodes in
+  show diff view
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.5
 
 ### Patch Changes

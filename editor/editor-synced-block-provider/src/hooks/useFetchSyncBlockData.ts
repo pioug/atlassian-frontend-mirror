@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import { SyncBlockError } from '../common/types';
 import type { FetchSyncBlockDataResult } from '../providers/types';
 import type { SyncBlockStoreManager } from '../store-manager/syncBlockStoreManager';
+
+export const SYNC_BLOCK_FETCH_INTERVAL = 3000;
 
 export const useFetchSyncBlockData = (
 	manager: SyncBlockStoreManager,
@@ -12,40 +13,19 @@ export const useFetchSyncBlockData = (
 ): FetchSyncBlockDataResult | null => {
 	const [fetchSyncBlockDataResult, setFetchSyncBlockDataResult] =
 		useState<FetchSyncBlockDataResult | null>(null);
-	const fetchSyncBlockNode = useCallback(() => {
-		manager
-			.fetchSyncBlockData(syncBlockNode)
-			.then((data) => {
-				if (data?.error) {
-					// if there is an error, we don't want to replace real existing data with the error data
-					setFetchSyncBlockDataResult((prev) => {
-						if (!prev || prev.error) {
-							return data;
-						}
-						return prev;
-					});
-				} else {
-					setFetchSyncBlockDataResult(data ?? null);
-				}
-			})
-			.catch(() => {
-				//TODO: EDITOR-1921 - add error analytics
-				setFetchSyncBlockDataResult((prev) => {
-					if (!prev || prev.error) {
-						return { error: SyncBlockError.Errored };
-					}
-					return prev;
-				});
-			});
-	}, [manager, syncBlockNode]);
 
 	useEffect(() => {
-		fetchSyncBlockNode();
-		const interval = window.setInterval(fetchSyncBlockNode, 3000);
+		const unsubscribe = manager.subscribeToSyncBlockData(
+			syncBlockNode,
+			(data: FetchSyncBlockDataResult) => {
+				setFetchSyncBlockDataResult(data);
+			},
+		);
 
 		return () => {
-			window.clearInterval(interval);
+			unsubscribe();
 		};
-	}, [fetchSyncBlockNode]);
+	}, [manager, setFetchSyncBlockDataResult, syncBlockNode]);
+
 	return fetchSyncBlockDataResult;
 };

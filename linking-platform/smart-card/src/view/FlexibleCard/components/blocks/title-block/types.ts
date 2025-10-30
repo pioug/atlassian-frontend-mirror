@@ -31,7 +31,7 @@ export type TitleBlockProps = {
 	anchorTarget?: AnchorTarget;
 
 	/**
-	 * Competitor Prompt Component for Competitor link experiment
+	 * Competitor Prompt Component for Competitor link
 	 */
 	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
 
@@ -103,6 +103,7 @@ export type TitleBlockProps = {
 	 * @internal
 	 */
 	retry?: RetryOptions;
+
 	/**
 	 * Determines whether TitleBlock will hide actions until the user is hovering
 	 * over the link.
@@ -126,7 +127,7 @@ export type TitleBlockProps = {
 	text?: string;
 
 	/**
-	 * The URL of the link for Competitor Prompt experiment
+	 * The URL of the link for Competitor Prompt
 	 */
 	url?: string;
 } & BlockProps;

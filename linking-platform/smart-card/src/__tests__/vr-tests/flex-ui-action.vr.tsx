@@ -25,6 +25,7 @@ snapshot(FlexibleUiBlockActionDefault, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionPrimary, {
 	featureFlags: {
@@ -54,12 +55,14 @@ snapshot(FlexibleUiBlockActionList, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionGroup, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionGroup, {
 	description: 'flexible-ui-block-action-group--item hovered',
@@ -68,6 +71,7 @@ snapshot(FlexibleUiBlockActionGroup, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionGroup, {
 	description: 'flexible-ui-block-action-group--item focused',
@@ -76,15 +80,18 @@ snapshot(FlexibleUiBlockActionGroup, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(FlexibleUiCustomUnresolvedActionOnlyShowIfAction, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiCustomUnresolvedAction, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},
+	waitForReactLazy: true,
 });

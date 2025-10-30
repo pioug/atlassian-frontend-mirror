@@ -26,51 +26,62 @@ import { BlockCardUnauthorisedView } from '../../../examples/vr-block-card/vr-bl
 import { BlockCardUnauthorisedViewWithNoAuth } from '../../../examples/vr-block-card/vr-block-card-unauthorised-no-auth';
 import { VRBlockProfileCard } from '../../../examples/vr-block-card/vr-block-profile-card';
 import { BlockCardForbiddenViews } from '../../../examples/vr-block-card/vr-flexible-block-card-variants-of-forbidden-views';
+import FlexibleUiErroredTitleBlockCompetitorPrompt from '../../../examples/vr-flexible-card/vr-flexible-ui-errored-title-block-competitor-prompt';
 
 snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF only',
 	featureFlags: {
 		'platform-visual-refresh-icons': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardErrorView, {
 	description: 'block card error view - linking refresh only',
 	featureFlags: {},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF only',
 	featureFlags: {
 		'platform-visual-refresh-icons': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view - linking refresh only',
 	featureFlags: {},
+	waitForReactLazy: true,
 });
-snapshot(BlockCardForbiddenView);
+snapshot(BlockCardForbiddenView, {
+	waitForReactLazy: true,
+});
 snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF only',
 	featureFlags: {
 		'platform-visual-refresh-icons': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view - linking refresh only',
@@ -78,44 +89,53 @@ snapshot(BlockCardNotFoundView, {
 });
 snapshot(BlockCardNotFoundSiteAccessExists, {
 	featureFlags: {},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardUnauthorisedView, {
 	featureFlags: {},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 	featureFlags: {},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardJira, {
 	featureFlags: {
 		'platform-linking-enable-avatar-data-separator': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardConfluence, {
 	featureFlags: {
 		'platform-linking-enable-avatar-data-separator': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardTrello, {
 	featureFlags: {
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardAtlas, {
 	featureFlags: {
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardBitbucket, {
 	featureFlags: {
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardForbiddenViews, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon1, {
 	description: `block card with lazy load icons, slice 1`,
@@ -123,6 +143,7 @@ snapshot(BlockCardLazyIcon1, {
 		'platform-visual-refresh-icons': true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon2, {
 	description: `block card with lazy load icons, slice 2`,
@@ -131,6 +152,7 @@ snapshot(BlockCardLazyIcon2, {
 		'platform-linking-enable-avatar-data-separator': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon3, {
 	description: `block card with lazy load icons, slice 3`,
@@ -139,6 +161,7 @@ snapshot(BlockCardLazyIcon3, {
 		'platform-linking-enable-avatar-data-separator': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon4, {
 	description: `block card with lazy load icons, slice 4`,
@@ -147,6 +170,7 @@ snapshot(BlockCardLazyIcon4, {
 		'platform-linking-enable-avatar-data-separator': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon5, {
 	description: `block card with lazy load icons, slice 5`,
@@ -155,12 +179,14 @@ snapshot(BlockCardLazyIcon5, {
 		'platform-linking-enable-avatar-data-separator': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon6, {
 	description: `block card with lazy load icons, slice 6`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType1, {
 	description: `block card with lazy load icons per file format, slice 1`,
@@ -168,6 +194,7 @@ snapshot(BlockCardLazyIconsFileType1, {
 		'platform-visual-refresh-icons': true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType2, {
 	description: `block card with lazy load icons per file format, slice 2`,
@@ -175,6 +202,7 @@ snapshot(BlockCardLazyIconsFileType2, {
 		'platform-visual-refresh-icons': true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType3, {
 	description: `block card with lazy load icons per file format, slice 3`,
@@ -182,6 +210,7 @@ snapshot(BlockCardLazyIconsFileType3, {
 		'platform-visual-refresh-icons': true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType4, {
 	description: `block card with lazy load icons per file format, slice 4`,
@@ -189,14 +218,24 @@ snapshot(BlockCardLazyIconsFileType4, {
 		'platform-visual-refresh-icons': true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(BlockCardEntities, {
 	description: `block card with entity support`,
 	featureFlags: {
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(VRBlockProfileCard, {
 	featureFlags: {},
+	waitForReactLazy: true,
+});
+
+snapshot(FlexibleUiErroredTitleBlockCompetitorPrompt, {
+	description: 'block-card-errored-title-block-competitor-prompt',
+	featureFlags: {
+		'prompt_whiteboard_competitor_link_gate': [true, false],
+	},
 });

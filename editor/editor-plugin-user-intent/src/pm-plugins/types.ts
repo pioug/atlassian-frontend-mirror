@@ -1,3 +1,4 @@
+import type { PopupUserIntent } from '@atlaskit/editor-common/user-intent';
 /**
  * default: no special intent, allow inline text toolbar to be visible
  *
@@ -10,7 +11,7 @@ export type UserIntent =
 	| 'dragging'
 	| 'blockMenuOpen'
 	| 'resizing'
-	| 'popupOpen'
 	| 'commenting'
 	| 'aiStreaming'
-	| 'dragHandleSelected';
+	| 'dragHandleSelected'
+	| PopupUserIntent;

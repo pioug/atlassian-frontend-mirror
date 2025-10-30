@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 7.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.18
+
+### Patch Changes
+
+- [`03033c71229b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03033c71229b5) -
+  ED-29543: prevent insert block toolbar buttons breaking hydration
+- Updated dependencies
+
 ## 7.0.17
 
 ### Patch Changes

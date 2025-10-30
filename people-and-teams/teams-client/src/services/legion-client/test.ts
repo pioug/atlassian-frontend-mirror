@@ -20,6 +20,7 @@ import {
 	type LegionTeamGetResponseV4,
 	type LegionTeamSearchResponseV4,
 	type OrgAlignmentStatus,
+	type TeamStatesInBulkResponse,
 } from './types';
 
 import {
@@ -1084,6 +1085,46 @@ describe('legion-client', () => {
 			expect(mockGetResource).toHaveBeenCalledWith(
 				`${v4UrlPath}/migrations/scope/${orgId}/fully-aligned`,
 			);
+		});
+	});
+
+	describe('getTeamStatesInBulk', () => {
+		it('should return correct team states', async () => {
+			const teamIds = ['team1', 'team2', 'team3'];
+
+			const mockResponse: TeamStatesInBulkResponse = {
+				teamStates: [
+					{ teamId: 'team1', state: 'ACTIVE' },
+					{ teamId: 'team2', state: 'DISBANDED' },
+					{ teamId: 'team3', state: 'ACTIVE' },
+				],
+			};
+
+			mockPostResource.mockReturnValue(Promise.resolve(mockResponse));
+
+			const response = await legionClient.getTeamStatesInBulk(orgId, teamIds);
+
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/adminhub/states/bulk`, {
+				orgId,
+				teamIds,
+			});
+
+			expect(response).toEqual(mockResponse);
+		});
+
+		it('should handle API errors gracefully', async () => {
+			const teamIds = ['team1', 'team2', 'team3'];
+			const errorResponse = new Error('Failed to get team states in bulk');
+			mockPostResource.mockRejectedValue(errorResponse);
+
+			await expect(legionClient.getTeamStatesInBulk(orgId, teamIds)).rejects.toThrow(
+				'Failed to get team states in bulk',
+			);
+
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/adminhub/states/bulk`, {
+				orgId,
+				teamIds,
+			});
 		});
 	});
 });

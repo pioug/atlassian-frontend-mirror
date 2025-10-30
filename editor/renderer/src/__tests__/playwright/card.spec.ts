@@ -16,7 +16,7 @@ test.describe('smart card', () => {
 			.frameLocator('[data-testid="smart-embed-preview-modal-embed"]')
 			.getByText('I am an Embed Content!');
 		await expect(embedContent).toBeVisible();
-		const closePreviewButton = renderer.page.getByTestId('smart-embed-preview-modal-close-button');
+		const closePreviewButton = renderer.page.getByTestId('smart-embed-preview-modal--close-button');
 		closePreviewButton.click();
 		await expect(embedContent).toBeHidden();
 	});

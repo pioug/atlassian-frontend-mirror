@@ -171,7 +171,13 @@ export type MessageKey =
 	| 'status_change_permission_errorIssueTermRefresh'
 	| 'connect_unauthorised_account_description_appify'
 	| 'connect_unauthorised_account_description_no_provider_appify'
-	| 'learn_more_about_connecting_account_appify';
+	| 'learn_more_about_connecting_account_appify'
+	| 'experiment_connect_link_account_card_name_title'
+	| 'experiment_connect_hovercard_description_1'
+	| 'experiment_connect_hovercard_description_2'
+	| 'experiment_connect_hovercard_description_3'
+	| 'experiment_connect_unauthorised_account_action'
+	| 'experiment_learn_more_about_smart_links';
 type Messages = {
 	[K in MessageKey]: MessageDescriptor;
 };
@@ -378,6 +384,38 @@ export const messages: Messages = defineMessages({
 		description:
 			'Shown when a user does not have access to a link, but can connect their external account to view the link on card view and we do not have the providers name.',
 	},
+	experiment_connect_unauthorised_account_action: {
+		id: 'fabric.linking.experiment_connect_unauthorised_account_action.non-final',
+		defaultMessage: 'Connect {context}',
+		description: 'Shown on a button to connect user external account to their Atlassian account.',
+	},
+	experiment_connect_link_account_card_name_title: {
+		id: 'fabric.linking.experiment_connect_link_account_card_name.non-final',
+		defaultMessage: 'Get more out of {context}',
+		description:
+			'Shown when a user does not have access to a link, but can connect their external account to view the link on card view. Displayed in title.',
+	},
+	experiment_connect_hovercard_description_1: {
+		id: 'fabric.linking.experiment_connect_hovercard_description_1.non-final',
+		defaultMessage:
+			'Connect your {context} account to turn simple URLs into rich, interactive previews, making it easier to collaborate and stay in context.',
+		description:
+			'Shown when a user does not have access to a link, but can connect their external account to view the link on card view. (experiment test 1)',
+	},
+	experiment_connect_hovercard_description_2: {
+		id: 'fabric.linking.experiment_connect_hovercard_description_2.non-final',
+		defaultMessage:
+			'Connect your {context} account to turn simple URLs into rich, interactive previews and unlock more AI experiences, making it easier to collaborate and stay in context.',
+		description:
+			'Shown when a user does not have access to a link, but can connect their external account to view the link on card view. (experiment test 2)',
+	},
+	experiment_connect_hovercard_description_3: {
+		id: 'fabric.linking.experiment_connect_hovercard_description_3.non-final',
+		defaultMessage:
+			'Transform ordinary URLs into rich, interactive previews of your {context} content, and unlock enhanced AI-powered features within your Atlassian apps.',
+		description:
+			'Shown when a user does not have access to a link, but can connect their external account to view the link on card view. (experiment test 3)',
+	},
 	continue: {
 		id: 'fabric.linking.continue',
 		defaultMessage: 'Continue',
@@ -525,6 +563,11 @@ export const messages: Messages = defineMessages({
 	learn_more_about_smart_links: {
 		id: 'fabric.linking.learn_more_about_smart_links',
 		defaultMessage: 'Learn more about Smart Links.',
+		description: 'An anchor link to redirect user to a page about Smart Links.',
+	},
+	experiment_learn_more_about_smart_links: {
+		id: 'fabric.linking.experiment_learn_more_about_smart_links.non-final',
+		defaultMessage: 'Learn more about smart link security and permissions.',
 		description: 'An anchor link to redirect user to a page about Smart Links.',
 	},
 	learn_more_about_connecting_account: {

@@ -1,0 +1,16 @@
+## Examples
+
+This rule raises a violation for usages of `@atlaskit/onboarding`. This is to assist with the
+migration to `@atlaskit/spotlight`.
+
+### Incorrect
+
+```jsx
+import { Spotlight } from '@atlaskit/onboarding';
+```
+
+### Correct
+
+```jsx
+import { Spotlight } from '@atlaskit/spotlight';
+```

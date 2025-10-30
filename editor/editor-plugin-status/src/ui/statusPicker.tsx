@@ -12,25 +12,28 @@ import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { statusMessages as messages } from '@atlaskit/editor-common/messages';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import {
 	OutsideClickTargetRefContext,
 	withReactEditorViewOuterListeners as withOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
+import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { ColorType as Color } from '@atlaskit/status/picker';
 import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
 import { N0 } from '@atlaskit/theme/colors';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { DEFAULT_STATUS } from '../pm-plugins/actions';
+import type { StatusPlugin } from '../statusPluginType';
 import type { ClosingPayload, StatusType } from '../types';
 
 import { analyticsState, createStatusAnalyticsAndFire } from './analytics';
-
 const PopupWithListeners = withOuterListeners(Popup);
 
 export enum InputMethod {
@@ -45,6 +48,7 @@ export enum closingMethods {
 }
 
 export interface Props {
+	api?: ExtractInjectionAPI<StatusPlugin>;
 	boundariesElement?: HTMLElement;
 	closeStatusPicker: (closingPayload?: ClosingPayload) => void;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
@@ -247,9 +251,9 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 	private renderWithSetOutsideClickTargetRef(
 		setOutsideClickTargetRef: (el: HTMLElement | null) => void,
 	) {
-		const { isNew, focusStatusInput } = this.props;
+		const { isNew, focusStatusInput, api } = this.props;
 		const { color, text } = this.state;
-		return (
+		const renderPicker = () => (
 			// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 			<div
 				css={pickerContainerStyles}
@@ -269,6 +273,16 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 				/>
 			</div>
 		);
+
+		if (expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)) {
+			return (
+				<UserIntentPopupWrapper api={api} userIntent="statusPickerOpen">
+					{renderPicker()}
+				</UserIntentPopupWrapper>
+			);
+		}
+
+		return renderPicker();
 	}
 
 	render() {

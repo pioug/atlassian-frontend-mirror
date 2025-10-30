@@ -44,6 +44,7 @@ import {
 	type LegionTeamGetResponseV4,
 	type LegionTeamSearchResponseV4,
 	type OrgAlignmentStatus,
+	type TeamStatesInBulkResponse,
 } from './types';
 
 export interface PaginationResult<T> {
@@ -218,6 +219,8 @@ export interface LegionClient {
 	getTeamSiteAssignmentOrgDetails(): Promise<TeamSiteAssignmentOrgDetailsResponse>;
 
 	checkOrgFullAlignmentStatus(orgId: string): Promise<OrgAlignmentStatus>;
+
+	getTeamStatesInBulk(orgId: string, teamIds: string[]): Promise<TeamStatesInBulkResponse>;
 }
 
 const v3UrlPath = `/v3/teams`;
@@ -969,6 +972,18 @@ export class LegionClient extends RestClient implements LegionClient {
 			);
 		} catch (e) {
 			this.logException(e, 'checkOrgFullAlignmentStatus');
+			throw e;
+		}
+	}
+
+	async getTeamStatesInBulk(orgId: string, teamIds: string[]): Promise<TeamStatesInBulkResponse> {
+		try {
+			return this.postResource<TeamStatesInBulkResponse>(`${v4UrlPath}/adminhub/states/bulk`, {
+				orgId,
+				teamIds,
+			});
+		} catch (e) {
+			this.logException(e, 'getTeamStatesInBulk');
 			throw e;
 		}
 	}

@@ -1,5 +1,13 @@
 # @atlaskit/tooltip
 
+## 20.7.0
+
+### Minor Changes
+
+- [`37dfc45b61aa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37dfc45b61aa2) -
+  The font size of keyboard shortcuts has been reduced to `10.5px` from `12.25px`. The keyboard
+  shortcuts are behind the `platform-dst-tooltip-shortcuts` feature flag.
+
 ## 20.6.1
 
 ### Patch Changes

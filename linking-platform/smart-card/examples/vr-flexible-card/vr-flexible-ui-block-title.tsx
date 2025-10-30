@@ -7,6 +7,7 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { iconGoogleDrive } from '@atlaskit/link-test-helpers';
 import type { CardType } from '@atlaskit/linking-common';
 
 import { type ActionItem } from '../../src';
@@ -243,7 +244,7 @@ export default () => {
 							name: 'Google',
 							icon: {
 								'@type': 'Image',
-								url: 'http://www.google.com/favicon.ico',
+								url: iconGoogleDrive,
 							},
 						},
 					},

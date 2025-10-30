@@ -15,7 +15,11 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type { Command, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	ExtractInjectionAPI,
+	GetEditorContainerWidth,
+} from '@atlaskit/editor-common/types';
 import {
 	backgroundPaletteTooltipMessages,
 	cellBackgroundColorPalette,
@@ -47,6 +51,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import Toggle from '@atlaskit/toggle';
 
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../pm-plugins/commands';
@@ -67,15 +72,16 @@ import {
 	checkIfNumberColumnEnabled,
 } from '../../pm-plugins/utils/nodes';
 import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../../pm-plugins/utils/selection';
+import type { TablePlugin } from '../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../types';
-import type { PluginConfig, PluginInjectionAPI, TableDirection } from '../../types';
+import type { PluginConfig, TableDirection } from '../../types';
 import { colorPalletteColumns } from '../consts';
 
 import { DropdownMenu } from './DropdownMenu';
 import { cellColourPreviewStyles, dragMenuBackgroundColorStyles, toggleStyles } from './styles';
 
 type DragMenuProps = {
-	api: PluginInjectionAPI | undefined | null;
+	api: ExtractInjectionAPI<TablePlugin> | undefined | null;
 	ariaNotifyPlugin?: (
 		message: string,
 		ariaLiveElementAttributes?: AriaLiveElementAttributes,
@@ -706,8 +712,18 @@ const DragMenu = React.memo(
 			/>
 		);
 
-		return isToolbarAIFCEnabled ? (
-			<UserIntentPopupWrapper api={api}>{Menu}</UserIntentPopupWrapper>
+		return isToolbarAIFCEnabled ||
+			expValEquals('platform_editor_lovability_user_intent', 'isEnabled', true) ? (
+			<UserIntentPopupWrapper
+				api={api}
+				userIntent={
+					expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
+						? 'tablePopupOpen'
+						: undefined
+				}
+			>
+				{Menu}
+			</UserIntentPopupWrapper>
 		) : (
 			Menu
 		);

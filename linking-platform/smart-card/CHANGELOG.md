@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 43.4.4
+
+### Patch Changes
+
+- [`6b95bfd7b3619`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b95bfd7b3619) -
+  NAVX-1995 cleaning up navx-1895-a11y-close-button-in-preview-modal
+- Updated dependencies
+
+## 43.4.3
+
+### Patch Changes
+
+- [`5f187d238dd42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f187d238dd42) -
+  [ux] Add experiment variations for hovercard unauthorized state
+- [`b01d4bfa70a61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b01d4bfa70a61) -
+  Internal refactoring - deduplication of FlexCard related types
+- Updated dependencies
+
 ## 43.4.2
 
 ### Patch Changes

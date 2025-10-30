@@ -2,6 +2,7 @@
 import isEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
 import { ChangeSet, simplifyChanges, type Change } from 'prosemirror-changeset';
+import type { IntlShape } from 'react-intl-next';
 
 import { AnalyticsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
@@ -111,8 +112,10 @@ const calculateDiffDecorationsInner = ({
 	pluginState,
 	nodeViewSerializer,
 	colourScheme,
+	intl,
 }: {
 	colourScheme?: 'standard' | 'traditional';
+	intl: IntlShape;
 	nodeViewSerializer: NodeViewSerializer;
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
 	state: EditorState;
@@ -159,6 +162,7 @@ const calculateDiffDecorationsInner = ({
 				nodeViewSerializer,
 				colourScheme,
 				newDoc: tr.doc,
+				intl,
 			});
 			if (decoration) {
 				decorations.push(decoration);
@@ -181,8 +185,15 @@ export const calculateDiffDecorations = memoizeOne(
 	calculateDiffDecorationsInner,
 	// Cache results unless relevant inputs change
 	(
-		[{ pluginState, state, colourScheme }],
-		[{ pluginState: lastPluginState, state: lastState, colourScheme: lastColourScheme }],
+		[{ pluginState, state, colourScheme, intl }],
+		[
+			{
+				pluginState: lastPluginState,
+				state: lastState,
+				colourScheme: lastColourScheme,
+				intl: lastIntl,
+			},
+		],
 	) => {
 		const originalDocIsSame =
 			lastPluginState.originalDoc &&
@@ -192,7 +203,8 @@ export const calculateDiffDecorations = memoizeOne(
 			(originalDocIsSame &&
 				isEqual(pluginState.steps, lastPluginState.steps) &&
 				state.doc.eq(lastState.doc) &&
-				colourScheme === lastColourScheme) ??
+				colourScheme === lastColourScheme &&
+				intl.locale === lastIntl.locale) ??
 			false
 		);
 	},

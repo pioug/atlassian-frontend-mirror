@@ -1002,6 +1002,12 @@ export class TeamsClient {
 		return this._legionClient.checkOrgFullAlignmentStatus(...args);
 	}
 
+	async getTeamStatesInBulk(
+		...args: Parameters<typeof defaultLegionClient.getTeamStatesInBulk>
+	): Promise<AwaitedReturn<typeof defaultLegionClient.getTeamStatesInBulk>> {
+		return this._legionClient.getTeamStatesInBulk(...args);
+	}
+
 	async getReportingLines(
 		...args: Parameters<typeof reportingLinesClient.getReportingLines>
 	): Promise<AwaitedReturn<typeof reportingLinesClient.getReportingLines>> {

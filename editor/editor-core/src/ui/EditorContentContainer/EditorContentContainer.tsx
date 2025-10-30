@@ -168,6 +168,7 @@ import {
 	smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
 	smartLinksInLivePagesStyles,
 	smartCardDiffStyles,
+	showDiffDeletedNodeStyles,
 } from './styles/smartCardStyles';
 import {
 	statusDangerStyles,
@@ -384,6 +385,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					ruleStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('aifc_create_enabled') && smartCardDiffStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					fg('platform_editor_ai_aifc_patch_beta_2') && showDiffDeletedNodeStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mediaStyles,
 					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&

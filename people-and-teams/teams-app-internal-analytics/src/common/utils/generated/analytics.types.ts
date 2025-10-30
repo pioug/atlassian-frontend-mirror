@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::cca058e42b3290c5e6cd84091c7e9308>>
+ * @codegen <<SignedSource::240011c0c702e1957926c381c0891181>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1149,6 +1149,7 @@ export type UserProfileScreenAboutPanelViewedAttributesType = {
 export type PrivacyPolicyLinkClickedAttributesType = undefined;
 export type TeamProfileItemClickedAttributesType = {
 	position: number;
+	isPoweredByTWG: boolean | null;
 };
 export type ShowMoreClickedAttributesType = {
 	selectedUser: boolean | null;
@@ -1343,6 +1344,15 @@ export type RecentCollaboratorClickedAttributesType = {
 export type PeopleSearchResultClickedAttributesType = {
 	entryIndex: number;
 	withSearchQuery: boolean;
+};
+export type AgentProfileAboutTeamsViewedAttributesType = {
+	teamsCount: number;
+};
+export type UserProfileAboutTeamsViewedAttributesType = {
+	teamsCount: number;
+};
+export type TeamAgentsPanelViewedAttributesType = {
+	activeAgentsCount: number;
 };
 
 export type AnalyticsEventAttributes = {
@@ -2302,6 +2312,15 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the people search result is clicked */
 	'ui.peopleSearchResult.clicked': PeopleSearchResultClickedAttributesType;
+	/**
+	 * fired when agent profile about teams section is viewed */
+	'screen.agentProfileAboutTeams.viewed': AgentProfileAboutTeamsViewedAttributesType;
+	/**
+	 * fired when user profile about teams section is viewed */
+	'screen.userProfileAboutTeams.viewed': UserProfileAboutTeamsViewedAttributesType;
+	/**
+	 * fired when team agents panel is viewed */
+	'screen.teamAgentsPanel.viewed': TeamAgentsPanelViewedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

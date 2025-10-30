@@ -644,7 +644,7 @@ describe('LozengeAction', () => {
 		expect(previewModal).toBeDefined();
 
 		// making sure the preview modal closes on close button click
-		const closeButton = await screen.findByTestId('smart-embed-preview-modal-close-button');
+		const closeButton = await screen.findByTestId('smart-embed-preview-modal--close-button');
 		expect(closeButton).toBeDefined();
 		closeButton.click();
 

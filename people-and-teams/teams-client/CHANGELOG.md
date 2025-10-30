@@ -1,5 +1,17 @@
 # @atlaskit/teams-client
 
+## 4.21.0
+
+### Minor Changes
+
+- [`c40c12b0fcf46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c40c12b0fcf46) -
+  Added a new API "getTeamStatesInBulk" to fetch team states in bulk in an org
+
+### Patch Changes
+
+- [`151750f891a85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/151750f891a85) -
+  Updated unassigned teams response type to include null for cursor
+
 ## 4.20.0
 
 ### Minor Changes

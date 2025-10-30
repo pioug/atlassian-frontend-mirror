@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
+
 import { InternalActionName, SmartLinkAlignment } from '../../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import { UnresolvedAction } from '../../../actions';
@@ -7,6 +11,15 @@ import { LinkIcon } from '../../../elements';
 import Block from '../../block';
 import ElementGroup from '../../element-group';
 import { type TitleBlockViewProps } from '../types';
+
+const styles = cssMap({
+	titleBoxCard: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		width: '100%',
+	},
+});
 
 /**
  * Represents an Errored TitleBlock view.
@@ -24,15 +37,28 @@ const TitleBlockErroredView = ({
 	title,
 	icon,
 	hideIcon,
+	CompetitorPrompt,
 	...blockProps
 }: TitleBlockViewProps) => {
 	const context = useFlexibleUiContext();
 	const showRetry = !hideRetry && Boolean(context?.actions?.[InternalActionName.UnresolvedAction]);
 
+	const competitorPrompt =
+		CompetitorPrompt && context?.url && fg('prompt_whiteboard_competitor_link_gate') ? (
+			<CompetitorPrompt sourceUrl={context?.url} linkType={'card'} />
+		) : null;
+
 	return (
 		<Block {...blockProps} testId={`${testId}-errored-view`}>
 			{!hideIcon && <LinkIcon overrideIcon={icon} position={position} />}
-			{title}
+			{competitorPrompt ? (
+				<Box xcss={styles.titleBoxCard}>
+					{title}
+					{competitorPrompt}
+				</Box>
+			) : (
+				title
+			)}
 			{showRetry && (
 				<ElementGroup align={SmartLinkAlignment.Right}>
 					<UnresolvedAction testId={testId} />

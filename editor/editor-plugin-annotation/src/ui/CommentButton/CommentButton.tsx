@@ -13,7 +13,6 @@ import {
 	ToolbarTooltip,
 } from '@atlaskit/editor-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { AnnotationPlugin } from '../../annotationPluginType';
 import { isSelectionValid } from '../../pm-plugins/utils';
@@ -36,16 +35,14 @@ export const CommentButton = ({ api, annotationProviders }: CommentButtonProps) 
 	const isVisible = useSharedPluginStateSelector(api, 'annotation.isVisible');
 	const bookmark = useSharedPluginStateSelector(api, 'annotation.bookmark');
 	const { editorView } = useEditorToolbar();
-	// Warning! Do not destructure editorView, it will become stale
-	const { state, dispatch } = editorView ?? { state: null, dispatch: null };
 
-	const annotationSelectionType = state ? isSelectionValid(state) : AnnotationSelectionType.INVALID;
+	const annotationSelectionType = editorView?.state
+		? isSelectionValid(editorView.state)
+		: AnnotationSelectionType.INVALID;
 	const { getCanAddComments, contentType } = annotationProviders?.inlineComment ?? {};
 
 	useCommentButtonMount({
-		state: expValEquals('platform_editor_toolbar_aifc_fix_editor_view', 'isEnabled', true)
-			? editorView?.state
-			: state,
+		state: editorView?.state,
 		annotationProviders,
 		api,
 		annotationSelectionType,
@@ -55,48 +52,25 @@ export const CommentButton = ({ api, annotationProviders }: CommentButtonProps) 
 	const intl = useIntl();
 
 	const onClick = () => {
-		if (
-			!api ||
-			!state ||
-			!dispatch ||
-			!annotationProviders ||
-			!editorView?.state ||
-			!editorView?.dispatch
-		) {
+		if (!api || !annotationProviders || !editorView?.state || !editorView?.dispatch) {
 			return;
 		}
 
 		fireOnClickAnalyticsEvent({ api });
 
-		if (expValEquals('platform_editor_toolbar_aifc_fix_editor_view', 'isEnabled', true)) {
-			startCommentExperience({
-				annotationProviders,
-				api,
-				state: editorView.state,
-				dispatch: editorView.dispatch,
-			});
-		} else {
-			startCommentExperience({ annotationProviders, api, state, dispatch });
-		}
+		startCommentExperience({
+			annotationProviders,
+			api,
+			state: editorView.state,
+			dispatch: editorView.dispatch,
+		});
 	};
 
-	if (
-		!shouldShowCommentButton({
-			state: expValEquals('platform_editor_toolbar_aifc_fix_editor_view', 'isEnabled', true)
-				? editorView?.state
-				: state,
-			isVisible,
-			annotationSelectionType,
-		})
-	) {
+	if (!shouldShowCommentButton({ state: editorView?.state, isVisible, annotationSelectionType })) {
 		return null;
 	}
 
-	const canAddComments =
-		expValEquals('platform_editor_toolbar_aifc_fix_editor_view', 'isEnabled', true) &&
-		getCanAddComments
-			? getCanAddComments()
-			: true;
+	const canAddComments = getCanAddComments ? getCanAddComments() : true;
 
 	const commentMessage = intl.formatMessage(annotationMessages.createComment);
 
@@ -112,9 +86,7 @@ export const CommentButton = ({ api, annotationProviders }: CommentButtonProps) 
 	);
 
 	const isDisabled = isButtonDisabled({
-		state: expValEquals('platform_editor_toolbar_aifc_fix_editor_view', 'isEnabled', true)
-			? editorView?.state
-			: state,
+		state: editorView?.state,
 		api,
 		canAddComments,
 	});

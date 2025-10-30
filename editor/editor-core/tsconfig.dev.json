@@ -205,9 +205,6 @@
 			"path": "../editor-plugin-track-changes/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-user-intent/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugins/tsconfig.app.json"
 		},
 		{

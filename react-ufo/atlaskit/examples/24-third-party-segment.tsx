@@ -87,6 +87,7 @@ const SectionOne = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 
 const SectionTwo = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const [isWaitingForFinish, setIsWaitingForFinish] = useState(true);
+	const [dataState, setDataState] = useState('initial');
 	const visibleAt = useCounterToVisible(base);
 
 	useEffect(() => {
@@ -101,6 +102,26 @@ const SectionTwo = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 		}
 	}, [visibleAt]);
 
+	// Test attribute changes over time
+	useEffect(() => {
+		if (!isWaitingForFinish) {
+			// Change data-state after 500ms
+			const timer1 = setTimeout(() => {
+				setDataState('loaded');
+			}, 200);
+
+			// Change data-state again after 2000ms
+			const timer2 = setTimeout(() => {
+				setDataState('active');
+			}, 500);
+
+			return () => {
+				clearTimeout(timer1);
+				clearTimeout(timer2);
+			};
+		}
+	}, [isWaitingForFinish]);
+
 	if (!visibleAt) {
 		return <UFOLoadHold name="section-two"></UFOLoadHold>;
 	}
@@ -108,7 +129,7 @@ const SectionTwo = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 	return (
 		<Fragment>
 			<UFOLoadHold name="loading" hold={isWaitingForFinish} />
-			<div data-testid="sectionTwo" css={sectionTwoStyle}>
+			<div data-testid="sectionTwo" data-state={dataState} css={sectionTwoStyle}>
 				<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
 				<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
 			</div>

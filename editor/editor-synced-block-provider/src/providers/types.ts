@@ -25,3 +25,5 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	abstract getSourceId(): ResourceId;
 	abstract retrieveSyncBlockSourceUrl(node: SyncBlockNode): Promise<string | undefined>;
 }
+
+export type SubscriptionCallback = (data: FetchSyncBlockDataResult) => void;

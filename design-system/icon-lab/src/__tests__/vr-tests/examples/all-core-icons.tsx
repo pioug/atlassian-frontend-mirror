@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::0ad9be423b66770d6b2f3bd7e02ceef0>>
+ * @codegen <<SignedSource::29eb33cb8b1bd5d0db598011d20e45ef>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -54,6 +54,7 @@ import AtomIcon from '../../../../core/atom';
 import AudioWaveformIcon from '../../../../core/audio-waveform';
 import BeachUmbrellaIcon from '../../../../core/beach-umbrella';
 import BlastRadiusIcon from '../../../../core/blast-radius';
+import BlockSyncedIcon from '../../../../core/block-synced';
 import BluetoothIcon from '../../../../core/bluetooth';
 import BlurIcon from '../../../../core/blur';
 import BookOpenIcon from '../../../../core/book-open';
@@ -605,6 +606,7 @@ const Icons = [
 	SkillIcon,
 	SkipIcon,
 	SkipUnskipIcon,
+	BlockSyncedIcon,
 ];
 
 const groupSize = 50;

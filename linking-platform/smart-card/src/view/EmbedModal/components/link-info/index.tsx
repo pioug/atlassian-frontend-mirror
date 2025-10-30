@@ -10,13 +10,11 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import Heading from '@atlaskit/heading';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import FullscreenExitIcon from '@atlaskit/icon/core/fullscreen-exit';
-import CrossIcon from '@atlaskit/icon/core/migration/cross';
 import VidFullScreenOnIcon from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import DownloadIconLegacy from '@atlaskit/icon/glyph/download';
 import VidFullScreenOffIcon from '@atlaskit/icon/glyph/vid-full-screen-off';
 import { CloseButton, useModal } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -189,34 +187,18 @@ const LinkInfo = ({
 				{downloadButton}
 				{urlButton}
 				{sizeButton}
-				{fg('navx-1895-a11y-close-button-in-preview-modal') ? (
-					<Tooltip
-						content={<FormattedMessage {...messages.preview_close} />}
-						hideTooltipOnClick={true}
-						tag="span"
-						testId={`${testId}-close-tooltip`}
-					>
-						<CloseButton
-							onClick={onClose as () => void}
-							label={formatMessage(messages.preview_close)}
-							testId={`${testId}-close-button`}
-						/>
-					</Tooltip>
-				) : (
-					<LinkInfoButton
-						content={<FormattedMessage {...messages.preview_close} />}
-						icon={() => (
-							<CrossIcon
-								label={messages.preview_close.defaultMessage as string}
-								color="currentColor"
-								spacing="spacious"
-							/>
-						)}
-						label={messages.preview_close}
+				<Tooltip
+					content={<FormattedMessage {...messages.preview_close} />}
+					hideTooltipOnClick={true}
+					tag="span"
+					testId={`${testId}-close-tooltip`}
+				>
+					<CloseButton
 						onClick={onClose as () => void}
-						testId={`${testId}-close`}
+						label={formatMessage(messages.preview_close)}
+						testId={testId}
 					/>
-				)}
+				</Tooltip>
 			</div>
 		</div>
 	);

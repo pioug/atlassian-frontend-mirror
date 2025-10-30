@@ -36,6 +36,7 @@ import {
 	ArrowKeyNavigationType,
 	DropdownMenu,
 } from '@atlaskit/editor-common/ui-menu';
+import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -56,6 +57,7 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -154,8 +156,15 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	}
 
 	render() {
-		const { isOpen, mountPoint, offset, boundariesElement, editorView, isCellMenuOpenByKeyboard } =
-			this.props;
+		const {
+			isOpen,
+			mountPoint,
+			offset,
+			boundariesElement,
+			editorView,
+			isCellMenuOpenByKeyboard,
+			api,
+		} = this.props;
 		const { isDragAndDropEnabled } = getPluginState(editorView.state);
 		const items = isDragAndDropEnabled
 			? this.createNewContextMenuItems()
@@ -163,8 +172,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		let isOpenAllowed = false;
 
 		isOpenAllowed = isCellMenuOpenByKeyboard ? this.state.isOpenAllowed : isOpen;
-
-		return (
+		const popupContent = () => (
 			// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 			<div
 				data-testid="table-cell-contextual-menu"
@@ -200,6 +208,14 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				/>
 			</div>
 		);
+		if (expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)) {
+			return (
+				<UserIntentPopupWrapper userIntent="tablePopupOpen" api={api}>
+					{popupContent()}
+				</UserIntentPopupWrapper>
+			);
+		}
+		return popupContent();
 	}
 
 	private handleSubMenuRef = (ref: HTMLDivElement | null) => {

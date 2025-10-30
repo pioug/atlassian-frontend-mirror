@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - FilePickerProps
  *
- * @codegen <<SignedSource::5d73fae2f947d6bb42aa42c89624ad67>>
+ * @codegen <<SignedSource::f332eb19d077747f3cc76d5a8b197048>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/filepicker/index.tsx <<SignedSource::47d9000bc6265446cc40547ca8d46787>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/filepicker/index.tsx <<SignedSource::1563faca9175de1a53e4f304cea93c78>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -26,13 +26,13 @@ export type FilePickerProps = {
 	 */
 	label?: string;
 	/**
+	 * Callback function to be called when the files are changed
+	 */
+	onChange?: (files: SerializedFile[]) => void | Promise<void>;
+	/**
 	 * Test ID for testing
 	 */
 	testId?: string;
-	/**
-	 * Callback function to be called when the files are changed
-	 */
-	onChange?: (files: SerializedFile[]) => void | undefined;
 };
 
 export type TFilePicker<T> = (props: FilePickerProps) => T;

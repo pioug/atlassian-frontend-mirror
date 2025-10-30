@@ -19,7 +19,6 @@ import {
 	selectionExtensionPlugin,
 } from '@atlaskit/editor-plugin-selection-extension';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
-import { userIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import { useEditorAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
@@ -242,7 +241,6 @@ function ComposableEditorPage() {
 				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true),
 			)
 			.add([editorViewModePlugin, { mode: 'edit' }])
-			.add(userIntentPlugin)
 			.add(selectionMarkerPlugin)
 			.add(codeBlockAdvancedPlugin)
 			.add([

@@ -400,6 +400,16 @@ const metadata: IconMetadata = {
 		usage: 'Reserved for representing blast radius in Object Graph.',
 		createdAt: '2025-09-30T00:52:20.049Z',
 	},
+	'block-synced': {
+		keywords: ['sync', 'synced', 'content block', 'snippet'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Editor Platform',
+		status: 'published',
+		id: '57049:7897',
+		usage: 'Reserved for syncing content blocks in Editor experiences.',
+		createdAt: '2025-10-29T22:45:35.330Z',
+	},
 	bluetooth: {
 		keywords: ['bluetooth', 'connectivity', 'bt'],
 		categorization: 'single-purpose',

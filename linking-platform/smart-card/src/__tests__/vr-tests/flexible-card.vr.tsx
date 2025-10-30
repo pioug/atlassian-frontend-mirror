@@ -37,6 +37,7 @@ snapshot(FlexibleUiOptions, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiComposition, {
 	states: [
@@ -51,6 +52,7 @@ snapshot(FlexibleUiComposition, {
 		'navx-1895-new-logo-design': [true, false],
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 // Blocks
@@ -65,6 +67,7 @@ snapshot(FlexibleUiBlock, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockTitle, {
 	ignoredErrors: [
@@ -78,6 +81,7 @@ snapshot(FlexibleUiBlockTitle, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockTitle, {
 	description: 'flexible-ui-block-title--title hovered',
@@ -100,6 +104,7 @@ snapshot(FlexibleUiBlockTitle, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockTitle, {
 	description: 'flexible-ui-block-title--more actions hovered',
@@ -122,6 +127,7 @@ snapshot(FlexibleUiBlockTitle, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockMetadata, {
 	ignoredErrors: [
@@ -134,52 +140,61 @@ snapshot(FlexibleUiBlockMetadata, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockSnippet, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockFooter, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockPreviewXLarge, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockPreviewLarge, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockPreviewMedium, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockPreviewSmall, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockPreviewMixedPadding, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockPreviewOverrideCSS, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 // Elements
@@ -187,6 +202,7 @@ snapshot(FlexibleUiElementLink, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiElementLozenge, {
 	description: 'FlexibleUiElementLozenge',
@@ -201,6 +217,7 @@ snapshot(FlexibleUiElementLozenge, {
 			},
 		},
 	],
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiElementBadge, {
 	ignoredErrors: [
@@ -214,33 +231,39 @@ snapshot(FlexibleUiElementBadge, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiElementAppliedToComponentsCount, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiElementAvatarGroup, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiElementMedia, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiElementTeamMemberCount, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-team-member-count-component': true,
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiElementUserAttributes, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-user-attributes-component': true,
 	},
+	waitForReactLazy: true,
 });
 
 // Hovercard
@@ -259,6 +282,7 @@ snapshot(FlexibleUiHoverCard, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiHoverCardNoPreviewButton, {
 	drawsOutsideBounds: true,
@@ -274,6 +298,7 @@ snapshot(FlexibleUiHoverCardNoPreviewButton, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 // Accessibility
@@ -290,6 +315,7 @@ snapshot(FlexibleUiAccessibility, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiAccessibility, {
 	description: 'flexible=ui-accessibility--hidden action button focused',
@@ -305,6 +331,7 @@ snapshot(FlexibleUiAccessibility, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
 	description: 'flexible=ui-accessibility--forbidden title focused',
@@ -320,6 +347,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
 	description: 'flexible=ui-accessibility--error message focused',
@@ -351,6 +379,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(FlexibleUiPlaceholderData, {
@@ -358,6 +387,7 @@ snapshot(FlexibleUiPlaceholderData, {
 	featureFlags: {
 		platform_initial_data_for_smart_cards: [true, false],
 	},
+	waitForReactLazy: true,
 });
 // Error states
 snapshot(FlexibleUiBlockCardErroredStates, {
@@ -365,10 +395,12 @@ snapshot(FlexibleUiBlockCardErroredStates, {
 		'platform-component-visual-refresh': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 // Nouns
 snapshot(FlexibleUiBlockEntities, {
 	ignoredErrors: [],
 	featureFlags: {},
+	waitForReactLazy: true,
 });

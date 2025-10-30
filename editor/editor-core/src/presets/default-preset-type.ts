@@ -31,6 +31,7 @@ import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import type { UndoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
 import type { UnsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugins/user-intent';
 import type { WidthPlugin } from '@atlaskit/editor-plugins/width';
 
 type ExtractPluginName<Plugin> =
@@ -63,6 +64,7 @@ export type DefaultPresetPlugins = [
 	UndoRedoPlugin | undefined,
 	PrimaryToolbarPlugin,
 	ToolbarPlugin | undefined,
+	UserIntentPlugin | undefined,
 	HistoryPlugin | undefined,
 	TypeAheadPlugin,
 	DecorationsPlugin,

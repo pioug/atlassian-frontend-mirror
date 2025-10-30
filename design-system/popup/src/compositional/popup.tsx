@@ -13,6 +13,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { Layering } from '@atlaskit/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 
@@ -24,6 +25,7 @@ import {
 } from '../types';
 import { usePopupAppearance } from '../use-appearance';
 import { useGetMemoizedMergedTriggerRef } from '../use-get-memoized-merged-trigger-ref';
+import { useGetMemoizedMergedTriggerRefNew } from '../use-get-memoized-merged-trigger-ref-new';
 
 const IsOpenContext = createContext<boolean>(false);
 const IdContext = createContext<string | undefined>(undefined);
@@ -101,12 +103,14 @@ export const PopupTrigger = ({ children }: PopupTriggerProps) => {
 	const id = useContext(IdContext);
 	const setTriggerRef = useContext(SetTriggerRefContext);
 	const getMergedTriggerRef = useGetMemoizedMergedTriggerRef();
-
+	const getMergedTriggerRefNew = useGetMemoizedMergedTriggerRefNew();
 	return (
 		<Reference>
 			{({ ref }) =>
 				children({
-					ref: getMergedTriggerRef(ref, setTriggerRef, isOpen),
+					ref: fg('platform-dst-popup-compositional-trigger-ref')
+						? getMergedTriggerRefNew(ref, setTriggerRef)
+						: getMergedTriggerRef(ref, setTriggerRef, isOpen),
 					'aria-controls': id,
 					'aria-expanded': isOpen,
 					'aria-haspopup': true,

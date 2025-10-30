@@ -7,6 +7,7 @@ export type {
 	EditorContextPayloadData,
 	WhiteboardContextPayloadData,
 	BrowserContextPayloadData,
+	DatabaseContextPayloadData,
 	AddStatusRovoPayload,
 	UpdateStatusRovoPayload,
 	DeleteStatusRovoPayload,

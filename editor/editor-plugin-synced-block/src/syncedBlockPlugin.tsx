@@ -13,8 +13,9 @@ import { createSyncedBlock } from './editor-commands';
 import { createPlugin } from './pm-plugins/main';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
 import { getBlockMenuComponents } from './ui/block-menu-components';
-import { ContentComponent } from './ui/ContentComponent';
+import { DeleteConfirmationModal } from './ui/DeleteConfirmationModal';
 import { getToolbarConfig } from './ui/floating-toolbar';
+import { SyncBlockRefresher } from './ui/SyncBlockRefresher';
 
 export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 	const syncBlockStore = new SyncBlockStoreManager(config?.dataProvider);
@@ -97,7 +98,12 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 		},
 
 		contentComponent: () => {
-			return <ContentComponent syncBlockStoreManager={syncBlockStore} />;
+			return (
+				<>
+					<SyncBlockRefresher syncBlockStoreManager={syncBlockStore} />
+					<DeleteConfirmationModal syncBlockStoreManager={syncBlockStore} />
+				</>
+			);
 		},
 	};
 };

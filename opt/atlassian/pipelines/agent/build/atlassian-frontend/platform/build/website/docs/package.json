@@ -11,7 +11,7 @@
 	"atlaskit:src": "src/index.js",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
-		"team": "UIP: Dev Life Cycle",
+		"team": "Design System Team",
 		"toolingLabels": [
 			"docs"
 		]
@@ -19,7 +19,8 @@
 	"exports": {
 		".": "./src/index.js"
 	},
-	"repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"homepage": "https://atlaskit.atlassian.com/",
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/code": "workspace:^",

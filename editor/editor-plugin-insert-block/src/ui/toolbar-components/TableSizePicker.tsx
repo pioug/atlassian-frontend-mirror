@@ -3,7 +3,6 @@ import React, { useRef } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import {
 	MoreItemsIcon,
 	ToolbarButton,
@@ -21,7 +20,6 @@ interface TableSizePickerProps extends BaseToolbarButtonProps {
 
 export const TableSizePicker = ({ api, tableSelectorSupported }: TableSizePickerProps) => {
 	const { formatMessage } = useIntl();
-	const { editorView } = useEditorToolbar();
 	const tableSizePickerRef = useRef<HTMLButtonElement | null>(null);
 	const { popupsMountPoint, popupsBoundariesElement, popupsScrollableElement } = useToolbarUI();
 
@@ -30,7 +28,7 @@ export const TableSizePicker = ({ api, tableSelectorSupported }: TableSizePicker
 		buttonRef: tableSizePickerRef,
 	});
 
-	if (!editorView?.state.schema.nodes.table || !tableSelectorSupported) {
+	if (!api?.table || !tableSelectorSupported) {
 		return null;
 	}
 

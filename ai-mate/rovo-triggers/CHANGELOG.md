@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 3.15.3
+
+### Patch Changes
+
+- [`939a083bf7a60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/939a083bf7a60) -
+  add support for database context
+
 ## 3.15.2
 
 ### Patch Changes

@@ -1,3 +1,5 @@
+import type { IntlShape } from 'react-intl-next';
+
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -26,7 +28,7 @@ export type ShowDiffPluginState = {
 
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 
-export const createPlugin = (config: DiffParams | undefined) => {
+export const createPlugin = (config: DiffParams | undefined, getIntl: () => IntlShape) => {
 	const nodeViewSerializer = new NodeViewSerializer({});
 	const setNodeViewSerializer = (editorView: EditorView) => {
 		nodeViewSerializer.init({ editorView });
@@ -35,7 +37,7 @@ export const createPlugin = (config: DiffParams | undefined) => {
 	return new SafePlugin<ShowDiffPluginState>({
 		key: showDiffPluginKey,
 		state: {
-			init(_: EditorStateConfig, state: EditorState) {
+			init(_: EditorStateConfig, _state: EditorState) {
 				// We do initial setup after we setup the editor view
 				return {
 					steps: [],
@@ -67,6 +69,7 @@ export const createPlugin = (config: DiffParams | undefined) => {
 							pluginState: newPluginState,
 							nodeViewSerializer,
 							colourScheme: config?.colourScheme,
+							intl: getIntl(),
 						});
 						// Update the decorations
 						newPluginState.decorations = decorations;

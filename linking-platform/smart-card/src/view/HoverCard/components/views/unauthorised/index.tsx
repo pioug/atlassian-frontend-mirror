@@ -7,6 +7,7 @@ import { useCallback, useMemo } from 'react';
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { token } from '@atlaskit/tokens';
 
@@ -64,21 +65,37 @@ const HoverCardUnauthorisedView = ({
 		}
 	}, [authorize, fireEvent]);
 
+	type HovercardExperimentCohort = 'control' | 'test1' | 'test2' | 'test3' | 'test4';
+	const hoverCardExperimentCohort =
+		providerName === 'Google'
+			? FeatureGates.getExperimentValue<HovercardExperimentCohort>(
+					'platform_editor_google_hovercard_experiment',
+					'cohort',
+					'control',
+				)
+			: 'control';
+
+	const connectActionMessage =
+		hoverCardExperimentCohort === 'test1' ||
+		hoverCardExperimentCohort === 'test2' ||
+		hoverCardExperimentCohort === 'test3'
+			? messages.experiment_connect_unauthorised_account_action
+			: messages.connect_unauthorised_account_action;
+
 	const actions = useMemo<ActionItem[]>(
 		() => [
 			{
 				name: ActionName.CustomAction,
-				content: (
-					<FormattedMessage
-						{...messages.connect_unauthorised_account_action}
-						values={{ context: providerName }}
-					/>
-				),
+				content: <FormattedMessage {...connectActionMessage} values={{ context: providerName }} />,
 				onClick: handleAuthorize,
 			} as CustomActionItem,
 		],
-		[handleAuthorize, providerName],
+		[handleAuthorize, providerName, connectActionMessage],
 	);
+
+	if (hoverCardExperimentCohort === 'test4') {
+		return null;
+	}
 
 	return (
 		<FlexibleCard {...flexibleCardProps} testId={testId}>
@@ -94,6 +111,7 @@ const HoverCardUnauthorisedView = ({
 					<UnauthorisedViewContent
 						providerName={providerName}
 						isProductIntegrationSupported={isProductIntegrationSupported}
+						appearance={hoverCardExperimentCohort !== 'control' ? 'hoverCardPreview' : undefined}
 					/>
 				</div>
 			</CustomBlock>

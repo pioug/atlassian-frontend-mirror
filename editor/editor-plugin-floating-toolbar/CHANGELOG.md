@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 8.2.12
+
+### Patch Changes
+
+- [`e727490d9f62f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e727490d9f62f) -
+  [ux] EDITOR-2572 Hide floating toolbar when status picker is open
+- Updated dependencies
+
+## 8.2.11
+
+### Patch Changes
+
+- [`28ba94dae8f9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28ba94dae8f9a) -
+  [ux] EDITOR-2458 Replace usage of \_\_suppressAllToolbars with userIntentPlugin
+- Updated dependencies
+
 ## 8.2.10
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-status
 
+## 7.1.4
+
+### Patch Changes
+
+- [`e727490d9f62f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e727490d9f62f) -
+  [ux] EDITOR-2572 Hide floating toolbar when status picker is open
+- Updated dependencies
+
 ## 7.1.3
 
 ### Patch Changes

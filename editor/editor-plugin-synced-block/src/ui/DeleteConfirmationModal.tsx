@@ -10,7 +10,7 @@ import ModalDialog, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 
-export const ContentComponent = ({
+export const DeleteConfirmationModal = ({
 	syncBlockStoreManager,
 }: {
 	syncBlockStoreManager: SyncBlockStoreManager;

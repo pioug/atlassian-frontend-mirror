@@ -485,6 +485,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 									options?.isTableScalingEnabled,
 									isTableFixedColumnWidthsOptionEnabled,
 									options.isCommentEditor,
+									api,
 								)
 							: undefined;
 					},

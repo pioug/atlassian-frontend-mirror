@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.46.3
+
+### Patch Changes
+
+- [`9e501a31036fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e501a31036fc) -
+  Update FilePicker onChange type to support async handlers
+
 ## 0.46.2
 
 ### Patch Changes

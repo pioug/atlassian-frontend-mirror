@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 
-import type { SyncBlockData, SyncBlockNode } from '../common/types';
+import { SyncBlockError, type SyncBlockData, type SyncBlockNode } from '../common/types';
 import {
 	SyncBlockDataProvider,
 	type ADFFetchProvider,
@@ -30,11 +30,30 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		return node.attrs.localId;
 	}
 	fetchNodesData(nodes: SyncBlockNode[]): Promise<FetchSyncBlockDataResult[]> {
-		return Promise.all(
-			nodes.map((node) => {
-				return this.fetchProvider.fetchData(node.attrs.resourceId);
+		const resourceIdSet = new Set<string>(nodes.map((node) => node.attrs.resourceId));
+		const resourceIds = [...resourceIdSet];
+
+		return Promise.allSettled(
+			resourceIds.map((resourceId) => {
+				return this.fetchProvider.fetchData(resourceId).then(
+					(data) => {
+						return data;
+					},
+					() => {
+						return {
+							status: SyncBlockError.Errored,
+							resourceId,
+						};
+					},
+				);
 			}),
-		);
+		).then((results) => {
+			return results
+				.filter((result): result is PromiseFulfilledResult<FetchSyncBlockDataResult> => {
+					return result.status === 'fulfilled';
+				})
+				.map((result) => result.value);
+		});
 	}
 
 	/**

@@ -12,6 +12,7 @@ import { css, jsx } from '@emotion/react';
 import ChevronRight from '@atlaskit/icon/core/migration/chevron-right';
 import { easeOut } from '@atlaskit/motion/curves';
 import { durations } from '@atlaskit/motion/durations';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 import { B100, B200, N0, N200, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -82,7 +83,13 @@ const resizeIconButtonExpandedStyles = css({
 const preventDefault = (event: MouseEvent) => event.preventDefault();
 const cssSelector = { [RESIZE_BUTTON_SELECTOR]: true };
 
-const ResizeButton = ({ isLeftSidebarCollapsed, label, testId, ...props }: ResizeButtonProps) => {
+const ResizeButton = ({
+	isLeftSidebarCollapsed,
+	label,
+	onClick,
+	testId,
+	...props
+}: ResizeButtonProps) => {
 	// Extract css from props if it exists to avoid conflicts
 	const { css: _ignoredCss, ...restProps } = props as any;
 
@@ -100,8 +107,8 @@ const ResizeButton = ({ isLeftSidebarCollapsed, label, testId, ...props }: Resiz
 			data-testid={testId}
 			// Prevents focus staying attached to the button when pressed
 			onMouseDown={preventDefault}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-			{...restProps}
+			onClick={onClick}
+			{...(fg('platform_dst_spread-props-page-layout') ? {} : restProps)}
 		>
 			<ChevronRight label="" color="currentColor" size="small" />
 			<span css={hitAreaSpanStyles} />

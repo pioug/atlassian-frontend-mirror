@@ -29,6 +29,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-listeners": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bowser-ultralight": "root:*"
@@ -36,5 +37,9 @@
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
-	"platform-feature-flags": {}
+	"platform-feature-flags": {
+		"cc_editor_insm_fix_attributes": {
+			"type": "boolean"
+		}
+	}
 }

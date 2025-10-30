@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.19.0
+
+### Minor Changes
+
+- [`24b2ff24249b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24b2ff24249b2) -
+  Added teamwork graph related analytics events
+
 ## 1.18.0
 
 ### Minor Changes

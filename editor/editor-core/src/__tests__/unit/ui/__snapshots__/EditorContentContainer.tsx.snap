@@ -983,6 +983,20 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 
 
 
+.emotion-0 .embedCardView-content-wrap.show-diff-deleted-node .loader-wrapper>div::after {
+  box-shadow: 0 0 0 1px var(--ds-border-accent-gray, #758195);
+  border-color: transparent;
+}
+
+
+
+.emotion-0 .mediaSingleView-content-wrap.show-diff-deleted-node>div {
+  box-shadow: 0 0 0 1px var(--ds-border-accent-gray, #758195);
+  border-radius: var(--ds-radius-small, 4px);
+}
+
+
+
 .emotion-0 .ProseMirror li .rich-media-item {
   margin: 0;
 }
@@ -6083,6 +6097,20 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 .emotion-0 .embedCardView-content-wrap[data-testid="show-diff-changed-decoration-node"] .loader-wrapper>div::after {
   box-shadow: 0 0 0 1px var(--diff-decoration-marker-color);
   border-color: transparent;
+}
+
+
+
+.emotion-0 .embedCardView-content-wrap.show-diff-deleted-node .loader-wrapper>div::after {
+  box-shadow: 0 0 0 1px var(--ds-border-accent-gray, #758195);
+  border-color: transparent;
+}
+
+
+
+.emotion-0 .mediaSingleView-content-wrap.show-diff-deleted-node>div {
+  box-shadow: 0 0 0 1px var(--ds-border-accent-gray, #758195);
+  border-radius: var(--ds-radius-small, 4px);
 }
 
 

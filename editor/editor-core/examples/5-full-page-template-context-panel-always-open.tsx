@@ -7,9 +7,7 @@ import React, { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { type ExtractPresetAPI } from '@atlaskit/editor-common/preset';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import { type createUniversalPresetInternal } from '@atlaskit/editor-core/preset-universal';
 import { type ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 import { token } from '@atlaskit/tokens';
@@ -21,7 +19,7 @@ import { ContextPanel } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
-import { ExampleEditor, LOCALSTORAGE_defaultDocKey } from './5-full-page';
+import { ExampleEditor, LOCALSTORAGE_defaultDocKey, type EditorAPI } from './5-full-page';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -149,8 +147,6 @@ class TemplatePanel extends React.Component<
 		);
 	}
 }
-
-type EditorAPI = ExtractPresetAPI<ReturnType<typeof createUniversalPresetInternal>> | undefined;
 
 const EditorWithSidebar = () => {
 	const sidebar = React.createRef<TemplatePanel>();

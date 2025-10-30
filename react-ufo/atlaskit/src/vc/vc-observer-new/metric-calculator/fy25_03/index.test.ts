@@ -410,6 +410,19 @@ describe('VCCalculator_FY25_03', () => {
 				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
 			});
 
+			it('should exclude mutation:third-party-attribute entries', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:third-party-attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
 			it('should still include other valid entry types', () => {
 				const entry: VCObserverEntry = {
 					time: 0,
@@ -434,6 +447,19 @@ describe('VCCalculator_FY25_03', () => {
 					time: 0,
 					data: {
 						type: 'mutation:third-party-element',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+
+			it('should include mutation:third-party-attribute entries', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:third-party-attribute',
 						elementName: 'div',
 						rect: new DOMRect(),
 						visible: true,

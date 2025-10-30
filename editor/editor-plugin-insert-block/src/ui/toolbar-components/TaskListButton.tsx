@@ -21,7 +21,7 @@ export const TaskListButton = ({ api }: TaskListButtonProps) => {
 
 	const { editorView } = useEditorToolbar();
 
-	if (!editorView?.state.schema.nodes.taskItem) {
+	if (!api?.taskDecision) {
 		return null;
 	}
 

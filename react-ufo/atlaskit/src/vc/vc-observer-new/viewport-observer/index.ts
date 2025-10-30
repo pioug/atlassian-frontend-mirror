@@ -1,7 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
-import isDnDStyleMutation from '../../vc-observer/observers/non-visual-styles/is-dnd-style-mutation';
 import isNonVisualStyleMutation from '../../vc-observer/observers/non-visual-styles/is-non-visual-style-mutation';
 import { RLLPlaceholderHandlers } from '../../vc-observer/observers/rll-placeholders';
 import { type VCObserverEntryType } from '../types';
@@ -388,15 +387,22 @@ export default class ViewportObserver {
 				};
 			}
 
-			if (isDnDStyleMutation({ target, attributeName, oldValue, newValue })) {
-				return {
-					type: 'mutation:attribute:non-visual-style',
-					mutationData: {
-						attributeName,
-						oldValue,
-						newValue,
-					},
-				};
+			if (fg('platform_ufo_exclude_3p_attribute_changes')) {
+				const { isWithin: isWithinThirdPartySegment } = checkWithinComponent(
+					target,
+					'UFOThirdPartySegment',
+					this.mapIs3pResult,
+				);
+				if (isWithinThirdPartySegment) {
+					return {
+						type: 'mutation:third-party-attribute',
+						mutationData: {
+							attributeName,
+							oldValue,
+							newValue,
+						},
+					};
+				}
 			}
 
 			if (isNonVisualStyleMutation({ target, attributeName, type: 'attributes' })) {

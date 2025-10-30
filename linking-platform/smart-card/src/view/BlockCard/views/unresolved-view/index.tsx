@@ -8,6 +8,7 @@ import { useMemo } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import FlexibleCard from '../../../FlexibleCard';
@@ -65,6 +66,7 @@ const UnresolvedView = ({
 	testId,
 	title,
 	url,
+	CompetitorPrompt,
 }: UnresolvedViewProps) => {
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { safari = false } = useMemo(() => browser(), []);
@@ -81,7 +83,13 @@ const UnresolvedView = ({
 			ui={FlexibleCardUiOptions}
 			url={url}
 		>
-			<TitleBlock {...titleBlockOptions} hideIcon={!!title} text={title} css={[titleBlockCss]} />
+			<TitleBlock
+				{...titleBlockOptions}
+				hideIcon={!!title}
+				text={title}
+				css={[titleBlockCss]}
+				{...(fg('prompt_whiteboard_competitor_link_gate') ? { CompetitorPrompt } : undefined)}
+			/>
 			<CustomBlock css={[customBlockStyles]}>{children}</CustomBlock>
 			{showPreview && <PreviewBlock {...PreviewBlockOptions} />}
 			<InternalFooterBlock

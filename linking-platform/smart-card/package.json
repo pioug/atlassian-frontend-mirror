@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.4.2",
+	"version": "43.4.4",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -226,9 +226,6 @@
 		"hover-card-on-visibility-change-callback": {
 			"type": "boolean"
 		},
-		"navx-1895-a11y-close-button-in-preview-modal": {
-			"type": "boolean"
-		},
 		"navx-1895-new-logo-design": {
 			"type": "boolean"
 		},
@@ -243,6 +240,9 @@
 		},
 		"navx-1910-fix-hovercard-performance-metrics": {
 			"type": "boolean"
+		},
+		"platform_editor_google_hovercard_experiment": {
+			"type": "string"
 		}
 	},
 	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/f74ef1bc-7240-4aac-9dc8-9dc43b502089"

@@ -3,7 +3,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { createPlugin, showDiffPluginKey } from './pm-plugins/main';
 import type { ShowDiffPlugin, PMDiffParams } from './showDiffPluginType';
 
-export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => ({
+export const showDiffPlugin: ShowDiffPlugin = ({ api: _api, config }) => ({
 	name: 'showDiff',
 	commands: {
 		showDiff:
@@ -19,7 +19,7 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => ({
 		return [
 			{
 				name: 'showDiffPlugin',
-				plugin: () => createPlugin(config),
+				plugin: ({ getIntl }) => createPlugin(config, getIntl),
 			},
 		];
 	},

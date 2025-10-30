@@ -142,12 +142,12 @@ export const editSyncedBlockSource =
 	(state: EditorState, dispatch?: CommandDispatch, _view?: EditorView) => {
 		const syncBlock = findSyncBlock(state);
 
-		const localId = syncBlock?.node?.attrs?.localId;
-		if (!localId) {
+		const resourceId = syncBlock?.node?.attrs?.resourceId;
+		if (!resourceId) {
 			return false;
 		}
 
-		const syncBlockURL = syncBlockStore.getSyncBlockURL(localId);
+		const syncBlockURL = syncBlockStore.getSyncBlockURL(resourceId);
 
 		if (syncBlockURL) {
 			window.open(syncBlockURL, '_blank');

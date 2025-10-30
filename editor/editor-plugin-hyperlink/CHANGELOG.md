@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 8.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.5
+
+### Patch Changes
+
+- [`351b338797ae4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/351b338797ae4) -
+  ED-29460 Clean up platform_editor_toolbar_aifc_fix_editor_view
+- Updated dependencies
+
 ## 8.1.4
 
 ### Patch Changes

@@ -85,6 +85,15 @@ export type WhiteboardContextPayloadData =
 	  }
 	| undefined;
 
+export type DatabaseContextPayloadData =
+	| {
+			contentId: string;
+			csv: string;
+			title: string;
+			url: string;
+	  }
+	| undefined;
+
 export type BrowserContextPayloadData = {
 	context:
 		| {

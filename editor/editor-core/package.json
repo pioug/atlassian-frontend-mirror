@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.8.8",
+	"version": "215.9.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -429,6 +429,9 @@
 			"type": "boolean"
 		},
 		"cc_fd_wb_create_priority_in_slash_menu_enabled": {
+			"type": "boolean"
+		},
+		"platform_editor_ai_aifc_patch_beta_2": {
 			"type": "boolean"
 		}
 	},

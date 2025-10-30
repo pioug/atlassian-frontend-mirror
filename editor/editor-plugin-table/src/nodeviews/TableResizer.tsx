@@ -430,7 +430,8 @@ export const TableResizer = ({
 
 		if (
 			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) ||
-			isToolbarAIFCEnabled
+			isToolbarAIFCEnabled ||
+			expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
 		) {
 			pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('resizing')({ tr });
 		}
@@ -614,7 +615,8 @@ export const TableResizer = ({
 			tr.setMeta('is-resizer-resizing', false);
 			if (
 				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) ||
-				isToolbarAIFCEnabled
+				isToolbarAIFCEnabled ||
+				expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
 			) {
 				pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 			}

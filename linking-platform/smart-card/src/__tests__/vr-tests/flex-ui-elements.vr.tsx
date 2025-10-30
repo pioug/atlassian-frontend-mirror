@@ -12,40 +12,47 @@ snapshot(FlexUiDateTimeTextView, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(FlexUiAtlaskitBadgeView, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(FlexUiBaseTextView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(FlexUiTitleElementView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(FlexUiOwnedByElementView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(FlexUiCustomElementsView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(FlexUiModifiedOnView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},
+	waitForReactLazy: true,
 });

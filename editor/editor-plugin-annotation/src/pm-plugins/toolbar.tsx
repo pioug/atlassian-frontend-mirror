@@ -30,6 +30,7 @@ import { type SelectionBookmark, type EditorState } from '@atlaskit/editor-prose
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
 import { setInlineCommentDraftState } from '../editor-commands';
@@ -95,12 +96,19 @@ export const shouldSuppressFloatingToolbar = ({
 	return isSelectionMatchingBookmark;
 };
 
-export const buildSuppressedToolbar = (state: EditorState) => {
+export const buildSuppressedToolbar = (
+	state: EditorState,
+	api?: ExtractInjectionAPI<AnnotationPlugin>,
+) => {
+	const userIntentEnabled = Boolean(
+		api?.userIntent && expValEquals('platform_editor_lovability_user_intent', 'isEnabled', true),
+	);
+
 	return {
 		items: [],
 		nodeType: getValidNodes(state),
 		title: 'Annotation suppressed toolbar',
-		__suppressAllToolbars: true,
+		__suppressAllToolbars: userIntentEnabled ? undefined : true,
 	};
 };
 

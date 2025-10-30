@@ -2,8 +2,12 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import type { BlockInstanceId, SyncBlockAttrs, SyncBlockNode } from '../common/types';
-import type { FetchSyncBlockDataResult, SyncBlockDataProvider } from '../providers/types';
+import type { ResourceId, SyncBlockAttrs, SyncBlockNode } from '../common/types';
+import type {
+	FetchSyncBlockDataResult,
+	SubscriptionCallback,
+	SyncBlockDataProvider,
+} from '../providers/types';
 
 import { ReferenceSyncBlockStoreManager } from './referenceSyncBlockStoreManager';
 import {
@@ -25,7 +29,16 @@ export class SyncBlockStoreManager {
 		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(dataProvider);
 	}
 
+	/**
+	 * Fetch sync block data for a given sync block node.
+	 * @param syncBlockNode - The sync block node to fetch data for
+	 * @returns The fetched sync block data result
+	 */
 	public fetchSyncBlockData(syncBlockNode: PMNode): Promise<FetchSyncBlockDataResult | undefined> {
+		if (!['bodiedSyncBlock', 'syncBlock'].includes(syncBlockNode.type.name)) {
+			throw new Error('Node is not a sync block');
+		}
+
 		if (this.isSourceBlock(syncBlockNode)) {
 			return Promise.reject(
 				new Error('Invalid sync block node type provided for fetchSyncBlockData'),
@@ -39,9 +52,9 @@ export class SyncBlockStoreManager {
 	 * Add/update a sync block node to/from the local cache
 	 * @param syncBlockNode - The sync block node to update
 	 */
-	public updateSyncBlockData(syncBlockNode: PMNode): void {
+	public updateSyncBlockData(syncBlockNode: PMNode): boolean {
 		if (this.isSourceBlock(syncBlockNode)) {
-			this.sourceSyncBlockStoreManager.updateSyncBlockData(syncBlockNode);
+			return this.sourceSyncBlockStoreManager.updateSyncBlockData(syncBlockNode);
 		} else {
 			throw new Error('Invalid sync block node type provided for updateSyncBlockData');
 		}
@@ -59,17 +72,19 @@ export class SyncBlockStoreManager {
 
 	/**
 	 * Get the URL for a sync block.
-	 * @param localId - The local ID of the sync block to get the URL for
+	 * @param resourceId - The resource ID of the sync block to get the URL for
 	 * @returns
 	 */
-	public getSyncBlockURL(localId: BlockInstanceId): string | undefined {
+	public getSyncBlockURL(resourceId: ResourceId): string | undefined {
 		// only applicable to reference sync block, for now (will be refactored further)
-		return this.referenceSyncBlockStoreManager.getSyncBlockURL(localId);
+		return this.referenceSyncBlockStoreManager.getSyncBlockURL(resourceId);
 	}
 
 	public setEditorView(editorView: EditorView | undefined): void {
-		// only applicable to source sync block, for now (will be refactored further)
 		this.sourceSyncBlockStoreManager.setEditorView(editorView);
+		if (editorView) {
+			this.referenceSyncBlockStoreManager.init(editorView);
+		}
 	}
 
 	public isSourceBlock(node: PMNode): boolean {
@@ -91,6 +106,14 @@ export class SyncBlockStoreManager {
 		return this.sourceSyncBlockStoreManager.createSyncBlockNode();
 	}
 
+	public subscribeToSyncBlockData(node: PMNode, callback: SubscriptionCallback): () => void {
+		return this.referenceSyncBlockStoreManager.subscribe(node, callback);
+	}
+
+	public refreshSubscriptions(): void {
+		this.referenceSyncBlockStoreManager.refreshSubscriptions();
+	}
+
 	public deleteSyncBlocksWithConfirmation(
 		tr: Transaction,
 		syncBlockIds: SyncBlockAttrs[],
@@ -102,5 +125,9 @@ export class SyncBlockStoreManager {
 	public rebaseTransaction(incomingTr: Transaction, state: EditorState): void {
 		// only applicable to source sync block, for now (will be refactored further)
 		this.sourceSyncBlockStoreManager.rebaseTransaction(incomingTr, state);
+	}
+
+	destroy() {
+		this.referenceSyncBlockStoreManager.destroy();
 	}
 }

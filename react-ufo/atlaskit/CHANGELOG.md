@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.13.1
+
+### Patch Changes
+
+- [`8dedd89369b84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8dedd89369b84) -
+  Exclude 3p from attribute change behind feature gate
+
 ## 4.13.0
 
 ### Minor Changes

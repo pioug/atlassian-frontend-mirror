@@ -143,3 +143,12 @@ export interface OrgAlignmentStatus {
 	orgId: string;
 	scopeAligned: boolean;
 }
+
+export interface TeamStateEntry {
+	teamId: string;
+	state: TeamState;
+}
+
+export interface TeamStatesInBulkResponse {
+	teamStates: TeamStateEntry[];
+}

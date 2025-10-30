@@ -13,7 +13,6 @@ import { ColorPalette, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import Heading from '@atlaskit/heading';
 import { Stack } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { TextColorPlugin } from '../textColorPluginType';
@@ -40,48 +39,24 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps) {
 		}),
 	);
 	const { editorView } = useEditorToolbar();
-	// Warning! Do not destructure editorView, it will become stale
-	const { state, dispatch } = editorView ?? { state: null, dispatch: null };
 	const context = useToolbarDropdownMenu();
 	const closeMenu = context?.closeMenu;
 
 	const handleTextColorChange = useCallback(
 		(color: string) => {
-			if (expValEquals('platform_editor_toolbar_aifc_fix_editor_view', 'isEnabled', true)) {
-				if (!editorView?.state || !editorView?.dispatch) {
-					return;
-				}
-				if (api?.textColor?.actions?.changeColor) {
-					api.textColor.actions.changeColor(color, getInputMethodFromParentKeys(parents))(
-						editorView.state,
-						editorView.dispatch,
-					);
+			if (!editorView?.state || !editorView?.dispatch) {
+				return;
+			}
+			if (api?.textColor?.actions?.changeColor) {
+				api.textColor.actions.changeColor(color, getInputMethodFromParentKeys(parents))(
+					editorView.state,
+					editorView.dispatch,
+				);
 
-					closeMenu?.();
-				}
-			} else {
-				if (!state || !dispatch) {
-					return;
-				}
-				if (api?.textColor?.actions?.changeColor) {
-					api.textColor.actions.changeColor(color, getInputMethodFromParentKeys(parents))(
-						state,
-						dispatch,
-					);
-
-					closeMenu?.();
-				}
+				closeMenu?.();
 			}
 		},
-		[
-			editorView?.state,
-			editorView?.dispatch,
-			api?.textColor.actions,
-			parents,
-			closeMenu,
-			state,
-			dispatch,
-		],
+		[editorView?.state, editorView?.dispatch, api?.textColor.actions, parents, closeMenu],
 	);
 
 	const { formatMessage } = useIntl();

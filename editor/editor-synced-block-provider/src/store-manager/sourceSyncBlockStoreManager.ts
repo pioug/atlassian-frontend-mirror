@@ -35,19 +35,16 @@ export class SourceSyncBlockStoreManager {
 	 * Add/update a sync block node to/from the local cache
 	 * @param syncBlockNode - The sync block node to update
 	 */
-	public updateSyncBlockData(syncBlockNode: PMNode) {
-		try {
-			const { localId, resourceId } = syncBlockNode.attrs;
+	public updateSyncBlockData(syncBlockNode: PMNode): boolean {
+		const { localId, resourceId } = syncBlockNode.attrs;
 
-			if (!localId || !resourceId) {
-				throw new Error('Local ID or resource ID is not set');
-			}
-
-			const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
-			this.syncBlockCache.set(localId, syncBlockData);
-		} catch {
-			//TODO: EDITOR-1921 - add error analytics
+		if (!localId || !resourceId) {
+			throw new Error('Local ID or resource ID is not set');
 		}
+
+		const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
+		this.syncBlockCache.set(localId, syncBlockData);
+		return true;
 	}
 
 	/**

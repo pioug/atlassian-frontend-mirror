@@ -1,15 +1,23 @@
 import React, { useCallback } from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor } from '@atlaskit/primitives/compiled';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CONTENT_URL_3P_ACCOUNT_AUTH, CONTENT_URL_SECURITY_AND_PERMISSIONS } from '../../constants';
 import { messages } from '../../messages';
+import { type CardInnerAppearance } from '../Card/types';
 
 type UnauthorisedViewContentProps = {
+	/**
+	 * The type of card this component is being used in.
+	 * Determines the display behavior and messaging.
+	 */
+	appearance?: CardInnerAppearance;
+
 	/**
 	 * If `true`, display an alternative message which prompts user to connect all
 	 * Atlassian products (vs. smart links only) to the 3rd party account.
@@ -30,6 +38,16 @@ type UnauthorisedViewContentProps = {
 	testId?: string;
 };
 
+type HovercardExperimentCohort = 'control' | 'test1' | 'test2' | 'test3' | 'test4';
+
+const cohortMessages: Record<HovercardExperimentCohort, MessageDescriptor> = {
+	control: messages.connect_unauthorised_account_description,
+	test1: messages.experiment_connect_hovercard_description_1,
+	test2: messages.experiment_connect_hovercard_description_2,
+	test3: messages.experiment_connect_hovercard_description_3,
+	test4: messages.connect_unauthorised_account_description,
+};
+
 /**
  * This component is used in unauthorized views of a smart link.
  * It represents the main text that provides a user with information on how to connect their account
@@ -38,6 +56,7 @@ const UnauthorisedViewContent = ({
 	providerName,
 	isProductIntegrationSupported,
 	testId = 'unauthorised-view-content',
+	appearance,
 }: UnauthorisedViewContentProps) => {
 	const { fireEvent } = useAnalyticsEvents();
 
@@ -45,19 +64,42 @@ const UnauthorisedViewContent = ({
 		fireEvent('ui.button.clicked.learnMore', {});
 	}, [fireEvent]);
 
-	const learnMoreMessage = isProductIntegrationSupported
-		? fg('product-terminology-refresh')
-			? messages.learn_more_about_connecting_account_appify
-			: messages.learn_more_about_connecting_account
-		: messages.learn_more_about_smart_links;
+	const hoverCardExperimentCohort =
+		providerName === 'Google' && appearance === 'hoverCardPreview'
+			? FeatureGates.getExperimentValue<HovercardExperimentCohort>(
+					'platform_editor_google_hovercard_experiment',
+					'cohort',
+					'control',
+				)
+			: 'control';
+
+	let learnMoreMessage;
+	if (isProductIntegrationSupported) {
+		if (hoverCardExperimentCohort === 'control') {
+			learnMoreMessage = fg('product-terminology-refresh')
+				? messages.learn_more_about_connecting_account_appify
+				: messages.learn_more_about_connecting_account;
+		} else {
+			learnMoreMessage = messages.experiment_learn_more_about_smart_links;
+		}
+	} else {
+		learnMoreMessage = messages.learn_more_about_smart_links;
+	}
+
+	let unauthorizedAccountDescriptionMessage;
+	if (hoverCardExperimentCohort === 'control') {
+		unauthorizedAccountDescriptionMessage = fg('product-terminology-refresh')
+			? messages.connect_unauthorised_account_description_appify
+			: messages.connect_unauthorised_account_description;
+	} else {
+		unauthorizedAccountDescriptionMessage = cohortMessages[hoverCardExperimentCohort];
+	}
 
 	return (
 		<>
 			{providerName ? (
 				<FormattedMessage
-					{...(fg('product-terminology-refresh')
-						? messages.connect_unauthorised_account_description_appify
-						: messages.connect_unauthorised_account_description)}
+					{...unauthorizedAccountDescriptionMessage}
 					values={{ context: providerName }}
 				/>
 			) : (

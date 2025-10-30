@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 4.2.18
+
+### Patch Changes
+
+- [`325389664a406`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/325389664a406) -
+  Refactor to make props explicit. Remove spread props behind a feature flag. If successful, they
+  will be removed in a future major.
+
 ## 4.2.17
 
 ### Patch Changes

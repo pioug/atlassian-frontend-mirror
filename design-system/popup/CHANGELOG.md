@@ -1,5 +1,19 @@
 # @atlaskit/popup
 
+## 4.6.0
+
+### Minor Changes
+
+- [`bfdf7891c505f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfdf7891c505f) -
+  Fixes a bug with the compositional popup where focus was not being returned to the trigger when
+  the popup is closed. This was occurring in React 18 Strict Mode.
+
+  The regular popup was already using this fix behind the `platform-design-system-popup-ref` feature
+  gate.
+
+  This change to compositional popup is behind the feature gate
+  `platform-dst-popup-compositional-trigger-ref`.
+
 ## 4.5.0
 
 ### Minor Changes

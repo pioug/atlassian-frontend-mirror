@@ -221,7 +221,7 @@ describe('EmbedModal', () => {
 				onClose,
 			});
 
-			const button = await screen.findByTestId(`${testId}-close-button`);
+			const button = await screen.findByTestId(`${testId}--close-button`);
 
 			await userEvent.hover(button);
 
@@ -415,7 +415,7 @@ describe('EmbedModal', () => {
 				origin: 'smartLinkCard',
 			});
 			await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
-			const button = await screen.findByTestId(`${testId}-close-button`);
+			const button = await screen.findByTestId(`${testId}--close-button`);
 			await user.click(button);
 			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
 

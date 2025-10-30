@@ -1,5 +1,16 @@
 # @atlaskit/editor-toolbar
 
+## 0.17.0
+
+### Minor Changes
+
+- [`6d29cae66dd9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d29cae66dd9a) -
+  [ED-29608] export work item icons from editor-toolbar package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.16.4
 
 ### Patch Changes

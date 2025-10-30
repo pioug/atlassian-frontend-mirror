@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-annotation
 
+## 6.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.5
+
+### Patch Changes
+
+- [`351b338797ae4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/351b338797ae4) -
+  ED-29460 Clean up platform_editor_toolbar_aifc_fix_editor_view
+- Updated dependencies
+
+## 6.2.4
+
+### Patch Changes
+
+- [`28ba94dae8f9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28ba94dae8f9a) -
+  [ux] EDITOR-2458 Replace usage of \_\_suppressAllToolbars with userIntentPlugin
+- Updated dependencies
+
 ## 6.2.3
 
 ### Patch Changes

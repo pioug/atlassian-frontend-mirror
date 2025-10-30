@@ -16,12 +16,14 @@ snapshot(HoverCard, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardWithPreview, {
 	description: 'standalone hover card with image Preview',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardForSlackMessage, {
@@ -29,6 +31,7 @@ snapshot(HoverCardForSlackMessage, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardConfluence, {
@@ -38,6 +41,7 @@ snapshot(HoverCardConfluence, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardAssignedJiraIssue, {
@@ -47,6 +51,7 @@ snapshot(HoverCardAssignedJiraIssue, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardUnassignedJiraIssue, {
@@ -56,6 +61,7 @@ snapshot(HoverCardUnassignedJiraIssue, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardJiraProject, {
@@ -65,6 +71,7 @@ snapshot(HoverCardJiraProject, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
 	},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -87,6 +94,7 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -99,6 +107,7 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -111,6 +120,7 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -124,6 +134,7 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {},
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -136,6 +147,7 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
+	waitForReactLazy: true,
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -143,4 +155,5 @@ snapshot(HoverCardForbiddenJira, {
 	states: [{ state: 'hovered', selector: { byTestId: 'FORBIDDEN' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {},
+	waitForReactLazy: true,
 });

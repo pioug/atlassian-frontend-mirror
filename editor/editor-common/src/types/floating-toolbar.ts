@@ -371,13 +371,15 @@ export type FloatingToolbarItem<T extends Object> =
 	| FloatingToolbarOverflowDropdown<T>;
 
 export interface FloatingToolbarConfig {
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 	/**
-	 * For internal use only, we will be depricating this API soon.
+	 * @deprecated To suppress visibility of toolbars, set user intent state in userIntentPlugin instead.
 	 * If any config has __suppressAllToolbars set to true, no floating toolbar will be rendered.
 	 * Use case:
 	 * When a node is nested inside a table and the cursor is inside of the nested node.
 	 * Nested node's toolbar is active. When table's menu opens, we provide table's config with
 	 * __suppressAllToolbars set to true.
+	 * To hide floating toolbar, use user intent API instead.
 	 */
 	__suppressAllToolbars?: boolean;
 

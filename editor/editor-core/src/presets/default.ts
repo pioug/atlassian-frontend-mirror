@@ -48,10 +48,12 @@ import type { TypeAheadPluginOptions } from '@atlaskit/editor-plugins/type-ahead
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { undoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
+import { userIntentPlugin } from '@atlaskit/editor-plugins/user-intent';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 
@@ -142,6 +144,10 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.add([typeAheadPlugin, options.typeAhead])
 		.maybeAdd(historyPlugin, Boolean(options.allowUndoRedoButtons))
 		.maybeAdd(
+			userIntentPlugin,
+			expValNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true),
+		)
+		.maybeAdd(
 			[toolbarPlugin, options.toolbar || {}],
 			Boolean(options.toolbar?.enableNewToolbarExperience),
 		)
@@ -181,7 +187,6 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.add(floatingToolbarPlugin)
 		.add([selectionPlugin, { ...options.selection, __livePage: options.__livePage }])
 		.add([codeBlockPlugin, options.codeBlock]);
-
 	return preset;
 }
 

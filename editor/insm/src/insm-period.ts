@@ -1,22 +1,24 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { INSMSession } from './insm-session';
 import type { Measure } from './types';
 
 export class PeriodTracking {
 	private periodMeasurements: {
 		active: {
+			count: number;
+			duration: number;
 			features: Set<string>;
 			heavyTasks: Set<string>;
 			measurements: { [key: string]: Measure };
-			duration: number;
-			count: number;
 		};
 		inactive: {
+			count: number;
+			duration: number;
 			features: Set<string>;
 			heavyTasks: Set<string>;
 			measurements: { [key: string]: Measure };
-			duration: number;
-			count: number;
 		};
 	} = {
 		active: {
@@ -138,6 +140,24 @@ export class PeriodTracking {
 
 	get endResults() {
 		this.changePeriodAndTrackLast(this.state);
+		if (fg('cc_editor_insm_fix_attributes')) {
+			return {
+				active: {
+					features: Array.from(this.periodMeasurements.active.features),
+					heavyTasks: Array.from(this.periodMeasurements.active.heavyTasks),
+					measurements: this.periodMeasurements.active.measurements,
+					duration: this.periodMeasurements.active.duration,
+					count: this.periodMeasurements.active.count,
+				},
+				inactive: {
+					features: Array.from(this.periodMeasurements.inactive.features),
+					heavyTasks: Array.from(this.periodMeasurements.inactive.heavyTasks),
+					measurements: this.periodMeasurements.inactive.measurements,
+					duration: this.periodMeasurements.inactive.duration,
+					count: this.periodMeasurements.inactive.count,
+				},
+			};
+		}
 		return this.periodMeasurements;
 	}
 

@@ -2,6 +2,7 @@ import { INPUT_METHOD, TABLE_STATUS } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
@@ -12,6 +13,7 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import type { TablePlugin } from '../../tablePluginType';
 import type { DraggableSourceData } from '../../types';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 import { pluginKey as tablePluginKey } from '../plugin-key';
@@ -39,6 +41,7 @@ const destroyFn = (
 	isTableScalingEnabled: boolean,
 	isTableFixedColumnWidthsOptionEnabled: boolean,
 	isCommentEditor: boolean,
+	api?: ExtractInjectionAPI<TablePlugin>,
 ) => {
 	const editorPageScrollContainer = document.querySelector('.fabric-editor-popup-scroll-parent');
 
@@ -104,6 +107,9 @@ const destroyFn = (
 					insm.session?.startFeature('tableDragAndDrop');
 				}
 				toggleDragMenu(false)(editorView.state, editorView.dispatch);
+				if (expValEquals('platform_editor_lovability_user_intent', 'isEnabled', true)) {
+					api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('dragging'));
+				}
 			},
 			onDrag(event) {
 				const data = getDraggableDataFromEvent(event);
@@ -129,6 +135,9 @@ const destroyFn = (
 					targetAdjustedIndex,
 					hasMergedCells,
 				)(editorView.state, editorView.dispatch);
+				if (expValEquals('platform_editor_lovability_user_intent', 'isEnabled', true)) {
+					api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('dragging'));
+				}
 			},
 			onDrop(event) {
 				const data = getDraggableDataFromEvent(event);
@@ -157,6 +166,12 @@ const destroyFn = (
 				};
 				tr.setMeta(tablePluginKey, action);
 
+				if (
+					expValEquals('platform_editor_lovability_user_intent', 'isEnabled', true) &&
+					api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging'
+				) {
+					api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('default'));
+				}
 				// If no data can be found then it's most like we do not want to perform any drop action
 				if (!data) {
 					// If we're able to determine the source type of the dropped element then we should report to analytics that
@@ -284,6 +299,7 @@ export const createPlugin = (
 	isTableScalingEnabled = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	isCommentEditor = false,
+	api?: ExtractInjectionAPI<TablePlugin>,
 ) => {
 	return new SafePlugin({
 		state: createPluginState(dispatch, (state) => ({
@@ -359,6 +375,7 @@ export const createPlugin = (
 					isTableScalingEnabled,
 					isTableFixedColumnWidthsOptionEnabled,
 					isCommentEditor,
+					api,
 				),
 			};
 		},

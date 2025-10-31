@@ -2,11 +2,17 @@ import { createContext, useCallback, useContext, useMemo, useState } from 'react
 
 import noop from 'lodash/noop';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 export type EditorTheme = {
 	/**
 	 * The maximum number of rows that are visible in the default editor view.
 	 */
 	defaultMaxRows: number;
+	/**
+	 * The number of initial rows that are visible.
+	 */
+	defaultRows?: number;
 	/**
 	 * `true` if the editor view is in the expanded state.
 	 */
@@ -51,7 +57,9 @@ export const EditorThemeContext = createContext<EditorTheme>(defaultEditorTheme)
 export const useEditorTheme = ({
 	isSearch = false,
 	isCompact = false,
+	defaultRows,
 }: {
+	defaultRows?: number;
 	isCompact?: boolean;
 	isSearch?: boolean;
 }): EditorTheme => {
@@ -61,14 +69,20 @@ export const useEditorTheme = ({
 
 	return useMemo(
 		() => ({
-			defaultMaxRows,
+			defaultMaxRows:
+				defaultRows !== undefined &&
+				defaultRows > defaultMaxRows &&
+				fg('list_lovability_improving_filters')
+					? defaultRows
+					: defaultMaxRows,
 			expanded,
 			expandedRows,
 			toggleExpanded,
 			isSearch,
 			isCompact,
+			...(fg('list_lovability_improving_filters') ? { defaultRows } : {}),
 		}),
-		[expanded, toggleExpanded, isSearch, isCompact],
+		[expanded, toggleExpanded, isSearch, isCompact, defaultRows],
 	);
 };
 

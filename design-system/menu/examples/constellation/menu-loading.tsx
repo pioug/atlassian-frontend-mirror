@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Icon from '@atlaskit/icon';
-import StarStarredIcon from '@atlaskit/icon/core/migration/star-starred--star-filled';
-import StarUnstarredIcon from '@atlaskit/icon/core/migration/star-unstarred--star';
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
+import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import {
 	ButtonItem,
 	type ButtonItemProps,
@@ -85,26 +85,14 @@ export default () => {
 									<Icon glyph={Portfolio} primaryColor={token('color.icon.brand')} label="" />
 								</Box>
 							}
-							iconAfter={
-								<StarStarredIcon
-									LEGACY_primaryColor={token('color.icon.warning')}
-									color={token('color.icon.accent.orange')}
-									label=""
-								/>
-							}
+							iconAfter={<StarStarredIcon color={token('color.icon.accent.orange')} label="" />}
 						>
 							Portfolio
 						</Item>
 						<Item
 							isLoading={isLoading}
 							iconBefore={<Icon glyph={Tempo} label="" />}
-							iconAfter={
-								<StarStarredIcon
-									LEGACY_primaryColor={token('color.icon.warning')}
-									color={token('color.icon.accent.orange')}
-									label=""
-								/>
-							}
+							iconAfter={<StarStarredIcon color={token('color.icon.accent.orange')} label="" />}
 						>
 							Tempo timesheets
 						</Item>

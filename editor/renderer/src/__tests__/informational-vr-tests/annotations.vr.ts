@@ -12,7 +12,6 @@ import { RendererWithAnnotationsOverMarksWrapper } from '../__helpers/renderer-w
 snapshotInformational(RendererWithAnnotationsOverMarksWrapper, {
 	description: 'displays the correct annotation highlight',
 	featureFlags: {
-		platform_renderer_nested_annotation_styling: true,
 		editor_inline_comments_on_inline_nodes: true,
 	},
 	prepare: async (page) => {
@@ -25,9 +24,6 @@ snapshotInformational(RendererWithAnnotationsOverMarksWrapper, {
 
 snapshotInformational(RendererWithAnnotations, {
 	description: 'displays draft highlight on select text and click to comment',
-	featureFlags: {
-		platform_renderer_nested_annotation_styling: false,
-	},
 	prepare: async (page) => {
 		await page.waitForSelector(selectors.annotation);
 		await selectTextToAnnotate(page.getByText('another text without annotation'));
@@ -45,9 +41,6 @@ snapshotInformational(RendererWithAnnotations, {
 
 snapshotInformational(RendererWithTableAndAnnotations, {
 	description: 'annotates entire selection on triple click',
-	featureFlags: {
-		platform_renderer_nested_annotation_styling: false,
-	},
 	prepare: async (page) => {
 		const textNode = page.getByText('Inside a table');
 		await textNode.click({ clickCount: 3 });

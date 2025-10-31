@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "110.19.1",
+	"version": "110.20.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -301,9 +301,6 @@
 			"type": "boolean"
 		},
 		"editor_a11y_aria_label_removal_popup": {
-			"type": "boolean"
-		},
-		"platform_editor_replace_document_shortcircuit": {
 			"type": "boolean"
 		},
 		"platform_editor_refactor_view_more": {

@@ -8,8 +8,8 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 import { FlagsProvider, useFlags } from '@atlaskit/flag';
 import Heading from '@atlaskit/heading';
-import CheckMarkIcon from '@atlaskit/icon/core/migration/check-mark--check';
-import InformationIcon from '@atlaskit/icon/core/migration/status-information--info';
+import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
+import InformationIcon from '@atlaskit/icon/core/status-information';
 import InteractionContext from '@atlaskit/interaction-context';
 import { ZoomIn } from '@atlaskit/motion';
 import { Box, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
@@ -134,12 +134,7 @@ const ColorButton = ({ color, isSelected, onClick }: ColorButtonProps) => {
 					<ZoomIn>
 						{(props) => (
 							<div {...props}>
-								<CheckMarkIcon
-									label=""
-									LEGACY_size="large"
-									LEGACY_primaryColor={token('color.icon.inverse')}
-									color={token('color.icon.inverse')}
-								/>
+								<CheckMarkIcon label="" color={token('color.icon.inverse')} />
 							</div>
 						)}
 					</ZoomIn>
@@ -166,7 +161,6 @@ const ColorPaletteButtons = () => {
 						icon: (
 							<InformationIcon
 								label="Info"
-								LEGACY_primaryColor={token('color.icon.information')}
 								color={token('color.icon.information')}
 								spacing="spacious"
 							/>

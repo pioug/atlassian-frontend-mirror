@@ -9,7 +9,7 @@ class VisibilityChangeObserver {
 		this.observers = [];
 	};
 
-	start() {
+	start(): void {
 		if (this.started) {
 			return;
 		}
@@ -27,13 +27,13 @@ class VisibilityChangeObserver {
 		}
 	}
 
-	subscribe(callback: () => void) {
+	subscribe(callback: () => void): void {
 		this.observers.push(callback);
 	}
 
-	unsubscribe(callback: () => void) {
+	unsubscribe(callback: () => void): void {
 		this.observers = this.observers.filter((fn) => fn !== callback);
 	}
 }
 
-export const visibilityChangeObserver = new VisibilityChangeObserver();
+export const visibilityChangeObserver: VisibilityChangeObserver = new VisibilityChangeObserver();

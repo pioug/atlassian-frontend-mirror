@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 110.20.1
+
+### Patch Changes
+
+- [`088da15ec80f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/088da15ec80f6) -
+  FG cleanup platform_editor_replace_document_shortcircuit
+
+## 110.20.0
+
+### Minor Changes
+
+- [`85458b56f251b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85458b56f251b) -
+  [ux] [EDITOR-1436] added hero option in EditorPluginAIProvider config to control hero button on
+  toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.19.1
 
 ### Patch Changes

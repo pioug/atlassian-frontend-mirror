@@ -7,7 +7,7 @@ import { Fragment, type ReactNode, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import Flag, { FlagGroup } from '@atlaskit/flag';
-import EmojiIcon from '@atlaskit/icon/core/migration/emoji';
+import EmojiIcon from '@atlaskit/icon/core/emoji';
 import InlineDialog from '@atlaskit/inline-dialog';
 import ModalDialog, {
 	ModalBody,
@@ -26,9 +26,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 const styles = cssMap({
-	tooltipContainer: {
-		backgroundColor: token('color.background.neutral'),
-	},
+	tooltipContainer: { backgroundColor: token('color.background.neutral') },
 	spotlightContainer: {
 		display: 'flex',
 		justifyContent: 'space-between',
@@ -100,9 +98,7 @@ const ThreeStepSpotlight = (props: SpotlightProps) => {
 	);
 };
 
-type ModalProps = {
-	onClose: () => void;
-};
+type ModalProps = { onClose: () => void };
 
 const Modal = (props: ModalProps) => {
 	const [onboardingOpen, setOnboardingOpen] = useState(false);

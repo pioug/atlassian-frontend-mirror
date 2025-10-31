@@ -13,6 +13,7 @@ import Spinner from '@atlaskit/spinner';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 
 import SidebarContainer from '../example-helpers/SidebarContainer';
+import { PresetContextProvider } from '../src/presets/context';
 
 import FullPageExample, { getAppearance, LOCALSTORAGE_defaultDocKey } from './5-full-page';
 
@@ -66,23 +67,25 @@ const ExampleEditorComponent = () => {
 					<Spinner size="large" />
 				</div>
 			)}
-			<FullPageExample
-				editorProps={{
-					collabEdit: {
-						provider: createCollabEditProvider({
-							userId: collabSessionId,
-							defaultDoc,
-						}),
-					},
-					elementBrowser: {
-						showModal: true,
-						replacePlusMenu: true,
-					},
-					disabled,
-					appearance,
-					shouldFocus: true,
-				}}
-			/>
+			<PresetContextProvider>
+				<FullPageExample
+					editorProps={{
+						collabEdit: {
+							provider: createCollabEditProvider({
+								userId: collabSessionId,
+								defaultDoc,
+							}),
+						},
+						elementBrowser: {
+							showModal: true,
+							replacePlusMenu: true,
+						},
+						disabled,
+						appearance,
+						shouldFocus: true,
+					}}
+				/>
+			</PresetContextProvider>
 		</SidebarContainer>
 	);
 };

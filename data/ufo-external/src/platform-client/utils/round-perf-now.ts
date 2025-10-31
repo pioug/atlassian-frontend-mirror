@@ -1,1 +1,1 @@
-export const roundPerfNow = () => ~~performance.now();
+export const roundPerfNow = (): number => ~~performance.now();

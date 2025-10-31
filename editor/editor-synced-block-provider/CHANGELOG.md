@@ -1,5 +1,26 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.4.0
+
+### Minor Changes
+
+- [`7d9f7451809ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d9f7451809ce) -
+  [EDITOR-2481] Move in memory write/fetch provider to @af/editor-examples-helpers/utils
+
+## 2.3.1
+
+### Patch Changes
+
+- [`eb9f8e2ab6fb5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb9f8e2ab6fb5) -
+  [EDITOR-2543] Save bodiedSyncBlock deletion to BE instantly
+
+## 2.3.0
+
+### Minor Changes
+
+- [`6f9f13ab4687d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f9f13ab4687d) -
+  EDITOR-2451 update sync-block refreshed logic based on experience principles
+
 ## 2.2.3
 
 ### Patch Changes

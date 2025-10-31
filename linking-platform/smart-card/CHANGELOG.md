@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 43.5.1
+
+### Patch Changes
+
+- [`bcfeb40aa9347`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcfeb40aa9347) -
+  Remove custom custom AI icon fallback, behind fg navx-1959-remove-custom-ai-icon
+- Updated dependencies
+
+## 43.5.0
+
+### Minor Changes
+
+- [`9465562138b8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9465562138b8e) -
+  [ux] Display competitor link prompt for unresolved Smart Link Card.
+
 ## 43.4.4
 
 ### Patch Changes

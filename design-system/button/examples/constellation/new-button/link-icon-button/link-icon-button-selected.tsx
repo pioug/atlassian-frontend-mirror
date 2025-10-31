@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LinkIconButton } from '@atlaskit/button/new';
-import PullRequestIcon from '@atlaskit/icon/core/migration/pull-request--bitbucket-pullrequests';
+import PullRequestIcon from '@atlaskit/icon/core/pull-request';
 
 const LinkIconButtonSelectedExample = () => {
 	return (

@@ -35,7 +35,10 @@ const UFOStateAvailableTransitions = {
 	[UFOExperienceState.ABORTED.id]: [UFOExperienceState.STARTED.id],
 };
 
-export const canTransition = (state1: UFOExperienceStateType, state2: UFOExperienceStateType) => {
+export const canTransition = (
+	state1: UFOExperienceStateType,
+	state2: UFOExperienceStateType,
+): boolean => {
 	return (
 		UFOStateAvailableTransitions[state1.id] &&
 		UFOStateAvailableTransitions[state1.id].includes(state2.id)

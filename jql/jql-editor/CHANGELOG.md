@@ -1,5 +1,17 @@
 # @atlaskit/jql-editor
 
+## 5.8.0
+
+### Minor Changes
+
+- [`c25862e7683e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c25862e7683e2) -
+  Introduced `defaultRows` props to set the initial number of rows in the JQL Editor
+
+### Patch Changes
+
+- [`ac3b979978554`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac3b979978554) -
+  Update the JQL editor to be case insensitve for replace node check
+
 ## 5.7.1
 
 ### Patch Changes

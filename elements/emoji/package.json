@@ -135,12 +135,6 @@
 		"platform_reactions_placeholder_custom_background": {
 			"type": "boolean"
 		},
-		"platform_emoji_picker_escape_propagation": {
-			"type": "boolean"
-		},
-		"platform_jira_emoji_picker_escape_propagation": {
-			"type": "boolean"
-		},
 		"platform_emoji_ssr_width_auto_allowed": {
 			"type": "boolean"
 		},

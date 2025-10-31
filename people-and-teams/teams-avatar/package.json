@@ -45,8 +45,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
-		"@compiled/react": "root:*",
-		"@emotion/react": "root:*"
+		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"

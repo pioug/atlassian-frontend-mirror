@@ -1,6 +1,7 @@
 import { ufolog } from '../../logger';
 import { type ExperienceData } from '../../types';
 import { type UFOExperience, UFOExperienceState } from '../core';
+import type { UFOExperienceStateType } from '../core/experience/experience-state';
 
 type UntilExperience = { experience: UFOExperience };
 type UntilCategory = { category: string };
@@ -19,7 +20,17 @@ export type UntilAllArgs = Array<UntilDefinition>;
 
 export const untilAll = (deps: UntilAllArgs) => () => {
 	const notMet = [...deps];
-	return (data: ExperienceData) => {
+	return (
+		data: ExperienceData,
+	):
+		| {
+				done: boolean;
+				state: UFOExperienceStateType;
+		  }
+		| {
+				done: boolean;
+				state?: undefined;
+		  } => {
 		if (notMet.length > 0) {
 			const doneIndexes = notMet.reduce((acc: Array<number>, dep, i) => {
 				// validation logic

@@ -36,6 +36,7 @@ import {
 import { createCriticalMetricsPayloads } from './critical-metrics-payload';
 import type { CriticalMetricsPayload } from './critical-metrics-payload/types';
 import { addPerformanceMeasures } from './utils/add-performance-measures';
+import { getBatteryInfoToLegacyFormat } from './utils/get-battery-info';
 import { getBrowserMetadataToLegacyFormat } from './utils/get-browser-metadata';
 import getInteractionStatus from './utils/get-interaction-status';
 import { getMoreAccuratePageVisibilityUpToTTAI } from './utils/get-more-accurate-page-visibility-up-to-ttai';
@@ -599,10 +600,11 @@ async function createInteractionMetricsPayload(
 	const newUFOName = sanitizeUfoName(ufoName);
 	const resourceTimings = getResourceTimings(start, end);
 
-	const [finalVCMetrics, experimentalMetrics, paintMetrics] = await Promise.all([
+	const [finalVCMetrics, experimentalMetrics, paintMetrics, batteryInfo] = await Promise.all([
 		vcMetrics || (await getVCMetrics(interaction)),
 		experimental ? getExperimentalVCMetrics(interaction) : Promise.resolve(undefined),
 		getPaintMetricsToLegacyFormat(type, end),
+		getBatteryInfoToLegacyFormat(),
 	]);
 
 	if (!experimental) {
@@ -655,6 +657,7 @@ async function createInteractionMetricsPayload(
 
 				// root
 				...getBrowserMetadataToLegacyFormat(),
+				...batteryInfo,
 				...getSSRProperties(type),
 				...getAssetsMetrics(interaction, pageLoadInteractionMetrics?.SSRDoneTime),
 				...getPPSMetrics(interaction),

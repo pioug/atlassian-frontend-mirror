@@ -274,7 +274,7 @@ export const MarkComponent = ({
 			...(!useBlockLevel && {
 				css: [
 					markStyles,
-					fg('platform_renderer_nested_annotation_styling') && markStylesLayeringFix,
+					markStylesLayeringFix,
 					fg('editor_inline_comments_on_inline_nodes') && markStylesWithInlineComments,
 					fg('confluence-frontend-comments-panel') && markStylesWithCommentsPanel,
 					!isMobile() && accessibilityStyles,

@@ -2,9 +2,8 @@ import React from 'react';
 
 import Button from '@atlaskit/button';
 import __noop from '@atlaskit/ds-lib/noop';
-import CloseIcon from '@atlaskit/icon/core/migration/cross';
+import CloseIcon from '@atlaskit/icon/core/cross';
 import { SpotlightCard } from '@atlaskit/onboarding';
-import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const SpotlightCardHeadingAfterExample = () => {
@@ -12,9 +11,7 @@ const SpotlightCardHeadingAfterExample = () => {
 		<SpotlightCard
 			headingAfterElement={
 				<Button
-					iconBefore={
-						<CloseIcon label="Close" LEGACY_primaryColor={N0} color={token('color.icon.inverse')} />
-					}
+					iconBefore={<CloseIcon label="Close" color={token('color.icon.inverse')} />}
 					appearance="subtle"
 				/>
 			}

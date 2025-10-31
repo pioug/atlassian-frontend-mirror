@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.14.0
+
+### Minor Changes
+
+- [`55c867098e0ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55c867098e0ab) -
+  Added battery info and webdriver
+
 ## 4.13.1
 
 ### Patch Changes

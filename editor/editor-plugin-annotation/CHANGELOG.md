@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-annotation
 
+## 6.2.7
+
+### Patch Changes
+
+- [`749a0f6a088b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/749a0f6a088b9) -
+  ED-29602 - stop annotationplugin breaking hydration
+- Updated dependencies
+
 ## 6.2.6
 
 ### Patch Changes

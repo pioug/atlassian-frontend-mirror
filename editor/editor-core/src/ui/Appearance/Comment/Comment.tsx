@@ -256,6 +256,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 										popupsScrollableElement={popupsScrollableElement}
 										popupsMountPoint={popupsMountPoint}
 									/>
+									{customPrimaryToolbarComponents ? customToolbarSlot : null}
 								</ToolbarArrowKeyNavigationProvider>
 							) : (
 								<React.Fragment>

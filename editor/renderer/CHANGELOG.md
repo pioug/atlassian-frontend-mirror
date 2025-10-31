@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 124.9.7
+
+### Patch Changes
+
+- [`f716cffe0a4ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f716cffe0a4ad) -
+  Cleaned platform_editor_annotation_position_comment_nodes FG.
+
+## 124.9.6
+
+### Patch Changes
+
+- [`903955a44b4e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/903955a44b4e0) -
+  FG cleanup smartcard_avatar_margin_fix
+- Updated dependencies
+
 ## 124.9.5
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.9.1",
+	"version": "215.9.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -266,10 +266,6 @@
 		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		},
-		"platform_editor_table_column_selected_state_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_elements_dnd_select_node_on_drag": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -311,10 +307,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_listen_for_annotation_clicks": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_nested_tables_cellselection_paste": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -332,10 +324,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_nested_tables_sticky_header_bug": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_number_column_sticky_header_broken": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

@@ -1,16 +1,11 @@
 import uuid from 'uuid';
 
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { rebaseTransaction } from '../common/rebase-transaction';
-import type {
-	BlockInstanceId,
-	SyncBlockAttrs,
-	SyncBlockData,
-	SyncBlockNode,
-} from '../common/types';
+import type { ResourceId, SyncBlockAttrs, SyncBlockData, SyncBlockNode } from '../common/types';
 import type { SyncBlockDataProvider } from '../providers/types';
 import { resourceIdFromSourceAndLocalId } from '../utils/ari';
 import { convertSyncBlockPMNodeToSyncBlockData } from '../utils/utils';
@@ -21,7 +16,7 @@ export class SourceSyncBlockStoreManager {
 	private dataProvider?: SyncBlockDataProvider;
 	private editorView?: EditorView;
 
-	private syncBlockCache: Map<BlockInstanceId, SyncBlockData>;
+	private syncBlockCache: Map<ResourceId, SyncBlockData>;
 
 	private confirmationCallback?: ConfirmationCallback;
 	private confirmationTransaction?: Transaction;
@@ -133,8 +128,27 @@ export class SourceSyncBlockStoreManager {
 				this.editorView?.dispatch(
 					this.confirmationTransaction.setMeta('isConfirmedSyncBlockDeletion', true),
 				);
-				// Need to update the BE on deletion
-				syncBlockIds.forEach(({ localId }) => this.syncBlockCache.delete(localId));
+
+				try {
+					if (!this.dataProvider) {
+						throw new Error('Data provider not set');
+					}
+
+					const results = await this.dataProvider.deleteNodesData(
+						syncBlockIds.map((attrs) => attrs.resourceId),
+					);
+
+					results.forEach((result) => {
+						if (result.success) {
+							// Only delete when it's deleted successfully in backend
+							this.syncBlockCache.delete(result.resourceId);
+						} else {
+							// TODO: EDITOR-1921 - add error analytics with result.error
+						}
+					});
+				} catch (_error) {
+					// TODO: EDITOR-1921 - add error analytics
+				}
 			}
 			this.confirmationTransaction = undefined;
 		}

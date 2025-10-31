@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
-import CommentAddIcon from '@atlaskit/icon/core/migration/comment-add--media-services-add-comment';
-import CrossIcon from '@atlaskit/icon/core/migration/cross';
+import CommentAddIcon from '@atlaskit/icon/core/comment-add';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import {
 	Spotlight,
 	SpotlightManager,

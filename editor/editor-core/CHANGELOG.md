@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 215.9.3
+
+### Patch Changes
+
+- [`16c5ea0ef86b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16c5ea0ef86b0) -
+  EDITOR-2602 Add missing customPrimaryToolbarComponents for comment editor
+- Updated dependencies
+
+## 215.9.2
+
+### Patch Changes
+
+- [`ca5c3cd4d655b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca5c3cd4d655b) -
+  Clean up FG platform_editor_table_column_selected_state_fix
+- Updated dependencies
+
 ## 215.9.1
 
 ### Patch Changes

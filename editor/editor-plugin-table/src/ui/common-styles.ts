@@ -386,11 +386,7 @@ export const baseTableStyles = (props: {
 	/* sticky styles */
 	${fg('platform_editor_nested_tables_sticky_header_bug')
 		? `
-		${
-			fg('platform_editor_number_column_sticky_header_broken')
-				? `.${ClassName.TABLE_STICKY} > .${props.isDragAndDropEnabled ? ClassName.DRAG_ROW_CONTROLS_WRAPPER : ClassName.ROW_CONTROLS_WRAPPER} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {`
-				: `.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {`
-		}
+		.${ClassName.TABLE_STICKY} > .${props.isDragAndDropEnabled ? ClassName.DRAG_ROW_CONTROLS_WRAPPER : ClassName.ROW_CONTROLS_WRAPPER} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
 			margin-top: ${
 				fg('platform_editor_number_column_sticky_header_bug')
 					? stickyRowOffsetTop
@@ -783,9 +779,7 @@ export const baseTableStyles = (props: {
 		display: grid;
 		align-items: center;
 		position: absolute;
-		z-index: ${fg('platform_editor_table_column_selected_state_fix')
-			? rowControlsZIndex + 4
-			: akEditorUnitZIndex};
+		z-index: ${rowControlsZIndex + 4};
 
 		.${ClassName.DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER} {
 			position: absolute;
@@ -952,10 +946,7 @@ export const baseTableStyles = (props: {
 		position: relative;
 		float: right;
 		margin-left: ${akEditorTableToolbarSize}px;
-		top: ${(fg('platform_editor_number_column_sticky_header_broken')
-			? props.isDragAndDropEnabled
-			: props.featureFlags?.tableDragAndDrop) ||
-		editorExperiment('support_table_in_comment_jira', true)
+		top: ${props.isDragAndDropEnabled || editorExperiment('support_table_in_comment_jira', true)
 			? 0
 			: akEditorTableToolbarSize}px;
 		width: ${akEditorTableNumberColumnWidth + 1}px;
@@ -994,13 +985,8 @@ export const baseTableStyles = (props: {
 	which hides the table when scrolling */
 	${fg('platform_editor_nested_tables_sticky_header_bug')
 		? `
-		${
-			fg('platform_editor_number_column_sticky_header_broken')
-				? `.${ClassName.TABLE_STICKY} > .${props.isDragAndDropEnabled ? ClassName.DRAG_ROW_CONTROLS_WRAPPER : ClassName.ROW_CONTROLS_WRAPPER} {
-				.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}:first-of-type::after {`
-				: `.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER} {
-				.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}:first-of-type::after {`
-		}
+		.${ClassName.TABLE_STICKY} > .${props.isDragAndDropEnabled ? ClassName.DRAG_ROW_CONTROLS_WRAPPER : ClassName.ROW_CONTROLS_WRAPPER} {
+				.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}:first-of-type::after {
 				content: '';
 				display: block;
 				height: 33px;
@@ -1192,9 +1178,6 @@ export const baseTableStyles = (props: {
 		position: absolute;
 		margin-top: ${tableMarginTop}px;
 		left: -${tableToolbarSize + 1}px;
-		${fg('platform_editor_table_column_selected_state_fix')
-			? ''
-			: `z-index: ${rowControlsZIndex + 4}`}
 	}
 
 	.${ClassName.ROW_CONTROLS_WRAPPER} {

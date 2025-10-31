@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button, { IconButton } from '@atlaskit/button/new';
-import CommentAddIcon from '@atlaskit/icon/core/migration/comment-add--media-services-add-comment';
-import CopyIcon from '@atlaskit/icon/core/migration/copy';
-import FullscreenEnterIcon from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
+import CommentAddIcon from '@atlaskit/icon/core/comment-add';
+import CopyIcon from '@atlaskit/icon/core/copy';
+import FullscreenEnterIcon from '@atlaskit/icon/core/fullscreen-enter';
 import {
 	Spotlight,
 	SpotlightManager,

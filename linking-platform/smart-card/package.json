@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.4.4",
+	"version": "43.5.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -236,6 +236,9 @@
 			"type": "boolean"
 		},
 		"expose-product-details-from-smart-card": {
+			"type": "boolean"
+		},
+		"navx-1959-remove-custom-ai-icon": {
 			"type": "boolean"
 		},
 		"navx-1910-fix-hovercard-performance-metrics": {

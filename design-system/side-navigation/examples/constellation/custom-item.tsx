@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import ArrowUpRightIcon from '@atlaskit/icon/core/migration/arrow-up-right--open';
+import ArrowUpRightIcon from '@atlaskit/icon/core/arrow-up-right';
 import { CustomItem, type CustomItemComponentProps, Section } from '@atlaskit/side-navigation';
 
 type CustomProps = CustomItemComponentProps & { href: string };

@@ -1,8 +1,7 @@
 import React from 'react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import ChevronRightIcon from '@atlaskit/icon/core/migration/chevron-right';
-import { token } from '@atlaskit/tokens';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 
 const NestedDropdown = () => {
 	return (
@@ -13,13 +12,7 @@ const NestedDropdown = () => {
 				<DropdownItem
 					{...triggerProps}
 					ref={triggerRef}
-					elemAfter={
-						<ChevronRightIcon
-							LEGACY_primaryColor={token('color.icon.subtle')}
-							label=""
-							size="small"
-						/>
-					}
+					elemAfter={<ChevronRightIcon label="" size="small" />}
 				>
 					<span>Nested Menu</span>
 				</DropdownItem>

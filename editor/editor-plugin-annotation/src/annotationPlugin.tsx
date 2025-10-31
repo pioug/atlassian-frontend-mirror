@@ -1,12 +1,14 @@
 import React from 'react';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnnotationPlugin } from './annotationPluginType';
@@ -155,7 +157,11 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 		},
 
 		contentComponent({ editorView, dispatchAnalyticsEvent }) {
-			if (!annotationProviders || !editorView) {
+			if (
+				!annotationProviders ||
+				!editorView ||
+				(isSSR() && expValEquals('platform_editor_hydratable_ui', 'isEnabled', true))
+			) {
 				return null;
 			}
 			return (

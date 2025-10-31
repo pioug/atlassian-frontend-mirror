@@ -7,6 +7,7 @@ import SingleStepExample from '../../examples/constellation/single-step';
 import MultipleStepsExample from '../../examples/constellation/multiple-steps';
 import MediaExample from '../../examples/constellation/media';
 import ControlsExample from '../../examples/constellation/controls';
+import MotionExample from '../../examples/constellation/motion';
 
 ## Single step
 
@@ -20,16 +21,16 @@ To show/hide the `SpotlightCard`, simply use a `useState` to control the `isVisi
 `PopoverContent`. To position the `SpotlightCard`, use `PopoverProvider`, `PopoverTarget` and
 `PopoverContent` and set the `placement` prop.
 
-<Example Component={SingleStepExample} packageName="@atlaskit/spinner" />
+<Example Component={SingleStepExample} packageName="@atlaskit/spotlight" />
 
 ## Multi-step tour
 
-Multiple steps should be avoided if possible. If multiple steps are required, preference managing
-the tour with a `useState`. If `useState` is not feasible, then a React context may be used.
-However, these contexts will often need to be wrapping the entire `App` and therefore will cause the
-entire `App` to re-render every time a new spotlight step is shown, which is not performant.
+Multiple steps should be avoided if possible, but if they are required, manage the tour with a
+`useState`. If `useState` is not feasible, then a React context may be used. However, these contexts
+will often need to be wrapping the entire `App` and therefore will cause the entire `App` to
+re-render every time a new spotlight step is shown.
 
-<Example Component={MultipleStepsExample} packageName="@atlaskit/spinner" />
+<Example Component={MultipleStepsExample} packageName="@atlaskit/spotlight" />
 
 ## Placements
 
@@ -37,7 +38,7 @@ Spotlight placements are static. They do not change as the user scrolls, or if t
 overflows out of the viewport. Make sure to choose a placement that ensures the `SpotlightCard` is
 displayed in full.
 
-<Example Component={PlacementsExample} packageName="@atlaskit/spinner" />
+<Example Component={PlacementsExample} packageName="@atlaskit/spotlight" />
 
 ## Media
 
@@ -46,9 +47,16 @@ correct reflow on smaller viewports, media must be 295px width X 135px height.
 
 Media can be an image, gif, or video that helps communicate spotlight intent.
 
-<Example Component={MediaExample} packageName="@atlaskit/spinner" />
+<Example Component={MediaExample} packageName="@atlaskit/spotlight" />
 
 ## Controls
 
 `SpotlightDismissControl` is required for all `SpotlightCard` components. It **must** be the first
 focusable element on the `SpotlightCard` card to provide an accessible experience.
+
+## Motion
+
+`@atlaskit/spotlight` can be composed with `@atlaskit/motion` or other CSS animation packages to
+create smooth 'enter' or 'exit' transitions.
+
+<Example Component={MotionExample} packageName="@atlaskit/spotlight" />

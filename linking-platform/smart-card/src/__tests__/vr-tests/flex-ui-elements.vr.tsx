@@ -10,14 +10,14 @@ import FlexUiTitleElementView from '../../../examples/vr-flexible-card/vr-flexib
 
 snapshot(FlexUiDateTimeTextView, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 
 snapshot(FlexUiAtlaskitBadgeView, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });

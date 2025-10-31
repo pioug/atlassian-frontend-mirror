@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { CheckboxOption, PopupSelect } from '@atlaskit/select';
 const options = [
 	{

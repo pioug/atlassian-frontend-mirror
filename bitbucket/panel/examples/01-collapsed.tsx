@@ -8,7 +8,7 @@ import Panel from '../src';
 
 const Header = <span>Description</span>;
 
-export default () => (
+export default (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<Page>
 			<Grid layout="fixed">

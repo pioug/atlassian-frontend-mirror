@@ -14,10 +14,27 @@ export const createPlugin = () => {
 		},
 		state: {
 			init(config, editorState) {
-				if (editorState.doc.nodeSize > expVal('cc_editor_limited_mode', 'nodeSize', 100)) {
-					return { documentSizeBreachesThreshold: true };
+				if (expVal('cc_editor_limited_mode_include_lcm', 'isEnabled', true)) {
+					// calculates the size of the doc, where when there are legacy content macros, the content
+					// is stored in the attrs.
+					// This is essentiall doc.nod
+					let customDocSize = editorState.doc.nodeSize;
+					editorState.doc.descendants((node) => {
+						if (node.attrs?.extensionKey === 'legacy-content') {
+							customDocSize += node.attrs?.parameters?.adf?.length ?? 0;
+						}
+					});
+
+					return {
+						documentSizeBreachesThreshold:
+							customDocSize > expVal('cc_editor_limited_mode', 'nodeSize', 100),
+					};
+				} else {
+					if (editorState.doc.nodeSize > expVal('cc_editor_limited_mode', 'nodeSize', 100)) {
+						return { documentSizeBreachesThreshold: true };
+					}
+					return { documentSizeBreachesThreshold: false };
 				}
-				return { documentSizeBreachesThreshold: false };
 			},
 			apply: (tr, currentPluginState) => {
 				// Don't check the document size if we're already in limited mode.
@@ -26,11 +43,28 @@ export const createPlugin = () => {
 					return currentPluginState;
 				}
 
-				if (tr.doc.nodeSize > expVal('cc_editor_limited_mode', 'nodeSize', 100)) {
-					return { ...currentPluginState, documentSizeBreachesThreshold: true };
-				}
+				if (expVal('cc_editor_limited_mode_include_lcm', 'isEnabled', true)) {
+					// calculates the size of the doc, where when there are legacy content macros, the content
+					// is stored in the attrs.
+					// This is essentiall doc.nod
+					let customDocSize = tr.doc.nodeSize;
+					tr.doc.descendants((node) => {
+						if (node.attrs?.extensionKey === 'legacy-content') {
+							customDocSize += node.attrs?.parameters?.adf?.length ?? 0;
+						}
+					});
 
-				return { ...currentPluginState, documentSizeBreachesThreshold: false };
+					return {
+						documentSizeBreachesThreshold:
+							customDocSize > expVal('cc_editor_limited_mode', 'nodeSize', 100),
+					};
+				} else {
+					if (tr.doc.nodeSize > expVal('cc_editor_limited_mode', 'nodeSize', 100)) {
+						return { ...currentPluginState, documentSizeBreachesThreshold: true };
+					}
+
+					return { ...currentPluginState, documentSizeBreachesThreshold: false };
+				}
 			},
 		},
 	});

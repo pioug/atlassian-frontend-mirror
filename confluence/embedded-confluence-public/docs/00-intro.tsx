@@ -1,6 +1,6 @@
 import { md } from '@atlaskit/docs';
 
-export default md`
+const intro: React.ReactElement = md`
 	## Introduction
 
 	This package provides components (ViewPage, EditPage, and Page) to any 3rd party product that
@@ -49,3 +49,4 @@ export default md`
 	     in to their Atlassian account, the flow will be disrupted at this stage, potentially
 	     preventing users from advancing further.
 `;
+export default intro;

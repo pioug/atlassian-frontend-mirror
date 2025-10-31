@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 3.10.0
+
+### Minor Changes
+
+- [`6f9f13ab4687d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f9f13ab4687d) -
+  EDITOR-2451 update sync-block refreshed logic based on experience principles
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.9.2
 
 ### Patch Changes

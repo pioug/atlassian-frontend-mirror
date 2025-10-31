@@ -37,7 +37,7 @@ const getPageVisibleState = () => {
 		: PageVisibleState.HIDDEN;
 };
 
-export const perfNowOrTimestamp = (timestamp?: number) => {
+export const perfNowOrTimestamp = (timestamp?: number): number => {
 	if (timestamp !== undefined) {
 		return ~~timestamp;
 	}
@@ -62,7 +62,7 @@ export type EndStateConfig = {
 };
 
 export class UFOAbstractExperience {
-	state = UFOExperienceState.NOT_STARTED;
+	state: UFOExperienceStateType = UFOExperienceState.NOT_STARTED;
 
 	id: string;
 
@@ -78,9 +78,9 @@ export class UFOAbstractExperience {
 
 	metadata: CustomData = {};
 
-	onDoneCallbacks = [];
+	onDoneCallbacks: never[] = [];
 
-	childExperiences = [];
+	childExperiences: never[] = [];
 
 	featureFlags: string[];
 
@@ -132,7 +132,7 @@ export class UFOAbstractExperience {
 		}
 	}
 
-	async transition(newState: UFOExperienceStateType, timestamp?: number) {
+	async transition(newState: UFOExperienceStateType, timestamp?: number): Promise<boolean> {
 		ufolog('async transition', this.id, this.state.id, newState.id);
 		if (canTransition(this.state, newState)) {
 			ufolog(
@@ -170,7 +170,7 @@ export class UFOAbstractExperience {
 		return false;
 	}
 
-	async start(startTime?: number) {
+	async start(startTime?: number): Promise<void> {
 		const transitionSuccessful = await this.transition(UFOExperienceState.STARTED, startTime);
 		if (transitionSuccessful) {
 			this.pageVisibleState = getPageVisibleState();
@@ -182,7 +182,7 @@ export class UFOAbstractExperience {
 		}
 	}
 
-	mark(name: string, timestamp?: number) {
+	mark(name: string, timestamp?: number): void {
 		if (name !== FMP_MARK && name !== INLINE_RESPONSE_MARK) {
 			this._mark(name, timestamp);
 		} else {
@@ -195,11 +195,11 @@ export class UFOAbstractExperience {
 		this.transition(UFOExperienceState.IN_PROGRESS);
 	}
 
-	markFMP(timestamp?: number) {
+	markFMP(timestamp?: number): void {
 		this._mark(FMP_MARK, timestamp);
 	}
 
-	markInlineResponse(timestamp?: number) {
+	markInlineResponse(timestamp?: number): void {
 		this._mark(INLINE_RESPONSE_MARK, timestamp);
 	}
 
@@ -231,19 +231,19 @@ export class UFOAbstractExperience {
 		return this.transition(state);
 	}
 
-	async success(config?: EndStateConfig) {
+	async success(config?: EndStateConfig): Promise<boolean | null> {
 		return this.switchToEndState(UFOExperienceState.SUCCEEDED, config);
 	}
 
-	async failure(config?: EndStateConfig) {
+	async failure(config?: EndStateConfig): Promise<boolean | null> {
 		return this.switchToEndState(UFOExperienceState.FAILED, config);
 	}
 
-	async abort(config?: EndStateConfig) {
+	async abort(config?: EndStateConfig): Promise<boolean | null> {
 		return this.switchToEndState(UFOExperienceState.ABORTED, config);
 	}
 
-	addMetadata(data: CustomData) {
+	addMetadata(data: CustomData): void {
 		Object.assign(this.metadata, data);
 	}
 

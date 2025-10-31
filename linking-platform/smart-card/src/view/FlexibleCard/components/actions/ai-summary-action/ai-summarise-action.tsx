@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import AiIcon from '@atlaskit/icon/core/atlassian-intelligence';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../messages';
@@ -63,7 +64,9 @@ export function AISummariseAction({
 					spacing="spacious"
 					color="currentColor"
 					label="Summarise with AI"
-					LEGACY_fallbackIcon={LegacyAiIcon}
+					{...(fg('navx-1959-remove-custom-ai-icon')
+						? undefined
+						: { LEGACY_fallbackIcon: LegacyAiIcon })}
 				/>
 			}
 			onClick={handleActionClick}

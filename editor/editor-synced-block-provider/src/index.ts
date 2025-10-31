@@ -15,7 +15,6 @@ export type {
 	FetchSyncBlockDataResult,
 } from './providers/types';
 export { SyncBlockError } from './common/types';
-export { inMemoryFetchProvider, inMemoryWriteProvider } from './providers/in-memory/inMemory';
 export { getDefaultSyncBlockSchema } from './common/schema';
 export {
 	createContentAPIProvidersWithDefaultKey,

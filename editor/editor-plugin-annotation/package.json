@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-annotation",
-	"version": "6.2.6",
+	"version": "6.2.7",
 	"description": "Annotation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -101,9 +101,6 @@
 			"referenceOnly": true
 		},
 		"editor_inline_comments_on_inline_nodes": {
-			"type": "boolean"
-		},
-		"platform_editor_listen_for_annotation_clicks": {
 			"type": "boolean"
 		},
 		"platform_editor_annotation_selected_annotation": {

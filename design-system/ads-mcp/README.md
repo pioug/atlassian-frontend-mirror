@@ -104,12 +104,15 @@ const fixes = await suggest_a11y_fixes({
 
 ## Usage
 
-Add an entry to your `mcp.json` (eg. `~/.cursor/mcp.json` or wherever your MCP config lives):
+### Cursor IDE
+
+Add the following entry to your `mcp.json` file (located at `~/.cursor/mcp.json` for user-level or
+`.cursor/mcp.json` in your workspace):
 
 ```json
 {
 	"mcpServers": {
-		"ads": {
+		"ads-mcp": {
 			"command": "npx",
 			"args": ["-y", "@atlaskit/ads-mcp"],
 			"env": {
@@ -119,6 +122,128 @@ Add an entry to your `mcp.json` (eg. `~/.cursor/mcp.json` or wherever your MCP c
 	}
 }
 ```
+
+### Visual Studio Code (Github Copilot and/or Codelassian)
+
+Add the following entry to your `mcp.json` file (located at
+`~/Library/Application Support/Code/User/mcp.json` for user-level or `.vscode/mcp.json` in your
+workspace):
+
+```json
+{
+	"servers": {
+		"ads-mcp": {
+			"type": "stdio",
+			"command": "npx",
+			"args": ["-y", "@atlaskit/ads-mcp"]
+		}
+	}
+}
+```
+
+### Rovodev
+
+Add the following entry to your `mcp.json` file (located at `~/.rovodev/mcp.json` for user-level or
+`mcp.json` in your workspace):
+
+```json
+{
+	"mcpServers": {
+		"ads-mcp": {
+			"command": "npx",
+			"args": ["-y", "@atlaskit/ads-mcp"]
+		}
+	}
+}
+```
+
+> **Note:**  
+> The `timeout` field is supported in the Rovodev configuration. For example, setting
+> `"timeout": 300` will specify the maximum time in **seconds** that the MCP server will wait before
+> terminating the process if it becomes unresponsive. Adjust this value as needed for your
+> environment or workflow.
+
+### MCP Plugin for Atlas CLI
+
+Atlas CLI provides a plugin for managing MCP servers, including listing available servers from a
+registry and installing new ones.
+
+To install the MCP plugin, run:
+
+```
+atlas plugin install -n mcp
+```
+
+Once the plugin is installed, you can add the MCP server on Rovodev (at the user-level) with:
+
+```
+atlas mcp install --name=ads-mcp --agent=rovodev
+```
+
+> **Note:**  
+> To see the list of available agents, visit:
+> [Introducing the MCP plugin for Atlas CLI](https://hello.atlassian.net/wiki/spaces/~dnorton/blog/2025/10/07/5931517464/Introducing+the+MCP+plugin+for+Atlas+CLI)
+
+### AFM-specific issues
+
+When using the Atlassian Frontend Monorepo (AFM), there are some issues with project-level or
+workspace-level MCP configuration when using `npx`. These issues typically manifest as:
+
+- **Performance**: `npx` can be slower in AFM environments due to package resolution overhead
+- **Reliability**: Network timeouts and package resolution conflicts are more common
+
+> **Note:** These issues only affect project-level or workspace-level MCP configurations. User-level
+> settings (like `~/.cursor/mcp.json` or `~/.rovodev/mcp.json`) work fine with `npx` and don't
+> require the workarounds below.
+
+#### Recommended Solution
+
+Instead of using `npx`, `yarn dlx` provides better speed and reliability in AFM environments
+because:
+
+- **Faster execution**: Leverages AFM's existing yarn workspace configuration
+- **Better caching**: Uses yarn's package cache more effectively
+- **Consistent resolution**: Respects AFM's package resolution strategy
+
+#### Simple Configuration
+
+For most AFM users, this configuration will work reliably:
+
+```json
+{
+	"mcpServers": {
+		"ads-mcp": {
+			"command": "yarn",
+			"args": ["dlx", "-q", "@atlaskit/ads-mcp"]
+		}
+	}
+}
+```
+
+#### Robust Configuration with Fallback
+
+If you need maximum reliability across different environments, use this configuration that falls
+back to `npm` if `yarn` is unavailable:
+
+```json
+{
+	"mcpServers": {
+		"ads-mcp": {
+			"command": "sh",
+			"args": [
+				"-c",
+				"which yarn &>/dev/null && [ \"$(yarn --version | cut -d. -f1)\" -ge 2 ] && yarn dlx -q @atlaskit/ads-mcp || (which ads-mcp &>/dev/null && (npm update -g @atlaskit/ads-mcp && ads-mcp) || (npm install -g @atlaskit/ads-mcp && ads-mcp))"
+			]
+		}
+	}
+}
+```
+
+This robust configuration:
+
+1. **First tries yarn dlx** if yarn v2+ is available
+2. **Falls back to npm update** if the package is already installed globally
+3. **Finally installs globally** with npm if nothing else works
 
 ### Environment Variables
 

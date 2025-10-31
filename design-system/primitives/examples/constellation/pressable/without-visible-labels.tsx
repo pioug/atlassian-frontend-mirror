@@ -4,7 +4,7 @@
  */
 import { ButtonGroup } from '@atlaskit/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
+import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 import { Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -59,12 +59,7 @@ const ReactionButton = ({ emoji, name, reactions }: ReactionButtonProps) => {
 						{emoji} {reactions}
 					</Text>
 				) : (
-					<EmojiAddIcon
-						LEGACY_size="small"
-						LEGACY_primaryColor={token('color.icon')}
-						color={token('color.icon')}
-						label=""
-					/>
+					<EmojiAddIcon color={token('color.icon')} label="" />
 				)}
 				<VisuallyHidden>Add a {name && `${name} `}reaction</VisuallyHidden>
 			</Pressable>

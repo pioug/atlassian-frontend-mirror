@@ -8,7 +8,7 @@ import { useIntl } from 'react-intl-next';
 
 export type ViewPageProps = Omit<Props, 'locale'>;
 
-export const ViewPage = (props: ViewPageProps) => {
+export const ViewPage = (props: ViewPageProps): React.JSX.Element => {
 	const { locale } = useIntl();
 
 	return <ViewPageCommon locale={locale} {...props} />;

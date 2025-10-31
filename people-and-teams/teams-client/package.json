@@ -111,9 +111,6 @@
 		"fix_query_settings_context": {
 			"type": "boolean"
 		},
-		"enable_new_team_profile": {
-			"type": "boolean"
-		},
 		"legion-enable-archive-teams": {
 			"type": "boolean"
 		}

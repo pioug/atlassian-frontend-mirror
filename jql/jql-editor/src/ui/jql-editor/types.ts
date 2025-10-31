@@ -48,6 +48,10 @@ export type JQLEditorUIProps = {
 	 */
 	customComponents?: CustomComponents;
 	/**
+	 * The number of default rows that are visible.
+	 */
+	defaultRows?: number;
+	/**
 	 * Enables rich inline nodes feature, which will replace user identifiers with a lozenge containing name and avatar.
 	 * Note that you must specify an `onHydrate` prop which will return user data for a given query in order to see the
 	 * following behaviour:
@@ -107,6 +111,7 @@ export type JQLEditorUIProps = {
 	 * handled which will prevent default behaviour of the help button, i.e. `e.preventDefault()`.
 	 */
 	onSyntaxHelp?: (e: MouseEvent<HTMLElement>) => boolean;
+
 	/**
 	 * Called every time the editor is updated with the current query value and respective Jast object.
 	 */

@@ -11,6 +11,6 @@ const components = {
 		return inline ? <code>{children}</code> : code`${children}`;
 	},
 };
-export default function Base(props: any) {
+export default function Base(props: any): React.JSX.Element {
 	return <ReactMarkdown children={props.content} components={components} remarkPlugins={[gfm]} />;
 }

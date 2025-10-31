@@ -1,21 +1,14 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { token } from '@atlaskit/tokens';
 
 const ButtonIconOverrideExample = () => {
 	return (
 		<Button
 			iconBefore={(iconProps) => (
-				<WarningIcon
-					{...iconProps}
-					LEGACY_size="small"
-					size="small"
-					color={token('color.icon.warning')}
-					LEGACY_primaryColor={token('color.icon.warning')}
-					LEGACY_secondaryColor={token('color.icon.inverse')}
-				/>
+				<WarningIcon {...iconProps} size="small" color={token('color.icon.warning')} />
 			)}
 			appearance="warning"
 		>

@@ -133,9 +133,6 @@
 		"enable_medium_size_icons_for_team_link_cards": {
 			"type": "boolean"
 		},
-		"should-render-to-parent-should-be-true-people-and-": {
-			"type": "boolean"
-		},
 		"enable_team_containers_null_check": {
 			"type": "boolean"
 		},
@@ -149,9 +146,6 @@
 			"type": "boolean"
 		},
 		"prevent_parallel_team_web_links_fetch": {
-			"type": "boolean"
-		},
-		"enable_new_team_profile": {
 			"type": "boolean"
 		},
 		"ptc-enable-teams-public-analytics-refactor": {

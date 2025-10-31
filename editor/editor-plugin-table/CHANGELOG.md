@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.8
+
+### Patch Changes
+
+- [`ca5c3cd4d655b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca5c3cd4d655b) -
+  Clean up FG platform_editor_table_column_selected_state_fix
+- Updated dependencies
+
 ## 15.3.7
 
 ### Patch Changes

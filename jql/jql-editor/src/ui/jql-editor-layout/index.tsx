@@ -79,7 +79,8 @@ type Props = {
 };
 
 const JQLEditorLayout = (props: Props) => {
-	const { defaultMaxRows, expandedRows, isSearch, isCompact } = useEditorThemeContext();
+	const { defaultMaxRows, expandedRows, isSearch, isCompact, defaultRows } =
+		useEditorThemeContext();
 	const {
 		editorViewHasFocus,
 		EditorControlsContent,
@@ -114,6 +115,7 @@ const JQLEditorLayout = (props: Props) => {
 					onBlur={onEditorViewBlur}
 					onFocus={onEditorViewFocus}
 					onTransitionEnd={onEditorViewTransitionEnd}
+					{...(fg('list_lovability_improving_filters') ? { defaultRows } : {})}
 				/>
 				<EditorControls
 					isSearch={isSearch}
@@ -139,7 +141,8 @@ type ReadOnlyProps = {
  * only imports the bare minimum dependencies required to replicate the editor layout.
  */
 const JQLEditorReadOnlyWithoutTheme = ({ query }: ReadOnlyProps) => {
-	const { defaultMaxRows, expandedRows, isSearch, isCompact } = useEditorThemeContext();
+	const { defaultMaxRows, expandedRows, isSearch, isCompact, defaultRows } =
+		useEditorThemeContext();
 
 	const blocks = splitTextByNewLine(query);
 	const lineNumbersVisible = blocks.length > 1;
@@ -162,6 +165,7 @@ const JQLEditorReadOnlyWithoutTheme = ({ query }: ReadOnlyProps) => {
 					aria-expanded={false}
 					aria-controls="dummy-jql-editor-auto-complete-id"
 					aria-label="JQL query"
+					defaultRows={defaultRows}
 				>
 					{blocks.map((block, index) => (
 						<Box as="p" key={index}>
@@ -181,12 +185,14 @@ const JQLEditorReadOnlyWithoutTheme = ({ query }: ReadOnlyProps) => {
 export const JQLEditorReadOnly = ({
 	isSearch,
 	isCompact,
+	defaultRows,
 	...props
 }: ReadOnlyProps & {
+	defaultRows?: number;
 	isCompact?: boolean;
 	isSearch?: boolean;
 }) => {
-	const editorTheme = useEditorTheme({ isSearch, isCompact });
+	const editorTheme = useEditorTheme({ isSearch, isCompact, defaultRows });
 
 	return (
 		<EditorThemeContext.Provider value={editorTheme}>

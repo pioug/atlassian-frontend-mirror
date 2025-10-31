@@ -73,6 +73,7 @@ export type EditorContextPayloadData =
 			selectionFragment?: string;
 			selectionLocalIds?: string;
 			isViewMode?: boolean;
+			useGenericEditorSkill?: boolean;
 	  }
 	| undefined;
 

@@ -46,7 +46,7 @@ export const getGlobalEventStream = (): GlobalEventStream => {
 	return globalThis.__UFO_GLOBAL_EVENT_STREAM__;
 };
 
-export const setGlobalEventStream = (eventStream: GlobalEventStream) => {
+export const setGlobalEventStream = (eventStream: GlobalEventStream): void => {
 	if (
 		globalThis.__UFO_GLOBAL_EVENT_STREAM__ &&
 		!globalThis.__UFO_GLOBAL_EVENT_STREAM__?.__buffer_only__

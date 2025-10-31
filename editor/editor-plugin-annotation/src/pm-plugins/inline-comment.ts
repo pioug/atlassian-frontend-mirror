@@ -470,10 +470,6 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 					return onMouseUp(view.state, view.dispatch)(event);
 				},
 				click: (view: EditorView, event: MouseEvent) => {
-					if (!fg('platform_editor_listen_for_annotation_clicks')) {
-						return false;
-					}
-
 					if (!(event.target instanceof HTMLElement)) {
 						return false;
 					}

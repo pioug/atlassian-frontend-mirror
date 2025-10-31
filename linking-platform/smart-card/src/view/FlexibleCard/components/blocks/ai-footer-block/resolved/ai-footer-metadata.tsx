@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { di } from 'react-magnetic-di';
 
 import AIIcon from '@atlaskit/icon/core/atlassian-intelligence';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -40,8 +41,9 @@ export const AIFooterMetadata = ({ testId, url }: AISummaryActionData & { testId
 
 			<AIIcon
 				label="AI"
-				LEGACY_size="small"
-				LEGACY_fallbackIcon={LegacyAIIcon}
+				{...(fg('navx-1959-remove-custom-ai-icon')
+					? undefined
+					: { LEGACY_fallbackIcon: LegacyAIIcon, LEGACY_size: 'small' })}
 				color={token('color.icon.subtle')}
 			/>
 		</Inline>

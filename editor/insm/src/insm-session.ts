@@ -187,6 +187,13 @@ export class INSMSession {
 							deviceDetails: getDeviceDetails(),
 						}
 					: {}),
+				// these health attributes drive our SLOs
+				healthAFPS: periodResults.active.measurements.afps?.average
+					? periodResults.active.measurements.afps?.average >= 50
+					: undefined,
+				healthINP: periodResults.active.measurements.inp?.average
+					? periodResults.active.measurements.inp?.average >= 200
+					: undefined,
 			},
 			highPriority: true,
 			tags: ['editor'],

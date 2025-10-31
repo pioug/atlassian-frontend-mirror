@@ -10,11 +10,11 @@ let push = (payload: ErrorPayload) => {
 	buffer.push(payload);
 };
 
-export function reportError(payload: ErrorPayload) {
+export function reportError(payload: ErrorPayload): void {
 	push(payload);
 }
 
-export function installErrorHandler(handler: (payload: ErrorPayload) => void) {
+export function installErrorHandler(handler: (payload: ErrorPayload) => void): void {
 	if (fg('moving_jira_entry-points_api_under_platform')) {
 		push = handler;
 		buffer.forEach((payload) => handler(payload));

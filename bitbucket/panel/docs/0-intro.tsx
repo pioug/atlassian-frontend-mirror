@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const intro: React.ReactElement = md`
 ${(<AtlassianInternalWarning />)}
 
 This panel component is designed hold content and expand and collapse with user interaction. It animates its opening and closing.
@@ -53,3 +53,4 @@ ${(
 	/>
 )}
 `;
+export default intro;

@@ -36,13 +36,6 @@ snapshot(BlockCardErrorView, {
 	waitForReactLazy: true,
 });
 snapshot(BlockCardErrorView, {
-	description: 'block card error view with design refresh FF only',
-	featureFlags: {
-		'platform-visual-refresh-icons': [true, false],
-	},
-	waitForReactLazy: true,
-});
-snapshot(BlockCardErrorView, {
 	description: 'block card error view - linking refresh only',
 	featureFlags: {},
 	waitForReactLazy: true,
@@ -51,13 +44,6 @@ snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-	},
-	waitForReactLazy: true,
-});
-snapshot(BlockCardForbiddenView, {
-	description: 'block card forbidden view with design refresh FF only',
-	featureFlags: {
-		'platform-visual-refresh-icons': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -73,13 +59,6 @@ snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-	},
-	waitForReactLazy: true,
-});
-snapshot(BlockCardNotFoundView, {
-	description: 'block card not found view with design refresh FF only',
-	featureFlags: {
-		'platform-visual-refresh-icons': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -129,6 +108,7 @@ snapshot(BlockCardBitbucket, {
 	featureFlags: {
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
+	waitForNetworkIdle: true,
 	waitForReactLazy: true,
 });
 snapshot(BlockCardForbiddenViews, {
@@ -236,6 +216,6 @@ snapshot(VRBlockProfileCard, {
 snapshot(FlexibleUiErroredTitleBlockCompetitorPrompt, {
 	description: 'block-card-errored-title-block-competitor-prompt',
 	featureFlags: {
-		'prompt_whiteboard_competitor_link_gate': [true, false],
+		prompt_whiteboard_competitor_link_gate: [true, false],
 	},
 });

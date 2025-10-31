@@ -3,10 +3,10 @@ import React, { type ReactElement, type ReactNode, useCallback, useState } from 
 import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
 import Flag, { FlagGroup } from '@atlaskit/flag';
-import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
-import InformationIcon from '@atlaskit/icon/core/migration/status-information--info';
-import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
-import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
+import InformationIcon from '@atlaskit/icon/core/status-information';
+import SuccessIcon from '@atlaskit/icon/core/status-success';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -27,34 +27,10 @@ const getRandomIcon = (): ReactNode => {
 
 const iconMap = (key?: string) => {
 	const icons: { [key: string]: ReactElement } = {
-		info: (
-			<InformationIcon
-				label="Info"
-				LEGACY_primaryColor={token('color.icon.information')}
-				color={token('color.icon.information')}
-			/>
-		),
-		success: (
-			<SuccessIcon
-				label="Success"
-				LEGACY_primaryColor={token('color.icon.success')}
-				color={token('color.icon.success')}
-			/>
-		),
-		warning: (
-			<WarningIcon
-				label="Warning"
-				LEGACY_primaryColor={token('color.icon.warning')}
-				color={token('color.icon.warning')}
-			/>
-		),
-		error: (
-			<ErrorIcon
-				label="Error"
-				LEGACY_primaryColor={token('color.icon.danger')}
-				color={token('color.icon.danger')}
-			/>
-		),
+		info: <InformationIcon label="Info" color={token('color.icon.information')} />,
+		success: <SuccessIcon label="Success" color={token('color.icon.success')} />,
+		warning: <WarningIcon label="Warning" color={token('color.icon.warning')} />,
+		error: <ErrorIcon label="Error" color={token('color.icon.danger')} />,
 	};
 
 	return key ? icons[key] : icons;
@@ -103,14 +79,8 @@ const FlagGroupExample = () => {
 				{flags.map((flag) => (
 					<Flag
 						actions={[
-							{
-								content: 'Nice one!',
-								onClick: noop,
-							},
-							{
-								content: 'Not right now thanks',
-								onClick: () => dismissFlag(flag.id),
-							},
+							{ content: 'Nice one!', onClick: noop },
+							{ content: 'Not right now thanks', onClick: () => dismissFlag(flag.id) },
 						]}
 						{...flag}
 					/>

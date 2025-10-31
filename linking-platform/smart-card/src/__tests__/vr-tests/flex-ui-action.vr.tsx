@@ -17,50 +17,50 @@ import {
 
 snapshot(FlexibleUiBlockActionDanger, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionDefault, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionPrimary, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionSubtle, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionWarning, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionOverrideCSS, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionList, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionGroup, {
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
@@ -69,7 +69,7 @@ snapshot(FlexibleUiBlockActionGroup, {
 	drawsOutsideBounds: true,
 	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'hovered' }],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
@@ -78,7 +78,7 @@ snapshot(FlexibleUiBlockActionGroup, {
 	drawsOutsideBounds: true,
 	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'focused' }],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });

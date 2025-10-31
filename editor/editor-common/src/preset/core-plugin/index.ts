@@ -120,12 +120,7 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				// Don't replace the document if it's the same document, as full size
 				// replace transactions cause issues for collaborative editing and
 				// content reconciliation (eg. inline comments getting dropped)
-				if (
-					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-					fg('platform_editor_replace_document_shortcircuit') &&
-					content instanceof Node &&
-					state.doc.eq(content)
-				) {
+				if (content instanceof Node && state.doc.eq(content)) {
 					return false;
 				}
 

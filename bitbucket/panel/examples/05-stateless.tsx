@@ -8,7 +8,7 @@ import { PanelStateless } from '../src';
 
 const Header = <span>This is stateless panel example</span>;
 
-const StatelessPanel = () => {
+const StatelessPanel = (): React.JSX.Element => {
 	const isDefaultExpanded = false;
 	const [isExpanded, setIsExpanded] = useState(isDefaultExpanded);
 

@@ -7,7 +7,7 @@ import { Fragment } from 'react';
 import Avatar from '@atlaskit/avatar';
 import { cssMap, jsx } from '@atlaskit/css';
 import Form, { Field } from '@atlaskit/form';
-import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';

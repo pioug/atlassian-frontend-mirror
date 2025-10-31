@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Flag, { FlagGroup } from '@atlaskit/flag';
-import InformationIcon from '@atlaskit/icon/core/migration/status-information--info';
+import InformationIcon from '@atlaskit/icon/core/status-information';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -55,7 +55,6 @@ function FlagsInModalDialogExample() {
 											icon={
 												<InformationIcon
 													label="Info"
-													LEGACY_primaryColor={token('color.icon.information')}
 													color={token('color.icon.information')}
 													spacing="spacious"
 												/>

@@ -2,6 +2,8 @@ import React, { type ComponentType } from 'react';
 
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { withErrorBoundary } from './ui/error-boundary';
 import { withIntlProvider } from './ui/intl-provider';
 import { JQLEditorReadOnly } from './ui/jql-editor-layout';
@@ -27,6 +29,7 @@ export const JQLEditorAsync = withIntlProvider<JQLEditorProps>(
 						query={props.query}
 						isSearch={!!props.onSearch}
 						isCompact={props.isCompact}
+						{...(fg('list_lovability_improving_filters') ? { defaultRows: props.defaultRows } : {})}
 					/>
 				}
 			>

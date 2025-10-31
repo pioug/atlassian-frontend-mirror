@@ -64,6 +64,9 @@
 			"path": "../image/tsconfig.app.json"
 		},
 		{
+			"path": "../motion/tsconfig.app.json"
+		},
+		{
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{

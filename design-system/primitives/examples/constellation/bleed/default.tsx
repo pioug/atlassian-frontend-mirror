@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@atlaskit/css';
-import PersonIcon from '@atlaskit/icon/core/migration/person';
+import PersonIcon from '@atlaskit/icon/core/person';
 import { Bleed, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -36,7 +36,7 @@ export default function Basic() {
 			<Inline>
 				{['first', 'second', 'third', 'fourth'].map((key) => (
 					<Pressable key={key} xcss={styles.button}>
-						<PersonIcon label="An avatar" LEGACY_size="medium" spacing="spacious" />
+						<PersonIcon label="An avatar" spacing="spacious" />
 					</Pressable>
 				))}
 			</Inline>
@@ -44,7 +44,7 @@ export default function Basic() {
 				{['first', 'second', 'third', 'fourth'].map((key) => (
 					<Bleed inline="space.050" key={key}>
 						<Pressable xcss={styles.button}>
-							<PersonIcon label="An avatar" LEGACY_size="medium" spacing="spacious" />
+							<PersonIcon label="An avatar" spacing="spacious" />
 						</Pressable>
 					</Bleed>
 				))}

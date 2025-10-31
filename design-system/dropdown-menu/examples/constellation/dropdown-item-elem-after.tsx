@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import CheckCircleIcon from '@atlaskit/icon/core/migration/check-circle';
+import CheckCircleIcon from '@atlaskit/icon/core/check-circle';
 
 const DropdownItemElemAfterExample = () => {
 	return (

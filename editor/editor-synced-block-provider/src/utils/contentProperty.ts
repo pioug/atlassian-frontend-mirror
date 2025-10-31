@@ -17,6 +17,7 @@ const GRAPHQL_ENDPOINT = '/gateway/api/graphql';
 const GET_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_GET';
 const CREATE_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_CREATE';
 const UPDATE_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_UPDATE';
+const DELETE_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_DELETE';
 
 type GetContentPropertyOptions = {
 	cloudId: string;
@@ -41,6 +42,13 @@ type UpdateContentPropertyOptions = {
 	pageType: PAGE_TYPE;
 	signal?: AbortSignal;
 	value: SyncBlockData;
+};
+
+type DeleteContentPropertyOptions = {
+	cloudId: string;
+	key: string;
+	pageId: string;
+	pageType: PAGE_TYPE;
 };
 
 export type GetContentPropertyResult = {
@@ -124,6 +132,36 @@ export type CreateBlogPostContentPropertyResult = {
 					key: string | null;
 					value: string | null;
 				} | null;
+			};
+		};
+	};
+};
+
+export type DeletePageContentPropertyResult = {
+	data: {
+		confluence: {
+			deletePageProperty: {
+				errors: [
+					{
+						message: string;
+					},
+				];
+				success: boolean;
+			};
+		};
+	};
+};
+
+export type DeleteBlogPostPropertyResult = {
+	data: {
+		confluence: {
+			deleteBlogPostProperty: {
+				errors: [
+					{
+						message: string;
+					},
+				];
+				success: boolean;
 			};
 		};
 	};
@@ -235,6 +273,26 @@ const UPDATE_BLOG_QUERY = `mutation ${UPDATE_OPERATION_NAME} ($input: Confluence
 	}
 }`;
 
+const DELETE_PAGE_QUERY = `mutation ${DELETE_OPERATION_NAME} ($input: ConfluenceDeletePagePropertyInput!) {
+						confluence {
+							deletePageProperty(input: $input) {
+								success, errors {
+								  message
+								}
+							}
+						}
+					}`;
+
+const DELETE_BLOG_QUERY = `mutation ${DELETE_OPERATION_NAME} ($input: ConfluenceDeleteBlogPostPropertyInput!) {
+						confluence {
+							deleteBlogPostProperty(input: $input) {
+								success, errors {
+								  message
+								}
+							}
+						}
+					}`;
+
 export const getContentProperty = async <
 	T extends GetContentPropertyResult | GetBlogPostContentPropertyResult,
 >({
@@ -344,6 +402,40 @@ export const createContentProperty = async <
 
 	if (!response.ok) {
 		throw new Error(`Failed to create content property: ${response.statusText}`);
+	}
+
+	return (await response.json()) as T;
+};
+
+export const deleteContentProperty = async <
+	T extends DeletePageContentPropertyResult | DeleteBlogPostPropertyResult,
+>({
+	pageId,
+	cloudId,
+	pageType,
+	key,
+}: DeleteContentPropertyOptions): Promise<T> => {
+	const documentARI = getConfluencePageAri(pageId, cloudId, pageType);
+	const isBlog = isBlogPageType(pageType);
+	const bodyData = {
+		query: isBlog ? DELETE_BLOG_QUERY : DELETE_PAGE_QUERY,
+		operationName: DELETE_OPERATION_NAME,
+		variables: {
+			input: {
+				...(isBlog ? { blogPostId: documentARI } : { pageId: documentARI }),
+				key,
+			},
+		},
+	};
+
+	const response = await fetch(GRAPHQL_ENDPOINT, {
+		method: 'POST',
+		headers: { ...COMMON_HEADERS, ...AGG_HEADERS },
+		body: JSON.stringify(bodyData),
+	});
+
+	if (!response.ok) {
+		throw new Error(`Failed to delete content property: ${response.statusText}`);
 	}
 
 	return (await response.json()) as T;

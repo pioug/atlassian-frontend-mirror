@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LinkIconButton } from '@atlaskit/button/new';
-import StarStarredIcon from '@atlaskit/icon/core/migration/star-starred--star-filled';
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 
 type MyRouterLinkConfig = {
 	to: string;

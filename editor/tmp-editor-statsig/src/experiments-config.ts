@@ -17,10 +17,17 @@ export const editorExperimentsConfig = {
 	// Editor Platform experiments
 	// lwoollard experiments
 	// Added 03-09-2025
+	cc_editor_limited_mode_include_lcm: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_editor_limited_mode_include_lcm',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 03-09-2025
 	cc_editor_interactivity_monitoring: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_interactivity_monitoring',
-			jira: 'cc_editor_interactivity_monitoring',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

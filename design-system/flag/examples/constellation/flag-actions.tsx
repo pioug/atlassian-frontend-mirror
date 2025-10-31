@@ -1,19 +1,13 @@
 import React from 'react';
 
 import Flag from '@atlaskit/flag';
-import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
+import SuccessIcon from '@atlaskit/icon/core/status-success';
 import { token } from '@atlaskit/tokens';
 
 const FlagActionsExample = () => {
 	return (
 		<Flag
-			icon={
-				<SuccessIcon
-					LEGACY_primaryColor={token('color.icon.success')}
-					color={token('color.icon.success')}
-					label=""
-				/>
-			}
+			icon={<SuccessIcon color={token('color.icon.success')} label="" />}
 			id="1"
 			key="1"
 			title="Task START-42 was created successfully"

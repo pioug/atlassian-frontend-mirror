@@ -23,7 +23,7 @@ const EditComponent = (props: Omit<EditPageProps, 'locale'>) => {
 
 export type PageProps = Omit<Props, 'viewComponent' | 'editComponent' | 'locale'>;
 
-export const Page = (props: PageProps) => {
+export const Page = (props: PageProps): React.JSX.Element => {
 	const { locale } = useIntl();
 
 	return (

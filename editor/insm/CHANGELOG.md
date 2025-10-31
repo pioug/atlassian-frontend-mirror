@@ -1,5 +1,16 @@
 # @atlaskit/insm
 
+## 0.2.0
+
+### Minor Changes
+
+- [`c6c113481c118`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6c113481c118) -
+  Updates limited mode to include lcm sizes in decision to engage.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.3
 
 ### Patch Changes

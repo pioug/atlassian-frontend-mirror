@@ -13,7 +13,7 @@ export class ConcurrentExperience {
 		this.config = config;
 	}
 
-	getInstance(instanceId: string) {
+	getInstance(instanceId: string): UFOExperience {
 		if (!this.instances[instanceId]) {
 			this.instances[instanceId] = new UFOExperience(this.experienceId, this.config, instanceId);
 		}
@@ -21,7 +21,7 @@ export class ConcurrentExperience {
 		return this.instances[instanceId];
 	}
 
-	release(instanceId: string) {
+	release(instanceId: string): void {
 		ufolog('instanceId', instanceId);
 		if (this.instances[instanceId]) {
 			this.instances[instanceId].abort();

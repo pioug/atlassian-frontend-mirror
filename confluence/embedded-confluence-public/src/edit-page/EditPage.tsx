@@ -8,7 +8,7 @@ import { useIntl } from 'react-intl-next';
 
 export type EditPageProps = Omit<Props, 'locale'>;
 
-export const EditPage = (props: EditPageProps) => {
+export const EditPage = (props: EditPageProps): React.JSX.Element => {
 	const { locale } = useIntl();
 
 	return <EditPageCommon locale={locale} {...props} />;

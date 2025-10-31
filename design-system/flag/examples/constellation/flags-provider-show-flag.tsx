@@ -4,7 +4,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
 import { FlagsProvider, useFlags } from '@atlaskit/flag';
-import InformationIcon from '@atlaskit/icon/core/migration/status-information--info';
+import InformationIcon from '@atlaskit/icon/core/status-information';
 import { token } from '@atlaskit/tokens';
 
 const actions = [
@@ -24,13 +24,7 @@ const FlagGroupExample = () => {
 		showFlag({
 			actions,
 			description: 'Added from the context.',
-			icon: (
-				<InformationIcon
-					label="Info"
-					LEGACY_primaryColor={token('color.icon.information')}
-					color={token('color.icon.information')}
-				/>
-			),
+			icon: <InformationIcon label="Info" color={token('color.icon.information')} />,
 			id: id,
 			title: `${id}: Whoa a new flag!`,
 		});
@@ -40,13 +34,7 @@ const FlagGroupExample = () => {
 		showFlag({
 			actions,
 			description: 'I was not given an id.',
-			icon: (
-				<InformationIcon
-					label="Info"
-					LEGACY_primaryColor={token('color.icon.information')}
-					color={token('color.icon.information')}
-				/>
-			),
+			icon: <InformationIcon label="Info" color={token('color.icon.information')} />,
 			title: `${flagCount.current++}: Whoa a new flag!`,
 		});
 	};
@@ -55,13 +43,7 @@ const FlagGroupExample = () => {
 		showFlag({
 			actions,
 			description: 'I will automatically dismiss after 8 seconds.',
-			icon: (
-				<InformationIcon
-					label="Info"
-					LEGACY_primaryColor={token('color.icon.information')}
-					color={token('color.icon.information')}
-				/>
-			),
+			icon: <InformationIcon label="Info" color={token('color.icon.information')} />,
 			title: `${flagCount.current++}: Whoa a new flag!`,
 			isAutoDismiss: true,
 		});

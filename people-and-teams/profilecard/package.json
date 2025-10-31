@@ -89,8 +89,6 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
-		"@emotion/react": "root:*",
-		"@emotion/styled": "root:*",
 		"date-fns": "root:*",
 		"date-fns-tz": "root:*",
 		"graphql": "root:*",
@@ -154,12 +152,6 @@
 			"type": "boolean"
 		},
 		"pt-deprecate-assistance-service": {
-			"type": "boolean"
-		},
-		"dst-a11y__replace-anchor-with-link__people-and-tea": {
-			"type": "boolean"
-		},
-		"should-render-to-parent-should-be-true-people-and-": {
 			"type": "boolean"
 		},
 		"platform-adopt-teams-nav-config": {

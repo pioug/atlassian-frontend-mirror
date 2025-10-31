@@ -126,7 +126,7 @@ snapshot(InlineCardErrorTruncate, {
 snapshot(InlineCardForbidden, {
 	description: 'inline card forbidden view',
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'jfp-magma-platform-lozenge-jump-fix': [true, false],
 	},
 });

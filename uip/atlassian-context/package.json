@@ -40,14 +40,6 @@
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
-	"devDependencies": {
-		"@af/integration-testing": "workspace:^",
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
-		"@testing-library/react": "root:*",
-		"react-dom": "root:*",
-		"wait-for-expect": "root:*"
-	},
 	"techstack": {
 		"@atlassian/frontend": {
 			"import-structure": [

@@ -38,10 +38,15 @@ const JQLEditorInner = ({
 	onSyntaxHelp,
 	onFocus,
 	customComponents,
+	defaultRows,
 }: JQLEditorInnerProps) => {
 	di(JQLEditorView);
 
-	const editorTheme = useEditorTheme({ isSearch: !!onSearch, isCompact });
+	const editorTheme = useEditorTheme({
+		isSearch: !!onSearch,
+		isCompact,
+		defaultRows,
+	});
 	const { createAndFireAnalyticsEvent } = useJqlEditorAnalytics(analyticsSource);
 
 	// Create and update a mutable ref for our intl object so it can be used by Prosemirror plugins.

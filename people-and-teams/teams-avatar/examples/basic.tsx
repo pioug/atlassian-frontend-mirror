@@ -1,20 +1,26 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline, Stack, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import TeamAvatar from '../src/ui/teams-avatar';
 
-const style = xcss({
-	marginTop: 'space.400',
-	padding: 'space.400',
+const styles = cssMap({
+	stack: {
+		marginTop: token('space.400'),
+		paddingTop: token('space.400'),
+		paddingRight: token('space.400'),
+		paddingBottom: token('space.400'),
+		paddingLeft: token('space.400'),
+	},
 });
 
 const sizes = ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'];
 
 export default function TeamAvatarExample() {
 	return (
-		<Stack space="space.200" xcss={style} alignInline="start">
+		<Stack space="space.200" xcss={styles.stack} alignInline="start">
 			<Inline alignBlock="center">
 				{sizes.map((size) => (
 					<TeamAvatar size={size as any} />

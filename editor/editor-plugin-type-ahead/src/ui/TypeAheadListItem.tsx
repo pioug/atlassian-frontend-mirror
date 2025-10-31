@@ -337,14 +337,6 @@ export const TypeAheadListItem = React.memo(
 					isSelected={isSelected}
 					aria-selected={isSelected}
 					aria-label={title}
-					// TODO: ED-26959 - aria-description is in draft for ARIA 1.3.
-					// For now replace it with aria-describedby.
-					// eslint-disable-next-line @atlassian/a11y/aria-props -- TODO: Avoid using "aria-description" as aria attribute. See https://go/a11y-aria-props for more details.
-					aria-description={
-						fg('platform_editor_a11y_fix_aria_description')
-							? undefined
-							: `${descriptionText} ${shortcutText}`
-					}
 					aria-describedby={
 						(descriptionText || shortcutText) && fg('platform_editor_a11y_fix_aria_description')
 							? descriptionId

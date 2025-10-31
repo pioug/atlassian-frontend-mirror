@@ -1144,7 +1144,6 @@ const smartCardStylesAvatarFix = css({
 	},
 });
 
-// fg smartcard_avatar_margin_fix
 const smartCardStylesAvatarMarginFix = css({
 	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}`]: {
 		'ul, ol': {
@@ -2380,7 +2379,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				smartCardStylesAvatarFix,
 				editorExperiment('platform_editor_preview_panel_linking_exp', true) &&
 					headerSmartCardStyles,
-				fg('smartcard_avatar_margin_fix') && smartCardStylesAvatarMarginFix,
+				smartCardStylesAvatarMarginFix,
 				smartCardStylesAvatarListZeroMarginTop,
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning

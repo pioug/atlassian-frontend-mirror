@@ -1,12 +1,12 @@
 import React from 'react';
 
-import FilterIcon from '@atlaskit/icon/core/migration/filter';
-import FolderClosedIcon from '@atlaskit/icon/core/migration/folder-closed--folder';
-import GlobeIcon from '@atlaskit/icon/core/migration/globe--world';
-import LightbulbIcon from '@atlaskit/icon/core/migration/lightbulb';
-import PagesIcon from '@atlaskit/icon/core/migration/pages--queues';
-import PersonIcon from '@atlaskit/icon/core/migration/person';
-import SettingsIcon from '@atlaskit/icon/core/migration/settings';
+import FilterIcon from '@atlaskit/icon/core/filter';
+import FolderClosedIcon from '@atlaskit/icon/core/folder-closed';
+import GlobeIcon from '@atlaskit/icon/core/globe';
+import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
+import PagesIcon from '@atlaskit/icon/core/pages';
+import PersonIcon from '@atlaskit/icon/core/person';
+import SettingsIcon from '@atlaskit/icon/core/settings';
 import {
 	ButtonItem,
 	LinkItem,

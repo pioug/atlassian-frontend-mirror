@@ -7,6 +7,7 @@ import {
 	SyncBlockDataProvider,
 	type ADFFetchProvider,
 	type ADFWriteProvider,
+	type DeleteSyncBlockResult,
 	type FetchSyncBlockDataResult,
 } from '../providers/types';
 import { getLocalIdFromAri, getPageARIFromResourceId } from '../utils/ari';
@@ -77,6 +78,19 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 			resourceIds.push(resourceId);
 		});
 		return Promise.all(resourceIds);
+	}
+
+	async deleteNodesData(resourceIds: string[]): Promise<Array<DeleteSyncBlockResult>> {
+		const results = await Promise.allSettled(
+			resourceIds.map((resourceId) => this.writeProvider.deleteData(resourceId)),
+		);
+		return results.map((result, index) => {
+			if (result.status === 'fulfilled') {
+				return result.value;
+			} else {
+				return { resourceId: resourceIds[index], success: false, error: result.reason };
+			}
+		});
 	}
 
 	getSourceId() {

@@ -8,6 +8,8 @@ import { token } from '@atlaskit/tokens';
  * The bulk of this file is originally from
  * https://bitbucket.org/atlassian/barrel/src/master/ui/platform/ui-kit/ai
  * with modifications
+ * @deprecated Use @atlaskit/icon/core/atlassian-intelligence instead.
+ * TODO: Remove on navx-1959-remove-custom-ai-icon cleanup
  */
 const AiIcon = (props: SVGProps) => (
 	// eslint-disable-next-line @atlaskit/design-system/no-custom-icons

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LinkIconButton } from '@atlaskit/button/new';
-import PersonAvatarIcon from '@atlaskit/icon/core/migration/person-avatar--user-avatar-circle';
+import PersonAvatarIcon from '@atlaskit/icon/core/person-avatar';
 
 type MyRouterLinkConfig = {
 	to: string;

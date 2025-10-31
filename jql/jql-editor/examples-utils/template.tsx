@@ -17,6 +17,7 @@ import { Container } from './styled';
 
 export type TemplateArgs = {
 	batchUpdates?: boolean;
+	defaultRows?: number;
 	deps?: Injectable[];
 	Editor?: typeof JQLEditor;
 	enableRichInlineNodes?: boolean;
@@ -35,6 +36,7 @@ export const Template = ({
 	batchUpdates = boolean('Batch updates', true),
 	Editor = JQLEditor,
 	deps = [],
+	defaultRows,
 }: TemplateArgs) => {
 	// @ts-ignore
 	stateDefaults.batchUpdates = batchUpdates;
@@ -94,6 +96,7 @@ export const Template = ({
 							isCompact={boolean('Compact', isCompact)}
 							enableRichInlineNodes={enableRichInlineNodes}
 							onSyntaxHelp={onSyntaxHelp}
+							defaultRows={defaultRows}
 						/>
 					</LocaleProvider>
 				</Container>

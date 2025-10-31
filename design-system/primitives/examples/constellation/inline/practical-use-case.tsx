@@ -4,7 +4,7 @@ import { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
 import StoryIcon from '@atlaskit/icon-object/glyph/story/16';
-import StarStarredIcon from '@atlaskit/icon/core/migration/star-starred--star-filled';
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import { Inline } from '@atlaskit/primitives/compiled';
 
 const ActionsMenu = () => (

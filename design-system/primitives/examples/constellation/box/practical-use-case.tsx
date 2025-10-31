@@ -5,8 +5,8 @@
 import Avatar from '@atlaskit/avatar';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import PullRequestIcon from '@atlaskit/icon/core/migration/pull-request--bitbucket-pullrequests';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import PullRequestIcon from '@atlaskit/icon/core/pull-request';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { AtlassianIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
@@ -56,8 +56,8 @@ export default function Example() {
 					<Heading size="xxsmall">DSP-9786</Heading>
 				</Box>
 				<Inline space="space.100" alignBlock="center">
-					<PullRequestIcon LEGACY_size="small" label="" />
-					<ShowMoreHorizontalIcon LEGACY_size="small" label="" />
+					<PullRequestIcon label="" />
+					<ShowMoreHorizontalIcon label="" />
 					<Avatar size="small" />
 				</Inline>
 			</Box>

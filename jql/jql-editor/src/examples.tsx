@@ -4,6 +4,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { injectable } from 'react-magnetic-di';
 
 import { Text } from '@atlaskit/primitives/compiled';
+import { withPlatformFeatureGates } from '@atlassian/feature-flags-storybook-utils';
 
 import { Template } from '../examples-utils/template';
 import { TemplateReadOnly } from '../examples-utils/template-read-only';
@@ -28,6 +29,21 @@ export const SimpleJQL = Template.bind(
 		query: 'issuetype = bug order by rank',
 	},
 );
+
+export const SimpleEditorWithDefaultRows = Template.bind(
+	{},
+	{
+		query: 'issuetype = bug order by rank',
+		defaultRows: 5,
+	},
+);
+
+(SimpleEditorWithDefaultRows as any).decorators = [
+	withKnobs,
+	withPlatformFeatureGates({
+		list_lovability_improving_filters: true,
+	}),
+];
 
 export const ComplexJQL = Template.bind(
 	{},

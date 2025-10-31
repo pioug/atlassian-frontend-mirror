@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import ShowMoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import ShowMoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 
 const DropdownMenuCustomTriggerButtonExample = () => {
 	return (

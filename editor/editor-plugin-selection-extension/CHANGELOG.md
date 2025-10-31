@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 7.0.3
+
+### Patch Changes
+
+- [`14159c94706dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14159c94706dd) -
+  ED-29605: prevent selectionExtensionPLugin hydration errors
+- Updated dependencies
+
 ## 7.0.2
 
 ### Patch Changes

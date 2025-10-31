@@ -2,9 +2,9 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 import Story16Icon from '@atlaskit/icon-object/glyph/story/16';
-import ComponentIcon from '@atlaskit/icon/core/migration/component';
-import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
-import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
+import ComponentIcon from '@atlaskit/icon/core/component';
+import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
+import FeedbackIcon from '@atlaskit/icon/core/feedback';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 

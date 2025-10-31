@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button, { IconButton } from '@atlaskit/button/new';
-import CommentAddIcon from '@atlaskit/icon/core/migration/comment-add--media-services-add-comment';
-import CopyIcon from '@atlaskit/icon/core/migration/copy';
+import CommentAddIcon from '@atlaskit/icon/core/comment-add';
+import CopyIcon from '@atlaskit/icon/core/copy';
 import {
 	Spotlight,
 	SpotlightManager,

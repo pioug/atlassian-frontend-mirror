@@ -101,7 +101,7 @@ class FindValuesVisitor extends AbstractJastVisitor<ValueOperand[]> {
 	};
 
 	visitTerminalClause = (terminalClause: TerminalClause): ValueOperand[] => {
-		if (terminalClause.field.value !== this.field) {
+		if (!this.equalsIgnoreCase(terminalClause.field.value, this.field)) {
 			return [];
 		}
 		if (terminalClause.operand === undefined) {
@@ -115,7 +115,7 @@ class FindValuesVisitor extends AbstractJastVisitor<ValueOperand[]> {
 	};
 
 	visitValueOperand = (valueOperand: ValueOperand): ValueOperand[] => {
-		if (valueOperand.value !== this.value) {
+		if (!this.equalsIgnoreCase(valueOperand.value, this.value)) {
 			return [];
 		}
 		return [valueOperand];
@@ -133,5 +133,9 @@ class FindValuesVisitor extends AbstractJastVisitor<ValueOperand[]> {
 
 	protected defaultResult(): ValueOperand[] {
 		return [];
+	}
+
+	private equalsIgnoreCase(a: string, b: string) {
+		return a.localeCompare(b, undefined, { sensitivity: 'base' }) === 0;
 	}
 }

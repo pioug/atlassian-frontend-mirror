@@ -9,7 +9,7 @@ import {
 	type PrimaryDropdownButtonProps,
 	useOverflowStatus,
 } from '@atlaskit/atlassian-navigation';
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
 
 const ResponsivePrimaryButton = (props: PrimaryButtonProps) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LinkButton } from '@atlaskit/button/new';
-import ShortcutIcon from '@atlaskit/icon/core/migration/shortcut--add-item';
+import ShortcutIcon from '@atlaskit/icon/core/shortcut';
 
 const LinkButtonIconExample = () => {
 	return (

@@ -5,7 +5,7 @@
 
 import Avatar, { AvatarContent } from '@atlaskit/avatar';
 import { css, jsx } from '@atlaskit/css';
-import PeopleGroupIcon from '@atlaskit/icon/core/migration/people-group';
+import PeopleGroupIcon from '@atlaskit/icon/core/people-group';
 import { token } from '@atlaskit/tokens';
 
 const styles = {

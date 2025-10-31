@@ -934,11 +934,6 @@ describe('<EmojiPicker />', () => {
 
 	describe('escape key propagation', () => {
 		it('should allow escape key events to propagate to parent components when feature gate is enabled', () => {
-			// Mock the feature gate to be enabled
-			jest.doMock('@atlaskit/platform-feature-flags', () => ({
-				fg: jest.fn((flag: string) => flag === 'platform_emoji_picker_escape_propagation'),
-			}));
-
 			let parentEscapeReceived = false;
 			let childEscapeReceived = false;
 
@@ -991,11 +986,6 @@ describe('<EmojiPicker />', () => {
 		});
 
 		it('should allow escape key events to propagate to parent components when jira feature gate is enabled', () => {
-			// Mock the feature gate to be enabled
-			jest.doMock('@atlaskit/platform-feature-flags', () => ({
-				fg: jest.fn((flag: string) => flag === 'platform_jira_emoji_picker_escape_propagation'),
-			}));
-
 			let parentEscapeReceived = false;
 			let childEscapeReceived = false;
 

@@ -1,5 +1,16 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.23.0
+
+### Minor Changes
+
+- [`c6c113481c118`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6c113481c118) -
+  Updates limited mode to include lcm sizes in decision to engage.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.22.0
 
 ### Minor Changes

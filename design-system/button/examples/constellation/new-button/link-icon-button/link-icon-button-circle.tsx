@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LinkIconButton } from '@atlaskit/button/new';
-import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
+import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 
 const LinkIconButtonCircleExample = () => {
 	return (

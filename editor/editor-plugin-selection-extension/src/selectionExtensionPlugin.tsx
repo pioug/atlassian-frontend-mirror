@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { selectionExtensionMessages } from '@atlaskit/editor-common/messages';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
@@ -122,6 +123,9 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 		},
 		usePluginHook: () => {
 			usePluginStateEffect(api, ['userIntent', 'selection'], ({ userIntentState }) => {
+				if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && isSSR()) {
+					return;
+				}
 				if (
 					userIntentState?.currentUserIntent === 'blockMenuOpen' &&
 					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
@@ -138,7 +142,10 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 			});
 		},
 		contentComponent: ({ editorView }) => {
-			if (!editorView) {
+			if (
+				!editorView ||
+				(expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && isSSR())
+			) {
 				return null;
 			}
 

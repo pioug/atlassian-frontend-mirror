@@ -98,9 +98,5 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"platform-feature-flags": {
-		"internal.browse-users-allowed": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

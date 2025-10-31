@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
-import ImageIcon from '@atlaskit/icon/core/migration/image';
+import ImageIcon from '@atlaskit/icon/core/image';
 
 const BreadcrumbsItemIconAfterExample = () => {
 	return (

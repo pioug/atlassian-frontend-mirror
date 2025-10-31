@@ -79,7 +79,7 @@ export default () => {
 			<JQLEditor
 				analyticsSource={'my-app'}
 				autocompleteProvider={autocompleteProvider}
-				query={'team[team] = tarjuedbergtlfrde'}
+				query={'Team[team] = tarjuedbergtlfrde'}
 				locale={'en'}
 				onSearch={onSearch}
 				enableRichInlineNodes

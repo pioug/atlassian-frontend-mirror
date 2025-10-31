@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.8.1
+
+### Patch Changes
+
+- [`1eb8946c72537`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eb8946c72537) -
+  Update README.md to clarify MCP configuration instructions
+
 ## 0.8.0
 
 ### Minor Changes

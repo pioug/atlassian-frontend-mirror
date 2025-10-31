@@ -6,7 +6,7 @@ import React, { forwardRef, Fragment, useState } from 'react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
-import AddIcon from '@atlaskit/icon/core/migration/add';
+import AddIcon from '@atlaskit/icon/core/add';
 import { token } from '@atlaskit/tokens';
 import Tooltip, {
 	type PositionType,
@@ -109,11 +109,7 @@ export default function TooltipRenderPropsExample() {
 				)}
 			</Tooltip>
 			<p>Position</p>
-			<div
-				style={{
-					padding: `${token('space.500')} ${token('space.500')}`,
-				}}
-			>
+			<div style={{ padding: `${token('space.500')} ${token('space.500')}` }}>
 				<Tooltip content={positionText} position={positionText}>
 					{(tooltipProps) => (
 						<Button {...tooltipProps} onClick={changeDirection}>

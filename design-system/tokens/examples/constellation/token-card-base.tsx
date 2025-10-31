@@ -5,7 +5,7 @@
 
 import { cssMap, type CSSProperties, jsx } from '@compiled/react';
 
-import GlobeIcon from '@atlaskit/icon/core/migration/globe--world';
+import GlobeIcon from '@atlaskit/icon/core/globe';
 import { type NewGlyphColorProps } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
 
@@ -69,7 +69,6 @@ const Card = ({ tokenSet }: { tokenSet: Record<string, string> }) => {
 		>
 			<GlobeIcon
 				label=""
-				LEGACY_primaryColor={tokenSet.iconColor}
 				color={tokenSet.iconColor as NewGlyphColorProps['color']}
 				spacing="spacious"
 			/>

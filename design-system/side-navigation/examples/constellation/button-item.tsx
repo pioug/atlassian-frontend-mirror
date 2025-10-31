@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import { ButtonItem, Section } from '@atlaskit/side-navigation';
 
 const ButtonItemExample = () => {

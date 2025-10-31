@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import CommentAddIcon from '@atlaskit/icon/core/migration/comment-add--media-services-add-comment';
+import CommentAddIcon from '@atlaskit/icon/core/comment-add';
 import Popup from '@atlaskit/popup';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

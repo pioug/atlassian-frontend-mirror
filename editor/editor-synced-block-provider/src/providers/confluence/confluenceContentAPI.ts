@@ -6,15 +6,23 @@ import {
 	getContentProperty,
 	createContentProperty,
 	updateContentProperty,
+	deleteContentProperty,
 	type CreateContentPropertyResult,
 	type CreateBlogPostContentPropertyResult,
 	type UpdateBlogPostContentPropertyResult,
 	type UpdateContentPropertyResult,
 	type GetContentPropertyResult,
 	type GetBlogPostContentPropertyResult,
+	type DeleteBlogPostPropertyResult,
+	type DeletePageContentPropertyResult,
 } from '../../utils/contentProperty';
 import { isBlogPageType } from '../../utils/utils';
-import type { ADFFetchProvider, ADFWriteProvider, FetchSyncBlockDataResult } from '../types';
+import type {
+	ADFFetchProvider,
+	ADFWriteProvider,
+	DeleteSyncBlockResult,
+	FetchSyncBlockDataResult,
+} from '../types';
 
 /**
  * Configuration for Content API providers
@@ -200,6 +208,30 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 			const key = getContentPropertyKey(this.config.contentPropertyKey, data.blockInstanceId);
 			return this.createNewContentProperty(pageId, key, data, pageType);
 		}
+	}
+
+	async deleteData(resourceId: string): Promise<DeleteSyncBlockResult> {
+		const { id: pageId, type: pageType } = getPageIdAndTypeFromAri(resourceId);
+		const localId = getLocalIdFromAri(resourceId);
+		const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
+		const options = {
+			pageId,
+			key,
+			cloudId: this.config.cloudId,
+			pageType,
+		};
+
+		let deletePayload, deleteResult;
+		try {
+			deletePayload = await deleteContentProperty(options);
+			deleteResult = isBlogPageType(pageType)
+				? (deletePayload as DeleteBlogPostPropertyResult).data.confluence.deleteBlogPostProperty
+				: (deletePayload as DeletePageContentPropertyResult).data.confluence.deletePageProperty;
+		} catch {
+			return { resourceId, success: false, error: `Fail to delete ${pageType} content property` };
+		}
+
+		return { resourceId, success: deleteResult.success, error: deleteResult.errors.join() };
 	}
 }
 

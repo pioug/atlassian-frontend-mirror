@@ -61,6 +61,16 @@ export const IMPROVE_WRITING_BUTTON = {
 	type: 'button',
 } as const;
 
+export const HERO_PROMPT_BUTTON_GROUP = {
+	key: 'hero-prompt-button-group',
+	type: 'group',
+} as const;
+
+export const HERO_PROMPT_BUTTON = {
+	key: 'hero-prompt-button',
+	type: 'button',
+} as const;
+
 export const ROVO_HERO_BUTTON = {
 	key: 'rovo-hero-button',
 	type: 'button',
@@ -93,6 +103,11 @@ export const ROVO_PROMPT_MENU_SECTION_DISPLAY_SMALL = {
 
 export const IMPROVE_WRITING_MENU_ITEM = {
 	key: 'improve-writing-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const HERO_PROMPT_MENU_ITEM = {
+	key: 'hero-prompt-menu-item',
 	type: 'menu-item',
 } as const;
 

@@ -34,7 +34,7 @@ import FlexibleUiPlaceholderData from '../../../examples/vr-flexible-card/vr-fle
 // Variants
 snapshot(FlexibleUiOptions, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -50,7 +50,7 @@ snapshot(FlexibleUiComposition, {
 	],
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
@@ -65,7 +65,7 @@ snapshot(FlexibleUiBlock, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
@@ -78,7 +78,7 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -101,7 +101,7 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -124,7 +124,7 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -138,61 +138,61 @@ snapshot(FlexibleUiBlockMetadata, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockSnippet, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockFooter, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockPreviewXLarge, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockPreviewLarge, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockPreviewMedium, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockPreviewSmall, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockPreviewMixedPadding, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockPreviewOverrideCSS, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
@@ -200,14 +200,14 @@ snapshot(FlexibleUiBlockPreviewOverrideCSS, {
 // Elements
 snapshot(FlexibleUiElementLink, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiElementLozenge, {
 	description: 'FlexibleUiElementLozenge',
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	variants: [
 		{
@@ -228,39 +228,39 @@ snapshot(FlexibleUiElementBadge, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiElementAppliedToComponentsCount, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiElementAvatarGroup, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiElementMedia, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiElementTeamMemberCount, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'platform-linking-team-member-count-component': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiElementUserAttributes, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'platform-linking-user-attributes-component': true,
 	},
 	waitForReactLazy: true,
@@ -279,7 +279,7 @@ snapshot(FlexibleUiHoverCard, {
 	],
 	description: 'FlexibleUiHoverCard',
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -295,7 +295,7 @@ snapshot(FlexibleUiHoverCardNoPreviewButton, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -313,7 +313,7 @@ snapshot(FlexibleUiAccessibility, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
@@ -329,7 +329,7 @@ snapshot(FlexibleUiAccessibility, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
@@ -344,7 +344,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -360,7 +360,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 });
@@ -376,7 +376,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -392,7 +392,7 @@ snapshot(FlexibleUiPlaceholderData, {
 // Error states
 snapshot(FlexibleUiBlockCardErroredStates, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,

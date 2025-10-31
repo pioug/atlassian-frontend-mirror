@@ -3,6 +3,7 @@ import { css, keyframes } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	B200,
 	B300,
@@ -178,6 +179,7 @@ export const LineNumberToolbar = styled.div<{ lineNumbersVisible: boolean }>(
 // eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const EditorView = styled.div<{
 	defaultMaxRows: number;
+	defaultRows?: number;
 	expandedRows: number;
 	isCompact: boolean;
 	lineNumbersVisible: boolean;
@@ -190,8 +192,19 @@ export const EditorView = styled.div<{
 		max-height 250ms cubic-bezier(0.15, 1, 0.3, 1);
 	max-height: ${(props) =>
 		rowHeight * props.defaultMaxRows + getEditorInputVerticalPadding(props.isCompact) * 2}px;
-
 	line-height: ${rowHeight / 14};
+	${(props) =>
+		props.defaultRows && fg('list_lovability_improving_filters')
+			? 'height: ' +
+				(rowHeight * props.defaultRows + getEditorInputVerticalPadding(props.isCompact) * 2) +
+				'px;'
+			: ''}
+	${(props) =>
+		props.defaultRows && fg('list_lovability_improving_filters')
+			? 'min-height: ' +
+				(rowHeight * props.defaultRows + getEditorInputVerticalPadding(props.isCompact) * 2) +
+				'px;'
+			: ''}
 	font-family: ${token('font.family.code')};
 	word-break: break-word;
 	overflow-wrap: anywhere;

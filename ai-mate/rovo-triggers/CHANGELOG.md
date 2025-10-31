@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 3.16.0
+
+### Minor Changes
+
+- [`1e470200487fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e470200487fe) -
+  Adds new `useGenericEditorSkill` optional property to be used with rovo context with editor. This
+  enables use of the generic editor minion
+
 ## 3.15.3
 
 ### Patch Changes

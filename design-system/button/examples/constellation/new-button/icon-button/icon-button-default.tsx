@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
-import EditIcon from '@atlaskit/icon/core/migration/edit';
+import EditIcon from '@atlaskit/icon/core/edit';
 
 const IconButtonDefaultExample = () => {
 	return <IconButton icon={EditIcon} label="Edit" />;

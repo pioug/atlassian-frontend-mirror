@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.7.2
+
+### Patch Changes
+
+- [`ccbe07df5c620`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ccbe07df5c620) -
+  Update documentation to include motion example.
+
 ## 0.7.1
 
 ### Patch Changes

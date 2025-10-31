@@ -8,19 +8,19 @@ import ErrorActionWithUrl from '../../../examples/vr-flexible-card/vr-action-loz
 
 snapshot(ActionItem, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 });
 
 snapshot(ActionTrigger, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 });
 
 snapshot(ActionItemsGroup, {
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 	},
 });
 

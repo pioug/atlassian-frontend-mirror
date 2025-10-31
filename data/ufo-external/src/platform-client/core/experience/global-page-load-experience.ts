@@ -12,23 +12,23 @@ import { PageSegmentExperienceTypes } from './page-segment-experience-types';
 class UFOGlobalPageLoadExperience extends UFOAbstractExperience {
 	loadingPageLoadId: string = 'UNKNOWN';
 
-	type = ExperienceTypes.Load;
-	performanceType = ExperiencePerformanceTypes.PageLoad;
+	type: ExperienceTypes = ExperienceTypes.Load;
+	performanceType: ExperiencePerformanceTypes = ExperiencePerformanceTypes.PageLoad;
 
 	initial = true;
 
-	startPageLoad(id: string, initial: boolean = false, startTime?: number) {
+	startPageLoad(id: string, initial: boolean = false, startTime?: number): Promise<void> {
 		const result = super.start(initial ? 0 : perfNowOrTimestamp(startTime));
 		this.setPageLoadId(id);
 		this.initial = initial;
 		return result;
 	}
 
-	updateConfig(config: Partial<AbstractExperienceConfig>) {
+	updateConfig(config: Partial<AbstractExperienceConfig>): void {
 		Object.assign(this.config, config);
 	}
 
-	setPageLoadId(id: string) {
+	setPageLoadId(id: string): void {
 		this.loadingPageLoadId = id;
 	}
 
@@ -45,9 +45,10 @@ class UFOGlobalPageLoadExperience extends UFOAbstractExperience {
 	}
 }
 
-export const GlobalPageLoadExperience = new UFOGlobalPageLoadExperience('UFO_GLOBAL_PAGE_LOAD', {
-	type: ExperienceTypes.Load,
-	performanceType: ExperiencePerformanceTypes.PageLoad,
-	// this should come from global config
-	until: untilAll([{ category: PageSegmentExperienceTypes.PRODUCT }]),
-});
+export const GlobalPageLoadExperience: UFOGlobalPageLoadExperience =
+	new UFOGlobalPageLoadExperience('UFO_GLOBAL_PAGE_LOAD', {
+		type: ExperienceTypes.Load,
+		performanceType: ExperiencePerformanceTypes.PageLoad,
+		// this should come from global config
+		until: untilAll([{ category: PageSegmentExperienceTypes.PRODUCT }]),
+	});

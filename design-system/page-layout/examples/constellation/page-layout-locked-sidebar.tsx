@@ -8,7 +8,7 @@ import { useCallback, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { IconButton } from '@atlaskit/button/new';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { ButtonItem, LinkItem, PopupMenuGroup, Section } from '@atlaskit/menu';
 import {
 	Content,

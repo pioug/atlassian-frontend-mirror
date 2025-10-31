@@ -1,3 +1,3 @@
-export const isWindowObjectAvailable = () => {
+export const isWindowObjectAvailable = (): boolean => {
 	return typeof window !== 'undefined';
 };

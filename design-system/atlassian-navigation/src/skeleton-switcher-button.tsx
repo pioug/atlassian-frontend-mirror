@@ -90,7 +90,7 @@ export const SkeletonSwitcherButton = ({ label = '', testId }: SkeletonSwitcherB
  *
  * A nav 4 skeleton switcher button
  */
-export const Nav4SkeletonSwitcherButton = ({ label = '', testId }: SkeletonSwitcherButtonProps) => (
+export const Nav4SkeletonSwitcherButton = ({ label = '' }: SkeletonSwitcherButtonProps) => (
 	<SkeletonIconButton>
 		<Nav4AppSwitcherIcon label={label} spacing="spacious" color={token('color.icon')} />
 	</SkeletonIconButton>

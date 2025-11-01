@@ -62,7 +62,6 @@ export default () => {
 					</Button>
 				)}
 				placement="bottom"
-				// eslint-disable-next-line @atlassian/a11y/no-autofocus
 				autoFocus={false}
 			/>
 		</div>

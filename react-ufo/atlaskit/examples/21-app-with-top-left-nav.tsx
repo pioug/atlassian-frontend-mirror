@@ -164,7 +164,6 @@ const LeftNavigation = ({ onMenuItemClick }: { onMenuItemClick: (title: string) 
 							e.currentTarget.style.textDecoration = 'none';
 						}}
 						data-testid={`left-nav-item-${item}`}
-						// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-to-interactive-role
 						role="button"
 						tabIndex={0}
 					>

@@ -236,7 +236,6 @@ export default function Example() {
 				</p>
 				<p>
 					Use real client?
-					{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control */}
 					<label htmlFor="realClient">
 						{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 						<input

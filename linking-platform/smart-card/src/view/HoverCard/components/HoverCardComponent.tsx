@@ -248,7 +248,7 @@ export const HoverCardComponent = ({
 	const trigger = useCallback(
 		({ 'aria-haspopup': ariaHasPopup, 'aria-expanded': ariaExpanded, ...triggerProps }: any) => (
 			<span ref={parentSpan}>
-				{/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-supports-focus, @atlaskit/design-system/no-html-button, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions*/}
+				{/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlaskit/design-system/no-html-button, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions*/}
 				<span
 					{...triggerProps}
 					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events

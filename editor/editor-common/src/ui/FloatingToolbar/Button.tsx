@@ -128,7 +128,7 @@ export default ({
 				hideTooltipOnClick={hideTooltipOnClick}
 				position="top"
 			>
-				{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/mouse-events-have-key-events*/}
+				{/* eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events*/}
 				<div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 					<Pulse pulse={pulse || spotlightConfig?.pulse}>
 						{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}

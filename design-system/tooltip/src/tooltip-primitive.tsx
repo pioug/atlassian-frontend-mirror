@@ -46,7 +46,6 @@ const TooltipPrimitive: React.ForwardRefExoticComponent<
 			data-testid={testId ? `${testId}--wrapper` : undefined}
 		>
 			{/* Re: non-interactive element interactions: Because we are creating a tooltip, we *need* these mouse handlers. */}
-			{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions */}
 			<div
 				role="tooltip"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

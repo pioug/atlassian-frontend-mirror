@@ -268,7 +268,6 @@ const HoverLinkOverlayOriginal = ({
 	}
 
 	return (
-		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<span
 			ref={containerRef}
 			css={containerStylesOld}

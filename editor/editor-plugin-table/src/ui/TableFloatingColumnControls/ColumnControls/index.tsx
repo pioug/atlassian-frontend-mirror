@@ -306,7 +306,6 @@ export const ColumnControls = ({
 			: tableContainerWidth;
 
 	return (
-		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={ClassName.DRAG_COLUMN_CONTROLS}

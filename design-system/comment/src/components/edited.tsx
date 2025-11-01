@@ -31,7 +31,6 @@ export interface EditedProps {
 }
 
 const Edited: FC<EditedProps> = ({ children, onFocus, onMouseOver }) => (
-	// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 	<span css={editedContentStyles.root} onFocus={onFocus} onMouseOver={onMouseOver}>
 		{children}
 	</span>

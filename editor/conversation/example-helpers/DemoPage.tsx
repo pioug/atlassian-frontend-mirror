@@ -136,7 +136,6 @@ class File extends React.Component<FileProps, { addAt?: number }> {
 			<div key={index}>
 				<Line key={index}>
 					<LineNumber>
-						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 						{fg('dst-a11y__replace-anchor-with-link__bitbucket-core') ? (
 							// eslint-disable-next-line @atlassian/a11y/anchor-is-valid
 							<Link href="#" onClick={(evt) => this.onLineClick(evt, index)}>

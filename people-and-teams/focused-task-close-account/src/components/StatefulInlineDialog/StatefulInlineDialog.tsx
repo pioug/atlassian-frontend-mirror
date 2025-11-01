@@ -36,7 +36,7 @@ export class StatefulInlineDialog extends React.Component<Props, State> {
 		const { children, content, placement } = this.props;
 		return (
 			<InlineDialog content={content} placement={placement} isOpen={this.state.isOpen}>
-				{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/mouse-events-have-key-events*/}
+				{/* eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events*/}
 				<span onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
 					{children}
 				</span>

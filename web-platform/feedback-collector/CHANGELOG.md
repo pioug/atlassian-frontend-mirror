@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 14.6.4
+
+### Patch Changes
+
+- [`22069f5ef5d73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22069f5ef5d73) -
+  We are testing a refactor of internal components behind a feature flag. If this is successful, it
+  will be landed in a future release.
+
 ## 14.6.3
 
 ### Patch Changes

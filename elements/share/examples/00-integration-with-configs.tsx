@@ -303,7 +303,6 @@ const IntegrationContent = (props: ContentProps) => {
 	return (
 		<>
 			<div>Share to Integration form</div>
-			{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 			{fg('dst-a11y__replace-anchor-with-link__people-and-tea') ? (
 				// eslint-disable-next-line @atlassian/a11y/anchor-is-valid
 				<Link
@@ -332,7 +331,6 @@ const IntegrationContent = (props: ContentProps) => {
 const AdditionalTabContent = (props: ContentProps) => (
 	<>
 		<div>This is a custom tab in the share dialog</div>
-		{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 		{fg('dst-a11y__replace-anchor-with-link__people-and-tea') ? (
 			// eslint-disable-next-line @atlassian/a11y/anchor-is-valid
 			<Link

@@ -126,7 +126,6 @@ const ScrollContainer: React.ForwardRefExoticComponent<
 			as="div"
 			isInset
 			// tabindex is allowed here so that keyboard users can scroll content
-			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
 			tabIndex={showContentFocus ? 0 : undefined}
 			role={showContentFocus ? 'region' : undefined}
 			aria-label={showContentFocus ? 'Scrollable content' : undefined}

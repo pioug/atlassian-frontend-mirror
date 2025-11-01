@@ -7,55 +7,10 @@ import { Fragment, memo } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Anchor, Box, Pressable } from '@atlaskit/primitives/compiled';
+import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { SectionMessageActionProps } from './types';
-
-const stylesOld = cssMap({
-	common: {
-		color: token('color.link'),
-		font: token('font.body'),
-		fontWeight: token('font.weight.medium'),
-
-		'&:hover': {
-			color: token('color.link'),
-		},
-
-		'&:active': {
-			color: token('color.link.pressed'),
-		},
-	},
-	anchor: {
-		'&:hover': {
-			textDecoration: 'underline',
-		},
-
-		'&:visited': {
-			color: token('color.link.visited'),
-		},
-
-		// @ts-expect-error - chained pseudos are not supported properly
-		'&:visited:hover': {
-			color: token('color.link.visited'),
-		},
-		'&:visited:active': {
-			color: token('color.link.visited.pressed'),
-		},
-	},
-	pressable: {
-		backgroundColor: token('color.background.neutral.subtle'),
-		paddingTop: token('space.0'),
-		paddingRight: token('space.0'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.0'),
-
-		'&:hover': {
-			textDecoration: 'underline',
-		},
-	},
-});
 
 const styles = cssMap({
 	common: {
@@ -101,58 +56,33 @@ const SectionMessageAction = memo(function SectionMessageAction({
 	linkComponent,
 	target,
 }: SectionMessageActionProps) {
-	if (!linkComponent && fg('platform_section_message_action_migration')) {
+	if (!linkComponent) {
 		if (href) {
-			if (fg('platform_dst_section_message_actions_as_link')) {
-				return (
-					<span css={[styles.common, styles.anchor]}>
-						<Link testId={testId} onClick={onClick} href={href} target={target}>
-							{children}
-						</Link>
-					</span>
-				);
-			}
-
 			return (
-				<Anchor
-					testId={testId}
-					onClick={onClick}
-					href={href}
-					xcss={cx(stylesOld.common, stylesOld.anchor)}
-				>
-					{children}
-				</Anchor>
+				<span css={[styles.common, styles.anchor]}>
+					<Link testId={testId} onClick={onClick} href={href} target={target}>
+						{children}
+					</Link>
+				</span>
 			);
 		}
 
 		if (onClick) {
 			return (
-				<Pressable
-					testId={testId}
-					onClick={onClick}
-					xcss={cx(
-						fg('platform_dst_section_message_actions_as_link') ? styles.common : stylesOld.common,
-						fg('platform_dst_section_message_actions_as_link')
-							? styles.pressable
-							: stylesOld.pressable,
-					)}
-				>
+				<Pressable testId={testId} onClick={onClick} xcss={cx(styles.common, styles.pressable)}>
 					{children}
 				</Pressable>
 			);
 		}
 
 		return (
-			<Box
-				as="span"
-				testId={testId}
-				xcss={fg('platform_dst_section_message_actions_as_link') && styles.common}
-			>
+			<Box as="span" testId={testId} xcss={styles.common}>
 				{children}
 			</Box>
 		);
 	}
 
+	// TODO: Remove this once the deprecated `linkComponent` prop is removed.
 	return onClick || href ? (
 		<Button
 			testId={testId}

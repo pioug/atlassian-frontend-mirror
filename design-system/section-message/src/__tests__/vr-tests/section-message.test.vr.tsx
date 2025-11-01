@@ -22,12 +22,7 @@ snapshot(AppearanceVariations, {
 	},
 });
 
-snapshot(Actions, {
-	featureFlags: {
-		platform_section_message_action_migration: [true, false],
-		platform_dst_section_message_actions_as_link: [true, false],
-	},
-});
+snapshot(Actions);
 
 snapshot(Testing, {
 	description: 'word wrapping behaviour',

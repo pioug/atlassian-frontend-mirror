@@ -134,7 +134,6 @@ export const ReactionsDialog = ({
 			onClose={handleCloseReactionsDialog}
 			height={600}
 			testId={RENDER_MODAL_TESTID}
-			// eslint-disable-next-line @atlassian/a11y/no-autofocus
 			autoFocus={fg('platform-a11y-remove-autofocus-prop') ? true : false}
 		>
 			<Tabs id="reactions-dialog-tabs" onChange={onTabChange} selected={selectedIndex}>

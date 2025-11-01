@@ -33,7 +33,7 @@ const CopyButton = ({ content, intl }: Props & WrappedComponentProps) => {
 			{({ fireAnalyticsEvent }) => (
 				<span>
 					<Tooltip content={tooltip} hideTooltipOnClick={false} position="top">
-						{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/mouse-events-have-key-events*/}
+						{/* eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events*/}
 						<div onMouseLeave={onMouseLeave}>
 							<Button
 								appearance="subtle"

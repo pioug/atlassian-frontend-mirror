@@ -191,6 +191,19 @@ export type InsertPromptPayload = PayloadCore<
 	}
 >;
 
+/** Inserts URLs as inline nodes into the chat input
+ * - URLs are deduplicated against existing content
+ * - Formatted as inline card nodes in the editor
+ * - Supports multiple card types (Jira, Confluence, Trello, etc.)
+ */
+export type InsertUrlsPayload = PayloadCore<
+	'insert-urls',
+	{
+		urls: string[];
+		urlType: 'trello/card';
+	}
+>;
+
 export type TransitionId = string;
 export type StatusId = string;
 export type StatusCategory = 'TODO' | 'IN_PROGRESS' | 'DONE' | 'UNDEFINED';
@@ -310,7 +323,8 @@ export type Payload =
 	| JiraWorkflowWizardActionsPayload
 	| InsertPromptPayload
 	| DashboardInsightsActionsPayload
-	| SetChatContextPayload;
+	| SetChatContextPayload
+	| InsertUrlsPayload;
 
 export type Callback = (payload: Payload) => void;
 

@@ -691,7 +691,6 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 				data-testid="editor-content-container"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={style as React.CSSProperties}
-				// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex -- Adding tabIndex here because this is a scrollable container and it needs to be focusable so keyboard users can scroll it.
 				tabIndex={isScrollable ? 0 : undefined}
 				role={isScrollable ? 'region' : undefined}
 			>

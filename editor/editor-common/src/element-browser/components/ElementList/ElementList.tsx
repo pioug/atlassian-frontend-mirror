@@ -411,7 +411,6 @@ const ElementListMultipleColumns = (props: ElementListMultipleColumnsProps) => {
 						columnIndex={columnIndex}
 						parent={parent}
 					>
-						{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions*/}
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							style={style}

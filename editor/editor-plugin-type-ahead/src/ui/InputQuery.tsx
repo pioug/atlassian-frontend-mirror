@@ -584,7 +584,7 @@ export const InputQuery = React.memo(
 			<Fragment>
 				{triggerQueryPrefix}
 				{/* When cleaning up platform_editor_a11y_remove_input_query_on_click remove the eslint disable */}
-				{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/interactive-supports-focus -- See https://go/a11y-interactive-supports-focus for more details */}
+				{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 				<span
 					css={[
 						querySpanStyles,

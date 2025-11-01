@@ -157,6 +157,8 @@ export const useOverflowController = (
 			}
 			return;
 		}
+
+		return;
 	}, [width, hashRef, itemsLimit, itemsWidths, forceEffectValue, items.length]);
 
 	return {
@@ -168,4 +170,4 @@ export const useOverflowController = (
 
 // Used to extract props for useOverflowStatus();
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (props: OverflowContext): void => {};
+export default (_props: OverflowContext): void => {};

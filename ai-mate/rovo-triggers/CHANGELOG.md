@@ -1,5 +1,21 @@
 # @atlaskit/rovo-triggers
 
+## 3.17.0
+
+### Minor Changes
+
+- [`8c79d013d1465`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c79d013d1465) -
+  [ux] Added Drag-and-Drop URL Support
+
+  Added ability to drag and drop card URLs (e.g., Trello cards) directly into chat input
+  - URLs are automatically formatted as inline cards
+  - Duplicate URLs are automatically detected and prevented
+  - Proper spacing and formatting maintained between multiple cards
+
+  Enhanced
+  - File upload dropzone now supports both file attachments and URL card drops
+  - Chat input editor can now receive URLs from external sources via drag-and-drop
+
 ## 3.16.0
 
 ### Minor Changes

@@ -173,7 +173,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 
 		isOpenAllowed = isCellMenuOpenByKeyboard ? this.state.isOpenAllowed : isOpen;
 		const popupContent = () => (
-			// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 			<div
 				data-testid="table-cell-contextual-menu"
 				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events

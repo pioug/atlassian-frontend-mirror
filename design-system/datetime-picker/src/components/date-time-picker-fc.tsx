@@ -339,7 +339,6 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 					<DatePicker
 						appearance={appearance}
 						aria-describedby={datePickerAriaDescribedBy}
-						// eslint-disable-next-line @atlassian/a11y/no-autofocus
 						autoFocus={datePickerProps.autoFocus || autoFocus}
 						dateFormat={datePickerProps.dateFormat}
 						defaultIsOpen={datePickerProps.defaultIsOpen}
@@ -382,7 +381,6 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 					<TimePicker
 						appearance={timePickerProps.appearance || appearance}
 						aria-describedby={timePickerAriaDescribedBy}
-						// eslint-disable-next-line @atlassian/a11y/no-autofocus
 						autoFocus={timePickerProps.autoFocus}
 						defaultIsOpen={timePickerProps.defaultIsOpen}
 						defaultValue={timePickerProps.defaultValue}

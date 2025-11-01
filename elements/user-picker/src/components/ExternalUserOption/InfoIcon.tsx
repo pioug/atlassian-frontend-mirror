@@ -20,7 +20,7 @@ export default () => {
 	const onMouseLeave = useCallback(() => setHoverState(false), [setHoverState]);
 
 	return (
-		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/mouse-events-have-key-events
+		// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 		<div css={wrapper} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 			<EditorPanelIcon
 				testId="source-icon"

@@ -220,6 +220,26 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 		return messages.canBeContactedLabel;
 	};
 
+	const requiredFieldsSummary = (
+		// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
+		<p
+			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				color: token('color.text.subtle', N300),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				marginBottom: token('space.300', '24px'),
+			}}
+		>
+			{formatMessage(messages.requiredFieldsSummary)}
+			<RequiredAsterisk />
+		</p>
+	);
+
+	const feedbackIsAnonymous = (
+		// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
+		<p>{formatMessage(messages.feedbackIsAnonymous)}</p>
+	);
+
 	return (
 		<Modal
 			shouldCloseOnOverlayClick={false}
@@ -228,238 +248,448 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 			shouldReturnFocus={shouldReturnFocusRef}
 			shouldScrollInViewport
 		>
-			<Form
-				onSubmit={async () => {
-					if (useNewValidation) {
-						// New validation: validate on submit and show errors
-						const errors = getValidationErrors();
+			{fg('platform-design_system_team-form_conversion') ? (
+				<Form
+					onSubmit={async () => {
+						if (useNewValidation) {
+							// New validation: validate on submit and show errors
+							const errors = getValidationErrors();
 
-						// If there are validation errors, show them and don't submit
-						if (Object.keys(errors).length > 0) {
-							setValidationErrors(errors);
-							return;
+							// If there are validation errors, show them and don't submit
+							if (Object.keys(errors).length > 0) {
+								setValidationErrors(errors);
+								return;
+							}
 						}
-					}
 
-					// Submit the form (both old and new validation paths reach here)
-					setIsSubmitting(true);
-					try {
-						await onSubmit({
-							canBeContacted,
-							description,
-							enrollInResearchGroup,
-							type,
-						});
-					} finally {
-						setIsSubmitting(false);
-					}
-				}}
-			>
-				{({ formProps }) => (
-					<form {...formProps}>
-						<ModalHeader hasCloseButton>
-							<ModalTitle>
-								{feedbackTitle || <FormattedMessage {...messages.feedbackTitle} />}
-							</ModalTitle>
-						</ModalHeader>
-						<ModalBody>
-							{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-							<p
-								style={{
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									color: token('color.text.subtle', N300),
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									marginBottom: token('space.300', '24px'),
-								}}
+						// Submit the form (both old and new validation paths reach here)
+						setIsSubmitting(true);
+						try {
+							await onSubmit({
+								canBeContacted,
+								description,
+								enrollInResearchGroup,
+								type,
+							});
+						} finally {
+							setIsSubmitting(false);
+						}
+					}}
+				>
+					<ModalHeader hasCloseButton>
+						<ModalTitle>
+							{feedbackTitle || <FormattedMessage {...messages.feedbackTitle} />}
+						</ModalTitle>
+					</ModalHeader>
+					<ModalBody>
+						{requiredFieldsSummary}
+						{feedbackTitleDetails}
+						{customContent}
+						{showTypeField ? (
+							<Field
+								name="topic"
+								label={selectLabel || formatMessage(messages.selectionOptionDefaultLabel)}
+								isRequired
+								aria-required={true} // JCA11Y-1619
 							>
-								{formatMessage(messages.requiredFieldsSummary)}
-								<RequiredAsterisk />
-							</p>
-							{feedbackTitleDetails}
-							{customContent}
-							{showTypeField ? (
+								{({ fieldProps: { id, ...restProps } }) => (
+									<>
+										<Select<OptionType>
+											{...restProps}
+											onChange={(option) => {
+												if (!option || option instanceof Array) {
+													return;
+												}
+												setType(option.value);
+												// Clear validation error when user selects a type (only for new validation)
+												if (useNewValidation && validationErrors.type) {
+													setValidationErrors((prev) => ({ ...prev, type: undefined }));
+												}
+											}}
+											menuPortalTarget={document.body}
+											styles={{
+												menuPortal: (base) => ({
+													...base,
+													zIndex: 9999,
+												}),
+											}}
+											options={selectOptions}
+											// @ts-ignore
+											ref={focusRef}
+											placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
+											inputId={id}
+										/>
+										{useNewValidation && validationErrors.type && (
+											<ErrorMessage>{validationErrors.type}</ErrorMessage>
+										)}
+									</>
+								)}
+							</Field>
+						) : null}
+						{showDefaultTextFields && canShowTextField && (
+							<>
 								<Field
-									name="topic"
-									label={selectLabel || formatMessage(messages.selectionOptionDefaultLabel)}
+									label={
+										showTypeField
+											? getFieldLabels(feedbackGroupLabels)[type]
+											: customTextAreaLabel || formatMessage(messages.defaultCustomTextAreaLabel)
+									}
 									isRequired
-									aria-required={true} // JCA11Y-1619
+									name="description"
 								>
-									{({ fieldProps: { id, ...restProps } }) => (
+									{({ fieldProps }) => (
 										<>
-											<Select<OptionType>
-												{...restProps}
-												onChange={(option) => {
-													if (!option || option instanceof Array) {
-														return;
-													}
-													setType(option.value);
-													// Clear validation error when user selects a type (only for new validation)
-													if (useNewValidation && validationErrors.type) {
-														setValidationErrors((prev) => ({ ...prev, type: undefined }));
+											<TextArea
+												{...fieldProps}
+												name="foo"
+												minimumRows={6}
+												placeholder={summaryPlaceholder || undefined}
+												onChange={(e) => {
+													setDescription(e.target.value);
+													// Clear validation error when user types
+													if (useNewValidation && validationErrors.description) {
+														setValidationErrors((prev) => ({ ...prev, description: undefined }));
 													}
 												}}
-												menuPortalTarget={document.body}
-												styles={{
-													menuPortal: (base) => ({
-														...base,
-														zIndex: 9999,
-													}),
-												}}
-												options={selectOptions}
-												// @ts-ignore
-												ref={focusRef}
-												placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
-												inputId={id}
+												value={description}
 											/>
-											{useNewValidation && validationErrors.type && (
-												<ErrorMessage>{validationErrors.type}</ErrorMessage>
+											{useNewValidation && validationErrors.description && (
+												<ErrorMessage>{validationErrors.description}</ErrorMessage>
 											)}
 										</>
 									)}
 								</Field>
-							) : null}
-							{showDefaultTextFields && canShowTextField && (
-								<>
+								{(!anonymousFeedback && (
+									<Fieldset>
+										<legend aria-hidden={false} hidden>
+											Atlassian opt-in options
+										</legend>
+										<Field name="can-be-contacted">
+											{({ fieldProps }) => (
+												<>
+													<Checkbox
+														{...fieldProps}
+														aria-describedby={undefined} // JCA11Y-1988
+														label={
+															canBeContactedLabel || (
+																<FormattedMessage
+																	{...(fg('product-terminology-refresh')
+																		? renderContactLabelAppify()
+																		: renderContactLabel())}
+																	{...(!fg('jfp_a11y_team_feedback_collector_nested_elements') && {
+																		values: {
+																			a: (chunks: React.ReactNode[]) => (
+																				<Link
+																					href="https://www.atlassian.com/legal/privacy-policy"
+																					target="_blank"
+																				>
+																					{chunks}
+																				</Link>
+																			),
+																		},
+																	})}
+																/>
+															)
+														}
+														onChange={(event) => setCanBeContacted(event.target.checked)}
+													/>
+													{canBeContactedLabel &&
+														canBeContactedLink &&
+														fg('jfp_a11y_team_feedback_collector_nested_elements') && (
+															<LinkWrapper>{canBeContactedLink}</LinkWrapper>
+														)}
+													{!canBeContactedLabel &&
+														fg('jfp_a11y_team_feedback_collector_nested_elements') && (
+															<LinkWrapper>
+																<Link
+																	href="https://www.atlassian.com/legal/privacy-policy"
+																	target="_blank"
+																>
+																	{formatMessage(messages.privacyPolicy)}
+																</Link>
+															</LinkWrapper>
+														)}
+												</>
+											)}
+										</Field>
+										<Field name="enroll-in-research-group">
+											{({ fieldProps }) => (
+												<>
+													<Checkbox
+														{...fieldProps}
+														aria-describedby={undefined} // JCA11Y-1988
+														label={
+															enrolInResearchLabel || formatMessage(messages.enrolInResearchLabel)
+														}
+														onChange={(event) => setEnrollInResearchGroup(event.target.checked)}
+													/>
+													{enrolInResearchLabel &&
+														enrolInResearchLink &&
+														fg('jfp_a11y_team_feedback_collector_nested_elements') && (
+															<LinkWrapper>{enrolInResearchLink}</LinkWrapper>
+														)}
+												</>
+											)}
+										</Field>
+									</Fieldset>
+								)) || (
+									<>
+										<Field name={'anonymousFeedback'}>
+											{() => (
+												<SectionMessage
+													title={formatMessage(messages.feedbackIsAnonymousTitle)}
+													appearance={'information'}
+												>
+													{feedbackIsAnonymous}
+												</SectionMessage>
+											)}
+										</Field>
+									</>
+								)}
+							</>
+						)}
+					</ModalBody>
+					<ModalFooter>
+						<Button appearance="subtle" onClick={onClose}>
+							{cancelButtonLabel || <FormattedMessage {...messages.cancelButtonLabel} />}
+						</Button>
+						<Button
+							appearance="primary"
+							type="submit"
+							isDisabled={isSubmitting || isDisabled}
+							testId="feedbackCollectorSubmitBtn"
+						>
+							{submitButtonLabel || <FormattedMessage {...messages.submitButtonLabel} />}
+						</Button>
+					</ModalFooter>
+				</Form>
+			) : (
+				<Form
+					onSubmit={async () => {
+						if (useNewValidation) {
+							// New validation: validate on submit and show errors
+							const errors = getValidationErrors();
+
+							// If there are validation errors, show them and don't submit
+							if (Object.keys(errors).length > 0) {
+								setValidationErrors(errors);
+								return;
+							}
+						}
+
+						// Submit the form (both old and new validation paths reach here)
+						setIsSubmitting(true);
+						try {
+							await onSubmit({
+								canBeContacted,
+								description,
+								enrollInResearchGroup,
+								type,
+							});
+						} finally {
+							setIsSubmitting(false);
+						}
+					}}
+				>
+					{({ formProps }) => (
+						<form {...formProps}>
+							<ModalHeader hasCloseButton>
+								<ModalTitle>
+									{feedbackTitle || <FormattedMessage {...messages.feedbackTitle} />}
+								</ModalTitle>
+							</ModalHeader>
+							<ModalBody>
+								{requiredFieldsSummary}
+								{feedbackTitleDetails}
+								{customContent}
+								{showTypeField ? (
 									<Field
-										label={
-											showTypeField
-												? getFieldLabels(feedbackGroupLabels)[type]
-												: customTextAreaLabel || formatMessage(messages.defaultCustomTextAreaLabel)
-										}
+										name="topic"
+										label={selectLabel || formatMessage(messages.selectionOptionDefaultLabel)}
 										isRequired
-										name="description"
+										aria-required={true} // JCA11Y-1619
 									>
-										{({ fieldProps }) => (
+										{({ fieldProps: { id, ...restProps } }) => (
 											<>
-												<TextArea
-													{...fieldProps}
-													name="foo"
-													minimumRows={6}
-													placeholder={summaryPlaceholder || undefined}
-													onChange={(e) => {
-														setDescription(e.target.value);
-														// Clear validation error when user types
-														if (useNewValidation && validationErrors.description) {
-															setValidationErrors((prev) => ({ ...prev, description: undefined }));
+												<Select<OptionType>
+													{...restProps}
+													onChange={(option) => {
+														if (!option || option instanceof Array) {
+															return;
+														}
+														setType(option.value);
+														// Clear validation error when user selects a type (only for new validation)
+														if (useNewValidation && validationErrors.type) {
+															setValidationErrors((prev) => ({ ...prev, type: undefined }));
 														}
 													}}
-													value={description}
+													menuPortalTarget={document.body}
+													styles={{
+														menuPortal: (base) => ({
+															...base,
+															zIndex: 9999,
+														}),
+													}}
+													options={selectOptions}
+													// @ts-ignore
+													ref={focusRef}
+													placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
+													inputId={id}
 												/>
-												{useNewValidation && validationErrors.description && (
-													<ErrorMessage>{validationErrors.description}</ErrorMessage>
+												{useNewValidation && validationErrors.type && (
+													<ErrorMessage>{validationErrors.type}</ErrorMessage>
 												)}
 											</>
 										)}
 									</Field>
-									{(!anonymousFeedback && (
-										<Fieldset>
-											<legend aria-hidden={false} hidden>
-												Atlassian opt-in options
-											</legend>
-											<Field name="can-be-contacted">
-												{({ fieldProps }) => (
-													<>
-														<Checkbox
-															{...fieldProps}
-															aria-describedby={undefined} // JCA11Y-1988
-															label={
-																canBeContactedLabel || (
-																	<FormattedMessage
-																		{...(fg('product-terminology-refresh')
-																			? renderContactLabelAppify()
-																			: renderContactLabel())}
-																		{...(!fg(
-																			'jfp_a11y_team_feedback_collector_nested_elements',
-																		) && {
-																			values: {
-																				a: (chunks: React.ReactNode[]) => (
-																					<Link
-																						href="https://www.atlassian.com/legal/privacy-policy"
-																						target="_blank"
-																					>
-																						{chunks}
-																					</Link>
-																				),
-																			},
-																		})}
-																	/>
-																)
+								) : null}
+								{showDefaultTextFields && canShowTextField && (
+									<>
+										<Field
+											label={
+												showTypeField
+													? getFieldLabels(feedbackGroupLabels)[type]
+													: customTextAreaLabel ||
+														formatMessage(messages.defaultCustomTextAreaLabel)
+											}
+											isRequired
+											name="description"
+										>
+											{({ fieldProps }) => (
+												<>
+													<TextArea
+														{...fieldProps}
+														name="foo"
+														minimumRows={6}
+														placeholder={summaryPlaceholder || undefined}
+														onChange={(e) => {
+															setDescription(e.target.value);
+															// Clear validation error when user types
+															if (useNewValidation && validationErrors.description) {
+																setValidationErrors((prev) => ({
+																	...prev,
+																	description: undefined,
+																}));
 															}
-															onChange={(event) => setCanBeContacted(event.target.checked)}
-														/>
-														{canBeContactedLabel &&
-															canBeContactedLink &&
-															fg('jfp_a11y_team_feedback_collector_nested_elements') && (
-																<LinkWrapper>{canBeContactedLink}</LinkWrapper>
-															)}
-														{!canBeContactedLabel &&
-															fg('jfp_a11y_team_feedback_collector_nested_elements') && (
-																<LinkWrapper>
-																	<Link
-																		href="https://www.atlassian.com/legal/privacy-policy"
-																		target="_blank"
-																	>
-																		{formatMessage(messages.privacyPolicy)}
-																	</Link>
-																</LinkWrapper>
-															)}
-													</>
-												)}
-											</Field>
-											<Field name="enroll-in-research-group">
-												{({ fieldProps }) => (
-													<>
-														<Checkbox
-															{...fieldProps}
-															aria-describedby={undefined} // JCA11Y-1988
-															label={
-																enrolInResearchLabel || formatMessage(messages.enrolInResearchLabel)
-															}
-															onChange={(event) => setEnrollInResearchGroup(event.target.checked)}
-														/>
-														{enrolInResearchLabel &&
-															enrolInResearchLink &&
-															fg('jfp_a11y_team_feedback_collector_nested_elements') && (
-																<LinkWrapper>{enrolInResearchLink}</LinkWrapper>
-															)}
-													</>
-												)}
-											</Field>
-										</Fieldset>
-									)) || (
-										<>
-											<Field name={'anonymousFeedback'}>
-												{() => (
-													<SectionMessage
-														title={formatMessage(messages.feedbackIsAnonymousTitle)}
-														appearance={'information'}
-													>
-														{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-														<p>{formatMessage(messages.feedbackIsAnonymous)}</p>
-													</SectionMessage>
-												)}
-											</Field>
-										</>
-									)}
-								</>
-							)}
-						</ModalBody>
-						<ModalFooter>
-							<Button appearance="subtle" onClick={onClose}>
-								{cancelButtonLabel || <FormattedMessage {...messages.cancelButtonLabel} />}
-							</Button>
-							<Button
-								appearance="primary"
-								type="submit"
-								isDisabled={isSubmitting || isDisabled}
-								testId="feedbackCollectorSubmitBtn"
-							>
-								{submitButtonLabel || <FormattedMessage {...messages.submitButtonLabel} />}
-							</Button>
-						</ModalFooter>
-					</form>
-				)}
-			</Form>
+														}}
+														value={description}
+													/>
+													{useNewValidation && validationErrors.description && (
+														<ErrorMessage>{validationErrors.description}</ErrorMessage>
+													)}
+												</>
+											)}
+										</Field>
+										{(!anonymousFeedback && (
+											<Fieldset>
+												<legend aria-hidden={false} hidden>
+													Atlassian opt-in options
+												</legend>
+												<Field name="can-be-contacted">
+													{({ fieldProps }) => (
+														<>
+															<Checkbox
+																{...fieldProps}
+																aria-describedby={undefined} // JCA11Y-1988
+																label={
+																	canBeContactedLabel || (
+																		<FormattedMessage
+																			{...(fg('product-terminology-refresh')
+																				? renderContactLabelAppify()
+																				: renderContactLabel())}
+																			{...(!fg(
+																				'jfp_a11y_team_feedback_collector_nested_elements',
+																			) && {
+																				values: {
+																					a: (chunks: React.ReactNode[]) => (
+																						<Link
+																							href="https://www.atlassian.com/legal/privacy-policy"
+																							target="_blank"
+																						>
+																							{chunks}
+																						</Link>
+																					),
+																				},
+																			})}
+																		/>
+																	)
+																}
+																onChange={(event) => setCanBeContacted(event.target.checked)}
+															/>
+															{canBeContactedLabel &&
+																canBeContactedLink &&
+																fg('jfp_a11y_team_feedback_collector_nested_elements') && (
+																	<LinkWrapper>{canBeContactedLink}</LinkWrapper>
+																)}
+															{!canBeContactedLabel &&
+																fg('jfp_a11y_team_feedback_collector_nested_elements') && (
+																	<LinkWrapper>
+																		<Link
+																			href="https://www.atlassian.com/legal/privacy-policy"
+																			target="_blank"
+																		>
+																			{formatMessage(messages.privacyPolicy)}
+																		</Link>
+																	</LinkWrapper>
+																)}
+														</>
+													)}
+												</Field>
+												<Field name="enroll-in-research-group">
+													{({ fieldProps }) => (
+														<>
+															<Checkbox
+																{...fieldProps}
+																aria-describedby={undefined} // JCA11Y-1988
+																label={
+																	enrolInResearchLabel ||
+																	formatMessage(messages.enrolInResearchLabel)
+																}
+																onChange={(event) => setEnrollInResearchGroup(event.target.checked)}
+															/>
+															{enrolInResearchLabel &&
+																enrolInResearchLink &&
+																fg('jfp_a11y_team_feedback_collector_nested_elements') && (
+																	<LinkWrapper>{enrolInResearchLink}</LinkWrapper>
+																)}
+														</>
+													)}
+												</Field>
+											</Fieldset>
+										)) || (
+											<>
+												<Field name={'anonymousFeedback'}>
+													{() => (
+														<SectionMessage
+															title={formatMessage(messages.feedbackIsAnonymousTitle)}
+															appearance={'information'}
+														>
+															{feedbackIsAnonymous}
+														</SectionMessage>
+													)}
+												</Field>
+											</>
+										)}
+									</>
+								)}
+							</ModalBody>
+							<ModalFooter>
+								<Button appearance="subtle" onClick={onClose}>
+									{cancelButtonLabel || <FormattedMessage {...messages.cancelButtonLabel} />}
+								</Button>
+								<Button
+									appearance="primary"
+									type="submit"
+									isDisabled={isSubmitting || isDisabled}
+									testId="feedbackCollectorSubmitBtn"
+								>
+									{submitButtonLabel || <FormattedMessage {...messages.submitButtonLabel} />}
+								</Button>
+							</ModalFooter>
+						</form>
+					)}
+				</Form>
+			)}
 		</Modal>
 	);
 };

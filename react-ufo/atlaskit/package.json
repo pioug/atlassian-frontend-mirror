@@ -140,9 +140,6 @@
 		"platform_ufo_enable_media_for_ttvc_v3": {
 			"type": "boolean"
 		},
-		"ufo_targeting_confluence_hello": {
-			"type": "boolean"
-		},
 		"platform_ufo_remove_deprecated_config_fields": {
 			"type": "boolean"
 		},

@@ -197,7 +197,7 @@ const PDFRendererBase = ({
 					{
 						// eslint-disable-next-line @atlaskit/design-system/prefer-primitives, @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 						<div
-							// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={pdfViewerClassName}
 							onClick={closeOnDirectClick(onClose)}
 						/>

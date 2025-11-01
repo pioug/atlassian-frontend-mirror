@@ -40,7 +40,6 @@ const PopupDisableAutofocusExample = () => {
 			<Textfield placeholder="This should stay focused when the popup opens" />
 			<Popup
 				shouldRenderToParent
-				// eslint-disable-next-line @atlassian/a11y/no-autofocus
 				autoFocus={false}
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}

@@ -320,7 +320,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 	};
 
 	return (
-		/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable*/
+		/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable*/
 		<div
 			css={wrapper}
 			data-testid="element-browser"

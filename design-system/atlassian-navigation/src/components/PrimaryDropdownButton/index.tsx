@@ -5,7 +5,7 @@
 import { forwardRef, type Ref } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import ChevronIconMigration from '@atlaskit/icon/core/migration/chevron-down';
 import { token } from '@atlaskit/tokens';
@@ -13,6 +13,10 @@ import { token } from '@atlaskit/tokens';
 import { PrimaryButton } from '../PrimaryButton';
 
 import { type PrimaryDropdownButtonProps } from './types';
+
+const buttonNoOpStyle = css({
+	'--noop': 1,
+});
 
 /**
  * __Primary dropdown button__
@@ -47,7 +51,8 @@ export const PrimaryDropdownButton: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 				theme={theme}
 				tooltip={tooltip}
-				// These are mostly explicit, leaving it in just in case
+				css={[buttonNoOpStyle] as any} // Typescript working for css mismatch error
+				// These are all explicit, leaving it in just in case
 				{...rest}
 			/>
 		);

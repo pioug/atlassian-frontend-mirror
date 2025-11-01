@@ -52,9 +52,8 @@ export const PrimaryItemsContainer = ({
 	moreLabel,
 	items,
 	create: Create,
-	theme,
 	testId,
-}: PrimaryItemsContainerProps & { theme: NavigationTheme }) => {
+}: PrimaryItemsContainerProps & { theme?: NavigationTheme }) => {
 	const [isMoreOpen, setIsMoreOpen] = useState(false);
 	const { updateWidth, visibleItems, overflowItems } = useOverflowController(items);
 

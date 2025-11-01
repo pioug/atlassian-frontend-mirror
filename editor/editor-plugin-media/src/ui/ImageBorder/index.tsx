@@ -401,7 +401,6 @@ const ImageBorder = ({
 				forcePlacement={true}
 				stick={true}
 			>
-				{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions*/}
 				<div
 					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 					onMouseLeave={() => {

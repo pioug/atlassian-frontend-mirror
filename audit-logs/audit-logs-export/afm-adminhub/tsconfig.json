@@ -1,0 +1,47 @@
+{
+	"extends": "../../../../tsconfig.entry-points.adminhub.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../adminhub/tsDist/@atlaskit__audit-logs-export/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/button/afm-adminhub/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/checkbox/afm-adminhub/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-adminhub/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-adminhub/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-adminhub/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-adminhub/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-adminhub/tsconfig.json"
+		}
+	]
+}

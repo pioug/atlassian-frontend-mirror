@@ -72,7 +72,6 @@ export default class NumberColumn extends Component<Props, any> {
 			>
 				{rowHeights.map((rowHeight, index) =>
 					isDragAndDropEnabled ? (
-						// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 						<div
 							// Ignored via go/ees005
 							// eslint-disable-next-line react/no-array-index-key

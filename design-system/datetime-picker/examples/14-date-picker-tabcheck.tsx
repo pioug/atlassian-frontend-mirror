@@ -32,7 +32,6 @@ export default () => {
 						Picker popup field
 					</Label>
 					<DatePicker
-						// eslint-disable-next-line @atlassian/a11y/no-autofocus
 						autoFocus={false}
 						id="react-select-value1-input"
 						clearControlLabel="Clear picker popup field"

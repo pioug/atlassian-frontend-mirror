@@ -47,7 +47,6 @@ export const ListRow = forwardRef<HTMLDivElement, Props>(
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			<div ref={ref} style={style} data-index={index}>
-				{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions*/}
 				<div
 					ref={childElementRef}
 					data-testid={`list-item-height-observed-${index}`}

@@ -11,7 +11,6 @@ import JiraLabsIcon from '@atlaskit/icon/glyph/jira/labs';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { Text } from '@atlaskit/primitives/compiled';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import SectionMessage, { SectionMessageAction } from '../../index';
 import { type Appearance } from '../../types';
@@ -130,166 +129,56 @@ describe('SectionMessage', () => {
 			expect(screen.getAllByText('·')).toHaveLength(1);
 		});
 
-		describe('should render an anchor when passed a `href`', () => {
-			ffTest(
-				'platform_section_message_action_migration',
-				(ff) => {
-					ffTest(
-						'platform_dst_section_message_actions_as_link',
-						() => {
-							render(
-								<SectionMessage
-									actions={
-										<SectionMessageAction href="https://atlaskit.atlassian.com/" testId="action">
-											Foo
-										</SectionMessageAction>
-									}
-								>
-									Bar
-								</SectionMessage>,
-							);
-
-							expect(screen.getByTestId('action')).toBeInstanceOf(HTMLAnchorElement);
-						},
-						() => {
-							render(
-								<SectionMessage
-									actions={
-										<SectionMessageAction href="https://atlaskit.atlassian.com/" testId="action">
-											Foo
-										</SectionMessageAction>
-									}
-								>
-									Bar
-								</SectionMessage>,
-							);
-
-							expect(screen.getByTestId('action')).toBeInstanceOf(HTMLAnchorElement);
-						},
-						ff,
-					);
-				},
-				() => {
-					const { container } = render(
-						<SectionMessage
-							actions={
-								<SectionMessageAction href="https://atlaskit.atlassian.com/">
-									aye
-								</SectionMessageAction>
-							}
-						>
-							boo
-						</SectionMessage>,
-					);
-
-					expect(getByHref(container, 'https://atlaskit.atlassian.com/')?.textContent).toBe('aye');
-				},
+		it('should render an anchor when passed a `href`', () => {
+			render(
+				<SectionMessage
+					actions={
+						<SectionMessageAction href="https://atlaskit.atlassian.com/" testId="action">
+							Foo
+						</SectionMessageAction>
+					}
+				>
+					Bar
+				</SectionMessage>,
 			);
+
+			expect(screen.getByTestId('action')).toBeInstanceOf(HTMLAnchorElement);
 		});
 
-		describe('should render an anchor when passed both a `href` and `onClick`', () => {
-			ffTest(
-				'platform_section_message_action_migration',
-				(ff) => {
-					ffTest(
-						'platform_dst_section_message_actions_as_link',
-						() => {
-							render(
-								<SectionMessage
-									actions={
-										<SectionMessageAction
-											onClick={noop}
-											href="https://atlaskit.atlassian.com/"
-											testId="action"
-										>
-											Foo
-										</SectionMessageAction>
-									}
-								>
-									Bar
-								</SectionMessage>,
-							);
-
-							expect(screen.getByTestId('action')).toBeInstanceOf(HTMLAnchorElement);
-						},
-						() => {
-							render(
-								<SectionMessage
-									actions={
-										<SectionMessageAction
-											onClick={noop}
-											href="https://atlaskit.atlassian.com/"
-											testId="action"
-										>
-											Foo
-										</SectionMessageAction>
-									}
-								>
-									Bar
-								</SectionMessage>,
-							);
-
-							expect(screen.getByTestId('action')).toBeInstanceOf(HTMLAnchorElement);
-						},
-						ff,
-					);
-				},
-				() => {
-					render(
-						<SectionMessage
-							actions={
-								<SectionMessageAction
-									onClick={noop}
-									href="https://atlaskit.atlassian.com/"
-									testId="action"
-								>
-									Foo
-								</SectionMessageAction>
-							}
+		it('should render an anchor when passed both a `href` and `onClick`', () => {
+			render(
+				<SectionMessage
+					actions={
+						<SectionMessageAction
+							onClick={noop}
+							href="https://atlaskit.atlassian.com/"
+							testId="action"
 						>
-							Bar
-						</SectionMessage>,
-					);
-
-					expect(screen.getByTestId('action')).toBeInstanceOf(HTMLAnchorElement);
-				},
+							Foo
+						</SectionMessageAction>
+					}
+				>
+					Bar
+				</SectionMessage>,
 			);
+
+			expect(screen.getByTestId('action')).toBeInstanceOf(HTMLAnchorElement);
 		});
 
-		describe('should render a button when passed a `onClick` with no `href`', () => {
-			ffTest(
-				'platform_section_message_action_migration',
-				() => {
-					render(
-						<SectionMessage
-							actions={
-								<SectionMessageAction onClick={noop} testId="action">
-									Foo
-								</SectionMessageAction>
-							}
-						>
-							Bar
-						</SectionMessage>,
-					);
-
-					expect(screen.getByTestId('action')).toBeInstanceOf(HTMLButtonElement);
-				},
-				() => {
-					render(
-						<SectionMessage
-							actions={
-								<SectionMessageAction onClick={noop} testId="action">
-									Foo
-								</SectionMessageAction>
-							}
-						>
-							Bar
-						</SectionMessage>,
-					);
-
-					expect(screen.getByTestId('action')).toBeInstanceOf(HTMLButtonElement);
-				},
+		it('should render a button when passed a `onClick` with no `href`', () => {
+			render(
+				<SectionMessage
+					actions={
+						<SectionMessageAction onClick={noop} testId="action">
+							Foo
+						</SectionMessageAction>
+					}
+				>
+					Bar
+				</SectionMessage>,
 			);
+
+			expect(screen.getByTestId('action')).toBeInstanceOf(HTMLButtonElement);
 		});
 
 		it('should render a custom component when an action with href is passed', () => {
@@ -313,61 +202,27 @@ describe('SectionMessage', () => {
 			);
 		});
 
-		describe('should render an anchor with a `target` when also passed a `href`', () => {
-			ffTest(
-				'platform_section_message_action_migration',
-				(ff) => {
-					ffTest(
-						'platform_dst_section_message_actions_as_link',
-						() => {
-							render(
-								<SectionMessage
-									actions={
-										<SectionMessageAction
-											href="https://atlaskit.atlassian.com/"
-											testId="action"
-											target="_blank"
-										>
-											Foo
-										</SectionMessageAction>
-									}
-								>
-									Bar
-								</SectionMessage>,
-							);
-
-							const action = screen.getByTestId('action');
-
-							expect(action).toBeInstanceOf(HTMLAnchorElement);
-							expect(action).toHaveAttribute('target', '_blank');
-						},
-						() => {
-							render(
-								<SectionMessage
-									actions={
-										<SectionMessageAction
-											href="https://atlaskit.atlassian.com/"
-											testId="action"
-											target="_blank"
-										>
-											Foo
-										</SectionMessageAction>
-									}
-								>
-									Bar
-								</SectionMessage>,
-							);
-							const action = screen.getByTestId('action');
-							expect(action).toBeInstanceOf(HTMLAnchorElement);
-							// `target` is only added to Link component actions
-							expect(action).not.toHaveAttribute('target');
-						},
-						ff,
-					);
-				},
-				// eslint-disable-next-line @repo/internal/react/use-noop
-				() => {},
+		it('should render an anchor with a `target` when also passed a `href`', () => {
+			render(
+				<SectionMessage
+					actions={
+						<SectionMessageAction
+							href="https://atlaskit.atlassian.com/"
+							testId="action"
+							target="_blank"
+						>
+							Foo
+						</SectionMessageAction>
+					}
+				>
+					Bar
+				</SectionMessage>,
 			);
+
+			const action = screen.getByTestId('action');
+
+			expect(action).toBeInstanceOf(HTMLAnchorElement);
+			expect(action).toHaveAttribute('target', '_blank');
 		});
 
 		it('should call "onClick" on the click of an action with "onClick" but no "href"', () => {

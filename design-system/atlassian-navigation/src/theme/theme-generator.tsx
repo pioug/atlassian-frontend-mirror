@@ -61,7 +61,7 @@ const generateButtonCSSStates = (colors: Colors, buttonType: ButtonType): Button
 	};
 };
 
-const generateCreateButtonColors = (themeBackground: string, themeHighlight: string) => ({
+const generateCreateButtonColors = (_themeBackground: string, themeHighlight: string) => ({
 	backgroundColor: themeHighlight,
 	color: generateTextColor(themeHighlight),
 	highlightColor: themeHighlight,

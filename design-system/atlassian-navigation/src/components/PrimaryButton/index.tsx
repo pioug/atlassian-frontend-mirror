@@ -28,6 +28,10 @@ const buttonBaseStyles = css({
 	flexDirection: 'column',
 });
 
+const buttonNoOpStyle = css({
+	'--noop': 1,
+});
+
 const buttonHighlightedStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&& > *': {
@@ -98,6 +102,7 @@ export const PrimaryButton: React.ForwardRefExoticComponent<
 					testId={testId}
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-unsafe-style-overrides
 					theme={theme || getPrimaryButtonTheme(themeFromContext)}
+					css={[buttonNoOpStyle] as any} // Typescript working for css mismatch error
 					// These are all explicit, leaving it in just in case
 					{...rest}
 				>

@@ -1,5 +1,17 @@
 # @atlaskit/section-message
 
+## 8.9.0
+
+### Minor Changes
+
+- [`0f1032d1ae484`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f1032d1ae484) -
+  Updates to Section message actions:
+  - Actions that do not have `linkComponent` component overrides will no longer utilize the legacy
+    `Button` component, and now utilize either the `Pressable` primitive or `Link` component
+    depending on whether `onClick` or `href` props are set. The `linkComponent` prop otherwise
+    behaves as it did before, but remains deprecated and scheduled to be removed in a later version.
+  - Plain-text actions with a `onClick` or `href` now have body font styles applied by default.
+
 ## 8.8.1
 
 ### Patch Changes

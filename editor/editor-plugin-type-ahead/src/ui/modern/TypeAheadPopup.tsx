@@ -360,7 +360,6 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		>
 			<div
 				css={[typeAheadContent]}
-				// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
 				tabIndex={fg('platform_editor_a11y_fix_typeahead_tabindex') ? undefined : 0}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={TYPE_AHEAD_POPUP_CONTENT_CLASS}

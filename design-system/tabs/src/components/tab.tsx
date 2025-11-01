@@ -30,7 +30,6 @@ const Tab: React.ForwardRefExoticComponent<
 	}: TabAttributesType = useTab();
 
 	return (
-		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<Focusable
 			as="div"
 			isInset

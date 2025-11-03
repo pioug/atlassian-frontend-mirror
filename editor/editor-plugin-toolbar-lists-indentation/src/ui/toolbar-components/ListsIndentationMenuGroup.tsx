@@ -126,15 +126,9 @@ export const getListsIndentationMenu = (
 								rank: LISTS_INDENTATION_MENU_SECTION_RANK[TASK_LIST_MENU_ITEM.key],
 							},
 						],
-						component: expValEquals(
-							'platform_editor_toolbar_task_list_menu_item',
-							'isEnabled',
-							true,
-						)
-							? ({ parents }: { parents: ToolbarComponentTypes }) => (
-									<TaskListMenuItem api={api} parents={parents} />
-								)
-							: undefined,
+						component: ({ parents }: { parents: ToolbarComponentTypes }) => (
+							<TaskListMenuItem api={api} parents={parents} />
+						),
 					},
 				]
 			: []),

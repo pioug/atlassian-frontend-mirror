@@ -3,111 +3,145 @@ order: 0
 ---
 
 import TooltipDefault from '../../examples/constellation/tooltip-default';
+import TooltipKeyboardShortcutExample from '../../examples/constellation/tooltip-keyboard-shortcut';
 import TooltipPosition from '../../examples/constellation/tooltip-position';
 import TooltipPositionMouse from '../../examples/constellation/tooltip-position-mouse';
 import TooltipAvoidTitle from '../../examples/constellation/tooltip-avoid-title';
 import TooltipCustomization from '../../examples/constellation/tooltip-customization';
 import TooltipUpdate from '../../examples/constellation/tooltip-update';
 import TooltipPreventInteractions from '../../examples/constellation/tooltip-prevent-interactions';
-import TooltipRenderProps from '../../examples/constellation/tooltip-render-props';
 import TooltipConditional from '../../examples/constellation/tooltip-conditional';
 
 ## Default
 
-The default form of a tooltip.
+Use the default tooltip to display brief, helpful information when a person hovers over a target
+element. The default tooltip will:
+
+- appear and disappear after a short delay.
+- remain visible if someone briefly moves their mouse off and back onto the target.
+- disappear immediately if someone hovers over or focuses on another element with a tooltip, or if
+  they scroll the page.
+
+Tooltip content will wrap at 240px to maintain readability.
 
 <Example Component={TooltipDefault} packageName="@atlaskit/tooltip" />
 
+## With keyboard shortcut
+
+Use the `shortcut` prop to display a keyboard shortcut in the tooltip. Keys will be displayed as
+individual keyboard key segments below the tooltip content.
+
+Keyboard shortcuts in tooltips are hidden from screen readers, so always provide them in another
+way, such as a panel or dialog. This ensures everyone can discover and use shortcuts, no matter how
+they navigate.
+
+<Example Component={TooltipKeyboardShortcutExample} packageName="@atlaskit/tooltip" />
+
 ## Positioning
 
-Use the `position` prop to set a preferred position (`auto`, `top`, `right`, `left`, or `bottom`).
-The tooltip will move automatically if it's near the edge of the screen.
+### Relative to target
 
-Using a position of `auto` will place the tooltip on the side with the most space available.
+Use the `position` prop to specify where the tooltip appears relative to its target: `top`, `right`,
+`left`, or `bottom`.
+
+- Set `position="auto"` so the tooltip automatically shows on the side with the most available
+  space.
+- If you don’t set a position, the tooltip defaults to `bottom`.
+- If the preferred side would cause it to overflow the screen, the tooltip will automatically adjust
+  its position.
 
 <Example Component={TooltipPosition} packageName="@atlaskit/tooltip" />
 
-If set to `mouse`, the tooltip will display next to the mouse pointer. Use `mousePosition` to
-customize where the tooltip shows in relation to the mouse.
+### Relative to mouse pointer
+
+Positioning the tooltip near the mouse pointer, rather than the target, is helpful in scenarios
+where the tooltip may be visually disconnected from where someone hovers.
+
+Examples include hovering on large target areas, such as panel resizers, or when someone hovers on
+an element while zoomed in on part of the screen where the tooltip doesn’t show.
+
+- To display the tooltip next to the mouse pointer (instead of the target element), set
+  `position="mouse"`.
+- Further adjust the tooltip’s placement relative to the mouse by using the `mousePosition`
+  property.
+- For keyboard users, the tooltip will always appear below (`bottom` position) the target element by
+  default.
 
 <Example Component={TooltipPositionMouse} packageName="@atlaskit/tooltip" />
 
-## Customizing tooltip
+### Updating tooltip position
 
-The tooltip component accepts a component prop, which you can use to customize the look and feel of
-the tooltip area. Never put links or other interactive components in tooltips because this isn't
-accessible.
+When the content of a tooltip changes due to lazy loading, its position isn't recalculated and the
+tooltip may become misaligned.
 
-You can use the `TooltipPrimitive` component to customize the style of the default tooltip.
-
-<Example Component={TooltipCustomization} packageName="@atlaskit/tooltip" />
-
-## Accessibility issues using 'title'
-
-A tooltip is often used to specify extra information when a person hovers or keyboard focuses on an
-element, which matches the behavior of the HTML `title` attribute. Avoid using the HTML `title`
-attribute in any children of the tooltip or you may see double tooltips displayed. The `title`
-attribute isn't supported consistently across screen readers, and is inaccessible to all
-keyboard-only users and mobile phone users.
-
-<Example Component={TooltipAvoidTitle} packageName="@atlaskit/tooltip" />
-
-## Updating tooltip position
-
-When the content of a visible tooltip changes, its' position isn't recalculated and the tooltip may
-become misaligned. If you need the tooltip to recalculate its position you can control this manually
-using the `update` render prop.
+If you need the tooltip to recalculate its position, you can control this manually using the
+`update` callback provided to the `content` render prop.
 
 <Example Component={TooltipUpdate} packageName="@atlaskit/tooltip" />
 
-## Preventing tooltip interactions
+## Conditional tooltips for truncation
 
-There are situations where the tooltip persisting on hover of the tooltip itself can obstruct
-interactions with another element.
-
-Set `ignoreTooltipPointerEvents` to true to prevent mouse interactions with the tooltip. This sets
-`pointer-events: none` on the tooltip.
-
-<Example Component={TooltipPreventInteractions} packageName="@atlaskit/tooltip" />
-
-## Accessibility
-
-In order for screen readers to get access to content within tooltips, a hidden element is created
-that contains the `content` of a tooltip. The trigger of a tooltip (the `children` of `<Tooltip>`)
-is provided with `aria-describedby` to connect the hidden element to the trigger.
-
-- If `content` is a function: `aria-describedby` is provided as a prop.
-- If `content` is a component: `aria-describedby` is manually added to the added to the element in a
-  `useEffect`
-
-To disable the usage of a hidden element for screen reader announcements, use the
-`isScreenReaderAnnouncementDisabled` prop. This is useful when the content of a tooltip matches the
-content of the trigger as no hidden element would be needed.
-
-<Example Component={TooltipRenderProps} packageName="@atlaskit/tooltip" />
-
-## Conditional tooltips
-
-A tooltip can be conditionally shown by leveraging the `canAppear` prop. This is helpful when you
-have an element where you only want to show the tooltip of the content of the element is
-concatenated.
+A tooltip can be conditionally shown by leveraging the `canAppear` prop. Use when you want the
+tooltip to only show when the element content is truncated.
 
 <Example Component={TooltipConditional} packageName="@atlaskit/tooltip" />
 
-## Tooltips and disabled buttons
+## Ignoring pointer events
 
-Never put a tooltip on a disabled button.
+In some cases, a tooltip can get in the way if it stays visible when you move your mouse over it,
+making it hard to interact with elements underneath or nearby.
 
-Tooltips should never appear on elements that can’t be interacted with as they can't be reached by
-all devices or assistive technologies.
+To avoid this, set the `ignoreTooltipPointerEvents` prop to true. This makes the tooltip ignore
+mouse interactions, so users can easily interact with other elements on the page. This works by
+applying `pointer-events: none` to the tooltip.
 
-This pattern can also confuse people: it can disrupt navigation and it’s hard to use on touch
-devices and for people who use zoom magnification. People may also not think to hover over disabled/
-non-interactive elements to get more information.
+<Example Component={TooltipPreventInteractions} packageName="@atlaskit/tooltip" />
 
-See button guidance for
-[why it’s best to avoid disabling buttons](/components/button/usage#avoid-disabling-buttons).
+## Customizing tooltip
 
-To discuss alternative patterns with the accessibility team,
-[book an Accessibility Office Hour](https://hello.atlassian.net/wiki/spaces/A11Y/pages/940530583/Accessibility+Office+Hours)
-(Atlassians only).
+Use the `component` prop to customize the look and feel of the tooltip. The `TooltipPrimitive`
+component can be used as a base.
+
+Never put links or other interactive elements in tooltips. Tooltips are not accessible to keyboard
+navigation, so users cannot tab into or interact with these elements, making them inaccessible.
+
+<Example Component={TooltipCustomization} packageName="@atlaskit/tooltip" />
+
+## Accessibility
+
+### Screen reader support
+
+To make tooltip content accessible to screen readers, the tooltip component creates a hidden element
+containing the tooltip’s content. The tooltip trigger (the child of `<Tooltip>`) receives an
+`aria-describedby` attribute that links it to this hidden element.
+
+- If `content` is a function: `aria-describedby` is provided as a prop.
+- If `content` is a component: `aria-describedby` is added to the element in a `useEffect`.
+
+To prevent the hidden element from being used for screen reader announcements, set the
+`isScreenReaderAnnouncementDisabled` prop. This is helpful when the tooltip content is the same as
+the trigger content, so no hidden element is needed.
+
+Because keyboard shortcuts in tooltips are hidden from assistive technologies, always provide them
+in another way, such as in a panel or dialog. This ensures everyone can discover and use shortcuts,
+no matter how they navigate.
+
+### Never use the title attribute
+
+Don’t use the HTML `title` attribute on any children of the tooltip component. Using `title` can
+cause double tooltips to appear and creates accessibility issues. The `title` attribute is not
+reliably supported by screen readers, and it is inaccessible to keyboard-only and mobile users.
+
+<Example Component={TooltipAvoidTitle} packageName="@atlaskit/tooltip" />
+
+### Never put tooltips on disabled elements
+
+Tooltips should only appear on interactive elements. Disabled elements can’t be reached by all
+devices or assistive technologies, making their tooltips inaccessible.
+
+Tooltips on disabled elements can also confuse users, disrupt navigation, and are difficult to use
+on touch devices or with zoom magnification. People may not expect to find information by hovering
+over disabled or non-interactive elements.
+
+See button guidance for information on
+[avoiding disabled buttons](/components/button/usage#avoid-disabling-buttons).

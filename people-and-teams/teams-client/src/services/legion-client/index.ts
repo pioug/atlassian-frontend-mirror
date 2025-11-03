@@ -160,6 +160,8 @@ export interface LegionClient {
 
 	archiveTeam(teamId: string): Promise<void>;
 
+	unArchiveTeam(teamId: string): Promise<void>;
+
 	isSingleFullMemberTeam(teamId: string): Promise<boolean>;
 
 	createTeam(
@@ -517,6 +519,13 @@ export class LegionClient extends RestClient implements LegionClient {
 		const siteId = this.getCloudId();
 		return this.postResourceRaw(
 			`${v4UrlPath}/archive?siteId=${siteId}`,
+			JSON.stringify([this.trimTeamARI(teamId)]),
+		);
+	}
+	async unArchiveTeam(teamId: string): Promise<void> {
+		const siteId = this.getCloudId();
+		return this.postResourceRaw(
+			`${v4UrlPath}/unarchive?siteId=${siteId}`,
 			JSON.stringify([this.trimTeamARI(teamId)]),
 		);
 	}

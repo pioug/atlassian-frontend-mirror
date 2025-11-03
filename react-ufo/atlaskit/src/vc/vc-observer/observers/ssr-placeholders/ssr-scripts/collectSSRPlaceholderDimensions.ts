@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 // lightweight script to scan the SSR response and collect all elements with data-ssr-placeholder attribute
 // and save their size/positions in a map __SSR_PLACEHOLDERS_DIMENSIONS__ on the Window object. Each placeholderId is
 // unique and maps to its corresponding elements bounding client rectangle dimensions.
@@ -8,36 +6,25 @@ export function collectSSRPlaceholderDimensions(
 	window: Window,
 	enablePageLayoutPlaceholder: boolean = false,
 ) {
-	const enableDisplayContentsSupport = fg('platform_ufo_ssr_placeholders_for_display_contents');
-
 	const ssrPlaceholders = document?.querySelectorAll('[data-ssr-placeholder]');
 	ssrPlaceholders.forEach((elem: Element) => {
 		const placeholderId = elem.getAttribute('data-ssr-placeholder');
 		if (placeholderId) {
 			window.__SSR_PLACEHOLDERS_DIMENSIONS__ = window.__SSR_PLACEHOLDERS_DIMENSIONS__ || {};
-			if (enableDisplayContentsSupport) {
-				window.__SSR_PLACEHOLDERS_DIMENSIONS__[placeholderId] = getEffectiveBoundingRect(
-					elem,
-					window,
-				);
-			} else {
-				window.__SSR_PLACEHOLDERS_DIMENSIONS__[placeholderId] = elem.getBoundingClientRect();
-			}
+			window.__SSR_PLACEHOLDERS_DIMENSIONS__[placeholderId] = getEffectiveBoundingRect(
+				elem,
+				window,
+			);
 		}
 	});
 	if (enablePageLayoutPlaceholder) {
 		const pageLayoutRoot = document?.getElementById('unsafe-design-system-page-layout-root');
 		if (pageLayoutRoot) {
 			window.__SSR_PLACEHOLDERS_DIMENSIONS__ = window.__SSR_PLACEHOLDERS_DIMENSIONS__ || {};
-			if (enableDisplayContentsSupport) {
-				window.__SSR_PLACEHOLDERS_DIMENSIONS__['page-layout.root'] = getEffectiveBoundingRect(
-					pageLayoutRoot,
-					window,
-				);
-			} else {
-				window.__SSR_PLACEHOLDERS_DIMENSIONS__['page-layout.root'] =
-					pageLayoutRoot.getBoundingClientRect();
-			}
+			window.__SSR_PLACEHOLDERS_DIMENSIONS__['page-layout.root'] = getEffectiveBoundingRect(
+				pageLayoutRoot,
+				window,
+			);
 		}
 	}
 }

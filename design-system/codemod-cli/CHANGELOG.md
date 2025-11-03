@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.30.0
+
+### Minor Changes
+
+- [`1b338696ed4bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b338696ed4bd) -
+  Add a new codemod `lozenge-appearance-to-color` to migrate deprecated Lozenge appearances to
+  colors as part of the Labelling System Phase 1 migration.
+
 ## 0.29.2
 
 ### Patch Changes

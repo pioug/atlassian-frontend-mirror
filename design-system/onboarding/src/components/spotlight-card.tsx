@@ -78,6 +78,8 @@ const containerShadowStyles = cssMap({
  * - [Examples](https://atlassian.design/components/onboarding/spotlight-card/examples)
  * - [Code](https://atlassian.design/components/onboarding/spotlight-card/code)
  * - [Usage](https://atlassian.design/components/onboarding/spotlight-card/usage)
+ *
+ * @deprecated Use `@atlaskit/spotlight` instead.
  */
 const SpotlightCard: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<SpotlightCardProps> & React.RefAttributes<HTMLDivElement>

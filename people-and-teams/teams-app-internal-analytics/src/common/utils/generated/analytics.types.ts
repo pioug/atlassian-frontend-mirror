@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::240011c0c702e1957926c381c0891181>>
+ * @codegen <<SignedSource::92aa276c532558dbd384c96eb2906f50>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -690,7 +690,7 @@ export type TeamAgentAssociationFailedAttributesType = {
 	orgAdminTriggered: boolean;
 	memberOfTeam: boolean;
 };
-export type TeamAgentAssociationSucceddedAttributesType = {
+export type TeamAgentAssociationAddedAttributesType = {
 	numberOfAgents: number;
 	teamId: string;
 };
@@ -1831,7 +1831,7 @@ export type AnalyticsEventAttributes = {
 	'operational.teamAgentAssociation.failed': TeamAgentAssociationFailedAttributesType;
 	/**
 	 * add agent to team succeeded */
-	'track.teamAgentAssociation.succedded': TeamAgentAssociationSucceddedAttributesType;
+	'track.teamAgentAssociation.added': TeamAgentAssociationAddedAttributesType;
 	/**
 	 * container is created and linked to a team */
 	'track.teamContainerCreatedAndLinked.success': TeamContainerCreatedAndLinkedSuccessAttributesType;

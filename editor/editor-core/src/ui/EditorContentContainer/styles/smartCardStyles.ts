@@ -664,11 +664,12 @@ export const smartLinksInLivePagesStyles: SerializedStyles = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const linkingVisualRefreshV1Styles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
-	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}`]: {
-		// EDM-11991: Fix list plugin adding padding to ADS AvatarGroup
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'ul, ol': {
-			paddingLeft: 'inherit',
+	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}:not(.${SmartCardSharedCssClassName.DATASOURCE_CONTAINER})`]:
+		{
+			// EDM-11991: Fix list plugin adding padding to ADS AvatarGroup
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'ul, ol': {
+				paddingLeft: 'inherit',
+			},
 		},
-	},
 });

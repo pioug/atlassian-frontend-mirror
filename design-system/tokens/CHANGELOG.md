@@ -1,5 +1,31 @@
 # @atlaskit/tokens
 
+## 7.1.0
+
+### Minor Changes
+
+- [`c4860e82c9f41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4860e82c9f41) -
+  Introduced new color stops across our base color ramps, namely 250 and 850, to support better
+  hover/pressed state contrast. New 250/850 base tokens are:
+  - Blue250
+  - Blue850
+  - Magenta250
+  - Magenta850
+  - Yellow250
+  - Yellow850
+  - Orange250
+  - Orange850
+  - Lime250
+  - Lime850
+  - Green250
+  - Green850
+  - Teal250
+  - Teal850
+  - Red250
+  - Red850
+  - Purple250
+  - Purple850
+
 ## 7.0.0
 
 ### Major Changes

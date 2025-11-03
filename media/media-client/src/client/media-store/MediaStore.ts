@@ -51,8 +51,7 @@ import {
 	type DocumentPageRangeContent,
 	type GetDocumentContentOptions,
 } from '../../models/document';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { mapToPathBasedUrl } from '../../utils/pathBasedUrl';
+import { isPathBasedEnabled, mapToPathBasedUrl } from '../../utils/pathBasedUrl';
 
 const MEDIA_API_REGION = 'media-api-region';
 const MEDIA_API_ENVIRONMENT = 'media-api-environment';
@@ -283,7 +282,7 @@ export class MediaStore implements MediaApi {
 
 		const imageEndpoint = cdnFeatureFlag('image');
 
-		if (fg('platform_media_path_based_route')) {
+		if (isPathBasedEnabled()) {
 			return mapToPathBasedUrl(createUrl(`${auth.baseUrl}/file/${id}/${imageEndpoint}`, options));
 		}
 
@@ -341,7 +340,7 @@ export class MediaStore implements MediaApi {
 
 		const binaryEndpoint = cdnFeatureFlag('binary');
 
-		if (fg('platform_media_path_based_route')) {
+		if (isPathBasedEnabled()) {
 			return mapToPathBasedUrl(createUrl(`${auth.baseUrl}/file/${id}/${binaryEndpoint}`, options));
 		}
 
@@ -386,7 +385,7 @@ export class MediaStore implements MediaApi {
 		};
 
 		const url = createUrl(mapToMediaCdnUrl(artifactUrl, auth.token), options);
-		if (fg('platform_media_path_based_route')) {
+		if (isPathBasedEnabled()) {
 			return mapToPathBasedUrl(url);
 		}
 
@@ -776,7 +775,7 @@ export class MediaStore implements MediaApi {
 			url = mapToMediaCdnUrl(url, auth.token);
 		}
 
-		if (fg('platform_media_path_based_route')) {
+		if (isPathBasedEnabled()) {
 			url = mapToPathBasedUrl(url);
 		}
 

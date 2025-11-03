@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 215.9.6
+
+### Patch Changes
+
+- [`6cb21d13010a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cb21d13010a3) -
+  Exclude SLLV (and keep only block card) element when applying list (ul/ol) css override
+- [`b504b21832b1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b504b21832b1f) -
+  Removed feature gate platform_editor_table_overflow_in_full_width_fix
+- Updated dependencies
+
+## 215.9.5
+
+### Patch Changes
+
+- [`ebf6dcf335712`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebf6dcf335712) -
+  Cleaned platform_editor_posfromdom_null_fix FG
+- [`75b45f2248329`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75b45f2248329) -
+  FG cleanup platform_editor_elements_dnd_multi_select_patch_2
+- Updated dependencies
+
+## 215.9.4
+
+### Patch Changes
+
+- [`54ccde94eb18c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54ccde94eb18c) -
+  ED-29459 Clean up platform_editor_toolbar_aifc_toolbar_analytic
+- Updated dependencies
+
 ## 215.9.3
 
 ### Patch Changes

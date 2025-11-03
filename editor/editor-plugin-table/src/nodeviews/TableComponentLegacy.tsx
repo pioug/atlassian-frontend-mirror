@@ -514,9 +514,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const isLineLengthChanged = this.containerWidth?.lineLength !== containerLineLength;
 
 		const isFullWidthModeAndLineLengthChanged =
-			this.updateColGroupFromFullWidthChange &&
-			isLineLengthChanged &&
-			fg('platform_editor_table_overflow_in_full_width_fix');
+			this.updateColGroupFromFullWidthChange && isLineLengthChanged;
 
 		const maybeScale =
 			isTableSquashed ||

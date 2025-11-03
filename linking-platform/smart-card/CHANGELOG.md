@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 43.5.2
+
+### Patch Changes
+
+- [`06627d3e25367`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06627d3e25367) -
+  [ux] Add the experiment title variation for the hovercard title
+- Updated dependencies
+
 ## 43.5.1
 
 ### Patch Changes

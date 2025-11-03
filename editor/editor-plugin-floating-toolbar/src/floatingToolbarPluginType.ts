@@ -27,6 +27,7 @@ export type ConfigWithNodeInfo = {
 
 export type FloatingToolbarPluginState = {
 	getConfigWithNodeInfo: (state: EditorState) => ConfigWithNodeInfo | null | undefined;
+	suppressedToolbar?: boolean;
 };
 
 export type FloatingToolbarPluginData = {

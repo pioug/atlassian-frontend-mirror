@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 124.9.8
+
+### Patch Changes
+
+- [`6cb21d13010a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cb21d13010a3) -
+  Exclude SLLV (and keep only block card) element when applying list (ul/ol) css override
+- Updated dependencies
+
 ## 124.9.7
 
 ### Patch Changes

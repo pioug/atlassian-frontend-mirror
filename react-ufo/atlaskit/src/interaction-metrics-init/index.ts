@@ -296,10 +296,7 @@ export function init(
 							createInteractionExtraMetricsPayloadPackage.default,
 						);
 					}
-					if (
-						config?.extraSearchPageInteraction?.enabled &&
-						fg('react_ufo_unified_search_ignoring_sain_metric')
-					) {
+					if (config?.extraSearchPageInteraction?.enabled) {
 						sinkExtraSearchPageInteraction(instance, payloadPackage);
 					}
 				});

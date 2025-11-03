@@ -64,6 +64,8 @@ type ModalProps = {
  * - [Examples](https://atlassian.design/components/onboarding/benefits-modal/examples)
  * - [Code](https://atlassian.design/components/onboarding/benefits-modal/code)
  * - [Usage](https://atlassian.design/components/onboarding/benefits-modal/usage)
+ *
+ * @deprecated Use `@atlaskit/modal-dialog` instead.
  */
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class BenefitsModal extends Component<ModalProps> {

@@ -74,6 +74,11 @@ You can focus a specific element when opening the popup. The `content` render pr
 `setInitialFocusRef` to be set on the desired element. Only set focus to an element at the start of
 the popup, otherwise people who use assistive technology may miss the content.
 
+The specified element needs to be available in the document as soon as the popup is opened,
+otherwise it will not be focused upon. This means it will not work for content that renders into the
+popup content after it has already opened, such as async or lazy loaded content. In those cases, you
+will need to manually set focus on the content once it is rendered.
+
 <Example Component={PopupFocusExample} packageName="@atlaskit/popup" />
 
 ### Disable autofocus

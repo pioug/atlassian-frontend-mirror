@@ -1,6 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 import { isCommercial } from './isCommercial';
 import { isIsolatedCloud } from '@atlaskit/atlassian-context';
+import { isPathBasedEnabled } from './pathBasedUrl';
 
 export const MEDIA_CDN_MAP: { [key: string]: string } = {
 	'api.media.atlassian.com': 'media-cdn.atlassian.com',
@@ -17,7 +18,7 @@ export function isCDNEnabled(): boolean {
 		isCommercial() &&
 		!isIsolatedCloud() &&
 		fg('platform_media_cdn_delivery') &&
-		!fg('platform_media_path_based_route')
+		!isPathBasedEnabled()
 	);
 }
 

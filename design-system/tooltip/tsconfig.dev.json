@@ -67,6 +67,9 @@
 			"path": "../link/tsconfig.app.json"
 		},
 		{
+			"path": "../navigation-system/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

@@ -1,5 +1,12 @@
 # @atlaskit/popup
 
+## 4.6.1
+
+### Patch Changes
+
+- [`a0bb84bfd5321`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0bb84bfd5321) -
+  Updated JSDocs for the `setInitialFocusRef` property.
+
 ## 4.6.0
 
 ### Minor Changes

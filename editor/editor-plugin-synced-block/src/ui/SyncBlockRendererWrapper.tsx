@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
-import type { FetchSyncBlockDataResult } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockRendererProps } from '../syncedBlockPluginType';
 
@@ -9,7 +9,7 @@ import { SyncBlockLabel } from './SyncBlockLabel';
 
 type Props = {
 	getSyncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
-	useFetchSyncBlockData: () => FetchSyncBlockDataResult | null;
+	useFetchSyncBlockData: () => SyncBlockInstance | null;
 };
 
 const SyncBlockRendererWrapperDataId = 'sync-block-plugin-renderer-wrapper';

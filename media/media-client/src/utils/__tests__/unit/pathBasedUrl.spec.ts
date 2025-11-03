@@ -1,4 +1,8 @@
-import { mapToPathBasedUrl, mapRetryUrlToPathBasedUrl } from '../../pathBasedUrl';
+import {
+	isPathBasedEnabled,
+	mapToPathBasedUrl,
+	mapRetryUrlToPathBasedUrl,
+} from '../../pathBasedUrl';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import getDocument from '../../getDocument';
 
@@ -9,6 +13,56 @@ const mockGetDocument = getDocument as jest.MockedFunction<typeof getDocument>;
 describe('pathBasedUrl', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
+	});
+
+	describe('isPathBasedEnabled', () => {
+		ffTest.off(
+			'platform_media_path_based_route',
+			'when platform_media_path_based_route is disabled',
+			() => {
+				it('should return false when feature flag is disabled', () => {
+					expect(isPathBasedEnabled()).toBe(false);
+				});
+			},
+		);
+
+		ffTest.on(
+			'platform_media_path_based_route',
+			'when platform_media_path_based_route is enabled',
+			() => {
+				describe('when hostname is localhost', () => {
+					it('should return false when hostname is localhost', () => {
+						mockGetDocument.mockReturnValue({
+							location: {
+								hostname: 'localhost',
+							},
+						} as any);
+						expect(isPathBasedEnabled()).toBe(false);
+					});
+				});
+
+				describe('when hostname is not localhost', () => {
+					it('should return true for non-localhost domains', () => {
+						mockGetDocument.mockReturnValue({
+							location: {
+								hostname: 'mycompany.atlassian.net',
+							},
+						} as any);
+						expect(isPathBasedEnabled()).toBe(true);
+					});
+				});
+
+				describe('when document is undefined', () => {
+					beforeEach(() => {
+						mockGetDocument.mockReturnValue(undefined);
+					});
+
+					it('should return true when document is undefined (assumes not localhost)', () => {
+						expect(isPathBasedEnabled()).toBe(true);
+					});
+				});
+			},
+		);
 	});
 
 	ffTest.off(

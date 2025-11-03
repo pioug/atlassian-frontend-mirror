@@ -1,5 +1,12 @@
 # @atlaskit/tooltip
 
+## 20.7.1
+
+### Patch Changes
+
+- [`5a651fd4cae29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a651fd4cae29) -
+  Minor changes to package description and README.md. No functional changes.
+
 ## 20.7.0
 
 ### Minor Changes

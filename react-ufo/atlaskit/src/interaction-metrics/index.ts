@@ -902,8 +902,7 @@ export function tryComplete(interactionId: string, endTime?: number) {
 
 					if (
 						getConfig()?.extraSearchPageInteraction?.enabled &&
-						interaction.ufoName === getConfig()?.extraSearchPageInteraction?.searchPageMetricName &&
-						fg('react_ufo_unified_search_ignoring_sain_metric')
+						interaction.ufoName === getConfig()?.extraSearchPageInteraction?.searchPageMetricName
 					) {
 						onSearchPageInteractionComplete(interactionId, interaction);
 					}
@@ -931,8 +930,7 @@ export function tryComplete(interactionId: string, endTime?: number) {
 
 					if (
 						getConfig()?.extraSearchPageInteraction?.enabled &&
-						interaction.ufoName === getConfig()?.extraSearchPageInteraction?.searchPageMetricName &&
-						fg('react_ufo_unified_search_ignoring_sain_metric')
+						interaction.ufoName === getConfig()?.extraSearchPageInteraction?.searchPageMetricName
 					) {
 						onSearchPageInteractionComplete(interactionId, interaction);
 					}

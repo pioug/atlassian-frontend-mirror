@@ -82,6 +82,11 @@ const HoverCardUnauthorisedView = ({
 			? messages.experiment_connect_unauthorised_account_action
 			: messages.connect_unauthorised_account_action;
 
+	const hoverCardTitle =
+		hoverCardExperimentCohort === 'test1' || hoverCardExperimentCohort === 'test2'
+			? messages.experiment_connect_link_account_card_name_title
+			: messages.connect_link_account_card_name;
+
 	const actions = useMemo<ActionItem[]>(
 		() => [
 			{
@@ -101,10 +106,7 @@ const HoverCardUnauthorisedView = ({
 		<FlexibleCard {...flexibleCardProps} testId={testId}>
 			<CustomBlock css={[titleBlockStyles]} testId={`${testId}-title`}>
 				<LinkIcon />
-				<FormattedMessage
-					{...messages.connect_link_account_card_name}
-					values={{ context: providerName }}
-				/>
+				<FormattedMessage {...hoverCardTitle} values={{ context: providerName }} />
 			</CustomBlock>
 			<CustomBlock css={[mainTextStyles]} testId={`${testId}-content`}>
 				<div>

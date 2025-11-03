@@ -1,34 +1,35 @@
-import React from 'react';
+import React, { type ReactNode, useEffect, useLayoutEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Inline } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';
 
-const shortMessage = "I'm a short tooltip";
-const longMessage = 'I am a longer tooltip with a decent amount of content inside';
+function TooltipContent({ update }: { update?: () => void }): ReactNode {
+	const [isLoading, setIsLoading] = useState(true);
 
-export default () => {
-	const [message, setMessage] = React.useState(shortMessage);
-	const updateTooltip = React.useRef<() => void>();
+	useEffect(() => {
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 1000);
+	}, []);
 
-	React.useLayoutEffect(() => {
-		updateTooltip.current?.();
-	}, [message]);
+	useLayoutEffect(() => {
+		update?.();
+	}, [isLoading, update]);
 
+	return isLoading ? 'Loading...' : 'I am a lazy loaded tooltip, with a lot of content';
+}
+
+export default function TooltipUpdateContentExample() {
 	return (
-		<Tooltip
-			content={({ update }) => {
-				updateTooltip.current = update;
-				return message;
-			}}
-		>
-			{({ onClick, ...tooltipProps }) => (
-				<Button
-					onClick={() => setMessage(message === shortMessage ? longMessage : shortMessage)}
-					{...tooltipProps}
-				>
-					Click to toggle tooltip
-				</Button>
-			)}
-		</Tooltip>
+		<Inline space="space.100">
+			<Tooltip content={({ update }) => <TooltipContent update={update} />}>
+				{(tooltipProps) => <Button {...tooltipProps}>Using the update callback</Button>}
+			</Tooltip>
+
+			<Tooltip content={() => <TooltipContent />}>
+				{(tooltipProps) => <Button {...tooltipProps}>Not using the update callback</Button>}
+			</Tooltip>
+		</Inline>
 	);
-};
+}

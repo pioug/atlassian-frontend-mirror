@@ -1,6 +1,6 @@
 # Tooltip
 
-A tooltip is a floating, non-actionable label used to explain a user interface element or feature.
+A tooltip describes an interactive element on mouse hover or keyboard focus.
 
 ## Installation
 

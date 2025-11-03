@@ -243,14 +243,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	platform_editor_toolbar_aifc_toolbar_analytic: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_aifc_toolbar_analytic',
-			jira: 'platform_editor_toolbar_aifc_toolbar_analytic',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-02-10
 	platform_editor_controls: createMultivariateExperiment({
 		productKeys: {
@@ -319,6 +311,15 @@ export const editorExperimentsConfig = {
 		param: 'cohort',
 		values: ['control', 'test'],
 		defaultValue: 'control',
+	}),
+	// Added 2025-10-31
+	platform_editor_lovability_suppress_toolbar_event: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_lovability_suppress_toolbar_event',
+			jira: 'platform_editor_lovability_suppress_toolbar_event',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
 	}),
 	// Added 2025-04-17
 	platform_editor_tables_drag_and_drop: createBooleanExperiment({
@@ -823,15 +824,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-08-29
-	platform_editor_toolbar_aifc_exp_code_toggle: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_aifc_exp_code_toggle',
-			jira: 'platform_editor_toolbar_aifc_exp_code_toggle',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-08-27
 	platform_editor_toolbar_support_custom_components: createBooleanExperiment({
 		productKeys: {
@@ -944,14 +936,6 @@ export const editorExperimentsConfig = {
 	platform_editor_nested_table_refresh_width_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_nested_table_refresh_width_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 10-09-2025
-	platform_editor_toolbar_task_list_menu_item: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_task_list_menu_item',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

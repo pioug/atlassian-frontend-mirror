@@ -13,7 +13,7 @@ import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-too
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import type {
-	FetchSyncBlockDataResult,
+	SyncBlockInstance,
 	SyncBlockDataProvider,
 } from '@atlaskit/editor-synced-block-provider';
 
@@ -47,7 +47,7 @@ export type SyncedBlockEditorProps = {
 };
 
 export type SyncedBlockRendererProps = {
-	useFetchSyncBlockData: () => FetchSyncBlockDataResult | null;
+	useFetchSyncBlockData: () => SyncBlockInstance | null;
 };
 
 export type SyncedBlockPluginOptions = {

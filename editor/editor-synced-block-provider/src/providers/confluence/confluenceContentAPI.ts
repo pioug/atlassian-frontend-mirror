@@ -21,7 +21,7 @@ import type {
 	ADFFetchProvider,
 	ADFWriteProvider,
 	DeleteSyncBlockResult,
-	FetchSyncBlockDataResult,
+	SyncBlockInstance,
 } from '../types';
 
 /**
@@ -76,7 +76,7 @@ const getResponseError = (
 class ConfluenceADFFetchProvider implements ADFFetchProvider {
 	constructor(private config: ContentAPIConfig) {}
 
-	async fetchData(resourceId: string): Promise<FetchSyncBlockDataResult> {
+	async fetchData(resourceId: string): Promise<SyncBlockInstance> {
 		const { id: pageId, type: pageType } = getPageIdAndTypeFromAri(resourceId);
 		const localId = getLocalIdFromAri(resourceId);
 

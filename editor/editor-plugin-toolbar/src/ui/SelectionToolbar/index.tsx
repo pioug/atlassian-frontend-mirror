@@ -242,14 +242,9 @@ export const SelectionToolbar = ({
 				<EditorToolbarUIProvider
 					api={api}
 					isDisabled={patch6Enabled ? isDisabled : isOffline}
-					// supress type checks for now
-					fireAnalyticsEvent={
-						expValEquals('platform_editor_toolbar_aifc_toolbar_analytic', 'isEnabled', true)
-							? (payload: unknown) => {
-									api?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
-								}
-							: undefined
-					}
+					fireAnalyticsEvent={(payload: unknown) => {
+						api?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
+					}}
 					keyboardNavigation={
 						expValEquals('platform_editor_toolbar_aifc_patch_5', 'isEnabled', true)
 							? keyboardNavigation

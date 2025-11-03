@@ -657,7 +657,9 @@ export function floatingToolbarPluginFactory(options: {
 }) {
 	const { floatingToolbarHandlers, providerFactory, getIntl, api } = options;
 	const intl = getIntl();
-	const getConfigWithNodeInfo = (editorState: EditorState) => {
+	const getConfigWithNodeInfo = (
+		editorState: EditorState,
+	): ConfigWithNodeInfo | null | undefined => {
 		let activeConfigs: Array<FloatingToolbarConfig> | undefined = [];
 
 		for (let index = 0; index < floatingToolbarHandlers.length; index++) {
@@ -696,6 +698,26 @@ export function floatingToolbarPluginFactory(options: {
 		return relevantConfig;
 	};
 
+	const getIsToolbarSuppressed = (editorState: EditorState) => {
+		const userIntentEnabled = Boolean(
+			api?.userIntent &&
+				expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true),
+		);
+
+		if (userIntentEnabled) {
+			return false;
+		}
+
+		for (let index = 0; index < floatingToolbarHandlers.length; index++) {
+			const handler = floatingToolbarHandlers[index];
+			const config = handler(editorState, intl, providerFactory);
+			if (config?.__suppressAllToolbars) {
+				return true;
+			}
+		}
+		return false;
+	};
+
 	const apply = () => {
 		const newPluginState: FloatingToolbarPluginState = {
 			getConfigWithNodeInfo,
@@ -709,7 +731,37 @@ export function floatingToolbarPluginFactory(options: {
 			init: () => {
 				return { getConfigWithNodeInfo };
 			},
-			apply,
+			apply: expValEquals('platform_editor_lovability_suppress_toolbar_event', 'isEnabled', true)
+				? (_tr, _pluginState, __oldEditorState, newEditorState) => {
+						const suppressedToolbar = getIsToolbarSuppressed(newEditorState);
+
+						const newPluginState: FloatingToolbarPluginState = {
+							getConfigWithNodeInfo,
+							suppressedToolbar,
+						};
+
+						return newPluginState;
+					}
+				: apply,
 		},
+		view: expValEquals('platform_editor_lovability_suppress_toolbar_event', 'isEnabled', true)
+			? () => {
+					return {
+						update: (view, prevState) => {
+							const pluginState = pluginKey.getState(view.state);
+							const prevPluginState = pluginKey.getState(prevState);
+
+							if (pluginState?.suppressedToolbar && !prevPluginState?.suppressedToolbar) {
+								api?.analytics?.actions?.fireAnalyticsEvent({
+									action: ACTION.SUPPRESSED,
+									actionSubject: ACTION_SUBJECT.FLOATING_TOOLBAR_PLUGIN,
+									actionSubjectId: ACTION_SUBJECT_ID.FLOATING_TOOLBAR,
+									eventType: EVENT_TYPE.TRACK,
+								});
+							}
+						},
+					};
+				}
+			: undefined,
 	});
 }

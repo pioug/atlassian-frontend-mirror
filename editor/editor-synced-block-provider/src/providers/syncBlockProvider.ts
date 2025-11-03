@@ -8,7 +8,7 @@ import {
 	type ADFFetchProvider,
 	type ADFWriteProvider,
 	type DeleteSyncBlockResult,
-	type FetchSyncBlockDataResult,
+	type SyncBlockInstance,
 } from '../providers/types';
 import { getLocalIdFromAri, getPageARIFromResourceId } from '../utils/ari';
 
@@ -30,7 +30,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	nodeDataKey(node: SyncBlockNode) {
 		return node.attrs.localId;
 	}
-	fetchNodesData(nodes: SyncBlockNode[]): Promise<FetchSyncBlockDataResult[]> {
+	fetchNodesData(nodes: SyncBlockNode[]): Promise<SyncBlockInstance[]> {
 		const resourceIdSet = new Set<string>(nodes.map((node) => node.attrs.resourceId));
 		const resourceIds = [...resourceIdSet];
 
@@ -50,7 +50,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 			}),
 		).then((results) => {
 			return results
-				.filter((result): result is PromiseFulfilledResult<FetchSyncBlockDataResult> => {
+				.filter((result): result is PromiseFulfilledResult<SyncBlockInstance> => {
 					return result.status === 'fulfilled';
 				})
 				.map((result) => result.value);

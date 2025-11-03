@@ -16,7 +16,6 @@ import {
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 
@@ -27,11 +26,6 @@ type NumberedListMenuItemType = {
 
 export const NumberedListMenuItem = ({ api, parents }: NumberedListMenuItemType) => {
 	const { formatMessage } = useIntl();
-	const isTaskListItemEnabled = expValEquals(
-		'platform_editor_toolbar_task_list_menu_item',
-		'isEnabled',
-		true,
-	);
 	const { orderedListActive, orderedListDisabled, taskListActive } =
 		useSharedPluginStateWithSelector(api, ['list', 'taskDecision'], (states) => ({
 			orderedListActive: states.listState?.orderedListActive,
@@ -41,7 +35,7 @@ export const NumberedListMenuItem = ({ api, parents }: NumberedListMenuItemType)
 
 	const onClick = () => {
 		api?.core.actions.execute(
-			isTaskListItemEnabled && taskListActive
+			taskListActive
 				? api?.taskDecision?.commands.toggleTaskList('orderedList')
 				: api?.list.commands.toggleOrderedList(getInputMethodFromParentKeys(parents)),
 		);
@@ -54,9 +48,7 @@ export const NumberedListMenuItem = ({ api, parents }: NumberedListMenuItemType)
 			elemBefore={<ListNumberedIcon size="small" label="" />}
 			elemAfter={shortcut ? <ToolbarKeyboardShortcutHint shortcut={shortcut} /> : undefined}
 			isSelected={orderedListActive}
-			isDisabled={
-				isTaskListItemEnabled ? orderedListDisabled && !taskListActive : orderedListDisabled
-			}
+			isDisabled={orderedListDisabled && !taskListActive}
 			onClick={onClick}
 			ariaKeyshortcuts={shortcut}
 		>

@@ -5,14 +5,17 @@
 import { useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
+import dompurify from 'dompurify';
 
 import { type DocNode } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { type RichText } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const rootStyles = css({
 	position: 'relative',
+	cursor: 'default',
 });
 
 const smartLinkNodeToUrl: (node: PMNode) => string = (node) => node.attrs.url ?? '';
@@ -54,6 +57,17 @@ export const parseRichText = (value: RichText): string | null => {
 
 const RichTextType = ({ value }: { value: RichText }) => {
 	const adfPlainText = useMemo(() => parseRichText(value), [value]);
+
+	if (value.html && value.html.trim() !== '' && fg('platform_navx_jira_sllv_rich_text_gate')) {
+		// eslint-disable-next-line react/no-danger
+		return (
+			<div
+				css={rootStyles}
+				data-testid="datasource-richtext-html-content"
+				dangerouslySetInnerHTML={{ __html: dompurify.sanitize(value.html) }}
+			/>
+		);
+	}
 
 	if (adfPlainText) {
 		return (

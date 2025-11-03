@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 7.0.17
+
+### Patch Changes
+
+- [`68059d62a8bbc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68059d62a8bbc) -
+  ED-29461 Clean up platform_editor_toolbar_task_list_menu_item
+- Updated dependencies
+
 ## 7.0.16
 
 ### Patch Changes

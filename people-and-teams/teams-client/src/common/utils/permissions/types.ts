@@ -22,6 +22,7 @@ export const AllTeamActions = [
 	// Serious
 	'DELETE_TEAM',
 	'ARCHIVE_TEAM',
+	'UNARCHIVE_TEAM',
 ] as const;
 
 export type TeamAction = (typeof AllTeamActions)[number];

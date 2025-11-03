@@ -41,11 +41,6 @@ function useListsIndentationHeroButtonInfo({
 	defaultListType: 'bulletList' | 'orderedList';
 }) {
 	const { formatMessage } = useIntl();
-	const isTaskListItemEnabled = expValEquals(
-		'platform_editor_toolbar_task_list_menu_item',
-		'isEnabled',
-		true,
-	);
 	const { bulletListActive, bulletListDisabled, orderedListActive, taskListActive } =
 		useSharedPluginStateWithSelector(api, ['list', 'taskDecision'], (states) => ({
 			bulletListActive: states.listState?.bulletListActive,
@@ -54,12 +49,11 @@ function useListsIndentationHeroButtonInfo({
 			taskListActive: states.taskDecisionState?.isInsideTask,
 		}));
 
-	const getListType: ListType =
-		isTaskListItemEnabled && taskListActive
-			? 'taskList'
-			: orderedListActive
-				? 'orderedList'
-				: defaultListType;
+	const getListType: ListType = taskListActive
+		? 'taskList'
+		: orderedListActive
+			? 'orderedList'
+			: defaultListType;
 	const taskListKeymap = expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
 		? toggleTaskListKeymap
 		: toggleTaskItemCheckboxKeymap;
@@ -103,10 +97,9 @@ function useListsIndentationHeroButtonInfo({
 			? bulletListActive
 			: getListType === 'orderedList'
 				? orderedListActive
-				: isTaskListItemEnabled && taskListActive;
+				: taskListActive;
 
-	const isDisabled =
-		!orderedListActive && !(isTaskListItemEnabled && taskListActive) && bulletListDisabled;
+	const isDisabled = !orderedListActive && !taskListActive && bulletListDisabled;
 
 	return {
 		shortcut,
@@ -161,11 +154,6 @@ export const ListsIndentationHeroButtonNew = ({
 
 export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHeroButtonProps) => {
 	const { formatMessage } = useIntl();
-	const isTaskListItemEnabled = expValEquals(
-		'platform_editor_toolbar_task_list_menu_item',
-		'isEnabled',
-		true,
-	);
 
 	const { bulletListActive, bulletListDisabled, orderedListActive, taskListActive } =
 		useSharedPluginStateWithSelector(api, ['list', 'taskDecision'], (states) => ({
@@ -179,16 +167,15 @@ export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHer
 		? toggleTaskListKeymap
 		: toggleTaskItemCheckboxKeymap;
 
-	const shortcut =
-		isTaskListItemEnabled && taskListActive
-			? formatShortcut(taskListKeymap)
-			: orderedListActive
-				? formatShortcut(toggleOrderedListKeymap)
-				: formatShortcut(toggleBulletListKeymap);
+	const shortcut = taskListActive
+		? formatShortcut(taskListKeymap)
+		: orderedListActive
+			? formatShortcut(toggleOrderedListKeymap)
+			: formatShortcut(toggleBulletListKeymap);
 
 	const onClick = () => {
 		const inputMethod = getInputMethodFromParentKeys(parents);
-		if (isTaskListItemEnabled && taskListActive) {
+		if (taskListActive) {
 			api?.core.actions.execute(api?.taskDecision?.commands.toggleTaskList());
 		} else if (orderedListActive) {
 			api?.core.actions.execute(api?.list.commands.toggleOrderedList(inputMethod));
@@ -200,7 +187,7 @@ export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHer
 	return (
 		<ToolbarTooltip
 			content={
-				isTaskListItemEnabled && taskListActive
+				taskListActive
 					? formatMessage(tasksAndDecisionsMessages.taskList)
 					: orderedListActive
 						? formatMessage(listMessages.orderedList)
@@ -209,7 +196,7 @@ export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHer
 		>
 			<ToolbarButton
 				iconBefore={
-					isTaskListItemEnabled && taskListActive ? (
+					taskListActive ? (
 						<TaskIcon label={formatMessage(tasksAndDecisionsMessages.taskList)} size="small" />
 					) : orderedListActive ? (
 						<ListNumberedIcon label={formatMessage(listMessages.orderedList)} size="small" />
@@ -217,12 +204,8 @@ export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHer
 						<ListBulletedIcon label={formatMessage(listMessages.bulletedList)} size="small" />
 					)
 				}
-				isSelected={
-					bulletListActive || orderedListActive || (isTaskListItemEnabled && taskListActive)
-				}
-				isDisabled={
-					!orderedListActive && !(isTaskListItemEnabled && taskListActive) && bulletListDisabled
-				}
+				isSelected={bulletListActive || orderedListActive || taskListActive}
+				isDisabled={!orderedListActive && !taskListActive && bulletListDisabled}
 				ariaKeyshortcuts={shortcut}
 				onClick={onClick}
 			/>

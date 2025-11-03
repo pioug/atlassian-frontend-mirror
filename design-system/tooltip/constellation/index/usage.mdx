@@ -2,45 +2,285 @@
 order: 2
 ---
 
+import Image from '@atlaskit/image';
+
+import tooltipAnatomyLight from './images/tooltip-anatomy-light.png';
+import tooltipAnatomyDark from './images/tooltip-anatomy-dark.png';
+import tooltipButtonDoLight from './images/tooltip-button-do-light.png';
+import tooltipButtonDoDark from './images/tooltip-button-do-dark.png';
+import tooltipButtonDontLight from './images/tooltip-button-dont-light.png';
+import tooltipButtonDontDark from './images/tooltip-button-dont-dark.png';
+import tooltipInfoDoLight from './images/tooltip-info-do-light.png';
+import tooltipInfoDoDark from './images/tooltip-info-do-dark.png';
+import tooltipInfoDontLight from './images/tooltip-info-dont-light.png';
+import tooltipInfoDontDark from './images/tooltip-info-dont-dark.png';
+import tooltipTruncationDoLight from './images/tooltip-truncation-do-light.png';
+import tooltipTruncationDoDark from './images/tooltip-truncation-do-dark.png';
+import tooltipTruncationDontLight from './images/tooltip-truncation-dont-light.png';
+import tooltipTruncationDontDark from './images/tooltip-truncation-dont-dark.png';
+import tooltipInteractive1DoLight from './images/tooltip-interactive-1-do-light.png';
+import tooltipInteractive1DoDark from './images/tooltip-interactive-1-do-dark.png';
+import tooltipInteractive1DontLight from './images/tooltip-interactive-1-dont-light.png';
+import tooltipInteractive1DontDark from './images/tooltip-interactive-1-dont-dark.png';
+import tooltipInteractive2DoLight from './images/tooltip-interactive-2-do-light.png';
+import tooltipInteractive2DoDark from './images/tooltip-interactive-2-do-dark.png';
+import tooltipInteractive2DontLight from './images/tooltip-interactive-2-dont-light.png';
+import tooltipInteractive2DontDark from './images/tooltip-interactive-2-dont-dark.png';
+import tooltipCriticalDoLight from './images/tooltip-critical-do-light.png';
+import tooltipCriticalDoDark from './images/tooltip-critical-do-dark.png';
+import tooltipCriticalDontLight from './images/tooltip-critical-dont-light.png';
+import tooltipCriticalDontDark from './images/tooltip-critical-dont-dark.png';
+import tooltipContentsDoLight from './images/tooltip-contents-do-light.png';
+import tooltipContentsDoDark from './images/tooltip-contents-do-dark.png';
+import tooltipContentsDontLight from './images/tooltip-contents-dont-light.png';
+import tooltipContentsDontDark from './images/tooltip-contents-dont-dark.png';
+
 ## Usage
 
-Use tooltips to add a small amount of information to an element. Use tooltips to:
+Use tooltips to provide additional information about interactive elements. Tooltips appear as
+floating, non-interactive labels when users hover over or focus on an element using a mouse or
+keyboard.
 
-- help people understand the meaning or purpose of icons.
-- show non-essential supporting information.
+<Image
+	src={tooltipAnatomyLight}
+	srcDark={tooltipAnatomyDark}
+	alt="The anatomy of the tooltip component, highlighting the trigger, content, and optional keyboard keys"
+/>
+
+1. **Trigger:** The interactive element which opens the tooltip on hover or keyboard focus.
+2. **Content:** The label or description of the interactive element.
+3. **Keyboard keys (optional):** The keyboard shortcut of the mouse action.
+
+<br />
+
+### Use tooltips with icon buttons
+
+Use tooltips to provide clear labels for icon buttons, so their purpose is easy to understand.
+
+Tooltips are already built into
+[icon button](https://atlassian.design/components/button/icon-button/examples) and
+[link icon button](https://atlassian.design/components/button/link-icon-button/examples). Follow the
+content guidelines for these components when writing tooltip text.
+
+<DoDont
+	type="do"
+	image={{
+		url: tooltipButtonDoLight,
+		urlDarkMode: tooltipButtonDoDark,
+		alt: 'Icon button with a tooltip displaying the button label',
+	}}
+>
+	Use tooltips with icon buttons to display the button label.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: tooltipButtonDontLight,
+		urlDarkMode: tooltipButtonDontDark,
+		alt: 'Button with a tooltip duplicating the button label',
+	}}
+>
+	Don’t use tooltips on labeled buttons when the tooltip text is obvious or redundant.
+</DoDont>
+
+### Use tooltips to display useful, non-essential information
+
+Tooltips should offer helpful information that supports the user experience by supplying extra
+details, context, or efficiency tips. The information should not be critical for understanding or
+completing a task.
+
+Examples include keyboard shortcuts, concise explanations of icons buttons, and brief descriptions
+that clarify function.
+
+<DoDont
+	type="do"
+	image={{
+		url: tooltipInfoDoLight,
+		urlDarkMode: tooltipInfoDoDark,
+		alt: 'Create button, with a tooltip containing the keyboard shortcut to create a page',
+	}}
+>
+	Use tooltips to surface useful, non-critical information, such as keyboard shortcuts.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: tooltipInfoDontLight,
+		urlDarkMode: tooltipInfoDontDark,
+		alt: 'Save button, with a tooltip containing important information about not being able to save your changes',
+	}}
+>
+	Don’t put critical task information in a tooltip – show it directly in the interface instead.
+</DoDont>
+
+### Use tooltips to display truncated text
+
+Truncating text should be avoided whenever possible. However, in cases where truncation is
+unavoidable, such as displaying user-generated content of unknown length, provide a tooltip so
+people can access the full text.
+
+<DoDont
+	type="do"
+	image={{
+		url: tooltipTruncationDoLight,
+		urlDarkMode: tooltipTruncationDoDark,
+		alt: 'A truncated select menu option, currently hovered, with a tooltip displaying the truncated text',
+	}}
+>
+	If truncation cannot be avoided (for example, in user generated content), use tooltips to display
+	the truncated text.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: tooltipTruncationDontLight,
+		urlDarkMode: tooltipTruncationDontDark,
+		alt: 'A truncated select menu option, currently hovered, with no tooltip',
+	}}
+>
+	Don’t truncate without providing a way for people to read the full text.
+</DoDont>
 
 ## Accessibility
 
-If you have space for it, then a solution that is visible on the page, like an
-[inline message](/components/inline-message), will always be more accessible.
+### Only use tooltips on interactive elements
 
-- Never put links or other interactive components in tooltips because this isn't accessible or
-  usable. Tooltips should only include short informative text.
-- Don't put essential information in a tooltip. Tooltips have low discoverability and have usability
-  issues on devices without hover interactions.
-- Never put a tooltip on a disabled button. This is inaccessible and unsupported.
-- Avoid truncating tooltip text as people will not be able to visually read the message.
+Use tooltips only on interactive elements so they’re accessible to everyone, including keyboard and
+assistive technology users. This ensures tooltips can be triggered by keyboard focus and read by
+screen readers.
 
-## Best practices
+Never use tooltips with disabled elements because they are not interactive. Find more details in our
+[button usage guidelines](https://atlassian.design/components/button/usage#never-put-tooltips-on-disabled-buttons).
 
-- Tooltips should only appear when the person has paused on the target element. It should remain
-  visible if the person briefly moves the mouse off and back on to the target.
-- Tooltips shouldn't immediately disappear, unless the person hovers or keyboard focuses on another
-  element with a tooltip.
-- When the person using the UI scrolls, their attention is no longer on the tooltip. We take this
-  opportunity to immediately hide the tooltip.
+<DoDont
+	type="do"
+	image={{
+		url: tooltipInteractive1DoLight,
+		urlDarkMode: tooltipInteractive1DoDark,
+		alt: 'An interactive menu item with a beta lozenge. The menu item is currently hovered, displaying a tooltip saying it is a new feature',
+	}}
+>
+	Only use tooltips on interactive elements, such as buttons, links, and menu items.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: tooltipInteractive1DontLight,
+		urlDarkMode: tooltipInteractive1DontDark,
+		alt: 'An interactive menu item with a beta lozenge. The lozenge is currently hovered, displaying a tooltip saying it is a new feature',
+	}}
+>
+	Don’t use tooltips on elements that are not interactive, such as lozenges.
+</DoDont>
 
-## Behavior
+<DoDont
+	type="do"
+	image={{
+		url: tooltipInteractive2DoLight,
+		urlDarkMode: tooltipInteractive2DoDark,
+		alt: 'An empty textfield displaying a helpful validation message underneath',
+	}}
+>
+	Use validation or other on-screen directions to help people understand requirements.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: tooltipInteractive2DontLight,
+		urlDarkMode: tooltipInteractive2DontDark,
+		alt: 'An empty textfield, with a disabled button underneath, currently hovered and displaying a tooltip with the validation message',
+	}}
+>
+	Never use tooltips on disabled buttons, as these are not interactive.
+</DoDont>
 
-Tooltips replace standard browser tooltips when more emphasis is required. Tooltips don't receive
-input focus.
+### Don’t put critical information in tooltips
 
-The position of tooltips is flexible and will change depending on how close the element is to the
-edge of the screen.
+Critical information is anything a user needs to understand, make decisions, or complete a task.
+This information should always be visible on the interface and not hidden in a tooltip. Tooltips can
+reduce accessibility and are hard to discover, especially on devices without hover support.
+
+Instead of tooltips, use labels, helper text, or
+[error messaging](https://atlassian.design/foundations/content/designing-messages/error-messages) to
+present essential information. When space is limited, an
+[inline message](https://atlassian.design/components/inline-message/examples) offers a more
+accessible alternative.
+
+<DoDont
+	type="do"
+	image={{
+		url: tooltipCriticalDoLight,
+		urlDarkMode: tooltipCriticalDoDark,
+		alt: 'A textfield with a helper message underneath',
+	}}
+>
+	Display critical information directly on the user interface so it remains visible at all times.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: tooltipCriticalDontLight,
+		urlDarkMode: tooltipCriticalDontDark,
+		alt: 'A textfield with an information icon above it, which is currently hovered and displaying the helper message',
+	}}
+>
+	Never put critical information in tooltips, as this can create accessibility barriers for
+	different devices and users.
+</DoDont>
+
+### Don’t put interactive elements in tooltips
+
+Never place interactive elements like links or buttons inside tooltips. Tooltips are not accessible
+to keyboard navigation, so users cannot tab into or interact with these elements, making them
+inaccessible.
+
+Use a [popup](https://atlassian.design/components/popup/examples) or
+[modal dialog](https://atlassian.design/components/modal-dialog/examples) to display interactive
+elements instead.
+
+<DoDont
+	type="do"
+	image={{
+		url: tooltipContentsDoLight,
+		urlDarkMode: tooltipContentsDoDark,
+		alt: 'A popup with a link inside the popup content',
+	}}
+>
+	Use popups or modals to display additional interactive components.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: tooltipContentsDontLight,
+		urlDarkMode: tooltipContentsDontDark,
+		alt: 'A tooltip with a link inside the tooltip content',
+	}}
+>
+	Never put interactive components in tooltips.
+</DoDont>
+
+### Don’t rely on tooltips alone for keyboard shortcuts
+
+Keyboard shortcuts in tooltips are hidden from assistive technologies in order to:
+
+- avoid overwhelming users with extra announcements
+- prevent shortcut characters from being read incorrectly (are dependent on assistive technologies
+  verbosity settings).
+
+Because of these limitations, shortcuts shown only in tooltips aren’t accessible to everyone. Always
+provide alternative ways for people to access keyboard shortcuts, for example in a panel or dialog,
+so they’re easy to discover and use, no matter how someone navigates.
 
 ## Content guidelines
 
-Avoid repeating content inside a tooltip if there's already a visible label.
+- **Keep it concise:** Tooltips should contain only short and clear text that quickly clarifies or
+  adds value.
+- **Avoid repetition:** Don’t repeat information already visible in a label. If you cannot provide
+  helpful information, don't use a tooltip.
+
+For tooltips on [icon button](https://atlassian.design/components/button/icon-button/examples) and
+[link icon button](https://atlassian.design/components/button/link-icon-button/examples), follow the
+specific content guidelines provided for those components.
 
 ## Data Center apps
 
@@ -50,9 +290,8 @@ For all new features, we recommend using Atlassian Design System and other
 
 ## Related
 
-- When you need more than a single line of extra information, use an
-  [inline dialog](/components/inline-dialog) or [inline-message](/components/inline-message).
-- Use with [toggles](/components/toggle) to describe what happens when the toggle is switched on or
-  off.
-- See our [button usage guidelines](/components/button/usage#never-put-tooltips-on-disabled-buttons)
-  for more about why using a tooltip on a disabled button isn't supported.
+- Use an [inline message](https://atlassian.design/components/inline-message/examples) when you need
+  to display richer or longer information.
+- Use a [popup](https://atlassian.design/components/popup/examples) or
+  [modal dialog](https://atlassian.design/components/modal-dialog/examples) when you want to include
+  interactive elements, such as links or buttons, in the information.

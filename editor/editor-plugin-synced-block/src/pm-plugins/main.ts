@@ -1,5 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
@@ -24,7 +25,11 @@ export const createPlugin = (
 	return new SafePlugin<SyncedBlockPluginState>({
 		key: syncedBlockPluginKey,
 		state: {
-			init() {
+			init(_, instance: EditorState): SyncedBlockPluginState {
+				const syncBlockNodes = instance.doc.children.filter(
+					(node) => node.type.name === 'syncBlock',
+				);
+				syncBlockStore.fetchSyncBlocksData(syncBlockNodes);
 				return {};
 			},
 			apply: (tr, currentPluginState) => {

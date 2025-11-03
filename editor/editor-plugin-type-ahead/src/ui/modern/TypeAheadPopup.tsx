@@ -248,26 +248,20 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			// Handles cases like emoji and @ typeaheads that open new typeaheads
 			const isTextSelected = window.getSelection()?.type === 'Range';
 
-			if (fg('platform_editor_legacy_content_macro_typeahead_fix')) {
-				const innerEditor = anchorElement.closest('.extension-editable-area');
+			const innerEditor = anchorElement.closest('.extension-editable-area');
 
-				if (innerEditor) {
-					// When there is no related target, we default to not closing the popup
-					let newFocusInsideCurrentEditor = !relatedTarget;
-					if (relatedTarget instanceof HTMLElement) {
-						// check if the new focus is inside inner editor, keep popup opens
-						newFocusInsideCurrentEditor = innerEditor.contains(relatedTarget);
-					}
-					if (!isTextSelected && newFocusInsideCurrentEditor) {
-						return;
-					}
-				} else {
-					// if the current focus in outer editor, keep the existing behaviour, do not close the pop up if text is not selected
-					if (!isTextSelected) {
-						return;
-					}
+			if (innerEditor) {
+				// When there is no related target, we default to not closing the popup
+				let newFocusInsideCurrentEditor = !relatedTarget;
+				if (relatedTarget instanceof HTMLElement) {
+					// check if the new focus is inside inner editor, keep popup opens
+					newFocusInsideCurrentEditor = innerEditor.contains(relatedTarget);
+				}
+				if (!isTextSelected && newFocusInsideCurrentEditor) {
+					return;
 				}
 			} else {
+				// if the current focus in outer editor, keep the existing behaviour, do not close the pop up if text is not selected
 				if (!isTextSelected) {
 					return;
 				}

@@ -39,6 +39,7 @@ import type {
 } from './enums';
 import type { ExtensionEventPayload } from './extension-events';
 import type { FindReplaceEventPayload } from './find-replace-events';
+import type { FloatingToolbarEventPayload } from './floating-toolbar-events';
 import type { FloatingToolbarOverflowEventPayload } from './floating-toolbar-overflow-events';
 import type { FormatEventPayload } from './format-events';
 import type { GeneralEventPayload } from './general-events';
@@ -152,7 +153,8 @@ export type AnalyticsEventPayload<T = void> =
 	| OfflineEditingEventPayload
 	| NcsSessionStepEventAEP
 	| FloatingToolbarOverflowEventPayload
-	| SyncBlockEventPayload;
+	| SyncBlockEventPayload
+	| FloatingToolbarEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

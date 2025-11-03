@@ -2,10 +2,7 @@ import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
-	SyncBlockError,
-	type FetchSyncBlockDataResult,
-} from '@atlaskit/editor-synced-block-provider';
+import { SyncBlockError, type SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { RendererActionsContext } from '@atlaskit/renderer/actions';
 
@@ -14,7 +11,7 @@ import { SyncedBlockLoadingState } from './SyncedBlockLoadingState';
 
 export type SyncedBlockRendererProps = {
 	dataProviders?: ProviderFactory;
-	useFetchSyncBlockData: () => FetchSyncBlockDataResult | null;
+	useFetchSyncBlockData: () => SyncBlockInstance | null;
 };
 
 export const SyncedBlockRenderer = ({
@@ -28,7 +25,12 @@ export const SyncedBlockRenderer = ({
 	}
 
 	if (fetchResult.error || !fetchResult.data) {
-		return <SyncedBlockErrorComponent error={fetchResult.error ?? SyncBlockError.Errored} />;
+		return (
+			<SyncedBlockErrorComponent
+				error={fetchResult.error ?? SyncBlockError.Errored}
+				resourceId={fetchResult.resourceId}
+			/>
+		);
 	}
 
 	const syncBlockDoc = {

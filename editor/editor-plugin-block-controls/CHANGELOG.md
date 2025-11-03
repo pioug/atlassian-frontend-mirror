@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.5.2
+
+### Patch Changes
+
+- [`75b45f2248329`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75b45f2248329) -
+  FG cleanup platform_editor_elements_dnd_multi_select_patch_2
+- Updated dependencies
+
 ## 7.5.1
 
 ### Patch Changes

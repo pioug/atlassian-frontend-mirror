@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 110.21.1
+
+### Patch Changes
+
+- [`ff3e1422d5b70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff3e1422d5b70) -
+  [ux] EDITOR-2437 implement request access to sync block component
+
+## 110.21.0
+
+### Minor Changes
+
+- [`29d0693bd5373`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29d0693bd5373) -
+  EDITOR-2581 Fire event for suppressAllToolbars api being used
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.20.1
 
 ### Patch Changes

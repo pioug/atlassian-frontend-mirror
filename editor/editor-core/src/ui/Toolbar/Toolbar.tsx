@@ -129,14 +129,9 @@ export const ToolbarNext = ({
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}
-				// supress type checks for now
-				fireAnalyticsEvent={
-					expValEquals('platform_editor_toolbar_aifc_toolbar_analytic', 'isEnabled', true)
-						? (payload: unknown) => {
-								editorAPI?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
-							}
-						: undefined
-				}
+				fireAnalyticsEvent={(payload: unknown) => {
+					editorAPI?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
+				}}
 			>
 				<ToolbarModelRenderer
 					toolbar={toolbar}

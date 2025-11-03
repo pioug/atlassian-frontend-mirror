@@ -17,7 +17,6 @@ import { type EditorState, type SelectionBookmark } from '@atlaskit/editor-prose
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-config';
 import { getPluginState } from '../pm-plugins/plugin-factory';
@@ -372,8 +371,6 @@ export const createTableView = (
 ): NodeView => {
 	const {
 		pluginConfig,
-		isFullWidthModeEnabled,
-		wasFullWidthModeEnabled,
 		isDragAndDropEnabled,
 		isTableScalingEnabled, // same as options.isTableScalingEnabled
 	} = getPluginState(view.state);
@@ -401,12 +398,8 @@ export const createTableView = (
 		eventDispatcher,
 		getPos: getPos as getPosHandlerNode,
 		options: {
-			isFullWidthModeEnabled: fg('platform_editor_table_overflow_in_full_width_fix')
-				? tableState?.isFullWidthModeEnabled
-				: isFullWidthModeEnabled,
-			wasFullWidthModeEnabled: fg('platform_editor_table_overflow_in_full_width_fix')
-				? tableState?.wasFullWidthModeEnabled
-				: wasFullWidthModeEnabled,
+			isFullWidthModeEnabled: tableState?.isFullWidthModeEnabled,
+			wasFullWidthModeEnabled: tableState?.wasFullWidthModeEnabled,
 			isDragAndDropEnabled,
 			isTableScalingEnabled, // same as options.isTableScalingEnabled
 			isCommentEditor,

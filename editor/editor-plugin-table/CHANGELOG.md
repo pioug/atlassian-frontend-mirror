@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.9
+
+### Patch Changes
+
+- [`b504b21832b1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b504b21832b1f) -
+  Removed feature gate platform_editor_table_overflow_in_full_width_fix
+- Updated dependencies
+
 ## 15.3.8
 
 ### Patch Changes

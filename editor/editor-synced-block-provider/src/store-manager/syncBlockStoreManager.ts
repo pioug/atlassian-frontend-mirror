@@ -4,10 +4,11 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 
 import type { ResourceId, SyncBlockAttrs, SyncBlockNode } from '../common/types';
 import type {
-	FetchSyncBlockDataResult,
 	SubscriptionCallback,
 	SyncBlockDataProvider,
+	SyncBlockInstance,
 } from '../providers/types';
+import { createSyncBlockNode } from '../utils/createSyncBlock';
 
 import { ReferenceSyncBlockStoreManager } from './referenceSyncBlockStoreManager';
 import {
@@ -30,22 +31,25 @@ export class SyncBlockStoreManager {
 	}
 
 	/**
-	 * Fetch sync block data for a given sync block node.
-	 * @param syncBlockNode - The sync block node to fetch data for
-	 * @returns The fetched sync block data result
+	 * Fetch sync block data for a given array of sync block nodes.
+	 * @param nodes - The array of sync block nodes to fetch data for
+	 * @returns The fetched sync block data results
 	 */
-	public fetchSyncBlockData(syncBlockNode: PMNode): Promise<FetchSyncBlockDataResult | undefined> {
-		if (!['bodiedSyncBlock', 'syncBlock'].includes(syncBlockNode.type.name)) {
-			throw new Error('Node is not a sync block');
+	public fetchSyncBlocksData(nodes: PMNode[]): Promise<SyncBlockInstance[]> {
+		const syncBlockNodes =
+			nodes
+				.filter((node) => {
+					return node.type.name === 'syncBlock' && node.attrs.resourceId && node.attrs.localId;
+				})
+				.map((node) => {
+					return createSyncBlockNode(node.attrs.localId, node.attrs.resourceId);
+				}) || [];
+
+		if (syncBlockNodes.length === 0) {
+			return Promise.resolve([]);
 		}
 
-		if (this.isSourceBlock(syncBlockNode)) {
-			return Promise.reject(
-				new Error('Invalid sync block node type provided for fetchSyncBlockData'),
-			);
-		}
-
-		return this.referenceSyncBlockStoreManager.fetchSyncBlockData(syncBlockNode);
+		return this.referenceSyncBlockStoreManager.fetchSyncBlocksData(syncBlockNodes);
 	}
 
 	/**
@@ -82,9 +86,6 @@ export class SyncBlockStoreManager {
 
 	public setEditorView(editorView: EditorView | undefined): void {
 		this.sourceSyncBlockStoreManager.setEditorView(editorView);
-		if (editorView) {
-			this.referenceSyncBlockStoreManager.init(editorView);
-		}
 	}
 
 	public isSourceBlock(node: PMNode): boolean {

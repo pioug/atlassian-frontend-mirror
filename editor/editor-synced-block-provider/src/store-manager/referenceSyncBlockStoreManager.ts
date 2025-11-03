@@ -1,32 +1,20 @@
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { BlockInstanceId, ResourceId, SyncBlockNode } from '../common/types';
 import type {
-	FetchSyncBlockDataResult,
+	SyncBlockInstance,
 	SubscriptionCallback,
 	SyncBlockDataProvider,
 } from '../providers/types';
-import { resolveFetchSyncBlockDataResult } from '../utils/mergeFetchSyncBlockDataResult';
-
-const createSyncBlockNode = (localId: BlockInstanceId, resourceId: ResourceId): SyncBlockNode => {
-	return {
-		type: 'syncBlock',
-		attrs: {
-			localId,
-			resourceId,
-		},
-	};
-};
+import { createSyncBlockNode } from '../utils/createSyncBlock';
+import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 
 export class ReferenceSyncBlockStoreManager {
 	private dataProvider?: SyncBlockDataProvider;
-	private syncBlockCache: Map<ResourceId, FetchSyncBlockDataResult>;
+	private syncBlockCache: Map<ResourceId, SyncBlockInstance>;
 	private subscriptions: Map<ResourceId, { [localId: BlockInstanceId]: SubscriptionCallback }>;
 
 	private syncBlockURLRequests: Map<ResourceId, boolean>;
-	private editorView?: EditorView;
-	private isInitialized: boolean = false;
 	private isRefreshingSubscriptions: boolean = false;
 
 	constructor(dataProvider?: SyncBlockDataProvider) {
@@ -36,43 +24,12 @@ export class ReferenceSyncBlockStoreManager {
 		this.syncBlockURLRequests = new Map();
 	}
 
-	public async init(editorView: EditorView) {
-		if (!this.editorView && !this.isInitialized) {
-			this.editorView = editorView;
-
-			const syncBlockNodes =
-				editorView.state.doc.children
-					.filter((node) => node.type.name === 'syncBlock')
-					.map((node) => {
-						return node.toJSON() as SyncBlockNode;
-					}) || [];
-
-			if (syncBlockNodes.length > 0) {
-				try {
-					const dataResults = await this.fetchSyncBlocksData(syncBlockNodes);
-
-					if (!dataResults) {
-						throw new Error('No data results returned when initializing sync block store manager');
-					}
-
-					dataResults.forEach((dataResult) => {
-						this.updateCache(dataResult);
-					});
-				} catch (error) {
-					// TODO: EDITOR-1921 - add error analytics
-				}
-			}
-		}
-
-		this.isInitialized = true;
-	}
-
 	/**
 	 * Refreshes the subscriptions for all sync blocks.
 	 * @returns {Promise<void>}
 	 */
 	public async refreshSubscriptions() {
-		if (this.isRefreshingSubscriptions || !this.isInitialized) {
+		if (this.isRefreshingSubscriptions) {
 			return;
 		}
 
@@ -124,32 +81,7 @@ export class ReferenceSyncBlockStoreManager {
 		}
 	}
 
-	/**
-	 * Fetch sync block data for a given sync block node.
-	 * @param syncBlockNode - The sync block node to fetch data for
-	 * @returns The fetched sync block data result
-	 */
-	public async fetchSyncBlockData(syncBlockNode: PMNode): Promise<FetchSyncBlockDataResult> {
-		if (!this.dataProvider) {
-			throw new Error('Data provider not set');
-		}
-
-		const syncNode: SyncBlockNode = createSyncBlockNode(
-			syncBlockNode.attrs.localId,
-			syncBlockNode.attrs.resourceId,
-		);
-
-		const data = await this.fetchSyncBlocksData([syncNode]);
-		if (!data || data.length === 0) {
-			throw new Error('Failed to fetch sync block data');
-		}
-
-		return data[0];
-	}
-
-	public async fetchSyncBlocksData(
-		syncBlockNodes: SyncBlockNode[],
-	): Promise<FetchSyncBlockDataResult[]> {
+	public async fetchSyncBlocksData(syncBlockNodes: SyncBlockNode[]): Promise<SyncBlockInstance[]> {
 		if (!this.dataProvider) {
 			throw new Error('Data provider not set');
 		}
@@ -159,35 +91,32 @@ export class ReferenceSyncBlockStoreManager {
 			throw new Error('Failed to fetch sync block node data');
 		}
 
-		const resolvedData: FetchSyncBlockDataResult[] = [];
+		const resolvedData: SyncBlockInstance[] = [];
 
-		data.forEach((fetchSyncBlockDataResult) => {
-			if (!fetchSyncBlockDataResult.resourceId) {
+		data.forEach((syncBlockInstance) => {
+			if (!syncBlockInstance.resourceId) {
 				return;
 			}
 
-			const existingSyncBlock = this.getFromCache(fetchSyncBlockDataResult.resourceId);
+			const existingSyncBlock = this.getFromCache(syncBlockInstance.resourceId);
 
-			const resolvedFetchSyncBlockDataResult = existingSyncBlock
-				? resolveFetchSyncBlockDataResult(existingSyncBlock, fetchSyncBlockDataResult)
-				: fetchSyncBlockDataResult;
+			const resolvedSyncBlockInstance = existingSyncBlock
+				? resolveSyncBlockInstance(existingSyncBlock, syncBlockInstance)
+				: syncBlockInstance;
 
-			this.updateCache(resolvedFetchSyncBlockDataResult);
-			resolvedData.push(resolvedFetchSyncBlockDataResult);
+			this.updateCache(resolvedSyncBlockInstance);
+			resolvedData.push(resolvedSyncBlockInstance);
 
 			// fetch source URL if not already present
-			if (
-				!resolvedFetchSyncBlockDataResult.data?.sourceURL &&
-				resolvedFetchSyncBlockDataResult.resourceId
-			) {
-				this.fetchSyncBlockSourceURL(resolvedFetchSyncBlockDataResult.resourceId);
+			if (!resolvedSyncBlockInstance.data?.sourceURL && resolvedSyncBlockInstance.resourceId) {
+				this.fetchSyncBlockSourceURL(resolvedSyncBlockInstance.resourceId);
 			}
 		});
 
 		return resolvedData;
 	}
 
-	private updateCache(syncBlock: FetchSyncBlockDataResult) {
+	private updateCache(syncBlock: SyncBlockInstance) {
 		const { resourceId } = syncBlock;
 
 		if (resourceId) {
@@ -201,7 +130,7 @@ export class ReferenceSyncBlockStoreManager {
 		}
 	}
 
-	private getFromCache(resourceId: ResourceId): FetchSyncBlockDataResult | undefined {
+	private getFromCache(resourceId: ResourceId): SyncBlockInstance | undefined {
 		return this.syncBlockCache.get(resourceId);
 	}
 
@@ -229,7 +158,7 @@ export class ReferenceSyncBlockStoreManager {
 		if (cachedData) {
 			callback(cachedData);
 		} else {
-			this.fetchSyncBlockData(node).catch(() => {});
+			this.fetchSyncBlocksData([createSyncBlockNode(localId, resourceId)]).catch(() => {});
 		}
 
 		return () => {
@@ -265,7 +194,5 @@ export class ReferenceSyncBlockStoreManager {
 		this.syncBlockCache.clear();
 		this.subscriptions.clear();
 		this.syncBlockURLRequests.clear();
-		this.editorView = undefined;
-		this.isInitialized = false;
 	}
 }

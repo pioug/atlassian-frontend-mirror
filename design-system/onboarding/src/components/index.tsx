@@ -1,4 +1,5 @@
 import Modal from './modal';
+import ModalTransition from './modal-transition';
 import Spotlight from './spotlight';
 import SpotlightCard from './spotlight-card';
 import SpotlightManager from './spotlight-manager';
@@ -16,4 +17,5 @@ export {
 	SpotlightTarget,
 	SpotlightTransition,
 	useSpotlight,
+	ModalTransition,
 };

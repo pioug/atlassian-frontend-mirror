@@ -1,3 +1,5 @@
+import type { DatasourceParameters } from '@atlaskit/linking-types';
+
 import { type IssueLikeDataTableViewProps } from '../issue-like-table/types';
 
 export type DatasourceTableViewProps = {
@@ -5,7 +7,7 @@ export type DatasourceTableViewProps = {
 	datasourceId: string;
 
 	/** Parameters for making the data requests necessary to render data within the table */
-	parameters: object;
+	parameters: DatasourceParameters;
 
 	/** Url for an existing datasource, initially used for displaying to a user unauthorized to query that site  */
 	url?: string;

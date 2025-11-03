@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.14.2
+
+### Patch Changes
+
+- [`dd1f939b8a7f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd1f939b8a7f7) -
+  FG cleanup - react_ufo_unified_search_ignoring_sain_metric
+
+## 4.14.1
+
+### Patch Changes
+
+- [`1cd3b31cac6ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1cd3b31cac6ef) -
+  FG cleanup - platform_ufo_ssr_placeholders_for_display_contents
+
 ## 4.14.0
 
 ### Minor Changes

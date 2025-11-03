@@ -28,7 +28,6 @@ import {
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type annotationPlugin } from '../annotationPlugin';
@@ -43,7 +42,6 @@ import {
 import {
 	getAllAnnotations,
 	getAnnotationViewKey,
-	getPluginState,
 	getSelectionPositions,
 } from '../pm-plugins/utils';
 import { type AnnotationProviders, AnnotationTestIds } from '../types';
@@ -111,17 +109,13 @@ export function InlineCommentView({
 
 	const {
 		annotations,
-		bookmark: _bookmark,
+		bookmark,
 		isInlineCommentViewClosed,
 		isOpeningMediaCommentFromToolbar,
 		selectAnnotationMethod,
 		selectedAnnotations,
 		isAnnotationManagerEnabled,
 	} = useSharedPluginStateWithSelector(editorAPI, ['annotation'], selector);
-	const bookmark = fg('platform_editor_fix_inline_comment_reopen')
-		? getPluginState(state)?.bookmark
-		: _bookmark;
-
 	const annotationsList = getAllAnnotations(editorView.state.doc);
 
 	const selection = getSelectionPositions(state, bookmark);

@@ -55,6 +55,10 @@ export interface ContentProps {
 
 	/**
 	 * Escape hatch to set the initial focus for a specific element, when the popup is opened.
+	 *
+	 * The specified element needs to be available in the DOM as soon as the popup is opened, otherwise it
+	 * will not be focused upon. This means it will not work for content that renders into the popup content
+	 * after it has already opened (e.g. async or lazy loaded content).
 	 */
 	setInitialFocusRef: Dispatch<SetStateAction<HTMLElement | null>>;
 }

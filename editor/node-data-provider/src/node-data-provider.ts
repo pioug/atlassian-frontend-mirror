@@ -23,13 +23,13 @@ type SSRData<Data> = { [dataKey: string]: Data };
  * @example
  * {
  *   'node-id-1': { source: 'ssr', data: { value: 'some data' } },
- *   'node-id-2': { source: 'network', data: Promise.resolve({ value: 'other data' }) }
+ *   'node-id-2': { source: 'network', data: { value: 'other data' } }
  * }
  */
 type CacheData<Data> = Record<
 	string,
 	{
-		data: Data | Promise<Data>;
+		data: Data;
 		source: 'ssr' | 'network';
 	}
 >;
@@ -60,6 +60,7 @@ type CallbackPayload<Data> =
 export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 	private cacheVersion: number;
 	private cache: CacheData<Data>;
+	private readonly networkRequestsInFlight: Record<string, Promise<Data>>;
 
 	/**
 	 * A unique name for the provider. Used for identification in SSR.
@@ -94,6 +95,7 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 	protected constructor() {
 		this.cacheVersion = 0;
 		this.cache = {};
+		this.networkRequestsInFlight = {};
 	}
 
 	/**
@@ -164,52 +166,65 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 		void this.getDataAsync(node, callback);
 	}
 
-	async getDataAsync(
+	protected async getDataAsync(
 		node: Node | PMNode,
 		callback: (payload: CallbackPayload<Data>) => void,
 	): Promise<void> {
-		try {
-			const jsonNode: JSONNode = 'toJSON' in node ? node.toJSON() : node;
+		const jsonNode: JSONNode = 'toJSON' in node ? node.toJSON() : node;
 
-			if (!this.isNodeSupported(jsonNode)) {
-				// eslint-disable-next-line no-console
-				console.error(`The ${this.constructor.name} doesn't support Node ${jsonNode.type}.`);
+		if (!this.isNodeSupported(jsonNode)) {
+			// eslint-disable-next-line no-console
+			console.error(`The ${this.constructor.name} doesn't support Node ${jsonNode.type}.`);
+			return;
+		}
+
+		const dataKey = this.nodeDataKey(jsonNode);
+
+		const dataFromCache = this.cache[dataKey];
+
+		if (dataFromCache !== undefined) {
+			// If we have the data in the SSR data, we can use it directly
+			callback({ data: dataFromCache.data });
+
+			if (isSSR()) {
+				// If we are in SSR, we don't want to fetch the data again, as it is already available in the SSR data
+				return;
+			}
+		}
+
+		// If no data is available in the cache, or the data is from the network,
+		// we need to fetch it from the network.
+		if (dataFromCache?.source !== 'network') {
+			// Store the current cache version before making the request,
+			// so we can check if the cache has changed while we are waiting for the network response.
+			const cacheVersionBeforeRequest = this.cacheVersion;
+
+			// Create a unique key for the in-flight network request
+			// based on the cache version and the data key.
+			const networkRequestInFlightKey = `${cacheVersionBeforeRequest}-${dataKey}`;
+
+			// Check if there is already a network request in flight for this data
+			// to avoid duplicate requests.
+			const networkRequestInFlight = this.networkRequestsInFlight[networkRequestInFlightKey];
+			if (networkRequestInFlight) {
+				try {
+					const data = await networkRequestInFlight;
+					callback({ data });
+				} catch (error) {
+					callback({ error: error instanceof Error ? error : new Error(String(error)) });
+				}
+
 				return;
 			}
 
-			const dataKey = this.nodeDataKey(jsonNode);
-
-			const dataFromCache = this.cache[dataKey];
-
-			if (dataFromCache !== undefined) {
-				// If we have the data in the SSR data, we can use it directly
-				if (isPromise(dataFromCache.data)) {
-					callback({ data: await dataFromCache.data });
-				} else {
-					callback({ data: dataFromCache.data });
-				}
-
-				if (isSSR()) {
-					// If we are in SSR, we don't want to fetch the data again, as it is already available in the SSR data
-					return;
-				}
-			}
-
-			// If no data is available in the cache or the data is from the network,
-			// we need to fetch it from the network.
-			if (dataFromCache?.source !== 'network') {
-				// Store the current cache version before making the request,
-				// so we can check if the cache has changed while we are waiting for the network response.
-				const cacheVersionBeforeRequest = this.cacheVersion;
-
+			try {
 				const dataPromise = this.fetchNodesData([jsonNode]).then(([value]) => value);
-				// Store the promise in the cache to avoid multiple requests for the same data
-				this.cache[dataKey] = {
-					source: 'network',
-					data: dataPromise,
-				};
+
+				// Store the promise in the in-flight requests map
+				this.networkRequestsInFlight[networkRequestInFlightKey] = dataPromise;
 
 				const data = await dataPromise;
+
 				// We need to call the callback with the data with result even if the cache version has changed,
 				// so all promises that are waiting for the data can resolve.
 				callback({ data });
@@ -223,10 +238,13 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 						data,
 					};
 				}
+			} catch (error) {
+				// If an error occurs, we call the callback with the error
+				callback({ error: error instanceof Error ? error : new Error(String(error)) });
+			} finally {
+				// Ensure we clean up the in-flight request entry
+				delete this.networkRequestsInFlight[networkRequestInFlightKey];
 			}
-		} catch (error) {
-			// If an error occurs, we call the callback with the error
-			callback({ error: error instanceof Error ? error : new Error(String(error)) });
 		}
 	}
 
@@ -274,34 +292,27 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 	 * @returns The cache status: `false`, `'ssr'`, or `'network'`.
 	 */
 	getCacheStatusForNode(node: Node | PMNode): false | 'ssr' | 'network' {
+		const dataFromCache = this.getNodeDataFromCache(node);
+
+		return dataFromCache ? dataFromCache.source : false;
+	}
+
+	/**
+	 * Retrieves the cached data for a given node, if available.
+	 *
+	 * @param node The node (or its ProseMirror representation) for which to retrieve cached data.
+	 * @returns The cached data object containing `data` and `source`, or `undefined` if no cache entry exists.
+	 */
+	getNodeDataFromCache(node: JSONNode | PMNode): CacheData<Data>[string] | undefined {
 		const jsonNode: JSONNode = 'toJSON' in node ? node.toJSON() : node;
 
 		if (!this.isNodeSupported(jsonNode)) {
 			// eslint-disable-next-line no-console
 			console.error(`The ${this.constructor.name} doesn't support Node ${jsonNode.type}.`);
-			return false;
+			return undefined;
 		}
 
-		const dataKey = this.nodeDataKey(jsonNode);
-		const dataFromCache = this.cache[dataKey];
-		return dataFromCache ? dataFromCache.source : false;
-	}
-
-	getNodeDataFromCache(node: JSONNode | PMNode) {
-		const jsonNode: JSONNode = 'toJSON' in node ? node.toJSON() : node;
 		const dataKey = this.nodeDataKey(jsonNode as Node);
 		return this.cache[dataKey];
 	}
-}
-
-/**
- * Checks if value is a promise using hacky heuristics.
- */
-export function isPromise<T>(value: T | Promise<T>): value is Promise<T> {
-	return (
-		typeof value === 'object' &&
-		value !== null &&
-		'then' in value &&
-		typeof value.then === 'function'
-	);
 }

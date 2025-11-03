@@ -323,16 +323,11 @@ export const moveNodeViaShortcut = (
 			const nodeType = state.doc.nodeAt(currentNodePos)?.type.name;
 
 			let shouldMoveNode = false;
-			if (moveToPos > -1 && fg('platform_editor_elements_dnd_multi_select_patch_2')) {
+			if (moveToPos > -1) {
 				const isDestDepthSameAsSource =
 					$currentNodePos.depth === state.doc.resolve(moveToPos).depth;
 				const isSourceLayoutColumn = nodeType === 'layoutColumn';
 				shouldMoveNode = isDestDepthSameAsSource || isSourceLayoutColumn;
-			} else {
-				// only move the node if the destination is at the same depth, not support moving a nested node to a parent node
-				shouldMoveNode =
-					(moveToPos > -1 && $currentNodePos.depth === state.doc.resolve(moveToPos).depth) ||
-					nodeType === 'layoutColumn';
 			}
 
 			const { $anchor: $newAnchor, $head: $newHead } = expandSelectionBounds(
@@ -377,10 +372,7 @@ export const moveNode =
 		formatMessage?: IntlShape['formatMessage'],
 	): EditorCommand =>
 	({ tr }) => {
-		if (
-			!api ||
-			((start < 0 || to < 0) && fg('platform_editor_elements_dnd_multi_select_patch_2'))
-		) {
+		if (!api || start < 0 || to < 0) {
 			return tr;
 		}
 		const handleNode = tr.doc.nodeAt(start);

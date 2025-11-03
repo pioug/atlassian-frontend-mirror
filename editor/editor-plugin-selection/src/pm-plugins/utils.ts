@@ -330,8 +330,7 @@ export const isSelectionAtEndOfParentNode = ($pos: ResolvedPos, selection: Selec
 	// Handle lists: if in a list inside container and not at the end, return false
 	if (
 		hasParentNode(isListItemNode)(selection) &&
-		isListItemWithinContainerNotAtEnd($pos, selection) &&
-		fg('platform_editor_fix_right_arrow_bug_list_in_layout')
+		isListItemWithinContainerNotAtEnd($pos, selection)
 	) {
 		return false;
 	}

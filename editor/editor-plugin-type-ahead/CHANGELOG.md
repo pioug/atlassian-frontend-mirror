@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.5.10
+
+### Patch Changes
+
+- [`4b461c96cc5a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b461c96cc5a0) -
+  Remove fg platform_editor_legacy_content_macro_typeahead_fix
+- Updated dependencies
+
 ## 6.5.9
 
 ### Patch Changes

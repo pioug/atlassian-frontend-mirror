@@ -21,16 +21,19 @@ export const SyncBlockWithParagraphAndPanelRenderer = generateRendererComponent(
 	},
 });
 
-export const SyncBlockWithPermissionDenied = generateRendererComponent({
-	document: syncBlockPermissionDeniedAdf,
-	appearance: 'full-width',
-	nodeComponents: {
-		syncBlock: getSyncedBlockNodeComponent(
-			mockSyncedBlockProviderWithStaticData,
-			syncBlockPermissionDeniedAdf,
-		),
+export const SyncBlockWithPermissionDenied = generateRendererComponent(
+	{
+		document: syncBlockPermissionDeniedAdf,
+		appearance: 'full-width',
+		nodeComponents: {
+			syncBlock: getSyncedBlockNodeComponent(
+				mockSyncedBlockProviderWithStaticData,
+				syncBlockPermissionDeniedAdf,
+			),
+		},
 	},
-});
+	{ mockRelayEnvironment: true },
+);
 
 export const SyncBlockNotFound = generateRendererComponent({
 	document: syncBlockNotFoundAdf,

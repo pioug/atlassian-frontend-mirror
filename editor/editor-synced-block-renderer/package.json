@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-synced-block-renderer",
-	"version": "2.2.5",
+	"version": "2.3.1",
 	"description": "SyncedBlockRenderer for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -31,14 +31,24 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-synced-block-provider": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/image": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/renderer": "workspace:^",
-		"@babel/runtime": "root:*"
+		"@atlaskit/tokens": "workspace:^",
+		"@babel/runtime": "root:*",
+		"react-relay": "root:*",
+		"relay-runtime": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-intl-next": "*"
 	},
 	"devDependencies": {
 		"typescript": "root:*"

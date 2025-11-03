@@ -3,6 +3,7 @@ import {
 	type ExternalReferenceSource,
 	type TeamMembershipSettings,
 	type TeamPermission,
+	type TeamState,
 } from '../../../types/team';
 import { isMember } from '../team';
 
@@ -17,6 +18,7 @@ export function hasPermission(
 	currentUserMembership: TeamMembership | undefined,
 	teamVisibilityPermissions?: TeamPermissions,
 	source?: ExternalReferenceSource,
+	state?: TeamState,
 ): boolean {
 	if (!isPeopleBrowseEnabled && !vanityActions.includes(action)) {
 		return false;
@@ -29,6 +31,7 @@ export function hasPermission(
 		isMemberOfTeam,
 		isOrgAdmin,
 		source,
+		state,
 	});
 }
 
@@ -53,6 +56,7 @@ type PermissionOptions = {
 	 * External source(if any) "ATLASSIAN_GROUP" | "HRIS"
 	 */
 	source?: ExternalReferenceSource;
+	state?: TeamState;
 };
 
 /**
@@ -65,6 +69,7 @@ export function userCan(action: TeamAction, options: PermissionOptions): boolean
 		options.isMemberOfTeam,
 		options.isOrgAdmin,
 		options.source,
+		options.state,
 	)[action];
 }
 

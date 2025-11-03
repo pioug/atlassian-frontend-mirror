@@ -13,6 +13,8 @@ import { SpotlightConsumer } from './spotlight-manager';
  * - [Examples](https://atlassian.design/components/onboarding/examples)
  * - [Code](https://atlassian.design/components/onboarding/code)
  * - [Usage](https://atlassian.design/components/onboarding/usage)
+ *
+ * @deprecated Use `@atlaskit/spotlight` instead.
  */
 const Spotlight = ({
 	actions,

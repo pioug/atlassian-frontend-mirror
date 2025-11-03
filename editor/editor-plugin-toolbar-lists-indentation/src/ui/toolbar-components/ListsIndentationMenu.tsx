@@ -24,11 +24,6 @@ export const ListsIndentationMenu = ({
 	allowHeadingAndParagraphIndentation,
 }: ListsIndentationMenuProps) => {
 	const { formatMessage } = useIntl();
-	const isTaskListItemEnabled = expValEquals(
-		'platform_editor_toolbar_task_list_menu_item',
-		'isEnabled',
-		true,
-	);
 	const { editorView } = useEditorToolbar();
 
 	const indentationState = useIndentationState({
@@ -48,7 +43,7 @@ export const ListsIndentationMenu = ({
 		orderedListDisabled &&
 		indentationState?.indentDisabled &&
 		indentationState?.outdentDisabled &&
-		!(isTaskListItemEnabled && taskListActive);
+		!taskListActive;
 
 	return expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) ? (
 		<ToolbarTooltip content={formatMessage(messages.lists)}>

@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 4.28.0
+
+### Minor Changes
+
+- [`6cb21d13010a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cb21d13010a3) -
+  [ux] Description field of a Jira SLLV now supports rich text when backend sends `html` property in
+  the data.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.27.4
 
 ### Patch Changes

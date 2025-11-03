@@ -9,20 +9,28 @@ import { jsx } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 const styles = cssMap({
 	root: {
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
 		borderColor: token('color.border'),
 		borderRadius: token('radius.small'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width'),
+		backgroundColor: token('elevation.surface'),
+		textAlign: 'start',
+		'&:hover': {
+			backgroundColor: token('elevation.surface.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('elevation.surface.pressed'),
+		},
 	},
 });
 
@@ -57,11 +65,11 @@ export default function Example() {
 				}}
 			>
 				{(props) => (
-					<Box {...props} xcss={cx(styles.root, smallStyles.root)}>
+					<Pressable {...props} xcss={cx(styles.root, smallStyles.root)}>
 						<Text ref={firstRef} maxLines={1}>
 							{content.first}
 						</Text>
-					</Box>
+					</Pressable>
 				)}
 			</Tooltip>
 			<Tooltip
@@ -77,11 +85,11 @@ export default function Example() {
 				}}
 			>
 				{(props) => (
-					<Box {...props} xcss={styles.root}>
+					<Pressable {...props} xcss={styles.root}>
 						<Text ref={secondRef} maxLines={1}>
 							{content.second}
 						</Text>
-					</Box>
+					</Pressable>
 				)}
 			</Tooltip>
 		</Stack>

@@ -1,5 +1,8 @@
 import React from 'react';
 import type { ComponentType } from 'react';
+import { RelayEnvironmentProvider } from 'react-relay';
+import { createMockEnvironment } from 'relay-test-utils';
+
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
@@ -30,6 +33,8 @@ import type { RendererProps } from '../..';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
 
+const mockEnvironment = createMockEnvironment();
+
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 const providerFactory = ProviderFactory.create({
 	contextIdentifierProvider,
@@ -46,6 +51,7 @@ export const generateRendererComponent = (
 	props: RendererProps,
 	options?: {
 		mockDatasources?: boolean;
+		mockRelayEnvironment?: boolean;
 		viewport?: { height?: number; width?: number };
 	},
 ): ComponentType<React.PropsWithChildren<any>> => {
@@ -55,6 +61,7 @@ export const generateRendererComponent = (
 	};
 
 	const mockDatasources = options?.mockDatasources ?? false;
+	const mockRelayEnvironment = options?.mockRelayEnvironment ?? false;
 
 	return () => {
 		const smartCardClient = React.useMemo(() => new CardClient('stg'), []);
@@ -67,7 +74,7 @@ export const generateRendererComponent = (
 			});
 		}
 
-		return (
+		const rendererContent = (
 			<div
 				style={{
 					width: options?.viewport?.width ?? 'unset',
@@ -83,6 +90,16 @@ export const generateRendererComponent = (
 				</IntlProvider>
 			</div>
 		);
+
+		if (mockRelayEnvironment) {
+			return (
+				<RelayEnvironmentProvider environment={mockEnvironment}>
+					{rendererContent}
+				</RelayEnvironmentProvider>
+			);
+		}
+
+		return rendererContent;
 	};
 };
 

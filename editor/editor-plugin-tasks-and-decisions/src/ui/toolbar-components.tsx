@@ -20,10 +20,7 @@ type GetTasksAndDecisionsToolbarComponentsProps = {
 export const getTasksAndDecisionsToolbarComponents = ({
 	api,
 }: GetTasksAndDecisionsToolbarComponentsProps): RegisterComponent[] => {
-	if (
-		!expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) ||
-		!expValEquals('platform_editor_toolbar_task_list_menu_item', 'isEnabled', true)
-	) {
+	if (!expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)) {
 		return [];
 	}
 

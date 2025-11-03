@@ -38,6 +38,8 @@ const hasChildren = (children: ReactNode) =>
  * - [Examples](https://atlassian.design/components/onboarding/examples)
  * - [Code](https://atlassian.design/components/onboarding/code)
  * - [Usage](https://atlassian.design/components/onboarding/usage)
+ *
+ * @deprecated Use `@atlaskit/spotlight` instead.
  */
 class SpotlightTransition extends React.Component<SpotlightTransitionProps, State> {
 	static getDerivedStateFromProps(props: SpotlightTransitionProps, state: State) {

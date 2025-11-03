@@ -498,10 +498,10 @@ const PortaledPanelSplitter = ({
  *
  * Example usage in products:
  * ```tsx
- * <SideNav>
- *   {/* other side nav content *}
+ * <Aside>
+ *   <!-- other side nav content -->
  *   <PanelSplitter label="Resize Side Nav" />
- * </SideNav>
+ * </Aside>
  * ```
  */
 export const PanelSplitter = ({

@@ -1,5 +1,24 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 2.3.1
+
+### Patch Changes
+
+- [`ff3e1422d5b70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff3e1422d5b70) -
+  [ux] EDITOR-2437 implement request access to sync block component
+- Updated dependencies
+
+## 2.3.0
+
+### Minor Changes
+
+- [`424619eee38cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/424619eee38cb) -
+  EDITOR-2451 add tests and refactor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.5
 
 ### Patch Changes

@@ -1,9 +1,6 @@
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
-import {
-	type SyncBlockNode,
-	type FetchSyncBlockDataResult,
-} from '@atlaskit/editor-synced-block-provider';
+import { type SyncBlockNode, type SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
 import type { NodeDataProvider } from '@atlaskit/node-data-provider';
 
 import {
@@ -12,7 +9,7 @@ import {
 } from './ui/SyncedBlockNodeComponentRenderer';
 
 export const getSyncedBlockNodeComponent = (
-	dataProvider: NodeDataProvider<SyncBlockNode, FetchSyncBlockDataResult>,
+	dataProvider: NodeDataProvider<SyncBlockNode, SyncBlockInstance>,
 	doc: DocNode,
 ) => {
 	const { content } = doc;

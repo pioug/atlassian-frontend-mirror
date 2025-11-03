@@ -9,7 +9,7 @@ import {
 	type EmojiResource,
 	type OptionalEmojiDescriptionWithVariations,
 } from '@atlaskit/emoji';
-import { NodeDataProvider, isPromise } from '@atlaskit/node-data-provider';
+import { NodeDataProvider } from '@atlaskit/node-data-provider';
 
 export class EmojiNodeDataProvider extends NodeDataProvider<
 	EmojiDefinition,
@@ -57,8 +57,10 @@ export class EmojiNodeDataProvider extends NodeDataProvider<
 		) => void,
 	) {
 		const cached = this.getNodeDataFromCache(node);
-		if (cached && cached.data && !isPromise(cached.data)) {
-			callback(cached as { data: OptionalEmojiDescriptionWithVariations });
+
+		if (cached?.data) {
+			callback(cached);
+
 			if (!isSSR() && typeof requestAnimationFrame !== 'undefined') {
 				requestAnimationFrame(() => void this.getDataAsync(node, () => {}));
 			}

@@ -8,7 +8,7 @@ import type { DatasourceTableViewProps } from '../src/ui/datasource-table-view/t
 import type { ColumnSizesMap } from '../src/ui/issue-like-table/types';
 
 export const useCommonTableProps = (
-	props: { defaultColumnCustomSizes?: ColumnSizesMap } = {},
+	props: { defaultColumnCustomSizes?: ColumnSizesMap; visibleColumnKeys?: string[] } = {},
 ): Required<
 	Pick<
 		DatasourceTableViewProps,
@@ -21,7 +21,7 @@ export const useCommonTableProps = (
 > &
 	Pick<DatasourceTableViewProps, 'columnCustomSizes'> => {
 	const [visibleColumnKeys, onVisibleColumnKeysChange] = useState<string[]>(
-		defaultInitialVisibleJiraColumnKeys,
+		props.visibleColumnKeys ?? defaultInitialVisibleJiraColumnKeys,
 	);
 
 	const { columnCustomSizes, onColumnResize } = useColumnResize(props.defaultColumnCustomSizes);

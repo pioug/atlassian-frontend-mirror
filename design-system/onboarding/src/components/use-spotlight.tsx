@@ -4,6 +4,8 @@ import { SpotlightContext } from './spotlight-manager';
 
 /**
  * Use spotlight hook returns information about available spotlight targets.
+ *
+ * @deprecated Use `@atlaskit/spotlight` instead.
  */
 export default function useSpotlight() {
 	const { targets } = useContext(SpotlightContext);

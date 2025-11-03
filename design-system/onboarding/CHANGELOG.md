@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 14.4.9
+
+### Patch Changes
+
+- [`6616518b12a0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6616518b12a0b) -
+  Mark all @atlaskit/onboarding exports as deprecated. Please use @atlaskit/spotlight instead.
+- Updated dependencies
+
 ## 14.4.8
 
 ### Patch Changes

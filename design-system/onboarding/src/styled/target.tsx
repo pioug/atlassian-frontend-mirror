@@ -151,6 +151,8 @@ export const TargetOverlay = ({ onClick, ...props }: HTMLAttributes<HTMLDivEleme
  * - [Examples](https://atlassian.design/components/onboarding/examples)
  * - [Code](https://atlassian.design/components/onboarding/code)
  * - [Usage](https://atlassian.design/components/onboarding/usage)
+ *
+ * @deprecated Use `@atlaskit/spotlight` instead.
  */
 export const Pulse = ({
 	bgColor,

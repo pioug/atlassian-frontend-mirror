@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 8.2.13
+
+### Patch Changes
+
+- [`29d0693bd5373`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29d0693bd5373) -
+  EDITOR-2581 Fire event for suppressAllToolbars api being used
+- Updated dependencies
+
 ## 8.2.12
 
 ### Patch Changes

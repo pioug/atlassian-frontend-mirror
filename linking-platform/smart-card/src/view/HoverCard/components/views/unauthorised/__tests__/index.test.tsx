@@ -210,4 +210,38 @@ describe('Unauthorised Hover Card', () => {
 			expect(buttonElement).toHaveTextContent('Connect Google');
 		});
 	});
+
+	describe('Title message based on experiment cohort', () => {
+		it('shows "Connect your {context} account" title text for control cohort', () => {
+			useExperimentGateMock.mockReturnValue('control');
+			setUpHoverCard();
+
+			const titleElement = screen.getByTestId('hover-card-unauthorised-view-title');
+			expect(titleElement).toHaveTextContent('Connect your Google account');
+		});
+
+		it('shows "Get more out of {context}" title text for test1 cohort', () => {
+			useExperimentGateMock.mockReturnValue('test1');
+			setUpHoverCard();
+
+			const titleElement = screen.getByTestId('hover-card-unauthorised-view-title');
+			expect(titleElement).toHaveTextContent('Get more out of Google');
+		});
+
+		it('shows "Get more out of {context}" title text for test2 cohort', () => {
+			useExperimentGateMock.mockReturnValue('test2');
+			setUpHoverCard();
+
+			const titleElement = screen.getByTestId('hover-card-unauthorised-view-title');
+			expect(titleElement).toHaveTextContent('Get more out of Google');
+		});
+
+		it('shows "Connect your {context} account" title text for test3 cohort', () => {
+			useExperimentGateMock.mockReturnValue('test3');
+			setUpHoverCard();
+
+			const titleElement = screen.getByTestId('hover-card-unauthorised-view-title');
+			expect(titleElement).toHaveTextContent('Connect your Google account');
+		});
+	});
 });

@@ -1135,29 +1135,32 @@ const smartCardStyles = css({
 });
 
 const smartCardStylesAvatarFix = css({
-	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}`]: {
-		/* EDM-11991: Fix list plugin adding padding to ADS AvatarGroup start */
-		'ul, ol': {
-			paddingLeft: 'inherit',
+	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}:not(.${SmartCardSharedCssClassName.DATASOURCE_CONTAINER})`]:
+		{
+			/* EDM-11991: Fix list plugin adding padding to ADS AvatarGroup start */
+			'ul, ol': {
+				paddingLeft: 'inherit',
+			},
+			/* EDM-11991: Fix list plugin add padding to ADS AvatarGroup end */
 		},
-		/* EDM-11991: Fix list plugin add padding to ADS AvatarGroup end */
-	},
 });
 
 const smartCardStylesAvatarMarginFix = css({
-	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}`]: {
-		'ul, ol': {
-			marginRight: 'inherit',
+	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}:not(.${SmartCardSharedCssClassName.DATASOURCE_CONTAINER})`]:
+		{
+			'ul, ol': {
+				marginRight: 'inherit',
+			},
 		},
-	},
 });
 
 const smartCardStylesAvatarListZeroMarginTop = css({
-	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}`]: {
-		'ul, ol': {
-			marginTop: 0,
+	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}:not(.${SmartCardSharedCssClassName.DATASOURCE_CONTAINER})`]:
+		{
+			'ul, ol': {
+				marginTop: 0,
+			},
 		},
-	},
 });
 
 // In Renderer in Jira there is no SmartCardSharedCssClassName.INLINE_CARD_CONTAINER, so using data-inline-cart="true"

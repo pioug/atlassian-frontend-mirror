@@ -44,6 +44,8 @@ const openActionsExceptJoin = [
 	),
 ];
 
+const allActionsExceptUnarchive = [...AllTeamActions.filter((a) => a !== 'UNARCHIVE_TEAM')];
+
 const currentMemberMembership: TeamMembership = {
 	membershipId: {
 		teamId: 'teamId',
@@ -89,9 +91,20 @@ describe('In open teams', () => {
 		it.each([...openActionsExceptJoin])(
 			'members with write permission can perform %s',
 			(action) => {
-				expect(hasPermission(action, 'OPEN', 'FULL_WRITE', true, currentMemberMembership)).toBe(
-					true,
-				);
+				// For UNARCHIVE_TEAM, pass DISBANDED state, otherwise pass ACTIVE
+				const state = action === 'UNARCHIVE_TEAM' ? 'DISBANDED' : 'ACTIVE';
+				expect(
+					hasPermission(
+						action,
+						'OPEN',
+						'FULL_WRITE',
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						state,
+					),
+				).toBe(true);
 			},
 		);
 
@@ -176,8 +189,19 @@ describe('In invite-only teams', () => {
 		});
 
 		it.each([...allActionsExceptJoin])('members with write permission can perform %s', (action) => {
+			// For UNARCHIVE_TEAM, pass DISBANDED state, otherwise pass ACTIVE
+			const state = action === 'UNARCHIVE_TEAM' ? 'DISBANDED' : 'ACTIVE';
 			expect(
-				hasPermission(action, 'MEMBER_INVITE', 'FULL_WRITE', true, currentMemberMembership),
+				hasPermission(
+					action,
+					'MEMBER_INVITE',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					state,
+				),
 			).toBe(true);
 		});
 
@@ -204,14 +228,25 @@ describe('In invite-only teams', () => {
 			);
 		});
 
-		it.each([...allActionsExceptJoin].filter((a) => a !== 'LEAVE_TEAM' && a !== 'ARCHIVE_TEAM'))(
-			'users with write permission can %s',
-			(action) => {
-				expect(
-					hasPermission(action, 'MEMBER_INVITE', 'FULL_WRITE', true, currentMemberMembership),
-				).toBe(true);
-			},
-		);
+		it.each(
+			[...allActionsExceptJoin].filter(
+				(a) => a !== 'LEAVE_TEAM' && a !== 'ARCHIVE_TEAM' && a !== 'UNARCHIVE_TEAM',
+			),
+		)('users with write permission can %s', (action) => {
+			const state = 'ACTIVE';
+			expect(
+				hasPermission(
+					action,
+					'MEMBER_INVITE',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					state,
+				),
+			).toBe(true);
+		});
 
 		it.each([...allActionsExceptJoin])('users without write permission cannot do %s', (action) => {
 			for (const permission of nonPermissions) {
@@ -255,9 +290,18 @@ describe('In SCIM-synced teams', () => {
 				].some((s) => a.includes(s)),
 			),
 		)('members can perform %s', (action) => {
-			expect(hasPermission(action, 'EXTERNAL', undefined, true, currentMemberMembership)).toBe(
-				true,
-			);
+			expect(
+				hasPermission(
+					action,
+					'EXTERNAL',
+					undefined,
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(true);
 		});
 
 		it.each(
@@ -272,9 +316,18 @@ describe('In SCIM-synced teams', () => {
 					].some((s) => a.includes(s)),
 			),
 		)('members cannot perform %s', (action) => {
-			expect(hasPermission(action, 'EXTERNAL', undefined, true, currentMemberMembership)).toBe(
-				false,
-			);
+			expect(
+				hasPermission(
+					action,
+					'EXTERNAL',
+					undefined,
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(false);
 		});
 	});
 	describe('When the user is not a member', () => {
@@ -309,12 +362,22 @@ describe('In SCIM-synced teams', () => {
 				].some((s) => a.includes(s)),
 			),
 		)('members can perform %s', (action) => {
+			const state = action === 'UNARCHIVE_TEAM' ? 'DISBANDED' : 'ACTIVE';
 			expect(
-				hasPermission(action, 'EXTERNAL', undefined, true, currentMemberMembership, {
-					canCreateTeams: true,
-					canViewTeams: true,
-					canAdminTeams: true,
-				}),
+				hasPermission(
+					action,
+					'EXTERNAL',
+					undefined,
+					true,
+					currentMemberMembership,
+					{
+						canCreateTeams: true,
+						canViewTeams: true,
+						canAdminTeams: true,
+					},
+					undefined,
+					state,
+				),
 			).toBe(true);
 		});
 
@@ -332,11 +395,456 @@ describe('In SCIM-synced teams', () => {
 			),
 		)('members cannot perform %s', (action) => {
 			expect(
-				hasPermission(action, 'EXTERNAL', undefined, true, currentMemberMembership, {
-					canCreateTeams: true,
-					canViewTeams: true,
-					canAdminTeams: true,
-				}),
+				hasPermission(
+					action,
+					'EXTERNAL',
+					undefined,
+					true,
+					currentMemberMembership,
+					{
+						canCreateTeams: true,
+						canViewTeams: true,
+						canAdminTeams: true,
+					},
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(false);
+		});
+	});
+});
+
+describe('Disbanded team permissions', () => {
+	beforeEach(() => {
+		(isMember as jest.Mock).mockReturnValue(true);
+	});
+
+	it.each(AllTeamActions.filter((a) => a !== 'UNARCHIVE_TEAM' && a !== 'DELETE_TEAM'))(
+		'returns false for all actions except UNARCHIVE_TEAM and DELETE_TEAM when team is disbanded - %s',
+		(action) => {
+			expect(
+				hasPermission(
+					action,
+					'OPEN',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'DISBANDED',
+				),
+			).toBe(false);
+		},
+	);
+
+	it.each(allActionsExceptUnarchive.filter((a) => a !== 'DELETE_TEAM'))(
+		'org admin also cannot perform actions on disbanded teams except UNARCHIVE_TEAM and DELETE_TEAM - %s',
+		(action) => {
+			expect(
+				hasPermission(
+					action,
+					'OPEN',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					{
+						canCreateTeams: true,
+						canViewTeams: true,
+						canAdminTeams: true,
+					},
+					undefined,
+					'DISBANDED',
+				),
+			).toBe(false);
+		},
+	);
+
+	it.each(
+		allActionsExceptUnarchive.filter((a) =>
+			[
+				'EDIT_DESCRIPTION',
+				'EDIT_TEAM_LINK',
+				'EDIT_TEAM_SETTINGS',
+				'REMOVE_AGENT_FROM_TEAM',
+				'ADD_AGENT_TO_TEAM',
+				'ARCHIVE_TEAM',
+			].some((s) => a.includes(s)),
+		),
+	)('allows actions when team is active with same permissions - %s', (action) => {
+		const result = hasPermission(
+			action,
+			'OPEN',
+			'FULL_WRITE',
+			true,
+			currentMemberMembership,
+			undefined,
+			undefined,
+			'ACTIVE',
+		);
+		expect(result).toBe(true);
+	});
+});
+
+describe('ARCHIVE_TEAM and UNARCHIVE_TEAM permissions', () => {
+	beforeEach(() => {
+		(isMember as jest.Mock).mockReturnValue(true);
+	});
+
+	describe('ARCHIVE_TEAM', () => {
+		it('returns false when team is already disbanded', () => {
+			expect(
+				hasPermission(
+					'ARCHIVE_TEAM',
+					'OPEN',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'DISBANDED',
+				),
+			).toBe(false);
+		});
+
+		it('returns false when team is already disbanded even for org admin', () => {
+			expect(
+				hasPermission(
+					'ARCHIVE_TEAM',
+					'EXTERNAL',
+					undefined,
+					true,
+					currentMemberMembership,
+					{
+						canCreateTeams: true,
+						canViewTeams: true,
+						canAdminTeams: true,
+					},
+					undefined,
+					'DISBANDED',
+				),
+			).toBe(false);
+		});
+
+		describe('OPEN teams', () => {
+			it('checks permission normally when team is active for member with FULL_WRITE', () => {
+				const result = hasPermission(
+					'ARCHIVE_TEAM',
+					'OPEN',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				);
+				expect(result).toBe(true);
+			});
+
+			it('returns false for member without FULL_WRITE when team is active', () => {
+				const result = hasPermission(
+					'ARCHIVE_TEAM',
+					'OPEN',
+					'FULL_READ',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				);
+				expect(result).toBe(false);
+			});
+		});
+
+		describe('MEMBER_INVITE teams', () => {
+			it('checks permission normally when team is active for member with FULL_WRITE', () => {
+				const result = hasPermission(
+					'ARCHIVE_TEAM',
+					'MEMBER_INVITE',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				);
+				expect(result).toBe(true);
+			});
+		});
+
+		describe('EXTERNAL teams', () => {
+			it('checks permission normally for org admin when team is active', () => {
+				const result = hasPermission(
+					'ARCHIVE_TEAM',
+					'EXTERNAL',
+					undefined,
+					true,
+					currentMemberMembership,
+					{
+						canCreateTeams: true,
+						canViewTeams: true,
+						canAdminTeams: true,
+					},
+					undefined,
+					'ACTIVE',
+				);
+				expect(result).toBe(true);
+			});
+
+			it('checks permission normally for non-org-admin when team is active', () => {
+				const result = hasPermission(
+					'ARCHIVE_TEAM',
+					'EXTERNAL',
+					undefined,
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				);
+				expect(result).toBe(false);
+			});
+		});
+	});
+
+	describe('UNARCHIVE_TEAM', () => {
+		it('returns false when team is not disbanded (ACTIVE)', () => {
+			expect(
+				hasPermission(
+					'UNARCHIVE_TEAM',
+					'OPEN',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(false);
+		});
+
+		it('returns false when team is not disbanded (PURGED)', () => {
+			expect(
+				hasPermission(
+					'UNARCHIVE_TEAM',
+					'OPEN',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'PURGED',
+				),
+			).toBe(false);
+		});
+
+		describe('OPEN teams', () => {
+			it('allows member with FULL_WRITE to unarchive disbanded team', () => {
+				expect(
+					hasPermission(
+						'UNARCHIVE_TEAM',
+						'OPEN',
+						'FULL_WRITE',
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						'DISBANDED',
+					),
+				).toBe(true);
+			});
+
+			it('returns false for member without FULL_WRITE permission', () => {
+				expect(
+					hasPermission(
+						'UNARCHIVE_TEAM',
+						'OPEN',
+						'FULL_READ',
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						'DISBANDED',
+					),
+				).toBe(false);
+			});
+
+			it('returns false for non-member', () => {
+				(isMember as jest.Mock).mockReturnValue(false);
+				expect(
+					hasPermission(
+						'UNARCHIVE_TEAM',
+						'OPEN',
+						'FULL_WRITE',
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						'DISBANDED',
+					),
+				).toBe(false);
+				(isMember as jest.Mock).mockReturnValue(true);
+			});
+		});
+
+		describe('MEMBER_INVITE teams', () => {
+			it('allows member with FULL_WRITE to unarchive disbanded team', () => {
+				expect(
+					hasPermission(
+						'UNARCHIVE_TEAM',
+						'MEMBER_INVITE',
+						'FULL_WRITE',
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						'DISBANDED',
+					),
+				).toBe(true);
+			});
+
+			it('returns false for member without FULL_WRITE permission', () => {
+				expect(
+					hasPermission(
+						'UNARCHIVE_TEAM',
+						'MEMBER_INVITE',
+						'FULL_READ',
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						'DISBANDED',
+					),
+				).toBe(false);
+			});
+		});
+
+		describe('EXTERNAL teams', () => {
+			it('allows org admin to unarchive disbanded team', () => {
+				expect(
+					hasPermission(
+						'UNARCHIVE_TEAM',
+						'EXTERNAL',
+						undefined,
+						true,
+						currentMemberMembership,
+						{
+							canCreateTeams: true,
+							canViewTeams: true,
+							canAdminTeams: true,
+						},
+						undefined,
+						'DISBANDED',
+					),
+				).toBe(true);
+			});
+
+			it('returns false for non-org-admin even with FULL_WRITE permission', () => {
+				expect(
+					hasPermission(
+						'UNARCHIVE_TEAM',
+						'EXTERNAL',
+						'FULL_WRITE',
+						true,
+						currentMemberMembership,
+						{
+							canCreateTeams: false,
+							canViewTeams: false,
+							canAdminTeams: false,
+						},
+						undefined,
+						'DISBANDED',
+					),
+				).toBe(false);
+			});
+
+			it('returns false for member without org admin privileges', () => {
+				expect(
+					hasPermission(
+						'UNARCHIVE_TEAM',
+						'EXTERNAL',
+						undefined,
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						'DISBANDED',
+					),
+				).toBe(false);
+			});
+		});
+	});
+
+	describe('DELETE_TEAM on disbanded teams', () => {
+		beforeEach(() => {
+			(fg as jest.Mock).mockImplementation(
+				(flagName) => flagName === 'legion-enable-archive-teams',
+			);
+			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+				exp === 'new_team_profile' ? true : false,
+			);
+		});
+
+		it('allows member with FULL_WRITE to delete disbanded OPEN team', () => {
+			expect(
+				hasPermission(
+					'DELETE_TEAM',
+					'OPEN',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'DISBANDED',
+				),
+			).toBe(true);
+		});
+
+		it('allows member with FULL_WRITE to delete disbanded MEMBER_INVITE team', () => {
+			expect(
+				hasPermission(
+					'DELETE_TEAM',
+					'MEMBER_INVITE',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'DISBANDED',
+				),
+			).toBe(true);
+		});
+
+		it('allows org admin to delete disbanded EXTERNAL team', () => {
+			expect(
+				hasPermission(
+					'DELETE_TEAM',
+					'EXTERNAL',
+					undefined,
+					true,
+					currentMemberMembership,
+					{
+						canCreateTeams: true,
+						canViewTeams: true,
+						canAdminTeams: true,
+					},
+					undefined,
+					'DISBANDED',
+				),
+			).toBe(true);
+		});
+
+		it('returns false for non-org-admin on disbanded EXTERNAL team', () => {
+			expect(
+				hasPermission(
+					'DELETE_TEAM',
+					'EXTERNAL',
+					undefined,
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'DISBANDED',
+				),
 			).toBe(false);
 		});
 	});

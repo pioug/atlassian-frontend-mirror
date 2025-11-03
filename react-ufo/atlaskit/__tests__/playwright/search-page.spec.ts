@@ -3,10 +3,7 @@ import type { ReactUFOPayload } from '../../src/common/react-ufo-payload-schema'
 import { expect, test, viewports } from './fixtures';
 import type { WindowWithReactUFOTestGlobals } from './window-type';
 
-const requiredFeatureFlags = [
-	'ufo_payload_use_idle_callback',
-	'react_ufo_unified_search_ignoring_sain_metric',
-];
+const requiredFeatureFlags = ['ufo_payload_use_idle_callback'];
 
 const featureFlagsCombos = [[...requiredFeatureFlags]];
 

@@ -453,6 +453,12 @@ export class TeamsClient {
 	async archiveTeam(teamId: string): Promise<void> {
 		return this.measurePerformance('archiveTeam', () => this._legionClient.archiveTeam(teamId));
 	}
+	/**
+	 * Unarchive a team
+	 */
+	async unarchiveTeam(teamId: string): Promise<void> {
+		return this.measurePerformance('unarchiveTeam', () => this._legionClient.unArchiveTeam(teamId));
+	}
 
 	/**
 	 * @private

@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const ANCESTOR_LOOKUP_LIMIT = 10;
 const PAGE_LAYOUT_ID = 'page-layout.root';
 
@@ -233,47 +231,42 @@ export class SSRPlaceholderHandlers {
 	 * by collecting dimensions from their children instead
 	 */
 	private getEffectiveBoundingRect(el: HTMLElement): DOMRectReadOnly {
-		const enableDisplayContentsSupport = fg('platform_ufo_ssr_placeholders_for_display_contents');
+		const computedStyle = window.getComputedStyle(el);
 
-		// Only handle display: contents if feature flag is enabled
-		if (enableDisplayContentsSupport) {
-			const computedStyle = window.getComputedStyle(el);
-
-			// If element has display: contents, collect bounding rect from children
-			if (computedStyle.display === 'contents') {
-				const children = Array.from(el.children);
-				if (children.length === 0) {
-					// No children, return zero rect
-					return new DOMRect(0, 0, 0, 0);
-				}
-
-				// Calculate union of all children's bounding rects
-				let minX = Infinity;
-				let minY = Infinity;
-				let maxX = -Infinity;
-				let maxY = -Infinity;
-
-				children.forEach((child) => {
-					const childRect = child.getBoundingClientRect();
-					// Skip children with zero dimensions (likely also display: contents)
-					if (childRect.width > 0 || childRect.height > 0) {
-						minX = Math.min(minX, childRect.left);
-						minY = Math.min(minY, childRect.top);
-						maxX = Math.max(maxX, childRect.right);
-						maxY = Math.max(maxY, childRect.bottom);
-					}
-				});
-
-				// If no children with dimensions found, return zero rect
-				if (minX === Infinity) {
-					return new DOMRect(0, 0, 0, 0);
-				}
-
-				return new DOMRect(minX, minY, maxX - minX, maxY - minY);
+		// If element has display: contents, collect bounding rect from children
+		if (computedStyle.display === 'contents') {
+			const children = Array.from(el.children);
+			if (children.length === 0) {
+				// No children, return zero rect
+				return new DOMRect(0, 0, 0, 0);
 			}
+
+			// Calculate union of all children's bounding rects
+			let minX = Infinity;
+			let minY = Infinity;
+			let maxX = -Infinity;
+			let maxY = -Infinity;
+
+			children.forEach((child) => {
+				const childRect = child.getBoundingClientRect();
+				// Skip children with zero dimensions (likely also display: contents)
+				if (childRect.width > 0 || childRect.height > 0) {
+					minX = Math.min(minX, childRect.left);
+					minY = Math.min(minY, childRect.top);
+					maxX = Math.max(maxX, childRect.right);
+					maxY = Math.max(maxY, childRect.bottom);
+				}
+			});
+
+			// If no children with dimensions found, return zero rect
+			if (minX === Infinity) {
+				return new DOMRect(0, 0, 0, 0);
+			}
+
+			return new DOMRect(minX, minY, maxX - minX, maxY - minY);
 		}
 
-		// Normal element or feature flag disabled, return its bounding rect
+		// Normal element, return its bounding rect
 		return el.getBoundingClientRect();
 	}
 

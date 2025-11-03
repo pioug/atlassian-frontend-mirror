@@ -5,6 +5,7 @@ import {
 	type ExternalReferenceSource,
 	type TeamMembershipSettings,
 	type TeamPermission,
+	type TeamState,
 } from '../../../types/team';
 
 import { type TeamAction } from './types';
@@ -31,6 +32,7 @@ export const allPermissions = (defaultPermission: boolean, isMember: boolean): P
 	REMOVE_AGENT_FROM_TEAM: defaultPermission,
 	ADD_AGENT_TO_TEAM: defaultPermission,
 	ARCHIVE_TEAM: defaultPermission && isMember,
+	UNARCHIVE_TEAM: false,
 });
 
 export const vanityActions: TeamAction[] = [
@@ -65,7 +67,49 @@ export const SCIMSyncTeamPermissions = (
 		isOrgAdmin && source === 'ATLASSIAN_GROUP' && fg('enable_edit_team_name_external_type_teams'),
 });
 
-export const getPermissionMap = (
+/**
+ * Returns permission map for disbanded teams
+ * Only UNARCHIVE_TEAM action is allowed based on team settings and user permissions
+ */
+const getDisbandedTeamPermissionMap = (
+	settings: TeamMembershipSettings,
+	permission: TeamPermission | undefined,
+	isMember: boolean,
+	isOrgAdmin: boolean,
+): PermissionMap => {
+	const newTeamProfileEnabled = FeatureGates.getExperimentValue(
+		'new_team_profile',
+		'isEnabled',
+		false,
+	);
+	const isArchiveTeamEnabled = fg('legion-enable-archive-teams') && newTeamProfileEnabled;
+
+	// Base permission map - all actions disabled for disbanded teams
+	const basePermissions = allPermissions(false, false);
+
+	// UNARCHIVE_TEAM permission based on team settings
+	let canUnarchive = false;
+	if (isArchiveTeamEnabled) {
+		if (settings === 'EXTERNAL') {
+			// For EXTERNAL teams, only org admins can unarchive
+			canUnarchive = isOrgAdmin;
+		} else if (settings === 'OPEN' || settings === 'MEMBER_INVITE') {
+			// For OPEN and MEMBER_INVITE teams, members with FULL_WRITE can unarchive
+			canUnarchive = isMember && permission === 'FULL_WRITE';
+		}
+	}
+
+	return {
+		...basePermissions,
+		UNARCHIVE_TEAM: canUnarchive,
+		DELETE_TEAM: canUnarchive,
+	};
+};
+
+/**
+ * Returns permission map for active teams based on team settings
+ */
+const getActiveTeamPermissionMap = (
 	settings: TeamMembershipSettings,
 	permission: TeamPermission | undefined,
 	isMember: boolean,
@@ -101,4 +145,21 @@ export const getPermissionMap = (
 		};
 	}
 	return allPermissions(false, false);
+};
+
+export const getPermissionMap = (
+	settings: TeamMembershipSettings,
+	permission: TeamPermission | undefined,
+	isMember: boolean,
+	isOrgAdmin: boolean,
+	source?: ExternalReferenceSource,
+	state?: TeamState,
+): PermissionMap => {
+	// Handle disbanded teams with special permission map
+	if (state === 'DISBANDED') {
+		return getDisbandedTeamPermissionMap(settings, permission, isMember, isOrgAdmin);
+	}
+
+	// For active teams (or when state is not provided), use existing logic
+	return getActiveTeamPermissionMap(settings, permission, isMember, isOrgAdmin, source);
 };

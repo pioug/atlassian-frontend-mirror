@@ -1,6 +1,9 @@
 jest.mock('../../utils/checkWebpSupport');
 jest.mock('../../client/media-store/resolveAuth');
-jest.mock('../../utils/pathBasedUrl');
+jest.mock('../../utils/pathBasedUrl', () => ({
+	...jest.requireActual('../../utils/pathBasedUrl'),
+	mapToPathBasedUrl: jest.fn(),
+}));
 import {
 	type CreatedTouchedFile,
 	MediaStore,
@@ -86,7 +89,10 @@ describe('MediaStore', () => {
 
 			// @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
 			delete global.MICROS_PERIMETER;
-			window.location.hostname = 'hello.atlassian.net';
+			Object.defineProperty(window.location, 'hostname', {
+				writable: true,
+				value: 'hello.atlassian.net',
+			});
 
 			// Reset path-based URL mock to return input unchanged by default
 			mapToPathBasedUrlMock.mockImplementation((url: string) => url);
@@ -970,7 +976,10 @@ describe('MediaStore', () => {
 						expect(url).toEqual(nonCdnURL);
 
 						// Test against fedramp hostname, should return non-cdn url
-						window.location.hostname = 'atlassian-us-gov-mod.com';
+						Object.defineProperty(window.location, 'hostname', {
+							writable: true,
+							value: 'atlassian-us-gov-mod.com',
+						});
 						url = await mediaStore.getFileImageURL('1234', {
 							collection,
 						});
@@ -985,7 +994,10 @@ describe('MediaStore', () => {
 
 						// Test against commercial micros perimeter and hostname, should return cdn url
 						global.MICROS_PERIMETER = 'commercial';
-						window.location.hostname = 'hello.atlassian.net';
+						Object.defineProperty(window.location, 'hostname', {
+							writable: true,
+							value: 'hello.atlassian.net',
+						});
 						url = await mediaStore.getFileImageURL('1234', {
 							collection,
 						});
@@ -1227,7 +1239,10 @@ describe('MediaStore', () => {
 						});
 
 						// Test against fedramp hostname, should return non-cdn url
-						window.location.hostname = 'atlassian-us-gov-mod.com';
+						Object.defineProperty(window.location, 'hostname', {
+							writable: true,
+							value: 'atlassian-us-gov-mod.com',
+						});
 						image = await mediaStore.getImage('123');
 
 						expect(image).toBeInstanceOf(Blob);
@@ -1241,7 +1256,10 @@ describe('MediaStore', () => {
 
 						// Test against commercial micros perimeter and hostname, should return cdn url
 						global.MICROS_PERIMETER = 'commercial';
-						window.location.hostname = 'hello.atlassian.net';
+						Object.defineProperty(window.location, 'hostname', {
+							writable: true,
+							value: 'hello.atlassian.net',
+						});
 
 						image = await mediaStore.getImage('123');
 
@@ -1751,7 +1769,10 @@ describe('MediaStore', () => {
 
 						expect(response).toEqual(expect.any(Blob));
 						// Test against commercial micros perimeter and hostname, should return cdn url
-						window.location.hostname = 'atlassian-us-gov-mod.com';
+						Object.defineProperty(window.location, 'hostname', {
+							writable: true,
+							value: 'atlassian-us-gov-mod.com',
+						});
 						response = await mediaStore.getFileBinary('1234', 'some-collection-name');
 						expect(requestModuleMock).toBeCalledWith(
 							`${baseUrl}/file/1234/binary`,
@@ -1763,7 +1784,10 @@ describe('MediaStore', () => {
 
 						// When the feature flag is enabled, the URL should contain the /binary/cdn path
 						global.MICROS_PERIMETER = 'commercial';
-						window.location.hostname = 'hello.atlassian.net';
+						Object.defineProperty(window.location, 'hostname', {
+							writable: true,
+							value: 'hello.atlassian.net',
+						});
 						response = await mediaStore.getFileBinary('1234', 'some-collection-name');
 						expect(requestModuleMock).toBeCalledWith(
 							`${baseUrl}/file/1234/binary/cdn`,
@@ -1805,13 +1829,19 @@ describe('MediaStore', () => {
 						expect(url).toEqual(nonCdnURL);
 
 						// Test against fedramp hostname, should return non-cdn url
-						window.location.hostname = 'atlassian-us-gov-mod.com';
+						Object.defineProperty(window.location, 'hostname', {
+							writable: true,
+							value: 'atlassian-us-gov-mod.com',
+						});
 						url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
 						expect(url).toEqual(nonCdnURL);
 
 						// Test against commercial micros perimeter and hostname, should return cdn url
 						global.MICROS_PERIMETER = 'commercial';
-						window.location.hostname = 'hello.atlassian.net';
+						Object.defineProperty(window.location, 'hostname', {
+							writable: true,
+							value: 'hello.atlassian.net',
+						});
 						url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
 						expect(url).toEqual(cdnURL);
 					},
@@ -1944,7 +1974,10 @@ describe('MediaStore', () => {
 							expect(url).toEqual(nonCdnURL);
 
 							// Test against fedramp hostname, should return non-cdn url
-							window.location.hostname = 'atlassian-us-gov-mod.com';
+							Object.defineProperty(window.location, 'hostname', {
+								writable: true,
+								value: 'atlassian-us-gov-mod.com',
+							});
 							url = await mediaStore.getArtifactURL(
 								{
 									'video_640.mp4': {
@@ -1959,7 +1992,10 @@ describe('MediaStore', () => {
 
 							// Test against commercial micros perimeter and hostname, without provided backend cdn url, should return cdn url
 							global.MICROS_PERIMETER = 'commercial';
-							window.location.hostname = 'hello.atlassian.net';
+							Object.defineProperty(window.location, 'hostname', {
+								writable: true,
+								value: 'hello.atlassian.net',
+							});
 
 							url = await mediaStore.getArtifactURL(
 								{
@@ -2468,7 +2504,10 @@ describe('MediaStore', () => {
 							expect(url).toEqual(nonCdnURL);
 
 							// Test against fedramp hostname, should return non-cdn url
-							window.location.hostname = 'atlassian-us-gov-mod.com';
+							Object.defineProperty(window.location, 'hostname', {
+								writable: true,
+								value: 'atlassian-us-gov-mod.com',
+							});
 							url = mediaStoreSync.getFileImageURLSync('1234', {
 								collection,
 							});
@@ -2477,7 +2516,10 @@ describe('MediaStore', () => {
 
 							// Test against commercial micros perimeter and hostname, should return cdn url
 							global.MICROS_PERIMETER = 'commercial';
-							window.location.hostname = 'hello.atlassian.net';
+							Object.defineProperty(window.location, 'hostname', {
+								writable: true,
+								value: 'hello.atlassian.net',
+							});
 							url = mediaStoreSync.getFileImageURLSync('1234', {
 								collection,
 							});

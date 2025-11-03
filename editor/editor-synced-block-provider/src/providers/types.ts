@@ -2,10 +2,21 @@ import { NodeDataProvider } from '@atlaskit/node-data-provider';
 
 import type { SyncBlockData, ResourceId, SyncBlockError, SyncBlockNode } from '../common/types';
 
-export type FetchSyncBlockDataResult = {
+/**
+ * The instance of a sync block, containing its data and metadata.
+ * Mainly used for representing the state of a sync block after fetching from a data provider.
+ * This will be used in both data processing and rendering contexts.
+ */
+export type SyncBlockInstance = {
+	/*
+	 * The data of the sync block
+	 */
 	data?: SyncBlockData;
+	/*
+	 * Current state/error of the sync block, if any
+	 */
 	error?: SyncBlockError;
-	resourceId?: string;
+	resourceId: string;
 };
 
 export type DeleteSyncBlockResult = {
@@ -14,7 +25,7 @@ export type DeleteSyncBlockResult = {
 	success: boolean;
 };
 export interface ADFFetchProvider {
-	fetchData: (resourceId: ResourceId) => Promise<FetchSyncBlockDataResult>;
+	fetchData: (resourceId: ResourceId) => Promise<SyncBlockInstance>;
 }
 export interface ADFWriteProvider {
 	deleteData: (resourceId: string) => Promise<DeleteSyncBlockResult>;
@@ -22,7 +33,7 @@ export interface ADFWriteProvider {
 }
 export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	SyncBlockNode,
-	FetchSyncBlockDataResult
+	SyncBlockInstance
 > {
 	abstract writeNodesData(
 		nodes: SyncBlockNode[],
@@ -33,4 +44,4 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	abstract retrieveSyncBlockSourceUrl(node: SyncBlockNode): Promise<string | undefined>;
 }
 
-export type SubscriptionCallback = (data: FetchSyncBlockDataResult) => void;
+export type SubscriptionCallback = (data: SyncBlockInstance) => void;

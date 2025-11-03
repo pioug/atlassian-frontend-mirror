@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/tooltip",
-	"version": "20.7.0",
-	"description": "A tooltip is a floating, non-actionable label used to explain a user interface element or feature.",
+	"version": "20.7.1",
+	"description": "A tooltip describes an interactive element on mouse hover or keyboard focus.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},

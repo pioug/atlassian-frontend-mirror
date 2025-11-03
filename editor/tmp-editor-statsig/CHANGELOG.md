@@ -1,5 +1,32 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.26.0
+
+### Minor Changes
+
+- [`7faacb80f6865`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7faacb80f6865) -
+  Remove platform_editor_toolbar_aifc_exp_code_toggle experiment
+- [`29d0693bd5373`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29d0693bd5373) -
+  EDITOR-2581 Fire event for suppressAllToolbars api being used
+
+## 13.25.0
+
+### Minor Changes
+
+- [`68059d62a8bbc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68059d62a8bbc) -
+  ED-29461 Clean up platform_editor_toolbar_task_list_menu_item
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.24.0
+
+### Minor Changes
+
+- [`54ccde94eb18c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54ccde94eb18c) -
+  ED-29459 Clean up platform_editor_toolbar_aifc_toolbar_analytic
+
 ## 13.23.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "15.3.8",
+	"version": "15.3.9",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -116,9 +116,6 @@
 		"platform_editor_use_nested_table_pm_nodes": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_table_overflow_in_full_width_fix": {
-			"type": "boolean"
 		},
 		"platform_editor_nested_tables_sticky_header_bug": {
 			"type": "boolean"

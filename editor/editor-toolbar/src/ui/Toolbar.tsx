@@ -113,12 +113,7 @@ export const Toolbar = ({ children, label, actionSubjectId, testId }: ToolbarPro
 					: undefined
 			}
 		>
-			{expValEquals('platform_editor_toolbar_aifc_toolbar_analytic', 'isEnabled', true) ? (
-				<ViewEventEmitter
-					actionSubject={ACTION_SUBJECT.TOOLBAR}
-					actionSubjectId={actionSubjectId}
-				/>
-			) : null}
+			<ViewEventEmitter actionSubject={ACTION_SUBJECT.TOOLBAR} actionSubjectId={actionSubjectId} />
 			{children}
 		</Box>
 	);

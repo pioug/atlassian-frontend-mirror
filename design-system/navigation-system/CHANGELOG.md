@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 5.0.1
+
+### Patch Changes
+
+- [`5a651fd4cae29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a651fd4cae29) -
+  Minor change to JSDocs for PanelSplitter.
+- Updated dependencies
+
 ## 5.0.0
 
 ### Major Changes

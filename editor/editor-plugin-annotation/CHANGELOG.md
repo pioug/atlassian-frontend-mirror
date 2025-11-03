@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-annotation
 
+## 6.2.8
+
+### Patch Changes
+
+- [`fecf1d10a2282`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fecf1d10a2282) -
+  ED-29579 Cleaned up platform_editor_fix_inline_comment_reopen
+- Updated dependencies
+
 ## 6.2.7
 
 ### Patch Changes

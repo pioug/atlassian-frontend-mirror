@@ -1,5 +1,17 @@
 # @atlaskit/node-data-provider
 
+## 7.4.0
+
+### Minor Changes
+
+- [`fdba2e94783b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdba2e94783b7) -
+  [https://product-fabric.atlassian.net/browse/ED-29638](ED-29638) - fix editor NodeDataProvider
+  network requests deduplication
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.0
 
 ### Minor Changes

@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
-import {
-	SyncBlockError,
-	type FetchSyncBlockDataResult,
-} from '@atlaskit/editor-synced-block-provider';
+import { SyncBlockError, type SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
 import { ReactRenderer, type NodeProps } from '@atlaskit/renderer';
 import { RendererActionsContext } from '@atlaskit/renderer/actions';
 
@@ -19,9 +16,9 @@ export interface SyncedBlockProps {
 export type SyncedBlockNodeProps = NodeProps<SyncedBlockProps>;
 
 export const SyncedBlockNodeComponentRenderer = (
-	props: SyncedBlockNodeProps & { dataPromise: Promise<FetchSyncBlockDataResult[]> | null },
+	props: SyncedBlockNodeProps & { dataPromise: Promise<SyncBlockInstance[]> | null },
 ): React.JSX.Element => {
-	const [data, setData] = useState<FetchSyncBlockDataResult[] | null>(null);
+	const [data, setData] = useState<SyncBlockInstance[] | null>(null);
 
 	useEffect(() => {
 		if (!props.dataPromise) {
@@ -42,7 +39,12 @@ export const SyncedBlockNodeComponentRenderer = (
 	const fetchResult = data.find((item) => item.resourceId === props.resourceId);
 
 	if (fetchResult?.error || !fetchResult?.data) {
-		return <SyncedBlockErrorComponent error={fetchResult?.error ?? SyncBlockError.Errored} />;
+		return (
+			<SyncedBlockErrorComponent
+				error={fetchResult?.error ?? SyncBlockError.Errored}
+				resourceId={props.resourceId}
+			/>
+		);
 	}
 
 	const syncBlockDoc = {

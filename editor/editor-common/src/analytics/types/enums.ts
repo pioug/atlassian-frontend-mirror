@@ -194,6 +194,7 @@ export enum ACTION {
 	SUGGESTION_DISMISSED = 'suggestionDismissed',
 	SUGGESTION_VIEWED = 'suggestionViewed',
 	TABLE_WIDTH_INFO = 'tableWidthInformation',
+	SUPPRESSED = 'suppressed',
 }
 
 export enum INPUT_METHOD {
@@ -399,6 +400,7 @@ export enum ACTION_SUBJECT_ID {
 	EXTENSION_BODIED = 'bodiedExtension',
 	EXTENSION_INLINE = 'inlineExtension',
 	FLOATING_TOOLBAR_OVERFLOW = 'floatingToolbarOverflow',
+	FLOATING_TOOLBAR = 'floatingToolbar',
 	FORMAT_BACKGROUND_COLOR = 'backgroundColor',
 	FORMAT_BLOCK_QUOTE = 'blockQuote',
 	FORMAT_CLEAR = 'clearFormatting',

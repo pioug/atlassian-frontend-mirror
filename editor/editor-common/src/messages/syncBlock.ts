@@ -38,4 +38,40 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'Synced block',
 		description: 'Label which appears above the synced block when it is selected',
 	},
+
+	permissionDeniedHeading: {
+		id: 'fabric.editor.syncedBlockPermissionDeniedHeading',
+		defaultMessage: "You don't have permission to view this synced block",
+		description:
+			'Heading for error state where the user does not have permission to view the synced block',
+	},
+	permissionDeniedDescription: {
+		id: 'fabric.editor.syncedBlockPermissionDeniedDescription',
+		defaultMessage: "The source of this synced block is a content item you don't have access to.",
+		description:
+			'Description for error state where the user does not have permission to view the synced block',
+	},
+	permissionDeniedAltText: {
+		id: 'fabric.editor.syncedBlockPermissionDeniedIconAltText',
+		defaultMessage: 'Permission denied.',
+		description:
+			'Alt text for icon on error state where the user does not have permission to view the synced block',
+	},
+	requestAccessButton: {
+		id: 'fabric.editor.requestAccessToSyncedBlock',
+		defaultMessage: 'Request access',
+		description: 'Label for button which requests access to view the source page of the sync block',
+	},
+	accessRequested: {
+		id: 'fabric.editor.accessToSyncedBlockRequested',
+		defaultMessage: 'Access requested',
+		description:
+			'Text which displays after the request to view the source page of the sync block has been sent and is still pending',
+	},
+	requestAccessError: {
+		id: 'fabric.editor.requestAccessToSyncedBlockError',
+		defaultMessage: 'Something went wrong. Click to try again',
+		description:
+			'Text which displays next to the request access button after something went wrong after clicking the button.',
+	},
 });

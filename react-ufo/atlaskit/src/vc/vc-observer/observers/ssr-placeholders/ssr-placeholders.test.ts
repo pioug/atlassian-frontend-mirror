@@ -1,16 +1,6 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { collectSSRPlaceholderDimensions } from './ssr-scripts/collectSSRPlaceholderDimensions';
 
 import { SSRPlaceholderHandlers } from './index';
-
-jest.mock('@atlaskit/platform-feature-flags');
-jest.mock('@atlaskit/feature-gate-js-client', () => ({
-	initializeCompleted: jest.fn(() => true),
-	getExperimentValue: jest.fn(() => true),
-}));
-
-const mockFg = fg as jest.Mock;
 
 describe('SSR Placeholder Display Contents Fix', () => {
 	let mockDocument: any;
@@ -56,9 +46,7 @@ describe('SSR Placeholder Display Contents Fix', () => {
 	});
 
 	describe('collectSSRPlaceholderDimensions', () => {
-		it('should use effective dimensions for display: contents when feature flag is enabled', () => {
-			mockFg.mockReturnValue(true); // Enable feature flag
-
+		it('should use effective dimensions for display: contents elements', () => {
 			const mockElement = {
 				getAttribute: jest.fn().mockReturnValue('test-placeholder'),
 				getBoundingClientRect: jest.fn().mockReturnValue({
@@ -112,53 +100,7 @@ describe('SSR Placeholder Display Contents Fix', () => {
 			expect(result.height).toBe(50); // max bottom (70) - min top (20)
 		});
 
-		it('should use standard dimensions for display: contents when feature flag is disabled', () => {
-			mockFg.mockReturnValue(false); // Disable feature flag
-
-			const mockElement = {
-				getAttribute: jest.fn().mockReturnValue('test-placeholder'),
-				getBoundingClientRect: jest.fn().mockReturnValue({
-					x: 0,
-					y: 0,
-					width: 0,
-					height: 0,
-					left: 0,
-					top: 0,
-					right: 0,
-					bottom: 0,
-				}),
-				children: [
-					{
-						getBoundingClientRect: jest.fn().mockReturnValue({
-							x: 10,
-							y: 20,
-							width: 100,
-							height: 50,
-							left: 10,
-							top: 20,
-							right: 110,
-							bottom: 70,
-						}),
-					},
-				],
-			};
-
-			mockDocument.querySelectorAll.mockReturnValue([mockElement]);
-			mockWindow.getComputedStyle.mockReturnValue({ display: 'contents' });
-
-			collectSSRPlaceholderDimensions(mockDocument, mockWindow, false);
-
-			// Should collect element's own dimensions (zero) not children's
-			const result = mockWindow.__SSR_PLACEHOLDERS_DIMENSIONS__['test-placeholder'];
-			expect(result.x).toBe(0);
-			expect(result.y).toBe(0);
-			expect(result.width).toBe(0);
-			expect(result.height).toBe(0);
-		});
-
-		it('should collect normal dimensions for non-display-contents elements regardless of feature flag', () => {
-			mockFg.mockReturnValue(true); // Feature flag enabled
-
+		it('should collect normal dimensions for non-display-contents elements', () => {
 			const mockElement = {
 				getAttribute: jest.fn().mockReturnValue('normal-placeholder'),
 				getBoundingClientRect: jest.fn().mockReturnValue({
@@ -187,9 +129,7 @@ describe('SSR Placeholder Display Contents Fix', () => {
 			expect(result.height).toBe(50);
 		});
 
-		it('should handle display: contents elements with no visible children when feature flag is enabled', () => {
-			mockFg.mockReturnValue(true); // Enable feature flag
-
+		it('should handle display: contents elements with no visible children', () => {
 			const mockElement = {
 				getAttribute: jest.fn().mockReturnValue('empty-placeholder'),
 				getBoundingClientRect: jest.fn().mockReturnValue({
@@ -232,16 +172,14 @@ describe('SSR Placeholder Display Contents Fix', () => {
 		});
 	});
 
-	describe('SSRPlaceholderHandlers with feature flag', () => {
+	describe('SSRPlaceholderHandlers with display contents support', () => {
 		let handler: SSRPlaceholderHandlers;
 
 		beforeEach(() => {
 			handler = new SSRPlaceholderHandlers({});
 		});
 
-		it('should handle feature flag enabled behavior', () => {
-			mockFg.mockReturnValue(true); // Enable feature flag
-
+		it('should handle display contents elements properly', () => {
 			// Create a real DOM element for testing
 			const element = document.createElement('div');
 			element.dataset.ssrPlaceholder = 'test';
@@ -270,40 +208,10 @@ describe('SSR Placeholder Display Contents Fix', () => {
 
 				// Verify the method was called
 				expect(result).toBe(true);
-				expect(mockFg).toHaveBeenCalledWith('platform_ufo_ssr_placeholders_for_display_contents');
 			} finally {
 				// Restore original getComputedStyle
 				(window as any).getComputedStyle = originalGetComputedStyle;
 			}
-		});
-
-		it('should handle feature flag disabled behavior', () => {
-			mockFg.mockReturnValue(false); // Disable feature flag
-
-			// Create a real DOM element for testing
-			const element = document.createElement('div');
-			element.dataset.ssrPlaceholder = 'test';
-
-			// Mock getBoundingClientRect
-			jest.spyOn(element, 'getBoundingClientRect').mockReturnValue({
-				x: 0,
-				y: 0,
-				width: 0,
-				height: 0,
-				left: 0,
-				top: 0,
-				right: 0,
-				bottom: 0,
-			} as DOMRect);
-
-			// Set up placeholder data
-			handler['staticPlaceholders'].set('test', { x: 0, y: 0, width: 0, height: 0 });
-
-			const result = handler.checkIfExistedAndSizeMatchingV3(element);
-
-			// Verify the method was called
-			expect(result).toBe(true);
-			expect(mockFg).toHaveBeenCalledWith('platform_ufo_ssr_placeholders_for_display_contents');
 		});
 	});
 });

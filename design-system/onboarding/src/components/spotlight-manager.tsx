@@ -88,6 +88,8 @@ const Container = ({
  * - [Examples](https://atlassian.design/components/onboarding/examples)
  * - [Code](https://atlassian.design/components/onboarding/code)
  * - [Usage](https://atlassian.design/components/onboarding/usage)
+ *
+ * @deprecated Use `@atlaskit/spotlight` instead.
  */
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SpotlightManager extends PureComponent<

@@ -8,6 +8,7 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
+import { handleDeletedRows } from './deletedRowsHandler';
 import { findSafeInsertPos } from './findSafeInsertPos';
 import type { NodeViewSerializer } from './NodeViewSerializer';
 
@@ -223,7 +224,7 @@ export const createBlockChangedDecoration = (
 	);
 
 interface DeletedContentDecorationProps {
-	change: Change;
+	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted'>;
 	colourScheme?: 'standard' | 'traditional';
 	doc: PMNode;
 	intl: IntlShape;
@@ -448,14 +449,32 @@ export const createDeletedContentDecoration = ({
 		return;
 	}
 
-	const isTableContent = slice.content.content.some(() =>
+	const isTableCellContent = slice.content.content.some(() =>
 		slice.content.content.some((siblingNode) =>
-			['tableHeader', 'tableCell', 'tableRow'].includes(siblingNode.type.name),
+			['tableHeader', 'tableCell'].includes(siblingNode.type.name),
 		),
 	);
 
-	if (isTableContent) {
+	const isTableRowContent = slice.content.content.some(() =>
+		slice.content.content.some((siblingNode) => ['tableRow'].includes(siblingNode.type.name)),
+	);
+
+	if (isTableCellContent) {
 		return;
+	}
+	if (isTableRowContent) {
+		if (!fg('platform_editor_ai_aifc_patch_ga')) {
+			return;
+		}
+
+		const { decorations } = handleDeletedRows(
+			[change],
+			doc,
+			newDoc,
+			nodeViewSerializer,
+			colourScheme,
+		);
+		return decorations;
 	}
 
 	const serializer = nodeViewSerializer;
@@ -600,5 +619,5 @@ export const createDeletedContentDecoration = ({
 	// Widget decoration used for deletions as the content is not in the document
 	// and we want to display the deleted content with a style.
 	const safeInsertPos = findSafeInsertPos(newDoc, change.fromB, slice);
-	return Decoration.widget(safeInsertPos, dom);
+	return [Decoration.widget(safeInsertPos, dom)];
 };

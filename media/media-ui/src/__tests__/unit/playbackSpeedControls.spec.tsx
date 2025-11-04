@@ -59,6 +59,11 @@ describe('<PlaybackSpeedControls />', () => {
 		expect(onPlaybackSpeedChange).toBeCalledWith(1.5);
 	});
 
+	it('should have label in PopupSelect', () => {
+		const { popupSelect } = mountSetup();
+		expect(popupSelect.props()['label']).toBe('Playback speed');
+	});
+
 	describe('with MediaButton as target', () => {
 		const buttonSetup = (isOpen: boolean = true) => {
 			const { popupSelect } = mountSetup();
@@ -103,6 +108,16 @@ describe('<PlaybackSpeedControls />', () => {
 			expect(targetElement.find(MediaButton).props().testId).toBe(
 				'custom-media-player-playback-speed-toggle-button',
 			);
+		});
+
+		it('should have aria-expanded true when isOpen is true', () => {
+			const { targetElement } = buttonSetup(true);
+			expect(targetElement.find(MediaButton).props()['aria-expanded']).toBe(true);
+		});
+
+		it('should have aria-expanded false when isOpen is false', () => {
+			const { targetElement } = buttonSetup(false);
+			expect(targetElement.find(MediaButton).props()['aria-expanded']).toBe(false);
 		});
 	});
 

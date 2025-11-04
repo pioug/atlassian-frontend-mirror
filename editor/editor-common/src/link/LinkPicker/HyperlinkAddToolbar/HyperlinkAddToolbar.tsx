@@ -40,7 +40,7 @@ import type { Command, LinkInputType } from '../../../types';
 import { Announcer, PanelTextInput } from '../../../ui';
 import { normalizeUrl } from '../../../utils';
 import { browser as browserLegacy, getBrowserInfo } from '../../../utils/browser';
-import LinkSearchList, { LinkSearchListNext } from '../../LinkSearch/LinkSearchList';
+import LinkSearchList from '../../LinkSearch/LinkSearchList';
 import {
 	container,
 	containerWithProvider,
@@ -224,7 +224,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 	private urlInputContainer: PanelTextInput | null = null;
 	private displayTextInputContainer: PanelTextInput | null = null;
 	private wrapperRef: RefObject<HTMLDivElement> = React.createRef();
-	// introduced via ff platform_editor_a11y_insert_link_item_focus, remove this comment cleaning up
 	private listItemRefs: RefObject<Record<string, HTMLElement>> = { current: {} };
 	private handleClearText: () => void;
 	private handleClearDisplayText: () => void;
@@ -576,7 +575,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		}
 	};
 
-	// introduced via ff platform_editor_a11y_insert_link_item_focus, remove this comment cleaning up
 	private listItemRefCallback = (el: HTMLElement | null, id: string) => {
 		if (!this.listItemRefs.current) {
 			return;
@@ -723,34 +721,20 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 								count: items.length,
 							})}
 					</div>
-					{fg('platform_editor_a11y_insert_link_item_focus') ? (
-						<LinkSearchListNext
-							ariaControls="fabric.editor.hyperlink.suggested.results"
-							id={linkSearchListId}
-							role="listbox"
-							items={items}
-							isLoading={isLoading}
-							selectedIndex={selectedIndex}
-							listItemRefCallback={this.listItemRefCallback}
-							onFocus={this.handleListItemFocus}
-							onKeyDown={this.handleKeyDown}
-							onSelect={this.handleSelected}
-							onMouseEnter={this.handleMouseEnterResultItem}
-							onMouseLeave={this.handleMouseLeaveResultItem}
-						/>
-					) : (
-						<LinkSearchList
-							ariaControls="fabric.editor.hyperlink.suggested.results"
-							id={linkSearchListId}
-							role="listbox"
-							items={items}
-							isLoading={isLoading}
-							selectedIndex={selectedIndex}
-							onSelect={this.handleSelected}
-							onMouseEnter={this.handleMouseEnterResultItem}
-							onMouseLeave={this.handleMouseLeaveResultItem}
-						/>
-					)}
+					<LinkSearchList
+						ariaControls="fabric.editor.hyperlink.suggested.results"
+						id={linkSearchListId}
+						role="listbox"
+						items={items}
+						isLoading={isLoading}
+						selectedIndex={selectedIndex}
+						listItemRefCallback={this.listItemRefCallback}
+						onFocus={this.handleListItemFocus}
+						onKeyDown={this.handleKeyDown}
+						onSelect={this.handleSelected}
+						onMouseEnter={this.handleMouseEnterResultItem}
+						onMouseLeave={this.handleMouseLeaveResultItem}
+					/>
 				</div>
 			</div>
 		);
@@ -864,7 +848,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		if (keyCode === KEY_CODE_TAB) {
 			/** If there are items in the list, allow normal tabbing so focus moves to the next interactive element (in this case, a search result item).
 			 */
-			if (this.state.items.length > 0 && fg('platform_editor_a11y_insert_link_item_focus')) {
+			if (this.state.items.length > 0) {
 				return;
 			}
 
@@ -878,7 +862,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		}
 	};
 
-	// introduced via ff platform_editor_a11y_insert_link_item_focus, remove this comment cleaning up
 	private handleListItemFocus = (index: number) => {
 		this.setState({
 			selectedIndex: index,
@@ -922,7 +905,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		}
 
 		if ([KEY_CODE_ARROW_DOWN, KEY_CODE_ARROW_UP].includes(keyCode) && items[updatedIndex]) {
-			// introduced via ff platform_editor_a11y_insert_link_item_focus, remove this comment cleaning up
 			if (this.listItemRefs.current) {
 				this.listItemRefs.current[items[updatedIndex].objectId]?.focus();
 			}

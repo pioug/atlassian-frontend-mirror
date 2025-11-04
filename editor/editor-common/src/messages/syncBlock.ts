@@ -38,7 +38,6 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'Synced block',
 		description: 'Label which appears above the synced block when it is selected',
 	},
-
 	permissionDeniedHeading: {
 		id: 'fabric.editor.syncedBlockPermissionDeniedHeading',
 		defaultMessage: "You don't have permission to view this synced block",
@@ -73,5 +72,21 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'Something went wrong. Click to try again',
 		description:
 			'Text which displays next to the request access button after something went wrong after clicking the button.',
+	},
+	sourceSyncBlockTooltip: {
+		id: 'fabric.editor.sourceSyncBlockTooltip',
+		defaultMessage: 'When you edit this source block it will update across synced locations.',
+		description: 'Description in tooltip which appears when you hover over the synced block label',
+	},
+	defaultSyncBlockTooltip: {
+		id: 'fabric.editor.sourceSyncBlockTooltip',
+		defaultMessage: 'Synced block',
+		description:
+			"Description in tooltip which appears when we haven't been able to fetch other information about the sync block",
+	},
+	referenceSyncBlockTooltip: {
+		id: 'fabric.editor.referenceSyncBlockTooltip',
+		defaultMessage: 'Synced from: {title}',
+		description: 'Tooltip that shows the source page title of the synced block',
 	},
 });

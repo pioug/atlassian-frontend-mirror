@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "3.16.4",
+	"version": "3.16.5",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -41,9 +41,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-linking-link-picker-previewable-only": {
-			"type": "boolean"
-		},
-		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__linking-platfo": {

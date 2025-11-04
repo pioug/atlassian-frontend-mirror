@@ -35,7 +35,7 @@ describe('User Type', () => {
 	};
 
 	it('renders with display name as Unassigned when no parameters passed', async () => {
-		const { queryByTestId } = setup();
+		const { queryByTestId } = setup([{}]);
 
 		const el = queryByTestId(USER_TYPE_TEST_ID);
 

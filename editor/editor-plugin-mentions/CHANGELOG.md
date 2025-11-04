@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-mentions
 
+## 8.2.5
+
+### Patch Changes
+
+- [`4880d63481d80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4880d63481d80) -
+  Fix range error bug in new mentions detection logic
+
 ## 8.2.4
 
 ### Patch Changes

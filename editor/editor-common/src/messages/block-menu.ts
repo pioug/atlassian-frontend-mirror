@@ -67,4 +67,9 @@ export const messages = defineMessages({
 		description:
 			'Convert the selection to a synced block by putting all of the content inside a new synced block',
 	},
+	newLozenge: {
+		id: 'fabric.editor.block.menu.new.lozenge',
+		defaultMessage: 'New',
+		description: 'Text in lozenge which appears next to newly added menu items',
+	},
 });

@@ -42,7 +42,12 @@ export const createPlugin = (
 		},
 		props: {
 			nodeViews: {
-				syncBlock: lazySyncBlockView({ options, pmPluginFactoryParams, api, syncBlockStore }),
+				syncBlock: lazySyncBlockView({
+					options,
+					pmPluginFactoryParams,
+					api,
+					syncBlockStore,
+				}),
 				bodiedSyncBlock: lazyBodiedSyncBlockView({
 					pluginOptions: options,
 					pmPluginFactoryParams,

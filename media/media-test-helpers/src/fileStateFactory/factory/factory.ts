@@ -17,6 +17,7 @@ import {
 } from './createFileState';
 import { createFileDetails } from './helpers';
 import { sleep } from '../../nextTick';
+import { mediaStore } from '@atlaskit/media-state';
 
 export type MediaClientMockOptions = {
 	getImageDelay?: number;
@@ -110,9 +111,20 @@ export class FileStateFactory {
 
 	public subscription = {
 		next: (fileState: FileState) => {
+			// also set the file state in the media store
+			mediaStore.setState((state) => {
+				state.files[this.identifier.id] = fileState;
+			});
 			this.observable.next(fileState);
 		},
 		error: (error: Error) => {
+			// also set the file state in the media store
+			mediaStore.setState((state) => {
+				state.files[this.identifier.id] = {
+					status: 'error',
+					id: this.identifier.id,
+				};
+			});
 			this.observable.error(error);
 		},
 	};

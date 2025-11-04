@@ -1886,28 +1886,6 @@ const rendererTableSortableColumnStyles = css({
 	},
 });
 
-// TODO: ED-27229 - Cleanup with `platform_editor_tables_numbered_column_correction`
-const rendererTableColumnStylesOld = css({
-	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
-		'table[data-number-column="true"]': {
-			[`.${RendererCssClassName.NUMBER_COLUMN}`]: {
-				backgroundColor: `${token('color.background.neutral', akEditorTableToolbar)}`,
-				borderRight: `${token('border.width')} solid
-								${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
-				width: `${akEditorTableNumberColumnWidth}px`,
-				textAlign: 'center',
-				color: `${token('color.text.subtlest', N200)}`,
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				fontSize: `${14 / 16} rem`,
-			},
-
-			[`.fixed .${RendererCssClassName.NUMBER_COLUMN}`]: {
-				borderRight: `0px none`,
-			},
-		},
-	},
-});
-
 const rendererTableColumnStyles = css({
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
 		'table[data-number-column="true"]': {
@@ -2408,9 +2386,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				allowColumnSorting &&
 					allowNestedHeaderLinks &&
 					rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks,
-				fg('platform_editor_tables_numbered_column_correction')
-					? rendererTableColumnStyles
-					: rendererTableColumnStylesOld,
+				rendererTableColumnStyles,
 				stickyHeaderStyles,
 				codeBlockAndLayoutStyles,
 				columnLayoutSharedStyle,

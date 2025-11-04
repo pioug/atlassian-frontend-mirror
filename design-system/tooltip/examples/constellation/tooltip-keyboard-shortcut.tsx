@@ -7,7 +7,7 @@ import Tooltip from '@atlaskit/tooltip';
 export default function TooltipKeyboardShortcutExample() {
 	return (
 		<Inline space="space.100">
-			<Tooltip content="This is a tooltip" shortcut={['⌘', 'B']}>
+			<Tooltip content="This is a tooltip" shortcut={['Ctrl', '[']}>
 				{(tooltipProps) => (
 					<Button appearance="primary" {...tooltipProps}>
 						Single line example

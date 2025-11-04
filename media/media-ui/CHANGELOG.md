@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 28.7.9
+
+### Patch Changes
+
+- [`5cab8c430d56d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5cab8c430d56d) -
+  HDButton control updated with aria-pressed, PlaybackSpeed updated with aria-expanded.
+
 ## 28.7.8
 
 ### Patch Changes

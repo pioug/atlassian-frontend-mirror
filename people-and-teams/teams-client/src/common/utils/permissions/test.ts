@@ -31,6 +31,11 @@ const nonPermissions: (TeamPermission | undefined)[] = ['FULL_READ', 'NONE', und
 const allActionsExceptJoin = [
 	...AllTeamActions.filter((a) => !['REQUEST_TO_JOIN', 'CANCEL_JOIN_REQUEST'].includes(a)),
 ];
+const allActionsExceptJoinAndType = [
+	...AllTeamActions.filter(
+		(a) => !['REQUEST_TO_JOIN', 'CANCEL_JOIN_REQUEST', 'EDIT_TEAM_TYPE'].includes(a),
+	),
+];
 
 const openActionsExceptJoin = [
 	...AllTeamActions.filter(
@@ -40,6 +45,19 @@ const openActionsExceptJoin = [
 				'CANCEL_JOIN_REQUEST',
 				'APPROVE_JOIN_REQUEST',
 				'REJECT_JOIN_REQUEST',
+			].includes(a),
+	),
+];
+
+const openActionsExceptJoinAndType = [
+	...AllTeamActions.filter(
+		(a) =>
+			![
+				'REQUEST_TO_JOIN',
+				'CANCEL_JOIN_REQUEST',
+				'APPROVE_JOIN_REQUEST',
+				'REJECT_JOIN_REQUEST',
+				'EDIT_TEAM_TYPE',
 			].includes(a),
 	),
 ];
@@ -88,7 +106,7 @@ describe('In open teams', () => {
 			);
 		});
 
-		it.each([...openActionsExceptJoin])(
+		it.each([...openActionsExceptJoinAndType])(
 			'members with write permission can perform %s',
 			(action) => {
 				// For UNARCHIVE_TEAM, pass DISBANDED state, otherwise pass ACTIVE
@@ -174,6 +192,40 @@ describe('In open teams', () => {
 			);
 		});
 	});
+
+	describe('When the user is an org admin', () => {
+		beforeEach(() => {
+			(isMember as jest.Mock).mockReturnValue(true);
+			(fg as jest.Mock).mockImplementation(
+				(flagName) => flagName === 'legion-enable-archive-teams',
+			);
+			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+				exp === 'new_team_profile' ? true : false,
+			);
+		});
+
+		it.each([...openActionsExceptJoin])('org admins can perform %s', (action) => {
+			// For UNARCHIVE_TEAM, pass DISBANDED state, otherwise pass ACTIVE
+			const state = action === 'UNARCHIVE_TEAM' ? 'DISBANDED' : 'ACTIVE';
+
+			expect(
+				hasPermission(
+					action,
+					'OPEN',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					{
+						canCreateTeams: true,
+						canViewTeams: true,
+						canAdminTeams: true,
+					},
+					undefined,
+					state,
+				),
+			).toBe(true);
+		});
+	});
 });
 
 describe('In invite-only teams', () => {
@@ -188,22 +240,25 @@ describe('In invite-only teams', () => {
 			);
 		});
 
-		it.each([...allActionsExceptJoin])('members with write permission can perform %s', (action) => {
-			// For UNARCHIVE_TEAM, pass DISBANDED state, otherwise pass ACTIVE
-			const state = action === 'UNARCHIVE_TEAM' ? 'DISBANDED' : 'ACTIVE';
-			expect(
-				hasPermission(
-					action,
-					'MEMBER_INVITE',
-					'FULL_WRITE',
-					true,
-					currentMemberMembership,
-					undefined,
-					undefined,
-					state,
-				),
-			).toBe(true);
-		});
+		it.each([...allActionsExceptJoinAndType])(
+			'members with write permission can perform %s',
+			(action) => {
+				// For UNARCHIVE_TEAM, pass DISBANDED state, otherwise pass ACTIVE
+				const state = action === 'UNARCHIVE_TEAM' ? 'DISBANDED' : 'ACTIVE';
+				expect(
+					hasPermission(
+						action,
+						'MEMBER_INVITE',
+						'FULL_WRITE',
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						state,
+					),
+				).toBe(true);
+			},
+		);
 
 		it.each([...allActionsExceptJoin])(
 			'members without write permission cannot do %s',
@@ -229,7 +284,7 @@ describe('In invite-only teams', () => {
 		});
 
 		it.each(
-			[...allActionsExceptJoin].filter(
+			[...allActionsExceptJoinAndType].filter(
 				(a) => a !== 'LEAVE_TEAM' && a !== 'ARCHIVE_TEAM' && a !== 'UNARCHIVE_TEAM',
 			),
 		)('users with write permission can %s', (action) => {
@@ -260,6 +315,39 @@ describe('In invite-only teams', () => {
 			expect(
 				hasPermission('LEAVE_TEAM', 'MEMBER_INVITE', 'FULL_WRITE', true, currentMemberMembership),
 			).toBe(false);
+		});
+	});
+
+	describe('When the user is an org admin', () => {
+		beforeEach(() => {
+			(isMember as jest.Mock).mockReturnValue(true);
+			(fg as jest.Mock).mockImplementation(
+				(flagName) => flagName === 'legion-enable-archive-teams',
+			);
+			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+				exp === 'new_team_profile' ? true : false,
+			);
+		});
+
+		it.each([...allActionsExceptJoin])('org admins can perform %s', (action) => {
+			// For UNARCHIVE_TEAM, pass DISBANDED state, otherwise pass ACTIVE
+			const state = action === 'UNARCHIVE_TEAM' ? 'DISBANDED' : 'ACTIVE';
+			expect(
+				hasPermission(
+					action,
+					'MEMBER_INVITE',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					{
+						canCreateTeams: true,
+						canViewTeams: true,
+						canAdminTeams: true,
+					},
+					undefined,
+					state,
+				),
+			).toBe(true);
 		});
 	});
 });
@@ -359,6 +447,7 @@ describe('In SCIM-synced teams', () => {
 					'REMOVE_AGENT_FROM_TEAM',
 					'ADD_AGENT_TO_TEAM',
 					'ARCHIVE_TEAM',
+					'EDIT_TEAM_TYPE',
 				].some((s) => a.includes(s)),
 			),
 		)('members can perform %s', (action) => {
@@ -391,6 +480,7 @@ describe('In SCIM-synced teams', () => {
 						'REMOVE_AGENT_FROM_TEAM',
 						'ADD_AGENT_TO_TEAM',
 						'ARCHIVE_TEAM',
+						'EDIT_TEAM_TYPE',
 					].some((s) => a.includes(s)),
 			),
 		)('members cannot perform %s', (action) => {

@@ -23,12 +23,13 @@ export const resolveSyncBlockInstance = (
 		return oldResult;
 	}
 
-	// otherwise, we merge the two results, preserving the sourceURL from the old result if it exists
+	// otherwise, we merge the two results, preserving the sourceURL and sourceTitle from the old result if it exists
 	return {
 		...newResult,
 		data: {
 			...newResult.data,
 			sourceURL: newResult.data?.sourceURL || oldResult.data?.sourceURL || undefined,
+			sourceTitle: newResult.data?.sourceTitle || oldResult.data?.sourceTitle || undefined,
 		},
 	};
 };

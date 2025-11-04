@@ -275,6 +275,7 @@ export class CustomMediaPlayerBase extends Component<
 				iconBefore={
 					isHDActive ? <VideoHdFilledIcon label="hd active" /> : <VideoHdIcon label="hd" />
 				}
+				aria-pressed={isHDActive}
 			/>
 		);
 	};

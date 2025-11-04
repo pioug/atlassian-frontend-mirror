@@ -22,8 +22,8 @@ export const BodiedSyncBlockWrapper: React.ForwardRefExoticComponent<
 
 		return (
 			<div>
-				<SyncBlockLabel />
 				<div data-testid="bodied-sync-block-wrapper" ref={ref} />
+				<SyncBlockLabel isSource={true} localId={node.attrs.localId} />
 			</div>
 		);
 	},

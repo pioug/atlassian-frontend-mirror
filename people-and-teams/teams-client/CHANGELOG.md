@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.22.0
+
+### Minor Changes
+
+- [`351add7ec8607`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/351add7ec8607) -
+  [ux] Add team types field and permission handlers
+
 ## 4.21.0
 
 ### Minor Changes

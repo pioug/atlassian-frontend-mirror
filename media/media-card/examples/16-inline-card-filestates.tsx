@@ -21,6 +21,7 @@ import { MediaInlineCard, type MediaInlineCardProps } from '../src/inline/mediaI
 
 import { R500 } from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button/new';
+import { MediaClientContext } from '@atlaskit/media-client-react';
 
 const defaultDimensions = { width: 200, height: 150 };
 
@@ -54,11 +55,13 @@ const createExample =
 						{fileState?.status || 'unknown'}
 					</span>
 				</h5>
-				<MediaInlineCard
-					identifier={identifier}
-					mediaClient={fileStateFactory.mediaClient}
-					{...props}
-				/>
+				<MediaClientContext.Provider value={fileStateFactory.mediaClient}>
+					<MediaInlineCard
+						identifier={identifier}
+						mediaClient={fileStateFactory.mediaClient}
+						{...props}
+					/>
+				</MediaClientContext.Provider>
 			</div>
 		);
 	};

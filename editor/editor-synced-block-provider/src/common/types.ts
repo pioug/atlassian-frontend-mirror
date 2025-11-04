@@ -29,6 +29,7 @@ export interface SyncBlockData {
 	isSynced?: boolean;
 	resourceId: ResourceId;
 	sourceDocumentAri?: string;
+	sourceTitle?: string;
 	sourceURL?: string;
 	updatedAt?: string;
 }

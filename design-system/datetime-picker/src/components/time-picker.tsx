@@ -324,6 +324,7 @@ const TimePicker: React.ForwardRefExoticComponent<
 					appearance={appearance}
 					autoFocus={autoFocus}
 					clearControlLabel={clearControlLabel}
+					// @ts-ignore - Type mismatch with components - workaround for help-center local consumption
 					components={selectComponents}
 					inputId={id}
 					isClearable
@@ -334,12 +335,14 @@ const TimePicker: React.ForwardRefExoticComponent<
 					openMenuOnFocus
 					onBlur={onBlur}
 					onCreateOption={onCreateOption}
+					// @ts-ignore - Type mismatch with onChange handler - workaround for help-center local consumption
 					onChange={onChange}
 					options={options}
 					onFocus={onFocus}
 					onMenuOpen={onMenuOpen}
 					onMenuClose={onMenuClose}
 					placeholder={placeholder || l10n.formatTime(placeholderDatetime)}
+					// @ts-ignore - Type mismatch with styles config - workaround for help-center local consumption
 					styles={mergedStyles}
 					value={initialValue}
 					spacing={spacing}

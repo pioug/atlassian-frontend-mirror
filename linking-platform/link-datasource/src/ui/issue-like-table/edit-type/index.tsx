@@ -2,7 +2,6 @@ import React from 'react';
 
 import type InlineEdit from '@atlaskit/inline-edit';
 import type { DatasourceType } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type ExecuteFetch } from '../../../state/actions';
 import {
@@ -94,12 +93,7 @@ export const editType = ({
 };
 
 export const isEditTypeSupported = (type: DatasourceType['type']) => {
-	const supportedEditType = [
-		'string',
-		'status',
-		'icon',
-		...(fg('platform-datasources-enable-two-way-sync-assignee') ? ['user'] : []),
-	];
+	const supportedEditType = ['string', 'status', 'icon', 'user'];
 	return supportedEditType.includes(type);
 };
 

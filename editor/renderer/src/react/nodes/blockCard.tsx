@@ -35,6 +35,17 @@ const datasourceContainerStyle = css({
 	transform: 'translateX(-50%)',
 });
 
+const datasourceContainerStyleWithMarginTop = css({
+	borderRadius: `${token('radius.large', '8px')}`,
+	border: `${token('border.width')} solid ${token('color.border', N40)}`,
+	overflow: 'hidden',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	marginLeft: '50%',
+	marginBottom: `${token('space.150', '0.75rem')}`,
+	transform: 'translateX(-50%)',
+	marginTop: `${token('space.150', '0.75rem')}`,
+});
+
 export default function BlockCard(props: {
 	data?: object;
 	datasource?: DatasourceAttributeProperties;
@@ -111,7 +122,11 @@ export default function BlockCard(props: {
 						<WidthConsumer>
 							{({ width }) => (
 								<div
-									css={datasourceContainerStyle}
+									css={
+										fg('platform_editor_fix_sllv_margin_renderer')
+											? datasourceContainerStyleWithMarginTop
+											: datasourceContainerStyle
+									}
 									data-testid="renderer-datasource-table"
 									data-local-id={localId}
 									style={{

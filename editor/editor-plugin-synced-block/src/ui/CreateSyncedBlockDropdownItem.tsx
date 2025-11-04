@@ -5,6 +5,8 @@ import { useIntl } from 'react-intl-next';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { SyncBlocksIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import Lozenge from '@atlaskit/lozenge';
+import { Flex, Text } from '@atlaskit/primitives/compiled';
 
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
@@ -33,9 +35,14 @@ export const CreateSyncedBlockDropdownItem = ({
 
 	return (
 		<ToolbarDropdownItem elemBefore={<SyncBlocksIcon label="" />} onClick={onClick}>
-			{selection?.empty
-				? formatMessage(blockMenuMessages.createSyncedBlock)
-				: formatMessage(blockMenuMessages.convertToSyncedBlock)}
+			<Flex alignItems="center" gap="space.050">
+				<Text>
+					{selection?.empty
+						? formatMessage(blockMenuMessages.createSyncedBlock)
+						: formatMessage(blockMenuMessages.convertToSyncedBlock)}
+				</Text>
+				<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>
+			</Flex>
 		</ToolbarDropdownItem>
 	);
 };

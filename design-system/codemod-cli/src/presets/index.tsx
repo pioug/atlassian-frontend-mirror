@@ -13,6 +13,7 @@ import './upgrade-pragmatic-drag-and-drop-to-stable/upgrade-pragmatic-drag-and-d
 import './remove-dark-theme-vr-options/remove-dark-theme-vr-options';
 import './remove-token-fallbacks/remove-token-fallbacks';
 import './lozenge-appearance-to-color/lozenge-appearance-to-color';
+import './lozenge-to-tag-migration/lozenge-to-tag-migration';
 
 const presets = [
 	'styled-to-emotion',
@@ -24,6 +25,7 @@ const presets = [
 	'remove-dark-theme-vr-options',
 	'remove-token-fallbacks',
 	'lozenge-appearance-to-color',
+	'lozenge-to-tag-migration',
 ].map((preset) => path.join(__dirname, preset, `${preset}.@(ts|js|tsx)`));
 
 export default presets;

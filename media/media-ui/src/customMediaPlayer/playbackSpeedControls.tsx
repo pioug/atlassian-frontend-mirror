@@ -94,6 +94,7 @@ export class PlaybackSpeedControls extends Component<
 					options={this.speedOptions()}
 					value={value}
 					onChange={this.onPlaybackSpeedChange}
+					label={intl.formatMessage(messages.playbackSpeed)}
 					target={({ ref, isOpen, onKeyDown: popupKeydown }) => (
 						<Tooltip content={intl.formatMessage(messages.playbackSpeed)} position="top">
 							<MediaButton
@@ -102,6 +103,7 @@ export class PlaybackSpeedControls extends Component<
 								isSelected={isOpen}
 								onClick={onClick}
 								onKeyDown={popupKeydown}
+								aria-expanded={isOpen}
 							>
 								{playbackSpeed}x
 							</MediaButton>

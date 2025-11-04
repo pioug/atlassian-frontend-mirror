@@ -2,6 +2,7 @@ const prefix = 'ak-editor-sync-block';
 export const SyncBlockSharedCssClassName = {
 	prefix,
 	renderer: `${prefix}__renderer`,
+	error: `${prefix}__error_state`,
 };
 
 const bodiedPrefix = 'ak-editor-bodied-sync-block';

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 3.2.1
+
+### Patch Changes
+
+- [`da2782d8dc1e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da2782d8dc1e7) -
+  Support table row diff displaying in the editor
+
 ## 3.2.0
 
 ### Minor Changes

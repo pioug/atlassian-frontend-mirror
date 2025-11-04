@@ -5,6 +5,7 @@ import type {
 	SyncBlockInstance,
 	SubscriptionCallback,
 	SyncBlockDataProvider,
+	TitleSubscriptionCallback,
 } from '../providers/types';
 import { createSyncBlockNode } from '../utils/createSyncBlock';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
@@ -13,6 +14,10 @@ export class ReferenceSyncBlockStoreManager {
 	private dataProvider?: SyncBlockDataProvider;
 	private syncBlockCache: Map<ResourceId, SyncBlockInstance>;
 	private subscriptions: Map<ResourceId, { [localId: BlockInstanceId]: SubscriptionCallback }>;
+	private titleSubscriptions: Map<
+		ResourceId,
+		{ [localId: BlockInstanceId]: TitleSubscriptionCallback }
+	>;
 
 	private syncBlockURLRequests: Map<ResourceId, boolean>;
 	private isRefreshingSubscriptions: boolean = false;
@@ -20,6 +25,7 @@ export class ReferenceSyncBlockStoreManager {
 	constructor(dataProvider?: SyncBlockDataProvider) {
 		this.syncBlockCache = new Map();
 		this.subscriptions = new Map();
+		this.titleSubscriptions = new Map();
 		this.dataProvider = dataProvider;
 		this.syncBlockURLRequests = new Map();
 	}
@@ -54,7 +60,7 @@ export class ReferenceSyncBlockStoreManager {
 		}
 	}
 
-	private fetchSyncBlockSourceURL(resourceId: ResourceId) {
+	private fetchSyncBlockSourceURLAndTitle(resourceId: ResourceId) {
 		if (!resourceId || !this.dataProvider) {
 			return;
 		}
@@ -64,15 +70,20 @@ export class ReferenceSyncBlockStoreManager {
 		if (!this.syncBlockURLRequests.get(resourceId)) {
 			this.syncBlockURLRequests.set(resourceId, true);
 			this.dataProvider
-				.retrieveSyncBlockSourceUrl(createSyncBlockNode('', resourceId))
-				.then((sourceURL) => {
+				.retrieveSyncBlockSourceUrlAndTitle(createSyncBlockNode('', resourceId))
+				.then((sourceInfo) => {
 					const existingSyncBlock = this.getFromCache(resourceId);
 					if (existingSyncBlock && existingSyncBlock.data) {
 						existingSyncBlock.data = {
 							...existingSyncBlock.data,
-							sourceURL,
+							sourceURL: sourceInfo?.url,
+							sourceTitle: sourceInfo?.title,
 						};
 						this.updateCache(existingSyncBlock);
+
+						if (sourceInfo?.title) {
+							this.updateSourceTitleSubscriptions(existingSyncBlock.resourceId, sourceInfo.title);
+						}
 					}
 				})
 				.finally(() => {
@@ -107,9 +118,13 @@ export class ReferenceSyncBlockStoreManager {
 			this.updateCache(resolvedSyncBlockInstance);
 			resolvedData.push(resolvedSyncBlockInstance);
 
-			// fetch source URL if not already present
-			if (!resolvedSyncBlockInstance.data?.sourceURL && resolvedSyncBlockInstance.resourceId) {
-				this.fetchSyncBlockSourceURL(resolvedSyncBlockInstance.resourceId);
+			// fetch source URL and title if not already present
+			if (
+				(!resolvedSyncBlockInstance.data?.sourceURL ||
+					!resolvedSyncBlockInstance.data?.sourceTitle) &&
+				resolvedSyncBlockInstance.resourceId
+			) {
+				this.fetchSyncBlockSourceURLAndTitle(resolvedSyncBlockInstance.resourceId);
 			}
 		});
 
@@ -127,6 +142,15 @@ export class ReferenceSyncBlockStoreManager {
 					callback(syncBlock);
 				});
 			}
+		}
+	}
+
+	private updateSourceTitleSubscriptions(resourceId: string, title: string) {
+		const callbacks = this.titleSubscriptions.get(resourceId);
+		if (callbacks) {
+			Object.values(callbacks).forEach((callback) => {
+				callback(title);
+			});
 		}
 	}
 
@@ -170,6 +194,39 @@ export class ReferenceSyncBlockStoreManager {
 					this.deleteFromCache(resourceId);
 				} else {
 					this.subscriptions.set(resourceId, resourceSubscriptions);
+				}
+			}
+		};
+	}
+
+	public subscribeToSourceTitle(node: PMNode, callback: TitleSubscriptionCallback): () => void {
+		// check node is a sync block, as we only support sync block subscriptions
+		if (node.type.name !== 'syncBlock') {
+			return () => {};
+		}
+		const { resourceId, localId } = node.attrs;
+
+		if (!localId || !resourceId) {
+			return () => {};
+		}
+
+		const cachedData = this.getFromCache(resourceId);
+		if (cachedData?.data?.sourceTitle) {
+			callback(cachedData.data.sourceTitle);
+		}
+
+		// add to subscriptions map
+		const resourceSubscriptions = this.titleSubscriptions.get(resourceId) || {};
+		this.titleSubscriptions.set(resourceId, { ...resourceSubscriptions, [localId]: callback });
+
+		return () => {
+			const resourceSubscriptions = this.titleSubscriptions.get(resourceId);
+			if (resourceSubscriptions) {
+				delete resourceSubscriptions[localId];
+				if (Object.keys(resourceSubscriptions).length === 0) {
+					this.titleSubscriptions.delete(resourceId);
+				} else {
+					this.titleSubscriptions.set(resourceId, resourceSubscriptions);
 				}
 			}
 		};

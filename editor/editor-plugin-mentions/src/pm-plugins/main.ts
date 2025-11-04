@@ -164,8 +164,13 @@ export function createMentionPlugin({
 					const mentionSchema = newState.schema.nodes.mention;
 					const mentionsRemoved = new Map<string, MentionMapItem>();
 
-					tr.steps.forEach((step) => {
-						step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
+					tr.steps.forEach((step, index) => {
+						step.getMap().forEach((from, to) => {
+							const newStart = tr.mapping.slice(index).map(from, -1);
+							const newEnd = tr.mapping.slice(index).map(to);
+							const oldStart = tr.mapping.invert().map(newStart, -1);
+							const oldEnd = tr.mapping.invert().map(newEnd);
+
 							const oldSlice = oldState.doc.slice(oldStart, oldEnd);
 							const newSlice = newState.doc.slice(newStart, newEnd);
 

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 6.0.6
+
+### Patch Changes
+
+- [`ca13c0bb29d92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca13c0bb29d92) -
+  A11y fix: set the keyboard focus to the first logical element on `Find and Replace` dialog when
+  open
+
 ## 6.0.5
 
 ### Patch Changes

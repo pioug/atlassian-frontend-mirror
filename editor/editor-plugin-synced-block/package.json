@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-synced-block",
-	"version": "3.11.0",
+	"version": "4.0.1",
 	"description": "SyncedBlock plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -45,7 +45,12 @@
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/logo": "workspace:^",
+		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/tooltip": "workspace:^",
+		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "root:*",
 		"react-intl-next": "root:*"
 	},

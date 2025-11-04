@@ -32,7 +32,6 @@ import {
 } from '@atlaskit/linking-types/datasource';
 import { type Input } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { type ConcurrentExperience } from '@atlaskit/ufo';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id';
@@ -2265,134 +2264,130 @@ describe('IssueLikeDataTableView', () => {
 			});
 		});
 
-		ffTest.on(
-			'platform-datasources-enable-two-way-sync-assignee',
-			'with 2 way sync for assignee on',
-			() => {
-				const items: DatasourceDataResponseItem[] = [
-					{
-						ari: { data: 'ari/id1' },
-						assignee: {
-							data: [],
+		describe('with 2 way sync for assignee on', () => {
+			const items: DatasourceDataResponseItem[] = [
+				{
+					ari: { data: 'ari/id1' },
+					assignee: {
+						data: [],
+					},
+				},
+				{
+					ari: { data: 'ari/id2' },
+					assignee: {
+						data: {
+							atlassianUserId: '1',
+							displayName: 'John Doe',
+							avatarSource: 'source',
 						},
 					},
-					{
-						ari: { data: 'ari/id2' },
-						assignee: {
-							data: {
-								atlassianUserId: '1',
-								displayName: 'John Doe',
-								avatarSource: 'source',
+				},
+				{
+					assignee: {
+						data: [],
+					},
+					ari: { data: 'ari/id3' },
+				},
+			];
+
+			const columns: DatasourceResponseSchemaProperty[] = [
+				{
+					key: 'assignee',
+					title: 'Assignee',
+					type: 'user',
+				},
+			];
+
+			const execute = jest.fn().mockResolvedValue({});
+
+			it('shows empty Avatar on hover for user cell conditionally', async () => {
+				const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+				actionStore.storeState.setState({
+					actionsByIntegration: {
+						jira: {
+							assignee: {
+								actionKey: 'atlassian:work-item:update:assignee',
+								type: 'string',
 							},
 						},
 					},
-					{
-						assignee: {
-							data: [],
+					permissions: {
+						'ari/id1': {
+							assignee: { isEditable: true },
 						},
-						ari: { data: 'ari/id3' },
+						'ari/id2': {
+							assignee: { isEditable: true },
+						},
 					},
-				];
-
-				const columns: DatasourceResponseSchemaProperty[] = [
-					{
-						key: 'assignee',
-						title: 'Assignee',
-						type: 'user',
-					},
-				];
-
-				const execute = jest.fn().mockResolvedValue({});
-
-				it('shows empty Avatar on hover for user cell conditionally', async () => {
-					const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
-					actionStore.storeState.setState({
-						actionsByIntegration: {
-							jira: {
-								assignee: {
-									actionKey: 'atlassian:work-item:update:assignee',
-									type: 'string',
-								},
-							},
-						},
-						permissions: {
-							'ari/id1': {
-								assignee: { isEditable: true },
-							},
-							'ari/id2': {
-								assignee: { isEditable: true },
-							},
-						},
-					});
-
-					const executeFetch = jest.fn().mockResolvedValue({
-						operationStatus: ActionOperationStatus.SUCCESS,
-						errors: [],
-					});
-					mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
-
-					setup({
-						items,
-						columns,
-						itemIds,
-						visibleColumnKeys: ['assignee'],
-					});
-
-					const cell1 = within(screen.getByTestId('sometable--row-ari/id1')).getByTestId(
-						'link-datasource-render-type--user',
-					);
-
-					const cell2 = within(screen.getByTestId('sometable--row-ari/id2')).getByTestId(
-						'link-datasource-render-type--user',
-					);
-
-					act(() => {
-						fireEvent.mouseOver(cell1);
-					});
-
-					expect(cell1).toHaveTextContent('Unassigned');
-					expect(cell2).not.toHaveTextContent('Unassigned');
 				});
 
-				it('should NOT show empty Avatar on hover for user cell when is not editable', async () => {
-					const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
-					actionStore.storeState.setState({
-						actionsByIntegration: {
-							jira: {
-								assignee: {
-									actionKey: 'atlassian:work-item:update:assignee',
-									type: 'string',
-								},
-							},
-						},
-						permissions: {
-							'ari/id1': {
-								assignee: { isEditable: false },
-							},
-						},
-					});
-
-					mockUseExecuteAtomicAction.mockReturnValue({});
-
-					setup({
-						items,
-						columns,
-						itemIds,
-						visibleColumnKeys: ['assignee'],
-					});
-
-					const cell1 = within(screen.getByTestId('sometable--row-ari/id1')).getByTestId(
-						'inline-edit-read-view',
-					);
-
-					act(() => {
-						fireEvent.mouseOver(cell1);
-					});
-
-					expect(within(cell1).queryByText('Unassigned')).not.toBeInTheDocument();
+				const executeFetch = jest.fn().mockResolvedValue({
+					operationStatus: ActionOperationStatus.SUCCESS,
+					errors: [],
 				});
-			},
-		);
+				mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+				setup({
+					items,
+					columns,
+					itemIds,
+					visibleColumnKeys: ['assignee'],
+				});
+
+				const cell1 = within(screen.getByTestId('sometable--row-ari/id1')).getByTestId(
+					'link-datasource-render-type--user',
+				);
+
+				const cell2 = within(screen.getByTestId('sometable--row-ari/id2')).getByTestId(
+					'link-datasource-render-type--user',
+				);
+
+				act(() => {
+					fireEvent.mouseOver(cell1);
+				});
+
+				expect(cell1).toHaveTextContent('Unassigned');
+				expect(cell2).not.toHaveTextContent('Unassigned');
+			});
+
+			it('should NOT show empty Avatar on hover for user cell when is not editable', async () => {
+				const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+				actionStore.storeState.setState({
+					actionsByIntegration: {
+						jira: {
+							assignee: {
+								actionKey: 'atlassian:work-item:update:assignee',
+								type: 'string',
+							},
+						},
+					},
+					permissions: {
+						'ari/id1': {
+							assignee: { isEditable: false },
+						},
+					},
+				});
+
+				mockUseExecuteAtomicAction.mockReturnValue({});
+
+				setup({
+					items,
+					columns,
+					itemIds,
+					visibleColumnKeys: ['assignee'],
+				});
+
+				const cell1 = within(screen.getByTestId('sometable--row-ari/id1')).getByTestId(
+					'inline-edit-read-view',
+				);
+
+				act(() => {
+					fireEvent.mouseOver(cell1);
+				});
+
+				expect(within(cell1).queryByText('Unassigned')).not.toBeInTheDocument();
+			});
+		});
 	});
 
 	describe('UFO metrics', () => {

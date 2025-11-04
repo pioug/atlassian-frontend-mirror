@@ -3,7 +3,6 @@ import React from 'react';
 import type { IntlShape } from 'react-intl-next';
 
 import commonMessages, { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
 	Command,
 	ExtractInjectionAPI,
@@ -26,13 +25,11 @@ import {
 	removeSyncedBlock,
 } from '../editor-commands';
 import { findSyncBlockOrBodiedSyncBlock, isBodiedSyncBlockNode } from '../pm-plugins/utils/utils';
-import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
+import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
 export const getToolbarConfig = (
 	state: EditorState,
 	intl: IntlShape,
-	_options: SyncedBlockPluginOptions = {},
-	_providerFactory: ProviderFactory,
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
 	syncBlockStore: SyncBlockStoreManager,
 ): FloatingToolbarConfig | undefined => {
@@ -64,7 +61,7 @@ export const getToolbarConfig = (
 		appearance: 'subtle',
 		icon: CopyIcon,
 		title: formatMessage(messages.copySyncBlockLabel),
-		showTitle: true,
+		showTitle: false,
 		tooltipContent: formatMessage(messages.copySyncBlockTooltip),
 		onClick: copySyncedBlockReferenceToClipboard(api),
 		...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
@@ -96,7 +93,6 @@ export const getToolbarConfig = (
 	const testId = 'synced-block-overflow-dropdown-trigger';
 
 	const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
-		{ type: 'separator', fullHeight: true },
 		{
 			type: 'overflow-dropdown',
 			testId,

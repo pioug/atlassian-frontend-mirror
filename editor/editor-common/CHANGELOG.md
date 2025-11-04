@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 110.21.4
+
+### Patch Changes
+
+- [`7e3353721fa66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e3353721fa66) -
+  [ux] EDITOR-1822 update sync blocks ui to new design
+- Updated dependencies
+
+## 110.21.3
+
+### Patch Changes
+
+- [`181018115c031`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/181018115c031) -
+  EDITOR-2438 Pass data providers to Synced Block nested renderer
+- Updated dependencies
+
+## 110.21.2
+
+### Patch Changes
+
+- [`bee3e79187ed5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bee3e79187ed5) -
+  [ux] cleanup platform_editor_a11y_insert_link_item_focus
+- Updated dependencies
+
 ## 110.21.1
 
 ### Patch Changes

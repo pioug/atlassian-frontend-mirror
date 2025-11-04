@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 215.9.8
+
+### Patch Changes
+
+- [`7e3353721fa66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e3353721fa66) -
+  [ux] EDITOR-1822 update sync blocks ui to new design
+- Updated dependencies
+
+## 215.9.7
+
+### Patch Changes
+
+- [`97741f3657384`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97741f3657384) -
+  Remove platform_editor_disable_rerender_tracking_jira
+- [`b0103f4f35c6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0103f4f35c6d) -
+  Removed fg platform_renderer_triple_click_selects_paragraph
+- Updated dependencies
+
 ## 215.9.6
 
 ### Patch Changes

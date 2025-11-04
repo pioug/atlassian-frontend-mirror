@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-navigation
 
+## 5.4.0
+
+### Minor Changes
+
+- [`211a83504b30b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/211a83504b30b) -
+  [ux] GCKO-936 Add switcher support for same tab 1P links
+
 ## 5.3.23
 
 ### Patch Changes

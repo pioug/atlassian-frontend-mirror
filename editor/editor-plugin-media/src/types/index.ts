@@ -56,17 +56,17 @@ export interface MediaPluginOptions {
 	allowMediaInlineImages?: boolean;
 	allowMediaSingle?: boolean | MediaSingleOptions;
 	allowMediaSingleEditable?: boolean;
+	/**
+	 * @caution
+	 * This attribute is used to enable the pixel resizing experience.
+	 * When enabled it cannot be rolled back -> see PIR-27544 https://ops.internal.atlassian.com/jira/browse/PIR-27544
+	 * Rollback action causes dataloss, no way to retrieve the original width, as fallback will always be 100
+	 */
 	allowPixelResizing?: boolean;
 	allowRemoteDimensionsFetch?: boolean;
 	allowResizing?: boolean;
 	allowResizingInTables?: boolean;
 	allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
-	/**
-	 * When enabled, prevents automatic focus/selection of media nodes after upload completion.
-	 * The existing focus will be preserved instead of switching to the uploaded media.
-	 * @default false
-	 */
-	preventAutoFocusOnUpload?: boolean;
 	// returns array of validation errors based on value, if no errors returned - value is considered to be valid
 	altTextValidator?: (value: string) => string[];
 	customDropzoneContainer?: HTMLElement;
@@ -103,6 +103,12 @@ export interface MediaPluginOptions {
 	// default is context
 	mediaShallowCopyScope?: MediaCopyScope;
 	onCommentButtonMount?: () => void;
+	/**
+	 * When enabled, prevents automatic focus/selection of media nodes after upload completion.
+	 * The existing focus will be preserved instead of switching to the uploaded media.
+	 * @default false
+	 */
+	preventAutoFocusOnUpload?: boolean;
 	provider?: Providers['mediaProvider'];
 	syncProvider?: MediaProvider;
 	uploadErrorHandler?: (state: MediaState) => void;
@@ -190,6 +196,12 @@ export type MediaFloatingToolbarOptions = {
 	allowLinking?: boolean;
 	allowMediaInline?: boolean;
 	allowMediaInlineImages?: boolean;
+	/**
+	 * @caution
+	 * This attribute is used to enable the pixel resizing experience.
+	 * When enabled it cannot be rolled back -> see PIR-27544 https://ops.internal.atlassian.com/jira/browse/PIR-27544
+	 * Rollback action causes dataloss, no way to retrieve the original width, as fallback will always be 100
+	 **/
 	allowPixelResizing?: boolean;
 	allowResizing?: boolean;
 	allowResizingInTables?: boolean;

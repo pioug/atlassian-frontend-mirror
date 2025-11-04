@@ -65,7 +65,7 @@ const iconStyle = css({
 	},
 });
 
-export interface PropsNext {
+export interface Props {
 	id?: string;
 	item: LinkSearchListItemData;
 	onFocus?: () => void;
@@ -78,8 +78,8 @@ export interface PropsNext {
 	selected: boolean;
 }
 
-const LinkSearchListItemNext = (
-	props: PropsNext & WrappedComponentProps,
+const LinkSearchListItem = (
+	props: Props & WrappedComponentProps,
 	ref: React.Ref<HTMLDivElement>,
 ) => {
 	const {
@@ -192,127 +192,12 @@ const LinkSearchListItemNext = (
 	);
 };
 
-const ForwardedLinkSearchListItemNext = forwardRef<
-	HTMLDivElement,
-	PropsNext & WrappedComponentProps
->(LinkSearchListItemNext);
+const ForwardedLinkSearchListItem = forwardRef<HTMLDivElement, Props & WrappedComponentProps>(
+	LinkSearchListItem,
+);
 
-export const ForwardedLinkSearchListItemNextWithIntl = injectIntl(ForwardedLinkSearchListItemNext, {
+export const ForwardedLinkSearchListItemWithIntl = injectIntl(ForwardedLinkSearchListItem, {
 	forwardRef: true,
 });
 
-export interface Props {
-	id?: string;
-	item: LinkSearchListItemData;
-	onMouseEnter?: (objectId: string) => void;
-	onMouseLeave?: (objectId: string) => void;
-	onMouseMove?: (objectId: string) => void;
-	onSelect: (href: string, text: string) => void;
-	role?: string;
-	selected: boolean;
-}
-
-/**
- * *Warning:* With `platform_editor_a11y_insert_link_item_focus` enabled this component is no longer used and is replaced with `<LinkSearchListItemNext />`.
- *
- * If making changes to this component please ensure to also update `<LinkSearchListItemNext />`.
- */
-// Ignored via go/ees005
-// eslint-disable-next-line @repo/internal/react/no-class-components
-class LinkSearchListItem extends React.PureComponent<Props & WrappedComponentProps, Object> {
-	handleSelect = (e: React.MouseEvent) => {
-		e.preventDefault(); // don't let editor lose focus
-		const { item, onSelect } = this.props;
-		onSelect(item.url, item.name);
-	};
-
-	handleMouseMove = () => {
-		const { onMouseMove, item } = this.props;
-		onMouseMove && onMouseMove(item.objectId);
-	};
-
-	handleMouseEnter = () => {
-		const { onMouseEnter, item } = this.props;
-		onMouseEnter && onMouseEnter(item.objectId);
-	};
-
-	handleMouseLeave = () => {
-		const { onMouseLeave, item } = this.props;
-		onMouseLeave && onMouseLeave(item.objectId);
-	};
-
-	private renderIcon() {
-		const {
-			item: { icon, iconUrl },
-			intl,
-		} = this.props;
-		if (icon) {
-			return <span css={iconStyle}>{icon}</span>;
-		}
-		if (iconUrl) {
-			return (
-				<span css={iconStyle}>
-					{/*
-            - getCorrectAltByIconUrl
-            Workaround to get alt text for images from url
-            Can be removed when alt={iconAlt} will be available from GraphQL
-            More details: https://a11y-internal.atlassian.net/browse/AK-811
-          */}
-					<img src={iconUrl} alt={getCorrectAltByIconUrl(iconUrl, intl)} />
-				</span>
-			);
-		}
-		return null;
-	}
-
-	renderTimeStamp() {
-		const { item, intl } = this.props;
-		const date = transformTimeStamp(intl, item.lastViewedDate, item.lastUpdatedDate);
-
-		return (
-			date && (
-				<Fragment>
-					&nbsp; •
-					<span
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className="link-search-timestamp"
-						data-test-id="link-search-timestamp"
-					>
-						&nbsp; {date.pageAction} {date.dateString} {date.timeSince || ''}
-					</span>
-				</Fragment>
-			)
-		);
-	}
-
-	render() {
-		const { item, selected, id, role } = this.props;
-		return (
-			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions, @atlassian/a11y/click-events-have-key-events
-			<li
-				css={[container, selected && containerSelected]}
-				role={role}
-				id={id}
-				aria-selected={selected}
-				data-testid="link-search-list-item"
-				onMouseMove={this.handleMouseMove}
-				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-				onMouseEnter={this.handleMouseEnter}
-				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-				onMouseLeave={this.handleMouseLeave}
-				onClick={this.handleSelect}
-			>
-				{this.renderIcon()}
-				<span css={nameWrapper}>
-					<div css={nameStyle}>{item.name}</div>
-					<div data-testid="link-search-list-item-container" css={containerName}>
-						{item.container}
-						{this.renderTimeStamp()}
-					</div>
-				</span>
-			</li>
-		);
-	}
-}
-
-export default injectIntl(LinkSearchListItem);
+export default ForwardedLinkSearchListItemWithIntl;

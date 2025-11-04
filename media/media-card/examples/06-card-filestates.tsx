@@ -21,6 +21,7 @@ import { type CardProps } from '../src';
 import { R500 } from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
+import { MediaClientContext } from '@atlaskit/media-client-react';
 
 const defaultDimensions = { width: 200, height: 150 };
 
@@ -52,12 +53,14 @@ const createExample =
 						{fileState?.status || 'unknown'}
 					</span>
 				</h5>
-				<Card
-					identifier={identifier}
-					mediaClient={fileStateFactory.mediaClient}
-					dimensions={defaultDimensions}
-					{...props}
-				/>
+				<MediaClientContext.Provider value={fileStateFactory.mediaClient}>
+					<Card
+						identifier={identifier}
+						mediaClient={fileStateFactory.mediaClient}
+						dimensions={defaultDimensions}
+						{...props}
+					/>
+				</MediaClientContext.Provider>
 				{description && <p>{description}</p>}
 			</div>
 		);

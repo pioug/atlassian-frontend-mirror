@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 124.9.10
+
+### Patch Changes
+
+- [`b0103f4f35c6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0103f4f35c6d) -
+  Removed fg platform_renderer_triple_click_selects_paragraph
+- Updated dependencies
+
+## 124.9.9
+
+### Patch Changes
+
+- [`7f5f1ce3e4c0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f5f1ce3e4c0d) -
+  Add marginTop spacing to datasourceContainerStyle to match editor styling
+- Updated dependencies
+
 ## 124.9.8
 
 ### Patch Changes

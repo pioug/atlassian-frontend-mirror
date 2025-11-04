@@ -77,7 +77,22 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/logo/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/lozenge/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tooltip/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/visually-hidden/tsconfig.app.json"
 		}
 	]
 }

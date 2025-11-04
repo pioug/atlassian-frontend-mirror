@@ -2,12 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, Fragment, type KeyboardEvent, useCallback, useRef } from 'react';
+import {
+	type CSSProperties,
+	forwardRef,
+	Fragment,
+	type KeyboardEvent,
+	useCallback,
+	useRef,
+} from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
-import { cx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
@@ -25,14 +31,6 @@ import { useTrackResultsShown } from './use-track-results-shown';
 const styles = cssMap({
 	emptyStateNoResultsWrapper: {
 		minHeight: token('space.200'),
-	},
-	baseListTitleStyles: {
-		font: token('font.body.small'),
-		fontWeight: token('font.weight.bold'),
-		marginBottom: token('space.050', '4px'),
-	},
-	newListTitleStyles: {
-		color: token('color.text.subtle'),
 	},
 });
 
@@ -74,6 +72,13 @@ const baseListTitleStyles = css({
 const newListTitleStyles = css({
 	color: token('color.text.subtle'),
 });
+
+const listTitleStyles: CSSProperties = {
+	font: token('font.body.small'),
+	fontWeight: token('font.weight.bold'),
+	marginBottom: token('space.050', '4px'),
+	color: token('color.text.subtle'),
+};
 
 export const messages = defineMessages({
 	titleRecentlyViewed: {
@@ -238,8 +243,11 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 				<Fragment>
 					{fg('navx-2134-fix-a11y-link-picker-headings') ? (
 						<Box
-							as="h2"
-							xcss={cx(styles.baseListTitleStyles, styles.newListTitleStyles)}
+							as="h2" // Must remain <h2> for a11y title hierarchy as per https://hello.jira.atlassian.cloud/browse/A11Y-27579
+							// `.wiki-content h2` css styles in confluence override ADS/native styles here, so inline styles are needed.
+							// Should use css or xcss prop when that CSS is removed/fixed by confluence
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+							style={listTitleStyles}
 							id={testIds.resultListTitle}
 							testId={testIds.resultListTitle}
 						>

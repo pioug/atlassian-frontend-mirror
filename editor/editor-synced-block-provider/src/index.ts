@@ -6,6 +6,7 @@ export {
 } from './providers/syncBlockProvider';
 export { SyncBlockStoreManager } from './store-manager/syncBlockStoreManager';
 export { useFetchSyncBlockData } from './hooks/useFetchSyncBlockData';
+export { useFetchSyncBlockTitle } from './hooks/useFetchSyncBlockTitle';
 export { useHandleContentChanges } from './hooks/useHandleContentChanges';
 export type { SyncBlockData, SyncBlockNode } from './common/types';
 export type {

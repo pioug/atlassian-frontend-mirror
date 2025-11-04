@@ -18,6 +18,7 @@ export const AllTeamActions = [
 	'EDIT_TEAM_LINK',
 	'EDIT_TEAM_SETTINGS',
 	'EDIT_TEAM_MEMBERSHIP',
+	'EDIT_TEAM_TYPE',
 
 	// Serious
 	'DELETE_TEAM',

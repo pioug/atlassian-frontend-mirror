@@ -1,5 +1,35 @@
 # @atlaskit/editor-bitbucket-transformer
 
+Editor Bitbucket transformer for converting between ADF, Markdown, and HTML formats.
+
+## Description
+
+This package provides transformation utilities specifically designed for Bitbucket's editor integration. It handles the complex pipeline of converting between ADF (Atlassian Document Format), Markdown, and HTML, with special focus on caption escaping and attribute preservation through the transformation process.
+
+## Key Features
+
+### Transformers
+- **Serializer**: Main serialization utilities for ADF to Markdown conversion
+- **Table Serializer**: Specialized table transformation handling
+- **Utility Functions**: Common transformation utilities
+
+### Caption Escaping Pipeline
+- **HTML Attribute Escaping**: Safely escapes captions for Markdown storage
+- **Unified Escaping Strategy**: Handles both HTML meta characters and Markdown punctuation
+- **Round-trip Safety**: Ensures data integrity through ADF → Markdown → HTML → ADF pipeline
+
+## Examples
+
+The package includes comprehensive examples in the `examples/` directory:
+- Basic transformer example
+- Bitbucket HTML handling
+- Bitbucket Markdown processing
+- Helper utilities and styling
+
+## Team
+
+**Editor: Collaboration**
+
 ## Caption escaping and the Markdown/HTML/ADF pipeline
 
 This package serializes ADF to Markdown for storage, and later reconstructs ADF from HTML that is rendered by the backend using python-markdown. Image captions are stored in Markdown using python-markdown’s `attr_list` syntax on the image:

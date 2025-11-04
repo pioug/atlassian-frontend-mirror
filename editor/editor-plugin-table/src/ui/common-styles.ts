@@ -1183,7 +1183,7 @@ export const baseTableStyles = (props: {
 	.${ClassName.ROW_CONTROLS_WRAPPER} {
 		position: absolute;
 		/* this is to fix the misalignment of the numbered column in live page view mode */
-		${props.isDragAndDropEnabled && fg('platform_editor_numbered_column_misalignment')
+		${props.isDragAndDropEnabled
 			? `
 			margin-top: ${tableMarginTop}px;
 			top: 0;

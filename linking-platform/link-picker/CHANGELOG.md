@@ -1,5 +1,12 @@
 # @atlaskit/link-picker
 
+## 3.16.5
+
+### Patch Changes
+
+- [`56537d0ea00dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56537d0ea00dd) -
+  NAVX-2134 fixing styling for link picker heading a11y change
+
 ## 3.16.4
 
 ### Patch Changes

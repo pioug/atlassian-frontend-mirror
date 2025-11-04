@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { PureComponent, type KeyboardEvent } from 'react';
+import { type KeyboardEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
@@ -10,7 +10,7 @@ import { css, jsx, type SerializedStyles } from '@emotion/react';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
-import LinkSearchListItem, { ForwardedLinkSearchListItemNextWithIntl } from './LinkSearchListItem';
+import ForwardedLinkSearchListItemNextWithIntl from './LinkSearchListItem';
 import type { LinkSearchListItemData } from './types';
 
 const listContainer = css({
@@ -31,7 +31,7 @@ export const linkSearchList: SerializedStyles = css({
 	listStyle: 'none',
 });
 
-export interface PropsNext {
+export interface Props {
 	ariaControls?: string;
 	id?: string;
 	isLoading: boolean;
@@ -47,7 +47,7 @@ export interface PropsNext {
 	selectedIndex: number;
 }
 
-export const LinkSearchListNext = ({
+const LinkSearchList = ({
 	listItemRefCallback,
 	onFocus,
 	onKeyDown,
@@ -61,7 +61,7 @@ export const LinkSearchListNext = ({
 	ariaControls,
 	role,
 	id,
-}: PropsNext) => {
+}: Props) => {
 	let itemsContent;
 	let loadingContent;
 
@@ -109,83 +109,4 @@ export const LinkSearchListNext = ({
 	);
 };
 
-export interface Props {
-	ariaControls?: string;
-	id?: string;
-	isLoading: boolean;
-	items?: LinkSearchListItemData[];
-	onMouseEnter?: (objectId: string) => void;
-	onMouseLeave?: (objectId: string) => void;
-	onMouseMove?: (objectId: string) => void;
-	onSelect: (href: string, text: string) => void;
-	role?: string;
-	selectedIndex: number;
-}
-
-/**
- * *Warning:* With `platform_editor_a11y_insert_link_item_focus` enabled this component is no longer used and is replaced with `<LinkSearchListNext />`.
- *
- * If making changes to this component please ensure to also update `<LinkSearchListNext />`.
- */
-// Ignored via go/ees005
-// eslint-disable-next-line @repo/internal/react/no-class-components
-export default class LinkSearchList extends PureComponent<Props, Object> {
-	render() {
-		const {
-			onSelect,
-			onMouseMove,
-			onMouseEnter,
-			onMouseLeave,
-			items,
-			selectedIndex,
-			isLoading,
-			ariaControls,
-			role,
-			id,
-		} = this.props;
-
-		let itemsContent;
-		let loadingContent;
-
-		if (items && items.length > 0) {
-			itemsContent = (
-				<ul
-					css={linkSearchList}
-					id={id}
-					role={role}
-					aria-controls={ariaControls}
-					data-testid={`${id}--items`}
-				>
-					{items.map((item, index) => (
-						<LinkSearchListItem
-							id={`link-search-list-item-${index}`}
-							role={role && 'option'}
-							item={item}
-							selected={selectedIndex === index}
-							onMouseMove={onMouseMove}
-							onMouseEnter={onMouseEnter}
-							onMouseLeave={onMouseLeave}
-							onSelect={onSelect}
-							key={item.objectId}
-						/>
-					))}
-				</ul>
-			);
-		}
-
-		if (isLoading) {
-			loadingContent = (
-				<div id={id} data-testid={`${id}--loading`} css={spinnerContainer}>
-					<Spinner size="medium" interactionName="link-search-spinner" />
-				</div>
-			);
-		}
-
-		return (
-			<div css={listContainer}>
-				{itemsContent}
-				{loadingContent}
-			</div>
-		);
-	}
-}
+export default LinkSearchList;

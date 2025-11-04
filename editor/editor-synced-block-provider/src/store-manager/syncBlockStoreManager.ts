@@ -7,6 +7,7 @@ import type {
 	SubscriptionCallback,
 	SyncBlockDataProvider,
 	SyncBlockInstance,
+	TitleSubscriptionCallback,
 } from '../providers/types';
 import { createSyncBlockNode } from '../utils/createSyncBlock';
 
@@ -109,6 +110,13 @@ export class SyncBlockStoreManager {
 
 	public subscribeToSyncBlockData(node: PMNode, callback: SubscriptionCallback): () => void {
 		return this.referenceSyncBlockStoreManager.subscribe(node, callback);
+	}
+
+	public subscribeToSyncBlockSourceTitle(
+		node: PMNode,
+		callback: TitleSubscriptionCallback,
+	): () => void {
+		return this.referenceSyncBlockStoreManager.subscribeToSourceTitle(node, callback);
 	}
 
 	public refreshSubscriptions(): void {

@@ -12,7 +12,11 @@ import { type TeamAction } from './types';
 
 export type PermissionMap = Required<Record<TeamAction, boolean>>;
 
-export const allPermissions = (defaultPermission: boolean, isMember: boolean): PermissionMap => ({
+export const allPermissions = (
+	defaultPermission: boolean,
+	isMember: boolean,
+	isOrgAdmin: boolean,
+): PermissionMap => ({
 	ADD_MEMBER_TO_TEAM: defaultPermission,
 	JOIN_TEAM: defaultPermission,
 	REQUEST_TO_JOIN: defaultPermission,
@@ -29,6 +33,7 @@ export const allPermissions = (defaultPermission: boolean, isMember: boolean): P
 	DELETE_TEAM: defaultPermission,
 	EDIT_TEAM_SETTINGS: defaultPermission,
 	EDIT_TEAM_MEMBERSHIP: defaultPermission,
+	EDIT_TEAM_TYPE: defaultPermission && isOrgAdmin,
 	REMOVE_AGENT_FROM_TEAM: defaultPermission,
 	ADD_AGENT_TO_TEAM: defaultPermission,
 	ARCHIVE_TEAM: defaultPermission && isMember,
@@ -85,7 +90,7 @@ const getDisbandedTeamPermissionMap = (
 	const isArchiveTeamEnabled = fg('legion-enable-archive-teams') && newTeamProfileEnabled;
 
 	// Base permission map - all actions disabled for disbanded teams
-	const basePermissions = allPermissions(false, false);
+	const basePermissions = allPermissions(false, false, false);
 
 	// UNARCHIVE_TEAM permission based on team settings
 	let canUnarchive = false;
@@ -124,27 +129,28 @@ const getActiveTeamPermissionMap = (
 	const isArchiveTeamEnabled = fg('legion-enable-archive-teams') && newTeamProfileEnabled;
 	if (settings === 'OPEN') {
 		return {
-			...allPermissions(permission === 'FULL_WRITE', isMember),
+			...allPermissions(permission === 'FULL_WRITE', isMember, isOrgAdmin),
 			...openPermissions(permission),
 			ARCHIVE_TEAM: isArchiveTeamEnabled && permission === 'FULL_WRITE' && isMember,
 		};
 	}
 	if (settings === 'MEMBER_INVITE') {
 		return {
-			...allPermissions(permission === 'FULL_WRITE', isMember),
+			...allPermissions(permission === 'FULL_WRITE', isMember, isOrgAdmin),
 			...inviteOnlyPermissions(permission),
 			ARCHIVE_TEAM: isArchiveTeamEnabled && permission === 'FULL_WRITE' && isMember,
 		};
 	} else if (settings === 'EXTERNAL') {
 		return {
-			...allPermissions(false, isMember),
+			...allPermissions(false, isMember, isOrgAdmin),
 			...SCIMSyncTeamPermissions(isMember, isOrgAdmin, source),
 			ADD_AGENT_TO_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
 			REMOVE_AGENT_FROM_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
 			ARCHIVE_TEAM: isArchiveTeamEnabled && isOrgAdmin,
+			EDIT_TEAM_TYPE: isOrgAdmin,
 		};
 	}
-	return allPermissions(false, false);
+	return allPermissions(false, false, false);
 };
 
 export const getPermissionMap = (

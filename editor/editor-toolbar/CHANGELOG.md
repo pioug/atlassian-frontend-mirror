@@ -1,5 +1,12 @@
 # @atlaskit/editor-toolbar
 
+## 0.17.2
+
+### Patch Changes
+
+- [`7e3353721fa66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e3353721fa66) -
+  [ux] EDITOR-1822 update sync blocks ui to new design
+
 ## 0.17.1
 
 ### Patch Changes

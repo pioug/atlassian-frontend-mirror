@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.19.1
+
+### Patch Changes
+
+- [`fbefd8fca3f37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fbefd8fca3f37) -
+  NO-ISSUE rename teamAgentAssociation track event from succedded to added
+
 ## 1.19.0
 
 ### Minor Changes

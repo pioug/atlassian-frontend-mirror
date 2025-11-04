@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.0.1
+
+### Patch Changes
+
+- [`7e3353721fa66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e3353721fa66) -
+  [ux] EDITOR-1822 update sync blocks ui to new design
+- Updated dependencies
+
+## 4.0.0
+
+### Major Changes
+
+- [`181018115c031`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/181018115c031) -
+  EDITOR-2438 Pass data providers to Synced Block nested renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.11.0
 
 ### Minor Changes

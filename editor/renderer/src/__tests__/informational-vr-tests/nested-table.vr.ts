@@ -27,9 +27,6 @@ snapshotInformational(NestedTableRenderer, {
 snapshotInformational(NestedTableNumberedColumnRenderer, {
 	description:
 		'should render nested table numbered column correctly if parent cell has a background color',
-	featureFlags: {
-		platform_editor_tables_numbered_column_correction: true,
-	},
 	variants: [
 		{
 			name: 'default',

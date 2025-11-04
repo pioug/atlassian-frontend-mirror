@@ -9,6 +9,7 @@ import {
 	type ADFWriteProvider,
 	type DeleteSyncBlockResult,
 	type SyncBlockInstance,
+	type SyncBlockSourceInfo,
 } from '../providers/types';
 import { getLocalIdFromAri, getPageARIFromResourceId } from '../utils/ari';
 
@@ -97,7 +98,9 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		return this.sourceId;
 	}
 
-	retrieveSyncBlockSourceUrl(node: SyncBlockNode): Promise<string | undefined> {
+	retrieveSyncBlockSourceUrlAndTitle(
+		node: SyncBlockNode,
+	): Promise<SyncBlockSourceInfo | undefined> {
 		const { resourceId } = node.attrs;
 		let pageARI;
 		let sourceLocalId;
@@ -115,7 +118,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 			}
 		}
 
-		return pageARI ? fetchURLfromARI(pageARI, sourceLocalId) : Promise.resolve(undefined);
+		return pageARI ? fetchURLandTitlefromARI(pageARI, sourceLocalId) : Promise.resolve(undefined);
 	}
 }
 
@@ -129,10 +132,10 @@ export const useMemoizedSyncedBlockProvider = (
 	}, [fetchProvider, writeProvider, sourceId]);
 };
 
-const fetchURLfromARI = async (
+const fetchURLandTitlefromARI = async (
 	ari: string,
 	sourceLocalId?: string,
-): Promise<string | undefined> => {
+): Promise<SyncBlockSourceInfo | undefined> => {
 	const response = await fetch('/gateway/api/object-resolver/resolve/ari', {
 		method: 'POST',
 		headers: {
@@ -145,12 +148,20 @@ const fetchURLfromARI = async (
 	if (response.ok) {
 		const payload = await response.json();
 		const url = payload?.data?.url;
-		if (typeof url === 'string') {
-			return sourceLocalId ? url + `?block=${sourceLocalId}` : url;
-		}
+		const title = payload?.data?.name;
+
+		return {
+			url:
+				typeof url === 'string'
+					? sourceLocalId
+						? url + `?block=${sourceLocalId}`
+						: url
+					: undefined,
+			title: typeof title === 'string' ? title : undefined,
+		};
 	} else {
 		//eslint-disable-next-line no-console
-		console.error('Failed to fetch URL from ARI', response.statusText);
+		console.error('Failed to fetch URL and title from ARI', response.statusText);
 	}
 
 	return undefined;

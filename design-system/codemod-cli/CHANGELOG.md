@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.31.0
+
+### Minor Changes
+
+- [`2b2b250287a95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b2b250287a95) -
+  Add a new codemod `lozenge-to-tag-migration` to automatically migrate `isBold={false}` Lozenge
+  usages to Tag component as part of the Labelling System Phase 1 migration.
+
 ## 0.30.0
 
 ### Minor Changes

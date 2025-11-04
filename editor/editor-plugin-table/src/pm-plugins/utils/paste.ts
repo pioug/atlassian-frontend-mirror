@@ -137,10 +137,7 @@ export const transformSliceToRemoveNestedTables = (
 
 				// paste of table cells into a table cell - content is spread across multiple cells
 				// by editor-tables so needs to be treated a little differently
-				if (
-					isCellPaste ||
-					(isCellSelection && fg('platform_editor_nested_tables_cellselection_paste'))
-				) {
+				if (isCellPaste || isCellSelection) {
 					allowedTableNesting = 1;
 					if (isPasteInNestedTable) {
 						allowedTableNesting = 0;
@@ -170,11 +167,7 @@ export const transformSliceToRemoveNestedTables = (
 			}
 		}
 
-		if (
-			isCellSelection &&
-			!isCellPaste &&
-			fg('platform_editor_nested_tables_cellselection_paste')
-		) {
+		if (isCellSelection && !isCellPaste) {
 			// if pasting into a cell selection, we need to flatten the parent table as well
 			return unwrapNestedTables(Fragment.fromArray([node]), schema, allowedTableNesting);
 		} else {

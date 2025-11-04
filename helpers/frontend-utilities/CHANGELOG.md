@@ -1,5 +1,13 @@
 # @af/frontend-utilities
 
+## 3.2.1
+
+### Patch Changes
+
+- [`e8e1ab6a43467`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8e1ab6a43467) -
+  Fix localStorage mock by making writable. This was bleeding into other test packages and those
+  tests could not set localStorage
+
 ## 3.2.0
 
 ### Minor Changes

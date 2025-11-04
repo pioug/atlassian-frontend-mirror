@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 17.1.5
+
+### Patch Changes
+
+- [`f5f621a43f60a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5f621a43f60a) -
+  ts-ignore added as a workaround for help-center typecheck
+
 ## 17.1.4
 
 ### Patch Changes

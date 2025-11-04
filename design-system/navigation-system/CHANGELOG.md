@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 5.0.2
+
+### Patch Changes
+
+- [`bb5f1424b34de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb5f1424b34de) -
+  [ux] Fixes the scrolled indicator in SideNavContent to set initial state for SSR'd scroll
+  position. Behind the `navx-full-height-sidebar` gate.
+
 ## 5.0.1
 
 ### Patch Changes

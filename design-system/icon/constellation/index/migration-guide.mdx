@@ -13,7 +13,8 @@ import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message'
 ## Migration guide
 
 <SectionMessage
-	title="Atlassian apps are currently migrating to new icons"
+	title="Legacy icon support will end in December 2025. Please migrate your apps now."
+	appearance="warning"
 	actions={[
 		<SectionMessageAction href="/whats-new/atlassian-ui-refresh-updates">
 			Atlassian UI refresh updates
@@ -21,8 +22,11 @@ import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message'
 	]}
 >
 	<p>
-		We'll provide updates for Atlassian partners here after internal migrations are complete. Review
-		the visual refresh update for partners to learn more.
+		We recommend all apps and partners start migrating your interfaces from the legacy icons to the
+		new iconography system to match Atlassian's new design language. Legacy icons will no longer be
+		supported from December 2025. This migration guide is designed to guide you on how to complete
+		this migration, however, if you have questions please reach out to us on our{' '}
+		<a href="https://community.developer.atlassian.com/">developer community forum</a>.
 	</p>
 </SectionMessage>
 
@@ -38,11 +42,10 @@ design changes are necessary.
 
 ### Atlassian developers
 
-At this stage, only customers who have opted into the early access program (EAP) should see new
-icons. Most of the migration process is automated through the
-[no-legacy-icons ESLint auto fixer](/components/eslint-plugin-design-system/no-legacy-icons/usage),
+At this stage, customers should see the new icons. Most of the migration process has been done and automated
+through the [no-legacy-icons ESLint auto fixer](/components/eslint-plugin-design-system/no-legacy-icons/usage),
 but there are some decisions that may require manual changes or design decisions. Review the code
-migration guide to get started.
+migration guide if required.
 
 [Code icon migrations (Atlassians only)](https://go.atlassian.com/ads-icon-code-migration)
 
@@ -91,11 +94,11 @@ adjustments to the legacy icons.
 ### Marketplace partners and app developers
 
 We recommend all partners start migrating your apps from the legacy icons to the new iconography
-system to match Atlassian's new visual language.
+system to match Atlassian's new design language.
 
 The new iconography system as part of the Atlassian Design System is now in General Availability,
-and we have deprecated the legacy iconography system. It will be removed at the end of the 6-month
-deprecation window.
+and we have deprecated the legacy iconography system. It will be removed at the end of
+December 2025.
 
 We are committed to supporting you through this transition:
 
@@ -103,14 +106,13 @@ We are committed to supporting you through this transition:
    - Updated documentation, tooling, and lint rules are available to guide the migration process.
      Details on the spacing prop and new size options can be found at our
      [iconography size and spacing guidance](/foundations/iconography#size-and-spacing).
-   - The migration pathway is designed to minimise manual effort. Tools like the
-     [no-legacy icons](/components/eslint-plugin-design-system/no-legacy-icons/usage) and the
-     [no-utility-icons](/components/eslint-plugin-design-system/no-utility-icons/usage) lint rules
-     can automate much of the process, including migrating away from legacy icons, i.e. the
+   - Tools like the [no-legacy icons](/components/eslint-plugin-design-system/no-legacy-icons/usage)
+     and the [no-utility-icons](/components/eslint-plugin-design-system/no-utility-icons/usage) lint
+     rules can automate much of the process, including migrating away from legacy icons, i.e. the
      `@atlaskit/icon/glyph` package, migrating utility icons to core icons and switching to the
      recommended sizes.
-   - The two-step migration (using temporary migration entry points) is no longer required. You can
-     directly migrate to the @atlaskit/icon/core entry points.
+   - The two-step migration (using temporary migration entry points) is no longer recommended. You
+     can directly migrate to the @atlaskit/icon/core entry points.
 2. Migration support for Forge UI Kit:
-   - This will be shipping shortly alongside updated documentation, as part of the iconography
-     system reaching GA.
+   - Please follow the
+     [Icon documentation for Forge UI Kit](https://developer.atlassian.com/platform/forge/ui-kit/components/icon/).

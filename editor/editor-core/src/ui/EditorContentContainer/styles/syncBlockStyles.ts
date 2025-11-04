@@ -33,8 +33,22 @@ export const syncBlockStyles: SerializedStyles = css({
 
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-					color: token('color.icon.danger'),
-					backgroundColor: token('color.background.danger.hovered'),
+					backgroundColor: token('color.background.danger'),
+
+					'&::before': {
+						content: '""',
+						position: 'absolute',
+						top: '-1px',
+						left: '-1px',
+						right: '-1px',
+						bottom: '-1px',
+						border: `1px solid ${token('color.border.danger')}`,
+						borderRadius: token('radius.small', '3px'),
+						mask: 'linear-gradient(to bottom, black 55%, transparent 55%)',
+						WebkitMask: 'linear-gradient(to bottom, black 55%, transparent 55%)',
+						pointerEvents: 'none',
+						zIndex: -1,
+					},
 				},
 			},
 
@@ -52,7 +66,7 @@ export const syncBlockStyles: SerializedStyles = css({
 
 			'&:hover': {
 				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				boxShadow: `0px 0px 0px 1px ${token('color.border.accent.purple')}`,
+				boxShadow: `0px 0px 0px 1px ${token('color.border')}`,
 			},
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
@@ -71,33 +85,78 @@ export const syncBlockStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.${SyncBlockSharedCssClassName.prefix}.ak-editor-selected-node:not(.danger), .${BodiedSyncBlockSharedCssClassName.prefix}.ak-editor-selected-node:not(.danger)`]:
 		{
-			boxShadow: `0 0 0 1px ${token('color.border.accent.purple')}`,
+			boxShadow: `0 0 0 1px ${token('color.border.focused')}`,
+			backgroundColor: token('color.background.selected'),
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+				backgroundColor: token('color.background.selected'),
+
+				'&::before': {
+					content: '""',
+					position: 'absolute',
+					top: '-1px',
+					left: '-1px',
+					right: '-1px',
+					bottom: '-1px',
+					border: `1px solid ${token('color.border.focused')}`,
+					borderRadius: token('radius.small', '3px'),
+					mask: 'linear-gradient(to bottom, black 55%, transparent 55%)',
+					WebkitMask: 'linear-gradient(to bottom, black 55%, transparent 55%)',
+					pointerEvents: 'none',
+					zIndex: -1,
+				},
+			},
 		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	[`.${SyncBlockSharedCssClassName.prefix}.ak-editor-selected-node, .${BodiedSyncBlockSharedCssClassName.prefix}.ak-editor-selected-node`]:
+	[`.${SyncBlockSharedCssClassName.prefix}.ak-editor-selected-node, .${SyncBlockSharedCssClassName.prefix}:hover, .${BodiedSyncBlockSharedCssClassName.prefix}.ak-editor-selected-node, .${BodiedSyncBlockSharedCssClassName.prefix}:hover, .${BodiedSyncBlockSharedCssClassName.prefix}.danger, ${SyncBlockLabelSharedCssClassName.labelClassName}:hover`]:
 		{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 			[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-				display: 'unset',
+				opacity: 1,
+				visibility: 'visible',
+			},
+		},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`.${SyncBlockSharedCssClassName.prefix}:has(.${SyncBlockSharedCssClassName.error}), .${BodiedSyncBlockSharedCssClassName.prefix}:has(.${SyncBlockSharedCssClassName.error})`]:
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:hover:not(.ak-editor-selected-node)': {
+				boxShadow: 'none',
+			},
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.ak-editor-selected-node, &:hover': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+					opacity: 0,
+					visibility: 'hidden',
+				},
 			},
 		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-		color: token('color.text.accent.purple'),
+		color: token('color.text.subtle'),
 		borderRadius: token('radius.small', '3px'),
 		position: 'absolute',
-		display: 'none',
+		gap: token('space.050', '4px'),
+		justifyContent: 'center',
+		alignItems: 'center',
+		display: 'flex',
+		opacity: 0,
+		visibility: 'hidden',
 
 		paddingLeft: token('space.100', '8px'),
 		paddingRight: token('space.100', '8px'),
 		paddingBottom: token('space.050', '4px'),
 		paddingTop: token('space.050', '4px'),
 
-		// height of label (32px) + space between sync block and label (4px) = 36px
-		top: '-36px',
-		right: '0px',
-		backgroundColor: token('color.background.accent.purple.subtlest'),
+		top: token('space.negative.200', '-16px'),
+		right: token('space.150', '12px'),
+		backgroundColor: token('elevation.surface'),
+		maxWidth: '140px',
 	},
 });

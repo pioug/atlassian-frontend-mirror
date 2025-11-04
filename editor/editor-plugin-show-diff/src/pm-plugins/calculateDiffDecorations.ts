@@ -130,11 +130,13 @@ const calculateDiffDecorationsInner = ({
 	let steppedDoc = originalDoc;
 
 	const stepMaps: StepMap[] = [];
+	let changeset = ChangeSet.create(originalDoc);
 	for (const step of steps) {
 		const result = step.apply(steppedDoc);
 		if (result.failed === null && result.doc) {
 			steppedDoc = result.doc;
 			stepMaps.push(step.getMap());
+			changeset = changeset.addSteps(steppedDoc, [step.getMap()], step);
 		}
 	}
 
@@ -143,7 +145,6 @@ const calculateDiffDecorationsInner = ({
 	if (!areNodesEqualIgnoreAttrs(steppedDoc, tr.doc)) {
 		return DecorationSet.empty;
 	}
-	const changeset = ChangeSet.create(originalDoc).addSteps(steppedDoc, stepMaps, tr.doc);
 	const changes = simplifyChanges(changeset.changes, tr.doc);
 
 	const optimizedChanges = optimizeChanges(changes);
@@ -165,7 +166,7 @@ const calculateDiffDecorationsInner = ({
 				intl,
 			});
 			if (decoration) {
-				decorations.push(decoration);
+				decorations.push(...decoration);
 			}
 		}
 	});

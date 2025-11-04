@@ -156,12 +156,12 @@ export const messages = defineMessages({
 	},
 	syncedBlock: {
 		id: 'fabric.editor.syncedBlock',
-		defaultMessage: 'Synced block',
+		defaultMessage: 'Create synced block',
 		description: 'Inserts a synced block that auto-updates content across Atlassian apps',
 	},
 	syncedBlockDescription: {
 		id: 'fabric.editor.syncedBlock.description',
-		defaultMessage: 'Auto-update content across Atlassian apps',
+		defaultMessage: 'Sync content across multiple locations',
 		description: 'Description of the synced block that auto-updates content across Atlassian apps',
 	},
 	panel: {

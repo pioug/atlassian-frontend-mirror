@@ -24,6 +24,11 @@ export type DeleteSyncBlockResult = {
 	resourceId: string;
 	success: boolean;
 };
+
+export type SyncBlockSourceInfo = {
+	title?: string;
+	url?: string;
+};
 export interface ADFFetchProvider {
 	fetchData: (resourceId: ResourceId) => Promise<SyncBlockInstance>;
 }
@@ -41,7 +46,11 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	): Promise<Array<ResourceId | undefined>>;
 	abstract deleteNodesData(resourceIds: string[]): Promise<Array<DeleteSyncBlockResult>>;
 	abstract getSourceId(): ResourceId;
-	abstract retrieveSyncBlockSourceUrl(node: SyncBlockNode): Promise<string | undefined>;
+	abstract retrieveSyncBlockSourceUrlAndTitle(
+		node: SyncBlockNode,
+	): Promise<SyncBlockSourceInfo | undefined>;
 }
 
 export type SubscriptionCallback = (data: SyncBlockInstance) => void;
+
+export type TitleSubscriptionCallback = (title: string) => void;

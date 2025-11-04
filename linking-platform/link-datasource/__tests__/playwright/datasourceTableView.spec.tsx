@@ -1,11 +1,5 @@
-import { expect, type Page, test } from '@af/integration-testing';
+import { expect, test } from '@af/integration-testing';
 test.describe('DatasourceTableView', () => {
-	const withFeatureFlags = async (page: Page, featureFlags: string[] = []) => {
-		const url = new URL(page.url());
-		featureFlags.forEach((flagKey) => url.searchParams.append('featureFlag', flagKey));
-		await page.goto(url.toString());
-	};
-
 	test('persists column picker when new column added', async ({ page }) => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table', {
 			'react-18-mode': 'legacy',
@@ -186,7 +180,6 @@ test.describe('DatasourceTableView', () => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table', {
 			'react-18-mode': 'legacy',
 		});
-		await withFeatureFlags(page, ['platform-datasources-enable-two-way-sync-assignee']);
 
 		await page
 			.getByTestId(

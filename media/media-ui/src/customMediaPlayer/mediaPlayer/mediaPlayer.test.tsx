@@ -468,6 +468,26 @@ describe('<MediaPlayer />', () => {
 				expect(onHDToggleClick).toHaveBeenCalledTimes(1);
 			});
 
+			it('should have aria-pressed true when HD is active', async () => {
+				setup({
+					isHDAvailable: true,
+					isHDActive: true,
+				});
+
+				const hdButton = await getHdButton();
+				expect(hdButton).toHaveAttribute('aria-pressed', 'true');
+			});
+
+			it('should have aria-pressed false when HD is not active', async () => {
+				setup({
+					isHDAvailable: true,
+					isHDActive: false,
+				});
+
+				const hdButton = await getHdButton();
+				expect(hdButton).toHaveAttribute('aria-pressed', 'false');
+			});
+
 			ffTest(
 				'platform_media_disable_video_640p_artifact_usage',
 				async () => {
@@ -668,6 +688,21 @@ describe('<MediaPlayer />', () => {
 			fireEvent.click(await getMuteButton());
 			fireEvent.click(await getMuteButton());
 			expect(getVideoElement().volume).toEqual(1);
+		});
+
+		it('should have aria-pressed true when volume is muted', async () => {
+			setup();
+			fireEvent.click(await getMuteButton());
+
+			const muteButton = await getMuteButton();
+			expect(muteButton).toHaveAttribute('aria-pressed', 'true');
+		});
+
+		it('should have aria-pressed false when volume is not muted', async () => {
+			setup();
+
+			const muteButton = await getMuteButton();
+			expect(muteButton).toHaveAttribute('aria-pressed', 'false');
 		});
 
 		it('should enter fullscreen when blanket double clicked', async () => {

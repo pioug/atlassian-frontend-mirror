@@ -2,19 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, {
-	forwardRef,
-	type ReactNode,
-	type Ref,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
-} from 'react';
+import React, { forwardRef, type ReactNode, type Ref, useMemo, useRef } from 'react';
 
-import { cssMap, jsx } from '@compiled/react';
-import { bind } from 'bind-event-listener';
-import rafSchd from 'raf-schd';
+import { cssMap, jsx, keyframes } from '@compiled/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -44,9 +34,35 @@ const styles = cssMap({
 	},
 });
 
-const fullHeightSidebarStyles = cssMap({
-	scrolled: {
+/**
+ * Using CSS scroll-driven animations to apply a scrolled indicator border.
+ *
+ * This approach is better for SSR, as some apps like Confluence will apply the
+ * initial scroll position of the side nav content using JS before hydration.
+ *
+ * If we applied the border through React state it would only appear after hydration,
+ * whereas this CSS approach should show even before hydration.
+ */
+const scrolledBorder = keyframes({
+	from: {
+		boxShadow: 'none',
+	},
+	'0.1%': {
 		boxShadow: `0px -1px ${token('color.border')}`,
+	},
+	to: {
+		boxShadow: `0px -1px ${token('color.border')}`,
+	},
+});
+
+const scrollTimelineVar = '--sNcst';
+const fullHeightSidebarStyles = cssMap({
+	scrollContainer: {
+		// Creates the scroll timeline bound to the var
+		scrollTimeline: `${scrollTimelineVar} block`,
+		// Consumes the scroll timeline for the animation
+		animationTimeline: scrollTimelineVar,
+		animationName: scrolledBorder,
 	},
 });
 
@@ -57,8 +73,6 @@ function _SideNavContent(
 	const internalRef = useRef<HTMLDivElement>(null);
 	const mergedRef = useMemo(() => mergeRefs([internalRef, forwardedRef]), [forwardedRef]);
 
-	const isScrolled = useIsScrolled(internalRef);
-
 	return (
 		/**
 		 * We are adding two `div` elements here on purpose. The padding styles are added to a nested element to make sure the padding is included in the scrollable area.
@@ -68,7 +82,7 @@ function _SideNavContent(
 		<div
 			css={[
 				styles.scrollContainer,
-				isScrolled && fg('navx-full-height-sidebar') && fullHeightSidebarStyles.scrolled,
+				fg('navx-full-height-sidebar') && fullHeightSidebarStyles.scrollContainer,
 			]}
 			ref={fg('navx-full-height-sidebar') ? mergedRef : forwardedRef}
 			data-testid={testId}
@@ -76,40 +90,6 @@ function _SideNavContent(
 			<div css={styles.paddingContainer}>{children}</div>
 		</div>
 	);
-}
-
-function useIsScrolled(ref: React.RefObject<HTMLDivElement>) {
-	const [isScrolled, setIsScrolled] = useState(false);
-
-	useEffect(() => {
-		if (!fg('navx-full-height-sidebar')) {
-			return;
-		}
-
-		if (!ref.current) {
-			return;
-		}
-
-		const scrollContainer = ref.current;
-
-		// Listener is throttled to requestAnimationFrame()
-		const listener = rafSchd(() => {
-			setIsScrolled(scrollContainer.scrollTop > 0);
-		});
-
-		return bind(scrollContainer, {
-			type: 'scroll',
-			options: {
-				// Passive means we cannot call event.preventDefault()
-				// It allows the browser to optimize scrolling performance:
-				// https://developer.chrome.com/docs/lighthouse/best-practices/uses-passive-event-listeners
-				passive: true,
-			},
-			listener,
-		});
-	}, [ref]);
-
-	return isScrolled;
 }
 
 type SideNavContentProps = {

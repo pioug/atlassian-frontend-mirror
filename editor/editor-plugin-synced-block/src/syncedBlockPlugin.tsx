@@ -18,7 +18,7 @@ import { getToolbarConfig } from './ui/floating-toolbar';
 import { SyncBlockRefresher } from './ui/SyncBlockRefresher';
 
 export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
-	const syncBlockStore = new SyncBlockStoreManager(config?.dataProvider);
+	const syncBlockStore = new SyncBlockStoreManager(config?.syncBlockDataProvider);
 
 	api?.blockMenu?.actions.registerBlockMenuComponents(getBlockMenuComponents(api));
 
@@ -93,8 +93,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 					},
 				},
 			],
-			floatingToolbar: (state, intl, providerFactory) =>
-				getToolbarConfig(state, intl, config, providerFactory, api, syncBlockStore),
+			floatingToolbar: (state, intl) => getToolbarConfig(state, intl, api, syncBlockStore),
 		},
 
 		contentComponent: () => {

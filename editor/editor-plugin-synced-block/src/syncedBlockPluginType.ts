@@ -1,4 +1,5 @@
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { SyncedBlockRendererDataProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
 	EditorCommand,
 	NextEditorPlugin,
@@ -47,13 +48,14 @@ export type SyncedBlockEditorProps = {
 };
 
 export type SyncedBlockRendererProps = {
+	syncBlockRendererDataProviders: SyncedBlockRendererDataProviders;
 	useFetchSyncBlockData: () => SyncBlockInstance | null;
 };
 
 export type SyncedBlockPluginOptions = {
-	dataProvider?: SyncBlockDataProvider;
-	getSyncedBlockEditor?: (props: SyncedBlockEditorProps) => React.JSX.Element;
-	getSyncedBlockRenderer?: (props: SyncedBlockRendererProps) => React.JSX.Element;
+	getSyncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
+	syncBlockDataProvider: SyncBlockDataProvider;
+	syncBlockRendererDataProviders: SyncedBlockRendererDataProviders;
 };
 
 export type SyncedBlockPlugin = NextEditorPlugin<

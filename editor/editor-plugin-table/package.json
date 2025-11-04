@@ -129,12 +129,6 @@
 		"platform_editor_nested_dnd_styles_changes": {
 			"type": "boolean"
 		},
-		"platform_editor_numbered_column_misalignment": {
-			"type": "boolean"
-		},
-		"platform_editor_nested_tables_cellselection_paste": {
-			"type": "boolean"
-		},
 		"platform_editor_tables_table_selector": {
 			"type": "boolean"
 		},

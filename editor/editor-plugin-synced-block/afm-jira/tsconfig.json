@@ -59,7 +59,22 @@
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/logo/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/lozenge/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/modal-dialog/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/visually-hidden/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-jira/tsconfig.json"

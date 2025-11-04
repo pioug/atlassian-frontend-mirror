@@ -100,9 +100,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_enable_ncs_step_metrics": {
-			"type": "boolean"
-		},
 		"aifc_create_enabled": {
 			"type": "boolean"
 		}

@@ -9,7 +9,10 @@ import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/edito
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider';
+import {
+	useFetchSyncBlockData,
+	useFetchSyncBlockTitle,
+} from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { SyncBlockRendererWrapper } from '../ui/SyncBlockRendererWrapper';
@@ -61,8 +64,11 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 
 		return (
 			<SyncBlockRendererWrapper
-				useFetchSyncBlockData={() => useFetchSyncBlockData(this.syncBlockStore, this.node)}
+				localId={this.node.attrs.localId}
 				getSyncedBlockRenderer={this.options?.getSyncedBlockRenderer}
+				syncBlockRendererDataProviders={this.options?.syncBlockRendererDataProviders}
+				useFetchSyncBlockData={() => useFetchSyncBlockData(this.syncBlockStore, this.node)}
+				useFetchSyncBlockTitle={() => useFetchSyncBlockTitle(this.syncBlockStore, this.node)}
 			/>
 		);
 	}

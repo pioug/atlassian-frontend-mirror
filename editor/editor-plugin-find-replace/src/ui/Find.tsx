@@ -19,6 +19,7 @@ import TextLetterCaseIcon from '@atlaskit/icon-lab/core/text-letter-case';
 import MatchCaseIcon from '@atlaskit/icon/core/migration/text-style--emoji-keyboard';
 import EditorTextStyleIcon from '@atlaskit/icon/glyph/editor/text-style';
 import type { IconProps } from '@atlaskit/icon/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Textfield from '@atlaskit/textfield';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -99,7 +100,14 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 
 		// focus initially on dialog mount if there is no find text provided
 		if (!this.props.findText) {
-			this.focusFindTextfield();
+			if (fg('platform_editor_a11y_find_replace_focus_fix')) {
+				// Wait for findTextfieldRef to become available then focus
+				setTimeout(() => {
+					this.focusFindTextfield();
+				}, 100);
+			} else {
+				this.focusFindTextfield();
+			}
 		}
 		this.syncFindText(() => {
 			// focus after input is synced if find text provided

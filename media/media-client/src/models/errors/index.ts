@@ -94,8 +94,8 @@ export const toCommonMediaClientError = (
 	const error = errorFileState.details?.error;
 	return new CommonMediaClientError(
 		error?.reason || 'unknown-reason',
-		error.metadata,
-		error.innerError,
+		error?.metadata,
+		error?.innerError,
 	);
 };
 

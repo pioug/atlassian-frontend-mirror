@@ -78,7 +78,7 @@ describe('isEditTypeSupported', () => {
 		['string', true],
 		['tag', false],
 		['time', false],
-		['user', false],
+		['user', true],
 	])(
 		'returns empty inline edit props for %s component',
 		(type: DatasourceType['type'], expected: boolean) => {

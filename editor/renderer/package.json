@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "124.9.8",
+	"version": "124.9.10",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -170,9 +170,6 @@
 		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		},
-		"platform_editor_tables_numbered_column_correction": {
-			"type": "boolean"
-		},
 		"platform_editor_nested_dnd_styles_changes": {
 			"type": "boolean"
 		},
@@ -183,9 +180,6 @@
 			"type": "boolean"
 		},
 		"platform_renderer_isPresentational": {
-			"type": "boolean"
-		},
-		"platform_renderer_triple_click_selects_paragraph": {
 			"type": "boolean"
 		},
 		"platform_ssr_smartlink_embeds": {
@@ -243,6 +237,9 @@
 			"type": "boolean"
 		},
 		"media-perf-uplift-mutation-fix": {
+			"type": "boolean"
+		},
+		"platform_editor_fix_sllv_margin_renderer": {
 			"type": "boolean"
 		}
 	},

@@ -13,9 +13,6 @@ import { Device, snapshotInformational } from '@af/visual-regression';
 
 import CompanyHubMockExample from '../../../../../examples/company-hub-mock';
 import CompositionExample, { CompositionVR } from '../../../../../examples/composition';
-import ConfluenceMockExample from '../../../../../examples/confluence-mock';
-import JiraMockExample from '../../../../../examples/jira-mock';
-import JiraSettingMockExample from '../../../../../examples/jira-settings-mock';
 import NavigationShellExample, {
 	NavigationShellWithToggleButtonSpotlight,
 	NavigationShellWithWideSideNav,
@@ -267,60 +264,6 @@ snapshotInformational(NavigationShellExample, {
 	description: 'sideNavToggleButton slot with flag disabled',
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
-});
-
-/**
- * Checking scrolled border on <SideNavContent> when used
- * without any sort of header
- */
-snapshotInformational(JiraMockExample, {
-	description: 'jira simple scrolled border',
-	drawsOutsideBounds: true,
-	variants: [variants.desktop],
-	featureFlags: {
-		'navx-full-height-sidebar': true,
-	},
-	async prepare(page) {
-		await page
-			.getByTestId('side-nav-content')
-			.evaluate((el: HTMLElement) => (el.scrollTop = el.offsetHeight));
-	},
-});
-
-/**
- * Checking scrolled border on SideNavContent when used
- * with a SideNavHeader
- */
-snapshotInformational(JiraSettingMockExample, {
-	description: 'jira settings scrolled border',
-	drawsOutsideBounds: true,
-	variants: [variants.desktop],
-	featureFlags: {
-		'navx-full-height-sidebar': true,
-	},
-	async prepare(page) {
-		await page
-			.getByTestId('side-nav-content')
-			.evaluate((el: HTMLElement) => (el.scrollTop = el.offsetHeight));
-	},
-});
-
-/**
- * Checking scrolled border on <SideNavContent> when used
- * with a sticky header inside of SideNavContent
- */
-snapshotInformational(ConfluenceMockExample, {
-	description: 'confluence scrolled border',
-	drawsOutsideBounds: true,
-	variants: [variants.desktop],
-	featureFlags: {
-		'navx-full-height-sidebar': true,
-	},
-	async prepare(page) {
-		await page
-			.getByTestId('side-nav-content')
-			.evaluate((el: HTMLElement) => (el.scrollTop = el.offsetHeight));
-	},
 });
 
 /**

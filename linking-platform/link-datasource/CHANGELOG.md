@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 4.29.0
+
+### Minor Changes
+
+- [`28247d8ce71cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28247d8ce71cc) -
+  [ux] Clean up feature gate to enable assignee picker on link datasource
+
 ## 4.28.0
 
 ### Minor Changes

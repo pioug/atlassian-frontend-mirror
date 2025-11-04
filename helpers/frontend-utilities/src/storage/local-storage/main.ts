@@ -58,6 +58,7 @@ export const mockWindowStorage = (
 		Object.defineProperty(windowRef, storageToMockElement, {
 			value: { ...STORAGE_MOCK },
 			configurable: true,
+			writable: true,
 		});
 	}
 };

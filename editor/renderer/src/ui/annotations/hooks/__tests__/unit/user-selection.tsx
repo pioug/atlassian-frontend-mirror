@@ -1,6 +1,5 @@
 import React from 'react';
 import { screen, render, fireEvent, act, waitFor, renderHook } from '@testing-library/react';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { AnnotationRangeProvider } from '../../../contexts/AnnotationRangeContext';
 import type { Position } from '../../../types';
@@ -274,14 +273,16 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 					type: 'Range',
 					rangeCount: 1,
 					getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
+					removeAllRanges: jest.fn(),
+					addRange: jest.fn(),
 				};
 				jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
 
 				dispatchSelectionChange();
 				jest.runAllTimers();
 
-				expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(1);
-				expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledWith(lastListItem, 6);
+				expect(myFakeSelection.removeAllRanges).toHaveBeenCalledTimes(1);
+				expect(myFakeSelection.addRange).toHaveBeenCalledTimes(1);
 				expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
 			});
 
@@ -309,77 +310,74 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 					type: 'Range',
 					rangeCount: 1,
 					getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
+					removeAllRanges: jest.fn(),
+					addRange: jest.fn(),
 				};
 				jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
 
 				dispatchSelectionChange();
 				jest.runAllTimers();
 
-				expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(1);
-				expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledWith(
-					firstListItem.lastChild!.childNodes[0], // text node abc
-					3,
-				);
+				expect(myFakeSelection.removeAllRanges).toHaveBeenCalledTimes(1);
+				expect(myFakeSelection.addRange).toHaveBeenCalledTimes(1);
 				expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
 			});
 		});
 
-		ffTest.on('platform_renderer_triple_click_selects_paragraph', 'triple click', () => {
-			it('should select the entire paragraph with nested content', async () => {
-				render(
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-					<div data-testid="renderer-container" className="ak-renderer-document">
-						<p data-testid="paragraph">
-							hello<span></span>
-							<span>world</span>
-							<span></span>
-						</p>
-					</div>,
-				);
+		it('should select the entire paragraph with nested content', async () => {
+			render(
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				<div data-testid="renderer-container" className="ak-renderer-document">
+					<p data-testid="paragraph">
+						hello<span></span>
+						<span>world</span>
+						<span></span>
+					</p>
+				</div>,
+			);
 
-				const fakeFunction = jest.fn();
-				const paragraph = screen.getByTestId('paragraph');
+			const fakeFunction = jest.fn();
+			const paragraph = screen.getByTestId('paragraph');
 
-				const myFakeValidRangeUpdated: Range = {
-					...myFakeValidRange,
-					startContainer: paragraph,
-					startOffset: 0,
-					endContainer: rendererDOM as Node,
-					endOffset: 0,
-					commonAncestorContainer: paragraph,
-					setEnd: jest.fn(),
-					cloneRange: jest.fn(() => myFakeValidRangeUpdated),
-				};
+			const myFakeValidRangeUpdated: Range = {
+				...myFakeValidRange,
+				startContainer: paragraph,
+				startOffset: 0,
+				endContainer: rendererDOM as Node,
+				endOffset: 0,
+				commonAncestorContainer: paragraph,
+				setEnd: jest.fn(),
+				cloneRange: jest.fn(() => myFakeValidRangeUpdated),
+			};
 
-				const fakeSelection: Selection = {
-					type: 'Range',
-					rangeCount: 1,
-					getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
-					removeAllRanges: jest.fn(),
-					addRange: jest.fn(),
-				} as unknown as Selection;
+			const fakeSelection: Selection = {
+				type: 'Range',
+				rangeCount: 1,
+				getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
+				removeAllRanges: jest.fn(),
+				addRange: jest.fn(),
+			} as unknown as Selection;
 
-				jest.spyOn(document, 'getSelection').mockReturnValue(fakeSelection as unknown as Selection);
+			jest.spyOn(document, 'getSelection').mockReturnValue(fakeSelection as unknown as Selection);
 
-				renderDummyComponentWithDraftContext(null, fakeFunction);
+			renderDummyComponentWithDraftContext(null, fakeFunction);
 
-				act(() => {
-					dispatchSelectionChange();
-					jest.advanceTimersByTime(100); // Match hook's 100ms timeout
-				});
+			act(() => {
+				dispatchSelectionChange();
+				jest.advanceTimersByTime(100); // Match hook's 100ms timeout
+			});
 
-				await waitFor(() => {
-					expect(fakeFunction).toHaveBeenCalledWith([
-						'selection',
-						myFakeValidRangeUpdated,
-						null,
-						expect.any(Function),
-					]);
-					expect(fakeSelection.removeAllRanges).toHaveBeenCalledTimes(1);
-					expect(myFakeValidRangeUpdated.cloneRange).toHaveBeenCalledTimes(1);
-					// setEnd is called when the flag is false
-					expect(myFakeValidRangeUpdated.setEnd).not.toHaveBeenCalled();
-				});
+			await waitFor(() => {
+				expect(fakeFunction).toHaveBeenCalledWith([
+					'selection',
+					myFakeValidRangeUpdated,
+					null,
+					expect.any(Function),
+				]);
+				expect(fakeSelection.removeAllRanges).toHaveBeenCalledTimes(1);
+				expect(myFakeValidRangeUpdated.cloneRange).toHaveBeenCalledTimes(1);
+				// setEnd is called when the flag is false
+				expect(myFakeValidRangeUpdated.setEnd).not.toHaveBeenCalled();
 			});
 		});
 

@@ -10,7 +10,6 @@ import {
 	RemoveNodeMarkStep,
 } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { sendableSteps } from '@atlaskit/prosemirror-collab';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -227,14 +226,12 @@ export const track = ({ api, newEditorState, transactions, onTrackDataProcessed 
 		steps,
 	});
 
-	if (fg('platform_enable_ncs_step_metrics')) {
-		updateNcsSessionStepMetrics({
-			api,
-			steps: editorExperiment('platform_editor_reduce_noisy_steps_ncs', true)
-				? newSteps.filter((step) => !(step instanceof AnalyticsStep))
-				: newSteps,
-		});
-	}
+	updateNcsSessionStepMetrics({
+		api,
+		steps: editorExperiment('platform_editor_reduce_noisy_steps_ncs', true)
+			? newSteps.filter((step) => !(step instanceof AnalyticsStep))
+			: newSteps,
+	});
 
 	scheduler.postTask(
 		() => {

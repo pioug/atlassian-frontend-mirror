@@ -107,6 +107,8 @@ class ExternalUserOptionImpl extends React.PureComponent<ExternalUserOptionProps
 				</span>
 			);
 		}
+
+		return null;
 	};
 
 	private renderAvatar = () => {

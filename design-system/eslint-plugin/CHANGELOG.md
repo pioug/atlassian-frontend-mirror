@@ -1,5 +1,21 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.23.2
+
+### Patch Changes
+
+- [`789b0a7d82394`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/789b0a7d82394) -
+  Update `ensure-proper-xcss-usage` to account for style declarations after usage.
+
+## 13.23.1
+
+### Patch Changes
+
+- [`70773e71f139a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70773e71f139a) -
+  Update description for use-spotlight-package.
+- [`70773e71f139a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70773e71f139a) -
+  Update tests.
+
 ## 13.23.0
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 6.2.7
+
+### Patch Changes
+
+- [`3649625800804`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3649625800804) -
+  Fix the codeblock shift on initial load
+
 ## 6.2.6
 
 ### Patch Changes

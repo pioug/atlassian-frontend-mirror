@@ -12,6 +12,7 @@ import {
 	MentionNameStatus,
 } from '@atlaskit/mention/resource';
 import { isRestricted } from '@atlaskit/mention/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
@@ -32,7 +33,7 @@ const getAccessibilityLabelFromName = (name: string) => name.replace(/^@/u, '');
 
 const toDOM = (node: PMNode): DOMOutputSpec => {
 	// packages/elements/mention/src/components/Mention/index.tsx
-	const mentionAttrs: HTMLAttributes = {
+	let mentionAttrs: HTMLAttributes = {
 		contenteditable: 'false',
 		'data-access-level': node.attrs.accessLevel,
 		'data-mention-id': node.attrs.id,
@@ -42,6 +43,10 @@ const toDOM = (node: PMNode): DOMOutputSpec => {
 		'data-prosemirror-node-view-type': 'vanilla',
 		class: 'mentionView-content-wrap inlineNodeView',
 	};
+
+	if (fg('platform_editor_adf_with_localid')) {
+		mentionAttrs = { ...mentionAttrs, 'data-local-id': node.attrs.localId };
+	}
 
 	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
 		? getBrowserInfo()

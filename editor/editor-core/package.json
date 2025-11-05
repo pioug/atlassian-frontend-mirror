@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.9.8",
+	"version": "215.9.9",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -290,10 +290,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_comments_api_manager": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_elements_dnd_multi_select_patch_3": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

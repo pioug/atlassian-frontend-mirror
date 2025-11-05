@@ -55,7 +55,7 @@ export const SingleValue = (props: Props) => {
 	} = props;
 
 	return !isFocused ? (
-		<components.SingleValue {...props}>
+		<components.SingleValue {...(props as any)}>
 			<Flex xcss={styles.avatarItem}>
 				<SizeableAvatar
 					src={getAvatarUrl(data)}

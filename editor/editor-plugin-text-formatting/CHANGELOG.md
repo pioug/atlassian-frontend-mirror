@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 6.1.6
+
+### Patch Changes
+
+- [`3c501a06f7c8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c501a06f7c8b) -
+  [ux] [EDITOR-2460] detect and format backticks that close strings on the LHS
+- Updated dependencies
+
 ## 6.1.5
 
 ### Patch Changes

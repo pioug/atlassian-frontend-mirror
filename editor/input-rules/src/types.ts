@@ -12,6 +12,7 @@ export type HandleInputEvent = (props: {
 
 export type InputRulePluginState = {
 	from: number;
+	isBackwardMatch?: boolean;
 	matchedRule: MatchedRule;
 	textInserted: string;
 	to: number;

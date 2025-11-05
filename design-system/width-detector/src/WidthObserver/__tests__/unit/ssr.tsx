@@ -1,5 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
+import ReactDOM from 'react-dom/client';
+
 import { WidthDetectorObserver } from '../../width-detector-observer';
 
 describe('SSR', () => {
@@ -8,13 +10,14 @@ describe('SSR', () => {
 			const setWidth = jest.fn();
 			const div = document.createElement('div');
 
-			ReactDOM.hydrate(
+			ReactDOM.hydrateRoot(
+				div,
 				<>
 					<WidthDetectorObserver setWidth={setWidth} />
 					<span>1</span>
 				</>,
-				div,
 			);
+
 			expect(setWidth).not.toHaveBeenCalled();
 		});
 	});

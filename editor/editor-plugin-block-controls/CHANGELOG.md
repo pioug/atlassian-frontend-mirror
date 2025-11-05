@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.5.3
+
+### Patch Changes
+
+- [`3b9ebe635ab0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b9ebe635ab0a) -
+  Cleanup of platform_editor_draghandle_safari_scroll_fix
+
 ## 7.5.2
 
 ### Patch Changes

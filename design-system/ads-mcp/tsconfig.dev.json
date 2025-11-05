@@ -38,6 +38,12 @@
 	"references": [
 		{
 			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
 		}
 	]
 }

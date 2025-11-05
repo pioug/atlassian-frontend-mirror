@@ -13,6 +13,9 @@ type State = {
 	entry?: IntersectionObserverEntry;
 };
 
+/**
+ * @internal
+ */
 export function useInView(options: IntersectionObserverInit = {}): Response {
 	const ref = React.useRef<HTMLElement>();
 	const observerInstance = React.useRef<IntersectionObserver>();

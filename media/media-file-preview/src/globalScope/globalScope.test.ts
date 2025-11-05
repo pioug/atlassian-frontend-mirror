@@ -60,7 +60,7 @@ describe('Media Global Scope', () => {
 			const error = extractErrorInfo(
 				new MediaFilePreviewError('ssr-server-uri', new MediaStoreError('missingInitialAuth')),
 			);
-			storeDataURI(key, dataURI, srcSet, dimensions, error, globalScope);
+			storeDataURI(key, dataURI, srcSet, dimensions, error, {}, globalScope);
 
 			expect(mediaCardSSR[key]).toEqual({ dataURI, dimensions, error });
 		});

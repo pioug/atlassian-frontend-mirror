@@ -11,14 +11,13 @@ const rule = createLintRule({
 		fixable: 'code',
 		hasSuggestions: true,
 		docs: {
-			description:
-				'Discourage the use of deprecated imports from @atlaskit/onboarding in favor of @atlaskit/spotlight.',
+			description: 'Discourage the use of @atlaskit/onboarding in favor of @atlaskit/spotlight.',
 			recommended: false,
 			severity: 'warn',
 		},
 		messages: {
 			['use-spotlight-package']:
-				'@atlaskit/onboarding is being deprecated in favor of @atlaskit/spotlight. Please migrate your spotlight experiences accordingly.',
+				'@atlaskit/onboarding is deprecated in favor of @atlaskit/spotlight. Please migrate your spotlight experiences accordingly.',
 		},
 	},
 	create(context) {

@@ -174,7 +174,10 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 			const containerWidth = getMediaContainerWidth(mediaContainerWidth, layout);
 			let cardDimensions = {};
 			if (fg('media-perf-uplift-mutation-fix')) {
-				const maxWidth = widthAttr && typeof widthAttr === 'number' ? widthAttr : containerWidth;
+				const maxWidth =
+					widthAttr && typeof widthAttr === 'number' && widthType === 'pixel'
+						? widthAttr
+						: containerWidth;
 				cardDimensions = {
 					width: `${maxWidth}px`,
 					height: `100%`,
@@ -219,6 +222,7 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 			rendererAppearance,
 			width,
 			widthAttr,
+			widthType,
 		],
 	);
 

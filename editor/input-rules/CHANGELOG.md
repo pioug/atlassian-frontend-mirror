@@ -1,5 +1,16 @@
 # @atlaskit/prosemirror-input-rules
 
+## 3.6.0
+
+### Minor Changes
+
+- [`3c501a06f7c8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c501a06f7c8b) -
+  [ux] [EDITOR-2460] detect and format backticks that close strings on the LHS
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.5.0
 
 ### Minor Changes
@@ -110,7 +121,6 @@
 
   These are no longer available via `@atlaskit/prosemirror-input-rules` but are available from
   `@atlaskit/editor-common/types`:
-
   - InputRuleWrapper
   - InputRuleHandler
   - OnHandlerApply
@@ -120,7 +130,6 @@
   need to instantiate a `SafePlugin` (ie. `new SafePlugin(createPlugin( ... ))`).
 
   `SafePlugin` exists in `@atlaskit/editor-common/safe-plugin`.
-
   - createPlugin
   - createInputRulePlugin
 
@@ -368,7 +377,6 @@
 
 - [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) -
   ED-11632: Bump prosemirror packages;
-
   - prosmirror-commands 1.1.4 -> 1.1.11,
   - prosemirror-model 1.11.0 -> 1.14.3,
   - prosemirror-state 1.3.3 -> 1.3.4,

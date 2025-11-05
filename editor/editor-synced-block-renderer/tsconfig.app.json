@@ -47,6 +47,9 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-synced-block/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-synced-block-provider/tsconfig.app.json"
 		},
 		{
@@ -57,9 +60,6 @@
 		},
 		{
 			"path": "../../design-system/image/tsconfig.app.json"
-		},
-		{
-			"path": "../node-data-provider/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

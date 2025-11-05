@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.27.0
+
+### Minor Changes
+
+- [`3c501a06f7c8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c501a06f7c8b) -
+  [EDITOR-2460] add new experiment to config file
+
 ## 13.26.0
 
 ### Minor Changes

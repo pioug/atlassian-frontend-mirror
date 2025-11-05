@@ -1,5 +1,12 @@
 # @atlaskit/media-file-preview
 
+## 0.11.9
+
+### Patch Changes
+
+- [`9630c61136f9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9630c61136f9b) -
+  Fixed the resolution of feature flag in SSR script
+
 ## 0.11.8
 
 ### Patch Changes

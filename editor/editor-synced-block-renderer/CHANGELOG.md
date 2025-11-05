@@ -1,5 +1,31 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 3.1.2
+
+### Patch Changes
+
+- [`9e1ddcc85a330`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e1ddcc85a330) -
+  EDITOR-2673 Enable nested tables in reference synced blocks
+
+## 3.1.1
+
+### Patch Changes
+
+- [`aa14795cecd60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa14795cecd60) -
+  EDITOR-2350 Pass media options to sync block nested renderer.
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [`261fa27c56fd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/261fa27c56fd0) -
+  EDITOR-2533 implement retry function for sync-block renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

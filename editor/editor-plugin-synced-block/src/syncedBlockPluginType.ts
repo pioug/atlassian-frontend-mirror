@@ -1,5 +1,4 @@
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { SyncedBlockRendererDataProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
 	EditorCommand,
 	NextEditorPlugin,
@@ -14,8 +13,8 @@ import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-too
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import type {
-	SyncBlockInstance,
 	SyncBlockDataProvider,
+	UseFetchSyncBlockDataResult,
 } from '@atlaskit/editor-synced-block-provider';
 
 export type SyncedBlockEditorProps = {
@@ -48,14 +47,12 @@ export type SyncedBlockEditorProps = {
 };
 
 export type SyncedBlockRendererProps = {
-	syncBlockRendererDataProviders: SyncedBlockRendererDataProviders;
-	useFetchSyncBlockData: () => SyncBlockInstance | null;
+	useFetchSyncBlockData: () => UseFetchSyncBlockDataResult;
 };
 
 export type SyncedBlockPluginOptions = {
-	getSyncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
 	syncBlockDataProvider: SyncBlockDataProvider;
-	syncBlockRendererDataProviders: SyncedBlockRendererDataProviders;
+	syncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
 };
 
 export type SyncedBlockPlugin = NextEditorPlugin<

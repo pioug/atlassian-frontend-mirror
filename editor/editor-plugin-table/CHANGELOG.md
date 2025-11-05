@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.10
+
+### Patch Changes
+
+- [`b31ba91cf1c16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b31ba91cf1c16) -
+  Remove platform_editor_table_paste_in_dark_mode feature gate and enable dark mode table paste fix
+  permanently
+
 ## 15.3.9
 
 ### Patch Changes

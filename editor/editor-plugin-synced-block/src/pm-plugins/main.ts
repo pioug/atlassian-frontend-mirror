@@ -72,14 +72,16 @@ export const createPlugin = (
 			// and are not yet confirmed for sync block deletion
 			if (
 				!tr.docChanged ||
-				!syncBlockStore?.requireConfirmationBeforeDelete() ||
+				(!syncBlockStore?.requireConfirmationBeforeDelete() &&
+					!syncBlockStore.hasPendingCreation()) ||
 				Boolean(tr.getMeta('isRemote')) ||
-				Boolean(tr.getMeta('isConfirmedSyncBlockDeletion'))
+				Boolean(tr.getMeta('isConfirmedSyncBlockDeletion')) ||
+				Boolean(tr.getMeta('isCommitSyncBlockCreation'))
 			) {
 				return true;
 			}
 
-			const { removed } = trackSyncBlocks(syncBlockStore, tr, state);
+			const { removed, added } = trackSyncBlocks(syncBlockStore, tr, state);
 
 			if (removed.length > 0) {
 				// If there are source sync blocks being removed, and we need to confirm with user before deleting,
@@ -87,6 +89,20 @@ export const createPlugin = (
 				// See editor-common/src/sync-block/sync-block-store-manager.ts for how we handle user confirmation and
 				// proceed with deletion.
 				syncBlockStore.deleteSyncBlocksWithConfirmation(tr, removed);
+
+				return false;
+			}
+
+			if (added.length > 0) {
+				// If there is bodiedSyncBlock node addition and it's waiting for the result of saving the node to backend (syncBlockStore.hasPendingCreation()),
+				// we need to intercept the transaction and save it in insert callback so that we only insert it to the document when backend call if backend call is successful
+				// The callback will be evoked by in SourceSyncBlockStoreManager.commitPendingCreation
+				syncBlockStore.registerCreationCallback(() => {
+					api?.core?.actions.execute(() => {
+						return tr.setMeta('isCommitSyncBlockCreation', true);
+					});
+					api?.core.actions.focus();
+				});
 
 				return false;
 			}

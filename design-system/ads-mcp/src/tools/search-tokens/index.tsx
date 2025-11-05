@@ -15,16 +15,16 @@ const inputSchema = z.object({
 		),
 	limit: z
 		.number()
-		.optional()
 		.default(1)
-		.describe('Maximum number of results per search term in the array (default: 1)'),
+		.describe('Maximum number of results per search term in the array (default: 1)')
+		.optional(),
 	exactName: z
 		.boolean()
-		.optional()
 		.default(false)
 		.describe(
 			'Enable to explicitly search tokens by the exact name match (when you know the name, but need more details)',
-		),
+		)
+		.optional(),
 });
 
 export const listSearchTokensTool = {

@@ -1,15 +1,25 @@
 import React from 'react';
 
-import { SyncedBlockRenderer, type SyncedBlockRendererProps } from './ui/SyncedBlockRenderer';
+import type { SyncedBlockRendererDataProviders } from '@atlaskit/editor-common/provider-factory';
+import type { SyncedBlockRendererProps } from '@atlaskit/editor-plugin-synced-block';
 
-export const getSyncedBlockRenderer = ({
-	syncBlockRendererDataProviders,
-	useFetchSyncBlockData,
-}: SyncedBlockRendererProps): React.JSX.Element => {
-	return (
-		<SyncedBlockRenderer
-			syncBlockRendererDataProviders={syncBlockRendererDataProviders}
-			useFetchSyncBlockData={useFetchSyncBlockData}
-		/>
-	);
+import type { SyncedBlockRendererOptions } from './types';
+import { SyncedBlockRenderer } from './ui/SyncedBlockRenderer';
+
+type GetSyncedBlockRendererProps = {
+	syncBlockRendererDataProviders: SyncedBlockRendererDataProviders;
+	syncBlockRendererOptions: SyncedBlockRendererOptions | undefined;
 };
+
+// For rendering reference synced block nodes in Editor
+export const getSyncedBlockRenderer =
+	({ syncBlockRendererDataProviders, syncBlockRendererOptions }: GetSyncedBlockRendererProps) =>
+	({ useFetchSyncBlockData }: SyncedBlockRendererProps): React.JSX.Element => {
+		return (
+			<SyncedBlockRenderer
+				syncBlockRendererOptions={syncBlockRendererOptions}
+				syncBlockRendererDataProviders={syncBlockRendererDataProviders}
+				useFetchSyncBlockData={useFetchSyncBlockData}
+			/>
+		);
+	};

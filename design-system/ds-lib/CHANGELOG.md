@@ -1,5 +1,13 @@
 # @atlaskit/ds-lib
 
+## 5.2.0
+
+### Minor Changes
+
+- [`07ee26a0f6e1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07ee26a0f6e1a) -
+  Cleaned platform_only_attach_escape_handler_on_view FG. After cleaning this gate, keydown and
+  keyup event listeners wont be attached in useCloseOnEscapePress if it is disabled in all products.
+
 ## 5.1.1
 
 ### Patch Changes

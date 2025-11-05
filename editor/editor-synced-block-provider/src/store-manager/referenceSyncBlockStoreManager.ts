@@ -7,8 +7,8 @@ import type {
 	SyncBlockDataProvider,
 	TitleSubscriptionCallback,
 } from '../providers/types';
-import { createSyncBlockNode } from '../utils/createSyncBlock';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
+import { createSyncBlockNode } from '../utils/utils';
 
 export class ReferenceSyncBlockStoreManager {
 	private dataProvider?: SyncBlockDataProvider;
@@ -162,17 +162,11 @@ export class ReferenceSyncBlockStoreManager {
 		this.syncBlockCache.delete(resourceId);
 	}
 
-	public subscribe(node: PMNode, callback: SubscriptionCallback): () => void {
-		// check node is a sync block, as we only support sync block subscriptions
-		if (node.type.name !== 'syncBlock') {
-			return () => {};
-		}
-		const { resourceId, localId } = node.attrs;
-
-		if (!localId || !resourceId) {
-			return () => {};
-		}
-
+	public subscribeToSyncBlock(
+		resourceId: string,
+		localId: string,
+		callback: SubscriptionCallback,
+	): () => void {
 		// add to subscriptions map
 		const resourceSubscriptions = this.subscriptions.get(resourceId) || {};
 		this.subscriptions.set(resourceId, { ...resourceSubscriptions, [localId]: callback });
@@ -230,6 +224,20 @@ export class ReferenceSyncBlockStoreManager {
 				}
 			}
 		};
+	}
+
+	public subscribe(node: PMNode, callback: SubscriptionCallback): () => void {
+		// check node is a sync block, as we only support sync block subscriptions
+		if (node.type.name !== 'syncBlock') {
+			return () => {};
+		}
+		const { resourceId, localId } = node.attrs;
+
+		if (!localId || !resourceId) {
+			return () => {};
+		}
+
+		return this.subscribeToSyncBlock(resourceId, localId, callback);
 	}
 
 	/**

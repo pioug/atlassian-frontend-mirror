@@ -4,7 +4,6 @@
  */
 import { components, type MultiValueProps } from '@atlaskit/select';
 import React, { Fragment } from 'react';
-import ReactDOM from 'react-dom';
 import { FormattedMessage } from 'react-intl-next';
 import { type Option, type User } from '../types';
 import { messages } from './i18n';
@@ -12,7 +11,6 @@ import { isChildInput } from './utils';
 import ValueContainerWrapper from './ValueContainerWrapper';
 import { token } from '@atlaskit/tokens';
 import { cssMap, jsx } from '@compiled/react';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export type State = {
 	previousValueSize: number;
@@ -91,14 +89,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 				ref: { current },
 			} = this.valueContainerInnerProps;
 			if (current !== null) {
-				if (fg('user-picker-migrate-off-finddomnode')) {
-					current.scrollTop = current.scrollHeight;
-				} else {
-					const container = ReactDOM.findDOMNode(current);
-					if (container instanceof HTMLDivElement) {
-						container.scrollTop = container.scrollHeight;
-					}
-				}
+				current.scrollTop = current.scrollHeight;
 			}
 			this.timeoutId = null;
 		});

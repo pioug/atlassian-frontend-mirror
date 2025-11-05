@@ -276,6 +276,33 @@ export const codeBlockStyles: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const codeBlockStylesWithEmUnits: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.code-block-gutter-pseudo-element::before': {
+				display: 'flow',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: '1.5em',
+			},
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+			[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				code: {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontSize: '0.875em',
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					lineHeight: '1.5em',
+				},
+			},
+		},
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const codeBgColorStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {

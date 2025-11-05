@@ -9,12 +9,13 @@ import type {
 	SyncBlockInstance,
 	TitleSubscriptionCallback,
 } from '../providers/types';
-import { createSyncBlockNode } from '../utils/createSyncBlock';
+import { convertPMNodeToSyncBlockNode } from '../utils/utils';
 
 import { ReferenceSyncBlockStoreManager } from './referenceSyncBlockStoreManager';
 import {
 	SourceSyncBlockStoreManager,
 	type ConfirmationCallback,
+	type CreationCallback,
 } from './sourceSyncBlockStoreManager';
 
 // A store manager responsible for the lifecycle and state management of sync blocks in an editor instance.
@@ -39,18 +40,19 @@ export class SyncBlockStoreManager {
 	public fetchSyncBlocksData(nodes: PMNode[]): Promise<SyncBlockInstance[]> {
 		const syncBlockNodes =
 			nodes
-				.filter((node) => {
-					return node.type.name === 'syncBlock' && node.attrs.resourceId && node.attrs.localId;
-				})
-				.map((node) => {
-					return createSyncBlockNode(node.attrs.localId, node.attrs.resourceId);
-				}) || [];
+				.map((node) => convertPMNodeToSyncBlockNode(node))
+				.filter((node: SyncBlockNode | undefined): node is SyncBlockNode => node !== undefined) ||
+			[];
 
 		if (syncBlockNodes.length === 0) {
 			return Promise.resolve([]);
 		}
 
 		return this.referenceSyncBlockStoreManager.fetchSyncBlocksData(syncBlockNodes);
+	}
+
+	public getReferenceSyncBlockStoreManager(): ReferenceSyncBlockStoreManager {
+		return this.referenceSyncBlockStoreManager;
 	}
 
 	/**
@@ -103,9 +105,35 @@ export class SyncBlockStoreManager {
 		return this.sourceSyncBlockStoreManager.requireConfirmationBeforeDelete();
 	}
 
-	public createSyncBlockNode(): SyncBlockNode {
+	/**
+	 * Register callback function (which inserts node, handles focus etc) to be used later when creation to backend succeed
+	 */
+	public registerCreationCallback(callback: CreationCallback) {
+		this.sourceSyncBlockStoreManager.registerCreationCallback(callback);
+	}
+
+	/**
+	 *
+	 * @returns true if waiting for the result of saving new bodiedSyncBlock to backend
+	 */
+	public hasPendingCreation() {
+		return this.sourceSyncBlockStoreManager.hasPendingCreation();
+	}
+
+	/**
+	 * @returns attributes for a new bodiedSyncBlock node
+	 */
+	public generateBodiedSyncBlockAttrs(): SyncBlockAttrs {
+		return this.sourceSyncBlockStoreManager.generateBodiedSyncBlockAttrs();
+	}
+
+	/**
+	 * Save bodiedSyncBlock with empty content to backend
+	 * @param attrs attributes Ids of the node
+	 */
+	public createBodiedSyncBlockNode(attrs: SyncBlockAttrs): void {
 		// only applicable to source sync block, for now (will be refactored further)
-		return this.sourceSyncBlockStoreManager.createSyncBlockNode();
+		return this.sourceSyncBlockStoreManager.createBodiedSyncBlockNode(attrs);
 	}
 
 	public subscribeToSyncBlockData(node: PMNode, callback: SubscriptionCallback): () => void {

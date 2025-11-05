@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 8.4.5
+
+### Patch Changes
+
+- [`9f7ed79776010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f7ed79776010) -
+  [EDF-2767] Better documentation on features that cannot be rolled back - starting on attribute
+  allowPixelResizing
+- Updated dependencies
+
 ## 8.4.4
 
 ### Patch Changes

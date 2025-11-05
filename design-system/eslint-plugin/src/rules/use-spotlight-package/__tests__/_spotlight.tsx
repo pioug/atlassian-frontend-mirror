@@ -3,7 +3,7 @@ import outdent from 'outdent';
 import { type Tests } from '../../__tests__/utils/_types';
 
 const error =
-	'@atlaskit/onboarding is being deprecated in favor of @atlaskit/spotlight. Please migrate your spotlight experiences accordingly.';
+	'@atlaskit/onboarding is deprecated in favor of @atlaskit/spotlight. Please migrate your spotlight experiences accordingly.';
 
 const valid: string[] = [
 	outdent`

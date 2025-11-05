@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 215.9.9
+
+### Patch Changes
+
+- [`3649625800804`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3649625800804) -
+  Fix the codeblock shift on initial load
+- Updated dependencies
+
 ## 215.9.8
 
 ### Patch Changes

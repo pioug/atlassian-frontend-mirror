@@ -10,6 +10,7 @@ import {
 	type DeleteSyncBlockResult,
 	type SyncBlockInstance,
 	type SyncBlockSourceInfo,
+	type WriteSyncBlockResult,
 } from '../providers/types';
 import { getLocalIdFromAri, getPageARIFromResourceId } from '../utils/ari';
 
@@ -63,22 +64,28 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 * @param nodes
 	 * @param data
 	 *
-	 * @returns the resource ids of the nodes that were written
+	 * @returns Array of {resourceId?: string, error?: string}.
+	 * resourceId: resource id of the node if write successfully , error: reason for when write failed
 	 */
-	writeNodesData(
+	async writeNodesData(
 		nodes: SyncBlockNode[],
 		data: SyncBlockData[],
-	): Promise<Array<string | undefined>> {
-		const resourceIds: Promise<string>[] = [];
-		nodes.forEach((_node, index) => {
-			if (!data[index].content) {
-				resourceIds.push(Promise.reject('No Synced Block content to write'));
-				return;
+	): Promise<Array<WriteSyncBlockResult>> {
+		const results = await Promise.allSettled(
+			nodes.map((_node, index) => {
+				if (!data[index].content) {
+					return Promise.reject('No Synced Block content to write');
+				}
+				return this.writeProvider.writeData(data[index]);
+			}),
+		);
+		return results.map((result) => {
+			if (result.status === 'fulfilled') {
+				return result.value;
+			} else {
+				return { error: result.reason };
 			}
-			const resourceId = this.writeProvider.writeData(data[index]);
-			resourceIds.push(resourceId);
 		});
-		return Promise.all(resourceIds);
 	}
 
 	async deleteNodesData(resourceIds: string[]): Promise<Array<DeleteSyncBlockResult>> {

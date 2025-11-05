@@ -50,6 +50,7 @@ type ResizeObject = HTMLObjectElement & {
  * not performant. It will be DEPRECATED in the future.
  * It is recommended that you instead use WidthObserver from @atlaskit/width-detector
  */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class WidthDetector extends React.Component<WidthDetectorProps, State> {
 	state: State = {};
 	container?: HTMLDivElement;
@@ -99,6 +100,7 @@ export default class WidthDetector extends React.Component<WidthDetectorProps, S
 		this.handleResize.cancel();
 
 		if (this.resizeObjectDocument) {
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.resizeObjectDocument.removeEventListener('resize', this.handleResize);
 		}
 	}
@@ -123,6 +125,7 @@ export default class WidthDetector extends React.Component<WidthDetectorProps, S
 		}
 
 		this.resizeObjectDocument = this.resizeObject.contentDocument.defaultView as Window;
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this.resizeObjectDocument.addEventListener('resize', this.handleResize);
 		this.handleResize();
 	};

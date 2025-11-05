@@ -280,11 +280,25 @@ export const aiConfigItemMessages = defineMessages({
 		description:
 			'Title for "Draft reply" Atlassian Intelligence feature shown in editor typeahead and element browser.',
 	},
+
 	draftReplyDescription: {
 		id: 'fabric.editor.ai.config.item.draftReply.description',
 		defaultMessage: 'Drafts a reply based on issues similar to the one you’re working on',
 		description:
 			'Describes the "Draft reply" Atlassian Intelligence feature shown in editor typeahead and element browser.',
+	},
+
+	// Draft reply pill messages
+	draftReplyHeroPromptTitle: {
+		id: 'fabric.editor.ai.config.item.draftReply.heroPromptTitle',
+		defaultMessage: 'Suggest reply',
+		description: 'Title for feature feature when shown in AIFC new editor as hero prompt',
+	},
+	draftReplyHeroPromptDescription: {
+		id: 'fabric.editor.ai.config.item.draftReply.heroPromptDescription',
+		defaultMessage: 'Enhances the reply based on issues similar to the one you’re working on',
+		description:
+			'Describes the "Enhance reply" feature when Draft reply is shown in AIFC new editor as hero prompt',
 	},
 
 	// Generate Escalation Notes messages

@@ -49,6 +49,7 @@ import {
 import { codeBidiWarningStyles } from './styles/codeBidiWarningStyles';
 import {
 	codeBlockStyles,
+	codeBlockStylesWithEmUnits,
 	codeBgColorStyles,
 	firstCodeBlockWithNoMargin,
 	firstCodeBlockWithNoMarginOld,
@@ -341,6 +342,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						placeholderWrapStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					codeBlockStyles,
+					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+						fg('platform_editor_content_mode_button_mvp') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						codeBlockStylesWithEmUnits,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					!fg('platform_editor_fix_code_block_bg_color_in_macro_2') && codeBgColorStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 110.22.1
+
+### Patch Changes
+
+- [`2e838b25bc36e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e838b25bc36e) -
+  Fixing UGC issue with localId
+
+## 110.22.0
+
+### Minor Changes
+
+- [`ce8436f1e7dc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce8436f1e7dc4) -
+  [ux] Add draft reply as hero prompt only for JSM
+
 ## 110.21.4
 
 ### Patch Changes

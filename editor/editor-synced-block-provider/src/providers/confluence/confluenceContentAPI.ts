@@ -16,12 +16,14 @@ import {
 	type DeleteBlogPostPropertyResult,
 	type DeletePageContentPropertyResult,
 } from '../../utils/contentProperty';
+import { stringifyError } from '../../utils/errorHandling';
 import { isBlogPageType } from '../../utils/utils';
 import type {
 	ADFFetchProvider,
 	ADFWriteProvider,
 	DeleteSyncBlockResult,
 	SyncBlockInstance,
+	WriteSyncBlockResult,
 } from '../types';
 
 /**
@@ -149,7 +151,7 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 			if (contentProperty.data.confluence.createBlogPostProperty.blogPostProperty?.key === key) {
 				return key;
 			} else {
-				throw new Error('Failed to create blog post content property');
+				return Promise.reject('Failed to create blog post content property');
 			}
 		} else {
 			const contentProperty = await createContentProperty<CreateContentPropertyResult>(options);
@@ -157,17 +159,24 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 			if (contentProperty.data.confluence.createPageProperty.pageProperty?.key === key) {
 				return key;
 			} else {
-				throw new Error('Failed to create page content property');
+				return Promise.reject('Failed to create page content property');
 			}
 		}
 	};
 
-	async writeData(data: SyncBlockData): Promise<string> {
-		const { id: pageId, type: pageType } = getPageIdAndTypeFromAri(data.resourceId);
+	async writeData(data: SyncBlockData): Promise<WriteSyncBlockResult> {
+		let match;
+		const { resourceId } = data;
+		try {
+			match = getPageIdAndTypeFromAri(data.resourceId);
+		} catch (error) {
+			return { error: stringifyError(error) };
+		}
 
-		if (data.resourceId) {
+		const { id: pageId, type: pageType } = match;
+		try {
 			// Update existing content property
-			const localId = getLocalIdFromAri(data.resourceId);
+			const localId = getLocalIdFromAri(resourceId);
 			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
 			const options = {
 				pageId,
@@ -177,58 +186,60 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 				pageType,
 			};
 
-			if (isBlogPageType(pageType)) {
-				const contentProperty =
-					await updateContentProperty<UpdateBlogPostContentPropertyResult>(options);
+			const updatePayload = await updateContentProperty(options);
+			const updateResult = isBlogPageType(pageType)
+				? (updatePayload as UpdateBlogPostContentPropertyResult).data.confluence
+						.updateValueBlogPostProperty.blogPostProperty
+				: (updatePayload as UpdateContentPropertyResult).data.confluence.updateValuePageProperty
+						.pageProperty;
 
-				if (
-					contentProperty.data.confluence.updateValueBlogPostProperty.blogPostProperty?.key === key
-				) {
-					return key;
-				} else if (
-					contentProperty.data.confluence.updateValueBlogPostProperty.blogPostProperty === null
-				) {
-					return this.createNewContentProperty(pageId, key, data, pageType);
-				} else {
-					throw new Error('Failed to update blog post content property');
-				}
+			if (updateResult?.key === key) {
+				return { resourceId };
+			} else if (!updateResult) {
+				return this.createNewContentProperty(pageId, key, data, pageType).then(
+					() => {
+						return { resourceId };
+					},
+					(error) => {
+						return { error };
+					},
+				);
 			} else {
-				const contentProperty = await updateContentProperty<UpdateContentPropertyResult>(options);
-
-				if (contentProperty.data.confluence.updateValuePageProperty.pageProperty?.key === key) {
-					return key;
-				} else if (contentProperty.data.confluence.updateValuePageProperty.pageProperty === null) {
-					return this.createNewContentProperty(pageId, key, data, pageType);
-				} else {
-					throw new Error('Failed to update content property');
-				}
+				return { error: `Failed to update ${pageType} content property` };
 			}
-		} else {
-			// Create new content property
-			const key = getContentPropertyKey(this.config.contentPropertyKey, data.blockInstanceId);
-			return this.createNewContentProperty(pageId, key, data, pageType);
+		} catch {
+			return { error: `Failed to write ${pageType}` };
 		}
 	}
 
 	async deleteData(resourceId: string): Promise<DeleteSyncBlockResult> {
-		const { id: pageId, type: pageType } = getPageIdAndTypeFromAri(resourceId);
-		const localId = getLocalIdFromAri(resourceId);
-		const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
-		const options = {
-			pageId,
-			key,
-			cloudId: this.config.cloudId,
-			pageType,
-		};
-
-		let deletePayload, deleteResult;
+		let deletePayload, deleteResult, match;
 		try {
+			match = getPageIdAndTypeFromAri(resourceId);
+		} catch (error) {
+			return { resourceId, success: false, error: stringifyError(error) };
+		}
+
+		const { id: pageId, type: pageType } = match;
+		try {
+			const localId = getLocalIdFromAri(resourceId);
+			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
+			const options = {
+				pageId,
+				key,
+				cloudId: this.config.cloudId,
+				pageType,
+			};
 			deletePayload = await deleteContentProperty(options);
 			deleteResult = isBlogPageType(pageType)
 				? (deletePayload as DeleteBlogPostPropertyResult).data.confluence.deleteBlogPostProperty
 				: (deletePayload as DeletePageContentPropertyResult).data.confluence.deletePageProperty;
-		} catch {
-			return { resourceId, success: false, error: `Fail to delete ${pageType} content property` };
+		} catch (error) {
+			return {
+				resourceId,
+				success: false,
+				error: stringifyError(error) ?? `Fail to delete ${pageType} content property`,
+			};
 		}
 
 		return { resourceId, success: deleteResult.success, error: deleteResult.errors.join() };

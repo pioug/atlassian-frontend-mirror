@@ -123,6 +123,8 @@ export const callCallback = <U extends any[], R>(
 			console.error('@atlassian/user-select: an error happening in `callCallback`: ', error);
 		}
 	}
+
+	return undefined;
 };
 
 export const getAvatarUrl = (optionData: OptionData) => {

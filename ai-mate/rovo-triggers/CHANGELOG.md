@@ -1,5 +1,25 @@
 # @atlaskit/rovo-triggers
 
+## 3.18.0
+
+### Minor Changes
+
+- [`28b001c5985f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28b001c5985f4) -
+  Introduced:
+  - URL validation utility with pattern matching (wildcards \* and \*\*)
+  - Add promptInputDroppableUr config for configurable URL validation
+  - Unit tests for URL validation
+
+  Changed:
+  - Simplified useUrlInsertion hook (removed type-specific logic)
+  - Updated FileUploadDropzone to validate URLs using new config
+  - Event payload: insert-urls → insert-urls-into-prompt-input
+  - Removed urlType field from event data structure
+
+- [`15e36868e69c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15e36868e69c6) -
+  [ux] Introduce a capability for Rovo to listen to generic external action errors fired to surface
+  an error message.
+
 ## 3.17.0
 
 ### Minor Changes

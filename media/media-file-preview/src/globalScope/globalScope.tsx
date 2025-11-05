@@ -56,8 +56,8 @@ export const storeDataURI = (
 	paramSrcSet?: string,
 	dimensions?: Partial<NumericalCardDimensions>,
 	error?: MediaFilePreviewErrorInfo,
-	globalScope: any = window,
 	featureFlags: MediaFeatureFlags = {},
+	globalScope: any = window,
 ) => {
 	const mediaCardSsr = getMediaCardSSR(globalScope);
 

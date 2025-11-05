@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { IntlProvider } from 'react-intl-next';
+
 import Button from '@atlaskit/button/standard-button';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
@@ -42,19 +44,21 @@ export default () => {
 	const closeModal = () => setShowModal(false);
 
 	return (
-		<SmartCardProvider client={new SmartLinkClient()}>
-			<Button appearance="primary" onClick={toggleIsOpen}>
-				Toggle Modal
-			</Button>
-			{showModal && (
-				<ConfluenceSearchConfigModal
-					datasourceId={CONFLUENCE_SEARCH_DATASOURCE_ID}
-					visibleColumnKeys={visibleColumnKeys}
-					parameters={parameters}
-					onCancel={closeModal}
-					onInsert={closeModal}
-				/>
-			)}
-		</SmartCardProvider>
+		<IntlProvider locale="en">
+			<SmartCardProvider client={new SmartLinkClient()}>
+				<Button appearance="primary" onClick={toggleIsOpen}>
+					Toggle Modal
+				</Button>
+				{showModal && (
+					<ConfluenceSearchConfigModal
+						datasourceId={CONFLUENCE_SEARCH_DATASOURCE_ID}
+						visibleColumnKeys={visibleColumnKeys}
+						parameters={parameters}
+						onCancel={closeModal}
+						onInsert={closeModal}
+					/>
+				)}
+			</SmartCardProvider>
+		</IntlProvider>
 	);
 };

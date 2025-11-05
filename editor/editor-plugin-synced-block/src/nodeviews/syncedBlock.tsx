@@ -31,7 +31,6 @@ export interface SyncBlockNodeViewProps extends ReactComponentProps {
 
 class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 	private options: SyncedBlockPluginOptions | undefined;
-	private fetchIntervalId: number | undefined;
 	private syncBlockStore: SyncBlockStoreManager;
 
 	constructor(props: SyncBlockNodeViewProps) {
@@ -56,27 +55,30 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 	}
 
 	render() {
-		if (!this.options?.getSyncedBlockRenderer) {
+		if (!this.options?.syncedBlockRenderer) {
+			return null;
+		}
+
+		const { resourceId, localId } = this.node.attrs;
+
+		if (!resourceId || !localId) {
 			return null;
 		}
 
 		// get document node from data provider
-
 		return (
 			<SyncBlockRendererWrapper
 				localId={this.node.attrs.localId}
-				getSyncedBlockRenderer={this.options?.getSyncedBlockRenderer}
-				syncBlockRendererDataProviders={this.options?.syncBlockRendererDataProviders}
-				useFetchSyncBlockData={() => useFetchSyncBlockData(this.syncBlockStore, this.node)}
+				syncedBlockRenderer={this.options?.syncedBlockRenderer}
 				useFetchSyncBlockTitle={() => useFetchSyncBlockTitle(this.syncBlockStore, this.node)}
+				useFetchSyncBlockData={() =>
+					useFetchSyncBlockData(this.syncBlockStore, resourceId, localId)
+				}
 			/>
 		);
 	}
 
 	destroy() {
-		if (this.fetchIntervalId) {
-			window.clearInterval(this.fetchIntervalId);
-		}
 		this.unsubscribe?.();
 		super.destroy();
 	}

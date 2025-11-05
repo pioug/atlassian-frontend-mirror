@@ -110,12 +110,17 @@ export const createWrappingJoinRule = ({
 	return createRule(match, handler);
 };
 
-export const createRule = (match: RegExp, handler: InputRuleHandler): InputRuleWrapper => {
+export const createRule = (
+	match: RegExp,
+	handler: InputRuleHandler,
+	allowsBackwardMatch: boolean = false,
+): InputRuleWrapper => {
 	return {
 		match,
 		handler,
 		onHandlerApply: (_state, tr) => {
 			closeHistory(tr);
 		},
+		allowsBackwardMatch,
 	};
 };

@@ -40,6 +40,13 @@ const rule: Rule.RuleModule = createLintRule({
 			xcssVariables: new Set<string>(),
 		};
 
+		// Store potential violations to check after all declarations are collected
+		const potentialViolations: Array<{
+			node: Rule.Node;
+			identifierName: string;
+			type: 'identifier' | 'memberExpression';
+		}> = [];
+
 		return errorBoundary({
 			// Track all imports in a single handler
 			ImportDeclaration(node) {
@@ -54,7 +61,9 @@ const rule: Rule.RuleModule = createLintRule({
 					switch (source) {
 						case '@atlaskit/primitives/compiled':
 							if (specifier.imported.type === 'Identifier') {
-								tracker.compiledComponents.add(specifier.imported.name);
+								// Track the local name (alias), not the imported name
+								// e.g., import { Box as CompiledBox } -> track "CompiledBox"
+								tracker.compiledComponents.add(specifier.local.name);
 							}
 							break;
 
@@ -108,11 +117,52 @@ const rule: Rule.RuleModule = createLintRule({
 					}
 
 					tracker.cssMapVariables.set(variableName, keys);
+
+					// Check if this variable was used before it was declared
+					const violationsToRemove: number[] = [];
+					potentialViolations.forEach((violation, index) => {
+						if (violation.identifierName === variableName) {
+							if (violation.type === 'identifier') {
+								// Identifier usage of cssMap variable is invalid (e.g., styles instead of styles.root)
+								context.report({
+									node: violation.node,
+									messageId: 'missingCssMapKey',
+									data: { identifier: variableName },
+								});
+								violationsToRemove.push(index);
+							}
+							// Member expressions with cssMap are valid (e.g., styles.root) - just remove from list
+							// No need to report or keep in list
+							if (violation.type === 'memberExpression') {
+								violationsToRemove.push(index);
+							}
+						}
+					});
+					// Remove violations in reverse order to maintain indices
+					violationsToRemove.reverse().forEach((index) => {
+						potentialViolations.splice(index, 1);
+					});
 				}
 
 				// Track xcss variables
 				if (tracker.xcssFunction.has(calleeName)) {
 					tracker.xcssVariables.add(variableName);
+
+					// Check if this variable was used before it was declared
+					const violationsToRemove: number[] = [];
+					potentialViolations.forEach((violation, index) => {
+						if (violation.identifierName === variableName) {
+							context.report({
+								node: violation.node,
+								messageId: 'noXcssWithCompiled',
+							});
+							violationsToRemove.push(index);
+						}
+					});
+					// Remove violations in reverse order to maintain indices
+					violationsToRemove.reverse().forEach((index) => {
+						potentialViolations.splice(index, 1);
+					});
 				}
 			},
 
@@ -163,14 +213,21 @@ const rule: Rule.RuleModule = createLintRule({
 
 					if (tracker.xcssVariables.has(identifierName)) {
 						context.report({
-							node: expression,
+							node: expression as Rule.Node,
 							messageId: 'noXcssWithCompiled',
 						});
 					} else if (tracker.cssMapVariables.has(identifierName)) {
 						context.report({
-							node: expression,
+							node: expression as Rule.Node,
 							messageId: 'missingCssMapKey',
 							data: { identifier: identifierName },
+						});
+					} else {
+						// Variable not yet declared - store for later check
+						potentialViolations.push({
+							node: expression as Rule.Node,
+							identifierName,
+							type: 'identifier',
 						});
 					}
 					return;
@@ -182,11 +239,44 @@ const rule: Rule.RuleModule = createLintRule({
 
 					if (tracker.xcssVariables.has(objectName)) {
 						context.report({
-							node: expression,
+							node: expression as Rule.Node,
 							messageId: 'noXcssWithCompiled',
 						});
+					} else if (!tracker.cssMapVariables.has(objectName)) {
+						// Variable not yet declared - store for later check
+						// Note: If it's already a cssMap variable, member expressions are valid (e.g., styles.root)
+						potentialViolations.push({
+							node: expression as Rule.Node,
+							identifierName: objectName,
+							type: 'memberExpression',
+						});
 					}
+					// If it's a cssMap variable, member expressions are valid - no action needed
 				}
+			},
+
+			// Final check after all declarations are processed
+			'Program:exit'() {
+				// Check remaining potential violations against all collected declarations
+				potentialViolations.forEach((violation) => {
+					if (tracker.xcssVariables.has(violation.identifierName)) {
+						context.report({
+							node: violation.node,
+							messageId: 'noXcssWithCompiled',
+						});
+					} else if (
+						tracker.cssMapVariables.has(violation.identifierName) &&
+						violation.type === 'identifier'
+					) {
+						// Only report cssMap violations for identifier usage (not member expressions)
+						// Member expressions like stylesMap.root are valid
+						context.report({
+							node: violation.node,
+							messageId: 'missingCssMapKey',
+							data: { identifier: violation.identifierName },
+						});
+					}
+				});
 			},
 		});
 	},

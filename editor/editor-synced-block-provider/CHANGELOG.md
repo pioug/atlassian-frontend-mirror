@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.6.0
+
+### Minor Changes
+
+- [`261fa27c56fd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/261fa27c56fd0) -
+  EDITOR-2533 implement retry function for sync-block renderer
+
 ## 2.5.2
 
 ### Patch Changes

@@ -3,6 +3,7 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { NodeSpec, DOMOutputSpec, Node } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 interface Config {
@@ -18,6 +19,12 @@ const codeBlockClassNames = {
 };
 
 const MATCH_NEWLINES = new RegExp('\n', 'gu');
+
+const getFontSize = () =>
+	expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+	fg('platform_editor_content_mode_button_mvp')
+		? '0.875em'
+		: '0.875rem';
 
 // Based on: `packages/editor/editor-plugin-code-block/src/nodeviews/code-block.ts`
 const toDOM = (node: Node, formattedAriaLabel: string, config: Config): DOMOutputSpec => {
@@ -64,7 +71,7 @@ const toDOM = (node: Node, formattedAriaLabel: string, config: Config): DOMOutpu
 							? `${token('space.100')} ${token('space.250')} ${token('space.100')} ${token('space.075')}`
 							: token('space.100'),
 						flexShrink: 0,
-						fontSize: '0.875rem',
+						fontSize: getFontSize(),
 						boxSizing: 'content-box',
 					}),
 					contenteditable: 'false',

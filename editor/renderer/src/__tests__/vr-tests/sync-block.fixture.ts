@@ -14,10 +14,11 @@ export const SyncBlockWithParagraphAndPanelRenderer = generateRendererComponent(
 	document: syncBlockWithParagraphAndPanelAdf,
 	appearance: 'full-width',
 	nodeComponents: {
-		syncBlock: getSyncedBlockNodeComponent(
-			mockSyncedBlockProviderWithStaticData,
-			syncBlockWithParagraphAndPanelAdf,
-		),
+		syncBlock: getSyncedBlockNodeComponent({
+			doc: syncBlockWithParagraphAndPanelAdf,
+			syncBlockProvider: mockSyncedBlockProviderWithStaticData,
+			syncBlockRendererOptions: undefined,
+		}),
 	},
 });
 
@@ -26,10 +27,11 @@ export const SyncBlockWithPermissionDenied = generateRendererComponent(
 		document: syncBlockPermissionDeniedAdf,
 		appearance: 'full-width',
 		nodeComponents: {
-			syncBlock: getSyncedBlockNodeComponent(
-				mockSyncedBlockProviderWithStaticData,
-				syncBlockPermissionDeniedAdf,
-			),
+			syncBlock: getSyncedBlockNodeComponent({
+				doc: syncBlockPermissionDeniedAdf,
+				syncBlockProvider: mockSyncedBlockProviderWithStaticData,
+				syncBlockRendererOptions: undefined,
+			}),
 		},
 	},
 	{ mockRelayEnvironment: true },
@@ -39,10 +41,11 @@ export const SyncBlockNotFound = generateRendererComponent({
 	document: syncBlockNotFoundAdf,
 	appearance: 'full-width',
 	nodeComponents: {
-		syncBlock: getSyncedBlockNodeComponent(
-			mockSyncedBlockProviderWithStaticData,
-			syncBlockNotFoundAdf,
-		),
+		syncBlock: getSyncedBlockNodeComponent({
+			doc: syncBlockNotFoundAdf,
+			syncBlockProvider: mockSyncedBlockProviderWithStaticData,
+			syncBlockRendererOptions: undefined,
+		}),
 	},
 });
 
@@ -50,10 +53,11 @@ export const SyncBlockGenericError = generateRendererComponent({
 	document: syncBlockGenericErrorAdf,
 	appearance: 'full-width',
 	nodeComponents: {
-		syncBlock: getSyncedBlockNodeComponent(
-			mockSyncedBlockProviderWithStaticData,
-			syncBlockGenericErrorAdf,
-		),
+		syncBlock: getSyncedBlockNodeComponent({
+			doc: syncBlockGenericErrorAdf,
+			syncBlockProvider: mockSyncedBlockProviderWithStaticData,
+			syncBlockRendererOptions: undefined,
+		}),
 	},
 });
 
@@ -61,9 +65,10 @@ export const SyncBlockLoadingState = generateRendererComponent({
 	document: syncBlockLoadingStateAdf,
 	appearance: 'full-width',
 	nodeComponents: {
-		syncBlock: getSyncedBlockNodeComponent(
-			mockSyncedBlockProviderWithStaticData,
-			syncBlockLoadingStateAdf,
-		),
+		syncBlock: getSyncedBlockNodeComponent({
+			doc: syncBlockLoadingStateAdf,
+			syncBlockProvider: mockSyncedBlockProviderWithStaticData,
+			syncBlockRendererOptions: undefined,
+		}),
 	},
 });

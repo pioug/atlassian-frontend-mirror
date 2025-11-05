@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { IntlProvider } from 'react-intl-next';
+
 import Button from '@atlaskit/button/new';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
@@ -44,21 +46,23 @@ export default () => {
 	const closeModal = () => setShowModal(false);
 
 	return (
-		<SmartCardProvider client={new SmartLinkClient()}>
-			<Button appearance="primary" onClick={toggleIsOpen}>
-				Toggle Modal
-			</Button>
-			{showModal && (
-				<JiraIssuesConfigModal
-					datasourceId={JIRA_LIST_OF_LINKS_DATASOURCE_ID}
-					visibleColumnKeys={visibleColumnKeys}
-					columnCustomSizes={columnCustomSizes}
-					wrappedColumnKeys={wrappedColumnKeys}
-					parameters={{ cloudId: 'doc-cloudId' }}
-					onCancel={closeModal}
-					onInsert={closeModal}
-				/>
-			)}
-		</SmartCardProvider>
+		<IntlProvider locale="en">
+			<SmartCardProvider client={new SmartLinkClient()}>
+				<Button appearance="primary" onClick={toggleIsOpen}>
+					Toggle Modal
+				</Button>
+				{showModal && (
+					<JiraIssuesConfigModal
+						datasourceId={JIRA_LIST_OF_LINKS_DATASOURCE_ID}
+						visibleColumnKeys={visibleColumnKeys}
+						columnCustomSizes={columnCustomSizes}
+						wrappedColumnKeys={wrappedColumnKeys}
+						parameters={{ cloudId: 'doc-cloudId' }}
+						onCancel={closeModal}
+						onInsert={closeModal}
+					/>
+				)}
+			</SmartCardProvider>
+		</IntlProvider>
 	);
 };

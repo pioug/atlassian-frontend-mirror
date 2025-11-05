@@ -331,7 +331,7 @@ export const createPlugin = (
 				// from the paste slice
 				if (!pluginConfig.allowBackgroundColor) {
 					slice = transformSliceRemoveCellBackgroundColor(slice, schema);
-				} else if (fg('platform_editor_table_paste_in_dark_mode')) {
+				} else {
 					slice = transformSliceToFixDarkModeDefaultBackgroundColor(slice, schema);
 				}
 

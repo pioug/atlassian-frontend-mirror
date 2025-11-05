@@ -547,23 +547,6 @@ export const DragHandle = ({
 		[isMultiSelect, api, view, dragHandleSelected, getPos, isTopLevelNode, nodeType, anchorName],
 	);
 
-	// TODO: ED-26959 - This needs to be investigated further. Drag preview generation is not always working
-	// as expected with a node selection. This workaround sets the selection to the node on mouseDown,
-	// but ensures the preview is generated correctly.
-	const handleMouseDown = useCallback(() => {
-		if (
-			editorExperiment('advanced_layouts', true) &&
-			!fg('platform_editor_draghandle_safari_scroll_fix')
-		) {
-			// prevent native drag and drop.
-			buttonRef.current?.focus();
-
-			if (!isLayoutColumn) {
-				return undefined;
-			}
-		}
-	}, [isLayoutColumn]);
-
 	const handleKeyDown = useCallback(
 		(e: KeyboardEvent<HTMLButtonElement>) => {
 			// allow user to use spacebar to select the node
@@ -1293,7 +1276,6 @@ export const DragHandle = ({
 					: {}
 			}
 			onClick={handleOnClick}
-			onMouseDown={handleMouseDown}
 			onKeyDown={
 				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
 				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)

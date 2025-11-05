@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.1.1
+
+### Patch Changes
+
+- [`aa14795cecd60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa14795cecd60) -
+  EDITOR-2350 Pass media options to sync block nested renderer.
+
+## 4.1.0
+
+### Minor Changes
+
+- [`261fa27c56fd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/261fa27c56fd0) -
+  EDITOR-2533 implement retry function for sync-block renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes

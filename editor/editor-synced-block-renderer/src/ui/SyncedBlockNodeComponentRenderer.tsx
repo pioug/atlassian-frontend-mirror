@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
-import { SyncBlockError, type SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
-import { ReactRenderer, type NodeProps } from '@atlaskit/renderer';
-import { RendererActionsContext } from '@atlaskit/renderer/actions';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { SyncBlockError, useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider';
+import { type NodeProps } from '@atlaskit/renderer';
 
+import type { SyncedBlockRendererOptions } from '../types';
+
+import { AKRendererWrapper } from './AKRendererWrapper';
 import { SyncedBlockErrorComponent } from './SyncedBlockErrorComponent';
 import { SyncedBlockLoadingState } from './SyncedBlockLoadingState';
 
@@ -15,60 +18,45 @@ export interface SyncedBlockProps {
 
 export type SyncedBlockNodeProps = NodeProps<SyncedBlockProps>;
 
-export const SyncedBlockNodeComponentRenderer = (
-	props: SyncedBlockNodeProps & { dataPromise: Promise<SyncBlockInstance[]> | null },
-): React.JSX.Element => {
-	const [data, setData] = useState<SyncBlockInstance[] | null>(null);
+export type SyncedBlockNodeComponentRendererProps = {
+	nodeProps: SyncedBlockNodeProps;
+	rendererOptions: SyncedBlockRendererOptions | undefined;
+	syncBlockStoreManager: SyncBlockStoreManager;
+};
 
-	useEffect(() => {
-		if (!props.dataPromise) {
-			return;
-		}
-		if (data) {
-			return;
-		}
-		props.dataPromise.then((data) => {
-			setData(data);
-		});
-	}, [props.dataPromise, data]);
+export const SyncedBlockNodeComponentRenderer = ({
+	nodeProps,
+	syncBlockStoreManager,
+	rendererOptions,
+}: SyncedBlockNodeComponentRendererProps): React.JSX.Element => {
+	const { resourceId, localId, providers } = nodeProps;
 
-	if (!data) {
+	const { syncBlockInstance, isLoading } = useFetchSyncBlockData(
+		syncBlockStoreManager,
+		resourceId,
+		localId,
+	);
+
+	if (isLoading && !syncBlockInstance) {
 		return <SyncedBlockLoadingState />;
 	}
 
-	const fetchResult = data.find((item) => item.resourceId === props.resourceId);
-
-	if (fetchResult?.error || !fetchResult?.data) {
+	if (syncBlockInstance?.error || !syncBlockInstance?.data) {
 		return (
 			<SyncedBlockErrorComponent
-				error={fetchResult?.error ?? SyncBlockError.Errored}
-				resourceId={props.resourceId}
+				error={syncBlockInstance?.error ?? SyncBlockError.Errored}
+				resourceId={resourceId}
 			/>
 		);
 	}
 
 	const syncBlockDoc = {
-		content: fetchResult.data.content,
+		content: syncBlockInstance.data.content,
 		version: 1,
 		type: 'doc',
 	} as DocNode;
 
 	return (
-		<RendererActionsContext>
-			<div
-				data-sync-block
-				data-testid="sync-block-renderer-wrapper"
-				data-resource-id={props.resourceId}
-				data-local-id={props.localId}
-			>
-				<ReactRenderer
-					appearance="full-width"
-					adfStage="stage0"
-					document={syncBlockDoc}
-					disableHeadingIDs={true}
-					dataProviders={props.providers}
-				/>
-			</div>
-		</RendererActionsContext>
+		<AKRendererWrapper doc={syncBlockDoc} dataProviders={providers} options={rendererOptions} />
 	);
 };

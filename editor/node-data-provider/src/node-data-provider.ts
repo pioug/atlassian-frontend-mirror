@@ -185,11 +185,12 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 		if (dataFromCache !== undefined) {
 			// If we have the data in the SSR data, we can use it directly
 			callback({ data: dataFromCache.data });
+		}
 
-			if (isSSR()) {
-				// If we are in SSR, we don't want to fetch the data again, as it is already available in the SSR data
-				return;
-			}
+		if (isSSR()) {
+			// During SSR, we only use the cache and never fetch from the network.
+			// Use loading state instead.
+			return;
 		}
 
 		// If no data is available in the cache, or the data is from the network,

@@ -29,12 +29,18 @@ export type SyncBlockSourceInfo = {
 	title?: string;
 	url?: string;
 };
+
+export type WriteSyncBlockResult = {
+	error?: string;
+	resourceId?: string;
+};
+
 export interface ADFFetchProvider {
 	fetchData: (resourceId: ResourceId) => Promise<SyncBlockInstance>;
 }
 export interface ADFWriteProvider {
 	deleteData: (resourceId: string) => Promise<DeleteSyncBlockResult>;
-	writeData: (data: SyncBlockData) => Promise<string>;
+	writeData: (data: SyncBlockData) => Promise<WriteSyncBlockResult>;
 }
 export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	SyncBlockNode,
@@ -43,7 +49,7 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	abstract writeNodesData(
 		nodes: SyncBlockNode[],
 		data: SyncBlockData[],
-	): Promise<Array<ResourceId | undefined>>;
+	): Promise<Array<WriteSyncBlockResult>>;
 	abstract deleteNodesData(resourceIds: string[]): Promise<Array<DeleteSyncBlockResult>>;
 	abstract getSourceId(): ResourceId;
 	abstract retrieveSyncBlockSourceUrlAndTitle(

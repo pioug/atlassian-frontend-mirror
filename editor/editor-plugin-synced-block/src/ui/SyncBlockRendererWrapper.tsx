@@ -1,27 +1,24 @@
 import React from 'react';
 
-import type { SyncedBlockRendererDataProviders } from '@atlaskit/editor-common/provider-factory';
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
-import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
+import type { UseFetchSyncBlockDataResult } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockRendererProps } from '../syncedBlockPluginType';
 
 import { SyncBlockLabel } from './SyncBlockLabel';
 
 type Props = {
-	getSyncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
+	syncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
 	localId: string;
-	syncBlockRendererDataProviders: SyncedBlockRendererDataProviders;
-	useFetchSyncBlockData: () => SyncBlockInstance | null;
+	useFetchSyncBlockData: () => UseFetchSyncBlockDataResult;
 	useFetchSyncBlockTitle: () => string | undefined;
 };
 
 const SyncBlockRendererWrapperDataId = 'sync-block-plugin-renderer-wrapper';
 
 const SyncBlockRendererWrapperComponent = ({
-	getSyncedBlockRenderer,
+	syncedBlockRenderer,
 	useFetchSyncBlockData,
-	syncBlockRendererDataProviders,
 	localId,
 	useFetchSyncBlockTitle,
 }: Props) => {
@@ -32,8 +29,7 @@ const SyncBlockRendererWrapperComponent = ({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={SyncBlockSharedCssClassName.renderer}
 			>
-				{getSyncedBlockRenderer({
-					syncBlockRendererDataProviders,
+				{syncedBlockRenderer({
 					useFetchSyncBlockData,
 				})}
 			</div>

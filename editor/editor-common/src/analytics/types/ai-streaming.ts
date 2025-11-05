@@ -5,7 +5,7 @@ type AILocalIdNotFoundErrorAEP = OperationalAEP<
 	ACTION.LOCAL_ID_NOT_FOUND,
 	ACTION_SUBJECT.AI_STREAMING,
 	ACTION_SUBJECT_ID.EXPERIENCE_APPLICATION,
-	{ docSize: number | undefined; localId: string }
+	{ docSize: number | undefined; localIdLength: number }
 >;
 
 type AIStreamingNoDocChangeAEP = OperationalAEP<
@@ -13,7 +13,8 @@ type AIStreamingNoDocChangeAEP = OperationalAEP<
 	ACTION_SUBJECT.AI_STREAMING,
 	ACTION_SUBJECT_ID.EXPERIENCE_APPLICATION,
 	{
-		command: Record<string, unknown> | undefined;
+		// Disable for now #hot-122604
+		// command: Record<string, unknown> | undefined;
 		isSameDoc: boolean;
 		isSameDocIgnoreAttrs: boolean;
 	}
@@ -25,7 +26,8 @@ type AIStreamingInvalidCommandAEP = OperationalAEP<
 	ACTION_SUBJECT_ID.EXPERIENCE_APPLICATION,
 	{
 		ancestors?: string[];
-		command: Record<string, unknown>;
+		// Disable for now #hot-122604
+		// command: Record<string, unknown>;
 		errorMessage?: string;
 		errorStack?: string;
 		fragments?: string[];

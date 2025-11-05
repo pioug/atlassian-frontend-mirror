@@ -374,8 +374,7 @@ export const moveToLayout =
 		// we don't want to remove marks when moving/re-ordering layoutSection
 		const shouldRemoveMarks = !(
 			$sourceFrom.node().type === layoutSection &&
-			editorExperiment('platform_editor_element_drag_and_drop_multiselect', true) &&
-			fg('platform_editor_elements_dnd_multi_select_patch_3')
+			editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)
 		);
 
 		const fromContentBeforeBreakoutMarksRemoved = editorExperiment(

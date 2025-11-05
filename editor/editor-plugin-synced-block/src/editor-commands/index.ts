@@ -11,7 +11,7 @@ import type {
 	ExtractInjectionAPI,
 	TypeAheadInsert,
 } from '@atlaskit/editor-common/types';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
 	findSelectedNodeOfType,
@@ -48,16 +48,20 @@ export const createSyncedBlock = ({
 
 	// If the selection is empty, we want to insert the sync block on a new line
 	if (tr.selection.empty) {
-		const storeSyncBlockNode = syncBlockStore.createSyncBlockNode();
+		const attrs = syncBlockStore.generateBodiedSyncBlockAttrs();
 		const paragraphNode = paragraph.createAndFill({});
 		const newBodiedSyncBlockNode = bodiedSyncBlock.createAndFill(
-			{ ...storeSyncBlockNode.attrs },
+			attrs,
 			paragraphNode ? [paragraphNode] : [],
 		);
 
 		if (!newBodiedSyncBlockNode) {
 			return false;
 		}
+
+		// Save the new node with empty content to backend
+		// This is so that the node can be copied and referenced without the source being saved/published
+		syncBlockStore.createBodiedSyncBlockNode(attrs);
 
 		if (typeAheadInsert) {
 			tr = typeAheadInsert(newBodiedSyncBlockNode);
@@ -69,25 +73,31 @@ export const createSyncedBlock = ({
 		if (!conversionInfo) {
 			// TODO: EDITOR-1665 - Raise an error analytics event
 			return false;
-		} else {
-			const storeSyncBlockNode = syncBlockStore.createSyncBlockNode();
-			const newBodiedSyncBlockNode = bodiedSyncBlock.createAndFill(
-				{ ...storeSyncBlockNode.attrs },
-				conversionInfo.contentToInclude,
-			);
-
-			if (!newBodiedSyncBlockNode) {
-				return false;
-			}
-
-			tr.replaceWith(
-				conversionInfo.from - 1,
-				conversionInfo.to,
-				newBodiedSyncBlockNode,
-			).scrollIntoView();
 		}
+
+		const attrs = syncBlockStore.generateBodiedSyncBlockAttrs();
+		const newBodiedSyncBlockNode = bodiedSyncBlock.createAndFill(
+			attrs,
+			conversionInfo.contentToInclude,
+		);
+
+		if (!newBodiedSyncBlockNode) {
+			return false;
+		}
+
+		// Save the new node with empty content to backend
+		// This is so that the node can be copied and referenced without the source being saved/published
+		syncBlockStore.createBodiedSyncBlockNode(attrs);
+
+		tr.replaceWith(
+			conversionInfo.from - 1,
+			conversionInfo.to,
+			newBodiedSyncBlockNode,
+		).scrollIntoView();
 	}
 
+	// This transaction will be intercepted in filterTransaction and dispatched when saving to backend succeeds
+	// see filterTransaction for more details
 	return tr;
 };
 

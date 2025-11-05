@@ -14,6 +14,9 @@ fields:
 labels:
   - atlassian-platform
 links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
   - name: ''
     type: REPOSITORY
     url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/media/media-card/'

@@ -1099,4 +1099,12 @@ export const editorExperimentsConfig = {
 		values: ['control', 'test_with_overflow', 'test_without_overflow'],
 		defaultValue: 'control',
 	}),
+	// Added 2025-10-29
+	platform_editor_lovability_inline_code: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_lovability_inline_code',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

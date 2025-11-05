@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 124.9.11
+
+### Patch Changes
+
+- [`9630c61136f9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9630c61136f9b) -
+  Fixed bug where percentage based width attributes was being used as an aboslute pixel number
+  instead of correctly calculating the width.
+
 ## 124.9.10
 
 ### Patch Changes

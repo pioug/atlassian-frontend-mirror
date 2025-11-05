@@ -140,7 +140,7 @@ export class MultiValue extends React.Component<Props> {
 
 		return (
 			<components.MultiValue
-				{...rest}
+				{...(rest as any)}
 				innerProps={{ ref: this.containerRef }}
 				cropWithEllipsis={false}
 			>

@@ -24,16 +24,16 @@ const inputSchema = z.object({
 		),
 	limit: z
 		.number()
-		.optional()
 		.default(1)
-		.describe('Maximum number of results per search term in the provided arrays (default: 1)'),
+		.describe('Maximum number of results per search term in the provided arrays (default: 1)')
+		.optional(),
 	exactName: z
 		.boolean()
-		.optional()
 		.default(false)
 		.describe(
 			'Search tokens, icons, and components by their exact name match (use when you explicitly know the name and need more details)',
-		),
+		)
+		.optional(),
 });
 
 export const listPlanTool = {

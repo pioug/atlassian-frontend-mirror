@@ -1,6 +1,5 @@
 import { shallow, type ShallowWrapper } from 'enzyme';
 import React from 'react';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { FormattedMessage } from 'react-intl-next';
 import { MultiValueContainer } from '../../../components/MultiValueContainer';
 import { renderProp } from '../_testUtils';
@@ -116,25 +115,23 @@ describe('MultiValueContainer', () => {
 		expect(scroll).not.toHaveBeenCalled();
 	});
 
-	ffTest.on('user-picker-migrate-off-finddomnode', 'with the FG enabled', () => {
-		it('should set scrollTop via ref', () => {
-			const mockDiv = { scrollTop: 0, scrollHeight: 100 };
-			const component = shallowValueContainer({
-				children: 'some text',
-				getValue: jest.fn(() => []),
-			});
-
-			// Mock the ref. This is not the cleanest way, but valueContainerInnerProps is private.
-			Object.defineProperty((component.instance() as any).valueContainerInnerProps.ref, 'current', {
-				value: mockDiv,
-				writable: true,
-			});
-
-			// Simulate adding a new value and focus
-			component.setProps({ getValue: jest.fn(() => [1]) });
-			jest.runAllTimers();
-
-			expect(mockDiv.scrollTop).toBe(100);
+	it('should set scrollTop via ref', () => {
+		const mockDiv = { scrollTop: 0, scrollHeight: 100 };
+		const component = shallowValueContainer({
+			children: 'some text',
+			getValue: jest.fn(() => []),
 		});
+
+		// Mock the ref. This is not the cleanest way, but valueContainerInnerProps is private.
+		Object.defineProperty((component.instance() as any).valueContainerInnerProps.ref, 'current', {
+			value: mockDiv,
+			writable: true,
+		});
+
+		// Simulate adding a new value and focus
+		component.setProps({ getValue: jest.fn(() => [1]) });
+		jest.runAllTimers();
+
+		expect(mockDiv.scrollTop).toBe(100);
 	});
 });

@@ -197,10 +197,9 @@ export type InsertPromptPayload = PayloadCore<
  * - Supports multiple card types (Jira, Confluence, Trello, etc.)
  */
 export type InsertUrlsPayload = PayloadCore<
-	'insert-urls',
+	'insert-urls-into-prompt-input',
 	{
 		urls: string[];
-		urlType: 'trello/card';
 	}
 >;
 
@@ -288,8 +287,17 @@ export type JiraWorkflowWizardAction =
 export type JiraWorkflowWizardActionsPayload = PayloadCore<
 	'jira-workflow-wizard-actions',
 	{
+		invocationId?: string;
 		operations?: JiraWorkflowWizardAction[];
 		currentWorkflowDocument?: Record<string, unknown>;
+	}
+>;
+
+export type GenericActionErrorPayload = PayloadCore<
+	'generic-action-error',
+	{
+		invocationId: string;
+		errors: string[];
 	}
 >;
 
@@ -324,7 +332,8 @@ export type Payload =
 	| InsertPromptPayload
 	| DashboardInsightsActionsPayload
 	| SetChatContextPayload
-	| InsertUrlsPayload;
+	| InsertUrlsPayload
+	| GenericActionErrorPayload;
 
 export type Callback = (payload: Payload) => void;
 

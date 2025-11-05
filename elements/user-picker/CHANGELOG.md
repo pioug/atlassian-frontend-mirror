@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 11.11.0
+
+### Minor Changes
+
+- [`11f67199573c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11f67199573c8) -
+  Clean up the FG and remove findDOMNode for good
+
 ## 11.10.0
 
 ### Minor Changes

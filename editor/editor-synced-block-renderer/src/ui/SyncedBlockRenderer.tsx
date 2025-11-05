@@ -7,18 +7,19 @@ import {
 } from '@atlaskit/editor-common/provider-factory';
 import {
 	SyncBlockError,
-	type SyncBlockInstance,
-	type SyncBlockData,
+	type UseFetchSyncBlockDataResult,
 } from '@atlaskit/editor-synced-block-provider';
-import { ReactRenderer } from '@atlaskit/renderer';
-import { RendererActionsContext } from '@atlaskit/renderer/actions';
 
+import type { SyncedBlockRendererOptions } from '../types';
+
+import { AKRendererWrapper } from './AKRendererWrapper';
 import { SyncedBlockErrorComponent } from './SyncedBlockErrorComponent';
 import { SyncedBlockLoadingState } from './SyncedBlockLoadingState';
 
 export type SyncedBlockRendererProps = {
 	syncBlockRendererDataProviders: SyncedBlockRendererDataProviders;
-	useFetchSyncBlockData: () => SyncBlockInstance | null;
+	syncBlockRendererOptions: SyncedBlockRendererOptions | undefined;
+	useFetchSyncBlockData: () => UseFetchSyncBlockDataResult;
 };
 
 export const convertSyncBlockRendererDataProvidersToProviderFactory = (
@@ -34,61 +35,42 @@ export const convertSyncBlockRendererDataProvidersToProviderFactory = (
 	});
 };
 
-const SyncedBlockRendererWrapper = ({
-	fetchedData,
-	providerFactory,
-}: {
-	fetchedData: SyncBlockData;
-	providerFactory: ProviderFactory;
-}) => {
-	const syncBlockDoc: DocNode = useMemo(() => {
-		return {
-			content: fetchedData.content ?? [],
-			version: 1,
-			type: 'doc',
-		} as DocNode;
-	}, [fetchedData]);
-
-	return (
-		<RendererActionsContext>
-			<div data-testid="sync-block-renderer-wrapper">
-				<ReactRenderer
-					appearance="full-width"
-					adfStage="stage0"
-					document={syncBlockDoc}
-					disableHeadingIDs={true}
-					dataProviders={providerFactory}
-				/>
-			</div>
-		</RendererActionsContext>
-	);
-};
-
 const SyncedBlockRendererComponent = ({
 	useFetchSyncBlockData,
 	syncBlockRendererDataProviders,
+	syncBlockRendererOptions,
 }: SyncedBlockRendererProps) => {
-	const fetchResult = useFetchSyncBlockData();
+	const { syncBlockInstance } = useFetchSyncBlockData();
 
-	const providerFactory = useMemo(() => {
+	const dataProviders = useMemo(() => {
 		return convertSyncBlockRendererDataProvidersToProviderFactory(syncBlockRendererDataProviders);
 	}, [syncBlockRendererDataProviders]);
 
-	if (!fetchResult) {
+	if (!syncBlockInstance) {
 		return <SyncedBlockLoadingState />;
 	}
 
-	if (fetchResult.error || !fetchResult.data) {
+	if (syncBlockInstance.error || !syncBlockInstance.data) {
 		return (
 			<SyncedBlockErrorComponent
-				error={fetchResult.error ?? SyncBlockError.Errored}
-				resourceId={fetchResult.resourceId}
+				error={syncBlockInstance.error ?? SyncBlockError.Errored}
+				resourceId={syncBlockInstance.resourceId}
 			/>
 		);
 	}
 
+	const syncBlockDoc: DocNode = {
+		content: syncBlockInstance.data.content,
+		version: 1,
+		type: 'doc',
+	} as DocNode;
+
 	return (
-		<SyncedBlockRendererWrapper fetchedData={fetchResult.data} providerFactory={providerFactory} />
+		<AKRendererWrapper
+			doc={syncBlockDoc}
+			dataProviders={dataProviders}
+			options={syncBlockRendererOptions}
+		/>
 	);
 };
 

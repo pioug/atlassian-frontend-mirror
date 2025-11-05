@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
-const REFRESH_INTERVAL = 3000;
+export const SYNC_BLOCK_FETCH_INTERVAL = 3000;
 
 // Component that refreshes synced block subscriptions at regular intervals
 // this is a workaround for the subscription mechanism not being real-time
@@ -17,7 +17,7 @@ export const SyncBlockRefresher = ({
 			if (document?.visibilityState === 'visible') {
 				syncBlockStoreManager.refreshSubscriptions();
 			}
-		}, REFRESH_INTERVAL);
+		}, SYNC_BLOCK_FETCH_INTERVAL);
 
 		return () => {
 			window.clearInterval(interval);

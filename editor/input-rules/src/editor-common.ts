@@ -20,6 +20,7 @@ export type OnHandlerApply = (
 ) => void;
 
 export interface InputRuleWrapper {
+	allowsBackwardMatch?: boolean;
 	handler: InputRuleHandler;
 	match: RegExp;
 	onHandlerApply?: OnHandlerApply;

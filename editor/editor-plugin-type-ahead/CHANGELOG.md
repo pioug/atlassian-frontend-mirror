@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.5.11
+
+### Patch Changes
+
+- [`069d0ff21c75e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/069d0ff21c75e) -
+  Cleans up FG platform_editor_typeahead_aria_label
+
 ## 6.5.10
 
 ### Patch Changes

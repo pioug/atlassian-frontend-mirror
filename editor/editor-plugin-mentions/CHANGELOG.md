@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 8.2.6
+
+### Patch Changes
+
+- [`7f9ecfde4b371`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f9ecfde4b371) -
+  Update mention nodes to have the local id in their HTML.
+- Updated dependencies
+
 ## 8.2.5
 
 ### Patch Changes

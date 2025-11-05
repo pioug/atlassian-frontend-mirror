@@ -1,5 +1,13 @@
 # @atlaskit/node-data-provider
 
+## 7.5.0
+
+### Minor Changes
+
+- [`e3f45edd75547`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3f45edd75547) -
+  [https://product-fabric.atlassian.net/browse/ED-29647](ED-29647) - OTP will not use network data
+  if preloaded data is unavailable during SSR rendering
+
 ## 7.4.0
 
 ### Minor Changes

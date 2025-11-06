@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - PressableProps
  *
- * @codegen <<SignedSource::e2a66a4b4895b62cc4fce2fea034ad4b>>
+ * @codegen <<SignedSource::0ae6fa853a1ee2d3875c0c1765703398>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/pressable/index.tsx <<SignedSource::d647047e3db08689d4030f643748e661>>
  */
@@ -68,6 +68,11 @@ export { makeXCSSValidator };
 export type { SafeCSSObject };
 
 const xcssValidator = makeXCSSValidator({
+	// text related props
+	textAlign: {
+		allowCSS: true,
+	},
+
 	// color related props
 	color: true,
 	boxShadow: true,

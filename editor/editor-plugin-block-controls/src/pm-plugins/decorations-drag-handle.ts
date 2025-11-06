@@ -3,6 +3,7 @@ import { createElement } from 'react';
 import { bind, type UnbindFn } from 'bind-event-listener';
 import ReactDOM from 'react-dom';
 import { type IntlShape } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -75,12 +76,14 @@ export const dragHandleDecoration = ({
 	}
 
 	let unbind: UnbindFn;
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const key = uuid();
 
 	const widgetSpec = editorExperiment('platform_editor_breakout_resizing', true)
 		? {
 				side: -1,
 				type: TYPE_HANDLE_DEC,
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
 				/**
 				 * sigh - `marks` influences the position that the widget is drawn (as described on the `side` property).
@@ -104,6 +107,7 @@ export const dragHandleDecoration = ({
 		: {
 				side: -1,
 				type: TYPE_HANDLE_DEC,
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
 				destroy: (node: Node) => {
 					unbind && unbind();

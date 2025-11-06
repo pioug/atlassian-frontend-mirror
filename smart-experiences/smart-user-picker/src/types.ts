@@ -215,8 +215,7 @@ export interface SmartProps {
 	 */
 	productKey: string;
 	/**
-	 * When enabled, allows searching for users by email address.
-	 * Email searches will use customQuery instead of queryString and will set includeGroups and includeTeams to false.
+	 * When enabled, allows searching by email address.
 	 * @default false
 	 */
 	enableEmailSearch?: boolean;

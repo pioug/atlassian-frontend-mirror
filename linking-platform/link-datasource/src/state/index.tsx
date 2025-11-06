@@ -7,6 +7,7 @@ import {
 	createStateHook,
 	createStore,
 } from 'react-sweet-state';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 
 import type { DatasourceDataResponseItem } from '@atlaskit/linking-types';
@@ -63,6 +64,7 @@ export const actions = {
 			const [newItemIds, newItems] = items.reduce<[Array<string>, State['items']]>(
 				([ids, itemMap], item) => {
 					const ari = typeof item['ari']?.data === 'string' ? item['ari'].data : undefined;
+					// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 					const id = ari ?? uuidv4();
 
 					return [

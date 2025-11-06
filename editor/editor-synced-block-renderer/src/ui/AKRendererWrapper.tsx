@@ -18,6 +18,27 @@ const ValidationContextWrapper = ({ children }: { children: React.ReactNode }) =
 	);
 };
 
+const defaultOptions: SyncedBlockRendererOptions = {
+	allowAltTextOnImages: true,
+	allowAnnotations: true,
+	allowColumnSorting: true,
+	allowCopyToClipboard: true,
+	allowCustomPanels: true,
+	allowPlaceholderText: true,
+	allowRendererContainerStyles: true,
+	allowSelectAllTrap: true,
+	allowUgcScrubber: true,
+	allowWrapCodeBlock: true,
+	emojiResourceConfig: undefined,
+	media: {
+		allowLinking: true,
+		allowCaptions: true,
+		featureFlags: { mediaInline: true },
+	},
+	smartLinks: undefined,
+	stickyHeaders: true,
+};
+
 export const AKRendererWrapper = memo(
 	({
 		doc,
@@ -28,6 +49,8 @@ export const AKRendererWrapper = memo(
 		doc: DocNode;
 		options: SyncedBlockRendererOptions | undefined;
 	}) => {
+		const mergedOptions = { ...defaultOptions, ...options };
+
 		const {
 			allowAltTextOnImages,
 			allowAnnotations,
@@ -44,7 +67,7 @@ export const AKRendererWrapper = memo(
 			media,
 			smartLinks,
 			stickyHeaders,
-		} = options ?? {};
+		} = mergedOptions ?? {};
 
 		return (
 			<RendererActionsContext>

@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 110.24.0
+
+### Minor Changes
+
+- [`c094becfaeeaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c094becfaeeaa) -
+  EDITOR-2476 Introduce new utility method to check if nested tables is supported in the schema to
+  facilitate removal of gate `platform_editor_use_nested_table_pm_nodes`
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.23.0
+
+### Minor Changes
+
+- [`236d9310035ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/236d9310035ae) -
+  [https://product-fabric.atlassian.net/browse/ED-29205](ED-29205) - use native DOM element for
+  editor expand icon
+
+### Patch Changes
+
+- [`e3336879840a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3336879840a4) -
+  [ux] EDITOR-2620 Toggle contextual menu when drag menu is opened
+- Updated dependencies
+
+## 110.22.2
+
+### Patch Changes
+
+- [`7bb84f91500cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bb84f91500cf) -
+  [ux] EDITOR-2442 update warning modal on source sync block deletion
+- Updated dependencies
+
 ## 110.22.1
 
 ### Patch Changes

@@ -3,6 +3,7 @@ import { type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import debounce from 'lodash/debounce';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 import {
 	cancelEvent,
@@ -126,6 +127,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 			initialFocusHandled: false,
 		};
 		this.optionsShownUfoExperienceInstance =
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			userPickerOptionsShownUfoExperience.getInstance(uuidv4());
 
 		if (this.props.forwardedRef) {

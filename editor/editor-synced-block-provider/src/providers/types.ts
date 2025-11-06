@@ -52,7 +52,7 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	): Promise<Array<WriteSyncBlockResult>>;
 	abstract deleteNodesData(resourceIds: string[]): Promise<Array<DeleteSyncBlockResult>>;
 	abstract getSourceId(): ResourceId;
-	abstract retrieveSyncBlockSourceUrlAndTitle(
+	abstract retrieveSyncBlockSourceInfo(
 		node: SyncBlockNode,
 	): Promise<SyncBlockSourceInfo | undefined>;
 }

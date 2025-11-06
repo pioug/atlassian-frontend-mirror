@@ -13,6 +13,7 @@ import {
 import { type Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import { tap } from 'rxjs/operators/tap';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -1096,6 +1097,7 @@ export const EditorStateContainer = createContainer<State, Actions, Props>(Store
 				autocompleteProvider,
 				enableRichInlineNodes,
 				// Generate unique identifiers for each JQL editor instance
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				idPrefix: uuidv4(),
 				resizeObserver:
 					window.ResizeObserver !== undefined

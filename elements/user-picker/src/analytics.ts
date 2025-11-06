@@ -1,4 +1,5 @@
 import { createAndFireEvent, type AnalyticsEventPayload } from '@atlaskit/analytics-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 import { type Option, type OptionData, type UserPickerProps, type UserPickerState } from './types';
 import { isCustom, isExternalUser } from './components/utils';
@@ -22,6 +23,7 @@ export type UserPickerSession = {
 };
 
 export const startSession = (): UserPickerSession => ({
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	id: uuidv4(),
 	start: Date.now(),
 	inputChangeTime: Date.now(),

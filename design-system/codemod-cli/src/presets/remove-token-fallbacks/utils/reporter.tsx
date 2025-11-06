@@ -2,6 +2,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 
 import { type ReplacementDetail, type TransformationDetails } from '../types';
@@ -142,7 +143,9 @@ function prepareCsvData(items: ReplacementDetail[]): string[] {
 }
 
 export async function writeReports(details: TransformationDetails, reportFolder: string) {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const replacementsFilePath = path.join(reportFolder, `${uuidv4()}_success.csv`);
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const nonReplacementsFilePath = path.join(reportFolder, `${uuidv4()}_failed.csv`);
 	await fs.mkdir(reportFolder, { recursive: true });
 	const replacementData = prepareCsvData(details.replaced);

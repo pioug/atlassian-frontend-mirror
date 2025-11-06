@@ -1,4 +1,5 @@
 import { act, renderHook, type RenderResult } from '@testing-library/react-hooks';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
 import { createAndFireEvent } from '@atlaskit/analytics-next';

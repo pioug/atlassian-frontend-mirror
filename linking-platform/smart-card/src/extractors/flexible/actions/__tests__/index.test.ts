@@ -20,6 +20,12 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 	expValEquals: jest.fn(),
 }));
 
+// Mock the isWithinPreviewPanelIFrame function
+jest.mock('@atlaskit/linking-common/utils', () => ({
+	...jest.requireActual('@atlaskit/linking-common/utils'),
+	isWithinPreviewPanelIFrame: jest.fn(),
+}));
+
 // Create a test response with preview and ARI which is needed for testing preview panel params
 const TEST_RESPONSE_WITH_PREVIEW_AND_ARI = {
 	...TEST_RESPONSE_WITH_PREVIEW,
@@ -68,6 +74,19 @@ describe('extractors.downloadAction', () => {
 
 describe('extractors.previewAction', () => {
 	describe('extractPreviewClientAction', () => {
+		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+		const { isWithinPreviewPanelIFrame } = require('@atlaskit/linking-common/utils');
+
+		beforeEach(() => {
+			// Reset mocks before each test
+			jest.clearAllMocks();
+		});
+
+		afterEach(() => {
+			isWithinPreviewPanelIFrame.mockReturnValue(false);
+			expValEquals.mockReturnValue(false);
+		});
+
 		it('returns an extracted URL for preview action', () => {
 			const action = extractPreviewClientAction({
 				appearance: 'block',
@@ -115,7 +134,6 @@ describe('extractors.previewAction', () => {
 
 		it('should return preview action with hasPreviewPanel true when preview panel is available', () => {
 			// Enable the experiment for this test
-			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
 			expValEquals.mockReturnValue(true);
 
 			const action = extractPreviewClientAction({
@@ -191,6 +209,45 @@ describe('extractors.previewAction', () => {
 			expect(action?.invokeAction?.display).toBe('inline');
 			expect(action?.invokeAction?.id).toBe('another-test-id');
 		});
+
+		it('should return an action when not within a preview panel iframe', () => {
+			expValEquals.mockReturnValue(true);
+			isWithinPreviewPanelIFrame.mockReturnValueOnce(false);
+
+			const action = extractPreviewClientAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_PREVIEW,
+			});
+
+			expect(action).not.toBe(undefined);
+		});
+
+		it('should return an action when experiment is not enabled', () => {
+			expValEquals.mockReturnValue(false);
+			isWithinPreviewPanelIFrame.mockReturnValueOnce(true);
+
+			const action = extractPreviewClientAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_PREVIEW,
+			});
+
+			expect(action).not.toBe(undefined);
+		});
+
+		it('should return undefined when within a preview panel iframe and experiment is enabled', () => {
+			expValEquals.mockReturnValue(true);
+			isWithinPreviewPanelIFrame.mockReturnValueOnce(true);
+
+			const action = extractPreviewClientAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_PREVIEW,
+			});
+
+			expect(action).toBe(undefined);
+		});
 	});
 });
 
@@ -258,6 +315,11 @@ describe('extractors.viewRelatedLinks', () => {
 });
 
 describe('extractFlexibleCardActions', () => {
+	beforeEach(() => {
+		// Reset mocks before each test
+		jest.clearAllMocks();
+	});
+
 	it('extracts client actions', () => {
 		const actions = extractFlexibleCardActions({
 			response: TEST_RESPONSE_WITH_PREVIEW_AND_DOWNLOAD,

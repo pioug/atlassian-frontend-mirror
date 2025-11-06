@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
@@ -45,9 +46,11 @@ export const createExpandNode = (
 		? expandType.createAndFill(
 				addLocalId
 					? {
+							// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 							localId: uuid(),
 						}
 					: {},
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				paragraph.createAndFill(addLocalId ? { localId: uuid() } : {}),
 			)
 		: expandType.createAndFill({});
@@ -288,8 +291,12 @@ export const focusIcon =
 			return false;
 		}
 
-		// eslint-disable-next-line @atlaskit/editor/no-as-casting
-		const iconContainer = expand.querySelector(`.${expandClassNames.iconContainer}`) as HTMLElement;
+		// TODO: ED-29205 - During platform_editor_native_expand_button cleanup, rename `iconContainer` to `iconButton`.
+		const iconContainer = (
+			expValEquals('platform_editor_native_expand_button', 'isEnabled', true)
+				? expand.querySelector(`.${expandClassNames.iconButton}`)
+				: expand.querySelector(`.${expandClassNames.iconContainer}`)
+		) as HTMLElement | null;
 		if (iconContainer && iconContainer.focus) {
 			const { tr } = state;
 			const pos = state.selection.from;

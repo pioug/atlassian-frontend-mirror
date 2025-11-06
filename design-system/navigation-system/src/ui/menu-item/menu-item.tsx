@@ -301,9 +301,13 @@ const containerStyles = cssMap({
 	disabled: {
 		// Setting the color here to allow icons with "currentColor" to inherit the disabled color.
 		color: token('color.text.disabled'),
+		// Explicitly setting the background color here to make sure it's not set when selected and disabled
+		backgroundColor: 'unset',
 		'&:hover': {
 			// Removing the background color that gets applied on hover
 			backgroundColor: 'unset',
+			// The color should not change on hover (e.g. when both selected and disabled)
+			color: token('color.text.disabled'),
 		},
 	},
 	hasDescription: {
@@ -561,7 +565,6 @@ type MenuItemBaseProps<T extends HTMLAnchorElement | HTMLButtonElement> =
 		href?: string | Record<string, any>;
 		target?: HTMLAnchorElement['target'];
 		isDisabled?: boolean;
-		isSelected?: boolean;
 		// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 		ariaControls?: string;
 		// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention, @repo/internal/react/consistent-props-definitions

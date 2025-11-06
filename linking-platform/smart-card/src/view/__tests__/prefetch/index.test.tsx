@@ -15,6 +15,7 @@ import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
 import * as jestExtendedMatchers from 'jest-extended';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';

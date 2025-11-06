@@ -14,6 +14,7 @@ import {
 	defaultCollectionName,
 	unknownFileId,
 } from '@atlaskit/media-test-helpers';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 import {
 	MediaClient,
@@ -34,10 +35,12 @@ const file: UploadableFile = {
 	name: 'test.png',
 };
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 const uploadingFileId = uuidv4();
 const uploadableFileUpfrontIds: UploadableFileUpfrontIds = {
 	id: uploadingFileId,
 	deferredUploadId: Promise.resolve(''),
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	occurrenceKey: uuidv4(),
 };
 

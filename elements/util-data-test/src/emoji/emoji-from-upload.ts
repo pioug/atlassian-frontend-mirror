@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 import type { EmojiUpload } from '@atlaskit/emoji/types';
 import { customCategory, customType } from '../emoji-constants';
@@ -6,6 +7,7 @@ import { loggedUser } from './logged-user';
 export const emojiFromUpload = (upload: EmojiUpload) => {
 	const { shortName, name, dataURL, height, width } = upload;
 	return {
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		id: uuid(),
 		shortName,
 		name,

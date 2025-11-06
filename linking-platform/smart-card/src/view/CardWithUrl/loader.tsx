@@ -2,6 +2,7 @@ import React, { type ErrorInfo, lazy, Suspense, useCallback, useEffect, useState
 
 import { ErrorBoundary } from 'react-error-boundary';
 import { di } from 'react-magnetic-di';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
@@ -26,6 +27,7 @@ export const LazyCardWithUrlContent = lazy(() =>
 
 export function CardWithURLRenderer(props: CardProps) {
 	di(LazyCardWithUrlContent);
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const [id] = useState(() => (props.id ? props.id : uuid()) satisfies string);
 	const { fireEvent } = useAnalyticsEvents();
 

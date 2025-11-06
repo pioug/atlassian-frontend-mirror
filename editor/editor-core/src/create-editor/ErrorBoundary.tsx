@@ -1,5 +1,6 @@
 import React, { type ErrorInfo } from 'react';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
@@ -70,6 +71,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 	private sendErrorData = async (analyticsErrorPayload: AnalyticsErrorBoundaryAttributes) => {
 		const product = await this.getProductName();
 		const { error, errorInfo } = analyticsErrorPayload;
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const sharedId = uuid();
 		const browserInfo = window?.navigator?.userAgent || 'unknown';
 

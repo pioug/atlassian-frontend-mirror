@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/design-system/no-html-button */
 import React, { useEffect, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import { AnnotationMarkStates, AnnotationTypes, type DocNode } from '@atlaskit/adf-schema';
@@ -133,6 +134,7 @@ function SelectionComponent({
 							if (draft) {
 								// This is setting a new uuid for the annotation because this is currently how annotations
 								// behave in CCFE.
+								// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 								const annotationId = uuid();
 								const draftRes = annotationManager.applyDraft(annotationId);
 
@@ -237,6 +239,7 @@ function SelectionComponent({
 					<ExampleHighlightMenu.Item>
 						<button
 							onClick={() => {
+								// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 								const annotationId = uuid() as string;
 								if (annotationManager) {
 									annotationManager

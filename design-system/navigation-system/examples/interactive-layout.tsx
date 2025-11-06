@@ -39,6 +39,7 @@ import {
 	SideNavContent,
 	SideNavFooter,
 	SideNavHeader,
+	SideNavPanelSplitter,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -73,10 +74,6 @@ import {
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-// SideNavPanelSplitter is not publicly exported yet, so we need to import it directly from the src folder.
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { SideNavPanelSplitter } from '../src/ui/page-layout/panel-splitter/side-nav-panel-splitter';
 
 import { CardGrid } from './utils/card-grid';
 import { WithResponsiveViewport } from './utils/example-utils';

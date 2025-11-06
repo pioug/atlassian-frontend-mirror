@@ -39,6 +39,10 @@ jest.mock('../../../../ui/annotations/hooks/use-inline-comments-filter', () => (
 	useInlineCommentsFilter: jest.fn().mockReturnValue(['foo']),
 }));
 
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn(),
+}));
+
 const MediaCardWithProvider = (props: MediaCardProps & ImageLoaderProps) => {
 	return (
 		<MediaClientContext.Provider value={mocks.mockMediaClient}>
@@ -821,6 +825,92 @@ describe('Media', () => {
 				}),
 			);
 			mediaFileCard.unmount();
+		});
+
+		describe('disable lazy loading for Confluence PDF export pages', () => {
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			const originalLocation = window.location;
+
+			beforeEach(() => {
+				expValEquals.mockReturnValue(false);
+				Object.defineProperty(window, 'location', {
+					value: {
+						...originalLocation,
+						href: '',
+					},
+					writable: true,
+				});
+			});
+
+			afterEach(() => {
+				Object.defineProperty(window, 'location', {
+					value: originalLocation,
+					writable: true,
+				});
+			});
+
+			it('should disable lazy loading when expValEquals returns true and URL includes /wiki/pdf/spaces/', () => {
+				expValEquals.mockReturnValue(true);
+				window.location.href = 'https://example.atlassian.net/wiki/pdf/spaces/SPACE/pages/123456';
+
+				const mediaCard = mount(
+					<MediaClientProvider clientConfig={mediaClientConfig}>
+						<MediaCard type="file" id="1" />
+					</MediaClientProvider>,
+				);
+
+				const card = mediaCard.find(Card);
+				expect(card.prop('isLazy')).toBe(false);
+				mediaCard.unmount();
+			});
+
+			it('should enable lazy loading when expValEquals returns false', () => {
+				expValEquals.mockReturnValue(false);
+				window.location.href = 'https://example.atlassian.net/wiki/pdf/spaces/SPACE/pages/123456';
+
+				const mediaCard = mount(
+					<MediaClientProvider clientConfig={mediaClientConfig}>
+						<MediaCard type="file" id="1" />
+					</MediaClientProvider>,
+				);
+
+				const card = mediaCard.find(Card);
+				expect(card.prop('isLazy')).toBe(true);
+				mediaCard.unmount();
+			});
+
+			it('should enable lazy loading when expValEquals returns true but URL does not include /wiki/pdf/spaces/', () => {
+				expValEquals.mockReturnValue(true);
+				window.location.href = 'https://example.atlassian.net/wiki/spaces/SPACE/pages/123456';
+
+				const mediaCard = mount(
+					<MediaClientProvider clientConfig={mediaClientConfig}>
+						<MediaCard type="file" id="1" />
+					</MediaClientProvider>,
+				);
+
+				const card = mediaCard.find(Card);
+				expect(card.prop('isLazy')).toBe(true);
+				mediaCard.unmount();
+			});
+
+			it('should call expValEquals with correct parameters', () => {
+				expValEquals.mockReturnValue(false);
+				window.location.href = 'https://example.atlassian.net/wiki/pdf/spaces/SPACE/pages/123456';
+
+				const mediaCard = mount(
+					<MediaClientProvider clientConfig={mediaClientConfig}>
+						<MediaCard type="file" id="1" />
+					</MediaClientProvider>,
+				);
+
+				expect(expValEquals).toHaveBeenCalledWith(
+					'platform_editor_disable_lazy_load_media',
+					'isEnabled',
+					true,
+				);
+				mediaCard.unmount();
+			});
 		});
 	});
 

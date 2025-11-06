@@ -59,6 +59,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import {
 	clearHoverSelection,
@@ -112,6 +113,7 @@ interface Props {
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
 	isCellMenuOpenByKeyboard?: boolean;
 	isCommentEditor?: boolean;
+	isDragMenuOpen?: boolean;
 	isOpen: boolean;
 	mountPoint?: HTMLElement;
 	offset?: Array<number>;
@@ -152,6 +154,21 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				...this.state,
 				isOpenAllowed: isCellMenuOpenByKeyboard,
 			});
+		}
+	}
+
+	componentDidUpdate(): void {
+		const { isDragAndDropEnabled, isContextualMenuOpen } = getPluginState(
+			this.props.editorView.state,
+		);
+
+		if (
+			isDragAndDropEnabled &&
+			this.props.isDragMenuOpen &&
+			isContextualMenuOpen &&
+			expValNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
+		) {
+			toggleContextualMenu()(this.props.editorView.state, this.props.editorView.dispatch);
 		}
 	}
 
@@ -209,7 +226,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		);
 		if (expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)) {
 			return (
-				<UserIntentPopupWrapper userIntent="tablePopupOpen" api={api}>
+				<UserIntentPopupWrapper userIntent="tableContextualMenuPopupOpen" api={api}>
 					{popupContent()}
 				</UserIntentPopupWrapper>
 			);

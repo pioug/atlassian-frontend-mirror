@@ -1,5 +1,6 @@
 import { token } from '@atlaskit/tokens';
 import React, { type ChangeEventHandler, Component, type FocusEventHandler } from 'react';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v1';
 
 function noModifiers(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -67,6 +68,7 @@ class SearchTextInput extends Component<Props, {}> {
 		// const { onUp, onDown, onEnter, onEscape, label, inputRef, inputId, ...other } = this.props;
 		const { label, inputId, onBlur, onChange, onFocus } = this.props;
 		let labelComponent;
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const id = inputId || uuid();
 		if (label) {
 			labelComponent = <label htmlFor={id}>{label}</label>;

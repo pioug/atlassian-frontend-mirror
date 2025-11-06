@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "8.2.6",
+	"version": "8.2.7",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -114,9 +114,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_mention_provider_via_plugin_config": {
-			"type": "boolean"
-		},
-		"platform_mention_insert_mention_refactor": {
 			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {

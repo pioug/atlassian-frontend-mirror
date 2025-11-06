@@ -2,6 +2,7 @@ import { createElement } from 'react';
 
 import { RawIntlProvider } from 'react-intl-next';
 import type { IntlShape } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import type { CellAttributes } from '@atlaskit/adf-schema';
@@ -333,6 +334,7 @@ export const createResizeHandleDecoration = (
 		cellPos: number,
 		cellNode: PmNode,
 	): Decoration => {
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const decorationRenderKey = uuid();
 		const position = cellPos + cellNode.nodeSize - 1;
 		return Decoration.widget(

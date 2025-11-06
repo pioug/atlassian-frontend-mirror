@@ -1,5 +1,66 @@
 # @atlassian/navigation-system
 
+## 5.3.0
+
+### Minor Changes
+
+- [`c8cb0a09979c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8cb0a09979c1) -
+  Adds instrumentation to the side navigation behind the `platform_dst_nav4_fhs_instrumentation_1`
+  feature gate.
+- [`c8cb0a09979c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8cb0a09979c1) -
+  Changes the `trigger` property in the side nav `onExpand` and `onCollapse` callbacks to be exposed
+  behind the `platform_dst_nav4_fhs_instrumentation_1` feature gate instead of the
+  `navx-full-height-sidebar` feature gate. The `platform_dst_nav4_fhs_instrumentation_1` feature
+  gate is intended to roll out sooner.
+- [`f942d05c8a8f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f942d05c8a8f2) -
+  Adds support for selected state in ButtonMenuItem component (under feature gate
+  platform-dst-buttonmenuitem-selected-state-support)
+
+## 5.2.0
+
+### Minor Changes
+
+- [`fef4ccb6af01f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fef4ccb6af01f) -
+  Cleans up the `platform_dst_nav4_side_nav_default_collapsed_api` feature gate. Default side nav
+  collapsed state can now be passed into the `Root` component via the `defaultSideNavCollapsed`
+  prop. This is the preferred API, and the legacy API will be removed at some point in the future.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.0
+
+### Minor Changes
+
+- [`03b6f055c6340`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03b6f055c6340) -
+  The `SideNavPanelSplitter` component is now exported from
+  `@atlaskit/navigation-system/layout/side-nav`. It should be used within the `SideNav` layout area.
+
+  It supports double clicking to collapse the side nav. You can conditionally disable this through
+  the `shouldCollapseOnDoubleClick` prop. It is enabled by default.
+
+  It also supports displaying a tooltip when hovered, through the `tooltipContent` prop. This should
+  be used to explain the double click to collapse interaction. The recommended tooltip content is
+  "Double click to collapse".
+
+  A tooltip will only be displayed if the `shouldCollapseOnDoubleClick` prop is `true`, or not
+  provided (as it defaults to `true`), and if the `tooltipContent` prop is provided.
+
+  If the `isSideNavShortcutEnabled` prop is enabled on `<Root />`, the built-in keyboard shortcut
+  will be displayed with the tooltip.
+
+  Example usage:
+
+  ```tsx
+  import { SideNav, SideNavPanelSplitter } from '@atlaskit/navigation-system/layout/side-nav';
+
+  // In component:
+  <SideNav>
+  	<SideNavPanelSplitter label="Double click to collapse" />
+  </SideNav>;
+  ```
+
 ## 5.0.2
 
 ### Patch Changes

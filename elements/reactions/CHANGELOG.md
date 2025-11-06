@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 33.6.3
+
+### Patch Changes
+
+- [`93b3e16465a92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93b3e16465a92) -
+  Clean up feature gate platform_reaction_full_picker_hover
+
 ## 33.6.2
 
 ### Patch Changes

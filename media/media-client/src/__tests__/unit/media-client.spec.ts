@@ -1,5 +1,6 @@
 jest.mock('../../uploader');
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 import { type AuthProvider, type Auth } from '@atlaskit/media-core';
 import { asMockFunction, asMockFunctionResolvedValue } from '@atlaskit/media-common/test-helpers';
@@ -43,7 +44,9 @@ const createMediaClient = (initialAuth?: Auth) => {
 
 describe('MediaClient', () => {
 	const setup = () => {
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const id = uuid();
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const occurrenceKey = uuid();
 
 		return {
@@ -52,6 +55,7 @@ describe('MediaClient', () => {
 			uploadableFileUpfrontIds: {
 				id,
 				occurrenceKey,
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				deferredUploadId: Promise.resolve(uuid()),
 			},
 			mediaClient: createMediaClient(),

@@ -11,10 +11,10 @@ const DESIRED_PKG_VERSIONS: Record<string, string[]> = {
 	typescript: ['5.4', '5.9'],
 	tslib: ['2.6', '2.8'],
 	'@types/react': ['16.14', '18.2', '18.3'],
-	'react-relay': ['npm:atl-react-relay@0.0.0-main-5980a913'],
-	'relay-compiler': ['npm:atl-relay-compiler@0.0.0-main-5980a913'],
-	'relay-runtime': ['npm:atl-relay-runtime@0.0.0-main-5980a913'],
-	'relay-test-utils': ['npm:atl-relay-test-utils@0.0.0-main-5980a913'],
+	'react-relay': ['npm:atl-react-relay@0.0.0-main-6ff96079'],
+	'relay-compiler': ['npm:atl-relay-compiler@0.0.0-main-6ff96079'],
+	'relay-runtime': ['npm:atl-relay-runtime@0.0.0-main-6ff96079'],
+	'relay-test-utils': ['npm:atl-relay-test-utils@0.0.0-main-6ff96079'],
 };
 
 const matchMinorVersion = (desiredVersion: string, versionInResolutions: string): boolean => {

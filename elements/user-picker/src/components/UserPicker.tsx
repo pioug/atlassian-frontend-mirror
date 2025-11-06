@@ -19,6 +19,7 @@ import {
 	UfoErrorBoundary,
 } from '../util/ufoExperiences';
 import { jsx } from '@compiled/react';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -27,6 +28,7 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 
 	constructor(props: UserPickerProps) {
 		super(props);
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		this.ufoId = uuidv4();
 		const experienceForId = experience.getInstance(this.ufoId);
 		if (

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import { type CreateFlagArgs, useFlags } from '@atlaskit/flag';
@@ -61,6 +62,7 @@ export const useDatasourceTableFlag = (options?: DatasourceTableFlagOptions) => 
 				icon: (
 					<CrossCircleIcon spacing="spacious" label="Error" color={token('color.icon.danger')} />
 				),
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				id: uuid(),
 				isAutoDismiss: true,
 				...(options?.isFetchAction

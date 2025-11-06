@@ -21,6 +21,11 @@ const styles = cssMap({
 });
 
 /**
+ * Taken from `@atlaskit/popper`
+ */
+type Offset = [number | null | undefined, number | null | undefined];
+
+/**
  * The `transform: rotate(45deg);` styles used to rotate the `Caret` component result in the corners of
  * the caret extending beyond the bounding box (by roughly 2px). So, apply an offset to ensure
  * the caret points to the very edge of the target element.
@@ -28,7 +33,7 @@ const styles = cssMap({
  * Note: `@atlaskit/popper` maps the offset to the placement, so we only need to define `[0, 2]` and
  * the offset will get correctly rotated depending on the placement.
  */
-const offset: [number, number] = [0, 2];
+const defaultOffset: Offset = [0, 2];
 
 interface BasePopoverContentProps {
 	/**
@@ -70,6 +75,14 @@ interface BasePopoverContentProps {
 	 */
 	back?: (event: BackEvent) => void;
 
+
+	/**
+	 * Distance the spotlight should be offset from the target in the format of [along, away] (units in px).
+	 * Defaults to [0, 2] - which means the spotlight will be 2px away from the edge of the target specified
+	 * by the `placement` prop.
+	 */
+	offset?: Offset;
+
 	/**
 	 * The content to be rendered in `PopoverContent`. This is intended to be a `SpotlightCard`.
 	 */
@@ -79,32 +92,32 @@ interface BasePopoverContentProps {
 export type PopoverContentProps = BasePopoverContentProps &
 	(
 		| {
-				/**
-				 * Invoked when the user clicks `SpotlightPrimaryAction` in a tour.
-				 * If an `onClick` handler is provided to `SpotlightPrimaryAction` then that takes precedence,
-				 * and `next` will be ignored.
-				 *
-				 * If `next` is passed to `PopoverContent`, then `done` cannot be passed. This will result in a type error.
-				 */
-				next: (event: NextEvent) => void;
+			/**
+			 * Invoked when the user clicks `SpotlightPrimaryAction` in a tour.
+			 * If an `onClick` handler is provided to `SpotlightPrimaryAction` then that takes precedence,
+			 * and `next` will be ignored.
+			 *
+			 * If `next` is passed to `PopoverContent`, then `done` cannot be passed. This will result in a type error.
+			 */
+			next: (event: NextEvent) => void;
 
-				/**
-				 * Invoked when the user clicks `SpotlightPrimaryAction`.
-				 * If an `onClick` handler is provided to SpotlightPrimaryAction then that takes precedence,
-				 * and `done` will be ignored.
-				 *
-				 * If `done` is passed to PopoverContent, then `next` cannot be passed. This will result in a type error.
-				 */
-				done?: never;
-		  }
+			/**
+			 * Invoked when the user clicks `SpotlightPrimaryAction`.
+			 * If an `onClick` handler is provided to SpotlightPrimaryAction then that takes precedence,
+			 * and `done` will be ignored.
+			 *
+			 * If `done` is passed to PopoverContent, then `next` cannot be passed. This will result in a type error.
+			 */
+			done?: never;
+		}
 		| {
-				done: (event: DoneEvent) => void;
-				next?: never;
-		  }
+			done: (event: DoneEvent) => void;
+			next?: never;
+		}
 		| {
-				next?: never;
-				done?: never;
-		  }
+			next?: never;
+			done?: never;
+		}
 	);
 
 /**
@@ -143,6 +156,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 		dismiss,
 		back,
 		testId,
+		offset = defaultOffset,
 	} = props;
 
 	/**

@@ -128,8 +128,8 @@ async function main() {
 
 	const outDir = path.resolve(packageRoot, 'src/artifacts');
 	fs.mkdirSync(outDir, { recursive: true });
-	const body = json5.stringify(tokens, null, 2);
-	const content = `${header}\n${body}`;
+	const body = json5.stringify(tokens, null, '\t');
+	const content = `${header}\n${body}\n`;
 	const signed = createSignedArtifact(content, 'yarn codegen-tokens');
 	const outFile = path.join(outDir, 'token-data.json5');
 	fs.writeFileSync(outFile, signed);

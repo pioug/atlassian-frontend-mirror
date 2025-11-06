@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 4.29.1
+
+### Patch Changes
+
+- [`d287c1d495c52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d287c1d495c52) -
+  Minor fix for rich text and wrapped option
+
 ## 4.29.0
 
 ### Minor Changes

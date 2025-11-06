@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 import { keyName } from 'w3c-keyname';
 
@@ -28,6 +29,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { ExpandPlugin } from '../../types';
+import { renderExpandButton } from '../../ui/renderExpandButton';
 import {
 	deleteExpandAtPos,
 	setSelectionInsideExpand,
@@ -171,8 +173,13 @@ export class ExpandNodeView implements NodeView {
 			`.${expandClassNames.titleContainer}`,
 		);
 		this.content = this.dom.querySelector<HTMLElement>(`.${expandClassNames.content}`);
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		this.renderKey = uuid();
-		this.renderIcon(this.intl);
+		if (expValEquals('platform_editor_native_expand_button', 'isEnabled', true)) {
+			this.renderNativeIcon(this.node);
+		} else {
+			this.renderIcon(this.intl);
+		}
 
 		this.initHandlers();
 	}
@@ -260,6 +267,20 @@ export class ExpandNodeView implements NodeView {
 				break;
 		}
 	};
+
+	private renderNativeIcon(node: PmNode) {
+		if (!this.icon) {
+			return;
+		}
+
+		const { __expanded } = node.attrs;
+
+		renderExpandButton(this.icon, {
+			expanded: this.__livePage ? !__expanded : __expanded,
+			allowInteractiveExpand: this.allowInteractiveExpand,
+			intl: this.intl,
+		});
+	}
 
 	private renderIcon(intl?: IntlShape, node?: PmNode) {
 		if (!this.icon) {
@@ -639,7 +660,11 @@ export class ExpandNodeView implements NodeView {
 				// we toggle a class name to hide the content and animate the chevron.
 				if (this.dom) {
 					this.dom.classList.toggle(expandClassNames.expanded);
-					this.renderIcon(this && this.intl, node);
+					if (expValEquals('platform_editor_native_expand_button', 'isEnabled', true)) {
+						this.renderNativeIcon(node);
+					} else {
+						this.renderIcon(this && this.intl, node);
+					}
 				}
 
 				if (this.content) {

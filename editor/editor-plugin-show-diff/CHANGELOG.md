@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 3.2.2
+
+### Patch Changes
+
+- [`1c0d87f570c52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c0d87f570c52) -
+  [ux] Update attributes to ignore attr steps that do not affect the document
+
 ## 3.2.1
 
 ### Patch Changes

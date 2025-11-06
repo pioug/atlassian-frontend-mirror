@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 7.1.1
+
+### Patch Changes
+
+- [`df9a060fe8b7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df9a060fe8b7f) -
+  Adds the native `@atlaspack/transformer-tokens` plugin for Atlassian Studio builds.
+
 ## 7.1.0
 
 ### Minor Changes

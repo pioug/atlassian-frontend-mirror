@@ -498,6 +498,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				isNumberColumnChanged,
 				isNumberOfColumnsChanged,
 				isFullWidthModeAndLineLengthChanged,
+				isTableResized,
 			});
 
 			const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
@@ -628,8 +629,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			shouldHandleColgroupUpdates = true;
 		}
 
-		if (this.state.windowResized) {
-			shouldHandleColgroupUpdates = true;
+		if (!fg('platform_editor_table_width_refactor')) {
+			if (this.state.windowResized) {
+				shouldHandleColgroupUpdates = true;
+			}
 		}
 
 		if (shouldHandleColgroupUpdates) {
@@ -1215,6 +1218,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		isNumberColumnChanged: boolean;
 		isNumberOfColumnsChanged: boolean;
 		isTableDisplayModeChanged: boolean;
+		isTableResized: boolean | undefined;
 		isTableResizedFullWidth: boolean | undefined;
 		isTableWidthChanged: boolean;
 		isWidthChanged: boolean;

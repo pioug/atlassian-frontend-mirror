@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 11.12.0
+
+### Minor Changes
+
+- [`fbc3b9aa8797e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fbc3b9aa8797e) -
+  add a new prop popupSelectProps to allow customised props for PopupSelect componenet in
+  PopupUserPicker
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.11.0
 
 ### Minor Changes

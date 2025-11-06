@@ -2,6 +2,7 @@ import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from '
 
 import { injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps, WithIntlProps } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
@@ -164,6 +165,7 @@ export function ReactEditorView(props: EditorViewProps) {
 	// so we allow transactions by default, to avoid discarding the initial one.
 	const canDispatchTransactions = useRef(true);
 
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const editorId = useRef<string>(uuid());
 	const eventDispatcher = useMemo(() => new EventDispatcher(), []);
 	const config = useRef<EditorConfig>({

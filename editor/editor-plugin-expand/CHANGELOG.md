@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-expand
 
+## 7.3.0
+
+### Minor Changes
+
+- [`236d9310035ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/236d9310035ae) -
+  [https://product-fabric.atlassian.net/browse/ED-29205](ED-29205) - use native DOM element for
+  editor expand icon
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.5
 
 ### Patch Changes

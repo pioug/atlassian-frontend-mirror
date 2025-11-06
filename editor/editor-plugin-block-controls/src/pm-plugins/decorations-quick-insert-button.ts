@@ -1,6 +1,7 @@
 import { createElement } from 'react';
 
 import { type IntlShape } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -53,6 +54,7 @@ export const quickInsertButtonDecoration = ({
 	anchorRectCache,
 	editorState,
 }: QuickInsertButtonDecorationParams) => {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const key = uuid();
 	const cleanupCallbacks: (() => void)[] = [];
 

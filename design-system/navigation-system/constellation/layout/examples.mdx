@@ -125,13 +125,14 @@ See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-in
 
 #### Side nav resizing
 
-- You can optionally render a [panel splitter](#resizable-areas) as a child to make the side nav
-  resizable. It is resized using the drag handle. When hovering on the drag handle the mouse pointer
-  changes to a resize pointer.
+- You can optionally render a [side nav panel splitter](#resizable-areas) as a child to make the
+  side nav resizable. It is resized using the drag handle. When hovering on the drag handle the
+  mouse pointer changes to a resize pointer.
 - The side nav can be resized to a minimum width of 240px, and a maximum width equal to 50% of the
   total viewport width. It retains this resized width even after collapsing, reopening, or
   refreshing the page. When resizing, any open layer components (e.g. popups, dropdowns, selects,
   tooltips) will be closed.
+- The side nav panel splitter can be also double clicked to collapse the side nav.
 
 See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 
@@ -230,13 +231,13 @@ See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-in
 
 ## Resizable areas
 
-Render `PanelSplitter` in a layout area to make it resizable.
+Render a `PanelSplitter` in a layout area to make it resizable.
 
 Resizing is supported for the following areas:
 
-- [SideNav](/components/navigation-system/layout/examples#side-nav)
-- [Aside](/components/navigation-system/layout/examples#aside)
-- [Panel](/components/navigation-system/layout/examples#panel)
+- [SideNav](/components/navigation-system/layout/examples#side-nav) - use `SideNavPanelSplitter`
+- [Aside](/components/navigation-system/layout/examples#aside) - use `PanelSplitter`
+- [Panel](/components/navigation-system/layout/examples#panel) - use `PanelSplitter`
 
 See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 

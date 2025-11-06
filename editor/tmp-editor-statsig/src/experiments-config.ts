@@ -768,6 +768,13 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	platform_editor_native_expand_button: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_native_expand_button',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-08-28
 	editor_enable_image_alignment_in_expand: createBooleanExperiment({
 		productKeys: {
@@ -1082,6 +1089,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-11-05
+	platform_editor_nested_table_detection: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_nested_table_detection',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-10-24
 	platform_editor_fix_clone_nesting_exp: createBooleanExperiment({
 		productKeys: {
@@ -1099,10 +1114,26 @@ export const editorExperimentsConfig = {
 		values: ['control', 'test_with_overflow', 'test_without_overflow'],
 		defaultValue: 'control',
 	}),
+	// Added 2025-11-04
+	platform_editor_disable_lazy_load_media: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_disable_lazy_load_media',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-10-29
 	platform_editor_lovability_inline_code: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_lovability_inline_code',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-11-05
+	platform_editor_lovability_emoji_scaling: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_lovability_emoji_scaling',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

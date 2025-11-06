@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import type { ExtractInjectionAPI, EditorCommand } from '@atlaskit/editor-common/types';
@@ -87,6 +88,7 @@ export const createSingleMentionFragment =
 				id,
 				accessLevel,
 				userType: userType === 'DEFAULT' ? null : userType,
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				localId: localId ?? uuid(),
 			},
 			null,

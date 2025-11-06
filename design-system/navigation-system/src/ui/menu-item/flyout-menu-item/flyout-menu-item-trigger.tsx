@@ -60,11 +60,6 @@ export type FlyoutMenuItemTriggerProps = MenuItemCommonProps & {
 	 * If you are controlling the open state of the flyout menu, use this to update your state.
 	 */
 	onClick?: MenuItemOnClick<HTMLButtonElement>;
-
-	/**
-	 * Indicates that the menu item is selected.
-	 */
-	isSelected?: boolean;
 };
 
 /**

@@ -1,4 +1,5 @@
 import type { IntlShape } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
@@ -12,6 +13,7 @@ import type {
 	ExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
 import { getExtensionAutoConvertersFromProvider } from '@atlaskit/editor-common/extensions';
+import { isNestedTablesSupported } from '@atlaskit/editor-common/nesting';
 import { isPastedFile as isPastedFileFromEvent, md } from '@atlaskit/editor-common/paste';
 import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -285,6 +287,7 @@ export function createPlugin(
 				const { state } = view;
 
 				const content = getContentNodeTypes(slice.content);
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				const pasteId = uuid();
 				const measureName = `${PASTE}_${pasteId}`;
 				measureRender(measureName, ({ duration, distortedDuration }) => {
@@ -589,7 +592,8 @@ export function createPlugin(
 				if (
 					handleNestedTablePasteWithAnalytics(
 						editorAnalyticsAPI,
-						fg('platform_editor_use_nested_table_pm_nodes'),
+						isNestedTablesSupported(state.schema) &&
+							fg('platform_editor_use_nested_table_pm_nodes'),
 					)(
 						view,
 						event,

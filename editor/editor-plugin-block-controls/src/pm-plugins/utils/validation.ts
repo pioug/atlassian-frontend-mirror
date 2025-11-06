@@ -1,6 +1,6 @@
 import memoizeOne from 'memoize-one';
 
-import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
+import { getParentOfTypeCount, isNestedTablesSupported } from '@atlaskit/editor-common/nesting';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
@@ -134,6 +134,7 @@ export function canMoveNodeToIndex(
 	const activeNodeType = srcNode?.type;
 	const layoutColumnContent = srcNode.content;
 	const isNestingTablesSupported =
+		isNestedTablesSupported(schema) &&
 		fg('platform_editor_use_nested_table_pm_nodes') &&
 		editorExperiment('nested-tables-in-tables', true, { exposure: true });
 

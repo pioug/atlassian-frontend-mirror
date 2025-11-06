@@ -1,6 +1,7 @@
 import { Subscription } from 'rxjs/Subscription';
 import { type ReplaySubject } from 'rxjs/ReplaySubject';
 import { map } from 'rxjs/operators/map';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 import type Dataloader from 'dataloader';
 import { type AuthProvider, authToOwner } from '@atlaskit/media-core';
@@ -347,7 +348,9 @@ export class FileFetcherImpl implements FileFetcher {
 		collection?: string,
 		traceContext?: MediaTraceContext,
 	): UploadableFileUpfrontIds {
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const id = uuid();
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const occurrenceKey = uuid();
 		const touchFileDescriptor: TouchFileDescriptor = {
 			fileId: id,

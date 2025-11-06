@@ -45,6 +45,11 @@ export type MenuItemCommonProps = {
 	isContentTooltipDisabled?: boolean;
 
 	/**
+	 * Indicates that the menu item is selected.
+	 */
+	isSelected?: boolean;
+
+	/**
 	 * Exposes the visually complete menu item, including:
 	 *
 	 * - the main interactive element (exposed through `ref`)

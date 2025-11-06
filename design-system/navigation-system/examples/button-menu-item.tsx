@@ -199,6 +199,12 @@ export const ButtonMenuItemExample = () => (
 				<ButtonMenuItem elemBefore={homeIcon} isDisabled description="with description">
 					Disabled
 				</ButtonMenuItem>
+				<ButtonMenuItem elemBefore={homeIcon} isSelected>
+					Selected
+				</ButtonMenuItem>
+				<ButtonMenuItem elemBefore={homeIcon} isSelected isDisabled>
+					Selected and disabled
+				</ButtonMenuItem>
 			</MenuList>
 		</SideNavContent>
 	</div>
@@ -399,6 +405,26 @@ export const ButtonMenuItemDisabledWithActions = () => (
 				actionsOnHover={<MoreAction />}
 			>
 				Disabled with actions
+			</ButtonMenuItem>
+		</MenuList>
+	</div>
+);
+
+export const ButtonMenuItemSelected = () => (
+	<div css={styles.root}>
+		<MenuList>
+			<ButtonMenuItem elemBefore={homeIcon} isSelected>
+				Selected
+			</ButtonMenuItem>
+		</MenuList>
+	</div>
+);
+
+export const ButtonMenuItemSelectedDisabled = () => (
+	<div css={styles.root}>
+		<MenuList>
+			<ButtonMenuItem elemBefore={homeIcon} isSelected isDisabled>
+				Selected and disabled
 			</ButtonMenuItem>
 		</MenuList>
 	</div>

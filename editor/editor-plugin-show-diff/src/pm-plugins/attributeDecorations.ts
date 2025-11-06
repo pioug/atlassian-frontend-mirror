@@ -18,6 +18,7 @@ export const getAttrChangeRanges = (doc: PMNode, steps: ProseMirrorStep[]): Step
 			if (
 				(step instanceof AttrStep && allowedAttrs.includes(step.attr)) ||
 				(step instanceof SetAttrsStep &&
+					step.attrs &&
 					[...Object.keys(step.attrs)].some((v) => allowedAttrs.includes(v)))
 			) {
 				const $pos = doc.resolve(step.pos);
@@ -29,4 +30,32 @@ export const getAttrChangeRanges = (doc: PMNode, steps: ProseMirrorStep[]): Step
 			return undefined;
 		})
 		.filter(filterUndefined);
+};
+
+/**
+ * Check if the step was a valid attr change and affected the doc
+ *
+ * @param step Attr step to test
+ * @param beforeDoc Doc before the step
+ * @param afterDoc Doc after the step
+ * @returns Boolean if the change should show a decoration
+ */
+export const stepIsValidAttrChange = (
+	step: ProseMirrorStep,
+	beforeDoc: PMNode,
+	afterDoc: PMNode,
+) => {
+	try {
+		if (step instanceof AttrStep || step instanceof SetAttrsStep) {
+			const attrStepAfter = afterDoc.nodeAt(step.pos);
+			const attrStepBefore = beforeDoc.nodeAt(step.pos);
+			// The change affected the document
+			if (attrStepAfter && attrStepBefore && !attrStepAfter.eq(attrStepBefore)) {
+				return true;
+			}
+		}
+		return false;
+	} catch (e) {
+		return false;
+	}
 };

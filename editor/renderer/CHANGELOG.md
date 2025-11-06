@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 124.10.1
+
+### Patch Changes
+
+- [`23f6c637ea176`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23f6c637ea176) -
+  [ux] EDITOR-2629 redirect to source edit page instead of view page on edit source url click in
+  sync block
+
+## 124.10.0
+
+### Minor Changes
+
+- [`e5c510a42227e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5c510a42227e) -
+  [ux] Disable preview modals within preview panels
+
+### Patch Changes
+
+- [`0f988dbb4b54b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f988dbb4b54b) -
+  Added an experiment and implemented changes to disable lazy loading of internal images found
+  within Confluence PDF export pages
+- Updated dependencies
+
 ## 124.9.11
 
 ### Patch Changes

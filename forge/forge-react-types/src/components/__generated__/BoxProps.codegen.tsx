@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::59d9053f6fa2fe522770b1b720b745a7>>
+ * @codegen <<SignedSource::833bfa08957ddde715c67a04add3f554>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/__generated__/index.partial.tsx <<SignedSource::cd2255d6156809f22f110b9eb0936c9d>>
  */
@@ -68,6 +68,11 @@ export { makeXCSSValidator };
 export type { SafeCSSObject };
 
 const xcssValidator = makeXCSSValidator({
+	// text related props
+	textAlign: {
+		allowCSS: true,
+	},
+
 	// color related props
 	color: true,
 	boxShadow: true,

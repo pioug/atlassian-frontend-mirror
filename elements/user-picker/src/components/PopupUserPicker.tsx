@@ -64,6 +64,22 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<PopupUserPi
 			fg('platform-component-visual-refresh'),
 		);
 
+		const pickerProps = {
+			...getPopupProps(
+				width,
+				target,
+				this.handleFlipStyle,
+				boundariesElement,
+				offset,
+				placement,
+				rootBoundary,
+				shouldFlip,
+				popupTitle,
+				strategy,
+			),
+			...(this.props.popupSelectProps || {}),
+		};
+
 		return (
 			<BaseUserPickerWithoutAnalytics
 				{...this.props}
@@ -71,18 +87,7 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<PopupUserPi
 				width={width}
 				styles={selectStyles}
 				components={getPopupComponents(!!popupTitle)}
-				pickerProps={getPopupProps(
-					width,
-					target,
-					this.handleFlipStyle,
-					boundariesElement,
-					offset,
-					placement,
-					rootBoundary,
-					shouldFlip,
-					popupTitle,
-					strategy,
-				)}
+				pickerProps={pickerProps}
 			/>
 		);
 	}

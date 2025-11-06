@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "124.9.11",
+	"version": "124.10.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,6 +43,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/link-datasource": "workspace:^",
 		"@atlaskit/link-extractors": "workspace:^",
+		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/media-card": "workspace:^",
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/media-client-react": "workspace:^",
@@ -85,7 +86,6 @@
 		"@atlaskit/css-reset": "workspace:^",
 		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
-		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/media-integration-test-helpers": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",

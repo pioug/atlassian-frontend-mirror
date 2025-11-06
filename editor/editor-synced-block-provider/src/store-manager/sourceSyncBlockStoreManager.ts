@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -10,7 +11,7 @@ import type { SyncBlockDataProvider } from '../providers/types';
 import { resourceIdFromSourceAndLocalId } from '../utils/ari';
 import { convertSyncBlockPMNodeToSyncBlockData, createBodiedSyncBlockNode } from '../utils/utils';
 
-export type ConfirmationCallback = () => Promise<boolean>;
+export type ConfirmationCallback = (syncBlockCount: number) => Promise<boolean>;
 export type CreationCallback = () => void;
 
 export class SourceSyncBlockStoreManager {
@@ -127,6 +128,7 @@ export class SourceSyncBlockStoreManager {
 	}
 
 	public generateBodiedSyncBlockAttrs(): SyncBlockAttrs {
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const localId = uuid();
 		const sourceId = this.dataProvider?.getSourceId();
 		if (!sourceId) {
@@ -188,7 +190,7 @@ export class SourceSyncBlockStoreManager {
 	): Promise<void> {
 		if (this.confirmationCallback) {
 			this.confirmationTransaction = tr;
-			const confirmed = await this.confirmationCallback();
+			const confirmed = await this.confirmationCallback(syncBlockIds.length);
 			if (confirmed) {
 				this.editorView?.dispatch(
 					this.confirmationTransaction.setMeta('isConfirmedSyncBlockDeletion', true),

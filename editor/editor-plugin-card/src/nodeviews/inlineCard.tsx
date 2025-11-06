@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import rafSchedule from 'raf-schd';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -53,6 +54,7 @@ export const InlineCard = memo(
 		disablePreviewPanel,
 	}: SmartCardProps) => {
 		const { url, data } = node.attrs;
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const refId = useRef(uuid());
 
 		useEffect(() => {

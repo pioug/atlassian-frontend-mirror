@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as createUUID } from 'uuid';
 
 import coinflip from '../coinflip';
@@ -33,6 +34,7 @@ function traceUFOTransition(
 		UFORouteName.current = ufoName;
 		const rate = getInteractionRate(ufoName, 'transition');
 		if (coinflip(rate)) {
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			const newId: string = createUUID();
 
 			setInteractionActiveTrace(newId);

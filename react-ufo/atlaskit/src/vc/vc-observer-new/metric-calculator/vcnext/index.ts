@@ -1,15 +1,25 @@
-import type { VCObserverEntry } from '../../types';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import type { VCObserverEntry, VCObserverEntryType } from '../../types';
 import VCCalculator_FY25_03 from '../fy25_03';
 
 // NOTE: `next` to be renamed `fy26.04` once stable
 const REVISION_NO = 'next';
 
 const getConsideredEntryTypes = () => {
+	const consideredEntryTypes: VCObserverEntryType[] = ['mutation:display-contents-children-element'];
+
+	if (fg('platform_ufo_remove_ssr_placeholder_in_ttvc_v4')) {
+		consideredEntryTypes.push('mutation:ssr-placeholder');
+	}
+
 	return ['mutation:display-contents-children-element'];
 };
 
 const getExcludedEntryTypes = () => {
-	return ['layout-shift:same-rect'];
+	const excludedEntryTypes: VCObserverEntryType[] = ['layout-shift:same-rect'];
+
+	return excludedEntryTypes;
 };
 
 // NOTE: `VCNext` to be renamed `FY26_04` once stable

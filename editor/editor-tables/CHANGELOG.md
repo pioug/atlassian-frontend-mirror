@@ -1,5 +1,14 @@
 # @atlaskit/editor-tables
 
+## 2.9.16
+
+### Patch Changes
+
+- [`c094becfaeeaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c094becfaeeaa) -
+  EDITOR-2476 Introduce new utility method to check if nested tables is supported in the schema to
+  facilitate removal of gate `platform_editor_use_nested_table_pm_nodes`
+- Updated dependencies
+
 ## 2.9.15
 
 ### Patch Changes
@@ -587,16 +596,13 @@
   @atlaskit/adf-schema to their own entry points. These new entry points are as follows
 
   @atlaskit/adf-schema/schema-bitbucket for:
-
   - bitbucketSchema
 
   @atlaskit/adf-schema/schema-confluence for:
-
   - confluenceSchema
   - confluenceSchemaWithMediaSingle
 
   @atlaskit/adf-schema/schema-jira for:
-
   - default as createJIRASchema
   - isSchemaWithLists
   - isSchemaWithMentions
@@ -611,7 +617,6 @@
   - isSchemaWithTables
 
   @atlaskit/adf-schema/schema-default for:
-
   - defaultSchema
   - getSchemaBasedOnStage
   - defaultSchemaConfig
@@ -660,7 +665,6 @@
 
 - [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) -
   ED-11632: Bump prosemirror packages;
-
   - prosmirror-commands 1.1.4 -> 1.1.11,
   - prosemirror-model 1.11.0 -> 1.14.3,
   - prosemirror-state 1.3.3 -> 1.3.4,

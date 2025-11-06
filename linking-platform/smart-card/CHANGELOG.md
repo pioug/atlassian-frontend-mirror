@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 43.6.0
+
+### Minor Changes
+
+- [`e5c510a42227e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5c510a42227e) -
+  [ux] Disable preview modals within preview panels
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.5.2
 
 ### Patch Changes

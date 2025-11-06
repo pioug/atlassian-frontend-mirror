@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import { type EnvironmentsKeys, getBaseUrl } from '@atlaskit/linking-common';
@@ -107,6 +108,7 @@ export class AISummaryService implements AISummaryServiceInt {
 			subscriber(this.state);
 		}
 
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const id = uuid();
 		try {
 			this.onStart?.(id);

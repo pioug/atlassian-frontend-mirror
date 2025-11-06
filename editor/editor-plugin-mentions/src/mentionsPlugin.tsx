@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 
 import { type IntlShape, useIntl } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
@@ -88,6 +89,7 @@ function Component({
 }
 
 const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const sessionId = uuid();
 	let previousMediaProvider: MentionProvider;
 	const fireEvent: FireElementsChannelEvent = (

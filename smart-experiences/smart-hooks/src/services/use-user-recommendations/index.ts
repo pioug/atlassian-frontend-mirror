@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import debounce from 'lodash/debounce';
 import memoizeOne from 'memoize-one';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
@@ -55,6 +56,7 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
 	const [recommendations, setRecommendations] = useState<UserSearchItem[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState<any>();
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const [renderId] = useState<string>(() => uuid());
 
 	const sessionId = useRef<string>('');
@@ -102,6 +104,7 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
 		async (query?: string) => {
 			setIsLoading(true);
 			// restart session
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			sessionId.current = uuid();
 
 			UsersFetchedUfoExperience.getInstance(fieldId).start();

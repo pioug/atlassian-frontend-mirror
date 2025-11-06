@@ -1,5 +1,6 @@
 import React, { createContext, type ReactNode, useContext, useEffect, useRef } from 'react';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 
 import {
@@ -28,6 +29,7 @@ const useConstructor = (callback: () => void) => {
 };
 
 export const LinkPickerSessionProvider = ({ children }: SessionProviderProps) => {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const { current: sessionId } = useRef(uuidv4());
 
 	useEffect(() => {

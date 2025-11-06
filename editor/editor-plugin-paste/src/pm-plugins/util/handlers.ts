@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import type { MentionAttributes } from '@atlaskit/adf-schema';
@@ -867,6 +868,7 @@ export function handleMacroAutoConvert(
 					throw new Error('View is missing');
 				}
 
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				const trackingId = uuid();
 				const trackingFrom = `handleMacroAutoConvert-from-${trackingId}`;
 				const trackingTo = `handleMacroAutoConvert-to-${trackingId}`;

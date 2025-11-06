@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
@@ -8,8 +9,7 @@ import type {
 	TypeAheadHandler,
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
-import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils';
-import type { Mark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -223,6 +223,7 @@ const buildNodesForTeamMention = (
 			id: member.id,
 			accessLevel,
 			userType: 'DEFAULT',
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			localId: uuid(),
 		});
 
@@ -261,6 +262,7 @@ export const createTypeAheadConfig = ({
 	api,
 	handleMentionsChanged,
 }: Props) => {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	let sessionId = uuid();
 	let firstQueryWithoutResults: string | null = null;
 	const subscriptionKeys = new Set<string>();
@@ -290,6 +292,7 @@ export const createTypeAheadConfig = ({
 				api?.contextIdentifier?.sharedState.currentState() ?? {};
 
 			return new Promise((resolve, reject) => {
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				const key = `loadingMentionsForTypeAhead_${uuid()}`;
 				const mentionsSubscribeCallback = (
 					mentions: MentionDescription[],
@@ -361,8 +364,6 @@ export const createTypeAheadConfig = ({
 			const pluginState = getMentionPluginState(state);
 			const { mentionProvider } = pluginState;
 			const { id, name, nickname, accessLevel, userType, isXProductUser } = item.mention;
-			const trimmedNickname = nickname && nickname.startsWith('@') ? nickname.slice(1) : nickname;
-			const renderName = mentionInsertDisplayName || !trimmedNickname ? name : trimmedNickname;
 			const { contextIdentifierProvider } =
 				api?.contextIdentifier?.sharedState.currentState() ?? {};
 
@@ -411,6 +412,7 @@ export const createTypeAheadConfig = ({
 				}
 			}
 
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			const mentionLocalId = uuid();
 			if (handleMentionsChanged) {
 				if (taskItemId) {
@@ -445,6 +447,7 @@ export const createTypeAheadConfig = ({
 				),
 			);
 
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			sessionId = uuid();
 
 			if (mentionProvider && isTeamType(userType)) {
@@ -457,57 +460,22 @@ export const createTypeAheadConfig = ({
 				mentionProvider.inviteXProductUser(id, name);
 			}
 
-			// This replaces logic below
-			if (fg('platform_mention_insert_mention_refactor')) {
-				return insert(
-					createSingleMentionFragment({
-						mentionProvider,
-						mentionInsertDisplayName,
-						tr: state.tr,
-						sanitizePrivateContent,
-					})({
-						name,
-						id,
-						userType,
-						nickname,
-						localId: mentionLocalId,
-						accessLevel,
-						isXProductUser,
-					}),
-				);
-			}
-
-			// Don't insert into document if document data is sanitized.
-			const text = sanitizePrivateContent ? '' : `@${renderName}`;
-
-			if (sanitizePrivateContent && isResolvingMentionProvider(mentionProvider)) {
-				// Cache (locally) for later rendering
-				mentionProvider.cacheMentionName(id, renderName);
-			}
-
-			const annotationMarksForPos: Mark[] | undefined = fg(
-				'editor_inline_comments_paste_insert_nodes',
-			)
-				? getAnnotationMarksForPos(state.tr.selection.$head)
-				: undefined;
-
-			const mentionNode = schema.nodes.mention.createChecked(
-				{
-					text,
+			return insert(
+				createSingleMentionFragment({
+					mentionProvider,
+					mentionInsertDisplayName,
+					tr: state.tr,
+					sanitizePrivateContent,
+				})({
+					name,
 					id,
-					accessLevel,
-					userType: userType === 'DEFAULT' ? null : userType,
+					userType,
+					nickname,
 					localId: mentionLocalId,
-				},
-				null,
-				fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
+					accessLevel,
+					isXProductUser,
+				}),
 			);
-			const space = schema.text(
-				' ',
-				fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
-			);
-
-			return insert(Fragment.from([mentionNode, space]));
 		},
 		dismiss({ editorState, query, stats, wasItemInserted }) {
 			firstQueryWithoutResults = null;
@@ -537,6 +505,7 @@ export const createTypeAheadConfig = ({
 			}
 			subscriptionKeys.clear();
 
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			sessionId = uuid();
 		},
 	};

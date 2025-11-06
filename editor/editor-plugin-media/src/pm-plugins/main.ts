@@ -4,6 +4,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 import { RawIntlProvider } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
@@ -1107,6 +1108,7 @@ export const createPlugin = (
 				if (pos === null || pos === undefined) {
 					return DecorationSet.create(state.doc, mediaNodes);
 				}
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				const dropPlaceholderKey = uuid();
 				const dropPlaceholders: Decoration[] = [
 					Decoration.widget(

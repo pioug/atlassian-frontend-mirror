@@ -493,10 +493,11 @@ const PortaledPanelSplitter = ({
  * _PanelSplitter_
  *
  * A component that allows the user to resize a layout area.
- * It can be used within layout areas like `SideNav`, `Panel`, and `Aside`. The layout area component should
- * provide the context for it using `<PanelSplitterProvider>`.
+ * It can be used within layout areas like `Panel`, and `Aside`.
+ * For the `SideNav`, use the `SideNavPanelSplitter` component instead, as it provides additional functionality
+ * such as double clicking to collapse the side nav.
  *
- * Example usage in products:
+ * Example usage:
  * ```tsx
  * <Aside>
  *   <!-- other side nav content -->

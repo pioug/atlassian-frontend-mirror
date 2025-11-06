@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.14.3
+
+### Patch Changes
+
+- [`666790c2fd8dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/666790c2fd8dd) -
+  Remove SSR placeholder exclusions for VC next
+
 ## 4.14.2
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-card
 
+## 11.5.0
+
+### Minor Changes
+
+- [`e5c510a42227e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5c510a42227e) -
+  [ux] Disable preview modals within preview panels
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.4.5
 
 ### Patch Changes

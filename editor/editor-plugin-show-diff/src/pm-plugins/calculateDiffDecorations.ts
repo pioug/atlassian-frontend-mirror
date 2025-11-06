@@ -4,14 +4,13 @@ import memoizeOne from 'memoize-one';
 import { ChangeSet, simplifyChanges, type Change } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl-next';
 
-import { AnalyticsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { Step as ProseMirrorStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
-import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import { getAttrChangeRanges } from './attributeDecorations';
+import { getAttrChangeRanges, stepIsValidAttrChange } from './attributeDecorations';
 import {
 	createInlineChangedDecoration,
 	createDeletedContentDecoration,
@@ -85,14 +84,7 @@ function simplifySteps(steps: ProseMirrorStep[]): ProseMirrorStep[] {
 	return (
 		steps
 			// Remove steps that don't affect document structure or content
-			.filter(
-				(step) =>
-					!(
-						step instanceof AnalyticsStep ||
-						step instanceof AttrStep ||
-						step instanceof SetAttrsStep
-					),
-			)
+			.filter((step) => !(step instanceof AnalyticsStep))
 			// Merge consecutive steps where possible
 			.reduce<ProseMirrorStep[]>((acc, step) => {
 				const lastStep = acc[acc.length - 1];
@@ -129,13 +121,15 @@ const calculateDiffDecorationsInner = ({
 	const { tr } = state;
 	let steppedDoc = originalDoc;
 
-	const stepMaps: StepMap[] = [];
+	const attrSteps: ProseMirrorStep[] = [];
 	let changeset = ChangeSet.create(originalDoc);
 	for (const step of steps) {
 		const result = step.apply(steppedDoc);
 		if (result.failed === null && result.doc) {
+			if (stepIsValidAttrChange(step, steppedDoc, result.doc)) {
+				attrSteps.push(step);
+			}
 			steppedDoc = result.doc;
-			stepMaps.push(step.getMap());
 			changeset = changeset.addSteps(steppedDoc, [step.getMap()], step);
 		}
 	}
@@ -173,7 +167,7 @@ const calculateDiffDecorationsInner = ({
 	getMarkChangeRanges(steps).forEach((change) => {
 		decorations.push(createInlineChangedDecoration(change, colourScheme));
 	});
-	getAttrChangeRanges(tr.doc, rawSteps).forEach((change) => {
+	getAttrChangeRanges(tr.doc, attrSteps).forEach((change) => {
 		decorations.push(
 			...calculateNodesForBlockDecoration(tr.doc, change.fromB, change.toB, colourScheme),
 		);

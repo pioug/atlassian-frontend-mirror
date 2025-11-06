@@ -1,4 +1,5 @@
 import { type IntlShape } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -194,6 +195,7 @@ export const plugin = (
 					].includes(action)
 						? {
 								timesViewed: ++state.timesViewed,
+								// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 								searchSessionId: uuid(),
 							}
 						: {

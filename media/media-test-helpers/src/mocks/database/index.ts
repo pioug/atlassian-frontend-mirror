@@ -1,4 +1,5 @@
 import { Database } from 'kakapo';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuidV4 from 'uuid/v4';
 
 import { type ClientBasedAuth } from '@atlaskit/media-core';
@@ -21,12 +22,14 @@ export {
 export type { CollectionItem, CreateCollectionItemOptions } from './collection-item';
 
 export const tenantAuth: ClientBasedAuth = {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	clientId: uuidV4(),
 	token: 'some-tenant-token',
 	baseUrl: defaultBaseUrl,
 };
 
 export const userAuth: ClientBasedAuth = {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	clientId: uuidV4(),
 	token: 'some-user-token',
 	baseUrl: defaultBaseUrl,
@@ -64,6 +67,7 @@ export function createDatabase(collections: MockCollections = {}): Database<Medi
 							id,
 							collectionName,
 							blob,
+							// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 							occurrenceKey: uuidV4(),
 							mediaType,
 							mimeType,

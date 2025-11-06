@@ -18,6 +18,7 @@ import {
 	getDimensionsFromBlob,
 } from '../..';
 import { getFileStreamsCache } from '../../file-streams-cache';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 import { type UploadFileCallbacks } from '../../uploader';
 import { FileFetcherImpl } from '../../client/file-fetcher';
@@ -54,6 +55,7 @@ describe('FileFetcher', () => {
 
 		const items: ResponseFileItem[] = [
 			{
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				id: uuid(),
 				type: 'file',
 				collection: 'collection-1',
@@ -68,6 +70,7 @@ describe('FileFetcher', () => {
 				},
 			},
 			{
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				id: uuid(),
 				type: 'file',
 				collection: 'collection-1',
@@ -82,6 +85,7 @@ describe('FileFetcher', () => {
 				},
 			},
 			{
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				id: uuid(),
 				type: 'file',
 				collection: 'collection-2',

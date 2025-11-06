@@ -3,6 +3,7 @@ import React, { type ReactNode } from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import GrowVerticalIcon from '@atlaskit/icon/core/grow-vertical';
+import type { ButtonMenuItem } from '@atlaskit/navigation-system';
 import { token } from '@atlaskit/tokens';
 
 type TListMembership = 'first' | 'last' | 'only' | 'standard';
@@ -28,6 +29,7 @@ export function ReorderActionMenu({
 	onMoveDown,
 	onMoveToBottom,
 	label,
+	TriggerComponent = DropdownItem,
 }: {
 	index: number;
 	listSize: number;
@@ -36,6 +38,7 @@ export function ReorderActionMenu({
 	onMoveDown: () => void;
 	onMoveToBottom: () => void;
 	label: ReactNode;
+	TriggerComponent?: typeof DropdownItem | typeof ButtonMenuItem;
 }) {
 	const type = getType({ index, listSize });
 
@@ -43,18 +46,22 @@ export function ReorderActionMenu({
 		<DropdownMenu
 			shouldRenderToParent
 			placement="right-start"
-			trigger={({ triggerRef, ...triggerProps }) => (
-				<DropdownItem
-					{...triggerProps}
-					ref={triggerRef}
-					elemBefore={<GrowVerticalIcon label="" />}
-					elemAfter={<ChevronRightIcon color={token('color.icon.subtle')} label="" size="small" />}
-					// No movement operations available when there is only one item
-					isDisabled={type === 'only'}
-				>
-					<span>{label}</span>
-				</DropdownItem>
-			)}
+			trigger={({ triggerRef, ...triggerProps }) => {
+				return (
+					<TriggerComponent
+						{...triggerProps}
+						ref={triggerRef}
+						elemBefore={<GrowVerticalIcon label="" />}
+						elemAfter={
+							<ChevronRightIcon color={token('color.icon.subtle')} label="" size="small" />
+						}
+						// No movement operations available when there is only one item
+						isDisabled={type === 'only'}
+					>
+						<span>{label}</span>
+					</TriggerComponent>
+				);
+			}}
 		>
 			<DropdownItemGroup>
 				<DropdownItem isDisabled={type === 'first'} onClick={() => onMoveToTop()}>

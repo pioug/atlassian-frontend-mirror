@@ -360,6 +360,11 @@ export class MediaCardView extends Component<
 		};
 
 		const Card = enableSyncMediaCard && fg('jfp-magma-ssr-iv-editor-media') ? CardSync : CardAsync;
+		
+		// Quick solution to disable lazy loading of images on PDF export pages in Confluence to remedy an issue with images never loading
+		// More robust solution will be implemented as part of CCPDF-233 - Link: https://hello.jira.atlassian.cloud/browse/CCPDF-233
+		const currentUrl = window.location.href;
+		const shouldDisableLazyLoading = expValEquals('platform_editor_disable_lazy_load_media', 'isEnabled', true) && currentUrl.includes('/wiki/pdf/spaces/');
 
 		return (
 			<div
@@ -387,7 +392,7 @@ export class MediaCardView extends Component<
 					originalDimensions={originalDimensions}
 					onClick={onCardClick}
 					resizeMode={resizeMode}
-					isLazy={!isMobile}
+					isLazy={!isMobile && !shouldDisableLazyLoading}
 					disableOverlay={disableOverlay}
 					useInlinePlayer={isInlinePlayer}
 					shouldOpenMediaViewer={shouldOpenMediaViewer}

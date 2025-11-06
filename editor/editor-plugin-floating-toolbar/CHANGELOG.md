@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 8.2.15
+
+### Patch Changes
+
+- [`c094becfaeeaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c094becfaeeaa) -
+  EDITOR-2476 Introduce new utility method to check if nested tables is supported in the schema to
+  facilitate removal of gate `platform_editor_use_nested_table_pm_nodes`
+- Updated dependencies
+
+## 8.2.14
+
+### Patch Changes
+
+- [`e3336879840a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3336879840a4) -
+  [ux] EDITOR-2620 Toggle contextual menu when drag menu is opened
+- Updated dependencies
+
 ## 8.2.13
 
 ### Patch Changes

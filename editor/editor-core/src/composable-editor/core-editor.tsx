@@ -7,6 +7,7 @@ import { useCallback, useMemo, useRef, Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import isEqual from 'lodash/isEqual';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
@@ -171,6 +172,7 @@ const useMemoEditorFeatureFlags = (featureFlags?: { [featureFlag: string]: strin
  * @example
  */
 export function CoreEditor(props: EditorNextProps & WithAppearanceComponent) {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const editorSessionId = useRef(uuid());
 	const data = useMemo(() => {
 		return {

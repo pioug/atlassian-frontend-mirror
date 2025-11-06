@@ -10,6 +10,7 @@ import {
 import userEvent from '@testing-library/user-event';
 import * as jestExtendedMatchers from 'jest-extended';
 import { IntlProvider } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';

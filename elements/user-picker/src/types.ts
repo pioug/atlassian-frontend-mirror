@@ -5,7 +5,7 @@ import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { type Placement } from '@atlaskit/popper';
 
 import { type EmailValidator } from './components/emailValidation';
-import { type StylesConfig, type SelectComponentsConfig } from '@atlaskit/select';
+import { type StylesConfig, type SelectComponentsConfig, type PopupSelectProps } from '@atlaskit/select';
 import { type BaseUserPickerWithoutAnalytics } from './components/BaseUserPicker';
 
 export type UserPickerProps = WithAnalyticsEventsProps & {
@@ -157,6 +157,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	placeholder?: React.ReactNode;
 	/** Placeholder avatar style - defaults to person */
 	placeholderAvatar?: 'person' | 'team';
+	/** Props to be passed to the popup select component */
+	popupSelectProps?: PopupSelectProps<OptionData>;
 	/** Accessibility: A field to dictate if this is a mandatory field in the form. */
 	required?: boolean;
 	/** Input text value. */

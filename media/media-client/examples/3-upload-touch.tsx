@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import { MediaStore } from '../src';
 import { createUploadMediaClient } from '../src/test-helpers';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 import { Response, Row, UploadTouchWrapper as Wrapper } from '../example-helpers/stylesWrapper';
 
@@ -27,6 +28,7 @@ class Example extends React.Component<{}, State> {
 	}
 
 	createNewFile = async () => {
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		this.lastFileId = uuid();
 		let result: any;
 		try {
@@ -59,6 +61,7 @@ class Example extends React.Component<{}, State> {
 						fileId: this.lastFileId,
 					},
 					{
+						// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 						fileId: uuid(),
 					},
 				],

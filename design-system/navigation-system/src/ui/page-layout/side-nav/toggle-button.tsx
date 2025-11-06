@@ -7,7 +7,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } 
 import { css, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { type IconButtonProps } from '@atlaskit/button/new';
 import { type NewCoreIconProps } from '@atlaskit/icon';
 import SidebarCollapseIcon from '@atlaskit/icon/core/sidebar-collapse';
@@ -155,14 +155,41 @@ export const SideNavToggleButton = ({
 
 	const toggleVisibility = useToggleSideNav({ trigger: 'toggle-button' });
 
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+
 	const handleClick = useCallback(
 		(event: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => {
 			onClick?.(event, analyticsEvent, { isSideNavVisible: isSideNavExpanded });
 
 			toggleVisibility();
 		},
-		[onClick, toggleVisibility, isSideNavExpanded],
+		[onClick, isSideNavExpanded, toggleVisibility],
 	);
+
+	const handlePointerEnter = useCallback(() => {
+		if (!fg('platform_dst_nav4_fhs_instrumentation_1')) {
+			return;
+		}
+
+		// Hovers don't do anything on mobile, so not capturing
+		const isDesktop = window.matchMedia('(min-width: 64rem)').matches;
+		if (!isDesktop) {
+			return;
+		}
+
+		const navigationAnalyticsEvent = createAnalyticsEvent({
+			source: 'topNav',
+			actionSubject: 'sideNav',
+			action: 'hovered',
+			actionSubjectId: 'sideNavButton',
+			attributes: {
+				itemState: isSideNavExpanded ? 'expanded' : 'collapsed',
+				screen: 'desktop',
+			},
+		});
+
+		navigationAnalyticsEvent.fire('navigation');
+	}, [createAnalyticsEvent, isSideNavExpanded]);
 
 	/**
 	 * ## Behaviour
@@ -203,6 +230,7 @@ export const SideNavToggleButton = ({
 			label={isSideNavExpanded ? collapseLabel : expandLabel}
 			icon={icon}
 			onClick={handleClick}
+			onPointerEnter={handlePointerEnter}
 			testId={testId}
 			isTooltipDisabled={false}
 			interactionName={interactionName}

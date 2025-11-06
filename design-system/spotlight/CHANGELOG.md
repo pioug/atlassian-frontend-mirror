@@ -1,5 +1,24 @@
 # @atlaskit/spotlight
 
+## 0.9.0
+
+### Minor Changes
+
+- [`e84be109faebe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e84be109faebe) -
+  Apply `overflow: hidden` on `SpotlightMedia`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.8.0
+
+### Minor Changes
+
+- [`2a1e06ea7c3d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a1e06ea7c3d7) -
+  Expose `offset` prop on `PopoverContent`. `PopoverContent` can now be manually positioned anywhere
+  within the viewport.
+
 ## 0.7.2
 
 ### Patch Changes

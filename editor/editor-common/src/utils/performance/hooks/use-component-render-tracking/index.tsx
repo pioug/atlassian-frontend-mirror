@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuidv4 from 'uuid/v4';
 
 import {
@@ -38,6 +39,7 @@ export function useComponentRenderTracking<Props = undefined>({
 }: UseComponentRenderTrackingArgs<Props>) {
 	const propsRef = useRef<Props>();
 	const renderCountRef = useRef<number>(zeroBasedCount ? 0 : 1);
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const { current: componentId } = useRef<string>(uuidv4());
 
 	useEffect(() => {

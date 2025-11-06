@@ -1,5 +1,16 @@
 # @atlaskit/forge-react-types
 
+## 0.47.0
+
+### Minor Changes
+
+- [`1696da6220e23`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1696da6220e23) -
+  Add textAlign to xcss
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.46.3
 
 ### Patch Changes

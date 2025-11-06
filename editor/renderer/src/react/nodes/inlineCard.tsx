@@ -8,6 +8,7 @@ import { jsx } from '@emotion/react';
 import { type Mark } from '@atlaskit/editor-prosemirror/model';
 import { useSmartCardContext } from '@atlaskit/link-provider';
 import { Card, getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
+import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
 import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { HoverLinkOverlay, UnsupportedInline } from '@atlaskit/editor-common/ui';
@@ -127,6 +128,12 @@ const OverlayWithCardContext = ({
 			? 'modal'
 			: undefined;
 
+	// When inside preview panel iframe, hide the overlay button
+	const isInPreviewPanel =
+		expValEquals('platform_hover_card_preview_panel_modal', 'cohort', 'test') &&
+		isWithinPreviewPanelIFrame();
+	const showPanelButton = isInPreviewPanel ? isPreviewPanelAvailable : isPreviewAvailable;
+
 	const Overlay = isPreviewAvailable ? HoverLinkOverlayWithCondition : HoverLinkOverlayNoop;
 
 	return (
@@ -134,7 +141,7 @@ const OverlayWithCardContext = ({
 			isVisible={isResolvedViewRendered}
 			url={url}
 			compactPadding={rendererAppearance === 'comment'}
-			showPanelButton={isPreviewAvailable}
+			showPanelButton={showPanelButton}
 			showPanelButtonIcon={showPanelButtonIcon}
 			onClick={(event) => {
 				if (isPreviewPanelAvailable) {

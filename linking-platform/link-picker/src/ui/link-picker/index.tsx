@@ -16,6 +16,7 @@ import {
 
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
@@ -231,6 +232,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 
 			const { trackAttribute, getAttributes } = useLinkPickerAnalytics();
 
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			const submitMessageId = useMemo(() => uuid(), []);
 
 			useLayoutEffect(() => {

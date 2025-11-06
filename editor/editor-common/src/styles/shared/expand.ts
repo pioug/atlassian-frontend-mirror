@@ -27,6 +27,8 @@ export const expandClassNames = {
 	inputContainer: `${prefix}__input-container`,
 	iconContainer: `${prefix}__icon-container`,
 	icon: `${prefix}__icon`,
+	iconButton: `${prefix}__icon-button`,
+	iconSvg: `${prefix}__icon-svg`,
 	titleInput: `${prefix}__title-input`,
 	content: `${prefix}__content`,
 	type: (type: string) => `${prefix}__type-${type}`,

@@ -72,265 +72,110 @@ describe('TeamProfileCard', () => {
 		window.open = originalWindowOpen;
 	});
 
-	describe('old layout', () => {
-		test('should render with given team data', () => {
-			(useTeamContainers as jest.Mock).mockReturnValue({ teamContainers: [] });
-			render(
-				<IntlProvider locale="en">
-					<TeamProfileCard
-						cloudId={mockCloudId}
-						userId={mockUserId}
-						containerId={'1234'}
-						{...mockProfileData}
-					/>
-				</IntlProvider>,
-			);
+	const renderComponent = (props: Partial<TeamProfileCardProps> = {}) =>
+		render(
+			<IntlProvider locale="en">
+				<TeamProfileCard
+					cloudId={mockCloudId}
+					userId={mockUserId}
+					containerId={'1234'}
+					{...mockProfileData}
+					teamCentralBaseUrl="https://test-prod-issue-create.atlassian.net/wiki"
+					analyticsSource="test"
+					isKudosEnabled
+					otherActions={[
+						{ id: '1', item: <button>Action 1 </button> },
+						{ id: '2', item: <button>Action 2 </button> },
+					]}
+					{...props}
+				/>
+			</IntlProvider>,
+		);
 
-			const headerImage = screen.getByTestId('profile-header-image');
-			expect(headerImage).toHaveAttribute('src', mockProfileData.headerImageUrl);
-
-			const displayName = screen.getByText(mockProfileData.displayName);
-			expect(displayName).toBeInTheDocument();
-
-			const verifiedIcon = screen.getByTestId('verified-team-icon');
-			expect(verifiedIcon).toBeInTheDocument();
-
-			const memberCount = screen.getByText(
-				new RegExp(`Contributing team • ${mockProfileData.memberCount}`),
-			);
-			expect(memberCount).toBeInTheDocument();
-
-			const description = screen.getByText(mockProfileData.description);
-			expect(description).toBeInTheDocument();
-
-			const viewProfileButton = screen.getByTestId('view-profile-button');
-			expect(viewProfileButton).toBeInTheDocument();
-		});
-
-		test('should render the team connections if the team has containers other than the current one', () => {
-			render(
-				<IntlProvider locale="en">
-					<TeamProfileCard
-						cloudId={mockCloudId}
-						userId={mockUserId}
-						containerId={'1234'}
-						{...mockProfileData}
-					/>
-				</IntlProvider>,
-			);
-
-			const teamConnectionsHeading = screen.getByText(/Where we work/);
-			expect(teamConnectionsHeading).toBeInTheDocument();
-
-			const teamContainers = screen.getByText('Mocked Team Containers');
-			expect(teamContainers).toBeInTheDocument();
-		});
-
-		test('should not render the "Where we work" section if the team does not have containers other than the current one', () => {
-			(useTeamContainers as jest.Mock).mockReturnValue({ teamContainers: [ConfluenceSpace] });
-			render(
-				<IntlProvider locale="en">
-					<TeamProfileCard
-						cloudId={mockCloudId}
-						userId={mockUserId}
-						containerId={'1234'}
-						{...mockProfileData}
-					/>
-				</IntlProvider>,
-			);
-
-			const teamConnectionsHeading = screen.queryByText(/Where we work/);
-			expect(teamConnectionsHeading).not.toBeInTheDocument();
-
-			const teamContainers = screen.queryByText('Mocked Team Containers');
-			expect(teamContainers).not.toBeInTheDocument();
-		});
-
-		test('should open the team profile in a new tab on click of View profile button', async () => {
-			render(
-				<IntlProvider locale="en">
-					<TeamProfileCard
-						cloudId={mockCloudId}
-						userId={mockUserId}
-						containerId={'1234'}
-						{...mockProfileData}
-					/>
-				</IntlProvider>,
-			);
-			const viewProfileButton = screen.getByRole('button', { name: 'View profile' });
-			expect(viewProfileButton).toBeInTheDocument();
-
-			await userEvent.click(viewProfileButton);
-
-			expect(window.open).toHaveBeenCalledWith(
-				'https://test-prod-issue-create.atlassian.net/wiki/people/team/8ee37950-7de7-41ec-aee2-2c02c95949f4',
-				'_blank',
-			);
-		});
-
-		test('should show the view profile button', async () => {
-			render(
-				<IntlProvider locale="en">
-					<TeamProfileCard
-						cloudId={mockCloudId}
-						userId={mockUserId}
-						containerId={'1234'}
-						{...mockProfileData}
-					/>
-				</IntlProvider>,
-			);
-			const viewProfileButton = screen.getByRole('button', { name: /View profile*/ });
-			expect(viewProfileButton).toBeVisible();
-
-			await userEvent.click(viewProfileButton);
-			expect(window.open).toHaveBeenCalledWith(
-				'https://test-prod-issue-create.atlassian.net/wiki/people/team/8ee37950-7de7-41ec-aee2-2c02c95949f4',
-				'_blank',
-			);
-		});
-
-		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			it('should fire analytics on profile link item click', async () => {
-				const { expectEventToBeFired } = render(
-					<IntlProvider locale="en">
-						<TeamProfileCard
-							cloudId={mockCloudId}
-							userId={mockUserId}
-							containerId={'1234'}
-							{...mockProfileData}
-						/>
-					</IntlProvider>,
-				);
-
-				await userEvent.click(screen.getByTestId('view-profile-button'));
-				expectEventToBeFired('ui', profileLinkClickEvent);
-			});
-		});
-		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-			it('should fire analytics on profile link item click', async () => {
-				const { expectEventToBeFired } = render(
-					<IntlProvider locale="en">
-						<TeamProfileCard
-							cloudId={mockCloudId}
-							userId={mockUserId}
-							containerId={'1234'}
-							{...mockProfileData}
-						/>
-					</IntlProvider>,
-				);
-
-				await userEvent.click(screen.getByTestId('view-profile-button'));
-				expectEventToBeFired('ui', profileLinkClickEvent);
-			});
-		});
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderComponent();
+		await expect(container).toBeAccessible();
 	});
 
-	describe('new layout', () => {
-		const renderComponent = (props: Partial<TeamProfileCardProps> = {}) =>
-			render(
-				<IntlProvider locale="en">
-					<TeamProfileCard
-						cloudId={mockCloudId}
-						userId={mockUserId}
-						containerId={'1234'}
-						{...mockProfileData}
-						teamCentralBaseUrl="https://test-prod-issue-create.atlassian.net/wiki"
-						analyticsSource="test"
-						isKudosEnabled
-						otherActions={[
-							{ id: '1', item: <button>Action 1 </button> },
-							{ id: '2', item: <button>Action 2 </button> },
-						]}
-						{...props}
-					/>
-				</IntlProvider>,
-			);
+	it('should render with given team data', () => {
+		(useTeamContainers as jest.Mock).mockReturnValue({ teamContainers: [] });
+		renderComponent();
 
-		it('should capture and report a11y violations', async () => {
-			const { container } = renderComponent();
-			await expect(container).toBeAccessible();
+		expect(screen.getByTestId('profile-header-image')).toHaveAttribute(
+			'src',
+			mockProfileData.headerImageUrl,
+		);
+		expect(screen.getByRole('heading', { name: mockProfileData.displayName })).toBeVisible();
+		expect(screen.getByTestId('verified-team-icon')).toBeVisible();
+
+		const memberCount = screen.getByText(
+			new RegExp(`Contributing team • ${mockProfileData.memberCount}`),
+		);
+		expect(memberCount).toBeVisible();
+		expect(screen.getByText(mockProfileData.description)).toBeVisible();
+	});
+
+	it('should render member count as 100+ if the member count is string', () => {
+		renderComponent({ memberCount: '100+' });
+		expect(screen.getByText('Contributing team • 100+ members')).toBeVisible();
+	});
+
+	it('should render team links', () => {
+		renderComponent();
+		expect(
+			screen.getByRole('link', { name: 'THE SUPER TEAM Team profile team-app-tile' }),
+		).toBeInTheDocument();
+	});
+
+	it('should team containers if the team has containers other than the current one', () => {
+		renderComponent();
+		expect(screen.getByText('Mocked Team Containers')).toBeVisible();
+	});
+
+	it('should not render the team containers if the team does not have containers other than the current one', () => {
+		(useTeamContainers as jest.Mock).mockReturnValue({ teamContainers: [ConfluenceSpace] });
+		renderComponent();
+		expect(screen.queryByText('Mocked Team Containers')).not.toBeInTheDocument();
+	});
+
+	it('should render the kudos button if the team has kudos enabled', async () => {
+		renderComponent();
+		const showMoreButton = screen.getByRole('button', { name: 'Show more' });
+		expect(showMoreButton).toBeVisible();
+		await userEvent.click(showMoreButton);
+
+		const kudosButton = screen.getByRole('button', { name: 'Give kudos' });
+		expect(kudosButton).toBeVisible();
+	});
+
+	it('should render other actions if provided', async () => {
+		renderComponent();
+		const showMoreButton = screen.getByRole('button', { name: 'Show more' });
+		expect(showMoreButton).toBeVisible();
+		await userEvent.click(showMoreButton);
+
+		const action1 = screen.getByRole('button', { name: 'Action 1' });
+		expect(action1).toBeInTheDocument();
+		const action2 = screen.getByRole('button', { name: 'Action 2' });
+		expect(action2).toBeInTheDocument();
+	});
+
+	ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
+		it('should fire analytics on profile link item click', async () => {
+			const { expectEventToBeFired } = renderComponent();
+
+			await userEvent.click(screen.getByTestId('team-profile-card-profile-link-item'));
+
+			expectEventToBeFired('ui', profileLinkClickEvent);
 		});
+	});
+	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
+		it('should fire analytics on profile link item click', async () => {
+			const { expectEventToBeFired } = renderComponent();
 
-		it('should render with given team data', () => {
-			(useTeamContainers as jest.Mock).mockReturnValue({ teamContainers: [] });
-			renderComponent();
+			await userEvent.click(screen.getByTestId('team-profile-card-profile-link-item'));
 
-			expect(screen.getByTestId('profile-header-image')).toHaveAttribute(
-				'src',
-				mockProfileData.headerImageUrl,
-			);
-			expect(screen.getByRole('heading', { name: mockProfileData.displayName })).toBeVisible();
-			expect(screen.getByTestId('verified-team-icon')).toBeVisible();
-
-			const memberCount = screen.getByText(
-				new RegExp(`Contributing team • ${mockProfileData.memberCount}`),
-			);
-			expect(memberCount).toBeVisible();
-			expect(screen.getByText(mockProfileData.description)).toBeVisible();
-		});
-
-		it('should render member count as 100+ if the member count is string', () => {
-			renderComponent({ memberCount: '100+' });
-			expect(screen.getByText('Contributing team • 100+ members')).toBeVisible();
-		});
-
-		it('should render team links', () => {
-			renderComponent();
-			expect(
-				screen.getByRole('link', { name: 'THE SUPER TEAM Team profile team-app-tile' }),
-			).toBeInTheDocument();
-		});
-
-		it('should team containers if the team has containers other than the current one', () => {
-			renderComponent();
-			expect(screen.getByText('Mocked Team Containers')).toBeVisible();
-		});
-
-		it('should not render the team containers if the team does not have containers other than the current one', () => {
-			(useTeamContainers as jest.Mock).mockReturnValue({ teamContainers: [ConfluenceSpace] });
-			renderComponent();
-			expect(screen.queryByText('Mocked Team Containers')).not.toBeInTheDocument();
-		});
-
-		it('should render the kudos button if the team has kudos enabled', async () => {
-			renderComponent();
-			const showMoreButton = screen.getByRole('button', { name: 'Show more' });
-			expect(showMoreButton).toBeVisible();
-			await userEvent.click(showMoreButton);
-
-			const kudosButton = screen.getByRole('button', { name: 'Give kudos' });
-			expect(kudosButton).toBeVisible();
-		});
-
-		it('should render other actions if provided', async () => {
-			renderComponent();
-			const showMoreButton = screen.getByRole('button', { name: 'Show more' });
-			expect(showMoreButton).toBeVisible();
-			await userEvent.click(showMoreButton);
-
-			const action1 = screen.getByRole('button', { name: 'Action 1' });
-			expect(action1).toBeInTheDocument();
-			const action2 = screen.getByRole('button', { name: 'Action 2' });
-			expect(action2).toBeInTheDocument();
-		});
-
-		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			it('should fire analytics on profile link item click', async () => {
-				const { expectEventToBeFired } = renderComponent();
-
-				await userEvent.click(screen.getByTestId('team-profile-card-profile-link-item'));
-
-				expectEventToBeFired('ui', profileLinkClickEvent);
-			});
-		});
-		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-			it('should fire analytics on profile link item click', async () => {
-				const { expectEventToBeFired } = renderComponent();
-
-				await userEvent.click(screen.getByTestId('team-profile-card-profile-link-item'));
-
-				expectEventToBeFired('ui', profileLinkClickEvent);
-			});
+			expectEventToBeFired('ui', profileLinkClickEvent);
 		});
 	});
 });

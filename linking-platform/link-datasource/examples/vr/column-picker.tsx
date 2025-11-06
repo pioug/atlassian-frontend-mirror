@@ -7,6 +7,7 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 import { faker } from '@faker-js/faker';
 import { IntlProvider } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import { Field } from '@atlaskit/form';
@@ -27,6 +28,7 @@ const containerStyles = css({
 const generateFieldName = (): DatasourceResponseSchemaProperty => {
 	const column = faker.database.column();
 	return {
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		key: column + uuid(),
 		title: column.charAt(0).toUpperCase() + column.substring(1),
 		type: 'string',

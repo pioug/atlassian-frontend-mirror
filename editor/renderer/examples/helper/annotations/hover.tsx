@@ -9,6 +9,7 @@ import AddCommentIcon from '@atlaskit/icon/core/migration/comment';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import React from 'react';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
@@ -40,6 +41,7 @@ const Component = (props: InlineCommentHoverComponentProps & { setNewDocument: C
 	} = props;
 	const [showCreateComponent, setShowCreateComponent] = React.useState(false);
 	const onToolbarCreateButtonClick = React.useCallback(() => {
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		applyDraftMode({ annotationId: uuid(), keepNativeSelection: true });
 		setShowCreateComponent(true);
 	}, [applyDraftMode]);
@@ -54,6 +56,7 @@ const Component = (props: InlineCommentHoverComponentProps & { setNewDocument: C
 		setShowCreateComponent(false);
 		onClose();
 
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const id = uuid();
 		const result = onCreate(id);
 

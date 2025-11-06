@@ -1,5 +1,14 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 3.1.3
+
+### Patch Changes
+
+- [`6b6e2a88065e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b6e2a88065e3) -
+  EDITOR-2350 Enable all options in synced block renderer by default unless product/consumer
+  overrides them.
+- Updated dependencies
+
 ## 3.1.2
 
 ### Patch Changes

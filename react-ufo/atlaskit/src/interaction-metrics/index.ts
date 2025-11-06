@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as createUUID } from 'uuid';
 
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -406,6 +407,7 @@ export function addHold(
 	experimental: boolean,
 ) {
 	const interaction = interactions.get(interactionId);
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const id = createUUID();
 
 	if (!interaction && fg('platform_ufo_enable_late_holds_post_interaction')) {

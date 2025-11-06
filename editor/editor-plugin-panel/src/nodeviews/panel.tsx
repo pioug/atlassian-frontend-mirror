@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import type { PanelAttributes } from '@atlaskit/adf-schema';
@@ -118,6 +119,7 @@ class PanelNodeView {
 		this.pluginOptions = pluginOptions;
 		this.view = view;
 		this.node = node;
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		this.key = uuid();
 
 		const { dom, contentDOM } = DOMSerializer.renderSpec(

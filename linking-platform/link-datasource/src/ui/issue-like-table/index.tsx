@@ -84,6 +84,10 @@ const truncateStyles = css({
 	whiteSpace: 'nowrap',
 });
 
+const wrappedStyles = css({
+	whiteSpace: 'normal',
+});
+
 const tableContainerStyles = css({
 	borderBottomLeftRadius: 0,
 	borderBottomRightRadius: 0,
@@ -715,7 +719,7 @@ export const IssueLikeDataTableView = ({
 										colSpan={isEditable && isLastCell ? 2 : undefined}
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 										style={loadingRowStyle}
-										css={[wrappedColumnKeys?.includes(cellKey) ? null : truncateStyles]}
+										css={[wrappedColumnKeys?.includes(cellKey) ? wrappedStyles : truncateStyles]}
 									>
 										{content}
 									</InlineEditableTableCell>

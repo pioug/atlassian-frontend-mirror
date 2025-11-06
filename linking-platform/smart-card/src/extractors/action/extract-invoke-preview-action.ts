@@ -7,6 +7,7 @@ import {
 	extractSmartLinkTitle,
 	extractSmartLinkUrl,
 } from '@atlaskit/link-extractors';
+import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -15,7 +16,6 @@ import { ActionName, CardAction } from '../../index';
 import { getExtensionKey } from '../../state/helpers';
 import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
 import { canShowAction } from '../../utils/actions/can-show-action';
-import { isModalWithinPreviewPanelIFrame } from '../../utils/iframe-utils';
 import { type AnalyticsOrigin } from '../../utils/types';
 import { type EmbedModalProps } from '../../view/EmbedModal/types';
 import { openEmbedModal } from '../../view/EmbedModal/utils';
@@ -78,7 +78,7 @@ export const extractInvokePreviewAction = (
 
 	const isInPreviewPanel =
 		expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') &&
-		isModalWithinPreviewPanelIFrame();
+		isWithinPreviewPanelIFrame();
 
 	const data = response.data as JsonLd.Data.BaseData;
 	const meta = response.meta as JsonLd.Meta.BaseMeta;
@@ -105,9 +105,20 @@ export const extractInvokePreviewAction = (
 	};
 
 	const src = extractPreviewData(data, 'web')?.src;
+
+	// disallow preview modals within preview panels
+	if (
+		!hasPreviewPanel &&
+		isInPreviewPanel &&
+		expValEquals('platform_hover_card_preview_panel_modal', 'cohort', 'test')
+	) {
+		return;
+	}
+
 	if (src) {
 		const extensionKey = getExtensionKey(response);
 		return {
+			hasPreviewPanel,
 			invokeAction: {
 				actionFn: async () => {
 					if (hasPreviewPanel) {
@@ -169,7 +180,6 @@ export const extractInvokePreviewAction = (
 				extensionKey,
 				id,
 			},
-			hasPreviewPanel: hasPreviewPanel,
 		};
 	}
 };

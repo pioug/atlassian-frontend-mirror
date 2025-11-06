@@ -1,6 +1,7 @@
-import type { NodeType, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findTable } from '@atlaskit/editor-tables';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /*
  * Returns the level of nesting of a given `nodeType` in the current position.
@@ -61,4 +62,31 @@ export const isSelectionTableNestedInTable = (state: EditorState): boolean => {
 	const nodeTypes = state.schema.nodes;
 
 	return [nodeTypes.tableHeader, nodeTypes.tableCell].includes(parent.type);
+};
+
+/*
+ * Returns true if the schema supports nesting tables inside table cells.
+ * This is determined by checking if table cells can contain table nodes in their content model.
+ *
+ * ```typescript
+ * const supportsNestedTables = isNestedTablesSupported(state.schema);
+ * ```
+ */
+export const isNestedTablesSupported = (schema: Schema): boolean => {
+	if (!expValEquals('platform_editor_nested_table_detection', 'isEnabled', true)) {
+		return true;
+	}
+
+	const { table, tableCell, tableHeader } = schema.nodes;
+
+	if (!table || !tableCell || !tableHeader) {
+		return false;
+	}
+
+	// Check if table cells can contain table nodes by testing their content match
+	const tableCellCanContainTable = tableCell.contentMatch.matchType(table)?.validEnd === true;
+
+	const tableHeaderCanContainTable = tableHeader.contentMatch.matchType(table)?.validEnd === true;
+
+	return tableCellCanContainTable || tableHeaderCanContainTable;
 };

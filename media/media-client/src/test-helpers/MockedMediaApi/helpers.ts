@@ -5,6 +5,7 @@ import {
 	type MediaFileArtifact,
 } from '@atlaskit/media-state';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import { type MediaFile } from '../../models/media';
@@ -127,6 +128,7 @@ export const createProcessingFileItem = (
  * Makes a copy of the provided file item with a random file id
  * */
 export const copy = (fileItem: ResponseFileItem): ResponseFileItem =>
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	JSON.parse(JSON.stringify(fileItem).replace(new RegExp(fileItem.id, 'g'), uuid()));
 
 /**

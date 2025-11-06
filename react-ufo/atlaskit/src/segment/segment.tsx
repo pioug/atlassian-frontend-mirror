@@ -13,6 +13,7 @@ import {
 	unstable_NormalPriority as NormalPriority,
 	unstable_scheduleCallback as scheduleCallback,
 } from 'scheduler';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as createUUID } from 'uuid';
 
 import coinflip from '../coinflip';
@@ -256,6 +257,7 @@ export default function UFOSegment({
 
 				if (coinflip(rate)) {
 					const startTimestamp = timestamp ?? performance.now();
+					// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 					const newId = createUUID();
 
 					interactionId.current = newId;

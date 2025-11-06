@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { B500, B75 } from '@atlaskit/theme/colors';
 
 import HomeCircleIcon from '../glyph/home-circle';

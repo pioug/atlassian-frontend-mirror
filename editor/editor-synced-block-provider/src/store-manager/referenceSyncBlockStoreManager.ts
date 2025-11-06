@@ -60,7 +60,7 @@ export class ReferenceSyncBlockStoreManager {
 		}
 	}
 
-	private fetchSyncBlockSourceURLAndTitle(resourceId: ResourceId) {
+	private retrieveSyncBlockSourceInfo(resourceId: ResourceId) {
 		if (!resourceId || !this.dataProvider) {
 			return;
 		}
@@ -70,7 +70,7 @@ export class ReferenceSyncBlockStoreManager {
 		if (!this.syncBlockURLRequests.get(resourceId)) {
 			this.syncBlockURLRequests.set(resourceId, true);
 			this.dataProvider
-				.retrieveSyncBlockSourceUrlAndTitle(createSyncBlockNode('', resourceId))
+				.retrieveSyncBlockSourceInfo(createSyncBlockNode('', resourceId))
 				.then((sourceInfo) => {
 					const existingSyncBlock = this.getFromCache(resourceId);
 					if (existingSyncBlock && existingSyncBlock.data) {
@@ -124,7 +124,7 @@ export class ReferenceSyncBlockStoreManager {
 					!resolvedSyncBlockInstance.data?.sourceTitle) &&
 				resolvedSyncBlockInstance.resourceId
 			) {
-				this.fetchSyncBlockSourceURLAndTitle(resolvedSyncBlockInstance.resourceId);
+				this.retrieveSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
 			}
 		});
 

@@ -4,6 +4,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	COLUMN_MIN_WIDTH,
@@ -123,30 +124,39 @@ export const generateColgroupFromNode = (
 				}
 			});
 		} else {
-			// columns has not been resized, so distribute the width evenly
-			cols.push(
-				...Array.from({ length: colspan }, (_) => {
-					const tableWidth = getTableContainerElementWidth(table);
-					const columnWidth = tableWidth / map.width || 0;
-					const fixedColWidth = getColWidthFix(columnWidth, map.width || 0);
-
-					return [
+			if (!isTableScalingEnabled && fg('platform_editor_table_width_refactor')) {
+				cols.push(
+					...Array.from({ length: colspan }, (_) => [
 						'col',
-						{
-							style: generateColStyle(
-								fixedColWidth,
-								tableWidth,
-								isCommentEditor,
-								isChromelessEditor,
-								isNested,
-								shouldUseIncreasedScalingPercent,
-								isNumberColumnEnabled,
-								isTableHasWidth,
-							),
-						},
-					];
-				}),
-			);
+						{ style: `width: ${tableCellMinWidth}px;` },
+					]),
+				);
+			} else {
+				// columns has not been resized, so distribute the width evenly
+				cols.push(
+					...Array.from({ length: colspan }, (_) => {
+						const tableWidth = getTableContainerElementWidth(table);
+						const columnWidth = tableWidth / map.width || 0;
+						const fixedColWidth = getColWidthFix(columnWidth, map.width || 0);
+
+						return [
+							'col',
+							{
+								style: generateColStyle(
+									fixedColWidth,
+									tableWidth,
+									isCommentEditor,
+									isChromelessEditor,
+									isNested,
+									shouldUseIncreasedScalingPercent,
+									isNumberColumnEnabled,
+									isTableHasWidth,
+								),
+							},
+						];
+					}),
+				);
+			}
 		}
 	});
 	return cols;

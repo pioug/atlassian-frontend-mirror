@@ -22,10 +22,10 @@ jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn(),
 }));
 
-// Mock the isModalWithinPreviewPanelIFrame function from our local utils
-jest.mock('../../../utils/iframe-utils', () => ({
-	...jest.requireActual('../../../utils/iframe-utils'),
-	isModalWithinPreviewPanelIFrame: jest.fn(),
+// Mock the isWithinPreviewPanelIFrame function from linking-common
+jest.mock('@atlaskit/linking-common/utils', () => ({
+	...jest.requireActual('@atlaskit/linking-common/utils'),
+	isWithinPreviewPanelIFrame: jest.fn(),
 }));
 
 // Create a test response with preview and ARI which is needed for testing preview panel params
@@ -42,11 +42,12 @@ describe('extractInvokePreviewAction', () => {
 		// Reset the mocks to default behavior
 		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
 		const { fg } = require('@atlaskit/platform-feature-flags');
-		const { isModalWithinPreviewPanelIFrame } = require('../../../utils/iframe-utils');
+		const { isWithinPreviewPanelIFrame } = require('@atlaskit/linking-common/utils');
 
 		expValEquals.mockReturnValue(false);
 		fg.mockReturnValue(false);
-		isModalWithinPreviewPanelIFrame.mockReturnValue(false);
+		isWithinPreviewPanelIFrame.mockReturnValue(false);
+		jest.resetAllMocks();
 	});
 
 	it('returns preview action', async () => {
@@ -277,12 +278,12 @@ describe('extractInvokePreviewAction', () => {
 		expect(openEmbedModal).toHaveBeenCalled();
 	});
 
-	it('should include isInPreviewPanel when experiment is enabled and within preview panel', async () => {
+	it('should not openEmbedModal when experiment is enabled and within preview panel', async () => {
 		// Enable the experiment for this test
 		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-		const { isModalWithinPreviewPanelIFrame } = require('../../../utils/iframe-utils');
+		const { isWithinPreviewPanelIFrame } = require('@atlaskit/linking-common/utils');
 		expValEquals.mockReturnValue(true);
-		isModalWithinPreviewPanelIFrame.mockReturnValue(true);
+		isWithinPreviewPanelIFrame.mockReturnValue(true);
 
 		const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
 
@@ -294,11 +295,7 @@ describe('extractInvokePreviewAction', () => {
 
 		await action?.invokeAction.actionFn();
 
-		expect(openEmbedModal).toHaveBeenCalledWith(
-			expect.objectContaining({
-				isInPreviewPanel: true,
-			}),
-		);
+		expect(openEmbedModal).not.toHaveBeenCalled();
 	});
 
 	it('should not include isInPreviewPanel when experiment is disabled', async () => {
@@ -326,9 +323,9 @@ describe('extractInvokePreviewAction', () => {
 	it('should set isInPreviewPanel to false when not within preview panel', async () => {
 		// Enable the experiment for this test
 		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-		const { isModalWithinPreviewPanelIFrame } = require('../../../utils/iframe-utils');
+		const { isWithinPreviewPanelIFrame } = require('@atlaskit/linking-common/utils');
 		expValEquals.mockReturnValue(true);
-		isModalWithinPreviewPanelIFrame.mockReturnValue(false);
+		isWithinPreviewPanelIFrame.mockReturnValue(false);
 
 		const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
 

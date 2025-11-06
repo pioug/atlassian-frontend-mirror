@@ -1,6 +1,7 @@
 import { createElement } from 'react';
 
 import { type IntlShape } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -117,6 +118,7 @@ export const createDropTargetDecoration = (
 	anchorRectCache?: AnchorRectCache,
 	isSameLayout?: boolean,
 ) => {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const key = uuid();
 	return Decoration.widget(
 		pos,
@@ -164,6 +166,7 @@ export const createLayoutDropTargetDecoration = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	anchorRectCache?: AnchorRectCache,
 ) => {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const key = uuid();
 	return Decoration.widget(
 		pos,

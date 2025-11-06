@@ -8,7 +8,7 @@ import React, { type ReactNode, useContext, useEffect, useState } from 'react';
 import { jsx } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
-import { MenuList } from '@atlaskit/navigation-system';
+import { ButtonMenuItem, MenuList } from '@atlaskit/navigation-system';
 import { useMenuItemDragAndDrop } from '@atlaskit/navigation-system/side-nav-items/drag-and-drop/use-menu-item-drag-and-drop';
 import {
 	FlyoutMenuItem,
@@ -92,6 +92,7 @@ export function SharedTopLevelFlyout({
 					<MenuList>
 						<ReorderActionMenu
 							label="Reorder menu item"
+							TriggerComponent={ButtonMenuItem}
 							index={index}
 							listSize={amountOfMenuItems}
 							onMoveToTop={() => {

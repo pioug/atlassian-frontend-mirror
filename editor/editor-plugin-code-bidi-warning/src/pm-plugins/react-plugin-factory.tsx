@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import CodeBidiWarning from '@atlaskit/code/bidi-warning';
@@ -89,6 +90,7 @@ export function createBidiWarningsDecorationSetFromDoc({
 	const newBidiWarningsDecorationSet = DecorationSet.create(
 		doc,
 		bidiCharactersAndTheirPositions.map(({ position, bidiCharacter }) => {
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			const renderKey = uuid();
 
 			return Decoration.widget(

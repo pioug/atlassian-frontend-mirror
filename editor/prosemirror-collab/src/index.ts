@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -120,6 +121,7 @@ export function collab(config: CollabConfig = {}): Plugin {
 			// eslint-disable-next-line eqeqeq
 			// generate a temporary id as clientId when it is null or undefined
 			// prefix temp-pc- indicates prosemirror-collab
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			config.clientID == null || !config.clientID ? `temp-pc-${uuidv4()}` : config.clientID,
 	};
 	const transformUnconfirmed = config.transformUnconfirmed ?? ((steps) => steps);

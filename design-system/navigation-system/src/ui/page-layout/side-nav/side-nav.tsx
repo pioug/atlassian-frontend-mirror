@@ -17,6 +17,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 import { flushSync } from 'react-dom';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import {
@@ -388,13 +389,13 @@ type SideNavProps = CommonSlotProps & {
 	/**
 	 * Called when the side nav is expanded.
 	 *
-	 * Note: The trigger parameter is only provided when the `navx-full-height-sidebar` feature flag is enabled.
+	 * Note: The trigger parameter is only provided when the `platform_dst_nav4_fhs_instrumentation_1` feature flag is enabled.
 	 */
 	onExpand?: VisibilityCallback;
 	/**
 	 * Called when the side nav is collapsed.
 	 *
-	 * Note: The trigger parameter is only provided when the `navx-full-height-sidebar` feature flag is enabled.
+	 * Note: The trigger parameter is only provided when the `platform_dst_nav4_fhs_instrumentation_1` feature flag is enabled.
 	 */
 	onCollapse?: VisibilityCallback;
 
@@ -476,6 +477,34 @@ function SideNavInternal({
 	// This is so we can use it in an effect _that only runs once_, after the initial render on the client,
 	// to sync the side nav context (provided in `<Root>`) with the `defaultCollapsed` prop provided to `<SideNav>`.
 	const [initialDefaultCollapsed] = useState(defaultCollapsed);
+
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+
+	const [initialIsExpandedOnDesktop] = useState(isExpandedOnDesktop);
+
+	/**
+	 * Captures the initial collapsed/expanded state of the side nav.
+	 *
+	 * Only firing on desktop because the nav is never open by default on mobile.
+	 */
+	useEffect(() => {
+		if (initialIsExpandedOnDesktop && fg('platform_dst_nav4_fhs_instrumentation_1')) {
+			const isDesktop = window.matchMedia('(min-width: 64rem)').matches;
+			if (isDesktop) {
+				const navigationAnalyticsEvent = createAnalyticsEvent({
+					source: 'topNav',
+					actionSubject: 'sideNav',
+					action: 'viewed',
+					actionSubjectId: 'sideNavMenu',
+					attributes: {
+						screen: 'desktop',
+					},
+				});
+
+				navigationAnalyticsEvent.fire('navigation');
+			}
+		}
+	}, [createAnalyticsEvent, initialIsExpandedOnDesktop]);
 
 	const defaultWidth = useSafeDefaultWidth({
 		defaultWidthProp,
@@ -694,8 +723,20 @@ function SideNavInternal({
 
 	const handleExpand = useCallback<VisibilityCallback>(
 		({ screen, trigger }) => {
-			if (fg('navx-full-height-sidebar')) {
+			if (fg('platform_dst_nav4_fhs_instrumentation_1')) {
 				onExpand?.({ screen, trigger });
+
+				const navigationAnalyticsEvent = createAnalyticsEvent({
+					source: 'topNav',
+					actionSubject: 'sideNav',
+					action: 'expanded',
+					actionSubjectId: 'sideNavMenu',
+					attributes: {
+						trigger,
+					},
+				});
+
+				navigationAnalyticsEvent.fire('navigation');
 			} else {
 				onExpand?.({ screen });
 			}
@@ -704,13 +745,25 @@ function SideNavInternal({
 			// This prevents the flyout from staying open and ensures we are respecting the user's intent to expand.
 			updateFlyoutState('force-close');
 		},
-		[onExpand, updateFlyoutState],
+		[onExpand, updateFlyoutState, createAnalyticsEvent],
 	);
 
 	const handleCollapse = useCallback<VisibilityCallback>(
 		({ screen, trigger }) => {
-			if (fg('navx-full-height-sidebar')) {
+			if (fg('platform_dst_nav4_fhs_instrumentation_1')) {
 				onCollapse?.({ screen, trigger });
+
+				const navigationAnalyticsEvent = createAnalyticsEvent({
+					source: 'topNav',
+					actionSubject: 'sideNav',
+					action: 'collapsed',
+					actionSubjectId: 'sideNavMenu',
+					attributes: {
+						trigger,
+					},
+				});
+
+				navigationAnalyticsEvent.fire('navigation');
 			} else {
 				onCollapse?.({ screen });
 			}
@@ -719,7 +772,7 @@ function SideNavInternal({
 			// This prevents the flyout from staying open and ensures we are respecting the user's intent to collapse.
 			updateFlyoutState('force-close');
 		},
-		[onCollapse, updateFlyoutState],
+		[onCollapse, updateFlyoutState, createAnalyticsEvent],
 	);
 
 	useSideNavVisibilityCallbacks({

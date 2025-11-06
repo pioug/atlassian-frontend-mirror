@@ -446,7 +446,14 @@ export const apply = (
 		isDecSetEmpty ||
 		maybeNodeCountChanged ||
 		(editorExperiment('platform_editor_breakout_resizing', true) && hasJustFinishedResizing);
-	const shouldRedrawNodeDecs = !isResizerResizing && (isNodeDecsMissing || meta?.isDragging);
+	const shouldRedrawNodeDecs =
+		!isResizerResizing &&
+		(isNodeDecsMissing || meta?.isDragging) &&
+		// Skip expensive anchor node decoration recalculations when native anchor support is enabled
+		!(
+			expValEquals('platform_editor_native_anchor_support', 'isEnabled', true) &&
+			fg('editor_native_anchor_remove_decoration_in_apply')
+		);
 
 	let isActiveNodeModified = false;
 
@@ -519,6 +526,7 @@ export const apply = (
 				}
 			}
 		}
+
 	}
 
 	// Check if editor dimensions have changed

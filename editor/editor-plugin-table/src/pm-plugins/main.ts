@@ -10,6 +10,7 @@ import type { DispatchAnalyticsEvent, EditorAnalyticsAPI } from '@atlaskit/edito
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { isNestedTablesSupported } from '@atlaskit/editor-common/nesting';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
@@ -337,7 +338,7 @@ export const createPlugin = (
 
 				slice = transformSliceToRemoveOpenNestedExpand(slice, schema);
 
-				if (fg('platform_editor_use_nested_table_pm_nodes')) {
+				if (isNestedTablesSupported(schema) && fg('platform_editor_use_nested_table_pm_nodes')) {
 					slice = transformSliceToRemoveNestedTables(slice, schema, editorState.selection);
 				}
 

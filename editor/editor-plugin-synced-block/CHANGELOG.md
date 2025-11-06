@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.1.3
+
+### Patch Changes
+
+- [`7bb84f91500cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bb84f91500cf) -
+  [ux] EDITOR-2442 update warning modal on source sync block deletion
+- Updated dependencies
+
+## 4.1.2
+
+### Patch Changes
+
+- [`5b03ddd528034`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b03ddd528034) -
+  [EDITOR-2542] Save new bodiedSyncBlock to backend when creating the node, so that the node can be
+  copied and reference without page being published/updated
+- Updated dependencies
+
 ## 4.1.1
 
 ### Patch Changes

@@ -4,6 +4,7 @@ import {
 	unstable_IdlePriority as idlePriority,
 	unstable_scheduleCallback as scheduleCallback,
 } from 'scheduler';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as createUUID } from 'uuid';
 
 import coinflip from '../coinflip';
@@ -61,6 +62,7 @@ function typingPerformanceTracingTimeout(element: HTMLElement, name: string, rat
 	let id: string;
 
 	const start = () => {
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		id = createUUID();
 		addNewInteraction(id, name, 'typing', performance.now(), rate, null, null);
 		isInteractionInitialised = true;
@@ -120,6 +122,7 @@ function typingPerformanceTracingTimeoutNoAlloc(element: HTMLElement, name: stri
 	};
 
 	const start = () => {
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		id = createUUID();
 		addNewInteraction(id, name, 'typing', performance.now(), rate, null, null);
 		isInteractionInitialised = true;
@@ -200,6 +203,7 @@ function typingPerformanceTracingMutationObserver(
 	};
 
 	const start = () => {
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		id = createUUID();
 		addNewInteraction(id, name, 'typing', performance.now(), rate, null, null);
 		isInteractionInitialised = true;

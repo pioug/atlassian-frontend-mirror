@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
@@ -70,6 +71,7 @@ const JsonldEditor = ({ children }: { children: (opts: JsonldEditorOpts) => Reac
 
 			// Adding an additional uuid param is a workaround for JSON Editor Input changes
 			// in order to set an unique url after each change and update a Smart Card example
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			setUrl(`${responseUrl}?uuid=${uuid()}`);
 
 			// Keep track of last successful json

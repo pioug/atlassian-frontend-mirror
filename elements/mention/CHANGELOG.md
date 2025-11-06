@@ -1,5 +1,13 @@
 # @atlaskit/mention
 
+## 24.4.0
+
+### Minor Changes
+
+- [`7b39403f28495`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b39403f28495) -
+  Clean up FG(mentions-migrate-react-dom) which migrates deprecated react-dom APIs findDOMNode,
+  unmountComponentAtNode via usage of createPortal
+
 ## 24.3.3
 
 ### Patch Changes

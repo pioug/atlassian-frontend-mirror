@@ -1,5 +1,28 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.7.2
+
+### Patch Changes
+
+- [`7bb84f91500cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bb84f91500cf) -
+  [ux] EDITOR-2442 update warning modal on source sync block deletion
+
+## 2.7.1
+
+### Patch Changes
+
+- [`23f6c637ea176`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23f6c637ea176) -
+  [ux] EDITOR-2629 redirect to source edit page instead of view page on edit source url click in
+  sync block
+
+## 2.7.0
+
+### Minor Changes
+
+- [`5b03ddd528034`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b03ddd528034) -
+  [EDITOR-2542] Save new bodiedSyncBlock to backend when creating the node, so that the node can be
+  copied and reference without page being published/updated
+
 ## 2.6.0
 
 ### Minor Changes

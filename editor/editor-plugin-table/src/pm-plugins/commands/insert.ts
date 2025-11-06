@@ -12,6 +12,7 @@ import {
 import {
 	getParentOfTypeCount,
 	getPositionAfterTopParentNodeOfType,
+	isNestedTablesSupported,
 } from '@atlaskit/editor-common/nesting';
 import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -351,16 +352,16 @@ export const insertTableWithSize =
 /**
  * Unified command to insert a new table into the editor.
  *
- * @param {Object} options - Configuration options for table insertion.
+ * @param {object} options - Configuration options for table insertion.
  * @param {boolean} [options.isTableScalingEnabled=false] - Flag to enable table scaling.
  * @param {boolean} [options.isTableAlignmentEnabled=false] - Flag to enable table alignment.
  * @param {boolean} [options.isFullWidthModeEnabled=false] - Flag to enable full-width mode for the table.
  * @param {boolean} [options.isCommentEditor=false] - Flag to indicate if the editor is in comment mode.
  * @param {boolean} [options.isChromelessEditor=false] - Flag to indicate if the editor is chromeless.
  * @param {boolean} [options.isTableResizingEnabled=false] - Flag to enable table resizing.
- * @param {Object} [options.createTableProps={}] - Additional properties for table creation, including table size.
- * @param {Object} api - PluginInjectinoApi object for content insertion commands.
- * @param {Object} analyticsPayload - Payload for analytics tracking.
+ * @param {object} [options.createTableProps={}] - Additional properties for table creation, including table size.
+ * @param {object} api - PluginInjectinoApi object for content insertion commands.
+ * @param {object} analyticsPayload - Payload for analytics tracking.
  *
  * @returns {Function} A function that takes a transaction and inserts a table.
  */
@@ -386,6 +387,7 @@ export const insertTableWithNestingSupport: InsertTableWithNestingSupportCommand
 		let isNestedTable = false;
 		if (
 			hasParentNodeOfType(schema.nodes.table)(tr.selection) &&
+			isNestedTablesSupported(schema) &&
 			fg('platform_editor_use_nested_table_pm_nodes')
 		) {
 			// If the experiment is disabled, or we're trying to nest deeper than one level, we insert the table after the top table

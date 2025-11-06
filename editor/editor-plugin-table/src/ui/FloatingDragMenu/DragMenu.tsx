@@ -718,7 +718,7 @@ const DragMenu = React.memo(
 				api={api}
 				userIntent={
 					expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
-						? 'tablePopupOpen'
+						? 'tableDragMenuPopupOpen'
 						: undefined
 				}
 			>

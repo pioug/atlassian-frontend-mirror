@@ -1,1 +1,5 @@
-export type PopupUserIntent = 'popupOpen' | 'tablePopupOpen' | 'statusPickerOpen';
+export type PopupUserIntent =
+	| 'popupOpen'
+	| 'tableContextualMenuPopupOpen'
+	| 'tableDragMenuPopupOpen'
+	| 'statusPickerOpen';

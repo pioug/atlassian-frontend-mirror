@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { bind } from 'bind-event-listener';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -26,6 +27,7 @@ export const profileCardRenderer = ({
 	portalProviderAPI: PortalProviderAPI;
 }) => {
 	let renderingProfileCard = false;
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const key = uuid();
 	let cleanupSelection: (() => void) | undefined;
 

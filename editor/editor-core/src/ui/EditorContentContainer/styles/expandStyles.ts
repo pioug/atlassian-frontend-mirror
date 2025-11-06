@@ -1,7 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorFullPageDefaultFontSize,
+	akEditorSwoopCubicBezier,
+} from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
@@ -170,6 +173,44 @@ export const expandStyles: SerializedStyles = css({
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ak-editor-expand__icon-button': {
+		appearance: 'none',
+		width: token('space.300', '24px'),
+		height: token('space.300', '24px'),
+		border: 'none',
+		borderRadius: token('radius.small', '4px'),
+		background: token('color.background.neutral.subtle'),
+		padding: 0,
+		margin: 0,
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		cursor: 'pointer',
+
+		'&:disabled': {
+			cursor: 'not-allowed',
+		},
+
+		'&:focus-visible': {
+			outline: `2px solid ${token('color.border.focused')}`,
+			outlineOffset: token('space.025', '2px'),
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:hover:not(:disabled)': {
+			background: token('color.background.neutral.subtle.hovered'),
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ak-editor-expand__icon-svg': {
+			color: token('color.icon.subtle'),
+			transform: 'rotate(0deg)',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+			transition: `transform 0.2s ${akEditorSwoopCubicBezier};`,
+		},
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-expand__expanded': {
 		background: token('color.background.neutral.subtle'),
 		borderColor: token('color.border'),
@@ -178,6 +219,14 @@ export const expandStyles: SerializedStyles = css({
 		'.ak-editor-expand__content': {
 			paddingTop: token('space.100', '8px'),
 			// If fg('platform_editor_nested_dnd_styles_changes') then this needs to be extended
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ak-editor-expand__icon-button': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.ak-editor-expand__icon-svg': {
+				transform: 'rotate(90deg)',
+			},
 		},
 	},
 

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v1';
 import { type Props as ObjectResultProps } from '../../src/components/Results/ObjectResult';
 import { type Props as ContainerResultProps } from '../../src/components/Results/ContainerResult';
@@ -114,6 +115,7 @@ export function objectData(n: number): ObjectResultProps[] {
 		const iconUrl = provider === 'jira' ? randomJiraIconUrl() : randomConfluenceIconUrl();
 
 		items.push({
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			resultId: uuid(),
 			type: 'object',
 			name: getMockCatchPhrase(),
@@ -132,6 +134,7 @@ export function containerData(n: number): ContainerResultProps[] {
 
 	for (let i = 0; i < n; i++) {
 		items.push({
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			resultId: uuid(),
 			type: 'container',
 			name: getMockCompanyName(),
@@ -147,6 +150,7 @@ export function personData(n: number): PersonResultProps[] {
 
 	for (let i = 0; i < n; i++) {
 		items.push({
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			resultId: uuid(),
 			type: 'person',
 			name: getMockName(),

@@ -12,6 +12,7 @@ import { concatMap } from 'rxjs/operators/concatMap';
 import { mergeMap } from 'rxjs/operators/mergeMap';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { tap } from 'rxjs/operators/tap';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import {
@@ -135,6 +136,7 @@ function generateDownstreamMessages(
 					params: { fileName, collection, jobId: tenantFileId },
 				} = message;
 
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				const userFileId = uuid();
 				const fileSize = getFakeFileSize();
 

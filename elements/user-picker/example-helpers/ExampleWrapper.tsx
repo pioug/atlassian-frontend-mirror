@@ -1,12 +1,15 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { assignToMe, exampleOptions, filterUsers, unassigned } from '.';
+import { assignToMe, exampleOptions, filterUsers, unassigned, withLocalResource } from '.';
 import {
-	type OptionData,
 	type LoadOptions,
 	type OnOption,
+	type OptionData,
 	type UserPickerProps,
 } from '../src/types';
+
+
+const mockOptions = withLocalResource(exampleOptions);
 
 type ChildrenProps = {
 	loadUsers: LoadOptions;
@@ -21,7 +24,7 @@ export class ExampleWrapper extends React.PureComponent<Props, { options: Option
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			options: exampleOptions,
+			options: mockOptions,
 		};
 	}
 
@@ -40,14 +43,14 @@ export class ExampleWrapper extends React.PureComponent<Props, { options: Option
 			unassigned,
 			assignToMe,
 			new Promise<OptionData[]>((resolve) => {
-				window.setTimeout(() => resolve(exampleOptions), 1000);
+				window.setTimeout(() => resolve(mockOptions), 1000);
 			}),
 		];
 	};
 
 	private onInputChange = (searchText?: string) => {
 		this.setState({
-			options: searchText && searchText.length > 0 ? filterUsers(searchText) : exampleOptions,
+			options: searchText && searchText.length > 0 ? filterUsers(searchText) : mockOptions,
 		});
 	};
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type MentionDescription, type OnMentionEvent } from '../../types';
 import debug from '../../util/logger';
 import { actualMouseMove, mouseLocation, type Position } from '../../util/mouse';
-import MentionItem, { MentionItemWithRef } from '../MentionItem';
+import type MentionItem from '../MentionItem';
+import { MentionItemWithRef } from '../MentionItem';
 import MentionListError from '../MentionListError';
 import MessagesIntlProvider from '../MessagesIntlProvider';
 import Scrollable from '../Scrollable';
@@ -55,7 +55,6 @@ export interface Items {
 export default class MentionList extends React.PureComponent<Props, State> {
 	private lastMousePosition: Position | undefined;
 	private scrollable?: Scrollable | null;
-	private items!: Items;
 	private itemsRefs: Map<string, React.RefObject<HTMLDivElement>>;
 
 	constructor(props: Props) {
@@ -162,16 +161,9 @@ export default class MentionList extends React.PureComponent<Props, State> {
 
 	// Internal
 	private revealItem(key: string): void {
-		if (fg('mentions-migrate-react-dom')) {
-			const itemRef = this.getItemRef(key);
-			if (itemRef && this.scrollable) {
-				itemRef && this.scrollable.revealRef(itemRef);
-			}
-		} else {
-			const item = this.items[key];
-			if (item && this.scrollable) {
-				this.scrollable.reveal(item);
-			}
+		const itemRef = this.getItemRef(key);
+		if (itemRef && this.scrollable) {
+			itemRef && this.scrollable.revealRef(itemRef);
 		}
 	}
 
@@ -207,51 +199,26 @@ export default class MentionList extends React.PureComponent<Props, State> {
 		const { mentions } = this.props;
 
 		if (mentions && mentions.length) {
-			this.items = {};
-
 			return (
 				<div>
 					{this.props.initialHighlightElement}
 					{mentions.map((mention, idx) => {
 						const key = mention.id;
 						const ref = this.createItemRef(key);
-						if (fg('mentions-migrate-react-dom')) {
-							const item = (
-								<MentionItemWithRef
-									mention={mention}
-									selected={this.isSelectedMention(mention, idx)}
-									key={key}
-									onMouseMove={this.selectIndexOnHover}
-									/* Cannot use onclick, as onblur will close the element, and prevent
-									 * onClick from firing.
-									 */
-									onSelection={this.itemSelected}
-									ref={ref}
-								/>
-							);
-							return item;
-						} else {
-							const item = (
-								<MentionItem
-									mention={mention}
-									selected={this.isSelectedMention(mention, idx)}
-									key={key}
-									onMouseMove={this.selectIndexOnHover}
-									/* Cannot use onclick, as onblur will close the element, and prevent
-									 * onClick from firing.
-									 */
-									onSelection={this.itemSelected}
-									ref={(ref: MentionItem) => {
-										if (ref) {
-											this.items[key] = ref;
-										} else {
-											delete this.items[key];
-										}
-									}}
-								/>
-							);
-							return item;
-						}
+						const item = (
+							<MentionItemWithRef
+								mention={mention}
+								selected={this.isSelectedMention(mention, idx)}
+								key={key}
+								onMouseMove={this.selectIndexOnHover}
+								/* Cannot use onclick, as onblur will close the element, and prevent
+								 * onClick from firing.
+								 */
+								onSelection={this.itemSelected}
+								ref={ref}
+							/>
+						);
+						return item;
 					})}
 				</div>
 			);

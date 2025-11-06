@@ -7,6 +7,7 @@
 import { createElement } from 'react';
 
 import { RawIntlProvider } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -107,6 +108,7 @@ export const createPlugin = (
 						const map = TableMap.get(tableNode);
 						const hasMergedCells = new Set(map.map).size !== map.map.length;
 						map.mapByRow[0].forEach((cell, index) => {
+							// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 							const decorationRenderKey = uuid();
 							decs.push(
 								Decoration.widget(

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
@@ -365,6 +366,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			// generate a temporary id as clientId when it is undefined
 			// prefix temp-cp- indicates collab-provider
 			if (!this.clientId) {
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				this.clientId = `temp-cp-${uuidv4()}`;
 			}
 

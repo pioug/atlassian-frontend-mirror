@@ -30,7 +30,16 @@ export const UserIntentPopupWrapper = ({
 		);
 
 		return () => {
-			api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('default'));
+			if (
+				userIntent === api?.userIntent?.sharedState.currentState().currentUserIntent &&
+				expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
+			) {
+				api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('default'));
+			}
+
+			if (!expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)) {
+				api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('default'));
+			}
 		};
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps

@@ -295,37 +295,40 @@ describe('Side nav keyboard shortcut', () => {
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
 		});
 
-		it('should set the correct trigger type', async () => {
-			const user = userEvent.setup();
-			setMediaQuery('(min-width: 64rem)', { initial: true });
+		// Trigger info is behind separate instrumentation flag
+		ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'analytics', () => {
+			it('should set the correct trigger type', async () => {
+				const user = userEvent.setup();
+				setMediaQuery('(min-width: 64rem)', { initial: true });
 
-			const mockOnExpand = jest.fn();
-			const mockOnCollapse = jest.fn();
+				const mockOnExpand = jest.fn();
+				const mockOnCollapse = jest.fn();
 
-			render(
-				<Root isSideNavShortcutEnabled>
-					<SideNav testId="sidenav" onExpand={mockOnExpand} onCollapse={mockOnCollapse}>
-						sidenav
-					</SideNav>
-				</Root>,
-			);
+				render(
+					<Root isSideNavShortcutEnabled>
+						<SideNav testId="sidenav" onExpand={mockOnExpand} onCollapse={mockOnCollapse}>
+							sidenav
+						</SideNav>
+					</Root>,
+				);
 
-			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
 
-			// > is a special testing-library character to keep the key pressed
-			// [[ evaluates to a single [ being pressed
-			await user.keyboard('{Control>}[[');
+				// > is a special testing-library character to keep the key pressed
+				// [[ evaluates to a single [ being pressed
+				await user.keyboard('{Control>}[[');
 
-			expect(mockOnCollapse).toHaveBeenCalledWith({
-				screen: 'desktop',
-				trigger: 'keyboard',
-			});
+				expect(mockOnCollapse).toHaveBeenCalledWith({
+					screen: 'desktop',
+					trigger: 'keyboard',
+				});
 
-			await user.keyboard('{Control>}[[');
+				await user.keyboard('{Control>}[[');
 
-			expect(mockOnExpand).toHaveBeenCalledWith({
-				screen: 'desktop',
-				trigger: 'keyboard',
+				expect(mockOnExpand).toHaveBeenCalledWith({
+					screen: 'desktop',
+					trigger: 'keyboard',
+				});
 			});
 		});
 

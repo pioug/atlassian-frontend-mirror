@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuidV4 from 'uuid/v4';
 
 import type { MediaAttributes, MediaInlineAttributes } from '@atlaskit/adf-schema';
@@ -451,6 +452,7 @@ export class MediaNodeUpdater {
 			destination: {
 				collection: currentCollectionName,
 				authProvider: uploadMediaClientConfig.authProvider,
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				occurrenceKey: uuidV4(),
 			},
 		});
@@ -539,6 +541,7 @@ export class MediaNodeUpdater {
 			destination: {
 				collection: currentCollectionName,
 				authProvider: uploadMediaClientConfig.authProvider,
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				occurrenceKey: uuidV4(),
 			},
 			traceContext,

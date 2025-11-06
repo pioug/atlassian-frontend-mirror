@@ -1,5 +1,6 @@
 import React from 'react';
 import debounce from 'lodash/debounce';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidV4 } from 'uuid';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import memoizeOne from 'memoize-one';
@@ -146,6 +147,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
 		const { prefetch } = this.props;
 		if (prefetch) {
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			const sessionId = uuidV4();
 			this.fireEvent(mountedWithPrefetchEvent, { sessionId });
 			this.setState({

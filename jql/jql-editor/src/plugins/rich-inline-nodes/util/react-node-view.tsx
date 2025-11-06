@@ -1,6 +1,7 @@
 import React, { type FunctionComponent, useEffect, useLayoutEffect, useState } from 'react';
 
 import { Subject } from 'rxjs/Subject';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
 import { type Node } from '@atlaskit/editor-prosemirror/model';
@@ -35,6 +36,7 @@ export class ReactNodeView<Props> implements NodeView {
 		// Generate unique portal identifier
 		// If you read this comment in the future and TypeScript has added support for Symbols as object keys, please do
 		// JQL Editor a favor and replace this library with the native JS functionality that TS was supposed to support.
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		this.portalKey = uuid();
 		// Creating span under the assumption that all node views will be inline elements in JQL Editor
 		this.dom = document.createElement('span');

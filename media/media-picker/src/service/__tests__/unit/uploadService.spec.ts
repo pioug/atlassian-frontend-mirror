@@ -18,6 +18,7 @@ import {
 	fromObservable,
 	RequestError,
 } from '@atlaskit/media-client';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuidV4 from 'uuid/v4';
 import { asMock, fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { UploadServiceImpl } from '../../uploadServiceImpl';

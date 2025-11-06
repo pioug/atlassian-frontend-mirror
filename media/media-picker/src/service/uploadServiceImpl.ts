@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuidV4 from 'uuid/v4';
 import {
 	UploadController,
@@ -159,7 +160,9 @@ export class UploadServiceImpl implements UploadService {
 		for (let i = 0; i < files.length; i++) {
 			const { replaceFileId, file } = files[i];
 			touchFileDescriptors.push({
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				fileId: replaceFileId || uuidV4(),
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				occurrenceKey: uuidV4(),
 				collection,
 				size: file.size,

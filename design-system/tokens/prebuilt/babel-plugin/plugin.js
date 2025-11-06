@@ -81,6 +81,14 @@ var getThemeValues = function getThemeValues(theme) {
   }, {});
 };
 function plugin() {
+  // If the `TOKENS_SKIP_BABEL` environment variable is set, skip this
+  // plugin entirely. This will be enabled when the native Tokens transformer is enabled.
+  // This allows us to control this based on rollout gates.
+  if (process.env.TOKENS_SKIP_BABEL === 'true') {
+    return {
+      visitor: {}
+    };
+  }
   return {
     visitor: {
       Program: {

@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.12
+
+### Patch Changes
+
+- [`c094becfaeeaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c094becfaeeaa) -
+  EDITOR-2476 Introduce new utility method to check if nested tables is supported in the schema to
+  facilitate removal of gate `platform_editor_use_nested_table_pm_nodes`
+- Updated dependencies
+
+## 15.3.11
+
+### Patch Changes
+
+- [`e3336879840a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3336879840a4) -
+  [ux] EDITOR-2620 Toggle contextual menu when drag menu is opened
+- [`8b2c7333efccd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b2c7333efccd) -
+  fix table width css used for table scaling
+- Updated dependencies
+
 ## 15.3.10
 
 ### Patch Changes

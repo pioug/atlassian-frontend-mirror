@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 
 import { UFO_EXPERIMENTAL_BUILD_VERSION } from '../../../buildVersion';
@@ -147,6 +148,7 @@ export class UFOAbstractExperience {
 
 			if (this.state.final && !newState.final) {
 				this.metrics.startTime = perfNowOrTimestamp(timestamp);
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				this.uuid = uuidv4();
 			}
 

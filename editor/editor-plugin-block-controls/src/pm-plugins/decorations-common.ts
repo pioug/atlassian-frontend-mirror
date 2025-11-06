@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -26,6 +27,7 @@ class ObjHash {
 		if (this.caching.has(node)) {
 			return this.caching.get(node);
 		}
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const uniqueId = uuid();
 		this.caching.set(node, uniqueId);
 		return uniqueId;

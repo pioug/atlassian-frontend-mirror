@@ -1,5 +1,6 @@
 import { Server, type Router, type Database } from 'kakapo';
 import * as exenv from 'exenv';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import { type MediaFile } from '@atlaskit/media-client';
@@ -84,6 +85,7 @@ export function generateFilesFromTestData(files: MockFileInputParams[]): MockFil
 		const {
 			processingStatus = 'succeeded',
 			dataUri,
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			id = uuid(),
 			name = `test-file-${id}`,
 			mediaType = 'image',

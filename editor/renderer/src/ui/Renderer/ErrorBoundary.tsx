@@ -6,6 +6,7 @@ import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ComponentCaughtDomErrorAEP, ComponentCrashErrorAEP } from '../../analytics/events';
 import { PLATFORM } from '../../analytics/events';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 interface ErrorBoundaryProps {
@@ -91,6 +92,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 
 	render() {
 		if (this.state.domError) {
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			return <React.Fragment key={uuid()}>{this.props.children}</React.Fragment>;
 		}
 		if (this.shouldRecover()) {

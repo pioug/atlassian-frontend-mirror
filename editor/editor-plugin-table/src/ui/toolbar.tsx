@@ -11,7 +11,10 @@ import { CHANGE_ALIGNMENT_REASON, INPUT_METHOD } from '@atlaskit/editor-common/a
 import { DropdownMenuExtensionItems } from '@atlaskit/editor-common/floating-toolbar';
 import { addColumnAfter, addRowAfter, backspace, tooltip } from '@atlaskit/editor-common/keymaps';
 import commonMessages, { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { isSelectionTableNestedInTable } from '@atlaskit/editor-common/nesting';
+import {
+	isNestedTablesSupported,
+	isSelectionTableNestedInTable,
+} from '@atlaskit/editor-common/nesting';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
@@ -667,7 +670,9 @@ export const getToolbarConfig =
 			};
 
 			const isNestedTable =
-				fg('platform_editor_use_nested_table_pm_nodes') && isSelectionTableNestedInTable(state);
+				isNestedTablesSupported(state.schema) &&
+				fg('platform_editor_use_nested_table_pm_nodes') &&
+				isSelectionTableNestedInTable(state);
 
 			const hoverTableProps = (isInDanger?: boolean, isSelected?: boolean) => ({
 				onMouseEnter: hoverTable(isInDanger, isSelected),

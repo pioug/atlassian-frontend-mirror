@@ -21,6 +21,7 @@ import {
 } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { getPluginState } from '../../pm-plugins/plugin-factory';
 import type { PluginConfig, PluginInjectionAPI } from '../../types';
@@ -45,6 +46,7 @@ interface Props {
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
 	isCellMenuOpenByKeyboard?: boolean;
 	isCommentEditor?: boolean;
+	isDragMenuOpen?: boolean;
 	isOpen: boolean;
 	mountPoint?: HTMLElement;
 	pluginConfig?: PluginConfig;
@@ -64,6 +66,7 @@ const FloatingContextualMenu = ({
 	getEditorFeatureFlags,
 	isCellMenuOpenByKeyboard,
 	isCommentEditor,
+	isDragMenuOpen,
 	api,
 }: Props) => {
 	if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
@@ -147,6 +150,11 @@ const FloatingContextualMenu = ({
 					isCellMenuOpenByKeyboard={isCellMenuOpenByKeyboard}
 					isCommentEditor={isCommentEditor}
 					api={api}
+					isDragMenuOpen={
+						expValNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
+							? isDragMenuOpen
+							: undefined
+					}
 				/>
 			</div>
 		</Popup>

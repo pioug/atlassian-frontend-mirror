@@ -4,3 +4,8 @@ export { getStatus } from './get-status';
 export { filterSiteProducts } from './filter-site-products';
 export { getTraceId } from './get-trace-id';
 export { withFeatureFlaggedComponent } from './with-feature-flagged-component';
+export {
+	isInIframe,
+	isWithinPreviewPanel,
+	isWithinPreviewPanelIFrame,
+} from './preview-panel-utils';

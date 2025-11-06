@@ -1,6 +1,7 @@
 import React from 'react';
 
 import rafSchedule from 'raf-schd';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
@@ -169,6 +170,7 @@ export type BlockCardNodeViewProps = Pick<
 >;
 
 export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	private id = uuid();
 
 	unsubscribe: (() => void) | undefined;

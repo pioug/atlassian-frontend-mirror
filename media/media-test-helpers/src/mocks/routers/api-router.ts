@@ -9,6 +9,7 @@ import {
 } from 'kakapo';
 import { type DatabaseSchema } from 'kakapo/dist/Database';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import {
@@ -385,7 +386,9 @@ export function createApiRouter(
 		});
 
 		if (!replaceFileId && !occurrenceKey) {
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			replaceFileId = uuid();
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			occurrenceKey = uuid();
 
 			database.push(

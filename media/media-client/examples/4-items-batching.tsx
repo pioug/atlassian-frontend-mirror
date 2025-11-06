@@ -8,6 +8,7 @@ import {
 	defaultCollectionName,
 	animatedFileId,
 } from '../src/test-helpers';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 import { type FileState } from '../src';
 import { FileStateWrapper } from '../example-helpers/stylesWrapper';
@@ -37,6 +38,7 @@ class Example extends Component<{}, ExampleState> {
 		this.fetchItem(imageFileId.id); // Calling first item without collection on pourpuse
 
 		// This is an invalid item it won't show in the payload. It will be ignored in the backend.
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		this.fetchItem(uuid(), defaultCollectionName); // No existing item
 
 		// What's going to happen:

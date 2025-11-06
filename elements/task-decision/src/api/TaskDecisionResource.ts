@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 import { type RequestServiceOptions, utils } from '@atlaskit/util-service-support';
 
@@ -58,6 +59,7 @@ export class RecentUpdates {
 	}
 
 	subscribe(objectAri: string, recentUpdatesListener: RecentUpdatesListener) {
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const id = uuid();
 		let containerIds = this.idsByContainer.get(objectAri);
 		if (!containerIds) {

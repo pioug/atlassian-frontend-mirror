@@ -19,6 +19,7 @@ import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { InsertMethod } from '../types';
 import { isNestedInExpand } from '../utils';
@@ -276,8 +277,12 @@ export const focusIcon =
 			return false;
 		}
 
-		// eslint-disable-next-line @atlaskit/editor/no-as-casting
-		const iconContainer = expand.querySelector(`.${expandClassNames.iconContainer}`) as HTMLElement;
+		// TODO: ED-29205 - During platform_editor_native_expand_button cleanup, rename `iconContainer` to `iconButton`.
+		const iconContainer = (
+			expValEquals('platform_editor_native_expand_button', 'isEnabled', true)
+				? expand.querySelector(`.${expandClassNames.iconButton}`)
+				: expand.querySelector(`.${expandClassNames.iconContainer}`)
+		) as HTMLElement | null;
 		if (iconContainer && iconContainer.focus) {
 			const { tr } = state;
 			const pos = state.selection.from;

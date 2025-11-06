@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 import { keyName } from 'w3c-keyname';
 
@@ -27,6 +28,7 @@ import { redo, undo } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ExpandPlugin } from '../../types';
+import { renderExpandButton } from '../../ui/renderExpandButton';
 import {
 	deleteExpand,
 	setSelectionInsideExpand,
@@ -97,6 +99,7 @@ export class ExpandNodeView implements NodeView {
 		this.titleContainer = this.dom.querySelector<HTMLElement>(
 			`.${expandClassNames.titleContainer}`,
 		);
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		this.renderKey = uuid();
 
 		this.content = this.dom.querySelector<HTMLElement>(`.${expandClassNames.content}`);
@@ -105,7 +108,11 @@ export class ExpandNodeView implements NodeView {
 			expandedState.set(this.node, false);
 		}
 
-		this.renderIcon(this.icon, !isExpandCollapsed(this.node));
+		if (expValEquals('platform_editor_native_expand_button', 'isEnabled', true)) {
+			this.renderNativeIcon(this.node);
+		} else {
+			this.renderIcon(this.icon, !isExpandCollapsed(this.node));
+		}
 
 		if (!this.input || !this.titleContainer || !this.icon) {
 			return;
@@ -585,7 +592,11 @@ export class ExpandNodeView implements NodeView {
 				this.dom.className = buildExpandClassName(node.type.name, expanded);
 			}
 			// Re-render the icon to update the aria-expanded attribute
-			this.renderIcon(this.icon ? this.icon : null, expandedState.get(node) ?? false);
+			if (expValEquals('platform_editor_native_expand_button', 'isEnabled', true)) {
+				this.renderNativeIcon(node);
+			} else {
+				this.renderIcon(this.icon ? this.icon : null, expandedState.get(node) ?? false);
+			}
 		}
 		this.updateExpandBodyContentEditable();
 		if (expValEquals('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)) {
@@ -601,6 +612,18 @@ export class ExpandNodeView implements NodeView {
 				this.getContentEditable(this.node) ? 'true' : 'false',
 			);
 		}
+	}
+
+	private renderNativeIcon(node: PmNode) {
+		if (!this.icon) {
+			return;
+		}
+
+		renderExpandButton(this.icon, {
+			expanded: !isExpandCollapsed(node),
+			allowInteractiveExpand: this.allowInteractiveExpand,
+			intl: this.intl,
+		});
 	}
 
 	renderIcon = (icon: HTMLElement | null, expanded: boolean) => {

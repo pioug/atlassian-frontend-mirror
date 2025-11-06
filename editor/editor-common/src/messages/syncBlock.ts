@@ -73,6 +73,7 @@ export const syncBlockMessages = defineMessages({
 		description:
 			'Text which displays next to the request access button after something went wrong after clicking the button.',
 	},
+
 	sourceSyncBlockTooltip: {
 		id: 'fabric.editor.sourceSyncBlockTooltip',
 		defaultMessage: 'When you edit this source block it will update across synced locations.',
@@ -89,4 +90,25 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'Synced from: {title}',
 		description: 'Tooltip that shows the source page title of the synced block',
 	},
+
+	deleteConfirmationModalTitle: {
+		id: 'fabric.editor.deleteConfirmationModalTitle',
+		defaultMessage: "You're about to delete synced content",
+		description: 'Title of delete confirmation modal that appears when user tries to delete source synced block',
+	},
+	deleteConfirmationModalCancelButton: {
+		id: 'fabric.editor.deleteConfirmationModalCancelButton',
+		defaultMessage: "Cancel",
+		description: 'Text on button which cancels deleting when user was trying to delete source synced block',
+	},
+	deleteConfirmationModalDeleteButton: {
+		id: 'fabric.editor.deleteConfirmationModalDeleteButton',
+		defaultMessage: "Delete",
+		description: 'Text on button which confirms deleting the sync block when user was trying to delete source synced block',
+	},
+	deleteConfirmationModalDescription: {
+		id: 'fabric.editor.deleteConfirmationModalDescriptionSingle',
+		defaultMessage: 'Deleting this content will also remove {syncBlockCount, plural, one {a synced block. References to this block} other {# synced blocks. References to these blocks}} in other locations will show an error. Continue with deletion?',
+		description: 'Description of delete confirmation modal that appears when user tries to delete source synced block'
+	}
 });

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import {
@@ -33,6 +34,7 @@ import { getContextPanel } from './ui/context-panel';
 import { useConfigPanelPluginHook } from './ui/useConfigPanelPluginHook';
 
 export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const configPanelId = `${CONFIG_PANEL_ID}-${uuid()}`;
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 	//Note: This is a hack to get the editor view reference in the plugin. Copied from table plugin.

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 7.4.4
+
+### Patch Changes
+
+- [`c094becfaeeaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c094becfaeeaa) -
+  EDITOR-2476 Introduce new utility method to check if nested tables is supported in the schema to
+  facilitate removal of gate `platform_editor_use_nested_table_pm_nodes`
+- Updated dependencies
+
 ## 7.4.3
 
 ### Patch Changes

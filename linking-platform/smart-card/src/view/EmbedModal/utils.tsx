@@ -3,10 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { IntlProvider } from 'react-intl-next';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
-import { openEmbedModalInParent } from '../../utils/iframe-utils';
-
 import { type EmbedModalProps } from './types';
 
 const IFRAME_NAME = 'twp-editor-preview-iframe';
@@ -29,17 +25,6 @@ export async function openEmbedModal({
 	onClose = () => {},
 	...props
 }: Partial<EmbedModalProps> = {}) {
-	// If the modal trigger is in an iframe and the user has preview panels enabled, send a message to open modal to the parent product
-	if (expValEquals('platform_hover_card_preview_panel_modal', 'cohort', 'test')) {
-		if (props.isInPreviewPanel) {
-			openEmbedModalInParent({
-				onClose,
-				...props,
-			});
-			return;
-		}
-	}
-
 	let popupMountPoint: HTMLElement | null;
 
 	popupMountPoint = document.getElementById(POPUP_MOUNT_POINT_ID);

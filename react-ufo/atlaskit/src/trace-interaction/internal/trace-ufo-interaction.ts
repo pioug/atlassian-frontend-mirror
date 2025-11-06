@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as createUUID } from 'uuid';
 
 import coinflip from '../../coinflip';
@@ -35,6 +36,7 @@ function traceUFOInteraction(
 
 	if (coinflip(rate)) {
 		const startTimestamp = startTime ?? performance.now();
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const newId = createUUID();
 		DefaultInteractionID.current = newId;
 

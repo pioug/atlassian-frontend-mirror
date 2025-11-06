@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useMemo, useEffect } from 'react';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import { type AnnotationId, AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
@@ -278,6 +279,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 				// if there is a draft in progress, we ignore it and start a new draft
 				// this is because clearing the draft will remove the mark node from the DOM, which will cause the selection range to be invalid
 
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				const id = uuid();
 				const result = applyDraftModeCallback({
 					annotationId: id,

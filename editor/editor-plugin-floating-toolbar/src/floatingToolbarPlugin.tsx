@@ -65,7 +65,8 @@ import { consolidateOverflowDropdownItems } from './ui/utils';
 
 const SUPPRESS_TOOLBAR_USER_INTENTS = [
 	'dragging',
-	'tablePopupOpen',
+	'tableContextualMenuPopupOpen',
+	'tableDragMenuPopupOpen',
 	'commenting',
 	'resizing',
 	'blockMenuOpen',

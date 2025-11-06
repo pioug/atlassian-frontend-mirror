@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 8.2.7
+
+### Patch Changes
+
+- [`0a9692c1ee81f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a9692c1ee81f) -
+  Cleanup minor refactor.
+- Updated dependencies
+
 ## 8.2.6
 
 ### Patch Changes

@@ -29,6 +29,7 @@ import expandSpacingShorthand from './rules/compiled/expand-spacing-shorthand';
 import noSparseCheckout from './rules/no-sparse-checkout';
 import noDirectDocumentUsage from './rules/no-direct-document-usage';
 import noSetImmediate from './rules/no-set-immediate';
+import preferCryptoRandomUuid from './rules/prefer-crypto-random-uuid';
 import { join, normalize } from 'node:path';
 import { readFileSync } from 'node:fs';
 
@@ -87,6 +88,7 @@ const rules = {
 	'no-sparse-checkout': noSparseCheckout,
 	'no-direct-document-usage': noDirectDocumentUsage,
 	'no-set-immediate': noSetImmediate,
+	'prefer-crypto-random-uuid': preferCryptoRandomUuid,
 };
 
 const commonConfig = {

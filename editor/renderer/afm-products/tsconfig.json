@@ -75,6 +75,9 @@
 			"path": "../../../linking-platform/link-extractors/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../linking-platform/linking-common/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../media/media-card/afm-products/tsconfig.json"
 		},
 		{

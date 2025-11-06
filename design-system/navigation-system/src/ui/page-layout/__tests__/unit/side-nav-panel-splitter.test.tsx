@@ -79,26 +79,29 @@ describe('SideNavPanelSplitter', () => {
 		});
 
 		ffTest.on('navx-full-height-sidebar', 'callback should include trigger', async () => {
-			it('should collapse the side nav on double click by default', async () => {
-				const user = createUser();
-				const onCollapse = jest.fn();
-				setMediaQuery('(min-width: 64rem)', { initial: true });
+			// Trigger info is behind separate instrumentation flag
+			ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'analytics', () => {
+				it('should collapse the side nav on double click by default', async () => {
+					const user = createUser();
+					const onCollapse = jest.fn();
+					setMediaQuery('(min-width: 64rem)', { initial: true });
 
-				render(
-					<Root>
-						<SideNav testId="sidenav" onCollapse={onCollapse}>
-							<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
-						</SideNav>
-					</Root>,
-				);
+					render(
+						<Root>
+							<SideNav testId="sidenav" onCollapse={onCollapse}>
+								<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
+							</SideNav>
+						</Root>,
+					);
 
-				await user.dblClick(screen.getByTestId('panel-splitter'));
+					await user.dblClick(screen.getByTestId('panel-splitter'));
 
-				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
-				expect(onCollapse).toHaveBeenCalledTimes(1);
-				expect(onCollapse).toHaveBeenCalledWith({
-					screen: 'desktop',
-					trigger: 'double-click',
+					expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
+					expect(onCollapse).toHaveBeenCalledTimes(1);
+					expect(onCollapse).toHaveBeenCalledWith({
+						screen: 'desktop',
+						trigger: 'double-click',
+					});
 				});
 			});
 		});

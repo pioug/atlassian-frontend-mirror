@@ -5,6 +5,8 @@ import {
 	ButtonMenuItemDisabledWithActions,
 	ButtonMenuItemExample,
 	ButtonMenuItemRTLExample,
+	ButtonMenuItemSelected,
+	ButtonMenuItemSelectedDisabled,
 	ButtonMenuItemWithDropdownActionOpen,
 	ButtonMenuItemWithElemAfter,
 	ButtonMenuItemWithElemAfterAndActionsOnHover,
@@ -46,12 +48,18 @@ function workaround(): SnapshotTestOptions<Hooks>['variants'] {
 
 snapshot(ButtonMenuItemExample, {
 	variants: workaround(),
+	featureFlags: {
+		'platform-dst-buttonmenuitem-selected-state-support': true,
+	},
 });
 snapshot(LinkMenuItemExample, {
 	variants: workaround(),
 });
 snapshot(ButtonMenuItemRTLExample, {
 	variants: workaround(),
+	featureFlags: {
+		'platform-dst-buttonmenuitem-selected-state-support': true,
+	},
 });
 snapshot(LinkMenuItemRTLExample, {
 	variants: workaround(),
@@ -207,4 +215,34 @@ snapshot(ButtonMenuItemDisabled, {
 snapshot(ButtonMenuItemDisabledWithActions, {
 	description: 'Button menu item - disabled with actions',
 	variants: workaround(),
+});
+
+snapshot(ButtonMenuItemSelected, {
+	description: 'Button menu item - selected',
+	variants: workaround(),
+	featureFlags: {
+		'platform-dst-buttonmenuitem-selected-state-support': true,
+	},
+});
+
+snapshot(ButtonMenuItemSelectedDisabled, {
+	description: 'Button menu item - selected and disabled',
+	variants: workaround(),
+	featureFlags: {
+		'platform-dst-buttonmenuitem-selected-state-support': true,
+	},
+});
+
+snapshot(ButtonMenuItemSelectedDisabled, {
+	description: 'Button menu item - selected and disabled - hovered',
+	variants: workaround(),
+	featureFlags: {
+		'platform-dst-buttonmenuitem-selected-state-support': true,
+	},
+	states: [
+		{
+			state: 'hovered',
+			selector: { byRole: 'button', options: { name: 'Selected and disabled' } },
+		},
+	],
 });

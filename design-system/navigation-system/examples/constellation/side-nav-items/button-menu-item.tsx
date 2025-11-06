@@ -68,6 +68,7 @@ export function ButtonMenuItemExample() {
 						>
 							Button menu item (disabled)
 						</ButtonMenuItem>
+						<ButtonMenuItem isSelected>Button menu item (selected)</ButtonMenuItem>
 					</MenuList>
 				</SideNavContent>
 			</MockSideNav>

@@ -1,5 +1,6 @@
 import fetchMock from 'fetch-mock';
 import { SocketIO, Server } from 'mock-socket';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
 import { type DocNode } from '@atlaskit/adf-schema';
@@ -102,6 +103,7 @@ mockServer.on('connect', (_sever, client: SocketIO) => {
 const createSocket = (path: string) => {
 	// @ts-expect-error - Typing incorrect in mock-socket
 	const socket = new SocketIO(path);
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	socket.id = `test_${uuid()}`;
 
 	const originalEmit = socket.emit;

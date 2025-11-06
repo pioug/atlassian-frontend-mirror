@@ -42,6 +42,7 @@ import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 import type { MediaSSR, RendererContext } from '../../';
 import { ReactSerializer, renderDocument } from '../../';
@@ -361,6 +362,7 @@ export const RendererFunctionalComponent = (
 
 	const localRef = useRef<HTMLDivElement>(null);
 	const editorRef = props.innerRef || localRef;
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const id = useMemo(() => uuid(), []);
 	const renderedMeasurementDistortedDurationMonitor = useMemo(
 		() => getDistortedDurationMonitor(),
@@ -701,6 +703,7 @@ export const RendererWithAnalytics = React.memo((props: RendererProps) => (
 			packageName,
 			packageVersion,
 			componentName: 'renderer',
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			editorSessionId: uuid(),
 		}}
 	>

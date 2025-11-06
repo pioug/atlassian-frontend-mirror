@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Card } from '../src';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 import { mediaPickerAuthProvider, defaultCollectionName } from '@atlaskit/media-test-helpers';
 import { type FileIdentifier, MediaClient } from '@atlaskit/media-client';
@@ -31,6 +32,7 @@ class Example extends React.Component<{}, State> {
 		if (!file) {
 			return;
 		}
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const fileId = uuid();
 		const touchedFiles = mediaClient.file.touchFiles([
 			{

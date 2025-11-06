@@ -11,7 +11,10 @@ import type {
 	ExtensionToolbarButton,
 } from '@atlaskit/editor-common/extensions';
 import { getContextualToolbarItemsFromModule } from '@atlaskit/editor-common/extensions';
-import { isSelectionTableNestedInTable } from '@atlaskit/editor-common/nesting';
+import {
+	isNestedTablesSupported,
+	isSelectionTableNestedInTable,
+} from '@atlaskit/editor-common/nesting';
 import {
 	FloatingToolbarButton as Button,
 	FloatingToolbarSeparator as Separator,
@@ -178,6 +181,7 @@ export const ExtensionsPlaceholder = (props: Props) => {
 	}
 
 	const isNestedTable =
+		isNestedTablesSupported(editorView.state.schema) &&
 		fg('platform_editor_use_nested_table_pm_nodes') &&
 		isSelectionTableNestedInTable(editorView.state);
 

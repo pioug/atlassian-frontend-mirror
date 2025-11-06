@@ -52,13 +52,13 @@ export function useSideNavVisibilityCallbacks({
 		}
 
 		if (isExpandedOnDesktop) {
-			if (fg('navx-full-height-sidebar')) {
+			if (fg('platform_dst_nav4_fhs_instrumentation_1')) {
 				onExpandRef.current?.({ screen: 'desktop', trigger: lastTrigger });
 			} else {
 				onExpandRef.current?.({ screen: 'desktop' });
 			}
 		} else {
-			if (fg('navx-full-height-sidebar')) {
+			if (fg('platform_dst_nav4_fhs_instrumentation_1')) {
 				onCollapseRef.current?.({ screen: 'desktop', trigger: lastTrigger });
 			} else {
 				onCollapseRef.current?.({ screen: 'desktop' });
@@ -83,13 +83,13 @@ export function useSideNavVisibilityCallbacks({
 		}
 
 		if (isExpandedOnMobile) {
-			if (fg('navx-full-height-sidebar')) {
+			if (fg('platform_dst_nav4_fhs_instrumentation_1')) {
 				onExpandRef.current?.({ screen: 'mobile', trigger: lastTrigger });
 			} else {
 				onExpandRef.current?.({ screen: 'mobile' });
 			}
 		} else {
-			if (fg('navx-full-height-sidebar')) {
+			if (fg('platform_dst_nav4_fhs_instrumentation_1')) {
 				onCollapseRef.current?.({ screen: 'mobile', trigger: lastTrigger });
 			} else {
 				onCollapseRef.current?.({ screen: 'mobile' });

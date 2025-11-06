@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
@@ -11,6 +12,7 @@ import { useSmartCardState } from '../../store';
 import { useScheduledRegister } from './useScheduledRegister';
 
 const useResolveHyperlink = ({ href }: { href: string }) => {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const [id] = useState(() => uuid() satisfies string);
 	const state = useSmartCardState(href);
 	const definitionId = getDefinitionId(state.details);

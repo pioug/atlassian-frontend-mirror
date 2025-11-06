@@ -1,6 +1,7 @@
 import React from 'react';
 import { PureComponent } from 'react';
 import { flushSync } from 'react-dom';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 import type { AnalyticsEventPayload, CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EmojiProvider, OnEmojiProviderChange } from '../../api/EmojiResource';
@@ -126,6 +127,7 @@ export default class EmojiTypeAheadComponent extends PureComponent<Props, State>
 		this.renderStartTime = this.openTime;
 		this.selectedTone = props.emojiProvider.getSelectedTone();
 		this.pressed = false;
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		this.sessionId = uuid();
 		this.selected = false;
 	}
@@ -157,6 +159,7 @@ export default class EmojiTypeAheadComponent extends PureComponent<Props, State>
 				query,
 			},
 		});
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		this.sessionId = uuid();
 		this.selected = false;
 	}

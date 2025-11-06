@@ -11,6 +11,7 @@ const styles = cssMap({
 	root: {
 		width: '295px',
 		height: '135px',
+		overflow: 'hidden'
 	},
 });
 

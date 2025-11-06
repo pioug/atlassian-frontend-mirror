@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 import type { IntlShape, MessageDescriptor } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import { breakoutMessages as messages } from '@atlaskit/editor-common/messages';
@@ -109,6 +110,7 @@ export const createPragmaticResizer = ({
 		handle.appendChild(tooltipContainer);
 		handle.appendChild(handleHitBox);
 
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const key = uuid();
 
 		nodeViewPortalProviderAPI.render(

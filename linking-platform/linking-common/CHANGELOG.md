@@ -1,5 +1,12 @@
 # @atlaskit/linking-common
 
+## 9.8.0
+
+### Minor Changes
+
+- [`e5c510a42227e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5c510a42227e) -
+  Exports preview-panel and iframe helper functions
+
 ## 9.7.5
 
 ### Patch Changes

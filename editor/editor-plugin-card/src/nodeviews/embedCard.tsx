@@ -1,6 +1,7 @@
 import React, { type ComponentProps } from 'react';
 
 import rafSchedule from 'raf-schd';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
@@ -553,6 +554,7 @@ export type EmbedCardNodeViewProps = Pick<
 >;
 
 export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	private id = uuid();
 
 	unsubscribe: (() => void) | undefined;

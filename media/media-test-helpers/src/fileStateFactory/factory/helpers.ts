@@ -1,4 +1,5 @@
 import { type FileIdentifier, type FileDetails, type MediaType } from '@atlaskit/media-client';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 
 export const defaultFileDetails: Partial<FileDetails> = {
@@ -27,6 +28,7 @@ export const createIdentifier = ({
 	collectionName?: string;
 } = {}): FileIdentifier => ({
 	mediaItemType: 'file',
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	id: uuidv4(),
 	collectionName,
 	occurrenceKey,

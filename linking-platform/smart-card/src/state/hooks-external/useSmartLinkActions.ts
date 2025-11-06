@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
@@ -75,6 +76,7 @@ export function useSmartLinkActions({
 	actionOptions,
 	prefetch,
 }: UseSmartLinkActionsOpts) {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const id: string = useMemo(() => uuid(), []);
 
 	const linkState = useLinkState(url);

@@ -14,6 +14,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { HoverLinkOverlay } from '@atlaskit/editor-common/ui';
 import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
+import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
 import { getObjectAri, getObjectName, getObjectIconUrl } from '@atlaskit/smart-card';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -246,6 +247,13 @@ export const InlineCardWithAwareness = memo(
 							// In view mode we show HoverLinkOverlay only with if preview mode or panel is available
 							// otherwise a use can click on smartlink itself to open the link in a new tab.
 							const isPreviewAvailable = isPreviewPanelAvailable || isPreviewModalAvailable;
+							// When inside preview panel iframe, hide the overlay button
+							const isInPreviewPanel =
+								expValEquals('platform_hover_card_preview_panel_modal', 'cohort', 'test') &&
+								isWithinPreviewPanelIFrame();
+							const showPanelButton = isInPreviewPanel
+								? isPreviewPanelAvailable
+								: isPreviewAvailable;
 
 							if (isPreviewAvailable) {
 								return (
@@ -257,7 +265,7 @@ export const InlineCardWithAwareness = memo(
 										}
 										editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
 										view={view}
-										showPanelButton={isPreviewAvailable}
+										showPanelButton={showPanelButton}
 										showPanelButtonIcon={
 											isPreviewAvailable && isPreviewPanelAvailable ? 'panel' : 'modal'
 										}

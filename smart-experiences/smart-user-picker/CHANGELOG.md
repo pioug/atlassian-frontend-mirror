@@ -1,5 +1,13 @@
 # @atlassian/smart-user-picker
 
+## 8.4.1
+
+### Patch Changes
+
+- [`768acbc14a366`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/768acbc14a366) -
+  Update smart-user-picker docs
+- Updated dependencies
+
 ## 8.4.0
 
 ### Minor Changes

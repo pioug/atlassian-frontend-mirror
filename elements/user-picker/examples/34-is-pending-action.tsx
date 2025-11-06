@@ -24,6 +24,7 @@ const Example = () => {
 					isMulti
 					maxPickerHeight={120}
 					options={options}
+					autoFocus
 				/>
 			)}
 		</ExampleWrapper>

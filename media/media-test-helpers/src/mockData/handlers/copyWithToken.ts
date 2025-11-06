@@ -6,6 +6,7 @@ import {
 	type MediaCollectionFile,
 } from '..';
 import { type MockRequest, type MockResponse } from 'xhr-mock';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import * as uuid from 'uuid';
 import { files, fileUri } from '../staticCommon';
 

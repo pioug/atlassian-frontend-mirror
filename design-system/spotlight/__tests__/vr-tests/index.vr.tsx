@@ -4,6 +4,7 @@ import { snapshot } from '@af/visual-regression';
 import AllPlacements from '../../examples/all-placements';
 import Card from '../../examples/card';
 import FullWidthTarget from '../../examples/full-width-target';
+import Offset from '../../examples/offset';
 import OverlayingUI from '../../examples/overlaying-ui';
 import StepVariants from '../../examples/step-variants';
 import NoMedia from '../../examples/without-image';
@@ -85,6 +86,19 @@ snapshot(OverlayingUI, {
 });
 
 snapshot(FullWidthTarget, {
+	featureFlags: {
+		'platform-component-visual-refresh': true,
+	},
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(Offset, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},

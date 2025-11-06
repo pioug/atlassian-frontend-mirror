@@ -169,11 +169,6 @@ export type ExpandableMenuItemTriggerProps = MenuItemCommonProps &
 		elemBefore?: ReactNode;
 
 		/**
-		 * Indicates that the menu item is selected.
-		 */
-		isSelected?: boolean;
-
-		/**
 		 * If provided, the chevron icon (expand/collapse symbol) will be rendered within a separate
 		 * icon button element. Clicking on this icon button will not trigger the `onClick` event. It
 		 * will only expand or collapse the expandable.

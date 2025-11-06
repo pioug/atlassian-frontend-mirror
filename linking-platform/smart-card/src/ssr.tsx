@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { ErrorBoundary } from 'react-error-boundary';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
@@ -22,6 +23,7 @@ export type CardSSRProps = CardProps & {
 // simplifies the logic around rendering and loading placeholders and
 // only contains whats necessary to render the card on SSR mode
 export const CardSSR = (props: CardSSRProps) => {
+	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const [id] = useState(() => props.id ?? uuid());
 	const cardProps = {
 		...props,

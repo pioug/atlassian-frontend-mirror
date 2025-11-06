@@ -13,6 +13,7 @@ import {
 	type WriteSyncBlockResult,
 } from '../providers/types';
 import { getLocalIdFromAri, getPageARIFromResourceId } from '../utils/ari';
+import { fetchSourceInfo } from '../utils/sourceInfo';
 
 export class SyncBlockProvider extends SyncBlockDataProvider {
 	name = 'syncBlockProvider';
@@ -105,7 +106,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		return this.sourceId;
 	}
 
-	retrieveSyncBlockSourceUrlAndTitle(
+	retrieveSyncBlockSourceInfo(
 		node: SyncBlockNode,
 	): Promise<SyncBlockSourceInfo | undefined> {
 		const { resourceId } = node.attrs;
@@ -125,7 +126,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 			}
 		}
 
-		return pageARI ? fetchURLandTitlefromARI(pageARI, sourceLocalId) : Promise.resolve(undefined);
+		return pageARI ? fetchSourceInfo(pageARI, sourceLocalId) : Promise.resolve(undefined);
 	}
 }
 
@@ -137,39 +138,4 @@ export const useMemoizedSyncedBlockProvider = (
 	return useMemo(() => {
 		return new SyncBlockProvider(fetchProvider, writeProvider, sourceId);
 	}, [fetchProvider, writeProvider, sourceId]);
-};
-
-const fetchURLandTitlefromARI = async (
-	ari: string,
-	sourceLocalId?: string,
-): Promise<SyncBlockSourceInfo | undefined> => {
-	const response = await fetch('/gateway/api/object-resolver/resolve/ari', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			Accept: 'application/json',
-		},
-		body: JSON.stringify({ ari }),
-	});
-
-	if (response.ok) {
-		const payload = await response.json();
-		const url = payload?.data?.url;
-		const title = payload?.data?.name;
-
-		return {
-			url:
-				typeof url === 'string'
-					? sourceLocalId
-						? url + `?block=${sourceLocalId}`
-						: url
-					: undefined,
-			title: typeof title === 'string' ? title : undefined,
-		};
-	} else {
-		//eslint-disable-next-line no-console
-		console.error('Failed to fetch URL and title from ARI', response.statusText);
-	}
-
-	return undefined;
 };

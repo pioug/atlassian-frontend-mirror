@@ -143,6 +143,17 @@ const transform =
 	};
 
 describe('Tokens Babel Plugin', () => {
+	let originalEnv: string | undefined;
+
+	beforeEach(() => {
+		originalEnv = process.env.TOKENS_SKIP_BABEL;
+		process.env.TOKENS_SKIP_BABEL = 'false';
+	});
+
+	afterEach(() => {
+		process.env.TOKENS_SKIP_BABEL = originalEnv;
+	});
+
 	it('converts 1-argument usage correctly when shouldUseAutoFallback set to false', () => {
 		const actual = transform({})`
       import { token } from '@atlaskit/tokens';
@@ -568,5 +579,30 @@ const getStyles = css => css\`
 			// shouldForceAutoFallback true means manual fallback is overridden
 			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #ffffff)";"`);
 		});
+	});
+});
+
+describe('Tokens Babel Plugin with TOKENS_SKIP_BABEL=true', () => {
+	let originalEnv: string | undefined;
+
+	beforeEach(() => {
+		originalEnv = process.env.TOKENS_SKIP_BABEL;
+		process.env.TOKENS_SKIP_BABEL = 'true';
+	});
+
+	afterEach(() => {
+		process.env.TOKENS_SKIP_BABEL = originalEnv;
+	});
+
+	it('skips transformation when TOKENS_SKIP_BABEL is true', () => {
+		const actual = transform({})`
+      import { token } from '@atlaskit/tokens';
+      token('test-token');
+    `;
+
+		expect(actual).toMatchInlineSnapshot(`
+		"import { token } from '@atlaskit/tokens';
+		token('test-token');"
+	`);
 	});
 });

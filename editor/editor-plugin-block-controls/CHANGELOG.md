@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.5.5
+
+### Patch Changes
+
+- [`c094becfaeeaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c094becfaeeaa) -
+  EDITOR-2476 Introduce new utility method to check if nested tables is supported in the schema to
+  facilitate removal of gate `platform_editor_use_nested_table_pm_nodes`
+- Updated dependencies
+
+## 7.5.4
+
+### Patch Changes
+
+- [`13e78771cb389`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13e78771cb389) -
+  ED-29600 gate unnecessary decoration operations in apply function
+- Updated dependencies
+
 ## 7.5.3
 
 ### Patch Changes

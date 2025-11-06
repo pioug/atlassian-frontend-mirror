@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
+import { useIntl } from 'react-intl-next';
+
 import Button from '@atlaskit/button/new';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import ModalDialog, {
 	ModalBody,
@@ -9,6 +12,7 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { Text } from '@atlaskit/primitives/compiled';
 
 export const DeleteConfirmationModal = ({
 	syncBlockStoreManager,
@@ -16,6 +20,9 @@ export const DeleteConfirmationModal = ({
 	syncBlockStoreManager: SyncBlockStoreManager;
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [syncBlockCount, setSyncBlockCount] = useState(1);
+
+	const { formatMessage } = useIntl();
 
 	const resolverRef = React.useRef<((value: boolean | PromiseLike<boolean>) => void) | undefined>(
 		undefined,
@@ -33,8 +40,9 @@ export const DeleteConfirmationModal = ({
 		[],
 	);
 
-	const confirmationCallback = useCallback(() => {
+	const confirmationCallback = useCallback((syncBlockCount: number) => {
 		setIsOpen(true);
+		setSyncBlockCount(syncBlockCount);
 
 		const confirmedPromise = new Promise<boolean>((resolve) => {
 			resolverRef.current = resolve;
@@ -56,17 +64,19 @@ export const DeleteConfirmationModal = ({
 			{isOpen && (
 				<ModalDialog onClose={handleClose(false)}>
 					<ModalHeader hasCloseButton>
-						<ModalTitle>Confirmation</ModalTitle>
+						<ModalTitle appearance='warning'>{formatMessage(messages.deleteConfirmationModalTitle)}</ModalTitle>
 					</ModalHeader>
 					<ModalBody>
-						<div>Are you sure you want to delete this synced block?</div>
+						<Text>
+							{formatMessage(messages.deleteConfirmationModalDescription, { syncBlockCount })}
+						</Text>
 					</ModalBody>
 					<ModalFooter>
 						<Button appearance="subtle" onClick={handleClose(false)}>
-							Cancel
+							{formatMessage(messages.deleteConfirmationModalCancelButton)}
 						</Button>
-						<Button appearance="danger" onClick={handleClose(true)} autoFocus>
-							Delete
+						<Button appearance="warning" onClick={handleClose(true)} autoFocus>
+							{formatMessage(messages.deleteConfirmationModalDeleteButton)}
 						</Button>
 					</ModalFooter>
 				</ModalDialog>

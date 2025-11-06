@@ -1,5 +1,36 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.31.0
+
+### Minor Changes
+
+- [`c094becfaeeaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c094becfaeeaa) -
+  EDITOR-2476 Introduce new utility method to check if nested tables is supported in the schema to
+  facilitate removal of gate `platform_editor_use_nested_table_pm_nodes`
+
+## 13.30.0
+
+### Minor Changes
+
+- [`236d9310035ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/236d9310035ae) -
+  [https://product-fabric.atlassian.net/browse/ED-29205](ED-29205) - use native DOM element for
+  editor expand icon
+
+## 13.29.0
+
+### Minor Changes
+
+- [`851ebf59a82a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/851ebf59a82a8) -
+  [EDITOR-2459] add new experiment to config file
+
+## 13.28.0
+
+### Minor Changes
+
+- [`0f988dbb4b54b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f988dbb4b54b) -
+  Added an experiment and implemented changes to disable lazy loading of internal images found
+  within Confluence PDF export pages
+
 ## 13.27.0
 
 ### Minor Changes

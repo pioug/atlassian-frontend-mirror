@@ -2,6 +2,7 @@ import { Component, type ChangeEvent } from 'react';
 import React from 'react';
 import { defaultMediaPickerAuthProvider } from '../src/test-helpers';
 import { tallImage } from '@atlaskit/media-common/test-helpers';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 import {
 	ImagePreview,
@@ -125,6 +126,7 @@ class UploaderExample extends Component<UploaderExampleProps, UploaderExampleSta
 		const mediaStore = new MediaStore({
 			authProvider: defaultMediaPickerAuthProvider(),
 		});
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const fileId = uuid();
 		const traceId = getRandomTelemetryId();
 		this.setState({ traceId });

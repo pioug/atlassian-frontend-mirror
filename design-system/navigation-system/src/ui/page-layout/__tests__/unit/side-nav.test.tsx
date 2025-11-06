@@ -267,7 +267,7 @@ describe('Side nav', () => {
 			expect(onExpand).toHaveBeenCalledWith({ screen: 'desktop' });
 		});
 
-		ffTest.on('navx-full-height-sidebar', 'onExpand', () => {
+		ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'onExpand', () => {
 			it('should call onExpand with the correct screen and trigger type', async () => {
 				const user = userEvent.setup();
 				const onExpand = jest.fn();
@@ -553,7 +553,7 @@ describe('Side nav', () => {
 			expect(onCollapse).toHaveBeenCalledTimes(0);
 		});
 
-		ffTest.on('navx-full-height-sidebar', 'onCollapse', () => {
+		ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'onCollapse', () => {
 			it('should call onCollapse with the correct screen and trigger type', async () => {
 				const user = userEvent.setup();
 				const onCollapse = jest.fn();
@@ -1025,7 +1025,7 @@ describe('Side nav', () => {
 			expect(onCollapse).toHaveBeenCalledWith({ screen: 'mobile' });
 		});
 
-		ffTest.on('navx-full-height-sidebar', 'onCollapse', () => {
+		ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'onCollapse', () => {
 			it('should collapse the side nav when the user clicks outside of the side nav on small viewports', async () => {
 				const user = userEvent.setup();
 				const onCollapse = jest.fn();

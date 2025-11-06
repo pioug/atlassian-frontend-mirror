@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
+
 import { JSDOM } from 'jsdom';
+
 import { name } from '../../../../package.json';
 import expectedSvgIds from '../../../internal/iconIds';
 
